@@ -1,7 +1,5 @@
-import java.sql.SQLOutput;
-
 public class Duke {
-    
+
     private final String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
