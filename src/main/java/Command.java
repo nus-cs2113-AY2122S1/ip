@@ -1,8 +1,10 @@
+import java.util.*;
+
 public class Command {
     private Action action;
-    private String[] params;
+    private HashMap<String, String> params;
 
-    public Command(Action action, String[] params) {
+    public Command(Action action, HashMap<String, String> params) {
         this.action = action;
         this.params = params;
     }
@@ -11,7 +13,10 @@ public class Command {
         return action;
     }
 
-    public String[] getParams() {
+    public HashMap<String, String> getParams() {
         return params;
+    }
+    public String getParams(String key) {
+        return params.get(key);
     }
 }

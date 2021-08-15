@@ -1,5 +1,5 @@
 
-public class Task {
+public abstract class Task {
 
     private String name;
     private boolean isDone;
@@ -29,4 +29,6 @@ public class Task {
     public String toString() {
         return getName();
     }
+
+    public abstract String getTypeIcon();
 }

@@ -7,15 +7,23 @@ public class TaskManager {
         tasks = new ArrayList<>();
     }
 
+    public int getTasklistLength() {
+        return tasks.size();
+    }
+
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         Task currTask;
         Iterator<Task> it = tasks.iterator();
-        int i = 1;
+        int counter = 1;
 
         while(it.hasNext()) {
             currTask = it.next();
-            sb.append(String.format("%d.[%s] %s\n", i++, currTask.getStatusIcon(), currTask));
+            sb.append(String.format("%d.[%s][%s] %s\n",
+                    counter++,
+                    currTask.getTypeIcon(),
+                    currTask.getStatusIcon(),
+                    currTask));
         }
 
         return sb.toString();
@@ -33,8 +41,37 @@ public class TaskManager {
         return tasks.get(index);
     }
 
-    public void addTask(String taskName) {
-        Task newTask = new Task(taskName);
+    public Task addTask(HashMap<String, String> params) throws IllegalArgumentException{
+        String type = params.get("type");
+        String task = params.get("task");
+        Task newTask;
+
+        if(task.strip().equals(""))
+            throw new IllegalArgumentException("Task not specified");
+
+        switch(type) {
+            case "todo":
+                newTask = new ToDoTask(task);
+                break;
+            case "deadline":
+                String deadline = params.get("by");
+                if(deadline == null)
+                    throw new IllegalArgumentException("/by flag value not specified");
+
+                newTask = new DeadlineTask(task, deadline);
+                break;
+            case "event":
+                String datetime = params.get("at");
+                if(datetime == null)
+                    throw new IllegalArgumentException("/at flag value not specified");
+
+                newTask = new EventTask(task, datetime);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task type");
+        }
+
         tasks.add(newTask);
+        return newTask;
     }
 }

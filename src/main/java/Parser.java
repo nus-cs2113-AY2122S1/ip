@@ -1,33 +1,87 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class Parser {
 
     public static Command parse(String input) throws IllegalArgumentException{
+        HashMap<String, String> params = new HashMap<>();
         String[] args = input.split(" ");
-
+        String actionArg = args[0];
         Action action;
-        String[] params;
 
-        if (args[0].equals("")) {
+        if (actionArg.equals("")) {
             action = Action.valueOf("NO_ACTION");
-            params = new String[0];
         } else {
-            String actionString = translateUserAction(args[0]);
-            action = Action.valueOf(actionString);
-
-            // If user's action is invalid, treat it as a new task
-            if(action == Action.ADD_TASK) {
-                params = new String[1];
-                params[0] = input;
+            String actionString;
+            try{
+                actionString = translateUserAction(args[0]);
+            }catch(IllegalArgumentException e){
+                throw new IllegalArgumentException(e.getMessage());
             }
-            else
-                params = Arrays.copyOfRange(args, 1, args.length);
+
+            action = Action.valueOf(actionString);
+            String[] remainingArgs = Arrays.copyOfRange(args, 1, args.length);
+
+            String mainArgs = parseFlagArguments(remainingArgs, params);
+
+            switch(action) {
+                case DO_TASK:
+                    if(mainArgs == null)
+                        throw new IllegalArgumentException("Index not specified");
+                    params.put("index", mainArgs);
+                    break;
+                case ADD_TASK:
+                    if(mainArgs == null)
+                        throw new IllegalArgumentException("Task not specified");
+                    params.put("type", actionArg);
+                    params.put("task", mainArgs);
+            }
         }
 
         return new Command(action, params);
     }
 
-    private static String translateUserAction(String actionString){
+    private static String parseFlagArguments(String[] args, HashMap<String, String> flagParams) {
+        String mainArgument = "";
+        int i = 0;
+
+        //Will stop scanning upon encountering a flag
+        while(i < args.length && !isFlag(args[i])) {
+            mainArgument += args[i] + " ";
+            i++;
+        }
+
+        mainArgument = mainArgument.strip();
+
+        // if no flags, just return from here
+        if(i == args.length)
+            return mainArgument;
+
+        String flagArg="", flag=" ";
+        //Start to consume flag
+        while(i < args.length) {
+            if(isFlag(args[i])) {
+                flagParams.put(flag.substring(1), flagArg.strip()); //remove leading '/' or any flag characters
+                flagArg = "";
+                flag = args[i];
+            }
+            else {
+                flagArg += args[i] + " ";
+            }
+
+            i++;
+        }
+
+        //insert last set of flag argument and remove empty key
+        flagParams.remove("");
+        flagParams.put(flag.substring(1), flagArg.strip());
+        return mainArgument;
+    }
+
+    private static boolean isFlag(String s) {
+        return s.startsWith("/");
+    }
+
+    private static String translateUserAction(String actionString) throws IllegalArgumentException{
         switch(actionString) {
             case "done":
                 return "DO_TASK";
@@ -35,8 +89,12 @@ public class Parser {
                 return "LIST";
             case "bye":
                 return "BYE";
-            default:
+            case "todo":
+            case "deadline":
+            case "event":
                 return "ADD_TASK";
+            default:
+                throw new IllegalArgumentException("Invalid command");
         }
     }
 }

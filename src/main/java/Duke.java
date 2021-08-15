@@ -1,12 +1,14 @@
 import java.util.*;
 
+// The Terminal
+
 public class Duke {
 
     public static void main(String[] args) {
         //Initialize helper variables
         Command command;
         boolean exit = false;
-        TaskManager tm = new TaskManager();
+        TaskManager taskMgr = new TaskManager();
 
         printGreeting();
 
@@ -26,17 +28,20 @@ public class Duke {
                     exit = true;
                     break;
                 case LIST:
-                    String output = tm.listTasks();
-                    System.out.println(output);
+                    String output = taskMgr.listTasks();
+                    System.out.print(output);
                     break;
                 case DO_TASK:
-                    String[] params = command.getParams();
-                    int index = Integer.parseInt(params[0]);
+                    String indexParam = command.getParams("index");
+                    int index = Integer.parseInt(indexParam);
 
                     try {
-                        Task completedTask = tm.doTask(index);
+                        Task completedTask = taskMgr.doTask(index);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.printf("[%s] %s\n\n", completedTask.getStatusIcon(), completedTask);
+                        System.out.printf("[%s][%s] %s\n",
+                                completedTask.getTypeIcon(),
+                                completedTask.getStatusIcon(),
+                                completedTask);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -45,15 +50,28 @@ public class Duke {
                 case NO_ACTION:
                     break;
                 case ADD_TASK:
-                    String task = command.getParams()[0];
-                    tm.addTask(task);
-                    System.out.println("added: " + task);
+                    Task newTask;
+                    try{
+                        newTask = taskMgr.addTask(command.getParams());
+                    }catch(IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.printf("[%s][ ] %s\n", newTask.getTypeIcon(), newTask);
+
+                    int numOfTasks = taskMgr.getTasklistLength();
+                    String plural = (numOfTasks <= 1) ? "task" : "tasks";
+
+                    System.out.printf("Now you have %d %s in the list.\n\n", numOfTasks, plural);
+
                     break;
                 default:
                     System.out.println("Invalid command"); //should never reach here
             }
 
-
+            System.out.println();
             if (exit)
                 break;
         }
@@ -70,10 +88,10 @@ public class Duke {
 
     public static void printGreeting() {
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println(logo);
 
