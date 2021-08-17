@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 
 public class Duke {
     final static String line = "____________________________________________________________";
