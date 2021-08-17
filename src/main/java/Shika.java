@@ -35,6 +35,11 @@ public class Shika {
         }
     }
 
+    /**
+     * Function that checks if the string is an add task command.
+     * @param text String containing user input.
+     * @return true if string starts with "todo", "deadline" or "event" and false otherwise.
+     */
     public static boolean isAddCommand(String text) {
         return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
     }
@@ -44,7 +49,8 @@ public class Shika {
      * "bye" will exit the program.
      * "list" will list all current tasks.
      * "done x" will mark task x as done, where x is the number of the task.
-     * Any other string will add it to the taskList as a task.
+     * "todo", "deadline" or "event" will add the task.
+     * Any other string will print an error message.
      * Aside from "bye", scan() will call itself again after command is executed.
      * @param taskList Array containing all recorded tasks.
      */
@@ -67,19 +73,55 @@ public class Shika {
         scan(taskList);
     }
 
+    /**
+     * This function adds the task specified by the user to the list. It checks for the category of the task
+     * as specified by the user and executes accordingly.
+     * @param taskList Array containing all recorded tasks.
+     * @param text String containing user input.
+     */
     public static void addTask(Task[] taskList, String text) {
         if (text.startsWith("todo")) {
             String str = text.substring(text.indexOf("todo") + 4).trim();
             taskList[Task.count] = new Todo(str);
+            System.out.println(line + "> Added: " + "\n\t" + taskList[Task.count].toString());
+            Task.count += 1;
         } else if (text.startsWith("deadline")) {
-            String str = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
-            String by = text.substring(text.indexOf("/by") + 3).trim();
-            taskList[Task.count] = new Deadline(str, by);
+            addDeadline(taskList, text);
         } else {
-            String str = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
-            String at = text.substring(text.indexOf("/at") + 3).trim();
-            taskList[Task.count] = new Event(str, at);
+            addEvent(taskList, text);
         }
+    }
+
+    /**
+     * This function adds the deadline specified by the user to the list.
+     * @param taskList Array containing all recorded tasks.
+     * @param text String containing user input.
+     */
+    public static void addDeadline(Task[] taskList, String text) {
+        if (!text.contains("/by")) {
+            System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. Thank you!\n" + line);
+            return;
+        }
+        String str = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
+        String by = text.substring(text.indexOf("/by") + 3).trim();
+        taskList[Task.count] = new Deadline(str, by);
+        System.out.println(line + "> Added: " + "\n\t" + taskList[Task.count].toString());
+        Task.count += 1;
+    }
+
+    /**
+     * This function adds the event specified by the user to the list.
+     * @param taskList Array containing all recorded tasks.
+     * @param text String containing user input.
+     */
+    public static void addEvent(Task[] taskList, String text) {
+        if (!text.contains("/at")) {
+            System.out.print(line + "Please follow the format [NAME] /at [DURATION]. Thank you!\n" + line);
+            return;
+        }
+        String str = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
+        String at = text.substring(text.indexOf("/at") + 3).trim();
+        taskList[Task.count] = new Event(str, at);
         System.out.println(line + "> Added: " + "\n\t" + taskList[Task.count].toString());
         Task.count += 1;
     }
@@ -103,7 +145,7 @@ public class Shika {
             System.out.print(line + "> ...Stop trying to break me :<\n" + line);
         } else {
             taskList[index - 1].markAsDone();
-            System.out.println(line + "> Otsukare! You've done:" + "\n\t" + taskList[Task.count].toString());
+            System.out.println(line + "> Otsukare! You've done:" + "\n\t" + taskList[index - 1].toString());
             System.out.print(line);
         }
     }
@@ -115,7 +157,7 @@ public class Shika {
     public static void printTasks(Task[] taskList) {
         System.out.println(line + "> Here is your list of tasks:") ;
         for (int i = 0; i < Task.count; i++) {
-            System.out.print("\t" + (Task.count + 1) + ". " + taskList[i].toString());
+            System.out.println("\t" + (i + 1) + ". " + taskList[i].toString());
         }
         System.out.print(line);
     }
