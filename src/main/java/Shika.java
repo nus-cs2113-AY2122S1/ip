@@ -53,29 +53,39 @@ public class Shika {
             return;
         } else if (text.equals("list")) {
             printTasks(taskList);
-        } else if (text.trim().startsWith("done")) {
-            String str = text.substring(text.indexOf("done") + 4).trim();
-            if (isInteger(str)) {
-                int index = Integer.parseInt(str);
-                if (index > Task.count) {
-                    System.out.print(line + "> Oopsie! That task does not exist... yet!\n" + line);
-                } else if (index < 1) {
-                    System.out.print(line + "> ...Stop trying to break me :<\n" + line);
-                } else {
-                    taskList[index - 1].markAsDone();
-                    System.out.println(line + "> Otsukare! You've done:");
-                    taskList[index - 1].printTask();
-                    System.out.print(line);
-                }
-            } else {
-                System.out.print(line + "> Uh-oh! Exception occurred! Please key in a number :p\n" + line);
-            }
+        } else if (text.startsWith("done")) {
+            executeDoneCommand(taskList, text);
         } else {
             taskList[Task.count] = new Task(text, Task.count);
             System.out.print(line + "> Added: " + text + "!\n" + line);
             Task.count += 1;
         }
         scan(taskList);
+    }
+
+    /**
+     * Function that marks the given task number as done. If the String given is not a number or is out of bounds,
+     * it will print an error message.
+     * @param taskList Array containing all recorded tasks.
+     * @param text String that is supposed to be the number of the task.
+     */
+    public static void executeDoneCommand (Task[] taskList, String text) {
+        String str = text.substring(text.indexOf("done") + 4).trim();
+        if (isInteger(str)) {
+            int index = Integer.parseInt(str);
+            if (index > Task.count) {
+                System.out.print(line + "> Oopsie! That task does not exist... yet!\n" + line);
+            } else if (index < 1) {
+                System.out.print(line + "> ...Stop trying to break me :<\n" + line);
+            } else {
+                taskList[index - 1].markAsDone();
+                System.out.println(line + "> Otsukare! You've done:");
+                taskList[index - 1].printTask();
+                System.out.print(line);
+            }
+        } else {
+            System.out.print(line + "> Please key in a number :/\n" + line);
+        }
     }
 
     /**
