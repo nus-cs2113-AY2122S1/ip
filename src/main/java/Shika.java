@@ -71,20 +71,20 @@ public class Shika {
      */
     public static void executeDoneCommand (Task[] taskList, String text) {
         String str = text.substring(text.indexOf("done") + 4).trim();
-        if (isInteger(str)) {
-            int index = Integer.parseInt(str);
-            if (index > Task.count) {
-                System.out.print(line + "> Oopsie! That task does not exist... yet!\n" + line);
-            } else if (index < 1) {
-                System.out.print(line + "> ...Stop trying to break me :<\n" + line);
-            } else {
-                taskList[index - 1].markAsDone();
-                System.out.println(line + "> Otsukare! You've done:");
-                taskList[index - 1].printTask();
-                System.out.print(line);
-            }
-        } else {
+        if (!isInteger(str)) {
             System.out.print(line + "> Please key in a number :/\n" + line);
+            return;
+        }
+        int index = Integer.parseInt(str);
+        if (index > Task.count) {
+            System.out.print(line + "> Oopsie! That task does not exist... yet!\n" + line);
+        } else if (index < 1) {
+            System.out.print(line + "> ...Stop trying to break me :<\n" + line);
+        } else {
+            taskList[index - 1].markAsDone();
+            System.out.println(line + "> Otsukare! You've done:");
+            taskList[index - 1].printTask();
+            System.out.print(line);
         }
     }
 
