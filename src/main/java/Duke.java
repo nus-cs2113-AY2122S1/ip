@@ -6,5 +6,22 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+        greet();
+    }
+
+    public static void greet() {
+        printSign();
+        System.out.println("Hello! I'm Duke\n");
+        System.out.println("What can I do for you?\n");
+        printSign();
+        System.out.println("Bye. Hope to see you again soon!\n");
+        printSign();
+    }
+
+    public static void printSign(){
+        for(int i = 1; i <= 20; i++){
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }
