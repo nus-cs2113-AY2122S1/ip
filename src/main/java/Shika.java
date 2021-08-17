@@ -9,10 +9,12 @@ public class Shika {
                 + "/_______  /|___|  /__|__|_ \\(____  /\n"
                 + "        \\/      \\/        \\/     \\/ \n";
         System.out.println(logo + "\nHello, friend! Shika at your service!\n");
-        echo();
+        String[] storage = new String[100];
+        int index = 0;
+        echo(storage, index);
     }
 
-    public static void echo() {
+    public static void echo(String[] storage, int index) {
         String line = "_________________________________________________\n";
         Scanner in = new Scanner(System.in);
         String text;
@@ -21,9 +23,21 @@ public class Shika {
             System.out.println(line + "> Bye friend!\n> See you again! :3\n" + line);
             return;
         }
-        else {
-            System.out.println(text);
+        else if (text.equals("list")) {
+            printList(storage, index);
         }
-        echo();
+        else {
+            storage[index] = text;
+            index += 1;
+            System.out.println(line + "Added: " + text + "!\n" + line);
+        }
+        echo(storage, index);
     }
+
+    public static void printList(String[] storage, int index) {
+        for (int i = 0; i < index; i++) {
+            System.out.println(i + 1 + ". " + storage[i]);
+        }
+    }
+
 }
