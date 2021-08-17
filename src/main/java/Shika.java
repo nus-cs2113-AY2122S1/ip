@@ -35,6 +35,10 @@ public class Shika {
         }
     }
 
+    public static boolean isAddCommand(String text) {
+        return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
+    }
+
     /**
      * Function that waits for user input, then executes user command.
      * "bye" will exit the program.
@@ -54,13 +58,30 @@ public class Shika {
         } else if (text.equals("list")) {
             printTasks(taskList);
         } else if (text.startsWith("done")) {
-            executeDoneCommand(taskList, text);
+            doTask(taskList, text);
+        } else if (isAddCommand(text)) {
+            addTask(taskList, text);
         } else {
-            taskList[Task.count] = new Task(text, Task.count);
-            System.out.print(line + "> Added: " + text + "!\n" + line);
-            Task.count += 1;
+            System.out.print(line + "Please enter a valid command.\n" + line);
         }
         scan(taskList);
+    }
+
+    public static void addTask(Task[] taskList, String text) {
+        if (text.startsWith("todo")) {
+            String str = text.substring(text.indexOf("todo") + 4).trim();
+            taskList[Task.count] = new Todo(str);
+        } else if (text.startsWith("deadline")) {
+            String str = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
+            String by = text.substring(text.indexOf("/by") + 3).trim();
+            taskList[Task.count] = new Deadline(str, by);
+        } else {
+            String str = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
+            String at = text.substring(text.indexOf("/at") + 3).trim();
+            taskList[Task.count] = new Event(str, at);
+        }
+        System.out.println(line + "> Added: " + "\n\t" + taskList[Task.count].toString());
+        Task.count += 1;
     }
 
     /**
@@ -69,7 +90,7 @@ public class Shika {
      * @param taskList Array containing all recorded tasks.
      * @param text String that is supposed to be the number of the task.
      */
-    public static void executeDoneCommand (Task[] taskList, String text) {
+    public static void doTask(Task[] taskList, String text) {
         String str = text.substring(text.indexOf("done") + 4).trim();
         if (!isInteger(str)) {
             System.out.print(line + "> Please key in a number :/\n" + line);
@@ -82,8 +103,7 @@ public class Shika {
             System.out.print(line + "> ...Stop trying to break me :<\n" + line);
         } else {
             taskList[index - 1].markAsDone();
-            System.out.println(line + "> Otsukare! You've done:");
-            taskList[index - 1].printTask();
+            System.out.println(line + "> Otsukare! You've done:" + "\n\t" + taskList[Task.count].toString());
             System.out.print(line);
         }
     }
@@ -95,7 +115,7 @@ public class Shika {
     public static void printTasks(Task[] taskList) {
         System.out.println(line + "> Here is your list of tasks:") ;
         for (int i = 0; i < Task.count; i++) {
-            taskList[i].printTask();
+            System.out.print("\t" + (Task.count + 1) + ". " + taskList[i].toString());
         }
         System.out.print(line);
     }
