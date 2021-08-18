@@ -69,16 +69,26 @@ public class Duke {
                 int toBeCompleted = 0;
                 for (int i = 0; i < tasks.size(); i++) {
                     Task task = tasks.get(i);
-                    char cross;
-                    if (task.isCompleted()) {
-                        cross = 'x';
-                    } else {
-                        cross = ' ';
+                    if (!task.isCompleted()) {
                         toBeCompleted++;
                     }
-                    System.out.printf("%d.[%c] %s\n", i + 1, cross, task.getTask());
+                    System.out.printf("%d. %s\n", i + 1, task.getStatusString());
                 }
                 System.out.printf("\nYou have %d task(s) left to do.\n", toBeCompleted);
+            }
+            return true;
+        case "done":
+            int taskNo = Integer.parseInt(cmdParts[1]);
+            if (taskNo < 1 || taskNo > tasks.size()) {
+                printSection("That is not a valid task number :(");
+            } else  {
+                Task task = tasks.get(taskNo - 1);
+                if (task.markAsCompleted()) {
+                    printSection("Nice! I have marked the following task as completed: ",
+                            "\t" + task.getStatusString(), "");
+                } else {
+                    printSection("The task is already done:", "\t" + task.getStatusString(), "");
+                }
             }
             return true;
         default:

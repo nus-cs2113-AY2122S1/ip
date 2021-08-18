@@ -22,4 +22,8 @@ public class Task {
             return true;
         }
     }
+
+    public String getStatusString() {
+        return String.format("[%c] %s", isCompleted() ? 'X' : ' ' ,this.getTask());
+    }
 }
