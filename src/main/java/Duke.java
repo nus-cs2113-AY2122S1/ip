@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -66,13 +66,23 @@ public class Duke {
                 printSection("You have nothing in your to-do list!");
             } else {
                 printSection("Here is your to-do list:");
+                int toBeCompleted = 0;
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                    Task task = tasks.get(i);
+                    char cross;
+                    if (task.isCompleted()) {
+                        cross = 'x';
+                    } else {
+                        cross = ' ';
+                        toBeCompleted++;
+                    }
+                    System.out.printf("%d.[%c] %s\n", i + 1, cross, task.getTask());
                 }
+                System.out.printf("\nYou have %d task(s) left to do.\n", toBeCompleted);
             }
             return true;
         default:
-            tasks.add(cmdString);
+            tasks.add(new Task(cmdString));
             printSection("I have added \"" + cmdString + "\" to your to-do list.");
             return true;
         }
