@@ -3,11 +3,26 @@ import java.util.Scanner;
 
 public class Terminator {
 
+    /**
+     * List of constants used in formatWithHeading.
+     */
     public static final int TERMINATOR_FORMATTING = 0;
     public static final int USER_FORMATTING = 1;
+
+    /**
+     * List of constants used in tokenizing user input.
+     */
     public static final int KEYWORD_INDEX = 0;
     public static final int TASK_NUMBER_INDEX = 1;
+
+    /**
+     * Global variable used to show if loop to get user input should continue running.
+     */
     public static Boolean toContinue = true;
+
+    /**
+     * Global Array List of all tasks created by the user.
+     */
     public static ArrayList<Task> tasksList = new ArrayList<Task>();
 
     /**
@@ -35,12 +50,16 @@ public class Terminator {
      */
     public static void printTasks(){
         System.out.println("Here is a list of taskings:");
+        System.out.println("===================================================");
+        System.out.printf("|| %4s || %-28s || %-3s ||\n", "S/N", "Task Name", "Done?");
+        System.out.println("===================================================");
         for (int i = 0; i < tasksList.size(); ++i){
             Task currentTask = tasksList.get(i);
             // If the current task is completed, check the completion_status
             String completion_status = "[" + currentTask.getStatusIcon() + "]";
-            System.out.printf("%d. %-15s %-15s" + System.lineSeparator(), i+1, currentTask.getName(),
+            System.out.printf("||%4d. || %-28s || %-3s   ||" + System.lineSeparator(), i+1, currentTask.getName(),
                     completion_status);
+            System.out.println("===================================================");
         }
         System.out.println(formatWithHeading("Anything else?", TERMINATOR_FORMATTING));
     }
