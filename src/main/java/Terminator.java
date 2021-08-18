@@ -5,8 +5,30 @@ public class Terminator {
 
     public static final int TERMINATOR_FORMATTING = 0;
     public static final int USER_FORMATTING = 1;
+    public static final int KEYWORD_INDEX = 0;
+    public static final int TASK_NUMBER_INDEX = 1;
     public static Boolean toContinue = true;
     public static ArrayList<Task> tasksList = new ArrayList<Task>();
+
+    /**
+     * Prints response back to user of task that is modified.
+     * @param task_number The index of the task to be updated.
+     */
+    public static void printUpdateMessage(int task_number){
+        Task current_task = tasksList.get(task_number);
+        System.out.println("Great! The following item has been marked as completed:");
+        System.out.println("[" + current_task.getStatusIcon() + "] " + current_task.getName());
+        System.out.println(formatWithHeading("Is there anything else you would like me to do?",
+                TERMINATOR_FORMATTING));
+    }
+
+    /**
+     * Update the completion status of the Task to true.
+     * @param task_number The index of the task to be updated.
+     */
+    public static void updateCompletion(int task_number){
+        tasksList.get(task_number).setCompleted(true);
+    }
 
     /**
      * Prints the tasks in the Task list with formatting.
@@ -14,7 +36,11 @@ public class Terminator {
     public static void printTasks(){
         System.out.println("Here is a list of taskings:");
         for (int i = 0; i < tasksList.size(); ++i){
-            System.out.printf("%d. %s" + System.lineSeparator(), i+1, tasksList.get(i).getName());
+            Task currentTask = tasksList.get(i);
+            // If the current task is completed, check the completion_status
+            String completion_status = "[" + currentTask.getStatusIcon() + "]";
+            System.out.printf("%d. %-15s %-15s" + System.lineSeparator(), i+1, currentTask.getName(),
+                    completion_status);
         }
         System.out.println(formatWithHeading("Anything else?", TERMINATOR_FORMATTING));
     }
@@ -121,9 +147,24 @@ public class Terminator {
             // Gets user input
             System.out.print(formatWithHeading("", USER_FORMATTING));
             String userInput = scanObject.nextLine();
+            // This is assuming user will put input
+            // TODO: Error checking that user has put something in
+            // Parse out keyword from user input
+            String keyword = userInput.split(" ")[KEYWORD_INDEX];
 
             // Checks for the input for keywords BYE and LIST
-            switch (userInput.toUpperCase()){
+            switch (keyword.toUpperCase()){
+                case "DONE":
+                    // Assumption that there are at least 2 tokens in split input
+                    // No check to see if task number is valid yet
+                    // TODO: Might want to include error checks (like try/catch) at later levels
+
+                    // Parse out task number from user input
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
+                    // Update the list and print respective message
+                    updateCompletion(taskNumber);
+                    printUpdateMessage(taskNumber);
+                    break;
                 case "LIST":
                     // Print Tasks with in-built tasksList
                     printTasks();
