@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static ArrayList<String> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -50,15 +53,17 @@ public class Duke {
     /**
      * Interprets the commands sent by the user.
      *
-     * @param cmd The command sent by the user.
+     * @param cmdString The command sent by the user.
      * @return Returns true if the program should continue executing.
      */
-    private static boolean parseCommands(String cmd) {
-        switch (cmd.toLowerCase()) {
+    private static boolean parseCommands(String cmdString) {
+        String[] cmdParts = cmdString.split(" ");
+        switch (cmdParts[0].toLowerCase()) {
         case "bye":
             return false;
         default:
-            printSection(cmd);
+            tasks.add(cmdString);
+            printSection("I have added \"" + cmdString + "\" to your to-do list.");
             return true;
         }
     }
