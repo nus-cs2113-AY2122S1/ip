@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Terminator {
@@ -5,9 +6,40 @@ public class Terminator {
     public static final int TERMINATOR_FORMATTING = 0;
     public static final int USER_FORMATTING = 1;
     public static Boolean toContinue = true;
+    public static ArrayList<Task> tasksList = new ArrayList<Task>();
 
     /**
-     * Prints Goodbye message to user
+     * Prints the tasks in the Task list with formatting.
+     */
+    public static void printTasks(){
+        System.out.println("Here is a list of taskings:");
+        for (int i = 0; i < tasksList.size(); ++i){
+            System.out.printf("%d. %s" + System.lineSeparator(), i+1, tasksList.get(i).getName());
+        }
+        System.out.println(formatWithHeading("Anything else?", TERMINATOR_FORMATTING));
+    }
+
+    /**
+     * Prints response back to user of task that is added.
+     * @param task_name The name of the task to be added.
+     */
+    public static void printAddTaskMessage(String task_name){
+        System.out.println(formatWithHeading("Added \"" + task_name + "\" successfully!", TERMINATOR_FORMATTING));
+    }
+
+    /**
+     * Creates a new Task with name provided and adds it to ArrayList.
+     * @param task_name The name of the task to be added.
+     */
+    public static void addTask(String task_name){
+        // Instantiate new Task object
+        Task new_task = new Task(task_name);
+        // Add to tasksList
+        tasksList.add(new_task);
+    }
+
+    /**
+     * Prints Goodbye message to user.
      */
     public static void printGoodByeMessage(){
         System.out.println(formatWithHeading("Hasta la vista.", TERMINATOR_FORMATTING));
@@ -76,8 +108,8 @@ public class Terminator {
     }
 
     /**
-     * Main Function that is called upon program execution
-     * @param args System Arguments added to the program
+     * Main Function that is called upon program execution.
+     * @param args System Arguments added to the program.
      */
     public static void main(String[] args) {
         // Prints opening message
@@ -90,13 +122,22 @@ public class Terminator {
             System.out.print(formatWithHeading("", USER_FORMATTING));
             String userInput = scanObject.nextLine();
 
-            // If bye is called, stop loop and print Goodbye message
-            if (userInput.equalsIgnoreCase("Bye")){
-                toContinue = false;
-                printGoodByeMessage();
-            } else {
-                // Echo back normal input
-                System.out.println(formatWithHeading(userInput, TERMINATOR_FORMATTING));
+            // Checks for the input for keywords BYE and LIST
+            switch (userInput.toUpperCase()){
+                case "LIST":
+                    // Print Tasks with in-built tasksList
+                    printTasks();
+                    break;
+                case "BYE":
+                    // Stop loop and print Goodbye message
+                    toContinue = false;
+                    printGoodByeMessage();
+                    break;
+                default:
+                    // Create Task and add to tasksList
+                    addTask(userInput);
+                    printAddTaskMessage(userInput);
+                    break;
             }
         }
     }
