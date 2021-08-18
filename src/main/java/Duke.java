@@ -61,6 +61,16 @@ public class Duke {
         switch (cmdParts[0].toLowerCase()) {
         case "bye":
             return false;
+        case "list":
+            if (tasks.isEmpty()) {
+                printSection("You have nothing in your to-do list!");
+            } else {
+                printSection("Here is your to-do list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                }
+            }
+            return true;
         default:
             tasks.add(cmdString);
             printSection("I have added \"" + cmdString + "\" to your to-do list.");
