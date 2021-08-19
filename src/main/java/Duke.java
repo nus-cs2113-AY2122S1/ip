@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 public class Duke {
     public static void main(String[] args) {
         String line = "____________________________________________________________";
