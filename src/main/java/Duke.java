@@ -1,36 +1,41 @@
 import java.util.Scanner;  // Import the Scanner class
-import java.util.ArrayList; // import the ArrayList class
 
 
 public class Duke {
     
     private static Scanner myScan= new Scanner(System.in);
-
+    private static Tasks tasks = new Tasks();
 
     public static void main(String[] args) {
         greet();
         // level1();
-        level2();
+        run();
     }
 
 
-    public static void level2() {
-        ArrayList<String> storedInput = new ArrayList<String>();
+    public static void run() {
 
         while (true) {
             String input = myScan.nextLine();
-            switch(input) {
+            String arr[] = input.split(" ");
+            switch(arr[0]) {
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
                     myScan.close();
                     return;
                 case "list":
-                    for (int i = 0; i < storedInput.size(); i++) 
-                        System.out.println(i+1 + ". " + storedInput.get(i));
+                    tasks.listTasks();
+                    break;
+                case "done" :
+                    int idx = Integer.parseInt(arr[1])-1;
+                    tasks.updateTask(idx, 1);
+                    System.out.println("Nice! I've marked this task as done: ");
+                    tasks.showTask(idx);
                     break;
                 default:
                     System.out.println("added: " + input);
-                    storedInput.add(input);
+                    tasks.addTask(input);
+                    
             }
         }
     }
