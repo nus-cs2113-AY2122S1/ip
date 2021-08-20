@@ -1,6 +1,15 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
+    public static void printTaskList(String[] tasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Task list:");
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.println((i + 1) + ". " + tasks[i]);
+        }
+        System.out.println("____________________________________________________________");
+    }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -15,12 +24,21 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         String exitString = "bye";
+
+        int taskCount = 0;
+        String[] tasks = new String[100];
         line = in.nextLine();
 
         while (!line.equals(exitString)) {
-            System.out.println("____________________________________________________________");
-            System.out.println(" " + line);
-            System.out.println("____________________________________________________________");
+            if (line.equals("list")) {
+                printTaskList(Arrays.copyOf(tasks, taskCount));
+            } else {
+                tasks[taskCount] = line;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Added task: " + line);
+                System.out.println("____________________________________________________________");
+            }
             line = in.nextLine();
         }
 
