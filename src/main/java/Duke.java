@@ -60,7 +60,7 @@ public class Duke {
     public static void list(String input, ArrayList<String> tasks) {
         if (input.equalsIgnoreCase("list")) {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(i + 1 + ": " + tasks.get(i));
+                System.out.println(i + 1 + ". " + tasks.get(i));
             }
         } else {
             tasks.add(input);
