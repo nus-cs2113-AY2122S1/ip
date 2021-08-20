@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void printSeparatingLine() {
         System.out.println("---------------------------------");
@@ -15,6 +17,20 @@ public class Duke {
         printSeparatingLine();
     }
 
+    public static void interact() {
+        String line;
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            line = in.nextLine();
+            if (line.equals("bye")) {
+                break;
+            }
+            printSeparatingLine();
+            System.out.println(line + "\n");
+            printSeparatingLine();
+        }
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -23,6 +39,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greet();
+        interact();
         goodbye();
     }
 }
