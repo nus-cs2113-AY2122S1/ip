@@ -17,13 +17,23 @@ public class Duke {
         printDividingLine();
     }
 
-    public static void echoInput() {
+    public static void storeTasks() {
+        String[] userTasks = new String[100];
+        int stringIndex = 0;
         Scanner userInput = new Scanner(System.in);
         String userInputString = userInput.nextLine();
 
         while (!userInputString.equals("bye")) {
             printDividingLine();
-            System.out.println(userInputString);
+            if (userInputString.equals("list")) {
+                for (int i = 0; i < stringIndex; i++) {
+                    System.out.println((i + 1) + ". " + userTasks[i]);
+                }
+            } else {
+                userTasks[stringIndex] = userInputString;
+                stringIndex++;
+                System.out.println("Added task: " + userInputString);
+            }
             printDividingLine();
             userInputString = userInput.nextLine();
         }
@@ -31,7 +41,7 @@ public class Duke {
 
     public static void main(String[] args) {
         printGreeting();
-        echoInput();
+        storeTasks();
         printFarewell();
     }
 }
