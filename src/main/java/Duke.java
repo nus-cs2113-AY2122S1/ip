@@ -32,6 +32,11 @@ public class Duke {
                 // If user said "bye", update hasUserSaidBye and print closing phrase
                 hasUserSaidBye = true;
                 System.out.println("Thanks for coming. Auf wiedersehen!");
+            } else if (userInput.equals("list")) {
+                // If user said "list", print a list of all saved tasks
+                for (int i = 0; i < noOfTasks; i++) {
+                    System.out.println(Integer.toString(i) + ". " + tasks[i]);
+                }
             } else {
                 // If user has not said "bye", store user input as task
                 tasks[noOfTasks] = userInput;
