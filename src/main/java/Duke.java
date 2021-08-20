@@ -4,6 +4,7 @@ public class Duke {
 
     static final String EXIT_PROGRAM = "bye";
     static final String LIST_TASK = "list";
+    static final String MARK_DONE = "done";
 
     public static void printSeparatingLine() {
         System.out.println("---------------------------------");
@@ -27,10 +28,14 @@ public class Duke {
         TaskManager taskManager = new TaskManager();
         while (true) {
             line = in.nextLine();
+            String[] words = line.trim().split(" ");
             if (line.equals(EXIT_PROGRAM)) {
                 break;
             } else if (line.equals(LIST_TASK)) {
                 taskManager.listTask();
+            } else if (words[0].equals(MARK_DONE)) {
+                int taskNumber = Integer.parseInt(words[1]) - 1;
+                taskManager.markTaskAsCompleted(taskNumber);
             } else {
                 taskManager.addTask(line);
             }

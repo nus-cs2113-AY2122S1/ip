@@ -7,9 +7,29 @@ public class TaskManager {
         taskCount++;
     }
 
-    public void listTask() {
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(i + 1 + ". " + taskList[i].getTask());
+    public void markTaskAsCompleted(int taskNumber) {
+        taskList[taskNumber].markTaskCompleted();
+        System.out.println("Nice! Marking " + taskList[taskNumber].getTask() + " as done!");
+        System.out.println(createCheckboxDisplay(taskList[taskNumber]) + " " + taskList[taskNumber].getTask());
+    }
+
+    public String createCheckboxDisplay(Task task) {
+        String checkboxDisplay = "[ ]";
+        if (task.getIsCompleted()) {
+            checkboxDisplay = checkboxDisplay.replace(" ", "X");
         }
+        return checkboxDisplay;
+    }
+
+    public static void printListTaskLine() {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    }
+
+    public void listTask() {
+        printListTaskLine();
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(i + 1 + "." + createCheckboxDisplay(taskList[i]) + " " + taskList[i].getTask());
+        }
+        printListTaskLine();
     }
 }
