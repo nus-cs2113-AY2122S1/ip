@@ -8,7 +8,7 @@ public class TaskManager {
     }
 
     public void markTaskAsCompleted(int taskNumber) {
-        taskList[taskNumber].markTaskCompleted();
+        taskList[taskNumber].setTaskCompleted();
         System.out.println("Nice! Marking " + taskList[taskNumber].getTask() + " as done!");
         System.out.println(createCheckboxDisplay(taskList[taskNumber]) + " " + taskList[taskNumber].getTask());
     }
@@ -21,15 +21,11 @@ public class TaskManager {
         return checkboxDisplay;
     }
 
-    public static void printListTaskLine() {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    }
-
     public void listTask() {
-        printListTaskLine();
+        Display.printListTaskLine();
         for (int i = 0; i < taskCount; i++) {
             System.out.println(i + 1 + "." + createCheckboxDisplay(taskList[i]) + " " + taskList[i].getTask());
         }
-        printListTaskLine();
+        Display.printListTaskLine();
     }
 }

@@ -4,22 +4,18 @@ public class Task {
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.isCompleted = false;
-        printAddTaskLine();
-        System.out.println("Task Added: " + this.taskName + "\n");
-        printAddTaskLine();
-    }
-
-    public static void printAddTaskLine() {
-        System.out.println("********************************");
-    }
-
-    public void markTaskCompleted() {
-        isCompleted = true;
+        isCompleted = false;
+        Display.printAddTaskLine();
+        System.out.println("Task Added: " + taskName + "\n");
+        Display.printAddTaskLine();
     }
 
     public String getTask() {
         return taskName;
+    }
+
+    public void setTaskCompleted() {
+        isCompleted = true;
     }
 
     public Boolean getIsCompleted() {

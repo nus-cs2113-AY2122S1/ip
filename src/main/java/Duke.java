@@ -2,42 +2,45 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static final String EXIT_PROGRAM = "bye";
-    static final String LIST_TASK = "list";
-    static final String MARK_DONE = "done";
-
-    public static void printSeparatingLine() {
-        System.out.println("---------------------------------");
-    }
+    public static final String EXIT_PROGRAM = "bye";
+    public static final String LIST_TASK = "list";
+    public static final String MARK_DONE = "done";
 
     public static void greet() {
-        printSeparatingLine();
+        Display.printSeparatingLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?\n");
     }
 
     public static void goodbye() {
-        printSeparatingLine();
+        Display.printSeparatingLine();
         System.out.println("Bye. Hope to see you again soon!\n");
-        printSeparatingLine();
+        Display.printSeparatingLine();
     }
 
     public static void interact() {
         String line;
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
-        while (true) {
+        Boolean isStillInteracting = true;
+        while (isStillInteracting) {
             line = in.nextLine();
             String[] words = line.trim().split(" ");
-            if (line.equals(EXIT_PROGRAM)) {
-                break;
-            } else if (line.equals(LIST_TASK)) {
+
+            switch (words[0]) {
+            case LIST_TASK:
                 taskManager.listTask();
-            } else if (words[0].equals(MARK_DONE)) {
+                break;
+            case MARK_DONE:
                 int taskNumber = Integer.parseInt(words[1]) - 1;
                 taskManager.markTaskAsCompleted(taskNumber);
-            } else {
+                break;
+            case EXIT_PROGRAM:
+                isStillInteracting = false;
+                break;
+            default:
                 taskManager.addTask(line);
+                break;
             }
         }
     }
