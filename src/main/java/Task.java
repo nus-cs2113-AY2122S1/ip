@@ -1,9 +1,9 @@
 public class Task {
-    protected String TaskDescription;
+    protected String taskDescription;
     protected boolean isDone = false;
 
     public Task(String description) {
-        this.TaskDescription = description;
+        this.taskDescription = description;
     }
 
     public String getStatusIcon() {

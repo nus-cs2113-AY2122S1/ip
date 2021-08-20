@@ -35,14 +35,14 @@ public class Duke {
     }
 
     public static void echo(String input) {
-            System.out.println(horizontalBar);
-            System.out.println("  " + input);
-            System.out.println(horizontalBar);
+        System.out.println(horizontalBar);
+        System.out.println("  " + input);
+        System.out.println(horizontalBar);
     }
 
     public static void editTaskList(Task taskInput) {
         taskList.add(taskInput);
-        echo("added: " + taskInput.TaskDescription);
+        echo("added: " + taskInput.taskDescription);
     }
 
     public static void printTaskList() {
@@ -56,7 +56,7 @@ public class Duke {
                 int currentIndexInOnesIndexing = i + 1;
                 System.out.println(Integer.toString(currentIndexInOnesIndexing)
                                         + ". " + taskList.get(i).getStatusIcon()
-                                        + " " + taskList.get(i).TaskDescription);
+                                        + " " + taskList.get(i).taskDescription);
             }
             System.out.println(horizontalBar);
         }
@@ -69,7 +69,7 @@ public class Duke {
             taskList.get(taskNumber - 1).setDone();
             System.out.println(horizontalBar);
             System.out.println("Task " + Integer.toString(taskNumber) + ": "
-                                    + taskList.get(taskNumber - 1).TaskDescription);
+                                    + taskList.get(taskNumber - 1).taskDescription);
             System.out.println("  Marked as done!");
         } else {
             System.out.println(horizontalBar);
