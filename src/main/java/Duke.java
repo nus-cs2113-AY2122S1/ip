@@ -24,7 +24,7 @@ public class Duke {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < index; i++) {
                     Task currentTask = tasks[i];
-                    System.out.println(i+1 + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+                    System.out.println((i + 1) + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
                 }
             } else if (text.contains("done")) {
                 String textArr[] = text.split(" ");
@@ -32,8 +32,7 @@ public class Duke {
                 tasks[taskNum - 1].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("[x] " + tasks[taskNum - 1].getDescription());
-            }
-            else {
+            } else {
                 tasks[index] = new Task(text);
                 System.out.println("added: " + text);
                 index++;
