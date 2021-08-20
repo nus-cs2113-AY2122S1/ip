@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-     private static String logo = System.lineSeparator() +
+    private static String logo = System.lineSeparator() +
             "    ___   ______   ________  _______      ___   ____  _____   .--." + System.lineSeparator() +
             "  .'   `.|_   _ \\ |_   __  ||_   __ \\   .'   `.|_   \\|_   _|.'_\\/_'." + System.lineSeparator() +
             " /  .-.  \\ | |_) |  | |_ \\_|  | |__) | /  .-.  \\ |   \\ | |  '. /\\,.'" + System.lineSeparator() +
@@ -13,9 +13,9 @@ public class Duke {
             "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\||^^^^";
 
     private static String horizontalBar = "__________________" +
-                                          "__________________" +
-                                          "__________________" +
-                                          "_______________";
+            "__________________" +
+            "__________________" +
+            "_______________";
 
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
@@ -55,8 +55,8 @@ public class Duke {
             for (int i = 0; i < taskList.size(); i++) {
                 int currentIndexInOnesIndexing = i + 1;
                 System.out.println(Integer.toString(currentIndexInOnesIndexing)
-                                        + ". " + taskList.get(i).getStatusIcon()
-                                        + " " + taskList.get(i).taskDescription);
+                        + ". " + taskList.get(i).getStatusIcon()
+                        + " " + taskList.get(i).taskDescription);
             }
             System.out.println(horizontalBar);
         }
@@ -69,7 +69,7 @@ public class Duke {
             taskList.get(taskNumber - 1).setDone();
             System.out.println(horizontalBar);
             System.out.println("Task " + Integer.toString(taskNumber) + ": "
-                                    + taskList.get(taskNumber - 1).taskDescription);
+                    + taskList.get(taskNumber - 1).taskDescription);
             System.out.println("  Marked as done!");
         } else {
             System.out.println(horizontalBar);
@@ -82,7 +82,7 @@ public class Duke {
         greetingMessage();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while(!input.equals("bye")) {
+        while (!input.equals("bye")) {
             if (input.equals("list")) {
                 printTaskList();
             } else if (input.contains("done ")) {
