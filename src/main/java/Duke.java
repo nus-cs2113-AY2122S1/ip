@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    static final String EXIT_PROGRAM = "bye";
+    static final String LIST_TASK = "list";
+
     public static void printSeparatingLine() {
         System.out.println("---------------------------------");
     }
@@ -20,14 +24,16 @@ public class Duke {
     public static void interact() {
         String line;
         Scanner in = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
         while (true) {
             line = in.nextLine();
-            if (line.equals("bye")) {
+            if (line.equals(EXIT_PROGRAM)) {
                 break;
+            } else if (line.equals(LIST_TASK)) {
+                taskManager.listTask();
+            } else {
+                taskManager.addTask(line);
             }
-            printSeparatingLine();
-            System.out.println(line + "\n");
-            printSeparatingLine();
         }
     }
 
