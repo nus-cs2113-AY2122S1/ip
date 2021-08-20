@@ -9,27 +9,32 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        String[] welcome = {"Hello! I'm Duke", "What can I do for you?"};
-        ArrayList<String> tasks = new ArrayList<>();
+        //print welcome message
+        String welcomeMessage = "Hello! I'm Duke\n";
+        welcomeMessage += "     What can I do for you?";
+        custom_print(welcomeMessage);
 
-        custom_print(welcome);
+        ArrayList<Task> tasks = new ArrayList<>();
 
-        String command = "";
+        String description = "";
 
         Scanner in = new Scanner(System.in);
 
-        while (!command.equals("bye")) {
-            command = in.nextLine();
+        while (true) {
+            description = in.nextLine();
 
             // Handle the bye case
-            if (command.equals("bye")) {
+            if (description.equals("bye")) {
                 custom_print("Bye. Hope to see you again soon!");
                 break;
-            } else if (command.equals("list")) { //handle list case
+            } else if (description.equals("list")) { //handle list case
                 print_list(tasks);
+            } else if (description.startsWith("done")) { //handle done case
+                int taskId = Integer.parseInt(description.split(" ")[1]);
+                mark_done(tasks, taskId - 1); //-1 as index starts from 0
             } else {
-                tasks.add(command);
-                custom_print("added: " + command);
+                tasks.add(new Task(description));
+                custom_print("added: " + description);
             }
         }
     }
@@ -40,19 +45,21 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void custom_print(String[] statements) {
+    public static void print_list(ArrayList<Task> tasks) {
         System.out.println("    ____________________________________________________________");
-        for (String statement : statements) {
-            System.out.println("     " + statement);
+        System.out.println("     Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            System.out.println("     " + String.valueOf(i + 1) + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
         }
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void print_list(ArrayList<String> statements) {
-        System.out.println("    ____________________________________________________________");
-        for (int i = 0; i < statements.size(); i++) {
-            System.out.println("     " + String.valueOf(i + 1) + ". " + statements.get(i));
-        }
-        System.out.println("    ____________________________________________________________");
+    public static void mark_done(ArrayList<Task> tasks, int taskId) {
+        Task currentTask = tasks.get(taskId);
+        currentTask.markAsDone(); //mark task as done
+        String textToPrint = "Nice! I've marked this task as done:\n";
+        textToPrint += "       [" + currentTask.getStatusIcon() + "] " + currentTask.getDescription();
+        custom_print(textToPrint);
     }
 }
