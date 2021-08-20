@@ -17,6 +17,10 @@ public class Duke {
         boolean hasUserSaidBye = false;
         Scanner in = new Scanner(System.in);
 
+        // Initialise array to keep track of user's tasks
+        String[] tasks = new String[100];
+        int noOfTasks = 0;
+
         // While user has not said "bye", check for next line of input
         while (!hasUserSaidBye) {
 
@@ -29,8 +33,11 @@ public class Duke {
                 hasUserSaidBye = true;
                 System.out.println("Thanks for coming. Auf wiedersehen!");
             } else {
-                // If user has not said "bye", echo user input
-                System.out.println(userInput);
+                // If user has not said "bye", store user input as task
+                tasks[noOfTasks] = userInput;
+                noOfTasks++;
+                // Then, echo the task
+                System.out.println("I've added: " + userInput);
             }
 
             System.out.println("____________________________________________________________");
