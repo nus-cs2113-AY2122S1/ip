@@ -18,54 +18,42 @@ public class Duke {
         System.out.println("I can do the following: Echo, List");
         System.out.println(line);
 
+        //User choice of what to do
         String userChoice = scannerObj.nextLine();
 
-
+        //Check if choice is valid
         while (!userChoice.equalsIgnoreCase("echo") && !userChoice.equalsIgnoreCase("list")) {
             System.out.println("Invalid input, please try again. You may choose from: List, Echo");
             userChoice = scannerObj.nextLine();
         }
+
+        //Execute choice
         switch (userChoice.toLowerCase()) {
-            case "echo":
+            case "echo": //Echo what is said to user
                 while (true) {
                     System.out.println("Copy cat, copy cat");
                     String userInput = scannerObj.nextLine();
                     if (userInput.equalsIgnoreCase("bye")) break;
-                    else echo(userInput);
+                    else System.out.println(userInput);
                 }
                 break;
 
-            case "list":
-                ArrayList<String> tasks = new ArrayList<>();
+            case "list": //Activate list actions
+                ArrayList<Tasks> tasksAL = new ArrayList<>();
                 while (true) {
                     System.out.println("To view your list, enter 'list'. To add to your list just type what you would like to add.");
                     String userInput = scannerObj.nextLine();
                     if (userInput.equalsIgnoreCase("bye")) break;
-                    else list(userInput, tasks);
+                    else Tasks.list(userInput, tasksAL);
                 }
                 break;
 
             default:
                 break;
         }
-
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
     }
-
-    public static void echo(String input) {
-        System.out.println(input);
-    }
-
-    public static void list(String input, ArrayList<String> tasks) {
-        if (input.equalsIgnoreCase("list")) {
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(i + 1 + ". " + tasks.get(i));
-            }
-        } else {
-            tasks.add(input);
-            System.out.println("added: " + input);
-        }
-    }
-
 }
+
+
