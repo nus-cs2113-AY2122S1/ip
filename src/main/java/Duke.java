@@ -14,11 +14,21 @@ public class Duke {
                 " What can I do for you?");
         System.out.println(line);
 
+        String[] items = new String[100];
+        int index = 0;
         String text;
         text = in.nextLine();
         while (!text.equals("bye")) {
             System.out.println(line);
-            System.out.println(text);
+            if (text.equals("list")) {
+                for (int i = 0; i < index; i++) {
+                    System.out.println(i+1 + ". " + items[i]);
+                }
+            } else {
+                items[index] = text;
+                System.out.println("added: " + text);
+                index++;
+            }
             System.out.println(line);
             text = in.nextLine();
         }
