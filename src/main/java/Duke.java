@@ -18,7 +18,7 @@ public class Duke {
                                           "__________________" +
                                           "_______________";
 
-    private static ArrayList<String> list = new ArrayList<String>();
+    private static ArrayList<String> taskList = new ArrayList<String>();
 
     public static void greetingMessage() {
         System.out.println(horizontalBar);
@@ -41,9 +41,25 @@ public class Duke {
             System.out.println(horizontalBar);
     }
 
-    public static void editList(String input) {
-        list.add(input);
+    public static void editTaskList(String input) {
+        taskList.add(input);
         echo("added: " + input);
+    }
+
+    public static void printTaskList() {
+        if (taskList.isEmpty()) {
+            System.out.println(horizontalBar);
+            System.out.println("  List is empty!");
+            System.out.println(horizontalBar);
+        } else {
+            System.out.println(horizontalBar);
+            for (int i = 0; i < taskList.size(); i++) {
+                int currentIndexInOnesIndexing = i + 1;
+                System.out.println(Integer.toString(currentIndexInOnesIndexing)
+                                    + ". " + taskList.get(i));
+            }
+            System.out.println(horizontalBar);
+        }
     }
 
     public static void main(String[] args) {
@@ -51,7 +67,11 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while(!input.equalsIgnoreCase("bye")) {
-            editList(input);
+            if (input.equalsIgnoreCase("list")) {
+                printTaskList();
+            } else {
+                editTaskList(input);
+            }
             input = scanner.nextLine();
         }
         farewellMessage();
