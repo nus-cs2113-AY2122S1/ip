@@ -14,6 +14,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String userInput = "";
         Task taskAdded;
+
         System.out.println("Hello from\n" + logo);
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm Duke!\n" + "What can I do for you?");
@@ -29,7 +30,7 @@ public class Duke {
                 System.out.println(horizontalLine);
                 System.out.println("Added: " + taskAdded.description);
                 System.out.println(horizontalLine);
-            } else if(!userInput.contains("bye") && !userInput.contains("done")){
+            } else if(userInput.contains("list")){
                 int listIndex = 1;
                 System.out.println(horizontalLine);
                 for (Task task : taskList) {
