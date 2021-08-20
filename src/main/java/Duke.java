@@ -1,14 +1,22 @@
 public class Duke {
 
-    private final DukeInterface dukeUI = new DukeInterface();
+    private final DukeInterface dukeUI;
 
-    /** Default Constructor*/
+    /**
+     * Default Constructor
+     */
     public Duke() {
+        dukeUI = new DukeInterface();
         startDuke();
     }
 
     public void startDuke() {
         dukeUI.printWelcomeMsg();
+
+        do {
+            dukeUI.readInput();
+        } while (dukeUI.isRunning);
+
         dukeUI.printExitMsg();
     }
 
