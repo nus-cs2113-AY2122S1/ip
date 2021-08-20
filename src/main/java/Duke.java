@@ -41,9 +41,13 @@ public class Duke {
             if(userInput.contains("done")){
                 String[] splitUserInput = userInput.split(" ");
                 int i = (Integer.parseInt(splitUserInput[1])) - 1;
-                Task taskUpdated = taskList.get(i);
-                taskUpdated.updateIsDone();
-                System.out.println("Nice! I've marked this task as done: \n" + (i + 1) + ".[" + taskUpdated.getStatusIcon() + "] " + taskUpdated.description);
+                if(i > taskList.size() - 1) {
+                    System.out.println("Invalid task number");
+                } else {
+                    Task taskUpdated = taskList.get(i);
+                    taskUpdated.updateIsDone();
+                    System.out.println("Nice! I've marked this task as done: \n" + (i + 1) + ".[" + taskUpdated.getStatusIcon() + "] " + taskUpdated.description);
+                }
             }
         }
         System.out.println("Bye! Hope to see you again soon!");
