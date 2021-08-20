@@ -14,18 +14,27 @@ public class Duke {
                 " What can I do for you?");
         System.out.println(line);
 
-        String[] items = new String[100];
+        Task[] tasks = new Task[100];
         int index = 0;
         String text;
         text = in.nextLine();
         while (!text.equals("bye")) {
             System.out.println(line);
             if (text.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < index; i++) {
-                    System.out.println(i+1 + ". " + items[i]);
+                    Task currentTask = tasks[i];
+                    System.out.println(i+1 + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
                 }
-            } else {
-                items[index] = text;
+            } else if (text.contains("done")) {
+                String textArr[] = text.split(" ");
+                int taskNum = Integer.parseInt(textArr[textArr.length - 1]);
+                tasks[taskNum - 1].setDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[x] " + tasks[taskNum - 1].getDescription());
+            }
+            else {
+                tasks[index] = new Task(text);
                 System.out.println("added: " + text);
                 index++;
             }
