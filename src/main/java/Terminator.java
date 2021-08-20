@@ -29,7 +29,7 @@ public class Terminator {
      * Prints response back to user of task that is modified.
      * @param task_number The index of the task to be updated.
      */
-    public static void printUpdateMessage(int task_number){
+    public static void printUpdateMessage(int task_number) {
         Task current_task = tasksList.get(task_number);
         System.out.println("Great! The following item has been marked as completed:");
         System.out.println("[" + current_task.getStatusIcon() + "] " + current_task.getName());
@@ -41,19 +41,19 @@ public class Terminator {
      * Update the completion status of the Task to true.
      * @param task_number The index of the task to be updated.
      */
-    public static void updateCompletion(int task_number){
+    public static void updateCompletion(int task_number) {
         tasksList.get(task_number).setCompleted(true);
     }
 
     /**
      * Prints the tasks in the Task list with formatting.
      */
-    public static void printTasks(){
+    public static void printTasks() {
         System.out.println("Here is a list of taskings:");
         System.out.println("===================================================");
         System.out.printf("|| %4s || %-28s || %-3s ||\n", "S/N", "Task Name", "Done?");
         System.out.println("===================================================");
-        for (int i = 0; i < tasksList.size(); ++i){
+        for (int i = 0; i < tasksList.size(); ++i) {
             Task currentTask = tasksList.get(i);
             // If the current task is completed, check the completion_status
             String completion_status = "[" + currentTask.getStatusIcon() + "]";
@@ -68,7 +68,7 @@ public class Terminator {
      * Prints response back to user of task that is added.
      * @param task_name The name of the task to be added.
      */
-    public static void printAddTaskMessage(String task_name){
+    public static void printAddTaskMessage(String task_name) {
         System.out.println(formatWithHeading("Added \"" + task_name + "\" successfully!", TERMINATOR_FORMATTING));
     }
 
@@ -76,7 +76,7 @@ public class Terminator {
      * Creates a new Task with name provided and adds it to ArrayList.
      * @param task_name The name of the task to be added.
      */
-    public static void addTask(String task_name){
+    public static void addTask(String task_name) {
         // Instantiate new Task object
         Task new_task = new Task(task_name);
         // Add to tasksList
@@ -86,12 +86,12 @@ public class Terminator {
     /**
      * Prints Goodbye message to user.
      */
-    public static void printGoodByeMessage(){
+    public static void printGoodByeMessage() {
         System.out.println(formatWithHeading("Hasta la vista.", TERMINATOR_FORMATTING));
         System.out.println(formatWithHeading("I will be back.", TERMINATOR_FORMATTING));
         System.out.println(formatWithHeading("Program Terminating in...", TERMINATOR_FORMATTING));
         // Stops at 2 intentionally
-        for (int i = 5; i > 1; --i){
+        for (int i = 5; i > 1; --i) {
             System.out.println(formatWithHeading(Integer.toString(i), TERMINATOR_FORMATTING));
         }
     }
@@ -104,9 +104,9 @@ public class Terminator {
      * @param option TERMINATOR_FORMATTING or USER_FORMATTING.
      * @return String with prepended heading.
      */
-    public static String formatWithHeading(String msg, Integer option){
+    public static String formatWithHeading(String msg, Integer option) {
         String prepend = "";
-        switch (option){
+        switch (option) {
         case TERMINATOR_FORMATTING:
             prepend = "[The Terminator]";
             break;
@@ -122,7 +122,7 @@ public class Terminator {
     /**
      * Prints the welcome message to the user.
      */
-    public static void printHelloMessage(){
+    public static void printHelloMessage() {
         // @@author ObASCII
         // Reused from https://www.asciiart.eu/computers/computers
         // with minor modifications
@@ -162,7 +162,7 @@ public class Terminator {
         Scanner scanObject = new Scanner(System.in);
 
         // Continue Running Loop until bye is called
-        while(toContinue){
+        while (toContinue) {
             // Gets user input
             System.out.print(formatWithHeading("", USER_FORMATTING));
             String userInput = scanObject.nextLine();
@@ -172,7 +172,7 @@ public class Terminator {
             String keyword = userInput.split(" ")[KEYWORD_INDEX];
 
             // Checks for the input for keywords BYE and LIST
-            switch (keyword.toUpperCase()){
+            switch (keyword.toUpperCase()) {
                 case "DONE":
                     // Assumption that there are at least 2 tokens in split input
                     // No check to see if task number is valid yet

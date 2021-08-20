@@ -9,7 +9,7 @@ public class Task {
      * Create Task with specified name.
      * @param name The name of task.
      */
-    public Task(String name){
+    public Task(String name) {
         setName(name);
         setCompleted(false);
     }
@@ -26,7 +26,7 @@ public class Task {
      * Gets the potential task completion status.
      * @return A boolean value representing the task's completion status.
      */
-    public boolean getCompleted(){
+    public boolean getCompleted() {
         return isCompleted;
     }
 
@@ -54,7 +54,7 @@ public class Task {
      * If isCompleted is true, return "X" else returns " ".
      * @return A string representing the status.
      */
-    public String getStatusIcon(){
+    public String getStatusIcon() {
         // Mark done task with X
         return (isCompleted ? "X" : " ");
     }
