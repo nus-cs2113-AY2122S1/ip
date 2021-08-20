@@ -1,21 +1,10 @@
 public class Duke {
-    public static void printGreeting() {
-        printDividingLine();
-        System.out.println("Greetings, human! I'm Duke. \nWhat can I do for you?");
-        printDividingLine();
-    }
-
-    public static void printDividingLine() {
-        System.out.println("____________________________________");
-    }
-
-    public static void printFarewell() {
-        System.out.println("Closing Duke. Have a nice day!");
-        printDividingLine();
-    }
-
     public static void main(String[] args) {
-        printGreeting();
-        printFarewell();
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
     }
 }
