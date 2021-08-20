@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +17,7 @@ public class Duke {
                                           "__________________" +
                                           "_______________";
 
-    private static ArrayList<String> taskList = new ArrayList<String>();
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static void greetingMessage() {
         System.out.println(horizontalBar);
@@ -30,7 +29,7 @@ public class Duke {
 
     public static void farewellMessage() {
         System.out.println(horizontalBar);
-        System.out.println("  Bye. Hope to see you again soon!");
+        System.out.println("  Goodbye. Hope to see you again soon!");
         System.out.println(logo);
         System.out.println(horizontalBar);
     }
@@ -41,9 +40,9 @@ public class Duke {
             System.out.println(horizontalBar);
     }
 
-    public static void editTaskList(String input) {
-        taskList.add(input);
-        echo("added: " + input);
+    public static void editTaskList(Task taskInput) {
+        taskList.add(taskInput);
+        echo("added: " + taskInput.TaskDescription);
     }
 
     public static void printTaskList() {
@@ -56,21 +55,40 @@ public class Duke {
             for (int i = 0; i < taskList.size(); i++) {
                 int currentIndexInOnesIndexing = i + 1;
                 System.out.println(Integer.toString(currentIndexInOnesIndexing)
-                                    + ". " + taskList.get(i));
+                                        + ". " + taskList.get(i).getStatusIcon()
+                                        + " " + taskList.get(i).TaskDescription);
             }
             System.out.println(horizontalBar);
         }
+    }
+
+    public static void markTaskAsDone(String input) {
+        int taskNumber = Integer.parseInt(input.replace("done", "").trim(), 10);
+        boolean taskNumberInRange = (taskNumber <= taskList.size()) && (taskNumber >= 1);
+        if (taskNumberInRange) {
+            taskList.get(taskNumber - 1).setDone();
+            System.out.println(horizontalBar);
+            System.out.println("Task " + Integer.toString(taskNumber) + ": "
+                                    + taskList.get(taskNumber - 1).TaskDescription);
+            System.out.println("  Marked as done!");
+        } else {
+            System.out.println(horizontalBar);
+            System.out.println("  Invalid Task number!");
+        }
+        System.out.println(horizontalBar);
     }
 
     public static void main(String[] args) {
         greetingMessage();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while(!input.equalsIgnoreCase("bye")) {
-            if (input.equalsIgnoreCase("list")) {
+        while(!input.equals("bye")) {
+            if (input.equals("list")) {
                 printTaskList();
+            } else if (input.contains("done ")) {
+                markTaskAsDone(input);
             } else {
-                editTaskList(input);
+                editTaskList(new Task(input));
             }
             input = scanner.nextLine();
         }
