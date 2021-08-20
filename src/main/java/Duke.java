@@ -8,7 +8,7 @@ public class Duke {
     }
 
     public static void printDividingLine() {
-        System.out.println("____________________________________");
+        System.out.println("________________________________________");
     }
 
     public static void printFarewell() {
@@ -18,20 +18,29 @@ public class Duke {
     }
 
     public static void storeTasks() {
-        String[] userTasks = new String[100];
-        int stringIndex = 0;
+        Task[] userTasks = new Task[100];
+        int taskIndex = 0;
         Scanner userInput = new Scanner(System.in);
         String userInputString = userInput.nextLine();
 
         while (!userInputString.equals("bye")) {
             printDividingLine();
             if (userInputString.equals("list")) {
-                for (int i = 0; i < stringIndex; i++) {
+                for (int i = 0; i < taskIndex; i++) {
                     System.out.println((i + 1) + ". " + userTasks[i]);
                 }
+            } else if (userInputString.startsWith("done")) {
+                String[] words = userInputString.split(" ");
+                int completeIndex = Integer.parseInt(words[1]) - 1;
+                if (completeIndex >= 0 && completeIndex < taskIndex) {
+                    userTasks[completeIndex].markComplete();
+                    System.out.println("Task " + userTasks[completeIndex].description + " marked as complete.");
+                } else {
+                    System.out.println("Error: index outside range.");
+                }
             } else {
-                userTasks[stringIndex] = userInputString;
-                stringIndex++;
+                userTasks[taskIndex] = new Task(userInputString);
+                taskIndex++;
                 System.out.println("Added task: " + userInputString);
             }
             printDividingLine();
