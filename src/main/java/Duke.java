@@ -8,14 +8,19 @@ public class Duke {
 
         do {
             Scanner line = new Scanner(System.in);
-            String input = line.nextLine();
-            if (input.startsWith("bye")) {
+            String[] input = line.nextLine().split(" ", 2);
+            switch (input[0]) {
+            case "bye":
                 taskManager.exitMessage();
                 isExit = true;
-            } else {
-                taskManager.echo(input);
+                break;
+            case "list":
+                taskManager.listTasks();
+                break;
+            default:
+                taskManager.addTask(input[0] + " " + input[1]);
+                break;
             }
         } while (!isExit);
-
     }
 }

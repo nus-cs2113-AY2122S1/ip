@@ -1,4 +1,6 @@
 public class TaskManager {
+    private String[] tasks = new String[100];
+    private int numTask = 0;
 
     public TaskManager() {
     }
@@ -19,9 +21,24 @@ public class TaskManager {
         System.out.println(greeting);
     }
 
-    public void echo(String message) {
+    public void addTask(String task) {
+        tasks[numTask] = task;
         System.out.println("_________________________________________\n" +
-                message + "\n_________________________________________\n");
+                "added: " + task +
+                "\n_________________________________________\n");
+        numTask++;
+    }
+
+    public void listTasks() {
+        System.out.println("_________________________________________");
+        if (numTask == 0) {
+            System.out.println("No Tasks");
+        } else {
+            for (int i = 0; i < numTask; i++) {
+                System.out.println((i + 1) + ". " + tasks[i]);
+            }
+        }
+        System.out.println("_________________________________________");
     }
 
     public void exitMessage() {
