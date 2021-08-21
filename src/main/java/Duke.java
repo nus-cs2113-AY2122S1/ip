@@ -29,10 +29,10 @@ public class Duke {
         Task[] tasks = new Task[100];
         line = in.nextLine();
 
-        while (!line.equals(exitString)) {
-            if (line.equals("list")) {
+        while (!line.equalsIgnoreCase(exitString)) {
+            if (line.equalsIgnoreCase("list")) {
                 printTaskList(Arrays.copyOf(tasks, taskCount));
-            } else if (line.startsWith("done")) {
+            } else if (line.toLowerCase().startsWith("done")) {
                 int taskToMarkDone = Integer.parseInt(line.split(" ")[1]);
                 if (taskToMarkDone > taskCount || taskToMarkDone <= 0) {
                     System.out.println("____________________________________________________________");
