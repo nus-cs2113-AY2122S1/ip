@@ -13,13 +13,21 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello from\n" + logo + "\n     What can I do for you?");
         System.out.println("    ____________________________________________________________\n");
-        while (true) {
+
+        List list = new List();
+        keepAsking: while (true) {
             String command = in.nextLine();
-            if (command.equals("bye")) break;
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     " + command);
-            System.out.println("    ____________________________________________________________");
+            switch (command){
+            case "bye":
+                break keepAsking;
+            case "list":
+                list.printList();
+                break;
+            default:
+                list.addItem(command);
+            }
         }
+
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
