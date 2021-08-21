@@ -35,12 +35,12 @@ public class Duke {
             } else if (userInput.equals("list")) {
                 // If user said "list", print a list of all saved tasks
                 for (int i = 0; i < noOfTasks; i++) {
-                    System.out.println(Integer.toString(i) + "." + tasks[i].getDoneStatusAsSymbol()
+                    System.out.println(Integer.toString(i+1) + "." + tasks[i].getDoneStatusAsSymbol()
                             + " " + tasks[i].getName());
                 }
             } else if (userInput.contains("done")) {
                 // Get number of task after the term "done"
-                int indexOfCompletedTask = Integer.parseInt(userInput.split(" ")[1]);
+                int indexOfCompletedTask = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 // Set chosen task as done
                 Task chosenTask = tasks[indexOfCompletedTask];
                 chosenTask.setDone(true);
