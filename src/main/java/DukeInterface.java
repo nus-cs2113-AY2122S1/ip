@@ -2,11 +2,7 @@ import java.util.Scanner;
 
 public class DukeInterface {
 
-    public boolean isRunning;
-
     private final Scanner in;
-
-    private String input;
 
     private final String logo = "-------------------------------------------\n"
             + "  __         __\n"
@@ -19,16 +15,15 @@ public class DukeInterface {
             + "-------------------------------------------";
 
     private final String welcomeMsg = "[Duke]:\n-> Hello! I'm Duke \uD83D\uDE00\n"
-            + "-> What can I do for you?";
+            + "-> I'm so hungry, would you mind feeding me tasks?";
 
-    private final String exitMsg = "\n[Duke]:\n-> Bye. Hope to see you again soon!";
+    private final String exitMsg = "\n[Duke]:\n-> Come back soon, I'm still hungry!";
 
     /**
      * Default Constructor
      */
     public DukeInterface() {
         in = new Scanner(System.in);
-        isRunning = true;
     }
 
     public void printWelcomeMsg() {
@@ -40,19 +35,10 @@ public class DukeInterface {
         System.out.println(exitMsg);
     }
 
-    public void readInput() {
+    public String readInput() {
         System.out.println("\n[You]:");
-        input = in.nextLine();
-
-        if (input.equals("bye")) {
-            isRunning = false;
-        } else {
-            echoInput();
-        }
-    }
-
-    public void echoInput() {
-        System.out.println("\n[Duke]:\n-> The input entered is \"" + input + "\"");
+        String input = in.nextLine();
+        return input;
     }
 
 }
