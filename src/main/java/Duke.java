@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static String[] listItems = new String[100];
-    private static int itemCount = 0;
+    private static Task[] tasks = new Task[100];
+    private static int tasksCount = 0;
 
     public static void main(String[] args) {
         greetUser();
@@ -41,18 +41,31 @@ public class Duke {
 
     // Add items to list
     public static void addToList(String item) {
-        listItems[itemCount] = item;
-        itemCount++;
+        tasks[tasksCount] = new Task(item);
+        tasksCount++;
         printLine();
         System.out.println("     added: " + item);
+        printLine();
+    }
+
+    // Mark list item as completed
+    public static void markAsCompleted(int itemNumber) {
+        printLine();
+        if (itemNumber > tasksCount) {
+            System.out.println("     Invalid task selected.");
+        } else {
+            tasks[itemNumber - 1].markTaskAsDone();
+            System.out.println("     Nice! I've marked this task as done:\n       [X] " + tasks[itemNumber - 1].getDescription());
+        }
         printLine();
     }
 
     // Print out items in list
     public static void printList() {
         printLine();
-        for (int i = 0; i < itemCount; i++) {
-            System.out.println("     " + i + ". " + listItems[i]);
+        System.out.println("     Here are the tasks in your list:");
+        for (int i = 0; i < tasksCount; i++) {
+            System.out.println("     " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
         }
         printLine();
     }
@@ -68,6 +81,8 @@ public class Duke {
                 exitDuke();
             } else if (line.equals("list")) {
                 printList();
+            } else if (line.contains("done")) {
+                markAsCompleted(Integer.parseInt(line.substring(line.indexOf(" ") + 1)));
             } else {
                 addToList(line);
             }
