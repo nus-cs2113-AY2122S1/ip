@@ -2,13 +2,11 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String divisionLine = "    ____________________________________________________________\n";
-    private static final String greetings = "     Hello! I'm Duke\n" +
-            "     What can I do for you?\n";
+    private static final String greetings = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
     private static final String bye = "     Bye. Hope to see you again soon!\n";
 
 
-
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         //greeting page
         System.out.print(divisionLine + greetings + divisionLine);
 
@@ -21,8 +19,8 @@ public class Duke {
             String[] inputSplit = userInput.split(" ");
             UserInput input;
 
-            switch(inputSplit[0]) {
-            case "list" :
+            switch (inputSplit[0]) {
+            case "list":
                 input = new ListCommand(userInput);
                 break;
             case "blah":
