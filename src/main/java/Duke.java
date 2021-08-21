@@ -1,29 +1,32 @@
 public class Duke {
 
-    public static void printHorizontal() {
+    public void printHorizontal() {
         System.out.println("____________________________________________________________");
     }
 
-    public static void greetUser() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+    public void greet() {
+        final String logo = " ██████████              █████\n"
+                + "░░███░░░░███            ░░███\n"
+                + " ░███   ░░███ █████ ████ ░███ █████  ██████\n"
+                + " ░███    ░███░░███ ░███  ░███░░███  ███░░███\n"
+                + " ░███    ░███ ░███ ░███  ░██████░  ░███████\n"
+                + " ░███    ███  ░███ ░███  ░███░░███ ░███░░░\n"
+                + " ██████████   ░░████████ ████ █████░░██████\n"
+                + "░░░░░░░░░░     ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░\n";
         printHorizontal();
         System.out.println("Welcome to\n" + logo);
-        System.out.println("Hello there! I'm Duke, your personal assistant chat bot.\n"
+        System.out.println("Hello there! I'm Duke, your very helpful personal assistant chat bot. \uD83D\uDE0A\n"
                 + "What can I do for you today?");
         printHorizontal();
     }
 
-    public static void exitUser() {
-        System.out.println("Bye! See you again soon. \uD83D\uDE04");
+    public void exit() {
+        System.out.println("Bye! Have a great day ahead and see you again soon. \uD83D\uDE04");
         printHorizontal();
     }
 
-    public static void main(String[] args) {
-        greetUser();
-        exitUser();
+    public void echo(String command) {
+        System.out.println(command);
+        printHorizontal();
     }
 }
