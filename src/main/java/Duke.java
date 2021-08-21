@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Duke {
     // Print logo
-    public static void printLogo(){
+    public static void printLogo() {
         // Generated ASCII Art - https://patorjk.com/software/taag/#p=display&f=Dancing%20Font&t=Duke
         String logo = "  ____     _   _    _  __  U _____ u \n"
                 + " |  _\"\\ U |\"|u| |  |\"|/ /  \\| ___\"|/ \n"
@@ -16,7 +16,7 @@ public class Duke {
     }
 
     // Print Level-0. Skeletal Barebone, Greeting and Farewell
-    public static void printGreeting(){
+    public static void printGreeting() {
         String greeting = "____________________________________________________________\n"
                 + " Hello! You probably know that Iron Man has the best AI-assistant called Jarvis\n"
                 + " and Spiderman has hmmm, maybe his tingly spidey senses?\n"
@@ -26,16 +26,16 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    public static void printFarewell(){
+    public static void printFarewell() {
         String farewell = "____________________________________________________________\n"
                 + " Bye, have a nice day! From your friendly neighbourhood assistant, Duke~\n"
-                + " (NOICE, I can finally binge watch Rick and Morty~)\n"
+                + " (NICE, I can finally binge watch Rick and Morty~)\n"
                 + "____________________________________________________________";
         System.out.println(farewell);
     }
 
     // Level-2 Add method to add to Tasklist, List method to print Task in the current Tasklist
-    public static void addToTasklist(Task [] tasklist, int taskCounter, String taskname){
+    public static void addToTasklist(Task[] tasklist, int taskCounter, String taskname) {
         Task newTask = new Task(taskname);
         tasklist[taskCounter] = newTask;
         System.out.println("____________________________________________________________\n"
@@ -45,19 +45,19 @@ public class Duke {
                 + "____________________________________________________________");
     }
 
-    public static void printTasklist(Task [] tasklist, int taskCounter){
+    public static void printTasklist(Task[] tasklist, int taskCounter) {
         // validTasklist contains only Tasks that are not NULL
-        Task [] validTasklist = Arrays.copyOf(tasklist, taskCounter);
+        Task[] validTasklist = Arrays.copyOf(tasklist, taskCounter);
         System.out.println(" EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your TO-DO list...");
-        for (int i = 0; i < taskCounter; i++){
-            System.out.print(" " + (i+1) + ".[" + validTasklist[i].getStatusIcon() + "] ");
+        for (int i = 0; i < taskCounter; i++) {
+            System.out.print(" " + (i + 1) + ".[" + validTasklist[i].getStatusIcon() + "] ");
             System.out.println(validTasklist[i].getTaskname());
         }
         System.out.println("____________________________________________________________");
     }
 
     // Level-3 Mark Task as done and print out after-message
-    public static void markTaskAsDone(Task task){
+    public static void markTaskAsDone(Task task) {
         task.setDone();
         System.out.println(" Great! You didn't forget to do it! I have marked it as done!\n"
                 + " [" + task.getStatusIcon() + "] " + task.getTaskname() + "\n"
@@ -72,26 +72,24 @@ public class Duke {
         // initialize the user input "scanner"
         Scanner sc = new Scanner(System.in);
         String userCommand = "";
-        Task [] tasklist = new Task[100];
+        Task[] tasklist = new Task[100];
         int taskCounter = 0;
 
-        while (true){
+        while (true) {
             System.out.print(" What's your plans/command for today (No... I am not hitting on you) : ");
             userCommand = sc.nextLine();
-            if (userCommand.equalsIgnoreCase("Bye")){
+            if (userCommand.equalsIgnoreCase("Bye")) {
                 // Immediately break loop to print farewell and stop program
                 break;
             }
-            if (userCommand.equalsIgnoreCase("List") || userCommand.equals("")){
+            if (userCommand.equalsIgnoreCase("List") || userCommand.equals("")) {
                 printTasklist(tasklist, taskCounter);
-            }
-            else{
-                String [] params = userCommand.split(" ");
-                if (params[0].equalsIgnoreCase("Done")){
+            } else {
+                String[] params = userCommand.split(" ");
+                if (params[0].equalsIgnoreCase("Done")) {
                     int index = Integer.parseInt(params[1]);
-                    markTaskAsDone(tasklist[index-1]);
-                }
-                else{
+                    markTaskAsDone(tasklist[index - 1]);
+                } else {
                     addToTasklist(tasklist, taskCounter++, userCommand);
                 }
             }
