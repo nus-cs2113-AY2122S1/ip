@@ -4,35 +4,36 @@ import java.util.Arrays;
 public class Duke {
 
     public static void printLine() {
-        for(int x =0;x <= 50;x++){
+        for(int i =0;i <= 50;i++) {
             System.out.print("~");
         }
         System.out.println(" ");
     }
 
-    public static void echo(String line){
+    public static void echoMessage(String line) {
         System.out.println("Owl: I've remembered that!\nOwl: You said this: " + line);
     }
 
-    public static void list(String[] datas){
-        int dataIndex = 0;
+    public static void listTask(Task[] taskList) {
+        int taskIndex = 0;
         int index = 1;
         System.out.println("This is all the things I've remembered for you:");
-        for(String data:datas) {
-            System.out.println(index + ". " + datas[dataIndex]);
+        for(Task task:taskList) {
+            Task theTask = taskList[taskIndex];
+            System.out.println(index + ".[" + (theTask.getStatus()) + "] "+ theTask.getDescription());
             index++;
-            dataIndex++;
+            taskIndex++;
         }
     }
 
     public static void main(String[] args) {
 
-        String logo = " ______   _       _   _\n"
+        String LOGO = " ______   _       _   _\n"
                 + "|  __  | | | ___ | | | | \n"
                 + "| |  | | | |/   \\| | | | \n"
                 + "| |__| | |   / \\   | | |____\n"
                 + "|______| |__/   \\__| |______|\n";
-        System.out.println(logo);
+        System.out.println(LOGO);
         printLine();
 
         Scanner in = new Scanner(System.in);
@@ -41,27 +42,48 @@ public class Duke {
         System.out.println("How can I help you?");
         printLine();
 
-        String line;
-        String[] datas = new String[100];
-        int dataIndex = 0;
-        line = in.nextLine();
-        while(!line.equals("bye")){//while the command is not bye it keeps asking for more
-            if(line.equals("list")){
-                if(dataIndex > 0) {
-                    list(Arrays.copyOf(datas, dataIndex));
+        Task[] taskList = new Task[100];
+        int taskIndex = 0;
+
+        String command;
+        command = in.nextLine();
+        boolean isFinish = false;
+
+        //while the command is not bye it keeps asking for more
+        while(!command.equals("bye")) {
+            String[] breakDown = command.split(" ");
+            int size = breakDown.length;
+            //If its a 2 part command and first is done second is digit
+            if(size == 2 && breakDown[0].equals("done")) {
+                int taskNumber = Integer.parseInt(breakDown[1]);
+                int arrayIndex = taskNumber-1;
+                taskList[arrayIndex].markDone();
+                System.out.println("Oooh I see you've done task " + taskNumber);
+                isFinish = true;
+            }
+
+            if(command.equals("list")) {
+                if(taskIndex > 0) {
+                    listTask(Arrays.copyOf(taskList,taskIndex));
                 }
+                isFinish = true;
             }
-            if(!line.isEmpty() && !line.equals("list")) {
-                datas[dataIndex] = line;
-                dataIndex++;
+
+            if(!command.isEmpty() && !isFinish) {
+                taskList[taskIndex] = new Task(command);
+                taskIndex++;
                 printLine();
-                echo(line);
+                echoMessage(command);
                 printLine();
             }
-            line = in.nextLine();
+            command = in.nextLine();
+            isFinish = false;
         }
+
+        //If command is bye
         printLine();
         System.out.println("SQUAWK! See you next time! :)");
         printLine();
     }
 }
+
