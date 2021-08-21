@@ -2,12 +2,12 @@ public class Task {
 
     private String descr; //descr as an abbreviation for description
     private boolean isDone;
-    private static int listLength = 0;
+    private static int totalTasks = 0;
 
     public Task(String descr) {
         this.descr = descr;
         this.isDone = false;
-        listLength++;
+        totalTasks++;
     }
 
     public String getStatusIcon() {
@@ -22,8 +22,8 @@ public class Task {
         this.isDone = true;
     }
 
-    public static int getListLength() {
-        return listLength;
+    public static int getTotalTasks() {
+        return totalTasks;
     }
 
 }

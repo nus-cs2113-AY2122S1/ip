@@ -29,12 +29,12 @@ public class Duke {
 
             case "list":
                 System.out.println("____________________________________________________________");
-                if (Task.getListLength() == 0) {
+                if (Task.getTotalTasks() == 0) {
                     System.out.println("There are no tasks added yet!");
                     System.out.println("____________________________________________________________");
                     break;
                 }
-                for (int i = 0; i < Task.getListLength(); i++) {
+                for (int i = 0; i < Task.getTotalTasks(); i++) {
                     System.out.println((i + 1) + "." + taskList[i].getStatusIcon() + " " + taskList[i].getDescr());
                 }
                 System.out.println("____________________________________________________________");
@@ -51,7 +51,7 @@ public class Duke {
                 break;
 
             default:
-                taskList[Task.getListLength()] = new Task(strInput);
+                taskList[Task.getTotalTasks()] = new Task(strInput);
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + strInput);
                 System.out.println("____________________________________________________________");
