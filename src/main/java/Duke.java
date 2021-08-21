@@ -40,8 +40,8 @@ public class Duke {
 
     public static void interactWithUser() {
         boolean isInteracting = true;
-        String[] entryList = new String[100];
-        int entryListLength = 0;
+        Task[] tasks = new Task[100];
+        int tasksCount = 0;
 
         while (isInteracting) {
             String userInput = getUserInput().strip();
@@ -54,19 +54,31 @@ public class Duke {
                 break;
             case "list":
                 printLine();
-                for (int i = 0; i < entryListLength; i++) {
-                    System.out.println("  " + i + ". " + entryList[i]);
+                System.out.println("  Here are your tasks:");
+                for (int i = 0; i < tasksCount; i++) {
+                    System.out.print("    " + (i + 1) + ".");
+                    tasks[i].printTask();
                 }
+                printLine();
+                break;
+            case "done":
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                tasks[taskIndex].setCompleted();
+                printLine();
+                System.out.print("  Ok! I've marked this task as done:\n    ");
+                tasks[taskIndex].printTask();
                 printLine();
                 break;
             default:
                 printLine();
                 System.out.println("  added: " + userInput);
                 printLine();
-                entryList[entryListLength] = userInput;
-                entryListLength++;
+                tasks[tasksCount] = new Task(userInput);
+                tasksCount++;
                 break;
             }
         }
     }
+
+
 }
