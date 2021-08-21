@@ -1,7 +1,9 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         printStartMessage();
-        printExitMessage();
+        interactWithUser();
     }
 
     public static void printAppLogo() {
@@ -14,17 +16,40 @@ public class Duke {
     }
 
     public static void printLine() {
-        System.out.println("______________________________________");
+        System.out.println("  ──────────────────────────────");
     }
 
     public static void printStartMessage() {
         printLine();
-        System.out.println("Hello! I'm Duke\n How may I assist you");
+        System.out.println("  Hello! I'm Duke\n  How may I assist you");
         printLine();
     }
 
     public static void printExitMessage() {
-        System.out.println("Goodbye! Hope to see you soon!");
         printLine();
+        System.out.println("  Goodbye! Hope to see you soon!");
+        printLine();
+    }
+
+    public static String getUserInput() {
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+        return line;
+    }
+
+    public static void interactWithUser() {
+        boolean isInteracting = true;
+        while (isInteracting) {
+            String userInput = getUserInput();
+            if (userInput.equals("bye")) {
+                printExitMessage();
+                isInteracting = false;
+            } else {
+                printLine();
+                System.out.println("  " + userInput);
+                printLine();
+            }
+        }
     }
 }
