@@ -1,10 +1,17 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        final String HORIZONTAL_LINE = "___________________" +
+                "_________________________________________\n";
+        final String LOGO = "\n" +
+                "██████╗░░█████╗░████████╗███╗░░░███╗░█████╗░███╗░░██╗\n" +
+                "██╔══██╗██╔══██╗╚══██╔══╝████╗░████║██╔══██╗████╗░██║\n" +
+                "██████╦╝███████║░░░██║░░░██╔████╔██║███████║██╔██╗██║\n" +
+                "██╔══██╗██╔══██║░░░██║░░░██║╚██╔╝██║██╔══██║██║╚████║\n" +
+                "██████╦╝██║░░██║░░░██║░░░██║░╚═╝░██║██║░░██║██║░╚███║\n" +
+                "╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝";
+
+        System.out.println("Hello from\n" + LOGO);
+        System.out.println(HORIZONTAL_LINE + "Hello! I'm BATMAN\n" + "What can I do for you?\n" +
+                HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
     }
 }
