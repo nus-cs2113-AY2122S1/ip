@@ -15,15 +15,21 @@ public class Duke {
         System.out.println("    ____________________________________________________________\n");
 
         List list = new List();
-        keepAsking: while (true) {
+        keepAsking:
+        while (true) {
             String command = in.nextLine();
-            switch (command){
+            String commandWord = command.contains(" ")? command.substring(0, command.indexOf(' ')): command;
+            switch (commandWord) {
             case "bye":
                 break keepAsking;
             case "list":
                 list.printList();
                 break;
-            default:
+            case "done":
+                int indexOfDoneItem = Integer.parseInt(command.substring(command.indexOf(' ')  +1));
+                list.doneItem(indexOfDoneItem);
+                break;
+            default: // unknown command default to add as new item in the list
                 list.addItem(command);
             }
         }
