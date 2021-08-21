@@ -42,6 +42,7 @@ public class Duke {
             default:
                 taskManager.addTask(inputCommand.trim());
                 printMessage("added: " + inputCommand.trim());
+                break;
             }
         }
 
