@@ -49,17 +49,22 @@ public class Duke {
         String[] words = line.split(" ");
         boolean isBye = words[0].equals("bye");
         boolean isList = words[0].equals("list");
+        boolean isDone = words[0].equals("done");
         while (!isBye){
             //Echo(words);
-            if (!isList) {
+            if (!isList && !isDone) {
                 t1.addTask(line);
-            } else {
+            } else if (isList){
                 t1.listTasks();
+            } else if (isDone){
+                int markedIndex = Integer.parseInt(words[1]) - 1;
+                t1.markAsDone(markedIndex);
             }
             line = in.nextLine();
             words = line.split(" ");
             isBye = words[0].equals("bye");
             isList = words[0].equals("list");
+            isDone = words[0].equals("done");
         }
             Bye();
     }

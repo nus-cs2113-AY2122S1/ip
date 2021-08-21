@@ -11,4 +11,12 @@ public class Task {
         return description;
     }
 
+    public boolean isDone() {
+        return hasDone;
+    }
+
+    public void setAsDone() {
+        hasDone = true;
+    }
+
 }
