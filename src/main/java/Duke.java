@@ -10,16 +10,25 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         String userCommand;
-        String[] list = new String[100];
-        int i = 0;
+        Task [] tasks = new Task[100];
+        Scanner userType = new Scanner(System.in);
+        int taskNum = 0;
 
         greet();
         do {
-            Scanner userType = new Scanner(System.in);
             userCommand = userType.nextLine();
-            if (!Objects.equals(userCommand, "list")) list[i] = userCommand;
-            add(userCommand, list, i);
-            if (!Objects.equals(userCommand, "list")) i++;
+            if (userCommand.equals("list")) {
+                printList(tasks, taskNum);
+            }
+            else if (userCommand.contains("done")) {
+                int id = Integer.parseInt(userCommand.substring(5));
+                taskDone(tasks[id - 1]);
+            }
+            else {
+                taskNum++;
+                Task t = new Task(userCommand, taskNum);
+                addToList(t, tasks, taskNum);
+            }
         } while (!Objects.equals(userCommand, "bye"));
         exit();
     }
@@ -31,17 +40,18 @@ public class Duke {
         printSign();
     }
 
-    public static void add(String args, String[] list, int i) {
-        if (Objects.equals(args, "bye")) {
-            printSign();
-            return;
-        }
-        if (Objects.equals(args, "list")) {
-            printList(list, i);
-            return;
-        }
+    public static void taskDone(Task args) {
+        args.markAsDone();
         printSign();
-        System.out.println("added: " + args);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + "[X] " + args.description);
+        printSign();
+    }
+
+    public static void addToList(Task t, Task[] list, int taskNum) {
+        list[taskNum - 1] = t;
+        printSign();
+        System.out.println("added: " + t.description);
         printSign();
     }
 
@@ -55,11 +65,13 @@ public class Duke {
         printSign();
     }
 
-    public static void printList(String[] args, int length) {
+    public static void printList(Task[] args, int length) {
         printSign();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < length; i++) {
-            System.out.print(i+1 + ".");
-            System.out.println(" " + args[i]);
+            System.out.print(i + 1 + ".");
+            System.out.print("[" + args[i].getStatusIcon() + "]");
+            System.out.println(" " + args[i].description);
         }
         printSign();
     }
@@ -69,8 +81,8 @@ public class Duke {
         printSign();
     }
 
-    public static void printSign(){
-        for(int i = 1; i <= 20; i++){
+    public static void printSign() {
+        for (int i = 1; i <= 20; i++) {
             System.out.print("-");
         }
         System.out.println();
