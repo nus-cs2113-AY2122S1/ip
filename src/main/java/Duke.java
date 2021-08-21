@@ -53,7 +53,7 @@ public class Duke {
                     System.out.println("    " + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
                 }
             } else {
-                // If user has not said "bye", store user input as task
+                // If user has not said any other command, store user input as task
                 tasks[noOfTasks] = new Task(userInput);
                 noOfTasks++;
                 // Then, echo the task
