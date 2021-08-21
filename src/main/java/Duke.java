@@ -28,6 +28,9 @@ public class Duke {
             case "blah":
                 input = new Blah(userInput);
                 break;
+            case "done":
+                input = new Done(userInput);
+                break;
             default:
                 input = new AddList(userInput);
             }
