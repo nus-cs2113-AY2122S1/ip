@@ -1,12 +1,16 @@
+import java.util.Scanner;
 public class Duke {
 
-    public static void printLine(String[] args) {
+    public static void printLine() {
         for(int x =0;x <= 50;x++){
-            System.out.print("-");
+            System.out.print("~");
         }
         System.out.println(" ");
     }
 
+    public static void echo(String line){
+        System.out.println("OWL: " + line);
+    }
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -14,11 +18,35 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        printLine(args);
-        System.out.println("Hello! I'm Duke'");
-        System.out.println("What can I do for you?");
-        printLine(args);
-        System.out.println("Bye. Hope to see you again soon!");
+
+        String logo2 = " ______   _       _   _\n"
+                + "|  __  | | | ___ | | | | \n"
+                + "| |  | | | |/   \\| | | | \n"
+                + "| |__| | |   / \\   | | |____\n"
+                + "|______| |__/   \\__| |______|\n";
+
+
+
+
+        String line;
+        System.out.println(logo2);
+        printLine();
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("SQUAWK!!!");
+        System.out.println("How can I help you?");
+        printLine();
+        line = in.nextLine();
+        while(!line.equals("bye")){//while the command is not bye it keeps asking for more
+            if(!line.isEmpty()) {
+                printLine();
+                echo(line);
+                printLine();
+            }
+            line = in.nextLine();
+        }
+        printLine();
+        System.out.println("SQUAWK! See you next time!");
+        printLine();
     }
 }
