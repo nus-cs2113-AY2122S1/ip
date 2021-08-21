@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,11 +24,25 @@ public class Duke {
                             + horizontalLine);
         //initialise Scanner
         Scanner in = new Scanner(System.in);
+        //initialise TaskManager
+        TaskManager taskManager = new TaskManager();
+
         boolean conversationIsOver = false;
         while (!conversationIsOver) {
-            String command = in.nextLine();
-            if (command.equalsIgnoreCase("bye")) conversationIsOver = true;
-            printMessage(command);
+            //switch to lowercase so that Duke won't be case sensitive
+            String inputCommand = in.nextLine();
+            String command = inputCommand.toLowerCase();
+            switch(command) {
+            case "list":
+                taskManager.printTasks();
+                break;
+            case "bye":
+                conversationIsOver = true;
+                break;
+            default:
+                taskManager.addTask(inputCommand.trim());
+                printMessage("added: " + inputCommand.trim());
+            }
         }
 
 
