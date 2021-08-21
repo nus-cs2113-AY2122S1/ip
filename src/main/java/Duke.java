@@ -13,7 +13,6 @@ public class Duke {
 
         //Initialize Variables
         String strInput = "";
-        int listLength = 0;
         Task[] taskList = new Task[100];
 
         //Main loop
@@ -30,7 +29,7 @@ public class Duke {
 
             case "list":
                 System.out.println("____________________________________________________________");
-                for (int i = 0; i < listLength; i++) {
+                for (int i = 0; i < Task.getListLength(); i++) {
                     System.out.println((i + 1) + "." + taskList[i].getStatusIcon() + " " + taskList[i].getDescr());
                 }
                 System.out.println("____________________________________________________________");
@@ -47,8 +46,7 @@ public class Duke {
                 break;
 
             default:
-                taskList[listLength] = new Task(strInput);
-                listLength++;
+                taskList[Task.getListLength()] = new Task(strInput);
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + strInput);
                 System.out.println("____________________________________________________________");

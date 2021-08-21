@@ -1,10 +1,12 @@
 public class Task {
-    protected String descr; //descr as an abbreviation for description
-    protected boolean isDone;
+    private String descr; //descr as an abbreviation for description
+    private boolean isDone;
+    private static int listLength = 0;
 
     public Task(String descr) {
         this.descr = descr;
         this.isDone = false;
+        listLength++;
     }
 
     public String getStatusIcon() {
@@ -17,5 +19,9 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public static int getListLength() {
+        return listLength;
     }
 }
