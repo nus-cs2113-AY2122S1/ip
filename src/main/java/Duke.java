@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String divider = "    ————————————————————————————————————————————————————————————";
+        String divider = "    ——————————————————————————————————————————————————————————————";
         System.out.println(divider);
         System.out.println("    Hello! I'm Duke\n    What can I do for you?");
         System.out.println(divider);
