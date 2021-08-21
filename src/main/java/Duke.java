@@ -29,6 +29,10 @@ public class Duke {
                 int indexOfDoneItem = Integer.parseInt(command.substring(command.indexOf(' ')  +1));
                 list.doneItem(indexOfDoneItem);
                 break;
+            case "undone":
+                int indexOfUndoneItem = Integer.parseInt(command.substring(command.indexOf(' ')  +1));
+                list.undoneItem(indexOfUndoneItem);
+                break;
             default: // unknown command default to add as new item in the list
                 list.addItem(command);
             }

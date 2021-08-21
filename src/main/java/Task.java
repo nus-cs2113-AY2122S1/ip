@@ -33,7 +33,7 @@ public class Task {
             System.out.println("    ____________________________________________________________");
             System.out.println("     Warning! The task is not done yet:");
         }
-        System.out.println("       [X] " + description);
+        System.out.println("       [ ] " + description);
         System.out.println("    ____________________________________________________________");
     }
 

@@ -8,13 +8,25 @@ public class List {
         numOfListItems = 0;
     }
 
+    public void addItems(String[] items) {
+        System.out.println("    ____________________________________________________________");
+        for (int i = 0; i < items.length; i++) {
+            addItem(items[i], false);
+        }
+        System.out.println("    ____________________________________________________________");
+    }
+
     public void addItem(String item) {
+        addItem(item, true);
+    }
+
+    public void addItem(String item, boolean divLine) {
         items[numOfListItems] = new Task(item);
         numOfListItems++;
 
-        System.out.println("    ____________________________________________________________");
+        if (divLine) System.out.println("    ____________________________________________________________");
         System.out.println("     added: " + item);
-        System.out.println("    ____________________________________________________________");
+        if (divLine) System.out.println("    ____________________________________________________________");
     }
 
     public void doneItem(int indexOfDoneItem) {
@@ -22,7 +34,7 @@ public class List {
         items[adjustedIndex].markAsDone();
     }
 
-    public void undoneItem(int indexOfDoneItem){
+    public void undoneItem(int indexOfDoneItem) {
         int adjustedIndex = indexOfDoneItem - 1;
         items[adjustedIndex].markAsNotDone();
     }
