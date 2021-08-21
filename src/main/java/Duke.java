@@ -40,15 +40,32 @@ public class Duke {
 
     public static void interactWithUser() {
         boolean isInteracting = true;
+        String[] entryList = new String[100];
+        int entryListLength = 0;
+
         while (isInteracting) {
-            String userInput = getUserInput();
-            if (userInput.equals("bye")) {
+            String userInput = getUserInput().strip();
+            String[] words = userInput.split(" ");
+
+            switch (words[0]) {
+            case "bye":
                 printExitMessage();
                 isInteracting = false;
-            } else {
+                break;
+            case "list":
                 printLine();
-                System.out.println("  " + userInput);
+                for (int i = 0; i < entryListLength; i++) {
+                    System.out.println("  " + i + ". " + entryList[i]);
+                }
                 printLine();
+                break;
+            default:
+                printLine();
+                System.out.println("  added: " + userInput);
+                printLine();
+                entryList[entryListLength] = userInput;
+                entryListLength++;
+                break;
             }
         }
     }
