@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String input;
+        int count = 0;
+        String[] lists = new String[100];
         Scanner in = new Scanner(System.in);
 
         //logo
@@ -20,9 +22,19 @@ public class Duke {
         //ask user for input
         input = in.nextLine();
         while (!input.equals("bye")) {
-            System.out.println("________________________________________________________");
-            System.out.println("     " + input);
-            System.out.println("________________________________________________________");
+            if (input.equals("list")) {
+                System.out.println("________________________________________________________");
+                for (int i = 0; i < count; i++) {
+                    System.out.println((i + 1) + ". " + lists[i]);
+                }
+                System.out.println("________________________________________________________");
+            } else {
+                System.out.println("________________________________________________________");
+                System.out.println("Added: " + input);
+                lists[count] = input;
+                count++;
+                System.out.println("________________________________________________________");
+            }
             input = in.nextLine();
         }
 
