@@ -1,4 +1,5 @@
 public class Task {
+
     private String descr; //descr as an abbreviation for description
     private boolean isDone;
     private static int listLength = 0;
@@ -24,4 +25,5 @@ public class Task {
     public static int getListLength() {
         return listLength;
     }
+
 }
