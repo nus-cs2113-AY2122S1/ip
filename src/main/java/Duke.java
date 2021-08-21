@@ -12,13 +12,14 @@ public class Duke {
             "██████╦╝██║░░██║░░░██║░░░██║░╚═╝░██║██║░░██║██║░╚███║\n" +
             "╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝";
 
-    private static final String[] userInputs = new String[100];
+    private static final Task[] userInputs = new Task[100];
     private static int numOfUserInput = 0;
 
     private static void printList() {
         System.out.print(HORIZONTAL_LINE);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numOfUserInput; i++) {
-            System.out.println(i+1 + ". " + userInputs[i]);
+            System.out.println(i+1 + "." + userInputs[i].getStatus() + " " + userInputs[i].getDescription());
         }
         System.out.print(HORIZONTAL_LINE);
     }
@@ -40,7 +41,21 @@ public class Duke {
                 printList();
                 continue;
             }
-            userInputs[numOfUserInput] = line;
+            String[] words = line.split(" ");
+            if (words[0].equals("done")) {
+                int number = Integer.parseInt(words[1]);
+                if (number > numOfUserInput) {
+                    System.out.println("Invalid number.");
+                    continue;
+                }
+                userInputs[number-1].markDone();
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Cool I have eliminated this task:");
+                System.out.println(userInputs[number - 1].getStatus() + " " + userInputs[number - 1].getDescription());
+                System.out.print(HORIZONTAL_LINE);
+                continue;
+            }
+            userInputs[numOfUserInput] = new Task(line);
             numOfUserInput++;
             System.out.print(HORIZONTAL_LINE + "added: " + line + "\n" +
                     HORIZONTAL_LINE);
