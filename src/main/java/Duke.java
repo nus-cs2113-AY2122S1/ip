@@ -9,25 +9,23 @@ public class Duke {
                 + "| |_| | |_| |   <  /\n"
                 + "|____/ \\,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        String userCommand;
-        Task [] tasks = new Task[100];
-        Scanner userType = new Scanner(System.in);
         int taskNum = 0;
+        String userCommand;
+        Task[] tasks = new Task[100];
+        Scanner userType = new Scanner(System.in);
 
         greet();
         do {
+            // Read in the keyboard input from users, and react to different command
             userCommand = userType.nextLine();
             if (userCommand.equals("bye")) {
                 break;
-            }
-            else if (userCommand.equals("list")) {
+            } else if (userCommand.equals("list")) {
                 printList(tasks, taskNum);
-            }
-            else if (userCommand.contains("done")) {
+            } else if (userCommand.contains("done")) {
                 int id = Integer.parseInt(userCommand.substring(5));
                 taskDone(tasks[id - 1]);
-            }
-            else {
+            } else {
                 taskNum++;
                 Task t = new Task(userCommand, taskNum);
                 addToList(t, tasks, taskNum);
@@ -44,6 +42,7 @@ public class Duke {
     }
 
     public static void taskDone(Task args) {
+        // Mark the relevant task as "done", and print out a line indicates that the task is marked as done
         args.markAsDone();
         printSign();
         System.out.println("Nice! I've marked this task as done:");
@@ -52,6 +51,7 @@ public class Duke {
     }
 
     public static void addToList(Task t, Task[] list, int taskNum) {
+        // Add a new task to the task list, and print out this task is added
         list[taskNum - 1] = t;
         printSign();
         System.out.println("added: " + t.description);
@@ -69,6 +69,7 @@ public class Duke {
     }
 
     public static void printList(Task[] args, int length) {
+        // Print out the whole task list with their status icons
         printSign();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < length; i++) {
@@ -80,12 +81,14 @@ public class Duke {
     }
 
     public static void exit() {
+        // Exit the program one user key in "bye"
         printSign();
         System.out.println("Bye. Hope to see you again soon!\n");
         printSign();
     }
 
     public static void printSign() {
+        // Print out a "-" line
         for (int i = 1; i <= 20; i++) {
             System.out.print("-");
         }
