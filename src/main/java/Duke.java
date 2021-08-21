@@ -1,8 +1,10 @@
+import java.util.Scanner;
+
 public class Duke {
 
     public static void main(String[] args) {
         greetUser();
-        exitDuke();
+        executeResponse();
     }
 
     // Template code to check if editor is working
@@ -15,17 +17,45 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
     }
 
+    // Prints a separator line
+    public static void printLine() {
+        System.out.println("    ____________________________________________________________");
+    }
+
     // Greeting message
     public static void greetUser() {
-        String hLine = "____________________________________________________________\n";
-        String wcMsg = " Hello! I'm Duke\n" + " What can I do for you?\n";
-        System.out.print(hLine + wcMsg);
+        printLine();
+        System.out.println("     Hello! I'm Duke\n     What can I do for you?");
+        printLine();
     }
 
     // Exit message
     public static void exitDuke() {
-        String hLine = "____________________________________________________________\n";
-        String exitMsg = " Bye. Hope to see you again soon!";
-        System.out.print(hLine + exitMsg + "\n" + hLine);
+        printLine();
+        System.out.println("     Bye. Hope to see you again soon!");
+        printLine();
     }
+
+    // Echos user message
+    public static void echoMessage(String message) {
+        printLine();
+        System.out.println("     " + message);
+        printLine();
+    }
+
+    // Executes an appropriate response based on the input message
+    public static void executeResponse() {
+        String line;
+        Scanner in = new Scanner(System.in);
+        do {
+            System.out.println();
+            line = in.nextLine();
+            if (line.equals("bye")) {
+                exitDuke();
+            } else {
+                echoMessage(line);
+            }
+        } while (!line.equals("bye"));
+    }
+
 }
