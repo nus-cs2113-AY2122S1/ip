@@ -17,6 +17,9 @@ public class Duke {
             case "list":
                 taskManager.listTasks();
                 break;
+            case "done":
+                taskManager.markAsDone(Integer.parseInt(input[1]));
+                break;
             default:
                 taskManager.addTask(input[0] + " " + input[1]);
                 break;

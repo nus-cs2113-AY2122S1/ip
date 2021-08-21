@@ -1,5 +1,5 @@
 public class TaskManager {
-    private String[] tasks = new String[100];
+    private Task[] tasks = new Task[100];
     private int numTask = 0;
 
     public TaskManager() {
@@ -21,8 +21,16 @@ public class TaskManager {
         System.out.println(greeting);
     }
 
+    public void exitMessage() {
+        String message = "_________________________________________\n"
+                + "Bye. Have a nice day!\n"
+                + "_________________________________________\n";
+        System.out.println(message);
+    }
+
     public void addTask(String task) {
-        tasks[numTask] = task;
+        Task t = new Task(task);
+        tasks[numTask] = t;
         System.out.println("_________________________________________\n" +
                 "added: " + task +
                 "\n_________________________________________\n");
@@ -35,16 +43,23 @@ public class TaskManager {
             System.out.println("No Tasks");
         } else {
             for (int i = 0; i < numTask; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+                System.out.println((i + 1) + ". " + tasks[i].displayTask());
             }
         }
         System.out.println("_________________________________________");
     }
 
-    public void exitMessage() {
-        String message = "_________________________________________\n"
-                + "Bye. Have a nice day!\n"
-                + "_________________________________________\n";
-        System.out.println(message);
+    public void markAsDone(int number) {
+        System.out.println("_________________________________________");
+        if (number > numTask) {
+            System.out.println("Invalid task number");
+        } else {
+            tasks[number - 1].markAsDone();
+            System.out.println("Congrats on finishing a task! Have a cookie!");
+            System.out.println(tasks[number - 1].displayTask());
+        }
+        System.out.println("_________________________________________");
     }
+
+
 }
