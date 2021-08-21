@@ -6,7 +6,7 @@ public class Duke {
     public static void printMessage(String message) {
         String horizontalLine = "____________________________________________________________";
         System.out.println(horizontalLine + System.lineSeparator() + message + System.lineSeparator()
-                            + horizontalLine);
+                + horizontalLine);
     }
 
     public static void main(String[] args) {
@@ -19,9 +19,9 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println(horizontalLine + System.lineSeparator()
-                            + "Hello! I'm Duke" + System.lineSeparator()
-                            + "What can I do for you?" + System.lineSeparator()
-                            + horizontalLine);
+                + "Hello! I'm Duke" + System.lineSeparator()
+                + "What can I do for you?" + System.lineSeparator()
+                + horizontalLine);
         //initialise Scanner
         Scanner in = new Scanner(System.in);
         //initialise TaskManager
@@ -31,10 +31,13 @@ public class Duke {
         while (!conversationIsOver) {
             //switch to lowercase so that Duke won't be case sensitive
             String inputCommand = in.nextLine();
-            String command = inputCommand.toLowerCase();
-            switch(command) {
+            String command = inputCommand.toLowerCase().split(" ")[0];
+            switch (command) {
             case "list":
                 taskManager.printTasks();
+                break;
+            case "done":
+                taskManager.setTaskAsDone(Integer.parseInt(inputCommand.split(" ")[1]));
                 break;
             case "bye":
                 conversationIsOver = true;
