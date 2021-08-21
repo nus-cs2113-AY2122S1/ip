@@ -12,6 +12,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println(" Hey there! I'm Duke.");
         System.out.println(" How may I help you?");
+        System.out.println("____________________________________________________________");
     }
 
     public static void printTaskList(Task[] tasks) {
@@ -29,11 +30,28 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static void printTaskDone(Task[] tasks, int taskCount, String doneTask) {
         String[] doneSentence = doneTask.split(" ");
+
         if (doneSentence.length != 2) {
             System.out.println("____________________________________________________________");
-            System.out.println(" Your command is of the wrong format! To mark a task as done, enter \"done {ID of done task}\"");
+            System.out.println(" Your command is of the wrong format! To mark a task as done, enter \"done {ID of done task}\".");
+            System.out.println("____________________________________________________________");
+            return;
+        }
+
+        if (!isNumeric(doneSentence[1])) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Your command is of the wrong format! Enter a number for your task ID.");
             System.out.println("____________________________________________________________");
             return;
         }
@@ -69,8 +87,8 @@ public class Duke {
         Task[] tasks = new Task[100];
         line = in.nextLine();
 
-        while (!line.equalsIgnoreCase("bye")) {
-            if (line.equalsIgnoreCase("list")) {
+        while (!line.trim().equalsIgnoreCase("bye")) {
+            if (line.trim().equalsIgnoreCase("list")) {
                 printTaskList(Arrays.copyOf(tasks, taskCount));
             } else if (line.toLowerCase().startsWith("done")) {
                 printTaskDone(tasks, taskCount, line);
