@@ -17,13 +17,16 @@ public class Duke {
     public static void listTask(Task[] taskList) {
         int taskIndex = 0;
         int index = 1;
-        System.out.println("This is all the things I've remembered for you:");
+        printLine();
+        System.out.println("This are all the things I've remembered for you:");
+        printLine();
         for(Task task:taskList) {
             Task theTask = taskList[taskIndex];
             System.out.println(index + ".[" + (theTask.getStatus()) + "] "+ theTask.getDescription());
             index++;
             taskIndex++;
         }
+        printLine();
     }
 
     public static void main(String[] args) {
@@ -58,7 +61,9 @@ public class Duke {
                 int taskNumber = Integer.parseInt(breakDown[1]);
                 int arrayIndex = taskNumber-1;
                 taskList[arrayIndex].markDone();
+                printLine();
                 System.out.println("Oooh I see you've done task " + taskNumber);
+                printLine();
                 isFinish = true;
             }
 
