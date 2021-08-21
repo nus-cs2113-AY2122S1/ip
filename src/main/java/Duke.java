@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static Task[] tasks = new Task[100];
+    private static int noOfTasks = 0;
+
     public static void printLine(){
         String line = "\t__________________________________________________";
         System.out.println(line);
@@ -18,7 +21,7 @@ public class Duke {
         System.out.println("\tBye. Hope to see you again soon!");
         printLine();
     }
-
+/*
     public static void Echo(String[] words){
         printLine();
         System.out.print("\t");
@@ -28,6 +31,10 @@ public class Duke {
         System.out.println("");
         printLine();
     }
+
+ */
+
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -36,16 +43,24 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         Greet();
+        TaskManager t1 = new TaskManager();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String[] words = line.split(" ");
         boolean isBye = words[0].equals("bye");
+        boolean isList = words[0].equals("list");
         while (!isBye){
-            Echo(words);
+            //Echo(words);
+            if (!isList) {
+                t1.addTask(line);
+            } else {
+                t1.listTasks();
+            }
             line = in.nextLine();
             words = line.split(" ");
             isBye = words[0].equals("bye");
+            isList = words[0].equals("list");
         }
-        Bye();
+            Bye();
     }
 }
