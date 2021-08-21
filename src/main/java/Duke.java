@@ -2,12 +2,15 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static String[] listItems = new String[100];
+    private static int itemCount = 0;
+
     public static void main(String[] args) {
         greetUser();
         executeResponse();
     }
 
-    // Template code to check if editor is working
+    // Template code to check if IDE is working
     public static void printDukeLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -36,10 +39,21 @@ public class Duke {
         printLine();
     }
 
-    // Echos user message
-    public static void echoMessage(String message) {
+    // Add items to list
+    public static void addToList(String item) {
+        listItems[itemCount] = item;
+        itemCount++;
         printLine();
-        System.out.println("     " + message);
+        System.out.println("     added: " + item);
+        printLine();
+    }
+
+    // Print out items in list
+    public static void printList() {
+        printLine();
+        for (int i = 0; i < itemCount; i++) {
+            System.out.println("     " + i + ". " + listItems[i]);
+        }
         printLine();
     }
 
@@ -52,8 +66,10 @@ public class Duke {
             line = in.nextLine();
             if (line.equals("bye")) {
                 exitDuke();
+            } else if (line.equals("list")) {
+                printList();
             } else {
-                echoMessage(line);
+                addToList(line);
             }
         } while (!line.equals("bye"));
     }
