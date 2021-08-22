@@ -19,7 +19,7 @@ public class Duke {
 
         String line = "";
         Scanner in = new Scanner(System.in);
-        while (!line.equals("bye")) { //while user input != bye, case insensitive
+        while (!line.equalsIgnoreCase("bye")) { //while user input != bye, case insensitive
             line = in.nextLine();
             Echo(line);
         }
