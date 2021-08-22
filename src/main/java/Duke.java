@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    static String[] todolist = new String[100];
+    static Task[] todolist = new Task[100];
     static int itemCount = 0;
 
     public static void Echo(String message) {
@@ -10,17 +10,29 @@ public class Duke {
             return;
         }
 
+        if (message.contains("done")) {
+            String [] parts = message.split(" ");
+            int index=Integer.parseInt(parts[1]) - 1;
+            todolist[index].markAsDone();
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Nice! I've marked this task as done: ");
+            System.out.printf("       %s", todolist[index]);
+            System.out.println("    ____________________________________________________________");
+            return;
+        }
+
         if (message.equalsIgnoreCase("list")) {
             System.out.println("    ____________________________________________________________");
+            System.out.println("     Here are the tasks in your list:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.printf("    %d. %s%n", i+1, todolist[i]);
+                System.out.printf("    %d.%s", i+1, todolist[i]);
             }
             System.out.println("    ____________________________________________________________");
             return;
         }
 
         //else
-        todolist[itemCount] = message; //add to todolist
+        todolist[itemCount] = new Task(message); //add to todolist
         itemCount++;
         System.out.println("    ____________________________________________________________");
         System.out.println("     added:" + message);
