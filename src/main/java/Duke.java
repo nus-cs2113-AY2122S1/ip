@@ -1,11 +1,43 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static int entryCount = 0;
+    private static String[] entries = new String[100];
 
     public static void reply(String input) {
+        if (input.equals("list")) {
+            getAndPrintList();
+        } else {
+            printReply(addEntry(input));
+        }
+    }
+
+    public static void printReply(String input) {
         System.out.println("   ____________________________________________________________\n" +
                 "       " + input + "\n" +
                 "   ____________________________________________________________");
+    }
+
+    public static String addEntry(String input) {
+        entries[entryCount] = input;
+        entryCount++;
+        return "added: " + input;
+    }
+
+    public static void getAndPrintList() {
+        //String fullList = "";
+        int i = 0;
+
+        System.out.println("   ____________________________________________________________");
+        for (String entry : entries) {
+            if (i >= entryCount) {
+                System.out.println("   ____________________________________________________________");
+                return;
+            }
+            //fullList += Integer.toString(i) + ". " + entry + "\n";
+            System.out.println("       " + i + ". " + entry);
+            i++;
+        }
     }
 
     public static void main(String[] args) {
