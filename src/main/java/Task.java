@@ -8,9 +8,16 @@ public class Task {
     }
 
     //Getters
-    public String getStatusIcon() {return (isDone ? "X" : " ");}
-    public String getDescription() { return description; }
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     // Setters
-    public void markAsDone() { isDone = true; }
+    public void markAsDone() {
+        isDone = true;
+    }
 }

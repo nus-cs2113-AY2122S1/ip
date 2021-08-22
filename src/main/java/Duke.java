@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         String description;
-        ArrayList<Task> toDoList = new ArrayList<Task>();
+        ArrayList<Task> toDoList = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
         System.out.println("\tHello! I'm Duke \uD83D\uDE04");
