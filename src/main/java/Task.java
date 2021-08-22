@@ -11,12 +11,12 @@ public class Task {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
 
-    public void markAsDone() {
+    public void setDone() {
         this.isDone = true;
     }
+
     @Override
     public String toString() {
         return String.format("[%s] %s\n", getStatusIcon(), description);
     }
-
 }
