@@ -7,7 +7,7 @@ public class Duke {
 
     // prints message and new line to command line output
     public static void printMessage(String message, boolean extra_line){
-        System.out.println(message);
+        System.out.println("\t" + message);
         if (extra_line) System.out.println();
     }
 
@@ -20,10 +20,10 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         dividerLine();
-        printMessage(" Hello! I'm Duke", false);
-        printMessage(" What can I do for you?", true);
+        printMessage("Hello! I'm Duke", false);
+        printMessage("What can I do for you?", true);
         dividerLine();
-        printMessage(" Bye. Hope to see you again soon!", true);
+        printMessage("Bye. Hope to see you again soon!", true);
         dividerLine();
     }
 }
