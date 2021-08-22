@@ -1,16 +1,19 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final int DEFAULT_LINE_LENGTH = 32;
+    private static final int DEFAULT_LINE_LENGTH = 40;
     private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
+    private static String[] tasks = new String[100];
+    private static int taskCount = 0;
+
     public static void greet() {
         drawHorizontalLine();
-        System.out.println("Hello! I'm Duke, your personal assistant");
+        System.out.println("Hello! I'm Duke, your personal assistant.");
         System.out.println("How can I help you?");
         drawHorizontalLine();
     }
@@ -21,10 +24,18 @@ public class Duke {
         drawHorizontalLine();
     }
 
-    public static void echo(String input) {
+    public static void addTask(String input) {
+        tasks[taskCount] = input;
+        taskCount++;
         drawHorizontalLine();
-        System.out.println(input);
+        System.out.printf("I have added %s into your list %n", input);
         drawHorizontalLine();
+    }
+
+    public static String readCommand(Scanner in) {
+        System.out.print(">> ");
+        String input = in.nextLine();
+        return input;
     }
 
     public static void drawHorizontalLine() {
@@ -34,17 +45,37 @@ public class Duke {
         System.out.println("");
     }
 
+    public static void displayTask() {
+        drawHorizontalLine();
+        if (taskCount == 0) {
+            System.out.println("No task added yet!");
+        } else {
+            for (int i = 0; i < taskCount; i++) {
+                System.out.printf("%d. %s %n", i + 1, tasks[i]);
+            }
+        }
+        drawHorizontalLine();
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello from\n" + LOGO);
+        boolean finished = false;
+        System.out.println(LOGO);
         greet();
-        System.out.print(">> ");
-        String input = in.nextLine();
-        while (!input.equals("bye")) {
-            echo(input);
-            System.out.print(">> ");
-            input = in.nextLine();
+        String input;
+        while (!finished) {
+            input = readCommand(in);
+            switch (input.toLowerCase()) {
+            case "list":
+                displayTask();
+                break;
+            case "bye":
+                finished = true;
+                sayGoodbye();
+                break;
+            default:
+                addTask(input);
+            }
         }
-        sayGoodbye();
     }
 }
