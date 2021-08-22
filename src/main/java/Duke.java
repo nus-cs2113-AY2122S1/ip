@@ -1,37 +1,58 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+    public static void printMessage(String msg) {
+        String formattedMsg = "";
+        String underscores = "    ___________________________________________________________\n";
+        formattedMsg += underscores + msg + underscores;
+        System.out.println(formattedMsg);
+    }
+
+    public static void printTasks(ArrayList<Task> tasks) {
+        String formattedMsg = "";
+        String underscores = "    ___________________________________________________________\n";
+        formattedMsg += underscores;
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task curTask = tasks.get(i);
+            formattedMsg += "     " + (i + 1) + ". " + curTask.getDescription() + "\n";
+        }
+        formattedMsg += underscores;
+        System.out.println(formattedMsg);
+    }
+
     public static void main(String[] args) {
-        String leadingSpaces = "    ";
-        String underscores = leadingSpaces + "___________________________________________________________\n";
-        String logo = leadingSpaces + " ____        _        \n"
-                + leadingSpaces + "|  _ \\ _   _| | _____ \n"
-                + leadingSpaces + "| | | | | | | |/ / _ \\\n"
-                + leadingSpaces + "| |_| | |_| |   <  __/\n"
-                + leadingSpaces + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "     ____        _        \n"
+                + "    |  _ \\ _   _| | _____ \n"
+                + "    | | | | | | | |/ / _ \\\n"
+                + "    | |_| | |_| |   <  __/\n"
+                + "    |____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
 
-        String greetMessage = underscores
-                + leadingSpaces + "Hello! I'm Duke\n"
-                + leadingSpaces + "What can I do for you?\n"
-                + underscores;
-        System.out.println(greetMessage);
+        String greetMessage = "     Hello! I'm Duke\n"
+                + "     What can I do for you?\n";
+        printMessage(greetMessage);
 
-        boolean isEnd = false;
-        while (!isEnd) {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        while (true) {
             Scanner in = new Scanner(System.in);
             String userInput = in.nextLine();
             if (userInput.strip().equals("bye")) {
-                isEnd = true;
+                break;
+            }
+
+            if (userInput.equals("list")) {
+                printTasks(tasks);
                 continue;
             }
-            System.out.println(underscores + leadingSpaces + userInput + "\n" + underscores);
+
+            tasks.add(new Task(userInput));
+            String addedMsg = "     added: " + userInput + "\n";
+            printMessage(addedMsg);
         }
 
-        String byeMessage = underscores
-                + leadingSpaces + "Bye. Hope to see you again soon!\n"
-                + underscores;
-
-        System.out.println(byeMessage);
+        String byeMessage = "     Bye. Hope to see you again soon!\n";
+        printMessage(byeMessage);
     }
 }
