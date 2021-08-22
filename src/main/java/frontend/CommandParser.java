@@ -21,20 +21,15 @@ public class CommandParser
     public Command parseNextCommand()
     {
         String commandStr = scan.nextLine();
-        return new Command(commandStr);
+        final String[] commandTypeStrs = Command.getCommandTypeStrs();
+
+        for (int i = 0 ; i < commandTypeStrs.length ; i++)
+        {
+            if (commandStr.toLowerCase().equals(commandTypeStrs[i]))
+            {
+                return new Command(Command.CommandType.getCommanTypebyIndex(i));
+            }
+        }
+        return new Command(Command.CommandType.INVALID);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
