@@ -5,20 +5,14 @@ public class Duke {
         System.out.println("------------------------------------------------");
     }
 
-    public static void dukeGreet() {
+    public static void greetUser() {
         addLine();
         System.out.println("    Hello!, I'm Duke");
         System.out.println("    How can I help you?");
         addLine();
     }
 
-    public static void dukeEcho(String userInput) {
-        addLine();
-        System.out.println(userInput);
-        addLine();
-    }
-
-    public static void dukeBye() {
+    public static void goodbye() {
         addLine();
         System.out.println("    Bye, see you again!");
         addLine();
@@ -27,7 +21,8 @@ public class Duke {
     public static void showTaskList(Task[] tasks) {
         addLine();
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println("    " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+            System.out.println("    " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] "
+                    + tasks[i].getDescription());
         }
         addLine();
     }
@@ -39,12 +34,14 @@ public class Duke {
 
         addLine();
         System.out.println("    The following task is now marked as done:");
-        System.out.println("      [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
+        System.out.println("      [" + tasks[taskNumber].getStatusIcon() + "] "
+                + tasks[taskNumber].getDescription());
         addLine();
     }
 
     public static void addTask(Task[] tasks, String userInput) {
         tasks[Task.getNumberOfTasks()] = new Task(userInput);
+        
         addLine();
         System.out.println("    Task added: " + userInput);
         addLine();
@@ -58,7 +55,7 @@ public class Duke {
                 + "   |____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        dukeGreet();
+        greetUser();
         String userInput;
         Scanner input = new Scanner(System.in);
         userInput = input.nextLine();
@@ -75,6 +72,6 @@ public class Duke {
             }
             userInput = input.nextLine();
         }
-        dukeBye();
+        goodbye();
     }
 }
