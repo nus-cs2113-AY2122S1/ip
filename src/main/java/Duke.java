@@ -1,6 +1,8 @@
 public class Duke {
 
-    public void printHorizontal() {
+    private final TaskManager taskManager = new TaskManager();
+
+    private void printHorizontal() {
         System.out.println("____________________________________________________________");
     }
 
@@ -27,6 +29,16 @@ public class Duke {
 
     public void echo(String command) {
         System.out.println(command);
+        printHorizontal();
+    }
+
+    public void addTask(String command) {
+        taskManager.addTask(command);
+        printHorizontal();
+    }
+
+    public void listTasks() {
+        taskManager.listTasks();
         printHorizontal();
     }
 }

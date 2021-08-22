@@ -9,7 +9,14 @@ public class Main {
 
         String command = in.nextLine();
         while (!command.equalsIgnoreCase("bye")) {
-            duke.echo(command);
+            switch (command.toLowerCase()) {
+            case "list":
+                duke.listTasks();
+                break;
+            default:
+                duke.addTask(command);
+                break;
+            }
             command = in.nextLine();
         }
         duke.exit();
