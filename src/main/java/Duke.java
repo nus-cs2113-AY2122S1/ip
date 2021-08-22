@@ -1,3 +1,6 @@
+import java.util.Locale;
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -13,8 +16,21 @@ public class Duke {
 
         String byeGreeting = "Bye. Hope to see you again soon!\n";
 
-        System.out.println(line + helloGreeting + line + byeGreeting + line);
+        System.out.println(line + helloGreeting + line);
 
+        Scanner input = new Scanner(System.in);
+
+        String command = "";
+
+        while (!((command.toLowerCase()).equals("bye"))) {
+            command = input.nextLine();
+            if (((command.toLowerCase()).equals("bye"))) {
+                break;
+            }
+            System.out.println(line + command + "\n" + line);
+        }
+
+        System.out.println(line + byeGreeting + line);
 
     }
 }
