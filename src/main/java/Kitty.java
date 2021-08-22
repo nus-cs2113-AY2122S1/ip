@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Kitty {
     public static boolean isConvoOver = false;
+    public static List[] list = new List[100];
+    public static int totalTasksCount = 0;
 
     //Getters
 
@@ -44,6 +46,31 @@ public class Kitty {
                             " ( | | )\n" +
                             "(__d b__)");
         System.out.println("_______________________________");
+    }
+
+    public static void printList(List[] list) {
+        System.out.println();
+        for (int i = 0; i < totalTasksCount; i++) {
+            System.out.println(i+1 + ". " + list[i].getTaskName());
+        }
+        System.out.println(" |\\__/,|   (`\\\n" +
+                            " |_ _  |.--.) )\n" +
+                            " ( T   )     /\n" +
+                            "(((^_(((/(((_/");
+        System.out.println("_______________________________");
+    }
+
+    public static void addToList(String line) {
+        System.out.println();
+        System.out.println("Added: " + line);
+        System.out.println("  /\\_/\\  (\n" +
+                            " ( ^.^ ) _)\n" +
+                            "   \\\"/  (\n" +
+                            " ( | | )\n" +
+                            "(__d b__)");
+        System.out.println("_______________________________");
+        list[totalTasksCount] = new List(line);
+        totalTasksCount++;
     }
 
     public static void main(String[] args) {
@@ -92,8 +119,11 @@ public class Kitty {
             case "bye":
                 isConvoOver = true;
                 break;
+            case "list":
+                printList(list);
+                break;
             default:
-                echo(line);
+                addToList(line);
                 break;
             }
 
