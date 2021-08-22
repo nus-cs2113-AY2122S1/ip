@@ -1,8 +1,10 @@
-public class Duke {
+import java.util.Scanner;
+
+public class xRoss {
 
     // prints a divider line and new line to command line output
-    public static void dividerLine(){
-        System.out.println("-----------------------------------------");
+    public static void printDividerLine(){
+        System.out.println(".....................................................");
     }
 
     // prints message and new line to command line output
@@ -11,19 +13,55 @@ public class Duke {
         if (extra_line) System.out.println();
     }
 
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+    // prints welcome message
+    public static void printWelcomeMessage(){
+        String logo = "        ____          \n"
+                + "       | __ \\  _  __  __\n"
+                + " _  _  |  __/ / \\|  \\|  \\\n"
+                + "\\ \\/ / | |\\ \\| | |\\ \\\\ \\\n"
+                + "/_/\\_\\ |_| \\_\\\\_/\\__|\\__|\n";
         System.out.println("Hello from\n" + logo);
 
-        dividerLine();
-        printMessage("Hello! I'm Duke", false);
-        printMessage("What can I do for you?", true);
-        dividerLine();
+        printDividerLine();
+        printMessage("Hello! I'm xRoss", false);
+        printMessage("What can I do for you today?", true);
+        printDividerLine();
+    }
+
+    // prints exit message
+    public static void printExitMessage(){
+        printDividerLine();
         printMessage("Bye. Hope to see you again soon!", true);
-        dividerLine();
+        printDividerLine();
+    }
+
+    // prints echo
+    public static void printEcho(String message){
+        printDividerLine();
+        printMessage(message, true);
+        printDividerLine();
+    }
+
+    public static void main(String[] args) {
+        printWelcomeMessage();
+
+        // setting up variable and scanner for user input
+        String inputLine;
+        Scanner in = new Scanner(System.in);
+
+        // boolean value on whether
+        boolean continueLoop = true;
+
+        while (continueLoop){
+            inputLine = in.nextLine();
+            switch (inputLine){
+            case "bye": // exit command for chatbot
+                continueLoop = false;
+                printExitMessage();
+                break;
+            default:
+                printEcho(inputLine);
+            }
+        }
     }
 }
