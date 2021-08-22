@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -38,14 +39,56 @@ public class Duke {
         System.out.println(line);
     }
 
+    public static void printUserInputs(String[] userInputs) {
+        if (userInputs == null) {
+            System.out.println(line);
+            System.out.println(line);
+            return;
+        }
+        int i = 1;
+        System.out.println(line);
+        for (String userInput : userInputs) {
+            System.out.printf("%d. %s\n", i, userInput);
+            i++;
+        }
+        System.out.println(line);
+    }
+
+    public static String[] addItemToList(String[] itemsList, String item) {
+        if (itemsList == null) {
+            itemsList = new String[1];
+            itemsList[0] = item;
+            return itemsList;
+        }
+        String[] newItemsList = new String[itemsList.length + 1];
+        for (int i = 0; i < itemsList.length; i++) {
+            newItemsList[i] = itemsList[i];
+        }
+        newItemsList[itemsList.length] = item;
+        return newItemsList;
+    }
+
     public static void getMenu() {
-        String userInputs;
         Scanner in = new Scanner(System.in);
-        userInputs = in.nextLine();
-        while (!userInputs.equals("bye")) {
-            printMessage(userInputs);
+        String userInputs = in.nextLine();
+        String[] itemsList = null;
+        menuLoop:
+        while (true) {
+            switch (userInputs) {
+            case "":
+                break;
+            case "list":
+                printUserInputs(itemsList);
+                break;
+            case "bye":
+                printExitMessage();
+                break menuLoop;
+            default:
+                itemsList = addItemToList(itemsList, userInputs);
+                printMessage("added: " + userInputs);
+                break;
+            }
             userInputs = in.nextLine();
         }
-        printExitMessage();
     }
 }
