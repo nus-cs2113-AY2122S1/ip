@@ -55,7 +55,8 @@ public class Duke {
                         System.out.println("Wunderbar! This task has been marked as done:");
                     }
                     // Prints out the task in the following format: "    [X] Task"
-                    System.out.println("    " + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
+                    System.out.println("    "
+                            + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
                 }
             } else {
                 // If user has not said any other command, store user input as task
