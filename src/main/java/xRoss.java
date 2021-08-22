@@ -4,13 +4,7 @@ public class xRoss {
 
     // prints a divider line and new line to command line output
     public static void printDividerLine(){
-        System.out.println(".....................................................");
-    }
-
-    // prints message and new line to command line output
-    public static void printMessage(String message, boolean extra_line){
-        System.out.println("\t" + message);
-        if (extra_line) System.out.println();
+        System.out.println("..........................................................................................");
     }
 
     // prints welcome message
@@ -23,27 +17,21 @@ public class xRoss {
         System.out.println("Hello from\n" + logo);
 
         printDividerLine();
-        printMessage("Hello! I'm xRoss", false);
-        printMessage("What can I do for you today?", true);
+        System.out.println("\tHello! I'm xRoss, your personal chat bot assistant!\n\tWhat can I do for you today?\n");
         printDividerLine();
     }
 
     // prints exit message
     public static void printExitMessage(){
         printDividerLine();
-        printMessage("Bye. Hope to see you again soon!", true);
-        printDividerLine();
-    }
-
-    // prints echo
-    public static void printEcho(String message){
-        printDividerLine();
-        printMessage(message, true);
+        System.out.println("\tBye!\n\tHave a nice day and I hope to see you again soon!\n");
         printDividerLine();
     }
 
     public static void main(String[] args) {
         printWelcomeMessage();
+
+        TaskManager taskManager = new TaskManager();
 
         // setting up variable and scanner for user input
         String inputLine;
@@ -57,11 +45,20 @@ public class xRoss {
             switch (inputLine){
             case "bye": // exit command for chatbot
                 continueLoop = false;
-                printExitMessage();
+                break;
+            case "list": // command to print to-do list
+                printDividerLine();
+                taskManager.printTasks();
+                printDividerLine();
                 break;
             default:
-                printEcho(inputLine);
+                Task newTask = new Task(inputLine);
+                printDividerLine();
+                taskManager.addTask(newTask);
+                printDividerLine();
             }
         }
+
+        printExitMessage();
     }
 }
