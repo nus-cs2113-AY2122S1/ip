@@ -5,6 +5,7 @@ public class Duke {
         String userCommand; //store user input
         Task[] taskList = new Task[100]; //store all the task from user input
         int listSize = 0;
+        int taskNumberToMark;
         String logo =
                 " ______    __                     __ \n" +
                 "/  ____|  |  |                   |__|\n" +
@@ -21,7 +22,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         userCommand = in.nextLine();
 
-        while (!userCommand.equals("bye")) {
+        while (!userCommand.equals("bye")) { //exit command is bye
             if (userCommand.equals("list")) { //prints list of task
                 System.out.println("____________________________________________________________");
                 System.out.println("Tasks list so far:");
@@ -30,7 +31,7 @@ public class Duke {
                     if (taskList[i].isDone()) { //check if task is done then put a tick if done
                         System.out.print(".[✓] ");
                     }
-                    else {
+                    else { //task not done will remain empty
                         System.out.print(".[ ] ");
                     }
                     System.out.println(taskList[i].getTaskName());
@@ -38,7 +39,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
             }
             else if (userCommand.contains("done ")) { //check user input to see if task completed
-                int taskNumberToMark = Integer.parseInt(userCommand.substring(5));
+                taskNumberToMark = Integer.parseInt(userCommand.substring(5));
                 taskList[taskNumberToMark - 1].markDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Well done! Task marked:");
@@ -51,12 +52,12 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 taskList[listSize] = new Task(userCommand); //add new task to taskList
                 taskList[listSize].setTaskNumber(listSize + 1); //update the task number
-                listSize++;
+                listSize++; //updates the size of list
             }
             userCommand = in.nextLine();
         }
         System.out.println("____________________________________________________________");
-        System.out.println("GoodBye!\n");
+        System.out.println("GoodBye!");
         System.out.println("____________________________________________________________");
     }
 }
