@@ -1,3 +1,5 @@
+package backend;
+
 // Some funcitionalities
 // Time related: (Use time class)
 // 1. No start/ end time (todo)
@@ -25,13 +27,4 @@
 // 16. Priorities ( attribute)
 // 17. Archive (task manager)
 
-public abstract class TaskBase {
-    
-
-
-
-
-
-
-
-}
+public abstract class TaskBase {}

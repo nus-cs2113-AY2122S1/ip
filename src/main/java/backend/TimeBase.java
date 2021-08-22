@@ -1,6 +1,8 @@
-import java.time.LocalDateTime; 
-import java.time.temporal.ChronoField;
+package backend;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 
 public abstract class TimeBase {
 
@@ -8,60 +10,70 @@ public abstract class TimeBase {
     protected TimeUnit tend;
     protected TimeUnit trepeat;
 
-    public TimeBase()
-    {
+    /**
+     * Constructor
+     */
+    public TimeBase() {
         tstart = null;
         tend = null;
         trepeat = null;
     }
 
-    protected void setTimeStart(String timeStr)
-    {
+    protected void setTimeStart(String timeStr) {
         tstart = new TimeUnit(timeStr);
     }
-    protected void setTimeEnd(String timeStr)
-    {
+
+    protected void setTimeEnd(String timeStr) {
         tend = new TimeUnit(timeStr);
     }
-    protected void setTimeRepeat(String timeStr)
-    {
+
+    protected void setTimeRepeat(String timeStr) {
         trepeat = new TimeUnit(timeStr);
     }
 
-    protected TimeUnit getTimeStart(String timeStr)
-    {
+    protected TimeUnit getTimeStart(String timeStr) {
         return tstart;
     }
-    protected TimeUnit getTimeEnd(String timeStr)
-    {
+
+    protected TimeUnit getTimeEnd(String timeStr) {
         return tend;
     }
-    protected TimeUnit getTimeRepeat(String timeStr)
-    {
+
+    protected TimeUnit getTimeRepeat(String timeStr) {
         return trepeat;
     }
-    protected void printTimeInfo()
-    {
+
+    protected void printTimeInfo() {
         System.out.print("++Time Start: ");
-        if (tstart == null) System.out.println(-1);
-        else System.out.println(tstart.get());
+        if (tstart == null) {
+            System.out.println(-1);
+        } else {
+            System.out.println(tstart.get());
+        }
         System.out.print("++Time End: ");
-        if (tend == null) System.out.println(-1);
-        else System.out.println(tend.get());
+        if (tend == null) {
+            System.out.println(-1);
+        } else {
+            System.out.println(tend.get());
+        }
         System.out.print("++Time Repeat: ");
-        if (trepeat == null) System.out.println(-1);
-        else System.out.println(trepeat.get());
+        if (trepeat == null) {
+            System.out.println(-1);
+        } else {
+            System.out.println(trepeat.get());
+        }
     }
 }
 
-
 /*
  * YYYY:MM:dd:HH:mm:ss
- * https://stackoverflow.com/questions/44925840/java-time-format-datetimeparseexception-text-could-not-be-parsed-at-index-3
+ * https://stackoverflow.com/questions/44925840/
+ * java-time-format-datetimeparseexception-text-could-not-be-parsed-at-index-3
  * Multiple formats
  */
 class TimeUnit {
     private LocalDateTime localTime; // Create a date object
+
     public TimeUnit() {
         localTime = LocalDateTime.now();
     }
@@ -70,33 +82,31 @@ class TimeUnit {
         localTime = LocalDateTime.parse(timeStr, DateTimeFormatter.ofPattern("yyyy:MM:dd:HH:mm:ss"));
     }
 
-    public LocalDateTime get()
-    {
+    public LocalDateTime get() {
         return localTime;
     }
 
-    public int getYear()
-    {
-        return  localTime.get(ChronoField.YEAR);
+    public int getYear() {
+        return localTime.get(ChronoField.YEAR);
     }
-    public int getMonth()
-    {
+
+    public int getMonth() {
         return localTime.get(ChronoField.MONTH_OF_YEAR);
     }
-    public int getDay()
-    {
+
+    public int getDay() {
         return localTime.get(ChronoField.DAY_OF_MONTH);
     }
-    public int getHour()
-    {
+
+    public int getHour() {
         return localTime.get(ChronoField.HOUR_OF_DAY);
     }
-    public int getMinute()
-    {
+
+    public int getMinute() {
         return localTime.get(ChronoField.MINUTE_OF_HOUR);
     }
-    public int getSecond()
-    {
+
+    public int getSecond() {
         return localTime.get(ChronoField.SECOND_OF_MINUTE);
     }
 }

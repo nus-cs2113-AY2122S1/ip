@@ -1,10 +1,17 @@
-public class TimeTodo extends TimeBase{
-    public TimeTodo()
-    {
+package backend;
+
+public class TimeTodo extends TimeBase {
+    /**
+     * Constructor
+     */
+    public TimeTodo() {
         super();
     }
-    public void printTimeInfo()
-    {
+
+    /**
+     * Print out time info for debugging
+     */
+    public void printTimeInfo() {
         System.out.println("*Todo Time");
         super.printTimeInfo();
     }

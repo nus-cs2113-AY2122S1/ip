@@ -1,33 +1,30 @@
+import backend.Command;
+import backend.CommandHandler;
+import frontend.CommandParser;
+
 public class Duke {
-    final static String logo = " ____        _        \n"
+    static final String LOGO =
+        " ____        _        \n"
         + "|  _ \\ _   _| | _____ \n"
         + "| | | | | | | |/ / _ \\\n"
         + "| |_| | |_| |   <  __/\n"
         + "|____/ \\__,_|_|\\_\\___|\n";
-    final static String greeting = "____________________________________________________________\n"
+    static final String GREETING =
+        "____________________________________________________________\n"
         + "Hello! I'm Duke\n"
         + "What can I do for you?\n"
         + "____________________________________________________________\n"
         + "Bye. Hope to see you again soon!\n"
         + "____________________________________________________________\n";
 
-    /**
-     * Main
-     */
+    /** Main */
     public static void main(String[] args) {
-        System.out.println("Hello from\n" + logo + greeting);
+        System.out.println("Hello from\n" + LOGO + GREETING);
 
         CommandHandler commandHandler = new CommandHandler();
 
         CommandParser commandParser = CommandParser.getCommandParser();
         Command cmd = commandParser.parseNextCommand();
         commandHandler.handlerCommand(cmd);
-        
-
-
-        
-
-
-
     }
 }

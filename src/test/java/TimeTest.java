@@ -2,6 +2,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import backend.TimeDeadline;
+import backend.TimeEvent;
+import backend.TimeTodo;
+
 class TimeTest {
     @Test
     public void test() {
