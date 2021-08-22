@@ -35,7 +35,7 @@ public class Duke {
                 return;
             }
             //fullList += Integer.toString(i) + ". " + entry + "\n";
-            System.out.println("       " + i + ". " + entry);
+            System.out.println("       " + (i + 1) + ". " + entry);
             i++;
         }
     }
