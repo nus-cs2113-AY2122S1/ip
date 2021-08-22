@@ -16,5 +16,9 @@ public class Duke {
      */
     public static void main(String[] args) {
         System.out.println("Hello from\n" + logo + greeting);
+
+        CommandParser commandParser = CommandParser.getCommandParser();
+        commandParser.parseNextCommand();
+
     }
 }
