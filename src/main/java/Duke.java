@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String farewell = "I bid you farewell my good man. Good Bye.";
-        printWelcomeMessage();
+        System.out.println("Top of the morning my good sir, what can I do for you on this fine day?");
         Scanner sc = new Scanner(System.in);
         TaskManager manager = new TaskManager();
         String[] listOfInputs;
@@ -14,10 +13,9 @@ public class Duke {
             input = sc.nextLine();
             input = input.stripTrailing();
             input = input.stripLeading();
-
             listOfInputs = input.split(" ");
             if (listOfInputs[0].equals("end")) {
-                System.out.println(farewell);
+                System.out.println("I bid you farewell my good man. Good Bye.");
                 sc = null;
                 manager = null;
             } else if (listOfInputs[0].equals("list")) {
@@ -29,10 +27,5 @@ public class Duke {
                 TaskManager.addTask(input);
             }
         } while (!(input.equals("end")));
-    }
-
-    private static void printWelcomeMessage() {
-        String intro = "Top of the morning my good sir, what can I do for you on this fine day?";
-        System.out.println(intro);
     }
 }

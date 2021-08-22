@@ -13,16 +13,30 @@ public class Task {
         this("Unnamed");
     }
 
+    /**
+     * Returns the name of the task.
+     *
+     * @return The name of the task.
+     */
     public String getTaskName() {
         return name;
     }
 
+    /**
+     * Marks the current task as done.
+     */
     public void markAsDone() {
         isDone = true;
         System.out.println("Sweet! You've just completed this task: ");
-        System.out.println("[" + this.getStatusIcon() + "]" + name);
+        System.out.println("[" + this.getStatusIcon() + "] " + name);
     }
 
+    /**
+     * Returns the status icon of
+     * the current task based on it's status.
+     *
+     * @return The icon of its current status.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
