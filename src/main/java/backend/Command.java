@@ -31,19 +31,27 @@ public class Command
         return commandTypeStrs;
     }
 
+
+    private CommandType cmdType;
+
     public Command(String s)
     {
-        System.out.println("Command received: " + s);
+        // System.out.println("Command received: " + s);
     }
     public Command(CommandType cmdType)
     {
-        System.out.print("Command received: ");
-        printCommandType(cmdType);
+        this.cmdType = cmdType;
+        // System.out.print("Command received: ");
+        // printCommandType(cmdType);
+    }
+    public CommandType getCommandType()
+    {
+        return cmdType;
     }
 
     public void printCommandType(CommandType cmdType)
     {
-        System.out.println(commandTypeStrs[cmdType.ordinal()]);
+        // System.out.println(commandTypeStrs[cmdType.ordinal()]);
     }
 
 
