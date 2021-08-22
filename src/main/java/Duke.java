@@ -8,7 +8,6 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String line = "------------------------------------";
-
         System.out.println("Hello from\n" + logo);
         System.out.println(line);
         System.out.println("Hello! I'm Duke");
@@ -16,8 +15,9 @@ public class Duke {
         System.out.println(line);
 
         String input;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
+
         do {
             Scanner in = new Scanner(System.in);
             input = in.nextLine();
@@ -26,15 +26,20 @@ public class Duke {
             }
             if (input.equals("list")) {
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    tasks[i].printTask(i + 1);
                 }
             }
-            else {
-                tasks[taskCount] = input;
-                System.out.println("Added: " + input);
-                taskCount++;
+            else if (input.contains("done")) {
+                int finishedIndex = Integer.parseInt(input.substring(5));
+                tasks[finishedIndex - 1].completeTask();
+                System.out.println("Nice! I have marked this task as done: ");
+                System.out.println(tasks[finishedIndex - 1].getTaskInfo());
             }
-
+            else {
+                tasks[taskCount] = new Task(input);
+                taskCount++;
+                System.out.println("added: " + input);
+            }
         } while (!input.equals("bye"));
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
