@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,9 +21,9 @@ public class Duke {
 
         String command = "";
 
-        while (!((command.toLowerCase()).equals("bye"))) {
+        while (!(command.equals("bye"))) {
             command = input.nextLine();
-            if (((command.toLowerCase()).equals("bye"))) {
+            if ((command.toLowerCase().equals("bye"))) {
                 break;
             }
             System.out.println(line + command + "\n" + line);
