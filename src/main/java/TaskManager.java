@@ -1,11 +1,11 @@
 public class TaskManager {
 
-    private final String[] tasks = new String[100];
+    private final Task[] tasks = new Task[100];
     private int tasksCount = 0;
 
     public void addTask(String task) {
         if (tasksCount < 100) {
-            tasks[tasksCount] = task;
+            tasks[tasksCount] = new Task(task);
             tasksCount++;
             System.out.println("You have added a new task: " + task);
         } else {
@@ -14,9 +14,15 @@ public class TaskManager {
     }
 
     public void listTasks() {
-        System.out.println("You have " + tasksCount + " unfinished tasks:");
+        System.out.println("You have the following tasks:");
         for (int i = 0; i < tasksCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+            System.out.println((i + 1) + ". " + tasks[i].toString());
         }
+    }
+
+    public void markTaskAsDone(int taskIndex) {
+        tasks[taskIndex - 1].setDone();
+        System.out.println("Good job! You have finished the following:");
+        System.out.println(tasks[taskIndex - 1].toString());
     }
 }

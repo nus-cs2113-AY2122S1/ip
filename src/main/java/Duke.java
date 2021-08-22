@@ -41,4 +41,9 @@ public class Duke {
         taskManager.listTasks();
         printHorizontal();
     }
+
+    public void markTaskAsDone(int taskIndex) {
+        taskManager.markTaskAsDone(taskIndex);
+        printHorizontal();
+    }
 }

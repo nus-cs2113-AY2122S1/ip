@@ -7,18 +7,25 @@ public class Main {
         Scanner in = new Scanner(System.in);
         duke.greet();
 
-        String command = in.nextLine();
-        while (!command.equalsIgnoreCase("bye")) {
-            switch (command.toLowerCase()) {
-            case "list":
-                duke.listTasks();
-                break;
-            default:
-                duke.addTask(command);
+        String input;
+        String[] words;
+
+        while (true) {
+            input = in.nextLine();
+            words = input.split(" ");
+
+            if (input.equalsIgnoreCase("bye")) {
+                duke.exit();
                 break;
             }
-            command = in.nextLine();
+
+            if (input.equalsIgnoreCase("list")) {
+                duke.listTasks();
+            } else if (words[0].equalsIgnoreCase("done")) {
+                duke.markTaskAsDone(Integer.parseInt(words[1]));
+            } else {
+                duke.addTask(input);
+            }
         }
-        duke.exit();
     }
 }
