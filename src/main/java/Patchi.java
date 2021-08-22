@@ -3,8 +3,6 @@ import java.util.Scanner;
 public class Patchi {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String[] tasks = new String[100];
-        int nextTaskIndex = 0;
 
         System.out.println("─── .o * : *. ¤ .* : ¤ o. ───");
         System.out.println("Patchi: Hello! I'm Patchi the tasks fairy Œ(ˊᵕˋ)B\n What can I do for you today? Œ(ˊVˋ)B");
@@ -13,20 +11,7 @@ public class Patchi {
         String input = in.nextLine();
 
         while (input.equals("bye") == false) {
-            if (input.equals("list") == true) {
-                if (nextTaskIndex > 0) {
-                    System.out.println("Patchi: Here is the list of tasks you currently have! Work hard~ Œ(˙O˙)B");
-                    for (int i = 0; i < nextTaskIndex; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
-                    }
-                } else {
-                    System.out.println("Patchi: You have no tasks for now! Go and relax~ Œ(ˊuˋ)B");
-                }
-            } else { //add task
-                tasks[nextTaskIndex] = input;
-                nextTaskIndex++;
-                System.out.println("Patchi: Got it! I have added +" + input + "+ to your task list Œ(ˆOˆ)B");
-            }
+            System.out.println("Patchi: " + input + " Œ(ˊVˋ)B");
             System.out.println("─── .o * : typing... : ¤ o. ───");
             System.out.print("Me: ");
             input = in.nextLine();
