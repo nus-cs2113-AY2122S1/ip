@@ -1,6 +1,6 @@
 public class Task {
 
-    private final String description;
+    private String description;
     private boolean isDone = false;
 
     public Task(String description) {
