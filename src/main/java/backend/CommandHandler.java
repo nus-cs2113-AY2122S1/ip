@@ -19,6 +19,8 @@ public class CommandHandler {
             handleCommandDelete();
         } else if (cmdType == Command.CommandType.FIND) {
             handleCommandFind();
+        } else if (cmdType == Command.CommandType.BYE) {
+            handleCommandBye();
         } else if (cmdType == Command.CommandType.INVALID) {
             handleCommandInvalid();
         } else {
@@ -41,6 +43,10 @@ public class CommandHandler {
 
     private void handleCommandFind() {
         System.out.println("find");
+    }
+
+    private void handleCommandBye() {
+        System.out.println("Bye bye");
     }
 
     private void handleCommandInvalid() {

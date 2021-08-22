@@ -12,19 +12,22 @@ public class Duke {
     static final String GREETING =
         "____________________________________________________________\n"
         + "Hello! I'm Duke\n"
-        + "What can I do for you?\n"
-        + "____________________________________________________________\n"
-        + "Bye. Hope to see you again soon!\n"
-        + "____________________________________________________________\n";
+        + "What can I do for you?\n";
 
     /** Main */
     public static void main(String[] args) {
         System.out.println("Hello from\n" + LOGO + GREETING);
 
         CommandHandler commandHandler = new CommandHandler();
-
         CommandParser commandParser = CommandParser.getCommandParser();
-        Command cmd = commandParser.parseNextCommand();
-        commandHandler.handlerCommand(cmd);
+
+        while (true) {
+            Command cmd = commandParser.parseNextCommand();
+            commandHandler.handlerCommand(cmd);
+            if (cmd.isType(Command.CommandType.BYE))
+            {
+                return;
+            }
+        }
     }
 }
