@@ -1,26 +1,25 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
 
-    final static String line = "____________________________________________________________";
+    final static String LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
-        System.out.println(line);
+        System.out.println(LINE);
         printWelcomeMesage();
         getMenu();
     }
 
     public static void printExitMessage() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     public static void printWelcomeMesage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     public static void printLogoMessage() {
@@ -30,13 +29,13 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     public static void printMessage(String message) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println(message);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     public static void printTasksList(Task[] tasksList) {
@@ -100,14 +99,14 @@ public class Duke {
             case "":
                 break;
             case "done":
-                System.out.println(line);
+                System.out.println(LINE);
                 setDone(tasksList, userInputs);
-                System.out.println(line);
+                System.out.println(LINE);
                 break;
             case "list":
-                System.out.println(line);
+                System.out.println(LINE);
                 printTasksList(tasksList);
-                System.out.println(line);
+                System.out.println(LINE);
                 break;
             case "bye":
                 printExitMessage();
