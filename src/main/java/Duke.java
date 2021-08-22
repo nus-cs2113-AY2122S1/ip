@@ -73,20 +73,27 @@ public class Duke {
     // Executes an appropriate response based on the input message
     public static void executeResponse() {
         String line;
+        boolean isExit = false;
         Scanner in = new Scanner(System.in);
         do {
             System.out.println();
             line = in.nextLine();
-            if (line.equals("bye")) {
+            String[] words = line.split(" ");
+            switch (words[0]) {
+            case "bye":
                 exitDuke();
-            } else if (line.equals("list")) {
+                isExit = true;
+                break;
+            case "list":
                 printList();
-            } else if (line.contains("done")) {
-                markAsCompleted(Integer.parseInt(line.substring(line.indexOf(" ") + 1)));
-            } else {
+                break;
+            case "done":
+                markAsCompleted(Integer.parseInt(words[1]));
+                break;
+            default:
                 addToList(line);
             }
-        } while (!line.equals("bye"));
+        } while (!isExit);
     }
 
 }
