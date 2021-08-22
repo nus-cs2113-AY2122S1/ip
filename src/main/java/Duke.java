@@ -8,19 +8,32 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String line = "------------------------------------";
-        String input;
+
         System.out.println("Hello from\n" + logo);
         System.out.println(line);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(line);
+
+        String input;
+        String[] tasks = new String[100];
+        int taskCount = 0;
         do {
             Scanner in = new Scanner(System.in);
             input = in.nextLine();
             if (input.equals("bye")) {
                 break;
             }
-            System.out.println(input);
+            if (input.equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+            }
+            else {
+                tasks[taskCount] = input;
+                System.out.println("Added: " + input);
+                taskCount++;
+            }
 
         } while (!input.equals("bye"));
         System.out.println("Bye. Hope to see you again soon!");
