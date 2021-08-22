@@ -1,12 +1,15 @@
+
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    /** line use for dividers */
+    /** Line template to use for dividers */
     public static final String DIVIDE = "____________________________________________________________";
     /** Username for the chatbot prompt */
     public static final String USERNAME = "VeryImportantUsername";
-    /** Unicode colour */
+    /** Unicode colours */
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -17,12 +20,16 @@ public class Duke {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    /** Stores all task added by the user */
+    public static ArrayList<String> taskList;
+    public static boolean isRunning = true;
+
 
     public static void main(String[] args) {
 
         String userInput;
-        boolean isRunning = true;
         Scanner in = new Scanner(System.in);
+        taskList = new ArrayList<>();
 
         // Printing Chatbot Banner
         printMessage(ANSI_YELLOW + "[+] Welcome to Shell RPG Game",
@@ -30,6 +37,7 @@ public class Duke {
                 "[+] Character " + USERNAME + " Found!",
                 "[+] Character Level: 100",
                 "[+] Access Granted! (╯°□°)╯︵ ┻━┻" + ANSI_RESET);
+
         //Looping to user input from standard in
         while (isRunning) {
             System.out.printf(ANSI_RED + "┌─[" + ANSI_RESET
@@ -39,15 +47,46 @@ public class Duke {
             System.out.print(ANSI_RED + "└──╼ $ " + ANSI_RESET);
             // Reading user input
             userInput = in.nextLine();
-            if (userInput.equals("bye")) {
-                // Terminate program if bye is the input
-                isRunning = false;
-                userInput = ANSI_RED + "Bye. Hope to see you again soon!";
-            } else {
-                userInput = ANSI_GREEN + userInput;
-            }
-            printMessage(userInput + ANSI_RESET);
+            handleCommand(userInput);
         }
+        printMessage(ANSI_RED + "Bye. Hope to see you again soon!" + ANSI_RESET);
+    }
+
+    /**
+     * Handles the user input and decide what actions to run
+     *
+     * @param command takes in a command from user
+     */
+    public static void handleCommand(String command) {
+        switch (command) {
+        case "list":
+            listTask();
+            break;
+        case "bye":
+            isRunning = false;
+            break;
+        default:
+            taskList.add(command);
+            printMessage(ANSI_GREEN
+                    + "Added: "
+                    + command
+                    + ANSI_RESET);
+        }
+    }
+
+    /**
+     * List all task added by the user
+     */
+    public static void listTask() {
+        System.out.println(DIVIDE);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(ANSI_GREEN +
+                    (i + 1)
+                    + ". "
+                    + taskList.get(i)
+                    + ANSI_RESET);
+        }
+        System.out.println(DIVIDE);
     }
 
     /**
@@ -56,7 +95,6 @@ public class Duke {
      * @param messages Array of messages that are input into the function
      */
     public static void printMessage(String... messages) {
-
         System.out.println(DIVIDE);
         for (String message : messages) {
             System.out.println(message);
