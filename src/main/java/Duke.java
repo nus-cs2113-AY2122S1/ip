@@ -41,15 +41,20 @@ public class Duke {
             } else if (userInput.contains("done")) {
                 // Get number of task after the term "done"
                 int indexOfCompletedTask = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                if (indexOfCompletedTask > noOfTasks - 1 || indexOfCompletedTask < 1) {
+                if (indexOfCompletedTask > noOfTasks - 1 || indexOfCompletedTask < 0) {
                     // If task does not exist, do not delete any task
                     System.out.println("Apologies! That task does not exist.");
                 } else {
-                    // Set chosen task as done
                     Task chosenTask = tasks[indexOfCompletedTask];
-                    chosenTask.setDone(true);
-                    // Give user feedback regarding change in completion status
-                    System.out.println("Wunderbar! This task has been marked as done:");
+                    if (chosenTask.isDone()) {
+                        // If task was already done, let user know
+                        System.out.println("Oh! This task was already marked as done:");
+                    } else {
+                        chosenTask.setDone(true);
+                        // Else, let user know task has been marked as done
+                        System.out.println("Wunderbar! This task has been marked as done:");
+                    }
+                    // Prints out the task in the following format: "    [X] Task"
                     System.out.println("    " + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
                 }
             } else {
