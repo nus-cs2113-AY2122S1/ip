@@ -1,19 +1,33 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String horizontalLine = "____________________________________________________________" +
+                System.lineSeparator();
 
-        String greeting = "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
+        String greeting = horizontalLine +
+                " Hello! I'm Duke" +
+                System.lineSeparator() +
+                " What can I do for you?" +
+                System.lineSeparator() +
+                horizontalLine;
 
-        String bye = " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
+        String bye = horizontalLine +
+                " Bye. Hope to see you again soon!" +
+                System.lineSeparator() +
+                horizontalLine;
 
-        System.out.println(greeting + bye);
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        System.out.println(greeting);
+        line = in.nextLine();
+
+        while (!line.equals("bye")) {
+            System.out.println(horizontalLine + ' ' + line + System.lineSeparator() + horizontalLine);
+            line = in.nextLine();
+        }
+
+        System.out.println(bye);
     }
 }
