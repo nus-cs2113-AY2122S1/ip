@@ -1,6 +1,13 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
+    public static void printList(String[] list, int index) {
+        for (int i = 0; i < index; i++) {
+            System.out.println((i + 1) + ". " + list[i]);
+        }
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -21,15 +28,27 @@ public class Duke {
 
         String command = "";
 
-        while (!(command.equals("bye"))) {
+        String[] commands = new String[100];
+        Arrays.fill(commands,"");
+
+        int index = 0;
+
+        while (!(command.equalsIgnoreCase("bye"))) {
             command = input.nextLine();
-            if ((command.toLowerCase().equals("bye"))) {
+            if ((command.equalsIgnoreCase("bye"))) {
                 break;
             }
-            System.out.println(line + command + "\n" + line);
+            if (command.equalsIgnoreCase("list")) {
+                System.out.println(line);
+                printList(commands, index);
+                System.out.println(line);
+            } else {
+                commands[index] = command;
+                System.out.println(line + "added: " + command + "\n" + line);
+                index++;
+            }
         }
 
         System.out.println(line + byeGreeting + line);
-
     }
 }
