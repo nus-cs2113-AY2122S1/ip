@@ -1,8 +1,9 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
 
     public static void main(String[] args) {
+        List<String> tasks = new ArrayList<String>();
         System.out.println("What can I do for you today boss");
 
         while (true) {
@@ -14,7 +15,17 @@ public class Duke {
                 break;
             }
 
-            System.out.println(input);
+            switch (input) {
+            case "list":
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println(i+1 + ". " + tasks.get(i));
+                }
+                break;
+
+            default :
+                tasks.add(input);
+                System.out.println("added: " + input);
+            }
         }
     }
 }
