@@ -2,9 +2,6 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    /**
-     * Default Constructor
-     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -12,6 +9,14 @@ public class Task {
 
     public String getTaskDescription() {
         return this.description;
+    }
+
+    public String getStatusIcon() {
+        if (isDone) {
+            return "X";
+        } else {
+            return " ";
+        }
     }
 
 }
