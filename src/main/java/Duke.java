@@ -5,6 +5,9 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String linebreak = "____________________________________________________________\n";
+        System.out.println("Hello from\n" + logo + linebreak);
+        System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n" + linebreak); // greet
+        System.out.println("Bye. Hope to see you again soon!\n" + linebreak); //exit message
     }
 }
