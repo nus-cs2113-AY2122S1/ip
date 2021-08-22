@@ -8,31 +8,45 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        int itemNumber = 0;
-        String[] listAllAddedItems = new String[100];
+        int taskNumber = 1;
+        Task[] taskArray = new Task[101];
 
         while (true) {
             String userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
                 break;
-            } else if (userInput.equals("list")) {
-                if (listAllAddedItems.length == 0) {
-                    System.out.println("No items added yet!");
-                } else {
-                    for (int i = 0; i < listAllAddedItems.length; i++) {
-                        String currentItem = listAllAddedItems[i];
-                        if (currentItem == null) {
+            } else {
+                Task task = new Task(userInput, taskNumber);
+                String taskType = task.getTask();
+
+                if (taskType.equals("list")) {
+                    System.out.println("Here are the tasks in your list:");
+
+                    for (int i = 1; i < taskArray.length; i ++) {
+                        Task currentTask = taskArray[i];
+                        if (currentTask == null) {
                             break;
                         } else {
-                            System.out.println(i + 1 + ". " + currentItem);
+                            System.out.println(currentTask.getTaskNumber() + "." + currentTask.toString());
                         }
                     }
+                    System.out.println();
+
+                } else if (taskType.contains("done")) {
+                    String[] donetaskArray = taskType.split(" ");
+                    int doneTaskNumber = Integer.parseInt(donetaskArray[1]);
+
+                    Task doneTask = taskArray[doneTaskNumber];
+                    System.out.println("Nice! I've marked this task as done:");
+                    doneTask.setTaskAsDone();
+
+                } else {
+                    taskArray[taskNumber] = task;
+                    System.out.println("added: " + task.getTask());
+                    System.out.println();
+                    taskNumber ++;
                 }
-                System.out.println();
-            } else {
-                listAllAddedItems[itemNumber] = userInput;
-                itemNumber ++;
-                System.out.println("added: " + userInput + "\n");
+
             }
         }
         String goodbyeMessage = "Bye. Hope to see you again soon!";
