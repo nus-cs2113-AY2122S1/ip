@@ -1,10 +1,12 @@
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
 
     public static void main(String[] args) {
-        List<String> tasks = new ArrayList<String>();
-        System.out.println("What can I do for you today boss");
+        List<Task> tasks = new ArrayList<Task>();
+        System.out.println("What can I do for you today homie");
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -18,12 +20,21 @@ public class Duke {
             switch (input) {
             case "list":
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(i+1 + ". " + tasks.get(i));
+                    System.out.println(i+1 + "."
+                            + "[" + tasks.get(i).getStatusIcon() + "] "
+                            + tasks.get(i).taskDescription);
                 }
                 break;
 
             default :
-                tasks.add(input);
+                if (input.contains("done")) {
+                    int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+                    tasks.get(taskIndex - 1).markAsDone();
+                    break;
+                }
+
+                Task newTask = new Task (input);
+                tasks.add(newTask);
                 System.out.println("added: " + input);
             }
         }
