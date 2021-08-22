@@ -1,7 +1,7 @@
 package backend;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Command {
     // 1. command type
@@ -28,14 +28,14 @@ public class Command {
         }
     }
 
-    private static final Map<String, CommandType> CommandStr2Type  = 
+    private static final Map<String, CommandType> CommandStr2Type =
         new HashMap<String, CommandType>() {{
             put("list", CommandType.LIST);
-            put("add", CommandType.ADD); 
+            put("add", CommandType.ADD);
             put("delete", CommandType.DELETE);
-            put("find", CommandType.FIND); 
-            put("bye", CommandType.BYE); 
-            put("invalid", CommandType.INVALID); 
+            put("find", CommandType.FIND);
+            put("bye", CommandType.BYE);
+            put("invalid", CommandType.INVALID);
         }};
 
     private CommandType cmdType;
@@ -70,8 +70,7 @@ public class Command {
         // System.out.println(commandTypeStrs[cmdType.ordinal()]);
     }
 
-    public Boolean isType(CommandType cmdType)
-    {
+    public Boolean isType(CommandType cmdType) {
         return (this.cmdType == cmdType);
     }
 

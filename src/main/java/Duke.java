@@ -24,8 +24,7 @@ public class Duke {
         while (true) {
             Command cmd = commandParser.parseNextCommand();
             commandHandler.handlerCommand(cmd);
-            if (cmd.isType(Command.CommandType.BYE))
-            {
+            if (cmd.isType(Command.CommandType.BYE)) {
                 return;
             }
         }
