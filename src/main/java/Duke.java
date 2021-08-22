@@ -1,13 +1,29 @@
 import java.util.Scanner;
 
 public class Duke {
+    static String[] todolist = new String[100];
+    static int itemCount = 0;
 
     public static void Echo(String message) {
+
         if (message.equalsIgnoreCase("bye")) {
             return;
         }
+
+        if (message.equalsIgnoreCase("list")) {
+            System.out.println("    ____________________________________________________________");
+            for (int i = 0; i < itemCount; i++) {
+                System.out.printf("    %d. %s%n", i+1, todolist[i]);
+            }
+            System.out.println("    ____________________________________________________________");
+            return;
+        }
+
+        //else
+        todolist[itemCount] = message; //add to todolist
+        itemCount++;
         System.out.println("    ____________________________________________________________");
-        System.out.println("     " + message);
+        System.out.println("     added:" + message);
         System.out.println("    ____________________________________________________________");
     }
 
