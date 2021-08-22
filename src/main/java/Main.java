@@ -5,11 +5,10 @@ public class Main {
     public static void main(String[] args) {
         Duke duke = new Duke();
         Scanner in = new Scanner(System.in);
-        duke.greet();
-
         String input;
         String[] words;
 
+        duke.greet();
         while (true) {
             input = in.nextLine();
             words = input.split(" ");
