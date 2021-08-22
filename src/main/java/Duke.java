@@ -1,10 +1,11 @@
-import java.util.Arrays;
 import java.util.Scanner;
+import static java.lang.Integer.parseInt;
 
 public class Duke {
-    public static void printList(String[] list, int index) {
+    public static void printList(Task[] list, int index) {
         for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + list[i]);
+            String taskStatus = list[i].getStatusIcon();
+            System.out.println((i + 1) + "." + taskStatus + " " + list[i].description);
         }
     }
 
@@ -28,8 +29,7 @@ public class Duke {
 
         String command = "";
 
-        String[] commands = new String[100];
-        Arrays.fill(commands,"");
+        Task[] tasks = new Task[100];
 
         int index = 0;
 
@@ -40,10 +40,19 @@ public class Duke {
             }
             if (command.equalsIgnoreCase("list")) {
                 System.out.println(line);
-                printList(commands, index);
+                printList(tasks, index);
+                System.out.println(line);
+            } else if ((command.toLowerCase()).contains("done")) {
+                String[] extractedCommand = command.split(" ");
+                int itemNo = parseInt(extractedCommand[1]);
+                tasks[itemNo - 1].markAsDone();
+                String taskStatus = tasks[itemNo - 1].getStatusIcon();
+                System.out.println(line);
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(taskStatus + " " + tasks[itemNo - 1].description);
                 System.out.println(line);
             } else {
-                commands[index] = command;
+                tasks[index] = new Task(command);
                 System.out.println(line + "added: " + command + "\n" + line);
                 index++;
             }
