@@ -6,16 +6,11 @@ public class TimeEvent extends TimeBase {
         setTimeEnd(timeEndStr);
     }
 
-    public void printEventTime()
+    public void printTimeInfo()
     {
-        System.out.print(tstart.get());
-        System.out.print(" --> ");
-        System.out.println(tend.get());
+        System.out.println("*Event Time");
+        super.printTimeInfo();
+
     }
-
-
-
-
-
 
 }

@@ -8,8 +8,10 @@ class TimeTest {
         System.out.println("==Timer Test==");
         TimeDeadline tdl = new TimeDeadline("1992:12:12:12:12:12");
         TimeEvent tev = new TimeEvent("1992:12:12:12:12:12", "1995:12:12:12:12:12");
-        tdl.printDeadlineTime();
-        tev.printEventTime();
+        TimeTodo ttodo = new TimeTodo();
+        tdl.printTimeInfo();
+        tev.printTimeInfo();
+        ttodo.printTimeInfo();
         assertTrue(true);
     }
 }

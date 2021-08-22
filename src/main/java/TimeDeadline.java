@@ -4,8 +4,10 @@ public class TimeDeadline extends TimeBase{
         super();
         setTimeStart(timeStr);
     }
-    public void printDeadlineTime()
+    public void printTimeInfo()
     {
-        System.out.println(tstart.get());
+        System.out.println("*Deadline Time");
+        super.printTimeInfo();
+
     }
 }

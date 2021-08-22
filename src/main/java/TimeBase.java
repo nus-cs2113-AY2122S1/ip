@@ -40,6 +40,18 @@ public abstract class TimeBase {
     {
         return trepeat;
     }
+    protected void printTimeInfo()
+    {
+        System.out.print("++Time Start: ");
+        if (tstart == null) System.out.println(-1);
+        else System.out.println(tstart.get());
+        System.out.print("++Time End: ");
+        if (tend == null) System.out.println(-1);
+        else System.out.println(tend.get());
+        System.out.print("++Time Repeat: ");
+        if (trepeat == null) System.out.println(-1);
+        else System.out.println(trepeat.get());
+    }
 }
 
 
