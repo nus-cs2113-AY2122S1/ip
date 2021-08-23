@@ -38,6 +38,8 @@ public class Duke {
                 programIsRunning = false;
             } else if (userInput.toLowerCase().equals("list")) {
                 printList(list);
+            } else if (userInput.toLowerCase().startsWith("done")) {
+                markTasksAsDone(userInput, list);
             } else {
                 list.add(new Task(userInput));
                 System.out.println(horizontalLine + "added: " + userInput + "\n" + horizontalLine);
@@ -61,7 +63,7 @@ public class Duke {
      * if invalid inputs are detected.
      *
      * @param userInput String of user input containing task numbers to be marked as done.
-     * @param list List of tasks 
+     * @param list      List of tasks
      */
     public static void markTasksAsDone(String userInput, List<Task> list) {
         int[] tasksToMarkDone = extractInt(userInput);
@@ -84,7 +86,7 @@ public class Duke {
                 continue;
             }
 
-            if (taskNumber >= list.size()) {
+            if (taskNumber > list.size()) {
                 System.out.println("Oops! You've given be an invalid task number. Skipping...");
                 continue;
             }
