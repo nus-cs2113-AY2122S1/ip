@@ -1,17 +1,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
-    private static ArrayList<Task> tasks = new ArrayList<>();
+public class Unker {
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        printSection("Hello! I'm Duke", "What can I do for you?");
+        String logo =  "  _    _       _             \n"
+                + " | |  | |     | |            \n"
+                + " | |  | |_ __ | | _____ _ __ \n"
+                + " | |  | | '_ \\| |/ / _ \\ '__|\n"
+                + " | |__| | | | |   <  __/ |   \n"
+                + "  \\____/|_| |_|_|\\_\\___|_|   \n";
+        System.out.println("Loading your digital\n" + logo);
+        printSection("Harlo, you can call me Unker.", "What can Unker do for you today?");
 
         // Initialize a scanner to read in user input
         Scanner scanner = new Scanner(System.in);
@@ -30,11 +31,11 @@ public class Duke {
 
             // Otherwise, ask the user for more commands
             System.out.println("--");
-            System.out.println("Anything else I can help you with?");
+            System.out.println("Anything else you wan Unker to help you with?");
         }
 
         // Cleanup and print exit message
-        printSection("Bye. Hope to see you again soon!");
+        printSection("Bye bye, see you soon again arh!");
     }
 
     /**
@@ -44,7 +45,7 @@ public class Duke {
      * @param data The string(s) to print to console.
      */
     private static void printSection(String ...data) {
-        System.out.println("--// Duke //-----------------------------------------------");
+        System.out.println("--// Unker //----------------------------------------------");
         for (String s: data) {
             System.out.println(s);
         }
@@ -62,38 +63,40 @@ public class Duke {
         case "bye":
             return false;
         case "list":
-            if (tasks.isEmpty()) {
-                printSection("You have nothing in your to-do list!");
+            if (TASKS.isEmpty()) {
+                printSection("Wah seh, you got nothing in your to-do list leh.");
             } else {
-                printSection("Here is your to-do list:");
+                printSection("This is what you give me:");
                 int toBeCompleted = 0;
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task task = tasks.get(i);
-                    if (!task.isCompleted()) {
+                for (int i = 0; i < TASKS.size(); i++) {
+                    Task task = TASKS.get(i);
+                    if (!task.isDone()) {
                         toBeCompleted++;
                     }
                     System.out.printf("%d. %s\n", i + 1, task.getStatusString());
                 }
-                System.out.printf("\nYou have %d task(s) left to do.\n", toBeCompleted);
+                System.out.printf("\nYou still got %d task(s) left to do.\n", toBeCompleted);
             }
             return true;
         case "done":
             int taskNo = Integer.parseInt(cmdParts[1]);
-            if (taskNo < 1 || taskNo > tasks.size()) {
-                printSection("That is not a valid task number :(");
+            if (taskNo < 1 || taskNo > TASKS.size()) {
+                printSection("Aiyo, you give me a task number that I don't have.");
             } else  {
-                Task task = tasks.get(taskNo - 1);
-                if (task.markAsCompleted()) {
-                    printSection("Nice! I have marked the following task as completed: ",
+                Task task = TASKS.get(taskNo - 1);
+                if (!task.isDone()) {
+                    task.setDone(true);
+                    printSection("Good job, this task finish already:",
                             "\t" + task.getStatusString(), "");
                 } else {
-                    printSection("The task is already done:", "\t" + task.getStatusString(), "");
+                    printSection("You finish this task already leh:", "\t" + task.getStatusString(), "");
                 }
             }
             return true;
         default:
-            tasks.add(new Task(cmdString));
-            printSection("I have added \"" + cmdString + "\" to your to-do list.");
+            Task t = new Task(cmdString);
+            TASKS.add(t);
+            printSection("Okay Unker help you add this to your to-do list:", "\t" + t.getStatusString());
             return true;
         }
     }

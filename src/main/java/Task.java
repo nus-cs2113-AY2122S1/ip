@@ -1,29 +1,29 @@
 public class Task {
-    private String task;
-    private boolean completed = false;
+    protected String description;
+    protected boolean isDone = false;
 
     public Task(String task) {
-        this.task = task;
+        this.description = task;
     }
 
-    public String getTask() {
-        return task;
+    public String getDescription() {
+        return description;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public boolean markAsCompleted() {
-        if (completed) {
-            return false;
-        } else {
-            this.completed = true;
-            return true;
-        }
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
+    /**
+     * Formats a string indicating if the task is done and the description of the task
+     *
+     * @return A string indicating if the task is done and the description of the task.
+     */
     public String getStatusString() {
-        return String.format("[%c] %s", isCompleted() ? 'X' : ' ' ,this.getTask());
+        return String.format("[%c] %s", isDone() ? 'X' : ' ' ,this.getDescription());
     }
 }
