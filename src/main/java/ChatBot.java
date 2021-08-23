@@ -26,7 +26,7 @@ public class ChatBot {
             printDivider();
             String[] keyword = chatInput.toLowerCase().split(" ");
             switch (keyword[0]) {
-                case "bye":
+            case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 printDivider();
                 return;
@@ -35,12 +35,23 @@ public class ChatBot {
                     if (list[i] == null) {
                         break;
                     }
-                    System.out.println((i+1) + ". " + printDone(list[i].isDone()) + " " + list[i].getToDoItem());
+                    System.out.println((i + 1) + ". " + printDone(list[i].isDone()) + " " + list[i].getToDoItem());
                 }
                 break;
             case "done":
-                int taskNumber = Integer.parseInt(keyword[1]);
-                list[taskNumber].setDone();
+                int taskNumber = Integer.parseInt(keyword[1])-1;
+                try {
+                    list[taskNumber].setDone();
+                } catch (Exception e) {
+                    int range = 0;
+                    for (range = 0; range < list.length; range++) {
+                        if (list[range] == null){
+                            break;
+                        }
+                    }
+                    System.out.println("Index not found! Please enter a valid index from 1 to " + range+1);
+                    break;
+                }
                 String output = "Nice! I've marked this task as done!\n" + printDone(list[taskNumber].isDone()) + list[taskNumber].getToDoItem();
                 System.out.println(output);
                 break;

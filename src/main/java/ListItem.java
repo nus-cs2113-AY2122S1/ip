@@ -2,11 +2,6 @@ public class ListItem {
     private String toDoItem;
     private boolean isDone;
 
-//    public ListItem() {
-//        this.toDoItem = "";
-//        this.isDone = false;
-//    }
-
     public ListItem(String toDoItem) {
         this.toDoItem = toDoItem;
         this.isDone = false;
