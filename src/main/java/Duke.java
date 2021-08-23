@@ -13,13 +13,19 @@ public class Duke {
         TodoList list = new TodoList();
         String request = in.nextLine();
         while (!request.equals("bye")) {
-            if (request.equals("list")) {
-                list.printItems();
-            } else {
-                list.addItem(request);
-                System.out.printf("added: %s\n", request);
+            try {
+                if (request.equals("list")) {
+                    list.printItems();
+                } else if (request.substring(0, 4).equals("done")) {
+                    list.doneItem(request);
+                } else {
+                    list.addItem(request);
+                }
+                request = in.nextLine();
+            } catch (Exception ex) {
+                System.out.println("Heyyyy, I can't do that...");
+                request = in.nextLine();
             }
-            request = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
