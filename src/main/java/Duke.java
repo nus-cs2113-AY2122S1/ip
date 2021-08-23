@@ -36,7 +36,7 @@ public class Duke {
 
         while(!userInput.equalsIgnoreCase("bye")) {
             Scanner in = new Scanner(System.in);
-            userInput = in.nextLine();
+            userInput = in.nextLine().toLowerCase();
 
             if(userInput.contains("add") && !userInput.equalsIgnoreCase("add")) {
                 String task = userInput.replace("add","").trim();
