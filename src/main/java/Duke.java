@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
 
     /**
      * Prints message within horizontal lines.
@@ -16,14 +16,14 @@ public class Duke {
     }
 
     /**
-     * Prints tasks in list.
+     * Prints tasks in list format.
      *
-     * @param header Message header.
+     * @param header List header.
      */
-    public static void printList(String header) {
+    public static void printTasks(String header) {
         String message = header;
-        for (int i = 0; i < taskList.size(); i += 1) {
-            message += String.format("\n%d: %s",i + 1, taskList.get(i).getListEntryString());
+        for (int i = 0; i < TASKS.size(); i += 1) {
+            message += String.format("\n%d: %s",i + 1, TASKS.get(i).getListEntryString());
         }
         printMessage(message);
     }
@@ -35,12 +35,15 @@ public class Duke {
      * @return true if string can be converted to integer, else false.
      */
     public static boolean isInteger(String string) {
+        boolean isInt;
         try {
             int value = Integer.parseInt(string);
-            return true;
+            isInt = true;
         } catch (NumberFormatException e) {
-            return false;
+            isInt = false;
         }
+
+        return isInt;
     }
 
     public static void main(String[] args) {
@@ -54,10 +57,10 @@ public class Duke {
             switch (input) {
             case "list":
                 String message;
-                if (taskList.isEmpty()) {
+                if (TASKS.isEmpty()) {
                     printMessage("List is empty");
                 } else {
-                    printList("Task List:");
+                    printTasks("Task List:");
                 }
                 break;
             case "bye":
@@ -68,12 +71,12 @@ public class Duke {
                     String[] inputSplit = input.split("\\s+");
                     if (inputSplit.length == 2 && isInteger(inputSplit[1])) {
                         int taskIndex = Integer.parseInt(inputSplit[1]);
-                        if (taskIndex > 0 && taskIndex <= taskList.size()) {
-                            Task task = taskList.get(taskIndex - 1);
+                        if (taskIndex > 0 && taskIndex <= TASKS.size()) {
+                            Task task = TASKS.get(taskIndex - 1);
                             if (task.isDone()) {
                                 printMessage(String.format("Task #%d is already marked as done",taskIndex));
                             } else {
-                                task.setDone();
+                                task.setAsDone();
                                 printMessage(String.format("Task marked as done:\n%s",task.getListEntryString()));
                             }
                         } else {
@@ -84,7 +87,7 @@ public class Duke {
                     }
                 } else {
                     Task task = new Task(input);
-                    taskList.add(task);
+                    TASKS.add(task);
                     printMessage(String.format("Added: %s",task.getName()));
                 }
                 break;

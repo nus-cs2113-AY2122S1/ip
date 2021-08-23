@@ -1,6 +1,6 @@
 public class Task {
     private String name;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String description) {
         this.name = description;
@@ -11,11 +11,11 @@ public class Task {
     }
 
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
-    public void setDone() {
-        done = true;
+    public void setAsDone() {
+        isDone = true;
     }
 
     /**
