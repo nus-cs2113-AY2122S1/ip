@@ -15,7 +15,7 @@ public class Task {
         return description;
     }
 
-    public void toggleDone() {
-        isDone = !isDone;
+    public void markAsDone() {
+        isDone = true;
     }
 }
