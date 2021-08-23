@@ -7,29 +7,45 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("**************************************************");
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
-        System.out.println("**************************************************");
-        String[] userList = new String[100];
+
+        System.out.println("    **************************************************");
+        System.out.println("    Hello! I'm Duke\n" + "    What can I do for you?");
+        System.out.println("    **************************************************");
+
+        Task[] userList = new Task[100];
         Scanner scanner = new Scanner(System.in);
-        int x = 0;
         String userInput = "";
-        while(!userInput.equals("bye")){
+        int chosenEntry;
+        int currentEntry = 0;
+
+        while(!userInput.equals("bye")) {
             userInput = scanner.nextLine();
-            System.out.println("**************************************************");
-            if(userInput.equals("list")){
-                for(int i = 0; i < x; i++){
-                    System.out.println((i+1) + ". " + userList[i]);
+            String[] splitInput = userInput.split(" ");
+            System.out.println("    **************************************************");
+
+            if (!splitInput[0].equals(("bye"))) {
+                if (splitInput[0].equals("list")) {
+                    System.out.println("    Here are the tasks in your list");
+                    for (int i = 0; i < currentEntry; i++) {
+                        System.out.println("    " + (i + 1) + ".[" + userList[i].getStatusIcon() + "] " + userList[i].getDescription());
+                    }
+                    System.out.println("    **************************************************");
+                } else if (splitInput[0].equals("done")) {
+                    chosenEntry = Integer.parseInt(splitInput[1]) - 1;
+                    userList[chosenEntry].markAsDone();
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("     [" + userList[chosenEntry].getStatusIcon() + "] " + userList[chosenEntry].getDescription());
+                    System.out.println("    **************************************************");
+                } else {
+                    userList[currentEntry] = new Task(userInput);
+                    System.out.println("    Added: " + userInput);
+                    currentEntry++;
+                    System.out.println("    **************************************************");
                 }
-                System.out.println("**************************************************");
-            } else if(!userInput.equals("bye")){
-                userList[x] = userInput;
-                System.out.println("Added: "+ userInput);
-                x++;
-                System.out.println("**************************************************");
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("**************************************************");
+
+        System.out.println("    Bye. Hope to see you again soon!");
+        System.out.println("    **************************************************");
     }
 }
