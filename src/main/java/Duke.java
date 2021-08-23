@@ -46,9 +46,23 @@ public class Duke {
     private static void list() {
         System.out.print(LINE);
         for (int i = 1; i <= taskNumber; i++) {
-            System.out.println(PADDING + i + ". " + tasks[i - 1]);
+            System.out.println(PADDING + i + "." + tasks[i - 1]);
         }
         System.out.println(LINE);
+    }
+
+    // Mark a task as done and display it
+    private static void done(int number) {
+        if (number <= taskNumber) {
+            tasks[number - 1].markAsDone();
+            System.out.print(LINE);
+            System.out.println(PADDING + "Nice! I've marked this task as done:");
+            System.out.println(PADDING + "  " + tasks[number - 1]);
+            System.out.println(LINE);
+        } else {
+            System.out.println(LINE);
+            System.out.println(LINE);
+        }
     }
 
     // Duke main program
@@ -61,6 +75,8 @@ public class Duke {
                 break;
             } else if (command.equals("list")) {
                 list();
+            } else if (command.split(" ")[0].equals("done")) {
+                done(Integer.parseInt(command.split(" ")[1]));
             } else {
                 add(command);
             }
