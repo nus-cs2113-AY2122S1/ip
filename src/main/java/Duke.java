@@ -18,32 +18,40 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String command;
         boolean isDone = false;
-        int numOfTasks = 0;
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
 
         do {
             command = in.nextLine();
-            switch (command){
-            case "bye":
-                isDone = true;
+
+            if (command.contains("done")) {
+                int itemNum = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
+                taskList[itemNum].setDone();
                 System.out.println(separator);
-                System.out.println("\tBye. Hope to see you again soon!");
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.printf("\t  [%s] %s\n", taskList[itemNum].getStatusIcon(), taskList[itemNum].getDescription());
                 System.out.println(separator);
-                break;
-            case "list":
-                System.out.println(separator);
-                for (int i = 0; i < numOfTasks; i++) {
-                    System.out.printf("\t%d. %s\n", i+1, taskList[i]);
+            } else {
+                switch (command) {
+                case "bye":
+                    isDone = true;
+                    System.out.println(separator);
+                    System.out.println("\tBye. Hope to see you again soon!");
+                    System.out.println(separator);
+                    break;
+                case "list":
+                    System.out.println(separator);
+                    for (int i = 0; i < Task.getNumOfTasks(); i++) {
+                        System.out.printf("\t%d.[%s] %s\n", i + 1, taskList[i].getStatusIcon(), taskList[i].getDescription());
+                    }
+                    System.out.println(separator);
+                    break;
+                default:
+                    taskList[Task.getNumOfTasks()] = new Task(command);
+                    System.out.println(separator);
+                    System.out.println("\tadded: " + command);
+                    System.out.println(separator);
+                    break;
                 }
-                System.out.println(separator);
-                break;
-            default:
-                taskList[numOfTasks] = command;
-                numOfTasks++;
-                System.out.println(separator);
-                System.out.println("\tadded: " + command);
-                System.out.println(separator);
-                break;
             }
         } while (!isDone);
     }
