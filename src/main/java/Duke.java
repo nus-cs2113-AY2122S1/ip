@@ -25,6 +25,7 @@ public class Duke {
                 isFinished = true;
                 break;
             } else if (userInput.equals("list")) {
+                System.out.println("Here is your task list:");
                 for (int i = 0; i < itemCount; i++) {
                     System.out.print("\t" + (i + 1) + ". ");
                     System.out.println("[" + items[i].getStatusIcon() + "] " + items[i].description);
@@ -35,7 +36,7 @@ public class Duke {
                 items[indexToMark].markAsDone();
                 System.out.println("\tNice! I have marked this task as done:");
                 System.out.println("\t\t[X] " + items[indexToMark].description);
-            } else{
+            } else {
                 items[itemCount] = new Task(userInput);
                 System.out.println("\tadded: " + userInput);
                 itemCount++;
