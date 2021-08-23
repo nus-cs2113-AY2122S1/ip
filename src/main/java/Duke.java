@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,17 +25,17 @@ public class Duke {
 
         boolean programIsRunning = true;
         String userInput;
-        List<Task> list = new ArrayList<Task>();
+        List<Task> list = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         System.out.println("Hello from\n" + logo + greetingMessage);
 
         while (programIsRunning) {
             userInput = in.nextLine().trim();
 
-            if (userInput.toLowerCase().equals("bye")) {
+            if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println(goodbyeMessage);
                 programIsRunning = false;
-            } else if (userInput.toLowerCase().equals("list")) {
+            } else if (userInput.equalsIgnoreCase("list")) {
                 printList(list);
             } else if (userInput.toLowerCase().startsWith("done")) {
                 markTasksAsDone(userInput, list);
