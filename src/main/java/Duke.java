@@ -8,7 +8,7 @@ public class Duke {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
     public static void greet() {
@@ -25,10 +25,10 @@ public class Duke {
     }
 
     public static void addTask(String input) {
-        tasks[taskCount] = input;
+        tasks[taskCount] = new Task(input);
         taskCount++;
         drawHorizontalLine();
-        System.out.printf("I have added %s into your list %n", input);
+        System.out.printf("I have added \"%s\" into your to-do list. %n", input);
         drawHorizontalLine();
     }
 
@@ -47,13 +47,23 @@ public class Duke {
 
     public static void displayTask() {
         drawHorizontalLine();
+        String status;
         if (taskCount == 0) {
             System.out.println("No task added yet!");
         } else {
+            System.out.println("Here is your list at the moment:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.printf("%d. %s %n", i + 1, tasks[i]);
+                System.out.printf("%d.[%s] %s %n", i + 1, tasks[i].getStatusIcon(), tasks[i].getDescription());
             }
         }
+        drawHorizontalLine();
+    }
+
+    public static void markTaskDone(String command) {
+        int taskNumber = Integer.parseInt(command.split(" ")[1]) - 1;
+        tasks[taskNumber].setDone();
+        drawHorizontalLine();
+        System.out.printf("I have marked \"%s\" as done %n", tasks[taskNumber].getDescription());
         drawHorizontalLine();
     }
 
@@ -63,18 +73,19 @@ public class Duke {
         System.out.println(LOGO);
         greet();
         String input;
+        String inputNormalized;
         while (!finished) {
             input = readCommand(in);
-            switch (input.toLowerCase()) {
-            case "list":
+            inputNormalized = input.toLowerCase().trim();
+            if (inputNormalized.equals("list")) {
                 displayTask();
-                break;
-            case "bye":
+            } else if (inputNormalized.equals("bye")) {
                 finished = true;
                 sayGoodbye();
-                break;
-            default:
-                addTask(input);
+            } else if (inputNormalized.split(" ")[0].equals("done")) {
+                markTaskDone(inputNormalized);
+            } else {
+                addTask(input.trim());
             }
         }
     }
