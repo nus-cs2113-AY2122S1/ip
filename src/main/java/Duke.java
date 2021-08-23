@@ -42,13 +42,15 @@ public class Duke {
     public static void printTaskDone(Task[] tasks, int taskCount, String doneTask) {
         String[] doneSentence = doneTask.split(" ");
 
+        // Checks if a string does not follow the correct format of "done {task ID}".
         if (doneSentence.length != 2) {
             System.out.println("____________________________________________________________");
-            System.out.println(" Your command is of the wrong format! To mark a task as done, enter \"done {ID of done task}\".");
+            System.out.println(" Your input is of the wrong format! To mark a task as done, enter \"done {ID of done task}\".");
             System.out.println("____________________________________________________________");
             return;
         }
 
+        // Checks if the task ID entered is numeric.
         if (!isNumeric(doneSentence[1])) {
             System.out.println("____________________________________________________________");
             System.out.println(" Your command is of the wrong format! Enter a number for your task ID.");
@@ -57,6 +59,7 @@ public class Duke {
         }
 
         int taskToMarkDone = Integer.parseInt(doneSentence[1]);
+        // Makes sure that the task being mark done is in the task list.
         if (taskToMarkDone > taskCount || taskToMarkDone <= 0) {
             System.out.println("____________________________________________________________");
             System.out.println(" Sorry, the task is not in the list! Try again.");
