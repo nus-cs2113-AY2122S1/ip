@@ -14,7 +14,7 @@ public class Duke {
                 +       "------------------------\n";
 
         String userCommand;
-        String[] userTasks = new String[100];
+        Task[] userTasks = new Task[100];
 
         int numberOfTasks = 0;
 
@@ -30,10 +30,25 @@ public class Duke {
 
             if (userCommand.equals("list")) {
                 for (int i = 0; i < numberOfTasks; i++) {
-                    System.out.println((i + 1) + ". " + userTasks[i]);
+                    System.out.println((i + 1) + ".["
+                            + userTasks[i].getStatusIcon()
+                            + "] "
+                            + userTasks[i].getTaskDescription());
+                }
+            } else if (userCommand.contains("done")) {
+                String taskDone = userCommand.substring(5);
+                int taskDoneNumber = Integer.parseInt(taskDone);
+
+                if (taskDoneNumber > numberOfTasks) {
+                    System.out.println("Task number have not existed!");
+                } else {
+                    userTasks[taskDoneNumber - 1].markTaskDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[X] "
+                            + userTasks[taskDoneNumber - 1].getTaskDescription());
                 }
             } else {
-                userTasks[numberOfTasks] = userCommand;
+                userTasks[numberOfTasks] = new Task(userCommand);
                 System.out.println("added: " + userCommand);
                 numberOfTasks++;
             }
