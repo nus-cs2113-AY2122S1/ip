@@ -2,10 +2,12 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String line = "____________________________________________________________";
+    private static String[] commands = new String[100];
+    private static int totalCommands = 0;
 
     public static void main(String[] args) {
         greetUser();
-        echo();
+        addCommands();
     }
 
     public static void printLogo() {
@@ -45,6 +47,41 @@ public class Duke {
                 break;
             }
             printString(command);
+        }
+    }
+
+    // lists all commands added to duke
+    public static void listCommands() {
+        if (commands.length == 0) {
+            printString("no commands");
+        } else {
+            System.out.println(line);
+            for (int i = 0; i < totalCommands; i++) {
+                System.out.print(" ");
+                System.out.print(i + 1);
+                System.out.println(". " + commands[i]);
+            }
+            System.out.println(line);
+        }
+    }
+
+    // adds commands to an array of commands
+    public static void addCommands() {
+        String command;
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            command = in.nextLine();
+            if (command.equals("bye")) {
+                exitChatbot();
+                break;
+            }
+            if (command.equals("list")) {
+                listCommands();
+            } else {
+                commands[totalCommands] = command;
+                totalCommands++;
+                printString("added: " + command);
+            }
         }
     }
 }
