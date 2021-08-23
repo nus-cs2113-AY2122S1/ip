@@ -24,7 +24,7 @@ public class Patchi {
                 }
             } else if (input.indexOf("done") == 0) {
                 int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                if(nextTaskIndex > taskIndex) {
+                if (nextTaskIndex > taskIndex) {
                     tasks[taskIndex].setDone(true);
                     System.out.println("Patchi: Good job! I've marked this task as done on your list. Time for a break? Œ(ˊwˋ)B");
                 } else {
