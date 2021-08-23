@@ -1,18 +1,30 @@
-public class Duke {
-    public static void main(String[] args) {
-        /*String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);*/
+import java.util.Scanner;
 
-        String message = "____________________________________________________________\n"
-                + " Hello! I'm Duke\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
+public class Duke {
+    /**
+     * Prints message within horizontal lines
+     *
+     * @param message The message to print.
+     */
+    public static void printMessage(String message) {
+        System.out.println("------------------------------------------------------------");
         System.out.println(message);
+        System.out.println("------------------------------------------------------------");
+    }
+
+    public static void main(String[] args) {
+        printMessage("Hello! I'm Duke\nWhat can I do for you?");
+
+        Scanner scanner = new Scanner(System.in);
+        boolean run = true;
+        do {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                run = false;
+                printMessage("Bye. Hope to see you again soon!");
+            } else {
+                printMessage(input);
+            }
+        } while (run);
     }
 }
