@@ -20,7 +20,14 @@ public class Task {
     public static void printList(int n, Task[] arr)
     {
         for (int i = 0; i < n; i++) {
-            System.out.println(i+1 + ". [" + arr[i].getStatusIcon() + "]" + arr[i].description);
+            System.out.println(i+1 + ". [" + arr[i].getStatusIcon() + "] " + arr[i].description);
+        }
+    }
+
+    public static void printDoneList(int n, Task[] arr)
+    {
+        for (int i = 0; i < n; i++) {
+            if (arr[i].isDone) System.out.println("[X] " + arr[i].description);
         }
     }
 
@@ -33,7 +40,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone(Task t) {
+    public void markAsDone() {
         this.isDone = true;
     }
 

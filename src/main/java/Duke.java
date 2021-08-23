@@ -22,6 +22,10 @@ public class Duke {
                 System.out.println("Here are the tasks in your list:");
                 Task.printList(i,tasks);
             }
+            else if (Objects.equals(line, "done 2")) {
+                System.out.println("Nice! I've marked this task as done: ");
+                Task.printDoneList(i,tasks);
+            }
             else {
                 tasks = Task.addTask(i,tasks,line);
                 i++;
