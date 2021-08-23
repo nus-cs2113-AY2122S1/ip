@@ -8,7 +8,7 @@ public class Duke {
 
         while (true) {
             String chatInput = in.nextLine();
-            switch(chatInput.toLowerCase()) {
+            switch (chatInput.toLowerCase()) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
