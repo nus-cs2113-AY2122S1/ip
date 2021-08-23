@@ -8,8 +8,8 @@ public class Duke {
         String[] list = new String[100];
         int listItem = 0;
 
-        Scanner s1 = new Scanner(System.in);
-        String input = s1.nextLine();
+        Scanner scanner1 = new Scanner(System.in);
+        String input = scanner1.nextLine();
 
         while (!input.equals("bye")) {
             if (input.equals("list")) {
@@ -21,7 +21,7 @@ public class Duke {
                 System.out.println("added: " + input);
                 listItem += 1;
             }
-            input = s1.nextLine();
+            input = scanner1.nextLine();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
