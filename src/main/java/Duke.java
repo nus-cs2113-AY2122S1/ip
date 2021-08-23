@@ -16,7 +16,7 @@ public class Duke {
             } else if (command.startsWith("done")) {
                 String[] words = command.split(" ");
                 int index = Integer.parseInt(words[1]);
-                markAsDone(list, index-1);
+                markAsDone(list, index - 1);
             } else if (command.equals("bye")) {
                 break;
             } else {
