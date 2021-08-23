@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Duke {
@@ -6,13 +7,16 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         while (true) {
-            String chatInput = in.next();
-            if (chatInput.toLowerCase().equals("bye")) {
+            String chatInput = in.nextLine();
+            switch(chatInput.toLowerCase()) {
+            case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else {
+                return;
+            default:
                 System.out.println(chatInput);
+                break;
             }
+
         }
     }
 
