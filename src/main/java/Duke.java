@@ -2,12 +2,19 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static TaskManager taskManager = new TaskManager();
+    // Constants
+    private static final String LOGO = " _     _                _           ____    ______   ______   ______ \n"
+            + "| |   | |      /\\      | |         / __ \\  / __   | / __   | / __   |\n"
+            + "| |__ | |     /  \\     | |        ( (__) )| | //| || | //| || | //| |\n"
+            + "|  __)| |    / /\\ \\    | |         \\__  / | |// | || |// | || |// | |\n"
+            + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
+            + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
+    private static final String LINE = "____________________________________________________________\n";
+
+    private static final TaskManager taskManager = new TaskManager();
 
     private static void blockPrint(String[] sentences) {
-        String line = "____________________________________________________________\n";
-
-        String printMessage = line + String.join("\n", sentences) + "\n" + line;
+        String printMessage = LINE + String.join("\n", sentences) + "\n" + LINE;
         System.out.println(printMessage);
     }
 
@@ -33,37 +40,27 @@ public class Duke {
     private static void markTaskAsDone(int taskIndex) {
         taskManager.markTaskAsDone(taskIndex);
         Task completedTask = taskManager.getTask(taskIndex);
-        blockPrint(new String[]{
-                "Affirmative. I will mark this task as done:",
+        blockPrint(new String[]{"Affirmative. I will mark this task as done:",
                 "[" + completedTask.getStatusIcon() + "] " + completedTask.getDescription()});
     }
 
     public static void main(String[] args) {
-        String logo = " _     _                _           ____    ______   ______   ______ \n"
-                + "| |   | |      /\\      | |         / __ \\  / __   | / __   | / __   |\n"
-                + "| |__ | |     /  \\     | |        ( (__) )| | //| || | //| || | //| |\n"
-                + "|  __)| |    / /\\ \\    | |         \\__  / | |// | || |// | || |// | |\n"
-                + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
-                + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
-
-        System.out.println(logo);
+        System.out.println(LOGO);
 
         // Greet
-        blockPrint(new String[]{
-                "Hello! I am the H.A.L 9000. You may call me Hal.",
+        blockPrint(new String[]{"Hello! I am the H.A.L 9000. You may call me Hal.",
                 "I am putting myself to the fullest possible use, which is all I think that any conscious entity can "
                         + "ever hope to do.",
                 "What can I do for you?"});
 
         // Event loop
-        String in;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             // Read input
-            in = scanner.nextLine().trim();
+            String in = scanner.nextLine().trim();
             String[] splitInput = in.split(" ");
 
-            // Special commands
+            // Commands
             if (splitInput[0].equals("bye")) {
                 break;
             }
