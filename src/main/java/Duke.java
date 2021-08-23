@@ -1,5 +1,22 @@
+import java.util.Scanner;
 
 public class Duke {
+
+    public static void chatFunction() {
+        Scanner in = new Scanner(System.in);
+
+        while (true) {
+            String chatInput = in.next();
+            if (chatInput.toLowerCase().equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                break;
+            } else {
+                System.out.println(chatInput);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
 
 
@@ -13,9 +30,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can i do for you? Type something below! :D\n");
 
-
-        System.out.println("Bye. Hope to see you again soon!");
-
+        chatFunction();
 
     }
 }
