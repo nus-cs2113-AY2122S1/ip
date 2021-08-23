@@ -7,11 +7,19 @@ public class TaskManager {
     public TaskManager() {
     }
 
+    public int getTotalTasks() {
+        return taskList.size();
+    }
+
+    public Task getTask(int taskIndex) {
+        return this.taskList.get(taskIndex - 1);
+    }
+
     public void addTask(Task newTask) {
         this.taskList.add(newTask);
     }
 
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
+    public void markTaskAsDone(int taskIndex) {
+        taskList.get(taskIndex - 1).markAsDone();
     }
 }
