@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class Duke {
             try {
                 if (request.equals("list")) {
                     list.printItems();
-                } else if (request.substring(0, 4).equals("done")) {
+                } else if (request.startsWith("done")) { //Should check if it is a task or a command instead
                     list.doneItem(request);
                 } else {
                     list.addItem(request);

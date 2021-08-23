@@ -3,7 +3,7 @@ public class TodoListItem {
     private String item;
     private boolean isDone;
 
-    public TodoListItem(String item){
+    public TodoListItem(String item) {
         this.item = item;
         this.isDone = false;
     }

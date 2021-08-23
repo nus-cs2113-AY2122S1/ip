@@ -13,14 +13,10 @@ public class TodoList {
          System.out.printf("added: %s\n", item);
     }
 
-    public void doneItem(String request) {
-        try {
-            int listNumber = Integer.parseInt(request.substring(5, request.length()));
-            this.todoList[listNumber - 1].setDone();
-            System.out.printf("Nice! I've marked this task as done:\n\t[X] %s\n", todoList[listNumber - 1].getItem());
-        } catch (Exception ex) {
-            System.out.println("Please key in a valid list number");
-        }
+    public void doneItem(String request) throws Exception{
+        int listNumber = Integer.parseInt(request.substring(5, request.length()));
+        this.todoList[listNumber - 1].setDone();
+        System.out.printf("Nice! I've marked this task as done:\n\t[X] %s\n", todoList[listNumber - 1].getItem());
     }
 
     public void printItems() {
