@@ -3,6 +3,18 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            int d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> taskList = new ArrayList<>();
         String horizontalLine = "------------------------------------------------------";
@@ -41,14 +53,24 @@ public class Duke {
                 }
                 System.out.println(horizontalLine);
             } else if(userInput.contains("done")){
-                String[] splitTaskToBeMarkedAsDone = userInput.split(" ");
-                int i = (Integer.parseInt(splitTaskToBeMarkedAsDone[1])) - 1;
-                if(i > taskList.size() - 1) {
-                    System.out.println("Invalid task number");
-                } else {
-                    Task taskUpdated = taskList.get(i);
-                    taskUpdated.updateIsDone();
-                    System.out.println("Nice! I've marked this task as done: \n" + (i + 1) + ".[" + taskUpdated.getStatusIcon() + "] " + taskUpdated.description);
+                int wordIndex = 0;
+                boolean numberExists = false;
+                String[] splitTaskToBeMarkedAsDone = userInput.split("\\W");
+                for(String word : splitTaskToBeMarkedAsDone){
+                    if(isNumeric(word)){
+                        numberExists = true;
+                        int i = (Integer.parseInt(splitTaskToBeMarkedAsDone[wordIndex])) - 1;
+                        if(i > taskList.size() - 1 || i < 0) {
+                            System.out.println("Invalid task number");
+                        } else {
+                            Task taskUpdated = taskList.get(i);
+                            taskUpdated.updateIsDone();
+                            System.out.println("Nice! I've marked this task as done: \n" + (i + 1) + ".[" + taskUpdated.getStatusIcon() + "] " + taskUpdated.description);
+                        }
+                    } else if (!numberExists && ((wordIndex + 1) >= splitTaskToBeMarkedAsDone.length)) {
+                        System.out.println("No number specified! Please specify the number on the list of the task you have completed!");
+                    }
+                    wordIndex++;
                 }
             } else if (!userInput.contains("bye")){
                 System.out.println("Aw man! I am unable to " + userInput + " yet! Please specify a different function! :D");
