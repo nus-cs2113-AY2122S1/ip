@@ -4,13 +4,13 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public static Task[] addTask(int n, Task[] tasks, String line)
+    public static Task[] addTask(int length, Task[] tasks, String line)
     {
         Task task = new Task(line);
 
-        Task[] newTasks = new Task[n + 1];
+        Task[] newTasks = new Task[length + 1];
         int i;
-        for (i = 0; i < n; i++) newTasks[i] = tasks[i];
+        for (i = 0; i < length; i++) newTasks[i] = tasks[i];
 
         newTasks[i] = task;
         return newTasks;
@@ -22,13 +22,6 @@ public class Task {
             System.out.println(i+1 + ". [" + arr[i].getStatusIcon() + "] " + arr[i].description);
         }
     }
-
-//    public static void printDoneList(int n, Task[] arr)
-//    {
-//        for (int i = 0; i < n; i++) {
-//            if (arr[i].isDone) System.out.println("[X] " + arr[i].description);
-//        }
-//    }
 
     public static void markDone(int n, Task[] arr)
     {
