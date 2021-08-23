@@ -17,11 +17,15 @@ public class Alfred {
                 " How may I be of service to you?\n" +
                 "____________________________________________________________\n"
         );
+
+        String[] toDoList = new String[100];
+        int listIndex = 0;
         Scanner scanner = new Scanner(System.in);
         boolean isAppRunning = true;
         while (isAppRunning) {
-            String userInput = scanner.nextLine().toLowerCase();
+            String userInput = scanner.nextLine();
             switch (userInput) {
+            case "BYE":
             case "bye":
                 isAppRunning = false;
                 System.out.println(
@@ -30,17 +34,20 @@ public class Alfred {
                         "____________________________________________________________\n"
                 );
                 break;
-            case "get the batmobile":
-                System.out.println(
-                        "____________________________________________________________\n" +
-                        " At once, sir. I look forward to seeing you back in one piece, I hope.\n" +
-                        "____________________________________________________________\n"
-                );
+            case "list":
+                System.out.println("____________________________________________________________\n");
+                for (int i = 0; i < listIndex; i++) {
+                    System.out.print(i+1);
+                    System.out.println(". " + toDoList[i]);
+                }
+                System.out.println("____________________________________________________________\n");
                 break;
             default:
+                toDoList[listIndex] = userInput;
+                listIndex++;
                 System.out.println(
                         "____________________________________________________________\n" +
-                        " I'm sorry sir, I do not quite get what you mean by \"" +
+                        " I shall put this in your schedule, Master Wayne: \"" +
                         userInput + "\".\n" +
                         "____________________________________________________________\n"
                 );
