@@ -18,11 +18,20 @@ public class Task {
         this.description = description;
     }
 
+    /**
+     * Checks if the task is completed and returns corresponding icons
+     *
+     * @return X if task is already completed else just blank
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 }
