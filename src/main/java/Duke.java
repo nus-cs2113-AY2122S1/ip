@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,7 +14,7 @@ public class Duke {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 for (int i = 0; i < listItem; i += 1) {
-                    System.out.println(Integer.toString(i + 1) + ". " + list[i]);
+                    System.out.println((i + 1) + ". " + list[i]);
                 }
             } else {
                 list[listItem] = input;
