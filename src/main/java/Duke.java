@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,14 +18,36 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         boolean run = true;
+        ArrayList<String> list = new ArrayList<>();
         do {
+            System.out.print("$ ");
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
+            switch (input) {
+            case "list":
+                String message;
+                if (list.isEmpty()) {
+                    message = "List is empty";
+                } else {
+                    message = "";
+                    for (int i = 0; i < list.size(); i += 1) {
+                        if (i > 0) {
+                            message += "\n";
+                        }
+                        message += String.format("%d: %s",i + 1, list.get(i));
+                    }
+                }
+                printMessage(message);
+                break;
+            case "bye":
                 run = false;
-                printMessage("Bye. Hope to see you again soon!");
-            } else {
-                printMessage(input);
+                break;
+            default:
+                list.add(input);
+                printMessage(String.format("Added: %s",input));
+                break;
             }
         } while (run);
+
+        printMessage("Bye. Hope to see you again soon!");
     }
 }
