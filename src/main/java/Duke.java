@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -35,7 +36,7 @@ public class Duke {
             System.out.println(separator);
             if (line.equals("list")) {
                 showList(Arrays.copyOf(tasks, taskCount));
-            } else if (line.startsWith("done")) {
+            } else if (line.toLowerCase().startsWith("done")) {
                 String[] words = line.split(" ");
                 //Assuming the 2nd word is the index of the task
                 int taskIndex = Integer.parseInt(words[1]) - 1;
