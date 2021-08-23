@@ -67,28 +67,54 @@ public class Duke {
         }
     }
 
-    public static void addText() {
-        Scanner in = new Scanner(System.in);
-        String toAdd = in.nextLine();
-        String textLowerC = toAdd.toLowerCase();
-        while (!textLowerC.equals("bye") & !textLowerC.equals("list") & !textLowerC.equals("change")) {
-            storedTexts[additions] = toAdd;
-//            System.out.println(Arrays.toString(storedTexts));
-            System.out.println("\t" + HOR_LINE);
-            System.out.println("\tAdded: " + toAdd);
-            System.out.println("\t" + HOR_LINE + System.lineSeparator());
-            additions++;
-            toAdd = in.nextLine();
-            textLowerC = toAdd.toLowerCase();
-        }
-
-        if (textLowerC.equals("list")) {
+    public static void printList() {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tCURRENT ADDED LIST");
             for (int i = 0; i < additions; i++) {
                 System.out.printf("\t%d. %s\n", i+1, storedTexts[i]);
             }
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
+    }
+
+    public static void addText() {
+        Scanner in = new Scanner(System.in);
+        String toAdd = in.nextLine();
+        String textLowerC = toAdd.toLowerCase();
+
+        while (!textLowerC.equals("bye") & !textLowerC.equals("list") & !textLowerC.equals("change")) {
+            if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
+                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", ""));
+                storedTexts[taskNo - 1] = storedTexts[taskNo - 1].replace("[ ]", "[X]");
+                // Print response when task marked done.
+                System.out.println("\t" + HOR_LINE);
+                System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTexts[taskNo - 1].substring(4));
+                System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            }
+            else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
+                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
+                System.out.println("\t" + HOR_LINE);
+                System.out.printf("\t%s removed from list!\n", storedTexts[taskNo].substring(4));
+                System.out.println("\t" + HOR_LINE + System.lineSeparator());
+                System.arraycopy(storedTexts,taskNo + 1, storedTexts, taskNo, additions - taskNo);
+                additions--;
+                printList();
+            }
+            else {
+                storedTexts[additions] = "[ ] " + toAdd;
+//            System.out.println(Arrays.toString(storedTexts));
+                System.out.println("\t" + HOR_LINE);
+                System.out.println("\tAdded: " + toAdd);
+                System.out.println("\t" + HOR_LINE + System.lineSeparator());
+                additions++;
+            }
+
+            toAdd = in.nextLine();
+            textLowerC = toAdd.toLowerCase();
+        }
+
+
+        if (textLowerC.equals("list")) {
+            printList();
             addText();
         }
 
