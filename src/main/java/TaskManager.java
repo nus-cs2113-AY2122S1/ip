@@ -11,12 +11,7 @@ public class TaskManager {
         this.taskList.add(newTask);
     }
 
-    public String[] getIndexedTaskList() {
-        String[] indexedTasks = new String[taskList.size()];
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            indexedTasks[i] = (i + 1) + ". " + task.getDescription();
-        }
-        return indexedTasks;
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 }

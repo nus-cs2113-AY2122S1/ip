@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -38,7 +39,16 @@ public class Duke {
             // Special commands
             if (in.equals("list")) {
                 // List tasks
-                blockPrint(taskManager.getIndexedTaskList());
+                ArrayList<Task> taskList = taskManager.getTaskList();
+
+                // Index tasks
+                String[] message = new String[taskList.size() + 1];
+                message[0] = "Here are the tasks in your list:";
+                for (int i = 0; i < taskList.size(); i++) {
+                    message[i + 1] = (i + 1) + ". " + taskList.get(i).getDescription();
+                }
+
+                blockPrint(message);
                 continue;
             } else if (in.equals("bye")) {
                 // Escape event loop to quit
