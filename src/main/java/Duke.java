@@ -22,9 +22,8 @@ public class Duke {
                 + "Hello! I'm Duke" + System.lineSeparator()
                 + "What can I do for you?" + System.lineSeparator()
                 + horizontalLine);
-        //initialise Scanner
+        //initialise Scanner and TaskManager
         Scanner in = new Scanner(System.in);
-        //initialise TaskManager
         TaskManager taskManager = new TaskManager();
 
         boolean conversationIsOver = false;
