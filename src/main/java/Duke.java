@@ -26,7 +26,7 @@ public class Duke {
 
         boolean programIsRunning = true;
         String userInput;
-        List<String> list = new ArrayList<String>();
+        List<Task> list = new ArrayList<Task>();
         Scanner in = new Scanner(System.in);
         System.out.println("Hello from\n" + logo + greetingMessage);
 
@@ -39,17 +39,19 @@ public class Duke {
             } else if (userInput.toLowerCase().equals("list")) {
                 printList(list);
             } else {
-                list.add(userInput);
+                list.add(new Task(userInput));
                 System.out.println(horizontalLine + "added: " + userInput + "\n" + horizontalLine);
             }
         }
 
     }
 
-    public static void printList(List<String> list) {
-        System.out.println(horizontalLine);
+    public static void printList(List<Task> list) {
+        Task task;
+        System.out.println(horizontalLine + "Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i+1) + ": " + list.get(i));
+            task = list.get(i);
+            System.out.println((i + 1) + ". [" + task.getStatusIcon() + "] " + task.getDescription());
         }
         System.out.println(horizontalLine);
     }
