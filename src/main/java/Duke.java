@@ -10,14 +10,23 @@ public class Duke {
         String line;
         boolean isBye = false;
 
+        String[] tasks = new String[100];
+        int taskCount = 1;
+
         Scanner in = new Scanner(System.in);
         while (isBye == false) {
             line = in.nextLine();
             if (line.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 isBye = true;
+            } else if (line.equalsIgnoreCase("list")) {
+                for (int i = 1; i < taskCount; i++) {
+                    System.out.println(tasks[i]);
+                }
             } else {
-                System.out.println(line);
+                System.out.println("added: " + line);
+                tasks[taskCount] = taskCount + ". " + line;
+                taskCount++;
             }
         }
     }
