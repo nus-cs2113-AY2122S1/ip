@@ -10,9 +10,11 @@ public class Duke {
         System.out.println(separator);
     }
 
-    public static void showList(String[] texts) {
-        for (int i = 0; i < texts.length; i++) {
-            System.out.println(" " + Integer.toString(i + 1) + ". " + texts[i]);
+    public static void showList(Task[] tasks) {
+        System.out.println(" Here are the tasks in your list:");
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.println(" " + Integer.toString(i + 1) + "."
+                    + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
         }
     }
 
@@ -20,8 +22,8 @@ public class Duke {
         String separator = "____________________________________________________________";
         String line;
         Scanner in = new Scanner(System.in);
-        int textCount = 0;
-        String[] texts = new String[100];
+        int taskCount = 0;
+        Task[] tasks = new Task[100];
 
         System.out.println(separator);
         System.out.println(" Hello! I'm Duke");
@@ -32,11 +34,16 @@ public class Duke {
         while (!line.equals("bye")) {
             System.out.println(separator);
             if (line.equals("list")) {
-                showList(Arrays.copyOf(texts, textCount));
+                showList(Arrays.copyOf(tasks, taskCount));
+            } else if (line.startsWith("done")) {
+                String[] words = line.split(" ");
+                //Assuming the 2nd word is the index of the task
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                tasks[taskIndex].markAsDone();
             } else {
-                texts[textCount] = line;
+                tasks[taskCount] = new Task(line);
                 System.out.println(" added: " + line);
-                textCount++;
+                taskCount++;
             }
             System.out.println(separator);
             line = in.nextLine();
