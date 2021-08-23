@@ -14,6 +14,10 @@ public class Duke {
                 +       "------------------------\n";
 
         String userCommand;
+        String[] userTasks = new String[100];
+
+        int numberOfTasks = 0;
+
         Scanner input = new Scanner(System.in);
 
         System.out.println("Hello from\n" + logo);
@@ -23,7 +27,17 @@ public class Duke {
 
         while (!userCommand.equals("bye")) {
             System.out.println("------------------------");
-            System.out.printf("\t%s\n", userCommand);
+
+            if (userCommand.equals("list")) {
+                for (int i = 0; i < numberOfTasks; i++) {
+                    System.out.println((i + 1) + ". " + userTasks[i]);
+                }
+            } else {
+                userTasks[numberOfTasks] = userCommand;
+                System.out.println("added: " + userCommand);
+                numberOfTasks++;
+            }
+
             System.out.println("------------------------");
             userCommand = input.nextLine();
         }
