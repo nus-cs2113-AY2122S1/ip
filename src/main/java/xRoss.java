@@ -43,16 +43,17 @@ public class xRoss {
 
         while (continueLoop){
             inputLine = in.nextLine();
-            switch (inputLine){
-            case "bye": // exit command for chatbot
+            if (inputLine.equals("bye")){
                 continueLoop = false;
-                break;
-            case "list": // command to print to-do list
+            } else if (inputLine.equals("list")){
                 printDividerLine();
                 taskManager.printTasks();
                 printDividerLine();
-                break;
-            default:
+            } else if (inputLine.startsWith("done")){
+                printDividerLine();
+                taskManager.markAsDone(inputLine);
+                printDividerLine();
+            } else {
                 Task newTask = new Task(inputLine);
                 printDividerLine();
                 taskManager.addTask(newTask);
