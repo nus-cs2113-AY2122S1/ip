@@ -16,9 +16,23 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String user_input = in.nextLine();
+
+        String[] user_input_history = new String[100];
+
+        int user_input_history_index = 0;
         while (!user_input.equals("bye")) {
             System.out.println("\t____________________________________________________________");
-            System.out.println("\t" + user_input);
+
+            if (user_input.equals("list")) {
+                //listing out user_input_history if user_input == "list"
+                for (int i = 0; i < user_input_history_index; i++) {
+                    System.out.println("\t" + (i+1) + ". " + user_input_history[i]);
+                }
+            } else {
+                user_input_history[user_input_history_index] = user_input;
+                user_input_history_index++;
+                System.out.println("\tadded: " + user_input);
+            }
             System.out.println("\t____________________________________________________________");
             user_input = in.nextLine();
         }
