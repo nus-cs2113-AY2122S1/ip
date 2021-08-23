@@ -29,27 +29,35 @@ public class Duke {
 
         //Execute choice
         switch (userChoice.toLowerCase()) {
-            case "echo": //Echo what is said to user
-                while (true) {
-                    System.out.println("Copy cat, copy cat");
-                    String userInput = scannerObj.nextLine();
-                    if (userInput.equalsIgnoreCase("bye")) break;
-                    else System.out.println(userInput);
+        case "echo": //Echo what is said to user
+            while (true) {
+                System.out.println("Copy cat, copy cat");
+                String userInput = scannerObj.nextLine();
+                if (userInput.equalsIgnoreCase("bye")) {
+                    break;
                 }
-                break;
-
-            case "list": //Activate list actions
-                ArrayList<Tasks> tasksAL = new ArrayList<>();
-                while (true) {
-                    System.out.println("To view your list, enter 'list'. To add to your list just type what you would like to add.");
-                    String userInput = scannerObj.nextLine();
-                    if (userInput.equalsIgnoreCase("bye")) break;
-                    else Tasks.list(userInput, tasksAL);
+                else {
+                    System.out.println(userInput);
                 }
-                break;
+            }
+            break;
 
-            default:
-                break;
+        case "list": //Activate list actions
+            ArrayList<Tasks> tasksAL = new ArrayList<>();
+            while (true) {
+                System.out.println("To view your list, enter 'list'. To add to your list just type what you would like to add.");
+                String userInput = scannerObj.nextLine();
+                if (userInput.equalsIgnoreCase("bye")) {
+                    break;
+                }
+                else {
+                    Tasks.list(userInput, tasksAL);
+                }
+            }
+            break;
+
+        default:
+            break;
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
