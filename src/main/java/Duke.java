@@ -19,7 +19,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.length; i++) {
-            System.out.println((i + 1) + ". " + "[" + tasks[i].getStatusIcon() +"] " + tasks[i].description);
+            System.out.println(" " + (i + 1) + ". " + "[" + tasks[i].getStatusIcon() +"] " + tasks[i].description);
         }
         System.out.println("____________________________________________________________");
     }
