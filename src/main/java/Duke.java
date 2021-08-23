@@ -2,6 +2,7 @@ import java.util.*;
 public class Duke {
     private static String[] taskList;
     private static int taskNum;
+    private static boolean[] taskDone;
 
     public static void addTask(String task) {
 
@@ -14,12 +15,30 @@ public class Duke {
     public static void listTask() {
         String tasks = "";
         for(int i = 0; i < taskNum; i++) {
-            tasks = tasks.concat((i + 1) + ". " + taskList[i] + "\n");
+            if(taskDone[i])
+                tasks = tasks.concat((i + 1) + ". [X] " + taskList[i] + "\n");
+            else
+                tasks = tasks.concat((i + 1) + ". [ ] " + taskList[i] + "\n");
+
         }
 
         tasks = tasks.substring(0, tasks.length() - 1);
         Output(tasks);
     }
+    public static void dispTaskDone(String task) {
+        int taskIndex = Integer.parseInt(task.replace("done ", "")) -  1;
+
+        if (taskIndex > taskNum - 1) {
+            Output(" The task " + (taskIndex + 1) + " doesn't exist.\nMake sure a valid task number is entered.");
+            return;
+        }
+        taskDone[taskIndex] = true;
+        Output("Nice! I've marked this task as done:\n" +
+                "[X] " + taskList[taskIndex]
+        );
+    }
+
+
 
     public static void Output(String output) {
         String horizontalLine = "____________________________________________________________";
@@ -31,6 +50,7 @@ public class Duke {
     public static void main(String[] args) {
 
         taskList = new String[100];
+        taskDone = new boolean[100];
         taskNum= 0;
         boolean notBye = true;
         String userInput;
@@ -50,9 +70,13 @@ public class Duke {
             if(userInput.equals("bye"))
                 break;
 
-            if(userInput.equals("list")) {
+            else if(userInput.equals("list")) {
                 listTask();
             }
+            else if(userInput.startsWith("done")) {
+                dispTaskDone(userInput);
+            }
+
             else
                 addTask(userInput);
 
