@@ -3,20 +3,38 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static void printDivider() {
+        System.out.println("____________________________________________________________");
+    }
+
     public static void chatFunction() {
         Scanner in = new Scanner(System.in);
+        String[] list = new String[100];
+        int idx = 0;
 
         while (true) {
             String chatInput = in.nextLine();
+            printDivider();
             switch (chatInput.toLowerCase()) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
+                printDivider();
                 return;
+            case "list":
+                for (int i = 0; i < list.length; i++) {
+                    if (list[i] == null) {
+                        break;
+                    }
+                    System.out.println(i + ". " + list[i]);
+                }
+                break;
             default:
-                System.out.println(chatInput);
+                list[idx] = chatInput;
+                idx++;
+                System.out.println("added: " + chatInput);
                 break;
             }
-
+            printDivider();
         }
     }
 
