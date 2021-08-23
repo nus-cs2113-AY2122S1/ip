@@ -1,5 +1,5 @@
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     //constructor
@@ -14,7 +14,7 @@ public class Task {
     }
 
     public String getStatus() {
-        if (isDone == true) {
+        if (isDone) {
             return "[X]";
         }
         return "[ ]";
