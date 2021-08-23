@@ -39,20 +39,20 @@ public class ChatBot {
                 }
                 break;
             case "done":
-                int taskNumber = Integer.parseInt(keyword[1])-1;
+                int taskNumber = Integer.parseInt(keyword[1]) - 1;
                 try {
                     list[taskNumber].setDone();
                 } catch (Exception e) {
                     int range = 0;
                     for (range = 0; range < list.length; range++) {
-                        if (list[range] == null){
+                        if (list[range] == null) {
                             break;
                         }
                     }
-                    System.out.println("Index not found! Please enter a valid index from 1 to " + range+1);
+                    System.out.println("Index not found! Please enter a valid index from 1 to " + range);
                     break;
                 }
-                String output = "Nice! I've marked this task as done!\n" + printDone(list[taskNumber].isDone()) + list[taskNumber].getToDoItem();
+                String output = "Nice! I've marked this task as done!\n" + printDone(list[taskNumber].isDone()) + " " + list[taskNumber].getToDoItem();
                 System.out.println(output);
                 break;
             default:
