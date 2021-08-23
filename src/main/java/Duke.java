@@ -6,13 +6,17 @@ public class Duke {
         greeting();
         //echo();
         Scanner in = new Scanner(System.in);
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int total = 0;
         while (true) {
             String command = in.nextLine();
             if (command.equals("list")) {
                 list(list, total);
                 continue;
+            } else if (command.startsWith("done")) {
+                String[] words = command.split(" ");
+                int index = Integer.parseInt(words[1]);
+                markAsDone(list, index-1);
             } else if (command.equals("bye")) {
                 break;
             } else {
@@ -23,22 +27,32 @@ public class Duke {
         exit();
     }
 
-    private static void list(String[] list, int total) {
+    private static void markAsDone(Task[] list, int index) {
+        list[index].markAsDone();
+        drawDivider();
+        System.out.println("Meow~ Karlett has marked this task as done:");
+        System.out.println(" [" + list[index].getStatusIcon() + "] "
+                + list[index].getDescription());
+    }
+
+    private static void list(Task[] list, int total) {
         drawDivider();
         if (total == 0) {
             System.out.println("Karlett can't remember anything...(ФДФ)");
         }
         for (int i = 0; i < total; i++) {
-            System.out.println("ฅ" + (i+1) + " " + list[i]);
+            System.out.println("ฅ" + (i + 1) + " [" + list[i].getStatusIcon() + "] "
+                    + list[i].getDescription());
         }
         drawDivider();
     }
 
-    public static void store(String[] list, int index, String command) {
+    public static void store(Task[] list, int index, String command) {
         drawDivider();
         System.out.println("Karlett remembers: " + command);
         drawDivider();
-        list[index] = command;
+        Task t = new Task(command);
+        list[index] = t;
     }
 
     public static void greeting() {
