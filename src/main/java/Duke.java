@@ -30,12 +30,12 @@ public class Duke {
     }
 
     // An array of tasks (no more than 100)
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int taskNumber = 0;
 
     // Add user command to the tasks array
     private static void add(String command) {
-        tasks[taskNumber] = command;
+        tasks[taskNumber] = new Task(command);
         taskNumber++;
         System.out.print(LINE);
         System.out.println(PADDING + "added: " + command);
