@@ -1,9 +1,21 @@
 import javax.lang.model.type.NullType;
 import java.util.*;
 
+class Task{
+    protected String item;
+    protected boolean complete;
+    public Task(String description) {
+        this.item = description;
+        this.complete = false;
+    }
+    public void markComplete() {
+        this.complete = true;
+    }
+}
+
 class Information {
-        String[] list = new String[100];
-        int listLength;
+    Task list[] = new Task[100];
+    int listLength = 0;
 }
 
 public class Duke {
@@ -13,18 +25,28 @@ public class Duke {
     public static void response(String input, Information user) {
         if (input.equals("list")) { // show list
             for (int i = 0; i < user.listLength; i++) {
-                System.out.println("\t" + (i + 1) + ". " + user.list[i] + "\n");
+                if (user.list[i].complete) {
+                    System.out.println("\t" + (i + 1) + ". [X] " + user.list[i].item + "\n");
+                } else {
+                    System.out.println("\t" + (i + 1) + ". [ ] " + user.list[i].item + "\n");
+                }
             }
-        } else if (input.substring(0,1).equals("+") || (input.length() > 3 && input.substring(0, 3).equals("add"))) { // add to list
-            if (input.substring(0, 1).equals("+")) {
-                user.list[user.listLength] = input.substring(2);
+        } else if (input.charAt(0) == '+' || (input.length() > 3 && input.substring(0, 3).equals("add"))) { // add to list
+            if (input.charAt(0) == '+') {
+                user.list[user.listLength] = new Task(input.substring(2));
                 System.out.println("\tadded: " + input.substring(2) + "\n");
             } else {
-                user.list[user.listLength] = input.substring(4);
+                user.list[user.listLength] = new Task(input.substring(4));
                 System.out.println("\tadded: " + input.substring(4) + "\n");
             }
             user.listLength ++;
-        } else {
+        } else if (input.length() > 4 && input.substring(0,4).equals("done")) {
+            int index = Integer.parseInt(input.substring(5)) - 1;
+            if (index < user.listLength) {
+                user.list[index].markComplete();
+                System.out.println("\tNice! I've marked this task as done:\n\t[X] " + user.list[index].item);
+            }
+        }else {
             System.out.println("\t" + input + "\n");
         }
     }
@@ -47,8 +69,6 @@ public class Duke {
         greet(logo);
 
         Information user = new Information();
-        user.listLength = 0;
-
         Scanner sc= new Scanner(System.in);
         String input = sc.nextLine();
         line();
