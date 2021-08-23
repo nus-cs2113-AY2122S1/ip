@@ -1,11 +1,11 @@
+import java.util.Scanner;
 public class Duke {
 
     private static final String line = "____________________________________________________________";
 
     public static void main(String[] args) {
-        System.out.println(line);
         greetUser();
-        byeDuke();
+        echo();
     }
 
     public static void printLogo() {
@@ -17,16 +17,34 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
     }
 
-    // greet the user and prints a line
-    public static void greetUser() {
-        System.out.println(" Hello! I'm Duke\n" +
-                " What can I do for you?");
+    public static void printString(String response) {
+        System.out.println(line);
+        System.out.println(" " + response);
         System.out.println(line);
     }
 
+    // greet the user and prints a line
+    public static void greetUser() {
+        printString("Hello! I'm Duke\n" +
+                " What can I do for you?");
+    }
+
     // exits the programme after printing the greeting and a line
-    public static void byeDuke() {
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(line);
+    public static void exitChatbot() {
+        printString("Bye. Hope to see you again soon!");
+    }
+
+    // echoes user commands until the user types bye
+    public static void echo() {
+        String command;
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            command = in.nextLine();
+            if (command.equals("bye")) {
+                exitChatbot();
+                break;
+            }
+            printString(command);
+        }
     }
 }
