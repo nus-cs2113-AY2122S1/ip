@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Duke {
     final static String HOR_LINE = "_".repeat(30);
-    private static String[] storedTexts = new String[100];
+    private static Task[] storedTasks = new Task[100];
     private static int additions = 0;
     private static int mode = 0;
 
@@ -71,7 +71,7 @@ public class Duke {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tCURRENT ADDED LIST");
             for (int i = 0; i < additions; i++) {
-                System.out.printf("\t%d. %s\n", i+1, storedTexts[i]);
+                System.out.println("\t" + storedTasks[i].getStatusIcon() + storedTasks[i].description);
             }
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
@@ -83,25 +83,24 @@ public class Duke {
 
         while (!textLowerC.equals("bye") & !textLowerC.equals("list") & !textLowerC.equals("change")) {
             if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
-                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", ""));
-                storedTexts[taskNo - 1] = storedTexts[taskNo - 1].replace("[ ]", "[X]");
+                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
+                storedTasks[taskNo].markAsDone();
                 // Print response when task marked done.
                 System.out.println("\t" + HOR_LINE);
-                System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTexts[taskNo - 1].substring(4));
+                System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
             }
             else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
                 int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
                 System.out.println("\t" + HOR_LINE);
-                System.out.printf("\t%s removed from list!\n", storedTexts[taskNo].substring(4));
+                System.out.printf("\t%s removed from list!\n", storedTasks[taskNo].description);
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                System.arraycopy(storedTexts,taskNo + 1, storedTexts, taskNo, additions - taskNo);
+                System.arraycopy(storedTasks,taskNo + 1, storedTasks, taskNo, additions - taskNo);
                 additions--;
                 printList();
             }
             else {
-                storedTexts[additions] = "[ ] " + toAdd;
-//            System.out.println(Arrays.toString(storedTexts));
+                storedTasks[additions] = new Task(toAdd);
                 System.out.println("\t" + HOR_LINE);
                 System.out.println("\tAdded: " + toAdd);
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
