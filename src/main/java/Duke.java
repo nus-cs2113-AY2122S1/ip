@@ -15,7 +15,7 @@ public class Duke {
 
         String input = "";
         int i = 0;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -24,13 +24,13 @@ public class Duke {
 
             if (!input.equals("bye")) {
                 if (!input.equals("list")) {
-                    tasks[i] = input;
+                    tasks[i] = new Task(input);
                     System.out.println("added: " + input);
                     System.out.println("---------------------------------------------------------------------");
                     i++;
                 } else {
                     for (int j = 0; j < i; j++){
-                        System.out.println(j+1 + ": " + tasks[j]);
+                        System.out.println(j+1 + ". " + tasks[j].description);
                     }
                     System.out.println("---------------------------------------------------------------------");
                 }
