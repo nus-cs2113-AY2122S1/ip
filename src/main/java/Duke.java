@@ -1,29 +1,51 @@
-public class Duke {
-    static String logo = "      ____        _        \n"
-            + "     |  _ \\ _   _| | _____ \n"
-            + "     | | | | | | | |/ / _ \\\n"
-            + "     | |_| | |_| |   <  __/\n"
-            + "     |____/ \\__,_|_|\\_\\___|\n";
+import java.util.Scanner;
 
-    static String line = "    ____________________________________________________________\n";
+public class Duke {
+    public static final String LOGO =
+            "      ____        _        \n"     +
+            "     |  _ \\ _   _| | _____ \n"    +
+            "     | | | | | | | |/ / _ \\\n"    +
+            "     | |_| | |_| |   <  __/\n"     +
+            "     |____/ \\__,_|_|\\_\\___|\n";
+
+    public static final String LINE =
+            "    ____________________________________________________________" + "\n";
+
+    public static final String PADDING = "     ";
 
     // Duke greeting
-    static void greet() {
-        System.out.print(line);
-        System.out.println(logo);
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
-        System.out.print(line);
+    public static void greet() {
+        System.out.print(LINE);
+        System.out.println(LOGO);
+        System.out.println(PADDING + "Hello! I'm Duke");
+        System.out.println(PADDING + "What can I do for you?");
+        System.out.println(LINE);
     }
 
     // Duke exits
-    static void exit() {
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.print(line);
+    public static void exit() {
+        System.out.print(LINE);
+        System.out.println(PADDING + "Bye. Hope to see you again soon!");
+        System.out.print(LINE);
+    }
+
+    // Duke echo
+    public static void echo() {
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            String command = sc.nextLine();
+            if (command.equals("bye")) {
+                break;
+            }
+            System.out.print(LINE);
+            System.out.println(PADDING + command);
+            System.out.println(LINE);
+        }
     }
 
     public static void main(String[] args) {
         greet();
+        echo();
         exit();
     }
 }
