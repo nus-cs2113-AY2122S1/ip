@@ -26,19 +26,31 @@ public class Duke {
                         + "ever hope to do.",
                 "What can I do for you?"});
 
-        // Command loop
-        String command = "";
+        TaskManager taskManager = new TaskManager();
+
+        // Event loop
+        String in;
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            // Read command
-            command = scanner.nextLine();
+            // Read input
+            in = scanner.nextLine();
 
-            if (command.equals("bye")) {
+            // Special commands
+            if (in.equals("list")) {
+                // List tasks
+                blockPrint(taskManager.getIndexedTaskList());
+                continue;
+            } else if (in.equals("bye")) {
+                // Escape event loop to quit
                 break;
             }
 
+            // Add task
+            Task newTask = new Task(in);
+            taskManager.addTask(newTask);
+
             // Print command
-            blockPrint(new String[]{command});
+            blockPrint(new String[]{"Added: " + newTask.getDescription()});
         }
 
         // Bye
