@@ -21,8 +21,9 @@ public class Duke {
         // Format tasks for output message
         String[] taskListMessage = new String[taskManager.getTotalTasks() + 1];
         taskListMessage[0] = "Here are the tasks in your list:";
+
         for (int i = 0; i < taskManager.getTotalTasks(); i++) {
-            Task task = taskManager.getTask(i + 1);
+            Task task = taskManager.getTask(i);
             taskListMessage[i + 1] = (i + 1) + ".[" + task.getStatusIcon() + "] " + task.getDescription();
         }
 
@@ -71,7 +72,8 @@ public class Duke {
                 listTasks();
                 continue;
             case "done":
-                markTaskAsDone(Integer.parseInt(splitInput[1]));
+                int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+                markTaskAsDone(taskIndex);
                 continue;
             default:
                 addTask(in);

@@ -12,7 +12,7 @@ public class TaskManager {
     }
 
     public Task getTask(int taskIndex) {
-        return this.taskList.get(taskIndex - 1);
+        return this.taskList.get(taskIndex);
     }
 
     public void addTask(Task newTask) {
@@ -20,6 +20,6 @@ public class TaskManager {
     }
 
     public void markTaskAsDone(int taskIndex) {
-        taskList.get(taskIndex - 1).markAsDone();
+        taskList.get(taskIndex).markAsDone();
     }
 }
