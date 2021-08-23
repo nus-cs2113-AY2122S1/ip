@@ -10,9 +10,15 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
         Scanner in = new Scanner(System.in);
+        TodoList list = new TodoList();
         String request = in.nextLine();
         while (!request.equals("bye")) {
-            System.out.println(request);
+            if (request.equals("list")) {
+                list.printItems();
+            } else {
+                list.addItem(request);
+                System.out.printf("added: %s\n", request);
+            }
             request = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
