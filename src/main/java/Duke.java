@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,18 +16,21 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
         System.out.println(horizontalLine);
-        System.out.println("Hello! I'm Duke!\n" + "What can I do for you?");
+        System.out.println("Hello! I'm Duke!\n" + "So far, I can create a simple task list for you.\n" + "What can I do for you?\n");
+        System.out.println("Use the following commands!\n" + "To add a task: add [taskName]\n" + "To mark a task as done: done [taskNumber]");
+        System.out.println("To view your current task list, simply type: list\n" + "To end your chat with me, simply type: bye");
         System.out.println(horizontalLine);
 
         while(!userInput.equalsIgnoreCase("bye")) {
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
 
-            if(!userInput.contains("list") && !userInput.contains("bye") && !userInput.contains("done")) {
-                taskAdded = new Task(userInput);
+            if(userInput.contains("add")) {
+                String task = userInput.replace("add","").trim();
+                taskAdded = new Task(task);
                 taskList.add(taskAdded);
                 System.out.println(horizontalLine);
-                System.out.println("Added: " + taskAdded.description);
+                System.out.println("I can do that! I have added:[" + taskAdded.description + "] to your task list!");
                 System.out.println(horizontalLine);
             } else if(userInput.contains("list")){
                 int listIndex = 1;
@@ -38,10 +40,9 @@ public class Duke {
                     listIndex++;
                 }
                 System.out.println(horizontalLine);
-            }
-            if(userInput.contains("done")){
-                String[] splitUserInput = userInput.split(" ");
-                int i = (Integer.parseInt(splitUserInput[1])) - 1;
+            } else if(userInput.contains("done")){
+                String[] splitTaskToBeMarkedAsDone = userInput.split(" ");
+                int i = (Integer.parseInt(splitTaskToBeMarkedAsDone[1])) - 1;
                 if(i > taskList.size() - 1) {
                     System.out.println("Invalid task number");
                 } else {
@@ -49,6 +50,8 @@ public class Duke {
                     taskUpdated.updateIsDone();
                     System.out.println("Nice! I've marked this task as done: \n" + (i + 1) + ".[" + taskUpdated.getStatusIcon() + "] " + taskUpdated.description);
                 }
+            } else if (!userInput.contains("bye")){
+                System.out.println("Aw man! I am unable to " + userInput + " yet! Please specify a different function! :D");
             }
         }
         System.out.println("Bye! Hope to see you again soon!");
