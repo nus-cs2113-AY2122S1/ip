@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -37,13 +38,15 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
 
-            if(userInput.contains("add")) {
+            if(userInput.contains("add") && !userInput.equalsIgnoreCase("add")) {
                 String task = userInput.replace("add","").trim();
                 taskAdded = new Task(task);
                 taskList.add(taskAdded);
                 System.out.println(horizontalLine);
-                System.out.println("I can do that! I have added:[" + taskAdded.description + "] to your task list!");
+                System.out.println("I can do that! I have added [" + taskAdded.description + "] to your task list!");
                 System.out.println(horizontalLine);
+            } else if (userInput.equalsIgnoreCase("add")){
+                System.out.println("Please specify what to add!");
             } else if(userInput.contains("list")){
                 int listIndex = 1;
                 System.out.println(horizontalLine);
@@ -55,7 +58,7 @@ public class Duke {
             } else if(userInput.contains("done")){
                 int wordIndex = 0;
                 boolean numberExists = false;
-                String[] splitTaskToBeMarkedAsDone = userInput.split("\\W");
+                String[] splitTaskToBeMarkedAsDone = userInput.split("and || \\W");
                 for(String word : splitTaskToBeMarkedAsDone){
                     if(isNumeric(word)){
                         numberExists = true;
