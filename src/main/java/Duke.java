@@ -18,13 +18,15 @@ public class Duke {
 
         while (!Objects.equals(line, "bye")) {
             line = in.nextLine();
+            String[] arr = line.split(" ", 2);
             if (Objects.equals(line, "list")) {
                 System.out.println("Here are the tasks in your list:");
                 Task.printList(i,tasks);
             }
-            else if (Objects.equals(line, "done 2")) {
-                System.out.println("Nice! I've marked this task as done: ");
-                Task.printDoneList(i,tasks);
+            else if (Objects.equals(arr[0], "done")) {
+                System.out.println("Nice! I've marked Task " + arr[1] + " as done!");
+                Task.markDone(Integer.parseInt(arr[1]),tasks);
+//                Task.printDoneList(i,tasks);
             }
             else {
                 tasks = Task.addTask(i,tasks,line);

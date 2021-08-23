@@ -13,7 +13,6 @@ public class Task {
         for (i = 0; i < n; i++) newTasks[i] = tasks[i];
 
         newTasks[i] = task;
-
         return newTasks;
     }
 
@@ -24,11 +23,16 @@ public class Task {
         }
     }
 
-    public static void printDoneList(int n, Task[] arr)
+//    public static void printDoneList(int n, Task[] arr)
+//    {
+//        for (int i = 0; i < n; i++) {
+//            if (arr[i].isDone) System.out.println("[X] " + arr[i].description);
+//        }
+//    }
+
+    public static void markDone(int n, Task[] arr)
     {
-        for (int i = 0; i < n; i++) {
-            if (arr[i].isDone) System.out.println("[X] " + arr[i].description);
-        }
+        arr[n-1].isDone = true;
     }
 
     public Task(String description) {
