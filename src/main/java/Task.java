@@ -12,7 +12,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         noOfTasks++;
-        taskId = noOfTasks;
+        this.taskId = noOfTasks;
     }
 
     // Setter methods
