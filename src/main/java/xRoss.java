@@ -31,6 +31,7 @@ public class xRoss {
     public static void main(String[] args) {
         printWelcomeMessage();
 
+        // TaskManager instance to keep track of all tasks
         TaskManager taskManager = new TaskManager();
 
         // setting up variable and scanner for user input
