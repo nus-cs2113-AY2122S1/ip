@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,6 +6,10 @@ public class Duke {
     private static int additions = 0;
     private static int mode = 0;
 
+    /**
+     * Function introduces chatbot and asks user for preferred mode.
+     * Mode 1 - Echo; 2 - Task; Otherwise - Returns Error Message and stops program.
+     */
     public static void greet() {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tHi there! I'm Duke\n" +
@@ -32,13 +33,22 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints out entered command by user in Echo mode.
+     *
+     * @param cmd Command entered by user.
+     */
     public static void echoCommand(String cmd) {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tYou have entered: " + cmd);
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
 
-    public static void echo() {
+    /**
+     * Executes Echo mode, where commands of user are echoed back.
+     * When "change" is typed in by user, switches program to Task mode.
+     */
+    public static void startEcho() {
         String command;
         Scanner in = new Scanner(System.in);
         command = in.nextLine();
@@ -57,7 +67,7 @@ public class Duke {
                 mode = 2;
                 System.out.println("TASK MODE ENTERED.");
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                addText();
+                startTask();
                 return;
             }
 
@@ -67,6 +77,7 @@ public class Duke {
         }
     }
 
+    // Prints task list.
     public static void printList() {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tCURRENT ADDED LIST");
@@ -76,7 +87,14 @@ public class Duke {
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
 
-    public static void addText() {
+    /**
+     * Executes Task mode, where user's commands are added into to-do list.
+     * When "list" entered, prints out current to-do list.
+     * When "completed <task id>" or "done <task id>" entered, updates that task status.
+     * When "remove <task id>" or "clear <task id>" entered, removes that task from list.
+     * When "change" is typed in by user, switches program to Echo mode.
+     */
+    public static void startTask() {
         Scanner in = new Scanner(System.in);
         String toAdd = in.nextLine();
         String textLowerC = toAdd.toLowerCase();
@@ -84,7 +102,7 @@ public class Duke {
         while (!textLowerC.equals("bye") & !textLowerC.equals("list") & !textLowerC.equals("change")) {
             if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
                 int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-                storedTasks[taskNo].markAsDone();
+                storedTasks[taskNo].setDone();
                 // Print response when task marked done.
                 System.out.println("\t" + HOR_LINE);
                 System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
@@ -114,7 +132,7 @@ public class Duke {
 
         if (textLowerC.equals("list")) {
             printList();
-            addText();
+            startTask();
         }
 
         // Switch to Echo mode if user types in "change"
@@ -123,10 +141,15 @@ public class Duke {
             mode = 1;
             System.out.println("ECHO MODE ENTERED.");
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
-            echo();
+            startEcho();
         }
     }
 
+    /**
+     * Double confirms if user wants to exit.
+     * If no, gets user back to Task/Echo mode user was in.
+     * If yes, ends program with farewell message.
+     */
     public static void exit() {
         System.out.print("\tDo you really want to exit chatbot (type y or n)? ");
         Scanner input = new Scanner(System.in);
@@ -142,10 +165,10 @@ public class Duke {
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
             // Return back to previous mode since user is not exiting.
             if (mode == 1) {
-                echo();
+                startEcho();
             }
             else if (mode == 2) {
-                addText();
+                startTask();
             }
             exit();
         }
@@ -171,10 +194,10 @@ public class Duke {
         // Actions
         greet();
         if (mode == 1) {
-            echo();
+            startEcho();
         }
         else if (mode == 2) {
-            addText();
+            startTask();
         }
 
         if (mode != 0) {
