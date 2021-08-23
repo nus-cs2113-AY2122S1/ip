@@ -1,20 +1,20 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static final String LOGO =
+    private static final String LOGO =
             "      ____        _        \n"     +
             "     |  _ \\ _   _| | _____ \n"    +
             "     | | | | | | | |/ / _ \\\n"    +
             "     | |_| | |_| |   <  __/\n"     +
             "     |____/ \\__,_|_|\\_\\___|\n";
 
-    public static final String LINE =
+    private static final String LINE =
             "    ____________________________________________________________" + "\n";
 
-    public static final String PADDING = "     ";
+    private static final String PADDING = "     ";
 
     // Duke greeting
-    public static void greet() {
+    private static void greet() {
         System.out.print(LINE);
         System.out.println(LOGO);
         System.out.println(PADDING + "Hello! I'm Duke");
@@ -23,29 +23,48 @@ public class Duke {
     }
 
     // Duke exits
-    public static void exit() {
+    private static void exit() {
         System.out.print(LINE);
         System.out.println(PADDING + "Bye. Hope to see you again soon!");
         System.out.print(LINE);
     }
 
-    // Duke echo
-    public static void echo() {
+    // An array of tasks (no more than 100)
+    private static String[] tasks = new String[100];
+    private static int taskNumber = 0;
+
+    // Add user command to the tasks array
+    private static void add(String command) {
+        tasks[taskNumber] = command;
+        taskNumber++;
+        System.out.print(LINE);
+        System.out.println(PADDING + "added: " + command);
+        System.out.println(LINE);
+    }
+
+    // List all the tasks
+    private static void list() {
+        System.out.print(LINE);
+        for (int i = 1; i <= taskNumber; i++) {
+            System.out.println(PADDING + i + ". " + tasks[i - 1]);
+        }
+        System.out.println(LINE);
+    }
+
+    // Duke main program
+    public static void main(String[] args) {
+        greet();
         while (true) {
             Scanner sc = new Scanner(System.in);
             String command = sc.nextLine();
             if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                list();
+            } else {
+                add(command);
             }
-            System.out.print(LINE);
-            System.out.println(PADDING + command);
-            System.out.println(LINE);
         }
-    }
-
-    public static void main(String[] args) {
-        greet();
-        echo();
         exit();
     }
 }
