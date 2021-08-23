@@ -55,4 +55,36 @@ public class Duke {
         }
         System.out.println(horizontalLine);
     }
+
+    /**
+     * Extracts integers from a given String input and returns them in an array of Ints.
+     * Method will extract integers separated by any character.
+     * If there are no integers in the input, return null.
+     *
+     * @param input String for which integers are to be extracted from.
+     * @return An array of the integers extracted, returns null otherwise.
+     */
+    public static int[] extractInt(String input)
+    {
+        int[] extractedInts = new int[input.length()];
+
+        // Replacing every non-digit number with a space " "
+        input = input.replaceAll("[^\\d]", " ");
+        input = input.trim();
+
+        // Replace consecutive white spaces with a single space
+        String[] arrayOfStringInts = input.split(" +");
+
+        // If there are no numbers, mark the first element of array as -1 and return
+        if (arrayOfStringInts[0] == null) {
+            extractedInts[0] = -1;
+            return null;
+        }
+
+        for (int i = 0; i < arrayOfStringInts.length; i++) {
+            extractedInts[i] = Integer.parseInt(arrayOfStringInts[i]);
+        }
+
+        return extractedInts;
+    }
 }
