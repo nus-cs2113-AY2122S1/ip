@@ -6,10 +6,24 @@ public class Duke {
         System.out.println(" Hello! I'm Duke");
         System.out.println(" What can I do for you?");
         String line;
+        String[] list = new String[100];
+        int count = 0;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         while(!(line.equals("bye"))){
-            System.out.println(line);
+            if(line.equals("list")){
+                int num = 1;
+                for(String value : list){
+                    if(value==null){
+                        break;
+                    }
+                    System.out.println(num + ". " + value);
+                    num++;
+                }
+            }
+            System.out.println("added: " + line);
+            list[count] = line;
+            count++;
             line = in.nextLine();
         }
 
