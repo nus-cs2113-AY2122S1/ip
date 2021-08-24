@@ -17,10 +17,12 @@ public class Duke {
 
         System.out.println("\n\nHello! I'm HAL 2113\n" + logo);
         System.out.println("____________________________________________________________");
-        System.out.println("What can I do for you? You can enter the following commands\n1.'task' (replace task with any agenda you wish to add to the list)\n2. list\n3. done 'task index' (to mark a completed task)\n4. bye (to exit the program!");
+        System.out.println("What can I do for you? You can enter the following commands\n" +
+                "1.'task' (replace task with any agenda you wish to add to the list)\n" +
+                "2. list\n3. done 'task index' (to mark a completed task)\n4. bye (to exit the program!");
         System.out.print("Enter command: ");
 
-        while (!currProgram.getTerminateHal()) {
+        while (!currProgram.getCanTerminateHal()) {
             String input;
             Scanner sc= new Scanner(System.in);
             input = sc.nextLine();

@@ -1,21 +1,16 @@
 import java.util.Objects;
-import java.util.Arrays;
 
 public class Program {
-    //when true, the program exits
-    private boolean terminateHal = false;
-    private static Task[] taskList = new Task[999];
-
-
-
-    private static int numOfitems;
+    private boolean canTerminateHal = false;    //when true, the program exits
+    private static Task[] listTasks = new Task[999];
+    private static int numItems;
 
     public Program() {
-        this.numOfitems = 0;
+        this.numItems = 0;
     }
 
-    public static int getNumOfitems() {
-        return numOfitems;
+    public static int getNumItems() {
+        return numItems;
     }
 
     public void executeTask(String string) {
@@ -27,7 +22,6 @@ public class Program {
             this.executeDoneTask(string);
         }
         else {
-//            System.out.println("Sorry, I am not smart enough to understand your high level commands! Try something simpler!");
             executeAddTask(string);
         }
 
@@ -36,11 +30,11 @@ public class Program {
     public static void executeList() {
         System.out.println("____________________________________________________________");
         System.out.println("Displaying all items saved:");
-        if (numOfitems == 0) {
+        if (numItems == 0) {
             System.out.println("No items found...Add some items now!");
         }
-        for (int i = 0; i < numOfitems; i++) {
-            System.out.println(i + 1 + ": " + taskList[i].getStatusIcon() + " " + taskList[i].description);
+        for (int i = 0; i < numItems; i++) {
+            System.out.println(i + 1 + ": " + listTasks[i].getStatusIcon() + " " + listTasks[i].description);
         }
         System.out.println("____________________________________________________________");
     }
@@ -48,34 +42,34 @@ public class Program {
     public static void executeAddTask(String task) {
         Task newTask = new Task(task);
         System.out.println("____________________________________________________________");
-        taskList[numOfitems] = newTask;
+        listTasks[numItems] = newTask;
         System.out.println("added: " + task);
-        numOfitems++;
+        numItems++;
         System.out.println("____________________________________________________________");
         System.out.print("Enter command: ");
     }
 
     public void executeDoneTask(String task) {
         int taskNum = Integer.parseInt(task.substring(task.indexOf(' ') + 1));
-        if (taskNum > this.getNumOfitems() || taskNum <= 0) {
+        if (taskNum > this.getNumItems() || taskNum <= 0) {
             System.out.println("No such task exist! Are you sure you keyed in the correct number?");
         } else {
-            taskList[taskNum - 1].markAsDone();
+            listTasks[taskNum - 1].markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(taskList[taskNum-1].getStatusIcon() + " " + taskList[taskNum-1].description);
+            System.out.println(listTasks[taskNum-1].getStatusIcon() + " " + listTasks[taskNum-1].description);
         }
     }
 
     public void executeBye() {
         System.out.println("bye");
-        this.setTerminateHal(true);
+        this.setCanTerminateHal(true);
     }
 
-    public Boolean getTerminateHal() {
-        return terminateHal;
+    public Boolean getCanTerminateHal() {
+        return canTerminateHal;
     }
 
-    public void setTerminateHal(boolean terminateHal) {
-        this.terminateHal = terminateHal;
+    public void setCanTerminateHal(boolean canTerminateHal) {
+        this.canTerminateHal = canTerminateHal;
     }
 }
