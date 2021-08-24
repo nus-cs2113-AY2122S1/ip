@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String[] tasks;
+    private static int taskCount;
+
     public static void printWithLines(String text) {
         String line = "____________________________________________________________";
 
@@ -25,26 +28,43 @@ public class Duke {
 
     public static void printByeMessage() {
         String byeMessage = "Bye. Hope to see you again soon!";
-
         printWithLines(byeMessage);
     }
 
+    public static void addTask(String task) {
+        tasks[taskCount] = task;
+        taskCount ++;
+        printWithLines("added: " + task);
+    }
+
+    public static void listTasks() {
+        String taskList = "";
+        for(int i = 0; i < taskCount; i++) {
+            taskList = taskList.concat((i + 1) + ". " + tasks[i] + "\n");
+        }
+
+        taskList = taskList.substring(0, taskList.length() - 1);
+        printWithLines(taskList);
+    }
+
     public static void main(String[] args) {
+        tasks = new String[100];
+        taskCount = 0;
+
         printHelloMessage();
+
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        boolean flag = true;
-        while (flag) {
-            if (line.equals("bye")) {
-                printByeMessage();
-                flag = false;
-
+        while (!line.equals("bye")) {
+            if (line.equals("list")) {
+                listTasks();
             } else {
-                System.out.println(line);
-                line = in.nextLine();
+                addTask(line);
             }
+            line = in.nextLine();
         }
+        printByeMessage();
     }
 }
