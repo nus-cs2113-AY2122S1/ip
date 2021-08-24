@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
 public class Duke {
     public static void printLine(){
         System.out.println("                 ...                 ");
@@ -16,8 +19,19 @@ public class Duke {
         printLine();
     }
 
+    public static String echoCommand() {
+        Scanner in = new Scanner(System.in);
+        String command = in.nextLine();
+        System.out.println("    " + command);
+        return command;
+    }
+
     public static void main(String[] args) {
         sayHi();
+        String command;
+        do {
+            command = echoCommand();
+        } while (!command.equals("bye"));
         sayGoodbye();
     }
 }
