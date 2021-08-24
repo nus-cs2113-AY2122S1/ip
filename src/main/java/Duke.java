@@ -10,31 +10,47 @@ public class Duke {
         System.out.println("Hello! I'm Duke\n"
                           + "What can I do for you?");
         String line;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int count = 0;
         do {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
-            System.out.println("___________________TASK ACTIVATED__________________");
+            System.out.println("___________________COMMAND ACTIVATED__________________");
             if (line.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("___________________SHUTTING DOWN___________________");
+                System.out.println("___________________SHUTTING DOWN______________________");
             } else if (line.equals("list")) {
                 int i;
                 if (count == 0) {
+                    // if there are no tasks in the list
                     System.out.println("No items were added into the list.");
                 } else {
+                    System.out.println("Below are the list of tasks in your list:");
                     for (i = 0; i < count; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                        System.out.print((i + 1) + ". ");
+                        tasks[i].printTask();
                     }
                 }
-                System.out.println("___________________TASK COMPLETED__________________");
-                System.out.println("Anything else?");
+            } else if (line.contains("done")){
+                int index = Integer.parseInt(line.substring(5)) - 1;
+                if (index >= count) {
+                    // if the task is not assigned to the number given by the user
+                    System.out.println("The task number is invalid.");
+                } else {
+                    tasks[index].setDone(true);
+                    System.out.println("Amazing! I have marked this task as done:");
+                    tasks[index].printTask();
+                }
             } else {
-                tasks[count] = line;
+                // if the user input is a new task
+                Task newTask = new Task(line);
+                tasks[count] = newTask;
                 count++;
-                System.out.println("\"" + line + "\" added into the list.");
-                System.out.println("___________________TASK COMPLETED__________________");
+                System.out.println("Noted. I have successfully added this task:");
+                newTask.printTask();
+            }
+            if (!line.equals("bye")) {
+                System.out.println("___________________COMMAND EXECUTED___________________");
                 System.out.println("Anything else?");
             }
         } while (!line.equals("bye"));
