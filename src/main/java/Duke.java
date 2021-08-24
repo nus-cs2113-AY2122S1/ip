@@ -9,14 +9,68 @@ public class Duke {
     public static void welcome() {
         printDivider();
         System.out.println("Hello! I'm Dude ヽ༼ ・ ل͜ ・ ༽ﾉ");
-        System.out.println("Type a task and i'll add it to your list real quick!");
         printDivider();
     }
 
     public static void exit() {
-        System.out.println("________________________________________________________________");
+        printDivider();
         System.out.println("Bye! Hope to see you again soon! ヽ༼ ͠° ͟ل͜ ͠° ༽ﾉ ");
         printDivider();
+    }
+
+    /** Continuously asks user to select mode until valid mode is selected */
+    public static void selectMode() {
+        Scanner in = new Scanner(System.in);
+        String input;
+        boolean hasSelectedMode = false;
+        System.out.println("Please select my mode by typing in the number: ");
+        System.out.println("[1] Echo" + System.lineSeparator() + "[2] To-do List");
+        printDivider();
+        do {
+            input = in.nextLine();
+            try {
+                int modeNum = Integer.parseInt(input);
+                if (modeNum == 1) {
+                    hasSelectedMode = true;
+                    enterEchoMode();
+                } else if (modeNum == 2) {
+                    hasSelectedMode = true;
+                    enterToDoListMode();
+                } else {
+                    printDivider();
+                    System.out.println("Please input an existing mode number!");
+                    printDivider();
+                }
+            } catch (NumberFormatException e) {
+                //error if user did not input a valid integer for task number
+                printDivider();
+                System.out.println("Please input a valid mode number in numerical form!");
+                printDivider();
+            }
+        } while (!hasSelectedMode);
+    }
+
+    /** Continuously echoes user inputs and exits when user inputs "Bye" (not case-sensitive) */
+    public static void enterEchoMode() {
+        printDivider();
+        System.out.println("Welcome to the Echo mode!");
+        System.out.println("Type anything and i'll echo it right back!ヽ༼ ≧ ل͜ ≦ ༽ﾉ");
+        System.out.println("Other commands:" + System.lineSeparator()
+                + "\"bye\" : Stop Dude :(");
+        printDivider();
+        Scanner in = new Scanner(System.in);
+        String input;
+        boolean hasSaidBye = false;
+        do {
+            input = in.nextLine();
+            if (input.equalsIgnoreCase("bye")) {
+                hasSaidBye = true;
+            } else {
+                printDivider();
+                System.out.println(input);
+                printDivider();
+            }
+        } while (!hasSaidBye);
     }
 
     public static void addTask(Task[] listOfTasks, String description) {
@@ -49,13 +103,18 @@ public class Duke {
         if (words.length == 1) {
             //error if user inputs only "done" with no number behind
             printDivider();
-            System.out.println("Invalid format! Please input a task number to be marked as done, " +
-                    "in the format \"done X\", where X is the task number!");
+            System.out.println("Invalid format! Please input a task number to be marked as done, "
+                    + System.lineSeparator() + "in the format \"done X\", where X is the task number!");
             printDivider();
         } else {
             try {
                 int taskNum = Integer.parseInt(words[1]);
-                if (taskNum > Task.getNumTasks() || taskNum < 1) {
+                if (Task.getNumTasks() == 0) {
+                    //error if user does not have any tasks to be marked completed
+                    printDivider();
+                    System.out.println("No tasks yet to be marked as done, add a task now!");
+                    printDivider();
+                } else if (taskNum > Task.getNumTasks() || taskNum < 1) {
                     //error if user inputs a task number that does not exist
                     printDivider();
                     System.out.println("Please input a valid task number from 1 to " + Task.getNumTasks() + "!");
@@ -70,8 +129,8 @@ public class Duke {
             } catch (NumberFormatException e) {
                 //error if user did not input a valid integer for task number
                 printDivider();
-                System.out.println("Invalid format! Please input a task number to be marked as done, " +
-                        "in the format \"done X\", where X is the task number!");
+                System.out.println("Invalid format! Please input a task number to be marked as done, "
+                        + System.lineSeparator() + "in the format \"done X\", where X is the task number!");
                 printDivider();
             }
         }
@@ -83,7 +142,15 @@ public class Duke {
      * Marks task number X as done when user inputs "done X" (not case-sensitive),
      * Exits when user inputs "Bye" (not case-sensitive)
      */
-    public static void addTask() {
+    public static void enterToDoListMode() {
+        printDivider();
+        System.out.println("Welcome to the To-do List mode!");
+        System.out.println("Type a task and i'll add it to your list real quick! ヽ༼ ˘ل͜ ˘ ༽ﾉ");
+        System.out.println("Other commands:" + System.lineSeparator()
+                + "\"list\" : See lists of tasks" + System.lineSeparator()
+                + "\"done X\" : Mark task number X as done" + System.lineSeparator()
+                + "\"bye\" : Stop Dude :(");
+        printDivider();
         Task[] listOfTasks = new Task[100];
         Scanner in = new Scanner(System.in);
         String input;
@@ -106,9 +173,10 @@ public class Duke {
         } while (!hasSaidBye);
     }
 
+
     public static void main(String[] args) {
       welcome();
-      addTask();
+      selectMode();
       exit();
     }
 }
