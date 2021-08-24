@@ -2,7 +2,14 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class Duke {
+    /**
+     * Prints the task list
+     *
+     * @param list Task list represented in array.
+     * @param index Index number of last task in list array.
+     */
     public static void printList(Task[] list, int index) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             String taskStatus = list[i].getStatusIcon();
             System.out.println((i + 1) + "." + taskStatus + " " + list[i].description);
@@ -16,21 +23,14 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-
         String line = "____________________________________________________________\n";
-
         String helloGreeting = "Hello! I'm Duke \n" + "What can I do for you?\n";
-
         String byeGreeting = "Bye. Hope to see you again soon!\n";
-
         System.out.println(line + helloGreeting + line);
 
         Scanner input = new Scanner(System.in);
-
         String command = "";
-
         Task[] tasks = new Task[100];
-
         int index = 0;
 
         while (!(command.equalsIgnoreCase("bye"))) {
@@ -57,7 +57,6 @@ public class Duke {
                 index++;
             }
         }
-
         System.out.println(line + byeGreeting + line);
     }
 }
