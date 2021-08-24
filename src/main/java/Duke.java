@@ -2,6 +2,21 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static void addTask(String input, String[] tasks, int taskCount) {
+        tasks[taskCount] = taskCount + ". " + input;
+        System.out.println("added: " + input);
+    }
+
+    public static void requestList(String[] tasks, int taskCount) {
+        for (int i = 1; i < taskCount; i++) {
+            System.out.println(tasks[i]);
+        }
+    }
+
+    public static void inputBye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Hello! I'm Duke");
@@ -14,18 +29,15 @@ public class Duke {
         int taskCount = 1;
 
         Scanner in = new Scanner(System.in);
-        while (isBye == false) {
+        while (!isBye) {
             line = in.nextLine();
             if (line.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                inputBye();
                 isBye = true;
             } else if (line.equalsIgnoreCase("list")) {
-                for (int i = 1; i < taskCount; i++) {
-                    System.out.println(tasks[i]);
-                }
+                requestList(tasks, taskCount);
             } else {
-                System.out.println("added: " + line);
-                tasks[taskCount] = taskCount + ". " + line;
+                addTask(line, tasks, taskCount);
                 taskCount++;
             }
         }
