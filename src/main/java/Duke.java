@@ -1,16 +1,14 @@
-
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo =     "        _|       _|_|        _|_|_|      _|      _|    _|_|_|        _|_|_|\n"
+                        + "        _|     _|    _|      _|    _|    _|      _|      _|        _|\n"
+                        + "        _|     _|_|_|_|      _|_|_|      _|      _|      _|          _|_|\n"
+                        + " _|     _|     _|    _|      _|    _|      _|  _|        _|              _|\n"
+                        + "  _| _|    _|  _|    _|  _|  _|    _|  _|    _|    _|  _|_|_|  _|  _|_|_|\n";
         System.out.print("Hello from\n" + logo);
-
-        String line = "----------------------------------\n";
+        String line = "\033[3m----------------------------------Just a rather very intelligent system---------\033[0m\n";
 
         System.out.println(line + "Good Evening Sir! I'm J.A.R.V.I.S");
         System.out.println("How can I help sir?");
@@ -31,7 +29,7 @@ public class Duke {
             }
             else if (command.equals("list")) {
                 for (int count = 0; count < numItems; count++) {
-                    System.out.println(Integer.toString(count + 1) + "." + tasks[count]);
+                    System.out.println(count + 1 + "." + tasks[count]);
                 }
             }
             else {
