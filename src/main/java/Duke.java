@@ -12,7 +12,7 @@ public class Duke {
             if (item == null) {
                 break;
             }
-            System.out.println(" " + count + ". " + item.description);
+            System.out.println(" " + count + ".[" + item.getStatusIcon() + "] " + item.description);
             count = count + 1;
         }
         System.out.println(line);
@@ -35,23 +35,39 @@ public class Duke {
         String bye = "____________________________________________________________\n"
                 +  " Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________\n";
+        String doneMessage;
         do {
             command = in.nextLine();
-            switch (command) {
-            case "bye":
-                break;
-            case "list":
-                printList();
-                break;
-            default:
-                tasks[taskCount] = new Task(command);
-                taskCount = taskCount + 1;
-                addition = "____________________________________________________________\n"
-                        + " added: "
-                        + command
+            if (command.contains("done")) {
+                String[] doneCommand = command.split(" ");
+                int taskIndex = Integer.parseInt(doneCommand[1]) - 1;
+                tasks[taskIndex].setDone();
+                doneMessage = "____________________________________________________________\n"
+                        + "Nice! I've marked this task as done: \n"
+                        + "["
+                        + tasks[taskIndex].getStatusIcon()
+                        + "] "
+                        + tasks[taskIndex].description
                         + "\n"
                         + "____________________________________________________________\n";
-                System.out.println(addition);
+                System.out.println(doneMessage);
+            } else {
+                switch (command) {
+                case "bye":
+                    break;
+                case "list":
+                    printList();
+                    break;
+                default:
+                    tasks[taskCount] = new Task(command);
+                    taskCount = taskCount + 1;
+                    addition = "____________________________________________________________\n"
+                            + " added: "
+                            + command
+                            + "\n"
+                            + "____________________________________________________________\n";
+                    System.out.println(addition);
+                }
             }
         } while (!command.equals("bye"));
         System.out.println(bye);
