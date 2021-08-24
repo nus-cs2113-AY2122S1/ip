@@ -9,9 +9,9 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         String greet =  "------------------------\n"
-                +       "Hello! I'm Duke\n"
-                +       "What can I do for you?\n"
-                +       "------------------------\n";
+                + "Hello! I'm Duke\n"
+                + "What can I do for you?\n"
+                + "------------------------\n";
 
         String userCommand;
         Task[] userTasks = new Task[100];
@@ -42,7 +42,7 @@ public class Duke {
                 if (taskDoneNumber > numberOfTasks) {
                     System.out.println("Task number have not existed!");
                 } else {
-                    userTasks[taskDoneNumber - 1].markTaskDone();
+                    userTasks[taskDoneNumber - 1].setDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("[X] "
                             + userTasks[taskDoneNumber - 1].getTaskDescription());
