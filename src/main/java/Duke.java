@@ -10,13 +10,16 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
+        String todo [] = new String[100];
+        int todo_index = 0;
         while(true){
             switch (input){
                 case "list":
-                    logo = "____________________________________________________________\n"
-                    + "list\n"
-                    + "____________________________________________________________\n";
-                    System.out.println(logo);
+                    System.out.println("____________________________________________________________");
+                    for (int i = 0; i < todo_index; i++) {
+                        System.out.println(i + 1 + ". " + todo[i]);
+                    }
+                    System.out.println("____________________________________________________________");
                     break;
                 case "blah":
                     logo ="____________________________________________________________\n"
@@ -31,6 +34,13 @@ public class Duke {
                     System.out.println(logo);
                     break;
                 default:
+                    todo[todo_index] = input;
+
+                    System.out.println("____________________________________________________________");
+                    System.out.println("added: " + input);
+                    System.out.println("____________________________________________________________");
+
+                    todo_index+=1;
                     break;
             }
             input = sc.nextLine();
