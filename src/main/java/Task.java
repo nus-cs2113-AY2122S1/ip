@@ -19,12 +19,12 @@ public class Task {
         this.isDone = true;
     }
 
-    public String status() {
+    public String getStatus() {
         return (isDone ? "X" : " ");
     }
 
     @Override
     public String toString() {
-        return "[" + status() + "] " + name + " ";
+        return "[" + getStatus() + "] " + name + " ";
     }
 }
