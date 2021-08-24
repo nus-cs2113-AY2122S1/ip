@@ -1,3 +1,4 @@
+// Chatbot Creator: Madhan Selvapandian
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -25,7 +26,7 @@ public class Duke {
                     // if there are no tasks in the list
                     System.out.println("No items were added into the list.");
                 } else {
-                    System.out.println("Below are the list of tasks in your list: ");
+                    System.out.println("Below are the list of tasks in your list:");
                     for (i = 0; i < count; i++) {
                         System.out.print((i + 1) + ". ");
                         tasks[i].printTask();
