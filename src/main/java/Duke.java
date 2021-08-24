@@ -5,7 +5,7 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
 
-        String[] itemList = new String[100];
+        Task[] taskList = new Task[100];
         int itemCount = 0;
         String greeting = "____________________________________________________________\n"
                 + "Hello! I'm Duke\n"
@@ -26,28 +26,43 @@ public class Duke {
             }
             if (line.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are your remaining tasks:");
 
                 for (int i = 1; i <= itemCount; i++) {
                     System.out.println(
                             Integer.toString(i)
-                            + ". "
-                            + itemList[i-1]
+                            + ". ["
+                            + taskList[i-1].getStatusIcon()
+                            + "] "
+                            + taskList[i-1].description
                     );
                 }
-
                 System.out.println("____________________________________________________________\n");
+
+            } else if (line.startsWith("done ")) {
+                int i = Integer.parseInt(line.substring(5)) - 1;
+                taskList[i].markAsDone();
+
+                System.out.println("____________________________________________________________\n"
+                        + "Well done! I've marked this task as done: \n"
+                        + "["
+                        + taskList[i].getStatusIcon()
+                        + "] "
+                        + taskList[i].description
+                        + "\n"
+                        + "____________________________________________________________\n"
+                );
+
             } else {
                 System.out.println("____________________________________________________________\n"
                         + "added: "
                         + line + "\n"
                         + "____________________________________________________________\n"
                 );
-                itemList[itemCount] = line;
+                taskList[itemCount] = new Task(line);
                 itemCount++;
             }
 
         }
-
-
     }
 }
