@@ -3,13 +3,13 @@ import java.util.Scanner;
 public class Alfred {
     public static void main(String[] args) {
         String logo =
-                "**********************************\n" +
-                "*     _    _  __              _  *\n" +
-                "*    / \\  | |/ _|_ __ ___  __| | *\n" +
-                "*   / _ \\ | | |_| '__/ _ \\/ _` | *\n" +
-                "*  / ___ \\| |  _| | |  __/ (_| | *\n" +
-                "* /_/   \\_\\_|_| |_|  \\___|\\__,_| *\n" +
-                "**********************************\n";
+                " **********************************\n" +
+                " *     _    _  __              _  *\n" +
+                " *    / \\  | |/ _|_ __ ___  __| | *\n" +
+                " *   / _ \\ | | |_| '__/ _ \\/ _` | *\n" +
+                " *  / ___ \\| |  _| | |  __/ (_| | *\n" +
+                " * /_/   \\_\\_|_| |_|  \\___|\\__,_| *\n" +
+                " **********************************\n";
         System.out.println(logo);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -26,11 +26,14 @@ public class Alfred {
             if (userInput.equals("list")) {
                 System.out.println("____________________________________________________________\n");
                 if (listIndex == 0) {
-                    System.out.println("Your schedule is clear, Master Wayne.");
-                }
-                for (int i = 0; i < listIndex; i++) {
-                    System.out.print(i+1);
-                    System.out.println(".[" + toDoList[i].getStatusIcon() + "] " + toDoList[i].getDescription());
+                    System.out.println(" Your schedule is clear, Master Wayne.");
+                } else {
+                    System.out.println(" Your tasks, sir:");
+                    for (int i = 0; i < listIndex; i++) {
+                        System.out.print(" ");
+                        System.out.print(i+1);
+                        System.out.println(".[" + toDoList[i].getStatusIcon() + "] " + toDoList[i].getDescription());
+                    }
                 }
                 System.out.println("____________________________________________________________\n");
             } else if (userInput.startsWith("done")) {
