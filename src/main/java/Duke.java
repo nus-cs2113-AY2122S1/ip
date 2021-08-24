@@ -5,15 +5,12 @@ public class Duke {
     private static int taskCount = 0;
 
     public static void printList() {
+        Task current;
         String line = "____________________________________________________________\n";
         System.out.print(line);
-        int count = 1;
-        for (Task item : tasks) {
-            if (item == null) {
-                break;
-            }
-            System.out.println(" " + count + ".[" + item.getStatusIcon() + "] " + item.description);
-            count = count + 1;
+        for (int i = 0; i < taskCount; i++) {
+            current = tasks[i];
+            System.out.println(" " + (i + 1) + ".[" + current.getStatusIcon() + "] " + current.description);
         }
         System.out.println(line);
     }
@@ -44,11 +41,7 @@ public class Duke {
                 tasks[taskIndex].setDone();
                 doneMessage = "____________________________________________________________\n"
                         + "Nice! I've marked this task as done: \n"
-                        + "["
-                        + tasks[taskIndex].getStatusIcon()
-                        + "] "
-                        + tasks[taskIndex].description
-                        + "\n"
+                        + "[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description + "\n"
                         + "____________________________________________________________\n";
                 System.out.println(doneMessage);
             } else {
@@ -62,9 +55,7 @@ public class Duke {
                     tasks[taskCount] = new Task(command);
                     taskCount = taskCount + 1;
                     addition = "____________________________________________________________\n"
-                            + " added: "
-                            + command
-                            + "\n"
+                            + " added: " + command + "\n"
                             + "____________________________________________________________\n";
                     System.out.println(addition);
                 }
