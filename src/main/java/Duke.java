@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String INDENTED_HORIZONTAL_LINE = "    ____________________________________________________________";
-    private static final String[] items = new String[100];
-    private static int itemCount = 0;
+    private static final Task[] tasks = new Task[100];
+    private static int taskCount = 0;
 
     private static String indent(String text) {
         String[] lines = text.split(System.lineSeparator());
@@ -26,19 +26,19 @@ public class Duke {
         printTextWithHorizontalLineAndIndentation(greeting);
     }
 
-    private static void printItems() {
-        String[] itemsWithNumbers = new String[itemCount];
-        for (int i = 0; i < itemCount; i++) {
-            itemsWithNumbers[i] = (i + 1) + ". " + items[i];
+    private static void printTasks() {
+        String[] tasksWithNumbers = new String[taskCount];
+        for (int i = 0; i < taskCount; i++) {
+            tasksWithNumbers[i] = (i + 1) + ". " + tasks[i].getDescription();
         }
-        String formattedItems = String.join(System.lineSeparator(), itemsWithNumbers);
-        printTextWithHorizontalLineAndIndentation(formattedItems);
+        String formattedTaskList = String.join(System.lineSeparator(), tasksWithNumbers);
+        printTextWithHorizontalLineAndIndentation(formattedTaskList);
     }
 
-    private static void addItem(String item) {
-        items[itemCount] = item;
-        itemCount++;
-        printTextWithHorizontalLineAndIndentation("added: " + item);
+    private static void addTask(String description) {
+        tasks[taskCount] = new Task(description);
+        taskCount++;
+        printTextWithHorizontalLineAndIndentation("added: " + description);
     }
 
     private static void handleCommands() {
@@ -47,12 +47,12 @@ public class Duke {
             String command = in.nextLine();
             switch (command) {
             case "list":
-                printItems();
+                printTasks();
                 break;
             case "bye":
                 return;
             default:
-                addItem(command);
+                addTask(command);
                 break;
             }
         }
