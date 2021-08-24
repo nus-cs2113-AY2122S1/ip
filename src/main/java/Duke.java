@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * This represents the Duke Chat bot.
@@ -13,7 +13,7 @@ public class Duke {
     /**
      * String[] list stores the commands input by user. It has a fixed size of 100.
      */
-    public static String[] list = new String[100];
+    public static Task[] list = new Task[100];
     /**
      * int listIndexTracker tracks the index for list to add elements in.
      */
@@ -95,15 +95,28 @@ public class Duke {
      */
     public static void parseInput(String input) {
         System.out.println(lines());
+        boolean error = false;
+
         if (input.equalsIgnoreCase("Bye")) {
             System.out.println(bye());
             done = true;
         } else if (input.equalsIgnoreCase("List")) {
             printList();
+        } else if (Pattern.matches("^done \\d+$", input.toLowerCase())) {
+            String[] parts = input.split(" ");
+            int index = Integer.parseInt(parts[1]) - 1;
+            if (index < listIndexTracker) {
+                list[index].markAsDone();
+            } else {
+                error = true;
+            }
         } else {
             addToList(input);
             System.out.print("    added: ");
             System.out.println(input);
+        }
+        if (error) {
+            System.out.println("Invalid input");
         }
         System.out.println(lines());
     }
@@ -114,7 +127,7 @@ public class Duke {
      * @param input input given by the user.
      */
     public static void addToList(String input) {
-        list[listIndexTracker] = input;
+        list[listIndexTracker] = new Task(input);
         listIndexTracker++;
     }
 
@@ -123,8 +136,8 @@ public class Duke {
      */
     public static void printList() {
         for (int i = 0; i < listIndexTracker; i++) {
-            System.out.format("    %d. ", i + 1);
-            System.out.println(list[i]);
+            System.out.format("    % 3d. [%s]", i + 1, list[i].getStatusIcon());
+            System.out.println(list[i].getDescription());
         }
     }
 }
