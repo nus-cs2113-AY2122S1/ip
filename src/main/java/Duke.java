@@ -6,13 +6,20 @@ public class Duke {
     static ArrayList<Task> taskList = new ArrayList<>();
 
     private static inputHandleStatus handleOneInputLine(String line) {
-        switch (line) {
+        String[] splitted = line.split("\\s+");
+        switch (splitted[0]) {
             case "bye":
                 return inputHandleStatus.END;
             case "list":
                 for (int i = 1; i <= taskList.size(); i += 1) {
                     System.out.println(i + ": " + taskList.get(i - 1));
                 }
+                return inputHandleStatus.OK;
+            case "done":
+                Task target = taskList.get(Integer.parseInt(splitted[1]) - 1);
+                target.setDoneStatus(true);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(target);
                 return inputHandleStatus.OK;
             default:
                 taskList.add(new Task(line));
@@ -35,12 +42,14 @@ public class Duke {
     static private class Task {
 
         private String title = "";
+        private boolean doneStatus = false;
 
         private Task() {
             // prevent uninitialised task
         }
 
         public Task(String title) {
+            this.doneStatus = false;
             this.title = title;
         }
 
@@ -52,8 +61,16 @@ public class Duke {
             this.title = title;
         }
 
+        public void setDoneStatus(boolean status) {
+            this.doneStatus = status;
+        }
+
+        public String getStatusIcon() {
+            return this.doneStatus ? "x" : " ";
+        }
+
         public String toString() {
-            return this.title;
+            return '[' + this.getStatusIcon() + ']' + ' ' + this.title;
         }
     }
 
