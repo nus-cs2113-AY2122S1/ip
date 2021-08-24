@@ -1,3 +1,6 @@
+
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -11,10 +14,19 @@ public class Duke {
 
         System.out.println(line + "Good Evening Sir! I'm J.A.R.V.I.S");
         System.out.println("How can I help sir?");
-        System.out.print("\n" + line);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("\n" + line);
 
+        String echoLine = null;
+        Scanner in = new Scanner(System.in);
 
+        while (true) {
+            echoLine = in.nextLine();
+
+            if (echoLine.equals("Initiate Power Down Mode - CODE: 10")) {
+                System.out.println("CODE ACKNOWLEDGED" + System.lineSeparator() + "Understood sir! I'll close shop for now.");
+                break;
+            }
+            System.out.println(echoLine);
+        }
     }
 }
+
