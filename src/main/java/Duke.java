@@ -9,10 +9,12 @@ public class Duke {
 
         String line = "----------------------------------\n";
 
-        System.out.println(line + "Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println(line + "Good Evening Sir! I'm J.A.R.V.I.S");
+        System.out.println("How can I help sir?");
         System.out.print("\n" + line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("\n" + line);
+
+
     }
 }
