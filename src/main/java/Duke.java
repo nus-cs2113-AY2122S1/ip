@@ -12,21 +12,27 @@ public class Duke {
         System.out.println(horizontal + "Bye. Hope to see you again soon!\n" + horizontal);
     }
 
-    public static void addTask(String task, String[] taskList, int numberOfTasks) {
+    public static void addTask(String task, Task[] tasks, int numberOfTasks) {
         System.out.println(horizontal + "added: " + task + "\n" + horizontal);
-        taskList[numberOfTasks] = task;
+        tasks[numberOfTasks] = new Task(task);
     }
 
-    public static void listTasks(String[] taskList, int numberOfTasks) {
+    public static void listTasks(Task[] tasks, int numberOfTasks) {
         System.out.print(horizontal);
         for (int i = 1; i <= numberOfTasks; i++) {
-            System.out.println(i + ". " + taskList[i - 1]);
+            System.out.println(i + ".[" + tasks[i - 1].getStatusIcon() + "] " + tasks[i - 1].getDescription());
         }
         System.out.println(horizontal);
     }
 
+    public static void markDone(Task[] tasks, int taskDone) {
+        System.out.println(horizontal + "Nice! I've marked this task as done: \n  [X] "
+                + tasks[taskDone - 1].getDescription() + "\n" + horizontal);
+        tasks[taskDone - 1].markAsDone();
+    }
+
     public static void main(String[] args) {
-        String[] taskList = new String[100];
+        Task[] tasks = new Task[100];
         int numberOfTasks = 0;
         sayHello();
         String line;
@@ -34,9 +40,12 @@ public class Duke {
         line = in.nextLine();
         while (!line.equals("bye")) {
             if (line.equals("list")) {
-                listTasks(taskList, numberOfTasks);
+                listTasks(tasks, numberOfTasks);
+            } else if (line.contains("done")) {
+                int taskDone = Integer.parseInt(line.substring(5));
+                markDone(tasks, taskDone);
             } else {
-                addTask(line, taskList, numberOfTasks);
+                addTask(line, tasks, numberOfTasks);
                 numberOfTasks++;
             }
             line = in.nextLine();
