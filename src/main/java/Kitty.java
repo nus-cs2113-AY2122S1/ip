@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Kitty {
     public static boolean isConvoOver = false;
-    public static List[] list = new List[100];
+    public static Task[] task = new Task[100];
     public static int totalTasksCount = 0;
 
     //Getters
@@ -48,11 +48,19 @@ public class Kitty {
         System.out.println("_______________________________");
     }
 
-    public static void printList(List[] list) {
+    public static void printList(Task[] task) {
         System.out.println();
+        System.out.println("Here are the tasks you have!");
         for (int i = 0; i < totalTasksCount; i++) {
-            System.out.println(i+1 + ". " + list[i].getTaskName());
+            System.out.print(i+1 + ".");
+            if (task[i].isDone()) {
+                System.out.print("[X] ");
+            } else {
+                System.out.print("[ ] ");
+            }
+            System.out.println(task[i].getTaskName());
         }
+        System.out.println();
         System.out.println(" |\\__/,|   (`\\\n" +
                             " |_ _  |.--.) )\n" +
                             " ( T   )     /\n" +
@@ -63,14 +71,34 @@ public class Kitty {
     public static void addToList(String line) {
         System.out.println();
         System.out.println("Added: " + line);
+        System.out.println();
         System.out.println("  /\\_/\\  (\n" +
                             " ( ^.^ ) _)\n" +
                             "   \\\"/  (\n" +
                             " ( | | )\n" +
                             "(__d b__)");
         System.out.println("_______________________________");
-        list[totalTasksCount] = new List(line);
+        task[totalTasksCount] = new Task(line);
         totalTasksCount++;
+    }
+
+    public static boolean hasDone(String line) {
+        return line.split(" ")[0].equals("done");
+    }
+
+    public static void markTask(String line) {
+        int taskNum = Integer.parseInt(line.split(" ")[1]);
+        task[taskNum-1].setDone();
+
+        System.out.println();
+        System.out.println("Good Job!! One more thing off your list!!");
+        System.out.println("  [X] " + task[taskNum-1].getTaskName());
+        System.out.println("                       /)\n" +
+                "              /\\___/\\ ((\n" +
+                "              \\`@_@'/  ))\n" +
+                "              {_:Y:.}_//\n" +
+                "    ----------{_}^-'{_}----------");
+        System.out.println("_______________________________");
     }
 
     public static void main(String[] args) {
@@ -114,16 +142,19 @@ public class Kitty {
 
             System.out.print("You: ");
             line = in.nextLine();
-
             switch (line) {
             case "bye":
                 isConvoOver = true;
                 break;
             case "list":
-                printList(list);
+                printList(task);
                 break;
             default:
-                addToList(line);
+                if (hasDone(line)) {
+                    markTask(line);
+                } else{
+                    addToList(line);
+                }
                 break;
             }
 
