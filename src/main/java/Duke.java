@@ -14,7 +14,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm HAL 2113");
-        System.out.println("What can I do for you? You can enter the following commands\n1. list \n2. blah\n3. bye (to exit the program!");
+        System.out.println("What can I do for you? You can enter the following commands\n1. 'task' (replace task with any agenda you wish to add to the list)\n2. list\n3. bye (to exit the program!");
 
         while (!currProgram.getTerminateHal()) {
             String input;
@@ -27,7 +27,7 @@ public class Duke {
 //            System.out.println(input);
 
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye boss! HAL will always be there to help you!\nSummon me by running this program again");
         System.out.println("____________________________________________________________");
     }
 }
