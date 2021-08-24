@@ -1,20 +1,11 @@
 package command;
 
-import java.util.HashMap;
 
 import time.Time;
 
 public class Command {
 
-    private static final HashMap<String, CommandType> CommandStr2Type =
-        new HashMap<String, CommandType>() {{
-            put("list", CommandType.LIST);
-            put("add", CommandType.ADD);
-            put("delete", CommandType.DELETE);
-            put("find", CommandType.FIND);
-            put("bye", CommandType.BYE);
-            put("invalid", CommandType.INVALID);
-        }};
+
 
     private CommandType cmdType;
     private Time taskTimeInfo;
@@ -32,9 +23,6 @@ public class Command {
         // printCommandType(cmdType);
     }
 
-    public static CommandType getCommandTypebyStr(String cmdStr) {
-        return CommandStr2Type.get(cmdStr);
-    }
 
     public CommandType getCommandType() {
         return cmdType;

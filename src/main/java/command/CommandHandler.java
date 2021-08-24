@@ -29,6 +29,8 @@ public class CommandHandler {
             handleCommandList();
         } else if (cmdType == CommandType.ADD) {
             handleCommandAdd(cmd);
+        } else if (cmdType == CommandType.DONE) {
+            handleCommandDone(cmd);
         } else if (cmdType == CommandType.DELETE) {
             handleCommandDelete();
         } else if (cmdType == CommandType.FIND) {
@@ -55,6 +57,14 @@ public class CommandHandler {
         TaskBase task = taskFactory.makeTask(cmd);
         taskManager.addTask(task);
     }
+
+    protected void handleCommandDone(Command cmd) {
+        // TODO: Add try catch for nullpointerexception
+        Integer taskId = Integer.parseInt(cmd.getTaskContent());
+        System.out.println("Marking task " + taskId + " as done");
+        taskManager.markTaskDone(taskId);
+    }
+
 
     private void handleCommandDelete() {
         System.out.println("delete");

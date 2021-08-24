@@ -1,6 +1,5 @@
 package parser;
 
-import java.util.HashSet;
 import java.util.Scanner;
 
 import command.Command;
@@ -14,15 +13,6 @@ import time.Time;
 public class CommandParser {
     private static final Scanner scan = new Scanner(System.in);
     private static CommandParser commandParser = null;
-    private static final HashSet<String> validCommands =
-        new HashSet<String>() {{
-            add("list");
-            add("add");
-            add("delete");
-            add("find");
-            add("bye");
-            add("invalid");
-        }};
 
     /**
      * Constructor
@@ -46,9 +36,21 @@ public class CommandParser {
     public Command parseNextCommand() {
 
         String cmdStr = scan.nextLine();
+        cmdStr = cmdStr.toLowerCase();
 
+        // First get command type
         CommandType cmdType = parseCommandType(cmdStr);
+
+        // remove command string
+        cmdStr = cmdStr.replace(CommandType.getCommandStrbyType(cmdType), "");
+        cmdStr = cmdStr.strip();
+
+        // then get time
         Time timeInfo = parseTimeInfo(cmdStr);
+
+        // remove time?
+
+        // Lastly get content
         String taskContent = parseTaskContent(cmdStr);
 
         return new Command(cmdType, timeInfo, taskContent);
@@ -58,9 +60,8 @@ public class CommandParser {
         CommandType cmdType = CommandType.INVALID;
         String[] words = cmdStr.split(" ");
         for (String word : words) {
-            word = word.toLowerCase();
-            if (validCommands.contains(word)) {
-                cmdType = Command.getCommandTypebyStr(word);
+            if (CommandType.isValidCommandStr(word)) {
+                cmdType = CommandType.getCommandTypebyStr(word);
                 break;
             }
         }

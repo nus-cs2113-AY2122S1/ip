@@ -33,6 +33,7 @@ public abstract class TaskBase {
     private TaskType taskType;
     private Time taskTime;
     private String taskContent;
+    private boolean isDone;
 
     /**
      * Constructor of task that accepts tasktype, time and taskcontent
@@ -41,14 +42,20 @@ public abstract class TaskBase {
         this.taskType = taskType;
         this.taskTime = taskTime;
         this.taskContent = taskContent;
+        this.isDone = false;
+    }
+
+    public void markDone() {
+        this.isDone = true;
     }
 
     /**
      * Utility to print all info related to task for list command
      **/
     public void printInfo() {
-        System.out.println(TaskType.getTaskStrbyTaskType(taskType));
+        System.out.println(String.format("[%c] %s %s",
+                    isDone ? 'X' : ' ',
+                    TaskType.getTaskStrbyTaskType(taskType), taskContent));
         taskTime.printTimeInfo();
-        System.out.println(taskContent);
     }
 }
