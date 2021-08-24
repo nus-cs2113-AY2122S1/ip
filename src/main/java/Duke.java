@@ -18,7 +18,7 @@ public class Duke {
     }
 
     public static void echo(String x) {
-        String output = "____________________________________________________________\n" +
+        String output = "____________________________________________________________\n" + " " +
                  x + "\n" +
                 "____________________________________________________________\n";
         System.out.println(output);
@@ -26,9 +26,48 @@ public class Duke {
     public static void main(String[] args) {
         greeting(true);
         Scanner sc = new Scanner(System.in);
-        while (true) {
-            echo(sc.nextLine());
+        String[] List = new String[100];
+        String LINES = "____________________________________________________________\n";
+        int listCount = 0;
+        boolean isBye = false;
+        while (!isBye) {
+            String input = sc.nextLine();
+            //echo function
+            if (input.equals("echo")) {
+                System.out.println(LINES + " echoing begins\n" + LINES);
+                boolean echoState = true;
+                while (echoState) {
+                    String s = sc.nextLine();
+                    if (s.equals("quit")) {
+                        System.out.println(LINES + " quit echoing\n" + LINES);
+                        echoState = false;
+                    }
+                    else {
+                        echo(s);
+                    }
+                }
+            }
+            else if (input.equals("bye")) {
+                String byeMsg = LINES +
+                        " Bye. Hope to see you again soon!\n" +
+                        LINES;
+                System.out.println(byeMsg);
+                isBye = true;
+            }
+            else if (input.equals("list")){
+                System.out.print(LINES);
+                for (int i = 0; i < listCount; i++) {
+                    int j = i + 1; //
+                    System.out.println(j + ". " + List[i]);
+                }
+                System.out.print(LINES);
+            }
+            else {
+                List[listCount] = input;
+                listCount += 1;
+                String addMsg = LINES + " added: " + input + "\n" + LINES;
+                System.out.println(addMsg);
+            }
         }
     }
-
 }
