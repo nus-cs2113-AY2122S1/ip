@@ -1,6 +1,10 @@
 public class Response {
     private static final String line = "____________________________________________________________";
 
+    public static String getLine(){
+        return line;
+    }
+
     public static void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -33,8 +37,11 @@ public class Response {
         case "bye":
             bye();
             break;
+        case "list":
+            Storage.list();
+            break;
         default:
-            echo(input);
+            Storage.storeInput(input);
             break;
         }
     }
