@@ -1,7 +1,9 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void greeting() {
         line();
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hey! I'm Lizzy the Lizard!");
         System.out.println("What can I do for you?");
         System.out.println("");
     }
@@ -18,16 +20,49 @@ public class Duke {
         System.out.println("");
     }
 
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        greeting();
+    public static void echo() {
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+        while (!line.equals("bye")) {
+            line();
+            System.out.println(line);
+            line();
+            line = in.nextLine();
+        }
         exit();
-        line();
+    }
+
+    public static void main(String[] args) {
+
+        String lizText = "      ___                   ___           ___           ___     \n" +
+                "     /\\__\\      ___        /\\  \\         /\\  \\         |\\__\\    \n" +
+                "    /:/  /     /\\  \\       \\:\\  \\        \\:\\  \\        |:|  |   \n" +
+                "   /:/  /      \\:\\  \\       \\:\\  \\        \\:\\  \\       |:|  |   \n" +
+                "  /:/  /       /::\\__\\       \\:\\  \\        \\:\\  \\      |:|__|__ \n" +
+                " /:/__/     __/:/\\/__/ _______\\:\\__\\ _______\\:\\__\\     /::::\\__\\\n" +
+                " \\:\\  \\    /\\/:/  /    \\::::::::/__/ \\::::::::/__/    /:/~~/~   \n" +
+                "  \\:\\  \\   \\::/__/      \\:\\~~\\~~      \\:\\~~\\~~       /:/  /     \n" +
+                "   \\:\\  \\   \\:\\__\\       \\:\\  \\        \\:\\  \\        \\/__/      \n" +
+                "    \\:\\__\\   \\/__/        \\:\\__\\        \\:\\__\\                  \n" +
+                "     \\/__/                 \\/__/         \\/__/                  \n";
+
+        String lizLogo = "                      ____...---...___\n" +
+                "___.....---\"\"\"                .                   \"\"--..____\n" +
+                "     .                  .            .\n" +
+                " .             _.--._       /|\n" +
+                "        .    .'()..()`.    / /\n" +
+                "            ( `-.__.-' )  ( (    .\n" +
+                "   .         \\        /    \\ \\\n" +
+                "       .      \\      /      ) )        .\n" +
+                "            .' -.__.- `.-.-'_.'\n" +
+                " .        .'  /-____-\\  `.-'       .\n" +
+                "          \\  /-.____.-\\  /-.\n" +
+                "           \\ \\`-.__.-'/ /\\|\\|           .\n" +
+                "          .'  `.    .'  `.\n" +
+                "          |/\\/\\|    |/\\/\\|";
+        System.out.println("Howdy! It's\n" + lizText + lizLogo);
+        greeting();
+        echo();
 
 
     }
