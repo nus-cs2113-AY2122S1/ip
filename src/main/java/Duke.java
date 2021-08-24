@@ -51,14 +51,14 @@ public class Duke {
                 System.out.println("Bye my little pogchamp! Hope to see you again soon!");
                 System.out.println(line);
                 System.exit(0);
-            } else if(command.toLowerCase().contains("done")) {
+            } else if (command.toLowerCase().contains("done")) {
                 //extract particular list item to mark as done
-                String taskdone = command.replaceAll("[^0-9]","");
-                int index = Integer.parseInt(taskdone);
+                String taskDone = command.replaceAll("[^0-9]","");
+                int index = Integer.parseInt(taskDone);
                 //index cannot be <= 0
                 if (index <= 0) {
                     System.out.println("Invalid index");
-                } else if(index <= listIndex) {
+                } else if (index <= listIndex) {
                     //valid index
                     Tasks[index - 1].markDone();
                     System.out.println("Nice! I've marked this task as done:");
