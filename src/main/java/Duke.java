@@ -5,7 +5,8 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
 
-
+        String[] itemList = new String[100];
+        int itemCount = 0;
         String greeting = "____________________________________________________________\n"
                 + "Hello! I'm Duke\n"
                 + "What can I do for you?\n"
@@ -16,16 +17,37 @@ public class Duke {
                 +  "____________________________________________________________\n";
 
         System.out.println(greeting);
-        line = in.nextLine();
 
-        while(!line.equals("bye")) {
-            System.out.println("____________________________________________________________\n"
-                    + line + "\n"
-                    + "____________________________________________________________\n"
-            );
+        while(true) {
             line = in.nextLine();
+            if (line.equals("bye")) {
+                System.out.println(goodbye);
+                return;
+            }
+            if (line.equals("list")) {
+                System.out.println("____________________________________________________________");
+
+                for (int i = 1; i <= itemCount; i++) {
+                    System.out.println(
+                            Integer.toString(i)
+                            + ". "
+                            + itemList[i-1]
+                    );
+                }
+
+                System.out.println("____________________________________________________________\n");
+            } else {
+                System.out.println("____________________________________________________________\n"
+                        + "added: "
+                        + line + "\n"
+                        + "____________________________________________________________\n"
+                );
+                itemList[itemCount] = line;
+                itemCount++;
+            }
+
         }
 
-        System.out.println(goodbye);
+
     }
 }
