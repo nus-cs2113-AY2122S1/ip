@@ -1,11 +1,13 @@
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-    public static void printList(String[] list) {
+    public static void printList(Task[] taskList) {
         System.out.println("____________________________________________________________");
-        for (int i = 0; i < list.length; i++) {
-            System.out.println(" " + (i + 1) + ". " + list[i]);
+        System.out.println(" Here are the tasks in your list:");
+        for (int i = 0; i < taskList.length; i++) {
+            System.out.println(" " + (i + 1) + ". [" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
         }
         System.out.println("____________________________________________________________");
     }
@@ -31,14 +33,28 @@ public class Duke {
         inWord = scan.nextLine();
 
         String exitString = "bye";
-        String[] taskList = new String[100];
+        String taskCommand = "list";
+        Task[] taskList = new Task[100];
         int index = 0;
 
-        while (!inWord.equals(exitString)) {
-            if (inWord.equals("list")) {
+        while (!inWord.toLowerCase().equals(exitString)) {
+            if (inWord.toLowerCase().equals(taskCommand)) {
                 printList(Arrays.copyOf(taskList, index));
+            } else if (inWord.toLowerCase().startsWith("done")) {
+                int taskDoneIndex = Integer.parseInt(inWord.split(" ")[1]);
+                if (taskDoneIndex <= 0 || taskDoneIndex > index) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Item out of Index");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    taskList[taskDoneIndex - 1].markAsDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Nice! I've marked this task as done:");
+                    System.out.println("   [" + taskList[taskDoneIndex - 1].getStatusIcon() + "] " + taskList[taskDoneIndex - 1].description);
+                    System.out.println("____________________________________________________________");
+                }
             } else {
-                taskList[index] = inWord;
+                taskList[index] = new Task(inWord);
                 index += 1;
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + inWord);
