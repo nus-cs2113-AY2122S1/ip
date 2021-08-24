@@ -2,19 +2,34 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void addTask(String input, String[] tasks, int taskCount) {
-        tasks[taskCount] = taskCount + ". " + input;
+    public static void addTask(String input, Task[] tasks, int taskCount) {
+        Task t = new Task(input);
+        tasks[taskCount] = t;
         System.out.println("added: " + input);
     }
 
-    public static void requestList(String[] tasks, int taskCount) {
+    public static void requestList(Task[] tasks, int taskCount) {
+        if (taskCount == 1) {
+            System.out.println("There are no tasks!");
+            return;
+        }
+        System.out.println("Here are the tasks in your list:");
         for (int i = 1; i < taskCount; i++) {
-            System.out.println(tasks[i]);
+            System.out.println(tasks[i].taskId + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
         }
     }
 
     public static void inputBye() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void inputDone(String line, Task[] tasks) {
+        int dividePos = line.indexOf(" ");
+        int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
+        Task t = tasks[taskNumber];
+        t.markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[" + t.getStatusIcon() + "] " + t.description);
     }
 
     public static void main(String[] args) {
@@ -25,8 +40,8 @@ public class Duke {
         String line;
         boolean isBye = false;
 
-        String[] tasks = new String[100];
-        int taskCount = 1;
+        Task[] tasks = new Task[100];
+        int taskCount = Task.getNumberOfTasks();
 
         Scanner in = new Scanner(System.in);
         while (!isBye) {
@@ -36,6 +51,8 @@ public class Duke {
                 isBye = true;
             } else if (line.equalsIgnoreCase("list")) {
                 requestList(tasks, taskCount);
+            } else if (line.contains("done")) {
+                inputDone(line, tasks);
             } else {
                 addTask(line, tasks, taskCount);
                 taskCount++;
