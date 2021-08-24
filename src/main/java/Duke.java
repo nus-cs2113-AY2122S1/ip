@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -22,20 +22,18 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             input = in.nextLine();
             if (input.equals("bye")) {
-                break;
+                continue;
             }
             if (input.equals("list")) {
                 for (int i = 0; i < taskCount; i++) {
                     tasks[i].printTask(i + 1);
                 }
-            }
-            else if (input.contains("done")) {
+            } else if (input.startsWith("done")) {
                 int finishedIndex = Integer.parseInt(input.substring(5));
                 tasks[finishedIndex - 1].completeTask();
                 System.out.println("Nice! I have marked this task as done: ");
                 System.out.println(tasks[finishedIndex - 1].getTaskInfo());
-            }
-            else {
+            } else {
                 tasks[taskCount] = new Task(input);
                 taskCount++;
                 System.out.println("added: " + input);
