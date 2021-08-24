@@ -22,10 +22,19 @@ public class Duke {
 
         System.out.println("");
 	}
-	
+
+    public static void printStoreList(String[] storeList, int len){
+	    for (int i = 0; i < len; i += 1) {
+            System.out.print((i + 1) + ". ");
+            System.out.println(storeList[i]);
+        }
+    }
+
     public static void main(String[] args) {
         String userInputString;
         Scanner userInput = new Scanner(System.in);
+        String[] storeList = new String[100];
+        int storeListQuantity = 0;
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -46,10 +55,17 @@ public class Duke {
 
             if (userInputString.equals("bye")) {
                 break;
+            } else if (userInputString.equals("list")) {
+                printStoreList(storeList, storeListQuantity);
+                continue;
             }
 
-            System.out.print(" ");
-            System.out.println(userInputString);
+            storeList[storeListQuantity] = userInputString;
+            System.out.println("added: " + userInputString);
+            storeListQuantity += 1;
+
+            // System.out.print(" ");
+            // System.out.println(userInputString);
         }
 
         System.out.println("____________________________________________________________");
