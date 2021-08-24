@@ -2,20 +2,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import backend.TimeDeadline;
-import backend.TimeEvent;
-import backend.TimeTodo;
+import time.Time;
 
 class TimeTest {
     @Test
     public void test() {
         System.out.println("==Timer Test==");
-        TimeDeadline tdl = new TimeDeadline("1992:12:12:12:12:12");
-        TimeEvent tev = new TimeEvent("1992:12:12:12:12:12", "1995:12:12:12:12:12");
-        TimeTodo ttodo = new TimeTodo();
-        tdl.printTimeInfo();
-        tev.printTimeInfo();
-        ttodo.printTimeInfo();
+        Time t = new Time();
+        t.printTimeInfo();
         assertTrue(true);
     }
 }

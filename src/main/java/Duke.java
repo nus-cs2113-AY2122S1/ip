@@ -1,6 +1,8 @@
-import backend.Command;
-import backend.CommandHandler;
-import frontend.CommandParser;
+import command.Command;
+import command.CommandHandler;
+import command.CommandType;
+import parser.CommandParser;
+
 
 public class Duke {
     static final String LOGO =
@@ -24,7 +26,7 @@ public class Duke {
         while (true) {
             Command cmd = commandParser.parseNextCommand();
             commandHandler.handlerCommand(cmd);
-            if (cmd.isType(Command.CommandType.BYE)) {
+            if (cmd.isType(CommandType.BYE)) {
                 return;
             }
         }

@@ -1,4 +1,6 @@
-package backend;
+package task;
+
+import time.Time;
 
 // Some funcitionalities
 // Time related: (Use time class)
@@ -27,4 +29,26 @@ package backend;
 // 16. Priorities ( attribute)
 // 17. Archive (task manager)
 
-public abstract class TaskBase {}
+public abstract class TaskBase {
+    private TaskType taskType;
+    private Time taskTime;
+    private String taskContent;
+
+    /**
+     * Constructor of task that accepts tasktype, time and taskcontent
+     **/
+    public TaskBase(TaskType taskType, Time taskTime, String taskContent) {
+        this.taskType = taskType;
+        this.taskTime = taskTime;
+        this.taskContent = taskContent;
+    }
+
+    /**
+     * Utility to print all info related to task for list command
+     **/
+    public void printInfo() {
+        System.out.println(TaskType.getTaskStrbyTaskType(taskType));
+        taskTime.printTimeInfo();
+        System.out.println(taskContent);
+    }
+}

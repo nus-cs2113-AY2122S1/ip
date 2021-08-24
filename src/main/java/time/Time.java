@@ -1,10 +1,10 @@
-package backend;
+package time;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 
-public abstract class TimeBase {
+public class Time {
 
     protected TimeUnit tstart;
     protected TimeUnit tend;
@@ -13,7 +13,7 @@ public abstract class TimeBase {
     /**
      * Constructor
      */
-    public TimeBase() {
+    public Time() {
         tstart = null;
         tend = null;
         trepeat = null;
@@ -31,37 +31,41 @@ public abstract class TimeBase {
         trepeat = new TimeUnit(timeStr);
     }
 
-    protected TimeUnit getTimeStart(String timeStr) {
+    public TimeUnit getTimeStart(String timeStr) {
         return tstart;
     }
 
-    protected TimeUnit getTimeEnd(String timeStr) {
+    public TimeUnit getTimeEnd(String timeStr) {
         return tend;
     }
 
-    protected TimeUnit getTimeRepeat(String timeStr) {
+    public TimeUnit getTimeRepeat(String timeStr) {
         return trepeat;
     }
 
-    protected void printTimeInfo() {
-        System.out.print("++Time Start: ");
+    /**
+     * Utility to print time info, used by list command
+     */
+    public void printTimeInfo() {
+        System.out.print("Time Start: ");
         if (tstart == null) {
-            System.out.println(-1);
+            System.out.print(-1);
         } else {
-            System.out.println(tstart.get());
+            System.out.print(tstart.get());
         }
-        System.out.print("++Time End: ");
+        System.out.print(" | Time End: ");
         if (tend == null) {
-            System.out.println(-1);
+            System.out.print(-1);
         } else {
-            System.out.println(tend.get());
+            System.out.print(tend.get());
         }
-        System.out.print("++Time Repeat: ");
+        System.out.print(" | Time Repeat: ");
         if (trepeat == null) {
-            System.out.println(-1);
+            System.out.print(-1);
         } else {
-            System.out.println(trepeat.get());
+            System.out.print(trepeat.get());
         }
+        System.out.println();
     }
 }
 

@@ -1,40 +1,59 @@
-package backend;
+package command;
+
+import task.TaskBase;
+import task.TaskFactory;
+import task.TaskManager;
 
 public class CommandHandler {
-    public CommandHandler() {}
+
+    private TaskManager taskManager;
+    private TaskFactory taskFactory;
+
+    /**
+     * Constructor to create taskManager and taskFactory
+     **/
+    public CommandHandler() {
+        taskManager = new TaskManager();
+        taskFactory = new TaskFactory();
+    }
 
     /**
      * Handle command
      * @param cmd
      */
     public void handlerCommand(Command cmd) {
-        Command.CommandType cmdType = cmd.getCommandType();
+        CommandType cmdType = cmd.getCommandType();
         System.out.println("____________________________________________________________");
 
-        if (cmdType == Command.CommandType.LIST) {
+        if (cmdType == CommandType.LIST) {
             handleCommandList();
-        } else if (cmdType == Command.CommandType.ADD) {
-            handleCommandAdd();
-        } else if (cmdType == Command.CommandType.DELETE) {
+        } else if (cmdType == CommandType.ADD) {
+            handleCommandAdd(cmd);
+        } else if (cmdType == CommandType.DELETE) {
             handleCommandDelete();
-        } else if (cmdType == Command.CommandType.FIND) {
+        } else if (cmdType == CommandType.FIND) {
             handleCommandFind();
-        } else if (cmdType == Command.CommandType.BYE) {
+        } else if (cmdType == CommandType.BYE) {
             handleCommandBye();
-        } else if (cmdType == Command.CommandType.INVALID) {
+        } else if (cmdType == CommandType.INVALID) {
             handleCommandInvalid();
         } else {
             handleCommandInvalid();
         }
+
         System.out.println("____________________________________________________________");
     }
 
     private void handleCommandList() {
         System.out.println("list");
+        System.out.println("---------------");
+        taskManager.listAllTasks();
     }
 
-    private void handleCommandAdd() {
-        System.out.println("add");
+    private void handleCommandAdd(Command cmd) {
+        System.out.println("added: " + cmd.getTaskContent());
+        TaskBase task = taskFactory.makeTask(cmd);
+        taskManager.addTask(task);
     }
 
     private void handleCommandDelete() {
