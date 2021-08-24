@@ -42,8 +42,7 @@ public class Alfred {
                     System.out.println(".[" + toDoList[i].getStatusIcon() + "] " + toDoList[i].getDescription());
                 }
                 System.out.println("____________________________________________________________\n");
-            }
-            else if (userInput.startsWith("done")) {
+            } else if (userInput.startsWith("done")) {
                 String[] destructuredInput = userInput.split(" ");
                 int index = Integer.parseInt(destructuredInput[1]) - 1;
                 toDoList[index].setTaskDone();
@@ -51,16 +50,15 @@ public class Alfred {
                 System.out.println(" Duly noted on completion of task, sir.");
                 System.out.println("   [X] " + toDoList[index].getDescription());
                 System.out.println("____________________________________________________________\n");
-            }
-            else {
+            } else {
                 Task t = new Task(userInput);
                 toDoList[listIndex] = t;
                 listIndex++;
                 System.out.println(
                         "____________________________________________________________\n" +
-                                " I shall put this in your schedule, Master Wayne: \"" +
-                                userInput + "\".\n" +
-                                "____________________________________________________________\n"
+                        " I shall put this in your schedule, Master Wayne: \"" +
+                        userInput + "\".\n" +
+                        "____________________________________________________________\n"
                 );
             }
 
