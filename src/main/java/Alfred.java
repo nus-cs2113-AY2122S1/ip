@@ -18,40 +18,53 @@ public class Alfred {
                 "____________________________________________________________\n"
         );
 
-        String[] toDoList = new String[100];
+        Task[] toDoList = new Task[100];
         int listIndex = 0;
         Scanner scanner = new Scanner(System.in);
-        boolean isAppRunning = true;
-        while (isAppRunning) {
-            String userInput = scanner.nextLine();
-            switch (userInput) {
-            case "BYE":
-            case "bye":
-                isAppRunning = false;
+        String userInput = scanner.nextLine();
+        while (userInput != "BYE" || userInput != "bye") {
+            if (userInput == "BYE" || userInput == "bye") {
                 System.out.println(
                         "____________________________________________________________\n" +
                         " Very well sir, I shall leave you to your own devices.\n" +
                         "____________________________________________________________\n"
                 );
-                break;
-            case "list":
+                return;
+            }
+
+            if (userInput.equals("list")) {
                 System.out.println("____________________________________________________________\n");
+                if (listIndex == 0) {
+                    System.out.println("Your schedule is clear, Master Wayne.");
+                }
                 for (int i = 0; i < listIndex; i++) {
                     System.out.print(i+1);
-                    System.out.println(". " + toDoList[i]);
+                    System.out.println(".[" + toDoList[i].getStatusIcon() + "] " + toDoList[i].getDescription());
                 }
                 System.out.println("____________________________________________________________\n");
-                break;
-            default:
-                toDoList[listIndex] = userInput;
+            }
+            else if (userInput.startsWith("done")) {
+                String[] destructuredInput = userInput.split(" ");
+                int index = Integer.parseInt(destructuredInput[1]) - 1;
+                toDoList[index].setTaskDone();
+                System.out.println("____________________________________________________________\n");
+                System.out.println(" Duly noted on completion of task, sir.");
+                System.out.println("   [X] " + toDoList[index].getDescription());
+                System.out.println("____________________________________________________________\n");
+            }
+            else {
+                Task t = new Task(userInput);
+                toDoList[listIndex] = t;
                 listIndex++;
                 System.out.println(
                         "____________________________________________________________\n" +
-                        " I shall put this in your schedule, Master Wayne: \"" +
-                        userInput + "\".\n" +
-                        "____________________________________________________________\n"
+                                " I shall put this in your schedule, Master Wayne: \"" +
+                                userInput + "\".\n" +
+                                "____________________________________________________________\n"
                 );
             }
+
+            userInput = scanner.nextLine();
         }
     }
 }
