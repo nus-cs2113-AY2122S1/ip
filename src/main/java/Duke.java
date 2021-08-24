@@ -10,17 +10,21 @@ public class Duke {
         Init.greet();
         //echo & exit
         boolean flag = true;
+        TaskManager tasksList = new TaskManager();
         while(flag){
             Scanner in = new Scanner(System.in);
             String userInput = in.nextLine();
-            if(userInput.equals("bye")){
-                Init.bye();
-
-                flag = false;
+            System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
+            switch(userInput){
+            case "bye": Init.bye();
+                        flag = false;
+                        break;
+            case "list": tasksList.listTasks();
+                        break;
+            default: tasksList.addTask(userInput);
+                    break;
             }
-            else{
-                Init.echo(userInput);
-            }
+            System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-\n");
         }
     }
 }
