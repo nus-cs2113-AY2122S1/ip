@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -6,10 +7,20 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
+        Init.greet();
+        //echo & exit
+        boolean flag = true;
+        while(flag){
+            Scanner in = new Scanner(System.in);
+            String userInput = in.nextLine();
+            if(userInput.equals("bye")){
+                Init.bye();
 
-        System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
-        System.out.println("Hello! I am your memo keeper Duke! \nWhat can I do for you?");
-        System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
-        System.out.println("Bye. Hope to see you again, don't forget to complete your task!");
+                flag = false;
+            }
+            else{
+                Init.echo(userInput);
+            }
+        }
     }
 }
