@@ -8,7 +8,7 @@ public class Message {
     private static final String END = "Bye. Hope to see you again soon!";
     private static final String SPACER = "____________________________________________________________\n";
 
-    private static void printWithSpacers(String message) {
+    public static void printWithSpacers(String message) {
         if (message.charAt(message.length() - 1) != '\n') {
             message += '\n';
         }
@@ -24,25 +24,8 @@ public class Message {
         printWithSpacers(END);
     }
 
-    public static void printUserInput(String userInput) {
-        printWithSpacers(userInput);
-    }
-
     public static void printInputReceived(String userInput) {
         printWithSpacers("added: " + userInput);
-    }
-
-    public static void printTaskDone(Task task) {
-        printWithSpacers("Nice! I've marked this task as done:\n" + task.getTaskMessage());
-    }
-
-    public static void printTasks(Task[] tasks) {
-        int count = 1;
-        String message = "";
-        for (Task task : tasks) {
-            message += (count++) + "." + task.getTaskMessage();
-        }
-        printWithSpacers(message);
     }
 
 }
