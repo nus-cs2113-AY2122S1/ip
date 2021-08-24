@@ -52,9 +52,8 @@ public class Duke {
 
             if (response.equals("echo")) {
                 echo(lineBreak);
-            }
-            else if ((response.length() > 3) &&
-            (response.substring(0,3).equals("add"))) {
+            } else if ((response.length() > 3) &&
+                    (response.substring(0, 3).equals("add"))) {
                 item = response.substring(4);
                 task = new Task(item);
                 list[listSize] = task;
@@ -62,20 +61,17 @@ public class Duke {
                 System.out.println("added: " + item);
                 System.out.println(lineBreak);
                 listSize += 1;
-            }
-            else if (response.equals("list")){
+            } else if (response.equals("list")) {
                 printList(list, listSize);
                 System.out.println(lineBreak);
-            }
-            else if ((response.length() > 4) &&
-                    (response.substring(0,4).equals("done"))){
+            } else if ((response.length() > 4) &&
+                    (response.substring(0, 4).equals("done"))) {
                 int i = Integer.parseInt(response.substring(5)) - 1;
                 list[i].markAsDone();
                 System.out.println("Nice! i have marked this task as done:\n ["
-                + list[i].getStatusIcon() + "] " + list[i].getDescription());
+                        + list[i].getStatusIcon() + "] " + list[i].getDescription());
                 System.out.println(lineBreak);
-            }
-            else {
+            } else {
                 System.out.println("bad command");
                 System.out.println(lineBreak);
             }
