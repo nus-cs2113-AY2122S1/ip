@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static void main(String[] args) {
-        String intro = "    ____________________________________________________________\n"
+        String intro = "     ____________________________________________________________\n"
                 + "     Hello! I'm\n"
                 + "     ____        _        \n"
                 + "    |  _ \\ _   _| | _____ \n"
