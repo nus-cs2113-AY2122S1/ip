@@ -23,7 +23,7 @@ public class Duke {
         do {
             command = in.nextLine();
 
-            if (command.contains("done")) {
+            if (command.startsWith("done")) {
                 int itemNum = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
                 taskList[itemNum].setDone();
                 System.out.println(separator);
