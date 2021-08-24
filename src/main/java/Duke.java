@@ -14,6 +14,7 @@ public class Duke {
     /* List of support commands */
     private final static String END_COMMAND = "bye";
     private final static String LIST_COMMAND = "list";
+    private final static String DONE_COMMAND = "done";
 
     /* List of chat-bot messages */
     private final static String WELCOME_MESSAGE = "" +
@@ -22,7 +23,7 @@ public class Duke {
             "[*] Hacking into the chat-bot...\n" +
             "[*] Escalating privileges...\n" +
             "[+] Interactive shell spawned. You can now manipulate the chat-bot directly!";
-    private final static String BYE_MESSAGE = "[*] Deleting traces...\n" +
+    private final static String BYE_MESSAGE = "[*] Deleting traces of compromise...\n" +
             "[+] Bye. Hope to see you again soon!";
 
     /* Storage of tasks */
@@ -50,18 +51,27 @@ public class Duke {
     private static void handleInput(String input) {
         String[] tokens = input.stripTrailing().split(" ");
 
-        switch (tokens[0]) {
-        case LIST_COMMAND:
-            taskManager.printTaskList();
-            break;
-        case END_COMMAND:
-            isEnd = true;
-            break;
-        case "":
-            break;
-        default:
-            taskManager.addTask(input);
-            break;
+        try {
+            switch (tokens[0]) {
+            case LIST_COMMAND:
+                taskManager.printTaskList();
+                break;
+            case DONE_COMMAND:
+                taskManager.complete(Integer.parseInt(tokens[1]));
+                break;
+            case END_COMMAND:
+                isEnd = true;
+                break;
+            case "":
+                break;
+            default:
+                taskManager.addTask(input);
+                break;
+            }
+        } catch (ArrayIndexOutOfBoundsException err) {
+            System.out.println("[-] Missing arguments!");
+        } catch (NumberFormatException err) {
+            System.out.println("[-] Invalid arguments!");
         }
     }
 
