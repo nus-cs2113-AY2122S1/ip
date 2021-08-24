@@ -7,13 +7,13 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        Greet.welcomeMessage();
+        Greet.printWelcomeMessage();
         Scanner in = new Scanner(System.in);
         String command;
         boolean isConversation = true;
         do{
-            command = in.next();
-            System.out.println(command);
+            command = in.nextLine();
+//            System.out.println(command);
             Greet.miniDuke(command);
             isConversation = !command.equals("bye");
         }while(isConversation);
