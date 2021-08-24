@@ -15,18 +15,28 @@ public class Duke {
         System.out.println(line + "Good Evening Sir! I'm J.A.R.V.I.S");
         System.out.println("How can I help sir?");
 
-        String echoLine = null;
+        int numItems = 0;
+        boolean saidBye = false;
+
+        String[] tasks = new String[100];
         Scanner in = new Scanner(System.in);
 
-        while (true) {
-            echoLine = in.nextLine();
+        while (!saidBye) {
 
-            if (echoLine.equals("Initiate Power Down Mode - CODE: 10")) {
-                System.out.println("CODE ACKNOWLEDGED" + System.lineSeparator() + "Understood sir! I'll close shop for now.");
-                break;
+            String command = in.nextLine();
+
+            if (command.equals("bye")) {
+                saidBye = true;
+                System.out.println("Thank you, have a nice day!");
+            } else if (command.equals("list")) {
+                for (int count = 0; count < numItems; count++) {
+                    System.out.println(Integer.toString(count + 1) + "." + tasks[count]);
+                }
+            } else {
+                tasks[numItems] = command;
+                System.out.println("Added: " + command);
+                numItems++;
             }
-            System.out.println(echoLine);
         }
     }
 }
-
