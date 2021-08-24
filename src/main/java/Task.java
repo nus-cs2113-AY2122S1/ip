@@ -1,11 +1,22 @@
+/**
+ * Represents a task.
+ *
+ * @author Leow Yuan Yang
+ * @version 1.0
+ * @since 2021-08-25
+ */
 public class Task {
+    protected static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
-    protected static int numOfTasks = 0;
 
+    /**
+     * Creates a task with the specified task description.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
         numOfTasks++;
     }
 
