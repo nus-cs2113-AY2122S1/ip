@@ -37,6 +37,7 @@ public class Duke {
             if (line.equals("list")) {
                 showList(Arrays.copyOf(tasks, taskCount));
             } else if (line.toLowerCase().startsWith("done")) {
+                //"done" is not case-sensitive now
                 String[] words = line.split(" ");
                 //Assuming the 2nd word is the index of the task
                 int taskIndex = Integer.parseInt(words[1]) - 1;
