@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+
+    static ArrayList<String> taskList = new ArrayList<>();
 
     private static void initialise() {
         String greeting = "Hello! I'm Duke";
@@ -12,11 +15,19 @@ public class Duke {
         OK, END, ERROR
     }
     private static inputHandleStatus handleOneInputLine(String line) {
-        if (line.equals("bye")) {
-            return inputHandleStatus.END;
+        switch (line) {
+            case "bye":
+                return inputHandleStatus.END;
+            case "list":
+                for (int i = 1; i <= taskList.size(); i += 1) {
+                    System.out.println(i + ": " + taskList.get(i - 1));
+                }
+                return inputHandleStatus.OK;
+            default:
+                taskList.add(line);
+                System.out.println("added: " + line);
+                return inputHandleStatus.OK;
         }
-        System.out.println(line);
-        return inputHandleStatus.OK;
     }
 
     private static void finalise() {
