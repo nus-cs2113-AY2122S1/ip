@@ -13,6 +13,25 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    public static void addTask(Task[] tasks, String message, int count) {
+        printMessage("added: " + message);
+        tasks[count] = new Task(message);
+    }
+
+    public static void printTasks(Task[] tasks, int count) {
+        printLine();
+        for (int i = 0; i < count; i++) {
+            System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "]" + tasks[i].getDescription());
+        }
+        printLine();
+    }
+
+    public static void markDone(Task[] tasks, String message) {
+        String[] arrOfStr = message.split(" ");
+        int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
+        tasks[index].isDone();
+    }
+
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
         int count = 0;
@@ -27,25 +46,14 @@ public class Duke {
 
         while (!message.equals("bye")) {
             if (message.equals("list")) {
-                message = " ";
-                printLine();
-                for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "]" + tasks[i].getDescription());
-                }
-                printLine();
+                printTasks(tasks, count);
             } else if (message.contains("done")) {
-                String[] arrOfStr = message.split(" ");
-                int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
-                tasks[index].isDone();
-                message = " ";
-            } else if (!message.equals(" ")) {
-                printMessage("added: " + message);
-                tasks[count] = new Task(message);
-                message = scanner.nextLine();
-                count++;
+                markDone(tasks, message);
             } else {
-                message = scanner.nextLine();
+                addTask(tasks, message, count);
+                count++;
             }
+            message = scanner.nextLine();
         }
 
         printMessage("Bye. Hope to serve you again master!");

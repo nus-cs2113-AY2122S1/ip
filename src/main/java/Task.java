@@ -8,7 +8,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public String getDescription() {
@@ -19,7 +19,7 @@ public class Task {
         this.isDone = true;
         System.out.println("\n____________________________________________________________");
         System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("  [" + this.getStatusIcon()+ "] " + this.getDescription());
+        System.out.println("  [" + this.getStatusIcon() + "] " + this.getDescription());
         System.out.println("____________________________________________________________");
     }
 }
