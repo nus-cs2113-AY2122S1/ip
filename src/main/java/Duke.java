@@ -22,14 +22,27 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println(greeting);
 
+        String[] textData = new String[100];
+        int textDataSize = 0;
         String command = "start";
+        Scanner in = new Scanner(System.in);
         while (!command.equals("bye")) {
-            Scanner in = new Scanner(System.in);
             command = in.nextLine();
-            String echo = horizontalLine
-                    + command + "\n"
-                    + horizontalLine;
-            System.out.println(echo);
+            if (command.equals("list")) {
+                System.out.println(horizontalLine);
+                for (int i = 0; i < textDataSize; i++) {
+                    int j = i + 1;
+                    System.out.println(" " + j + ". " + textData[i]);
+                }
+                System.out.println(horizontalLine);
+            } else {
+                textData[textDataSize] = command;
+                textDataSize++;
+                String added = horizontalLine
+                        + " added: " + command + "\n"
+                        + horizontalLine;
+                System.out.println(added);
+            }
         }
 
         System.out.println(farewell);
