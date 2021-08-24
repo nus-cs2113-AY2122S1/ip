@@ -13,13 +13,16 @@ public class Duke {
                 + "     What can I do for you?\n"
                 + "    ____________________________________________________________";
         System.out.println(intro);
+        String line;
+        Scanner in = new Scanner(System.in);
 
+        //Initialise List (elements are initialised as null)
+        String[] toDo = new String[10];
+        int trackIndex = 0;
         //Initialise bool to check whether program should exit loop
         boolean shouldStay = true;
 
         while (shouldStay) {
-            String line;
-            Scanner in = new Scanner(System.in);
             line = in.nextLine();
 
             String output;
@@ -29,12 +32,22 @@ public class Duke {
                         "     Bye. Hope to see you again soon!\n" +
                         "    ____________________________________________________________";
                 shouldStay = false;
+            } else if (line.equals("list")) {
+                output = "    ____________________________________________________________\n";
+                for (int i = 0; trackIndex > i; i++) {
+                    String record = "     " + (i+1)+ ". " + toDo[i] + "\n";
+                    output = output.concat(record);
+                }
+                output = output.concat("    ____________________________________________________________\n");
             } else {
                 output = "    ____________________________________________________________\n" +
-                        "     " + line + "\n" +
+                        "     added: " + line + "\n" +
                         "    ____________________________________________________________\n";
+                toDo[trackIndex] = line;
+                trackIndex++;
             }
             System.out.println(output);
         }
+
     }
 }
