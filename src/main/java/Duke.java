@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void printGreeting(LizTextBanner liz) {
+    public static void printGreetingMessage(LizTextBanner liz) {
         System.out.println("Howdy! It's\n" + liz.getLizText() + liz.getLizLogo());
         printLine();
         System.out.println("Hey! I'm Lizzy the Lizard!");
@@ -10,7 +10,7 @@ public class Duke {
         System.out.println("");
     }
 
-    public static void printExit() {
+    public static void printExitMessage() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
     }
@@ -26,13 +26,14 @@ public class Duke {
         System.out.println("Sorry bud, you can't check off what is not yet there :/");
     }
 
-    public static void printList(int taskIndex, Task tasks[]) {
+    public static void printTaskList(int taskIndex, Task tasks[]) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskIndex; i++) {
             System.out.printf("%d.[%s] %s%n", i+1, tasks[i].getStatusIcon(), tasks[i].getDescription());
         }
     }
 
-    public static void addTask(String description, int taskIndex, Task tasks[]) {
+    public static void addNewTask(String description, int taskIndex, Task tasks[]) {
         tasks[taskIndex] = new Task(description);
         System.out.println("Added: " + tasks[taskIndex].getDescription());
     }
@@ -54,13 +55,13 @@ public class Duke {
 
         Task tasks[] = new Task[100];
         int taskIndex = 0;
-
-        printGreeting(liz);
+        printGreetingMessage(liz);
         String line = in.nextLine();
+
         while (!line.equalsIgnoreCase("bye")) {
             printLine();
             if (line.equalsIgnoreCase("list")) {
-                printList(taskIndex, tasks);
+                printTaskList(taskIndex, tasks);
             } else {
                 String[] lineArgs = line.split(" ");
                 if (lineArgs.length == 2 && lineArgs[0].equalsIgnoreCase("done")) {
@@ -71,13 +72,13 @@ public class Duke {
                         markAsDone(tasks[doneIndex]);
                     }
                 } else {
-                    addTask(line, taskIndex, tasks);
+                    addNewTask(line, taskIndex, tasks);
                     taskIndex++;
                 }
             }
             printLine();
             line = in.nextLine();
         }
-        printExit();
+        printExitMessage();
     }
 }
