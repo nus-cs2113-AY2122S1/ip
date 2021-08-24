@@ -1,6 +1,15 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
+    public static void printList(String[] list) {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(" " + (i + 1) + ". " + list[i]);
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -18,16 +27,24 @@ public class Duke {
         //Echo commands entered by the user
         String inWord;
         Scanner scan = new Scanner(System.in);
-        System.out.println("");
+        System.out.println();
         inWord = scan.nextLine();
 
         String exitString = "bye";
+        String[] taskList = new String[100];
+        int index = 0;
 
         while (!inWord.equals(exitString)) {
-            System.out.println("____________________________________________________________");
-            System.out.println(" " + inWord);
-            System.out.println("____________________________________________________________");
-            System.out.println("");
+            if (inWord.equals("list")) {
+                printList(Arrays.copyOf(taskList, index));
+            } else {
+                taskList[index] = inWord;
+                index += 1;
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + inWord);
+                System.out.println("____________________________________________________________");
+                System.out.println();
+            }
             inWord = scan.nextLine();
         }
 
