@@ -14,7 +14,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String[] list = new String[100];
+        Task[] tasks = new Task[100];
         int count = 0;
 
         printLine();
@@ -30,12 +30,17 @@ public class Duke {
                 message = " ";
                 printLine();
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + list[i]);
+                    System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "]" + tasks[i].getDescription());
                 }
                 printLine();
+            } else if (message.contains("done")) {
+                String[] arrOfStr = message.split(" ");
+                int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
+                tasks[index].isDone();
+                message = " ";
             } else if (!message.equals(" ")) {
                 printMessage("added: " + message);
-                list[count] = message;
+                tasks[count] = new Task(message);
                 message = scanner.nextLine();
                 count++;
             } else {
