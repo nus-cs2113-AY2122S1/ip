@@ -30,7 +30,9 @@ public class TaskManager {
     private void printAllTasks() {
         printHorizontalLine();
         for(int i = 0; i < numberOfTasks; i++) {
-            System.out.println("     " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getTaskName());
+            System.out.println("     " + (i + 1) + ".["
+                    + tasks[i].getStatusIcon() + "] "
+                    + tasks[i].getTaskName());
         }
         printHorizontalLine();
     }
@@ -42,7 +44,8 @@ public class TaskManager {
             if(taskIndex < 0) {
                 System.out.println("     Please enter a valid task number!");
             } else {
-                System.out.println("     There is only " + numberOfTasks + " item(s) in the list!");
+                System.out.println("     There is only " + numberOfTasks
+                        + " item(s) in the list!");
             }
             printHorizontalLine();
             return;
@@ -57,6 +60,7 @@ public class TaskManager {
     }
 
     private void printHorizontalLine() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println("    _____________________________________"
+                +"_______________________");
     }
 }
