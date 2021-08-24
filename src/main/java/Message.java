@@ -9,7 +9,7 @@ public class Message {
     private static final String SPACER = "____________________________________________________________\n";
 
     private static void printWithSpacers(String message) {
-        if(message.charAt(message.length()-1) != '\n'){
+        if (message.charAt(message.length() - 1) != '\n') {
             message += '\n';
         }
         System.out.print(SPACER + message + SPACER);
@@ -32,11 +32,15 @@ public class Message {
         printWithSpacers("added: " + userInput);
     }
 
-    public static void printTasks(String[] tasks) {
+    public static void printTaskDone(Task task) {
+        printWithSpacers("Nice! I've marked this task as done:\n" + task.getTaskMessage());
+    }
+
+    public static void printTasks(Task[] tasks) {
         int count = 1;
         String message = "";
-        for (String task : tasks) {
-            message += (count++) + ". " + task + '\n';
+        for (Task task : tasks) {
+            message += (count++) + "." + task.getTaskMessage();
         }
         printWithSpacers(message);
     }
