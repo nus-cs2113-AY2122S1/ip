@@ -17,6 +17,13 @@ public class Duke {
         System.out.println(greet);
     }
 
+    public static void printOutput(String output) {
+        String niceOutput = "____________________________________________________________\n"
+                + output
+                + "____________________________________________________________\n";
+        System.out.println(niceOutput);
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -32,18 +39,14 @@ public class Duke {
 
             switch (userInput) {
             case "list":
-                output = "____________________________________________________________\n";
                 for (int i = 1; i < numberOfTasks + 1; i++) {
-                    output = output + i + ".[" + tasks[i - 1].getStatusIcon() + "] " + tasks[i - 1].getDescription() + "\n";
+                    output = output + " " + i + ".[" + tasks[i - 1].getStatusIcon() + "] " + tasks[i - 1].getDescription() + "\n";
                 }
-                output = output + "____________________________________________________________\n";
-                System.out.println(output);
+                printOutput(output);
                 break;
             case "bye":
-                output = "____________________________________________________________\n"
-                        + " Bye. Hope to see you again soon!\n"
-                        + "____________________________________________________________\n";
-                System.out.println(output);
+                output = " Bye. Hope to see you again soon!\n";
+                printOutput(output);
                 shouldBreak = true;
                 break;
             default:
@@ -53,20 +56,16 @@ public class Duke {
                     int taskNumber = Integer.parseInt(userInput) - 1;
 
                     tasks[taskNumber].markAsDone();
-                    output = "____________________________________________________________\n"
-                            + "Nice! I've marked this task as done:\n"
-                            + "  [X] " + tasks[taskNumber].getDescription() + "\n"
-                            + "____________________________________________________________\n";
-                    System.out.println(output);
+                    output = " Nice! I've marked this task as done:\n"
+                            + "   [X] " + tasks[taskNumber].getDescription() + "\n";
+                    printOutput(output);
                 } else {
                     // Add tasks
                     Task newTask = new Task(userInput);
                     tasks[numberOfTasks] = newTask;
                     numberOfTasks++;
-                    output = "____________________________________________________________\n"
-                            + "added: " + userInput + "\n"
-                            + "____________________________________________________________\n";
-                    System.out.println(output);
+                    output = " added: " + userInput + "\n";
+                    printOutput(output);
                 }
                 break;
             }
