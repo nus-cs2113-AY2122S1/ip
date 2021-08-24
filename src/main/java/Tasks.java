@@ -7,7 +7,7 @@ public class Tasks {
         private String description;
 
         private Task(String description) {
-            setDescription(description);
+            this.description = description;
             this.isDone = false;
         }
 
@@ -15,19 +15,10 @@ public class Tasks {
             isDone = true;
         }
 
-        private String getDescription() {
-            return description;
-        }
-
-        private void setDescription(String description) {
-            this.description = description;
-        }
-
         private String getTaskMessage() {
-            return "[" + (isDone ? 'X' : ' ') + "] " + this.getDescription() + '\n';
+            return "[" + (isDone ? 'X' : ' ') + "] " + description + '\n';
         }
     }
-
 
     private static int taskCount = 0;
     private static Task[] tasksArray = new Task[100];
