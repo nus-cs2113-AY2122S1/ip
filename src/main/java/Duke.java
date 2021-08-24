@@ -1,8 +1,15 @@
 import java.util.Scanner;
+
 public class Duke {
+    /**
+     * Returns lateral location of the specified position.
+     *
+     * @param command First word of input.
+     * @param in      Scanner to take in remaining inputs if necessary.
+     */
     public static void checkCommand(String command, Scanner in) {
         String spam;
-        switch(command){
+        switch (command) {
         case "bye":
             spam = in.nextLine();
             Greet.printGoodbyeMessage();
@@ -23,6 +30,7 @@ public class Duke {
             Greet.addTask(command);
         }
     }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -34,11 +42,11 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String command;
         boolean isConversation = true;
-        do{
+        do {
             command = in.next();
             checkCommand(command, in);
             isConversation = !command.equals("bye");
-        }while(isConversation);
+        } while (isConversation);
 
     }
 }
