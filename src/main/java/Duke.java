@@ -15,14 +15,9 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void echoMessage(String message) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     " + message);
-        System.out.println("    ____________________________________________________________");
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
 
         printWelcomeMessage();
 
@@ -31,7 +26,7 @@ public class Duke {
             if(userInput.equals("bye")) {
                 break;
             }
-            echoMessage(userInput);
+            taskManager.processUserInput(userInput);
         }
 
         printExitMessage();
