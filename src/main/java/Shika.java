@@ -1,5 +1,16 @@
 import java.util.Scanner;
 
+import shikabot.task.Task;
+import shikabot.task.Todo;
+import shikabot.task.Deadline;
+import shikabot.task.Event;
+
+import shikabot.exception.InvalidCommandException;
+import shikabot.exception.TaskNegativeException;
+import shikabot.exception.TaskNotFoundException;
+import shikabot.exception.InvalidEventException;
+import shikabot.exception.InvalidDeadlineException;
+
 public class Shika {
 
     public static String line = "____________________________________________________________________________\n";
@@ -17,12 +28,13 @@ public class Shika {
      * Function that prints Shika logo and a greeting message.
      */
     public static void greetUser() {
-        String logo = "  _________.__    .__ __            \n"
-                + " /   _____/|  |__ |__|  | _______   \n"
-                + " \\_____  \\ |  |  \\|  |  |/ /\\__  \\  \n"
-                + " /        \\|   Y  \\  |    <  / __ \\_\n"
-                + "/_______  /|___|  /__|__|_ \\(____  /\n"
-                + "        \\/      \\/        \\/     \\/ \n";
+        String logo = "███████╗██╗  ██╗██╗██╗  ██╗ █████╗ \n" +
+                "██╔════╝██║  ██║██║██║ ██╔╝██╔══██╗ \n" +
+                "███████╗███████║██║█████╔╝ ███████║ \n" +
+                "╚════██║██╔══██║██║██╔═██╗ ██╔══██║ \n" +
+                "███████║██║  ██║██║██║  ██╗██║  ██║ \n" +
+                "╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ \n";
+
         System.out.println(logo + "\nHello, friend! Shika at your service! (`･ω･´)ゞ\n");
     }
 
@@ -37,13 +49,13 @@ public class Shika {
         while(in.hasNextLine()) {
             text = in.nextLine();
             if (text.trim().equals("bye")) {
-                System.out.println(line + "> Bye friend!\n> See you again! (*・ω・)ﾉ\n" + line);
+                System.out.print(line + "> Bye friend!\n> See you again! (*・ω・)ﾉ\n" + line);
                 return;
             }
             try {
                 getCommand(taskList, text);
             } catch (InvalidCommandException e) {
-                System.out.println(line + "> Sorry friend, I don't know what that means. (´･ω･`)?\n" + line);
+                System.out.print(line + "> Sorry friend, I don't know what that means. (´･ω･`)?\n" + line);
             }
         }
     }
@@ -117,6 +129,7 @@ public class Shika {
         Task.count += 1;
         System.out.println(line + "> Added: (∩•̀ω•́)⊃-*⋆ " + "\n\t"
                 + Task.count + ". " + taskList[Task.count - 1].toString());
+        System.out.print(line);
     }
 
     /**
@@ -135,6 +148,7 @@ public class Shika {
         Task.count += 1;
         System.out.println(line + "> Added: (∩•̀ω•́)⊃-*⋆" + "\n\t"
                 + Task.count + ". " + taskList[Task.count - 1].toString());
+        System.out.print(line);
     }
 
     /**
@@ -153,6 +167,7 @@ public class Shika {
         Task.count += 1;
         System.out.println(line + "> Added: (∩•̀ω•́)⊃-*⋆" + "\n\t"
                 + Task.count + ". " + taskList[Task.count - 1].toString());
+        System.out.print(line);
     }
 
     /**
@@ -190,6 +205,9 @@ public class Shika {
             throw new TaskNotFoundException();
         }
         taskList[index].markAsDone();
+        System.out.println(line + "> You've done: (･ω･)b" + "\n\t"
+                + (index + 1) + ". " + taskList[index].toString());
+        System.out.print(line);
     }
 
     /**

@@ -1,3 +1,5 @@
+package shikabot.task;
+
 public class Task {
 
     /** Number of tasks recorded. */
