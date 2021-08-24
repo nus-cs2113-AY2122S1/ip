@@ -12,25 +12,27 @@ public class Duke {
         }
     }
 
-    public static void printList(String[] list, int listLength) {
-        for (int i = 0; i < listLength; i++) {
-            System.out.println((i+1) + ". " + list[i]);
+    public static void printList(Task[] list, int listSize) {
+        for (int i = 0; i < listSize; i++) {
+            System.out.println((i + 1) + "." + list[i].getStatusSymbol() + " " + list[i].getName());
         }
     }
 
     public static void createList() {
-        String[] list = new String[100];
-        int listLength = 0;
+        Task[] list= new Task[100];
+        int listSize = 0;
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         while (!line.equals("bye")) {
             if (line.equals("list")) {
-                printList(list, listLength);
+                printList(list, listSize);
+            } else if (line.contains("done")) {
+                int taskNumber = Integer.parseInt(line.substring(5));
+                list[taskNumber - 1].setDone();
             } else {
-                list[listLength] = line;
-                listLength++;
-                System.out.println("added: " + line);
+                list[listSize] = new Task(line);
+                listSize++;
             }
             line = in.nextLine();
         }
