@@ -14,9 +14,7 @@ public class Init {
 
     //exit
     public static void bye(){
-        System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
         System.out.println("Bye. Hope to see you again, don't forget to complete your task!");
-        System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-\n");
     }
 
 }
