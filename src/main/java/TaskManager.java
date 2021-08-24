@@ -32,9 +32,8 @@ public class TaskManager {
         System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
     }
 
-    public void markAsDone(String inputLine){
-        // set task as done as specified by system input
-        int taskIndex = Integer.parseInt(inputLine.substring(5)) - 1;
+    public void markAsDone(int inputTaskIndex){
+        int taskIndex = inputTaskIndex - 1;
         tasks[taskIndex].setDone();
         completedTasksCount++;
 

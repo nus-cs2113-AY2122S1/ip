@@ -28,6 +28,13 @@ public class xRoss {
         printDividerLine();
     }
 
+    public static void printEcho(String inputLine){
+        printDividerLine();
+        System.out.println("\t" + inputLine);
+        System.out.println("\tThere was no command given, so I'll just echo your input.\n");
+        printDividerLine();
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
 
@@ -49,15 +56,17 @@ public class xRoss {
                 printDividerLine();
                 taskManager.printTasks();
                 printDividerLine();
-            } else if (inputLine.startsWith("done")){
+            } else if (inputLine.startsWith("done ")){
                 printDividerLine();
-                taskManager.markAsDone(inputLine);
+                taskManager.markAsDone(Integer.parseInt(inputLine.substring(5)));
                 printDividerLine();
-            } else {
-                Task newTask = new Task(inputLine);
+            } else if (inputLine.startsWith("add ")) {
+                Task newTask = new Task(inputLine.substring(4));
                 printDividerLine();
                 taskManager.addTask(newTask);
                 printDividerLine();
+            } else {
+                printEcho(inputLine);
             }
         }
 
