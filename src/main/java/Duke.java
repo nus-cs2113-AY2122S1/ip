@@ -15,7 +15,7 @@ public class Duke {
         }
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i < taskCount; i++) {
-            System.out.println(tasks[i].taskId + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+            System.out.println(tasks[i].taskId + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
         }
     }
 
@@ -29,7 +29,7 @@ public class Duke {
         Task t = tasks[taskNumber];
         t.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + t.getStatusIcon() + "] " + t.description);
+        System.out.println(t.getStatusIcon() + " " + t.description);
     }
 
     public static void main(String[] args) {
