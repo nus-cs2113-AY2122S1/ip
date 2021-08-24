@@ -1,7 +1,7 @@
 public class Response {
     private static final String line = "____________________________________________________________";
 
-    public static String getLine(){
+    public static String getLine() {
         return line;
     }
 
@@ -20,9 +20,7 @@ public class Response {
     }
 
     public static void bye() {
-        String bye = line + "\n Bye. Hope to see you again soon!\n" +
-                line;
-        System.out.println(bye);
+        echo("Bye. Hope to see you again soon!");
     }
 
     public static void echo(String input) {
@@ -33,6 +31,13 @@ public class Response {
     }
 
     public static void parseInput(String input) {
+        if (input.startsWith("done ")) {
+            String[] inputParts = input.split(" ");
+            int completedTask = Integer.parseInt(inputParts[1]);
+            Storage.markComplete(completedTask);
+            return;
+        }
+
         switch (input) {
         case "bye":
             bye();

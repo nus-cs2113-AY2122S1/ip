@@ -3,7 +3,7 @@ public class Storage {
     private static int inputTextSize = 0;
 
     public static void storeInput(String input) {
-        inputText[inputTextSize] = input;
+        inputText[inputTextSize] = "[ ] " + input;
         inputTextSize++;
         Response.echo("added: " + input);
     }
@@ -16,6 +16,10 @@ public class Storage {
         }
 
         System.out.println(Response.getLine());
+    }
 
+    public static void markComplete(int completedTask){
+        inputText[completedTask - 1] = "[X" + inputText[completedTask - 1].substring(2);
+        Response.echo("Nice! I've marked this task as done: \n" + inputText[completedTask - 1]);
     }
 }
