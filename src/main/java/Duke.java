@@ -18,16 +18,19 @@ public class Duke {
         }
     }
 
-    public static void printList(String[] list, int listSize) {
+    public static void printList(Task[] list, int listSize) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= listSize; i++) {
-            System.out.println(i + ". " + list[i - 1]);
+            System.out.println(i + ".[" + list[i - 1].getStatusIcon() +
+                    "] " + list[i - 1].description);
         }
     }
 
     public static void main(String[] args) {
         int listSize = 0;
+        Task task;
         String item;
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         Scanner in = new Scanner(System.in);
         String response = null;
 
@@ -53,13 +56,23 @@ public class Duke {
             else if ((response.length() > 3) &&
             (response.substring(0,3).equals("add"))) {
                 item = response.substring(4);
-                list[listSize] = item;
+                task = new Task(item);
+                list[listSize] = task;
+
                 System.out.println("added: " + item);
                 System.out.println(lineBreak);
                 listSize += 1;
             }
             else if (response.equals("list")){
                 printList(list, listSize);
+                System.out.println(lineBreak);
+            }
+            else if ((response.length() > 4) &&
+                    (response.substring(0,4).equals("done"))){
+                int i = Integer.parseInt(response.substring(5)) - 1;
+                list[i].markAsDone();
+                System.out.println("Nice! i have marked this task as done:\n ["
+                + list[i].getStatusIcon() + "] " + list[i].getDescription());
                 System.out.println(lineBreak);
             }
             else {
