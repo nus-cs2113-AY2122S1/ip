@@ -59,17 +59,27 @@ public class Duke {
 
             String[] tokens = line.split(" ");
 
-            switch (tokens[0].toUpperCase()) {
-            case "LIST":
-                taskManager.listTasks();
-                break;
-            case "BYE":
-                printGoodbye();
-                exit = true;
-                break;
-            default:
-                taskManager.addTask(line);
+            try {
+                switch (tokens[0].toUpperCase()) {
+                case "LIST":
+                    taskManager.listTasks();
+                    break;
+                case "DONE":
+                    taskManager.markDone(Integer.parseInt(tokens[1]));
+                    break;
+                case "BYE":
+                    printGoodbye();
+                    exit = true;
+                    break;
+                default:
+                    taskManager.addTask(line);
+                }
+            } catch (NumberFormatException e){
+                System.out.println("Number Format Exception: Do you not understand what a number is?");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Index Out Of Bounds Exception: Enter something that makes sense next time.");
             }
+
 
             System.out.println(DIVIDER);
         }
