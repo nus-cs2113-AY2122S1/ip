@@ -3,6 +3,15 @@ public class Task {
     private boolean isDone = false;
     private int howLong;
 
+    public Task(String description) {
+        this.description = description;
+    }
+
+    public Task(String description, int howLong) {
+        this.description = description;
+        this.howLong = howLong;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -26,18 +35,4 @@ public class Task {
     public void setHowLong(int howLong) {
         this.howLong = howLong;
     }
-
-    public Task(String description) {
-        this.description = description;
-    }
-
-    public Task(String description, int howLong) {
-        this.description = description;
-        this.howLong = howLong;
-    }
-
-    public Task() {
-        this.isDone = false;
-    }
-
 }

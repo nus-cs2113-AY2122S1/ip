@@ -31,7 +31,8 @@ public class Duke {
         System.out.println(" / start of list / ");
         for (Task item : items) {
             if (item != null) {
-                System.out.println(in + ". " + item.getDescription());
+                String tick = (item.isDone()) ? "✓" : " ";
+                System.out.println(in + ". " + "[" + tick + "]" + " " + item.getDescription());
                 in++;
             }
         }
@@ -51,7 +52,6 @@ public class Duke {
                 listTasks(taskList);
                 break;
             case ("add"):
-                System.out.println("add");
                 String taskName;
                 do {
                     taskName = in.nextLine();
@@ -62,6 +62,22 @@ public class Duke {
                     taskCount++;
                 } while (!taskName.equals("stop"));
                 System.out.println("Finished adding tasks!");
+                break;
+
+            case ("done"):
+                String number = in.nextLine();
+                String[] numberList = number.split(" ");
+                System.out.print("remove ");
+                for (String i : numberList) {
+                    int index = Integer.parseInt(i) - 1;
+                    taskList[index].setDone(true);
+                    System.out.print(taskList[index].getDescription() + ", ");
+                }
+                System.out.println("\n / done tasks, good job! / ");
+                break;
+            case ("clear"):
+                taskList = new Task[100];
+                taskCount = 0;
                 break;
             case ("bye"):
                 break;
