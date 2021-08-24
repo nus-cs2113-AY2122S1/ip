@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Duke {
     public static void main(String[] args) {
         String logo = "\t ____        _        \n"
@@ -15,28 +14,41 @@ public class Duke {
         System.out.println("\t____________________________________________________________\n");
 
         Scanner in = new Scanner(System.in);
-        String user_input = in.nextLine();
+        String user_input = in.nextLine().trim();
 
-        String[] user_input_history = new String[100];
+        Task[] tasks = new Task[100];
 
-        int user_input_history_index = 0;
+        int tasks_index = 0;
         while (!user_input.equals("bye")) {
             System.out.println("\t____________________________________________________________");
 
             if (user_input.equals("list")) {
-                //listing out user_input_history if user_input == "list"
-                for (int i = 0; i < user_input_history_index; i++) {
-                    System.out.println("\t" + (i+1) + ". " + user_input_history[i]);
+                System.out.println("\tHere are the tasks in your list:");
+                //listing out tasks if user_input == "list"
+                for (int i = 0; i < tasks_index; i++) {
+                    System.out.println("\t" + (i + 1) + "." +
+                            "[" + tasks[i].getStatusIcon() + "] " +
+                            tasks[i].getDescription());
                 }
+            } else if (user_input.startsWith("done")) {
+                String task_number_str = user_input.substring(5);
+                int task_number = Integer.parseInt(task_number_str);
+                //task_number displayed starting with 1
+                //but array starts with 0
+                (tasks[task_number - 1]).markAsDone();
+
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t  [X] " + (tasks[task_number - 1]).getDescription());
+
             } else {
-                user_input_history[user_input_history_index] = user_input;
-                user_input_history_index++;
+                //instantiate new Task, store in array
+                tasks[tasks_index] = new Task(user_input);
+                tasks_index++;
                 System.out.println("\tadded: " + user_input);
             }
             System.out.println("\t____________________________________________________________");
-            user_input = in.nextLine();
+            user_input = in.nextLine().trim();
         }
-
 
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println("\t____________________________________________________________");
