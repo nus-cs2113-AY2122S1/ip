@@ -22,22 +22,39 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println(greeting);
 
-        String[] textData = new String[100];
-        int textDataSize = 0;
+        Task[] taskList = new Task[100];
+        int taskListSize = 0;
         String command = "start";
         Scanner in = new Scanner(System.in);
+
         while (!command.equals("bye")) {
-            command = in.nextLine();
-            if (command.equals("list")) {
-                System.out.println(horizontalLine);
-                for (int i = 0; i < textDataSize; i++) {
+            command = in.nextLine(); //scans user input
+            if (command.equals("list")) { //prints out task list
+                System.out.println(horizontalLine
+                        + " Here are the tasks in your list:");
+                for (int i = 0; i < taskListSize; i++) {
                     int j = i + 1;
-                    System.out.println(" " + j + ". " + textData[i]);
+                    String status = taskList[i].getStatusIcon();
+                    System.out.println(" " + j + ".[" + status + "] " + taskList[i].description);
                 }
                 System.out.println(horizontalLine);
-            } else {
-                textData[textDataSize] = command;
-                textDataSize++;
+            } else if (command.contains("done")) { //marks task as 'done'
+                String[] words = command.split(" ");
+                int taskNumber = Integer.parseInt(words[1]) - 1;
+                if (taskNumber > taskListSize - 1) {
+                    System.out.println(horizontalLine
+                            + " Sorry, invalid task number.\n"
+                            + horizontalLine);
+                } else {
+                    System.out.println(horizontalLine
+                            + " Nice! I've marked this task as done: ");
+                    taskList[taskNumber].setDone();
+                    System.out.println("   [" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].description + "\n"
+                            + horizontalLine);
+                }
+            } else { //adds command to taskList
+                taskList[taskListSize] = new Task(command);
+                taskListSize++;
                 String added = horizontalLine
                         + " added: " + command + "\n"
                         + horizontalLine;
