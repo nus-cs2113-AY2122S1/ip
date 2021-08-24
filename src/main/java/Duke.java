@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+
     public static void greeting() {
         line();
         System.out.println("Hey! I'm Lizzy the Lizard!");
@@ -20,15 +21,30 @@ public class Duke {
         System.out.println("");
     }
 
-    public static void echo() {
-        Scanner in = new Scanner(System.in);
+    /*
+    Function that handles task tracking, task display and exit. Boolean return value
+    tells Main whether to continue execution of the program, or to exit.
+     */
+    public static void addTask(Scanner in) {
+
+        String tasks[] = new String[100];
+        int taskIndex = 0;
         String line = in.nextLine();
-        while (!line.equals("bye")) {
+        while (!line.equalsIgnoreCase("bye")) {
             line();
-            System.out.println(line);
+            if (line.equalsIgnoreCase("list")) {
+                for (int i = 0; i < taskIndex; i++) {
+                    System.out.printf("%d. %s%n", i+1, tasks[i]);
+                }
+            } else {
+                tasks[taskIndex] = line;
+                System.out.println("Added: " + tasks[taskIndex]);
+                taskIndex++;
+            }
             line();
             line = in.nextLine();
         }
+
         exit();
     }
 
@@ -61,8 +77,9 @@ public class Duke {
                 "          .'  `.    .'  `.\n" +
                 "          |/\\/\\|    |/\\/\\|";
         System.out.println("Howdy! It's\n" + lizText + lizLogo);
+        Scanner in = new Scanner(System.in);
         greeting();
-        echo();
+        addTask(in);
 
 
     }
