@@ -22,16 +22,7 @@ public class Alfred {
         int listIndex = 0;
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
-        while (userInput != "BYE" || userInput != "bye") {
-            if (userInput == "BYE" || userInput == "bye") {
-                System.out.println(
-                        "____________________________________________________________\n" +
-                        " Very well sir, I shall leave you to your own devices.\n" +
-                        "____________________________________________________________\n"
-                );
-                return;
-            }
-
+        while (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equals("list")) {
                 System.out.println("____________________________________________________________\n");
                 if (listIndex == 0) {
@@ -64,5 +55,10 @@ public class Alfred {
 
             userInput = scanner.nextLine();
         }
+        System.out.println(
+                "____________________________________________________________\n" +
+                " Very well sir, I shall leave you to your own devices.\n" +
+                "____________________________________________________________\n"
+        );
     }
 }
