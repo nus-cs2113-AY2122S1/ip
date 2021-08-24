@@ -20,12 +20,12 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("___________________SHUTTING DOWN______________________");
             } else if (line.equals("list")) {
-                int i;
                 if (count == 0) {
                     // if there are no tasks in the list
                     System.out.println("No items were added into the list.");
                 } else {
                     System.out.println("Below are the list of tasks in your list:");
+                    int i;
                     for (i = 0; i < count; i++) {
                         System.out.print((i + 1) + ". ");
                         tasks[i].printTask();
