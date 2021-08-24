@@ -18,7 +18,6 @@ public class Duke {
 
 
         while (true) {
-            //System.out.println("_____________________________________________");
             input = in.nextLine();
             System.out.println(input);
             System.out.println("_____________________________________________");
