@@ -1,5 +1,16 @@
 import java.util.Scanner;
 
+import shikabot.task.Task;
+import shikabot.task.Todo;
+import shikabot.task.Deadline;
+import shikabot.task.Event;
+
+import shikabot.exception.InvalidCommandException;
+import shikabot.exception.TaskNegativeException;
+import shikabot.exception.TaskNotFoundException;
+import shikabot.exception.InvalidEventException;
+import shikabot.exception.InvalidDeadlineException;
+
 public class Shika {
 
     public static String line = "____________________________________________________________________________\n";
@@ -23,7 +34,8 @@ public class Shika {
                 + " /        \\|   Y  \\  |    <  / __ \\_\n"
                 + "/_______  /|___|  /__|__|_ \\(____  /\n"
                 + "        \\/      \\/        \\/     \\/ \n";
-        System.out.println(logo + "\nHello, friend! Shika at your service! (`･ω･´)ゞ\n");
+
+        System.out.println(logo + "\nHello, friend! Shika at your service! o7\n");
     }
 
     /**
@@ -37,13 +49,13 @@ public class Shika {
         while(in.hasNextLine()) {
             text = in.nextLine();
             if (text.trim().equals("bye")) {
-                System.out.println(line + "> Bye friend!\n> See you again! (*・ω・)ﾉ\n" + line);
+                System.out.print(line + "> Bye friend!\n> See you again! :)\n" + line);
                 return;
             }
             try {
                 getCommand(taskList, text);
             } catch (InvalidCommandException e) {
-                System.out.println(line + "> Sorry friend, I don't know what that means. (´･ω･`)?\n" + line);
+                System.out.print(line + "> Sorry friend, I don't know what that means. :/\n" + line);
             }
         }
     }
@@ -94,14 +106,14 @@ public class Shika {
                 addDeadline(taskList, text);
             } catch (InvalidDeadlineException e) {
                 System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. " +
-                        "Thank you! (。・ω・。)\n" + line);
+                        "Thank you!\n" + line);
             }
         } else {
             try {
                 addEvent(taskList, text);
             } catch (InvalidEventException e) {
                 System.out.print(line + "Please follow the format [NAME] /at [DURATION]. " +
-                        "Thank you! (。・ω・。)\n" + line);
+                        "Thank you!\n" + line);
             }
         }
     }
@@ -115,8 +127,9 @@ public class Shika {
         String str = text.substring(text.indexOf("todo") + 4).trim();
         taskList[Task.count] = new Todo(str);
         Task.count += 1;
-        System.out.println(line + "> Added: (∩•̀ω•́)⊃-*⋆ " + "\n\t"
+        System.out.println(line + "> Added: " + "\n\t"
                 + Task.count + ". " + taskList[Task.count - 1].toString());
+        System.out.print(line);
     }
 
     /**
@@ -133,8 +146,9 @@ public class Shika {
         String by = text.substring(text.indexOf("/by") + 3).trim();
         taskList[Task.count] = new Deadline(str, by);
         Task.count += 1;
-        System.out.println(line + "> Added: (∩•̀ω•́)⊃-*⋆" + "\n\t"
+        System.out.println(line + "> Added: " + "\n\t"
                 + Task.count + ". " + taskList[Task.count - 1].toString());
+        System.out.print(line);
     }
 
     /**
@@ -151,8 +165,9 @@ public class Shika {
         String at = text.substring(text.indexOf("/at") + 3).trim();
         taskList[Task.count] = new Event(str, at);
         Task.count += 1;
-        System.out.println(line + "> Added: (∩•̀ω•́)⊃-*⋆" + "\n\t"
+        System.out.println(line + "> Added: " + "\n\t"
                 + Task.count + ". " + taskList[Task.count - 1].toString());
+        System.out.print(line);
     }
 
     /**
@@ -168,11 +183,11 @@ public class Shika {
             int index = Integer.parseInt(str);
             markAsDone(taskList, index - 1);
         } catch (NumberFormatException e) {
-            System.out.print(line + "> Please key in a number. (´･ω･`)?\n" + line);
+            System.out.print(line + "> Please key in a number.\n" + line);
         } catch (TaskNegativeException e) {
-            System.out.print(line + "> ...Stop trying to break me... ( ; ω ; )\n" + line);
+            System.out.print(line + "> ...Stop trying to break me...\n" + line);
         } catch (TaskNotFoundException e) {
-            System.out.print(line + "> Oopsie! That task does not exist... yet! (。・ω・。)\n" + line);
+            System.out.print(line + "> Oops! That task does not exist yet!\n" + line);
         }
     }
 
@@ -190,6 +205,9 @@ public class Shika {
             throw new TaskNotFoundException();
         }
         taskList[index].markAsDone();
+        System.out.println(line + "> You've done: " + "\n\t"
+                + (index + 1) + ". " + taskList[index].toString());
+        System.out.print(line);
     }
 
     /**
@@ -197,7 +215,7 @@ public class Shika {
      * @param taskList Array containing all recorded tasks.
      */
     public static void printTasks(Task[] taskList) {
-        System.out.println(line + "> Here is your list of tasks: (∩•̀ω•́)⊃-*⋆") ;
+        System.out.println(line + "> Here is your list of tasks: ") ;
         for (int i = 0; i < Task.count; i++) {
             System.out.println("\t" + (i + 1) + ". " + taskList[i].toString());
         }
