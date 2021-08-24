@@ -1,6 +1,6 @@
 public class TaskManager {
     private int numberOfTasks;
-    private Task[] tasks;
+    private final Task[] tasks;
 
     public TaskManager() {
         numberOfTasks = 0;
@@ -26,13 +26,12 @@ public class TaskManager {
     }
 
     public void printTasks() {
-        String horizontalLine = "____________________________________________________________";
-        System.out.println(horizontalLine);
+        StringBuilder list = new StringBuilder();
         for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println((i + 1) + "." + (tasks[i].isDone() ? "[X]" : "[ ]") + " "
-                    + tasks[i].getTask());
+            list.append((i + 1)).append(".").append((tasks[i].isDone() ? "[X]" : "[ ]")).append(" ").append(
+                    tasks[i].getTask()).append( (i < numberOfTasks - 1) ? System.lineSeparator() : "");
         }
-        System.out.println(horizontalLine);
+        Duke.printMessage(list.toString());
     }
 
     public void setTaskAsDone(int taskNumber) {
