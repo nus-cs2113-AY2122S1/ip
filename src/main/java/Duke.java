@@ -6,15 +6,19 @@ public class Duke {
         Program currProgram = new Program();
 
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = "  _(\\    |@@|\n"
+                + "(__/\\__ \\--/ __\n"
+                + "   \\___|----|  |   __\n"
+                + "       \\ }{ / )_ / _\\\n"
+                + "       /\\__/\\ \\__O (__\n"
+                + "      (--/\\--)    \\__/\n"
+                + "      _)(  )(_\n"
+                + "     `---''---`\n";
+
+        System.out.println("\n\nHello! I'm HAL 2113\n" + logo);
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm HAL 2113");
-        System.out.println("What can I do for you? You can enter the following commands\n1. 'task' (replace task with any agenda you wish to add to the list)\n2. list\n3. bye (to exit the program!");
+        System.out.println("What can I do for you? You can enter the following commands\n1.'task' (replace task with any agenda you wish to add to the list)\n2. list\n3. done 'task index' (to mark a completed task)\n4. bye (to exit the program!");
+        System.out.print("Enter command: ");
 
         while (!currProgram.getTerminateHal()) {
             String input;
