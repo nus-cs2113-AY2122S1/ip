@@ -39,6 +39,7 @@ public class Duke {
             } else if (userInput.startsWith("done")) {
                 printLine();
                 int taskNumberCompleted = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+
                 if ((taskNumberCompleted <= taskCounter) && (taskNumberCompleted > 0)) {
                     scheduledTasks[taskNumberCompleted - 1].markAsDone();
                     System.out.println("Nice! I have marked this task as done:");
@@ -46,6 +47,7 @@ public class Duke {
                 } else {
                     System.out.println("Sorry, no task is assigned at this number, you might want to re-check?");
                 }
+
             } else {
                 scheduledTasks[taskCounter] = new Task(userInput);
                 taskCounter++;
