@@ -29,7 +29,7 @@ public class TaskManager {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < numberOfTasks; i++) {
             list.append((i + 1)).append(".").append((tasks[i].isDone() ? "[X]" : "[ ]")).append(" ").append(
-                    tasks[i].getTask()).append( (i < numberOfTasks - 1) ? System.lineSeparator() : "");
+                    tasks[i].getTask()).append((i < numberOfTasks - 1) ? System.lineSeparator() : "");
         }
         Duke.printMessage(list.toString());
     }
