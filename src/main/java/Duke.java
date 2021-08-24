@@ -1,8 +1,12 @@
 import java.util.*;
 
 public class Duke {
-    public static void echo(String args) {
-        System.out.println(args);
+    private static String[] List = new String[100];
+
+    /** echo and store inputs in List **/
+    public static void add(String args, int i) {
+        List[i] = args;
+        System.out.println("added: " + args);
         System.out.println("_____________________________");
     }
 
@@ -19,7 +23,9 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("_____________________________");
 
+        /** to read input on each new line, Duke constantly scans input in this loop **/
         Scanner sc = new Scanner(System.in);
+        int i = 0;
         while(true) {
             String str = sc.nextLine();
             if (str.equals("bye")) {
@@ -27,9 +33,17 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("_____________________________");
                 break;
+            } else if (str.equals("list")) {
+                /** list **/
+                for (int j = 0; List[j] != null; j++) {
+                    System.out.print((j + 1) + ": ");
+                    System.out.println(List[j]);
+                }
+                System.out.println("_____________________________");
             } else {
-                echo(str);
-                continue;
+                add(str, i);
+                i++;
+                //continue;
             }
         }
     }
