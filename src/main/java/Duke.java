@@ -41,7 +41,8 @@ public class Duke {
 
     /* Prints goodbye message */
     public static void printGoodbye() {
-        System.out.println("My favourite feeling is schadenfreude. I also like hiraeth. It's the Welsh concept of longing for home.");
+        System.out.println(
+                "My favourite feeling is schadenfreude. I also like hiraeth. It's the Welsh concept of longing for home.");
     }
 
     public static void main(String[] args) {
@@ -74,12 +75,11 @@ public class Duke {
                 default:
                     taskManager.addTask(line);
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("Number Format Exception: Do you not understand what a number is?");
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("Index Out Of Bounds Exception: Enter something that makes sense next time.");
             }
-
 
             System.out.println(DIVIDER);
         }

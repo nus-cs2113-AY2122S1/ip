@@ -42,6 +42,6 @@ public class TaskManager {
 
         task.setDone();
         System.out.println("The task has been marked as done. No need to thank me.");
-        System.out.println("  [X] "+task.getName());
+        System.out.println("  [X] " + task.getName());
     }
 }
