@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Duke {
     public static void greeting() {
@@ -21,12 +23,23 @@ public class Duke {
         }
     }
 
-    public static void printList(String[] args) {
+    public static void printDone(Task arg) {
+        System.out.println("You have marked item " + arg.description + " as done:");
+        System.out.println(arg.getStatusIcon() + " " + arg.description);
+    }
+
+    public static int findTaskNum(String arg) {
+        String[] words = arg.trim().split(" ");
+        return Integer.parseInt(words[1]);
+    }
+
+    public static void printList(Task[] args) {
         int count = 0;
-        for (String item : args) {
+        System.out.println("Here is your list:");
+        for (Task item : args) {
             if (args[count] != null) {
                 count++;
-                System.out.println(count + ". " + item);
+                System.out.println(count + ". " + item.getStatusIcon() + " " + item.description);
             }
         }
     }
@@ -39,15 +52,15 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
-                + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
-                + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
-                + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
-                + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
-                + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
-                + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
-                + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
-                + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
-                + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
+                    + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
+                    + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
+                    + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
+                    + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
+                    + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
+                    + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
+                    + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
+                    + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
+                    + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
         System.out.println(face);
 
         // print greeting message after logo
@@ -55,7 +68,7 @@ public class Duke {
 
         String query = "";
         Scanner userInput = new Scanner(System.in);
-        String[] listOfStuff = new String[100];
+        Task[] listOfStuff = new Task[100];
         int index = 0;
 
         while (!query.equals("bye")) {
@@ -69,11 +82,17 @@ public class Duke {
             if (query.equals("list")) {
                 // print out current list
                 printList(listOfStuff);
-            } else {
-                // stores the user's args in a list
-                listOfStuff[index] = query;
-                index++;
             }
+            else if (query.trim().matches("^[done]+\\s+\\d$")) {
+                int taskNumber = findTaskNum(query);
+                listOfStuff[taskNumber - 1].markAsDone();
+                printDone(listOfStuff[taskNumber - 1]);
+            } else {
+            // stores the user's args in a list
+            listOfStuff[index] = new Task(query);
+            index++;
+            }
+
         }
         // print end message
         goodbyeMessage();
