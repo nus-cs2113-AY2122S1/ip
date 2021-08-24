@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-    public static void printLine(){
+    public static void printLine() {
         System.out.println("                 ...                 ");
     }
 
@@ -26,11 +26,48 @@ public class Duke {
         return command;
     }
 
+    public static void listTasks(Task[] items) {
+        int in = 1;
+        System.out.println(" / start of list / ");
+        for (Task item : items) {
+            if (item != null) {
+                System.out.println(in + ". " + item.getDescription());
+                in++;
+            }
+        }
+        System.out.println(" / end of list / ");
+    }
+
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         sayHi();
         String command;
+        Task[] taskList = new Task[100];
+        int taskCount = 0;
         do {
-            command = echoCommand();
+            command = in.nextLine();
+            switch (command) {
+            case ("list"):
+                listTasks(taskList);
+                break;
+            case ("add"):
+                System.out.println("add");
+                String taskName;
+                do {
+                    taskName = in.nextLine();
+                    if (taskName.equals("stop")) {
+                        break;
+                    }
+                    taskList[taskCount] = new Task(taskName);
+                    taskCount++;
+                } while (!taskName.equals("stop"));
+                System.out.println("Finished adding tasks!");
+                break;
+            case ("bye"):
+                break;
+            default:
+                System.out.println("Command not recognized. Please enter a command again!");
+            }
         } while (!command.equals("bye"));
         sayGoodbye();
     }
