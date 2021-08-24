@@ -1,21 +1,61 @@
+import java.util.Scanner;
+
+/**
+ * The Duke application serves to aid users in the management of their tasks.
+ */
 public class Duke {
 
-    private final static String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    /* Hard-coded line */
     private final static String LINE = "____________________________________________________________";
 
+    /* Name of chat-bot */
+    private final static String BOT_NAME = "taskmon";
+
+    /* List of support commands */
+    private final static String END_COMMAND = "bye";
+
+    /* List of chat-bot messages */
+    private final static String WELCOME_MESSAGE = "" +
+            "[*] Detecting chat-bot version...\n" +
+            "[+] Chat-bot version is *VULNERABLE*!\n" +
+            "[*] Hacking into the chat-bot...\n" +
+            "[*] Escalating privileges...\n" +
+            "[+] Interactive shell spawned. You can now manipulate the chat-bot directly!";
+    private final static String BYE_MESSAGE = "[*] Deleting traces...\n" +
+            "[+] Bye. Hope to see you again soon!";
+
+    /**
+     * Prints the given string in between 2 horizontal lines.
+     *
+     * @param section The string to be printed.
+     */
+    private static void printSection(String section) {
+        System.out.println(LINE);
+        System.out.println(section);
+        System.out.println(LINE);
+    }
+
+    /**
+     * Provides an interactive prompt to the user.
+     */
+    private static void interact() {
+        String rawLine;
+        Scanner in = new Scanner(System.in);
+        boolean isTalking = true;
+        printSection(WELCOME_MESSAGE);
+        do {
+            System.out.printf("[root@%s ~]$ ", BOT_NAME);
+            rawLine = in.nextLine();
+            if (rawLine.equals(END_COMMAND)) {
+                isTalking = false;
+                continue;
+            }
+            printSection(rawLine);
+        } while (isTalking);
+        printSection(BYE_MESSAGE);
+    }
+
     public static void main(String[] args) {
-        System.out.print("Hello from\n" + LOGO);
-        System.out.println(LINE);
-
-        System.out.println(" Hello! I'm Duke\n"
-                + " What can I do for you?");
-        System.out.println(LINE);
-
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+        interact();
     }
 }
