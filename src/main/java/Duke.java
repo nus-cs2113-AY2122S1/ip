@@ -27,12 +27,22 @@ public class Duke {
     }
 
     private static void printTasks() {
-        String[] tasksWithNumbers = new String[taskCount];
+        String[] tasksWithNumbersAndStatusIcon = new String[taskCount];
         for (int i = 0; i < taskCount; i++) {
-            tasksWithNumbers[i] = (i + 1) + ". " + tasks[i].getDescription();
+            tasksWithNumbersAndStatusIcon[i] = String.format("%d.[%s] %s", i + 1, tasks[i].getStatusIcon(),
+                    tasks[i].getDescription());
         }
-        String formattedTaskList = String.join(System.lineSeparator(), tasksWithNumbers);
-        printTextWithHorizontalLineAndIndentation(formattedTaskList);
+        String formattedTaskList = String.join(System.lineSeparator(), tasksWithNumbersAndStatusIcon);
+        printTextWithHorizontalLineAndIndentation("Here are the tasks in your list:" + System.lineSeparator()
+                + formattedTaskList);
+    }
+
+    private static void markTaskAsDone(int taskId) {
+        tasks[taskId].setAsDone();
+        String formattedTask = String.format("  [%s] %s", tasks[taskId].getStatusIcon(),
+                tasks[taskId].getDescription());
+        printTextWithHorizontalLineAndIndentation("Nice! I've marked this task as done:" + System.lineSeparator() +
+                formattedTask);
     }
 
     private static void addTask(String description) {
@@ -44,15 +54,20 @@ public class Duke {
     private static void handleCommands() {
         Scanner in = new Scanner(System.in);
         while (true) {
-            String command = in.nextLine();
-            switch (command) {
+            String line = in.nextLine();
+            String[] words = line.split(" ");
+            switch (words[0]) {
+            case "bye":
+                return;
             case "list":
                 printTasks();
                 break;
-            case "bye":
-                return;
+            case "done":
+                int taskId = Integer.parseInt(words[1]) - 1;
+                markTaskAsDone(taskId);
+                break;
             default:
-                addTask(command);
+                addTask(line);
                 break;
             }
         }
