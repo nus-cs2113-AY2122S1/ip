@@ -1,33 +1,44 @@
-import java.util.Scanner;
-
 public class Message {
     private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___| inc.\n";
-    private static final String INTRO = "Hello! I'm Duke\nWhat can I do for you?\n";
-    private static final String END = "Bye. Hope to see you again soon!\n";
+    private static final String INTRO = "Hello! I'm Duke\nWhat can I do for you?";
+    private static final String END = "Bye. Hope to see you again soon!";
     private static final String SPACER = "____________________________________________________________\n";
 
-    public static final String TERMINATE_CONSOLE = "bye";
-
-    private static final Scanner in = new Scanner(System.in);
+    private static void printWithSpacers(String message) {
+        if(message.charAt(message.length()-1) != '\n'){
+            message += '\n';
+        }
+        System.out.print(SPACER + message + SPACER);
+    }
 
     public static void begin() {
-        System.out.print(LOGO + SPACER + INTRO + SPACER);
+        System.out.print(LOGO);
+        printWithSpacers(INTRO);
     }
 
     public static void end() {
-        System.out.print(SPACER + END + SPACER);
-    }
-
-    public static String getUserInput() {
-        return in.nextLine();
+        printWithSpacers(END);
     }
 
     public static void printUserInput(String userInput) {
-        System.out.println(SPACER + userInput + '\n' + SPACER);
+        printWithSpacers(userInput);
+    }
+
+    public static void printInputReceived(String userInput) {
+        printWithSpacers("added: " + userInput);
+    }
+
+    public static void printTasks(String[] tasks) {
+        int count = 1;
+        String message = "";
+        for (String task : tasks) {
+            message += (count++) + ". " + task + '\n';
+        }
+        printWithSpacers(message);
     }
 
 }
