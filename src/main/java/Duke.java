@@ -47,7 +47,6 @@ public class Duke {
                 input = task.description.substring(0, 4);
             }
         }
-
         System.out.println(" Bye. Hope to see you again soon!");
     }
 }
