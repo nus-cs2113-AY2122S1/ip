@@ -49,7 +49,8 @@ public class Duke {
                     System.out.println(horizontalLine
                             + " Nice! I've marked this task as done: ");
                     taskList[taskNumber].setDone();
-                    System.out.println("   [" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].description + "\n"
+                    System.out.println("   [" + taskList[taskNumber].getStatusIcon() + "] "
+                            + taskList[taskNumber].description + "\n"
                             + horizontalLine);
                 }
             } else { //adds command to taskList
