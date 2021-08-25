@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,18 +13,29 @@ public class Duke {
                 + "____________________________________________________________";
 
         Scanner in = new Scanner(System.in);
-        String word;
+        String line;
+        String[] list = new String[100];
+        int listCount = 0;
 
         do{
-            word = in.next();
-            if (word.toLowerCase().equals("bye")){
+            line = in.nextLine();
+            if (line.toLowerCase().equals("bye")){
                 System.out.println(exit);
                 break;
+            } else if (line.toLowerCase().equals("list")){
+                System.out.println("____________________________________________________________\n");
+                for(int i = 0; i < listCount; i++){
+                    System.out.println((i+1) + ". " + list[i]);
+                }
+                System.out.println("____________________________________________________________\n");
+                continue;
             }
             System.out.println("____________________________________________________________\n"
-                    + word + "\n"
+                    + "added: " + line + "\n"
                     + "____________________________________________________________\n");
-        } while (!word.toLowerCase().equals("bye"));
+            list[listCount] = line;
+            listCount++;
+        } while (!line.toLowerCase().equals("bye"));
 
     }
 }
