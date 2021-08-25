@@ -3,8 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static String divider = "___________________________________________________________";
     public static String indentation = "      ";
-    public static String[] input_list = new String[100];
-    public static int index = 0;
+    public static Task[] taskList = new Task[100];
 
     public static void printIndentationAndDivider() {
         System.out.print(indentation);
@@ -24,7 +23,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         printIndentationAndDivider();
-        printWordsWithIndentation("Hello! I'm Duke");
+        printWordsWithIndentation("Hello! I'm Duke, your friendly neighbourhood task manager");
         printWordsWithIndentation("What can I do for you? :D");
         printIndentationAndDivider();
         System.out.println();
@@ -32,21 +31,34 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (!input.equals("bye")) {
-            if(input.equals("list")) {
+            switch(input.split(" ")[0]) {
+            case "list" :
                 printIndentationAndDivider();
-                for (int i = 0; i < index; i++) {
-                    printWordsWithIndentation(i + 1 + ". " + input_list[i]);
+                for (int i = 0; i < Task.getTotalTasks(); i++) {
+                    String description = taskList[i].getDescription();
+                    String statusIcon = taskList[i].getStatusIcon();
+                    printWordsWithIndentation(i + 1 + "." + "[" + statusIcon + "] " + description);
                 }
                 printIndentationAndDivider();
                 System.out.println();
-            }
-            else {
+                break;
+
+            case "done" :
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskList[index].markAsDone();
+                printIndentationAndDivider();
+                printWordsWithIndentation("You've completed the task! Well done!");
+                printWordsWithIndentation("[" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
+                printIndentationAndDivider();
+                break;
+            default :
                 printIndentationAndDivider();
                 printWordsWithIndentation("added: " + input);
                 printIndentationAndDivider();
                 System.out.println();
-                input_list[index] = input;
-                index++;
+                taskList[Task.getTotalTasks()] = new Task(input);
+                Task.setTotalTasks(Task.getTotalTasks() + 1);
+                break;
             }
             input = in.nextLine();
         }
