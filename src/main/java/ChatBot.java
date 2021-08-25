@@ -109,8 +109,13 @@ public class ChatBot {
     /**
      * Starts the chat and allows user to choose
      * the functionality in this state.
+     *
+     * @param logo Logo/name of the bot to be printed
      */
-    public void chatFunction() {
+    public void chatFunction(String logo) {
+
+        System.out.println("Hello from\n" + logo);
+        System.out.println("How can I assist you? Type something below! :D\n");
 
         while (true) {
             System.out.println("Current commands: todo, echo, or just type bye to exit");

@@ -3,7 +3,7 @@ public class Duke {
 
     public static void main(String[] args) {
 
-
+        //Customize logo of bot here
         String logo = " _ __ _   _  __ _ _ __ \n"
                 + "| '__| | | |/ _` | '_ \\\n"
                 + "| |  | |_| | (_| | | | |\n"
@@ -11,11 +11,9 @@ public class Duke {
                 + "       __/ |            \n"
                 + "      |___/             ";
 
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println("How can I assist you? Type something below! :D\n");
+        //Initialize ChatBot ryan
         ChatBot ryan = new ChatBot();
-        ryan.chatFunction();
+        ryan.chatFunction(logo);
 
     }
 }
