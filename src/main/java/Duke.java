@@ -23,11 +23,11 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String line = "\t____________________________________________________________\n\t";
         String greeting = line
-                + "Hello! I'm Duke\n\t"
-                + "What can I do for you?\n"
+                + "Hello! I'm Anderson\n\t"
+                + "What do you need to do?\n"
                 + line;
         String bye = line
-                + "Bye. Hope to you again soon!\n"
+                + "Bye. try not to procrastinate!\n"
                 + line;
 
         String command;
@@ -67,7 +67,7 @@ public class Duke {
                     System.out.println(line + "Here are the tasks in your list:\n");
                     for (ToDo toDo : filteredNull) {
                         count++;
-                        System.out.println(count + "." + toDo.getStatusIcon() + toDo.getTask());
+                        System.out.println("\t" + count + "." + toDo.getStatusIcon() + toDo.getTask());
                     }
                     System.out.println(line);
                     command = in.nextLine();
