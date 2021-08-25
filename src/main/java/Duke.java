@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final String divisionLine = "    ____________________________________________________________\n";
-    private static final String greetings = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
-    private static final String bye = "     Bye. Hope to see you again soon!\n";
+    private static final String DIVISIONLINE = "    ____________________________________________________________\n";
+    private static final String GREETINGS = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
+    private static final String BYE = "     Bye. Hope to see you again soon!\n";
 
 
     public static void main (String[] args) {
         //greeting page
-        System.out.print(divisionLine + greetings + divisionLine);
+        System.out.print(DIVISIONLINE + GREETINGS + DIVISIONLINE);
 
 
         //start chatting now!
@@ -16,10 +16,10 @@ public class Duke {
         String userInput = sc.nextLine();
 
         while (!userInput.equals("bye")) {
-            String[] inputSplit = userInput.split(" ");
+            String[] inputSplits = userInput.split(" ");
             UserInput input;
 
-            switch (inputSplit[0]) {
+            switch (inputSplits[0]) {
             case "list":
                 input = new ListCommand(userInput);
                 break;
@@ -32,14 +32,14 @@ public class Duke {
             default:
                 input = new AddList(userInput);
             }
-            System.out.print(divisionLine);
+            System.out.print(DIVISIONLINE);
             input.execute();
-            System.out.print(divisionLine);
+            System.out.print(DIVISIONLINE);
             userInput = sc.nextLine();
         }
 
-        //chatting finishes. Say Goodbye!
-        System.out.println(divisionLine + bye + divisionLine);
+        //chatting finishes. Say GoodBYE!
+        System.out.println(DIVISIONLINE + BYE + DIVISIONLINE);
 
     }
 }
