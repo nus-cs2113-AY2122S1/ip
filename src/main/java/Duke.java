@@ -29,7 +29,7 @@ public class Duke {
     }
 
     public static int findTaskNum(String arg) {
-        String[] words = arg.trim().split("[+\\s]");
+        String[] words = arg.trim().split("[\\s]+");
         return Integer.parseInt(words[1]);
     }
 
