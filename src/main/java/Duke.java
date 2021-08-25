@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static boolean isExit = false;
-    private static Tasks task = new Tasks();
+    private static TaskList task = new TaskList();
 
 
     public static void echoInput(String input) {
@@ -20,8 +20,17 @@ public class Duke {
             PrintUtils.printHorizontalLine(100);
         } else if (input.equalsIgnoreCase("list")) {
             task.printTasks();
+        } else if (input.length() >= 4 && input.substring(0, 4).equalsIgnoreCase("done")) {
+            String taskNumber = input.substring(4).trim();
+            if (taskNumber.equals("")) {
+                PrintUtils.printHorizontalLine(100);
+                System.out.println("Please provide a task number");
+                PrintUtils.printHorizontalLine(100);
+            } else {
+            task.markTaskAsDone(Integer.parseInt(taskNumber));
+            }
         } else {
-            task.addTask(input);
+            task.addTask(new Task(input));
         }
 
     }
