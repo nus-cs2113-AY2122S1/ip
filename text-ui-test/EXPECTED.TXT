@@ -1,7 +1,82 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+              ,---------------------------,
+              |  /---------------------\  |
+              | |                       | |
+              | |     404               | |
+              | |      Send             | |
+              | |       Help            | |
+              | |        Pls            | |
+              |  \_____________________/  |
+              |___________________________|
+            ,---\_____     []     _______/------,
+          /         /______________\           /|
+        /___________________________________ /  | ___
+        |                                   |   |    )
+        |  _ _ _                 [-------]  |   |   (
+        |  o o o                 [-------]  |  /    _)_
+        |__________________________________ |/     /  /
+    /-------------------------------------/|      ( )/
+  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
+/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[The Terminator]: Hola Amigos, I am the Terminator.
+[The Terminator]: What would you like me to do?
+[*] Type "bye" if you want to leave!
+[User]: [The Terminator]: Added the following Task
+[T][ ] read book
+[The Terminator]: Now you have 1 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: [The Terminator]: Added the following Task
+[D][ ] return book (by: June 6th)
+[The Terminator]: Now you have 2 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: [The Terminator]: Added the following Task
+[E][ ] project meeting (at: Aug 6th 2-4pm)
+[The Terminator]: Now you have 3 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: [The Terminator]: Added the following Task
+[T][ ] join sports club
+[The Terminator]: Now you have 4 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: Here is a list of taskings:
+===================================================
+1.[T][ ] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (at: Aug 6th 2-4pm)
+4.[T][ ] join sports club
+[The Terminator]: Anything else?
+[User]: Great! The following item has been marked as completed
+[T][X] read book
+[The Terminator]: Is there anything else you would like me to do?
+[User]: Great! The following item has been marked as completed
+[T][X] join sports club
+[The Terminator]: Is there anything else you would like me to do?
+[User]: Here is a list of taskings:
+===================================================
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (at: Aug 6th 2-4pm)
+4.[T][X] join sports club
+[The Terminator]: Anything else?
+[User]: [The Terminator]: Added the following Task
+[T][ ] borrow book
+[The Terminator]: Now you have 5 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: [The Terminator]: Added the following Task
+[D][ ] return book (by: Sunday)
+[The Terminator]: Now you have 6 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: [The Terminator]: Added the following Task
+[E][ ] project meeting (at: Mon 2-4pm)
+[The Terminator]: Now you have 7 task(s) in the list.
+[The Terminator]: Hmmm... what should I do now?
+[User]: Here is a list of taskings:
+===================================================
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (at: Aug 6th 2-4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[E][ ] project meeting (at: Mon 2-4pm)
+[The Terminator]: Anything else?
+[User]:
