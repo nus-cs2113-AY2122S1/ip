@@ -25,7 +25,6 @@ public class Duke {
             }else if(input.equals("done")){
                 char num = task.description.charAt(5);
                 int numm = Character.getNumericValue(num);
-                System.out.println(list[0].description);
                 for(Task value : list){
                     if(value.index==numm){
                         value.markAsDone();
