@@ -58,4 +58,23 @@ public class Task {
         // Mark done task with X
         return (isCompleted ? "X" : " ");
     }
+
+    /**
+     * Get the Item type.
+     * Returns empty string for normal Task.
+     * Meant to be polymorphed.
+     * @return An empty string " "
+     */
+    public String getItemType() {
+        return " ";
+    }
+
+    /**
+     * Changes a Task into a human-readable format.
+     * @return A formatted String of the Task, its status, type and description.
+     */
+    @Override
+    public String toString() {
+        return String.format("[%s][%s] %s", getItemType(), getStatusIcon(), name);
+    }
 }
