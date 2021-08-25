@@ -1,10 +1,8 @@
 import java.util.*;
 
 public class Task {
-    protected String taskName;
-    protected boolean completed;
-    LinkedList<String> savedTasks = new LinkedList<String>();
-
+    public String taskName;
+    public boolean completed;
     public Task(){}
 
     public Task(String description, boolean completed) {

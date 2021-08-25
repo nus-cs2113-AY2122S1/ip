@@ -4,7 +4,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Task task = new Task();
-        LinkedList<String> savedTasks = new LinkedList<String>();
+        LinkedList<Task> savedTasks = new LinkedList<Task>();
         TaskList taskList = new TaskList(savedTasks);
         String welcomeMessage = "______________________________\n"
                 + "Hello! I'm Friday\n"
@@ -14,6 +14,7 @@ public class Duke {
                 + "Bye! Hope to see you again soon!\n"
                 + "______________________________\n";
         System.out.print(welcomeMessage);
+
         String userInput = sc.nextLine();
         while(!"bye".equals(userInput)){
             if("list".equals(userInput)) {
@@ -24,7 +25,11 @@ public class Duke {
                 task.markTaskAsDone();
             }else {
                 task.taskName = userInput;
-                taskList.addTasks(task.taskName);
+                task.completed = false;
+                taskList.addTasks(task);
+                System.out.println("______________________________\n");
+                System.out.println(task.taskName + " has been added!\n");
+                System.out.println("______________________________\n");
             }
             userInput = sc.nextLine();
         }
