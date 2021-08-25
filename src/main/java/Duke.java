@@ -139,5 +139,7 @@ public class Duke {
             Task newTask = new Task(false, userInput);
             addTask(newTask, userInput);
         }
+
+        exitProgram();
     }
 }
