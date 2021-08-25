@@ -72,7 +72,7 @@ public class Duke {
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("    ____________________________________________________________");
-                        System.out.println("     Command is not valid :( Please specify a valid task number to be marked as done.");
+                        System.out.println("    Command is not valid :( Please specify a valid task number to be marked as done.");
                         System.out.println("    ____________________________________________________________");
                     }
                 }
