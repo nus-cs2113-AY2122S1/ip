@@ -15,26 +15,35 @@ public class UI {
                 + "     Welcome to the Duke Chatbot\n"
                 + "     What would you like to do today?\n"
                 + linebreak;
-        String farewell = "     Bye. Hope to see you again soon!\n"
-                + linebreak;
-
+        String farewell = "     Bye. Hope to see you again soon!";
         System.out.println(greetings);
 
         while (true) {
-            String command = scanner.nextLine();
-            switch (command) {
+            String input = scanner.nextLine();
+            String command[] = input.split(" ");
+            String firstword = command[0];
+            Task t = new Task(input);
+
+            System.out.print(linebreak);
+            switch (firstword) {
             case "bye":
                 System.out.println(farewell);
                 break;
             case "list":
-                System.out.print(linebreak);
+                System.out.println("     Here are the tasks in your list:");
                 taskmanager.list();
-                System.out.println(linebreak);
+                break;
+            case "done":
+                System.out.println("     Nice! I've marked this task as done: ");
+                int tasknumber = Integer.parseInt(command[1]);
+                System.out.println("       [X] " + taskmanager.getName(tasknumber));
+                taskmanager.checkDone(tasknumber);
                 break;
             default:
-                System.out.println(linebreak + "     added: " + command + "\n" + linebreak);
-                taskmanager.add(command);
+                System.out.println("     added: " + input);
+                taskmanager.add(t);
             }
+            System.out.print(linebreak);
         }
     }
 }
