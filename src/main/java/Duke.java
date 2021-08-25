@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -29,12 +30,21 @@ public class Duke {
         boolean exit = false;
         while (!exit){
             String userInput = in.nextLine();
-            switch (userInput){
+            switch (userInput.split(" ")[0].toLowerCase(Locale.ROOT)){
             case "list":
                 taskManager.listTask();
                 break;
             case "bye":
                 exit = true;
+                break;
+            case "done":
+                try {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    taskManager.completeTask(taskNumber);
+                }
+                catch (NumberFormatException e){
+                    printMessage("Error in detecting task number. Please enter a valid number after done, i.e: done 1");
+                }
                 break;
             default:
                 taskManager.addTask(userInput);

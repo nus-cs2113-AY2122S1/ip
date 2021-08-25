@@ -5,7 +5,7 @@ public class TaskManager {
     /* List of tasks */
     private ArrayList<Task> tasksList;
 
-    /* Constructor for TaskManager */
+    /* Constructor for task manager */
     public TaskManager() {
          tasksList = new ArrayList<Task>();
          Duke.printMessage("Gaben\'s Task Manager is here to assist you!");
@@ -34,11 +34,32 @@ public class TaskManager {
         default:
             message = "Total of " + tasksListSize + " task(s)\n";
             for(int counter = 1; counter < tasksListSize; counter++){
-                message += counter + ": " + tasksList.get(counter-1).getName() + "\n";
+                Task task = tasksList.get(counter-1);
+                message += counter + ":[" + task.getStatusIcon() + "] " + task.getName() + "\n";
             }
-            message += tasksListSize + ": " + tasksList.get(tasksListSize-1).getName();
+            message += tasksListSize + ":[" + tasksList.get(tasksListSize-1).getStatusIcon() + "] " + tasksList.get(tasksListSize-1).getName();
             break;
         }
         Duke.printMessage(message);
     }
+
+    /**
+     * Set the task to be completed by marking it done.
+     *
+     * @param taskNumber The task number as shown by list command.
+     */
+    public void completeTask(int taskNumber){
+        if(taskNumber < 1 || taskNumber > tasksList.size()){
+            Duke.printMessage("Sorry, task selected does not exist! Please double check if task number exist with the"
+                    + " list command.");
+        }
+        else {
+            Task task = tasksList.get(taskNumber-1);
+            task.markAsDone();
+            String message = "Good lad, you have finally completed the task you needed to do.\n";
+            message += "[" + task.getStatusIcon() + "] " + task.getName() + "\n";
+            Duke.printMessage(message);
+        }
+    }
+
 }
