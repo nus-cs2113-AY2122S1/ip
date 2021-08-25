@@ -15,14 +15,16 @@ public class Duke {
                 + "Bye! Hope to see you again soon!\n"
                 + "______________________________\n";
         System.out.print(welcomeMessage);
-
         String userInput = sc.nextLine();
-        while(!"bye".equals(userInput)){
-            if("list".equals(userInput)) {
+        while(!userInput.contains("bye")){
+            //Exit the program only when user input bye
+            if(userInput.contains("list")) {
+                //List out all the task from taskList
                 System.out.println("______________________________\n");
                 taskList.listTasks();
                 System.out.println("______________________________\n");
             }  else if(userInput.contains("done")){
+                //Mark the task as completed when user inputs done "taskList Index"
                 taskListIndex = Integer.parseInt(identifyUserInput(userInput));
                 currentTask = taskList.findTask(taskListIndex);
                 currentTask.markTaskAsDone();
@@ -35,11 +37,16 @@ public class Duke {
             }
             userInput = sc.nextLine();
         }
-        if("bye".equals(userInput)) {
-            System.out.print(goodbyeMessage);
-        }
+        System.out.print(goodbyeMessage);
     }
 
+    /**
+     * Takes the user input and identify the index which,
+     * the user wants to mark as completed.
+     *
+     * @param userInput
+     * @return taskIndex.
+     */
     public static String identifyUserInput(String userInput){
         String[] parts = userInput.split(" ");
         String taskIndex = parts[1];
