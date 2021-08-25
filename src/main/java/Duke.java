@@ -3,12 +3,15 @@ import java.util.Scanner;
 public class Duke {
     public static String divider = "___________________________________________________________";
     public static String indentation = "      ";
+    public static String[] input_list = new String[100];
+    public static int index = 0;
 
-    public static void printIndentationAndDivider(){
+    public static void printIndentationAndDivider() {
         System.out.print(indentation);
         System.out.println(divider);
     }
-    public static void printWordsWithIndentation(String words){
+
+    public static void printWordsWithIndentation(String words) {
         System.out.print(indentation);
         System.out.println(words);
     }
@@ -26,13 +29,25 @@ public class Duke {
         printIndentationAndDivider();
         System.out.println();
 
-        Scanner in = new Scanner (System.in);
+        Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        while(!input.equals("bye")){
-            printIndentationAndDivider();
-            printWordsWithIndentation(input);
-            printIndentationAndDivider();
-            System.out.println();
+        while (!input.equals("bye")) {
+            if(input.equals("list")) {
+                printIndentationAndDivider();
+                for (int i = 0; i < index; i++) {
+                    printWordsWithIndentation(i + 1 + ". " + input_list[i]);
+                }
+                printIndentationAndDivider();
+                System.out.println();
+            }
+            else {
+                printIndentationAndDivider();
+                printWordsWithIndentation("added: " + input);
+                printIndentationAndDivider();
+                System.out.println();
+                input_list[index] = input;
+                index++;
+            }
             input = in.nextLine();
         }
 
