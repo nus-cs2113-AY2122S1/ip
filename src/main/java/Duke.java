@@ -1,7 +1,11 @@
+import java.io.InputStream;
+import java.util.Scanner;
+
 public class Duke {
 
     public static void main(String[] args) {
         greetUser();
+        echoUser(args);
         byeUser();
     }
 
@@ -16,15 +20,33 @@ public class Duke {
     }
 
     public static void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("    ____________________________________________________________");
     }
     public static void greetUser() {
         printLine();
-        System.out.println("  Hello! I'm Duke\n  What can I do for you?");
+        System.out.println("      Hello! I'm Duke\n      What can I do for you?");
         printLine();
     }
     public static void byeUser() {
-        System.out.println("  Bye. Hope to see you again soon!");
         printLine();
+        System.out.println("      Bye. Hope to see you again soon!");
+        printLine();
+    }
+
+    public static void echoUser(String[] args) {
+        Scanner text = new Scanner(System.in);
+        String userInput;
+
+        do {
+            userInput = text.nextLine();
+            switch (userInput) {
+            case "bye":
+                break;
+            default:
+                printLine();
+                System.out.println(userInput);
+                printLine();
+            }
+        } while (!userInput.equals("bye"));
     }
 }
