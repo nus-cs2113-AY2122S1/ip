@@ -1,6 +1,6 @@
 public class Task {
     private String description;
-    private boolean status;
+    private boolean isDone;
 
     public Task(String desc) {
         setDescription(desc);
@@ -15,13 +15,13 @@ public class Task {
         return description;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String getStatus() {
         String result;
-        if (status) {
+        if (isDone) {
             result = "X";
         } else {
             result = " ";

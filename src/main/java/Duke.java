@@ -24,7 +24,8 @@ public class Duke {
             } else if (cmd.equals("list")) {
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(" " + (i+1) + ": " + "[" +tasks.get(i).getStatus() + "] " + tasks.get(i).getDescription());
+                    System.out.println(" " + (i+1) + ": " + "[" + tasks.get(i).getStatus() +
+                            "] " + tasks.get(i).getDescription());
                 }
                 System.out.println("____________________________________________________________");
             } else if (m.find()) {
@@ -36,7 +37,8 @@ public class Duke {
                     tasks.get(value - 1).setStatus(true);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Nice! I've marked the task as done:");
-                    System.out.println("[" +tasks.get(value - 1).getStatus() + "] " + tasks.get(value - 1).getDescription());
+                    System.out.println("[" +tasks.get(value - 1).getStatus() + "] "
+                            + tasks.get(value - 1).getDescription());
                     System.out.println("____________________________________________________________");
                 }
 
