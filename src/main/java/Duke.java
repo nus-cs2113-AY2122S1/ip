@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -8,6 +10,9 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greet();
+
+        echo();
+
         bye();
     }
 
@@ -15,6 +20,7 @@ public class Duke {
         printLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+        printLine();
     }
 
     public static void bye(){
@@ -28,6 +34,19 @@ public class Duke {
             System.out.print("-");
         }
         System.out.println();
+    }
+
+    public static void echo(){
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("What do you want me to repeat?");
+        line = in.nextLine();
+        if(line.equals("bye")){
+            return;
+        }
+        System.out.println("You said: " + line);
+        echo();
     }
 
 }
