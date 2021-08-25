@@ -25,8 +25,8 @@ public class ChatBot {
         while (true) {
             String chatInput = in.nextLine();
             printDivider();
-            String[] keyword = chatInput.toLowerCase().split(" ");
-            switch (keyword[0]) {
+            String[] keywords = chatInput.toLowerCase().split(" ");
+            switch (keywords[0]) {
             case "exit":
                 System.out.println("Thanks for using echo mode!");
                 printDivider();
@@ -50,8 +50,8 @@ public class ChatBot {
         while (true) {
             String chatInput = in.nextLine();
             printDivider();
-            String[] keyword = chatInput.toLowerCase().split(" ");
-            switch (keyword[0]) {
+            String[] keywords = chatInput.toLowerCase().split(" ");
+            switch (keywords[0]) {
             case "exit":
                 System.out.println("Thanks for using todo mode!");
                 printDivider();
@@ -61,11 +61,13 @@ public class ChatBot {
                     if (list[i] == null) {
                         break;
                     }
-                    System.out.println((i + 1) + ". " + printDone(list[i].isDone()) + " " + list[i].getToDoItem());
+                    System.out.println((i + 1) + ". "
+                            + printDone(list[i].isDone()) + " "
+                            + list[i].getToDoItem());
                 }
                 break;
             case "done":
-                int taskNumber = Integer.parseInt(keyword[1]) - 1;
+                int taskNumber = Integer.parseInt(keywords[1]) - 1;
                 try {
                     list[taskNumber].setDone();
                 } catch (Exception e) {
@@ -75,10 +77,13 @@ public class ChatBot {
                             break;
                         }
                     }
-                    System.out.println("Index not found! Please enter a valid index from 1 to " + range);
+                    System.out.println("Index not found! "
+                            + "Please enter a valid index from 1 to " + range);
                     break;
                 }
-                String output = "Nice! I've marked this task as done!\n" + printDone(list[taskNumber].isDone()) + " " + list[taskNumber].getToDoItem();
+                String output = "Nice! I've marked this task as done!\n"
+                        + printDone(list[taskNumber].isDone())
+                        + " " + list[taskNumber].getToDoItem();
                 System.out.println(output);
                 break;
             default:
@@ -99,9 +104,10 @@ public class ChatBot {
             printDivider();
 
             String chatInput = in.nextLine();
-            String[] keyword = chatInput.toLowerCase().split(" ");
-            switch (keyword[0]) {
+            String[] keywords = chatInput.toLowerCase().split(" ");
+            switch (keywords[0]) {
             case "bye":
+                printDivider();
                 System.out.println("Bye. Hope to see you again soon!");
                 printDivider();
                 return;
