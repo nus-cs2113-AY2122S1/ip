@@ -6,6 +6,9 @@ public class Duke {
         interactWithUser();
     }
 
+    /**
+     * Prints the Duke application logo in the terminal
+     */
     public static void printAppLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -15,6 +18,9 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
     }
 
+    /**
+     * Prints a horizontal line in the terminal
+     */
     public static void printLine() {
         System.out.println("  ──────────────────────────────");
     }
@@ -25,12 +31,20 @@ public class Duke {
         printLine();
     }
 
+    /**
+     * Prints the application exit message in the terminal
+     */
     public static void printExitMessage() {
         printLine();
         System.out.println("  Goodbye! Hope to see you soon!");
         printLine();
     }
 
+    /**
+     * Gets user input and returns it as a String
+     *
+     * @return the String containing the user input
+     */
     public static String getUserInput() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -38,6 +52,9 @@ public class Duke {
         return line;
     }
 
+    /**
+     * Starts Duke, repeatedly waits for and executes user commands until exit command is received
+     */
     public static void interactWithUser() {
         boolean isInteracting = true;
         Task[] tasks = new Task[100];
@@ -57,7 +74,7 @@ public class Duke {
                 System.out.println("  Here are your tasks:");
                 for (int i = 0; i < tasksCount; i++) {
                     System.out.print("    " + (i + 1) + ".");
-                    tasks[i].printTask();
+                    System.out.println(tasks[i].toString());
                 }
                 printLine();
                 break;
@@ -66,7 +83,7 @@ public class Duke {
                 tasks[taskIndex].setCompleted();
                 printLine();
                 System.out.print("  Ok! I've marked this task as done:\n    ");
-                tasks[taskIndex].printTask();
+                System.out.println(tasks[taskIndex].toString());
                 printLine();
                 break;
             default:
@@ -79,6 +96,4 @@ public class Duke {
             }
         }
     }
-
-
 }
