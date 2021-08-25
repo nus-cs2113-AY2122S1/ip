@@ -18,7 +18,7 @@ public class Duke {
         chooseTask();
     }
 
-    private static void chooseTask(){
+    private static void chooseTask() {
         printLine();
         System.out.println("Choose a task to perform:");
         System.out.println("1. Echo");
@@ -30,7 +30,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        switch(line) {
+        switch (line) {
         case "1":
             echo();
             break;
@@ -70,26 +70,26 @@ public class Duke {
         chooseTask();
     }
 
-    private static void greet(){
+    private static void greet() {
         printLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
 
-    private static void bye(){
+    private static void bye() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
 
-    private static void printLine(){
-        for(int i = 0; i <30 ; i ++){
+    private static void printLine() {
+        for (int i = 0; i < 30; i++) {
             System.out.print("-");
         }
         System.out.println();
     }
 
-    private static void echo(){
+    private static void echo() {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -99,14 +99,14 @@ public class Duke {
         printLine();
 
         line = in.nextLine();
-        if(line.equals("exit echo")){
+        if (line.equals("exit echo")) {
             return;
         }
         System.out.println("You said: " + line);
         echo();
     }
 
-    private static void addTask(){
+    private static void addTask() {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -123,20 +123,20 @@ public class Duke {
         printLine();
     }
 
-    private static void displayList(){
+    private static void displayList() {
         printLine();
         if (taskindex == 0) {
             System.out.println("to-do list is empty! add something");
             return;
         }
         System.out.println("The current to-do list is as follows:");
-        for (int i = 0; i < taskindex; i++){
-            System.out.println(i+1 + ". [" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+        for (int i = 0; i < taskindex; i++) {
+            System.out.println(i + 1 + ". [" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
         }
         printLine();
     }
 
-    private static void markTaskComplete(){
+    private static void markTaskComplete() {
         printLine();
         System.out.println("Which Task is complete?");
         printLine();
@@ -144,9 +144,9 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        int taskNumber = Integer.parseInt(line)-1;
+        int taskNumber = Integer.parseInt(line) - 1;
 
-        if(taskNumber > taskindex){
+        if (taskNumber > taskindex) {
             System.out.println("Error! This task does not exist!");
             return;
         }
@@ -155,7 +155,7 @@ public class Duke {
 
         printLine();
         System.out.println("I have marked it as completed!");
-        System.out.println(taskNumber+1 + ". [" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].getDescription());
+        System.out.println(taskNumber + 1 + ". [" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].getDescription());
         printLine();
     }
 }
