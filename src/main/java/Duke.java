@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static String divider = "___________________________________________________________";
     public static String indentation = "      ";
-    public static Task[] taskList = new Task[100];
+    public static Task[] tasks = new Task[100];
 
     public static void printIndentationAndDivider() {
         System.out.print(indentation);
@@ -35,20 +35,19 @@ public class Duke {
             case "list" :
                 printIndentationAndDivider();
                 for (int i = 0; i < Task.getTotalTasks(); i++) {
-                    String description = taskList[i].getDescription();
-                    String statusIcon = taskList[i].getStatusIcon();
+                    String description = tasks[i].getDescription();
+                    String statusIcon = tasks[i].getStatusIcon();
                     printWordsWithIndentation(i + 1 + "." + "[" + statusIcon + "] " + description);
                 }
                 printIndentationAndDivider();
                 System.out.println();
                 break;
-
             case "done" :
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                taskList[index].markAsDone();
+                tasks[index].markAsDone();
                 printIndentationAndDivider();
                 printWordsWithIndentation("You've completed the task! Well done!");
-                printWordsWithIndentation("[" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
+                printWordsWithIndentation("[" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription());
                 printIndentationAndDivider();
                 break;
             default :
@@ -56,7 +55,7 @@ public class Duke {
                 printWordsWithIndentation("added: " + input);
                 printIndentationAndDivider();
                 System.out.println();
-                taskList[Task.getTotalTasks()] = new Task(input);
+                tasks[Task.getTotalTasks()] = new Task(input);
                 Task.setTotalTasks(Task.getTotalTasks() + 1);
                 break;
             }
