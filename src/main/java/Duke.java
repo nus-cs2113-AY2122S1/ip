@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     private static int taskCount = 0;
@@ -34,11 +35,11 @@ public class Duke {
     }
 
     public static void reply(String line) {
-        String[] input = line.split(" ");
-        if (input[0].equals("list")) {
+        String[] inputs = line.split(" ");
+        if (inputs[0].equals("list")) {
             getAndPrintList();
-        } else if (input[0].equals("done")) {
-            setDone(Integer.parseInt(input[1]));
+        } else if (inputs[0].equals("done")) {
+            setDone(filterIndexes(Arrays.copyOfRange(inputs, 1, inputs.length)));
         } else {
             _printReply(addTask(line));
         }
@@ -50,6 +51,23 @@ public class Duke {
                 "   ____________________________________________________________");
     }
 
+    public static int[] filterIndexes(String[] inputs) {
+        int[] indexes = new int[inputs.length];
+        int indexCount = 0;
+
+        for (String input : inputs) {
+            try {
+                int index = Integer.parseInt(input);
+                indexes[indexCount] = index;
+                indexCount++;
+            } catch (NumberFormatException nfe) {
+                System.out.println(inputs[indexCount] + " is not a valid index");
+            }
+        }
+
+        return Arrays.copyOf(indexes, indexCount);
+    }
+
     public static String addTask(String input) {
         tasks[taskCount] = new Task(input);
         taskCount++;
@@ -58,6 +76,11 @@ public class Duke {
 
     public static void getAndPrintList() {
         int i = 0;
+
+        if (taskCount == 0) {
+            _printReply("There are no tasks in your list.");
+            return;
+        }
 
         System.out.println("   ____________________________________________________________");
         System.out.println("       Here are the tasks in your list:");
@@ -71,13 +94,38 @@ public class Duke {
         }
     }
 
-    public static void setDone(int index) {
-        if (index - 1 >= taskCount) {
-            _printReply("Entry does not exist.");
-            return;
+    public static void setDone(int[] indexes) {
+        int[] invalidIndexes = new int[indexes.length];
+        int[] validIndexes = new int[indexes.length];
+        int invalidCount = 0;
+        int validCount = 0;
+
+        System.out.println("   ____________________________________________________________");
+        for (int index : indexes) {
+            if (index - 1 >= taskCount) {
+                invalidIndexes[invalidCount] = index;
+                invalidCount++;
+            } else {
+                tasks[index - 1].markAsDone();
+                validIndexes[validCount] = index;
+                validCount++;
+            }
         }
-        tasks[index - 1].markAsDone();
-        _printReply("Nice! I've marked this task as done:\n" +
-                "         [X] " + tasks[index - 1].getDescription());
+
+        if (validCount != 0) {
+            System.out.println("       Nice! I've marked these tasks as done:");
+            for (int i = 0; i < validCount; i++) {
+                System.out.println("         [X] " + tasks[validIndexes[i] - 1].getDescription());
+            }
+        }
+
+        if (invalidCount != 0) {
+            System.out.println("");
+            for (int i = 0; i < invalidCount; i++) {
+                System.out.println("       Entry " + invalidIndexes[i] + " does not exist.");
+            }
+        }
+
+        System.out.println("   ____________________________________________________________");
     }
 }
