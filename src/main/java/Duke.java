@@ -36,8 +36,12 @@ public class Duke {
             } else if (Objects.equals(userInput, "done")) {
                 System.out.println("Select which task has been completed");
                 int whichTask = myObj.nextInt();
-                input.List[whichTask - 1].markAsDone();
-                System.out.println("OK! That task has been marked as complete");
+                if (whichTask < 0) {
+                    System.out.println("Index out of bounds");
+                } else {
+                    input.List[whichTask - 1].markAsDone();
+                    System.out.println("OK! That task has been marked as complete");
+                }
                 continue;
             }
             input.List[counter] = new Task(userInput);
