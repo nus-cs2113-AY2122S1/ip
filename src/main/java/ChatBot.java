@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 public class ChatBot {
+    public Scanner in = new Scanner(System.in);
 
-    public static void printDivider() {
+    public void printDivider() {
         System.out.println("____________________________________________________________");
     }
 
-    public static String printDone(boolean isDone) {
+    public String printDone(boolean isDone) {
         String output;
         if (isDone) {
             output = "[X]";
@@ -16,9 +17,31 @@ public class ChatBot {
         return output;
     }
 
-    public static void chatFunction() {
+    public void startEcho() {
+        System.out.println("You have entered echo mode! Type exit to quit this mode.");
+        printDivider();
+
+        while (true) {
+            String chatInput = in.nextLine();
+            printDivider();
+            String[] keyword = chatInput.toLowerCase().split(" ");
+            switch (keyword[0]) {
+            case "exit":
+                System.out.println("Thanks for using echo mode!");
+                printDivider();
+                return;
+            default:
+                System.out.println(chatInput);
+                break;
+            }
+            printDivider();
+        }
+    }
+
+    public void startToDo() {
+        System.out.println("You have entered todo mode! Type exit to quit this mode.");
+        printDivider();
         ListItem[] list = new ListItem[100];
-        Scanner in = new Scanner(System.in);
         int idx = 0;
 
         while (true) {
@@ -26,8 +49,8 @@ public class ChatBot {
             printDivider();
             String[] keyword = chatInput.toLowerCase().split(" ");
             switch (keyword[0]) {
-            case "bye":
-                System.out.println("Bye. Hope to see you again soon!");
+            case "exit":
+                System.out.println("Thanks for using todo mode!");
                 printDivider();
                 return;
             case "list":
@@ -60,8 +83,36 @@ public class ChatBot {
                 idx++;
                 System.out.println("added: " + chatInput);
                 break;
+
             }
             printDivider();
+        }
+    }
+
+    public void chatFunction() {
+
+        while (true) {
+            System.out.println("Current commands: todo, echo, or just type bye to exit");
+            printDivider();
+
+            String chatInput = in.nextLine();
+            String[] keyword = chatInput.toLowerCase().split(" ");
+            switch (keyword[0]) {
+            case "bye":
+                System.out.println("Bye. Hope to see you again soon!");
+                printDivider();
+                return;
+            case "todo":
+                startToDo();
+                break;
+            case "echo":
+                startEcho();
+                break;
+            default:
+                System.out.println("Wrong command! Please select a mode.");
+
+                printDivider();
+            }
         }
     }
 }

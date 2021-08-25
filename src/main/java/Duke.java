@@ -12,9 +12,9 @@ public class Duke {
 
 
         System.out.println("Hello from\n" + logo);
-        System.out.println("What can i do for you? Type something below! :D\n");
-
-        ChatBot.chatFunction();
+        System.out.println("How can I assist you? Type something below! :D\n");
+        ChatBot cb = new ChatBot();
+        cb.chatFunction();
 
     }
 }
