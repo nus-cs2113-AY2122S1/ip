@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String[] tasklist = new String[100];
+    private static int taskindex = 0;
+
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -10,43 +14,121 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greet();
-
-        echo();
-
-        bye();
+        chooseTask();
     }
 
-    public static void greet(){
+    private static void chooseTask(){
+        printLine();
+        System.out.println("Choose a task to perform:");
+        System.out.println("1. Echo");
+        System.out.println("2. Add task");
+        System.out.println("3. Display list");
+        printLine();
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+
+        switch(line) {
+        case "1":
+            echo();
+            break;
+        case "2":
+            addTask();
+            break;
+        case "3":
+            displayList();
+            break;
+        case "bye":
+            bye();
+            return;
+        default:
+            System.out.println("Invalid Input!");
+        }
+        /*
+        if(line.equals("1")){
+            echo();
+        }
+
+        if(line.equals("2")){
+            addTask();
+        }
+
+        if(line.equals("3")){
+            displayList();
+        }
+
+        if(line.equals("bye")){
+            bye();
+            return;
+        }
+        */
+        chooseTask();
+    }
+
+    private static void greet(){
         printLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        printLine();
     }
 
-    public static void bye(){
+    private static void bye(){
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
 
-    public static void printLine(){
+    private static void printLine(){
         for(int i = 0; i <30 ; i ++){
             System.out.print("-");
         }
         System.out.println();
     }
 
-    public static void echo(){
+    private static void echo(){
         String line;
         Scanner in = new Scanner(System.in);
 
+        printLine();
         System.out.println("What do you want me to repeat?");
+        System.out.println("*Type 'exit echo' to leave*");
+        printLine();
+
         line = in.nextLine();
-        if(line.equals("bye")){
+        if(line.equals("exit echo")){
             return;
         }
         System.out.println("You said: " + line);
         echo();
+    }
+
+    private static void addTask(){
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        printLine();
+        System.out.println("What task do you want to add?");
+        printLine();
+
+        line = in.nextLine();
+        tasklist[taskindex] = line;
+        taskindex++;
+
+        printLine();
+        System.out.println("added: " + line);
+        printLine();
+    }
+
+    private static void displayList(){
+        printLine();
+        if (taskindex == 0) {
+            System.out.println("to-do list is empty! add something");
+            return;
+        }
+        System.out.println("The current to-do list is as follows:");
+        for (int i = 0; i < taskindex; i++){
+            System.out.println(i+1 + ". " + tasklist[i]);
+        }
+        printLine();
     }
 
 }
