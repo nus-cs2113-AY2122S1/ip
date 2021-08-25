@@ -33,8 +33,8 @@ public class Duke {
                     System.out.println();
 
                 } else if (taskType.contains("done")) {
-                    String[] donetaskArray = taskType.split(" ");
-                    int doneTaskNumber = Integer.parseInt(donetaskArray[1]);
+                    String[] doneTaskArray = taskType.split(" ");
+                    int doneTaskNumber = Integer.parseInt(doneTaskArray[1]);
 
                     Task doneTask = taskArray[doneTaskNumber];
                     System.out.println("Nice! I've marked this task as done:");
