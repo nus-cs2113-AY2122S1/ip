@@ -26,16 +26,15 @@ public class Duke {
             //if want to list out tasks or mark as done or add items
             if (line.equals("list")) {
                 for (int i = 0; i < taskNumber; i++) {
-                    System.out.println((i + 1) + "." + " " + tasks[i].getDescription());
-//                    System.out.println((i + 1) + "." + tasks[i].getStatusIcon() + " " + tasks[i].getDescription());
+                    System.out.println((i + 1) + "." + tasks[i].getStatusIcon() + " " + tasks[i].getDescription());
                 }
             }
-//            else if (line.startsWith("done")) {
-//                int index = Integer.parseInt(line.substring(5)) - 1;
-//                tasks[index].setDone();
-//                System.out.println("Nice! I've marked this task as done:");
-//                System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
-//            }
+            else if (line.startsWith("done")) {
+                int index = Integer.parseInt(line.substring(5)) - 1;
+                tasks[index].setDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
+            }
             else {
                 tasks[taskNumber] = new Task(line);
                 taskNumber++;
