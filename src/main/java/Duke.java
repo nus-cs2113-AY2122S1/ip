@@ -29,7 +29,7 @@ public class Duke {
     }
 
     public static int findTaskNum(String arg) {
-        String[] words = arg.trim().split(" ");
+        String[] words = arg.trim().split("[+\\s]");
         return Integer.parseInt(words[1]);
     }
 
@@ -83,7 +83,7 @@ public class Duke {
                 // print out current list
                 printList(listOfStuff);
             }
-            else if (query.trim().matches("^[done]+\\s+\\d$")) {
+            else if (query.trim().matches("^[done]+\\s+[0-9]+$")) {
                 int taskNumber = findTaskNum(query);
                 listOfStuff[taskNumber - 1].markAsDone();
                 printDone(listOfStuff[taskNumber - 1]);
