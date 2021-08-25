@@ -16,15 +16,19 @@ public class Duke {
     private final static String LIST_COMMAND = "list";
     private final static String DONE_COMMAND = "done";
 
+    /* Indexes used for parsing of commands */
+    private final static int COMMAND_INDEX = 0;
+    private final static int TASK_NUMBER_INDEX = 1;
+
     /* List of chat-bot messages */
-    private final static String WELCOME_MESSAGE = "" +
-            "[*] Detecting chat-bot version...\n" +
-            "[+] Chat-bot version is *VULNERABLE*!\n" +
-            "[*] Hacking into the chat-bot...\n" +
-            "[*] Escalating privileges...\n" +
-            "[+] Interactive shell spawned. You can now manipulate the chat-bot directly!";
-    private final static String BYE_MESSAGE = "[*] Deleting traces of compromise...\n" +
-            "[+] Bye. Hope to see you again soon!";
+    private final static String WELCOME_MESSAGE = ""
+            + "[*] Detecting chat-bot version...\n"
+            + "[+] Chat-bot version is *VULNERABLE*!\n"
+            + "[*] Hacking into the chat-bot...\n"
+            + "[*] Escalating privileges...\n"
+            + "[+] Interactive shell spawned. You can now manipulate the chat-bot directly!";
+    private final static String BYE_MESSAGE = "[*] Deleting traces of compromise...\n"
+            + "[+] Bye. Hope to see you again soon!";
 
     /* Storage of tasks */
     private static TaskManager taskManager = new TaskManager();
@@ -52,12 +56,12 @@ public class Duke {
         String[] tokens = input.stripTrailing().split(" ");
 
         try {
-            switch (tokens[0]) {
+            switch (tokens[COMMAND_INDEX]) {
             case LIST_COMMAND:
                 taskManager.printTaskList();
                 break;
             case DONE_COMMAND:
-                taskManager.complete(Integer.parseInt(tokens[1]));
+                taskManager.complete(Integer.parseInt(tokens[TASK_NUMBER_INDEX]));
                 break;
             case END_COMMAND:
                 isEnd = true;
