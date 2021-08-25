@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
+
 class Task {
     private boolean isDone;
     private String taskName;
 
+    // constructors
     public Task(boolean isDone, String taskName) {
         this.isDone = isDone;
         this.taskName = taskName;
@@ -13,6 +15,7 @@ class Task {
         this(false, "Nothing");
     }
 
+    // getters
     public boolean isDone() {
         return isDone;
     }
@@ -21,6 +24,7 @@ class Task {
         return taskName;
     }
 
+    // setters
     public void setDone(boolean done) {
         isDone = done;
     }
@@ -31,26 +35,65 @@ class Task {
 }
 
 public class Duke {
-    public static void main(String[] args) {
-        // list to store all tasks
-        Task[] tasks = new Task[100];
-        int tasksCounter = 0;
-        String friday = "  __      _     _             \n"
-                + " / _|    (_)   | |            \n"
-                + "| |_ _ __ _  __| | __ _ _   _ \n"
-                + "|  _| '__| |/ _` |/ _` | | | |\n"
-                + "| | | |  | | (_| | (_| | |_| |\n"
-                + "|_| |_|  |_|\\__,_|\\__,_|\\__, |\n"
-                + "                         __/ |\n"
-                + "                        |___/ \n";
-        String dashes = "____________________________________________________________\n";
+    // Task array with counter to keep track of array index to add
+    private static Task[] tasks = new Task[100];
+    private static int tasksCounter = 0;
+    private static String friday = "  __      _     _             \n"
+            + " / _|    (_)   | |            \n"
+            + "| |_ _ __ _  __| | __ _ _   _ \n"
+            + "|  _| '__| |/ _` |/ _` | | | |\n"
+            + "| | | |  | | (_| | (_| | |_| |\n"
+            + "|_| |_|  |_|\\__,_|\\__,_|\\__, |\n"
+            + "                         __/ |\n"
+            + "                        |___/ \n";
+    private static String dashes = "____________________________________________________________\n";
 
-        // greet user
+    // greet user: called at the start of the program
+    public static void greetUser() {
         System.out.print(dashes);
         System.out.println(friday);
         System.out.println("Initiating FRIDAY");
         System.out.println("Hello Mr Stark, how may I be of assistance to you today");
         System.out.print(dashes);
+    }
+
+    // get list: prints out list of tasks upon user command "list"
+    public static void getList() {
+        System.out.print(dashes);
+        System.out.println("Listing all tasks for today.");
+        for (Task task : tasks) {
+            if (task == null) {
+                break;
+            }
+            System.out.print(">");
+            String checkbox = "[ ]";
+            if (task.isDone()) {
+                checkbox = "[X]";
+            }
+            System.out.println(checkbox + task.getTaskName());
+        }
+        System.out.print(dashes);
+    }
+
+    // add task: when user types in a task (not list, done or bye command).
+    // @params in: Task instance of new task created + string of task name
+    public static void addTask(Task newTask, String userInput) {
+        tasks[tasksCounter++] = newTask;
+        System.out.print(dashes);
+        System.out.println("Very well, adding task \"" + userInput + "\"");
+        System.out.print(dashes);
+    }
+
+    // exit program: message printed when user exits program
+    public static void exitProgram() {
+        String exit = dashes
+                + "Powering Off now. Good Bye Mr Stark.\n"
+                + dashes;
+        System.out.println(exit);
+    }
+
+    public static void main(String[] args) {
+        greetUser();
 
         // Scan in user input of tasks
         String userInput = "";
@@ -62,26 +105,14 @@ public class Duke {
             }
             // if user lists
             if (userInput.equals("list")) {
-                System.out.print(dashes);
-                System.out.println("Listing all tasks for today.");
-                for (Task task : tasks) {
-                    if (task == null) {
-                        break;
-                    }
-                    System.out.print(">");
-                    String checkbox = "[ ]";
-                    if (task.isDone()) {
-                        checkbox = "[X]";
-                    }
-                    System.out.println(checkbox + task.getTaskName());
-                }
-                System.out.print(dashes);
+                getList();
                 continue;
             }
             // if user wants to mark as done
             if (userInput.startsWith("done")) {
                 // get index of task to change
                 int taskIndex = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1)) - 1;
+
                 // if task out of bounds
                 if (taskIndex < 0 || taskIndex > 99) {
                     System.out.println(dashes);
@@ -104,17 +135,9 @@ public class Duke {
                 System.out.println(dashes);
                 continue;
             }
-            // add to list
+            // add to list if not list, bye or done command
             Task newTask = new Task(false, userInput);
-            tasks[tasksCounter++] = newTask;
-            System.out.print(dashes);
-            System.out.println("Very well, adding task \"" + userInput + "\"");
-            System.out.print(dashes);
+            addTask(newTask, userInput);
         }
-
-        String exit = "____________________________________________________________\n"
-                + "Powering Off now. Good Bye Mr Stark.\n"
-                + "____________________________________________________________\n";
-        System.out.println(exit);
     }
 }
