@@ -25,7 +25,7 @@ public class Task {
     /**
      * Sets a particular task to done.
      */
-    public void markAsDone () {
+    public void markAsDone() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done: ");
         printStatus();

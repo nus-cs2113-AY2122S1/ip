@@ -44,9 +44,9 @@ public class Duke {
      * exception and print it out if any.
      *
      * @throws IOException Trying to read the .txt file which user do not have permission or a
-     * .txt file that does not exist.
+     *                     .txt file that does not exist.
      */
-	public static void printParrotText(){
+    public static void printParrotText() {
         try {
             /**
              * Note that the text file must be placed at the base java directory,
@@ -66,13 +66,13 @@ public class Duke {
         }
 
         System.out.println("");
-	}
+    }
 
     /**
      * Adds a new task with the task name provided.
      */
-    public static void printTaskList(){
-	    for (int i = 0; i < numberOfTasks; i += 1) {
+    public static void printTaskList() {
+        for (int i = 0; i < numberOfTasks; i += 1) {
             System.out.print((i + 1) + ".");
             tasks[i].printStatus();
         }
