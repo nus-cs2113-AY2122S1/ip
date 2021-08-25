@@ -3,9 +3,9 @@ public class Task {
     private boolean isCompleted;
 
     /**
-     * Constructor for Task, task is marked as not completed
+     * Constructor for Task, task is marked as not completed.
      *
-     * @param taskName the String containing the name of the task
+     * @param taskName the String containing the name of the task.
      */
     public Task(String taskName) {
         this.taskName = taskName;
@@ -13,34 +13,34 @@ public class Task {
     }
 
     /**
-     * Marks task as completed
+     * Marks task as completed.
      */
     public void setCompleted() {
         isCompleted = true;
     }
 
     /**
-     * Returns task name
+     * Returns task name as String.
      *
-     * @return the String of the task name
+     * @return the String of the task name.
      */
     public String getTaskName() {
         return taskName;
     }
 
     /**
-     * Returns whether the task is completed
+     * Returns whether the task is completed.
      *
-     * @return the Boolean of whether the task is completed
+     * @return the Boolean of whether the task is completed.
      */
     public boolean isCompleted() {
         return isCompleted;
     }
 
     /**
-     * Creates a description of the task containing whether it has been completed and its name
+     * Creates a description of the task containing whether it has been completed and its name.
      *
-     * @return a String describing the task
+     * @return a String describing the task.
      */
     public String toString() {
         String checkbox;

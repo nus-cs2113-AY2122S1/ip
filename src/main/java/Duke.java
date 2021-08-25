@@ -7,7 +7,7 @@ public class Duke {
     }
 
     /**
-     * Prints the Duke application logo in the terminal
+     * Prints the Duke application logo in the terminal.
      */
     public static void printAppLogo() {
         String logo = " ____        _        \n"
@@ -19,7 +19,7 @@ public class Duke {
     }
 
     /**
-     * Prints a horizontal line in the terminal
+     * Prints a horizontal line in the terminal.
      */
     public static void printLine() {
         System.out.println("  ──────────────────────────────");
@@ -32,7 +32,7 @@ public class Duke {
     }
 
     /**
-     * Prints the application exit message in the terminal
+     * Prints the application exit message in the terminal.
      */
     public static void printExitMessage() {
         printLine();
@@ -41,9 +41,9 @@ public class Duke {
     }
 
     /**
-     * Gets user input and returns it as a String
+     * Gets user input and returns it as a String.
      *
-     * @return the String containing the user input
+     * @return the String containing the user input.
      */
     public static String getUserInput() {
         String line;
@@ -53,7 +53,7 @@ public class Duke {
     }
 
     /**
-     * Starts Duke, repeatedly waits for and executes user commands until exit command is received
+     * Starts Duke, repeatedly waits for and executes user commands until exit command is received.
      */
     public static void interactWithUser() {
         boolean isInteracting = true;
