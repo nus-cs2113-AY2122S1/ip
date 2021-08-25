@@ -26,14 +26,14 @@ public class Task {
      *
      * @return Icon of status
      */
-    public String getStatusIcon(){
-        return (isDone ? "X": " ");
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
     /**
      * Set status of task to be completed.
      */
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
     }
 }
