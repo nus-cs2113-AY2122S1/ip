@@ -96,7 +96,7 @@ public class Duke {
         //if bye is the input
         System.out.println("    ____________________________________________________________");
         System.out.print("    ");
-        System.out.println("Bye, my friend :( hehe");
+        System.out.println("Bye, my friend :(");
         System.out.println("    ____________________________________________________________");
 
     }
