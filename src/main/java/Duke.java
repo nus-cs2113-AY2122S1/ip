@@ -1,10 +1,8 @@
 package main.java;
 
-
 import java.util.Scanner;
 
 class Duke {
-
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
         int index = 0;
@@ -18,7 +16,7 @@ class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
-        while(!input.equals("bye")) {
+        while (!input.equals("bye")) {
             if (input.equals("list")) {
                 for (int i = 0; i < index; i++) {
                     System.out.println(tasks[i].getStatus() + (i+1) + ". " + tasks[i].getTaskName()
