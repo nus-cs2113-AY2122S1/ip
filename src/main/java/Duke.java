@@ -1,21 +1,16 @@
 import java.util.Scanner;
 
-class List {
-    private int size;
-    private String[] list = new String[size];
-}
-
 public class Duke {
 
     static String[] addtoList(String[] list, int size, String input) {
         String[] newlist = new String[size];
         if (size == 1) {
-            newlist[0] = input;
+            newlist[0] = "[ ] " + input;
         } else {
             for (int i = 0; i < (size-1); i++) {
                 newlist[i] = list[i];
             }
-            newlist[size - 1] = input;
+            newlist[size - 1] = "[ ] " + input;
         }
         return newlist;
     }
@@ -85,8 +80,25 @@ public class Duke {
                 command = in.nextLine();
             } else if (command.equals("show list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here is your list:");
                 for (int i = 1; i <= size; i++) {
                     System.out.println(i + ". " + list[i - 1]);
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println("type in your command please");
+                System.out.println("____________________________________________________________");
+                command = in.nextLine();
+            } else if (command.startsWith("done ")) {
+                String no_of_string = command.substring(5);
+                int no_of_int = Integer.parseInt(no_of_string);
+                if (no_of_int <= size) {
+                    list[no_of_int-1] = list[no_of_int-1].replace("[ ]", "[√]");
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(list[no_of_int-1]);
+                } else {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Ops! This is not in your list!");
                 }
                 System.out.println("____________________________________________________________");
                 System.out.println("type in your command please");
