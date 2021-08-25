@@ -18,6 +18,7 @@ public class ChatBot {
     }
 
     public void startEcho() {
+        printDivider();
         System.out.println("You have entered echo mode! Type exit to quit this mode.");
         printDivider();
 
@@ -39,6 +40,7 @@ public class ChatBot {
     }
 
     public void startToDo() {
+        printDivider();
         System.out.println("You have entered todo mode! Type exit to quit this mode.");
         printDivider();
         ListItem[] list = new ListItem[100];
