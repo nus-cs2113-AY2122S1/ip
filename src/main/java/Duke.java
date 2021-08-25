@@ -4,6 +4,7 @@ import java.util.Arrays;
 public class Duke {
     private static int taskCount = 0;
     private static Task[] tasks = new Task[100];
+    private static boolean hasInvalidIndex = false;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -54,6 +55,8 @@ public class Duke {
     public static int[] filterIndexes(String[] inputs) {
         int[] indexes = new int[inputs.length];
         int indexCount = 0;
+        String[] invalidIndexes = new String[inputs.length];
+        int invalidCount = 0;
 
         for (String input : inputs) {
             try {
@@ -61,7 +64,16 @@ public class Duke {
                 indexes[indexCount] = index;
                 indexCount++;
             } catch (NumberFormatException nfe) {
-                System.out.println(inputs[indexCount] + " is not a valid index");
+                invalidIndexes[invalidCount] = input;
+                invalidCount++;
+                hasInvalidIndex = true;
+            }
+        }
+
+        if (invalidCount != 0) {
+            System.out.println("   ____________________________________________________________");
+            for (int i = 0; i < invalidCount; i++) {
+                System.out.println("       " + invalidIndexes[i] + " is not a valid index.");
             }
         }
 
@@ -97,19 +109,38 @@ public class Duke {
     public static void setDone(int[] indexes) {
         int[] invalidIndexes = new int[indexes.length];
         int[] validIndexes = new int[indexes.length];
+        int[] doneIndexes = new int[indexes.length];
         int invalidCount = 0;
         int validCount = 0;
+        int doneCount = 0;
 
-        System.out.println("   ____________________________________________________________");
         for (int index : indexes) {
             if (index - 1 >= taskCount) {
                 invalidIndexes[invalidCount] = index;
                 invalidCount++;
+            } else if (tasks[index - 1].getStatusIcon().equals("X")) {
+                doneIndexes[doneCount] = index;
+                doneCount++;
             } else {
                 tasks[index - 1].markAsDone();
                 validIndexes[validCount] = index;
                 validCount++;
             }
+        }
+
+        if (invalidCount + validCount + doneCount == 0 && hasInvalidIndex) {
+            System.out.println("   ____________________________________________________________");
+            hasInvalidIndex = false;
+            return;
+        } else if (invalidCount + validCount + doneCount == 0) {
+            return;
+        }
+
+        if (!hasInvalidIndex) {
+            System.out.println("   ____________________________________________________________");
+        } else {
+            hasInvalidIndex = false;
+            System.out.print("\n");
         }
 
         if (validCount != 0) {
@@ -119,8 +150,15 @@ public class Duke {
             }
         }
 
+        if (doneCount != 0) {
+            System.out.print("\n");
+            for (int j = 0; j < doneCount; j++) {
+                System.out.println("       Ignoring entry " + doneIndexes[j] + " as it has been done before.");
+            }
+        }
+
         if (invalidCount != 0) {
-            System.out.println("");
+            System.out.print("\n");
             for (int i = 0; i < invalidCount; i++) {
                 System.out.println("       Entry " + invalidIndexes[i] + " does not exist.");
             }
