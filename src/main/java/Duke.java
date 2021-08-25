@@ -2,7 +2,18 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static Task[] tasks = new Task[110];
+    private static int taskSum = 0;
 
+    public static void printList() {
+        Task now;
+        System.out.println("____________________________________________________________");
+        for(int i=0; i<taskSum; i++){
+            now = tasks[i];
+            System.out.println(" " + (i+1) + "." + now.content);
+        }
+        System.out.println("____________________________________________________________");
+    }
     public static void bye() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
@@ -24,11 +35,19 @@ public class Duke {
 
         do{
             command = in.nextLine();
-
-                System.out.println("____________________________________________________________");
-                System.out.println(command);
-                System.out.println("____________________________________________________________");
-
+            switch (command){
+                case "list":
+                    printList();
+                    break;
+                    case "bye":
+                        break;
+                    default:
+                        tasks[taskSum] = new Task(command);
+                        taskSum = taskSum + 1;
+                        System.out.println("____________________________________________________________");
+                        System.out.println("added:" + command);
+                        System.out.println("____________________________________________________________");
+            }
         }while(!command.equals("bye"));
         bye();
 
