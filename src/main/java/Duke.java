@@ -8,6 +8,8 @@ public class Duke {
                 + "|  o  \\|  o  ||  o  \\|  o  |\n"
                 + "|_____/|_____||_____/|_____|\n";
         String HORIZONTAL_LINE = "____________________________________________________________";
+        String[] tasks = new String[100];
+        int taskPointer = 0;
         String line;
         boolean isRunning = true;
         Scanner in = new Scanner(System.in);
@@ -22,9 +24,17 @@ public class Duke {
             line = in.nextLine();
             if (line.equals("bye")) {
                 isRunning = false;
-            } else {
+            } else if(line.equals("list")) {
                 System.out.println(HORIZONTAL_LINE);
-                System.out.println(line);
+                for (int i = 0; i < taskPointer; i++) {
+                    System.out.println((i+1) + ". " + tasks[i]);
+                }
+                System.out.println(HORIZONTAL_LINE);
+            } else {
+                tasks[taskPointer] = line;
+                taskPointer++;
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("umm ok added: " + line);
                 System.out.println(HORIZONTAL_LINE);
             }
         }
