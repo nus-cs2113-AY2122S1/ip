@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static final String horizontalLine = "____________________________________________________________\n";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
     public static void main(String[] args) {
 
@@ -15,33 +15,33 @@ public class Duke {
                 "|_______/[___][___][___][\\_:  /   \n" +
                 "                         \\__.'    \n";
 
-        String greetingMessage = horizontalLine +
+        String greetingMessage = HORIZONTAL_LINE +
                 " Hello! I'm Billy\n" +
                 " What can I do for you?\n" +
-                horizontalLine;
-        String goodbyeMessage = horizontalLine +
+                HORIZONTAL_LINE;
+        String goodbyeMessage = HORIZONTAL_LINE +
                 " Bye. Hope to see you again soon!\n" +
-                horizontalLine;
+                HORIZONTAL_LINE;
 
-        boolean programIsRunning = true;
+        boolean isProgramRunning = true;
         String userInput;
         List<Task> list = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         System.out.println("Hello from\n" + logo + greetingMessage);
 
-        while (programIsRunning) {
+        while (isProgramRunning) {
             userInput = in.nextLine().trim();
 
             if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println(goodbyeMessage);
-                programIsRunning = false;
+                isProgramRunning = false;
             } else if (userInput.equalsIgnoreCase("list")) {
                 printList(list);
             } else if (userInput.toLowerCase().startsWith("done")) {
                 markTasksAsDone(userInput, list);
             } else {
                 list.add(new Task(userInput));
-                System.out.println(horizontalLine + "added: " + userInput + "\n" + horizontalLine);
+                System.out.println(HORIZONTAL_LINE + "added: " + userInput + "\n" + HORIZONTAL_LINE);
             }
         }
 
@@ -49,12 +49,12 @@ public class Duke {
 
     public static void printList(List<Task> list) {
         Task task;
-        System.out.println(horizontalLine + "Here are the tasks in your list:");
+        System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             task = list.get(i);
             System.out.println((i + 1) + ". [" + task.getStatusIcon() + "] " + task.getDescription());
         }
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
@@ -69,12 +69,12 @@ public class Duke {
 
         // Error handling: if user inputs no numbers or task number 0
         if (tasksToMarkDone[0] == 0 || tasksToMarkDone[0] == -1) {
-            System.out.println(horizontalLine +
+            System.out.println(HORIZONTAL_LINE +
                     "Please provide me with a valid task to mark as done/not done!\n" +
-                    "Usage example:\n" +
+                    "Some usage examples:\n" +
                     "-> Done 1, 2, 3\n" +
                     "-> Done 1 2 3\n" +
-                    horizontalLine);
+                    HORIZONTAL_LINE);
             return;
         }
 
@@ -93,7 +93,7 @@ public class Duke {
             System.out.println("[" + list.get(taskNumber - 1).getStatusIcon() + "] " +
                     list.get(taskNumber - 1).getDescription());
         }
-        System.out.println("All done!\n" + horizontalLine);
+        System.out.println("All done!\n" + HORIZONTAL_LINE);
     }
 
     /**
@@ -109,7 +109,7 @@ public class Duke {
         input = input.replaceAll("[^\\d]", " ");
         input = input.trim();
 
-        // Replace consecutive white spaces with a single space
+        // Split the integers (if any) using whitespace(s) as the delimiter
         String[] arrayOfStringInts = input.split(" +");
         int[] extractedInts = new int[arrayOfStringInts.length];
 
