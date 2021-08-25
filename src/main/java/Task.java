@@ -1,12 +1,28 @@
 import java.util.*;
 
 public class Task {
-    public String taskName;
-    public boolean completed;
+    protected String taskName;
+    protected boolean completed;
     public Task(){}
 
     public Task(String description, boolean completed) {
         this.taskName = description;
+        this.completed = completed;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 

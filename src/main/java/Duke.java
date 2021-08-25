@@ -3,7 +3,8 @@ import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Task task = new Task();
+        int taskListIndex;
+        Task currentTask = new Task();
         LinkedList<Task> savedTasks = new LinkedList<Task>();
         TaskList taskList = new TaskList(savedTasks);
         String welcomeMessage = "______________________________\n"
@@ -21,11 +22,12 @@ public class Duke {
                 System.out.println("______________________________\n");
                 taskList.listTasks();
                 System.out.println("______________________________\n");
-            }  else if("done".equals(userInput)){
-                task.markTaskAsDone();
+            }  else if(userInput.contains("done")){
+                taskListIndex = Integer.parseInt(identifyUserInput(userInput));
+                currentTask = taskList.findTask(taskListIndex);
+                currentTask.markTaskAsDone();
             }else {
-                task.taskName = userInput;
-                task.completed = false;
+                Task task = new Task(userInput, false);
                 taskList.addTasks(task);
                 System.out.println("______________________________\n");
                 System.out.println(task.taskName + " has been added!\n");
@@ -36,5 +38,11 @@ public class Duke {
         if("bye".equals(userInput)) {
             System.out.print(goodbyeMessage);
         }
+    }
+
+    public static String identifyUserInput(String userInput){
+        String[] parts = userInput.split(" ");
+        String taskIndex = parts[1];
+        return taskIndex;
     }
 }
