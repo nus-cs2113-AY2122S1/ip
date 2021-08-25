@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Duke {
     public static void main(String[] args) {
@@ -8,17 +9,16 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.println("    Hello from\n" + logo);
         System.out.println("    _______________________________");
         System.out.println("    What up Dawg! I'm Duke");
         System.out.println("    What can I do for you?");
 
-        String input = scanner.nextLine();
-
-        // Initialise tasks
         int tasksCount = 0;
         Task[] tasks = new Task[100];
+
+        String input = scan.nextLine();
 
         while (!input.equals("bye")) {
             if (input.equals("list")) {
@@ -29,18 +29,17 @@ public class Duke {
                 }
                 System.out.println("\t_______________________________");
             } else {
-                if (input.length() >= 6 && input.substring(0,3) == "done") {
-                    //int a = Integer.parseInt(arr[1]) - 1;
-                    System.out.println("ok");
-                    /*
-                    if (a >= 1 && a <= tasksCount) {
-                        tasks[a].markAsDone();
+                // contains at least one digit \d+
+                if (Pattern.matches("done \\d+", input)) {
+                    //remove non-digits
+                    String number = input.replaceAll("\\D+", "");
+                    int n = Integer.parseInt(number);
+                    if (n >= 1 && n <= tasksCount) {
+                        tasks[n - 1].markAsDone();
                         System.out.println("\t_______________________________");
                         System.out.println("\tNice! I've marked this as done.");
-                        System.out.println("\t\t[X] " + tasks[a].description);
+                        System.out.println("\t\t[X] " + tasks[n - 1].description);
                     }
-
-                     */
                 } else { // add task
                     tasks[tasksCount] = new Task(input);
                     System.out.println("\t_______________________________");
@@ -49,7 +48,7 @@ public class Duke {
                     tasksCount++;
                 }
             }
-            input = scanner.nextLine();
+            input = scan.nextLine();
         }
 
         System.out.println("\t_______________________________");
