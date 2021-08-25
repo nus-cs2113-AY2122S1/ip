@@ -15,7 +15,7 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
 
-        //Initialize List (elements are initialized as null)
+        //Initialize List
         Task[] toDo = new Task[10];
         int trackIndex = 0;
         //Initialize bool to check whether program should exit loop
