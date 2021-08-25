@@ -19,29 +19,27 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
 
-        String line;
+        String input;
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        input = in.nextLine();
 
         int taskCount = 1;
         boolean isBye = false;
 
         while (!isBye){
-            if (line.equalsIgnoreCase(("bye"))){
+            if (input.equalsIgnoreCase(("bye"))){
                 isBye = true;
             }
-            else if (line.equalsIgnoreCase("list")){
+            else if (input.equalsIgnoreCase("list")){
                 requestList(taskCount);
-                line = in.nextLine();
+                input = in.nextLine();
             }
             else {
-                addTask(line, text, taskCount);
+                addTask(input, text, taskCount);
                 taskCount++;
-                line = in.nextLine();
+                input = in.nextLine();
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
-
-
 }
