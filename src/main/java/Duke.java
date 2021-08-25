@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 
 
 public class Duke {
@@ -10,7 +10,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         Greet.greet();
-        Echo.operateEcho();
+        Add.addCommand();
 
 
     }

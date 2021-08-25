@@ -9,7 +9,6 @@ public class Echo {
     }
 
     public static void operateEcho() {
-        //String commands = "";
         while (!Objects.equals(commands, "bye")) {
             Scanner in = new Scanner(System.in);
             commands = in.nextLine();
