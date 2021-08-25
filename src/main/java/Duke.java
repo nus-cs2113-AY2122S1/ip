@@ -14,8 +14,8 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
         System.out.println("How can I assist you? Type something below! :D\n");
-        ChatBot cb = new ChatBot();
-        cb.chatFunction();
+        ChatBot ryan = new ChatBot();
+        ryan.chatFunction();
 
     }
 }

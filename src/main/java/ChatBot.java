@@ -3,10 +3,17 @@ import java.util.Scanner;
 public class ChatBot {
     public Scanner in = new Scanner(System.in);
 
+    /** Prints a divider for ChatBot */
     public void printDivider() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Checks for isDone in ListItem object and outputs [X] if true or [ ] if false.
+     *
+     * @param isDone boolean to see if task is done
+     * @return output String that contains [X] or [ ]
+     */
     public String printDone(boolean isDone) {
         String output;
         if (isDone) {
@@ -17,6 +24,7 @@ public class ChatBot {
         return output;
     }
 
+    /** Begins the echo state until exit is called */
     public void startEcho() {
         printDivider();
         System.out.println("You have entered echo mode! Type exit to quit this mode.");
@@ -39,6 +47,7 @@ public class ChatBot {
         }
     }
 
+    /** Begins the task state until exit is called */
     public void startToDo() {
         printDivider();
         System.out.println("You have entered todo mode! Type exit to quit this mode.");
@@ -97,6 +106,10 @@ public class ChatBot {
         }
     }
 
+    /**
+     * Starts the chat and allows user to choose
+     * the functionality in this state.
+     */
     public void chatFunction() {
 
         while (true) {
