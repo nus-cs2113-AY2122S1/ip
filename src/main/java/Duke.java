@@ -18,11 +18,7 @@ public class Duke {
             Scanner myObj = new Scanner(System.in);
             String userInput = myObj.nextLine();
             if (Objects.equals(userInput, "bye")) {
-                System.out.println("""
-                        _______________________________________________________
-                        Bye! Hope to see you again soon.
-                        _______________________________________________________
-                        """);
+                System.out.println("_______________________________________________________\n" + "Bye! Hope to see you again soon." + "\n" + "_______________________________________________________\n");
                 break;
             }
             System.out.println("_______________________________________________________\n" + userInput + "\n" + "_______________________________________________________\n");
