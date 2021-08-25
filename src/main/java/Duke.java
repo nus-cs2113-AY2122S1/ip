@@ -1,7 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+
         printBanner();
         String cmd;
         Scanner in = new Scanner(System.in);
@@ -10,12 +13,21 @@ public class Duke {
             cmd = in.nextLine();
             if (cmd.equals("bye")) {
                 System.out.println("____________________________________________________________");
-                System.out.println(" Bye. Hope to see you again soon!");
+                System.out.println(" Bye, Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else {
+            } else if (cmd.equals("list")) {
+
                 System.out.println("____________________________________________________________");
-                System.out.println(" " + cmd);
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println(" " + (i+1) + ": " + tasks.get(i).getDescription());
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                Task newTask = new Task(cmd);
+                tasks.add(newTask);
+                System.out.println("____________________________________________________________");
+                System.out.println(" [+] Added: "+cmd);
                 System.out.println("____________________________________________________________");
             }
         }
@@ -30,8 +42,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Duke");
-        System.out.println(" What can I do for you?");
+        System.out.println(" Hello! I'm Duke, what can I do for you?");
         System.out.println("____________________________________________________________");
     }
 }
