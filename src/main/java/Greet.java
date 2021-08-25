@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Greet {
     public static void main (String[] args) {
+        String[] tasks = new String[100];
+        int ntasks = 0;
         System.out.println("Hello! I'm Duke");
         String line;
         Scanner in = new Scanner(System.in);
@@ -10,8 +12,15 @@ public class Greet {
         line = in.nextLine();
         boolean bool1 = false;
         while (!bool1) {
-            System.out.println(line);
+            System.out.println("added: " + line);
+            tasks[ntasks]= line;
+            ntasks += 1;
             line = in.nextLine();
+            if (line.equals("list")) {
+                for (int i = 0; i < ntasks; i += 1) {
+                    System.out.println((i+1) + ". " + tasks[i]);
+                }
+            }
             if (line.contains("bye")) {
                 bool1 = true;
             }
