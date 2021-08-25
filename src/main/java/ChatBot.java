@@ -42,6 +42,7 @@ public class ChatBot {
     public void startToDo() {
         printDivider();
         System.out.println("You have entered todo mode! Type exit to quit this mode.");
+        System.out.println("Current commands: list, done (number)");
         printDivider();
         ListItem[] list = new ListItem[100];
         int idx = 0;
@@ -111,9 +112,8 @@ public class ChatBot {
                 startEcho();
                 break;
             default:
-                System.out.println("Wrong command! Please select a mode.");
-
                 printDivider();
+                System.out.println("Wrong command! Please select a mode.");
             }
         }
     }
