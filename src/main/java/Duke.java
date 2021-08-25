@@ -8,8 +8,7 @@ public class Duke {
                 + "|  o  \\|  o  ||  o  \\|  o  |\n"
                 + "|_____/|_____||_____/|_____|\n";
         String HORIZONTAL_LINE = "____________________________________________________________";
-        String[] tasks = new String[100];
-        int taskPointer = 0;
+
         String line;
         boolean isRunning = true;
         Scanner in = new Scanner(System.in);
@@ -26,13 +25,19 @@ public class Duke {
                 isRunning = false;
             } else if(line.equals("list")) {
                 System.out.println(HORIZONTAL_LINE);
-                for (int i = 0; i < taskPointer; i++) {
-                    System.out.println((i+1) + ". " + tasks[i]);
+                for (int i = 0; i < Task.numberOfTasks; i++) {
+                    System.out.println((i+1) + ".[" + Task.getTask(i).getStatusIcon() + "] " + Task.getTask(i).getDescription());
                 }
                 System.out.println(HORIZONTAL_LINE);
+            } else if (line.startsWith("done")) {
+                int taskNumber = Integer.parseInt(line.substring(4).trim()) - 1;
+                Task.getTask(taskNumber).markAsDone();
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("Okie! Marked this as done: ");
+                System.out.println((taskNumber+1) + ".[" + Task.getTask(taskNumber).getStatusIcon() + "] " + Task.getTask(taskNumber).getDescription());
+                System.out.println(HORIZONTAL_LINE);
             } else {
-                tasks[taskPointer] = line;
-                taskPointer++;
+                Task t = new Task(line);
                 System.out.println(HORIZONTAL_LINE);
                 System.out.println("umm ok added: " + line);
                 System.out.println(HORIZONTAL_LINE);
