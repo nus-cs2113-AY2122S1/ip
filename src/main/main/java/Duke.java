@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -14,15 +16,19 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String line;
-        Task[] list = new Task[100]; //create an array of Tasks
-        int listCount = 0; //keep position count for array
+        //create an array of Tasks
+        Task[] list = new Task[100];
+        //keep position count for array
+        int listCount = 0;
 
-        do{
+        do {
             line = in.nextLine();
-            if (line.toLowerCase().equals("bye")){ //end the loop if user says bye
+            if (line.toLowerCase().equals("bye")){
+                //end the loop if user says bye
                 System.out.println(exit);
                 break;
-            } else if (line.toLowerCase().equals("list")){ //display list if user says list
+            } else if (line.toLowerCase().equals("list")){
+                //display list if user says list
                 System.out.println("____________________________________________________________\n"
                         + "Here are the tasks in your list:");
                 for(int i = 0; i < listCount; i++){
@@ -30,10 +36,14 @@ public class Duke {
                 }
                 System.out.println("____________________________________________________________\n");
                 continue;
-            } else if (line.toLowerCase().contains("done")){ //mark task as done if user says done
-                int dividerPosition = line.indexOf(" "); //find divider pos between done and int
-                int taskNum = Integer.parseInt(line.substring(dividerPosition+1)); //convert to int from str
-                list[taskNum-1].markAsDone(); //mark the task as done
+            } else if (line.toLowerCase().contains("done")){
+                //mark task as done if user says done
+                //find divider pos between done and int
+                int dividerPosition = line.indexOf(" ");
+                //convert to int from str
+                int taskNum = Integer.parseInt(line.substring(dividerPosition+1));
+                //mark the task as done
+                list[taskNum-1].markAsDone();
                 System.out.println("____________________________________________________________\n"
                         + "Nice! I've marked this task as done:");
                 System.out.println(" [" + list[taskNum-1].getStatusIcon() + "] " + list[taskNum-1].description);

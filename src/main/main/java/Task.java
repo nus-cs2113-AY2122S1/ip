@@ -1,3 +1,5 @@
+package main.java;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -8,11 +10,13 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void markAsDone(){
-        this.isDone = true; //change isDone for task to true
+        //change isDone for task to true
+        this.isDone = true;
     }
 
 }
