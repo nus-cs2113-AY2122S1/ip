@@ -96,7 +96,20 @@ public class Shika {
     }
 
     public static void deleteTask(ArrayList<Task> tasks, String text) {
-
+        String str = text.substring(text.indexOf("delete") + 6).trim();
+        try {
+            int index = Integer.parseInt(str) - 1;
+            System.out.println(line + "> You've removed: " + "\n\t"
+                    + (index + 1) + ". " + tasks.get(index).toString());
+            tasks.remove(index);
+            Task.count -= 1;
+            printTaskCount();
+            System.out.print(line);
+        } catch (NumberFormatException e) {
+            System.out.print(line + "> Please key in a number.\n" + line);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print(line + "> That task does not exist.\n" + line);
+        }
     }
 
     /**
@@ -136,6 +149,7 @@ public class Shika {
         Task.count += 1;
         System.out.println(line + "> Added: " + "\n\t"
                 + Task.count + ". " + tasks.get(Task.count - 1).toString());
+        printTaskCount();
         System.out.print(line);
     }
 
@@ -155,6 +169,7 @@ public class Shika {
         Task.count += 1;
         System.out.println(line + "> Added: " + "\n\t"
                 + Task.count + ". " + tasks.get(Task.count - 1).toString());
+        printTaskCount();
         System.out.print(line);
     }
 
@@ -174,6 +189,7 @@ public class Shika {
         Task.count += 1;
         System.out.println(line + "> Added: " + "\n\t"
                 + Task.count + ". " + tasks.get(Task.count - 1).toString());
+        printTaskCount();
         System.out.print(line);
     }
 
@@ -226,7 +242,13 @@ public class Shika {
         for (int i = 0; i < Task.count; i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
+        printTaskCount();
         System.out.print(line);
+    }
+
+    public static void printTaskCount() {
+        String taskForm = (Task.count == 1) ? "task" : "tasks";
+        System.out.println("> You have " + Task.count + " " + taskForm + " on your list. -w-") ;
     }
 }
 
