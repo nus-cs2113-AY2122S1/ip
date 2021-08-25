@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 public class Duke {
     private static boolean isFail = false;
+
     public static void printLine() {
         System.out.println("                 ...                 ");
     }
@@ -56,10 +57,10 @@ public class Duke {
         }
         AccountDetail user = new AccountDetail();
         System.out.print("Username [dukeBot]: ");
-        user.setUsername(in.nextLine());
+        AccountDetail.setUsername(in.nextLine());
         System.out.print("Password [bukeDot]: ");
-        user.setPassword(in.nextLine());
-        sayHi(user.getUsername());
+        AccountDetail.setPassword(in.nextLine());
+        sayHi(AccountDetail.getUsername());
         String command;
         Task[] taskList = new Task[100];
         int taskCount = 0;
@@ -97,6 +98,11 @@ public class Duke {
                 taskList = new Task[100];
                 taskCount = 0;
                 break;
+            case ("mascot"):
+                Mascot Jim = new Mascot();
+                String text = in.nextLine();
+                Mascot.penguinSay(text);
+                break;
             case ("bye"):
                 break;
             default:
@@ -108,7 +114,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke bot = new Duke();
-        bot.runDuke();
+        runDuke();
     }
 
 }
