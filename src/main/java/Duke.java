@@ -2,13 +2,14 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
+    private static boolean isFail = false;
     public static void printLine() {
         System.out.println("                 ...                 ");
     }
 
-    public static void sayHi() {
+    public static void sayHi(String username) {
         printLine();
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello " + username + "!" + "\n" + "I'm Duke");
         System.out.println("What can I do for you?");
         printLine();
     }
@@ -28,7 +29,7 @@ public class Duke {
 
     public static void listTasks(Task[] items) {
         int in = 1;
-        System.out.println(" / start of list / ");
+        System.out.println(" /          / ");
         for (Task item : items) {
             if (item != null) {
                 String tick = (item.isDone()) ? "✓" : " ";
@@ -36,12 +37,29 @@ public class Duke {
                 in++;
             }
         }
-        System.out.println(" / end of list / ");
+        System.out.println(" /          / ");
     }
 
-    public static void main(String[] args) {
+    public static boolean getIsFail() {
+        return isFail;
+    }
+
+    public static void setIsFail() {
+        isFail = Boolean.logicalXor(isFail, true);
+    }
+
+    public static void runDuke() {
         Scanner in = new Scanner(System.in);
-        sayHi();
+        if (Duke.getIsFail()) {
+            System.out.println("        bot failed, sometimes we all need a break       ");
+            return;
+        }
+        AccountDetail user = new AccountDetail();
+        System.out.print("Username [dukeBot]: ");
+        user.setUsername(in.nextLine());
+        System.out.print("Password [bukeDot]: ");
+        user.setPassword(in.nextLine());
+        sayHi(user.getUsername());
         String command;
         Task[] taskList = new Task[100];
         int taskCount = 0;
@@ -87,4 +105,10 @@ public class Duke {
         } while (!command.equals("bye"));
         sayGoodbye();
     }
+
+    public static void main(String[] args) {
+        Duke bot = new Duke();
+        bot.runDuke();
+    }
+
 }

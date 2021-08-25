@@ -1,7 +1,7 @@
 public class Task {
     private String description;
     private boolean isDone = false;
-    private int howLong;
+    private int howLong = 0;
 
     public Task(String description) {
         this.description = description;
