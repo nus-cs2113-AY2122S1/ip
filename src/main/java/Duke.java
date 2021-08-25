@@ -24,8 +24,8 @@ public class Duke {
                     // if there are no tasks in the list
                     System.out.println("No items were added into the list.");
                 } else {
-                    System.out.println("Below are the list of tasks in your list:");
                     int i;
+                    System.out.println("Below are the list of tasks in your list:");
                     for (i = 0; i < count; i++) {
                         System.out.print((i + 1) + ". ");
                         tasks[i].printTask();
@@ -33,7 +33,7 @@ public class Duke {
                 }
             } else if (line.contains("done")){
                 int index = Integer.parseInt(line.substring(5)) - 1;
-                if (index >= count) {
+                if ((index >= count) || (index < 0)){
                     // if the task is not assigned to the number given by the user
                     System.out.println("The task number is invalid.");
                 } else {
