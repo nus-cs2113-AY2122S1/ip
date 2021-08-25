@@ -26,7 +26,7 @@ public class Duke {
             echo(line);
             line = in.nextLine();
         }
-        
+
         System.out.println(exit);
     }
 }
