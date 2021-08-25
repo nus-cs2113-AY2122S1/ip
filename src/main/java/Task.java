@@ -14,5 +14,4 @@ public class Task {
     public String getInformation() {
         return (Done ? "X" : " ");
     }
-
 }

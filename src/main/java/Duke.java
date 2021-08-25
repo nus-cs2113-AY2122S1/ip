@@ -10,7 +10,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
         for(int i=0; i<taskSum; i++){
             now = tasks[i];
-            System.out.println(" " + (i+1) + "." + now.content);
+            System.out.println(" " + (i+1) + ".[" + now.getInformation() + "]" + now.content);
         }
         System.out.println("____________________________________________________________");
     }
@@ -35,10 +35,19 @@ public class Duke {
 
         do{
             command = in.nextLine();
-            switch (command){
-                case "list":
-                    printList();
-                    break;
+            if(command.contains("done")){
+                String[] number = command.split(" ");
+                int taskIndex = Integer.parseInt(number[1]) - 1;
+                tasks[taskIndex].complete();
+                System.out.println("____________________________________________________________");
+                System.out.println("[" + tasks[taskIndex].getInformation() + "]" + tasks[taskIndex].content);
+                System.out.println("____________________________________________________________");
+            }
+            else{
+                switch (command){
+                    case "list":
+                        printList();
+                        break;
                     case "bye":
                         break;
                     default:
@@ -47,6 +56,8 @@ public class Duke {
                         System.out.println("____________________________________________________________");
                         System.out.println("added:" + command);
                         System.out.println("____________________________________________________________");
+
+                }
             }
         }while(!command.equals("bye"));
         bye();
