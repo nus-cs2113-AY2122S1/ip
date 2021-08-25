@@ -1,10 +1,9 @@
-import com.sun.source.tree.WhileLoopTree;
 import java.util.Scanner;
 
 public class Duke {
 
+    /* A nicely formatted line */
     private static final String LINE = "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
-
 
     /**
      * Prints given string in the middle of 2 horizontal lines.
@@ -17,9 +16,6 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static void EchoUserInput(){
-
-    }
     public static void main(String[] args) {
         String welcomeMessage = "Hello! I'm Gaben.\n"
                 + "Steam sales is coming! Prepare your wallet.\n"
@@ -28,18 +24,23 @@ public class Duke {
                 + "Remember to keep your wallet stacked before using me again!";
 
         printMessage(welcomeMessage);
-
+        TaskManager taskManager = new TaskManager();
         Scanner in = new Scanner(System.in);
-        while (true){
+        boolean exit = false;
+        while (!exit){
             String userInput = in.nextLine();
-            if(userInput.equalsIgnoreCase("bye")){
-                printMessage(exitMessage);
+            switch (userInput){
+            case "list":
+                taskManager.listTask();
+                break;
+            case "bye":
+                exit = true;
+                break;
+            default:
+                taskManager.addTask(userInput);
                 break;
             }
-            else{
-                printMessage(userInput);
-            }
         }
-
+        printMessage(exitMessage);
     }
 }
