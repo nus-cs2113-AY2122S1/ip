@@ -73,7 +73,7 @@ public class Duke {
     }
 
     public static void setTaskDone(int index) {
-        if (index >= store.size()) {
+        if (index > store.size()) {
             return;
         }
         Task task = store.get(index - 1);
