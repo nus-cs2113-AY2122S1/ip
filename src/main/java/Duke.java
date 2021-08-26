@@ -44,6 +44,7 @@ public class Duke {
                 exit = true;
                 break;
             case "done":
+                // Catch execption when user input a value that cannot be converted to number.
                 try {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     taskManager.completeTask(taskNumber);

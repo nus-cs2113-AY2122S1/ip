@@ -37,8 +37,9 @@ public class TaskManager {
                 Task task = tasksList.get(counter - 1);
                 message += counter + ":[" + task.getStatusIcon() + "] " + task.getName() + "\n";
             }
-            message += tasksListSize + ":[" + tasksList.get(tasksListSize - 1).getStatusIcon() + "] " + tasksList.get(
-                    tasksListSize - 1).getName();
+            // Get final task in task list.
+            Task finalTask = tasksList.get(tasksListSize - 1);
+            message += tasksListSize + ":[" + finalTask.getStatusIcon() + "] " + finalTask.getName();
             break;
         }
         Duke.printMessage(message);
@@ -50,11 +51,14 @@ public class TaskManager {
      * @param taskNumber The task number as shown by list command.
      */
     public void completeTask(int taskNumber) {
-        if (taskNumber < 1 || taskNumber > tasksList.size()) {
+        // Initialized task number index to match task array list
+        int taskNumberIndex = taskNumber - 1;
+        boolean isWithinSizeLimit = taskNumber < 1 || taskNumber > tasksList.size();
+        if (isWithinSizeLimit) {
             Duke.printMessage("Sorry, task selected does not exist! Please double check if task number exist with the"
                     + " list command.");
         } else {
-            Task task = tasksList.get(taskNumber - 1);
+            Task task = tasksList.get(taskNumberIndex);
             task.markAsDone();
             String message = "Good lad, you have finally completed the task you needed to do.\n";
             message += "[" + task.getStatusIcon() + "] " + task.getName() + "\n";
