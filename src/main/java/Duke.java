@@ -14,14 +14,25 @@ public class Duke {
         System.out.println(separator);
         System.out.println("Hi... from GUDETAMA... so sleepy\n" + logo);
         System.out.println("Give me five more minutes..... What can I do for you?");
-        System.out.println(separator);
+        System.out.println(separator + "\n");
 
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+        String[] userInputs = new String[100];
+        int userInputCount = 0;
 
         while (!line.equals("bye")) {
-            System.out.println(separator + "\n\t" + line + "\n" + separator);
+            if (line.equals("list")) {
+                for (int i = 0; i < userInputCount; i++) {
+                    System.out.println(i + 1 + "." + userInputs[i]);
+                }
+                System.out.println(separator);
+            } else {
+                System.out.println(separator + "\n\tadded: " + line + "\n" + separator);
+                userInputs[userInputCount] = line;
+                userInputCount++;
+            }
             line = in.nextLine();
         }
 
