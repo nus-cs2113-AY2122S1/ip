@@ -15,15 +15,13 @@ public class Greet {
                 for (int i = 0; i < ntasks; i += 1) {
                     System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
-            }
-            else if (line.contains("done")) {
+            } else if (line.contains("done")) {
                 String[] splitTask = line.split(" ");
                 int index = Integer.parseInt(splitTask[1]) - 1;
                 tasks[index].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("[" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription());
-            }
-            else {
+            } else {
                 tasks[ntasks] = new Task(line);
                 ntasks += 1;
                 System.out.println("added: " + line);
