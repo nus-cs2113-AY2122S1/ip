@@ -15,29 +15,45 @@ public class Duke {
                 " Hello! I'm Duke\n" +
                 " What's up? :p\n" + line);
 
-        String [] inputs = new String[100];
+        Task [] inputs = new Task[100];
         int inputCount = 0;
 
 
         while(true) {
             input = in.nextLine();
+            System.out.println(line);
             if(input.equals("bye")) {
                 break;
             }
             else if(input.equals("list")) {
-                System.out.println(line);
                 for(int i = 0; i < inputCount; i++){
-                    System.out.println((i+1) + ". " + inputs[i]);
+                    System.out.println((i+1) + ". [" + inputs[i].getStatusIcon() + "] " +
+                            inputs[i].getDescription());
                 }
-                System.out.println(line);
+            }
+            //assumes user will follow format "done x"
+            else if(input.startsWith("done")) {
+                String[] words = input.split(" ");
+                int taskCompleted = Integer.parseInt(words[1]) - 1;
+                if (inputs[taskCompleted].isDone() == true) {
+                    System.out.println("You have already marked this task as done! Time to move on :)");
+                }
+                else {
+                    inputs[taskCompleted].markAsDone();
+                    System.out.println("Awesome! You've completed the following task:");
+                    System.out.println(" [X] " + inputs[taskCompleted].getDescription());
+                }
+
             }
             else {
-                System.out.println(line + "added:" + input + "\n" + line);
-                inputs[inputCount] = input;
+                System.out.println("added:" + input);
+                Task newTask = new Task(input);
+                inputs[inputCount] = newTask;
                 inputCount += 1;
             }
+            System.out.println(line);
         }
 
-        System.out.println(line + "Bye, seeya!\n" + line);
+        System.out.println(line + "Bye, see you!\n" + line);
     }
 }
