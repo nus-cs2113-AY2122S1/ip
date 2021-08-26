@@ -95,6 +95,11 @@ public class Shika {
         }
     }
 
+    /**
+     * Function that deletes specified task from the Arraylist.
+     * @param tasks Arraylist containing all recorded tasks.
+     * @param text String containing user input.
+     */
     public static void deleteTask(ArrayList<Task> tasks, String text) {
         String str = text.substring(text.indexOf("delete") + 6).trim();
         try {
@@ -246,6 +251,9 @@ public class Shika {
         System.out.print(line);
     }
 
+    /**
+     * Function that prints the current task count.
+     */
     public static void printTaskCount() {
         String taskForm = (Task.count == 1) ? "task" : "tasks";
         System.out.println("> You have " + Task.count + " " + taskForm + " on your list. -w-") ;
