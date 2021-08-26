@@ -41,11 +41,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-//        String line;
-//        Scanner in = new Scanner(System.in);
-
         greeting();
-//        line = in.nextLine();
         echo(input());
     }
 }
