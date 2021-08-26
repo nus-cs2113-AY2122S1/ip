@@ -1,8 +1,9 @@
 public class Duke {
-    public static void printLine() {
-        System.out.println("\t____________________________________________________________");
-    }
-    public static void startDuke() {
+
+    private boolean active = false;
+
+    public Duke() {
+        active = true;
         printLine();
         String logo = "\t ____        _        \n"
                     + "\t|  _ \\ _   _| | _____ \n"
@@ -12,18 +13,29 @@ public class Duke {
         System.out.println("\tHello from\n" + logo);
         printLine();
     }
-    public static void endDuke() {
+
+    public boolean getStatus() {
+        return active;
+    }
+
+    public void printLine() {
+        System.out.println("\t____________________________________________________________");
+    }
+
+    public void endDuke() {
         System.out.println("\tBye. Hope to see you again soon!");
         printLine();
+        active = false;
     }
-    public static void greet() {
+
+    public void greet() {
         System.out.println("\tHello! I'm Duke");
         System.out.println("\tWhat can I do for you?");
         printLine();
     }
-    public static void main(String[] args) {
-        startDuke();
-        greet();
-        endDuke();
+
+    public void unknownAction() {
+        System.out.println("\tSorry! I don't understand");
+        printLine();
     }
 }
