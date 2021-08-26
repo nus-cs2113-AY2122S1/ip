@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.LinkedList;
 
 public class TaskList {
     LinkedList<Task> savedTasks = new LinkedList<Task>();

@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -9,7 +10,7 @@ public class Duke {
         TaskList taskList = new TaskList(savedTasks);
         String welcomeMessage = "______________________________\n"
                 + "Hello! I'm Friday\n"
-                + "What can I do for you?\n"
+                + "What are you doing today?\n"
                 + "______________________________\n";
         String goodbyeMessage = "______________________________\n"
                 + "Bye! Hope to see you again soon!\n"
