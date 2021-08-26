@@ -10,10 +10,10 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("    Hello from\n" + logo);
-        System.out.println("    _______________________________");
-        System.out.println("    What up Dawg! I'm Duke");
-        System.out.println("    What can I do for you?");
+        System.out.println("\tHello from\n" + logo);
+        System.out.println("\t_______________________________");
+        System.out.println("\tWhy are you here again");
+        System.out.println("\tWhat do you want");
 
         int tasksCount = 0;
         Task[] tasks = new Task[100];
@@ -29,8 +29,10 @@ public class Duke {
                         int index = i + 1;
                         System.out.println("\t" + index + ". " + tasks[i].getStatusIcon() + tasks[i].description);
                     }
+                    System.out.println("Look at that ever-expanding to-do list. ");
+                    System.out.println("You really should stop procrastinating. ");
                 } else {
-                    System.out.println("There are no tasks in your list.");
+                    System.out.println("There are no tasks in your to-do list. Bet that'll change soon.");
                 }
                 System.out.println("\t_______________________________");
             } else {
@@ -40,8 +42,8 @@ public class Duke {
                     if (n >= 1 && n <= tasksCount) {
                         tasks[n - 1].markAsDone();
                         System.out.println("\t_______________________________");
-                        System.out.println("\tNice! I've marked this as done.");
-                        System.out.println("\t\t[X] " + tasks[n - 1].description);
+                        System.out.println("\tWow. You finally completed a task after lazying around all day.");
+                        System.out.println("\t[X] " + tasks[n - 1].description);
                     }
                 } else {
                     tasks[tasksCount] = new Task(input);
@@ -54,7 +56,7 @@ public class Duke {
             input = scan.nextLine();
         }
         System.out.println("\t_______________________________");
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\tbye");
         System.out.println("\t______________________________");
     }
 }
