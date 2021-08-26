@@ -7,19 +7,22 @@ public class Duke {
 
         Scanner input = new Scanner(System.in);
         String command;
-        TaskManager taskManager;
-        do {
+
+        while (true) {
             command = input.nextLine();
-            if (command.equals("list")) {
-                TaskManager.list();
-            }
-            else if (command.equals("bye")) {
+            if (command.equals("bye")) {
                 break;
             }
-            else  {
+            else if (command.equals("list")) {
+                TaskManager.list();
+            } else if (command.startsWith("done")) {
+                int taskNo = Integer.parseInt(command.split(" ")[1]);
+                TaskManager.mark(taskNo - 1);
+            }
+            else {
                 TaskManager.add(command);
             }
-        } while (!command.equalsIgnoreCase("Bye"));
+        }
 
         System.out.println("Bye. Hope to see you again soon!");
     }
