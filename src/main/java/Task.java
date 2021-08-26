@@ -1,12 +1,25 @@
 public class Task {
-    public Boolean completed;
-    public String name;
-    public Task(){
-        this(false, null);
+    private Boolean isDone;
+    private String name;
+
+    public Task(String name) {
+        this.name = name;
+        this.isDone = false;
     }
 
-    public Task(Boolean completed, String name) {
-        this.completed = completed;
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Boolean isDone() {
+        return this.isDone;
     }
 }

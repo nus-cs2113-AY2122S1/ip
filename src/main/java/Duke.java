@@ -11,23 +11,23 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             String[] inputWords = input.split(" ");
-            if (input.equals("bye")) {
+            if (input.toLowerCase().equals("bye")) {
                 isCompleted = true;
                 in.close();
                 continue;
             }
-            if (input.equals("list")){
+            if (input.toLowerCase().equals("list")){
                 System.out.println(line);
                 if (list[0] == null) {
-                    System.out.println("No items added!");
+                    System.out.println("No items added!\n");
                 }
                 int i = 0;
                 while (list[i] != null) {
                     String completed = " ";
-                    if (list[i].completed) {
+                    if (list[i].isDone()) {
                         completed = "X";
                     }
-                    System.out.println(i+1 + ".[" + completed + "] " + list[i].name);
+                    System.out.println(i+1 + ".[" + completed + "] " + list[i].getName());
                     i += 1;
                 }
                 System.out.println(line);
@@ -35,15 +35,18 @@ public class Duke {
             }
             if (inputWords[0].equals("done")) {
                 if (Integer.parseInt(inputWords[1]) <= numItemsAdded && Integer.parseInt(inputWords[1]) > 0) {
-                    System.out.println(line + "\nNice! I've marked this task as done:\n[X] " + list[Integer.parseInt(inputWords[1])-1].name);
-                    list[Integer.parseInt(inputWords[1])-1].completed = true;
-                }
-                else {
-                    System.out.println("That task does not exist!");
+                    if (list[Integer.parseInt(inputWords[1])-1].isDone()) {
+                        System.out.println(line + "\nThat task is already done!\n" + line);
+                    } else {
+                        System.out.println(line + "\nNice! I've marked this task as done:\n[X] " + list[Integer.parseInt(inputWords[1])-1].getName() + "\n" + line);
+                        list[Integer.parseInt(inputWords[1])-1].markAsDone();
+                    }
+                } else {
+                    System.out.println("That task does not exist!\n" + line);
                 }
                 continue;
             }
-            list[numItemsAdded] = new Task(false, input);
+            list[numItemsAdded] = new Task(input);
             numItemsAdded += 1;
             System.out.println(line + "\nadded: " + input + "\n" + line);
         }
