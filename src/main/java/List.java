@@ -8,8 +8,8 @@ public class List {
     public static int doneCount = 0;
 
     public static void printTask(){
-        System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      " +
-                "Here are the tasks in your list:");
+        System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      "
+                + "Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
             System.out.println("     " + list[i]);
         }
@@ -17,8 +17,8 @@ public class List {
     }
 
     public static void printDoneTask() {
-        System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      " +
-                "Nice! I've marked this task as done: ");
+        System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      "
+                + "Nice! I've marked this task as done: ");
         for (int i = 0; i < doneCount; i++) {
             System.out.println("     " + done[i]);
         }
@@ -34,7 +34,7 @@ public class List {
         task = task.trim();
         String str = "";
         if (task != null && !"".equals(task)) {
-            for (int i=0; i < task.length(); i++) {
+            for (int i = 0; i < task.length(); i++) {
                 if (task.charAt(i) >= 48 && task.charAt(i) <= 57) {
                     str = str + task.charAt(i);
                 }
