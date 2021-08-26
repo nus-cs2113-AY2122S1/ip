@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -40,6 +40,7 @@ public class Duke {
                 int position = inputCommand.indexOf(" ");
                 int taskNum = Integer.parseInt(inputCommand.trim().substring(position + 1));
                 MarkAsDone(tasks, taskNum);
+                System.out.println("_____________________________________________");
             } else {
                 System.out.println("_____________________________________________");
                 tasks[count] = new Task(inputCommand);
