@@ -1,16 +1,26 @@
 public class Task {
 
-    protected String description;
+    private String description;
+    private boolean isDone;
 
-    protected static int taskCount = 0;
+    private static int taskCount = 0;
 
     public Task(String desc) {
         setDescription(desc);
+        setDone(false);
         taskCount++;
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "[X] " : "[ ] ");
+    }
+
+    public String getDescWithStatus() {
+        return (this.getStatusIcon() + this.description);
     }
 
     public static int getTaskCount() {
@@ -19,5 +29,9 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }
