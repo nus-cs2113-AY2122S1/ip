@@ -37,12 +37,13 @@ public class Duke {
         tasks[number].setDone(true);
     }
 
-    public static void printHorizontalLine(){
-        for (int i = 0; i < 11; i++){
+    public static void printHorizontalLine() {
+        for (int i = 0; i < 11; i++) {
             System.out.print("-");
         }
         System.out.println("-");
     }
+
 
     public static void main(String[] args) {
 
@@ -53,7 +54,7 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
-        Task t = new Task(input);
+        Task t = new Task(input); //reads in user input, creates Task object
 
         int taskCount = 0; //counter of total number of items in task list
         boolean isBye = false;
