@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     static String exitTrigger = "bye";
+    static String listTrigger = "list";
+    static String[] commands = new String[100];
 
     public static void greet() {
         String logo = " ____        _        \n"
@@ -15,30 +17,39 @@ public class Duke {
     }
 
     public static void exit() {
-        System.out.print("\t");
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void echo(String command) {
-        System.out.print("\t");
-        System.out.println(command);
+    public static void add(String command, int item_num) {
+        commands[item_num] = command;
+        System.out.println("added: " + command);
+    }
+
+    public static void list() {
+        for(int i = 0; commands[i] != null; i++) {
+            int bullet_num = i+1;
+            System.out.println(bullet_num +". " + commands[i]);
+        }
     }
 
     public static void main(String[] args) {
         greet();
 
-        String command;
         Scanner in = new Scanner(System.in);
-        command = in.nextLine();
+        String command = in.nextLine();
 
         boolean should_exit = command.equals(exitTrigger);
 
-
-        while (!should_exit) {
-            echo(command);
+        for(int i = 0; !command.equals(exitTrigger) ; i++) {
+            if (command.equals(listTrigger)) {
+                list();
+                i--;
+            } else {
+                add(command, i);
+            }
             command = in.nextLine();
-            should_exit = command.equals("bye");
         }
+
         exit();
     }
 }
