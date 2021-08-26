@@ -20,18 +20,21 @@ public class Duke {
 
         String input = scan.nextLine();
 
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
+        // inputs are all case-insensitive
+        while (!input.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase("list")) {
                 System.out.println("\t_______________________________");
-                for (int i = 0; i < tasksCount; i++) {
-                    int index = i + 1;
-                    System.out.println("\t" + index + ". " + tasks[i].getStatusIcon() + tasks[i].description);
+                if (tasksCount > 0) {
+                    for (int i = 0; i < tasksCount; i++) {
+                        int index = i + 1;
+                        System.out.println("\t" + index + ". " + tasks[i].getStatusIcon() + tasks[i].description);
+                    }
+                } else {
+                    System.out.println("There are no tasks in your list.");
                 }
                 System.out.println("\t_______________________________");
             } else {
-                // contains at least one digit \d+
-                if (Pattern.matches("done \\d+", input)) {
-                    //remove non-digits
+                if (Pattern.matches("(?i)done \\d+", input)) {
                     String number = input.replaceAll("\\D+", "");
                     int n = Integer.parseInt(number);
                     if (n >= 1 && n <= tasksCount) {
@@ -40,7 +43,7 @@ public class Duke {
                         System.out.println("\tNice! I've marked this as done.");
                         System.out.println("\t\t[X] " + tasks[n - 1].description);
                     }
-                } else { // add task
+                } else {
                     tasks[tasksCount] = new Task(input);
                     System.out.println("\t_______________________________");
                     System.out.println("\tadded: " + tasks[tasksCount].description);
@@ -50,7 +53,6 @@ public class Duke {
             }
             input = scan.nextLine();
         }
-
         System.out.println("\t_______________________________");
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println("\t______________________________");
