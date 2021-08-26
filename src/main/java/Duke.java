@@ -1,5 +1,7 @@
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        String line = null;
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -9,9 +11,21 @@ public class Duke {
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Duke\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________");
+                "____________________________________________________________\n");
+        while (line != "bye") {
+            Scanner in = new Scanner(System.in);
+            line = in.nextLine();
+            System.out.println("____________________________________________________________\n");
+            if(line.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("____________________________________________________________\n");
+                return;
+            }
+            System.out.println(line);
+            System.out.println("____________________________________________________________\n");
+            
+        }
+        
     }
-
+        
 }
