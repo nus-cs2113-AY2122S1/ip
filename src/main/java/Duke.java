@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Duke {
 
     private static int byeFlag = 0;
+    private static int positionCheck = 0;
+    private static String[] commands = new String[100];
 
     // sendCommands() is a method used to allow the user to send his/her commands to C3PO
     private static void sendCommands() {
@@ -14,22 +16,35 @@ public class Duke {
             line = in.nextLine();
             System.out.println("____________________________________________________________\n");
             checkCommands(line);
-        };
-    };
+        }
+    }
 
     // checkCommands() is a method that allows us to determine when the user says bye.
     private static void checkCommands(String line) {
-        if (line.equals("bye")) {
+        if ( positionCheck >= 100 ) {
+            System.out.println("Oh dear me! We have exceeded my system's maximum capacity!");
+        } else if (line.equals("bye")) {
             byeFlag = 1;
+        } else if (line.equals("list")) {
+            if ( positionCheck == 0 ) {
+                System.out.println("There is no data to show master!");
+            } else {
+                System.out.println("Accessing archives...");
+                for (int i = 0; i < positionCheck; i++) {
+                    System.out.println((i + 1) + ": " + commands[i]);
+                }
+            }
         } else {
-            System.out.println(line);
+            commands[positionCheck] = line;
+            positionCheck += 1;
+            System.out.println("Added to Galactic database: " + line);
         }
-    };
+    }
 
     public static void sayBye() {
         System.out.println("Goodbye master! May the force be with you!\n");
         System.out.println("____________________________________________________________\n");
-    };
+    }
 
     public static void main(String[] args) {
         String logo = "       /~\\\n"
