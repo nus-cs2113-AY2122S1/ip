@@ -39,4 +39,9 @@ public class Task {
     public void setAsDone() {
         isDone = true;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatusIcon(), getDescription());
+    }
 }
