@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         int LIST_SIZE = 100;
-        String[] lineStorage = new String[listSize];
-        Boolean[] isDone = new Boolean[listSize];
+        String[] lineStorage = new String[LIST_SIZE];
+        Boolean[] isDone = new Boolean[LIST_SIZE];
         String line = null;
         int currentIndex = 0;
         String logo = " ____        _        \n"
