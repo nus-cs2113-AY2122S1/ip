@@ -44,6 +44,8 @@ public class Duke {
                         System.out.println("\t_______________________________");
                         System.out.println("\tWow. You finally completed a task after lazying around all day.");
                         System.out.println("\t[X] " + tasks[n - 1].description);
+                    } else {
+                        System.out.println("\tError. Task does not exist. Try again.");
                     }
                 } else {
                     tasks[tasksCount] = new Task(input);
