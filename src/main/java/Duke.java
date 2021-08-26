@@ -45,7 +45,7 @@ public class Duke {
     }
 
     /**
-     * Print the formatted to-do list whenever the user type 'list' or 'ls'
+     * Print the to-do list with frames
      *
      * @param tasks     the array of class Task instance which stores all the tasks added by the user
      * @param stopIndex the last index of the array that is not null
@@ -90,7 +90,7 @@ public class Duke {
     }
 
     /**
-     * Print the "selfie" image of the robot which is randomly generated and the description of the personality of the robot
+     * Print the ASCII art image of the robot and the description of the personality of the robot
      */
     public static void printPersonality() {
         Random random = new Random();
@@ -129,30 +129,42 @@ public class Duke {
         System.out.println("\nLet's start:");
 
         Scanner in = new Scanner(System.in);
-        String cmd = "START";
+        String command = "START";
         Task[] tasks = new Task[100];
         for (int i = 0; i < tasks.length; i++) {
             tasks[i] = new Task();
         }
         int totalTask = 0;
 
-        //continue reading input if the cmd is not exit or bye
-        while (!cmd.toUpperCase().equals("EXIT") && !cmd.toUpperCase().equals("BYE")) {
-            cmd = in.nextLine().trim();
-            String[] words = cmd.split(" ");
+        //continue reading input if the command is not "exit" or "bye"
+        while (!command.toUpperCase().equals("EXIT") && !command.toUpperCase().equals("BYE")) {
+            command = in.nextLine().trim();
+            String[] words = command.split(" ");
 
-            if (cmd.equals("") || cmd.trim().equals("")) {
+            if (command.equals("")) {
                 System.out.println("\t(Empty) <- will not save to the list");
-            } else if (cmd.equals("view -p")) {
+            } else if (command.equals("view -p")) {
                 printPersonality();
-            } else if (!cmd.toUpperCase().equals("EXIT") && !cmd.toUpperCase().equals("BYE")) {
-                if (cmd.toUpperCase().equals("LIST") || cmd.toUpperCase().equals("LS")) {
-                    //list all the saved tasks
+            } else if (!command.toUpperCase().equals("EXIT") && !command.toUpperCase().equals("BYE")) {
+                if (command.toUpperCase().equals("LIST") || command.toUpperCase().equals("LS")) {
                     printList(tasks, totalTask);
                 } else if (words[0].toUpperCase().equals("DONE")) {
                     try {
+                        if (words.length == 1){
+                            System.out.print("\t╔");
+                            for (int j = 0; j < " Sorry, the input task number is missing, please try again! :( ".length() + 1; j++) {
+                                System.out.print(" ");
+                            }
+                            System.out.println("╗");
+                            System.out.println("\t   Sorry, the input task number is missing, please try again! :(");
+                            System.out.print("\t╚");
+                            for (int j = 0; j < " Sorry, the input task number is missing, please try again! :( ".length() + 1; j++) {
+                                System.out.print(" ");
+                            }
+                            System.out.println("╝");
+                        }
                         for (int i = 1; i < words.length; i++) {
-                            int taskNumber = Integer.parseInt(words[i]);
+                            int taskNumber = Integer.parseInt(words[i]); //check if the input character after the word "done" is integer value
                             if (taskNumber <= totalTask && taskNumber > 0) {
                                 if (!tasks[taskNumber - 1].getDone()) {
                                     tasks[taskNumber - 1].setDone();
@@ -190,22 +202,22 @@ public class Duke {
                     }
                 } else {
                     //add the task to the list
-                    tasks[totalTask++].setTask(cmd.trim());
+                    tasks[totalTask++].setTask(command.trim());
                     System.out.print("\t╔");
-                    for (int i = 0; i < cmd.length() + " \"...has been added to the list...\" ".length() + 1; i++) {
+                    for (int i = 0; i < command.length() + " \"...has been added to the list...\" ".length() + 1; i++) {
                         System.out.print(" ");
                     }
                     System.out.println("╗");
-                    System.out.println("\t" + "  ...\"" + cmd.trim() + "\" has been added to the list...");
+                    System.out.println("\t" + "  ...\"" + command.trim() + "\" has been added to the list...");
                     System.out.print("\t╚");
-                    for (int i = 0; i < cmd.length() + " \"...has been added to the list...\" ".length() + 1; i++) {
+                    for (int i = 0; i < command.length() + " \"...has been added to the list...\" ".length() + 1; i++) {
                         System.out.print(" ");
                     }
                     System.out.println("╝");
                 }
             }
         }
-        if (cmd.toUpperCase().equals("EXIT") || cmd.toUpperCase().equals("BYE")) {
+        if (command.toUpperCase().equals("EXIT") || command.toUpperCase().equals("BYE")) {
             System.out.println("Bye! Hope to see you again :D");
         }
     }
