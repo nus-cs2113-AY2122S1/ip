@@ -5,7 +5,7 @@ public class Duke {
     /**
      * Print the logo and greeting message
      */
-    public static void printLogo(){
+    public static void printLogo() {
         //print the logo when the program starts
         System.out.println("\t              ##*                                 ");
         System.out.println("\t   .      . .&####%                               ");
@@ -28,7 +28,7 @@ public class Duke {
         System.out.println("\t          .(%(((#&*,,.           . .,*/*%#((#&*   ");
         System.out.println("\t              ,/(#(    .,,******,.     ####%*     ");
 
-        System.out.println("  __          ________ _      _____ ____  __  __ ______    ");
+        System.out.println("   __          ________ _      _____ ____  __  __ ______    ");
         System.out.println("   \\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____|  ");
         System.out.println("    \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__     ");
         System.out.println("     \\ \\/  \\/ / |  __| | |   | |   | |  | | |\\/| |  __|    ");
@@ -46,39 +46,44 @@ public class Duke {
 
     /**
      * Print the formatted to-do list whenever the user type 'list' or 'ls'
-     * @param tasks the array that stores all the tasks added by the user
+     *
+     * @param tasks     the array of class Task instance which stores all the tasks added by the user
      * @param stopIndex the last index of the array that is not null
      */
-    public static void printList(String[] tasks, int stopIndex){
+    public static void printList(Task[] tasks, int stopIndex) {
         int maxLength = 0;
-        for (int i = 0; i < stopIndex; i++){
-            if (tasks[i].length() > maxLength){
-                maxLength = tasks[i].length();
+        for (int i = 0; i < stopIndex; i++) {
+            if (tasks[i].getTask().length() > maxLength) {
+                maxLength = tasks[i].getTask().length();
             }
         }
         //print the to-do list
         System.out.print("\t╭");
-        if (maxLength < "My to-do list: ".length()){
-            maxLength = "My to-do list". length();
+        if (maxLength < "My to-do list: ".length()) {
+            maxLength = "My to-do list".length();
         }
-        for (int i = 0; i < maxLength + "|100. ".length(); i++){
+        for (int i = 0; i < maxLength + "| [ ] 100. ".length(); i++) {
             System.out.print("-");
         }
         System.out.println("╮");
         System.out.print("\t|My to-do list: ");
-        for (int i = 0 ;i < maxLength + "|100. ".length() - "|My to-do list: ".length() + 1; i++){
+        for (int i = 0; i < maxLength + "| [ ] 100. ".length() - "|My to-do list: ".length() + 1; i++) {
             System.out.print(" ");
         }
         System.out.println("|");
-        for (int i = 0; i < stopIndex; i++){
-            System.out.print("\t|" + (i+1) + ". " + tasks[i]);
-            for (int j = 0; j < maxLength + "|100. ".length() - ("|" + (i+1) + ". " + tasks[i]).length()+1; j++){
+        for (int i = 0; i < stopIndex; i++) {
+            if (tasks[i].getDone()) {
+                System.out.print("\t| [X] " + (i + 1) + ". " + tasks[i].getTask());
+            } else {
+                System.out.print("\t| [ ] " + (i + 1) + ". " + tasks[i].getTask());
+            }
+            for (int j = 0; j < maxLength + "| [ ] 100. ".length() - ("| [ ] " + (i + 1) + ". " + tasks[i].getTask()).length() + 1; j++) {
                 System.out.print(" ");
             }
             System.out.println("|");
         }
         System.out.print("\t╰");
-        for (int i = 0; i < maxLength + "|100. ".length(); i++){
+        for (int i = 0; i < maxLength + "| [ ] 100. ".length(); i++) {
             System.out.print("-");
         }
         System.out.println("╯");
@@ -87,10 +92,10 @@ public class Duke {
     /**
      * Print the "selfie" image of the robot which is randomly generated and the description of the personality of the robot
      */
-    public static void printPersonality(){
+    public static void printPersonality() {
         Random random = new Random();
         int randomNumber = random.nextInt(3);
-        switch (randomNumber){
+        switch (randomNumber) {
         case 0:
             System.out.println(ProfilePicture.picture1);
             break;
@@ -114,45 +119,93 @@ public class Duke {
     public static void main(String[] args) {
         printLogo();
         System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.println("|To know me more, you can view my personality by typing the command \"view -p\"                    |");
+        System.out.println("|To know more about me, you can view my personality by typing the command \"view -p\"              |");
         System.out.println("|For now I am a note bot that can help you note down any tasks and create a to-do list for you :)|");
+        System.out.println("|In addition, you can mark any task in the to-do list as done!                                   |");
         System.out.println("|You can type \"list\" or \"ls\" to list all the tasks that are waiting to do                        |");
+        System.out.println("|You can type \"done i\" where i is the index of the task to mark the specific task as done        |");
         System.out.println("|You can type \"exit\" or \"bye\" to stop me and exit the program                                    |");
         System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.println("Let's start:");
+        System.out.println("\nLet's start:");
 
         Scanner in = new Scanner(System.in);
         String cmd = "START";
-        String[] tasks = new String[100];
-        int idx = 0;
+        Task[] tasks = new Task[100];
+        for (int i = 0; i < tasks.length; i++) {
+            tasks[i] = new Task();
+        }
+        int totalTask = 0;
 
-        while (!cmd.toUpperCase().equals("EXIT") && !cmd.toUpperCase().equals("BYE")){
-            cmd = in.nextLine();
-            if (cmd.equals("") || cmd.trim().equals("")){
+        //continue reading input if the cmd is not exit or bye
+        while (!cmd.toUpperCase().equals("EXIT") && !cmd.toUpperCase().equals("BYE")) {
+            cmd = in.nextLine().trim();
+            String[] words = cmd.split(" ");
+
+            if (cmd.equals("") || cmd.trim().equals("")) {
                 System.out.println("\t(Empty) <- will not save to the list");
-            } else if (cmd.equals("view -p")){
+            } else if (cmd.equals("view -p")) {
                 printPersonality();
-            } else if (!cmd.toUpperCase().equals("EXIT") && !cmd.toUpperCase().equals("BYE")){
-                if (cmd.toUpperCase().equals("LIST") || cmd.toUpperCase().equals("LS")){
+            } else if (!cmd.toUpperCase().equals("EXIT") && !cmd.toUpperCase().equals("BYE")) {
+                if (cmd.toUpperCase().equals("LIST") || cmd.toUpperCase().equals("LS")) {
                     //list all the saved tasks
-                    printList(tasks, idx);
-                } else{
-                    tasks[idx++] = cmd.trim();
+                    printList(tasks, totalTask);
+                } else if (words[0].toUpperCase().equals("DONE")) {
+                    try {
+                        for (int i = 1; i < words.length; i++) {
+                            int taskNumber = Integer.parseInt(words[i]);
+                            if (taskNumber <= totalTask && taskNumber > 0) {
+                                if (!tasks[taskNumber - 1].getDone()) {
+                                    tasks[taskNumber - 1].setDone();
+                                    System.out.println("\tHooray! Task number " + taskNumber + " has been marked completed!");
+                                    System.out.println("\t[✔] " + tasks[taskNumber - 1].getTask());
+                                } else {
+                                    System.out.println("\tThe task number " + taskNumber + " - \"" + tasks[taskNumber - 1].getTask() + "\" has already been done!");
+                                }
+                            } else {
+                                System.out.print("\t╔");
+                                for (int j = 0; j < " Sorry, the input task number is invalid, please try again! :( ".length() + 1; j++) {
+                                    System.out.print(" ");
+                                }
+                                System.out.println("╗");
+                                System.out.println("\t   Sorry, the input task number is invalid, please try again! :(");
+                                System.out.print("\t╚");
+                                for (int j = 0; j < " Sorry, the input task number is invalid, please try again! :( ".length() + 1; j++) {
+                                    System.out.print(" ");
+                                }
+                                System.out.println("╝");
+                            }
+                        }
+                    } catch (NumberFormatException ex) {
+                        System.out.print("\t╔");
+                        for (int i = 0; i < " Sorry, the input task number is invalid, please try again! :( ".length() + 1; i++) {
+                            System.out.print(" ");
+                        }
+                        System.out.println("╗");
+                        System.out.println("\t   Sorry, the input task number is invalid, please try again! :(");
+                        System.out.print("\t╚");
+                        for (int i = 0; i < " Sorry, the input task number is invalid, please try again! :( ".length() + 1; i++) {
+                            System.out.print(" ");
+                        }
+                        System.out.println("╝");
+                    }
+                } else {
+                    //add the task to the list
+                    tasks[totalTask++].setTask(cmd.trim());
                     System.out.print("\t╔");
-                    for (int i = 0; i < cmd.length() + " \"...has been added to the list...\" ".length() + 1; i++){
+                    for (int i = 0; i < cmd.length() + " \"...has been added to the list...\" ".length() + 1; i++) {
                         System.out.print(" ");
                     }
                     System.out.println("╗");
                     System.out.println("\t" + "  ...\"" + cmd.trim() + "\" has been added to the list...");
                     System.out.print("\t╚");
-                    for (int i = 0; i < cmd.length() + " \"...has been added to the list...\" ".length() + 1; i++){
+                    for (int i = 0; i < cmd.length() + " \"...has been added to the list...\" ".length() + 1; i++) {
                         System.out.print(" ");
                     }
                     System.out.println("╝");
                 }
             }
         }
-        if (cmd.toUpperCase().equals("EXIT") || cmd.toUpperCase().equals("BYE")){
+        if (cmd.toUpperCase().equals("EXIT") || cmd.toUpperCase().equals("BYE")) {
             System.out.println("Bye! Hope to see you again :D");
         }
     }

@@ -1,3 +1,7 @@
+/**
+ * Credit: The pictures are generated with the help of an online picture to ASCII symbols converter
+ * The website available: "https://manytools.org/hacker-tools/convert-images-to-ascii-art/"
+ */
 public class ProfilePicture {
         public final static String picture1 = "***********************************************************************************************************************\n" +
                                               "**                                                                                                                   **\n" +
