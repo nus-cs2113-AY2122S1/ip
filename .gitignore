@@ -1,3 +1,5 @@
-.class
-.idea
+*.class
+*.idea
 bin
+.project
+.classpath
