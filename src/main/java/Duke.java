@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Duke {
 
     private boolean active = false;
+    private String[] todolist = new String[100];
+    private int listlength = 0;
 
     public Duke() {
         active = true;
@@ -36,6 +40,29 @@ public class Duke {
 
     public void unknownAction() {
         System.out.println("\tSorry! I don't understand");
+        printLine();
+    }
+
+    public void addList(String item) {
+        //System.out.println("\tadding to todo list......");
+
+        Scanner in = new Scanner(System.in);
+        String line = item;
+        //while(!line.equals("end")) {
+            todolist[listlength++] = line;
+            System.out.println("\tadded: " + line);
+            printLine();
+        //    line = in.nextLine();
+        //    line = line.toLowerCase();
+        //}
+        //System.out.println("\tsaved to todo list!");
+        //printLine();
+    }
+
+    public void listOut() {
+        for(int i=0; i<listlength; i++) {
+            System.out.println("\t" + (i+1) + "." + todolist[i]);
+        }
         printLine();
     }
 }
