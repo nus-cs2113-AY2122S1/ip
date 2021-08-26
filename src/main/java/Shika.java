@@ -25,29 +25,44 @@ public class Shika {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        greetUser();
+        printLogo();
         setupShika();
     }
 
+    /**
+     * Function that loads tasks from ShikaTasks.txt. If the file or parent directories do not exist,
+     * it creates them.
+     * @param taskList Array containing all recorded tasks.
+     * @throws FileNotFoundException when ShikaTasks.txt is not found.
+     */
     public static void loadTasks(Task[] taskList) throws FileNotFoundException {
-        File dir = new File("data");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
         File f = new File("data/ShikaTasks.txt");
-        if (!f.exists()) {
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Something went wrong during file creation :/");
+        boolean isFirstLaunch = false;
+        try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
             }
+            if (f.createNewFile()) {
+                isFirstLaunch = true;
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong during file creation :/");
+        } catch (SecurityException e) {
+            System.out.println("Shika isn't allowed to write in this location :<");
         }
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             loadTask(taskList, s.nextLine());
         }
+        String greeting = (isFirstLaunch) ? "Hello, friend! " : "Welcome back, friend! ";
+        System.out.println(greeting + "Shika at your service! ^-^\n");
     }
 
+    /**
+     * This function adds tasks to taskList by parsing the String inputted.
+     * @param taskList Array containing all recorded tasks.
+     * @param s String to be parsed.
+     */
     public static void loadTask(Task[] taskList, String s) {
         int firstDiv = s.indexOf("|") + 1;
         int secondDiv = s.indexOf("|", firstDiv) + 1;
@@ -68,6 +83,11 @@ public class Shika {
         Task.count += 1;
     }
 
+    /**
+     * This function saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
+     * @param taskList Array containing all recorded tasks.
+     * @throws IOException when the saving operation is interrupted.
+     */
     public static void saveTasks(Task[] taskList) throws IOException {
         FileWriter fw = new FileWriter("data/ShikaTasks.txt");
         fw.close();
@@ -81,32 +101,35 @@ public class Shika {
     }
 
     /**
-     * Function that prints Shika logo and a greeting message.
+     * Function that prints Shika logo.
      */
-    public static void greetUser() {
+    public static void printLogo() {
         String logo = "  _________.__    .__ __            \n"
                 + " /   _____/|  |__ |__|  | _______   \n"
                 + " \\_____  \\ |  |  \\|  |  |/ /\\__  \\  \n"
                 + " /        \\|   Y  \\  |    <  / __ \\_\n"
                 + "/_______  /|___|  /__|__|_ \\(____  /\n"
                 + "        \\/      \\/        \\/     \\/ \n";
-
-        System.out.println(logo + "\nHello, friend! Shika at your service! o7\n");
+        System.out.println(logo);
     }
 
+    /**
+     * This function initialises the array containing all tasks, tries to load tasks, then runs Shika.
+     */
     public static void setupShika() {
         Task[] taskList = new Task[100];
         Task.count = 0;
         try {
             loadTasks(taskList);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.\n");
+            System.out.println("I can't find the save file AHHHHHHH.\n");
         }
         runShika(taskList);
     }
 
     /**
      * Function that calls getCommand() in a loop to run Shika. Loop can be exited by inputting "bye".
+     * @param taskList Array containing all recorded tasks.
      */
     public static void runShika(Task[] taskList) {
         Scanner in = new Scanner(System.in);

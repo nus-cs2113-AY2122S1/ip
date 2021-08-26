@@ -32,5 +32,9 @@ public abstract class Task {
         return "[" + getStatus() + "] " + name + " ";
     }
 
+    /**
+     * This function saves the indivdual task into data/ShikaTasks.txt.
+     * @throws IOException when saving operation is interrupted.
+     */
     public abstract void saveTask() throws IOException;
 }
