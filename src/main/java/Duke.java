@@ -1,4 +1,5 @@
 // import libraries here
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println();
     }
+
     public static void echo() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -28,6 +30,7 @@ public class Duke {
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
     }
+
     public static void showList() {
         System.out.println("    ____________________________________________________________");
         for (int i = 0; i < list.size(); i++) {
@@ -41,6 +44,7 @@ public class Duke {
         }
         System.out.println("    ____________________________________________________________");
     }
+
     public static void markAsDone(int index) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
@@ -50,6 +54,7 @@ public class Duke {
         System.out.println("       [X] " + task);
         System.out.println("    ____________________________________________________________");
     }
+
     public static void addList() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -78,6 +83,7 @@ public class Duke {
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
     }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
