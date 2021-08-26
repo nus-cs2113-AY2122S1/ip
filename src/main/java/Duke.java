@@ -9,25 +9,31 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        String line;
 
         System.out.println("Hello from\n" + logo);
         System.out.println("    _____________________________________________________________");
         System.out.println("    Hello! I'm Duke\n    What can I do for you?");
         System.out.println("    _____________________________________________________________");
 
+        String line;
+
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
+        TaskManager t1 = new TaskManager();
+
         while (!line.toLowerCase().equals("bye")) {
-            System.out.println("    _____________________________________________________________");
-            System.out.println("    " + line);
-            System.out.println("    _____________________________________________________________");
+            if (line.toLowerCase().equals("list")) {
+                t1.listTasks();
+            } else {
+                t1.addTask(line);
+            }
             line = in.nextLine();
         }
 
         System.out.println("    _____________________________________________________________");
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println("    _____________________________________________________________");
+
     }
 }
