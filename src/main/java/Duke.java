@@ -16,7 +16,7 @@ public class Duke {
                 " Tell me what you want added! Type 'list' to display all. Type 'bye' to exit.\n" + dashes);
 
         String line;
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int listCount = 0;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
@@ -25,14 +25,25 @@ public class Duke {
             System.out.println(dashes);
             if (line.equals("list")) {
                 int itemCount = 1;
-                for (String item : list) {
+                for (Task item : list) {
                     if (item != null) {
-                        System.out.println(itemCount + ". " + item);
+                        System.out.println(itemCount + "."
+                                + "[" + item.getStatusIcon() + "] "
+                                + item.getDescription());
                         itemCount++;
                     }
                 }
+            } else if (line.startsWith("done")) {
+                String[] words = line.split(" ");
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                Task currentTask = list[taskIndex];
+                currentTask.setDone();
+                System.out.println("Nice! You did the following task:"
+                        + "\n [" + currentTask.getStatusIcon() + "] "
+                        + currentTask.getDescription());
             } else {
-                list[listCount] = line;
+                Task t = new Task(line);
+                list[listCount] = t;
                 listCount++;
                 System.out.println("added: " + line);
             }
