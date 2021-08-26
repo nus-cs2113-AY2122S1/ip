@@ -2,6 +2,7 @@ public class TaskManager {
     private Task[] tasks = new Task[100];
     private int numTask = 0;
 
+<<<<<<< HEAD
     private static final String GREETING = "****************************\n"
             + "*  ____             ____   *\n"
             + "* |  _ \\    ____   |  _ \\  *\n"
@@ -19,15 +20,32 @@ public class TaskManager {
             + "Bye. Have a nice day!\n"
             + "_________________________________________\n";
 
+=======
+>>>>>>> parent of c31964d (Edited to fit Coding Standards)
     public TaskManager() {
     }
 
     public void greet() {
-        System.out.println(GREETING);
+        String greeting = "****************************\n"
+                + "*  ____             ____   *\n"
+                + "* |  _ \\    ____   |  _ \\  *\n"
+                + "* | |_| |  / __ \\  | |_| | *\n"
+                + "* |  _  | | |  | | |  _  | *\n"
+                + "* | |_| | | |__| | | |_| | *\n"
+                + "* |____/   \\____/  |____/  *\n"
+                + "****************************\n"
+                + "_________________________________________\n"
+                + "Have no fear, Bob is here!\n"
+                + "What is it that you require?\n"
+                + "_________________________________________\n";
+        System.out.println(greeting);
     }
 
     public void exitMessage() {
-        System.out.println(EXIT_MESSAGE);
+        String message = "_________________________________________\n"
+                + "Bye. Have a nice day!\n"
+                + "_________________________________________\n";
+        System.out.println(message);
     }
 
     public void addTask(String task) {
