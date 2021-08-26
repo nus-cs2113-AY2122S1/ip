@@ -1,30 +1,8 @@
 import java.util.Scanner;
+import java.lang.String;
 
-public class Main {
+public class Duke {
 
-    private static String[] l = new String[100];
-    private static int listSize = 0;
-
-    public static void addToList(String input) {
-        l[listSize] =  input;
-        listSize++;
-        System.out.println("    ____________________________________________________________\n"+
-                "Added: "+input + "\n" +
-                "    ____________________________________________________________\n");
-    }
-
-    public static void printItems(){
-        if (listSize == 0){
-            System.out.println("The list is empty.");
-        }
-        else{
-            System.out.println("    ____________________________________________________________\n");
-            for (int i = 1; i<=listSize; i++){
-                System.out.println(i + ". " + l[i-1]);
-            }
-            System.out.println("    ____________________________________________________________\n");
-        }
-    }
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -34,24 +12,49 @@ public class Main {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("    ____________________________________________________________\n" +
-                "     Hello! I'm Duke\n" +
-                "     What can I do for you?\n" +
-                "    ____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n" +
+                "Hello! I'm Duke\n" +
+                "What can I do for you?\n" +
+                "____________________________________________________________\n");
         Scanner input = new Scanner(System.in);
         while (true){
             String str = input.nextLine();
             if (str.equals("bye")){
-                System.out.println("    ____________________________________________________________\n" +
-                        "     Bye. Hope to see you again soon!\n" +
-                        "    ____________________________________________________________\n");
+                System.out.println("____________________________________________________________\n" +
+                        "Bye. Hope to see you again soon!\n" +
+                        "____________________________________________________________\n");
                 break;
             }
             else if (str.equals("list")){
-                printItems();
+                System.out.println("____________________________________________________________\n" +
+                        "Here are the tasks in your list: ");
+                list.printItems();
+                System.out.println("____________________________________________________________");
+            }
+            else if (str.contains("Done ") == true){
+                String nums = "";
+                for (int i=0;i<str.length();i++){
+                    char c = str.charAt(i);
+                    if (Character.isDigit(c) == true){
+                        nums += c;
+                    }
+                }
+                int index = Integer.parseInt(nums);
+                if (index > list.listSize){
+                    System.out.println("____________________________________________________________\n" +
+                            "The index is out of range.\n" +
+                            "____________________________________________________________\n");
+                }
+                else{
+                    list.mark(index);
+                    System.out.println("____________________________________________________________\n" +
+                            "Nice! I've marked this task as done: ");
+                    list.markedItems();
+                    System.out.println("____________________________________________________________");
+                }
             }
             else {
-                addToList(str);
+                list.addToList(str);
             }
         }
 
