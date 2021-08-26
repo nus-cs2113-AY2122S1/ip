@@ -3,8 +3,9 @@ import java.util.Scanner;
 public class Duke {
 
     private boolean active = false;
-    private String[] todolist = new String[100];
-    private int listlength = 0;
+    //private String[] todolist = new String[100];
+    //private int listlength = 0;
+    Tasks list = new Tasks();
 
     public Duke() {
         active = true;
@@ -44,6 +45,7 @@ public class Duke {
     }
 
     public void addList(String item) {
+        /*
         //System.out.println("\tadding to todo list......");
 
         Scanner in = new Scanner(System.in);
@@ -56,13 +58,20 @@ public class Duke {
         //    line = line.toLowerCase();
         //}
         //System.out.println("\tsaved to todo list!");
-        //printLine();
+        //printLine();*/
+
+        list.insert(item);
+        System.out.println("\tadded: " + item);
+        printLine();
     }
 
     public void listOut() {
+        /*
         for(int i=0; i<listlength; i++) {
             System.out.println("\t" + (i+1) + "." + todolist[i]);
         }
+        printLine();*/
+        System.out.print(list);
         printLine();
     }
 }
