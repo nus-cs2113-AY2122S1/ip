@@ -15,15 +15,20 @@ public class Duke {
     }
 
     public static void bye() {
-        String bye = " Bye. Hope to see you again soon!";
+        String bye = " Bye. pepepopo loves you <3!";
         System.out.println(bye);
         divider();
 
     }
 
     public static void added(String text) {
-        String added = "added: ";
-        System.out.println("added: " + text);
+        System.out.println("oooo, pepepopo has added a new task: " + text);
+    }
+
+    public static void done(Task[] list, int taskNumber) {
+        System.out.println("Yay! pepepopo has marked your task as done:");
+        System.out.println(list[taskNumber].getStatusIcon() + " " + list[taskNumber].getDescription());
+        divider();
     }
 
     public static String input() {
@@ -34,37 +39,52 @@ public class Duke {
         return line;
     }
 
-    public static void echo(String text) {
-            System.out.println(text);
-            divider();
+    public static boolean isDone(String input) {
+        if (!input.contains("done")) {
+            return false;
+        }
+        else if (!Character.isDigit(input.charAt(input.length() - 1))) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public static void main(String[] args) {
         greeting();
 
-        String [] list = new String[100];
-        int listCount = 0;
+        Task [] list = new Task[100];
+        int taskCount = 0;
 
         boolean isBye;
         boolean isList;
+        boolean isDone;
 
         do {
             String input = input();
             isBye = input.equals("bye");
             isList = input.equals("list");
+            isDone = isDone(input);
 
             if (isList){
-                String [] listFinal = Arrays.copyOf(list, listCount);
+                Task [] listPrint = Arrays.copyOf(list, taskCount);
                 int curr = 1;
-                for (String item: listFinal) {
-                    System.out.println(curr + ". " + item);
+                for (Task item: listPrint) {
+                    System.out.println(curr + "." + item.getStatusIcon() + " " + item.getDescription());
                     curr += 1;
                 }
                 divider();
             }
+            else if (isDone){
+                int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                list[taskNumber].setDone();
+                done(list, taskNumber);
+            }
             else {
-                list[listCount] = input;
-                listCount += 1;
+                Task t = new Task(input);
+                list[taskCount] = t;
+                taskCount += 1;
                 added(input);
                 divider();
             }
