@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -21,30 +26,113 @@ public class Shika {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        greetUser();
-        runShika();
+        printLogo();
+        setupShika();
     }
 
     /**
-     * Function that prints Shika logo and a greeting message.
+     * Function that loads tasks from ShikaTasks.txt. If the file or parent directories do not exist,
+     * it creates them.
+     * @param tasks Arraylist containing all recorded tasks.
+     * @throws FileNotFoundException when ShikaTasks.txt is not found.
      */
-    public static void greetUser() {
+    public static void loadTasks(ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File("data/ShikaTasks.txt");
+        boolean isFirstLaunch = false;
+        try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+            }
+            if (f.createNewFile()) {
+                isFirstLaunch = true;
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong during file creation :/");
+        } catch (SecurityException e) {
+            System.out.println("Shika isn't allowed to write in this location :<");
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            loadTask(tasks, s.nextLine());
+        }
+        String greeting = (isFirstLaunch) ? "Hello, friend! " : "Welcome back, friend! ";
+        System.out.println(greeting + "Shika at your service! ^-^\n");
+    }
+
+    /**
+     * This function adds tasks to taskList by parsing the String inputted.
+     * @param tasks Arraylist containing all recorded tasks.
+     * @param s String to be parsed.
+     */
+    public static void loadTask(ArrayList<Task> tasks, String s) {
+        int firstDiv = s.indexOf("|") + 1;
+        int secondDiv = s.indexOf("|", firstDiv) + 1;
+        int thirdDiv = s.indexOf("|", secondDiv) + 1;
+        String atBy = s.substring(firstDiv, secondDiv - 1).trim();
+        String name = s.substring(secondDiv, thirdDiv - 1).trim();
+        String done = s.substring(thirdDiv).trim();
+        if (s.startsWith("T")) {
+            tasks.add(new Todo(name));
+        } else if (s.startsWith("D")) {
+            tasks.add(new Deadline(name, atBy));
+        } else {
+            tasks.add(new Event(name, atBy));
+        }
+        if (done.equals("true")) {
+            tasks.get(Task.count).markAsDone();
+        }
+        Task.count += 1;
+    }
+
+    /**
+     * This function saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
+     * @param tasks Arraylist containing all recorded tasks.
+     * @throws IOException when the saving operation is interrupted.
+     */
+    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("data/ShikaTasks.txt");
+        fw.close();
+        for (int i = 0; i < Task.count; i++) {
+            try {
+                tasks.get(i).saveTask();
+            } catch (IOException e) {
+                System.out.println("Problem occurred when saving T.T");
+            }
+        }
+    }
+
+    /**
+     * Function that prints Shika logo.
+     */
+    public static void printLogo() {
         String logo = "  _________.__    .__ __            \n"
                 + " /   _____/|  |__ |__|  | _______   \n"
                 + " \\_____  \\ |  |  \\|  |  |/ /\\__  \\  \n"
                 + " /        \\|   Y  \\  |    <  / __ \\_\n"
                 + "/_______  /|___|  /__|__|_ \\(____  /\n"
                 + "        \\/      \\/        \\/     \\/ \n";
+        System.out.println(logo);
+    }
 
-        System.out.println(logo + "\nHello, friend! Shika at your service! o7\n");
+    /**
+     * This function initialises the array containing all tasks, tries to load tasks, then runs Shika.
+     */
+    public static void setupShika() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Task.count = 0;
+        try {
+            loadTasks(tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("I can't find the save file AHHHHHHH.\n");
+        }
+        runShika(tasks);
     }
 
     /**
      * Function that calls getCommand() in a loop to run Shika. Loop can be exited by inputting "bye".
+     * @param tasks Arraylist containing all recorded tasks.
      */
-    public static void runShika() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        Task.count = 0;
+    public static void runShika(ArrayList<Task> tasks) {
         Scanner in = new Scanner(System.in);
         String text;
         while(in.hasNextLine()) {
@@ -55,8 +143,11 @@ public class Shika {
             }
             try {
                 getCommand(tasks, text);
+                saveTasks(tasks);
             } catch (InvalidCommandException e) {
                 System.out.print(line + "> Sorry friend, I don't know what that means. :/\n" + line);
+            } catch (IOException e) {
+                System.out.println("Problem occurred when saving T.T");
             }
         }
     }
