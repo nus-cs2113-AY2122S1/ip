@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Duke {
     private static ArrayList<String> list = new ArrayList<>();
     private static ArrayList<Integer> done = new ArrayList<>();
-    private static int count = 0;
 
     public static void greeting() {
         System.out.println("    ____________________________________________________________");
@@ -32,9 +31,23 @@ public class Duke {
     public static void showList() {
         System.out.println("    ____________________________________________________________");
         for (int i = 0; i < list.size(); i++) {
-            System.out.printf("     %d. %s", i + 1, list.get(i));
-            System.out.println();
+            System.out.printf("     %d.", i + 1);
+            if (done.get(i) == 1) {
+                System.out.print("[X] ");
+            } else {
+                System.out.print("[ ] ");
+            }
+            System.out.println(list.get(i));
         }
+        System.out.println("    ____________________________________________________________");
+    }
+    public static void markAsDone(int index) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Nice! I've marked this task as done:");
+        String task = list.get(index - 1);
+        // mark as done
+        done.set(index - 1, 1);
+        System.out.println("       [X] " + task);
         System.out.println("    ____________________________________________________________");
     }
     public static void addList() {
@@ -48,10 +61,15 @@ public class Duke {
                 line = in.nextLine();
                 continue;
             }
+            if (line.startsWith("done")) {
+                int index = Integer.parseInt(line.substring(line.length() - 1));
+                markAsDone(index);
+                line = in.nextLine();
+                continue;
+            }
             System.out.println("    ____________________________________________________________");
             list.add(line);
             done.add(0);
-            count++;
             System.out.println("     added: " + line);
             System.out.println("    ____________________________________________________________");
             line = in.nextLine();
