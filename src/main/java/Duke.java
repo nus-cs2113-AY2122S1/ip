@@ -1,7 +1,9 @@
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
-        String line = null;
+        int listSize = 100;
+        String[]lineStorage = new String[100];
+        int currentIndex = 0;
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -12,20 +14,25 @@ public class Duke {
                 " Hello! I'm Duke\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
-        while (line != "bye") {
+        while (lineStorage[currentIndex] != "bye") {
+            currentIndex++;
             Scanner in = new Scanner(System.in);
-            line = in.nextLine();
+            lineStorage[currentIndex] = in.nextLine();
             System.out.println("____________________________________________________________\n");
-            if(line.equals("bye")) {
+            if(lineStorage[currentIndex].equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________\n");
                 return;
             }
-            System.out.println(line);
-            System.out.println("____________________________________________________________\n");
-            
+            if(lineStorage[currentIndex].equals("list")) {
+                for(int i = 1; i < currentIndex; i++){
+                    System.out.println(i + ". " + lineStorage[i]);
+                }
+                System.out.println("____________________________________________________________\n");
+            }else{
+                System.out.println("added: " + lineStorage[currentIndex]);
+                System.out.println("____________________________________________________________\n");
+            }   
         }
-        
     }
-        
 }
