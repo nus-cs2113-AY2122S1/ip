@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     public static void greeting() {
@@ -20,6 +21,11 @@ public class Duke {
 
     }
 
+    public static void added(String text) {
+        String added = "added: ";
+        System.out.println("added: " + text);
+    }
+
     public static String input() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -29,19 +35,43 @@ public class Duke {
     }
 
     public static void echo(String text) {
-        if (!text.equals("bye")) {
             System.out.println(text);
             divider();
-
-            echo(input());
-        }
-        else {
-            bye();
-        }
     }
 
     public static void main(String[] args) {
         greeting();
-        echo(input());
+
+        String [] list = new String[100];
+        int listCount = 0;
+
+        boolean isBye;
+        boolean isList;
+
+        do {
+            String input = input();
+            isBye = input.equals("bye");
+            isList = input.equals("list");
+
+            if (isList){
+                String [] listFinal = Arrays.copyOf(list, listCount);
+                int curr = 1;
+                for (String item: listFinal) {
+                    System.out.println(curr + ". " + item);
+                    curr += 1;
+                }
+                divider();
+            }
+            else {
+                list[listCount] = input;
+                listCount += 1;
+                added(input);
+                divider();
+            }
+
+        } while (!isBye);
+
+        bye();
+
     }
 }
