@@ -7,7 +7,8 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
 
-        String[] list = new String[100];
+        String[] stringList = new String[100];
+        Task[] taskList = new Task[100];
         int listCount = 0;
 
 
@@ -16,17 +17,26 @@ public class Duke {
         line = in.nextLine();
 
         while(!line.equals("bye")) {
-            if (line.equals("list")) {
+            if(line.startsWith("done")){
+                String taskNumberString = line.substring(5);
+                int taskNumberInt = Integer.parseInt(taskNumberString) - 1;
+                taskList[taskNumberInt].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[X] " + taskList[taskNumberInt].getDescription());
+                line = in.nextLine();
+            }
+            else if (line.equals("list")) {
                 int taskCount = 1;
                 for (int i = 0; i < listCount; i++) {
-                    System.out.println(taskCount + ". " + list[i]);
+                    System.out.println(taskCount + ". [" + taskList[i].getStatusIcon() + "] " + stringList[i]);
                     taskCount++;
                 }
                 line = in.nextLine();
             }
             else {
                 System.out.println("added: " + line);
-                list[listCount] = line;
+                stringList[listCount] = line;
+                taskList[listCount] = new Task(line);
                 listCount++;
                 line = in.nextLine();
             }
