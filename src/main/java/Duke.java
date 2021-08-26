@@ -1,25 +1,35 @@
 import java.util.Scanner;
 
 public class Duke {
+    static Task[] tasks = new Task[100];
+
+    public static void commandBye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void commandList() {
+        for (int i = 0; i < Task.getTaskCount(); i++) {
+            System.out.println((i + 1) + ". " + tasks[i].getDescription());
+        }
+    }
+
+    public static void addTask(String desc) {
+        System.out.println("added: " + desc);
+        tasks[Task.getTaskCount()] = new Task(desc);
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm Duke. \nWhat can I do for you?");
-        String line;
-        String[] tasks = new String[100];
-        int taskCount = 0;
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        String line = in.nextLine();
         while (!line.equals("bye")) {
             if (line.equals("list")) {
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
-                line = in.nextLine();
+                commandList();
             } else {
-                System.out.println("added: " + line);
-                tasks[taskCount++] = line;
-                line = in.nextLine();
+                addTask(line);
             }
+            line = in.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        commandBye();
     }
 }
