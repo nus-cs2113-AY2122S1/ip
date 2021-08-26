@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 
 import shikabot.task.Task;
@@ -21,7 +26,59 @@ public class Shika {
      */
     public static void main(String[] args) {
         greetUser();
-        runShika();
+        setupShika();
+    }
+
+    public static void loadTasks(Task[] taskList) throws FileNotFoundException {
+        File dir = new File("data");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File f = new File("data/ShikaTasks.txt");
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+                System.out.println("full path: " + f.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println("Something went wrong during file creation :/");
+            }
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            loadTask(taskList, s.nextLine());
+        }
+    }
+
+    public static void loadTask(Task[] taskList, String s) {
+        int firstDiv = s.indexOf("|") + 1;
+        int secondDiv = s.indexOf("|", firstDiv) + 1;
+        int thirdDiv = s.indexOf("|", secondDiv) + 1;
+        String atBy = s.substring(firstDiv, secondDiv - 1).trim();
+        String name = s.substring(secondDiv, thirdDiv - 1).trim();
+        String done = s.substring(thirdDiv).trim();
+        if (s.startsWith("T")) {
+            taskList[Task.count] = new Todo(name);
+        } else if (s.startsWith("D")) {
+            taskList[Task.count] = new Deadline(name, atBy);
+        } else {
+            taskList[Task.count] = new Event(name, atBy);
+        }
+        if (done.equals("true")) {
+            taskList[Task.count].markAsDone();
+        }
+        Task.count += 1;
+    }
+
+    public static void saveTasks(Task[] taskList) throws IOException {
+        FileWriter fw = new FileWriter("data/ShikaTasks.txt");
+        fw.close();
+        for (int i = 0; i < Task.count; i++) {
+            try {
+                taskList[i].saveTask();
+            } catch (IOException e) {
+                System.out.println("Problem occurred when saving T.T");
+            }
+        }
     }
 
     /**
@@ -38,12 +95,21 @@ public class Shika {
         System.out.println(logo + "\nHello, friend! Shika at your service! o7\n");
     }
 
+    public static void setupShika() {
+        Task[] taskList = new Task[100];
+        Task.count = 0;
+        try {
+            loadTasks(taskList);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.\n");
+        }
+        runShika(taskList);
+    }
+
     /**
      * Function that calls getCommand() in a loop to run Shika. Loop can be exited by inputting "bye".
      */
-    public static void runShika() {
-        Task[] taskList = new Task[100];
-        Task.count = 0;
+    public static void runShika(Task[] taskList) {
         Scanner in = new Scanner(System.in);
         String text;
         while(in.hasNextLine()) {
@@ -54,8 +120,11 @@ public class Shika {
             }
             try {
                 getCommand(taskList, text);
+                saveTasks(taskList);
             } catch (InvalidCommandException e) {
                 System.out.print(line + "> Sorry friend, I don't know what that means. :/\n" + line);
+            } catch (IOException e) {
+                System.out.println("Problem occurred when saving T.T");
             }
         }
     }

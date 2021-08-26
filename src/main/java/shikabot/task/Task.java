@@ -1,6 +1,8 @@
 package shikabot.task;
 
-public class Task {
+import java.io.IOException;
+
+public abstract class Task {
 
     /** Number of tasks recorded. */
     public static int count = 0;
@@ -29,4 +31,6 @@ public class Task {
     public String toString() {
         return "[" + getStatus() + "] " + name + " ";
     }
+
+    public abstract void saveTask() throws IOException;
 }
