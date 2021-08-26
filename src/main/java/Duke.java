@@ -4,57 +4,57 @@ import java.util.Arrays;
 public class Duke {
 
     public static void main(String[] args) {
-        String line;
+        String input;
         Scanner in = new Scanner(System.in);
         Task[] storage = new Task[100];
         int inputCount = 0;
-        String status;
-        String[] lineSplitter;
         int taskNumber = 0;
+        String statusOfTask;
+        String[] inputSplitter;
+
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
+        input = in.nextLine();
 
-        line = in.nextLine();
-        while (!(line.equals("bye"))) {
+        while (!(input.equals("bye"))) {
 
-            if (line.equals("list")) {
+            if (input.equals("list")) {
                 System.out.println("    Here are the tasks in your list:");
 
                 for (int outputCount = 0; outputCount < inputCount; outputCount++) {
-                    status = storage[outputCount].getStatusIcon();
-                    System.out.println("    " + (outputCount + 1) + ".[" + status + "] " + storage[outputCount].description);
+                    statusOfTask = storage[outputCount].getStatusIcon();
+                    System.out.println("    " + (outputCount + 1) + ".[" + statusOfTask + "] " + storage[outputCount].description);
                 }
-                line = in.nextLine();
+                input = in.nextLine();
 
-            } else if (line.contains("done")) {
-                lineSplitter = line.split(" ");
-                taskNumber = Integer.parseInt(lineSplitter[1]);
+            } else if (input.contains("done")) {
+                inputSplitter = input.split(" ");
+                taskNumber = Integer.parseInt(inputSplitter[1]);
                 taskNumber = taskNumber - 1;
 
                 if (((taskNumber + 1) > 0) && ((taskNumber + 1) < inputCount)) { //check for invalid inputs
-
                     storage[taskNumber].markAsDone(); //mark x in [ ]
                     System.out.println("    Nice! I've marked this task as done:");
-                    status = storage[taskNumber].getStatusIcon();
+                    statusOfTask = storage[taskNumber].getStatusIcon();
 
-                    System.out.println("    [" + status + "] " + storage[taskNumber].description);
-                    line = in.nextLine();
+                    System.out.println("    [" + statusOfTask + "] " + storage[taskNumber].description);
+                    input = in.nextLine();
 
                 } else {
-                    System.out.println("    Sorry, Invalid Input! Please check the list again!");
-                    line = in.nextLine();
+                    System.out.println("    Invalid input! Please check the list again!");
+                    input = in.nextLine();
                 }
 
             } else {
-                System.out.println("    added: " + line);
-                Task t = new Task(line);
+                System.out.println("    added: " + input);
+                Task t = new Task(input);
                 storage[inputCount] = t;
                 inputCount++;
 
-                line = in.nextLine();
+                input = in.nextLine();
             }
         }
-        System.out.println("    " + "Bye. Hope to see you again soon!");
+        System.out.println("    " + "Bye! Hope to see you again soon!");
     }
 }
 
