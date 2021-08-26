@@ -38,7 +38,6 @@ public class Shika {
         if (!f.exists()) {
             try {
                 f.createNewFile();
-                System.out.println("full path: " + f.getAbsolutePath());
             } catch (IOException e) {
                 System.out.println("Something went wrong during file creation :/");
             }
