@@ -20,8 +20,14 @@ public class Duke {
                 list.getTasks();
                 phrase = sc.nextLine();
                 continue;
+            } else if (phrase.contains("done")) {
+                phrase = phrase.replace("done ", "");
+                int taskNumber = Integer.parseInt(phrase);
+                list.getThingsToDo().get(taskNumber - 1).finishTask();
+                phrase = sc.nextLine();
+                continue;
             }
-            list.addTasks(phrase);
+            list.addTasks(new Task(phrase));
             phrase = sc.nextLine();
         }
 
