@@ -50,20 +50,16 @@ public class Duke {
         int[] taskDone = new int[100];
 
         while (!isDone) {
-            /*if (isTask == true) {
+            if (isTask == true) {
                 System.out.println("[The Templar:]");
                 System.out.println("What further tasks do you require?");
-            }*/
+            }
             System.out.println("____________________________________________________________");
             System.out.println("[Hero:]");
             String line;
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
 
-            //added
-            System.out.println("[The Templar:]");
-            System.out.println("____________________________________________________________");
-            System.out.println(line);
 
             if (!line.contains("list") && !line.contains("done")) {
                 tasks[taskCount] = line;
@@ -72,13 +68,13 @@ public class Duke {
 
             isTask = true; // first answer has been given
 
-            /*if (!line.contains("bye") && !line.contains("list") && !line.contains("done")) {
+            if (!line.contains("bye") && !line.contains("list") && !line.contains("done")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("[DUKE:]");
                 System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED:" + line + " =============");
+                System.out.println("============= TASK ACQUIRED: " + line + " =============");
                 System.out.println("____________________________________________________________");
-            }*/
+            }
 
             if (line.contains("list")) {
                 printList(tasks, taskCount, taskDone);
