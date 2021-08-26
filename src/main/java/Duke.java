@@ -78,6 +78,7 @@ public class Duke {
 
     public void markDone(int index)
     {
+
         index -= 1;
         list.markDone(index);
         printLine();

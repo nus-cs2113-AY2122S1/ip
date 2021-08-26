@@ -10,10 +10,11 @@ public class Tasks {
 
     public void markDone(int index)
     {
-        if(index > this.length) {
-            System.out.println("\tOut of Index");
+        if(index >= this.length || index <= 0) {
+            System.out.println("\tBro, you suck at counting numbers");
             return;
         }
+        System.out.println("\tNice! I have marked this done !");
         mark_as_done[index] = true;
         System.out.println("\t[X] " + list[index]);
     }
