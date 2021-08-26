@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String greeting = "Hello! I'm Duke" + "\n"
-                + "What can I do for you?";
+        String greeting = "Hi! I'm Herrick, your task manager." + "\n"
+                + "What would you like to add to your timetable?";
 
-        String farewell = "Bye. Hope to see you again soon!";
+        String farewell = "Bye. Hope you will complete everything for today!";
 
         System.out.println(greeting);
 
@@ -13,8 +13,15 @@ public class Duke {
 
         String phrase = sc.nextLine();
 
+        Tasks list = new Tasks();
+
         while (!phrase.equals("bye")) {
-            System.out.println(phrase);
+            if (phrase.equals("list")) {
+                list.getTasks();
+                phrase = sc.nextLine();
+                continue;
+            }
+            list.addTasks(phrase);
             phrase = sc.nextLine();
         }
 
