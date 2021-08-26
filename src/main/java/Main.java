@@ -25,6 +25,13 @@ public class Main {
                 duke.listOut();
                 break;
             default:
+                if(line.contains("done")){
+                    line = line.replaceAll("[^(\\d)]","");
+
+                    int index = Integer.parseInt(line);
+                    duke.markDone(index);
+                    break;
+                }
                 duke.addList(line);
                 break;
             //default:

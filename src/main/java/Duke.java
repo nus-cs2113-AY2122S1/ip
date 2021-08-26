@@ -1,9 +1,10 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
 
     private boolean active = false;
-    //private String[] todolist = new String[100];
+    private String[] todolist = new String[100];
     //private int listlength = 0;
     Tasks list = new Tasks();
 
@@ -74,4 +75,12 @@ public class Duke {
         System.out.print(list);
         printLine();
     }
+
+    public void markDone(int index)
+    {
+        index -= 1;
+        list.markDone(index);
+        printLine();
+    }
+
 }
