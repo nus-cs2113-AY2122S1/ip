@@ -13,7 +13,6 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("_____________________________________________");
         task();
-
     }
 
     public static void MarkAsDone(Task[] tasks, int taskNum) {
@@ -53,6 +52,4 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("_____________________________________________");
     }
-
-
 }
