@@ -2,7 +2,9 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         int listSize = 100;
-        String[]lineStorage = new String[100];
+        String[] lineStorage = new String[listSize];
+        Boolean[] taskDone = new Boolean[listSize];
+        String line = null;
         int currentIndex = 0;
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -15,23 +17,37 @@ public class Duke {
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
         while (lineStorage[currentIndex] != "bye") {
-            currentIndex++;
             Scanner in = new Scanner(System.in);
-            lineStorage[currentIndex] = in.nextLine();
-            System.out.println("____________________________________________________________\n");
-            if(lineStorage[currentIndex].equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________\n");
-                return;
-            }
-            if(lineStorage[currentIndex].equals("list")) {
-                for(int i = 1; i < currentIndex; i++){
-                    System.out.println(i + ". " + lineStorage[i]);
+            line = in.nextLine();
+            if(line != null && line.contains("done")){
+                String[] words = line.split(" ");
+                int index = Integer.parseInt(words[1]);
+                taskDone[index] = true;
+                System.out.println("Nice! I have marked this task as done!");
+                System.out.println("[X] " + lineStorage[index]);
+            } else if(line.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
+                for(int i = 1; i <= currentIndex; i++){
+                    if(taskDone[i] == false){
+                       System.out.println(i + ". [] " + lineStorage[i]);
+                    }else if (taskDone[i] == true){
+                     System.out.println(i + ". [X]" + lineStorage[i]);
+                    }        
                 }
+                System.out.println("____________________________________________________________\n"); 
+            } else{
+                currentIndex++;
+                lineStorage[currentIndex] = line;
+                taskDone[currentIndex] = false;
                 System.out.println("____________________________________________________________\n");
-            }else{
+                if(lineStorage[currentIndex].equals("bye")) {
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println("____________________________________________________________\n");
+                    return;
+                } else{
                 System.out.println("added: " + lineStorage[currentIndex]);
                 System.out.println("____________________________________________________________\n");
+                }
             }   
         }
     }
