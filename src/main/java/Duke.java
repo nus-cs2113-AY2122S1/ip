@@ -1,23 +1,6 @@
 import javax.lang.model.type.NullType;
 import java.util.*;
 
-class Task{
-    protected String item;
-    protected boolean complete;
-    public Task(String description) {
-        this.item = description;
-        this.complete = false;
-    }
-    public void markComplete() {
-        this.complete = true;
-    }
-}
-
-class Information {
-    Task list[] = new Task[100];
-    int listLength = 0;
-}
-
 public class Duke {
     public static void line() {
         System.out.println("\t____________________________________________________________\n");
@@ -46,7 +29,7 @@ public class Duke {
                 user.list[index].markComplete();
                 System.out.println("\tNice! I've marked this task as done:\n\t[X] " + user.list[index].item);
             }
-        }else {
+        } else {
             System.out.println("\t" + input + "\n");
         }
     }
