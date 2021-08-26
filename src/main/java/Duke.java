@@ -32,7 +32,7 @@ public class Duke {
                 taskNumber = Integer.parseInt(inputSplitter[1]);
                 taskNumber = taskNumber - 1;
 
-                if (((taskNumber + 1) > 0) && ((taskNumber + 1) < inputCount)) { //check for invalid inputs
+                if (((taskNumber + 1) > 0) && ((taskNumber + 1) <= inputCount)) { //check for invalid inputs
                     storage[taskNumber].markAsDone(); //mark x in [ ]
                     System.out.println("    Nice! I've marked this task as done:");
                     statusOfTask = storage[taskNumber].getStatusIcon();
