@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static ArrayList<String> list = new ArrayList<String>();
-//    private static ArrayList<Integer> done = new ArrayList<Integer>();
-//    private static int count = 0;
+    private static ArrayList<String> list = new ArrayList<>();
+    private static ArrayList<Integer> done = new ArrayList<>();
+    private static int count = 0;
 
     public static void greeting() {
         System.out.println("    ____________________________________________________________");
@@ -43,11 +43,15 @@ public class Duke {
         // get user input
         line = in.nextLine();
         while (!line.equals("bye")) {
-            if (line.equals("list")) {showList(); line = in.nextLine(); continue;}
+            if (line.equals("list")) {
+                showList();
+                line = in.nextLine();
+                continue;
+            }
             System.out.println("    ____________________________________________________________");
             list.add(line);
-//            done.add(0);
-//            count++;
+            done.add(0);
+            count++;
             System.out.println("     added: " + line);
             System.out.println("    ____________________________________________________________");
             line = in.nextLine();
