@@ -1,9 +1,10 @@
 import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        int listSize = 100;
+        int LIST_SIZE = 100;
         String[] lineStorage = new String[listSize];
-        Boolean[] taskDone = new Boolean[listSize];
+        Boolean[] isDone = new Boolean[listSize];
         String line = null;
         int currentIndex = 0;
         String logo = " ____        _        \n"
@@ -22,15 +23,15 @@ public class Duke {
             if(line != null && line.contains("done")){
                 String[] words = line.split(" ");
                 int index = Integer.parseInt(words[1]);
-                taskDone[index] = true;
+                isDone[index] = true;
                 System.out.println("Nice! I have marked this task as done!");
                 System.out.println("[X] " + lineStorage[index]);
             } else if(line.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for(int i = 1; i <= currentIndex; i++){
-                    if(taskDone[i] == false){
+                    if(isDone[i] == false){
                        System.out.println(i + ". [] " + lineStorage[i]);
-                    }else if (taskDone[i] == true){
+                    }else if (isDone[i] == true){
                      System.out.println(i + ". [X]" + lineStorage[i]);
                     }        
                 }
@@ -38,7 +39,7 @@ public class Duke {
             } else{
                 currentIndex++;
                 lineStorage[currentIndex] = line;
-                taskDone[currentIndex] = false;
+                isDone[currentIndex] = false;
                 System.out.println("____________________________________________________________\n");
                 if(lineStorage[currentIndex].equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
