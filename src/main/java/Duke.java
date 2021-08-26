@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static final String MESSAGE = "Here are the tasks in your list:";
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -18,8 +19,8 @@ public class Duke {
         int inputCount = 0;
         int i = 0;
         int[] taskStatus = new int[100];
-        for(i = 0; i < 100; i++) {
-            taskStatus[i] = 0;		//No "X" in output
+        for (i = 0; i < 100; i++) {
+            taskStatus[i] = 0;        //No "X" in output
         }
 
         Scanner userInput = new Scanner(System.in);
@@ -33,17 +34,17 @@ public class Duke {
                 System.out.println(MESSAGE);
 
                 for (i = 1; i <= inputCount; i++) {
-                    if(taskStatus[i-1] == 1) {
-                        System.out.println(i + ".[X] " + arrayInput[i-1]);
-                    }	else {
-                        System.out.println(i + ".[ ] " + arrayInput[i-1]);
+                    if (taskStatus[i - 1] == 1) {
+                        System.out.println(i + ".[X] " + arrayInput[i - 1]);
+                    } else {
+                        System.out.println(i + ".[ ] " + arrayInput[i - 1]);
                     }
-
                 }
+
                 System.out.println(line);
                 userCommand = userInput.nextLine();
                 continue;
-            }	else if (userCommand.contains("done")) {
+            } else if (userCommand.contains("done")) {
                 int len = userCommand.length();
                 taskID = userCommand.charAt(len - 1);
                 taskIDInt = taskID - 49;
