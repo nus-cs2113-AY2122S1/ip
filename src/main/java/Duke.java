@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static Task[] items = new Task[100];
-    private static int i = 0;
+    private static int taskCount = 0;
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -42,8 +42,8 @@ public class Duke {
             } else if (!line.matches("bye")) {
                 System.out.println(border + "added: " + line + '\n' + border);
                 Task newItem = new Task(line);
-                items[i] = newItem;
-                i++;
+                items[taskCount] = newItem;
+                taskCount++;
             }
         }
         while (!line.matches("bye"));
