@@ -10,7 +10,7 @@ public class Duke {
     private static void sendCommands() {
         String line;
         Scanner in = new Scanner(System.in);
-        while ( byeFlag != 1 ) {
+        while (byeFlag != 1) {
             System.out.println("____________________________________________________________\n");
             System.out.print("Type something: ");
             line = in.nextLine();
@@ -21,12 +21,12 @@ public class Duke {
 
     // checkCommands() is a method that allows us to determine when the user says bye.
     private static void checkCommands(String line) {
-        if ( positionCheck >= 100 ) {
+        if (positionCheck >= 100) {
             System.out.println("Oh dear me! We have exceeded my system's maximum capacity!");
         } else if (line.equals("bye")) {
             byeFlag = 1;
         } else if (line.equals("list")) {
-            if ( positionCheck == 0 ) {
+            if (positionCheck == 0) {
                 System.out.println("There is no data to show master!");
             } else {
                 System.out.println("Accessing archives...");
@@ -34,14 +34,14 @@ public class Duke {
                     System.out.println((i + 1) + ".[" + commands[i].getStatusIcon() + "] " + commands[i].description);
                 }
             }
-        } else if (line.equals("done")){
+        } else if (line.equals("done")) {
             System.out.println("Oh no master, I am not quite sure which task you would like me to mark as done");
-        } else if (line.contains("done")){
+        } else if (line.contains("done")) {
             String[] input = line.split(" ");
-            int doneTask = (Integer.parseInt(input[1]) - 1);
-            commands[doneTask].markAsDone();
+            int doneTaskNumber = (Integer.parseInt(input[1]) - 1);
+            commands[doneTaskNumber].markAsDone();
             System.out.println("The following task has been marked as done Master!");
-            System.out.println((doneTask+1) + "." + "[X] " + commands[doneTask].description);
+            System.out.println((doneTaskNumber + 1) + "." + "[X] " + commands[doneTaskNumber].description);
         } else {
             commands[positionCheck] = new Task(line);
             positionCheck += 1;
