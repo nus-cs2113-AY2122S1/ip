@@ -50,8 +50,17 @@ public class Duke {
             case "done":
                 TaskController.markAsCompleted(Integer.parseInt(words[1]));
                 break;
+            case "todo":
+                TaskController.addToList(line, TaskType.TODO);
+                break;
+            case "deadline":
+                TaskController.addToList(line, TaskType.DEADLINE);
+                break;
+            case "event":
+                TaskController.addToList(line, TaskType.EVENT);
+                break;
             default:
-                TaskController.addToList(line);
+                TaskController.printCommands();
             }
         } while (!isExit);
     }
