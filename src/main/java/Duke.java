@@ -47,8 +47,23 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         System.out.println("Hello! I'm Duke");
-        System.out.println("What can i do for you?");
-        createList();
-        System.out.println("Bye. Hope to see you again!");
+        System.out.println("I am programmed to engage in various forms of human conversation.");
+        System.out.println("I am currently able to perform two tasks for you, echo and list.");
+        System.out.println("I understand that is the gist of what human conversation is.");
+        System.out.println("enter 1 for echo and 2 for list");
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+        if (line.equals("1")) {
+            System.out.println("I will now repeat everything you say to me back to you");
+            echoInput();
+        } else if (line.equals("2")) {
+            System.out.println("I will keep track of a list for you");
+            createList();
+        } else {
+            System.out.println("I do not understand that right now, all i can do for you is echo or list");
+            line = in.nextLine();
+        }
+        System.out.println("Farewell. I hope to engage you in conversation again in the future");
     }
 }
