@@ -54,6 +54,6 @@ public class Duke {
             System.out.println(line);
         }
 
-        System.out.println(line + "Bye, see you!\n" + line);
+        System.out.println("Bye, see you!\n" + line);
     }
 }
