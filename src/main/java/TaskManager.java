@@ -9,6 +9,7 @@ public class TaskManager {
 
     /**
      * Adds task to toDoList ArrayList
+     *
      * @param task Task to be checked
      */
     public void add(Task task) {
@@ -17,6 +18,7 @@ public class TaskManager {
 
     /**
      * Checks if specified task is done
+     *
      * @param taskNumber task number of task to be checked
      */
     public void checkDone(int taskNumber) {
@@ -25,6 +27,7 @@ public class TaskManager {
 
     /**
      * Returns name of task given task number
+     *
      * @param index index of task in toDoList ArrayList
      * @return Name of Task
      */
