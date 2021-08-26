@@ -15,9 +15,8 @@ public class TaskManager {
     static void list() {
         for (int i = 0; i < taskNo; ++i) {
             Task task = tasks[i];
-            Character check = task.isDone() ? 'X' : ' ';
 
-            System.out.printf("%d. [%c] %s\n", i + 1, check, task.getName());
+            System.out.printf("%d. [%s] %s\n", i + 1, task.getStatusIcon(), task.getName());
         }
     }
 

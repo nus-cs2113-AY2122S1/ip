@@ -1,21 +1,21 @@
 public class Task {
     final private String name;
-    private Boolean status;
+    private Boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.status = false;
+        this.isDone = false;
     }
 
     public String getName() {
         return name;
     }
 
-    public void markDone() {
-        status = true;
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
-    public Boolean isDone() {
-        return status;
+    public void markDone() {
+        isDone = true;
     }
 }
