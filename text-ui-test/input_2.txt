@@ -1,1 +1,8 @@
 list
+todo hello
+delete 1
+list
+delete 5
+list
+delete 10
+bye
