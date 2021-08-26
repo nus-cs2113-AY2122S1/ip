@@ -4,7 +4,7 @@ import java.util.Arrays;
 public class Duke {
     public static void greeting() {
         String greeting = " Hello! I'm pepepopo\n" +
-                        " What can I do for you?";
+                " What can I do for you?";
         System.out.println(greeting);
         divider();
     }
@@ -42,11 +42,9 @@ public class Duke {
     public static boolean isDone(String input) {
         if (!input.contains("done")) {
             return false;
-        }
-        else if (!Character.isDigit(input.charAt(input.length() - 1))) {
+        } else if (!Character.isDigit(input.charAt(input.length() - 1))) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -54,7 +52,7 @@ public class Duke {
     public static void main(String[] args) {
         greeting();
 
-        Task [] list = new Task[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         boolean isBye;
@@ -67,23 +65,21 @@ public class Duke {
             isList = input.equals("list");
             isDone = isDone(input);
 
-            if (isList){
-                Task [] listPrint = Arrays.copyOf(list, taskCount);
+            if (isList) {
+                Task[] listPrint = Arrays.copyOf(tasks, taskCount);
                 int curr = 1;
-                for (Task item: listPrint) {
+                for (Task item : listPrint) {
                     System.out.println(curr + "." + item.getStatusIcon() + " " + item.getDescription());
                     curr += 1;
                 }
                 divider();
-            }
-            else if (isDone){
+            } else if (isDone) {
                 int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-                list[taskNumber].setDone();
-                done(list, taskNumber);
-            }
-            else {
+                tasks[taskNumber].setDone();
+                done(tasks, taskNumber);
+            } else {
                 Task t = new Task(input);
-                list[taskCount] = t;
+                tasks[taskCount] = t;
                 taskCount += 1;
                 added(input);
                 divider();
