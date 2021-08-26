@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
+
 public class Duke {
     private static Task[] tasks;
     private static int taskCount;
 
+    //prints a string within two horizontal lines, @param is string to be printed
     public static void printWithLines(String text) {
         String line = "____________________________________________________________";
-
         System.out.println(line);
         System.out.println(text);
         System.out.println(line);
@@ -57,7 +58,7 @@ public class Duke {
         }
         Task chosenTask = tasks[taskIndexNumber];
         chosenTask.setDone();
-        printWithLines("Awesome! I've marked this task as done:\n" + chosenTask.getStatusIcon() + " " + chosenTask.description);
+        printWithLines("Task has been marked as done:\n" + chosenTask.getStatusIcon() + " " + chosenTask.description);
     }
 
 
@@ -72,13 +73,19 @@ public class Duke {
         line = in.nextLine();
 
         while (!line.equals("bye")) {
+            //display list of tasks
             if (line.equals("list")) {
                 listTasks();
+
+              //mark task as done
             } else if (line.startsWith("done")) {
                 setTaskDone(line);
+              //add task
             } else {
                 addTask(line);
             }
+
+            //inputs next command entered
             line = in.nextLine();
         }
         printByeMessage();
