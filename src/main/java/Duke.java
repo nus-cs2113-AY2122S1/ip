@@ -22,8 +22,6 @@ public class Duke {
         for (int i = 0; i < tasks.length && tasks[i] != null; i++) {
             InoutputFormatter.printOutputStart();
             System.out.println(tasks[i].toString());
-            //System.out.println((tasks[i].getId() + 1) + ". " +
-            //        tasks[i].toString());
         }
         InoutputFormatter.printOutputSeparator();
     }
@@ -56,7 +54,7 @@ public class Duke {
                   int inputNum = Integer.parseInt(inputNumStr);
                   if (inputNum > 0 && inputNum <= Task.getNumOfTasks()) {
                       int id = inputNum - 1;
-                      tasks[id].setIsDone();
+                      tasks[id].setDone();
                       System.out.println("Transcendent, my liege. You have completed:");
                       System.out.println("  " + tasks[id].toString());
                   } else {

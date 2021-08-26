@@ -20,7 +20,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
     
-    public void setIsDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
@@ -33,8 +33,7 @@ public class Task {
         if (obj instanceof Task) {
             @SuppressWarnings("unchecked")
             Task t = (Task) obj;
-            return this.description.equals(t.description) && 
-                this.isDone == (t.isDone);
+            return this.description.equals(t.description) && this.isDone == (t.isDone);
         }
         return false;
     }
