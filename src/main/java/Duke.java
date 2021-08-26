@@ -42,8 +42,8 @@ public class Duke {
                         + "\n [" + currentTask.getStatusIcon() + "] "
                         + currentTask.getDescription());
             } else {
-                Task t = new Task(line);
-                list[listCount] = t;
+                Task task = new Task(line);
+                list[listCount] = task;
                 listCount++;
                 System.out.println("added: " + line);
             }
