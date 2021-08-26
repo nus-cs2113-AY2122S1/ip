@@ -19,18 +19,29 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        String[] userInputs = new String[100];
+        Task[] userInputs = new Task[100];
         int userInputCount = 0;
 
         while (!line.equals("bye")) {
             if (line.equals("list")) {
+                System.out.println(separator + "\n\tTasks to do... so lazy:");
+
                 for (int i = 0; i < userInputCount; i++) {
-                    System.out.println(i + 1 + "." + userInputs[i]);
+                    System.out.println("\t" + (i + 1) + ".[" + userInputs[i].getStatusIcon() + "] "+
+                                        userInputs[i].getDescription());
                 }
+                System.out.println(separator);
+            } else if (line.startsWith("done")) {
+                int taskIndexDone = Integer.parseInt(line.split(" ")[1]) - 1;
+                userInputs[taskIndexDone].markAsDone();
+
+                System.out.println(separator + "\n\tfinished this task... I need a break:\n\t\t[" +
+                                    userInputs[taskIndexDone].getStatusIcon() + "] " +
+                                    userInputs[taskIndexDone].getDescription());
                 System.out.println(separator);
             } else {
                 System.out.println(separator + "\n\tadded: " + line + "\n" + separator);
-                userInputs[userInputCount] = line;
+                userInputs[userInputCount] = new Task(line);
                 userInputCount++;
             }
             line = in.nextLine();
