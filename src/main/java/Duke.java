@@ -103,6 +103,9 @@ public class Duke {
                 String text = in.nextLine();
                 Mascot.penguinSay(text);
                 break;
+            case("echo"):
+                echoCommand();
+                break;
             case ("bye"):
                 break;
             default:
