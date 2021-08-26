@@ -12,20 +12,19 @@ public class Duke {
         Task[] Tasks = new Task[100];
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
         boolean flag = true;
-        int maxlen = 0;
+        int maxlength = 0;
         for(int j = 0; j < 100 && flag;){
             String str= sc.nextLine();
-
             if(str.equals("bye")){
                 str = "Bye. Hope to see you again soon!";
                 printString(str);
                 flag = false;
             }else if(str.equals("list")){
-                printList(Tasks, maxlen);
+                printList(Tasks, maxlength);
             }else if(str.contains("done")) {
                 String numberOnly = str.replaceAll("[^0-9]", "");
                 int num = Integer.parseInt(numberOnly);
-                if(num <= j) {
+                    if(num <= j) {
                     Tasks[num - 1].setDone(true);
                     printDone(Tasks[num - 1]);
                 }else{
@@ -33,7 +32,7 @@ public class Duke {
                     printString(str);
                 }
             }else{
-                if(str.length()>maxlen) maxlen = str.length();
+                if(str.length()>maxlength) maxlength = str.length();
                 Task t = new Task(str);
                 addToList(t, Tasks, j);
                 printTask(str);
