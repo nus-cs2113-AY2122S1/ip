@@ -27,9 +27,9 @@ public class Duke {
 
         TaskManager t1 = new TaskManager();
 
-        while (!line.toLowerCase().equals("bye")) {
+        while (!line.equalsIgnoreCase("bye")) {
             String[] words = line.split(" ");
-            if (line.toLowerCase().equals("list")) {
+            if (line.equalsIgnoreCase("list")) {
                 t1.listTasks();
             } else if (words[0].equalsIgnoreCase("done")) {
                 t1.markAsDone(Integer.parseInt(words[1]));
