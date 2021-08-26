@@ -4,7 +4,7 @@ public class Duke {
 
     private static int byeFlag = 0;
     private static int positionCheck = 0;
-    private static String[] commands = new String[100];
+    private static Task[] commands = new Task[100];
 
     // sendCommands() is a method used to allow the user to send his/her commands to C3PO
     private static void sendCommands() {
@@ -31,11 +31,19 @@ public class Duke {
             } else {
                 System.out.println("Accessing archives...");
                 for (int i = 0; i < positionCheck; i++) {
-                    System.out.println((i + 1) + ": " + commands[i]);
+                    System.out.println((i + 1) + ".[" + commands[i].getStatusIcon() + "] " + commands[i].description);
                 }
             }
+        } else if (line.equals("done")){
+            System.out.println("Oh no master, I am not quite sure which task you would like me to mark as done");
+        } else if (line.contains("done")){
+            String[] input = line.split(" ");
+            int doneTask = (Integer.parseInt(input[1]) - 1);
+            commands[doneTask].markAsDone();
+            System.out.println("The following task has been marked as done Master!");
+            System.out.println((doneTask+1) + "." + "[X] " + commands[doneTask].description);
         } else {
-            commands[positionCheck] = line;
+            commands[positionCheck] = new Task(line);
             positionCheck += 1;
             System.out.println("Added to Galactic database: " + line);
         }
