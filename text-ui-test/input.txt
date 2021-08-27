@@ -1,0 +1,12 @@
+todo read book
+todo revise work
+deadline programming project /By next Monday
+deadline math homework /this friday
+list
+done 2
+list
+event presentation /at 12 noon later
+list
+done 5
+list
+bye
