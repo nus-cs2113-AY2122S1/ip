@@ -7,7 +7,11 @@ public class Task {
         isDone = false;
     }
 
-    public String toString() {
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public String getTaskDescriptionWithStatus() {
         // mark done task with X
         return (isDone ? "[X] " : "[ ] ") + taskDescription;
     }
