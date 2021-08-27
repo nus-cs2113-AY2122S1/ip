@@ -97,13 +97,13 @@ public class Duke {
         int randomNumber = random.nextInt(3);
         switch (randomNumber) {
         case 0:
-            System.out.println(ProfilePicture.picture1);
+            System.out.println(ProfilePicture.PICTURE_1);
             break;
         case 1:
-            System.out.println(ProfilePicture.picture2);
+            System.out.println(ProfilePicture.PICTURE_2);
             break;
         case 2:
-            System.out.println(ProfilePicture.picture3);
+            System.out.println(ProfilePicture.PICTURE_3);
             break;
         }
         System.out.println("**                                                                                                                   **");
