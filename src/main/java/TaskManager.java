@@ -5,6 +5,11 @@ public class TaskManager {
     public void addTodoTask(String taskName) {
         taskList[taskCount] = new Todo(taskName);
         taskCount++;
+        Display.printAddTaskLine();
+        System.out.println("Noted! I've added a new TODO task");
+        System.out.println(taskList[taskCount-1]);
+        System.out.println("Now you have " + taskCount + " tasks in your list");
+        Display.printAddTaskLine();
     }
 
     public void markTaskAsCompleted(int taskNumber) {

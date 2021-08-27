@@ -1,9 +1,6 @@
 public class Todo extends Task {
     public Todo(String taskName) {
         super(taskName);
-        Display.printAddTaskLine();
-        System.out.println("Task Added: " + taskName + "\n");
-        Display.printAddTaskLine();
     }
 
     @Override
