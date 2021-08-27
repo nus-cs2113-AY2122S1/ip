@@ -21,6 +21,7 @@ public class Duke {
     // Initialise constants
     public static final int END_INDEX_OF_WORD_TODO = 4;
     public static final int END_INDEX_OF_WORD_DEADLINE = 8;
+    public static final int END_INDEX_OF_WORD_EVENT = 5;
 
     public static void main(String[] args) {
         // Print logo and welcome text
@@ -55,12 +56,16 @@ public class Duke {
     private static void handleUserCreatingTask(String userInput) {
         String taskType = userInput.split(" ")[0];
         String taskName;
-        String deadlineDate = null;
+        String deadlineDate;
 
         if (taskType.equals("deadline")) {
             deadlineDate = userInput.substring(userInput.indexOf("/") + 1).trim();
             taskName = userInput.substring(END_INDEX_OF_WORD_DEADLINE, userInput.indexOf("/")).trim();
             tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
+        } else if (taskType.equals("event")) {
+            String eventTiming = userInput.substring(userInput.indexOf("/") + 1).trim();
+            taskName = userInput.substring(END_INDEX_OF_WORD_EVENT, userInput.indexOf("/")).trim();
+            tasks[noOfTasks] = new Event(taskName, eventTiming);
         } else if (taskType.equals("todo")) {
             taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
             tasks[noOfTasks] = new Todo(taskName);
