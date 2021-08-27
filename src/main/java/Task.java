@@ -23,7 +23,8 @@ public class Task {
         isDone = true;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + getDescription();
     }
 }
