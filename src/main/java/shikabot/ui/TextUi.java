@@ -94,11 +94,11 @@ public class TextUi {
     /**
      * Function to print all tasks in tasks.
      */
-    public void printTasks(ArrayList<Task> tasks, int count) {
+    public void printTasks(ArrayList<Task> tasks) {
         System.out.println(line + "> Here is your list of tasks: ") ;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
-        printTaskCount(count);
+        printTaskCount(tasks.size());
     }
 }

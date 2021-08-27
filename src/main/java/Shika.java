@@ -56,7 +56,7 @@ public class Shika {
     /**
      * Function that loads tasks from the given filepath.
      * @param f path to file.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if filepath is invalid
      */
     private static void loadTasks(File f) throws FileNotFoundException {
         Scanner s = new Scanner(f);
@@ -124,9 +124,8 @@ public class Shika {
             return;
         }
         if (done.equals("true")) {
-            tasks.get(Task.count).markAsDone();
+            tasks.get(tasks.size() - 1).markAsDone();
         }
-        Task.count += 1;
     }
 
     /**
@@ -136,17 +135,14 @@ public class Shika {
     public void saveTasks() throws IOException {
         FileWriter fw = new FileWriter("data/ShikaTasks.txt");
         fw.close();
-        for (int i = 0; i < Task.count; i++) {
+        for (Task task : tasks) {
             try {
-                tasks.get(i).saveTask();
+                task.saveTask();
             } catch (IOException e) {
                 ui.printSaveErrorMessage();
             }
         }
     }
-
-
-
 
     /**
      * Function that calls getCommand() in a loop to run Shika. Loop can be exited by inputting "bye".
@@ -192,7 +188,7 @@ public class Shika {
     public void getCommand(String text) throws InvalidCommandException {
         text = text.trim();
         if (text.equals("list")) {
-            ui.printTasks(tasks, Task.count);
+            ui.printTasks(tasks);
         } else if (text.startsWith("done")) {
             doTask(text);
         } else if (text.startsWith("delete")) {
@@ -214,8 +210,7 @@ public class Shika {
             int index = Integer.parseInt(str) - 1;
             ui.printDeleteTaskMessage(tasks, index);
             tasks.remove(index);
-            Task.count -= 1;
-            ui.printTaskCount(Task.count);
+            ui.printTaskCount(tasks.size());
         } catch (NumberFormatException e) {
             ui.printNumberFormatMessage();
         } catch (IndexOutOfBoundsException e) {
@@ -253,9 +248,8 @@ public class Shika {
     public void addTodo(String text) {
         String str = text.substring(text.indexOf("todo") + 4).trim();
         tasks.add(new Todo(str));
-        Task.count += 1;
-        ui.printAddTaskMessage(tasks, Task.count - 1);
-        ui.printTaskCount(Task.count);
+        ui.printAddTaskMessage(tasks, tasks.size() - 1);
+        ui.printTaskCount(tasks.size());
     }
 
     /**
@@ -270,9 +264,8 @@ public class Shika {
         String str = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
         String by = text.substring(text.indexOf("/by") + 3).trim();
         tasks.add(new Deadline(str, by));
-        Task.count += 1;
-        ui.printAddTaskMessage(tasks, Task.count - 1);
-        ui.printTaskCount(Task.count);
+        ui.printAddTaskMessage(tasks, tasks.size() - 1);
+        ui.printTaskCount(tasks.size());
     }
 
     /**
@@ -287,9 +280,8 @@ public class Shika {
         String str = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
         String at = text.substring(text.indexOf("/at") + 3).trim();
         tasks.add(new Event(str, at));
-        Task.count += 1;
-        ui.printAddTaskMessage(tasks, Task.count - 1);
-        ui.printTaskCount(Task.count);
+        ui.printAddTaskMessage(tasks, tasks.size() - 1);
+        ui.printTaskCount(tasks.size());
     }
 
     /**
@@ -321,7 +313,7 @@ public class Shika {
     public void markAsDone(int index) throws TaskNegativeException, TaskNotFoundException {
         if (index < 0) {
             throw new TaskNegativeException();
-        } else if (index >= Task.count) {
+        } else if (index >= tasks.size()) {
             throw new TaskNotFoundException();
         }
         tasks.get(index).markAsDone();

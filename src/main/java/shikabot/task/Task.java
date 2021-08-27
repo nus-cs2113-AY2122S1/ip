@@ -4,9 +4,6 @@ import java.io.IOException;
 
 public abstract class Task {
 
-    /** Number of tasks recorded. */
-    public static int count = 0;
-
     protected String name;
     protected boolean isDone;
 
