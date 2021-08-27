@@ -3,7 +3,11 @@ public class Event extends Task {
 
     public Event(String description, String at) {
         super(description);
-        this.at = at;
+        if (at.equals("")) {
+            this.at = "???";
+        } else {
+            this.at = at;
+        }
     }
 
     public String getBy() {

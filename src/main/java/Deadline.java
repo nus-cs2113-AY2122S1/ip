@@ -3,7 +3,11 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        if (by.equals("")) {
+            this.by = "???";
+        } else {
+            this.by = by;
+        }
     }
 
     public String getBy() {
