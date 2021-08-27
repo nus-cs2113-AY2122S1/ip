@@ -26,19 +26,23 @@ public class Duke {
                 String[] splittedInput = input.split(" ");
                 if (input.equals("list")) {
                     System.out.println("\tHere's the list of your tasks: ");
+
                     for (int j = 0; j < i; j++) {
                         int itemNumber = j + 1;
                         System.out.println("\t" + itemNumber + ". [" + tasks[j].getStatusIcon() + "] " + tasks[j].description);
                     }
+
                     System.out.println("\t----------------------------------------------------------------------");
                 } else if (splittedInput[0].equals("done")) {
                     int taskInt = Integer.parseInt(splittedInput[1]) - 1;
                     tasks[taskInt].markAsDone();
+
                     System.out.println("\tGood job! I've marked this task as done: ");
                     System.out.println("\t[" + tasks[taskInt].getStatusIcon() + "] " + tasks[taskInt].description);
                     System.out.println("\t----------------------------------------------------------------------");
                 } else {
                     tasks[i] = new Task(input);
+                    
                     System.out.println("\tnew task added: " + input);
                     System.out.println("\t----------------------------------------------------------------------");
                     i++;
