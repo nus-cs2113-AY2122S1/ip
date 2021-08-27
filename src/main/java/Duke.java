@@ -68,10 +68,10 @@ public class Duke {
         if (userInputString.startsWith("todo")) {
             taskSubstring = userInputString.substring(TODO_OFFSET);
             userTasks[taskIndex] = new Todo(taskSubstring);
-        } else if (userInputString.startsWith("deadline")) {
+        } else if (userInputString.startsWith("deadline") && slashIndex > 0) {
             taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
             userTasks[taskIndex] = new Deadline(taskSubstring, timeSubstring);
-        } else if (userInputString.startsWith("event")) {
+        } else if (userInputString.startsWith("event") && slashIndex > 0) {
             taskSubstring = userInputString.substring(EVENT_OFFSET, slashIndex - 1);
             userTasks[taskIndex] = new Event(taskSubstring, timeSubstring);
         } else {
