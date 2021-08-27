@@ -78,21 +78,21 @@ public class Duke {
     
     public static void addToDo (String description) {
         tasks.add(new ToDo(description));
-        echo("You have successfully added the task: " + System.lineSeparator()
+        echo("You have successfully added the task:" + System.lineSeparator()
                 + "    " + tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
                 + "  You now have " + tasks.size() + " tasks in your list!");
     }
 
     public static void addEvent (String description, String at) {
         tasks.add(new Event(description, at));
-        echo("You have successfully added the task: " + System.lineSeparator()
+        echo("You have successfully added the task:" + System.lineSeparator()
                 + "    " + tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
                 + "  You now have " + tasks.size() + " tasks in your list!");
     }
 
     public static void addDeadline (String description, String by) {
         tasks.add(new Deadline(description, by));
-        echo("You have successfully added the task: " + System.lineSeparator()
+        echo("You have successfully added the task:" + System.lineSeparator()
                 + "    " + tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
                 + "  You now have " + tasks.size() + " tasks in your list!");
     }
