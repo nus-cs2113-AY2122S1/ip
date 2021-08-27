@@ -23,6 +23,10 @@ public class Duke {
         }
     }
 
+    private static void printBorder(){
+        System.out.println("____________________________________________________________");
+    }
+
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -34,25 +38,35 @@ public class Duke {
                 + "What can I do for you?";
         String exit = "Bye. Hope to see you again soon!";
 
+        printBorder();
         System.out.println("Hello from\n" + logo);
         System.out.println(greet);
+        printBorder();
 
         while (!lineInput.equals("bye")) {
             if (lineInput.equals("list")) {
+                printBorder();
                 list_out();
+                printBorder();
             }
             else if (lineInput.length() > 5){
                 if (lineInput.substring(0, 4).equals("done")) {
                     int index = Integer.parseInt(lineInput.substring(5, 6)) - 1;
+                    printBorder();
                     taskList[index].markDone();
-                    System.out.println(index + ". " + taskList[index].getStatusIcon() + taskList[index].getDescription());
+                    System.out.println((index + 1) + ". " + taskList[index].getStatusIcon() + taskList[index].getDescription());
+                    printBorder();
                 }
                 else {
+                    printBorder();
                     add(lineInput);
+                    printBorder();
                 }
             }
-            else {
+            else if (lineInput.length() != 0){
+                printBorder();
                 add(lineInput);
+                printBorder();
             }
             lineInput = in.nextLine();
         }
