@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -16,13 +14,17 @@ import shikabot.exception.TaskNegativeException;
 import shikabot.exception.TaskNotFoundException;
 import shikabot.exception.InvalidEventException;
 import shikabot.exception.InvalidDeadlineException;
+
 import shikabot.ui.TextUi;
+
+import shikabot.saves.SaveFile;
 
 public class Shika {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks;
 
     public TextUi ui;
+    public SaveFile saveFile;
 
     public static void main(String[] args) {
         new Shika().run();
@@ -47,101 +49,10 @@ public class Shika {
      */
     public void setupShika() throws FileNotFoundException {
         this.ui = new TextUi();
-        File f = new File("data/ShikaTasks.txt");
+        this.saveFile = new SaveFile("data/ShikaTasks.txt");
         ui.printLogo();
-        ui.printWelcomeMessage(setupSave(f));
-        loadTasks(f);
-    }
-
-    /**
-     * Function that loads tasks from the given filepath.
-     * @param f path to file.
-     * @throws FileNotFoundException if filepath is invalid
-     */
-    private static void loadTasks(File f) throws FileNotFoundException {
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            loadTask(s.nextLine());
-        }
-    }
-
-    /**
-     * This function attempts to create the save file at the given path if it does not already exist.
-     * @param f File to create.
-     * @return true if file is created, false otherwise
-     */
-    private boolean setupSave(File f) {
-        try {
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-            }
-            if (f.createNewFile()) {
-                return true;
-            }
-        } catch (IOException e) {
-            ui.printFileErrorMessage();
-        } catch (SecurityException e) {
-            ui.printSecurityErrorMessage();
-        }
-        return false;
-    }
-
-    /**
-     * This function loads tasks by parsing the String inputted, then calling addSavedTask to add it to
-     * taskList.
-     * @param s String to be parsed.
-     */
-    public static void loadTask(String s) {
-        int firstDiv = s.indexOf("|") + 1;
-        int secondDiv = s.indexOf("|", firstDiv) + 1;
-        int thirdDiv = s.indexOf("|", secondDiv) + 1;
-        char type = s.charAt(0);
-        String atBy = s.substring(firstDiv, secondDiv - 1).trim();
-        String name = s.substring(secondDiv, thirdDiv - 1).trim();
-        String done = s.substring(thirdDiv).trim();
-        addSavedTask(type, atBy, name, done);
-    }
-
-    /**
-     * This function directly adds a task to tasks without printing any messages. Used for loading saved tasks.
-     * @param type type of task.
-     * @param atBy at/by of task, if applicable.
-     * @param name name of task.
-     * @param done if the task is done or not.
-     */
-    private static void addSavedTask(char type, String atBy, String name, String done) {
-        switch(type) {
-        case 'T':
-            tasks.add(new Todo(name));
-            break;
-        case 'D':
-            tasks.add(new Deadline(name, atBy));
-            break;
-        case 'E':
-            tasks.add(new Event(name, atBy));
-            break;
-        default:
-            return;
-        }
-        if (done.equals("true")) {
-            tasks.get(tasks.size() - 1).markAsDone();
-        }
-    }
-
-    /**
-     * This function saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
-     * @throws IOException when the saving operation is interrupted.
-     */
-    public void saveTasks() throws IOException {
-        FileWriter fw = new FileWriter("data/ShikaTasks.txt");
-        fw.close();
-        for (Task task : tasks) {
-            try {
-                task.saveTask();
-            } catch (IOException e) {
-                ui.printSaveErrorMessage();
-            }
-        }
+        ui.printWelcomeMessage(saveFile.setupSave());
+        tasks = saveFile.loadTasks();
     }
 
     /**
@@ -158,7 +69,7 @@ public class Shika {
             }
             try {
                 getCommand(text);
-                saveTasks();
+                saveFile.saveTasks(tasks);
             } catch (InvalidCommandException e) {
                 ui.printUnknownCommandMessage();
             } catch (IOException e) {
