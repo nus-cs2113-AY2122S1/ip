@@ -10,8 +10,7 @@ public class Duke {
 
             if( list[i].getDone() ) {
                 System.out.println("[X] " + list[i].getDescription());
-            }
-            else {
+            } else {
                 System.out.println("[ ] " + list[i].getDescription());
             }
 
@@ -29,7 +28,7 @@ public class Duke {
         int index = no - 1;
         list[ index ].setDone();
         //print notification
-        System.out.println("Nice I've marked this task as done:");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println("  [X] " + list[ index ].getDescription());
 
     }
@@ -58,11 +57,14 @@ public class Duke {
 
             if( line.equals("list")) {
                 printList( list , size);
-            }
-            else if ( line.substring(0, 4).equals("done") ) {
-                markTaskDone( list, line);
-            }
-            else {
+            } else if( line.length() > 4 ){
+                if( line.substring(0, 4).equals("done") ){
+                    markTaskDone( list, line);
+                } else{
+                    addTask( list, line, size);
+                    size ++;
+                }
+            } else{
                 addTask( list, line, size);
                 size ++;
             }
