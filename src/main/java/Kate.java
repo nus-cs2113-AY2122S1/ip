@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Duke {
+public class Kate {
     public static void printMessage(String msg) {
         String formattedMsg = "";
         String underscores = "    ___________________________________________________________\n";
@@ -37,15 +37,14 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = "     ____        _        \n"
-                + "    |  _ \\ _   _| | _____ \n"
-                + "    | | | | | | | |/ / _ \\\n"
-                + "    | |_| | |_| |   <  __/\n"
-                + "    |____/ \\__,_|_|\\_\\___|\n";
+        String logo = "     _  __     _         \n"
+                + "    | |/ /__ _| |_ ___   \n"
+                + "    | ' </ _` |  _/ -_)  \n"
+                + "    |_|\\_\\__,_|\\__\\___|  \n";
         System.out.println(logo);
 
-        String greetMessage = "     Hello! I'm Duke\n"
-                + "     What can I do for you?\n";
+        String greetMessage = "     This is Kate, your personal assistant ;)\n"
+                + "     How can I help you?\n";
         printMessage(greetMessage);
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -87,7 +86,7 @@ public class Duke {
             printMessage(addedMsg);
         }
 
-        String byeMessage = "     Bye. Hope to see you again soon!\n";
+        String byeMessage = "     Leaving already? Oh well see you again soon!\n";
         printMessage(byeMessage);
     }
 }
