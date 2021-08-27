@@ -52,8 +52,8 @@ public class Duke {
             // Traverse down the ArrayList and prints out each task
             for (int i = 0; i < tasks.size(); i++) {
                 int currentIndexInOnesIndexing = i + 1;
-                System.out.println(Integer.toString(currentIndexInOnesIndexing)
-                        + ". " + tasks.get(i).toString());
+                System.out.println("  " + currentIndexInOnesIndexing + ". "
+                        + tasks.get(i).getTaskDescriptionWithStatus());
             }
             System.out.println(HORIZONTAL_BAR);
         }
@@ -61,7 +61,7 @@ public class Duke {
 
     public static void markTaskAsDone(String input) {
         // Extracting task number as an integer from input
-        int taskNumber = Integer.parseInt(input.replace("done", "").trim(), 10);
+        int taskNumber = Integer.parseInt(input.trim(), 10);
         boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
         if (taskNumberInRange) {
             tasks.get(taskNumber - 1).setDone();
@@ -101,7 +101,7 @@ public class Duke {
         echo("Invalid Input..." + System.lineSeparator()
                 + "  Please enter a valid input!");
     }
-    
+
     public static void commandManager (Command inputCommand, String restOfInput) {
         String description = "";
         String additionalParameter = "";
@@ -133,6 +133,9 @@ public class Duke {
                 addDeadline(deadlineInput[0].trim(), "");
             }
             break;
+        case DONE_TASK:
+            markTaskAsDone(restOfInput);
+            break;
         case INVALID:
         default:
             printMessageForInvalidInput();
@@ -144,11 +147,10 @@ public class Duke {
         String input = scanner.nextLine();
         Command currentCommand = Command.INVALID;
         String restOfInput = "";
-
         while (true) {
-            if (input.equals("bye")) {
-                break; //exit program
-            } else if (input.equals("list")) {
+            if (input.trim().equals("bye")) {
+                break; //exit inputManager
+            } else if (input.trim().equals("list")) {
                 currentCommand = Command.SHOW_LIST;
             } else if (input.trim().indexOf(" ") > -1) { // input more than one word
                 String result[] = input.trim().split(" ", 2);
@@ -163,6 +165,9 @@ public class Duke {
                 } else if (firstWord.equals("deadline")) {
                     currentCommand = Command.ADD_DEADLINE;
                     restOfInput = otherWords;
+                } else if (firstWord.equals("done")) {
+                    currentCommand = Command.DONE_TASK;
+                    restOfInput = otherWords;
                 } else {
                     currentCommand = Command.INVALID;
                     restOfInput = "";
@@ -175,7 +180,6 @@ public class Duke {
             input = scanner.nextLine();
         }
     }
-
 
     public static void main(String[] args) {
         printGreetingMessage();
