@@ -6,6 +6,7 @@ public class Duke {
     public static final String LIST_TASK = "list";
     public static final String MARK_DONE = "done";
     public static final String TODO_TASK = "todo";
+    public static final String DEADLINE_TASK = "deadline";
 
     public static void greet() {
         Display.printSeparatingLine();
@@ -43,9 +44,19 @@ public class Duke {
                 String taskName = "";
                 for (int i = 1; i < words.length; i++) {
                     taskName += words[i];
-                    taskName += " ";
+                    if (i != words.length - 1) {
+                        taskName += " ";
+                    }
                 }
                 taskManager.addTodoTask(taskName);
+                break;
+            case DEADLINE_TASK:
+                String deadlineTaskName = "";
+                for (int i = 1; i < words.length; i++) {
+                    deadlineTaskName += words[i];
+                    deadlineTaskName += " ";
+                }
+                taskManager.addDeadlineTask(deadlineTaskName);
                 break;
             default:
                 break;

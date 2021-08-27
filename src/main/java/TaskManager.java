@@ -12,6 +12,17 @@ public class TaskManager {
         Display.printAddTaskLine();
     }
 
+    public void addDeadlineTask(String taskInformation) {
+        String[] taskComponents = taskInformation.split("/");
+        taskList[taskCount] = new Deadline(taskComponents[0].trim(), taskComponents[1].trim());
+        taskCount++;
+        Display.printAddTaskLine();
+        System.out.println("Noted! I've added a new DEADLINE task");
+        System.out.println(taskList[taskCount-1]);
+        System.out.println("Now you have " + taskCount + " tasks in your list");
+        Display.printAddTaskLine();
+    }
+
     public void markTaskAsCompleted(int taskNumber) {
         taskList[taskNumber].setTaskCompleted();
         System.out.println("Nice! Marking " + taskList[taskNumber].getTask() + " as done!");
