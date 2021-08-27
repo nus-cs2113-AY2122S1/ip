@@ -50,8 +50,8 @@ public class Duke {
     }
 
     private static void handleUserCreatingTask(String userInput) {
-        // If user has not said any other command, store user input as task
-        tasks[noOfTasks] = new Task(userInput);
+        // If user has not said any other command, store user input as todo
+        tasks[noOfTasks] = new Todo(userInput);
         noOfTasks++;
         // Then, echo the task
         System.out.println("I've added: " + userInput);
@@ -81,6 +81,8 @@ public class Duke {
         // If task was already done, let user know
         if (chosenTask.isDone()) {
             System.out.println("Oh! This task was already marked as done:");
+            // Print out the task in the following format: "    [X] Task"
+            System.out.println("    " + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
             return;
         }
 
@@ -95,8 +97,8 @@ public class Duke {
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
         for (int i = 0; i < noOfTasks; i++) {
-            System.out.println(Integer.toString(i + 1) + "." + tasks[i].getDoneStatusAsSymbol()
-                    + " " + tasks[i].getName());
+            System.out.println(Integer.toString(i + 1) + "." + tasks[i].getTypeOfTask()
+                    + tasks[i].getDoneStatusAsSymbol() + " " + tasks[i].getName());
         }
     }
 

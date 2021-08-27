@@ -3,6 +3,8 @@ public class Task {
     private String name;
     /** Whether the task has been completed */
     private boolean isDone;
+    /** Type of task stored as ['Type'] */
+    protected String typeOfTask = null;
 
     /**
      * Creates a task with the specified name.
@@ -27,6 +29,14 @@ public class Task {
      */
     public String getDoneStatusAsSymbol() {
         return (isDone ? "[X]" : "[ ]");
+    }
+
+    /**
+     * Get the type of task
+     * @return [T] if todo, [D] if deadline, [E] if event
+     */
+    public String getTypeOfTask() {
+        return typeOfTask;
     }
 
     /**
