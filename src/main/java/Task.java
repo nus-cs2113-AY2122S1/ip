@@ -12,10 +12,14 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "[X] " : "[ ] ");
     }
 
     public void setDone() {
         this.isDone = true;
+    }
+
+    public String toString() {
+        return getStatusIcon() + description;
     }
 }
