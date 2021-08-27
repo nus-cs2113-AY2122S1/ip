@@ -18,6 +18,7 @@ public class Duke {
         String userInput = "";
         Scanner in = new Scanner(System.in);
 
+        // Loops till bye is received
         while (true) {
             // Reads user input
             userInput = in.nextLine();
@@ -37,30 +38,31 @@ public class Duke {
     /**
      * Processes the commands entered by the user.
      *
-     * @param command The command entered by the user
+     * @param command     The command entered by the user
      * @param description Task description entered by user.
      */
-    private static void processCommands(String command, String description){
-        switch (command) {
-        case "list":
+    private static void processCommands(String command, String description) {
+        // Capitalise the command
+        switch (command.toUpperCase()) {
+        case "LIST":
             listTasks();
             break;
-        case "todo":
+        case "TODO":
             addToDo(description);
             break;
-        case "deadline":
+        case "DEADLINE":
             addDeadLine(description);
             break;
-        case "event":
+        case "EVENT":
             addEvent(description);
             break;
-        case "done":
+        case "DONE":
             markDone(description);
             break;
-        case "bye":
+        case "BYE":
             exit();
         default:
-            customPrint("Sorry! I did not understand your command.");
+            printError();
         }
     }
 
@@ -70,8 +72,30 @@ public class Duke {
      * @param description Task description entered by user.
      */
     private static void addToDo(String description) {
-        tasks.add(new Todo(description));
-        acknowledgeCommand();
+        if (description.equals("")){
+            customPrint("Please enter a task!");
+        }else {
+            tasks.add(new Todo(description));
+            acknowledgeCommand();
+        }
+    }
+
+    /**
+     * Splits the string by the delimiter provided
+     *
+     * @param delimiter   Delimiter to split string by
+     * @param description String to be split
+     * @return Array of string of size 2 after string is spilt by the delimiter or null if delimiter was not found
+     */
+    private static String[] spiltString(String delimiter, String description) {
+        int byIndex = description.indexOf(delimiter);
+        if (byIndex == -1) {
+            return null;
+        }
+        String taskDescription = description.substring(0, byIndex).trim(); // Remove trailing spaces
+        String date = description.substring(byIndex + delimiter.length()).trim(); // Remove leading spaces
+        String[] output = {taskDescription, date};
+        return output;
     }
 
     /**
@@ -80,11 +104,16 @@ public class Duke {
      * @param description Task description entered by user.
      */
     private static void addDeadLine(String description) {
-        int byIndex = description.indexOf("/by");
-        String taskDescription = description.substring(0, byIndex).trim(); // Remove trailing spaces
-        String date = description.substring(byIndex + 4).trim(); // Remove leading spaces
-        tasks.add(new Deadline(taskDescription, date));
-        acknowledgeCommand();
+        String[] split = spiltString("/by", description);
+        // Handle case it user did not provide date
+        if (split == null) {
+            customPrint("I could not find '/by' in your command!");
+        } else {
+            String taskDescription = split[0];
+            String date = split[1];
+            tasks.add(new Deadline(taskDescription, date));
+            acknowledgeCommand();
+        }
     }
 
     /**
@@ -93,11 +122,16 @@ public class Duke {
      * @param description Task description entered by user.
      */
     private static void addEvent(String description) {
-        int byIndex = description.indexOf("/at");
-        String taskDescription = description.substring(0, byIndex).trim(); // Remove trailing spaces
-        String at = description.substring(byIndex + 4).trim(); // Remove leading spaces
-        tasks.add(new Event(taskDescription, at));
-        acknowledgeCommand();
+        String[] split = spiltString("/at", description);
+        // Handle case it user did not provide date
+        if (split == null) {
+            customPrint("I could not find '/at' in your command!");
+        } else {
+            String taskDescription = split[0];
+            String at = split[1];
+            tasks.add(new Event(taskDescription, at));
+            acknowledgeCommand();
+        }
     }
 
     /**
@@ -134,6 +168,14 @@ public class Duke {
         welcomeMessage += "What can I do for you?";
         customPrint(welcomeMessage);
     }
+
+    /**
+     * Prints the invalid command message.
+     */
+    private static void printError() {
+        customPrint("Sorry! I did not understand your command.");
+    }
+
 
     /**
      * Prints out a statement with borders.
