@@ -1,0 +1,12 @@
+todo walk dog
+water plants
+deadline CS2113 coding exercise /by next Friday
+event saw con 2021 /at 4-6pm tomorrow
+list
+done 2
+done -1024
+deadline carboncents disagree meeting /by never
+event tour de france /at the louvre, 7.30-9.30am on Tuesday
+done 5
+list
+bye

@@ -1,7 +1,60 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+________________________________________
+Greetings, human! I'm Duke. 
+What can I do for you?
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[T][ ] walk dog
+You have a total of 1 tasks now.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[T][ ] water plants
+You have a total of 2 tasks now.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[D][ ] CS2113 coding exercise (by: next Friday)
+You have a total of 3 tasks now.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[E][ ] saw con 2021 (at: 4-6pm tomorrow)
+You have a total of 4 tasks now.
+________________________________________
+________________________________________
+1. [T][ ] walk dog
+2. [T][ ] water plants
+3. [D][ ] CS2113 coding exercise (by: next Friday)
+4. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
+________________________________________
+________________________________________
+Task water plants marked as complete.
+________________________________________
+________________________________________
+Error: index outside range.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[D][ ] carboncents disagree meeting (by: never)
+You have a total of 5 tasks now.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[E][ ] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
+You have a total of 6 tasks now.
+________________________________________
+________________________________________
+Task carboncents disagree meeting marked as complete.
+________________________________________
+________________________________________
+1. [T][ ] walk dog
+2. [T][X] water plants
+3. [D][ ] CS2113 coding exercise (by: next Friday)
+4. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
+5. [D][X] carboncents disagree meeting (by: never)
+6. [E][ ] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
+________________________________________
+________________________________________
+Closing Duke. Have a nice day!
+________________________________________
