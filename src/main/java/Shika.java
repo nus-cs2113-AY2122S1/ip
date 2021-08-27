@@ -20,6 +20,7 @@ import shikabot.exception.InvalidDeadlineException;
 public class Shika {
 
     public static String line = "____________________________________________________________________________\n";
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Main function that calls other functions to run Shika.
@@ -33,38 +34,45 @@ public class Shika {
     /**
      * Function that loads tasks from ShikaTasks.txt. If the file or parent directories do not exist,
      * it creates them.
-     * @param tasks Arraylist containing all recorded tasks.
      * @throws FileNotFoundException when ShikaTasks.txt is not found.
      */
-    public static void loadTasks(ArrayList<Task> tasks) throws FileNotFoundException {
+    public static void loadTasks() throws FileNotFoundException {
         File f = new File("data/ShikaTasks.txt");
-        boolean isFirstLaunch = false;
-        try {
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-            }
-            if (f.createNewFile()) {
-                isFirstLaunch = true;
-            }
-        } catch (IOException e) {
-            System.out.println("Something went wrong during file creation :/");
-        } catch (SecurityException e) {
-            System.out.println("Shika isn't allowed to write in this location :<");
-        }
+        boolean isFirstLaunch = setupSave(f);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            loadTask(tasks, s.nextLine());
+            loadTask(s.nextLine());
         }
         String greeting = (isFirstLaunch) ? "Hello, friend! " : "Welcome back, friend! ";
         System.out.println(greeting + "Shika at your service! ^-^\n");
     }
 
     /**
+     * This function attempts to create the save file at the given path if it does not already exist.
+     * @param f File to create.
+     * @return true if file is created, false otherwise
+     */
+    private static boolean setupSave(File f) {
+        try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+            }
+            if (f.createNewFile()) {
+                return true;
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong during file creation :/");
+        } catch (SecurityException e) {
+            System.out.println("Shika isn't allowed to write in this location :<");
+        }
+        return false;
+    }
+
+    /**
      * This function adds tasks to taskList by parsing the String inputted.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param s String to be parsed.
      */
-    public static void loadTask(ArrayList<Task> tasks, String s) {
+    public static void loadTask(String s) {
         int firstDiv = s.indexOf("|") + 1;
         int secondDiv = s.indexOf("|", firstDiv) + 1;
         int thirdDiv = s.indexOf("|", secondDiv) + 1;
@@ -86,10 +94,9 @@ public class Shika {
 
     /**
      * This function saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
-     * @param tasks Arraylist containing all recorded tasks.
      * @throws IOException when the saving operation is interrupted.
      */
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public static void saveTasks() throws IOException {
         FileWriter fw = new FileWriter("data/ShikaTasks.txt");
         fw.close();
         for (int i = 0; i < Task.count; i++) {
@@ -118,10 +125,10 @@ public class Shika {
      * This function initialises the array containing all tasks, tries to load tasks, then runs Shika.
      */
     public static void setupShika() {
-        ArrayList<Task> tasks = new ArrayList<>();
+
         Task.count = 0;
         try {
-            loadTasks(tasks);
+            loadTasks();
         } catch (FileNotFoundException e) {
             System.out.println("I can't find the save file AHHHHHHH.\n");
         }
@@ -142,8 +149,8 @@ public class Shika {
                 return;
             }
             try {
-                getCommand(tasks, text);
-                saveTasks(tasks);
+                getCommand(text);
+                saveTasks();
             } catch (InvalidCommandException e) {
                 System.out.print(line + "> Sorry friend, I don't know what that means. :/\n" + line);
             } catch (IOException e) {
@@ -167,20 +174,19 @@ public class Shika {
      * "done x" will mark task x as done, where x is the number of the task.
      * "todo", "deadline" or "event" will attempt to add the task.
      * Any other string will print an error message.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String containing user input.
      * @throws InvalidCommandException thrown when command is invalid.
      */
-    public static void getCommand(ArrayList<Task> tasks, String text) throws InvalidCommandException {
+    public static void getCommand(String text) throws InvalidCommandException {
         text = text.trim();
         if (text.equals("list")) {
-            printTasks(tasks);
+            printTasks();
         } else if (text.startsWith("done")) {
-            doTask(tasks, text);
+            doTask(text);
         } else if (text.startsWith("delete")) {
-            deleteTask(tasks, text);
+            deleteTask(text);
         } else if (isAddCommand(text)) {
-            addTask(tasks, text);
+            addTask(text);
         } else {
             throw new InvalidCommandException();
         }
@@ -188,10 +194,9 @@ public class Shika {
 
     /**
      * Function that deletes specified task from the Arraylist.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String containing user input.
      */
-    public static void deleteTask(ArrayList<Task> tasks, String text) {
+    public static void deleteTask(String text) {
         String str = text.substring(text.indexOf("delete") + 6).trim();
         try {
             int index = Integer.parseInt(str) - 1;
@@ -211,22 +216,21 @@ public class Shika {
     /**
      * This function attempts to add the task specified by the user to the list and catches exceptions if the input
      * is invalid, printing error messages.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String containing user input.
      */
-    public static void addTask(ArrayList<Task> tasks, String text) {
+    public static void addTask(String text) {
         if (text.startsWith("todo")) {
-            addTodo(tasks, text);
+            addTodo(text);
         } else if (text.startsWith("deadline")) {
             try {
-                addDeadline(tasks, text);
+                addDeadline(text);
             } catch (InvalidDeadlineException e) {
                 System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. " +
                         "Thank you!\n" + line);
             }
         } else {
             try {
-                addEvent(tasks, text);
+                addEvent(text);
             } catch (InvalidEventException e) {
                 System.out.print(line + "Please follow the format [NAME] /at [DURATION]. " +
                         "Thank you!\n" + line);
@@ -236,10 +240,9 @@ public class Shika {
 
     /**
      * This function adds the todo specified by the user to the list.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String containing user input.
      */
-    public static void addTodo(ArrayList<Task> tasks, String text) {
+    public static void addTodo(String text) {
         String str = text.substring(text.indexOf("todo") + 4).trim();
         tasks.add(new Todo(str));
         Task.count += 1;
@@ -251,11 +254,10 @@ public class Shika {
 
     /**
      * This function adds the deadline specified by the user to the list.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String containing user input.
      * @throws InvalidDeadlineException is thrown when command syntax is not followed.
      */
-    public static void addDeadline(ArrayList<Task> tasks, String text) throws InvalidDeadlineException  {
+    public static void addDeadline(String text) throws InvalidDeadlineException  {
         if (!text.contains("/by")) {
             throw new InvalidDeadlineException();
         }
@@ -271,11 +273,10 @@ public class Shika {
 
     /**
      * This function adds the event specified by the user to the list.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String containing user input.
      * @throws InvalidEventException is thrown when command syntax is not followed.
      */
-    public static void addEvent(ArrayList<Task> tasks, String text) throws InvalidEventException {
+    public static void addEvent(String text) throws InvalidEventException {
         if (!text.contains("/at")) {
             throw new InvalidEventException();
         }
@@ -293,14 +294,13 @@ public class Shika {
      * Function that attempts to mark a task done by calling markAsDone. It prints error messages if any exceptions
      * are caught from both parseInt and markAsDone.
      * If the String given is not a number or is out of bounds, it will catch the exception and print an error message.
-     * @param tasks Arraylist containing all recorded tasks.
      * @param text String that is supposed to be the number of the task.
      */
-    public static void doTask(ArrayList<Task> tasks, String text) {
+    public static void doTask(String text) {
         String str = text.substring(text.indexOf("done") + 4).trim();
         try {
             int index = Integer.parseInt(str);
-            markAsDone(tasks, index - 1);
+            markAsDone(index - 1);
         } catch (NumberFormatException e) {
             System.out.print(line + "> Please key in a number.\n" + line);
         } catch (TaskNegativeException e) {
@@ -311,13 +311,12 @@ public class Shika {
     }
 
     /**
-     * Function throws exceptions if the index of the task is invalid and marks task as done if it is valid.
-     * @param tasks Arraylist containing all recorded tasks.
+     * Function throws exceptions if the index of the task is invalid and marks task as done if it is valid..
      * @param index Index of the task to be marked as done.
      * @throws TaskNegativeException If index is negative.
      * @throws TaskNotFoundException If index is of a task that has not been created yet.
      */
-    public static void markAsDone(ArrayList<Task> tasks, int index) throws TaskNegativeException, TaskNotFoundException {
+    public static void markAsDone(int index) throws TaskNegativeException, TaskNotFoundException {
         if (index < 0) {
             throw new TaskNegativeException();
         } else if (index >= Task.count) {
@@ -331,9 +330,8 @@ public class Shika {
 
     /**
      * Function to print all tasks in tasks.
-     * @param tasks Arraylist containing all recorded tasks.
      */
-    public static void printTasks(ArrayList<Task> tasks) {
+    public static void printTasks() {
         System.out.println(line + "> Here is your list of tasks: ") ;
         for (int i = 0; i < Task.count; i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
