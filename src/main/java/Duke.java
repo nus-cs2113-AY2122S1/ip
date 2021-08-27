@@ -2,13 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String greeting = "Hi! I'm Herrick, your task manager." + "\n"
-                + "What would you like to add to your timetable?";
-
-        String farewell = "Bye. Hope you will complete everything for today!";
-
-        System.out.println(greeting);
-
+        printWelcomeMessage();
         Scanner sc = new Scanner(System.in);
 
         String phrase = sc.nextLine();
@@ -30,7 +24,18 @@ public class Duke {
             list.addTasks(new Task(phrase));
             phrase = sc.nextLine();
         }
+        printFarewellMessage();
+    }
 
+    static void printWelcomeMessage() {
+        String greeting = "Hi! I'm Herrick, your task manager." + "\n"
+                + "What would you like to add to your timetable?";
+        System.out.println(greeting);
+    }
+
+    static void printFarewellMessage() {
+        String farewell = "Bye. Hope you will complete everything for today!";
         System.out.println(farewell);
     }
+
 }
