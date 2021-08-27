@@ -1,18 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Unker {
+
     private static final ArrayList<Task> TASKS = new ArrayList<>();
+    public static final String INVALID_FORMAT_MESSAGE = "Sorry, Unker need you to type this way for me to understand arh (no need brackets):";
+    public static final String ADDED_TASK_MESSAGE = "Okay Unker help you add this to your to-do list:";
 
     public static void main(String[] args) {
-        String logo =  "  _    _       _             \n"
-                + " | |  | |     | |            \n"
-                + " | |  | |_ __ | | _____ _ __ \n"
-                + " | |  | | '_ \\| |/ / _ \\ '__|\n"
-                + " | |__| | | | |   <  __/ |   \n"
-                + "  \\____/|_| |_|_|\\_\\___|_|   \n";
-        System.out.println("Loading your digital\n" + logo);
-        printSection("Harlo, you can call me Unker.", "What can Unker do for you today?");
+        printBanner();
 
         // Initialize a scanner to read in user input
         Scanner scanner = new Scanner(System.in);
@@ -38,6 +36,17 @@ public class Unker {
         printSection("Bye bye, see you soon again arh!");
     }
 
+    private static void printBanner() {
+        String logo =  "  _    _       _             \n"
+                + " | |  | |     | |            \n"
+                + " | |  | |_ __ | | _____ _ __ \n"
+                + " | |  | | '_ \\| |/ / _ \\ '__|\n"
+                + " | |__| | | | |   <  __/ |   \n"
+                + "  \\____/|_| |_|_|\\_\\___|_|   \n";
+        System.out.println("Loading your digital\n" + logo);
+        printSection("Harlo, you can call me Unker.", "What can Unker do for you today?");
+    }
+
     /**
      * Prints the bot name and given data provided.
      * If no data is provided, it will print a horizontal line with the bot name.
@@ -58,8 +67,15 @@ public class Unker {
      * @return Returns true if the program should continue executing.
      */
     private static boolean parseCommands(String cmdString) {
-        String[] cmdParts = cmdString.split(" ");
-        switch (cmdParts[0].toLowerCase()) {
+        Pattern cmdPattern = Pattern.compile("^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$");
+        Matcher cmdMatcher = cmdPattern.matcher(cmdString);
+        if (!cmdMatcher.matches()) {
+            printSection("Sorry, can ask something else? Unker don't know how help you.");
+            return true;
+        }
+        String cmd = cmdMatcher.group("cmd");
+        String cmdData = cmdMatcher.group("cmdData");
+        switch (cmd.toLowerCase()) {
         case "bye":
             return false;
         case "list":
@@ -73,13 +89,13 @@ public class Unker {
                     if (!task.isDone()) {
                         toBeCompleted++;
                     }
-                    System.out.printf("%d. %s\n", i + 1, task.getStatusString());
+                    System.out.printf("%d. %s\n", i + 1, task);
                 }
                 System.out.printf("\nYou still got %d task(s) left to do.\n", toBeCompleted);
             }
             return true;
         case "done":
-            int taskNo = Integer.parseInt(cmdParts[1]);
+            int taskNo = Integer.parseInt(cmdData);
             if (taskNo < 1 || taskNo > TASKS.size()) {
                 printSection("Aiyo, you give me a task number that I don't have.");
             } else  {
@@ -87,16 +103,51 @@ public class Unker {
                 if (!task.isDone()) {
                     task.setDone(true);
                     printSection("Good job, this task finish already:",
-                            "\t" + task.getStatusString(), "");
+                            "\t" + task, "");
                 } else {
-                    printSection("You finish this task already leh:", "\t" + task.getStatusString(), "");
+                    printSection("You finish this task already leh:", "\t" + task, "");
                 }
             }
             return true;
-        default:
-            Task t = new Task(cmdString);
+        case "todo":
+            ToDo t = new ToDo(cmdData);
             TASKS.add(t);
-            printSection("Okay Unker help you add this to your to-do list:", "\t" + t.getStatusString());
+            printSection(ADDED_TASK_MESSAGE, "\t" + t);
+            return true;
+        case "deadline":
+            if (cmdData == null) {
+                printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
+                return true;
+            }
+            String deadlineCmdPattern = "^(.+) /[bB][yY] (.+)$";
+            Pattern deadlinePattern = Pattern.compile(deadlineCmdPattern);
+            Matcher deadlineMatcher = deadlinePattern.matcher(cmdData);
+            if (deadlineMatcher.matches() && !deadlineMatcher.group(1).isBlank() && !deadlineMatcher.group(2).isBlank()) {
+                Deadline d = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
+                TASKS.add(d);
+                printSection(ADDED_TASK_MESSAGE, "\t" + d);
+            } else {
+                printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
+            }
+            return true;
+        case "event":
+            if (cmdData == null) {
+                printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");
+                return true;
+            }
+            String eventCmdPattern = "^(.+) /[aA][tT] (.+)$";
+            Pattern eventPattern = Pattern.compile(eventCmdPattern);
+            Matcher eventMatcher = eventPattern.matcher(cmdData);
+            if (eventMatcher.matches() && !eventMatcher.group(1).isBlank() && !eventMatcher.group(2).isBlank()) {
+                Event e = new Event(eventMatcher.group(1), eventMatcher.group(2));
+                TASKS.add(e);
+                printSection(ADDED_TASK_MESSAGE, "\t" + e);
+            } else {
+                printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");
+            }
+            return true;
+        default:
+            printSection("Sorry, can ask something else? Unker don't know how help you.");
             return true;
         }
     }

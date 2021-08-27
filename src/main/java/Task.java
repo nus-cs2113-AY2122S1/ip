@@ -23,7 +23,7 @@ public class Task {
      *
      * @return A string indicating if the task is done and the description of the task.
      */
-    public String getStatusString() {
+    public String toString() {
         return String.format("[%c] %s", isDone() ? 'X' : ' ' ,this.getDescription());
     }
 }
