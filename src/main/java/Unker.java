@@ -1,23 +1,41 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Unker {
 
-    private static final ArrayList<Task> TASKS = new ArrayList<>();
-    public static final String INVALID_FORMAT_MESSAGE = "Sorry, Unker need you to type this way for me to understand arh (no need brackets):";
+    private final ArrayList<Task> tasks;
+    private static final Unker UNKER_INSTANCE = new Unker();
+    public static final String INVALID_FORMAT_MESSAGE =
+            "Sorry, Unker need you to type this way for me to understand arh (no need brackets):";
     public static final String ADDED_TASK_MESSAGE = "Okay Unker help you add this to your to-do list:";
+
+    private Unker() {
+        this.tasks = new ArrayList<>();
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
 
     public static void main(String[] args) {
         UI ui = UI.getUiInstance();
         ui.printBanner();
+        Unker unker = getUnkerInstance();
 
         // Keep listening for new commands
         while (true) {
             String cmd = ui.getUserInput();
             // Check if the user wishes to exit the program.
-            if (!parseCommands(cmd)) {
+            if (!unker.parseCommands(cmd)) {
                 break;
             }
 
@@ -29,7 +47,9 @@ public class Unker {
         ui.printByeMessage();
     }
 
-
+    public static Unker getUnkerInstance() {
+        return UNKER_INSTANCE;
+    }
 
     /**
      * Interprets the commands sent by the user.
@@ -37,7 +57,7 @@ public class Unker {
      * @param cmdString The command sent by the user.
      * @return Returns true if the program should continue executing.
      */
-    private static boolean parseCommands(String cmdString) {
+    private boolean parseCommands(String cmdString) {
         UI ui = UI.getUiInstance();
         Pattern cmdPattern = Pattern.compile("^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$");
         Matcher cmdMatcher = cmdPattern.matcher(cmdString);
@@ -51,13 +71,13 @@ public class Unker {
         case "bye":
             return false;
         case "list":
-            if (TASKS.isEmpty()) {
+            if (tasks.isEmpty()) {
                 ui.printSection("Wah seh, you got nothing in your to-do list leh.");
             } else {
                 ui.printSection("This is what you give me:");
                 int toBeCompleted = 0;
-                for (int i = 0; i < TASKS.size(); i++) {
-                    Task task = TASKS.get(i);
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task task = tasks.get(i);
                     if (!task.isDone()) {
                         toBeCompleted++;
                     }
@@ -68,10 +88,10 @@ public class Unker {
             return true;
         case "done":
             int taskNo = Integer.parseInt(cmdData);
-            if (taskNo < 1 || taskNo > TASKS.size()) {
+            if (taskNo < 1 || taskNo > tasks.size()) {
                 ui.printSection("Aiyo, you give me a task number that I don't have.");
             } else  {
-                Task task = TASKS.get(taskNo - 1);
+                Task task = tasks.get(taskNo - 1);
                 if (!task.isDone()) {
                     task.setDone(true);
                     ui.printSection("Good job, this task finish already:",
@@ -83,7 +103,7 @@ public class Unker {
             return true;
         case "todo":
             ToDo t = new ToDo(cmdData);
-            TASKS.add(t);
+            tasks.add(t);
             ui.printSection(ADDED_TASK_MESSAGE, "\t" + t);
             return true;
         case "deadline":
@@ -96,7 +116,7 @@ public class Unker {
             Matcher deadlineMatcher = deadlinePattern.matcher(cmdData);
             if (deadlineMatcher.matches() && !deadlineMatcher.group(1).isBlank() && !deadlineMatcher.group(2).isBlank()) {
                 Deadline d = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
-                TASKS.add(d);
+                tasks.add(d);
                 ui.printSection(ADDED_TASK_MESSAGE, "\t" + d);
             } else {
                 ui.printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
@@ -112,7 +132,7 @@ public class Unker {
             Matcher eventMatcher = eventPattern.matcher(cmdData);
             if (eventMatcher.matches() && !eventMatcher.group(1).isBlank() && !eventMatcher.group(2).isBlank()) {
                 Event e = new Event(eventMatcher.group(1), eventMatcher.group(2));
-                TASKS.add(e);
+                tasks.add(e);
                 ui.printSection(ADDED_TASK_MESSAGE, "\t" + e);
             } else {
                 ui.printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");

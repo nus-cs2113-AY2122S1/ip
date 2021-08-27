@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class UI {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     private static final UI UI_INSTANCE = new UI();
 
