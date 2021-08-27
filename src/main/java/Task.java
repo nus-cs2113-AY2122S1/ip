@@ -24,7 +24,5 @@ public class Task {
 
     public void setDone() {
         isDone = true;
-        System.out.println(name + " done, well done.");
-        System.out.println(getStatusSymbol() + " " + name);
     }
 }
