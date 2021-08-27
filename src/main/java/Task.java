@@ -4,7 +4,7 @@ public class Task {
     /** Whether the task has been completed */
     private boolean isDone;
     /** Type of task stored as ['Type'] */
-    protected String typeOfTask = null;
+    protected String typeOfTask = "[T]";
 
     /**
      * Creates a task with the specified name.
@@ -53,5 +53,9 @@ public class Task {
      */
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public String printTask() {
+        return this.getTypeOfTask() + this.getDoneStatusAsSymbol() + " " + this.getName();
     }
 }

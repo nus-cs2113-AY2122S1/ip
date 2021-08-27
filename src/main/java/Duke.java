@@ -18,6 +18,9 @@ public class Duke {
     // Initialise variable to track user input
     private static String userInput = null;
 
+    // Initialise constants
+    public static final int END_INDEX_OF_WORD_TODO = 4;
+    public static final int END_INDEX_OF_WORD_DEADLINE = 8;
 
     public static void main(String[] args) {
         // Print logo and welcome text
@@ -50,11 +53,26 @@ public class Duke {
     }
 
     private static void handleUserCreatingTask(String userInput) {
-        // If user has not said any other command, store user input as todo
-        tasks[noOfTasks] = new Todo(userInput);
+        String taskType = userInput.split(" ")[0];
+        String taskName;
+        String deadlineDate = null;
+
+        if (taskType.equals("deadline")) {
+            deadlineDate = userInput.substring(userInput.indexOf("/") + 1).trim();
+            taskName = userInput.substring(END_INDEX_OF_WORD_DEADLINE, userInput.indexOf("/")).trim();
+            tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
+        } else if (taskType.equals("todo")) {
+            taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
+            tasks[noOfTasks] = new Todo(taskName);
+        } else {
+            taskName = userInput.trim();
+            tasks[noOfTasks] = new Todo(userInput);
+        }
+
+        // Increase current number of tasks by 1
         noOfTasks++;
         // Then, echo the task
-        System.out.println("I've added: " + userInput);
+        System.out.println("I've added: " + tasks[noOfTasks - 1].printTask());
     }
 
     private static void handleUserMarkingTaskAsDone(String userInput) {
@@ -82,7 +100,7 @@ public class Duke {
         if (chosenTask.isDone()) {
             System.out.println("Oh! This task was already marked as done:");
             // Print out the task in the following format: "    [X] Task"
-            System.out.println("    " + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
+            System.out.println("    " + chosenTask.printTask());
             return;
         }
 
@@ -91,14 +109,13 @@ public class Duke {
         System.out.println("Wunderbar! This task has been marked as done:");
 
         // Print out the task in the following format: "    [X] Task"
-        System.out.println("    " + chosenTask.getDoneStatusAsSymbol() + " " + chosenTask.getName());
+        System.out.println("    " + chosenTask.printTask());
     }
 
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
         for (int i = 0; i < noOfTasks; i++) {
-            System.out.println(Integer.toString(i + 1) + "." + tasks[i].getTypeOfTask()
-                    + tasks[i].getDoneStatusAsSymbol() + " " + tasks[i].getName());
+            System.out.println(Integer.toString(i + 1) + "." + tasks[i].printTask());
         }
     }
 
