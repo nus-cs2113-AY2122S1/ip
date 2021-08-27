@@ -1,25 +1,22 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static final String DIVIDING_LINE = "________________________________________";
     public static final int MAX_STORED_TASKS = 100;
     public static final int TODO_OFFSET = 5;
     public static final int DEADLINE_OFFSET = 9;
     public static final int EVENT_OFFSET = 6;
 
     public static void printGreeting() {
-        printDividingLine();
+        System.out.println(DIVIDING_LINE);
         System.out.println("Greetings, human! I'm Duke. \nWhat can I do for you?");
-        printDividingLine();
-    }
-
-    public static void printDividingLine() {
-        System.out.println("________________________________________");
+        System.out.println(DIVIDING_LINE);
     }
 
     public static void printFarewell() {
-        printDividingLine();
+        System.out.println(DIVIDING_LINE);
         System.out.println("Closing Duke. Have a nice day!");
-        printDividingLine();
+        System.out.println(DIVIDING_LINE);
     }
 
     public static void manageTasks() {
@@ -29,7 +26,7 @@ public class Duke {
         String userInputString = userInput.nextLine();
 
         while (!userInputString.equals("bye")) {
-            printDividingLine();
+            System.out.println(DIVIDING_LINE);
             if (userInputString.equals("list")) {
                 listTasks(taskIndex, userTasks);
             } else if (userInputString.startsWith("done")) {
@@ -38,7 +35,7 @@ public class Duke {
                 addNewTask(userInputString, taskIndex, userTasks);
                 taskIndex++;
             }
-            printDividingLine();
+            System.out.println(DIVIDING_LINE);
             userInputString = userInput.nextLine();
         }
     }
