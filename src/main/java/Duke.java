@@ -9,18 +9,37 @@ import java.util.Scanner;
  */
 public class Duke {
     public static void main(String[] args) {
-        String SEPARATOR = "\t____________________________________________________________";
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        final String SEPARATOR = "\t==============================================";
+        String logoArt = "\t                                        \n" +
+                "\t             ..........                 \n" +
+                "\t           .,,..,.,,,,                  \n" +
+                "\t           ,.,,,,.,...                  \n" +
+                "\t          ,.......,*,/& .               \n" +
+                "\t          ,..,..,((/**(((,              \n" +
+                "\t           *(#%(((#/#((/       *        \n" +
+                "\t         /(%#########%##(*,,,((*        \n" +
+                "\t              ((#(((((#      (((*       \n" +
+                "\t        ((((((   /((((/,., .... #       \n" +
+                "\t         (((#    .(((..*...,*///        \n" +
+                "\t         ((/      .,,**  ..**///        \n" +
+                "\t                  .,*,..  ,**//         \n" +
+                "\t                ..,,,..,/ ,*//          \n" +
+                "\t             *,,****,        " ;
+
+        final String nameArt = "\t _______  __   __  __   __  ______    _______ \n" +
+                "\t|       ||  |_|  ||  | |  ||    _ |  |       |\n" +
+                "\t|  _____||       ||  | |  ||   | ||  |    ___|\n" +
+                "\t| |_____ |       ||  |_|  ||   |_||_ |   |___ \n" +
+                "\t|_____  ||       ||       ||    __  ||    ___|\n" +
+                "\t _____| || ||_|| ||       ||   |  | ||   |    \n" +
+                "\t|_______||_|   |_||_______||___|  |_||___|    ";
 
         // Introduction of chatbot
-        System.out.println("Hello from\n" + logo);
+        System.out.println(logoArt + "\n" + nameArt);
         System.out.println(SEPARATOR);
-        System.out.println("\tHello I'm Duke");
-        System.out.println("\tWhat can I do for you?");
+        System.out.println("\t...la la la la la la sing a happy song\n");
+        System.out.println("\tWelcome to Smurf Village.");
+        System.out.println("\tStart smurfing now!!");
         System.out.println(SEPARATOR);
 
         boolean isDone = false;
@@ -28,6 +47,7 @@ public class Duke {
 
         do {
             // Read inputs
+            System.out.println("\tCall out a smurf to do a job for you!");
             Scanner in = new Scanner(System.in);
             String command;
             command = in.nextLine();
@@ -39,7 +59,7 @@ public class Duke {
 
                 // Print output
                 System.out.println(SEPARATOR);
-                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\tBrainy Smurf: ahhh another thing done\n");
                 System.out.printf("\t  [%s] %s\n", taskList[itemNum].getStatusIcon(),
                         taskList[itemNum].getDescription());
                 System.out.println(SEPARATOR);
@@ -51,12 +71,13 @@ public class Duke {
 
                     // Print output
                     System.out.println(SEPARATOR);
-                    System.out.println("\tBye. Hope to see you again soon!");
+                    System.out.println("\toh shucks! Gargamel is here..we gotta hide");
                     System.out.println(SEPARATOR);
                     break;
                 case "list":
                     // Print output
                     System.out.println(SEPARATOR);
+                    System.out.println("\t\"Tracker Smurf!! I need you here!!\"\n");
                     for (int i = 0; i < Task.getNumOfTasks(); i++) {
                         System.out.printf("\t%d.[%s] %s\n", i + 1, taskList[i].getStatusIcon(),
                                 taskList[i].getDescription());
@@ -69,6 +90,7 @@ public class Duke {
 
                     // Print output
                     System.out.println(SEPARATOR);
+                    System.out.println("\tHandy Smurf is here to give you a hand!\n");
                     System.out.println("\tadded: " + command);
                     System.out.println(SEPARATOR);
                     break;
