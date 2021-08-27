@@ -3,6 +3,7 @@ public class Display {
     public static final String TASK_COMPLETE = "X";
     public static final String TODO_TASK_TYPE = "T";
     public static final String DEADLINE_TASK_TYPE = "D";
+    public static final String EVENT_TASK_TYPE = "E";
 
     public static void printListTaskLine() {
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

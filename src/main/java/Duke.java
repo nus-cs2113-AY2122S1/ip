@@ -7,6 +7,7 @@ public class Duke {
     public static final String MARK_DONE = "done";
     public static final String TODO_TASK = "todo";
     public static final String DEADLINE_TASK = "deadline";
+    public static final String EVENT_TASK = "event";
 
     public static void greet() {
         Display.printSeparatingLine();
@@ -57,6 +58,14 @@ public class Duke {
                     deadlineTaskName += " ";
                 }
                 taskManager.addDeadlineTask(deadlineTaskName);
+                break;
+            case EVENT_TASK:
+                String eventTaskName = "";
+                for (int i = 1; i < words.length; i++) {
+                    eventTaskName += words[i];
+                    eventTaskName += " ";
+                }
+                taskManager.addEventTask(eventTaskName);
                 break;
             default:
                 break;
