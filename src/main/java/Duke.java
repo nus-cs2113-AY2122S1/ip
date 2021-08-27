@@ -5,46 +5,52 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        String user_Input;
+        String userInput;
         Scanner in = new Scanner(System.in);
         Task[] t = new Task[100];
-        int list_index = 0;
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        int listIndex = 0;
 
-        user_Input = in.nextLine();
+        System.out.println("____________________________________________________________");
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+        System.out.println("____________________________________________________________");
 
-        while (!(user_Input.contentEquals("bye"))) {
-            if(user_Input.contentEquals("list")){
+        userInput = in.nextLine();
+
+        while (!(userInput.contentEquals("bye"))) {
+            if(userInput.contentEquals("list")){
+                System.out.println("____________________________________________________________");
                 System.out.println("List so far: ");
-                for(int i = 0; i < list_index; i++) {
+                for(int i = 0; i < listIndex; i++) {
                     System.out.println( (i+1) + "[" + t[i].getStatus() + "]" + t[i].name);
                 }
-                user_Input = in.nextLine();
+                System.out.println("____________________________________________________________");
+                userInput = in.nextLine();
             }
             else {
-                if(user_Input.contains("done")){
-                    int task_index = Integer.parseInt(String.valueOf(user_Input.charAt(0)));
-                    t[task_index - 1].task_done();
+                if(userInput.contains("done")){
+                    int task_index = Integer.parseInt(String.valueOf(userInput.charAt(userInput.length() - 1)));
+                    t[task_index - 1].taskDone();
+                    System.out.println("____________________________________________________________");
                     System.out.println("List so far: ");
-                    for(int i = 0; i < list_index; i++) {
-                        System.out.println(i + "[" + t[i].getStatus() + "]" + t[i].name);
-                    }
-                    user_Input = in.nextLine();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[" + t[task_index - 1].getStatus() + "] " + t[task_index - 1].name);
+                    System.out.println("____________________________________________________________");
+                    userInput = in.nextLine();
                 }
                 else {
-                    System.out.println("added: " + user_Input);
-                    t[list_index] = new Task(user_Input);
-                    list_index++;
-                    user_Input = in.nextLine();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("added: " + userInput);
+                    System.out.println("____________________________________________________________");
+                    t[listIndex] = new Task(userInput);
+                    listIndex++;
+                    userInput = in.nextLine();
                 }
             }
         }
 
-        System.out.println("byee");
+        System.out.println("____________________________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
     }
 }
