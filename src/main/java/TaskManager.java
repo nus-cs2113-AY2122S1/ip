@@ -5,39 +5,38 @@ public class TaskManager {
     public void addTodoTask(String taskName) {
         taskList[taskCount] = new Todo(taskName);
         taskCount++;
-        Display.printAddTaskLine();
-        System.out.println("Noted! I've added a new TODO task");
-        System.out.println(taskList[taskCount-1]);
-        System.out.println("Now you have " + taskCount + " tasks in your list");
-        Display.printAddTaskLine();
+        Display.displayTaskCreation(taskList[taskCount-1], Display.TODO_TASK_NAME, taskCount);
     }
 
     public void addDeadlineTask(String taskInformation) {
-        String[] taskComponents = taskInformation.split("/");
-        taskList[taskCount] = new Deadline(taskComponents[0].trim(), taskComponents[1].trim());
+        String[] taskComponents = getTaskComponents(taskInformation);
+        String taskName = taskComponents[0];
+        String deadline = taskComponents[1];
+        taskList[taskCount] = new Deadline(taskName, deadline);
         taskCount++;
-        Display.printAddTaskLine();
-        System.out.println("Noted! I've added a new DEADLINE task");
-        System.out.println(taskList[taskCount-1]);
-        System.out.println("Now you have " + taskCount + " tasks in your list");
-        Display.printAddTaskLine();
+        Display.displayTaskCreation(taskList[taskCount-1], Display.DEADLINE_TASK_NAME, taskCount);
     }
 
     public void addEventTask(String taskInformation) {
-        String[] taskComponents = taskInformation.split("/");
-        taskList[taskCount] = new Event(taskComponents[0].trim(), taskComponents[1].trim());
+        String[] taskComponents = getTaskComponents(taskInformation);
+        String taskName = taskComponents[0];
+        String eventTime = taskComponents[1];
+        taskList[taskCount] = new Event(taskName, eventTime);
         taskCount++;
-        Display.printAddTaskLine();
-        System.out.println("Noted! I've added a new EVENT task");
-        System.out.println(taskList[taskCount-1]);
-        System.out.println("Now you have " + taskCount + " tasks in your list");
-        Display.printAddTaskLine();
+        Display.displayTaskCreation(taskList[taskCount-1], Display.EVENT_TASK_NAME, taskCount);
+    }
+
+    public String[] getTaskComponents(String taskInformation) {
+        String[] taskComponents = taskInformation.split("/");
+        for (int i = 0; i < taskComponents.length; i++) {
+            taskComponents[i] = taskComponents[i].trim();
+        }
+        return taskComponents;
     }
 
     public void markTaskAsCompleted(int taskNumber) {
         taskList[taskNumber].setTaskCompleted();
-        System.out.println("Nice! Marking " + taskList[taskNumber].getTask() + " as done!");
-        System.out.println(Display.createCheckboxDisplay(Display.TASK_COMPLETE) + " " + taskList[taskNumber].getTask());
+        Display.displayTaskCompleted(taskList[taskNumber].getTask());
     }
 
     public void listTask() {

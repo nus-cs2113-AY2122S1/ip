@@ -5,8 +5,7 @@ public class Event extends Deadline {
 
     @Override
     public String toString() {
-        String eventCheckboxType = Display.createCheckboxDisplay(Display.EVENT_TASK_TYPE);
-        String statusCheckboxType = getStatusCheckbox();
-        return eventCheckboxType + statusCheckboxType + " " + super.toString() + " (" + getDeadlineTime() + ")";
+        return Display.getTwoCheckboxDisplay(Display.CHECKBOX_EVENT_TASK_TYPE, getIsCompleted())
+                + " " + getTask() + " (" + getDeadlineTime() + ")";
     }
 }

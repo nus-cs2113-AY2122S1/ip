@@ -9,6 +9,17 @@ public class Duke {
     public static final String DEADLINE_TASK = "deadline";
     public static final String EVENT_TASK = "event";
 
+    public static String getTaskDetails(String[] words) {
+        String taskName = "";
+        for (int i = 1; i < words.length; i++) {
+            taskName += words[i];
+            if (i != words.length - 1) {
+                taskName += " ";
+            }
+        }
+        return taskName;
+    }
+
     public static void greet() {
         Display.printSeparatingLine();
         System.out.println("Hello! I'm Duke");
@@ -42,30 +53,13 @@ public class Duke {
                 isStillInteracting = false;
                 break;
             case TODO_TASK:
-                String taskName = "";
-                for (int i = 1; i < words.length; i++) {
-                    taskName += words[i];
-                    if (i != words.length - 1) {
-                        taskName += " ";
-                    }
-                }
-                taskManager.addTodoTask(taskName);
+                taskManager.addTodoTask(getTaskDetails(words));
                 break;
             case DEADLINE_TASK:
-                String deadlineTaskName = "";
-                for (int i = 1; i < words.length; i++) {
-                    deadlineTaskName += words[i];
-                    deadlineTaskName += " ";
-                }
-                taskManager.addDeadlineTask(deadlineTaskName);
+                taskManager.addDeadlineTask(getTaskDetails(words));
                 break;
             case EVENT_TASK:
-                String eventTaskName = "";
-                for (int i = 1; i < words.length; i++) {
-                    eventTaskName += words[i];
-                    eventTaskName += " ";
-                }
-                taskManager.addEventTask(eventTaskName);
+                taskManager.addEventTask(getTaskDetails(words));
                 break;
             default:
                 break;

@@ -19,14 +19,6 @@ public class Task {
         return isCompleted;
     }
 
-    public String getStatusCheckbox() {
-        String statusCheckbox = Display.createCheckboxDisplay(Display.TASK_INCOMPLETE);
-        if (isCompleted) {
-            statusCheckbox = Display.createCheckboxDisplay(Display.TASK_COMPLETE);
-        }
-        return statusCheckbox;
-    }
-
     @Override
     public String toString() {
         return taskName;

@@ -12,8 +12,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String deadlineCheckboxType = Display.createCheckboxDisplay(Display.DEADLINE_TASK_TYPE);
-        String statusCheckboxType = getStatusCheckbox();
-        return deadlineCheckboxType + statusCheckboxType + " " + super.toString() + " (" + getDeadlineTime() + ")";
+        return Display.getTwoCheckboxDisplay(Display.CHECKBOX_DEADLINE_TASK_TYPE, getIsCompleted())
+                + " " + super.toString() + " (" + getDeadlineTime() + ")";
     }
 }
