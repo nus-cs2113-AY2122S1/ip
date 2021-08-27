@@ -5,9 +5,6 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         isCompleted = false;
-        Display.printAddTaskLine();
-        System.out.println("Task Added: " + taskName + "\n");
-        Display.printAddTaskLine();
     }
 
     public String getTask() {
@@ -20,5 +17,18 @@ public class Task {
 
     public Boolean getIsCompleted() {
         return isCompleted;
+    }
+
+    public String getStatusCheckbox() {
+        String statusCheckbox = Display.createCheckboxDisplay(Display.TASK_INCOMPLETE);
+        if (isCompleted) {
+            statusCheckbox = Display.createCheckboxDisplay(Display.TASK_COMPLETE);
+        }
+        return statusCheckbox;
+    }
+
+    @Override
+    public String toString() {
+        return taskName;
     }
 }

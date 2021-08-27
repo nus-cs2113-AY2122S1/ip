@@ -5,6 +5,7 @@ public class Duke {
     public static final String EXIT_PROGRAM = "bye";
     public static final String LIST_TASK = "list";
     public static final String MARK_DONE = "done";
+    public static final String TODO_TASK = "todo";
 
     public static void greet() {
         Display.printSeparatingLine();
@@ -38,8 +39,15 @@ public class Duke {
             case EXIT_PROGRAM:
                 isStillInteracting = false;
                 break;
+            case TODO_TASK:
+                String taskName = "";
+                for (int i = 1; i < words.length; i++) {
+                    taskName += words[i];
+                    taskName += " ";
+                }
+                taskManager.addTodoTask(taskName);
+                break;
             default:
-                taskManager.addTask(line);
                 break;
             }
         }
