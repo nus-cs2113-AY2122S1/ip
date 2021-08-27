@@ -1,4 +1,5 @@
 public class Event extends Deadline {
+
     public Event(String taskName, String eventTime) {
         super(taskName, eventTime);
     }

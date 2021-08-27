@@ -1,13 +1,14 @@
 public class Display {
+
     public static final String CHECKBOX_TASK_INCOMPLETE = " ";
     public static final String CHECKBOX_TASK_COMPLETE = "X";
     public static final String CHECKBOX_TODO_TASK_TYPE = "T";
     public static final String CHECKBOX_DEADLINE_TASK_TYPE = "D";
     public static final String CHECKBOX_EVENT_TASK_TYPE = "E";
 
-    public static final String TODO_TASK_NAME = "TODO";
-    public static final String DEADLINE_TASK_NAME = "DEADLINE";
-    public static final String EVENT_TASK_NAME = "EVENT";
+    public static final String TASK_NAME_TODO = "TODO";
+    public static final String TASK_NAME_DEADLINE = "DEADLINE";
+    public static final String TASK_NAME_EVENT = "EVENT";
 
     public static void printListTaskLine() {
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

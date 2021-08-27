@@ -2,22 +2,24 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final String EXIT_PROGRAM = "bye";
-    public static final String LIST_TASK = "list";
-    public static final String MARK_DONE = "done";
-    public static final String TODO_TASK = "todo";
-    public static final String DEADLINE_TASK = "deadline";
-    public static final String EVENT_TASK = "event";
+    public static final String COMMAND_EXIT_PROGRAM = "bye";
+    public static final String COMMAND_MARK_DONE = "done";
+    public static final String COMMAND_LIST_TASK = "list";
+    public static final String COMMAND_TODO_TASK = "todo";
+    public static final String COMMAND_DEADLINE_TASK = "deadline";
+    public static final String COMMAND_EVENT_TASK = "event";
+    public static final int COMMAND_INDEX = 0;
+    public static final int TASK_INDEX = 1;
+
+    public static final String SEPARATOR = " ";
 
     public static String getTaskDetails(String[] words) {
         String taskName = "";
-        for (int i = 1; i < words.length; i++) {
+        for (int i = TASK_INDEX; i < words.length; i++) {
             taskName += words[i];
-            if (i != words.length - 1) {
-                taskName += " ";
-            }
+            taskName += SEPARATOR;
         }
-        return taskName;
+        return taskName.trim();
     }
 
     public static void greet() {
@@ -39,29 +41,30 @@ public class Duke {
         Boolean isStillInteracting = true;
         while (isStillInteracting) {
             line = in.nextLine();
-            String[] words = line.trim().split(" ");
+            String[] words = line.trim().split(SEPARATOR);
 
-            switch (words[0]) {
-            case LIST_TASK:
+            switch (words[COMMAND_INDEX]) {
+            case COMMAND_LIST_TASK:
                 taskManager.listTask();
                 break;
-            case MARK_DONE:
-                int taskNumber = Integer.parseInt(words[1]) - 1;
+            case COMMAND_MARK_DONE:
+                int taskNumber = Integer.parseInt(words[TASK_INDEX]) - 1;
                 taskManager.markTaskAsCompleted(taskNumber);
                 break;
-            case EXIT_PROGRAM:
+            case COMMAND_EXIT_PROGRAM:
                 isStillInteracting = false;
                 break;
-            case TODO_TASK:
+            case COMMAND_TODO_TASK:
                 taskManager.addTodoTask(getTaskDetails(words));
                 break;
-            case DEADLINE_TASK:
+            case COMMAND_DEADLINE_TASK:
                 taskManager.addDeadlineTask(getTaskDetails(words));
                 break;
-            case EVENT_TASK:
+            case COMMAND_EVENT_TASK:
                 taskManager.addEventTask(getTaskDetails(words));
                 break;
             default:
+                Error.displayInvalidCommandError();
                 break;
             }
         }

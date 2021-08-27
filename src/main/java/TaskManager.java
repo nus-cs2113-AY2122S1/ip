@@ -1,29 +1,38 @@
 public class TaskManager {
+
     private Task[] taskList = new Task[100];
     private int taskCount;
 
     public void addTodoTask(String taskName) {
         taskList[taskCount] = new Todo(taskName);
         taskCount++;
-        Display.displayTaskCreation(taskList[taskCount-1], Display.TODO_TASK_NAME, taskCount);
+        Display.displayTaskCreation(taskList[taskCount-1], Display.TASK_NAME_TODO, taskCount);
     }
 
     public void addDeadlineTask(String taskInformation) {
         String[] taskComponents = getTaskComponents(taskInformation);
+        if (taskComponents.length <= 1) {
+            Error.displayTaskFormatError();
+            return;
+        }
         String taskName = taskComponents[0];
         String deadline = taskComponents[1];
         taskList[taskCount] = new Deadline(taskName, deadline);
         taskCount++;
-        Display.displayTaskCreation(taskList[taskCount-1], Display.DEADLINE_TASK_NAME, taskCount);
+        Display.displayTaskCreation(taskList[taskCount-1], Display.TASK_NAME_DEADLINE, taskCount);
     }
 
     public void addEventTask(String taskInformation) {
         String[] taskComponents = getTaskComponents(taskInformation);
+        if (taskComponents.length <= 1) {
+            Error.displayTaskFormatError();
+            return;
+        }
         String taskName = taskComponents[0];
         String eventTime = taskComponents[1];
         taskList[taskCount] = new Event(taskName, eventTime);
         taskCount++;
-        Display.displayTaskCreation(taskList[taskCount-1], Display.EVENT_TASK_NAME, taskCount);
+        Display.displayTaskCreation(taskList[taskCount-1], Display.TASK_NAME_EVENT, taskCount);
     }
 
     public String[] getTaskComponents(String taskInformation) {
@@ -35,6 +44,10 @@ public class TaskManager {
     }
 
     public void markTaskAsCompleted(int taskNumber) {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            Error.displayTaskNonExistentError();
+            return;
+        }
         taskList[taskNumber].setTaskCompleted();
         Display.displayTaskCompleted(taskList[taskNumber].getTask());
     }
