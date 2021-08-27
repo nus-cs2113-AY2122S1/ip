@@ -10,55 +10,26 @@ public class Unker {
     public static final String ADDED_TASK_MESSAGE = "Okay Unker help you add this to your to-do list:";
 
     public static void main(String[] args) {
-        printBanner();
-
-        // Initialize a scanner to read in user input
-        Scanner scanner = new Scanner(System.in);
+        UI ui = UI.getUiInstance();
+        ui.printBanner();
 
         // Keep listening for new commands
         while (true) {
-            // Read the input of the user
-            System.out.print("> ");
-            String cmd = scanner.nextLine();
-            System.out.println();
-
+            String cmd = ui.getUserInput();
             // Check if the user wishes to exit the program.
             if (!parseCommands(cmd)) {
                 break;
             }
 
             // Otherwise, ask the user for more commands
-            System.out.println("--");
-            System.out.println("Anything else you wan Unker to help you with?");
+            ui.printRequestMoreCommandsMessage();
         }
 
         // Cleanup and print exit message
-        printSection("Bye bye, see you soon again arh!");
+        ui.printByeMessage();
     }
 
-    private static void printBanner() {
-        String logo =  "  _    _       _             \n"
-                + " | |  | |     | |            \n"
-                + " | |  | |_ __ | | _____ _ __ \n"
-                + " | |  | | '_ \\| |/ / _ \\ '__|\n"
-                + " | |__| | | | |   <  __/ |   \n"
-                + "  \\____/|_| |_|_|\\_\\___|_|   \n";
-        System.out.println("Loading your digital\n" + logo);
-        printSection("Harlo, you can call me Unker.", "What can Unker do for you today?");
-    }
 
-    /**
-     * Prints the bot name and given data provided.
-     * If no data is provided, it will print a horizontal line with the bot name.
-     *
-     * @param data The string(s) to print to console.
-     */
-    private static void printSection(String ...data) {
-        System.out.println("--// Unker //----------------------------------------------");
-        for (String s: data) {
-            System.out.println(s);
-        }
-    }
 
     /**
      * Interprets the commands sent by the user.
@@ -67,10 +38,11 @@ public class Unker {
      * @return Returns true if the program should continue executing.
      */
     private static boolean parseCommands(String cmdString) {
+        UI ui = UI.getUiInstance();
         Pattern cmdPattern = Pattern.compile("^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$");
         Matcher cmdMatcher = cmdPattern.matcher(cmdString);
         if (!cmdMatcher.matches()) {
-            printSection("Sorry, can ask something else? Unker don't know how help you.");
+            ui.printSection("Sorry, can ask something else? Unker don't know how help you.");
             return true;
         }
         String cmd = cmdMatcher.group("cmd");
@@ -80,9 +52,9 @@ public class Unker {
             return false;
         case "list":
             if (TASKS.isEmpty()) {
-                printSection("Wah seh, you got nothing in your to-do list leh.");
+                ui.printSection("Wah seh, you got nothing in your to-do list leh.");
             } else {
-                printSection("This is what you give me:");
+                ui.printSection("This is what you give me:");
                 int toBeCompleted = 0;
                 for (int i = 0; i < TASKS.size(); i++) {
                     Task task = TASKS.get(i);
@@ -97,26 +69,26 @@ public class Unker {
         case "done":
             int taskNo = Integer.parseInt(cmdData);
             if (taskNo < 1 || taskNo > TASKS.size()) {
-                printSection("Aiyo, you give me a task number that I don't have.");
+                ui.printSection("Aiyo, you give me a task number that I don't have.");
             } else  {
                 Task task = TASKS.get(taskNo - 1);
                 if (!task.isDone()) {
                     task.setDone(true);
-                    printSection("Good job, this task finish already:",
+                    ui.printSection("Good job, this task finish already:",
                             "\t" + task, "");
                 } else {
-                    printSection("You finish this task already leh:", "\t" + task, "");
+                    ui.printSection("You finish this task already leh:", "\t" + task, "");
                 }
             }
             return true;
         case "todo":
             ToDo t = new ToDo(cmdData);
             TASKS.add(t);
-            printSection(ADDED_TASK_MESSAGE, "\t" + t);
+            ui.printSection(ADDED_TASK_MESSAGE, "\t" + t);
             return true;
         case "deadline":
             if (cmdData == null) {
-                printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
+                ui.printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
                 return true;
             }
             String deadlineCmdPattern = "^(.+) /[bB][yY] (.+)$";
@@ -125,14 +97,14 @@ public class Unker {
             if (deadlineMatcher.matches() && !deadlineMatcher.group(1).isBlank() && !deadlineMatcher.group(2).isBlank()) {
                 Deadline d = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
                 TASKS.add(d);
-                printSection(ADDED_TASK_MESSAGE, "\t" + d);
+                ui.printSection(ADDED_TASK_MESSAGE, "\t" + d);
             } else {
-                printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
+                ui.printSection(INVALID_FORMAT_MESSAGE, "deadline <description> /by <time>");
             }
             return true;
         case "event":
             if (cmdData == null) {
-                printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");
+                ui.printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");
                 return true;
             }
             String eventCmdPattern = "^(.+) /[aA][tT] (.+)$";
@@ -141,13 +113,13 @@ public class Unker {
             if (eventMatcher.matches() && !eventMatcher.group(1).isBlank() && !eventMatcher.group(2).isBlank()) {
                 Event e = new Event(eventMatcher.group(1), eventMatcher.group(2));
                 TASKS.add(e);
-                printSection(ADDED_TASK_MESSAGE, "\t" + e);
+                ui.printSection(ADDED_TASK_MESSAGE, "\t" + e);
             } else {
-                printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");
+                ui.printSection(INVALID_FORMAT_MESSAGE, "event <description> /at <time>");
             }
             return true;
         default:
-            printSection("Sorry, can ask something else? Unker don't know how help you.");
+            ui.printSection("Sorry, can ask something else? Unker don't know how help you.");
             return true;
         }
     }
