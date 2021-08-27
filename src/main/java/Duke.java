@@ -1,11 +1,51 @@
 import java.util.Scanner;
 
 public class Duke {
+    static int count = -1;
+    static Task[] tasks = new Task[100];
+
+    public static void handleInput(String input) {
+        switch (input.split(" ")[0]) {
+        case "done":
+            int pos = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (pos > count) {
+                System.out.println("____________________________________\n");
+                System.out.println("No such task exists");
+                System.out.println("____________________________________\n");
+            } else {
+                System.out.println("____________________________________\n");
+                System.out.println("Nice I've marked this task as done:");
+                System.out.println("[X] " + tasks[pos].getName());
+                System.out.println("____________________________________\n");
+                tasks[pos].setDone();
+            }
+            break;
+
+        case "list":
+            System.out.println("____________________________________\n");
+            for (int i = 0; i < count; i++) {
+                if (tasks[i].getDone()) {
+                    System.out.println(i + 1 + "." + "[X] " + tasks[i].getName());
+                } else {
+                    System.out.println(i + 1 + "." + "[ ] " + tasks[i].getName());
+                }
+            }
+            System.out.println("____________________________________\n");
+            break;
+
+        default: //Add is default function
+            if (count == -1) {
+               count = 0;
+            }
+            System.out.println("____________________________________\n");
+            System.out.println("Added: " + input);
+            System.out.println("____________________________________\n");
+            tasks[count++] = new Task(input);
+            }
+    }
+
     public static void main(String[] args) {
         String line;
-        int count = 0;
-        String[] tasks = new String[100];
-        Task[] stuff = new Task[100];
         Scanner in = new Scanner(System.in);
 
         System.out.println("____________________________________\n");
@@ -14,33 +54,8 @@ public class Duke {
         System.out.println("____________________________________\n");
 
         line = in.nextLine();
-        while (line.compareTo("bye") != 0) {
-            switch (line.split(" ")[0]) {
-                case "done":
-                    int pos = Integer.parseInt(line.split(" ")[1]) - 1;
-                    System.out.println("____________________________________\n");
-                    System.out.println("Nice I've marked this task as done:");
-                    System.out.println("[X] " + stuff[pos].getName());
-                    System.out.println("____________________________________\n");
-                    stuff[pos].setDone();
-                    break;
-                case "list":
-                    System.out.println("____________________________________\n");
-                    for (int i = 0; i < count; i++) {
-                        if (stuff[i].getDone())
-                            System.out.println(Integer.toString(i + 1) + "." + "[X] " + stuff[i].getName());
-                        else
-                            System.out.println(Integer.toString(i + 1) + "." + "[ ] " + stuff[i].getName());
-                    }
-                    System.out.println("____________________________________\n");
-                    break;
-                default: //Add is default function
-                    System.out.println("____________________________________\n");
-                    System.out.println("Added: " + line);
-                    System.out.println("____________________________________\n");
-                    stuff[count] = new Task(line);
-                    tasks[count++] = line;
-            }
+        while (!line.equals("bye")) {
+            handleInput(line);
             line = in.nextLine();
         }
 
