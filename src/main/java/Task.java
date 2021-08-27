@@ -1,5 +1,6 @@
-public class Task {
+public abstract class Task {
     protected String description;
+    protected char type;
     protected boolean isDone = false;
 
     public Task(String description) {
@@ -9,9 +10,9 @@ public class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "[x] " + description;
+            return "[" + type + "][X] " + description;
         } else {
-            return "[ ] " + description;
+            return "[" + type + "][ ] " + description;
         }
     }
 
