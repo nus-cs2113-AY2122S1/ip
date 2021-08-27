@@ -19,7 +19,7 @@ public class Duke {
 
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
-    public static void greetingMessage() {
+    public static void printGreetingMessage() {
         System.out.println(HORIZONTAL_BAR);
         System.out.println(LOGO);
         System.out.println("  Hello! I'm Oberon");
@@ -27,7 +27,7 @@ public class Duke {
         System.out.println(HORIZONTAL_BAR);
     }
 
-    public static void farewellMessage() {
+    public static void printFarewellMessage() {
         System.out.println(HORIZONTAL_BAR);
         System.out.println("  Goodbye. Hope to see you again soon!");
         System.out.println(LOGO);
@@ -40,7 +40,7 @@ public class Duke {
         System.out.println(HORIZONTAL_BAR);
     }
 
-    public static void editTaskList(Task taskInput) {
+    public static void addTaskToList(Task taskInput) {
         taskList.add(taskInput);
         echo("added: " + taskInput.taskDescription);
     }
@@ -81,7 +81,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        greetingMessage();
+        printGreetingMessage();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
@@ -90,10 +90,10 @@ public class Duke {
             } else if (input.contains("done ")) {
                 markTaskAsDone(input);
             } else {
-                editTaskList(new Task(input));
+                addTaskToList(new Task(input));
             }
             input = scanner.nextLine();
         }
-        farewellMessage();
+        printFarewellMessage();
     }
 }
