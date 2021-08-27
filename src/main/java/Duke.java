@@ -26,7 +26,6 @@ public class Duke {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < index; i++) {
-                        Task currentTask = tasks[i];
                         System.out.println((i + 1) + "." + tasks[i].toString());
                     }
                     break;
