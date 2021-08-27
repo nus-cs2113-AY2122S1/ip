@@ -22,7 +22,7 @@ public class Duke {
         printDividingLine();
     }
 
-    public static void taskManager() {
+    public static void manageTasks() {
         Task[] userTasks = new Task[MAX_STORED_TASKS];
         int taskIndex = 0;
         Scanner userInput = new Scanner(System.in);
@@ -63,19 +63,16 @@ public class Duke {
     public static void addNewTask(String userInputString, int taskIndex, Task[] userTasks) {
         int slashIndex = userInputString.indexOf('/');
         String taskSubstring;
-        String timeSubstring;
+        String timeSubstring = userInputString.substring(slashIndex + 1);
+        timeSubstring = timeSubstring.replaceFirst(" ", ": ");
         if (userInputString.startsWith("todo")) {
             taskSubstring = userInputString.substring(TODO_OFFSET);
             userTasks[taskIndex] = new Todo(taskSubstring);
         } else if (userInputString.startsWith("deadline")) {
             taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
-            timeSubstring = userInputString.substring(slashIndex + 1);
-            timeSubstring = timeSubstring.replaceFirst(" ", ": ");
             userTasks[taskIndex] = new Deadline(taskSubstring, timeSubstring);
         } else if (userInputString.startsWith("event")) {
             taskSubstring = userInputString.substring(EVENT_OFFSET, slashIndex - 1);
-            timeSubstring = userInputString.substring(slashIndex + 1);
-            timeSubstring = timeSubstring.replaceFirst(" ", ": ");
             userTasks[taskIndex] = new Event(taskSubstring, timeSubstring);
         } else {
             userTasks[taskIndex] = new Todo(userInputString);
@@ -88,7 +85,7 @@ public class Duke {
 
     public static void main(String[] args) {
         printGreeting();
-        taskManager();
+        manageTasks();
         printFarewell();
     }
 }
