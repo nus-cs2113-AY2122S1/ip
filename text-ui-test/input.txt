@@ -1,0 +1,17 @@
+list
+todo Sleep
+event Eat Lunch /at 12pm
+event Go running
+deadline Project Report /by Monday 11:59pm
+deadline User Guide
+list
+rubbish_input123
+done 0
+done 100
+done 1
+done 2
+done 3
+done 4
+done 5
+list
+bye
