@@ -1,17 +1,17 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static String divider = "___________________________________________________________";
-    public static String indentation = "      ";
+    public static final String DIVIDER = "___________________________________________________________";
+    public static final String INDENTATION = "      ";
     public static Task[] tasks = new Task[100];
 
     public static void printIndentationAndDivider() {
-        System.out.print(indentation);
-        System.out.println(divider);
+        System.out.print(INDENTATION);
+        System.out.println(DIVIDER);
     }
 
     public static void printWordsWithIndentation(String words) {
-        System.out.print(indentation);
+        System.out.print(INDENTATION);
         System.out.println(words);
     }
 
