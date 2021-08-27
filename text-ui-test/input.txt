@@ -1,0 +1,14 @@
+todo eat
+deadline pray /12th July
+list
+event love /Friday the 13th
+done 1
+done 2
+list
+done 3
+done 4
+list
+done 1
+done 2
+list
+bye
