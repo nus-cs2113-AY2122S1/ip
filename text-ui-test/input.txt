@@ -1,0 +1,8 @@
+list
+todo homework
+event concert /at tonight
+deadline homework /by Thursday
+list
+done 3
+done 2
+done 1

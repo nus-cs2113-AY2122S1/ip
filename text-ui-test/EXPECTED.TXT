@@ -5,3 +5,34 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+________________________________________
+Hello! I'm Duke
+What can I do for you?
+________________________________________
+I can do the following: Echo, List
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+added: [T][ ] homework
+Now you have 1 tasks in the list!
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+added: [E][ ] concert (at: tonight)
+Now you have 2 tasks in the list!
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+added: [D][ ] homework (by: Thursday)
+Now you have 3 tasks in the list!
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+1. [T][ ] homework
+2. [E][ ] concert (at: tonight)
+3. [D][ ] homework (by: Thursday)
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+Great job! You have completed the following task:
+[D][X] homework (by: Thursday)
+Now you have 3 tasks in the list!
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+Great job! You have completed the following task:
+[E][X] concert (at: tonight)
+Now you have 3 tasks in the list!
+To view your list, enter 'list'. To add to your list just type what you would like to add.
+Great job! You have completed the following task:
+[T][X] homework
+Now you have 3 tasks in the list!
+To view your list, enter 'list'. To add to your list just type what you would like to add.
