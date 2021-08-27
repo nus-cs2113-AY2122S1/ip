@@ -30,14 +30,15 @@ public class Duke {
         while (!hasUserSaidBye) {
 
             String userInput = in.nextLine();
+            String userCommand = userInput.split(" ")[0];
             System.out.println("____________________________________________________________");
 
             // Check if user has said "bye"
-            if (userInput.equals("bye")) {
+            if (userCommand.equals("bye")) {
                 printShutdownMessage();
-            } else if (userInput.equals("list")) {
+            } else if (userCommand.equals("list")) {
                 printAllTasks();
-            } else if (userInput.contains("done")) {
+            } else if (userCommand.equals("done")) {
                 handleUserMarkingTaskAsDone(userInput);
             } else {
                 handleUserCreatingTask(userInput);
