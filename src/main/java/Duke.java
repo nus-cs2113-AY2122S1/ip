@@ -59,7 +59,15 @@ public class Duke {
 
     private static void handleUserMarkingTaskAsDone(String userInput) {
         // Get number of task after the term "done"
-        int indexOfCompletedTask = Integer.parseInt(userInput.split(" ")[1]) - 1;
+        int indexOfCompletedTask;
+        // Throw exception if user did not type a number after "done"
+        try {
+            indexOfCompletedTask = Integer.parseInt(userInput.split(" ")[1]) - 1;
+        } catch (Exception e) {
+            System.out.println("Ach, nee! That task does not exist.");
+            return;
+        }
+
 
         // If task does not exist, do not delete any task
         if (indexOfCompletedTask > noOfTasks - 1 || indexOfCompletedTask < 0) {
