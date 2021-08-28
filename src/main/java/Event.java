@@ -11,8 +11,12 @@ public class Event extends Task {
         return at;
     }
 
-    public String getTaskCharacter() {
-        return "E";
+    @Override
+    public String toString() {
+        return "[E]" + 
+            "[" + this.getStatusIcon() + "] " +
+            this.getDescription();
     }
+
 
 }

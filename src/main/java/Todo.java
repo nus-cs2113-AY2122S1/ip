@@ -5,9 +5,12 @@ public class Todo extends Task {
         super(description);
     }
 
-    public String getTaskCharacter() {
-        return "T";
-    }
 
+    @Override
+    public String toString() {
+        return "[T]" + 
+            "[" + this.getStatusIcon() + "] " +
+            this.getDescription();
+    }
 
 }

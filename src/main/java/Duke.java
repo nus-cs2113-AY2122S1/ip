@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    //TODO Abstract repeated functions
+    //println with tab
+    //println ________
+    //printing a task properly (override toString method in class)
+    //constants / enums
+
+
+
     public static void welcomeMessage() {
         String logo = "\t ____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
@@ -33,11 +42,10 @@ public class Duke {
 
             if (userInput.equals("list")) {
                 System.out.println("\tHere are the tasks in your list:");
+                
                 //listing out tasks if userInput == "list"
                 for (int i = 0; i < tasksIndex; i++) {
-                    System.out.println("\t" + (i + 1) + "." +
-                            "[" + tasks[i].getStatusIcon() + "] " +
-                            tasks[i].getDescription());
+                    System.out.println("\t" + tasks[i]);
                 }
                 System.out.println("\t____________________________________________________________");
             } else if (userInput.startsWith("done")) {
@@ -56,27 +64,46 @@ public class Duke {
                 //instantiate new Task, store in array
                 if (userInput.startsWith("todo")) {
                     tasks[tasksIndex] = new Todo(userInput);
+
                 } else if (userInput.startsWith("deadline")) {
-                    tasks[tasksIndex] = new Deadline(userInput);
-                } else {
-                    tasks[tasksIndex] = new Event(userInput);
+                    if (userInput.contains("/b")) {
+                        userInput = userInput.substring(8).stripLeading(); // strip deadline
+                        String[] deadlineDetails = userInput.split("/by");
+
+                        if (deadlineDetails.length == 2) {
+                            String description = deadlineDetails[0].stripLeading();
+                            String by = deadlineDetails[1].stripLeading();
+                            tasks[tasksIndex] = new Deadline(description, by);
+                        } else {
+                            //error
+                            userInput = in.nextLine().trim();
+                            continue;
+                        }
+                    } else {
+                        //invalid
+                        userInput = in.nextLine().trim();
+                        continue;
+                    }    
+                } else { //events
+                    // tasks[tasksIndex] = new Event(userInput);
+                    userInput = in.nextLine().trim();
+                    continue;
                 }
+
+                System.out.println("\tGot it. I've added this task:");
+                System.out.println("\t" +  tasks[tasksIndex].description);
+
+                System.out.println("\t____________________________________________________________"); 
                 tasksIndex++;
-                System.out.println("\tadded: " + userInput);
-
-                System.out.println("\t____________________________________________________________");
-            }
-
+            } 
+            
             //catch all for invalid inputs
-            else {
-                userInput = in.nextLine().trim();
-                continue;
-            }
-
             userInput = in.nextLine().trim();
-        }
+            continue;
 
+        }
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println("\t____________________________________________________________");
     }
+
 }
