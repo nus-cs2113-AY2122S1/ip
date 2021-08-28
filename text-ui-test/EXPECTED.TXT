@@ -1,7 +1,120 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Loading your digital
+  _    _       _             
+ | |  | |     | |            
+ | |  | |_ __ | | _____ _ __ 
+ | |  | | '_ \| |/ / _ \ '__|
+ | |__| | | | |   <  __/ |   
+  \____/|_| |_|_|\_\___|_|   
 
+--// Unker //----------------------------------------------
+Harlo, you can call me Unker.
+What can Unker do for you today?
+> 
+--// Unker //----------------------------------------------
+Wah seh, you got nothing in your to-do list leh.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Aiyo, you give me a task number that I don't have.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Okay Unker help you add this to your to-do list:
+	[T] [ ] Hang clothes out to dry
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+This is what you give me:
+1. [T] [ ] Hang clothes out to dry
+
+You still got 1 task(s) left to do.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Sorry, Unker need you to type this way for me to understand arh (no need brackets):
+deadline <description> /by <time>
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Okay Unker help you add this to your to-do list:
+	[D] [ ] CS2113T project (by: 23/09/2021 2359)
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+This is what you give me:
+1. [T] [ ] Hang clothes out to dry
+2. [D] [ ] CS2113T project (by: 23/09/2021 2359)
+
+You still got 2 task(s) left to do.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Sorry, Unker need you to type this way for me to understand arh (no need brackets):
+event <description> /at <time>
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Okay Unker help you add this to your to-do list:
+	[E] [ ] Google Fireside Chat (at: 15/09/2021 1600-1845)
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+This is what you give me:
+1. [T] [ ] Hang clothes out to dry
+2. [D] [ ] CS2113T project (by: 23/09/2021 2359)
+3. [E] [ ] Google Fireside Chat (at: 15/09/2021 1600-1845)
+
+You still got 3 task(s) left to do.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Sorry, can ask something else? Unker don't know how help you.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Good job, this task finish already:
+	[D] [X] CS2113T project (by: 23/09/2021 2359)
+
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+This is what you give me:
+1. [T] [ ] Hang clothes out to dry
+2. [D] [X] CS2113T project (by: 23/09/2021 2359)
+3. [E] [ ] Google Fireside Chat (at: 15/09/2021 1600-1845)
+
+You still got 2 task(s) left to do.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Good job, this task finish already:
+	[T] [X] Hang clothes out to dry
+
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+This is what you give me:
+1. [T] [X] Hang clothes out to dry
+2. [D] [X] CS2113T project (by: 23/09/2021 2359)
+3. [E] [ ] Google Fireside Chat (at: 15/09/2021 1600-1845)
+
+You still got 1 task(s) left to do.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Bye bye, see you soon again arh!
