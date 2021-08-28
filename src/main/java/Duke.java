@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-
     public static void printHorizontalLine() {
         String horizontal_line = "____________________________________________________________";
         System.out.println(horizontal_line + "\n");
