@@ -2,62 +2,247 @@ import java.util.Scanner;
 
 public class Duke {
 
+    /**
+     * Maximum number of Tasks that can be stored
+     */
+    public static final int MAX_TASKS = 100;
+
+    /**
+     * The input scanner for the program
+     */
+    public static final Scanner SCANNER_INPUT = new Scanner(System.in);
+
+    /**
+     * An array that stores all the tasks
+     */
+    public static Task[] taskList;
+
+    /**
+     * Stores the most recent input from the user in String format
+     */
+    public static String strInput = "";
+
+    /**
+     * "false" by default. "true" when session with duke is to be ended.
+     */
+    public static boolean hasSessionEnded = false;
+
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
-        //Duke Greeting
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-
-        //Initialize Variables
-        String strInput = "";
-        Task[] taskList = new Task[100];
+        initTaskList();
+        printGreetingMessage();
 
         //Main loop
-        while (!strInput.equals("bye")) {
-            strInput = in.nextLine();
-            String[] words = strInput.split(" "); //split input into words
-            String firstWord = words[0];
-            switch (firstWord) {
+        while (!hasSessionEnded) {
+            strInput = SCANNER_INPUT.nextLine();
+            String command = getCommand(strInput);
+            switch (command) {
             case "bye":
-                System.out.println("____________________________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
+                hasSessionEnded = true;
+                printGoodbyeMessage();
                 break;
 
             case "list":
-                System.out.println("____________________________________________________________");
-                if (Task.getTotalTasks() == 0) {
-                    System.out.println("There are no tasks added yet!");
-                    System.out.println("____________________________________________________________");
-                    break;
-                }
-                for (int i = 0; i < Task.getTotalTasks(); i++) {
-                    System.out.println((i + 1) + "." + taskList[i].getStatusIcon() + " " + taskList[i].getDescr());
-                }
-                System.out.println("____________________________________________________________");
+                printTaskList();
                 break;
 
             case "done":
-                int taskIndex = Integer.parseInt(words[1]) - 1; //get the index of the task in the taskList array
-                taskList[taskIndex].markAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("  " + taskList[taskIndex].getStatusIcon() + " "
-                        + taskList[taskIndex].getDescr());
-                System.out.println("____________________________________________________________");
+                markTaskAsDone(getContent(strInput));
+                break;
+
+            case "todo":
+                addTodo(strInput);
+                break;
+
+            case "deadline":
+                addDeadline(strInput);
+                break;
+
+            case "event":
+                addEvent(strInput);
                 break;
 
             default:
-                taskList[Task.getTotalTasks()] = new Task(strInput);
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + strInput);
-                System.out.println("____________________________________________________________");
+                printBorder();
+                System.out.println("Command not recognized");
+                printBorder();
                 break;
             }
         }
+    }
+
+    /**
+     * Adds a new Event type task to the taskList
+     *
+     * @param input the input string
+     */
+    private static void addEvent(String input) {
+        String content = getContent(input);
+        taskList[Task.getTotalTasks()] = new Event(getDescrFromEvent(content),
+                getAtFromEvent(content));
+        printTaskAddedMessage();
+    }
+
+    /**
+     * Adds a new Deadline type task to the taskList
+     *
+     * @param input the input string
+     */
+    private static void addDeadline(String input) {
+        String content = getContent(input);
+        taskList[Task.getTotalTasks()] = new Deadline(getDescrFromDeadline(content),
+                getByFromDeadline(content));
+        printTaskAddedMessage();
+    }
+
+    /**
+     * Adds a new Todo type task to the taskList
+     *
+     * @param input the input string
+     */
+    private static void addTodo(String input) {
+        taskList[Task.getTotalTasks()] = new Todo(getContent(input));
+        printTaskAddedMessage();
+    }
+
+    /**
+     * Prints the success message for the most recently added task
+     */
+    private static void printTaskAddedMessage() {
+        printBorder();
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + taskList[Task.getTotalTasks() - 1]);
+        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
+        printBorder();
+    }
+
+    /**
+     * Extracts the date from the content of an event input (everything after "/at")
+     *
+     * @param input content of the event input
+     * @return the date of the event
+     */
+    private static String getAtFromEvent(String input) {
+        int positionOfSeparator = input.trim().indexOf("/at");
+        return input.substring(positionOfSeparator + 3).trim();
+    }
+
+    /**
+     * Extracts the description from the content of an event input (everything before "/at")
+     *
+     * @param input content of the event input
+     * @return the description of the event
+     */
+    private static String getDescrFromEvent(String input) {
+        int positionOfSeparator = input.trim().indexOf("/at");
+        return input.substring(0, positionOfSeparator - 1).trim();
+    }
+
+    /**
+     * Extracts the deadline from the content of a deadline input (everything after "/by")
+     *
+     * @param input content of the deadline input
+     * @return the deadline of the deadline
+     */
+    private static String getByFromDeadline(String input) {
+        int positionOfSeparator = input.trim().indexOf("/by");
+        return input.substring(positionOfSeparator + 3).trim();
+    }
+
+    /**
+     * Extracts the description from the content of a deadline input (everything before "/by")
+     *
+     * @param input content of the deadline input
+     * @return the description of the deadline
+     */
+    private static String getDescrFromDeadline(String input) {
+        int positionOfSeparator = input.trim().indexOf("/by");
+        return input.substring(0, positionOfSeparator - 1).trim();
+    }
+
+    /**
+     * Extracts the content from an input string (everything except the first word)
+     *
+     * @param input the input string
+     * @return the input string with the first word excluded
+     */
+    private static String getContent(String input) {
+        int firstSpacePosition = input.trim().indexOf(" ");
+        return input.substring(firstSpacePosition + 1).trim();
+    }
+
+    /**
+     * Extracts the command from an input string (the first word)
+     *
+     * @param input the input string
+     * @return first word of the input string
+     */
+    private static String getCommand(String input) {
+        String[] words = input.trim().split(" ");
+        return words[0].trim();
+    }
+
+    /**
+     * Prints a border made of "-" characters
+     */
+    private static void printBorder() {
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Marks the task of the given ranking as done
+     *
+     * @param word numerical ranking of the task to be marked as done (as a string)
+     */
+    private static void markTaskAsDone(String word) {
+        int taskIndex = Integer.parseInt(word) - 1; //get the index of the task in the taskList array
+        taskList[taskIndex].setDone(true);
+        printBorder();
+        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("  " + taskList[taskIndex]);
+        printBorder();
+    }
+
+    /**
+     * Prints out the list of tasks and their current status
+     */
+    private static void printTaskList() {
+        printBorder();
+        if (Task.getTotalTasks() == 0) {
+            System.out.println("There are no tasks added yet!");
+            printBorder();
+            return;
+        }
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            System.out.println((i + 1) + "." + taskList[i]);
+        }
+        printBorder();
+    }
+
+    /**
+     * Prints Duke's goodbye message
+     */
+    private static void printGoodbyeMessage() {
+        printBorder();
+        System.out.println("Bye. Hope to see you again soon!");
+        printBorder();
+    }
+
+    /**
+     * Initialize list of tasks
+     */
+    private static void initTaskList() {
+        taskList = new Task[MAX_TASKS];
+    }
+
+    /**
+     * Prints Duke's greeting message
+     */
+    private static void printGreetingMessage() {
+        printBorder();
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+        printBorder();
     }
 
 }
