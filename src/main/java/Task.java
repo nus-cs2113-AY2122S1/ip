@@ -1,9 +1,9 @@
 public class Task {
-    protected String task;
+    protected String description;
     protected boolean isDone;
 
     public Task(String task) {
-        this.task = task;
+        this.description = task;
         this.isDone = false;
     }
 
@@ -13,6 +13,12 @@ public class Task {
 
     public String displayTask() {
         String doneIcon = isDone ? "X" : " ";
-        return ("[" + doneIcon + "]" + task);
+        return ("[" + doneIcon + "]" + description);
+    }
+
+    @Override
+    public String toString() {
+        String doneIcon = isDone ? "X" : " ";
+        return "[" + doneIcon + "]" + description;
     }
 }

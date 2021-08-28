@@ -20,8 +20,19 @@ public class Duke {
             case "done":
                 taskManager.markAsDone(Integer.parseInt(input[1]));
                 break;
+            case "todo":
+                taskManager.addTodoTask(input[1]);
+                break;
+            case "deadline":
+                taskManager.addDeadlineTask(input[1]);
+                break;
+            case "event":
+                taskManager.addEventTask(input[1]);
+                break;
             default:
-                taskManager.addTask(input[0] + " " + input[1]);
+                System.out.println("_________________________________________\n"
+                        + "I'm sorry I didn't understand.\n"
+                        + "_________________________________________\n");
                 break;
             }
         } while (!isExit);

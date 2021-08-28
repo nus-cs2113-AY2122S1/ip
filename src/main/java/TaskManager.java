@@ -30,22 +30,44 @@ public class TaskManager {
         System.out.println(EXIT_MESSAGE);
     }
 
-    public void addTask(String task) {
-        Task t = new Task(task);
-        tasks[numTask] = t;
+    public void addTodoTask(String description) {
+        tasks[numTask] = new Todo(description);
         System.out.println("_________________________________________\n" +
-                "added: " + task +
-                "\n_________________________________________\n");
+                "The task has been added: \n");
+        System.out.println(tasks[numTask]);
+        System.out.println("_________________________________________\n");
         numTask++;
     }
 
+    public void addDeadlineTask(String task) {
+        String[] separator = task.split("/by");
+        String description = separator[0].trim();
+        String deadline = separator[1].trim();
+        tasks[numTask] = new Deadline(description, deadline);
+        System.out.println("_________________________________________\n" +
+                "The task has been added: \n");
+        System.out.println(tasks[numTask]);
+        System.out.println("_________________________________________\n");
+        numTask++;
+    }
+    public void addEventTask(String task) {
+        String[] separator = task.split("/at");
+        String description = separator[0].trim();
+        String timing = separator[1].trim();
+        tasks[numTask] = new Event(description, timing);
+        System.out.println("_________________________________________\n" +
+                "The task has been added: \n");
+        System.out.println(tasks[numTask]);
+        System.out.println("_________________________________________\n");
+        numTask++;
+    }
     public void listTasks() {
         System.out.println("_________________________________________");
         if (numTask == 0) {
             System.out.println("No Tasks");
         } else {
             for (int i = 0; i < numTask; i++) {
-                System.out.println((i + 1) + ". " + tasks[i].displayTask());
+                System.out.println(tasks[i]);
             }
         }
         System.out.println("_________________________________________");
@@ -58,7 +80,7 @@ public class TaskManager {
         } else {
             tasks[number - 1].markAsDone();
             System.out.println("Congrats on finishing a task! Have a cookie!");
-            System.out.println(tasks[number - 1].displayTask());
+            System.out.println(tasks[number-1]);
         }
         System.out.println("_________________________________________");
     }
