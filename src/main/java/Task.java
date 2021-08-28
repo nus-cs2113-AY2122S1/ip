@@ -16,6 +16,10 @@ public class Task {
         return description;
     }
 
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + getDescription();
+    }
+
     // Setters
     public void markAsDone() {
         isDone = true;
