@@ -2,38 +2,70 @@ import java.util.Scanner;
 
 
 public class Duke {
+    public static final String LINES = "____________________________________________________________\n";
+
+    //Intro message
     public static void greeting(boolean isStart) {
         if (isStart) {
-            //        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-            String greeting = "____________________________________________________________\n" +
-                    " HeLLO! I'm Jim, a real person who definitely passes reCaptchas!\n" +
-                    " What can I do for you today?\n" +
-                    "____________________________________________________________\n";
+            String greeting = LINES + " HeLLO! I'm Jim, a real person who definitely passes reCaptchas!\n" +
+                    " What can I do for you today?\n" + LINES;
             System.out.println(greeting);
         }
     }
 
+    //echo function
     public static void echo(String x) {
-        String output = "____________________________________________________________\n" + " " +
-                x + "\n" +
-                "____________________________________________________________\n";
+        String output = LINES + " " + x + "\n" + LINES;
         System.out.println(output);
+    }
+
+    //list function
+    public static void list(Task[] tasks) {
+        System.out.print(LINES);
+        for (int i = 0; tasks[i] != null; i++) {
+            int j = i + 1;
+            System.out.println(j + "." + tasks[i]);
+        }
+        System.out.print(LINES);
+    }
+
+    //adds task
+    public static void addTask(Task[] tasks, String input, int listCount) {
+        if (input.toUpperCase().startsWith("TODO")) {
+            tasks[listCount] = new Todo(input.substring(5));
+            System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
+            listCount += 1;
+            System.out.println(" Now you have " + listCount + " tasks in the list.\n" + LINES);
+        }
+        else if (input.toUpperCase().startsWith("DEADLINE")) {
+            int slash = input.indexOf("/");
+            tasks[listCount] = new Deadline(input.substring(9, slash-1), input.substring(slash+1));
+            System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
+            listCount += 1;
+            System.out.println(" Now you have " + listCount + " tasks in the list.\n" + LINES);
+        }
+        else if (input.toUpperCase().startsWith("EVENT")) {
+            int slash = input.indexOf("/");
+            tasks[listCount] = new Event(input.substring(6, slash-1), input.substring(slash+1));
+            System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
+            listCount += 1;
+            System.out.println(" Now you have " + listCount + " tasks in the list.\n" + LINES);
+        }
+        else {
+            System.out.println(LINES + "I don't quite understand :/\n" + LINES);
+        }
+
     }
 
     public static void main(String[] args) {
         greeting(true);
         Scanner sc = new Scanner(System.in);
-        Task[] List = new Task[100];
-        String LINES = "____________________________________________________________\n";
+        Task[] tasks = new Task[100];
         int listCount = 0;
         boolean isBye = false;
         while (!isBye) {
             String input = sc.nextLine();
+
             //echo function
             if (input.equalsIgnoreCase("echo")) {
                 System.out.println(LINES + " Echoing after you!\n" + LINES);
@@ -48,27 +80,17 @@ public class Duke {
                     }
                 }
             }
+
             //birthday
-            else if (input.contains("birthday")) {
+            else if (input.toUpperCase().contains("BIRTHDAY")) {
                 System.out.println(LINES + " ^o^ Happy birthday to you! ^o^\n" + LINES);
             }
-            //exit function
-            else if (input.equalsIgnoreCase("bye")) {
-                String byeMsg = LINES +
-                        " Bye! Remember, stay out of fire, suuuuuuper high level tactic yea?\n" +
-                        LINES;
-                System.out.println(byeMsg);
-                isBye = true;
-            }
+
             //show list
             else if (input.equalsIgnoreCase("list")) {
-                System.out.print(LINES);
-                for (int i = 0; i < listCount; i++) {
-                    int j = i + 1;
-                    System.out.println(j + ".[" + List[i].getStatusIcon() + "] " + List[i].getDescription());
-                }
-                System.out.print(LINES);
+                list(tasks);
             }
+
             //mark as done
             else if (input.startsWith("done ")) {
                 //isolate 'x' from 'done x', where x is a number
@@ -77,19 +99,25 @@ public class Duke {
                     System.out.println(LINES + "No such task! You're not THAT productive...\n" + LINES);
                 }
                 else {
-                    List[index - 1].markAsDone();
-                    System.out.print(LINES);
-                    System.out.println("Nice! You're a real champ for finishing this: \n" + "   [" +
-                            List[index - 1].getStatusIcon() + "] " + List[index - 1].getDescription());
-                    System.out.print(LINES);
+                    tasks[index - 1].markAsDone();
+                    System.out.print(LINES + "Nice! You're a real champ for finishing this: \n"
+                            + tasks[index-1] + "\n" + LINES);
                 }
             }
+
+            //exit function
+            else if (input.equalsIgnoreCase("bye")) {
+                String byeMsg = LINES +
+                        " Bye! Remember, stay out of fire, suuuuuuper high level tactic yea?\n" +
+                        LINES;
+                System.out.println(byeMsg);
+                isBye = true;
+            }
+
             //adding to list
             else {
-                List[listCount] = new Task(input);
+                addTask(tasks, input, listCount);
                 listCount += 1;
-                String addMsg = LINES + " added: " + input + "\n" + LINES;
-                System.out.println(addMsg);
             }
         }
     }
