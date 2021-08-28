@@ -1,3 +1,3 @@
 public enum Action {
-    ADD,LIST,MARK_DONE,QUIT
+    TO_DO, DEADLINE, EVENT, LIST, MARK_DONE, QUIT, UNDEFINED
 }

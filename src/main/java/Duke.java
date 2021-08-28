@@ -24,9 +24,14 @@ public class Duke {
         drawHorizontalLine();
     }
 
-    public static void addTask(String input) {
+    public static void addTask(String input, Action taskType) {
         drawHorizontalLine();
-        taskManager.addTask(input);
+        if (taskType != Action.UNDEFINED) {
+            taskManager.addTask(input, taskType);
+        } else {
+            System.out.println("Sorry I don't understand what you said");
+        }
+
         drawHorizontalLine();
     }
 
@@ -57,19 +62,16 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Parser parser = new Parser();
         String input;
         boolean finished = false;
         System.out.println(LOGO);
         greet();
         while (!finished) {
             input = readCommand(in);
-            switch (parser.translateAction(input)) {
-            case ADD:
-                addTask(input);
-                break;
+            Action action = Parser.translateAction(input);
+            switch (action) {
             case MARK_DONE:
-                markTaskDone(parser.parseCommand(input));
+                markTaskDone(Parser.parseInput(input));
                 break;
             case QUIT:
                 finished = true;
@@ -78,6 +80,8 @@ public class Duke {
             case LIST:
                 displayTask();
                 break;
+            default:
+                addTask(input, action);
             }
         }
     }

@@ -1,6 +1,6 @@
-public class Task {
-    private String description;
-    private boolean isDone;
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
 
     public Task() {
         description = "";
@@ -27,4 +27,12 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
+    public abstract String getTaskType();
+
+    public String getAdditionalDescription() {
+        return "N/A";
+    }
+
+    ;
 }
