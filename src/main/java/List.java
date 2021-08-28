@@ -8,25 +8,11 @@ public class List {
         numOfListItems = 0;
     }
 
-    public void addItems(String[] items) {
-        System.out.println("    ____________________________________________________________");
-        for (int i = 0; i < items.length; i++) {
-            addItem(items[i], false);
-        }
-        System.out.println("    ____________________________________________________________");
-    }
-
     public void addItem(String item) {
-        addItem(item, true);
-    }
-
-    public void addItem(String item, boolean divLine) {
         items[numOfListItems] = new Task(item);
         numOfListItems++;
 
-        if (divLine) System.out.println("    ____________________________________________________________");
-        System.out.println("     added: " + item);
-        if (divLine) System.out.println("    ____________________________________________________________");
+        PrintFormats.printMessageBubble("added: " + item);
     }
 
     public void doneItem(int indexOfDoneItem) {
@@ -40,11 +26,11 @@ public class List {
     }
 
     public void printList() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Here are the tasks in your list:");
+        PrintFormats msg = new PrintFormats();
+        msg.addMessage("Here are the tasks in your list:");
         for (int i = 0; i < numOfListItems; i++) {
-            System.out.printf("     %d:[%s] %s\n", i + 1, items[i].getStatusIcon(), items[i].description);
+            msg.addMessage(String.format("     %d:[%s] %s\n", i + 1, items[i].getStatusIcon(), items[i].description));
         }
-        System.out.println("    ____________________________________________________________");
+        msg.printMessageBubble();
     }
 }

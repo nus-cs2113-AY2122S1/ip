@@ -12,29 +12,28 @@ public class Task {
     }
 
     public void markAsDone() {
+        PrintFormats msg = new PrintFormats();
         if (!isDone) {
             isDone = true;
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Nice! I've marked this task as done:");
+            msg.addMessage("Nice! I've marked this task as done:");
         } else {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Warning! The task is already done:");
+            msg.addMessage("Warning! The task is already done:");
         }
-        System.out.println("       [X] " + description);
-        System.out.println("    ____________________________________________________________");
+        msg.addMessage("[X] " + description);
+        msg.printMessageBubble();
     }
 
     public void markAsNotDone() {
+        PrintFormats newMessage = new PrintFormats();
         if (isDone) {
             isDone = false;
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Ok! I've marked this task as not done:");
+            newMessage.addMessage("Ok! I've marked this task as not done:");
         } else {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Warning! The task is not done yet:");
+            newMessage.addMessage("Warning! The task is not done yet:");
         }
-        System.out.println("       [ ] " + description);
-        System.out.println("    ____________________________________________________________");
+
+        newMessage.addMessage("[ ] " + description);
+        newMessage.printMessageBubble();
     }
 
     public String printTaskWithStatus() {
