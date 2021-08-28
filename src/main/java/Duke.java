@@ -48,7 +48,8 @@ public class Duke {
         
         addLine();
         System.out.println("    Task added: " + System.lineSeparator()
-                + "      " + tasks[Task.getNumberOfTasks() - 1]);
+                + "      " + tasks[Task.getNumberOfTasks() - 1] + System.lineSeparator()
+                + "    You have " + Task.getNumberOfTasks() + " tasks in the list.");
         addLine();
     }
 
