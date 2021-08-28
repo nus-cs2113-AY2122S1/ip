@@ -103,7 +103,7 @@ public class Duke {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tCURRENT ADDED LIST");
             for (int i = 0; i < additions; i++) {
-                System.out.println("\t" + storedTasks[i].getStatusIcon() + storedTasks[i].description);
+                System.out.println("\t" + storedTasks[i].getTypeIcon() + storedTasks[i].getStatusIcon() + storedTasks[i].description);
             }
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
@@ -139,7 +139,7 @@ public class Duke {
                 printList();
             }
             else {
-                storedTasks[additions] = new Task(toAdd);
+                storedTasks[additions] = new Task(toAdd, "");
                 System.out.println("\t" + HOR_LINE);
                 System.out.println("\tAdded: " + toAdd);
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
