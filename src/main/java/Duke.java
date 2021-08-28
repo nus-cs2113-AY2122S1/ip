@@ -10,6 +10,9 @@ public class Duke {
             + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
             + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
     private static final String LINE = "____________________________________________________________\n";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_BYE = "bye";
 
     private static final TaskManager taskManager = new TaskManager();
 
@@ -61,14 +64,14 @@ public class Duke {
             String[] splitInput = in.split(" ");
 
             // Commands
-            if (splitInput[0].equals("bye")) {
+            if (splitInput[0].equals(COMMAND_BYE)) {
                 break;
             }
             switch (splitInput[0]) {
-            case "list":
+            case COMMAND_LIST:
                 listTasks();
                 continue;
-            case "done":
+            case COMMAND_DONE:
                 int taskIndex = Integer.parseInt(splitInput[1]) - 1;
                 markTaskAsDone(taskIndex);
                 continue;
