@@ -16,8 +16,8 @@ public class Duke {
     // Print logo
     public static void printLogo() {
         // Generated ASCII Art - https://patorjk.com/software/taag/#p=display&f=Dancing%20Font&t=Duke
-        String logo = "  ____     _   _    _  __  U _____ u \n"
-                + " |  _\"\\ U |\"|u| |  |\"|/ /  \\| ___\"|/ \n"
+        String logo = "  ____     _   _    _  __  U _____ u\n"
+                + " |  _\"\\ U |\"|u| |  |\"|/ /  \\| ___\"|/\n"
                 + "/| | | | \\| |\\| |  | ' /    |  _|\"\n"
                 + "U| |_| |\\ | |_| |U/| . \\u   | |___\n"
                 + " |____/ u<<\\___/   |_|\\_\\   |_____|\n"
