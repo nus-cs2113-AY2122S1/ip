@@ -3,7 +3,9 @@ import java.util.ArrayList;
 public class TasksList {
     protected ArrayList<Task> tasks = new ArrayList<>();
 
-    public int getSize() { return tasks.size(); }
+    public int getSize() {
+        return tasks.size();
+    }
 
     public String getTaskString(int taskIndex) {
         Task task = tasks.get(taskIndex);

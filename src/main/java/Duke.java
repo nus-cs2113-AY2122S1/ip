@@ -14,14 +14,14 @@ public class Duke {
 
         printWelcomeBanner();
 
-        raw_input = scanner.nextLine();  // Get input
+        raw_input = scanner.nextLine();
         while (true) {
             if (raw_input.equals("bye")) {  // Exit programme
-                System.out.println("\tBye. Hope to see you again soon! \uD83D\uDC4B");  // Unicode is a waving emoji
+                System.out.println("\tBye. Hope to see you again soon! \uD83D\uDC4B");  // Unicode is a waving hand
                 printHorizontalLine();
                 break;
             } else if (raw_input.startsWith("done ")) {  // Mark task as done
-                System.out.println("\tNice! \uD83D\uDC4D I've marked this task as done:");  // Unicode is a thumbs up emoji
+                System.out.println("\tNice! \uD83D\uDC4D I've marked this task as done:");  // Unicode is a thumbs up
                 int taskIndex = Integer.parseInt(raw_input.substring(5))-1;
                 Task task = tasks.markTaskAsDone(taskIndex);
                 System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
