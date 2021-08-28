@@ -1,21 +1,27 @@
-public class Task {
-    private final String name;
-    private boolean isDone;
+import java.util.ArrayList;
+import java.util.List;
 
-    Task(String name) {
-        this.name = name;
+public class Task implements Timetable {
+    protected final String description;
+    protected boolean isDone;
+    public final static List<Task> thingsToDo = new ArrayList<>();
+
+    Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     public boolean isDone() {
         return isDone;
     }
 
-    void finishTask() {
+    @Override
+    public void finishTask() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t" + this.toString());
@@ -24,9 +30,9 @@ public class Task {
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X] " + this.name;
+            return "[X] " + this.description;
         } else {
-            return "[ ] " + this.name;
+            return "[ ] " + this.description;
         }
     }
 }

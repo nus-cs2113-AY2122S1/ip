@@ -7,22 +7,19 @@ public class Duke {
 
         String phrase = sc.nextLine();
 
-        Tasks list = new Tasks();
-
         while (!phrase.equals("bye")) {
             if (phrase.equals("list")) {
-                list.getTasks();
+                Timetable.getTasks();
                 phrase = sc.nextLine();
-                continue;
             } else if (phrase.contains("done")) {
                 phrase = phrase.replace("done ", "");
                 int taskNumber = Integer.parseInt(phrase);
-                list.getThingsToDo().get(taskNumber - 1).finishTask();
+                Timetable.getThingsToDo().get(taskNumber - 1).finishTask();
                 phrase = sc.nextLine();
-                continue;
+            } else {
+                recordTask(phrase);
+                phrase = sc.nextLine();
             }
-            list.addTasks(new Task(phrase));
-            phrase = sc.nextLine();
         }
         printFarewellMessage();
     }
@@ -37,5 +34,28 @@ public class Duke {
         String farewell = "Bye. Hope you will complete everything for today!";
         System.out.println(farewell);
     }
+    static void recordTask(String phrase) {
+        System.out.println("Alright. I'll put it on the list.");
 
+        if (phrase.contains("todo")) {
+            Todo todo = new Todo(phrase.replace("todo ", ""));
+            Timetable.addTasks(todo);
+        } else if (phrase.contains("deadline")) {
+            phrase = phrase.replace("deadline ","");
+            String[] whatAndWhen = phrase.split(" /by ");
+            Deadline deadline = new Deadline(whatAndWhen[0], whatAndWhen[1]);
+            Timetable.addTasks(deadline);
+        } else if (phrase.contains("event")) {
+            phrase = phrase.replace("event ","");
+            String[] whatAndWhen = phrase.split(" /at ");
+            Event event = new Event(whatAndWhen[0], whatAndWhen[1]);
+            Timetable.addTasks(event);
+        }
+
+        if (Timetable.size() <= 1) {
+            System.out.println("For now, you have " + Timetable.size() + " task on the list");
+        } else {
+            System.out.println("For now, you have " + Timetable.size() + " tasks on the list");
+        }
+    }
 }
