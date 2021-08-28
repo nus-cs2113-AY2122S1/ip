@@ -15,6 +15,13 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getTaskType() {
+        return ("");
+    }
+
+    public String getDeadline() {
+        return ("");
+    }
     //...
 
 }

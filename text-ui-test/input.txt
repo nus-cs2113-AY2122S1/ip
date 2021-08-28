@@ -1,0 +1,11 @@
+help
+to do run
+deadline journal /by Saturday
+deadline walk/by Saturday 4pm
+list
+event team meeting /at Sunday 2-4pm
+list
+done 12
+done 1n2
+list
+bye
