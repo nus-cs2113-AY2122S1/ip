@@ -45,7 +45,7 @@ public class Task {
      */
     public String toString() {
         String checkbox;
-        if (this.isCompleted) {
+        if (isCompleted) {
             checkbox = "[X]";
         } else {
             checkbox = "[ ]";

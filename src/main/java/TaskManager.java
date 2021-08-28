@@ -1,5 +1,7 @@
 public class TaskManager {
-    private Task[] tasks = new Task[100];
+    private static final int TOTAL_TASKS = 100;
+
+    private Task[] tasks = new Task[TOTAL_TASKS];
     private int tasksCount = 0;
 
     /**
@@ -73,7 +75,7 @@ public class TaskManager {
     public void completeTask(int taskIndex) {
         tasks[taskIndex].setCompleted();
         printLine();
-        System.out.print("  Ok! I've marked this task as done:\n    ");
+        System.out.print("  Ok! I've marked this task as done:" + System.lineSeparator() + "    ");
         System.out.println(tasks[taskIndex].toString());
         printLine();
     }

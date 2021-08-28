@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_MARK_DONE = "done";
+    public static final String COMMAND_NEW_TODO = "todo";
+    public static final String COMMAND_NEW_DEADLINE = "deadline";
+    public static final String COMMAND_NEW_EVENT = "event";
+
+
     public static void main(String[] args) {
         printStartMessage();
         interactWithUser();
@@ -75,25 +83,21 @@ public class Duke {
             String userInput = getUserInput(in).strip();
             String[] words = userInput.split(" ");
 
-            if (userInput.equals("bye")) {
+            if (userInput.equals(COMMAND_EXIT)) {
                 printExitMessage();
                 isInteracting = false;
-            } else if (userInput.equals("list")) {
+            } else if (userInput.equals(COMMAND_LIST)) {
                 taskManager.printTasks();
-            } else if (userInput.startsWith("done")) {
+            } else if (userInput.startsWith(COMMAND_MARK_DONE)) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
                 taskManager.completeTask(taskIndex);
-            }
-            else if (userInput.startsWith("todo")) {
+            } else if (userInput.startsWith(COMMAND_NEW_TODO)) {
                 taskManager.addTask(userInput, TaskType.TODO);
-            }
-            else if (userInput.startsWith("deadline")) {
+            } else if (userInput.startsWith(COMMAND_NEW_DEADLINE)) {
                 taskManager.addTask(userInput, TaskType.DEADLINE);
-            }
-            else if (userInput.startsWith("event")) {
+            } else if (userInput.startsWith(COMMAND_NEW_EVENT)) {
                 taskManager.addTask(userInput, TaskType.EVENT);
-            }
-            else {
+            } else {
                 printInvalidCommandMessage();
             }
         }
