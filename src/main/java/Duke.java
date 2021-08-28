@@ -9,6 +9,14 @@ public class Duke {
             + " ██████████   ░░████████ ████ █████░░██████\n"
             + "░░░░░░░░░░     ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░\n";
 
+    private final String greetMessage = "Welcome to\n" + LOGO
+            + "Hello there! I'm Duke, your very helpful personal assistant chat bot. \uD83D\uDE0A\n"
+            + "Enter a task to add it to your list!";
+
+    private final String exitMessage = "Bye! Have a great day ahead and see you again soon. \uD83D\uDE04";
+
+    private final String invalidCommandMessage = "Sorry, I do not understand the command you just entered.";
+
     private TaskManager taskManager = new TaskManager();
 
     private void printHorizontal() {
@@ -16,15 +24,12 @@ public class Duke {
     }
 
     public void greet() {
-        printHorizontal();
-        System.out.println("Welcome to\n" + LOGO);
-        System.out.println("Hello there! I'm Duke, your very helpful personal assistant chat bot. \uD83D\uDE0A\n"
-                + "Enter a task to add it to your list!");
+        System.out.println(greetMessage);
         printHorizontal();
     }
 
     public void exit() {
-        System.out.println("Bye! Have a great day ahead and see you again soon. \uD83D\uDE04");
+        System.out.println(exitMessage);
         printHorizontal();
     }
 
@@ -33,8 +38,13 @@ public class Duke {
         printHorizontal();
     }
 
-    public void addTask(String command) {
-        taskManager.addTask(command);
+    public void showInvalidCommandMessage() {
+        System.out.println(invalidCommandMessage);
+        printHorizontal();
+    }
+
+    public void addTask(String command, String taskContent) {
+        taskManager.addTask(command, taskContent);
         printHorizontal();
     }
 

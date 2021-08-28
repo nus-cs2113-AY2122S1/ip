@@ -1,23 +1,21 @@
 public class Task {
 
-    private String description;
-    private boolean isDone = false;
+    protected String description;
+    protected boolean isDone;
+    protected String doneStatus;
 
     public Task(String description) {
         this.description = description;
+        this.isDone = false;
+        this.doneStatus = " ";
     }
 
     public void setDone() {
         this.isDone = true;
+        this.doneStatus = "X";
     }
 
     public String toString() {
-        String taskInString;
-        if (isDone) {
-            taskInString = "[X] " + description;
-        } else {
-            taskInString = "[ ] " + description;
-        }
-        return taskInString;
+        return "[" + doneStatus + "] " + description;
     }
 }
