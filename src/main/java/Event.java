@@ -1,4 +1,4 @@
-public class Event extends Task{
+public class Event extends Task {
 
     private String at;
 
@@ -9,7 +9,7 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + (isDone? "[X] " : "[ ] ") + task + " (at: " + at + ")";
+        return "[E]" + (isDone ? "[X] " : "[ ] ") + task + " (at: " + at + ")";
     }
 
 }

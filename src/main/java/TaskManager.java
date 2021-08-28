@@ -1,10 +1,11 @@
 public class TaskManager {
+    public static final int MAX_TASKS = 100;
     private int numberOfTasks;
     private final Task[] tasks;
 
     public TaskManager() {
         numberOfTasks = 0;
-        tasks = new Task[100];
+        tasks = new Task[MAX_TASKS];
     }
 
     public int getNumberOfTasks() {
@@ -16,22 +17,19 @@ public class TaskManager {
     }
 
     public void addTodo(String input) {
-        if (numberOfTasks >= 100) {
+        if (numberOfTasks >= MAX_TASKS) {
             Duke.printMessage("Error!! Too many tasks");
             return;
         }
         Task todo = new Todo(input);
         tasks[numberOfTasks] = todo;
         numberOfTasks++;
-        String acknowledgementMessage = "Understood, "
-                + System.lineSeparator() + todo.toString()
-                + System.lineSeparator() + "has been added. You now have "
-                + numberOfTasks + " " + "task(s) in the list";
-        Duke.printMessage(acknowledgementMessage);
+        acknowledgeCommand(todo);
     }
 
+
     public void addDeadline(String input) {
-        if (numberOfTasks >= 100) {
+        if (numberOfTasks >= MAX_TASKS) {
             Duke.printMessage("Error!! Too many tasks");
             return;
         }
@@ -40,20 +38,16 @@ public class TaskManager {
             Duke.printMessage("Error: no /by detected");
             return;
         }
-        String deadlineDescription = input.substring(0,indexOfByPrefix).trim();
+        String deadlineDescription = input.substring(0, indexOfByPrefix).trim();
         String deadlineBy = input.substring(indexOfByPrefix + 3).trim();
-        Task deadline = new Deadline(deadlineDescription,deadlineBy);
+        Task deadline = new Deadline(deadlineDescription, deadlineBy);
         tasks[numberOfTasks] = deadline;
         numberOfTasks++;
-        String acknowledgementMessage = "Understood, "
-                + System.lineSeparator() + deadline.toString()
-                + System.lineSeparator() + "has been added. You now have "
-                + numberOfTasks + " " + "task(s) in the list";
-        Duke.printMessage(acknowledgementMessage);
+        acknowledgeCommand(deadline);
     }
 
     public void addEvent(String input) {
-        if (numberOfTasks >= 100) {
+        if (numberOfTasks >= MAX_TASKS) {
             Duke.printMessage("Error!! Too many tasks");
             return;
         }
@@ -62,13 +56,17 @@ public class TaskManager {
             Duke.printMessage("Error: no /at detected");
             return;
         }
-        String eventDescription = input.substring(0,indexOfAtPrefix).trim();
+        String eventDescription = input.substring(0, indexOfAtPrefix).trim();
         String eventAt = input.substring(indexOfAtPrefix + 3).trim();
         Task event = new Event(eventDescription, eventAt);
         tasks[numberOfTasks] = event;
         numberOfTasks++;
+        acknowledgeCommand(event);
+    }
+
+    private void acknowledgeCommand(Task task) {
         String acknowledgementMessage = "Understood, "
-                + System.lineSeparator() + event.toString()
+                + System.lineSeparator() + task.toString()
                 + System.lineSeparator() + "has been added. You now have "
                 + numberOfTasks + " " + "task(s) in the list";
         Duke.printMessage(acknowledgementMessage);
@@ -77,7 +75,7 @@ public class TaskManager {
     public void printTasks() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < numberOfTasks; i++) {
-            list.append((i +1) + ".");
+            list.append(i + 1).append(".");
             list.append(tasks[i].toString());
             if (i < numberOfTasks - 1) {
                 list.append(System.lineSeparator());

@@ -2,14 +2,31 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final boolean IS_STARTING = true;
+    public static final boolean IS_ENDING = false;
+
     public static final String DEADLINE_BY_PREFIX = "/by";
     public static final String EVENT_AT_PREFIX = "/at";
     public static final String HELP_MESSAGE = "Valid Commands: " + System.lineSeparator()
             + "todo (description of task)" + System.lineSeparator()
             + "event (description of event) /at (time of event)" + System.lineSeparator()
-            + "deadline (description of task) /by (deadline of task)" +System.lineSeparator()
+            + "deadline (description of task) /by (deadline of task)" + System.lineSeparator()
             + "list" + System.lineSeparator()
             + "bye";
+
+    public static final String LOGO = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
+    public static final String STARTING_MESSAGE = "Hello from" + System.lineSeparator()
+            + LOGO + System.lineSeparator()
+            + "Hello! I'm Duke" + System.lineSeparator()
+            + "What can I do for you?";
+    public static final String ENDING_MESSAGE = "Bye. Hope to see you again soon!";
+
+    public static final Scanner SCANNER = new Scanner(System.in);
+    public static final TaskManager TASK_MANAGER = new TaskManager();
 
     public static void printMessage(String message) {
         final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -20,62 +37,64 @@ public class Duke {
     //Made this as a separate function so that main function doesn't become too big
     public static void printStartingOrEndingMessage(boolean isStart) {
         if (isStart) {
-            //Starting message
-            String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
-            System.out.println("Hello from\n" + logo);
-            printMessage("Hello! I'm Duke" + System.lineSeparator()
-                    + "What can I do for you?");
+            printMessage(STARTING_MESSAGE);
         } else {
-            //Ending message
-            printMessage("Bye. Hope to see you again soon!");
+            printMessage(ENDING_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
-        printStartingOrEndingMessage(true);
-        //initialise Scanner and TaskManager
-        Scanner in = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
+        printStartingOrEndingMessage(IS_STARTING);
+        runDuke();
+        printStartingOrEndingMessage(IS_ENDING);
+    }
 
+    private static void runDuke() {
         boolean conversationIsOver = false;
         while (!conversationIsOver) {
-            String inputCommand = in.nextLine().trim();
-            //switch to lowercase so that Duke won't be case-sensitive
-            String command = inputCommand.toLowerCase().split(" ")[0];
+            String inputCommand = SCANNER.nextLine().trim();
+            String command = getFirstWord(inputCommand);
             switch (command) {
             case "list":
-                taskManager.printTasks();
+                TASK_MANAGER.printTasks();
                 break;
             case "done":
-                taskManager.setTaskAsDone(Integer.parseInt(inputCommand.split(" ")[1]));
+                int indexOfTaskDone = getIntegerFromCommand(inputCommand);
+                TASK_MANAGER.setTaskAsDone(indexOfTaskDone);
                 break;
             case "bye":
                 conversationIsOver = true;
                 break;
             case "deadline":
-                //to remove the word "deadline"
-                String deadlineInput = inputCommand.substring(8).trim();
-                taskManager.addDeadline(deadlineInput);
+                String deadlineInput = removeFirstWordInSentence(inputCommand, 8);
+                TASK_MANAGER.addDeadline(deadlineInput);
                 break;
             case "todo":
-                //to remove the word "todo"
-                String todoInput = inputCommand.substring(4).trim();
-                taskManager.addTodo(todoInput);
+                String todoInput = removeFirstWordInSentence(inputCommand, 4);
+                TASK_MANAGER.addTodo(todoInput);
                 break;
             case "event":
-                //to remove the word "event"
-                String eventInput = inputCommand.substring(5).trim();
-                taskManager.addEvent(eventInput);
+                String eventInput = removeFirstWordInSentence(inputCommand, 5);
+                TASK_MANAGER.addEvent(eventInput);
                 break;
             default:
                 printMessage(HELP_MESSAGE);
                 break;
             }
         }
-        printStartingOrEndingMessage(false);
+    }
+
+    private static String removeFirstWordInSentence(String inputCommand, int i) {
+        //to remove the words "deadline", "even" or "todo"
+        return inputCommand.substring(i).trim();
+    }
+
+    private static int getIntegerFromCommand(String input) {
+        return Integer.parseInt(input.split(" ")[1]);
+    }
+
+    private static String getFirstWord(String inputCommand) {
+        //switch to lowercase so that Duke won't be case-sensitive
+        return inputCommand.toLowerCase().split(" ")[0];
     }
 }

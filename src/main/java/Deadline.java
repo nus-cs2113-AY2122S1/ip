@@ -9,7 +9,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + (isDone? "[X] " : "[ ] ") + task + " (by: " + by + ")";
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + task + " (by: " + by + ")";
     }
 
 }

@@ -1,10 +1,10 @@
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String todo) {
         super(todo);
     }
 
     @Override
     public String toString() {
-        return "[T]" + (isDone? "[X] " : "[ ] ") + task;
+        return "[T]" + (isDone ? "[X] " : "[ ] ") + task;
     }
 }
