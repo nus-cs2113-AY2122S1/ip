@@ -7,4 +7,5 @@ done 3
 list
 done 0
 INVALID COMMAND
+help
 bye

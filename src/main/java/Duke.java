@@ -2,6 +2,14 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static final String LS = System.lineSeparator();
+    private static final String S_TAB = "     ";
+
+    private static final String MESSAGE_WELCOME = S_TAB + "Welcome to Jura Tempest!" + LS
+                                                + S_TAB + "I'm Rimuru Tempest, pleased to make your acquaintance." + LS
+                                                + S_TAB + "How can I help you today?";
+    public static final String MESSAGE_GOODBYE = S_TAB + "Sayonara. Come visit our country again soon!";
+
     public static void main(String[] args) {
         greetUser();
         executeResponse();
@@ -12,9 +20,7 @@ public class Duke {
      */
     public static void greetUser() {
         Picture.drawRimuruLogo();
-        System.out.println("     Welcome to Jura Tempest!\n"
-                + "     I'm Rimuru Tempest, pleased to make your acquaintance.\n"
-                + "     How can I help you today?");
+        System.out.println(MESSAGE_WELCOME);
         Picture.printLine();
     }
 
@@ -23,7 +29,7 @@ public class Duke {
      */
     public static void exitDuke() {
         Picture.printLine();
-        System.out.println("     Sayonara. Come visit our country again soon!");
+        System.out.println(MESSAGE_GOODBYE);
         Picture.printLine();
     }
 
@@ -59,8 +65,11 @@ public class Duke {
             case "event":
                 TaskManager.addToList(line, TaskType.EVENT);
                 break;
+            case "help":
+                TaskManager.printHelpMessage();
+                break;
             default:
-                TaskManager.printCommands();
+                TaskManager.printInvalidCommandMessage();
             }
         } while (!isExit);
     }

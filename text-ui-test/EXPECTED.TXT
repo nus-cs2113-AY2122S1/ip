@@ -49,11 +49,11 @@
     ────────────────────────────────────────────────────────────
     ────────────────────────────────────────────────────────────
      NOTICE: This task is marked as done...
-       [X] read book
+       [T][X] read book
     ────────────────────────────────────────────────────────────
     ────────────────────────────────────────────────────────────
      NOTICE: This task is marked as done...
-       [X] project meeting
+       [E][X] project meeting (at: Aug 6th 2-4pm)
     ────────────────────────────────────────────────────────────
     ────────────────────────────────────────────────────────────
      NOTICE: Here are the task(s) in your list...
@@ -72,7 +72,18 @@
        3. deadline <TASK> /by <DATE>
        4. event <TASK> /at <DATE>
        5. done <TASK_NO>
-       6. bye
+       6. help
+       7. bye
+    ────────────────────────────────────────────────────────────
+    ────────────────────────────────────────────────────────────
+     NOTICE: This is a list of the possible commands...
+       1. list
+       2. todo <TASK>
+       3. deadline <TASK> /by <DATE>
+       4. event <TASK> /at <DATE>
+       5. done <TASK_NO>
+       6. help
+       7. bye
     ────────────────────────────────────────────────────────────
     ────────────────────────────────────────────────────────────
      Sayonara. Come visit our country again soon!
