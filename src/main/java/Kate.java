@@ -21,27 +21,24 @@ public class Kate {
 
             if (userInput.toUpperCase().equals("BYE")) {
                 break;
-            }
-
-            if (userInput.toUpperCase().startsWith("TODO ")) {
+            } else if (userInput.toUpperCase().startsWith("TODO ")) {
                 String taskDescription = userInput.substring(5).strip();
+
                 if (taskDescription.isEmpty()) {
-                    printMessage("     Please specify a task with \"todo [description]\"!\n");
+                    printMessage("     Please specify a task with \"todo [description]\"\n");
                     continue;
                 }
 
                 tasks.add(new ToDo(taskDescription));
                 printAddedTask(tasks);
-            }
-
-            if (userInput.toUpperCase().startsWith("DEADLINE ")) {
+            } else if (userInput.toUpperCase().startsWith("DEADLINE ")) {
                 String taskInfo = userInput.substring(9).strip();
                 boolean isEmptyField = emptyFieldChecker(taskInfo, " /by ");
+
                 if (isEmptyField) {
                     printMessage("     Please specify a task with \"deadline [description] /by [deadline]\"\n");
                     continue;
                 }
-
 
                 String[] infoArr = taskInfo.split(" /by ");
                 String taskDescription = infoArr[0].strip();
@@ -49,11 +46,10 @@ public class Kate {
 
                 tasks.add(new Deadline(taskDescription, deadline));
                 printAddedTask(tasks);
-            }
-
-            if (userInput.toUpperCase().startsWith("EVENT ")) {
+            } else if (userInput.toUpperCase().startsWith("EVENT ")) {
                 String taskInfo = userInput.substring(6).strip();
                 boolean isEmptyField = emptyFieldChecker(taskInfo, " /at ");
+
                 if (isEmptyField) {
                     printMessage("     Please specify a task with \"event [description] /at [time frame]\"\n");
                     continue;
@@ -65,14 +61,10 @@ public class Kate {
 
                 tasks.add(new Event(taskDescription, timeFrame));
                 printAddedTask(tasks);
-            }
-
-            if (userInput.toUpperCase().equals("LIST")) {
+            } else if (userInput.toUpperCase().equals("LIST")) {
                 printTasks(tasks);
                 continue;
-            }
-
-            if (userInput.toUpperCase().startsWith("DONE")) {
+            } else if (userInput.toUpperCase().startsWith("DONE")) {
                 String[] inputArr = userInput.split(" ");
                 boolean isValid = intChecker(inputArr, tasks.size());
 
@@ -88,6 +80,8 @@ public class Kate {
                         + "       " + curTask.printTaskInfo() + "\n";
                 printMessage(doneMessage);
 
+            } else {
+                printHelpPage();
             }
         }
 
@@ -158,5 +152,14 @@ public class Kate {
         }
     }
 
+    public static void printHelpPage() {
+        String helpText = "     Please enter only the following commands: \n"
+                + "       1. todo [description]\n"
+                + "       2. deadline [description] /by [deadline]\n"
+                + "       3. event [description] /at [time frame]\n"
+                + "       4. list\n"
+                + "       5. bye\n";
+        printMessage(helpText);
+    }
 
 }
