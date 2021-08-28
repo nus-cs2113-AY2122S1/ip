@@ -34,7 +34,7 @@ public class Duke {
         //Main loop
         while (!hasSessionEnded) {
             strInput = SCANNER_INPUT.nextLine();
-            String command = getCommand(strInput);
+            String command = extractCommand(strInput);
             switch (command) {
             case "bye":
                 hasSessionEnded = true;
@@ -46,7 +46,7 @@ public class Duke {
                 break;
 
             case "done":
-                markTaskAsDone(getContent(strInput));
+                markTaskAsDone(extractContent(strInput));
                 break;
 
             case "todo":
@@ -62,13 +62,17 @@ public class Duke {
                 break;
 
             default:
-                printBorder();
-                System.out.println("Command not recognized");
-                printBorder();
+                printInvalidCommand();
                 break;
             }
         }
     }
+
+    /*
+     * ===============================================
+     *           Task class related functions
+     * ===============================================
+     */
 
     /**
      * Adds a new Event type task to the taskList
@@ -76,9 +80,9 @@ public class Duke {
      * @param input the input string
      */
     private static void addEvent(String input) {
-        String content = getContent(input);
-        taskList[Task.getTotalTasks()] = new Event(getDescrFromEvent(content),
-                getAtFromEvent(content));
+        String content = extractContent(input);
+        taskList[Task.getTotalTasks()] = new Event(extractDescrFromEventContent(content),
+                extractAtFromEventContent(content));
         printTaskAddedMessage();
     }
 
@@ -88,9 +92,9 @@ public class Duke {
      * @param input the input string
      */
     private static void addDeadline(String input) {
-        String content = getContent(input);
-        taskList[Task.getTotalTasks()] = new Deadline(getDescrFromDeadline(content),
-                getByFromDeadline(content));
+        String content = extractContent(input);
+        taskList[Task.getTotalTasks()] = new Deadline(extractDescrFromDeadlineContent(content),
+                extractByFromDeadlineContent(content));
         printTaskAddedMessage();
     }
 
@@ -100,7 +104,7 @@ public class Duke {
      * @param input the input string
      */
     private static void addTodo(String input) {
-        taskList[Task.getTotalTasks()] = new Todo(getContent(input));
+        taskList[Task.getTotalTasks()] = new Todo(extractContent(input));
         printTaskAddedMessage();
     }
 
@@ -121,7 +125,7 @@ public class Duke {
      * @param input content of the event input
      * @return the date of the event
      */
-    private static String getAtFromEvent(String input) {
+    private static String extractAtFromEventContent(String input) {
         int positionOfSeparator = input.trim().indexOf("/at");
         return input.substring(positionOfSeparator + 3).trim();
     }
@@ -132,7 +136,7 @@ public class Duke {
      * @param input content of the event input
      * @return the description of the event
      */
-    private static String getDescrFromEvent(String input) {
+    private static String extractDescrFromEventContent(String input) {
         int positionOfSeparator = input.trim().indexOf("/at");
         return input.substring(0, positionOfSeparator - 1).trim();
     }
@@ -143,7 +147,7 @@ public class Duke {
      * @param input content of the deadline input
      * @return the deadline of the deadline
      */
-    private static String getByFromDeadline(String input) {
+    private static String extractByFromDeadlineContent(String input) {
         int positionOfSeparator = input.trim().indexOf("/by");
         return input.substring(positionOfSeparator + 3).trim();
     }
@@ -154,7 +158,7 @@ public class Duke {
      * @param input content of the deadline input
      * @return the description of the deadline
      */
-    private static String getDescrFromDeadline(String input) {
+    private static String extractDescrFromDeadlineContent(String input) {
         int positionOfSeparator = input.trim().indexOf("/by");
         return input.substring(0, positionOfSeparator - 1).trim();
     }
@@ -165,7 +169,7 @@ public class Duke {
      * @param input the input string
      * @return the input string with the first word excluded
      */
-    private static String getContent(String input) {
+    private static String extractContent(String input) {
         int firstSpacePosition = input.trim().indexOf(" ");
         return input.substring(firstSpacePosition + 1).trim();
     }
@@ -176,16 +180,9 @@ public class Duke {
      * @param input the input string
      * @return first word of the input string
      */
-    private static String getCommand(String input) {
+    private static String extractCommand(String input) {
         String[] words = input.trim().split(" ");
         return words[0].trim();
-    }
-
-    /**
-     * Prints a border made of "-" characters
-     */
-    private static void printBorder() {
-        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -220,24 +217,25 @@ public class Duke {
     }
 
     /**
-     * Prints Duke's goodbye message
-     */
-    private static void printGoodbyeMessage() {
-        printBorder();
-        System.out.println("Bye. Hope to see you again soon!");
-        printBorder();
-    }
-
-    /**
      * Initialize list of tasks
      */
     private static void initTaskList() {
         taskList = new Task[MAX_TASKS];
     }
 
-    /**
-     * Prints Duke's greeting message
+    /*
+     * ===============================================
+     *         Basic message printing functions
+     * ===============================================
      */
+
+    /**
+     * Prints a border made of "_" characters
+     */
+    private static void printBorder() {
+        System.out.println("____________________________________________________________");
+    }
+
     private static void printGreetingMessage() {
         printBorder();
         System.out.println("Hello! I'm Duke");
@@ -245,4 +243,18 @@ public class Duke {
         printBorder();
     }
 
+    private static void printGoodbyeMessage() {
+        printBorder();
+        System.out.println("Bye. Hope to see you again soon!");
+        printBorder();
+    }
+
+    /**
+     * Prints the error message for an invalid command
+     */
+    private static void printInvalidCommand() {
+        printBorder();
+        System.out.println("Command not recognized");
+        printBorder();
+    }
 }
