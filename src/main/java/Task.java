@@ -4,31 +4,32 @@ public class Task {
      * Status of whether the task is completed
      */
     private boolean isDone;
-    private String name;
+    private String description;
 
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description.trim();
         isDone = false;
     }
 
-    public boolean isDone() {
+    public boolean getDoneStatus() {
         return isDone;
     }
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;
-        if (this.isDone) {
-            System.out.println("Nice! I've marked this task as done:");
-        }
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTaskInfo() {
+        return description;
     }
 
     /**
@@ -37,17 +38,11 @@ public class Task {
      * @return isDone status icon
      */
     public String getStatusIcon() {
-        String isDoneFlag = " ";
+        String isDoneFlag = "[ ]";
         if (isDone) {
-            isDoneFlag = "X";
+            isDoneFlag = "[X]";
         }
         return isDoneFlag;
     }
 
-    /**
-     * Prints the status of the task in a given format. The format is "[ ]TaskName".
-     */
-    public void printStatus() {
-        System.out.printf("[%s] %s\n", getStatusIcon(), getName());
-    }
 }

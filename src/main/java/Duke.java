@@ -14,7 +14,8 @@ public class Duke {
      */
     public static void main(String[] args) {
         System.out.println(LINE);
-        printWelcomeMesage();
+        printLogoMessage();
+        printWelcomeMessage();
         getMenu();
     }
 
@@ -22,7 +23,6 @@ public class Duke {
      * Prints the exit message when user quits the program.
      */
     public static void printExitMessage() {
-        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
@@ -30,7 +30,7 @@ public class Duke {
     /**
      * Prints the welcome message when user first runs the program.
      */
-    public static void printWelcomeMesage() {
+    public static void printWelcomeMessage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
@@ -45,88 +45,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(LINE);
-    }
-
-    /**
-     * A generic print method that appends a line before and after the message.
-     *
-     * @param message Message to be printed out.
-     */
-    public static void printMessage(String message) {
-        System.out.println(LINE);
-        System.out.println(message);
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints the status of all tasks in a given tasks array.
-     *
-     * @param tasksList Array of task objects.
-     */
-    public static void printTasksList(Task[] tasksList) {
-        if (tasksList == null) {
-            System.out.println("There is currently 0 tasks in your list.");
-            return;
-        }
-        int i = 1;
-        System.out.println("Here are the tasks in your list:");
-        for (Task task : tasksList) {
-            System.out.printf("%d. ", i);
-            task.printStatus();
-            i++;
-        }
-    }
-
-    /**
-     * Changes the status of a specified task to be mark as done. The format of the userInputs should be "done X" where
-     * X is an index within the taskList.
-     *
-     * @param tasksList  Array of task objects.
-     * @param userInputs User command input determining which task to be marked as done.
-     */
-    public static void setDone(Task[] tasksList, String userInputs) {
-        if (tasksList == null) {
-            System.out.println("Error: No tasks in list.");
-            return;
-        }
-        try {
-            int index = Integer.parseInt(userInputs.split(" ")[1]);
-            index = index - 1;
-            if (index >= 0 && index < tasksList.length) {
-                tasksList[index].setDone(true);
-                tasksList[index].printStatus();
-            } else {
-                System.out.println("Error: task not found.");
-            }
-        } catch (Exception e) {
-            System.out.println("Error: Incorrect format.");
-            return;
-        }
-
-
-    }
-
-    /**
-     * Add task into tasks array and returns the tasks array.
-     *
-     * @param tasksList Array of task objects.
-     * @param taskName  Task name for the new task object.
-     * @return An array of task objects.
-     */
-    public static Task[] addTaskToList(Task[] tasksList, String taskName) {
-        if (tasksList == null) {
-            Task task = new Task(taskName);
-            tasksList = new Task[1];
-            tasksList[0] = task;
-            return tasksList;
-        }
-        Task[] newItemsList = new Task[tasksList.length + 1];
-        for (int i = 0; i < tasksList.length; i++) {
-            newItemsList[i] = tasksList[i];
-        }
-        newItemsList[tasksList.length] = new Task(taskName);
-        return newItemsList;
+        System.out.println(logo);
     }
 
     /**
@@ -135,31 +54,86 @@ public class Duke {
     public static void getMenu() {
         Scanner in = new Scanner(System.in);
         String userInputs = in.nextLine();
-        Task[] tasksList = null;
+        TaskManager taskManager = new TaskManager();
+        String[] taskInfo;
         menuLoop:
         while (true) {
-            switch (userInputs.split(" ")[0]) {
-            case "":
+            System.out.println(LINE);
+            switch (getUserCommand(userInputs)) {
+            case "todo":
+            case "event":
+            case "deadline":
+                processTaskInfo(taskManager, userInputs);
                 break;
             case "done":
-                System.out.println(LINE);
-                setDone(tasksList, userInputs);
-                System.out.println(LINE);
+                int taskIndex = getTaskIndexFromUserInputs(userInputs);
+                taskManager.setTaskToDone(taskIndex);
                 break;
             case "list":
-                System.out.println(LINE);
-                printTasksList(tasksList);
-                System.out.println(LINE);
+                taskManager.printAllTasks();
                 break;
             case "bye":
                 printExitMessage();
                 break menuLoop;
             default:
-                tasksList = addTaskToList(tasksList, userInputs);
-                printMessage("added: " + userInputs);
+                System.out.println("Error: Invalid command.");
                 break;
             }
+            System.out.println(LINE);
             userInputs = in.nextLine();
         }
     }
+
+    public static String getUserCommand(String userInputs) {
+        return userInputs.split(" ")[0];
+    }
+
+    public static String getUserPayload(String userInputs) {
+        String[] payload = userInputs.split(" ");
+        payload[0] = "";
+        return String.join(" ", payload).trim();
+    }
+
+    public static int getTaskIndexFromUserInputs(String userInputs) {
+        int result = -1;
+        try {
+            result = Integer.parseInt(userInputs.split(" ")[1]);
+        } catch (Exception exception) {
+            System.out.println("Error: Incorrect format detected.");
+        }
+        return result;
+    }
+
+
+    public static void processTaskInfo(TaskManager taskManager, String userInputs) {
+        String payload = getUserPayload(userInputs);
+        String userCommand = getUserCommand(userInputs);
+        String[] newPayload = new String[0];
+        if (payload.equals("")) {
+            System.out.println("Error: Missing Task Info.");
+            return;
+        }
+        switch (userCommand) {
+        case "todo":
+            taskManager.createToDoTask(payload);
+            break;
+        case "deadline":
+            newPayload = payload.split("/by");
+            if (newPayload.length < 2) {
+                System.out.println("Error: Missing /by tag.");
+            } else {
+                taskManager.createDeadlineTask(newPayload[0], newPayload[1]);
+            }
+            break;
+        case "event":
+            newPayload = payload.split("/at");
+            if (newPayload.length < 2) {
+                System.out.println("Error: Missing /at tag.");
+            } else {
+                taskManager.createEventTask(newPayload[0], newPayload[1]);
+            }
+            break;
+        }
+    }
+
 }
