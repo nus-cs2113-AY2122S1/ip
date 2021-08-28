@@ -1,17 +1,19 @@
 public class Task {
     /** name of task input by user. */
-    protected String description;
+    public String description;
     /** True means task complete, otherwise if false. */
-    protected boolean isDone;
+    public boolean isDone;
+    public String type;
 
     /**
      * Constructor for new object of Task class.
      *
      * @param description Name of task.
      */
-    public Task(String description) {
+    public Task(String description, String taskType) {
         this.description = description;
         this.isDone = false;
+        this.type = taskType;
     }
 
     /**
@@ -19,6 +21,27 @@ public class Task {
      */
     public void setDone() {
         this.isDone = true;
+    }
+
+    public String getTypeIcon() {
+        String typeIcon;
+
+        switch(type) {
+        case "todo":
+            typeIcon = "[T] ";
+            break;
+        case "deadline":
+            typeIcon = "[D] ";
+            break;
+        case "event":
+            typeIcon = "[E] ";
+            break;
+        default:
+            typeIcon = "";
+            break;
+        }
+
+        return typeIcon;
     }
 
     /**
