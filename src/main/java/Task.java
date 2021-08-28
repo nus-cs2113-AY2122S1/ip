@@ -1,6 +1,8 @@
 public class Task {
-    private Boolean isDone;
-    private String name;
+    
+    public static int numItemsAdded = 0;
+    protected Boolean isDone;
+    protected String name;
 
     public Task(String name) {
         this.name = name;
@@ -21,5 +23,14 @@ public class Task {
 
     public Boolean isDone() {
         return this.isDone;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    @Override
+    public String toString() {
+        return "[T][" + getStatusIcon() + "] " + name;
     }
 }

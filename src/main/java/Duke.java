@@ -1,55 +1,100 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        String line = "____________________________________________________________";
-        System.out.println(line + "\n Hello! I'm Duke\n What can I do for you?\n" + line);
+
+    public static final String LINE = "____________________________________________________________";
+
+    public static void printList(Task[] list) {
+        System.out.println(LINE);
+        if (list[0] == null) {
+            System.out.println("No items added!");
+        }
+        int i = 0;
+        while (list[i] != null) {
+            System.out.println((i+1) + ". " + list[i]);
+            i += 1;
+        }
+        System.out.println(LINE);
+    }
+
+    public static void markTaskAsDone(Task[] list, int taskIndex) {
+        if (taskIndex < Task.numItemsAdded && taskIndex >= 0) {
+            if (list[taskIndex].isDone()) {
+                System.out.println(LINE + "\nThat task is already done!\n" + LINE);
+            } else {
+                list[taskIndex].markAsDone();
+                System.out.println(LINE + "\nNice! I've marked this task as done:");
+                System.out.println(list[taskIndex] + "\n" + LINE);
+            }
+        } else {
+            System.out.println("That task does not exist!\n" + LINE);
+        }
+    }
+
+    public static void printAddedTask(Task[] list) {
+        System.out.println(LINE + "\nGot it. I've added this task:");
+        System.out.println(list[Task.numItemsAdded-1]);
+        System.out.format("Now you have %d tasks in the list.\n" + LINE + "\n", Task.numItemsAdded);
+    }
+
+    public static void addTask(Task[] list, String input, String[] inputWords) {
+        String taskType = inputWords[0];
+        if (taskType.equalsIgnoreCase("todo")) {
+            String taskName = input.substring(5);
+            list[Task.numItemsAdded] = new Task(taskName);
+            Task.numItemsAdded += 1;
+            printAddedTask(list);
+        } else if (taskType.equalsIgnoreCase("deadline")) {
+            if (!input.contains("/by")) {
+                System.out.println(LINE + "\nIncorrect format for entering task!\n" + LINE);
+                return;
+            }
+            int taskEndIndex = input.indexOf("/by") - 1;
+            String taskName = input.substring(9, taskEndIndex);
+            String deadline = input.substring(taskEndIndex + 5);
+            list[Task.numItemsAdded] = new Deadline(taskName, deadline);
+            Task.numItemsAdded += 1;
+            printAddedTask(list);
+        } else if (taskType.equalsIgnoreCase("event")) {
+            if (!input.contains("/at")) {
+                System.out.println(LINE + "\nIncorrect format for entering task!\n" + LINE);
+                return;
+            }
+            int taskEndIndex = input.indexOf("/at") - 1;
+            String taskName = input.substring(6, taskEndIndex);
+            String at = input.substring(taskEndIndex + 5);
+            list[Task.numItemsAdded] = new Event(taskName, at);
+            Task.numItemsAdded += 1;
+            printAddedTask(list);
+        } else {
+            System.out.println(LINE + "\nThat is not a valid task type!\n" + LINE);
+        }
+    }
+
+    public static void main(String[] args) { 
+        System.out.println(LINE + "\n Hello! I'm Duke\n What can I do for you?\n" + LINE);
         Boolean isCompleted = false;
         Task[] list = new Task[100];
-        int numItemsAdded = 0;
         while (!isCompleted) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             String[] inputWords = input.split(" ");
-            if (input.toLowerCase().equals("bye")) {
+            if (input.equalsIgnoreCase("bye")) {
                 isCompleted = true;
                 in.close();
                 continue;
             }
-            if (input.toLowerCase().equals("list")){
-                System.out.println(line);
-                if (list[0] == null) {
-                    System.out.println("No items added!\n");
-                }
-                int i = 0;
-                while (list[i] != null) {
-                    String completed = " ";
-                    if (list[i].isDone()) {
-                        completed = "X";
-                    }
-                    System.out.println(i+1 + ".[" + completed + "] " + list[i].getName());
-                    i += 1;
-                }
-                System.out.println(line);
+            if (input.equalsIgnoreCase("list")){
+                printList(list);
                 continue;
             }
-            if (inputWords[0].equals("done")) {
-                if (Integer.parseInt(inputWords[1]) <= numItemsAdded && Integer.parseInt(inputWords[1]) > 0) {
-                    if (list[Integer.parseInt(inputWords[1])-1].isDone()) {
-                        System.out.println(line + "\nThat task is already done!\n" + line);
-                    } else {
-                        System.out.println(line + "\nNice! I've marked this task as done:\n[X] " + list[Integer.parseInt(inputWords[1])-1].getName() + "\n" + line);
-                        list[Integer.parseInt(inputWords[1])-1].markAsDone();
-                    }
-                } else {
-                    System.out.println("That task does not exist!\n" + line);
-                }
+            if (inputWords[0].equalsIgnoreCase("done")) {
+                int taskIndex = Integer.parseInt(inputWords[1]) -1;
+                markTaskAsDone(list, taskIndex);
                 continue;
             }
-            list[numItemsAdded] = new Task(input);
-            numItemsAdded += 1;
-            System.out.println(line + "\nadded: " + input + "\n" + line);
+            addTask(list, input, inputWords);
         }
-        System.out.println(line + "\n Bye. Hope to see you again soon!\n" + line);
+        System.out.println(LINE + "\n Bye. Hope to see you again soon!\n" + LINE);
     }
 }
