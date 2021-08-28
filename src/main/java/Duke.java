@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void welcomeMessage() {
         String logo = "\t ____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
                 + "\t| | | | | | | |/ / _ \\\n"
@@ -12,6 +12,11 @@ public class Duke {
         System.out.println(logo);
         System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?");
         System.out.println("\t____________________________________________________________\n");
+    }
+        
+
+    public static void main(String[] args) {
+        welcomeMessage();
 
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine().trim();
