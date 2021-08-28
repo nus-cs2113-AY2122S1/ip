@@ -58,6 +58,11 @@ public class UI {
         }
     }
 
+    /**
+     * Returns a singleton instance of UI.
+     *
+     * @return A singleton instance of UI
+     */
     public static UI getUiInstance() {
         return UI_INSTANCE;
     }
