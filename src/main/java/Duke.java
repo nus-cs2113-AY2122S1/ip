@@ -12,7 +12,7 @@ public class Duke {
      */
     public static void greet() {
         System.out.println("\t" + HOR_LINE);
-        System.out.println("\tHi there! I'm Duke\n" +
+        System.out.println("\tHi there! I'm Lennox - your personal chatbot\n" +
                 "\tWhat can I do for you today?");
 
         // Mode Selection
@@ -22,15 +22,36 @@ public class Duke {
         mode = inp.nextInt();
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
         if (mode == 1) {
-            System.out.println("ECHO MODE - Commands entered will be echoed back.");
+            System.out.println("\tECHO MODE - Commands entered will be echoed back.");
         }
         else if (mode == 2) {
-            System.out.println("TASK MODE - Enter items to include in to-do list.");
+            System.out.println("\tTASK MODE - Enter items to include in to-do list.");
         }
         else {
-            System.out.println("ERROR. PLEASE RUN AGAIN AND SELECT RIGHT MODE.\n");
+            System.out.println("\tERROR. PLEASE RUN AGAIN AND SELECT RIGHT MODE.\n");
             mode = 0;
         }
+    }
+
+    /**
+     * Function prints Lennox chatbot logo.
+     */
+    private static void printLogo() {
+        String logo = "#\t,--.                                      \t#\n" +
+                "#\t|  |   ,---.,--,--,,--,--, ,---,--.  ,--. \t#\n" +
+                "#\t|  |  | .-. |      |      | .-. \\  `'  /  \t#\n" +
+                "#\t|  '--\\   --|  ||  |  ||  ' '-' /  /.  \\  \t#\n" +
+                "#\t`-----'`----`--''--`--''--'`---'--'  '--' \t#";
+        System.out.println("#".repeat(49));
+        System.out.println("#\tHello from \t\t\t\t\t\t\t\t\t#");
+        System.out.println(logo);
+        System.out.println("# \t\t\t\t\t\t\t\t\t\t\t\t#");
+        System.out.println("#\t\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ \t\t#");
+        System.out.println("#\t\t[| o o |]" + "\t[| o o |]" + "\t[| o o |]\t\t#");
+        System.out.println("#\t\t |  ^  | " + "\t |  ^  | " + "\t |  ^  | \t\t#");
+        System.out.println("#\t\t | '-' | " + "\t | '-' | " + "\t | '-' | \t\t#");
+        System.out.println("#\t\t +-----+ " + "\t +-----+ " + "\t +-----+ \t\t#");
+        System.out.println("#".repeat(49));
     }
 
     /**
@@ -175,23 +196,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = "#\t\t ____        _        \t\t\t\t#\n"
-                + "#\t\t|  _ \\ _   _| | _____ \t\t\t\t#\n"
-                + "#\t\t| | | | | | | |/ / _ \\\t\t\t\t#\n"
-                + "#\t\t| |_| | |_| |   <  __/\t\t\t\t#\n"
-                + "#\t\t|____/ \\__,_|_|\\_\\___|\t\t\t\t#";
-        System.out.println("#".repeat(45));
-        System.out.println("#\tHello from \t\t\t\t\t\t\t\t#");
-        System.out.println(logo);
-        System.out.println("# \t\t\t\t\t\t\t\t\t\t\t#");
-        System.out.println("#\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ \t\t#");
-        System.out.println("#\t[| o o |]" + "\t[| o o |]" + "\t[| o o |]\t\t#");
-        System.out.println("#\t |  ^  | " + "\t |  ^  | " + "\t |  ^  | \t\t#");
-        System.out.println("#\t | '-' | " + "\t | '-' | " + "\t | '-' | \t\t#");
-        System.out.println("#\t +-----+ " + "\t +-----+ " + "\t +-----+ \t\t#");
-        System.out.println("#".repeat(45));
-
         // Actions
+        printLogo();
         greet();
         if (mode == 1) {
             startEcho();
@@ -207,4 +213,5 @@ public class Duke {
         // The end.
         System.out.println("===== PROGRAM ENDED =====");
     }
+
 }
