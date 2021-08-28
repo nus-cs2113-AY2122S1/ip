@@ -8,11 +8,15 @@ public class List {
         numOfListItems = 0;
     }
 
-    public void addItem(String item) {
-        items[numOfListItems] = new Task(item);
+    public void addItem(Task task) {
+        items[numOfListItems] = task;
         numOfListItems++;
 
-        PrintFormats.printMessageBubble("added: " + item);
+        MessageBubble msg = new MessageBubble();
+        msg.addMessage("Got it. I've added this task: ");
+        msg.addMessage(task.getClassIndicator() + "[ ] " + task.getDescription());
+        msg.addMessage("Now you have " + numOfListItems + " tasks in the list.");
+        msg.printMessageBubble();
     }
 
     public void doneItem(int indexOfDoneItem) {
@@ -26,10 +30,10 @@ public class List {
     }
 
     public void printList() {
-        PrintFormats msg = new PrintFormats();
+        MessageBubble msg = new MessageBubble();
         msg.addMessage("Here are the tasks in your list:");
         for (int i = 0; i < numOfListItems; i++) {
-            msg.addMessage(String.format("     %d:[%s] %s\n", i + 1, items[i].getStatusIcon(), items[i].description));
+            msg.addMessage(String.format("     %d:%s%s %s", i + 1, items[i].getClassIndicator(), items[i].getStatusIndicator(), items[i].description));
         }
         msg.printMessageBubble();
     }

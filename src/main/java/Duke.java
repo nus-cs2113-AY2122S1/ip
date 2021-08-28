@@ -10,20 +10,24 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello from\n" + logo + "\n     What can I do for you?");
-        System.out.println("    ____________________________________________________________\n");
+        MessageBubble.printMessageBubble("     Hello from\n" + logo + "\n     What can I do for you?");
 
         List list = new List();
         keepAsking:
         while (true) {
             String command = in.nextLine();
             String commandWord = command.contains(" ")? command.substring(0, command.indexOf(' ')): command;
+            String commandDescription = command.contains(" ")? command.substring(command.indexOf(' ')  +1) : command;
+
             switch (commandWord) {
             case "bye":
                 break keepAsking;
             case "list":
                 list.printList();
+                break;
+            case "todo":
+                ToDos tempTodo = new ToDos(commandDescription);
+                list.addItem(tempTodo);
                 break;
             case "done":
                 int indexOfDoneItem = Integer.parseInt(command.substring(command.indexOf(' ')  +1));
@@ -34,13 +38,11 @@ public class Duke {
                 list.undoneItem(indexOfUndoneItem);
                 break;
             default: // unknown command default to add as new item in the list
-                list.addItem(command);
+                Task tempTask = new Task(command);
+                list.addItem(tempTask);
             }
         }
 
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
-
+        MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
     }
 }

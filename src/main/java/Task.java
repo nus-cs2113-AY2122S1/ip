@@ -7,12 +7,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public String getStatusIndicator() {
+        return (isDone ? "[X]" : "[ ]");
     }
 
     public void markAsDone() {
-        PrintFormats msg = new PrintFormats();
+        MessageBubble msg = new MessageBubble();
         if (!isDone) {
             isDone = true;
             msg.addMessage("Nice! I've marked this task as done:");
@@ -24,7 +24,7 @@ public class Task {
     }
 
     public void markAsNotDone() {
-        PrintFormats newMessage = new PrintFormats();
+        MessageBubble newMessage = new MessageBubble();
         if (isDone) {
             isDone = false;
             newMessage.addMessage("Ok! I've marked this task as not done:");
@@ -36,7 +36,17 @@ public class Task {
         newMessage.printMessageBubble();
     }
 
-    public String printTaskWithStatus() {
-        return getStatusIcon() + " " + description;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getClassIndicator() {
+        if (Task.class.equals(this.getClass())) {
+            return "";
+        } else if (ToDos.class.equals(this.getClass())) {
+            return "[T]";
+        } else {
+            return "";
+        }
     }
 }

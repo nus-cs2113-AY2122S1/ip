@@ -1,4 +1,4 @@
-public class PrintFormats {
+public class MessageBubble {
     static final String DIVIDER_SYMBOL = "_";
     static final int DIVIDER_SYMBOL_COUNT = 60;
     static int MAX_MESSAGES = 100;
@@ -6,17 +6,17 @@ public class PrintFormats {
     private String[] messages;
     private int messagesCount;
 
-    public PrintFormats() {
+    public MessageBubble() {
         messages = new String[MAX_MESSAGES];
         messagesCount = 0;
     }
 
-    public PrintFormats(String msg) {
+    public MessageBubble(String msg) {
         this();
         addMessage(msg);
     }
 
-    public PrintFormats(String[] msgs) {
+    public MessageBubble(String[] msgs) {
         this();
         for (String msg : msgs) {
             addMessage(msg);
