@@ -9,7 +9,7 @@ public class Duke {
     private static String[] letter = new String[100];
     private static int i = 0;
 
-    public static void addTask(Task t, int type){
+    public static void addTask(Task t, int type) {
         tasks[i] = t;
         i++;
         if (type == 1) letter[i] = "D";
@@ -17,7 +17,7 @@ public class Duke {
         else if (type == 3) letter[i] = "T";
     }
 
-    public static void printTask(Task[] args){
+    public static void printTask(Task[] args) {
         for (int j=0; j<i; j++) System.out.println(j+1 + ". "
                 + "[" + letter[j+1] + "] "
                 + "[" + args[j].getStatusIcon() + "] " +
