@@ -1,6 +1,6 @@
 Hello from
- ____        _
-|  _ \ _   _| | _____
+ ____        _        
+|  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
@@ -10,7 +10,7 @@ Hello! I'm Duke
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-Valid Commands:
+Valid Commands: 
 todo (description of task)
 event (description of event) /at (time of event)
 deadline (description of task) /by (deadline of task)
@@ -18,7 +18,7 @@ list
 bye
 ____________________________________________________________
 ____________________________________________________________
-Understood,
+Understood, 
 [T][ ] some task
 has been added. You now have 1 task(s) in the list
 ____________________________________________________________
@@ -26,12 +26,12 @@ ____________________________________________________________
 1.[T][ ] some task
 ____________________________________________________________
 ____________________________________________________________
-Understood,
+Understood, 
 [E][ ] something (at: 8pm)
 has been added. You now have 2 task(s) in the list
 ____________________________________________________________
 ____________________________________________________________
-Understood,
+Understood, 
 [D][ ] something (by: 7pm)
 has been added. You now have 3 task(s) in the list
 ____________________________________________________________
@@ -57,7 +57,7 @@ ____________________________________________________________
 3.[D][X] something (by: 7pm)
 ____________________________________________________________
 ____________________________________________________________
-Valid Commands:
+Valid Commands: 
 todo (description of task)
 event (description of event) /at (time of event)
 deadline (description of task) /by (deadline of task)
