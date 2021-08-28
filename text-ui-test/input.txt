@@ -1,0 +1,9 @@
+todo prepare for classes
+deadline do assignment /by Sunday 6pm
+event attend lecture /at Friday evening
+done 1
+list
+deadline submit iP /by August 30th
+done 3
+list
+bye
