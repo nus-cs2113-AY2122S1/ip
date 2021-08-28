@@ -39,6 +39,7 @@ public class Duke {
                             "[" + tasks[i].getStatusIcon() + "] " +
                             tasks[i].getDescription());
                 }
+                System.out.println("\t____________________________________________________________");
             } else if (userInput.startsWith("done")) {
                 String taskNumberStr = userInput.substring(5);
                 int taskNumber = Integer.parseInt(taskNumberStr);
@@ -50,13 +51,28 @@ public class Duke {
                 System.out.println("\tNice! I've marked this task as done:");
                 System.out.println("\t  [X] " + (tasks[taskNumber - 1]).getDescription());
 
-            } else {
+            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+
                 //instantiate new Task, store in array
-                tasks[tasksIndex] = new Task(userInput);
+                if (userInput.startsWith("todo")) {
+                    tasks[tasksIndex] = new Todo(userInput);
+                } else if (userInput.startsWith("deadline")) {
+                    tasks[tasksIndex] = new Deadline(userInput);
+                } else {
+                    tasks[tasksIndex] = new Event(userInput);
+                }
                 tasksIndex++;
                 System.out.println("\tadded: " + userInput);
+
+                System.out.println("\t____________________________________________________________");
             }
-            System.out.println("\t____________________________________________________________");
+
+            //catch all for invalid inputs
+            else {
+                userInput = in.nextLine().trim();
+                continue;
+            }
+
             userInput = in.nextLine().trim();
         }
 
