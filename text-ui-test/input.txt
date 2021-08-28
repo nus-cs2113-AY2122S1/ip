@@ -4,8 +4,19 @@ deadline journal /by Saturday
 deadline walk/by Saturday 4pm
 list
 event team meeting /at Sunday 2-4pm
+to do hike
+help
+to do cook
+event live performance /at Monday 3pm
 list
 done 12
 done 1n2
+list
+done 1 2
+done 3,4,5
+list
+done 5 and 6
+done 9
+done 10
 list
 bye

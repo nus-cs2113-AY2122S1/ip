@@ -12,7 +12,7 @@ What can I do for you?
 
 Use the following commands!
 To add a task without deadline: to do [taskName]
-To add a task with a deadline: deadline [deadlineName] /by [deadline] 
+To add a task with a deadline: deadline [deadlineName] /by [deadline]
 To add an event: event [eventName] /at [eventTime]
 To mark a task as done: done [taskNumber]
 To view your current task list, simply type: show list
@@ -36,10 +36,30 @@ I can do that! I have added [walk] to your task list!
 I can do that! I have added [team meeting] to your task list!
 ------------------------------------------------------
 ------------------------------------------------------
+I can do that! I have added [hike] to your task list!
+------------------------------------------------------
+Use the following commands!
+To add a task without deadline: to do [taskName]
+To add a task with a deadline: deadline [deadlineName] /by [deadline]
+To add an event: event [eventName] /at [eventTime]
+To mark a task as done: done [taskNumber]
+To view your current task list, simply type: show list
+To end your chat with me, simply type: bye
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [cook] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [live performance] to your task list!
+------------------------------------------------------
+------------------------------------------------------
 1.[T][ ] run
 2.[D][ ] journal (by:saturday)
 3.[D][ ] walk (by:saturday 4pm)
 4.[E][ ] team meeting (at:sunday 2-4pm)
+5.[T][ ] hike
+6.[T][ ] cook
+7.[E][ ] live performance (at:monday 3pm)
 ------------------------------------------------------
 Invalid task number
 Nice! I've marked this task as done:
@@ -51,6 +71,43 @@ Nice! I've marked this task as done:
 2.[D][X] journal (by:saturday)
 3.[D][ ] walk (by:saturday 4pm)
 4.[E][ ] team meeting (at:sunday 2-4pm)
+5.[T][ ] hike
+6.[T][ ] cook
+7.[E][ ] live performance (at:monday 3pm)
+------------------------------------------------------
+Nice! I've marked this task as done:
+1.[T][X] run
+Nice! I've marked this task as done:
+2.[D][X] journal (by:saturday)
+Nice! I've marked this task as done:
+3.[D][X] walk (by:saturday 4pm)
+Nice! I've marked this task as done:
+4.[E][X] team meeting (at:sunday 2-4pm)
+Nice! I've marked this task as done:
+5.[T][X] hike
+------------------------------------------------------
+1.[T][X] run
+2.[D][X] journal (by:saturday)
+3.[D][X] walk (by:saturday 4pm)
+4.[E][X] team meeting (at:sunday 2-4pm)
+5.[T][X] hike
+6.[T][ ] cook
+7.[E][ ] live performance (at:monday 3pm)
+------------------------------------------------------
+Nice! I've marked this task as done:
+5.[T][X] hike
+Nice! I've marked this task as done:
+6.[T][X] cook
+Invalid task number
+Invalid task number
+------------------------------------------------------
+1.[T][X] run
+2.[D][X] journal (by:saturday)
+3.[D][X] walk (by:saturday 4pm)
+4.[E][X] team meeting (at:sunday 2-4pm)
+5.[T][X] hike
+6.[T][X] cook
+7.[E][ ] live performance (at:monday 3pm)
 ------------------------------------------------------
 Bye! Hope to see you again soon!
 ------------------------------------------------------

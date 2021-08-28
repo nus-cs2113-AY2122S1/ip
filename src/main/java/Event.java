@@ -15,4 +15,14 @@ public class Event extends Task{
     public String getDeadline(){
         return (deadline);
     }
+
+    @Override
+    public void printMarkAsDoneMessage(int taskNumber){
+        System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + getDeadline() + ")");
+    }
+
+    @Override
+    public void printTaskList(int listIndex){
+        System.out.println(listIndex + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + getDeadline() + ")");
+    }
 }
