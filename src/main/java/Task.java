@@ -15,11 +15,11 @@ public class Task {
         MessageBubble msg = new MessageBubble();
         if (!isDone) {
             isDone = true;
-            msg.addMessage("Nice! I've marked this task as done:");
+            msg.addMessage("Nice! I've marked this " + this.getClass().getName() + " as done:");
         } else {
-            msg.addMessage("Warning! The task is already done:");
+            msg.addMessage("Warning! The " + this.getClass().getName() + " is already done:");
         }
-        msg.addMessage("[X] " + description);
+        msg.addMessage(" " + this.getClassIndicator() + "[X] " + description);
         msg.printMessageBubble();
     }
 
@@ -27,12 +27,12 @@ public class Task {
         MessageBubble newMessage = new MessageBubble();
         if (isDone) {
             isDone = false;
-            newMessage.addMessage("Ok! I've marked this task as not done:");
+            newMessage.addMessage("Ok! I've marked this " + this.getClass().getName() + " as not done:");
         } else {
-            newMessage.addMessage("Warning! The task is not done yet:");
+            newMessage.addMessage("Warning! The " + this.getClass().getName() + " is not done yet:");
         }
 
-        newMessage.addMessage("[ ] " + description);
+        newMessage.addMessage(" " + this.getClassIndicator() + "[ ] " + description);
         newMessage.printMessageBubble();
     }
 
@@ -43,10 +43,8 @@ public class Task {
     public String getClassIndicator() {
         if (Task.class.equals(this.getClass())) {
             return "";
-        } else if (ToDos.class.equals(this.getClass())) {
-            return "[T]";
         } else {
-            return "";
+            return "[" + this.getClass().getName().substring(0, 1) + "]";
         }
     }
 }
