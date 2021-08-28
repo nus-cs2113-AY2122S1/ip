@@ -94,7 +94,7 @@ public class Duke {
                 }
             }
         }
-
+        sc.close();
         printFarewell();
     }
 }
