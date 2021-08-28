@@ -57,9 +57,8 @@ public class Duke {
      *
      * @return the String containing the user input.
      */
-    public static String getUserInput() {
+    public static String getUserInput(Scanner in) {
         String line;
-        Scanner in = new Scanner(System.in);
         line = in.nextLine();
         return line;
     }
@@ -70,9 +69,10 @@ public class Duke {
     public static void interactWithUser() {
         boolean isInteracting = true;
         TaskManager taskManager = new TaskManager();
+        Scanner in = new Scanner(System.in);
 
         while (isInteracting) {
-            String userInput = getUserInput().strip();
+            String userInput = getUserInput(in).strip();
             String[] words = userInput.split(" ");
 
             if (userInput.equals("bye")) {
