@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void dukeInitialize() {
+    public static void showWelcomeMessage() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
 
-    public static void printList( Task[] list, int size) {
+    public static void printList(Task[] list, int size) {
         int position = 1;
         System.out.println("    Here are the tasks in your list:");
         for( int i = 0 ; i < size ; i ++ ) {
@@ -16,7 +16,7 @@ public class Duke {
         }
     }
 
-    public static void markTaskDone( Task[] list , String word ) {
+    public static void markTaskDone(Task[] list , String word) {
         //convert string number to int number
         int position = Integer.parseInt(word);
         //if task does not exist, return
@@ -32,7 +32,7 @@ public class Duke {
         System.out.println("    " + task);
     }
 
-    public static void addTask( Task[] list, Task newTask, int size) {
+    public static void addTask(Task[] list, Task newTask, int size) {
         //add task to list
         list[size] = newTask;
         //print statements
@@ -41,6 +41,39 @@ public class Duke {
         System.out.println("    Now you have " + (size + 1) + " tasks in the list.");
     }
 
+    public static Deadlines createNewDeadline(String[] words) {
+        int deadlineIndex = 0;
+        String by = "";
+        String deadlineDescription = "";
+        for(int i = 1 ; i < words.length ; i ++) {
+            if(words[i].equals("/by")) {
+                deadlineIndex = i + 1;
+                by = words[deadlineIndex];
+                break;
+            }
+            deadlineDescription = deadlineDescription + " " + words[i];
+        }
+        Deadlines newDeadline = new Deadlines( deadlineDescription.substring(1), by);
+        return newDeadline;
+    }
+
+    public static Events createNewEvent(String[] words) {
+        int eventIndex = 0;
+        String timeAllocation = "";
+        String eventDescription = "";
+        for(int i = 1 ; i < words.length ; i ++) {
+            if(words[i].equals("/at")) {
+                eventIndex = i + 1;
+                for( int j = eventIndex ; j < words.length ; j++) {
+                    timeAllocation = timeAllocation + " " + words[j];
+                }
+                break;
+            }
+            eventDescription = eventDescription + " " + words[i];
+        }
+        Events newEvent = new Events( eventDescription.substring(1), timeAllocation.substring(1));
+        return newEvent;
+    }
 
     public static int distinguishCommand( String command , Task[] list, int size) {
         //split into word array
@@ -63,44 +96,18 @@ public class Duke {
             break;
         case "deadline":
             //extract out deadline description and by
-            int deadlineIndex = 0;
-            String by = "";
-            String deadlineDescription = "";
-            for(int i = 1 ; i < words.length ; i ++) {
-                if(words[i].equals("/by")) {
-                    deadlineIndex = i + 1;
-                    by = words[deadlineIndex];
-                    break;
-                }
-                deadlineDescription = deadlineDescription + " " + words[i];
-            }
-            //need to get rid of extra space at from of deadlineDescription
-            Deadlines newDeadline = new Deadlines( deadlineDescription.substring(1), by);
+            Deadlines newDeadline = createNewDeadline(words);
             addTask(list, newDeadline, size);
             taskCount ++;
             break;
         case "event":
             //extract out event description and timeAllocation
-            int eventIndex = 0;
-            String timeAllocation = "";
-            String eventDescription = "";
-            for(int i = 1 ; i < words.length ; i ++) {
-                if(words[i].equals("/at")) {
-                    eventIndex = i + 1;
-                    for( int j = eventIndex ; j < words.length ; j++) {
-                        timeAllocation = timeAllocation + " " + words[j];
-                    }
-                    break;
-                }
-                eventDescription = eventDescription + " " + words[i];
-            }
-
-            Events newEvent = new Events( eventDescription.substring(1), timeAllocation.substring(1));
+            Events newEvent = createNewEvent(words);
             addTask(list, newEvent, size);
             taskCount ++;
             break;
         default:
-                System.out.println("Unknown Command");
+                System.out.println("    Unknown Command");
             break;
         }
 
@@ -113,18 +120,17 @@ public class Duke {
 
         String line;
         Scanner in = new Scanner(System.in);
-        dukeInitialize();
+        showWelcomeMessage();
         line = in.nextLine();
 
         Task[] list = new Task[100];
         int taskCount = 0;
 
-        while ( !line.equals("bye") ) {
-
+        while (!line.equals("bye")) {
             taskCount = distinguishCommand( line, list, taskCount);
-
             line = in.nextLine();
         }
+
         System.out.println("    Bye. Hope to see you again soon!");
     }
 }
