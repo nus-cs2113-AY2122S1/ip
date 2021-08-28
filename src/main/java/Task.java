@@ -23,4 +23,8 @@ public class Task {
     public void markDone() {
         isDone = true;
     }
+
+    public String toString() {
+        return getStatus() + " " + getDescription();
+    }
 }
