@@ -6,8 +6,11 @@ public class Duke {
     private static int additions = 0;
     private static int mode = 0;
 
+    private final static int ECHO_MODE = 1;
+    private final static int TASK_MODE = 2;
+
     /**
-     * Function introduces chatbot and asks user for preferred mode.
+     * Function introduces chatbot and asks user for preferred mode and enters that mode.
      * Mode 1 - Echo; 2 - Task; Otherwise - Returns Error Message and stops program.
      */
     public static void greet() {
@@ -21,11 +24,13 @@ public class Duke {
         Scanner inp = new Scanner(System.in);
         mode = inp.nextInt();
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
-        if (mode == 1) {
+        if (mode == ECHO_MODE) {
             System.out.println("\tECHO MODE - Commands entered will be echoed back.");
+            startEcho();
         }
-        else if (mode == 2) {
+        else if (mode == TASK_MODE) {
             System.out.println("\tTASK MODE - Enter items to include in to-do list.");
+            startTask();
         }
         else {
             System.out.println("\tERROR. PLEASE RUN AGAIN AND SELECT RIGHT MODE.\n");
@@ -66,6 +71,26 @@ public class Duke {
     }
 
     /**
+     * Function switches between Echo and Task modes.
+     *
+     * @param newMode Code for new mode (1 - Echo; 2 - Task)
+     */
+    public static void switchMode(int newMode) {
+        mode = newMode;
+        System.out.println("\t" + HOR_LINE);
+        if (newMode == ECHO_MODE) {
+            System.out.println("\tECHO MODE ENTERED.");
+            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            startEcho();
+        }
+        else {
+            System.out.println("\tTASK MODE ENTERED.");
+            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            startTask();
+        }
+    }
+
+    /**
      * Executes Echo mode, where commands of user are echoed back.
      * When "change" is typed in by user, switches program to Task mode.
      */
@@ -84,11 +109,7 @@ public class Duke {
 
             // Switch to Task mode if user types in "change"
             if (cmdLowerC.equals("change")) {
-                System.out.println("\t" + HOR_LINE);
-                mode = 2;
-                System.out.println("TASK MODE ENTERED.");
-                System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                startTask();
+                switchMode(TASK_MODE);
                 return;
             }
 
@@ -109,6 +130,26 @@ public class Duke {
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
 
+    /**
+     * Prints acknowledgement message that item has been added to list
+     * and also mentions the total no. of tasks in list currently.
+     *
+     * @param currTask Task object that was just created after user input.
+     */
+    private static void printAddedResponse(Task currTask) {
+        System.out.println("\t" + HOR_LINE);
+        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\t" + currTask.getTypeIcon() + currTask.getStatusIcon() + currTask.description);
+        System.out.println("\tNow there are " + (additions + 1) + " tasks in the list.");
+        System.out.println("\t" + HOR_LINE + System.lineSeparator());
+    }
+
+    /**
+     * Depending on the starting keyword present in user input, creates respective
+     * Task subclass object and stores it inside the storedTasks array.
+     *
+     * @param userInput String command input by user.
+     */
     public static void createTask(String userInput) {
         if (userInput.startsWith("event ")) {
             storedTasks[additions] = new Event(userInput);
@@ -120,14 +161,7 @@ public class Duke {
             storedTasks[additions] = new Todo(userInput);
         }
 
-        Task currTask = storedTasks[additions];
-
-        System.out.println("\t" + HOR_LINE);
-        System.out.println("\tGot it. I've added this task: ");
-        System.out.println("\t" + currTask.getTypeIcon() + currTask.getStatusIcon() + currTask.description);
-        System.out.println("\tNow there are " + (additions + 1) + " tasks in the list.");
-        System.out.println("\t" + HOR_LINE + System.lineSeparator());
-
+        printAddedResponse(storedTasks[additions]);
         additions++;
     }
 
@@ -144,31 +178,10 @@ public class Duke {
         String textLowerC = toAdd.toLowerCase();
 
         while (!textLowerC.equals("bye") & !textLowerC.equals("list") & !textLowerC.equals("change")) {
-            if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
-                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-                storedTasks[taskNo].setDone();
-                // Print response when task marked done.
-                System.out.println("\t" + HOR_LINE);
-                System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
-                System.out.println("\t" + HOR_LINE + System.lineSeparator());
-            }
-            else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
-                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-                System.out.println("\t" + HOR_LINE);
-                System.out.printf("\t%s removed from list!\n", storedTasks[taskNo].description);
-                System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                System.arraycopy(storedTasks,taskNo + 1, storedTasks, taskNo, additions - taskNo);
-                additions--;
-                printList();
-            }
-            else {
-                createTask(toAdd);
-            }
-
+            defaultTaskModeBehavior(toAdd, textLowerC);
             toAdd = in.nextLine();
             textLowerC = toAdd.toLowerCase();
         }
-
 
         if (textLowerC.equals("list")) {
             printList();
@@ -177,11 +190,40 @@ public class Duke {
 
         // Switch to Echo mode if user types in "change"
         if (textLowerC.equals("change")) {
+            switchMode(ECHO_MODE);
+        }
+    }
+
+    /**
+     * Checks different scenarios for input commands of user in Task mode and
+     * does the necessary action.
+     *
+     * @param toAdd String input by user.
+     * @param textLowerC String input by user converted to lower cases for checking.
+     */
+    private static void defaultTaskModeBehavior(String toAdd, String textLowerC) {
+        // Mark task as complete with an X.
+        if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
+            int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
+            storedTasks[taskNo].setDone();
+            // Print response when task marked done.
             System.out.println("\t" + HOR_LINE);
-            mode = 1;
-            System.out.println("ECHO MODE ENTERED.");
+            System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
-            startEcho();
+        }
+        // Remove task from list.
+        else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
+            int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
+            System.out.println("\t" + HOR_LINE);
+            System.out.printf("\t%s removed from list!\n", storedTasks[taskNo].description);
+            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            System.arraycopy(storedTasks,taskNo + 1, storedTasks, taskNo, additions - taskNo);
+            additions--;
+            printList();
+        }
+        // Create a new task if it does not exist in list
+        else {
+            createTask(toAdd);
         }
     }
 
@@ -195,6 +237,7 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         String exit_pref = input.nextLine();
 
+        // User wishes to leave program.
         if (exit_pref.equals("y")) {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tBye. Hope to see you again soon!");
@@ -204,10 +247,10 @@ public class Duke {
             System.out.println("\n\tOk that's great! Continue keying in commands. :)");
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
             // Return back to previous mode since user is not exiting.
-            if (mode == 1) {
+            if (mode == ECHO_MODE) {
                 startEcho();
             }
-            else if (mode == 2) {
+            else if (mode == TASK_MODE) {
                 startTask();
             }
             exit();
@@ -218,13 +261,6 @@ public class Duke {
         // Actions
         printLogo();
         greet();
-        if (mode == 1) {
-            startEcho();
-        }
-        else if (mode == 2) {
-            startTask();
-        }
-
         if (mode != 0) {
             exit();
         }

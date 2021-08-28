@@ -3,6 +3,7 @@ public class Task {
     public String description;
     /** True means task complete, otherwise if false. */
     public boolean isDone;
+    /** Type of task (eg. todo, Deadline, event) stored as string */
     public String type;
 
     /**
@@ -23,6 +24,14 @@ public class Task {
         this.isDone = true;
     }
 
+    /**
+     * Gets task type to return with:
+     * T - Todo task
+     * D - Deadline task
+     * E - Event task
+     *
+     * @return Task type represented by a String.
+     */
     public String getTypeIcon() {
         String typeIcon;
 

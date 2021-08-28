@@ -1,0 +1,17 @@
+1
+hello world
+all is well
+change
+todo go for run
+todo swim
+list
+done 1
+remove 2
+deadline project /by 12 Sep
+event meeting /at 6pm
+list
+completed 2
+list
+remove 1
+bye
+y
