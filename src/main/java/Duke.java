@@ -3,12 +3,16 @@ import java.util.Scanner;
 public class Duke {
 
     //TODO Abstract repeated functions
-    //println with tab
-    //println ________
     //printing a task properly (override toString method in class)
     //constants / enums
 
+    public static void printlnTab(String str) {
+        System.out.println("\t" + str);
+    }
 
+    public static void printDivider() {
+        System.out.println("\t____________________________________________________________");
+    }
 
     public static void welcomeMessage() {
         String logo = "\t ____        _        \n"
@@ -17,10 +21,10 @@ public class Duke {
                 + "\t| |_| | |_| |   <  __/\n"
                 + "\t|____/ \\__,_|_|\\_\\___|\n";
 
-        System.out.println("\t____________________________________________________________");
+        printDivider();
         System.out.println(logo);
-        System.out.println("\tHello! I'm Duke\n\tWhat can I do for you?");
-        System.out.println("\t____________________________________________________________\n");
+        printlnTab("Hello! I'm Duke\n\tWhat can I do for you?");
+        printDivider();
     }
         
 
@@ -38,16 +42,16 @@ public class Duke {
         //check userInput with certain command keywords
 
         while (!userInput.equals("bye")) {
-            System.out.println("\t____________________________________________________________");
+            printDivider();
 
             if (userInput.equals("list")) {
-                System.out.println("\tHere are the tasks in your list:");
+                printlnTab("Here are the tasks in your list:");
                 
                 //listing out tasks if userInput == "list"
                 for (int i = 0; i < tasksIndex; i++) {
                     System.out.println("\t" + tasks[i]);
                 }
-                System.out.println("\t____________________________________________________________");
+                printDivider();
             } else if (userInput.startsWith("done")) {
                 String taskNumberStr = userInput.substring(5);
                 int taskNumber = Integer.parseInt(taskNumberStr);
@@ -56,8 +60,8 @@ public class Duke {
                 //but array starts with 0
                 (tasks[taskNumber - 1]).markAsDone();
 
-                System.out.println("\tNice! I've marked this task as done:");
-                System.out.println("\t  [X] " + (tasks[taskNumber - 1]).getDescription());
+                printlnTab("Nice! I've marked this task as done:");
+                printlnTab("  [X] " + (tasks[taskNumber - 1]).getDescription());
 
             } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
 
@@ -90,10 +94,10 @@ public class Duke {
                     continue;
                 }
 
-                System.out.println("\tGot it. I've added this task:");
-                System.out.println("\t" +  tasks[tasksIndex].description);
+                printlnTab("Got it. I've added this task:");
+                printlnTab("" +  tasks[tasksIndex].description);
 
-                System.out.println("\t____________________________________________________________"); 
+                printDivider();
                 tasksIndex++;
             } 
             
@@ -102,8 +106,8 @@ public class Duke {
             continue;
 
         }
-        System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println("\t____________________________________________________________");
+        printlnTab("Bye. Hope to see you again soon!");
+        printDivider();
     }
 
 }
