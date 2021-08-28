@@ -21,10 +21,13 @@ public class Duke {
     /**
      * Prints a horizontal line in the terminal.
      */
-    public static void printLine() {
+    private static void printLine() {
         System.out.println("  ──────────────────────────────");
     }
 
+    /**
+     * Prints the application start message in the terminal.
+     */
     public static void printStartMessage() {
         printLine();
         System.out.println("  Hello! I'm Duke\n  How may I assist you");
@@ -37,6 +40,15 @@ public class Duke {
     public static void printExitMessage() {
         printLine();
         System.out.println("  Goodbye! Hope to see you soon!");
+        printLine();
+    }
+
+    /**
+     * Prints the invalid command message in the terminal.
+     */
+    public static void printInvalidCommandMessage() {
+        printLine();
+        System.out.println("  Error: Invalid command");
         printLine();
     }
 
@@ -57,42 +69,32 @@ public class Duke {
      */
     public static void interactWithUser() {
         boolean isInteracting = true;
-        Task[] tasks = new Task[100];
-        int tasksCount = 0;
+        TaskManager taskManager = new TaskManager();
 
         while (isInteracting) {
             String userInput = getUserInput().strip();
             String[] words = userInput.split(" ");
 
-            switch (words[0]) {
-            case "bye":
+            if (userInput.equals("bye")) {
                 printExitMessage();
                 isInteracting = false;
-                break;
-            case "list":
-                printLine();
-                System.out.println("  Here are your tasks:");
-                for (int i = 0; i < tasksCount; i++) {
-                    System.out.print("    " + (i + 1) + ".");
-                    System.out.println(tasks[i].toString());
-                }
-                printLine();
-                break;
-            case "done":
+            } else if (userInput.equals("list")) {
+                taskManager.printTasks();
+            } else if (userInput.startsWith("done")) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                tasks[taskIndex].setCompleted();
-                printLine();
-                System.out.print("  Ok! I've marked this task as done:\n    ");
-                System.out.println(tasks[taskIndex].toString());
-                printLine();
-                break;
-            default:
-                printLine();
-                System.out.println("  added: " + userInput);
-                printLine();
-                tasks[tasksCount] = new Task(userInput);
-                tasksCount++;
-                break;
+                taskManager.completeTask(taskIndex);
+            }
+            else if (userInput.startsWith("todo")) {
+                taskManager.addTask(userInput, TaskType.TODO);
+            }
+            else if (userInput.startsWith("deadline")) {
+                taskManager.addTask(userInput, TaskType.DEADLINE);
+            }
+            else if (userInput.startsWith("event")) {
+                taskManager.addTask(userInput, TaskType.EVENT);
+            }
+            else {
+                printInvalidCommandMessage();
             }
         }
     }
