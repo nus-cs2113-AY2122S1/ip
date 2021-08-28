@@ -1,4 +1,4 @@
-public class TaskController {
+public class TaskManager {
     private static Task[] tasks = new Task[100];
     private static int tasksCount = 0;
 
@@ -70,7 +70,7 @@ public class TaskController {
             System.out.println("     NOTICE: Invalid task selected.");
         } else {
             tasks[itemNumber - 1].markTaskAsDone();
-            System.out.println("     NOTICE: This task is marked as done... \n"
+            System.out.println("     NOTICE: This task is marked as done...\n"
                     + "       [X] "
                     + tasks[itemNumber - 1].getDescription());
         }
