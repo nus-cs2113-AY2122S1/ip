@@ -33,7 +33,7 @@ public class TaskManager {
     public void addTodoTask(String description) {
         tasks[numTask] = new Todo(description);
         System.out.println("_________________________________________\n" +
-                "The task has been added: \n");
+                "The task has been added: ");
         System.out.println(tasks[numTask]);
         System.out.println("_________________________________________\n");
         numTask++;
@@ -45,7 +45,7 @@ public class TaskManager {
         String deadline = separator[1].trim();
         tasks[numTask] = new Deadline(description, deadline);
         System.out.println("_________________________________________\n" +
-                "The task has been added: \n");
+                "The task has been added: ");
         System.out.println(tasks[numTask]);
         System.out.println("_________________________________________\n");
         numTask++;
@@ -56,7 +56,7 @@ public class TaskManager {
         String timing = separator[1].trim();
         tasks[numTask] = new Event(description, timing);
         System.out.println("_________________________________________\n" +
-                "The task has been added: \n");
+                "The task has been added: ");
         System.out.println(tasks[numTask]);
         System.out.println("_________________________________________\n");
         numTask++;
@@ -66,7 +66,10 @@ public class TaskManager {
         if (numTask == 0) {
             System.out.println("No Tasks");
         } else {
+            System.out.println("_________________________________________");
+            System.out.println("Task List:\n");
             for (int i = 0; i < numTask; i++) {
+                System.out.print((i+1) + ". ");
                 System.out.println(tasks[i]);
             }
         }

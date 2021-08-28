@@ -1,0 +1,10 @@
+hello
+todo test 1
+deadline test 2 /by 2pm
+event test 3 /at 5pm
+list
+done 1
+done 3
+todo report
+list
+bye
