@@ -1,0 +1,9 @@
+deadline submit report /by Tuesday 23:59
+list
+done 1
+list
+todo buy groceries
+event lunch /at Thursday noon
+list
+done 3
+bye
