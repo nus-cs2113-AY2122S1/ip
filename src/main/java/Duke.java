@@ -62,11 +62,9 @@ public class Duke {
                 if (!Objects.equals(line, "bye")) System.out.println("added: "+ line);
             }
             else {
-                System.out.println("Sorry please rephrase");
+                if (!Objects.equals(line, "bye")) System.out.println("Sorry please rephrase");
             }
         }
-
         System.out.println("Bye. Hope to see you again soon!\n");
-
     }
 }
