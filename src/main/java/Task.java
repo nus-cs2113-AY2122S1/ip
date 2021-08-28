@@ -11,11 +11,6 @@ public class Task {
         this.isDone = true;
     }
 
-    public String displayTask() {
-        String doneIcon = isDone ? "X" : " ";
-        return ("[" + doneIcon + "]" + description);
-    }
-
     @Override
     public String toString() {
         String doneIcon = isDone ? "X" : " ";

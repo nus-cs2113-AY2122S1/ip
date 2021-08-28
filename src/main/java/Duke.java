@@ -2,17 +2,15 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        boolean isExit = false;
         TaskManager taskManager = new TaskManager();
         taskManager.greet();
         Scanner line = new Scanner(System.in);
-        do {
+        while(true) {
             String[] input = line.nextLine().split(" ", 2);
             switch (input[0]) {
             case "bye":
                 taskManager.exitMessage();
-                isExit = true;
-                break;
+                System.exit(0);
             case "list":
                 taskManager.listTasks();
                 break;
@@ -29,11 +27,9 @@ public class Duke {
                 taskManager.addEventTask(input[1]);
                 break;
             default:
-                System.out.println("_________________________________________\n"
-                        + "I'm sorry I didn't understand.\n"
-                        + "_________________________________________\n");
+                taskManager.handleUnknownCommand();
                 break;
             }
-        } while (!isExit);
+        }
     }
 }
