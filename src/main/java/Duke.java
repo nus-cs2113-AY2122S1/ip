@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-
     private static Task[] tasks = new Task[100];
     private static String[] letter = new String[100];
     private static int i = 0;
