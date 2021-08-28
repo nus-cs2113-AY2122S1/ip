@@ -4,12 +4,12 @@ public class UserInterface {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     private static final String LOGO = "\n" +
-            "██████╗░░█████╗░████████╗███╗░░░███╗░█████╗░███╗░░██╗\n" +
-            "██╔══██╗██╔══██╗╚══██╔══╝████╗░████║██╔══██╗████╗░██║\n" +
-            "██████╦╝███████║░░░██║░░░██╔████╔██║███████║██╔██╗██║\n" +
-            "██╔══██╗██╔══██║░░░██║░░░██║╚██╔╝██║██╔══██║██║╚████║\n" +
-            "██████╦╝██║░░██║░░░██║░░░██║░╚═╝░██║██║░░██║██║░╚███║\n" +
-            "╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝";
+            "______  ___ ________  ___ ___  _   _ \n" +
+            "| ___ \\/ _ |_   _|  \\/  |/ _ \\| \\ | |\n" +
+            "| |_/ / /_\\ \\| | | .  . / /_\\ |  \\| |\n" +
+            "| ___ |  _  || | | |\\/| |  _  | . ` |\n" +
+            "| |_/ | | | || | | |  | | | | | |\\  |\n" +
+            "\\____/\\_| |_/\\_/ \\_|  |_\\_| |_\\_| \\_/";
 
     private static final int FIRST_WORD = 0;
     private static final int SECOND_WORD = 1;
@@ -25,8 +25,10 @@ public class UserInterface {
         printLine();
     }
 
+    private static final Scanner sc = new Scanner(System.in);
+    
     public static Command interpretUserInput() {
-        Scanner sc = new Scanner(System.in);
+        
         String line = sc.nextLine();
 
         if (line.equals("bye")) {
