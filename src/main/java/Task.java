@@ -28,13 +28,13 @@ public class Task {
 
         switch(type) {
         case "todo":
-            typeIcon = "[T] ";
+            typeIcon = "[T]";
             break;
         case "deadline":
-            typeIcon = "[D] ";
+            typeIcon = "[D]";
             break;
         case "event":
-            typeIcon = "[E] ";
+            typeIcon = "[E]";
             break;
         default:
             typeIcon = "";

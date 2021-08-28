@@ -103,9 +103,32 @@ public class Duke {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tCURRENT ADDED LIST");
             for (int i = 0; i < additions; i++) {
-                System.out.println("\t" + storedTasks[i].getTypeIcon() + storedTasks[i].getStatusIcon() + storedTasks[i].description);
+                System.out.println("\t" + (i + 1) + ". " + storedTasks[i].getTypeIcon() +
+                        storedTasks[i].getStatusIcon() + storedTasks[i].description);
             }
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
+    }
+
+    public static void createTask(String userInput) {
+        if (userInput.startsWith("event ")) {
+            storedTasks[additions] = new Event(userInput);
+        }
+        else if (userInput.startsWith("deadline")) {
+            storedTasks[additions] = new Deadline(userInput);
+        }
+        else if (userInput.startsWith("todo ")) {
+            storedTasks[additions] = new Todo(userInput);
+        }
+
+        Task currTask = storedTasks[additions];
+
+        System.out.println("\t" + HOR_LINE);
+        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\t" + currTask.getTypeIcon() + currTask.getStatusIcon() + currTask.description);
+        System.out.println("\tNow there are " + (additions + 1) + " tasks in the list.");
+        System.out.println("\t" + HOR_LINE + System.lineSeparator());
+
+        additions++;
     }
 
     /**
@@ -139,11 +162,7 @@ public class Duke {
                 printList();
             }
             else {
-                storedTasks[additions] = new Task(toAdd, "");
-                System.out.println("\t" + HOR_LINE);
-                System.out.println("\tAdded: " + toAdd);
-                System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                additions++;
+                createTask(toAdd);
             }
 
             toAdd = in.nextLine();
