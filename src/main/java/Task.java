@@ -1,8 +1,6 @@
 public class Task {
 
-    /** Description of task */
     private final String description;
-    /** Completion status of task */
     private boolean isDone;
 
     /**

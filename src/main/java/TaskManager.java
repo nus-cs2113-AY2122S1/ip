@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    /** List of tasks to manage */
+    // List of tasks to manage
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
