@@ -63,6 +63,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Marks task in array as done and prints echo message depending on validity of task no.
+     */
     public static void markTaskAsDone(String input) {
         // Extracting task number as an integer from input
         int taskNumber = Integer.parseInt(input.trim(), 10);
@@ -114,23 +117,11 @@ public class Duke {
             break;
         case ADD_EVENT:
             String eventInput[] = restOfInput.split("/at", 2);
-            if (eventInput.length > 1) {
-                // result[0] equals description, result[1] equals "at"
-                addEvent(eventInput[0].trim(), eventInput[1].trim()); 
-            } else {
-                // adds the description, no user input for "at"
-                addEvent(eventInput[0].trim(), "");
-            }
+            checkInputThenAddEvent(eventInput);
             break;
         case ADD_DEADLINE:
             String deadlineInput[] = restOfInput.split("/by", 2);
-            if (deadlineInput.length > 1) {
-                // result[0] equals description, result[1] equals "by"
-                addDeadline(deadlineInput[0].trim(), deadlineInput[1].trim());
-            } else {
-                // adds the description, no user input for "by"
-                addDeadline(deadlineInput[0].trim(), "");
-            }
+            checkInputThenAddDeadline(deadlineInput);
             break;
         case DONE_TASK:
             markTaskAsDone(restOfInput);
@@ -139,6 +130,26 @@ public class Duke {
         default:
             printMessageForInvalidInput();
             break;
+        }
+    }
+    
+    private static void checkInputThenAddEvent(String[] eventInput) {
+        if (eventInput.length > 1) {
+            // eventInput[0] equals description, eventInput[1] equals "at"
+            addEvent(eventInput[0].trim(), eventInput[1].trim());
+        } else {
+            // adds the description, no user input for "at"
+            addEvent(eventInput[0].trim(), "");
+        }
+    }
+
+    private static void checkInputThenAddDeadline(String[] deadlineInput) {
+        if (deadlineInput.length > 1) {
+            // deadlineInput[0] equals description, deadlineInput[1] equals "by"
+            addDeadline(deadlineInput[0].trim(), deadlineInput[1].trim());
+        } else {
+            // adds the description, no user input for "by"
+            addDeadline(deadlineInput[0].trim(), "");
         }
     }
 
