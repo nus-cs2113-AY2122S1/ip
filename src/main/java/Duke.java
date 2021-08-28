@@ -1,15 +1,15 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final int DEFAULT_LINE_LENGTH = 40;
+    private static final int DEFAULT_LINE_LENGTH = 60;
     private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static TaskManager taskManager = new TaskManager();
+
 
     public static void greet() {
         drawHorizontalLine();
@@ -25,10 +25,8 @@ public class Duke {
     }
 
     public static void addTask(String input) {
-        tasks[taskCount] = new Task(input);
-        taskCount++;
         drawHorizontalLine();
-        System.out.printf("I have added \"%s\" into your to-do list. %n", input);
+        taskManager.addTask(input);
         drawHorizontalLine();
     }
 
@@ -47,45 +45,39 @@ public class Duke {
 
     public static void displayTask() {
         drawHorizontalLine();
-        String status;
-        if (taskCount == 0) {
-            System.out.println("No task added yet!");
-        } else {
-            System.out.println("Here is your list at the moment:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.printf("%d.[%s] %s %n", i + 1, tasks[i].getStatusIcon(), tasks[i].getDescription());
-            }
-        }
+        taskManager.displayTaskList();
         drawHorizontalLine();
     }
 
     public static void markTaskDone(String command) {
-        int taskNumber = Integer.parseInt(command.split(" ")[1]) - 1;
-        tasks[taskNumber].setDone();
         drawHorizontalLine();
-        System.out.printf("I have marked \"%s\" as done %n", tasks[taskNumber].getDescription());
+        taskManager.markTaskDone(command);
         drawHorizontalLine();
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        Parser parser = new Parser();
+        String input;
         boolean finished = false;
         System.out.println(LOGO);
         greet();
-        String input;
-        String inputNormalized;
         while (!finished) {
             input = readCommand(in);
-            inputNormalized = input.toLowerCase().trim();
-            if (inputNormalized.equals("list")) {
-                displayTask();
-            } else if (inputNormalized.equals("bye")) {
+            switch (parser.translateAction(input)) {
+            case ADD:
+                addTask(input);
+                break;
+            case MARK_DONE:
+                markTaskDone(parser.parseCommand(input));
+                break;
+            case QUIT:
                 finished = true;
                 sayGoodbye();
-            } else if (inputNormalized.split(" ")[0].equals("done")) {
-                markTaskDone(inputNormalized);
-            } else {
-                addTask(input.trim());
+                break;
+            case LIST:
+                displayTask();
+                break;
             }
         }
     }
