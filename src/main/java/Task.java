@@ -26,7 +26,15 @@ public class Task {
         return numberOfTasks;
     }
 
+    public String getTaskType() {
+        return null;
+    }
+
     public void markAsDone() {
         isDone = true;
+    }
+
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

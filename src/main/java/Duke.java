@@ -21,8 +21,7 @@ public class Duke {
     public static void showTaskList(Task[] tasks) {
         addLine();
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println("    " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] "
-                    + tasks[i].getDescription());
+            System.out.println("    " + (i + 1) + "." + tasks[i]);
         }
         addLine();
     }
@@ -33,17 +32,23 @@ public class Duke {
         tasks[taskNumber].markAsDone();
 
         addLine();
-        System.out.println("    The following task is now marked as done:");
-        System.out.println("      [" + tasks[taskNumber].getStatusIcon() + "] "
-                + tasks[taskNumber].getDescription());
+        System.out.println("    The following task is now marked as done:" + System.lineSeparator()
+                + "      " + tasks[taskNumber]);
         addLine();
     }
 
     public static void addTask(Task[] tasks, String userInput) {
-        tasks[Task.getNumberOfTasks()] = new Task(userInput);
+        if (userInput.contains("todo")) {
+            tasks[Task.getNumberOfTasks()] = new Todo(userInput);
+        } else if (userInput.contains("deadline")) {
+            tasks[Task.getNumberOfTasks()] = new Deadline(userInput);
+        } else {//event
+            tasks[Task.getNumberOfTasks()] = new Event(userInput);
+        }
         
         addLine();
-        System.out.println("    Task added: " + userInput);
+        System.out.println("    Task added: " + System.lineSeparator()
+                + "      " + tasks[Task.getNumberOfTasks() - 1]);
         addLine();
     }
 
