@@ -15,4 +15,9 @@ public class Deadline extends Task {
     public String getTaskType() {
         return "D";
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format(" (by: %s)", getAdditionalDescription());
+    }
 }

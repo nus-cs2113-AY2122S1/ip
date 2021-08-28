@@ -1,4 +1,5 @@
 public class TaskManager {
+    private static final String LINEBREAK = System.lineSeparator();
     private Task[] tasks = new Task[100];
     private int taskCount;
 
@@ -12,32 +13,13 @@ public class TaskManager {
         } else {
             System.out.println("Here is your list at the moment:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.printf("%d. ", i + 1);
-                printTask(i);
+                System.out.printf("%d. %s" + LINEBREAK, i + 1, tasks[i].toString());
             }
         }
     }
 
-    public void printTask(int taskNumber) {
-        String additionalInfo;
-        switch (tasks[taskNumber].getTaskType()) {
-        case "E":
-            additionalInfo = "(at: " + tasks[taskNumber].getAdditionalDescription() + ")";
-            break;
-        case "D":
-            additionalInfo = "(by: " + tasks[taskNumber].getAdditionalDescription() + ")";
-            break;
-        default:
-            additionalInfo = "";
-        }
-
-        System.out.printf("[%s][%s] %s %s %n", tasks[taskNumber].getTaskType(),
-                tasks[taskNumber].getStatusIcon(), tasks[taskNumber].getDescription(), additionalInfo);
-    }
-
     public void addTask(String input, Action taskType) {
         String[] parameters = Parser.parseTask(input, taskType);
-        System.out.println("Got it. I've added this task:");
         switch (taskType) {
         case TO_DO:
             tasks[taskCount] = new ToDo(parameters[0]);
@@ -49,15 +31,16 @@ public class TaskManager {
             tasks[taskCount] = new Event(parameters[0], parameters[1]);
             break;
         }
-        printTask(taskCount);
-        System.out.printf("Now you have %d tasks in the list.%n", taskCount + 1);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(tasks[taskCount].toString());
+        System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskCount + 1);
         taskCount++;
     }
 
     public void markTaskDone(String command) {
         int taskNumber = Integer.parseInt(command.split(" ")[1]) - 1;
         tasks[taskNumber].setDone();
-        System.out.printf("I have marked \"%s\" as done %n", tasks[taskNumber].getDescription());
+        System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber].getDescription());
     }
 
     public void setTasks(Task[] tasks) {

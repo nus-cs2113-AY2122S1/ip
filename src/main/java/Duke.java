@@ -2,11 +2,12 @@ import java.util.Scanner;
 
 public class Duke {
     private static final int DEFAULT_LINE_LENGTH = 60;
-    private static final String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String LINEBREAK = System.lineSeparator();
+    private static final String LOGO = " ____        _" + LINEBREAK
+            + "|  _ \\ _   _| | _____" + LINEBREAK
+            + "| | | | | | | |/ / _ \\" + LINEBREAK
+            + "| |_| | |_| |   <  __/" + LINEBREAK
+            + "|____/ \\__,_|_|\\_\\___|" + LINEBREAK;
 
     private static TaskManager taskManager = new TaskManager();
 
@@ -36,7 +37,7 @@ public class Duke {
     }
 
     public static String readCommand(Scanner in) {
-        System.out.print(">> ");
+        System.out.print(">>");
         String input = in.nextLine();
         return input;
     }
@@ -45,7 +46,7 @@ public class Duke {
         for (int i = 0; i < DEFAULT_LINE_LENGTH; i++) {
             System.out.print("\u2500");
         }
-        System.out.println("");
+        System.out.println();
     }
 
     public static void displayTask() {
