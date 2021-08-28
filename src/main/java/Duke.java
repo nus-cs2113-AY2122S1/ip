@@ -2,10 +2,19 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final String DEADLINE_BY_PREFIX = "/by";
+    public static final String EVENT_AT_PREFIX = "/at";
+    public static final String HELP_MESSAGE = "Valid Commands: " + System.lineSeparator()
+            + "todo (description of task)" + System.lineSeparator()
+            + "event (description of event) /at (time of event)" + System.lineSeparator()
+            + "deadline (description of task) /by (deadline of task)" +System.lineSeparator()
+            + "list" + System.lineSeparator()
+            + "bye";
+
     public static void printMessage(String message) {
-        String horizontalLine = "____________________________________________________________";
-        System.out.println(horizontalLine + System.lineSeparator() + message + System.lineSeparator()
-                + horizontalLine);
+        final String HORIZONTAL_LINE = "____________________________________________________________";
+        System.out.println(HORIZONTAL_LINE + System.lineSeparator() + message + System.lineSeparator()
+                + HORIZONTAL_LINE);
     }
 
     //Made this as a separate function so that main function doesn't become too big
@@ -34,8 +43,8 @@ public class Duke {
 
         boolean conversationIsOver = false;
         while (!conversationIsOver) {
+            String inputCommand = in.nextLine().trim();
             //switch to lowercase so that Duke won't be case-sensitive
-            String inputCommand = in.nextLine();
             String command = inputCommand.toLowerCase().split(" ")[0];
             switch (command) {
             case "list":
@@ -47,9 +56,23 @@ public class Duke {
             case "bye":
                 conversationIsOver = true;
                 break;
+            case "deadline":
+                //to remove the word "deadline"
+                String deadlineInput = inputCommand.substring(8).trim();
+                taskManager.addDeadline(deadlineInput);
+                break;
+            case "todo":
+                //to remove the word "todo"
+                String todoInput = inputCommand.substring(4).trim();
+                taskManager.addTodo(todoInput);
+                break;
+            case "event":
+                //to remove the word "event"
+                String eventInput = inputCommand.substring(5).trim();
+                taskManager.addEvent(eventInput);
+                break;
             default:
-                taskManager.addTask(inputCommand.trim());
-                printMessage("added: " + inputCommand.trim());
+                printMessage(HELP_MESSAGE);
                 break;
             }
         }
