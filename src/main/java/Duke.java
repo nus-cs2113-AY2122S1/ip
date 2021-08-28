@@ -69,6 +69,9 @@ public class Duke {
         case "event":
             tasks[Task.getNumberOfTasks()] = new Event(userInput);
             break;
+        default:
+            System.out.println("Invalid Command");
+            break;
         }
         
         System.out.println(BORDER_LINE + System.lineSeparator() 
@@ -100,6 +103,9 @@ public class Duke {
                 break;
             case "bye":
                 hasEnded = true;
+                break;
+            default:
+                System.out.println("Invalid Input");
                 break;
             }
         }
