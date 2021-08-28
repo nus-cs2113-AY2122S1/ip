@@ -39,7 +39,7 @@ public class Duke {
         }
     }
 
-    public static void printTaskDone(Task[] tasks, int taskCount, String doneTask) {
+    public static void markAndPrintTaskDone(Task[] tasks, int taskCount, String doneTask) {
         String[] doneSentence = doneTask.split(" ");
 
         // Checks if a string does not follow the correct format of "done {task ID}".
@@ -65,7 +65,7 @@ public class Duke {
             System.out.println(" Sorry, the task is not in the list! Try again.");
             System.out.println("____________________________________________________________");
         } else {
-            tasks[taskToMarkDone - 1].markDone();
+            tasks[taskToMarkDone - 1].setDone(true);
             System.out.println("____________________________________________________________");
             System.out.println(" Great! I have marked the following task as done: ");
             System.out.println("   [" + tasks[taskToMarkDone - 1].getStatusIcon() + "] " + tasks[taskToMarkDone - 1].description);
@@ -73,7 +73,7 @@ public class Duke {
         }
     }
 
-    public static void printTaskAdded(Task[] tasks, int taskCount, String addedTask) {
+    public static void addAndPrintTask(Task[] tasks, int taskCount, String addedTask) {
         tasks[taskCount] = new Task(addedTask);
         System.out.println("____________________________________________________________");
         System.out.println(" I have added a task: " + addedTask);
@@ -93,10 +93,10 @@ public class Duke {
         while (!line.trim().equalsIgnoreCase("bye")) {
             if (line.trim().equalsIgnoreCase("list")) {
                 printTaskList(Arrays.copyOf(tasks, taskCount));
-            } else if (line.toLowerCase().startsWith("done")) {
-                printTaskDone(tasks, taskCount, line);
+            } else if (line.trim().toLowerCase().startsWith("done")) {
+                markAndPrintTaskDone(tasks, taskCount, line);
             } else {
-                printTaskAdded(tasks, taskCount, line);
+                addAndPrintTask(tasks, taskCount, line);
                 taskCount++;
             }
             line = in.nextLine();
