@@ -132,7 +132,7 @@ public class Duke {
             break;
         }
     }
-    
+
     private static void checkInputThenAddEvent(String[] eventInput) {
         if (eventInput.length > 1) {
             // eventInput[0] equals description, eventInput[1] equals "at"
