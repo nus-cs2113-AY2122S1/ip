@@ -2,78 +2,129 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void printList( Task[] list, int size ) {
-        int no = 1;
+    public static void dukeInitialize() {
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+    }
+
+    public static void printList( Task[] list, int size) {
+        int position = 1;
+        System.out.println("    Here are the tasks in your list:");
         for( int i = 0 ; i < size ; i ++ ) {
-            System.out.print( no + ". ");
-            no ++;
-
-            if( list[i].getDone() ) {
-                System.out.println("[X] " + list[i].getDescription());
-            } else {
-                System.out.println("[ ] " + list[i].getDescription());
-            }
-
+            System.out.println( "    " + position  + "." + list[i]);
+            position ++;
         }
     }
 
-    public static void markTaskDone( Task[] list , String line ) {
-        //get number
-        String[] words = line.split(" ");
-        int no = Integer.parseInt(words[1]);
-        if (no > list.length) {
+    public static void markTaskDone( Task[] list , String word ) {
+        //convert string number to int number
+        int position = Integer.parseInt(word);
+        //if task does not exist, return
+        if (position > list.length) {
+            System.out.println("    Sorry! No such task!");
             return;
         }
-        //mark task as done
-        int index = no - 1;
-        list[ index ].setDone();
+        //if task exist, mark task as done
+        Task task = list[position - 1];
+        task.setDone();
         //print notification
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + list[ index ].getDescription());
-
+        System.out.println("    Nice! I've marked this task as done:");
+        System.out.println("    " + task);
     }
 
-    public static void addTask( Task[] list, String line, int size) {
-        System.out.println("     added: " + line);
+    public static void addTask( Task[] list, Task newTask, int size) {
         //add task to list
-        Task newTask = new Task( line, size );
         list[size] = newTask;
+        //print statements
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + list[size]);
+        System.out.println("    Now you have " + (size + 1) + " tasks in the list.");
     }
+
+
+    public static int distinguishCommand( String command , Task[] list, int size) {
+        //split into word array
+        String[] words = command.split(" ");
+        String firstWord = words[0];
+        int taskCount = size;
+
+        //determine command
+        switch (firstWord) {
+        case "list":
+            printList(list, size);
+            break;
+        case "done":
+            markTaskDone(list, words[1]);
+            break;
+        case "todo":
+            ToDos newToDo = new ToDos(command.substring(5));
+            addTask(list, newToDo, taskCount);
+            taskCount ++;
+            break;
+        case "deadline":
+            //extract out deadline description and by
+            int deadlineIndex = 0;
+            String by = "";
+            String deadlineDescription = "";
+            for(int i = 1 ; i < words.length ; i ++) {
+                if(words[i].equals("/by")) {
+                    deadlineIndex = i + 1;
+                    by = words[deadlineIndex];
+                    break;
+                }
+                deadlineDescription = deadlineDescription + " " + words[i];
+            }
+            //need to get rid of extra space at from of deadlineDescription
+            Deadlines newDeadline = new Deadlines( deadlineDescription.substring(1), by);
+            addTask(list, newDeadline, size);
+            taskCount ++;
+            break;
+        case "event":
+            //extract out event description and timeAllocation
+            int eventIndex = 0;
+            String timeAllocation = "";
+            String eventDescription = "";
+            for(int i = 1 ; i < words.length ; i ++) {
+                if(words[i].equals("/at")) {
+                    eventIndex = i + 1;
+                    for( int j = eventIndex ; j < words.length ; j++) {
+                        timeAllocation = timeAllocation + " " + words[j];
+                    }
+                    break;
+                }
+                eventDescription = eventDescription + " " + words[i];
+            }
+
+            Events newEvent = new Events( eventDescription.substring(1), timeAllocation.substring(1));
+            addTask(list, newEvent, size);
+            taskCount ++;
+            break;
+        default:
+                System.out.println("Unknown Command");
+            break;
+        }
+
+        return taskCount;
+    }
+
 
 
     public static void main(String[] args) {
 
         String line;
         Scanner in = new Scanner(System.in);
-
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        dukeInitialize();
         line = in.nextLine();
 
         Task[] list = new Task[100];
-        int size = 0;
+        int taskCount = 0;
 
         while ( !line.equals("bye") ) {
 
-            if( line.equals("list")) {
-                printList( list , size);
-            } else if( line.length() > 4 ){
-                if( line.substring(0, 4).equals("done") ){
-                    markTaskDone( list, line);
-                } else{
-                    addTask( list, line, size);
-                    size ++;
-                }
-            } else{
-                addTask( list, line, size);
-                size ++;
-            }
+            taskCount = distinguishCommand( line, list, taskCount);
 
             line = in.nextLine();
-
         }
-
-        System.out.println("Bye. Hope to see you again soon!");
-
+        System.out.println("    Bye. Hope to see you again soon!");
     }
 }

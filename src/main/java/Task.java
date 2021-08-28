@@ -3,15 +3,13 @@
 public class Task {
 
     //variables
-    private String description;
-    private boolean done;
-    private int index;
+    protected String description;
+    private boolean isDone;
 
     //constructor
-    public Task( String description , int index) {
+    public Task( String description ) {
         this.description = description;
-        this.index = index;
-        done = false;
+        isDone = false;
     }
 
     //getters
@@ -19,15 +17,22 @@ public class Task {
         return description;
     }
     public boolean getDone() {
-        return done;
-    }
-    public int getIndex() {
-        return index;
+        return isDone;
     }
 
     //setters
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
+    }
+
+    //other methods
+    @Override
+    public String toString() {
+        if(getDone()) {
+            return ("[X] " + description);
+        } else {
+            return ("[ ] " + description);
+        }
     }
 
 
