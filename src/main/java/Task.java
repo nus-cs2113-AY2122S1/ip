@@ -1,7 +1,7 @@
 public class Task {
-    private String taskName;
-    private int taskNumber;
-    private boolean isDone;
+    protected String taskName;
+    protected int taskNumber;
+    protected boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -26,5 +26,14 @@ public class Task {
 
     public void markDone() {
         isDone = true;
+    }
+
+    public String toString () {
+        if (isDone()) {
+            return "[✓] " + taskName;
+        }
+        else {
+            return "[ ] " + taskName;
+        }
     }
 }

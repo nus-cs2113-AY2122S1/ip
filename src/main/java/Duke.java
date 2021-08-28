@@ -14,7 +14,7 @@ public class Duke {
                 "|  |____  |  |  |  |  | |__|  |  |  |\n" +
                 "\\______|  |__|  |__|  \\____/\\_|  |__|\n" ;
 
-        System.out.println("Hello from\n" + logo);
+        System.out.print(logo);
         System.out.println("____________________________________________________________");
         System.out.println("Hey there! I am Chai!\n" + "What are you doing today?");
         System.out.println("____________________________________________________________");
@@ -28,13 +28,7 @@ public class Duke {
                 System.out.println("Tasks list so far:");
                 for (int i = 0; i < listSize; i++) {
                     System.out.print(taskList[i].getTaskNumber());
-                    if (taskList[i].isDone()) { //check if task is done then put a tick if done
-                        System.out.print(".[✓] ");
-                    }
-                    else { //task not done will remain empty
-                        System.out.print(".[ ] ");
-                    }
-                    System.out.println(taskList[i].getTaskName());
+                    System.out.println('.' + taskList[i].toString());
                 }
                 System.out.println("____________________________________________________________");
             }
@@ -43,21 +37,33 @@ public class Duke {
                 taskList[taskNumberToMark - 1].markDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Well done! Task marked:");
-                System.out.println(" [✓] " + taskList[taskNumberToMark - 1].getTaskName());
+                System.out.println(" " + taskList[taskNumberToMark - 1].toString());
                 System.out.println("____________________________________________________________");
             }
             else {
+                if (userCommand.contains("todo")) {
+                    taskList[listSize] = new ToDos(userCommand.substring(5));
+                }
+                else if (userCommand.contains("deadline")) {
+                    taskList[listSize] = new Deadlines(userCommand.substring(9, userCommand.indexOf('/') - 1), userCommand.substring(userCommand.indexOf("by") + 3));
+                }
+                else if (userCommand.contains("event")) {
+                    taskList[listSize] = new Events(userCommand.substring(6, userCommand.indexOf('/') - 1), userCommand.substring(userCommand.indexOf("at") + 3));
+                }
                 System.out.println("____________________________________________________________");
-                System.out.println("Added to the list: " + userCommand);
-                System.out.println("____________________________________________________________");
-                taskList[listSize] = new Task(userCommand); //add new task to taskList
+                System.out.println("Got it! Added to the list:");
+                System.out.println(" " + taskList[listSize]);
                 taskList[listSize].setTaskNumber(listSize + 1); //update the task number
                 listSize++; //updates the size of list
+                System.out.print("You currently have ");
+                System.out.print(listSize);
+                System.out.println(" task recorded in your list.");
+                System.out.println("____________________________________________________________");
             }
             userCommand = in.nextLine();
         }
         System.out.println("____________________________________________________________");
-        System.out.println("GoodBye!");
+        System.out.println("GoodBye! Please finish up your task!");
         System.out.println("____________________________________________________________");
     }
 }
