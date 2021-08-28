@@ -10,24 +10,8 @@ public class Task {
         numberOfTasks++;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatusIcon() {
-        if (isDone) {
-            return "X";
-        } else {
-            return " ";
-        }
-    }
-
     public static int getNumberOfTasks() {
         return numberOfTasks;
-    }
-
-    public String getTaskType() {
-        return null;
     }
 
     public void markAsDone() {
@@ -35,6 +19,12 @@ public class Task {
     }
 
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String statusIcon;
+        if (isDone) {
+            statusIcon = "X";
+        } else {
+            statusIcon = " ";
+        }
+        return "[" + statusIcon + "] " + description;
     }
 }
