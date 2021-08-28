@@ -30,7 +30,7 @@ public class Duke {
     }
 
     //adds task
-    public static void addTask(Task[] tasks, String input, int listCount) {
+    public static int addTask(Task[] tasks, String input, int listCount) {
         if (input.toUpperCase().startsWith("TODO")) {
             tasks[listCount] = new Todo(input.substring(5));
             System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
@@ -54,7 +54,7 @@ public class Duke {
         else {
             System.out.println(LINES + "I don't quite understand :/\n" + LINES);
         }
-
+        return listCount;
     }
 
     public static void main(String[] args) {
@@ -92,7 +92,7 @@ public class Duke {
             }
 
             //mark as done
-            else if (input.startsWith("done ")) {
+            else if (input.toLowerCase().startsWith("done ")) {
                 //isolate 'x' from 'done x', where x is a number
                 int index = Integer.parseInt(input.substring(5));
                 if (index > listCount) {
@@ -116,8 +116,8 @@ public class Duke {
 
             //adding to list
             else {
-                addTask(tasks, input, listCount);
-                listCount += 1;
+                int newCount = addTask(tasks, input, listCount);
+                listCount = newCount;
             }
         }
     }
