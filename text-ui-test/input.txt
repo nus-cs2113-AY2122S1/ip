@@ -1,0 +1,10 @@
+list
+todo read book
+event bookclub /at monday 2pm
+deadline return book /by friday
+list
+done 1
+done 2
+done 3
+list
+bye
