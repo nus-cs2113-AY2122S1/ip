@@ -53,6 +53,8 @@ public class Duke {
                 t1.addTodo(line);
             } else if (words[0].equals("deadline")) {
                 t1.addDeadline(line);
+            } else if (words[0].equals("event")) {
+                t1.addEvent(line);
             } else if (words[0].equals("list")) {
                 t1.listTasks();
             } else if (words[0].equals("done")){

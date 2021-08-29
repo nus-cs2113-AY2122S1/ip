@@ -2,6 +2,12 @@ public class TaskManager {
     private Task[] tasks = new Task[100];
     private int taskCount = 0;
 
+    public void printInvalid() {
+        Duke.printLine();
+        System.out.println("\tHey bud, the command you printed is invalid.");
+        Duke.printLine();
+    }
+
     public void addTodo(String description){
         String todoDescription = description.substring(4, description.length()).trim();
         tasks[taskCount] = new Todo(todoDescription);
@@ -10,13 +16,6 @@ public class TaskManager {
         System.out.println("\tadded todo: " + todoDescription);
         Duke.printLine();
     }
-
-    public void printInvalid() {
-        Duke.printLine();
-        System.out.println("\tHey bud, the command you printed is invalid.");
-        Duke.printLine();
-    }
-
 
     public void addDeadline(String description){
         int slashIndex = description.indexOf('/');
@@ -34,6 +33,22 @@ public class TaskManager {
         }
     }
 
+    public void addEvent(String description){
+        int slashIndex = description.indexOf('/');
+        if (slashIndex > 8) {
+            String eventDescription = description.substring(5, slashIndex).trim();
+            String eventAt = description.substring(slashIndex + 3, description.length()).trim();
+            tasks[taskCount] = new Event(eventDescription, eventAt);
+            taskCount += 1;
+            Duke.printLine();
+            System.out.println("\tadded event: " + eventDescription + " (at: " + eventAt + ')');
+            Duke.printLine();
+        }
+        else {
+            printInvalid();
+        }
+    }
+
     public void listTasks() {
         Duke.printLine();
         System.out.println("\t Here are the tasks in your list:");
@@ -41,7 +56,6 @@ public class TaskManager {
             System.out.print('\t');
             System.out.print(i+1 + ". ");
             System.out.print(tasks[i].toString() + System.lineSeparator());
-
         }
         Duke.printLine();
     }
