@@ -24,4 +24,11 @@ public class Task {
     public void markAsDone() {
         isDone = true;
     }
+
+    public void printType() {
+        switch(this.type) {
+        case TODO:
+            System.out.println("T");
+        }
+    }
 }
