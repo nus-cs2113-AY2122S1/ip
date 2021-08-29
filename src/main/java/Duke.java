@@ -58,9 +58,20 @@ public class Duke {
                     System.out.println("    " + taskChosen.getStatusIcon() + " " + taskChosen.getDescription() + "\n" + line);
                 }
             } else if (command.equals("echo")) {
-                // Simply echos next command. Need to make it loop until exit is given.
-                System.out.println("What would like me to repeat sir?");
-                System.out.println(in.nextLine());
+                // Simply echos given command until user types "stop"
+                System.out.println("What would you like me to repeat sir?");
+                Scanner echo = new Scanner(System.in);
+                boolean isExit = false;
+                while (!isExit) {
+                    String echoLine = echo.nextLine();
+                    if (echoLine.equals("stop")) {
+                        isExit = true;
+                        System.out.println("Okay sir, stopping echo mode");
+                    }
+                    else {
+                        System.out.println(echoLine);
+                    }
+                }
             } else {
                 // Adds any other command as item to list
                 tasks[itemIndex] = new Task(command);
