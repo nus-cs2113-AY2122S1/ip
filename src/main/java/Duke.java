@@ -20,11 +20,12 @@ public class Duke {
             HORIZONTAL_LINE;
 
     public static void main(String[] args) {
+        // Initialize variables for program startup
+        System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
         boolean isProgramRunning = true;
         String userInput;
         List<Task> list = new ArrayList<>();
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
 
         while (isProgramRunning) {
             userInput = in.nextLine().trim();
@@ -36,12 +37,81 @@ public class Duke {
                 printList(list);
             } else if (userInput.toLowerCase().startsWith("done")) {
                 markTasksAsDone(userInput, list);
-            } else {
-                list.add(new Task(userInput));
-                System.out.println(HORIZONTAL_LINE + "added: " + userInput + "\n" + HORIZONTAL_LINE);
+            } else if (userInput.toLowerCase().startsWith("todo")) {
+                String taskToAdd = removeFirstWord(userInput);
+                addTask(TaskType.TODO, taskToAdd, list);
+            } else if (userInput.toLowerCase().startsWith("deadline")) {
+                String taskToAdd = removeFirstWord(userInput);
+                addTask(TaskType.DEADLINE, taskToAdd, list);
+            } else if (userInput.toLowerCase().startsWith("event")) {
+                String taskToAdd = removeFirstWord(userInput);
+                addTask(TaskType.EVENT, taskToAdd, list);
             }
         }
 
+    }
+
+    /**
+     * Adds a task to an array list of tasks, printing out the newly added to task to the terminal
+     *
+     * @param type The type of task (using the TaskType enumerator)
+     * @param description Description of the task to be added
+     * @param taskList Array list of tasks
+     */
+    private static void addTask(TaskType type, String description, List<Task> taskList) {
+        switch(type) {
+        case TODO:
+            taskList.add(new Todo(description));
+            break;
+        case DEADLINE:
+            if (description.contains("/by")) {
+                String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, description);
+                taskList.add(new Deadline(separated[0], separated[1]));
+            } else {
+                System.out.println("You need to specify a deadline! TIP: Use \"/by\" to do so!\n" +
+                        HORIZONTAL_LINE);
+                return;
+            }
+            break;
+        case EVENT:
+            if(description.contains("/at")) {
+                String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
+                taskList.add(new Event(separated[0], separated[1]));
+            } else {
+                System.out.println("You need to specify an event! TIP: Use \"/at\" to do so!\n" +
+                        HORIZONTAL_LINE);
+                return;
+            }
+            break;
+        default:
+            taskList.add(new Task(description));
+        }
+
+        Task newlyAddedTask = taskList.get(taskList.size() - 1);
+        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newlyAddedTask + "\n" + HORIZONTAL_LINE);
+    }
+
+    /**
+     * Split the description of a Task from its timing (e.g. deadline) if it has one
+     *
+     * @param type The type of task
+     * @param description Full string input of the task and its timing
+     * @return Returns a string array with index 0 containing the task description and index 1 containing the timing
+     */
+    public static String[] splitDescriptionFromTiming(TaskType type, String description) {
+        String[] separated;
+        switch (type) {
+        case DEADLINE:
+            separated = description.split("/by +");
+            break;
+        case EVENT:
+            separated = description.split("/at +");
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + type.toString());
+        }
+        return separated;
     }
 
     public static void printList(List<Task> list) {
@@ -121,5 +191,19 @@ public class Duke {
         }
 
         return extractedInts;
+    }
+
+    /**
+     * Removes the first word of the input string and returns the remaining input
+     * @param input
+     * @return The remaining String that is left with the first word removed
+     */
+    public static String removeFirstWord(String input) {
+        String[] splitArray = input.split(" +", 2);
+        return splitArray[1];
+    }
+
+    public static void addTask (TaskType type, String description) {
+
     }
 }
