@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,8 +11,8 @@ public class Duke {
         System.out.println("_".repeat(LINE_WIDTH));
     }
 
-    public static String[] filterAmounts(String [] todos) {
-       // String[] words = String todos[];
+    public static String[] taskLister(String[] todos) {
+        // String[] words = String todos[];
         int todoCount = 0;
         String[] result = new String[100];
         for (String todo : todos) {
@@ -21,13 +20,42 @@ public class Duke {
             if (todo != null) {
                 result[todoCount] = todo;
                 todoCount++;
-            }
-            else {
+            } else {
                 break;
 
             }
         }
         return Arrays.copyOf(result, todoCount);
+    }
+
+    public static boolean splitString(String line) {
+        String[] words = line.split(" ");
+        for (String word : words) {
+            if (word.equals("done")) {
+                {
+
+                    return words[1].matches(".*\\d.*");
+
+                }
+
+            } else return false;
+        }
+
+        return false;
+    }
+
+
+    public static String[] checkMarker(String[] tobeCheckeds, int doneNumber) {
+        String[] checkedMarks = new String[tobeCheckeds.length];
+        int checkMarkCounter = 0;
+        for (String checkedMark : checkedMarks) {
+            if (!Objects.equals(checkedMark, "X")) {
+                checkedMarks[checkMarkCounter] = " ";
+                checkMarkCounter++;
+            }
+        }
+        checkedMarks[doneNumber] = "X";
+        return checkedMarks;
     }
 
 
@@ -50,18 +78,35 @@ public class Duke {
 
         //initialise the 100 todos items array
         String[] todos = new String[100];
+        String[] checkMarked = new String[100];
+        Arrays.fill(checkMarked, " ");
 
 
-        int counter=0;
-        while(!(line.equals("bye") || line.equals("Bye"))) {
+        int counter = 0;
+        String[] tobeCheckeds = new String[100];
+        while (!(line.equals("bye") || line.equals("Bye"))) {
             line = in.nextLine();
             line = line.toLowerCase();
-            if (line.equals("list")) {
-                String[] listeds = filterAmounts(todos);
-                int listedcount=1;
-                for (String listed : listeds)
-                {
-                    System.out.println(listedcount + ". "+ listed);
+            if (splitString(line)) {
+                int doneNumber = 0;
+                String[] findNumbers = line.split(" ");
+                doneNumber = Integer.parseInt(findNumbers[1]);
+                checkMarked = checkMarker(tobeCheckeds, doneNumber);
+                String[] listeds = taskLister(todos);
+                int listedcount = 1;
+                for (String listed : listeds) {
+                    System.out.println("Here are the tasks in your list:");
+                    System.out.println(listedcount + "." + "[" + checkMarked[listedcount] + "]" + " " + listed);
+                    listedcount++;
+                    //checkMarked=checkMarked;
+                }
+                printHorizontalLine();
+            } else if (line.equals("list")) {
+                String[] listeds = taskLister(todos);
+                int listedcount = 1;
+                for (String listed : listeds) {
+                    System.out.println("Here are the tasks in your list:");
+                    System.out.println(listedcount + "." + "[" + checkMarked[listedcount] + "]" + " " + listed);
                     listedcount++;
                 }
                 printHorizontalLine();
@@ -71,6 +116,7 @@ public class Duke {
                 printHorizontalLine();
                 todos[counter] = line; //save text input to array
                 counter++;  // prepare to take in the next array item
+
             } else {
                 printHorizontalLine();
             }
@@ -78,7 +124,7 @@ public class Duke {
 
 
         //printHorizontalLine();
-        System.out.println( "Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
         System.out.println();
         printHorizontalLine();
 
