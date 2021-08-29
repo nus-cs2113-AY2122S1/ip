@@ -1,60 +1,126 @@
 import java.util.ArrayList;
 
 public class TaskManager {
+
     protected ArrayList<Task> tasks;
     protected DukeInterface dukeUI;
+    private int numTasks;
+    private int numComplete;
 
-    private final String ADD_TASK_LOADING_MSG = "Tossing task into Duke's mouth...";
-    private final String ADD_TASK_DUKE_MSG = "That was delicious, burrrp!";
-
-    private final String SET_TASK_COMPLETE_LOADING_MSG = "Digesting task...";
-    private final String SET_TASK_COMPLETE_DUKE_MSG = "My stomach feels emptier haha!";
-
-    private final String PRINT_TASK_LOADING_MSG = "Opening Duke's mouth...\n";
-    private final String PRINT_TASK_TABLE_NAME = "\uD83D\uDCDD Duke's Task-Eating History \uD83D\uDCDD";
+    private final String ADD_TASK_VALID_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
+    private final String SET_TASK_COMPLETE_VALID_MSG = "Burrrp! I've marked this task as done [\u2705]:";
+    private final String SET_TASK_COMPLETE_INVALID_MSG = "Hold up! This task is already marked done [\u2705]:";
+    private final String PRINT_TASK_VALID_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
+    private final String PRINT_TASK_INVALID_MSG = "Sorry, but there are currently no tasks added!";
+    private final String GENERIC_PROMPT_MSG = "You may choose to add/complete another task.";
 
     public TaskManager() {
         tasks = new ArrayList<Task>();
         dukeUI = new DukeInterface();
+        numTasks = 0;
+        numComplete = 0;
     }
 
-    public void addTask(String description) {
+    public void addTask(String[] taskInfo) {
+        Task newTask;
+        String taskType = taskInfo[0];
+        String taskDescription = "";
+        String taskDateField = "";
+
+        switch (taskType) {
+        case "todo":
+            for (int i = 1; i < taskInfo.length; i++) {
+                taskDescription += taskInfo[i] + " ";
+            }
+
+            taskDescription = taskDescription.trim();
+            newTask = new ToDo(taskDescription);
+            this.tasks.add(newTask);
+            break;
+
+        case "deadline":
+            int i = 1;
+            for (; i < taskInfo.length; i++) {
+                if (taskInfo[i].equals("/by")) {
+                    break;
+                }
+                taskDescription += taskInfo[i] + " ";
+            }
+
+            for (i = i + 1; i < taskInfo.length; i++) {
+                taskDateField += taskInfo[i] + " ";
+            }
+
+            taskDescription = taskDescription.trim();
+            taskDateField = taskDateField.trim();
+
+            newTask = new Deadline(taskDescription, taskDateField);
+            this.tasks.add(newTask);
+            break;
+
+        case "event":
+            int j = 1;
+            for (; j < taskInfo.length; j++) {
+                if (taskInfo[j].equals("/at")) {
+                    break;
+                }
+                taskDescription += taskInfo[j] + " ";
+            }
+
+            for (j = j + 1; j < taskInfo.length; j++) {
+                taskDateField += taskInfo[j] + " ";
+            }
+
+            taskDescription = taskDescription.trim();
+            taskDateField = taskDateField.trim();
+
+            newTask = new Event(taskDescription, taskDateField);
+            this.tasks.add(newTask);
+            break;
+        }
+
         dukeUI.printDukeName();
-        dukeUI.printTextBoundary();
-        dukeUI.printLoadingMsg(ADD_TASK_LOADING_MSG);
-        dukeUI.printWithCursor(ADD_TASK_DUKE_MSG);
+        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
+        dukeUI.printWithPadding(tasks.get(numTasks).getTaskDescription());
 
-        Task temp = new Task(description);
-        this.tasks.add(temp);
+        numTasks++;
 
-        dukeUI.printSystemMsg("The task |" + description + "| has been added.");
-        dukeUI.printTextBoundary();
+        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
     }
 
     public void setTaskComplete(int taskID) {
-        dukeUI.printDukeName();
-        dukeUI.printTextBoundary();
-        dukeUI.printLoadingMsg(SET_TASK_COMPLETE_LOADING_MSG);
-        dukeUI.printWithCursor(SET_TASK_COMPLETE_DUKE_MSG);
-
         taskID -= 1;
-        tasks.get(taskID).isDone = true;
 
-        dukeUI.printSystemMsg("The task |[" + tasks.get(taskID).getStatusIcon() + "] "
-                + tasks.get(taskID).getTaskDescription() + "| has been marked as done.");
-        dukeUI.printTextBoundary();
+        dukeUI.printDukeName();
+
+        if (tasks.get(taskID).isDone) {
+
+            dukeUI.printMsgWithCursor(SET_TASK_COMPLETE_INVALID_MSG);
+            dukeUI.printWithPadding(tasks.get(taskID).getTaskDescription());
+            dukeUI.printMsgWithCursor(GENERIC_PROMPT_MSG);
+
+        } else {
+
+            tasks.get(taskID).isDone = true;
+            numComplete += 1;
+
+            dukeUI.printMsgWithCursor(SET_TASK_COMPLETE_VALID_MSG);
+            dukeUI.printWithPadding(tasks.get(taskID).getTaskDescription());
+            dukeUI.printMsgWithCursor("You have done " + numComplete + "/" + numTasks + " tasks in your list.");
+        }
     }
 
     public void printTasks() {
         dukeUI.printDukeName();
-        dukeUI.printTextBoundary();
-        dukeUI.printLoadingMsg(PRINT_TASK_LOADING_MSG);
-        dukeUI.printWithoutCursor(PRINT_TASK_TABLE_NAME);
-
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ".[" + tasks.get(i).getStatusIcon() + "] " + tasks.get(i).getTaskDescription());
+        if (numTasks > 0) {
+            dukeUI.printMsgWithCursor(PRINT_TASK_VALID_MSG);
+            for (int taskID = 0; taskID < tasks.size(); taskID++) {
+                System.out.println(taskID + 1 + "." + tasks.get(taskID).getTaskDescription());
+            }
+        } else {
+            dukeUI.printMsgWithCursor(PRINT_TASK_INVALID_MSG);
+            dukeUI.printMsgWithCursor(GENERIC_PROMPT_MSG);
         }
-
-        dukeUI.printTextBoundary();
     }
+
 }
