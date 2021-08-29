@@ -19,9 +19,11 @@ public class Duke {
         Task[] tasks = new Task[100];
         int taskCount = 0;
 
-        do {
-            Scanner in = new Scanner(System.in);
-            input = in.nextLine();
+        Scanner in = new Scanner(System.in);
+        input = in.nextLine();
+
+        while (!input.equals("bye")) {
+
             String keyword = input.split(" ")[0].toLowerCase();
             String description;
             String by;
@@ -69,7 +71,8 @@ public class Duke {
                 System.out.println("You need to specify the task type!");
                 break;
             }
-        } while (!input.equals("bye"));
+            input = in.nextLine();
+        }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
     }
