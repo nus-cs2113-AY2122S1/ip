@@ -1,0 +1,7 @@
+todo read book
+deadline return book /by Sunday
+event group meeting /at Thursday 4-5pm
+list
+done 1
+done 2
+bye
