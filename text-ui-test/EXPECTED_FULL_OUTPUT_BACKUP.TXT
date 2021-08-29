@@ -9,36 +9,42 @@ ____________________________________________________________
  What can I do for you?
 ____________________________________________________________
 
+todo read book
 ____________________________________________________________
  Got it. I've added this task:
    [T][ ] read book
  Now you have 1 tasks in the list.
 ____________________________________________________________
 
+deadline return book /by June 6th
 ____________________________________________________________
  Got it. I've added this task:
    [D][ ] return book (by: June 6th)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 
+event project meeting /at Aug 6th 2-4pm
 ____________________________________________________________
  Got it. I've added this task:
    [E][ ] project meeting (at: Aug 6th 2-4pm)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 
+todo join sports club
 ____________________________________________________________
  Got it. I've added this task:
    [T][ ] join sports club
  Now you have 4 tasks in the list.
 ____________________________________________________________
 
+todo borrow book
 ____________________________________________________________
  Got it. I've added this task:
    [T][ ] borrow book
  Now you have 5 tasks in the list.
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][ ] read book
@@ -48,11 +54,13 @@ Here are the tasks in your list:
  5.[T][ ] borrow book
 ____________________________________________________________
 
+done 1
 ____________________________________________________________
  Nice! I've marked this task as done:
    [T][X] read book
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -62,11 +70,13 @@ Here are the tasks in your list:
  5.[T][ ] borrow book
 ____________________________________________________________
 
+done 4
 ____________________________________________________________
  Nice! I've marked this task as done:
    [T][X] join sports club
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -76,11 +86,13 @@ Here are the tasks in your list:
  5.[T][ ] borrow book
 ____________________________________________________________
 
+done 2
 ____________________________________________________________
  Nice! I've marked this task as done:
    [D][X] return book (by: June 6th)
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -90,11 +102,13 @@ Here are the tasks in your list:
  5.[T][ ] borrow book
 ____________________________________________________________
 
+done 3
 ____________________________________________________________
  Nice! I've marked this task as done:
    [E][X] project meeting (at: Aug 6th 2-4pm)
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -104,11 +118,13 @@ Here are the tasks in your list:
  5.[T][ ] borrow book
 ____________________________________________________________
 
+done 5
 ____________________________________________________________
  Nice! I've marked this task as done:
    [T][X] borrow book
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -118,12 +134,14 @@ Here are the tasks in your list:
  5.[T][X] borrow book
 ____________________________________________________________
 
+deadline return book /by Sunday
 ____________________________________________________________
  Got it. I've added this task:
    [D][ ] return book (by: Sunday)
  Now you have 6 tasks in the list.
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -134,12 +152,14 @@ Here are the tasks in your list:
  6.[D][ ] return book (by: Sunday)
 ____________________________________________________________
 
+event project meeting /at Mon 2-4pm
 ____________________________________________________________
  Got it. I've added this task:
    [E][ ] project meeting (at: Mon 2-4pm)
  Now you have 7 tasks in the list.
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -151,12 +171,14 @@ Here are the tasks in your list:
  7.[E][ ] project meeting (at: Mon 2-4pm)
 ____________________________________________________________
 
+deadline do homework /by no idea :-p
 ____________________________________________________________
  Got it. I've added this task:
    [D][ ] do homework (by: no idea :-p)
  Now you have 8 tasks in the list.
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -169,11 +191,13 @@ Here are the tasks in your list:
  8.[D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 
+done 7
 ____________________________________________________________
  Nice! I've marked this task as done:
    [E][X] project meeting (at: Mon 2-4pm)
 ____________________________________________________________
 
+list
 ____________________________________________________________
 Here are the tasks in your list:
  1.[T][X] read book
@@ -186,7 +210,10 @@ Here are the tasks in your list:
  8.[D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 
+bye
 ____________________________________________________________
  Bye. Hope to see you again soon!
 ____________________________________________________________
 
+
+Process finished with exit code 0
