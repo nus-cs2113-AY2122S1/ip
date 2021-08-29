@@ -60,10 +60,23 @@ public class xRoss {
                 printDividerLine();
                 taskManager.markAsDone(Integer.parseInt(inputLine.substring(5)));
                 printDividerLine();
-            } else if (inputLine.startsWith("add ")) {
-                Task newTask = new Task(inputLine.substring(4));
+            } else if (inputLine.startsWith("todo ")) {
+                Todo newTodo = new Todo(inputLine.substring(5));
+
                 printDividerLine();
-                taskManager.addTask(newTask);
+                taskManager.addTask(newTodo);
+                printDividerLine();
+            } else if (inputLine.startsWith("deadline ")){
+                String[] newDeadline = inputLine.split(" /by ");
+
+                printDividerLine();
+                taskManager.addTask(new Deadline(newDeadline[0].substring(9), newDeadline[1]));
+                printDividerLine();
+            } else if (inputLine.startsWith("event ")){
+                String[] newEvent = inputLine.split(" /at ");
+
+                printDividerLine();
+                taskManager.addTask(new Event(newEvent[0].substring(6), newEvent[1]));
                 printDividerLine();
             } else {
                 printEcho(inputLine);

@@ -11,13 +11,8 @@ public class TaskManager {
         }
         System.out.println("\tThis is your current to-do list");
         for (int i = 0; i < tasksCount; i++) {
-            System.out.print("\t" + (i + 1) + ".[");
-            if (tasks[i].isDone()){
-                System.out.print("X] ");
-            } else {
-                System.out.print(" ] ");
-            }
-            System.out.println(tasks[i].getName());
+            System.out.print("\t" + (i + 1) + ".");
+            tasks[i].printTask();
         }
         System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
     }
@@ -25,10 +20,13 @@ public class TaskManager {
     public void addTask(Task task) {
         // add new task to tasks array
         tasks[tasksCount] = task;
-        tasksCount++;
 
         // print name of task to system output
-        System.out.println("\tYour task has been added: " + task.getName());
+        System.out.print("\tGot it! I've added this task for you:\n\t\t");
+        tasks[tasksCount].printTask();
+
+        // increment total tasksCount
+        tasksCount++;
         System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
     }
 
@@ -38,8 +36,8 @@ public class TaskManager {
         completedTasksCount++;
 
         // Print name of task to system output
-        System.out.println("\tGood job! I have marked your task as done.");
-        System.out.println("\t\t[X] " + tasks[taskIndex].getName());
+        System.out.print("\tGood job! I have marked your task as done.\n\t\t");
+        tasks[taskIndex].printTask();
         System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your to-do list");
     }
 }

@@ -1,7 +1,7 @@
 public class Task {
 
-    private String name;
-    private boolean isDone;
+    protected String name;
+    protected boolean isDone;
 
     public Task(String name) {
         this.name = name;
@@ -22,5 +22,10 @@ public class Task {
 
     public void setDone() {
         isDone = true;
+    }
+
+    // placeholder method for inherited classes
+    public void printTask (){
+        return;
     }
 }
