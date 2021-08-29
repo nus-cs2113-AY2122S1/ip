@@ -2,9 +2,83 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Duke {
+    private static final int MAX_TASK = 100;
+
+    // Check if the Done Command is valid and returns true/false accordingly
+    public static boolean checkValidDoneCommand(String input, int listIndex){
+        String[] inputSplit = input.split(" ");
+        if (inputSplit.length != 2){
+            return false;
+        }
+        try {
+            int doneIndex = Integer.parseInt(inputSplit[1]);
+            // if number in the input is not in the range of list, throw error and ask for input again
+            if (doneIndex < 1 || doneIndex > listIndex){
+                return false;
+            }
+        } catch (NumberFormatException e) {
+           return false;
+        }
+    return true;
+    }
+
+    // reads Done Command then prints out corresponding statements
+    public static void executeDoneCommand(Task[] list, int listIndex, String input){
+        // split the input string into array
+        String[] inputSplit = input.split(" ");
+        // check if the done command is valid
+        boolean isValid = checkValidDoneCommand(input, listIndex);
+
+        //valid done command
+        if (isValid){
+            int doneIndex = Integer.parseInt(inputSplit[1]);
+            // task has not been marked as done and needs to be marked as done
+            if (!list[doneIndex - 1].getIsDone()){
+                list[doneIndex - 1].markAsDone();
+                System.out.println("    Alright! I've marked this task as done! :)");
+                System.out.printf("    [%s] %s\n", list[doneIndex - 1].getStatusIcon(), list[doneIndex - 1].getFormattedDescription());
+            }
+            //task has already been marked as done
+            else{
+                System.out.println("    Task is already marked as done!");
+            }
+        }
+
+        // not a valid done command
+        else{
+            System.out.println("    Command is not valid :( Please specify a valid task number to be marked as done.");
+        }
+    }
+
+    // reads List Command then prints out all the tasks
+    public static void executeListCommand(Task[] list, int listIndex){
+        System.out.println("    Task List:");
+        for (int i = 0; i < listIndex; i ++){
+            System.out.printf("    %d.[%s][%s] %s\n", i + 1,list[i].getType(), list[i].getStatusIcon(),list[i].getFormattedDescription());
+        }
+    }
+
+    // reads Task Command then prints out formatted description of the task
+    public static void executeTaskCommand(Task[]list, int listIndex, String command, String input){
+        Task task = new Task(command);
+        if (command.equals("todo")){
+            task = new ToDo(input);
+        }
+        else if (command.equals("deadline")){
+            task = new Deadline(input);
+        }
+        else if (command.equals("event")){
+            task = new Event(input);
+        }
+        System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
+        System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
+        list[listIndex] = task;
+    }
+
+
     public static void main(String[] args) {
         // create a list of tasks
-        Task[] list = new Task[100];
+        Task[] list = new Task[MAX_TASK];
         int listIndex = 0;
 
         String logo = " \n" +
@@ -17,86 +91,49 @@ public class Duke {
                 "        |         Hello! I'm Bobby :)        |\n" +
                 "        |     What can I can do for you?     |\n" +
                 "         \\______________________oooo________/\n" ;
+
+
         System.out.println(logo);
+
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
+
+
         while (!input.equals("bye")) {
+            System.out.println("    ____________________________________________________________");
 
-            // if user inputs list, showcase the list
+            // if user inputs list, execute list command to showcase the list
             if (input.equals("list")){
-                System.out.println("    ____________________________________________________________");
-                System.out.println("    Task List:");
-                for (int i = 0; i < listIndex; i ++){
-                    System.out.printf("    %d.[%s] %s\n", i + 1, list[i].getStatusIcon(),list[i].getDescription());
-
-                }
-                System.out.println("    ____________________________________________________________");
+                executeListCommand(list,listIndex);
             }
 
-            //if user marks a task as done
+            //if user inputs done, execute done command to mark task as done
             else if (input.startsWith("done")){
-                // split the input string into array
-                String[] inputSplit = input.split(" ");
-
-                // if theres nothing after done or too many items after done
-                if (inputSplit.length != 2)
-                    System.out.println("    invalid command :( Please specify a proper task number to be marked as done.");
-
-                // there is something after done
-                else {
-                    // use try to check if the next word after done is a number, if not throw an error message
-                    try {
-                        int doneIndex = Integer.parseInt(inputSplit[1]);
-                        // if number in the input is not in the range of list, throw error and ask for input again
-                        if (doneIndex < 1 || doneIndex > listIndex){
-                            System.out.println("    ____________________________________________________________");
-                            System.out.println("    invalid command :( task number is not found. Please try again.");
-                            System.out.println("    ____________________________________________________________");
-                            input = in.nextLine();
-                            // skip this iteration after getting input
-                            continue;
-                        }
-                        // no errors, the input is valid
-                        else if (list[doneIndex - 1].getIsDone()){
-                            System.out.println("    ____________________________________________________________");
-                            System.out.println("    Task is already marked as done!");
-                            System.out.println("    ____________________________________________________________");
-                        }
-                        else {
-                            list[doneIndex - 1].markAsDone();
-                            System.out.println("    ____________________________________________________________");
-                            System.out.println("    Alright! I've marked this task as done! :)");
-                            System.out.printf("    [%s] %s\n", list[doneIndex - 1].getStatusIcon(), list[doneIndex - 1].getDescription());
-                            System.out.println("    ____________________________________________________________");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("    Command is not valid :( Please specify a valid task number to be marked as done.");
-                        System.out.println("    ____________________________________________________________");
-                    }
-                }
+                executeDoneCommand(list,listIndex,input);
             }
 
-            // else is a task to be added to list
-            else {
-                System.out.println("    ____________________________________________________________");
-                System.out.printf("    Okay I've added %s into the list!\n", input);
-                System.out.println("    ____________________________________________________________");
-
-                //insert input task into list of tasks
-                list[listIndex] = new Task(input);
-                listIndex ++;
+            //if user inputs a task command, execute task command and print out necessary statements
+            else if (input.startsWith("todo") || input.startsWith("deadline") || (input.startsWith("event"))) {
+                String[] inputArr = input.split(" ");
+                String command = inputArr[0];
+                executeTaskCommand(list, listIndex, command, input);
+                listIndex++;
             }
 
+            // not any recognised commands
+            else{
+                System.out.println("    Invalid Command :( Please try again.");
+            }
+
+            System.out.println("    ____________________________________________________________");
             //get the new input
             input = in.nextLine();
         }
 
         //if bye is the input
         System.out.println("    ____________________________________________________________");
-        System.out.print("    ");
-        System.out.println("Bye, my friend :(");
+        System.out.println("    Bye, my friend :(");
         System.out.println("    ____________________________________________________________");
 
     }
