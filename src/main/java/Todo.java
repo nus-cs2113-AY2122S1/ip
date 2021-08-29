@@ -1,13 +1,13 @@
-public class Todo extends Task{
-    public static final char IDENTIFIER = 'T';
+public class Todo extends Task {
+    public static final char TASK_TYPE = 'T';
 
-    Todo(String description){
+    Todo(String description) {
         super(description);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         char completeCharacter = isComplete ? 'X' : ' ';
-        return "[" + IDENTIFIER + "]" + "[" + completeCharacter + "] " + description;
+        return "[" + TASK_TYPE + "]" + "[" + completeCharacter + "] " + description;
     }
 }

@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    public static final char IDENTIFIER = 'D';
+    public static final char TASK_TYPE = 'D';
     private final String BY;
 
     Deadline(String description, String by) {
@@ -10,6 +10,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         char completeCharacter = isComplete ? 'X' : ' ';
-        return "[" + IDENTIFIER + "]" + "[" + completeCharacter + "] " + description + " (by: " + this.BY + ")";
+        return "[" + TASK_TYPE + "]" + "[" + completeCharacter + "] " + description + " (by: " + this.BY + ")";
     }
 }

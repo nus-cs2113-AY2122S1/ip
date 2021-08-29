@@ -2,12 +2,12 @@ public class Task {
     protected String description;
     protected boolean isComplete;
 
-    Task(String inputTask){
+    Task(String inputTask) {
         description = inputTask;
         isComplete = false;
     }
 
-    void markComplete(){
+    void markComplete() {
         isComplete = true;
     }
 }
