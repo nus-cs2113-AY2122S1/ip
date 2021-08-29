@@ -1,10 +1,8 @@
-import java.awt.desktop.SystemEventListener;
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] taskList = new Task[100];
-    //private static String[] tasklist = new String[100];
-    private static int taskindex = 0;
+    private static final Task[] taskList = new Task[100];
+    private static int taskIndex = 0;
 
     public static void main(String[] args) {
 
@@ -98,37 +96,39 @@ public class Duke {
         printLine();
 
         line = in.nextLine();
+        //Split the input into type and description
         int typePos = line.indexOf(" ");
         String taskType = line.substring(0, typePos);
         String taskDescription = line.substring(typePos).trim();
+
         switch (taskType) {
         case "todo":
-            taskList[taskindex] = new ToDo(taskDescription);
+            taskList[taskIndex] = new ToDo(taskDescription);
             break;
         case "deadline":
-            taskList[taskindex] = new Deadline(taskDescription);
+            taskList[taskIndex] = new Deadline(taskDescription);
             break;
         case "event":
-            taskList[taskindex] = new Event(taskDescription);
+            taskList[taskIndex] = new Event(taskDescription);
             break;
         }
-        taskindex++;
+        taskIndex++;
 
         printLine();
         System.out.println("I have added this task:");
-        System.out.println("[" + taskList[taskindex-1].getType() +"][" + taskList[taskindex-1].getStatusIcon() + "] " + taskList[taskindex-1].getDescription());
-        System.out.println("You have " + taskindex + " task(s) in the list.");
+        System.out.println("[" + taskList[taskIndex-1].getType() +"][" + taskList[taskIndex-1].getStatusIcon() + "] " + taskList[taskIndex-1].getDescription());
+        System.out.println("You have " + taskIndex + " task(s) in the list.");
         printLine();
     }
 
     private static void displayList() {
         printLine();
-        if (taskindex == 0) {
+        if (taskIndex == 0) {
             System.out.println("to-do list is empty! add something");
             return;
         }
         System.out.println("The current to-do list is as follows:");
-        for (int i = 0; i < taskindex; i++) {
+        for (int i = 0; i < taskIndex; i++) {
             System.out.println(i + 1 + ". [" + taskList[i].getType() +"][" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
         }
         printLine();
@@ -144,16 +144,14 @@ public class Duke {
         line = in.nextLine();
         int taskNumber = Integer.parseInt(line) - 1;
 
-        if (taskNumber > taskindex) {
+        if (taskNumber > taskIndex) {
             System.out.println("Error! This task does not exist!");
             return;
         }
-
         taskList[taskNumber].markAsDone();
-
         printLine();
         System.out.println("I have marked it as completed!");
-        System.out.println(taskNumber + 1 + ". [" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].getDescription());
+        System.out.println(taskNumber + 1 + ". [" + taskList[taskNumber].getType() +"][" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].getDescription());
         printLine();
     }
 }
