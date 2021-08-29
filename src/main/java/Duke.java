@@ -9,7 +9,6 @@ public class Duke {
         String userCommand; //store user input
         Task[] taskList = new Task[MAX]; //store all the task from user input
         int listSize = 0;
-        int taskNumberToMark;
 
         printIntroduction();
 
@@ -34,10 +33,9 @@ public class Duke {
     }
 
     private static void printIntroduction() {
-        String logo =
-                " ______    __                     __ \n" +
+        String logo = " ______    __                     __\n" +
                         "/  ____|  |  |                   |__|\n" +
-                        "|  |      |  |_____    _______    __ \n" +
+                        "|  |      |  |_____    _______    __\n" +
                         "|  |      |   __   \\  /  __   |  |  |\n" +
                         "|  |____  |  |  |  |  | |__|  |  |  |\n" +
                         "\\______|  |__|  |__|  \\____/\\_|  |__|\n" ;
@@ -73,10 +71,10 @@ public class Duke {
             taskList[listSize] = new ToDos(userCommand.substring(5));
         }
         else if (userCommand.contains("deadline")) {
-            taskList[listSize] = new Deadlines(userCommand.substring(9, userCommand.indexOf('/') - 1), userCommand.substring(userCommand.indexOf("by") + 3));
+            taskList[listSize] = new Deadlines(userCommand.substring(9, userCommand.indexOf('/') - 1), userCommand.substring(userCommand.indexOf("/by") + 4));
         }
         else if (userCommand.contains("event")) {
-            taskList[listSize] = new Events(userCommand.substring(6, userCommand.indexOf('/') - 1), userCommand.substring(userCommand.indexOf("at") + 3));
+            taskList[listSize] = new Events(userCommand.substring(6, userCommand.indexOf('/') - 1), userCommand.substring(userCommand.indexOf("/at") + 4));
         }
     }
 

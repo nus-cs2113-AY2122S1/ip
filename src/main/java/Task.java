@@ -8,10 +8,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
-
     public int getTaskNumber() {
         return taskNumber;
     }

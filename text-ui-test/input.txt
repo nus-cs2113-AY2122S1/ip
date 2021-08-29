@@ -1,0 +1,11 @@
+todo exercise
+todo shower
+deadline submit assignment /by tuesday 12am
+event attend lecture /at friday 4pm
+list
+todo eat dinner
+done 1
+done 2
+done 5
+list
+bye
