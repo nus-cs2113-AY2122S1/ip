@@ -1,4 +1,5 @@
 public enum TaskType {
+    EMPTY(" "),
     TODO("T"),
     DEADLINE("D"),
     EVENT("E");

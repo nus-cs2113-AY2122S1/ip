@@ -1,12 +1,11 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected TaskType type;
+    protected TaskType type = TaskType.EMPTY;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.type = TaskType.TODO;
     }
 
     public String getStatusIcon() {
