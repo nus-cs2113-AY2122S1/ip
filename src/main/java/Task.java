@@ -23,7 +23,7 @@ public class Task {
      *
      * @return X if task is already completed else just blank
      */
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
@@ -33,5 +33,10 @@ public class Task {
 
     public boolean getIsDone() {
         return isDone;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
