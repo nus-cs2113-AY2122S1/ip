@@ -25,7 +25,9 @@ public class Task {
         isDone = true;
     }
 
-    public void printType() {
-        System.out.println("[ ]");
+    @Override
+    public String toString() {
+        return String.format("[%s][%s] %s",
+                this.type.getTaskLabel(), this.getStatusIcon(), this.description);
     }
 }
