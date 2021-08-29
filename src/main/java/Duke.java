@@ -31,20 +31,20 @@ public class Duke {
 
     //adds task
     public static int addTask(Task[] tasks, String input, int listCount) {
-        if (input.toUpperCase().startsWith("TODO")) {
+        if (input.toUpperCase().startsWith("TODO ")) {
             tasks[listCount] = new Todo(input.substring(5));
             System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
             listCount += 1;
             System.out.println(" Now you have " + listCount + " tasks in the list.\n" + LINES);
         }
-        else if (input.toUpperCase().startsWith("DEADLINE")) {
+        else if (input.toUpperCase().startsWith("DEADLINE ")) {
             int slash = input.indexOf("/");
             tasks[listCount] = new Deadline(input.substring(9, slash-1), input.substring(slash+1));
             System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
             listCount += 1;
             System.out.println(" Now you have " + listCount + " tasks in the list.\n" + LINES);
         }
-        else if (input.toUpperCase().startsWith("EVENT")) {
+        else if (input.toUpperCase().startsWith("EVENT ")) {
             int slash = input.indexOf("/");
             tasks[listCount] = new Event(input.substring(6, slash-1), input.substring(slash+1));
             System.out.println(LINES + " Got it. I've added this task:\n   " + tasks[listCount]);
