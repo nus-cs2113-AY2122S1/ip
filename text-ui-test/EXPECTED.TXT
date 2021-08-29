@@ -78,7 +78,7 @@ ____________________________________________________________
 Below is the list of commands and input formats I am currently able to understand:
 1. list - Lists all your current tasks.
 2. todo [task description] - Adds a task to your list.
-3. deadline [task description] /by [deadline] - Adds a task with a deadline to your list.
+3. deadline [task description] /by [due date] - Adds a task with a due date to your list.
 4. event [event description] /at [date and time] - Adds an upcoming event to your list.
 5. done [task number] - Marks the task as done. Use the list to check the task number!
 6. echo [input] - Echoes whatever your input is.

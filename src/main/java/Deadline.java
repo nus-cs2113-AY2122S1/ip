@@ -1,15 +1,15 @@
 public class Deadline extends Task {
 
     private static final String SYMBOL = "D";
-    private String deadline;
+    private String taskDue;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String taskDue) {
         super(description);
-        this.deadline = deadline;
+        this.taskDue = taskDue;
     }
 
     @Override
     public String toString() {
-        return "[" + SYMBOL + "]" + super.toString() + " (by: " + deadline + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + taskDue + ")";
     }
 }

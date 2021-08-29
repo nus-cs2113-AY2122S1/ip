@@ -15,14 +15,14 @@ public class TaskManager {
         return tasks[currentTasksCount - 1];
     }
 
-    public Task addDeadline(String taskDescription, String deadline) {
-        tasks[currentTasksCount] = new Deadline(taskDescription, deadline);
+    public Task addDeadline(String taskDescription, String taskDue) {
+        tasks[currentTasksCount] = new Deadline(taskDescription, taskDue);
         currentTasksCount++;
         return tasks[currentTasksCount - 1];
     }
 
-    public Task addEvent(String taskDescription, String dateAndTime) {
-        tasks[currentTasksCount] = new Event(taskDescription, dateAndTime);
+    public Task addEvent(String taskDescription, String eventDateTime) {
+        tasks[currentTasksCount] = new Event(taskDescription, eventDateTime);
         currentTasksCount++;
         return tasks[currentTasksCount - 1];
     }

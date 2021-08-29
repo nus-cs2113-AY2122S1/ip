@@ -38,7 +38,7 @@ public class Duke {
             "Below is the list of commands and input formats I am currently able to understand:\n"
             + "1. list - Lists all your current tasks.\n"
             + "2. todo [task description] - Adds a task to your list.\n"
-            + "3. deadline [task description] /by [deadline] - Adds a task with a deadline to your list.\n"
+            + "3. deadline [task description] /by [due date] - Adds a task with a due date to your list.\n"
             + "4. event [event description] /at [date and time] - Adds an upcoming event to your list.\n"
             + "5. done [task number] - Marks the task as done. Use the list to check the task number!\n"
             + "6. echo [input] - Echoes whatever your input is.\n"
@@ -87,15 +87,15 @@ public class Duke {
         printDivider();
     }
 
-    private void addDeadline(String taskDescription, String deadline) {
-        Task addedTask = TASK_MANAGER.addDeadline(taskDescription, deadline);
+    private void addDeadline(String taskDescription, String taskDue) {
+        Task addedTask = TASK_MANAGER.addDeadline(taskDescription, taskDue);
         System.out.println(ADD_TASK_MESSAGE + "\n" + addedTask.toString());
         printTasksCount();
         printDivider();
     }
 
-    private void addEvent(String taskDescription, String dateAndTime) {
-        Task addedTask = TASK_MANAGER.addEvent(taskDescription, dateAndTime);
+    private void addEvent(String taskDescription, String eventDateTime) {
+        Task addedTask = TASK_MANAGER.addEvent(taskDescription, eventDateTime);
         System.out.println(ADD_TASK_MESSAGE + "\n" + addedTask.toString());
         printTasksCount();
         printDivider();
