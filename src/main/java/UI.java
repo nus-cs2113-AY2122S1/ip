@@ -1,19 +1,6 @@
 import java.util.Scanner;
 
 public class UI {
-    //TODO May require TA's approval for colours
-    /**
-     * Unicode colours
-     */
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_BLACK = "\u001B[30m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_WHITE = "\u001B[37m";
 
     /**
      * Line template to use for dividers
@@ -50,22 +37,29 @@ public class UI {
      * Prints the banner for the chatbot
      */
     public void printBanner() {
-        printMessage(ANSI_YELLOW + "[+] Welcome to Shell RPG",
+        printMessage( "[+] Welcome to Shell RPG",
                 "[+] Searching for Character........",
                 "[+] Character " + username + " Found!",
                 "[+] Character Level: 100",
-                "[+] Access Granted! (╯°□°)╯︵ ┻━┻" + ANSI_RESET);
+                "[+] Access Granted! Welcome to: ",
+                " #####  #     # ####### #       #          ######  ######   #####  \n"
+                + "#     # #     # #       #       #          #     # #     # #     # \n"
+                + "#       #     # #       #       #          #     # #     # #       \n"
+                + " #####  ####### #####   #       #          ######  ######  #  #### \n"
+                + "      # #     # #       #       #          #   #   #       #     # \n"
+                + "#     # #     # #       #       #          #    #  #       #     # \n"
+                + " #####  #     # ####### ####### #######    #     # #        #####  "
+        );
     }
 
     /**
      * Prints user prompt
      */
     public void printPrompt() {
-        System.out.printf(ANSI_RED + "┌─[" + ANSI_RESET
-                + ANSI_BLUE + "┻━┻︵ \\(°□°)/ ︵ ┻━┻@%s"
-                + ANSI_RESET + ANSI_RED +
-                "]-[~]\n" + ANSI_RESET, username);
-        System.out.print(ANSI_RED + "└──╼ $ " + ANSI_RESET);
+        System.out.printf("┌─["
+                + "ShellRPG@%s" +
+                "]-[~]\n", username);
+        System.out.print("└──╼ $ " );
     }
 
     /**
