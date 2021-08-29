@@ -4,36 +4,33 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    private static final String LOGO = " ______    _   __   __            \n" +
+                                        "|_   _ \\  (_) [  | [  |           \n" +
+                                        "  | |_) | __   | |  | |   _   __  \n" +
+                                        "  |  __'.[  |  | |  | |  [ \\ [  ] \n" +
+                                        " _| |__) || |  | |  | |   \\ '/ /  \n" +
+                                        "|_______/[___][___][___][\\_:  /   \n" +
+                                        "                         \\__.'    \n";
+    private static final String GREETING_MESSAGE = HORIZONTAL_LINE +
+            " Hello! I'm Billy\n" +
+            " What can I do for you?\n" +
+            HORIZONTAL_LINE;
+    private static final String GOODBYE_MESSAGE = HORIZONTAL_LINE +
+            " Bye. Hope to see you again soon!\n" +
+            HORIZONTAL_LINE;
 
     public static void main(String[] args) {
-
-        String logo = " ______    _   __   __            \n" +
-                "|_   _ \\  (_) [  | [  |           \n" +
-                "  | |_) | __   | |  | |   _   __  \n" +
-                "  |  __'.[  |  | |  | |  [ \\ [  ] \n" +
-                " _| |__) || |  | |  | |   \\ '/ /  \n" +
-                "|_______/[___][___][___][\\_:  /   \n" +
-                "                         \\__.'    \n";
-
-        String greetingMessage = HORIZONTAL_LINE +
-                " Hello! I'm Billy\n" +
-                " What can I do for you?\n" +
-                HORIZONTAL_LINE;
-        String goodbyeMessage = HORIZONTAL_LINE +
-                " Bye. Hope to see you again soon!\n" +
-                HORIZONTAL_LINE;
-
         boolean isProgramRunning = true;
         String userInput;
         List<Task> list = new ArrayList<>();
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello from\n" + logo + greetingMessage);
+        System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
 
         while (isProgramRunning) {
             userInput = in.nextLine().trim();
 
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(goodbyeMessage);
+                System.out.println(GOODBYE_MESSAGE);
                 isProgramRunning = false;
             } else if (userInput.equalsIgnoreCase("list")) {
                 printList(list);
@@ -52,7 +49,7 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             task = list.get(i);
-            System.out.println((i + 1) + ". [" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println(i + 1 + "." + task);
         }
         System.out.println(HORIZONTAL_LINE);
     }
