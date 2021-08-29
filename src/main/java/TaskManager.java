@@ -1,6 +1,9 @@
 public class TaskManager {
+    // Constants
+    private static final int MAX_TASKS = 100;
+
     // Task list
-    private Task[] tasks = new Task[100];
+    private Task[] tasks = new Task[MAX_TASKS];
 
     // Class variable for counting number of tasks
     private static int taskCount = 0;
@@ -18,17 +21,17 @@ public class TaskManager {
     }
 
     public Task addEvent(String description) {
-        int pos_at = description.indexOf("/at");
-        String at = description.substring(pos_at + 4);
-        description = description.substring(0, pos_at - 1);
+        int atIndex = description.indexOf("/at");
+        String at = description.substring(atIndex + 4);
+        description = description.substring(0, atIndex - 1);
         Event event = new Event(description, at);
         return this.addTask(event);
     }
 
     public Task addDeadline(String description) {
-        int pos_by = description.indexOf("/by");
-        String by = description.substring(pos_by + 4);
-        description = description.substring(0, pos_by - 1);
+        int byIndex = description.indexOf("/by");
+        String by = description.substring(byIndex + 4);
+        description = description.substring(0, byIndex - 1);
         Deadline deadline = new Deadline(description, by);
         return this.addTask(deadline);
     }
