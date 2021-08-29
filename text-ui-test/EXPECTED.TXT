@@ -70,7 +70,7 @@
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
-	Oops I can't find a Smurf to help you with your task.
+	oops i can't find a smurf to help you with your task.
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
@@ -86,7 +86,7 @@
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
-	Oops I can't find a Smurf to help you with your task.
+	oops i can't find a smurf to help you with your task.
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
