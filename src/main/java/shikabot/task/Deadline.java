@@ -22,4 +22,5 @@ public class Deadline extends Task{
         fw.write("D | " + by + " | " + name + " | " + isDone + "\n");
         fw.close();
     }
+
 }

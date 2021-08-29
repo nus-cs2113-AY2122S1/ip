@@ -1,6 +1,7 @@
 package shikabot.ui;
 
 import java.util.ArrayList;
+
 import shikabot.task.Task;
 
 public class TextUi {

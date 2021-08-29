@@ -34,4 +34,8 @@ public abstract class Task {
      * @throws IOException when saving operation is interrupted.
      */
     public abstract void saveTask() throws IOException;
+
+    public static class InvalidTaskException extends Exception {
+
+    }
 }

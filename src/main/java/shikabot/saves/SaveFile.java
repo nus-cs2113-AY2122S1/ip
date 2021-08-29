@@ -4,25 +4,23 @@ import shikabot.task.Task;
 import shikabot.task.Deadline;
 import shikabot.task.Event;
 import shikabot.task.Todo;
-import shikabot.ui.TextUi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SaveFile {
 
     private final String path;
-    private final TextUi ui;
     private final File file;
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public SaveFile(String path) {
         this.path = path;
-        this.ui = new TextUi();
         this.file = new File(path);
     }
 
@@ -30,7 +28,7 @@ public class SaveFile {
      * This function attempts to create the save file at the given path if it does not already exist.
      * @return true if file is created, false otherwise
      */
-    public boolean setupSave() {
+    public boolean setupSave() throws FileErrorException {
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -39,9 +37,9 @@ public class SaveFile {
                 return true;
             }
         } catch (IOException e) {
-            ui.printFileErrorMessage();
+            throw new FileErrorException();
         } catch (SecurityException e) {
-            ui.printSecurityErrorMessage();
+            throw new SecurityException();
         }
         return false;
     }
@@ -111,9 +109,12 @@ public class SaveFile {
             try {
                 task.saveTask();
             } catch (IOException e) {
-                ui.printSaveErrorMessage();
+                throw new IOException();
             }
         }
     }
 
+    public static class FileErrorException extends Exception {
+
+    }
 }
