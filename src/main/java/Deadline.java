@@ -1,6 +1,6 @@
 public class Deadline extends Task {
 
-    private final String symbol = "D";
+    private static final String SYMBOL = "D";
     private String deadline;
 
     public Deadline(String description, String deadline) {
@@ -10,6 +10,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + symbol + "]" + super.toString() + " (by: " + deadline + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + deadline + ")";
     }
 }

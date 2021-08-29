@@ -1,6 +1,6 @@
 public class ToDo extends Task {
 
-    private final String symbol = "T";
+    private static final String SYMBOL = "T";
 
     public ToDo(String description) {
         super(description);
@@ -8,6 +8,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[" + symbol + "]" + super.toString();
+        return "[" + SYMBOL + "]" + super.toString();
     }
 }

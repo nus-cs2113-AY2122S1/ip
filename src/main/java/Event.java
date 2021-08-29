@@ -1,6 +1,6 @@
 public class Event extends Task {
 
-    private final String symbol = "E";
+    private static final String SYMBOL = "E";
     private String dateAndTime;
 
     public Event(String description, String dateAndTime) {
@@ -10,6 +10,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + symbol + "]" + super.toString() + " (at: " + dateAndTime + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (at: " + dateAndTime + ")";
     }
 }
