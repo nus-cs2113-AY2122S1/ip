@@ -13,8 +13,8 @@ public class List {
         numOfListItems++;
 
         MessageBubble msg = new MessageBubble();
-        msg.addMessage("Got it. I've added this task: ");
-        msg.addMessage(String.format(" %d:%s%s %s", numOfListItems, task.getClassIndicator(), task.getStatusIndicator(), task.getDescription()));
+        msg.addMessage("Got it. I've added this task:");
+        msg.addMessage(String.format(" %d:%s", numOfListItems, task.getDetails()));
         msg.addMessage("Now you have " + numOfListItems + " tasks in the list.");
         msg.printMessageBubble();
     }
@@ -33,7 +33,7 @@ public class List {
         MessageBubble msg = new MessageBubble();
         msg.addMessage("Here are the tasks in your list:");
         for (int i = 0; i < numOfListItems; i++) {
-            msg.addMessage(String.format(" %d:%s%s %s", i + 1, items[i].getClassIndicator(), items[i].getStatusIndicator(), items[i].description));
+            msg.addMessage(String.format(" %d:%s", i + 1, items[i].getDetails()));
         }
         msg.printMessageBubble();
     }

@@ -36,15 +36,23 @@ public class Task {
         newMessage.printMessageBubble();
     }
 
-    public String getDescription() {
+    public String getTaskDescription() {
         return description;
     }
 
     public String getClassIndicator() {
         if (Task.class.equals(this.getClass())) {
-            return "";
+            return "[ ]";
         } else {
             return "[" + this.getClass().getName().substring(0, 1) + "]";
         }
+    }
+
+    public String getDetails() {
+        return String.format("%s%s %s%s", this.getClassIndicator(), this.getStatusIndicator(), this.getTaskDescription(), this.getTime());
+    }
+
+    public String getTime() {
+        return "";
     }
 }

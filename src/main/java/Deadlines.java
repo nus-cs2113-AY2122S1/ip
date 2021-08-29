@@ -7,7 +7,7 @@ public class Deadlines extends Task {
     }
 
     @Override
-    public String getDescription() {
-        return String.format("%s (%s)", description, time);
+    public String getTime() {
+        return String.format(" (by: %s)", time);
     }
 }
