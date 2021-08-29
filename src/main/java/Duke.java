@@ -47,24 +47,20 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String[] words = line.split(" ");
-        boolean isBye = words[0].equals("bye");
-        boolean isList = words[0].equals("list");
-        boolean isDone = words[0].equals("done");
-        while (!isBye){
+        while (!words[0].equals("bye")) {
             //Echo(words);
-            if (!isList && !isDone) {
-                t1.addTask(line);
-            } else if (isList){
+            if (words[0].equals("todo")) {
+                t1.addTodo(line);
+            } else if (words[0].equals("deadline")) {
+                t1.addDeadline(line);
+            } else if (words[0].equals("list")) {
                 t1.listTasks();
-            } else if (isDone){
+            } else if (words[0].equals("done")){
                 int markedIndex = Integer.parseInt(words[1]) - 1;
                 t1.markAsDone(markedIndex);
             }
             line = in.nextLine();
             words = line.split(" ");
-            isBye = words[0].equals("bye");
-            isList = words[0].equals("list");
-            isDone = words[0].equals("done");
         }
             Bye();
     }

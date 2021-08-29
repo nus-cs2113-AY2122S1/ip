@@ -1,4 +1,5 @@
 public class Task {
+    protected String by;
     private String description;
     private boolean hasDone;
 
@@ -17,6 +18,11 @@ public class Task {
 
     public void setAsDone() {
         hasDone = true;
+    }
+
+    public String toString() {
+        String hasDone = isDone()? "[X] ": "[ ] ";
+        return hasDone + description;
     }
 
 }
