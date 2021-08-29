@@ -26,4 +26,8 @@ interface Timetable {
     static int size() {
         return thingsToDo.size();
     }
+
+    static void updateTasks(int taskNumber) {
+        getThingsToDo().get(taskNumber - 1).finishTask();
+    }
 }
