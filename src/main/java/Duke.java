@@ -21,6 +21,21 @@ public class Duke {
         System.out.println(farewell);
     }
 
+    // Print invalid command warning
+    private static void printInvalid() {
+        // Invalid command message
+        String invalid = " Invalid Command!";
+        System.out.println(invalid);
+    }
+
+    private static void printAddTask(Task task) {
+        String addTask = " Got it. I've added this task:" + System.lineSeparator() +
+                "  " + task.toString() + System.lineSeparator() +
+                " Now you have " + task.getNoOfTasks() +
+                " tasks in the list.";
+        System.out.println(addTask);
+    }
+
     private static void executeList(TaskManager taskManager) {
         System.out.println(" Here are the tasks in your list:");
         taskManager.listTasks();
@@ -30,24 +45,56 @@ public class Duke {
         int num = Integer.parseInt(taskId);
         Task task = taskManager.markAsDone(num - 1);
         System.out.println(" Nice! I've marked this task as done:" + System.lineSeparator() +
-                "   " + task.getStatusIcon() + " " + task.getDescription());
+                "   " + task.toString());
     }
 
-    private static void executeAdd(TaskManager taskManager, String line) {
-        taskManager.addTask(line);
-        System.out.println(" added: " + line);
+    private static void executeAdd(TaskManager taskManager, String line, String command) {
+        int posDescription = line.indexOf(" ") + 1;
+        if (posDescription <= 0) {
+            printInvalid();
+            return;
+        }
+        String description = line.substring(posDescription);
+        Task task = null;
+        switch (command) {
+        case "todo":
+            task = taskManager.addTodo(description);
+            break;
+        case "deadline":
+            task = taskManager.addDeadline(description);
+            break;
+        case "event":
+            task = taskManager.addEvent(description);
+            break;
+        default:
+            printInvalid();
+            break;
+        }
+        if (task != null) {
+            printAddTask(task);
+        }
     }
 
     private static void execute(String line, TaskManager taskManager) {
         String[] words = line.split(" "); // Convert sentence into array of words
-        if (line.equals("bye")) { // Print farewell message and exit
+        switch (words[0]) {
+        case "bye":
             printFarewell();
-        } else if (line.equals("list")) { // Print out task list
+            break;
+        case "list":
             executeList(taskManager);
-        } else if (words[0].equals("done")) { // Mark the specified task as done
+            break;
+        case "done":
             executeDone(taskManager, words[1]);
-        } else { // Add new task to the task list
-            executeAdd(taskManager, line);
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            executeAdd(taskManager, line, words[0]);
+            break;
+        default:
+            printInvalid();
+            break;
         }
     }
 
