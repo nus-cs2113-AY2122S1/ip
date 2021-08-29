@@ -1,5 +1,5 @@
 public class Task {
-    private String name;
+    protected String name;
     private boolean isDone = false;
 
     public Task(String name) {
@@ -10,6 +10,10 @@ public class Task {
         return ("[" + (isDone ? "X" : " ") + "]");
     }
 
+    public String getTaskSymbol() {
+        return "[T]";
+    }
+
     public String getName() {
         return name;
     }
@@ -18,11 +22,15 @@ public class Task {
         this.name = name;
     }
 
-    public boolean isDone() {
+    public boolean getIsDone() {
         return isDone;
     }
 
     public void setDone() {
         isDone = true;
+    }
+
+    public String toString() {
+        return (getTaskSymbol() + getStatusSymbol() + " " + name);
     }
 }
