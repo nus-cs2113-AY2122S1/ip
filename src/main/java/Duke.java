@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static final int STOP_ADD = -1;
+    public static final int ADD_SUCCESS = 1;
     private static boolean isFail = false;
     private static int taskCount = 0;
     public static void printLine() {
@@ -28,13 +29,24 @@ public class Duke {
         return command;
     }
 
+    public static String printTask(Task item) {
+        if (item.isToDo()) {
+            return " (by: " + item.getDeadline() + ") ";
+        }
+        else if (item.isEvent()) {
+            return " (at: " + item.getEventDescription() + ") ";
+        }
+        return "";
+    }
+
+
     public static void listTasks(Task[] items) {
         int in = 1;
         System.out.println(" /          / ");
         for (Task item : items) {
             if (item != null) {
                 String tick = (item.isDone()) ? "✓" : " ";
-                System.out.println(in + ". " + "[" + tick + "]" + " " + item.getDescription());
+                System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + tick + "]" + " " + item.getDescription() + printTask(item));
                 in++;
             }
         }
@@ -63,7 +75,7 @@ public class Duke {
                 listTasks(taskList);
                 break;
             case ("add"):
-                taskCount = addTaskToList(in, taskList, taskCount);
+                addTaskToList(in, taskList);
                 break;
             case ("done"):
                 markTasksAsDone(in, taskList);
@@ -76,6 +88,15 @@ public class Duke {
                 break;
             case("echo"):
                 echoCommand();
+                break;
+            case("todo"):
+                addTodoToList(in, taskList);
+                break;
+            case("event"):
+                addEventToList(in, taskList);
+                break;
+            case("deadline"):
+                amendTaskDeadline(in, taskList);
                 break;
             case ("bye"):
                 break;
@@ -126,7 +147,7 @@ public class Duke {
         System.out.println("\n / done tasks, good job! / ");
     }
 
-    private static int addTaskToList(Scanner in, Task[] taskList, int taskCount) {
+    private static int addTaskToList(Scanner in, Task[] taskList) {
         String taskName;
         do {
             taskName = in.nextLine();
@@ -137,7 +158,47 @@ public class Duke {
             taskCount++;
         } while (!taskName.equals("stop"));
         System.out.println("Finished adding tasks!");
-        return taskCount;
+        return ADD_SUCCESS;
+    }
+
+    private static int addTodoToList(Scanner in, Task[] taskList) {
+        String todoName;
+        do {
+            todoName = in.nextLine();
+            if (todoName.equals("stop")) {
+                return STOP_ADD;
+            }
+            taskList[taskCount] = new Task(todoName, "todo");
+            taskCount++;
+        } while (!todoName.equals("stop"));
+        System.out.println("Finished adding todos!");
+        return ADD_SUCCESS;
+    }
+
+    private static int addEventToList(Scanner in, Task[] taskList) {
+        String eventName;
+        do {
+            eventName = in.nextLine();
+            if (eventName.equals("stop")) {
+                return STOP_ADD;
+            }
+            taskList[taskCount] = new Task(eventName, "event");
+            taskCount++;
+        } while (!eventName.equals("stop"));
+        System.out.println("Finished adding todos!");
+        return ADD_SUCCESS;
+    }
+
+    private static void amendTaskDeadline(Scanner in,Task[] taskList) {
+        String input = in.nextLine();
+        input = input.trim();
+        String[] separateInput = input.split("/", 2);
+        if (separateInput.length == 2) {
+            int index = Integer.parseInt(separateInput[0].trim()) - 1;
+            Task toChange = taskList[index];
+            toChange.setDeadline(separateInput[1]);
+            toChange.setToDo(true);
+        }
     }
 
     public static void main(String[] args) {
