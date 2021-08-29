@@ -28,12 +28,17 @@ public class Task {
         this.description = description;
     }
 
+    /**
+     * Get all information of the task.
+     *
+     * @return String containing all information of the task.
+     */
     public String getTaskInfo() {
         return description;
     }
 
     /**
-     * Returns a string depending of the isDone status. If the task isDone is true, "X" is return. Else " " is return.
+     * Returns a string depending on the isDone status. If the task isDone is true, "X" is return. Else " " is return.
      *
      * @return isDone status icon
      */

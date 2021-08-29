@@ -55,7 +55,6 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String userInputs = in.nextLine();
         TaskManager taskManager = new TaskManager();
-        String[] taskInfo;
         menuLoop:
         while (true) {
             System.out.println(LINE);
@@ -84,6 +83,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Get the first element of a String after a split by spaces.
+     *
+     * @param userInputs Raw user inputs from scanner.
+     * @return String containing the command given by the user.
+     */
     public static String getUserCommand(String userInputs) {
         return userInputs.split(" ")[0];
     }
@@ -94,6 +99,13 @@ public class Duke {
         return String.join(" ", payload).trim();
     }
 
+    /**
+     * Method to extract an integer output from user inputs. If an invalid format has been detected, -1 will be return
+     * instead.
+     *
+     * @param userInputs Raw user inputs from scanner.
+     * @return An integer representing an index in the tasks list.
+     */
     public static int getTaskIndexFromUserInputs(String userInputs) {
         int result = -1;
         try {
@@ -104,11 +116,16 @@ public class Duke {
         return result;
     }
 
-
+    /**
+     * Method to add task to task list that is handled by a TaskManager object.
+     *
+     * @param taskManager TaskManager object that handles the tasks list
+     * @param userInputs  Raw user inputs from scanner
+     */
     public static void processTaskInfo(TaskManager taskManager, String userInputs) {
         String payload = getUserPayload(userInputs);
         String userCommand = getUserCommand(userInputs);
-        String[] newPayload = new String[0];
+        String[] newPayload;
         if (payload.equals("")) {
             System.out.println("Error: Missing Task Info.");
             return;

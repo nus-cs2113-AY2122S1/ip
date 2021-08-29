@@ -15,6 +15,11 @@ public class Deadline extends Task {
         return FLAG_TYPE + super.getStatusIcon();
     }
 
+    /**
+     * Get all information of the task.
+     *
+     * @return String containing all information of the task.
+     */
     @Override
     public String getTaskInfo() {
         return getDescription() + " (by: " + dueDate + ")";
