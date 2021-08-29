@@ -50,7 +50,7 @@ public class Duke {
                 
                 //listing out tasks if userInput == "list"
                 for (int i = 0; i < tasksIndex; i++) {
-                    System.out.println("\t" + (i+1) + "." +  tasks[i]);
+                    printlnTab(String.format("%d.%s", (i+1), tasks[i]));
                 }
                 printDivider();
             } else if (userInput.startsWith("done")) {
@@ -62,7 +62,7 @@ public class Duke {
                 (tasks[taskNumber - 1]).markAsDone();
 
                 printlnTab("Nice! I've marked this task as done:");
-                System.out.println("\t " + tasks[taskNumber - 1]);
+                printlnTab(String.format("%s", tasks[taskNumber - 1]));
                 printDivider();
 
             } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
@@ -114,6 +114,7 @@ public class Duke {
 
                 printlnTab("Got it. I've added this task:");
                 printlnTab(" " +  tasks[tasksIndex]);
+                printlnTab(String.format("Now you have %d tasks", tasksIndex + 1)); // need case for odd
 
                 printDivider();
                 tasksIndex++;
