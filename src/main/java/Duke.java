@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -9,6 +10,24 @@ public class Duke {
     //to draw a straight line
     private static void printHorizontalLine() {
         System.out.println("_".repeat(LINE_WIDTH));
+    }
+
+    public static String[] filterAmounts(String [] todos) {
+       // String[] words = String todos[];
+        int todoCount = 0;
+        String[] result = new String[100];
+        for (String todo : todos) {
+            //System.out.println(word);
+            if (todo != null) {
+                result[todoCount] = todo;
+                todoCount++;
+            }
+            else {
+                break;
+
+            }
+        }
+        return Arrays.copyOf(result, todoCount);
     }
 
 
@@ -29,16 +48,35 @@ public class Duke {
         String line = "";
         Scanner in = new Scanner(System.in);
 
-        while(!(
-                line.equals("bye") ||
-                        line.equals("Bye"))){
+        //initialise the 100 todos items array
+        String[] todos = new String[100];
 
+
+        int counter=0;
+        while(!(line.equals("bye") || line.equals("Bye"))) {
             line = in.nextLine();
-            printHorizontalLine();
-            if(!line.equals("bye" )){
-                System.out.println(line);
-                printHorizontalLine();}
+            line = line.toLowerCase();
+            if (line.equals("list")) {
+                String[] listeds = filterAmounts(todos);
+                int listedcount=1;
+                for (String listed : listeds)
+                {
+                    System.out.println(listedcount + ". "+ listed);
+                    listedcount++;
+                }
+                printHorizontalLine();
+            } else if (!line.equals("bye")) {
+                printHorizontalLine();
+                System.out.println("added: " + line);
+                printHorizontalLine();
+                todos[counter] = line; //save text input to array
+                counter++;  // prepare to take in the next array item
+            } else {
+                printHorizontalLine();
+            }
         }
+
+
         //printHorizontalLine();
         System.out.println( "Bye. Hope to see you again soon!");
         System.out.println();
