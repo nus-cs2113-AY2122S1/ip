@@ -12,7 +12,7 @@ public class Duke {
     }
 
     public static String[] taskLister(String[] todos) {
-        // String[] words = String todos[];
+
         int todoCount = 0;
         String[] result = new String[100];
         for (String todo : todos) {
@@ -45,15 +45,18 @@ public class Duke {
     }
 
 
-    public static String[] checkMarker(String[] tobeCheckeds, int doneNumber) {
+    public static String[] checkMarker(String[] tobeCheckeds, int doneNumber, int listedcount) {
         String[] checkedMarks = new String[tobeCheckeds.length];
-        int checkMarkCounter = 0;
-        for (String checkedMark : checkedMarks) {
-            if (!Objects.equals(checkedMark, "X")) {
-                checkedMarks[checkMarkCounter] = " ";
-                checkMarkCounter++;
+        //int checkMarkCounter = 0;
+        for (int i =0; i<listedcount; i++ ) {
+            if (tobeCheckeds[i]== null ) { //&& !tobeCheckeds[i].equals("X")
+                checkedMarks[i] = " ";
+            } else
+                {
+                    checkedMarks[i] = tobeCheckeds[i];
+                }
             }
-        }
+
         checkedMarks[doneNumber] = "X";
         return checkedMarks;
     }
@@ -80,26 +83,26 @@ public class Duke {
         String[] todos = new String[100];
         String[] checkMarked = new String[100];
         Arrays.fill(checkMarked, " ");
-
+        String[] tobeCheckeds = new String[100];
 
         int counter = 0;
-        String[] tobeCheckeds = new String[100];
+
         while (!(line.equals("bye") || line.equals("Bye"))) {
             line = in.nextLine();
             line = line.toLowerCase();
             if (splitString(line)) {
-                int doneNumber = 0;
+                int listedcount = 1;
+                int doneNumber = 0; //no choice have to make 0 if not ide wont let me run
                 String[] findNumbers = line.split(" ");
                 doneNumber = Integer.parseInt(findNumbers[1]);
-                checkMarked = checkMarker(tobeCheckeds, doneNumber);
+                checkMarked = checkMarker(tobeCheckeds, doneNumber, counter+1);
                 String[] listeds = taskLister(todos);
-                int listedcount = 1;
+                System.out.println("Here are the tasks in your list:");
                 for (String listed : listeds) {
-                    System.out.println("Here are the tasks in your list:");
                     System.out.println(listedcount + "." + "[" + checkMarked[listedcount] + "]" + " " + listed);
                     listedcount++;
-                    //checkMarked=checkMarked;
                 }
+                tobeCheckeds=checkMarked;
                 printHorizontalLine();
             } else if (line.equals("list")) {
                 String[] listeds = taskLister(todos);
