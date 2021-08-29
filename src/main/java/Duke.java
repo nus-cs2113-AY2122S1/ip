@@ -43,7 +43,7 @@ public class Duke {
             + "5. done [task number] - Marks the task as done. Use the list to check the task number!\n"
             + "6. echo [input] - Echoes whatever your input is.\n"
             + "7. bye - Stop talking to me and exit the program.\n"
-            + "Have fun and take care!";
+            + "I am currently not able to handle erroneous inputs myself... So please be careful in what you type!";
     private static final String DIVIDER = "____________________________________________________________";
 
     private void printDivider() {
