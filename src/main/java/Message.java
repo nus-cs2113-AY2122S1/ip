@@ -24,8 +24,4 @@ public class Message {
         printWithSpacers(END);
     }
 
-    public static void printInputReceived(String userInput) {
-        printWithSpacers("added: " + userInput);
-    }
-
 }

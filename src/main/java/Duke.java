@@ -2,14 +2,14 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final Scanner in = new Scanner(System.in);
+    private static final Scanner IN = new Scanner(System.in);
 
     private static final String TERMINATE_CONSOLE = "bye";
     private static final String LIST = "list";
     private static final String DONE_REGEX = "done \\d+";
 
     private static String getUserInput() {
-        return in.nextLine();
+        return IN.nextLine();
     }
 
     public static void main(String[] args) {
@@ -19,11 +19,13 @@ public class Duke {
             if (userInput.equals(TERMINATE_CONSOLE)) {
                 break;
             } else if (userInput.equals(LIST)) {
-                Tasks.printTasks();
+                TaskManager.printTasks();
             } else if (userInput.matches(DONE_REGEX)) {
-                Tasks.taskDone(Integer.parseInt(userInput.split(" ")[1]) - 1);
+                int id = Integer.parseInt(userInput.split(" ")[1]);
+                //id entered with index starting from '1' instead of '0'
+                TaskManager.taskDone(id - 1);
             } else {
-                Tasks.newTask(userInput);
+                TaskManager.newTask(userInput);
             }
         }
         Message.end();
