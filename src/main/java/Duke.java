@@ -1,3 +1,4 @@
+import java.awt.desktop.SystemEventListener;
 import java.util.Scanner;
 
 public class Duke {
@@ -49,24 +50,6 @@ public class Duke {
         default:
             System.out.println("Invalid Input!");
         }
-        /*
-        if(line.equals("1")){
-            echo();
-        }
-
-        if(line.equals("2")){
-            addTask();
-        }
-
-        if(line.equals("3")){
-            displayList();
-        }
-
-        if(line.equals("bye")){
-            bye();
-            return;
-        }
-        */
         chooseTask();
     }
 
@@ -115,11 +98,26 @@ public class Duke {
         printLine();
 
         line = in.nextLine();
-        taskList[taskindex] = new Task(line);
+        int typePos = line.indexOf(" ");
+        String taskType = line.substring(0, typePos);
+        String taskDescription = line.substring(typePos).trim();
+        switch (taskType) {
+        case "todo":
+            taskList[taskindex] = new ToDo(taskDescription);
+            break;
+        case "deadline":
+            taskList[taskindex] = new Deadline(taskDescription);
+            break;
+        case "event":
+            taskList[taskindex] = new Event(taskDescription);
+            break;
+        }
         taskindex++;
 
         printLine();
-        System.out.println("added: " + line);
+        System.out.println("I have added this task:");
+        System.out.println("[" + taskList[taskindex-1].getType() +"][" + taskList[taskindex-1].getStatusIcon() + "] " + taskList[taskindex-1].getDescription());
+        System.out.println("You have " + taskindex + " task(s) in the list.");
         printLine();
     }
 
@@ -131,7 +129,7 @@ public class Duke {
         }
         System.out.println("The current to-do list is as follows:");
         for (int i = 0; i < taskindex; i++) {
-            System.out.println(i + 1 + ". [" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+            System.out.println(i + 1 + ". [" + taskList[i].getType() +"][" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
         }
         printLine();
     }
