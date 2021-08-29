@@ -9,19 +9,22 @@ public class TaskManager {
         return currentTasksCount;
     }
 
-    public void addTodo(String taskDescription) {
+    public Task addTodo(String taskDescription) {
         tasks[currentTasksCount] = new ToDo(taskDescription);
         currentTasksCount++;
+        return tasks[currentTasksCount - 1];
     }
 
-    public void addDeadline(String taskDescription, String deadline) {
+    public Task addDeadline(String taskDescription, String deadline) {
         tasks[currentTasksCount] = new Deadline(taskDescription, deadline);
         currentTasksCount++;
+        return tasks[currentTasksCount - 1];
     }
 
-    public void addEvent(String taskDescription, String dateAndTime) {
+    public Task addEvent(String taskDescription, String dateAndTime) {
         tasks[currentTasksCount] = new Event(taskDescription, dateAndTime);
         currentTasksCount++;
+        return tasks[currentTasksCount - 1];
     }
 
     public void listTasks() {
