@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Duke {
 
     //TODO Abstract repeated functions
-    //printing a task properly (override toString method in class)
-    //constants / enums
+    //constants / enums for TaskTypes -> Todo/Deadline/Event, then case statement
+    //Super for classes
 
     public static void printlnTab(String str) {
         System.out.println("\t" + str);
@@ -75,8 +75,8 @@ public class Duke {
                         String[] deadlineDetails = userInput.split("/by");
 
                         if (deadlineDetails.length == 2) {
-                            String description = deadlineDetails[0].stripLeading();
-                            String by = deadlineDetails[1].stripLeading();
+                            String description = deadlineDetails[0].strip();
+                            String by = deadlineDetails[1].strip();
                             tasks[tasksIndex] = new Deadline(description, by);
                         } else {
                             //error
@@ -95,7 +95,7 @@ public class Duke {
                 }
 
                 printlnTab("Got it. I've added this task:");
-                printlnTab("" +  tasks[tasksIndex].description);
+                printlnTab(" " +  tasks[tasksIndex]);
 
                 printDivider();
                 tasksIndex++;
