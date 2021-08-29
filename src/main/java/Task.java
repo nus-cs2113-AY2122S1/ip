@@ -13,9 +13,8 @@ public class Task {
 
     protected void markAsDone() {
         this.isTaskDone = true;
-        System.out.println("This task is done homie:\n"
-                + "[" + this.getStatusIcon() + "] "
-                + this.taskDescription);
+        System.out.print("This task is done homie:\n");
+        this.describe();
     }
 
     protected String getStatusIcon() {
