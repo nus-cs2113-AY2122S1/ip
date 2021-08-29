@@ -1,0 +1,27 @@
+hello
+list
+todo hello
+list
+done 0
+done 2
+done abc
+deadline hello
+deadline hello /by today
+deadline hello /at hello
+list
+event hello
+event hello /by today
+event hello /at hello
+list
+done 1
+list
+done 2
+list
+done       3
+list
+todo       hello
+deadline    hello    /by     today
+event    hello    /at     today
+list
+bye
+hello
