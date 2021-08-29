@@ -91,5 +91,42 @@ ____________________________________________________________
 Sorry... I did not understand that, can you try again? >.<
 Enter "help" to see what I can do for you!
 ____________________________________________________________
+If you can see this, then it's all good.
+____________________________________________________________
+Yay! I have added the following task for you:
+[T][ ] Make more space
+You have 6 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[D][ ] Do project report (by: Saturday 2pm)
+You have 7 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Cry (at: 2am - 4am)
+You have 8 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Cry again (at: NOW)
+You have 9 tasks in your list now!
+____________________________________________________________
+Good job! You have finished the following:
+[E][X] Cry again (at: NOW)
+____________________________________________________________
+Good job! You have finished the following:
+[D][X] Do project report (by: Saturday 2pm)
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Monday 2359)
+3. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
+4. [E][X] Team Meeting (at: Tuesday 10am)
+5. [T][X] Finish CG2027 videos /by Monday 8pm
+6. [T][ ] Make more space
+7. [D][X] Do project report (by: Saturday 2pm)
+8. [E][ ] Cry (at: 2am - 4am)
+9. [E][X] Cry again (at: NOW)
+____________________________________________________________
+End of test
+____________________________________________________________
 Bye! Have a great day ahead and see you again soon. ?
 ____________________________________________________________

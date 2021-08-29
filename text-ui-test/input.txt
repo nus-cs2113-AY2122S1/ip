@@ -19,4 +19,13 @@ echo This has been a great test so far!
 help
 random cmd
 more dummy
+echo           If you can see this, then it's all good.
+todo                 Make more space
+deadline         Do project report/bySaturday 2pm
+event                  Cry         /at          2am - 4am
+event Cry again/at     NOW
+done            9
+done 7
+list
+echo End of test
 bye
