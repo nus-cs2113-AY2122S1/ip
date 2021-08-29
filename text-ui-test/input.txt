@@ -1,0 +1,15 @@
+todo Read novel
+deadline Coding assignment /by Next Tuesday 2359hrs
+event Micron Eng. Talk /at 1 Sept 1-2pm
+list
+done 1
+done 4
+done abc
+todo
+deadline
+deadline GE Essay /by
+deadline GE Essay /before
+event ESL One Grand Finals /at
+event ESL One Grand Finals
+blah
+bye

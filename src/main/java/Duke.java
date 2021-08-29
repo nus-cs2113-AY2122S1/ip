@@ -69,7 +69,7 @@ public class Duke {
         } else {
             tasks[taskToMarkDone - 1].setDone(true);
             System.out.println("____________________________________________________________");
-            System.out.println(" Great! I have marked the following task as done: ");
+            System.out.println(" Great! I have marked the following task as done:");
             System.out.println("   " + tasks[taskToMarkDone - 1].toString());
             System.out.println("____________________________________________________________");
         }
@@ -91,7 +91,7 @@ public class Duke {
         Todo newTodo = new Todo(todoDescription);
         tasks[taskCount] = newTodo;
         System.out.println("____________________________________________________________");
-        System.out.println(" I have added a task: ");
+        System.out.println(" I have added a task:");
         System.out.println("   " + newTodo.toString());
         System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
         System.out.println("____________________________________________________________");
@@ -129,7 +129,7 @@ public class Duke {
             tasks[taskCount] = newDeadline;
             wasAdded = true;
             System.out.println("____________________________________________________________");
-            System.out.println(" I have added a task: ");
+            System.out.println(" I have added a task:");
             System.out.println("   " + newDeadline.toString());
             System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
             System.out.println("____________________________________________________________");
@@ -174,7 +174,7 @@ public class Duke {
             tasks[taskCount] = newEvent;
             wasAdded = true;
             System.out.println("____________________________________________________________");
-            System.out.println(" I have added a task: ");
+            System.out.println(" I have added a task:");
             System.out.println("   " + newEvent.toString());
             System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
             System.out.println("____________________________________________________________");
