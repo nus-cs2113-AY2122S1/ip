@@ -2,17 +2,14 @@
  * This represents the individual Tasks in each element of Task[] list in Duke.java
  */
 public class Task {
-    /**
-     * String description is the description of each task
-     */
+
     protected String description;
-    /**
-     * boolean isDone is the representation whether a task is done or not
-     */
     protected boolean isDone;
+    private final static String TAB = "    ";
 
     /**
      * This function initialises the task input by user
+     *
      * @param description description input by user
      */
     public Task(String description) {
@@ -21,7 +18,8 @@ public class Task {
     }
 
     /**
-     * This function returns "X" if task is done, " " if it is not
+     * This function returns a relevant status icon
+     * @return "X" if task is done, " " if it is not
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -32,12 +30,11 @@ public class Task {
      */
     public void markAsDone() {
         isDone = true;
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.format("         [%s] %s%n", getStatusIcon(), getDescription());
     }
 
     /**
-     * This function returns the description of the task
+     * This function is a getter for task description
+     * @return description
      */
     public String getDescription() {
         return description;
