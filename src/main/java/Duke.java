@@ -65,7 +65,10 @@ public class Duke {
             isList = input.equals("list");
             isDone = isDone(input);
 
-            if (isList) {
+            if (isBye) {
+                bye();
+            }
+            else if (isList) {
                 Task[] listPrint = Arrays.copyOf(tasks, taskCount);
                 int curr = 1;
                 for (Task item : listPrint) {
@@ -86,8 +89,6 @@ public class Duke {
             }
 
         } while (!isBye);
-
-        bye();
 
     }
 }
