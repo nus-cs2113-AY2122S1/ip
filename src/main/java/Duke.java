@@ -26,14 +26,16 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println();
         printHorizontalLine();
-        String line = null;
+        String line = "";
         Scanner in = new Scanner(System.in);
 
-        while(!(Objects.equals(line, "bye" )) ){
+        while(!(
+                line.equals("bye") ||
+                        line.equals("Bye"))){
 
             line = in.nextLine();
             printHorizontalLine();
-            if(!Objects.equals(line, "bye")){
+            if(!line.equals("bye" )){
                 System.out.println(line);
                 printHorizontalLine();}
         }
