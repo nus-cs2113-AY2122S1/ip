@@ -1,3 +1,15 @@
 public enum TaskType {
-    TODO, DEADLINE, EVENT
+    TODO("T"),
+    DEADLINE("D"),
+    EVENT("E");
+
+    private final String taskLabel;
+
+    TaskType(String taskLabel) {
+        this.taskLabel = taskLabel;
+    }
+
+    public String getTaskLabel() {
+        return taskLabel;
+    }
 }
