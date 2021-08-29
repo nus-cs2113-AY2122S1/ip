@@ -1,5 +1,6 @@
 list
 done 1
+done a
 todo Hang clothes out to dry
 list
 deadline CS2113T project

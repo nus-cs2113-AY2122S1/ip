@@ -1,3 +1,8 @@
+/**
+ * Command to add a new {@link ToDo} into the task manager {@link Unker}. 
+ *
+ * Usage in UI: todo description
+ */
 public class ToDoCommand extends Command {
 
     public ToDoCommand() {

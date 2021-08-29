@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * This class manages all the {@link Task} in the program.
+ */
 public class Unker {
 
     private final ArrayList<Task> tasks;
@@ -51,20 +54,6 @@ public class Unker {
      */
     public boolean isTasksEmpty() {
         return tasks.isEmpty();
-    }
-
-    public static void main(String[] args) {
-        UI ui = UI.getUiInstance();
-        ui.printBanner();
-        Unker unker = getUnkerInstance();
-        CommandMap commandMap = CommandMap.getCommandMapInstance();
-
-        // Keep listening for new commands
-        while (true) {
-            String cmd = ui.getUserInput();
-            commandMap.executeCommand(ui, unker, cmd);
-            ui.printRequestMoreCommandsMessage();
-        }
     }
 
     /**

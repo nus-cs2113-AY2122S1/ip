@@ -13,6 +13,13 @@ public class CommandMap {
         commands = new HashMap<>();
     }
 
+    /**
+     * Finds and executes a command based on the user input.
+     * 
+     * @param ui The UI that executed the command
+     * @param unker The task manager to update the tasks with
+     * @param cmdString The command that the user sent
+     */
     public void executeCommand(UI ui, Unker unker, String cmdString) {
         Pattern cmdPattern = Pattern.compile("^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$");
         Matcher cmdMatcher = cmdPattern.matcher(cmdString);
@@ -31,6 +38,11 @@ public class CommandMap {
         }
     }
 
+    /**
+     * Get a singleton instance of CommandMap
+     * 
+     * @return A singleton instance of CommandMap
+     */
     public static CommandMap getCommandMapInstance() {
         return COMMAND_MAP;
     }

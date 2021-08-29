@@ -1,3 +1,8 @@
+/**
+ * Command to run to exit from the software.
+ * 
+ * Usage in UI: bye
+ */
 public class ByeCommand extends Command {
 
     protected ByeCommand() {

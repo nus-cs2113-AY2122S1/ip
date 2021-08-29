@@ -1,3 +1,8 @@
+/**
+ * Command that lists all {@link Task} added to the task manager {@link Unker} 
+ *
+ * Usage in UI: list 
+ */
 public class ListCommand extends Command {
 
     protected ListCommand() {

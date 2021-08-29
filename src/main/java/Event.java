@@ -7,6 +7,15 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * Gets the time of the event.
+     * 
+     * @return The time of the event.
+     */
+    public String getAt() {
+        return at;
+    }
+
     @Override
     public String toString() {
         return String.format("[E] %s (at: %s)", super.toString(), this.at);

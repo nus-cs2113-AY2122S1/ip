@@ -7,6 +7,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Gets the due date of the task.
+     * 
+     * @return The due date of the task.
+     */
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(), this.by);

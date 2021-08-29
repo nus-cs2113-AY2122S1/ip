@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * A generic Command class to handle commands sent by the user.
  */
@@ -22,6 +25,22 @@ public abstract class Command {
         return name;
     }
 
+
+    protected Matcher parseUserInput(String regex, String data) {
+        if (data == null) {
+            return null;
+        }
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(data);
+
+        // Only return the Matcher if the input is valid
+        if (matcher.matches()) {
+            return matcher;
+        } else {
+            return null;
+        }
+    }
+    
     /**
      * Executes the command provided by the user.
      *

@@ -16,7 +16,12 @@ Wah seh, you got nothing in your to-do list leh.
 Anything else you wan Unker to help you with?
 > 
 --// Unker //----------------------------------------------
-Aiyo, you give me a task number that I don't have.
+Unker don't think that is a valid number leh.
+--
+Anything else you wan Unker to help you with?
+> 
+--// Unker //----------------------------------------------
+Unker don't think that is a valid number leh.
 --
 Anything else you wan Unker to help you with?
 > 
