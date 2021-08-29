@@ -77,12 +77,13 @@ This has been a great test so far!
 ____________________________________________________________
 Below is the list of commands and input formats I am currently able to understand:
 1. list - Lists all your current tasks.
-2. todo [task description] - Adds a task to your list.
-3. deadline [task description] /by [due date] - Adds a task with a due date to your list.
-4. event [event description] /at [date and time] - Adds an upcoming event to your list.
-5. done [task number] - Marks the task as done. Use the list to check the task number!
-6. echo [input] - Echoes whatever your input is.
-7. bye - Stop talking to me and exit the program.
+2. clear - Clears all your existing tasks in your list.
+3. todo [task description] - Adds a task to your list.
+4. deadline [task description] /by [due date] - Adds a task with a due date to your list.
+5. event [event description] /at [date and time] - Adds an upcoming event to your list.
+6. done [task number] - Marks the task as done. Use the list to check the task number!
+7. echo [input] - Echoes whatever your input is.
+8. bye - Stop talking to me and exit the program.
 I am currently not able to handle erroneous inputs myself... So please be careful in what you type!
 ____________________________________________________________
 Sorry... I did not understand that, can you try again? >.<
@@ -125,6 +126,10 @@ Wow! I found these tasks in your list:
 7. [D][X] Do project report (by: Saturday 2pm)
 8. [E][ ] Cry (at: 2am - 4am)
 9. [E][X] Cry again (at: NOW)
+____________________________________________________________
+Okay! Now your list is empty, you're FREE!
+____________________________________________________________
+Wow! I found these tasks in your list:
 ____________________________________________________________
 End of test
 ____________________________________________________________

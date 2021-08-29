@@ -9,6 +9,11 @@ public class TaskManager {
         return currentTasksCount;
     }
 
+    public void clearAllTasks() {
+        tasks = new Task[MAX_TASKS_COUNT];
+        currentTasksCount = 0;
+    }
+
     public Task addTodo(String taskDescription) {
         tasks[currentTasksCount] = new ToDo(taskDescription);
         currentTasksCount++;

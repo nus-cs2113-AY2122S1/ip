@@ -27,5 +27,7 @@ event Cry again/at     NOW
 done            9
 done 7
 list
+clear
+list
 echo End of test
 bye

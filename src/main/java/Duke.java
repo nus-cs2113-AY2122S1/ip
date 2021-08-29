@@ -8,6 +8,7 @@ public class Duke {
 
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST_TASKS = "list";
+    private static final String COMMAND_CLEAR_TASKS = "clear";
     private static final String COMMAND_MARK_TASK_AS_DONE = "done";
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_DEADLINE = "deadline";
@@ -32,17 +33,19 @@ public class Duke {
             "Sorry... I did not understand that, can you try again? >.<\n"
             + "Enter \"help\" to see what I can do for you!";
     private static final String LIST_TASKS_MESSAGE = "Wow! I found these tasks in your list:";
+    private static final String CLEAR_TASKS_MESSAGE = "Okay! Now your list is empty, you're FREE!";
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";
     private static final String MARK_TASK_AS_DONE_MESSAGE = "Good job! You have finished the following:";
     private static final String HELP_MESSAGE =
             "Below is the list of commands and input formats I am currently able to understand:\n"
             + "1. list - Lists all your current tasks.\n"
-            + "2. todo [task description] - Adds a task to your list.\n"
-            + "3. deadline [task description] /by [due date] - Adds a task with a due date to your list.\n"
-            + "4. event [event description] /at [date and time] - Adds an upcoming event to your list.\n"
-            + "5. done [task number] - Marks the task as done. Use the list to check the task number!\n"
-            + "6. echo [input] - Echoes whatever your input is.\n"
-            + "7. bye - Stop talking to me and exit the program.\n"
+            + "2. clear - Clears all your existing tasks in your list.\n"
+            + "3. todo [task description] - Adds a task to your list.\n"
+            + "4. deadline [task description] /by [due date] - Adds a task with a due date to your list.\n"
+            + "5. event [event description] /at [date and time] - Adds an upcoming event to your list.\n"
+            + "6. done [task number] - Marks the task as done. Use the list to check the task number!\n"
+            + "7. echo [input] - Echoes whatever your input is.\n"
+            + "8. bye - Stop talking to me and exit the program.\n"
             + "I am currently not able to handle erroneous inputs myself... So please be careful in what you type!";
     private static final String DIVIDER = "____________________________________________________________";
 
@@ -107,6 +110,12 @@ public class Duke {
         printDivider();
     }
 
+    private void clearAllTasks() {
+        TASK_MANAGER.clearAllTasks();
+        System.out.println(CLEAR_TASKS_MESSAGE);
+        printDivider();
+    }
+
     private void markTaskAsDone(int taskIndex) {
         Task finishedTask = TASK_MANAGER.markTaskAsDone(taskIndex);
         System.out.println(MARK_TASK_AS_DONE_MESSAGE + "\n" + finishedTask.toString());
@@ -130,6 +139,10 @@ public class Duke {
             }
             if (userInputString.equalsIgnoreCase(COMMAND_LIST_TASKS)) {
                 listTasks();
+                continue;
+            }
+            if (userInputString.equalsIgnoreCase(COMMAND_CLEAR_TASKS)) {
+                clearAllTasks();
                 continue;
             }
             if (userInputString.equalsIgnoreCase(COMMAND_HELP)) {
