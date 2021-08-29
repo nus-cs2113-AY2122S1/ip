@@ -4,10 +4,23 @@ public class Storage {
 
     public static void storeInput(String input) {
         Task newTask;
-        switch (input)
-        inputTasks[inputTasksSize] = "[ ] " + input;
+        if (input.startsWith("todo")) {
+            newTask = new Todo(input.substring(5));
+        } else if (input.startsWith("deadline")) {
+            String[] inputSlices = input.substring(9).split("/");
+            newTask = new Deadline(inputSlices[0].trim(), inputSlices[1].substring(2).trim());
+        } else {
+            String[] inputSlices = input.substring(6).split("/");
+            newTask = new Event(inputSlices[0].trim(), inputSlices[1].substring(2).trim());
+        }
+
+        inputTasks[inputTasksSize] = newTask;
         inputTasksSize++;
-        Response.echo("added: " + input);
+
+        String acknowledgeMessage = "Got it. I've added this task: \n  " + inputTasks[inputTasksSize - 1] + "\n"
+                + "Now you have: " + inputTasksSize + " tasks in the list";
+
+        Response.echo(acknowledgeMessage);
     }
 
     public static void list() {
@@ -21,7 +34,7 @@ public class Storage {
     }
 
     public static void markComplete(int completedTask) {
-        inputTasks[completedTask - 1] = "[X" + inputTasks[completedTask - 1].substring(2);
+        inputTasks[completedTask - 1].markComplete();
         Response.echo("Nice! I've marked this task as done: \n" + inputTasks[completedTask - 1]);
     }
 }

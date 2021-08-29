@@ -5,7 +5,7 @@ public class Duke {
     public static void main(String[] args) {
         Response.greet();
 
-        String input = "";
+        String input;
         do {
             Scanner scan = new Scanner(System.in);
             input = scan.nextLine();
