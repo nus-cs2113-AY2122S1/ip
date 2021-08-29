@@ -10,6 +10,8 @@ public class Task {
 
     /**
      * Initialise a new incomplete task.
+     *
+     * @param description Description of task to be done.
      */
     public Task(String description) {
         this.description = description;
@@ -22,6 +24,7 @@ public class Task {
 
     /**
      * Return the icon representing whether the task is completed.
+     *
      * @return Status task icon.
      */
     public String getStatusIcon() {
@@ -33,5 +36,14 @@ public class Task {
      */
     public void markAsDone() {
         isCompleted = true;
+    }
+
+    /**
+     * Return the icon representing the type of the task.
+     *
+     * @return Task icon.
+     */
+    public String getTaskIcon() {
+        return "?";
     }
 }
