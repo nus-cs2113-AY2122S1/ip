@@ -51,7 +51,7 @@ public class Duke {
         System.out.println("Tasks list so far:");
         for (int i = 0; i < listSize; i++) {
             System.out.print(taskList[i].getTaskNumber());
-            System.out.println('.' + taskList[i].toString());
+            System.out.println("." + taskList[i]);
         }
         System.out.println(LINE);
     }
@@ -62,7 +62,7 @@ public class Duke {
         taskList[taskNumberToMark - 1].markDone();
         System.out.println(LINE);
         System.out.println("Well done! Task marked:");
-        System.out.println(" " + taskList[taskNumberToMark - 1].toString());
+        System.out.println(" " + taskList[taskNumberToMark - 1]);
         System.out.println(LINE);
     }
 

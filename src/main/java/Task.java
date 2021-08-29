@@ -24,7 +24,7 @@ public class Task {
         isDone = true;
     }
 
-    public String toString () {
+    public String toString() {
         if (isDone()) {
             return "[✓] " + taskName;
         }
