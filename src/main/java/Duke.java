@@ -12,6 +12,7 @@ public class Duke {
 
     public static void printDivider() {
         System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
 
     public static void welcomeMessage() {
@@ -49,7 +50,7 @@ public class Duke {
                 
                 //listing out tasks if userInput == "list"
                 for (int i = 0; i < tasksIndex; i++) {
-                    System.out.println("\t" + tasks[i]);
+                    System.out.println("\t" + (i+1) + "." +  tasks[i]);
                 }
                 printDivider();
             } else if (userInput.startsWith("done")) {
@@ -61,7 +62,8 @@ public class Duke {
                 (tasks[taskNumber - 1]).markAsDone();
 
                 printlnTab("Nice! I've marked this task as done:");
-                printlnTab("  [X] " + (tasks[taskNumber - 1]).getDescription());
+                System.out.println("\t " + tasks[taskNumber - 1]);
+                printDivider();
 
             } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
 
@@ -90,8 +92,24 @@ public class Duke {
                     }    
                 } else { //events
                     // tasks[tasksIndex] = new Event(userInput);
-                    userInput = in.nextLine().trim();
-                    continue;
+                    if (userInput.contains("/a")) {
+                        userInput = userInput.substring(5).stripLeading(); // strip deadline
+                        String[] eventDetails = userInput.split("/at");
+
+                        if (eventDetails.length == 2) {
+                            String description = eventDetails[0].strip();
+                            String at = eventDetails[1].strip();
+                            tasks[tasksIndex] = new Event(description, at);
+                        } else {
+                            //error
+                            userInput = in.nextLine().trim();
+                            continue;
+                        }
+                    } else {
+                        //invalid
+                        userInput = in.nextLine().trim();
+                        continue;
+                    }    
                 }
 
                 printlnTab("Got it. I've added this task:");
