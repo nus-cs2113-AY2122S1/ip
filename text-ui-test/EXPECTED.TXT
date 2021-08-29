@@ -22,12 +22,12 @@ Now you have 3 tasks in the list
 1.[T][ ]study
 2.[D][ ]finish assignment (by: Sunday 3pm)
 3.[E][ ]attend meeting (at: Monday 2-4pm)
-Nice! I have marked this task as done:
+Nice! I have marked this task as done: 
 [T][X]study
 1.[T][X]study
 2.[D][ ]finish assignment (by: Sunday 3pm)
 3.[E][ ]attend meeting (at: Monday 2-4pm)
-Nice! I have marked this task as done:
+Nice! I have marked this task as done: 
 [E][X]attend meeting (at: Monday 2-4pm)
 1.[T][X]study
 2.[D][ ]finish assignment (by: Sunday 3pm)
