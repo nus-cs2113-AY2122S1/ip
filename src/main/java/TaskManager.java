@@ -1,7 +1,8 @@
 import java.util.Arrays;
 
 public class TaskManager {
-    private static boolean hasInvalidIndex = false;
+    public static final String STATUS_DONE = "X";
+    public static boolean hasInvalidIndex = false;
 
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
@@ -30,66 +31,70 @@ public class TaskManager {
         taskCount++;
     }
 
-    public void setAsDone(String taskInfo) {
-        int[] indexes = filterIndexes(taskInfo);
-        int[] invalidIndexes = new int[indexes.length];
-        int[] validIndexes = new int[indexes.length];
-        int[] doneIndexes = new int[indexes.length];
-        int invalidCount = 0;
-        int validCount = 0;
-        int doneCount = 0;
+    public int[] filterOutOfRangeIndexes(int[] indexes) {
+        int[] outOfRangeIndexes = new int[indexes.length];
+        int count = 0;
 
         for (int index : indexes) {
             if (index - 1 >= taskCount) {
-                invalidIndexes[invalidCount] = index;
-                invalidCount++;
-            } else if (tasks[index - 1].getStatusIcon().equals("X")) {
-                doneIndexes[doneCount] = index;
-                doneCount++;
-            } else {
-                tasks[index - 1].markAsDone();
-                validIndexes[validCount] = index;
-                validCount++;
+                outOfRangeIndexes[count] = index;
+                count++;
             }
         }
 
-        if (invalidCount + validCount + doneCount == 0 && hasInvalidIndex) {
-            System.out.println("   ____________________________________________________________");
-            hasInvalidIndex = false;
-            return;
-        } else if (invalidCount + validCount + doneCount == 0) {
-            return;
+        if (count == 0) {
+            return null;
         }
+        return Arrays.copyOf(outOfRangeIndexes, count);
+    }
 
-        if (!hasInvalidIndex) {
-            System.out.println("   ____________________________________________________________");
-        } else {
-            hasInvalidIndex = false;
-            System.out.print("\n");
-        }
+    public int[] filterValidIndexes(int[] indexes) {
+        int[] validIndexes = new int[indexes.length];
+        int count = 0;
 
-        if (validCount != 0) {
-            System.out.println("       Nice! I've marked these tasks as done:");
-            for (int i = 0; i < validCount; i++) {
-                System.out.println("         [X] " + tasks[validIndexes[i] - 1].getDescription());
+        for (int index : indexes) {
+            if (!(index - 1 >= taskCount) && !(tasks[index - 1].getStatusIcon().equals(STATUS_DONE))) {
+                validIndexes[count] = index;
+                count++;
             }
         }
 
-        if (doneCount != 0) {
-            System.out.print("\n");
-            for (int j = 0; j < doneCount; j++) {
-                System.out.println("       Ignoring entry " + doneIndexes[j] + " as it has been done before.");
+        if (count == 0) {
+            return null;
+        }
+        return Arrays.copyOf(validIndexes, count);
+    }
+
+    public int[] filterDoneIndexes(int[] indexes) {
+        int[] doneIndexes = new int[indexes.length];
+        int count = 0;
+
+        for (int index : indexes) {
+            if (!(index - 1 >= taskCount) && tasks[index - 1].getStatusIcon().equals(STATUS_DONE)) {
+                doneIndexes[count] = index;
+                count++;
             }
         }
 
-        if (invalidCount != 0) {
-            System.out.print("\n");
-            for (int i = 0; i < invalidCount; i++) {
-                System.out.println("       Entry " + invalidIndexes[i] + " does not exist.");
+        if (count == 0) {
+            return null;
+        }
+        return Arrays.copyOf(doneIndexes, count);
+    }
+
+    public void setAsDone(String taskInfo) {
+        int[] indexes = filterIndexes(taskInfo);
+        int[] outOfRangeIndexes = filterOutOfRangeIndexes(indexes);
+        int[] validIndexes = filterValidIndexes(indexes);
+        int[] doneIndexes = filterDoneIndexes(indexes);
+
+        if (validIndexes != null) {
+            for (int validIndex : validIndexes) {
+                tasks[validIndex - 1].markAsDone();
             }
         }
 
-        System.out.println("   ____________________________________________________________");
+        DisplayManager.printSetAsDoneResult(tasks, outOfRangeIndexes, validIndexes, doneIndexes);
     }
 
     public void getAndPrintTaskList() {
@@ -137,10 +142,7 @@ public class TaskManager {
         }
 
         if (invalidCount != 0) {
-            System.out.println("   ____________________________________________________________");
-            for (int i = 0; i < invalidCount; i++) {
-                System.out.println("       " + invalidIndexes[i] + " is not a valid index.");
-            }
+            DisplayManager.printErrorIndex(invalidIndexes, invalidCount);
         }
 
         return Arrays.copyOf(indexes, indexCount);
