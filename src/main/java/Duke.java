@@ -47,7 +47,7 @@ public class Duke {
 
     public static String[] checkMarker(String[] tobeCheckeds, int doneNumber, int listedcount) {
         String[] checkedMarks = new String[tobeCheckeds.length];
-        //int checkMarkCounter = 0;
+
         for (int i =0; i<listedcount; i++ ) {
             if (tobeCheckeds[i]== null ) { //&& !tobeCheckeds[i].equals("X")
                 checkedMarks[i] = " ";
