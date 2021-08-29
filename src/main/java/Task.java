@@ -26,9 +26,6 @@ public class Task {
     }
 
     public void printType() {
-        switch(this.type) {
-        case TODO:
-            System.out.println("T");
-        }
+        System.out.println("[ ]");
     }
 }
