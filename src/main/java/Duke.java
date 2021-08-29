@@ -2,7 +2,7 @@ public class Duke {
 
     private static final int LINE_WIDTH = 60;
 
-
+    //to draw a straight line
     private static void printHorizontalLine() {
         System.out.println("_".repeat(LINE_WIDTH));
     }
@@ -16,6 +16,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
+        //Level0
         printHorizontalLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
