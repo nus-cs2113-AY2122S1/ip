@@ -13,6 +13,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return itemIndex + ". [E]" + super.toString() + " at: " + at;
+        return itemIndex + ". [" + this.getTaskIcon() + "]" + super.toString() + " at: " + at;
     }
 }

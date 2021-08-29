@@ -1,0 +1,11 @@
+todo make magic potion
+event magic potion party /at tomorrow noon
+list
+done 2
+deadline mix berries /by tonight 8pm
+list
+done
+done 1
+done 3
+event who are you
+bye

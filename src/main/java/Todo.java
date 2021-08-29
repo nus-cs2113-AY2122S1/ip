@@ -11,6 +11,6 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
-        return itemIndex + ". [T]" + super.toString();
+        return itemIndex + ". ["  + this.getTaskIcon() +"]" + super.toString();
     }
 }

@@ -1,7 +1,94 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	                                        
+	             ..........                 
+	           .,,..,.,,,,                  
+	           ,.,,,,.,...                  
+	          ,.......,*,/& .               
+	          ,..,..,((/**(((,              
+	           *(#%(((#/#((/       *        
+	         /(%#########%##(*,,,((*        
+	              ((#(((((#      (((*       
+	        ((((((   /((((/,., .... #       
+	         (((#    .(((..*...,*///        
+	         ((/      .,,**  ..**///        
+	                  .,*,..  ,**//         
+	                ..,,,..,/ ,*//          
+	             *,,****,        
+	 _______  __   __  __   __  ______    _______ 
+	|       ||  |_|  ||  | |  ||    _ |  |       |
+	|  _____||       ||  | |  ||   | ||  |    ___|
+	| |_____ |       ||  |_|  ||   |_||_ |   |___ 
+	|_____  ||       ||       ||    __  ||    ___|
+	 _____| || ||_|| ||       ||   |  | ||   |    
+	|_______||_|   |_||_______||___|  |_||___|    
+	==============================================
+	...la la la la la la sing a happy song
 
+	Welcome to Smurf Village.
+	Start smurfing now!!
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Handy Smurf is here to give you a hand!
+
+	I have added: 
+	1. [T][ ] make magic potion
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Handy Smurf is here to give you a hand!
+
+	I have added: 
+	2. [E][ ] magic potion party at: tomorrow noon
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	"Tracker Smurf!! I need you here!!"
+
+	1. [T][ ] make magic potion
+	2. [E][ ] magic potion party at: tomorrow noon
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Brainy Smurf: aah another thing done
+
+	2. [E][X] magic potion party
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Handy Smurf is here to give you a hand!
+
+	I have added: 
+	3. [D][ ] mix berries by: tonight 8pm
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	"Tracker Smurf!! I need you here!!"
+
+	1. [T][ ] make magic potion
+	2. [E][X] magic potion party at: tomorrow noon
+	3. [D][ ] mix berries by: tonight 8pm
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Oops I can't find a Smurf to help you with your task.
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Brainy Smurf: aah another thing done
+
+	1. [T][X] make magic potion
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Brainy Smurf: aah another thing done
+
+	3. [D][X] mix berries
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Oops I can't find a Smurf to help you with your task.
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	oh shucks! Gargamel is here..we gotta hide
+	==============================================
