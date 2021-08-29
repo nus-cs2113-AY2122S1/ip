@@ -12,12 +12,12 @@ public class Duke {
 
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
-        Task[] t = new Task[100];             //contains array of null objects???
+        Task[] t = new Task[100];
         int taskCount = 0;
 
-        while (!input.equals("bye")) {
+        while (!input.equals("bye")) {                                              //BYE WORKS
 
-            if (input.equals("list")) {                             //LIST DOESN'T WORK->null pointer exception->line 23
+            if (input.equals("list")) {                                              //LIST WORKS
                 System.out.println(line);
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + "[" + t[i].getStatusIcon() + "] " + t[i].getDescription() + "\n");
@@ -36,7 +36,7 @@ public class Duke {
             }
             input = scan.nextLine();
         }
-        System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);                     //BYE WORKS
+        System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);               
     }
 }
 
