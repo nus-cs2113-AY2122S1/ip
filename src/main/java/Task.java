@@ -1,10 +1,14 @@
 public class Task {
-    protected String taskDescription;
     protected boolean isTaskDone;
+    protected String taskDescription;
+
+    // Class Level Members
+    protected static int numberOfTasks = 0;
 
     public Task (String taskDescription) {
         this.taskDescription = taskDescription;
         this.isTaskDone = false;
+        numberOfTasks += 1;
     }
 
     protected void markAsDone() {
@@ -16,6 +20,11 @@ public class Task {
 
     protected String getStatusIcon() {
         return (isTaskDone ? "X" : " ");
+    }
+
+    public void describe() {
+        System.out.println( "[" + this.getStatusIcon() + "] "
+                + this.taskDescription);
     }
 
 }
