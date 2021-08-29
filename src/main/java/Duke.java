@@ -29,6 +29,7 @@ public class Duke {
                 break;
             case COMMAND_EXIT_WORD:
                 exitProgram();
+                break;
             case COMMAND_DONE_WORD:
                 markAsDone(tasksList[listDoneIndex]);
                 break;
