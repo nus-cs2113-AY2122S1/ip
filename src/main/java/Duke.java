@@ -12,14 +12,6 @@ public class Duke {
         System.out.println(LINE + LINE_SEPARATOR + INDENT + line + LINE_SEPARATOR + LINE);
     }
 
-    public static void showList(Task[] tasks) {
-        System.out.println(INDENT + "Here are the tasks in your list:");
-        for (int i = 0; i < tasks.length; i++) {
-            System.out.println(INDENT + Integer.toString(i + 1) + "."
-                    + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
-        }
-    }
-
     public static void executeRequest() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -33,17 +25,22 @@ public class Duke {
             System.out.println(LINE);
             switch (words[0]) {
             case "list":
-                showList(Arrays.copyOf(tasks, taskCount));
+                TaskHandler.printTaskList();
                 break;
             case "done":
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                tasks[taskIndex].markAsDone();
+                TaskHandler.markTaskAsDone(words);
+                break;
+            case "deadline":
+                TaskHandler.addDeadline(line);
+                break;
+            case "event":
+                TaskHandler.addEvent(line);
+                break;
+            case "todo":
+                TaskHandler.addTodo(line);
                 break;
             default:
-                tasks[taskCount] = new Task(line);
-                System.out.println(INDENT + "added: " + line);
-                taskCount++;
-                break;
+                System.out.println(INDENT + "Please enter a valid command");
             }
             System.out.println(LINE);
             line = in.nextLine();

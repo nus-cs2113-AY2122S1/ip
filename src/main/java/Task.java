@@ -8,15 +8,19 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        if (isDone) {
-            return "X";
-        }
-        return " ";
+        return isDone ? "X" : " ";
     }
+
     public void markAsDone() {
         isDone = true;
-        System.out.println(Duke.INDENT + "Nice! I've marked this task as done: ");
-        System.out.println(Duke.INDENT + "  [X] " + description);
+        System.out.print(Duke.INDENT + "Nice! I've marked this task as done: " +
+                Duke.LINE_SEPARATOR + Duke.INDENT + " ");
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
