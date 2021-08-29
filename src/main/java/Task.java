@@ -1,26 +1,31 @@
 public class Task {
-    protected String taskContent;
+    protected String description;
     protected boolean isDone;
+    protected char taskType = 'U'; //for unspecified task type
 
-    public Task(String taskContent){
-        this.taskContent = taskContent;
+    public Task(String description){
+        this.description = description;
         this.isDone = false;
     }
 
     public String getStatus(){
-        return (isDone) ? "X" : " ";
+        return (isDone) ? "[X]" : "[ ]";
+    }
+
+    public String getTaskType() {
+        return "[" + taskType + "]";
     }
 
     public void completeTask() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public String getTaskInfo() {
-        return "[" + this.getStatus() + "] " + this.taskContent;
+        return getTaskType() + getStatus() + description.split(" ", 2)[1];
     }
 
     public void printTask(int index){
-        System.out.println(index + "." + this.getTaskInfo());
+        System.out.println(index + "." + getTaskInfo());
     }
 
 }
