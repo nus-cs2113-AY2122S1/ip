@@ -30,7 +30,7 @@ public class TaskManager {
             addNormalTask(taskInput);
         }
         printHorizontalLine();
-        System.out.println("     Got it. I've added this task: \n"
+        System.out.println("     Got it. I've added this task:\n"
                 + "      " + tasks[numberOfTasks - 1]
                 + "\n     Now you have " + numberOfTasks
                 + (numberOfTasks == 1? " task" : " tasks")
@@ -53,7 +53,7 @@ public class TaskManager {
         String taskDescriptionAndDeadline = taskInput.substring(9);
         int deadlineStartIndex = taskDescriptionAndDeadline.indexOf("/by");
 
-        String taskDescription = taskDescriptionAndDeadline.substring(0, deadlineStartIndex);
+        String taskDescription = taskDescriptionAndDeadline.substring(0, deadlineStartIndex - 1);
         String deadline = taskDescriptionAndDeadline.substring(deadlineStartIndex + 4);
         tasks[numberOfTasks] = new Deadline(taskDescription, deadline);
         numberOfTasks++;
@@ -63,7 +63,7 @@ public class TaskManager {
         String taskDescriptionAndStartTime = taskInput.substring(6);
         int startTimeStartIndex = taskDescriptionAndStartTime.indexOf("/at");
 
-        String taskDescription = taskDescriptionAndStartTime.substring(0, startTimeStartIndex);
+        String taskDescription = taskDescriptionAndStartTime.substring(0, startTimeStartIndex - 1);
         String deadline = taskDescriptionAndStartTime.substring(startTimeStartIndex + 4);
         tasks[numberOfTasks] = new Event(taskDescription, deadline);
         numberOfTasks++;
@@ -93,7 +93,7 @@ public class TaskManager {
 
         tasks[taskIndex].markAsDone();
         printHorizontalLine();
-        System.out.println("     Nice! I've marked this task as done: ");
+        System.out.println("     Nice! I've marked this task as done:");
         System.out.println("       " + tasks[taskIndex]);
         printHorizontalLine();
     }
