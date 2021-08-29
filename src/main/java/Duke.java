@@ -2,68 +2,70 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static Task[] tasks = new Task[100];
-    private static int noOfTasks = 0;
+    public static final String DIVIDER_LINE = "\t__________________________________________________";
 
     public static void printLine(){
-        String line = "\t__________________________________________________";
-        System.out.println(line);
+        System.out.println(DIVIDER_LINE);
     }
 
     public static void Greet(){
         printLine();
-        System.out.println("\tHello! I'm Duke\n" + "\tWhat can I do for you?");
+        System.out.println("\tHello! I'm Duke, your friendly agenda chatbot!\n"
+                + "\tIs there anything I can do for you today?");
         printLine();
     }
 
     public static void Bye(){
         printLine();
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\tBye. Have a productive day!");
         printLine();
     }
-/*
-    public static void Echo(String[] words){
-        printLine();
-        System.out.print("\t");
-        for (int i = 0; i < words.length; i += 1){
-            System.out.print(words[i] + " ");
+
+    private static void programLogic(TaskManager t1, String line, String[] words) {
+        switch (words[0]) {
+        case "todo":
+            t1.addTodo(line);
+            break;
+        case "deadline":
+            t1.addDeadline(line);
+            break;
+        case "event":
+            t1.addEvent(line);
+            break;
+        case "list":
+            t1.listTasks();
+            break;
+        case "done":
+            int markedIndex = Integer.parseInt(words[1]) - 1;
+            t1.markAsDone(markedIndex);
+            break;
+        default:
+            t1.printInvalid();
+            break;
         }
-        System.out.println("");
-        printLine();
     }
 
- */
-
-
-    public static void main(String[] args) {
+    private static void DukeLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+    }
+
+    public static void main(String[] args) {
+        DukeLogo();
         Greet();
         TaskManager t1 = new TaskManager();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String[] words = line.split(" ");
         while (!words[0].equals("bye")) {
-            //Echo(words);
-            if (words[0].equals("todo")) {
-                t1.addTodo(line);
-            } else if (words[0].equals("deadline")) {
-                t1.addDeadline(line);
-            } else if (words[0].equals("event")) {
-                t1.addEvent(line);
-            } else if (words[0].equals("list")) {
-                t1.listTasks();
-            } else if (words[0].equals("done")){
-                int markedIndex = Integer.parseInt(words[1]) - 1;
-                t1.markAsDone(markedIndex);
-            }
+            programLogic(t1, line, words);
             line = in.nextLine();
             words = line.split(" ");
         }
-            Bye();
+        Bye();
     }
 }

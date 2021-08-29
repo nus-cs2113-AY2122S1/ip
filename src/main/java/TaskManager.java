@@ -5,6 +5,10 @@ public class TaskManager {
     public void printInvalid() {
         Duke.printLine();
         System.out.println("\tHey bud, the command you printed is invalid.");
+        System.out.println("\tHere's some examples of valid commands:");
+        System.out.println("\t- todo Read book");
+        System.out.println("\t- event Book club /at Monday 2pm");
+        System.out.println("\t- deadline Return book /by Friday");
         Duke.printLine();
     }
 
@@ -13,7 +17,7 @@ public class TaskManager {
         tasks[taskCount] = new Todo(todoDescription);
         taskCount += 1;
         Duke.printLine();
-        System.out.println("\tadded todo: " + todoDescription);
+        System.out.println("\tAdded todo: " + todoDescription);
         Duke.printLine();
     }
 
@@ -25,7 +29,7 @@ public class TaskManager {
             tasks[taskCount] = new Deadline(deadlineDescription, deadlineBy);
             taskCount += 1;
             Duke.printLine();
-            System.out.println("\tadded deadline: " + deadlineDescription + " (by: " + deadlineBy + ')');
+            System.out.println("\tAdded deadline: " + deadlineDescription + " (by: " + deadlineBy + ')');
             Duke.printLine();
         }
         else {
@@ -41,7 +45,7 @@ public class TaskManager {
             tasks[taskCount] = new Event(eventDescription, eventAt);
             taskCount += 1;
             Duke.printLine();
-            System.out.println("\tadded event: " + eventDescription + " (at: " + eventAt + ')');
+            System.out.println("\tAdded event: " + eventDescription + " (at: " + eventAt + ')');
             Duke.printLine();
         }
         else {
@@ -51,11 +55,15 @@ public class TaskManager {
 
     public void listTasks() {
         Duke.printLine();
-        System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i += 1) {
-            System.out.print('\t');
-            System.out.print(i+1 + ". ");
-            System.out.print(tasks[i].toString() + System.lineSeparator());
+        if (taskCount > 0) {
+            System.out.println("\t Here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i += 1) {
+                System.out.print('\t');
+                System.out.print(i + 1 + ". ");
+                System.out.print(tasks[i].toString() + System.lineSeparator());
+            }
+        } else {
+            System.out.println("\tYou have no tasks.");
         }
         Duke.printLine();
     }
@@ -63,7 +71,7 @@ public class TaskManager {
     public void markAsDone(int index) {
         tasks[index].setAsDone();
         Duke.printLine();
-        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\tNice! You completed this task:");
         System.out.println("\t  [X] " + tasks[index].getDescription());
         Duke.printLine();
     }

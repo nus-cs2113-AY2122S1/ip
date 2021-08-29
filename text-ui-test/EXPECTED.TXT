@@ -6,20 +6,20 @@ Hello from
 |____/ \__,_|_|\_\___|
 
 	__________________________________________________
-	Hello! I'm Duke
-	What can I do for you?
+	Hello! I'm Duke, your friendly agenda chatbot!
+	Is there anything I can do for you today?
 	__________________________________________________
 	__________________________________________________
-	 Here are the tasks in your list:
+	You have no tasks.
 	__________________________________________________
 	__________________________________________________
-	added todo: read book
+	Added todo: read book
 	__________________________________________________
 	__________________________________________________
-	added event: bookclub (at: monday 2pm)
+	Added event: bookclub (at: monday 2pm)
 	__________________________________________________
 	__________________________________________________
-	added deadline: return book (by: friday)
+	Added deadline: return book (by: friday)
 	__________________________________________________
 	__________________________________________________
 	 Here are the tasks in your list:
@@ -28,15 +28,15 @@ Hello from
 	3. [D][ ] return book (by: friday)
 	__________________________________________________
 	__________________________________________________
-	Nice! I've marked this task as done:
+	Nice! You completed this task:
 	  [X] read book
 	__________________________________________________
 	__________________________________________________
-	Nice! I've marked this task as done:
+	Nice! You completed this task:
 	  [X] bookclub
 	__________________________________________________
 	__________________________________________________
-	Nice! I've marked this task as done:
+	Nice! You completed this task:
 	  [X] return book
 	__________________________________________________
 	__________________________________________________
@@ -46,5 +46,5 @@ Hello from
 	3. [D][X] return book (by: friday)
 	__________________________________________________
 	__________________________________________________
-	Bye. Hope to see you again soon!
+	Bye. Have a productive day!
 	__________________________________________________
