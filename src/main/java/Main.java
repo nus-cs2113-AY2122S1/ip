@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -10,13 +9,11 @@ public class Main {
         do {
             line = in.nextLine();
             line = line.toLowerCase();
-
             switch(line) {
             case "bye":
             case "end":
                 duke.endDuke();
                 break;
-
             case "hi":
             case "hello":
                 duke.greet();

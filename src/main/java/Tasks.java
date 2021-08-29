@@ -32,6 +32,4 @@ public class Tasks {
         }
         return full_list;
     }
-
-
 }
