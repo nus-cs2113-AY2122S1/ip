@@ -1,8 +1,10 @@
 public class Storage {
-    private static final String[] inputTasks = new String[100];
+    private static final Task[] inputTasks = new Task[100];
     private static int inputTasksSize = 0;
 
     public static void storeInput(String input) {
+        Task newTask;
+        switch (input)
         inputTasks[inputTasksSize] = "[ ] " + input;
         inputTasksSize++;
         Response.echo("added: " + input);
