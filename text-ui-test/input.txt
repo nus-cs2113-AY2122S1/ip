@@ -1,0 +1,22 @@
+list
+echo Hello World!
+list
+todo Buy flowers for girlfriend
+list
+deadline Finish iP project /by Monday 2359
+done 1
+list
+done 2
+list
+event Attend Bob's wedding /at Sunday 7pm - 10pm
+event Team Meeting /at Tuesday 10am
+todo Finish CG2027 videos /by Monday 8pm
+list
+done 4
+done 5
+list
+echo This has been a great test so far!
+help
+random cmd
+more dummy
+bye

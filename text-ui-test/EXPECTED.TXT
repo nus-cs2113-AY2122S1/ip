@@ -1,7 +1,95 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Welcome to
+ ██████████              █████
+░░███░░░░███            ░░███
+ ░███   ░░███ █████ ████ ░███ █████  ██████
+ ░███    ░███░░███ ░███  ░███░░███  ███░░███
+ ░███    ░███ ░███ ░███  ░██████░  ░███████
+ ░███    ███  ░███ ░███  ░███░░███ ░███░░░
+ ██████████   ░░████████ ████ █████░░██████
+░░░░░░░░░░     ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░
+Hello there! I'm Duke, your very helpful personal assistant chat bot. ?
+Enter "help" to see what I can do for you!
+____________________________________________________________
+Wow! I found these tasks in your list:
+____________________________________________________________
+Hello World!
+____________________________________________________________
+Wow! I found these tasks in your list:
+____________________________________________________________
+Yay! I have added the following task for you:
+[T][ ] Buy flowers for girlfriend
+You have 1 tasks in your list now!
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][ ] Buy flowers for girlfriend
+____________________________________________________________
+Yay! I have added the following task for you:
+[D][ ] Finish iP project (by: Monday 2359)
+You have 2 tasks in your list now!
+____________________________________________________________
+Good job! You have finished the following:
+[T][X] Buy flowers for girlfriend
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][ ] Finish iP project (by: Monday 2359)
+____________________________________________________________
+Good job! You have finished the following:
+[D][X] Finish iP project (by: Monday 2359)
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Monday 2359)
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
+You have 3 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Team Meeting (at: Tuesday 10am)
+You have 4 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[T][ ] Finish CG2027 videos /by Monday 8pm
+You have 5 tasks in your list now!
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Monday 2359)
+3. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
+4. [E][ ] Team Meeting (at: Tuesday 10am)
+5. [T][ ] Finish CG2027 videos /by Monday 8pm
+____________________________________________________________
+Good job! You have finished the following:
+[E][X] Team Meeting (at: Tuesday 10am)
+____________________________________________________________
+Good job! You have finished the following:
+[T][X] Finish CG2027 videos /by Monday 8pm
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Monday 2359)
+3. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
+4. [E][X] Team Meeting (at: Tuesday 10am)
+5. [T][X] Finish CG2027 videos /by Monday 8pm
+____________________________________________________________
+This has been a great test so far!
+____________________________________________________________
+Below is the list of commands and input formats I am currently able to understand:
+1. list - Lists all your current tasks.
+2. todo [task description] - Adds a task to your list.
+3. deadline [task description] /by [deadline] - Adds a task with a deadline to your list.
+4. event [event description] /at [date and time] - Adds an upcoming event to your list.
+5. done [task number] - Marks the task as done. Use the list to check the task number!
+6. echo [input] - Echoes whatever your input is.
+7. bye - Stop talking to me and exit the program.
+I am currently not able to handle erroneous inputs myself... So please be careful in what you type!
+____________________________________________________________
+Sorry... I did not understand that, can you try again? >.<
+Enter "help" to see what I can do for you!
+____________________________________________________________
+Sorry... I did not understand that, can you try again? >.<
+Enter "help" to see what I can do for you!
+____________________________________________________________
+Bye! Have a great day ahead and see you again soon. ?
+____________________________________________________________
