@@ -1,6 +1,7 @@
 public class Task {
     private String task;
     private Boolean isDone;
+    public static int totalTask = 0;
     public static int longestTaskLength = 0;
 
     //Constructor
@@ -16,6 +17,7 @@ public class Task {
 
     public void setTask(String task) {
         this.task = task;
+        totalTask++;
         if (task.length() > longestTaskLength){
             longestTaskLength = task.length();
         }

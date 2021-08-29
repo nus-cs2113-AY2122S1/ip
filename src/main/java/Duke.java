@@ -125,7 +125,15 @@ public class Duke {
         for (int i = 0; i < MAX_TASKS; i++) {
             tasks[i] = new Task();
         }
-        int totalTask = 0;
+        readCommand(tasks);
+    }
+
+    /**
+     * Continuously read the input command typed by the user, unless the exit command is sent
+     *
+     * @param tasks The array to store all the tasks required
+     */
+    private static void readCommand(Task[] tasks) {
         while (true) {
             String command = in.nextLine().trim();
             String[] words = command.split(" ");
@@ -135,10 +143,10 @@ public class Duke {
                 printPersonality();
             } else if (command.toUpperCase().equals("EXIT") || command.toUpperCase().equals("BYE")) {
                 showMessage("Bye! Hope to see you again :D");
-                break;
+                System.exit(0);
             } else {
                 if (command.toUpperCase().equals("LIST") || command.toUpperCase().equals("LS")) {
-                    printToDoList(tasks, totalTask, Task.longestTaskLength);
+                    printToDoList(tasks, Task.totalTask, Task.longestTaskLength);
                 } else if (words[0].toUpperCase().equals("DONE")) {
                     try {
                         if (words.length == 1){
@@ -146,7 +154,7 @@ public class Duke {
                         }
                         for (int i = 1; i < words.length; i++) {
                             int taskNumber = Integer.parseInt(words[i]); //check if the input character after the word "done" is integer value
-                            if (taskNumber <= totalTask && taskNumber > 0) {
+                            if (taskNumber <= Task.totalTask && taskNumber > 0) {
                                 showTaskDoneMessage(tasks, taskNumber);
                             } else {
                                 showMessage("Sorry, the input task number is invalid, please try again! :(");
@@ -157,7 +165,7 @@ public class Duke {
                     }
                 } else {
                     //add the task to the list
-                    tasks[totalTask++].setTask(command);
+                    tasks[Task.totalTask].setTask(command);
                     showMessage(" ...\"" + command + "\" has been added to the list... ");
                 }
             }
@@ -166,6 +174,7 @@ public class Duke {
 
     /**
      * Show the message to indicate that the task is marked as done
+     *
      * @param tasks The array which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
@@ -181,6 +190,7 @@ public class Duke {
 
     /**
      * Show the formatted message string
+     *
      * @param message The message to print
      */
     private static void showMessage(String message) {
