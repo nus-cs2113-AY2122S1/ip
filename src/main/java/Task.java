@@ -9,6 +9,7 @@ public class Task {
     protected static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
+    protected int itemIndex;
 
     /**
      * Creates a task with the specified task description.
@@ -18,6 +19,7 @@ public class Task {
         this.description = description;
         isDone = false;
         numOfTasks++;
+        itemIndex = numOfTasks;
     }
 
     public String getStatusIcon() {
@@ -32,7 +34,16 @@ public class Task {
         return numOfTasks;
     }
 
+    public String getTaskIcon() {
+        return " ";
+    }
+
     public void setDone() {
         isDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
