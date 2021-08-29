@@ -1,8 +1,8 @@
 public class Response {
-    private static final String line = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
 
     public static String getLine() {
-        return line;
+        return LINE;
     }
 
     public static void greet() {
@@ -12,7 +12,7 @@ public class Response {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        String greeting = line + "\n" +
+        String greeting = LINE + "\n" +
                 " Hello! I'm Duke\n" +
                 " What can I do for you?\n";
 
@@ -24,9 +24,9 @@ public class Response {
     }
 
     public static void echo(String input) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println(input);
-        System.out.println(line);
+        System.out.println(LINE);
 
     }
 
