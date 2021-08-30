@@ -1,36 +1,36 @@
 import java.util.Scanner;
 
 public class Duke {
+
     /** Username for the chatbot prompt */
     private static final String USERNAME = "VeryImportantUsername";
+    public static final String ERROR_MESSAGE = "Error! Invalid input please try again!";
 
 
     /** Stores all task added by the user */
     private static TaskManager taskList = new TaskManager();
+    /** Gets a new instance of UI class to interactive with user */
     private static UI UIInteract = new UI(USERNAME);
     private static boolean isRunning = true;
-    private static String userInput;
 
 
     public static void main(String[] args) {
         UIInteract.printBanner();
         printMenuPrompt();
-
     }
     /**
      * Handles the user input and loop logic Calls handleCommand and terminates when isRunning is false
      */
     private static void printMenuPrompt() {
         while (isRunning) {
-
             //Printing user prompt
             UIInteract.printPrompt();
             // Reading user input
-            userInput = UIInteract.getUserInput();
+            String userInput = UIInteract.getUserInput();
             try {
                 handleCommand(userInput);
             } catch (Exception e) {
-                UI.printMessage( "Invalid input please try again!");
+                UI.printMessage(ERROR_MESSAGE);
             }
         }
         UIInteract.printGoodbye();

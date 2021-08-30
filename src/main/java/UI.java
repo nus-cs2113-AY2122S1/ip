@@ -6,6 +6,16 @@ public class UI {
      * Line template to use for dividers
      */
     private static final String LINE = "____________________________________________________________";
+    private final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+    private final String SHELL_RPG_BANNER =
+            " #####  #     # ####### #       #          ######  ######   #####  \n"
+                    + "#     # #     # #       #       #          #     # #     # #     # \n"
+                    + "#       #     # #       #       #          #     # #     # #       \n"
+                    + " #####  ####### #####   #       #          ######  ######  #  #### \n"
+                    + "      # #     # #       #       #          #   #   #       #     # \n"
+                    + "#     # #     # #       #       #          #    #  #       #     # \n"
+                    + " #####  #     # ####### ####### #######    #     # #        #####  ";
+
     private String username;
     private Scanner in;
 
@@ -42,13 +52,7 @@ public class UI {
                 "[+] Character " + username + " Found!",
                 "[+] Character Level: 100",
                 "[+] Access Granted! Welcome to: ",
-                " #####  #     # ####### #       #          ######  ######   #####  \n"
-                + "#     # #     # #       #       #          #     # #     # #     # \n"
-                + "#       #     # #       #       #          #     # #     # #       \n"
-                + " #####  ####### #####   #       #          ######  ######  #  #### \n"
-                + "      # #     # #       #       #          #   #   #       #     # \n"
-                + "#     # #     # #       #       #          #    #  #       #     # \n"
-                + " #####  #     # ####### ####### #######    #     # #        #####  "
+                SHELL_RPG_BANNER
         );
     }
 
@@ -66,7 +70,7 @@ public class UI {
      * Prints the terminating message
      */
     public void printGoodbye() {
-        printMessage("Bye. Hope to see you again soon!");
+        printMessage(GOODBYE_MESSAGE);
     }
 
     /**

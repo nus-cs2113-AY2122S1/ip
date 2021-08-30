@@ -3,7 +3,8 @@ public class Parser {
 
     private String command;
     private String arguments;
-
+    private final String SPACE_DELIMITER = " ";
+    private final int START_INDEX = 0;
     /**
      * Parse input and separates the command from the arguments
      *
@@ -14,12 +15,12 @@ public class Parser {
         if (command.isEmpty()) {
             this.command = null;
             arguments = null;
-        } else if (!command.contains(" ")) {
+        } else if (!command.contains(SPACE_DELIMITER)) {
             this.command = command;
             arguments = null;
         } else {
-            int commandIndex = command.indexOf(" ");
-            this.command = command.substring(0, commandIndex).strip();
+            int commandIndex = command.indexOf(SPACE_DELIMITER);
+            this.command = command.substring(START_INDEX, commandIndex).strip();
             this.arguments = command.substring(commandIndex).strip();
         }
     }
@@ -66,10 +67,20 @@ public class Parser {
         return Integer.parseInt(arguments) - 1;
     }
 
+    /**
+     * Gets the command after parsing
+     *
+     * @return parsed command string
+     */
     public String getCommand() {
         return command;
     }
 
+    /**
+     * Gets the string after the commands
+     *
+     * @return arguments of the command
+     */
     public String getArguments() {
         return arguments;
     }
