@@ -32,12 +32,26 @@ public class TaskManager {
 
     public void markAsDone(int inputTaskIndex){
         int taskIndex = inputTaskIndex - 1;
+
+        // check if taskIndex is out of bounds of current tasks list
+        if (taskIndex < 0 || taskIndex >= tasksCount){
+            System.out.println("\tYou have chosen an invalid task number.\n");
+            printTasks();
+            return;
+        }
+
+        // check if task is already marked as done
+        if (tasks[taskIndex].isDone()){
+            System.out.println("\tThis task has already been completed and marked as done.\n");
+            return;
+        }
+
         tasks[taskIndex].setDone();
         completedTasksCount++;
 
         // Print name of task to system output
         System.out.print("\tGood job! I have marked your task as done.\n\t\t");
         tasks[taskIndex].printTask();
-        System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your to-do list");
+        System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your to-do list\n");
     }
 }

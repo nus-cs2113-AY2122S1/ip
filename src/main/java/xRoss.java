@@ -68,12 +68,28 @@ public class xRoss {
                 printDividerLine();
             } else if (inputLine.startsWith("deadline ")){
                 String[] newDeadline = inputLine.split(" /by ");
+                if (newDeadline.length == 1){
+                    printDividerLine();
+                    System.out.println("\tYour command for creating a new Deadline was in the wrong format.\n"
+                            + "\tThe correct format should be as follows:\n"
+                            + "\t\tdeadline <name> /by <due by date/time>\n");
+                    printDividerLine();
+                    continue;
+                }
 
                 printDividerLine();
                 taskManager.addTask(new Deadline(newDeadline[0].substring(9), newDeadline[1]));
                 printDividerLine();
             } else if (inputLine.startsWith("event ")){
                 String[] newEvent = inputLine.split(" /at ");
+                if (newEvent.length == 1){
+                    printDividerLine();
+                    System.out.println("\tYour command for creating a new Event was in the wrong format.\n"
+                            + "\tThe correct format should be as follows:\n"
+                            + "\t\tevent <name> /at <date/time of event>\n");
+                    printDividerLine();
+                    continue;
+                }
 
                 printDividerLine();
                 taskManager.addTask(new Event(newEvent[0].substring(6), newEvent[1]));
