@@ -7,7 +7,10 @@ public class Duke {
 
     public static void Echo(String message) {
         if (message.equalsIgnoreCase("bye")) {
-            return;
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Bye. Hope to see you again soon!");
+            System.out.println("    ___________________________________________________________");
+            System.exit(0);//end of program
         }
 
         if (message.contains("done")) {
@@ -25,13 +28,13 @@ public class Duke {
             System.out.println("    ____________________________________________________________");
             System.out.println("     Here are the tasks in your list:");
             for (int i = 0; i < itemCount; i++) {
-                System.out.printf("    %d.%s", i + 1, tasks[i]);
+                System.out.printf("     %d.%s", i + 1, tasks[i]);
             }
             System.out.println("    ____________________________________________________________");
             return;
         }
 
-        //else
+        //else add item to tasks array
         tasks[itemCount] = new Task(message); //add to tasks
         itemCount++;
         System.out.println("    ____________________________________________________________");
@@ -54,11 +57,5 @@ public class Duke {
             line = in.nextLine();
             Echo(line);
         }
-
-        //
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ___________________________________________________________");
-        System.exit(0);//end of program
     }
 }
