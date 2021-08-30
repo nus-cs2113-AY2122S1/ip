@@ -24,12 +24,11 @@ public class Duke {
         while (!line.equals("bye")) {
             System.out.println(dashes);
             if (line.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 int itemCount = 1;
                 for (Task item : list) {
                     if (item != null) {
-                        System.out.println(itemCount + "."
-                                + "[" + item.getStatusIcon() + "] "
-                                + item.getDescription());
+                        System.out.println(itemCount + "." + item);
                         itemCount++;
                     }
                 }
@@ -41,6 +40,32 @@ public class Duke {
                 System.out.println("Nice! You did the following task:"
                         + "\n [" + currentTask.getStatusIcon() + "] "
                         + currentTask.getDescription());
+            } else if (line.startsWith("todo")) {
+                int separatorIndex = line.indexOf(" ");
+                list[listCount] = new Todo(line.substring(separatorIndex+1));
+                System.out.println("Got it! I've added this task: ");
+                System.out.println(" "+ list[listCount]);
+                int totalListCount = listCount+1;
+                System.out.println("Now you have " + totalListCount + " tasks in the list.");
+                listCount++;
+            }  else if (line.startsWith("deadline")) {
+                int separatorIndexStart = line.indexOf(" ");
+                int separatorIndexEnd = line.indexOf("/");
+                list[listCount] = new Deadline(line.substring(separatorIndexStart+1,separatorIndexEnd-1),line.substring(separatorIndexEnd+4));
+                System.out.println("Got it! I've added this task: ");
+                System.out.println(" " + list[listCount]);
+                int totalListCount = listCount+1;
+                System.out.println("Now you have " + totalListCount + " tasks in the list.");
+                listCount++;
+            }   else if (line.startsWith("event")) {
+                int separatorIndexStart = line.indexOf(" ");
+                int separatorIndexEnd = line.indexOf("/");
+                list[listCount] = new Event(line.substring(separatorIndexStart+1,separatorIndexEnd-1),line.substring(separatorIndexEnd+4));
+                System.out.println("Got it! I've added this task: ");
+                System.out.println(" " + list[listCount]);
+                int totalListCount = listCount+1;
+                System.out.println("Now you have " + totalListCount + " tasks in the list.");
+                listCount++;
             } else {
                 Task task = new Task(line);
                 list[listCount] = task;
