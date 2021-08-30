@@ -6,8 +6,15 @@ public class Parser {
     static private final String COMMAND_DONE = "done";
     static private final String COMMAND_EXIT = "bye";
 
+    static private final String INVALID_COMMAND = "Yo check your typing man. I don't get it.";
+
     static private final String COMMAND_DEADLINE_SEPARATOR = "/by";
     static private final String COMMAND_EVENT_SEPARATOR = "/at";
+
+    static private final String SPACE_SEPARATOR = " ";
+    static private final String EMPTY_STRING = "";
+
+    static private final int EVENT_DEADLINE_ARGUMENT_COUNT = 2;
 
     static private final int MAX_NUMBER = 100;
 
@@ -20,7 +27,7 @@ public class Parser {
     }
 
     public String parse(String command) {
-        String[] words = command.split(" ");
+        String[] words = command.split(SPACE_SEPARATOR);
 
         if (words[0].equals(COMMAND_LIST)) {
             return parseListCommand();
@@ -34,7 +41,7 @@ public class Parser {
             return parseDoneCommand(command);
         }
         else {
-            return "Yo check your typing man. I don't get it.";
+            return INVALID_COMMAND;
         }
     }
 
@@ -81,8 +88,9 @@ public class Parser {
         String[] contentAndDate = detail.split(COMMAND_DEADLINE_SEPARATOR);
 
         for (int i = 0; i < contentAndDate.length; i++) {
-            if (contentAndDate.length != 2 || contentAndDate[i].equals("")) {
-                msg = "Invalid format. Enter by this format: \n"
+            if (contentAndDate.length != EVENT_DEADLINE_ARGUMENT_COUNT
+                    || contentAndDate[i].equals(EMPTY_STRING)) {
+                msg = "Invalid format. Enter by this format:\n"
                         + "\t\t\"deadline [description] /by [deadline]\"";
                 return msg;
             }
@@ -109,8 +117,9 @@ public class Parser {
         String[] contentAndDate = detail.split(COMMAND_EVENT_SEPARATOR);
 
         for (int i = 0; i < contentAndDate.length; i++) {
-            if (contentAndDate.length != 2 || contentAndDate[i].equals("")) {
-                msg = "Invalid format. Enter by this format: \n"
+            if (contentAndDate.length != EVENT_DEADLINE_ARGUMENT_COUNT
+                    || contentAndDate[i].equals(EMPTY_STRING)) {
+                msg = "Invalid format. Enter by this format:\n"
                         + "\t\t\"event [description] /at [date]\"";
                 return msg;
             }
@@ -144,7 +153,7 @@ public class Parser {
 
         userTasks[taskDoneNumber - 1].setDone();
         msg = "Good job. You may now enjoy the rest of "
-                + "your suffering: \n"
+                + "your suffering:\n"
                 + "\t" + userTasks[taskDoneNumber - 1].toString();
 
         return msg;

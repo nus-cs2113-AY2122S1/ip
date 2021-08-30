@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String SEPARATING_LINE = "\t-------------------------------------";
+    private static final String GREET_MESSAGE = "Yo what's up I'm Jesse. Need help?";
+    private static final String BYE_MESSAGE = "So long!";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -16,11 +18,11 @@ public class Ui {
     }
 
     public void greet() {
-        print("Yo what's up I'm Jesse. Need help?");
+        print(GREET_MESSAGE);
     }
 
     public void bye() {
-        print("So long!");
+        print(BYE_MESSAGE);
     }
 
     public Ui() {
