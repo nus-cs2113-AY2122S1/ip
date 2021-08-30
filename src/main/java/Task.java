@@ -1,11 +1,12 @@
 public class Task {
+    public static final int TASK_CONTENT_POSITION = 1;
     protected String task;
     protected boolean isDone;
     private static final String MARK_NO_CATEGORY = "[N]";
     protected static final String MARK_AS_DONE = "[X]";
     protected static final String MARK_AS_NOT_DONE = "[ ]";
     public Task(String task){
-        this.task = task.split(" ", 2)[1];
+        this.task = task.split(" ", 2)[TASK_CONTENT_POSITION];
         this.isDone = false;
     }
 

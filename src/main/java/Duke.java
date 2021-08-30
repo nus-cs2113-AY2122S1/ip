@@ -2,16 +2,11 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         showWelcomeMessage();
-
         TaskManager tasksList = new TaskManager();
         while(true){
             Scanner in = new Scanner(System.in);
             String userInput = in.nextLine();
-            // if user inputs nothing
-            if(userInput.isEmpty()) {
-                userInput = in.nextLine();
-            }
-
+            userInput = checkIfIsEmpty(in, userInput);
             lineSeparator();
             if(userInput.equals("bye")){
                 Init.bye();
@@ -37,7 +32,13 @@ public class Duke {
         }
     }
 
-
+    private static String checkIfIsEmpty(Scanner in, String userInput) {
+        // if user inputs nothing
+        if(userInput.isEmpty()) {
+            userInput = in.nextLine();
+        }
+        return userInput;
+    }
 
 
     private static void showWelcomeMessage() {
