@@ -26,56 +26,55 @@ public class Duke {
         System.out.println(niceOutput);
     }
 
-    public static void addTask(String taskType, String arguments) {
-        String delimiter;
-        String description;
-        String output;
+    public static void addTodoTask(String arguments) {
+        Todo newTodo = new Todo(arguments);
+        tasks.add(newTodo);
 
-        switch (taskType) {
-        case "todo":
-            Todo newTodo = new Todo(arguments);
-            tasks.add(newTodo);
+        String output = " Got it. I've added this task:\n"
+                + "   " + newTodo.toString() + "\n"
+                + " Now you have " + tasks.size() + " tasks in the list.\n";
+        printOutput(output);
+    }
 
-            output = " Got it. I've added this task:\n"
-                    + "   " + newTodo.toString() + "\n"
-                    + " Now you have " + tasks.size() + " tasks in the list.\n";
-            printOutput(output);
-            break;
-        case "deadline":
-            delimiter = "/by";
-            int indexOfBy = arguments.indexOf(delimiter);
-            description = arguments.substring(0, indexOfBy).trim();
-            String by = arguments.substring(indexOfBy + delimiter.length(), arguments.length()).trim();
+    public static void addDeadlineTask(String arguments) {
+        String delimiter = "/by";
+        int indexOfDelimiter = arguments.indexOf(delimiter);
+        String description = arguments.substring(0, indexOfDelimiter).trim();
+        String by = arguments.substring(indexOfDelimiter + delimiter.length(), arguments.length()).trim();
 
-            Deadline newDeadline = new Deadline(description, by);
-            tasks.add(newDeadline);
+        Deadline newDeadline = new Deadline(description, by);
+        tasks.add(newDeadline);
 
-            output = " Got it. I've added this task:\n"
-                    + "   " + newDeadline.toString() + "\n"
-                    + " Now you have " + tasks.size() + " tasks in the list.\n";
-            printOutput(output);
-            break;
-        case "event":
-            delimiter = "/at";
-            int indexOfAt = arguments.indexOf(delimiter);
-            description = arguments.substring(0, indexOfAt).trim();
-            String at = arguments.substring(indexOfAt + delimiter.length(), arguments.length()).trim();
+        String output = " Got it. I've added this task:\n"
+                + "   " + newDeadline.toString() + "\n"
+                + " Now you have " + tasks.size() + " tasks in the list.\n";
+        printOutput(output);
+    }
 
-            Event newEvent = new Event(description, at);
-            tasks.add(newEvent);
+    public static void addEventTask(String arguments) {
+        String delimiter = "/at";
+        int indexOfDelimiter = arguments.indexOf(delimiter);
+        String description = arguments.substring(0, indexOfDelimiter).trim();
+        String at = arguments.substring(indexOfDelimiter + delimiter.length(), arguments.length()).trim();
 
-            output = " Got it. I've added this task:\n"
-                    + "   " + newEvent.toString() + "\n"
-                    + " Now you have " + tasks.size() + " tasks in the list.\n";
-            printOutput(output);
-            break;
-        default:
-            break;
-        }
+        Event newEvent = new Event(description, at);
+        tasks.add(newEvent);
+
+        String output = " Got it. I've added this task:\n"
+                + "   " + newEvent.toString() + "\n"
+                + " Now you have " + tasks.size() + " tasks in the list.\n";
+        printOutput(output);
+    }
+
+    public static void addNormalTask(String arguments) {
+        Task newTask = new Task(arguments);
+        tasks.add(newTask);
+        String output = " added: " + arguments + "\n";
+        printOutput(output);
     }
 
     public static void listTasks() {
-        String output = "Here are the tasks in your list:\n";
+        String output = " Here are the tasks in your list:\n";
         for (int i = 1; i < tasks.size() + 1; i++) {
             output = output + " " + i + "." + tasks.get(i - 1).toString() + "\n";
         }
@@ -95,17 +94,45 @@ public class Duke {
         printOutput(output);
     }
 
-    public static void main(String[] args) {
-        displayGreetingMessage();
+    public static void executeCommand(String command, String arguments) {
+        switch (command) {
+        case "list":
+            listTasks();
+            break;
+        case "done":
+            acknowledgeDone(arguments);
+            break;
+        case "todo":
+            addTodoTask(arguments);
+            break;
+        case "deadline":
+            addDeadlineTask(arguments);
+            break;
+        case "event":
+            addEventTask(arguments);
+            break;
+        default:
+            arguments = command + " " + arguments;
+            addNormalTask(arguments);
+            break;
+        }
+    }
 
+    public static boolean isBye(String command) {
+        if (command.equals("bye")) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
         String userInput = "";
         String command = "";
         String arguments = "";
-        String output = "";
         boolean shouldBreak = false;
-
         Scanner sc = new Scanner(System.in);
 
+        displayGreetingMessage();
         while (true) {
             userInput = sc.nextLine();
             String[] splitUserInput = userInput.trim().split("\\s+", 2);
@@ -114,36 +141,11 @@ public class Duke {
                 arguments = splitUserInput[1];
             }
 
-            switch (command) {
-            case "list":
-                listTasks();
-                break;
-            case "bye":
+            if (isBye(command)) {
                 displayByeMessage();
-                shouldBreak = true;
-                break;
-            case "done":
-                acknowledgeDone(arguments);
-                break;
-            case "todo":
-                addTask("todo", arguments);
-                break;
-            case "deadline":
-                addTask("deadline", arguments);
-                break;
-            case "event":
-                addTask("event", arguments);
-                break;
-            default:
-                Task newTask = new Task(userInput);
-                tasks.add(newTask);
-                output = " added: " + userInput + "\n";
-                printOutput(output);
                 break;
             }
-            if (shouldBreak == true) {
-                break;
-            }
+            executeCommand(command, arguments);
         }
 
     }

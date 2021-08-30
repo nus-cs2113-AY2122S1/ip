@@ -46,7 +46,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][ ] read book
  2.[D][ ] return book (by: June 6th)
  3.[E][ ] project meeting (at: Aug 6th 2-4pm)
@@ -62,7 +62,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][ ] return book (by: June 6th)
  3.[E][ ] project meeting (at: Aug 6th 2-4pm)
@@ -78,7 +78,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][ ] return book (by: June 6th)
  3.[E][ ] project meeting (at: Aug 6th 2-4pm)
@@ -94,7 +94,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][ ] project meeting (at: Aug 6th 2-4pm)
@@ -110,7 +110,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][X] project meeting (at: Aug 6th 2-4pm)
@@ -126,7 +126,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][X] project meeting (at: Aug 6th 2-4pm)
@@ -143,7 +143,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][X] project meeting (at: Aug 6th 2-4pm)
@@ -161,7 +161,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][X] project meeting (at: Aug 6th 2-4pm)
@@ -180,7 +180,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][X] project meeting (at: Aug 6th 2-4pm)
@@ -199,7 +199,7 @@ ____________________________________________________________
 
 list
 ____________________________________________________________
-Here are the tasks in your list:
+ Here are the tasks in your list:
  1.[T][X] read book
  2.[D][X] return book (by: June 6th)
  3.[E][X] project meeting (at: Aug 6th 2-4pm)
