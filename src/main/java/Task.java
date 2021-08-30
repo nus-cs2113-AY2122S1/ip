@@ -1,10 +1,10 @@
 //possible to make this class an inner private class in TodoList
-public class TodoListItem {
-    private String item;
+public class Task {
+    private String description;
     private boolean isDone;
 
-    public TodoListItem(String item) {
-        this.item = item;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -17,8 +17,7 @@ public class TodoListItem {
         return this.isDone;
     }
 
-
-    public String getItem() {
-        return this.item;
+    public String getDescription() {
+        return this.description;
     }
 }
