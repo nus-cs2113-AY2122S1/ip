@@ -5,7 +5,7 @@ public class ListCommand extends UserCommand {
 
     @Override
     public void execute() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("    Here are the tasks in your list:");
         this.tasks.listTasks();
     }
 }
