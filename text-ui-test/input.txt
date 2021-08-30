@@ -1,0 +1,12 @@
+help
+done 1
+todo buy bread
+done 0
+done 1
+list
+event eat bread /at tomorrow morning
+event read book /at today
+deadline return book /by next tuesday
+done 3
+list
+bye
