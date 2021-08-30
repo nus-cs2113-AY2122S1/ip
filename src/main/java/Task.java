@@ -23,6 +23,15 @@ public class Task {
     }
 
     /**
+     * Sets the name of the task.
+     *
+     * @param x The name of the task.
+     */
+    public void setTaskName(String x) {
+        this.name = x;
+    }
+
+    /**
      * Marks the current task as done.
      */
     public void markAsDone() {
