@@ -64,7 +64,7 @@ public class CommandHandler {
     protected void handleCommandDone(Command cmd) {
         // TODO: Add try catch for nullpointerexception
         try {
-            Integer taskId = Integer.parseInt(cmd.getTaskDescription());
+            Integer taskId = Integer.parseInt(cmd.getTaskDescription().strip());
             System.out.println("Marking task " + taskId + " as done");
             System.out.println("---------------");
             taskManager.markTaskDone(taskId);

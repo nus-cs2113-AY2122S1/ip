@@ -40,7 +40,8 @@ public class CommandParser {
         String[] tokens = cmdStr.toLowerCase().split(" ");
         Command cmd = new Command();
 
-        for (String token : tokens) {
+        for (int i = 0; i < tokens.length; i++) {
+            String token = tokens[i];
             TokenType tokenType = TokenType.getTokenTypebyStr(token);
             if (tokenType == TokenType.TASK_TYPE) {
                 cmd.setTaskType(parseTaskType(token));
@@ -48,12 +49,24 @@ public class CommandParser {
                 // TODO: Add handling to not set command types twice
                 cmd.setCommandType(parseCommandType(token));
             } else if (tokenType == TokenType.TIME_TYPE) {
-                cmd.setTimeInfo(parseTimeInfo(token));
+                // TODO: Assumption here is that after time token, the rest of
+                // the string is all related to time
+                String timeToken = new String("");
+                for (int j = i; j < tokens.length; j++) {
+                    timeToken += (tokens[j] + " ");
+                }
+                cmd.setTimeInfo(parseTimeInfo(timeToken));
+                break; // end of parsing
             } else if (tokenType == TokenType.DESCRIPTION) {
-                cmd.appendTaskDescription(token);
+                cmd.appendTaskDescription(token + " ");
             } else {
                 System.out.println("[PARSER] Invalid token found from input! Token: " + token);
             }
+        }
+
+        // "add" command can be inferred, if task type is specified
+        if (cmd.getTaskType() != TaskType.INVALID) {
+            cmd.setCommandType(CommandType.ADD);
         }
         return cmd;
     }
@@ -63,7 +76,7 @@ public class CommandParser {
     }
 
     private Time parseTimeInfo(String cmdStr) {
-        return new Time();
+        return new Time(cmdStr);
     }
 
     private TaskType parseTaskType(String cmdStr) {

@@ -22,6 +22,12 @@ public enum TokenType {
             put("find", TokenType.COMMAND_TYPE);
             put("bye", TokenType.COMMAND_TYPE);
 
+            put("by", TokenType.TIME_TYPE);
+            put("on", TokenType.TIME_TYPE);
+            put("before", TokenType.TIME_TYPE);
+            put("at", TokenType.TIME_TYPE);
+
+            /*
             put("jan", TokenType.TIME_TYPE);
             put("january", TokenType.TIME_TYPE);
             put("feb", TokenType.TIME_TYPE);
@@ -45,6 +51,7 @@ public enum TokenType {
             put("november", TokenType.TIME_TYPE);
             put("dec", TokenType.TIME_TYPE);
             put("december", TokenType.TIME_TYPE);
+            */
         }};
 
     public static TokenType getTokenTypebyStr(String token) {

@@ -9,6 +9,7 @@ public class Time {
     protected TimeUnit tstart;
     protected TimeUnit tend;
     protected TimeUnit trepeat;
+    protected String description;
 
     /**
      * Constructor
@@ -17,6 +18,15 @@ public class Time {
         tstart = null;
         tend = null;
         trepeat = null;
+        description = "";
+    }
+
+    /**
+     * Constructor
+     */
+    public Time(String description) {
+        this();
+        this.description = description;
     }
 
     protected void setTimeStart(String timeStr) {
@@ -48,7 +58,8 @@ public class Time {
      */
     public String toString() {
         String s = new String("");
-        s += "Time Start: ";
+        s += description;
+        s += " | Time Start: ";
         if (tstart == null) {
             s += "-1";
         } else {
