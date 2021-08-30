@@ -6,7 +6,7 @@ class TaskList {
         Task newTask = getTask(userInput);
         System.out.println("       " + newTask);
         this.tasks[taskNum] = newTask;
-        taskNum++;
+        taskNum ++;
         return taskNum;
     }
 

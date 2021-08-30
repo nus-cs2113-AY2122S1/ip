@@ -1,7 +1,7 @@
-class otherCommand extends UserCommand {
+class OtherCommand extends UserCommand {
     private String command;
 
-    public otherCommand (String command) {
+    public OtherCommand (String command) {
         this.command = command;
     }
 

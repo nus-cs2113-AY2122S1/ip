@@ -59,7 +59,7 @@ public class User {
             input = new AddListCommand(userInput, userTasks);
             break;
         default:
-            input = new otherCommand(userInput);
+            input = new OtherCommand(userInput);
             break;
         }
         return input;

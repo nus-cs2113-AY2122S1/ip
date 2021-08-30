@@ -6,7 +6,6 @@ public class Duke {
         User newUser = new User();
         newUser.serviceBegin();
         newUser.serviceEnd();
-
     }
 }
 
