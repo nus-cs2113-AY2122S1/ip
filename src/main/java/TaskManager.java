@@ -6,15 +6,6 @@ public class TaskManager {
     private static int taskCount = 0;
     private static Task[] tasks = new Task[MAX_TASKS];
 
-    private enum Type {
-        DEADLINE, EVENT, TODO;
-
-        @Override
-        public String toString() {
-            return super.toString().toLowerCase();
-        }
-    }
-
     public static void taskDone(int id) {
         Task currentTask = tasks[id];
         currentTask.markAsDone();
@@ -23,17 +14,15 @@ public class TaskManager {
 
     public static void newTask(String userInput) {
         String command = userInput.split(" ")[0];
-        userInput = userInput.substring(command.length()+1, userInput.length());
+        //Remove command from userInput.
+        userInput = userInput.substring(command.length() + 1);
 
-        String[] inputs;
-        switch (Type.valueOf(command.toUpperCase())) {
+        switch (Task.Types.valueOf(command.toUpperCase())) {
         case DEADLINE:
-            inputs = userInput.split(String.format(" /%s ", Deadline.PREPOSITION));
-            tasks[taskCount] = new Deadline(inputs[0], inputs[1]);
+            tasks[taskCount] = new Deadline(userInput);
             break;
         case EVENT:
-            inputs = userInput.split(String.format(" /%s ", Event.PREPOSITION));
-            tasks[taskCount] = new Event(inputs[0], inputs[1]);
+            tasks[taskCount] = new Event(userInput);
             break;
         case TODO:
             tasks[taskCount] = new Todo(userInput);

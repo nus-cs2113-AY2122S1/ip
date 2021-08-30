@@ -1,15 +1,8 @@
-public class Deadline extends Task {
-    private String byTime;
+public class Deadline extends TimedTask {
+    private static final String PREPOSITION = "by";
+    private static final Types type = Types.DEADLINE;
 
-    public static final String PREPOSITION = "by";
-
-    public Deadline(String description, String byTime) {
-        super(description);
-        this.byTime = byTime;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[D]%s (%s: %s)", super.toString(), PREPOSITION, byTime);
+    public Deadline(String userInput) {
+        super(userInput, PREPOSITION, type);
     }
 }

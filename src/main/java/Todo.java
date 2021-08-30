@@ -1,10 +1,7 @@
 public class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
+    private static final Types type = Types.TODO;
 
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public Todo(String description) {
+        super(description, type);
     }
 }
