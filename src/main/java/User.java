@@ -6,7 +6,7 @@ public class User {
 
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
-    private static final String BYE = "    Bye. Hope to see you again soon!\n";
+    private static final String BYE = "     Bye. Hope to see you again soon!\n";
 
 
 

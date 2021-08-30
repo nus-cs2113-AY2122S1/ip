@@ -4,7 +4,7 @@ class TaskList {
 
     public int addList(String userInput) {
         Task newTask = getTask(userInput);
-        System.out.println("      " + newTask);
+        System.out.println("       " + newTask);
         this.tasks[taskNum] = newTask;
         taskNum++;
         return taskNum;
@@ -12,13 +12,13 @@ class TaskList {
 
     public void listTasks() {
         for (int i = 0; i < taskNum; i++) {
-            System.out.println("    " + (i + 1) + "." + tasks[i].toString());
+            System.out.println("     " + (i + 1) + "." + tasks[i].toString());
         }
     }
 
     public void markAsDone(int index) {
         this.tasks[index].setFinished();
-        System.out.println("    " + this.tasks[index]);
+        System.out.println("       " + this.tasks[index]);
     }
 
     private Task getTask(String userInput) {
