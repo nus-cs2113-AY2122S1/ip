@@ -2,26 +2,51 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void echoCommand() {
-        String line;
+    private String[] userList = new String[100];
+    private int listSize = 0;
+
+    public void handleCommand() {
+        String userInput;
         Scanner in = new Scanner(System.in);
 
-        line = in.nextLine();
+        userInput = in.nextLine();
 
-        if (line.equals("bye")) {
+        switch (userInput) {
+        case "bye":
             System.out.println("-------------------------------------");
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println("-------------------------------------");
-        } else {
+            break;
+        case "list":
             System.out.println("-------------------------------------");
-            System.out.println(line);
+            showList();
             System.out.println("-------------------------------------");
-            echoCommand();
+            handleCommand();
+            break;
+        default:
+            System.out.println("-------------------------------------");
+            addTask(userInput);
+            System.out.println("added: " + userInput);
+            System.out.println("-------------------------------------");
+            handleCommand();
+            break;
         }
+    }
 
+    public void addTask(String task) {
+        userList[listSize] = task;
+        listSize++;
+    }
+
+    public void showList() {
+        for (int i = 0; i < listSize; i++) {
+            System.out.println((i + 1) + ". " + userList[i]);
+        }
     }
 
     public static void main(String[] args) {
+        Duke chatBot = new Duke();
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -33,7 +58,6 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("-------------------------------------");
 
-        echoCommand();
-        
+        chatBot.handleCommand();
     }
 }
