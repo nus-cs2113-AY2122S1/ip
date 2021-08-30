@@ -12,8 +12,9 @@ public class Duke {
     }
 
     private static void showByeScreen() {
+        Task.printDivider();
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________\n");
+        Task.printDivider();
     }
 
     private static void showWelcomeScreen() {
@@ -23,10 +24,9 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n");
+        Task.printDivider();
+        System.out.println(" Hello! I'm Duke\n" + " What can I do for you?\n");
+        Task.printDivider();
     }
 }
 
