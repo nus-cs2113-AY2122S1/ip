@@ -1,8 +1,11 @@
-abstract public class UserCommand {
+abstract class UserCommand {
     TaskList tasks;
 
-    public UserCommand (TaskList tasks) {
+    UserCommand (TaskList tasks) {
         this.tasks = tasks;
+    }
+
+    UserCommand() {
     }
 
     abstract public void execute ();

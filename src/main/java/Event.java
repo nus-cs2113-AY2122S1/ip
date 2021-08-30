@@ -1,5 +1,6 @@
-public class Event extends Task{
+class Event extends Task{
     String completeTime;
+
     public Event (String taskName, String completeTime, boolean isCompleted) {
         super(taskName, isCompleted);
         this.completeTime = completeTime;

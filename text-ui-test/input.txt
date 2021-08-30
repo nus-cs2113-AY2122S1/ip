@@ -6,7 +6,7 @@ todo borrow book
 done 1
 done 2
 list
-deadline return book /by Sunday
-event project meeting /at Mon 2-4pm
-deadline do homework /by no idea :-p
+deadline return book /by: Sunday
+event project meeting /at: Mon 2-4pm
+deadline do homework /by: no idea :-p
 bye

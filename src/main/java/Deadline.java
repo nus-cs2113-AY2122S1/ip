@@ -1,4 +1,4 @@
-public class Deadline extends Task {
+class Deadline extends Task {
     private String deadline;
 
     public Deadline (String taskName, String deadline, boolean isCompleted) {
@@ -9,4 +9,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(" + this.deadline + ")";
     }
+    
 }

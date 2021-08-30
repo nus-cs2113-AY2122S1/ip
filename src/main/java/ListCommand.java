@@ -1,4 +1,4 @@
-public class ListCommand extends UserCommand {
+class ListCommand extends UserCommand {
     public ListCommand(TaskList tasks) {
         super(tasks);
     }

@@ -1,4 +1,4 @@
-public class AddListCommand extends UserCommand {
+class AddListCommand extends UserCommand {
     private String addCommand;
 
     AddListCommand (String addCommand, TaskList tasks) {
@@ -10,6 +10,7 @@ public class AddListCommand extends UserCommand {
     public void execute () {
         System.out.println("     Got it. I've added this task: ");
         int totalTasksNum = tasks.addList(this.addCommand);
-        System.out.println("     Now you have " + totalTasksNum + (totalTasksNum > 1? " tasks" : " task") + " in the list.");
+        System.out.println("     Now you have " + totalTasksNum +
+                ((totalTasksNum > 1) ? " tasks" : " task") + " in the list.");
     }
 }

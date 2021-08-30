@@ -1,7 +1,6 @@
-public class TaskList {
+class TaskList {
     private Task[] tasks = new Task[100];
     private int taskNum = 0;
-
 
     public int addList(String userInput) {
         Task newTask = getTask(userInput);

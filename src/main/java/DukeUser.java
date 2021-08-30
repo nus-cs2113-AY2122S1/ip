@@ -5,6 +5,7 @@ public class DukeUser {
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
     private static final String BYE = "    Bye. Hope to see you again soon!\n";
+    private Scanner sc = new Scanner(System.in);
 
     DukeUser() {
         System.out.print(DIVISIONLINE + GREETINGS + DIVISIONLINE);
@@ -19,7 +20,7 @@ public class DukeUser {
             userInput = readInput();
             input = handleCommand(userInput);
         }
-
+        sc.close();
     }
     public void serviceEnd(){
         System.out.println(DIVISIONLINE + BYE + DIVISIONLINE);
@@ -32,10 +33,7 @@ public class DukeUser {
     }
 
     private String readInput() {
-        Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        System.out.println(input);
-        sc.close();
         return input;
     }
 
@@ -53,12 +51,13 @@ public class DukeUser {
         case "done":
             input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
             break;
-        default:
+        case "todo" : case "deadline" : case "event":
             input = new AddListCommand(userInput, userTasks);
+            break;
+        default:
+            input = new otherCommand(userInput);
             break;
         }
         return input;
-
-
     }
 }
