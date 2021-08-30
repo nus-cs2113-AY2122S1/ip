@@ -17,4 +17,7 @@ public class Task {
         return (done ? "X" : " ");
     }
 
+    public String toString(){
+        return "[" + getStatus() + "]" + name;
+    }
 }

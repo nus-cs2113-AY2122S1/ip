@@ -1,5 +1,6 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
-import java.util.Arrays;
+
 public class Duke {
 
 
@@ -22,7 +23,8 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("List so far: ");
                 for(int i = 0; i < listIndex; i++) {
-                    System.out.println( (i+1) + "[" + t[i].getStatus() + "]" + t[i].name);
+                    System.out.print(i +  1);
+                    System.out.println(t[i]);
                 }
                 System.out.println("____________________________________________________________");
                 userInput = in.nextLine();
@@ -34,17 +36,43 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     System.out.println("List so far: ");
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[" + t[task_index - 1].getStatus() + "] " + t[task_index - 1].name);
+                    System.out.println(t[task_index - 1]);
                     System.out.println("____________________________________________________________");
                     userInput = in.nextLine();
                 }
                 else {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("added: " + userInput);
-                    System.out.println("____________________________________________________________");
-                    t[listIndex] = new Task(userInput);
-                    listIndex++;
-                    userInput = in.nextLine();
+                    if(userInput.startsWith("todo")) {
+                        t[listIndex] = new Task(userInput.replaceFirst("todo ", ""));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println("[T]" + t[listIndex]);
+                        System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
+                        System.out.println("____________________________________________________________");
+                        listIndex++;
+                        userInput = in.nextLine();
+                    }
+                    else if(userInput.startsWith("event")){
+                        userInput = userInput.replaceFirst("event", "");
+                        t[listIndex] = new Event(userInput.substring(0, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at")));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(t[listIndex]);
+                        System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
+                        System.out.println("____________________________________________________________");
+                        listIndex++;
+                        userInput = in.nextLine();
+                    }
+                    else if(userInput.startsWith("deadline")){
+                        userInput = userInput.replaceFirst("deadline ", "");
+                        t[listIndex] = new Deadline(userInput.substring(0, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by")));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(t[listIndex]);
+                        System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
+                        System.out.println("____________________________________________________________");
+                        listIndex++;
+                        userInput = in.nextLine();
+                    }
                 }
             }
         }
