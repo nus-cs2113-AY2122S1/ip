@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Duke {
     final static String BORDER = "------------------------------------------------------------------------";
-    final static Scanner SC = new Scanner(System.in);
 
     public static void main(String[] args) {
+        final Scanner SC = new Scanner(System.in);
         printIntro();
         String input;
         while (true) {
