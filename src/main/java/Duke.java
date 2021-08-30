@@ -3,28 +3,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    // Checks if a string is a positive numeric value
-    public static int isPositiveNumeric(String str) {
-        try {
-            return Integer.parseInt(str);
-        } catch(NumberFormatException e){
-            return -1;
-        }
-    }
-
-    // Converts task to string
-    public static String taskToString(Task task) {
-            return "[" + task.getType() + "][" + (task.isDone() ? "X" : " ") + "] "
-                    + task.getTask() + (task.getType() == 'T' ? "" : " (" + (task.getType() == 'D' ? "by: " : "at: ")+ task.getTrail() + ")");
-    }
-
-    // Prints newest task
-    public static void printNew(Task task, int size) {
-        System.out.println("Got it. I've added this task:\n " +
-                taskToString(task) +
-                "\nNow you have " + size + " tasks in the list.");
-    }
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String logo = " ____        _        \n"
@@ -84,37 +62,13 @@ public class Duke {
                         }
                         break;
                     case "help":
-                        switch (commands[1]) {
-                            case "done":
-                                System.out.println("done:\n Marks a specific task as done.");
-                                System.out.println("Format:\n done (index)");
-                                break;
-                            case "todo":
-                                System.out.println("todo:\n Adds a task without any date/time attached to it.");
-                                System.out.println("Format:\n todo (task)");
-                                break;
-                            case "deadline":
-                                System.out.println("deadline:\n Adds a task that needs to be done before a specific date/time.");
-                                System.out.println("Format:\n deadline (task) /by (date/time)");
-                                break;
-                            case "event":
-                                System.out.println("event:\n Adds a task that starts at a specific time and ends at a specific time.");
-                                System.out.println(" Format:\n event (task) /at (date/time)");
-                                break;
-                            case "list":
-                                System.out.println("list:\n Shows all tasks.");
-                                break;
-                            case "bye":
-                                System.out.println("bye:\n Terminates the program.");
-                                break;
-                            default:
-                                System.out.println("Formatting error");
-                        }
+                        printHelp(commands[1]);
                         break;
                     default:
                         System.out.println("Input error");
                 }
             }
+
             // Command has a single parameter
             else {
                 switch (curCommand) {
@@ -136,6 +90,57 @@ public class Duke {
             }
             System.out.println(line);
         }
+    }
 
+    // Checks if a string is a positive numeric value
+    public static int isPositiveNumeric(String str) {
+        try {
+            return Integer.parseInt(str);
+        } catch(NumberFormatException e){
+            return -1;
+        }
+    }
+
+    // Converts task to string
+    public static String taskToString(Task task) {
+        return "[" + task.getType() + "][" + (task.isDone() ? "X" : " ") + "] "
+                + task.getTask() + (task.getType() == 'T' ? "" : " (" + (task.getType() == 'D' ? "by: " : "at: ")+ task.getTrail() + ")");
+    }
+
+    // Prints newest task
+    public static void printNew(Task task, int size) {
+        System.out.println("Got it. I've added this task:\n " +
+                taskToString(task) +
+                "\nNow you have " + size + " tasks in the list.");
+    }
+
+    // Prints help message
+    public static void printHelp(String command) {
+        switch (command) {
+            case "done":
+                System.out.println("done:\n Marks a specific task as done.");
+                System.out.println("Format:\n done (index)");
+                break;
+            case "todo":
+                System.out.println("todo:\n Adds a task without any date/time attached to it.");
+                System.out.println("Format:\n todo (task)");
+                break;
+            case "deadline":
+                System.out.println("deadline:\n Adds a task that needs to be done before a specific date/time.");
+                System.out.println("Format:\n deadline (task) /by (date/time)");
+                break;
+            case "event":
+                System.out.println("event:\n Adds a task that starts at a specific time and ends at a specific time.");
+                System.out.println(" Format:\n event (task) /at (date/time)");
+                break;
+            case "list":
+                System.out.println("list:\n Shows all tasks.");
+                break;
+            case "bye":
+                System.out.println("bye:\n Terminates the program.");
+                break;
+            default:
+                System.out.println("Formatting error");
+        }
     }
 }
