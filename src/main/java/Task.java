@@ -7,8 +7,12 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toString() {
+        return getStatusIcon() + getDescription();
+    }
+
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return "[" + (isDone ? "X" : " ") + "] ";
     }
 
     public String getDescription() {
