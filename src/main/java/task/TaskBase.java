@@ -32,16 +32,16 @@ import time.Time;
 public abstract class TaskBase {
     private TaskType taskType;
     private Time taskTime;
-    private String taskContent;
+    private String taskDescription;
     private boolean isDone;
 
     /**
      * Constructor of task that accepts tasktype, time and taskcontent
      **/
-    public TaskBase(TaskType taskType, Time taskTime, String taskContent) {
+    public TaskBase(TaskType taskType, Time taskTime, String taskDescription) {
         this.taskType = taskType;
         this.taskTime = taskTime;
-        this.taskContent = taskContent;
+        this.taskDescription = taskDescription;
         this.isDone = false;
     }
 
@@ -52,10 +52,26 @@ public abstract class TaskBase {
     /**
      * Utility to print all info related to task for list command
      **/
-    public void printInfo() {
-        System.out.println(String.format("[%c] %s %s",
+    public String toString() {
+        String s = new String("");
+        s += String.format("[%s] [%c] %s | ",
+                    getTaskSymbol(),
                     isDone ? 'X' : ' ',
-                    TaskType.getTaskStrbyTaskType(taskType), taskContent));
-        taskTime.printTimeInfo();
+                    taskDescription);
+        s += taskTime.toString();
+        return s;
+    }
+
+    private String getTaskSymbol() {
+        if (taskType == TaskType.TODO) {
+            return "T";
+        } else if (taskType == TaskType.DEADLINE) {
+            return "D";
+        } else if (taskType == TaskType.EVENT) {
+            return "E";
+        } else {
+            return "?";
+        }
+
     }
 }

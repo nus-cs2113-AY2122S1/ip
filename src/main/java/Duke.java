@@ -19,7 +19,6 @@ public class Duke {
     /** Main */
     public static void main(String[] args) {
         System.out.println("Hello from\n" + LOGO + GREETING);
-
         CommandHandler commandHandler = new CommandHandler();
         CommandParser commandParser = CommandParser.getCommandParser();
 

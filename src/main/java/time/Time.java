@@ -46,26 +46,28 @@ public class Time {
     /**
      * Utility to print time info, used by list command
      */
-    public void printTimeInfo() {
-        System.out.print("Time Start: ");
+    public String toString() {
+        String s = new String("");
+        s += "Time Start: ";
         if (tstart == null) {
-            System.out.print(-1);
+            s += "-1";
         } else {
-            System.out.print(tstart.get());
+            s += tstart.get().toString();
         }
-        System.out.print(" | Time End: ");
+        s += " | Time End: ";
         if (tend == null) {
-            System.out.print(-1);
+            s += "-1";
         } else {
-            System.out.print(tend.get());
+            s += tend.get().toString();
         }
-        System.out.print(" | Time Repeat: ");
+        s += " | Time Repeat: ";
         if (trepeat == null) {
-            System.out.print(-1);
+            s += "-1";
         } else {
-            System.out.print(trepeat.get());
+            s += trepeat.get().toString();
         }
-        System.out.println();
+        s += "\n";
+        return s;
     }
 }
 

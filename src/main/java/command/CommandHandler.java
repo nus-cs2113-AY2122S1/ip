@@ -53,32 +53,44 @@ public class CommandHandler {
     }
 
     private void handleCommandAdd(Command cmd) {
-        System.out.println("added: " + cmd.getTaskContent());
+        System.out.println("added: " + cmd.getTaskDescription());
+        System.out.println("---------------");
         TaskBase task = taskFactory.makeTask(cmd);
-        taskManager.addTask(task);
+        if (task != null) {
+            taskManager.addTask(task);
+        }
     }
 
     protected void handleCommandDone(Command cmd) {
         // TODO: Add try catch for nullpointerexception
-        Integer taskId = Integer.parseInt(cmd.getTaskContent());
-        System.out.println("Marking task " + taskId + " as done");
-        taskManager.markTaskDone(taskId);
+        try {
+            Integer taskId = Integer.parseInt(cmd.getTaskDescription());
+            System.out.println("Marking task " + taskId + " as done");
+            System.out.println("---------------");
+            taskManager.markTaskDone(taskId);
+        } catch (Exception e) {
+            System.out.println("Please specify a valid task when marking task as done");
+        }
     }
 
 
     private void handleCommandDelete() {
         System.out.println("delete");
+        System.out.println("---------------");
     }
 
     private void handleCommandFind() {
         System.out.println("find");
+        System.out.println("---------------");
     }
 
     private void handleCommandBye() {
         System.out.println("Bye bye");
+        System.out.println("---------------");
     }
 
     private void handleCommandInvalid() {
         System.out.println("Invalid Command Received! Have an exception handler here later?");
+        System.out.println("---------------");
     }
 }

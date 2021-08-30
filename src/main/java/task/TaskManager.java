@@ -22,7 +22,7 @@ public class TaskManager {
         for (TaskBase task : taskList) {
             System.out.print(label++);
             System.out.print(".");
-            task.printInfo();
+            System.out.print(task);
             System.out.println("-------");
         }
     }
@@ -32,7 +32,7 @@ public class TaskManager {
      **/
     public void markTaskDone(int taskId) {
         taskList.get(taskId - 1).markDone();
-        taskList.get(taskId - 1).printInfo();
+        System.out.println(taskList.get(taskId - 1));
     }
 
     /**
@@ -42,7 +42,5 @@ public class TaskManager {
         // data structure is 0-indexed
         taskList.remove(taskId - 1);
     }
-
-
 }
 
