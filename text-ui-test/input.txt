@@ -1,0 +1,10 @@
+todo wake up
+list
+deadline read book /by 234
+list
+event watch movie /at mon 23
+list
+done 2
+done 1
+list
+bye

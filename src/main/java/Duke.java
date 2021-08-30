@@ -1,4 +1,3 @@
-import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 
 public class Duke {
@@ -53,7 +52,7 @@ public class Duke {
                     }
                     else if(userInput.startsWith("event")){
                         userInput = userInput.replaceFirst("event", "");
-                        t[listIndex] = new Event(userInput.substring(0, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at")));
+                        t[listIndex] = new Event(userInput.substring(0, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at") + 4));
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task: ");
                         System.out.println(t[listIndex]);
@@ -64,7 +63,7 @@ public class Duke {
                     }
                     else if(userInput.startsWith("deadline")){
                         userInput = userInput.replaceFirst("deadline ", "");
-                        t[listIndex] = new Deadline(userInput.substring(0, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by")));
+                        t[listIndex] = new Deadline(userInput.substring(0, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by") + 4));
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task: ");
                         System.out.println(t[listIndex]);
