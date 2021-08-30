@@ -5,7 +5,42 @@ public class Duke {
 
     public static int taskCount = 1;
 
-    public static void addTask(String input, Task[] tasks) {
+    public static void inputManager() {
+        String line;
+        boolean isBye = false;
+        Task[] tasks = new Task[100];
+
+        Scanner in = new Scanner(System.in);
+        while (!isBye) {
+            line = in.nextLine();
+            if (line.equalsIgnoreCase("bye")) {
+                inputBye();
+                isBye = true;
+            } else if (line.equalsIgnoreCase("list")) {
+                requestList(tasks);
+            } else if (line.contains("done")) {
+                inputDone(line, tasks);
+            } else if (line.contains("undo")) {
+                undoDone(line, tasks);
+            } else if (isValidTaskInput(line)) {
+                taskManager(line, tasks);
+            } else {
+                printHorizontalLine();
+                System.out.println("I don't understand that. Please try again!");
+                printHorizontalLine();
+            }
+        }
+    }
+
+    public static boolean isValidTaskInput(String input) {
+        if (input.toLowerCase().contains("todo") || input.toLowerCase().contains("deadline") || input.toLowerCase().contains("event")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void taskManager(String input, Task[] tasks) {
         printHorizontalLine();
         int dividePos = input.trim().indexOf(" ");
         String taskType = input.trim().substring(0, dividePos).toLowerCase();
@@ -16,10 +51,6 @@ public class Duke {
             addDeadline(input, tasks);
         } else if (taskType.equalsIgnoreCase("event")) {
             addEvent(input, tasks);
-        } else {
-            System.out.println("Invalid task type, please try again. Valid task types: todo, deadline, event");
-            printHorizontalLine();
-            return;
         }
 
         System.out.println("Understood. I've added this task:");
@@ -54,13 +85,11 @@ public class Duke {
 
     public static void requestList(Task[] tasks) {
         printHorizontalLine();
-        if (taskCount == 0) {
+        if (taskCount == 1) {
             System.out.println("There are no tasks!");
             printHorizontalLine();
             return;
         }
-
-        //CHANGE THIS
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i < taskCount; i++) {
             System.out.println(i + "." + tasks[i]);
@@ -129,26 +158,6 @@ public class Duke {
         System.out.println("What can I do for you today?");
         printHorizontalLine();
 
-        String line;
-        boolean isBye = false;
-
-        Task[] tasks = new Task[100];
-
-        Scanner in = new Scanner(System.in);
-        while (!isBye) {
-            line = in.nextLine();
-            if (line.equalsIgnoreCase("bye")) {
-                inputBye();
-                isBye = true;
-            } else if (line.equalsIgnoreCase("list")) {
-                requestList(tasks);
-            } else if (line.contains("done")) {
-                inputDone(line, tasks);
-            } else if (line.contains("undo")) {
-                undoDone(line, tasks);
-            } else {
-                addTask(line, tasks);
-            }
-        }
+        inputManager();
     }
 }
