@@ -20,19 +20,19 @@ public class AddCommand extends Command {
     public void execute() {
         switch (type) {
         case 'T':
-            tasks.add(new Todo(name));
+            taskList.add(new Todo(name));
             break;
         case 'D':
-            tasks.add(new Deadline(name, atBy));
+            taskList.add(new Deadline(name, atBy));
             break;
         case 'E':
-            tasks.add(new Event(name, atBy));
+            taskList.add(new Event(name, atBy));
             break;
         default:
             break;
         }
-        ui.printAddTaskMessage(tasks, tasks.size() - 1);
-        ui.printTaskCount(tasks.size());
+        ui.printAddTaskMessage(taskList, taskList.size() - 1);
+        ui.printTaskCount(taskList.size());
     }
 
 }

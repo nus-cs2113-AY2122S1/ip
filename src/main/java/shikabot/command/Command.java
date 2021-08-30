@@ -1,14 +1,13 @@
 package shikabot.command;
 
-import shikabot.task.Task;
+import shikabot.task.TaskList;
 import shikabot.ui.TextUi;
 
-import java.util.ArrayList;
 
 public abstract class Command {
 
     protected final TextUi ui;
-    protected ArrayList<Task> tasks;
+    protected TaskList taskList;
 
     public Command() {
         this.ui = new TextUi();
@@ -16,8 +15,8 @@ public abstract class Command {
 
     public abstract void execute();
 
-    public void setData(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public void setData(TaskList taskList) {
+        this.taskList = taskList;
     }
 
 }

@@ -11,8 +11,8 @@ public class DoneCommand extends Command {
     @Override
     public void execute() {
         try {
-            tasks.get(index).markAsDone();
-            ui.printDoneTaskMessage(tasks, index);
+            taskList.get(index).markAsDone();
+            ui.printDoneTaskMessage(taskList, index);
         } catch (IndexOutOfBoundsException e) {
             ui.printInvalidTaskMessage();
         }

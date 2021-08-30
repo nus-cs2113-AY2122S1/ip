@@ -1,25 +1,22 @@
-package shikabot.saves;
+package shikabot.storage;
 
 import shikabot.task.Task;
-import shikabot.task.Deadline;
-import shikabot.task.Event;
-import shikabot.task.Todo;
+import shikabot.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SaveFile {
+public class Storage {
 
     private final String path;
     private final File file;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
-    public SaveFile(String path) {
+    public Storage(String path) {
         this.path = path;
         this.file = new File(path);
     }
@@ -48,12 +45,12 @@ public class SaveFile {
      * Function that loads tasks from the given filepath.
      * @throws FileNotFoundException if filepath is invalid
      */
-    public ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public TaskList loadTasks() throws FileNotFoundException {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             loadTask(s.nextLine());
         }
-        return tasks;
+        return taskList;
     }
 
     /**
@@ -69,43 +66,17 @@ public class SaveFile {
         String atBy = s.substring(firstDiv, secondDiv - 1).trim();
         String name = s.substring(secondDiv, thirdDiv - 1).trim();
         String done = s.substring(thirdDiv).trim();
-        addSavedTask(type, atBy, name, done);
-    }
-
-    /**
-     * This function directly adds a task to tasks without printing any messages. Used for loading saved tasks.
-     * @param type type of task.
-     * @param atBy at/by of task, if applicable.
-     * @param name name of task.
-     * @param done if the task is done or not.
-     */
-    private void addSavedTask(char type, String atBy, String name, String done) {
-        switch(type) {
-        case 'T':
-            tasks.add(new Todo(name));
-            break;
-        case 'D':
-            tasks.add(new Deadline(name, atBy));
-            break;
-        case 'E':
-            tasks.add(new Event(name, atBy));
-            break;
-        default:
-            return;
-        }
-        if (done.equals("true")) {
-            tasks.get(tasks.size() - 1).markAsDone();
-        }
+        taskList.addSavedTask(type, atBy, name, done);
     }
 
     /**
      * This function saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
      * @throws IOException when the saving operation is interrupted.
      */
-    public void saveTasks(ArrayList<Task> tasksToSave) throws IOException {
+    public void saveTasks(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(path);
         fw.close();
-        for (Task task : tasksToSave) {
+        for (Task task : taskList.taskList) {
             try {
                 task.saveTask();
             } catch (IOException e) {

@@ -1,9 +1,8 @@
 package shikabot.ui;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import shikabot.task.TaskList;
 
-import shikabot.task.Task;
+import java.util.Scanner;
 
 public class TextUi {
 
@@ -53,9 +52,9 @@ public class TextUi {
         System.out.print(line + "> Sorry friend, I don't know what that means. :/\n" + line);
     }
 
-    public void printDeleteTaskMessage(ArrayList<Task> tasks, int index) {
+    public void printDeleteTaskMessage(TaskList taskList, int index) {
         System.out.println(line + "> You've removed: " + "\n\t"
-                + (index + 1) + ". " + tasks.get(index).toString());
+                + (index + 1) + ". " + taskList.get(index).toString());
     }
 
     /**
@@ -85,29 +84,29 @@ public class TextUi {
                 "Thank you!\n" + line);
     }
 
-    public void printAddTaskMessage(ArrayList<Task> tasks, int index) {
+    public void printAddTaskMessage(TaskList taskList, int index) {
         System.out.println(line + "> Added: " + "\n\t"
-                + (index + 1) + ". " + tasks.get(index).toString());
+                + (index + 1) + ". " + taskList.get(index).toString());
     }
 
     public void printNegativeIndexMessage() {
         System.out.print(line + "> ...Stop trying to break me...\n" + line);
     }
 
-    public void printDoneTaskMessage(ArrayList<Task> tasks, int index) {
+    public void printDoneTaskMessage(TaskList taskList, int index) {
         System.out.println(line + "> You've done: " + "\n\t"
-                + (index + 1) + ". " + tasks.get(index).toString());
+                + (index + 1) + ". " + taskList.get(index).toString());
         System.out.print(line);
     }
 
     /**
      * Function to print all tasks in tasks.
      */
-    public void printTasks(ArrayList<Task> tasks) {
+    public void printTasks(TaskList taskList) {
         System.out.println(line + "> Here is your list of tasks: ") ;
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
         }
-        printTaskCount(tasks.size());
+        printTaskCount(taskList.size());
     }
 }

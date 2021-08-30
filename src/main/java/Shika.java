@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import shikabot.command.Command;
 import shikabot.command.ExitCommand;
 import shikabot.parser.Parser;
-import shikabot.task.Task;
+import shikabot.task.TaskList;
 
 import shikabot.ui.TextUi;
 
-import shikabot.saves.SaveFile;
+import shikabot.storage.Storage;
 
 public class Shika {
 
-    public static ArrayList<Task> tasks;
     public static String path = "data/ShikaTasks.txt";
     public static TextUi ui = new TextUi();
     public static Parser parser = new Parser();
 
-    public SaveFile saveFile;
+    public Storage storage;
+    public TaskList taskList;
 
     public static void main(String[] args) {
         new Shika().run();
@@ -32,7 +32,7 @@ public class Shika {
         try {
             setupShika();
         } catch (FileNotFoundException e) {
-            System.out.println("I can't find the save file AHHHHHHH.\n");
+            ui.printFileErrorMessage();
         }
         runShikaLoop();
     }
@@ -44,18 +44,19 @@ public class Shika {
      */
     public void setupShika() throws FileNotFoundException {
         ui.printLogo();
-        this.saveFile = new SaveFile(path);
+        this.storage = new Storage(path);
         ui.printWelcomeMessage(checkForSave());
-        tasks = saveFile.loadTasks();
+        this.taskList = new TaskList();
+        taskList = storage.loadTasks();
     }
 
     public boolean checkForSave() {
         boolean hasSave = false;
         try {
-            hasSave = saveFile.setupSave();
+            hasSave = storage.setupSave();
         } catch (SecurityException e) {
             ui.printSecurityErrorMessage();
-        } catch (SaveFile.FileErrorException e) {
+        } catch (Storage.FileErrorException e) {
             ui.printFileErrorMessage();
         }
         return hasSave;
@@ -78,9 +79,9 @@ public class Shika {
 
     public void executeCommand(Command command) {
         try {
-            command.setData(tasks);
+            command.setData(taskList);
             command.execute();
-            saveFile.saveTasks(tasks);
+            storage.saveTasks(taskList);
         } catch (IOException e) {
             ui.printSaveErrorMessage();
         }
