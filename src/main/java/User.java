@@ -36,7 +36,6 @@ public class User {
     }
 
     private String readInput() {
-
         String input = sc.nextLine();
         return input;
     }
