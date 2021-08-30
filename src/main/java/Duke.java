@@ -9,6 +9,12 @@ import java.util.Scanner;
  * @author richwill28
  */
 class Duke {
+    private Scanner sc;
+
+    public Duke() {
+        sc = new Scanner(System.in);
+    }
+
     /** Decorative logo */
     private static final String LOGO =
             "     ,---.    ,---.   ____    .-./`)  ______           \n" +
@@ -37,6 +43,10 @@ class Duke {
         System.out.println(PADDING + "Hello! I'm your personal maid. Call me Maid-chan!");
         System.out.println(PADDING + "What can I do for you?");
         System.out.println(LINE);
+    }
+
+    public String getResponse() {
+        return sc.nextLine();
     }
 
     /**
@@ -128,10 +138,11 @@ class Duke {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
+        Duke duke = new Duke();
         greet();
+        String response = "";
         while (true) {
-            Scanner sc = new Scanner(System.in);
-            String response = sc.nextLine();
+            response = duke.getResponse();
             if (response.equals("bye")) {
                 break;
             } else if (response.equals("list")) {
