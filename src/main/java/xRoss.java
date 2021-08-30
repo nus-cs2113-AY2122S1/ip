@@ -9,9 +9,9 @@ public class xRoss {
 
     // prints welcome message
     public static void printWelcomeMessage(){
-        String logo = "        ____          \n"
-                + "       | __ \\  _  __  __\n"
-                + " _  _  |  __/ / \\|  \\|  \\\n"
+        String logo = "        _____         \n"
+                + "       |  __ \\ _  __  __\n"
+                + " _  _  |    _// \\|  \\|  \\\n"
                 + "\\ \\/ / | |\\ \\| | |\\ \\\\ \\\n"
                 + "/_/\\_\\ |_| \\_\\\\_/\\__|\\__|\n";
         System.out.println("Hello from\n" + logo);
@@ -31,7 +31,7 @@ public class xRoss {
     public static void printEcho(String inputLine){
         printDividerLine();
         System.out.println("\t" + inputLine);
-        System.out.println("\tThere was no command given, so I'll just echo your input.\n");
+        System.out.println("\tI did not quite understand what you meant there, so I'll just echo your input...\n");
         printDividerLine();
     }
 
