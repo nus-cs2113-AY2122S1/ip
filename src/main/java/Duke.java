@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private String[] userList = new String[100];
+    private Task[] userList = new Task[100];
     private int listSize = 0;
 
     public void handleCommand() {
@@ -10,8 +10,10 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         userInput = in.nextLine();
+        String[] inputWords = userInput.split(" ");
+        String userCommand = inputWords[0];
 
-        switch (userInput) {
+        switch (userCommand) {
         case "bye":
             System.out.println("-------------------------------------");
             System.out.println("Bye. Hope to see you again soon!");
@@ -19,7 +21,15 @@ public class Duke {
             break;
         case "list":
             System.out.println("-------------------------------------");
+            System.out.println("Here are the tasks in your list:");
             showList();
+            System.out.println("-------------------------------------");
+            handleCommand();
+            break;
+        case "done":
+            System.out.println("-------------------------------------");
+            System.out.println("Nice! I've marked this task as done:");
+            markTaskAsDone(inputWords[1]);
             System.out.println("-------------------------------------");
             handleCommand();
             break;
@@ -34,14 +44,20 @@ public class Duke {
     }
 
     public void addTask(String task) {
-        userList[listSize] = task;
+        userList[listSize] = new Task(task);
         listSize++;
     }
 
     public void showList() {
         for (int i = 0; i < listSize; i++) {
-            System.out.println((i + 1) + ". " + userList[i]);
+            System.out.println((i + 1) + ". [" + userList[i].getStatusIcon() + "] " + userList[i].description);
         }
+    }
+
+    public void markTaskAsDone(String taskNumber) {
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        userList[taskIndex].setAsDone();
+        System.out.println("[" + userList[taskIndex].getStatusIcon() + "] " + userList[taskIndex].description);
     }
 
     public static void main(String[] args) {
