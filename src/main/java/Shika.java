@@ -1,10 +1,7 @@
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-import java.util.ArrayList;
-
 import shikabot.command.Command;
-import shikabot.command.ExitCommand;
 import shikabot.parser.Parser;
 import shikabot.task.TaskList;
 
@@ -70,11 +67,7 @@ public class Shika {
         do {
             command = parser.parseCommand(ui.getCommand());
             executeCommand(command);
-        } while (!isExitCommand(command));
-    }
-
-    public boolean isExitCommand(Command command) {
-        return command instanceof ExitCommand;
+        } while (!command.isExit());
     }
 
     public void executeCommand(Command command) {

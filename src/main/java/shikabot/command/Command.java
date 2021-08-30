@@ -19,4 +19,8 @@ public abstract class Command {
         this.taskList = taskList;
     }
 
+    public boolean isExit() {
+        return this instanceof ExitCommand;
+    }
+
 }
