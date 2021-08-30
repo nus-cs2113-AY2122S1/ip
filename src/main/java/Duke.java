@@ -13,7 +13,7 @@ public class Duke {
     }
 
     private static void printHello() {
-        String logo = " ____        _        \n"
+        String logo = " ____        _\n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
@@ -67,8 +67,6 @@ public class Duke {
         String[] parts = description.split("/by");
         String taskDescription = parts[0];
         String deadlineDescription = parts[1];
-        System.out.println(taskDescription);
-        System.out.println(deadlineDescription);
         tasks.add(new Deadline(taskDescription, deadlineDescription));
         GotItMessage();
         System.out.println(HORIZONTAL_LINE);
@@ -83,7 +81,7 @@ public class Duke {
     }
 
     private static void GotItMessage() {
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -91,10 +89,9 @@ public class Duke {
     private static void MarkAsDone(String inputCommand) {
         int position = inputCommand.indexOf(" ");
         int taskNum = Integer.parseInt(inputCommand.trim().substring(position + 1));
-        System.out.println(taskNum);
         tasks.get(taskNum - 1).setDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(taskNum - 1).getDescription());
+        System.out.println(tasks.get(taskNum - 1).getDescription().trim());
         System.out.println(HORIZONTAL_LINE);
     }
 
