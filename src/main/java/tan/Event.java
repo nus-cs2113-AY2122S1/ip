@@ -1,3 +1,5 @@
+package tan;
+
 public class Event extends Task {
 
     private String dateTime;
@@ -35,6 +37,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTaskName() + " (at: " + getDateTime() + ")");
+        return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] "
+                + getTaskName() + " (at: " + getDateTime() + ")");
     }
 }

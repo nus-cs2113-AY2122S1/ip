@@ -1,3 +1,4 @@
+package tan;
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -21,6 +22,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTaskName());
+        return ("[" + getIcon() + "]"
+                + "[" + getStatusIcon() + "] " + getTaskName());
     }
 }

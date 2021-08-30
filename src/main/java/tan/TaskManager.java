@@ -1,3 +1,5 @@
+package tan;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class TaskManager {
         Task curTask = null;
         switch (typeOfTask) {
         case "todo":
-            String todoDesc = getDescriptionToDo(userInput);
+            String todoDesc = getDescriptionOfToDo(userInput);
             if (todoDesc == null) {
                 //if user did not key in any description.
                 System.out.println("Please enter a valid description!");
@@ -192,7 +194,7 @@ public class TaskManager {
      * @param x The whole user input as a String.
      * @return The remaining String excluding the 1st word.
      */
-    private static String getDescriptionToDo(String x) {
+    private static String getDescriptionOfToDo(String x) {
         //Gets the index of the first space.
         int indexOfFirstSpace = x.indexOf(" ");
         if (indexOfFirstSpace == -1) {

@@ -1,16 +1,18 @@
+package tan;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    final static String BORDER = "-------------------------------------------------------------------------------------";
-    final static Scanner sc = new Scanner(System.in);
+    final static String BORDER = "------------------------------------------------------------------------";
+    final static Scanner SC = new Scanner(System.in);
 
     public static void main(String[] args) {
         printIntro();
         String input;
         while (true) {
-            input = readInput(sc);
+            input = readInput(SC);
             String command = getCommand(input);
             switch (command) {
             case "end":

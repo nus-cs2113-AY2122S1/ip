@@ -1,3 +1,4 @@
+package tan;
 public class Deadline extends Task {
 
     private String dateTime;
@@ -35,6 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTaskName() + " (by: " + getDateTime() + ")");
+        return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] "
+                + getTaskName() + " (by: " + getDateTime() + ")");
     }
 }
