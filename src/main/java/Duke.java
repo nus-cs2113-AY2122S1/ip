@@ -42,6 +42,8 @@ public class Duke {
             } else if (isMarkDone) {
                 if (words.length < 2) {
                     System.out.println("Please specify index to mark as done!");
+                } else if (Integer.parseInt(words[1]) > taskCount) {
+                    System.out.println("Please specify indices between 1 and " + taskCount);
                 } else {
                     markDone(Integer.parseInt(words[1]));
                 }
