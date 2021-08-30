@@ -9,7 +9,6 @@ public class Duke {
     private static int numoftask = 0;
 
     // Constructor
-
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -29,23 +28,46 @@ public class Duke {
     }
 
     public static void Echo(){
+        boolean continueChat;
         Scanner in = new Scanner(System.in);
-        String text;
-        String order;
 
-        text = in.nextLine();
-        while(!text.equals("bye")){
-            if(text.equals("list"))
-                printList();
-            else if(text.startsWith("done")){
-                order = text.substring(text.indexOf(' ') + 1);
-                doneTask(Integer.parseInt(order) - 1);
-            }else{
-                addTask(text);
+        do{
+            // Get query from user
+            String userInput = in.nextLine();
+
+            // Give response
+            continueChat = giveResponse(userInput);
+
+        }while(continueChat);
+
+        in.close();
+    }
+
+    public static boolean giveResponse(String userInput){
+        if(userInput.equals("list")){
+            printList();
+        }else if(userInput.equals("bye")){
+            Exit();
+            return false;
+        }else{
+            int i = userInput.indexOf(" ");
+            String command = userInput.substring(0, i);
+
+            switch (command){
+                case "todo":
+                case "deadline":
+                case "event":
+                    addTask(command, userInput.substring(i + 1));
+                    break;
+                case "done":
+                    doneTask(userInput.substring(i + 1));
+                    break;
+                default:
+                    System.out.println("I am sorry, but I don't understand.");
             }
-            text = in.nextLine();
         }
-        Exit();
+
+        return true;
     }
 
     public static void Exit(){
@@ -53,18 +75,33 @@ public class Duke {
         System.out.println(MESSAGE_BOUNDARY + "\n" + bye + MESSAGE_BOUNDARY);
     }
 
-    public static void doneTask(int index){
-        tasks[index].markAsDone();
+    public static void doneTask(String index){
+        int taskIndex = Integer.parseInt(index);
+        tasks[taskIndex-1].markAsDone();
         System.out.println(MESSAGE_BOUNDARY);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[index].toString());
+        System.out.println(tasks[taskIndex].toString());
         System.out.println(MESSAGE_BOUNDARY);
     }
 
-    public static void addTask(String task){
-        tasks[numoftask] = new Task(task);
+    public static void addTask(String command, String taskInfo){
+        switch (command){
+            case "todo":
+                tasks[numoftask] = ToDos.parse(taskInfo);
+                break;
+            case "deadline":
+                tasks[numoftask] = Deadline.parse(taskInfo);
+                break;
+            case "event":
+                tasks[numoftask] = Events.parse(taskInfo);
+                break;
+        }
+
+        System.out.println(MESSAGE_BOUNDARY + "\n" + "Got it. I've added this task: ");
+        System.out.println(tasks[numoftask].toString());
+        System.out.println("Now you have " + (numoftask + 1) + " task(s) in the list.\n" + MESSAGE_BOUNDARY);
+
         numoftask++;
-        System.out.println(MESSAGE_BOUNDARY + "\n" + "added: " + task + "\n" + MESSAGE_BOUNDARY);
     }
 
     public static void printList(){
