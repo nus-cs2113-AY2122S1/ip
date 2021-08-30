@@ -25,7 +25,7 @@ public class Duke {
             switch(echo) {
             case "list":
                 for(int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + taskList[i]);
+                    System.out.println((i + 1) + ".[ ] " + taskList[i]);
                 }
                 System.out.println("____________________________________________________________");
                 continue;
