@@ -2,12 +2,13 @@ public class Task {
 
     private String description;
     private boolean isDone;
+    /** Type of task (Todo [T], Deadline [D], Event [E]). */
     private String type = " ";
 
     /**
      * Create a new Task object.
      *
-     * @param description Task description
+     * @param description Task description.
      */
     public Task(String description) {
         this.description = description;

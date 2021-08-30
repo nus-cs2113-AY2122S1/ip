@@ -22,6 +22,11 @@ public class Duke {
 
     private static final TaskManager taskManager = new TaskManager();
 
+    /**
+     * Print sentences with line above and below the text block.
+     *
+     * @param sentences Sentence to be printed.
+     */
     private static void blockPrint(String[] sentences) {
         String printMessage = LINE + String.join("\n", sentences) + "\n" + LINE;
         System.out.println(printMessage);
@@ -40,34 +45,83 @@ public class Duke {
                 COMMAND_BYE});
     }
 
+    /**
+     * Print message that time keyword "/by" or "/at" is not in the user input.
+     *
+     * @param timeKeyword Time keyword ("/by" or "/at").
+     */
     private static void printTimeKeywordNotFound(String timeKeyword) {
         blockPrint(new String[]{"Time detail not found. Please enter a date or time with " + timeKeyword + "."});
     }
 
+    /**
+     * Get the index of the time keyword "/by" or "/at"
+     *
+     * @param splitUserInput String array of each word in user input.
+     * @param timeKeyword Time keyword ("/by" or "/at").
+     * @return Index of time keyword in the split user input array.
+     */
     private static int getTimeKeywordIndex(String[] splitUserInput, String timeKeyword) {
         return Arrays.asList(splitUserInput).indexOf(timeKeyword);
     }
 
+    /**
+     * Get the index of "/by" keyword in the split user input array.
+     *
+     * @param splitUserInput String array of each word in user input.
+     * @return Index of "/by" keyword in the split user input array.
+     */
     private static int getByIndex(String[] splitUserInput) {
         return getTimeKeywordIndex(splitUserInput, TIME_KEYWORD_BY);
     }
 
+    /**
+     * Get the index of "/at" keyword in the split user input array.
+     *
+     * @param splitUserInput String array of each word in user input.
+     * @return Index of "/at" keyword in the split user input array.
+     */
     private static int getAtIndex(String[] splitUserInput) {
         return getTimeKeywordIndex(splitUserInput, TIME_KEYWORD_AT);
     }
 
+    /**
+     * Check if time detail index is found and valid.
+     *
+     * @param timeKeywordIndex Index of time keyword.
+     * @return false if time keyword is 0, otherwise true.
+     */
     private static boolean isValidTimeKeywordIndex(int timeKeywordIndex) {
         return timeKeywordIndex != -1;
     }
 
+    /**
+     * Extract time detail from user input.
+     *
+     * @param splitUserInput String array of each word in user input.
+     * @param startIndex Starting index of time detail in user input array.
+     * @return Time detail.
+     */
     private static String extractTimeDetail(String[] splitUserInput, int startIndex) {
         return String.join(" ", Arrays.copyOfRange(splitUserInput, startIndex, splitUserInput.length));
     }
 
+    /**
+     * Extract task description from user input.
+     *
+     * @param splitUserInput String array of each word in user input.
+     * @param endIndex End index of task description in user input array;
+     * @return Task description.
+     */
     private static String extractDescription(String[] splitUserInput, int endIndex) {
         return String.join(" ", Arrays.copyOfRange(splitUserInput, 1, endIndex));
     }
 
+    /**
+     * Add new generic task.
+     *
+     * @param newTask New task.
+     */
     private static void addTask(Task newTask) {
         taskManager.addTask(newTask);
         blockPrint(new String[]{"I have added the task:",
@@ -75,11 +129,21 @@ public class Duke {
                 "There are now " + taskManager.getTotalTasks() + " tasks in the list."});
     }
 
+    /**
+     * Add new todo task.
+     *
+     * @param splitUserInput String array of each word in user input.
+     */
     private static void addTodo(String[] splitUserInput) {
         String description = extractDescription(splitUserInput, splitUserInput.length);
         addTask(new Todo(description));
     }
 
+    /**
+     * Add new deadline task.
+     *
+     * @param splitUserInput String array of each word in user input.
+     */
     private static void addDeadline(String[] splitUserInput) {
         int byIndex = getByIndex(splitUserInput);
 
@@ -92,6 +156,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Add new event task.
+     *
+     * @param splitUserInput String array of each word in user input.
+     */
     private static void addEvent(String[] splitUserInput) {
         int atIndex = getAtIndex(splitUserInput);
 
@@ -104,6 +173,9 @@ public class Duke {
         }
     }
 
+    /**
+     * List managed tasks.
+     */
     private static void listTasks() {
         // Format tasks for output message
         String[] taskListMessage = new String[taskManager.getTotalTasks() + 1];
@@ -117,6 +189,11 @@ public class Duke {
         blockPrint(taskListMessage);
     }
 
+    /**
+     * Mark a task as done.
+     *
+     * @param taskIndex Position of task item in list.
+     */
     private static void markTaskAsDone(int taskIndex) {
         if (taskManager.getTotalTasks() == 0) {
             blockPrint(new String[]{"The list is currently empty. Add a task first."});
@@ -133,6 +210,11 @@ public class Duke {
                         + completedTask.getDescription()});
     }
 
+    /**
+     * Parse user input command.
+     *
+     * @param splitUserInput String array of each word in user input.
+     */
     private static void parseCommand(String[] splitUserInput) {
         String userCommand = splitUserInput[0];
         switch (userCommand) {
