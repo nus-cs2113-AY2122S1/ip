@@ -18,4 +18,12 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+
+    @Override
+    public String toString() {
+        if (isDone) {
+            return "[X] " + description;
+        }
+        return "[ ] " + description;
+    }
 }
