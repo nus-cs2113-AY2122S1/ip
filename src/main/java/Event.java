@@ -1,4 +1,5 @@
 public class Event extends Task {
+    private static final String EVENT_ICON = "[E]";
 
     private String at;
 
@@ -9,6 +10,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return EVENT_ICON + super.toString()
+                + " (at: " + at + ")";
     }
 }

@@ -1,4 +1,7 @@
 public class Task {
+    private static final String DONE_ICON = "[X]";
+    private static final String NOT_DONE_ICON = "[ ]";
+
     private String taskName;
     private boolean isDone;
 
@@ -8,7 +11,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone? "[X]" : "[ ]");
+        return (isDone? DONE_ICON : NOT_DONE_ICON);
     }
 
     public void markAsDone() {

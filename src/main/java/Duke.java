@@ -1,34 +1,34 @@
-import java.util.Scanner;
-
 public class Duke {
+    private static final String WELCOME_MESSAGE = "     Hello! I'm Duke\n     What can I do for you?";
+    private static final String EXIT_MESSAGE = "     Bye. Hope to see you again soon!";
+
+    private static final String DIVIDER = "    ____________________________________________________________";
+
+    public static void printHorizontalLine() {
+        System.out.println(DIVIDER);
+    }
 
     public static void printWelcomeMessage() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
-        System.out.println("    ____________________________________________________________");
+        printHorizontalLine();
+        System.out.println(WELCOME_MESSAGE);
+        printHorizontalLine();
     }
 
     public static void printExitMessage() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
+        printHorizontalLine();
+        System.out.println(EXIT_MESSAGE);
+        printHorizontalLine();
+    }
+
+    public static void readUserInputUntilBye(TaskManager taskManager) {
+        taskManager.processUserInput();
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
 
         printWelcomeMessage();
-
-        while(true) {
-            String userInput = sc.nextLine();
-            if(userInput.equals("bye")) {
-                break;
-            }
-            taskManager.processUserInput(userInput);
-        }
-
+        readUserInputUntilBye(taskManager);
         printExitMessage();
     }
 }
