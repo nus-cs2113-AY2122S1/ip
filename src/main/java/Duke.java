@@ -7,11 +7,11 @@ public class Duke {
      * Store inputs in a list.
      *
      * @param args  the string the user inputs
-     * @param i the ith number of task the user entered
+     * @param taskNumber the ith number of task the user entered
      **/
-    public static void add(String args, int i) {
+    public static void addTaskToList(String args, int taskNumber) {
         Task t = new Task(args);
-        List[i] = t;
+        List[taskNumber] = t;
         System.out.println("added: " + args);
         System.out.println("_____________________________");
     }
@@ -31,34 +31,34 @@ public class Duke {
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
-        int i = 0;
+        int taskNumber = 0;
         while(true) {
-            String str = sc.nextLine();
-            if (str.equals("bye")) {
+            String inputStr = sc.nextLine();
+            if (inputStr.equals("bye")) {
                 // exit
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("_____________________________");
                 break;
-            } else if (str.equals("list")) {
+            } else if (inputStr.equals("list")) {
                 // list
-                for (int j = 0; List[j] != null; j++) {
-                    System.out.print((j + 1) + ". ");
-                    System.out.print("[" + List[j].getStatusIcon() + "] ");
-                    System.out.println(List[j].getDescription());
+                for (int i = 0; List[i] != null; i++) {
+                    System.out.print((i + 1) + ". ");
+                    System.out.print("[" + List[i].getStatusIcon() + "] ");
+                    System.out.println(List[i].getDescription());
                 }
                 System.out.println("_____________________________");
-            } else if (str.contains("done")) {
+            } else if (inputStr.contains("done")) {
                 // mark task as done
-                int stringLength = str.length();
-                int taskNumber = Integer.parseInt(str.substring(stringLength - 1));
-                List[taskNumber - 1].markAsDone();
+                int stringLength = inputStr.length();
+                int doneTaskNumber = Integer.parseInt(inputStr.substring(stringLength - 1));
+                List[doneTaskNumber - 1].markAsDone();
 
                 System.out.println("Good job! This task is marked as done:");
-                System.out.println("[" + List[taskNumber - 1].getStatusIcon() + "] " + List[taskNumber - 1].getDescription());
+                System.out.println("[" + List[doneTaskNumber - 1].getStatusIcon() + "] " + List[doneTaskNumber - 1].getDescription());
                 System.out.println("_____________________________");
             } else {
-                add(str, i);
-                i++;
+                addTaskToList(inputStr, taskNumber);
+                taskNumber++;
             }
         }
     }
