@@ -1,4 +1,5 @@
 import java.sql.SQLOutput;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -75,12 +76,7 @@ public class Duke {
         list[listIndex] = task;
     }
 
-
-    public static void main(String[] args) {
-        // create a list of tasks
-        Task[] list = new Task[MAX_TASK];
-        int listIndex = 0;
-
+    public static void giveWelcomeMessage(){
         String logo = " \n" +
                 "                        .-\"\"\"-.\n" +
                 "                       / .//\". \\\n" +
@@ -94,46 +90,67 @@ public class Duke {
 
 
         System.out.println(logo);
+    }
+
+    public static void processInput(String input, Task[] list){
+        int listIndex = Task.getTotalTasks();
+        System.out.println("    ____________________________________________________________");
+
+        // if user inputs list, execute list command to showcase the list
+        if (input.equalsIgnoreCase("list")){
+            executeListCommand(list,listIndex);
+        }
+
+        //if user inputs done, execute done command to mark task as done
+        else if (input.toLowerCase().startsWith("done")){
+            executeDoneCommand(list,listIndex,input);
+        }
+
+        //if user inputs a task command, execute task command and print out necessary statements
+        else if ((input.toLowerCase().startsWith("todo")) || (input.toLowerCase().startsWith("deadline")) || (input.toLowerCase().startsWith("event"))) {
+            String lowercaseInput = input.toLowerCase();
+            String[] inputArr = lowercaseInput.split(" ");
+            String command = inputArr[0];
+            executeTaskCommand(list, listIndex, command, input);
+            listIndex++;
+        }
+
+        // not any recognised commands
+        else{
+            System.out.println("    Invalid Command :( Please try again.");
+        }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void giveFarewellMessage(){
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Bye, my friend :( ");
+        System.out.println("    ____________________________________________________________");
+    }
+
+
+
+
+    public static void main(String[] args) {
+        // create a list of tasks
+        Task[] list = new Task[MAX_TASK];
+        int listIndex = 0;
+
+        giveWelcomeMessage();
 
         String input;
         Scanner in = new Scanner(System.in);
-        input = in.nextLine();
+        input = in.nextLine().trim();
 
 
-        while (!input.equals("bye")) {
-            System.out.println("    ____________________________________________________________");
+        while (!input.equalsIgnoreCase("bye")) {
+            processInput(input, list);
 
-            // if user inputs list, execute list command to showcase the list
-            if (input.equals("list")){
-                executeListCommand(list,listIndex);
-            }
-
-            //if user inputs done, execute done command to mark task as done
-            else if (input.startsWith("done")){
-                executeDoneCommand(list,listIndex,input);
-            }
-
-            //if user inputs a task command, execute task command and print out necessary statements
-            else if (input.startsWith("todo") || input.startsWith("deadline") || (input.startsWith("event"))) {
-                String[] inputArr = input.split(" ");
-                String command = inputArr[0];
-                executeTaskCommand(list, listIndex, command, input);
-                listIndex++;
-            }
-
-            // not any recognised commands
-            else{
-                System.out.println("    Invalid Command :( Please try again.");
-            }
-
-            System.out.println("    ____________________________________________________________");
             //get the new input
             input = in.nextLine();
         }
 
         //if bye is the input
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Bye, my friend :( ");
-        System.out.println("    ____________________________________________________________");
+        giveFarewellMessage();
     }
 }
