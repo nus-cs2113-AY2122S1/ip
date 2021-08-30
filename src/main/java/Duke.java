@@ -57,10 +57,8 @@ public class Duke {
 
         if (taskType.equalsIgnoreCase("todo")) {
             addTodo(input, tasks);
-        } else if (taskType.equalsIgnoreCase("deadline")) {
-            addDeadline(input, tasks);
-        } else if (taskType.equalsIgnoreCase("event")) {
-            addEvent(input, tasks);
+        } else if (taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
+            addDeadlineOrEvent(input, tasks);
         }
         taskManagerMessage(tasks);
         taskCount++;
@@ -72,20 +70,16 @@ public class Duke {
         tasks[taskCount] = new Todo(taskName);
     }
 
-    public static void addDeadline(String input, Task[] tasks) {
+    public static void addDeadlineOrEvent(String input, Task[] tasks) {
         int dividePos = input.trim().indexOf(" ");
-        int deadlinePos = input.trim().indexOf("/");
-        String taskName = input.trim().substring(dividePos, deadlinePos);
-        String deadlineDay = input.trim().substring(deadlinePos + 3);
-        tasks[taskCount] = new Deadline(taskName, deadlineDay);
-    }
-
-    public static void addEvent(String input, Task[] tasks) {
-        int dividePos = input.trim().indexOf(" ");
-        int eventPos = input.trim().indexOf("/");
-        String taskName = input.trim().substring(dividePos, eventPos);
-        String deadlineDay = input.trim().substring(eventPos + 3);
-        tasks[taskCount] = new Event(taskName, deadlineDay);
+        int timePos = input.trim().indexOf("/");
+        String taskName = input.trim().substring(dividePos, timePos);
+        String end = input.trim().substring(timePos + 3);
+        if (taskName.equalsIgnoreCase("deadline")) {
+            tasks[taskCount] = new Deadline(taskName, end);
+        } else if (taskName.equalsIgnoreCase("event")) {
+            tasks[taskCount] = new Event(taskName, end);
+        }
     }
 
     public static void requestList(Task[] tasks) {
