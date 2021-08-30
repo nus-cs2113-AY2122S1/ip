@@ -9,7 +9,7 @@ class TimeTest {
     public void test() {
         System.out.println("==Timer Test==");
         Time t = new Time();
-        t.printTimeInfo();
+        System.out.println(t);
         assertTrue(true);
     }
 }

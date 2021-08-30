@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import command.Command;
 import command.CommandType;
-import time.Time;
 import task.TaskType;
+import time.Time;
 
 /*
  * Singleton class
@@ -40,12 +40,11 @@ public class CommandParser {
         String[] tokens = cmdStr.toLowerCase().split(" ");
         Command cmd = new Command();
 
-        for (String token : tokens)
-        {
+        for (String token : tokens) {
             TokenType tokenType = TokenType.getTokenTypebyStr(token);
-            if (tokenType ==  TokenType.TASK_TYPE) {
+            if (tokenType == TokenType.TASK_TYPE) {
                 cmd.setTaskType(parseTaskType(token));
-            }  else if (tokenType == TokenType.COMMAND_TYPE) {
+            } else if (tokenType == TokenType.COMMAND_TYPE) {
                 // TODO: Add handling to not set command types twice
                 cmd.setCommandType(parseCommandType(token));
             } else if (tokenType == TokenType.TIME_TYPE) {

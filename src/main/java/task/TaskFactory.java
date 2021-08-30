@@ -23,7 +23,5 @@ public class TaskFactory {
             System.out.println("[TASK FACTORY] Default task is todo type");
             return new TaskTodo(TaskType.TODO, timeInfo, taskDescription);
         }
-        
     }
-
 }
