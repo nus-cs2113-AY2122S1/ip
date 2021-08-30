@@ -7,23 +7,41 @@ public class Duke {
         System.out.println(logo + "Hello! I'm Duke\n" + "Whatchu want\n" + logo);
 
         Scanner in = new Scanner(System.in);
-        String echo = "hi";
+
+        String[] List = new String[100];
+        String word;
+        int Count = 0;
 
         do {
-            echo = in.nextLine();
-            if (!isSame(echo)) {
-                System.out.println(logo + echo + "\n" + logo);
+            word = in.nextLine();
+            if (!isBye(word) && !isList(word)) {
+                List[Count] = word;
+                System.out.println(logo + "added: " + word + "\n" + logo);
+                Count++;
             }
-        } while (!isSame(echo));
+
+            if (isList(word)) {
+                System.out.print(logo);
+                for (int i = 0; i < Count; i++) {
+                    System.out.println((i + 1) + ". " + List[i]);
+                }
+                System.out.print(logo);
+            }
+
+
+        } while (!isBye(word));
 
         System.out.println(logo + "Bye. Hope to see you again soon!\n" + logo);
 
     }
 
-    public static boolean isSame(String word) {
-        if (word.equals("Bye") || word.equals("bye")) {
-            return true;
-        }
-        else return false;
+    public static boolean isBye(String word) {
+        return word.equals("Bye") || word.equals("bye");
     }
+
+    public static boolean isList(String word) {
+        return word.equals("List") || word.equals("list");
+    }
+
+
 }
