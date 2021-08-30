@@ -5,7 +5,7 @@ public class TaskManager {
     private int tasksCount = 0;
 
     public void printTasks() {
-        if (tasksCount == 0){
+        if (tasksCount == 0) {
             System.out.println("\tYou have no tasks in your to-do list at the moment\n");
             return;
         }
@@ -30,18 +30,18 @@ public class TaskManager {
         System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
     }
 
-    public void markAsDone(int inputTaskIndex){
+    public void markAsDone(int inputTaskIndex) {
         int taskIndex = inputTaskIndex - 1;
 
         // check if taskIndex is out of bounds of current tasks list
-        if (taskIndex < 0 || taskIndex >= tasksCount){
+        if (taskIndex < 0 || taskIndex >= tasksCount) {
             System.out.println("\tYou have chosen an invalid task number.\n");
             printTasks();
             return;
         }
 
         // check if task is already marked as done
-        if (tasks[taskIndex].isDone()){
+        if (tasks[taskIndex].isDone()) {
             System.out.println("\tThis task has already been completed and marked as done.\n");
             return;
         }

@@ -1,8 +1,8 @@
-public class Event extends Task{
+public class Event extends Task {
 
     protected String at;
 
-    public Event (String name, String at){
+    public Event(String name, String at) {
         super(name);
         setAt(at);
     }
@@ -16,10 +16,10 @@ public class Event extends Task{
     }
 
     // prints Event name and at to system output
-    public void printTask(){
+    public void printTask() {
         System.out.print("[E][");
 
-        if (super.isDone()){
+        if (super.isDone()) {
             System.out.print("X");
         } else {
             System.out.print(" ");

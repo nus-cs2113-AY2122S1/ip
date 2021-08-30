@@ -25,7 +25,7 @@ public class Task {
     }
 
     // placeholder method for inherited classes
-    public void printTask (){
+    public void printTask() {
         return;
     }
 }

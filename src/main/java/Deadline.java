@@ -1,8 +1,8 @@
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected String by;
 
-    public Deadline(String name, String by){
+    public Deadline(String name, String by) {
         super(name);
         setBy(by);
     }
@@ -16,10 +16,10 @@ public class Deadline extends Task{
     }
 
     // prints Deadline name and by to system output
-    public void printTask(){
+    public void printTask() {
         System.out.print("[D][");
 
-        if (super.isDone()){
+        if (super.isDone()) {
             System.out.print("X");
         } else {
             System.out.print(" ");
