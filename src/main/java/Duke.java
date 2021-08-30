@@ -6,7 +6,8 @@ public class Duke {
         Task t = new Task(input);
         tasks[taskCount] = t;
         printHorizontalLine();
-        System.out.println("added: " + input);
+        System.out.println("Understood. I've added this task: " + System.lineSeparator() + input);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -17,9 +18,11 @@ public class Duke {
             printHorizontalLine();
             return;
         }
+
+        //CHANGE THIS
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i < taskCount; i++) {
-            System.out.println(tasks[i].taskId + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
+            System.out.println(tasks[i]);
         }
         printHorizontalLine();
     }
@@ -65,7 +68,7 @@ public class Duke {
     }
 
     public static void printHorizontalLine() {
-       System.out.println("____________________________________________________________") ;
+        System.out.println("____________________________________________________________");
     }
 
     public static void main(String[] args) {
