@@ -121,10 +121,27 @@ public class Duke {
         tasksCounter++;
     }
 
+    public static void addTodo(String description) {
+        addTask(new Todo(description));
+        printAddedTodo(description);
+    }
+
+    public static void addDeadline(String description, String by) {
+        addTask(new Deadline(description, by));
+        printAddedDeadline(description,by);
+    }
+
+    public static void addEvent(String description, String at) {
+        addTask(new Event(description, at));
+        printAddedEvent(description, at);
+    }
+
     public static void main(String[] args) {
+        // initialize input
         Scanner in = new Scanner(System.in);
         String line;
 
+        // start the taskbot
         printWelcome();
         line = in.nextLine();
 
@@ -142,8 +159,7 @@ public class Duke {
             }
             else if (line.contains("todo")) { // add a todo when "todo" command
                 String todoDescription = line.substring(5);
-                addTask(new Todo(todoDescription));
-                printAddedTodo(todoDescription);
+                addTodo(todoDescription); // adds todo and prints
             }
             else if (line.contains("deadline")) { // add a deadline when "deadline" command
                 int byPos = line.indexOf("/by");
@@ -154,8 +170,7 @@ public class Duke {
                 int lastPos = line.length();
                 String deadlineDescription = line.substring(9, byPos); // get description from input
                 String deadlineBy = line.substring(byPos + 4, lastPos); // get deadline when from input
-                addTask(new Deadline(deadlineDescription, deadlineBy));
-                printAddedDeadline(deadlineDescription,deadlineBy);
+                addDeadline(deadlineDescription, deadlineBy); // adds deadline and prints
             }
             else if (line.contains("event")) { // add an event
                 int atPos = line.indexOf("/at");
@@ -166,8 +181,7 @@ public class Duke {
                 int lastPos = line.length();
                 String eventDescription = line.substring(6, atPos); // get description from input
                 String eventAt = line.substring(atPos + 4, lastPos); // get event when from input
-                addTask(new Event(eventDescription, eventAt));
-                printAddedEvent(eventDescription,eventAt);
+                addEvent(eventDescription, eventAt); // adds event and prints
             }
             else { // throw error when no commands are found in input
                 System.out.println("Unrecognized command! Please try again, or type @help for a list of commands.");
