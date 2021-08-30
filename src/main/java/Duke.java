@@ -54,16 +54,39 @@ class Duke {
     /** The total number of tasks */
     private static int totalNumberOfTasks = 0;
 
-    /**
-     * Adds user command to the tasks.
-     *
-     * @param command User command.
-     */
-    private static void add(String command) {
-        tasks[totalNumberOfTasks] = new Task(command);
-        totalNumberOfTasks++;
+    private static void addTodo(String response) {
+        tasks[totalNumberOfTasks] = new Todo(response);
         System.out.print(LINE);
-        System.out.println(PADDING + "added: " + command);
+        System.out.println(PADDING + "Got it. I've added this task:");
+        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        totalNumberOfTasks++;
+        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    private static void addDeadline(String response) {
+        String[] params = response.split(" /by ");
+        String description = params[0];
+        String by = params[1];
+        tasks[totalNumberOfTasks] = new Deadline(description, by);
+        System.out.print(LINE);
+        System.out.println(PADDING + "Got it. I've added this task:");
+        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        totalNumberOfTasks++;
+        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    private static void addEvent(String response) {
+        String[] params = response.split(" /at ");
+        String description = params[0];
+        String by = params[1];
+        tasks[totalNumberOfTasks] = new Event(description, by);
+        System.out.print(LINE);
+        System.out.println(PADDING + "Got it. I've added this task:");
+        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        totalNumberOfTasks++;
+        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
         System.out.println(LINE);
     }
 
@@ -72,6 +95,7 @@ class Duke {
      */
     private static void list() {
         System.out.print(LINE);
+        System.out.println(PADDING + "Here are the tasks in your list:");
         for (int i = 1; i <= totalNumberOfTasks; i++) {
             System.out.println(PADDING + i + "." + tasks[i - 1]);
         }
@@ -79,11 +103,11 @@ class Duke {
     }
 
     /**
-     * Marks a task as "done" and displays it.
+     * Marks a task as done and displays it.
      *
      * @param taskNumber Task number.
      */
-    private static void done(int taskNumber) {
+    private static void markDone(int taskNumber) {
         if (taskNumber <= totalNumberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
             System.out.print(LINE);
@@ -92,6 +116,7 @@ class Duke {
             System.out.println(LINE);
         } else {
             System.out.println(LINE);
+            System.out.println(PADDING + "There are only " + totalNumberOfTasks + " tasks currently.");
             System.out.println(LINE);
         }
     }
@@ -106,15 +131,23 @@ class Duke {
         greet();
         while (true) {
             Scanner sc = new Scanner(System.in);
-            String command = sc.nextLine();
-            if (command.equals("bye")) {
+            String response = sc.nextLine();
+            if (response.equals("bye")) {
                 break;
-            } else if (command.equals("list")) {
+            } else if (response.equals("list")) {
                 list();
-            } else if (command.split(" ")[0].equals("done")) {
-                done(Integer.parseInt(command.split(" ")[1]));
+            } else if (response.split(" ")[0].equals("done")) {
+                markDone(Integer.parseInt(response.split(" ")[1]));
+            } else if (response.split(" ")[0].equals("todo")) {
+                addTodo(response.replace("todo ", ""));
+            } else if (response.split(" ")[0].equals("deadline")) {
+                addDeadline(response.replace("deadline ", ""));
+            } else if (response.split(" ")[0].equals("event")) {
+                addEvent(response.replace("event ", ""));
             } else {
-                add(command);
+                System.out.println(LINE);
+                System.out.println(PADDING + "Sorry.. I don't understand your command.");
+                System.out.println(LINE);
             }
         }
         exit();
