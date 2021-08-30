@@ -1,4 +1,4 @@
-    -------------------------------------
+	-------------------------------------
 	Yo what's up I'm Jesse. Need help?
 	-------------------------------------
 	-------------------------------------
@@ -35,15 +35,15 @@
 	Now you have 6 tasks in the list.
 	-------------------------------------
 	-------------------------------------
-	Invalid format. Enter by this format:
+	Invalid format. Enter by this format: 
 		"deadline [description] /by [deadline]"
 	-------------------------------------
 	-------------------------------------
-	Invalid format. Enter by this format:
+	Invalid format. Enter by this format: 
 		"deadline [description] /by [deadline]"
 	-------------------------------------
 	-------------------------------------
-	Invalid format. Enter by this format:
+	Invalid format. Enter by this format: 
 		"event [description] /at [date]"
 	-------------------------------------
 	-------------------------------------
@@ -61,11 +61,11 @@
 	7.[E][ ] go CCA (at: Monday 7pm)
 	-------------------------------------
 	-------------------------------------
-	Good job. You may now enjoy the rest of your suffering:
+	Good job. You may now enjoy the rest of your suffering: 
 	[D][X] do assignment (by: Tuesday 12am)
 	-------------------------------------
 	-------------------------------------
-	Good job. You may now enjoy the rest of your suffering:
+	Good job. You may now enjoy the rest of your suffering: 
 	[E][X] go outside (at: Friday 7pm)
 	-------------------------------------
 	-------------------------------------
@@ -78,11 +78,11 @@
 	7.[E][ ] go CCA (at: Monday 7pm)
 	-------------------------------------
 	-------------------------------------
-	Good job. You may now enjoy the rest of your suffering:
+	Good job. You may now enjoy the rest of your suffering: 
 	[D][X] finish 2027 (by: Monday)
 	-------------------------------------
 	-------------------------------------
-	Good job. You may now enjoy the rest of your suffering:
+	Good job. You may now enjoy the rest of your suffering: 
 	[E][X] go CCA (at: Monday 7pm)
 	-------------------------------------
 	-------------------------------------
