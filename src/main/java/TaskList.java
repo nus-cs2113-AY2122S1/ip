@@ -15,7 +15,7 @@ public class TaskList {
     public void addTask(Task task) {
         PrintUtils.printHorizontalLine(100);
         taskList[taskNumber] = task;
-        System.out.println("The following task has been added: ");
+        System.out.println("The following task has been added:");
         PrintUtils.printSpacing();
         System.out.println(taskList[taskNumber]);
         System.out.println("You now have " + (taskNumber + 1) + " task(s)");
@@ -38,7 +38,7 @@ public class TaskList {
     private void markExistingTaskAsDone(Task task) {
         task.markTaskAsDone();
         PrintUtils.printHorizontalLine(100);
-        System.out.println("The following task has been marked as done: ");
+        System.out.println("The following task has been marked as done:");
         PrintUtils.printSpacing();
         System.out.println(task);
         PrintUtils.printHorizontalLine(100);

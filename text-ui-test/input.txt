@@ -1,0 +1,11 @@
+event Project Meeting /at Wed 8-10PM
+event Team Meeting
+deadline Assignment 2 /by Fri 5pm
+deadline Mom's Birthday
+todo Clean bed
+list
+done 1
+done 2
+done 4
+list
+bye
