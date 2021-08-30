@@ -1,0 +1,6 @@
+todo Read Bible
+todo Devotion
+deadline CS2113T /by Tuesday
+event Project Meeting /at Monday 9-11pm
+list
+bye
