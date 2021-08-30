@@ -9,42 +9,12 @@ import java.util.Scanner;
  * @author richwill28
  */
 class Duke {
-    /** Decorative logo */
-    private static final String LOGO =
-            "     ,---.    ,---.   ____    .-./`)  ______           \n" +
-            "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.     \n" +
-            "     |  ,  \\/  ,  |/   '  \\  \\/ `-' \\| _ | ) _  \\ \n" +
-            "     |  |\\_   /|  ||___|  /  | `-'`\"`|( ''_'  ) |    \n" +
-            "     |  _( )_/ |  |   _.-`   | .---. | . (_) `. |      \n" +
-            "     | (_ o _) |  |.'   _    | |   | |(_    ._) '      \n" +
-            "     |  (_,_)  |  ||  _( )_  | |   | |  (_.\\.' /      \n" +
-            "     |  |      |  |\\ (_ o _) / |   | |       .'       \n" +
-            "     '--'      '--' '.(_,_).'  '---' '-----'`          \n";
-
-    /** Decorative line */
-    private static final String LINE =
-            "    ____________________________________________________________\n";
-
-    /** Decorative padding */
-    private static final String PADDING = "     ";
-
     private Scanner sc;
     private TaskList taskList;
 
     public Duke() {
         sc = new Scanner(System.in);
         taskList = new TaskList();
-    }
-
-    /**
-     * Displays logo and greets user.
-     */
-    public void greet() {
-        System.out.print(LINE);
-        System.out.println(LOGO);
-        System.out.println(PADDING + "Hello! I'm your personal maid. Call me Maid-chan!");
-        System.out.println(PADDING + "What can I do for you?");
-        System.out.println(LINE);
     }
 
     public String getResponse() {
@@ -61,12 +31,12 @@ class Duke {
      * Lists all the tasks added.
      */
     public void list() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "Here are the tasks in your list:");
+        System.out.print(Ui.LINE);
+        System.out.println(Ui.PADDING + "Here are the tasks in your list:");
         for (int i = 1; i <= totalNumberOfTasks; i++) {
-            System.out.println(PADDING + i + "." + tasks[i - 1]);
+            System.out.println(Ui.PADDING + i + "." + tasks[i - 1]);
         }
-        System.out.println(LINE);
+        System.out.println(Ui.LINE);
     }
 
     /**
@@ -77,25 +47,25 @@ class Duke {
     public void markDone(int taskNumber) {
         if (taskNumber <= totalNumberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
-            System.out.print(LINE);
-            System.out.println(PADDING + "Nice! I've marked this task as done:");
-            System.out.println(PADDING + "  " + tasks[taskNumber - 1]);
-            System.out.println(LINE);
+            System.out.print(Ui.LINE);
+            System.out.println(Ui.PADDING + "Nice! I've marked this task as done:");
+            System.out.println(Ui.PADDING + "  " + tasks[taskNumber - 1]);
+            System.out.println(Ui.LINE);
         } else {
-            System.out.println(LINE);
-            System.out.println(PADDING + "There are only " + totalNumberOfTasks + " tasks currently.");
-            System.out.println(LINE);
+            System.out.println(Ui.LINE);
+            System.out.println(Ui.PADDING + "There are only " + totalNumberOfTasks + " tasks currently.");
+            System.out.println(Ui.LINE);
         }
     }
 
     public void addTodo(String response) {
         tasks[totalNumberOfTasks] = new Todo(response);
-        System.out.print(LINE);
-        System.out.println(PADDING + "Got it. I've added this task:");
-        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        System.out.print(Ui.LINE);
+        System.out.println(Ui.PADDING + "Got it. I've added this task:");
+        System.out.println(Ui.PADDING + "  " + tasks[totalNumberOfTasks]);
         totalNumberOfTasks++;
-        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(LINE);
+        System.out.println(Ui.PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(Ui.LINE);
     }
 
     public void addDeadline(String response) {
@@ -103,12 +73,12 @@ class Duke {
         String description = params[0];
         String by = params[1];
         tasks[totalNumberOfTasks] = new Deadline(description, by);
-        System.out.print(LINE);
-        System.out.println(PADDING + "Got it. I've added this task:");
-        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        System.out.print(Ui.LINE);
+        System.out.println(Ui.PADDING + "Got it. I've added this task:");
+        System.out.println(Ui.PADDING + "  " + tasks[totalNumberOfTasks]);
         totalNumberOfTasks++;
-        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(LINE);
+        System.out.println(Ui.PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(Ui.LINE);
     }
 
     public void addEvent(String response) {
@@ -116,12 +86,12 @@ class Duke {
         String description = params[0];
         String by = params[1];
         tasks[totalNumberOfTasks] = new Event(description, by);
-        System.out.print(LINE);
-        System.out.println(PADDING + "Got it. I've added this task:");
-        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        System.out.print(Ui.LINE);
+        System.out.println(Ui.PADDING + "Got it. I've added this task:");
+        System.out.println(Ui.PADDING + "  " + tasks[totalNumberOfTasks]);
         totalNumberOfTasks++;
-        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(LINE);
+        System.out.println(Ui.PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(Ui.LINE);
     }
 
     public void start() {
@@ -141,26 +111,15 @@ class Duke {
             } else if (response.split(" ")[0].equals("event")) {
                 addEvent(response.replace("event ", ""));
             } else {
-                System.out.println(LINE);
-                System.out.println(PADDING + "Sorry.. I don't understand your command.");
-                System.out.println(LINE);
+                Ui.error();
             }
         }
     }
 
-    /**
-     * Says goodbye to user and exits the program.
-     */
-    public void bye() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "Bye. Hope to see you again soon!");
-        System.out.print(LINE);
-    }
-
     public void run() {
-        greet();
-        start();
-        bye();
+        Ui.greet();
+        this.start();
+        Ui.bye();
     }
 
     /**
