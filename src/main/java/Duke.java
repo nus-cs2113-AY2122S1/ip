@@ -1,10 +1,7 @@
-import java.util.Scanner;
-
 public class Duke {
-
     public static void main (String[] args) {
 
-        User newUser = new User();
+        DukeUser newUser = new DukeUser();
         newUser.serviceBegin();
         newUser.serviceEnd();
 

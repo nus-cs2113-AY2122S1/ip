@@ -5,7 +5,7 @@ public class TaskList {
 
     public int addList(String userInput) {
         Task newTask = getTask(userInput);
-        System.out.println("      " + newTask);
+        System.out.println("       " + newTask);
         this.tasks[taskNum] = newTask;
         taskNum++;
         return taskNum;

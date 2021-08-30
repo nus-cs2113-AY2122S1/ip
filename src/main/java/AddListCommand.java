@@ -8,8 +8,8 @@ public class AddListCommand extends UserCommand {
 
     @Override
     public void execute () {
-        System.out.println("    Got it. I've added this task:");
+        System.out.println("     Got it. I've added this task: ");
         int totalTasksNum = tasks.addList(this.addCommand);
-        System.out.println("    Now you have " + totalTasksNum + " tasks in the list.");
+        System.out.println("     Now you have " + totalTasksNum + (totalTasksNum > 1? " tasks" : " task") + " in the list.");
     }
 }

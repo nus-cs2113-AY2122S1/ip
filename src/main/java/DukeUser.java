@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class User {
+public class DukeUser {
     private TaskList userTasks = new TaskList();
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
-    private static final String BYE = "     Bye. Hope to see you again soon!\n";
+    private static final String BYE = "    Bye. Hope to see you again soon!\n";
 
-    User() {
+    DukeUser() {
         System.out.print(DIVISIONLINE + GREETINGS + DIVISIONLINE);
     }
 
@@ -33,7 +33,10 @@ public class User {
 
     private String readInput() {
         Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
+        String input = sc.nextLine();
+        System.out.println(input);
+        sc.close();
+        return input;
     }
 
     private UserCommand handleCommand(String userInput) {
