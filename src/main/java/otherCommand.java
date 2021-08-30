@@ -8,6 +8,6 @@ class otherCommand extends UserCommand {
 
     @Override
     public void execute () {
-        System.out.println(this.command);
+        System.out.println("     " + this.command);
     }
 }
