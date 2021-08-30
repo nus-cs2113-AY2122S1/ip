@@ -32,20 +32,21 @@ public class Duke {
                 System.out.println("Affirmative sir, I'll shut down all operations");
             } else if (command.equals("list")) {
                 System.out.println(line + "\n" + "Here are the current tasks in your list:");
-                // Iterates through and prints stored tasks in the format: 1.[ ] read book
-                //                                                         2.[ ] buy bread
+                // Iterates through and prints stored tasks in the format: 1.[ ][ ] read book
+                //                                                         2.[ ][ ] buy bread
                 for (int count = 0; count < itemIndex; count++) {
-                    System.out.println(count + 1 + "." + tasks[count].getTaskType() + tasks[count].getStatusIcon() + " " + tasks[count].getDescription());
+                    System.out.println(count + 1 + "." + tasks[count].getTaskType() + tasks[count].getStatusIcon()
+                            + " " + tasks[count].getDescription());
                 }
                 System.out.println(line);
             } else if (command.contains("done")) {
                 // When user enters string "done 2", string is split to extract the index 2 only
                 int taskDoneIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-                // Checks if given index holds a task and throws error message if not true
+                // Checks if given index holds a task and throws error message if no such task exists
                 if (taskDoneIndex > itemIndex - 1 || taskDoneIndex < 0) {
                     System.out.println("Apologies sir but, it seems that task hasn't been created yet :(\n" + line);
                 } else {
-                    // Makes use of class variables and methods from class Task
+                    // Selects task to be modified with command "done"
                     Task taskChosen = tasks[taskDoneIndex];
                     // Checks if task has already been marked as done
                     if (taskChosen.isDone()) {
@@ -73,9 +74,19 @@ public class Duke {
                     }
                 }
             } else {
+                // Create tasks for class Todo
                 if (command.contains("todo")) {
+                    // Reads substring containing the task description only
                     tasks[itemIndex] = new Todo(command.substring(5));
                 }
+                // Create tasks for class Deadline
+                else if (command.contains("deadline")){
+                    // Reads two substrings: 1. The task description after keyword "deadline"
+                    //                       2. The actual deadline after "/by " till end of string
+                    tasks[itemIndex] = new Deadline((command.substring(9, command.indexOf("/"))),
+                            command.substring(command.indexOf("/") + 4));
+                }
+                // If no keywords are used, stores new tasks into Task array
                 else {
                     tasks[itemIndex] = new Task(command);
                 }
