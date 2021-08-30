@@ -33,7 +33,7 @@ class Ui {
      * Prints error message.
      */
     public static void error() {
-        System.out.println(LINE);
+        System.out.print(LINE);
         System.out.println(PADDING + "Sorry.. I don't understand your command.");
         System.out.println(LINE);
     }
@@ -46,5 +46,4 @@ class Ui {
         System.out.println(PADDING + "Bye. Hope to see you again soon!");
         System.out.print(LINE);
     }
-
 }

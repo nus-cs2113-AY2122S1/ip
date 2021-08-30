@@ -21,21 +21,13 @@ class Duke {
         return sc.nextLine();
     }
 
-    /** An array of tasks (no more than 100) */
-    private static Task[] tasks = new Task[100];
-
-    /** The total number of tasks */
-    private static int totalNumberOfTasks = 0;
-
     /**
-     * Lists all the tasks added.
+     * Lists all the tasks.
      */
     public void list() {
         System.out.print(Ui.LINE);
         System.out.println(Ui.PADDING + "Here are the tasks in your list:");
-        for (int i = 1; i <= totalNumberOfTasks; i++) {
-            System.out.println(Ui.PADDING + i + "." + tasks[i - 1]);
-        }
+        System.out.print(taskList);
         System.out.println(Ui.LINE);
     }
 
@@ -44,54 +36,50 @@ class Duke {
      *
      * @param taskNumber Task number.
      */
-    public void markDone(int taskNumber) {
-        if (taskNumber <= totalNumberOfTasks) {
-            tasks[taskNumber - 1].markAsDone();
+    public void markAsDone(int taskNumber) {
+        if (taskNumber <= taskList.getSize()) {
+            taskList.markAsDone(taskNumber - 1);
             System.out.print(Ui.LINE);
             System.out.println(Ui.PADDING + "Nice! I've marked this task as done:");
-            System.out.println(Ui.PADDING + "  " + tasks[taskNumber - 1]);
+            System.out.println(Ui.PADDING + "  " + taskList.getTask(taskNumber - 1));
             System.out.println(Ui.LINE);
         } else {
             System.out.println(Ui.LINE);
-            System.out.println(Ui.PADDING + "There are only " + totalNumberOfTasks + " tasks currently.");
+            System.out.println(Ui.PADDING + "There are only " + taskList.getSize() + " tasks currently.");
             System.out.println(Ui.LINE);
         }
     }
 
-    public void addTodo(String response) {
-        tasks[totalNumberOfTasks] = new Todo(response);
+    public void reportTaskAdded(Task task) {
         System.out.print(Ui.LINE);
         System.out.println(Ui.PADDING + "Got it. I've added this task:");
-        System.out.println(Ui.PADDING + "  " + tasks[totalNumberOfTasks]);
-        totalNumberOfTasks++;
-        System.out.println(Ui.PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(Ui.PADDING + "  " + task);
+        System.out.println(Ui.PADDING + "Now you have " + taskList.getSize() + " tasks in the list.");
         System.out.println(Ui.LINE);
+    }
+
+    public void addTodo(String response) {
+        Task task = new Todo(response);
+        taskList.addTask(task);
+        reportTaskAdded(task);
     }
 
     public void addDeadline(String response) {
         String[] params = response.split(" /by ");
         String description = params[0];
         String by = params[1];
-        tasks[totalNumberOfTasks] = new Deadline(description, by);
-        System.out.print(Ui.LINE);
-        System.out.println(Ui.PADDING + "Got it. I've added this task:");
-        System.out.println(Ui.PADDING + "  " + tasks[totalNumberOfTasks]);
-        totalNumberOfTasks++;
-        System.out.println(Ui.PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(Ui.LINE);
+        Task task = new Deadline(description, by);
+        taskList.addTask(task);
+        reportTaskAdded(task);
     }
 
     public void addEvent(String response) {
         String[] params = response.split(" /at ");
         String description = params[0];
-        String by = params[1];
-        tasks[totalNumberOfTasks] = new Event(description, by);
-        System.out.print(Ui.LINE);
-        System.out.println(Ui.PADDING + "Got it. I've added this task:");
-        System.out.println(Ui.PADDING + "  " + tasks[totalNumberOfTasks]);
-        totalNumberOfTasks++;
-        System.out.println(Ui.PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(Ui.LINE);
+        String at = params[1];
+        Task task = new Event(description, at);
+        taskList.addTask(task);
+        reportTaskAdded(task);
     }
 
     public void start() {
@@ -101,15 +89,15 @@ class Duke {
             if (response.equals("bye")) {
                 break;
             } else if (response.equals("list")) {
-                list();
+                this.list();
             } else if (response.split(" ")[0].equals("done")) {
-                markDone(Integer.parseInt(response.split(" ")[1]));
+                this.markAsDone(Integer.parseInt(response.split(" ")[1]));
             } else if (response.split(" ")[0].equals("todo")) {
-                addTodo(response.replace("todo ", ""));
+                this.addTodo(response.replace("todo ", ""));
             } else if (response.split(" ")[0].equals("deadline")) {
-                addDeadline(response.replace("deadline ", ""));
+                this.addDeadline(response.replace("deadline ", ""));
             } else if (response.split(" ")[0].equals("event")) {
-                addEvent(response.replace("event ", ""));
+                this.addEvent(response.replace("event ", ""));
             } else {
                 Ui.error();
             }

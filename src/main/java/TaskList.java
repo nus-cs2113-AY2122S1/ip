@@ -15,7 +15,11 @@ class TaskList {
         return taskList.size();
     }
 
-    public void markDone(int index) {
+    public Task getTask(int index) {
+        return taskList.get(index);
+    }
+
+    public void markAsDone(int index) {
         taskList.get(index).markAsDone();
     }
 
@@ -24,7 +28,7 @@ class TaskList {
         String s = "";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            s += (i + 1) + ". " + task + System.lineSeparator();
+            s += Ui.PADDING + (i + 1) + "." + task + System.lineSeparator();
         }
         return s;
     }
