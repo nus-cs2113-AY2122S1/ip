@@ -1,10 +1,15 @@
 public class Task {
     protected String description;
+    protected String taskType;
     protected boolean isDone;
+    protected String eventWhen;
+
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.taskType = "";
+        this.eventWhen = "";
     }
 
     public String getStatusIcon() {
@@ -13,6 +18,14 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public String getType() {
+        return taskType;
+    }
+
+    public String getWhen() {
+        return eventWhen;
     }
 
 }
