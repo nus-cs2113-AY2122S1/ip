@@ -45,6 +45,7 @@ public class Duke {
     }
 
     public static void list() {
+        System.out.println("Here are the tasks in your list:\n");
         for(int i = 0; commands[i] != null; i++) {
             int bullet_num = i+1;
             String statusIcon = commands[i].getStatusIcon();
