@@ -9,12 +9,6 @@ import java.util.Scanner;
  * @author richwill28
  */
 class Duke {
-    private Scanner sc;
-
-    public Duke() {
-        sc = new Scanner(System.in);
-    }
-
     /** Decorative logo */
     private static final String LOGO =
             "     ,---.    ,---.   ____    .-./`)  ______           \n" +
@@ -34,10 +28,18 @@ class Duke {
     /** Decorative padding */
     private static final String PADDING = "     ";
 
+    private Scanner sc;
+    private TaskList taskList;
+
+    public Duke() {
+        sc = new Scanner(System.in);
+        taskList = new TaskList();
+    }
+
     /**
      * Displays logo and greets user.
      */
-    private static void greet() {
+    public void greet() {
         System.out.print(LINE);
         System.out.println(LOGO);
         System.out.println(PADDING + "Hello! I'm your personal maid. Call me Maid-chan!");
@@ -49,61 +51,16 @@ class Duke {
         return sc.nextLine();
     }
 
-    /**
-     * Says goodbye to user and exits the program.
-     */
-    private static void exit() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "Bye. Hope to see you again soon!");
-        System.out.print(LINE);
-    }
-
     /** An array of tasks (no more than 100) */
     private static Task[] tasks = new Task[100];
 
     /** The total number of tasks */
     private static int totalNumberOfTasks = 0;
 
-    private static void addTodo(String response) {
-        tasks[totalNumberOfTasks] = new Todo(response);
-        System.out.print(LINE);
-        System.out.println(PADDING + "Got it. I've added this task:");
-        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
-        totalNumberOfTasks++;
-        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(LINE);
-    }
-
-    private static void addDeadline(String response) {
-        String[] params = response.split(" /by ");
-        String description = params[0];
-        String by = params[1];
-        tasks[totalNumberOfTasks] = new Deadline(description, by);
-        System.out.print(LINE);
-        System.out.println(PADDING + "Got it. I've added this task:");
-        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
-        totalNumberOfTasks++;
-        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(LINE);
-    }
-
-    private static void addEvent(String response) {
-        String[] params = response.split(" /at ");
-        String description = params[0];
-        String by = params[1];
-        tasks[totalNumberOfTasks] = new Event(description, by);
-        System.out.print(LINE);
-        System.out.println(PADDING + "Got it. I've added this task:");
-        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
-        totalNumberOfTasks++;
-        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
-        System.out.println(LINE);
-    }
-
     /**
      * Lists all the tasks added.
      */
-    private static void list() {
+    public void list() {
         System.out.print(LINE);
         System.out.println(PADDING + "Here are the tasks in your list:");
         for (int i = 1; i <= totalNumberOfTasks; i++) {
@@ -117,7 +74,7 @@ class Duke {
      *
      * @param taskNumber Task number.
      */
-    private static void markDone(int taskNumber) {
+    public void markDone(int taskNumber) {
         if (taskNumber <= totalNumberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
             System.out.print(LINE);
@@ -131,18 +88,46 @@ class Duke {
         }
     }
 
-    /**
-     * The main method of Duke which implements its
-     * chatting functionality.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        greet();
+    public void addTodo(String response) {
+        tasks[totalNumberOfTasks] = new Todo(response);
+        System.out.print(LINE);
+        System.out.println(PADDING + "Got it. I've added this task:");
+        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        totalNumberOfTasks++;
+        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    public void addDeadline(String response) {
+        String[] params = response.split(" /by ");
+        String description = params[0];
+        String by = params[1];
+        tasks[totalNumberOfTasks] = new Deadline(description, by);
+        System.out.print(LINE);
+        System.out.println(PADDING + "Got it. I've added this task:");
+        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        totalNumberOfTasks++;
+        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    public void addEvent(String response) {
+        String[] params = response.split(" /at ");
+        String description = params[0];
+        String by = params[1];
+        tasks[totalNumberOfTasks] = new Event(description, by);
+        System.out.print(LINE);
+        System.out.println(PADDING + "Got it. I've added this task:");
+        System.out.println(PADDING + "  " + tasks[totalNumberOfTasks]);
+        totalNumberOfTasks++;
+        System.out.println(PADDING + "Now you have " + totalNumberOfTasks + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    public void start() {
         String response = "";
         while (true) {
-            response = duke.getResponse();
+            response = getResponse();
             if (response.equals("bye")) {
                 break;
             } else if (response.equals("list")) {
@@ -161,6 +146,30 @@ class Duke {
                 System.out.println(LINE);
             }
         }
-        exit();
+    }
+
+    /**
+     * Says goodbye to user and exits the program.
+     */
+    public void bye() {
+        System.out.print(LINE);
+        System.out.println(PADDING + "Bye. Hope to see you again soon!");
+        System.out.print(LINE);
+    }
+
+    public void run() {
+        greet();
+        start();
+        bye();
+    }
+
+    /**
+     * The main method of Duke.
+     *
+     * @param args Command line arguments.
+     */
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.run();
     }
 }
