@@ -32,6 +32,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Wait for the user to input again if he inputs nothing
+     */
     private static String checkIfIsEmpty(Scanner in, String userInput) {
         // if user inputs nothing
         if(userInput.isEmpty()) {
@@ -41,6 +44,9 @@ public class Duke {
     }
 
 
+    /**
+     * Show the "Duke" logo and some greeting-message
+     */
     private static void showWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -56,6 +62,10 @@ public class Duke {
         System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
     }
 
+    /**
+     * Convert the string that user inputs to a specific task object
+     * Categorize them into todos, deadlines, and events
+     */
     public static Task convertInputToTask(String userInput){
         if(userInput.startsWith("deadline")){
             return new DeadLine(userInput);
