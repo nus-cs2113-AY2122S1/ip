@@ -1,7 +1,7 @@
-
 public class Task {
 
     protected String description;
+    protected String taskType = "[ ]";
     protected boolean isDone;
 
     /**
@@ -24,6 +24,10 @@ public class Task {
         return description;
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
     /**
      * Checks if task is already marked as done.
      *
@@ -34,7 +38,7 @@ public class Task {
     }
 
     /**
-     * Changes task status to completed.
+     * Changes task status to "completed".
      *
      * @param done True if not marked and False if already marked as done.
      */
@@ -49,5 +53,9 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
+    }
+
+    public String printTask() {
+        return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription();
     }
 }

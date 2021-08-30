@@ -35,7 +35,7 @@ public class Duke {
                 // Iterates through and prints stored tasks in the format: 1.[ ] read book
                 //                                                         2.[ ] buy bread
                 for (int count = 0; count < itemIndex; count++) {
-                    System.out.println(count + 1 + "." + tasks[count].getStatusIcon() + " " + tasks[count].getDescription());
+                    System.out.println(count + 1 + "." + tasks[count].getTaskType() + tasks[count].getStatusIcon() + " " + tasks[count].getDescription());
                 }
                 System.out.println(line);
             } else if (command.contains("done")) {
@@ -73,10 +73,15 @@ public class Duke {
                     }
                 }
             } else {
-                // Adds any other command as item to list
-                tasks[itemIndex] = new Task(command);
-                System.out.println("Will do sir, I've added: " + command);
+                if (command.contains("todo")) {
+                    tasks[itemIndex] = new Todo(command.substring(5));
+                }
+                else {
+                    tasks[itemIndex] = new Task(command);
+                }
                 itemIndex++;
+                System.out.println("Will do sir, I've added: " + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
+                System.out.printf("Now you have %d task(s) in your list\n", itemIndex);
             }
         }
     }
