@@ -1,4 +1,4 @@
-class Task {
+abstract class Task {
     private String taskName;
     private boolean isCompleted;
 
@@ -11,13 +11,13 @@ class Task {
         return "[" + (isCompleted ? "X" : " ") + "] ";
     }
 
+
     @Override
     public String toString () {
         return this.outputTaskStatus() + this.taskName;
     }
 
-    public String setFinished () {
+    public void setFinished () {
         this.isCompleted = true;
-        return "     Nice! I've marked this task as done: \n    " + this.outputTaskStatus() + this.taskName;
     }
 }

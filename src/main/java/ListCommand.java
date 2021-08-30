@@ -1,12 +1,11 @@
-public class ListCommand extends UserInput {
-    public ListCommand(String userInput) {
-        super(userInput);
+public class ListCommand extends UserCommand {
+    public ListCommand(TaskList tasks) {
+        super(tasks);
     }
 
     @Override
     public void execute() {
-        for (int i = 0; i < UserInput.tasksNum; i++) {
-            System.out.println("     " + (i + 1) + ". " + UserInput.tasks[i].toString());
-        }
+        System.out.println("Here are the tasks in your list:");
+        this.tasks.listTasks();
     }
 }

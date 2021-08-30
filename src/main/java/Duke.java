@@ -7,39 +7,10 @@ public class Duke {
 
 
     public static void main (String[] args) {
-        //greeting page
-        System.out.print(DIVISIONLINE + GREETINGS + DIVISIONLINE);
 
-
-        //start chatting now!
-        Scanner sc = new Scanner(System.in);
-        String userInput = sc.nextLine();
-
-        while (!userInput.equals("bye")) {
-            String[] inputSplits = userInput.split(" ");
-            UserInput input;
-
-            switch (inputSplits[0]) {
-            case "list":
-                input = new ListCommand(userInput);
-                break;
-            case "blah":
-                input = new Blah(userInput);
-                break;
-            case "done":
-                input = new Done(userInput);
-                break;
-            default:
-                input = new AddList(userInput);
-            }
-            System.out.print(DIVISIONLINE);
-            input.execute();
-            System.out.print(DIVISIONLINE);
-            userInput = sc.nextLine();
-        }
-
-        //chatting finishes. Say GoodBYE!
-        System.out.println(DIVISIONLINE + BYE + DIVISIONLINE);
+        User newUser = new User();
+        newUser.serviceBegin();
+        newUser.serviceEnd();
 
     }
 }
