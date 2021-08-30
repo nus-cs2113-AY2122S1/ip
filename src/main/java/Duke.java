@@ -9,14 +9,26 @@ import java.util.Scanner;
  * @author richwill28
  */
 class Duke {
+    /** A scanner to read from standard input. */
     private Scanner sc;
+
+    /** Stores the list of tasks */
     private TaskList taskList;
 
+    /**
+     * The constructor method. Initializes scanner and
+     * tasks list.
+     */
     public Duke() {
         sc = new Scanner(System.in);
         taskList = new TaskList();
     }
 
+    /**
+     * Returns user response.
+     *
+     * @return User response.
+     */
     public String getResponse() {
         return sc.nextLine();
     }
@@ -50,6 +62,12 @@ class Duke {
         }
     }
 
+    /**
+     * Reports to user that the task is added
+     * successfully.
+     *
+     * @param task User task.
+     */
     public void reportTaskAdded(Task task) {
         System.out.print(Ui.LINE);
         System.out.println(Ui.PADDING + "Got it. I've added this task:");
@@ -58,12 +76,24 @@ class Duke {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Adds Todo to the list of tasks.
+     *
+     * @param response User response, consists of only
+     *                 description.
+     */
     public void addTodo(String response) {
         Task task = new Todo(response);
         taskList.addTask(task);
         reportTaskAdded(task);
     }
 
+    /**
+     * Add Deadline to the list of tasks.
+     *
+     * @param response User response, consists of
+     *                 description and deadline.
+     */
     public void addDeadline(String response) {
         String[] params = response.split(" /by ");
         String description = params[0];
@@ -73,6 +103,12 @@ class Duke {
         reportTaskAdded(task);
     }
 
+    /**
+     * Add Event to the list of tasks.
+     *
+     * @param response User response, consists of
+     *                 description and time period.
+     */
     public void addEvent(String response) {
         String[] params = response.split(" /at ");
         String description = params[0];
@@ -82,6 +118,9 @@ class Duke {
         reportTaskAdded(task);
     }
 
+    /**
+     * Starts the chatting functionality of Duke.
+     */
     public void start() {
         String response = "";
         while (true) {
@@ -104,6 +143,9 @@ class Duke {
         }
     }
 
+    /**
+     * Runs the whole Duke program.
+     */
     public void run() {
         Ui.greet();
         this.start();

@@ -1,3 +1,8 @@
+/**
+ * This class handles the User Interface of Duke.
+ *
+ * @author richwill28
+ */
 class Ui {
     /** Decorative logo */
     public static final String LOGO =
