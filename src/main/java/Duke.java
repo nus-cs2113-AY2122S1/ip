@@ -46,9 +46,10 @@ class Duke {
     /**
      * Marks a task as done and displays it.
      *
-     * @param taskNumber Task number.
+     * @param response User response.
      */
-    public void markAsDone(int taskNumber) {
+    public void markAsDone(String response) {
+        int taskNumber = Integer.parseInt(response.replace("done ", ""));
         if (taskNumber <= taskList.getSize()) {
             taskList.markAsDone(taskNumber - 1);
             System.out.print(Ui.LINE);
@@ -83,7 +84,7 @@ class Duke {
      *                 description.
      */
     public void addTodo(String response) {
-        Task task = new Todo(response);
+        Task task = new Todo(response.replace("todo ", ""));
         taskList.addTask(task);
         reportTaskAdded(task);
     }
@@ -95,7 +96,7 @@ class Duke {
      *                 description and deadline.
      */
     public void addDeadline(String response) {
-        String[] params = response.split(" /by ");
+        String[] params = response.replace("deadline ", "").split(" /by ");
         String description = params[0];
         String by = params[1];
         Task task = new Deadline(description, by);
@@ -110,7 +111,7 @@ class Duke {
      *                 description and time period.
      */
     public void addEvent(String response) {
-        String[] params = response.split(" /at ");
+        String[] params = response.replace("event ", "").split(" /at ");
         String description = params[0];
         String at = params[1];
         Task task = new Event(description, at);
@@ -122,21 +123,20 @@ class Duke {
      * Starts the chatting functionality of Duke.
      */
     public void start() {
-        String response = "";
         while (true) {
-            response = getResponse();
-            if (response.equals("bye")) {
+            Command response = new Command(getResponse());
+            if (response.isBye()) {
                 break;
-            } else if (response.equals("list")) {
+            } else if (response.isList()) {
                 this.list();
-            } else if (response.split(" ")[0].equals("done")) {
-                this.markAsDone(Integer.parseInt(response.split(" ")[1]));
-            } else if (response.split(" ")[0].equals("todo")) {
-                this.addTodo(response.replace("todo ", ""));
-            } else if (response.split(" ")[0].equals("deadline")) {
-                this.addDeadline(response.replace("deadline ", ""));
-            } else if (response.split(" ")[0].equals("event")) {
-                this.addEvent(response.replace("event ", ""));
+            } else if (response.isDone()) {
+                this.markAsDone(response.getCommand());
+            } else if (response.isTodo()) {
+                this.addTodo(response.getCommand());
+            } else if (response.isDeadline()) {
+                this.addDeadline(response.getCommand());
+            } else if (response.isEvent()) {
+                this.addEvent(response.getCommand());
             } else {
                 Ui.error();
             }
