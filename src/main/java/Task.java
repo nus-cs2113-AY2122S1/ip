@@ -1,15 +1,10 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected int taskId;
-
-    private static int numberOfTasks = 1;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.taskId = numberOfTasks;
-        numberOfTasks++;
     }
 
     public String getStatusIcon() {
@@ -17,10 +12,6 @@ public class Task {
     }
 
     //...
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
-    }
-
     public void markAsDone() {
         isDone = true;
     }
@@ -31,6 +22,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        return getStatusIcon() + description;
     }
 }
