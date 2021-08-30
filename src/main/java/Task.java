@@ -1,7 +1,8 @@
 public class Task {
 
-    private final String description;
+    private String description;
     private boolean isDone;
+    private String type = " ";
 
     /**
      * Create a new Task object.
@@ -11,6 +12,11 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getType() + "][" + getStatusIcon() + "] " + getDescription();
     }
 
     public String getDescription() {
@@ -25,6 +31,14 @@ public class Task {
     public String getStatusIcon() {
         // Mark done task with X
         return (isDone ? "X" : " ");
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
