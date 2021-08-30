@@ -73,11 +73,12 @@ public class Duke {
     public static void addDeadlineOrEvent(String input, Task[] tasks) {
         int dividePos = input.trim().indexOf(" ");
         int timePos = input.trim().indexOf("/");
+        String taskType = input.trim().substring(0, dividePos).toLowerCase();
         String taskName = input.trim().substring(dividePos, timePos);
         String end = input.trim().substring(timePos + 3);
-        if (taskName.equalsIgnoreCase("deadline")) {
+        if (taskType.equalsIgnoreCase("deadline")) {
             tasks[taskCount] = new Deadline(taskName, end);
-        } else if (taskName.equalsIgnoreCase("event")) {
+        } else if (taskType.equalsIgnoreCase("event")) {
             tasks[taskCount] = new Event(taskName, end);
         }
     }
