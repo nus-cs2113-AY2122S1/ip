@@ -1,10 +1,14 @@
 package shikabot.ui;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import shikabot.task.Task;
 
 public class TextUi {
+
+    public static Scanner in = new Scanner(System.in);
+
     public static String line = "____________________________________________________________________________\n";
 
     /**
@@ -23,6 +27,10 @@ public class TextUi {
     public void printWelcomeMessage(boolean isFirstTime) {
         String greeting = (isFirstTime) ? "Hello, friend! " : "Welcome back, friend! ";
         System.out.println(greeting + "Shika at your service! ^-^\n");
+    }
+
+    public String getCommand() {
+        return in.nextLine();
     }
 
     public void printFileErrorMessage() {

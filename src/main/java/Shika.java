@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import shikabot.command.Command;
 import shikabot.command.ExitCommand;
@@ -17,8 +16,9 @@ public class Shika {
 
     public static ArrayList<Task> tasks;
     public static String path = "data/ShikaTasks.txt";
+    public static TextUi ui = new TextUi();
+    public static Parser parser = new Parser();
 
-    public TextUi ui;
     public SaveFile saveFile;
 
     public static void main(String[] args) {
@@ -43,9 +43,8 @@ public class Shika {
      * @throws FileNotFoundException when ShikaTasks.txt is not found.
      */
     public void setupShika() throws FileNotFoundException {
-        this.ui = new TextUi();
-        this.saveFile = new SaveFile(path);
         ui.printLogo();
+        this.saveFile = new SaveFile(path);
         ui.printWelcomeMessage(checkForSave());
         tasks = saveFile.loadTasks();
     }
@@ -67,13 +66,10 @@ public class Shika {
      */
     public void runShikaLoop() {
         Command command;
-        Scanner in = new Scanner(System.in);
-        String text;
         do {
-            text = in.nextLine();
-            command = new Parser().parseCommand(text);
+            command = parser.parseCommand(ui.getCommand());
             executeCommand(command);
-        } while (!isExitCommand(command) && in.hasNextLine());
+        } while (!isExitCommand(command));
     }
 
     public boolean isExitCommand(Command command) {
