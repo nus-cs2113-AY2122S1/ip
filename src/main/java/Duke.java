@@ -6,14 +6,21 @@ import java.util.regex.Pattern;
  */
 public class Duke {
 
-    public static boolean done = false;
-    public static Task[] list = new Task[100];
-    public static int listIndexTracker = 0;
+    private static boolean done = false;
+    private static Task[] list = new Task[100];
+    private static int listIndexTracker = 0;
+    private static boolean error = false;
+
     private final static String LINES = "    ____________________________________________________________";
     private final static String TAB = "    ";
-    private final static String TASKFORMAT = "         ";
     private final static String GREETING = "    Hello... I'm Sadge Duke\n    What can I do for you? :(";
-    private final static String GOODBYE = "    Bye. Hope to see you again soon!";
+    private final static String GOODBYE = "    Bye. I'll miss you...";
+    private final static String TODO = "todo";
+    private final static String DEADLINE = "deadline";
+    private final static String EVENT = "event";
+    private final static int DESCRIPTION = 0;
+    private final static int DATETIME = 1;
+
 
     /**
      * Main function that is called upon program execution.
@@ -63,53 +70,176 @@ public class Duke {
      *
      * @param input input given by the user.
      */
-    public static void parseInput(String input) {
+    private static void parseInput(String input) {
         System.out.println(LINES);
-        boolean error = false;
 
         if (input.equalsIgnoreCase("Bye")) {
             System.out.println(GOODBYE);
-            done = true;
+            setDone();
         } else if (input.equalsIgnoreCase("List")) {
             printList();
-        } else if (Pattern.matches("^done \\d+$", input.toLowerCase())) {
-            String[] parts = input.split(" ");
-            int index = Integer.parseInt(parts[1]) - 1;
-            if (index < listIndexTracker) {
-                list[index].markAsDone();
-                System.out.println(TAB + "Nice! I've marked this task as done:");
-                System.out.format(TASKFORMAT + "[%s] %s%n", list[index].getStatusIcon(), list[index].getDescription());
-            } else {
-                error = true;
-            }
+        } else if (isDoneInput(input)) {
+            int index = getDoneIndex(input);
+            list[index].markAsDone();
+            System.out.print(TAB + "Nice! I've marked this task as done:" + System.lineSeparator() + TAB + TAB);
+            System.out.println(list[index]);
+        } else if (isValidTodo(input)) {
+            addToList(input, TODO);
+            printAddedMessage();
+        } else if (isValidDeadline(input)) {
+            addToList(input, DEADLINE);
+            printAddedMessage();
+        } else if (isValidEvent(input)) {
+            addToList(input, EVENT);
+            printAddedMessage();
         } else {
-            addToList(input);
-            System.out.print(TAB + "added: ");
-            System.out.println(input);
+            setError(true);
         }
         if (error) {
             System.out.println(TAB + "Invalid input");
+            setError(false);
         }
         System.out.println(LINES);
     }
 
+
     /**
-     * This function adds the input string into list
+     * This function adds the input description into list accordingly, based on its task type.
      *
      * @param input input given by the user.
+     * @param taskType task type identified beforehand (DEADLINE/EVENT/TODO).
      */
-    public static void addToList(String input) {
-        list[listIndexTracker] = new Task(input);
+    private static void addToList(String input, String taskType) {
+        String[] parameters = new String[2];
+        getParameters(parameters, input, taskType);
+        switch (taskType) {
+        case TODO:
+            getParameters(parameters, input, TODO);
+            list[listIndexTracker] = new Todo(parameters[DESCRIPTION]);
+            break;
+        case DEADLINE:
+            getParameters(parameters, input, DEADLINE);
+            list[listIndexTracker] = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
+            break;
+        case EVENT:
+            getParameters(parameters, input, EVENT);
+            list[listIndexTracker] = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
+            break;
+        }
+
         listIndexTracker++;
+
     }
 
     /**
-     * This function prints the individual elements in list
+     * This function prints the message when task is added to list.
      */
-    public static void printList() {
+    private static void printAddedMessage() {
+        System.out.println(TAB + "Got it. I've added this task: ");
+        System.out.println(TAB + TAB + list[listIndexTracker - 1]);
+        System.out.println(TAB + String.format("Now you have %d tasks in the list.", listIndexTracker));
+    }
+
+    /**
+     * This function prints the individual elements in list.
+     */
+    private static void printList() {
         for (int i = 0; i < listIndexTracker; i++) {
-            System.out.format(TAB + "% 3d. [%s]", i + 1, list[i].getStatusIcon());
-            System.out.println(list[i].getDescription());
+            System.out.format(TAB + "% 3d.", i + 1);
+            System.out.println(list[i]);
+        }
+    }
+
+    /**
+     * This function sets done to true, stopping while loop and signifying the end of program.
+     */
+    private static void setDone() {
+        done = true;
+    }
+
+    /**
+     * This function check if done statement and index in done statement is valid.
+     * @param input input given by the user.
+     * @return returns the validity of the done input.
+     */
+    private static boolean isDoneInput(String input) {
+        boolean validDoneStatement = Pattern.matches("^done \\d+$", input.toLowerCase());
+        if (!validDoneStatement) {
+            return false;
+        }
+        int numberOnly = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+        return numberOnly <= listIndexTracker && numberOnly < 100;
+    }
+
+    /**
+     * This function retrieves the index given in done statement.
+     * @param input input given by the user.
+     * @return returns the index given in done statement
+     */
+    private static int getDoneIndex(String input) {
+        String[] parts = input.split(" ");
+        return Integer.parseInt(parts[1]) - 1;
+    }
+
+    /**
+     * This function sets error as the given boolean argument.
+     * @param bool boolean to set error as.
+     */
+    private static void setError(boolean bool) {
+        error = bool;
+    }
+
+    /**
+     * This function uses regex to check if to do statement is valid.
+     * @param input input given by the user.
+     * @return returns validity of the to do statement.
+     */
+    private static boolean isValidTodo(String input) {
+        return Pattern.matches("todo [a-z0-9\\s]+", input.toLowerCase());
+    }
+
+    /**
+     * This function uses regex to check if deadline statement is valid.
+     * @param input input given by the user.
+     * @return returns validity of the deadline statement.
+     */
+    private static boolean isValidDeadline(String input) {
+        return Pattern.matches("deadline [a-z0-9\\s]+\\b /by .+", input.toLowerCase());
+    }
+
+    /**
+     * This function uses regex to check if event statement is valid.
+     * @param input input given by the user.
+     * @return returns validity of the event statement.
+     */
+    private static boolean isValidEvent(String input) {
+        return Pattern.matches("event [a-z0-9\\s]+\\b /at .+", input.toLowerCase());
+    }
+
+    /**
+     * This function gets the parameters for the Task subclasses by slicing input.
+     * @param parameters Array of string of fixed size 2 to store parameters for Task subclasses.
+     * @param input User's input into command line.
+     * @param taskType String that is pre-identified (DEADLINE/EVENT/TODO)
+     */
+    private static void getParameters(String[] parameters, String input, String taskType) {
+        switch (taskType) {
+        case TODO:
+            String[] todoParts = input.split("(?i)todo ");
+            parameters[DESCRIPTION] = todoParts[1];
+            break;
+        case DEADLINE:
+            String[] initDeadlineParts = input.split("(?i)deadline ");
+            String[] deadlineParts = initDeadlineParts[1].split(" /by ");
+            parameters[DESCRIPTION] = deadlineParts[0];
+            parameters[DATETIME] = deadlineParts[1];
+            break;
+        case EVENT:
+            String[] initEventParts = input.split("(?i)event ");
+            String[] eventParts = initEventParts[1].split(" /at ");
+            parameters[DESCRIPTION] = eventParts[0];
+            parameters[DATETIME] = eventParts[1];
+            break;
         }
     }
 }
