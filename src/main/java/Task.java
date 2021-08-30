@@ -41,9 +41,9 @@ class Task {
     }
 
     /**
-     * Returns the string representation of this task.
+     * Returns the string representation of Task.
      *
-     * @return The string representation of this task.
+     * @return The string representation of Task.
      */
     @Override
     public String toString() {
