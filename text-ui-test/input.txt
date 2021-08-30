@@ -1,0 +1,9 @@
+list
+todo fix the fan
+deadline buy cabbage /by 5.30pm
+event attend cca zoom meeting /at 11pm
+done 1
+done 2
+done 3
+list
+bye
