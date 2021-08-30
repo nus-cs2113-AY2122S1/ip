@@ -11,12 +11,13 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markDone() {
+    public void markTaskAsDone() {
         isDone = true;
     }
 
-    public void printTask() {
-        System.out.println("[" + getStatusIcon() + "] " + description);
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
