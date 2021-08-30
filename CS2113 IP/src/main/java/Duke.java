@@ -14,7 +14,7 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void ListOperations() {
+    public static void listOperations() {
         Scanner sc = new Scanner(System.in);
         String horizontalLine = "________________________";
         boolean isBye;
@@ -22,7 +22,6 @@ public class Duke {
         boolean isDone;
 
         Task[] taskList = new Task[100];
-        int taskCount = 0;
 
         do {
             String userInput = sc.nextLine();
@@ -34,29 +33,41 @@ public class Duke {
             if (isBye) {
                 System.out.println("Bye. Hope to see you again soon!");
             } else if (isList) {
-                for (int i = 0; i < taskCount; i++) {
-                    int indexNumber = i + 1;
-                    System.out.println(indexNumber + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
-                }
+                listTask(taskList, Task.taskCount);
             } else if (isDone) {
-                char userInputIntChar = userInput.charAt(userInput.length() - 1);
-                int userInputInt = Character.getNumericValue(userInputIntChar);
-                taskList[userInputInt].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + taskList[userInputInt].getStatusIcon() + "] " + taskList[userInputInt].description);
+                markTask(taskList, userInput);
             } else {
-                System.out.println("added: " + userInput);
-                Task newTask = new Task(userInput, taskCount);
-                taskList[taskCount] = newTask;
-                taskCount++;
+                addTask(taskList, Task.taskCount, userInput);
+                Task.taskCount++;
             }
             System.out.println(horizontalLine);
 
         } while (!isBye);
     }
 
+    private static void addTask(Task[] taskList, int taskCount, String userInput) {
+        System.out.println("added: " + userInput);
+        Task newTask = new Task(userInput, taskCount);
+        taskList[taskCount] = newTask;
+    }
+
+    private static void markTask(Task[] taskList, String userInput) {
+        char userInputIntChar = userInput.charAt(userInput.length() - 1);
+        int userInputInt = Character.getNumericValue(userInputIntChar);
+        taskList[userInputInt].markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[" + taskList[userInputInt].getStatusIcon() + "] " + taskList[userInputInt].description);
+    }
+
+    private static void listTask(Task[] taskList, int taskCount) {
+        for (int i = 0; i < taskCount; i++) {
+            int indexNumber = i + 1;
+            System.out.println(indexNumber + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+        }
+    }
+
     public static void main(String[] args) {
         Greet();
-        ListOperations();
+        listOperations();
     }
 }

@@ -2,6 +2,7 @@ public class Task {
     protected String description;
     protected int index;
     protected boolean isDone;
+    protected static int taskCount = 0;
 
     public Task(String description, int index) {
         this.description = description;
