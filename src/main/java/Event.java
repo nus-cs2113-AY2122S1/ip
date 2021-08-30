@@ -1,9 +1,9 @@
-public class Deadline extends Task{
+public class Event extends Task{
 
     protected String by;
-    protected String taskType = "[D]";
+    protected String taskType = "[E]";
 
-    public Deadline(String description, String by) {
+    public Event(String description, String by){
         super(description);
         this.by = by;
     }
@@ -19,6 +19,7 @@ public class Deadline extends Task{
     public String printTask() {
         super.printTask();
         return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription()
-                + "(by: " + getBy() + ")";
+                + "(at: " + getBy() + ")";
     }
+
 }

@@ -10,6 +10,7 @@ public class Duke {
         System.out.print("Initialising...............\n");
         String line = "--------------------------------------------------------------------------------";
         System.out.println(line + "\n" + logo);
+        // Prints enclosed text in italics
         String byline = "\033[3m----------------------------------Just a rather very intelligent system---------\033[0m\n";
 
         System.out.println(byline + "Good Evening Sir! I'm J.A.R.V.I.S");
@@ -35,9 +36,9 @@ public class Duke {
                 // Iterates through and prints stored tasks in the format: 1.[ ][ ] read book
                 //                                                         2.[ ][ ] buy bread
                 for (int count = 0; count < itemIndex; count++) {
-                    System.out.println(count + 1 + "." + tasks[count].getTaskType() + tasks[count].getStatusIcon()
-                            + " " + tasks[count].getDescription());
+                    System.out.println(count + 1 + "." + tasks[count].printTask());
                 }
+                System.out.println();
                 System.out.println(line);
             } else if (command.contains("done")) {
                 // When user enters string "done 2", string is split to extract the index 2 only
@@ -55,8 +56,9 @@ public class Duke {
                         taskChosen.changeStatusDone(true);
                         System.out.println(line + "\n" + "As you wish sir, this task will be marked as done!");
                     }
-                    // Otherwise, marks task as done with X. E.g. 1.[X] read book if user inputs "done 1"
-                    System.out.println("    " + taskChosen.getStatusIcon() + " " + taskChosen.getDescription() + "\n" + line);
+                    // Otherwise, marks task as done with X. E.g. 1.[ ][X] read book if user inputs "done 1"
+                    System.out.println("    " + taskChosen.getTaskType() + taskChosen.getStatusIcon() + " "
+                            + taskChosen.getDescription() + "\n" + line);
                 }
             } else if (command.equals("echo")) {
                 // Simply echos given command until user types "stop"
@@ -86,13 +88,25 @@ public class Duke {
                     tasks[itemIndex] = new Deadline((command.substring(9, command.indexOf("/"))),
                             command.substring(command.indexOf("/") + 4));
                 }
+
+                // Create tasks for class Event
+                else if (command.contains("event")){
+                    // Same substring read as Deadline
+                    tasks[itemIndex] = new Event((command.substring(6, command.indexOf("/"))),
+                            command.substring(command.indexOf("/") + 4));
+                }
                 // If no keywords are used, stores new tasks into Task array
                 else {
                     tasks[itemIndex] = new Task(command);
                 }
                 itemIndex++;
                 System.out.println("Will do sir, I've added: " + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
-                System.out.printf("Now you have %d task(s) in your list\n", itemIndex);
+                if (itemIndex == 1) {
+                    System.out.printf("Now you have %d task in your list.\n", itemIndex);
+                }
+                else {
+                    System.out.printf("Now you have %d tasks in your list.\n", itemIndex);
+                }
             }
         }
     }

@@ -7,7 +7,6 @@ public class Task {
     /**
      * Creates new task with description as name.
      * Sets task default as not complete with boolean isDone.
-     *
      * @param description string name of task inputted.
      */
     public Task(String description) {
@@ -17,7 +16,6 @@ public class Task {
 
     /**
      * Gets the name of the selected task.
-     *
      * @return description of task.
      */
     public String getDescription() {
@@ -30,7 +28,6 @@ public class Task {
 
     /**
      * Checks if task is already marked as done.
-     *
      * @return boolean value: True = done and False = not done.
      */
     public boolean isDone() {
@@ -39,7 +36,6 @@ public class Task {
 
     /**
      * Changes task status to "completed".
-     *
      * @param done True if not marked and False if already marked as done.
      */
     public void changeStatusDone(boolean done) {
@@ -48,7 +44,6 @@ public class Task {
 
     /**
      * Gets "X" icon to mark completed tasks.
-     *
      * @return X if done and [ ] if not done.
      */
     public String getStatusIcon() {
