@@ -1,0 +1,6 @@
+todo eat food
+deadline assignment /by tomorrow 2359
+done 2
+event team meeting /at 3rd Sep 2100-2300
+list
+bye
