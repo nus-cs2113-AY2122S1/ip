@@ -74,6 +74,10 @@ public class TextUi {
         System.out.print(line + "> Oops! That task does not exist.\n" + line);
     }
 
+    public void printInvalidDateMessage() {
+        System.out.print(line + "> Oops! Please enter a valid date format!\n" + line);
+    }
+
     public void printDeadlineSyntaxMessage() {
         System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. " +
                 "Thank you!\n" + line);
@@ -109,4 +113,5 @@ public class TextUi {
         }
         printTaskCount(taskList.size());
     }
+
 }

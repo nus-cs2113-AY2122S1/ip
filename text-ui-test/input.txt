@@ -6,12 +6,12 @@ done 0
 done 2
 done abc
 deadline hello
-deadline hello /by today
-deadline hello /at hello
+deadline hello /by 1999-02-08
+deadline hello /at  1999-02-08
 list
 event hello
-event hello /by today
-event hello /at hello
+event hello /by    1999-02-08
+event hello /at 1999-02-08
 list
 done 1
 list
@@ -20,8 +20,8 @@ list
 done       3
 list
 todo       hello
-deadline    hello    /by     today
-event    hello    /at     today
+deadline    hello    /by     1999-02-08
+event    hello    /at     1999-02-08
 list
 bye
 hello
