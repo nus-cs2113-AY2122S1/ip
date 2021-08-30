@@ -2,20 +2,33 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 
+
 public class Duke {
     public static void main(String[] args) {
-        Scanner scannerObj = new Scanner(System.in);
+        showStartMessage();
+        executeTillExit();
+        showExitMessage();
+    }
+
+    private static void showStartMessage() {
         String line = "________________________________________";
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "      ____                U _____ u   ____      ____        _\n" +
+                      "     / __\"| u      ___    \\| ___\"|/U |  _\"\\ uU |  _\"\\ u U  /\"\\  u\n" +
+                     "    <\\___ \\/      |_\"_|    |  _|\"   \\| |_) |/ \\| |_) |/  \\/ _ \\/\n" +
+                      "     u___) |       | |     | |___    |  _ <    |  _ <    / ___ \\\n" +
+                      "     |____/>>    U/| |\\u   |_____|   |_| \\_\\   |_| \\_\\  /_/   \\_\\\n" +
+                      "      )(  (__).-,_|___|_,-.<<   >>   //   \\\\_  //   \\\\_  \\\\    >>\n" +
+                      "     (__)      \\_)-' '-(_/(__) (__) (__)  (__)(__)  (__)(__)  (__)";
+
         System.out.println("Hello from\n" + logo);
         System.out.println(line);
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println("Hello! I'm Sierra!\n" + "What can I do for you?");
         System.out.println(line);
+    }
+
+    private static void executeTillExit() {
         boolean isStop = false;
+        Scanner scannerObj = new Scanner(System.in);
         ArrayList<Tasks> tasksAL = new ArrayList<>();
 
         while (true) {
@@ -24,8 +37,8 @@ public class Duke {
             String userChoice = scannerObj.nextLine();
 
             //Check if choice is valid
-            while (!userChoice.equalsIgnoreCase("echo") && !userChoice.equalsIgnoreCase("list")) {
-                System.out.println("Invalid input, please try again. You may choose: List, Echo");
+            while (!checkValidInput(userChoice)) {
+                System.out.println("Invalid input, please try again. You may choose: Echo, List");
                 userChoice = scannerObj.nextLine();
             }
 
@@ -48,7 +61,8 @@ public class Duke {
 
             case "list": //Activate list actions
                 while (true) {
-                    System.out.println("To view your list, enter 'list'. To add to your list just type what you would like to add.");
+                    System.out.println("To view your list, enter 'list'. " +
+                            "To add to your list type 'todo', 'event' or 'deadline' then your task.");
                     String userInput = scannerObj.nextLine();
                     if (userInput.equalsIgnoreCase("bye")) {
                         isStop = true;
@@ -68,9 +82,22 @@ public class Duke {
                 break;
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
     }
+
+    private static boolean checkValidInput(String input){
+        String[] validInputs = {"echo", "list"};
+        for (String validInput: validInputs){
+            if (input.equalsIgnoreCase(validInput)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void showExitMessage() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
 }
 
 

@@ -1,38 +1,39 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+      ____                U _____ u   ____      ____        _
+     / __"| u      ___    \| ___"|/U |  _"\ uU |  _"\ u U  /"\  u
+    <\___ \/      |_"_|    |  _|"   \| |_) |/ \| |_) |/  \/ _ \/
+     u___) |       | |     | |___    |  _ <    |  _ <    / ___ \
+     |____/>>    U/| |\u   |_____|   |_| \_\   |_| \_\  /_/   \_\
+      )(  (__).-,_|___|_,-.<<   >>   //   \\_  //   \\_  \\    >>
+     (__)      \_)-' '-(_/(__) (__) (__)  (__)(__)  (__)(__)  (__)
 ________________________________________
-Hello! I'm Duke
+Hello! I'm Sierra!
 What can I do for you?
 ________________________________________
 I can do the following: Echo, List
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 added: [T][ ] homework
 Now you have 1 tasks in the list!
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 added: [E][ ] concert (at: tonight)
 Now you have 2 tasks in the list!
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 added: [D][ ] homework (by: Thursday)
 Now you have 3 tasks in the list!
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 1. [T][ ] homework
 2. [E][ ] concert (at: tonight)
 3. [D][ ] homework (by: Thursday)
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 Great job! You have completed the following task:
 [D][X] homework (by: Thursday)
 Now you have 3 tasks in the list!
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 Great job! You have completed the following task:
 [E][X] concert (at: tonight)
 Now you have 3 tasks in the list!
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.
 Great job! You have completed the following task:
 [T][X] homework
 Now you have 3 tasks in the list!
-To view your list, enter 'list'. To add to your list just type what you would like to add.
+To view your list, enter 'list'. To add to your list type 'todo', 'event' or 'deadline' then your task.

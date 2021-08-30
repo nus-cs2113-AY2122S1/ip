@@ -8,7 +8,8 @@ public class EventTasks extends Tasks {
 
     @Override
     public String getName() {
-        return "[E][" + super.mark() + "] " + super.name + "(" + Date.substring(0,Date.indexOf(" ")) + ": " + Date.substring(Date.indexOf(" ") + 1) + ")";
+        return "[E][" + super.mark() + "] " + super.name + "(" + Date.substring(0,Date.indexOf(" "))
+                + ": " + Date.substring(Date.indexOf(" ") + 1) + ")";
     }
 
 }
