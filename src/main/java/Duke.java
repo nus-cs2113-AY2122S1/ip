@@ -2,10 +2,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void line() {
-        System.out.println("____________________________________________________________");
-    }
-
     private static Boolean isFinished = false;
     private static int itemCount = 0;
 
@@ -13,39 +9,79 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         Task[] items = new Task[100];
 
-        line();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        line();
-        System.out.println();
+        printIntro();
 
         while (!isFinished) {
             String userInput = sc.nextLine();
-            if (userInput.equals("bye")) {
+            String command = userInput.split(" ")[0];
+
+            if (command.equals("bye")) {
                 isFinished = true;
                 break;
-            } else if (userInput.equals("list")) {
-                System.out.println("Here is your task list:");
+            } else if (command.equals("list")) {
+                drawLine();
+                System.out.println("\tHere is your task list:");
                 for (int i = 0; i < itemCount; i++) {
-                    System.out.print("\t" + (i + 1) + ". ");
-                    System.out.println("[" + items[i].getStatusIcon() + "] " + items[i].description);
+                    System.out.print("\t\t" + (i + 1) + ". ");
+                    System.out.println(items[i]);
                 }
-            } else if (userInput.startsWith("done")) {
-                String[] splitUserInput = userInput.split(" ");
-                int indexToMark = Integer.parseInt(splitUserInput[1]) - 1;
+                drawLine();
+
+            } else if (command.equals("done")) {
+                String arg = userInput.split(" ")[1];
+                int indexToMark = Integer.parseInt(arg) - 1;
                 items[indexToMark].markAsDone();
                 System.out.println("\tNice! I have marked this task as done:");
-                System.out.println("\t\t[X] " + items[indexToMark].description);
+                System.out.println("\t\t" + items[indexToMark]);
+
+            } else if (command.equals("todo")){
+                String arg = userInput.split(" ",2)[1];
+                items[itemCount] = new Todo(arg);
+                incrementItemCount(items[itemCount]);
+
+            } else if (command.equals("deadline")){
+                String arg = userInput.split(" ",2)[1];
+                String[] splitArg = arg.split("/",2);
+                String description = splitArg[0].trim();
+                String by = splitArg[1].substring(3);
+
+                items[itemCount] = new Deadline(description,by);
+                incrementItemCount(items[itemCount]);
+
+            } else if (command.equals("event")){
+                String arg = userInput.split(" ",2)[1];
+                String[] splitArg = arg.split("/",2);
+                String description = splitArg[0].trim();
+                String at = splitArg[1].substring(3);
+
+                items[itemCount] = new Event(description, at);
+                incrementItemCount(items[itemCount]);
+
             } else {
-                items[itemCount] = new Task(userInput);
-                System.out.println("\tadded: " + userInput);
-                itemCount++;
+                System.out.println("Invalid command, try again");
             }
         }
 
-        line();
+        drawLine();
         System.out.println("Bye. Hope to see you again soon!");
-        line();
+        drawLine();
+    }
 
+    private static void incrementItemCount(Task item) {
+        System.out.println("\tTask Added:");
+        System.out.println("\t\t" + item);
+        itemCount++;
+        System.out.println("\tYou now have " + itemCount + " tasks");
+    }
+
+    private static void printIntro() {
+        drawLine();
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+        drawLine();
+        System.out.println();
+    }
+    public static void drawLine() {
+        System.out.println("____________________________________________________________");
     }
 }
