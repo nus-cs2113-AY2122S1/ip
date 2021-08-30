@@ -15,10 +15,11 @@ public class Duke {
             String userInput = sc.nextLine();
             String command = userInput.split(" ")[0];
 
-            if (command.equals("bye")) {
+            switch (command) {
+            case "bye":
                 isFinished = true;
                 break;
-            } else if (command.equals("list")) {
+            case "list":
                 drawLine();
                 System.out.println("\tHere is your task list:");
                 for (int i = 0; i < itemCount; i++) {
@@ -26,39 +27,44 @@ public class Duke {
                     System.out.println(items[i]);
                 }
                 drawLine();
-
-            } else if (command.equals("done")) {
+                break;
+            case "done": {
                 String arg = userInput.split(" ")[1];
                 int indexToMark = Integer.parseInt(arg) - 1;
                 items[indexToMark].markAsDone();
                 System.out.println("\tNice! I have marked this task as done:");
                 System.out.println("\t\t" + items[indexToMark]);
-
-            } else if (command.equals("todo")){
-                String arg = userInput.split(" ",2)[1];
+                break;
+            }
+            case "todo": {
+                String arg = userInput.split(" ", 2)[1];
                 items[itemCount] = new Todo(arg);
                 incrementItemCount(items[itemCount]);
-
-            } else if (command.equals("deadline")){
-                String arg = userInput.split(" ",2)[1];
-                String[] splitArg = arg.split("/",2);
+                break;
+            }
+            case "deadline": {
+                String arg = userInput.split(" ", 2)[1];
+                String[] splitArg = arg.split("/", 2);
                 String description = splitArg[0].trim();
                 String by = splitArg[1].substring(3);
 
-                items[itemCount] = new Deadline(description,by);
+                items[itemCount] = new Deadline(description, by);
                 incrementItemCount(items[itemCount]);
-
-            } else if (command.equals("event")){
-                String arg = userInput.split(" ",2)[1];
-                String[] splitArg = arg.split("/",2);
+                break;
+            }
+            case "event": {
+                String arg = userInput.split(" ", 2)[1];
+                String[] splitArg = arg.split("/", 2);
                 String description = splitArg[0].trim();
                 String at = splitArg[1].substring(3);
 
                 items[itemCount] = new Event(description, at);
                 incrementItemCount(items[itemCount]);
-
-            } else {
+                break;
+            }
+            default:
                 System.out.println("Invalid command, try again");
+                break;
             }
         }
 
