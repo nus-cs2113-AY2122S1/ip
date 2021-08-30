@@ -1,9 +1,14 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
 
     public static int taskCount = 1;
+
+    public static void inputErrorMessage() {
+        printHorizontalLine();
+        System.out.println("I don't understand that. Please try again!");
+        printHorizontalLine();
+    }
 
     public static void inputManager() {
         String line;
@@ -25,9 +30,7 @@ public class Duke {
             } else if (isValidTaskInput(line)) {
                 taskManager(line, tasks);
             } else {
-                printHorizontalLine();
-                System.out.println("I don't understand that. Please try again!");
-                printHorizontalLine();
+                inputErrorMessage();
             }
         }
     }
@@ -40,8 +43,15 @@ public class Duke {
         }
     }
 
-    public static void taskManager(String input, Task[] tasks) {
+    public static void taskManagerMessage(Task[] tasks) {
         printHorizontalLine();
+        System.out.println("Understood. I've added this task:");
+        System.out.println(tasks[taskCount]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        printHorizontalLine();
+    }
+
+    public static void taskManager(String input, Task[] tasks) {
         int dividePos = input.trim().indexOf(" ");
         String taskType = input.trim().substring(0, dividePos).toLowerCase();
 
@@ -52,19 +62,14 @@ public class Duke {
         } else if (taskType.equalsIgnoreCase("event")) {
             addEvent(input, tasks);
         }
-
-        System.out.println("Understood. I've added this task:");
-        System.out.println(tasks[taskCount]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        taskManagerMessage(tasks);
         taskCount++;
-        printHorizontalLine();
     }
 
     public static void addTodo(String input, Task[] tasks) {
         int dividePos = input.trim().indexOf(" ");
         String taskName = input.trim().substring(dividePos);
-        Task t = new Todo(taskName);
-        tasks[taskCount] = t;
+        tasks[taskCount] = new Todo(taskName);
     }
 
     public static void addDeadline(String input, Task[] tasks) {
