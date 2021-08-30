@@ -6,6 +6,8 @@ public class Duke {
 
     public static void main(String[] args) {
         Program currProgram = new Program();
+        String userInput;
+        Scanner sc= new Scanner(System.in);
 
         String logo = "  _(\\    |@@|\n"
                 + "(__/\\__ \\--/ __\n"
@@ -16,7 +18,7 @@ public class Duke {
                 + "      _)(  )(_\n"
                 + "     `---''---`\n";
 
-        System.out.println("\n\nHello! I'm HAL 2113\n" + logo);
+        System.out.println("\nHello! I'm HAL 2113\n" + logo);
         System.out.println(LINE_BREAK_SINGLE);
         System.out.println("What can I do for you? You can enter the following commands\n" +
                 "1. 'todo task' (replace task with any agenda you wish to add to the list)\n" +
@@ -28,13 +30,14 @@ public class Duke {
         System.out.print("Enter command: ");
 
         while (!currProgram.getCanTerminateHal()) {
-            String input;
-            Scanner sc= new Scanner(System.in);
-            input = sc.nextLine();
 
-            //get rid of white space
-            input = input.trim();
-            currProgram.executeTask(input);
+            if (sc.hasNextLine()) {
+                userInput = sc.nextLine();
+                //get rid of white space
+                userInput = userInput.trim();
+                currProgram.executeTask(userInput);
+            }
+
         }
 
         System.out.println("Bye boss! HAL will always be there to help you!\nSummon me by running this program again");

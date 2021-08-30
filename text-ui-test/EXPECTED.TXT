@@ -1,7 +1,60 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+Hello! I'm HAL 2113
+  _(\    |@@|
+(__/\__ \--/ __
+   \___|----|  |   __
+       \ }{ / )_ / _\
+       /\__/\ \__O (__
+      (--/\--)    \__/
+      _)(  )(_
+     `---''---`
+
+____________________________________________________________
+What can I do for you? You can enter the following commands
+1. 'todo task' (replace task with any agenda you wish to add to the list)
+2. 'deadline task /by date' (eg. deadline task1 /by Sunday)
+3. 'event task /at time' (eg. event running /at Sunday 2-4pm)
+4. 'list (to list all saved tasks)
+5. 'done task index (to mark a completed task)
+6. 'bye' (to exit the program!
+Enter command: ____________________________________________________________
+Got it! I've added this task:
+[T][ ] task1
+You now have 1 task(s) in your list!
+____________________________________________________________
+Enter command: ____________________________________________________________
+Got it! I've added this task:
+[T][ ] read a book
+You now have 2 task(s) in your list!
+____________________________________________________________
+Enter command: ____________________________________________________________
+Got it! I've added this task:
+[D][ ] task2 (by: Sunday 0530)
+You now have 3 task(s) in your list!
+____________________________________________________________
+Enter command: ____________________________________________________________
+Got it! I've added this task:
+[E][ ] task3 (at: Saturday 4-6pm)
+You now have 4 task(s) in your list!
+____________________________________________________________
+Enter command: ____________________________________________________________
+Your input does not follow my format!
+Read properly and type it again!
+____________________________________________________________
+Nice! I've marked this task as done:
+[D][X] task2 (by: Sunday 0530)
+____________________________________________________________
+Enter command: Nice! I've marked this task as done:
+[E][X] task3 (at: Saturday 4-6pm)
+____________________________________________________________
+Enter command: ____________________________________________________________
+Displaying all items saved:
+1: [T][ ] task1
+2: [T][ ] read a book
+3: [D][X] task2 (by: Sunday 0530)
+4: [E][X] task3 (at: Saturday 4-6pm)
+____________________________________________________________
+Enter command: bye
+Bye boss! HAL will always be there to help you!
+Summon me by running this program again
+____________________________________________________________

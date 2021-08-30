@@ -15,6 +15,7 @@ public class Program {
     public static final String DONE_TASK_SUCCESS_MESSAGE = "Nice! I've marked this task as done:";
     public static final String PRINT_ERROR_MESSAGE = "Your input does not follow my format!\n" +
             "Read properly and type it again!";
+    public static final String ENTER_COMMAND_TEXT = "Enter command: ";
 
     //public static final String TOTAL_TASKS_DESCRIBER = "You now have "
     public Program() {
@@ -64,6 +65,7 @@ public class Program {
         System.out.println(newDeadlineTask.toString());
         printTotalTasks();
         System.out.println(LINE_BREAK_SINGLE);
+        System.out.print(ENTER_COMMAND_TEXT);
     }
 
     public static void addEventTask(String eventTask) {
@@ -87,6 +89,7 @@ public class Program {
         System.out.println(newEventTask.toString());
         printTotalTasks();
         System.out.println(LINE_BREAK_SINGLE);
+        System.out.print(ENTER_COMMAND_TEXT);
     }
 
     public static void addToDoTask(String toDoTask) {
@@ -107,7 +110,7 @@ public class Program {
         System.out.println(newTask.toString());
         printTotalTasks();
         System.out.println(LINE_BREAK_SINGLE);
-        System.out.print("Enter command: ");
+        System.out.print(ENTER_COMMAND_TEXT);
     }
 
     public static void listAllTasks() {
@@ -120,6 +123,7 @@ public class Program {
             System.out.println(i + 1 + ": " + listTasks[i].toString());
         }
         System.out.println(LINE_BREAK_SINGLE);
+        System.out.print(ENTER_COMMAND_TEXT);
     }
 
     public void executeDoneTask(String task) {
@@ -131,6 +135,8 @@ public class Program {
             System.out.println(DONE_TASK_SUCCESS_MESSAGE);
             System.out.println(listTasks[taskNum-1].toString());
         }
+        System.out.println(LINE_BREAK_SINGLE);
+        System.out.print(ENTER_COMMAND_TEXT);
     }
 
     public void executeBye() {
