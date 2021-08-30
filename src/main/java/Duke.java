@@ -14,6 +14,8 @@ public class Duke {
     public static final String MARK_AS_DONE_COMMAND = "done ";
     public static final String EXIT_COMMAND_1 = "bye";
     public static final String EXIT_COMMAND_2 = "exit";
+    public static final String TASK_PADDING = "   ";
+    public static final String NUMBER_LIST_SEPARATOR = ". ";
 
     public static void main(String[] args) {
 
@@ -41,8 +43,12 @@ public class Duke {
                 String[] substrings = input.split(TASK_SEPARATOR); //get all the words in the input
                 int taskNum = Integer.parseInt(substrings[TASK_ARGUMENT]);
                 //check if task number is valid
-                if (taskNum > 1 && taskNum <= listItemCount) {
-                    markTaskAsDone(list[taskNum - 1]);
+                if (taskNum > 0 && taskNum <= listItemCount) {
+                    if (list[taskNum - 1].isDone) {
+                        printTaskAlreadyDoneMessage();
+                    } else {
+                        markTaskAsDone(list[taskNum - 1]);
+                    }
                 } else {
                     printInvalidTaskNumberMessage();
                 }
@@ -104,6 +110,10 @@ public class Duke {
                     }
                 }
 
+            } else if (input.equals("help")){
+
+                printHelpMessage();
+
             } else {
                 //default
                 printInvalidCommandMessage();
@@ -131,7 +141,7 @@ public class Duke {
     private static void markTaskAsDone(Task task) {
         task.markAsDone(); //use zero indexing
         System.out.println("Nice! I've marked the following task as done: ");
-        System.out.println("   " + task);
+        System.out.println(TASK_PADDING + task);
     }
 
     /**
@@ -142,7 +152,7 @@ public class Duke {
      */
     private static int updateTaskListNumber(Task[] list, int listItemCount) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(list[listItemCount]);
+        System.out.println(TASK_PADDING + list[listItemCount]);
         listItemCount += 1;
         System.out.println("Now you have " + listItemCount + " items in the list.");
         return listItemCount;
@@ -167,7 +177,7 @@ public class Duke {
     private static void listTasks(Task[] list, int listItemCount) {
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < listItemCount; i += 1) {
-            System.out.println((i + 1) + ". " + list[i]);
+            System.out.println((i + 1) + NUMBER_LIST_SEPARATOR + list[i]);
         }
     }
 
@@ -190,10 +200,17 @@ public class Duke {
     }
 
     /**
+     * Prints a message when attempting to mark an already completed task as done.
+     */
+    private static void printTaskAlreadyDoneMessage() {
+        System.out.println("This task has been completed!");
+    }
+
+    /**
      * Print an error message when attempting to mark an invalid task number as done.
      */
     private static void printInvalidTaskNumberMessage() {
-        System.out.println("I can't find that task in the list.");
+        System.out.println("I can't find that task in the list!");
     }
 
     /**
@@ -228,8 +245,8 @@ public class Duke {
      * Print a welcome message when starting the program.
      */
     private static void printWelcomeMessage() {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello! I'm Duke, your personal task assistant.");
+        System.out.println("Type help to see what I can do.");
     }
 
     /**
@@ -237,5 +254,29 @@ public class Duke {
      */
     private static void printExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Prints the help message, which lists all commands.
+     */
+    private static void printHelpMessage() {
+        printWithNewLine("List of commands:");
+        printWithNewLine("list - lists all tasks");
+        System.out.println("done - marks a task as done");
+        printWithNewLine("usage: done [task number]");
+        System.out.println("todo - adds a new to-do task");
+        printWithNewLine("usage: todo [task description]");
+        System.out.println("deadline - adds a new task with a due date");
+        printWithNewLine("usage: deadline [task description] /by [due date]");
+        printWithNewLine("help - lists all commands");
+    }
+
+    /**
+     * Prints a string with a new line
+     * @param s The string to be printed
+     */
+    private static void printWithNewLine(String s) {
+        System.out.println(s);
+        System.out.println();
     }
 }
