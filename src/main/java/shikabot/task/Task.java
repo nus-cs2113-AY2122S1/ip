@@ -1,7 +1,5 @@
 package shikabot.task;
 
-import java.io.IOException;
-
 public abstract class Task {
 
     protected String name;
@@ -29,11 +27,17 @@ public abstract class Task {
         return "[" + getStatus() + "] " + name + " ";
     }
 
-    /**
-     * This function saves the indivdual task into data/ShikaTasks.txt.
-     * @throws IOException when saving operation is interrupted.
-     */
-    public abstract void saveTask() throws IOException;
+    public abstract String getType();
+
+    public abstract String getAtBy();
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
 
     public static class InvalidTaskException extends Exception {
 

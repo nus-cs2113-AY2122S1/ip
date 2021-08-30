@@ -1,8 +1,5 @@
 package shikabot.task;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Deadline extends Task{
 
     private String by;
@@ -17,10 +14,12 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    public void saveTask() throws IOException {
-        FileWriter fw = new FileWriter("data/ShikaTasks.txt", true);
-        fw.write("D | " + by + " | " + name + " | " + isDone + "\n");
-        fw.close();
+    public String getType() {
+        return "D";
+    }
+
+    public String getAtBy() {
+        return by;
     }
 
 }

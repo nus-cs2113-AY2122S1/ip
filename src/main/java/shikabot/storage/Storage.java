@@ -14,7 +14,7 @@ public class Storage {
 
     private final String path;
     private final File file;
-    private TaskList taskList = new TaskList();
+    private final TaskList taskList = new TaskList();
 
     public Storage(String path) {
         this.path = path;
@@ -78,11 +78,29 @@ public class Storage {
         fw.close();
         for (Task task : taskList.taskList) {
             try {
-                task.saveTask();
+                saveTask(task);
             } catch (IOException e) {
                 throw new IOException();
             }
         }
+    }
+
+    public void saveTask(Task task) throws IOException {
+        FileWriter fw = new FileWriter(path, true);
+        fw.write(encodeTask(task));
+        fw.close();
+    }
+
+    public String encodeTask(Task task) {
+        String divider = " | ";
+        return task.getType() +
+                divider +
+                task.getAtBy() +
+                divider +
+                task.getName() +
+                divider +
+                (task.isDone() ? "true" : "false") +
+                "\n";
     }
 
     public static class FileErrorException extends Exception {

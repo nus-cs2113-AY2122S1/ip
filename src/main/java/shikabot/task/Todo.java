@@ -1,8 +1,5 @@
 package shikabot.task;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Todo extends Task{
 
     public Todo(String name) {
@@ -14,10 +11,12 @@ public class Todo extends Task{
         return "[T]" + super.toString();
     }
 
-    @Override
-    public void saveTask() throws IOException {
-        FileWriter fw = new FileWriter("data/ShikaTasks.txt", true);
-        fw.write("T | null | " + name + " | " + isDone + "\n");
-        fw.close();
+    public String getType() {
+        return "T";
     }
+
+    public String getAtBy() {
+        return "null";
+    }
+
 }
