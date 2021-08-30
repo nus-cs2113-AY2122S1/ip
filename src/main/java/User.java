@@ -1,13 +1,17 @@
 import java.util.Scanner;
 
-public class DukeUser {
+public class User {
     private TaskList userTasks = new TaskList();
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
+<<<<<<< HEAD:src/main/java/DukeUser.java
     private static final String BYE = "    Bye. Hope to see you again soon!\n";
     private Scanner sc = new Scanner(System.in);
+=======
+    private static final String BYE = "     Bye. Hope to see you again soon!\n";
+>>>>>>> parent of 2fcb7ff (textUiTesting):src/main/java/User.java
 
-    DukeUser() {
+    User() {
         System.out.print(DIVISIONLINE + GREETINGS + DIVISIONLINE);
     }
 
@@ -33,8 +37,13 @@ public class DukeUser {
     }
 
     private String readInput() {
+<<<<<<< HEAD:src/main/java/DukeUser.java
         String input = sc.nextLine();
         return input;
+=======
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+>>>>>>> parent of 2fcb7ff (textUiTesting):src/main/java/User.java
     }
 
     private UserCommand handleCommand(String userInput) {
