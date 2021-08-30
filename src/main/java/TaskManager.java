@@ -1,18 +1,20 @@
 public class TaskManager {
-    private Task[] tasks = new Task[100];
+    public static final int MAX_TASKS = 100;
+    private Task[] tasks = new Task[MAX_TASKS];
     private int tasksCount = 0;
 
 
-    public void addTask(String taskInput){
-        Task task = new Task(taskInput);
+    public void addTask(Task task){
         tasks[tasksCount++] = task;
-        System.out.println("added: " + task.getTask());
+        System.out.println("Got it. I've added this task: ");
+        System.out.println("  " + task.getTask());
+        System.out.println("Now you have " + tasksCount + " tasks on the list.");
     }
 
-    public boolean searchTask(String taskInput){
+    public boolean searchTask(Task task){
         boolean taskFound = false;
         for(int i=0; i<tasksCount; i++){
-            if(tasks[i].getTask().equals(taskInput) && !tasks[i].isDone()){   //be aware that maybe it is added but it is done, so your can add another one
+            if(tasks[i].getTask().equals(task.getTask()) && !tasks[i].isDone()){   //be aware that maybe it is added but it is done, so your can add another one
                 taskFound = true;
             }
         }
@@ -28,19 +30,15 @@ public class TaskManager {
         }
         tasks[indexOfTask-1].markAsDone();
         System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("  [X] " + tasks[indexOfTask-1].getTask());
+        System.out.println(tasks[indexOfTask-1].getTask());
     }
 
 
     public void listTasks(){
         System.out.println("List of tasks:");
         for(int i=0; i<tasksCount; i++){
-            if(tasks[i].isDone()) {
-                System.out.println("[X] " + Integer.toString(i+1) + ": " + tasks[i].getTask());
-            }
-            else{
-                System.out.println("[ ] " + Integer.toString(i+1) + ": " + tasks[i].getTask());
-            }
+            int id = i + 1;
+            System.out.println(id + "." + tasks[i].getTask());
         }
     }
 

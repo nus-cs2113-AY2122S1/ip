@@ -1,14 +1,21 @@
 public class Task {
-    private String task;
-    private boolean isDone;
-
+    protected String task;
+    protected boolean isDone;
+    private static final String MARK_NO_CATEGORY = "[N]";
+    protected static final String MARK_AS_DONE = "[X]";
+    protected static final String MARK_AS_NOT_DONE = "[ ]";
     public Task(String task){
-        this.task = task;
+        this.task = task.split(" ", 2)[1];
         this.isDone = false;
     }
 
     public String getTask(){
-        return this.task;
+        if(isDone){
+            return MARK_NO_CATEGORY + MARK_AS_DONE + " " + task;
+        }
+        else{
+            return MARK_NO_CATEGORY + MARK_AS_NOT_DONE + " " + task;
+        }
     }
 
     public void markAsDone(){
