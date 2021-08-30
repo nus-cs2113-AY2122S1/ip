@@ -3,20 +3,22 @@ import java.util.Scanner;
 public class Duke {
 
     public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
+    public static final String GOODBYE_MESSAGE = "Bye boss! HAL will always be there to help you!\nSummon me by running this program again";
+    public static final String LOGO_HAL2113 = "  _(\\    |@@|\n"
+            + "(__/\\__ \\--/ __\n"
+            + "   \\___|----|  |   __\n"
+            + "       \\ }{ / )_ / _\\\n"
+            + "       /\\__/\\ \\__O (__\n"
+            + "      (--/\\--)    \\__/\n"
+            + "      _)(  )(_\n"
+            + "     `---''---`\n";
 
     public static void main(String[] args) {
         Program currProgram = new Program();
         String userInput;
         Scanner sc= new Scanner(System.in);
 
-        String logo = "  _(\\    |@@|\n"
-                + "(__/\\__ \\--/ __\n"
-                + "   \\___|----|  |   __\n"
-                + "       \\ }{ / )_ / _\\\n"
-                + "       /\\__/\\ \\__O (__\n"
-                + "      (--/\\--)    \\__/\n"
-                + "      _)(  )(_\n"
-                + "     `---''---`\n";
+        String logo = LOGO_HAL2113;
 
         System.out.println("\nHello! I'm HAL 2113\n" + logo);
         System.out.println(LINE_BREAK_SINGLE);
@@ -30,17 +32,15 @@ public class Duke {
         System.out.print("Enter command: ");
 
         while (!currProgram.getCanTerminateHal()) {
-
             if (sc.hasNextLine()) {
                 userInput = sc.nextLine();
                 //get rid of white space
                 userInput = userInput.trim();
                 currProgram.executeTask(userInput);
             }
-
         }
 
-        System.out.println("Bye boss! HAL will always be there to help you!\nSummon me by running this program again");
+        System.out.println(GOODBYE_MESSAGE);
         System.out.println(LINE_BREAK_SINGLE);
     }
 }

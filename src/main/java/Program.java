@@ -8,6 +8,7 @@ public class Program {
     private static int DEADLINE_INDEX = 9;
     private static int EVENT_INDEX = 5;
     private static int TODO_INDEX = 4;
+    private static int TASK_STRING_OFFSET = 3;
 
     public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
     public static final String TASK_ADDED_DONE_TEXT = "Got it! I've added this task: ";
@@ -17,7 +18,6 @@ public class Program {
             "Read properly and type it again!";
     public static final String ENTER_COMMAND_TEXT = "Enter command: ";
 
-    //public static final String TOTAL_TASKS_DESCRIBER = "You now have "
     public Program() {
         this.numItems = 0;
     }
@@ -26,6 +26,7 @@ public class Program {
         return numItems;
     }
 
+    //function to parse input text by the user and run corresponding function
     public void executeTask(String string) {
         if (Objects.equals(string, "list")) {
             listAllTasks();
@@ -40,10 +41,9 @@ public class Program {
         } else {
             addToDoTask(string);
         }
-
     }
 
-
+    //function to add a new deadline task
     public static void addDeadlineTask(String deadlineTask) {
         System.out.println(LINE_BREAK_SINGLE);
 
@@ -55,7 +55,7 @@ public class Program {
         }
 
         String description = deadlineTask.substring(DEADLINE_INDEX, deadlineTask.indexOf('/')).trim();
-        String by = deadlineTask.substring(deadlineTask.indexOf("/by") + 3).trim();
+        String by = deadlineTask.substring(deadlineTask.indexOf("/by") + TASK_STRING_OFFSET).trim();
         Deadline newDeadlineTask = new Deadline(description, by);
 
         listTasks[numItems] = newDeadlineTask;
@@ -68,6 +68,7 @@ public class Program {
         System.out.print(ENTER_COMMAND_TEXT);
     }
 
+    //function to add a new event task
     public static void addEventTask(String eventTask) {
         System.out.println(LINE_BREAK_SINGLE);
 
@@ -79,7 +80,7 @@ public class Program {
         }
 
         String description = eventTask.substring(EVENT_INDEX, eventTask.indexOf('/')).trim();
-        String at = eventTask.substring(eventTask.indexOf("/at") + 3).trim();
+        String at = eventTask.substring(eventTask.indexOf("/at") + TASK_STRING_OFFSET).trim();
         Event newEventTask = new Event(description, at);
 
         listTasks[numItems] = newEventTask;
@@ -92,6 +93,7 @@ public class Program {
         System.out.print(ENTER_COMMAND_TEXT);
     }
 
+    //function to add a new todo task
     public static void addToDoTask(String toDoTask) {
         System.out.println(LINE_BREAK_SINGLE);
         String description;
@@ -113,6 +115,7 @@ public class Program {
         System.out.print(ENTER_COMMAND_TEXT);
     }
 
+    //function to list all tasks currently saved by the user
     public static void listAllTasks() {
         System.out.println(LINE_BREAK_SINGLE);
         System.out.println("Displaying all items saved:");
@@ -126,6 +129,7 @@ public class Program {
         System.out.print(ENTER_COMMAND_TEXT);
     }
 
+    //function to mark individual tasks as done
     public void executeDoneTask(String task) {
         int taskNum = Integer.parseInt(task.substring(task.indexOf(' ') + 1));
         if (taskNum > this.getNumItems() || taskNum <= 0) {
@@ -139,8 +143,8 @@ public class Program {
         System.out.print(ENTER_COMMAND_TEXT);
     }
 
+    //function to exit program
     public void executeBye() {
-        System.out.println("bye");
         this.setCanTerminateHal(true);
     }
 
