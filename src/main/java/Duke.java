@@ -12,52 +12,59 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?\n");
 
-        String userInput = "initialize";
+        String userLineInput = "initialize";
         Task[] taskItems = new Task[100]; //create array to store text entered by user
-        int taskCount = 0; //track number of tasks
+        int taskCounter = 0; //track number of tasks
 
         Scanner in = new Scanner(System.in); //Create scanner object to take in input
 
-        while (!userInput.equals("bye")) {
-            userInput = in.nextLine(); //user input
-            String[] userWords = userInput.split(" ");
+        while (!userLineInput.equals("bye")) {
+            userLineInput = in.nextLine(); //user input
+            String[] userWords = userLineInput.split(" ");
 
             System.out.println("____________________________________________________________");
             switch (userWords[0]) {
             case "list":
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
+                for (int i = 0; i < taskCounter; i++) {
                     System.out.println((i + 1) + "." + taskItems[i].description);
                 }
                 System.out.println("____________________________________________________________");
                 continue;
 
             case "done":
-                int doneInteger = Integer.parseInt(userWords[1]);
-                System.out.println("Nice! I've marked this task as done:");
-                for (int i = 0; i < taskCount; i++) {
-                    if (i == (doneInteger - 1)) {
-                        taskItems[i].markAsDone();
-                        System.out.println(doneInteger + "." + taskItems[i].description);
-                        break;
-                    }
-                }
-
-                System.out.println("____________________________________________________________");
+                userInputIsDone(taskItems, taskCounter, userWords[1]);
                 continue;
 
             case "bye":
-                System.out.println("____________________________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
+                userInputIsBye();
                 break;
 
             default:
-                taskItems[taskCount] = new Task(userInput);
-                System.out.println("added: " + userInput);
-                taskCount++;
+                taskItems[taskCounter] = new Task(userLineInput);
+                System.out.println("added: " + userLineInput);
+                taskCounter++;
                 System.out.println("____________________________________________________________");
             }
         }
+    }
+
+    private static void userInputIsDone(Task[] taskItems, int taskCounter, String userWord) {
+        int doneInteger = Integer.parseInt(userWord);
+        System.out.println("Nice! I've marked this task as done:");
+        for (int i = 0; i < taskCounter; i++) {
+            if (i == (doneInteger - 1)) {
+                taskItems[i].markAsDone();
+                System.out.println(doneInteger + "." + taskItems[i].description);
+                break;
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void userInputIsBye() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
     }
 }
