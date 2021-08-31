@@ -12,7 +12,7 @@ public class Duke {
         } else if (task.startsWith("event")) {
             taskList[taskCount] = new Event(task.substring("event".length(), task.indexOf("/at")), task.substring(task.indexOf("/at") + "/at".length()));
         }
-        printWithLines("Got it. I've added this task: \n" + taskList[taskCount].toString() + "\nNow you have " + (taskCount + 1) + " tasks in the list");
+        printWithLines("Got it. I've added this task:\n" + taskList[taskCount].toString() + "\nNow you have " + (taskCount + 1) + " tasks in the list");
         taskCount++;
     }
 
