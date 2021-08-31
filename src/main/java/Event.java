@@ -16,6 +16,6 @@ public class Event extends Task{
 
     @Override
     public String toString(){
-        return super.toString() + String.format("(%s)",at);
+        return super.toString() + String.format("(%s)",this.getAt());
     }
 }

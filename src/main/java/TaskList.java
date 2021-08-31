@@ -1,33 +1,35 @@
 public class TaskList {
     private Task[] tasks;
-    private int taskCount;
+
+    private static final int MAX_LIST_SIZE = 100;
+    public static final int TASK_INDEX = 5;
 
     public TaskList() {
-        this.tasks = new Task[100];
-        this.taskCount = 0;
+        this.tasks = new Task[MAX_LIST_SIZE];
     }
 
     public void addTask(String request) {
         Task newTask = Request.parseTask(request);
-        this.tasks[taskCount] = newTask;
+        int taskIndex = Task.getCount() - 1;
+        this.tasks[taskIndex] = newTask;
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
-                , tasks[taskCount],taskCount + 1);
-        this.taskCount += 1;
+                ,newTask, Task.getCount());
     }
 
-    public void doneTask(String request) throws Exception {
-        int taskNumber = Integer.parseInt(request.substring(5, request.length()));
-        this.tasks[taskNumber - 1].setDone();
-        System.out.printf("Nice! I've marked this task as done:\n\t[X] %s\n", tasks[taskNumber - 1].getDescription());
+    public void doneTask(String request) {
+        int taskIndex = Request.parseTaskIndex(request);
+        this.tasks[taskIndex].setDone();
+        System.out.printf("Nice! I've marked this task as done:\n" +
+                "  %s\n", tasks[taskIndex]);
     }
 
     public void printTasks() {
-        if (taskCount == 0) {
+        if (Task.isEmpty()) {
             System.out.println("Take a chill pill! Your todo list is empty");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
+            for (int i = 0; i < Task.getCount(); i++) {
                 System.out.printf("%d. %s\n", i + 1, tasks[i]);
             }
         }

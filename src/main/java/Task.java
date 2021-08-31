@@ -13,6 +13,14 @@ public class Task {
         this.count++;
     }
 
+    public static int getCount(){
+        return count;
+    }
+
+    public static boolean isEmpty(){
+        return Task.getCount() == 0;
+    }
+
     public void setDone() {
         this.isDone = true;
     }
@@ -27,8 +35,8 @@ public class Task {
 
     @Override
     public String toString(){
-        String done = isDone? "X" : " ";
+        String done = this.status()? "X" : " ";
         String taskType = this.getClass().getName().substring(0,1).toUpperCase();
-        return String.format("[%s][%s] %s",taskType, done, description);
+        return String.format("[%s][%s] %s",taskType, done, this.getDescription());
     }
 }

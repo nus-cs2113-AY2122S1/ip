@@ -19,6 +19,10 @@ public class Request {
         return request.startsWith("deadline");
     }
 
+    public static int parseTaskIndex(String request) {
+        return Integer.parseInt(request.substring(TaskList.TASK_INDEX)) - 1;
+    }
+
     public static Task parseTask(String request) {
         int descriptionBeginIndex = request.indexOf(" ") + 1;
         int dateIndex = request.indexOf("/");
