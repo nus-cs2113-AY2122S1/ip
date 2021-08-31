@@ -89,23 +89,81 @@ public class Duke {
         String taskType = parseUserInput(userInput, 0);
 
         if (taskType.equals("deadline")) {
-            deadlineDate = userInput.substring(userInput.indexOf("/") + 1).trim();
-            taskName = userInput.substring(END_INDEX_OF_WORD_DEADLINE, userInput.indexOf("/")).trim();
-            tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
+            createNewDeadline(userInput);
         } else if (taskType.equals("event")) {
-            String eventTiming = userInput.substring(userInput.indexOf("/") + 1).trim();
-            taskName = userInput.substring(END_INDEX_OF_WORD_EVENT, userInput.indexOf("/")).trim();
-            tasks[noOfTasks] = new Event(taskName, eventTiming);
+            createNewEvent(userInput);
         } else if (taskType.equals("todo")) {
-            taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
-            tasks[noOfTasks] = new Todo(taskName);
+            createNewTodo(userInput);
         } else {
-            taskName = userInput.trim();
-            tasks[noOfTasks] = new Todo(userInput);
+            createNewTodo("todo " + userInput.trim());
+        };
+    }
+
+    private static void createNewTodo(String userInput) {
+        String taskName;
+        taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
+
+        if (taskName.isBlank()) {
+            printLine("You didn't specify a name for your todo! Let's try that again.");
+            printLine(" ");
+            printLine("Type a todo in this format:");
+            printLine("    todo Eat with Friends");
+            return;
         }
+
+        tasks[noOfTasks] = new Todo(taskName);
 
         // Increase current number of tasks by 1
         noOfTasks++;
+
+        // Then, echo the task
+        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+    }
+
+    private static void createNewEvent(String userInput) {
+        String taskName;
+        String eventTiming;
+
+        try {
+            taskName = userInput.substring(END_INDEX_OF_WORD_EVENT, userInput.indexOf("/")).trim();
+            eventTiming = userInput.substring(userInput.indexOf("/") + 1).trim();
+        } catch (Exception e) {
+            printLine("You didn't write your event properly!");
+            printLine(" ");
+            printLine("Try inserting an event in this format:");
+            printLine("    event Stay in a log cabin /Friday the 13th");
+            return;
+        }
+
+        tasks[noOfTasks] = new Event(taskName, eventTiming);
+
+        // Increase current number of tasks by 1
+        noOfTasks++;
+
+        // Then, echo the task
+        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+    }
+
+    private static void createNewDeadline(String userInput) {
+        String deadlineDate;
+        String taskName;
+
+        try {
+            deadlineDate = userInput.substring(userInput.indexOf("/") + 1).trim();
+            taskName = userInput.substring(END_INDEX_OF_WORD_DEADLINE, userInput.indexOf("/")).trim();
+        } catch (Exception e) {
+            printLine("You didn't write your deadline properly!");
+            printLine(" ");
+            printLine("Try inserting a deadline in this format:");
+            printLine("    deadline Meet with Friends /12th July");
+            return;
+        }
+
+        tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
+
+        // Increase current number of tasks by 1
+        noOfTasks++;
+
         // Then, echo the task
         printLine("I've added: " + tasks[noOfTasks - 1].printTask());
     }
