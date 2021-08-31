@@ -1,128 +1,37 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
-
-    public static void printList() {
-        Task current;
-        String line = "____________________________________________________________\n";
-        System.out.println(" Here are the tasks in your list:");
-        System.out.print(line);
-        int i = 1;
-        for (Task task : tasks) {
-            if (task == null) {
-                break;
-            }
-            System.out.println(" " + i + ". " + task.listTask());
-            i = i + 1;
-        }
-        System.out.println(line);
-    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        String greet = "____________________________________________________________\n"
-                + " Hello! I'm Duke\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________\n";
-        System.out.println(greet);
+        TaskManager t1 = new TaskManager();
+        t1.printWelcomeMessage();
         String input;
+        String[] inputWords;
         String command;
-        String description;
         Scanner in = new Scanner(System.in);
-        String addition;
-        String bye = "____________________________________________________________\n"
-                +  " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
-        String doneMessage;
-        String invalidInput = "____________________________________________________________\n"
-                +  " Oops! Looks like I can't read that yet! Please input a valid command.\n"
-                + "____________________________________________________________\n";
         do {
             input = in.nextLine();
-            String[] inputWords = input.split(" ");
+            inputWords = t1.decodeInput(input);
             command = inputWords[0];
             switch (command) {
             case "done":
-                if (inputWords.length <= 1) {
-                    System.out.println(invalidInput);
-                    break;
-                }
-                int taskIndex = Integer.parseInt(inputWords[1]) - 1;
-                if (taskIndex >= taskCount) {
-                    System.out.println(invalidInput);
-                    break;
-                }
-                tasks[taskIndex].setDone();
-                doneMessage = "____________________________________________________________\n"
-                        + " Nice! I've marked this task as done: \n"
-                        + " [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description + "\n"
-                        + "____________________________________________________________\n";
-                System.out.println(doneMessage);
+                t1.crossOff(inputWords);
                 break;
             case "todo":
-                if (inputWords.length <= 1) {
-                    System.out.println(invalidInput);
-                    break;
-                }
-                description = input.substring(5);
-                tasks[taskCount] = new ToDo(description);
-                addition = "____________________________________________________________\n"
-                    + " Gotcha! I've added this task: \n"
-                    + "   " + tasks[taskCount].listTask() + "\n"
-                    + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
-                    + "____________________________________________________________\n";
-                taskCount = taskCount + 1;
-                System.out.println(addition);
+                t1.addToDo(input, inputWords);
                 break;
             case "deadline":
-                if (!input.contains("/by") || input.endsWith("/by")) {
-                    System.out.println(invalidInput);
-                    break;
-                }
-                String endDate;
-                description = input.substring(9, input.indexOf("/by") - 1);
-                endDate = input.substring(input.indexOf("/by") + 4);
-                tasks[taskCount] = new Deadline(description, endDate);
-                addition = "____________________________________________________________\n"
-                        + " Gotcha! I've added this task: \n"
-                        + "   " + tasks[taskCount].listTask() + "\n"
-                        + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
-                taskCount = taskCount + 1;
-                System.out.println(addition);
+                t1.addDeadline(input, inputWords);
                 break;
             case "event":
-                if (!input.contains("/at") || input.endsWith("/at")) {
-                    System.out.println(invalidInput);
-                    break;
-                }
-                String startEndTime;
-                description = input.substring(6, input.indexOf("/at") - 1);
-                startEndTime = input.substring(input.indexOf("/at") + 4);
-                tasks[taskCount] = new Event(description, startEndTime);
-                addition = "____________________________________________________________\n"
-                        + " Gotcha! I've added this task: \n"
-                        + "   " + tasks[taskCount].listTask() + "\n"
-                        + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
-                taskCount = taskCount + 1;
-                System.out.println(addition);
+                t1.addEvent(input, inputWords);
                 break;
             case "list":
-                printList();
+                t1.printList();
                 break;
             default:
                 break;
             }
-
         } while (!command.equals("bye"));
-        System.out.println(bye);
+        t1.printEndMessage();
     }
 }
