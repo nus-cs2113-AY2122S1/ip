@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class Kitty {
-    public static Task[] tasks = new Task[100];
+    public static final int MAX_TASKS = 100;
+    public static Task[] tasks = new Task[MAX_TASKS];
     public static int totalTasksCount = 0;
 
     //Methods
@@ -45,14 +46,22 @@ public class Kitty {
     }
 
     private static void addTodoTask(String line) {
-        String taskName = line.substring(line.indexOf(" ") + 1);
+        String taskName = getTaskName(line);
         tasks[totalTasksCount] = new Todo(taskName);
     }
 
+    private static String getTaskName(String line) {
+        return line.substring(line.indexOf(" ") + 1);
+    }
+
     private static void addDeadlineTask(String line) {
-        String task = hasDeadline(line) ? line.substring(line.indexOf(" ") + 1, line.indexOf("/by")) : line.substring(line.indexOf(" ") + 1);
+        String task = hasDeadline(line) ? getDeadlineTaskName(line) : getTaskName(line);
         String deadline = hasDeadline(line) ? getDeadline(line) : "No Deadline!";
         tasks[totalTasksCount] = new Deadline(task, deadline);
+    }
+
+    private static String getDeadlineTaskName(String line) {
+        return line.substring(line.indexOf(" ") + 1, line.indexOf("/by"));
     }
 
     private static String getDeadline(String line) {
@@ -64,9 +73,13 @@ public class Kitty {
     }
 
     private static void addEventTask(String line) {
-        String task = hasEventDate(line) ? line.substring(line.indexOf(" ") + 1, line.indexOf("/at")) : line.substring(line.indexOf(" ") + 1);
+        String task = hasEventDate(line) ? getEventTaskName(line) : getTaskName(line);
         String EventDate = hasEventDate(line) ? getEventDate(line) : "No Event Date!";
         tasks[totalTasksCount] = new Event(task, EventDate);
+    }
+
+    private static String getEventTaskName(String line) {
+        return line.substring(line.indexOf(" ") + 1, line.indexOf("/at"));
     }
 
     private static String getEventDate(String line) {
@@ -97,9 +110,12 @@ public class Kitty {
 
     private static boolean isTaskNumValid(String line) {
         String taskNum = line.split(" ")[1];
-        if (taskNum.matches("[0-9]+")) {
+        boolean isAllNumbers = taskNum.matches("[0-9]+");
+        if (isAllNumbers) {
             int numericTaskNum = Integer.parseInt(taskNum);
-            return numericTaskNum > 0 && numericTaskNum <= totalTasksCount;
+            boolean isTaskNumPositive = numericTaskNum > 0;
+            boolean isTaskNumInRange = numericTaskNum <= totalTasksCount;
+            return isTaskNumPositive && isTaskNumInRange;
         } else {
             return false;
         }
