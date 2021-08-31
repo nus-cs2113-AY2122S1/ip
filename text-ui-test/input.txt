@@ -1,0 +1,8 @@
+list
+event an event /at 2-4 pm
+deadline CS2113T increment /by withdrawal
+todo Withdraw from University
+list
+done 2
+list
+bye
