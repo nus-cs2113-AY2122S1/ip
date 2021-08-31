@@ -20,10 +20,10 @@ public class Duke {
         String userLineInput = "";
         int numOfTasks = 0;
 
-        while(!userLineInput.equals("bye")) {
+        do {
             userLineInput = scanner.nextLine();
-            String[] splitInput = userLineInput.split(" ");
-            String userCommand = splitInput[0];
+            String[] splitInputs = userLineInput.split(" ");
+            String userCommand = splitInputs[0];
             printLineSpacer();
             if (!userCommand.equals(("bye"))) {
                 switch (userCommand) {
@@ -31,7 +31,7 @@ public class Duke {
                     printList(userLists, numOfTasks);
                     break;
                 case "done":
-                    completeTask(userLists, splitInput);
+                    completeTask(userLists, splitInputs);
                     break;
                 case "event":
                 case "deadline":
@@ -45,7 +45,7 @@ public class Duke {
                     break;
                 }
             }
-        }
+        } while(!userLineInput.equals("bye"));
 
         System.out.println(TEXT_SPACER + "Aight. See you soon mate.");
         printLineSpacer();
@@ -57,9 +57,7 @@ public class Duke {
         } else {
             System.out.println(TEXT_SPACER + "Here's your list of tasks:");
             for (int i = 0; i < numOfTasks; i++) {
-
-                System.out.println("    " + (i + 1)
-                        + "." + userLists[i].toString());
+                System.out.println("    " + (i + 1) + "." + userLists[i].toString());
             }
         }
         printLineSpacer();
@@ -77,9 +75,9 @@ public class Duke {
     private static void storeTasks(Task[] userLists, String userLineInput, int numOfTasks, String userCommand) {
         if (userCommand.equals("event")){
             storeEvent(userLists, userLineInput, numOfTasks);
-        } else if(userCommand.equals("deadline")){
+        } else if(userCommand.equals("deadline")) {
             storeDeadline(userLists, userLineInput, numOfTasks);
-        } else{
+        } else {
             storeToDo(userLists, userLineInput, numOfTasks);
         }
         System.out.println(TEXT_SPACER + "Now you have " + (numOfTasks + 1) + " tasks in your list");
