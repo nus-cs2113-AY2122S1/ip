@@ -78,7 +78,8 @@ public class Duke {
                     int indexOfDeadline = input.indexOf(DEADLINE_SEPARATOR);
                     //extract task and due date
                     String task = getTrimmedSubstring(input, indexOfTask, indexOfDeadline);
-                    String by = getTrimmedSubstring(input, indexOfDeadline + DEADLINE_SEPARATOR.length(), input.length());
+                    String by = getTrimmedSubstring(input, indexOfDeadline + DEADLINE_SEPARATOR.length(), 
+                            input.length());
                     if (task.isBlank()) {
                         printNoTaskErrorMessage();
                     } else if (by.isBlank()) {
@@ -101,7 +102,8 @@ public class Duke {
                     int indexOfEvent = input.indexOf(EVENT_SEPARATOR);
                     //extract task and event date
                     String task = getTrimmedSubstring(input, indexOfTask, indexOfEvent);
-                    String at = getTrimmedSubstring(input, indexOfEvent + EVENT_SEPARATOR.length(), input.length());
+                    String at = getTrimmedSubstring(input, indexOfEvent + EVENT_SEPARATOR.length(),
+                            input.length());
                     if (task.isBlank()) {
                         printNoEventErrorMessage();
                     } else if (at.isBlank()) {
