@@ -24,6 +24,16 @@ public class CommandWithArgument extends Command {
     }
 
     /**
+     * Returns the command syntax of the command.
+     *
+     * @return Command syntax.
+     */
+    @Override
+    public String getUsage() {
+        return String.format("%s <%s>", super.getCommand(), argumentName);
+    }
+
+    /**
      * Checks if the given input is a valid command.
      *
      * @param inputLine Raw input line to check.
@@ -35,18 +45,10 @@ public class CommandWithArgument extends Command {
         String[] tokens = commandLine.split(" ", -1);
         String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
 
-        return commandLine.startsWith(super.getCommand() + " ")
-                && argumentValue.length() > 0;
-    }
+        boolean isStartWithCommand = commandLine.startsWith(super.getCommand() + " ");
+        boolean isNonEmptyArgument = argumentValue.length() > 0;
 
-    /**
-     * Returns the command syntax of the command.
-     *
-     * @return Command syntax.
-     */
-    @Override
-    public String getUsage() {
-        return String.format("%s <%s>", super.getCommand(), argumentName);
+        return isStartWithCommand && isNonEmptyArgument;
     }
 
     /**

@@ -32,18 +32,18 @@ public class Task {
     }
 
     /**
-     * Set the task to the completed state.
-     */
-    public void markAsDone() {
-        isCompleted = true;
-    }
-
-    /**
      * Return the icon representing the type of the task.
      *
      * @return Task icon.
      */
     public String getTaskIcon() {
         return "?";
+    }
+
+    /**
+     * Set the task to the completed state.
+     */
+    public void markAsDone() {
+        isCompleted = true;
     }
 }

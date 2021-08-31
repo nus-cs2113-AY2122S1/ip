@@ -26,12 +26,8 @@ public class TaskManager {
             output = "";
             for (int i = 0; i < taskList.size(); i++) {
                 task = taskList.get(i);
-                output += String.format("   %d.[%s][%s] %s\n",
-                        i + 1,
-                        task.getTaskIcon(),
-                        task.getStatusIcon(),
-                        task.getDescription()
-                );
+                output += String.format("   %d.[%s][%s] %s\n", i + 1, task.getTaskIcon(), task.getStatusIcon(),
+                        task.getDescription());
             }
         }
         System.out.print(output);
@@ -48,8 +44,7 @@ public class TaskManager {
         System.out.printf("   [%s][%s] %s\n",
                 task.getTaskIcon(),
                 task.getStatusIcon(),
-                task.getDescription()
-        );
+                task.getDescription());
         System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
     }
 
@@ -67,10 +62,7 @@ public class TaskManager {
         Task taskSelected = taskList.get(taskIndex - 1);
         taskSelected.markAsDone();
         System.out.println("[+] Task marked as done:");
-        System.out.printf("   [%s][%s] %s\n",
-                taskSelected.getTaskIcon(),
-                taskSelected.getStatusIcon(),
-                taskSelected.getDescription()
-        );
+        System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
+                taskSelected.getDescription());
     }
 }

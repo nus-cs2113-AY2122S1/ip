@@ -33,14 +33,17 @@ public class CommandExecutor {
      * Instantiates a new handler for command executions.
      */
     public CommandExecutor() {
+        isExit = false;
         taskManager = new TaskManager();
         commandList = new Command[]{
                 new Command(END_COMMAND),
                 new Command(LIST_COMMAND),
                 new CommandWithArgument(DONE_COMMAND, ARGUMENT_TASK_INDEX),
                 new CommandWithArgument(ADD_TODO_COMMAND, ARGUMENT_TASK_DESCRIPTION),
-                new CommandWithFlag(ADD_DEADLINE_COMMAND, ARGUMENT_TASK_DESCRIPTION, FLAG_DEADLINE_OPTION, FLAG_TASK_TIMESTAMP),
-                new CommandWithFlag(ADD_EVENT_COMMAND, ARGUMENT_TASK_DESCRIPTION, FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
+                new CommandWithFlag(ADD_DEADLINE_COMMAND, ARGUMENT_TASK_DESCRIPTION,
+                        FLAG_DEADLINE_OPTION, FLAG_TASK_TIMESTAMP),
+                new CommandWithFlag(ADD_EVENT_COMMAND, ARGUMENT_TASK_DESCRIPTION,
+                        FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
         };
     }
 
@@ -55,6 +58,7 @@ public class CommandExecutor {
      */
     public void execute(String inputLine) {
         Command command = findCommand(inputLine);
+
         if (command == null) {
             System.out.println("[X] Unable to find command.");
             return;
@@ -63,8 +67,9 @@ public class CommandExecutor {
             System.out.printf("[!] Usage: %s\n", command.getUsage());
             return;
         }
+
         try {
-            runCommand(command, inputLine);
+            runCommandUsingInput(command, inputLine);
         } catch (NumberFormatException err) {
             System.out.println("[X] Error parsing argument!");
         }
@@ -91,7 +96,7 @@ public class CommandExecutor {
      * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
      */
-    private void runCommand(Command command, String inputLine) {
+    private void runCommandUsingInput(Command command, String inputLine) {
         String[] commandResults = command.parseCommand(inputLine);
         Task task;
 

@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 /**
  * The CommandWithFlag class extends the CommandWithArgument class by allowing the supported command to have an
- * additional flag along with an argument.
+ * additional flag.
  */
 public class CommandWithFlag extends CommandWithArgument {
 
@@ -11,7 +11,7 @@ public class CommandWithFlag extends CommandWithArgument {
     /* Default index if element cannot be found */
     private final static int NOT_FOUND = -1;
 
-    /* Option to indicate the flag on the command line. */
+    /* Option to indicate the flag on the command line */
     private String flagOption;
 
     /* Name of the flag */
@@ -23,12 +23,23 @@ public class CommandWithFlag extends CommandWithArgument {
      * @param command      Command to support.
      * @param argumentName Name of the argument.
      * @param flagOption   Option to indicate the flag on the command line.
-     * @param flagName     Name of the flag
+     * @param flagName     Name of the flag.
      */
     public CommandWithFlag(String command, String argumentName, String flagOption, String flagName) {
         super(command, argumentName);
         this.flagOption = flagOption;
         this.flagName = flagName;
+    }
+
+    /**
+     * Returns the command syntax of the command.
+     *
+     * @return Command syntax.
+     */
+    @Override
+    public String getUsage() {
+        return String.format("%s <%s> %s%s <%s>", super.getCommand(), super.getArgumentName(), FLAG_PREFIX, flagOption,
+                flagName);
     }
 
     /**
@@ -50,25 +61,11 @@ public class CommandWithFlag extends CommandWithArgument {
         String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, flagIndex));
         String flagValue = String.join(" ", Arrays.copyOfRange(tokens, flagIndex + 1, tokens.length));
 
-        return commandLine.startsWith(super.getCommand() + " ")
-                && argumentValue.length() > 0
-                && flagValue.length() > 0;
-    }
+        boolean isStartWithCommand = commandLine.startsWith(super.getCommand() + " ");
+        boolean isNonEmptyArgument = argumentValue.length() > 0;
+        boolean isNonEmptyFlag = flagValue.length() > 0;
 
-    /**
-     * Returns the command syntax of the command.
-     *
-     * @return Command syntax.
-     */
-    @Override
-    public String getUsage() {
-        return String.format("%s <%s> %s%s <%s>",
-                super.getCommand(),
-                super.getArgumentName(),
-                FLAG_PREFIX,
-                flagOption,
-                flagName
-        );
+        return isStartWithCommand && isNonEmptyArgument && isNonEmptyFlag;
     }
 
     /**
