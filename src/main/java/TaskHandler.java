@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class TaskHandler {
     protected static final int MAX_TASK_COUNT = 100;
     protected static int taskCount = 0;
@@ -45,8 +43,5 @@ public class TaskHandler {
         printAddedTask();
         taskCount++;
     }
-
-
-
 
 }
