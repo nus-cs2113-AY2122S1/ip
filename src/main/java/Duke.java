@@ -5,16 +5,15 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         greet();
-        //echo();
         Scanner in = new Scanner(System.in);
         Task[] list = new Task[100];
         while (true) {
             String userInput = in.nextLine();
-            processuserInput(list, userInput);
+            processUserInput(list, userInput);
         }
     }
 
-    public static void processuserInput(Task[] list, String userInput) {
+    public static void processUserInput(Task[] list, String userInput) {
         Scanner in = new Scanner(System.in);
         userInput = userInput.trim();
         String[] userInputWords = userInput.split(" ");
@@ -106,14 +105,11 @@ public class Duke {
                     int index = Integer.parseInt(taskContentWords[0]);
                     list[index - 1].markAsDone();
                     break;
-                } catch (NumberFormatException ex) {
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
                     printDoneFormatErrorMessage();
                     break;
                 } catch (NullPointerException ex) {
                     printOutOfBoundErrorMessage();
-                    break;
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    printDoneFormatErrorMessage();
                     break;
                 }
             case "bye":
@@ -140,7 +136,6 @@ public class Duke {
         System.out.println("Karlett was expecting an index after \"done\" meow(๑•́ᆽ•̀๑✿)");
         Task.drawDivider();
     }
-
 
     private static void printOutOfBoundErrorMessage() {
         Task.drawDivider();
