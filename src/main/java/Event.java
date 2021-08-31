@@ -19,6 +19,7 @@ public class Event extends Task{
         return "[E]";
     }
 
+    @Override
     public String toString() {
         return (getTaskSymbol() + getStatusSymbol() + " " + name + " (at: " + at + ")");
     }

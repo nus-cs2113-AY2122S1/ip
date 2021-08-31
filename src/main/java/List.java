@@ -1,9 +1,11 @@
 public class List {
-    private int numberOfEntries = 0;
-    private Task[] taskList;
     private static final int TODO_NAME_START_INDEX = 5;
+    private static final int DONE_NUMBER_INDEX = 5;
     private static final int DEADLINE_NAME_START_INDEX = 9;
     private static final int EVENT_NAME_START_INDEX = 6;
+    private static final int LIST_MAX_ENTRIES = 100;
+    private int numberOfEntries = 0;
+    private Task[] taskList;
 
     enum TaskType {
         TODO,
@@ -13,7 +15,7 @@ public class List {
     }
 
     public List() {
-        taskList = new Task[100];
+        taskList = new Task[LIST_MAX_ENTRIES];
     }
 
     public void printEntry(Task entry, int entryIndex) {
@@ -45,10 +47,10 @@ public class List {
                 taskList[numberOfEntries] = new ToDo(description);
                 break;
             case DEADLINE:
-                taskList[numberOfEntries] = new Deadline(description, parseInputForDate(input));
+                taskList[numberOfEntries] = new Deadline(description, parseInputForDateTime(input));
                 break;
             case EVENT:
-                taskList[numberOfEntries] = new Event(description, parseInputForDate(input));
+                taskList[numberOfEntries] = new Event(description, parseInputForDateTime(input));
                 break;
             }
             printAddEntryMessage(taskList[numberOfEntries]);
@@ -57,17 +59,19 @@ public class List {
     }
 
     public int parseInputForEntryNumber(String input) {
-        int entryNumber = Integer.parseInt(input.substring(5));
+        int entryNumber = Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
         return entryNumber;
     }
 
-    public String parseInputForDate(String input) {
+    public String parseInputForDateTime(String input) {
         int markerIndex = input.indexOf('/');
-        return (input.substring(markerIndex + 3).trim());
+        //To account for the "by" or "at" proceeding the "/"
+        int dateTimeStartIndex = markerIndex + 3;
+        return (input.substring(dateTimeStartIndex).trim());
     }
 
     public TaskType parseTaskType(String input) {
-        if (input.contains("deadline") && input.contains("/by")) {
+        if (input.contains("deadline") && input.contains(" /by")) {
             return TaskType.DEADLINE;
         }
         if (input.contains("event") && input.contains(" /at")) {

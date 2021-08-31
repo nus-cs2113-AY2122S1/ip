@@ -19,6 +19,7 @@ public class Deadline extends Task {
         return "[D]";
     }
 
+    @Override
     public String toString() {
         return (getTaskSymbol() + getStatusSymbol() + " " + name + " (by: " + by + ")");
     }
