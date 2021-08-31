@@ -7,7 +7,7 @@ public class Duke {
         System.out.println(horizontal_line + "\n");
     }
 
-    public static void openingWelcome() {
+    public static void welcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -64,14 +64,14 @@ public class Duke {
         return currCount;
     }
 
-    public static void closingGoodbye() {
+    public static void goodbye() {
         printHorizontalLine();
         System.out.println(" Bye. Hope to see you again soon!\n");
         printHorizontalLine();
     }
 
     public static void main(String[] args) {
-        openingWelcome();
+        welcome();
         Task[] tasks = new Task[100]; // fixed size array for now, each contains a Task element
         int currCount = 0;
         Scanner in = new Scanner(System.in);
@@ -86,7 +86,6 @@ public class Duke {
             }
             line = in.nextLine();
         }
-        closingGoodbye();
+        goodbye();
     }
-
 }
