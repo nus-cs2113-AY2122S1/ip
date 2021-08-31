@@ -7,16 +7,22 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatus(){
-        return (isDone ? "X" : " ");
+    public String getStatus() {
+        if(isDone) {
+            return "X";
+        } else {
+            return " ";
+        }
+    }
+    public void printList(Task theTask, int index) {
+        System.out.println(index + ".[" + (theTask.getStatus()) + "] "+ theTask.getDescription());
     }
 
     public String getDescription() {
         return description;
     }
 
-
-    public void markDone(){
+    public void markDone() {
         this.isDone = true;
     }
 }
