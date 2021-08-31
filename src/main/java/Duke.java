@@ -20,14 +20,13 @@ public class Duke {
                     System.out.println((i+1) + ". " + "[" + entry.getStatusIcon() + "] " + entry.description);
                     i++;
                 }
-            }
-            else if (userMessage.startsWith("done")){
+            } else if (userMessage.startsWith("done")){
                 String stringTaskIndex = userMessage.substring(userMessage.indexOf(" ") + 1);
                 int intTaskIndex = Integer.parseInt(stringTaskIndex) - 1;
                 entries[intTaskIndex].isDone = true;
-                System.out.println("Nice! I've marked this task as done:\n" + "   [" + entries[intTaskIndex].getStatusIcon() + "] " + entries[intTaskIndex].description);
-            }
-            else {
+                System.out.println("Nice! I've marked this task as done:\n" + "   ["
+                        + entries[intTaskIndex].getStatusIcon() + "] " + entries[intTaskIndex].description);
+            } else {
                 System.out.println("Added " + userMessage);
                 //Task t = new Task(userMessage);
                 entries[entriesCount] = new Task(userMessage);
