@@ -1,0 +1,13 @@
+todo sleep
+list
+deadline go to bed /by 10pm
+list
+done 1
+event power nap /at 5:15-5:30pm
+list
+done 2
+done 4
+done 3
+gibberish
+list
+bye
