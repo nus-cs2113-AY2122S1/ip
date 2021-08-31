@@ -22,7 +22,12 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         while (true) {
-            if (command.startsWith("echo ")){
+            if (command.equals("bye")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("____________________________________________________________");
+                break;
+            } else if (command.startsWith("echo ")){
                 System.out.println("____________________________________________________________");
                 System.out.println(command.substring(5));
                 System.out.println("____________________________________________________________");
