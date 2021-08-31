@@ -1,0 +1,6 @@
+todo read
+deadline complete project /by 7pm
+event attend meeting /at 6-7pm
+done 2
+list
+bye

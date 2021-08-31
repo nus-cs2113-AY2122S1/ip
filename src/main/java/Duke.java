@@ -1,16 +1,25 @@
 import java.util.Scanner;
 
 public class Duke {
-    
+
     public static int taskCounter = 0;
     public static Task[] scheduledTasks = new Task[100];
 
     public static void main(String[] args) {
         greet();
-
         runDuke();
-
         greetBye();
+    }
+
+    private static void greet() {
+        printLine();
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+        printLine();
+    }
+
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
     }
 
     private static void runDuke() {
@@ -18,7 +27,6 @@ public class Duke {
         String userInput;
         String taskCompletionStatus = "";
         Scanner in = new Scanner(System.in);
-
         userInput = in.nextLine();
 
         while (!(userInput.equals("bye"))) {
@@ -32,17 +40,6 @@ public class Duke {
             printLine();
             userInput = in.nextLine();
         }
-    }
-
-    private static void greet() {
-        printLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        printLine();
-    }
-
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
     }
 
     private static void greetBye() {
@@ -76,7 +73,7 @@ public class Duke {
             taskCounter++;
             printLine();
             System.out.println("Got it. I've added this task:");
-            System.out.println(scheduledTasks[taskCounter - 1]);
+            System.out.println(" " + scheduledTasks[taskCounter - 1]);
             System.out.println("Now you have " + taskCounter + " tasks in the list.");
         }
     }
@@ -99,7 +96,7 @@ public class Duke {
         String taskCompletionStatus;
         printLine();
         if (taskCounter == 0) {
-            System.out.println("Sorry, no tasks have been added to the list as yet! \n" +
+            System.out.println("Sorry, no tasks have been added to the list as yet!\n" +
                     "You can add tasks to this list simply by typing and pressing \"Enter\"!!");
         } else {
             System.out.println("Here are the tasks in your list:");
