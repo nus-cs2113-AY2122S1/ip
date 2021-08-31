@@ -2,36 +2,39 @@ import java.util.*;
 
 public class Duke {
     private static Task[] taskList;
-    private static int taskNumber;
+    private static int taskCount;
 
     public static void addTask(String task) {
-        taskList[taskNumber] = new Task(task);
-        taskNumber += 1;
-        printWithLines("added: " + task);
+        if (task.startsWith("todo")) {
+            taskList[taskCount] = new Todo(task.substring("task".length()));
+        } else if (task.startsWith("deadline")) {
+            taskList[taskCount] = new Deadline(task.substring("deadline".length(), task.indexOf("/by")), task.substring(task.indexOf("/by") + "/by".length()));
+        } else if (task.startsWith("event")) {
+            taskList[taskCount] = new Event(task.substring("event".length(), task.indexOf("/at")), task.substring(task.indexOf("/at") + "/at".length()));
+        }
+        printWithLines("Got it. I've added this task: \n" + taskList[taskCount].toString() + "\nNow you have " + (taskCount + 1) + " tasks in the list");
+        taskCount++;
     }
 
     public static void listTask() {
         String tasksAsList = "";
-        for(int i = 0; i < taskNumber; i++) {
-            tasksAsList = tasksAsList.concat((i + 1) + ". [" +
-                    taskList[i].getStatusIcon() + "] " +
-                    taskList[i].description + "\n");
+        for (int i = 0; i < taskCount; i++) {
+            tasksAsList = tasksAsList.concat((i + 1) + "." +
+                    taskList[i].toString() + "\n");
         }
         tasksAsList = tasksAsList.substring(0, tasksAsList.length() - 1);
-        printWithLines(tasksAsList);
+        printWithLines("Here are the tasks in your list:\n" + tasksAsList);
     }
 
     public static void markTaskDone(String task) {
         int taskIndex = Integer.parseInt(task.replace("done ", "")) -  1;
-        if (taskIndex > taskNumber - 1) {
+        if (taskIndex > taskCount - 1) {
             printWithLines(" The task " + (taskIndex + 1) + " doesn't exist.\nMake sure a valid task number is entered.");
             return;
         }
         Task current = taskList[taskIndex];
         current.markAsDone();
-        printWithLines("Nice! I've marked this task as done:\n [" +
-                current.getStatusIcon() + "] " + current.description
-        );
+        printWithLines("Nice! I've marked this task as done:\n" + current.toString());
     }
 
     public static void printWithLines(String output) {
@@ -43,7 +46,7 @@ public class Duke {
 
     public static void main(String[] args) {
         taskList = new Task[100];
-        taskNumber= 0;
+        taskCount = 0;
         String userInput;
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -54,15 +57,13 @@ public class Duke {
         printWithLines("Hello! I'm Duke\n" + "What can I do for you?");
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
-        while(!userInput.equals("bye"))
+        while (!userInput.equals("bye"))
         {
-            if(userInput.equals("list")) {
+            if (userInput.equals("list")) {
                 listTask();
-            }
-            else if(userInput.startsWith("done")) {
+            } else if (userInput.startsWith("done")) {
                 markTaskDone(userInput);
-            }
-            else {
+            } else {
                 addTask(userInput);
             }
             userInput = in.nextLine();
