@@ -38,23 +38,18 @@ public class TaskManager {
         case "list":
             listTasks();
             break;
-
         case "done":
             completeTask(userInput);
             break;
-
         case "todo":
             addTodo(userInput);
             break;
-
         case "event":
-            // addEvent(userInput);
+            addEvent(userInput);
             break;
-
         case "deadline":
-            // addDeadline(userInput);
+            addDeadline(userInput);
             break;
-
         default:
             invalidCommandMessage();
         }
@@ -71,7 +66,7 @@ public class TaskManager {
         } else {
             System.out.println(" Your tasks, sir:");
             for (int i = 0; i < listIndex; i++) {
-                System.out.println(" " + (i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+                System.out.println(" " + (i + 1) + "." + taskList[i].toString());
             }
         }
         System.out.println(line);
@@ -83,19 +78,41 @@ public class TaskManager {
         taskList[index].setTaskDone();
         System.out.print(line);
         System.out.println(" Duly noted on completion of task, sir.");
-        System.out.println("   [X] " + taskList[index].getDescription());
+        System.out.println("\t" + destructuredInput[1] + "." + taskList[index].toString());
         System.out.println(line);
     }
 
-    // Change to type Todo later on
+    private void addTaskMessage(Task t) {
+        System.out.print(line);
+        System.out.println(" I shall put this in your schedule, Master Wayne: \n\t" + t.toString());
+        System.out.println(" Sir, the number of Tasks you have scheduled currently amounts to " + listIndex + ".");
+        System.out.println(line);
+    }
+
     private void addTodo(String userInput) {
         String[] destructuredInput = userInput.split(" ", 2);
         String todoName = destructuredInput[1];
-        Task t = new Task(todoName);
+        Todo t = new Todo(todoName);
         taskList[listIndex] = t;
         listIndex++;
-        System.out.print(line);
-        System.out.println(" I shall put this in your schedule, Master Wayne: \"" + todoName + "\".\n" );
-        System.out.println(line);
+        addTaskMessage(t);
+    }
+
+    private void addEvent(String userInput) {
+        String[] arguments = userInput.split(" ", 2);
+        String[] destructuredArguments = arguments[1].split(" /at ", 2);
+        Event e = new Event(destructuredArguments[0], destructuredArguments[1]);
+        taskList[listIndex] = e;
+        listIndex++;
+        addTaskMessage(e);
+    }
+
+    private void addDeadline(String userInput) {
+        String[] arguments = userInput.split(" ", 2);
+        String[] destructuredArguments = arguments[1].split(" /by ", 2);
+        Deadline d = new Deadline(destructuredArguments[0], destructuredArguments[1]);
+        taskList[listIndex] = d;
+        listIndex++;
+        addTaskMessage(d);
     }
 }
