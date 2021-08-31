@@ -96,10 +96,10 @@ public class Duke {
     }
 
     /**
-     * Adds a task into the list.
-     * This method is called once the command is called.
+     * Adds a todo task into the list.
+     * This method is called once the "todo" command is called.
      *
-     * @param task User's command to aad the task
+     * @param task User's command to add the todo task
      */
     public static void addTodoTask(String task) {
         Todo newTodo = new Todo(task);
