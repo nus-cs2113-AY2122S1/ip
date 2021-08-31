@@ -64,17 +64,17 @@ Here are the tasks in your list:
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[D][X] go to bed 
+[D][X] go to bed (by: 10pm)
 ________________________________________
 ________________________________________
 Sorry bud, you can't check off what is not yet there :/
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[E][X] power nap 
+[E][X] power nap (at: 5:15-5:30pm)
 ________________________________________
 ________________________________________
-Error! Something is up with your inputs!
+Oops! Something went wrong :(
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
