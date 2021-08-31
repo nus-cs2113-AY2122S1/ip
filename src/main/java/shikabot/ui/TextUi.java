@@ -109,4 +109,14 @@ public class TextUi {
         }
         printTaskCount(taskList.size());
     }
+
+    public void printMatchingTasks(TaskList taskList, String searchterm) {
+        System.out.println(line + "> Here are the matching tasks I've found: ");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).isMatchingTask(searchterm)) {
+                System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
+            }
+        }
+        System.out.println(line);
+    }
 }
