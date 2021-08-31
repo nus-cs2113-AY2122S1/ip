@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     //Application Logo
-    public static final String LOGO = " ____        _        \n"
+    private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
@@ -10,21 +10,24 @@ public class Duke {
 
     //Strings to define command type
     private static final String COMMAND_EXIT = "bye";
-    public static final String COMMAND_LIST_TASKS = "list";
-    public static final String COMMAND_MARK_TASK_AS_DONE = "done";
-    public static final String COMMAND_ADD_TODO_TASK = "todo";
-    public static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
-    public static final String COMMAND_ADD_EVENT_TASK = "event";
+    private static final String COMMAND_LIST_TASKS = "list";
+    private static final String COMMAND_MARK_TASK_AS_DONE = "done";
+    private static final String COMMAND_ADD_TODO_TASK = "todo";
+    private static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
+    private static final String COMMAND_ADD_EVENT_TASK = "event";
+
+    //Output Messages
+    private static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() + "What can I do for you?";
+    private static final String MESSAGE_EXIT_APPLICATION = "Thank you for using our application. We hope to see you again soon";
+    private static final String MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR = "Please provide a task number";
+
+    //Default values for tasks
+    private static final String DEFAULT_DEADLINE_TIME_CONTENT = "No deadline provided";
+    private static final String DEFAULT_EVENT_TIME_CONTENT = "No date provided";
 
     private static TaskList task = new TaskList();
 
-    public static void echoInput(String input) {
-        PrintUtils.printHorizontalLine(100);
-        System.out.println(input);
-        PrintUtils.printHorizontalLine(100);
-    }
-
-    public static void readInput(String input) {
+    private static void readInput(String input) {
         final String[] commandTypeAndParams = splitCommandWordAndArgs(input);
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
@@ -59,19 +62,19 @@ public class Duke {
 
     private static void exitProgram() {
         PrintUtils.printHorizontalLine(100);
-        System.out.println("Thank you for using our application. We hope to see you again soon");
+        System.out.println(MESSAGE_EXIT_APPLICATION);
         PrintUtils.printHorizontalLine(100);
         System.exit(0);
     }
 
     private static void listAllTasks() {
-        task.printTasks();
+        task.printAllTasks();
     }
 
     private static void markTaskAsDone(String taskNumber) {
         if (taskNumber.equals("")) {
             PrintUtils.printHorizontalLine(100);
-            System.out.println("Please provide a task number"); //TODO: Change to constant
+            System.out.println(MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR);
             PrintUtils.printHorizontalLine(100);
             return;
         }
@@ -94,7 +97,7 @@ public class Duke {
         for (int i = 0; i < split.length; i++) {
             split[i] = split[i].trim();
         }
-        return split.length == 2 ? split : new String[]{split[0], "No deadline provided"};
+        return split.length == 2 ? split : new String[]{split[0], DEFAULT_DEADLINE_TIME_CONTENT};
     }
 
     private static void addEventTaskToList(String input) {
@@ -109,7 +112,7 @@ public class Duke {
         for (int i = 0; i < split.length; i++) {
             split[i] = split[i].trim();
         }
-        return split.length == 2 ? split : new String[]{split[0], "No date provided"};
+        return split.length == 2 ? split : new String[]{split[0], DEFAULT_EVENT_TIME_CONTENT};
     }
 
     private static void addTaskToList(String input) {
@@ -117,14 +120,10 @@ public class Duke {
     }
 
 
-
-
-
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello from\n" + LOGO);
-        System.out.println("What can I do for you?");
+        System.out.println(MESSAGE_START_APPLICATION);
         PrintUtils.printHorizontalLine(100);
         while (true) {
             line = in.nextLine();
