@@ -4,12 +4,6 @@ import java.util.Scanner;
 public class Duke {
 
     public static final String HORIZONTAL_LINE = "------------------------------------------------------";
-    public static final String STRING_TO_DO = "to do";
-    public static final String STRING_DEADLINE = "deadline";
-    public static final String STRING_EVENT = "event";
-    public static final String STRING_LIST = "list";
-    public static final String STRING_DONE = "done";
-    public static final String STRING_BYE = "bye";
     public static final String STRING_LOGO =
             " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -26,22 +20,21 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Duke!\n" + "So far, I can create a simple task list for you.\n" + "What can I do for you?\n");
 
-        while (!userInput.equalsIgnoreCase(STRING_BYE)) {
+        while (!userInput.startsWith("bye")) {
             userInput = in.nextLine().toLowerCase();
-
             if (userInput.contains("help")) {
                 printHelpList();
-            } else if (userInput.contains(STRING_TO_DO)) {
+            } else if (userInput.startsWith("to do")) {
                 addTaskAsToDo(taskList, userInput);
-            } else if (userInput.contains(STRING_DEADLINE)) {
+            } else if (userInput.startsWith("deadline")) {
                 addTaskAsDeadline(taskList, userInput);
-            } else if (userInput.contains(STRING_EVENT)) {
+            } else if (userInput.startsWith("event")) {
                 addTaskAsEvent(taskList, userInput);
-            } else if (userInput.contains(STRING_LIST)) {
+            } else if (userInput.startsWith("list")) {
                 printTaskList(taskList);
-            } else if (userInput.contains(STRING_DONE)) {
+            } else if (userInput.startsWith("done")) {
                 markTaskAsDone(taskList, userInput);
-            } else if (!userInput.contains(STRING_BYE)) {
+            } else if (!userInput.startsWith("bye")) {
                 System.out.println("Aw man! I am unable to " + userInput + " yet! Please specify a different function! :D");
             }
         }
@@ -50,9 +43,8 @@ public class Duke {
     }
 
     private static void addTaskAsEvent(ArrayList<Task> taskList, String userInput) {
-        Task taskAdded;
         if (userInput.contains("/at")) {
-            taskAdded = new Event(userInput);
+            Task taskAdded = new Event(userInput);
             taskList.add(taskAdded);
             printTaskAddedConfirmation(taskAdded);
         } else {
@@ -61,9 +53,8 @@ public class Duke {
     }
 
     private static void addTaskAsDeadline(ArrayList<Task> taskList, String userInput) {
-        Task taskAdded;
         if (userInput.contains("/by")) {
-            taskAdded = new Deadline(userInput);
+            Task taskAdded = new Deadline(userInput);
             taskList.add(taskAdded);
             printTaskAddedConfirmation(taskAdded);
         } else {
@@ -72,9 +63,8 @@ public class Duke {
     }
 
     private static void addTaskAsToDo(ArrayList<Task> taskList, String userInput) {
-        Task taskAdded;
-        String task = userInput.replace(STRING_TO_DO, "").trim();
-        taskAdded = new Todo(task);
+        String task = userInput.replace("to do", "").trim();
+        Task taskAdded = new Todo(task);
         taskList.add(taskAdded);
         printTaskAddedConfirmation(taskAdded);
     }
