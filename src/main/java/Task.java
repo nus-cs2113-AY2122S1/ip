@@ -55,6 +55,10 @@ public class Task {
         isDone = done;
     }
 
+    /**
+     * Prints task in a human-readable format.
+     * @return [Type of Task][Completion Status] [Name of Task]
+     */
     public String printTask() {
         return this.getTypeOfTask() + this.getDoneStatusAsSymbol() + " " + this.getName();
     }
