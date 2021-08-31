@@ -1,43 +1,41 @@
 public class Task {
-    private String description; // description of the task
-    private boolean isDone; // indicates whether the task is completed
+    /** Description of the task */
+    protected String description;
+
+    /** Indicates whether the task is done */
+    protected boolean isDone;
 
     public Task(String description) {
-        // constructor for Task class
         setDescription(description);
         setDone(false);
     }
 
     public String getDescription() {
-        // returns the task description
         return description;
     }
 
     public void setDescription(String description) {
-        // setter for the task description
         this.description = description;
     }
 
-    public boolean isDone() {
-        // getter for isDone attribute
-        return isDone;
-    }
-
     public void setDone(boolean done) {
-        // setter for isDone attribute
         isDone = done;
     }
 
+    /**
+     * Checks whether the task is marked and returns an icon if it is marked.
+     * @return Status icon.
+     */
     public String getStatus() {
         //returns the icon to indicate whether the task is completed
-        if (isDone()) {
+        if (isDone) {
             return "X";
         }
         return " ";
     }
 
-    public void printTask() {
-        //prints a specific task in a format along with the status
-        System.out.println("[" + getStatus() + "] " + getDescription());
+    @Override
+    public String toString() {
+        return "[" + getStatus() + "] " + getDescription();
     }
 }
