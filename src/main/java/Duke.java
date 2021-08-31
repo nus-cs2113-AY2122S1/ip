@@ -10,13 +10,22 @@ public class Duke {
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
 
+    //Other constants
+    public static final int NUM_OF_TASKS = 100;
+    public static final String LINE = "____________________________________________________________";
+    public static final String EVENT_KEYWORD = " /at";
+    public static final String DEADLINE_KEYWORD = " /by";
+    public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
+    public static final String EXCEPTION = " Sorry, your input is invalid! Please enter a valid input :)";
+
     public static void printList(Task[] taskList) {
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < taskList.length; i++) {
             System.out.println(" " + (i + 1) + ". " + taskList[i].toString());
         }
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+        System.out.println();
     }
 
     public static void printDukeGreet() {
@@ -28,10 +37,10 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         //Greeting the User
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
         System.out.println(" Hello! I'm Duke");
         System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
     }
 
     public static boolean isNumeric(String strNum) {
@@ -47,74 +56,72 @@ public class Duke {
     }
 
     public static void returnException() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Sorry, your input is invalid! Please enter a valid input :)");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+        System.out.println(EXCEPTION);
+        System.out.println(LINE);
+        System.out.println();
     }
 
     public static boolean checkValidDoneInstruction(String inWord) {
         String[] commands = inWord.split(" ");
-        if (commands.length != 2 || !isNumeric(commands[1])) {
-            return false;
-        }
-        return true;
+        boolean isNumericDigit = isNumeric(commands[1]);
+        return commands.length == 2 && isNumericDigit;
     }
 
     public static void printTaskDone(String inWord, int index, Task[] taskList) {
         String[] commands = inWord.split(" ");
         int taskDoneIndex = Integer.parseInt(commands[1]);
         if (taskDoneIndex <= 0 || taskDoneIndex > index) {
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
             System.out.println("Item out of Index! Please input a valid task number :)");
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
+            System.out.println();
         } else {
             taskList[taskDoneIndex - 1].markAsDone();
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + taskList[taskDoneIndex - 1].toString());
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
+            System.out.println();
         }
     }
 
     public static boolean checkValidEvent(String inWord) {
         String[] commands = inWord.split("\\s+", 2);
-        if (commands.length != 2 || !inWord.contains(" /at")) {
+        if (commands.length != 2 || !inWord.contains(EVENT_KEYWORD)) {
             return false;
         }
 
-        String[] details = commands[1].split("/at", 2);
+        String[] details = commands[1].split(EVENT_KEYWORD, 2);
         String descriptionDetails = details[0].trim();
         String descriptionAt = details[1].trim();
+        boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionAt.isEmpty());
 
-        if (details.length != 2 || descriptionDetails.isEmpty() || descriptionAt.isEmpty()) {
-            return false;
-        }
-        return true;
+        return details.length == 2 && isNonEmptyDescription;
     }
 
     public static void printEvent(String inWord, int index, Task[] taskList) {
         String[] commands = inWord.split("\\s+", 2);
-        String[] details = commands[1].split("/at", 2);
+        String[] details = commands[1].split(EVENT_KEYWORD, 2);
 
         String description = details[0].trim();
         String at = details[1].trim();
 
         Event newItem = new Event(description, at);
         taskList[index] = newItem;
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+        System.out.println();
     }
 
     public static boolean checkValidTodo(String inWord) {
         String[] commands = inWord.split("\\s+", 2);
         String details = commands[1];
-        if (commands.length != 2 || details.isEmpty()) {
-            return false;
-        }
-        return true;
+        boolean isNonEmptyDetails = !details.isEmpty();
+        return commands.length == 2 && isNonEmptyDetails;
     }
 
     public static void printTodo(String inWord, int index, Task[] taskList) {
@@ -123,65 +130,58 @@ public class Duke {
 
         Todo newItem = new Todo(description);
         taskList[index] = newItem;
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+        System.out.println();
     }
 
     public static boolean checkValidDeadline(String inWord) {
         String[] commands = inWord.split("\\s+", 2);
-        if (commands.length != 2 || !inWord.contains(" /by")) {
+        if (commands.length != 2 || !inWord.contains(DEADLINE_KEYWORD)) {
             return false;
         }
 
-        String[] details = commands[1].split("/by", 2);
+        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
         String descriptionDetails = details[0].trim();
-        String descriptionDeadline = details[1].trim();
+        String descriptionBy = details[1].trim();
+        boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionBy.isEmpty());
 
-        if(details.length != 2 || descriptionDetails.isEmpty() || descriptionDeadline.isEmpty()) {
-            return false;
-        }
-        return true;
+        return details.length == 2 && isNonEmptyDescription;
     }
 
     public static void printDeadline(String inWord, int index, Task[] taskList) {
         String[] commands = inWord.split("\\s+", 2);
-        String[] details = commands[1].split("/by", 2);
+        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
 
         String description = details[0].trim();
         String by = details[1].trim();
 
         Deadline newItem = new Deadline(description, by);
         taskList[index] = newItem;
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+        System.out.println();
     }
 
-    public static void printDukeExit() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
-    }
-
-
-    public static void main(String[] args) {
-        printDukeGreet();
-
-        String inWord;
+    public static String readUserInput() {
+        String input;
         Scanner scan = new Scanner(System.in);
         System.out.println();
-        inWord = scan.nextLine();
+        input = scan.nextLine();
+        return input;
+    }
 
-
-        Task[] taskList = new Task[100];
+    public static void respondToCommand(String inWord, Task[] taskList) {
         int index = 0;
         String[] instruction = inWord.split("\\s+", 2);
         String instructionType = instruction[0];
+        Scanner scan = new Scanner(System.in);
 
         while (!inWord.toLowerCase().equals(EXIT_STRING)) {
             switch(instructionType) {
@@ -227,7 +227,23 @@ public class Duke {
             instruction = inWord.split("\\s+", 2);
             instructionType = instruction[0];
         }
+    }
 
+    public static void executeUserInstruction() {
+        String inWord = readUserInput();
+        Task[] taskList = new Task[NUM_OF_TASKS];
+        respondToCommand(inWord, taskList);
+    }
+
+    public static void printDukeExit() {
+        System.out.println(LINE);
+        System.out.println(GOODBYE_MESSAGE);
+        System.out.println(LINE);
+    }
+
+    public static void main(String[] args) {
+        printDukeGreet();
+        executeUserInstruction();
         //Exits when user types "bye"
         printDukeExit();
     }
