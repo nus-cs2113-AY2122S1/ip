@@ -70,12 +70,10 @@ public class Duke {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 commandList();
+            } else if (line.startsWith("done")) {
+                doneTask(line);
             } else {
-                if (line.startsWith("done")) {
-                    doneTask(line);
-                } else {
-                    addTask(line);
-                }
+                addTask(line);
             }
             line = in.nextLine();
         }
