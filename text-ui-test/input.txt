@@ -1,0 +1,5 @@
+deadline watch lecture /by today
+event movie /at 7
+list
+done 1
+bye

@@ -19,6 +19,14 @@ public class Duke {
     public static final String EXCEPTION = " Sorry, your input is invalid! Please enter a valid input :)";
 
     public static void printList(Task[] taskList) {
+        if (taskList.length == 0) {
+            System.out.println(LINE);
+            System.out.println(" No Tasks here yet. Go include some tasks!");
+            System.out.println(LINE);
+            System.out.println();
+            return;
+        }
+
         System.out.println(LINE);
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < taskList.length; i++) {
@@ -169,70 +177,56 @@ public class Duke {
         System.out.println();
     }
 
-    public static String readUserInput() {
-        String input;
-        Scanner scan = new Scanner(System.in);
-        System.out.println();
-        input = scan.nextLine();
-        return input;
-    }
-
-    public static void respondToCommand(String inWord, Task[] taskList) {
-        int index = 0;
+    public static void executeUserInstruction(String inWord, int index, Task[] taskList) {
         String[] instruction = inWord.split("\\s+", 2);
         String instructionType = instruction[0];
-        Scanner scan = new Scanner(System.in);
 
-        while (!inWord.toLowerCase().equals(EXIT_STRING)) {
-            switch(instructionType) {
-            case LIST_COMMAND:
-                printList(Arrays.copyOf(taskList, index));
-                break;
-            case DONE_COMMAND:
-                if (checkValidDoneInstruction(inWord)) {
-                    printTaskDone(inWord, index, taskList);
-                } else {
-                    returnException();
-                }
-                break;
-            case EVENT_COMMAND:
-                if (checkValidEvent(inWord)) {
-                    printEvent(inWord, index, taskList);
-                    index++;
-                } else {
-                    returnException();
-                }
-                break;
-            case TODO_COMMAND:
-                if (checkValidTodo(inWord)) {
-                    printTodo(inWord, index, taskList);
-                    index++;
-                } else {
-                    returnException();
-                }
-                break;
-            case DEADLINE_COMMAND:
-                if (checkValidDeadline(inWord)) {
-                    printDeadline(inWord, index, taskList);
-                    index++;
-                } else {
-                    returnException();
-                }
-                break;
-            default:
+        switch(instructionType) {
+        case LIST_COMMAND:
+            printList(Arrays.copyOf(taskList, index));
+            break;
+        case DONE_COMMAND:
+            if (checkValidDoneInstruction(inWord)) {
+                printTaskDone(inWord, index, taskList);
+            } else {
                 returnException();
-                break;
             }
-            inWord = scan.nextLine();
-            instruction = inWord.split("\\s+", 2);
-            instructionType = instruction[0];
+            break;
+        case EVENT_COMMAND:
+            if (checkValidEvent(inWord)) {
+                printEvent(inWord, index, taskList);
+            } else {
+                returnException();
+            }
+            break;
+        case TODO_COMMAND:
+            if (checkValidTodo(inWord)) {
+                printTodo(inWord, index, taskList);
+            } else {
+                returnException();
+            }
+            break;
+        case DEADLINE_COMMAND:
+            if (checkValidDeadline(inWord)) {
+                printDeadline(inWord, index, taskList);
+            } else {
+                returnException();
+            }
+            break;
+        default:
+            returnException();
+            break;
         }
     }
 
-    public static void executeUserInstruction() {
-        String inWord = readUserInput();
-        Task[] taskList = new Task[NUM_OF_TASKS];
-        respondToCommand(inWord, taskList);
+    public static int updateIndex(int index, String inWord) {
+        String[] instruction = inWord.split("\\s+", 2);
+        String instructionType = instruction[0];
+
+        if (instructionType.equals(EVENT_COMMAND) || instructionType.equals(TODO_COMMAND) || instructionType.equals(DEADLINE_COMMAND)) {
+            return index + 1;
+        }
+        return index;
     }
 
     public static void printDukeExit() {
@@ -243,7 +237,22 @@ public class Duke {
 
     public static void main(String[] args) {
         printDukeGreet();
-        executeUserInstruction();
+
+        String inWord;
+        Scanner scan = new Scanner(System.in);
+        System.out.println();
+        inWord = scan.nextLine();
+
+
+        int index = 0;
+        Task[] taskList = new Task[NUM_OF_TASKS];
+
+        while (!inWord.equalsIgnoreCase(EXIT_STRING)) {
+            executeUserInstruction(inWord, index, taskList);
+            index = updateIndex(index, inWord);
+            inWord = scan.nextLine();
+        }
+
         //Exits when user types "bye"
         printDukeExit();
     }
