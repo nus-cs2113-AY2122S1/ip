@@ -1,9 +1,10 @@
 public class Deadline extends Task {
     protected String deadline;
-    protected static final String DEADLINE_LOGO = "[E] ";
+    protected static final String DEADLINE_LOGO = "[D]";
 
-    public Deadline(String description) {
+    public Deadline(String description, String deadline) {
         super(description);
+        setDeadline(deadline);
     }
 
     public String getDeadline() {
@@ -16,6 +17,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return DEADLINE_LOGO + super.toString() + " (by: " + deadline + " )";
+        return DEADLINE_LOGO + super.toString() + " (by: " + deadline + ")";
     }
 }

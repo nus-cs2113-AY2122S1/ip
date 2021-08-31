@@ -1,9 +1,10 @@
 public class Event extends Task {
     protected String dateAndTime;
-    protected static final String EVENT_LOGO = "[E] ";
+    protected static final String EVENT_LOGO = "[E]";
 
-    public Event(String description) {
+    public Event(String description, String dateAndTime) {
         super(description);
+        setDateAndTime(dateAndTime);
     }
 
     public String getDateAndTime() {
@@ -16,6 +17,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return EVENT_LOGO + super.toString() + " (at: " + dateAndTime + " )";
+        return EVENT_LOGO + super.toString() + " (at: " + dateAndTime + ")";
     }
 }
