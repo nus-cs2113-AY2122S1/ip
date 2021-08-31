@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String LOGO = " ______    _   __   __            \n" +
-                                        "|_   _ \\  (_) [  | [  |           \n" +
-                                        "  | |_) | __   | |  | |   _   __  \n" +
-                                        "  |  __'.[  |  | |  | |  [ \\ [  ] \n" +
-                                        " _| |__) || |  | |  | |   \\ '/ /  \n" +
-                                        "|_______/[___][___][___][\\_:  /   \n" +
-                                        "                         \\__.'    \n";
+            "|_   _ \\  (_) [  | [  |           \n" +
+            "  | |_) | __   | |  | |   _   __  \n" +
+            "  |  __'.[  |  | |  | |  [ \\ [  ] \n" +
+            " _| |__) || |  | |  | |   \\ '/ /  \n" +
+            "|_______/[___][___][___][\\_:  /   \n" +
+            "                         \\__.'    \n";
     private static final String GREETING_MESSAGE = HORIZONTAL_LINE +
             " Hello! I'm Billy\n" +
             " What can I do for you?\n" +
@@ -42,39 +42,39 @@ public class Duke {
 
         while (isProgramRunning) {
             userInput = in.nextLine().trim();
+            String userInputLowerCase = userInput.toLowerCase();
 
             if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println(GOODBYE_MESSAGE);
                 isProgramRunning = false;
             } else if (userInput.equalsIgnoreCase("list")) {
                 printList(list);
-            } else if (userInput.toLowerCase().startsWith("done")) {
+            } else if (userInputLowerCase.startsWith("done")) {
                 markTasksAsDone(userInput, list);
-            } else if (userInput.toLowerCase().startsWith("todo")) {
+            } else if (userInputLowerCase.startsWith("todo")) {
                 String taskToAdd = removeFirstWord(userInput);
                 addTask(TaskType.TODO, taskToAdd, list);
-            } else if (userInput.toLowerCase().startsWith("deadline")) {
+            } else if (userInputLowerCase.startsWith("deadline")) {
                 String taskToAdd = removeFirstWord(userInput);
                 addTask(TaskType.DEADLINE, taskToAdd, list);
-            } else if (userInput.toLowerCase().startsWith("event")) {
+            } else if (userInputLowerCase.startsWith("event")) {
                 String taskToAdd = removeFirstWord(userInput);
                 addTask(TaskType.EVENT, taskToAdd, list);
             } else {
                 System.out.println(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
             }
         }
-
     }
 
     /**
      * Adds a task to an array list of tasks, printing out the newly added to task to the terminal
      *
-     * @param type The type of task (using the TaskType enumerator)
+     * @param type        The type of task (using the TaskType enumerator)
      * @param description Description of the task to be added
-     * @param taskList Array list of tasks
+     * @param taskList    Array list of tasks
      */
     private static void addTask(TaskType type, String description, List<Task> taskList) {
-        switch(type) {
+        switch (type) {
         case TODO:
             taskList.add(new Todo(description));
             break;
@@ -89,7 +89,7 @@ public class Duke {
             }
             break;
         case EVENT:
-            if(description.contains("/at")) {
+            if (description.contains("/at")) {
                 String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
                 taskList.add(new Event(separated[0], separated[1]));
             } else {
@@ -110,7 +110,7 @@ public class Duke {
     /**
      * Split the description of a Task from its timing (e.g. deadline) if it has one
      *
-     * @param type The type of task
+     * @param type        The type of task
      * @param description Full string input of the task and its timing
      * @return Returns a string array with index 0 containing the task description and index 1 containing the timing
      */
@@ -210,15 +210,12 @@ public class Duke {
 
     /**
      * Removes the first word of the input string and returns the remaining input
+     *
      * @param input
      * @return The remaining String that is left with the first word removed
      */
     public static String removeFirstWord(String input) {
         String[] splitArray = input.split(" +", 2);
         return splitArray[1];
-    }
-
-    public static void addTask (TaskType type, String description) {
-
     }
 }
