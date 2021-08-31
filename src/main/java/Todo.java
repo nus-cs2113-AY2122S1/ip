@@ -3,12 +3,12 @@ public class Todo extends Task {
         super(description);
     }
 
+    public String getClassType() {
+        return "[T]";
+    }
+
     @Override
     public String toString() {
         return getClassType() + getStatusIcon() + getDescription();
-    }
-
-    public String getClassType() {
-        return "[T]";
     }
 }
