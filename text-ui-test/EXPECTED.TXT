@@ -1,7 +1,75 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+THE GREATEST SHINOBI
+ _____  ________    _        ______  ___  ___  ______
+|_   _||  _   _ |  / \    .' ___  | |_  ||  _||__   _|
+  | |     | |     / _ \  / .'   \_   | |__| |    | |
+  | |     | |    / ___ \ | |         |  __  |    | |
+ _| |_   _| |_ _/ /     \ \ `.___.'\_| |  | |   _| |_
+|_____| |_____|____| |____ `.____ .|____||____||_____|
 
+Welcome! You have entered my illusion where I will be your partner
+and I will make you productive in order for you to reach your goals
+so that I can fulfill my dream of making someone great.
+Go ahead, give your command
+
+________________________________________________________
+What can I do for you?
+________________________________________________________
+________________________________________________________
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+________________________________________________________
+________________________________________________________
+Got it. I've added this task:
+[T][ ] read book
+Now you have 2 tasks in the list.
+________________________________________________________
+________________________________________________________
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list.
+________________________________________________________
+________________________________________________________
+Got it. I've added this task:
+[D][ ] pay bill (by: Tuesday)
+Now you have 4 tasks in the list.
+________________________________________________________
+________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][ ] read book
+3. [D][ ] return book (by: Sunday)
+4. [D][ ] pay bill (by: Tuesday)
+________________________________________________________
+________________________________________________________
+Nice! I've marked this task as done:
+[T][X] read book
+________________________________________________________
+________________________________________________________
+Got it. I've added this task:
+[E][ ] project meeting (at: Mon 2-4pm)
+Now you have 5 tasks in the list.
+________________________________________________________
+________________________________________________________
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+________________________________________________________
+________________________________________________________
+Invalid command: blah blah
+Looks like you have to try again
+________________________________________________________
+________________________________________________________
+Nice! I've marked this task as done:
+[D][X] pay bill (by: Tuesday)
+________________________________________________________
+________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][X] read book
+3. [D][X] return book (by: Sunday)
+4. [D][X] pay bill (by: Tuesday)
+5. [E][ ] project meeting (at: Mon 2-4pm)
+________________________________________________________
+________________________________________________________
+Farewell. Come back when you need more help
+________________________________________________________

@@ -1,0 +1,12 @@
+todo borrow book
+todo read book
+deadline return book /by Sunday
+deadline pay bill /by Tuesday
+list
+done 2
+event project meeting /at Mon 2-4pm
+done 3
+blah blah
+done 4
+list
+bye

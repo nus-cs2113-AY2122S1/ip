@@ -25,10 +25,11 @@ public class Duke {
 
     private static void userCommands() {
         boolean isOver = false;
+        Scanner in = new Scanner(System.in);
 
         //Runs until user enters bye
         while (!isOver) {
-            String input = getUserInput();
+            String input = getUserInput(in);
             String command = getFirstWordFromCommand(input);
 
             switch (command) {
@@ -96,9 +97,8 @@ public class Duke {
         }
     }
 
-    private static String getUserInput() {
+    private static String getUserInput(Scanner in) {
         String input;
-        Scanner in = new Scanner(System.in);
         input = in.nextLine();
 
         return input;
