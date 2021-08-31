@@ -31,32 +31,34 @@ public class Duke {
             String input = getUserInput();
             String command = getFirstWordFromCommand(input);
 
-            if (command.equals("bye")) {
+            switch (command) {
+            case "bye":
                 printByeMessage();
                 isOver = true;
-            } else if (command.equals("list")) {
+                break;
+            case "list":
                 printLineSeparator();
                 System.out.println("Here are the tasks in your list:");
 
                 //Lists down all the tasks added along with its status
                 for (int i = 0; i < count; i++) {
-                    String taskStatus = list[i].getStatusIcon();
                     System.out.println((i + 1) + ". " + list[i]);
                 }
 
                 printLineSeparator();
-            } else if (command.equals("done")) {
+                break;
+            case "done":
 
                 //Extracts the index number from the text and changes status of the task
                 int index = getIndex(input);
                 list[index].markAsDone();
-                String taskStatus = list[index].getStatusIcon();
 
                 printLineSeparator();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(list[index]);
                 printLineSeparator();
-            } else if (command.equals("todo")) {
+                break;
+            case "todo":
 
                 //Extracts the description, creates a Task object and stores the task in the list
                 Task todo = getTodoDetails(input);
@@ -64,7 +66,8 @@ public class Duke {
                 printLineSeparator();
                 System.out.println("Got it. I've added this task:\n" + todo + "\nNow you have " + count + " tasks in the list.");
                 printLineSeparator();
-            } else if (command.equals("deadline")) {
+                break;
+            case "deadline":
 
                 //Extracts the description and day/date, creates a Task object and stores the task in the list
                 Task deadline = getDeadlineDetails(input);
@@ -72,7 +75,8 @@ public class Duke {
                 printLineSeparator();
                 System.out.println("Got it. I've added this task:\n" + deadline + "\nNow you have " + count + " tasks in the list.");
                 printLineSeparator();
-            } else if (command.equals("event")) {
+                break;
+            case "event":
 
                 //Extracts the description and the time, creates a Task object and stores the task in the list
                 Task event = getEventDetails(input);
@@ -80,7 +84,8 @@ public class Duke {
                 printLineSeparator();
                 System.out.println("Got it. I've added this task:\n" + event + "\nNow you have " + count + " tasks in the list.");
                 printLineSeparator();
-            } else {
+                break;
+            default:
 
                 //Shows invalid command incase no matching commands are given
                 printLineSeparator();
