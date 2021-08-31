@@ -1,22 +1,24 @@
 public class DisplayManager {
+
+    private static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
+    public static final String DISPLAY_MESSAGE_INDENT = "        ";
+    public static final String DISPLAY_TASK_INDENT = "    ";
     private static final String DISPLAY_LOGO = "    ____        _        \n"
                                      + "   |  _ \\ _   _| | _____ \n"
                                      + "   | | | | | | | |/ / _ \\\n"
                                      + "   | |_| | |_| |   <  __/\n"
                                      + "   |____/ \\__,_|_|\\_\\___|";
-    private static final String DISPLAY_GREET_START = "     ____________________________________________________________\n" +
+    private static final String DISPLAY_GREET_START = DISPLAY_HORIZONTAL_SEPARATOR + "\n" +
             "        Hello! I'm Duke\n" +
             "        What can I do for you?\n" +
-            "    ____________________________________________________________";
-    private static final String DISPLAY_GREET_END = "    ____________________________________________________________\n" +
+            DISPLAY_HORIZONTAL_SEPARATOR;
+    private static final String DISPLAY_GREET_END = DISPLAY_HORIZONTAL_SEPARATOR + "\n" +
             "        Bye. Hope to see you again soon!\n" +
-            "    ____________________________________________________________";
-    private static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
-    public static final String DISPLAY_MESSAGE_INDENT = "        ";
-    public static final String DISPLAY_TASK_INDENT = "    ";
+            DISPLAY_HORIZONTAL_SEPARATOR;
+
 
     public void printStartGreet() {
-        System.out.println(DISPLAY_LOGO);
+        //System.out.println(DISPLAY_LOGO);
         System.out.println(DISPLAY_GREET_START);
     }
 

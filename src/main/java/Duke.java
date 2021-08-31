@@ -1,7 +1,7 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
+
     private static final String COMMAND_LIST_TASK = "list";
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_DEADLINE = "deadline";

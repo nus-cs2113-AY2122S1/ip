@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 public class TaskManager {
+
     public static final String STATUS_DONE = "X";
     public static boolean hasInvalidIndex = false;
 
