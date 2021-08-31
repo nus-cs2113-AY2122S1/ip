@@ -20,18 +20,7 @@ public class TaskManager {
     public static void printTaskList() {
         for (int i = 0; taskList[i] != null; i++) {
             System.out.print((i + 1) + ". ");
-            System.out.print("[" + taskList[i].getTaskType() + "]");
-            System.out.print("[" + taskList[i].getStatusIcon() + "] ");
-            System.out.print(taskList[i].getDescription());
-
-            // print deadline if task type is deadline or event
-            if (taskList[i].getTaskType().equals("D")) {
-                System.out.println("(by: " + taskList[i].getDeadline() + ")");
-            } else if (taskList[i].getTaskType().equals("E")) {
-                System.out.println("(at: " + taskList[i].getDeadline() + ")");
-            } else {
-                System.out.print("\n");
-            }
+            System.out.println(taskList[i].toString());
         }
         System.out.println("Total tasks undone: " + numberOfTasksUndone);
         System.out.println("_____________________________");
@@ -45,7 +34,7 @@ public class TaskManager {
      **/
     public static void addToDoTaskToList(String args, int taskNumber) {
 
-        Task t = new Task(args, null, "T");
+        Task t = new ToDo(args);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
         System.out.println("added: " + args);
@@ -62,7 +51,7 @@ public class TaskManager {
     public static void addDeadlineTaskToList(String args, int taskNumber) {
         String description = args.substring(0, args.indexOf("/")).trim();
         String time = args.substring(args.indexOf("/") + 4);
-        Task t = new Task(description, time, "D");
+        Task t = new Deadline(description, time);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
         System.out.println("added: " + description);
@@ -79,7 +68,7 @@ public class TaskManager {
     public static void addEventTaskToList(String args, int taskNumber) {
         String description = args.substring(0, args.indexOf("/")).trim();
         String time = args.substring(args.indexOf("/") + 4);
-        Task t = new Task(description, time, "E");
+        Task t = new Event(description, time);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
         System.out.println("added: " + description);
@@ -99,8 +88,7 @@ public class TaskManager {
         numberOfTasksUndone--;
 
         System.out.println("Good job! This task is marked as done:");
-        System.out.print("[" + taskList[doneTaskNumber - 1].getTaskType() + "]");
-        System.out.println("[" + taskList[doneTaskNumber - 1].getStatusIcon() + "] " + taskList[doneTaskNumber - 1].getDescription());
+        System.out.println(taskList[doneTaskNumber - 1].toString());
         System.out.println("Now you have " + numberOfTasksUndone + " tasks in the list");
         System.out.println("_____________________________");
     }

@@ -108,6 +108,7 @@ public class Duke {
                 taskNumber++;
             } else {
                 System.out.println("Oops, command not recognised!");
+                System.out.println("_____________________________");
             }
         }
     }
