@@ -18,6 +18,19 @@ public class Duke {
     private static final String GOODBYE_MESSAGE = HORIZONTAL_LINE +
             " Bye. Hope to see you again soon!\n" +
             HORIZONTAL_LINE;
+    private static final String HELP_MESSAGE = "Here's some tips on how to use me!\n\n" +
+            "todo [input]\n" +
+            "\t - Add a todo task to the list\n\n" +
+            "deadline [input] /by [input]\n" +
+            "\t - Add a deadline task by the given deadline\n\n" +
+            "event [input] /at [input]\n" +
+            "\t - Add an event task at the given time\n\n" +
+            "list\n" +
+            "\t - List out all the current tasks\n\n" +
+            "done [task_numbers]\n" +
+            "\t - Marks the given tasks as done\n\n" +
+            "bye\n" +
+            "\t - Terminates me :(\n";
 
     public static void main(String[] args) {
         // Initialize variables for program startup
@@ -46,6 +59,8 @@ public class Duke {
             } else if (userInput.toLowerCase().startsWith("event")) {
                 String taskToAdd = removeFirstWord(userInput);
                 addTask(TaskType.EVENT, taskToAdd, list);
+            } else {
+                System.out.println(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
             }
         }
 
@@ -145,7 +160,7 @@ public class Duke {
             return;
         }
 
-        System.out.println("Nice! Let me mark your given tasks as done:");
+        System.out.println(HORIZONTAL_LINE + "Nice! Let me mark your given tasks as done:");
 
         for (int taskNumber : tasksToMarkDone) {
             if (taskNumber == 0) {
