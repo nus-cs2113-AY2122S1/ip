@@ -12,11 +12,11 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         TaskList list = new TaskList();
         String request = in.nextLine();
-        while (!request.equals("bye")) {
+        while (Request.isBye(request)) {
             try {
-                if (request.equals("list")) {
+                if (Request.isList(request)) {
                     list.printTasks();
-                } else if (request.startsWith("done")) { //Should check if it is a task or a command instead
+                } else if (Request.isDone(request)) { //Should check if it is a task or a command instead
                     list.doneTask(request);
                 } else {
                     list.addTask(request);

@@ -8,7 +8,7 @@ public class TaskList {
     }
 
     public void addTask(String request) {
-        Task newTask = parseRequest(request);
+        Task newTask = Request.parseTask(request);
         this.tasks[taskCount] = newTask;
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
@@ -30,20 +30,6 @@ public class TaskList {
             for (int i = 0; i < taskCount; i++) {
                 System.out.printf("%d. %s\n", i + 1, tasks[i]);
             }
-        }
-    }
-
-    private Task parseRequest(String request){
-        if (request.startsWith("todo")) {
-            String description = request.substring(request.indexOf(" ") + 1, request.length());
-            return new Task(description);
-        } else {
-            String description = request.substring(request.indexOf(" ") + 1, request.indexOf("/"));
-            String date = request.substring(request.indexOf("/") + 1, request.length());
-            if (request.startsWith("deadline")) {
-                return new Deadline(description,date);
-            }
-            return new Event(description,date);
         }
     }
 }

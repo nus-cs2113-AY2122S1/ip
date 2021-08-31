@@ -5,9 +5,12 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    private static int count = 0;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.count++;
     }
 
     public void setDone() {
