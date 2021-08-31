@@ -1,114 +1,103 @@
 import java.util.Scanner;
 public class Duke {
 
-    private static final String line = "____________________________________________________________";
-    private static Task[] tasks = new Task[100];
+    private final TaskManager taskManager;
+    private final UI ui;
+    private final Command commandManager;
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_EXIT = "bye";
+    private static final int DATE_BUFFER = 3;
+    public static final String PREFIX_BY = "/by";
+    public static final String PREFIX_AT = "/at";
+
+    /**
+     * Constructor for Duke (renamed to taro) that initializes the key properties
+     */
+    public Duke() {
+        ui = new UI();
+        taskManager = new TaskManager();
+        commandManager = new Command();
+    }
 
     public static void main(String[] args) {
-        greetUser();
+        new Duke().startDuke();
+    }
+
+    /**
+     * Greets the user by showing the logo and prepares to take user input to perform commands
+     */
+    private void startDuke() {
+        this.ui.printLogo();
+        this.ui.greetUser();
         handleCommands();
     }
 
+    // TODO move to parser
     /**
-     * Prints a greeting to standard output
+     * Obtains user input through the UI object and analyses the command to determine how to handle it.
+     * Assigns commandManager to handle commands
      */
-    public static void greetUser() {
-        printString("Hello! I'm Duke\n" +
-                " What can I do for you?");
-    }
+    public void handleCommands() {
+        while (true) {
+            String userInput = ui.readUserInput();
+            int positionOfSpace = userInput.indexOf(" ");
+            String command = positionOfSpace > 0 ? userInput.substring(0, positionOfSpace).strip() : userInput;
 
-    /**
-     * Reads commands to Duke from standard input and passes
-     * them to separate functions to handle them
-     */
-    public static void handleCommands() {
-        Scanner in = new Scanner(System.in);
-        String command = "";
-
-        while (!command.equals("bye")) {
-            command = in.nextLine();
-            if (command.equals("list")) {
-                listTasks();
-            } else if (command.startsWith("done")) {
-                doneTask(command);
-            } else if (command.equals("bye")) {
-                exitChatbot();
-            } else {
-                addTask(command);
+            switch(command) {
+            case COMMAND_TODO:
+            case COMMAND_DEADLINE:
+            case COMMAND_EVENT:
+                addTask(command, userInput.substring(positionOfSpace + 1));
+                break;
+            case COMMAND_LIST:
+                commandManager.listTasks(taskManager, ui);
+                break;
+            case COMMAND_DONE:
+                int taskIndex = Integer.parseInt(userInput.substring(positionOfSpace + 1));
+                commandManager.markTaskAsDone(taskIndex, ui, taskManager);
+                break;
+            case COMMAND_EXIT:
+                commandManager.exitDuke(ui);
+                break;
+            default:
+                ui.printInvalidCommandMessage();
+                break;
             }
+
         }
     }
 
-    // helper functions used in command handlers
-
     /**
-     * Prints Duke logo to the standard output with a greeting
-     */
-    public static void printLogo() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-    }
-
-    /**
-     * Formats and prints strings to standard output
+     * Prepares and executes the process of adding tasks to taro. Tasks with dates or times are parsed such that this
+     * information is passed separately to commandManager, which then ensures that the task is stored by taro.
      *
-     * @param response Duke's response to be printed out
+     * @param command the command entered by the user (either "todo", "deadline", or "event")
+     * @param taskDescription the name of the task to be added to the list
      */
-    public static void printString(String response) {
-        System.out.println(line);
-        System.out.println(" " + response);
-        System.out.println(line);
-    }
-
-    // all command handlers
-
-    /**
-     * Prints goodbye to output
-     */
-    public static void exitChatbot() {
-        printString("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Adds tasks to the array of tasks stored by Duke
-     *
-     * @param command name of the task to be added
-     */
-    public static void addTask(String command) {
-        tasks[Task.taskCount] = new Task(command);
-        printString("added: " + command);
-    }
-
-    /**
-     * Lists out all tasks stored by Duke, printing to standard output
-     * Tasks marked as completed will have an [X] beside their names
-     */
-    public static void listTasks() {
-        System.out.println(line);
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < Task.taskCount; i++) {
-            System.out.println(" " + (i + 1) +
-                    ".[" + tasks[i].getStatusIcon() +
-                    "] " + tasks[i].getDescription());
+    public void addTask(String command, String taskDescription) {
+        String taskName;
+        switch (command) {
+        case COMMAND_TODO:
+            taskName = taskDescription;
+            commandManager.addTask(taskName, ui, taskManager);
+            break;
+        case COMMAND_DEADLINE:
+            String deadlineDate = taskDescription.substring(taskDescription.indexOf(PREFIX_BY) + DATE_BUFFER).trim();
+            taskName = taskDescription.substring(0, taskDescription.indexOf(PREFIX_BY)).trim();
+            commandManager.addTask(taskName, ui, taskManager, deadlineDate, COMMAND_DEADLINE);
+            break;
+        case COMMAND_EVENT:
+            String eventDate = taskDescription.substring(taskDescription.indexOf(PREFIX_AT) + DATE_BUFFER).trim();
+            taskName = taskDescription.substring(0, taskDescription.indexOf(PREFIX_AT)).trim();
+            commandManager.addTask(taskName, ui, taskManager, eventDate, COMMAND_EVENT);
+            break;
+        default:
+            break;
         }
-        System.out.println(line);
     }
 
-    /**
-     * Marks task n from the stored array of tasks as done when Duke
-     * receives the command "done n" and prints an acknowledgement
-     * to the standard output
-     *
-     * @param command the "done n", command, such that the nth command is marked as done
-     */
-    public static void doneTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(command.indexOf(" ") + 1));
-        tasks[taskIndex - 1].setDone();
-        printString("Nice! I've marked this task as done:\n" +
-                "  [X] " + tasks[taskIndex - 1].getDescription());
-    }
 }

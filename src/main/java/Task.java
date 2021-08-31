@@ -1,19 +1,17 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    public static int taskCount = 0;
 
     /**
      * Creates a new Task object to be stored in Duke's list of Tasks,
      * sets the name of the task as the name passed in by the user and
-     * marks the task as incomplete, incrementing the total task count
+     * marks the task as incomplete
      *
      * @param description the name of the task to be created
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCount++;
     }
 
     public String getDescription() {
@@ -40,6 +38,11 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
 }
