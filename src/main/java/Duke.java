@@ -35,9 +35,9 @@ public class Duke {
         Scanner userInput = new Scanner(System.in);
         String userCommand = userInput.nextLine();
         String[] taskType = new String[100];
-        char taskID;
         int taskIDInt;
         int inputCount = 0;
+        char taskID;
         while (!userCommand.equals("bye")) {
             if (userCommand.equals("list")) {
                 printList(taskType, taskStatus, arrayInput, userInput, inputCount);
