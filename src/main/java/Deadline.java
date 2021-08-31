@@ -22,7 +22,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Prints the deadline in a human-readable format.
+     * Returns the deadline in a human-readable format.
      * @return [Type of Task][Completion Status] [Name of Task] ([Due Date of Task])
      */
     public String printTask() {

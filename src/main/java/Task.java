@@ -56,7 +56,7 @@ public class Task {
     }
 
     /**
-     * Prints task in a human-readable format.
+     * Returns task in a human-readable format.
      * @return [Type of Task][Completion Status] [Name of Task]
      */
     public String printTask() {
