@@ -38,7 +38,7 @@ public class Task {
 
     protected void printNewTaskAddedMessage() {
         drawDivider();
-        System.out.println("Karlett now remembers: \n" + "  " + this.toString());
+        System.out.println("Karlett now remembers:\n" + "  " + this.toString());
         if (numberOfTasks == 1) {
             System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
         } else {

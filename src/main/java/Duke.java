@@ -12,7 +12,6 @@ public class Duke {
             String userInput = in.nextLine();
             processuserInput(list, userInput);
         }
-        //Task.exit();
     }
 
     public static void processuserInput(Task[] list, String userInput) {
@@ -175,20 +174,4 @@ public class Duke {
         System.out.println("Karlett doesn't know what you need to do meow?(๑•́ᆽ•̀๑✿)");
         Task.drawDivider();
     }
-
-    /*public static void echo() {
-        Scanner in = new Scanner(System.in);
-        while (true) {
-            String command = in.nextLine();
-            if (command.equals("bye")) {
-                break;
-            }
-            Task.drawDivider();
-            System.out.println(command + " meow!");
-            Task.drawDivider();
-        }
-    }
-
-     */
-
 }
