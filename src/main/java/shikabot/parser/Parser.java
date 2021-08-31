@@ -13,7 +13,6 @@ import shikabot.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 public class Parser {
 
@@ -23,6 +22,9 @@ public class Parser {
     public static final int NEGATIVE_INDEX_ERROR = 4;
     public static final int INVALID_TASK = 5;
     public static final int INVALID_DATE_SYNTAX = 6;
+
+    private static final DateTimeFormatter TIME_PARSER =
+            DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]");
 
     public boolean isAddCommand(String text) {
         return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
@@ -119,7 +121,7 @@ public class Parser {
         String name = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
         String date = text.substring(text.indexOf("/by") + 3).trim();
         try {
-            LocalDate by = LocalDate.parse(date);
+            LocalDate by = LocalDate.parse(date, TIME_PARSER);
             return new AddCommand('D', name, by);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
@@ -133,13 +135,13 @@ public class Parser {
         String name = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
         String date = text.substring(text.indexOf("/at") + 3).trim();
         try {
-            LocalDate at = LocalDate.parse(date);
+            LocalDate at = LocalDate.parse(date,TIME_PARSER);
             return new AddCommand('E', name, at);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
         }
     }
 
-    private class InvalidDateException extends Throwable {
+    private static class InvalidDateException extends Throwable {
     }
 }
