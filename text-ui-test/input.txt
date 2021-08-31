@@ -1,0 +1,9 @@
+event project meeting /at Mon 2-4pm
+deadline return book /by Sunday
+list
+todo eat shit and die
+list
+done 1
+done 3
+list
+bye
