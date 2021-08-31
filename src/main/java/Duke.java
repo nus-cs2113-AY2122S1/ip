@@ -7,7 +7,7 @@ public class Duke {
         String toPrint = newTask.toString();
         System.out.println("Ok! I've added this task:");
         System.out.println(newTask);
-        System.out.println("Now you have " + taskCount + " tasks in the list uwu");
+        System.out.println("Now you have " + taskCount + " tasks in your list uwu");
     }
 
     public static void printTaskList(Task[] list, int totalTasks) {
@@ -20,11 +20,51 @@ public class Duke {
         }
     }
 
+    public static void markDone(Task doneTask, int taskCount, Task[] taskList) {
+        String n = doneTask.description.substring(5);
+        int doneIndex = Integer.parseInt(n) - 1;
+        if(doneIndex >= taskCount) {
+            System.out.println("You have a typo Bbygirl.. ;'( try typing again");
+        } else {
+            taskList[doneIndex].isDone = true;
+            System.out.println("Good job! I've marked these tasks as done:");
+            printTaskList(taskList, taskCount);
+        }
+    }
+
+    public static Task typeOfTask(Task t, int taskCount) {
+        Task newTask = new Task("not initialised");
+        if (t.description.contains("todo")) { // create a new todo
+            newTask = new Todo(t.description.substring(5));
+            return newTask;
+        } else {
+            int startOfDate = t.description.indexOf('/');
+            if (startOfDate == -1) {
+                return newTask;
+            }
+            if (t.description.contains("deadline")) {
+                // find the date
+                String task = t.description.substring(9, startOfDate - 1);
+                String date = t.description.substring(startOfDate + 4);
+                newTask = new Deadline(task, date);
+                return newTask;
+            }
+            if (t.description.contains("event")) {
+                String task = t.description.substring(6, startOfDate - 1);
+                String date = t.description.substring(startOfDate + 4);
+                newTask = new Event(task, date);
+                return newTask;
+            }
+        }
+        return newTask;
+    }
+
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int taskCount = 0;
 
-        System.out.println("Hello bbygirl! I'm Your Boyfriend <3");
+        System.out.println("Hello Bbygirl! I'm Your Boyfriend <3");
         System.out.println("How can I help you today? ;)");
         Task t = new Task(in.nextLine());
         Task[] taskList = new Task[100];
@@ -33,34 +73,16 @@ public class Duke {
             if (t.description.equals("list")) {
                 printTaskList(taskList, taskCount);
             } else if (t.description.contains("done")) {
-                // marking task as done
-                String number = t.description.substring(5);
-                int doneIndex = Integer.parseInt(number) - 1;
-                taskList[doneIndex].isDone = true;
-                System.out.println("Good job! I've marked these tasks as done:");
-                printTaskList(taskList, taskCount);
+                markDone(t, taskCount, taskList);
             } else {
-                // adding a new task
-                Task newTask = new Task("not initialised");
-                if (t.description.contains("todo")) { // create a new todo
-                    newTask = new Todo(t.description.substring(4));
-                } else if (t.description.contains("deadline")) {
-                    // create a new deadline
-                    int start = t.description.indexOf('/');
-                    // find the date
-                    String task = t.description.substring(9, start - 1);
-                    String date = t.description.substring(start + 3);
-                    newTask = new Deadline(task, date);
-                } else if (t.description.contains("event")) {
-                    // find the date
-                    int start = t.description.indexOf('/');
-                    String task = t.description.substring(6, start - 1);
-                    String date = t.description.substring(start + 3);
-                    newTask = new Event(task, date);
+                Task newTask = typeOfTask(t, taskCount);
+                if (newTask.description.equals("not initialised")) {
+                    System.out.println("You have a typo Bbygirl.. ;'( try typing again");
+                } else {
+                    taskList[taskCount] = newTask;
+                    taskCount += 1;
+                    printTask(newTask, taskCount);
                 }
-                taskList[taskCount] = newTask;
-                taskCount += 1;
-                printTask(newTask, taskCount);
             }
             t = new Task(in.nextLine());
         }
