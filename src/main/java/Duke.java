@@ -2,30 +2,26 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = "        _|       _|_|        _|_|_|      _|      _|    _|_|_|        _|_|_|\n"
-                    + "        _|     _|    _|      _|    _|    _|      _|      _|        _|\n"
-                    + "        _|     _|_|_|_|      _|_|_|      _|      _|      _|          _|_|\n"
-                    + " _|     _|     _|    _|      _|    _|      _|  _|        _|              _|\n"
-                    + "  _| _|    _|  _|    _|  _|  _|    _|  _|    _|    _|  _|_|_|  _|  _|_|_|\n";
-        System.out.print("Initialising...............\n");
-        String line = "--------------------------------------------------------------------------------";
-        System.out.println(line + "\n" + logo);
-        // Prints enclosed text in italics
-        String byline = "\033[3m----------------------------------Just a rather very intelligent system---------\033[0m\n";
 
-        System.out.println(byline + "Good Evening Sir! I'm J.A.R.V.I.S");
-        System.out.println("How may I be of assistance to you today?");
-        System.out.println(line + "\n");
+        // Prints logo and welcome message
+        printWelcome();
+        String line = "--------------------------------------------------------------------------------";
+
+        // Constants that store index no. of "deadline" and "event"
+        final int DEADLINE_SIZE = 9;
+        final int EVENT_SIZE = 6;
 
         int itemIndex = 0;
         boolean saidBye = false;
 
-        // Init array with space for 100 strings
+        // Init array with space for 100 tasks
         Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
 
+        // Cond. is true when input "bye" is given, terminates run
         while (!saidBye) {
 
+            // Takes in user commands to interact with bot
             String command = in.nextLine();
 
             if (command.equals("bye")) {
@@ -38,7 +34,6 @@ public class Duke {
                 for (int count = 0; count < itemIndex; count++) {
                     System.out.println(count + 1 + "." + tasks[count].printTask());
                 }
-                System.out.println();
                 System.out.println(line);
             } else if (command.contains("done")) {
                 // When user enters string "done 2", string is split to extract the index 2 only
@@ -54,11 +49,11 @@ public class Duke {
                         System.out.println("Sir I believe this task has already been completed");
                     } else {
                         taskChosen.changeStatusDone(true);
-                        System.out.println(line + "\n" + "As you wish sir, this task will be marked as done!");
+                        System.out.println(line + System.lineSeparator() + "As you wish sir, this task will be marked as done!");
                     }
                     // Otherwise, marks task as done with X. E.g. 1.[ ][X] read book if user inputs "done 1"
                     System.out.println("    " + taskChosen.getTaskType() + taskChosen.getStatusIcon() + " "
-                            + taskChosen.getDescription() + "\n" + line);
+                            + taskChosen.getDescription() + System.lineSeparator() + line);
                 }
             } else if (command.equals("echo")) {
                 // Simply echos given command until user types "stop"
@@ -82,25 +77,29 @@ public class Duke {
                     tasks[itemIndex] = new Todo(command.substring(5));
                 }
                 // Create tasks for class Deadline
-                else if (command.contains("deadline")){
-                    // Reads two substrings: 1. The task description after keyword "deadline"
-                    //                       2. The actual deadline after "/by " till end of string
-                    tasks[itemIndex] = new Deadline((command.substring(9, command.indexOf("/"))),
-                            command.substring(command.indexOf("/") + 4));
-                }
-
-                // Create tasks for class Event
-                else if (command.contains("event")){
-                    // Same substring read as Deadline
-                    tasks[itemIndex] = new Event((command.substring(6, command.indexOf("/"))),
-                            command.substring(command.indexOf("/") + 4));
-                }
-                // If no keywords are used, stores new tasks into Task array
                 else {
-                    tasks[itemIndex] = new Task(command);
+                    final String dateOrTime = command.substring(command.indexOf("/") + 4);
+                    if (command.contains("deadline")){
+                        // Reads two substrings as param: 1. The task description after keyword "deadline"
+                        //                                2. The actual deadline after "/by " till end of string
+                        tasks[itemIndex] = new Deadline((command.substring(DEADLINE_SIZE, command.indexOf("/"))),
+                                dateOrTime);
+                    }
+
+                    // Create tasks for class Event
+                    else if (command.contains("event")){
+                        // Same substring read as Deadline
+                        tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, command.indexOf("/"))),
+                                dateOrTime);
+                    }
+                    // If no keywords are used, stores new tasks into Task array
+                    else {
+                        tasks[itemIndex] = new Task(command);
+                    }
                 }
                 itemIndex++;
-                System.out.println("Will do sir, I've added: " + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
+                System.out.println("Will do sir, I've added: " + System.lineSeparator() + "  "
+                        + tasks[itemIndex - 1].printTask());
                 if (itemIndex == 1) {
                     System.out.printf("Now you have %d task in your list.\n", itemIndex);
                 }
@@ -109,5 +108,22 @@ public class Duke {
                 }
             }
         }
+    }
+
+    public static void printWelcome() {
+        String logo = "        _|       _|_|        _|_|_|      _|      _|    _|_|_|        _|_|_|\n"
+                + "        _|     _|    _|      _|    _|    _|      _|      _|        _|\n"
+                + "        _|     _|_|_|_|      _|_|_|      _|      _|      _|          _|_|\n"
+                + " _|     _|     _|    _|      _|    _|      _|  _|        _|              _|\n"
+                + "  _| _|    _|  _|    _|  _|  _|    _|  _|    _|    _|  _|_|_|  _|  _|_|_|\n";
+        System.out.print("Initialising...............\n");
+        String line = "--------------------------------------------------------------------------------";
+        System.out.println(line + System.lineSeparator() + logo);
+        // Prints enclosed text in italics
+        String byline = "\033[3m----------------------------------Just a rather very intelligent system---------\033[0m\n";
+
+        System.out.println(byline + "Good Evening Sir! I'm J.A.R.V.I.S");
+        System.out.println("How may I be of assistance to you today?");
+        System.out.println(line + System.lineSeparator());
     }
 }
