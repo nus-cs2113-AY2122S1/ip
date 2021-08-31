@@ -31,13 +31,14 @@ public class Duke {
     }
 
     private static void checkValidCommand(String[] words) {
-        if (words[0].equals("done")) { //Checks what is the command
+        String command = words[0];
+        if (command.equals("done")) { //Checks what is the command
             int index = Integer.parseInt(words[1]);
             toDoList[index].setDone(true);
             completeSuccess(index);
-        } else if (words[0].equals("list")) {
+        } else if (command.equals("list")) {
             listAllTask();
-        } else if (words[0].equals("bye")) {
+        } else if (command.equals("bye")) {
             showByeScreen();
             return;
         } else { //is a valid task
@@ -77,15 +78,15 @@ public class Duke {
             currentIndex++;
             toDoList[currentIndex] = new Deadline(task, date);
             addSuccess();
-        } else if(words[0].equals("event")) {
+        } else if(type.equals("event")) {
             currentIndex++;
             toDoList[currentIndex] = new Event(task, date);
             addSuccess();
-        } else if(words[0].equals("todo")) {
+        } else if(type.equals("todo")) {
             currentIndex++;
             toDoList[currentIndex] = new ToDo(task, date);
             addSuccess();
-        } else{
+        } else{ //invalid command
             Task.printDivider();
             System.out.println("Invalid command, try again.");
             Task.printDivider();
