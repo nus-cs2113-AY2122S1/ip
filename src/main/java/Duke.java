@@ -2,29 +2,34 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static String logo = "████████ ██████  ██ ███████ ███████ \n" +
+    /** Logo shown during startup */
+    private static final String LOGO = "████████ ██████  ██ ███████ ███████ \n" +
             "   ██    ██   ██ ██ ██      ██      \n" +
             "   ██    ██████  ██ ███████ ███████ \n" +
             "   ██    ██   ██ ██      ██      ██ \n" +
             "   ██    ██   ██ ██ ███████ ███████ \n";
 
-    // Initialise boolean to track if user has said "bye"
+    /** Boolean to track if user has said "bye" */
     private static boolean hasUserSaidBye = false;
 
-    // Initialise array to keep track of user's tasks
+    /** Array to keep track of user's tasks */
     private static Task[] tasks = new Task[100];
+
+    /** Int to keep track of number of tasks stored in tasks */
     private static int noOfTasks = 0;
 
-    // Initialise variable to track user input
+    /** String variable to store user input */
     private static String userInput = null;
 
-    // Initialise constants
+    /** Length of the word "todo" */
     public static final int END_INDEX_OF_WORD_TODO = 4;
+    /** Length of the word "deadline" */
     public static final int END_INDEX_OF_WORD_DEADLINE = 8;
+    /** Length of the word "event" */
     public static final int END_INDEX_OF_WORD_EVENT = 5;
 
     public static void main(String[] args) {
-        // Print logo and welcome text
+        // Print LOGO  and welcome text
         printWelcomeMessage();
 
         // Initialise user input reader
@@ -131,7 +136,7 @@ public class Duke {
     }
 
     private static void printWelcomeMessage() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + LOGO);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Triss :)");
         System.out.println("What can I do for you?");
