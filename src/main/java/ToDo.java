@@ -1,22 +1,11 @@
-public class ToDo {
-    protected String task;
-    protected boolean isDone;
+public class ToDo extends Task {
 
-    public ToDo(String task){
-        this.task = task;
-        this.isDone = false;
+    public ToDo(String description){
+        super (description);
     }
 
-    public String getStatusIcon() {
-        return(isDone ? "[X] " : "[ ] ");
+    @Override
+    public String toString(){
+        return "[T]" + super.toString();
     }
-
-    public String getTask(){
-        return this.task;
-    }
-
-    public void markAsDone(){
-        this.isDone = true;
-    }
-
 }
