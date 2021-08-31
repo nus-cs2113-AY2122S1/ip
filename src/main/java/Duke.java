@@ -5,9 +5,6 @@ public class Duke {
     public static void main(String[] args) {
         int size = 0;
         Task[] tasks = new Task[100];
-        for (int i = 0; i < 100; i++) {
-            tasks[i] = new Task();
-        }
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -32,18 +29,40 @@ public class Duke {
                 System.out.println(command.substring(5));
                 System.out.println("____________________________________________________________");
                 command = in.nextLine();
-            } else if (command.startsWith("add ")) {
-                tasks[size].setDescription(command.substring(4));
-                tasks[size].setNoOfTask(size+1);
+            } else if (command.startsWith("todo ")) {
                 size++;
+                tasks[size-1] = new ToDo(command.substring(5), size);
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + command.substring(4));
+                System.out.println("Got it. I've added this task: \n" + "\t" + tasks[size-1].toString());
+                System.out.println("Now you have " + size + " tasks in the list.");
                 System.out.println("____________________________________________________________");
                 command = in.nextLine();
-            } else if (command.equals("show list")) {
+            }  else if (command.startsWith("deadline ")) {
+                size++;
+                int slashIndex = command.indexOf("/");
+                String description = command.substring(9, slashIndex-1);
+                String by = command.substring(slashIndex+4);
+                tasks[size-1] = new Deadline(description, size, by);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: \n" + "\t" + tasks[size-1].toString());
+                System.out.println("Now you have " + size + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                command = in.nextLine();
+            } else if (command.startsWith("event ")) {
+                size++;
+                int slashIndex = command.indexOf("/");
+                String description = command.substring(6, slashIndex-1);
+                String at = command.substring(slashIndex+4);
+                tasks[size - 1] = new Event(description, size, at);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: \n" + "\t" + tasks[size - 1].toString());
+                System.out.println("Now you have " + size + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                command = in.nextLine();
+            } else if (command.equals("list")) {
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < size; i++) {
-                    tasks[i].printTask();
+                    System.out.println(tasks[i].getStringNo() + "." + tasks[i].toString());
                 }
                 System.out.println("____________________________________________________________");
                 command = in.nextLine();
@@ -55,7 +74,7 @@ public class Duke {
                         tasks[j].markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println("Nice! I've marked this task as done: ");
-                        System.out.println(description);
+                        System.out.println("\t" + tasks[j].toString());
                         System.out.println("____________________________________________________________");
                         break;
                     }

@@ -3,10 +3,10 @@ public class Task {
     private boolean isDone;
     private int noOfTask;
 
-    public Task() {
-        setDescription("");
+    public Task(String description, int noOfTask) {
+        setDescription(description);
         this.isDone = false;
-        setNoOfTask(0);
+        setNoOfTask(noOfTask);
     }
 
     public void setDescription(String description) {
@@ -25,14 +25,16 @@ public class Task {
         return (this.description);
     }
 
-    public void printTask() {
-        if (isDone) {
-            System.out.println(noOfTask + ". " + "[X] " + description);
-        } else {
-            System.out.println(noOfTask + ". " + "[ ] " + description);
-        }
-
+    public String getStringNo() {
+        return (Integer.toString(noOfTask));
     }
 
-    //...
+    public String toString() {
+        if (isDone) {
+            return("[X] " + description);
+        } else {
+            return("[ ] " + description);
+        }
+    }
+
 }
