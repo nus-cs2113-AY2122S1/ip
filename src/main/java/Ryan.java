@@ -31,6 +31,7 @@ public class Ryan {
                                                 + "\nHow can I assist you? Type something below! :D";
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_NO_INPUT = "No input found! Please type <mode> + item";
+    private static final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
 
     private static final String TASK_PLURAL = "tasks";
     private static final String TASK_SINGLE = "task";
@@ -252,14 +253,14 @@ public class Ryan {
      * @param chatInput input of user
      * @return the tasks array with specified item marked as done
      */
-    private static Task[] setTaskAsDone(Task[] tasks, String chatInput) {
+    private static Task[] setTaskAsDone(Task[] tasks, String chatInput, int taskCounter) {
         Task[] temp = tasks;
         int taskIdx = findTaskNumber(chatInput);
         try {
             temp[taskIdx].setDone();
             System.out.println(PRINT_DONE_MESSAGE_FRONT + temp[taskIdx] + PRINT_DONE_MESSAGE_BACK);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(MESSAGE_OUT_OF_RANGE + taskCounter);
         }
         return temp;
     }
@@ -296,7 +297,7 @@ public class Ryan {
                 printTaskNumber(taskCounter);
                 break;
             case COMMAND_DONE:
-                tasks = setTaskAsDone(tasks, chatInput);
+                tasks = setTaskAsDone(tasks, chatInput, taskCounter);
                 break;
             default:
                 System.out.println(MESSAGE_NO_INPUT);
