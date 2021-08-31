@@ -1,6 +1,29 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    public static String[] organize(String input) {
+        String[] result = new String[4];
+        if (!input.contains(" ")) { //list or done
+            result[0] = input;
+        } else if (input.contains("/")) { //event or deadline
+            int temp1 = input.indexOf(" ");
+            int temp2 = input.indexOf("/");
+            result[0] = input.substring(0, temp1);
+            result[1] = input.substring(temp1 + 1, temp2 - 1);
+            String helper1 = input.substring(temp2 + 1);
+            String[] helper2 = helper1.split(" ");
+            result[2] = helper2[0];
+            int temp3 = input.substring(temp2 + 1).indexOf(" ");
+            result[3] = input.substring(temp2 + 1).substring(temp3);
+        } else { //todo
+            int temp1 = input.indexOf(" ");
+            result[0] = input.substring(0, temp1);
+            result[1] = input.substring(temp1 + 1);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
 
         //VISUALS//
@@ -29,17 +52,18 @@ public class Duke {
 
         while (!command.equals("bye")) {
             command = in.nextLine(); //scans user input
-            if (command.equals("list")) { //prints out task list
+            String[] words = organize(command);
+            if (words[0].equals("list")) { //prints out task list
                 System.out.println(horizontalLine
                         + " Here are the tasks in your list:");
                 for (int i = 0; i < taskListSize; i++) {
                     int j = i + 1;
                     String status = taskList[i].getStatusIcon();
-                    System.out.println(" " + j + ".[" + status + "] " + taskList[i].description);
+                    String category = taskList[i].getCategory();
+                    System.out.println(" " + j + ".[" + category + "][" + status + "] " + taskList[i].getDescription());
                 }
                 System.out.println(horizontalLine);
-            } else if (command.contains("done")) { //marks task as 'done'
-                String[] words = command.split(" ");
+            } else if (words[0].equals("done")) { //marks task as 'done'
                 int taskNumber = Integer.parseInt(words[1]) - 1;
                 if (taskNumber > taskListSize - 1) {
                     System.out.println(horizontalLine
@@ -53,11 +77,34 @@ public class Duke {
                             + taskList[taskNumber].description + "\n"
                             + horizontalLine);
                 }
-            } else { //adds command to taskList
-                taskList[taskListSize] = new Task(command);
+            } else if (words[0].equals("todo")) { //add todo command
+                taskList[taskListSize] = new ToDo(command);
                 taskListSize++;
                 String added = horizontalLine
-                        + " added: " + command + "\n"
+                        + " Got it. I've added this task: \n"
+                        + "  [" + taskList[taskListSize - 1].getCategory() + "][" + taskList[taskListSize - 1].getStatusIcon() + "]"
+                        + " " + words[1] + "\n"
+                        + " Now you have " + taskListSize + " tasks in the list.\n"
+                        + horizontalLine;
+                System.out.println(added);
+            } else if (words[0].equals("deadline")) { //add deadline command
+                taskList[taskListSize] = new Deadline(words[1], words[3]);
+                taskListSize++;
+                String added = horizontalLine
+                        + " Got it. I've added this task: \n"
+                        + "  [" + taskList[taskListSize - 1].getCategory() + "][" + taskList[taskListSize - 1].getStatusIcon() + "]"
+                        + " " + words[1] + " (" + words[2] + words[3] + ")" + "\n"
+                        + " Now you have " + taskListSize + " tasks in the list.\n"
+                        + horizontalLine;
+                System.out.println(added);
+            } else if (words[0].equals("event")) { //add event command
+                taskList[taskListSize] = new Event(words[1], words[3]);
+                taskListSize++;
+                String added = horizontalLine
+                        + " Got it. I've added this task: \n"
+                        + "  [" + taskList[taskListSize - 1].getCategory() + "][" + taskList[taskListSize - 1].getStatusIcon() + "]"
+                        + " " + words[1] + " (" + words[2] + words[3] + ")" + "\n"
+                        + " Now you have " + taskListSize + " tasks in the list.\n"
                         + horizontalLine;
                 System.out.println(added);
             }
