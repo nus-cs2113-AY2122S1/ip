@@ -35,8 +35,6 @@ public class Duke {
             case "done":
                 int doneInteger = Integer.parseInt(userWords[1]);
                 System.out.println("Nice! I've marked this task as done:");
-                //[X] return book
-                //take the case of the task
                 for (int i = 0; i < taskCount; i++) {
                     if (i == (doneInteger - 1)) {
                         taskItems[i].markAsDone();
