@@ -16,7 +16,7 @@ public class Duke {
         taskCount++;
     }
 
-    public static void listTask() {
+    public static void listTasks() {
         String tasksAsList = "";
         for (int i = 0; i < taskCount; i++) {
             tasksAsList = tasksAsList.concat((i + 1) + "." +
@@ -26,7 +26,7 @@ public class Duke {
         printWithLines("Here are the tasks in your list:\n" + tasksAsList);
     }
 
-    public static void markTaskDone(String task) {
+    public static void markTaskAsDone(String task) {
         int taskIndex = Integer.parseInt(task.replace("done ", "")) -  1;
         if (taskIndex > taskCount - 1) {
             printWithLines(" The task " + (taskIndex + 1) + " doesn't exist.\nMake sure a valid task number is entered.");
@@ -60,9 +60,9 @@ public class Duke {
         while (!userInput.equals("bye"))
         {
             if (userInput.equals("list")) {
-                listTask();
+                listTasks();
             } else if (userInput.startsWith("done")) {
-                markTaskDone(userInput);
+                markTaskAsDone(userInput);
             } else {
                 addTask(userInput);
             }
