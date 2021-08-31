@@ -40,7 +40,8 @@ public class TaskList {
      */
     public void listTasks(){
         for(int i = 0; i < savedTasks.size(); i++){
-            System.out.print(i + ": [" + savedTasks.get(i).completedTaskIcon() + "] " + savedTasks.get(i).taskName + "\n");
+            System.out.print(i + ": [" + savedTasks.get(i).completedTaskIcon()
+                    + "] " + savedTasks.get(i).taskName + "\n");
         }
     }
 
@@ -52,5 +53,13 @@ public class TaskList {
      */
     public Task findTask(int taskListIndex){
         return savedTasks.get(taskListIndex);
+    }
+
+    public int countTaskInList(){
+        int counter = 0;
+        for(int i = 0; i < savedTasks.size(); i++){
+            counter++;
+        }
+        return counter;
     }
 }
