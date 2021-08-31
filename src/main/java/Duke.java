@@ -7,42 +7,59 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("");
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?\n");
 
-        String echo; //echo variable to take in user input
-        String[] taskList = new String[100]; //create array to store text entered by user
+        String userInput = "initialize";
+        Task[] taskItems = new Task[100]; //create array to store text entered by user
         int taskCount = 0; //track number of tasks
 
         Scanner in = new Scanner(System.in); //Create scanner object to take in input
-        do {
-            echo = in.nextLine(); //user input
+
+        while (!userInput.equals("bye")) {
+            userInput = in.nextLine(); //user input
+            String[] userWords = userInput.split(" ");
 
             System.out.println("____________________________________________________________");
-            switch(echo) {
+            switch (userWords[0]) {
             case "list":
-                for(int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ".[ ] " + taskList[i]);
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + "." + taskItems[i].description);
                 }
                 System.out.println("____________________________________________________________");
                 continue;
-            default:
-            System.out.println("added: " + echo);
-            taskList[taskCount] = echo;
-            taskCount++;
-            System.out.println("____________________________________________________________");
-            continue;
-            }
-        } while (!echo.equals("bye"));
 
-        if (echo.equals("bye")) {
-            System.out.println("____________________________________________________________");
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println("____________________________________________________________");
-            return;
+            case "done":
+                int doneInteger = Integer.parseInt(userWords[1]);
+                System.out.println("Nice! I've marked this task as done:");
+                //[X] return book
+                //take the case of the task
+                for (int i = 0; i < taskCount; i++) {
+                    if (i == (doneInteger - 1)) {
+                        taskItems[i].markAsDone();
+                        System.out.println(doneInteger + "." + taskItems[i].description);
+                        break;
+                    }
+                }
+
+                System.out.println("____________________________________________________________");
+                continue;
+
+            case "bye":
+                System.out.println("____________________________________________________________");
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("____________________________________________________________");
+                break;
+
+            default:
+                taskItems[taskCount] = new Task(userInput);
+                System.out.println("added: " + userInput);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+            }
         }
     }
 }
