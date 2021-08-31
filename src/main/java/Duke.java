@@ -1,6 +1,8 @@
+import java.security.Key;
 import java.util.Scanner;
 
 public class Duke {
+
     private static int taskCount = 0;
     private static Task[] tasks = new Task[100];
 
@@ -45,6 +47,10 @@ public class Duke {
         }
     }
 
+    public static boolean hasListKeyword(String arg) {
+        return arg.trim().matches("^list$");
+    }
+
     public static boolean hasDoneKeyword(String arg) {
         return arg.trim().matches("^[done]+\\s+[0-9]+$");
     }
@@ -71,74 +77,108 @@ public class Duke {
             keyword = Keyword.DEADLINE_TASK;
         } else if (hasEventKeyword(query)) {
             keyword = Keyword.EVENT_TASK;
+        } else if (hasListKeyword(query)) {
+            keyword = Keyword.LIST_ITEMS;
+        } else {
+            System.out.println("There is no keyword...");
         }
         return keyword;
     }
 
-    public static void addTask(Task task, Keyword keyword) {
-        tasks[taskCount] = task;
-        taskCount++;
+    public static void waitForQuery() {
+        String query = "";
+        Keyword keyword = getKeywordStatus(query);
+        Scanner userInput = new Scanner(System.in);
 
+        while (!query.equals("bye")) {
+            System.out.print("=>");
+            if (userInput.hasNextLine()) {
+                query = userInput.nextLine();
+            }
+            addTask(query);
+        }
+        goodbyeMessage();
+    }
+
+    public static void addTask(String query) {
+        //        tasks[taskCount] = task;
+        //        taskCount++;
+
+        Task[] tasks = new Task[100];
+        int taskCount = 0;
+        Keyword keyword = getKeywordStatus(query);
         switch (keyword) {
         case DONE_TASK:
-            
-
+            int taskNumber = findTaskNum(query);
+            tasks[taskNumber - 1].markAsDone();
+            printDone(tasks[taskNumber - 1]);
+            break;
+        case TODO_TASK:
+            tasks[taskCount] = new Todo(query);
+            taskCount++;
+            break;
+        case EVENT_TASK:
+            tasks[taskCount] = new Event(query);
+            taskCount++;
+            break;
+        case DEADLINE_TASK:
+            tasks[taskCount] = new Deadline(query);
+            taskCount++;
+            break;
+        case LIST_ITEMS:
+            printList(tasks);
+        default:
         }
     }
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
 
         String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
-                    + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
-                    + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
-                    + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
-                    + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
-                    + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
-                    + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
-                    + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
-                    + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
-                    + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
+                + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
+                + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
+                + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
+                + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
+                + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
+                + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
+                + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
+                + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
+                + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
         System.out.println(face);
 
         // print greeting message after logo
         greeting();
+        waitForQuery();
+        //        int index = 0;
 
-        String query = "";
-        Scanner userInput = new Scanner(System.in);
+        //        while (!query.equals("bye")) {
+        //            System.out.print("=>");
+        //            if (userInput.hasNextLine()) {
+        //                query = userInput.nextLine();
+        //            }
+        //            // prints out the same message that was given by user
+        //            // echoMessage(query);
+        //
+        //            if (query.equals("list")) {
+        //                // print out current list
+        //                printList(listOfStuff);
+        //            }
+        //            else if (hasDoneKeyword(query)) {
+        //                int taskNumber = findTaskNum(query);
+        //                listOfStuff[taskNumber - 1].markAsDone();
+        //                printDone(listOfStuff[taskNumber - 1]);
+        //            } else {
+        //            // stores the user's args in a list
+        //            listOfStuff[index] = new Task(query);
+        //            index++;
+        //            }
 
-
-
-//        int index = 0;
-
-//        while (!query.equals("bye")) {
-//            System.out.print("=>");
-//            if (userInput.hasNextLine()) {
-//                query = userInput.nextLine();
-//            }
-//            // prints out the same message that was given by user
-//            // echoMessage(query);
-//
-//            if (query.equals("list")) {
-//                // print out current list
-//                printList(listOfStuff);
-//            }
-//            else if (hasDoneKeyword(query)) {
-//                int taskNumber = findTaskNum(query);
-//                listOfStuff[taskNumber - 1].markAsDone();
-//                printDone(listOfStuff[taskNumber - 1]);
-//            } else {
-//            // stores the user's args in a list
-//            listOfStuff[index] = new Task(query);
-//            index++;
-//            }
-
-        }
-        // print end message
-        goodbyeMessage();
     }
+    // print end message
+    //        goodbyeMessage();
 }
+
