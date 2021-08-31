@@ -24,4 +24,9 @@ public class Task {
     public void finishTask() {
         isDone = true;
     }
+
+    @Override
+    public String toString() {
+        return getTaskName();
+    }
 }
