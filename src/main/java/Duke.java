@@ -2,6 +2,20 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final int FIRST_WORD = 0;
+    public static final int DESCRIPTION = 0;
+    public static final int TASK_NUMBER = 1;
+    public static final int TIMING = 1;
+    public static final int SMALLEST_VALID_LIST_SIZE = 1;
+    public static final int TODO_HEADER = 5;
+    public static final int EVENT_HEADER = 6;
+    public static final int DEADLINE_HEADER = 9;
+    public static final int MAX_LIST_SIZE = 100;
+    public static final String LINEBAR = "____________________________________________________________\n";
+    public static final String EVENT_IDENTIFIER = "/at ";
+    public static final String DEADLINE_IDENTIFIER = "/by ";
+
+
     /**
      * Prints a message when the user runs the program.
      */
@@ -56,8 +70,15 @@ public class Duke {
      * @param taskList An array of tasks. Max size of 100
      */
     public static void listAllTasks(Task[] taskList, int index) {
+        if (index == 0) {
+            System.out.println("You do not have any items listed currently.");
+            return;
+        }
+
+        int taskNumber = 1;
         for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + "." + taskList[i].toString());
+            System.out.println((taskNumber) + "." + taskList[i].toString());
+            taskNumber++;
         }
     }
 
@@ -87,22 +108,22 @@ public class Duke {
      * @param i        Index of the task shown when user inputs 'list'
      */
     public static void completeTask(Task[] taskList, int i) {
+        boolean isInvalidListSize = (i < SMALLEST_VALID_LIST_SIZE);
         //Navigate to the given index and change the sign
-        String lineBar = "____________________________________________________________\n";
-        if ((i < 1) || (taskList[i - 1] == null)) {
-            System.out.println(lineBar);
+        if (isInvalidListSize) {
+            System.out.println(LINEBAR);
             System.out.println("No task found with the given number. \nPlease type 'list' to view your current task "
                     + "list");
-            System.out.println(lineBar);
+            System.out.println(LINEBAR);
             return;
         }
         i--;
         taskList[i].markAsDone();
-        System.out.println(lineBar);
+        System.out.println(LINEBAR);
         System.out.println(
                 "Bueno! The following task is marked as done: \n[" + taskList[i].getStatusIcon() + "] "
                         + taskList[i].taskDescription);
-        System.out.println(lineBar);
+        System.out.println(LINEBAR);
     }
 
     /**
@@ -111,10 +132,9 @@ public class Duke {
      * @param args System arguments that are added to the program
      */
     public static void main(String[] args) {
-        String lineBar = "____________________________________________________________\n";
         greetUser();
         Scanner readUserInput = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        Task[] taskList = new Task[MAX_LIST_SIZE];
         int taskIndex = 0;
         String userInput;
         String identifier;
@@ -123,71 +143,72 @@ public class Duke {
 
         while (true) {
             userInput = readUserInput.nextLine();
-            identifier = userInput.split(" ")[0];
+            identifier = userInput.split(" ")[FIRST_WORD];
 
             switch (identifier) {
             case "done":
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER]);
                 completeTask(taskList, taskNumber);
+
                 continue;
 
             case "bye":
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 bidGoodbye();
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 return;
 
             case "bot?":
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 denyBotNature();
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 continue;
 
             case "list":
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 listAllTasks(taskList, taskIndex);
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 continue;
 
             case "todo":
-                System.out.println(lineBar);
-                taskDescription = userInput.substring(5); //todo TASK. first 5 char gets stripped, start from index 5
+                System.out.println(LINEBAR);
+                taskDescription = userInput.substring(TODO_HEADER);
                 ToDo todo = new ToDo(taskDescription);
                 addToTaskList(taskList, todo, taskIndex);
                 taskIndex++;
                 echoUserInput(todo, taskIndex);
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 continue;
 
             case "event":
-                System.out.println(lineBar);
-                taskDescription = userInput.split("/at ")[0].substring(6);
-                timing = userInput.split("/at ")[1];
+                System.out.println(LINEBAR);
+                taskDescription = userInput.split(EVENT_IDENTIFIER)[DESCRIPTION].substring(EVENT_HEADER);
+                timing = userInput.split(EVENT_IDENTIFIER)[TIMING];
                 Event event = new Event(taskDescription, timing);
                 addToTaskList(taskList, event, taskIndex);
                 taskIndex++;
                 echoUserInput(event, taskIndex);
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 continue;
 
             case "deadline":
-                System.out.println(lineBar);
-                taskDescription = userInput.split("/by ")[0].substring(9);
-                timing = userInput.split("/by ")[1];
+                System.out.println(LINEBAR);
+                taskDescription = userInput.split(DEADLINE_IDENTIFIER)[DESCRIPTION].substring(DEADLINE_HEADER);
+                timing = userInput.split(DEADLINE_IDENTIFIER)[TIMING];
                 Deadline deadline = new Deadline(taskDescription, timing);
                 addToTaskList(taskList, deadline, taskIndex);
                 taskIndex++;
                 echoUserInput(deadline, taskIndex);
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 continue;
 
             default:
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
                 Task task = new Task(userInput);
                 addToTaskList(taskList, task, taskIndex);
                 taskIndex++;
                 echoUserInput(task, taskIndex);
-                System.out.println(lineBar);
+                System.out.println(LINEBAR);
             }
         }
     }

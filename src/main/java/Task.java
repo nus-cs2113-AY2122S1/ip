@@ -1,5 +1,6 @@
 /**
- * Represents a task input by the user
+ * Represents a task input by the user.
+ * Is superclass of Deadline, Event and ToDo.
  */
 public class Task {
     protected String taskDescription;
@@ -29,6 +30,10 @@ public class Task {
         isDone = true;
     }
 
+    /**
+     * Displays the current task as well as its status
+     * @return A string in the format "[ ] (taskDescription)" The box will be [X] if the task is completed
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + taskDescription;
     }
