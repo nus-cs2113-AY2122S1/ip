@@ -2,22 +2,21 @@ import java.util.Scanner;
 
 public class Duke {
     public static int count = 0;
-    public static Task[] lists = new Task[100];
+    public static Task[] list = new Task[100];
 
     public static void main(String[] args) {
         //logo
-        String logo =
-                " _____  ________    _        ______  ___  ___  ______\n"
-                        + "|_   _||  _   _ |  / \\    .' ___  | |_  ||  _||__   _|\n"
-                        + "  | |     | |     / _ \\  / .'   \\_   | |__| |    | |\n"
-                        + "  | |     | |    / ___ \\ | |         |  __  |    | |\n"
-                        + " _| |_   _| |_ _/ /     \\ \\ `.___.'\\_| |  | |   _| |_\n"
-                        + "|_____| |_____|____| |____ `.____ .|____||____||_____|\n";
+        String logo = " _____  ________    _        ______  ___  ___  ______\n"
+                + "|_   _||  _   _ |  / \\    .' ___  | |_  ||  _||__   _|\n"
+                + "  | |     | |     / _ \\  / .'   \\_   | |__| |    | |\n"
+                + "  | |     | |    / ___ \\ | |         |  __  |    | |\n"
+                + " _| |_   _| |_ _/ /     \\ \\ `.___.'\\_| |  | |   _| |_\n"
+                + "|_____| |_____|____| |____ `.____ .|____||____||_____|\n";
 
         System.out.println("THE GREATEST SHINOBI\n" + logo
                 + "\nWelcome! You have entered my illusion where I will be your partner\n"
-                + "and I will make you productive in order for you to reach your goals so that\n"
-                + "I can fulfill my dream of making someone great.\n"
+                + "and I will make you productive in order for you to reach your goals\n"
+                + "so that I can fulfill my dream of making someone great.\n"
                 + "Go ahead, give your command\n");
 
         printWelcomeMessage();
@@ -26,9 +25,12 @@ public class Duke {
 
     private static void userCommands() {
         boolean isOver = false;
+
+        //Runs until user enters bye
         while (!isOver) {
             String input = getUserInput();
-            String command = getFirstWord(input);
+            String command = getFirstWordFromCommand(input);
+
             if (command.equals("bye")) {
                 printByeMessage();
                 isOver = true;
@@ -38,50 +40,52 @@ public class Duke {
 
                 //Lists down all the tasks added along with its status
                 for (int i = 0; i < count; i++) {
-                    String taskStatus = lists[i].getStatusIcon();
-                    System.out.println((i + 1) + ". " + lists[i]);
+                    String taskStatus = list[i].getStatusIcon();
+                    System.out.println((i + 1) + ". " + list[i]);
                 }
+
                 printLineSeparator();
             } else if (command.equals("done")) {
 
                 //Extracts the index number from the text and changes status of the task
                 int index = getIndex(input);
-                lists[index].markAsDone();
-                String taskStatus = lists[index].getStatusIcon();
+                list[index].markAsDone();
+                String taskStatus = list[index].getStatusIcon();
 
                 printLineSeparator();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(lists[index]);
+                System.out.println(list[index]);
                 printLineSeparator();
             } else if (command.equals("todo")) {
 
-                //Extracts the description and stores the task in the list
-                Task todo = getTodo(input);
+                //Extracts the description, creates a Task object and stores the task in the list
+                Task todo = getTodoDetails(input);
 
                 printLineSeparator();
                 System.out.println("Got it. I've added this task:\n" + todo + "\nNow you have " + count + " tasks in the list.");
                 printLineSeparator();
             } else if (command.equals("deadline")) {
 
-                //Extracts the description and day/date and stores the task in the list
-                Task deadline = getDeadline(input);
+                //Extracts the description and day/date, creates a Task object and stores the task in the list
+                Task deadline = getDeadlineDetails(input);
 
                 printLineSeparator();
                 System.out.println("Got it. I've added this task:\n" + deadline + "\nNow you have " + count + " tasks in the list.");
                 printLineSeparator();
             } else if (command.equals("event")) {
 
-                //Extracts the description and the time and stores the task in the list
-                Task event = getEvent(input);
+                //Extracts the description and the time, creates a Task object and stores the task in the list
+                Task event = getEventDetails(input);
 
                 printLineSeparator();
                 System.out.println("Got it. I've added this task:\n" + event + "\nNow you have " + count + " tasks in the list.");
                 printLineSeparator();
             } else {
+
+                //Shows invalid command incase no matching commands are given
                 printLineSeparator();
                 System.out.println("Invalid command: " + input);
                 System.out.println("Looks like you have to try again");
-
                 printLineSeparator();
             }
         }
@@ -103,34 +107,35 @@ public class Duke {
         return index;
     }
 
-    private static Task getTodo(String input) {
+    private static Task getTodoDetails(String input) {
         String todoDescription = input.substring(4).trim();
+
         Task todo = new Todo(todoDescription);
-        lists[count] = todo;
+        list[count] = todo;
         count++;
 
         return todo;
     }
 
-    private static Task getDeadline(String input) {
+    private static Task getDeadlineDetails(String input) {
         int endIndex = input.indexOf("/");
         String deadlineDescription = input.substring(8, endIndex);
-        String deadlineDate = getDate(input);
+        String deadlineDate = getDateFromCommand(input);
 
         Task deadline = new Deadline(deadlineDescription, deadlineDate);
-        lists[count] = deadline;
+        list[count] = deadline;
         count++;
 
         return deadline;
     }
 
-    private static Task getEvent(String input) {
+    private static Task getEventDetails(String input) {
         int endIndex = input.indexOf("/");
         String eventDescription = input.substring(5, endIndex);
-        String eventDate = getDate(input);
+        String eventDate = getDateFromCommand(input);
 
         Task event = new Event(eventDescription, eventDate);
-        lists[count] = event;
+        list[count] = event;
         count++;
 
         return event;
@@ -153,12 +158,13 @@ public class Duke {
         printLineSeparator();
     }
 
-    private static String getFirstWord(String input) {
+    private static String getFirstWordFromCommand(String input) {
         return input.toLowerCase().split(" ")[0];
     }
 
-    private static String getDate(String input) {
+    private static String getDateFromCommand(String input) {
         int startIndex = input.indexOf("/");
+
         return input.substring(startIndex + 3).trim();
     }
 }
