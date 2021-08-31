@@ -16,6 +16,8 @@ public class Duke {
     public static final String EXIT_COMMAND_2 = "exit";
     public static final String TASK_PADDING = "   ";
     public static final String NUMBER_LIST_SEPARATOR = ". ";
+    public static final String HELP_COMMAND = "help";
+    public static final String GREETING_COMMAND = "hello";
 
     public static void main(String[] args) {
 
@@ -66,7 +68,7 @@ public class Duke {
 
             } else if (input.startsWith(ADD_DEADLINE_COMMAND)){
 
-                String arguments = input.substring(ADD_DEADLINE_COMMAND.length(), input.length());
+                String arguments = input.substring(ADD_DEADLINE_COMMAND.length());
                 if (arguments.isBlank()) {
                     printNoTaskErrorMessage();
                 } else if (!input.contains(DEADLINE_SEPARATOR)) {
@@ -89,7 +91,7 @@ public class Duke {
 
             } else if (input.startsWith(ADD_EVENT_COMMAND)){
 
-                String arguments = input.substring(ADD_EVENT_COMMAND.length(), input.length());
+                String arguments = input.substring(ADD_EVENT_COMMAND.length());
                 if (arguments.isBlank()) {
                     printNoEventErrorMessage();
                 } else if (!input.contains(EVENT_SEPARATOR)) {
@@ -110,9 +112,13 @@ public class Duke {
                     }
                 }
 
-            } else if (input.equals("help")){
+            } else if (input.equals(HELP_COMMAND)){
 
                 printHelpMessage();
+
+            } else if (input.equals(GREETING_COMMAND)){
+
+                printGreetingMessage();
 
             } else {
                 //default
@@ -189,7 +195,8 @@ public class Duke {
      * Print an error message when input matches none of the commands.
      */
     private static void printInvalidCommandMessage() {
-        System.out.println("I'm not sure what you want to do. Check if you've spelled correctly!");
+        System.out.println("I'm not sure what you want to do. Check if you've spelled correctly! " +
+                "Type help for a list of commands.");
     }
 
     /**
@@ -207,7 +214,7 @@ public class Duke {
     }
 
     /**
-     * Print an error message when attempting to mark an invalid task number as done.
+     * Print an error message when attempting to mark a task not on the list as done.
      */
     private static void printInvalidTaskNumberMessage() {
         System.out.println("I can't find that task in the list!");
@@ -257,10 +264,17 @@ public class Duke {
     }
 
     /**
+     * Prints a message greeting the user.
+     */
+    private static void printGreetingMessage() {
+        System.out.println("Hello! What can I do for you?");
+    }
+
+    /**
      * Prints the help message, which lists all commands.
      */
     private static void printHelpMessage() {
-        printWithNewLine("List of commands:");
+        printWithNewLine("Here are a list of commands:");
         printWithNewLine("list - lists all tasks");
         System.out.println("done - marks a task as done");
         printWithNewLine("usage: done [task number]");
