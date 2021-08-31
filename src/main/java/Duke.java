@@ -21,9 +21,6 @@ public class Duke {
     /** Int to keep track of number of tasks stored in tasks */
     private static int noOfTasks = 0;
 
-    /** String variable to store user input */
-    private static String userInput = null;
-
     /** Length of the word "todo" */
     public static final int END_INDEX_OF_WORD_TODO = 4;
     /** Length of the word "deadline" */
@@ -52,14 +49,19 @@ public class Duke {
             printLine(SEPARATOR_LINE);
 
             // Perform actions based on user's command
-            if (userCommand.equals("bye")) {
+            switch (userCommand) {
+            case "bye":
                 printShutdownMessage();
-            } else if (userCommand.equals("list")) {
+                break;
+            case "list":
                 printAllTasks();
-            } else if (userCommand.equals("done")) {
+                break;
+            case "done":
                 handleUserMarkingTaskAsDone(userInput);
-            } else {
+                break;
+            default:
                 handleUserCreatingTask(userInput);
+                break;
             }
 
             printLine(SEPARATOR_LINE);
@@ -100,9 +102,10 @@ public class Duke {
      * @return Valid user input.
      */
     private static String getUserInput(Scanner in) {
-        userInput = in.nextLine();
+        /* String variable to store user input */
+        String userInput = in.nextLine();
 
-        while (userInput.equals(null) || userInput.equals("")) {
+        while (userInput.isBlank()) {
             printLine("Stop with the silent treatment! Say something?");
             printLine(SEPARATOR_LINE);
             userInput = in.nextLine();
@@ -117,15 +120,20 @@ public class Duke {
     private static void handleUserCreatingTask(String userInput) {
         String taskType = parseUserInput(userInput, 0);
 
-        if (taskType.equals("deadline")) {
+        switch (taskType) {
+        case "deadline":
             createNewDeadline(userInput);
-        } else if (taskType.equals("event")) {
+            break;
+        case "event":
             createNewEvent(userInput);
-        } else if (taskType.equals("todo")) {
+            break;
+        case "todo":
             createNewTodo(userInput);
-        } else {
+            break;
+        default:
             createNewTodo("todo " + userInput.trim());
-        };
+            break;
+        }
     }
 
     /**
@@ -264,7 +272,7 @@ public class Duke {
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
         for (int i = 0; i < noOfTasks; i++) {
-            printLine(Integer.toString(i + 1) + "." + tasks[i].printTask());
+            printLine(i + 1 + "." + tasks[i].printTask());
         }
     }
 
