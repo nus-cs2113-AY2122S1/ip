@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class temp {
+public class Duke {
     public static final String MESSAGE = "Here are the tasks in your list:";
     private static String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
