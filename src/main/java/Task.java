@@ -14,4 +14,8 @@ public class Task {
     public String getInformation() {
         return (Done ? "X" : " ");
     }
+    @Override
+    public String toString() {
+        return "[" + getInformation() + "]" + content;
+    }
 }
