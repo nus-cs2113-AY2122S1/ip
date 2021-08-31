@@ -18,4 +18,12 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+
+    public String getTaskType() {
+        return getTaskType();
+    }
+
+    public String getDate() {
+        return getDate();
+    }
 }

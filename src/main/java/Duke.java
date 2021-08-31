@@ -2,84 +2,119 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void echo(String lineBreak) {
+    private static void lineBreak() {
+        String lineBreak = "..........................." +
+                ".......................................";
+        System.out.println(lineBreak);
+    }
+
+    private static void IntroductoryMessage() {
+        String logo = "  /\\_/\\\n"
+                + " | @ @ |    Welcome to IKAROS!\n"
+                + " | uWu |  Your one and only butler\n"
+                + " |_____|";
+        lineBreak();
+
+        System.out.println(logo);
+        lineBreak();
+        System.out.println("What assistance do you require?");
+        lineBreak();
+    }
+
+    private static void done(Task[] list, String response) {
+        int i = Integer.parseInt(response.substring(5)) - 1;
+        list[i].markAsDone();
+        System.out.println("Nice! i have marked this task as done:\n ["
+                + list[i].getStatusIcon() + "] " + list[i].getDescription());
+        lineBreak();
+    }
+
+    private static int addToList(Task task, int listSize, Task[] list, String response) {
+        list[listSize] = task;
+        System.out.println("Task added: " + task);
+        System.out.println("Total no. of Tasks = " + (listSize + 1));
+        lineBreak();
+        listSize += 1;
+        return listSize;
+    }
+
+    public static void echo() {
         System.out.println("Life is a mirror and will reflect back to "
                 + "the thinker what\nhe thinks into it, echoing commencing");
-        System.out.println(lineBreak);
+        lineBreak();
         Scanner in = new Scanner(System.in);
         String response;
         response = in.nextLine();
-        System.out.println(lineBreak);
+        lineBreak();
         while (!response.equals("exit")) {
             System.out.println(response);
-            System.out.println(lineBreak);
+            lineBreak();
             response = in.nextLine();
-            System.out.println(lineBreak);
+            lineBreak();
         }
     }
 
     public static void printList(Task[] list, int listSize) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= listSize; i++) {
-            System.out.println(i + ".[" + list[i - 1].getStatusIcon() +
-                    "] " + list[i - 1].description);
+            System.out.println(i + ".[" + list[i - 1].getTaskType() + "]" +
+                    "[" + list[i - 1].getStatusIcon() +
+                    "] " + list[i - 1].description + list[i - 1].getDate());
         }
     }
 
     public static void main(String[] args) {
         int listSize = 0;
-        Task task;
         String item;
         Task[] list = new Task[100];
+
         Scanner in = new Scanner(System.in);
         String response = null;
+        IntroductoryMessage();
 
-        String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
-        String lineBreak = "__________________" +
-                "_________________________________________";
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println(lineBreak);
-        System.out.println("What can I do for you today?");
-        System.out.println(lineBreak);
-        response = in.nextLine();
-        System.out.println(lineBreak);
-        while (!response.equals("bye")) {
-
-            if (response.equals("echo")) {
-                echo(lineBreak);
-            } else if ((response.length() > 3) &&
-                    (response.substring(0, 3).equals("add"))) {
-                item = response.substring(4);
-                task = new Task(item);
-                list[listSize] = task;
-
-                System.out.println("added: " + item);
-                System.out.println(lineBreak);
-                listSize += 1;
-            } else if (response.equals("list")) {
-                printList(list, listSize);
-                System.out.println(lineBreak);
-            } else if ((response.length() > 4) &&
-                    (response.substring(0, 4).equals("done"))) {
-                int i = Integer.parseInt(response.substring(5)) - 1;
-                list[i].markAsDone();
-                System.out.println("Nice! i have marked this task as done:\n ["
-                        + list[i].getStatusIcon() + "] " + list[i].getDescription());
-                System.out.println(lineBreak);
-            } else {
-                System.out.println("bad command");
-                System.out.println(lineBreak);
-            }
+        String[] command;
+        boolean isRunning = true;
+        while (isRunning) {
             response = in.nextLine();
-            System.out.println(lineBreak);
+            lineBreak();
+            command = response.split(" ", 10);
+            switch(command[0]) {
+            case "echo":
+                echo();
+                break;
+            case "todo":
+                ToDo task = new ToDo(response.substring(5));
+                listSize = addToList(task, listSize, list, response);
+                break;
+            case "list":
+                printList(list, listSize);
+                lineBreak();
+                break;
+            case "done":
+                done(list, response);
+                break;
+            case "deadline":
+                String date = response.substring(response.indexOf("/") + 4);
+                Deadlines work= new Deadlines(response.substring(9, response.indexOf("/") - 1),
+                        date);
+                listSize = addToList(work, listSize, list, response);
+                break;
+            case "event":
+                String timing = response.substring(response.indexOf("/") + 4);
+                Event event = new Event(response.substring(6, response.indexOf("/") - 1), timing);
+                listSize = addToList(event, listSize, list, response);
+                break;
+            case "bye":
+                isRunning = false;
+                break;
+            default:
+                System.out.println("bad command");
+                lineBreak();
+                break;
+            }
         }
-
-        System.out.println("GoodBye, Hope to see again soon!");
-        System.out.println(lineBreak);
+        System.out.println("GoodBye, Ikaros awaits for future commands");
+        lineBreak();
     }
+
 }
