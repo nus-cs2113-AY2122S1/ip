@@ -13,4 +13,9 @@ public class Deadline extends Task{
     public String getBy() {
         return this.by;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + String.format("(%s)",by);
+    }
 }
