@@ -4,10 +4,10 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
+                + "|  _ \\ _   _| | _____\n"
                 + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  /\n"
-                + "|____/ \\,_|_|\\_\\___|\n";
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         int taskNum = 0;
         String userCommand;
@@ -50,7 +50,9 @@ public class Duke {
                 taskNum++;
                 printTotalNumOfTasks(tasks, taskNum);
             } else {
+                printSign();
                 System.out.println("invalid command");
+                printSign();
             }
         } while (!Objects.equals(userCommand, "bye"));
         exit();
@@ -101,7 +103,7 @@ public class Duke {
 
     public static void printSign() {
         // Print out a "-" line
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= 40; i++) {
             System.out.print("-");
         }
         System.out.println();
