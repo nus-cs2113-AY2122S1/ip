@@ -8,6 +8,9 @@ public class TaskManager {
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
+    private final int INDEX_DESCRIPTION = 0;
+    private final int INDEX_DATETIME = 1;
+
     public static int getTaskCount() {
         return taskCount;
     }
@@ -20,14 +23,14 @@ public class TaskManager {
 
     public void addDeadlineTask(String taskInfo) {
         String[] taskComponents = splitTaskComponents(taskInfo);
-        tasks[taskCount] = new Deadline(taskComponents[0], taskComponents[1]);
+        tasks[taskCount] = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
         DisplayManager.printCreateTask(tasks[taskCount]);
         taskCount++;
     }
 
     public void addEventTask(String taskInfo) {
         String[] taskComponents = splitTaskComponents(taskInfo);
-        tasks[taskCount] = new Event(taskComponents[0], taskComponents[1]);
+        tasks[taskCount] = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
         DisplayManager.printCreateTask(tasks[taskCount]);
         taskCount++;
     }
