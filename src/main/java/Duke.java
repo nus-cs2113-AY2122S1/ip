@@ -1,38 +1,11 @@
 import java.util.Scanner;
 
 
-class Task {
-    private boolean isDone;
-    private String taskName;
 
-    // constructors
-    public Task(boolean isDone, String taskName) {
-        this.isDone = isDone;
-        this.taskName = taskName;
-    }
 
-    public Task() {
-        this(false, "Nothing");
-    }
 
-    // getters
-    public boolean isDone() {
-        return isDone;
-    }
 
-    public String getTaskName() {
-        return taskName;
-    }
 
-    // setters
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-}
 
 public class Duke {
     // Task array with counter to keep track of array index to add
@@ -48,6 +21,13 @@ public class Duke {
             + "                        |___/ \n";
     private static String dashes = "____________________________________________________________\n";
 
+
+    public static void main(String[] args) {
+        greetUser();
+        // Scan in user input of tasks
+        mainProgram();
+        exitProgram();
+    }
     // greet user: called at the start of the program
     public static void greetUser() {
         System.out.print(dashes);
@@ -65,38 +45,38 @@ public class Duke {
             if (task == null) {
                 break;
             }
-            System.out.print(">");
-            String checkbox = "[ ]";
-            if (task.isDone()) {
-                checkbox = "[X]";
-            }
-            System.out.println(checkbox + task.getTaskName());
+            System.out.println(task);
         }
         System.out.print(dashes);
     }
 
     // add task: when user types in a task (not list, done or bye command).
     // @params in: Task instance of new task created + string of task name
-    public static void addTask(Task newTask, String userInput) {
+    public static void addTask(Task newTask, String taskName) {
         tasks[tasksCounter++] = newTask;
         System.out.print(dashes);
-        System.out.println("Very well, adding task \"" + userInput + "\"");
+        System.out.println("Very well, adding task \"" + taskName + "\"");
         System.out.print(dashes);
+
     }
 
-    // exit program: message printed when user exits program
-    public static void exitProgram() {
-        String exit = dashes
-                + "Powering Off now. Good Bye Mr Stark.\n"
-                + dashes;
-        System.out.println(exit);
+    public static void addToDo(String taskName) {
+        Todo newTodo = new Todo(false, taskName);
+        addTask(newTodo, taskName);
     }
 
-    public static void main(String[] args) {
-        greetUser();
+    public static void addDeadline(String taskName, String deadline) {
+        Deadline newDeadline = new Deadline(false, taskName, deadline);
+        addTask(newDeadline, taskName);
+    }
 
-        // Scan in user input of tasks
-        String userInput = "";
+    public static void addEvent(String taskName, String date) {
+        Event newEvent = new Event(false, taskName, date);
+        addTask(newEvent, taskName);
+    }
+
+    private static void mainProgram() {
+        String userInput;
         while (true) {
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
@@ -108,6 +88,29 @@ public class Duke {
                 getList();
                 continue;
             }
+
+            // TODO
+            if (userInput.startsWith("todo")) {
+                addToDo(userInput.substring(userInput.indexOf(" ") + 1));
+                continue;
+            }
+
+            // DEADLINES
+            if (userInput.startsWith("deadline")) {
+                String taskName = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/")).trim();
+                String deadline = userInput.substring(userInput.indexOf("/") + 3).trim();
+                addDeadline(taskName, deadline);
+                continue;
+            }
+
+            //EVENTS
+            if (userInput.startsWith("event")) {
+                String taskName = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/")).trim();
+                String eventDate = userInput.substring(userInput.indexOf("/") + 3).trim();
+                addEvent(taskName, eventDate);
+                continue;
+            }
+
             // if user wants to mark as done
             if (userInput.startsWith("done")) {
                 // get index of task to change
@@ -135,11 +138,18 @@ public class Duke {
                 System.out.println(dashes);
                 continue;
             }
-            // add to list if not list, bye or done command
-            Task newTask = new Task(false, userInput);
-            addTask(newTask, userInput);
+            // ask user to input task with todo, event or deadline
+            System.out.println(dashes);
+            System.out.println("Enter todo, event or deadline before task name to classify task correctly");
+            System.out.println(dashes);
         }
+    }
 
-        exitProgram();
+    // exit program: message printed when user exits program
+    public static void exitProgram() {
+        String exit = dashes
+                + "Powering Off now. Good Bye Mr Stark.\n"
+                + dashes;
+        System.out.println(exit);
     }
 }
