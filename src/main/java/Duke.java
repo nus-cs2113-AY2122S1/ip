@@ -7,17 +7,17 @@ public class Duke {
     public static final String TASK_SEPARATOR = " ";
     public static final String DEADLINE_SEPARATOR = "/by ";
     public static final String EVENT_SEPARATOR = "/at ";
+    public static final String TASK_PADDING = "   ";
+    public static final String NUMBER_LIST_SEPARATOR = ". ";
     public static final String LIST_COMMAND = "list";
     public static final String ADD_TODO_COMMAND = "todo ";
     public static final String ADD_DEADLINE_COMMAND = "deadline ";
     public static final String ADD_EVENT_COMMAND = "event ";
     public static final String MARK_AS_DONE_COMMAND = "done ";
-    public static final String EXIT_COMMAND_1 = "bye";
-    public static final String EXIT_COMMAND_2 = "exit";
-    public static final String TASK_PADDING = "   ";
-    public static final String NUMBER_LIST_SEPARATOR = ". ";
     public static final String HELP_COMMAND = "help";
     public static final String GREETING_COMMAND = "hello";
+    public static final String EXIT_COMMAND_1 = "bye";
+    public static final String EXIT_COMMAND_2 = "exit";
 
     public static void main(String[] args) {
 
@@ -78,7 +78,7 @@ public class Duke {
                     int indexOfDeadline = input.indexOf(DEADLINE_SEPARATOR);
                     //extract task and due date
                     String task = getTrimmedSubstring(input, indexOfTask, indexOfDeadline);
-                    String by = getTrimmedSubstring(input, indexOfDeadline + DEADLINE_SEPARATOR.length(), 
+                    String by = getTrimmedSubstring(input, indexOfDeadline + DEADLINE_SEPARATOR.length(),
                             input.length());
                     if (task.isBlank()) {
                         printNoTaskErrorMessage();
