@@ -47,6 +47,7 @@ public class Duke {
 
 
     private static void listAllTask() {
+        System.out.println("Here are the tasks in your list:")
         for(int i = 1; i <= currentIndex; i++) {
             System.out.println(i + ". " + toDoList[i].toString());
         }
