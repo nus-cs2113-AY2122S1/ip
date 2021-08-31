@@ -36,7 +36,9 @@ public class Duke {
                 printTaskList(taskList);
             } else if (userInput.startsWith("done")) {
                 markTaskAsDone(taskList, userInput);
-            } else if (!userInput.startsWith("bye")) {
+            } else if (userInput.startsWith("bye")) {
+                break;
+            } else {
                 System.out.println("Aw man! I am unable to " + userInput + " yet! Please specify a different function! :D");
             }
         }
