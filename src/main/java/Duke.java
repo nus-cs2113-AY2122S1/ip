@@ -5,14 +5,11 @@ public class Duke {
     public static void main(String[] args) {
         //initialize variables
         int listSize = 0;
-        String item;
-        String[] command;
         Task[] list = new Task[100];
         boolean isRunning = true;
 
         //get initial response
         Scanner in = new Scanner(System.in);
-        String response = null;
         IntroductoryMessage();
 
         //run the chatbot
