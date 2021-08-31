@@ -40,7 +40,7 @@ public class Duke {
                     numOfTasks++;
                     break;
                 default:
-                    System.out.println("Invalid Input!");
+                    System.out.println(TEXT_SPACER + "Invalid Input!");
                     printLineSpacer();
                     break;
                 }
@@ -53,7 +53,7 @@ public class Duke {
 
     private static void printList(Task[] userLists, int numOfTasks) {
         if (numOfTasks == 0) {
-            System.out.println("List is empty!");
+            System.out.println(TEXT_SPACER + "List is empty!");
         } else {
             System.out.println(TEXT_SPACER + "Here's your list of tasks:");
             for (int i = 0; i < numOfTasks; i++) {
@@ -82,14 +82,14 @@ public class Duke {
         } else{
             storeToDo(userLists, userLineInput, numOfTasks);
         }
-        System.out.println("Now you have " + (numOfTasks + 1) + " tasks in your list");
+        System.out.println(TEXT_SPACER + "Now you have " + (numOfTasks + 1) + " tasks in your list");
         printLineSpacer();
     }
 
     private static void storeToDo(Task[] userLists, String userLineInput, int numOfTasks) {
         userLists[numOfTasks] = new ToDo(userLineInput.substring(5));
-        System.out.println("Aight, I've added the following task to your list:");
-        System.out.println(userLists[numOfTasks].toString());
+        System.out.println(TEXT_SPACER + "Aight, I've added the following task to your list:");
+        System.out.println(TEXT_SPACER + userLists[numOfTasks].toString());
     }
 
     private static void storeDeadline(Task[] userLists, String userLineInput, int numOfTasks) {
@@ -97,7 +97,7 @@ public class Duke {
         String taskDescription = userLineInput.substring(9, infoIndex);
         String dueDate = userLineInput.substring(infoIndex + 3);
         userLists[numOfTasks] = new Deadline(taskDescription, dueDate);
-        System.out.println(userLists[numOfTasks].toString());
+        System.out.println(TEXT_SPACER + userLists[numOfTasks].toString());
     }
 
     private static void storeEvent(Task[] userLists, String userLineInput, int numOfTasks) {
@@ -105,7 +105,7 @@ public class Duke {
         String taskDescription = userLineInput.substring(6, infoIndex);
         String eventTime = userLineInput.substring(infoIndex + 3);
         userLists[numOfTasks] = new Event(taskDescription, eventTime);
-        System.out.println(userLists[numOfTasks].toString());
+        System.out.println(TEXT_SPACER + userLists[numOfTasks].toString());
     }
 
 
