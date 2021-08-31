@@ -78,13 +78,13 @@ public class TaskManager {
         taskList[index].setTaskDone();
         System.out.print(line);
         System.out.println(" Duly noted on completion of task, sir.");
-        System.out.println("\t" + destructuredInput[1] + "." + taskList[index].toString());
+        System.out.println("    " + destructuredInput[1] + "." + taskList[index].toString());
         System.out.println(line);
     }
 
     private void addTaskMessage(Task t) {
         System.out.print(line);
-        System.out.println(" I shall put this in your schedule, Master Wayne: \n\t" + t.toString());
+        System.out.println(" I shall put this in your schedule, Master Wayne: \n    " + t.toString());
         System.out.println(" Sir, the number of Tasks you have scheduled currently amounts to " + listIndex + ".");
         System.out.println(line);
     }
