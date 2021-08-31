@@ -1,8 +1,9 @@
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Duke {
+    private static int taskCount = 0;
+    private static Task[] tasks = new Task[100];
+
     public static void greeting() {
         System.out.println("_____________________________________________________");
         System.out.println("Hello! I'm Duke the Dancing Dragon.");
@@ -44,12 +45,53 @@ public class Duke {
         }
     }
 
+    public static boolean hasDoneKeyword(String arg) {
+        return arg.trim().matches("^[done]+\\s+[0-9]+$");
+    }
+
+    public static boolean hasTodoKeyword(String arg) {
+        return arg.trim().toLowerCase().matches("^todo+\\s+[A-Za-z]+$");
+    }
+
+    public static boolean hasDeadlineKeyword(String arg) {
+        return arg.trim().toLowerCase().matches("^deadline+\\s+[A-Za-z]+$");
+    }
+
+    public static boolean hasEventKeyword(String arg) {
+        return arg.trim().toLowerCase().matches("^event+\\s+[A-Za-z]+$");
+    }
+
+    public static Keyword getKeywordStatus(String query) {
+        Keyword keyword = null;
+        if (hasDoneKeyword(query)) {
+            keyword = Keyword.DONE_TASK;
+        } else if (hasTodoKeyword(query)) {
+            keyword = Keyword.TODO_TASK;
+        } else if (hasDeadlineKeyword(query)) {
+            keyword = Keyword.DEADLINE_TASK;
+        } else if (hasEventKeyword(query)) {
+            keyword = Keyword.EVENT_TASK;
+        }
+        return keyword;
+    }
+
+    public static void addTask(Task task, Keyword keyword) {
+        tasks[taskCount] = task;
+        taskCount++;
+
+        switch (keyword) {
+        case DONE_TASK:
+            
+
+        }
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
 
         String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
                     + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
@@ -68,30 +110,32 @@ public class Duke {
 
         String query = "";
         Scanner userInput = new Scanner(System.in);
-        Task[] listOfStuff = new Task[100];
-        int index = 0;
 
-        while (!query.equals("bye")) {
-            System.out.print("=>");
-            if (userInput.hasNextLine()) {
-                query = userInput.nextLine();
-            }
-            // prints out the same message that was given by user
-            // echoMessage(query);
 
-            if (query.equals("list")) {
-                // print out current list
-                printList(listOfStuff);
-            }
-            else if (query.trim().matches("^[done]+\\s+[0-9]+$")) {
-                int taskNumber = findTaskNum(query);
-                listOfStuff[taskNumber - 1].markAsDone();
-                printDone(listOfStuff[taskNumber - 1]);
-            } else {
-            // stores the user's args in a list
-            listOfStuff[index] = new Task(query);
-            index++;
-            }
+
+//        int index = 0;
+
+//        while (!query.equals("bye")) {
+//            System.out.print("=>");
+//            if (userInput.hasNextLine()) {
+//                query = userInput.nextLine();
+//            }
+//            // prints out the same message that was given by user
+//            // echoMessage(query);
+//
+//            if (query.equals("list")) {
+//                // print out current list
+//                printList(listOfStuff);
+//            }
+//            else if (hasDoneKeyword(query)) {
+//                int taskNumber = findTaskNum(query);
+//                listOfStuff[taskNumber - 1].markAsDone();
+//                printDone(listOfStuff[taskNumber - 1]);
+//            } else {
+//            // stores the user's args in a list
+//            listOfStuff[index] = new Task(query);
+//            index++;
+//            }
 
         }
         // print end message
