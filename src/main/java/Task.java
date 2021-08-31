@@ -32,8 +32,8 @@ public class Task {
     }
 
     /**
-     * Get the type of task
-     * @return [T] if todo, [D] if deadline, [E] if event
+     * Get the type of task.
+     * @return [T] if todo, [D] if deadline, [E] if event.
      */
     public String getTypeOfTask() {
         return typeOfTask;
