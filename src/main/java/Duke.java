@@ -31,8 +31,13 @@ public class Duke {
     /** Length of the word "event" */
     public static final int END_INDEX_OF_WORD_EVENT = 5;
 
+    /**
+     * Loops Triss into receiving user input and giving output messages.
+     * It will only end once the user types "bye".
+     * @param args No params currently used.
+     */
     public static void main(String[] args) {
-        // Print LOGO  and welcome text
+        // Print LOGO and welcome text
         printWelcomeMessage();
 
         // Initialise user input reader
@@ -62,18 +67,38 @@ public class Duke {
         }
     }
 
+    /**
+     * Create a new Scanner to read user input.
+     * @return A new Scanner.
+     */
     private static Scanner createNewInputReader() {
         return new Scanner(System.in);
     }
 
+    /**
+     * Print a string, then terminates the line.
+     * @param s The string to be printed.
+     */
     private static void printLine(String s) {
         System.out.println(s);
     }
 
+    /**
+     * Parse the user input and return the word in the index the user wants.
+     * @param userInput The user input to be parsed.
+     * @param i The index of the word in the user input to be returned.
+     * @return Parsed string from user input.
+     */
     private static String parseUserInput(String userInput, int i) {
         return userInput.split(" ")[i];
     }
 
+    /**
+     * Read the next line of user input.
+     * If the user input is blank, asks user for input again.
+     * @param in The InputReader (Scanner) that will be used to read the next line.
+     * @return Valid user input.
+     */
     private static String getUserInput(Scanner in) {
         userInput = in.nextLine();
 
@@ -85,6 +110,10 @@ public class Duke {
         return userInput;
     }
 
+    /**
+     * Creates new task depending on first word in user input.
+     * @param userInput The user's input.
+     */
     private static void handleUserCreatingTask(String userInput) {
         String taskType = parseUserInput(userInput, 0);
 
@@ -99,6 +128,11 @@ public class Duke {
         };
     }
 
+    /**
+     * Creates a new todo based on user's input.
+     * If user did not type in this format: "todo Eat with Friends", it asks the user to try again.
+     * @param userInput Any user input starting with the words "todo"
+     */
     private static void createNewTodo(String userInput) {
         String taskName;
         taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
@@ -120,6 +154,12 @@ public class Duke {
         printLine("I've added: " + tasks[noOfTasks - 1].printTask());
     }
 
+    /**
+     * Creates a new event based on the user's input.
+     * User has to type the input in this format: "event Stay in a log cabin /Friday the 13th".
+     * If the user types incorrectly, it asks the user to try again.
+     * @param userInput Any user input starting with the word "event".
+     */
     private static void createNewEvent(String userInput) {
         String taskName;
         String eventTiming;
@@ -144,6 +184,12 @@ public class Duke {
         printLine("I've added: " + tasks[noOfTasks - 1].printTask());
     }
 
+    /**
+     * Creates a new deadline based on the user's input.
+     * User has to type the input in this format: "deadline Meet with Friends /12th July".
+     * If the user types incorrectly, it asks the user to try again.
+     * @param userInput Any user input starting with the word "deadline".
+     */
     private static void createNewDeadline(String userInput) {
         String deadlineDate;
         String taskName;
@@ -168,6 +214,13 @@ public class Duke {
         printLine("I've added: " + tasks[noOfTasks - 1].printTask());
     }
 
+    /**
+     * Mark user task as done, if request is valid.
+     * Stops if user did not specify a task.
+     * Stops if user's chosent task does not exist.
+     * Informs user if task was already done.
+     * @param userInput Any user input starting with "done"
+     */
     private static void handleUserMarkingTaskAsDone(String userInput) {
         // Get number of task after the term "done"
         int indexOfCompletedTask;
@@ -205,6 +258,9 @@ public class Duke {
         printLine("    " + chosenTask.printTask());
     }
 
+    /**
+     * Prints all tasks stored in Task Array tasks.
+     */
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
         for (int i = 0; i < noOfTasks; i++) {
@@ -212,12 +268,18 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints shutdown message.
+     */
     private static void printShutdownMessage() {
         // If user said "bye", update hasUserSaidBye and print closing phrase
         hasUserSaidBye = true;
         printLine("Thanks for coming. Auf wiedersehen!");
     }
 
+    /**
+     * Prints welcome message.
+     */
     private static void printWelcomeMessage() {
         printLine("Hello from\n" + LOGO);
         printLine(SEPARATOR_LINE);
