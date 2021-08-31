@@ -2,15 +2,28 @@ import java.util.Scanner;
 
 public class Duke {
 
+    /**
+     * Number of tasks scheduled
+     */
     public static int taskCounter = 0;
+
+    /**
+     * Task type 100 objects to store the tasks the user will create
+     */
     public static Task[] scheduledTasks = new Task[100];
 
+    /**
+     * This is the main function which is responsible for executing all the functions
+     */
     public static void main(String[] args) {
         greet();
         runDuke();
         greetBye();
     }
 
+    /**
+     * Greets the user by printing some introductory messages
+     */
     private static void greet() {
         printLine();
         System.out.println("Hello! I'm Duke");
@@ -18,10 +31,23 @@ public class Duke {
         printLine();
     }
 
+    /**
+     * Prints a line on the screen
+     */
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Takes in input from the user and executes the given instructions.
+     * If user input is "list", it calls the list() function to list all the tasks.
+     * If user input is done x, where x is a valid task number, it calls the MarkTaskAsDone() function to mark the task as done.
+     * If user has scheduled a task by writing a statement beginning with "event", "deadline" or "todo",
+     * then it adds the task in the tasks list by calling the addTaskToList() function.
+     *
+     * @param userInput            userInput stores the input String entered by the user.
+     * @param taskCompletionStatus taskCompletionStatus Stores the status of the task, true if completed, false otherwise.
+     */
     private static void runDuke() {
         int i;
         String userInput;
@@ -42,12 +68,26 @@ public class Duke {
         }
     }
 
+    /**
+     * Greets the user goodbye and the code finishes its execution.
+     */
     private static void greetBye() {
         printLine();
         System.out.println(" Bye. Hope to see you again soon!");
         printLine();
     }
 
+    /**
+     * Adds the task to the task list if its a valid task creation statement given by the user.
+     * Displays appropriate message if task is valid and is created successfully, vice versa.
+     * Displays the total number of tasks in the list as well.
+     *
+     * @param taskDescription TaskDescription Stores the description of the task.
+     * @param taskDueBy       TaskDueBy stores the deadline of the task which is created as a deadline.
+     * @param taskDueAt       TaskDueAt stores the event timing of the task created as an event.
+     * @param isTaskValid     IsTaskValid stores true if the task statement emtered by the user is a valid task creation statement and fasle, otherwise.
+     * @param index           Index stores the index of the "/" in the entered String
+     */
     private static void addTaskToList(String userInput) {
 
         String taskDescription;
@@ -78,6 +118,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Updates the status of the task by marking it as done in the task list.
+     *
+     * @param taskNumberCompleted TaskNumberCompleted stores the task number which has been completed by the user.
+     */
     private static void markTaskAsDone(String userInput) {
         printLine();
         int taskNumberCompleted = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
@@ -91,6 +136,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Lists all the tasks in the task list along with their task completion status.
+     * The tasks are enlisted which reveal if they are a "todo", "event" or a "deadline".
+     *
+     * @param taskCompletionStatus TaskCompletionStatus stores true if the task is completed, false otherwise.
+     */
     private static void List() {
         int i;
         String taskCompletionStatus;
