@@ -33,7 +33,7 @@ public class Duke {
         while (!input.equals(EXIT_COMMAND_1) && !input.equals(EXIT_COMMAND_2)) {
 
             if (input.equals(LIST_COMMAND)) {
-
+                //TODO replace with exception handling in week 5
                 if (listItemCount == 0) {
                     printNoTasksInListMessage();
                 } else {
@@ -43,15 +43,17 @@ public class Duke {
             } else if (input.startsWith(MARK_AS_DONE_COMMAND)) {
                 
                 String[] substrings = input.split(TASK_SEPARATOR); //get all the words in the input
-                int taskNum = Integer.parseInt(substrings[TASK_ARGUMENT]);
+                //extract 1-indexed task number and convert to 0-index
+                int taskNum = Integer.parseInt(substrings[TASK_ARGUMENT]) - 1;
                 //check if task number is valid
                 if (taskNum > 0 && taskNum <= listItemCount) {
-                    if (list[taskNum - 1].isDone) {
+                    if (list[taskNum].isDone) {
                         printTaskAlreadyDoneMessage();
                     } else {
-                        markTaskAsDone(list[taskNum - 1]);
+                        markTaskAsDone(list[taskNum]);
                     }
                 } else {
+                    //TODO exception handling (same as above)
                     printInvalidTaskNumberMessage();
                 }
 
@@ -60,6 +62,7 @@ public class Duke {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
                 String task = getTrimmedSubstring(input, indexOfTask, input.length());
                 if (task.isBlank()) {
+                    //TODO exception handling
                     printNoTaskErrorMessage();
                 } else {
                     list[listItemCount] = new Todo(task);
@@ -67,7 +70,7 @@ public class Duke {
                 }
 
             } else if (input.startsWith(ADD_DEADLINE_COMMAND)){
-
+                //TODO exception handling
                 String arguments = input.substring(ADD_DEADLINE_COMMAND.length());
                 if (arguments.isBlank()) {
                     printNoTaskErrorMessage();
@@ -80,6 +83,7 @@ public class Duke {
                     String task = getTrimmedSubstring(input, indexOfTask, indexOfDeadline);
                     String by = getTrimmedSubstring(input, indexOfDeadline + DEADLINE_SEPARATOR.length(),
                             input.length());
+                    //TODO exception handling
                     if (task.isBlank()) {
                         printNoTaskErrorMessage();
                     } else if (by.isBlank()) {
@@ -91,7 +95,7 @@ public class Duke {
                 }
 
             } else if (input.startsWith(ADD_EVENT_COMMAND)){
-
+                //TODO exception handling
                 String arguments = input.substring(ADD_EVENT_COMMAND.length());
                 if (arguments.isBlank()) {
                     printNoEventErrorMessage();
@@ -104,6 +108,7 @@ public class Duke {
                     String task = getTrimmedSubstring(input, indexOfTask, indexOfEvent);
                     String at = getTrimmedSubstring(input, indexOfEvent + EVENT_SEPARATOR.length(),
                             input.length());
+                    //TODO exception handling
                     if (task.isBlank()) {
                         printNoEventErrorMessage();
                     } else if (at.isBlank()) {
