@@ -2,21 +2,18 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static String getUserResponse() {
+    private static String getUserResponse(Scanner in) {
         String line;
-        Scanner in = new Scanner(System.in);
         line = in.nextLine();
         return line;
     }
-
+/*
     private static void echoInput() {
-        System.out.println(getUserResponse());
+        System.out.println(getUserResponse(in));
     }
-
+*/
     private static void processInput(String input, List list) {
-        if (input.equals("bye")) {
-            System.out.println("Bye! See you soon!");
-        } else if (input.equals("list")) {
+        if (input.equals("list")) {
             list.printList();
         } else if (input.equals("help")) {
             printHelpMessage();
@@ -30,8 +27,13 @@ public class Duke {
     public static void main(String[] args) {
         printWelcomeMessage();
         List list = new List();
+        Scanner in = new Scanner(System.in);
         while (true) {
-            String userInput = getUserResponse();
+            String userInput = getUserResponse(in);
+            if (userInput.equals("bye")) {
+                System.out.println("Bye! See you soon!");
+                break;
+            }
             processInput(userInput, list);
             printResponseSeparator();
         }

@@ -20,6 +20,6 @@ public class Event extends Task{
     }
 
     public String toString() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + "(at: " + at + ")");
+        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (at: " + at + ")");
     }
 }

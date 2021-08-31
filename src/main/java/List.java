@@ -84,9 +84,9 @@ public class List {
         case TODO:
             return input.substring(TODO_NAME_START_INDEX);
         case DEADLINE:
-            return input.substring(DEADLINE_NAME_START_INDEX, input.indexOf('/'));
+            return input.substring(DEADLINE_NAME_START_INDEX, input.indexOf(" /"));
         case EVENT:
-            return input.substring(EVENT_NAME_START_INDEX, input.indexOf('/'));
+            return input.substring(EVENT_NAME_START_INDEX, input.indexOf(" /"));
         default:
             return input;
         }
@@ -94,6 +94,6 @@ public class List {
 
     public void doneEntry(int entryNumber) {
         taskList[entryNumber-1].setDone();
-        System.out.println(taskList[entryNumber-1].getName() + "done. Well done.");
+        System.out.println(taskList[entryNumber-1].getName() + " done. Well done.");
     }
 }

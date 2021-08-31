@@ -20,6 +20,6 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + "(by: " + by + ")");
+        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (by: " + by + ")");
     }
 }

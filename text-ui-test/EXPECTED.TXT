@@ -5,3 +5,43 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I'm Duke
+I am currently able to help you keep track of tasks
+scheduled to receive a personality soon, exciting!
+Type "help" to find out what I can do for you.
+===============================================================================
+I currently support 3 types of tasks: todo, deadline and event
+To add a todo task: todo (task name)
+To add a deadline task: deadline (task name) /by (date or time)
+To add an event task: event (task name) /at (date or time)
+note that only the words in parentheses() can be replaced
+Use the command "list" and I will show you your current list
+To cross out an entry, use the command "done x" where x is the entry number
+When you're done, type "bye" to end the program
+===============================================================================
+I've added the following task:
+[T][ ] task 1 
+===============================================================================
+I've added the following task:
+[D][ ] task 2 (by: monday)
+===============================================================================
+I've added the following task:
+[E][ ] task 3 (at: thursday 1pm)
+===============================================================================
+Here if your current list
+1.[T][ ] task 1 
+2.[D][ ] task 2 (by: monday)
+3.[E][ ] task 3 (at: thursday 1pm)
+You have 3 task(s) on your list.
+===============================================================================
+task 1  done. Well done.
+===============================================================================
+task 2 done. Well done.
+===============================================================================
+Here if your current list
+1.[T][X] task 1 
+2.[D][X] task 2 (by: monday)
+3.[E][ ] task 3 (at: thursday 1pm)
+You have 3 task(s) on your list.
+===============================================================================
+Bye! See you soon!
