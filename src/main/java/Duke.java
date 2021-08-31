@@ -41,7 +41,7 @@ public class Duke {
                 String[] number = command.split(" ");
                 int taskIndex = Integer.parseInt(number[1]) - 1;
                 tasks[taskIndex].complete();
-                System.out.println(Line + "\n" + "     Nice! I've marked this task as done:" + "\n       [" + tasks[taskIndex].getInformation() + "]" + tasks[taskIndex].content + "\n" + Line);
+                System.out.println(Line + "\n" + "     Nice! I've marked this task as done:" + "\n     " + tasks[taskIndex].toString() + "\n" + Line);
             }
             else if(command.contains("todo")){
                 int first = command.indexOf(" ");
