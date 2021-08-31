@@ -1,4 +1,5 @@
 public class Task {
+
     protected String description;
     protected boolean isDone;
 
@@ -25,9 +26,10 @@ public class Task {
         this.isDone = true;
     }
 
-    public void printTaskAndStatus() {
+    @Override
+    public String toString() {
         String taskStatus = isDone ? "X" : " ";
-        System.out.println("[ " + taskStatus + " ] " + this.description);
+        return ("[" + taskStatus + "] " + this.description);
     }
 
 }
