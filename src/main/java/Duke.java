@@ -2,6 +2,68 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static void main(String[] args) {
+        //initialize variables
+        int listSize = 0;
+        String item;
+        String[] command;
+        Task[] list = new Task[100];
+        boolean isRunning = true;
+
+        //get initial response
+        Scanner in = new Scanner(System.in);
+        String response = null;
+        IntroductoryMessage();
+
+        //run the chatbot
+        runIkaros(listSize, list, isRunning, in);
+        goodbyeMessage();
+    }
+
+    private static void runIkaros(int listSize, Task[] list, boolean isRunning, Scanner in) {
+        String response;
+        String[] command;
+        while (isRunning) {
+            response = in.nextLine();
+            lineBreak();
+            command = response.split(" ", 10);
+            switch (command[0]) {
+            case "echo":
+                echo();
+                break;
+            case "todo":
+                ToDo task = new ToDo(response.substring(5));
+                listSize = addToList(task, listSize, list, response);
+                break;
+            case "list":
+                printList(list, listSize);
+                lineBreak();
+                break;
+            case "done":
+                done(list, response);
+                break;
+            case "deadline":
+                String date = response.substring(response.indexOf("/") + 4);
+                Deadlines work = new Deadlines(response.substring(9, response.indexOf("/") - 1),
+                        date);
+                listSize = addToList(work, listSize, list, response);
+                break;
+            case "event":
+                String timing = response.substring(response.indexOf("/") + 4);
+                Event event = new Event(response.substring(6, response.indexOf("/") - 1), timing);
+                listSize = addToList(event, listSize, list, response);
+                break;
+            case "bye":
+                isRunning = false;
+                break;
+            default:
+                System.out.println("bad command");
+                lineBreak();
+                break;
+            }
+        }
+    }
+
     private static void lineBreak() {
         String lineBreak = "..........................." +
                 ".......................................";
@@ -18,6 +80,11 @@ public class Duke {
         System.out.println(logo);
         lineBreak();
         System.out.println("What assistance do you require?");
+        lineBreak();
+    }
+
+    private static void goodbyeMessage() {
+        System.out.println("GoodBye, Ikaros awaits for future commands");
         lineBreak();
     }
 
@@ -62,59 +129,4 @@ public class Duke {
                     "] " + list[i - 1].description + list[i - 1].getDate());
         }
     }
-
-    public static void main(String[] args) {
-        int listSize = 0;
-        String item;
-        Task[] list = new Task[100];
-
-        Scanner in = new Scanner(System.in);
-        String response = null;
-        IntroductoryMessage();
-
-        String[] command;
-        boolean isRunning = true;
-        while (isRunning) {
-            response = in.nextLine();
-            lineBreak();
-            command = response.split(" ", 10);
-            switch(command[0]) {
-            case "echo":
-                echo();
-                break;
-            case "todo":
-                ToDo task = new ToDo(response.substring(5));
-                listSize = addToList(task, listSize, list, response);
-                break;
-            case "list":
-                printList(list, listSize);
-                lineBreak();
-                break;
-            case "done":
-                done(list, response);
-                break;
-            case "deadline":
-                String date = response.substring(response.indexOf("/") + 4);
-                Deadlines work= new Deadlines(response.substring(9, response.indexOf("/") - 1),
-                        date);
-                listSize = addToList(work, listSize, list, response);
-                break;
-            case "event":
-                String timing = response.substring(response.indexOf("/") + 4);
-                Event event = new Event(response.substring(6, response.indexOf("/") - 1), timing);
-                listSize = addToList(event, listSize, list, response);
-                break;
-            case "bye":
-                isRunning = false;
-                break;
-            default:
-                System.out.println("bad command");
-                lineBreak();
-                break;
-            }
-        }
-        System.out.println("GoodBye, Ikaros awaits for future commands");
-        lineBreak();
-    }
-
 }
