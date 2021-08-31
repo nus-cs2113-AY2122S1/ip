@@ -24,4 +24,13 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
+    @Override
+    public String toString() {
+        if (isDone) {
+            return "[X] " + this.taskName;
+        } else {
+            return "[ ] " + this.taskName;
+        }
+    }
 }
