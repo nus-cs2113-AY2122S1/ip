@@ -13,6 +13,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public void printAddingStatus(int numberOfTasks) {
+        System.out.println("    Please specify the task... :(");
+    }
+
     /**
      * Returns the status of a particular task.
      *
@@ -27,14 +31,19 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done: ");
-        printStatus();
+        System.out.println("    Nice! I've marked this task as done: ");
+        this.printStatus();
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     /**
      * Prints out the status of a task along with the description.
      */
     public void printStatus() {
-        System.out.println("[" + getStatusIcon() + "] " + description);
+        System.out.println(this.toString());
     }
 }
