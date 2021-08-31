@@ -18,4 +18,16 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
+    public String getType() {
+        return null;
+    }
+
+    public String getByDateTime() {
+        return null;
+    }
+
+    public String getStartAndEndTime() {
+        return null;
+    }
 }
