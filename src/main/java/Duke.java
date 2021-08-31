@@ -37,12 +37,12 @@ public class Duke {
      * Prints the logo and the welcome message at the start of the program.
      */
     public static void printWelcomeMessage() {
-        String logo = "        ___      __    __       _______.___________.__  .__   __. \n" +
-                "       /   \\    |  |  |  |     /       |           |  | |  \\ |  | \n" +
-                "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  | \n" +
-                "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  | \n" +
-                "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   | \n" +
-                "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|   ";
+        String logo = "        ___      __    __       _______.___________.__  .__   __.\n" +
+                "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
+                "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
+                "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
+                "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   |\n" +
+                "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|  ";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Austin\n"
                 + "What can I do for you?\n"
