@@ -19,8 +19,8 @@ public class TaskManager {
                 " *  / ___ \\| |  _| | |  __/ (_| | *\n" +
                 " * /_/   \\_\\_|_| |_|  \\___|\\__,_| *\n" +
                 " **********************************\n";
-        System.out.println(logo);
         System.out.println(
+                logo + "\n" +
                 line +
                 " Welcome back, Master Wayne.\n" +
                 " How may I be of service to you?\n" +
@@ -29,7 +29,11 @@ public class TaskManager {
     }
 
     public void shutdownMessage() {
-        System.out.println(line + " Very well sir, I shall leave you to your own devices.\n" + line);
+        System.out.println(
+                line +
+                " Very well sir, I shall leave you to your own devices.\n" +
+                line
+        );
     }
 
     public void processInput(String userInput) {
@@ -56,7 +60,11 @@ public class TaskManager {
     }
 
     private void invalidCommandMessage() {
-        System.out.println(line + " Perhaps you could rephrase that in a way us civilians could comprehend.\n" + line);
+        System.out.println(
+                line +
+                " Perhaps you could rephrase that in a way us civilians could comprehend.\n" +
+                line
+        );
     };
 
     private void listTasks() {
@@ -76,17 +84,7 @@ public class TaskManager {
         String[] destructuredInput = userInput.split(" ");
         int index = Integer.parseInt(destructuredInput[1]) - 1;
         taskList[index].setTaskDone();
-        System.out.print(line);
-        System.out.println(" Duly noted on completion of task, sir.");
-        System.out.println("    " + destructuredInput[1] + "." + taskList[index].toString());
-        System.out.println(line);
-    }
-
-    private void addTaskMessage(Task t) {
-        System.out.print(line);
-        System.out.println(" I shall put this in your schedule, Master Wayne: \n    " + t.toString());
-        System.out.println(" Sir, the number of Tasks you have scheduled currently amounts to " + listIndex + ".");
-        System.out.println(line);
+        completeTaskMessage(index+1, taskList[index].toString());
     }
 
     private void addTodo(String userInput) {
@@ -114,5 +112,23 @@ public class TaskManager {
         taskList[listIndex] = d;
         listIndex++;
         addTaskMessage(d);
+    }
+
+    private void completeTaskMessage(int index, String taskDescription) {
+        System.out.println(
+                line +
+                " Duly noted on completion of task, sir.\n" +
+                "    " + index + "." + taskDescription + "\n" +
+                line
+        );
+    }
+
+    private void addTaskMessage(Task t) {
+        System.out.println(
+                line +
+                " I shall put this in your schedule, Master Wayne: \n    " + t.toString() + "\n" +
+                " Sir, the number of Tasks you have scheduled currently amounts to " + listIndex + "." + "\n" +
+                line
+        );
     }
 }
