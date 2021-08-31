@@ -19,7 +19,6 @@ public class Duke {
     public static final String EXIT_COMMAND_1 = "bye";
     public static final String EXIT_COMMAND_2 = "exit";
 
-    //TODO reduce depth of nesting
     public static void main(String[] args) {
 
         printWelcomeMessage();
@@ -34,7 +33,7 @@ public class Duke {
         while (!input.equals(EXIT_COMMAND_1) && !input.equals(EXIT_COMMAND_2)) {
 
             if (input.equals(LIST_COMMAND)) {
-                //TODO replace with exception handling in week 5
+
                 if (listItemCount == 0) {
                     printNoTasksInListMessage();
                 } else {
@@ -44,33 +43,31 @@ public class Duke {
             } else if (input.startsWith(MARK_AS_DONE_COMMAND)) {
                 
                 String[] substrings = input.split(TASK_SEPARATOR); //get all the words in the input
-                //extract task number and convert to zero index
-                int taskNum = Integer.parseInt(substrings[TASK_ARGUMENT]) - 1;
+                int taskNum = Integer.parseInt(substrings[TASK_ARGUMENT]);
                 //check if task number is valid
                 if (taskNum > 0 && taskNum <= listItemCount) {
-                    if (list[taskNum].isDone) {
+                    if (list[taskNum - 1].isDone) {
                         printTaskAlreadyDoneMessage();
                     } else {
-                        markTaskAsDone(list[taskNum]);
+                        markTaskAsDone(list[taskNum - 1]);
                     }
                 } else {
-                    //TODO exception handling
                     printInvalidTaskNumberMessage();
                 }
 
             } else if (input.startsWith(ADD_TODO_COMMAND)){
+
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
                 String task = getTrimmedSubstring(input, indexOfTask, input.length());
                 if (task.isBlank()) {
                     printNoTaskErrorMessage();
                 } else {
-                    //TODO exception handling
                     list[listItemCount] = new Todo(task);
                     listItemCount = updateTaskListNumber(list, listItemCount);
                 }
 
             } else if (input.startsWith(ADD_DEADLINE_COMMAND)){
-                //TODO exception handling
+
                 String arguments = input.substring(ADD_DEADLINE_COMMAND.length());
                 if (arguments.isBlank()) {
                     printNoTaskErrorMessage();
@@ -94,7 +91,7 @@ public class Duke {
                 }
 
             } else if (input.startsWith(ADD_EVENT_COMMAND)){
-                //TODO exception handling
+
                 String arguments = input.substring(ADD_EVENT_COMMAND.length());
                 if (arguments.isBlank()) {
                     printNoEventErrorMessage();
@@ -126,7 +123,7 @@ public class Duke {
                 printGreetingMessage();
 
             } else {
-
+                //default
                 printInvalidCommandMessage();
 
             }
