@@ -1,7 +1,32 @@
 import java.util.Scanner;
 
 public class Duke {
-    
+
+    //Commonly used message formats in UI
+    private static final String DIVIDER = "________________________________________________________________";
+    private static final String LS = System.lineSeparator();
+    private static final String MESSAGE_WELCOME_DUDE = "Hello! I'm Dude ヽ༼ ・ ل͜ ・ ༽ﾉ";
+    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon! ヽ༼ ͠° ͟ل͜ ͠° ༽ﾉ ";
+    private static final String MESSAGE_WELCOME_ECHO = "Welcome to the Echo mode!" + LS
+            + "Type anything and i'll echo it right back!ヽ༼ ≧ ل͜ ≦ ༽ﾉ";
+    private static final String MESSAGE_WELCOME_TODO = "Welcome to the To-do List mode!" + LS
+            + "Type a task and i'll add it to your list real quick! ヽ༼ ˘ل͜ ˘ ༽ﾉ";
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! %1$s";
+
+    //Commands
+    private static final String COMMAND_BYE = "Bye";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DONE = "done";
+
+    public static void showMessage(String... lines) {
+        for (String line : lines) {
+            System.out.println(line);
+        }
+    }
+
     public static void printDivider() {
         System.out.println("________________________________________________________________");
     }
