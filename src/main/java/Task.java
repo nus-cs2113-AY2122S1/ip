@@ -8,14 +8,17 @@ public class Task {
     }
 
     public String getStatusIcon(){
-        return (isDone ? "X" : " ");
+        return (isDone ? "[X] " : "[ ] ");
     }
 
     public void markAsDone(){
         this.isDone = true;
     }
 
-    public String getDescription(){
-        return this.description;
+    public String toString(){
+        return getStatusIcon() + this.description;
     }
 }
+
+
+
