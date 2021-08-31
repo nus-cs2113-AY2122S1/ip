@@ -16,6 +16,10 @@ public class Task {
         this.description = newDescription;
     }
 
+    public boolean getisDone() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
         // mark done task with X
         return (this.isDone ? "X" : " ");
@@ -23,5 +27,10 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return "[" +getStatusIcon() + "] " + description;
     }
 }
