@@ -6,10 +6,10 @@ public class Duke {
     public static final String HORIZONTAL_LINE = "------------------------------------------------------";
     public static final String STRING_LOGO =
             " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -18,7 +18,9 @@ public class Duke {
 
         System.out.println("Hello from\n" + STRING_LOGO);
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Duke!\n" + "So far, I can create a simple task list for you.\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm Duke!\n"
+                + "So far, I can create a simple task list for you.\n"
+                + "What can I do for you?\n");
 
         while (!userInput.startsWith("bye")) {
             userInput = in.nextLine().toLowerCase();
@@ -124,9 +126,13 @@ public class Duke {
     }
 
     private static void printHelpList() {
-        System.out.println("Use the following commands!\n" + "To add a task without deadline: to do [taskName]\n" + "To add a task with a deadline: deadline [deadlineName] /by [deadline]\n" +
-                "To add an event: event [eventName] /at [eventTime]\n" + "To mark a task as done: done [taskNumber]");
-        System.out.println("To view your current task list, simply type: show list\n" + "To end your chat with me, simply type: bye");
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Use the following commands!\n" +
+                "To add a task without deadline: to do [taskName]\n" +
+                "To add a task with a deadline: deadline [deadlineName] /by [deadline]\n" +
+                "To add an event: event [eventName] /at [eventTime]\n" +
+                "To mark a task as done: done [taskNumber]\n" +
+                "To view your current task list, simply type: show list\n" +
+                "To end your chat with me, simply type: bye\n" +
+                HORIZONTAL_LINE);
     }
 }
