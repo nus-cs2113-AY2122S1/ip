@@ -23,4 +23,16 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+
+    public String getTaskIcon() {
+        if (Task.class.equals(this.getClass())) {return " ";}
+        else {
+            return this.getClass().getName().substring(0,1);
+        }
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
 }
