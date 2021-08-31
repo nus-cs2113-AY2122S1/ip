@@ -26,4 +26,8 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "¤" : " "); // mark done task with X
     }
+
+    public String getTypeIcon() {
+        return "invalid type";
+    }
 }
