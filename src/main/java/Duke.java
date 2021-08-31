@@ -11,8 +11,8 @@ public class Duke {
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         do {
-            String line = in.nextLine();
-            String[] words = line.split(" ");
+            String userInput = in.nextLine();
+            String[] words = userInput.split(" ");
 
             switch (Parser.processCommand(words[0].toLowerCase(Locale.ROOT))) {
             case BYE:
@@ -23,16 +23,19 @@ public class Duke {
                 taskManager.printTask();
                 break;
             case DONE:
-                if (words.length < 2) {
-                    System.out.println("Please specify index to mark as done!");
-                } else if (Integer.parseInt(words[1]) > taskManager.taskCount) {
-                    System.out.println("Please specify indices between 1 and " + taskManager.taskCount);
-                } else {
-                    taskManager.doneTask(Integer.parseInt(words[1]));
-                }
+                taskManager.doneTask(userInput);
+                break;
+            case DEADLINE:
+                taskManager.addDeadlineTask(userInput);
+                break;
+            case EVENT:
+                taskManager.addEventTask(userInput);
+                break;
+            case TODO:
+                taskManager.addTodoTask(userInput);
                 break;
             default:
-                taskManager.addTask(line);
+                System.out.println("Sorry I don't understand the command: " + userInput);
             }
             System.out.println(DIVIDER);
         } while (!isExit);
