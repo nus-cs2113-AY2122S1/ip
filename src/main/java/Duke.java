@@ -1,12 +1,5 @@
 import java.util.Scanner;
 
-
-
-
-
-
-
-
 public class Duke {
     // Task array with counter to keep track of array index to add
     private static Task[] tasks = new Task[100];
@@ -76,10 +69,14 @@ public class Duke {
     }
 
     private static void mainProgram() {
-        String userInput;
+        //String userInput = "";
+        Scanner in = new Scanner(System.in);
         while (true) {
-            Scanner in = new Scanner(System.in);
-            userInput = in.nextLine();
+            String userInput = in.nextLine();
+            while (userInput.trim().isEmpty()) {
+                userInput = in.nextLine();
+            }
+
             if (userInput.equals("bye")) {
                 break;
             }
