@@ -16,7 +16,7 @@ public class Duke {
 
         greet();
         do {
-            // Read in the keyboard input from users, and react to different command
+            // Read in the keyboard input from user, and refer to different conditions
             userCommand = userType.nextLine();
             if (userCommand.equals("bye")) {
                 break;
@@ -59,6 +59,7 @@ public class Duke {
     }
 
     public static void greet() {
+        // the function is used to greet user in the very first beginning
         printSign();
         System.out.println("Hello! I'm Duke\n");
         System.out.println("What can I do for you?\n");
