@@ -1,7 +1,78 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+        ___      __    __       _______.___________.__  .__   __.
+       /   \    |  |  |  |     /       |           |  | |  \ |  |
+      /  ^  \   |  |  |  |    |   (----`---|  |----|  | |   \|  |
+     /  /_\  \  |  |  |  |     \   \       |  |    |  | |  . `  |
+    /  _____  \ |  `--'  | .----)   |      |  |    |  | |  |\   |
+   /__/     \__\ \______/  |_______/       |__|    |__| |__| \__|  
+Hello! I'm Austin
+What can I do for you?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+todo: Adds a todo task into the list.
+      Format: todo <task_description>
 
+event: Adds a event task into the list. The event date and time description is also needed while creating this task.
+      Format: event <task_description> \at <date_and_time_information>
+
+deadline: Adds a task which has a deadline into the list. The deadline date and time information is also needed while creating this task.
+      Format: deadline <task_description> \by <date_and_time_information>
+
+done: Marks a specific task as done.
+      Format: done <task_id>
+
+list: Prints all the tasks along with the status of each task.
+      Format: list
+
+bye: Exits the program with a goodbye message.
+      Format: bye
+
+help: Prints a list of commands.
+      Format: help
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+No items were added into the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have successfully added this task:
+[T] [ ] CS2113 Project
+Now, you have 1 tasks in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have successfully added this task:
+[D] [ ] CS2102 project  (by: Week 8)
+Now, you have 2 tasks in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have successfully added this task:
+[E] [ ] CS2101 presentation  (at: 7 Sep 0800)
+Now, you have 3 tasks in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Below are the list of tasks in your list:
+1. [T] [ ] CS2113 Project
+2. [D] [ ] CS2102 project  (by: Week 8)
+3. [E] [ ] CS2101 presentation  (at: 7 Sep 0800)
+Currently, you have 3 tasks in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Amazing! I have marked this task as done:
+[E] [X] CS2101 presentation  (at: 7 Sep 0800)
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Bye. Hope to see you again soon!
+___________________SHUTTING DOWN______________________

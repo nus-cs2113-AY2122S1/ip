@@ -1,0 +1,8 @@
+help
+list
+todo CS2113 Project
+deadline CS2102 project \by Week 8
+event CS2101 presentation \at 7 Sep 0800
+list
+done 2
+bye
