@@ -49,28 +49,40 @@ public class Duke {
             String[] inputWords = input.split(" ");
             command = inputWords[0];
             switch (command) {
-            case "bye":
-                break;
             case "done":
+                if (inputWords.length <= 1) {
+                    System.out.println(invalidInput);
+                    break;
+                }
                 int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+                if (taskIndex >= taskCount) {
+                    System.out.println(invalidInput);
+                    break;
+                }
                 tasks[taskIndex].setDone();
                 doneMessage = "____________________________________________________________\n"
-                        + "Nice! I've marked this task as done: \n"
-                        + "[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description + "\n"
+                        + " Nice! I've marked this task as done: \n"
+                        + " [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description + "\n"
                         + "____________________________________________________________\n";
                 System.out.println(doneMessage);
                 break;
             case "todo":
+                if (inputWords.length <= 1) {
+                    System.out.println(invalidInput);
+                    break;
+                }
                 description = input.substring(5);
                 tasks[taskCount] = new ToDo(description);
-                taskCount = taskCount + 1;
                 addition = "____________________________________________________________\n"
-                    + " added: " + description + "\n"
+                    + " Gotcha! I've added this task: \n"
+                    + "   " + tasks[taskCount].listTask() + "\n"
+                    + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
                     + "____________________________________________________________\n";
+                taskCount = taskCount + 1;
                 System.out.println(addition);
                 break;
             case "deadline":
-                if (!input.contains("/by")) {
+                if (!input.contains("/by") || input.endsWith("/by")) {
                     System.out.println(invalidInput);
                     break;
                 }
@@ -78,14 +90,16 @@ public class Duke {
                 description = input.substring(9, input.indexOf("/by") - 1);
                 endDate = input.substring(input.indexOf("/by") + 4);
                 tasks[taskCount] = new Deadline(description, endDate);
-                taskCount = taskCount + 1;
                 addition = "____________________________________________________________\n"
-                        + " added: " + description + "\n"
+                        + " Gotcha! I've added this task: \n"
+                        + "   " + tasks[taskCount].listTask() + "\n"
+                        + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
                         + "____________________________________________________________\n";
+                taskCount = taskCount + 1;
                 System.out.println(addition);
                 break;
             case "event":
-                if (!input.contains("/at")) {
+                if (!input.contains("/at") || input.endsWith("/at")) {
                     System.out.println(invalidInput);
                     break;
                 }
@@ -93,10 +107,12 @@ public class Duke {
                 description = input.substring(6, input.indexOf("/at") - 1);
                 startEndTime = input.substring(input.indexOf("/at") + 4);
                 tasks[taskCount] = new Event(description, startEndTime);
-                taskCount = taskCount + 1;
                 addition = "____________________________________________________________\n"
-                        + " added: " + description + "\n"
+                        + " Gotcha! I've added this task: \n"
+                        + "   " + tasks[taskCount].listTask() + "\n"
+                        + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
                         + "____________________________________________________________\n";
+                taskCount = taskCount + 1;
                 System.out.println(addition);
                 break;
             case "list":
