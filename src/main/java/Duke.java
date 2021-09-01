@@ -4,8 +4,6 @@ import java.util.Scanner;
 public class Duke {
 
     private boolean active = false;
-    private String[] todolist = new String[100];
-    //private int listlength = 0;
     Tasks list = new Tasks();
 
     public Duke() {
@@ -46,26 +44,6 @@ public class Duke {
     }
 
     public void addList(String item,String type) {
-        /*
-        //System.out.println("\tadding to todo list......");
-
-        Scanner in = new Scanner(System.in);
-        String line = item;
-        //while(!line.equals("end")) {
-            todolist[listlength++] = line;
-            System.out.println("\tadded: " + line);
-            printLine();
-        //    line = in.nextLine();
-        //    line = line.toLowerCase();
-        //}
-        //System.out.println("\tsaved to todo list!");
-        //printLine();*/
-
-        /*
-        list.insert(item);
-        System.out.println("\tadded: " + item);
-        printLine();
-        */
         printLine();
         list.insert(item,type);
         System.out.println("\tGot it. I've added this task:");
@@ -75,17 +53,11 @@ public class Duke {
     }
 
     public void listOut() {
-        /*
-        for(int i=0; i<listlength; i++) {
-            System.out.println("\t" + (i+1) + "." + todolist[i]);
-        }
-        printLine();*/
         System.out.print(list);
         printLine();
     }
 
     public void markDone(int index) {
-
         index -= 1;
         list.markDone(index);
         printLine();

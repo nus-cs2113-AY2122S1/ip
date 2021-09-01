@@ -13,8 +13,7 @@ public class Tasks {
         category[this.length++] = type;
     }
 
-    public void markDone(int index)
-    {
+    public void markDone(int index) {
         if(index >= this.length || index < 0) {
             System.out.println("\tBro, you suck at counting numbers");
             return;
