@@ -43,6 +43,15 @@ public class Duke {
         System.out.println(words);
     }
 
+    private static void printStartingMessage() {
+        System.out.println("Hello from\n" + LOGO);
+        printIndentationAndDivider();
+        printWordsWithIndentation(HELLO_MESSAGE_2);
+        printWordsWithIndentation(HELLO_MESSAGE_3);
+        printIndentationAndDivider();
+        System.out.println();
+    }
+
     private static void printGoodbyeMessage() {
         printIndentationAndDivider();
         printWordsWithIndentation(GOODBYE_MESSAGE);
@@ -149,6 +158,7 @@ public class Duke {
         printWordsWithIndentation(TASK_COMPLETED_MESSAGE);
         printWordsWithIndentation(tasks[index].getStatusIconAndDescription());
         printIndentationAndDivider();
+        System.out.println();
     }
 
     private static void executeListCase() {
@@ -156,15 +166,6 @@ public class Duke {
         for (int i = 0; i < Task.getTotalTasks(); i++) {
             printWordsWithIndentation(i + 1 + "." + tasks[i].getStatusIconAndDescription());
         }
-        printIndentationAndDivider();
-        System.out.println();
-    }
-
-    private static void printStartingMessage() {
-        System.out.println("Hello from\n" + LOGO);
-        printIndentationAndDivider();
-        printWordsWithIndentation(HELLO_MESSAGE_2);
-        printWordsWithIndentation(HELLO_MESSAGE_3);
         printIndentationAndDivider();
         System.out.println();
     }
