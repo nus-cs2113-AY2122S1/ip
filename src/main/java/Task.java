@@ -8,4 +8,11 @@ public class Task {
     public void markComplete() {
         this.complete = true;
     }
+
+    public String toString() {
+        if (complete) {
+            return "[X] " + item;
+        }
+        return "[ ] " + item;
+    }
 }
