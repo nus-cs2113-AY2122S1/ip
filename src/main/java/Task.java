@@ -17,14 +17,9 @@ public class Task {
         isDone = true;
     }
 
-    public char getTaskType() {
-        return taskType;
-    }
-
     /**
      * Returns string in list entry format.
      * eg. [T][ ] task1
-     *     [D][x] task2
      *
      * @return The formatted string.
      */

@@ -6,6 +6,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns string in list entry format.
+     * eg. [T][ ] task1 (by: Sunday)
+     *
+     * @return The formatted string.
+     */
     @Override
     public String getListEntryString() {
         return String.format("%s (by: %s)", super.getListEntryString(), by);
