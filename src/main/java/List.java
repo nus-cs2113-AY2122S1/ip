@@ -43,12 +43,14 @@ public class List {
         count++;
         if (count == 1) {
             System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                    + "    Got it. I've added this task: \n      " + list[count - 1].substring(2)
+                    + "    Got it. I've added this task: \n      "
+                    + list[count - 1].substring(2)
                     + "\n    Now you have " + count + " task in the list."
                     + "\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         } else {
             System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                    + "    Got it. I've added this task: \n      " + list[count - 1].substring(2)
+                    + "    Got it. I've added this task: \n      "
+                    + list[count - 1].substring(2)
                     + "\n    Now you have " + count + " tasks in the list."
                     + "\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
