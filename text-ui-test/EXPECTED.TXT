@@ -1,53 +1,7 @@
-Initialising...............
---------------------------------------------------------------------------------
-        _|       _|_|        _|_|_|      _|      _|    _|_|_|        _|_|_|
-        _|     _|    _|      _|    _|    _|      _|      _|        _|
-        _|     _|_|_|_|      _|_|_|      _|      _|      _|          _|_|
- _|     _|     _|    _|      _|    _|      _|  _|        _|              _|
-  _| _|    _|  _|    _|  _|  _|    _|  _|    _|    _|  _|_|_|  _|  _|_|_|
-
-----------------------------------Just a rather very intelligent system---------
-Good Evening Sir! I'm J.A.R.V.I.S
-How may I be of assistance to you today?
---------------------------------------------------------------------------------
-
-todo hello
-Will do sir, I've added:
-  [T][ ] hello
-Now you have 1 task in your list.
-deadline finish homework /by Sunday
-Will do sir, I've added:
-  [D][ ] finish homework (by: Sunday)
-Now you have 2 tasks in your list.
-echo
-What would you like me to repeat sir?
-wassup
-wassup
-stop
-Okay sir, stopping echo mode
-hello
-Will do sir, I've added:
-  [ ][ ] hello
-Now you have 3 tasks in your list.
-list
---------------------------------------------------------------------------------
-Here are the current tasks in your list:
-1.[T][ ] hello
-2.[D][ ] finish homework (by: Sunday)
-3.[ ][ ] hello
---------------------------------------------------------------------------------
-done 3
---------------------------------------------------------------------------------
-As you wish sir, this task will be marked as done!
-    [ ][X] hello
---------------------------------------------------------------------------------
-list
---------------------------------------------------------------------------------
-Here are the current tasks in your list:
-1.[T][ ] hello
-2.[D][ ] finish homework (by: Sunday)
-3.[ ][X] hello
---------------------------------------------------------------------------------
-bye
-Affirmative sir, I'll shut down all operations
+Hello from
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
 
