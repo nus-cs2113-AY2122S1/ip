@@ -33,10 +33,54 @@ public class Duke {
                 tasks[index].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
-            } else {
-                tasks[taskNumber] = new Task(line);
+            } else if (line.startsWith("todo")) {
+                tasks[taskNumber] = new ToDo(line.substring(5));
                 taskNumber++;
-                System.out.println("added: " + line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskNumber - 1]);
+                System.out.println("Now you have " + taskNumber + " tasks in the list");
+            } else if (line.startsWith("deadline")) {
+                String[] words = line.split(" ");
+                int index = 0;
+                String deadlineDescription = null;
+                String by = null;
+                for (int i = 0; i < words.length; i++) {
+                    if (words[i].equals("/by")) {
+                        index = i;
+                        break;
+                    }
+                }
+                for (int i = 1; i < index; i++) {
+                    deadlineDescription += words[i];
+                }
+                by = words[index + 1];
+                tasks[taskNumber] = new Deadline(deadlineDescription, by);
+                taskNumber++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskNumber - 1]);
+                System.out.println("Now you have " + taskNumber + " tasks in the list");
+            } else if (line.startsWith("event")) {
+                String[] words = line.split(" ");
+                int index = 0;
+                String eventDescription = null;
+                String at = null;
+                for (int i = 0; i < words.length; i++) {
+                    if (words[i].equals("/at")) {
+                        index = i;
+                        break;
+                    }
+                }
+                for (int i = 1; i < index; i++) {
+                    eventDescription += words[i];
+                }
+                for (int i = index + 1; i < words.length; i++) {
+                    at += words[i];
+                }
+                tasks[taskNumber] = new Deadline(eventDescription, at);
+                taskNumber++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskNumber - 1]);
+                System.out.println("Now you have " + taskNumber + " tasks in the list");
             }
         }
     }
