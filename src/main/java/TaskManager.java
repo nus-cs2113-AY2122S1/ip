@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class TaskManager {
+
+    Task[] tasks = new Task[Task.MAX];
     /**
      * Prints a line on the console
      */
@@ -17,7 +19,7 @@ public class TaskManager {
      * @param message The input by the user.
      * @return The first word of the string.
      */
-    public static String taskType(String message) {
+    private static String taskType(String message) {
         String[] type = message.split(" ");
         return type[0];
     }
@@ -29,7 +31,7 @@ public class TaskManager {
      * @param message the input string containing
      *                the task description
      */
-    public static void addTask(Task[] tasks, String message) {
+    private static void addTask(Task[] tasks, String message) {
         switch (taskType(message)) {
         case "todo":
             tasks[Task.COUNT] = new Todo(message.substring(5));
@@ -59,7 +61,7 @@ public class TaskManager {
     /**
      * Prints all the tasks
      */
-    public static void printTasks(Task[] tasks) {
+    private static void printTasks(Task[] tasks) {
         printLine();
         for (int i = 0; i < Task.COUNT; i++) {
             System.out.println((i + 1) + ". " + tasks[i].getDescription());
@@ -76,7 +78,7 @@ public class TaskManager {
      * @param message the input string containing
      *                the task description
      */
-    public static void markDone(Task[] tasks, String message) {
+    private static void markDone(Task[] tasks, String message) {
         String[] arrOfStr = message.split(" ");
         int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
         tasks[index].isDone();
@@ -89,7 +91,7 @@ public class TaskManager {
      * tasks.
      */
     public static void processInput() {
-        Task[] tasks = new Task[Task.MAX];
+
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
