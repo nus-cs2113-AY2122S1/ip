@@ -28,8 +28,8 @@ public class Duke {
     private static final String MESSAGE_FORMAT_DONE_USAGE = "Usage: %s <task number>";
     private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done";
     private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
-    private static final String MESSAGE_FORMAT_DEADLINE_USAGE = "Usage: %s <name> %s <date/time>";
-    private static final String MESSAGE_FORMAT_EVENT_USAGE = "Usage: %s <name> %s <date/time>";
+    private static final String MESSAGE_FORMAT_DEADLINE_USAGE = "Usage: %s <description> %s <date/time>";
+    private static final String MESSAGE_FORMAT_EVENT_USAGE = "Usage: %s <description> %s <date/time>";
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n%s\nThere are %d tasks in the list";
 
     private static final Scanner SCANNER = new Scanner(System.in);
