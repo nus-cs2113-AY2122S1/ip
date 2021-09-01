@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String Logo = " _____         _____        \n"
-                + "|     \\ _____ |     \\ _____ \n"
+        String Logo = " _____         _____\n"
+                + "|     \\ _____ |     \\ _____\n"
                 + "|  o  /|     ||  o  /|     |\n"
                 + "|  o  \\|  o  ||  o  \\|  o  |\n"
                 + "|_____/|_____||_____/|_____|\n";
@@ -38,7 +38,7 @@ public class Duke {
                 tasks[taskNumber].markAsDone();
 
                 System.out.println(horizontalLine);
-                System.out.println("Okie! Marked this as done: ");
+                System.out.println("Okie! Marked this as done:");
                 System.out.println((taskNumber + 1) + "." + tasks[taskNumber]);
                 System.out.println(horizontalLine);
             } else if (line.startsWith("todo")) {
