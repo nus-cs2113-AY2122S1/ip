@@ -46,7 +46,7 @@ public class Duke {
                 //extract 1-indexed task number and convert to 0-index
                 int taskNum = Integer.parseInt(substrings[TASK_ARGUMENT]) - 1;
                 //check if task number is valid
-                if (taskNum > 0 && taskNum <= listItemCount) {
+                if (taskNum >= 0 && taskNum <= listItemCount) {
                     if (list[taskNum].isDone) {
                         printTaskAlreadyDoneMessage();
                     } else {
