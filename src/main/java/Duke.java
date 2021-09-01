@@ -55,7 +55,7 @@ public class Duke {
                 int first = command.indexOf(" ");
                 int itemEnd = command.indexOf("/");
                 String item = command.substring(first,itemEnd);
-                String by = command.substring(itemEnd + 2,command.length());
+                String by = command.substring(itemEnd + 1,command.length());
                 tasks[taskSum] = new Deadline(item,by);
                 taskSum = taskSum + 1;
                 System.out.println(Line + "\n" + "     Got it. I've added this task: " + "\n" + "       [D][ ] " + item + " (" + by + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
@@ -65,7 +65,7 @@ public class Duke {
                 int first = command.indexOf(" ");
                 int itemEnd = command.indexOf("/");
                 String item = command.substring(first,itemEnd);
-                String at = command.substring(itemEnd + 2,command.length());
+                String at = command.substring(itemEnd + 1,command.length());
                 tasks[taskSum] = new Event(item,at);
                 taskSum = taskSum + 1;
                 System.out.println(Line + "\n" + "     Got it. I've added this task: " + "\n" + "       [E][ ] " + item + " (" + at + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
