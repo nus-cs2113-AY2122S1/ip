@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class TaskManager {
 
-    Task[] tasks = new Task[Task.MAX];
     /**
      * Prints a line on the console
      */
@@ -24,6 +23,7 @@ public class TaskManager {
         return type[0];
     }
 
+
     /**
      * The function adds the task input by the user
      *
@@ -34,28 +34,68 @@ public class TaskManager {
     private static void addTask(Task[] tasks, String message) {
         switch (taskType(message)) {
         case "todo":
-            tasks[Task.COUNT] = new Todo(message.substring(5));
-            Task.COUNT++;
+            addTodo(tasks, message);
             break;
         case "deadline":
-            message = message.substring(9);
-            String[] deadlineData = message.split("/", 2);
-            tasks[Task.COUNT] = new Deadline(deadlineData[0], deadlineData[1].substring(3));
-            Task.COUNT++;
+            addDeadline(tasks, message);
             break;
         case "event":
-            message = message.substring(6);
-            String[] eventData = message.split("/", 2);
-            tasks[Task.COUNT] = new Event(eventData[0], eventData[1].substring(3));
-            Task.COUNT++;
+            addEvent(tasks, message);
             break;
         default:
         }
+        printAddedTask(tasks[Task.COUNT - 1]);
+    }
+
+    /**
+     * The function prints the recently added task
+     */
+    private static void printAddedTask(Task task) {
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[Task.COUNT - 1].getDescription());
+        System.out.println(task.getDescription());
         System.out.println("Now you have " + Task.COUNT + " tasks in the list.");
         printLine();
+    }
+
+    /**
+     * The function adds the todo task input by the user
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string containing
+     *                the task description
+     */
+    private static void addEvent(Task[] tasks, String message) {
+        message = message.substring(6);
+        String[] eventData = message.split("/", 2);
+        tasks[Task.COUNT] = new Event(eventData[0], eventData[1].substring(3));
+        Task.COUNT++;
+    }
+
+    /**
+     * The function adds the deadline task input by the user
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string containing
+     *                the task description
+     */
+    private static void addDeadline(Task[] tasks, String message) {
+        message = message.substring(9);
+        String[] deadlineData = message.split("/", 2);
+        tasks[Task.COUNT] = new Deadline(deadlineData[0], deadlineData[1].substring(3));
+        Task.COUNT++;
+    }
+
+    /**
+     * The function adds the event input by the user
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string containing
+     *                the task description
+     */
+    private static void addTodo(Task[] tasks, String message) {
+        tasks[Task.COUNT] = new Todo(message.substring(5));
+        Task.COUNT++;
     }
 
     /**
@@ -92,6 +132,7 @@ public class TaskManager {
      */
     public static void processInput() {
 
+        Task[] tasks = new Task[Task.MAX];
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
