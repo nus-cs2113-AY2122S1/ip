@@ -86,13 +86,13 @@ public class Duke {
         else if (input.toUpperCase().startsWith("DEADLINE ")) {
             int slashIndex = input.indexOf("/");
             String task = input.substring(9, (slashIndex-1));
-            String dueDate = input.substring(slashIndex+1);
+            String dueDate = input.substring(slashIndex+4);
             tasks[taskCount] = new Deadline(task, dueDate);
         }
         else {
             int slashIndex = input.indexOf("/");
             String task = input.substring(6, (slashIndex-1));
-            String timeRange = input.substring(slashIndex+1);
+            String timeRange = input.substring(slashIndex+4);
             tasks[taskCount] = new Event(task, timeRange);
         }
         System.out.println(LINES + ADD_MESSAGE + tasks[taskCount]);
