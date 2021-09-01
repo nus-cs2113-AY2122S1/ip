@@ -3,24 +3,34 @@ import java.util.Scanner;
 public class Duke {
 
     private static Scanner in = new Scanner(System.in);
+
     private static String lineInput = "";
     private static Task[] taskList = new Task[100];
     private static int tasksCount = 0;
 
-    public static void add(String args){
-        if (args.length() > 0) {
-            System.out.println("added: " + args);
-            Task newTask = new Task(args);
-            taskList[tasksCount] = newTask;
+    public static void addTask(Task t){
+        if (t.getDescription().length() > 0) {
+            System.out.println("Got it. I've added this task:");
+            taskList[tasksCount] = t;
             tasksCount++;
+            System.out.println(t);
+            System.out.println("Now you have " + tasksCount + " tasks on the list.");
         }
     }
 
-    private static void list_out(){
+
+    private static void listTasks(){
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= tasksCount; i++) {
-            System.out.println(i + ". " + taskList[i - 1].getStatusIcon() + taskList[i - 1].getDescription());
+            Task currTask = taskList[i - 1];
+            System.out.println(i + ". " + currTask);
         }
+    }
+
+    private static void showTaskDone(int index) {
+        taskList[index].markDone();
+        Task currTask = taskList[index];
+        System.out.println((index + 1) + ". " + currTask);
     }
 
     private static void printBorder(){
@@ -44,33 +54,44 @@ public class Duke {
         printBorder();
 
         while (!lineInput.equals("bye")) {
-            if (lineInput.equals("list")) {
-                printBorder();
-                list_out();
-                printBorder();
+            printBorder();
+            String action = lineInput.split(" ", 2)[0];
+
+            switch(action){
+                case "list":
+                    listTasks();
+                    break;
+                case "done":
+                    int index = Integer.parseInt(lineInput.split(" ", 2)[1]) - 1;
+                    showTaskDone(index);
+                    break;
+                case "todo":
+                    String TaskToDo = lineInput.split(" ", 2)[1];
+                    Todo newTodo = new Todo(TaskToDo);
+                    addTask(newTodo);
+                    break;
+                case "deadline":
+                    String DeadlineToDo = lineInput.split(" ", 2)[1].split("/", 2)[0];
+                    String dueDate = lineInput.split(" ", 2)[1].split("/by", 2)[1];
+                    Deadline newDeadline = new Deadline(DeadlineToDo, dueDate);
+                    addTask(newDeadline);
+                    break;
+                case "event":
+                    String EventToDo = lineInput.split(" ", 2)[1].split("/", 2)[0];
+                    String dueTime = lineInput.split(" ", 2)[1].split("/at", 2)[1];
+                    Event newEvent = new Event(EventToDo, dueTime);
+                    addTask(newEvent);
+                    break;
+                default:
+                    Task newTask = new Task(action);
+                    addTask(newTask);
+                    break;
             }
-            else if (lineInput.length() > 5){
-                if (lineInput.substring(0, 4).equals("done")) {
-                    int index = Integer.parseInt(lineInput.substring(5, 6)) - 1;
-                    printBorder();
-                    taskList[index].markDone();
-                    System.out.println((index + 1) + ". " + taskList[index].getStatusIcon() + taskList[index].getDescription());
-                    printBorder();
-                }
-                else {
-                    printBorder();
-                    add(lineInput);
-                    printBorder();
-                }
-            }
-            else if (lineInput.length() != 0){
-                printBorder();
-                add(lineInput);
-                printBorder();
-            }
+            printBorder();
             lineInput = in.nextLine();
         }
-
+        printBorder();
         System.out.println(exit);
+        printBorder();
     }
 }
