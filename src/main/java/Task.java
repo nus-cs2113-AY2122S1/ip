@@ -1,6 +1,6 @@
 public class Task {
-    private boolean isDone;
-    private String description;
+    protected boolean isDone;
+    protected String description;
 
     private static int totalTasks = 0;
 
@@ -9,16 +9,13 @@ public class Task {
         isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public String getStatusIconAndDescription() {
+        String icon = (isDone ? "X" : " ");
+        return addSquareBrackets(icon) + " " + description;
     }
 
     public void markAsDone() {
         isDone = true;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {
@@ -31,5 +28,12 @@ public class Task {
 
     public static void setTotalTasks(int totalTasks) {
         Task.totalTasks = totalTasks;
+    }
+
+    protected static String addSquareBrackets(String s) {
+        return "[" + s + "]";
+    }
+    protected static String addBrackets(String s) {
+        return "(" + s + ")";
     }
 }
