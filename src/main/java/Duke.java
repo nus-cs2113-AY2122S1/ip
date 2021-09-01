@@ -86,7 +86,7 @@ public class Duke {
 
     /**
      * Reads input commands from the user and executes the appropriate actions.
-     * Stops waiting for user input and returns upon receiving the "bye" command.
+     * Upon receiving the "bye" command, stops waiting for user input and returns.
      */
     private static void handleCommands() {
         Scanner in = new Scanner(System.in);
@@ -95,6 +95,7 @@ public class Duke {
             String[] words = line.split(" ");
             String args = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
             String[] splitArgs;
+
             switch (words[0]) {
             case "bye":
                 return;

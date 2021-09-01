@@ -3,6 +3,7 @@
  */
 public class Task {
     protected String description;
+    /** Whether the task has been completed */
     protected boolean isDone;
 
     /**
@@ -18,7 +19,7 @@ public class Task {
 
     /**
      * Returns the status icon for the task (based on whether it is completed).
-     * The icon is a String of length 1 ("X" if completed, or " " if not).
+     * The icon is a string of length 1 ("X" if completed, or " " if not).
      *
      * @return Status icon for the task.
      */
@@ -40,6 +41,11 @@ public class Task {
         isDone = true;
     }
 
+    /**
+     * Returns a string representation of the task (consisting of its status icon and description).
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), getDescription());
