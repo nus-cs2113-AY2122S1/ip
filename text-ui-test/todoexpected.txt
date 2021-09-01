@@ -1,0 +1,18 @@
+Username [dukeBot]: Password [bukeDot]:                  ...                 
+Hello dukeBot!
+I'm Duke
+What can I do for you?
+                 ...                 
+remove task 1, task 3, task 5, task 6, 
+ / done tasks, good job! / 
+ /          / 
+1. [T] [✓] task 1
+2. [T] [ ] task 2
+3. [D] [✓] task 3 (by: 2pm) 
+4. [D] [ ] task 4 (by: 4pm) 
+5. [E] [✓] task 5 (at: tommorow) 
+6. [E] [✓] task 6 (at: day after) 
+ /          / 
+                 ...                 
+Bye. Hope to see you  again soon!
+                 ...                 

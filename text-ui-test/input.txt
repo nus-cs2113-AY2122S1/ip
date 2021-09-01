@@ -1,0 +1,31 @@
+
+
+todo
+borrow book / today
+stop
+add
+read book
+stop
+add
+return book / June 6th
+join sports club
+stop
+event
+project meeting / Aug 6th 2-4pm
+stop
+list
+todo
+return book / Sunday
+stop
+list
+event
+project meeting / Mon 2-4pm
+stop
+list
+done
+1 3 4 5
+list
+done
+2 6 7
+list
+bye

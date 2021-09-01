@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Username [dukeBot]: Password [bukeDot]:                  ...                 
+Hello dukeBot!
+I'm Duke
+What can I do for you?
+                 ...                 
+ /          / 
+1. [D] [ ] borrow book (by: today) 
+2. [T] [ ] read book
+3. [T] [ ] return book / June 6th
+4. [T] [ ] join sports club
+5. [E] [ ] project meeting (at: Aug 6th 2-4pm) 
+ /          / 
+ /          / 
+1. [D] [ ] borrow book (by: today) 
+2. [T] [ ] read book
+3. [T] [ ] return book / June 6th
+4. [T] [ ] join sports club
+5. [E] [ ] project meeting (at: Aug 6th 2-4pm) 
+6. [D] [ ] return book (by: Sunday) 
+ /          / 
+ /          / 
+1. [D] [ ] borrow book (by: today) 
+2. [T] [ ] read book
+3. [T] [ ] return book / June 6th
+4. [T] [ ] join sports club
+5. [E] [ ] project meeting (at: Aug 6th 2-4pm) 
+6. [D] [ ] return book (by: Sunday) 
+7. [E] [ ] project meeting (at: Mon 2-4pm) 
+ /          / 
+remove borrow book, return book / June 6th, join sports club, project meeting, 
+ / done tasks, good job! / 
+ /          / 
+1. [D] [✓] borrow book (by: today) 
+2. [T] [ ] read book
+3. [T] [✓] return book / June 6th
+4. [T] [✓] join sports club
+5. [E] [✓] project meeting (at: Aug 6th 2-4pm) 
+6. [D] [ ] return book (by: Sunday) 
+7. [E] [ ] project meeting (at: Mon 2-4pm) 
+ /          / 
+remove read book, return book, project meeting, 
+ / done tasks, good job! / 
+ /          / 
+1. [D] [✓] borrow book (by: today) 
+2. [T] [✓] read book
+3. [T] [✓] return book / June 6th
+4. [T] [✓] join sports club
+5. [E] [✓] project meeting (at: Aug 6th 2-4pm) 
+6. [D] [✓] return book (by: Sunday) 
+7. [E] [✓] project meeting (at: Mon 2-4pm) 
+ /          / 
+                 ...                 
+Bye. Hope to see you  again soon!
+                 ...                 
