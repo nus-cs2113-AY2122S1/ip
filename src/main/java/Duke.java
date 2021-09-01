@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
     public static void printHorizontalLine() {
         String horizontal_line = "____________________________________________________________";
-        System.out.println(horizontal_line + "\n");
+        System.out.println(horizontal_line);
     }
 
     public static void welcome() {
@@ -13,10 +13,10 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo + "\n");
+        System.out.println("Hello from\n" + logo);
         printHorizontalLine();
-        System.out.println(" Hello! I'm Duke\n");
-        System.out.println(" What can I do for you?\n");
+        System.out.println(" Hello! I'm Duke");
+        System.out.println(" What can I do for you?");
         printHorizontalLine();
     }
 
@@ -25,18 +25,18 @@ public class Duke {
         int index = Integer.parseInt(input[1]) - 1;
         tasks[index].markAsDone();
         printHorizontalLine();
-        System.out.println("Nice! I've marked this task as done:\n");
-        System.out.println(tasks[index].toString());
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" " + tasks[index].toString());
         printHorizontalLine();
     }
 
     public static void printList(Task[] tasks, int currCount) {
         printHorizontalLine();
-        System.out.println("Here are the tasks in your list:\n");
+        System.out.println(" Here are the tasks in your list:");
         Task[] taskList = Arrays.copyOf(tasks, currCount);
         int count = 1;
         for (Task elem : taskList) {
-            System.out.println(count + ". " + elem.toString() + "\n");
+            System.out.println(" " + count + ". " + elem.toString());
             count += 1;
         }
         printHorizontalLine();
@@ -55,10 +55,10 @@ public class Duke {
             tasks[currCount] = new Event(input[0], input[1].substring(3));
         }
         printHorizontalLine();
-        System.out.println("Got it. I've added this task:\n");
-        System.out.println(tasks[currCount].toString() + "\n");
+        System.out.println(" Got it. I've added this task:");
+        System.out.println(" " + tasks[currCount].toString());
         int numTasks = currCount + 1;
-        System.out.println("Now you have " + numTasks + " tasks in the list.");
+        System.out.println(" Now you have " + numTasks + " tasks in the list.");
         printHorizontalLine();
         currCount += 1;
         return currCount;
@@ -66,7 +66,7 @@ public class Duke {
 
     public static void goodbye() {
         printHorizontalLine();
-        System.out.println(" Bye. Hope to see you again soon!\n");
+        System.out.println(" Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
