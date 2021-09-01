@@ -13,7 +13,7 @@ public class Duke {
             out = "Understood sir. " + item + " has been added to your list of tasks\n";
             break;
         case 2:
-            out = "Sir, I can confirm that" + item + " has been added to your list of tasks\n";
+            out = "Sir, I can confirm that " + item + " has been added to your list of tasks\n";
             break;
         default:
             break;
