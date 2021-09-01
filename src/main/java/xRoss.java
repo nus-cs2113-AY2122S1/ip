@@ -9,7 +9,7 @@ public class xRoss {
 
     // prints welcome message
     public static void printWelcomeMessage() {
-        String logo = "        _____         \n"
+        String logo = "        _____\n"
                 + "       |  __ \\ _  __  __\n"
                 + " _  _  |    _// \\|  \\|  \\\n"
                 + "\\ \\/ / | |\\ \\| | |\\ \\\\ \\\n"
