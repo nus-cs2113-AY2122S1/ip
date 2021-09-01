@@ -1,9 +1,13 @@
 public class Todo extends Task {
 
+    /*CONSTRUCTOR*/
+
     public Todo(String description) {
         super(description);
         type = "T";
     }
+
+    /*METHODS*/
 
     @Override
     public void printTaskNotif() {

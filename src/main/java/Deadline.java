@@ -1,7 +1,11 @@
 public class Deadline extends Task {
 
+    /*ATTRIBUTES*/
+
     private String name; //name of task only (eg return book)
     protected String by; //due date
+
+    /*CONSTRUCTOR*/
 
     public Deadline(String name, String by) {
         description = name + " (by: " + by + ")"; //name + due date
@@ -9,6 +13,8 @@ public class Deadline extends Task {
         type = "D";
         this.name = name;
     }
+
+    /*METHODS*/
 
     @Override
     public void printTaskNotif() {

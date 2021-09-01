@@ -1,7 +1,11 @@
 public class Event extends Task {
 
+    /*ATTRIBUTES*/
+
     private String name; //name of task only (eg return book)
     protected String at; //time
+
+    /*CONSTRUCTOR*/
 
     public Event(String name, String at) {
         description = name + " (at: " + at + ")"; //name + time
@@ -9,6 +13,9 @@ public class Event extends Task {
         type = "E";
         this.name = name;
     }
+
+
+    /*METHODS*/
 
     @Override
     public void printTaskNotif() {

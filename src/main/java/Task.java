@@ -1,17 +1,14 @@
 public class Task {
+
+    /*ATTRIBUTES*/
+
     protected String type = " "; //empty for basic task, T: todo, D: deadline, E: event
     protected String description;
     protected boolean isDone;
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDone(boolean done) {
-        isDone = done;
-    }
+    /*CONSTRUCTOR*/
 
-    //constructors
     public Task() {
     }
 
@@ -19,6 +16,14 @@ public class Task {
 
         this.description = description;
         this.isDone = false;
+    }
+
+
+    /*METHODS*/
+
+    //setter
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     //set icon as "X" for done, " " for not done
