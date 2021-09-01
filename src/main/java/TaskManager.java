@@ -41,7 +41,7 @@ public class TaskManager {
             taskList.add(task);
 
             System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task.toString());
+            System.out.println("  " + task.toFormattedString());
 
             if (taskList.size() == 1) {
                 System.out.printf("There is now %d task in the list%n", taskList.size());
@@ -64,7 +64,7 @@ public class TaskManager {
             int index = 1;
 
             for (Task task : taskList) {
-                System.out.printf("%d.%s%n", index, task.toString());
+                System.out.printf("%d.%s%n", index, task.toFormattedString());
                 index++;
             }
         }
@@ -80,7 +80,7 @@ public class TaskManager {
 
         task.setDone();
         System.out.println("The task has been marked as done. No need to thank me.");
-        System.out.println(task.toString());
+        System.out.println(task.toFormattedString());
     }
 
 }

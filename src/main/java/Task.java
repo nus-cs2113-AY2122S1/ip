@@ -62,7 +62,7 @@ public class Task {
      *
      * @return Formatted string of a task.
      */
-    public String toString() {
+    public String toFormattedString() {
         return String.format("[%c][%c] %s", this.getType(), isDone ? 'X' : ' ', this.getDescription());
     }
 }

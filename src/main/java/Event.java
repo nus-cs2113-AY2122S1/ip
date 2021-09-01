@@ -28,7 +28,7 @@ public class Event extends Task {
      * @return Formatted string of a task.
      */
     @Override
-    public String toString() {
-        return String.format("%s (at: %s)", super.toString(), this.deadline);
+    public String toFormattedString() {
+        return String.format("%s (at: %s)", super.toFormattedString(), this.deadline);
     }
 }
