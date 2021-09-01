@@ -48,7 +48,7 @@ public class UI {
      * Prints the banner for the chatbot
      */
     public void printBanner() {
-        printMessage( "[+] Welcome to Shell RPG",
+        printMessage("[+] Welcome to Shell RPG",
                 "[+] Searching for Character........",
                 "[+] Character " + username + " Found!",
                 "[+] Character Level: 100",
@@ -64,7 +64,7 @@ public class UI {
         System.out.printf("┌─["
                 + "ShellRPG@%s" +
                 "]-[~]\n", username);
-        System.out.print("└──╼ $ " );
+        System.out.print("└──╼ $ ");
     }
 
     /**

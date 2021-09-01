@@ -9,8 +9,10 @@ public class Duke {
 
     /** Stores all task added by the user */
     public static TaskManager taskList = new TaskManager();
+
     /** Gets a new instance of UI class to interactive with user */
     public static UI UIInteract = new UI(USERNAME);
+
     public static boolean isRunning = true;
 
 
@@ -18,6 +20,7 @@ public class Duke {
         UIInteract.printBanner();
         printMenuPrompt();
     }
+
     /**
      * Handles the user input and loop logic Calls handleCommand and terminates when isRunning is false
      */
@@ -58,16 +61,16 @@ public class Duke {
             terminateProgram();
             break;
         case "done":
-            taskList.markTaskAsDone(UIInteract,parsed.getArgsAsIndex());
+            taskList.markTaskAsDone(UIInteract, parsed.getArgsAsIndex());
             break;
         case "todo":
-            taskList.addTask(UIInteract,parsed,TaskType.TODO);
+            taskList.addTask(UIInteract, parsed, TaskType.TODO);
             break;
         case "deadline":
-            taskList.addTask(UIInteract,parsed,TaskType.DEADLINE);
+            taskList.addTask(UIInteract, parsed, TaskType.DEADLINE);
             break;
         case "event":
-            taskList.addTask(UIInteract,parsed,TaskType.EVENT);
+            taskList.addTask(UIInteract, parsed, TaskType.EVENT);
             break;
         default:
             UIInteract.printCommandHelp();

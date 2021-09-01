@@ -21,7 +21,7 @@ public class TaskManager {
      *
      * @param index the index of task in the taskList
      */
-    public void markTaskAsDone(UI UI,int index) {
+    public void markTaskAsDone(UI UI, int index) {
 
         if (index >= 0 && index < taskList.size()) {
             Task currentTask = taskList.get(index);
@@ -38,21 +38,23 @@ public class TaskManager {
             UI.printMessage(ERROR_TASK_NUMBER);
         }
     }
-    public Task getTask (int index) {
+
+    public Task getTask(int index) {
         return taskList.get(index);
     }
 
-    public int getNumberOfTasks () {
+    public int getNumberOfTasks() {
         return taskList.size();
     }
+
     /**
      * Creates a new task with a specific type
      *
      * @param description the commandline input and its arguments
-     * @param type the type of object task we are creating
+     * @param type        the type of object task we are creating
      * @throws ArrayIndexOutOfBoundsException in the case of invalid input by Events or Deadlines
      */
-    public void addTask(UI UI,Parser description, TaskType type) throws ArrayIndexOutOfBoundsException {
+    public void addTask(UI UI, Parser description, TaskType type) throws ArrayIndexOutOfBoundsException {
         // Creates new task to add to the list
         Task newTask;
         switch (type) {

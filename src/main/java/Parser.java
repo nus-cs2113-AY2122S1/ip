@@ -5,6 +5,7 @@ public class Parser {
     private String arguments;
     public static final String SPACE_DELIMITER = " ";
     public static final int START_INDEX = 0;
+
     /**
      * Parse input and separates the command from the arguments
      *
@@ -26,8 +27,7 @@ public class Parser {
     }
 
     /**
-     * Further splits the arguments based on a delimiter
-     * gives the first half the split string
+     * Further splits the arguments based on a delimiter gives the first half the split string
      *
      * @param delimiter the delimiter to split the arguments by
      * @return first half the string split delimiters
@@ -42,8 +42,7 @@ public class Parser {
     }
 
     /**
-     * Further splits the arguments based on a delimiter
-     * gives the second half the split string
+     * Further splits the arguments based on a delimiter gives the second half the split string
      *
      * @param delimiter the delimiter to split the arguments by
      * @return second half the string split delimiters

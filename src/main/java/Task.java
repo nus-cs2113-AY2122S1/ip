@@ -1,6 +1,6 @@
 public class Task {
 
-    /** The actual description or name of the task */
+S    /** The actual description or name of the task */
     private String description;
     /** Shows if task is completed */
     private boolean isDone;
@@ -39,7 +39,6 @@ public class Task {
 
     /**
      * Sets the task as completed
-     *
      */
     public void markAsDone() {
         isDone = true;
