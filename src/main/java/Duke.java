@@ -2,10 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static final char TASK_TYPE_TODO = 'T';
-    public static final char TASK_TYPE_DEADLINE = 'D';
-    public static final char TASK_TYPE_EVENT = 'E';
-
     private static final String INPUT_PROMPT = "$ ";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_BYE = "bye";
@@ -183,11 +179,11 @@ public class Duke {
 
         String[] descriptionAndArg;
         switch (taskType) {
-        case TASK_TYPE_TODO:
+        case Task.TYPE_TODO:
             task = new Todo(argument);
             break;
 
-        case TASK_TYPE_DEADLINE:
+        case Task.TYPE_DEADLINE:
             descriptionAndArg = getTaskDescriptionAndArg(argument,TASK_DEADLINE_SPLITTER);
             if (descriptionAndArg[1].isEmpty()) {
                 printMessage(String.format(MESSAGE_FORMAT_DEADLINE_USAGE, COMMAND_DEADLINE, TASK_DEADLINE_SPLITTER));
@@ -196,7 +192,7 @@ public class Duke {
             }
             break;
 
-        case TASK_TYPE_EVENT:
+        case Task.TYPE_EVENT:
             descriptionAndArg = getTaskDescriptionAndArg(argument,TASK_EVENT_SPLITTER);
             if (descriptionAndArg[1].isEmpty()) {
                 printMessage(String.format(MESSAGE_FORMAT_EVENT_USAGE, COMMAND_EVENT, TASK_EVENT_SPLITTER));
@@ -229,15 +225,15 @@ public class Duke {
             break;
 
         case COMMAND_TODO:
-            executeAddTask(argument, TASK_TYPE_TODO);
+            executeAddTask(argument, Task.TYPE_TODO);
             break;
 
         case COMMAND_DEADLINE:
-            executeAddTask(argument, TASK_TYPE_DEADLINE);
+            executeAddTask(argument, Task.TYPE_DEADLINE);
             break;
 
         case COMMAND_EVENT:
-            executeAddTask(argument, TASK_TYPE_EVENT);
+            executeAddTask(argument, Task.TYPE_EVENT);
             break;
 
         default:

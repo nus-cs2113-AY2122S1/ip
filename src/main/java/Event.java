@@ -2,7 +2,7 @@ public class Event extends Task {
     private String at;
 
     public Event(String description, String at) {
-        super(description,Duke.TASK_TYPE_EVENT);
+        super(description, Task.TYPE_EVENT);
         this.at = at;
     }
 

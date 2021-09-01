@@ -1,4 +1,8 @@
 public class Task {
+    public static final char TYPE_TODO = 'T';
+    public static final char TYPE_DEADLINE = 'D';
+    public static final char TYPE_EVENT = 'E';
+
     private String description;
     private boolean isDone;
     private char taskType;

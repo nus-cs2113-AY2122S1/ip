@@ -2,7 +2,7 @@ public class Deadline extends Task {
     private String by;
 
     public Deadline(String description, String by) {
-        super(description,Duke.TASK_TYPE_DEADLINE);
+        super(description, Task.TYPE_DEADLINE);
         this.by = by;
     }
 
