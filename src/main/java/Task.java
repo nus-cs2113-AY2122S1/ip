@@ -2,6 +2,10 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    public Task(){
+        this.description = "";
+        isDone = false;
+    }
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -21,5 +25,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public char getLetter() {
+        return ' ';
+    }
+
+    public String getDate() {
+        return " ";
     }
 }
