@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         printHeader();
-        printLineSeparator();
 
         String input = "";
         int i = 0;
@@ -11,9 +10,7 @@ public class Duke {
         Task[] tasks = new Task[100];
 
         do {
-            Scanner scanner = new Scanner(System.in);
-            input = scanner.nextLine();
-            printLineSeparator();
+            input = getInput();
 
             if (!input.equals("bye")) {
                 String[] splittedInput = input.split(" ");
@@ -25,11 +22,22 @@ public class Duke {
                     taskCount++;
                     addNewTask(input, i, taskCount, tasks);
                     i++;
-
                 }
             }
         } while (!input.equals("bye"));
 
+        printByeMessage();
+    }
+
+    private static String getInput() {
+        String input;
+        Scanner scanner = new Scanner(System.in);
+        input = scanner.nextLine();
+        printLineSeparator();
+        return input;
+    }
+
+    private static void printByeMessage() {
         System.out.println("\tGoodbye! Hope to see you again soon!");
         printLineSeparator();
     }
@@ -98,6 +106,7 @@ public class Duke {
 
         System.out.println("\tHey, how are you?");
         System.out.println("\tWhat can I do for you today?");
+        printLineSeparator();
     }
 
     private static void printLineSeparator() {
