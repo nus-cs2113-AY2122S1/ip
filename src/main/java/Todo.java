@@ -25,6 +25,6 @@ public class Todo extends Task{
      */
     @Override
     public String printTask () {
-        return getTaskType() + this.getStatusIcon() + " " + getDescription();
+        return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription();
     }
 }

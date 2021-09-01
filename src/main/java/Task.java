@@ -51,6 +51,6 @@ public class Task {
     }
 
     public String printTask() {
-        return getTaskType() + getStatusIcon() + " " + getDescription();
+        return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription();
     }
 }
