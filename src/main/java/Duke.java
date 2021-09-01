@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -39,12 +40,11 @@ public class Duke {
 
     /** Prints out the list of tasks (numbered) together with their status icons */
     private static void printTasks() {
-        String[] tasksWithNumbersAndStatusIcons = new String[taskCount];
+        String[] formattedTasks = new String[taskCount];
         for (int i = 0; i < taskCount; i++) {
-            tasksWithNumbersAndStatusIcons[i] = String.format("%d.[%s] %s", i + 1, tasks[i].getStatusIcon(),
-                    tasks[i].getDescription());
+            formattedTasks[i] = String.format("%d.%s", i + 1, tasks[i]);
         }
-        String formattedTaskList = String.join(System.lineSeparator(), tasksWithNumbersAndStatusIcons);
+        String formattedTaskList = String.join(System.lineSeparator(), formattedTasks);
         printResponseBlock("Here are the tasks in your list:" + System.lineSeparator()
                 + formattedTaskList);
     }
@@ -52,15 +52,36 @@ public class Duke {
     private static void markTaskAsDone(int taskId) {
         Task task = tasks[taskId];
         task.setAsDone();
-        String formattedTask = String.format("  [%s] %s", task.getStatusIcon(), task.getDescription());
+        String formattedTask = "  " + task;
         printResponseBlock("Nice! I've marked this task as done:" + System.lineSeparator()
                 + formattedTask);
     }
 
-    private static void addTask(String description) {
-        tasks[taskCount] = new Task(description);
+    private static void addTask(Task task) {
+        tasks[taskCount] = task;
         taskCount++;
-        printResponseBlock("added: " + description);
+        printResponseBlock("Got it. I've added this task:" + System.lineSeparator()
+                + "  " + task + System.lineSeparator()
+                + "Now you have " + taskCount
+                + (taskCount > 1
+                ? " tasks in the list"
+                : " task in the list")
+        );
+    }
+
+    private static void addTodo(String description) {
+        Task task = new Todo(description);
+        addTask(task);
+    }
+
+    private static void addDeadline(String description, String by) {
+        Task task = new Deadline(description, by);
+        addTask(task);
+    }
+
+    private static void addEvent(String description, String at) {
+        Task task = new Event(description, at);
+        addTask(task);
     }
 
     /**
@@ -72,9 +93,22 @@ public class Duke {
         while (true) {
             String line = in.nextLine();
             String[] words = line.split(" ");
+            String args = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+            String[] splitArgs;
             switch (words[0]) {
             case "bye":
                 return;
+            case "todo":
+                addTodo(args);
+                break;
+            case "deadline":
+                splitArgs = args.split(" /by ");
+                addDeadline(splitArgs[0], splitArgs[1]);
+                break;
+            case "event":
+                splitArgs = args.split(" /at ");
+                addEvent(splitArgs[0], splitArgs[1]);
+                break;
             case "list":
                 printTasks();
                 break;
@@ -83,7 +117,6 @@ public class Duke {
                 markTaskAsDone(taskId);
                 break;
             default:
-                addTask(line);
                 break;
             }
         }
