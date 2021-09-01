@@ -1,5 +1,6 @@
 public class Task {
     protected String description;
+    protected String taskType = "";
     protected int index;
     protected boolean isDone;
     protected static int taskCount = 0;

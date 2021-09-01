@@ -20,6 +20,9 @@ public class Duke {
         boolean isBye;
         boolean isList;
         boolean isDone;
+        boolean isTodo;
+        boolean isDeadline;
+        boolean isEvent;
 
         Task[] taskList = new Task[100];
 
@@ -28,6 +31,9 @@ public class Duke {
             isBye = userInput.equals("bye");
             isList = userInput.equals("list");
             isDone = userInput.startsWith("done");
+            isTodo = userInput.startsWith("todo");
+            isDeadline = userInput.startsWith("deadline");
+            isEvent = userInput.startsWith("event");
             System.out.println(horizontalLine);
 
             if (isBye) {
@@ -36,19 +42,45 @@ public class Duke {
                 listTask(taskList, Task.taskCount);
             } else if (isDone) {
                 markTask(taskList, userInput);
+            } else if (isTodo) {
+                addTask(taskList, Task.taskCount, userInput, TaskType.TODO);
+            } else if (isDeadline) {
+                addTask(taskList, Task.taskCount, userInput, TaskType.DEADLINE);
+            } else if (isEvent) {
+                addTask(taskList, Task.taskCount, userInput, TaskType.EVENT);
             } else {
-                addTask(taskList, Task.taskCount, userInput);
-                Task.taskCount++;
+                System.out.println("Error input..");
             }
             System.out.println(horizontalLine);
 
         } while (!isBye);
     }
 
-    private static void addTask(Task[] taskList, int taskCount, String userInput) {
-        System.out.println("added: " + userInput);
-        Task newTask = new Task(userInput, taskCount);
+    private static void addTask(Task[] taskList, int taskCount, String userInput, TaskType specificTask) {
+        System.out.println("Got it. I've added this task:");
+        Task newTask;
+
+        switch (specificTask) {
+        case EVENT:
+            newTask = new Event(userInput, taskCount);
+            break;
+        case TODO:
+            newTask = new Todo(userInput, taskCount);
+            break;
+        case DEADLINE:
+            newTask = new Deadline(userInput, taskCount);
+            break;
+        default:
+            newTask = new Task(userInput, taskCount);
+            break;
+        }
         taskList[taskCount] = newTask;
+        Task.taskCount++;
+
+        String printTask = String.format(" [%s][ ] %s", newTask.taskType, newTask.description);
+        String printTaskNumber = String.format("Now you have %d items in the list.", Task.taskCount);
+        System.out.println(printTask);
+        System.out.println(printTaskNumber);
     }
 
     private static void markTask(Task[] taskList, String userInput) {
@@ -56,13 +88,16 @@ public class Duke {
         int userInputInt = Character.getNumericValue(userInputIntChar);
         taskList[userInputInt].markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + taskList[userInputInt].getStatusIcon() + "] " + taskList[userInputInt].description);
+        String formatOutput = String.format("[%s][%s] %s", taskList[userInputInt].taskType, taskList[userInputInt].getStatusIcon(), taskList[userInputInt].description);
+        System.out.println(formatOutput);
     }
 
     private static void listTask(Task[] taskList, int taskCount) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             int indexNumber = i + 1;
-            System.out.println(indexNumber + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+            String formatOutput = String.format("%d.[%s][%s] %s", indexNumber, taskList[i].taskType, taskList[i].getStatusIcon(), taskList[i].description);
+            System.out.println(formatOutput);
         }
     }
 
