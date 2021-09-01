@@ -10,7 +10,7 @@ public class Task {
      * @param description Description of the task to add.
      * @param type        type of task to add.
      */
-    public Task(String description, Character type) {
+    public Task(String description, char type) {
         this.description = description;
         this.type = type;
         this.isDone = false;
