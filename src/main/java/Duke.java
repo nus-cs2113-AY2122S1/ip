@@ -127,7 +127,7 @@ public class Duke {
      */
     private static void printAddTaskMessage(int index, Task task) {
         System.out.println(LINE);
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + (index + 1) + " tasks in the list.");
         System.out.println(LINE);
@@ -150,7 +150,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        String helloGreeting = "Hello! I'm Duke \n" + "What can I do for you?\n";
+        String helloGreeting = "Hello! I'm Duke\n" + "What can I do for you?\n";
         System.out.println("Hello from\n" + logo);
         System.out.println(LINE + helloGreeting + LINE);
     }
@@ -161,7 +161,7 @@ public class Duke {
      */
     private static void printTaskDone(Task x) {
         System.out.println(LINE);
-        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println(x);
         System.out.println(LINE);
     }
