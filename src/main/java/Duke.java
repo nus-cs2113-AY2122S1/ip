@@ -3,7 +3,14 @@ import java.util.Scanner;
 
 public class Duke {
     public static final int NUMBER_OF_TASKS = 100;
+    public static final String DIVIDER = "/";
 
+    /**
+     * Splits the input string and returns the command at the start of the string
+     *
+     * @param args the input string
+     * @return the command the user entered
+     */
     public static String getCommand(String args) {
         String[] words = args.split(" ");
         String[] commandArray = Arrays.copyOf(words, 1);
@@ -11,6 +18,12 @@ public class Duke {
         return command;
     }
 
+    /**
+     * Splits the input string and returns the item after the command
+     *
+     * @param args the input string
+     * @return the item after the command the user entered
+     */
     public static String getItem(String args) {
         String[] words = args.split(" ");
         String[] itemArray = Arrays.copyOfRange(words, 1, words.length);
@@ -18,6 +31,12 @@ public class Duke {
         return item;
     }
 
+    /**
+     * Formats the string that was converted from an array. Delete brackets and commas
+     *
+     * @param args the input string that was converted from an array
+     * @return the formatted string without brackets and commas
+     */
     public static String getFormattedString(String args) {
         String formattedString = args.replace(",", "")
                 .replace("]", "")
@@ -26,6 +45,12 @@ public class Duke {
         return formattedString;
     }
 
+    /**
+     * Checks if the input string has an empty item after a command
+     *
+     * @param args the input string the user entered
+     * @return true if the item after the command is empty, false otherwise
+     */
     public static boolean isEmptyItem(String args) {
         if (getItem(args).equals("")) {
             return true;
@@ -33,8 +58,14 @@ public class Duke {
         return false;
     }
 
+    /**
+     * Checks if the item from the user input is invalid for deadline and event tasks
+     *
+     * @param args the item to be checked
+     * @return true if the item does not contain a '/', false otherwise
+     */
     public static boolean isInvalidItem(String args) {
-        if (getItem(args).contains("/")) {
+        if (getItem(args).contains(DIVIDER)) {
             return false;
         }
         return true;
@@ -69,7 +100,7 @@ public class Duke {
                 TaskManager.printTaskList();
             } else if (getCommand(inputStr).contains("done")) {
                 if (isEmptyItem(inputStr)) {
-                    System.out.println("Oops, invalid description");
+                    System.out.println("Oops, invalid description!");
                     System.out.println("_____________________________");
                     continue;
                 } else if (TaskManager.getNumberOfTasksUndone() == 0
@@ -81,7 +112,7 @@ public class Duke {
                 TaskManager.markTaskAsDone(inputStr);
             } else if (getCommand(inputStr).contains("todo")) {
                 if (isEmptyItem(inputStr)) {
-                    System.out.println("Oops, invalid description");
+                    System.out.println("Oops, invalid description!");
                     System.out.println("_____________________________");
                     continue;
                 }
@@ -90,7 +121,7 @@ public class Duke {
                 taskNumber++;
             } else if (getCommand(inputStr).contains("deadline")) {
                 if (isInvalidItem(inputStr)) {
-                    System.out.println("Oops, invalid description");
+                    System.out.println("Oops, invalid description!");
                     System.out.println("_____________________________");
                     continue;
                 }
@@ -99,7 +130,7 @@ public class Duke {
                 taskNumber++;
             } else if (getCommand(inputStr).contains("event")) {
                 if (isInvalidItem(inputStr)) {
-                    System.out.println("Oops, invalid description");
+                    System.out.println("Oops, invalid description!");
                     System.out.println("_____________________________");
                     continue;
                 }

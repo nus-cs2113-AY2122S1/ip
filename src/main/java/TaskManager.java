@@ -1,5 +1,5 @@
 public class TaskManager {
-    private static int numberOfTasks;
+    public static final String DIVIDER = "/";
     private static int numberOfTasksUndone;
     private static Task[] taskList;
 
@@ -8,7 +8,6 @@ public class TaskManager {
     }
 
     public TaskManager(int numberOfTasks) {
-        this.numberOfTasks = numberOfTasks;
         this.numberOfTasksUndone = 0;
         this.taskList = new Task[numberOfTasks];
     }
@@ -49,8 +48,8 @@ public class TaskManager {
      * @param taskNumber the ith number of task the user entered
      **/
     public static void addDeadlineTaskToList(String args, int taskNumber) {
-        String description = args.substring(0, args.indexOf("/")).trim();
-        String time = args.substring(args.indexOf("/") + 4);
+        String description = args.substring(0, args.indexOf(DIVIDER)).trim();
+        String time = args.substring(args.indexOf(DIVIDER) + 4);
         Task t = new Deadline(description, time);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
@@ -66,8 +65,8 @@ public class TaskManager {
      * @param taskNumber the ith number of task the user entered
      **/
     public static void addEventTaskToList(String args, int taskNumber) {
-        String description = args.substring(0, args.indexOf("/")).trim();
-        String time = args.substring(args.indexOf("/") + 4);
+        String description = args.substring(0, args.indexOf(DIVIDER)).trim();
+        String time = args.substring(args.indexOf(DIVIDER) + 4);
         Task t = new Event(description, time);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
