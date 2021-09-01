@@ -1,0 +1,16 @@
+list
+todo borrow book
+deadline return book /by June 6th
+event project meeting /at Mon 2-4pm
+list
+done 2
+done 3
+todo eat
+todo sleep
+todo rave
+todo repeat
+list
+done 5
+done 6
+list
+bye
