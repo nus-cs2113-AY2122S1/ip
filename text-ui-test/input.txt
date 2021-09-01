@@ -1,0 +1,7 @@
+todo eat dinner
+deadline homework /by 1/9
+event interview /at 1/9
+list
+done 2
+list
+bye

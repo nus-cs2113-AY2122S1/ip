@@ -4,12 +4,12 @@
  * type of command, description and date may be empty. Command then returns the
  * appropriate mesage to return to Logic class to output to the user.
  *
- * @param commandInput  type of command.
- * @param descriptionInput Y description of task.
- * @param dateInput event date/deadline.
+ * @param "commandInput"  type of command.
+ * @param "descriptionInput" Y description of task.
+ * @param "dateInput" event date/deadline.
  * @return output message to the user.
  */
-public class Command extends Logic{
+public class Command extends Logic {
     protected Boolean isBye;
     protected String command;
     protected String description;

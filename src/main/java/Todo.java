@@ -5,7 +5,7 @@
  * @param "description" the name of the task.
  * @return modified message when the toString() method is called.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     public Todo(String description) {
         super(description);

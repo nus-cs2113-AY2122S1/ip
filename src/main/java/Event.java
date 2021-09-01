@@ -6,7 +6,7 @@
  * @param "at" event date
  * @return modified message when the toString() method is called.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String at;
 
     public Event(String description, String at) {
