@@ -19,8 +19,8 @@ public class Duke {
     private static final String LS = System.lineSeparator();
     private static final String QUOTATION = "\"";
     private static final String EMPTY = "";
-    private static final String MESSAGE_WELCOME_DUDE = "Hello! I'm Dude ヽ༼ ・ ل͜ ・ ༽ﾉ";
-    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon! ヽ༼ ͠° ͟ل͜ ͠° ༽ﾉ ";
+    private static final String MESSAGE_WELCOME_DUDE = "Hello! I'm Dude ^__^";
+    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon! ~^u^~ ";
     private static final String MESSAGE_NO_TASKS_YET = "No tasks yet, add a task now!";
     private static final String MESSAGE_INTRODUCE_TASKS = "These are your current tasks:";
     private static final String MESSAGE_COMMAND_TODO_FORMAT = QUOTATION + COMMAND_TODO + " X" + QUOTATION;
@@ -38,15 +38,15 @@ public class Duke {
             + MESSAGE_COMMAND_BYE_FORMAT + " : Stop Dude :(";
 
     private static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please specify a name for the task!";
-    private static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist ヽ༼ °﹃° ༽ﾉ";
+    private static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@";
     private static final String MESSAGE_SUGGEST_COMMAND_LIST = "PS: Forgot the commands? Type "
-            + QUOTATION + COMMAND_COMMAND_LIST + QUOTATION + " !";
+            + QUOTATION + COMMAND_COMMAND_LIST + QUOTATION + "!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_DONE_FORMAT = "Invalid format! Please input a task number to be marked as done, "
             + LS + "in the format " + MESSAGE_COMMAND_DONE_FORMAT + ", where X is the task number!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_DEADLINE_FORMAT = "Invalid format! Please input a deadline, "
-            + LS + "in the format " + MESSAGE_COMMAND_DEADLINE_FORMAT + ", where X is the task and Y is the deadline";
+            + LS + "in the format " + MESSAGE_COMMAND_DEADLINE_FORMAT + ", where X is the task and Y is the deadline!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_EVENT_FORMAT = "Invalid format! Please input a date, "
-            + LS + "in the format " + MESSAGE_COMMAND_EVENT_FORMAT + ", where X is the event and Y is the date";
+            + LS + "in the format " + MESSAGE_COMMAND_EVENT_FORMAT + ", where X is the event and Y is the date!";
 
     /** List of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
     private static Task[] tasks = new Task[100];
