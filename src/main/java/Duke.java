@@ -7,26 +7,25 @@ public class Duke {
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println(logo);
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        String todo [] = new String[100];
-        String done [] = new String[100];
+        Task todo [] = new Task[100];
         int todo_index = 0;
         while(true) {
             if (input.substring(0, 4).equals("done")) {
                 int i=Integer.parseInt(input.substring(5));
-                done[i-1]="[X]";
+                todo[i-1].markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(done[i-1]+todo[i-1]);
+                System.out.println(todo[i-1].toString());
                 System.out.println("____________________________________________________________");
             } else {
                 switch (input) {
                     case "list":
                         System.out.println("____________________________________________________________");
                         for (int i = 0; i < todo_index; i++) {
-                            System.out.println(i + 1 + ". " + done[i] + todo[i]);
+                            System.out.println(i + 1 + ". " + todo[i].toString());
                         }
                         System.out.println("____________________________________________________________");
                         break;
@@ -43,8 +42,7 @@ public class Duke {
                         System.out.println(logo);
                         break;
                     default:
-                        todo[todo_index] = input;
-                        done[todo_index] = "[ ]";
+                        todo[todo_index] = new Task(input);
                         System.out.println("____________________________________________________________");
                         System.out.println("added: " + input);
                         System.out.println("____________________________________________________________");
