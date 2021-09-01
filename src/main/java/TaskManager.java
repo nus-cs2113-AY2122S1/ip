@@ -55,13 +55,18 @@ public class TaskManager {
 
     /* Prints a list of all tasks in task manager */
     public void listTasks() {
-        System.out.println("Here is the list of the things your feeble human mind is incapable of keeping track of:");
+        if (taskList.size() <= 0) {
+            System.out.println("The list, just like your head, is empty.");
+        } else {
+            System.out.println(
+                    "Here is the list of the things your feeble human mind is incapable of keeping track of:");
 
-        int index = 1;
+            int index = 1;
 
-        for (Task task : taskList) {
-            System.out.printf("%d.%s%n", index, task.toString());
-            index++;
+            for (Task task : taskList) {
+                System.out.printf("%d.%s%n", index, task.toString());
+                index++;
+            }
         }
     }
 
