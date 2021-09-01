@@ -242,6 +242,7 @@ public class Duke {
 
         default:
             printMessage(MESSAGE_UNKNOWN_COMMAND);
+            break;
         }
     }
 
