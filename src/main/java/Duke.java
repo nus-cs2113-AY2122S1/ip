@@ -60,14 +60,14 @@ public class Duke {
                     else {
                         tasks[itemIndex] = new Task(command);
                     }
-                    itemIndex++;
-                    System.out.println("Will do sir, I've added: " + System.lineSeparator() + "  "
-                            + tasks[itemIndex - 1].printTask());
-                    if (itemIndex == 1) {
-                        System.out.printf("Now you have %d task in your list.\n", itemIndex);
-                    } else {
-                        System.out.printf("Now you have %d tasks in your list.\n", itemIndex);
-                    }
+                }
+                itemIndex++;
+                System.out.println("Will do sir, I've added: " + System.lineSeparator() + "  "
+                        + tasks[itemIndex - 1].printTask());
+                if (itemIndex == 1) {
+                    System.out.printf("Now you have %d task in your list.\n", itemIndex);
+                } else {
+                    System.out.printf("Now you have %d tasks in your list.\n", itemIndex);
                 }
             }
         }
