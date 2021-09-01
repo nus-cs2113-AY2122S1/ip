@@ -1,0 +1,17 @@
+todo CS2101 slide prep
+deadline text_ui testing /by 1st Sept 2359
+event school lab /at friday 10am-12pm
+todo sweep the house
+list
+done 2
+done 4
+list
+done
+list something
+todo
+deadline never add by
+event never add at
+deadline
+event
+
+bye
