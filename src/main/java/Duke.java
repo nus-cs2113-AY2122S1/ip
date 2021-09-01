@@ -21,6 +21,7 @@ public class Duke {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
     public static void printTaskTypeResponse() {
+        //printing different responses depending if its Todo/Deadline/Event
         printGotIt();
         tasks[taskCount - 1].printTask();
         printTaskCount();
@@ -43,6 +44,7 @@ public class Duke {
         printTaskTypeResponse();
     }
     public static void addDeadline(String line) {
+        //extracting the description and date
         String description = line.replaceAll("/.+", "");
         String by = line.replaceAll(".+/by", "");
         tasks[taskCount] = new Deadline(description, by);
@@ -50,6 +52,7 @@ public class Duke {
         printTaskTypeResponse();
     }
     public static void addEvent(String line) {
+        //extracting the description and date
         String description = line.replaceAll("/.+", "");
         String by = line.replaceAll(".+/at", "");
         tasks[taskCount] = new Event(description, by);
@@ -61,10 +64,12 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+        //continue to run program unless types "bye" to exit program
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printList();
             } else if (line.contains("done")) {
+                //find which task user is done with
                 String[] splitTask = line.split(" ");
                 int index = Integer.parseInt(splitTask[1]) - 1;
                 tasks[index].setDone();
@@ -76,6 +81,7 @@ public class Duke {
             } else if (line.contains("event")) {
                 addEvent(line);
             } else {
+                //error with input
                 printConfused();
             }
             line = in.nextLine();
