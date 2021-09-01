@@ -48,7 +48,7 @@ public class Patchi {
                         tasks[nextTaskIndex] = new Deadline(description, by);
                     }
                 } else if (input.startsWith("event")) {
-                    int indexOfAt = input.indexOf("at");
+                    int indexOfAt = input.indexOf("/at");
                     if (indexOfAt == -1) {
                         isValidCommand = false;
                     } else {
