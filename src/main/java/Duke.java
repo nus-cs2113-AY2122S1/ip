@@ -1,11 +1,4 @@
 
-/***
- * TODO:
- *       * FIX addTask STRING SPLITTING
- *       * CREATE MORE FUNCTIONS TO STREAMLINE
- *       * REFACTOR CODE
- *       * ERROR CODES
- */
 public class Duke {
     public static void main(String[] args) {
         welcomeMessage();
