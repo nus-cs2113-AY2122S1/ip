@@ -25,7 +25,7 @@ public class Duke {
                 task_list[current_task].markAsDone();
                 String update = "     _______________________\n"
                         + "     Nice! I've marked this task as done: \n"
-                        + "       [X] " + task_list[current_task].getContent() + "\n"
+                        + "     " + task_list[current_task].toString() + "\n"
                         + "     _______________________\n";
                 System.out.println(update);
                 break;
@@ -62,18 +62,23 @@ public class Duke {
         public void markAsDone() {
             this.isDone = true;
         }
-
-        public String getContent() {
-            return this.content;
+        @Override
+        public String toString() {
+            return "[" + this.TaskStatus() + "]" + this.content;
         }
     }
+
+
+//    public class Deadline extends Task {
+//
+//        public Deadline(String content, )
+//    }
 
     public static void list(int task_num, Task[] task_list ) {
         String list_output = "     _______________________\n";
         for (int i = 0; i < task_num; i++) {
             list_output += "     " + (i+1) + ". "
-                    + "[" + task_list[i].TaskStatus() + "]"
-                    + task_list[i].getContent() + "\n";
+                    + task_list[i].toString() + "\n";
         }
         list_output += "     _______________________\n";
         System.out.println(list_output);
