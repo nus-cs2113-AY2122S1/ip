@@ -17,6 +17,8 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         userInput = userInput.trim();
         String[] userInputWords = userInput.split(" ");
+        // userInputWords = typeOfTask (first word) + taskContent (the rest)
+        //                = typeOfTask (first word) + taskDescription (+ /at OR /by + time)
         String typeOfTask = userInputWords[0];
         String[] taskContentWords = {};
         if (userInputWords.length > 1) {
@@ -39,6 +41,7 @@ public class Duke {
                     printEmptyTaskErrorMessage();
                     break;
                 }
+                /*-------------locate keyword "/by" in the user input-------------*/
                 int indexOfBy = -1;
                 for (int i = 0; i < taskContentWords.length; i++) {
                     if (taskContentWords[i].equals("/by")) {
@@ -46,14 +49,19 @@ public class Duke {
                         break;
                     }
                 }
-                if (indexOfBy == -1 || indexOfBy == taskContentWords.length - 1) {
-                    printMissingDeadlineErrorMessage();
-                    break;
-                }
-                if (indexOfBy == 0) {
+                /*----------------------invalid input cases-----------------------*/
+                boolean hasNoTaskBeforeBy = indexOfBy == 0;
+                if (hasNoTaskBeforeBy) {
                     printEmptyTaskErrorMessage();
                     break;
                 }
+                boolean hasNoKeywordBy = (indexOfBy == -1);
+                boolean hasNoDeadlineAfterBy = (indexOfBy == taskContentWords.length - 1);
+                if (hasNoKeywordBy | hasNoDeadlineAfterBy) {
+                    printMissingDeadlineErrorMessage();
+                    break;
+                }
+                /*-----------------------valid input cases------------------------*/
                 taskDescriptionWords = Arrays.copyOf(taskContentWords, indexOfBy);
                 taskDescription = String.join(" ", taskDescriptionWords);
                 String[] taskDeadlineWords = Arrays.copyOfRange(taskContentWords,
@@ -66,6 +74,7 @@ public class Duke {
                     printEmptyTaskErrorMessage();
                     break;
                 }
+                /*-------------locate keyword "/at" in the user input-------------*/
                 int indexOfAt = -1;
                 for (int i = 0; i < taskContentWords.length; i++) {
                     if (taskContentWords[i].equals("/at")) {
@@ -73,14 +82,19 @@ public class Duke {
                         break;
                     }
                 }
-                if (indexOfAt == -1 || indexOfAt == taskContentWords.length - 1) {
-                    printMissingTimeErrorMessage();
-                    break;
-                }
-                if (indexOfAt == 0) {
+                /*----------------------invalid input cases-----------------------*/
+                boolean hasNoTaskBeforeAt = (indexOfAt == 0);
+                if (hasNoTaskBeforeAt) {
                     printEmptyTaskErrorMessage();
                     break;
                 }
+                boolean hasNoKeywordAt = (indexOfAt == -1);
+                boolean hasNoTimeAfterAt = (indexOfAt == taskContentWords.length - 1);
+                if (hasNoKeywordAt | hasNoTimeAfterAt) {
+                    printMissingTimeErrorMessage();
+                    break;
+                }
+                /*-----------------------valid input cases------------------------*/
                 taskDescriptionWords = Arrays.copyOf(taskContentWords, indexOfAt);
                 taskDescription = String.join(" ", taskDescriptionWords);
                 String[] taskTimeWords = Arrays.copyOfRange(taskContentWords,
@@ -93,7 +107,7 @@ public class Duke {
                     Task.printList(list);
                     break;
                 } else {
-                    printConfirmationToListMessage();
+                    printPendingConfirmationToListMessage();
                     String userConfirmation = in.nextLine().toLowerCase(Locale.ROOT);
                     if (userConfirmation.equals("y")) {
                         Task.printList(list);
@@ -149,7 +163,7 @@ public class Duke {
         Task.drawDivider();
     }
 
-    private static void printConfirmationToListMessage() {
+    private static void printPendingConfirmationToListMessage() {
         Task.drawDivider();
         System.out.println("Do you want Karlett to list the tasks?(๑•́ᆽ•̀๑✿) [y/n]");
         Task.drawDivider();
