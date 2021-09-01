@@ -8,13 +8,14 @@ public class Event extends Task {
         category = "E";
     }
 
-    public String getDescription(){
-        return description + " (at:" + on + ")";
-    }
-
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (on: " + on + ")";
+        String statusIcon = this.getStatusIcon();
+        String categoryIcon = this.getCategoryIcon();
+        int spaceIndex = on.indexOf(" ");
+        String preposition = on.substring(0, spaceIndex);
+        String details = on.substring(spaceIndex + 1);
+        return categoryIcon + statusIcon + " " + description + " (" + preposition + ": " + details + ")";
     }
 
 }

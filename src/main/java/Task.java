@@ -1,4 +1,5 @@
 public class Task {
+
     protected String description;
     protected boolean isDone;
     protected String category;
@@ -8,19 +9,24 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getCategory(){
-        return category;
-    }
-
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
     public void setDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        if (isDone) {
+            return "[X]";
+        } else {
+            return "[ ]";
+        }
     }
+
+    public String getCategoryIcon() {
+        return "[" + category + "]";
+    }
+
 }

@@ -8,13 +8,14 @@ public class Deadline extends Task {
         category = "D";
     }
 
-    public String getDescription(){
-        return description + " (by:" + by + ")";
-    }
-
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String statusIcon = this.getStatusIcon();
+        String categoryIcon = this.getCategoryIcon();
+        int spaceIndex = by.indexOf(" ");
+        String preposition = by.substring(0, spaceIndex);
+        String details = by.substring(spaceIndex + 1);
+        return categoryIcon + statusIcon + " " + description + " (" + preposition + ": " + details + ")";
     }
 
 }
