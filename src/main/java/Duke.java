@@ -13,6 +13,8 @@ public class Duke {
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
         Scanner in = new Scanner(System.in);
+        String[] list = new String[100];
+        int listIndex = 0;
         while(true) {
             String echo = in.nextLine();
             String echoLower = echo.toLowerCase();
@@ -22,8 +24,14 @@ public class Duke {
                         "Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________");
                 break;
+            }else if(echoLower.equals("list")) {
+                for(int i = 0; i < listIndex; i ++){
+                    System.out.println((i + 1) + ". "+ list[i]);
+                }
             }else {
-                System.out.println("____________________________________________________________\n" + echo + System.lineSeparator() + "____________________________________________________________");
+                list[listIndex] = echoLower;
+                listIndex += 1;
+                System.out.println("____________________________________________________________\n" + "added: " + echo + System.lineSeparator() + "____________________________________________________________");
             }
         }
     }
