@@ -36,11 +36,11 @@ public class Duke {
         return Integer.parseInt(words[1]);
     }
 
-    public static void printList(Task[] args) {
+    public static void printList(Task[] tasks) {
         int count = 0;
         System.out.println("Here is your list:");
-        for (Task item : args) {
-            if (args[count] != null) {
+        for (Task item : tasks) {
+            if (tasks[count] != null) {
                 count++;
                 System.out.println(count + ". " + item.getStatusIcon() + " " + item.description);
             }
@@ -87,7 +87,6 @@ public class Duke {
 
     public static void waitForQuery() {
         String query = "";
-        Keyword keyword = getKeywordStatus(query);
         Scanner userInput = new Scanner(System.in);
 
         while (!query.equals("bye")) {
