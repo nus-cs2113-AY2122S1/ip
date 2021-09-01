@@ -2,6 +2,7 @@ todo borrow book
 DeadLine return book /by Sunday
 Event project meeting /at 4th Sep 2-3pm
 DEADLINE /by Monday
+done
 list
 done 1
 list

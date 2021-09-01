@@ -12,8 +12,8 @@ public class Duke {
     public static final String HELLO_MESSAGE_3 = "What can I do for you? :D";
     public static final String TASK_COMPLETED_MESSAGE = "You've completed the task! Well done!";
     public static final String ADDED_TO_LIST = "I've added this to your list :D";
-    public static final String DEADLINE_PROMPT = " /by ";
-    public static final String EVENT_PROMPT = " /at ";
+    public static final String DEADLINE_DESCRIPTION_AND_DATE_SPLITTER = " /by ";
+    public static final String EVENT_DESCRIPTION_AND_DATE_TIME_SPLITTER = " /at ";
     public static final String GOODBYE_MESSAGE = "Bye, hope to see you again soon! :)";
     public static final String TYPE_SUITABLE_COMMAND_MESSAGE = "Sorry, you are using me wrongly. Please type in a suitable command :)";
     public static final boolean IS_FINE = true;
@@ -114,11 +114,11 @@ public class Duke {
             break;
 
         case DEADLINE:
-            parsedOutput = input.split(DEADLINE_PROMPT);
+            parsedOutput = input.split(DEADLINE_DESCRIPTION_AND_DATE_SPLITTER);
             break;
 
         case EVENT:
-            parsedOutput = input.split(EVENT_PROMPT);
+            parsedOutput = input.split(EVENT_DESCRIPTION_AND_DATE_TIME_SPLITTER);
             break;
         }
         return parsedOutput;
@@ -152,11 +152,19 @@ public class Duke {
     }
 
     private static void executeDoneCase(String input) {
+        if(input.length() != 6) {
+            printIncorrectInputMessage();
+            return;
+        }
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         tasks[index].markAsDone();
+        printTaskCompletedMessage(tasks[index]);
+    }
+
+    private static void printTaskCompletedMessage(Task task) {
         printIndentationAndDivider();
         printWordsWithIndentation(TASK_COMPLETED_MESSAGE);
-        printWordsWithIndentation(tasks[index].getStatusIconAndDescription());
+        printWordsWithIndentation(task.getStatusIconAndDescription());
         printIndentationAndDivider();
         System.out.println();
     }
