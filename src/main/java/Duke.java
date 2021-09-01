@@ -13,7 +13,7 @@ public class Duke {
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
         Scanner in = new Scanner(System.in);
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int listIndex = 0;
         while(true) {
             String echo = in.nextLine();
@@ -26,10 +26,17 @@ public class Duke {
                 break;
             }else if(echoLower.equals("list")) {
                 for(int i = 0; i < listIndex; i ++){
-                    System.out.println((i + 1) + ". "+ list[i]);
+                    System.out.println((i + 1) + ". ["+ list[i].getStatusIcon() + "] " + list[i].getDescription());
+                }
+            }else if(echoLower.equals("done")) {
+                int taskDone = Integer.parseInt(in.nextLine());
+                list[taskDone-1].markAsDone();
+                for(int i = 0; i < listIndex; i ++){
+                    System.out.println((i + 1) + ". ["+ list[i].getStatusIcon() + "] " + list[i].getDescription());
                 }
             }else {
-                list[listIndex] = echoLower;
+                Task t = new Task(echoLower);
+                list[listIndex] = t;
                 listIndex += 1;
                 System.out.println("____________________________________________________________\n" + "added: " + echo + System.lineSeparator() + "____________________________________________________________");
             }
