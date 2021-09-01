@@ -28,4 +28,8 @@ public class Task {
         }
         return result;
     }
+
+    public String printStatus() {
+        return description;
+    }
 }
