@@ -4,7 +4,7 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
-        isDone = false;
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
@@ -17,9 +17,5 @@ public class Task {
 
     public void setDone() {
         isDone = true;
-    }
-
-    public void printTask() {
-        System.out.println(description);
     }
 }
