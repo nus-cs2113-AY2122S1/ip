@@ -178,7 +178,7 @@ public class Duke {
 
         greet();
         while (true) {
-            userInputString = SCANNER.nextLine();
+            userInputString = SCANNER.nextLine().trim();
 
             if (userInputString.equalsIgnoreCase(COMMAND_EXIT)) {
                 exit();
