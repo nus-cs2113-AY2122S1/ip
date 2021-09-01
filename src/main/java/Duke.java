@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private Task[] userList = new Task[100];
+    private Task[] taskList = new Task[100];
     private int listSize = 0;
 
     public void handleCommand() {
@@ -33,31 +33,82 @@ public class Duke {
             System.out.println("-------------------------------------");
             handleCommand();
             break;
+        case "deadline":
+            System.out.println("-------------------------------------");
+            System.out.println("Got it. I've added this task:");
+            addDeadlineOrEventTask(inputWords, "deadline");
+            System.out.println("-------------------------------------");
+            handleCommand();
+            break;
+        case "event":
+            System.out.println("-------------------------------------");
+            System.out.println("Got it. I've added this task:");
+            addDeadlineOrEventTask(inputWords, "event");
+            System.out.println("-------------------------------------");
+            handleCommand();
+            break;
         default:
             System.out.println("-------------------------------------");
-            addTask(userInput);
-            System.out.println("added: " + userInput);
+            System.out.println("Got it. I've added this task:");
+            addTodoTask(inputWords);
             System.out.println("-------------------------------------");
             handleCommand();
             break;
         }
     }
 
-    public void addTask(String task) {
-        userList[listSize] = new Task(task);
+    public void addDeadlineOrEventTask(String[] inputWords, String type) {
+        // Find separator index
+        int separatorIndex = -1;
+        for (int i = 1; i < inputWords.length; i++) {
+            if (inputWords[i].equals("/by") || inputWords[i].equals("/at")) {
+                separatorIndex = i;
+                break;
+            }
+        }
+
+        // Set description
+        String description = inputWords[1];
+        for (int i = 2; i < separatorIndex; i++) {
+            description = description + " " + inputWords[i];
+        }
+
+        // Set deadline (by when) or event time (at what time)
+        String time = inputWords[separatorIndex + 1];
+        for (int i = separatorIndex + 2; i < inputWords.length; i++) {
+            time = time + " " + inputWords[i];
+        }
+
+        if (type.equals("deadline")) {
+            taskList[listSize] = new Deadline(description, time);
+        } else {
+            taskList[listSize] = new Event(description, time);
+        }
+        System.out.println(taskList[listSize]);
+        listSize++;
+    }
+
+    public void addTodoTask(String[] inputWords) {
+        String description = inputWords[1];
+        for (int i = 2; i < inputWords.length; i++) {
+            description = description + " " + inputWords[i];
+        }
+
+        taskList[listSize] = new Todo(description);
+        System.out.println(taskList[listSize]);
         listSize++;
     }
 
     public void showList() {
         for (int i = 0; i < listSize; i++) {
-            System.out.println((i + 1) + ". [" + userList[i].getStatusIcon() + "] " + userList[i].description);
+            System.out.println((i + 1) + ". " + taskList[i]);
         }
     }
 
     public void markTaskAsDone(String taskNumber) {
         int taskIndex = Integer.parseInt(taskNumber) - 1;
-        userList[taskIndex].setAsDone();
-        System.out.println("[" + userList[taskIndex].getStatusIcon() + "] " + userList[taskIndex].description);
+        taskList[taskIndex].setAsDone();
+        System.out.println(taskList[taskIndex]);
     }
 
     public static void main(String[] args) {
