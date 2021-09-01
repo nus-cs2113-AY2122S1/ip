@@ -1,11 +1,13 @@
 public class TaskManager {
     private static final int MAX_TASKS = 100;
+    private static final int TODO_START_INDEX = 4;
+    private static final int DEADLINE_START_INDEX = 8;
+    private static final int EVENT_START_INDEX = 5;
+    private static final int TASK_DESCRIPTION_INDEX = 0;
+    private static final int TASK_DATE_INDEX = 1;
+
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int tasksIndex = 0; //index of task in tasks array
-
-    //add other finals, magic numbers here
-    //
-
 
     void listTasks() {
         Duke.printlnTab("Here are the tasks in your list:");
@@ -18,35 +20,39 @@ public class TaskManager {
 
 
     void addTask(TaskEnum taskType, String userInput) {
+        String strippedUserInput; // userInput but without the first task keyword "todo" "event" "deadline
+
         switch (taskType) {
         case TODO:
-            tasks[tasksIndex] = new Todo(userInput);
+            strippedUserInput = userInput.substring(TODO_START_INDEX).stripLeading(); // remove "todo" from userInput
+            tasks[tasksIndex] = new Todo(strippedUserInput);
             addTaskSuccess();
             return;
-        // break;
         case DEADLINE:
             if (userInput.contains("/b")) {
-                userInput = userInput.substring(8).stripLeading(); // strip deadline
-                String[] deadlineDetails = userInput.split("/by");
+                strippedUserInput = userInput.substring(DEADLINE_START_INDEX).stripLeading(); // strip "deadline" from userInput
+
+                // array should have length of 2
+                //containing Task description (index 0) and Task date (index 1)
+                String[] deadlineDetails = strippedUserInput.split("/by");
 
                 if (deadlineDetails.length == 2) {
-                    String description = deadlineDetails[0].strip();
-                    String by = deadlineDetails[1].strip();
+                    String description = deadlineDetails[TASK_DESCRIPTION_INDEX].strip();
+                    String by = deadlineDetails[TASK_DATE_INDEX].strip();
                     tasks[tasksIndex] = new Deadline(description, by);
                     addTaskSuccess();
                     return;
-                    // break;
                 }
             }
             break;
         case EVENT:
             if (userInput.contains("/a")) {
-                userInput = userInput.substring(5).stripLeading(); // strip deadline
-                String[] eventDetails = userInput.split("/at");
+                strippedUserInput = userInput.substring(EVENT_START_INDEX).stripLeading(); // strip event
+                String[] eventDetails = strippedUserInput.split("/at");
 
                 if (eventDetails.length == 2) {
-                    String description = eventDetails[0].strip();
-                    String at = eventDetails[1].strip();
+                    String description = eventDetails[TASK_DESCRIPTION_INDEX].strip();
+                    String at = eventDetails[TASK_DATE_INDEX].strip();
                     tasks[tasksIndex] = new Event(description, at);
                     addTaskSuccess();
                     return;
@@ -66,18 +72,24 @@ public class TaskManager {
 
     void addTaskFail() {
         Duke.printlnTab("Input is invalid. Please try again");
+        //TODO help function
     }
 
 
     void doneTask(String userInput) {
         String taskNumberStr = userInput.substring(5);
         int taskNumber = Integer.parseInt(taskNumberStr);
-        (tasks[taskNumber - 1]).markAsDone();
+        int taskIndex = taskNumber - 1;
+        (tasks[taskIndex]).markAsDone();
         //taskNumber displayed starting with 1
         //but array starts with 0
+        // Need an exception here
+        // TODO taskNumber greater than the actual tasknumber currently or less than 0;
+        // TODO or if fail to parse taskNumber
+
 
         Duke.printlnTab("Nice! I've marked this task as done:");
-        Duke.printlnTab(String.format("%s", tasks[taskNumber - 1]));
+        Duke.printlnTab(String.format("%s", tasks[taskIndex]));
         Duke.printDivider();
     }
 

@@ -2,15 +2,13 @@ import java.util.Scanner;
 
 public class CommandManager {
     private static final Scanner in = new Scanner(System.in);
-    private static String userInput;
-
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
-
+    private static String userInput;
 
     private static void setUserInput() {
         userInput = in.nextLine().trim();

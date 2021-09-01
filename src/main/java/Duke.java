@@ -2,8 +2,7 @@
 public class Duke {
 
     //TODO Abstract repeated functions
-    //constants / enums for TaskTypes -> Todo/Deadline/Event, then case statement
-    //Super for classes
+    // bugs: should use startswith for command messages?? or how to extract the command keyword?
 
     public static void main(String[] args) {
         welcomeMessage();
