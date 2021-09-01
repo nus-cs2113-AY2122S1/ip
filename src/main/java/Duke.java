@@ -6,8 +6,10 @@ import java.util.Scanner;
 public class Duke {
     private static ArrayList<String> list = new ArrayList<>();
     private static ArrayList<Integer> done = new ArrayList<>();
+    private static ArrayList<String> type = new ArrayList<>();
+    private static ArrayList<String> date = new ArrayList<>();
 
-    public static void greeting() {
+    private static void greeting() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm Duke");
         System.out.println("     What can I do for you?");
@@ -15,7 +17,7 @@ public class Duke {
         System.out.println();
     }
 
-    public static void echo() {
+    private static void echo() {
         String line;
         Scanner in = new Scanner(System.in);
         // get user input
@@ -31,31 +33,52 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void showList() {
+    private static void showList() {
         System.out.println("    ____________________________________________________________");
+        System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
+            String description = list.get(i);
+            String time = date.get(i);
+            String category = type.get(i);
             System.out.printf("     %d.", i + 1);
             if (done.get(i) == 1) {
-                System.out.print("[X] ");
+                switch (category) {
+                case "T":
+                    Todo todo = new Todo(description);
+                    System.out.println(todo.doneToString());
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(description, time);
+                    System.out.println(deadline.doneToString());
+                    break;
+                case "E":
+                    Event event = new Event(description, time);
+                    System.out.println(event.doneToString());
+                    break;
+                default: System.out.println("       Unknown Object");
+                }
             } else {
-                System.out.print("[ ] ");
+                switch (category) {
+                case "T":
+                    Todo todo = new Todo(description);
+                    System.out.println(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(description, time);
+                    System.out.println(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(description, time);
+                    System.out.println(event);
+                    break;
+                default: System.out.println("       Unknown Object");
+                }
             }
-            System.out.println(list.get(i));
         }
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void markAsDone(int index) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Nice! I've marked this task as done:");
-        String task = list.get(index - 1);
-        // mark as done
-        done.set(index - 1, 1);
-        System.out.println("       [X] " + task);
-        System.out.println("    ____________________________________________________________");
-    }
-
-    public static void addList() {
+    private static void addList() {
         String line;
         Scanner in = new Scanner(System.in);
         // get user input
@@ -73,14 +96,70 @@ public class Duke {
                 continue;
             }
             System.out.println("    ____________________________________________________________");
-            list.add(line);
+            System.out.println("     Got it. I've added this task: ");
             done.add(0);
-            System.out.println("     added: " + line);
+            String description;
+            String time;
+            if (line.startsWith("todo")) {
+                type.add("T");
+                description = line.substring(5);
+                Todo todo = new Todo(description);
+                list.add(description);
+                date.add("");
+                System.out.println("       " + todo);
+            } else if (line.startsWith("deadline")) {
+                type.add("D");
+                int seperate = line.indexOf("/by");
+                description = line.substring(9, seperate - 1);
+                time = line.substring(seperate + 4);
+                Deadline deadline = new Deadline(description, time);
+                list.add(description);
+                date.add(time);
+                System.out.println("       " + deadline);
+            } else if (line.startsWith("event")) {
+                type.add("E");
+                int seperate = line.indexOf("/at");
+                description = line.substring(6, seperate - 1);
+                time = line.substring(seperate + 4);
+                Event event = new Event(description, time);
+                list.add(description);
+                date.add(time);
+                System.out.println("       " + event);
+            } else {
+                type.add("unknown");
+            }
+            System.out.println("     Now you have " + list.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             line = in.nextLine();
         }
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
+        System.out.println("    ____________________________________________________________");
+    }
+
+    private static void markAsDone(int index) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Nice! I've marked this task as done:");
+        String description = list.get(index - 1);
+        String time = date.get(index - 1);
+        String category = type.get(index - 1);
+        // mark as done
+        done.set(index - 1, 1);
+        switch (category) {
+        case "T":
+            Todo todo = new Todo(description);
+            System.out.println("       " + todo.doneToString());
+            break;
+        case "D":
+            Deadline deadline = new Deadline(description, time);
+            System.out.println("       " + deadline.doneToString());
+            break;
+        case "E":
+            Event event = new Event(description, time);
+            System.out.println("       " + event.doneToString());
+            break;
+        default: System.out.println("       Unknown Object");
+        }
         System.out.println("    ____________________________________________________________");
     }
 
