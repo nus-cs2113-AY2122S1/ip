@@ -1,6 +1,11 @@
+/**
+ * This is the main class of the chat bot app that helps user remember their different
+ * types of task and "parrot" the task back to them when they request.
+ *
+ * @author YEOWEIHNGWHYELAB
+ */
+
 import java.util.Scanner;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Duke {
     /* Task Counter */
@@ -10,66 +15,17 @@ public class Duke {
     public static Task[] tasks = new Task[100];
 
     /**
-     * Prints a "Hi" message when the user first initialize the chat bot.
+     * These are text objects created that can print text file
+     * specified into the terminal.
      */
-    public static void printHelloText() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
-        System.out.println("____________________________________________________________");
-
-        printParrotText();
-
-        System.out.println(" Hello! I'm Parrot Boi\n" +
-                " What can I not do for you (I'm Lazy)? c(＞ω＜)ゞ");
-        System.out.println(" I'm currently in parrot mode! ");
-    }
+    public static PrintTextFile printHelloText = new PrintTextFile("text-art/HelloText.txt");
+    public static PrintTextFile printByeText = new PrintTextFile("text-art/ByeText.txt");
+    public static PrintTextFile printParrotText = new PrintTextFile("text-art/ParrotText.txt");
+    public static PrintTextFile printDukeyText = new PrintTextFile("text-art/DukeyText.txt");
 
     /**
-     * Prints a "bye" message when the user input "bye" into the chat bot.
-     */
-    public static void printByeText() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to not see you again soon!ヾ(´￢｀)ﾉ");
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Reads a .txt file in ASCII format and then print every single character (converted
-     * ASCII index to characters) inside that .txt file onto the terminal. It also looks for
-     * exception and print it out if any.
-     *
-     * @throws IOException Trying to read the .txt file which user do not have permission or a
-     *                     .txt file that does not exist.
-     */
-    public static void printParrotText() {
-        try {
-            /**
-             * Note that the text file must be placed at the base java directory,
-             * and the name of the text file is placed here!
-             */
-            FileReader readParrot = new FileReader("text-art/ParrotText.txt");
-
-            int singleCharacters;
-
-            while ((singleCharacters = readParrot.read()) != -1) {
-                // Print each character individually.
-                System.out.print((char) singleCharacters);
-            }
-            readParrot.close();
-        } catch (IOException except) {
-            except.printStackTrace();
-        }
-
-        System.out.println("");
-    }
-
-    /**
-     * Adds a new task with the task name provided.
+     * Prints the current list of task when the "list" command is
+     * entered to the terminal.
      */
     public static void printTaskList() {
         System.out.println("    ____________________________________________________________");
@@ -82,31 +38,66 @@ public class Duke {
     }
 
     /**
-     * Adds a new task with the task name provided.
+     * Adds a new todo task with the description of task provided.
      *
-     * @param taskName Name of the new task.
+     * @param userInputString which contains the "todo" command along with
+     *                        the description of the todo task. No time
+     *                        details is needed here.
      */
-    public static void addToDo(String taskName) {
+    public static void addToDo(String userInputString) {
+        String taskName = userInputString.split(" ")[1];
+
         tasks[numberOfTasks] = new ToDo(taskName);
         numberOfTasks += 1;
+
+        tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
     }
 
-    public static void addDeadline(String taskName, String by) {
+    /**
+     * Adds a new deadline task with the description of deadline task provided
+     * along with the time which is due "by".
+     *
+     * @param userInputString which contains the "deadline" command along with
+     *                        the description of the deadline task and followed
+     *                        by a "/" to separate the due time "by".
+     */
+    public static void addDeadline(String userInputString) {
+        String taskName = userInputString.substring(9).split("/")[0];
+        String by = userInputString.substring(9).split("/")[1];
+
         tasks[numberOfTasks] = new Deadline(taskName, by);
         numberOfTasks += 1;
+
+        tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
     }
 
-    public static void addEvent(String taskName, String by) {
+    /**
+     * Adds a new event task with the description of task provided and time
+     * which it is happening "at".
+     *
+     * @param userInputString which contains the "event" command along with
+     *                        the description of the event task followed by
+     *                        a "/" to separate the happening time "at".
+     */
+    public static void addEvent(String userInputString) {
+        String taskName = userInputString.substring(7).split("/")[0];
+        String by = userInputString.substring(7).split("/")[1];
+
         tasks[numberOfTasks] = new Event(taskName, by);
         numberOfTasks += 1;
+
+        tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
     }
 
     /**
      * Marks a certain task based on task number as finished.
      *
-     * @param taskNumber X coordinate of position..
+     * @param userInputString which contains the "done" command along with the
+     *                        finished task number.
      */
-    public static void finishTask(int taskNumber) {
+    public static void finishTask(String userInputString) {
+        int taskNumber = Integer.parseInt(userInputString.split(" ")[1]);
+
         if (taskNumber <= numberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
         } else {
@@ -114,7 +105,19 @@ public class Duke {
         }
     }
 
-    //public static void finishTask(int taskNumber) {
+    /**
+     * Causes a delay in execution of code for specified duration
+     * before returning control back to the caller of this method.
+     *
+     * @param ms The amount of millisecond to delay execution.
+     */
+    public static void wait(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     /**
      * Main method of the chat bot app.
@@ -123,32 +126,49 @@ public class Duke {
         String userInputString;
         Scanner userInput = new Scanner(System.in);
 
-        printHelloText();
+        /**
+         * Prints a "Dukey", "Parrot", "Hello" message sequentially
+         * when the user first initialize the chat bot.
+         */
+        printDukeyText.printText();
+        wait(500);
+        printParrotText.printText();
+        wait(500);
+        printHelloText.printText();
 
+        /**
+         * Main while loop of the main() method. It waits for user command
+         * and determines what command the user entered
+         */
         while (true) {
             userInputString = userInput.nextLine();
+            CommandHandling commandHandle = new CommandHandling(userInputString);
 
-            if (userInputString.equals("bye")) {
+            if (commandHandle.isBye()) {
                 break;
-            } else if (userInputString.equals("list")) {
+            } else if (commandHandle.isList()) {
                 printTaskList();
                 continue;
-            } else if (userInputString.split(" ")[0].equals("done")) {
-                finishTask(Integer.parseInt(userInputString.split(" ")[1]));
-            } else if (userInputString.split(" ")[0].equals("todo")) {
-                addToDo(userInputString.split(" ")[1]);
-                tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
-            } else if (userInputString.split(" ")[0].equals("deadline")) {
-                addDeadline(userInputString.substring(9).split("/")[0], userInputString.substring(9).split("/")[1]);
-                tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
-            } else if (userInputString.split(" ")[0].equals("event")) {
-                addEvent(userInputString.substring(7).split("/")[0], userInputString.substring(7).split("/")[1]);
-                tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+            } else if (commandHandle.isDone()) {
+                finishTask(userInputString);
+                continue;
+            } else if (commandHandle.isToDo()) {
+                addToDo(userInputString);
+                continue;
+            } else if (commandHandle.isDeadline()) {
+                addDeadline(userInputString);
+                continue;
+            } else if (commandHandle.isEvent()) {
+                addEvent(userInputString);
+                continue;
             } else {
-                System.out.println("    Enter something legit please!");
+                System.out.println("    Enter something legit please! :(");
             }
         }
 
-        printByeText();
+        /**
+         * Prints a "Bye" message when the user enters "bye" command.
+         */
+        printByeText.printText();
     }
 }

@@ -1,3 +1,11 @@
+/**
+ * This class responsible for creating Task objects. It includes their
+ * description and tracks if the task object "isDone". It is the superclass
+ * of Event, Deadline and ToDo.
+ *
+ * @author YEOWEIHNGWHYELAB
+ */
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,6 +21,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * This printing function is created in case if the object created has no
+     * specified type of being "todo", "event" or "dealine".
+     *
+     * @param numberOfTasks is the number of task...
+     */
     public void printAddingStatus(int numberOfTasks) {
         System.out.println("    Please specify the task... :(");
     }
@@ -32,6 +46,7 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
         System.out.println("    Nice! I've marked this task as done: ");
+        System.out.print("     ");
         this.printStatus();
     }
 
