@@ -55,7 +55,8 @@ public class Duke {
                     Event event = new Event(description, time);
                     System.out.println(event.doneToString());
                     break;
-                default: System.out.println("       Unknown Object");
+                default:
+                    System.out.println("       Unknown Object");
                 }
             } else {
                 switch (category) {
@@ -71,7 +72,8 @@ public class Duke {
                     Event event = new Event(description, time);
                     System.out.println(event);
                     break;
-                default: System.out.println("       Unknown Object");
+                default:
+                    System.out.println("       Unknown Object");
                 }
             }
         }
@@ -158,7 +160,8 @@ public class Duke {
             Event event = new Event(description, time);
             System.out.println("       " + event.doneToString());
             break;
-        default: System.out.println("       Unknown Object");
+        default:
+            System.out.println("       Unknown Object");
         }
         System.out.println("    ____________________________________________________________");
     }
