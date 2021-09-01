@@ -1,13 +1,12 @@
 public class Task {
-    private String name;
+    private String description;
     private boolean isDone;
+    private char taskType;
 
-    public Task(String description) {
-        this.name = description;
-    }
-
-    public String getName() {
-        return name;
+    public Task(String description, char taskType) {
+        this.description = description;
+        this.isDone = false;
+        this.taskType = taskType;
     }
 
     public boolean isDone() {
@@ -18,14 +17,18 @@ public class Task {
         isDone = true;
     }
 
+    public char getTaskType() {
+        return taskType;
+    }
+
     /**
      * Returns string in list entry format.
-     * eg. [ ] task1
-     *     [x] task2
+     * eg. [T][ ] task1
+     *     [D][x] task2
      *
-     * @return string The formatted string
+     * @return The formatted string.
      */
     public String getListEntryString() {
-        return String.format("[%c] %s",(isDone() ? 'x' : ' '),name);
+        return String.format("[%c][%c] %s", taskType,(isDone() ? 'x' : ' '), description);
     }
 }
