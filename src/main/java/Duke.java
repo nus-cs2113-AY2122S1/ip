@@ -122,12 +122,59 @@ public class Duke {
         printDivider();
     }
 
+    private void parseUserInputString(String userInputString) {
+        String command;
+        String[] parsedUserInput;
+        String[] params;
+
+        parsedUserInput = PARSER.separateCommand(userInputString);
+        command = parsedUserInput[0].toLowerCase();
+
+        switch (command) {
+        case COMMAND_ECHO:
+            echo(parsedUserInput[1]);
+            break;
+        case COMMAND_MARK_TASK_AS_DONE:
+            markTaskAsDone(Integer.parseInt(parsedUserInput[1]));
+            break;
+        case COMMAND_ADD_TODO:
+            addTodo(parsedUserInput[1]);
+            break;
+        case COMMAND_ADD_DEADLINE:
+            params = PARSER.separateDeadline(parsedUserInput[1]);
+            addDeadline(params[0], params[1]);
+            break;
+        case COMMAND_ADD_EVENT:
+            params = PARSER.separateEvent(parsedUserInput[1]);
+            addEvent(params[0], params[1]);
+            break;
+        default:
+            showInvalidCommandMessage();
+            break;
+        }
+    }
+
+    private void handleUserInput(String userInputString) {
+
+        switch (userInputString.toLowerCase()) {
+        case COMMAND_LIST_TASKS:
+            listTasks();
+            break;
+        case COMMAND_CLEAR_TASKS:
+            clearAllTasks();
+            break;
+        case COMMAND_HELP:
+            showHelpMessage();
+            break;
+        default:
+            parseUserInputString(userInputString);
+            break;
+        }
+    }
+
     public void execute() {
 
         String userInputString;
-        String[] parsedUserInput;
-        String command;
-        String[] params;
 
         greet();
         while (true) {
@@ -137,44 +184,7 @@ public class Duke {
                 exit();
                 break;
             }
-            if (userInputString.equalsIgnoreCase(COMMAND_LIST_TASKS)) {
-                listTasks();
-                continue;
-            }
-            if (userInputString.equalsIgnoreCase(COMMAND_CLEAR_TASKS)) {
-                clearAllTasks();
-                continue;
-            }
-            if (userInputString.equalsIgnoreCase(COMMAND_HELP)) {
-                showHelpMessage();
-                continue;
-            }
-
-            parsedUserInput = PARSER.separateCommand(userInputString);
-            command = parsedUserInput[0].toLowerCase();
-
-            switch (command) {
-            case COMMAND_ECHO:
-                echo(parsedUserInput[1]);
-                break;
-            case COMMAND_MARK_TASK_AS_DONE:
-                markTaskAsDone(Integer.parseInt(parsedUserInput[1]));
-                break;
-            case COMMAND_ADD_TODO:
-                addTodo(parsedUserInput[1]);
-                break;
-            case COMMAND_ADD_DEADLINE:
-                params = PARSER.separateDeadline(parsedUserInput[1]);
-                addDeadline(params[0], params[1]);
-                break;
-            case COMMAND_ADD_EVENT:
-                params = PARSER.separateEvent(parsedUserInput[1]);
-                addEvent(params[0], params[1]);
-                break;
-            default:
-                showInvalidCommandMessage();
-                break;
-            }
+            handleUserInput(userInputString);
         }
     }
 }
