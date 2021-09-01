@@ -1,12 +1,14 @@
-public class Task {
+public class Todo {
 
     protected boolean isDone;
     protected String description;
 
-    public Task(String description){
+    public Todo(String description){
         this.description = description;
         this.isDone = false;
     }
+
+
     public String getStatusIcon(){
         return (isDone ? "X":" ");
     }
@@ -17,5 +19,9 @@ public class Task {
 
     public void markAsDone(){
         isDone = true;
+    }
+
+    public String returnType(){
+        return "T";
     }
 }

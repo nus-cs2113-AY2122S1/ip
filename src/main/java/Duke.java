@@ -11,29 +11,40 @@ public class Duke {
         greeting();
     }
 
-    public static void showList(Task list[], int x){
+    public static void showList(Todo list[], int x){
         if(x == 0)  System.out.println("\n____________________________________________________________");
         else{
             System.out.println("\n____________________________________________________________");
             for(int i = 0; i < x; i++){
-                System.out.println("[" + list[i].getStatusIcon() + "]" + list[i].getDescription());
+                if(list[i] instanceof Deadline){
+                    Deadline dummy = (Deadline) list[i];
+                    System.out.println("[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + " (" + dummy.getBy() + ")");
+                }
+                else if(list[i] instanceof Event){
+                    Event dummy = (Event)list[i];
+                    System.out.println("[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + " (" + dummy.getDuration() + ")");
+                }
+                else{
+                    System.out.println("[" + list[i].getStatusIcon() + "] " + "[" + list[i].returnType() + "] " + list[i].getDescription());
+                }
             }
+
             System.out.println("\n____________________________________________________________");
         }
     }
 
-    public static void doneTask(Task list[], String order){
+    public static void doneTodo(Todo list[], String order){
         String dummy = order.trim();
         int index = Integer.parseInt(dummy.substring(5,dummy.length()));
         list[index-1].markAsDone();
         System.out.println("\n____________________________________________________________");
         System.out.println("Nice Work! I've marked it as done");
-        System.out.println("[" + list[index-1].getStatusIcon() + "]" + list[index-1].getDescription());
+
         System.out.println("\n____________________________________________________________");
     }
 
     public static void greeting () {
-        Task list[] = new Task[100];
+        Todo list[] = new Todo[100];
         int maxcount = 0;
 
         System.out.println("____________________________________________________________");
@@ -47,14 +58,37 @@ public class Duke {
                 continue;
             }
             else if(order.contains("done")){
-                doneTask(list, order);
+                doneTodo(list, order);
                 order = getMission();
                 continue;
             }
-            System.out.println("____________________________________________________________");
-            System.out.println("added: " + order);
-            System.out.println("____________________________________________________________\n");
-            list[maxcount] = new Task(order);
+            if(order.contains("todo")){
+                list[maxcount] = new Todo(order.substring(5,order.length()));
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:" );
+                System.out.println("[T][] " +  list[maxcount].getDescription());
+                System.out.println("Now you have " + (maxcount+1) +" tasks in the list");
+                System.out.println("____________________________________________________________\n");
+            }
+            else if(order.contains("deadline")){
+                list[maxcount] = new Deadline(order.substring(9,order.length()));
+                Deadline dummy = new Deadline(order.substring(9,order.length()));
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:" );
+                System.out.println("[D][] " +  list[maxcount].getDescription() + dummy.getBy());
+                System.out.println("Now you have " + (maxcount+1) +" tasks in the list");
+                System.out.println("____________________________________________________________\n");
+            }
+            else if(order.contains("event")){
+                list[maxcount] = new Event(order.substring(6,order.length()));
+                Event dummy = new Event(order.substring(6,order.length()));
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:" );
+                System.out.println("[E][] " +  list[maxcount].getDescription() + dummy.getDuration());
+                System.out.println("Now you have " + (maxcount+1) +" tasks in the list");
+                System.out.println("____________________________________________________________\n");
+            }
+
             maxcount++;
             order = getMission();
         }
