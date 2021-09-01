@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /* Constructor for Taskmanger */
     public TaskManager() {
@@ -10,13 +10,47 @@ public class TaskManager {
     }
 
     /**
-     * Adds a new task to the task manager.
+     * Adds a new task of type Todo to the task manager.
      *
-     * @param taskName Name of the task to add.
+     * @param taskDescription Name of the task to add.
+     * @param taskType        Type of task to add, defined in TaskType.
      */
-    public void addTask(String taskName) {
-        taskList.add(new Task(taskName));
-        System.out.println("added: " + taskName);
+    public void addTask(String taskDescription, char taskType) {
+
+        Task task = null;
+        String[] userInput = null;
+
+        switch (taskType) {
+        case TaskType.TODO:
+            task = new Todo(taskDescription);
+            break;
+        case TaskType.DEADLINE:
+            userInput = taskDescription.split("/by", 2);
+            task = new Deadline(userInput[0].trim(), userInput[1].trim());
+            break;
+        case TaskType.EVENT:
+            userInput = taskDescription.split("/at", 2);
+            task = new Event(userInput[0].trim(), userInput[1].trim());
+            break;
+        default:
+            System.out.println("An invalid task type has been detected");
+            return;
+        }
+
+        if (task != null) {
+            taskList.add(task);
+
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task.toString());
+
+            if (taskList.size() == 1) {
+                System.out.printf("There is now %d task in the list%n", taskList.size());
+            } else {
+                System.out.printf("There are now %d tasks in the list%n", taskList.size());
+            }
+
+        }
+
     }
 
     /* Prints a list of all tasks in task manager */
@@ -26,22 +60,23 @@ public class TaskManager {
         int index = 1;
 
         for (Task task : taskList) {
-            String status = " ";
-
-            if (task.isDone()) {
-                status = "X";
-            }
-
-            System.out.println(index + ".[" + status + "] " + task.getName());
+            System.out.printf("%d.%s%n", index, task.toString());
             index++;
         }
     }
 
+    /**
+     * Marks the task at selected index as done.
+     *
+     * @param index index of the task to be marked as done.
+     */
     public void markDone(int index) {
         Task task = taskList.get(--index);
 
         task.setDone();
         System.out.println("The task has been marked as done. No need to thank me.");
-        System.out.println("  [X] " + task.getName());
+        System.out.println(task.toString());
     }
+
 }
+
