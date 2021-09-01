@@ -20,7 +20,6 @@ public class Duke {
                 handleListRequest(toDo, trackIndex);
             } else if (line.contains("done")) {
                 handleDoneRequest(line, toDo);
-                trackIndex++;
             } else if (line.contains("todo")) {
                 handleToDoRequest(line, toDo, trackIndex);
                 trackIndex++;
