@@ -1,0 +1,14 @@
+todo Go To School
+todo watch anime
+deadline do homework /by no idea :-p
+event project meeting /at Mon 2-4pm
+list
+done 2
+list
+deadline return book /by Sunday
+list
+done 3
+done 4
+done 7
+invalidcommand
+bye

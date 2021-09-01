@@ -45,7 +45,7 @@ public class Duke {
      *                        details is needed here.
      */
     public static void addToDo(String userInputString) {
-        String taskName = userInputString.split(" ")[1];
+        String taskName = userInputString.substring(5);
 
         tasks[numberOfTasks] = new ToDo(taskName);
         numberOfTasks += 1;
@@ -101,7 +101,7 @@ public class Duke {
         if (taskNumber <= numberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
         } else {
-            System.out.println("    Please Enter the Legit Task Number... (ง'̀-'́)ง");
+            System.out.println("    Please Enter the Legit Task Number... Or I won't talk to you!");
         }
     }
 
@@ -162,7 +162,9 @@ public class Duke {
                 addEvent(userInputString);
                 continue;
             } else {
+                System.out.println("    ____________________________________________________________");
                 System.out.println("    Enter something legit please! :(");
+                System.out.println("    ____________________________________________________________");
             }
         }
 

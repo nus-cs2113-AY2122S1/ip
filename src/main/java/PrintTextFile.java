@@ -35,15 +35,15 @@ public class PrintTextFile {
              * directory is not clearly specified), and the name of the text file is
              * placed here!
              */
-            FileReader readParrot = new FileReader(this.fileDirectory);
+            FileReader readTextFile = new FileReader(this.fileDirectory);
 
             int singleCharacters;
 
-            while ((singleCharacters = readParrot.read()) != -1) {
+            while ((singleCharacters = readTextFile.read()) != -1) {
                 // Print each character individually.
                 System.out.print((char) singleCharacters);
             }
-            readParrot.close();
+            readTextFile.close();
         } catch (IOException except) {
             except.printStackTrace();
         }

@@ -35,7 +35,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by.split(" ")[1] + ")";
+        return "[D]" + super.toString() + "(by: " + by.substring(3) + ")";
     }
 
     @Override
