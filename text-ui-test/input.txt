@@ -1,0 +1,9 @@
+todo eat
+deadline homework /by Friday
+event meeting /at Sun 2-4pm
+list
+done 1
+done 2
+done 3
+list
+bye
