@@ -1,0 +1,13 @@
+todo eat lunch
+event project meeting /at Mon 2-4pm
+list
+deadline do homework /by September 10th
+done 2
+event project meeting /at Mon 2-4pm
+list
+todo get supper
+done 4
+done 3
+list
+bye
+
