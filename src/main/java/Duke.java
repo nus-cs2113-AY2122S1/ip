@@ -8,7 +8,8 @@ public class Duke {
     public static void addTask(Task t, int count) {
         printHorizontalLine();
         tasks[count] = t;
-        System.out.println("added: " + t.getDescription());
+        t.printTaskNotif();
+        System.out.println("Now you have " + (count + 1) + " tasks in the list");
         printHorizontalLine();
     }
 
@@ -17,8 +18,9 @@ public class Duke {
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
+            String type = tasks[i].type;
             String icon = tasks[i].getStatusIcon();
-            System.out.println((i + 1) + "." + "[" + icon + "] " + tasks[i].getDescription());
+            System.out.println((i + 1) + "." + "[" + type + "]" + " [" + icon + "] " + tasks[i].description);
         }
         printHorizontalLine();
     }
@@ -27,8 +29,9 @@ public class Duke {
     public static void printDoneTask(Task t) {
         printHorizontalLine();
         System.out.println("Nice, I've marked this task as done:");
+        String type = t.type;
         String icon = t.getStatusIcon();
-        System.out.println("[" + icon + "] " + t.getDescription());
+        System.out.println("[" + type + "]" + " [" + icon + "] " + t.description);
         printHorizontalLine();
     }
 
@@ -53,32 +56,58 @@ public class Duke {
 
         String input;
         Scanner in = new Scanner(System.in);
-        input = in.nextLine();
-        Task t = new Task(input); //reads in user input, creates Task object
+        input = in.nextLine(); //reads in user input
+        Task t;
 
-        int taskCount = 0; //counter of total number of items in task list
+        int taskCount = 0; //counter for total number of items in task list
         boolean isBye = false;
 
         while (!isBye) {
-            if (t.getDescription().equalsIgnoreCase(("bye"))) {
+            if (input.equalsIgnoreCase(("bye"))) {
                 isBye = true;
 
-            } else if (t.getDescription().equalsIgnoreCase("list")) {
+            } else if (input.equalsIgnoreCase("list")) {
                 printList(taskCount); //print task list
-                t = new Task(in.nextLine());
+                input = in.nextLine();
 
-            } else if (t.getDescription().contains("done")) {
-                String[] splitString = t.getDescription().split(" ");
+            } else if (input.contains("done")) {
+                String[] splitString = input.split(" ");
                 int index = Integer.parseInt(splitString[1]); //task number to be marked as done
 
                 setDone(index - 1);
                 printDoneTask(tasks[index - 1]);
-                t = new Task(in.nextLine());
+                input = in.nextLine();
 
-            } else {
+            } else if (input.contains("todo")) { //task is a todo
+                String description = input.substring(5);
+                t = new Todo(description);
                 addTask(t, taskCount);
                 taskCount++;
-                t = new Task(in.nextLine());
+                input = in.nextLine();
+
+            } else if (input.contains("deadline")) { //task is a deadline
+                int slash = input.indexOf("/");
+                String description = input.substring(8, slash);
+                String by = input.substring(slash + 4);
+                t = new Deadline(description, by);
+                addTask(t, taskCount);
+                taskCount++;
+                input = in.nextLine();
+
+            } else if (input.contains("event")) { //task is an event
+                int slash = input.indexOf("/");
+                String description = input.substring(6, slash);
+                String at = input.substring(slash + 4);
+                t = new Event(description, at);
+                addTask(t, taskCount);
+                taskCount++;
+                input = in.nextLine();
+
+            } else { //basic task
+                t = new Task(input);
+                addTask(t, taskCount);
+                taskCount++;
+                input = in.nextLine();
             }
         }
         printHorizontalLine();

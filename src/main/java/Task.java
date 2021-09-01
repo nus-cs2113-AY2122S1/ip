@@ -1,4 +1,5 @@
 public class Task {
+    protected String type = " "; //empty for basic task, T: todo, D: deadline, E: event
     protected String description;
     protected boolean isDone;
 
@@ -10,7 +11,10 @@ public class Task {
         isDone = done;
     }
 
-    //constructor
+    //constructors
+    public Task() {
+    }
+
     public Task(String description) {
 
         this.description = description;
@@ -21,4 +25,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    public void printTaskNotif() {
+        System.out.println("added: " + description);
+    }
+
 }
