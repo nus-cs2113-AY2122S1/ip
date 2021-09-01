@@ -11,12 +11,16 @@ public class Task {
 
     public String getStatusIcon() {
         // mark done task with X
-        return (isDone ? "X" : " ");
+        return (isDone ? "[X] " : "[ ] ");
     }
 
     public void markAsDone(){
         //change isDone for task to true
         this.isDone = true;
+    }
+
+    public String toString() {
+        return getStatusIcon() + description;
     }
 
 }

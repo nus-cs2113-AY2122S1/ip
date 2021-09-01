@@ -32,7 +32,7 @@ public class Duke {
                 System.out.println("____________________________________________________________\n"
                         + "Here are the tasks in your list:");
                 for(int i = 0; i < listCount; i++){
-                    System.out.println((i+1) + ".[" + list[i].getStatusIcon() + "] " + list[i].description);
+                    System.out.println((i+1) + "." + list[i].toString());
                 }
                 System.out.println("____________________________________________________________\n");
                 continue;
@@ -46,16 +46,38 @@ public class Duke {
                 list[taskNum-1].markAsDone();
                 System.out.println("____________________________________________________________\n"
                         + "Nice! I've marked this task as done:");
-                System.out.println(" [" + list[taskNum-1].getStatusIcon() + "] " + list[taskNum-1].description);
+                System.out.println(" " + list[taskNum-1].toString());
                 System.out.println("____________________________________________________________\n");
                 continue;
             }
+
+            if (line.toLowerCase().contains("todo")) {
+                String description = line.substring(5);
+                Todo t = new Todo(description);
+                list[listCount] = t;
+                listCount++;
+            } else if (line.toLowerCase().contains("deadline")) {
+                int deadlineDividerPosition = line.indexOf("/by");
+                String description = line.substring(9,deadlineDividerPosition);
+                String by = line.substring(deadlineDividerPosition+4);
+                Deadline t = new Deadline(description,by);
+                list[listCount] = t;
+                listCount++;
+            }   else if (line.toLowerCase().contains("event")) {
+                int eventDividerPosition = line.indexOf("/at");
+                String description = line.substring(6,eventDividerPosition);
+                String at = line.substring(eventDividerPosition+4);
+                Event t = new Event(description,at);
+                list[listCount] = t;
+                listCount++;
+            }
+
             System.out.println("____________________________________________________________\n"
-                    + "added: " + line + "\n"
+                    + "Got it. I've added this task:\n"
+                    + " " + list[listCount-1].toString() + "\n"
+                    + "Now you have " + listCount + " tasks in the list.\n"
                     + "____________________________________________________________\n");
-            Task t = new Task(line);
-            list[listCount] = t;
-            listCount++;
+
         } while (!line.toLowerCase().equals("bye"));
 
     }
