@@ -1,0 +1,5 @@
+todo return book
+todo eat lunch
+deadline submit homework /by Sunday
+event sportsclub welcome tea /at 6th June 7-9pm
+list

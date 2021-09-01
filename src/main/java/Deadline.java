@@ -6,24 +6,35 @@ public class Deadline extends Task{
         this.deadLine = deadLine;
     }
 
-    public String getDeadLine() {
-        return deadLine;
-    }
-
-    public void setDeadLine(String deadLine) {
-        this.deadLine = deadLine;
-    }
-
+    /**
+     * Contains deadline Icon [D].
+     *
+     * @return Icon in String format.
+     */
     public String deadlineIcon() {
-        String completedIcon = "D";
-        return  completedIcon;
+        String deadlineIcon = "D";
+        return  deadlineIcon;
     }
 
+    /**
+     * Output message when the deadline task is added.
+     */
     public void initialiseDeadline(){
         System.out.println("______________________________\n");
         System.out.println("[" + deadlineIcon() + "]"
                 + "[ ]"
                 + taskName + "(" + deadLine + ") "
-                + "has been added!\n");
+                + " has been added!\n");
+    }
+
+    /**
+     * Override the toString method of Deadline class.
+     *
+     * @return String message in the right format.
+     */
+    @Override
+    public String toString(){
+        String s = "[" + deadlineIcon() + "] " + "[" + super.completedTaskIcon() + "]" + super.taskName;
+        return s;
     }
 }

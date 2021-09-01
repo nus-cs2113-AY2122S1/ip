@@ -75,8 +75,10 @@ public class Task {
      */
     public void congratulatoryNote() {
         System.out.println("______________________________\n");
-        System.out.println("Good Job! Keep striving! This task has been marked as completed: \n");
-        System.out.println("[" + completedTaskIcon() + "]" + taskName + "\n");
+        System.out.println("Good Job! Keep striving! " +
+                "This task has been marked as completed: \n");
+        System.out.println("[" + completedTaskIcon() + "]"
+                + taskName + "\n");
         System.out.println("______________________________\n");
     }
 }

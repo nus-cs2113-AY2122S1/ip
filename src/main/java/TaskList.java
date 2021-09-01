@@ -40,8 +40,7 @@ public class TaskList {
      */
     public void listTasks(){
         for(int i = 0; i < savedTasks.size(); i++){
-            System.out.print(i + ": [" + savedTasks.get(i).completedTaskIcon()
-                    + "] " + savedTasks.get(i).taskName + "\n");
+            System.out.print(i + ": " + savedTasks.get(i).toString() + "\n");
         }
     }
 
@@ -55,6 +54,11 @@ public class TaskList {
         return savedTasks.get(taskListIndex);
     }
 
+    /**
+     * Iterates through the linkedlist to find the number of objects in the linked list.
+     *
+     * @return number of objects in linked list in int format.
+     */
     public int countTaskInList(){
         int counter = 0;
         for(int i = 0; i < savedTasks.size(); i++){
