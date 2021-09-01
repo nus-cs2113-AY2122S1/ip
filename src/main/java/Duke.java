@@ -29,11 +29,39 @@ public class Duke {
                         + "     _______________________\n";
                 System.out.println(update);
                 break;
+            case "deadline":
+                String task_name = line.substring("deadline ".length(), line.indexOf("/by "));
+                String task_ddl = line.substring(line.indexOf("/by ") + "/by ".length());
+                task_list[task_num] = new Deadline(task_name, task_ddl);
+                task_num += 1;
+                String echo = "     _______________________\n"
+                        + "     added: " + task_list[task_num - 1] + "\n"
+                        + "     _______________________\n";
+                System.out.println(echo);
+                break;
+            case "event":
+                task_name = line.substring("event ".length(), line.indexOf("/at "));
+                String task_time = line.substring(line.indexOf("/at ") + "/at ".length());
+                task_list[task_num] = new Event(task_name, task_time);
+                task_num += 1;
+                echo = "     _______________________\n"
+                        + "     added: " + task_list[task_num - 1] + "\n"
+                        + "     _______________________\n";
+                System.out.println(echo);
+                break;
+            case "todo":
+                task_list[task_num] = new ToDo(line);
+                task_num += 1;
+                echo = "     _______________________\n"
+                        + "     added: " + task_list[task_num - 1] + "\n"
+                        + "     _______________________\n";
+                System.out.println(echo);
+                break;
             default:
                 task_list[task_num] = new Task(line);
                 task_num += 1;
-                String echo = "     _______________________\n"
-                        + "     added: " + line + "\n"
+                echo = "     _______________________\n"
+                        + "     added: " + task_list[task_num - 1] + "\n"
                         + "     _______________________\n";
                 System.out.println(echo);
             }
@@ -46,33 +74,6 @@ public class Duke {
         System.out.println(Bye);
     }
 
-    public static class Task {
-        protected String content;
-        protected Boolean isDone;
-
-        public Task(String content) {
-            this.content = content;
-            isDone = false;
-        }
-
-        public String TaskStatus() {
-            return (isDone? "X":" ");
-        }
-
-        public void markAsDone() {
-            this.isDone = true;
-        }
-        @Override
-        public String toString() {
-            return "[" + this.TaskStatus() + "]" + this.content;
-        }
-    }
-
-
-//    public class Deadline extends Task {
-//
-//        public Deadline(String content, )
-//    }
 
     public static void list(int task_num, Task[] task_list ) {
         String list_output = "     _______________________\n";
