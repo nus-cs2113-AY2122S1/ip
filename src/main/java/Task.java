@@ -9,6 +9,15 @@ public class Task {
         setTaskDetails(taskDetails);
     }
 
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+    }
+
+
+    public String toString() {
+        return getStatusIcon() + " " + getTaskDetails();
+    }
+
     public void setTaskDetails(String taskDetails) {
         this.taskDetails = taskDetails;
         numberOfTasks++;

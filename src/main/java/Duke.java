@@ -15,9 +15,11 @@ public class Duke {
         System.out.println("    Hello! I'm Duke!\n    What can I do for you?");
         System.out.println("    _____________________________________________________________");
         System.out.println("    Here are the performable actions:");
-        System.out.println("    1. Add a new task by typing in the details of the task");
-        System.out.println("    2. Mark a task as done by typing in \"done\" and the index of the task");
-        System.out.println("    3. List all the tasks you have added to and check which are done by typing in \"list\". Done tasks will be marked with an X");
+        System.out.println("        1. Add a new To Do by typing \"todo {content of your to do}\".");
+        System.out.println("        2. Add a new Deadline by typing \"deadline {content of your deadline} /by {date of deadline}\".");
+        System.out.println("        3. Add a new Event by typing \"event {content of your event} /at {date of event}\".");
+        System.out.println("        4. Mark a task as done by typing in \"done\" and the index of the task on the list.");
+        System.out.println("        5. Check all the tasks you have added by typing in \"list\". Done tasks will be marked with an X.");
         System.out.println("    _____________________________________________________________");
 
         String line;
