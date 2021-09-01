@@ -11,41 +11,61 @@ public class Duke {
     public static void echoCommandList(Task[] tasklist) {
         System.out.println(horizontal + "Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println("    " + (i+1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription() + "\n");
+            System.out.println("    " + (i+1) + ". [" + taskList[i].getTaskType() + "]" + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
         }
         System.out.println(horizontal);
     }
 
     public static void echoCommandDone(String line) {
-        System.out.println(horizontal + "Nice! I\'ve marked this task as done:\n" + "   [X] " + line + "\n" + horizontal);
+        System.out.println(horizontal + "Nice! I\'ve marked this task as done:\n" + "   [" + taskList[doneIndex-1].getTaskType() + "][X] " + line + "\n" + horizontal);
     }
 
-    public static void echoCommandAdded(String line) {
-        System.out.println(horizontal + "    added: " + line + "\n" + horizontal);
-    }
 
     public static void main(String[] args) {
         System.out.println(introduction);
 
         String line;
         String[] splicedLine;
+        String commandWord;
 
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+
+        String task;
+        String taskDate;
+
         while (!line.equals("bye")) {
+
             splicedLine = line.split(" ");
+            commandWord = splicedLine[0];
+
             if (line.equals("list")) {
                 echoCommandList(taskList);
             }
-            else if (splicedLine[0].equals("done")) {
+            else if (commandWord.equals("done")) {
                 doneIndex = Integer.parseInt(splicedLine[1]);
                 echoCommandDone(taskList[doneIndex-1].getDescription());
                 taskList[doneIndex-1].markAsDone();
             }
+            else if (commandWord.equals("todo")) {
+                task = line.substring(line.indexOf(' '));
+                taskList[taskCount] = new Todo(task);
+                System.out.println(horizontal + taskList[taskCount].toString() + "Now you have " + ++taskCount + " tasks on the list.\n" + horizontal);
+            }
+            else if (commandWord.equals("deadline")) {
+                task = line.substring(line.indexOf(' ')+1, line.indexOf('/')-1);
+                taskDate = line.substring(line.indexOf('/')+4);
+                taskList[taskCount] = new Deadline(task, taskDate);
+                System.out.println(horizontal + taskList[taskCount].toString() + "Now you have " + ++taskCount + " tasks on the list.\n" + horizontal);
+            }
+            else if (commandWord.equals("event")) {
+                task = line.substring(line.indexOf(' ')+1, line.indexOf('/')-1);
+                taskDate = line.substring(line.indexOf('/')+4);
+                taskList[taskCount] = new Event(task, taskDate);
+                System.out.println(horizontal + taskList[taskCount].toString() + "Now you have " + ++taskCount + " tasks on the list.\n" + horizontal);
+            }
             else {
-                echoCommandAdded(line);
-                taskList[taskCount] = new Task(line);
-                taskCount++;
+                System.out.println("Please indicate whether your task is a Todo, Deadline, or Event!");
             }
             line = in.nextLine();
         }

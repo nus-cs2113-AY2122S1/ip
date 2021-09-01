@@ -1,0 +1,10 @@
+todo eat breakfast
+list
+deadline finish CS assignment /by Tuesday night
+event careers fair /at 23rd September, 4pm
+list
+done 3
+done 1
+todo read book
+todo walk dog
+deadline mow the lawn /by 8am tomorrow
