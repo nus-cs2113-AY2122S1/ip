@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * This class is the main class of the Dude bot.
+ */
 public class Duke {
 
 
@@ -53,6 +56,8 @@ public class Duke {
 
     /**
      * Prints lines of messages. Can take in variable number of arguments.
+     *
+     * @param lines Strings to be printed, each on a new line
      */
     public static void showMessage(String... lines) {
         for (String line : lines) {
@@ -62,6 +67,8 @@ public class Duke {
 
     /**
      * Prints lines of messages framed by divider. Can take in variable number of arguments.
+     *
+     * @param lines Strings to be printed, each on a new line
      */
     public static void showMessageFramedWithDivider(String... lines) {
         System.out.println(DIVIDER);
@@ -71,12 +78,15 @@ public class Duke {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints list of commands
+     */
     public static void showListOfCommands() {
         showMessageFramedWithDivider(MESSAGE_COMMAND_LIST);
     }
 
     /**
-     * Shows Welcome message and list of commands
+     * Prints Welcome message and list of commands
      */
     public static void welcome() {
         showMessageFramedWithDivider(MESSAGE_WELCOME_DUDE);
@@ -84,14 +94,16 @@ public class Duke {
     }
 
     /**
-     * Shows Goodbye message and exits the program.
+     * Prints Goodbye message and exits the program.
      */
     public static void exit() {
         showMessageFramedWithDivider(MESSAGE_BYE);
         System.exit(0);
     }
 
-
+    /**
+     * Prints current tasks
+     */
     public static void printTasks() {
         if (Task.getNumTasks() == 0) {
             showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
@@ -104,16 +116,33 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns a String array where 0th index is command string and 1st index is the remaining parameters
+     * Command string and parameter string is assumed to be separated by the first " " in input
+     * If no parameters are provided in the input, 1st index will be set to EMPTY
+     *
+     * @param input Raw user input string
+     * @return String array [command, parameters]
+     */
     public static String[] splitInputIntoCommandAndParams(String input) {
         String[] commandAndParams = new String[2];
         final String[] splitInput = input.trim().split(" ", 2);
         //command string
         commandAndParams[0] = splitInput[0];
-        //param string, if not given, return EMPTY for error handling
+        //param string, if not given, set to EMPTY for error handling
         commandAndParams[1] = (splitInput.length >= 2) ? splitInput[1] : EMPTY;
         return commandAndParams;
     }
 
+    /**
+     * Returns a String array where the 0th index is the task description and 1st index is the additional info (i.e date)
+     * Description and info is assumed to be separated by the first "/" in input
+     * If no additional info is provided, 1st index will be set to EMPTY
+     *
+     * @param params Params string intended to be returned from splitInputIntoCommandAndParams(),
+     *               thus assumed to be from a valid command.
+     * @return String array [description, info]
+     */
     public static String[] splitParamsIntoDescriptionAndInfo(String params) {
         final String[] splitParams = params.trim().split("/");
         String[] descriptionAndInfo = new String[2];
@@ -124,15 +153,30 @@ public class Duke {
         return descriptionAndInfo;
     }
 
-    public static String extractDate(String commandKeyword, String info) {
+    /**
+     * Returns the date of the task in String form
+     * Date is assumed to be after the command prefix strings "at" or "by"
+     * If invalid command prefix is given or no date is provided, returns EMPTY
+     *
+     * @param commandPrefix Prefix to extract date with
+     * @param info String containing prefix and date
+     * @return Date in String form
+     */
+    public static String extractDate(String commandPrefix, String info) {
         final String[] words = info.split(" ", 2);
-        if (!words[0].equals(commandKeyword) || words.length == 1) {
+        if (!words[0].equals(commandPrefix) || words.length == 1) {
             return EMPTY;
         } else {
             return words[1];
         }
     }
 
+    /**
+     * Executes the correct command depending on user input
+     * Prints an error if command does not exist
+     *
+     * @param input Raw user input string
+     */
     public static void manageUserInput(String input) {
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);
         final String commandWord = commandAndParams[0];
@@ -165,6 +209,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates and adds specific type of task to the Task array
+     *
+     * @param typeOfTask Guaranteed to be either COMMAND_TODO, COMMAND_DEADLINE, or COMMAND_EVENT
+     * @param params String containing description and other info of the task
+     */
     public static void addTask(String typeOfTask, String params) {
         final String[] descriptionAndInfo = splitParamsIntoDescriptionAndInfo(params);
         final String description = descriptionAndInfo[0];
@@ -202,6 +252,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Mark a specific task as done
+     * If task number is not provided or invalid, prints an error
+     *
+     * @param params String in the format "done X", where X is supposed to be the task number
+     */
     public static void markTaskAsDone(String params) {
         if (params.equals(EMPTY)) {
             //error if user inputs only "done" with no number behind
@@ -228,7 +284,7 @@ public class Duke {
     }
 
     /**
-     * Continuously adds user inputs into list of tasks.
+     * Continuously processes user inputs
      */
     public static void enterTaskMode() {
         Scanner in = new Scanner(System.in);
@@ -239,11 +295,13 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Entry point of the application.
+     * Shows welcome message and enters task mode, which handles the user interaction
+     */
     public static void main(String[] args) {
       welcome();
       enterTaskMode();
-      exit();
     }
 }
 

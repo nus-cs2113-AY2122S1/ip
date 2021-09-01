@@ -1,3 +1,7 @@
+/**
+ * This class is used to create tasks.
+ * Each Task must contain a description and can either be marked done or not done.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -34,6 +38,11 @@ public class Task {
         return numTasks;
     }
 
+    /**
+     * Returns Task formatted in the form "[ ] description"
+     *
+     * @return Formatted Task string
+     */
     @Override
     public String toString() {
         return getStatusIcon() + " " + getDescription();
