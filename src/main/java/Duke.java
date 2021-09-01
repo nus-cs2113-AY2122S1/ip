@@ -45,7 +45,7 @@ public class Duke {
         printLine();
     }
 
-    public void addList(String item) {
+    public void addList(String item,String type) {
         /*
         //System.out.println("\tadding to todo list......");
 
@@ -61,8 +61,16 @@ public class Duke {
         //System.out.println("\tsaved to todo list!");
         //printLine();*/
 
+        /*
         list.insert(item);
         System.out.println("\tadded: " + item);
+        printLine();
+        */
+        printLine();
+        list.insert(item,type);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t" + list.getItem(list.getLength()-1));
+        System.out.println("\tNow you have " + list.getLength() + " tasks in the list.");
         printLine();
     }
 
@@ -76,12 +84,10 @@ public class Duke {
         printLine();
     }
 
-    public void markDone(int index)
-    {
+    public void markDone(int index) {
 
         index -= 1;
         list.markDone(index);
         printLine();
     }
-
 }
