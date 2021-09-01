@@ -1,6 +1,7 @@
 public class Task {
-    private String name;
-    private boolean isDone;
+    protected final String name;
+    protected boolean isDone;
+    protected char type = 'T';
 
     public Task(String name) {
         this.name = name;
@@ -17,5 +18,11 @@ public class Task {
 
     public void setDone() {
         this.isDone = true;
+    }
+
+    @Override
+    public String toString() {
+        String done = isDone ? "X" : " " ;
+        return "[" + type + "]"+ "["+ done +"] " + name;
     }
 }
