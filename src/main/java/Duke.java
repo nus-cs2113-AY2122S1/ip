@@ -62,15 +62,10 @@ public class Duke {
                     System.out.println(" (+) Marked as Done: "+ tasks.get(value - 1).printStatus());
                     System.out.println("____________________________________________________________");
                 }
+                break;
             default:
                 System.out.println(" (!) Invalid Value! ");
             }
-
-//            } else if (m.find()) {
-//                String[] values = cmd.split(" ");
-//                int value = Integer.parseInt(values[1]);
-//
-
         }
     }
 

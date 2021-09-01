@@ -1,0 +1,8 @@
+/todo return $$ to jack
+/deadline assignment -by sunday
+/list
+/done 2
+/list
+/event lecture -from monday 2pm -to monday 4pm
+/list
+/bye
