@@ -1,29 +1,29 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    public static String logo = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
+
+    public static String instructions = "Hello! Welcome to Duke. I am your personal task tracker.\n"
+            + "As of now, I can help you track Todos, Deadlines and Events. "
+            + "Mark your tasks with either \"todo\", \"deadline\" or \"event\" at the start. \n"
+            + "For deadlines and events, after your task, please enter either \"by (your deadline)\" "
+            + "or \"at (your event timing)\".\n"
+            + "To see all your tasks, enter \"list\". \n"
+            + "To mark a task as done, enter \"done (task number)\". \n"
+            + "To exit this program, enter \"bye\". \n"
+            + "And that's all! Hope you find me helpful! :) \n";;
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        String instructions = "Hello! Welcome to Duke. I am your personal task tracker.\n"
-                + "As of now, I can help you track Todos, Deadlines and Events. "
-                + "Mark your tasks with either \"todo\", \"deadline\" or \"event\" at the start. \n"
-                + "For deadlines and events, after your task, please enter either \"by (your deadline)\" "
-                + "or \"at (your event timing)\".\n"
-                + "To see all your tasks, enter \"list\". \n"
-                + "To mark a task as done, enter \"done (task number)\". \n"
-                + "To exit this program, enter \"bye\". \n"
-                + "And that's all! Hope you find me helpful! :) \n";
-
         String line;
         Scanner in = new Scanner(System.in);
 
         Task[] taskList = new Task[100];
         int itemCount = 0;
-
 
         String greeting = "____________________________________________________________\n"
                 + "Hello! I'm Duke\n"
