@@ -18,6 +18,7 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
+
         String helloMessage = "Hello! I'm Duke\n" + "What can I do for you?";
 
         System.out.println("Hello from\n" + logo);
@@ -55,6 +56,7 @@ public class Duke {
             printWithLines("No tasks listed!");
             return;
         }
+
         for (int i = 0; i < taskCount; i++) {
             taskList = taskList.concat((i + 1) + ". " + tasks[i].toString() + "\n");
         }
@@ -67,6 +69,7 @@ public class Duke {
 
     public static void setTaskDone(String input) {
         int taskIndexNumber = Integer.parseInt(input.replace("done ", "")) - 1;
+
         if (taskIndexNumber > taskCount - 1) {
             printWithLines("Task number " + (taskIndexNumber + 1) + " is invalid!\nEnter a valid task number.");
             return;
@@ -104,18 +107,18 @@ public class Duke {
   }
 
   public static void main(String[] args) {
-    tasks = new Task[100];
-    taskCount = 0;
+      tasks = new Task[100];
+      taskCount = 0;
 
-    printHelloMessage();
+      printHelloMessage();
 
-    String line;
-    Scanner in = new Scanner(System.in);
-    line = in.nextLine();
+      String line;
+      Scanner in = new Scanner(System.in);
+      line = in.nextLine();
 
-    while (in.hasNextLine()) {
-        selectCommand(line);
-        line = in.nextLine();
-    }
+      while (in.hasNextLine()) {
+          selectCommand(line);
+          line = in.nextLine();
+      }
   }
 }
