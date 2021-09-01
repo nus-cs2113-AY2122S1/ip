@@ -33,7 +33,7 @@ Here are your tasks in your list:
 ____________________________________________________________
 ┌─[ShellRPG@VeryImportantUsername]-[~]
 └──╼ $ ____________________________________________________________
-Invalid input please try again!
+Error! Invalid input please try again!
 ____________________________________________________________
 ┌─[ShellRPG@VeryImportantUsername]-[~]
 └──╼ $ ____________________________________________________________
@@ -49,7 +49,7 @@ Here are your tasks in your list:
 ____________________________________________________________
 ┌─[ShellRPG@VeryImportantUsername]-[~]
 └──╼ $ ____________________________________________________________
-Invalid input please try again!
+Error! Invalid input please try again!
 ____________________________________________________________
 ┌─[ShellRPG@VeryImportantUsername]-[~]
 └──╼ $ ____________________________________________________________

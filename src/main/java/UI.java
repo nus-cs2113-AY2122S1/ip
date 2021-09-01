@@ -5,9 +5,9 @@ public class UI {
     /**
      * Line template to use for dividers
      */
-    private static final String LINE = "____________________________________________________________";
-    private final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
-    private final String SHELL_RPG_BANNER =
+    public static final String LINE = "____________________________________________________________";
+    public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String SHELL_RPG_BANNER =
             " #####  #     # ####### #       #          ######  ######   #####  \n"
                     + "#     # #     # #       #       #          #     # #     # #     # \n"
                     + "#       #     # #       #       #          #     # #     # #       \n"
@@ -15,7 +15,8 @@ public class UI {
                     + "      # #     # #       #       #          #   #   #       #     # \n"
                     + "#     # #     # #       #       #          #    #  #       #     # \n"
                     + " #####  #     # ####### ####### #######    #     # #        #####  ";
-
+    public static final String TASKLIST_EMPTY = "There are no tasks in your list";
+    public static final String LIST_TASK_MESSAGE = "Here are your tasks in your list:";
     private String username;
     private Scanner in;
 
@@ -78,7 +79,7 @@ public class UI {
      *
      * @param messages Array of messages that are input into the function
      */
-    public static void printMessage(String... messages) {
+    public void printMessage(String... messages) {
         System.out.println(LINE);
         for (String message : messages) {
             System.out.println(message);
@@ -86,7 +87,20 @@ public class UI {
         System.out.println(LINE);
     }
 
-    public static void printLine() {
+    /**
+     * List all task added by the user Show which task has been completed
+     */
+    public void listTasks(TaskManager taskList) {
+        System.out.println(LINE);
+        if (taskList.getNumberOfTasks() == 0) {
+            System.out.println(TASKLIST_EMPTY);
+        } else {
+            System.out.println(LIST_TASK_MESSAGE);
+            // Printing all tasks with their completion status
+            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+                System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
+            }
+        }
         System.out.println(LINE);
     }
 }

@@ -3,8 +3,8 @@ public class Parser {
 
     private String command;
     private String arguments;
-    private final String SPACE_DELIMITER = " ";
-    private final int START_INDEX = 0;
+    public static final String SPACE_DELIMITER = " ";
+    public static final int START_INDEX = 0;
     /**
      * Parse input and separates the command from the arguments
      *

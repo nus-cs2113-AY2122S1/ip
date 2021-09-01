@@ -3,15 +3,15 @@ import java.util.Scanner;
 public class Duke {
 
     /** Username for the chatbot prompt */
-    private static final String USERNAME = "VeryImportantUsername";
+    public static final String USERNAME = "VeryImportantUsername";
     public static final String ERROR_MESSAGE = "Error! Invalid input please try again!";
 
 
     /** Stores all task added by the user */
-    private static TaskManager taskList = new TaskManager();
+    public static TaskManager taskList = new TaskManager();
     /** Gets a new instance of UI class to interactive with user */
-    private static UI UIInteract = new UI(USERNAME);
-    private static boolean isRunning = true;
+    public static UI UIInteract = new UI(USERNAME);
+    public static boolean isRunning = true;
 
 
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Duke {
             try {
                 handleCommand(userInput);
             } catch (Exception e) {
-                UI.printMessage(ERROR_MESSAGE);
+                UIInteract.printMessage(ERROR_MESSAGE);
             }
         }
         UIInteract.printGoodbye();
@@ -52,22 +52,22 @@ public class Duke {
         }
         switch (parsed.getCommand()) {
         case "list":
-            taskList.listTasks();
+            UIInteract.listTasks(taskList);
             break;
         case "bye":
             terminateProgram();
             break;
         case "done":
-            taskList.markTaskAsDone(parsed.getArgsAsIndex());
+            taskList.markTaskAsDone(UIInteract,parsed.getArgsAsIndex());
             break;
         case "todo":
-            taskList.addTask(parsed,TaskType.TODO);
+            taskList.addTask(UIInteract,parsed,TaskType.TODO);
             break;
         case "deadline":
-            taskList.addTask(parsed,TaskType.DEADLINE);
+            taskList.addTask(UIInteract,parsed,TaskType.DEADLINE);
             break;
         case "event":
-            taskList.addTask(parsed,TaskType.EVENT);
+            taskList.addTask(UIInteract,parsed,TaskType.EVENT);
             break;
         default:
             UIInteract.printCommandHelp();

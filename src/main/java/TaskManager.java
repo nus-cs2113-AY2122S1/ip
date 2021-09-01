@@ -2,14 +2,13 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    private final String ERROR_TASK_NUMBER = "Invalid task number!";
-    private final String TASKLIST_EMPTY = "There are no tasks in your list";
-    private final String LIST_TASK_MESSAGE = "Here are your tasks in your list:";
-    private final String BLANK_COMMAND = "Command Should not be blank!";
-    private final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
-    private final String TASK_ALREADY_COMPLETED = "Task already marked as completed!";
-    private final String DEADLINE_DELIMITER = "/by";
-    private final String EVENT_DELIMITER = "/at";
+    public static final String ERROR_TASK_NUMBER = "Invalid task number!";
+    public static final String BLANK_COMMAND = "Command Should not be blank!";
+    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
+    public static final String TASK_ALREADY_COMPLETED = "Task already marked as completed!";
+    public static final String DEADLINE_DELIMITER = "/by";
+    public static final String EVENT_DELIMITER = "/at";
+    public static final String TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
 
     private ArrayList<Task> taskList;
 
@@ -22,7 +21,7 @@ public class TaskManager {
      *
      * @param index the index of task in the taskList
      */
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(UI UI,int index) {
 
         if (index >= 0 && index < taskList.size()) {
             Task currentTask = taskList.get(index);
@@ -33,34 +32,19 @@ public class TaskManager {
             } else {
                 // Mark a task as done
                 currentTask.markAsDone();
-                UI.printMessage("Nice! I've marked this task as done:", currentTask.toString());
+                UI.printMessage(TASK_DONE_MESSAGE, currentTask.toString());
             }
         } else {
             UI.printMessage(ERROR_TASK_NUMBER);
         }
     }
-
-    /**
-     * List all task added by the user Show which task has been completed
-     */
-    public void listTasks() {
-
-        UI.printLine();
-        // Check if there are any tasks
-        if (taskList.size() == 0) {
-            System.out.println(TASKLIST_EMPTY);
-        } else {
-            System.out.println(LIST_TASK_MESSAGE);
-            // Printing all tasks with their completion status
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.printf("%d. %s\n",
-                        (i + 1),
-                        taskList.get(i));
-            }
-        }
-        UI.printLine();
+    public Task getTask (int index) {
+        return taskList.get(index);
     }
 
+    public int getNumberOfTasks () {
+        return taskList.size();
+    }
     /**
      * Creates a new task with a specific type
      *
@@ -68,7 +52,7 @@ public class TaskManager {
      * @param type the type of object task we are creating
      * @throws ArrayIndexOutOfBoundsException in the case of invalid input by Events or Deadlines
      */
-    public void addTask(Parser description, TaskType type) throws ArrayIndexOutOfBoundsException {
+    public void addTask(UI UI,Parser description, TaskType type) throws ArrayIndexOutOfBoundsException {
         // Creates new task to add to the list
         Task newTask;
         switch (type) {
