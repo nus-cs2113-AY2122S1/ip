@@ -7,12 +7,13 @@ public class List {
     public static int count = 0;
     public static int doneCount = 0;
 
-    public static void printTask(){
-        System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      "
+    public static void printTask() {
+        System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     "
                 + "Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
             System.out.println("     " + list[i]);
         }
+
         System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
@@ -26,8 +27,31 @@ public class List {
     }
 
     public static void addTask(String task) {
-        list[count] = (count+1) + ".[ ] " + task;
+        if (task.indexOf("/") != -1) {
+            list[count] = (count + 1) + ".["
+                + task.toUpperCase().charAt(0)
+                + "][ ] "
+                + task.substring(task.indexOf(" "), task.indexOf("/"))
+                + "(" + task.substring(task.indexOf("/") + 1, task.indexOf("/") + 3)
+                + ": " + task.substring(task.indexOf("/") + 4) + ")";
+        } else {
+            list[count] = (count + 1) + ".["
+                + task.toUpperCase().charAt(0)
+                + "][ ] "
+                + task.substring(task.indexOf(" "));
+        }
         count++;
+        if (count == 1) {
+            System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                    + "    Got it. I've added this task: \n      " + list[count - 1].substring(2)
+                    + "\n    Now you have " + count + " task in the list."
+                    + "\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        } else {
+            System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                    + "    Got it. I've added this task: \n      " + list[count - 1].substring(2)
+                    + "\n    Now you have " + count + " tasks in the list."
+                    + "\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
     }
 
     public static void doneTask(String task) {
@@ -42,7 +66,7 @@ public class List {
         }
         for (int i = 0; i < count; i++) {
             if (str.equals(list[i].substring(0, str.length()))) {
-                done[doneCount] = list[i].substring(str.length()+1);
+                done[doneCount] = list[i].substring(str.length() + 1);
                 list[i] = list[i].replaceFirst(" ", "X");
                 done[doneCount] = done[doneCount].replaceFirst(" ", "X");
                 doneCount++;

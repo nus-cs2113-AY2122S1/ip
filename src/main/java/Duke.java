@@ -32,9 +32,6 @@ public class Duke {
                 continue;
             }
             List.addTask(order);
-            System.out.println("    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                    + "    added: "+ order
-                    + "\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             if (order.equals("list")) {
                 List.printTask();
             }
