@@ -119,6 +119,17 @@ public class Duke {
     }
 
     /**
+     * Checks if task index is valid.
+     * Note: Task index starts from 1 (not 0).
+     *
+     * @param taskIndex The task index.
+     * @return true if task index is valid, else false.
+     */
+    private static boolean isValidTaskIndex(int taskIndex) {
+        return (taskIndex > 0 && taskIndex <= TASKS.size());
+    }
+
+    /**
      * Executes the done command. Marks the given task as done.
      */
     private static void executeDoneCommand(String argument) {
@@ -128,12 +139,14 @@ public class Duke {
         }
 
         int taskIndex = Integer.parseInt(argument);
-        if (taskIndex < 0 || taskIndex > TASKS.size()) {
+        if (!isValidTaskIndex(taskIndex)) {
             printMessage(MESSAGE_INVALID_TASK_NUMBER);
             return;
         }
 
+        // Get task object associated to the task index from list
         Task task = TASKS.get(taskIndex - 1);
+
         if (task.isDone()) {
             printMessage(String.format(MESSAGE_FORMAT_TASK_ALREADY_MARKED,taskIndex));
         } else {
