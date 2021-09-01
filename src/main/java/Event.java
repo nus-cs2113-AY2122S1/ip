@@ -6,6 +6,12 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * Returns string in list entry format.
+     * eg. [T][ ] task1 (at: Aug 6th 2-4pm)
+     *
+     * @return The formatted string.
+     */
     @Override
     public String getListEntryString() {
         return String.format("%s (at: %s)", super.getListEntryString(), at);
