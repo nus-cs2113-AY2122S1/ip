@@ -1,0 +1,22 @@
+list
+todo borrow book
+list
+deadline return book /by Sunday
+list
+event project meeting /at Mon 2-4pm
+list
+todo clean my room
+list
+deadline complete project assignment /by 5th Aug 2021 2359hrs
+list
+event dinner with friends /at Fri 7pm
+list
+done 1
+list
+done 6
+list
+done 3
+list
+done 4
+list
+bye
