@@ -42,8 +42,8 @@ public class Duke {
             } else if (line.startsWith("deadline")) {
                 String[] words = line.split(" ");
                 int index = 0;
-                String deadlineDescription = null;
-                String by = null;
+                String deadlineDescription = "";
+                String by = "";
                 for (int i = 0; i < words.length; i++) {
                     if (words[i].equals("/by")) {
                         index = i;
@@ -51,7 +51,7 @@ public class Duke {
                     }
                 }
                 for (int i = 1; i < index; i++) {
-                    deadlineDescription += words[i];
+                    deadlineDescription = deadlineDescription + words[i] + " ";
                 }
                 by = words[index + 1];
                 tasks[taskNumber] = new Deadline(deadlineDescription, by);
@@ -62,8 +62,8 @@ public class Duke {
             } else if (line.startsWith("event")) {
                 String[] words = line.split(" ");
                 int index = 0;
-                String eventDescription = null;
-                String at = null;
+                String eventDescription = "";
+                String at = "";
                 for (int i = 0; i < words.length; i++) {
                     if (words[i].equals("/at")) {
                         index = i;
@@ -71,12 +71,12 @@ public class Duke {
                     }
                 }
                 for (int i = 1; i < index; i++) {
-                    eventDescription += words[i];
+                    eventDescription = eventDescription + words[i] + " ";
                 }
                 for (int i = index + 1; i < words.length; i++) {
-                    at += words[i];
+                    at = at + words[i] + " ";
                 }
-                tasks[taskNumber] = new Deadline(eventDescription, at);
+                tasks[taskNumber] = new Event(eventDescription, at);
                 taskNumber++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks[taskNumber - 1]);
