@@ -1,5 +1,4 @@
 public class Event extends Task {
-
     protected String by;
 
     public Event(String description, char taskType, String by) {

@@ -23,9 +23,9 @@ public class Duke {
         String taskDisplay = line.substring(5);
 
         stringList[listCount] = taskDisplay;
-        Todo todo = new Todo(taskDisplay, taskType);
-        taskList[listCount] = todo;
-        return todo;
+        Todo todoTask = new Todo(taskDisplay, taskType);
+        taskList[listCount] = todoTask;
+        return todoTask;
     }
 
     private static Deadline deadline(String[] stringList, Task[] taskList, int listCount, String line) {
@@ -35,9 +35,9 @@ public class Duke {
         char taskType = line.toUpperCase().charAt(0);
 
         stringList[listCount] = taskDisplay;
-        Deadline deadline = new Deadline(taskDisplay, taskType, doBy);
-        taskList[listCount] = deadline;
-        return deadline;
+        Deadline deadlineTask = new Deadline(taskDisplay, taskType, doBy);
+        taskList[listCount] = deadlineTask;
+        return deadlineTask;
     }
 
     private static Event event(String[] stringList, Task[] taskList, int listCount, String line) {
@@ -47,9 +47,9 @@ public class Duke {
         char taskType = line.toUpperCase().charAt(0);
 
         stringList[listCount] = taskDisplay;
-        Event event = new Event(taskDisplay, taskType, doBy);
-        taskList[listCount] = event;
-        return event;
+        Event eventTask = new Event(taskDisplay, taskType, doBy);
+        taskList[listCount] = eventTask;
+        return eventTask;
     }
 
     private static void printTask(Task task, int listCount) {
