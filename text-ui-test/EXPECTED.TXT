@@ -1,28 +1,20 @@
 Hello! I'm Duke
 What can I do for you?
-
 Could you say that again?
-
 Got it. I've added this task:
 [T][ ] todo eat cake
 Now you have 1 tasks in the list.
-
 Got it. I've added this task:
 [D][ ] deadline eat chocolate cake (by: Friday 2pm)
 Now you have 2 tasks in the list.
-
 Got it. I've added this task:
 [E][ ] event attend cake buffet (at: Saturday 5pm)
 Now you have 3 tasks in the list.
-
 Nice! I've marked this task as done:
 [T][X] todo eat cake
-
 Here are the tasks in your list:
 1.[T][X] todo eat cake
 2.[D][ ] deadline eat chocolate cake (by: Friday 2pm)
 3.[E][ ] event attend cake buffet (at: Saturday 5pm)
-
 Could you say that again?
-
 Bye. Hope to see you again soon!
