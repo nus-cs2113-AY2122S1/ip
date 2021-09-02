@@ -2,7 +2,7 @@ hi
 list
 deadline deadline /by deadline
 todo todo
-event /at event
+event event /at event
 list
 done 2
 done 3
