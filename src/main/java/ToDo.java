@@ -4,6 +4,6 @@ public class ToDo extends Task {
     }
     @Override
     public String toString() {
-        return "[D]" + "[" + this.TaskStatus() + "] " + this.content;
+        return "[T]" + "[" + this.TaskStatus() + "] " + this.content;
     }
 }

@@ -17,17 +17,17 @@
      _______________________
 
      _______________________
-     added: [D][ ] todo CS2113T Coursemology 
+     added: [T][ ] todo CS2113T Coursemology 
      _______________________
 
      _______________________
      1. [D][X] CS3230 Assignment (by: 3rd Sep)
-     2. [D][ ] todo CS2113T Coursemology 
+     2. [T][ ] todo CS2113T Coursemology 
      _______________________
 
      _______________________
      Nice! I've marked this task as done: 
-     [D][X] todo CS2113T Coursemology 
+     [T][X] todo CS2113T Coursemology 
      _______________________
 
      _______________________
@@ -36,7 +36,7 @@
 
      _______________________
      1. [D][X] CS3230 Assignment (by: 3rd Sep)
-     2. [D][X] todo CS2113T Coursemology 
+     2. [T][X] todo CS2113T Coursemology 
      3. [E][ ] CS2101 Team Meeting (at: 2nd Sep)
      _______________________
 
@@ -47,7 +47,7 @@
 
      _______________________
      1. [D][X] CS3230 Assignment (by: 3rd Sep)
-     2. [D][X] todo CS2113T Coursemology 
+     2. [T][X] todo CS2113T Coursemology 
      3. [E][X] CS2101 Team Meeting (at: 2nd Sep)
      _______________________
 
