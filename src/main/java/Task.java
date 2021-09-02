@@ -1,12 +1,16 @@
 public class Task {
-    private String task;
-    private Boolean isDone;
-    public static int totalTask = 0;
-    public static int longestTaskLength = 0;
+    protected String task;
+    protected Boolean isDone;
+    public static int totalTask = 0; //total number of tasks saved
 
     //Constructor
     public Task() {
         this.task = "";
+        this.isDone = false;
+    }
+
+    public Task(String task){
+        this.task = task;
         this.isDone = false;
     }
 
@@ -17,10 +21,10 @@ public class Task {
 
     public void setTask(String task) {
         this.task = task;
-        totalTask++;
-        if (task.length() > longestTaskLength){
-            longestTaskLength = task.length();
-        }
+    }
+
+    public String getClassType(){
+        return "Task";
     }
 
     public Boolean getDone() {
