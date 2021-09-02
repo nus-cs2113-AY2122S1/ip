@@ -11,7 +11,23 @@ public class Task {
         this.isDone = true;
     }
 
-    public String getName() {
-        return this.description;
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]");
     }
+    public String getIcon() {
+        return "";
+    }
+    public String getBy() {
+        return "";
+    }
+    public String getAt() {
+        return "";
+    }
+
+
+    public String toString() {
+        return getStatusIcon() + " " + this.description ;
+    }
+
+
 }

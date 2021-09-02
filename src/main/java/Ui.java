@@ -31,13 +31,13 @@ public class Ui {
             String input = scanner.nextLine();
             String[] command = input.split(" ");
             String firstWord = command[0];
-            Task t = new Task(input);
+            //Task t = new Task(input);
 
             System.out.print(lineBreak);
             switch (firstWord) {
             case "bye":
                 System.out.println(farewell);
-                break;
+                return;
             case "list":
                 System.out.println("     Here are the tasks in your list:");
                 taskManager.list();
@@ -45,12 +45,12 @@ public class Ui {
             case "done":
                 System.out.println("     Nice! I've marked this task as done: ");
                 int taskNumber = Integer.parseInt(command[1]);
-                System.out.println("       [X] " + taskManager.getName(taskNumber));
                 taskManager.checkDone(taskNumber);
+                System.out.println("       " + taskManager.getName(taskNumber));
                 break;
+
             default:
-                System.out.println("     added: " + input);
-                taskManager.add(t);
+                taskManager.add(input);
             }
             System.out.print(lineBreak);
         }

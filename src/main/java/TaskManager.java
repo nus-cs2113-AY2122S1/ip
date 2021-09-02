@@ -1,19 +1,43 @@
 import java.util.ArrayList;
 
 public class TaskManager {
-    private ArrayList<Task> toDoList;
+    private ArrayList<Task> taskList;
 
     public TaskManager() {
-        this.toDoList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
-     * Adds task to toDoList ArrayList
+     * Adds task to taskList ArrayList
      *
      * @param task Task to be checked
      */
-    public void add(Task task) {
-        toDoList.add(task);
+    public void add(String task) {
+        String taskType = getCommand(task);
+        Task newTask;
+        String description = getDescription(task);
+        switch(taskType) {
+        case "todo":
+            newTask = new ToDo(description);
+            taskList.add(newTask);
+            break;
+        case "deadline":
+            String by = getDate(task);
+            newTask = new Deadline(description, by);
+            taskList.add(newTask);
+            break;
+        case "event":
+            String at = getDate(task);
+            newTask = new Event(description, at);
+            taskList.add(newTask);
+            break;
+        default:
+            System.out.println("     Invalid command, please try again");
+            return;
+        }
+
+        System.out.println("     Got it. I've added this task:\n       " + newTask);
+        printSize();
     }
 
     /**
@@ -22,29 +46,84 @@ public class TaskManager {
      * @param taskNumber task number of task to be checked
      */
     public void checkDone(int taskNumber) {
-        toDoList.get(taskNumber - 1).taskDone();
+        taskList.get(taskNumber - 1).taskDone();
+    }
+
+    public String getDescription(String task) {
+        String description;
+        int separator;
+        if (getCommand(task).equals("todo")) {
+            description = task.substring(5);
+        } else if (getCommand(task).equals("deadline")) {
+            separator = task.indexOf("/by");
+            description = task.substring(9, separator);
+        } else if (getCommand(task).equals("event")){
+            separator = task.indexOf("/at");
+            description = task.substring(6, separator);
+        } else {
+            description = null;
+        }
+        return description;
+    }
+
+    public String getCommand(String task) {
+        String[] command = task.split(" ");
+        String taskType = command[0];
+
+        return taskType;
+    }
+    public void printSize() {
+        if (getSize() == 1) {
+            System.out.println("     Now you have " + 1 + " task in the list.");
+        } else {
+            System.out.println("     Now you have " + getSize() + " tasks in the list.");
+        }
     }
 
     /**
      * Returns name of task given task number
      *
-     * @param index index of task in toDoList ArrayList
+     * @param index index of task in taskList ArrayList
      * @return Name of Task
      */
     public String getName(int index) {
-        return toDoList.get(index - 1).getName();
+        return taskList.get(index - 1).toString();
     }
 
-    /**
-     * Prints out all the tasks and if they have been done
-     */
+
+
+    public int getSize() {
+        return taskList.size();
+    }
+
+
     public void list() {
-        for (int i = 0; i < toDoList.size(); i++) {
-            if (toDoList.get(i).isDone) {
-                System.out.println("     " + (i + 1) + ".[X] " + toDoList.get(i).getName());
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.getIcon().equals("[D]")) {
+                System.out.println("     " + (i + 1) + "." + t);
+            } else if (t.getIcon().equals("[E]")) {
+                System.out.println("     " + (i + 1) + "." + t);
             } else {
-                System.out.println("     " + (i + 1) + ".[ ] " + toDoList.get(i).getName());
+                System.out.println("     " + (i + 1) + "." + t);
             }
         }
     }
+
+
+
+    public String getDate(String description) {
+        String date;
+        if (description.contains("/by")) {
+            int indexOfSeparator = description.indexOf("/by");
+            date = description.substring(indexOfSeparator + 3);
+        } else if (description.contains("/at")) {
+            int indexOfSeparator = description.indexOf("/at");
+             date = description.substring(indexOfSeparator + 3);
+        } else {
+            date = null;
+        }
+        return date;
+    }
+
 }
