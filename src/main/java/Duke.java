@@ -53,7 +53,7 @@ public class Duke {
             }
             deadlineDescription = deadlineDescription + " " + words[i];
         }
-        Deadlines newDeadline = new Deadlines( deadlineDescription.substring(1), by);
+        Deadlines newDeadline = new Deadlines(deadlineDescription.substring(1), by);
         return newDeadline;
     }
 
@@ -64,18 +64,18 @@ public class Duke {
         for(int i = 1 ; i < words.length ; i ++) {
             if(words[i].equals("/at")) {
                 eventIndex = i + 1;
-                for( int j = eventIndex ; j < words.length ; j++) {
+                for(int j = eventIndex ; j < words.length ; j++) {
                     timeAllocation = timeAllocation + " " + words[j];
                 }
                 break;
             }
             eventDescription = eventDescription + " " + words[i];
         }
-        Events newEvent = new Events( eventDescription.substring(1), timeAllocation.substring(1));
+        Events newEvent = new Events(eventDescription.substring(1), timeAllocation.substring(1));
         return newEvent;
     }
 
-    public static int distinguishCommand( String command , Task[] list, int size) {
+    public static int distinguishCommand(String command , Task[] list, int size) {
         //split into word array
         String[] words = command.split(" ");
         String firstWord = words[0];
@@ -127,7 +127,7 @@ public class Duke {
         int taskCount = 0;
 
         while (!line.equals("bye")) {
-            taskCount = distinguishCommand( line, list, taskCount);
+            taskCount = distinguishCommand(line, list, taskCount);
             line = in.nextLine();
         }
 
