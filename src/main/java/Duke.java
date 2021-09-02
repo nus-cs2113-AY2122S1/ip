@@ -13,11 +13,17 @@ public class Duke {
     private static Task[] userInputs = new Task[100];
     private static int userInputCount = 0;
 
+    /**
+     * Initiate the program and print the various messages
+     */
     public static void initiateDuke() {
         System.out.println(SEPARATOR + "Hi... from GUDETAMA... so sleepy\n" + LOGO);
         System.out.println("Give me five more minutes..... What can I do for you?\n" + SEPARATOR);
     }
 
+    /**
+     * Takes in user inputs and process the inputs accordingly
+     */
     public static void processInput() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -42,10 +48,16 @@ public class Duke {
         endDuke();
     }
 
+    /**
+     * Prints the ending messages before ending the program
+     */
     public static void endDuke() {
         System.out.println(SEPARATOR + "\nBye. I'm going back to sleep... zzz");
     }
 
+    /**
+     * List out the tasks in the array userInputs with numbers
+     */
     public static void listTasks() {
         System.out.println(SEPARATOR + "\n\tTasks to do... so lazy:");
 
@@ -55,6 +67,10 @@ public class Duke {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Marks a particular task in userInputs as done
+     * @param line the index of the task to be marked as done
+     */
     public static void markDone(String line) {
         int taskIndexDone = Integer.parseInt(line.split(" ")[1]) - 1;
 
@@ -64,6 +80,10 @@ public class Duke {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Adds a todo task into userInputs and increase the counter
+     * @param line the string command with the description of the task
+     */
     public static void addTodo(String line) {
         userInputs[userInputCount] = new Todo(line.substring(5));
 
@@ -71,6 +91,10 @@ public class Duke {
         userInputCount++;
     }
 
+    /**
+     * Adds a task with deadline into userInputs and increase the counter
+     * @param line the string command with the description and deadline of the task
+     */
     public static void addDeadline(String line) {
         String[] lineArray = line.substring(9).split("/by");
         userInputs[userInputCount] = new Deadline(lineArray[0].trim(), lineArray[1].trim());
@@ -79,6 +103,10 @@ public class Duke {
         userInputCount++;
     }
 
+    /**
+     * Adds an event with a specific start and end time into userInputs and increase the counter
+     * @param line the string command with the description and start-end time
+     */
     public static void addEvent(String line) {
         String[] lineArray = line.substring(6).split("/at");
         userInputs[userInputCount] = new Event(lineArray[0].trim(), lineArray[1].trim());
@@ -87,6 +115,9 @@ public class Duke {
         userInputCount++;
     }
 
+    /**
+     * Prints the comment when user input is invalid
+     */
     public static void handleInvalid() {
         System.out.println(SEPARATOR + "Invalid function\n" + SEPARATOR);
     }
