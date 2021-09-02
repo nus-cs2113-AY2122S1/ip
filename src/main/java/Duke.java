@@ -64,11 +64,35 @@ public class Duke {
                   System.out.println("You have no tasks, my liege.");
               }
 
+          } else if (lc.contains("todo") && lc.substring(0, 4).equals("todo")) {
+              Todo newTodo = new Todo(line);
+              tasks[Task.getNumOfTasks() - 1] = newTodo;
+              printAddItemToList(newTodo.toString());
+          } else if (lc.contains("deadline") && lc.substring(0, 8).equals("deadline")) {
+              if (!lc.contains("/by")) {
+                  System.out.println("By when, my liege?");
+              } else {
+                  int dividerPosition = lc.indexOf("/by");
+                  String description = line.substring(9, dividerPosition).trim();
+                  String by = line.substring(dividerPosition + 3).trim();
+                  Deadline newDeadline = new Deadline(description, by);
+                  tasks[Task.getNumOfTasks() - 1] = newDeadline;
+                  printAddItemToList(newDeadline.toString());
+              }
+          } else if (lc.contains("event") && lc.substring(0, 5).equals("event")) {
+              if (!lc.contains("/at")) {
+                  System.out.println("Where or when is this event, my liege?");
+              } else {
+                  int dividerPosition = lc.indexOf("/at");
+                  String description = line.substring(6, dividerPosition).trim();
+                  String at = line.substring(dividerPosition + 3).trim();
+                  Event newEvent = new Event(description, at);
+                  tasks[Task.getNumOfTasks() - 1] = newEvent;
+                  printAddItemToList(newEvent.toString());
+              }
           } else {
-              Task newTask = new Task(line);
-              tasks[Task.getNumOfTasks() - 1] = newTask;
-              printAddItemToList(line);
-          }
+                System.out.println("I do not comprehend your command, my liege.");
+            }
           InoutputFormatter.printInputStart();
           line = in.nextLine();
           lc = line.toLowerCase();
