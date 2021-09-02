@@ -334,7 +334,6 @@ public class Duke {
      * @param message The message to print
      */
     private static void showMessage(String message) {
-        //╔╗╚╝
         System.out.print("\t@");
         for (int i = 0; i < message.length() + 4; i++) {
             System.out.print("-");
@@ -372,14 +371,14 @@ public class Duke {
      */
     private static void printToDoList(Task[] tasks, int stopIndex, int maxLength) {
         //format to-do list
-        System.out.print("\t╭");
+        System.out.print("\t/");
         if (maxLength < " My to-do list: ".length()) {
             maxLength = " My to-do list".length();
         }
         for (int i = 0; i < maxLength + "| [ ][ ] 100. ".length(); i++) {
             System.out.print("-");
         }
-        System.out.println("╮");
+        System.out.println("\\");
         System.out.print("\t| My to-do list: ");
         for (int i = 0; i < maxLength + "| [ ][ ] 100. ".length() - "| My to-do list: ".length() + 1; i++) {
             System.out.print(" ");
@@ -397,11 +396,11 @@ public class Duke {
             }
             System.out.println("|");
         }
-        System.out.print("\t╰");
+        System.out.print("\t\\");
         for (int i = 0; i < maxLength + "| [ ][ ] 100. ".length(); i++) {
             System.out.print("-");
         }
-        System.out.println("╯");
+        System.out.println("/");
         System.out.println("\tFor your knowledge, ");
         System.out.println("\tthe first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)");
         System.out.println("\tthe second [ ] indicates whether the task is completed:\n\t[X] when the task is marked completed\t[ ] when the task is not done.");
@@ -433,5 +432,10 @@ public class Duke {
         System.out.println("**                                                                                                                   **");
         System.out.println("***********************************************************************************************************************");
     }
+    /*
+    /-----\
+    |     |
+    \_____/
+     */
 }
 

@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	/----------------------------\
+	| My to-do list:             |
+	\----------------------------/
+	For your knowledge,
+	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
+	the second [ ] indicates whether the task is completed:
+	[X] when the task is marked completed	[ ] when the task is not done.
+	@-------------------------------------------------------------------------------@
+	    Class type [T] "play games" has been added to the list! (1 tasks in total)
+	@-------------------------------------------------------------------------------@
+	@---------------------------------------------------------------------------------------------------@
+	    Class type [D] "do assignment (by: Sunday 6pm)" has been added to the list! (2 tasks in total)
+	@---------------------------------------------------------------------------------------------------@
+	@---------------------------------------------------------------------------------------------------------@
+	    Class type [E] "attend lecture (at: by Friday 4-6pm)" has been added to the list! (3 tasks in total)
+	@---------------------------------------------------------------------------------------------------------@
+	/-------------------------------------------\
+	| My to-do list:                            |
+	| [T][ ] 1. play games                      |
+	| [D][ ] 2. do assignment (by: Sunday 6pm)  |
+	| [E][ ] 3. attend lecture (at: by Friday 4-6pm)|
+	\-------------------------------------------/
+	For your knowledge,
+	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
+	the second [ ] indicates whether the task is completed:
+	[X] when the task is marked completed	[ ] when the task is not done.
+	@------------------------------------@
+	   Sorry, the command is invalid :(
+	@------------------------------------@
+	@-----------------------------@
+	   Sorry, the task is empty!
+	@-----------------------------@
+	Hooray! Task number 1 has been marked completed!
+	[✔] play games
+	/-------------------------------------------\
+	| My to-do list:                            |
+	| [T][X] 1. play games                      |
+	| [D][ ] 2. do assignment (by: Sunday 6pm)  |
+	| [E][ ] 3. attend lecture (at: by Friday 4-6pm)|
+	\-------------------------------------------/
+	For your knowledge,
+	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
+	the second [ ] indicates whether the task is completed:
+	[X] when the task is marked completed	[ ] when the task is not done.
+	Hooray! Task number 2 has been marked completed!
+	[✔] do assignment
+	Hooray! Task number 3 has been marked completed!
+	[✔] attend lecture
+	/-------------------------------------------\
+	| My to-do list:                            |
+	| [T][X] 1. play games                      |
+	| [D][X] 2. do assignment (by: Sunday 6pm)  |
+	| [E][X] 3. attend lecture (at: by Friday 4-6pm)|
+	\-------------------------------------------/
+	For your knowledge,
+	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
+	the second [ ] indicates whether the task is completed:
+	[X] when the task is marked completed	[ ] when the task is not done.
+	@---------------------------------@
+	   Bye! Hope to see you again :D
+	@---------------------------------@
