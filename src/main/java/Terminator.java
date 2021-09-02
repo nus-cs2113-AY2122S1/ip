@@ -72,43 +72,43 @@ public class Terminator {
 
     /**
      * Given user input, extract Task Name and UserInput.
-     * @param userinput The string given by the user.
+     * @param userInput The string given by the user.
      * @param eventType The type of task to extract based on.
      * @return String array containing userinput and eventType.
      */
-    private static String[] extractNameDateTime(String userinput, String eventType){
+    private static String[] extractNameDateTime(String userInput, String eventType){
         String[] returnArray = new String[2];
         if (Objects.equals(eventType, DEADLINE_TYPE)){
             // Get indexes to substring
-            int startOfByIndex = userinput.indexOf(BY_KEYWORD);
+            int startOfByIndex = userInput.indexOf(BY_KEYWORD);
             int endOfByIndex = startOfByIndex + 4;
-            int endOfDeadlineStringIndex = userinput.indexOf(DEADLINE_KEYWORD) + 9;
+            int endOfDeadlineStringIndex = userInput.indexOf(DEADLINE_KEYWORD) + 9;
 
             // Get specific task_name and date_time
-            String task_name = userinput.substring(endOfDeadlineStringIndex, startOfByIndex).strip();
-            String date_time = userinput.substring(endOfByIndex).strip();
+            String taskName = userInput.substring(endOfDeadlineStringIndex, startOfByIndex).strip();
+            String dateTime = userInput.substring(endOfByIndex).strip();
 
             // Place values into array
-            returnArray[TASK_NAME_INDEX] = task_name;
-            returnArray[DATE_TIME_INDEX] = date_time;
+            returnArray[TASK_NAME_INDEX] = taskName;
+            returnArray[DATE_TIME_INDEX] = dateTime;
         } else if (Objects.equals(eventType, EVENT_TYPE)){
             // Get indexes to substring
-            int startOfAtIndex = userinput.indexOf(AT_KEYWORD);
+            int startOfAtIndex = userInput.indexOf(AT_KEYWORD);
             int endOfAtIndex = startOfAtIndex + 4;
-            int endOfEventStringIndex = userinput.indexOf(EVENT_KEYWORD) + 6;
+            int endOfEventStringIndex = userInput.indexOf(EVENT_KEYWORD) + 6;
 
             // Get specific task_name and date_time
-            String task_name = userinput.substring(endOfEventStringIndex, startOfAtIndex).strip();
-            String date_time = userinput.substring(endOfAtIndex).strip();
+            String taskName = userInput.substring(endOfEventStringIndex, startOfAtIndex).strip();
+            String dateTime = userInput.substring(endOfAtIndex).strip();
 
             // Place values into array
-            returnArray[TASK_NAME_INDEX] = task_name;
-            returnArray[DATE_TIME_INDEX] = date_time;
+            returnArray[TASK_NAME_INDEX] = taskName;
+            returnArray[DATE_TIME_INDEX] = dateTime;
         } else {
             // Extract values for ToDo
-            int endOfToDoStringIndex = userinput.indexOf(TODO_KEYWORD) + 5;
-            String task_name = userinput.substring(endOfToDoStringIndex).strip();
-            returnArray[TASK_NAME_INDEX] = task_name;
+            int endOfToDoStringIndex = userInput.indexOf(TODO_KEYWORD) + 5;
+            String taskName = userInput.substring(endOfToDoStringIndex).strip();
+            returnArray[TASK_NAME_INDEX] = taskName;
 
         }
         return returnArray;
@@ -116,22 +116,22 @@ public class Terminator {
 
     /**
      * Prints response back to user of task that is modified.
-     * @param task_number The index of the task to be updated.
+     * @param taskNumber The index of the task to be updated.
      */
-    private static void printUpdateMessage(int task_number) {
-        Task current_task = tasksList.get(task_number);
+    private static void printUpdateMessage(int taskNumber) {
+        Task currentTask = tasksList.get(taskNumber);
         System.out.println("Great! The following item has been marked as completed" + System.lineSeparator() +
-                current_task.toString());
+                currentTask.toString());
         System.out.println(formatWithHeading("Is there anything else you would like me to do?",
                 TERMINATOR_FORMATTING));
     }
 
     /**
      * Update the completion status of the Task to true.
-     * @param task_number The index of the task to be updated.
+     * @param taskNumber The index of the task to be updated.
      */
-    private static void updateCompletion(int task_number) {
-        tasksList.get(task_number).setCompleted(true);
+    private static void updateTaskCompletionStatus(int taskNumber) {
+        tasksList.get(taskNumber).setCompleted(true);
     }
 
     /**
@@ -142,7 +142,7 @@ public class Terminator {
         System.out.println("===================================================");
         for (int i = 0; i < tasksList.size(); ++i) {
             Task currentTask = tasksList.get(i);
-            // If the current task is completed, check the completion_status
+            // If the current task is completed, check the completion status
             System.out.printf("%d.%s" + System.lineSeparator(), i+1, currentTask.toString());
         }
         System.out.println(formatWithHeading("Anything else?", TERMINATOR_FORMATTING));
@@ -150,11 +150,11 @@ public class Terminator {
 
     /**
      * Prints response back to user of task that is added.
-     * @param new_task The task that is added by the user.
+     * @param newTask The task that is added by the user.
      */
-    private static void printAddTaskMessage(Task new_task) {
+    private static void printAddTaskMessage(Task newTask) {
         System.out.println(formatWithHeading("Added the following Task" + System.lineSeparator() +
-                new_task.toString(), TERMINATOR_FORMATTING));
+                newTask.toString(), TERMINATOR_FORMATTING));
         System.out.println(formatWithHeading(String.format("Now you have %d task(s) in the list.",
                         tasksList.size()), TERMINATOR_FORMATTING));
         System.out.println(formatWithHeading("Hmmm... what should I do now?", TERMINATOR_FORMATTING));
@@ -162,44 +162,44 @@ public class Terminator {
 
     /**
      * Creates a new default/ToDo Task with name provided and adds it to ArrayList.
-     * @param task_name The name of the task to be added.
+     * @param taskName The name of the task to be added.
      * @return The task object created by the user.
      */
-    private static Task createTask(String task_name, String task_type) {
-        Task new_task;
-        if (Objects.equals(task_type, TODO_TYPE)) {
-            new_task = new ToDo(task_name);
+    private static Task createTask(String taskName, String taskType) {
+        Task newTask;
+        if (Objects.equals(taskType, TODO_TYPE)) {
+            newTask = new ToDo(taskName);
         } else {
-            new_task = new Task(task_name);
+            newTask = new Task(taskName);
         }
-        return new_task;
+        return newTask;
     }
 
     /**
      * Overloaded class that creates a Deadline/Event Task with name and appropriate date time.
      * If task_type = DEADLINE_TYPE, create a Deadline object.
      * Else If task_type = EVENT_TYPE, create a Event object.
-     * @param task_name The name assigned to the given task.
-     * @param date_time The date-time associated with the task.
-     * @param task_type The type of task to determine the subclass to create.
+     * @param taskName The name assigned to the given task.
+     * @param dateTime The date-time associated with the task.
+     * @param taskType The type of task to determine the subclass to create.
      * @return The task object created by the user.
      */
-    private static Task createTask(String task_name, String date_time, String task_type){
-        Task new_task = null;
-        if (Objects.equals(task_type, DEADLINE_TYPE)){
-            new_task = new Deadline(task_name, date_time);
-        } else if (Objects.equals(task_type, EVENT_TYPE)){
-            new_task = new Event(task_name, date_time);
+    private static Task createTask(String taskName, String dateTime, String taskType){
+        Task newTask = null;
+        if (Objects.equals(taskType, DEADLINE_TYPE)){
+            newTask = new Deadline(taskName, dateTime);
+        } else if (Objects.equals(taskType, EVENT_TYPE)){
+            newTask = new Event(taskName, dateTime);
         }
-        return new_task;
+        return newTask;
     }
 
     /**
      * Given a new task, add it into the list of tasks.
-     * @param new_task A task created by the user.
+     * @param newTask A task created by the user.
      */
-    private static void addTask(Task new_task){
-        tasksList.add(new_task);
+    private static void addTask(Task newTask){
+        tasksList.add(newTask);
     }
 
     /**
@@ -287,11 +287,11 @@ public class Terminator {
 
     /**
      * Given user command to mark task as completed, return the task number.
-     * @param userLine String containing the TaskNumber.
+     * @param userInput String containing the TaskNumber.
      * @return The TaskNumber to be marked as done
      */
-    private static int getTaskNumberFromInput(String userLine){
-        return Integer.parseInt(userLine.split(" ")[TASK_NUMBER_INDEX]) - 1;
+    private static int getTaskNumberFromInput(String userInput){
+        return Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
     }
 
     /**
@@ -301,10 +301,10 @@ public class Terminator {
     private static void createToDoTask(String userLine){
         // Extract values and create ToDo Task
         String[] extractedValues = extractNameDateTime(userLine, TODO_TYPE);
-        String task_name = extractedValues[TASK_NAME_INDEX];
-        Task created_task = createTask(task_name, TODO_TYPE);
-        addTask(created_task);
-        printAddTaskMessage(created_task);
+        String taskName = extractedValues[TASK_NAME_INDEX];
+        Task createdTask = createTask(taskName, TODO_TYPE);
+        addTask(createdTask);
+        printAddTaskMessage(createdTask);
     }
 
     /**
@@ -314,11 +314,11 @@ public class Terminator {
     private static void createDeadlineTask(String userLine) {
         // Extract values and create Deadline Task
         String[] extractedValues = extractNameDateTime(userLine, DEADLINE_TYPE);
-        String task_name = extractedValues[TASK_NAME_INDEX];
-        String date_time = extractedValues[DATE_TIME_INDEX];
-        Task created_task = createTask(task_name, date_time, DEADLINE_TYPE);
-        addTask(created_task);
-        printAddTaskMessage(created_task);
+        String taskName = extractedValues[TASK_NAME_INDEX];
+        String dateTime = extractedValues[DATE_TIME_INDEX];
+        Task createdTask = createTask(taskName, dateTime, DEADLINE_TYPE);
+        addTask(createdTask);
+        printAddTaskMessage(createdTask);
     }
 
     /**
@@ -328,11 +328,11 @@ public class Terminator {
     private static void createEventTask(String userLine) {
         // Extract values and create Event Task
         String[] extractedValues = extractNameDateTime(userLine, EVENT_TYPE);
-        String task_name = extractedValues[TASK_NAME_INDEX];
-        String date_time = extractedValues[DATE_TIME_INDEX];
-        Task created_task = createTask(task_name, date_time, EVENT_TYPE);
-        addTask(created_task);
-        printAddTaskMessage(created_task);
+        String taskName = extractedValues[TASK_NAME_INDEX];
+        String dateTime = extractedValues[DATE_TIME_INDEX];
+        Task createdTask = createTask(taskName, dateTime, EVENT_TYPE);
+        addTask(createdTask);
+        printAddTaskMessage(createdTask);
     }
 
     /**
@@ -341,9 +341,9 @@ public class Terminator {
      */
     private static void createNormalTask(String userLine) {
         // Create default Task and add to tasksList
-        Task created_task = createTask(userLine, NORMAL_TYPE);
-        addTask(created_task);
-        printAddTaskMessage(created_task);
+        Task createdTask = createTask(userLine, NORMAL_TYPE);
+        addTask(createdTask);
+        printAddTaskMessage(createdTask);
     }
 
     /**
@@ -364,7 +364,7 @@ public class Terminator {
             // Parse out task number from user input
             int taskNumber = getTaskNumberFromInput(userLine);
             // Update the list and print respective message
-            updateCompletion(taskNumber);
+            updateTaskCompletionStatus(taskNumber);
             printUpdateMessage(taskNumber);
             break;
         case LIST_STRING:
