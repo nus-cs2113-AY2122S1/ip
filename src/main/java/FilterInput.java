@@ -1,6 +1,5 @@
 public class FilterInput {
 
-
     /**
      * Returns lateral location of the specified position.
      *
@@ -34,8 +33,8 @@ public class FilterInput {
             break;
         default:
             System.out.println("invalid command");
-//            command = command + in.nextLine();
-//            Greet.addTask(command);
+            //command = command + in.nextLine();
+            //Greet.addTask(command);
         }
     }
 
