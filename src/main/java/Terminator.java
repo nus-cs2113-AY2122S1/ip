@@ -81,8 +81,8 @@ public class Terminator {
         if (Objects.equals(eventType, DEADLINE_TYPE)) {
             // Get indexes to substring
             int startOfByIndex = userInput.indexOf(BY_KEYWORD);
-            int endOfByIndex = startOfByIndex + 4;
-            int endOfDeadlineStringIndex = userInput.indexOf(DEADLINE_KEYWORD) + 9;
+            int endOfByIndex = startOfByIndex + 3;
+            int endOfDeadlineStringIndex = userInput.indexOf(DEADLINE_KEYWORD) + 8;
 
             // Get specific task_name and date_time
             String taskName = userInput.substring(endOfDeadlineStringIndex, startOfByIndex).strip();
@@ -94,8 +94,8 @@ public class Terminator {
         } else if (Objects.equals(eventType, EVENT_TYPE)) {
             // Get indexes to substring
             int startOfAtIndex = userInput.indexOf(AT_KEYWORD);
-            int endOfAtIndex = startOfAtIndex + 4;
-            int endOfEventStringIndex = userInput.indexOf(EVENT_KEYWORD) + 6;
+            int endOfAtIndex = startOfAtIndex + 3;
+            int endOfEventStringIndex = userInput.indexOf(EVENT_KEYWORD) + 5;
 
             // Get specific task_name and date_time
             String taskName = userInput.substring(endOfEventStringIndex, startOfAtIndex).strip();
@@ -106,10 +106,9 @@ public class Terminator {
             returnArray[DATE_TIME_INDEX] = dateTime;
         } else {
             // Extract values for ToDo
-            int endOfToDoStringIndex = userInput.indexOf(TODO_KEYWORD) + 5;
+            int endOfToDoStringIndex = userInput.indexOf(TODO_KEYWORD) + 4;
             String taskName = userInput.substring(endOfToDoStringIndex).strip();
             returnArray[TASK_NAME_INDEX] = taskName;
-
         }
         return returnArray;
     }
@@ -291,7 +290,17 @@ public class Terminator {
      * @return The TaskNumber to be marked as done
      */
     private static int getTaskNumberFromInput(String userInput) {
-        return Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
+            // If less than 0, throw exception
+            if (taskNumber < 0) {
+                throw new NumberFormatException();
+            }
+            return taskNumber;
+        } catch (NumberFormatException e) {
+            System.out.println(formatWithHeading("Input was not a valid number", TERMINATOR_FORMATTING));
+            return -1;
+        }
     }
 
     /**
@@ -328,11 +337,18 @@ public class Terminator {
      */
     private static void createToDoTask(String userLine) {
         // Extract values and create ToDo Task
-        String[] extractedValues = extractNameDateTime(userLine, TODO_TYPE);
-        String taskName = extractedValues[TASK_NAME_INDEX];
-        Task createdTask = createTask(taskName, TODO_TYPE);
-        addTask(createdTask);
-        printAddTaskMessage(createdTask);
+        try {
+            String[] extractedValues = extractNameDateTime(userLine, TODO_TYPE);
+            String taskName = extractedValues[TASK_NAME_INDEX];
+            Task createdTask = createTask(taskName, TODO_TYPE);
+            if (taskName.isEmpty()) {
+                throw new MissingVariablesException();
+            }
+            addTask(createdTask);
+            printAddTaskMessage(createdTask);
+        } catch (MissingVariablesException e) {
+            System.out.println(formatWithHeading("You did not enter a valid ToDo task", TERMINATOR_FORMATTING));
+        }
     }
 
     /**
@@ -344,12 +360,19 @@ public class Terminator {
         if (!isCorrectFormat(userLine, DEADLINE_TYPE)) {
             return;
         }
-        String[] extractedValues = extractNameDateTime(userLine, DEADLINE_TYPE);
-        String taskName = extractedValues[TASK_NAME_INDEX];
-        String dateTime = extractedValues[DATE_TIME_INDEX];
-        Task createdTask = createTask(taskName, dateTime, DEADLINE_TYPE);
-        addTask(createdTask);
-        printAddTaskMessage(createdTask);
+        try {
+            String[] extractedValues = extractNameDateTime(userLine, DEADLINE_TYPE);
+            String taskName = extractedValues[TASK_NAME_INDEX];
+            String dateTime = extractedValues[DATE_TIME_INDEX];
+            if (taskName.isEmpty() || dateTime.isEmpty()) {
+                throw new MissingVariablesException();
+            }
+            Task createdTask = createTask(taskName, dateTime, DEADLINE_TYPE);
+            addTask(createdTask);
+            printAddTaskMessage(createdTask);
+        } catch (MissingVariablesException e) {
+            System.out.println(formatWithHeading("Missing Task Name/Date Time!", TERMINATOR_FORMATTING));
+        }
     }
 
     /**
@@ -361,23 +384,27 @@ public class Terminator {
         if (!isCorrectFormat(userLine, EVENT_TYPE)) {
             return;
         }
-        String[] extractedValues = extractNameDateTime(userLine, EVENT_TYPE);
-        String taskName = extractedValues[TASK_NAME_INDEX];
-        String dateTime = extractedValues[DATE_TIME_INDEX];
-        Task createdTask = createTask(taskName, dateTime, EVENT_TYPE);
-        addTask(createdTask);
-        printAddTaskMessage(createdTask);
+        try {
+            String[] extractedValues = extractNameDateTime(userLine, EVENT_TYPE);
+            String taskName = extractedValues[TASK_NAME_INDEX];
+            String dateTime = extractedValues[DATE_TIME_INDEX];
+            if (taskName.isEmpty() || dateTime.isEmpty()) {
+                throw new MissingVariablesException();
+            }
+            Task createdTask = createTask(taskName, dateTime, EVENT_TYPE);
+            addTask(createdTask);
+            printAddTaskMessage(createdTask);
+        } catch (MissingVariablesException e) {
+            System.out.println(formatWithHeading("Missing Task Name/Date Time!", TERMINATOR_FORMATTING));
+        }
     }
 
     /**
-     * Worker class to create Normal Tasks.
-     * @param userLine Line that is inputted by the user.
+     * Prints to the screen that you don't understand the commands
      */
-    private static void createNormalTask(String userLine) {
-        // Create default Task and add to tasksList
-        Task createdTask = createTask(userLine, NORMAL_TYPE);
-        addTask(createdTask);
-        printAddTaskMessage(createdTask);
+    private static void printUnknownCommandMessage(){
+        System.out.println(formatWithHeading("Sorry, I don't understand you", TERMINATOR_FORMATTING));
+        System.out.println(formatWithHeading("Put either list/deadline/todo/event", TERMINATOR_FORMATTING));
     }
 
     /**
@@ -396,6 +423,10 @@ public class Terminator {
 
             // Parse out task number from user input
             int taskNumber = getTaskNumberFromInput(userLine);
+            // If the taskNumber is invalid, quit function
+            if (taskNumber == -1) {
+                return;
+            }
             // Update the list and print respective message
             updateTaskCompletionStatus(taskNumber);
             printUpdateMessage(taskNumber);
@@ -419,7 +450,7 @@ public class Terminator {
             createEventTask(userLine);
             break;
         default:
-            createNormalTask(userLine);
+            printUnknownCommandMessage();
             break;
         }
     }
