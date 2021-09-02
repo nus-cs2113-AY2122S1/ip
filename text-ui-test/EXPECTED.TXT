@@ -1,7 +1,59 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+Hi... from GUDETAMA... so sleepy
+ _______  __   __  ______   _______  _______  _______  __   __  _______
+|       ||  | |  ||      | |       ||       ||   _   ||  |_|  ||   _   |
+|    ___||  | |  ||  _    ||    ___||_     _||  |_|  ||       ||  |_|  |
+|   | __ |  |_|  || | |   ||   |___   |   |  |       ||       ||       |
+|   ||  ||       || |_|   ||    ___|  |   |  |       ||       ||       |
+|   |_| ||       ||       ||   |___   |   |  |   _   || ||_|| ||   _   |
+|_______||_______||______| |_______|  |___|  |__| |__||_|   |_||__| |__|
 
+Give me five more minutes..... What can I do for you?
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	added: [T][ ] wakeup
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	added: [D][ ] eat (by: Morning)
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	added: [E][ ] sleep (at: Night)
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	Tasks to do... so lazy:
+	1.[T][ ] wakeup
+	2.[D][ ] eat (by: Morning)
+	3.[E][ ] sleep (at: Night)
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	finished this task... I need a break:
+		[T][X] wakeup
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	finished this task... I need a break:
+		[D][X] eat (by: Morning)
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+	Tasks to do... so lazy:
+	1.[T][X] wakeup
+	2.[D][X] eat (by: Morning)
+	3.[E][ ] sleep (at: Night)
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+Bye. I'm going back to sleep... zzz

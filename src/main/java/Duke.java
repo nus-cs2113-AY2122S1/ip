@@ -18,18 +18,12 @@ public class Duke {
         System.out.println("Give me five more minutes..... What can I do for you?\n" + SEPARATOR);
     }
 
-    public static void userInput() {
+    public static void processInput() {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        processInput(line);
-    }
-
-    public static void processInput(String line) {
-        if (line.equals("bye")) {
-            endDuke();
-        } else {
+        while (!line.equals("bye")) {
             if (line.equals("list")) {
                 listTasks();
             } else if (line.startsWith("done")) {
@@ -43,8 +37,9 @@ public class Duke {
             } else {
                 handleInvalid();
             }
-            userInput();
+            line = in.nextLine();
         }
+        endDuke();
     }
 
     public static void endDuke() {
@@ -87,7 +82,7 @@ public class Duke {
     public static void addEvent(String line) {
         String[] lineArray = line.substring(6).split("/at");
         userInputs[userInputCount] = new Event(lineArray[0].trim(), lineArray[1].trim());
-        
+
         System.out.println(SEPARATOR + "\n\tadded: " + userInputs[userInputCount] + "\n" + SEPARATOR);
         userInputCount++;
     }
@@ -98,6 +93,6 @@ public class Duke {
 
     public static void main(String[] args) {
         initiateDuke();
-        userInput();
+        processInput();
     }
 }

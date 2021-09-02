@@ -1,0 +1,8 @@
+todo wakeup
+deadline eat /by Morning
+event sleep /at Night
+list
+done 1
+done 2
+list
+bye
