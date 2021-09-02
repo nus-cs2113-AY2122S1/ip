@@ -7,7 +7,7 @@ public class Event extends Task {
      * Constructor for event type task
      *
      * @param description Description of the event task processed by TaskManager
-     * @param during Date and time of event processed by TaskManager
+     * @param during      Date and time of event processed by TaskManager
      */
     public Event(String description, String during) {
         super(description, 'E');
@@ -26,6 +26,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + String.format(" (at: %s)",this.getDuring());
+        return super.toString() + String.format(" (at: %s)", this.getDuring());
     }
 }

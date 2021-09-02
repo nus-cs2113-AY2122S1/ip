@@ -11,7 +11,7 @@ public class Task {
      * Constructor for any type of task
      *
      * @param description Description of the task processed by TaskManager
-     * @param type Type of task processed by TaskManager
+     * @param type        Type of task processed by TaskManager
      */
     public Task(String description, char type) {
         setDescription(description);
@@ -57,7 +57,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%c][%c] %s",this.getType(),this.getStatusIcon(), this.getDescription());
+        return String.format("[%c][%c] %s", this.getType(), this.getStatusIcon(), this.getDescription());
     }
 
 

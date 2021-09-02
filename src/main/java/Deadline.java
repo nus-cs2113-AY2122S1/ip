@@ -7,7 +7,7 @@ public class Deadline extends Task {
      * Constructor for deadline type task
      *
      * @param description Description of the deadline task processed by TaskManager
-     * @param by Date and time of deadline processed by TaskManager
+     * @param by          Date and time of deadline processed by TaskManager
      */
     public Deadline(String description, String by) {
         super(description, 'D');
@@ -26,6 +26,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + String.format(" (by:%s)",this.getBy());
+        return super.toString() + String.format(" (by:%s)", this.getBy());
     }
 }

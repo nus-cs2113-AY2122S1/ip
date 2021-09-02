@@ -17,13 +17,13 @@ public class Duke {
     /* A nicely formatted line */
     private static final String LINE = "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     private static final String HELP_MESSAGE = "The following commands accepted are: "
-            +"LIST (Show the list of task)\n"
-            +"TODO <description> (Create a task with todo tag)\n"
-            +"DEADLINE <description> /by <date and time> (Create a task with deadline tag)\n"
-            +"EVENT <description> /at <date and time> (Create a task with event tag)\n"
-            +"DONE <index of task> (To mark indicated task as completed)\n"
-            +"BYE (End program)\n"
-            +"HELP (List out available commands)";
+            + "LIST (Show the list of task)\n"
+            + "TODO <description> (Create a task with todo tag)\n"
+            + "DEADLINE <description> /by <date and time> (Create a task with deadline tag)\n"
+            + "EVENT <description> /at <date and time> (Create a task with event tag)\n"
+            + "DONE <index of task> (To mark indicated task as completed)\n"
+            + "BYE (End program)\n"
+            + "HELP (List out available commands)";
 
 
     /**
@@ -56,11 +56,12 @@ public class Duke {
         // Listen for user input and do commands given by user till user wants to exit program
         while (!exit) {
             String userInput = in.nextLine();
-            String userInputArray[] = userInput.split(USER_INPUT_SEPERATOR,2);
+            String[] userInputArray = userInput.split(USER_INPUT_SEPERATOR, 2);
             String userCommand = userInputArray[0].toUpperCase(Locale.ROOT);
             String userArgument = null;
-            if(userInputArray.length == 2)
+            if (userInputArray.length == 2) {
                 userArgument = userInputArray[1];
+            }
             switch (userCommand) {
             case USER_COMMAND_LIST:
                 taskManager.listTask();

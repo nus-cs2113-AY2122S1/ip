@@ -2,12 +2,13 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    /* List of tasks */
-    private final ArrayList<Task> tasksList;
     /* Types of tasks */
     public static final char CHAR_TYPE_TODO = 'T';
     public static final char CHAR_TYPE_DEADLINE = 'D';
     public static final char CHAR_TYPE_EVENT = 'E';
+    /* Types of string split regex  */
+    public static final String EVENT_STRING_SPLIT_REGEX = "/at ";
+    public static final String DEADLINE_STRING_SPLIT_REGEX = "/by ";
     /* Error messages */
     private static final String DEADLINE_ERROR_MESSAGE = "Sorry please input a valid DEADLINE TASK with date and time "
             + "by using <description> /by <date and time>";
@@ -15,12 +16,11 @@ public class TaskManager {
             + "<description> /at <date time>";
     private static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "Please do not input an empty description.\n"
             + "Input a TODO/DEADLINE/EVENT TASK with a valid description by using\n"
-            +"TODO <description>\n"
-            +"DEADLINE <description> /by <date and time>\n"
-            +"EVENT <description> /at <date and time>";
-    /* Types of string split regex  */
-    public static final String EVENT_STRING_SPLIT_REGEX = "/at ";
-    public static final String DEADLINE_STRING_SPLIT_REGEX = "/by ";
+            + "TODO <description>\n"
+            + "DEADLINE <description> /by <date and time>\n"
+            + "EVENT <description> /at <date and time>";
+    /* List of tasks */
+    private final ArrayList<Task> tasksList;
 
     /* Constructor for task manager */
     public TaskManager() {
@@ -32,7 +32,7 @@ public class TaskManager {
      * Creates a new task based on type given
      *
      * @param userArgument Name of task given by user input
-     * @param type type of task
+     * @param type         type of task
      * @return return task
      */
     public Task createTask(String userArgument, char type) {
@@ -45,20 +45,20 @@ public class TaskManager {
             task = new Todo(userArgument);
             break;
         case CHAR_TYPE_EVENT:
-            userArguments = userArgument.split(EVENT_STRING_SPLIT_REGEX,2);
+            userArguments = userArgument.split(EVENT_STRING_SPLIT_REGEX, 2);
             regexNotFound = userArguments.length != 2;
             emptyDescription = userArguments[0].isBlank();
-            if (emptyDescription || regexNotFound){
+            if (emptyDescription || regexNotFound) {
                 Duke.printMessage(EVENT_ERROR_MESSAGE);
                 return null;
             }
             task = new Event(userArguments[0], userArguments[1]);
             break;
         case CHAR_TYPE_DEADLINE:
-            userArguments = userArgument.split(DEADLINE_STRING_SPLIT_REGEX,2);
+            userArguments = userArgument.split(DEADLINE_STRING_SPLIT_REGEX, 2);
             regexNotFound = userArguments.length != 2;
             emptyDescription = userArguments[0].isBlank();
-            if (emptyDescription || regexNotFound){
+            if (emptyDescription || regexNotFound) {
                 Duke.printMessage(DEADLINE_ERROR_MESSAGE);
                 return null;
             }
@@ -73,17 +73,17 @@ public class TaskManager {
      * Adds a newly created task with given task description and type to tasks list
      *
      * @param userArgument Description of task given by user input
-     * @param type Type of task given by user input
+     * @param type         Type of task given by user input
      */
     public void addTask(String userArgument, TaskType type) {
         Task task = null;
         // Check for empty description
         boolean emptyDescription = userArgument == null;
-        if(emptyDescription) {
+        if (emptyDescription) {
             Duke.printMessage(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             return;
         }
-        switch (type){
+        switch (type) {
         case TODO:
             task = createTask(userArgument, CHAR_TYPE_TODO);
             break;
@@ -95,10 +95,10 @@ public class TaskManager {
             break;
         }
         // As long as task is valid, add to task list and inform user
-        if (task != null){
+        if (task != null) {
             tasksList.add(task);
-            Duke.printMessage(String.format("Gaben have seen and will add the following task for you:\n"+
-                            "%s\n"+"You now have %d task in the list", task.toString(), tasksList.size()));
+            Duke.printMessage(String.format("Gaben have seen and will add the following task for you:\n" +
+                    "%s\n" + "You now have %d task in the list", task, tasksList.size()));
         }
     }
 
@@ -115,8 +115,8 @@ public class TaskManager {
         default:
             message = "Total of " + tasksListSize + " task(s)\n";
             int counter = 1;
-            for(Task task : tasksList){
-                message += String.format("%d.%s\n",counter,task.toString());
+            for (Task task : tasksList) {
+                message += String.format("%d.%s\n", counter, task.toString());
                 counter++;
             }
             break;
