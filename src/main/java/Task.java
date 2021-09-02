@@ -14,13 +14,14 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     //setters
     public void markAsDone() {
         isDone = true;
+    }
+
+    //Returns description of task added
+    public String toString() {
+        return description;
     }
 }
 

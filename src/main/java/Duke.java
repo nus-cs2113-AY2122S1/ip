@@ -1,42 +1,119 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        String line = "------------------------------------------------------------------------------------------\n";
+    //declarations
+    public static String line = "------------------------------------------------------------------------------------------\n";
+
+    //declare task array and keep track of how many tasks stored
+    public static Task[] t = new Task[100];
+    public static int taskCount = 0;
+
+    //Program starts with this greeting
+    public static void start() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
+    }
 
+    //Program exits with this ending
+    public static void bye() {
+        System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);
+        System.exit(0);
+    }
+
+    //Creates scanner and takes in input from user
+    public static void userInput() {
         Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your wish: " + "\n" + line);
         String input = scan.nextLine();
-        Task[] t = new Task[100];
-        int taskCount = 0;
+        inputSort(input);
+    }
 
-        while (!input.equals("bye")) {                                              //BYE WORKS
-
-            if (input.equals("list")) {                                              //LIST WORKS
-                System.out.println(line);
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + "[" + t[i].getStatusIcon() + "] " + t[i].getDescription() + "\n");
-                }
-                System.out.println(line);
-            } else if (input.contains("done")) {                                                       //DONE WORKS
-                String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
-                int finalTaskNumber = Integer.parseInt(taskNumber) - 1;
-                t[finalTaskNumber].markAsDone();
-                System.out.println(line + "\n" + "Kudos! One less thing to stress about!\n");
-                System.out.println("  " + "[X] " + t[finalTaskNumber].getDescription() + "\n" + line);
-            } else {                                                                           //ADDING NEW TASK WORKS
-                t[taskCount] = new Task(input);
-                taskCount++;
-                System.out.println(line + "added: " + input + "\n" + line);
-            }
-            input = scan.nextLine();
+    //Lists out all tasks stored and their statuses
+    public static void list() {
+        System.out.println(line);
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + ". " + t[i].toString()+ "\n");
         }
-        System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);               
+    }
+
+    //Marks a stored task as done
+    public static void taskDone(String input) {
+        String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
+        int finalTaskNumber = Integer.parseInt(taskNumber) - 1;
+        t[finalTaskNumber].markAsDone();
+        System.out.println(line + "\n" + "Kudos! One less thing to stress about!\n");
+        System.out.println("  " + t[finalTaskNumber].toString() + "\n" + line);
+    }
+
+    //Adds a new todo task and prints it                                       //todo borrow book
+    public static void todo(String input) {
+        int endIndex = input.length();
+        String taskName = input.substring(5, endIndex);
+        t[taskCount] = new Todo(taskName);
+        System.out.println(line + "\n");
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println(t[taskCount].toString());
+        taskCount++;
+        System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
+    }
+
+    //Adds a new deadline task and prints it
+    public static void deadline(String input) {                               //deadline return book /by Sunday
+        int endIndex = input.lastIndexOf("/");
+        String taskName = input.substring(9, endIndex);
+        int endIndex2 = input.length();
+        String by = input.substring(endIndex + 4, endIndex2);
+        t[taskCount] = new Deadline(taskName, by);
+        System.out.println(line + "\n");
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println(t[taskCount].toString());
+        taskCount++;
+        System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
+    }
+
+    //Adds a new event task and prints it
+    public static void event(String input) {                                 //event project meeting /at Mon 2-4pm
+        int endIndex = input.lastIndexOf("/");
+        String taskName = input.substring(6, endIndex);
+        int endIndex2 = input.length();
+        String at = input.substring(endIndex + 4, endIndex2);
+        t[taskCount] = new Event(taskName, at);
+        System.out.println(line + "\n");
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println(t[taskCount].toString());
+        taskCount++;
+        System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
+    }
+
+    //Filters user inputs and pushes to different methods
+    public static void inputSort(String input) {
+        while (!input.equals("bye")) {
+            if (input.equals("list")) {
+                list();
+                System.out.println(line);
+            } else if (input.contains("done")) {
+                taskDone(input);
+            } else if (input.contains("todo")) {
+                todo(input);
+            } else if (input.contains("deadline")) {
+                deadline(input);
+            } else if (input.contains("event")) {
+                event(input);
+            }
+            userInput();
+        }
+        bye();
+    }
+
+    //Main
+    public static void main(String[] args) {
+        start();
+        userInput();
     }
 }
 
