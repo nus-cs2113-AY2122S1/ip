@@ -1,15 +1,17 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-
+    protected char taskType;
     /**
      * Constructor of Task object.
      *
      * @param description Task name of Task.
+     * @param taskType T:todo D:deadline E:event
      */
-    public Task(String description) {
+    public Task(String description, char taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
     /**
@@ -25,7 +27,7 @@ public class Task {
         this.isDone = true;
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done: ");
-        System.out.println("     [X] " + this.description);
+        System.out.println("     " + "[" + this.taskType + "][X] " + this.description);
         System.out.println("    ____________________________________________________________");
     }
 
@@ -36,5 +38,9 @@ public class Task {
      */
     public String getDescription() {
         return description;
+    }
+
+    public char getTaskType() {
+        return taskType;
     }
 }

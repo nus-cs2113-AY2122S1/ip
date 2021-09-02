@@ -1,35 +1,15 @@
 import java.util.Scanner;
-
 public class Duke {
-    /**
-     * Returns lateral location of the specified position.
-     *
-     * @param command First word of input.
-     * @param in      Scanner to take in remaining inputs if necessary.
-     */
-    public static void checkCommand(String command, Scanner in) {
-        String spam;
-        switch (command) {
-        case "bye":
-            spam = in.nextLine();
-            Greet.printGoodbyeMessage();
-            break;
-        case "":
-        case " ":
-        case "list":
-            spam = in.nextLine();
-            Greet.printList();
-            break;
-        case "done":
-            int taskNumber = in.nextInt();
-            spam = in.nextLine();
-            Greet.checkDoneTask(taskNumber);
-            break;
-        default:
-            command = command + in.nextLine();
-            Greet.addTask(command);
-        }
-    }
+
+//    public static final String ANSI_RESET = "\u001B[0m";
+//    public static final String ANSI_BLACK = "\u001B[30m";
+//    public static final String ANSI_RED = "\u001B[31m";
+//    public static final String ANSI_GREEN = "\u001B[32m";
+//    public static final String ANSI_YELLOW = "\u001B[33m";
+//    public static final String ANSI_BLUE = "\u001B[34m";
+//    public static final String ANSI_PURPLE = "\u001B[35m";
+//    public static final String ANSI_CYAN = "\u001B[36m";
+//    public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -37,15 +17,19 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+        Scanner in = new Scanner(System.in);
+        String input;
         System.out.println("Hello from\n" + logo);
         Greet.printWelcomeMessage();
-        Scanner in = new Scanner(System.in);
-        String command;
-        boolean isConversation = true;
+
+        boolean isConversation;
         do {
-            command = in.next();
-            checkCommand(command, in);
-            isConversation = !command.equals("bye");
+            input = in.nextLine();
+            String[] words = input.split(" ");
+//            System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
+//            for(String word: words) System.out.println(word);
+            FilterInput.checkCommand(words);
+            isConversation = !words[0].equals("bye");
         } while (isConversation);
 
     }
