@@ -80,7 +80,7 @@ public class Duke {
         tasks[taskIndex-1].markAsDone();
         System.out.println(MESSAGE_BOUNDARY);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskIndex].toString());
+        System.out.println(tasks[taskIndex-1].toString());
         System.out.println(MESSAGE_BOUNDARY);
     }
 
