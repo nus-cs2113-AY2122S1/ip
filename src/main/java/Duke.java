@@ -1,59 +1,119 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
+
+    private static final Scanner in = new Scanner(System.in);
+
+    /**
+     *
+     * List of all Tasks
+     */
+    private static Task[] allTasks;
+
+    private static String input;
+    private static String logo = getLogo();
+    private static String line = getLine();
+    private static int inputCount = 0;
+
     public static void main(String[] args) {
-        String input;
+        initTaskList();
+        welcomeMessage(logo, line);
+        while(true) {
+            String userInput = getUserInput();
+            taskQuery(userInput);
+        }
+    }
+
+    private static String getUserInput() {
+        input = in.nextLine();
+        System.out.println(line);
+        return input;
+    }
+
+    private static void taskQuery(String userInput) {
+        if(userInput.equals("bye")) {
+            System.out.println("Bye, see you!\n" + line);
+            System.exit(0);
+        }
+        else if(userInput.equals("list")) {
+            for(int i = 0; i < inputCount; i++){
+                //System.out.println((i+1) + ". [" + inputs[i].getStatusIcon() + "] " +
+                System.out.println((i+1) + "." + allTasks[i]);
+            }
+        }
+        //assumes user will follow format "done x"
+        else if(userInput.startsWith("done ")) {
+            String[] words = userInput.split(" ");
+            int taskCompleted = Integer.parseInt(words[1]) - 1;
+            if (allTasks[taskCompleted].isDone()) {
+                System.out.println("You have already marked this task as done! Time to move on :)");
+            }
+            else {
+                allTasks[taskCompleted].markAsDone();
+                System.out.println("Awesome! You've completed the following task:");
+                System.out.println(" [X] " + allTasks[taskCompleted].getDescription());
+            }
+
+        }
+        else if(userInput.startsWith("todo ")) {
+            String taskName = userInput.substring(5);
+            ToDo newToDo = new ToDo(taskName);
+            allTasks[inputCount] = newToDo;
+            inputCount += 1;
+            taskMessage(inputCount, newToDo);
+        }
+        else if(userInput.startsWith("deadline ") && userInput.contains("/by")) {
+            int taskEndIndex = userInput.indexOf("/by") - 1; //to account for spacing before "/by"
+            String taskName = userInput.substring(9, taskEndIndex);
+            int deadlineStartIndex = taskEndIndex + 5;
+            String deadline = userInput.substring(deadlineStartIndex);
+            Deadline newDeadline = new Deadline(taskName, deadline);
+            allTasks[inputCount] = newDeadline;
+            inputCount += 1;
+            taskMessage(inputCount, newDeadline);
+        }
+        else if(userInput.startsWith("event ") && userInput.contains("/at")) {
+            int taskEndIndex = userInput.indexOf("/at") - 1; //to account for spacing before "/by"
+            String taskName = userInput.substring(6, taskEndIndex);
+            int eventTimeStartIndex = taskEndIndex + 5;
+            String event = userInput.substring(eventTimeStartIndex);
+            Event newEvent = new Event(taskName, event);
+            allTasks[inputCount] = newEvent;
+            inputCount += 1;
+            taskMessage(inputCount, newEvent);
+        }
+        else {
+            System.out.println("Invalid command :(");
+        }
+        System.out.println(line);
+    }
+
+    private static void initTaskList() {
+        allTasks = new Task[100];
+    }
+
+    private static void taskMessage(int inputCount, Task task) {
+        System.out.println("Successfully added. Here's the added task: ");
+        System.out.println(task);
+        System.out.println("There " + ((inputCount == 1)? "is " : "are ") + inputCount + " task" + ((inputCount == 1)? "" : "s") + " in the list now.");
+    }
+
+    private static void welcomeMessage(String logo, String line) {
+        System.out.println(line + logo +
+                " Hello! I'm Duke\n" +
+                " What's up? :p\n" + line);
+    }
+
+    private static String getLine() {
+        return "____________________________________________________________\n";
+    }
+
+    private static String getLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        String line = "____________________________________________________________\n";
-        Scanner in = new Scanner(System.in);
-        System.out.println(line + logo +
-                " Hello! I'm Duke\n" +
-                " What's up? :p\n" + line);
-
-        Task [] inputs = new Task[100];
-        int inputCount = 0;
-
-
-        while(true) {
-            input = in.nextLine();
-            System.out.println(line);
-            if(input.equals("bye")) {
-                break;
-            }
-            else if(input.equals("list")) {
-                for(int i = 0; i < inputCount; i++){
-                    System.out.println((i+1) + ". [" + inputs[i].getStatusIcon() + "] " +
-                            inputs[i].getDescription());
-                }
-            }
-            //assumes user will follow format "done x"
-            else if(input.startsWith("done")) {
-                String[] words = input.split(" ");
-                int taskCompleted = Integer.parseInt(words[1]) - 1;
-                if (inputs[taskCompleted].isDone() == true) {
-                    System.out.println("You have already marked this task as done! Time to move on :)");
-                }
-                else {
-                    inputs[taskCompleted].markAsDone();
-                    System.out.println("Awesome! You've completed the following task:");
-                    System.out.println(" [X] " + inputs[taskCompleted].getDescription());
-                }
-
-            }
-            else {
-                System.out.println("added:" + input);
-                Task newTask = new Task(input);
-                inputs[inputCount] = newTask;
-                inputCount += 1;
-            }
-            System.out.println(line);
-        }
-
-        System.out.println("Bye, see you!\n" + line);
+        return logo;
     }
 }
