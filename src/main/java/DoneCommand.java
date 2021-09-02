@@ -1,14 +1,14 @@
 class DoneCommand extends UserCommand {
-    private int index;
+    private int taskIndex;
 
-    public DoneCommand (int index, TaskList tasks) {
+    public DoneCommand (int taskIndex, TaskList tasks) {
         super(tasks);
-        this.index = index;
+        this.taskIndex = taskIndex;
     }
 
     @Override
     public void execute () {
         System.out.println("     Nice! I've marked this task as done: ");
-        this.tasks.markAsDone(index - 1);
+        this.tasks.markAsDone(taskIndex - 1);
     }
 }

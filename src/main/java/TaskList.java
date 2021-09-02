@@ -1,23 +1,23 @@
 class TaskList {
     private Task[] tasks = new Task[100];
-    private int taskNum = 0;
+    private int totalTasks = 0;
 
     public int addList(String userInput) {
         Task newTask = getTask(userInput);
         System.out.println("       " + newTask);
-        this.tasks[taskNum] = newTask;
-        taskNum ++;
-        return taskNum;
+        this.tasks[totalTasks] = newTask;
+        totalTasks ++;
+        return totalTasks;
     }
 
     public void listTasks() {
-        for (int i = 0; i < taskNum; i++) {
+        for (int i = 0; i < totalTasks; i++) {
             System.out.println("     " + (i + 1) + "." + tasks[i].toString());
         }
     }
 
     public void markAsDone(int index) {
-        this.tasks[index].setFinished();
+        this.tasks[index].setCompleted();
         System.out.println("       " + this.tasks[index]);
     }
 

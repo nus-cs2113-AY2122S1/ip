@@ -36,8 +36,7 @@ public class User {
     }
 
     private String readInput() {
-        String input = sc.nextLine();
-        return input;
+        return  sc.nextLine();
     }
 
 
@@ -56,7 +55,7 @@ public class User {
             input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
             break;
         case "todo" : case "deadline" : case "event":
-            input = new AddListCommand(userInput, userTasks);
+            input = new AddTaskCommand(userInput, userTasks);
             break;
         default:
             input = new OtherCommand(userInput);

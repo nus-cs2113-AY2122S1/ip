@@ -18,7 +18,7 @@ abstract class Task {
         return this.outputTaskStatus() + this.taskName;
     }
 
-    public void setFinished () {
+    public void setCompleted () {
         this.isCompleted = true;
     }
 }

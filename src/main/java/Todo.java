@@ -1,4 +1,4 @@
-class Todo extends Task{
+class Todo extends Task {
 
     public Todo (String taskName, boolean isCompleted) {
         super(taskName, isCompleted);
