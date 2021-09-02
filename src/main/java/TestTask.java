@@ -1,4 +1,4 @@
-public class Task {
+public class TestTask {
     private String description;
     private boolean isDone;
     private String deadline;
@@ -15,7 +15,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public Task(String description) {
+    public TestTask(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -41,5 +41,3 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 }
-
-
