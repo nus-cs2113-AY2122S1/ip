@@ -3,6 +3,7 @@ public class ToDo extends Task{
         super(description);
     }
 
+    @Override
     public String getSymbol() {
         return "T"; // mark ToDos with a "T"
     }

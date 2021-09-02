@@ -2,23 +2,41 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        System.out.println("____________________________________________________________");
+    public static final String longLine = "____________________________________________________________";
+
+    public static void printLongLine() {
+        System.out.println(longLine);
+    }
+
+    public static void welcomeMessage() {
+        System.out.println(longLine);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println(longLine);
+    }
 
+    public static void farewellMessage() {
+        System.out.println(longLine);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(longLine);
+    }
+
+    public static void main(String[] args) {
+        welcomeMessage();
         Task[] entries = new Task[100];
         Scanner in = new Scanner(System.in);
         int entriesCount = 0;
         String userMessage = in.nextLine();
 
         while(!userMessage.equalsIgnoreCase("bye")){
-            String userCommand = userMessage.contains(" ") ? userMessage.substring(0, userMessage.indexOf(" ")): userMessage;
-            String userCommandDetails = userMessage.contains(" ") ? userMessage.substring(userMessage.indexOf(" ") + 1): userMessage;
+            String userCommand = userMessage.contains(" ")
+                    ? userMessage.substring(0, userMessage.indexOf(" ")): userMessage;
+            String userCommandDetails = userMessage.contains(" ")
+                    ? userMessage.substring(userMessage.indexOf(" ") + 1): userMessage;
 
             switch (userCommand) {
             case "list":
+                printLongLine();
                 System.out.println("Here are the tasks in your list:");
                 int i = 0;
                 for(Task entry : Arrays.copyOf(entries,entriesCount)){
@@ -26,6 +44,7 @@ public class Duke {
                             + entry.getStatusIcon() + "] " + entry.getDescription());
                     i++;
                 }
+                printLongLine();
                 break;
             case "todo":
                 entries[entriesCount] = new ToDo(userCommandDetails);
@@ -71,8 +90,6 @@ public class Duke {
             }
             userMessage = in.nextLine();
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        farewellMessage();
     }
 }

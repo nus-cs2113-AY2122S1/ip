@@ -11,6 +11,7 @@ public class Event extends Task{
         return description + "(at: " + eventDateTime + ")";
     }
 
+    @Override
     public String getSymbol() {
         return "E"; // mark Events with an "E"
     }

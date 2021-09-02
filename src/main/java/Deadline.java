@@ -11,6 +11,7 @@ public class Deadline extends Task{
         return description + "(by: " + by + ")";
     }
 
+    @Override
     public String getSymbol() {
         return "D"; // mark Deadlines with a "D"
     }
