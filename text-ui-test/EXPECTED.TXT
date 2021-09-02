@@ -1,7 +1,99 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Hello! I'm Gaben.
+Steam sales is coming! Prepare your wallet.
+Anyways, what can I do for you today?
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Gaben's Task Manager is here to assist you!
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+The following commands accepted are: LIST (Show the list of task)
+TODO <description> (Create a task with todo tag)
+DEADLINE <description> /by <date and time> (Create a task with deadline tag)
+EVENT <description> /at <date and time> (Create a task with event tag)
+DONE <index of task> (To mark indicated task as completed)
+BYE (End program)
+HELP (List out available commands)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Oh! You have no tasks left!
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Sorry, task selected does not exist! Please double check if task number exist with the list command.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Gaben have seen and will add the following task for you:
+[T][ ] eat
+You now have 1 task in the list
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Gaben have seen and will add the following task for you:
+[T][ ] sleep
+You now have 2 task in the list
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Gaben have seen and will add the following task for you:
+[T][ ] play
+You now have 3 task in the list
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Total of 3 task(s)
+1.[T][ ] eat
+2.[T][ ] sleep
+3.[T][ ] play
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Sorry please input a valid DEADLINE TASK with date and time by using <description> /by <date and time>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Gaben have seen and will add the following task for you:
+[D][ ] project  (by:3pm)
+You now have 4 task in the list
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Total of 4 task(s)
+1.[T][ ] eat
+2.[T][ ] sleep
+3.[T][ ] play
+4.[D][ ] project  (by:3pm)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Gaben have seen and will add the following task for you:
+[E][ ] concert  (at: 5pm)
+You now have 5 task in the list
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Total of 5 task(s)
+1.[T][ ] eat
+2.[T][ ] sleep
+3.[T][ ] play
+4.[D][ ] project  (by:3pm)
+5.[E][ ] concert  (at: 5pm)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Sorry, task selected does not exist! Please double check if task number exist with the list command.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Good lad, you have finally completed the task you needed to do.
+[T][X] eat
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Good lad, you have finally completed the task you needed to do.
+[T][X] sleep
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Total of 5 task(s)
+1.[T][X] eat
+2.[T][X] sleep
+3.[T][ ] play
+4.[D][ ] project  (by:3pm)
+5.[E][ ] concert  (at: 5pm)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Thank you for using Gaben.
+Remember to keep your wallet stacked before using me again!
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

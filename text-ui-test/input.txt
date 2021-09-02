@@ -1,0 +1,17 @@
+help
+list
+done 1
+todo eat
+todo sleep
+todo play
+list
+deadline project /at
+deadline project /by 3pm
+list
+event concert /at 5pm
+list
+done 0
+done 1
+done 2
+list
+bye
