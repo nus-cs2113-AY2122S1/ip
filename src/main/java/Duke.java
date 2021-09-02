@@ -35,7 +35,11 @@ public class Duke {
             String[] allButFirstWord = Arrays.copyOfRange(words, 1, words.length);
             StringBuilder sentenceAfterDeletion = new StringBuilder();
             for (String word : allButFirstWord) {
-                sentenceAfterDeletion.append(word).append(" ");
+                if (word.contains("/")) {
+                    break;
+                } else {
+                    sentenceAfterDeletion.append(word).append(" ");
+                }
             }
             return sentenceAfterDeletion.toString();
         } catch (Exception StringIndexOutOfBoundsException) {
@@ -46,8 +50,13 @@ public class Duke {
 
     public static String getDate(String query) {
         try {
-            int datePosition = query.indexOf("/") + 3;
-            return query.substring(datePosition).trim();
+            int slashPosition = query.indexOf("/");
+            if (slashPosition == -1) {
+                return "";
+            } else {
+                int datePosition = slashPosition + 3;
+                return query.substring(datePosition).trim();
+            }
         } catch (Exception StringIndexOutOfBoundsException) {
             System.out.println("You did not key in any date for your event or deadline.");
             return "";
@@ -122,32 +131,46 @@ public class Duke {
         Keyword keyword = getKeywordStatus(query);
         switch (keyword) {
         case DONE_TASK:
-            int taskNumber = getTaskNum(query);
-            tasks[taskNumber - 1].markAsDone();
-            printDone(tasks[taskNumber - 1]);
-            numOfTasks--;
-            System.out.println("Total items in your list: " + numOfTasks);
+            try {
+                int taskNumber = getTaskNum(query);
+                tasks[taskNumber - 1].markAsDone();
+                printDone(tasks[taskNumber - 1]);
+                numOfTasks--;
+                System.out.println("Total unchecked items in your list: " + numOfTasks);
+            } catch (Exception NullPointerException) {
+                System.out.println("There is no such task number...");
+            }
             break;
         case TODO_TASK:
-            tasks[taskCount] = new Todo(query);
+            tasks[taskCount] = new Todo(getQueryDescription(query));
             taskCount++;
             numOfTasks++;
             System.out.println("Added a Todo Task: " + getQueryDescription(query));
-            System.out.println("Total items in your list: " + numOfTasks);
+            System.out.println("Total unchecked items in your list: " + numOfTasks);
             break;
         case EVENT_TASK:
-            tasks[taskCount] = new Event(getQueryDescription(query), getDate(query));
-            taskCount++;
-            numOfTasks++;
-            System.out.println("Added an Event Task: " + getQueryDescription(query));
-            System.out.println("Total items in your list: " + numOfTasks);
+            if (getDate(query).equals("")) {
+                System.out.println("You did not key in any date for your event or deadline.");
+                System.out.println("Did you forget to add in the '/at' again?");
+            } else {
+                tasks[taskCount] = new Event(getQueryDescription(query), getDate(query));
+                taskCount++;
+                numOfTasks++;
+                System.out.println("Added an Event Task: " + getQueryDescription(query));
+                System.out.println("Total unchecked items in your list: " + numOfTasks);
+            }
             break;
         case DEADLINE_TASK:
-            tasks[taskCount] = new Deadline(getQueryDescription(query), getDate(query));
-            taskCount++;
-            numOfTasks++;
-            System.out.println("Added a Todo Task: " + getQueryDescription(query));
-            System.out.println("Total items in your list: " + numOfTasks);
+            if (getDate(query).equals("")) {
+                System.out.println("You did not key in any date for your event or deadline.");
+                System.out.println("Did you forget to add in the '/by' again?");
+            } else {
+                tasks[taskCount] = new Deadline(getQueryDescription(query), getDate(query));
+                taskCount++;
+                numOfTasks++;
+                System.out.println("Added a Todo Task: " + getQueryDescription(query));
+                System.out.println("Total unchecked items in your list: " + numOfTasks);
+            }
             break;
         case LIST_ITEMS:
             printList(tasks);
