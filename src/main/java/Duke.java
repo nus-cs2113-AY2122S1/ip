@@ -1,41 +1,58 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+    public static String EXIT_CMD = "bye";
+    public static String LIST_CMD = "list";
+    public static String DONE_CMD = "done";
+    public static String TODO_CMD = "todo";
+    public static String DEADLINE_CMD = "deadline";
+    public static String EVENT_CMD = "event";
 
+    public static void main(String[] args) {
+        greetUserOnStart();
         Scanner input = new Scanner(System.in);
-        String command;
 
         while (true) {
-            command = input.nextLine();
-            if (command.equals("bye")) {
+            String command = input.nextLine();
+
+            // parse and handle commands
+            if (command.equals(EXIT_CMD)) {
                 break;
-            } else if (command.equals("list")) {
-                TaskManager.list();
-            } else if (command.startsWith("done")) {
-                int taskNo = Integer.parseInt(command.split(" ")[1]);
-                TaskManager.mark(taskNo - 1);
-            } else if (command.startsWith("todo")) {
-                String todo = command.replaceFirst("todo ", "");
-                TaskManager.todo(todo);
-            } else if (command.startsWith("deadline")) {
-                String [] parsedInput = command.replaceFirst("deadline ", "").split("/by ");
-                String deadlineName = parsedInput[0];
-                String dueDate = parsedInput[1];
-                TaskManager.deadline(deadlineName, dueDate);
-            } else if (command.startsWith("event")) {
-                String [] parsedInput = command.replaceFirst("event ", "").split("/at ");
-                String eventName = parsedInput[0];
-                String timeslot = parsedInput[1];
-                TaskManager.event(eventName, timeslot);
-            }
-            else {
-                TaskManager.add(command);
+            } else if (command.equals(LIST_CMD)) {
+                TaskManager.listTasks();
+            } else if (command.startsWith(DONE_CMD)) {
+                String parsedInput = command.split(" ")[1];
+                int taskNo = Integer.parseInt(parsedInput);
+                TaskManager.markTaskNoAsDone(taskNo - 1);
+            } else if (command.startsWith(TODO_CMD)) {
+                String parsedInput = command.replaceFirst(TODO_CMD, "");
+                String todo = parsedInput.strip();
+                TaskManager.addTodo(todo);
+            } else if (command.startsWith(DEADLINE_CMD)) {
+                String [] parsedInput = command.replaceFirst(DEADLINE_CMD, "").split("/by ");
+                String deadlineTitle = parsedInput[0].strip();
+                String deadlineDue = parsedInput[1].strip();
+                TaskManager.addDeadline(deadlineTitle, deadlineDue);
+            } else if (command.startsWith(EVENT_CMD)) {
+                String [] parsedInput = command.replaceFirst(EVENT_CMD, "").split("/at ");
+                String eventTitle = parsedInput[0].strip();
+                String eventTime = parsedInput[1].strip();
+                TaskManager.addEvent(eventTitle, eventTime);
+            } else {
+                // handle invalid command
+                System.out.println("Invalid command! Please enter a valid command");
             }
         }
 
+        greetUserOnEnd();
+    }
+
+    public static void greetUserOnStart() {
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+    }
+
+    public static void greetUserOnEnd() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

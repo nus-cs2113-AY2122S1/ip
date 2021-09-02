@@ -15,12 +15,12 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void markDone() {
+    public void markAsDone() {
         isDone = true;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + getName();
+        return "[" + getStatusIcon() + "] " + getName();
     }
 }
