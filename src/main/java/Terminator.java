@@ -295,6 +295,34 @@ public class Terminator {
     }
 
     /**
+     * Checks if the correct format is given based on the task option.
+     * @param rawUserInput String given by the user.
+     * @param taskType The type of task to determine the subclass to create.
+     */
+    private static Boolean isCorrectFormat(String rawUserInput, String taskType) {
+        try {
+            boolean incorrectDeadlineString = taskType.equals(DEADLINE_TYPE) && !rawUserInput.contains(BY_KEYWORD);
+            boolean incorrectEventString = taskType.equals(EVENT_TYPE) && !rawUserInput.contains(AT_KEYWORD);
+            if (incorrectEventString || incorrectDeadlineString) {
+                throw new InsufficientParametersException();
+            }
+        } catch (InsufficientParametersException e) {
+            // If not enough parameters, print message and return False
+            printMissingParametersMessage();
+            return false;
+        }
+        // If pass all checks, it is in the correct format
+        return true;
+    }
+
+    /**
+     * Prints message to user informing them that their input lack the required parameters
+     */
+    private static void printMissingParametersMessage(){
+        System.out.println(formatWithHeading("You are missing parameters! Try again!", TERMINATOR_FORMATTING));
+    }
+
+    /**
      * Worker class to create ToDo Tasks.
      * @param userLine Line that is inputted by the user.
      */
@@ -313,6 +341,9 @@ public class Terminator {
      */
     private static void createDeadlineTask(String userLine) {
         // Extract values and create Deadline Task
+        if (!isCorrectFormat(userLine, DEADLINE_TYPE)) {
+            return;
+        }
         String[] extractedValues = extractNameDateTime(userLine, DEADLINE_TYPE);
         String taskName = extractedValues[TASK_NAME_INDEX];
         String dateTime = extractedValues[DATE_TIME_INDEX];
@@ -327,6 +358,9 @@ public class Terminator {
      */
     private static void createEventTask(String userLine) {
         // Extract values and create Event Task
+        if (!isCorrectFormat(userLine, EVENT_TYPE)) {
+            return;
+        }
         String[] extractedValues = extractNameDateTime(userLine, EVENT_TYPE);
         String taskName = extractedValues[TASK_NAME_INDEX];
         String dateTime = extractedValues[DATE_TIME_INDEX];
@@ -359,7 +393,6 @@ public class Terminator {
             // Assumption that there are at least 2 tokens in split input
             // No check to see if task number is valid yet
             // No check for format of user input, like is there an /at? or /by?
-            // TODO: Might want to include error checks (like try/catch) at later levels
 
             // Parse out task number from user input
             int taskNumber = getTaskNumberFromInput(userLine);
