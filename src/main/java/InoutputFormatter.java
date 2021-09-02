@@ -1,12 +1,12 @@
 public class InoutputFormatter {
-    public static void printInputStart() {
-        System.out.print(">>> ");
+    public static String printInputStart() {
+        return ">>> ";
     }
-    public static void printOutputStart() {
-        System.out.print("  ");
+    public static String printOutputStart() {
+        return "  ";
     }
-    public static void printOutputSeparator() {
-        System.out.println("********************************************");
+    public static String printOutputSeparator() {
+        return "********************************************";
     }
 }
 
