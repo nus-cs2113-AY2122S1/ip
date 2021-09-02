@@ -17,6 +17,7 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
     public void printTask(){
         System.out.println(index + ". [" + type + "] [" + getStatusIcon() + "] " + description);
     }
