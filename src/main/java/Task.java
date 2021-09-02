@@ -2,6 +2,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+
     /**
      * Constructor for Task, generates name and status of task.
      *
@@ -18,7 +19,11 @@ public class Task {
      * @return Whitespace if task is not completed, tick if task is completed.
      */
     public String getStatusIcon() {
-        return (isDone ? "✔" : " ");
+        return (isDone ? "=" : " ");
     }
 
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "]" + description;
+    }
 }

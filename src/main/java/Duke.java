@@ -4,6 +4,7 @@ public class Duke {
 
     private static final Task list[] = new Task[100];
     private static int taskCount = 0;
+    private static int taskCompleted = 0;
 
     public static void main(String[] args) {
         greetUser();
@@ -33,7 +34,7 @@ public class Duke {
      */
     public static void greetUser() {
         printLine();
-        System.out.println("      Hello! I'm Duke\n      What can I do for you?");
+        System.out.println("      *Sigh* Hi... I'm Tired\n      What ya want from me?");
         printLine();
     }
 
@@ -42,30 +43,46 @@ public class Duke {
      */
     public static void byeUser() {
         printLine();
-        System.out.println("      Bye. Hope to see you again soon!");
+        System.out.println("      See ya! Don't wanna be ya.");
         printLine();
     }
 
     /**
-     * Prints the list of tasks collated by the chatbot.
+     * Prints the list of tasks collated by Chatbot.
      */
     public static void printList() {
-        System.out.println("      Here are the tasks in your list:");
+        System.out.println("      Here are your tasks human:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println("      " + (i + 1) + ".[" + list[i].getStatusIcon() + "] " + list[i].description);
+            System.out.println("      " + (i + 1) + "." + list[i]);
         }
     }
 
     /**
-     * Adds input from user to list[] to keep track of user's tasks.
+     * Adds inputs from user to list[] to keep track of user's tasks, deadlines, and events.
      *
-     * @param userInput text the user has typed as task to add to list.
+     * @param taskName Name of task from user.
+     * @param taskType Type of task from user.
+     * @param details Time/date of event/deadline.
      */
-    public static void addTask(String userInput) {
-        list[taskCount] = new Task(userInput);
+    public static void addTask(String taskName, String taskType, String details) {
+        switch (taskType) {
+        case "todo":
+            list[taskCount] = new Todo(taskName);
+            break;
+        case "deadline":
+            list[taskCount] = new Deadline(taskName, details);
+            break;
+        case "event":
+            list[taskCount] = new Event(taskName, details);
+            break;
+        }
+
         taskCount++;
+        String plural = (taskCount - taskCompleted) == 1 ? "" : "s";
         printLine();
-        System.out.println("      added: " + userInput);
+        System.out.println("      Fine. Added to your list:");
+        System.out.println("      " + list[taskCount - 1]);
+        System.out.println("      You have " + (taskCount - taskCompleted) + " pending task" + plural + ". aWeSoMe!!1!1!!");
         printLine();
     }
 
@@ -77,13 +94,14 @@ public class Duke {
     public static void crossOutTask(int taskNumber) {
         printLine();
         if (taskNumber < 0 || taskNumber >= taskCount) {
-            System.out.println("      Task does not exist :P");
+            System.out.println("      Wha- Hey! Task does not exist!");
         } else if (list[taskNumber].isDone) {
-            System.out.println("      Task has already been done.");
+            System.out.println("      Dude... the task has already been done.");
         } else {
+            taskCompleted++;
             list[taskNumber].isDone = true;
-            System.out.println("      Nice! I've marked this task as done:");
-            System.out.println("        [" + list[taskNumber].getStatusIcon() + "] " + list[taskNumber].description);
+            System.out.println("      I've marked this task as done:");
+            System.out.println("        [" + list[taskNumber].getStatusIcon() + "]" + list[taskNumber].description);
         }
         printLine();
     }
@@ -93,20 +111,28 @@ public class Duke {
      */
     public static void engageUser() {
         Scanner text = new Scanner(System.in);
+        String taskType;
         String userInput;
-        String taskNumber = "100";
+        String[] parts;
+
+        String taskName = "";
+        String details = "";
+        boolean isUsing = true;
 
         do {
-            userInput = text.next();
 
-            if (userInput.equals("done")) {
-                taskNumber = text.next();
-            } else {
-                userInput = userInput + text.nextLine();
-            }
+            taskType = text.next();
 
-            switch (userInput) {
+            switch (taskType) {
             case "bye":
+                isUsing = false;
+                break;
+            case "hello":
+            case "hi":
+            case "yo":
+                printLine();
+                System.out.println("      I'm a todo list bot. Stop chatting with me...");
+                printLine();
                 break;
             case "list":
                 printLine();
@@ -114,11 +140,34 @@ public class Duke {
                 printLine();
                 break;
             case "done":
-                crossOutTask(Integer.parseInt(taskNumber) - 1);
+                userInput = text.next();
+                crossOutTask(Integer.parseInt(userInput) - 1);
+                break;
+            case "todo":
+                taskName = text.nextLine();
+                addTask(taskName, taskType, details);
+                break;
+            case "deadline":
+                userInput = text.nextLine();
+                parts = userInput.split(" /by ");
+                taskName = parts[0];
+                details = parts[1];
+
+                addTask(taskName, taskType, details);
+                break;
+            case "event":
+                userInput = text.nextLine();
+                parts = userInput.split(" /at ");
+                taskName = parts[0];
+                details = parts[1];
+
+                addTask(taskName, taskType, details);
                 break;
             default:
-                addTask(userInput);
+                printLine();
+                System.out.println("      You forgot to input the type of task... again.");
+                printLine();
             }
-        } while (!userInput.equals("bye"));
+        } while (isUsing);
     }
 }
