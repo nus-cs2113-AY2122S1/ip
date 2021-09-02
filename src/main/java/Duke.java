@@ -39,7 +39,7 @@ public class Duke {
     /**
      * Print the welcome message and the ASCII art when the program starts
      */
-    public static void printWelcomeMessage(){
+    public static void printWelcomeMessage() {
         System.out.println("   __          ________ _      _____ ____  __  __ ______    ");
         System.out.println("   \\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____|  ");
         System.out.println("    \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__     ");
@@ -59,6 +59,7 @@ public class Duke {
      * Show the current version's functionality of the bot
      */
     private static void printVersionDescription() {
+        //Uses list to store all the version information
         List<String> versionDescriptions = new ArrayList<String>();
         int maxDescriptionsLength = 0;
         versionDescriptions.add("* " + CURR_VERSION);
@@ -69,60 +70,63 @@ public class Duke {
         versionDescriptions.add("* You can type \"list\" or \"ls\" to list all the tasks that are waiting to do");
         versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
         versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
-        for (String str : versionDescriptions){
-            if (str.length() > maxDescriptionsLength){
+        //Finds the length of the longest description to align all '*' displayed
+        for (String str : versionDescriptions) {
+            if (str.length() > maxDescriptionsLength) {
                 maxDescriptionsLength = str.length();
             }
         }
-        for (int i = 0; i < maxDescriptionsLength + 2; i++){
+        //Draws the frame for the version description
+        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
             System.out.print("-");
         }
         System.out.println();
-        for (String str: versionDescriptions){
-            System.out.printf("%1$-" + (maxDescriptionsLength+1) + "s", str);
+        for (String str : versionDescriptions) {
+            //Uses format string to print the '*' at the correct position after each sentence is completed
+            System.out.printf("%1$-" + (maxDescriptionsLength + 1) + "s", str);
             System.out.println("*");
         }
-        for (int i = 0; i < maxDescriptionsLength + 2; i++){
+        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
             System.out.print("-");
         }
     }
 
     public static void main(String[] args) {
-        //print all the welcome screens
+        //Prints all the welcome screens
         printLogo();
         printWelcomeMessage();
         printVersionDescription();
         System.out.println("\nLet's start:");
         Task[] tasks = new Task[MAX_TASKS];
-        readCommand(tasks);
+        while (true) {
+            readCommand(tasks);
+        }
     }
 
     /**
-     * Continuously read the input command typed by the user, unless the exit command is sent
+     * Reads the input command entered by the user and handles each command
      *
      * @param tasks The array to store all the tasks required
      */
     private static void readCommand(Task[] tasks) {
-        while (true) {
-            String command = in.nextLine().trim();
-            String[] words = command.split(" ");
-            if (isCommandEmpty(command)) {
-                System.out.println("\t(Empty) <- will not save to the list");
-            } else if (isCommandViewPersonality(command)) {
-                printPersonality();
-            } else if (isCommandExit(command)) {
-                showMessage("Bye! Hope to see you again :D");
-                System.exit(0);
+        String command = in.nextLine().trim();
+        String[] words = command.split(" ");
+        if (isCommandEmpty(command)) {
+            System.out.println("\t(Empty) <- will not save to the list");
+        } else if (isCommandViewPersonality(command)) {
+            printPersonality();
+        } else if (isCommandExit(command)) {
+            showMessage("Bye! Hope to see you again :D");
+            System.exit(0);
+        } else {
+            if (isCommandList(command)) {
+                printToDoList(tasks, Task.totalTask, longestTaskDescription);
+            } else if (isCommandDone(words[0])) {
+                handleTaskDone(tasks, words);
+            } else if (isCommandAddTask(words[0])) {
+                addTask(tasks, command, words);
             } else {
-                if (isCommandList(command)) {
-                    printToDoList(tasks, Task.totalTask, longestTaskDescription);
-                } else if (isCommandDone(words[0])) {
-                    handleTaskDone(tasks, words);
-                } else if (isCommandAddTask(words[0])){
-                    addTask(tasks, command, words);
-                } else{
-                    showMessage("Sorry, the command is invalid :(");
-                }
+                showMessage("Sorry, the command is invalid :(");
             }
         }
     }
@@ -140,14 +144,14 @@ public class Duke {
     /**
      * Performs the add task action
      *
-     * @param tasks The array that stores all the tasks
+     * @param tasks   The array that stores all the tasks
      * @param command The input command typed by the user
-     * @param words The array of words that compose the input command
+     * @param words   The array of words that compose the input command
      */
     private static void addTask(Task[] tasks, String command, String[] words) {
         if (isCorrectToDo(tasks, command, words) || isCorrectDeadline(tasks, command, words) || isCorrectEvent(tasks, command, words)) {
             showMessage(" Class type [" + tasks[Task.totalTask].getClassType() + "] \"" + tasks[Task.totalTask] + "\" has been added to the list!"
-                    + " (" + (Task.totalTask+1) + " tasks in total)");
+                    + " (" + (Task.totalTask + 1) + " tasks in total)");
             Task.totalTask++;
         }
     }
@@ -155,13 +159,13 @@ public class Duke {
     /**
      * Checks the syntax for the command to create a new task, and add to the to-do list if the syntax is correct
      *
-     * @param tasks The array that stores all the tasks
+     * @param tasks   The array that stores all the tasks
      * @param command The input command typed by the user
-     * @param words The array of words that compose the input command
-     * @return Returns true if an instance of the subclass is created and saved in the to-do list
+     * @param words   The array of words that compose the input command
+     * @return Returns true if an instance of the subclass is created and successfully stored in the to-do list
      */
     private static boolean isCorrectToDo(Task[] tasks, String command, String[] words) {
-        if (!words[0].equalsIgnoreCase("TODO")){
+        if (!words[0].equalsIgnoreCase("TODO")) {
             return false;
         }
         if (words.length == 1) {
@@ -178,26 +182,26 @@ public class Duke {
     /**
      * Checks the syntax for the command to create an 'Event' instance, and add to the to-do list if the syntax is correct
      *
-     * @param tasks The array that stores all the tasks
+     * @param tasks   The array that stores all the tasks
      * @param command The input command typed by the user
-     * @param words The array of words that compose the input command
-     * @return Returns true if an instance of the subclass Event is created and saved in the to-do list
+     * @param words   The array of words that compose the input command
+     * @return Returns true if an instance of the subclass Event is created and successfully stored in the to-do list
      */
     private static boolean isCorrectEvent(Task[] tasks, String command, String[] words) {
-        if (!words[0].equalsIgnoreCase("EVENT")){
+        if (!words[0].equalsIgnoreCase("EVENT")) {
             return false;
         }
         command = command.replaceFirst(words[0], "").trim();
         String time = command.substring(command.indexOf('/') + 1).trim();
-        if (time.toLowerCase().startsWith("at")){
-            time = time.replaceFirst("(?i)at","").trim();
+        if (time.toLowerCase().startsWith("at")) {
+            time = time.replaceFirst("(?i)at", "").trim();
         }
         String taskName = command.split("/", 2)[0].trim();
         if (words.length == 1 || taskName.isEmpty()) {
             showMessage("Sorry, the task is empty!");
             return false;
         }
-        if (time.isEmpty()){
+        if (time.isEmpty()) {
             showMessage("Sorry, the date and period for the task \"" + taskName + "\" is missing!");
             return false;
         }
@@ -219,26 +223,26 @@ public class Duke {
     /**
      * Checks the syntax for the command to create an 'Deadline' instance, and add to the to-do list if the syntax is correct
      *
-     * @param tasks The array that stores all the tasks
+     * @param tasks   The array that stores all the tasks
      * @param command The input command typed by the user
-     * @param words The array of words that compose the input command
-     * @return Returns true if the subclass Deadline is created and saved in the to-do list
+     * @param words   The array of words that compose the input command
+     * @return Returns true if the subclass Deadline is created and successfully stored in the to-do list
      */
     private static boolean isCorrectDeadline(Task[] tasks, String command, String[] words) {
-        if (!words[0].equalsIgnoreCase("DEADLINE")){
+        if (!words[0].equalsIgnoreCase("DEADLINE")) {
             return false;
         }
         command = command.replaceFirst(words[0], "").trim();
         String time = command.substring(command.indexOf('/') + 1).trim();
-        if (time.toLowerCase().startsWith("by")){
-            time = time.replaceFirst("(?i)by","").trim();
+        if (time.toLowerCase().startsWith("by")) {
+            time = time.replaceFirst("(?i)by", "").trim();
         }
         String taskName = command.split("/", 2)[0].trim();
         if (words.length == 1 || taskName.isEmpty()) {
             showMessage("Sorry, the task is empty!");
             return false;
         }
-        if (time.isEmpty()){
+        if (time.isEmpty()) {
             showMessage("Sorry, the deadline for the task \"" + taskName + "\" is missing!");
             return false;
         }
@@ -311,7 +315,7 @@ public class Duke {
      */
     private static void handleTaskDone(Task[] tasks, String[] words) {
         try {
-            if (words.length == 1){
+            if (words.length == 1) {
                 showMessage("Sorry, the input task number is missing, please try again! :(");
             }
             for (int i = 1; i < words.length; i++) {
@@ -329,7 +333,7 @@ public class Duke {
     }
 
     /**
-     * Show the formatted message string
+     * Shows the formatted message string
      *
      * @param message The message to print
      */
@@ -348,9 +352,9 @@ public class Duke {
     }
 
     /**
-     * Show the message to indicate that the task is marked as done
+     * Shows the message to indicate that the task is marked as done
      *
-     * @param tasks The array which stores all the tasks
+     * @param tasks      The array which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
     private static void showTaskDoneMessage(Task[] tasks, int taskNumber) {
@@ -364,7 +368,7 @@ public class Duke {
     }
 
     /**
-     * Print the to-do list with frames
+     * Prints the to-do list with frames
      *
      * @param tasks     the array of class Task instance which stores all the tasks added by the user
      * @param stopIndex the last index of the array that is not null
@@ -387,9 +391,9 @@ public class Duke {
         //print task
         for (int i = 0; i < stopIndex; i++) {
             if (tasks[i].getDone()) {
-                System.out.print("\t| [" + tasks[i].getClassType() +"][X] " + (i + 1) + ". " + tasks[i]);
+                System.out.print("\t| [" + tasks[i].getClassType() + "][X] " + (i + 1) + ". " + tasks[i]);
             } else {
-                System.out.print("\t| [" + tasks[i].getClassType() +"][ ] " + (i + 1) + ". " + tasks[i]);
+                System.out.print("\t| [" + tasks[i].getClassType() + "][ ] " + (i + 1) + ". " + tasks[i]);
             }
             for (int j = 0; j < maxLength + "| [ ][ ] 100. ".length() - ("| [ ][ ] " + (i + 1) + ". " + tasks[i].toString()).length() + 1; j++) {
                 System.out.print(" ");
@@ -407,7 +411,7 @@ public class Duke {
     }
 
     /**
-     * Print the ASCII art image of the robot and the description of the personality of the robot
+     * Prints the ASCII art image of the robot and the description of the personality of the robot
      */
     public static void printPersonality() {
         Random random = new Random();
@@ -432,10 +436,5 @@ public class Duke {
         System.out.println("**                                                                                                                   **");
         System.out.println("***********************************************************************************************************************");
     }
-    /*
-    /-----\
-    |     |
-    \_____/
-     */
 }
 
