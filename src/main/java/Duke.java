@@ -54,9 +54,10 @@ public class Duke {
         commands[index].taskType = getTask(command,index);
         System.out.println("Got it. I've added this task: \n" +
                 "\t[" + commands[index].taskType + "]" + "[ ] " +
-                commands[index].description);
-        System.out.println("Now you have " + (index+1) + (index == 0?" task":" tasks") + " in the list.");
-    }
+                commands[index].description + "\n" +
+                "Now you have " + (index+1) + (index == 0?" task":" tasks") + " in the list."
+                );
+        }
 
     public static void list() {
         System.out.println("Here are the tasks in your list:\n");
