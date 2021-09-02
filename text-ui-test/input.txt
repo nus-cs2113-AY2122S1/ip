@@ -1,0 +1,8 @@
+event to do /at c
+deadline 1 2 /by c
+todo ccc
+deadline c
+list
+done 1
+list
+bye

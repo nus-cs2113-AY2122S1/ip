@@ -29,7 +29,7 @@ public class Duke {
                 j++;
                 printTask(t, j);
             }else if(str.contains("deadline")) {
-                if(str.contains("/by")){
+                if(!str.contains("/by")){
                     printString("bad format");
                 }else {
                     String time = str.substring(str.indexOf("/") + 3, str.length());
