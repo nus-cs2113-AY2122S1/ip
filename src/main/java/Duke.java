@@ -1,9 +1,10 @@
-import java.security.Key;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
 
     private static int taskCount = 0;
+    private static int numOfTasks = 0;
     private static Task[] tasks = new Task[100];
 
     public static void greeting() {
@@ -18,22 +19,39 @@ public class Duke {
         System.out.println("_____________________________________________________");
     }
 
-    public static void echoMessage(String arg) {
-        if (!arg.equals("bye")) {
-            System.out.println("_____________________________________________________");
-            System.out.println(arg);
-            System.out.println("_____________________________________________________");
-        }
-    }
-
     public static void printDone(Task arg) {
         System.out.println("You have marked item " + arg.description + " as done:");
         System.out.println(arg.getStatusIcon() + " " + arg.description);
     }
 
-    public static int findTaskNum(String arg) {
+    public static int getTaskNum(String arg) {
         String[] words = arg.trim().split("[\\s]+");
         return Integer.parseInt(words[1]);
+    }
+
+    public static String getQueryDescription(String query) {
+        try {
+            String[] words = query.trim().split("[\\s]+");
+            String[] allButFirstWord = Arrays.copyOfRange(words, 1, words.length);
+            StringBuilder sentenceAfterDeletion = new StringBuilder();
+            for (String word : allButFirstWord) {
+                sentenceAfterDeletion.append(word).append(" ");
+            }
+            return sentenceAfterDeletion.toString();
+        } catch (Exception StringIndexOutOfBoundsException) {
+            System.out.println("It's [deadline <taskname here> /by <date here>], sir.");
+            return "";
+        }
+    }
+
+    public static String getDate(String query) {
+        try {
+            int datePosition = query.indexOf("/") + 3;
+            return query.substring(datePosition).trim();
+        } catch (Exception StringIndexOutOfBoundsException) {
+            System.out.println("You did not key in any date for your event or deadline.");
+            return "";
+        }
     }
 
     public static void printList(Task[] tasks) {
@@ -42,7 +60,7 @@ public class Duke {
         for (Task item : tasks) {
             if (tasks[count] != null) {
                 count++;
-                System.out.println(count + ". " + item.getStatusIcon() + " " + item.description);
+                System.out.println(count + ". " + item);
             }
         }
     }
@@ -56,19 +74,19 @@ public class Duke {
     }
 
     public static boolean hasTodoKeyword(String arg) {
-        return arg.trim().toLowerCase().matches("^todo+\\s+[A-Za-z]+$");
+        return arg.trim().toLowerCase().contains("todo");
     }
 
     public static boolean hasDeadlineKeyword(String arg) {
-        return arg.trim().toLowerCase().matches("^deadline+\\s+[A-Za-z]+$");
+        return arg.trim().toLowerCase().contains("deadline");
     }
 
     public static boolean hasEventKeyword(String arg) {
-        return arg.trim().toLowerCase().matches("^event+\\s+[A-Za-z]+$");
+        return arg.trim().toLowerCase().contains("event");
     }
 
     public static Keyword getKeywordStatus(String query) {
-        Keyword keyword = null;
+        Keyword keyword;
         if (hasDoneKeyword(query)) {
             keyword = Keyword.DONE_TASK;
         } else if (hasTodoKeyword(query)) {
@@ -79,8 +97,10 @@ public class Duke {
             keyword = Keyword.EVENT_TASK;
         } else if (hasListKeyword(query)) {
             keyword = Keyword.LIST_ITEMS;
+        } else if (query.trim().equals("bye")) {
+            keyword = Keyword.GOODBYE_KEYWORD;
         } else {
-            System.out.println("There is no keyword...");
+            keyword = Keyword.NO_KEYWORD;
         }
         return keyword;
     }
@@ -96,47 +116,54 @@ public class Duke {
             }
             addTask(query);
         }
-        goodbyeMessage();
     }
 
     public static void addTask(String query) {
-        //        tasks[taskCount] = task;
-        //        taskCount++;
-
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
         Keyword keyword = getKeywordStatus(query);
         switch (keyword) {
         case DONE_TASK:
-            int taskNumber = findTaskNum(query);
+            int taskNumber = getTaskNum(query);
             tasks[taskNumber - 1].markAsDone();
             printDone(tasks[taskNumber - 1]);
+            numOfTasks--;
+            System.out.println("Total items in your list: " + numOfTasks);
             break;
         case TODO_TASK:
             tasks[taskCount] = new Todo(query);
             taskCount++;
+            numOfTasks++;
+            System.out.println("Added a Todo Task: " + getQueryDescription(query));
+            System.out.println("Total items in your list: " + numOfTasks);
             break;
         case EVENT_TASK:
-            tasks[taskCount] = new Event(query);
+            tasks[taskCount] = new Event(getQueryDescription(query), getDate(query));
             taskCount++;
+            numOfTasks++;
+            System.out.println("Added an Event Task: " + getQueryDescription(query));
+            System.out.println("Total items in your list: " + numOfTasks);
             break;
         case DEADLINE_TASK:
-            tasks[taskCount] = new Deadline(query);
+            tasks[taskCount] = new Deadline(getQueryDescription(query), getDate(query));
             taskCount++;
+            numOfTasks++;
+            System.out.println("Added a Todo Task: " + getQueryDescription(query));
+            System.out.println("Total items in your list: " + numOfTasks);
             break;
         case LIST_ITEMS:
             printList(tasks);
+            break;
+        case NO_KEYWORD:
+            System.out.println("⣿⣿⣿⣿⣿ You have to input <todo>, <deadline> or <event> first! ⣿⣿⣿⣿⣿");
+            waitForQuery();
+            break;
+        case GOODBYE_KEYWORD:
+            goodbyeMessage();
+            break;
         default:
         }
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
         String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
                 + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
                 + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
@@ -152,32 +179,6 @@ public class Duke {
         // print greeting message after logo
         greeting();
         waitForQuery();
-        //        int index = 0;
-
-        //        while (!query.equals("bye")) {
-        //            System.out.print("=>");
-        //            if (userInput.hasNextLine()) {
-        //                query = userInput.nextLine();
-        //            }
-        //            // prints out the same message that was given by user
-        //            // echoMessage(query);
-        //
-        //            if (query.equals("list")) {
-        //                // print out current list
-        //                printList(listOfStuff);
-        //            }
-        //            else if (hasDoneKeyword(query)) {
-        //                int taskNumber = findTaskNum(query);
-        //                listOfStuff[taskNumber - 1].markAsDone();
-        //                printDone(listOfStuff[taskNumber - 1]);
-        //            } else {
-        //            // stores the user's args in a list
-        //            listOfStuff[index] = new Task(query);
-        //            index++;
-        //            }
-
     }
-    // print end message
-    //        goodbyeMessage();
 }
 

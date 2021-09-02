@@ -6,16 +6,12 @@ public class Todo extends Task {
         super(description);
     }
 
-    public void setDone(boolean bool) {
-        isDone = bool;
-    }
-
     public boolean isDone() {
         return isDone;
     }
 
     @Override
     public String toString() {
-        return "[To do]" + getStatusIcon() + super.toString();
+        return "[  To do  ]" + getStatusIcon() + super.toString();
     }
 }
