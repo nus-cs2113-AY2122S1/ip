@@ -1,7 +1,57 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+     _______________________
+     Hello! I'm Duke
+     What can I do for you?
+     _______________________
+
+     _______________________
+     added: [D][ ] CS3230 Assignment (by: 3rd Sep)
+     _______________________
+
+     _______________________
+     1. [D][ ] CS3230 Assignment (by: 3rd Sep)
+     _______________________
+
+     _______________________
+     Nice! I've marked this task as done: 
+     [D][X] CS3230 Assignment (by: 3rd Sep)
+     _______________________
+
+     _______________________
+     added: [D][ ] todo CS2113T Coursemology 
+     _______________________
+
+     _______________________
+     1. [D][X] CS3230 Assignment (by: 3rd Sep)
+     2. [D][ ] todo CS2113T Coursemology 
+     _______________________
+
+     _______________________
+     Nice! I've marked this task as done: 
+     [D][X] todo CS2113T Coursemology 
+     _______________________
+
+     _______________________
+     added: [E][ ] CS2101 Team Meeting (at: 2nd Sep)
+     _______________________
+
+     _______________________
+     1. [D][X] CS3230 Assignment (by: 3rd Sep)
+     2. [D][X] todo CS2113T Coursemology 
+     3. [E][ ] CS2101 Team Meeting (at: 2nd Sep)
+     _______________________
+
+     _______________________
+     Nice! I've marked this task as done: 
+     [E][X] CS2101 Team Meeting (at: 2nd Sep)
+     _______________________
+
+     _______________________
+     1. [D][X] CS3230 Assignment (by: 3rd Sep)
+     2. [D][X] todo CS2113T Coursemology 
+     3. [E][X] CS2101 Team Meeting (at: 2nd Sep)
+     _______________________
+
+     _______________________
+     Bye. Hope to see you again soon!
+     _______________________
 

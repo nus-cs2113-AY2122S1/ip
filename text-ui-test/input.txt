@@ -1,0 +1,11 @@
+deadline CS3230 Assignment /by 3rd Sep
+list
+done 1
+todo CS2113T Coursemology 
+list
+done 2
+event CS2101 Team Meeting /at 2nd Sep
+list
+done 3
+list
+bye
