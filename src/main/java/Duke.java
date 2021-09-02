@@ -1,8 +1,6 @@
-
 public class Duke {
 
     //TODO Abstract repeated functions
-    // bugs: should use startswith for command messages?? or how to extract the command keyword?
 
     public static void main(String[] args) {
         welcomeMessage();

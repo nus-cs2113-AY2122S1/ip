@@ -18,10 +18,9 @@ public class CommandManager {
     public static void executeCommand() {
 
         TaskManager taskManager = new TaskManager();
-        setUserInput();
 
-
-        while (!userInput.equals(COMMAND_BYE)) {
+        do {
+            setUserInput();
             Duke.printDivider();
 
             if (userInput.equals(COMMAND_LIST)) {
@@ -40,18 +39,20 @@ public class CommandManager {
             } else if (userInput.startsWith(COMMAND_DONE)) {
                 taskManager.doneTask(userInput);
 
-            } else {
+            } else if (userInput.equals(COMMAND_BYE)) {
+                Duke.printlnTab("Bye. Hope to see you again soon!");
+                Duke.printDivider();
+                return;
+
+            } else { //Invalid inputs
                 Duke.printlnTab("Invalid Input. Please try again!");
                 Duke.printDivider();
 
             }
-            //help function also
+            //TODO help function also
 
-            setUserInput();
-        }
+        } while (true);
 
-        Duke.printlnTab("Bye. Hope to see you again soon!");
-        Duke.printDivider();
     }
 
 
