@@ -2,11 +2,12 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected char taskType;
+
     /**
      * Constructor of Task object.
      *
      * @param description Task name of Task.
-     * @param taskType T:todo D:deadline E:event
+     * @param taskType    T:todo D:deadline E:event
      */
     public Task(String description, char taskType) {
         this.description = description;
@@ -25,10 +26,10 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("    ____________________________________________________________");
+        Greet.printLineOnConsole();
         System.out.println("     Nice! I've marked this task as done: ");
         System.out.println("     " + "[" + this.taskType + "][X] " + this.description);
-        System.out.println("    ____________________________________________________________");
+        Greet.printLineOnConsole();
     }
 
     /**
