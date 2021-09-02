@@ -1,5 +1,5 @@
 
-import java.util.Locale;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -26,12 +26,7 @@ public class Duke {
         while(!userInput.equals("bye")){
             if(userInput.equals("echo")){
                 echo(userInput);
-            }
-
-            /* Add the task into the list
-
-             */
-            else if(userInput.substring(0,3).equals("add")){
+            } else if(userInput.substring(0,3).equals("add")){  // Add the task into the list
                 command = userInput.substring(4);
                 task = new Task(command);
                 list[listLength] = task;
@@ -39,21 +34,11 @@ public class Duke {
                 System.out.println("added:" + " " + command);
                 System.out.println(SEPARATOR);
                 listLength++;
-            }
-
-            /* Show the list to user which contains indicators to indicate
-            that whether this task is done or have a deadline or is an event with given time
-             */
-            else if(userInput.equals("list")){
+            } else if(userInput.equals("list")){      /* Show the list to user which contains indicators to indicate that whether this task is done or have a deadline or is an event with given time */
                 System.out.println(SEPARATOR);
                 printList(list,listLength);
                 System.out.println(SEPARATOR);
-            }
-
-            /* Mark the task that needs to be done as done in list
-
-             */
-            else if(userInput.substring(0,4).equals("done")){
+            } else if(userInput.substring(0,4).equals("done")){   // Mark the task that needs to be done as done in list
                 int listNumber;
                 listNumber = Integer.parseInt(userInput.substring(5))-1;
                 list[listNumber].taskDone();
@@ -61,13 +46,7 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(list[listNumber].toString());
                 System.out.println(SEPARATOR);
-
-            }
-
-            /* Create a Todo object and add it into the task list
-              */
-
-            else if(userInput.substring(0,4).equals("todo")){
+            } else if(userInput.substring(0,4).equals("todo")){ // Create a Todo object and add it into the task list
                 int currentTaskIndex = listLength;
                 command = userInput.substring(5);
                 Todo todo = new Todo(command);
@@ -80,13 +59,7 @@ public class Duke {
                 System.out.println("Now you have" + " "+ taskNumber + " tasks in the list.");
                 System.out.println(SEPARATOR);
                 listLength++;
-            }
-
-            /* Create a deadline object and add it into the task list
-
-             */
-
-            else if(userInput.substring(0,8).equals("deadline")){
+            } else if(userInput.substring(0,8).equals("deadline")){  // Create a deadline object and add it into the task list
                 int currentTaskIndex = listLength;
                 int slashIndex = userInput.indexOf("/");
                 int slashByIndex = userInput.indexOf("/by");
@@ -100,13 +73,7 @@ public class Duke {
                 System.out.println("Now you have " + listLength + " tasks in the list");
                 System.out.println(SEPARATOR);
 
-            }
-
-            /* Create an event object and add it into the task list
-
-             */
-
-            else if(userInput.substring(0,5).equals("event")){
+            } else if(userInput.substring(0,5).equals("event")){  // Create an event object and add it into the task list
                 int currentTaskIndex = listLength;
                 int slashIndex = userInput.indexOf("/");
                 int slashAtIndex = userInput.indexOf("/at");
