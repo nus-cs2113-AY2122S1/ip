@@ -15,4 +15,7 @@ public class Task {
         this.isDone = true;
     }
 
+    public String toString() {
+        return description;
+    }
 }
