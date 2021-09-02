@@ -8,7 +8,7 @@ public class Duke {
     protected Scanner in;
 
     public static void printAdded(Task task, int count){
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         task.printTask();
         System.out.println("Now you have " + count + " tasks in the list.");
     }
@@ -44,7 +44,7 @@ public class Duke {
                 for (Task task : list) {
                     if (task.index == index) {
                         task.markAsDone();
-                        System.out.println("Nice! I've marked this task as done: ");
+                        System.out.println("Nice! I've marked this task as done:");
                         System.out.println("[" + task.getStatusIcon() + "] " + task.description);
                         break;
                     } else if (task.index == count) {
@@ -78,8 +78,8 @@ public class Duke {
     }
 
     public void run(){
-        System.out.println(" Hello! I'm Duke");
-        System.out.println(" What can I do for you?");
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
         in = new Scanner(System.in);
         String input = in.nextLine();
         while(true){

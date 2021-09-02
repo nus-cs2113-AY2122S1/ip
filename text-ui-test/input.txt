@@ -1,0 +1,7 @@
+todo homework
+todo sleep
+deadline fireworks /at 2300
+event toilet /by 11am
+done 4
+list
+bye
