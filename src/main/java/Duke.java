@@ -2,13 +2,12 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-
 
         System.out.println("Hello from\n" + logo);
         System.out.println("    _____________________________________________________________");
@@ -20,7 +19,18 @@ public class Duke {
         System.out.println("        3. Add a new Event by typing \"event {content of your event} /at {date of event}\".");
         System.out.println("        4. Mark a task as done by typing in \"done\" and the index of the task on the list.");
         System.out.println("        5. Check all the tasks you have added by typing in \"list\". Done tasks will be marked with an X.");
+        System.out.println("        6. End the program by typing in \"bye\".");
         System.out.println("    _____________________________________________________________");
+    }
+
+    public static void printByeMessage() {
+        System.out.println("    _____________________________________________________________");
+        System.out.println("    Bye. Hope to see you again soon!");
+        System.out.println("    _____________________________________________________________");
+    }
+
+    public static void main(String[] args) {
+        printWelcomeMessage();
 
         String line;
 
@@ -41,9 +51,6 @@ public class Duke {
             line = in.nextLine();
         }
 
-        System.out.println("    _____________________________________________________________");
-        System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    _____________________________________________________________");
-
+        printByeMessage();
     }
 }

@@ -1,12 +1,12 @@
 public class Task {
 
-    private String taskDetails;
+    private String description;
     private static int numberOfTasks = 0;
     private boolean isDone;
 
-    public Task(String taskDetails) {
+    public Task(String description) {
         isDone = false;
-        setTaskDetails(taskDetails);
+        setDescription(description);
     }
 
     public String getStatusIcon() {
@@ -15,11 +15,11 @@ public class Task {
 
 
     public String toString() {
-        return getStatusIcon() + " " + getTaskDetails();
+        return getStatusIcon() + " " + getDescription();
     }
 
-    public void setTaskDetails(String taskDetails) {
-        this.taskDetails = taskDetails;
+    public void setDescription(String description) {
+        this.description = description;
         numberOfTasks++;
     }
 
@@ -31,8 +31,8 @@ public class Task {
         isDone = true;
     }
 
-    public String getTaskDetails() {
-        return taskDetails;
+    public String getDescription() {
+        return description;
     }
 
     public static int getNumberOfTasks() {
