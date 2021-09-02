@@ -1,5 +1,8 @@
 public class TaskManager {
     private static final int MAX_TASKS = 100;
+
+    //These indexes are the start index os the string which has
+    //the unnecessary part removed
     private static final int TODO_START_INDEX = 4;
     private static final int DEADLINE_START_INDEX = 8;
     private static final int EVENT_START_INDEX = 5;
@@ -7,21 +10,28 @@ public class TaskManager {
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int TASK_DATE_INDEX = 1;
 
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static final Task[] tasks = new Task[MAX_TASKS];
     private static int tasksIndex = 0; //index of task in tasks array
 
     void listTasks() {
-        Duke.printlnTab("Here are the tasks in your list:");
+        if (tasksIndex == 0) {
+            Duke.printlnTab("You have no task in your list!");
 
-        //listing out tasks if userInput == "list"
-        for (int i = 0; i < tasksIndex; i++) {
-            Duke.printlnTab(String.format("%d.%s", (i + 1), tasks[i]));
+        } else {
+            Duke.printlnTab("Here are the tasks in your list:");
+
+            //listing out tasks if userInput == "list"
+            //tasks[] start with index 0
+            //but printing out tasks starts with index 1
+            for (int i = 0; i < tasksIndex; i++) {
+                Duke.printlnTab(String.format("%d.%s", (i + 1), tasks[i]));
+            }
         }
     }
 
 
     void addTask(TaskEnum taskType, String userInput) {
-        String strippedUserInput; // userInput but without the first task keyword "todo" "event" "deadline
+        String strippedUserInput; // userInput but without the first taskType keyword "todo" "event" "deadline
 
         switch (taskType) {
         case TODO:
@@ -29,6 +39,7 @@ public class TaskManager {
             tasks[tasksIndex] = new Todo(strippedUserInput);
             addTaskSuccess();
             return;
+
         case DEADLINE:
             if (userInput.contains("/b")) {
                 strippedUserInput = userInput.substring(DEADLINE_START_INDEX).stripLeading(); // strip "deadline" from userInput
@@ -46,6 +57,7 @@ public class TaskManager {
                 }
             }
             break;
+            
         case EVENT:
             if (userInput.contains("/a")) {
                 strippedUserInput = userInput.substring(EVENT_START_INDEX).stripLeading(); // strip event
@@ -66,7 +78,12 @@ public class TaskManager {
     void addTaskSuccess() {
         Duke.printlnTab("Got it. I've added this task:");
         Duke.printlnTab(" " + tasks[tasksIndex]);
-        Duke.printlnTab(String.format("Now you have %d tasks", tasksIndex + 1)); // need case for odd
+        if (tasksIndex == 0) {
+            Duke.printlnTab("Now you have 1 task");
+
+        } else {
+            Duke.printlnTab(String.format("Now you have %d tasks", tasksIndex + 1));
+        }
         Duke.printDivider();
         tasksIndex++;
     }
@@ -100,7 +117,6 @@ public class TaskManager {
         } catch (Exception e) {
             Duke.printlnTab("Task number is out of bounds. Please try again!");
             Duke.printDivider();
-            return;
         }
 
 
