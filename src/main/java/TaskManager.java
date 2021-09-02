@@ -16,7 +16,7 @@ public class TaskManager {
         for (int i = 0; i < taskNo; ++i) {
             Task task = tasks[i];
 
-            System.out.printf("%d. [%s] %s\n", i + 1, task.getStatusIcon(), task.getName());
+            System.out.printf("%d. %s\n", i + 1, task);
         }
     }
 
