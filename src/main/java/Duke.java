@@ -20,7 +20,7 @@ public class Duke {
     }
 
     //Program exits with this ending
-    public static void bye() {
+    public static void sayBye() {
         System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);
         System.exit(0);
     }
@@ -34,7 +34,7 @@ public class Duke {
     }
 
     //Lists out all tasks stored and their statuses
-    public static void list() {
+    public static void sayList() {
         System.out.println(line);
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + t[i].toString()+ "\n");
@@ -42,7 +42,7 @@ public class Duke {
     }
 
     //Marks a stored task as done
-    public static void taskDone(String input) {
+    public static void sayDone(String input) {
         String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
         int finalTaskNumber = Integer.parseInt(taskNumber) - 1;
         t[finalTaskNumber].markAsDone();
@@ -51,7 +51,7 @@ public class Duke {
     }
 
     //Adds a new todo task and prints it                                       //todo borrow book
-    public static void todo(String input) {
+    public static void sayTodo(String input) {
         int endIndex = input.length();
         String taskName = input.substring(5, endIndex);
         t[taskCount] = new Todo(taskName);
@@ -63,7 +63,7 @@ public class Duke {
     }
 
     //Adds a new deadline task and prints it
-    public static void deadline(String input) {                               //deadline return book /by Sunday
+    public static void sayDeadline(String input) {                               //deadline return book /by Sunday
         int endIndex = input.lastIndexOf("/");
         String taskName = input.substring(9, endIndex);
         int endIndex2 = input.length();
@@ -77,7 +77,7 @@ public class Duke {
     }
 
     //Adds a new event task and prints it
-    public static void event(String input) {                                 //event project meeting /at Mon 2-4pm
+    public static void sayEvent(String input) {                                 //event project meeting /at Mon 2-4pm
         int endIndex = input.lastIndexOf("/");
         String taskName = input.substring(6, endIndex);
         int endIndex2 = input.length();
@@ -94,20 +94,20 @@ public class Duke {
     public static void inputSort(String input) {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                list();
+                sayList();
                 System.out.println(line);
             } else if (input.contains("done")) {
-                taskDone(input);
+                sayDone(input);
             } else if (input.contains("todo")) {
-                todo(input);
+                sayTodo(input);
             } else if (input.contains("deadline")) {
-                deadline(input);
+                sayDeadline(input);
             } else if (input.contains("event")) {
-                event(input);
+                sayEvent(input);
             }
             userInput();
         }
-        bye();
+        sayBye();
     }
 
     //Main
