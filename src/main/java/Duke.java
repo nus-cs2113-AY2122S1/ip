@@ -22,7 +22,7 @@ public class Duke {
             }else if(str.equals("list")){
                 printList(Tasks, maxlength);
             }else if(str.contains("todo")) {
-                if(str.length() - 5 + 9> maxlength) maxlength = str.length() - 5 + 9;
+                if(str.length() - 5 + 9> maxlength) maxlength = str.length() - 5 + 9;//- length of "todo " + "1. [X][X]"
                 str = str.substring(5, str.length());
                 Todo t = new Todo(str);
                 addToList(t, Tasks, j);
@@ -33,7 +33,7 @@ public class Duke {
                     printString("bad format");
                 }else {
                     String time = str.substring(str.indexOf("/") + 3, str.length());
-                    if (str.length() - 9 + 11 > maxlength) maxlength = str.length() - 9 + 11;
+                    if (str.length() - 9 + 11 > maxlength) maxlength = str.length() - 9 + 11;//- length of "deadline " + "1. [X][X]" + "(xx:" + ")"
                     Deadline t = new Deadline(str.substring(9, str.indexOf("/") - 1), time);
                     addToList(t, Tasks, j);
                     j++;
@@ -144,7 +144,7 @@ public class Duke {
     public static void printTask(Task t, int num){
         String str = "Got it. I've added this task: ";
         String str2 = "Now you have " + num + " tasks in the list.";
-        int length = Math.max(t.getLength(), Math.max(str.length(), str2.length() - (int)Math.log10(num)));
+        int length = Math.max(t.getLength(), Math.max(str.length(), str2.length()));
         System.out.print("      ");
         for(int i = 0; i < length; i++) System.out.print("_");
         System.out.println("");
