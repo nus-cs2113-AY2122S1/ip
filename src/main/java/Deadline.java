@@ -9,7 +9,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[Deadline]" + getStatusIcon() + super.toString() + " (by: " + by + ")";
+        return "[Deadline]" + getStatusIcon() + " " + super.toString() + " (by: " + by + ")";
     }
 }
 

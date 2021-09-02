@@ -2,10 +2,14 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-
+    /** count tracker for number of tasks in array */
     private static int taskCount = 0;
-    private static int numOfTasks = 0;
-    private static Task[] tasks = new Task[100];
+
+    /** count tracker for number of uncompleted tasks in array */
+    private static int numOfUncompletedTasks = 0;
+
+    /** Array of tasks */
+    private static final Task[] tasks = new Task[100];
 
     public static void greeting() {
         System.out.println("_____________________________________________________");
@@ -24,45 +28,60 @@ public class Duke {
         System.out.println(arg.getStatusIcon() + " " + arg.description);
     }
 
+    /**
+     * Returns the list number which is assigned to the task.
+     *
+     * @param arg user input that contains word [done].
+     * @return task number.
+     */
     public static int getTaskNum(String arg) {
         String[] words = arg.trim().split("[\\s]+");
         return Integer.parseInt(words[1]);
     }
 
+    /**
+     * Returns the description of the task only, without the date or the keyword.
+     *
+     * @param query user raw data input.
+     * @return description of task.
+     */
     public static String getQueryDescription(String query) {
-        try {
-            String[] words = query.trim().split("[\\s]+");
-            String[] allButFirstWord = Arrays.copyOfRange(words, 1, words.length);
-            StringBuilder sentenceAfterDeletion = new StringBuilder();
-            for (String word : allButFirstWord) {
-                if (word.contains("/")) {
-                    break;
-                } else {
-                    sentenceAfterDeletion.append(word).append(" ");
-                }
-            }
-            return sentenceAfterDeletion.toString();
-        } catch (Exception StringIndexOutOfBoundsException) {
-            System.out.println("It's [deadline <taskname here> /by <date here>], sir.");
-            return "";
-        }
-    }
-
-    public static String getDate(String query) {
-        try {
-            int slashPosition = query.indexOf("/");
-            if (slashPosition == -1) {
-                return "";
+        String[] words = query.trim().split("[\\s]+");
+        String[] allButFirstWord = Arrays.copyOfRange(words, 1, words.length);
+        StringBuilder sentenceAfterDeletion = new StringBuilder();
+        for (String word : allButFirstWord) {
+            if (word.contains("/")) {
+                break;
             } else {
-                int datePosition = slashPosition + 3;
-                return query.substring(datePosition).trim();
+                sentenceAfterDeletion.append(word).append(" ");
             }
-        } catch (Exception StringIndexOutOfBoundsException) {
-            System.out.println("You did not key in any date for your event or deadline.");
+        }
+        return sentenceAfterDeletion.toString();
+    }
+
+    /**
+     * Returns date value for tasks which need a date input field.
+     * If user does not have proper date formatting, (i.e. '/by' or '/at') this function returns an empty string.
+     *
+     * @param query user raw data input.
+     * @return date value
+     */
+    public static String getDate(String query) {
+        int slashPosition = query.indexOf("/");
+        if (slashPosition == -1) {
             return "";
+        } else {
+            int datePosition = slashPosition + 3;
+            return query.substring(datePosition).trim();
         }
     }
 
+    /**
+     * Return void.
+     * Function is responsible for printing out the whole task list of the user.
+     *
+     * @param tasks list of tasks input by user
+     */
     public static void printList(Task[] tasks) {
         int count = 0;
         System.out.println("Here is your list:");
@@ -94,6 +113,12 @@ public class Duke {
         return arg.trim().toLowerCase().contains("event");
     }
 
+    /**
+     * Returns the required value for keyword which is the first word keyed in by user.
+     *
+     * @param query user raw data input.
+     * @return keyword value from Keyword enum class.
+     */
     public static Keyword getKeywordStatus(String query) {
         Keyword keyword;
         if (hasDoneKeyword(query)) {
@@ -127,7 +152,14 @@ public class Duke {
         }
     }
 
-    public static void addTask(String query) {
+    /**
+     * Returns void.
+     * Function is responsible for adding different Tasks to the task list.
+     *
+     * @param query user raw data input
+     * @throws NullPointerException if user keys in done [number] when there is no such task.
+     */
+    public static void addTask(String query) throws NullPointerException {
         Keyword keyword = getKeywordStatus(query);
         switch (keyword) {
         case DONE_TASK:
@@ -135,8 +167,8 @@ public class Duke {
                 int taskNumber = getTaskNum(query);
                 tasks[taskNumber - 1].markAsDone();
                 printDone(tasks[taskNumber - 1]);
-                numOfTasks--;
-                System.out.println("Total unchecked items in your list: " + numOfTasks);
+                numOfUncompletedTasks--;
+                System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
             } catch (Exception NullPointerException) {
                 System.out.println("There is no such task number...");
             }
@@ -144,9 +176,9 @@ public class Duke {
         case TODO_TASK:
             tasks[taskCount] = new Todo(getQueryDescription(query));
             taskCount++;
-            numOfTasks++;
+            numOfUncompletedTasks++;
             System.out.println("Added a Todo Task: " + getQueryDescription(query));
-            System.out.println("Total unchecked items in your list: " + numOfTasks);
+            System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
             break;
         case EVENT_TASK:
             if (getDate(query).equals("")) {
@@ -155,9 +187,9 @@ public class Duke {
             } else {
                 tasks[taskCount] = new Event(getQueryDescription(query), getDate(query));
                 taskCount++;
-                numOfTasks++;
+                numOfUncompletedTasks++;
                 System.out.println("Added an Event Task: " + getQueryDescription(query));
-                System.out.println("Total unchecked items in your list: " + numOfTasks);
+                System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
             }
             break;
         case DEADLINE_TASK:
@@ -167,9 +199,9 @@ public class Duke {
             } else {
                 tasks[taskCount] = new Deadline(getQueryDescription(query), getDate(query));
                 taskCount++;
-                numOfTasks++;
+                numOfUncompletedTasks++;
                 System.out.println("Added a Todo Task: " + getQueryDescription(query));
-                System.out.println("Total unchecked items in your list: " + numOfTasks);
+                System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
             }
             break;
         case LIST_ITEMS:
@@ -182,10 +214,12 @@ public class Duke {
         case GOODBYE_KEYWORD:
             goodbyeMessage();
             break;
-        default:
         }
     }
 
+    /**
+     * Main function
+     */
     public static void main(String[] args) {
         String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
                 + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
