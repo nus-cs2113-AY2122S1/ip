@@ -1,20 +1,20 @@
 public class Event extends Task{
-    protected String at;
+    protected String timing;
 
-    public Event(String description, String at) {
+    public Event(String description, String timing) {
         super(description);
-        this.at = at;
+        this.timing = timing;
     }
 
     public String getIcon() {
         return "[E]";
     }
-    public String getAt() {
-        return "(at:" + at + ")";
+    public String getTiming() {
+        return "(at:" + timing + ")";
     }
 
     @Override
     public String toString() {
-        return getIcon() + super.toString() + "(at:" + at + ")";
+        return getIcon() + super.toString() + getTiming();
     }
 }

@@ -100,16 +100,9 @@ public class TaskManager {
     public void list() {
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
-            if (t.getIcon().equals("[D]")) {
-                System.out.println("     " + (i + 1) + "." + t);
-            } else if (t.getIcon().equals("[E]")) {
-                System.out.println("     " + (i + 1) + "." + t);
-            } else {
-                System.out.println("     " + (i + 1) + "." + t);
-            }
+            System.out.println("     " + (i + 1) + "." + t);
         }
     }
-
 
 
     public String getDate(String description) {

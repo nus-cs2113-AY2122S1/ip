@@ -17,10 +17,7 @@ public class Task {
     public String getIcon() {
         return "";
     }
-    public String getBy() {
-        return "";
-    }
-    public String getAt() {
+    public String getTiming() {
         return "";
     }
 
