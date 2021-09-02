@@ -12,7 +12,7 @@ public class Duke {
         Task[] Task = new Task[100];
         String word;
         String date = "";
-        int Count = 0;
+        int count = 0;
 
         do {
             word = in.nextLine();
@@ -26,27 +26,27 @@ public class Duke {
 
             else if (!isBye(word) && !isList(word)) { //Task words
                 if (isTodo(words[0])) { //Todo task
-                    Task[Count] = new Todo(word);
-                    Count++;
+                    Task[count] = new Todo(word);
+                    count++;
                 }
                 else if (isDeadline(words[0])) { //Deadline task
                     date = word.substring(word.lastIndexOf("/") + 1);
-                    Task[Count] = new Deadline(word, date);
-                    Count++;
+                    Task[count] = new Deadline(word, date);
+                    count++;
                 }
 
                 else if (isEvent(words[0])) { //Event task
                     date = word.substring(word.lastIndexOf("/") + 1);
-                    Task[Count] = new Event(word, date);
-                    Count++;
+                    Task[count] = new Event(word, date);
+                    count++;
                 }
 
-                System.out.println(logo + "Added:\n" + Task[Count-1] + "\n" + "Now you have " + Count  + " tasks in the list.\n" + logo);
+                System.out.println(logo + "Added:\n" + Task[count-1] + "\n" + "Now you have " + count  + " tasks in the list.\n" + logo);
             }
 
             else if (isList(word)) { //List tasks
                 System.out.println(logo + "Here are the tasks in your list:");
-                for (int i = 0; i < Count; i++) {
+                for (int i = 0; i < count; i++) {
                     System.out.print(i + 1 + ". ");
                     System.out.println(Task[i]);
                 }
@@ -61,26 +61,26 @@ public class Duke {
     }
 
     public static boolean isBye(String word) {
-        return word.equals("Bye") || word.equals("bye");
+        return word.equalsIgnoreCase("bye");
     }
 
     public static boolean isList(String word) {
-        return word.equals("List") || word.equals("list");
+        return word.equalsIgnoreCase("list");
     }
 
     public static boolean isDone(String word) {
-        return word.equals("Done") || word.equals("done");
+        return word.equalsIgnoreCase("done");
     }
 
     public static boolean isTodo(String word) {
-        return word.equals("Todo") || word.equals("todo");
+        return word.equalsIgnoreCase("todo");
     }
 
     public static boolean isDeadline(String word) {
-        return word.equals("Deadline") || word.equals("deadline");
+        return word.equalsIgnoreCase("deadline");
     }
 
     public static boolean isEvent(String word) {
-        return word.equals("Event") || word.equals("event");
+        return word.equalsIgnoreCase("event");
     }
 }
