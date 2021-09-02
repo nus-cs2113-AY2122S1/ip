@@ -8,7 +8,7 @@ public class Duke {
 
     private static Task parseTask(String[] args) {
         String description;
-        Task newTask = new Task();
+        Task newTask = null;
         switch (args[0]) {
             case "deadline":
                 int byPosition = Arrays.asList(args).indexOf("/by");
@@ -64,105 +64,6 @@ public class Duke {
 
     private enum InputHandleStatus {
         OK, END, ERROR
-    }
-
-    static class Task {
-
-        private String title = "";
-        private boolean doneStatus = false;
-
-        protected String getType() {
-            return "task";
-        }
-
-        private Task() {
-            // prevent uninitialised task
-        }
-
-        public Task(String title) {
-            this.doneStatus = false;
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setDoneStatus(boolean status) {
-            this.doneStatus = status;
-        }
-
-        public String getStatusIcon() {
-            return this.doneStatus ? "x" : " ";
-        }
-
-        public String toString() {
-            return "[" + Character.toUpperCase(this.getType().charAt(0)) + ']' + '[' + this.getStatusIcon() + ']' + ' ' + this.title;
-        }
-    }
-
-    public static class Todo extends Task {
-        public Todo(String description) {
-            super(description);
-        }
-    }
-
-    public static class Deadline extends Task {
-        String by;
-
-        public Deadline(String description, String by) {
-            super(description);
-            setBy(by);
-        }
-
-        public String getBy() {
-            return by;
-        }
-
-        public void setBy(String by) {
-            this.by = by;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " (by: " + getBy() + ")";
-        }
-
-        @Override
-        protected String getType() {
-            return "deadline";
-        }
-    }
-
-    public static class Event extends Task {
-        String to;
-
-        public Event(String description, String to) {
-            super(description);
-            setTo(to);
-        }
-
-        public String getTo() {
-            return to;
-        }
-
-        public void setTo(String to) {
-            this.to = to;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " (at: " + getTo() + ")";
-        }
-
-        @Override
-        protected String getType() {
-            return "event";
-        }
     }
 
     private static void finalise() {
