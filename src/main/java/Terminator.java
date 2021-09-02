@@ -76,9 +76,9 @@ public class Terminator {
      * @param eventType The type of task to extract based on.
      * @return String array containing userinput and eventType.
      */
-    private static String[] extractNameDateTime(String userInput, String eventType){
+    private static String[] extractNameDateTime(String userInput, String eventType) {
         String[] returnArray = new String[2];
-        if (Objects.equals(eventType, DEADLINE_TYPE)){
+        if (Objects.equals(eventType, DEADLINE_TYPE)) {
             // Get indexes to substring
             int startOfByIndex = userInput.indexOf(BY_KEYWORD);
             int endOfByIndex = startOfByIndex + 4;
@@ -91,7 +91,7 @@ public class Terminator {
             // Place values into array
             returnArray[TASK_NAME_INDEX] = taskName;
             returnArray[DATE_TIME_INDEX] = dateTime;
-        } else if (Objects.equals(eventType, EVENT_TYPE)){
+        } else if (Objects.equals(eventType, EVENT_TYPE)) {
             // Get indexes to substring
             int startOfAtIndex = userInput.indexOf(AT_KEYWORD);
             int endOfAtIndex = startOfAtIndex + 4;
@@ -184,11 +184,11 @@ public class Terminator {
      * @param taskType The type of task to determine the subclass to create.
      * @return The task object created by the user.
      */
-    private static Task createTask(String taskName, String dateTime, String taskType){
+    private static Task createTask(String taskName, String dateTime, String taskType) {
         Task newTask = null;
-        if (Objects.equals(taskType, DEADLINE_TYPE)){
+        if (Objects.equals(taskType, DEADLINE_TYPE)) {
             newTask = new Deadline(taskName, dateTime);
-        } else if (Objects.equals(taskType, EVENT_TYPE)){
+        } else if (Objects.equals(taskType, EVENT_TYPE)) {
             newTask = new Event(taskName, dateTime);
         }
         return newTask;
@@ -198,7 +198,7 @@ public class Terminator {
      * Given a new task, add it into the list of tasks.
      * @param newTask A task created by the user.
      */
-    private static void addTask(Task newTask){
+    private static void addTask(Task newTask) {
         tasksList.add(newTask);
     }
 
@@ -275,7 +275,7 @@ public class Terminator {
      * Prompts the user for input and returns the received input.
      * @return Line entered by the user.
      */
-    private static String getUserInput(){
+    private static String getUserInput() {
         System.out.print(formatWithHeading("", USER_FORMATTING));
         String input = scanObject.nextLine();
         // Keep getting input until its not empty
@@ -290,7 +290,7 @@ public class Terminator {
      * @param userInput String containing the TaskNumber.
      * @return The TaskNumber to be marked as done
      */
-    private static int getTaskNumberFromInput(String userInput){
+    private static int getTaskNumberFromInput(String userInput) {
         return Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
     }
 
@@ -298,7 +298,7 @@ public class Terminator {
      * Worker class to create ToDo Tasks.
      * @param userLine Line that is inputted by the user.
      */
-    private static void createToDoTask(String userLine){
+    private static void createToDoTask(String userLine) {
         // Extract values and create ToDo Task
         String[] extractedValues = extractNameDateTime(userLine, TODO_TYPE);
         String taskName = extractedValues[TASK_NAME_INDEX];
@@ -350,7 +350,7 @@ public class Terminator {
      * Executes the command based on what is given by the user.
      * @param userLine Line that is inputted by the user.
      */
-    private static void executeCommand(String userLine){
+    private static void executeCommand(String userLine) {
         String keyword = userLine.split(" ")[KEYWORD_INDEX];
 
         // Checks for the input for keywords BYE and LIST
