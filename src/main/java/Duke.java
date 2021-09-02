@@ -1,16 +1,30 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final String horizontalLine = "____________________________________________";
+    private static final String HORIZONTAL_LINE = "____________________________________________";
+    private static final String INDENT = "    ";
     private static final int MAX_TASK_LIMIT = 100;
-    private static int taskCount;
-    private static int taskNum;
-    private static String XMark;
+    private static final int START_OF_STRING = 0;
+
     private static Task[] tasks;
     private static String userInput;
+    private static String todoTask;
+    private static String deadlineDescription;
+    private static String by;
+    private static String eventDescription;
+    private static String at;
+    private static int inputNum;
+    private static int doneTaskNum;
+
+    private static int dividerPosition;
+    private static int charAfterDividerPosition;
+
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
 
 
     private static void printLogo() {
@@ -23,13 +37,13 @@ public class Duke {
     }
 
     private static void printGreeting(String s, String s2) {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println(s);
         System.out.println(s2);
     }
 
     private static String getUserInput() {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Enter command: ");
         Scanner in = new Scanner(System.in);
         return in.nextLine();
@@ -37,8 +51,6 @@ public class Duke {
 
     private static void initTaskList() {
         tasks = new Task[MAX_TASK_LIMIT];
-        taskCount = 0;
-        taskNum = 1;
     }
 
     private static void processUserInput() {
@@ -49,8 +61,20 @@ public class Duke {
             performListTask();
             break;
         case COMMAND_DONE:
-            int inputNum = Integer.parseInt(splitInput[1]);
+            handleIntConversion(splitInput[1]);
             performMarkTaskDone(inputNum);
+            break;
+        case COMMAND_TODO:
+            splitTodo(userInput);
+            performAddTodo(todoTask);
+            break;
+        case COMMAND_DEADLINE:
+            splitDeadline(userInput);
+            performAddDeadline(deadlineDescription, by);
+            break;
+        case COMMAND_EVENT:
+            splitEvent(userInput);
+            performAddEvent(eventDescription, at);
             break;
         case COMMAND_BYE:
             exitProgram();
@@ -62,44 +86,94 @@ public class Duke {
 
     private static void addTask(){
         Task t = new Task(userInput);
-        tasks[taskCount] = t;
-        taskCount++;
-        System.out.println(horizontalLine);
-        System.out.println("added: " + userInput);
+        tasks[Task.taskCount - 1] = t;
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("added: " + userInput.trim());
+        System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
     private static void performListTask() {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
 
-        //reset the numbering of tasks everytime the method is called
-        taskNum = 1;
-
-        for (int i = 0; i < taskCount; i++) {
-            XMark = tasks[i].getStatusIcon();
-            System.out.println(taskNum + "." + "[" + XMark + "]" + tasks[i].description);
-            taskNum++;
+        for (int i = 0; i < Task.taskCount; i++) {
+            System.out.println(INDENT + tasks[i].taskNum + "." + tasks[i]);
         }
     }
 
-    private static void performMarkTaskDone(int inputNum){
-        //index of task in array
-        int doneTaskNum = inputNum - 1;
+    private static void handleIntConversion(String number){
+        number = number.trim();
+        inputNum = Integer.parseInt(number);
+    }
 
-        if ((inputNum > 0) && (inputNum < taskCount + 1)) {
+    private static void performMarkTaskDone(int inputNum){
+        //index of taskNum in tasks array
+        doneTaskNum = inputNum - 1;
+
+        if ((inputNum > 0) && (inputNum <= Task.taskCount)) {
             tasks[doneTaskNum].markAsDone();
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
             System.out.println("Nice! I've marked this task as done:");
-            XMark = tasks[doneTaskNum].getStatusIcon();
-            System.out.println("[" + XMark + "] " + tasks[doneTaskNum].description);
+            System.out.println(INDENT + tasks[doneTaskNum].taskNum + "." + tasks[doneTaskNum]);
         } else {
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
             System.out.println("Invalid input!");
         }
     }
 
+    private static void splitTodo(String userInput){
+        todoTask = userInput.replace("todo", "");
+        todoTask = todoTask.trim();
+    }
+
+    private static void splitDeadline(String userInput){
+        dividerPosition = userInput.indexOf("/");
+        deadlineDescription = userInput.substring(START_OF_STRING, dividerPosition);
+        deadlineDescription = deadlineDescription.replace("deadline", "");
+        deadlineDescription = deadlineDescription.trim();
+        charAfterDividerPosition = dividerPosition + 1;
+        by = userInput.substring(charAfterDividerPosition);
+        by = by.replace("by", "");
+        by = by.trim();
+    }
+
+    private static void splitEvent(String userInput){
+        dividerPosition = userInput.indexOf("/");
+        eventDescription = userInput.substring(START_OF_STRING, dividerPosition);
+        eventDescription = eventDescription.replace("event", "");
+        eventDescription = eventDescription.trim();
+        charAfterDividerPosition = dividerPosition + 1;
+        at = userInput.substring(charAfterDividerPosition);
+        at = at.replace("at", "");
+        at = at.trim();
+    }
+
+    private static void performAddTodo(String todoTask){
+        System.out.println(HORIZONTAL_LINE);
+        tasks[Task.taskCount] = new Todo(todoTask);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(INDENT + tasks[Task.taskCount - 1]);
+        System.out.println("Now you have " + Task.taskCount + " tasks in the list");
+    }
+
+    private static void performAddDeadline(String description, String by){
+        System.out.println(HORIZONTAL_LINE);
+        tasks[Task.taskCount] = new Deadline(description, by);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(INDENT + tasks[Task.taskCount - 1]);
+        System.out.println("Now you have " + Task.taskCount + " tasks in the list");
+    }
+
+    private static void performAddEvent(String description, String at){
+        System.out.println(HORIZONTAL_LINE);
+        tasks[Task.taskCount] = new Event(description, at);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(INDENT + tasks[Task.taskCount - 1]);
+        System.out.println("Now you have " + Task.taskCount + " tasks in the list");
+    }
+
     public static void exitProgram(){
-        printGreeting("Bye. Hope to see you again soon!", horizontalLine);
+        printGreeting("Bye. Hope to see you again soon!", HORIZONTAL_LINE);
         System.exit(0);
     }
 
@@ -113,6 +187,4 @@ public class Duke {
             processUserInput();
         }
     }
-
-
 }
