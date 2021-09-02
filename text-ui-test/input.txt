@@ -1,6 +1,6 @@
 hi
 list
-deadline /by deadline
+deadline deadline /by deadline
 todo todo
 event /at event
 list
