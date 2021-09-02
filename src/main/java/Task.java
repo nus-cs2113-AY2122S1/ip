@@ -15,6 +15,16 @@ public class Task {
         return description;
     }
 
+    public Tasktype getType(){
+        return Tasktype.TODO;
+    }
+
+    public int getLength(){
+        return description.length() + 6;
+    }
+    public String getBy() {
+        return null;
+    }
     public boolean isDone() {
         return isDone;
     }
