@@ -90,9 +90,14 @@ public class Duke {
             markTaskDone(list, words[1]);
             break;
         case "todo":
-            ToDos newToDo = new ToDos(command.substring(5));
-            addTask(list, newToDo, taskCount);
-            taskCount ++;
+            try {
+                ToDos newToDo = new ToDos(command.substring(5));
+                addTask(list, newToDo, taskCount);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a todo cannot be empty.");
+            }
+
             break;
         case "deadline":
             //extract out deadline description and by
@@ -107,7 +112,8 @@ public class Duke {
             taskCount ++;
             break;
         default:
-                System.out.println("    Unknown Command");
+                System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
+
             break;
         }
 
