@@ -12,29 +12,36 @@ public class Duke {
         byeUser();
     }
 
-//    That's one dope logo.
-//    public static void printDukeLogo() {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n and poop";
-//        System.out.println("Hello from\n" + logo);
-//    }
-
     /**
-     * Prints horizontal line to demarcate text from Chatbot.
+     * Prints horizontal line to demarcate text from Tired.
      */
     public static void printLine() {
         System.out.println("    ____________________________________________________________");
     }
 
     /**
+     * Prints logo of Tired
+     */
+    public static void printLogo() {
+        //Generated with: https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
+        String logo = "         ______       __     __                 __\n"
+                + "        / ____/___   / /_   / /   ____   _____ / /_\n"
+                + "       / / __ / _ \\ / __/  / /   / __ \\ / ___// __/\n"
+                + "      / /_/ //  __// /_   / /___/ /_/ /(__  )/ /_  \n"
+                + "      \\____/ \\___/ \\__/  /_____/\\____//____/ \\__/\n"
+                + "            ┌─┐┬  ┌─┐┌─┐┌─┐┌─┐┌─┐\n"
+                + "            ├─┘│  ├┤ ├─┤└─┐├┤  ┌┘\n"
+                + "      o o o ┴  ┴─┘└─┘┴ ┴└─┘└─┘ o";
+        System.out.println(logo);
+    }
+
+    /**
      * Prints greeting message to user when code is ran.
      */
     public static void greetUser() {
+        printLogo();
         printLine();
-        System.out.println("      *Sigh* Hi... I'm Tired\n      What ya want from me?");
+        System.out.println("      *Sigh* Hi... I'm Tired\n      What do you want from me?");
         printLine();
     }
 
@@ -48,7 +55,7 @@ public class Duke {
     }
 
     /**
-     * Prints the list of tasks collated by Chatbot.
+     * Prints the list of tasks collated by Tired.
      */
     public static void printList() {
         System.out.println("      Here are your tasks human:");
