@@ -55,35 +55,38 @@ public class Duke {
 
         while (!lineInput.equals("bye")) {
             printBorder();
-            String action = lineInput.split(" ", 2)[0];
+            String[] InputArray = lineInput.split(" ", 2);
+            String InputCommand = InputArray[0];
+            String InputAction = null;
+            if (InputArray.length > 1){
+                InputAction = InputArray[1];
+            }
 
-            switch(action){
+            switch(InputCommand){
                 case "list":
                     listTasks();
                     break;
                 case "done":
-                    int index = Integer.parseInt(lineInput.split(" ", 2)[1]) - 1;
-                    showTaskDone(index);
+                    showTaskDone(Integer.parseInt(InputAction) - 1);
                     break;
                 case "todo":
-                    String TaskToDo = lineInput.split(" ", 2)[1];
-                    Todo newTodo = new Todo(TaskToDo);
+                    Todo newTodo = new Todo(InputCommand);
                     addTask(newTodo);
                     break;
                 case "deadline":
-                    String DeadlineToDo = lineInput.split(" ", 2)[1].split("/", 2)[0];
-                    String dueDate = lineInput.split(" ", 2)[1].split("/by", 2)[1];
+                    String DeadlineToDo = InputAction.split("/", 2)[0];
+                    String dueDate = InputAction.split("/by", 2)[1];
                     Deadline newDeadline = new Deadline(DeadlineToDo, dueDate);
                     addTask(newDeadline);
                     break;
                 case "event":
-                    String EventToDo = lineInput.split(" ", 2)[1].split("/", 2)[0];
-                    String dueTime = lineInput.split(" ", 2)[1].split("/at", 2)[1];
+                    String EventToDo = InputAction.split("/", 2)[0];
+                    String dueTime = InputAction.split("/at", 2)[1];
                     Event newEvent = new Event(EventToDo, dueTime);
                     addTask(newEvent);
                     break;
                 default:
-                    Task newTask = new Task(action);
+                    Task newTask = new Task(InputCommand);
                     addTask(newTask);
                     break;
             }
