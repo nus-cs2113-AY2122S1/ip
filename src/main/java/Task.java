@@ -1,24 +1,37 @@
 public class Task {
 
-    /* Name of task */
-    protected String name;
-    /* Status of Task. Is completed when is true */
+    /* Description of task */
+    protected String description;
+    /* Status of task. Is completed when is true */
     protected boolean isDone;
+    /* Type of task: T, D or E */
+    protected char type;
 
-    /* Constructer of an incomplete ask */
-    public Task(String name) {
-        setName(name);
+    /**
+     * Constructor for any type of task
+     *
+     * @param description Description of the task processed by TaskManager
+     * @param type Type of task processed by TaskManager
+     */
+    public Task(String description, char type) {
+        setDescription(description);
         this.isDone = false;
+        this.type = type;
     }
 
-    /* Getter for task name */
-    public String getName() {
-        return name;
+    /* Getter for task type */
+    public char getType() {
+        return type;
+    }
+
+    /* Getter for task description */
+    public String getDescription() {
+        return description;
     }
 
     /* Setter for task name */
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -26,8 +39,8 @@ public class Task {
      *
      * @return Icon of status
      */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public char getStatusIcon() {
+        return (isDone ? 'X' : ' ');
     }
 
     /**
@@ -36,4 +49,16 @@ public class Task {
     public void markAsDone() {
         isDone = true;
     }
+
+    /**
+     * Formats description of task  to be displayed to user
+     *
+     * @return Formatted string of a task
+     */
+    @Override
+    public String toString() {
+        return String.format("[%c][%c] %s",this.getType(),this.getStatusIcon(), this.getDescription());
+    }
+
+
 }

@@ -3,8 +3,28 @@ import java.util.Scanner;
 
 public class Duke {
 
+    /* User input is seperated by an empty space */
+    public static final String USER_INPUT_SEPERATOR = " ";
+    /* User command list */
+    public static final String USER_COMMAND_LIST = "LIST";
+    public static final String USER_COMMAND_TODO = "TODO";
+    public static final String USER_COMMAND_DEADLINE = "DEADLINE";
+    public static final String USER_COMMAND_EVENT = "EVENT";
+    public static final String USER_COMMAND_DONE = "DONE";
+    public static final String USER_COMMAND_BYE = "BYE";
+    public static final String USER_COMMAND_HELP = "HELP";
+
     /* A nicely formatted line */
     private static final String LINE = "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+    private static final String HELP_MESSAGE = "The following commands accepted are: "
+            +"LIST (Show the list of task)\n"
+            +"TODO <description> (Create a task with todo tag)\n"
+            +"DEADLINE <description> /by <date and time> (Create a task with deadline tag)\n"
+            +"EVENT <description> /at <date and time> (Create a task with event tag)\n"
+            +"DONE <index of task> (To mark indicated task as completed)\n"
+            +"BYE (End program)\n"
+            +"HELP (List out available commands)";
+
 
     /**
      * Prints given string in the middle of 2 horizontal lines.
@@ -36,25 +56,41 @@ public class Duke {
         // Listen for user input and do commands given by user till user wants to exit program
         while (!exit) {
             String userInput = in.nextLine();
-            switch (userInput.split(" ")[0].toLowerCase(Locale.ROOT)) {
-            case "list":
+            String userInputArray[] = userInput.split(USER_INPUT_SEPERATOR,2);
+            String userCommand = userInputArray[0].toUpperCase(Locale.ROOT);
+            String userArgument = null;
+            if(userInputArray.length == 2)
+                userArgument = userInputArray[1];
+            switch (userCommand) {
+            case USER_COMMAND_LIST:
                 taskManager.listTask();
                 break;
-            case "bye":
+            case USER_COMMAND_BYE:
                 exit = true;
                 break;
-            case "done":
+            case USER_COMMAND_DEADLINE:
+                taskManager.addTask(userArgument, TaskType.DEADLINE);
+                break;
+            case USER_COMMAND_EVENT:
+                taskManager.addTask(userArgument, TaskType.EVENT);
+                break;
+            case USER_COMMAND_TODO:
+                taskManager.addTask(userArgument, TaskType.TODO);
+                break;
+            case USER_COMMAND_DONE:
                 // Catch execption when user input a value that cannot be converted to number.
                 try {
-                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    int taskNumber = Integer.parseInt(userInput.split(USER_INPUT_SEPERATOR)[1]);
                     taskManager.completeTask(taskNumber);
                 } catch (NumberFormatException e) {
                     printMessage("Error in detecting task number. Please enter a valid number after done, i.e: done 1");
                 }
                 break;
-            default:
-                taskManager.addTask(userInput);
+            case USER_COMMAND_HELP:
+                printMessage(HELP_MESSAGE);
                 break;
+            default:
+                printMessage("Invalid Command Given.\n" + HELP_MESSAGE);
             }
         }
         printMessage(exitMessage);
