@@ -59,8 +59,7 @@ public class Duke {
                 list[listNumber].taskDone();
                 System.out.println(SEPARATOR);
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println((listNumber+1) + "." + "[" + list[listNumber].getNeedToDo() + "]" + "[" +
-                                       list[listNumber].getStatusIcon() + "]" + list[listNumber].getDescription());
+                System.out.println(list[listNumber].toString());
                 System.out.println(SEPARATOR);
 
             }
