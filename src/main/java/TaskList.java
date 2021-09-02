@@ -2,10 +2,12 @@ public class TaskList {
 
     //Output messages
     private static final String MESSAGE_TASK_ADDED_SUCCESSFULLY = "The following task has been added:";
-    private static final String MESSAGE_MARK_TASK_FAIL = "Sorry, but the task does not exist, unable to mark as done";
+    private static final String MESSAGE_MARK_TASK_FAIL = "Sorry, but the task does not exist, unable to mark as done.\nYou can view a list of your tasks using the 'list' command";
     private static final String MESSAGE_MARK_TASK_SUCCESS = "The following task has been marked as done:";
     private static final String MESSAGE_NO_TASK_AVAILABLE = "You have no tasks yet";
     private static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";
+    private static final String MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR = "Please provide a task number e.g 'done 2'";
+
 
     private int taskNumber;
     private Task[] taskList;
@@ -31,7 +33,14 @@ public class TaskList {
         PrintUtils.printHorizontalLine(100);
     }
 
-    public void markTaskAsDone(int taskNumber) {
+    public void markTaskAsDone(String input) {
+        if (input.equals("")) {
+            PrintUtils.printHorizontalLine(100);
+            System.out.println(MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR);
+            PrintUtils.printHorizontalLine(100);
+            return;
+        }
+        int taskNumber = Integer.parseInt(input.trim());
         if (!isExistingTask(taskNumber)) {
             printMissingTaskErrorMessage();
             return;

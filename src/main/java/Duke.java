@@ -19,7 +19,6 @@ public class Duke {
     //Output Messages
     private static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() + "What can I do for you?";
     private static final String MESSAGE_EXIT_APPLICATION = "Thank you for using our application. We hope to see you again soon";
-    private static final String MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR = "Please provide a task number";
 
     //Default values for tasks
     private static final String DEFAULT_DEADLINE_TIME_CONTENT = "No deadline provided";
@@ -27,7 +26,7 @@ public class Duke {
 
     private static TaskList task = new TaskList();
 
-    private static void readInput(String input) {
+    private static void processInput(String input) {
         final String[] commandTypeAndParams = splitCommandWordAndArgs(input);
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
@@ -71,14 +70,8 @@ public class Duke {
         task.printAllTasks();
     }
 
-    private static void markTaskAsDone(String taskNumber) {
-        if (taskNumber.equals("")) {
-            PrintUtils.printHorizontalLine(100);
-            System.out.println(MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR);
-            PrintUtils.printHorizontalLine(100);
-            return;
-        }
-        task.markTaskAsDone(Integer.parseInt(taskNumber.trim()));
+    private static void markTaskAsDone(String input) {
+        task.markTaskAsDone(input);
     }
 
     private static void addTodoTaskToList(String input) {
@@ -127,7 +120,7 @@ public class Duke {
         PrintUtils.printHorizontalLine(100);
         while (true) {
             line = in.nextLine();
-            readInput(line);
+            processInput(line);
         }
     }
 }
