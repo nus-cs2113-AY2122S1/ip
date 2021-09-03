@@ -1,0 +1,17 @@
+first task
+done 1
+list
+todo homework
+todo       english essay
+list
+done    3
+list
+deadline proposal /by tomorrow 9pm
+deadline     coding assignment    /by    today midnight
+done   4
+list
+event business meeting /at my house
+event     wedding dinner    /at    hotel
+list
+done 6
+bye

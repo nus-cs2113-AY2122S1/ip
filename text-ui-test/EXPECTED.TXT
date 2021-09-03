@@ -5,3 +5,111 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+____________________________________________
+Hello! I'm Duke
+What can I do for you?
+____________________________________________
+Enter command: 
+____________________________________________
+added: first task
+Now you have 1 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Nice! I've marked this task as done:
+    1.[X] first task
+____________________________________________
+Enter command: 
+____________________________________________
+Here are the tasks in your list:
+    1.[X] first task
+____________________________________________
+Enter command: 
+____________________________________________
+Got it. I've added this task:
+    [T][ ] homework
+Now you have 2 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Got it. I've added this task:
+    [T][ ] english essay
+Now you have 3 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Here are the tasks in your list:
+    1.[X] first task
+    2.[T][ ] homework
+    3.[T][ ] english essay
+____________________________________________
+Enter command: 
+____________________________________________
+Nice! I've marked this task as done:
+    3.[T][X] english essay
+____________________________________________
+Enter command: 
+____________________________________________
+Here are the tasks in your list:
+    1.[X] first task
+    2.[T][ ] homework
+    3.[T][X] english essay
+____________________________________________
+Enter command: 
+____________________________________________
+Got it. I've added this task:
+    [D][ ] proposal (by: tomorrow 9pm)
+Now you have 4 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Got it. I've added this task:
+    [D][ ] coding assignment (by: today midnight)
+Now you have 5 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Nice! I've marked this task as done:
+    4.[D][X] proposal (by: tomorrow 9pm)
+____________________________________________
+Enter command: 
+____________________________________________
+Here are the tasks in your list:
+    1.[X] first task
+    2.[T][ ] homework
+    3.[T][X] english essay
+    4.[D][X] proposal (by: tomorrow 9pm)
+    5.[D][ ] coding assignment (by: today midnight)
+____________________________________________
+Enter command: 
+____________________________________________
+Got it. I've added this task:
+    [E][ ] business meeting (at: my house)
+Now you have 6 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Got it. I've added this task:
+    [E][ ] wedding dinner (at: hotel)
+Now you have 7 tasks in the list
+____________________________________________
+Enter command: 
+____________________________________________
+Here are the tasks in your list:
+    1.[X] first task
+    2.[T][ ] homework
+    3.[T][X] english essay
+    4.[D][X] proposal (by: tomorrow 9pm)
+    5.[D][ ] coding assignment (by: today midnight)
+    6.[E][ ] business meeting (at: my house)
+    7.[E][ ] wedding dinner (at: hotel)
+____________________________________________
+Enter command: 
+____________________________________________
+Nice! I've marked this task as done:
+    6.[E][X] business meeting (at: my house)
+____________________________________________
+Enter command: 
+____________________________________________
+Bye. Hope to see you again soon!
+____________________________________________

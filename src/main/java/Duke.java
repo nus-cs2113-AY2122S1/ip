@@ -26,6 +26,7 @@ public class Duke {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
 
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     private static void printLogo() {
         String logo = " ____        _        \n"
@@ -45,15 +46,19 @@ public class Duke {
     private static String getUserInput() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Enter command: ");
-        Scanner in = new Scanner(System.in);
-        return in.nextLine();
+        String input = SCANNER.nextLine();
+        // removes whitespace from user input
+        while (input.trim().isEmpty()) {
+            input = SCANNER.nextLine();
+        }
+        return input;
     }
 
     private static void initTaskList() {
         tasks = new Task[MAX_TASK_LIMIT];
     }
 
-    private static void processUserInput() {
+    private static void processUserInput(String userInput) {
         String[] splitInput = userInput.split(" ");
         String inputCommand = splitInput[0];
         switch (inputCommand) {
@@ -61,7 +66,7 @@ public class Duke {
             performListTask();
             break;
         case COMMAND_DONE:
-            handleIntConversion(splitInput[1]);
+            handleIntConversion(userInput);
             performMarkTaskDone(inputNum);
             break;
         case COMMAND_TODO:
@@ -101,7 +106,8 @@ public class Duke {
         }
     }
 
-    private static void handleIntConversion(String number){
+    private static void handleIntConversion(String userInput){
+        String number = userInput.replace("done", "");
         number = number.trim();
         inputNum = Integer.parseInt(number);
     }
@@ -184,7 +190,7 @@ public class Duke {
         initTaskList();
         while (true){
             userInput = getUserInput();
-            processUserInput();
+            processUserInput(userInput);
         }
     }
 }
