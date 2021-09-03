@@ -1,5 +1,4 @@
 public class Event extends Task {
-    protected String description;
     protected String timeFrame;
     private static final String EVENT_CHECKBOX = "[E]";
 

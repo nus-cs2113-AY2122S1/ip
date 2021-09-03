@@ -1,5 +1,4 @@
 public class Deadline extends Task {
-    protected String description;
     protected String deadline;
     private static final String DATELINE_CHECKBOX = "[D]";
 
