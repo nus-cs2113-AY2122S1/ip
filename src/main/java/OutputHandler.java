@@ -4,7 +4,7 @@ public class OutputHandler {
 
     public static final String NUMBER_LIST_SEPARATOR = ". ";
     public static final String TASK_PADDING = "   ";
-    public static final String NEWLINE = "\n";
+    public static final String NEWLINE = "\r\n";
     public static final String DEADLINE_SEPARATOR = "/by ";
     public static final String EVENT_SEPARATOR = "/at ";
     private static final String TASK_SEPARATOR = " ";
@@ -24,7 +24,7 @@ public class OutputHandler {
      * @param input The input string read from the Scanner object
      * @param tasks The list of tasks
      */
-    public void getOutputMessage(Command command, String input, ArrayList<Task> tasks) {
+    public void getOutput(Command command, String input, ArrayList<Task> tasks) {
 
         String[] inputTokens = input.split(" ");
         int taskNumber;

@@ -22,7 +22,7 @@ public class Duke {
             String input = in.nextLine();
             String[] inputTokens = input.split(" ");
             command = commandHandler.getCommand(inputTokens[COMMAND_INDEX]);
-            outputHandler.getOutputMessage(command, input, tasks);
+            outputHandler.getOutput(command, input, tasks);
         }
     }
 }
