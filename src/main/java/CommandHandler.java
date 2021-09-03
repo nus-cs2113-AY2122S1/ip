@@ -1,4 +1,4 @@
-public class InputHandler {
+public class CommandHandler {
     public static final String HELP = "help";
     public static final String LIST = "list";
     public static final String DONE = "done";
@@ -11,7 +11,7 @@ public class InputHandler {
     public static final String QUIT = "quit";
     public static final String GREETING = "hello";
 
-    public Command handleCommand(String inputCommand) {
+    public Command getCommand(String inputCommand) {
         switch (inputCommand) {
         case LIST:
             return Command.LIST_TASKS;

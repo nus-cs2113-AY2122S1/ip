@@ -24,7 +24,7 @@ public class OutputHandler {
      * @param input The input string read from the Scanner object
      * @param tasks The list of tasks
      */
-    public void outputMessage(Command command, String input, ArrayList<Task> tasks) {
+    public void getOutputMessage(Command command, String input, ArrayList<Task> tasks) {
 
         String[] inputTokens = input.split(" ");
         int taskNumber;
@@ -39,6 +39,10 @@ public class OutputHandler {
             break;
 
         case MARK_DONE:
+            //TODO exception handling
+            //possible errors:
+            //numberFormatException: when task number is not a number
+            //indexOutOfBoundsException: when task number is not provided
             if (input.trim().equals(inputTokens[0])) {
                 printInvalidTaskMessage();
             } else {
@@ -55,6 +59,9 @@ public class OutputHandler {
             break;
 
         case ADD_TODO:
+            //TODO exception handling
+            //possible errors:
+            //indexOutOfBoundsException: when task description is not provided
             if (input.trim().equals(inputTokens[0])) {
                 printNoTaskNameMessage();
             } else {
@@ -71,6 +78,10 @@ public class OutputHandler {
             break;
 
         case ADD_DEADLINE:
+            //TODO exception handling
+            //possible errors:
+            //indexOutOfBoundsException: when task description or deadline is not provided
+            //or when separator is not given as input?
             if (input.trim().equals(inputTokens[0])) {
                 printNoTaskNameMessage();
             } else if (!input.contains(DEADLINE_SEPARATOR)) {
@@ -83,7 +94,6 @@ public class OutputHandler {
                 String by = getTrimmedSubstring(input,
                         indexOfDeadline + DEADLINE_SEPARATOR.length(),
                         input.length());
-                //TODO exception handling
                 if (description.isBlank()) {
                     printNoTaskNameMessage();
                 } else if (by.isBlank()) {
@@ -97,6 +107,10 @@ public class OutputHandler {
             break;
 
         case ADD_EVENT:
+            //TODO exception handling
+            //possible errors:
+            //indexOutOfBoundsException: when event description or date is not provided
+            //or when separator is not given as input?
             if (input.trim().equals(inputTokens[0])) {
                 printNoEventNameMessage();
             } else if (!input.contains(EVENT_SEPARATOR)) {
@@ -109,7 +123,6 @@ public class OutputHandler {
                 String at = getTrimmedSubstring(input,
                         indexOfDeadline + EVENT_SEPARATOR.length(),
                         input.length());
-                //TODO exception handling
                 if (description.isBlank()) {
                     printNoEventNameMessage();
                 } else if (at.isBlank()) {
@@ -123,6 +136,10 @@ public class OutputHandler {
             break;
 
         case REMOVE_TASK:
+            //TODO exception handling
+            //possible errors:
+            //numberFormatException: when task number is not a number
+            //indexOutOfBoundsException: when task number is not provided
             if (input.trim().equals(inputTokens[0])) {
                 printInvalidTaskMessage();
             } else {

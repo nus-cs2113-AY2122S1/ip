@@ -10,7 +10,7 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
-        InputHandler inputHandler = new InputHandler();
+        CommandHandler commandHandler = new CommandHandler();
         OutputHandler outputHandler = new OutputHandler();
 
         outputHandler.printWelcomeMessage();
@@ -21,8 +21,8 @@ public class Duke {
         while (!command.equals(Command.EXIT)) {
             String input = in.nextLine();
             String[] inputTokens = input.split(" ");
-            command = inputHandler.handleCommand(inputTokens[COMMAND_INDEX]);
-            outputHandler.outputMessage(command, input, tasks);
+            command = commandHandler.getCommand(inputTokens[COMMAND_INDEX]);
+            outputHandler.getOutputMessage(command, input, tasks);
         }
     }
 }
