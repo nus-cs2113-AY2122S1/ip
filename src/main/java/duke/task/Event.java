@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Event class manages a task that start at a specific time and ends at a specific time.
  */

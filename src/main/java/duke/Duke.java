@@ -1,3 +1,6 @@
+package duke;
+
+import duke.command.CommandExecutor;
 import java.util.Scanner;
 
 /**

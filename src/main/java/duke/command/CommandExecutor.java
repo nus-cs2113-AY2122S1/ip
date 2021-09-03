@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskManager;
+import duke.task.Todo;
+import duke.exception.CommandException;
+
 /**
  * The CommandExecutor class deals with the execution of supported commands.
  */

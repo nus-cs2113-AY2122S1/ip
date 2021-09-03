@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Todo class manages a task that has no date/time attached to it.
  */

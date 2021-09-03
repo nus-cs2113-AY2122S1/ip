@@ -1,3 +1,5 @@
+package duke.command;
+
 /**
  * The Command class handles the validation of a supported command and printing of its usage.
  */

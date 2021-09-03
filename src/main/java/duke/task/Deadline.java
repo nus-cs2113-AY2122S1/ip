@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Deadline class manages a task that need to be done before a specific date/time.
  */
