@@ -46,6 +46,10 @@ public class Duke {
         System.out.println("What do you want?\n" + border);
         System.out.println("Type bye to exit\n" + border);
     }
+    public static void printEndMessage() {
+        System.out.println(border);
+        System.out.println("chat again next time!\n" + border);
+    }
     public static void main(String[] args) {
         String line;
         printStartMessage();
@@ -90,7 +94,6 @@ public class Duke {
                 addTask(line);
             }
         } while (!line.matches("bye"));
-        System.out.println(border);
-        System.out.println("chat again next time!\n" + border);
+        printEndMessage();
     }
 }
