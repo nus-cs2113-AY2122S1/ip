@@ -41,10 +41,7 @@ public class TaskManager {
     public void addTask(Task task) {
         taskList.add(task);
         System.out.println("[+] Task added: ");
-        System.out.printf("   [%s][%s] %s\n",
-                task.getTaskIcon(),
-                task.getStatusIcon(),
-                task.getDescription());
+        System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(), task.getDescription());
         System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
     }
 
