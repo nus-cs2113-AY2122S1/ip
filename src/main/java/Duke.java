@@ -2,44 +2,52 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final int MAX_TASK_COUNT = 100;
+
     public static int taskCount = 1;
 
-    public static void inputErrorMessage() {
+    public static void printErrorMessage() {
         printHorizontalLine();
         System.out.println("I don't understand that. Please try again!");
         printHorizontalLine();
     }
 
+    public static String getCommand(String userInput) {
+        String[] input = userInput.trim().split(" ");
+        return input[0];
+    }
+
     public static void inputManager() {
         String line;
         boolean isBye = false;
-        Task[] tasks = new Task[100];
-
+        Task[] tasks = new Task[MAX_TASK_COUNT];
         Scanner in = new Scanner(System.in);
+
         while (!isBye) {
             line = in.nextLine();
-            if (line.equalsIgnoreCase("bye")) {
-                inputBye();
+            String command = getCommand(line);
+            switch (command) {
+            case ("bye"):
                 isBye = true;
-            } else if (line.equalsIgnoreCase("list")) {
+                break;
+            case ("list"):
                 requestList(tasks);
-            } else if (line.contains("done")) {
+                break;
+            case ("done"):
                 inputDone(line, tasks);
-            } else if (line.contains("undo")) {
+                break;
+            case ("undo"):
                 undoDone(line, tasks);
-            } else if (isValidTaskInput(line)) {
+                break;
+            case ("todo"):
+            case ("deadline"):
+            case ("event"):
                 taskManager(line, tasks);
-            } else {
-                inputErrorMessage();
+                break;
+            default:
+                printErrorMessage();
+                break;
             }
-        }
-    }
-
-    public static boolean isValidTaskInput(String input) {
-        if (input.toLowerCase().contains("todo") || input.toLowerCase().contains("deadline") || input.toLowerCase().contains("event")) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -97,7 +105,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void inputBye() {
+    public static void printFarewellMessage() {
         printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
@@ -132,8 +140,26 @@ public class Duke {
         }
         t.markAsNotDone();
         printHorizontalLine();
-        System.out.println("I've undone this task for you: ");
+        System.out.println("I've undone this task for you:");
         System.out.println(t);
+        printHorizontalLine();
+    }
+
+
+    private static void greetUser() {
+        String logo = "    #    ####### #          #     #####\n"
+                + "   # #      #    #         # #   #     #\n"
+                + "  #   #     #    #        #   #  #\n"
+                + " #     #    #    #       #     #  #####\n"
+                + " #######    #    #       #######       #\n"
+                + " #     #    #    #       #     # #     #\n"
+                + " #     #    #    ####### #     #  #####\n";
+
+        System.out.println("Hello from\n" + logo);
+
+        printHorizontalLine();
+        System.out.println("Hello! I'm Atlas!");
+        System.out.println("What can I do for you today?");
         printHorizontalLine();
     }
 
@@ -143,21 +169,9 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        String logo = "    #    ####### #          #     #####  \n"
-                + "   # #      #    #         # #   #     # \n"
-                + "  #   #     #    #        #   #  #       \n"
-                + " #     #    #    #       #     #  #####  \n"
-                + " #######    #    #       #######       # \n"
-                + " #     #    #    #       #     # #     # \n"
-                + " #     #    #    ####### #     #  #####  \n";
-
-        System.out.println("Hello from\n" + logo);
-
-        printHorizontalLine();
-        System.out.println("Hello! I'm Atlas!");
-        System.out.println("What can I do for you today?");
-        printHorizontalLine();
-
+        greetUser();
         inputManager();
+        printFarewellMessage();
     }
+
 }
