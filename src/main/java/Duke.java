@@ -22,7 +22,7 @@ public class Duke {
         printLine();
     }
 
-    public static String echoCommand() {
+    public static String readInputEchoCommand() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         System.out.println("    " + command);
@@ -63,7 +63,9 @@ public class Duke {
 
     public static void runDuke() {
         Scanner in = new Scanner(System.in);
-        if (isDukeFail()) return;
+        if (isDukeFail()) {
+            return;
+        }
         setupUsernamePassword(in);
         sayHi(AccountDetail.getUsername());
         String command;
@@ -87,7 +89,7 @@ public class Duke {
                 mascotSay(in);
                 break;
             case("echo"):
-                echoCommand();
+                readInputEchoCommand();
                 break;
             case("todo"):
                 addTodoToList(in, taskList);
@@ -116,7 +118,7 @@ public class Duke {
     }
 
     private static void mascotSay(Scanner in) {
-        Mascot Jim = new Mascot();
+        Mascot jim = new Mascot();
         String text = in.nextLine();
         Mascot.penguinSay(text);
     }
