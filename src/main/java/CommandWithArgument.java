@@ -63,6 +63,6 @@ public class CommandWithArgument extends Command {
         String[] tokens = commandLine.split(" ", -1);
         String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
 
-        return new String[]{argumentValue};
+        return new String[] {argumentValue};
     }
 }

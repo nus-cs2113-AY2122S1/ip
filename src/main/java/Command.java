@@ -59,6 +59,6 @@ public class Command {
      * @return List of parsed values.
      */
     public String[] parseCommand(String inputLine) {
-        return new String[]{};
+        return new String[] {};
     }
 }

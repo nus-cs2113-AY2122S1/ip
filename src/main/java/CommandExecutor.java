@@ -35,7 +35,7 @@ public class CommandExecutor {
     public CommandExecutor() {
         isExit = false;
         taskManager = new TaskManager();
-        commandList = new Command[]{
+        commandList = new Command[] {
                 new Command(END_COMMAND),
                 new Command(LIST_COMMAND),
                 new CommandWithArgument(DONE_COMMAND, ARGUMENT_TASK_INDEX),
@@ -49,6 +49,10 @@ public class CommandExecutor {
 
     public boolean isExit() {
         return isExit;
+    }
+
+    public void markAsExited() {
+        isExit = true;
     }
 
     /**
@@ -120,7 +124,7 @@ public class CommandExecutor {
             taskManager.addTask(task);
             break;
         case END_COMMAND:
-            isExit = true;
+            markAsExited();
             break;
         }
     }

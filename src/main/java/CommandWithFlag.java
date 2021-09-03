@@ -83,7 +83,7 @@ public class CommandWithFlag extends CommandWithArgument {
         String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, flagIndex));
         String flagValue = String.join(" ", Arrays.copyOfRange(tokens, flagIndex + 1, tokens.length));
 
-        return new String[]{argumentValue, flagValue};
+        return new String[] {argumentValue, flagValue};
     }
 
     /**
