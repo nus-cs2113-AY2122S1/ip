@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
     public static int inputCount = 0;
@@ -8,9 +7,6 @@ public class Duke {
     public static void main(String[] args) {
         String input;
         Scanner in = new Scanner(System.in);
-        int taskNumber = 0;
-        String statusOfTask;
-        String[] inputSplitter;
 
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
@@ -61,12 +57,10 @@ public class Duke {
     }
 
     private static String printList(Scanner in) {
-        String statusOfTask;
         String input;
         System.out.println("    Here are the tasks in your list:");
 
         for (int outputCount = 0; outputCount < inputCount; outputCount++) {
-            statusOfTask = tasks[outputCount].getStatusIcon();
             System.out.println("    " + (outputCount + 1) + "." + tasks[outputCount]);
         }
         input = in.nextLine();
@@ -91,13 +85,11 @@ public class Duke {
     }
 
     private static String taskDone(Scanner in, Task task) {
-        String statusOfTask;
         String input;
         System.out.println("    Nice! I've marked this task as done:" + System.lineSeparator());
         System.out.println("    " + task + " has been updated to -->");
 
         task.markAsDone(); //mark x in [ ]
-        statusOfTask = task.getStatusIcon();
 
         System.out.println("    " + task);
         input = in.nextLine();
