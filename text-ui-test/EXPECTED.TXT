@@ -1,7 +1,51 @@
+	              ##*                                 
+	   .      . .&####%                               
+	    #%%%%((&%######%**.                           
+	    %#############%#%&&%%%%%##(*.                 
+	 . .%%#######%%%%%##############%%%%#(.           
+	/##&@%####&%####&#####%&&&&&&&&&%%%####&/  .      
+	&######%%######%&%%%#################%%%%&#       
+	(@####&#####%&%########################%###@(     
+	,&%#%%%%##%%############%%%%%%%%%%%##########%.   
+	*&#&%%&#%&########&%#(%#/((((((/****#&%&%#####%,  
+	  ,&#%%%%#####%%#(%(((&#(&(((((((((/%#(((%##%%#%. 
+	  (%##%%####%%(((/%&((%&#%##((((((((&#(((%#(((&&, 
+	  (%#%&####%#((##(#(/###.%#.*(##(((%, /##((%#(#( .
+	  *&(&%###%#(((((#/@%%%&,. ...     &%%&%  (&###*  
+	 . (%%%###%(((((#/#####&, .. .... /&(#(&,.%(((#(  
+	    *&&##%%(((((%*(%###%. .. .. . *%(##&, (%((#(  
+	      (&#%%((((#%/ .**,. ..... . ...,,,. . (#(%(  
+	        .(%(((((&/ .   .  ...... .. .. . .(%/#%,  
+	          .(%(((#&*,,.           . .,*/*%#((#&*   
+	              ,/(#(    .,,******,.     ####%*     
+   __          ________ _      _____ ____  __  __ ______    
+   \ \        / /  ____| |    / ____/ __ \|  \/  |  ____|  
+    \ \  /\  / /| |__  | |   | |   | |  | | \  / | |__     
+     \ \/  \/ / |  __| | |   | |   | |  | | |\/| |  __|    
+      \  /\  /  | |____| |___| |___| |__| | |  | | |____   
+     __\/_ \/   |______|______\_____\____/|_|  |_|______|_ 
+    / ____| |  | |_   _|  \/  |   /\   |  __ \|_   _| \ | |
+   | (___ | |__| | | | | \  / |  /  \  | |__) | | | |  \| |
+    \___ \|  __  | | | | |\/| | / /\ \ |  _  /  | | | . ` |
+    ____) | |  | |_| |_| |  | |/ ____ \| | \ \ _| |_| |\  |
+   |_____/|_|  |_|_____|_|  |_/_/    \_\_|  \_\_____|_| \_|
+
+Hi there! My name is Shima Rin and I am a chat robot that can help you do some wonderful jobs!
+------------------------------------------------------------------------------------------------------------
+* Version 4.0                                                                                              *
+* To know more about me, you can view my profile by typing the command "view -p"                           *
+* For now I am a note bot that can help you note down any tasks and create a to-do list for you :)         *
+* In addition, you can mark any task in the to-do list as done!                                            *
+* You can type "todo" or "deadline" or "event" to create a task and I will help you save it automatically! *
+* You can type "list" or "ls" to list all the tasks that are waiting to do                                 *
+* You can type "done i" where i is the index of the task to mark the specific task as done                 *
+* You can type "exit" or "bye" to stop me and exit the program                                             *
+------------------------------------------------------------------------------------------------------------
+Let's start:
 	/----------------------------\
 	| My to-do list:             |
 	\----------------------------/
-	For your knowledge,
+	For your knowledge, 
 	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
 	the second [ ] indicates whether the task is completed:
 	[X] when the task is marked completed	[ ] when the task is not done.
@@ -20,7 +64,7 @@
 	| [D][ ] 2. do assignment (by: Sunday 6pm)  |
 	| [E][ ] 3. attend lecture (at: by Friday 4-6pm)|
 	\-------------------------------------------/
-	For your knowledge,
+	For your knowledge, 
 	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
 	the second [ ] indicates whether the task is completed:
 	[X] when the task is marked completed	[ ] when the task is not done.
@@ -38,7 +82,7 @@
 	| [D][ ] 2. do assignment (by: Sunday 6pm)  |
 	| [E][ ] 3. attend lecture (at: by Friday 4-6pm)|
 	\-------------------------------------------/
-	For your knowledge,
+	For your knowledge, 
 	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
 	the second [ ] indicates whether the task is completed:
 	[X] when the task is marked completed	[ ] when the task is not done.
@@ -52,7 +96,7 @@
 	| [D][X] 2. do assignment (by: Sunday 6pm)  |
 	| [E][X] 3. attend lecture (at: by Friday 4-6pm)|
 	\-------------------------------------------/
-	For your knowledge,
+	For your knowledge, 
 	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
 	the second [ ] indicates whether the task is completed:
 	[X] when the task is marked completed	[ ] when the task is not done.
