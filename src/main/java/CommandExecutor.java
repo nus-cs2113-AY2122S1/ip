@@ -61,19 +61,12 @@ public class CommandExecutor {
      * @param inputLine Raw input line to check.
      */
     public void execute(String inputLine) {
-        Command command = findCommand(inputLine);
-
-        if (command == null) {
-            System.out.println("[X] Unable to find command.");
-            return;
-        }
-        if (!command.isValidCommandLine(inputLine)) {
-            System.out.printf("[!] Usage: %s\n", command.getUsage());
-            return;
-        }
-
+        Command command;
         try {
+            command = findCommand(inputLine);
             runCommandUsingInput(command, inputLine);
+        } catch (CommandException err) {
+            System.out.println("[X] " + err.getMessage());
         } catch (NumberFormatException err) {
             System.out.println("[X] Error parsing argument!");
         }
@@ -85,13 +78,13 @@ public class CommandExecutor {
      * @param inputLine Raw input line to search.
      * @return Command that user is trying to run.
      */
-    private Command findCommand(String inputLine) {
+    private Command findCommand(String inputLine) throws CommandException {
         for (Command command : commandList) {
             if (command.isCommand(inputLine)) {
                 return command;
             }
         }
-        return null;
+        throw new CommandException("Command not found");
     }
 
     /**
@@ -100,7 +93,11 @@ public class CommandExecutor {
      * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
      */
-    private void runCommandUsingInput(Command command, String inputLine) {
+    private void runCommandUsingInput(Command command, String inputLine) throws CommandException {
+        if (!command.isValidCommandLine(inputLine)) {
+            throw new CommandException("Usage: " + command.getUsage());
+        }
+
         String[] commandResults = command.parseCommand(inputLine);
         Task task;
 
@@ -126,6 +123,8 @@ public class CommandExecutor {
         case END_COMMAND:
             markAsExited();
             break;
+        default:
+            throw new CommandException("Illegal operation");
         }
     }
 }
