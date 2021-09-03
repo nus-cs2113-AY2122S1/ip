@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * This exception is raised when an error relating to command execution occurs.
  */
