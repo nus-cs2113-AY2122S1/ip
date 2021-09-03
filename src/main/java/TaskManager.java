@@ -22,17 +22,20 @@ public class TaskManager extends UserInterface{
     /**
      * Marks task in array as done and prints echo message depending on validity of task no.
      */
-    public void markTaskAsDone(String input) {
-        // Extracting task number as an integer from input
-        int taskNumber = Integer.parseInt(input.trim(), 10);
-        boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
-        if (taskNumberInRange) {
-            tasks.get(taskNumber - 1).setDone();
-            echo("Task " + taskNumber + ": " + tasks.get(taskNumber - 1).taskDescription
-                    + System.lineSeparator() + "  Marked as done!");
-        } else {
-            echo("  Invalid Task number!");
+    public void markTaskAsDone(String input) throws InvalidTaskNumberException, NumberFormatException{
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(input.trim(), 10);
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException();
         }
+        boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
+
+        if (!taskNumberInRange) { throw new InvalidTaskNumberException(); }
+
+        tasks.get(taskNumber - 1).setDone();
+        echo("Task " + taskNumber + ": " + tasks.get(taskNumber - 1).taskDescription
+                + System.lineSeparator() + "  Marked as done!");
     }
 
     public void addToDo (String description) {
@@ -56,24 +59,49 @@ public class TaskManager extends UserInterface{
                 + "  You now have " + tasks.size() + " tasks in your list!");
     }
 
-    public void checkInputThenAddEvent(String[] eventInput) {
-        if (eventInput.length > 1) {
-            // eventInput[0] equals description, eventInput[1] equals "at"
-            addEvent(eventInput[0].trim(), eventInput[1].trim());
+    public void checkInputThenAddToDo(String argument) throws MissingCommandArgumentException {
+        if (argument.equals("none")) { throw new MissingCommandArgumentException(); }
+        addToDo(argument);
+    }
+
+    public void checkInputThenAddEvent(String[] arguments) throws MissingCommandArgumentException {
+        if (arguments.length > 1) {
+            // arguments[0] equals description, arguments[1] equals "at"
+            addEvent(arguments[0].trim(), arguments[1].trim());
         } else {
+            // no arguments after event
+            if (arguments[0].equals("none")) { throw new MissingCommandArgumentException(); }
             // adds the description, no user input for "at"
-            addEvent(eventInput[0].trim(), "");
+            addEvent(arguments[0].trim(), "");
         }
     }
 
-    public void checkInputThenAddDeadline(String[] deadlineInput) {
-        if (deadlineInput.length > 1) {
-            // deadlineInput[0] equals description, deadlineInput[1] equals "by"
-            addDeadline(deadlineInput[0].trim(), deadlineInput[1].trim());
+    public void checkInputThenAddDeadline(String[] arguments) throws MissingCommandArgumentException {
+        
+        if (arguments.length > 1) {
+            // arguments[0] equals description, arguments[1] equals "by"
+            addDeadline(arguments[0].trim(), arguments[1].trim());
         } else {
+            // no arguments after deadline
+            if (arguments[0].equals("none")) { throw new MissingCommandArgumentException(); }
             // adds the description, no user input for "by"
-            addDeadline(deadlineInput[0].trim(), "");
+            addDeadline(arguments[0].trim(), "");
         }
+    }
+
+    public void printMessageForTaskNumberOutOfRange () {
+        echo("  Invalid Task number!" + System.lineSeparator()
+                + "  Please try again with a Task number within range! :)");
+    }
+
+    public void printMessageForTaskNumberNonInteger () {
+        echo("  Invalid Task number!" + System.lineSeparator()
+                + "  Please enter a valid integer! :)");
+    }
+
+    public void printMessageForMissingTaskDescription (String taskType) {
+        echo("  I'm sorry... For a <" + taskType + "> you must include a description!"
+                + System.lineSeparator() + "  Please try again with a valid input! :)");
     }
 
     public void printMessageForInvalidInput () {

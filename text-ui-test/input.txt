@@ -5,9 +5,13 @@ event Go running
 deadline Project Report /by Monday 11:59pm
 deadline User Guide
 list
+todo
+event
+deadline
 rubbish_input123
 done 0
 done 100
+done %@!%!@
 done 1
 done 2
 done 3

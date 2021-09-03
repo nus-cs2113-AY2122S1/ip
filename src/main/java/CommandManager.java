@@ -7,26 +7,45 @@ public class CommandManager {
     }
 
     public void executeCommand (Command inputCommand, String commandArguments) {
+        String[] argument;
         switch (inputCommand) {
-        case SHOW_LIST:
-            taskManager.printTasks();
-            break;
-        case ADD_TODO:
-            taskManager.addToDo(commandArguments); // commandArguments is the description for ToDos
-            break;
-        case ADD_EVENT:
-            String eventInput[] = commandArguments.split("/at", 2);
-            taskManager.checkInputThenAddEvent(eventInput);
-            break;
-        case ADD_DEADLINE:
-            String deadlineInput[] = commandArguments.split("/by", 2);
-            taskManager.checkInputThenAddDeadline(deadlineInput);
-            break;
-        case DONE_TASK:
-            taskManager.markTaskAsDone(commandArguments);
-            break;
         case EXIT:
             isExit = true;
+            break;
+        case SHOW_LIST:
+                taskManager.printTasks();
+            break;
+        case ADD_TODO:
+            try {
+                taskManager.checkInputThenAddToDo(commandArguments); // commandArguments is the description for ToDos
+            } catch (MissingCommandArgumentException mae) {
+                taskManager.printMessageForMissingTaskDescription("todo");
+            }
+            break;
+        case ADD_EVENT:
+            argument = commandArguments.split("/at", 2);
+            try {
+                taskManager.checkInputThenAddEvent(argument);
+            } catch (MissingCommandArgumentException mae) {
+                taskManager.printMessageForMissingTaskDescription("event");
+            }
+            break;
+        case ADD_DEADLINE:
+            argument = commandArguments.split("/by", 2);
+            try {
+                taskManager.checkInputThenAddDeadline(argument);
+            } catch (MissingCommandArgumentException mae) {
+                taskManager.printMessageForMissingTaskDescription("deadline");
+            }
+            break;
+        case DONE_TASK:
+            try {
+                taskManager.markTaskAsDone(commandArguments);
+            } catch (InvalidTaskNumberException ite) {
+                taskManager.printMessageForTaskNumberOutOfRange();
+            } catch (NumberFormatException nfe) {
+                taskManager.printMessageForTaskNumberNonInteger();
+            }
             break;
         case INVALID:
         default:

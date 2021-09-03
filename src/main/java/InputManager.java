@@ -32,7 +32,7 @@ public class InputManager {
             commandArguments = parsedInput.arguments[1].trim();
         } else {
             setInputCommand(parsedInput.input); //one word/empty string
-            commandArguments = "";
+            commandArguments = "none";
         }
     }
 }
