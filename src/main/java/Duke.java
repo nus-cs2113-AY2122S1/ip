@@ -19,6 +19,7 @@ public class Duke {
 
     public static void processInput(String input) {
         String[] arr = input.split(" ");
+        int descriptorStartIdx = 0;
         switch (arr[0]) {
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
@@ -35,25 +36,31 @@ public class Duke {
             tasks.printTask(idx);
             break;
         case "deadline":
-            int u = input.indexOf("/by");
-            String by = input.substring(u+4, input.length());
-            String DLname = input.substring(9,u);
+            int u = input.indexOf(Constants.DEADLINE_SUBSTR_ID);
+            //Grab the deadline condition of the task
+            String by = input.substring(u+Constants.DEADLINE_SUBSTR_ID.length() + 1, input.length());
+            //Grab the deadline task descriptor
+            descriptorStartIdx = Constants.DEADLINE_DESCRIPTION_IDX;
+            String DLname = input.substring(descriptorStartIdx,u);
             tasks.addTask(new Deadline(DLname,false,by));
             break;
         case "event":
-            int v = input.indexOf("/at");
-            String at = input.substring(v+4, input.length());
-            String EVname = input.substring(6,v);
+            int v = input.indexOf(Constants.EVENT_SUBSTR_ID);
+            //Grab the event condition of the task
+            String at = input.substring(v+Constants.EVENT_SUBSTR_ID.length() + 1, input.length());
+            //Grab the event task descriptor
+            descriptorStartIdx = Constants.EVENT_DESCRIPTION_IDX;
+            String EVname = input.substring(descriptorStartIdx,v);
             tasks.addTask(new Event(EVname,false,at));
             break;
         case "todo":
-        //Fallthrough
+            descriptorStartIdx = Constants.TODO_DESCRIPTION_IDX;
+            //Fallthrough
         default:
-            int nameStart = 0;
-            if (arr[0].equals("todo")) {
-                nameStart = 5;
+            if (!arr[0].equals("todo")) {
+                descriptorStartIdx = 0;
             }
-            String TDname = input.substring(nameStart,input.length());
+            String TDname = input.substring(descriptorStartIdx,input.length());
             tasks.addTask(new Todo(TDname,false));
             break;
         }
