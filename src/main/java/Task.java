@@ -1,4 +1,8 @@
 public class Task {
+    public static final String OPEN_BRACKET = "[";
+    public static final String CLOSE_BRACKET = "]";
+    public static final String SPACE = " ";
+
     protected String description;
     protected boolean isDone;
 
@@ -11,6 +15,10 @@ public class Task {
         return (isDone ? "X" : " "); //mark done task with X
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -21,9 +29,6 @@ public class Task {
 
     @Override
     public String toString() {
-        if (isDone) {
-            return "[X] " + description;
-        }
-        return "[ ] " + description;
+        return OPEN_BRACKET + getStatusIcon() + CLOSE_BRACKET + SPACE + description;
     }
 }
