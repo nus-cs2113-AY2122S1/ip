@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.task.exception.InvalidTaskIndexException;
+import duke.task.exception.TaskListEmptyException;
 import java.util.ArrayList;
 
 public class TaskManager {
