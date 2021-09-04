@@ -23,15 +23,16 @@ public class Duke {
             // Reads user input
             userInput = in.nextLine();
             // Splits user input by spaces
-            String[] userInputSplited = userInput.split("\\s+", 2);
-            String command = userInputSplited[0];
+            String[] userInputSplitted = userInput.split("\\s+", 2);
+            String command = userInputSplitted[0];
             String description = "";
 
             // Ensure description exists
-            if (userInputSplited.length > 1) {
-                description = userInputSplited[1];
+            if (userInputSplitted.length > 1) {
+                description = userInputSplitted[1];
             }
             processCommands(command, description);
+
         }
     }
 
@@ -62,7 +63,7 @@ public class Duke {
         case "BYE":
             exit();
         default:
-            printError();
+            printInvalidCommand();
         }
     }
 
@@ -72,9 +73,9 @@ public class Duke {
      * @param description Task description entered by user.
      */
     private static void addToDo(String description) {
-        if (description.equals("")){
-            customPrint("Please enter a task!");
-        }else {
+        if (description.equals("")) {
+            customPrint("☹ OOPS!!! The description of a todo cannot be empty.");
+        } else {
             tasks.add(new Todo(description));
             acknowledgeCommand();
         }
@@ -108,6 +109,8 @@ public class Duke {
         // Handle case it user did not provide date
         if (split == null) {
             customPrint("I could not find '/by' in your command!");
+        } else if (split[0].equals("")) {
+            customPrint("I could not find the title of your deadline!");
         } else {
             String taskDescription = split[0];
             String date = split[1];
@@ -126,6 +129,8 @@ public class Duke {
         // Handle case it user did not provide date
         if (split == null) {
             customPrint("I could not find '/at' in your command!");
+        } else if (split[0].equals("")) {
+            customPrint("I could not find the title of your event!");
         } else {
             String taskDescription = split[0];
             String at = split[1];
@@ -172,7 +177,7 @@ public class Duke {
     /**
      * Prints the invalid command message.
      */
-    private static void printError() {
+    private static void printInvalidCommand() {
         customPrint("Sorry! I did not understand your command.");
     }
 
@@ -193,8 +198,12 @@ public class Duke {
      */
     public static void listTasks() {
         String taskString = "";
-        taskString += "Here are the tasks in your list:\n";
-
+        // Checks if tasks exists
+        if (tasks.size() == 0) {
+            taskString += "You have no tasks in your list!";
+        } else {
+            taskString += "Here are the tasks in your list:\n";
+        }
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             taskString += (i + 1) + "." + currentTask.toString() + "\n";
@@ -210,8 +219,10 @@ public class Duke {
     public static void markDone(String description) {
         int taskId = Integer.parseInt(description) - 1; // -1 as array index starts from 0
 
+        Boolean isNotValidTaskID = taskId < 0 || taskId >= tasks.size();
+
         // Checks for valid taskID
-        if (taskId < 0 || taskId > tasks.size() || tasks.size() == 0) {
+        if (isNotValidTaskID) {
             customPrint("You have entered an invalid task ID!");
             return;
         }
