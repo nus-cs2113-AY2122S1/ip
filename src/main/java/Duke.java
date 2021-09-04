@@ -4,9 +4,15 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static boolean isNonAddTaskInput (String input, List<Task> tasks) {
+    private static boolean isQuery (String input, List<Task> tasks) {
+
         if (input.contains("done")) {
             int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+            if (taskIndex > Task.numberOfTasks) {
+                System.out.println("You do not have that many tasks");
+                return false;
+            }
+
             tasks.get(taskIndex - 1).markAsDone();
             Task.numberOfTasks -= 1;
             return true;
@@ -23,12 +29,19 @@ public class Duke {
         return false;
     }
 
-    private static Task addTask (String input, List<Task> tasks) {
+    private static Task addTask (String input, List<Task> tasks) throws DukeException {
         String taskType = input.split(" ")[0];
         String descriptionAndTime = input.replaceAll(taskType, "");
 
+        // check for Task's description
+        if ( (input.contains("todo") || input.contains("deadline") || input.contains("event"))
+                && input.split(" ").length == 1) {
+            throw new DukeException("Description cannot be empty");
+        }
+
         switch (taskType) {
         case "todo" :
+            System.out.println(input.split(" ")[1]);
             Task todoTask = new Todo(input.replaceAll(taskType, ""));
             tasks.add(todoTask);
             return todoTask;
@@ -44,9 +57,8 @@ public class Duke {
             return eventTask;
 
         default :
-            System.out.println("Invalid Input");
+            throw new DukeException("I don't understand, try again");
         }
-        return null;
     }
 
     public static void main(String[] args) {
@@ -62,13 +74,15 @@ public class Duke {
                 break;
             }
 
-            if (!isNonAddTaskInput(input, tasks)) {
-                Task addedTask = addTask(input, tasks);
-                System.out.println("Yeah boii I've added:");
-
-                assert addedTask != null;
-                addedTask.describe();
-                System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
+            if (!isQuery(input, tasks)) {
+                try {
+                    Task addedTask = addTask(input, tasks);
+                    System.out.println("I've added:");
+                    addedTask.describe();
+                    System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
