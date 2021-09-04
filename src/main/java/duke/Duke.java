@@ -77,6 +77,10 @@ public class Duke {
     }
 
     private static void addTodo(String description) {
+        if (description.isEmpty()) {
+            printResponseBlock("☹ OOPS!!! The description of a todo cannot be empty.");
+            return;
+        }
         Task task = new Todo(description);
         addTask(task);
     }
