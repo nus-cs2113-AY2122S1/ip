@@ -1,3 +1,8 @@
+package Duke;
+
+import Exceptions.InsufficientParametersException;
+import Exceptions.UnknownCommandException;
+
 public class Duke {
 
     public static String handleInput(TaskManager taskManager, String[] input)

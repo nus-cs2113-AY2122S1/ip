@@ -1,3 +1,10 @@
+package Duke;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 public class TaskManager {
     private Task[] tasks = new Task[100];
     private int numTask = 0;
