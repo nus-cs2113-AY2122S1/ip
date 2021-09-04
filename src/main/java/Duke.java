@@ -17,29 +17,39 @@ public class Duke {
             String command = scan.nextLine();
             HashMap<String, String> commandArgs = parseCommand(command);
             System.out.println(DIVIDER);
-
-            switch (commandArgs.get("command").toLowerCase()) {
-            case "list":
-                list();
-                break;
-            case "done":
-                setTaskDone(Integer.parseInt(commandArgs.get("param")));
-                break;
-            case "todo":
-                addTodo(commandArgs.get("param"));
-                break;
-            case "deadline":
-                addDeadline(commandArgs.get("param"), commandArgs.get("by"));
-                break;
-            case "event":
-                addEvent(commandArgs.get("param"), commandArgs.get("at"));
-                break;
-            case "bye":
-                exit = true;
-                bye();
-                break;
-            default:
-                break;
+            try {
+                switch (commandArgs.get("command").toLowerCase()) {
+                case "list":
+                    list();
+                    break;
+                case "done":
+                    setTaskDone(Integer.parseInt(commandArgs.get("param")));
+                    break;
+                case "todo":
+                    addTodo(commandArgs.get("param"));
+                    break;
+                case "deadline":
+                    addDeadline(commandArgs.get("param"), commandArgs.get("by"));
+                    break;
+                case "event":
+                    addEvent(commandArgs.get("param"), commandArgs.get("at"));
+                    break;
+                case "bye":
+                    exit = true;
+                    bye();
+                    break;
+                default:
+                    printUnknownCommand();
+                    break;
+                }
+            } catch (MissingArgumentException e) {
+                printWithIndent(e.getMessage(), 5);
+            } catch (NumberFormatException e) {
+                printWithIndent("☹ OOPS!!! Index must be a number.", 5);
+            } catch (IndexOutOfBoundsException e) {
+                String indexErrorMsg = String.format("☹ OOPS!!! Item of index %s does not exist in tasks.",
+                        Integer.parseInt(commandArgs.get("param")) + 1);
+                printWithIndent(indexErrorMsg, 5);
             }
 
             System.out.println(DIVIDER);
@@ -82,19 +92,38 @@ public class Duke {
         printWithIndent("Bye. Hope to see you again soon!", 5);
     }
 
-    public static void addTodo(String task) {
+    public static void printUnknownCommand() {
+        printWithIndent("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", 5);
+    }
+
+    public static void addTodo(String task) throws MissingArgumentException {
+        if (task == null) {
+            throw new MissingArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         Todo todo = new Todo(task);
         tasks.add(todo);
         addSuccess(todo);
     }
 
-    public static void addDeadline(String task, String by) {
+    public static void addDeadline(String task, String by) throws MissingArgumentException {
+        if (task == null) {
+            throw new MissingArgumentException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+        if (by == null) {
+            throw new MissingArgumentException("☹ OOPS!!! The date of a deadline cannot be empty.");
+        }
         Deadline deadline = new Deadline(task, by);
         tasks.add(deadline);
         addSuccess(deadline);
     }
 
-    public static void addEvent(String task, String at) {
+    public static void addEvent(String task, String at) throws MissingArgumentException {
+        if (task == null) {
+            throw new MissingArgumentException("☹ OOPS!!! The description of an event cannot be empty.");
+        }
+        if (at == null) {
+            throw new MissingArgumentException("☹ OOPS!!! The date of an event cannot be empty.");
+        }
         Event event = new Event(task, at);
         tasks.add(event);
         addSuccess(event);
@@ -118,9 +147,6 @@ public class Duke {
     }
 
     public static void setTaskDone(int index) {
-        if (index > tasks.size()) {
-            return;
-        }
         Task task = tasks.get(index - 1);
         task.markAsDone();
         printWithIndent("Nice! I've marked this task as done: ", 5);
