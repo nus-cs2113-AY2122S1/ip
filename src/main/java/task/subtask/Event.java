@@ -1,3 +1,7 @@
+package task.subtask;
+
+import utils.Display;
+
 public class Event extends Deadline {
 
     public Event(String taskName, String eventTime) {

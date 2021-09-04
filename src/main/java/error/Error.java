@@ -1,3 +1,5 @@
+package error;
+
 public class Error {
 
     public static final String ERROR_MESSAGE_INVALID_COMMAND = "☹ OOPS!!! I don't know what that means :-(";
