@@ -1,3 +1,5 @@
+package alfred.manager;
+
 public abstract class ErrorManager {
     private static final String LINE = "____________________________________________________________\n";
 

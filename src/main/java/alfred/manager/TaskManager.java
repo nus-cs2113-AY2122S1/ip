@@ -1,4 +1,10 @@
-import exception.EmptyDescriptionException;
+package alfred.manager;
+
+import alfred.exception.EmptyDescriptionException;
+import alfred.task.Deadline;
+import alfred.task.Event;
+import alfred.task.Task;
+import alfred.task.Todo;
 
 public class TaskManager {
     private Task[] tasks;
