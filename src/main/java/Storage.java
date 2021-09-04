@@ -2,16 +2,18 @@ public class Storage {
     private static final Task[] inputTasks = new Task[100];
     private static int inputTasksSize = 0;
 
-    public static void storeInput(String input) {
+    public static void storeInput(String input) throws DukeException {
         Task newTask;
         if (input.startsWith("todo")) {
             newTask = new Todo(input.substring(5));
         } else if (input.startsWith("deadline")) {
             String[] inputSlices = input.substring(9).split("/");
             newTask = new Deadline(inputSlices[0].trim(), inputSlices[1].substring(2).trim());
-        } else {
+        } else if (input.startsWith("event")) {
             String[] inputSlices = input.substring(6).split("/");
             newTask = new Event(inputSlices[0].trim(), inputSlices[1].substring(2).trim());
+        } else {
+            throw new DukeException();
         }
 
         inputTasks[inputTasksSize] = newTask;

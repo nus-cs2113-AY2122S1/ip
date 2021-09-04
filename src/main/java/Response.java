@@ -34,7 +34,13 @@ public class Response {
         if (input.startsWith("done ")) {
             String[] inputParts = input.split(" ");
             int completedTask = Integer.parseInt(inputParts[1]);
-            Storage.markComplete(completedTask);
+
+            try {
+                Storage.markComplete(completedTask);
+            } catch (NullPointerException e) {
+                echo("Please enter a task number from the list");
+            }
+
             return;
         }
 
@@ -46,8 +52,15 @@ public class Response {
             Storage.list();
             break;
         default:
-            Storage.storeInput(input);
+            try {
+                Storage.storeInput(input);
+            } catch (DukeException e) {
+                echo("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (IndexOutOfBoundsException e) {
+                echo("OOPS!!! The description of a task cannot be empty.");
+            }
             break;
+
         }
     }
 }
