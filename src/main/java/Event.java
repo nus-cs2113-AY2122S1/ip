@@ -1,18 +1,8 @@
-public class Event extends Task {
+public class Event extends Deadline {
     protected String time;
 
     public Event(String description, String time) {
-        super(description);
-        this.time = time;
+        super(description, time);
         this.type = 'E';
-    }
-
-    @Override
-    public String toString() {
-        if (isDone) {
-            return "[" + type + "][X] " + description + " (" + time + ")";
-        } else {
-            return "[" + type + "][ ] " + description + " (" + time + ")";
-        }
     }
 }
