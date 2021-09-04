@@ -8,58 +8,63 @@ Gotcha. I've added this task:
 You have a total of 1 tasks now.
 ________________________________________
 ________________________________________
-Gotcha. I've added this task:
-[T][ ] water plants
-You have a total of 2 tasks now.
+DukeException: Command given cannot be recognized.
 ________________________________________
 ________________________________________
 Gotcha. I've added this task:
 [D][ ] CS2113 coding exercise (by: next Friday)
-You have a total of 3 tasks now.
+You have a total of 2 tasks now.
 ________________________________________
 ________________________________________
 Gotcha. I've added this task:
 [E][ ] saw con 2021 (at: 4-6pm tomorrow)
-You have a total of 4 tasks now.
+You have a total of 3 tasks now.
 ________________________________________
 ________________________________________
 1. [T][ ] walk dog
-2. [T][ ] water plants
-3. [D][ ] CS2113 coding exercise (by: next Friday)
-4. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
+2. [D][ ] CS2113 coding exercise (by: next Friday)
+3. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
 ________________________________________
 ________________________________________
-Task water plants marked as complete.
+Task CS2113 coding exercise marked as complete.
 ________________________________________
 ________________________________________
-Error: index outside range.
+DukeException: Index of task outside range.
 ________________________________________
 ________________________________________
-Gotcha. I've added this task:
-[T][ ] deadline error management by Sunday
-You have a total of 5 tasks now.
+DukeException: Index of task is not a valid integer.
+________________________________________
+________________________________________
+DukeException: Deadline command does not include '/' character.
 ________________________________________
 ________________________________________
 Gotcha. I've added this task:
 [D][ ] carboncents disagree meeting (by: never)
-You have a total of 6 tasks now.
+You have a total of 4 tasks now.
 ________________________________________
 ________________________________________
 Gotcha. I've added this task:
 [E][ ] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
-You have a total of 7 tasks now.
+You have a total of 5 tasks now.
 ________________________________________
 ________________________________________
-Task deadline error management by Sunday marked as complete.
+DukeException: Description of deadline is blank.
+________________________________________
+________________________________________
+DukeException: Description of event is blank.
+________________________________________
+________________________________________
+DukeException: Task already completed.
+________________________________________
+________________________________________
+Task tour de france marked as complete.
 ________________________________________
 ________________________________________
 1. [T][ ] walk dog
-2. [T][X] water plants
-3. [D][ ] CS2113 coding exercise (by: next Friday)
-4. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
-5. [T][X] deadline error management by Sunday
-6. [D][ ] carboncents disagree meeting (by: never)
-7. [E][ ] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
+2. [D][X] CS2113 coding exercise (by: next Friday)
+3. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
+4. [D][ ] carboncents disagree meeting (by: never)
+5. [E][X] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
 ________________________________________
 ________________________________________
 Closing Duke. Have a nice day!
