@@ -3,7 +3,7 @@
  *
  * @author richwill28
  */
-public abstract class Ui {
+public class Ui {
     public static final String LOGO =
             "     ,---.    ,---.   ____    .-./`)  ______          " + System.lineSeparator()
             + "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.    " + System.lineSeparator()
@@ -20,10 +20,8 @@ public abstract class Ui {
 
     public static final String PADDING = "     ";
 
-    /**
-     * Displays logo and greets user.
-     */
-    public static void greet() {
+    /** Displays logo and greets user */
+    public static void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
         System.out.println(PADDING + "Hello! I'm your personal maid. Call me Maid-chan!");
@@ -31,21 +29,24 @@ public abstract class Ui {
         System.out.println(LINE);
     }
 
-    /**
-     * Prints error message.
-     */
-    public static void error() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "Sorry.. I don't understand your command.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Says goodbye to user.
-     */
-    public static void bye() {
+    /** Says goodbye to user. */
+    public static void printGoodbye() {
         System.out.print(LINE);
         System.out.println(PADDING + "Bye. Hope to see you again soon!");
         System.out.print(LINE);
+    }
+
+    /** Prints "invalid input" error message. */
+    public static void printInvalidInput() {
+        System.out.print(LINE);
+        System.out.println(PADDING + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(LINE);
+    }
+
+    /** Prints "Todo command cannot be empty" error message. */
+    public static void printTodoCannotBeEmpty() {
+        System.out.print(LINE);
+        System.out.println(PADDING + "☹ OOPS!!! The description of a todo cannot be empty.");
+        System.out.println(LINE);
     }
 }

@@ -84,9 +84,14 @@ public class Duke {
      *                 description.
      */
     public void addTodo(String response) {
-        Task task = new Todo(response.replace("todo ", ""));
-        taskList.addTask(task);
-        reportTaskAdded(task);
+        String description = response.replace("todo ", "");
+        if (description.isBlank()) {
+            Ui.printTodoCannotBeEmpty();
+        } else {
+            Task task = new Todo(description);
+            taskList.addTask(task);
+            reportTaskAdded(task);
+        }
     }
 
     /**
@@ -138,7 +143,7 @@ public class Duke {
             } else if (response.isEvent()) {
                 this.addEvent(response.getCommand());
             } else {
-                Ui.error();
+                Ui.printInvalidInput();
             }
         }
     }
@@ -147,9 +152,9 @@ public class Duke {
      * Runs the whole Duke program.
      */
     public void run() {
-        Ui.greet();
+        Ui.printGreeting();
         this.start();
-        Ui.bye();
+        Ui.printGoodbye();
     }
 
     /**
