@@ -9,6 +9,10 @@ Hello from
 	Hello! I'm Duke ?
 	What can I do for you?
 ____________________________________________________________
+	OOPS!!! I'm sorry, but I don't know what that means :-(
+____________________________________________________________
+	OOPS!!! The description of a todo cannot be empty.
+____________________________________________________________
 	Got it. I've added this task:
 		[T][ ] read book
 	Now you have 1 tasks in the list.
@@ -58,6 +62,14 @@ ____________________________________________________________
 	5.[T][ ] borrow book
 	6.[D][ ] return book (by: Sunday)
 	7.[E][ ] project meeting (at: Mon 2-4pm)
+____________________________________________________________
+	Wrong deadline format! Please follow `deadline <description> /at <at>`.
+____________________________________________________________
+	Wrong deadline format! Please follow `deadline <description> /by <by>`.
+____________________________________________________________
+	Wrong format, please retype with format `done <taskIndex>`.
+____________________________________________________________
+	 Task index is out of range.
 ____________________________________________________________
 	Bye. Hope to see you again soon! ?
 ____________________________________________________________

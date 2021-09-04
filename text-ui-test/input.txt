@@ -1,3 +1,5 @@
+baba
+todo
 todo read book
 deadline return book /by June 6th
 done 1
@@ -9,4 +11,8 @@ list
 deadline return book /by Sunday
 event project meeting /at Mon 2-4pm
 list
+event baba at here
+deadline asdf
+done a
+done 1000
 bye
