@@ -72,7 +72,6 @@ public class Duke {
             } catch (DukeMissingKeywordException e) {
                 printMessage("No " + e.keyword + " detected, press enter to see command syntax");
             } catch (DukeInvalidTaskIndex e) {
-                // Assuming this exception is only triggered for setTaskAsDone
                 printMessage("Please enter valid task index number");
             } catch (DukeTaskAlreadyCompletedException e) {
                 printMessage("This task is already completed");
