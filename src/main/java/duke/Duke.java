@@ -323,7 +323,7 @@ public class Duke {
     private static void printInvalidCommand() {
         printBorder();
         System.out.println("Command not recognized!");
-        System.out.println("try the following: \"by\", \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
+        System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
         printBorder();
     }
 }

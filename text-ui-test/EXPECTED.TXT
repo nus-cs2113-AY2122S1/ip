@@ -75,7 +75,7 @@ Task number 5 does not exist!
 ____________________________________________________________
 ____________________________________________________________
 Command not recognized!
-try the following: "by", "list", "done", "todo", "deadline", "event", "bye"
+try the following: "list", "done", "todo", "deadline", "event", "bye"
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
