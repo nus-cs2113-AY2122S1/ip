@@ -44,12 +44,7 @@ public class Task {
      * @return a String describing the task.
      */
     public String toString() {
-        String checkbox;
-        if (isCompleted) {
-            checkbox = "[X]";
-        } else {
-            checkbox = "[ ]";
-        }
+        String checkbox = isCompleted ? "[X]" : "[ ]";
         return checkbox + " " + taskName;
     }
 }
