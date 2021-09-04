@@ -1,57 +1,26 @@
 public class TaskManager {
-    private static final int TOTAL_TASKS = 100;
+    private static final int MAXIMUM_TASKS = 100;
 
-    private Task[] tasks = new Task[TOTAL_TASKS];
+    private Task[] tasks = new Task[MAXIMUM_TASKS];
     private int tasksCount = 0;
 
     /**
-     * Adds a Task to the TaskManager based on the specified task type and details
+     * Adds a task to the list of tasks
      *
-     * @param taskDetail the entire user input String, including the task type
-     * @param type       the enum TaskType specifying the type of task to be added
+     * @param task The task to be added
+     * @throws DukeException If the maximum number of tasks has been reached
      */
-    public void addTask(String taskDetail, TaskType type) {
-        Task task = null;
-        boolean isValidTask = true;
-        switch (type) {
-        case TODO:
-            String taskName = taskDetail.substring(5).strip();
-            task = new ToDo(taskName);
-            break;
-        case DEADLINE:
-            int byIndex = taskDetail.indexOf(" /by ");
-            if (byIndex == -1) {
-                isValidTask = false;
-                break;
-            }
-            String deadlineName = taskDetail.substring(9, byIndex);
-            String deadlineDate = taskDetail.substring(byIndex + 5);
-            task = new Deadline(deadlineName, deadlineDate);
-            break;
-        case EVENT:
-            int atIndex = taskDetail.indexOf(" /at ");
-            if (atIndex == -1) {
-                isValidTask = false;
-                break;
-            }
-            String eventName = taskDetail.substring(6, atIndex);
-            String eventDate = taskDetail.substring(atIndex + 5);
-            task = new Event(eventName, eventDate);
-            break;
+    public void addTask(Task task) throws DukeException {
+        if (tasksCount >= MAXIMUM_TASKS) {
+            throw new DukeException("Maximum number of tasks reached.");
         }
-        if (isValidTask) {
-            tasks[tasksCount] = task;
-            tasksCount++;
-            printLine();
-            System.out.println("  Ok! I've added this task:");
-            System.out.println("    " + task.toString());
-            System.out.println("  Now you have " + tasksCount + " tasks.");
-            printLine();
-        } else {
-            printLine();
-            System.out.println("Incorrect task format");
-            printLine();
-        }
+        tasks[tasksCount] = task;
+        tasksCount++;
+        printLine();
+        System.out.println("  Ok! I've added this task:");
+        System.out.println("    " + task.toString());
+        System.out.println("  Now you have " + tasksCount + " tasks.");
+        printLine();
     }
 
     /**
@@ -72,7 +41,12 @@ public class TaskManager {
      *
      * @param taskIndex the index of the task to be marked as completed
      */
-    public void completeTask(int taskIndex) {
+    public void completeTask(int taskIndex) throws DukeException {
+        if (taskIndex <= -1) {
+            throw new DukeException("Task index must be greater than 0.");
+        } else if (taskIndex >= tasksCount) {
+            throw new DukeException("Task does not exist.");
+        }
         tasks[taskIndex].setCompleted();
         printLine();
         System.out.print("  Ok! I've marked this task as done:" + System.lineSeparator() + "    ");

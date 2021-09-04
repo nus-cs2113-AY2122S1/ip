@@ -3,6 +3,12 @@
   How may I assist you
   ──────────────────────────────
   ──────────────────────────────
+  Please specify a do by date by using the " /by " separator.
+  ──────────────────────────────
+  ──────────────────────────────
+  Please specify a do by date.
+  ──────────────────────────────
+  ──────────────────────────────
   Ok! I've added this task:
     [D][ ] submit report (by: Tuesday 23:59)
   Now you have 1 tasks.
@@ -20,9 +26,21 @@
     1.[D][X] submit report (by: Tuesday 23:59)
   ──────────────────────────────
   ──────────────────────────────
+  Please specify a task name.
+  ──────────────────────────────
+  ──────────────────────────────
+  Task does not exist.
+  ──────────────────────────────
+  ──────────────────────────────
   Ok! I've added this task:
     [T][ ] buy groceries
   Now you have 2 tasks.
+  ──────────────────────────────
+  ──────────────────────────────
+  Please specify an event date by using the " /at " separator.
+  ──────────────────────────────
+  ──────────────────────────────
+  Please specify an event date.
   ──────────────────────────────
   ──────────────────────────────
   Ok! I've added this task:
@@ -36,8 +54,29 @@
     3.[E][ ] lunch (by: Thursday noon)
   ──────────────────────────────
   ──────────────────────────────
+  Please provide a valid number.
+  ──────────────────────────────
+  ──────────────────────────────
+  Task does not exist.
+  ──────────────────────────────
+  ──────────────────────────────
+  Ok! I've added this task:
+    [E][ ] dinner (by: Friday 6pm)
+  Now you have 4 tasks.
+  ──────────────────────────────
+  ──────────────────────────────
   Ok! I've marked this task as done:
-    [E][X] lunch (by: Thursday noon)
+    [E][X] dinner (by: Friday 6pm)
+  ──────────────────────────────
+  ──────────────────────────────
+  Here are your tasks:
+    1.[D][X] submit report (by: Tuesday 23:59)
+    2.[T][ ] buy groceries
+    3.[E][ ] lunch (by: Thursday noon)
+    4.[E][X] dinner (by: Friday 6pm)
+  ──────────────────────────────
+  ──────────────────────────────
+  Sorry, I do not understand your command.
   ──────────────────────────────
   ──────────────────────────────
   Goodbye! Hope to see you soon!

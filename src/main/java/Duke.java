@@ -1,13 +1,6 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static final String COMMAND_EXIT = "bye";
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_MARK_DONE = "done";
-    public static final String COMMAND_NEW_TODO = "todo";
-    public static final String COMMAND_NEW_DEADLINE = "deadline";
-    public static final String COMMAND_NEW_EVENT = "event";
-
 
     public static void main(String[] args) {
         printStartMessage();
@@ -52,15 +45,6 @@ public class Duke {
     }
 
     /**
-     * Prints the invalid command message in the terminal.
-     */
-    public static void printInvalidCommandMessage() {
-        printLine();
-        System.out.println("  Error: Invalid command");
-        printLine();
-    }
-
-    /**
      * Gets user input and returns it as a String.
      *
      * @return the String containing the user input.
@@ -80,26 +64,17 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         while (isInteracting) {
-            String userInput = getUserInput(in).strip();
-            String[] words = userInput.split(" ");
-
-            if (userInput.equals(COMMAND_EXIT)) {
-                printExitMessage();
-                isInteracting = false;
-            } else if (userInput.equals(COMMAND_LIST)) {
-                taskManager.printTasks();
-            } else if (userInput.startsWith(COMMAND_MARK_DONE)) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                taskManager.completeTask(taskIndex);
-            } else if (userInput.startsWith(COMMAND_NEW_TODO)) {
-                taskManager.addTask(userInput, TaskType.TODO);
-            } else if (userInput.startsWith(COMMAND_NEW_DEADLINE)) {
-                taskManager.addTask(userInput, TaskType.DEADLINE);
-            } else if (userInput.startsWith(COMMAND_NEW_EVENT)) {
-                taskManager.addTask(userInput, TaskType.EVENT);
-            } else {
-                printInvalidCommandMessage();
+            String userInput = getUserInput(in).stripLeading();
+            try {
+                Command command = CommandParser.parse(userInput);
+                command.execute(taskManager);
+                isInteracting = !command.isExit();
+            } catch (DukeException e) {
+                printLine();
+                System.out.println("  " + e.getMessage());
+                printLine();
             }
         }
+        printExitMessage();
     }
 }
