@@ -41,18 +41,21 @@ public class Duke {
      *
      * @param response User response.
      */
-    public void markAsDone(String response) {
-        int taskNumber = Integer.parseInt(response.replace("done ", ""));
-        if (taskNumber <= taskList.getSize()) {
-            taskList.markAsDone(taskNumber - 1);
-            System.out.print(Ui.LINE);
-            System.out.println(Ui.PADDING + "Nice! I've marked this task as done:");
-            System.out.println(Ui.PADDING + "  " + taskList.getTask(taskNumber - 1));
-            System.out.println(Ui.LINE);
-        } else {
-            System.out.println(Ui.LINE);
-            System.out.println(Ui.PADDING + "There are only " + taskList.getSize() + " tasks currently.");
-            System.out.println(Ui.LINE);
+    public void markAsDone(String response) throws DukeException {
+        String description = response.replace("done", "").strip();
+        try {
+            int taskNumber = Integer.parseInt(description);
+            if (taskNumber <= taskList.getSize()) {
+                taskList.markAsDone(taskNumber - 1);
+                System.out.print(Ui.LINE);
+                System.out.println(Ui.PADDING + "Nice! I've marked this task as done:");
+                System.out.println(Ui.PADDING + "  " + taskList.getTask(taskNumber - 1));
+                System.out.println(Ui.LINE);
+            } else {
+                throw new DukeException("Invalid number of task given.");
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeException(description + " is not a number.");
         }
     }
 
@@ -76,10 +79,10 @@ public class Duke {
      * @param response User response, consists of only
      *                 description.
      */
-    public void addTodo(String response) {
+    public void addTodo(String response) throws DukeException {
         String description = response.replace("todo", "").strip();
         if (description.isBlank()) {
-            Ui.printTodoCannotBeEmpty();
+            throw new DukeException("The description of a todo cannot be empty.");
         } else {
             Task task = new Todo(description);
             taskList.addTask(task);
@@ -93,13 +96,25 @@ public class Duke {
      * @param response User response, consists of
      *                 description and deadline.
      */
-    public void addDeadline(String response) {
-        String[] params = response.replace("deadline ", "").split(" /by ");
-        String description = params[0];
-        String by = params[1];
-        Task task = new Deadline(description, by);
-        taskList.addTask(task);
-        reportTaskAdded(task);
+    public void addDeadline(String response) throws DukeException {
+        String[] params = response.replace("deadline", "").strip().split("/by");
+        if (params.length > 2) {
+            throw new DukeException("Invalid number of arguments given.");
+        }
+
+        try {
+            String description = params[0].strip();
+            String by = params[1].strip();
+            if (description.isBlank() || by.isBlank()) {
+                throw new DukeException("Looks like you have missing arguments.");
+            } else {
+                Task task = new Deadline(description, by);
+                taskList.addTask(task);
+                reportTaskAdded(task);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Looks like you have missing arguments.");
+        }
     }
 
     /**
@@ -108,33 +123,49 @@ public class Duke {
      * @param response User response, consists of
      *                 description and time period.
      */
-    public void addEvent(String response) {
-        String[] params = response.replace("event ", "").split(" /at ");
-        String description = params[0];
-        String at = params[1];
-        Task task = new Event(description, at);
-        taskList.addTask(task);
-        reportTaskAdded(task);
+    public void addEvent(String response) throws DukeException {
+        String[] params = response.replace("event", "").strip().split("/at");
+        if (params.length > 2) {
+            throw new DukeException("Invalid number of arguments given.");
+        }
+
+        try {
+            String description = params[0].strip();
+            String at = params[1].strip();
+            if (description.isBlank() || at.isBlank()) {
+                throw new DukeException("Looks like you have missing arguments.");
+            } else {
+                Task task = new Event(description, at);
+                taskList.addTask(task);
+                reportTaskAdded(task);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Looks like you have missing arguments.");
+        }
     }
 
-    /** Starts the chatting functionality of Duke. */
+    /** Starts the main functionality of Duke. */
     public void start() {
         while (true) {
-            Command response = new Command(getResponse());
-            if (response.isBye()) {
-                break;
-            } else if (response.isList()) {
-                this.list();
-            } else if (response.isDone()) {
-                this.markAsDone(response.getCommand());
-            } else if (response.isTodo()) {
-                this.addTodo(response.getCommand());
-            } else if (response.isDeadline()) {
-                this.addDeadline(response.getCommand());
-            } else if (response.isEvent()) {
-                this.addEvent(response.getCommand());
-            } else {
-                Ui.printInvalidInput();
+            try {
+                Command response = new Command(getResponse());
+                if (response.isBye()) {
+                    break;
+                } else if (response.isList()) {
+                    this.list();
+                } else if (response.isDone()) {
+                    this.markAsDone(response.getCommand());
+                } else if (response.isTodo()) {
+                    this.addTodo(response.getCommand());
+                } else if (response.isDeadline()) {
+                    this.addDeadline(response.getCommand());
+                } else if (response.isEvent()) {
+                    this.addEvent(response.getCommand());
+                } else {
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                System.out.println(e);
             }
         }
     }
