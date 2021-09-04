@@ -2,98 +2,66 @@ public class TaskManager {
     private Task[] tasks = new Task[100];
     private int numTask = 0;
 
-    public static final String BORDER = "_________________________________________\n";
-    public static final String TASK_ADDED_MESSAGE = BORDER + "The task has been added: ";
-    public static final String INVALID_TASK_NUMBER = "Invalid task number";
-    public static final String TASK_COMPLETE_MESSAGE = "Congrats on finishing a task! Have a cookie!";
-    public static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, I didn't understand.";
-    public static final String NO_TASKS_MESSAGE = "No Tasks";
+    public static final String TASK_ADDED_MESSAGE = "The task has been added: \n";
+    public static final String NO_SUCH_TASK_MESSAGE = "There is no task by that number \n";
+    public static final String TASK_COMPLETE_MESSAGE = "Congrats on finishing a task! Have a cookie!\n";
+    public static final String NO_TASKS_MESSAGE = "No Tasks\n";
 
-    private static final String GREETING = "****************************\n"
-            + "*  ____             ____   *\n"
-            + "* |  _ \\    ____   |  _ \\  *\n"
-            + "* | |_| |  / __ \\  | |_| | *\n"
-            + "* |  _  | | |  | | |  _  | *\n"
-            + "* | |_| | | |__| | | |_| | *\n"
-            + "* |____/   \\____/  |____/  *\n"
-            + "****************************\n"
-            + BORDER
-            + "Have no fear, Bob is here!\n"
-            + "What is it that you require?\n"
-            + BORDER;
-
-    public static final String EXIT_MESSAGE = "Bye. Have a nice day!\n";
 
     public TaskManager() {
     }
 
-    public void greet() {
-        System.out.println(GREETING);
-    }
-
-    public void exitMessage() {
-        System.out.println(BORDER + EXIT_MESSAGE + BORDER);
-    }
-
-    public void addTodoTask(String description) {
+    public String addTodoTask(String description) {
         tasks[numTask] = new Todo(description);
-        System.out.println(TASK_ADDED_MESSAGE);
-        System.out.println(tasks[numTask]);
-        System.out.println(BORDER);
         numTask++;
+        return TASK_ADDED_MESSAGE + tasks[numTask - 1] + "\n";
     }
 
-    public void addDeadlineTask(String task) {
+    public String addDeadlineTask(String task) {
         String[] separator = task.split("/by");
         String description = separator[0].trim();
         String deadline = separator[1].trim();
         tasks[numTask] = new Deadline(description, deadline);
-        System.out.println(TASK_ADDED_MESSAGE);
-        System.out.println(tasks[numTask]);
-        System.out.println(BORDER);
         numTask++;
+        return TASK_ADDED_MESSAGE + tasks[numTask - 1] + "\n";
     }
 
-    public void addEventTask(String task) {
+    public String addEventTask(String task) {
         String[] separator = task.split("/at");
         String description = separator[0].trim();
         String timing = separator[1].trim();
         tasks[numTask] = new Event(description, timing);
-        System.out.println(TASK_ADDED_MESSAGE);
-        System.out.println(tasks[numTask]);
-        System.out.println(BORDER);
         numTask++;
+        return TASK_ADDED_MESSAGE + tasks[numTask - 1] + "\n";
     }
 
-    public void listTasks() {
-        System.out.print(BORDER);
+    public String listTasks() {
         if (numTask == 0) {
-            System.out.println(NO_TASKS_MESSAGE);
-        } else {
-            System.out.println("Task List:\n");
-            for (int i = 0; i < numTask; i++) {
-                System.out.print((i + 1) + ". ");
-                System.out.println(tasks[i]);
-            }
+            return NO_TASKS_MESSAGE;
         }
-        System.out.println(BORDER);
+        String infoForUser = "Task List:\n";
+        for (int i = 0; i < numTask; i++) {
+            infoForUser += (i + 1) + ". " + tasks[i] + "\n";
+        }
+
+        return infoForUser;
     }
 
-    public void markAsDone(int number) {
-        System.out.print(BORDER);
+    public String markAsDone(int number) {
         if (number > numTask) {
-            System.out.println(INVALID_TASK_NUMBER);
-        } else {
-            tasks[number - 1].markAsDone();
-            System.out.println(TASK_COMPLETE_MESSAGE);
-            System.out.println(tasks[number - 1]);
+            return NO_SUCH_TASK_MESSAGE;
         }
-        System.out.println(BORDER);
+        tasks[number - 1].markAsDone();
+        return TASK_COMPLETE_MESSAGE + tasks[number - 1] + "\n";
     }
 
-    public void handleUnknownCommand() {
-        System.out.print(BORDER);
-        System.out.println(UNKNOWN_COMMAND_MESSAGE);
-        System.out.println(BORDER);
+    public String showCommandHelp() {
+        return "The following is the list of commands: \n" +
+                "list \nDisplays the current tasks. \n" +
+                "todo <task> \nAdds <task> to the task list \n" +
+                "deadline <task> /by <date>\nAdds <task> to task list with deadline <date> \n" +
+                "event <task> /at <time>\nAdds <task> to task list with time <time> \n" +
+                "done <task index>\nMarks task number <task index> as done. <task index> should be an integer\n" +
+                "bye\nExits the program\n";
     }
 }
