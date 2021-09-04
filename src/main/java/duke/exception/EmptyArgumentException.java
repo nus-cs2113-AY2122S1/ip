@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * To be used when no arguments were given after the command
  */
