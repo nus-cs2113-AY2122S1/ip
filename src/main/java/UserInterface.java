@@ -15,30 +15,32 @@ public class UserInterface {
     private static String[] userInputs;
 
     public static void executeCommand(Command userCommand) {
-        switch (userCommand) {
-        case EXIT:
+        if (userCommand == Command.EXIT) {
             showExitMessage();
             Duke.isRunning = false;
-            break;
-        case LIST:
+        } else if (userCommand == Command.LIST) {
             showList();
-            break;
-        case ADD_TODO:
-        case ADD_DEADLINE:
-        case ADD_EVENT:
-            addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
-            break;
-        case DONE:
-            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
-            if (TaskManager.setDone(taskIndex)) {
-                showItemSetDone(taskIndex);
-                break;
+        }
+
+        if (userCommand == Command.ADD_TODO || userCommand == Command.ADD_DEADLINE
+                || userCommand == Command.ADD_EVENT) {
+            try {
+                addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                showWrongFormat();
             }
-            showInvalidIndex();
-            break;
-        default:
+        } else if (userCommand == Command.DONE) {
+            try {
+                int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+                TaskManager.setDone(taskIndex);
+                showItemSetDone(taskIndex);
+            } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
+                showInvalidIndex();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                showWrongFormat();
+            }
+        } else if (userCommand == Command.INVALID) {
             showInvalidCommand();
-            break;
         }
     }
 
@@ -49,9 +51,9 @@ public class UserInterface {
         } else if (userInput.replaceAll(" ", "").equals("list")) {
             return Command.LIST;
         }
-        
+
         userInputs = splitCommandAndRemainder(userInput);
-        
+
         if ("todo".equals(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_TODO;
         } else if ("deadline".equals(userInputs[USER_COMMAND_INDEX])) {
@@ -62,18 +64,11 @@ public class UserInterface {
             return Command.DONE;
         }
         
-        return Command.CONTINUE;
+        return Command.INVALID;
     }
 
     private static int getTaskIndex(String word) {
-        int taskIndex;
-        try {
-            taskIndex = Integer.parseInt(word.replaceAll(" ", ""));
-        } catch (Exception e) {
-            showWrongFormat();
-            taskIndex = -100;
-        }
-        return taskIndex;
+        return Integer.parseInt(word.replaceAll(" ", ""));
     }
 
     private static String[] splitCommandAndRemainder(String line) {
@@ -82,8 +77,8 @@ public class UserInterface {
 
     private static void addTask(Command addCommand, String line) {
         try {
-        TaskManager.addTask(addCommand, line);
-        showItemAdded();
+            TaskManager.addTask(addCommand, line);
+            showItemAdded();
         } catch (DukeBlankDescriptionsException | ArrayIndexOutOfBoundsException e) {
             showWrongFormat();
         }
@@ -140,6 +135,7 @@ public class UserInterface {
     private static void showWrongFormat() {
         UserInterface.printLine();
         System.out.println("Wrong format!");
+        System.out.println("Missing some description or wrong command format.");
         UserInterface.printLine();
     }
 }

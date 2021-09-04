@@ -1,2 +1,2 @@
-public class DukeBlankDescriptionsException extends Exception{
+public class DukeBlankDescriptionsException extends Exception {
 }

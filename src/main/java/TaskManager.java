@@ -17,12 +17,12 @@ public class TaskManager {
         return numOfTask;
     }
 
-    public static boolean setDone(int taskIndex) {
+    public static void setDone(int taskIndex) throws DukeInvalidTaskIndexException {
         if (checkCorrectIndex(taskIndex)) {
             tasks[taskIndex - 1].markDone();
-            return true;
+        } else {
+            throw new DukeInvalidTaskIndexException();
         }
-        return false;
     }
 
     private static String[] splitDescription(String description, String splitBy) {
@@ -58,7 +58,7 @@ public class TaskManager {
         }
     }
 
-    private static void addToDo(String description) throws DukeBlankDescriptionsException{
+    private static void addToDo(String description) throws DukeBlankDescriptionsException {
         if (!description.isBlank()) {
             tasks[numOfTask] = new ToDo(description);
             numOfTask++;
@@ -67,9 +67,8 @@ public class TaskManager {
         }
     }
 
-    private static void addEvent(String description) throws DukeBlankDescriptionsException{
-        String[] descriptions;
-        descriptions = splitDescription(description, " /at ");
+    private static void addEvent(String description) throws DukeBlankDescriptionsException {
+        String[] descriptions = splitDescription(description, " /at ");
         tasks[numOfTask] = new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
         if (checkBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
@@ -77,9 +76,8 @@ public class TaskManager {
         numOfTask++;
     }
 
-    private static void addDeadline(String description) throws DukeBlankDescriptionsException{
-        String[] descriptions;
-        descriptions = splitDescription(description, " /by ");
+    private static void addDeadline(String description) throws DukeBlankDescriptionsException {
+        String[] descriptions = splitDescription(description, " /by ");
         tasks[numOfTask] = new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
         if (checkBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
