@@ -17,7 +17,7 @@ public class TaskManager {
     }
 
     private static void markAsDoneMessage(int index) {
-        System.out.println("Nice! I've marked this duke.task as done: ");
+        System.out.println("Nice! I've marked this task as done: ");
         System.out.println(tasks[index]);
     }
 
@@ -45,7 +45,7 @@ public class TaskManager {
     }
 
     private static void echoTask(int index) {
-        System.out.println("Got it. I've added this duke.task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println(tasks[index]);
         taskCountMessage(taskCount);
         printDivider();
@@ -55,7 +55,7 @@ public class TaskManager {
         if (count == 0) {
             System.out.print("You have not added any tasks");
         } else if (count == 1) { //grammar
-            System.out.print("Now you have 1 duke.task in the list\n");
+            System.out.print("Now you have 1 task in the list\n");
         } else {
             System.out.printf("Now you have %d tasks in the list\n", count);
         }
@@ -88,14 +88,14 @@ public class TaskManager {
         echoTask(taskCount++);
     }
 
-    //TODO exceptions for empty time for duke.task.Deadline, duke.task.Event
+    //TODO exceptions for empty time for Deadline, Event
     private static void addDeadline(String description) {
         String[] params = description.split("/", 2);
         tasks[taskCount] = new Deadline(params[0], params[1]);
         echoTask(taskCount++);
     }
 
-    //TODO exceptions for empty time for duke.task.Deadline, duke.task.Event
+    //TODO exceptions for empty time for Deadline, Event
     private static void addEvent(String description) {
         String[] params = description.split("/", 2);
         tasks[taskCount] = new Event(params[0], params[1]);
@@ -120,7 +120,7 @@ public class TaskManager {
             }
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! You've forgotten to write the duke.task number");
+            System.out.println("☹ OOPS!!! You've forgotten to write the task number");
             printDivider();
         }
         catch (DukeException e) {
