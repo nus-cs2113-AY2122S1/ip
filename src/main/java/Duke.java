@@ -88,7 +88,20 @@ public class Duke {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 // for now these exceptions only occur when a number is passed after done
                 // so we can assume the user made an error using the 'done' command
-                printMessage("Please enter a number after \'done\' : " + inputCommand);
+                printMessage("Please enter a valid number after \'done\' : " + inputCommand);
+            } catch (DukeEmptyDescriptionException e) {
+                printMessage("Please enter a description of the task");
+            } catch (DukeExceedMaxTaskException e) {
+                printMessage("Exceeded maximum task limit, please delete a task to continue");
+            } catch (DukeEmptyTimeException e) {
+                printMessage("Please enter the deadline/event time");
+            } catch (DukeMissingKeywordException e) {
+                printMessage("No " + e.keyword + " detected, press enter to see command syntax");
+            } catch (DukeInvalidTaskIndex e) {
+                // Assuming this exception is only triggered for setTaskAsDone
+                printMessage("Please enter valid task index number");
+            } catch (DukeTaskAlreadyCompletedException e) {
+                printMessage("This task is already completed");
             }
         }
     }
@@ -98,7 +111,8 @@ public class Duke {
         return inputCommand.substring(i).trim();
     }
 
-    private static int getIntegerFromCommand(String input) {
+    private static int getIntegerFromCommand(String input) throws NumberFormatException,
+            ArrayIndexOutOfBoundsException {
         String[] splitInput = input.split(" ");
         return Integer.parseInt(splitInput[1]);
     }
