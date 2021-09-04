@@ -45,6 +45,6 @@ public class Picture {
      * Prints a horizontal separator line.
      */
     public static void printLine() {
-        System.out.println("    ────────────────────────────────────────────────────────────");
+        System.out.println("    ─────────────────────────────────────────────────────────────────────────");
     }
 }
