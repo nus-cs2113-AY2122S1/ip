@@ -44,61 +44,47 @@ public class TaskManager {
         return index > 0 && index <= numOfTask;
     }
 
-    public static boolean addTask(Command type, String description) {
+    public static void addTask(Command type, String description) throws DukeBlankDescriptionsException{
         switch (type) {
         case ADD_TODO:
-            return addToDo(description);
-
+            addToDo(description);
+            break;
         case ADD_DEADLINE:
-            return addDeadline(description);
-
+            addDeadline(description);
+            break;
         case ADD_EVENT:
-            return addEvent(description);
-
-        default:
-            return false;
+            addEvent(description);
+            break;
         }
     }
 
-    private static boolean addToDo(String description) {
+    private static void addToDo(String description) throws DukeBlankDescriptionsException{
         if (!description.isBlank()) {
             tasks[numOfTask] = new ToDo(description);
             numOfTask++;
-            return true;
         } else {
-            return false;
+            throw new DukeBlankDescriptionsException();
         }
     }
 
-    private static boolean addEvent(String description) {
+    private static void addEvent(String description) throws DukeBlankDescriptionsException{
         String[] descriptions;
         descriptions = splitDescription(description, " /at ");
-        try {
-            tasks[numOfTask] = new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
-            if (checkBlankEntry(descriptions)) {
-                return false;
-            }
-            numOfTask++;
-            return true;
-        } catch (Exception e) {
-            return false;
+        tasks[numOfTask] = new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
+        if (checkBlankEntry(descriptions)) {
+            throw new DukeBlankDescriptionsException();
         }
+        numOfTask++;
     }
 
-    private static boolean addDeadline(String description) {
+    private static void addDeadline(String description) throws DukeBlankDescriptionsException{
         String[] descriptions;
         descriptions = splitDescription(description, " /by ");
-
-        try {
-            tasks[numOfTask] = new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
-            if (checkBlankEntry(descriptions)) {
-                return false;
-            }
-            numOfTask++;
-            return true;
-        } catch (Exception e) {
-            return false;
+        tasks[numOfTask] = new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
+        if (checkBlankEntry(descriptions)) {
+            throw new DukeBlankDescriptionsException();
         }
+        numOfTask++;
     }
 
     private static boolean checkBlankEntry(String[] descriptions) {

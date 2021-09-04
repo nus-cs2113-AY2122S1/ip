@@ -20,17 +20,14 @@ public class UserInterface {
             showExitMessage();
             Duke.isRunning = false;
             break;
-            
         case LIST:
             showList();
             break;
-            
         case ADD_TODO:
         case ADD_DEADLINE:
         case ADD_EVENT:
             addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
             break;
-            
         case DONE:
             int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
             if (TaskManager.setDone(taskIndex)) {
@@ -39,7 +36,6 @@ public class UserInterface {
             }
             showInvalidIndex();
             break;
-            
         default:
             showInvalidCommand();
             break;
@@ -55,10 +51,6 @@ public class UserInterface {
         }
         
         userInputs = splitCommandAndRemainder(userInput);
-        
-        if (userInputs == null) {
-            return Command.CONTINUE;
-        }
         
         if ("todo".equals(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_TODO;
@@ -85,20 +77,14 @@ public class UserInterface {
     }
 
     private static String[] splitCommandAndRemainder(String line) {
-        String[] words;
-        words = line.split(" ", 2);
-
-        if (words.length < 2) {
-            showInvalidCommand();
-            return null;
-        }
-        return words;
+        return line.split(" ", 2);
     }
 
     private static void addTask(Command addCommand, String line) {
-        if (TaskManager.addTask(addCommand, line)) {
-            showItemAdded();
-        } else {
+        try {
+        TaskManager.addTask(addCommand, line);
+        showItemAdded();
+        } catch (DukeBlankDescriptionsException | ArrayIndexOutOfBoundsException e) {
             showWrongFormat();
         }
     }
