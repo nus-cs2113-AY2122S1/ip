@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class TaskManager {
-    private Task[] tasks;
+    private final Task[] tasks;
     private int taskCount;
 
     // Constants
@@ -64,14 +64,12 @@ public class TaskManager {
     /**
      * Marks a task as done
      *
-     * @param tasks The array containing the task to be mark done
-     * @param taskCount The number of tasks in the tasks array
      * @param doneTask User command containing the task ID of the task to mark done
      * @throws DoneInvalidFormatException if command does not follow correct format "done {task ID}"
      * @throws NonNumericTaskIdException if task ID entered is not an integer
      * @throws TaskNotInListException if the task to mark done is not in the task list
      */
-    public void markTaskDone(Task[] tasks, int taskCount, String doneTask) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
+    public void markTaskDone(String doneTask) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
         String[] doneSentence = doneTask.split(" ");
 
         // Checks if done command entered does not follow the correct format of "done {task ID}".
@@ -102,12 +100,10 @@ public class TaskManager {
      * Splits addedTodo by the first whitespace (or sequence of whitespaces) encountered to separate 'todo' command from
      * its description
      *
-     * @param tasks The array of tasks to add a todo to
-     * @param taskCount The number of tasks in the task array
      * @param addedTodo User command containing the todo description
      * @throws TodoInvalidFormatException if the command does not follow the correct format "todo {description}"
      */
-    public void addTodo(Task[] tasks, int taskCount, String addedTodo) throws TodoInvalidFormatException {
+    public void addTodo(String addedTodo) throws TodoInvalidFormatException {
         String[] splitTodo = addedTodo.split("\\s+", 2);
 
         if(splitTodo.length != 2) {
@@ -130,13 +126,11 @@ public class TaskManager {
      * 'deadline' command from its description and deadline. The description and deadline is then split by DEADLINE_PREFIX
      * to obtain the arguments needed for Deadline constructor
      *
-     * @param tasks The array of tasks to add a deadline to
-     * @param taskCount The number of tasks in the tasks array
      * @param addedDeadline User command containing the deadline description and deadline
      * @throws DeadlineInvalidFormatException if the command does not follow the correct format "deadline {description} /by {deadline}
      * @throws DeadlineLacksArgumentsException if the command does not contain the deadline description or the deadline
      */
-    public void addDeadline(Task[] tasks, int taskCount, String addedDeadline) throws DeadlineInvalidFormatException, DeadlineLacksArgumentsException {
+    public void addDeadline(String addedDeadline) throws DeadlineInvalidFormatException, DeadlineLacksArgumentsException {
         String[] splitDeadline = addedDeadline.split("\\s+", 2);
 
         if(splitDeadline.length != 2) {
@@ -171,13 +165,11 @@ public class TaskManager {
      * 'event' command from its description and time. The description and time is then split by EVENT_PREFIX
      * to obtain the arguments needed for Event constructor
      *
-     * @param tasks The array of tasks to add an event to
-     * @param taskCount The number of tasks in the tasks array
      * @param addedEvent User command containing the event description and time
      * @throws EventInvalidFormatException if the command does not follow the correct format "event {description} /at {time}"
      * @throws EventLacksArgumentsException if the command does not contain the event description or the event time
      */
-    public void addEvent(Task[] tasks, int taskCount, String addedEvent) throws EventInvalidFormatException, EventLacksArgumentsException {
+    public void addEvent(String addedEvent) throws EventInvalidFormatException, EventLacksArgumentsException {
         String[] splitEvent = addedEvent.split("\\s+", 2);
 
         if(splitEvent.length != 2) {
@@ -213,7 +205,7 @@ public class TaskManager {
      */
     public void handleEvent(String userInput) {
         try {
-            addEvent(tasks, taskCount, userInput);
+            addEvent(userInput);
             taskCount++;
         } catch (EventInvalidFormatException eventInvalidFormatException) {
             eventInvalidFormatException.printEventInvalidFormatMessage();
@@ -229,7 +221,7 @@ public class TaskManager {
      */
     public void handleDeadline(String userInput) {
         try {
-            addDeadline(tasks, taskCount, userInput);
+            addDeadline(userInput);
             taskCount++;
         } catch (DeadlineInvalidFormatException deadlineInvalidFormatException) {
             deadlineInvalidFormatException.printDeadlineInvalidFormatMessage();
@@ -245,7 +237,7 @@ public class TaskManager {
      */
     public void handleTodo(String userInput) {
         try {
-            addTodo(tasks, taskCount, userInput);
+            addTodo(userInput);
             taskCount++;
         } catch (TodoInvalidFormatException todoInvalidFormatException) {
             todoInvalidFormatException.printTodoInvalidFormatMessage();
@@ -259,7 +251,7 @@ public class TaskManager {
      */
     public void handleTaskDone(String userInput) {
         try {
-            markTaskDone(tasks, taskCount, userInput);
+            markTaskDone(userInput);
         } catch (DoneInvalidFormatException doneInvalidFormatException) {
             doneInvalidFormatException.printDoneInvalidFormatMessage();
         } catch (NonNumericTaskIdException nonNumericTaskIdException) {
