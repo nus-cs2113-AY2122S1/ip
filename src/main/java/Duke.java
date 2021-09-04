@@ -23,18 +23,20 @@ public class Duke {
                 args[j].description());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?\n");
 
         String line = null;
+        String formattedLine;
         String[] newline;
 
         while (!Objects.equals(line, "bye")) {
             line = in.nextLine();
-            newline = line.split("/");
+            formattedLine = line.substring(1); //chops off first letter
+
             String[] arr = line.split(" ", 2);
             if (Objects.equals(line, "list")) {
                 System.out.println("Here are the tasks in your list:");
@@ -45,20 +47,33 @@ public class Duke {
                 Task.markDone(Integer.parseInt(arr[1]),tasks);
             }
             else if (Objects.equals(arr[0], "d")) {
-                System.out.println("Gotcha! I've added this deadline");
-                Deadline t = new Deadline(newline[0], newline[1]);
-                addTask(t,1);
+//                try {
+                    newline = formattedLine.split("/by");
+                    Deadline t = new Deadline(newline[0], newline[1]);
+                    addTask(t, 1);
+                    System.out.println("Gotcha! I've added this deadline");
+//                } catch (DukeException e) {
+//                    System.out.println("OOPS! The description cannot be empty. Please input again!");
+//                }
             }
             else if (Objects.equals(arr[0], "e")) {
-                System.out.println("Nice! I've added this event");
-                Event t = new Event(newline[0], newline[1]);
-                addTask(t,2);
+                //try {
+                    newline = formattedLine.split("/at");
+                    Event t = new Event(newline[0], newline[1]);
+                    addTask(t, 2);
+//                } catch (DukeException e) {
+//                    System.out.println("OOPS! The description cannot be empty. Please input again!");
+//                }
             }
             else if (Objects.equals(arr[0], "t")){
-                System.out.println("Gotcha! I've added this todo");
-                Task t = new Task(line);
-                addTask(t,3);
-                if (!Objects.equals(line, "bye")) System.out.println("added: "+ line);
+                try {
+                    Task t = new Task(formattedLine);
+                    addTask(t, 3);
+                    System.out.println("Gotcha! I've added this todo");
+                    if (!Objects.equals(line, "bye")) System.out.println("added: " + formattedLine);
+                } catch (DukeException e) {
+                    System.out.println("OOPS! The description of a todo cannot be empty. Please input again!");
+                }
             }
             else {
                 if (!Objects.equals(line, "bye")) System.out.println("Sorry please rephrase");
