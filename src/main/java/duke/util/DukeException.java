@@ -1,3 +1,5 @@
+package duke.util;
+
 public class DukeException extends Exception {
     public String message;
 
