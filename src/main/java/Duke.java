@@ -18,7 +18,7 @@ public class Duke {
             try {
                 dukeCommand = getDukeCommand(rawInput);
             } catch (DukeException e) {
-                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 printHorizontalLine();
                 rawInput = scanner.nextLine();
                 continue;

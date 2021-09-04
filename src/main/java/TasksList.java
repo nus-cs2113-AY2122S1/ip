@@ -27,7 +27,7 @@ public class TasksList {
             System.out.println("\t\t" + this.getTaskString(this.getSize() - 1));
             System.out.println("\tNow you have " + this.getSize() + " tasks in the list.");
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("\tOOPS!!! The description of a todo cannot be empty.");
+            System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
