@@ -11,6 +11,7 @@ public class Duke {
             + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
             + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
     private static final String LINE = "____________________________________________________________\n";
+    private static final String COMMAND_HELP = "help";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_BYE = "bye";
@@ -19,6 +20,14 @@ public class Duke {
     private static final String COMMAND_EVENT = "event";
     private static final String TIME_KEYWORD_BY = "/by";
     private static final String TIME_KEYWORD_AT = "/at";
+    private static final String HELP_MESSAGE = "Here are a list of accepted commands:\n" +
+            COMMAND_HELP + "\n" +
+            COMMAND_LIST + "\n" +
+            COMMAND_DONE + " <item no.>\n" +
+            COMMAND_TODO + " <description>\n" +
+            COMMAND_DEADLINE + " <description> /by <deadline>\n" +
+            COMMAND_EVENT + " <description> /at <date and time>\n" +
+            COMMAND_BYE;
 
     private static final TaskManager taskManager = new TaskManager();
 
@@ -36,17 +45,15 @@ public class Duke {
      * Print help message with valid commands.
      */
     private static void printHelp() {
-        blockPrint(new String[]{"Here are a list of accepted commands:",
-                COMMAND_LIST,
-                COMMAND_DONE + " <item no.>",
-                COMMAND_TODO + " <description>",
-                COMMAND_DEADLINE + " <description> /by <deadline>",
-                COMMAND_EVENT + "<description> /at <date and time>",
-                COMMAND_BYE});
+        blockPrint(new String[]{HELP_MESSAGE});
     }
 
     /**
-     * Print message that time keyword "/by" or "/at" is not in the user input.
+     * Print unknown command error message.
+     */
+    private static void printUnknownCommandError() {
+        blockPrint(new String[]{"Unknown command received.", HELP_MESSAGE});
+    }
      *
      * @param timeKeyword Time keyword ("/by" or "/at").
      */
@@ -234,9 +241,11 @@ public class Duke {
         case COMMAND_EVENT:
             addEvent(splitUserInput);
             break;
-        default:
+        case COMMAND_HELP:
             printHelp();
             break;
+        default:
+            throw new UnknownCommandException();
         }
     }
 
@@ -259,7 +268,11 @@ public class Duke {
 
             // Commands
             if (!userCommand.equals(COMMAND_BYE)) {
-                parseCommand(splitUserInput);
+                try {
+                    parseCommand(splitUserInput);
+                } catch (UnknownCommandException e) {
+                    printUnknownCommandError();
+                }
             } else {
                 break;
             }
