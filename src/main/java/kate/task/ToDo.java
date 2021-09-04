@@ -1,3 +1,5 @@
+package kate.task;
+
 public class ToDo extends Task {
     private static final String TODO_CHECKBOX = "[T]";
 

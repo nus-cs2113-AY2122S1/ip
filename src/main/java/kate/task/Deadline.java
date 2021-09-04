@@ -1,3 +1,5 @@
+package kate.task;
+
 public class Deadline extends Task {
     protected String deadline;
     private static final String DATELINE_CHECKBOX = "[D]";

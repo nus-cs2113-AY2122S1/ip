@@ -1,3 +1,5 @@
+package kate.task;
+
 public class Event extends Task {
     protected String timeFrame;
     private static final String EVENT_CHECKBOX = "[E]";
