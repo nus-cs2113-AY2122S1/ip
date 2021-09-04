@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         UI ui = UI.getUiInstance();
+        // Get the task manager instance
         Unker unker = Unker.getUnkerInstance();
         CommandMap commandMap = CommandMap.getCommandMapInstance();
 

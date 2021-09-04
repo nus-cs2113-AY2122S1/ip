@@ -28,13 +28,21 @@ public abstract class Command {
     public String getName() {
         return name;
     }
-
-
-    protected Matcher parseUserInput(String regex, String data) {
+    
+    /**
+     * Return a {@link java.util.regex.Matcher} based on the data provided.
+     * 
+     * Returns null if the whole pattern is not matched.
+     *  
+     * @param commandPattern The regular expression pattern to match
+     * @param data The data to handle.
+     * @return A {@link java.util.regex.Matcher} with the results from the pattern.
+     */
+    protected Matcher parseUserInput(String commandPattern, String data) {
         if (data == null) {
             return null;
         }
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(commandPattern);
         Matcher matcher = pattern.matcher(data);
 
         // Only return the Matcher if the input is valid

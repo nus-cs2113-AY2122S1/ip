@@ -17,8 +17,8 @@ public class ToDoCommand extends Command {
 
     @Override
     public void execute(UI ui, Unker unker, String data) {
-        ToDo t = new ToDo(data);
-        unker.addTask(t);
-        ui.printSection(ADDED_TASK_MESSAGE, "\t" + t);
+        ToDo toDo = new ToDo(data);
+        unker.addTask(toDo);
+        ui.printSection(ADDED_TASK_MESSAGE, "\t" + toDo);
     }
 }

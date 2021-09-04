@@ -19,9 +19,9 @@ public class UI {
      */
     public String getUserInput() {
         System.out.print("> ");
-        String cmd = scanner.nextLine();
+        String command = scanner.nextLine();
         System.out.println();
-        return cmd;
+        return command;
     }
 
     /**
