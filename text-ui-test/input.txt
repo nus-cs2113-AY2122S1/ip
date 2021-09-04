@@ -29,5 +29,20 @@ done 7
 list
      clear
 list
-echo End of test
+echo Start exception handling test
+echo
+todo
+deadline
+deadline  something
+deadline     something/by
+deadline /by
+deadline /bysometime
+event
+event   something
+event something/at
+event /at
+event /at    sometime
+done
+done    abc
+done 10
 bye

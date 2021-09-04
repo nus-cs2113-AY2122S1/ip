@@ -42,10 +42,12 @@ public class Duke {
                     + "5. event [event description] /at [date and time] - Adds an upcoming event to your list.\n"
                     + "6. done [task number] - Marks the task as done. Use the list to check the task number!\n"
                     + "7. echo [input] - Echoes whatever your input is.\n"
-                    + "8. bye - Stop talking to me and exit the program.\n";
+                    + "8. bye - Stop talking to me and exit the program.";
 
-    private static final String ECHO_ERROR = "OH NO! I can't echo if you don't say anything...";
-    private static final String TODO_ERROR = "OH NO! You need to provide a description for your todo...";
+    private static final String ECHO_ERROR =
+            "OH NO! I can't echo if you don't say anything...";
+    private static final String TODO_ERROR =
+            "OH NO! You need to provide a description for your todo...";
     private static final String DEADLINE_DESCRIPTION_ERROR =
             "OH NO! You need to provide a description for your deadline task...";
     private static final String DEADLINE_DATE_ERROR =
@@ -140,7 +142,7 @@ public class Duke {
         printDivider();
     }
 
-    private boolean hasParameter(String[] inputArray) {
+    private boolean hasValidParameters(String[] inputArray) {
         return (inputArray.length > 1);
     }
 
@@ -158,43 +160,59 @@ public class Duke {
         command = parsedUserInput[0].toLowerCase();
         switch (command) {
         case COMMAND_ECHO:
-            if (!hasParameter(parsedUserInput)) {
+            if (!hasValidParameters(parsedUserInput)) {
                 throw new DukeException(ECHO_ERROR);
             }
             echo(parsedUserInput[1]);
             break;
         case COMMAND_MARK_TASK_AS_DONE:
-            if (!hasParameter(parsedUserInput)) {
+            if (!hasValidParameters(parsedUserInput)) {
                 throw new DukeException(DONE_MISSING_NUMBER_ERROR);
             }
-            taskNumber = Integer.parseInt(parsedUserInput[1]);
+            try {
+                taskNumber = Integer.parseInt(parsedUserInput[1]);
+            } catch (NumberFormatException exception) {
+                throw new DukeException(DONE_NUMBER_FORMAT_ERROR);
+            }
             if (!isValidTaskNumber(taskNumber)) {
                 throw new DukeException(DONE_NUMBER_NOT_FOUND_ERROR);
             }
             markTaskAsDone(taskNumber);
             break;
         case COMMAND_ADD_TODO:
-            if (!hasParameter(parsedUserInput)) {
+            if (!hasValidParameters(parsedUserInput)) {
                 throw new DukeException(TODO_ERROR);
             }
             addTodo(parsedUserInput[1]);
             break;
         case COMMAND_ADD_DEADLINE:
-            if (!hasParameter(parsedUserInput)) {
+            if (!hasValidParameters(parsedUserInput)) {
                 throw new DukeException(DEADLINE_DESCRIPTION_ERROR);
             }
             params = PARSER.separateDeadline(parsedUserInput[1]);
-            if (!hasParameter(params)) {
+            if (!hasValidParameters(params)) {
+                throw new DukeException(DEADLINE_DATE_ERROR);
+            }
+            if (params[0].isEmpty()) {
+                throw new DukeException(DEADLINE_DESCRIPTION_ERROR);
+            }
+            if (params[1].isEmpty()) {
                 throw new DukeException(DEADLINE_DATE_ERROR);
             }
             addDeadline(params[0], params[1]);
             break;
         case COMMAND_ADD_EVENT:
-            if (!hasParameter(parsedUserInput)) {
+            if (!hasValidParameters(parsedUserInput)) {
                 throw new DukeException(EVENT_DESCRIPTION_ERROR);
             }
             params = PARSER.separateEvent(parsedUserInput[1]);
-            if (!hasParameter(params)) {
+            if (!hasValidParameters(params)) {
+                throw new DukeException(EVENT_DATE_ERROR);
+            }
+            if (params[0].isEmpty()) {
+                throw new DukeException(EVENT_DESCRIPTION_ERROR);
+            }
+            if (params[1].isEmpty()) {
                 throw new DukeException(EVENT_DATE_ERROR);
             }
             addEvent(params[0], params[1]);
@@ -221,8 +239,6 @@ public class Duke {
                 parseUserInputString(userInputString);
             } catch (DukeException exception) {
                 showErrorMessage(exception.message);
-            } catch (NumberFormatException exception) {
-                showErrorMessage(DONE_NUMBER_FORMAT_ERROR);
             }
             break;
         }
