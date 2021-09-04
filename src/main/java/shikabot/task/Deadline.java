@@ -1,3 +1,5 @@
+package shikabot.task;
+
 public class Deadline extends Task{
 
     private String by;
