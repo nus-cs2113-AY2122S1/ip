@@ -1,53 +1,67 @@
 public class TaskManager {
 
     public static final int MAX_NUMBER_OF_TASKS = 100;
+    public static final String EMPTY_TODO_NAME = "";
     private Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
     private int taskCount;
 
-    public void addTodoTask(String taskName) {
-        allTasks[taskCount] = new Todo(taskName);
-        taskCount++;
-        Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_TODO, taskCount);
+    public String getTaskName(String taskName) throws DukeTaskNameEmptyException {
+        if (taskName.equals(EMPTY_TODO_NAME)) {
+            throw new DukeTaskNameEmptyException();
+        }
+        return taskName;
+    }
+
+    public void addTodoTask(String taskInformation) {
+        try {
+            allTasks[taskCount] = new Todo(getTaskName(taskInformation));
+            taskCount++;
+            Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_TODO, taskCount);
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayTaskFormatError();
+        }
     }
 
     public void addDeadlineTask(String taskInformation) {
-        String[] taskComponents = getTaskComponents(taskInformation);
-        if (taskComponents.length <= 1) {
+        try {
+            String[] taskComponents = InputParser.getTaskComponents(taskInformation);
+            String taskName = getTaskName(taskComponents[0]);
+            String deadline = taskComponents[1];
+            allTasks[taskCount] = new Deadline(taskName, deadline);
+            taskCount++;
+            Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_DEADLINE, taskCount);
+        } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
-            return;
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayTaskFormatError();
         }
-        String taskName = taskComponents[0];
-        String deadline = taskComponents[1];
-        allTasks[taskCount] = new Deadline(taskName, deadline);
-        taskCount++;
-        Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_DEADLINE, taskCount);
     }
 
     public void addEventTask(String taskInformation) {
-        String[] taskComponents = getTaskComponents(taskInformation);
-        if (taskComponents.length <= 1) {
+        try {
+            String[] taskComponents = InputParser.getTaskComponents(taskInformation);
+            String taskName = getTaskName(taskComponents[0]);
+            String eventTime = taskComponents[1];
+            allTasks[taskCount] = new Event(taskName, eventTime);
+            taskCount++;
+            Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_EVENT, taskCount);
+        } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
-            return;
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayTaskFormatError();
         }
-        String taskName = taskComponents[0];
-        String eventTime = taskComponents[1];
-        allTasks[taskCount] = new Event(taskName, eventTime);
-        taskCount++;
-        Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_EVENT, taskCount);
-    }
-
-    public String[] getTaskComponents(String taskInformation) {
-        String[] taskComponents = taskInformation.split("/");
-        for (int i = 0; i < taskComponents.length; i++) {
-            taskComponents[i] = taskComponents[i].trim();
-        }
-        return taskComponents;
     }
 
     public void markTaskAsCompleted(String[] commandComponents) {
-        int taskNumber = InputParser.getTaskNumber(commandComponents);
-        allTasks[taskNumber].setTaskCompleted();
-        Display.displayTaskCompleted(allTasks[taskNumber].getTask());
+        try {
+            int taskNumber = InputParser.getTaskNumber(commandComponents);
+            allTasks[taskNumber].setTaskCompleted();
+            Display.displayTaskCompleted(allTasks[taskNumber].getTask());
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayTaskNonExistentError();
+        } catch (NumberFormatException e) {
+            Error.displayTaskFormatError();
+        }
     }
 
     public void listTask() {
