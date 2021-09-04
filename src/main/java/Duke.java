@@ -35,9 +35,9 @@ public class Duke {
                 if (userInputString.equalsIgnoreCase("list")) {
                     listTasks(userTasks);
                 } else if (userInputString.toLowerCase().startsWith("done")) {
-                    markTaskDone(userInputString, userTasks);
+                    markTaskDone(userInputString, Task.totalTasks, userTasks);
                 } else {
-                    addNewTask(userInputString, userTasks);
+                    addNewTask(userInputString, Task.totalTasks, userTasks);
                 }
             } catch (DukeException e) {
                 System.out.println("DukeException: " + e.getMessage());
@@ -48,12 +48,12 @@ public class Duke {
     }
 
     public static void listTasks(Task[] userTasks) {
-        for (int i = 0; i < Task.getTotalTasks(); i++) {
+        for (int i = 0; i < Task.totalTasks; i++) {
             System.out.println((i + 1) + ". " + userTasks[i]);
         }
     }
 
-    public static void markTaskDone(String userInputString, Task[] userTasks) throws DukeException {
+    public static void markTaskDone(String userInputString, int taskIndex, Task[] userTasks) throws DukeException {
         String[] words = userInputString.split(" ");
         int completeIndex;
 
@@ -63,7 +63,7 @@ public class Duke {
             throw new DukeException(DukeException.TASK_INDEX_NOT_VALID);
         }
 
-        if (completeIndex >= 0 && completeIndex < Task.getTotalTasks()) {
+        if (completeIndex >= 0 && completeIndex < taskIndex) {
             userTasks[completeIndex].markComplete();
             System.out.println("Task " + userTasks[completeIndex].getDescription() + " marked as complete.");
         } else {
@@ -71,8 +71,8 @@ public class Duke {
         }
     }
 
-    public static void addNewTask(String userInputString, Task[] userTasks) throws DukeException {
-        if (Task.getTotalTasks() >= MAX_STORED_TASKS) {
+    public static void addNewTask(String userInputString, int taskIndex, Task[] userTasks) throws DukeException {
+        if (Task.totalTasks >= MAX_STORED_TASKS) {
             throw new DukeException(DukeException.TASK_ARRAY_FULL);
         }
 
@@ -86,7 +86,8 @@ public class Duke {
             if (taskSubstring.isBlank()) {
                 throw new DukeException(DukeException.TODO_BLANK_DESC);
             }
-            userTasks[Task.getTotalTasks()] = new Todo(taskSubstring);
+
+            userTasks[taskIndex] = new Todo(taskSubstring);
         } else if (userInputString.startsWith("deadline ")) {
             if (slashIndex < 0) {
                 throw new DukeException(DukeException.DEADLINE_NO_SLASH);
@@ -98,7 +99,7 @@ public class Duke {
                 throw new DukeException(DukeException.DEADLINE_BLANK_DESC);
             }
             taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
-            userTasks[Task.getTotalTasks()] = new Deadline(taskSubstring, timeSubstring);
+            userTasks[taskIndex] = new Deadline(taskSubstring, timeSubstring);
         } else if (userInputString.startsWith("event ")) {
             if (slashIndex < 0) {
                 throw new DukeException(DukeException.EVENT_NO_SLASH);
