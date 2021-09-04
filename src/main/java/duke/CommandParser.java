@@ -1,3 +1,5 @@
+package duke;
+
 public class CommandParser {
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";

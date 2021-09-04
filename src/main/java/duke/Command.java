@@ -1,3 +1,5 @@
+package duke;
+
 public abstract class Command {
     /**
      * Returns if the command type is the exitCommand
