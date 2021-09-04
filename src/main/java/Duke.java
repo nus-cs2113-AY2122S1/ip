@@ -48,7 +48,7 @@ public class Duke {
                 printWithIndent("☹ OOPS!!! Index must be a number.", 5);
             } catch (IndexOutOfBoundsException e) {
                 String indexErrorMsg = String.format("☹ OOPS!!! Item of index %s does not exist in tasks.",
-                        Integer.parseInt(commandArgs.get("param")) + 1);
+                        commandArgs.get("param"));
                 printWithIndent(indexErrorMsg, 5);
             }
 
@@ -72,7 +72,9 @@ public class Duke {
         map.put("param", commandParts.length > 1 ? commandParts[1] : "");
         for (int i = 1; i < parts.length; i++) {
             String[] argParts = parts[i].split(" ", 2);
-            map.put(argParts[0], argParts[1]);
+            if (argParts.length == 2) {
+                map.put(argParts[0], argParts[1]);
+            }
         }
         return map;
     }
@@ -97,7 +99,7 @@ public class Duke {
     }
 
     public static void addTodo(String task) throws MissingArgumentException {
-        if (task == null) {
+        if (task == "") {
             throw new MissingArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         Todo todo = new Todo(task);
@@ -106,10 +108,10 @@ public class Duke {
     }
 
     public static void addDeadline(String task, String by) throws MissingArgumentException {
-        if (task == null) {
+        if (task == "") {
             throw new MissingArgumentException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
-        if (by == null) {
+        if (by == null || by == "") {
             throw new MissingArgumentException("☹ OOPS!!! The date of a deadline cannot be empty.");
         }
         Deadline deadline = new Deadline(task, by);
@@ -118,10 +120,10 @@ public class Duke {
     }
 
     public static void addEvent(String task, String at) throws MissingArgumentException {
-        if (task == null) {
+        if (task == "") {
             throw new MissingArgumentException("☹ OOPS!!! The description of an event cannot be empty.");
         }
-        if (at == null) {
+        if (at == null || at == "") {
             throw new MissingArgumentException("☹ OOPS!!! The date of an event cannot be empty.");
         }
         Event event = new Event(task, at);

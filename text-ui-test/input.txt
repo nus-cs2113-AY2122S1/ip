@@ -5,4 +5,10 @@ event project meeting /at Aug 6th 2-4pm
 list
 done 2
 list
+foo
+todo
+deadline test deadline
+event test event /at
+done
+done 4
 bye
