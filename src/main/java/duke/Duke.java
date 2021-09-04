@@ -24,11 +24,9 @@ public class Duke {
             if (userInput.equals("bye")) {
                 exit();
                 break;
-            }
-            else if (userInput.equals("list")) {
+            } else if (userInput.equals("list")) {
                 TaskManager.listTasks();
-            }
-            else {
+            } else {
                 TaskManager.handleRequest(userInput);
             }
         }

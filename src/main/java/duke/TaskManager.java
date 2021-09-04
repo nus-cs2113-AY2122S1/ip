@@ -38,8 +38,7 @@ public class TaskManager {
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.printf("%d.%s", i + 1, tasks[i]);
-            System.out.print("\n");
+            System.out.printf("%d.%s" + System.lineSeparator(), i + 1, tasks[i]);
         }
         printDivider();
     }
@@ -55,9 +54,9 @@ public class TaskManager {
         if (count == 0) {
             System.out.print("You have not added any tasks");
         } else if (count == 1) { //grammar
-            System.out.print("Now you have 1 task in the list\n");
+            System.out.print("Now you have 1 task in the list" + System.lineSeparator());
         } else {
-            System.out.printf("Now you have %d tasks in the list\n", count);
+            System.out.printf("Now you have %d tasks in the list" + System.lineSeparator(), count);
         }
     }
 
@@ -118,17 +117,13 @@ public class TaskManager {
             default:
                 invalidCommand();
             }
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! You've forgotten to write the task number");
             printDivider();
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), userInput.split(" ")[0]);
             printDivider();
 
         }
-
     }
-
 }
