@@ -95,6 +95,10 @@ public class Duke {
         addTask(task);
     }
 
+    private static void handleUnrecognisedCommand() {
+        printResponseBlock("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
     /**
      * Reads input commands from the user and executes the appropriate actions.
      * Upon receiving the "bye" command, stops waiting for user input and returns.
@@ -129,6 +133,7 @@ public class Duke {
                 markTaskAsDone(taskId);
                 break;
             default:
+                handleUnrecognisedCommand();
                 break;
             }
         }
