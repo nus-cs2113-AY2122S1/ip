@@ -1,18 +1,29 @@
 public class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-    public Task(String taskName){
-        this.taskName = taskName;
+    public Task(String description){
+        this.description = description;
         isDone = false;
     }
 
-    public String getTaskName() {
-        return taskName;
+    @Override
+    public String toString() {
+        String status;
+        if (this.isDone) {
+            status = "X";
+        } else {
+            status = " ";
+        }
+        return String.format("[%s] %s", status, this.description);
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isDone() {
