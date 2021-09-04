@@ -1,10 +1,17 @@
+done               
+done
+todo
 todo read
-deadline read /by 2pm
-event read /at mon 2pm-4pm
 list
+deadline lol /by lol
+deadline         /by lol
+list
+done 2
+list
+event             /at               
+   etge e gte gte 
 done 4
-done 3
-gaerg ge rgerqeg
-deadline revgqaerbvqe
+event fwef /at gre
 list
+deadline
 bye
