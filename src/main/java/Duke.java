@@ -221,8 +221,9 @@ public class Duke {
      * Parse user input command.
      *
      * @param splitUserInput String array of each word in user input.
+     * @throws UnknownCommandException Unknown command received.
      */
-    private static void parseCommand(String[] splitUserInput) {
+    private static void parseCommand(String[] splitUserInput) throws UnknownCommandException {
         String userCommand = splitUserInput[0];
         switch (userCommand) {
         case COMMAND_LIST:
