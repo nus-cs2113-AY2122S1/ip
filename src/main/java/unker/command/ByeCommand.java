@@ -1,3 +1,8 @@
+package unker.command;
+
+import unker.ui.UI;
+import unker.Unker;
+
 /**
  * Command to run to exit from the software.
  * 

@@ -1,5 +1,9 @@
+package unker.command;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import unker.ui.UI;
+import unker.Unker;
 
 /**
  * A generic Command class to handle commands sent by the user.

@@ -1,3 +1,9 @@
+package unker.command;
+
+import unker.task.Task;
+import unker.ui.UI;
+import unker.Unker;
+
 /**
  * Command to mark a task in the task manager Unker as done.
  * 
