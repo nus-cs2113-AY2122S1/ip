@@ -1,69 +1,72 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final int LENGTH_OF_BY = 4;
-    private static final int LENGTH_OF_AT = 4;
-    private static final int LENGTH_OF_EVENT = 6;
-    private static final int LENGTH_OF_DEADLINE = 9;
-    private static final int LENGTH_OF_TODO = 5;
     private static final String WAVING_EMOJI = "\uD83D\uDC4B";
-    private static final String THUMBS_UP_EMOJI = "\uD83D\uDC4D";
     private static final String SMILEY_EMOJI = "\uD83D\uDE04";
 
+    public static TasksList tasks = new TasksList();
 
     public static void main(String[] args) {
         String rawInput;
         Scanner scanner = new Scanner(System.in);
-        TasksList tasks = new TasksList();
+        DukeCommand dukeCommand;
 
         printWelcomeBanner();
 
         rawInput = scanner.nextLine();
         while (true) {
-            if (rawInput.equals("bye")) {  // Exit programme
-                System.out.println("\tBye. Hope to see you again soon! " + WAVING_EMOJI);
+            try {
+                dukeCommand = getDukeCommand(rawInput);
+            } catch (DukeException e) {
+                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 printHorizontalLine();
+                rawInput = scanner.nextLine();
+                continue;
+            }
+
+            switch (dukeCommand) {
+            case BYE:
+                printGoodbyeMessage();
+                return;
+            case DONE:
+                tasks.markTaskAsDone(rawInput);
                 break;
-            } else if (rawInput.startsWith("done ")) {  // Mark task as done
-                System.out.println("\tNice! " + THUMBS_UP_EMOJI + " I've marked this task as done:");
-                int taskIndex = Integer.parseInt(rawInput.substring(5)) - 1;
-                Task task = tasks.markTaskAsDone(taskIndex);
-                System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
-            } else if (rawInput.equals("list")) {  // Print all tasks
-                System.out.println("\tHere are the tasks in your list:");
+            case LIST:
                 tasks.printTasks();
-            } else {  // Add new task to tasks
-                boolean isValidInput = true;  //  Remains true if raw_input is a ToDo, Event, or Deadline
-
-                // Add new task to tasks
-                if (rawInput.startsWith("todo ")) {  // Add new ToDo task
-                    String description = rawInput.substring(LENGTH_OF_TODO);
-                    tasks.addTask("todo", description, "");
-                } else if (rawInput.startsWith("event ")) {  // Add new Event task
-                    int idx = rawInput.indexOf("/at");
-                    String description = rawInput.substring(LENGTH_OF_EVENT, idx-1);
-                    String at = rawInput.substring(idx+LENGTH_OF_AT);
-                    tasks.addTask("event", description, at);
-                } else if (rawInput.startsWith("deadline ")) {  // Add new Deadline task
-                    int idx = rawInput.indexOf("/by");
-                    String description = rawInput.substring(LENGTH_OF_DEADLINE, idx - 1);
-                    String by = rawInput.substring(idx+LENGTH_OF_BY);
-                    tasks.addTask("deadline", description, by);
-                } else {  // Bad input format
-                    isValidInput = false;
-                }
-
-                // Print to console to indicate outcome of task addition
-                if (isValidInput) {  // Successful task addition
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println("\t\t" + tasks.getTaskString(tasks.getSize() - 1));
-                    System.out.println("\tNow you have " + tasks.getSize() + " tasks in the list.");
-                } else {  // Failed task addition: Bad input format
-                    System.out.println("\t\tERROR, INVALID INPUT!");
-                }
+                break;
+            case TODO:
+                tasks.addToDo(rawInput);
+                break;
+            case EVENT:
+                tasks.addEvent(rawInput);
+                break;
+            case DEADLINE:
+                tasks.addDeadline(rawInput);
+                break;
+            default:
+                System.out.println("Invalid command issued!");
             }
             printHorizontalLine();
             rawInput = scanner.nextLine();
+        }
+    }
+
+    // Identify and return the duke command issued by user
+    public static DukeCommand getDukeCommand(String raw_input) throws DukeException{
+        if (raw_input.equals("bye")) {
+            return DukeCommand.BYE;
+        } else if (raw_input.startsWith("done")) {
+            return DukeCommand.DONE;
+        } else if (raw_input.equals("list")) {
+            return DukeCommand.LIST;
+        } else if (raw_input.startsWith("todo")) {
+            return DukeCommand.TODO;
+        } else if (raw_input.startsWith("event")) {
+            return DukeCommand.EVENT;
+        } else if (raw_input.startsWith("deadline")) {
+            return DukeCommand.DEADLINE;
+        } else {
+            throw new DukeException();
         }
     }
 
@@ -80,6 +83,11 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("\tHello! I'm Duke " + SMILEY_EMOJI);
         System.out.println("\tWhat can I do for you?");
+        printHorizontalLine();
+    }
+
+    public static void printGoodbyeMessage() {
+        System.out.println("\tBye. Hope to see you again soon! " + WAVING_EMOJI);  // Unicode is a waving emoji
         printHorizontalLine();
     }
 }
