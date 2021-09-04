@@ -1,4 +1,9 @@
+package unker.command;
+
 import java.util.regex.Matcher;
+import unker.task.Deadline;
+import unker.ui.UI;
+import unker.Unker;
 
 /**
  * Command to add a new {@link Deadline} into the task manager Unker. 

@@ -1,3 +1,8 @@
+package unker;
+
+import unker.command.CommandMap;
+import unker.ui.UI;
+
 /**
  * Main entrypoint to the program.
  */

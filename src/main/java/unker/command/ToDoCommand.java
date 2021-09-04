@@ -1,3 +1,9 @@
+package unker.command;
+
+import unker.task.ToDo;
+import unker.ui.UI;
+import unker.Unker;
+
 /**
  * Command to add a new {@link ToDo} into the task manager {@link Unker}. 
  *

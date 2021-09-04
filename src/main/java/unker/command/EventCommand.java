@@ -1,5 +1,9 @@
+package unker.command;
+
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import unker.task.Event;
+import unker.ui.UI;
+import unker.Unker;
 
 /**
  * Command to add a new {@link Event} into the task manager Unker. 
