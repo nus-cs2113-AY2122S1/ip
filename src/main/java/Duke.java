@@ -48,16 +48,22 @@ public class Duke {
     private static final String TODO_ERROR = "OH NO! You need to provide a description for your todo...";
     private static final String DEADLINE_DESCRIPTION_ERROR =
             "OH NO! You need to provide a description for your deadline task...";
-    private static final String DEADLINE_DATE_ERROR = "OH NO! You need to specify a due date for your deadline task...";
-    private static final String EVENT_DESCRIPTION_ERROR = "OH NO! You need to provide a description for your event...";
-    private static final String EVENT_DATE_ERROR = "OH NO! You need to specify a date and time for your event...";
-    private static final String INVALID_COMMAND_ERROR = "Sorry... I did not understand that, can you try again?\n"
-            + "Enter \"help\" to see what I can do for you!";
+    private static final String DEADLINE_DATE_ERROR =
+            "OH NO! You need to specify a due date for your deadline task...";
+    private static final String EVENT_DESCRIPTION_ERROR =
+            "OH NO! You need to provide a description for your event...";
+    private static final String EVENT_DATE_ERROR =
+            "OH NO! You need to specify a date and time for your event...";
+    private static final String INVALID_COMMAND_ERROR =
+            "Sorry... I did not understand that, can you try again?\n"
+                    + "Or you can enter \"help\" to see what I can do for you!";
     private static final String DONE_MISSING_NUMBER_ERROR =
-            "OH NO! You need to specify the task you want to mark as done, enter \"list\" to check the task number!";
-    private static final String DONE_NUMBER_FORMAT_ERROR = "OH NO! Please provide a valid number...";
+            "OH NO! You need to specify the task you want to mark as done...\n"
+                    + "Enter \"list\" to check the task number!";
+    private static final String DONE_NUMBER_FORMAT_ERROR = "OH NO! That wasn't a number...";
     private static final String DONE_NUMBER_NOT_FOUND_ERROR =
-            "OH NO! The task number you provided cannot be found, enter \"list\" to check the task number!";
+            "OH NO! The task number is invalid, I can't find any tasks matching that number...\n"
+                    + "Enter \"list\" to check the task number!";
 
     private static final String DIVIDER = "____________________________________________________________";
 
@@ -146,10 +152,10 @@ public class Duke {
         String command;
         String[] parsedUserInput;
         String[] params;
+        int taskNumber;
 
         parsedUserInput = PARSER.separateCommand(userInputString);
         command = parsedUserInput[0].toLowerCase();
-
         switch (command) {
         case COMMAND_ECHO:
             if (!hasParameter(parsedUserInput)) {
@@ -161,7 +167,7 @@ public class Duke {
             if (!hasParameter(parsedUserInput)) {
                 throw new DukeException(DONE_MISSING_NUMBER_ERROR);
             }
-            int taskNumber = Integer.parseInt(parsedUserInput[1]);
+            taskNumber = Integer.parseInt(parsedUserInput[1]);
             if (!isValidTaskNumber(taskNumber)) {
                 throw new DukeException(DONE_NUMBER_NOT_FOUND_ERROR);
             }
