@@ -1,12 +1,15 @@
-
+package tasks;
 public class Task {
     protected String name;
     protected boolean isDone;
-    protected TaskType taskType = TaskType.TASK;
+    protected TaskType taskType;
 
-    public Task(String name, boolean isDone) {
+    protected static int numTasks = 0;
+
+    public Task(String name) {
         this.name = name;
-        this.isDone = isDone;
+        isDone = false;
+        numTasks++;
     }
 
     public void setDone(boolean isDone) {
@@ -26,8 +29,6 @@ public class Task {
         char mark = isDone ? 'X' : ' ';
         char type;
         switch (taskType) {
-        case TASK:
-        // Fallthrough
         case TODO:
             type = 'T';
             break;

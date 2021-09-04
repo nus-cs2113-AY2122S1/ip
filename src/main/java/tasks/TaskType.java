@@ -1,5 +1,6 @@
-public enum TaskType { 
-    TASK,
+package tasks;
+
+public enum TaskType {
     TODO, 
     DEADLINE, 
     EVENT 
