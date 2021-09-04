@@ -142,8 +142,8 @@ public class Duke {
         printDivider();
     }
 
-    private boolean hasValidParameters(String[] inputArray) {
-        return (inputArray.length > 1);
+    private boolean hasNullParameters(String[] inputArray) {
+        return (inputArray.length < 2);
     }
 
     private boolean isValidTaskNumber(int taskNumber) {
@@ -160,13 +160,13 @@ public class Duke {
         command = parsedUserInput[0].toLowerCase();
         switch (command) {
         case COMMAND_ECHO:
-            if (!hasValidParameters(parsedUserInput)) {
+            if (hasNullParameters(parsedUserInput)) {
                 throw new DukeException(ECHO_ERROR);
             }
             echo(parsedUserInput[1]);
             break;
         case COMMAND_MARK_TASK_AS_DONE:
-            if (!hasValidParameters(parsedUserInput)) {
+            if (hasNullParameters(parsedUserInput)) {
                 throw new DukeException(DONE_MISSING_NUMBER_ERROR);
             }
             try {
@@ -180,17 +180,17 @@ public class Duke {
             markTaskAsDone(taskNumber);
             break;
         case COMMAND_ADD_TODO:
-            if (!hasValidParameters(parsedUserInput)) {
+            if (hasNullParameters(parsedUserInput)) {
                 throw new DukeException(TODO_ERROR);
             }
             addTodo(parsedUserInput[1]);
             break;
         case COMMAND_ADD_DEADLINE:
-            if (!hasValidParameters(parsedUserInput)) {
+            if (hasNullParameters(parsedUserInput)) {
                 throw new DukeException(DEADLINE_DESCRIPTION_ERROR);
             }
             params = PARSER.separateDeadline(parsedUserInput[1]);
-            if (!hasValidParameters(params)) {
+            if (hasNullParameters(params)) {
                 throw new DukeException(DEADLINE_DATE_ERROR);
             }
             if (params[0].isEmpty()) {
@@ -202,11 +202,11 @@ public class Duke {
             addDeadline(params[0], params[1]);
             break;
         case COMMAND_ADD_EVENT:
-            if (!hasValidParameters(parsedUserInput)) {
+            if (hasNullParameters(parsedUserInput)) {
                 throw new DukeException(EVENT_DESCRIPTION_ERROR);
             }
             params = PARSER.separateEvent(parsedUserInput[1]);
-            if (!hasValidParameters(params)) {
+            if (hasNullParameters(params)) {
                 throw new DukeException(EVENT_DATE_ERROR);
             }
             if (params[0].isEmpty()) {
