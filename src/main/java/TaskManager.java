@@ -18,7 +18,7 @@ public class TaskManager {
             taskCount++;
             Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_TODO, taskCount);
         } catch (DukeTaskNameEmptyException e) {
-            Error.displayTaskFormatError();
+            Error.displayTaskNameEmptyError();
         }
     }
 
@@ -33,7 +33,7 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
-            Error.displayTaskFormatError();
+            Error.displayTaskNameEmptyError();
         }
     }
 
@@ -48,7 +48,7 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
-            Error.displayTaskFormatError();
+            Error.displayTaskNameEmptyError();
         }
     }
 
@@ -57,10 +57,10 @@ public class TaskManager {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
             allTasks[taskNumber].setTaskCompleted();
             Display.displayTaskCompleted(allTasks[taskNumber].getTask());
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             Error.displayTaskNonExistentError();
         } catch (NumberFormatException e) {
-            Error.displayTaskFormatError();
+            Error.displayNotANumberError();
         }
     }
 
