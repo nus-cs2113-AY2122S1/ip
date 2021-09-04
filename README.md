@@ -22,3 +22,6 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## References
+Converting text for Alfred: https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
