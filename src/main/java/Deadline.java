@@ -4,7 +4,7 @@
  *
  * @author richwill28
  */
-class Deadline extends Task {
+public class Deadline extends Task {
     /** Task deadline */
     protected String by;
 

@@ -4,7 +4,7 @@
  *
  * @author richwill28
  */
-class Event extends Task {
+public class Event extends Task {
     /** Time period of the task */
     protected String at;
 

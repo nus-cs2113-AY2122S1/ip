@@ -12,5 +12,6 @@ event attend workshop /at Sat 9-11am
 todo clean room
 done 2
 list
-exit
+todo
+blah
 bye

@@ -3,30 +3,25 @@
  *
  * @author richwill28
  */
-class Ui {
-    /** Decorative logo */
+public class Ui {
     public static final String LOGO =
-            "     ,---.    ,---.   ____    .-./`)  ______           \n" +
-            "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.     \n" +
-            "     |  ,  \\/  ,  |/   '  \\  \\/ `-' \\| _ | ) _  \\ \n" +
-            "     |  |\\_   /|  ||___|  /  | `-'`\"`|( ''_'  ) |    \n" +
-            "     |  _( )_/ |  |   _.-`   | .---. | . (_) `. |      \n" +
-            "     | (_ o _) |  |.'   _    | |   | |(_    ._) '      \n" +
-            "     |  (_,_)  |  ||  _( )_  | |   | |  (_.\\.' /      \n" +
-            "     |  |      |  |\\ (_ o _) / |   | |       .'       \n" +
-            "     '--'      '--' '.(_,_).'  '---' '-----'`          \n";
+            "     ,---.    ,---.   ____    .-./`)  ______          " + System.lineSeparator()
+            + "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.    " + System.lineSeparator()
+            + "     |  ,  \\/  ,  |/   '  \\  \\/ `-' \\| _ | ) _  \\" + System.lineSeparator()
+            + "     |  |\\_   /|  ||___|  /  | `-'`\"`|( ''_'  ) |   " + System.lineSeparator()
+            + "     |  _( )_/ |  |   _.-`   | .---. | . (_) `. |     " + System.lineSeparator()
+            + "     | (_ o _) |  |.'   _    | |   | |(_    ._) '     " + System.lineSeparator()
+            + "     |  (_,_)  |  ||  _( )_  | |   | |  (_.\\.' /     " + System.lineSeparator()
+            + "     |  |      |  |\\ (_ o _) / |   | |       .'      " + System.lineSeparator()
+            + "     '--'      '--' '.(_,_).'  '---' '-----'`         " + System.lineSeparator();
 
-    /** Decorative line */
     public static final String LINE =
-            "    ____________________________________________________________\n";
+            "    ____________________________________________________________" + System.lineSeparator();
 
-    /** Decorative padding */
     public static final String PADDING = "     ";
 
-    /**
-     * Displays logo and greets user.
-     */
-    public static void greet() {
+    /** Displays logo and greets user */
+    public static void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
         System.out.println(PADDING + "Hello! I'm your personal maid. Call me Maid-chan!");
@@ -34,21 +29,24 @@ class Ui {
         System.out.println(LINE);
     }
 
-    /**
-     * Prints error message.
-     */
-    public static void error() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "Sorry.. I don't understand your command.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Says goodbye to user.
-     */
-    public static void bye() {
+    /** Says goodbye to user. */
+    public static void printGoodbye() {
         System.out.print(LINE);
         System.out.println(PADDING + "Bye. Hope to see you again soon!");
         System.out.print(LINE);
+    }
+
+    /** Prints "invalid input" error message. */
+    public static void printInvalidInput() {
+        System.out.print(LINE);
+        System.out.println(PADDING + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(LINE);
+    }
+
+    /** Prints "Todo command cannot be empty" error message. */
+    public static void printTodoCannotBeEmpty() {
+        System.out.print(LINE);
+        System.out.println(PADDING + "☹ OOPS!!! The description of a todo cannot be empty.");
+        System.out.println(LINE);
     }
 }

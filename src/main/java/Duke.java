@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @author richwill28
  */
-class Duke {
+public class Duke {
     /** A scanner to read from standard input. */
     private Scanner sc;
 
@@ -24,18 +24,11 @@ class Duke {
         taskList = new TaskList();
     }
 
-    /**
-     * Returns user response.
-     *
-     * @return User response.
-     */
     public String getResponse() {
         return sc.nextLine();
     }
 
-    /**
-     * Lists all the tasks.
-     */
+    /** Lists all the tasks. */
     public void list() {
         System.out.print(Ui.LINE);
         System.out.println(Ui.PADDING + "Here are the tasks in your list:");
@@ -84,9 +77,14 @@ class Duke {
      *                 description.
      */
     public void addTodo(String response) {
-        Task task = new Todo(response.replace("todo ", ""));
-        taskList.addTask(task);
-        reportTaskAdded(task);
+        String description = response.replace("todo", "").strip();
+        if (description.isBlank()) {
+            Ui.printTodoCannotBeEmpty();
+        } else {
+            Task task = new Todo(description);
+            taskList.addTask(task);
+            reportTaskAdded(task);
+        }
     }
 
     /**
@@ -119,9 +117,7 @@ class Duke {
         reportTaskAdded(task);
     }
 
-    /**
-     * Starts the chatting functionality of Duke.
-     */
+    /** Starts the chatting functionality of Duke. */
     public void start() {
         while (true) {
             Command response = new Command(getResponse());
@@ -138,18 +134,16 @@ class Duke {
             } else if (response.isEvent()) {
                 this.addEvent(response.getCommand());
             } else {
-                Ui.error();
+                Ui.printInvalidInput();
             }
         }
     }
 
-    /**
-     * Runs the whole Duke program.
-     */
+    /** Runs the whole Duke program. */
     public void run() {
-        Ui.greet();
+        Ui.printGreeting();
         this.start();
-        Ui.bye();
+        Ui.printGoodbye();
     }
 
     /**

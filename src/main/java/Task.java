@@ -4,7 +4,7 @@
  *
  * @author richwill28
  */
-class Task {
+public class Task {
     /** Description of the task */
     protected String description;
 
