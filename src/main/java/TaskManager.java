@@ -16,10 +16,13 @@ public class TaskManager {
         return tasks;
     }
 
-    public void addTodo(String input) {
+    public void addTodo(String input) throws DukeEmptyDescriptionException,
+            DukeExceedMaxTaskException {
         if (numberOfTasks >= MAX_TASKS) {
-            Duke.printMessage("Error!! Too many tasks");
-            return;
+            throw new DukeExceedMaxTaskException();
+        }
+        if (input.isEmpty()) {
+            throw new DukeEmptyDescriptionException();
         }
         Task todo = new Todo(input);
         tasks[numberOfTasks] = todo;
@@ -28,40 +31,86 @@ public class TaskManager {
     }
 
 
-    public void addDeadline(String input) {
+    public void addDeadline(String input) throws DukeEmptyDescriptionException,
+            DukeExceedMaxTaskException,
+            DukeEmptyTimeException,
+            DukeMissingKeywordException {
         if (numberOfTasks >= MAX_TASKS) {
-            Duke.printMessage("Error!! Too many tasks");
-            return;
+            throw new DukeExceedMaxTaskException();
         }
-        final int indexOfByPrefix = input.indexOf(Duke.DEADLINE_BY_PREFIX);
-        if (indexOfByPrefix == -1) {
-            Duke.printMessage("Error: no /by detected");
-            return;
-        }
-        String deadlineDescription = input.substring(0, indexOfByPrefix).trim();
-        String deadlineBy = input.substring(indexOfByPrefix + 3).trim();
+        final int indexOfByPrefix = getIndexOfByPrefix(input);
+        String deadlineDescription = getDeadlineDescription(input, indexOfByPrefix);
+        String deadlineBy = getDeadlineBy(input, indexOfByPrefix);
         Task deadline = new Deadline(deadlineDescription, deadlineBy);
         tasks[numberOfTasks] = deadline;
         numberOfTasks++;
         acknowledgeCommand(deadline);
     }
 
-    public void addEvent(String input) {
+    private String getDeadlineBy(String input, int indexOfByPrefix) throws DukeEmptyTimeException {
+        String deadlineBy = input.substring(indexOfByPrefix + 3).trim();
+        if (deadlineBy.isEmpty()) {
+            throw new DukeEmptyTimeException();
+        }
+        return deadlineBy;
+    }
+
+    private String getDeadlineDescription(String input, int indexOfByPrefix) throws
+            DukeEmptyDescriptionException {
+        String deadlineDescription = input.substring(0, indexOfByPrefix).trim();
+        if (deadlineDescription.isEmpty()) {
+            throw new DukeEmptyDescriptionException();
+        }
+        return deadlineDescription;
+    }
+
+    private int getIndexOfByPrefix(String input) throws DukeMissingKeywordException {
+        int indexOfByPrefix = input.indexOf(Duke.DEADLINE_BY_PREFIX);
+        if (indexOfByPrefix == -1) {
+            throw new DukeMissingKeywordException("/by");
+        }
+        return indexOfByPrefix;
+    }
+
+    public void addEvent(String input) throws DukeEmptyDescriptionException,
+            DukeExceedMaxTaskException,
+            DukeEmptyTimeException,
+            DukeMissingKeywordException {
         if (numberOfTasks >= MAX_TASKS) {
-            Duke.printMessage("Error!! Too many tasks");
-            return;
+            throw new DukeExceedMaxTaskException();
         }
-        final int indexOfAtPrefix = input.indexOf(Duke.EVENT_AT_PREFIX);
-        if (indexOfAtPrefix == -1) {
-            Duke.printMessage("Error: no /at detected");
-            return;
-        }
-        String eventDescription = input.substring(0, indexOfAtPrefix).trim();
-        String eventAt = input.substring(indexOfAtPrefix + 3).trim();
+        final int indexOfAtPrefix = getIndexOfAtPrefix(input);
+        String eventDescription = getEventDescription(input, indexOfAtPrefix);
+        String eventAt = getEventAt(input, indexOfAtPrefix);
         Task event = new Event(eventDescription, eventAt);
         tasks[numberOfTasks] = event;
         numberOfTasks++;
         acknowledgeCommand(event);
+    }
+
+    private String getEventAt(String input, int indexOfAtPrefix) throws DukeEmptyTimeException {
+        String eventAt = input.substring(indexOfAtPrefix + 3).trim();
+        if (eventAt.isEmpty()) {
+            throw new DukeEmptyTimeException();
+        }
+        return eventAt;
+    }
+
+    private String getEventDescription(String input, int indexOfAtPrefix) throws
+            DukeEmptyDescriptionException {
+        String eventDescription = input.substring(0, indexOfAtPrefix).trim();
+        if (eventDescription.isEmpty()) {
+            throw new DukeEmptyDescriptionException();
+        }
+        return eventDescription;
+    }
+
+    private int getIndexOfAtPrefix(String input) throws DukeMissingKeywordException {
+        final int indexOfAtPrefix = input.indexOf(Duke.EVENT_AT_PREFIX);
+        if (indexOfAtPrefix == -1) {
+            throw new DukeMissingKeywordException("/at");
+        }
+        return indexOfAtPrefix;
     }
 
     private void acknowledgeCommand(Task task) {
@@ -84,16 +133,13 @@ public class TaskManager {
         Duke.printMessage(list.toString());
     }
 
-    public void setTaskAsDone(int taskNumber) {
-
-        if (taskNumber > numberOfTasks) {
-            Duke.printMessage("Error: No task found");
-            return;
+    public void setTaskAsDone(int taskNumber) throws DukeInvalidTaskIndex,
+            DukeTaskAlreadyCompletedException {
+        if (taskNumber > numberOfTasks || taskNumber <= 0) {
+            throw new DukeInvalidTaskIndex();
         }
-
         if (tasks[taskNumber - 1].isDone()) {
-            Duke.printMessage("This task is already completed");
-            return;
+            throw new DukeTaskAlreadyCompletedException();
         }
 
         tasks[taskNumber - 1].setDone();

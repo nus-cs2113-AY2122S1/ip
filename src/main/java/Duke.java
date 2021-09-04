@@ -9,10 +9,12 @@ public class Duke {
     public static final String EVENT_AT_PREFIX = "/at";
     public static final String NL = System.lineSeparator();
     public static final String HELP_MESSAGE = "Valid Commands: " + NL
-            + "todo (description of task)" + NL
-            + "event (description of event) /at (time of event)" + NL
-            + "deadline (description of task) /by (deadline of task)" + NL
+            + "todo {description of task} (eg. todo homework)" + NL
+            + "event {description of event} /at {time of event} (eg. event party at/ 9am)" + NL
+            + "deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)"
+            + NL
             + "list" + NL
+            + "done {index number of task done}  (eg. done 1)" + NL
             + "bye";
 
     public static final String LOGO = " ____        _        \n"
@@ -55,34 +57,63 @@ public class Duke {
         while (!conversationIsOver) {
             String inputCommand = SCANNER.nextLine().trim();
             String command = getFirstWord(inputCommand);
-            switch (command) {
-            case "list":
-                TASK_MANAGER.printTasks();
-                break;
-            case "done":
-                int indexOfTaskDone = getIntegerFromCommand(inputCommand);
-                TASK_MANAGER.setTaskAsDone(indexOfTaskDone);
-                break;
-            case "bye":
-                conversationIsOver = true;
-                break;
-            case "deadline":
-                String deadlineInput = removeFirstWordInSentence(inputCommand, 8);
-                TASK_MANAGER.addDeadline(deadlineInput);
-                break;
-            case "todo":
-                String todoInput = removeFirstWordInSentence(inputCommand, 4);
-                TASK_MANAGER.addTodo(todoInput);
-                break;
-            case "event":
-                String eventInput = removeFirstWordInSentence(inputCommand, 5);
-                TASK_MANAGER.addEvent(eventInput);
-                break;
-            default:
-                printMessage(HELP_MESSAGE);
-                break;
+            try {
+                conversationIsOver = processCommand(conversationIsOver, inputCommand, command);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // for now these exceptions only occur when a number is passed after done
+                // so we can assume the user made an error using the 'done' command
+                printMessage("Please enter a valid number after \'done\' : " + inputCommand);
+            } catch (DukeEmptyDescriptionException e) {
+                printMessage("Please enter a description of the task");
+            } catch (DukeExceedMaxTaskException e) {
+                printMessage("Exceeded maximum task limit, please delete a task to continue");
+            } catch (DukeEmptyTimeException e) {
+                printMessage("Please enter the deadline/event time");
+            } catch (DukeMissingKeywordException e) {
+                printMessage("No " + e.keyword + " detected, press enter to see command syntax");
+            } catch (DukeInvalidTaskIndex e) {
+                printMessage("Please enter valid task index number");
+            } catch (DukeTaskAlreadyCompletedException e) {
+                printMessage("This task is already completed");
             }
         }
+    }
+
+    private static boolean processCommand(boolean conversationIsOver, String inputCommand, String command)
+            throws DukeInvalidTaskIndex,
+            DukeTaskAlreadyCompletedException,
+            DukeEmptyDescriptionException,
+            DukeExceedMaxTaskException,
+            DukeEmptyTimeException,
+            DukeMissingKeywordException {
+        switch (command) {
+        case "list":
+            TASK_MANAGER.printTasks();
+            break;
+        case "done":
+            int indexOfTaskDone = getIntegerFromCommand(inputCommand);
+            TASK_MANAGER.setTaskAsDone(indexOfTaskDone);
+            break;
+        case "bye":
+            conversationIsOver = true;
+            break;
+        case "deadline":
+            String deadlineInput = removeFirstWordInSentence(inputCommand, 8);
+            TASK_MANAGER.addDeadline(deadlineInput);
+            break;
+        case "todo":
+            String todoInput = removeFirstWordInSentence(inputCommand, 4);
+            TASK_MANAGER.addTodo(todoInput);
+            break;
+        case "event":
+            String eventInput = removeFirstWordInSentence(inputCommand, 5);
+            TASK_MANAGER.addEvent(eventInput);
+            break;
+        default:
+            printMessage(HELP_MESSAGE);
+            break;
+        }
+        return conversationIsOver;
     }
 
     private static String removeFirstWordInSentence(String inputCommand, int i) {
@@ -90,8 +121,10 @@ public class Duke {
         return inputCommand.substring(i).trim();
     }
 
-    private static int getIntegerFromCommand(String input) {
-        return Integer.parseInt(input.split(" ")[1]);
+    private static int getIntegerFromCommand(String input) throws NumberFormatException,
+            ArrayIndexOutOfBoundsException {
+        String[] splitInput = input.split(" ");
+        return Integer.parseInt(splitInput[1]);
     }
 
     private static String getFirstWord(String inputCommand) {
