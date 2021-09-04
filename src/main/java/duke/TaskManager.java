@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.Command;
+
 public class TaskManager {
     private static final int MAX_TASKS = 100;
     private static final Task[] tasks = new Task[MAX_TASKS];
