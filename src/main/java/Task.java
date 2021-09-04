@@ -1,6 +1,8 @@
 package ip.src.main.java;
 
-public class Task {
+import java.util.Objects;
+
+public class Task extends DukeException {
     protected String description;
     protected boolean isDone;
 
@@ -8,9 +10,14 @@ public class Task {
         arr[n-1].isDone = true;
     }
 
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+    public Task(String description) throws DukeException {
+        if (Objects.equals(description, " ") || Objects.equals(description, "") ) {
+            throw new DukeException();
+        }
+        else {
+            this.description = description;
+            this.isDone = false;
+        }
     }
 
     public String getStatusIcon() {
