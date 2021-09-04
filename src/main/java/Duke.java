@@ -73,7 +73,18 @@ public class Duke {
     }
 
     /**
-     * Get the index of "/by" keyword in the split user input array.
+     * Print message that task list is empty.
+     */
+    private static void printTaskListEmptyError() {
+        blockPrint(new String[]{"The list is currently empty. Add a task first."});
+    }
+
+    /**
+     * Print message that task index provided is invalid.
+     */
+    private static void printInvalidTaskIndexError() {
+        blockPrint(new String[]{"Invalid task index. Please mark a valid task as done."});
+    }
      *
      * @param splitUserInput String array of each word in user input.
      * @return Index of "/by" keyword in the split user input array.
