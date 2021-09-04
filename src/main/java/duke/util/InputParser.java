@@ -1,3 +1,5 @@
+package duke.util;
+
 public class InputParser {
 
     private static final String DEADLINE_PREFIX = "/by";
