@@ -98,7 +98,10 @@ public class TaskManager {
     }
 
     /**
-     * Add a todo to Duke's task list
+     * Add a todo to Duke's task list.
+     * Splits addedTodo by the first whitespace (or sequence of whitespaces) encountered to separate 'todo' command from
+     * its description
+     *
      * @param tasks The array of tasks to add a todo to
      * @param taskCount The number of tasks in the task array
      * @param addedTodo User command containing the todo description
@@ -111,7 +114,7 @@ public class TaskManager {
             throw new TodoInvalidFormatException();
         }
 
-        String todoDescription = splitTodo[1];
+        String todoDescription = splitTodo[1].trim();
         Todo newTodo = new Todo(todoDescription);
         tasks[taskCount] = newTodo;
         System.out.println(OUTPUT_DIVIDER);
@@ -123,6 +126,9 @@ public class TaskManager {
 
     /**
      * Add a deadline to Duke's task list
+     * Splits addedDeadline initially by the first whitespace (or sequence of whitespaces) encountered to separate
+     * 'deadline' command from its description and deadline. The description and deadline is then split by DEADLINE_PREFIX
+     * to obtain the arguments needed for Deadline constructor
      *
      * @param tasks The array of tasks to add a deadline to
      * @param taskCount The number of tasks in the tasks array
@@ -161,6 +167,9 @@ public class TaskManager {
 
     /**
      * Add an event to Duke's task list
+     * Splits addedEvent initially by the first whitespace (or sequence of whitespaces) encountered to separate
+     * 'event' command from its description and time. The description and time is then split by EVENT_PREFIX
+     * to obtain the arguments needed for Event constructor
      *
      * @param tasks The array of tasks to add an event to
      * @param taskCount The number of tasks in the tasks array
