@@ -27,14 +27,20 @@ public class Duke {
 
         while (!userInputString.equals("bye")) {
             System.out.println(DIVIDING_LINE);
-            if (userInputString.equals("list")) {
-                listTasks(taskIndex, userTasks);
-            } else if (userInputString.startsWith("done")) {
-                markTaskDone(userInputString, taskIndex, userTasks);
-            } else {
-                addNewTask(userInputString, taskIndex, userTasks);
-                taskIndex++;
+
+            try  {
+                if (userInputString.equals("list")) {
+                    listTasks(taskIndex, userTasks);
+                } else if (userInputString.startsWith("done")) {
+                    markTaskDone(userInputString, userTasks);
+                } else {
+                    addNewTask(userInputString, userTasks);
+                    taskIndex++;
+                }
+            } catch (DukeException e) {
+                System.out.println("DukeException: " + e.getMessage());
             }
+
             System.out.println(DIVIDING_LINE);
             userInputString = userInput.nextLine();
         }
@@ -46,38 +52,70 @@ public class Duke {
         }
     }
 
-    public static void markTaskDone(String userInputString, int taskIndex, Task[] userTasks) {
+    public static void markTaskDone(String userInputString, Task[] userTasks) throws DukeException {
         String[] words = userInputString.split(" ");
-        int completeIndex = Integer.parseInt(words[1]) - 1;
-        if (completeIndex >= 0 && completeIndex < taskIndex) {
+        int completeIndex;
+
+        try {
+            completeIndex = Integer.parseInt(words[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(DukeException.TASK_INDEX_INVALID);
+        }
+
+        if (completeIndex >= 0 && completeIndex < Task.getTotalTasks()) {
             userTasks[completeIndex].markComplete();
             System.out.println("Task " + userTasks[completeIndex].description + " marked as complete.");
         } else {
-            System.out.println("Error: index outside range.");
+            throw new DukeException(DukeException.TASK_INDEX_OOB);
         }
     }
 
-    public static void addNewTask(String userInputString, int taskIndex, Task[] userTasks) {
+    public static void addNewTask(String userInputString, Task[] userTasks) throws DukeException {
+        if (Task.totalTasks >= MAX_STORED_TASKS) {
+            throw new DukeException(DukeException.TASK_ARRAY_FULL);
+        }
+
         int slashIndex = userInputString.indexOf('/');
         String taskSubstring;
         String timeSubstring = userInputString.substring(slashIndex + 1);
         timeSubstring = timeSubstring.replaceFirst(" ", ": ");
-        if (userInputString.startsWith("todo")) {
+        if (userInputString.startsWith("todo ")) {
             taskSubstring = userInputString.substring(TODO_OFFSET);
-            userTasks[taskIndex] = new Todo(taskSubstring);
-        } else if (userInputString.startsWith("deadline") && slashIndex > 0) {
+            if (taskSubstring.isBlank()) {
+                throw new DukeException(DukeException.TODO_BLANK_DESC);
+            }
+            userTasks[Task.getTotalTasks()] = new Todo(taskSubstring);
+        } else if (userInputString.startsWith("deadline ")) {
+            if (slashIndex < 0) {
+                throw new DukeException(DukeException.DEADLINE_NO_SLASH);
+            }
+            if (timeSubstring.isBlank()) {
+                throw new DukeException(DukeException.DEADLINE_BLANK_DATE);
+            }
+            if (DEADLINE_OFFSET >= slashIndex - 1) {
+                throw new DukeException(DukeException.DEADLINE_BLANK_DESC);
+            }
             taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
-            userTasks[taskIndex] = new Deadline(taskSubstring, timeSubstring);
-        } else if (userInputString.startsWith("event") && slashIndex > 0) {
+            userTasks[Task.getTotalTasks()] = new Deadline(taskSubstring, timeSubstring);
+        } else if (userInputString.startsWith("event ")) {
+            if (slashIndex < 0) {
+                throw new DukeException(DukeException.EVENT_NO_SLASH);
+            }
+            if (timeSubstring.isBlank()) {
+                throw new DukeException(DukeException.EVENT_BLANK_DATE);
+            }
+            if (EVENT_OFFSET >= slashIndex - 1) {
+                throw new DukeException(DukeException.EVENT_BLANK_DESC);
+            }
             taskSubstring = userInputString.substring(EVENT_OFFSET, slashIndex - 1);
-            userTasks[taskIndex] = new Event(taskSubstring, timeSubstring);
+            userTasks[Task.getTotalTasks()] = new Event(taskSubstring, timeSubstring);
         } else {
-            userTasks[taskIndex] = new Todo(userInputString);
+            throw new DukeException(DukeException.COMMAND_INVALID);
         }
 
         System.out.println("Gotcha. I've added this task:");
-        System.out.println(userTasks[taskIndex]);
-        System.out.println("You have a total of " + (taskIndex + 1) + " tasks now.");
+        System.out.println(userTasks[Task.getTotalTasks() - 1]);
+        System.out.println("You have a total of " + Task.getTotalTasks() + " tasks now.");
     }
 
     public static void main(String[] args) {

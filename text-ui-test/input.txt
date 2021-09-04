@@ -5,9 +5,13 @@ event saw con 2021 /at 4-6pm tomorrow
 list
 done 2
 done -1024
+done abcdefg
 deadline error management by Sunday
 deadline carboncents disagree meeting /by never
+event ////////
+deadline / / / / / / / /
 event tour de france /at the louvre, 7.30-9.30am on Tuesday
+done 2
 done 5
 list
 bye
