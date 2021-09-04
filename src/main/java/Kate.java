@@ -67,8 +67,8 @@ public class Kate {
      * Retrieve and process user inputs depending on the commands
      */
     private static void startKate() {
+        Scanner in = new Scanner(System.in);
         while (true) {
-            Scanner in = new Scanner(System.in);
             String userInput = in.nextLine();
 
             if (userInput.toUpperCase().equals("BYE")) {
@@ -90,47 +90,19 @@ public class Kate {
     }
 
     /**
-     * Marks task as done for a particular task number
+     * Adds a general task to be done
      *
-     * @param userInput Input provided by user to indicate task completion for a task
+     * @param userInput A general task that user wants to add
      */
-    private static void indicateDone(String userInput) {
-        String[] inputArr = userInput.split(" ");
-        boolean isValid = intChecker(inputArr, tasks.size());
+    private static void addToDo(String userInput) {
+        String taskDescription = userInput.substring(TODO_LENGTH).strip();
 
-        if (!isValid) {
+        if (taskDescription.isEmpty()) {
+            printMessage(FAILURE_MESSAGE_ADD_TODO);
             return;
         }
 
-        int taskNumber = Integer.parseInt(inputArr[1]);
-        int taskNumberIndex = taskNumber - 1;
-        Task curTask = tasks.get(taskNumberIndex);
-        curTask.setDone();
-
-        String doneMessage = TEXT_INDENTATION + "Nice! I've marked this task as done:\n"
-                + TEXT_INDENTATION + "  " + curTask.printTaskInfo() + "\n";
-        printMessage(doneMessage);
-    }
-
-    /**
-     * Adds a task that is an event
-     *
-     * @param userInput An event the user wants to add
-     */
-    private static void addEvent(String userInput) {
-        String taskInfo = userInput.substring(EVENT_LENGTH).strip();
-        boolean isEmptyField = emptyFieldChecker(taskInfo, " /at ");
-
-        if (isEmptyField) {
-            printMessage(FAILURE_MESSAGE_ADD_EVENT);
-            return;
-        }
-
-        String[] infoArr = taskInfo.split(" /at ");
-        String taskDescription = infoArr[0].strip();
-        String timeFrame = infoArr[1].strip();
-
-        tasks.add(new Event(taskDescription, timeFrame));
+        tasks.add(new ToDo(taskDescription));
         printAddedTask();
     }
 
@@ -157,20 +129,48 @@ public class Kate {
     }
 
     /**
-     * Adds a general task to be done
+     * Adds a task that is an event
      *
-     * @param userInput A general task that user wants to add
+     * @param userInput An event the user wants to add
      */
-    private static void addToDo(String userInput) {
-        String taskDescription = userInput.substring(TODO_LENGTH).strip();
+    private static void addEvent(String userInput) {
+        String taskInfo = userInput.substring(EVENT_LENGTH).strip();
+        boolean isEmptyField = emptyFieldChecker(taskInfo, " /at ");
 
-        if (taskDescription.isEmpty()) {
-            printMessage(FAILURE_MESSAGE_ADD_TODO);
+        if (isEmptyField) {
+            printMessage(FAILURE_MESSAGE_ADD_EVENT);
             return;
         }
 
-        tasks.add(new ToDo(taskDescription));
+        String[] infoArr = taskInfo.split(" /at ");
+        String taskDescription = infoArr[0].strip();
+        String timeFrame = infoArr[1].strip();
+
+        tasks.add(new Event(taskDescription, timeFrame));
         printAddedTask();
+    }
+
+    /**
+     * Marks task as done for a particular task number
+     *
+     * @param userInput Input provided by user to indicate task completion for a task
+     */
+    private static void indicateDone(String userInput) {
+        String[] inputArr = userInput.split(" ");
+        boolean isValid = intChecker(inputArr, tasks.size());
+
+        if (!isValid) {
+            return;
+        }
+
+        int taskNumber = Integer.parseInt(inputArr[1]);
+        int taskNumberIndex = taskNumber - 1;
+        Task curTask = tasks.get(taskNumberIndex);
+        curTask.setDone();
+
+        String doneMessage = TEXT_INDENTATION + "Nice! I've marked this task as done:\n"
+                + TEXT_INDENTATION + "  " + curTask.printTaskInfo() + "\n";
+        printMessage(doneMessage);
     }
 
     public static void printGreetMessage() {
