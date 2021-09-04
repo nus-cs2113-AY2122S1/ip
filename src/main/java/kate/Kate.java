@@ -1,3 +1,14 @@
+package kate;
+
+import kate.command.Command;
+import kate.exception.EmptyFieldException;
+import kate.exception.InvalidCommandException;
+import kate.exception.InvalidFieldException;
+import kate.task.Deadline;
+import kate.task.Event;
+import kate.task.Task;
+import kate.task.ToDo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -258,7 +269,7 @@ public class Kate {
      *
      * @param userInput Input provided by user
      * @return Task object of the provided task number
-     * @throws EmptyFieldException If task number provided is empty
+     * @throws EmptyFieldException   If task number provided is empty
      * @throws InvalidFieldException If task number provided is invalid
      */
     private static Task processDoneInput(String userInput) throws EmptyFieldException, InvalidFieldException {
