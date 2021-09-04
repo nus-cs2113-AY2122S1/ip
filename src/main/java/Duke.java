@@ -77,7 +77,7 @@ public class Duke {
      *                 description.
      */
     public void addTodo(String response) {
-        String description = response.replace("todo ", "");
+        String description = response.replace("todo", "").strip();
         if (description.isBlank()) {
             Ui.printTodoCannotBeEmpty();
         } else {
