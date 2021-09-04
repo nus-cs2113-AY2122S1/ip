@@ -4,9 +4,9 @@
  *
  * @author richwill28
  */
-class Command {
+public class Command {
     /** User command */
-    String command;
+    private String command;
 
     /**
      * The constructor method. Initializes user command.

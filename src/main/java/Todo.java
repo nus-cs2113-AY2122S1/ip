@@ -4,7 +4,7 @@
  *
  * @author richwill28
  */
-class Todo extends Task {
+public class Todo extends Task {
     /**
      * The constructor method. Initializes the
      * task description.

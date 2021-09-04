@@ -5,7 +5,7 @@ import java.util.ArrayList;
  *
  * @author richwill28
  */
-class TaskList {
+public class TaskList {
     /** The list of tasks */
     private ArrayList<Task> taskList;
 

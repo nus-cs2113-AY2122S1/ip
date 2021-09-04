@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @author richwill28
  */
-class Duke {
+public class Duke {
     /** A scanner to read from standard input. */
     private Scanner sc;
 
