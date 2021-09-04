@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String DIVIDER = "    ____________________________________________________________";
-    private static List<Task> store = new ArrayList<Task>();
+    private static List<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -18,7 +18,7 @@ public class Duke {
             HashMap<String, String> commandArgs = parseCommand(command);
             System.out.println(DIVIDER);
 
-            switch (commandArgs.get("command")) {
+            switch (commandArgs.get("command").toLowerCase()) {
             case "list":
                 list();
                 break;
@@ -67,58 +67,63 @@ public class Duke {
         return map;
     }
 
+    public static void printWithIndent(String text, int count) {
+        System.out.println(" ".repeat(count) + text);
+    }
+
     public static void greet() {
         System.out.println(DIVIDER);
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
+        printWithIndent("Hello! I'm Duke", 5);
+        printWithIndent("What can I do for you?", 5);
         System.out.println(DIVIDER + "\n");
     }
 
     public static void bye() {
-        System.out.println("     Bye. Hope to see you again soon!");
+        printWithIndent("Bye. Hope to see you again soon!", 5);
     }
 
     public static void addTodo(String task) {
         Todo todo = new Todo(task);
-        store.add(todo);
+        tasks.add(todo);
         addSuccess(todo);
     }
 
     public static void addDeadline(String task, String by) {
         Deadline deadline = new Deadline(task, by);
-        store.add(deadline);
+        tasks.add(deadline);
         addSuccess(deadline);
     }
 
     public static void addEvent(String task, String at) {
         Event event = new Event(task, at);
-        store.add(event);
+        tasks.add(event);
         addSuccess(event);
     }
 
     public static void addSuccess(Task task) {
-        System.out.println("     Got it. I've added this task: ");
-        System.out.println(String.format("       %s", task));
-        System.out.println(
-                String.format("     Now you have %d task%s in the list.", store.size(), store.size() > 1 ? "s" : ""));
+        printWithIndent("Got it. I've added this task: ", 5);
+        printWithIndent(task.toString(), 7);
+        String taskCount = String.format("Now you have %d task%s in the list.", tasks.size(),
+                tasks.size() == 1 ? "" : "s");
+        printWithIndent(taskCount, 5);
     }
 
     public static void list() {
-        System.out.println("     Here are the tasks in your list:");
+        printWithIndent("Here are the tasks in your list:", 5);
         int index = 1;
-        for (Task item : store) {
-            System.out.println(String.format("     %d.%s", index, item));
+        for (Task item : tasks) {
+            printWithIndent(String.format("%d.%s", index, item), 5);
             index++;
         }
     }
 
     public static void setTaskDone(int index) {
-        if (index > store.size()) {
+        if (index > tasks.size()) {
             return;
         }
-        Task task = store.get(index - 1);
+        Task task = tasks.get(index - 1);
         task.markAsDone();
-        System.out.println("     Nice! I've marked this task as done: ");
-        System.out.println(String.format("       %s", task));
+        printWithIndent("Nice! I've marked this task as done: ", 5);
+        printWithIndent(task.toString(), 7);
     }
 }
