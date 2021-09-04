@@ -28,9 +28,9 @@ public class Kate {
     /**
      * Length of the action commands inclusive of a space
      */
-    private static final int TODO_LENGTH = 5;
-    private static final int DEADLINE_LENGTH = 9;
-    private static final int EVENT_LENGTH = 6;
+    private static final int TODO_LENGTH = 4;
+    private static final int DEADLINE_LENGTH = 8;
+    private static final int EVENT_LENGTH = 5;
 
     /**
      * Specific description on how to use the action commands
@@ -44,13 +44,20 @@ public class Kate {
     private static final String COMMAND_BYE = "bye";
 
     private static final String FAILURE_MESSAGE_ADD_TODO = TEXT_INDENTATION
-            + "Please specify a task with \"" + COMMAND_TODO + "\"\n";
+            + "Please specify a task with: \n"
+            + TEXT_INDENTATION + "\"" + COMMAND_TODO + "\"\n";
     private static final String FAILURE_MESSAGE_ADD_DEADLINE = TEXT_INDENTATION
-            + "Please specify a task with \"" + COMMAND_DEADLINE + "\"\n";
+            + "Please specify a task with: \n"
+            + TEXT_INDENTATION + "\"" + COMMAND_DEADLINE + "\"\n";
     private static final String FAILURE_MESSAGE_ADD_EVENT = TEXT_INDENTATION
-            + "Please specify a task with \"" + COMMAND_EVENT + "\"\n";
+            + "Please specify a task with: \n"
+            + TEXT_INDENTATION + "\"" + COMMAND_EVENT + "\"\n";
     private static final String FAILURE_MESSAGE_SET_DONE = TEXT_INDENTATION
-            + "Please specify a task with \"" + COMMAND_DONE + "\"\n";
+            + "Please specify a task with: \n"
+            + TEXT_INDENTATION + "\"" + COMMAND_DONE + "\"\n";
+    private static final String FAILURE_MESSAGE_INVALID_COMMAND = TEXT_INDENTATION
+            + "Please enter a valid command! \n"
+            + TEXT_INDENTATION + "Type <help> for the list of commands\n";
 
     /**
      * Initialise an array list of tasks
@@ -70,21 +77,35 @@ public class Kate {
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
+            try {
+                Command command = extractCommand(userInput);
 
-            if (userInput.toUpperCase().equals("BYE")) {
-                break;
-            } else if (userInput.toUpperCase().startsWith("TODO ")) {
-                addToDo(userInput);
-            } else if (userInput.toUpperCase().startsWith("DEADLINE ")) {
-                addDeadline(userInput);
-            } else if (userInput.toUpperCase().startsWith("EVENT ")) {
-                addEvent(userInput);
-            } else if (userInput.toUpperCase().equals("LIST")) {
-                printTasks();
-            } else if (userInput.toUpperCase().startsWith("DONE ")) {
-                indicateDone(userInput);
-            } else {
-                printHelpPage();
+                switch (command) {
+                case TODO:
+                    addToDo(userInput);
+                    break;
+                case DEADLINE:
+                    addDeadline(userInput);
+                    break;
+                case EVENT:
+                    addEvent(userInput);
+                    break;
+                case LIST:
+                    printTasks();
+                    break;
+                case DONE:
+                    indicateDone(userInput);
+                    break;
+                case BYE:
+                    return;
+                case HELP:
+                    printHelpPage();
+                    break;
+                default:
+                    break;
+                }
+            } catch (InvalidCommandException e) {
+                printMessage(FAILURE_MESSAGE_INVALID_COMMAND);
             }
         }
     }
@@ -95,15 +116,29 @@ public class Kate {
      * @param userInput A general task that user wants to add
      */
     private static void addToDo(String userInput) {
+        try {
+            String taskDescription = processToDoInput(userInput);
+            tasks.add(new ToDo(taskDescription));
+            printAddedTask();
+        } catch (EmptyFieldException e) {
+            printMessage(FAILURE_MESSAGE_ADD_TODO);
+        }
+    }
+
+    /**
+     * Processes the user input to extract description
+     *
+     * @param userInput Input provided by user
+     * @return Task description for ToDo
+     * @throws EmptyFieldException If task description is empty
+     */
+    private static String processToDoInput(String userInput) throws EmptyFieldException {
         String taskDescription = userInput.substring(TODO_LENGTH).strip();
 
         if (taskDescription.isEmpty()) {
-            printMessage(FAILURE_MESSAGE_ADD_TODO);
-            return;
+            throw new EmptyFieldException();
         }
-
-        tasks.add(new ToDo(taskDescription));
-        printAddedTask();
+        return taskDescription;
     }
 
     /**
@@ -112,20 +147,44 @@ public class Kate {
      * @param userInput A task a user wants to add that has a deadline
      */
     private static void addDeadline(String userInput) {
-        String taskInfo = userInput.substring(DEADLINE_LENGTH).strip();
-        boolean isEmptyField = emptyFieldChecker(taskInfo, " /by ");
+        try {
+            String[] infoArr = processDeadlineInput(userInput);
+            String taskDescription = infoArr[0];
+            String deadline = infoArr[1];
 
-        if (isEmptyField) {
+            tasks.add(new Deadline(taskDescription, deadline));
+            printAddedTask();
+        } catch (EmptyFieldException e) {
             printMessage(FAILURE_MESSAGE_ADD_DEADLINE);
-            return;
+        }
+    }
+
+    /**
+     * Process the user input to extract description and deadline
+     *
+     * @param userInput Input provided by user
+     * @return String array of description and deadline
+     * @throws EmptyFieldException If description or deadline is empty
+     */
+    private static String[] processDeadlineInput(String userInput) throws EmptyFieldException {
+        String taskInfo = userInput.substring(DEADLINE_LENGTH).strip();
+        String[] infoArr = taskInfo.split(" /by ", 2);
+
+        try {
+            String taskDescription = infoArr[0].strip();
+            String deadline = infoArr[1].strip();
+
+            if (taskDescription.isEmpty() || deadline.isEmpty()) {
+                throw new EmptyFieldException();
+            }
+
+            infoArr[0] = taskDescription;
+            infoArr[1] = deadline;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyFieldException();
         }
 
-        String[] infoArr = taskInfo.split(" /by ");
-        String taskDescription = infoArr[0].strip();
-        String deadline = infoArr[1].strip();
-
-        tasks.add(new Deadline(taskDescription, deadline));
-        printAddedTask();
+        return infoArr;
     }
 
     /**
@@ -134,20 +193,44 @@ public class Kate {
      * @param userInput An event the user wants to add
      */
     private static void addEvent(String userInput) {
-        String taskInfo = userInput.substring(EVENT_LENGTH).strip();
-        boolean isEmptyField = emptyFieldChecker(taskInfo, " /at ");
+        try {
+            String[] infoArr = processEventInput(userInput);
+            String taskDescription = infoArr[0];
+            String timeFrame = infoArr[1];
 
-        if (isEmptyField) {
+            tasks.add(new Event(taskDescription, timeFrame));
+            printAddedTask();
+        } catch (EmptyFieldException e) {
             printMessage(FAILURE_MESSAGE_ADD_EVENT);
-            return;
+        }
+    }
+
+    /**
+     * Process the user input to extract description and time frame
+     *
+     * @param userInput Input provided by user
+     * @return String array of description and time frame
+     * @throws EmptyFieldException If description or time frame is empty
+     */
+    private static String[] processEventInput(String userInput) throws EmptyFieldException {
+        String taskInfo = userInput.substring(EVENT_LENGTH).strip();
+        String[] infoArr = taskInfo.split(" /at ", 2);
+
+        try {
+            String taskDescription = infoArr[0].strip();
+            String timeframe = infoArr[1].strip();
+
+            if (taskDescription.isEmpty() || timeframe.isEmpty()) {
+                throw new EmptyFieldException();
+            }
+
+            infoArr[0] = taskDescription;
+            infoArr[1] = timeframe;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyFieldException();
         }
 
-        String[] infoArr = taskInfo.split(" /at ");
-        String taskDescription = infoArr[0].strip();
-        String timeFrame = infoArr[1].strip();
-
-        tasks.add(new Event(taskDescription, timeFrame));
-        printAddedTask();
+        return infoArr;
     }
 
     /**
@@ -156,21 +239,47 @@ public class Kate {
      * @param userInput Input provided by user to indicate task completion for a task
      */
     private static void indicateDone(String userInput) {
-        String[] inputArr = userInput.split(" ");
-        boolean isValid = intChecker(inputArr, tasks.size());
+        try {
+            Task curTask = processDoneInput(userInput);
+            curTask.setDone();
 
-        if (!isValid) {
-            return;
+            String doneMessage = TEXT_INDENTATION + "Nice! I've marked this task as done:\n"
+                    + TEXT_INDENTATION + "  " + curTask.printTaskInfo() + "\n";
+            printMessage(doneMessage);
+        } catch (EmptyFieldException e) {
+            printMessage(FAILURE_MESSAGE_SET_DONE);
+        } catch (InvalidFieldException e) {
+            printMessage(FAILURE_MESSAGE_SET_DONE);
+        }
+    }
+
+    /**
+     * Process user input to extract the object of the associated task number
+     *
+     * @param userInput Input provided by user
+     * @return Task object of the provided task number
+     * @throws EmptyFieldException If task number provided is empty
+     * @throws InvalidFieldException If task number provided is invalid
+     */
+    private static Task processDoneInput(String userInput) throws EmptyFieldException, InvalidFieldException {
+        String[] inputArr = userInput.split(" ");
+
+        try {
+            int taskNumber = Integer.parseInt(inputArr[1]);
+
+            if ((taskNumber > tasks.size()) || (taskNumber < 1) || inputArr.length != 2) {
+                throw new InvalidFieldException();
+            }
+
+            int taskNumberIndex = taskNumber - 1;
+
+            return tasks.get(taskNumberIndex);
+        } catch (NumberFormatException e) {
+            throw new InvalidFieldException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyFieldException();
         }
 
-        int taskNumber = Integer.parseInt(inputArr[1]);
-        int taskNumberIndex = taskNumber - 1;
-        Task curTask = tasks.get(taskNumberIndex);
-        curTask.setDone();
-
-        String doneMessage = TEXT_INDENTATION + "Nice! I've marked this task as done:\n"
-                + TEXT_INDENTATION + "  " + curTask.printTaskInfo() + "\n";
-        printMessage(doneMessage);
     }
 
     public static void printGreetMessage() {
@@ -232,48 +341,22 @@ public class Kate {
     }
 
     /**
-     * Checks whether given task number is an integer
+     * Extracts the command from the user input
      *
-     * @param inputArr Input by the user
-     * @param size     Size of the ArrayList tasks
-     * @return Boolean value of whether input is an integer
+     * @param userInput Input provide by user
+     * @return Command object of the given valid command
+     * @throws InvalidCommandException If command is invalid
      */
-    public static boolean intChecker(String[] inputArr, int size) {
-        try {
-            int taskNumber = Integer.parseInt(inputArr[1]);
-            if ((taskNumber > size) || (taskNumber < 1) || inputArr.length != 2) {
-                printMessage(TEXT_INDENTATION + "Please input a valid task number!\n");
-                return false;
+    private static Command extractCommand(String userInput) throws InvalidCommandException {
+        String[] inputArr = userInput.split(" ");
+        String givenCommand = inputArr[0].toUpperCase();
+        for (Command command : Command.values()) {
+            if (command.name().equals(givenCommand)) {
+                return command;
             }
-            return true;
-        } catch (NumberFormatException e) {
-            printMessage(TEXT_INDENTATION + "Please input an integer as your task number!\n");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            printMessage(FAILURE_MESSAGE_SET_DONE);
-            return false;
         }
-        return false;
-    }
+        throw new InvalidCommandException();
 
-    /**
-     * Checks whether user input contains empty fields
-     *
-     * @param userInput Input by the user
-     * @param delim     Delimiter used to split the string
-     * @return Boolean input whether user provided empty fields
-     */
-    public static boolean emptyFieldChecker(String userInput, String delim) {
-        String[] inputArr = userInput.split(delim, 2);
-        try {
-            String firstArrayField = inputArr[0];
-            String secondArrayField = inputArr[1];
-            if (firstArrayField.isEmpty() || secondArrayField.isEmpty()) {
-                return true;
-            }
-            return false;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return true;
-        }
     }
 
     /**
