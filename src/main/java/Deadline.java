@@ -1,10 +1,15 @@
 public class Deadline extends Task{
-    protected String by;
-    public Deadline(String description, String by){
+
+    private static final String TASK_SYMBOL = "[D]";
+    protected String dueDate;
+
+    public Deadline(String description, String dueDate){
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
+
+    @Override
     public String toString(){
-        return "[D]" + super.toString() + "by: " + by + ")";
+    return TASK_SYMBOL + super.toString() + "(by: " + dueDate + ")";
     }
 }

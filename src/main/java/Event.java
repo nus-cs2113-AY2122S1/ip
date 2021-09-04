@@ -1,10 +1,15 @@
 public class Event extends Task{
-    protected String time;
-    public Event(String description, String time){
+
+    private static final String TASK_SYMBOL = "[E]";
+    protected String startTime;
+
+    public Event(String description, String startTime){
         super(description);
-        this.time = time;
+        this.startTime = startTime;
     }
+
+    @Override
     public String toString(){
-        return "[E]" + super.toString() + "(at:" + time + ")";
+        return TASK_SYMBOL + super.toString() + "(at:" + startTime + ")";
     }
 }

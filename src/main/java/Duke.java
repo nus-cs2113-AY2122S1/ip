@@ -1,61 +1,50 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+    private static final String COMMAND_EXIT = "bye";
+    private static final String COMMAND_VIEW_LIST = "list";
+    private static final String COMMAND_COMPLETE_TASK = "done";
+    private static final String COMMAND_ADD_TODO = "todo";
+    private static final String COMMAND_ADD_EVENT = "event";
+    private static final String COMMAND_ADD_DEADLINE = "deadline";
+
+    private static void startDuke(){
+        System.out.println(Logo.logo +Logo.divider + "Hello! I'm Duke\n" + " What can I do for you?\n" + Logo.divider);
+    }
+
+    private static void endDuke(){
+        System.out.println(Logo.divider + "Bye. Hope to see you again soon!\n" + Logo.divider + Logo.bye);
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println( logo +
-                "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n");
+        startDuke();
         Scanner in = new Scanner(System.in);
-        Task[] list = new Task[100];
-        int listIndex = 0;
+        ArrayList <Task> list = new ArrayList<Task>();
+        ListManager listManager = new ListManager(list);
         while(true) {
             String echo = in.nextLine();
             String echoLower = echo.toLowerCase();
-            if (echoLower.equals("bye")) {
-                System.out.println(
-                        "____________________________________________________________\n" +
-                        "Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________");
+            if (echoLower.equals(COMMAND_EXIT)) {
+                endDuke();
                 break;
-            }else if(echoLower.equals("list")) {
-                for(int i = 0; i < listIndex; i ++){
-                    System.out.println((i + 1) + ". " + list[i].toString());
-                }
-            }else if(echoLower.equals("done")) {
-                int taskDone = Integer.parseInt(in.nextLine());
-                list[taskDone - 1].markAsDone();
-                for (int i = 0; i < listIndex; i++) {
-                    System.out.println((i + 1) + ". " + list[i].toString());
-                }
-            }else if(echoLower.startsWith("event")){
+            }else if(echoLower.equals(COMMAND_VIEW_LIST)) {
+                listManager.printList();
+            }else if(echoLower.startsWith(COMMAND_COMPLETE_TASK)) {
+                listManager.completeTask();
+            }else if(echoLower.startsWith(COMMAND_ADD_EVENT)){
                 int startOfTime = echoLower.indexOf("/");
                 String description = echoLower.substring(6,startOfTime);
                 String time = echoLower.substring(startOfTime + 1);
-                Task t = new Event(description, time);
-                list[listIndex] = t;
-                listIndex += 1;
-                System.out.println("Got it. I've added this task: " + System.lineSeparator() + t.toString() + System.lineSeparator() + "Now you have " + listIndex+" tasks in the list.");
-            }else if (echoLower.startsWith("todo")){
+                listManager.addEvent(description,time);
+            }else if (echoLower.startsWith(COMMAND_ADD_TODO)){
                 String description = echoLower.substring(5);
-                Task t = new Todo(description);
-                list[listIndex] = t;
-                listIndex += 1;
-                System.out.println("Got it. I've added this task: " + System.lineSeparator() + t.toString() + System.lineSeparator() + "Now you have " + listIndex +" tasks in the list.");
-            }else if(echoLower.startsWith("deadline")){
+                listManager.addTodo(description);
+            }else if(echoLower.startsWith(COMMAND_ADD_DEADLINE)){
                 int startOfDeadline = echoLower.indexOf("/");
                 String description = echoLower.substring(9,startOfDeadline);
                 String deadline = echoLower.substring(startOfDeadline + 1);
-                Task t = new Deadline(description, deadline);
-                list[listIndex] = t;
-                listIndex += 1;
-                System.out.println("Got it. I've added this task: " + System.lineSeparator() + t.toString() + System.lineSeparator() + "Now you have " + listIndex +" tasks in the list.");
+                listManager.addDeadline(description,deadline);
             }
         }
     }
