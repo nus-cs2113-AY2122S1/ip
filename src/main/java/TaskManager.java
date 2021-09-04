@@ -4,6 +4,12 @@ public class TaskManager {
     private Task[] tasks = new Task[MAXIMUM_TASKS];
     private int tasksCount = 0;
 
+    /**
+     * Adds a task to the list of tasks
+     *
+     * @param task The task to be added
+     * @throws DukeException If the maximum number of tasks has been reached
+     */
     public void addTask(Task task) throws DukeException {
         if (tasksCount >= MAXIMUM_TASKS) {
             throw new DukeException("Maximum number of tasks reached.");

@@ -76,7 +76,7 @@
     4.[E][X] dinner (by: Friday 6pm)
   ──────────────────────────────
   ──────────────────────────────
-  Sorry, I did not understand your command.
+  Sorry, I do not understand your command.
   ──────────────────────────────
   ──────────────────────────────
   Goodbye! Hope to see you soon!

@@ -6,6 +6,14 @@ public class CommandParser {
     private static final String COMMAND_NEW_DEADLINE = "deadline";
     private static final String COMMAND_NEW_EVENT = "event";
 
+    /**
+     * Takes in the userInput String and returns the corresponding command to be executed
+     *
+     * @param userInput The String that contains the user's input
+     * @return The corresponding Command based on the user's input
+     * @throws DukeException If the userInput String is not in the correct format or
+     *                       does not correspond to a valid command
+     */
     public static Command parse(String userInput) throws DukeException {
         if (userInput.equals(COMMAND_EXIT)) {
             return new ExitCommand();
@@ -36,9 +44,19 @@ public class CommandParser {
             Task task = parseTask(userInput, TaskType.EVENT);
             return new AddCommand(task);
         }
-        throw new DukeException("Sorry, I did not understand your command.");
+        throw new DukeException("Sorry, I do not understand your command.");
     }
 
+    /**
+     * Takes in the userInput String and returns a Task that is to be added to taskManager
+     *
+     * @param userInput The String that contains the user's input, must correspond to a
+     *                  command that creates a Task
+     * @param taskType The Enum TaskType that specifies the Task subclass to be created
+     * @return The Task that contains the details specified in userInput
+     * @throws DukeException If the userInput String is not in the correct format
+     *                       or has missing information
+     */
     private static Task parseTask(String userInput, TaskType taskType) throws DukeException {
         switch (taskType) {
         case TODO:
