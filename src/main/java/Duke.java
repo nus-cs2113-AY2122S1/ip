@@ -25,7 +25,7 @@ public class Duke {
             COMMAND_LIST + "\n" +
             COMMAND_DONE + " <item no.>\n" +
             COMMAND_TODO + " <description>\n" +
-            COMMAND_DEADLINE + " <description> /by <deadline>\n" +
+            COMMAND_DEADLINE + " <description> /by <date and time>\n" +
             COMMAND_EVENT + " <description> /at <date and time>\n" +
             COMMAND_BYE;
 
