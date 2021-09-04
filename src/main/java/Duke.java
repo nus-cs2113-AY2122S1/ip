@@ -62,7 +62,7 @@ public class Duke {
     /**
      * Initializes the list of Tasks and Task Counter
      */
-    public static void initTasks() {
+    private static void initTasks() {
         tasks = new Task[MAX_TASKS];
         taskCounter = 0;
     }
@@ -70,14 +70,14 @@ public class Duke {
     /**
      * Prints the program logo.
      */
-    public static void printLogo() {
+    private static void printLogo() {
         System.out.println(LOGO);
     }
 
     /**
      * Prints out the program greeting message.
      */
-    public static void printGreeting() {
+    private static void printGreeting() {
         String greeting = CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Hello! You probably know that Iron Man has the best AI-assistant called Jarvis" + LINE_BREAK
                 + SPACE_PREFIX + "and Spiderman has hmmm, maybe his tingly spidey senses?" + LINE_BREAK
@@ -90,7 +90,7 @@ public class Duke {
     /**
      * Prints out the program farewell (exit) message.
      */
-    public static void printFarewell() {
+    private static void printFarewell() {
         String farewell = CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Bye, have a nice day! From your friendly neighbourhood assistant, Duke~" + LINE_BREAK
                 + SPACE_PREFIX + "(NICE, I can finally binge watch Rick and Morty~)" + LINE_BREAK
@@ -103,7 +103,7 @@ public class Duke {
      *
      * @param taskName The task's name
      */
-    public static void printAddedToTaskMessage(String taskName) {
+    private static void printAddedToTaskMessage(String taskName) {
         System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Here you go..." + LINE_BREAK + " Added to stuff you would definitely forget to do (*facepalm*): "
                 + taskName
@@ -111,7 +111,8 @@ public class Duke {
                 + CONSOLE_LINE_PREFIX);
     }
 
-    public static String getUserInput() {
+
+    private static String getUserInput() {
         String userInput;
         System.out.print(SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
         userInput = SC.nextLine();
@@ -125,7 +126,7 @@ public class Duke {
      * @param taskName name of the Todo_Task to be created
      * @return TodoObject
      */
-    public static Todo createNewToDo(String taskName) {
+    private static Todo createNewToDo(String taskName) {
         return new Todo(taskName);
     }
 
@@ -137,7 +138,7 @@ public class Duke {
      * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
      * @return DeadlineObject
      */
-    public static Deadline createNewDeadline(String unprocessedTaskName) {
+    private static Deadline createNewDeadline(String unprocessedTaskName) {
         String byWhen = unprocessedTaskName.split(BY_WHEN_PREFIX)[1].trim();
         String actualTaskName = unprocessedTaskName.replace(BY_WHEN_PREFIX, "").replace(byWhen, "");
         actualTaskName = actualTaskName.trim();
@@ -152,7 +153,7 @@ public class Duke {
      * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
      * @return EventObject
      */
-    public static Event createNewEvent(String unprocessedTaskName) {
+    private static Event createNewEvent(String unprocessedTaskName) {
         String atWhen = unprocessedTaskName.split(AT_WHEN_PREFIX)[1].trim();
         String actualTaskName = unprocessedTaskName.replace(AT_WHEN_PREFIX, "").replace(atWhen, "");
         actualTaskName = actualTaskName.trim();
@@ -165,7 +166,7 @@ public class Duke {
      * @param taskType type of task to be added
      * @param taskName task name as of user input (Not processed for Deadline and Event)
      */
-    public static void addToTasks(String taskType, String taskName) {
+    private static void addToTasks(String taskType, String taskName) {
         Task newTask;
         if (taskType.equalsIgnoreCase(TASK_TODO_PREFIX)) {
             newTask = createNewToDo(taskName);
@@ -193,7 +194,7 @@ public class Duke {
     /**
      * Prints all the Tasks.
      */
-    public static void printTasks() {
+    private static void printTasks() {
         // validTasks contains only Tasks that are not NULL
         Task[] validTasks = Arrays.copyOf(tasks, taskCounter);
         if (taskCounter == 0) {
@@ -213,7 +214,7 @@ public class Duke {
      *
      * @param index task index of task that user wants to mark as done in the list
      */
-    public static void markTaskAsDone(int index) {
+    private static void markTaskAsDone(int index) {
         Task task = tasks[index];
         task.setDone();
         System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
