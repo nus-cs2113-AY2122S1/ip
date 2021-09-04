@@ -15,7 +15,11 @@ public class Duke {
                 taskManager.listTasks();
                 break;
             case "done":
-                taskManager.markAsDone(Integer.parseInt(input[1]));
+                try {
+                    taskManager.markAsDone(Integer.parseInt(input[1]));
+                } catch (NumberFormatException e) {
+                    System.out.println("You did not enter a number");
+                }
                 break;
             case "todo":
                 taskManager.addTodoTask(input[1]);
