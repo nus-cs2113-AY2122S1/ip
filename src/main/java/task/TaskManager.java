@@ -1,3 +1,13 @@
+package task;
+
+import console.InputParser;
+import error.DukeTaskNameEmptyException;
+import error.Error;
+import task.subtask.Deadline;
+import task.subtask.Event;
+import task.subtask.Todo;
+import utils.Display;
+
 public class TaskManager {
 
     public static final int MAX_NUMBER_OF_TASKS = 100;

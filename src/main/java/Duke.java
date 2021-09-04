@@ -1,3 +1,8 @@
+import error.Error;
+import console.InputParser;
+import task.TaskManager;
+import utils.Display;
+
 import java.util.Scanner;
 
 public class Duke {

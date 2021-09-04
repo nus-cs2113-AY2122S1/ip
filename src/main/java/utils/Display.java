@@ -1,3 +1,7 @@
+package utils;
+
+import task.Task;
+
 public class Display {
 
     public static final String CHECKBOX_TASK_INCOMPLETE = " ";
