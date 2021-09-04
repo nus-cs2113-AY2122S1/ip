@@ -35,18 +35,4 @@ public class Ui {
         System.out.println(PADDING + "Bye. Hope to see you again soon!");
         System.out.print(LINE);
     }
-
-    /** Prints "invalid input" error message. */
-    public static void printInvalidInput() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        System.out.println(LINE);
-    }
-
-    /** Prints "Todo command cannot be empty" error message. */
-    public static void printTodoCannotBeEmpty() {
-        System.out.print(LINE);
-        System.out.println(PADDING + "☹ OOPS!!! The description of a todo cannot be empty.");
-        System.out.println(LINE);
-    }
 }
