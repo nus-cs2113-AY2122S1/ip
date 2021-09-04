@@ -1,134 +1,142 @@
+import exception.EmptyDescriptionException;
+
 public class TaskManager {
-    private Task[] taskList;
+    private Task[] tasks;
     private int listIndex;
+    private final String LINE = "____________________________________________________________\n";
+    private final int TASK_LIST_SIZE = 100;
+    private final String LOGO =
+            " **********************************\n" +
+            " *     _    _  __              _  *\n" +
+            " *    / \\  | |/ _|_ __ ___  __| | *\n" +
+            " *   / _ \\ | | |_| '__/ _ \\/ _` | *\n" +
+            " *  / ___ \\| |  _| | |  __/ (_| | *\n" +
+            " * /_/   \\_\\_|_| |_|  \\___|\\__,_| *\n" +
+            " **********************************\n";
+
 
     public TaskManager() {
-        taskList = new Task[100];
+        tasks = new Task[TASK_LIST_SIZE];
         listIndex = 0;
         initAlfred();
     }
 
-    private String line = "____________________________________________________________\n";
-
     private void initAlfred() {
-        String logo =
-                " **********************************\n" +
-                " *     _    _  __              _  *\n" +
-                " *    / \\  | |/ _|_ __ ___  __| | *\n" +
-                " *   / _ \\ | | |_| '__/ _ \\/ _` | *\n" +
-                " *  / ___ \\| |  _| | |  __/ (_| | *\n" +
-                " * /_/   \\_\\_|_| |_|  \\___|\\__,_| *\n" +
-                " **********************************\n";
         System.out.println(
-                logo + "\n" +
-                line +
+                LOGO + "\n" + LINE +
                 " Welcome back, Master Wayne.\n" +
                 " How may I be of service to you?\n" +
-                line
+                LINE
         );
     }
 
     public void shutdownMessage() {
         System.out.println(
-                line +
+                LINE +
                 " Very well sir, I shall leave you to your own devices.\n" +
-                line
+                LINE
         );
     }
 
     public void processInput(String userInput) {
-        String[] destructuredInput = userInput.split(" ");
-        switch (destructuredInput[0]) {
-        case "list":
-            listTasks();
-            break;
-        case "done":
-            completeTask(userInput);
-            break;
-        case "todo":
-            addTodo(userInput);
-            break;
-        case "event":
-            addEvent(userInput);
-            break;
-        case "deadline":
-            addDeadline(userInput);
-            break;
-        default:
-            invalidCommandMessage();
+        String[] destructuredInputs = userInput.split(" ");
+        try {
+            switch (destructuredInputs[0]) {
+            case "list":
+                listTasks();
+                break;
+            case "done":
+                completeTask(userInput);
+                break;
+            case "todo":
+                addTodo(userInput);
+                break;
+            case "event":
+                addEvent(userInput);
+                break;
+            case "deadline":
+                addDeadline(userInput);
+                break;
+            default:
+                ErrorManager.invalidCommandMessage();
+            }
+        } catch (EmptyDescriptionException e) {
+            ErrorManager.emptyDescriptionMessage();
         }
     }
 
-    private void invalidCommandMessage() {
-        System.out.println(
-                line +
-                " Perhaps you could rephrase that in a way us civilians could comprehend.\n" +
-                line
-        );
-    };
 
     private void listTasks() {
-        System.out.print(line);
+        System.out.print(LINE);
         if (listIndex == 0) {
             System.out.println(" Your schedule is clear, Master Wayne.");
         } else {
             System.out.println(" Your tasks, sir:");
             for (int i = 0; i < listIndex; i++) {
-                System.out.println(" " + (i + 1) + "." + taskList[i].toString());
+                System.out.println(" " + (i + 1) + "." + tasks[i].toString());
             }
         }
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     private void completeTask(String userInput) {
-        String[] destructuredInput = userInput.split(" ");
-        int index = Integer.parseInt(destructuredInput[1]) - 1;
-        taskList[index].setTaskDone();
-        completeTaskMessage(index+1, taskList[index].toString());
+        String[] destructuredInputs = userInput.split(" ");
+        int index = Integer.parseInt(destructuredInputs[1]) - 1;
+        tasks[index].setTaskDone();
+        completeTaskMessage(index + 1, tasks[index].toString());
     }
 
-    private void addTodo(String userInput) {
-        String[] destructuredInput = userInput.split(" ", 2);
-        String todoName = destructuredInput[1];
+    private void addTodo(String userInput) throws EmptyDescriptionException {
+        String[] destructuredInputs = userInput.split(" ", 2);
+        if (destructuredInputs.length < 2) {
+            throw new EmptyDescriptionException();
+        }
+        String todoName = destructuredInputs[1];
         Todo t = new Todo(todoName);
-        taskList[listIndex] = t;
+        tasks[listIndex] = t;
         listIndex++;
         addTaskMessage(t);
     }
 
-    private void addEvent(String userInput) {
-        String[] arguments = userInput.split(" ", 2);
-        String[] destructuredArguments = arguments[1].split(" /at ", 2);
+    private void addEvent(String userInput) throws EmptyDescriptionException {
+        String[] destructuredInputs = userInput.split(" ", 2);
+        if (destructuredInputs.length < 2) {
+            throw new EmptyDescriptionException();
+        }
+        String[] destructuredArguments = destructuredInputs[1].split(" /at ", 2);
         Event e = new Event(destructuredArguments[0], destructuredArguments[1]);
-        taskList[listIndex] = e;
+        tasks[listIndex] = e;
         listIndex++;
         addTaskMessage(e);
     }
 
-    private void addDeadline(String userInput) {
-        String[] arguments = userInput.split(" ", 2);
-        String[] destructuredArguments = arguments[1].split(" /by ", 2);
+    private void addDeadline(String userInput) throws EmptyDescriptionException {
+        String[] destructuredInputs = userInput.split(" ", 2);
+        if (destructuredInputs.length < 2) {
+            throw new EmptyDescriptionException();
+        }
+        String[] destructuredArguments = destructuredInputs[1].split(" /by ", 2);
         Deadline d = new Deadline(destructuredArguments[0], destructuredArguments[1]);
-        taskList[listIndex] = d;
+        tasks[listIndex] = d;
         listIndex++;
         addTaskMessage(d);
     }
 
     private void completeTaskMessage(int index, String taskDescription) {
         System.out.println(
-                line +
+                LINE +
                 " Duly noted on completion of task, sir.\n" +
                 "    " + index + "." + taskDescription + "\n" +
-                line
+                LINE
         );
     }
 
     private void addTaskMessage(Task t) {
         System.out.println(
-                line +
+                LINE +
                 " I shall put this in your schedule, Master Wayne: \n    " + t.toString() + "\n" +
                 " Sir, the number of Tasks you have scheduled currently amounts to " + listIndex + "." + "\n" +
-                line
+                LINE
         );
     }
 }
