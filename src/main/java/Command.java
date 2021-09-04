@@ -4,6 +4,6 @@ public enum Command {
     ADD_TODO,
     ADD_DEADLINE,
     ADD_EVENT,
-    CONTINUE,
-    DONE
+    DONE,
+    INVALID
 }
