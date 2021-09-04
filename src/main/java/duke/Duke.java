@@ -260,7 +260,6 @@ public class Duke {
             taskList[taskIndex].setDone(true);
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println("  " + taskList[taskIndex]);
-            printBorder();
         } catch (NullPointerException e) { //task index does not exist
             System.out.println("Task number " + (taskIndex + 1) + " does not exist!");
         }
