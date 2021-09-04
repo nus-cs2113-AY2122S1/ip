@@ -202,15 +202,16 @@ public class Duke {
      * @param taskIndex Position of task item in list.
      */
     private static void markTaskAsDone(int taskIndex) {
-        if (taskManager.getTotalTasks() == 0) {
-            blockPrint(new String[]{"The list is currently empty. Add a task first."});
+        try {
+            taskManager.markTaskAsDone(taskIndex);
+        } catch (InvalidTaskIndexException e) {
+            printInvalidTaskIndexError();
             return;
-        } else if (taskIndex < 0 || taskIndex >= taskManager.getTotalTasks()) {
-            blockPrint(new String[]{"Invalid task index."});
+        } catch (TaskListEmptyException e) {
+            printTaskListEmptyError();
             return;
         }
 
-        taskManager.markTaskAsDone(taskIndex);
         Task completedTask = taskManager.getTask(taskIndex);
         blockPrint(new String[]{"Affirmative. I will mark this task as done:",
                 "[" + completedTask.getType() + "][" + completedTask.getStatusIcon() + "] "
@@ -230,7 +231,15 @@ public class Duke {
             listTasks();
             break;
         case COMMAND_DONE:
-            int taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
+            int taskIndex;
+
+            try {
+                taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
+            } catch (NumberFormatException e) {
+                printInvalidTaskIndexError();
+                break;
+            }
+
             markTaskAsDone(taskIndex);
             break;
         case COMMAND_TODO:
