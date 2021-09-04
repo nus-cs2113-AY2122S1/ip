@@ -1,6 +1,12 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Exception.DukeException;
+import Tasks.Task;
+import Tasks.Event;
+import Tasks.Todo;
+import Tasks.Deadline;
+
 
 public class Duke {
 
@@ -8,11 +14,6 @@ public class Duke {
 
         if (input.contains("done")) {
             int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-            if (taskIndex > Task.numberOfTasks) {
-                System.out.println("You do not have that many tasks");
-                return false;
-            }
-
             tasks.get(taskIndex - 1).markAsDone();
             Task.numberOfTasks -= 1;
             return true;
@@ -52,7 +53,7 @@ public class Duke {
             return deadlineTask;
 
         case "event" :
-            Task eventTask = new Event (descriptionAndTime.split("/")[0], descriptionAndTime.split("/")[1]);
+            Task eventTask = new Event(descriptionAndTime.split("/")[0], descriptionAndTime.split("/")[1]);
             tasks.add(eventTask);
             return eventTask;
 
