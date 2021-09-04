@@ -4,7 +4,7 @@
  * @author richwill28
  */
 public abstract class Ui {
-    private static final String LOGO =
+    public static final String LOGO =
             "     ,---.    ,---.   ____    .-./`)  ______          " + System.lineSeparator()
             + "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.    " + System.lineSeparator()
             + "     |  ,  \\/  ,  |/   '  \\  \\/ `-' \\| _ | ) _  \\" + System.lineSeparator()
@@ -15,22 +15,10 @@ public abstract class Ui {
             + "     |  |      |  |\\ (_ o _) / |   | |       .'      " + System.lineSeparator()
             + "     '--'      '--' '.(_,_).'  '---' '-----'`         " + System.lineSeparator();
 
-    private static final String LINE =
+    public static final String LINE =
             "    ____________________________________________________________" + System.lineSeparator();
 
-    private static final String PADDING = "     ";
-
-    public String getLogo() {
-        return LOGO;
-    }
-
-    public String getLine() {
-        return LINE;
-    }
-
-    public String getPadding() {
-        return PADDING;
-    }
+    public static final String PADDING = "     ";
 
     /**
      * Displays logo and greets user.
