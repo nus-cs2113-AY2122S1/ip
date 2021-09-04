@@ -11,12 +11,12 @@ import utils.Display;
 public class TaskManager {
 
     public static final int MAX_NUMBER_OF_TASKS = 100;
-    public static final String EMPTY_TODO_NAME = "";
+    public static final String EMPTY_TASK_NAME = "";
     private Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
     private int taskCount;
 
     public String getTaskName(String taskName) throws DukeTaskNameEmptyException {
-        if (taskName.equals(EMPTY_TODO_NAME)) {
+        if (taskName.equals(EMPTY_TASK_NAME)) {
             throw new DukeTaskNameEmptyException();
         }
         return taskName;
