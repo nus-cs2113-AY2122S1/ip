@@ -100,13 +100,19 @@ public class Shika {
      */
     public static void addTask(Task[] taskList, String text) {
         if (text.startsWith("todo")) {
-            addTodo(taskList, text);
+            try {
+                addTodo(taskList, text);
+            } catch (InvalidCommandException e) {
+                System.out.print(line + "Please enter the name of the todo. :)\n" + line);
+            }
         } else if (text.startsWith("deadline")) {
             try {
                 addDeadline(taskList, text);
             } catch (InvalidDeadlineException e) {
                 System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. " +
                         "Thank you!\n" + line);
+            } catch (InvalidCommandException e) {
+                System.out.print(line + "Please enter the name and deadline of the deadline. :)\n" + line);
             }
         } else {
             try {
@@ -114,6 +120,8 @@ public class Shika {
             } catch (InvalidEventException e) {
                 System.out.print(line + "Please follow the format [NAME] /at [DURATION]. " +
                         "Thank you!\n" + line);
+            } catch (InvalidCommandException e) {
+                System.out.print(line + "Please enter the name and duration of the event. :)\n" + line);
             }
         }
     }
@@ -123,8 +131,9 @@ public class Shika {
      * @param taskList Array containing all recorded tasks.
      * @param text String containing user input.
      */
-    public static void addTodo(Task[] taskList, String text) {
+    public static void addTodo(Task[] taskList, String text) throws InvalidCommandException {
         String str = text.substring(text.indexOf("todo") + 4).trim();
+        if (str.equals("")) throw new InvalidCommandException();
         taskList[Task.count] = new Todo(str);
         Task.count += 1;
         System.out.println(line + "> Added: " + "\n\t"
@@ -138,12 +147,13 @@ public class Shika {
      * @param text String containing user input.
      * @throws InvalidDeadlineException is thrown when command syntax is not followed.
      */
-    public static void addDeadline(Task[] taskList, String text) throws InvalidDeadlineException  {
+    public static void addDeadline(Task[] taskList, String text) throws InvalidCommandException, InvalidDeadlineException {
         if (!text.contains("/by")) {
             throw new InvalidDeadlineException();
         }
         String str = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
         String by = text.substring(text.indexOf("/by") + 3).trim();
+        if (str.equals("") || by.equals("")) throw new InvalidCommandException();
         taskList[Task.count] = new Deadline(str, by);
         Task.count += 1;
         System.out.println(line + "> Added: " + "\n\t"
@@ -157,12 +167,13 @@ public class Shika {
      * @param text String containing user input.
      * @throws InvalidEventException is thrown when command syntax is not followed.
      */
-    public static void addEvent(Task[] taskList, String text) throws InvalidEventException {
+    public static void addEvent(Task[] taskList, String text) throws InvalidCommandException, InvalidEventException {
         if (!text.contains("/at")) {
             throw new InvalidEventException();
         }
         String str = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
         String at = text.substring(text.indexOf("/at") + 3).trim();
+        if (str.equals("") || at.equals("")) throw new InvalidCommandException();
         taskList[Task.count] = new Event(str, at);
         Task.count += 1;
         System.out.println(line + "> Added: " + "\n\t"
