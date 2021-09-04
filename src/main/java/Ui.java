@@ -3,25 +3,34 @@
  *
  * @author richwill28
  */
-class Ui {
-    /** Decorative logo */
-    public static final String LOGO =
-            "     ,---.    ,---.   ____    .-./`)  ______           \n" +
-            "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.     \n" +
-            "     |  ,  \\/  ,  |/   '  \\  \\/ `-' \\| _ | ) _  \\ \n" +
-            "     |  |\\_   /|  ||___|  /  | `-'`\"`|( ''_'  ) |    \n" +
-            "     |  _( )_/ |  |   _.-`   | .---. | . (_) `. |      \n" +
-            "     | (_ o _) |  |.'   _    | |   | |(_    ._) '      \n" +
-            "     |  (_,_)  |  ||  _( )_  | |   | |  (_.\\.' /      \n" +
-            "     |  |      |  |\\ (_ o _) / |   | |       .'       \n" +
-            "     '--'      '--' '.(_,_).'  '---' '-----'`          \n";
+public abstract class Ui {
+    private static final String LOGO =
+            "     ,---.    ,---.   ____    .-./`)  ______          " + System.lineSeparator()
+            + "     |    \\  /    | .'  __ `. \\ .-.')|    _ `''.    " + System.lineSeparator()
+            + "     |  ,  \\/  ,  |/   '  \\  \\/ `-' \\| _ | ) _  \\" + System.lineSeparator()
+            + "     |  |\\_   /|  ||___|  /  | `-'`\"`|( ''_'  ) |   " + System.lineSeparator()
+            + "     |  _( )_/ |  |   _.-`   | .---. | . (_) `. |     " + System.lineSeparator()
+            + "     | (_ o _) |  |.'   _    | |   | |(_    ._) '     " + System.lineSeparator()
+            + "     |  (_,_)  |  ||  _( )_  | |   | |  (_.\\.' /     " + System.lineSeparator()
+            + "     |  |      |  |\\ (_ o _) / |   | |       .'      " + System.lineSeparator()
+            + "     '--'      '--' '.(_,_).'  '---' '-----'`         " + System.lineSeparator();
 
-    /** Decorative line */
-    public static final String LINE =
-            "    ____________________________________________________________\n";
+    private static final String LINE =
+            "    ____________________________________________________________" + System.lineSeparator();
 
-    /** Decorative padding */
-    public static final String PADDING = "     ";
+    private static final String PADDING = "     ";
+
+    public String getLogo() {
+        return LOGO;
+    }
+
+    public String getLine() {
+        return LINE;
+    }
+
+    public String getPadding() {
+        return PADDING;
+    }
 
     /**
      * Displays logo and greets user.
