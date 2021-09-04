@@ -90,7 +90,6 @@ public class TaskManager {
             Duke.printMessage("Error: No task found");
             return;
         }
-
         if (tasks[taskNumber - 1].isDone()) {
             Duke.printMessage("This task is already completed");
             return;

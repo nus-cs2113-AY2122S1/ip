@@ -9,10 +9,12 @@ public class Duke {
     public static final String EVENT_AT_PREFIX = "/at";
     public static final String NL = System.lineSeparator();
     public static final String HELP_MESSAGE = "Valid Commands: " + NL
-            + "todo (description of task)" + NL
-            + "event (description of event) /at (time of event)" + NL
-            + "deadline (description of task) /by (deadline of task)" + NL
+            + "todo {description of task} (eg. todo homework)" + NL
+            + "event {description of event} /at {time of event} (eg. event party at/ 9am)" + NL
+            + "deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)"
+            + NL
             + "list" + NL
+            + "done {index number of task done}  (eg. done 1)" + NL
             + "bye";
 
     public static final String LOGO = " ____        _        \n"

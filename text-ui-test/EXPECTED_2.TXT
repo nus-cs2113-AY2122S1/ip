@@ -11,10 +11,11 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Valid Commands: 
-todo (description of task)
-event (description of event) /at (time of event)
-deadline (description of task) /by (deadline of task)
+todo {description of task} (eg. todo homework)
+event {description of event} /at {time of event} (eg. event party at/ 9am)
+deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
 list
+done {index number of task done}  (eg. done 1)
 bye
 ____________________________________________________________
 ____________________________________________________________
@@ -58,10 +59,11 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Valid Commands: 
-todo (description of task)
-event (description of event) /at (time of event)
-deadline (description of task) /by (deadline of task)
+todo {description of task} (eg. todo homework)
+event {description of event} /at {time of event} (eg. event party at/ 9am)
+deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
 list
+done {index number of task done}  (eg. done 1)
 bye
 ____________________________________________________________
 ____________________________________________________________
