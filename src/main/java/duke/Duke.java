@@ -1,3 +1,12 @@
+package duke;
+
+import duke.exceptions.DukeEmptyDescriptionException;
+import duke.exceptions.DukeEmptyTimeException;
+import duke.exceptions.DukeExceedMaxTaskException;
+import duke.exceptions.DukeInvalidTaskIndex;
+import duke.exceptions.DukeTaskAlreadyCompletedException;
+import duke.exceptions.DukeMissingKeywordException;
+import duke.tasks.TaskManager;
 import java.util.Scanner;
 
 public class Duke {
@@ -70,7 +79,7 @@ public class Duke {
             } catch (DukeEmptyTimeException e) {
                 printMessage("Please enter the deadline/event time");
             } catch (DukeMissingKeywordException e) {
-                printMessage("No " + e.keyword + " detected, press enter to see command syntax");
+                printMessage("No " + e.getKeyword() + " detected, press enter to see command syntax");
             } catch (DukeInvalidTaskIndex e) {
                 printMessage("Please enter valid task index number");
             } catch (DukeTaskAlreadyCompletedException e) {

@@ -1,3 +1,13 @@
+package duke.tasks;
+
+import duke.Duke;
+import duke.exceptions.DukeEmptyDescriptionException;
+import duke.exceptions.DukeEmptyTimeException;
+import duke.exceptions.DukeExceedMaxTaskException;
+import duke.exceptions.DukeInvalidTaskIndex;
+import duke.exceptions.DukeTaskAlreadyCompletedException;
+import duke.exceptions.DukeMissingKeywordException;
+
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     private int numberOfTasks;
