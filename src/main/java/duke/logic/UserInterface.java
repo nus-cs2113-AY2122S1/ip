@@ -1,3 +1,5 @@
+package duke.logic;
+
 public class UserInterface {
     protected final String LOGO = System.lineSeparator()
             + "    ___   ______   ________  _______      ___   ____  _____   .--." + System.lineSeparator()

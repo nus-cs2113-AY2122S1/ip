@@ -1,6 +1,11 @@
+package duke.manager.task;
+
+import duke.logic.UserInterface;
+import duke.manager.command.MissingCommandArgumentException;
+
 import java.util.ArrayList;
 
-public class TaskManager extends UserInterface{
+public class TaskManager extends UserInterface {
 
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -34,7 +39,7 @@ public class TaskManager extends UserInterface{
         if (!taskNumberInRange) { throw new InvalidTaskNumberException(); }
 
         tasks.get(taskNumber - 1).setDone();
-        echo("Task " + taskNumber + ": " + tasks.get(taskNumber - 1).taskDescription
+        echo("Task " + taskNumber + ": " + tasks.get(taskNumber - 1).getTaskDescription()
                 + System.lineSeparator() + "  Marked as done!");
     }
 

@@ -1,7 +1,21 @@
+package duke.manager.input;
+
 public class Parser {
-    protected String[] arguments;
-    protected String input;
-    protected boolean isMoreThanTwoWords;
+    private String[] arguments;
+    private String input;
+    private boolean isMoreThanTwoWords;
+
+    public String[] getArguments() {
+        return arguments;
+    }
+
+    public String getInput() {
+        return input;
+    }
+
+    public boolean isMoreThanTwoWords() {
+        return isMoreThanTwoWords;
+    }
 
     public Parser(String input) {
         if (isMoreThanTwoWords(input)) {

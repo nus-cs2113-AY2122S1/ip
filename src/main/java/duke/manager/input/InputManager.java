@@ -1,9 +1,13 @@
+package duke.manager.input;
+
+import duke.manager.command.Command;
+
 import java.util.Scanner;
 
 public class InputManager {
-    protected Scanner scanner = new Scanner(System.in);
-    protected Command inputCommand;
-    protected String commandArguments;
+    private Scanner scanner = new Scanner(System.in);
+    private Command inputCommand;
+    private String commandArguments;
 
     public void setInputCommand(String input) {
         if (input.equals("bye")) {
@@ -23,15 +27,23 @@ public class InputManager {
         }
     }
 
+    public Command getInputCommand() {
+        return inputCommand;
+    }
+
+    public String getCommandArguments() {
+        return commandArguments;
+    }
+
     public void readInput() {
         String input = scanner.nextLine();
         Parser parsedInput = new Parser(input);
-        if (parsedInput.isMoreThanTwoWords) {
+        if (parsedInput.isMoreThanTwoWords()) {
             String firstWord = parsedInput.getFirstWord();
             setInputCommand(firstWord);
-            commandArguments = parsedInput.arguments[1].trim();
+            commandArguments = parsedInput.getArguments()[1].trim();
         } else {
-            setInputCommand(parsedInput.input); //one word/empty string
+            setInputCommand(parsedInput.getInput()); //one word/empty string
             commandArguments = "none";
         }
     }

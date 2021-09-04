@@ -1,9 +1,19 @@
+package duke.manager.command;
+
+import duke.manager.task.InvalidTaskNumberException;
+import duke.manager.task.TaskManager;
+
 public class CommandManager {
-    protected boolean isExit = false;
+
+    private boolean isExit = false;
     TaskManager taskManager;
 
     public CommandManager() {
         this.taskManager = new TaskManager();
+    }
+
+    public boolean isExit () {
+        return isExit;
     }
 
     public void executeCommand (Command inputCommand, String commandArguments) {
