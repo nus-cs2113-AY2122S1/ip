@@ -84,13 +84,12 @@ Below is the list of commands and input formats I am currently able to understan
 6. done [task number] - Marks the task as done. Use the list to check the task number!
 7. echo [input] - Echoes whatever your input is.
 8. bye - Stop talking to me and exit the program.
-I am currently not able to handle erroneous inputs myself... So please be careful in what you type!
 ____________________________________________________________
-Sorry... I did not understand that, can you try again? >.<
-Enter "help" to see what I can do for you!
+Sorry... I did not understand that, can you try again?
+Or you can enter "help" to see what I can do for you!
 ____________________________________________________________
-Sorry... I did not understand that, can you try again? >.<
-Enter "help" to see what I can do for you!
+Sorry... I did not understand that, can you try again?
+Or you can enter "help" to see what I can do for you!
 ____________________________________________________________
 If you can see this, then it's all good.
 ____________________________________________________________
@@ -131,7 +130,39 @@ Okay! Now your list is empty, you're FREE!
 ____________________________________________________________
 Wow! I found these tasks in your list:
 ____________________________________________________________
-End of test
+Start exception handling test
+____________________________________________________________
+OH NO! I can't echo if you don't say anything...
+____________________________________________________________
+OH NO! You need to provide a description for your todo...
+____________________________________________________________
+OH NO! You need to provide a description for your deadline task...
+____________________________________________________________
+OH NO! You need to specify a due date for your deadline task...
+____________________________________________________________
+OH NO! You need to specify a due date for your deadline task...
+____________________________________________________________
+OH NO! You need to provide a description for your deadline task...
+____________________________________________________________
+OH NO! You need to provide a description for your deadline task...
+____________________________________________________________
+OH NO! You need to provide a description for your event...
+____________________________________________________________
+OH NO! You need to specify a date and time for your event...
+____________________________________________________________
+OH NO! You need to specify a date and time for your event...
+____________________________________________________________
+OH NO! You need to provide a description for your event...
+____________________________________________________________
+OH NO! You need to provide a description for your event...
+____________________________________________________________
+OH NO! You need to specify the task you want to mark as done...
+Enter "list" to check the task number!
+____________________________________________________________
+OH NO! That wasn't a number...
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
 ____________________________________________________________
 Bye! Have a great day ahead and see you again soon. ?
 ____________________________________________________________
