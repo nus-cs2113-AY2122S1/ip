@@ -1,4 +1,4 @@
-public class Deadline extends Todo {
+public class Deadline extends Task {
     protected String date;
 
     public Deadline(String description, String date) {
@@ -9,6 +9,10 @@ public class Deadline extends Todo {
 
     @Override
     public String toString() {
-        return super.toString() + " (" + date + ")";
+        if (isDone) {
+            return "[" + type + "][X] " + description + " (" + date + ")";
+        } else {
+            return "[" + type + "][ ] " + description + " (" + date + ")";
+        }
     }
 }
