@@ -44,11 +44,8 @@ public class TaskManager {
         return taskComponents;
     }
 
-    public void markTaskAsCompleted(int taskNumber) {
-        if (taskNumber < 0 || taskNumber > taskCount) {
-            Error.displayTaskNonExistentError();
-            return;
-        }
+    public void markTaskAsCompleted(String[] commandComponents) {
+        int taskNumber = InputParser.getTaskNumber(commandComponents);
         allTasks[taskNumber].setTaskCompleted();
         Display.displayTaskCompleted(allTasks[taskNumber].getTask());
     }

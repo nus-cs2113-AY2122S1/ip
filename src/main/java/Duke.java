@@ -9,18 +9,6 @@ public class Duke {
     public static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
     public static final String COMMAND_ADD_EVENT_TASK = "event";
     public static final int COMMAND_INDEX = 0;
-    public static final int TASK_INDEX = 1;
-
-    public static final String SEPARATOR = " ";
-
-    public static String getTaskDetails(String[] words) {
-        String taskName = "";
-        for (int i = TASK_INDEX; i < words.length; i++) {
-            taskName += words[i];
-            taskName += SEPARATOR;
-        }
-        return taskName.trim();
-    }
 
     public static void greet() {
         Display.printSeparatingLine();
@@ -35,33 +23,30 @@ public class Duke {
     }
 
     public static void interact() {
-        String line;
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
-        Boolean isStillInteracting = true;
+        boolean isStillInteracting = true;
         while (isStillInteracting) {
-            line = in.nextLine();
-            String[] words = line.trim().split(SEPARATOR);
+            String[] commandComponents = InputParser.getCommandComponents(in);
 
-            switch (words[COMMAND_INDEX]) {
+            switch (commandComponents[COMMAND_INDEX]) {
             case COMMAND_LIST_TASK:
                 taskManager.listTask();
                 break;
             case COMMAND_MARK_DONE:
-                int taskNumber = Integer.parseInt(words[TASK_INDEX]) - 1;
-                taskManager.markTaskAsCompleted(taskNumber);
+                taskManager.markTaskAsCompleted(commandComponents);
+                break;
+            case COMMAND_ADD_TODO_TASK:
+                taskManager.addTodoTask(InputParser.getTaskDetails(commandComponents));
+                break;
+            case COMMAND_ADD_DEADLINE_TASK:
+                taskManager.addDeadlineTask(InputParser.getTaskDetails(commandComponents));
+                break;
+            case COMMAND_ADD_EVENT_TASK:
+                taskManager.addEventTask(InputParser.getTaskDetails(commandComponents));
                 break;
             case COMMAND_EXIT_PROGRAM:
                 isStillInteracting = false;
-                break;
-            case COMMAND_ADD_TODO_TASK:
-                taskManager.addTodoTask(getTaskDetails(words));
-                break;
-            case COMMAND_ADD_DEADLINE_TASK:
-                taskManager.addDeadlineTask(getTaskDetails(words));
-                break;
-            case COMMAND_ADD_EVENT_TASK:
-                taskManager.addEventTask(getTaskDetails(words));
                 break;
             default:
                 Error.displayInvalidCommandError();
