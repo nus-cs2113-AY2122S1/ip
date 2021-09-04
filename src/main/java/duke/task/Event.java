@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a task that starts at a specific time and ends at a specific time.
  */
