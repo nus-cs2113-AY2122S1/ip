@@ -26,94 +26,58 @@ public class Duke {
 
     public static void manageTasks() {
         Task[] userTasks = new Task[MAX_STORED_TASKS];
+        int taskIndex = 0;
         Scanner userInput = new Scanner(System.in);
         String userInputString = userInput.nextLine();
 
-        while (!userInputString.equalsIgnoreCase("bye")) {
+        while (!userInputString.equals("bye")) {
             System.out.println(DIVIDING_LINE);
-            try {
-                if (userInputString.equalsIgnoreCase("list")) {
-                    listTasks(userTasks);
-                } else if (userInputString.toLowerCase().startsWith("done")) {
-                    markTaskDone(userInputString, Task.totalTasks, userTasks);
-                } else {
-                    addNewTask(userInputString, Task.totalTasks, userTasks);
-                }
-            } catch (DukeException e) {
-                System.out.println("DukeException: " + e.getMessage());
+            if (userInputString.equals("list")) {
+                listTasks(taskIndex, userTasks);
+            } else if (userInputString.startsWith("done")) {
+                markTaskDone(userInputString, taskIndex, userTasks);
+            } else {
+                addNewTask(userInputString, taskIndex, userTasks);
+                taskIndex++;
             }
             System.out.println(DIVIDING_LINE);
             userInputString = userInput.nextLine();
         }
     }
 
-    public static void listTasks(Task[] userTasks) {
-        for (int i = 0; i < Task.totalTasks; i++) {
+    public static void listTasks(int taskIndex, Task[] userTasks) {
+        for (int i = 0; i < taskIndex; i++) {
             System.out.println((i + 1) + ". " + userTasks[i]);
         }
     }
 
     public static void markTaskDone(String userInputString, int taskIndex, Task[] userTasks) throws DukeException {
         String[] words = userInputString.split(" ");
-        int completeIndex;
-
-        try {
-            completeIndex = Integer.parseInt(words[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new DukeException(DukeException.TASK_INDEX_NOT_VALID);
-        }
-
+        int completeIndex = Integer.parseInt(words[1]) - 1;
         if (completeIndex >= 0 && completeIndex < taskIndex) {
             userTasks[completeIndex].markComplete();
             System.out.println("Task " + userTasks[completeIndex].getDescription() + " marked as complete.");
         } else {
-            throw new DukeException(DukeException.TASK_INDEX_OOB);
+            System.out.println("Error: index outside range.");
         }
     }
 
-    public static void addNewTask(String userInputString, int taskIndex, Task[] userTasks) throws DukeException {
-        if (Task.totalTasks >= MAX_STORED_TASKS) {
-            throw new DukeException(DukeException.TASK_ARRAY_FULL);
-        }
-
+    public static void addNewTask(String userInputString, int taskIndex, Task[] userTasks) {
         int slashIndex = userInputString.indexOf('/');
         String taskSubstring;
         String timeSubstring = userInputString.substring(slashIndex + 1);
         timeSubstring = timeSubstring.replaceFirst(" ", ": ");
-
-        if (userInputString.startsWith("todo ")) {
+        if (userInputString.startsWith("todo")) {
             taskSubstring = userInputString.substring(TODO_OFFSET);
-            if (taskSubstring.isBlank()) {
-                throw new DukeException(DukeException.TODO_BLANK_DESC);
-            }
-
             userTasks[taskIndex] = new Todo(taskSubstring);
-        } else if (userInputString.startsWith("deadline ")) {
-            if (slashIndex < 0) {
-                throw new DukeException(DukeException.DEADLINE_NO_SLASH);
-            }
-            if (timeSubstring.isBlank()) {
-                throw new DukeException(DukeException.DEADLINE_BLANK_DATE);
-            }
-            if (DEADLINE_OFFSET >= slashIndex - 1) {
-                throw new DukeException(DukeException.DEADLINE_BLANK_DESC);
-            }
+        } else if (userInputString.startsWith("deadline") && slashIndex > 0) {
             taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
             userTasks[taskIndex] = new Deadline(taskSubstring, timeSubstring);
-        } else if (userInputString.startsWith("event ")) {
-            if (slashIndex < 0) {
-                throw new DukeException(DukeException.EVENT_NO_SLASH);
-            }
-            if (timeSubstring.isBlank()) {
-                throw new DukeException(DukeException.EVENT_BLANK_DATE);
-            }
-            if (EVENT_OFFSET >= slashIndex - 1) {
-                throw new DukeException(DukeException.EVENT_BLANK_DESC);
-            }
+        } else if (userInputString.startsWith("event") && slashIndex > 0) {
             taskSubstring = userInputString.substring(EVENT_OFFSET, slashIndex - 1);
             userTasks[Task.getTotalTasks()] = new Event(taskSubstring, timeSubstring);
         } else {
-            throw new DukeException("Command given cannot be recognized.");
+            userTasks[taskIndex] = new Todo(userInputString);
         }
 
         System.out.println("Gotcha. I've added this task:");
