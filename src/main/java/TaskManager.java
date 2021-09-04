@@ -66,8 +66,8 @@ public class TaskManager {
 
     private void acknowledgeCommand(Task task) {
         String acknowledgementMessage = "Understood, "
-                + System.lineSeparator() + task.toString()
-                + System.lineSeparator() + "has been added. You now have "
+                + Duke.NL + task.toString()
+                + Duke.NL + "has been added. You now have "
                 + numberOfTasks + " " + "task(s) in the list";
         Duke.printMessage(acknowledgementMessage);
     }
@@ -78,7 +78,7 @@ public class TaskManager {
             list.append(i + 1).append(".");
             list.append(tasks[i].toString());
             if (i < numberOfTasks - 1) {
-                list.append(System.lineSeparator());
+                list.append(Duke.NL);
             }
         }
         Duke.printMessage(list.toString());
@@ -97,7 +97,7 @@ public class TaskManager {
         }
 
         tasks[taskNumber - 1].setDone();
-        Duke.printMessage("Good Job!! I've marked this task as done:" + System.lineSeparator()
+        Duke.printMessage("Good Job!! I've marked this task as done:" + Duke.NL
                 + tasks[taskNumber - 1].toString());
     }
 

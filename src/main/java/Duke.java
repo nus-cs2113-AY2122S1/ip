@@ -7,11 +7,12 @@ public class Duke {
 
     public static final String DEADLINE_BY_PREFIX = "/by";
     public static final String EVENT_AT_PREFIX = "/at";
-    public static final String HELP_MESSAGE = "Valid Commands: " + System.lineSeparator()
-            + "todo (description of task)" + System.lineSeparator()
-            + "event (description of event) /at (time of event)" + System.lineSeparator()
-            + "deadline (description of task) /by (deadline of task)" + System.lineSeparator()
-            + "list" + System.lineSeparator()
+    public static final String NL = System.lineSeparator();
+    public static final String HELP_MESSAGE = "Valid Commands: " + NL
+            + "todo (description of task)" + NL
+            + "event (description of event) /at (time of event)" + NL
+            + "deadline (description of task) /by (deadline of task)" + NL
+            + "list" + NL
             + "bye";
 
     public static final String LOGO = " ____        _        \n"
@@ -19,9 +20,9 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String STARTING_MESSAGE = "Hello from" + System.lineSeparator()
-            + LOGO + System.lineSeparator()
-            + "Hello! I'm Duke" + System.lineSeparator()
+    public static final String STARTING_MESSAGE = "Hello from" + NL
+            + LOGO + NL
+            + "Hello! I'm Duke" + NL
             + "What can I do for you?";
     public static final String ENDING_MESSAGE = "Bye. Hope to see you again soon!";
 
@@ -30,7 +31,7 @@ public class Duke {
 
     public static void printMessage(String message) {
         final String HORIZONTAL_LINE = "____________________________________________________________";
-        System.out.println(HORIZONTAL_LINE + System.lineSeparator() + message + System.lineSeparator()
+        System.out.println(HORIZONTAL_LINE + NL + message + NL
                 + HORIZONTAL_LINE);
     }
 
