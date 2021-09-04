@@ -1,9 +1,20 @@
+deadline submit report
+deadline submit report /by 
 deadline submit report /by Tuesday 23:59
 list
 done 1
 list
+todo
+done 2
 todo buy groceries
+event lunch
+event lunch /at 
 event lunch /at Thursday noon
 list
-done 3
+done a
+done 4
+event dinner /at Friday 6pm
+done 4
+list
+invalid
 bye
