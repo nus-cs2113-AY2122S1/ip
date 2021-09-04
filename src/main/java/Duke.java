@@ -31,7 +31,12 @@ public class Duke {
             if (userInputSplitted.length > 1) {
                 description = userInputSplitted[1];
             }
-            processCommands(command, description);
+            try{
+                processCommands(command, description);
+            }catch (InvalidCommand e){
+                // Invalid Command
+                printInvalidCommand();
+            }
 
         }
     }
@@ -41,8 +46,9 @@ public class Duke {
      *
      * @param command     The command entered by the user
      * @param description Task description entered by user.
+     * @throws InvalidCommand If an invalid command is entered.
      */
-    private static void processCommands(String command, String description) {
+    private static void processCommands(String command, String description) throws InvalidCommand {
         // Capitalise the command
         switch (command.toUpperCase()) {
         case "LIST":
@@ -63,7 +69,7 @@ public class Duke {
         case "BYE":
             exit();
         default:
-            printInvalidCommand();
+            throw new InvalidCommand();
         }
     }
 
