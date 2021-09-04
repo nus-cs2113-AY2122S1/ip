@@ -5,9 +5,9 @@ public class Duke {
     public static final String COMMAND_EXIT_PROGRAM = "bye";
     public static final String COMMAND_MARK_DONE = "done";
     public static final String COMMAND_LIST_TASK = "list";
-    public static final String COMMAND_TODO_TASK = "todo";
-    public static final String COMMAND_DEADLINE_TASK = "deadline";
-    public static final String COMMAND_EVENT_TASK = "event";
+    public static final String COMMAND_ADD_TODO_TASK = "todo";
+    public static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
+    public static final String COMMAND_ADD_EVENT_TASK = "event";
     public static final int COMMAND_INDEX = 0;
     public static final int TASK_INDEX = 1;
 
@@ -54,13 +54,13 @@ public class Duke {
             case COMMAND_EXIT_PROGRAM:
                 isStillInteracting = false;
                 break;
-            case COMMAND_TODO_TASK:
+            case COMMAND_ADD_TODO_TASK:
                 taskManager.addTodoTask(getTaskDetails(words));
                 break;
-            case COMMAND_DEADLINE_TASK:
+            case COMMAND_ADD_DEADLINE_TASK:
                 taskManager.addDeadlineTask(getTaskDetails(words));
                 break;
-            case COMMAND_EVENT_TASK:
+            case COMMAND_ADD_EVENT_TASK:
                 taskManager.addEventTask(getTaskDetails(words));
                 break;
             default:

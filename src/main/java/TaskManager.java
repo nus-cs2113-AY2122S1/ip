@@ -1,12 +1,13 @@
 public class TaskManager {
 
-    private Task[] taskList = new Task[100];
+    public static final int MAX_NUMBER_OF_TASKS = 100;
+    private Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
     private int taskCount;
 
     public void addTodoTask(String taskName) {
-        taskList[taskCount] = new Todo(taskName);
+        allTasks[taskCount] = new Todo(taskName);
         taskCount++;
-        Display.displayTaskCreation(taskList[taskCount-1], Display.TASK_NAME_TODO, taskCount);
+        Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_TODO, taskCount);
     }
 
     public void addDeadlineTask(String taskInformation) {
@@ -17,9 +18,9 @@ public class TaskManager {
         }
         String taskName = taskComponents[0];
         String deadline = taskComponents[1];
-        taskList[taskCount] = new Deadline(taskName, deadline);
+        allTasks[taskCount] = new Deadline(taskName, deadline);
         taskCount++;
-        Display.displayTaskCreation(taskList[taskCount-1], Display.TASK_NAME_DEADLINE, taskCount);
+        Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_DEADLINE, taskCount);
     }
 
     public void addEventTask(String taskInformation) {
@@ -30,9 +31,9 @@ public class TaskManager {
         }
         String taskName = taskComponents[0];
         String eventTime = taskComponents[1];
-        taskList[taskCount] = new Event(taskName, eventTime);
+        allTasks[taskCount] = new Event(taskName, eventTime);
         taskCount++;
-        Display.displayTaskCreation(taskList[taskCount-1], Display.TASK_NAME_EVENT, taskCount);
+        Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_EVENT, taskCount);
     }
 
     public String[] getTaskComponents(String taskInformation) {
@@ -44,18 +45,18 @@ public class TaskManager {
     }
 
     public void markTaskAsCompleted(int taskNumber) {
-        if (taskNumber <= 0 || taskNumber > taskCount) {
+        if (taskNumber < 0 || taskNumber > taskCount) {
             Error.displayTaskNonExistentError();
             return;
         }
-        taskList[taskNumber].setTaskCompleted();
-        Display.displayTaskCompleted(taskList[taskNumber].getTask());
+        allTasks[taskNumber].setTaskCompleted();
+        Display.displayTaskCompleted(allTasks[taskNumber].getTask());
     }
 
     public void listTask() {
         Display.printListTaskLine();
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(i + 1 + ". " + taskList[i]);
+            System.out.println(i + 1 + ". " + allTasks[i]);
         }
         Display.printListTaskLine();
     }

@@ -23,16 +23,14 @@ public class Display {
     }
 
     public static String createCheckboxDisplay(String checkBoxType) {
-        String checkboxDisplay = "[" + checkBoxType + "]";
-        return checkboxDisplay;
+        return "[" + checkBoxType + "]";
     }
 
     public static String getStatusCheckbox(Boolean isCompleted) {
-        String statusCheckbox = Display.createCheckboxDisplay(Display.CHECKBOX_TASK_INCOMPLETE);
         if (isCompleted) {
-            statusCheckbox = Display.createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE);
+            return Display.createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE);
         }
-        return statusCheckbox;
+        return Display.createCheckboxDisplay(Display.CHECKBOX_TASK_INCOMPLETE);
     }
 
     public static String getTwoCheckboxDisplay(String taskType, Boolean isCompleted) {
