@@ -1,11 +1,19 @@
 list
-todo read book
-deadline return book /by June 6th
-event project meeting /at Aug 6th
-todo join sports club
-done 1
-done 4
-todo borrow book
+todo
+todo exercise
+deadline
+deadline /by
+deadline assignment /by
+deadline assignment /by today
+event
+event /at
+event cca meeting /at
+event cca meeting /at Monday
 list
+done 1
+done 3
+list
+done 5
+gibberish
 bye
 

@@ -25,19 +25,19 @@ public class Duke {
     /**
      * "false" by default. "true" when session with duke is to be ended.
      */
-    public static boolean hasSessionEnded = false;
+    public static boolean isSessionEnding = false;
 
     public static void main(String[] args) {
         initTaskList();
         printGreetingMessage();
 
         //Main loop
-        while (!hasSessionEnded) {
+        while (!isSessionEnding) {
             strInput = SCANNER_INPUT.nextLine();
             String command = extractCommand(strInput);
             switch (command) {
             case "bye":
-                hasSessionEnded = true;
+                isSessionEnding = true;
                 printGoodbyeMessage();
                 break;
 
@@ -46,7 +46,18 @@ public class Duke {
                 break;
 
             case "done":
-                markTaskAsDone(extractContent(strInput));
+                try {
+                    markTaskAsDone(extractContent(strInput));
+                } catch (NumberFormatException e) { //not a number
+                    printBorder();
+                    System.out.println("Not a number!");
+                    printBorder();
+                } catch (EmptyArgumentException e) {
+                    printBorder();
+                    System.out.println("Please specify the index of the task to be marked as done!");
+                    System.out.println("use: done [task index]");
+                    printBorder();
+                }
                 break;
 
             case "todo":
@@ -80,10 +91,21 @@ public class Duke {
      * @param input the input string
      */
     private static void addEvent(String input) {
-        String content = extractContent(input);
-        taskList[Task.getTotalTasks()] = new Event(extractDescrFromEventContent(content),
-                extractAtFromEventContent(content));
-        printTaskAddedMessage();
+        printBorder();
+
+        try {
+            String content = extractContent(input);
+            String descr = extractDescrFromEvent(content);
+            String at = extractAtFromEvent(content);
+            taskList[Task.getTotalTasks()] = new Event(descr, at);
+            printTaskAddedMessage();
+        } catch (EmptyArgumentException e) {
+            System.out.println("Please specify the event details!");
+            System.out.println("use: event [description] /at [date]");
+        } catch (EmptyParameterException e) {
+            System.out.println("use: event [description] /at [date]");
+        }
+        printBorder();
     }
 
     /**
@@ -92,10 +114,21 @@ public class Duke {
      * @param input the input string
      */
     private static void addDeadline(String input) {
-        String content = extractContent(input);
-        taskList[Task.getTotalTasks()] = new Deadline(extractDescrFromDeadlineContent(content),
-                extractByFromDeadlineContent(content));
-        printTaskAddedMessage();
+
+        printBorder();
+        try {
+            String content = extractContent(input);
+            String descr = extractDescrFromDeadline(content);
+            String by = extractByFromDeadline(content);
+            taskList[Task.getTotalTasks()] = new Deadline(descr, by);
+            printTaskAddedMessage();
+        } catch (EmptyArgumentException e) {
+            System.out.println("Please specify the deadline details!");
+            System.out.println("use: deadline [description] /by [date]");
+        } catch (EmptyParameterException e) {
+            System.out.println("use: deadline [description] /by [date]");
+        }
+        printBorder();
     }
 
     /**
@@ -104,19 +137,25 @@ public class Duke {
      * @param input the input string
      */
     private static void addTodo(String input) {
-        taskList[Task.getTotalTasks()] = new Todo(extractContent(input));
-        printTaskAddedMessage();
+        printBorder();
+        try {
+            String content = extractContent(input);
+            taskList[Task.getTotalTasks()] = new Todo(content);
+            printTaskAddedMessage();
+        } catch (EmptyArgumentException e) {
+            System.out.println("Please specify the todo description!");
+            System.out.println("use: todo [description]");
+        }
+        printBorder();
     }
 
     /**
      * Prints the success message for the most recently added task
      */
     private static void printTaskAddedMessage() {
-        printBorder();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + taskList[Task.getTotalTasks() - 1]);
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
-        printBorder();
     }
 
     /**
@@ -125,8 +164,11 @@ public class Duke {
      * @param input content of the event input
      * @return the date of the event
      */
-    private static String extractAtFromEventContent(String input) {
+    private static String extractAtFromEvent(String input) throws EmptyParameterException {
         int positionOfSeparator = input.trim().indexOf("/at");
+        if ((positionOfSeparator + 3) >= input.length()) {
+            throw new EmptyParameterException("event date");
+        }
         return input.substring(positionOfSeparator + 3).trim();
     }
 
@@ -136,8 +178,11 @@ public class Duke {
      * @param input content of the event input
      * @return the description of the event
      */
-    private static String extractDescrFromEventContent(String input) {
+    private static String extractDescrFromEvent(String input) throws EmptyParameterException {
         int positionOfSeparator = input.trim().indexOf("/at");
+        if (positionOfSeparator <= 0) {
+            throw new EmptyParameterException("event description");
+        }
         return input.substring(0, positionOfSeparator - 1).trim();
     }
 
@@ -147,8 +192,11 @@ public class Duke {
      * @param input content of the deadline input
      * @return the deadline of the deadline
      */
-    private static String extractByFromDeadlineContent(String input) {
+    private static String extractByFromDeadline(String input) throws EmptyParameterException {
         int positionOfSeparator = input.trim().indexOf("/by");
+        if ((positionOfSeparator + 3) >= input.length()) {
+            throw new EmptyParameterException("deadline date");
+        }
         return input.substring(positionOfSeparator + 3).trim();
     }
 
@@ -158,8 +206,11 @@ public class Duke {
      * @param input content of the deadline input
      * @return the description of the deadline
      */
-    private static String extractDescrFromDeadlineContent(String input) {
+    private static String extractDescrFromDeadline(String input) throws EmptyParameterException {
         int positionOfSeparator = input.trim().indexOf("/by");
+        if (positionOfSeparator <= 0) {
+            throw new EmptyParameterException("deadline description");
+        }
         return input.substring(0, positionOfSeparator - 1).trim();
     }
 
@@ -169,8 +220,11 @@ public class Duke {
      * @param input the input string
      * @return the input string with the first word excluded
      */
-    private static String extractContent(String input) {
+    private static String extractContent(String input) throws EmptyArgumentException {
         int firstSpacePosition = input.trim().indexOf(" ");
+        if (firstSpacePosition < 0) {
+            throw new EmptyArgumentException();
+        }
         return input.substring(firstSpacePosition + 1).trim();
     }
 
@@ -188,14 +242,19 @@ public class Duke {
     /**
      * Marks the task of the given ranking as done
      *
-     * @param word numerical ranking of the task to be marked as done (as a string)
+     * @param taskNumber numerical ranking (as a string) of the task to be marked as done
      */
-    private static void markTaskAsDone(String word) {
-        int taskIndex = Integer.parseInt(word) - 1; //get the index of the task in the taskList array
-        taskList[taskIndex].setDone(true);
+    private static void markTaskAsDone(String taskNumber) {
+        int taskIndex = Integer.parseInt(taskNumber) - 1; //get the index of the task in the taskList array
         printBorder();
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("  " + taskList[taskIndex]);
+        try {
+            taskList[taskIndex].setDone(true);
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println("  " + taskList[taskIndex]);
+            printBorder();
+        } catch (NullPointerException e) { //task index does not exist
+            System.out.println("Task number " + (taskIndex + 1) + " does not exist!");
+        }
         printBorder();
     }
 
@@ -205,7 +264,7 @@ public class Duke {
     private static void printTaskList() {
         printBorder();
         if (Task.getTotalTasks() == 0) {
-            System.out.println("There are no tasks added yet!");
+            System.out.println("There are no tasks!");
             printBorder();
             return;
         }
@@ -254,7 +313,8 @@ public class Duke {
      */
     private static void printInvalidCommand() {
         printBorder();
-        System.out.println("Command not recognized");
+        System.out.println("Command not recognized!");
+        System.out.println("try the following: \"by\", \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
         printBorder();
     }
 }
