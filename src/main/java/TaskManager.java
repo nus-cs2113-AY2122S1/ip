@@ -48,7 +48,7 @@ public class TaskManager {
     }
 
     /**
-     * Prints a list of the current tasks
+     * Prints a list of the current tasks Duke has
      *
      * @param tasks The array containing tasks to be printed out
      */
@@ -61,6 +61,16 @@ public class TaskManager {
         System.out.println(OUTPUT_DIVIDER);
     }
 
+    /**
+     * Marks a task as done
+     *
+     * @param tasks The array containing the task to be mark done
+     * @param taskCount The number of tasks in the tasks array
+     * @param doneTask User command containing the task ID of the task to mark done
+     * @throws DoneInvalidFormatException if command does not follow correct format "done {task ID}"
+     * @throws NonNumericTaskIdException if task ID entered is not an integer
+     * @throws TaskNotInListException if the task to mark done is not in the task list
+     */
     public void markTaskDone(Task[] tasks, int taskCount, String doneTask) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
         String[] doneSentence = doneTask.split(" ");
 
@@ -87,10 +97,16 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Add a todo to Duke's task list
+     * @param tasks The array of tasks to add a todo to
+     * @param taskCount The number of tasks in the task array
+     * @param addedTodo User command containing the todo description
+     * @throws TodoInvalidFormatException if the command does not follow the correct format "todo {description}"
+     */
     public void addTodo(Task[] tasks, int taskCount, String addedTodo) throws TodoInvalidFormatException {
         String[] splitTodo = addedTodo.split("\\s+", 2);
 
-        // Makes sure that the todo entered is of the format "todo {description}"
         if(splitTodo.length != 2) {
             throw new TodoInvalidFormatException();
         }
@@ -105,10 +121,18 @@ public class TaskManager {
         System.out.println(OUTPUT_DIVIDER);
     }
 
+    /**
+     * Add a deadline to Duke's task list
+     *
+     * @param tasks The array of tasks to add a deadline to
+     * @param taskCount The number of tasks in the tasks array
+     * @param addedDeadline User command containing the deadline description and deadline
+     * @throws DeadlineInvalidFormatException if the command does not follow the correct format "deadline {description} /by {deadline}
+     * @throws DeadlineLacksArgumentsException if the command does not contain the deadline description or the deadline
+     */
     public void addDeadline(Task[] tasks, int taskCount, String addedDeadline) throws DeadlineInvalidFormatException, DeadlineLacksArgumentsException {
         String[] splitDeadline = addedDeadline.split("\\s+", 2);
 
-        // Makes sure that the deadline entered is of the format "deadline {description} /by {deadline}"
         if(splitDeadline.length != 2) {
             throw new DeadlineInvalidFormatException();
         }
@@ -121,7 +145,7 @@ public class TaskManager {
         String deadlineDescription = deadlineDescriptionAndDeadline[0].trim();
         String deadlineDeadline = deadlineDescriptionAndDeadline[1].trim();
         boolean isValidDeadline = !deadlineDescription.isEmpty() && !deadlineDeadline.isEmpty();
-        // deadline with valid format is added to task list
+        // Deadline with valid format is added to task list
         if (isValidDeadline) {
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
             tasks[taskCount] = newDeadline;
@@ -135,10 +159,18 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Add an event to Duke's task list
+     *
+     * @param tasks The array of tasks to add an event to
+     * @param taskCount The number of tasks in the tasks array
+     * @param addedEvent User command containing the event description and time
+     * @throws EventInvalidFormatException if the command does not follow the correct format "event {description} /at {time}"
+     * @throws EventLacksArgumentsException if the command does not contain the event description or the event time
+     */
     public void addEvent(Task[] tasks, int taskCount, String addedEvent) throws EventInvalidFormatException, EventLacksArgumentsException {
         String[] splitEvent = addedEvent.split("\\s+", 2);
 
-        // Makes sure that the event entered is of the format "event {description} /at {event time}"
         if(splitEvent.length != 2) {
             throw new EventInvalidFormatException();
         }
@@ -151,7 +183,7 @@ public class TaskManager {
         String eventDescription = eventDescriptionAndTime[0].trim();
         String eventTime = eventDescriptionAndTime[1].trim();
         boolean isValidEvent = !eventDescription.isEmpty() && !eventTime.isEmpty();
-        // event with valid format is added to task list
+        // Event with valid format is added to task list
         if (isValidEvent) {
             Event newEvent = new Event(eventDescription, eventTime);
             tasks[taskCount] = newEvent;
@@ -165,6 +197,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Handles the adding of an event to Duke's task list, including any erroneous input
+     *
+     * @param userInput Command input by the user
+     */
     public void handleEvent(String userInput) {
         try {
             addEvent(tasks, taskCount, userInput);
@@ -176,6 +213,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Handles the adding of a deadline to Duke's task list, including any erroneous input
+     *
+     * @param userInput Command input by the user
+     */
     public void handleDeadline(String userInput) {
         try {
             addDeadline(tasks, taskCount, userInput);
@@ -187,6 +229,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Handles the adding of a todo to Duke's task list, including any erroneous input
+     *
+     * @param userInput Command input by the user
+     */
     public void handleTodo(String userInput) {
         try {
             addTodo(tasks, taskCount, userInput);
@@ -196,6 +243,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Handles the marking of a task as done, taking into account any erroneous input
+     *
+     * @param userInput Command input by the user
+     */
     public void handleTaskDone(String userInput) {
         try {
             markTaskDone(tasks, taskCount, userInput);
@@ -208,18 +260,26 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints invalid command message if the command input by the user does not match any of the specified commands
+     */
     public static void printInvalidCommandMessage() {
         System.out.println(OUTPUT_DIVIDER);
         System.out.println(MESSAGE_INVALID_COMMAND);
         System.out.println(OUTPUT_DIVIDER);
     }
 
-
+    /**
+     * Checks if a string can be parsed to obtain an integer
+     *
+     * @param str String to be parsed
+     * @return true if the string is numeric and can be parsed, false otherwise
+     */
     public static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
             return true;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException numberFormatException) {
             return false;
         }
     }
