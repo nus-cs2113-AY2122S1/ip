@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class TaskNotInListException extends Exception {
     private static final String OUTPUT_DIVIDER = "____________________________________________________________";
     private static final String MESSAGE_TASK_NOT_IN_LIST = " Sorry, the task is not in the list! Try again.";
