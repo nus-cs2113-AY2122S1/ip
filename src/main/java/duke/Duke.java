@@ -76,7 +76,10 @@ public class Duke {
         );
     }
 
-    private static void addTodo(String description) {
+    private static void addTodo(String description) throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
         Task task = new Todo(description);
         addTask(task);
     }
@@ -91,6 +94,10 @@ public class Duke {
         addTask(task);
     }
 
+    private static void handleUnrecognisedCommand() throws DukeException {
+        throw new DukeException("I'm sorry, but I don't know what that means :-(");
+    }
+
     /**
      * Reads input commands from the user and executes the appropriate actions.
      * Upon receiving the "bye" command, stops waiting for user input and returns.
@@ -103,29 +110,34 @@ public class Duke {
             String args = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
             String[] splitArgs;
 
-            switch (words[0]) {
-            case "bye":
-                return;
-            case "todo":
-                addTodo(args);
-                break;
-            case "deadline":
-                splitArgs = args.split(" /by ");
-                addDeadline(splitArgs[0], splitArgs[1]);
-                break;
-            case "event":
-                splitArgs = args.split(" /at ");
-                addEvent(splitArgs[0], splitArgs[1]);
-                break;
-            case "list":
-                printTasks();
-                break;
-            case "done":
-                int taskId = Integer.parseInt(words[1]) - 1;
-                markTaskAsDone(taskId);
-                break;
-            default:
-                break;
+            try {
+                switch (words[0]) {
+                case "bye":
+                    return;
+                case "todo":
+                    addTodo(args);
+                    break;
+                case "deadline":
+                    splitArgs = args.split(" /by ");
+                    addDeadline(splitArgs[0], splitArgs[1]);
+                    break;
+                case "event":
+                    splitArgs = args.split(" /at ");
+                    addEvent(splitArgs[0], splitArgs[1]);
+                    break;
+                case "list":
+                    printTasks();
+                    break;
+                case "done":
+                    int taskId = Integer.parseInt(words[1]) - 1;
+                    markTaskAsDone(taskId);
+                    break;
+                default:
+                    handleUnrecognisedCommand();
+                    break;
+                }
+            } catch (DukeException e) {
+                printResponseBlock("☹ OOPS!!! " + e.getMessage());
             }
         }
     }
