@@ -24,18 +24,11 @@ public class Duke {
         taskList = new TaskList();
     }
 
-    /**
-     * Returns user response.
-     *
-     * @return User response.
-     */
     public String getResponse() {
         return sc.nextLine();
     }
 
-    /**
-     * Lists all the tasks.
-     */
+    /** Lists all the tasks. */
     public void list() {
         System.out.print(Ui.LINE);
         System.out.println(Ui.PADDING + "Here are the tasks in your list:");
@@ -124,9 +117,7 @@ public class Duke {
         reportTaskAdded(task);
     }
 
-    /**
-     * Starts the chatting functionality of Duke.
-     */
+    /** Starts the chatting functionality of Duke. */
     public void start() {
         while (true) {
             Command response = new Command(getResponse());
@@ -148,9 +139,7 @@ public class Duke {
         }
     }
 
-    /**
-     * Runs the whole Duke program.
-     */
+    /** Runs the whole Duke program. */
     public void run() {
         Ui.printGreeting();
         this.start();
