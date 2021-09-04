@@ -1,3 +1,16 @@
+package duke;
+
+import duke.exception.UnknownCommandException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskManager;
+import duke.task.Todo;
+import duke.task.exception.EmptyDescriptionException;
+import duke.task.exception.EmptyTimeDetailException;
+import duke.task.exception.InvalidTaskIndexException;
+import duke.task.exception.TaskListEmptyException;
+import duke.task.exception.TimeSpecifierNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
