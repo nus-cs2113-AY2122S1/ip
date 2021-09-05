@@ -34,8 +34,11 @@ public class Duke {
             + LINE_BREAK + SPACE_PREFIX + "Just kidding, it's too expensive, just try again..." + LINE_BREAK
             + CONSOLE_LINE_PREFIX;
     private static final String MISSING_INDEX_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
-            + SPACE_PREFIX + "Excuse me Sir/Madam, your index? Where is it? Under the Sea?" + LINE_BREAK
+            + SPACE_PREFIX + "Excuse me Sir/Madam, which task number? Where is it? Under the Sea?" + LINE_BREAK
             + CONSOLE_LINE_PREFIX;
+    private static final String NO_TASK_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
+            + SPACE_PREFIX + "Woah woah, you can't just mark something when your list of tasks is empty"
+            + LINE_BREAK + CONSOLE_LINE_PREFIX;
 
     // Command Prefixes for checking type of command
     private static final String COMMAND_BYE = "Bye";
@@ -138,6 +141,12 @@ public class Duke {
      * @return TodoObject
      */
     private static Todo createNewToDo(String taskName) {
+        if (taskName.equals("")) {
+            System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
+                    + SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + LINE_BREAK
+                    + CONSOLE_LINE_PREFIX);
+            return null;
+        }
         return new Todo(taskName);
     }
 
@@ -197,6 +206,9 @@ public class Duke {
             System.out.println(UNKNOWN_COMMAND_MESSAGE);
             return;
         }
+        if (newTask == null) {
+            return;
+        }
         tasks[taskCounter] = newTask;
         taskCounter++;
         printAddedToTaskMessage(newTask.getTaskName());
@@ -226,11 +238,19 @@ public class Duke {
      * @param index task index of task that user wants to mark as done in the list
      */
     private static void markTaskAsDone(int index) {
-        Task task = tasks[index];
-        task.setDone();
-        System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
-                + SPACE_PREFIX + task + LINE_BREAK
-                + CONSOLE_LINE_PREFIX);
+        try {
+            if (taskCounter == 0) {
+                System.out.println(NO_TASK_MESSAGE);
+                return;
+            }
+            Task task = tasks[index];
+            task.setDone();
+            System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
+                    + SPACE_PREFIX + task + LINE_BREAK
+                    + CONSOLE_LINE_PREFIX);
+        } catch (NullPointerException e) {
+            System.out.println("");
+        }
     }
 
     public static void main(String[] args) {
