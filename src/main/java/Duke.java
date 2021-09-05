@@ -39,6 +39,9 @@ public class Duke {
     private static final String NO_TASK_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
             + SPACE_PREFIX + "Woah woah, you can't just mark something when your list of tasks is empty"
             + LINE_BREAK + CONSOLE_LINE_PREFIX;
+    private static final String EMPTY_TODO_NAME_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
+            + SPACE_PREFIX + "Excuse you? The description/name for todo can NEVER be empty!" + LINE_BREAK
+            + CONSOLE_LINE_PREFIX;
 
     // Command Prefixes for checking type of command
     private static final String COMMAND_BYE = "Bye";
@@ -142,9 +145,7 @@ public class Duke {
      */
     private static Todo createNewToDo(String taskName) {
         if (taskName.equals("")) {
-            System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
-                    + SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + LINE_BREAK
-                    + CONSOLE_LINE_PREFIX);
+            System.out.println(EMPTY_TODO_NAME_MESSAGE);
             return null;
         }
         return new Todo(taskName);
