@@ -16,9 +16,16 @@ public class TaskManager {
         taskList = new ArrayList<>();
     }
 
-    private boolean ensureProperIndex (int index) {
+    /**
+     * Check if the index is valid.
+     *
+     * @param index index in the taskList
+     * @return if the index is valid
+     */
+    private boolean ensureProperIndex(int index) {
         return index >= 0 && index < taskList.size();
     }
+
     /**
      * Marks a task as done. Informs user that that task has been completed.
      *
@@ -42,10 +49,22 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Gives the specific task in the taskList This function does not check for valid index use the ensureProperIndex
+     * function
+     *
+     * @param index gets the specific object in the taskList
+     * @return Task object is returned
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
+    /**
+     * Gives how many task is in the taskList
+     *
+     * @return the number of tasks in taskList
+     */
     public int getNumberOfTasks() {
         return taskList.size();
     }
@@ -84,11 +103,16 @@ public class TaskManager {
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Prints the user the list of all task If it is empty prints the empty message instead.
+     *
+     * @param ui the Ui Instance to format the message to the user
+     */
     public void listTasks(Ui ui) {
         if (taskList.size() == 0) {
             ui.printEmptyTaskMessage();
         } else {
-           ui.printAllTasks(this);
+            ui.printAllTasks(this);
         }
     }
 }

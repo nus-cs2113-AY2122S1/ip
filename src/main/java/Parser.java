@@ -31,10 +31,11 @@ public class Parser {
      *
      * @param delimiter the delimiter to split the arguments by
      * @return first half the string split delimiters
-     * @throws ArrayIndexOutOfBoundsException if the delimiter is not found in the string
+     * @throws ArgumentNotFoundException if the delimiter is not found in the string
+     * @throws NullPointerException      if the arguments is null
      */
     public String getArgsBeforeString(String delimiter)
-            throws ArgumentNotFoundException, NullPointerException{
+            throws ArgumentNotFoundException, NullPointerException {
         int locationOfArgument = arguments.indexOf(delimiter);
         if (locationOfArgument == -1) {
             throw new ArgumentNotFoundException();
@@ -48,10 +49,11 @@ public class Parser {
      *
      * @param delimiter the delimiter to split the arguments by
      * @return second half the string split delimiters
-     * @throws ArrayIndexOutOfBoundsException if the delimiter is not found in the string
+     * @throws ArgumentNotFoundException if the delimiter is not found in the string
+     * @throws NullPointerException      if the arguments is null
      */
     public String getArgsAfterString(String delimiter)
-            throws ArgumentNotFoundException,NullPointerException {
+            throws ArgumentNotFoundException, NullPointerException {
         int locationOfArgument = arguments.indexOf(delimiter);
         if (locationOfArgument == -1) {
             throw new ArgumentNotFoundException();
@@ -84,7 +86,7 @@ public class Parser {
      *
      * @return arguments of the command
      */
-    public String getArguments() throws ArgumentNotFoundException {
+    public String getArguments() {
         return arguments;
     }
 }

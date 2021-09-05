@@ -10,6 +10,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets the user input and check if it is empty or null
+     *
+     * @param validString the user String input
+     * @return true if string is empty or null and false otherwise
+     */
     public boolean checkStringNullOrEmpty(String validString) {
         return validString == null || validString.isEmpty();
 

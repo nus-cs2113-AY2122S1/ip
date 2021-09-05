@@ -2,9 +2,6 @@ import java.util.Scanner;
 
 public class Ui {
 
-    /**
-     * Line template to use for dividers
-     */
     public static final String LINE = "____________________________________________________________";
     public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     public static final String SHELL_RPG_BANNER =
@@ -16,7 +13,7 @@ public class Ui {
                     + "#     # #     # #       #       #          #    #  #       #     # \n"
                     + " #####  #     # ####### ####### #######    #     # #        #####  ";
     public static final String TASKLIST_EMPTY = "There are no tasks in your list";
-    public static final String LIST_TASK_MESSAGE = "Here are your tasks in your list:";
+    public static final String TASKLIST_MESSAGE = "Here are your tasks in your list:";
     private String username;
     private Scanner in;
 
@@ -92,7 +89,7 @@ public class Ui {
      */
     public void printAllTasks(TaskManager taskList) {
         System.out.println(LINE);
-        System.out.println(LIST_TASK_MESSAGE);
+        System.out.println(TASKLIST_MESSAGE);
         // Printing all tasks with their completion status
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
             System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
@@ -100,6 +97,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Shows only if the list of task is empty
+     */
     public void printEmptyTaskMessage() {
         printMessage(TASKLIST_EMPTY);
     }
