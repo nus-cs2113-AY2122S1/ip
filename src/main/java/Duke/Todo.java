@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package Duke;
+
+import Duke.Task;
+
+public class Todo extends Task {
 
     public Todo(String content) {
         super(content);
