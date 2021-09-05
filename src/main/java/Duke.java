@@ -10,6 +10,7 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
+        CommandParser commandParser = new CommandParser();
         CommandHandler commandHandler = new CommandHandler();
         OutputHandler outputHandler = new OutputHandler();
 
@@ -21,8 +22,8 @@ public class Duke {
         while (!command.equals(Command.EXIT)) {
             String input = in.nextLine();
             String[] inputTokens = input.split(" ");
-            command = commandHandler.getCommand(inputTokens[COMMAND_INDEX]);
-            outputHandler.getOutput(command, input, tasks);
+            command = commandParser.parseCommand(inputTokens[COMMAND_INDEX]);
+            commandHandler.handleCommand(command, input, tasks);
         }
     }
 }

@@ -1,51 +1,136 @@
+import java.util.ArrayList;
+
 public class CommandHandler {
-    public static final String HELP = "help";
-    public static final String LIST = "list";
-    public static final String DONE = "done";
-    public static final String ADD_TODO = "todo";
-    public static final String ADD_DEADLINE = "deadline";
-    public static final String ADD_EVENT = "event";
-    public static final String REMOVE = "remove";
-    public static final String BYE = "bye";
-    public static final String EXIT = "exit";
-    public static final String QUIT = "quit";
-    public static final String GREETING = "hello";
 
-    public Command getCommand(String inputCommand) {
-        switch (inputCommand) {
-        case LIST:
-            return Command.LIST_TASKS;
+    public static final String DEADLINE_SEPARATOR = "/by ";
+    public static final String EVENT_SEPARATOR = "/at ";
+    private static final String TASK_SEPARATOR = " ";
 
-        case DONE:
-            return Command.MARK_DONE;
+    /**
+     * Print messages and changes the task list according to the commands given.
+     * @param command The command entered by the user
+     * @param input The input string read from the Scanner object
+     * @param tasks The list of tasks
+     */
+    public void handleCommand(Command command, String input, ArrayList<Task> tasks) {
+
+        OutputHandler outputHandler = new OutputHandler();
+        String[] inputTokens = input.split(" ");
+
+        switch (command) {
+        case LIST_TASKS:
+            if (tasks.size() == 0) {
+                outputHandler.printNoTasksInListMessage();
+            } else {
+                outputHandler.printTaskList(tasks);
+            }
+            break;
+
+        case MARK_DONE:
+            try {
+                //get 1-indexed task number and convert to 0-index
+                int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
+                if (tasks.get(taskNumber).isDone()) {
+                    outputHandler.printTaskDoneMessage();
+                } else {
+                    outputHandler.markAsDone(tasks, taskNumber);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                outputHandler.printTaskNumberOutOfBoundsMessage();
+            } catch (NumberFormatException e) {
+                outputHandler.printInvalidTaskNumberMessage();
+            }
+            break;
 
         case ADD_TODO:
-            return Command.ADD_TODO;
+            try {
+                int indexOfTask = input.indexOf(TASK_SEPARATOR);
+                String description = outputHandler.getTrimmedSubstring(input, indexOfTask, input.length());
+                if (description.isBlank()) {
+                    outputHandler.printNoTaskNameMessage();
+                } else {
+                    Todo todo = new Todo(description);
+                    tasks.add(todo);
+                    outputHandler.addTask(tasks, todo);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                outputHandler.printNoTaskNameMessage();
+            }
+            break;
 
         case ADD_DEADLINE:
-            return Command.ADD_DEADLINE;
+            try {
+                int indexOfTask = input.indexOf(TASK_SEPARATOR);
+                int indexOfEventDate = input.indexOf(DEADLINE_SEPARATOR);
+                //extract task and due date
+                String description = outputHandler.getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
+                String by = outputHandler.getTrimmedSubstring(input,
+                        indexOfEventDate + DEADLINE_SEPARATOR.length(),
+                        input.length());
+                if (description.isBlank() || by.isBlank()) {
+                    outputHandler.printNoDeadlineMessage();
+                } else {
+                    Deadline deadline = new Deadline(description, by);
+                    tasks.add(deadline);
+                    outputHandler.addTask(tasks, deadline);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                outputHandler.printNoDeadlineMessage();
+            }
+            break;
 
         case ADD_EVENT:
-            return Command.ADD_EVENT;
+            try {
+                int indexOfTask = input.indexOf(TASK_SEPARATOR);
+                int indexOfEventDate = input.indexOf(EVENT_SEPARATOR);
+                //extract task and due date
+                String description = outputHandler.getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
+                String at = outputHandler.getTrimmedSubstring(input,
+                        indexOfEventDate + EVENT_SEPARATOR.length(),
+                        input.length());
+                if (description.isBlank() || at.isBlank()) {
+                    outputHandler.printNoEventMessage();
+                } else {
+                    Event event = new Event(description, at);
+                    tasks.add(event);
+                    outputHandler.addTask(tasks, event);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                outputHandler.printNoEventMessage();
+            }
+            break;
 
-        case REMOVE:
-            return Command.REMOVE_TASK;
+        case REMOVE_TASK:
+            try {
+                int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
+                outputHandler.removeTask(tasks, taskNumber);
+            } catch (IndexOutOfBoundsException e) {
+                outputHandler.printTaskNumberOutOfBoundsMessage();
+            } catch (NumberFormatException e) {
+                outputHandler.printInvalidTaskNumberMessage();
+            }
+            break;
 
         case HELP:
-            return Command.HELP;
+            outputHandler.printHelpMessage();
+            break;
 
         case GREETING:
-            return Command.GREETING;
+            outputHandler.printGreetingMessage();
+            break;
 
-        case BYE:
-            //Fallthrough
         case EXIT:
-            //Fallthrough
-        case QUIT:
-            return Command.EXIT;
+            outputHandler.printExitMessage();
+            break;
+
+        case DEFAULT:
+            outputHandler.printInvalidCommandMessage();
+            break;
 
         default:
-            return Command.DEFAULT;
+            outputHandler.printUnknownErrorMessage();
+            break;
         }
     }
 }
+
