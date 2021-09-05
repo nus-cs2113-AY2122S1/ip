@@ -1,3 +1,5 @@
+package duke;
+
 public class Picture {
 
     public static final String DUKE_LOGO = " ____        _        \n"
