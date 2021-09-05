@@ -18,7 +18,7 @@ public class TaskManager {
         Task newToDo = new ToDo(todoInfo.trim());
         this.tasks.add(newToDo);
 
-        dukeUI.printAddValidTaskMsg(tasks.get(numTasks).getTaskDescription());
+        dukeUI.printAddTaskMsg(tasks.get(numTasks).getTaskDescription());
         numTasks++;
         dukeUI.printNumTasksInList(numTasks);
     }
@@ -28,7 +28,7 @@ public class TaskManager {
         Task newDeadline = new Deadline(deadlineArgs[0].trim(), deadlineArgs[1].trim());
         this.tasks.add(newDeadline);
 
-        dukeUI.printAddValidTaskMsg(tasks.get(numTasks).getTaskDescription());
+        dukeUI.printAddTaskMsg(tasks.get(numTasks).getTaskDescription());
         numTasks++;
         dukeUI.printNumTasksInList(numTasks);
     }
@@ -38,31 +38,37 @@ public class TaskManager {
         Task newEvent = new Event(eventArgs[0].trim(), eventArgs[1].trim());
         this.tasks.add(newEvent);
 
-        dukeUI.printAddValidTaskMsg(tasks.get(numTasks).getTaskDescription());
+        dukeUI.printAddTaskMsg(tasks.get(numTasks).getTaskDescription());
         numTasks++;
         dukeUI.printNumTasksInList(numTasks);
     }
 
-    public void setTaskComplete(int taskID) {
+    public void setTaskComplete(int taskID) throws InvalidTaskIdException{
+
+        if (taskID > tasks.size()) {
+            throw new InvalidTaskIdException(taskID);
+        }
+
         taskID -= 1;
+
         if (tasks.get(taskID).isDone) {
-            dukeUI.printSetTaskCompleteInvalidMsg(tasks.get(taskID).getTaskDescription());
+            dukeUI.printSetTaskAlreadyCompleteMsg(tasks.get(taskID).getTaskDescription());
         } else {
             tasks.get(taskID).isDone = true;
             numComplete += 1;
-            dukeUI.printSetTaskCompleteValidMsg(tasks.get(taskID).getTaskDescription());
+            dukeUI.printSetTaskCompleteMsg(tasks.get(taskID).getTaskDescription());
             dukeUI.printNumTaskComplete(numComplete, numTasks);
         }
     }
 
     public void printTasks() {
         if (numTasks > 0) {
-            dukeUI.printTasklistValidMsg();
+            dukeUI.printTasklistMsg();
             for (int taskID = 0; taskID < tasks.size(); taskID++) {
                 System.out.println(taskID + 1 + "." + tasks.get(taskID).getTaskDescription());
             }
         } else {
-            dukeUI.printTasklistInvalidMsg();
+            dukeUI.printTasklistEmptyMsg();
         }
     }
 

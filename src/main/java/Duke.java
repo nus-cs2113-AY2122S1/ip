@@ -29,7 +29,7 @@ public class Duke {
         return input;
     }
 
-    public void runCommand(String input) throws Exception {
+    public void runCommand(String input) throws InvalidCommandException {
         String[] inputArgs = input.split("\\s+", 2);
 
         switch (inputArgs[0]) {
@@ -46,21 +46,21 @@ public class Duke {
             try {
                 taskMgr.addToDo(inputArgs[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                dukeUI.printTodoNoDescException();
+                dukeUI.printTodoNoDescMsg();
             }
             break;
         case ADD_DEADLINE_CMD:
             try {
                 taskMgr.addDeadline(inputArgs[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                dukeUI.printDeadlineNoDescException();
+                dukeUI.printDeadlineNoDescMsg();
             }
             break;
         case ADD_EVENT_CMD:
             try {
                 taskMgr.addEvent(inputArgs[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                dukeUI.printEventNoDescException();
+                dukeUI.printEventNoDescMsg();
             }
             break;
         case SET_TASK_DONE_CMD:
@@ -68,11 +68,15 @@ public class Duke {
                 int taskID = Integer.parseInt(inputArgs[1]);
                 taskMgr.setTaskComplete(taskID);
             } catch (ArrayIndexOutOfBoundsException e) {
-                dukeUI.printDoneNoTaskIdException();
+                dukeUI.printNoTaskIdMsg();
+            } catch (NumberFormatException e) {
+                dukeUI.printTaskIdNotIntegerMsg();
+            } catch (InvalidTaskIdException e) {
+                dukeUI.printInvalidTaskIdMsg(e);
             }
             break;
         default:
-            throw new Exception();
+            throw new InvalidCommandException(input);
         }
     }
 
@@ -85,9 +89,10 @@ public class Duke {
 
             try {
                 runCommand(input);
-            } catch (Exception e) {
-                dukeUI.printUnknownCmdError();
+            } catch (InvalidCommandException e) {
+                dukeUI.printInvalidCmdMsg(e);
             }
+
         } while (isRunning);
 
         dukeUI.printExitMsg();

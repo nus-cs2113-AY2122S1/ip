@@ -25,17 +25,19 @@ public class DukeInterface {
             + "4. Add Events                -> {event <task description> /by <task date&time>}\n"
             + "5. Set Task as Done          -> {done <task ID>}";
 
-    private final String UNKNOWN_CMD_MSG = "Yikes, your input is invalid! (refer to 'help' command)";
+    private final String UNKNOWN_CMD_MSG = "Yikes, I do not recognise your input! (refer to 'help' command)";
     private final String TODO_NO_DESC_MSG = "\uD83D\uDE35 OOPS!!! The todo description field cannot be empty.";
     private final String DEADLINE_NO_DESC_MSG = "\uD83D\uDE35 OOPS!!! The deadline description field cannot be empty.";
     private final String EVENT_NO_DESC_MSG = "\uD83D\uDE35 OOPS!!! The event description field cannot be empty.";
-    private final String DONE_NO_TASK_ID_MSG = "\uD83D\uDE35 OOPS!!! The Task ID field cannot be empty";
+    private final String NO_TASK_ID_MSG = "\uD83D\uDE35 OOPS!!! The Task ID field cannot be empty.";
+    private final String TASK_ID_NOT_INT_MSG = "\uD83D\uDE35 OOPS!!! The Task ID field must be an integer.";
+    private final String INVALID_TASK_ID_MSG = "\uD83D\uDE35 OOPS!!! The Task ID does not exist in the tasklist.";
 
     private final String ADD_TASK_VALID_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
-    private final String SET_TASK_COMPLETE_VALID_MSG = "Burrrp! I've marked this task as done [\u2705]:";
-    private final String SET_TASK_COMPLETE_INVALID_MSG = "Hold up! This task is already marked done [\u2705]:";
-    private final String PRINT_TASK_VALID_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
-    private final String PRINT_TASK_INVALID_MSG = "Sorry, but there are currently no tasks added!";
+    private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done [\u2705]:";
+    private final String SET_TASK_ALREADY_COMPLETE_MSG = "Hold up! This task is already marked done [\u2705]:";
+    private final String PRINT_TASKLIST_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
+    private final String PRINT_TASKLIST_EMPTY_MSG = "Sorry, but there are currently no tasks added!";
     private final String GENERIC_PROMPT_MSG = "You may choose to add/complete another task.";
 
     public void printUserName() {
@@ -74,32 +76,44 @@ public class DukeInterface {
         System.out.println(HELP_MSG);
     }
 
-    public void printUnknownCmdError() {
+    public void printInvalidCmdMsg(InvalidCommandException e) {
         printDukeName();
         printMsgWithCursor(UNKNOWN_CMD_MSG);
+        System.out.println("   [Input Received by Duke: " + e + "]");
     }
 
-    public void printTodoNoDescException() {
+    public void printInvalidTaskIdMsg(InvalidTaskIdException e) {
+        printDukeName();
+        printMsgWithCursor(INVALID_TASK_ID_MSG);
+        System.out.println("   [Input Received by Duke: " + e + "]");
+    }
+
+    public void printTodoNoDescMsg() {
         printDukeName();
         printMsgWithCursor(TODO_NO_DESC_MSG);
     }
 
-    public void printDeadlineNoDescException() {
+    public void printDeadlineNoDescMsg() {
         printDukeName();
         printMsgWithCursor(DEADLINE_NO_DESC_MSG);
     }
 
-    public void printEventNoDescException() {
+    public void printEventNoDescMsg() {
         printDukeName();
         printMsgWithCursor(EVENT_NO_DESC_MSG);
     }
 
-    public void printDoneNoTaskIdException() {
+    public void printNoTaskIdMsg() {
         printDukeName();
-        printMsgWithCursor(DONE_NO_TASK_ID_MSG);
+        printMsgWithCursor(NO_TASK_ID_MSG);
     }
 
-    public void printAddValidTaskMsg(String taskDescription) {
+    public void printTaskIdNotIntegerMsg() {
+        printDukeName();
+        printMsgWithCursor(TASK_ID_NOT_INT_MSG);
+    }
+
+    public void printAddTaskMsg(String taskDescription) {
         printDukeName();
         printMsgWithCursor(ADD_TASK_VALID_MSG);
         printWithPadding(taskDescription);
@@ -109,15 +123,15 @@ public class DukeInterface {
         printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
     }
 
-    public void printSetTaskCompleteValidMsg(String taskDescription) {
+    public void printSetTaskCompleteMsg(String taskDescription) {
         printDukeName();
-        printMsgWithCursor(SET_TASK_COMPLETE_VALID_MSG);
+        printMsgWithCursor(SET_TASK_COMPLETE_MSG);
         printWithPadding(taskDescription);
     }
 
-    public void printSetTaskCompleteInvalidMsg(String taskDescription) {
+    public void printSetTaskAlreadyCompleteMsg(String taskDescription) {
         printDukeName();
-        printMsgWithCursor(SET_TASK_COMPLETE_INVALID_MSG);
+        printMsgWithCursor(SET_TASK_ALREADY_COMPLETE_MSG);
         printWithPadding(taskDescription);
         printMsgWithCursor(GENERIC_PROMPT_MSG);
     }
@@ -126,14 +140,14 @@ public class DukeInterface {
         printMsgWithCursor("You have done " + numComplete + "/" + numTasks + " tasks in your list.");
     }
 
-    public void printTasklistValidMsg() {
+    public void printTasklistMsg() {
         printDukeName();
-        printMsgWithCursor(PRINT_TASK_VALID_MSG);
+        printMsgWithCursor(PRINT_TASKLIST_MSG);
     }
 
-    public void printTasklistInvalidMsg() {
+    public void printTasklistEmptyMsg() {
         printDukeName();
-        printMsgWithCursor(PRINT_TASK_INVALID_MSG);
+        printMsgWithCursor(PRINT_TASKLIST_EMPTY_MSG);
         printMsgWithCursor(GENERIC_PROMPT_MSG);
     }
 
