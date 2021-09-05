@@ -2,8 +2,10 @@ class TaskList {
     private Task[] tasks = new Task[100];
     private int totalTasks = 0;
 
-    public int addList(String userInput) {
-        Task newTask = getTask(userInput);
+    public int addList(String userInput) throws TimeMissingException, TaskEmptyException{
+        Task newTask;
+        newTask = getTask(userInput);
+
         System.out.println("       " + newTask);
         this.tasks[totalTasks] = newTask;
         totalTasks ++;
@@ -21,23 +23,33 @@ class TaskList {
         System.out.println("       " + this.tasks[index]);
     }
 
-    private Task getTask(String userInput) {
-        int taskTypeIndex = userInput.indexOf(' ');
-        int deadlineIndex = userInput.indexOf('/');
-        String taskType = userInput.substring(0, taskTypeIndex);
-        String taskName, deadline;
+    private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {
+        String taskType, taskName, deadline;
+        int taskTypeIndex = userInput.indexOf(" ");
+        int deadlineIndex = userInput.lastIndexOf("/");
+
+        try {
+            taskType = userInput.substring(0, taskTypeIndex);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new TaskEmptyException(userInput);
+        }
 
         if (taskType.equals("todo")) {
             taskName = userInput.substring(taskTypeIndex + 1);
             return new Todo(taskName, false);
-        } else if (taskType.equals("deadline")) {
-            deadline = userInput.substring(deadlineIndex + 1);
-            taskName = userInput.substring(taskTypeIndex + 1, deadlineIndex);
+        }
+
+        if (deadlineIndex == -1) {
+            throw new TimeMissingException(taskType);
+        }
+
+        deadline = userInput.substring(deadlineIndex + 1);
+        taskName = userInput.substring(taskTypeIndex, deadlineIndex);
+        if (taskType.equals("deadline")) {
             return new Deadline(taskName, deadline, false);
         }
-        deadline = userInput.substring(deadlineIndex + 1);
-        taskName = userInput.substring(taskTypeIndex + 1, deadlineIndex);
         return new Event(taskName, deadline, false);
     }
+
 
 }

@@ -7,5 +7,6 @@ abstract class UserCommand {
         this.tasks = tasks;
     }
 
-    abstract public void execute ();
+    abstract public void execute () throws TaskEmptyException, TimeMissingException;
+
 }
