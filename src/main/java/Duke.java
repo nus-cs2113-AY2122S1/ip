@@ -106,20 +106,17 @@ public class Duke {
 
             } else if (command.equals("ToDo")){
                 unfilteredTasks[unfilteredCounter] = new ToDo(GetItem(userInput));
-                System.out.println(LINE + "Got it. I've added this task:\t");
-                System.out.println(String.format("\t%d.",unfilteredCounter+1) + unfilteredTasks[unfilteredCounter] + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter+1) + LINE);
+                AcknowledgeAddition(unfilteredTasks[unfilteredCounter], unfilteredCounter);
                 unfilteredCounter++;
                 userInput = in.nextLine();
             } else if (command.equals("Deadline")){
                 unfilteredTasks[unfilteredCounter] = new Deadline(GetItem(userInput), GetTime(userInput));
-                System.out.println(LINE + "Got it. I've added this task:\t");
-                System.out.println(String.format("\t%d.",unfilteredCounter+1) + unfilteredTasks[unfilteredCounter] + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter+1) + LINE);
+                AcknowledgeAddition(unfilteredTasks[unfilteredCounter], unfilteredCounter);
                 unfilteredCounter++;
                 userInput = in.nextLine();
             } else if (command.equals("Event")){
                 unfilteredTasks[unfilteredCounter] = new Event(GetItem(userInput), GetTime(userInput));
-                System.out.println(LINE + "Got it. I've added this task:\t");
-                System.out.println(String.format("\t%d.",unfilteredCounter+1) + unfilteredTasks[unfilteredCounter] + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter+1) + LINE);
+                AcknowledgeAddition(unfilteredTasks[unfilteredCounter], unfilteredCounter);
                 unfilteredCounter++;
                 userInput = in.nextLine();
 
@@ -127,9 +124,18 @@ public class Duke {
                 System.out.println(BYE);
                 closeDuke = true;
             } else {
-                System.out.println(LINE + "\tInvalid input, Please Try Again :)\n" + LINE);
+                InvalidMessage();
                 userInput = in.nextLine();
             }
         }
+    }
+
+    private static void InvalidMessage() {
+        System.out.println(LINE + "\tInvalid input, Please Try Again :)\n" + LINE);
+    }
+
+    private static void AcknowledgeAddition(Task unfilteredTask, int unfilteredCounter) {
+        System.out.println(LINE + "Got it. I've added this task:\t");
+        System.out.println(String.format("\t%d.",unfilteredCounter+1) + unfilteredTask + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter+1) + LINE);
     }
 }
