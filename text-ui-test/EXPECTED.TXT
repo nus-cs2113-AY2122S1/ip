@@ -2,5 +2,26 @@ Top of the morning my good sir, what can I do for you on this fine day?
 ------------------------------------------------------------------------
 List is empty!
 ------------------------------------------------------------------------
+Unknown command, Try again.
+------------------------------------------------------------------------
+tan.exceptions.DukeFormatExceptions: Parameters are empty! Please try again.
+------------------------------------------------------------------------
+tan.exceptions.DukeFormatExceptions: Code could not find '/by'
+------------------------------------------------------------------------
+tan.exceptions.DukeFormatExceptions: Code could not find '/at'
+------------------------------------------------------------------------
+You have added: [T][ ] abcde
+Your current total number of task is: 1
+------------------------------------------------------------------------
+Please check your formatting & input!
+------------------------------------------------------------------------
+Please check your formatting & input!
+------------------------------------------------------------------------
+You have added: [E][ ] aaabbb (at: )
+Your current total number of task is: 2
+------------------------------------------------------------------------
+You have added: [D][ ] helpssss (by: )
+Your current total number of task is: 3
+------------------------------------------------------------------------
 I bid you farewell my good man. Good Bye.
 ------------------------------------------------------------------------

@@ -1,2 +1,11 @@
 list
+abcde
+todo
+deadline
+event
+todo abcde
+deadline /by
+event /at
+event aaabbb /at
+deadline helpssss /by
 end

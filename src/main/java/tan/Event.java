@@ -3,6 +3,7 @@ package tan;
 public class Event extends Task {
 
     private String dateTime;
+    private final String eventIcon = "E";
 
     public Event(String description, String dateTime) {
         super(description);
@@ -14,8 +15,9 @@ public class Event extends Task {
      *
      * @return Returns the String "E"
      */
+    @Override
     public String getIcon() {
-        return "E";
+        return eventIcon;
     }
 
     /**

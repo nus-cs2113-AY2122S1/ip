@@ -1,6 +1,7 @@
 package tan;
 public class Deadline extends Task {
 
+    private final String deadlineIcon = "D";
     private String dateTime;
 
     public Deadline(String description, String dateTime) {
@@ -13,8 +14,9 @@ public class Deadline extends Task {
      *
      * @return Returns the String "D"
      */
+    @Override
     public String getIcon() {
-        return "D";
+        return deadlineIcon;
     }
 
     /**
