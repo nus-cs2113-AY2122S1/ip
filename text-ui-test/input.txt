@@ -1,3 +1,4 @@
+help
 todo exercise
 deadline
 todo shower
