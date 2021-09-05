@@ -4,7 +4,7 @@ public class OutputHandler {
 
     public static final String NUMBER_LIST_SEPARATOR = ". ";
     public static final String TASK_PADDING = "   ";
-    public static final String NEWLINE = "\r\n";
+    public static final String NEWLINE = "\n";
     public static final String DEADLINE_SEPARATOR = "/by ";
     public static final String EVENT_SEPARATOR = "/at ";
     private static final String TASK_SEPARATOR = " ";
@@ -19,7 +19,7 @@ public class OutputHandler {
     }
 
     /**
-     * Prints messages and changes the task list according to the commands given.
+     * Print messages and changes the task list according to the commands given.
      * @param command The command entered by the user
      * @param input The input string read from the Scanner object
      * @param tasks The list of tasks
@@ -27,7 +27,6 @@ public class OutputHandler {
     public void getOutput(Command command, String input, ArrayList<Task> tasks) {
 
         String[] inputTokens = input.split(" ");
-        int taskNumber;
 
         switch (command) {
         case LIST_TASKS:
@@ -39,32 +38,23 @@ public class OutputHandler {
             break;
 
         case MARK_DONE:
-            //TODO exception handling
-            //possible errors:
-            //numberFormatException: when task number is not a number
-            //indexOutOfBoundsException: when task number is not provided
-            if (input.trim().equals(inputTokens[0])) {
-                printInvalidTaskMessage();
-            } else {
+            try {
                 //get 1-indexed task number and convert to 0-index
-                taskNumber = Integer.parseInt(inputTokens[1]) - 1;
-                if (taskNumber < 0 || taskNumber > tasks.size() - 1) {
-                    printInvalidTaskMessage();
-                } else if (tasks.get(taskNumber).isDone()) {
+                int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
+                if (tasks.get(taskNumber).isDone()) {
                     printTaskDoneMessage();
                 } else {
                     markAsDone(tasks, taskNumber);
                 }
+            } catch (IndexOutOfBoundsException e) {
+                printTaskNumberOutOfBoundsMessage();
+            } catch (NumberFormatException e) {
+                printInvalidTaskNumberMessage();
             }
             break;
 
         case ADD_TODO:
-            //TODO exception handling
-            //possible errors:
-            //indexOutOfBoundsException: when task description is not provided
-            if (input.trim().equals(inputTokens[0])) {
-                printNoTaskNameMessage();
-            } else {
+            try {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
                 String description = getTrimmedSubstring(input, indexOfTask, input.length());
                 if (description.isBlank()) {
@@ -74,82 +64,61 @@ public class OutputHandler {
                     tasks.add(todo);
                     displayAddedTask(tasks, todo);
                 }
+            } catch (IndexOutOfBoundsException e) {
+                printNoTaskNameMessage();
             }
             break;
 
         case ADD_DEADLINE:
-            //TODO exception handling
-            //possible errors:
-            //indexOutOfBoundsException: when task description or deadline is not provided
-            //or when separator is not given as input?
-            if (input.trim().equals(inputTokens[0])) {
-                printNoTaskNameMessage();
-            } else if (!input.contains(DEADLINE_SEPARATOR)) {
-                printNoDueDateMessage();
-            } else {
+            try {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
-                int indexOfDeadline = input.indexOf(DEADLINE_SEPARATOR);
+                int indexOfEventDate = input.indexOf(DEADLINE_SEPARATOR);
                 //extract task and due date
-                String description = getTrimmedSubstring(input, indexOfTask, indexOfDeadline);
+                String description = getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
                 String by = getTrimmedSubstring(input,
-                        indexOfDeadline + DEADLINE_SEPARATOR.length(),
+                        indexOfEventDate + DEADLINE_SEPARATOR.length(),
                         input.length());
-                if (description.isBlank()) {
-                    printNoTaskNameMessage();
-                } else if (by.isBlank()) {
-                    printNoDueDateMessage();
+                if (description.isBlank() || by.isBlank()) {
+                    printNoDeadlineMessage();
                 } else {
                     Deadline deadline = new Deadline(description, by);
                     tasks.add(deadline);
                     displayAddedTask(tasks, deadline);
                 }
+            } catch (IndexOutOfBoundsException e) {
+                printNoDeadlineMessage();
             }
             break;
 
         case ADD_EVENT:
-            //TODO exception handling
-            //possible errors:
-            //indexOutOfBoundsException: when event description or date is not provided
-            //or when separator is not given as input?
-            if (input.trim().equals(inputTokens[0])) {
-                printNoEventNameMessage();
-            } else if (!input.contains(EVENT_SEPARATOR)) {
-                printNoEventDateMessage();
-            } else {
+            try {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
-                int indexOfDeadline = input.indexOf(EVENT_SEPARATOR);
+                int indexOfEventDate = input.indexOf(EVENT_SEPARATOR);
                 //extract task and due date
-                String description = getTrimmedSubstring(input, indexOfTask, indexOfDeadline);
+                String description = getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
                 String at = getTrimmedSubstring(input,
-                        indexOfDeadline + EVENT_SEPARATOR.length(),
+                        indexOfEventDate + EVENT_SEPARATOR.length(),
                         input.length());
-                if (description.isBlank()) {
-                    printNoEventNameMessage();
-                } else if (at.isBlank()) {
-                    printNoEventDateMessage();
+                if (description.isBlank() || at.isBlank()) {
+                    printNoEventMessage();
                 } else {
                     Event event = new Event(description, at);
                     tasks.add(event);
                     displayAddedTask(tasks, event);
                 }
+            } catch (IndexOutOfBoundsException e) {
+                printNoEventMessage();
             }
             break;
 
         case REMOVE_TASK:
-            //TODO exception handling
-            //possible errors:
-            //numberFormatException: when task number is not a number
-            //indexOutOfBoundsException: when task number is not provided
-            if (input.trim().equals(inputTokens[0])) {
-                printInvalidTaskMessage();
-            } else {
-                //get 1-indexed task number and convert to 0-index
-                taskNumber = Integer.parseInt(inputTokens[1]) - 1;
-                if (taskNumber < 0 || taskNumber > tasks.size() - 1) {
-                    printInvalidTaskMessage();
-                } else {
-                    displayRemovedTask(tasks, taskNumber);
-                }
+            try {
+                int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
+                displayRemovedTask(tasks, taskNumber);
+            } catch (IndexOutOfBoundsException e) {
+                printTaskNumberOutOfBoundsMessage();
+            } catch (NumberFormatException e) {
+                printInvalidTaskNumberMessage();
             }
             break;
 
@@ -220,9 +189,10 @@ public class OutputHandler {
      * @param taskNumber The task number of the task to be removed
      */
     private void displayRemovedTask(ArrayList<Task> tasks, int taskNumber) {
-        System.out.println(NEWLINE + "Got it. I removed this task:");
-        System.out.println(TASK_PADDING + tasks.get(taskNumber) + NEWLINE);
+        Task task = tasks.get(taskNumber);
         tasks.remove(taskNumber);
+        System.out.println(NEWLINE + "Got it. I removed this task:");
+        System.out.println(task);
     }
 
     /**
@@ -277,10 +247,17 @@ public class OutputHandler {
     }
 
     /**
-     * Print a message when the task number given is invalid.
+     * Print a message when the task number given is out of bounds.
      */
-    private void printInvalidTaskMessage() {
-        System.out.println(NEWLINE + "I can't find that task in the list!" + NEWLINE);
+    private void printTaskNumberOutOfBoundsMessage() {
+        System.out.println(NEWLINE + "Oops, I can't find that task in the list!" + NEWLINE);
+    }
+
+    /**
+     * Print a message when the task number given is invalid or not a number.
+     */
+    private void printInvalidTaskNumberMessage() {
+        System.out.println(NEWLINE + "Oops, that is not a valid task number!" + NEWLINE);
     }
 
     /**
@@ -299,51 +276,79 @@ public class OutputHandler {
     }
 
     /**
-     * Print a message when no date is given for a deadline.
+     * Print a message when no task name or due date is given for a deadline.
      */
-    private static void printNoDueDateMessage() {
-        System.out.println(NEWLINE + "Please tell me when the task is due." + NEWLINE);
+    private static void printNoDeadlineMessage() {
+        System.out.println(NEWLINE + "Please tell me what the task is and when it is due." + NEWLINE);
     }
 
     /**
-     * Print an error message when no event date is given.
+     * Print an error message when no event name or date is given.
      */
-    private static void printNoEventDateMessage() {
-        System.out.println(NEWLINE + "Please tell me when the event is happening." + NEWLINE);
-    }
-
-    /**
-     * Print an error message when no event name is given.
-     */
-    private static void printNoEventNameMessage() {
-        System.out.println(NEWLINE + "Please tell me the name of the event." + NEWLINE);
+    private static void printNoEventMessage() {
+        System.out.println(NEWLINE + "Please tell me what the event is and when it is happening." + NEWLINE);
     }
 
 
     /**
-     * Prints the help message, which lists all commands.
+     * Print the help message, which lists all commands.
      */
     private void printHelpMessage() {
         System.out.println(NEWLINE + "Here are a list of commands:" + NEWLINE);
-        printCommandHelpMessage("list", "lists all tasks", "list");
-        printCommandHelpMessage("todo", "adds a new to-do task", "todo [task description]");
+        printCommandHelpMessage("list", "lists all tasks", "none", "none");
+        printCommandHelpMessage("todo", "adds a new to-do task", "todo [task description]",
+                "todo organise my desk");
         printCommandHelpMessage("deadline", "adds a new task with a due date",
-                "deadline [task description] /by [due date]");
+                "deadline [task description] /by [due date]", "deadline English assignment /by Wed 5pm");
         printCommandHelpMessage("event", "adds a new event",
-                "event [task description] /at [event date]");
-        printCommandHelpMessage("done", "lists all tasks", "done [task number]");
-        printCommandHelpMessage("remove", "removes a task from the list", "remove [task number]");
-        printCommandHelpMessage("help", "lists all commands", "help");
+                "event [task description] /at [event date]", "event meeting /at Thurs 9am");
+        printCommandHelpMessage("done", "lists all tasks", "done [task number]",
+                "done 2");
+        printCommandHelpMessage("remove", "removes a task from the list",
+                "remove [task number]", "remove 3");
+        printCommandHelpMessage("help", "lists all commands", "none", "none");
     }
 
     /**
-     * Prints the help message for a specific command.
+     * Print a help message for a specific command.
      * @param command The command
      * @param description The command's description
-     * @param usage The usage format for the command
+     * @param format The usage format for the command
      */
-    private void printCommandHelpMessage(String command, String description, String usage) {
-        System.out.println(command + HELP_SEPARATOR + description + NEWLINE + "usage: " + usage + NEWLINE);
+    private void printCommandHelpMessage(String command, String description, String format, String example) {
+        printCommandDescription(command, description);
+        printCommandUsage(format);
+        printCommandExample(example);
+        System.out.println();
+    }
+
+    /**
+     * Print a command description for a specific command.
+     * @param command The command
+     * @param description The command's description
+     */
+    private void printCommandDescription(String command, String description) {
+        System.out.println(command + HELP_SEPARATOR + description);
+    }
+
+    /**
+     * Print the usage format for a specific command.
+     * @param format The usage format of the command
+     */
+    private void printCommandUsage(String format) {
+        if (!format.equals("none")) {
+            System.out.println("usage: " + format);
+        }
+    }
+
+    /**
+     * Print a usage example for a specific command
+     * @param example An example for the command
+     */
+    private void printCommandExample(String example) {
+        if (!example.equals("none")) {
+            System.out.println("example: " + example);
+        }
     }
 }
 
