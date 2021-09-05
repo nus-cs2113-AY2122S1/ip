@@ -10,7 +10,25 @@ Hey there! I am Chai!
 What are you doing today?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Error404!!! I don't understand what that is, please try again!
+List of commands available:
+
+todo <type your task here> [eg. todo swimming]
+-> Adds a todo task to the task list.
+
+deadline <type your deadline here> <SPACE> </by> <SPACE> <type a date or time> [eg. deadline assignment /by monday 1pm]
+-> Adds a deadline task to the task list.
+
+event <type your event here> <SPACE> </at> <SPACE> <type a date or time> [eg. lecture /at friday 4pm]
+-> Adds an event task to the task list.
+
+done <type task number> <SPACE> <type task number> [eg. done 1 3]
+Marks task on the list as completed, can input multiple number with space in between.
+
+list [eg. list]
+-> Lists out all tasks on the list.
+
+bye [eg. bye]
+-> Exits program
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
