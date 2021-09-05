@@ -3,10 +3,6 @@ public class TaskManager {
     private static final int MAX_TASK = 100;
     private static final int TASK_NAME_INDEX = 0;
     private static final int TASK_DATE_INDEX = 1;
-    private static final int TODO_NAME_START_INDEX = 5;
-    private static final int DEADLINE_NAME_START_INDEX = 9;
-    private static final int EVENT_NAME_START_INDEX = 6;
-    private static final int SPACES_BETWEEN_SLASH_AND_DATE = 4;
 
     private static final String LS = System.lineSeparator();
     private static final String S_TAB = "     ";
@@ -20,9 +16,8 @@ public class TaskManager {
     private static final String MESSAGE_TASK_IN_LIST = S_TAB + "NOTICE: Here are the task(s) in your list...";
     private static final String MESSAGE_HELP = S_TAB + "NOTICE: This is a list of the possible commands...";
 
-    private static final String ERROR_INVALID_TASK_SELECTED = S_TAB + "NOTICE: Invalid task selected.";
-    private static final String ERROR_NO_TASK_IN_LIST = S_TAB + "NOTICE: There are no tasks in your list.";
-    private static final String ERROR_INVALID_COMMAND = S_TAB + "NOTICE: Invalid command. Use one of the following commands...";
+    private static final String ERROR_INVALID_TASK_SELECTED = S_TAB + "ERROR: Invalid task selected.";
+    private static final String ERROR_NO_TASK_IN_LIST = S_TAB + "ERROR: There are no tasks in your list.";
 
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
     private static final String LIST_COMMAND = L_TAB + "1. list" + LS
@@ -39,12 +34,16 @@ public class TaskManager {
     /**
      * Adds a task to the list of existing tasks.
      *
-     * @param item The name of task to be added.
-     * @param type The type of task to be added.
+     * @param taskName The name of task to be added.
+     * @param taskDate TODO: null.
+     *                 DEADLINE: The due date of the task to be added.
+     *                 EVENT: The event date of the task to be added.
+     * @param taskType The type of task to be added.
      */
-    public static void addToList(String item, TaskType type) {
-        String[] information = extractTaskInformation(item, type);
-        switch (type) {
+    public static void addToList(String taskName, String taskDate, TaskType taskType) {
+        String[] information = new String[]{taskName, taskDate};
+        //String[] information = extractTaskInformation(item, type);
+        switch (taskType) {
         case TODO:
             tasks[tasksCount] = new Todo(information[TASK_NAME_INDEX]);
             break;
@@ -73,43 +72,16 @@ public class TaskManager {
     }
 
     /**
-     * Takes in a string containing task information and
-     * separating it into date (and task).
-     *
-     * @param item The string containing task information.
-     * @param type The type of task to be added.
-     * @return Task name and task date.
-     */
-    private static String[] extractTaskInformation(String item, TaskType type) {
-        String[] information = new String[2];
-        final int slashPosition = item.indexOf('/');
-        switch (type) {
-        case TODO:
-            information[TASK_NAME_INDEX] = item.substring(TODO_NAME_START_INDEX);
-            break;
-        case DEADLINE:
-            information[TASK_NAME_INDEX] = item.substring(DEADLINE_NAME_START_INDEX, slashPosition - 1);
-            information[TASK_DATE_INDEX] = item.substring(slashPosition + SPACES_BETWEEN_SLASH_AND_DATE);
-            break;
-        case EVENT:
-            information[TASK_NAME_INDEX] = item.substring(EVENT_NAME_START_INDEX, slashPosition - 1);
-            information[TASK_DATE_INDEX] = item.substring(slashPosition + SPACES_BETWEEN_SLASH_AND_DATE);
-            break;
-        default:
-        }
-        return information;
-    }
-
-    /**
      * Marks the task associated with the itemNumber as completed.
      * Prints a message to confirm that the task has been marked as completed.
      *
      * @param itemNumber One index greater than the index of the task in the list.
+     * @throws DukeException If itemNumber > number of items in list or not a positive integer
      */
-    public static void markAsCompleted(int itemNumber) {
+    public static void markAsCompleted(int itemNumber) throws DukeException {
         Picture.printLine();
         if (itemNumber > tasksCount || itemNumber < 1) {
-            System.out.println(ERROR_INVALID_TASK_SELECTED);
+            throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
             tasks[itemNumber - 1].markTaskAsDone();
             final String taskDetails = tasks[itemNumber - 1].toString();
@@ -132,10 +104,10 @@ public class TaskManager {
      * Prints an error message if an invalid task is selected;
      * otherwise prints all the tasks in the list in ascending order.
      */
-    public static void printList() {
+    public static void printList() throws DukeException {
         Picture.printLine();
         if (tasksCount == 0) {
-            System.out.println(ERROR_NO_TASK_IN_LIST);
+            throw new DukeException(ERROR_NO_TASK_IN_LIST);
         } else {
             System.out.println(MESSAGE_TASK_IN_LIST);
             printTasksInList();
@@ -164,16 +136,6 @@ public class TaskManager {
      */
     private static String getListItem(int taskNumber, String taskDetails) {
         return String.format(LIST_ITEM, taskNumber, taskDetails);
-    }
-
-    /**
-     * Prints an error message if an invalid command is used,
-     * followed by a list of possible commands.
-     */
-    public static void printInvalidCommandMessage() {
-        Picture.printLine();
-        System.out.println(ERROR_INVALID_COMMAND + LS + LIST_COMMAND);
-        Picture.printLine();
     }
 
     /**

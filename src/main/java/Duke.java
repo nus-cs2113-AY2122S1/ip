@@ -8,7 +8,7 @@ public class Duke {
     private static final String MESSAGE_WELCOME = S_TAB + "Welcome to Jura Tempest!" + LS
                                                 + S_TAB + "I'm Rimuru Tempest, pleased to make your acquaintance." + LS
                                                 + S_TAB + "How can I help you today?";
-    public static final String MESSAGE_GOODBYE = S_TAB + "Sayonara. Come visit our country again soon!";
+    private static final String MESSAGE_GOODBYE = S_TAB + "Sayonara. Come visit our country again soon!";
 
     public static void main(String[] args) {
         greetUser();
@@ -18,8 +18,8 @@ public class Duke {
     /**
      * Prints a message that greets the user.
      */
-    public static void greetUser() {
-        Picture.drawRimuruLogo();
+    private static void greetUser() {
+        System.out.println(Picture.RIMURU_LOGO);
         System.out.println(MESSAGE_WELCOME);
         Picture.printLine();
     }
@@ -27,7 +27,7 @@ public class Duke {
     /**
      * Prints an exit message.
      */
-    public static void exitDuke() {
+    private static void exitDuke() {
         Picture.printLine();
         System.out.println(MESSAGE_GOODBYE);
         Picture.printLine();
@@ -38,40 +38,23 @@ public class Duke {
      * and executes the corresponding actions,
      * until the exit command is typed.
      */
-    public static void executeResponse() {
-        String line;
+    private static void executeResponse() {
+        String userInput;
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
-        do {
-            line = in.nextLine();
-            String[] words = line.split(" ");
-            switch (words[0]) {
-            case "bye":
-                exitDuke();
-                isExit = true;
-                break;
-            case "list":
-                TaskManager.printList();
-                break;
-            case "done":
-                TaskManager.markAsCompleted(Integer.parseInt(words[1]));
-                break;
-            case "todo":
-                TaskManager.addToList(line, TaskType.TODO);
-                break;
-            case "deadline":
-                TaskManager.addToList(line, TaskType.DEADLINE);
-                break;
-            case "event":
-                TaskManager.addToList(line, TaskType.EVENT);
-                break;
-            case "help":
-                TaskManager.printHelpMessage();
-                break;
-            default:
-                TaskManager.printInvalidCommandMessage();
+        while (!isExit) {
+            userInput = in.nextLine().stripLeading().stripTrailing();
+            try {
+                Command command = CommandParser.parse(userInput);
+                command.runCommand();
+                isExit = command.isExitCommand();
+            } catch (DukeException e) {
+                Picture.printLine();
+                System.out.println(e.getMessage());
+                Picture.printLine();
             }
-        } while (!isExit);
+        }
+        exitDuke();
     }
 
 }

@@ -2,7 +2,7 @@ public class Deadline extends Task {
     protected String dueDate;
 
     /**
-     * Deadline constructor.
+     * Class deadline constructor.
      *
      * @param description Short description of the task.
      * @param dueDate     Date that the task has to be completed by.
