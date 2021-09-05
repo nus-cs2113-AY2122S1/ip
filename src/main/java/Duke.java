@@ -113,6 +113,7 @@ public class Duke {
     }
 
     private static Task getTodoDetails(String input) {
+        // To extract description starting after the four letter word "todo"
         String todoDescription = input.substring(4).trim();
 
         Task todo = new Todo(todoDescription);
@@ -123,6 +124,7 @@ public class Duke {
     }
 
     private static Task getDeadlineDetails(String input) {
+        // To extract description between the eight-letter word "deadline" and "/by"
         int endIndex = input.indexOf("/");
         String deadlineDescription = input.substring(8, endIndex);
         String deadlineDate = getDateFromCommand(input);
@@ -135,6 +137,7 @@ public class Duke {
     }
 
     private static Task getEventDetails(String input) {
+        // To extract description between the five-letter word "event" and "/at"
         int endIndex = input.indexOf("/");
         String eventDescription = input.substring(5, endIndex);
         String eventDate = getDateFromCommand(input);
