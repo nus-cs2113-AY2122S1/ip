@@ -1,4 +1,5 @@
-package tan;
+package tan.tasktype;
+
 public class ToDo extends Task {
 
     private final String toDoIcon = "T";

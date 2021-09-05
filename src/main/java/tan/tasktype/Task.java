@@ -1,4 +1,4 @@
-package tan;
+package tan.tasktype;
 
 public abstract class Task {
     protected String name;

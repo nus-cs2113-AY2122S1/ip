@@ -1,5 +1,11 @@
 package tan;
 
+import tan.exceptions.DukeFormatExceptions;
+import tan.tasktype.Deadline;
+import tan.tasktype.Event;
+import tan.tasktype.Task;
+import tan.tasktype.ToDo;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
@@ -70,7 +76,7 @@ public class TaskManager {
             break;
         case "event":
             curTask = getEventTask(userInput);
-            if (curTask == null){
+            if (curTask == null) {
                 return;
             }
             break;
@@ -298,7 +304,7 @@ public class TaskManager {
                 Task currentTask = listOfTasks.get(i);
                 System.out.println(currentTask);
             }
-        } catch (IndexOutOfBoundsException i){
+        } catch (IndexOutOfBoundsException i) {
             System.out.println("Error in printing task! Contact Admin =(");
         }
 
