@@ -1,4 +1,7 @@
-package duke;
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskManager;
 
 public abstract class Command {
     /**

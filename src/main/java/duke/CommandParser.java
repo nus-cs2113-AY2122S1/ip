@@ -1,5 +1,15 @@
 package duke;
 
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 public class CommandParser {
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";

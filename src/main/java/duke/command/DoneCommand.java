@@ -1,4 +1,7 @@
-package duke;
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskManager;
 
 public class DoneCommand extends Command {
     private int taskIndex;

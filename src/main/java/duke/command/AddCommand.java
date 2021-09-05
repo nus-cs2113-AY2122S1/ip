@@ -1,4 +1,8 @@
-package duke;
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskManager;
+import duke.task.Task;
 
 public class AddCommand extends Command {
     Task task = null;

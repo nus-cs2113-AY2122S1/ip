@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 public class TaskManager {
     private static final int MAXIMUM_TASKS = 100;
 

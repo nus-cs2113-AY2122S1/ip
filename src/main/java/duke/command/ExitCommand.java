@@ -1,4 +1,6 @@
-package duke;
+package duke.command;
+
+import duke.TaskManager;
 
 public class ExitCommand extends Command {
 
