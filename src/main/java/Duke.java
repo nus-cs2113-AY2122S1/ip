@@ -29,20 +29,22 @@ public class Duke {
     }
 
     static void printFarewellMessage() {
-        String farewell = "Bye. Hope you will complete everything for today!";
-        System.out.println(farewell);
+        System.out.println("Bye. Hope you will complete everything for today!");
     }
 
     static void printPutTaskOnList() {
-        String toPrint = "Alright. I'll put it on the list.";
-        System.out.println(toPrint);
+        System.out.println("Alright. I'll put it on the list.");
     }
 
     static void printNumberOfTasks() {
-        if (Timetable.size() <= 1) {
-            System.out.println("For now, you have " + Timetable.size() + " task on the list");
+        if (Timetable.getSize() <= 1) {
+            System.out.println("For now, you have "
+                    + Timetable.getSize()
+                    + " task on the list");
         } else {
-            System.out.println("For now, you have " + Timetable.size() + " tasks on the list");
+            System.out.println("For now, you have "
+                    + Timetable.getSize()
+                    + " tasks on the list");
         }
     }
 
@@ -58,12 +60,12 @@ public class Duke {
             task = new Todo(phrase.replace("todo ", ""));
         } else if (phrase.contains("deadline")) {
             phrase = phrase.replace("deadline ","");
-            String[] whatAndWhen = phrase.split(" /by ");
-            task = new Deadline(whatAndWhen[0], whatAndWhen[1]);
+            String[] taskAndTime = phrase.split(" /by ");
+            task = new Deadline(taskAndTime[0], taskAndTime[1]);
         } else if (phrase.contains("event")) {
             phrase = phrase.replace("event ","");
-            String[] whatAndWhen = phrase.split(" /at ");
-            task = new Event(whatAndWhen[0], whatAndWhen[1]);
+            String[] taskAndTime = phrase.split(" /at ");
+            task = new Event(taskAndTime[0], taskAndTime[1]);
         } else {
             task = new Task("Invalid Task");
         }
@@ -74,7 +76,7 @@ public class Duke {
         printPutTaskOnList();
 
         Timetable task = parsePhraseToTask(phrase);
-        Timetable.addTasks(task);
+        Timetable.addTask(task);
 
         printNumberOfTasks();
     }
