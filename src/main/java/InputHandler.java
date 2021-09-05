@@ -8,6 +8,7 @@ public class InputHandler {
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String EVENT_TIME = "at";
     private static final String DEADLINE_DATE = "by";
+    private static final String COMMAND_HELP = "!";
 
     private String description;
     private final ListManager listManager;
