@@ -8,7 +8,6 @@ public class TaskList {
     private static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";
     private static final String MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR = "Please provide a task number e.g 'done 2'";
 
-
     private int taskNumber;
     private Task[] taskList;
 
@@ -18,11 +17,15 @@ public class TaskList {
     }
 
 
-    public void addTask(Task task) {
-        PrintUtils.printHorizontalLine(100);
+    public void addTask(Task task) throws DukeException{
+        if (task.getDescription() == "") {
+            throw new DukeException(ExceptionMessages.EXCEPTION_NO_DESCRIPTION);
+        }
+        PrintUtils.printHorizontalLine();
         taskList[taskNumber] = task;
         printAddTaskSuccessMessage();
         taskNumber++;
+        PrintUtils.printHorizontalLine();
     }
 
     private void printAddTaskSuccessMessage() {
@@ -30,14 +33,11 @@ public class TaskList {
         PrintUtils.printSpacing();
         System.out.println(taskList[taskNumber]);
         System.out.println("You now have " + (taskNumber + 1) + " task(s)");
-        PrintUtils.printHorizontalLine(100);
     }
 
     public void markTaskAsDone(String input) {
         if (input.equals("")) {
-            PrintUtils.printHorizontalLine(100);
-            System.out.println(MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR);
-            PrintUtils.printHorizontalLine(100);
+            PrintUtils.printErrorMessage(MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR);
             return;
         }
         int taskNumber = Integer.parseInt(input.trim());
@@ -53,9 +53,9 @@ public class TaskList {
     }
 
     private void printMissingTaskErrorMessage() {
-        PrintUtils.printHorizontalLine(100);
+        PrintUtils.printHorizontalLine();
         System.out.println(MESSAGE_MARK_TASK_FAIL);
-        PrintUtils.printHorizontalLine(100);
+        PrintUtils.printHorizontalLine();
     }
 
     private void markExistingTaskAsDone(Task task) {
@@ -64,18 +64,18 @@ public class TaskList {
     }
 
     private void printMarkTaskSuccessMessage(Task task) {
-        PrintUtils.printHorizontalLine(100);
+        PrintUtils.printHorizontalLine();
         System.out.println(MESSAGE_MARK_TASK_SUCCESS);
         PrintUtils.printSpacing();
         System.out.println(task);
-        PrintUtils.printHorizontalLine(100);
+        PrintUtils.printHorizontalLine();
     }
 
     public void printAllTasks() {
-        PrintUtils.printHorizontalLine(100);
+        PrintUtils.printHorizontalLine();
         if (taskNumber == 0) {
             System.out.println(MESSAGE_NO_TASK_AVAILABLE);
-            PrintUtils.printHorizontalLine(100);
+            PrintUtils.printHorizontalLine();
             return;
         }
         System.out.println(MESSAGE_PRINT_ALL_TASK_SUCCESS);
@@ -83,6 +83,6 @@ public class TaskList {
             PrintUtils.printSpacing();
             System.out.println((i + 1) + ". " + taskList[i]);
         }
-        PrintUtils.printHorizontalLine(100);
+        PrintUtils.printHorizontalLine();
     }
 }
