@@ -19,7 +19,7 @@ public class Task {
      * @return Whitespace if task is not completed, tick if task is completed.
      */
     public String getStatusIcon() {
-        return (isDone ? "=" : " ");
+        return (isDone ? "X" : " ");
     }
 
     @Override
