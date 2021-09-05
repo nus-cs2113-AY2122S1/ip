@@ -83,6 +83,18 @@ public class TaskManager {
         System.out.println("Your current total number of task is: " + totalNumberOfTask);
     }
 
+    /**
+     * Takes in the users input and
+     * splits tries to get the description
+     * and the event date, then creates a new
+     * event task as the parameters and returns it.
+     * If getting the description or Event date fails,
+     * it will throw either a DukeFormatException or
+     * IndexOutOfBoundsException.
+     *
+     * @param userInput - The user input in String.
+     * @return returns the task created, else null.
+     */
     private static Task getEventTask(String userInput) {
         try {
             String eventDesc = getDescriptionOfEvent(userInput);
@@ -98,6 +110,18 @@ public class TaskManager {
         return null;
     }
 
+    /**
+     * Takes in the users input and
+     * splits tries to get the description
+     * and the deadline date, then creates a new
+     * deadline task as the parameters and returns it.
+     * If getting the description or deadline date fails,
+     * it will throw either a DukeFormatException or
+     * IndexOutOfBoundsException.
+     *
+     * @param userInput - The user input in String.
+     * @return returns the task created, else null.
+     */
     private static Task getDeadlineTask(String userInput) {
         try {
             String deadlineDesc = getDescriptionOfDeadline(userInput);
