@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package duke.actions;
+
+public class Deadline extends Task {
 
     public static final int INDEX_OF_DEADLINE = 8;
     protected String deadline;

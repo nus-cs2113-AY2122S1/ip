@@ -1,3 +1,5 @@
+package duke.actions;
+
 public class Event extends Task{
 
     public static final int INDEX_OF_EVENT = 5;

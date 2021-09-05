@@ -1,3 +1,11 @@
+package duke;
+
+import duke.actions.Deadline;
+import duke.actions.Event;
+import duke.actions.Task;
+import duke.actions.Todo;
+import duke.exceptions.DukeException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,7 +55,11 @@ public class Duke {
             } else if (userInput.startsWith("list")) {
                 printTaskList(taskList);
             } else if (userInput.startsWith("done ")) {
-                markTaskAsDone(taskList, userInput);
+                try {
+                    markTaskAsDone(taskList, userInput);
+                } catch (DukeException e){
+                    System.out.println("Please specify the number of the task to be marked as done!");
+                }
             } else if (userInput.startsWith("bye")) {
                 break;
             } else {
@@ -97,19 +109,23 @@ public class Duke {
         }
     }
 
-    private static void markTaskAsDone(ArrayList<Task> taskList, String userInput) {
+    private static void markTaskAsDone(ArrayList<Task> taskList, String userInput) throws DukeException {
         int wordIndex = 0;
+        boolean numberExists = false;
         String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
         for (String word : splitTask) {
             if (isValidNumber(word)) {
+                numberExists = true;
                 int taskNumber = (Integer.parseInt(splitTask[wordIndex])) - 1;
                 try{
                     printTaskMarkAsDone(taskList, taskNumber);
                 } catch(IndexOutOfBoundsException e){
-                    System.out.println("No number or invalid number specified! Please specify the number on the list of the task you have completed!");
+                    System.out.println("Invalid number specified! Please specify the number on the list of the task you have completed!");
                 }
             }
             wordIndex++;
+        } if (!numberExists){
+            throw new DukeException();
         }
     }
 
