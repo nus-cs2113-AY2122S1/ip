@@ -1,9 +1,5 @@
 package tan;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch-Level-5
 import java.util.Scanner;
 
 public class Duke {
