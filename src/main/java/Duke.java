@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
 public class Duke {
 
     public static final String HORIZONTAL_LINE = "_____________________________________________";
@@ -35,16 +36,26 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String inputCommand = in.nextLine();
         while (!(inputCommand.equals("bye"))) {
-            if (inputCommand.equals("list")) {
-                showList();
-            } else if (inputCommand.contains("done")) {
-                MarkAsDone(inputCommand);
-            } else if (inputCommand.contains("todo")) {
-                addToDo(inputCommand);
-            } else if (inputCommand.contains("deadline")) {
-                addDeadline(inputCommand);
-            } else if (inputCommand.contains("event")) {
-                addEvent(inputCommand);
+
+            try {
+                if (inputCommand.equals("list")) {
+                    showList();
+                } else if (inputCommand.contains("done")) {
+                    MarkAsDone(inputCommand);
+                } else if (inputCommand.contains("todo")) {
+                    addToDo(inputCommand);
+                } else if (inputCommand.contains("deadline")) {
+                    addDeadline(inputCommand);
+                } else if (inputCommand.contains("event")) {
+                    addEvent(inputCommand);
+                }
+                else{
+                    throw new DukeException();
+                }
+            } catch (DukeException e) {
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(HORIZONTAL_LINE);
             }
             inputCommand = in.nextLine();
         }
@@ -52,46 +63,63 @@ public class Duke {
 
     private static void addEvent(String inputCommand) {
         System.out.println(HORIZONTAL_LINE);
-        String description = inputCommand.substring(5);
-        String[] parts = description.split("/at");
-        String eventDescription = parts[0];
-        String timingDescription = parts[1];
-        tasks.add(new Event(eventDescription, timingDescription));
-        GotItMessage();
+        try {
+            String description = inputCommand.substring(6);
+            String[] parts = description.split("/at");
+            String eventDescription = parts[0];
+            String timingDescription = parts[1];
+            tasks.add(new Event(eventDescription, timingDescription));
+            GotItMessage();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
     private static void addDeadline(String inputCommand) {
         System.out.println(HORIZONTAL_LINE);
-        String description = inputCommand.substring(9);
-        String[] parts = description.split("/by");
-        String taskDescription = parts[0];
-        String deadlineDescription = parts[1];
-        tasks.add(new Deadline(taskDescription, deadlineDescription));
-        GotItMessage();
+        try {
+            String description = inputCommand.substring(9);
+            String[] parts = description.split("/by");
+            String taskDescription = parts[0];
+            String deadlineDescription = parts[1];
+            tasks.add(new Deadline(taskDescription, deadlineDescription));
+            GotItMessage();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
     private static void addToDo(String inputCommand) {
         System.out.println(HORIZONTAL_LINE);
-        String taskToDo = inputCommand.substring(5);
-        tasks.add(new ToDo(taskToDo));
-        GotItMessage();
+        try {
+            String taskToDo = inputCommand.substring(5);
+            tasks.add(new ToDo(taskToDo));
+            GotItMessage();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
     private static void GotItMessage() {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it!! I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void MarkAsDone(String inputCommand) {
-        int position = inputCommand.indexOf(" ");
-        int taskNum = Integer.parseInt(inputCommand.trim().substring(position + 1));
-        tasks.get(taskNum - 1).setDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(taskNum - 1).getDescription().trim());
+        System.out.println(HORIZONTAL_LINE);
+        try {
+            int position = inputCommand.indexOf(" ");
+            int taskNum = Integer.parseInt(inputCommand.trim().substring(position + 1));
+            tasks.get(taskNum - 1).setDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(tasks.get(taskNum - 1).getDescription().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please enter a number after done.");
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
