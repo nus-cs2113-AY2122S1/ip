@@ -1,23 +1,28 @@
-package command;
+package InputHandler.command;
+
+import InputHandler.exception.TaskEmptyException;
+import InputHandler.exception.TimeMissingException;
 
 public class TaskList {
     private Task[] tasks = new Task[100];
     private int totalTasks = 0;
 
-    public int addList(String userInput) throws TimeMissingException, TaskEmptyException {
+    public Task addList(String userInput) throws TimeMissingException, TaskEmptyException {
         Task newTask;
         newTask = getTask(userInput);
-
-        System.out.println("       " + newTask);
         this.tasks[totalTasks] = newTask;
         totalTasks ++;
-        return totalTasks;
+        return newTask;
     }
 
     public void listTasks() {
         for (int i = 0; i < totalTasks; i++) {
             System.out.println("     " + (i + 1) + "." + tasks[i].toString());
         }
+    }
+
+    public int getTotalTaskNumber() {
+        return this.totalTasks;
     }
 
     public void markAsDone(int index) throws NullPointerException{

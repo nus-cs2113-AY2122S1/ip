@@ -1,4 +1,4 @@
-package command;
+package InputHandler.command;
 
 public class QuitCommand extends UserCommand{
     @Override

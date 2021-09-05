@@ -1,4 +1,4 @@
-package command;
+package InputHandler.command;
 
 class Event extends Task{
     String completeTime;

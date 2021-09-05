@@ -1,9 +1,9 @@
-package command;
+package InputHandler.exception;
 
 public class TaskEmptyException extends CommandWrongFormatException {
     private String taskType;
 
-    TaskEmptyException(String taskType) {
+    public TaskEmptyException (String taskType) {
         this.taskType = taskType;
     }
 

@@ -1,5 +1,7 @@
-package command;
+package InputHandler.command;
 
+
+import InputHandler.exception.TaskNotExistException;
 
 public class DoneCommand extends UserCommand {
     private int index;

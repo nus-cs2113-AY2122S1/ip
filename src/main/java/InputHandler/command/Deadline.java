@@ -1,4 +1,4 @@
-package command;
+package InputHandler.command;
 
 class Deadline extends Task {
     private String deadline;

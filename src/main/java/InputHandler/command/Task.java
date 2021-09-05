@@ -1,4 +1,4 @@
-package command;
+package InputHandler.command;
 
 abstract class Task {
     private String taskName;

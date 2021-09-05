@@ -1,6 +1,4 @@
-package command;
-
-import command.InvalidDoneCommandException;
+package InputHandler.exception;
 
 public class TaskNotExistException extends InvalidDoneCommandException {
     @Override

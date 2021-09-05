@@ -1,4 +1,4 @@
-package command;
+package InputHandler.command;
 
 public class ListCommand extends UserCommand {
     public ListCommand(TaskList tasks) {

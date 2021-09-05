@@ -1,12 +1,12 @@
-import command.AddTaskCommand;
-import command.CommandNotExistException;
-import command.CommandWrongFormatException;
-import command.DoneCommand;
-import command.ListCommand;
-import command.QuitCommand;
-import command.TaskIndexMissingException;
-import command.TaskList;
-import command.UserCommand;
+import InputHandler.command.AddTaskCommand;
+import InputHandler.exception.CommandNotExistException;
+import InputHandler.exception.CommandWrongFormatException;
+import InputHandler.command.DoneCommand;
+import InputHandler.command.ListCommand;
+import InputHandler.command.QuitCommand;
+import InputHandler.exception.TaskIndexMissingException;
+import InputHandler.command.TaskList;
+import InputHandler.command.UserCommand;
 
 import java.util.Scanner;
 

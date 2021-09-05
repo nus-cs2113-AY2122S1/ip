@@ -1,4 +1,6 @@
-package command;
+package InputHandler.command;
+
+import InputHandler.exception.CommandWrongFormatException;
 
 public abstract class UserCommand {
     TaskList tasks;
