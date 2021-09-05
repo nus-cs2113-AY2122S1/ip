@@ -1,12 +1,12 @@
 public class TaskList {
 
     //Output messages
-    private static final String MESSAGE_TASK_ADDED_SUCCESSFULLY = "The following task has been added:";
-    private static final String MESSAGE_MARK_TASK_FAIL = "Sorry, but the task does not exist, unable to mark as done.\nYou can view a list of your tasks using the 'list' command";
-    private static final String MESSAGE_MARK_TASK_SUCCESS = "The following task has been marked as done:";
-    private static final String MESSAGE_NO_TASK_AVAILABLE = "You have no tasks yet";
-    private static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";
-    private static final String MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR = "Please provide a task number e.g 'done 2'";
+    public static final String MESSAGE_TASK_ADDED_SUCCESSFULLY = "The following task has been added:";
+
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "The following task has been marked as done:";
+    public static final String MESSAGE_NO_TASK_AVAILABLE = "You have no tasks yet";
+    public static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";
+
 
     private int taskNumber;
     private Task[] taskList;
@@ -35,27 +35,19 @@ public class TaskList {
         System.out.println("You now have " + (taskNumber + 1) + " task(s)");
     }
 
-    public void markTaskAsDone(String input) {
+    public void markTaskAsDone(String input) throws DukeException {
         if (input.equals("")) {
-            PrintUtils.printErrorMessage(MESSAGE_NO_TASK_NUMBER_TO_MARK_ERROR);
-            return;
+            throw new DukeException(ExceptionMessages.EXCEPTION_NO_TASK_NUMBER);
         }
         int taskNumber = Integer.parseInt(input.trim());
         if (!isExistingTask(taskNumber)) {
-            printMissingTaskErrorMessage();
-            return;
+            throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_TASK_NUMBER);
         }
         markExistingTaskAsDone(taskList[taskNumber - 1]);
     }
 
     private boolean isExistingTask(int taskNumber) {
         return taskNumber > 0 && taskNumber <= this.taskNumber;
-    }
-
-    private void printMissingTaskErrorMessage() {
-        PrintUtils.printHorizontalLine();
-        System.out.println(MESSAGE_MARK_TASK_FAIL);
-        PrintUtils.printHorizontalLine();
     }
 
     private void markExistingTaskAsDone(Task task) {

@@ -19,15 +19,16 @@ public class Duke {
     //Output Messages
     public static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() + "What can I do for you?";
     public static final String MESSAGE_EXIT_APPLICATION = "Thank you for using our application. We hope to see you again soon";
-    public static final String MESSAGE_TODO_NO_DESCRIPTION = "I cannot add a Todo task without a description";
-    public static final String MESSAGE_DEADLINE_NO_DESCRIPTION = "I cannot add a Todo task without a description";
-    public static final String MESSAGE_EVENT_NO_DESCRIPTION = "I cannot add an Event task without a description";
+    public static final String MESSAGE_TODO_NO_DESCRIPTION = "Todo tasks require a description e.g 'todo CS1010 Assignment' ";
+    public static final String MESSAGE_DEADLINE_NO_DESCRIPTION = "Deadlines require a description e.g 'deadline Project Reflection /by Friday 10pm'";
+    public static final String MESSAGE_EVENT_NO_DESCRIPTION = "Events require a description e.g 'event Seminar /at Friday 2pm'";
     public static final String MESSAGE_INVALID_COMMAND = "I am sorry but I am not able to recognise this command";
+    public static final String MESSAGE_NO_TASK_NUMBER_TO_MARK = "Please provide a task number e.g 'done 2'";
+    public static final String MESSAGE_INVALID_TASK_NUMBER = "Sorry, but the task does not exist, unable to mark as done.\nYou can view a list of your tasks using the 'list' command";
 
     //Default values for tasks
     private static final String DEFAULT_DEADLINE_TIME_CONTENT = "No deadline provided";
     private static final String DEFAULT_EVENT_TIME_CONTENT = "No date provided";
-
 
 
     private static TaskList task = new TaskList();
@@ -77,7 +78,19 @@ public class Duke {
     }
 
     private static void markTaskAsDone(String input) {
-        task.markTaskAsDone(input);
+        try {
+            task.markTaskAsDone(input);
+        } catch (DukeException e) {
+            final String message = e.getMessage();
+            switch (message) {
+            case ExceptionMessages.EXCEPTION_NO_TASK_NUMBER:
+                PrintUtils.printErrorMessage(MESSAGE_NO_TASK_NUMBER_TO_MARK);
+                break;
+            case ExceptionMessages.EXCEPTION_INVALID_TASK_NUMBER:
+                PrintUtils.printErrorMessage(MESSAGE_INVALID_TASK_NUMBER);
+                break;
+            }
+        }
     }
 
     private static void addTodoTaskToList(String input) {
