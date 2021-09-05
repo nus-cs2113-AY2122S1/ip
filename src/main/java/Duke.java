@@ -21,35 +21,35 @@ public class Duke {
         String command = "";
         while (!(command.equalsIgnoreCase("bye"))) {
             command = input.nextLine();
-            if ((command.equalsIgnoreCase("bye"))) {
-                break;
-            }
-            if (command.equalsIgnoreCase("list")) {
-                printList(tasks, index);
-            } else if ((command.toLowerCase()).contains("done")) {
-                markItemAsDone(tasks, command);
-            } else if ((command.toLowerCase()).contains("todo")) {
-                addTodoTask(tasks, index, command);
-                printAddTaskMessage(index, tasks[index]);
-                index++;
-            } else if ((command.toLowerCase()).contains("deadline")) {
-                if (command.contains("/by")) {
+            try {
+                if ((command.equalsIgnoreCase("bye"))) {
+                    break;
+                }
+                if (command.equalsIgnoreCase("list")) {
+                    printList(tasks, index);
+                } else if ((command.toLowerCase()).contains("done")) {
+                    markItemAsDone(tasks, command);
+                } else if ((command.toLowerCase()).contains("todo")) {
+                    addTodoTask(tasks, index, command);
+                    printAddTaskMessage(index, tasks[index]);
+                    index++;
+                } else if ((command.toLowerCase()).contains("deadline")) {
                     addDeadlineTask(tasks, index, command);
                     printAddTaskMessage(index, tasks[index]);
                     index++;
-                } else {
-                    System.out.println("Please include deadline: /by deadline");
-                }
-            } else if ((command.toLowerCase()).contains("event")) {
-                if (command.contains("/at")) {
+                } else if ((command.toLowerCase()).contains("event")) {
                     addEventTask(tasks, index, command);
                     printAddTaskMessage(index, tasks[index]);
                     index++;
                 } else {
-                    System.out.println("Please include event time! /at event time");
+                    System.out.println(LINE);
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println(LINE);
                 }
-            } else {
-                System.out.println("Please specify type (deadline, event, todo) of task before Task description");
+            } catch (IncompleteCommandException e) {
+                System.out.println(LINE);
+                System.out.println("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                System.out.println(LINE);
             }
         }
         printByeMessage();
@@ -61,13 +61,19 @@ public class Duke {
      * @param index Index number of the newest item in tasks array
      * @param command User input
      */
-    private static void addEventTask(Task[] tasks, int index, String command) {
-        int endOfDescriptionIndex = command.indexOf("/");
-        //5 is index after "event" in input string
-        String eventTask = command.substring(5, endOfDescriptionIndex);
-        //3 is no of chars after "at"
-        String at = command.substring(endOfDescriptionIndex + 3);
-        tasks[index] = new Events(eventTask, at);
+    private static void addEventTask(Task[] tasks, int index, String command) throws IncompleteCommandException {
+        String[] brokenDownCommand = command.split(" ");
+        //<2 to handle commands with only the 1st word and no description
+        if (brokenDownCommand.length < 2) {
+            throw new IncompleteCommandException();
+        } else {
+            int endOfDescriptionIndex = command.indexOf("/");
+            //5 is index after "event" in input string
+            String eventTask = command.substring(5, endOfDescriptionIndex);
+            //3 is no of chars after "at"
+            String at = command.substring(endOfDescriptionIndex + 3);
+            tasks[index] = new Events(eventTask, at);
+        }
     }
 
     /**
@@ -76,13 +82,19 @@ public class Duke {
      * @param index Index number of the newest item in tasks array
      * @param command User input
      */
-    private static void addDeadlineTask(Task[] tasks, int index, String command) {
-        int endOfDescriptionIndex = command.indexOf("/");
-        //8 is index after "deadline" in input string
-        String deadlineTask = command.substring(8, endOfDescriptionIndex);
-        //3 is no of chars after 'by'
-        String by = command.substring(endOfDescriptionIndex + 3);
-        tasks[index] = new Deadline(deadlineTask, by);
+    private static void addDeadlineTask(Task[] tasks, int index, String command) throws IncompleteCommandException {
+        String[] brokenDownCommand = command.split(" ");
+        //<2 to handle commands with only the 1st word and no description
+        if (brokenDownCommand.length < 2) {
+            throw new IncompleteCommandException();
+        } else {
+            int endOfDescriptionIndex = command.indexOf("/");
+            //8 is index after "deadline" in input string
+            String deadlineTask = command.substring(8, endOfDescriptionIndex);
+            //3 is no of chars after 'by'
+            String by = command.substring(endOfDescriptionIndex + 3);
+            tasks[index] = new Deadline(deadlineTask, by);
+        }
     }
 
     /**
@@ -91,10 +103,16 @@ public class Duke {
      * @param index Index number of the newest item in tasks array
      * @param command User input
      */
-    private static void addTodoTask(Task[] tasks, int index, String command) {
-        //4 is index after todo in input string
-        String toDoTask = command.substring(4);
-        tasks[index] = new ToDos(toDoTask);
+    private static void addTodoTask(Task[] tasks, int index, String command) throws IncompleteCommandException {
+        String[] brokenDownCommand = command.split(" ");
+        //<2 to handle commands with only the 1st word and no description
+        if (brokenDownCommand.length < 2) {
+            throw new IncompleteCommandException();
+        } else {
+            //4 is index after todo in input string
+            String toDoTask = command.substring(4);
+            tasks[index] = new ToDos(toDoTask);
+        }
     }
 
     /**

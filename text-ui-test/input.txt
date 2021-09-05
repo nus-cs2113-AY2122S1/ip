@@ -1,3 +1,6 @@
+todo
+deadline
+event
 todo buy food
 deadline return book /by 2 Sep
 event Exco+ meeting /at OYP this sat 10-12pm
