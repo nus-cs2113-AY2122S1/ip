@@ -44,9 +44,9 @@ Here if your current list
 3.[E][ ] task 3 (at: thursday 1pm)
 You have 3 task(s) on your list.
 ========================================================================
-todo, deadline, or event commands cannot be empty
+todo, deadline or event commands must have task descriptions
 ========================================================================
-todo, deadline, or event commands cannot be empty
+todo, deadline or event commands must have task descriptions
 ========================================================================
 Command not entered properly, remember to use "/by" or "/at" modifiers for deadline and event tasks respectively. Type "help" for more information
 ========================================================================

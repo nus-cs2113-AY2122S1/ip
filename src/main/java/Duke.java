@@ -1,3 +1,4 @@
+import java.io.LineNumberReader;
 import java.util.Scanner;
 
 public class Duke {
@@ -48,10 +49,18 @@ public class Duke {
             break;
         case DONE_COMMAND:
             int entryNumber = list.parseInputForEntryNumber(input);
-            list.doneEntry(entryNumber);
+            try {
+                list.doneEntry(entryNumber);
+            } catch (NumberFormatException e) {
+                printInvalidInputMessage();
+            }
             break;
         case TASK_COMMAND:
-            list.addEntryToList(input);
+            try {
+                list.addEntryToList(input);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("todo, deadline or event commands must have task descriptions");
+            }
             break;
         }
     }
@@ -74,13 +83,7 @@ public class Duke {
                 printExitMessage();
                 break;
             }
-            try {
-                executeCommand(command, list, userInput);
-            } catch (NumberFormatException e) {
-                printInvalidInputMessage();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("todo, deadline, or event commands cannot be empty");
-            }
+            executeCommand(command, list, userInput);
             printResponseSeparator();
         }
     }
