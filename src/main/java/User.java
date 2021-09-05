@@ -1,4 +1,3 @@
-import java.awt.desktop.QuitEvent;
 import java.util.Scanner;
 
 public class User {
@@ -20,7 +19,7 @@ public class User {
             userInput = readInput();
             try {
                 input = handleCommand(userInput);
-            } catch (InvalidCommandException e) {
+            } catch (CommandNotExistException | TaskIndexMissingException e) {
                 System.out.print(DIVISIONLINE);
                 System.out.println(e);
                 System.out.print(DIVISIONLINE);
@@ -40,7 +39,7 @@ public class User {
         System.out.print(DIVISIONLINE);
         try {
             input.execute();
-        } catch (TaskEmptyException | TimeMissingException e) {
+        } catch (CommandWrongFormatException e) {
             System.out.println(e);
         }
         System.out.print(DIVISIONLINE);
@@ -51,7 +50,7 @@ public class User {
     }
 
 
-    private UserCommand handleCommand(String userInput) throws InvalidCommandException{
+    private UserCommand handleCommand(String userInput) throws CommandNotExistException, TaskIndexMissingException{
         String[] inputSplits = userInput.split(" ");
         UserCommand input;
 
@@ -63,13 +62,17 @@ public class User {
             input = new ListCommand(userTasks);
             break;
         case "done":
-            input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
+            try {
+                input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new TaskIndexMissingException();
+            }
             break;
         case "todo" : case "deadline" : case "event":
             input = new AddTaskCommand(userInput, userTasks);
             break;
         default:
-            throw new InvalidCommandException();
+            throw new CommandNotExistException();
         }
         return input;
     }

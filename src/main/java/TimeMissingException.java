@@ -1,4 +1,4 @@
-public class TimeMissingException extends ValidCommandException{
+public class TimeMissingException extends CommandWrongFormatException {
     private String taskType;
 
     TimeMissingException(String taskType) {

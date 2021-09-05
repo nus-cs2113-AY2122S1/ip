@@ -1,4 +1,4 @@
-public class TaskEmptyException extends ValidCommandException{
+public class TaskEmptyException extends CommandWrongFormatException {
     private String taskType;
 
     TaskEmptyException(String taskType) {

@@ -18,7 +18,7 @@ class TaskList {
         }
     }
 
-    public void markAsDone(int index) {
+    public void markAsDone(int index) throws NullPointerException{
         this.tasks[index].setCompleted();
         System.out.println("       " + this.tasks[index]);
     }
