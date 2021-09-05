@@ -7,13 +7,6 @@ public class TaskManager {
     private int numTasks;
     private int numComplete;
 
-    private final String ADD_TASK_VALID_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
-    private final String SET_TASK_COMPLETE_VALID_MSG = "Burrrp! I've marked this task as done [\u2705]:";
-    private final String SET_TASK_COMPLETE_INVALID_MSG = "Hold up! This task is already marked done [\u2705]:";
-    private final String PRINT_TASK_VALID_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
-    private final String PRINT_TASK_INVALID_MSG = "Sorry, but there are currently no tasks added!";
-    private final String GENERIC_PROMPT_MSG = "You may choose to add/complete another task.";
-
     public TaskManager() {
         tasks = new ArrayList<Task>();
         dukeUI = new DukeInterface();
@@ -25,13 +18,9 @@ public class TaskManager {
         Task newToDo = new ToDo(todoInfo.trim());
         this.tasks.add(newToDo);
 
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
-        dukeUI.printWithPadding(tasks.get(numTasks).getTaskDescription());
-
+        dukeUI.printAddValidTaskMsg(tasks.get(numTasks).getTaskDescription());
         numTasks++;
-
-        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
+        dukeUI.printNumTasksInList(numTasks);
     }
 
     public void addDeadline(String deadlineInfo) {
@@ -39,13 +28,9 @@ public class TaskManager {
         Task newDeadline = new Deadline(deadlineArgs[0].trim(), deadlineArgs[1].trim());
         this.tasks.add(newDeadline);
 
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
-        dukeUI.printWithPadding(tasks.get(numTasks).getTaskDescription());
-
+        dukeUI.printAddValidTaskMsg(tasks.get(numTasks).getTaskDescription());
         numTasks++;
-
-        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
+        dukeUI.printNumTasksInList(numTasks);
     }
 
     public void addEvent(String eventInfo) {
@@ -53,47 +38,31 @@ public class TaskManager {
         Task newEvent = new Event(eventArgs[0].trim(), eventArgs[1].trim());
         this.tasks.add(newEvent);
 
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
-        dukeUI.printWithPadding(tasks.get(numTasks).getTaskDescription());
-
+        dukeUI.printAddValidTaskMsg(tasks.get(numTasks).getTaskDescription());
         numTasks++;
-
-        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
+        dukeUI.printNumTasksInList(numTasks);
     }
 
     public void setTaskComplete(int taskID) {
         taskID -= 1;
-
-        dukeUI.printDukeName();
-
         if (tasks.get(taskID).isDone) {
-
-            dukeUI.printMsgWithCursor(SET_TASK_COMPLETE_INVALID_MSG);
-            dukeUI.printWithPadding(tasks.get(taskID).getTaskDescription());
-            dukeUI.printMsgWithCursor(GENERIC_PROMPT_MSG);
-
+            dukeUI.printSetTaskCompleteInvalidMsg(tasks.get(taskID).getTaskDescription());
         } else {
-
             tasks.get(taskID).isDone = true;
             numComplete += 1;
-
-            dukeUI.printMsgWithCursor(SET_TASK_COMPLETE_VALID_MSG);
-            dukeUI.printWithPadding(tasks.get(taskID).getTaskDescription());
-            dukeUI.printMsgWithCursor("You have done " + numComplete + "/" + numTasks + " tasks in your list.");
+            dukeUI.printSetTaskCompleteValidMsg(tasks.get(taskID).getTaskDescription());
+            dukeUI.printNumTaskComplete(numComplete, numTasks);
         }
     }
 
     public void printTasks() {
-        dukeUI.printDukeName();
         if (numTasks > 0) {
-            dukeUI.printMsgWithCursor(PRINT_TASK_VALID_MSG);
+            dukeUI.printTasklistValidMsg();
             for (int taskID = 0; taskID < tasks.size(); taskID++) {
                 System.out.println(taskID + 1 + "." + tasks.get(taskID).getTaskDescription());
             }
         } else {
-            dukeUI.printMsgWithCursor(PRINT_TASK_INVALID_MSG);
-            dukeUI.printMsgWithCursor(GENERIC_PROMPT_MSG);
+            dukeUI.printTasklistInvalidMsg();
         }
     }
 
