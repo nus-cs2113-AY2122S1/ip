@@ -39,8 +39,8 @@ public class Duke {
     private static final String NO_TASK_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
             + SPACE_PREFIX + "Woah woah, you can't just mark something when your list of tasks is empty"
             + LINE_BREAK + CONSOLE_LINE_PREFIX;
-    private static final String EMPTY_TODO_NAME_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
-            + SPACE_PREFIX + "Excuse you? The description/name for todo can NEVER be empty!" + LINE_BREAK
+    private static final String TODO_EMPTY_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
+            + SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + LINE_BREAK
             + CONSOLE_LINE_PREFIX;
 
     // Command Prefixes for checking type of command
@@ -125,97 +125,6 @@ public class Duke {
     }
 
     /**
-     * Gets the user input from I/O
-     *
-     * @return User Input
-     */
-    private static String getUserInput() {
-        String userInput;
-        System.out.print(SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
-        userInput = SC.nextLine();
-        return userInput;
-    }
-
-    /**
-     * Creates a TodoObject from task name given by the user
-     * and returns it to be added to Tasks
-     *
-     * @param taskName name of the Todo_Task to be created
-     * @return TodoObject
-     */
-    private static Todo createNewToDo(String taskName) {
-        if (taskName.equals("")) {
-            System.out.println(EMPTY_TODO_NAME_MESSAGE);
-            return null;
-        }
-        return new Todo(taskName);
-    }
-
-    /**
-     * Processes the unprocessed task name given by user, to get the actual task name
-     * and the date to be completed ("byWhen").
-     * Lastly, creates a Deadline Object before returning it to be added to Tasks
-     *
-     * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
-     * @return DeadlineObject
-     */
-    private static Deadline createNewDeadline(String unprocessedTaskName) {
-        String byWhen = unprocessedTaskName.split(BY_WHEN_PREFIX)[1].trim();
-        String actualTaskName = unprocessedTaskName.replace(BY_WHEN_PREFIX, "").replace(byWhen, "");
-        actualTaskName = actualTaskName.trim();
-        return new Deadline(actualTaskName, byWhen);
-    }
-
-    /**
-     * Processes the unprocessed task name given by user, to get the actual task name
-     * and the date of the event ("atWhen").
-     * Lastly, creates an Event Object before returning it to be added to Tasks
-     *
-     * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
-     * @return EventObject
-     */
-    private static Event createNewEvent(String unprocessedTaskName) {
-        String atWhen = unprocessedTaskName.split(AT_WHEN_PREFIX)[1].trim();
-        String actualTaskName = unprocessedTaskName.replace(AT_WHEN_PREFIX, "").replace(atWhen, "");
-        actualTaskName = actualTaskName.trim();
-        return new Event(actualTaskName, atWhen);
-    }
-
-    /**
-     * Adds a new Task to list of Tasks.
-     *
-     * @param taskType type of task to be added
-     * @param taskName task name as of user input (Not processed for Deadline and Event)
-     */
-    private static void addToTasks(String taskType, String taskName) {
-        Task newTask;
-        if (taskType.equalsIgnoreCase(TASK_TODO_PREFIX)) {
-            newTask = createNewToDo(taskName);
-        } else if (taskType.equalsIgnoreCase(TASK_DEADLINE_PREFIX)) {
-            if (!taskName.contains(BY_WHEN_PREFIX)) {
-                System.out.println(INVALID_TASK_MESSAGE);
-                return;
-            }
-            newTask = createNewDeadline(taskName);
-        } else if (taskType.equalsIgnoreCase(TASK_EVENT_PREFIX)) {
-            if (!taskName.contains(AT_WHEN_PREFIX)) {
-                System.out.println(INVALID_TASK_MESSAGE);
-                return;
-            }
-            newTask = createNewEvent(taskName);
-        } else {
-            System.out.println(UNKNOWN_COMMAND_MESSAGE);
-            return;
-        }
-        if (newTask == null) {
-            return;
-        }
-        tasks[taskCounter] = newTask;
-        taskCounter++;
-        printAddedToTaskMessage(newTask.getTaskName());
-    }
-
-    /**
      * Prints all the Tasks.
      */
     private static void printTasks() {
@@ -234,15 +143,109 @@ public class Duke {
     }
 
     /**
+     * Gets the user input from I/O
+     *
+     * @return User Input
+     */
+    private static String getUserInput() {
+        String userInput;
+        System.out.print(SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
+        userInput = SC.nextLine();
+        return userInput;
+    }
+
+    private static int getTaskIndex() {
+        return 0;
+    }
+
+    /**
+     * Creates a TodoObject from task name given by the user
+     * and returns it to be added to Tasks
+     *
+     * @param taskName name of the Todo_Task to be created
+     * @return TodoObject
+     */
+    private static Todo createNewToDo(String taskName) throws DukeException {
+        if (taskName.equals("")) {
+            throw new DukeException(TODO_EMPTY_MESSAGE);
+        }
+        return new Todo(taskName);
+    }
+
+    /**
+     * Processes the unprocessed task name given by user, to get the actual task name
+     * and the date to be completed ("byWhen").
+     * Lastly, creates a Deadline Object before returning it to be added to Tasks
+     *
+     * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
+     * @return DeadlineObject
+     */
+    private static Deadline createNewDeadline(String unprocessedTaskName) throws DukeException {
+        if (!unprocessedTaskName.contains(BY_WHEN_PREFIX)) {
+            throw new DukeException(INVALID_TASK_MESSAGE);
+        }
+        String byWhen = unprocessedTaskName.split(BY_WHEN_PREFIX)[1].trim();
+        String actualTaskName = unprocessedTaskName.replace(BY_WHEN_PREFIX, "").replace(byWhen, "");
+        actualTaskName = actualTaskName.trim();
+        return new Deadline(actualTaskName, byWhen);
+    }
+
+    /**
+     * Processes the unprocessed task name given by user, to get the actual task name
+     * and the date of the event ("atWhen").
+     * Lastly, creates an Event Object before returning it to be added to Tasks
+     *
+     * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
+     * @return EventObject
+     */
+    private static Event createNewEvent(String unprocessedTaskName) throws DukeException {
+        if (!unprocessedTaskName.contains(AT_WHEN_PREFIX)) {
+            throw new DukeException(INVALID_TASK_MESSAGE);
+        }
+        String atWhen = unprocessedTaskName.split(AT_WHEN_PREFIX)[1].trim();
+        String actualTaskName = unprocessedTaskName.replace(AT_WHEN_PREFIX, "").replace(atWhen, "");
+        actualTaskName = actualTaskName.trim();
+        return new Event(actualTaskName, atWhen);
+    }
+
+    /**
+     * Adds a new Task to list of Tasks.
+     *
+     * @param userInput Contains the type of task and relevant details
+     */
+    private static void addToTasks(String userInput) {
+        String taskType = userInput.split(SPACE_PREFIX)[0];
+        // Remove the Type of Task from the user input
+        String taskName = userInput.replace(taskType, "").trim();
+        try {
+            Task newTask;
+            if (taskType.equalsIgnoreCase(TASK_TODO_PREFIX)) {
+                newTask = createNewToDo(taskName);
+            } else if (taskType.equalsIgnoreCase(TASK_DEADLINE_PREFIX)) {
+                newTask = createNewDeadline(taskName);
+            } else if (taskType.equalsIgnoreCase(TASK_EVENT_PREFIX)) {
+                newTask = createNewEvent(taskName);
+            } else {
+                System.out.println(UNKNOWN_COMMAND_MESSAGE);
+                return;
+            }
+            tasks[taskCounter] = newTask;
+            taskCounter++;
+            printAddedToTaskMessage(newTask.getTaskName());
+        } catch (DukeException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+
+    /**
      * Mark the task as done and print out marked as done message.
      *
      * @param index task index of task that user wants to mark as done in the list
      */
-    private static void markTaskAsDone(int index) {
+    private static void markTaskAsDone(int index) throws DukeException{
         try {
             if (taskCounter == 0) {
-                System.out.println(NO_TASK_MESSAGE);
-                return;
+                throw new DukeException(NO_TASK_MESSAGE);
             }
             Task task = tasks[index];
             task.setDone();
@@ -250,7 +253,7 @@ public class Duke {
                     + SPACE_PREFIX + task + LINE_BREAK
                     + CONSOLE_LINE_PREFIX);
         } catch (NullPointerException e) {
-            System.out.println("");
+            throw new DukeException("TOBECHANGED");
         }
     }
 
@@ -260,28 +263,26 @@ public class Duke {
         printGreeting();
         String userInput;
         while (true) {
-            userInput = getUserInput();
-            if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
-                break;
-            }
-            if (userInput.equalsIgnoreCase(COMMAND_LIST) || userInput.equals("")) {
-                printTasks();
-            } else {
-                String[] userParams = userInput.split(SPACE_PREFIX);
-                if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
-                    try {
+            try {
+                userInput = getUserInput();
+                if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
+                    break;
+                }
+                if (userInput.equalsIgnoreCase(COMMAND_LIST) || userInput.equals("")) {
+                    printTasks();
+                } else {
+                    String[] userParams = userInput.split(SPACE_PREFIX);
+                    if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
                         int index = Integer.parseInt(userParams[1]);
                         markTaskAsDone(index - 1);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(MISSING_INDEX_MESSAGE);
-                        continue;
+                    } else {
+                        addToTasks(userInput);
                     }
-                } else {
-                    String taskType = userParams[0];
-                    // Remove the Type of Task from the user input
-                    String taskName = userInput.replace(taskType, "").trim();
-                    addToTasks(taskType, taskName);
                 }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(MISSING_INDEX_MESSAGE);
+            } catch (DukeException err) {
+                System.out.println(err.getMessage());
             }
         }
         SC.close();
