@@ -4,10 +4,21 @@ public class Duke {
 
     final static String LINE = "____________________________________________________________";
 
-    final static String DONE_FORMAT = "done <task number(can be seen using the list command, eg. 1)>";
-    final static String TODO_FORMAT = "todo <task description>";
-    final static String DEADLINE_FORMAT = "deadline <task description> /by <due date>";
-    final static String EVENT_FORMAT = "event <task description> /at <start date>";
+    final static String EXIT_COMMAND = "bye";
+    final static String SET_DONE_COMMAND = "done";
+    final static String LIST_COMMAND = "list";
+    final static String ADD_TODO_COMMAND = "todo";
+    final static String ADD_EVENT_COMMAND = "event";
+    final static String ADD_DEADLINE_COMMAND = "deadline";
+
+    final static String NO_FORMAT_TAG = " <no additional input required>";
+
+    final static String EXIT_FORMAT = EXIT_COMMAND + " " + NO_FORMAT_TAG;
+    final static String LIST_FORMAT = LIST_COMMAND + " " + NO_FORMAT_TAG;
+    final static String DONE_FORMAT = SET_DONE_COMMAND + " <task number(can be seen using the list command, eg. 1)>";
+    final static String TODO_FORMAT = ADD_TODO_COMMAND + " <task description>";
+    final static String DEADLINE_FORMAT = ADD_EVENT_COMMAND + " <task description> /by <due date>";
+    final static String EVENT_FORMAT = ADD_DEADLINE_COMMAND + " <task description> /at <start date>";
 
     /**
      * Main function to run the bot.
@@ -15,8 +26,6 @@ public class Duke {
      * @param args Arguments from console input
      */
     public static void main(String[] args) {
-        System.out.println(LINE);
-        printLogoMessage();
         printWelcomeMessage();
         getMenu();
         printExitMessage();
@@ -34,6 +43,8 @@ public class Duke {
      * Prints the welcome message when user first runs the program.
      */
     public static void printWelcomeMessage() {
+        System.out.println(LINE);
+        printLogoMessage();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
@@ -71,23 +82,23 @@ public class Duke {
         while (true) {
             System.out.println(LINE);
             switch (getUserCommand(userInputs)) {
-            case "todo":
+            case ADD_TODO_COMMAND:
                 addToDoTask(taskManager, userInputs);
                 break;
-            case "event":
+            case ADD_EVENT_COMMAND:
                 addEventTask(taskManager, userInputs);
                 break;
-            case "deadline":
+            case ADD_DEADLINE_COMMAND:
                 addDeadlineTask(taskManager, userInputs);
                 break;
-            case "done":
+            case SET_DONE_COMMAND:
                 int taskIndex = getTaskIndexFromUserInputs(userInputs);
                 taskManager.setTaskToDone(taskIndex);
                 break;
-            case "list":
+            case LIST_COMMAND:
                 taskManager.printAllTasks();
                 break;
-            case "bye":
+            case EXIT_COMMAND:
                 return;
             default:
                 System.out.println("Error: Command not found.");
@@ -105,10 +116,23 @@ public class Duke {
      * @return String containing the command given by the user.
      */
     public static String getUserCommand(String userInputs) {
-        return userInputs.split(" ")[0];
+        try{
+            return userInputs.split(" ")[0];
+        }catch(Exception e){
+            return userInputs;
+        }
     }
 
+    /**
+     * Method to extract the information after a valid bot command. For example "todo read book" will give "read book".
+     *
+     * @param userInputs Raw user inputs from scanner.
+     * @return The string after a valid bot command.
+     */
     public static String getUserPayload(String userInputs) {
+        if(userInputs == null){
+            return userInputs;
+        }
         String[] payload = userInputs.split(" ");
         payload[0] = "";
         return String.join(" ", payload).trim();
