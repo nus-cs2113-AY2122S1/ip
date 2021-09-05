@@ -12,6 +12,9 @@ public class Duke {
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_BYE = "bye";
 
+    // Task manager
+    private static TaskManager taskManager = new TaskManager();
+
     // Print horizontal line for improving readability
     private static void printHorizontalLine() {
         System.out.println("_".repeat(LINE_WIDTH));
@@ -35,12 +38,22 @@ public class Duke {
 
     // Print invalid command warning
     private static void printInvalid() {
-        String invalid = " Invalid Command!";
+        String invalid = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
         System.out.println(invalid);
+    }
+
+    // Print command with no description warning
+    private static void printEmptyDescription(String command) {
+        String emptyDescription = " ☹ OOPS!!! The description of a " +
+                command + " cannot be empty.";
+        System.out.println(emptyDescription);
     }
 
     // Print task added message
     private static void printAddTask(Task task) {
+        if (task == null) {
+            return;
+        }
         String addTask = " Got it. I've added this task:" + System.lineSeparator() +
                 "  " + task.toString() + System.lineSeparator() +
                 " Now you have " + task.getNoOfTasks() +
@@ -48,25 +61,49 @@ public class Duke {
         System.out.println(addTask);
     }
 
-    private static void executeList(TaskManager taskManager) {
+    private static void printInvalidTaskNumberFormat() {
+        String message = "Task ID must be an integer!";
+        System.out.println(message);
+    }
+
+    private static void printInvalidTaskNumber() {
+        String message = "Task ID does not exist!";
+        System.out.println(message);
+    }
+
+    private static void executeList() {
         System.out.println(" Here are the tasks in your list:");
         taskManager.listTasks();
     }
 
-    private static void executeDone(TaskManager taskManager, String taskId) {
-        int num = Integer.parseInt(taskId);
-        Task task = taskManager.markAsDone(num - 1);
-        System.out.println(" Nice! I've marked this task as done:" + System.lineSeparator() +
-                "   " + task.toString());
-    }
-
-    private static void executeAdd(TaskManager taskManager, String line, String command) {
-        int descriptionIndex = line.indexOf(" ") + 1;
-        if (descriptionIndex <= 0) {
-            printInvalid();
+    private static void executeDone(String taskId) {
+        int num;
+        try {
+            num = Integer.parseInt(taskId);
+        } catch (NumberFormatException e) {
+            printInvalidTaskNumberFormat();
             return;
         }
-        String description = line.substring(descriptionIndex);
+        Task task;
+        try {
+            task = taskManager.markAsDone(num - 1);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            printInvalidTaskNumber();
+            return;
+        }
+        System.out.println(" Nice! I've marked this task as done:" +
+                System.lineSeparator() + "   " + task.toString());
+    }
+
+    private static void executeAdd(String line, String command) {
+        int descriptionIndex = line.indexOf(" ");
+        String description;
+        try {
+            description = line.substring(descriptionIndex).strip();
+        } catch (StringIndexOutOfBoundsException e) {
+            printEmptyDescription(command);
+            return;
+        }
         Task task = null;
         switch (command) {
         case COMMAND_TODO:
@@ -82,12 +119,10 @@ public class Duke {
             printInvalid();
             break;
         }
-        if (task != null) {
-            printAddTask(task);
-        }
+        printAddTask(task);
     }
 
-    private static void execute(TaskManager taskManager, String line) {
+    private static void execute(String line) {
         String[] words = line.split(" "); // Convert sentence into array of words
         String command = words[0];
         switch (command) {
@@ -95,16 +130,17 @@ public class Duke {
             printFarewell();
             break;
         case COMMAND_LIST:
-            executeList(taskManager);
+            executeList();
             break;
         case COMMAND_DONE:
-            String taskId = words[1];
-            executeDone(taskManager, taskId);
+            int spacePos = line.indexOf(" ");
+            String taskId = line.substring(spacePos + 1).strip();
+            executeDone(taskId);
             break;
         case COMMAND_TODO:
         case COMMAND_DEADLINE:
         case COMMAND_EVENT:
-            executeAdd(taskManager, line, command);
+            executeAdd(line, command);
             break;
         default:
             printInvalid();
@@ -113,19 +149,24 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
-
         printGreeting();
-
-        // Scanner class for reading user input
         String line;
         Scanner in = new Scanner(System.in);
-
-        // While user has not said "bye", check user input repetitively
         do {
             line = in.nextLine();
+            try {
+                if (line.strip().equals("")) {
+                    throw new DukeException("Empty Command");
+                }
+            } catch (DukeException e) {
+                printHorizontalLine();
+                printInvalid();
+                printHorizontalLine();
+                System.out.print(System.lineSeparator());
+                continue;
+            }
             printHorizontalLine();
-            execute(taskManager, line);
+            execute(line);
             printHorizontalLine();
             System.out.print(System.lineSeparator());
         } while (!line.equals(COMMAND_BYE));
