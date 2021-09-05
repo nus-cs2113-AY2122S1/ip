@@ -1,22 +1,18 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Deadlines;
+import duke.task.Task;
+import duke.task.ToDos;
+import duke.text.Text;
+
 import java.util.Scanner;
 
 public class Duke {
 
-    public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-    public static final int MAX = 100;
-    public static final String GOODBYE_MESSAGE = "GoodBye! Please finish up your task!";
-    public static final String HELLO_MESSAGE = "Hey there! I am Chai!\n" + "What are you doing today?";
-    public static final String UNKNOWN_COMMAND = "Error404!!! I don't understand what that is, please try again!";
-    public static final String LOGO = " ______    __                     __\n" +
-            "/  ____|  |  |                   |__|\n" +
-            "|  |      |  |_____    _______    __\n" +
-            "|  |      |   __   \\  /  __   |  |  |\n" +
-            "|  |____  |  |  |  |  | |__|  |  |  |\n" +
-            "\\______|  |__|  |__|  \\____/\\_|  |__|\n";
-
     public static void main(String[] args) {
         String userCommand; //store user input
-        Task[] taskList = new Task[MAX]; //store all the task from user input
+        Task[] taskList = new Task[100]; //store all the task from user input
         int listSize = 0;
 
         printIntroduction();
@@ -27,6 +23,9 @@ public class Duke {
         while (!userCommand.equalsIgnoreCase("bye")) { //exit command is bye
             if (userCommand.equalsIgnoreCase("list")) { //prints list of task
                 printList(taskList, listSize);
+            }
+            else if (userCommand.equalsIgnoreCase("help")) {
+                printHelpList();
             }
             else if (userCommand.toLowerCase().contains("done ")) { //check user input to see if task completed
                 markCompletedTask(userCommand, taskList);
@@ -54,21 +53,27 @@ public class Duke {
     }
 
     private static void printIntroduction() {
-        System.out.println(LINE);
-        System.out.print(LOGO);
-        System.out.println(LINE);
-        System.out.println(HELLO_MESSAGE);
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
+        System.out.print(Text.LOGO);
+        System.out.println(Text.LINE);
+        System.out.println(Text.HELLO_MESSAGE);
+        System.out.println(Text.LINE);
     }
 
     private static void printList(Task[] taskList, int listSize) {
-        System.out.println(LINE);
-        System.out.println("Tasks list so far:");
+        System.out.println(Text.LINE);
+        System.out.println(Text.LIST_MESSAGE);
         for (int i = 0; i < listSize; i++) {
             System.out.print(taskList[i].getTaskNumber());
             System.out.println("." + taskList[i]);
         }
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
+    }
+
+    private static void printHelpList() {
+        System.out.println(Text.LINE);
+        System.out.println(Text.HELP_LIST);
+        System.out.println(Text.LINE);
     }
 
     private static void markCompletedTask(String userCommand, Task[] taskList) {
@@ -87,45 +92,45 @@ public class Duke {
             }
         }
         catch (DukeException e) {
-            System.out.println(LINE);
-            System.out.println("Please input a task number!");
-            System.out.println(LINE);
+            System.out.println(Text.LINE);
+            System.out.println(Text.NO_TASK_NUMBER);
+            System.out.println(Text.LINE);
         }
         catch (NumberFormatException e) {
-            System.out.println(LINE);
-            System.out.println("Please input a valid number!");
-            System.out.println(LINE);
+            System.out.println(Text.LINE);
+            System.out.println(Text.NO_VALID_NUMBER);
+            System.out.println(Text.LINE);
         }
         catch (RuntimeException e) {
-            System.out.println(LINE);
-            System.out.println("Task number not found!");
-            System.out.println(LINE);
+            System.out.println(Text.LINE);
+            System.out.println(Text.TASK_NUMBER_NOT_FOUND);
+            System.out.println(Text.LINE);
         }
     }
 
     private static void printCompletedTaskMessage(Task task) {
-        System.out.println(LINE);
-        System.out.println("Well done! Task marked:");
+        System.out.println(Text.LINE);
+        System.out.println(Text.TASK_MARKED);
         System.out.println(" " + task);
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
     }
 
     private static boolean isValid(String userCommand) {
-        return userCommand.contains("todo") || userCommand.contains("deadline") || userCommand.contains("event");
+        return userCommand.contains(Text.TODO) || userCommand.contains(Text.DEADLINE) || userCommand.contains(Text.EVENT);
     }
 
     private static void addTask(String userCommand, Task[] taskList, int listSize) {
         String[] splitTaskString = userCommand.split(" ", 2);
         String[] taskNameAndDueDate;
         switch (splitTaskString[0]) {
-        case "todo":
+        case Text.TODO:
             taskList[listSize] = new ToDos(splitTaskString[1]);
             break;
-        case "deadline":
+        case Text.DEADLINE:
             taskNameAndDueDate = splitTaskString[1].split("/by ", 2);
             taskList[listSize] = new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]);
             break;
-        case "event":
+        case Text.EVENT:
             taskNameAndDueDate = splitTaskString[1].split("/at ", 2);
             taskList[listSize] = new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]);
             break;
@@ -133,31 +138,31 @@ public class Duke {
     }
 
     private static void printAddedTask(Task task, int listSize) {
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
         System.out.println("Alright! Added to the list:");
         System.out.println(" " + task);
         task.setTaskNumber(listSize + 1); //update the task number
         System.out.print("You currently have ");
         System.out.print(listSize + 1);
         System.out.println(" task recorded in your list.");
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
     }
 
     private static void printEmptyTaskMessage(String s) {
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
         System.out.println("Error404!!! " + s + " task description should not be empty!");
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
     }
 
     private static void printUnknownCommandMessage() {
-        System.out.println(LINE);
-        System.out.println(UNKNOWN_COMMAND);
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
+        System.out.println(Text.UNKNOWN_COMMAND);
+        System.out.println(Text.LINE);
     }
 
     private static void printBye() {
-        System.out.println(LINE);
-        System.out.println(GOODBYE_MESSAGE);
-        System.out.println(LINE);
+        System.out.println(Text.LINE);
+        System.out.println(Text.GOODBYE_MESSAGE);
+        System.out.println(Text.LINE);
     }
 }
