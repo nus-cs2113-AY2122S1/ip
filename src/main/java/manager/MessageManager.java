@@ -1,3 +1,5 @@
+package manager;
+
 import task.Task;
 
 public abstract class MessageManager {

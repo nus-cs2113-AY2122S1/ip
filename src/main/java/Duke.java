@@ -1,7 +1,5 @@
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import manager.MessageManager;
+import manager.TaskManager;
 
 import java.util.Scanner;
 

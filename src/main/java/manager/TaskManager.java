@@ -1,7 +1,8 @@
-import task.Deadline;
-import task.Event;
+package manager;
+
 import task.Task;
-import task.ToDo;
+import command.Command;
+
 
 public class TaskManager {
     private static final int MAX_TASK = 100;

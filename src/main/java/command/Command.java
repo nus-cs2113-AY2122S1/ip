@@ -1,3 +1,7 @@
+package command;
+
+import manager.MessageManager;
+import manager.TaskManager;
 import task.Deadline;
 import task.Event;
 import task.Task;
