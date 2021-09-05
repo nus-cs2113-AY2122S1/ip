@@ -67,7 +67,8 @@ public class Duke {
     }
 
     /**
-     * Adds a task to an array list of tasks, printing out the newly added to task to the terminal
+     * Adds a task (type to be specified) to an array list of tasks,
+     * printing out the newly added to task to the terminal
      *
      * @param type        The type of task (using the TaskType enumerator)
      * @param description Description of the task to be added
@@ -75,36 +76,44 @@ public class Duke {
      */
     private static void addTask(TaskType type, String description, List<Task> taskList) {
         switch (type) {
-        case TODO:
-            taskList.add(new Todo(description));
-            break;
         case DEADLINE:
-            if (description.contains("/by")) {
-                String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, description);
-                taskList.add(new Deadline(separated[0], separated[1]));
-            } else {
-                System.out.println("You need to specify a deadline! TIP: Use \"/by\" to do so!\n" +
-                        HORIZONTAL_LINE);
-                return;
-            }
+            addDeadline(description, taskList);
             break;
         case EVENT:
-            if (description.contains("/at")) {
-                String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
-                taskList.add(new Event(separated[0], separated[1]));
-            } else {
-                System.out.println("You need to specify an event! TIP: Use \"/at\" to do so!\n" +
-                        HORIZONTAL_LINE);
-                return;
-            }
+            addEvent(description, taskList);
             break;
         default:
-            taskList.add(new Task(description));
+            taskList.add(new Todo(description));
+            break;
         }
 
         Task newlyAddedTask = taskList.get(taskList.size() - 1);
         System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
                 newlyAddedTask + "\n" + HORIZONTAL_LINE);
+    }
+
+    private static boolean addEvent(String description, List<Task> taskList) {
+        if (description.contains("/at")) {
+            String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
+            taskList.add(new Event(separated[0], separated[1]));
+        } else {
+            System.out.println("You need to specify an event! TIP: Use \"/at\" to do so!\n" +
+                    HORIZONTAL_LINE);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean addDeadline(String description, List<Task> taskList) {
+        if (description.contains("/by")) {
+            String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, description);
+            taskList.add(new Deadline(separated[0], separated[1]));
+        } else {
+            System.out.println("You need to specify a deadline! TIP: Use \"/by\" to do so!\n" +
+                    HORIZONTAL_LINE);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -124,7 +133,7 @@ public class Duke {
             separated = description.split("/at +");
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + type.toString());
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return separated;
     }
