@@ -1,3 +1,5 @@
+package duke.command;
+
 public class CommandParser {
 
     public static final String HELP = "help";

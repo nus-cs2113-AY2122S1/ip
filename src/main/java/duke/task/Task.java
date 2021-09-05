@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
     public static final String OPEN_BRACKET = "[";
     public static final String CLOSE_BRACKET = "]";

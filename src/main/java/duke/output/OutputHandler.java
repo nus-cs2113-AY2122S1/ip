@@ -1,3 +1,6 @@
+package duke.output;
+
+import duke.task.Task;
 import java.util.ArrayList;
 
 public class OutputHandler {
