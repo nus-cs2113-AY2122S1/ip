@@ -1,8 +1,12 @@
+package duke.task;
+
+import duke.task.Task;
+
 /**
  * Represents an item that the user has to do at a later point in time.
  * Inherits Task class.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Creates a ToDo ond assigns the user input to description.

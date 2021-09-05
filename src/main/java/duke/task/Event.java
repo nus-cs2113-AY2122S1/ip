@@ -1,8 +1,12 @@
+package duke.task;
+
+import duke.task.Task;
+
 /**
  * Represents an Event input by the user. Identified by 'event' header and '\at'.
  * Inherits Task class.
  */
-public class Event extends Task{
+public class Event extends Task {
     String time;
 
     /**

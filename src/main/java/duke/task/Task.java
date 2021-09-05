@@ -1,10 +1,12 @@
+package duke.task;
+
 /**
  * Represents a task input by the user.
  * Is superclass of Deadline, Event and ToDo.
  */
 public class Task {
-    protected String taskDescription;
-    protected boolean isDone;
+    public String taskDescription;
+    public boolean isDone;
 
     /**
      * Creates a task and assigns the input to taskDescription

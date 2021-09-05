@@ -1,3 +1,9 @@
+package duke;
+
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Event;
 import java.util.Scanner;
 
 public class Duke {
@@ -131,7 +137,6 @@ public class Duke {
             //Navigate to the given index and change the sign
             int taskIndex = taskNumber - 1;
             taskList[taskIndex].markAsDone();
-            System.out.println(LINEBAR);
             System.out.println(
                     "Bueno! The following task is marked as done: \n[" + taskList[taskIndex].getStatusIcon() + "] "
                             + taskList[taskIndex].taskDescription);
