@@ -1,11 +1,11 @@
 public class Task {
-    protected String description;
+    protected String fullTaskDescription;
     protected boolean isDone;
     protected static int totalTasks = 0;
 
 
-    public Task(String description){
-        this.description = description;
+    public Task(String fullTaskDescription){
+        this.fullTaskDescription = fullTaskDescription;
         this.isDone = false;
     }
 
@@ -24,8 +24,8 @@ public class Task {
     }
 
 
-    public String getDescription() {
-        return this.description;
+    public String getFullTaskDescription() {
+        return this.fullTaskDescription;
     }
 
     public boolean getIsDone(){
@@ -40,14 +40,13 @@ public class Task {
         return "Task";
     }
 
-
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription(){
-        return this.description;
+        return this.fullTaskDescription;
     }
 
     //obtain the task to do from the input description
     public String getTask(){
-        return this.description;
+        return this.fullTaskDescription;
     }
 }

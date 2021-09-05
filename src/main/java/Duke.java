@@ -5,6 +5,15 @@ import java.util.Scanner;
 public class Duke {
     private static final int MAX_TASK = 100;
 
+    private static final String LINE = "    ____________________________________________________________";
+
+    private static final String LIST_COMMAND = "list";
+    private static final String DONE_COMMAND = "done";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+
+
     // Check if the Done Command is valid and returns true/false accordingly
     public static boolean checkValidDoneCommand(String input, int listIndex){
         String[] inputSplit = input.split(" ");
@@ -59,22 +68,27 @@ public class Duke {
         }
     }
 
-    // reads Task Command then prints out formatted description of the task
-    public static void executeTaskCommand(Task[]list, int listIndex, String command, String input){
-        Task task = new Task(command);
-        if (command.equals("todo")){
-            task = new ToDo(input);
-        }
-        else if (command.equals("deadline")){
-            task = new Deadline(input);
-        }
-        else if (command.equals("event")){
-            task = new Event(input);
-        }
+    public static void executeToDoCommand(Task[] taskList, int listIndex, String rawUserInput){
+        Task task = new ToDo(rawUserInput);
         System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
         System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
-        list[listIndex] = task;
+        taskList[listIndex] = task;
     }
+
+    public static void executeDeadlineCommand(Task[] taskList, int listIndex, String rawUserInput){
+        Task task = new Deadline(rawUserInput);
+        System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
+        System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
+        taskList[listIndex] = task;
+    }
+
+    public static void executeEventCommand(Task[] taskList, int listIndex, String rawUserInput){
+        Task task = new Event(rawUserInput);
+        System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
+        System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
+        taskList[listIndex] = task;
+    }
+
 
     public static void giveWelcomeMessage(){
         String logo = " \n" +
@@ -92,40 +106,56 @@ public class Duke {
         System.out.println(logo);
     }
 
-    public static void processInput(String input, Task[] list){
-        int listIndex = Task.getTotalTasks();
-        System.out.println("    ____________________________________________________________");
-
-        // if user inputs list, execute list command to showcase the list
-        if (input.equalsIgnoreCase("list")){
-            executeListCommand(list,listIndex);
-        }
-
-        //if user inputs done, execute done command to mark task as done
-        else if (input.toLowerCase().startsWith("done")){
-            executeDoneCommand(list,listIndex,input);
-        }
-
-        //if user inputs a task command, execute task command and print out necessary statements
-        else if ((input.toLowerCase().startsWith("todo")) || (input.toLowerCase().startsWith("deadline")) || (input.toLowerCase().startsWith("event"))) {
-            String lowercaseInput = input.toLowerCase();
-            String[] inputArr = lowercaseInput.split(" ");
-            String command = inputArr[0];
-            executeTaskCommand(list, listIndex, command, input);
-            listIndex++;
-        }
-
-        // not any recognised commands
-        else{
-            System.out.println("    Invalid Command :( Please try again.");
-        }
-        System.out.println("    ____________________________________________________________");
+    public static String getInputCommand(String rawUserInput) {
+        String[] inputWords = rawUserInput.toLowerCase().split(" ");
+        String inputCommand = inputWords[0];
+        return inputCommand;
     }
 
-    public static void giveFarewellMessage(){
-        System.out.println("    ____________________________________________________________");
+    public static String getFullTaskDescription(String rawUserInput) {
+        int startIndex = rawUserInput.indexOf(" ") + 1;
+        String FullTaskDescription = rawUserInput.substring(startIndex);
+        return FullTaskDescription;
+    }
+
+    public static void processInput(String rawUserInput, Task[] taskList) {
+        int listIndex = Task.getTotalTasks();
+        String inputCommand = getInputCommand(rawUserInput);
+        String fullTaskDescription;
+
+        System.out.println(LINE);
+
+        switch(inputCommand) {
+        case LIST_COMMAND:
+            executeListCommand(taskList,listIndex);
+            break;
+        case DONE_COMMAND:
+            executeDoneCommand(taskList, listIndex, rawUserInput);
+            break;
+        case TODO_COMMAND:
+            fullTaskDescription = getFullTaskDescription(rawUserInput);
+            executeToDoCommand(taskList, listIndex, fullTaskDescription);
+            break;
+        case DEADLINE_COMMAND:
+            fullTaskDescription = getFullTaskDescription(rawUserInput);
+            executeDeadlineCommand(taskList, listIndex, fullTaskDescription);
+            break;
+        case EVENT_COMMAND:
+            fullTaskDescription = getFullTaskDescription(rawUserInput);
+            executeEventCommand(taskList, listIndex, fullTaskDescription);
+            break;
+        default:
+            System.out.println("    Invalid Command :( Please try again.");
+            break;
+        }
+
+        System.out.println(LINE);
+    }
+
+    public static void giveFarewellMessage() {
+        System.out.println(LINE);
         System.out.println("    Bye, my friend :( ");
-        System.out.println("    ____________________________________________________________");
+        System.out.println(LINE);
     }
 
 
@@ -133,21 +163,20 @@ public class Duke {
 
     public static void main(String[] args) {
         // create a list of tasks
-        Task[] list = new Task[MAX_TASK];
-        int listIndex = 0;
+        Task[] taskList = new Task[MAX_TASK];
+        String rawUserInput;
 
         giveWelcomeMessage();
 
-        String input;
         Scanner in = new Scanner(System.in);
-        input = in.nextLine().trim();
+        rawUserInput = in.nextLine().trim();
 
 
-        while (!input.equalsIgnoreCase("bye")) {
-            processInput(input, list);
+        while (!rawUserInput.equalsIgnoreCase("bye")) {
+            processInput(rawUserInput, taskList);
 
             //get the new input
-            input = in.nextLine();
+            rawUserInput = in.nextLine();
         }
 
         //if bye is the input

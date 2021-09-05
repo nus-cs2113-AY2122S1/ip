@@ -1,7 +1,7 @@
 public class ToDo extends Task{
 
-    public ToDo(String description){
-        super(description);
+    public ToDo(String fullTaskDescription){
+        super(fullTaskDescription);
         totalTasks ++;
     }
 
@@ -16,9 +16,8 @@ public class ToDo extends Task{
 
     //obtain the task to do from the input description
     public String getTask(){
-        int startIndex = this.description.indexOf(" ") + 1;
-        String taskName = this.description.substring(startIndex);
-        return taskName;
+        String task = this.fullTaskDescription;
+        return task;
     }
     
 }

@@ -1,11 +1,10 @@
 public class Event extends Task{
     private String at;
 
-    public Event(String description){
-        super(description);
+    public Event(String fullTaskDescription){
+        super(fullTaskDescription);
+        this.at = getAt();
         totalTasks ++;
-        String[] split = description.split("at");
-        this.at = split[1];
     }
 
     public String getType(){
@@ -13,20 +12,21 @@ public class Event extends Task{
     }
 
     public String getAt(){
+        String[] descriptionWords = fullTaskDescription.split("at");
+        String at = descriptionWords[1];
         return at;
     }
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription(){
-        return getTask() + "(at:" + at + ")";
+        return String.format("%s(at:%s)", getTask(),this.at);
     }
 
     //obtain the task to do from the input description
     public String getTask(){
-        int startIndex = this.description.indexOf(" ") + 1;
-        int endIndex = this.description.indexOf("at") - 1;
-        String taskName = this.description.substring(startIndex, endIndex);
-        return taskName;
+        int endIndex = this.fullTaskDescription.indexOf("at") - 1;
+        String task = this.fullTaskDescription.substring(0, endIndex);
+        return task;
     }
 
 }
