@@ -1,9 +1,10 @@
 public class Event extends Task{
 
+    public static final int INDEX_OF_EVENT = 5;
     protected String deadline;
 
     public Event(String description) {
-        super(description.substring(description.indexOf("event") + 5, description.indexOf("/")).trim());
+        super(description.substring(description.indexOf("event") + INDEX_OF_EVENT, description.indexOf("/")).trim());
         deadline = description.substring(description.indexOf("/")).replace("/at", "").trim();
     }
     @Override

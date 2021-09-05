@@ -15,7 +15,7 @@ To add a task without deadline: to do [taskName]
 To add a task with a deadline: deadline [deadlineName] /by [deadline]
 To add an event: event [eventName] /at [eventTime]
 To mark a task as done: done [taskNumber]
-To view your current task list, simply type: show list
+To view your current task list, simply type: list
 To end your chat with me, simply type: bye
 ------------------------------------------------------
 ------------------------------------------------------
@@ -43,7 +43,7 @@ To add a task without deadline: to do [taskName]
 To add a task with a deadline: deadline [deadlineName] /by [deadline]
 To add an event: event [eventName] /at [eventTime]
 To mark a task as done: done [taskNumber]
-To view your current task list, simply type: show list
+To view your current task list, simply type: list
 To end your chat with me, simply type: bye
 ------------------------------------------------------
 ------------------------------------------------------
@@ -61,7 +61,7 @@ I can do that! I have added [live performance] to your task list!
 6.[T][ ] cook
 7.[E][ ] live performance (at:monday 3pm)
 ------------------------------------------------------
-Invalid task number
+No number or invalid number specified! Please specify the number on the list of the task you have completed!
 Nice! I've marked this task as done:
 1.[T][X] run
 Nice! I've marked this task as done:
@@ -98,8 +98,8 @@ Nice! I've marked this task as done:
 5.[T][X] hike
 Nice! I've marked this task as done:
 6.[T][X] cook
-Invalid task number
-Invalid task number
+No number or invalid number specified! Please specify the number on the list of the task you have completed!
+No number or invalid number specified! Please specify the number on the list of the task you have completed!
 ------------------------------------------------------
 1.[T][X] run
 2.[D][X] journal (by:saturday)
@@ -108,6 +108,43 @@ Invalid task number
 5.[T][X] hike
 6.[T][X] cook
 7.[E][ ] live performance (at:monday 3pm)
+------------------------------------------------------
+Aw man! I am unable to deadline yet! Please specify a different function! :D
+Aw man! I am unable to deadline yet! Please specify a different function! :D
+Please specify a task/deadline of completion!
+Please specify a task/deadline of completion!
+Please specify a task/deadline of completion!
+------------------------------------------------------
+I can do that! I have added [run] to your task list!
+------------------------------------------------------
+Aw man! I am unable to event yet! Please specify a different function! :D
+Aw man! I am unable to event yet! Please specify a different function! :D
+Please specify an event/time of the event!
+Please specify an event/time of the event!
+Please specify an event/time of the event!
+------------------------------------------------------
+I can do that! I have added [marathon] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [run] to your task list!
+------------------------------------------------------
+Aw man! I am unable to to do yet! Please specify a different function! :D
+Aw man! I am unable to to do yet! Please specify a different function! :D
+Aw man! I am unable to werewetodo yet! Please specify a different function! :D
+Aw man! I am unable to asdsadevent yet! Please specify a different function! :D
+Aw man! I am unable to efsfsddeadline /by sunday 2359 yet! Please specify a different function! :D
+Aw man! I am unable to dasdasdsadevent /at saturday yet! Please specify a different function! :D
+------------------------------------------------------
+1.[T][X] run
+2.[D][X] journal (by:saturday)
+3.[D][X] walk (by:saturday 4pm)
+4.[E][X] team meeting (at:sunday 2-4pm)
+5.[T][X] hike
+6.[T][X] cook
+7.[E][ ] live performance (at:monday 3pm)
+8.[D][ ] run (by:sunday)
+9.[E][ ] marathon (at:sunday 2 - 3pm)
+10.[T][ ] run
 ------------------------------------------------------
 Bye! Hope to see you again soon!
 ------------------------------------------------------

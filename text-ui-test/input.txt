@@ -19,4 +19,24 @@ done 5 and 6
 done 9
 done 10
 list
+deadline
+deadline
+deadline run
+deadline run /by
+deadline run /by
+deadline run /by Sunday
+event
+event
+event run
+event run /at
+event run /at
+event marathon /at Sunday 2 - 3pm
+to do run
+to do
+to do
+werewetodo
+asdsadevent
+efsfsddeadline /by Sunday 2359
+dasdasdsadevent /at Saturday
+list
 bye

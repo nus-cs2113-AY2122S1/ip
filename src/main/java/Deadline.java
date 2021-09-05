@@ -1,9 +1,10 @@
 public class Deadline extends Task{
 
+    public static final int INDEX_OF_DEADLINE = 8;
     protected String deadline;
 
     public Deadline(String description) {
-        super(description.substring(description.indexOf("deadline") + 8, description.indexOf("/")).trim());
+        super(description.substring(description.indexOf("deadline") + INDEX_OF_DEADLINE, description.indexOf("/")).trim());
         deadline = description.substring(description.indexOf("/")).replace("/by", "").trim();
     }
 
