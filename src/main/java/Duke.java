@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
+    public static final String ENTER_COMMAND_TEXT = "Enter command: ";
     public static final String GOODBYE_MESSAGE = "Bye boss! HAL will always be there to help you!\nSummon me by running this program again";
     public static final String LOGO_HAL2113 = "  _(\\    |@@|\n"
             + "(__/\\__ \\--/ __\n"
@@ -36,7 +37,13 @@ public class Duke {
                 userInput = sc.nextLine();
                 //get rid of white space
                 userInput = userInput.trim();
-                currProgram.executeTask(userInput);
+                try {
+                    currProgram.executeTask(userInput);
+                } catch (HalException invalidUserInput) {
+                    System.out.println(invalidUserInput);
+                    System.out.println(LINE_BREAK_SINGLE);
+                    System.out.print(ENTER_COMMAND_TEXT);
+                }
             }
         }
 
