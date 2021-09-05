@@ -2,7 +2,7 @@ public class Event extends Task {
     protected String heldDate;
 
     /**
-     * Event constructor.
+     * Class event constructor.
      *
      * @param description Short description of the task.
      * @param heldDate    Date when the event is held.

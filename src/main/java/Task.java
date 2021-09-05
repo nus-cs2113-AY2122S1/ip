@@ -3,7 +3,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Task constructor.
+     * Class Task constructor.
      * Task is initially declared as not completed.
      *
      * @param description Short description of the task.

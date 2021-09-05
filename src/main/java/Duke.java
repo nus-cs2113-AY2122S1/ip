@@ -19,7 +19,7 @@ public class Duke {
      * Prints a message that greets the user.
      */
     private static void greetUser() {
-        Picture.drawRimuruLogo();
+        System.out.println(Picture.RIMURU_LOGO);
         System.out.println(MESSAGE_WELCOME);
         Picture.printLine();
     }
