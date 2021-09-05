@@ -1,11 +1,17 @@
 todo exercise
+deadline
 todo shower
+I want to sleep
 deadline submit assignment /by tuesday 12am
 event attend lecture /at friday 4pm
 list
 todo eat dinner
-done 1
-done 2
-done 5
+done 1 2
+list
+done 7
+done 5 a
+list
+todo running
+event meeting /at saturday 11am
 list
 bye
