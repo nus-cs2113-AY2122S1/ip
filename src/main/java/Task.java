@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String taskName;
     protected int taskNumber;
     protected boolean isDone;
@@ -24,6 +24,7 @@ public class Task {
         isDone = true;
     }
 
+    @Override
     public String toString() {
         if (isDone()) {
             return "[✓] " + taskName;
