@@ -8,6 +8,7 @@ interface Timetable {
     void finishTask();
 
     static void addTask(Timetable task) {
+        System.out.println("Alright. I'll put it on the list.");
         thingsToDo.add(task);
         System.out.println("  " + task.toString());
     }
