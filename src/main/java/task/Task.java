@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     protected String fullTaskDescription;
     protected boolean isDone;
@@ -7,6 +9,7 @@ public class Task {
     public Task(String fullTaskDescription){
         this.fullTaskDescription = fullTaskDescription;
         this.isDone = false;
+        totalTasks ++;
     }
 
 
@@ -37,7 +40,7 @@ public class Task {
     }
 
     public String getType(){
-        return "Task";
+        return "task.Task";
     }
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"

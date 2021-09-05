@@ -1,10 +1,11 @@
+package task;
+
 public class Deadline extends Task{
     private String by;
 
     public Deadline(String fullTaskDescription){
         super(fullTaskDescription);
         this.by = getBy();
-        totalTasks ++;
     }
 
     public String getType(){

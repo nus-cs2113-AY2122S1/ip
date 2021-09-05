@@ -1,8 +1,9 @@
+package task;
+
 public class ToDo extends Task{
 
     public ToDo(String fullTaskDescription){
         super(fullTaskDescription);
-        totalTasks ++;
     }
 
     public String getType(){

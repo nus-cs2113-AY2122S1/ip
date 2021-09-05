@@ -1,10 +1,11 @@
+package task;
+
 public class Event extends Task{
     private String at;
 
     public Event(String fullTaskDescription){
         super(fullTaskDescription);
         this.at = getAt();
-        totalTasks ++;
     }
 
     public String getType(){
@@ -17,7 +18,6 @@ public class Event extends Task{
         return at;
     }
 
-    // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription(){
         return String.format("%s(at:%s)", getTask(),this.at);
     }
