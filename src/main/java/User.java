@@ -1,3 +1,13 @@
+import command.AddTaskCommand;
+import command.CommandNotExistException;
+import command.CommandWrongFormatException;
+import command.DoneCommand;
+import command.ListCommand;
+import command.QuitCommand;
+import command.TaskIndexMissingException;
+import command.TaskList;
+import command.UserCommand;
+
 import java.util.Scanner;
 
 public class User {
@@ -50,7 +60,7 @@ public class User {
     }
 
 
-    private UserCommand handleCommand(String userInput) throws CommandNotExistException, TaskIndexMissingException{
+    private UserCommand handleCommand(String userInput) throws CommandNotExistException, TaskIndexMissingException {
         String[] inputSplits = userInput.split(" ");
         UserCommand input;
 

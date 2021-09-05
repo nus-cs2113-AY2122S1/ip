@@ -1,3 +1,5 @@
+package command;
+
 public class TimeMissingException extends CommandWrongFormatException {
     private String taskType;
 

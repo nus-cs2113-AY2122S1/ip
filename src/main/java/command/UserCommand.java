@@ -1,4 +1,6 @@
-abstract class UserCommand {
+package command;
+
+public abstract class UserCommand {
     TaskList tasks;
 
     UserCommand(){}

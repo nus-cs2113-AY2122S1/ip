@@ -1,3 +1,5 @@
+package command;
+
 abstract class Task {
     private String taskName;
     private boolean isCompleted;

@@ -1,3 +1,5 @@
+package command;
+
 public class TaskEmptyException extends CommandWrongFormatException {
     private String taskType;
 

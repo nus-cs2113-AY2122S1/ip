@@ -1,4 +1,6 @@
-class ListCommand extends UserCommand {
+package command;
+
+public class ListCommand extends UserCommand {
     public ListCommand(TaskList tasks) {
         super(tasks);
     }

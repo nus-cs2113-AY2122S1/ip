@@ -1,3 +1,5 @@
+package command;
+
 class Event extends Task{
     String completeTime;
 

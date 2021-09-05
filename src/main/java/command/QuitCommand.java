@@ -1,3 +1,5 @@
+package command;
+
 public class QuitCommand extends UserCommand{
     @Override
     public void execute () {

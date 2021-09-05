@@ -1,4 +1,7 @@
-class DoneCommand extends UserCommand {
+package command;
+
+
+public class DoneCommand extends UserCommand {
     private int index;
 
     public DoneCommand (int index, TaskList tasks) {
