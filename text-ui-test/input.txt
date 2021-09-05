@@ -6,4 +6,10 @@ list
 done 1
 done 2
 list
+deadline /by tomorrow
+todo
+event task 4
 bye
+
+
+
