@@ -1,5 +1,6 @@
 public class TaskManager {
     public static final String DIVIDER = "/";
+    public static final String LINE_SEPARATOR = "_____________________________";
     private static int numberOfTasksUndone;
     private static Task[] taskList;
 
@@ -17,12 +18,13 @@ public class TaskManager {
      *
      **/
     public static void printTaskList() {
+        System.out.println(LINE_SEPARATOR);
         for (int i = 0; taskList[i] != null; i++) {
             System.out.print((i + 1) + ". ");
             System.out.println(taskList[i].toString());
         }
         System.out.println("Total tasks undone: " + numberOfTasksUndone);
-        System.out.println("_____________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**
@@ -36,9 +38,10 @@ public class TaskManager {
         Task t = new ToDo(args);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
+        System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + args);
         System.out.println("Now you have " + numberOfTasksUndone + " tasks in the list");
-        System.out.println("_____________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**
@@ -53,9 +56,10 @@ public class TaskManager {
         Task t = new Deadline(description, time);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
+        System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + description);
         System.out.println("Now you have " + numberOfTasksUndone + " tasks in the list");
-        System.out.println("_____________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**
@@ -70,9 +74,10 @@ public class TaskManager {
         Task t = new Event(description, time);
         taskList[taskNumber] = t;
         numberOfTasksUndone++;
+        System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + description);
         System.out.println("Now you have " + numberOfTasksUndone + " tasks in the list");
-        System.out.println("_____________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**
@@ -86,9 +91,10 @@ public class TaskManager {
         taskList[doneTaskNumber - 1].markAsDone();
         numberOfTasksUndone--;
 
+        System.out.println(LINE_SEPARATOR);
         System.out.println("Good job! This task is marked as done:");
         System.out.println(taskList[doneTaskNumber - 1].toString());
         System.out.println("Now you have " + numberOfTasksUndone + " tasks in the list");
-        System.out.println("_____________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 }

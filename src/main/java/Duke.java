@@ -4,7 +4,15 @@ import java.util.Scanner;
 public class Duke {
     public static final int NUMBER_OF_TASKS = 100;
     public static final String DIVIDER = "/";
+    public static final String LINE_SEPARATOR = "_____________________________";
+    public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
 
+    public static boolean canRunDuke = true;
     /**
      * Splits the input string and returns the command at the start of the string
      *
@@ -82,64 +90,79 @@ public class Duke {
         // greet
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println("_____________________________");
+        System.out.println(LINE_SEPARATOR);
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
         int taskNumber = 0;
         TaskManager manager = new TaskManager(NUMBER_OF_TASKS);
-        while(true) {
+        while(canRunDuke) {
             String inputStr = sc.nextLine();
+            String command = getCommand(inputStr);
 
-            if (getCommand(inputStr).equals("bye")) {
-                // exit
+            switch (command) {
+            case COMMAND_EXIT:
+                System.out.println(LINE_SEPARATOR);
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("_____________________________");
+                System.out.println(LINE_SEPARATOR);
+                canRunDuke = false;
                 break;
-            } else if (getCommand(inputStr).equals("list")) {
-                TaskManager.printTaskList();
-            } else if (getCommand(inputStr).contains("done")) {
+            case COMMAND_LIST:
+                manager.printTaskList();
+                break;
+            case COMMAND_DONE:
                 if (isEmptyItem(inputStr)) {
+                    System.out.println(LINE_SEPARATOR);
                     System.out.println("Oops, invalid description!");
-                    System.out.println("_____________________________");
+                    System.out.println(LINE_SEPARATOR);
                     continue;
-                } else if (TaskManager.getNumberOfTasksUndone() == 0
-                        | TaskManager.getNumberOfTasksUndone() < Integer.parseInt(getItem(inputStr))) {
+                } else if (manager.getNumberOfTasksUndone() == 0
+                        | manager.getNumberOfTasksUndone() < Integer.parseInt(getItem(inputStr))) {
+                    System.out.println(LINE_SEPARATOR);
                     System.out.println("Oops, invalid description");
-                    System.out.println("_____________________________");
+                    System.out.println(LINE_SEPARATOR);
                     continue;
                 }
-                TaskManager.markTaskAsDone(inputStr);
-            } else if (getCommand(inputStr).contains("todo")) {
+                manager.markTaskAsDone(inputStr);
+                break;
+            case COMMAND_TODO:
                 if (isEmptyItem(inputStr)) {
+                    System.out.println(LINE_SEPARATOR);
                     System.out.println("Oops, invalid description!");
-                    System.out.println("_____________________________");
+                    System.out.println(LINE_SEPARATOR);
                     continue;
                 }
                 String item = getItem(inputStr);
-                TaskManager.addToDoTaskToList(item, taskNumber);
+                manager.addToDoTaskToList(item, taskNumber);
                 taskNumber++;
-            } else if (getCommand(inputStr).contains("deadline")) {
+                break;
+            case COMMAND_DEADLINE:
                 if (isInvalidItem(inputStr)) {
+                    System.out.println(LINE_SEPARATOR);
                     System.out.println("Oops, invalid description!");
-                    System.out.println("_____________________________");
+                    System.out.println(LINE_SEPARATOR);
                     continue;
                 }
-                String item = getItem(inputStr);
-                TaskManager.addDeadlineTaskToList(item, taskNumber);
+                item = getItem(inputStr);
+                manager.addDeadlineTaskToList(item, taskNumber);
                 taskNumber++;
-            } else if (getCommand(inputStr).contains("event")) {
+                break;
+            case COMMAND_EVENT:
                 if (isInvalidItem(inputStr)) {
+                    System.out.println(LINE_SEPARATOR);
                     System.out.println("Oops, invalid description!");
-                    System.out.println("_____________________________");
+                    System.out.println(LINE_SEPARATOR);
                     continue;
                 }
-                String item = getItem(inputStr);
-                TaskManager.addEventTaskToList(item, taskNumber);
+                item = getItem(inputStr);
+                manager.addEventTaskToList(item, taskNumber);
                 taskNumber++;
-            } else {
+                break;
+            default:
+                System.out.println(LINE_SEPARATOR);
                 System.out.println("Oops, command not recognised!");
-                System.out.println("_____________________________");
+                System.out.println(LINE_SEPARATOR);
+                break;
             }
         }
     }
