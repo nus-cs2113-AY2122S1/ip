@@ -140,7 +140,7 @@ public class Duke {
         } catch (NullPointerException e) {
             System.out.println("The value you inserted is invalid. Please type 'list' to check the number of tasks");
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("The value you inserted must be a positive integer");
+            System.out.println("The value you inserted must be a positive integer. Please try again");
         }
 
         System.out.println(LINEBAR);
