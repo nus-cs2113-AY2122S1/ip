@@ -1,5 +1,8 @@
 public class TaskManager {
-    private Task[] tasks = new Task[100];
+    public static final int MAX_TASKS = 100;
+    public static final int SLASH_INDEX_DEADLINE = 8;
+    public static final int SLASH_INDEX_EVENT = 5;
+    private Task[] tasks = new Task[MAX_TASKS];
     private int taskCount = 0;
 
     public void printInvalid() {
@@ -12,8 +15,28 @@ public class TaskManager {
         Duke.printLine();
     }
 
-    public void addTodo(String description){
+    public void addTodo(String description) {
+        try {
+            String todoDescription = trimTodoDescription(description);
+            printNewTodo(todoDescription);
+        } catch (EmptyTodoException e) {
+            Duke.printLine();
+            System.out.println("\tHey bud, the command you printed is invalid.");
+            System.out.println("\tA todo can't be empty. Here's a valid example:");
+            System.out.println("\t- todo Read book");
+            Duke.printLine();
+        }
+    }
+
+    public String trimTodoDescription(String description) throws EmptyTodoException {
         String todoDescription = description.substring(4, description.length()).trim();
+        if (todoDescription.isEmpty()) {
+            throw new EmptyTodoException();
+        }
+        return todoDescription;
+    }
+
+    private void printNewTodo(String todoDescription) {
         tasks[taskCount] = new Todo(todoDescription);
         taskCount += 1;
         Duke.printLine();
@@ -21,36 +44,93 @@ public class TaskManager {
         Duke.printLine();
     }
 
-    public void addDeadline(String description){
-        int slashIndex = description.indexOf('/');
-        if (slashIndex > 10) {
-            String deadlineDescription = description.substring(8, slashIndex).trim();
-            String deadlineBy = description.substring(slashIndex + 3, description.length()).trim();
-            tasks[taskCount] = new Deadline(deadlineDescription, deadlineBy);
-            taskCount += 1;
+    public void addDeadline(String description) {
+        try {
+            String[] deadline = trimDeadlineDescription(description);
+            printNewDeadline(deadline[0], deadline[1]);
+        } catch (NoSlashDeadlineException e) {
             Duke.printLine();
-            System.out.println("\tAdded deadline: " + deadlineDescription + " (by: " + deadlineBy + ')');
+            System.out.println("\tHey bud, the command you printed is invalid.");
+            System.out.println("\tDeadline commands require a slash. Here's a valid example:");
+            System.out.println("\t- deadline Return book /by Friday");
             Duke.printLine();
-        }
-        else {
-            printInvalid();
+        } catch (DeadlineEmptyException e) {
+            Duke.printLine();
+            System.out.println("\tHey bud, the command you printed is invalid.");
+            System.out.println("\tThe description or deadline of a deadline command can't be empty. " +
+                    "Here's a valid example: ");
+            System.out.println("\t- deadline Return book /by Friday");
+            Duke.printLine();
         }
     }
 
-    public void addEvent(String description){
+    public String[] trimDeadlineDescription(String description) throws NoSlashDeadlineException,
+            DeadlineEmptyException {
         int slashIndex = description.indexOf('/');
-        if (slashIndex > 8) {
-            String eventDescription = description.substring(5, slashIndex).trim();
-            String eventAt = description.substring(slashIndex + 3, description.length()).trim();
-            tasks[taskCount] = new Event(eventDescription, eventAt);
-            taskCount += 1;
+        String[] deadline = new String[2];
+        if (slashIndex > SLASH_INDEX_DEADLINE) {
+            deadline[0] = description.substring(SLASH_INDEX_DEADLINE, slashIndex).trim();
+            deadline[1] = description.substring(slashIndex + 3, description.length()).trim();
+        } else {
+            throw new NoSlashDeadlineException();
+        }
+        if (deadline[0].isEmpty() || deadline[1].isEmpty()) {
+            throw new DeadlineEmptyException();
+        } else {
+            return deadline;
+        }
+    }
+
+    private void printNewDeadline(String deadlineDescription, String deadlineBy) {
+        tasks[taskCount] = new Deadline(deadlineDescription, deadlineBy);
+        taskCount += 1;
+        Duke.printLine();
+        System.out.println("\tAdded deadline: " + deadlineDescription + " (by: " + deadlineBy + ')');
+        Duke.printLine();
+    }
+
+    public void addEvent(String description) {
+        try {
+            String[] Event = trimEventDescription(description);
+            printNewEvent(Event[0], Event[1]);
+        } catch (NoSlashEventException e) {
             Duke.printLine();
-            System.out.println("\tAdded event: " + eventDescription + " (at: " + eventAt + ')');
+            System.out.println("\tHey bud, the command you printed is invalid.");
+            System.out.println("\tEvent commands require a slash. Here's a valid example:");
+            System.out.println("\t- deadline Return book /by Friday");
+            Duke.printLine();
+        } catch (EventEmptyException e) {
+            Duke.printLine();
+            System.out.println("\tHey bud, the command you printed is invalid.");
+            System.out.println("\tThe description or event time of a event command can't be empty. " +
+                    "Here's a valid example: ");
+            System.out.println("\t- deadline Return book /by Friday");
             Duke.printLine();
         }
-        else {
-            printInvalid();
+    }
+
+    public String[] trimEventDescription(String description) throws NoSlashEventException, EventEmptyException {
+        int slashIndex = description.indexOf('/');
+        String[] event = new String[2];
+        if (slashIndex > SLASH_INDEX_EVENT) {
+            event[0] = description.substring(SLASH_INDEX_EVENT, slashIndex).trim();
+            event[1] = description.substring(slashIndex + 3, description.length()).trim();
+        } else {
+            throw new NoSlashEventException();
         }
+        if (event[0].isEmpty() || event[1].isEmpty()) {
+            throw new EventEmptyException();
+        } else {
+            return event;
+        }
+    }
+
+    private void printNewEvent(String eventDescription, String eventAt) {
+        tasks[taskCount] = new Event(eventDescription, eventAt);
+        taskCount += 1;
+        Duke.printLine();
+        System.out.println("\tAdded event: " + eventDescription + " (at: " + eventAt + ')');
+        Duke.printLine();
     }
 
     public void listTasks() {

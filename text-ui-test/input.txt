@@ -1,10 +1,8 @@
+todo Wei Yin: Answer CS2113 Tutorial Questions
+deadline weekly 2113 quiz /by Monday
 list
-todo read book
-event bookclub /at monday 2pm
-deadline return book /by friday
-list
+event CS2113 lecture at Friday 4 to 6 pm
+event CS2113 lecture /at Friday 4 to 6 pm
 done 1
-done 2
-done 3
 list
 bye
