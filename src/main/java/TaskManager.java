@@ -79,10 +79,10 @@ public class TaskManager {
      * @throws DukeException If itemNumber > number of items in list or not a positive integer
      */
     public static void markAsCompleted(int itemNumber) throws DukeException {
-        Picture.printLine();
         if (itemNumber > tasksCount || itemNumber < 1) {
             throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
+            Picture.printLine();
             tasks[itemNumber - 1].markTaskAsDone();
             final String taskDetails = tasks[itemNumber - 1].toString();
             System.out.println(getMessageForMarkTaskAsDone(taskDetails));
@@ -105,10 +105,10 @@ public class TaskManager {
      * otherwise prints all the tasks in the list in ascending order.
      */
     public static void printList() throws DukeException {
-        Picture.printLine();
         if (tasksCount == 0) {
             throw new DukeException(ERROR_NO_TASK_IN_LIST);
         } else {
+            Picture.printLine();
             System.out.println(MESSAGE_TASK_IN_LIST);
             printTasksInList();
         }
