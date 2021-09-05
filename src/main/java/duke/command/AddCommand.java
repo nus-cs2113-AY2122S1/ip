@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.TaskManager;
+import duke.task.TaskType;
+
 public class AddCommand extends Command {
     private String taskName;
     private String taskDate;

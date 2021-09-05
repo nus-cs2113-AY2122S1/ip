@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.task.TaskType;
+
 public class CommandParser {
 
     private static final int COMMAND_KEYWORD = 0;
