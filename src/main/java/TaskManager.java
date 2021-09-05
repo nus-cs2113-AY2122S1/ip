@@ -1,3 +1,9 @@
+import exceptions.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     public static final int SLASH_INDEX_DEADLINE = 8;
