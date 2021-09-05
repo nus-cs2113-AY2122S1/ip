@@ -1,21 +1,58 @@
 import java.util.Scanner;
 
 public class Duke {
+    static final String RESPONSE_SEPARATOR = "=============================" +
+            "===========================================";
+
+
+    enum Command {
+        HELP_COMMAND,
+        LIST_COMMAND,
+        DONE_COMMAND,
+        TASK_COMMAND,
+        BYE_COMMAND
+    }
+
     private static String getUserResponse(Scanner in) {
         String line;
         line = in.nextLine();
         return line;
     }
 
-    private static void processInput(String input, List list) {
+    private static Command processInput(String input) throws InvalidInputFormatException {
         if (input.equals("list")) {
+            return Command.LIST_COMMAND;
+        }
+        if (input.equals("help")) {
+            return Command.HELP_COMMAND;
+        }
+        if (input.equals("bye")) {
+            return Command.BYE_COMMAND;
+        }
+        if (input.startsWith("done")) {
+            return Command.DONE_COMMAND;
+        }
+        if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+            return Command.TASK_COMMAND;
+        }
+        throw new InvalidInputFormatException();
+    }
+
+    private static void executeCommand(Command command, List list, String input) {
+        switch (command) {
+        case LIST_COMMAND:
             list.printList();
-        } else if (input.equals("help")) {
+            break;
+        case HELP_COMMAND:
             printHelpMessage();
-        } else if (input.contains("done")) {
-            list.doneEntry(list.parseInputForEntryNumber(input));
-        } else {
+            break;
+        case DONE_COMMAND:
+            int entryNumber = list.parseInputForEntryNumber(input);
+            list.doneEntry(entryNumber);
+            break;
+        case TASK_COMMAND:
             list.addEntryToList(input);
+            break;
         }
     }
 
@@ -26,17 +63,34 @@ public class Duke {
         String userInput;
         while (true) {
             userInput = getUserResponse(in);
-            if (userInput.equals("bye")) {
+            Command command;
+            try {
+                command = processInput(userInput);
+            } catch (InvalidInputFormatException e) {
+                printInvalidInputMessage();
+                continue;
+            }
+            if (command.equals(Command.BYE_COMMAND)) {
                 printExitMessage();
                 break;
             }
-            processInput(userInput, list);
+            try {
+                executeCommand(command, list, userInput);
+            } catch (NumberFormatException e) {
+                printInvalidInputMessage();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("todo, deadline, or event commands cannot be empty");
+            }
             printResponseSeparator();
         }
     }
 
     private static void printExitMessage() {
         System.out.println("Bye! See you soon!");
+    }
+
+    private static void printInvalidInputMessage() {
+        System.out.println("I don't know what you mean, please look at the instructions and try again");
     }
 
     private static void printWelcomeMessage() {
@@ -65,6 +119,6 @@ public class Duke {
     }
 
     private static void printResponseSeparator() {
-        System.out.println("===============================================================================");
+        System.out.println(RESPONSE_SEPARATOR);
     }
 }

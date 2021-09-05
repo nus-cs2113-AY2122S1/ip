@@ -38,10 +38,12 @@ public class List {
 
     public void addEntryToList(String input) {
         TaskType entryType = parseTaskType(input);
-        String description = parseDescription(input, entryType);
         if (entryType.equals(TaskType.INVALID)) {
-            System.out.println("I don't know what you mean, please look at the instructions and try again");
+            System.out.println("Command not entered properly, remember to use \"/by\" or " +
+                    "\"/at\" modifiers for deadline and event tasks respectively. Type \"help\"" +
+                    " for more information");
         } else {
+            String description = parseDescription(input, entryType);
             switch (entryType) {
             case TODO:
                 taskList[numberOfEntries] = new ToDo(description);
@@ -71,13 +73,13 @@ public class List {
     }
 
     public TaskType parseTaskType(String input) {
-        if (input.contains("deadline") && input.contains(" /by")) {
+        if (input.startsWith("deadline") && input.contains(" /by")) {
             return TaskType.DEADLINE;
         }
-        if (input.contains("event") && input.contains(" /at")) {
+        if (input.startsWith("event") && input.contains(" /at")) {
             return TaskType.EVENT;
         }
-        if (input.contains("todo")) {
+        if (input.startsWith("todo")) {
             return TaskType.TODO;
         }
         return TaskType.INVALID;
