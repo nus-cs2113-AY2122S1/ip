@@ -21,63 +21,37 @@ public class TaskManager {
         numComplete = 0;
     }
 
-    public void addTask(String[] taskInfo) {
-        Task newTask;
-        String taskType = taskInfo[0];
-        String taskDescription = "";
-        String taskDateField = "";
+    public void addToDo(String todoInfo) {
+        Task newToDo = new ToDo(todoInfo.trim());
+        this.tasks.add(newToDo);
 
-        switch (taskType) {
-        case "todo":
-            for (int i = 1; i < taskInfo.length; i++) {
-                taskDescription += taskInfo[i] + " ";
-            }
+        dukeUI.printDukeName();
+        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
+        dukeUI.printWithPadding(tasks.get(numTasks).getTaskDescription());
 
-            taskDescription = taskDescription.trim();
-            newTask = new ToDo(taskDescription);
-            this.tasks.add(newTask);
-            break;
+        numTasks++;
 
-        case "deadline":
-            int i = 1;
-            for (; i < taskInfo.length; i++) {
-                if (taskInfo[i].equals("/by")) {
-                    break;
-                }
-                taskDescription += taskInfo[i] + " ";
-            }
+        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
+    }
 
-            for (i = i + 1; i < taskInfo.length; i++) {
-                taskDateField += taskInfo[i] + " ";
-            }
+    public void addDeadline(String deadlineInfo) {
+        String deadlineArgs[] = deadlineInfo.split("/by", 2);
+        Task newDeadline = new Deadline(deadlineArgs[0].trim(), deadlineArgs[1].trim());
+        this.tasks.add(newDeadline);
 
-            taskDescription = taskDescription.trim();
-            taskDateField = taskDateField.trim();
+        dukeUI.printDukeName();
+        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
+        dukeUI.printWithPadding(tasks.get(numTasks).getTaskDescription());
 
-            newTask = new Deadline(taskDescription, taskDateField);
-            this.tasks.add(newTask);
-            break;
+        numTasks++;
 
-        case "event":
-            int j = 1;
-            for (; j < taskInfo.length; j++) {
-                if (taskInfo[j].equals("/at")) {
-                    break;
-                }
-                taskDescription += taskInfo[j] + " ";
-            }
+        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
+    }
 
-            for (j = j + 1; j < taskInfo.length; j++) {
-                taskDateField += taskInfo[j] + " ";
-            }
-
-            taskDescription = taskDescription.trim();
-            taskDateField = taskDateField.trim();
-
-            newTask = new Event(taskDescription, taskDateField);
-            this.tasks.add(newTask);
-            break;
-        }
+    public void addEvent(String eventInfo) {
+        String eventArgs[] = eventInfo.split("/at", 2);
+        Task newEvent = new Event(eventArgs[0].trim(), eventArgs[1].trim());
+        this.tasks.add(newEvent);
 
         dukeUI.printDukeName();
         dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);

@@ -6,6 +6,14 @@ public class Duke {
     private final DukeInterface dukeUI;
     private final TaskManager taskMgr;
 
+    private final String LIST_CMD = "list";
+    private final String HELP_CMD = "help";
+    private final String ADD_TODO_CMD = "todo";
+    private final String ADD_DEADLINE_CMD = "deadline";
+    private final String ADD_EVENT_CMD = "event";
+    private final String SET_TASK_DONE_CMD = "done";
+    private final String TERMINATE_CMD = "bye";
+
     public Duke() {
         in = new Scanner(System.in);
         dukeUI = new DukeInterface();
@@ -19,39 +27,36 @@ public class Duke {
         return input;
     }
 
-    public String[] splitInput(String input) {
-        input = input.trim();
-        String[] inputTokens = input.split(" ");
-        return inputTokens;
-    }
-
     public void startDuke() {
         dukeUI.printWelcomeMsg();
-        String input;
         boolean isRunning = true;
 
         do {
-            input = readInput();
-            String[] inputTokens = splitInput(input);
+            String input = readInput();
+            String[] inputArgs = input.split("\\s+",2);
 
-            switch (inputTokens[0]) {
-            case "bye":
+            switch (inputArgs[0]) {
+            case TERMINATE_CMD:
                 isRunning = false;
                 break;
-            case "list":
+            case LIST_CMD:
                 taskMgr.printTasks();
                 break;
-            case "done":
-                int taskID = Integer.parseInt(inputTokens[1]);
+            case SET_TASK_DONE_CMD:
+                int taskID = Integer.parseInt(inputArgs[1]);
                 taskMgr.setTaskComplete(taskID);
                 break;
-            case "help":
+            case HELP_CMD:
                 dukeUI.printHelpMsg();
                 break;
-            case "todo":
-            case "deadline":
-            case "event":
-                taskMgr.addTask(inputTokens);
+            case ADD_TODO_CMD:
+                taskMgr.addToDo(inputArgs[1]);
+                break;
+            case ADD_DEADLINE_CMD:
+                taskMgr.addDeadline(inputArgs[1]);
+                break;
+            case ADD_EVENT_CMD:
+                taskMgr.addEvent(inputArgs[1]);
                 break;
             default:
                 dukeUI.printErrorMsg();

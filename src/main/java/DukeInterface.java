@@ -12,18 +12,20 @@ public class DukeInterface {
             + "+++++++++++++++++++++++++++++++++++++++++++++";
 
     private final String WELCOME_MSG = "=> Hello! I'm Duke \uD83D\uDC3B\n"
-            + "=> I'm so hungry, would you mind feeding me tasks?\n";
+            + "=> I'm so hungry, would you mind feeding me tasks?";
 
     private final String EXIT_MSG = "=> Come back soon, I'm still hungry \uD83D\uDE0B";
 
     private final String ERROR_MSG = "Yikes, your input is invalid! (refer to 'help' command)";
 
     private final String HELP_MSG = "Types of Commands Available [\uD83D\uDCAC]:\n"
-            + "1. Print Tasklist   -> list \n"
-            + "2. Add Todos        -> {todo <task description>}\n"
-            + "3. Add Deadlines    -> {deadline <task description> /by <task date&time>}\n"
-            + "4. Add Events       -> {event <task description> /by <task date&time>}\n"
-            + "5. Set Task as Done -> {done <task ID>}";
+            + "1. Terminate Duke            -> bye \n"
+            + "1. Print Tasklist            -> list \n"
+            + "1. Print Available Commands  -> help \n"
+            + "2. Add Todos                 -> {todo <task description>}\n"
+            + "3. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
+            + "4. Add Events                -> {event <task description> /by <task date&time>}\n"
+            + "5. Set Task as Done          -> {done <task ID>}";
 
     public void printUserName() {
         System.out.println("\n[You]:");
