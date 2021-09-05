@@ -1,0 +1,11 @@
+git add Duke.java # might not be necessary, try first without
+git commit Duke.java -m "message here"
+git push
+
+git tag <tagname> -m "Level-X"
+git push origin <tagname>
+
+switching to new branch:
+git checkout -b branch-Level-X
+git add .
+git commit

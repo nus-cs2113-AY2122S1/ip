@@ -6,7 +6,6 @@ public class Duke {
     public static final int DESCRIPTION = 0;
     public static final int TASK_NUMBER = 1;
     public static final int TIMING = 1;
-    public static final int SMALLEST_VALID_LIST_SIZE = 1;
     public static final int TODO_HEADER = 5;
     public static final int EVENT_HEADER = 6;
     public static final int DEADLINE_HEADER = 9;
@@ -14,6 +13,8 @@ public class Duke {
     public static final String LINEBAR = "____________________________________________________________\n";
     public static final String EVENT_IDENTIFIER = "/at ";
     public static final String DEADLINE_IDENTIFIER = "/by ";
+
+    public static int taskIndex = 0;
 
 
     /**
@@ -45,6 +46,7 @@ public class Duke {
                 + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢷⣧⣤⣀⣀⣀⣄⣄⣀⣀⣀⣀⣀⣂⣠⣀⣡⣠⣀⣠⣦⣴⡾⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
                 + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠋⠙⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
                 + "Greetings, I'm DAHNAM. I'm definitely a human, not a machine!\nHow may I help you?\n";
+
         System.out.println(HELLOMESSAGE);
     }
 
@@ -53,15 +55,21 @@ public class Duke {
      */
     public static void bidGoodbye() {
         String GOODBYEMESSAGE = "Alas, our lovely time together comes to an end. Au revoir!\n";
+
+        System.out.println(LINEBAR);
         System.out.println(GOODBYEMESSAGE);
+        System.out.println(LINEBAR);
     }
 
     /**
      * Prints a message denying any and all allegations of DAHNAM being a bot when prompted with 'bot?'
      */
     public static void denyBotNature() {
-        String DENYBOTNATURE = "No, I am definitely not a bot. Why do you ask?\n";
-        System.out.println(DENYBOTNATURE);
+        String denyBotNature = "No, I am definitely not a bot. Why do you ask?\n";
+
+        System.out.println(LINEBAR);
+        System.out.println(denyBotNature);
+        System.out.println(LINEBAR);
     }
 
     /**
@@ -71,15 +79,18 @@ public class Duke {
      */
     public static void listAllTasks(Task[] taskList, int index) {
         if (index == 0) {
-            System.out.println("You do not have any items listed currently.");
+            System.out.println("You do not have any items in your list currently.");
             return;
         }
 
         int taskNumber = 1;
+
+        System.out.println(LINEBAR);
         for (int i = 0; i < index; i++) {
             System.out.println((taskNumber) + "." + taskList[i].toString());
             taskNumber++;
         }
+        System.out.println(LINEBAR);
     }
 
     /**
@@ -104,25 +115,118 @@ public class Duke {
     /**
      * Modifies a task and sets its boolean isDone to true. Prints out an acknowledgement after.
      *
-     * @param taskList An array of tasks. Max size of 100
-     * @param i        Index of the task shown when user inputs 'list'
+     * @param userInput String that the user input
+     * @param taskList  An array of tasks. Max size of 100
+     * @throws NumberFormatException Thrown when the input is not a valid positive integer e.g. an alphabet
+     * @throws NullPointerException Thrown when the value inserted exceeds the number of tasks
+     * @throws ArrayIndexOutOfBoundsException Thrown when input is a negative value, or does not include a value
      */
-    public static void completeTask(Task[] taskList, int i) {
-        boolean isInvalidListSize = (i < SMALLEST_VALID_LIST_SIZE);
-        //Navigate to the given index and change the sign
-        if (isInvalidListSize) {
-            System.out.println(LINEBAR);
-            System.out.println("No task found with the given number. \nPlease type 'list' to view your current task "
-                    + "list");
-            System.out.println(LINEBAR);
-            return;
-        }
-        i--;
-        taskList[i].markAsDone();
+    public static void completeTask(String userInput, Task[] taskList)
+            throws NumberFormatException, NullPointerException, ArrayIndexOutOfBoundsException {
         System.out.println(LINEBAR);
-        System.out.println(
-                "Bueno! The following task is marked as done: \n[" + taskList[i].getStatusIcon() + "] "
-                        + taskList[i].taskDescription);
+
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER]);
+
+            //Navigate to the given index and change the sign
+            int taskIndex = taskNumber - 1;
+            taskList[taskIndex].markAsDone();
+            System.out.println(LINEBAR);
+            System.out.println(
+                    "Bueno! The following task is marked as done: \n[" + taskList[taskIndex].getStatusIcon() + "] "
+                            + taskList[taskIndex].taskDescription);
+        } catch (NumberFormatException e) {
+            System.out.println("You must input a positive integer. Format: done [Task Number]");
+        } catch (NullPointerException e) {
+            System.out.println("The value you inserted is invalid. Please type 'list' to check the number of tasks");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("The value you inserted must be a positive integer");
+        }
+
+        System.out.println(LINEBAR);
+    }
+
+    /**
+     * Adds an event to the task list
+     * @param userInput String that the user input
+     * @param taskList  An array of tasks. Max size of 100
+     * @throws StringIndexOutOfBoundsException Thrown when userInput does not have a description after 'event'
+     * @throws ArrayIndexOutOfBoundsException Thrown when userInput does not follow [Description] /at [Time]
+     */
+    public static void addEvent(String userInput, Task[] taskList)
+            throws StringIndexOutOfBoundsException, ArrayIndexOutOfBoundsException {
+        System.out.println(LINEBAR);
+
+        try {
+            String taskDescription = userInput.split(EVENT_IDENTIFIER)[DESCRIPTION].substring(EVENT_HEADER);
+            String timing = userInput.split(EVENT_IDENTIFIER)[TIMING];
+            Event event = new Event(taskDescription, timing);
+            addToTaskList(taskList, event, taskIndex);
+            taskIndex++;
+            echoUserInput(event, taskIndex);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("String Index OOB. Did you forgot the /at? Format: event [Description] /at [Time]");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index OOB. Did you forget the /at? Format: event [Description] /at [Time]");
+        }
+
+        System.out.println(LINEBAR);
+    }
+
+    /**
+     * Adds a todo to the task list
+     * @param userInput String that the user input
+     * @param taskList An array of tasks. Max size of 100
+     * @throws StringIndexOutOfBoundsException Thrown when user does not include description
+     */
+    public static void addToDo(String userInput, Task[] taskList) throws StringIndexOutOfBoundsException {
+        System.out.println(LINEBAR);
+
+        try {
+            String taskDescription = userInput.substring(TODO_HEADER);
+            ToDo todo = new ToDo(taskDescription);
+            addToTaskList(taskList, todo, taskIndex);
+            taskIndex++;
+            echoUserInput(todo, taskIndex);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("String Index OOB. Looks like you forgot the description! Format: todo [description]");
+        }
+
+        System.out.println(LINEBAR);
+    }
+
+    /**
+     * Adds a deadline to the task list
+     * @param userInput String that user input
+     * @param taskList An array of tasks. Max size of 100
+     * @throws StringIndexOutOfBoundsException Thrown when user does not include any description after 'deadline'
+     * @throws ArrayIndexOutOfBoundsException Thrown when user input does not follow [description] /by [time]
+     */
+    public static void addDeadline(String userInput, Task[] taskList)
+            throws StringIndexOutOfBoundsException, ArrayIndexOutOfBoundsException {
+        System.out.println(LINEBAR);
+
+        try {
+            String taskDescription = userInput.split(DEADLINE_IDENTIFIER)[DESCRIPTION].substring(DEADLINE_HEADER);
+            String timing = userInput.split(DEADLINE_IDENTIFIER)[TIMING];
+            Deadline deadline = new Deadline(taskDescription, timing);
+            addToTaskList(taskList, deadline, taskIndex);
+            taskIndex++;
+            echoUserInput(deadline, taskIndex);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("String Index OOB. Did you forget the /by? Format: deadline [Description] /by [Time]");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index OOB. Did you forget the /by? Format: deadline [Description /by [Time]");
+        }
+
+        System.out.println(LINEBAR);
+    }
+
+    public static void showListOfCommands() {
+        System.out.println(LINEBAR);
+        System.out.println("Unfortunately, my definitely human brain is unable to understand what you mean.\nThe list "
+                + "of sentences I understand are: \n todo [Description] \n event [Description] /at [Time] \n "
+                + "deadline [Description] /by [Time] \n list \n done [Task Number] \n bye \n bot?");
         System.out.println(LINEBAR);
     }
 
@@ -135,11 +239,8 @@ public class Duke {
         greetUser();
         Scanner readUserInput = new Scanner(System.in);
         Task[] taskList = new Task[MAX_LIST_SIZE];
-        int taskIndex = 0;
         String userInput;
         String identifier;
-        String taskDescription;
-        String timing;
 
         while (true) {
             userInput = readUserInput.nextLine();
@@ -147,68 +248,35 @@ public class Duke {
 
             switch (identifier) {
             case "done":
-                int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER]);
-                completeTask(taskList, taskNumber);
-
+                completeTask(userInput, taskList);
                 continue;
 
             case "bye":
-                System.out.println(LINEBAR);
                 bidGoodbye();
-                System.out.println(LINEBAR);
                 return;
 
             case "bot?":
-                System.out.println(LINEBAR);
                 denyBotNature();
-                System.out.println(LINEBAR);
                 continue;
 
             case "list":
-                System.out.println(LINEBAR);
                 listAllTasks(taskList, taskIndex);
-                System.out.println(LINEBAR);
                 continue;
 
             case "todo":
-                System.out.println(LINEBAR);
-                taskDescription = userInput.substring(TODO_HEADER);
-                ToDo todo = new ToDo(taskDescription);
-                addToTaskList(taskList, todo, taskIndex);
-                taskIndex++;
-                echoUserInput(todo, taskIndex);
-                System.out.println(LINEBAR);
+                addToDo(userInput, taskList);
                 continue;
 
             case "event":
-                System.out.println(LINEBAR);
-                taskDescription = userInput.split(EVENT_IDENTIFIER)[DESCRIPTION].substring(EVENT_HEADER);
-                timing = userInput.split(EVENT_IDENTIFIER)[TIMING];
-                Event event = new Event(taskDescription, timing);
-                addToTaskList(taskList, event, taskIndex);
-                taskIndex++;
-                echoUserInput(event, taskIndex);
-                System.out.println(LINEBAR);
+                addEvent(userInput, taskList);
                 continue;
 
             case "deadline":
-                System.out.println(LINEBAR);
-                taskDescription = userInput.split(DEADLINE_IDENTIFIER)[DESCRIPTION].substring(DEADLINE_HEADER);
-                timing = userInput.split(DEADLINE_IDENTIFIER)[TIMING];
-                Deadline deadline = new Deadline(taskDescription, timing);
-                addToTaskList(taskList, deadline, taskIndex);
-                taskIndex++;
-                echoUserInput(deadline, taskIndex);
-                System.out.println(LINEBAR);
+                addDeadline(userInput, taskList);
                 continue;
 
             default:
-                System.out.println(LINEBAR);
-                Task task = new Task(userInput);
-                addToTaskList(taskList, task, taskIndex);
-                taskIndex++;
-                echoUserInput(task, taskIndex);
-                System.out.println(LINEBAR);
+                showListOfCommands();
             }
         }
     }
