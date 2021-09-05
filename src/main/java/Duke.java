@@ -79,9 +79,15 @@ public class Duke {
     private static void executeDone(String taskId) {
         int num;
         try {
+            if (taskId.equals("") || taskId.equals("done")) {
+                throw new DukeException("Please provide task ID");
+            }
             num = Integer.parseInt(taskId);
         } catch (NumberFormatException e) {
             printInvalidTaskNumberFormat();
+            return;
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
             return;
         }
         Task task;
