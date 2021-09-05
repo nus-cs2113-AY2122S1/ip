@@ -68,41 +68,32 @@ public class Command {
         // task has not been marked as done and needs to be marked as done
         if (!taskList[doneIndex].getIsDone()) {
             taskList[doneIndex].markAsDone();
-            System.out.println("    Alright! I've marked this task as done! :)");
-            System.out.printf("    [%s] %s\n", taskList[doneIndex].getStatusIcon(), taskList[doneIndex].getFormattedDescription());
-        }else{
-            System.out.println("    Task is already marked as done!");
+            MessageManager.printTaskDoneMessage(taskList[doneIndex]);
+        } else{
+            MessageManager.printTaskAlreadyDoneMessage();
         }
-
     }
 
     // reads List Command then prints out all the tasks
     public void executeListCommand(int taskListIndex) {
-        System.out.println("    Task List:");
-        for (int i = 0; i < taskListIndex; i ++) {
-            System.out.printf("    %d. [%s][%s] %s\n", i + 1, taskList[i].getType(), taskList[i].getStatusIcon(), taskList[i].getFormattedDescription());
-        }
+        MessageManager.printTaskList(taskListIndex, taskList);
     }
 
     public void executeToDoCommand(int taskListIndex, String fullTaskDescription) {
         ToDo task = new ToDo(fullTaskDescription);
-        System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
-        System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
         taskManager.addTask(task, taskListIndex);
+        MessageManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
     public void executeDeadlineCommand(int taskListIndex, String fullTaskDescription) {
         Deadline task = new Deadline(fullTaskDescription);
-        System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
-        System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
         taskManager.addTask(task, taskListIndex);
+        MessageManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
     public void executeEventCommand(int taskListIndex, String fullTaskDescription) {
         Event task = new Event(fullTaskDescription);
-        System.out.printf("    Okay! I've added this task: \n       [%s][%s] %s\n",task.getType(), task.getStatusIcon(),task.getFormattedDescription());
-        System.out.printf("    Now you have %d tasks in the list.\n", Task.getTotalTasks());
         taskManager.addTask(task, taskListIndex);
+        MessageManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
-
 }

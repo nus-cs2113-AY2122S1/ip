@@ -6,8 +6,6 @@ import task.ToDo;
 public class TaskManager {
     private static final int MAX_TASK = 100;
 
-    private static final String LINE = "    ____________________________________________________________";
-
     private static final String LIST_COMMAND = "list";
     private static final String DONE_COMMAND = "done";
     private static final String TODO_COMMAND = "todo";
@@ -18,7 +16,6 @@ public class TaskManager {
 
     public TaskManager() {
         this.taskList = new Task[MAX_TASK];
-        giveWelcomeMessage();
     }
 
     public Task[] getTaskList() {
@@ -30,21 +27,6 @@ public class TaskManager {
     }
 
 
-    public void giveWelcomeMessage() {
-        String logo = " \n" +
-                "                        .-\"\"\"-.\n" +
-                "                       / .//\". \\\n" +
-                "                       \\/ o o \\/\n" +
-                "                       ( \\___/ )\n" +
-                "          ________oooo__\\_____/_____________\n" +
-                "         /                                  \\\n" +
-                "        |         Hello! I'm Bobby :)        |\n" +
-                "        |     What can I can do for you?     |\n" +
-                "         \\______________________oooo________/\n" ;
-
-
-        System.out.println(logo);
-    }
 
     public String getTaskCommand(String rawUserInput) {
         String[] inputWords = rawUserInput.toLowerCase().split(" ");
@@ -64,8 +46,6 @@ public class TaskManager {
         String fullTaskDescription;
 
         Command command = new Command(taskCommand, this);
-
-        System.out.println(LINE);
 
         switch(taskCommand) {
         case LIST_COMMAND:
@@ -87,17 +67,11 @@ public class TaskManager {
             command.executeEventCommand(taskListIndex, fullTaskDescription);
             break;
         default:
-            System.out.println("    Invalid Command :( Please try again.");
+            MessageManager.printInvalidCommandMessage();
             break;
         }
 
-        System.out.println(LINE);
     }
 
-    public void giveFarewellMessage() {
-        System.out.println(LINE);
-        System.out.println("    Bye, my friend :( ");
-        System.out.println(LINE);
-    }
 
 }

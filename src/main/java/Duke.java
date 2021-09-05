@@ -8,10 +8,12 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
+        MessageManager.printWelcomeMessage();
 
         String rawUserInput;
         Scanner in = new Scanner(System.in);
         rawUserInput = in.nextLine().trim();
+
 
 
         while (!rawUserInput.equalsIgnoreCase("bye")) {
@@ -22,6 +24,6 @@ public class Duke {
         }
 
         //if bye is the input
-        taskManager.giveFarewellMessage();
+        MessageManager.printGoodByeMessage();
     }
 }
