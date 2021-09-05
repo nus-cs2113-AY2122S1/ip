@@ -1,6 +1,6 @@
 package InputHandler.command;
 
-import InputHandler.exception.CommandWrongFormatException;
+import InputHandler.exception.DukeException;
 
 public abstract class UserCommand {
     TaskList tasks;
@@ -11,6 +11,6 @@ public abstract class UserCommand {
         this.tasks = tasks;
     }
 
-    abstract public void execute () throws CommandWrongFormatException;
+    abstract public void execute () throws DukeException;
 
 }

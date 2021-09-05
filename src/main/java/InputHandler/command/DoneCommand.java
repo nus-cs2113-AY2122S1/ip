@@ -13,11 +13,14 @@ public class DoneCommand extends UserCommand {
 
     @Override
     public void execute () throws TaskNotExistException {
+        Task completedTask;
         try {
-            this.tasks.markAsDone(index - 1);
-            System.out.println("     Nice! I've marked this task as done: ");
+            completedTask = this.tasks.markAsDone(index - 1);
+
         } catch (NullPointerException e) {
             throw new TaskNotExistException();
         }
+        System.out.println("     Nice! I've marked this task as done: ");
+        System.out.println("       " + completedTask);
     }
 }

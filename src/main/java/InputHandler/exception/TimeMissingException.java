@@ -1,6 +1,6 @@
 package InputHandler.exception;
 
-public class TimeMissingException extends CommandWrongFormatException {
+public class TimeMissingException extends DukeException {
     private String taskType;
 
     public TimeMissingException(String taskType) {

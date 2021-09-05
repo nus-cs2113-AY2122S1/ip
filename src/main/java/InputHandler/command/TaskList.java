@@ -25,9 +25,9 @@ public class TaskList {
         return this.totalTasks;
     }
 
-    public void markAsDone(int index) throws NullPointerException{
+    public Task markAsDone(int index) throws NullPointerException{
         this.tasks[index].setCompleted();
-        System.out.println("       " + this.tasks[index]);
+        return this.tasks[index];
     }
 
     private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {

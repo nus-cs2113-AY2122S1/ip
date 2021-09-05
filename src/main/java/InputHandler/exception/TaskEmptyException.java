@@ -1,6 +1,6 @@
 package InputHandler.exception;
 
-public class TaskEmptyException extends CommandWrongFormatException {
+public class TaskEmptyException extends DukeException {
     private String taskType;
 
     public TaskEmptyException (String taskType) {

@@ -1,9 +1,9 @@
 import InputHandler.command.AddTaskCommand;
 import InputHandler.exception.CommandNotExistException;
-import InputHandler.exception.CommandWrongFormatException;
 import InputHandler.command.DoneCommand;
 import InputHandler.command.ListCommand;
 import InputHandler.command.QuitCommand;
+import InputHandler.exception.DukeException;
 import InputHandler.exception.TaskIndexMissingException;
 import InputHandler.command.TaskList;
 import InputHandler.command.UserCommand;
@@ -29,7 +29,7 @@ public class User {
             userInput = readInput();
             try {
                 input = handleCommand(userInput);
-            } catch (CommandNotExistException | TaskIndexMissingException e) {
+            } catch (DukeException e) {
                 System.out.print(DIVISIONLINE);
                 System.out.println(e);
                 System.out.print(DIVISIONLINE);
@@ -49,7 +49,7 @@ public class User {
         System.out.print(DIVISIONLINE);
         try {
             input.execute();
-        } catch (CommandWrongFormatException e) {
+        } catch (DukeException e) {
             System.out.println(e);
         }
         System.out.print(DIVISIONLINE);
@@ -60,7 +60,7 @@ public class User {
     }
 
 
-    private UserCommand handleCommand(String userInput) throws CommandNotExistException, TaskIndexMissingException {
+    private UserCommand handleCommand(String userInput) throws DukeException {
         String[] inputSplits = userInput.split(" ");
         UserCommand input;
 
