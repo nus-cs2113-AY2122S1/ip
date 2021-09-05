@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Deadline extends Task {
 
     public static final String OPEN_BRACKET = "[";
