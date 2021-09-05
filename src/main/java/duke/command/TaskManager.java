@@ -207,18 +207,33 @@ public class TaskManager {
     }
 
     /**
-     * Handles the adding of an event to Duke's task list, including any erroneous input
+     * Handles the marking of a task as done, taking into account any erroneous input
      *
      * @param userInput Command input by the user
      */
-    public void handleEvent(String userInput) {
+    public void handleTaskDone(String userInput) {
         try {
-            addEvent(userInput);
+            markTaskDone(userInput);
+        } catch (DoneInvalidFormatException doneInvalidFormatException) {
+            doneInvalidFormatException.printDoneInvalidFormatMessage();
+        } catch (NonNumericTaskIdException nonNumericTaskIdException) {
+            nonNumericTaskIdException.printNonNumericTaskIdMessage();
+        } catch (TaskNotInListException taskNotInListException) {
+            taskNotInListException.printTaskNotInListMessage();
+        }
+    }
+
+    /**
+     * Handles the adding of a todo to Duke's task list, including any erroneous input
+     *
+     * @param userInput Command input by the user
+     */
+    public void handleTodo(String userInput) {
+        try {
+            addTodo(userInput);
             taskCount++;
-        } catch (EventInvalidFormatException eventInvalidFormatException) {
-            eventInvalidFormatException.printEventInvalidFormatMessage();
-        } catch (EventLacksArgumentsException eventLacksArgumentsException) {
-            eventLacksArgumentsException.printEventLacksArgumentsMessage();
+        } catch (TodoInvalidFormatException todoInvalidFormatException) {
+            todoInvalidFormatException.printTodoInvalidFormatMessage();
         }
     }
 
@@ -239,33 +254,18 @@ public class TaskManager {
     }
 
     /**
-     * Handles the adding of a todo to Duke's task list, including any erroneous input
+     * Handles the adding of an event to Duke's task list, including any erroneous input
      *
      * @param userInput Command input by the user
      */
-    public void handleTodo(String userInput) {
+    public void handleEvent(String userInput) {
         try {
-            addTodo(userInput);
+            addEvent(userInput);
             taskCount++;
-        } catch (TodoInvalidFormatException todoInvalidFormatException) {
-            todoInvalidFormatException.printTodoInvalidFormatMessage();
-        }
-    }
-
-    /**
-     * Handles the marking of a task as done, taking into account any erroneous input
-     *
-     * @param userInput Command input by the user
-     */
-    public void handleTaskDone(String userInput) {
-        try {
-            markTaskDone(userInput);
-        } catch (DoneInvalidFormatException doneInvalidFormatException) {
-            doneInvalidFormatException.printDoneInvalidFormatMessage();
-        } catch (NonNumericTaskIdException nonNumericTaskIdException) {
-            nonNumericTaskIdException.printNonNumericTaskIdMessage();
-        } catch (TaskNotInListException taskNotInListException) {
-            taskNotInListException.printTaskNotInListMessage();
+        } catch (EventInvalidFormatException eventInvalidFormatException) {
+            eventInvalidFormatException.printEventInvalidFormatMessage();
+        } catch (EventLacksArgumentsException eventLacksArgumentsException) {
+            eventLacksArgumentsException.printEventLacksArgumentsMessage();
         }
     }
 

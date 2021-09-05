@@ -15,19 +15,6 @@ public class Duke {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    public static void printLogoAndGreet() {
-        System.out.println("Hello from\n" + DUKE_LOGO);
-        System.out.println(OUTPUT_DIVIDER);
-        System.out.println(MESSAGE_GREET_USER);
-        System.out.println(OUTPUT_DIVIDER);
-    }
-
-    public static void printGoodbye() {
-        System.out.println(OUTPUT_DIVIDER);
-        System.out.println(MESSAGE_GOODBYE);
-        System.out.println(OUTPUT_DIVIDER);
-    }
-
     public static void main(String[] args) {
         printLogoAndGreet();
 
@@ -42,5 +29,24 @@ public class Duke {
         }
 
         printGoodbye();
+    }
+
+    /**
+     * Prints Duke's logo along with a greeting
+     */
+    public static void printLogoAndGreet() {
+        System.out.println("Hello from\n" + DUKE_LOGO);
+        System.out.println(OUTPUT_DIVIDER);
+        System.out.println(MESSAGE_GREET_USER);
+        System.out.println(OUTPUT_DIVIDER);
+    }
+
+    /**
+     * Prints a goodbye message before exiting the program
+     */
+    public static void printGoodbye() {
+        System.out.println(OUTPUT_DIVIDER);
+        System.out.println(MESSAGE_GOODBYE);
+        System.out.println(OUTPUT_DIVIDER);
     }
 }
