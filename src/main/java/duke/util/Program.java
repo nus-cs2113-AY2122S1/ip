@@ -1,3 +1,10 @@
+package duke.util;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Objects;
 
 public class Program {

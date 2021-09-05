@@ -11,40 +11,40 @@ Hello! I'm HAL 2113
 
 ____________________________________________________________
 What can I do for you? You can enter the following commands
-1. 'todo task' (replace task with any agenda you wish to add to the list)
-2. 'deadline task /by date' (eg. deadline task1 /by Sunday)
-3. 'event task /at time' (eg. event running /at Sunday 2-4pm)
+1. 'todo duke.task' (replace duke.task with any agenda you wish to add to the list)
+2. 'deadline duke.task /by date' (eg. deadline task1 /by Sunday)
+3. 'event duke.task /at time' (eg. event running /at Sunday 2-4pm)
 4. 'list (to list all saved tasks)
-5. 'done task index (to mark a completed task)
+5. 'done duke.task index (to mark a completed duke.task)
 6. 'bye' (to exit the program!
 Enter command: ____________________________________________________________
-Got it! I've added this task:
+Got it! I've added this duke.task:
 [T][ ] task1
-You now have 1 task(s) in your list!
+You now have 1 duke.task(s) in your list!
 ____________________________________________________________
 Enter command: ____________________________________________________________
-Got it! I've added this task:
+Got it! I've added this duke.task:
 [T][ ] read a book
-You now have 2 task(s) in your list!
+You now have 2 duke.task(s) in your list!
 ____________________________________________________________
 Enter command: ____________________________________________________________
-Got it! I've added this task:
+Got it! I've added this duke.task:
 [D][ ] task2 (by: Sunday 0530)
-You now have 3 task(s) in your list!
+You now have 3 duke.task(s) in your list!
 ____________________________________________________________
 Enter command: ____________________________________________________________
-Got it! I've added this task:
+Got it! I've added this duke.task:
 [E][ ] task3 (at: Saturday 4-6pm)
-You now have 4 task(s) in your list!
+You now have 4 duke.task(s) in your list!
 ____________________________________________________________
 Enter command: ____________________________________________________________
 Your input does not follow my format!
 Read properly and type it again!
 ____________________________________________________________
-Nice! I've marked this task as done:
+Nice! I've marked this duke.task as done:
 [D][X] task2 (by: Sunday 0530)
 ____________________________________________________________
-Enter command: Nice! I've marked this task as done:
+Enter command: Nice! I've marked this duke.task as done:
 [E][X] task3 (at: Saturday 4-6pm)
 ____________________________________________________________
 Enter command: ____________________________________________________________
