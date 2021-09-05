@@ -1,6 +1,6 @@
 public class Task {
 
-S    /** The actual description or name of the task */
+    /** The actual description or name of the task */
     private String description;
     /** Shows if task is completed */
     private boolean isDone;
@@ -11,21 +11,23 @@ S    /** The actual description or name of the task */
     }
 
     /**
+     * Gets the user input and check if it is empty or null
+     *
+     * @param validString the user String input
+     * @return true if string is empty or null and false otherwise
+     */
+    public boolean checkStringNullOrEmpty(String validString) {
+        return validString == null || validString.isEmpty();
+
+    }
+
+    /**
      * Obtains description of task
      *
      * @return get the description of the task
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * modify the description of the task
-     *
-     * @param description sets this description as the new description
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**

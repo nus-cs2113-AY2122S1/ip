@@ -1,10 +1,7 @@
 import java.util.Scanner;
 
-public class UI {
+public class Ui {
 
-    /**
-     * Line template to use for dividers
-     */
     public static final String LINE = "____________________________________________________________";
     public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     public static final String SHELL_RPG_BANNER =
@@ -16,11 +13,11 @@ public class UI {
                     + "#     # #     # #       #       #          #    #  #       #     # \n"
                     + " #####  #     # ####### ####### #######    #     # #        #####  ";
     public static final String TASKLIST_EMPTY = "There are no tasks in your list";
-    public static final String LIST_TASK_MESSAGE = "Here are your tasks in your list:";
+    public static final String TASKLIST_MESSAGE = "Here are your tasks in your list:";
     private String username;
     private Scanner in;
 
-    public UI(String username) {
+    public Ui(String username) {
         this.username = username;
         in = new Scanner(System.in);
     }
@@ -90,17 +87,20 @@ public class UI {
     /**
      * List all task added by the user Show which task has been completed
      */
-    public void listTasks(TaskManager taskList) {
+    public void printAllTasks(TaskManager taskList) {
         System.out.println(LINE);
-        if (taskList.getNumberOfTasks() == 0) {
-            System.out.println(TASKLIST_EMPTY);
-        } else {
-            System.out.println(LIST_TASK_MESSAGE);
-            // Printing all tasks with their completion status
-            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-                System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
-            }
+        System.out.println(TASKLIST_MESSAGE);
+        // Printing all tasks with their completion status
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
         }
         System.out.println(LINE);
+    }
+
+    /**
+     * Shows only if the list of task is empty
+     */
+    public void printEmptyTaskMessage() {
+        printMessage(TASKLIST_EMPTY);
     }
 }

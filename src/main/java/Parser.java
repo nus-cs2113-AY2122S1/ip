@@ -31,14 +31,17 @@ public class Parser {
      *
      * @param delimiter the delimiter to split the arguments by
      * @return first half the string split delimiters
-     * @throws ArrayIndexOutOfBoundsException if the delimiter is not found in the string
+     * @throws ArgumentNotFoundException if the delimiter is not found in the string
+     * @throws NullPointerException      if the arguments is null
      */
-    public String getArgsBeforeString(String delimiter) throws ArrayIndexOutOfBoundsException {
+    public String getArgsBeforeString(String delimiter)
+            throws ArgumentNotFoundException, NullPointerException {
         int locationOfArgument = arguments.indexOf(delimiter);
         if (locationOfArgument == -1) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new ArgumentNotFoundException();
         }
-        return arguments.substring(0, locationOfArgument).trim();
+        String firstArgument = arguments.substring(START_INDEX, locationOfArgument).strip();
+        return firstArgument.isEmpty() ? null : firstArgument;
     }
 
     /**
@@ -46,14 +49,17 @@ public class Parser {
      *
      * @param delimiter the delimiter to split the arguments by
      * @return second half the string split delimiters
-     * @throws ArrayIndexOutOfBoundsException if the delimiter is not found in the string
+     * @throws ArgumentNotFoundException if the delimiter is not found in the string
+     * @throws NullPointerException      if the arguments is null
      */
-    public String getArgsAfterString(String delimiter) throws ArrayIndexOutOfBoundsException {
+    public String getArgsAfterString(String delimiter)
+            throws ArgumentNotFoundException, NullPointerException {
         int locationOfArgument = arguments.indexOf(delimiter);
         if (locationOfArgument == -1) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new ArgumentNotFoundException();
         }
-        return arguments.substring(locationOfArgument + delimiter.length()).trim();
+        String secondArgument = arguments.substring(locationOfArgument + delimiter.length()).strip();
+        return secondArgument.isEmpty() ? null : secondArgument;
     }
 
     /**
