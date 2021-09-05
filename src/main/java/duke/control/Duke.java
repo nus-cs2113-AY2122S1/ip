@@ -1,4 +1,5 @@
-import java.io.LineNumberReader;
+package duke.control;
+
 import java.util.Scanner;
 
 public class Duke {

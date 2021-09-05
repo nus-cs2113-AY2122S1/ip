@@ -1,3 +1,10 @@
+package duke.control;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 public class List {
     private static final int TODO_NAME_START_INDEX = 5;
     private static final int DONE_NUMBER_INDEX = 5;
