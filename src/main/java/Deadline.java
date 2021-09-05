@@ -1,7 +1,7 @@
 public class Deadline extends Task{
 
     private static final String TASK_SYMBOL = "[D]";
-    protected String dueDate;
+    private String dueDate;
 
     public Deadline(String description, String dueDate){
         super(description);

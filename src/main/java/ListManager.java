@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
-public class ListManager {
-    private static ArrayList<Task> list;
+public class ListManager implements TaskList{
+    private final ArrayList<Task> list;
 
     public ListManager(ArrayList<Task> list){
         this.list = list;
@@ -12,10 +12,6 @@ public class ListManager {
             int itemIndex= i + 1;
             System.out.println(itemIndex + ". " + list.get(i).toString());
         }
-    }
-
-    public void completeTask(){
-        printList();
     }
 
     private void printAddItem(Task t){
@@ -40,5 +36,11 @@ public class ListManager {
         Task t = new Deadline(description, deadline);
         list.add(t);
         printAddItem(t);
+    }
+
+    public void completeTask(int t){
+        Task doneTask = list.get(t);
+        doneTask.setDone();
+        System.out.println(Logo.divider + "Nice! I've marked this task as done: " + doneTask.getDescription());
     }
 }
