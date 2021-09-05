@@ -1,6 +1,8 @@
 package tan;
 public class ToDo extends Task {
 
+    private final String toDoIcon = "T";
+
     public ToDo(String description) {
         super.setTaskName(description);
     }
@@ -10,8 +12,9 @@ public class ToDo extends Task {
      *
      * @return Returns the String "T"
      */
+    @Override
     public String getIcon() {
-        return "T";
+        return toDoIcon;
     }
 
     /**

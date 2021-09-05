@@ -8,7 +8,7 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
 REM the ..\bin is where it will compile to.
-javac  -cp ..\src\main\java\tan -Xlint:none -d ..\bin ..\src\main\java\tan\*.java
+javac  -cp ..\src\main\java\tan -Xlint:none -d ..\bin ..\src\main\java\tan\*.java ..\src\main\java\tan\exceptions\*.java ..\src\main\java\tan\tasktype\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

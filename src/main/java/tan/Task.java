@@ -1,8 +1,6 @@
 package tan;
 
-import java.util.List;
-
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone;
 
@@ -14,6 +12,14 @@ public class Task {
     public Task() {
         this("Unnamed");
     }
+
+    /**
+     * This is the abstract function to
+     * get each task's respective icon.
+     *
+     * @return The icon in String.
+     */
+    public abstract String getIcon();
 
     /**
      * Returns the name of the task.
