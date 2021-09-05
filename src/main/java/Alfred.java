@@ -1,3 +1,4 @@
+import alfred.manager.MessageManager;
 import alfred.manager.TaskManager;
 
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class Alfred {
         while (true) {
             userInput = scanner.nextLine().trim();
             if (userInput.equalsIgnoreCase("bye")) {
-                taskManager.shutdownMessage();
+                MessageManager.shutdownMessage();
                 return;
             }
             taskManager.processInput(userInput);

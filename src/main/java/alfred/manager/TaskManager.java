@@ -9,39 +9,12 @@ import alfred.task.Todo;
 public class TaskManager {
     private Task[] tasks;
     private int listIndex;
-    private final String LINE = "____________________________________________________________\n";
     private final int TASK_LIST_SIZE = 100;
-    private final String LOGO =
-            " **********************************\n" +
-            " *     _    _  __              _  *\n" +
-            " *    / \\  | |/ _|_ __ ___  __| | *\n" +
-            " *   / _ \\ | | |_| '__/ _ \\/ _` | *\n" +
-            " *  / ___ \\| |  _| | |  __/ (_| | *\n" +
-            " * /_/   \\_\\_|_| |_|  \\___|\\__,_| *\n" +
-            " **********************************\n";
-
 
     public TaskManager() {
         tasks = new Task[TASK_LIST_SIZE];
         listIndex = 0;
-        initAlfred();
-    }
-
-    private void initAlfred() {
-        System.out.println(
-                LOGO + "\n" + LINE +
-                " Welcome back, Master Wayne.\n" +
-                " How may I be of service to you?\n" +
-                LINE
-        );
-    }
-
-    public void shutdownMessage() {
-        System.out.println(
-                LINE +
-                " Very well sir, I shall leave you to your own devices.\n" +
-                LINE
-        );
+        MessageManager.initMessage();
     }
 
     public void processInput(String userInput) {
@@ -64,16 +37,16 @@ public class TaskManager {
                 addDeadline(userInput);
                 break;
             default:
-                ErrorManager.invalidCommandMessage();
+                MessageManager.invalidCommandMessage();
             }
         } catch (EmptyDescriptionException e) {
-            ErrorManager.emptyDescriptionMessage();
+            MessageManager.emptyDescriptionMessage();
         }
     }
 
 
     private void listTasks() {
-        System.out.print(LINE);
+        System.out.print(MessageManager.LINE);
         if (listIndex == 0) {
             System.out.println(" Your schedule is clear, Master Wayne.");
         } else {
@@ -82,14 +55,14 @@ public class TaskManager {
                 System.out.println(" " + (i + 1) + "." + tasks[i].toString());
             }
         }
-        System.out.println(LINE);
+        System.out.println(MessageManager.LINE);
     }
 
     private void completeTask(String userInput) {
         String[] destructuredInputs = userInput.split(" ");
         int index = Integer.parseInt(destructuredInputs[1]) - 1;
         tasks[index].setTaskDone();
-        completeTaskMessage(index + 1, tasks[index].toString());
+        MessageManager.completeTaskMessage(index + 1, tasks[index].toString());
     }
 
     private void addTodo(String userInput) throws EmptyDescriptionException {
@@ -101,7 +74,7 @@ public class TaskManager {
         Todo t = new Todo(todoName);
         tasks[listIndex] = t;
         listIndex++;
-        addTaskMessage(t);
+        MessageManager.addTaskMessage(t, listIndex);
     }
 
     private void addEvent(String userInput) throws EmptyDescriptionException {
@@ -113,7 +86,7 @@ public class TaskManager {
         Event e = new Event(destructuredArguments[0], destructuredArguments[1]);
         tasks[listIndex] = e;
         listIndex++;
-        addTaskMessage(e);
+        MessageManager.addTaskMessage(e, listIndex);
     }
 
     private void addDeadline(String userInput) throws EmptyDescriptionException {
@@ -125,24 +98,7 @@ public class TaskManager {
         Deadline d = new Deadline(destructuredArguments[0], destructuredArguments[1]);
         tasks[listIndex] = d;
         listIndex++;
-        addTaskMessage(d);
+        MessageManager.addTaskMessage(d, listIndex);
     }
 
-    private void completeTaskMessage(int index, String taskDescription) {
-        System.out.println(
-                LINE +
-                " Duly noted on completion of task, sir.\n" +
-                "    " + index + "." + taskDescription + "\n" +
-                LINE
-        );
-    }
-
-    private void addTaskMessage(Task t) {
-        System.out.println(
-                LINE +
-                " I shall put this in your schedule, Master Wayne: \n    " + t.toString() + "\n" +
-                " Sir, the number of Tasks you have scheduled currently amounts to " + listIndex + "." + "\n" +
-                LINE
-        );
-    }
 }
