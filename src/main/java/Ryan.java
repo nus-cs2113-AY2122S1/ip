@@ -7,12 +7,13 @@ public class Ryan {
     /**
      * Logo of the bot
      */
-    private static final String LOGO = " _ __ _   _  __ _ _ __ \n"
+//    private static final String LOGO = "Ryan";
+    private static final String LOGO = " _ __ _   _  __ _ _ __\n"
                                     + "| '__| | | |/ _` | '_ \\\n"
                                     + "| |  | |_| | (_| | | | |\n"
                                     + "|_|   \\__, |\\__,_|_| |_|\n"
-                                    + "       __/ |            \n"
-                                    + "      |___/             ";
+                                    + "       __/ |\n"
+                                    + "      |___/";
     private static final String SPACING = " ";
     /**
      * A decorative spacer between user inputs and outputs by the bot
@@ -26,7 +27,7 @@ public class Ryan {
     private static final String ENTRY_BY = "/by";
 
     private static final String MESSAGE_TASK_ADDED = "Added task:\n    ";
-    private static final String MESSAGE_WELCOME = "Hello from \n"
+    private static final String MESSAGE_WELCOME = "Hello from\n"
                                                 + LOGO
                                                 + "\nHow can I assist you? Type something below! :D";
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
