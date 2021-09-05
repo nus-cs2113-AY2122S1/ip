@@ -45,6 +45,13 @@ public class Duke {
             }
             else if(command.contains("todo")){
                 int first = command.indexOf(" ");
+                int check = command.indexOf("d");
+                if(check == command.length()-2){
+                    System.out.println(Line);
+                    System.out.println("     ☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(Line);
+                    continue;
+                }
                 String item = command.substring(first,command.length());
                 tasks[taskSum] = new Todo(item);
                 taskSum = taskSum++;
@@ -53,6 +60,13 @@ public class Duke {
             }
             else if(command.contains("deadline")){
                 int first = command.indexOf(" ");
+                int check = command.indexOf("n");
+                if(check == command.length()-2){
+                    System.out.println(Line);
+                    System.out.println("     ☹ OOPS!!! The description of a deadline cannot be empty.");
+                    System.out.println(Line);
+                    continue;
+                }
                 int itemEnd = command.indexOf("/");
                 String item = command.substring(first,itemEnd);
                 String by = command.substring(itemEnd + 1,command.length());
@@ -63,6 +77,13 @@ public class Duke {
             }
             else if(command.contains("event")){
                 int first = command.indexOf(" ");
+                int check = command.indexOf("t");
+                if(check == command.length()-1){
+                    System.out.println(Line);
+                    System.out.println("     ☹ OOPS!!! The description of a event cannot be empty.");
+                    System.out.println(Line);
+                    continue;
+                }
                 int itemEnd = command.indexOf("/");
                 String item = command.substring(first,itemEnd);
                 String at = command.substring(itemEnd + 1,command.length());
@@ -79,7 +100,9 @@ public class Duke {
                     case "bye":
                         break;
                     default:
-
+                        System.out.println(Line);
+                        System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                        System.out.println(Line);
                 }
             }
         }while(!command.equals("bye"));
