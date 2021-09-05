@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class UI {
+public class Ui {
 
     /**
      * Line template to use for dividers
@@ -20,7 +20,7 @@ public class UI {
     private String username;
     private Scanner in;
 
-    public UI(String username) {
+    public Ui(String username) {
         this.username = username;
         in = new Scanner(System.in);
     }
@@ -90,17 +90,17 @@ public class UI {
     /**
      * List all task added by the user Show which task has been completed
      */
-    public void listTasks(TaskManager taskList) {
+    public void printAllTasks(TaskManager taskList) {
         System.out.println(LINE);
-        if (taskList.getNumberOfTasks() == 0) {
-            System.out.println(TASKLIST_EMPTY);
-        } else {
-            System.out.println(LIST_TASK_MESSAGE);
-            // Printing all tasks with their completion status
-            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-                System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
-            }
+        System.out.println(LIST_TASK_MESSAGE);
+        // Printing all tasks with their completion status
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
         }
         System.out.println(LINE);
+    }
+
+    public void printEmptyTaskMessage() {
+        printMessage(TASKLIST_EMPTY);
     }
 }

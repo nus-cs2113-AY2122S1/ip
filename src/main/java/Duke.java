@@ -1,23 +1,29 @@
-import java.util.Scanner;
-
 public class Duke {
 
-    /** Username for the chatbot prompt */
+    /**
+     * Username for the chatbot prompt
+     */
     public static final String USERNAME = "VeryImportantUsername";
-    public static final String ERROR_MESSAGE = "Error! Invalid input please try again!";
+    public static final String UNKNOWN_COMMAND_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public static final String NUMBER_ERROR_MESSAGE = "☹ NO!!! Done should only be given a number!";
+    public static final String ARGUMENTS_ERROR_MESSAGE = "☹ Oh no!!! Arguments or delimiter could not be found.";
 
 
-    /** Stores all task added by the user */
+    /**
+     * Stores all task added by the user
+     */
     public static TaskManager taskList = new TaskManager();
 
-    /** Gets a new instance of UI class to interactive with user */
-    public static UI UIInteract = new UI(USERNAME);
+    /**
+     * Gets a new instance of UI class to interactive with user
+     */
+    public static Ui uiInteract = new Ui(USERNAME);
 
     public static boolean isRunning = true;
 
 
     public static void main(String[] args) {
-        UIInteract.printBanner();
+        uiInteract.printBanner();
         printMenuPrompt();
     }
 
@@ -27,16 +33,22 @@ public class Duke {
     private static void printMenuPrompt() {
         while (isRunning) {
             //Printing user prompt
-            UIInteract.printPrompt();
+            uiInteract.printPrompt();
             // Reading user input
-            String userInput = UIInteract.getUserInput();
+            String userInput = uiInteract.getUserInput();
             try {
                 handleCommand(userInput);
-            } catch (Exception e) {
-                UIInteract.printMessage(ERROR_MESSAGE);
+            } catch (ArgumentNotFoundException | NullPointerException errorMessage) {
+                uiInteract.printMessage(ARGUMENTS_ERROR_MESSAGE);
+            } catch (NumberFormatException invalidParsing) {
+                uiInteract.printMessage(NUMBER_ERROR_MESSAGE);
+            } catch (IllegalArgumentException invalidArguments) {
+                uiInteract.printMessage("☹ OOPS!!! " + invalidArguments.getMessage());
+            } catch (InvalidCommandException invalidCommand) {
+                uiInteract.printMessage(UNKNOWN_COMMAND_MESSAGE);
             }
         }
-        UIInteract.printGoodbye();
+        uiInteract.printGoodbye();
     }
 
     /**
@@ -46,34 +58,36 @@ public class Duke {
      * @throws ArrayIndexOutOfBoundsException if unable to find arguments
      * @throws NumberFormatException          if arguments is not a number is not a number
      */
-    private static void handleCommand(String command) throws ArrayIndexOutOfBoundsException, NumberFormatException {
+    private static void handleCommand(String command)
+            throws ArgumentNotFoundException, NumberFormatException,
+            InvalidCommandException, IllegalArgumentException,NullPointerException{
         // Attempting to parse the command
         Parser parsed = new Parser(command);
         if (parsed.getCommand() == null) {
-            UIInteract.printCommandHelp();
+            uiInteract.printCommandHelp();
             return;
         }
         switch (parsed.getCommand()) {
         case "list":
-            UIInteract.listTasks(taskList);
+            taskList.listTasks(uiInteract);
             break;
         case "bye":
             terminateProgram();
             break;
         case "done":
-            taskList.markTaskAsDone(UIInteract, parsed.getArgsAsIndex());
+            taskList.markTaskAsDone(uiInteract, parsed.getArgsAsIndex());
             break;
         case "todo":
-            taskList.addTask(UIInteract, parsed, TaskType.TODO);
+            taskList.addTask(uiInteract, parsed, TaskType.TODO);
             break;
         case "deadline":
-            taskList.addTask(UIInteract, parsed, TaskType.DEADLINE);
+            taskList.addTask(uiInteract, parsed, TaskType.DEADLINE);
             break;
         case "event":
-            taskList.addTask(UIInteract, parsed, TaskType.EVENT);
+            taskList.addTask(uiInteract, parsed, TaskType.EVENT);
             break;
         default:
-            UIInteract.printCommandHelp();
+            throw new InvalidCommandException();
         }
     }
 

@@ -16,26 +16,29 @@ public class TaskManager {
         taskList = new ArrayList<>();
     }
 
+    private boolean ensureProperIndex (int index) {
+        return index >= 0 && index < taskList.size();
+    }
     /**
      * Marks a task as done. Informs user that that task has been completed.
      *
      * @param index the index of task in the taskList
      */
-    public void markTaskAsDone(UI UI, int index) {
+    public void markTaskAsDone(Ui ui, int index) {
 
-        if (index >= 0 && index < taskList.size()) {
+        if (ensureProperIndex(index)) {
             Task currentTask = taskList.get(index);
 
             // Check if the task is already completed
             if (currentTask.getIsDone()) {
-                UI.printMessage(TASK_ALREADY_COMPLETED);
+                ui.printMessage(TASK_ALREADY_COMPLETED);
             } else {
                 // Mark a task as done
                 currentTask.markAsDone();
-                UI.printMessage(TASK_DONE_MESSAGE, currentTask.toString());
+                ui.printMessage(TASK_DONE_MESSAGE, currentTask.toString());
             }
         } else {
-            UI.printMessage(ERROR_TASK_NUMBER);
+            ui.printMessage(ERROR_TASK_NUMBER);
         }
     }
 
@@ -54,7 +57,7 @@ public class TaskManager {
      * @param type        the type of object task we are creating
      * @throws ArrayIndexOutOfBoundsException in the case of invalid input by Events or Deadlines
      */
-    public void addTask(UI UI, Parser description, TaskType type) throws ArrayIndexOutOfBoundsException {
+    public void addTask(Ui ui, Parser description, TaskType type) throws ArgumentNotFoundException {
         // Creates new task to add to the list
         Task newTask;
         switch (type) {
@@ -71,14 +74,22 @@ public class TaskManager {
             break;
         default:
             // Error Message should not be reachable
-            UI.printMessage(BLANK_COMMAND);
+            ui.printMessage(BLANK_COMMAND);
             return;
         }
         // Adding the task to the list of task
         taskList.add(newTask);
-        UI.printMessage(ADD_TASK_MESSAGE,
+        ui.printMessage(ADD_TASK_MESSAGE,
                 newTask.toString(),
                 "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    public void listTasks(Ui ui) {
+        if (taskList.size() == 0) {
+            ui.printEmptyTaskMessage();
+        } else {
+           ui.printAllTasks(this);
+        }
     }
 }
 
