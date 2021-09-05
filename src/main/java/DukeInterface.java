@@ -16,8 +16,6 @@ public class DukeInterface {
 
     private final String EXIT_MSG = "=> Come back soon, I'm still hungry \uD83D\uDE0B";
 
-    private final String ERROR_MSG = "Yikes, your input is invalid! (refer to 'help' command)";
-
     private final String HELP_MSG = "Types of Commands Available [\uD83D\uDCAC]:\n"
             + "1. Terminate Duke            -> bye \n"
             + "1. Print Tasklist            -> list \n"
@@ -26,6 +24,12 @@ public class DukeInterface {
             + "3. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
             + "4. Add Events                -> {event <task description> /by <task date&time>}\n"
             + "5. Set Task as Done          -> {done <task ID>}";
+
+    private final String UNKNOWN_CMD_MSG = "Yikes, your input is invalid! (refer to 'help' command)";
+    private final String TODO_NO_DESC_MSG = "\uD83D\uDE35 OOPS!!! The todo description field cannot be empty.";
+    private final String DEADLINE_NO_DESC_MSG = "\uD83D\uDE35 OOPS!!! The deadline description field cannot be empty.";
+    private final String EVENT_NO_DESC_MSG = "\uD83D\uDE35 OOPS!!! The event description field cannot be empty.";
+    private final String DONE_NO_TASK_ID_MSG = "\uD83D\uDE35 OOPS!!! The Task ID field cannot be empty";
 
     public void printUserName() {
         System.out.println("\n[You]:");
@@ -41,6 +45,10 @@ public class DukeInterface {
 
     public void printMsgWithCursor(String message) {
         System.out.print("=> " + message + "\n");
+    }
+
+    public void printWithPadding(String message) {
+        System.out.println("   <" + message + ">");
     }
 
     public void printWelcomeMsg() {
@@ -59,13 +67,31 @@ public class DukeInterface {
         System.out.println(HELP_MSG);
     }
 
-    public void printErrorMsg() {
+    public void printUnknownCmdError() {
         printDukeName();
-        System.out.println("=> " + ERROR_MSG);
+        printMsgWithCursor(UNKNOWN_CMD_MSG);
     }
 
-    public void printWithPadding(String message) {
-        System.out.println("   <" + message + ">");
+    public void printTodoNoDescException() {
+        printDukeName();
+        printMsgWithCursor(TODO_NO_DESC_MSG);
     }
+
+    public void printDeadlineNoDescException() {
+        printDukeName();
+        printMsgWithCursor(DEADLINE_NO_DESC_MSG);
+    }
+
+    public void printEventNoDescException() {
+        printDukeName();
+        printMsgWithCursor(EVENT_NO_DESC_MSG);
+    }
+
+    public void printDoneNoTaskIdException() {
+        printDukeName();
+        printMsgWithCursor(DONE_NO_TASK_ID_MSG);
+    }
+
+
 
 }
