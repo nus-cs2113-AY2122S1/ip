@@ -54,6 +54,8 @@ public class Duke {
                 list.doneEntry(entryNumber);
             } catch (NumberFormatException e) {
                 printInvalidInputMessage();
+            } catch (NullPointerException e) {
+                System.out.println("That entry number does not exist in your current list");
             }
             break;
         case TASK_COMMAND:
