@@ -1,4 +1,5 @@
-package tan;
+package tan.tasktype;
+
 public class Deadline extends Task {
 
     private final String deadlineIcon = "D";

@@ -1,4 +1,4 @@
-package tan;
+package tan.tasktype;
 
 public class Event extends Task {
 
