@@ -69,6 +69,6 @@ public class TaskManager {
                 "deadline <task> /by <date>\nAdds <task> to task list with deadline <date> \n" +
                 "event <task> /at <time>\nAdds <task> to task list with time <time> \n" +
                 "done <task index>\nMarks task number <task index> as done. <task index> should be an integer\n" +
-                "bye\nExits the program\n";
+                "exit\nExits the program\n";
     }
 }

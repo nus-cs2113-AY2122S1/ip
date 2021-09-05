@@ -3,6 +3,7 @@ package Duke;
 import java.util.Scanner;
 
 public class UserInterface {
+    Scanner line = new Scanner(System.in);
     public static final String BORDER = "_________________________________________\n";
     public static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, I didn't understand.\n";
     public static final String NOT_A_NUMBER_MESSAGE = "The input was not a number. Please Try Again\n";
@@ -25,9 +26,10 @@ public class UserInterface {
     public static final String EXIT_MESSAGE = BORDER + "Bye. Have a nice day!\n" + BORDER;
 
     public UserInterface() {
+        Scanner line = new Scanner(System.in);
     }
 
-    public static void printInsufficientParameters() {
+    public void printInsufficientParameters() {
         System.out.println(BORDER + NOT_ENOUGH_PARAMS_MESSAGE + BORDER);
     }
 
@@ -40,7 +42,6 @@ public class UserInterface {
     }
 
     public String getUserInput() {
-        Scanner line = new Scanner(System.in);
         return line.nextLine().trim();
     }
 

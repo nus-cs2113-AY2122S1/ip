@@ -9,10 +9,26 @@
 _________________________________________
 Have no fear, Bob is here!
 What is it that you require?
+For a list of commands, type: help
 _________________________________________
 
 _________________________________________
 I'm sorry, I didn't understand.
+_________________________________________
+
+_________________________________________
+The input had insufficient parameters. Please Try Again. 
+For command syntax, typ: help
+_________________________________________
+
+_________________________________________
+The input had insufficient parameters. Please Try Again. 
+For command syntax, typ: help
+_________________________________________
+
+_________________________________________
+The input had insufficient parameters. Please Try Again. 
+For command syntax, typ: help
 _________________________________________
 
 _________________________________________
@@ -32,7 +48,6 @@ _________________________________________
 
 _________________________________________
 Task List:
-
 1. [T][ ]test 1
 2. [D][ ]test 2 (by: 2pm)
 3. [E][ ]test 3 (at: 5pm)
@@ -49,13 +64,27 @@ Congrats on finishing a task! Have a cookie!
 _________________________________________
 
 _________________________________________
+Task List:
+1. [T][X]test 1
+2. [D][ ]test 2 (by: 2pm)
+3. [E][X]test 3 (at: 5pm)
+_________________________________________
+
+_________________________________________
 The task has been added: 
 [T][ ]report
 _________________________________________
 
 _________________________________________
-Task List:
+There is no task by that number 
+_________________________________________
 
+_________________________________________
+The input was not a number. Please Try Again
+_________________________________________
+
+_________________________________________
+Task List:
 1. [T][X]test 1
 2. [D][ ]test 2 (by: 2pm)
 3. [E][X]test 3 (at: 5pm)
