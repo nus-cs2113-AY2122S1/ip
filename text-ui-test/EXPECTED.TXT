@@ -12,68 +12,100 @@ What can I do for you?
 ____________________________________________________________
 
 ____________________________________________________________
+Here are the tasks in your list:
+____________________________________________________________
+
+____________________________________________________________
+Invalid task index. Please mark a valid task as done.
+____________________________________________________________
+
+____________________________________________________________
 Here are a list of accepted commands:
+help
 list
 done <item no.>
 todo <description>
-deadline <description> /by <deadline>
-event<description> /at <date and time>
+deadline <description> /by <date and time>
+event <description> /at <date and time>
 bye
 ____________________________________________________________
 
 ____________________________________________________________
-The list is currently empty. Add a task first.
+Unknown command received.
+Here are a list of accepted commands:
+help
+list
+done <item no.>
+todo <description>
+deadline <description> /by <date and time>
+event <description> /at <date and time>
+bye
+____________________________________________________________
+
+____________________________________________________________
+Description not found. The description cannot be empty.
 ____________________________________________________________
 
 ____________________________________________________________
 I have added the task:
-[T][ ] buy bread
+[T][ ] read book
 There are now 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-Invalid task index.
+Time specifier "/by" not found. Enter a date or time with "/by <date and time>".
 ____________________________________________________________
 
 ____________________________________________________________
-Affirmative. I will mark this task as done:
-[T][X] buy bread
+Description not found. The description cannot be empty.
 ____________________________________________________________
 
 ____________________________________________________________
-Here are the tasks in your list:
-1. [T][X] buy bread
+Description not found. The description cannot be empty.
 ____________________________________________________________
 
 ____________________________________________________________
 I have added the task:
-[E][ ] eat bread (at: tomorrow morning)
+[D][ ] return book (by: tomorrow)
 There are now 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
+Time specifier "/at" not found. Enter a date or time with "/at <date and time>".
+____________________________________________________________
+
+____________________________________________________________
+Description not found. The description cannot be empty.
+____________________________________________________________
+
+____________________________________________________________
+Description not found. The description cannot be empty.
+____________________________________________________________
+
+____________________________________________________________
 I have added the task:
-[E][ ] read book (at: today)
+[E][ ] party (at: tomorrow)
 There are now 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-I have added the task:
-[D][ ] return book (by: next tuesday)
-There are now 4 tasks in the list.
+Invalid task index. Please mark a valid task as done.
 ____________________________________________________________
 
 ____________________________________________________________
-Affirmative. I will mark this task as done:
-[E][X] read book (at: today)
+Invalid task index. Please mark a valid task as done.
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
-1. [T][X] buy bread
-2. [E][ ] eat bread (at: tomorrow morning)
-3. [E][X] read book (at: today)
-4. [D][ ] return book (by: next tuesday)
+1. [T][ ] read book
+2. [D][ ] return book (by: tomorrow)
+3. [E][ ] party (at: tomorrow)
+____________________________________________________________
+
+____________________________________________________________
+Affirmative. I will mark this task as done:
+[T][X] read book
 ____________________________________________________________
 
 ____________________________________________________________
