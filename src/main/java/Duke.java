@@ -4,6 +4,7 @@ public class Duke {
 
     //CONSTANTS
     public static final String SEPARATOR = "____________________________________________________________\n";
+    public static final int TASK_LIST_SIZE = 100;
 
     //METHODS
     public static void printGreeting() {
@@ -26,29 +27,29 @@ public class Duke {
                 + SEPARATOR);
     }
 
-    public static String[] organize(String userInput) {
-        String[] organizedUserInput = new String[3];
+    public static String[] processUserInput(String userInput) {
+        String[] processedUserInput = new String[3];
         if (!userInput.contains(" ")) {
             //command is list
-            organizedUserInput[0] = userInput;
+            processedUserInput[0] = userInput;
         } else {
             int spaceIndex = userInput.indexOf(" ");
             String command = userInput.substring(0, spaceIndex);
-            organizedUserInput[0] = command;
+            processedUserInput[0] = command;
             if (!userInput.contains("/")) {
                 //command is either done or todo
                 String detail = userInput.substring(spaceIndex + 1);
-                organizedUserInput[1] = detail;
+                processedUserInput[1] = detail;
             } else {
                 //command is either deadline or event
                 int slashIndex = userInput.indexOf("/");
                 String detail = userInput.substring(spaceIndex + 1, slashIndex - 1);
                 String time = userInput.substring(slashIndex + 1);
-                organizedUserInput[1] = detail;
-                organizedUserInput[2] = time;
+                processedUserInput[1] = detail;
+                processedUserInput[2] = time;
             }
         }
-        return organizedUserInput;
+        return processedUserInput;
     }
 
     public static void printTaskList(Task[] taskList, int taskListSize) {
@@ -73,10 +74,10 @@ public class Duke {
         }
     }
 
-    public static Task createTask(String[] organizedInput) {
-        String category = organizedInput[0];
-        String description = organizedInput[1];
-        String details = organizedInput[2];
+    public static Task createTask(String[] processedUserInput) {
+        String category = processedUserInput[0];
+        String description = processedUserInput[1];
+        String details = processedUserInput[2];
         Task newTask;
         switch (category) {
         case "todo":
@@ -116,7 +117,7 @@ public class Duke {
         printGreeting();
 
         //Initialization
-        Task[] taskList = new Task[100];
+        Task[] taskList = new Task[TASK_LIST_SIZE];
         int taskListSize = 0;
         String userInput = "start";
         Scanner in = new Scanner(System.in);
@@ -127,9 +128,9 @@ public class Duke {
             //Scans for user input
             userInput = in.nextLine();
 
-            //Organizes user input
-            String[] organizedUserInput = organize(userInput);
-            String command = organizedUserInput[0];
+            //Processes user input
+            String[] processedUserInput = processUserInput(userInput);
+            String command = processedUserInput[0];
 
             //Duke's actions based on command given
             switch (command) {
@@ -139,14 +140,14 @@ public class Duke {
                 break;
             case "done":
                 //Marks task as "done"
-                int taskNumber = Integer.parseInt(organizedUserInput[1]) - 1;
+                int taskNumber = Integer.parseInt(processedUserInput[1]) - 1;
                 markAsDone(taskList, taskListSize, taskNumber);
                 break;
             case "todo":
             case "deadline":
             case "event":
                 //Adds task to task list
-                Task newTask = createTask(organizedUserInput);
+                Task newTask = createTask(processedUserInput);
                 addTask(taskList, taskListSize, newTask);
                 taskListSize++;
                 break;
