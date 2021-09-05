@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task {
 
     public static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of a event cannot be empty.";

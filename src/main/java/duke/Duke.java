@@ -1,3 +1,12 @@
+package duke;
+
+import duke.exception.ArgumentNotFoundException;
+import duke.exception.InvalidCommandException;
+import duke.task.TaskManager;
+import duke.task.TaskType;
+import duke.util.Parser;
+import duke.util.Ui;
+
 public class Duke {
 
     public static final String USERNAME = "VeryImportantUsername";

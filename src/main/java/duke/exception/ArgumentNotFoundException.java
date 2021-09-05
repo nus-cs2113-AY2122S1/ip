@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * Throws this exception if an argument is not found
  */

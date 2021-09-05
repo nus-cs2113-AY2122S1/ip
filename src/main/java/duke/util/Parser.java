@@ -1,3 +1,6 @@
+package duke.util;
+
+import duke.exception.ArgumentNotFoundException;
 
 public class Parser {
 

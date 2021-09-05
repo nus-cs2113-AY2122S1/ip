@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * This is an exception for Commands that could not be found
  */
