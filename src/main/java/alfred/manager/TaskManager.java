@@ -1,6 +1,7 @@
 package alfred.manager;
 
 import alfred.exception.EmptyDescriptionException;
+import alfred.exception.InvalidDateException;
 import alfred.task.Deadline;
 import alfred.task.Event;
 import alfred.task.Task;
@@ -41,6 +42,14 @@ public class TaskManager {
             }
         } catch (EmptyDescriptionException e) {
             MessageManager.emptyDescriptionMessage();
+        } catch (NumberFormatException e) {
+            MessageManager.invalidIndexMessage();
+        } catch (NullPointerException e) {
+            MessageManager.uninitialisedTaskIndexMessage(listIndex);
+        } catch (IndexOutOfBoundsException e) {
+            MessageManager.indexOutOfBoundsMessage();
+        } catch (InvalidDateException e) {
+            MessageManager.invalidDateMessage();
         }
     }
 
@@ -58,7 +67,7 @@ public class TaskManager {
         System.out.println(MessageManager.LINE);
     }
 
-    private void completeTask(String userInput) {
+    private void completeTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException, NullPointerException {
         String[] destructuredInputs = userInput.split(" ");
         int index = Integer.parseInt(destructuredInputs[1]) - 1;
         tasks[index].setTaskDone();
@@ -77,24 +86,30 @@ public class TaskManager {
         MessageManager.addTaskMessage(t, listIndex);
     }
 
-    private void addEvent(String userInput) throws EmptyDescriptionException {
+    private void addEvent(String userInput) throws EmptyDescriptionException, InvalidDateException {
         String[] destructuredInputs = userInput.split(" ", 2);
         if (destructuredInputs.length < 2) {
             throw new EmptyDescriptionException();
         }
         String[] destructuredArguments = destructuredInputs[1].split(" /at ", 2);
+        if (destructuredArguments.length < 2) {
+            throw new InvalidDateException();
+        }
         Event e = new Event(destructuredArguments[0], destructuredArguments[1]);
         tasks[listIndex] = e;
         listIndex++;
         MessageManager.addTaskMessage(e, listIndex);
     }
 
-    private void addDeadline(String userInput) throws EmptyDescriptionException {
+    private void addDeadline(String userInput) throws EmptyDescriptionException, InvalidDateException {
         String[] destructuredInputs = userInput.split(" ", 2);
         if (destructuredInputs.length < 2) {
             throw new EmptyDescriptionException();
         }
         String[] destructuredArguments = destructuredInputs[1].split(" /by ", 2);
+        if (destructuredArguments.length < 2) {
+            throw new InvalidDateException();
+        }
         Deadline d = new Deadline(destructuredArguments[0], destructuredArguments[1]);
         tasks[listIndex] = d;
         listIndex++;
