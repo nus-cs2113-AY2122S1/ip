@@ -1,4 +1,3 @@
-list
 todo borrow book
 list
 deadline return book /by Sunday
