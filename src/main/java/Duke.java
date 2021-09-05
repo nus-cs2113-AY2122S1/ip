@@ -29,13 +29,6 @@ public class Duke {
             + SPACE_PREFIX + "That is invalid... Please use the syntax - "
             + "[taskType]" + SPACE_PREFIX + "[taskName] ([/by dateTime] or [/at dateTime] depending on taskType)"
             + LINE_BREAK + CONSOLE_LINE_PREFIX;
-    private static final String UNKNOWN_COMMAND_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
-            + SPACE_PREFIX + "Hey, I don't quite understand this command. Please install a new CPU for me ;D"
-            + LINE_BREAK + SPACE_PREFIX + "Just kidding, it's too expensive, just try again..." + LINE_BREAK
-            + CONSOLE_LINE_PREFIX;
-    private static final String MISSING_INDEX_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
-            + SPACE_PREFIX + "Excuse me Sir/Madam, your index? Where is it? Under the Sea?" + LINE_BREAK
-            + CONSOLE_LINE_PREFIX;
 
     // Command Prefixes for checking type of command
     private static final String COMMAND_BYE = "Bye";
@@ -118,11 +111,7 @@ public class Duke {
                 + CONSOLE_LINE_PREFIX);
     }
 
-    /**
-     * Gets the user input from I/O
-     *
-     * @return User Input
-     */
+
     private static String getUserInput() {
         String userInput;
         System.out.print(SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
@@ -194,7 +183,7 @@ public class Duke {
             }
             newTask = createNewEvent(taskName);
         } else {
-            System.out.println(UNKNOWN_COMMAND_MESSAGE);
+            System.out.println(INVALID_TASK_MESSAGE);
             return;
         }
         tasks[taskCounter] = newTask;
@@ -248,13 +237,8 @@ public class Duke {
             } else {
                 String[] userParams = userInput.split(SPACE_PREFIX);
                 if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
-                    try {
-                        int index = Integer.parseInt(userParams[1]);
-                        markTaskAsDone(index - 1);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(MISSING_INDEX_MESSAGE);
-                        continue;
-                    }
+                    int index = Integer.parseInt(userParams[1]);
+                    markTaskAsDone(index - 1);
                 } else {
                     String taskType = userParams[0];
                     // Remove the Type of Task from the user input
