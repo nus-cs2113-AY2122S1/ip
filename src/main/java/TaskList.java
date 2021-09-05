@@ -2,7 +2,6 @@ public class TaskList {
 
     //Output messages
     public static final String MESSAGE_TASK_ADDED_SUCCESSFULLY = "The following task has been added:";
-
     public static final String MESSAGE_MARK_TASK_SUCCESS = "The following task has been marked as done:";
     public static final String MESSAGE_NO_TASK_AVAILABLE = "You have no tasks yet";
     public static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";

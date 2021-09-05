@@ -19,7 +19,7 @@ public class Duke {
     //Output Messages
     public static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() + "What can I do for you?";
     public static final String MESSAGE_EXIT_APPLICATION = "Thank you for using our application. We hope to see you again soon";
-    public static final String MESSAGE_TODO_NO_DESCRIPTION = "Todo tasks require a description e.g 'todo CS1010 Assignment' ";
+    public static final String MESSAGE_TODO_NO_DESCRIPTION = "Todo tasks require a description e.g 'todo CS1010 Assignment'";
     public static final String MESSAGE_DEADLINE_NO_DESCRIPTION = "Deadlines require a description e.g 'deadline Project Reflection /by Friday 10pm'";
     public static final String MESSAGE_EVENT_NO_DESCRIPTION = "Events require a description e.g 'event Seminar /at Friday 2pm'";
     public static final String MESSAGE_INVALID_COMMAND = "I am sorry but I am not able to recognise this command";

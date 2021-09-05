@@ -3,6 +3,11 @@ event Team Meeting
 deadline Assignment 2 /by Fri 5pm
 deadline Mom's Birthday
 todo Clean bed
+done
+done -3
+event
+todo
+deadline
 list
 done 1
 done 2
