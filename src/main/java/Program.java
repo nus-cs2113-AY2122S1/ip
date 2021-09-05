@@ -32,8 +32,8 @@ public class Program {
         return numItems;
     }
 
-    //function to parse input text by the user and run corresponding function
-    public void executeTask(String string) throws HalException {
+    //function takes in an input string from the user, parses it and runs the corresponding function
+    public void parseAndExecuteTask(String string) throws HalException {
         if (Objects.equals(string, "list")) {
             listAllTasks();
         } else if (Objects.equals(string, "bye")) {

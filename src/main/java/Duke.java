@@ -17,7 +17,7 @@ public class Duke {
     public static void main(String[] args) {
         Program currProgram = new Program();
         String userInput;
-        Scanner sc= new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         String logo = LOGO_HAL2113;
 
@@ -25,7 +25,7 @@ public class Duke {
         System.out.println(LINE_BREAK_SINGLE);
         System.out.println("What can I do for you? You can enter the following commands\n" +
                 "1. 'todo task' (replace task with any agenda you wish to add to the list)\n" +
-                "2. 'deadline task /by date' (eg. deadline task1 /by Sunday)\n" +
+                "2. 'deadline task /by date' (eg. deadlitodone task1 /by Sunday)\n" +
                 "3. 'event task /at time' (eg. event running /at Sunday 2-4pm)\n" +
                 "4. 'list (to list all saved tasks)\n" +
                 "5. 'done task index (to mark a completed task)\n" +
@@ -38,7 +38,7 @@ public class Duke {
                 //get rid of white space
                 userInput = userInput.trim();
                 try {
-                    currProgram.executeTask(userInput);
+                    currProgram.parseAndExecuteTask(userInput);
                 } catch (HalException invalidUserInput) {
                     System.out.println(invalidUserInput);
                     System.out.println(LINE_BREAK_SINGLE);
