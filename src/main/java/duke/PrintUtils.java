@@ -1,3 +1,5 @@
+package duke;
+
 public class PrintUtils {
 
     private static final String INDENTATION = "\t";
