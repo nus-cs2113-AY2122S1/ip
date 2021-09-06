@@ -1,3 +1,11 @@
+package duke;
+
+import exception.EmptyDescriptionException;
+import exception.IndexTooBigException;
+import exception.IndexTooSmallException;
+import exception.MissingInformationException;
+import exception.WrongCommandException;
+
 import java.util.Scanner;
 
 public class TaskManager {
@@ -121,7 +129,7 @@ public class TaskManager {
         }
     }
 
-    private void addEventTask(String taskInput) throws EmptyDescriptionException, MissingInformationException{
+    private void addEventTask(String taskInput) throws EmptyDescriptionException, MissingInformationException {
         String taskDescriptionAndStartTime = taskInput.substring(LENGTH_EVENT).trim();
         if(taskDescriptionAndStartTime.length() == 0) {
             throw new EmptyDescriptionException();
@@ -153,7 +161,7 @@ public class TaskManager {
         }
     }
 
-    private void setTaskDone(int taskIndex) throws IndexTooSmallException, IndexTooBigException{
+    private void setTaskDone(int taskIndex) throws IndexTooSmallException, IndexTooBigException {
         if(taskIndex < 0) {
             throw new IndexTooSmallException();
         }
