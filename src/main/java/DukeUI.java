@@ -36,11 +36,19 @@ public class DukeUI {
             drawHorizontalLine();
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             drawHorizontalLine();
-        } else if (e instanceof EmptyTodoDescriptionException) {
+        } else if (e instanceof EmptyDescriptionException) {
             drawHorizontalLine();
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("☹ OOPS!!! The description of your command cannot be empty.");
             drawHorizontalLine();
-        } else {
+        } else if (e instanceof MissingParameterException) {
+            drawHorizontalLine();
+            System.out.println("☹ OOPS!!! Your command is missing some variables.");
+            drawHorizontalLine();
+        }else if (e instanceof TaskNotFoundException) {
+            drawHorizontalLine();
+            System.out.println("☹ OOPS!!! The task you are looking for can't be found :-(");
+            drawHorizontalLine();
+        }else {
             drawHorizontalLine();
             System.out.println("☹ OOPS!!! Something wrong with the system");
             drawHorizontalLine();

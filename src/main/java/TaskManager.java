@@ -38,15 +38,22 @@ public class TaskManager {
             System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskCount + 1);
             DukeUI.drawHorizontalLine();
             taskCount++;
-        } catch (EmptyTodoDescriptionException e) {
+        } catch (EmptyDescriptionException | MissingParameterException e) {
             DukeUI.printError(e);
         }
     }
 
-    public void markTaskDone(String command) {
-        int taskNumber = Integer.parseInt(command.split(" ")[1]) - 1;
-        tasks[taskNumber].setDone();
-        System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber].getDescription());
+    public void markTaskDone(String command) throws TaskNotFoundException {
+        try {
+            int taskNumber = Parser.parseMarkDone(command);
+            if (taskNumber < 1 || taskNumber > taskCount) {
+                throw new TaskNotFoundException();
+            }
+            tasks[taskNumber - 1].setDone();
+            System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber - 1].getDescription());
+        } catch (EmptyDescriptionException | NumberFormatException e) {
+            DukeUI.printError(e);
+        }
     }
 
     public void setTasks(Task[] tasks) {

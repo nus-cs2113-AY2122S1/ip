@@ -56,9 +56,14 @@ public class Duke {
     }
 
     public static void markTaskDone(String command) {
-        DukeUI.drawHorizontalLine();
-        taskManager.markTaskDone(command);
-        DukeUI.drawHorizontalLine();
+        try {
+            DukeUI.drawHorizontalLine();
+            taskManager.markTaskDone(command);
+            DukeUI.drawHorizontalLine();
+        }catch (TaskNotFoundException e){
+            DukeUI.printError(e);
+        }
+
     }
 
     public static void main(String[] args) {
