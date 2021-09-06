@@ -146,5 +146,95 @@ Aw man! I am unable to dasdasdsadevent /at saturday yet! Please specify a differ
 9.[E][ ] marathon (at:sunday 2 - 3pm)
 10.[T][ ] run
 ------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [1] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [2] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [3] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [run] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+1.[T][X] run
+2.[D][X] journal (by:saturday)
+3.[D][X] walk (by:saturday 4pm)
+4.[E][X] team meeting (at:sunday 2-4pm)
+5.[T][X] hike
+6.[T][X] cook
+7.[E][ ] live performance (at:monday 3pm)
+8.[D][ ] run (by:sunday)
+9.[E][ ] marathon (at:sunday 2 - 3pm)
+10.[T][ ] run
+11.[T][ ] 1
+12.[T][ ] 2
+13.[T][ ] 3
+14.[E][ ] run (at:sunday 2 - 3pm)
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [assignment] to your task list!
+------------------------------------------------------
+Aw man! I am unable to event yet! Please specify a different function! :D
+Please specify an event/time of the event!
+Please specify an event/time of the event!
+Please specify an event/time of the event!
+Aw man! I am unable to deadline yet! Please specify a different function! :D
+Please specify a task/deadline of completion!
+Please specify a task/deadline of completion!
+------------------------------------------------------
+I can do that! I have added [assignment] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+1.[T][X] run
+2.[D][X] journal (by:saturday)
+3.[D][X] walk (by:saturday 4pm)
+4.[E][X] team meeting (at:sunday 2-4pm)
+5.[T][X] hike
+6.[T][X] cook
+7.[E][ ] live performance (at:monday 3pm)
+8.[D][ ] run (by:sunday)
+9.[E][ ] marathon (at:sunday 2 - 3pm)
+10.[T][ ] run
+11.[T][ ] 1
+12.[T][ ] 2
+13.[T][ ] 3
+14.[E][ ] run (at:sunday 2 - 3pm)
+15.[D][ ] assignment (by:25/6/2020)
+16.[D][ ] assignment (by:2359)
+------------------------------------------------------
+Nice! I've marked this task as done:
+1.[T][X] run
+Nice! I've marked this task as done:
+10.[T][X] run
+Nice! I've marked this task as done:
+1.[T][X] run
+Nice! I've marked this task as done:
+2.[D][X] journal (by:saturday)
+Nice! I've marked this task as done:
+12.[T][X] 2
+No number or Invalid number specified! Please specify the number on the list of the task you have completed!
+No number or Invalid number specified! Please specify the number on the list of the task you have completed!
+No number or Invalid number specified! Please specify the number on the list of the task you have completed!
+------------------------------------------------------
+1.[T][X] run
+2.[D][X] journal (by:saturday)
+3.[D][X] walk (by:saturday 4pm)
+4.[E][X] team meeting (at:sunday 2-4pm)
+5.[T][X] hike
+6.[T][X] cook
+7.[E][ ] live performance (at:monday 3pm)
+8.[D][ ] run (by:sunday)
+9.[E][ ] marathon (at:sunday 2 - 3pm)
+10.[T][X] run
+11.[T][ ] 1
+12.[T][X] 2
+13.[T][ ] 3
+14.[E][ ] run (at:sunday 2 - 3pm)
+15.[D][ ] assignment (by:25/6/2020)
+16.[D][ ] assignment (by:2359)
+------------------------------------------------------
 Bye! Hope to see you again soon!
 ------------------------------------------------------

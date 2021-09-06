@@ -39,4 +39,26 @@ asdsadevent
 efsfsddeadline /by Sunday 2359
 dasdasdsadevent /at Saturday
 list
+to do 1
+to do 2
+to do 3
+event run /at Sunday 2 - 3pm
+list
+deadline assignment /by 25/6/2020
+event
+event /at 2359
+event marathon
+event marathon /at
+deadline
+deadline /by 2359
+deadline assignment /by
+deadline assignment /by 2359
+list
+done 1
+done 10
+done 1 2 12
+done 17
+done 0
+done -1
+list
 bye

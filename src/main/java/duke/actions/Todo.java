@@ -1,6 +1,7 @@
 package duke.actions;
 
 public class Todo extends Task {
+
     public Todo(String description) {
         super(description);
     }
@@ -9,5 +10,4 @@ public class Todo extends Task {
     public String getTaskType() {
         return ("T");
     }
-
 }

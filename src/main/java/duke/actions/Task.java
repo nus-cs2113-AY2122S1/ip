@@ -1,6 +1,7 @@
 package duke.actions;
 
 public class Task {
+
     protected String description;
     protected boolean isDone;
 
@@ -36,5 +37,8 @@ public class Task {
     public void printTaskAddedMessage() {
         System.out.println("I can do that! I have added [" + description + "] to your task list!");
     }
-    //...
+
+    public String toString() {
+        return description;
+    }
 }
