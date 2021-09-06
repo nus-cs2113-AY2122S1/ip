@@ -17,12 +17,12 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-☹ OOPS!!! The description of a deadline cannot be empty.
+☹ OOPS!!! Please key in command in format: "deadline taskDescription /by deadline".
 ____________________________________________________________
 
 ____________________________________________________________
 
-☹ OOPS!!! The description of a event cannot be empty.
+☹ OOPS!!! Please key in command in format: "event taskDescription /at eventLocation".
 ____________________________________________________________
 
 ____________________________________________________________
