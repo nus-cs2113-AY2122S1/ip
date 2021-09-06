@@ -10,6 +10,9 @@ public class Duke {
         processUserInput();
     }
 
+    /**
+     * Processes user input
+     */
     private static void processUserInput() {
         boolean isProcessing = true;
         TaskManager taskManager = new TaskManager();

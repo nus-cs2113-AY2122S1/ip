@@ -1,6 +1,5 @@
-import java.util.Locale;
-
 public class CommandManager {
+    //Commands stored as string constants
     private static final String EXIT_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
     private static final String TODO_COMMAND = "todo";
@@ -8,6 +7,12 @@ public class CommandManager {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String DONE_COMMAND = "done";
 
+    /**
+     * Extracts command word from user input and processes the command.
+     * @param userInput User's input
+     * @return Command object based on the extracted command word.
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     public static Command processCommand(String userInput) throws DukeException {
         if (userInput.equalsIgnoreCase(EXIT_COMMAND)) {
             return new ExitCommand();
@@ -15,7 +20,7 @@ public class CommandManager {
             return new ListCommand();
         } else if ((userInput.toLowerCase()).contains(DONE_COMMAND)) {
             String[] extractedCommand = userInput.split(" ");
-            int taskIndex = -1;
+            int taskIndex;
             try {
                 taskIndex = Integer.parseInt(extractedCommand[1]);
             } catch (NumberFormatException e) {

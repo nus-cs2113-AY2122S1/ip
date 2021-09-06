@@ -4,6 +4,11 @@ public class TaskManager {
     Task[] tasks = new Task[MAXIMUM_TASKS];
     int noOfTasks = 0;
 
+    /**
+     * Adds task to task list represented by tasks array.
+     * @param task Task to add
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     public void addTasks(Task task) throws DukeException {
         if (noOfTasks >= MAXIMUM_TASKS) {
             throw new DukeException("☹ OOPS!!! Task list capacity reached!");
@@ -17,6 +22,9 @@ public class TaskManager {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints every task in the task list
+     */
     public void printTasks() {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
@@ -26,6 +34,11 @@ public class TaskManager {
         System.out.println(LINE);
     }
 
+    /**
+     * Mark a task given by its index as done
+     * @param taskIndex Index of task in task list to mark as done
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     public void markTaskAsDone(int taskIndex) throws DukeException {
         if (taskIndex < 0 || taskIndex >= noOfTasks) {
             throw new DukeException("☹ OOPS!!! Please select a task in the task list!");
