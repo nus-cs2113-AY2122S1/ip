@@ -18,6 +18,10 @@ public class Duke {
                     + "| | | | | | | |/ / _ \\\n"
                     + "| |_| | |_| |   <  __/\n"
                     + "|____/ \\__,_|_|\\_\\___|\n";
+    public static final String INCORRECT_TASK_COMMAND = "Please specify a task to be added!";
+    public static final String INCORRECT_DEADLINE_COMMAND = "Please specify a task/deadline of completion!";
+    public static final String INCORRECT_EVENT_COMMAND = "Please specify an event/time of the event!";
+    public static final String INCORRECT_DONE_COMMAND = "Please specify the number of the task to be marked as done!";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -38,19 +42,19 @@ public class Duke {
                 try {
                     addTaskAsToDo(taskList, userInput);
                 } catch (DukeException e) {
-                    System.out.println("Please specify a task to be added!");
+                    System.out.println(INCORRECT_TASK_COMMAND);
                 }
             } else if (userInput.startsWith("deadline ")) {
                 try {
                     addTaskAsDeadline(taskList, userInput);
                 } catch (DukeException e) {
-                    System.out.println("Please specify a task/deadline of completion!");
+                    System.out.println(INCORRECT_DEADLINE_COMMAND);
                 }
             } else if (userInput.startsWith("event ")) {
                 try {
                     addTaskAsEvent(taskList, userInput);
                 } catch (DukeException e) {
-                    System.out.println("Please specify an event/time of the event!");
+                    System.out.println(INCORRECT_EVENT_COMMAND);
                 }
             } else if (userInput.startsWith("list")) {
                 printTaskList(taskList);
@@ -58,7 +62,7 @@ public class Duke {
                 try {
                     markTaskAsDone(taskList, userInput);
                 } catch (DukeException e) {
-                    System.out.println("Please specify the number of the task to be marked as done!");
+                    System.out.println(INCORRECT_DONE_COMMAND);
                 }
             } else if (userInput.startsWith("bye")) {
                 break;
@@ -120,7 +124,7 @@ public class Duke {
                 try {
                     printTaskMarkAsDone(taskList, taskNumber);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Invalid number specified! Please specify the number on the list of the task you have completed!");
+                    System.out.println("No number or Invalid number specified! Please specify the number on the list of the task you have completed!");
                 }
             }
             wordIndex++;

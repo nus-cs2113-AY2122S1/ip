@@ -61,7 +61,7 @@ I can do that! I have added [live performance] to your task list!
 6.[T][ ] cook
 7.[E][ ] live performance (at:monday 3pm)
 ------------------------------------------------------
-No number or invalid number specified! Please specify the number on the list of the task you have completed!
+No number or Invalid number specified! Please specify the number on the list of the task you have completed!
 Nice! I've marked this task as done:
 1.[T][X] run
 Nice! I've marked this task as done:
@@ -98,8 +98,8 @@ Nice! I've marked this task as done:
 5.[T][X] hike
 Nice! I've marked this task as done:
 6.[T][X] cook
-No number or invalid number specified! Please specify the number on the list of the task you have completed!
-No number or invalid number specified! Please specify the number on the list of the task you have completed!
+No number or Invalid number specified! Please specify the number on the list of the task you have completed!
+No number or Invalid number specified! Please specify the number on the list of the task you have completed!
 ------------------------------------------------------
 1.[T][X] run
 2.[D][X] journal (by:saturday)
