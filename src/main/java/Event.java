@@ -6,7 +6,7 @@ public class Event extends Task {
         this.description = description;
         this.isDone = false;
         this.at = at;
-        setNumberOfTasks();
+        increaseNumberOfTasks();
         printNewTaskAddedMessage();
     }
 
