@@ -24,4 +24,12 @@ public class DukeException extends Exception{
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
+
+    public static void invalidDoneException() {
+        System.out.println(LINE);
+        System.out.println("Your done command is invalid!");
+        System.out.println("To input a done command, type \"done (task index)\"!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
 }

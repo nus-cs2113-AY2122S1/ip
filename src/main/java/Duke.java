@@ -16,7 +16,6 @@ public class Duke {
     public static final String EVENT_KEYWORD = " /at";
     public static final String DEADLINE_KEYWORD = " /by";
     public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
-    public static final String EXCEPTION = " Sorry, your input is invalid! Please enter a valid input :)";
 
     public static void printList(Task[] taskList) {
         if (taskList.length == 0) {
@@ -56,46 +55,55 @@ public class Duke {
             return false;
         }
         try {
-            int num = Integer.parseInt(strNum);
+            return true;
         } catch (NumberFormatException nfe) {
             return false;
         }
-        return true;
     }
 
-    public static void returnException() {
+    public static boolean isValidDoneInstruction(String inWord, int index) {
+        if (!inWord.contains(" ")) {
+            return false;
+        }
+
+        String[] commands = inWord.split(" ");
+        if (commands.length != 2) {
+            return false;
+        }
+
+        if(!isNumeric(commands[1])) {
+            int taskDoneIndex = Integer.parseInt(commands[1]);
+            return taskDoneIndex > 0 && taskDoneIndex <= index;
+        }
+
+        return false;
+    }
+
+    public static void printTaskDone(String inWord, int index, Task[] taskList) throws DukeException {
+        if (!isValidDoneInstruction(inWord, index)) {
+            throw new DukeException();
+        }
+
+        String[] commands = inWord.split(" ");
+        int taskDoneIndex = Integer.parseInt(commands[1]);
+        taskList[taskDoneIndex - 1].markAsDone();
         System.out.println(LINE);
-        System.out.println(EXCEPTION);
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println("   " + taskList[taskDoneIndex - 1].toString());
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static boolean checkValidDoneInstruction(String inWord) {
-        String[] commands = inWord.split(" ");
-        boolean isNumericDigit = isNumeric(commands[1]);
-        return commands.length == 2 && isNumericDigit;
-    }
-
-    public static void printTaskDone(String inWord, int index, Task[] taskList) {
-        String[] commands = inWord.split(" ");
-        int taskDoneIndex = Integer.parseInt(commands[1]);
-        if (taskDoneIndex <= 0 || taskDoneIndex > index) {
-            System.out.println(LINE);
-            System.out.println("Item out of Index! Please input a valid task number :)");
-            System.out.println(LINE);
-            System.out.print(System.lineSeparator());
-        } else {
-            taskList[taskDoneIndex - 1].markAsDone();
-            System.out.println(LINE);
-            System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + taskList[taskDoneIndex - 1].toString());
-            System.out.println(LINE);
-            System.out.print(System.lineSeparator());
+    public static void manageDoneInstruction(String inWord, int index, Task[] taskList) {
+        try {
+            printTaskDone(inWord, index, taskList);
+        } catch (DukeException invalidDoneException){
+            DukeException.invalidDoneException();
         }
     }
 
     public static boolean checkValidEvent(String inWord) {
-        if (inWord.indexOf(' ') == -1) {
+        if (!inWord.contains(" ")) {
             return false;
         }
 
@@ -146,7 +154,7 @@ public class Duke {
     }
 
     public static boolean checkValidTodo(String inWord) {
-        if (inWord.indexOf(' ') == -1) {
+        if (!inWord.contains(" ")) {
             return false;
         }
 
@@ -186,7 +194,7 @@ public class Duke {
     }
 
     public static boolean checkValidDeadline(String inWord) {
-        if (inWord.indexOf(' ') == -1) {
+        if (!inWord.contains(" ")) {
             return false;
         }
 
@@ -236,6 +244,13 @@ public class Duke {
         }
     }
 
+    public static void generalDukeException() {
+        System.out.println(LINE);
+        System.out.println("Please input a valid command!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
     public static void executeUserInstruction(String inWord, int index, Task[] taskList) {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
@@ -246,11 +261,7 @@ public class Duke {
             printList(Arrays.copyOf(taskList, index));
             break;
         case DONE_COMMAND:
-            if (checkValidDoneInstruction(inWord)) {
-                printTaskDone(inWord, index, taskList);
-            } else {
-                returnException();
-            }
+            manageDoneInstruction(inWord, index, taskList);
             break;
         case EVENT_COMMAND:
             manageEvent(inWord, index, taskList);
@@ -262,7 +273,7 @@ public class Duke {
             manageDeadline(inWord, index, taskList);
             break;
         default:
-            returnException();
+            generalDukeException();
             break;
         }
     }
