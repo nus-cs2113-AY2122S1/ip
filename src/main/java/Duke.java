@@ -17,9 +17,11 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String INVALID_COMMAND = "Please enter a valid command";
+    public static final String SEPARATOR_SLASH = "/";
+    public static final String SEPARATOR_SPACE = " ";
 
     public static String getCommand(String userInput) {
-        int index = userInput.indexOf(" ");
+        int index = userInput.indexOf(SEPARATOR_SPACE);
         if (index == -1) {
             return userInput;
         }
@@ -27,7 +29,7 @@ public class Duke {
     }
 
     public static String getInput(String userInput) {
-        int index = userInput.indexOf(" ");
+        int index = userInput.indexOf(SEPARATOR_SPACE);
         return userInput.substring(index + 1).trim();
     }
 
@@ -47,11 +49,11 @@ public class Duke {
                 break;
             case COMMAND_DONE:
                 int completedIndex = Integer.parseInt(userInput.substring(userInput.length() - 1));
-                duke.completeTask(completedIndex);
+                duke.completeTask(completedIndex - 1);
                 break;
             case COMMAND_DEADLINE:
                 input = getInput(userInput);
-                index = input.indexOf("/");
+                index = input.indexOf(SEPARATOR_SLASH);
                 if (index == -1) {
                     System.out.println(INVALID_COMMAND);
                 }
@@ -61,7 +63,7 @@ public class Duke {
                 break;
             case COMMAND_EVENT:
                 input = getInput(userInput);
-                index = input.indexOf("/");
+                index = input.indexOf(SEPARATOR_SLASH);
                 if (index == -1) {
                     System.out.println(INVALID_COMMAND);
                 }
