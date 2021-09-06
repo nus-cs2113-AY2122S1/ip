@@ -38,9 +38,7 @@ public class CommandManager {
                 String eventDescription = userInput.substring(5, endOfDescriptionIndex);
                 //3 is no of chars after "at"
                 String at = userInput.substring(endOfDescriptionIndex + 3);
-                if (eventDescription.equals("")) {
-                    throw new DukeException("☹ OOPS!!! The description of an event task cannot be empty.");
-                } else if (at.equals("")) {
+                if (at.equals("")) {
                     throw new DukeException("☹ OOPS!!! Please indicate when the event happens after /at");
                 }
                 return new AddTaskCommand(new Events(eventDescription, at));
@@ -54,9 +52,7 @@ public class CommandManager {
                 String deadlineDescription = userInput.substring(8, endOfDescriptionIndex);
                 //3 is no of chars after 'by'
                 String by = userInput.substring(endOfDescriptionIndex + 3);
-                if (deadlineDescription.equals("")) {
-                    throw new DukeException("☹ OOPS!!! The description of a deadline task cannot be empty.");
-                } else if (by.equals("")) {
+                if (by.equals("")) {
                     throw new DukeException("☹ OOPS!!! Please indicate the deadline after /by");
                 }
                 return new AddTaskCommand(new Deadline(deadlineDescription, by));
