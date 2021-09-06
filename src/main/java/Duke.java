@@ -26,51 +26,77 @@ public class Duke {
         System.out.println(niceOutput);
     }
 
-    public static void addTodoTask(String arguments) {
-        Todo newTodo = new Todo(arguments);
-        tasks.add(newTodo);
+    public static String[] splitByDelimiter(String delimiter, String arguments) {
+        String[] splitValues = new String[2];
+        int indexOfDelimiter = arguments.indexOf(delimiter);
+        splitValues[0] = arguments.substring(0, indexOfDelimiter).trim();
+        splitValues[1] = arguments.substring(indexOfDelimiter + delimiter.length(), arguments.length()).trim();
+        return splitValues;
+    }
 
-        String output = " Got it. I've added this task:\n"
-                + "   " + newTodo.toString() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n";
-        printOutput(output);
+    public static void addTodoTask(String arguments) {
+        if (arguments.equals("")) {
+            String output = " ☹ OOPS!!! The description of a todo cannot be empty.\n";
+            printOutput(output);
+        } else {
+            Todo newTodo = new Todo(arguments);
+            tasks.add(newTodo);
+
+            String output = " Got it. I've added this task:\n"
+                    + "   " + newTodo + "\n"
+                    + " Now you have " + tasks.size() + " tasks in the list.\n";
+            printOutput(output);
+        }
     }
 
     public static void addDeadlineTask(String arguments) {
-        String delimiter = "/by";
-        int indexOfDelimiter = arguments.indexOf(delimiter);
-        String description = arguments.substring(0, indexOfDelimiter).trim();
-        String by = arguments.substring(indexOfDelimiter + delimiter.length(), arguments.length()).trim();
+        if (arguments.equals("")) {
+            String output = " ☹ OOPS!!! The description of a deadline cannot be empty.\n";
+            printOutput(output);
+        } else {
+            String delimiter = "/by";
+            try {
+                String[] splitArguments = splitByDelimiter(delimiter, arguments);
+                String description = splitArguments[0];
+                String by = splitArguments[1];
 
-        Deadline newDeadline = new Deadline(description, by);
-        tasks.add(newDeadline);
+                Deadline newDeadline = new Deadline(description, by);
+                tasks.add(newDeadline);
 
-        String output = " Got it. I've added this task:\n"
-                + "   " + newDeadline.toString() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n";
-        printOutput(output);
+                String output = " Got it. I've added this task:\n"
+                        + "   " + newDeadline + "\n"
+                        + " Now you have " + tasks.size() + " tasks in the list.\n";
+                printOutput(output);
+            } catch (StringIndexOutOfBoundsException e) {
+                String output = " ☹ OOPS!!! Could not find delimiter\n";
+                printOutput(output);
+            }
+        }
     }
 
     public static void addEventTask(String arguments) {
-        String delimiter = "/at";
-        int indexOfDelimiter = arguments.indexOf(delimiter);
-        String description = arguments.substring(0, indexOfDelimiter).trim();
-        String at = arguments.substring(indexOfDelimiter + delimiter.length(), arguments.length()).trim();
+        if (arguments.equals("")) {
+            String output = " ☹ OOPS!!! The description of an event cannot be empty.\n";
+            printOutput(output);
+        } else {
+            String delimiter = "/at";
+            try {
+                String[] splitArguments = splitByDelimiter(delimiter, arguments);
+                String description = splitArguments[0];
+                String at = splitArguments[1];
 
-        Event newEvent = new Event(description, at);
-        tasks.add(newEvent);
+                Event newEvent = new Event(description, at);
+                tasks.add(newEvent);
 
-        String output = " Got it. I've added this task:\n"
-                + "   " + newEvent.toString() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n";
-        printOutput(output);
-    }
-
-    public static void addNormalTask(String arguments) {
-        Task newTask = new Task(arguments);
-        tasks.add(newTask);
-        String output = " added: " + arguments + "\n";
-        printOutput(output);
+                String output = " Got it. I've added this task:\n"
+                        + "   " + newEvent + "\n"
+                        + " Now you have " + tasks.size() + " tasks in the list.\n";
+                printOutput(output);
+            } catch (StringIndexOutOfBoundsException e) {
+                String output = " ☹ OOPS!!! Could not find delimiter\n";
+                printOutput(output);
+            }
+        }
     }
 
     public static void listTasks() {
@@ -94,7 +120,12 @@ public class Duke {
         printOutput(output);
     }
 
-    public static void executeCommand(String command, String arguments) {
+    public static void displayUnknownCommandResponse() {
+        String unknownCommandResponse = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+        printOutput(unknownCommandResponse);
+    }
+
+    public static void executeCommand(String command, String arguments) throws DukeException {
         switch (command) {
         case "list":
             listTasks();
@@ -111,25 +142,18 @@ public class Duke {
         case "event":
             addEventTask(arguments);
             break;
+        case "bye":
+            displayByeMessage();
+            System.exit(0);
         default:
-            arguments = command + " " + arguments;
-            addNormalTask(arguments);
-            break;
+            throw new DukeException();
         }
-    }
-
-    public static boolean isBye(String command) {
-        if (command.equals("bye")) {
-            return true;
-        }
-        return false;
     }
 
     public static void main(String[] args) {
         String userInput = "";
         String command = "";
         String arguments = "";
-        boolean shouldBreak = false;
         Scanner sc = new Scanner(System.in);
 
         displayGreetingMessage();
@@ -140,12 +164,11 @@ public class Duke {
             if (splitUserInput.length > 1) {
                 arguments = splitUserInput[1];
             }
-
-            if (isBye(command)) {
-                displayByeMessage();
-                break;
+            try {
+                executeCommand(command, arguments);
+            } catch (DukeException e) {
+                displayUnknownCommandResponse();
             }
-            executeCommand(command, arguments);
         }
 
     }
