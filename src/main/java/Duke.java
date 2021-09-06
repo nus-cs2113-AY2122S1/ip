@@ -58,6 +58,9 @@ public class Duke {
             throw new EmptyDescriptionException(taskType);
         } else {
             String taskDescription = "";
+            // We split the user input using white spaces,
+            // we then combind the userInputArray back into one string
+            // starting from index 1 to get the task description
             for (int i = 1; i < userInputSplitArray.length; i++) {
                 taskDescription = taskDescription + " " + userInputSplitArray[i];
             }
