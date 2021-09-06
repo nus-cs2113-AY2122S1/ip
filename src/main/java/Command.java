@@ -16,7 +16,7 @@ public class Command {
     public HashMap<String, String> getParams() {
         return params;
     }
-    public String getParams(String key) {
+    public String getParam(String key) {
         return params.get(key);
     }
 }

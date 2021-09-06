@@ -1,14 +1,18 @@
-import java.util.*;
+import java.util.Scanner;
 
 // The Terminal
 
 public class Duke {
+	
+
+    static TaskManager taskMgr;
 
     public static void main(String[] args) {
         //Initialize helper variables
         Command command;
-        boolean exit = false;
-        TaskManager taskMgr = new TaskManager();
+        Action action;
+        boolean isFinished = false;
+        taskMgr = new TaskManager();
 
         printGreeting();
 
@@ -18,75 +22,107 @@ public class Duke {
 
             try {
                 command = Parser.parse(userInput);
+                action = command.getAction();
             }catch(Exception e) {
                 System.out.println(e.getMessage());
                 continue;
             }
 
-            switch (command.getAction()) {
-                case BYE:
-                    exit = true;
-                    break;
-                case LIST:
-                    String output = taskMgr.listTasks();
-                    System.out.print(output);
-                    break;
-                case DO_TASK:
-                    String indexParam = command.getParams("index");
-                    int index = Integer.parseInt(indexParam);
-
-                    try {
-                        Task completedTask = taskMgr.doTask(index);
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.printf("[%s][%s] %s\n",
-                                completedTask.getTypeIcon(),
-                                completedTask.getStatusIcon(),
-                                completedTask);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                    break;
-                case NO_ACTION:
-                    break;
-                case ADD_TASK:
-                    Task newTask;
-                    try{
-                        newTask = taskMgr.addTask(command.getParams());
-                    }catch(IllegalArgumentException e){
-                        System.out.println(e.getMessage());
-                        break;
-                    }
-
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.printf("[%s][ ] %s\n", newTask.getTypeIcon(), newTask);
-
-                    int numOfTasks = taskMgr.getTasklistLength();
-                    String plural = (numOfTasks <= 1) ? "task" : "tasks";
-
-                    System.out.printf("Now you have %d %s in the list.\n\n", numOfTasks, plural);
-
-                    break;
-                default:
-                    System.out.println("Invalid command"); //should never reach here
+            switch (action) {
+            case BYE:
+                isFinished = true;
+                break;
+                
+            case LIST:
+            	listTask();
+                break;
+                
+            case DO_TASK:
+                doTask(command);
+                break;
+                
+            case NO_ACTION:
+                break;
+                
+            case ADD_TASK:
+                addTask(command);
+                break;
+                
+            default:
+            	printError();
             }
 
             System.out.println();
-            if (exit)
+            if (isFinished)
                 break;
         }
 
         //EXIT
-        System.out.println("Bye. Hope to see you again soon!");
+        printBye();
+    }
+    
+    private static void printBye() {
+    	System.out.println("Bye. Hope to see you again soon!");
+    }
+    
+    private static void listTask() {
+        String output = taskMgr.listTasks();
+        System.out.print(output);
+    }
+    
+    private static void doTask(Command command) {
+    	String indexParam = command.getParam("index");
+        int index;
+        
+        try {
+            index = Integer.parseInt(indexParam);
+        } catch(NumberFormatException e) {
+        	System.out.println("Index is not a number");
+        	return;
+        }
+
+        try {
+            Task completedTask = taskMgr.doTask(index);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.printf("[%s][%s] %s\n",
+                    completedTask.getTypeIcon(),
+                    completedTask.getStatusIcon(),
+                    completedTask);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private static void addTask(Command command) {
+    	Task newTask;
+        try{
+            newTask = taskMgr.addTask(command.getParams());
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        System.out.println("Got it. I've added this task: ");
+        System.out.printf("[%s][ ] %s\n", newTask.getTypeIcon(), newTask);
+
+        int numOfTasks = taskMgr.getTasklistLength();
+        String plural = (numOfTasks <= 1) ? "task" : "tasks";
+
+        System.out.printf("Now you have %d %s in the list.\n\n", numOfTasks, plural);
+
+    }
+    
+    private static void printError() {
+    	System.out.println("Invalid command");
     }
 
-    public static String getUserInput() {
+    private static String getUserInput() {
         System.out.print("duke:$ ");
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
-    public static void printGreeting() {
+    private static void printGreeting() {
         String logo = " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
                     + "| | | | | | | |/ / _ \\\n"
