@@ -1,13 +1,10 @@
-public class InvalidCommandException extends Exception{
+public class InvalidCommandException extends Exception {
 
-    String invalidCommand;
-
-    InvalidCommandException(String invalidCommand) {
-        this.invalidCommand = invalidCommand;
-    }
+    private final String INVALID_COMMAND_MSG = "\n[Duke]:\n"
+            + "=> Yikes, I do not recognise your input! (refer to 'help' command)";
 
     @Override
     public String toString() {
-        return invalidCommand;
+        return INVALID_COMMAND_MSG;
     }
 }
