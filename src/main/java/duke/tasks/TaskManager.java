@@ -1,7 +1,8 @@
 package duke.tasks;
 
 public class TaskManager {
-    public static final String DIVIDER = "/";
+    public static final String BY_DIVIDER = "/by";
+    public static final String AT_DIVIDER = "/at";
     public static final String LINE_SEPARATOR = "_____________________________";
     private static int numberOfTasksUndone;
     private static int numberOfTasksAdded;
@@ -54,8 +55,8 @@ public class TaskManager {
      * @param args  the item after the command the user inputs
      **/
     public static void addDeadlineTaskToList(String args) {
-        String description = args.substring(0, args.indexOf(DIVIDER)).trim();
-        String time = args.substring(args.indexOf(DIVIDER) + 4);
+        String description = args.substring(0, args.indexOf(BY_DIVIDER)).trim();
+        String time = args.substring(args.indexOf(BY_DIVIDER) + 4);
         Task t = new Deadline(description, time);
         taskList[numberOfTasksAdded] = t;
         numberOfTasksAdded++;
@@ -72,8 +73,8 @@ public class TaskManager {
      * @param args  the item after the command the user inputs
      **/
     public static void addEventTaskToList(String args) {
-        String description = args.substring(0, args.indexOf(DIVIDER)).trim();
-        String time = args.substring(args.indexOf(DIVIDER) + 4);
+        String description = args.substring(0, args.indexOf(AT_DIVIDER)).trim();
+        String time = args.substring(args.indexOf(AT_DIVIDER) + 4);
         Task t = new Event(description, time);
         taskList[numberOfTasksAdded] = t;
         numberOfTasksAdded++;

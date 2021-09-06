@@ -1,5 +1,4 @@
-package duke;
-
+import duke.DukeException;
 import duke.tasks.TaskManager;
 
 import java.util.Arrays;
@@ -7,7 +6,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static final int MAX_NUMBER_OF_TASKS = 100;
-    public static final String DIVIDER = "/";
+    public static final String BY_DIVIDER = "/by";
+    public static final String AT_DIVIDER = "/at";
     public static final String LINE_SEPARATOR = "_____________________________";
     public static final String COMMAND_EXIT = "bye";
     public static final String COMMAND_LIST = "list";
@@ -72,16 +72,50 @@ public class Duke {
     }
 
     /**
-     * Checks if the item from the user input is invalid for deadline and event tasks
+     * returns if there is a time entered for a deadline or event task
      *
-     * @param args the item to be checked
-     * @return true if the item does not contain a '/', false otherwise
+     * @param args the input string the user entered
+     * @return true if there is a time entered, false otherwise
      */
-    public static boolean isInvalidItem(String args) {
-        if (getItem(args).contains(DIVIDER)) {
+    public static boolean canGetTime(String args) {
+        String description = getItem(args);
+        String[] time = description.substring(description.indexOf("/")).split(" ");
+        if (time.length < 1) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checks if the item from the user input is invalid for deadline and event tasks
+     *
+     * @param args the item to be checked
+     * @return true if the item does not contain a '/by', false otherwise
+     */
+    public static boolean isInvalidDeadline(String args) {
+        if (!getItem(args).contains(BY_DIVIDER)) {
+            return true;
+        }
+        if (!canGetTime(args)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the item from the user input is invalid for deadline and event tasks
+     *
+     * @param args the item to be checked
+     * @return true if the item does not contain a '/at' or does not have time after /at, false otherwise
+     */
+    public static boolean isInvalidEvent(String args) {
+        if (!getItem(args).contains(AT_DIVIDER)) {
+            return true;
+        }
+        if (!canGetTime(args)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -120,15 +154,19 @@ public class Duke {
             manager.addToDoTaskToList(item);
             break;
         case COMMAND_DEADLINE:
-            if (isInvalidItem(inputStr)) {
+            if (isEmptyItem(inputStr)) {
                 throw new DukeException("Oops, the description of a deadline cannot be empty!");
+            } else if (isInvalidDeadline(inputStr)) {
+                throw new DukeException("Oops, the time of a deadline cannot be empty!");
             }
             item = getItem(inputStr);
             manager.addDeadlineTaskToList(item);
             break;
         case COMMAND_EVENT:
-            if (isInvalidItem(inputStr)) {
+            if (isEmptyItem(inputStr)) {
                 throw new DukeException("Oops, the description of an event cannot be empty!");
+            } else if (isInvalidEvent(inputStr)) {
+                throw new DukeException("Oops, the time of an event cannot be empty!");
             }
             item = getItem(inputStr);
             manager.addEventTaskToList(item);
@@ -161,7 +199,7 @@ public class Duke {
                 executeCommand(inputStr, command, manager);
             } catch (DukeException dukeException) {
                 System.out.println(LINE_SEPARATOR);
-                System.out.println(dukeException);
+                System.out.println(dukeException.getMessage());
                 System.out.println(LINE_SEPARATOR);
             }
         }

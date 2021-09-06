@@ -1,0 +1,11 @@
+todo read book
+list
+event meeting /at 3pm
+deadline essay /by monday
+event seminar /at sunday 4pm
+list
+done 2
+list
+todo blah
+list
+bye
