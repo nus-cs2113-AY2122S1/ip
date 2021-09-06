@@ -5,6 +5,33 @@ public class Duke {
     public static final String EXIT_MESSAGE = LINE_DIVIDER + System.lineSeparator()
             + "Thanks for talking with me, see you soon!" + System.lineSeparator()
             + LINE_DIVIDER;
+    public static final String UNKNOWN_COMMAND = LINE_DIVIDER + System.lineSeparator()
+            + "Unrecognized command! ☹ Please try again, or type @help for a list of commands." + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String DONE_EMPTY = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, you did not select a task to mark as done ☹" + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String DONE_WORD = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, you entered a word instead of a number after done ☹ Please enter the task number to be marked as done!" + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String DONE_INVALID_NUM = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, you entered an invalid task number! ☹ Please enter the correct task number." + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String TODO_EMPTY = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, the TODO description cannot be empty ☹" + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String DEADLINE_EMPTY = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, the DEADLINE description cannot be empty ☹" + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String DEADLINE_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
+            + "Woops! Did you forget the /by parameter?" + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String EVENT_EMPTY = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, the EVENT description cannot be empty ☹" + System.lineSeparator()
+            + LINE_DIVIDER;
+    public static final String EVENT_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
+            + "Woops! Did you forget the /at parameter?" + System.lineSeparator()
+            + LINE_DIVIDER;
     public static final int MAX_STORED_TASKS = 100;
     public static final int DONE_OFFSET = 1;
     public static final int DEADLINE_DESC_OFFSET = 9;
@@ -36,11 +63,11 @@ public class Duke {
     }
 
     public static void printAddedTodo(String todoDescription) {
-        String addedMessage = LINE_DIVIDER
+        String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:" + System.lineSeparator()
                 + "[T]" + "[ " + "] " + todoDescription + System.lineSeparator()
                 + "You now have " + totalTasksCounter + " tasks in the list!" + System.lineSeparator()
-                + LINE_DIVIDER + System.lineSeparator();
+                + LINE_DIVIDER;
         System.out.println(addedMessage);
     }
 
@@ -49,7 +76,7 @@ public class Duke {
                 + "Alright! I've successfully added this task:" + System.lineSeparator()
                 + "[D]" + "[ " + "] " + deadlineDescription + "(by: " + deadlineBy + ")" + System.lineSeparator()
                 + "You now have " + totalTasksCounter + " tasks in the list!" + System.lineSeparator()
-                + LINE_DIVIDER + System.lineSeparator();
+                + LINE_DIVIDER;
         System.out.println(addedMessage);
     }
 
@@ -58,7 +85,7 @@ public class Duke {
                 + "Alright! I've successfully added this task:"  + System.lineSeparator()
                 + "[E]" + "[ " + "] " + eventDescription + "(at: " + eventAt + ")" + System.lineSeparator()
                 + "You now have " + totalTasksCounter + " tasks in the list!" + System.lineSeparator()
-                + LINE_DIVIDER + System.lineSeparator();
+                + LINE_DIVIDER;
         System.out.println(addedMessage);
     }
 
@@ -95,28 +122,28 @@ public class Duke {
         System.out.println(LINE_DIVIDER);
     }
 
-    public static int filterTaskNum(String doneTask) {
+    public static int filterTaskNum(String doneTask) throws DukeMissingParamException, NumberFormatException {
         String[] words = doneTask.split(" ");
+
         if (words.length > 1) { // simple check to see if task number has not been input
             return Integer.parseInt(words[1]);
         }
-        return -1;
+        else {
+            throw new DukeMissingParamException();
+        }
     }
 
-    public static void markTaskDone(int numOfDone) {
-        if (numOfDone == -1) { // Error case
-            System.out.println("Missing task number to remove. Please try again.");
-        }
-        else if ((numOfDone - DONE_OFFSET >= 0) && (tasks[numOfDone - DONE_OFFSET] != null)) {
-            tasks[numOfDone - DONE_OFFSET].markAsDone();
+    public static void markTaskDone(int numToMark) {
+        if ((numToMark - DONE_OFFSET >= 0) && (tasks[numToMark - DONE_OFFSET] != null)) {
+            tasks[numToMark - DONE_OFFSET].markAsDone();
             System.out.println(LINE_DIVIDER + System.lineSeparator()
                     + "Great work! I've marked this task as done:" + System.lineSeparator()
-                    + "[" + tasks[numOfDone - DONE_OFFSET].getType() + "]" + "[" + tasks[numOfDone - DONE_OFFSET].getStatusIcon() + "] "
-                    + tasks[numOfDone - DONE_OFFSET].description + System.lineSeparator()
+                    + "[" + tasks[numToMark - DONE_OFFSET].getType() + "]" + "[" + tasks[numToMark - DONE_OFFSET].getStatusIcon() + "] "
+                    + tasks[numToMark - DONE_OFFSET].description + System.lineSeparator()
                     + LINE_DIVIDER);
         }
         else {
-            System.out.println("That is not a valid task number! Please try again.");
+            System.out.println(DONE_INVALID_NUM);
         }
     }
 
@@ -125,19 +152,45 @@ public class Duke {
         totalTasksCounter++;
     }
 
-    public static void addTodo(String description) {
-        addTask(new Todo(description));
-        printAddedTodo(description);
+    public static void addTodo(String line) throws DukeMissingDescException {
+        if (line.length() == 4 || line.substring(5).isBlank()) {
+            throw new DukeMissingDescException();
+        }
+        String todoDescription = line.substring(5);
+        addTask(new Todo(todoDescription));
+        printAddedTodo(todoDescription);
     }
 
-    public static void addDeadline(String description, String by) {
-        addTask(new Deadline(description, by));
-        printAddedDeadline(description,by);
+    public static void addDeadline(String line) throws DukeMissingDescException, DukeMissingParamException {
+        if (line.length() == 8 || line.substring(9).isBlank()) {
+            throw new DukeMissingDescException();
+        }
+
+        int posOfBy = line.indexOf("/by");
+        if (posOfBy == -1) { // throw error if missing /by parameter
+            throw new DukeMissingParamException();
+        }
+        int posOfLastChar = line.length();
+        String deadlineDescription = line.substring(DEADLINE_DESC_OFFSET, posOfBy); // get description from input
+        String deadlineBy = line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar); // get deadline when from input
+        addTask(new Deadline(deadlineDescription, deadlineBy));
+        printAddedDeadline(deadlineDescription, deadlineBy);
     }
 
-    public static void addEvent(String description, String at) {
-        addTask(new Event(description, at));
-        printAddedEvent(description, at);
+    public static void addEvent(String line) throws DukeMissingDescException, DukeMissingParamException {
+        if (line.length() == 5 || line.substring(6).isBlank()) {
+            throw new DukeMissingDescException();
+        }
+
+        int posOfAt = line.indexOf("/at");
+        if (posOfAt == -1) { // throw error if missing /at parameter
+            throw new DukeMissingParamException();
+        }
+        int posOfLastChar = line.length();
+        String eventDescription = line.substring(EVENT_DESC_OFFSET, posOfAt); // get description from input
+        String eventAt = line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar); // get event when from input
+        addTask(new Event(eventDescription, eventAt));
+        printAddedEvent(eventDescription, eventAt);
     }
 
     public static void processInputs(Scanner in, String line) {
@@ -148,33 +201,46 @@ public class Duke {
             } else if (line.equals ("@help")) { // print help commands when "@help" command
                 printHelp();
             } else if (line.contains("done")) { // mark task as Done when "done" command
-                int taskNum = filterTaskNum(line);
-                markTaskDone(taskNum);
+                try {
+                    int taskNum = filterTaskNum(line);
+                    markTaskDone(taskNum);
+                }
+                catch (DukeMissingParamException e) {
+                    System.out.println(DONE_EMPTY);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(DONE_WORD);
+                }
+
             } else if (line.contains("todo")) { // add a todo when "todo" command
-                String todoDescription = line.substring(5);
-                addTodo(todoDescription); // adds todo and prints
+                try {
+                    addTodo(line); // adds todo and prints
+                }
+                catch (DukeMissingDescException e) {
+                    System.out.println(TODO_EMPTY);
+                }
             } else if (line.contains("deadline")) { // add a deadline when "deadline" command
-                int posOfBy = line.indexOf("/by");
-                if (posOfBy == -1) { // throw error if missing /by parameter
-                    System.out.println("ERROR! Did you forget /by ?");
-                    break;
+                try {
+                    addDeadline(line); // adds deadline and prints
                 }
-                int posOfLastChar = line.length();
-                String deadlineDescription = line.substring(DEADLINE_DESC_OFFSET, posOfBy); // get description from input
-                String deadlineBy = line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar); // get deadline when from input
-                addDeadline(deadlineDescription, deadlineBy); // adds deadline and prints
+                catch (DukeMissingDescException e) {
+                    System.out.println(DEADLINE_EMPTY);
+                }
+                catch (DukeMissingParamException e) {
+                    System.out.println(DEADLINE_MISSINGPARAM);
+                }
             } else if (line.contains("event")) { // add an event
-                int posOfAt = line.indexOf("/at");
-                if (posOfAt == -1) { // throw error if missing /at parameter
-                    System.out.println("ERROR! Did you forget /at ?");
-                    break;
+                try {
+                    addEvent(line); // adds event and prints
                 }
-                int posOfLastChar = line.length();
-                String eventDescription = line.substring(EVENT_DESC_OFFSET, posOfAt); // get description from input
-                String eventAt = line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar); // get event when from input
-                addEvent(eventDescription, eventAt); // adds event and prints
+                catch (DukeMissingDescException e) {
+                    System.out.println(EVENT_EMPTY);
+                }
+                catch (DukeMissingParamException e) {
+                    System.out.println(EVENT_MISSINGPARAM);
+                }
             } else { // throw error when no commands are found in input
-                System.out.println("Unrecognized command! Please try again, or type @help for a list of commands.");
+                System.out.println(UNKNOWN_COMMAND);
             }
             line = in.nextLine();
         }
