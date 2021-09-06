@@ -1,10 +1,31 @@
+package duke;
+
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.exceptions.DukeException;
 import java.util.Scanner;
+
 
 public class Duke {
     private static Task[] tasks;
     private static int taskCount;
-    /* Lines for formatting purposes */
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
+    public static final String HELLO_MESSAGE = "Hello! I'm MARK\n" + "What can I do for you?";
+    public static final String BYE_MESSAGE = "You've terminated MARK. Have a good day!";
+    public static final String TASK_DONE = "Task has been marked as done:\n";
+    public static final String INVALID_INPUT = "Your input is invalid.";
+
+    public static final String TODO = "todo";
+    public static final String TODO_EXCEPTION = "Description of todo cannot be empty.";
+    public static final String DEADLINE = "deadline";
+    public static final String DEADLINE_EXCEPTION ="Deadline task requires a /by property.";
+    public static final String EVENT = "event";
+    public static final String EVENT_EXCEPTION = "Event task requires a /at property.";
+    public static final String LIST = "list";
+    public static final String DONE = "done";
+    public static final String BYE = "bye";
 
     /**
      * Prints text within two horizontal lines.
@@ -21,49 +42,54 @@ public class Duke {
      * Prints welcome message upon running MARK.
      */
     public static void printHelloMessage() {
-        String helloMessage = "Hello! I'm MARK\n" + "What can I do for you?";
-        printWithLines(helloMessage);
+        printWithLines(HELLO_MESSAGE);
     }
 
     /**
      * Prints exit message upon terminating MARK.
      */
     public static void printByeMessage() {
-        String byeMessage = "You've terminated MARK. Have a good day!";
-        printWithLines(byeMessage);
+        printWithLines(BYE_MESSAGE);
      }
 
-    /**
-     * Reads in a string, identifies the first word and adds new task according to the type of task indicated by it.
-     *
-     * @param task a todo, deadline or event to be added.
-     */
+    public static void parseString(String taskData) {
+        if (taskData.startsWith(DEADLINE)) {
+            tasks[taskCount] = new Deadline(taskData.substring(0, taskData.indexOf("/by"))
+                    .replaceFirst(DEADLINE, "").trim(),
+                    taskData.substring(taskData.indexOf("/by") + "/by".length()).trim());
+        }
+
+        else if (taskData.startsWith(EVENT)) {
+            tasks[taskCount] = new Event(taskData.substring(0, taskData.indexOf("/at"))
+                    .replaceFirst(EVENT, "").trim(),
+                    taskData.substring(taskData.indexOf("/at") + "/at".length()).trim());
+        }
+
+        else if (taskData.startsWith(TODO)) {
+            tasks[taskCount] = new ToDo(taskData.replaceFirst(TODO, "").trim());
+
+        }
+    }
+
     public static void addTask(String task) throws DukeException {
-        /*handles todo tasks */
-        if (task.startsWith("todo")) {
+
+        if (task.startsWith(TODO)) {
             if (task.substring(4).isEmpty()) {
-                throw new DukeException("Description of todo cannot be empty.");
+                throw new DukeException(TODO_EXCEPTION);
             }
+            parseString(task);
 
-            tasks[taskCount] = new ToDo(task.replaceFirst("^todo", "").trim());
+        } else if (task.startsWith(DEADLINE)) {
+              if (!task.contains("/by")) {
+                  throw new DukeException(DEADLINE_EXCEPTION);
+              }
+              parseString(task);
 
-        /*handles deadline tasks*/
-        } else if (task.startsWith("deadline")) {
-            if (!task.contains("/by")) {
-                throw new DukeException("Deadline task requires a /by property.");
-            }
-            tasks[taskCount] = new Deadline(task.substring(0, task.indexOf("/by"))
-                    .replaceFirst("^deadline", "").trim(),
-                    task.substring(task.indexOf("/by") + "/by".length()).trim());
-
-        /*handles event tasks*/
-        } else if (task.startsWith("event")) {
-            if (!task.contains("/at")) {
-                throw new DukeException("Event task requires a /at property.");
-            }
-            tasks[taskCount] = new Event(task.substring(0, task.indexOf("/at"))
-                    .replaceFirst("^event", "").trim(),
-                    task.substring(task.indexOf("/at") + "/at".length()).trim());
+        } else if (task.startsWith(EVENT)) {
+              if (!task.contains("/at")) {
+                  throw new DukeException(EVENT_EXCEPTION);
+              }
+              parseString(task);
         }
 
         if (taskCount == 0) {
@@ -110,10 +136,7 @@ public class Duke {
 
         Task chosenTask = tasks[taskNumber];
         chosenTask.setDone();
-        printWithLines("Task has been marked as done:\n"
-            + chosenTask.getStatusIcon()
-            + " "
-            + chosenTask.description);
+        printWithLines(TASK_DONE + chosenTask.getStatusIcon() + " " + chosenTask.description);
     }
 
 
@@ -122,21 +145,21 @@ public class Duke {
         String inputData = input.replaceFirst(inputCommand, "").trim();
 
         switch (inputCommand){
-        case "todo": case "deadline": case "event":
+        case TODO: case DEADLINE: case EVENT:
             addTask(input);
             break;
-        case "list":
+        case LIST:
             listTasks();
             break;
-        case "done":
+        case DONE:
             setTaskDone(inputData);
             break;
-        case "bye":
+        case BYE:
             printByeMessage();
             System.exit(0);
             break;
         default:
-            printWithLines("Your input is invalid.");
+            printWithLines(INVALID_INPUT);
             break;
         }
     }
