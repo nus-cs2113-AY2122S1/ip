@@ -95,6 +95,10 @@ public class Duke {
     }
 
     public static boolean checkValidEvent(String inWord) {
+        if (inWord.indexOf(' ') == -1) {
+            return false;
+        }
+
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
         if (commands.length != 2 || !inWord.contains(EVENT_KEYWORD)) {
@@ -102,18 +106,24 @@ public class Duke {
         }
 
         String[] description = commands[1].split(EVENT_KEYWORD, 2);
+        if (description.length != 2) {
+            return false;
+        }
+
         String descriptionDetails = description[0].trim();
         String descriptionAt = description[1].trim();
-        boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionAt.isEmpty());
-
-        return description.length == 2 && isNonEmptyDescription;
+        return !descriptionDetails.isEmpty() && !descriptionAt.isEmpty();
     }
 
-    public static void printEvent(String inWord, int index, Task[] taskList) {
+    public static void printEvent(String inWord, int index, Task[] taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
-        String[] details = commands[1].split(EVENT_KEYWORD, 2);
 
+        if(!checkValidEvent(inWord)) {
+            throw new DukeException();
+        }
+
+        String[] details = commands[1].split(EVENT_KEYWORD, 2);
         String description = details[0].trim();
         String at = details[1].trim();
 
@@ -125,6 +135,14 @@ public class Duke {
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
+    }
+
+    public static void manageEvent(String inWord, int index, Task[] taskList) {
+        try {
+            printEvent(inWord, index, taskList);
+        } catch (DukeException invalidEventException) {
+            DukeException.invalidEventException();
+        }
     }
 
     public static boolean checkValidTodo(String inWord) {
@@ -185,9 +203,7 @@ public class Duke {
 
         String descriptionDetails = description[0].trim();
         String descriptionBy = description[1].trim();
-        boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionBy.isEmpty());
-
-        return isNonEmptyDescription;
+        return !descriptionDetails.isEmpty() && !descriptionBy.isEmpty();
     }
 
     public static void printDeadline(String inWord, int index, Task[] taskList) throws DukeException {
@@ -237,11 +253,7 @@ public class Duke {
             }
             break;
         case EVENT_COMMAND:
-            if (checkValidEvent(inWord)) {
-                printEvent(inWord, index, taskList);
-            } else {
-                returnException();
-            }
+            manageEvent(inWord, index, taskList);
             break;
         case TODO_COMMAND:
             manageTodo(inWord, index, taskList);

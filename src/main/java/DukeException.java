@@ -16,4 +16,12 @@ public class DukeException extends Exception{
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
+
+    public static void invalidEventException() {
+        System.out.println(LINE);
+        System.out.println("Your event command is invalid!");
+        System.out.println("To input a event command, type \"event (description) /at (when)\"!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
 }
