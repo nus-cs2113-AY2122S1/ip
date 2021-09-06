@@ -72,6 +72,10 @@ public class Duke {
     public static String getTaskFromTaskDescription(String taskDescription, String dateIndicator)
             throws InvalidDateIndicatorException {
         String[] taskDescriptionSplitByDate = taskDescription.split(dateIndicator);
+
+        // If the taskDescriptionSplitByDate has length less than 2,
+        // it means that the date indicator is not present.
+        // We throw the InvalidDateIndicatorException in this case.
         if (taskDescriptionSplitByDate.length < 2) {
             throw new InvalidDateIndicatorException();
         } else {
