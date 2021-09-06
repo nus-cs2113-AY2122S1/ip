@@ -22,21 +22,30 @@ public class Duke {
      *
      * @param line The command entered by the user.
      */
-    public static void addTask(String line) {
+    public static void addTask(String line) throws EmptyCommandException, IllegalCommandException {
+
+        if (!line.startsWith("todo") && !line.startsWith("deadline") && !line.startsWith("event")) {
+            throw new IllegalCommandException();
+        }
+
+        if (line.split(" ").length < 2) {
+            throw new EmptyCommandException();
+        }
+
         if (line.startsWith("todo")) {
             tasks[Task.getTaskCount()] = new Todo(line.replace("todo ", ""));
         } else if (!line.contains("/")) {
-            System.out.println("Sorry, you didn't give me a valid command! Try that again.");
-            return;
+            throw new IllegalCommandException();
         } else if (line.startsWith("deadline")) {
             String[] words = line.split("/");
             tasks[Task.getTaskCount()] = new Deadline(words[0].replace("deadline ", ""),
                                                                         words[1].replace("by ", ""));
-        } else {
+        } else if (line.startsWith("event")) {
             String[] words = line.split("/");
             tasks[Task.getTaskCount()] = new Event(words[0].replace("event ", ""),
                                                                 words[1].replace("at ", ""));
         }
+
         System.out.println("I've added that to your list:\n" + tasks[Task.getTaskCount() - 1]);
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
@@ -73,7 +82,15 @@ public class Duke {
             } else if (line.startsWith("done")) {
                 doneTask(line);
             } else {
-                addTask(line);
+                // exception handling
+                try {
+                    addTask(line);
+                } catch (EmptyCommandException e) {
+                    System.out.println("Sorry, you didn't give me a fitting description for your task.");
+                } catch (IllegalCommandException e) {
+                    System.out.println("That's not a known command format!");
+                }
+
             }
             line = in.nextLine();
         }
