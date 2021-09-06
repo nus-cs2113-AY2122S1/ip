@@ -19,28 +19,41 @@ public class TaskManager {
     }
 
     public void addTask(String input, Action taskType) {
-        String[] parameters = Parser.parseTask(input, taskType);
-        switch (taskType) {
-        case TO_DO:
-            tasks[taskCount] = new ToDo(parameters[0]);
-            break;
-        case DEADLINE:
-            tasks[taskCount] = new Deadline(parameters[0], parameters[1]);
-            break;
-        case EVENT:
-            tasks[taskCount] = new Event(parameters[0], parameters[1]);
-            break;
+        try {
+            String[] parameters = Parser.parseTask(input, taskType);
+            switch (taskType) {
+            case TO_DO:
+                tasks[taskCount] = new ToDo(parameters[0]);
+                break;
+            case DEADLINE:
+                tasks[taskCount] = new Deadline(parameters[0], parameters[1]);
+                break;
+            case EVENT:
+                tasks[taskCount] = new Event(parameters[0], parameters[1]);
+                break;
+            }
+            DukeUI.drawHorizontalLine();
+            System.out.println("Got it. I've added this task:");
+            System.out.println(tasks[taskCount].toString());
+            System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskCount + 1);
+            DukeUI.drawHorizontalLine();
+            taskCount++;
+        } catch (EmptyDescriptionException | MissingParameterException e) {
+            DukeUI.printError(e);
         }
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[taskCount].toString());
-        System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskCount + 1);
-        taskCount++;
     }
 
-    public void markTaskDone(String command) {
-        int taskNumber = Integer.parseInt(command.split(" ")[1]) - 1;
-        tasks[taskNumber].setDone();
-        System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber].getDescription());
+    public void markTaskDone(String command) throws TaskNotFoundException {
+        try {
+            int taskNumber = Parser.parseMarkDone(command);
+            if (taskNumber < 1 || taskNumber > taskCount) {
+                throw new TaskNotFoundException();
+            }
+            tasks[taskNumber - 1].setDone();
+            System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber - 1].getDescription());
+        } catch (EmptyDescriptionException | NumberFormatException e) {
+            DukeUI.printError(e);
+        }
     }
 
     public void setTasks(Task[] tasks) {

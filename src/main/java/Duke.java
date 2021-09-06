@@ -2,15 +2,10 @@ import java.util.Scanner;
 
 public class Duke {
     private static TaskManager taskManager = new TaskManager();
+    private static boolean isProgramFinished = false;
 
     public static void addTask(String input, Action taskType) {
-        DukeUI.drawHorizontalLine();
-        if (taskType != Action.UNDEFINED) {
-            taskManager.addTask(input, taskType);
-        } else {
-            System.out.println("Sorry I don't understand what you said");
-        }
-        DukeUI.drawHorizontalLine();
+        taskManager.addTask(input, taskType);
     }
 
     public static String readCommand(Scanner in) {
@@ -19,26 +14,38 @@ public class Duke {
         return input;
     }
 
-    public static void readAndExecuteCommand(){
+    public static void executeCommand(Action a) {
+
+    }
+
+    public static void readAndExecuteCommand() {
         Scanner in = new Scanner(System.in);
         String input;
-        boolean finished = false;
-        while (!finished) {
+        while (!isProgramFinished) {
             input = readCommand(in);
-            Action action = Parser.translateAction(input);
-            switch (action) {
-            case MARK_DONE:
-                markTaskDone(Parser.parseInput(input));
-                break;
-            case QUIT:
-                finished = true;
-                break;
-            case LIST:
-                displayTask();
-                break;
-            default:
-                addTask(input, action);
+            try {
+                Action action = Parser.translateAction(input);
+                executeCommand(input, action);
+            } catch (WrongCommandException e) {
+                DukeUI.printError(e);
             }
+
+        }
+    }
+
+    private static void executeCommand(String input, Action action) {
+        switch (action) {
+        case MARK_DONE:
+            markTaskDone(Parser.parseInput(input));
+            break;
+        case QUIT:
+            isProgramFinished = true;
+            break;
+        case LIST:
+            displayTask();
+            break;
+        default:
+            addTask(input, action);
         }
     }
 
@@ -49,9 +56,14 @@ public class Duke {
     }
 
     public static void markTaskDone(String command) {
-        DukeUI.drawHorizontalLine();
-        taskManager.markTaskDone(command);
-        DukeUI.drawHorizontalLine();
+        try {
+            DukeUI.drawHorizontalLine();
+            taskManager.markTaskDone(command);
+            DukeUI.drawHorizontalLine();
+        }catch (TaskNotFoundException e){
+            DukeUI.printError(e);
+        }
+
     }
 
     public static void main(String[] args) {
