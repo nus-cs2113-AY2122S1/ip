@@ -6,7 +6,6 @@ public class Duke {
     static final String RESPONSE_SEPARATOR = "=============================" +
             "===========================================";
 
-
     enum Command {
         HELP_COMMAND,
         LIST_COMMAND,
@@ -49,13 +48,16 @@ public class Duke {
             printHelpMessage();
             break;
         case DONE_COMMAND:
-            int entryNumber = list.parseInputForEntryNumber(input);
             try {
+                int entryNumber = list.parseInputForEntryNumber(input);
                 list.doneEntry(entryNumber);
             } catch (NumberFormatException e) {
-                printInvalidInputMessage();
+                System.out.println("the done command is of the form \"done x\" where x is an entry number");
             } catch (NullPointerException e) {
                 System.out.println("That entry number does not exist in your current list");
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("The done command must have an entry number, " +
+                        "enter it in the form \"done x\" where x is an entry number");
             }
             break;
         case TASK_COMMAND:

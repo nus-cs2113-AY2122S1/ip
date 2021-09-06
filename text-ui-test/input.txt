@@ -9,6 +9,9 @@ list
 deadline /by tomorrow
 todo
 event task 4
+done
+done 4
+done a
 bye
 
 

@@ -68,8 +68,7 @@ public class List {
     }
 
     public int parseInputForEntryNumber(String input) {
-        int entryNumber = Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
-        return entryNumber;
+        return Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
     }
 
     public String parseInputForDateTime(String input) {
