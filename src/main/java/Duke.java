@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
  */
 public class Duke {
 
-    private static boolean done = false;
+    private static boolean isDukeDone = false;
     private static Task[] list = new Task[100];
     private static int listIndexTracker = 0;
-    private static boolean error = false;
+    private static boolean isInvalidInput = false;
 
     private final static String LINES = "    ____________________________________________________________";
     private final static String TAB = "    ";
@@ -28,36 +28,10 @@ public class Duke {
      * @param args System Arguments added to program.
      */
     public static void main(String[] args) {
-
-        /**
-         * ASCII art source: https://www.twitchquotes.com/copypastas/2059
-         */
-        String sadge = "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠉⣉⣉⠙⠿⠋⣠⢴⣊⣙⢿⣿⣿\n"
-                + "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁⠀⢀⠔⡩⠔⠒⠛⠧⣾⠊⢁⣀⣀⣀⡙⣿\n"
-                + "   ⣿⣿⣿⣿⣿⣿⣿⠟⠛⠁⠀⠀⠀⠀⠀⡡⠊⠀⠀⣀⣠⣤⣌⣾⣿⠏⠀⡈⢿⡜\n"
-                + "   ⣿⣿⣿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠡⣤⣶⠏⢁⠈⢻⡏⠙⠛⠀⣀⣁⣤⢢\n"
-                + "   ⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣄⡀⠣⣌⡙⠀⣘⡁⠜⠈⠑⢮⡭⠴⠚⠉⠀\n"
-                + "   ⠁⠀⢀⠔⠁⣀⣤⣤⣤⣤⣤⣄⣀⠀⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠁⠀⢀⣠⢠\n"
-                + "   ⡀⠀⢸⠀⢼⣿⣿⣶⣭⣭⣭⣟⣛⣛⡿⠷⠶⠶⢶⣶⣤⣤⣤⣶⣶⣾⡿⠿⣫⣾\n"
-                + "   ⠇⠀⠀⠀⠈⠉⠉⠉⠉⠉⠙⠛⠛⠻⠿⠿⠿⠷⣶⣶⣶⣶⣶⣶⣶⣶⡾⢗⣿⣿\n"
-                + "   ⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣶⣾⣿⣿⣿\n"
-                + "   ⣿⣿⣿⣷⣶⣤⣄⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣝⡻⣿⣿⣿⣿⣿⣿⣿⣿\n"
-                + "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡹⣿⣿⣿⣿⣿⣿\n";
-
-        /**
-         * ASCII art source: https://fsymbols.com/text-art/
-         */
-        String text = "█▀ ▄▀█ █▀▄ █▀▀ █▀▀   █▀▄ █░█ █▄▀ █▀▀\n"
-                + "▄█ █▀█ █▄▀ █▄█ ██▄   █▄▀ █▄█ █░█ ██▄";
-
-        System.out.println("Hello from\n" + sadge + text);
-
-        System.out.println(LINES);
-        System.out.println(GREETING);
-        System.out.println(LINES);
+        printWelcomeBanner();
 
         Scanner in = new Scanner(System.in);
-        while (!done) {
+        while (!isDukeDone) {
             String input = in.nextLine();
             parseInput(input);
         }
@@ -72,32 +46,25 @@ public class Duke {
      */
     private static void parseInput(String input) {
         System.out.println(LINES);
-
         if (input.equalsIgnoreCase("Bye")) {
             System.out.println(GOODBYE);
-            setDone();
+            setDukeDone();
         } else if (input.equalsIgnoreCase("List")) {
             printList();
-        } else if (isDoneInput(input)) {
-            int index = getDoneIndex(input);
-            list[index].markAsDone();
-            System.out.print(TAB + "Nice! I've marked this task as done:" + System.lineSeparator() + TAB + TAB);
-            System.out.println(list[index]);
-        } else if (isValidTodo(input)) {
+        } else if (isValidDoneInput(input)) {
+            handleDoneInput(input);
+        } else if (isValidTodoInput(input)) {
             addToList(input, TODO);
-            printAddedMessage();
-        } else if (isValidDeadline(input)) {
+        } else if (isValidDeadlineInput(input)) {
             addToList(input, DEADLINE);
-            printAddedMessage();
-        } else if (isValidEvent(input)) {
+        } else if (isValidEventInput(input)) {
             addToList(input, EVENT);
-            printAddedMessage();
         } else {
-            setError(true);
+            setInvalidInput(true);
         }
-        if (error) {
+        if (isInvalidInput) {
             System.out.println(TAB + "Invalid input");
-            setError(false);
+            setInvalidInput(false);
         }
         System.out.println(LINES);
     }
@@ -128,7 +95,7 @@ public class Duke {
         }
 
         listIndexTracker++;
-
+        printAddedMessage();
     }
 
     /**
@@ -138,6 +105,17 @@ public class Duke {
         System.out.println(TAB + "Got it. I've added this task: ");
         System.out.println(TAB + TAB + list[listIndexTracker - 1]);
         System.out.println(TAB + String.format("Now you have %d tasks in the list.", listIndexTracker));
+    }
+
+    /**
+     * This function handles the done input by marking task as done.
+     * @param input input given by the user.
+     */
+    private static void handleDoneInput(String input) {
+        int index = getDoneIndex(input);
+        list[index].markAsDone();
+        System.out.print(TAB + "Nice! I've marked this task as done:" + System.lineSeparator() + TAB + TAB);
+        System.out.println(list[index]);
     }
 
     /**
@@ -151,10 +129,10 @@ public class Duke {
     }
 
     /**
-     * This function sets done to true, stopping while loop and signifying the end of program.
+     * This function sets isDukeDone to true, stopping while loop and signifying the end of program.
      */
-    private static void setDone() {
-        done = true;
+    private static void setDukeDone() {
+        isDukeDone = true;
     }
 
     /**
@@ -162,13 +140,15 @@ public class Duke {
      * @param input input given by the user.
      * @return returns the validity of the done input.
      */
-    private static boolean isDoneInput(String input) {
+    private static boolean isValidDoneInput(String input) {
         boolean validDoneStatement = Pattern.matches("^done \\d+$", input.toLowerCase());
         if (!validDoneStatement) {
             return false;
         }
         int numberOnly = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-        return numberOnly <= listIndexTracker && numberOnly < 100;
+        boolean numberWithinCurrMax = numberOnly <= listIndexTracker;
+        boolean numberWithinPossMax = numberOnly < 100;
+        return  numberWithinCurrMax && numberWithinPossMax;
     }
 
     /**
@@ -183,10 +163,10 @@ public class Duke {
 
     /**
      * This function sets error as the given boolean argument.
-     * @param bool boolean to set error as.
+     * @param validity boolean to set isInvalidInput as.
      */
-    private static void setError(boolean bool) {
-        error = bool;
+    private static void setInvalidInput(boolean validity) {
+        isInvalidInput = validity;
     }
 
     /**
@@ -194,8 +174,8 @@ public class Duke {
      * @param input input given by the user.
      * @return returns validity of the to do statement.
      */
-    private static boolean isValidTodo(String input) {
-        return Pattern.matches("todo [a-z0-9\\s]+", input.toLowerCase());
+    private static boolean isValidTodoInput(String input) {
+        return Pattern.matches("todo [:a-z0-9\\s]+", input.toLowerCase());
     }
 
     /**
@@ -203,7 +183,7 @@ public class Duke {
      * @param input input given by the user.
      * @return returns validity of the deadline statement.
      */
-    private static boolean isValidDeadline(String input) {
+    private static boolean isValidDeadlineInput(String input) {
         return Pattern.matches("deadline [a-z0-9\\s]+\\b /by .+", input.toLowerCase());
     }
 
@@ -212,7 +192,7 @@ public class Duke {
      * @param input input given by the user.
      * @return returns validity of the event statement.
      */
-    private static boolean isValidEvent(String input) {
+    private static boolean isValidEventInput(String input) {
         return Pattern.matches("event [a-z0-9\\s]+\\b /at .+", input.toLowerCase());
     }
 
@@ -242,4 +222,37 @@ public class Duke {
             break;
         }
     }
+
+    /**
+     * This function prints the welcome banner.
+     */
+    private static void printWelcomeBanner() {
+        /**
+         * ASCII art source: https://www.twitchquotes.com/copypastas/2059
+         */
+        String sadge = "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠉⣉⣉⠙⠿⠋⣠⢴⣊⣙⢿⣿⣿\n"
+                + "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁⠀⢀⠔⡩⠔⠒⠛⠧⣾⠊⢁⣀⣀⣀⡙⣿\n"
+                + "   ⣿⣿⣿⣿⣿⣿⣿⠟⠛⠁⠀⠀⠀⠀⠀⡡⠊⠀⠀⣀⣠⣤⣌⣾⣿⠏⠀⡈⢿⡜\n"
+                + "   ⣿⣿⣿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠡⣤⣶⠏⢁⠈⢻⡏⠙⠛⠀⣀⣁⣤⢢\n"
+                + "   ⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣄⡀⠣⣌⡙⠀⣘⡁⠜⠈⠑⢮⡭⠴⠚⠉⠀\n"
+                + "   ⠁⠀⢀⠔⠁⣀⣤⣤⣤⣤⣤⣄⣀⠀⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠁⠀⢀⣠⢠\n"
+                + "   ⡀⠀⢸⠀⢼⣿⣿⣶⣭⣭⣭⣟⣛⣛⡿⠷⠶⠶⢶⣶⣤⣤⣤⣶⣶⣾⡿⠿⣫⣾\n"
+                + "   ⠇⠀⠀⠀⠈⠉⠉⠉⠉⠉⠙⠛⠛⠻⠿⠿⠿⠷⣶⣶⣶⣶⣶⣶⣶⣶⡾⢗⣿⣿\n"
+                + "   ⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣶⣾⣿⣿⣿\n"
+                + "   ⣿⣿⣿⣷⣶⣤⣄⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣝⡻⣿⣿⣿⣿⣿⣿⣿⣿\n"
+                + "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡹⣿⣿⣿⣿⣿⣿\n";
+
+        /**
+         * ASCII art source: https://fsymbols.com/text-art/
+         */
+        String text = "█▀ ▄▀█ █▀▄ █▀▀ █▀▀   █▀▄ █░█ █▄▀ █▀▀\n"
+                + "▄█ █▀█ █▄▀ █▄█ ██▄   █▄▀ █▄█ █░█ ██▄";
+
+        System.out.println("Hello from\n" + sadge + text);
+
+        System.out.println(LINES);
+        System.out.println(GREETING);
+        System.out.println(LINES);
+    }
 }
+
