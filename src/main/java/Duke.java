@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         UI.printWelcomeMessage();
         TaskManager t1 = new TaskManager();
         String input;
@@ -9,7 +9,7 @@ public class Duke {
         String command;
         Scanner in = new Scanner(System.in);
         do {
-            input = in.nextLine();
+            input = in.nextLine().trim();
             inputWords = t1.decodeInput(input);
             command = inputWords[0];
             switch (command) {
@@ -25,7 +25,7 @@ public class Duke {
                 t1.printList();
                 break;
             default:
-                UI.printInvalidMessage();
+                DukeException.invalidInputException();
                 break;
             }
         } while (!command.equals("bye"));

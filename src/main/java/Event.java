@@ -1,12 +1,12 @@
 public class Event extends Task{
-    protected String startEndTime;
+    protected String duration;
 
-    public Event(String description, String startEndTime) {
+    public Event(String description, String duration) {
         super(description);
-        this.startEndTime = startEndTime;
+        this.duration = duration;
     }
 
     public String listTask() {
-        return "[E]" + super.listTask() + " (at: " + startEndTime + ")";
+        return "[E]" + super.listTask() + " (at: " + duration + ")";
     }
 }
