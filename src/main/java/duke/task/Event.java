@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Event class is a subclass of Task. It
  * provides an additional parameter, time period.

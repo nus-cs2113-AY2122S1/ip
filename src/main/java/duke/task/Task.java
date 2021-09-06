@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Task class represents a task with a description
  * and a status (whether it's done or not).

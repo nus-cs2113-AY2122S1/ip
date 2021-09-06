@@ -1,4 +1,8 @@
+package duke.task;
+
 import java.util.ArrayList;
+
+import duke.ui.Ui;
 
 /**
  * This class manages the list of tasks.

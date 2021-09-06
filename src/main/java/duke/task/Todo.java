@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * The Todo class is a subclass of Task which
  * implements its functionality.
