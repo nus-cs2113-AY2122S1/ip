@@ -1,3 +1,8 @@
+import task.type.Deadline;
+import task.type.Event;
+import task.type.Task;
+import task.type.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
