@@ -59,24 +59,24 @@ public class Duke {
                 } else if (userInputLowerCase.startsWith("done")) {
                     markTasksAsDone(userInput, list);
                 } else if (userInputLowerCase.startsWith("todo")) {
-                    String taskToAdd = removeFirstWord(userInput);
-                    addTodo(taskToAdd, list);
+                    String description = extractDescription(userInput);
+                    addTodo(description, list);
                 } else if (userInputLowerCase.startsWith("deadline")) {
-                    String taskToAdd = removeFirstWord(userInput);
-                    addDeadline(taskToAdd, list);
+                    String description = extractDescription(userInput);
+                    addDeadline(description, list);
                 } else if (userInputLowerCase.startsWith("event")) {
-                    String taskToAdd = removeFirstWord(userInput);
-                    addEvent(taskToAdd, list);
+                    String description = extractDescription(userInput);
+                    addEvent(description, list);
                 } else {
-                    System.out.println(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
+                    System.out.print(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
                 }
             } catch (DukeException | IndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
+                System.out.print(e.getMessage());
             }
         }
     }
 
-    private static void addTodo(String description, List<Task> taskList) {
+    private static void addTodo(String description, List<Task> taskList) throws DukeException {
         taskList.add(new Todo(description));
         Task addedTodo = taskList.get(taskList.size() - 1);
         System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
@@ -199,8 +199,11 @@ public class Duke {
         return extractedInts;
     }
 
-    public static String removeFirstWord(String input) {
+    public static String extractDescription(String input) throws DukeException {
         String[] splitArray = input.split(" +", 2);
+        if (splitArray.length == 1) {
+            throw new DukeException(HORIZONTAL_LINE + "Give me a TASK DESCRIPTION too please???\n" + HORIZONTAL_LINE);
+        }
         return splitArray[1];
     }
 }
