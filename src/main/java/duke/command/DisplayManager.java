@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.task.Task;
+
 public class DisplayManager {
 
     public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
@@ -18,7 +22,7 @@ public class DisplayManager {
 
 
     public void printStartGreet() {
-        //System.out.println(DISPLAY_LOGO);
+        System.out.println(DISPLAY_LOGO);
         System.out.println(DISPLAY_GREET_START);
     }
 

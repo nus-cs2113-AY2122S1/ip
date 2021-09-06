@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.command.DisplayManager;
+
 public class Event extends Task{
 
     private String dateTime;
@@ -11,5 +15,4 @@ public class Event extends Task{
     public String toString() {
         return DisplayManager.createListBox(this.taskType, this.getStatusIcon()) + " " + super.toString() + " (at: " + this.dateTime + ")";
     }
-
 }
