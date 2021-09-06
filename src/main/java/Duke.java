@@ -40,7 +40,7 @@ public class Duke {
 
     public static void main(String[] args) {
         // Initialize variables for program startup
-        System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
+        System.out.print("Hello from\n" + LOGO + GREETING_MESSAGE);
         boolean isProgramRunning = true;
         String userInput;
         List<Task> list = new ArrayList<>();
@@ -71,42 +71,44 @@ public class Duke {
                     System.out.print(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
                 }
             } catch (DukeException | IndexOutOfBoundsException e) {
-                System.out.print(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    private static void addTodo(String description, List<Task> taskList) throws DukeException {
-        taskList.add(new Todo(description));
-        Task addedTodo = taskList.get(taskList.size() - 1);
-        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                addedTodo + "\n" + HORIZONTAL_LINE);
+    private static void addTodo(String description, List<Task> taskList) {
+        Todo newTodo = new Todo(description);
+        taskList.add(newTodo);
+        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newTodo + "\n" + HORIZONTAL_LINE);
     }
 
-    private static void addEvent(String description, List<Task> taskList) {
-        if (description.contains("/at")) {
-            String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
-            taskList.add(new Event(separated[0], separated[1]));
-        } else {
-            System.out.println("You need to specify an event! TIP: Use \"/at\" to do so!\n" +
-                    HORIZONTAL_LINE);
+    private static void addEvent(String input, List<Task> taskList) throws DukeException {
+        String[] separated = splitDescriptionFromTiming(TaskType.EVENT, input);
+        if (separated.length == 1) {
+            throw new DukeException("Give me a timing for the event too man come on...");
         }
-        Task addedEvent = taskList.get(taskList.size() - 1);
-        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                addedEvent + "\n" + HORIZONTAL_LINE);
+        String description = separated[0];
+        String time = separated[1];
+        Event newEvent = new Event(description, time);
+        taskList.add(newEvent);
+
+        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newEvent + "\n" + HORIZONTAL_LINE);
     }
 
-    private static void addDeadline(String description, List<Task> taskList) {
-        if (description.contains("/by")) {
-            String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, description);
-            taskList.add(new Deadline(separated[0], separated[1]));
-        } else {
-            System.out.println("You need to specify a deadline! TIP: Use \"/by\" to do so!\n" +
-                    HORIZONTAL_LINE);
+    private static void addDeadline(String input, List<Task> taskList) throws DukeException {
+        String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, input);
+        if (separated.length == 1) {
+            throw new DukeException("Tell me more about the deadline too man come on...");
         }
-        Task addedDeadline = taskList.get(taskList.size() - 1);
-        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                 addedDeadline + "\n" + HORIZONTAL_LINE);
+        String description = separated[0];
+        String time = separated[1];
+        Deadline newDeadline = new Deadline(description, time);
+        taskList.add(newDeadline);
+
+        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newDeadline + "\n" + HORIZONTAL_LINE);
     }
 
     /**
@@ -116,13 +118,22 @@ public class Duke {
      * @param description Full string input of the task and its timing
      * @return Returns a string array with index 0 containing the task description and index 1 containing the timing
      */
-    public static String[] splitDescriptionFromTiming(TaskType type, String description) {
+    public static String[] splitDescriptionFromTiming (TaskType type, String description) throws DukeException {
         String[] separated;
         switch (type) {
         case DEADLINE:
+            if (!description.contains("/by")) {
+                throw new DukeException("Am I supposed to guess when your deadline is???\n" +
+                        "TIP: Use \"/by\" to do so!");
+            }
             separated = description.split("/by +");
             break;
         case EVENT:
+            if (!description.contains("/at")) {
+                throw new DukeException(HORIZONTAL_LINE +
+                        "Am I supposed to guess when your event is happening???\n" +
+                        "TIP: Use \"/at\" to do so!");
+            }
             separated = description.split("/at +");
             break;
         default:
@@ -138,7 +149,7 @@ public class Duke {
             task = list.get(i);
             System.out.println(i + 1 + "." + task);
         }
-        System.out.println(HORIZONTAL_LINE);
+        System.out.print(HORIZONTAL_LINE);
     }
 
     /**
@@ -166,7 +177,7 @@ public class Duke {
                 System.out.println("Dude you've given be an invalid task number... Skipping...");
             }
         }
-        System.out.println("All done!\n" + HORIZONTAL_LINE);
+        System.out.print("All done!\n" + HORIZONTAL_LINE);
     }
 
     /**
@@ -202,7 +213,7 @@ public class Duke {
     public static String extractDescription(String input) throws DukeException {
         String[] splitArray = input.split(" +", 2);
         if (splitArray.length == 1) {
-            throw new DukeException(HORIZONTAL_LINE + "Give me a TASK DESCRIPTION too please???\n" + HORIZONTAL_LINE);
+            throw new DukeException("Give me a DESCRIPTION too please???");
         }
         return splitArray[1];
     }
