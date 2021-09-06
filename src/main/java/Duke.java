@@ -31,14 +31,8 @@ public class Duke {
 
     public void runCommand(String input) throws InvalidCommandException {
         String[] inputArgs = input.split("\\s+", 2);
-        String cmd = inputArgs[0];
-        String cmdArgument = "";
 
-        if (inputArgs.length == 2) {
-            cmdArgument = inputArgs[1];
-        }
-
-        switch (cmd) {
+        switch (inputArgs[0]) {
         case TERMINATE_CMD:
             isRunning = false;
             break;
@@ -46,46 +40,43 @@ public class Duke {
             dukeUI.printHelpMsg();
             break;
         case LIST_CMD:
-            try {
-                taskMgr.getTasklist();
-            } catch (EmptyTasklistException e) {
-                System.out.println(e);
-            }
+            taskMgr.printTasks();
             break;
         case ADD_TODO_CMD:
             try {
-                taskMgr.addToDo(cmdArgument);
-            } catch (TodoFormatException e) {
-                System.out.println(e);
+                taskMgr.addToDo(inputArgs[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                dukeUI.printTodoNoDescMsg();
             }
             break;
         case ADD_DEADLINE_CMD:
             try {
-                taskMgr.addDeadline(cmdArgument);
-            } catch (DeadlineFormatException e) {
-                System.out.println(e);
+                taskMgr.addDeadline(inputArgs[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                dukeUI.printDeadlineNoDescMsg();
             }
             break;
         case ADD_EVENT_CMD:
             try {
-                taskMgr.addEvent(cmdArgument);
-            } catch (EventFormatException e) {
-                System.out.println(e);
+                taskMgr.addEvent(inputArgs[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                dukeUI.printEventNoDescMsg();
             }
             break;
         case SET_TASK_DONE_CMD:
             try {
-                taskMgr.setTaskComplete(cmdArgument);
-            } catch (DoneFormatException e) {
-                System.out.println(e);
+                int taskID = Integer.parseInt(inputArgs[1]);
+                taskMgr.setTaskComplete(taskID);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                dukeUI.printNoTaskIdMsg();
+            } catch (NumberFormatException e) {
+                dukeUI.printTaskIdNotIntegerMsg();
             } catch (InvalidTaskIdException e) {
-                System.out.println(e);
-            } catch (TaskAlreadyDoneException e) {
-                System.out.println(e);
+                dukeUI.printInvalidTaskIdMsg(e);
             }
             break;
         default:
-            throw new InvalidCommandException();
+            throw new InvalidCommandException(input);
         }
     }
 
@@ -99,7 +90,7 @@ public class Duke {
             try {
                 runCommand(input);
             } catch (InvalidCommandException e) {
-                System.out.println(e);
+                dukeUI.printInvalidCmdMsg(e);
             }
 
         } while (isRunning);

@@ -1,12 +1,13 @@
-public class InvalidTaskIdException extends Exception {
+public class InvalidTaskIdException extends Exception{
 
-    private final String INVALID_TASK_ID_MSG = "\n[Duke]:\n"
-            + "=> Yikes, the task id given is out of range of the tasklist!\n"
-            + "=> Please enter another task id...";
+    int invalidTaskId;
+
+    InvalidTaskIdException(int invalidTaskId) {
+        this.invalidTaskId = invalidTaskId;
+    }
 
     @Override
     public String toString() {
-        return INVALID_TASK_ID_MSG;
+        return Integer.toString(invalidTaskId);
     }
-
 }
