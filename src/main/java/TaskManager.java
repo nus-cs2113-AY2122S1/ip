@@ -21,6 +21,7 @@ public class TaskManager {
     private static final int TODO_DESCRIPTION_START_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_START_INDEX = 9;
     private static final int EVENT_DESCRIPTION_START_INDEX = 6;
+    private static final int LINE_LENGTH = 40;
 
     private Task tasks[];
     private int taskCount;
@@ -31,7 +32,7 @@ public class TaskManager {
     }
 
     public static void printLine() {
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < LINE_LENGTH; i++) {
             System.out.print("_");
         }
         System.out.println("");
