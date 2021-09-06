@@ -30,6 +30,17 @@
 	Now you have 5 tasks in the list.
 	-------------------------------------
 	-------------------------------------
+	Bro please let me know what thing you gonna do
+	-------------------------------------
+	-------------------------------------
+	Invalid format. Enter by this format:
+		"event [description] /at [date]"
+	-------------------------------------
+	-------------------------------------
+	Invalid format. Enter by this format:
+		"deadline [description] /by [deadline]"
+	-------------------------------------
+	-------------------------------------
 	Gotcha. I beg you to do this:
 		[D][ ] finish 2027 (by: Monday)
 	Now you have 6 tasks in the list.
@@ -90,6 +101,13 @@
 	-------------------------------------
 	-------------------------------------
 	Task number not exist!
+	-------------------------------------
+	-------------------------------------
+	Bro don't you say you've done all that.
+	Pick a number with your done task!
+	-------------------------------------
+	-------------------------------------
+	Uhm that definitely not a dumber bro. Pick again.
 	-------------------------------------
 	-------------------------------------
 	Yo check your typing man. I don't get it.

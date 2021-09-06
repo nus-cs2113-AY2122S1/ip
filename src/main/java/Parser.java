@@ -26,7 +26,7 @@ public class Parser {
         userTaskIndex = 0;
     }
 
-    public String parse(String command) {
+    public static String parse(String command) throws DukeException {
         String[] words = command.split(SPACE_SEPARATOR);
 
         if (words[0].equals(COMMAND_LIST)) {
@@ -41,7 +41,7 @@ public class Parser {
             return parseDoneCommand(command);
         }
         else {
-            return INVALID_COMMAND;
+            throw new DukeException(INVALID_COMMAND);
         }
     }
 
@@ -67,9 +67,13 @@ public class Parser {
         return msg;
     }
 
-    private static String parseTodoCommand(String command) {
+    private static String parseTodoCommand(String command) throws DukeException {
         String msg;
         String detail = command.substring(COMMAND_TODO.length()).trim();
+
+        if (detail.length() <= 0) {
+            throw new DukeException("Bro please let me know what thing you gonna do");
+        }
 
         userTasks[userTaskIndex] = new ToDos(detail);
 
@@ -82,17 +86,21 @@ public class Parser {
         return msg;
     }
 
-    private static String parseDeadlineCommand(String command) {
+    private static String parseDeadlineCommand(String command) throws DukeException {
         String msg;
         String detail = command.substring(COMMAND_DEADLINE.length()).trim();
         String[] contentAndDate = detail.split(COMMAND_DEADLINE_SEPARATOR);
 
+        if (detail.length() <= 0) {
+            throw new DukeException("Invalid format. Enter by this format:\n"
+                    + "\t\t\"deadline [description] /by [deadline]\"");
+        }
+
         for (int i = 0; i < contentAndDate.length; i++) {
             if (contentAndDate.length != EVENT_DEADLINE_ARGUMENT_COUNT
                     || contentAndDate[i].equals(EMPTY_STRING)) {
-                msg = "Invalid format. Enter by this format:\n"
-                        + "\t\t\"deadline [description] /by [deadline]\"";
-                return msg;
+                throw new DukeException("Invalid format. Enter by this format:\n"
+                        + "\t\t\"deadline [description] /by [deadline]\"");
             }
         }
 
@@ -111,17 +119,21 @@ public class Parser {
         return msg;
     }
 
-    private static String parseEventCommand(String command) {
+    private static String parseEventCommand(String command) throws DukeException {
         String msg;
         String detail = command.substring(COMMAND_EVENT.length()).trim();
         String[] contentAndDate = detail.split(COMMAND_EVENT_SEPARATOR);
 
+        if (detail.length() <= 0) {
+            throw new DukeException("Invalid format. Enter by this format:\n"
+                    + "\t\t\"event [description] /at [date]\"");
+        }
+
         for (int i = 0; i < contentAndDate.length; i++) {
             if (contentAndDate.length != EVENT_DEADLINE_ARGUMENT_COUNT
                     || contentAndDate[i].equals(EMPTY_STRING)) {
-                msg = "Invalid format. Enter by this format:\n"
-                        + "\t\t\"event [description] /at [date]\"";
-                return msg;
+                throw new DukeException("Invalid format. Enter by this format:\n"
+                        + "\t\t\"event [description] /at [date]\"");
             }
         }
 
@@ -140,22 +152,28 @@ public class Parser {
         return msg;
     }
 
-    private static String parseDoneCommand(String command) {
+    private static String parseDoneCommand(String command) throws DukeException {
         String msg;
         String detail = command.substring(COMMAND_DONE.length()).trim();
 
-        int taskDoneNumber = Integer.parseInt(detail);
+        if (detail.length() <= 0) {
+            throw new DukeException("Bro don't you say you've done all that.\n" +
+                    "\tPick a number with your done task!");
+        } else {
+            try {
+                int taskDoneNumber = Integer.parseInt(detail);
 
-        if (taskDoneNumber <= 0 || taskDoneNumber > userTaskIndex) {
-            msg = "Task number not exist!";
-            return msg;
+                userTasks[taskDoneNumber - 1].setDone();
+                msg = "Good job. You may now enjoy the rest of "
+                        + "your suffering:\n"
+                        + "\t" + userTasks[taskDoneNumber - 1].toString();
+
+                return msg;
+            } catch (NumberFormatException e) {
+                throw new DukeException("Uhm that definitely not a dumber bro. Pick again.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Task number not exist!");
+            }
         }
-
-        userTasks[taskDoneNumber - 1].setDone();
-        msg = "Good job. You may now enjoy the rest of "
-                + "your suffering:\n"
-                + "\t" + userTasks[taskDoneNumber - 1].toString();
-
-        return msg;
     }
 }

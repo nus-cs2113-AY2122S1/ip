@@ -4,6 +4,9 @@ todo go sleep
 event go outside /at Friday 7pm
 todo cleanup code
 todo buy groceries
+todo
+event
+deadline
 deadline finish 2027 /by Monday
 deadline /by Sunday
 deadline upload file /by
@@ -17,6 +20,8 @@ done 6
 done 7
 done 123
 done -12
+done
+done abc
 asdhj
 list
 bye
