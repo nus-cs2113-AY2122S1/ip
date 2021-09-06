@@ -1,3 +1,3 @@
 public interface ArtInterface {
-    void drawArt();
+    void drawArt() throws CommandException;
 }

@@ -126,12 +126,15 @@ public class ArtBot implements ArtInterface{
         return letterArt;
     }
 
-    public void drawArt(){
+    public void drawArt() throws CommandException{
         String[] charArray = userInput.split("(?!^)");
         ArrayList<String[]> artArray = new ArrayList<>();
         String[] mergeString = new String[5];
         for(String s:charArray){
             String[] letterInArtForm = getLogo(s);
+            if(letterInArtForm == null){
+                throw new CommandException(ErrorList.ERROR_LETTER_NOT_FOUND);
+            }
             artArray.add(letterInArtForm);
         }
         for(int i = 0; i < 5; i++){

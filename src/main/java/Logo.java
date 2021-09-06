@@ -1,5 +1,6 @@
 public class Logo {
     public static final String divider = "____________________________________________________________\n";
+    public static final String dividerWithoutNewLine = "____________________________________________________________";
     public static final String logo = " ____        _        \n"
                                     + "|  _ \\ _   _| | _____ \n"
                                     + "| | | | | | | |/ / _ \\\n"

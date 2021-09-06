@@ -9,7 +9,7 @@ public class Duke {
 
     private static void startDuke(){
         isOnline = true;
-        System.out.println(Logo.logo +Logo.divider + MESSAGE_HI + Logo.divider);
+        System.out.println(Logo.logo +Logo.divider + MESSAGE_HI + Logo.dividerWithoutNewLine);
     }
 
     private static void endDuke(){
@@ -23,13 +23,17 @@ public class Duke {
         ListManager listManager = new ListManager(list);
         while(isOnline) {
             String userInput = in.nextLine().toLowerCase().trim();
-            if(userInput.startsWith("!")){
-                CommandManager commandManager = new CommandManager(userInput);
-                commandManager.handleCommand();
-            }else {
-                InputHandler inputManager = new InputHandler(userInput, listManager);
-                inputManager.handleInput();
-            }
+                if (userInput.startsWith("!")) {
+                    CommandManager commandManager = new CommandManager(userInput);
+                    commandManager.handleCommand();
+                } else {
+                    InputHandler inputManager = new InputHandler(userInput, listManager);
+                    try {
+                        inputManager.handleInput();
+                    }catch(CommandException e){
+                        e.handleException();
+                    }
+                }
         }
         endDuke();
     }

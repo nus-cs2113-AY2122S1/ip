@@ -45,24 +45,39 @@ public class InputHandler implements InputInterface{
         return null;
     }
 
-    private void handleEvent(String eventInput){
+    private void handleEvent(String eventInput) throws CommandException{
         String taskDescription = eventInput.replaceFirst(COMMAND_ADD_EVENT,"").trim();
+        if(!taskDescription.contains(EVENT_TIME)){
+            throw new CommandException(ErrorList.ERROR_EMPTY_EVENT_TIME);
+        }
         int startOfEventTime = taskDescription.indexOf(EVENT_TIME);
         String eventDescription = taskDescription.substring(0,startOfEventTime).trim();
+        if(eventDescription.isEmpty()){
+            throw new CommandException(ErrorList.ERROR_EMPTY_EVENT_INPUT);
+        }
         String eventTime = taskDescription.replaceFirst(eventDescription,"").replaceFirst(EVENT_TIME,"").strip();
         listManager.addEvent(eventDescription,eventTime);
     }
 
-    private void handleDeadline(String deadlineInput){
+    private void handleDeadline(String deadlineInput) throws CommandException{
         String taskDescription = deadlineInput.replaceFirst(COMMAND_ADD_DEADLINE,"").trim();
+        if(!taskDescription.contains(DEADLINE_DATE)){
+            throw new CommandException(ErrorList.ERROR_EMPTY_DEADLINE_TIME);
+        }
         int startOfDeadlineDate = taskDescription.indexOf(DEADLINE_DATE);
         String deadlineDescription = taskDescription.substring(0,startOfDeadlineDate).trim();
+        if(deadlineDescription.isEmpty()){
+            throw new CommandException(ErrorList.ERROR_EMPTY_DEADLINE_INPUT);
+        }
         String deadlineDate = taskDescription.replaceFirst(deadlineDescription,"").replaceFirst(DEADLINE_DATE,"").strip();
         listManager.addDeadline(deadlineDescription,deadlineDate);
     }
 
-    private void handleToDo(String toDoInput){
+    private void handleToDo(String toDoInput) throws CommandException{
         String removeCommand = toDoInput.replaceFirst(COMMAND_ADD_TODO,"").trim();
+        if(removeCommand.isEmpty()){
+            throw new CommandException(ErrorList.ERROR_EMPTY_TODO_INPUT);
+        }
         listManager.addTodo(removeCommand);
     }
 
@@ -71,29 +86,54 @@ public class InputHandler implements InputInterface{
         String[] taskDoneArray = removeCommand.split(",");
         for (String s: taskDoneArray) {
             int taskDoneIndex = Integer.parseInt(s);
-            listManager.completeTask(taskDoneIndex - 1);
+            try {
+                listManager.completeTask(taskDoneIndex - 1);
+            }catch (CommandException e){
+                e.handleException();
+            }
         }
     }
 
-    private void handleEcho(String userInput){
+    private void handleEcho(String userInput) throws CommandException{
         String removeCommand = userInput.replaceFirst(COMMAND_ECHO,"").trim();
+        if(removeCommand.isEmpty()){
+            throw new CommandException(ErrorList.ERROR_EMPTY_ECHO_INPUT);
+        }
         System.out.println(removeCommand);
     }
 
-    private void handleList(String userInput){
+    private void handleList(String userInput) throws CommandException{
+        if(listManager.getListSize() == 0){
+            throw new CommandException(ErrorList.ERROR_EMPTY_LIST);
+        }
         String removeCommand = userInput.replaceFirst(COMMAND_VIEW_LIST,"").trim();
         if(removeCommand.contains(COMMAND_ADD_TODO)){
-            listManager.printToDo();
+            try {
+                listManager.printToDo();
+            }catch (CommandException e){
+                e.handleException();
+            }
         }else if(removeCommand.contains(COMMAND_ADD_EVENT)) {
-            listManager.printEvent();
+            try {
+                listManager.printEvent();
+            }catch (CommandException e){
+                e.handleException();
+            }
         }else if(removeCommand.contains(COMMAND_ADD_DEADLINE)){
-            listManager.printDeadline();
+            try {
+                listManager.printDeadline();
+            }catch (CommandException e){
+                e.handleException();
+            }
         }else {
             listManager.printList();
         }
     }
 
-    public void handleInput(){
+    public void handleInput() throws CommandException{
+        if(description.isEmpty()){
+            throw new CommandException(ErrorList.ERROR_NULL);
+        }
         boolean isAddingTask = false;
         description = description.replaceAll("/","");
         if(description.contains(COMMAND_ADD_DEADLINE)){
@@ -123,32 +163,59 @@ public class InputHandler implements InputInterface{
 
     private void handleCommand(String userInput){
         String inputCommand = taskCategory(userInput);
-        switch(Objects.requireNonNull(inputCommand)){
-        case COMMAND_EXIT:
-            Duke.isOnline = false;
-            break;
-        case COMMAND_VIEW_LIST:
-            handleList(userInput);
-            break;
-        case COMMAND_COMPLETE_TASK:
-            handleDone(userInput);
-            listManager.printList();
-            System.out.println(Logo.divider);
-            break;
-        case COMMAND_ADD_EVENT:
-            handleEvent(userInput);
-            break;
-        case COMMAND_ADD_TODO:
-            handleToDo(userInput);
-            break;
-        case COMMAND_ADD_DEADLINE:
-            handleDeadline(userInput);
-            break;
-        case COMMAND_ECHO:
-            handleEcho(userInput);
-            break;
-        default:
-            break;
+        try {
+            switch (Objects.requireNonNull(inputCommand)) {
+            case COMMAND_EXIT:
+                Duke.isOnline = false;
+                break;
+            case COMMAND_VIEW_LIST:
+                try {
+                    handleList(userInput);
+                }catch (CommandException e){
+                    e.handleException();
+                }
+                break;
+            case COMMAND_COMPLETE_TASK:
+                handleDone(userInput);
+                listManager.printList();
+                System.out.println(Logo.divider);
+                break;
+            case COMMAND_ADD_EVENT:
+                try {
+                    handleEvent(userInput);
+                }catch (CommandException e){
+                    e.handleException();
+                }
+                break;
+            case COMMAND_ADD_TODO:
+                try {
+                    handleToDo(userInput);
+                }catch(CommandException e){
+                    e.handleException();
+                }
+                break;
+            case COMMAND_ADD_DEADLINE:
+                try {
+                    handleDeadline(userInput);
+                }catch (CommandException e){
+                    e.handleException();
+                }
+                break;
+            case COMMAND_ECHO:
+                try {
+                    handleEcho(userInput);
+                }catch (CommandException e){
+                    e.handleException();
+                }
+                break;
+            }
+        }catch(NullPointerException e){
+            try {
+                System.out.println(ErrorList.ERROR_UNKNOWN_COMMAND);
+                handleEcho(userInput);
+            }catch (CommandException commandException){
+                commandException.handleException();
+            }
         }
     }
 }

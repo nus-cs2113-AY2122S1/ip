@@ -29,7 +29,11 @@ public class CommandManager implements CommandInterface{
         String removeCommand = description.replaceFirst(COMMAND_ECHO,"").trim().toUpperCase();
         System.out.println(removeCommand);
         ArtBot artBot = new ArtBot(removeCommand);
-        artBot.drawArt();
+        try {
+            artBot.drawArt();
+        }catch (CommandException e){
+            e.handleException();
+        }
     }
 
     public void handleCommand(){

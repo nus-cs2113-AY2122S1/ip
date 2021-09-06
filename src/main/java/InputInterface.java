@@ -1,3 +1,3 @@
 public interface InputInterface {
-    void handleInput();
+    void handleInput() throws CommandException;
 }

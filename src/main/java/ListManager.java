@@ -20,7 +20,17 @@ public class ListManager implements TaskList{
         }
     }
 
-    public void printToDo(){
+    public void printToDo() throws CommandException{
+        boolean haveToDo = false;
+        for(int i = 1; i <= list.size(); i++){
+            if(list.get(i) instanceof ToDo){
+                haveToDo = true;
+                break;
+            }
+        }
+        if(!haveToDo){
+            throw new CommandException(ErrorList.ERROR_EMPTY_TODO_LIST);
+        }
         for(int i = 0; i < list.size(); i++){
             int itemIndex= i + 1;
             if(list.get(i) instanceof ToDo ) {
@@ -29,7 +39,17 @@ public class ListManager implements TaskList{
         }
     }
 
-    public void printEvent(){
+    public void printEvent() throws CommandException{
+        boolean haveEvent = false;
+        for(int i = 1; i <= list.size(); i++){
+            if(list.get(i) instanceof Event) {
+                haveEvent = true;
+                break;
+            }
+        }
+        if(!haveEvent){
+            throw new CommandException(ErrorList.ERROR_EMPTY_EVENT_LIST);
+        }
         for(int i = 0; i < list.size(); i++){
             int itemIndex= i + 1;
             if(list.get(i) instanceof Event ) {
@@ -38,7 +58,17 @@ public class ListManager implements TaskList{
         }
     }
 
-    public void printDeadline(){
+    public void printDeadline() throws CommandException{
+        boolean haveDeadline = false;
+        for(int i = 1; i <= list.size(); i++){
+            if(list.get(i) instanceof Deadline) {
+                haveDeadline = true;
+                break;
+            }
+        }
+        if(!haveDeadline){
+            throw new CommandException(ErrorList.ERROR_EMPTY_DEADLINE_LIST);
+        }
         for(int i = 0; i < list.size(); i++){
             int itemIndex= i + 1;
             if(list.get(i) instanceof Deadline ) {
@@ -70,9 +100,16 @@ public class ListManager implements TaskList{
         printAddItem(t);
     }
 
-    public void completeTask(int t){
+    public void completeTask(int t) throws CommandException{
+        if (t > list.size() || t < 0){
+            throw new CommandException(ErrorList.ERROR_DONE_TASK_NOT_IN_LIST);
+        }
         Task doneTask = list.get(t);
         doneTask.setDone();
         System.out.println(Logo.divider + MESSAGE_TASK_COMPLETE + doneTask.getDescription());
+    }
+
+    public int getListSize(){
+        return list.size();
     }
 }
