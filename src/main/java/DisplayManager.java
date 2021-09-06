@@ -1,6 +1,6 @@
 public class DisplayManager {
 
-    private static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
+    public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
     public static final String DISPLAY_MESSAGE_INDENT = "        ";
     public static final String DISPLAY_TASK_INDENT = "    ";
     private static final String DISPLAY_LOGO = "    ____        _        \n"

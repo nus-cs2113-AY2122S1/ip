@@ -17,10 +17,10 @@ public class Duke {
     }
 
     public static void greetEnd(DisplayManager displayManager) {
-        displayManager.printEndGreet();;
+        displayManager.printEndGreet();
     }
 
-    public static void processReply(TaskManager taskManager, String line) {
+    public static void processReply(TaskManager taskManager, String line) throws DukeException{
         String[] inputs = line.split(" ", 2);
         String taskInfo;
         String command = inputs[INDEX_COMMAND];
@@ -30,23 +30,39 @@ public class Duke {
             taskManager.getAndPrintTaskList();
             break;
         case COMMAND_ADD_TODO:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.addToDoTask(taskInfo);
             break;
         case COMMAND_ADD_DEADLINE:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.addDeadlineTask(taskInfo);
             break;
         case COMMAND_ADD_EVENT:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.addEventTask(taskInfo);
             break;
         case COMMAND_FINISH_TASK:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.setAsDone(taskInfo);
             break;
         default:
-            break;
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -55,7 +71,13 @@ public class Duke {
 
         line = in.nextLine();
         while (!line.equals(COMMAND_EXIT)) {
-            processReply(taskManager, line);
+            try {
+                processReply(taskManager, line);
+            } catch (DukeException e) {
+                DisplayManager.printHorizontalSeparator();
+                System.out.println(e);
+                DisplayManager.printHorizontalSeparator();
+            }
             line = in.nextLine();
         }
     }
