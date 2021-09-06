@@ -2,11 +2,9 @@ package Duke;
 import java.util.Scanner;
 
 public class Duke {
-
     public static final String Line = "    ____________________________________________________________";
     private static Task[] tasks = new Task[110];
     private static int taskSum = 0;
-
     public static void printList() {
         Task now;
         System.out.println(Line);
