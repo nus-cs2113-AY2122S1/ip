@@ -107,6 +107,7 @@ public class InputHandler implements InputInterface{
             throw new CommandException(ErrorList.ERROR_EMPTY_LIST);
         }
         String removeCommand = userInput.replaceFirst(COMMAND_VIEW_LIST,"").trim();
+        System.out.println(Logo.divider);
         if(removeCommand.contains(COMMAND_ADD_TODO)){
             try {
                 listManager.printToDo();
@@ -128,6 +129,7 @@ public class InputHandler implements InputInterface{
         }else {
             listManager.printList();
         }
+        System.out.println(Logo.divider);
     }
 
     public void handleInput() throws CommandException{
