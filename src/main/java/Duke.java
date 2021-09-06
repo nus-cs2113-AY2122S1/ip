@@ -1,19 +1,66 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Duke {
     private static Task[] taskList;
     private static int taskCount;
 
+    private static void printIncorrectCommandError(String input) throws DukeException {
+        printWithLines("☹ OOPS!!! I cannot understand");
+        throw new DukeException();
+    }
+
     public static void addTask(String task) {
-        if (task.startsWith("todo")) {
-            taskList[taskCount] = new Todo(task.substring("task".length()));
-        } else if (task.startsWith("deadline")) {
-            taskList[taskCount] = new Deadline(task.substring("deadline".length(), task.indexOf("/by")), task.substring(task.indexOf("/by") + "/by".length()));
-        } else if (task.startsWith("event")) {
-            taskList[taskCount] = new Event(task.substring("event".length(), task.indexOf("/at")), task.substring(task.indexOf("/at") + "/at".length()));
+        boolean isValidCommand = true;
+        try {
+            if (task.startsWith("todo")) {
+                addToDo(task);
+            } else if (task.startsWith("event")) {
+                addEvent(task);
+            } else if (task.startsWith("deadline")) {
+                addDeadline(task);
+            } else {
+                printIncorrectCommandError(task);
+            }
+        } catch (DukeException e) {
+            isValidCommand = false;
         }
-        printWithLines("Got it. I've added this task:\n" + taskList[taskCount].toString() + "\nNow you have " + (taskCount + 1) + " tasks in the list");
-        taskCount++;
+        if (isValidCommand) {
+            printWithLines("Got it. I've added this task:\n" + taskList[taskCount].toString() + "\nNow you have " + (taskCount + 1) + " tasks in the list");
+            taskCount++;
+        }
+    }
+
+    private static void addToDo(String task) throws DukeException {
+        String todoDescription;
+        try {
+            todoDescription = task.trim().split("todo")[1];
+        } catch (IndexOutOfBoundsException e) {
+            printWithLines("☹ OOPS!!! The description of todo cannot be empty.");
+            throw new DukeException();
+        }
+        taskList[taskCount] = new Todo(todoDescription);
+    }
+
+    private static void addDeadline(String task) throws DukeException {
+        String deadlineInput;
+        try {
+            deadlineInput = task.trim().split("deadline")[1];
+        } catch (IndexOutOfBoundsException e) {
+            printWithLines("☹ OOPS!!! The description of deadline cannot be empty.");
+            throw new DukeException();
+        }
+        taskList[taskCount] = new Deadline(task.substring("deadline".length(), task.indexOf("/by")), task.substring(task.indexOf("/by") + "/by".length()));
+    }
+
+    private static void addEvent(String task) throws DukeException {
+        String eventInput;
+        try {
+            eventInput = task.trim().split("event")[1];
+        } catch (IndexOutOfBoundsException e) {
+            printWithLines("☹ OOPS!!! The description of event cannot be empty.");
+            throw new DukeException();
+        }
+        taskList[taskCount] = new Event(task.substring("event".length(), task.indexOf("/at")), task.substring(task.indexOf("/at") + "/at".length()));
     }
 
     public static void listTasks() {
@@ -44,7 +91,7 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         taskList = new Task[100];
         taskCount = 0;
         String userInput;
