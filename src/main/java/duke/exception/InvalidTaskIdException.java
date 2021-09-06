@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class InvalidTaskIdException extends Exception {
 
     private final String INVALID_TASK_ID_MSG = "\n[Duke]:\n"

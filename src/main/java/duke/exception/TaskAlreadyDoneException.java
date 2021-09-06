@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class TaskAlreadyDoneException extends Exception {
 
     private final String TASK_ALREADY_DONE_MSG = "\n[Duke]:\n"

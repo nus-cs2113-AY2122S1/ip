@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class EventFormatException extends Exception {
 
     private final String EVENT_INCORRECT_FORMAT_MSG = "\n[Duke]:\n"

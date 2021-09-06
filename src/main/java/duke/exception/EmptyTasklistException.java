@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class EmptyTasklistException extends Exception {
 
     private final String TASKLIST_EMPTY_MSG = "\n[Duke]:\n"
