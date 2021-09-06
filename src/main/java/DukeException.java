@@ -1,12 +1,12 @@
 public class DukeException extends Exception {
-    
-    protected String errorMessage;
+
+    protected static String errorMessage;
 
     public DukeException(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    public String getErrorMessage() {
+    public static String getErrorMessage() {
         return errorMessage;
     }
 }

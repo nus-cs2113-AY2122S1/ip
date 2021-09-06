@@ -27,70 +27,121 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
         while (!input.equals("bye")) {
-            String keyword = input.split(" ")[0].toLowerCase();
-            switch (keyword) {
-            case "bye":
-                continue;
-            case "list":
-                listTasks();
-                break;
-            case "todo":
-                addTodo(input);
-                break;
-            case "deadline":
-                addDeadline(input);
-                break;
-            case "event":
-                addEvent(input);
-                break;
-            case "done":
-                finishTask(input);
-                break;
-            default:
-                System.out.println(ERROR_MESSAGE);
-                break;
+            try {
+                String keyword = input.split(" ")[0].toLowerCase();
+                switch (keyword) {
+                case "bye":
+                    continue;
+                case "list":
+                    listTasks();
+                    break;
+                case "todo":
+                    addTodo(input);
+                    break;
+                case "deadline":
+                    addDeadline(input);
+                    break;
+                case "event":
+                    addEvent(input);
+                    break;
+                case "done":
+                    finishTask(input);
+                    break;
+                default:
+                    promptInvalidInput();
+                    break;
+                }
+            } catch (DukeException e) {
+                System.out.println(DukeException.getErrorMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("You are supposed to enter a number!");
             }
             input = in.nextLine();
         }
     }
 
-    private static void finishTask(String input) {
+    private static void promptInvalidInput() throws DukeException {
+        throw new DukeException(ERROR_MESSAGE);
+    }
+
+    private static void finishTask(String input) throws DukeException {
         int index = Integer.parseInt(input.split(" ", 2)[1].trim());
+        if (index > tasks.size()) {
+            throw new DukeException("You don't have so many tasks yet!");
+        }
         tasks.get(index - 1).completeTask();
         System.out.println("Nice! I have marked this task as done: ");
         System.out.println(tasks.get(index - 1).getTaskInfo());
     }
 
-    private static void addEvent(String input) {
+    private static void addEvent(String input) throws DukeException {
         String at;
         String description;
+        String[] inputSplit = input.split(" ");
+        boolean noInput = inputSplit.length == 1;
+        if (noInput) {
+            throw new DukeException("You have to specify the task!");
+        }
+        boolean noSeparator = !input.contains("/");
+        if (noSeparator) {
+            throw new DukeException("Your task is not in the right format");
+        }
+        String[] inputWords = input.split("/");
+        boolean noTask = inputWords[0].trim().equals("event");
+        boolean noDate = inputWords.length == 1;
+        if (noTask || noDate) {
+            throw new DukeException("Your task is not in the right format");
+        }
+        description = inputWords[0];
+        at = inputWords[1];
         System.out.println("Got it. I've added this task:");
-        description = input.split("/")[0];
-        at = input.split("/")[1];
         tasks.add(new Event(description, at));
         System.out.println(tasks.get(tasks.size() - 1).getTaskInfo());
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
-    private static void addDeadline(String input) {
+    private static void addDeadline(String input) throws DukeException {
         String by;
         String description;
+        String[] inputSplit = input.split(" ");
+        boolean noInput = inputSplit.length == 1;
+        if (noInput) {
+            throw new DukeException("You have to specify the task!");
+        }
+        boolean noSeparator = !input.contains("/");
+        if (noSeparator) {
+            throw new DukeException("Your task is not in the right format");
+        }
+        String[] inputWords = input.split("/");
+        boolean noTask = inputWords[0].trim().equals("deadline");
+        boolean noDate = inputWords.length == 1;
+        if (noTask || noDate) {
+            throw new DukeException("Your task is not in the right format");
+        }
+        description = inputWords[0];
+        by = inputWords[1];
         System.out.println("Got it. I've added this task:");
-        description = input.split("/")[0];
-        by = input.split("/")[1];
         tasks.add(new Deadline(description, by));
         System.out.println(tasks.get(tasks.size() - 1).getTaskInfo());
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
-    private static void addTodo(String input) {
+    private static void addTodo(String input) throws DukeException {
+        String[] inputSplit = input.split(" ");
+        boolean noInput = inputSplit.length == 1;
+        if (noInput) {
+            throw new DukeException("You have to specify the task!");
+        }
         System.out.println("Got it. I've added this task:");
         tasks.add(new Todo(input));
         System.out.println(tasks.get(tasks.size() - 1).getTaskInfo());
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
-    private static void listTasks() {
+    private static void listTasks() throws DukeException {
+        if (tasks.size() == 0) {
+            throw new DukeException("You do not have any tasks in your list!");
+        }
         for (int i = 0; i < tasks.size(); i++) {
             tasks.get(i).printTask(i + 1);
         }
