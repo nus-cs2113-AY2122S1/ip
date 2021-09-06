@@ -162,7 +162,7 @@ public class Duke {
     public static void manageTodo(String inWord, int index, Task[] taskList) {
         try {
             printTodo(inWord, index, taskList);
-        } catch (DukeException todoEmptyArgumentsException) {
+        } catch (DukeException emptyTodoException) {
             DukeException.emptyTodoException();
         }
     }
@@ -179,18 +179,26 @@ public class Duke {
         }
 
         String[] description = commands[1].split(DEADLINE_KEYWORD, 2);
+        if (description.length != 2) {
+            return false;
+        }
+
         String descriptionDetails = description[0].trim();
         String descriptionBy = description[1].trim();
         boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionBy.isEmpty());
 
-        return description.length == 2 && isNonEmptyDescription;
+        return isNonEmptyDescription;
     }
 
-    public static void printDeadline(String inWord, int index, Task[] taskList) {
+    public static void printDeadline(String inWord, int index, Task[] taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
-        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
 
+        if(!checkValidDeadline(inWord)) {
+            throw new DukeException();
+        }
+
+        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
         String description = details[0].trim();
         String by = details[1].trim();
 
@@ -202,6 +210,14 @@ public class Duke {
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
+    }
+
+    public static void manageDeadline(String inWord, int index, Task[] taskList) {
+        try {
+            printDeadline(inWord, index, taskList);
+        } catch (DukeException invalidDeadlineException) {
+            DukeException.invalidDeadlineException();
+        }
     }
 
     public static void executeUserInstruction(String inWord, int index, Task[] taskList) {
@@ -231,11 +247,7 @@ public class Duke {
             manageTodo(inWord, index, taskList);
             break;
         case DEADLINE_COMMAND:
-            if (checkValidDeadline(inWord)) {
-                printDeadline(inWord, index, taskList);
-            } else {
-                returnException();
-            }
+            manageDeadline(inWord, index, taskList);
             break;
         default:
             returnException();

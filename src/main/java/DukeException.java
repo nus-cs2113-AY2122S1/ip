@@ -8,4 +8,12 @@ public class DukeException extends Exception{
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
+
+    public static void invalidDeadlineException() {
+        System.out.println(LINE);
+        System.out.println("Your deadline command is invalid!");
+        System.out.println("To input a valid deadline command, type \"deadline (description) /by (deadline)\"!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
 }
