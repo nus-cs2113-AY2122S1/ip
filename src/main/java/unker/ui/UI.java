@@ -1,6 +1,7 @@
 package unker.ui;
 
 import java.util.Scanner;
+import unker.command.InvalidCommandException;
 
 public class UI {
 
@@ -13,7 +14,7 @@ public class UI {
     }
 
     /**
-     * Gets the user input
+     * Gets the user input.
      *
      * @return The user input.
      */
@@ -25,7 +26,7 @@ public class UI {
     }
 
     /**
-     * Prints the welcome banner
+     * Prints the welcome banner.
      */
     public void printBanner() {
         String logo =  "  _    _       _             \n"
@@ -38,13 +39,32 @@ public class UI {
         printSection("Harlo, you can call me Unker.", "What can Unker do for you today?");
     }
 
+    /**
+     * Prints the bye message.
+     */
     public void printByeMessage() {
         printSection("Bye bye, see you soon again arh!");
     }
 
+    /**
+     * Prints the message that asks the user for more input.
+     */
     public void printRequestMoreCommandsMessage() {
         System.out.println("--");
         System.out.println("Anything else you wan Unker to help you with?");
+    }
+
+    /**
+     * Prints the error message based on the exception.
+     * 
+     * @param ex The exception that occurred when executing the command.
+     */
+    public void printInvalidCommandErrorMessage(InvalidCommandException ex) {
+        if (ex.getCommand() != null) {
+            printSection(ex.getMessage(), "Format: " + ex.getCommand().getFormat());
+        } else {
+            printSection(ex.getMessage());
+        }
     }
 
     /**

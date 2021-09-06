@@ -5,14 +5,14 @@ import unker.ui.UI;
 import unker.Unker;
 
 /**
- * Command to mark a task in the task manager Unker as done.
+ * Command to mark a task in the task manager {@link unker.Unker} as done.
  * 
  * Usage in UI: done taskNumber
  */
 public class DoneCommand extends Command {
 
     protected DoneCommand() {
-        super("done");
+        super("done", "done <taskNumber>");
     }
     
     private Task getTask(Unker unker, String data) {
@@ -28,10 +28,10 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui, Unker unker, String data) {
+    public void execute(UI ui, Unker unker, String data) throws InvalidCommandException {
         Task task = getTask(unker, data);
         if (task == null) {
-            ui.printSection("Unker don't think that is a valid number leh.");
+            throw new InvalidCommandException("Unker don't think that is a valid number leh.", this);
         } else if (task.isDone()) {
             ui.printSection("You finish this task already leh:", "\t" + task, "");
         } else {
