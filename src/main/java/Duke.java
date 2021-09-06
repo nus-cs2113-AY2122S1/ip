@@ -38,7 +38,7 @@ public class Duke {
             "-> Done 1 2 3\n" +
             HORIZONTAL_LINE;
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         // Initialize variables for program startup
         System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
         boolean isProgramRunning = true;
@@ -50,81 +50,63 @@ public class Duke {
             userInput = in.nextLine().trim();
             String userInputLowerCase = userInput.toLowerCase();
 
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(GOODBYE_MESSAGE);
-                isProgramRunning = false;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                printList(list);
-            } else if (userInputLowerCase.startsWith("done")) {
-                try {
+            try {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    System.out.println(GOODBYE_MESSAGE);
+                    isProgramRunning = false;
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    printList(list);
+                } else if (userInputLowerCase.startsWith("done")) {
                     markTasksAsDone(userInput, list);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println(MARK_TASKS_USAGE_MESSAGE);
+                } else if (userInputLowerCase.startsWith("todo")) {
+                    String taskToAdd = removeFirstWord(userInput);
+                    addTodo(taskToAdd, list);
+                } else if (userInputLowerCase.startsWith("deadline")) {
+                    String taskToAdd = removeFirstWord(userInput);
+                    addDeadline(taskToAdd, list);
+                } else if (userInputLowerCase.startsWith("event")) {
+                    String taskToAdd = removeFirstWord(userInput);
+                    addEvent(taskToAdd, list);
+                } else {
+                    System.out.println(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
                 }
-            } else if (userInputLowerCase.startsWith("todo")) {
-                String taskToAdd = removeFirstWord(userInput);
-                addTask(TaskType.TODO, taskToAdd, list);
-            } else if (userInputLowerCase.startsWith("deadline")) {
-                String taskToAdd = removeFirstWord(userInput);
-                addTask(TaskType.DEADLINE, taskToAdd, list);
-            } else if (userInputLowerCase.startsWith("event")) {
-                String taskToAdd = removeFirstWord(userInput);
-                addTask(TaskType.EVENT, taskToAdd, list);
-            } else {
-                System.out.println(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
+            } catch (DukeException | IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    /**
-     * Adds a task (type to be specified) to an array list of tasks,
-     * printing out the newly added to task to the terminal
-     *
-     * @param type        The type of task (using the TaskType enumerator)
-     * @param description Description of the task to be added
-     * @param taskList    Array list of tasks
-     */
-    private static void addTask(TaskType type, String description, List<Task> taskList) {
-        switch (type) {
-        case DEADLINE:
-            addDeadline(description, taskList);
-            break;
-        case EVENT:
-            addEvent(description, taskList);
-            break;
-        default:
-            taskList.add(new Todo(description));
-            break;
-        }
-
-        Task newlyAddedTask = taskList.get(taskList.size() - 1);
+    private static void addTodo(String description, List<Task> taskList) {
+        taskList.add(new Todo(description));
+        Task addedTodo = taskList.get(taskList.size() - 1);
         System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                newlyAddedTask + "\n" + HORIZONTAL_LINE);
+                addedTodo + "\n" + HORIZONTAL_LINE);
     }
 
-    private static boolean addEvent(String description, List<Task> taskList) {
+    private static void addEvent(String description, List<Task> taskList) {
         if (description.contains("/at")) {
             String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
             taskList.add(new Event(separated[0], separated[1]));
         } else {
             System.out.println("You need to specify an event! TIP: Use \"/at\" to do so!\n" +
                     HORIZONTAL_LINE);
-            return true;
         }
-        return false;
+        Task addedEvent = taskList.get(taskList.size() - 1);
+        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                addedEvent + "\n" + HORIZONTAL_LINE);
     }
 
-    private static boolean addDeadline(String description, List<Task> taskList) {
+    private static void addDeadline(String description, List<Task> taskList) {
         if (description.contains("/by")) {
             String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, description);
             taskList.add(new Deadline(separated[0], separated[1]));
         } else {
             System.out.println("You need to specify a deadline! TIP: Use \"/by\" to do so!\n" +
                     HORIZONTAL_LINE);
-            return true;
         }
-        return false;
+        Task addedDeadline = taskList.get(taskList.size() - 1);
+        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                 addedDeadline + "\n" + HORIZONTAL_LINE);
     }
 
     /**
@@ -176,10 +158,10 @@ public class Duke {
                 continue;
             }
             try {
-                list.get(taskNumber - 1).markAsDone();
-                String statusOfTask = list.get(taskNumber - 1).getStatusIcon();
-                System.out.println("[" + statusOfTask + "] " +
-                        list.get(taskNumber - 1).getDescription());
+                // TODO: Check whether the given task is already done and throw an exception if it is already done
+                Task currTask = list.get(taskNumber - 1);
+                currTask.markAsDone();
+                System.out.println("[X] " + currTask.getDescription());
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Dude you've given be an invalid task number... Skipping...");
             }
@@ -217,12 +199,6 @@ public class Duke {
         return extractedInts;
     }
 
-    /**
-     * Removes the first word of the input string and returns the remaining input
-     *
-     * @param input
-     * @return The remaining String that is left with the first word removed
-     */
     public static String removeFirstWord(String input) {
         String[] splitArray = input.split(" +", 2);
         return splitArray[1];

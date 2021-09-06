@@ -16,11 +16,20 @@ public abstract class Task {
         return description;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public TaskType getType() {
         return type;
     }
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s][%s] %s", this.type.getTaskLabel(), this.getStatusIcon(), this.description);
     }
 }
