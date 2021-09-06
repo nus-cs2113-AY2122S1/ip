@@ -37,13 +37,13 @@ public class Duke {
             } else if (userInput.startsWith("to do ")) {
                 try {
                     addTaskAsToDo(taskList, userInput);
-                } catch (DukeException e){
+                } catch (DukeException e) {
                     System.out.println("Please specify a task to be added!");
                 }
             } else if (userInput.startsWith("deadline ")) {
                 try {
                     addTaskAsDeadline(taskList, userInput);
-                } catch (DukeException e){
+                } catch (DukeException e) {
                     System.out.println("Please specify a task/deadline of completion!");
                 }
             } else if (userInput.startsWith("event ")) {
@@ -57,7 +57,7 @@ public class Duke {
             } else if (userInput.startsWith("done ")) {
                 try {
                     markTaskAsDone(taskList, userInput);
-                } catch (DukeException e){
+                } catch (DukeException e) {
                     System.out.println("Please specify the number of the task to be marked as done!");
                 }
             } else if (userInput.startsWith("bye")) {
@@ -73,7 +73,7 @@ public class Duke {
     private static void addTaskAsEvent(ArrayList<Task> taskList, String userInput) throws DukeException {
         if (userInput.contains("/at")) {
             Task taskAdded = new Event(userInput);
-            if(!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("")) {
+            if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("")) {
                 taskList.add(taskAdded);
                 printTaskAddedConfirmation(taskAdded);
             } else {
@@ -87,7 +87,7 @@ public class Duke {
     private static void addTaskAsDeadline(ArrayList<Task> taskList, String userInput) throws DukeException {
         if (userInput.contains("/by")) {
             Task taskAdded = new Deadline(userInput);
-            if(!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("")) {
+            if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("")) {
                 taskList.add(taskAdded);
                 printTaskAddedConfirmation(taskAdded);
             } else {
@@ -101,7 +101,7 @@ public class Duke {
     private static void addTaskAsToDo(ArrayList<Task> taskList, String userInput) throws DukeException {
         String task = userInput.replace("to do ", "").trim();
         Task taskAdded = new Todo(task);
-        if(!task.equals("")) {
+        if (!task.equals("")) {
             taskList.add(taskAdded);
             printTaskAddedConfirmation(taskAdded);
         } else {
@@ -117,14 +117,15 @@ public class Duke {
             if (isValidNumber(word)) {
                 numberExists = true;
                 int taskNumber = (Integer.parseInt(splitTask[wordIndex])) - 1;
-                try{
+                try {
                     printTaskMarkAsDone(taskList, taskNumber);
-                } catch(IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid number specified! Please specify the number on the list of the task you have completed!");
                 }
             }
             wordIndex++;
-        } if (!numberExists){
+        }
+        if (!numberExists) {
             throw new DukeException();
         }
     }
