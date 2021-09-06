@@ -93,13 +93,15 @@ public class Duke {
                     taskManager.addTask(userInput[1], TaskType.EVENT);
                     break;
                 default:
-                    printHelp();
-                    break;
+                    throw new IllegalCommandException("Unidentified command");
                 }
             } catch (NumberFormatException e) {
                 System.out.println(e + ": Do you not understand what a number is?");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println(e + ": Enter something that makes sense next time.");
+            } catch (IllegalCommandException e){
+                System.out.println(e);
+                printHelp();
             }
 
             System.out.println(DIVIDER);
