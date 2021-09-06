@@ -18,6 +18,17 @@ public class Duke {
         line = in.nextLine();
         while (!line.equals("bye")) {
             if (line.substring(0,4).equals("list")) {
+                try {
+                    if (line.length() > 4) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    System.out.println(DIVIDER);
+                    System.out.println("    ☹ OOPS!!! The description of list must be empty.");
+                    System.out.println(DIVIDER);
+                    line = in.nextLine();
+                    continue;
+                }
                 System.out.println(DIVIDER);
                 System.out.println("    " + "Here are the tasks in your list:");
                 for(int i = 0; i < number; i++) {
@@ -34,6 +45,15 @@ public class Duke {
                 System.out.println(DIVIDER);
                 line = in.nextLine();
             }  else if (line.contains("done")) {
+                try {
+                    int taskDone = Integer.parseInt(line.substring(5));
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println(DIVIDER);
+                    System.out.println("    ☹ OOPS!!! The description of done cannot be empty.");
+                    System.out.println(DIVIDER);
+                    line = in.nextLine();
+                    continue;
+                }
                 int taskDone = Integer.parseInt(line.substring(5));
                 System.out.println(DIVIDER);
                 System.out.println("    Nice! I've marked this task as done:");
@@ -68,6 +88,17 @@ public class Duke {
                 System.out.println(DIVIDER);
                 line = in.nextLine();
             } else if (line.contains("deadline")) {
+                try {
+                    if (!line.contains("/by")) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    System.out.println(DIVIDER);
+                    System.out.println("    ☹ OOPS!!! The description of a deadline must have '/by' to indicate time.");
+                    System.out.println(DIVIDER);
+                    line = in.nextLine();
+                    continue;
+                }
                 int taskEnd = line.indexOf('/');
                 String task = line.substring(9,taskEnd);
                 dates[number] = line.substring(taskEnd + 4);
@@ -80,6 +111,17 @@ public class Duke {
                 System.out.println(DIVIDER);
                 line = in.nextLine();
             } else if (line.contains("event")) {
+                try {
+                    if (!line.contains("/at")) {
+                        throw new Exception();
+                    }
+                } catch (Exception e) {
+                    System.out.println(DIVIDER);
+                    System.out.println("    ☹ OOPS!!! The description of a event must have '/at' to indicate time.");
+                    System.out.println(DIVIDER);
+                    line = in.nextLine();
+                    continue;
+                }
                 int taskEnd = line.indexOf('/');
                 String task = line.substring(6,taskEnd);
                 dates[number] = line.substring(taskEnd + 4);
