@@ -23,7 +23,7 @@ public class TaskList {
 
 
     public void addTask(Task task) throws DukeException {
-        if (task.getDescription() == "") {
+        if (task.getDescription().equals("")) {
             throw new DukeException(ExceptionMessages.EXCEPTION_NO_DESCRIPTION);
         }
         PrintUtils.printHorizontalLine();

@@ -8,42 +8,42 @@ Hello from
 What can I do for you?
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been added:
+The following task has been added:
 	[E][ ] Project Meeting (at: Wed 8-10PM)
-You now have 1 duke.task(s)
+You now have 1 task(s)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been added:
+The following task has been added:
 	[E][ ] Team Meeting (at: No date provided)
-You now have 2 duke.task(s)
+You now have 2 task(s)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been added:
+The following task has been added:
 	[D][ ] Assignment 2 (by: Fri 5pm)
-You now have 3 duke.task(s)
+You now have 3 task(s)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been added:
+The following task has been added:
 	[D][ ] Mom's Birthday (by: No deadline provided)
-You now have 4 duke.task(s)
+You now have 4 task(s)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been added:
+The following task has been added:
 	[T][ ] Clean bed
-You now have 5 duke.task(s)
+You now have 5 task(s)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-Please provide a duke.task number e.g 'done 2'
+Please provide a task number e.g 'done 2'
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-Sorry, but the duke.task does not exist, unable to mark as done.
+Sorry, but the task does not exist, unable to mark as done.
 You can view a list of your tasks using the 'list' command
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 Events require a description e.g 'event Seminar /at Friday 2pm'
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-duke.task.Todo tasks require a description e.g 'todo CS1010 Assignment'
+Todo tasks require a description e.g 'todo CS1010 Assignment'
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 Deadlines require a description e.g 'deadline Project Reflection /by Friday 10pm'
@@ -57,15 +57,15 @@ Here are all your tasks:
 	5. [T][ ] Clean bed
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been marked as done:
+The following task has been marked as done:
 	[E][X] Project Meeting (at: Wed 8-10PM)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been marked as done:
+The following task has been marked as done:
 	[E][X] Team Meeting (at: No date provided)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-The following duke.task has been marked as done:
+The following task has been marked as done:
 	[D][X] Mom's Birthday (by: No deadline provided)
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
