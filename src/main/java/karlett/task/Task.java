@@ -1,3 +1,5 @@
+package karlett.task;
+
 public class Task {
 
     private static int numberOfTasks = 0;
