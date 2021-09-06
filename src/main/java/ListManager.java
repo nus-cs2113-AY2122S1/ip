@@ -85,19 +85,25 @@ public class ListManager implements TaskList{
     public void addTodo(String description){
         Task t = new ToDo(description);
         list.add(t);
+        System.out.println(Logo.dividerWithoutNewLine);
         printAddItem(t);
+        System.out.println(Logo.dividerWithoutNewLine);
     }
 
     public void addEvent(String description, String time){
         Task t = new Event(description, time);
         list.add(t);
+        System.out.println(Logo.dividerWithoutNewLine);
         printAddItem(t);
+        System.out.println(Logo.dividerWithoutNewLine);
     }
 
     public void  addDeadline(String description, String deadline){
         Task t = new Deadline(description, deadline);
         list.add(t);
+        System.out.println(Logo.dividerWithoutNewLine);
         printAddItem(t);
+        System.out.println(Logo.dividerWithoutNewLine);
     }
 
     public void completeTask(int t) throws CommandException{

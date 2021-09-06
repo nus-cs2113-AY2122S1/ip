@@ -11,7 +11,7 @@ public class CommandManager implements CommandInterface{
                                                 "   todo - Add ToDo Task\n" +
                                                 "   event - Add Event Task - !event for details\n" +
                                                 "   deadline - Add Deadline Task - !deadline for details\n" +
-                                                "   bye - Shut Down";
+                                                "   bye - Shut Down\n";
     private static final String MESSAGE_LIST_HELP = "list displays all tasks\n" +
                                                     "list todo displays all todo tasks\n" +
                                                     "list event displays all event tasks\n" +
