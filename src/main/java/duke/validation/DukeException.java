@@ -1,3 +1,7 @@
+package duke.validation;
+
+import duke.UI;
+
 public class DukeException extends Exception{
 
     public static void invalidInputException() {

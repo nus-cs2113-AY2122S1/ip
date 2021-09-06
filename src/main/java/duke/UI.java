@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 public class UI{
     private static final String BUFFER_LINE = "____________________________________________________________\n";
 

@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Deadline extends Task{
     protected String endDate;
 
@@ -6,6 +8,7 @@ public class Deadline extends Task{
         this.endDate = endDate;
     }
 
+    @Override
     public String listTask() {
         return "[D]" + super.listTask() + " (by: " + endDate + ")";
     }
