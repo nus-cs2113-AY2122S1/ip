@@ -30,6 +30,7 @@ public class Duke {
         System.out.println("     What can I do for you?");
         System.out.println(Line);
     }
+    
     public static void main(String[] args) {
         greeting();
         String command;
