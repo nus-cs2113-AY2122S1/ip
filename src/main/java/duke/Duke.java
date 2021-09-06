@@ -1,5 +1,17 @@
 package duke;
 
+import duke.exception.InvalidCommandException;
+import duke.exception.TodoFormatException;
+import duke.exception.DeadlineFormatException;
+import duke.exception.EventFormatException;
+import duke.exception.EmptyTasklistException;
+import duke.exception.DoneFormatException;
+import duke.exception.InvalidTaskIdException;
+import duke.exception.TaskAlreadyDoneException;
+
+import duke.task.TaskManager;
+import duke.ui.DukeInterface;
+
 import java.util.Scanner;
 
 public class Duke {

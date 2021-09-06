@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 public class TaskAlreadyDoneException extends Exception {
 

@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 public class DeadlineFormatException extends Exception {
 
