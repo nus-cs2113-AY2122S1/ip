@@ -23,7 +23,7 @@ public class Duke {
             System.out.println(LINE);
             System.out.println(" No Tasks here yet. Go include some tasks!");
             System.out.println(LINE);
-            System.out.println();
+            System.out.print(System.lineSeparator());
             return;
         }
 
@@ -33,7 +33,7 @@ public class Duke {
             System.out.println(" " + (i + 1) + ". " + taskList[i].toString());
         }
         System.out.println(LINE);
-        System.out.println();
+        System.out.print(System.lineSeparator());
     }
 
     public static void printDukeGreet() {
@@ -67,7 +67,7 @@ public class Duke {
         System.out.println(LINE);
         System.out.println(EXCEPTION);
         System.out.println(LINE);
-        System.out.println();
+        System.out.print(System.lineSeparator());
     }
 
     public static boolean checkValidDoneInstruction(String inWord) {
@@ -83,32 +83,34 @@ public class Duke {
             System.out.println(LINE);
             System.out.println("Item out of Index! Please input a valid task number :)");
             System.out.println(LINE);
-            System.out.println();
+            System.out.print(System.lineSeparator());
         } else {
             taskList[taskDoneIndex - 1].markAsDone();
             System.out.println(LINE);
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + taskList[taskDoneIndex - 1].toString());
             System.out.println(LINE);
-            System.out.println();
+            System.out.print(System.lineSeparator());
         }
     }
 
     public static boolean checkValidEvent(String inWord) {
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
         if (commands.length != 2 || !inWord.contains(EVENT_KEYWORD)) {
             return false;
         }
 
-        String[] details = commands[1].split(EVENT_KEYWORD, 2);
-        String descriptionDetails = details[0].trim();
-        String descriptionAt = details[1].trim();
+        String[] description = commands[1].split(EVENT_KEYWORD, 2);
+        String descriptionDetails = description[0].trim();
+        String descriptionAt = description[1].trim();
         boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionAt.isEmpty());
 
-        return details.length == 2 && isNonEmptyDescription;
+        return description.length == 2 && isNonEmptyDescription;
     }
 
     public static void printEvent(String inWord, int index, Task[] taskList) {
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
         String[] details = commands[1].split(EVENT_KEYWORD, 2);
 
@@ -122,20 +124,31 @@ public class Duke {
         System.out.println("   " + newItem);
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
         System.out.println(LINE);
-        System.out.println();
+        System.out.print(System.lineSeparator());
     }
 
     public static boolean checkValidTodo(String inWord) {
+        if (inWord.indexOf(' ') == -1) {
+            return false;
+        }
+
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
         String details = commands[1];
         boolean isNonEmptyDetails = !details.isEmpty();
         return commands.length == 2 && isNonEmptyDetails;
     }
 
-    public static void printTodo(String inWord, int index, Task[] taskList) {
+    public static void printTodo(String inWord, int index, Task[] taskList) throws DukeException {
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
-        String description = commands[1];
 
+
+        if(!checkValidTodo(inWord)) {
+            throw new DukeException();
+        }
+
+        String description = commands[1];
         Todo newItem = new Todo(description);
         taskList[index] = newItem;
         System.out.println(LINE);
@@ -143,24 +156,38 @@ public class Duke {
         System.out.println("   " + newItem);
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
         System.out.println(LINE);
-        System.out.println();
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void manageTodo(String inWord, int index, Task[] taskList) {
+        try {
+            printTodo(inWord, index, taskList);
+        } catch (DukeException todoEmptyArgumentsException) {
+            DukeException.emptyTodoException();
+        }
     }
 
     public static boolean checkValidDeadline(String inWord) {
+        if (inWord.indexOf(' ') == -1) {
+            return false;
+        }
+
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
         if (commands.length != 2 || !inWord.contains(DEADLINE_KEYWORD)) {
             return false;
         }
 
-        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
-        String descriptionDetails = details[0].trim();
-        String descriptionBy = details[1].trim();
+        String[] description = commands[1].split(DEADLINE_KEYWORD, 2);
+        String descriptionDetails = description[0].trim();
+        String descriptionBy = description[1].trim();
         boolean isNonEmptyDescription = (!descriptionDetails.isEmpty() && !descriptionBy.isEmpty());
 
-        return details.length == 2 && isNonEmptyDescription;
+        return description.length == 2 && isNonEmptyDescription;
     }
 
     public static void printDeadline(String inWord, int index, Task[] taskList) {
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
         String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
 
@@ -174,10 +201,11 @@ public class Duke {
         System.out.println("   " + newItem);
         System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
         System.out.println(LINE);
-        System.out.println();
+        System.out.print(System.lineSeparator());
     }
 
     public static void executeUserInstruction(String inWord, int index, Task[] taskList) {
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
         String instructionType = instruction[0];
 
@@ -200,11 +228,7 @@ public class Duke {
             }
             break;
         case TODO_COMMAND:
-            if (checkValidTodo(inWord)) {
-                printTodo(inWord, index, taskList);
-            } else {
-                returnException();
-            }
+            manageTodo(inWord, index, taskList);
             break;
         case DEADLINE_COMMAND:
             if (checkValidDeadline(inWord)) {
@@ -219,14 +243,29 @@ public class Duke {
         }
     }
 
+    //fix bug in update index
     public static int updateIndex(int index, String inWord) {
+        //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
         String instructionType = instruction[0];
 
-        if (instructionType.equals(EVENT_COMMAND) || instructionType.equals(TODO_COMMAND) || instructionType.equals(DEADLINE_COMMAND)) {
-            return index + 1;
+        //update index only if instruction is valid
+        switch(instructionType) {
+        case TODO_COMMAND:
+            if (checkValidTodo(inWord)) {
+                return index + 1;
+            }
+        case DEADLINE_COMMAND:
+            if (checkValidDeadline(inWord)) {
+                return index + 1;
+            }
+        case EVENT_COMMAND:
+            if (checkValidEvent(inWord)) {
+                return index + 1;
+            }
+        default:
+            return index;
         }
-        return index;
     }
 
     public static void printDukeExit() {
