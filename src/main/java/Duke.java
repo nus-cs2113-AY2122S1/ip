@@ -53,7 +53,9 @@ public class Duke {
             }
 
             if(commandLength == VALID_TWO_PART_COMMAND && brokenDownInput[0].equals("done")) {
-                if(Integer.parseInt(brokenDownInput[1]) > 0 && Integer.parseInt(brokenDownInput[1]) <= taskCount) {
+                int taskNumber = Integer.parseInt(brokenDownInput[1]);
+                boolean isValidTaskCount =  taskNumber > 0 && taskNumber <= taskCount;
+                if(isValidTaskCount) {
                     markCompletion(tasks, brokenDownInput[1]);
                     isValid = true;
                 }
@@ -123,9 +125,9 @@ public class Duke {
                 taskIndex++;
             }
             printLine();
-        } else {
-            System.out.println("There are no task in the list!!");
+            return;
         }
+        System.out.println("There are no task in the list!!");
     }
 
     private static void markCompletion(Task[] tasks, String s) {
