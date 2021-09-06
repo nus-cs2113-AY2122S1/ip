@@ -154,7 +154,7 @@ public class Duke {
 
     /**
      * Marks and prints given tasks as done. Accepts multiple tasks in one input and provides feedback
-     * if invalid inputs are detected.
+     * if invalid inputs are detected. Can identify task numbers amidst redundant input (e.g. done 1, 2 and 3)
      *
      * @param userInput String of user input containing task numbers to be marked as done.
      * @param list      List of tasks
