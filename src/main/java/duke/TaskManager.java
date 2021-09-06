@@ -1,3 +1,13 @@
+package duke;
+
+import duke.exception.EmptyDescriptionException;
+import duke.exception.MissingParameterException;
+import duke.exception.TaskNotFoundException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 public class TaskManager {
     private static final String LINEBREAK = System.lineSeparator();
     private Task[] tasks = new Task[100];
@@ -8,6 +18,7 @@ public class TaskManager {
     }
 
     public void displayTaskList() {
+        DukeUI.drawHorizontalLine();
         if (taskCount == 0) {
             System.out.println("No task added yet!");
         } else {
@@ -16,6 +27,7 @@ public class TaskManager {
                 System.out.printf("%d. %s" + LINEBREAK, i + 1, tasks[i].toString());
             }
         }
+        DukeUI.drawHorizontalLine();
     }
 
     public void addTask(String input, Action taskType) {
@@ -50,7 +62,9 @@ public class TaskManager {
                 throw new TaskNotFoundException();
             }
             tasks[taskNumber - 1].setDone();
+            DukeUI.drawHorizontalLine();
             System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber - 1].getDescription());
+            DukeUI.drawHorizontalLine();
         } catch (EmptyDescriptionException | NumberFormatException e) {
             DukeUI.printError(e);
         }
