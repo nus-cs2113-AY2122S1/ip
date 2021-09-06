@@ -1,3 +1,14 @@
+package duke;
+
+import duke.command.Command;
+import duke.command.AddTaskCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.task.Deadline;
+import duke.task.Events;
+import duke.task.ToDos;
+
 public class CommandManager {
     //Commands stored as string constants
     private static final String EXIT_COMMAND = "bye";
