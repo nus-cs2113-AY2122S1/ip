@@ -4,10 +4,14 @@ public class Parser {
         return command.toLowerCase().trim();
     }
 
-    public static String[] parseTask(String command, Action taskType) {
+    public static String[] parseTask(String command, Action taskType) throws NullPointerException, EmptyTodoDescriptionException {
         String[] parameters = new String[2];
         switch (taskType) {
         case TO_DO:
+            //Check if the description for todo is empty
+            if(parseInput(command).split(" ").length < 2){
+                throw new EmptyTodoDescriptionException();
+            }
             parameters[0] = command.substring(command.indexOf("todo") + 5);
             parameters[1] = "N/A";
             break;
@@ -29,7 +33,7 @@ public class Parser {
         return parameters;
     }
 
-    public static Action translateAction(String command) {
+    public static Action translateAction(String command)  throws WrongCommandException{
         String normalizedCommand = parseInput(command).split(" ")[0];
         if (normalizedCommand.equals("list")) {
             return Action.LIST;
@@ -44,7 +48,7 @@ public class Parser {
         } else if (normalizedCommand.equals("event")) {
             return Action.EVENT;
         } else {
-            return Action.UNDEFINED;
+            throw new WrongCommandException();
         }
     }
 }

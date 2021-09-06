@@ -27,7 +27,23 @@ public class DukeUI {
         System.out.println();
     }
 
-    public static void printLogo(){
+    public static void printLogo() {
         System.out.println(LOGO);
+    }
+
+    public static void printError(Exception e) {
+        if (e instanceof WrongCommandException) {
+            drawHorizontalLine();
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            drawHorizontalLine();
+        } else if (e instanceof EmptyTodoDescriptionException) {
+            drawHorizontalLine();
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            drawHorizontalLine();
+        } else {
+            drawHorizontalLine();
+            System.out.println("☹ OOPS!!! Something wrong with the system");
+            drawHorizontalLine();
+        }
     }
 }
