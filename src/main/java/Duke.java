@@ -1,14 +1,24 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
 
     final static String LINE = "____________________________________________________________";
 
-    final static String DONE_FORMAT = "done <task number(can be seen using the list command)>";
-    final static String TODO_FORMAT = "todo <task description>";
-    final static String DEADLINE_FORMAT = "deadline <task description> /by <due date>";
-    final static String EVENT_FORMAT = "event <task description> /at <start date>";
+    final static String EXIT_COMMAND = "bye";
+    final static String SET_DONE_COMMAND = "done";
+    final static String LIST_COMMAND = "list";
+    final static String ADD_TODO_COMMAND = "todo";
+    final static String ADD_EVENT_COMMAND = "event";
+    final static String ADD_DEADLINE_COMMAND = "deadline";
+
+    final static String NO_FORMAT_TAG = " <no additional input required>";
+
+    final static String EXIT_FORMAT = EXIT_COMMAND + NO_FORMAT_TAG;
+    final static String LIST_FORMAT = LIST_COMMAND + NO_FORMAT_TAG;
+    final static String DONE_FORMAT = SET_DONE_COMMAND + " <task number(can be seen using the list command, eg. 1)>";
+    final static String TODO_FORMAT = ADD_TODO_COMMAND + " <task description>";
+    final static String DEADLINE_FORMAT = ADD_EVENT_COMMAND + " <task description> /by <due date>";
+    final static String EVENT_FORMAT = ADD_DEADLINE_COMMAND + " <task description> /at <start date>";
 
     /**
      * Main function to run the bot.
@@ -16,8 +26,6 @@ public class Duke {
      * @param args Arguments from console input
      */
     public static void main(String[] args) {
-        System.out.println(LINE);
-        printLogoMessage();
         printWelcomeMessage();
         getMenu();
         printExitMessage();
@@ -35,6 +43,8 @@ public class Duke {
      * Prints the welcome message when user first runs the program.
      */
     public static void printWelcomeMessage() {
+        System.out.println(LINE);
+        printLogoMessage();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
@@ -57,7 +67,7 @@ public class Duke {
      *
      * @param format Constant string containing the format usage of the command.
      */
-    public static void printFormatErrorMessage(String format){
+    public static void printFormatErrorMessage(String format) {
         System.out.println("Error: Incorrect format detected.");
         System.out.println("Usage: " + format);
     }
@@ -72,23 +82,27 @@ public class Duke {
         while (true) {
             System.out.println(LINE);
             switch (getUserCommand(userInputs)) {
-            case "todo":
-                addToDoTask(taskManager,userInputs);
+            case ADD_TODO_COMMAND:
+                addToDoTask(taskManager, userInputs);
                 break;
-            case "event":
-                addEventTask(taskManager,userInputs);
+            case ADD_EVENT_COMMAND:
+                addEventTask(taskManager, userInputs);
                 break;
-            case "deadline":
-                addDeadlineTask(taskManager,userInputs);
+            case ADD_DEADLINE_COMMAND:
+                addDeadlineTask(taskManager, userInputs);
                 break;
-            case "done":
-                int taskIndex = getTaskIndexFromUserInputs(userInputs);
-                taskManager.setTaskToDone(taskIndex);
+            case SET_DONE_COMMAND:
+                try {
+                    int taskIndex = getTaskIndexFromUserInputs(userInputs);
+                    taskManager.setTaskToDone(taskIndex);
+                } catch (InvalidTaskNumberException e) {
+                    printFormatErrorMessage(DONE_FORMAT);
+                }
                 break;
-            case "list":
+            case LIST_COMMAND:
                 taskManager.printAllTasks();
                 break;
-            case "bye":
+            case EXIT_COMMAND:
                 return;
             default:
                 System.out.println("Error: Command not found.");
@@ -106,10 +120,23 @@ public class Duke {
      * @return String containing the command given by the user.
      */
     public static String getUserCommand(String userInputs) {
-        return userInputs.split(" ")[0];
+        try {
+            return userInputs.split(" ")[0];
+        } catch (Exception e) {
+            return userInputs;
+        }
     }
 
+    /**
+     * Method to extract the information after a valid bot command. For example "todo read book" will give "read book".
+     *
+     * @param userInputs Raw user inputs from scanner.
+     * @return The string after a valid bot command.
+     */
     public static String getUserPayload(String userInputs) {
+        if (userInputs == null) {
+            return userInputs;
+        }
         String[] payload = userInputs.split(" ");
         payload[0] = "";
         return String.join(" ", payload).trim();
@@ -122,12 +149,15 @@ public class Duke {
      * @param userInputs Raw user inputs from scanner.
      * @return An integer representing an index in the tasks list.
      */
-    public static int getTaskIndexFromUserInputs(String userInputs) {
+    public static int getTaskIndexFromUserInputs(String userInputs) throws InvalidTaskNumberException {
         int result = -1;
         try {
             result = Integer.parseInt(userInputs.split(" ")[1]);
-        } catch (Exception exception) {
-            printFormatErrorMessage(DONE_FORMAT);
+        } catch (Exception e) {
+            throw new InvalidTaskNumberException();
+        }
+        if (result < 1) {
+            throw new InvalidTaskNumberException();
         }
         return result;
     }
@@ -136,7 +166,7 @@ public class Duke {
      * Method to create a ToDo task.
      *
      * @param taskManager TaskManager object that handles the tasks list.
-     * @param userInputs Raw user inputs from scanner.
+     * @param userInputs  Raw user inputs from scanner.
      */
     public static void addToDoTask(TaskManager taskManager, String userInputs) {
         String payload = getUserPayload(userInputs);
@@ -151,7 +181,7 @@ public class Duke {
      * Method to create a Deadline Task.
      *
      * @param taskManager TaskManager object that handles the tasks list.
-     * @param userInputs Raw user inputs from scanner.
+     * @param userInputs  Raw user inputs from scanner.
      */
     public static void addDeadlineTask(TaskManager taskManager, String userInputs) {
         String payload = getUserPayload(userInputs);
@@ -174,7 +204,7 @@ public class Duke {
      * Method to create a Event task.
      *
      * @param taskManager TaskManager object that handles the tasks list.
-     * @param userInputs Raw user inputs from scanner.
+     * @param userInputs  Raw user inputs from scanner.
      */
     public static void addEventTask(TaskManager taskManager, String userInputs) {
         String payload = getUserPayload(userInputs);
