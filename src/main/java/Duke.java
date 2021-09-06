@@ -31,8 +31,14 @@ public class Duke {
             "\t - Marks the given tasks as done\n\n" +
             "bye\n" +
             "\t - Terminates me :(\n";
+    public static final String MARK_TASKS_USAGE_MESSAGE = HORIZONTAL_LINE +
+            "Please provide me with a valid task to mark as done/not done!\n" +
+            "Some usage examples:\n" +
+            "-> Done 1, 2, 3\n" +
+            "-> Done 1 2 3\n" +
+            HORIZONTAL_LINE;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         // Initialize variables for program startup
         System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
         boolean isProgramRunning = true;
@@ -50,7 +56,12 @@ public class Duke {
             } else if (userInput.equalsIgnoreCase("list")) {
                 printList(list);
             } else if (userInputLowerCase.startsWith("done")) {
-                markTasksAsDone(userInput, list);
+                try {
+                    markTasksAsDone(userInput, list);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println(MARK_TASKS_USAGE_MESSAGE);
+                }
             } else if (userInputLowerCase.startsWith("todo")) {
                 String taskToAdd = removeFirstWord(userInput);
                 addTask(TaskType.TODO, taskToAdd, list);
@@ -155,34 +166,23 @@ public class Duke {
      * @param userInput String of user input containing task numbers to be marked as done.
      * @param list      List of tasks
      */
-    public static void markTasksAsDone(String userInput, List<Task> list) {
+    public static void markTasksAsDone(String userInput, List<Task> list) throws DukeException {
         int[] tasksToMarkDone = extractInt(userInput);
 
-        // Error handling: if user inputs no numbers or task number 0
-        if (tasksToMarkDone[0] == 0 || tasksToMarkDone[0] == -1) {
-            System.out.println(HORIZONTAL_LINE +
-                    "Please provide me with a valid task to mark as done/not done!\n" +
-                    "Some usage examples:\n" +
-                    "-> Done 1, 2, 3\n" +
-                    "-> Done 1 2 3\n" +
-                    HORIZONTAL_LINE);
-            return;
-        }
-
-        System.out.println(HORIZONTAL_LINE + "Nice! Let me mark your given tasks as done:");
-
+        System.out.println(HORIZONTAL_LINE + "Nice! Let me see what I have to mark as done:");
         for (int taskNumber : tasksToMarkDone) {
+            // tasksToMarkDone may contain '0's from current implementation of extractInt method
             if (taskNumber == 0) {
                 continue;
             }
-
-            if (taskNumber > list.size()) {
-                System.out.println("Oops! You've given be an invalid task number. Skipping...");
-                continue;
+            try {
+                list.get(taskNumber - 1).markAsDone();
+                String statusOfTask = list.get(taskNumber - 1).getStatusIcon();
+                System.out.println("[" + statusOfTask + "] " +
+                        list.get(taskNumber - 1).getDescription());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Dude you've given be an invalid task number... Skipping...");
             }
-            list.get(taskNumber - 1).markAsDone();
-            System.out.println("[" + list.get(taskNumber - 1).getStatusIcon() + "] " +
-                    list.get(taskNumber - 1).getDescription());
         }
         System.out.println("All done!\n" + HORIZONTAL_LINE);
     }
@@ -195,7 +195,7 @@ public class Duke {
      * @param input String for which integers are to be extracted from.
      * @return An array of the integers extracted, returns -1 at the first element.
      */
-    public static int[] extractInt(String input) {
+    public static int[] extractInt(String input) throws DukeException {
         // Replacing every non-digit number with a space " "
         input = input.replaceAll("[^\\d]", " ");
         input = input.trim();
@@ -204,10 +204,10 @@ public class Duke {
         String[] arrayOfStringInts = input.split(" +");
         int[] extractedInts = new int[arrayOfStringInts.length];
 
-        // If there are no numbers, mark the first element of array as -1 and return
+        // TODO: Tweak implementation such that all extra '0's at the end are not included in the final return
+        // If there are no numbers, throw an exception and alert the user
         if (arrayOfStringInts[0].equals("")) {
-            extractedInts[0] = -1;
-            return extractedInts;
+            throw new DukeException("Monster... You have tricked me and given me NO VALID TASKS!");
         } else {
             for (int i = 0; i < arrayOfStringInts.length; i++) {
                 extractedInts[i] = Integer.parseInt(arrayOfStringInts[i]);
