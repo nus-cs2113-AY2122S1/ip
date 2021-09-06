@@ -12,15 +12,16 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static int currentIndex = 0;
-    private static int doneTask = 0;
-    private static Task[] toDoList;
+    private static int tasksTotal = 0;
+    private static int tasksDone = 0;
+    private static Task[] tasks;
+
     public static void main(String[] args) {
         int LIST_SIZE = 100;
         String line = "";
-        toDoList = new Task[LIST_SIZE];
+        tasks = new Task[LIST_SIZE];
         showWelcomeScreen();
-        while (currentIndex <= LIST_SIZE && !line.contains("bye")) {
+        while (tasksTotal <= LIST_SIZE && !line.contains("bye")) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             assert line != null;
@@ -34,7 +35,7 @@ public class Duke {
         String command = words[0];
         if (command.equals("done")) { //Checks what is the command
             int index = Integer.parseInt(words[1]);
-            toDoList[index].setDone(true);
+            tasks[index].setDone(true);
             completeSuccess(index);
         } else if (command.equals("list")) {
             listAllTask();
@@ -49,8 +50,8 @@ public class Duke {
 
     private static void listAllTask() {
         System.out.println("Here are the tasks in your list:");
-        for(int i = 1; i <= currentIndex; i++) {
-            System.out.println(i + ". " + toDoList[i].toString());
+        for (int i = 1; i <= tasksTotal; i++) {
+            System.out.println(i + ". " + tasks[i].toString());
         }
         getTasksLeft();
         Task.printDivider();
@@ -61,32 +62,32 @@ public class Duke {
         String date = null;
         String type = words[0];
         String[] taskDescription = words[1].split("/", 2); //removes command and splits into action and date
-        if(taskDescription.length > 1){
+        if (taskDescription.length > 1) {
             String[] inputDate = taskDescription[1].split(" ", 2); //extract date without prefix
             task = taskDescription[0].trim();
             date = inputDate[1];
         } else {
             task = words[1];
         }
-        
+
         checkValidAction(words, task, date, type);
     }
 
     private static void checkValidAction(String[] words, String task, String date,
-            String type) {
-        if(type.equals("deadline")) {
-            currentIndex++;
-            toDoList[currentIndex] = new Deadline(task, date);
+                                         String type) {
+        if (type.equals("deadline")) {
+            tasksTotal++;
+            tasks[tasksTotal] = new Deadline(task, date);
             addSuccess();
-        } else if(type.equals("event")) {
-            currentIndex++;
-            toDoList[currentIndex] = new Event(task, date);
+        } else if (type.equals("event")) {
+            tasksTotal++;
+            tasks[tasksTotal] = new Event(task, date);
             addSuccess();
-        } else if(type.equals("todo")) {
-            currentIndex++;
-            toDoList[currentIndex] = new ToDo(task, date);
+        } else if (type.equals("todo")) {
+            tasksTotal++;
+            tasks[tasksTotal] = new ToDo(task, date);
             addSuccess();
-        } else{ //invalid command
+        } else { //invalid command
             Task.printDivider();
             System.out.println("Invalid command, try again.");
             Task.printDivider();
@@ -95,7 +96,7 @@ public class Duke {
 
     private static void addSuccess() {
         System.out.println("Got it. I've added this task:");
-        System.out.println(toDoList[currentIndex].toString());
+        System.out.println(tasks[tasksTotal].toString());
         getTasksLeft();
         Task.printDivider();
     }
@@ -103,14 +104,14 @@ public class Duke {
     private static void completeSuccess(int index) {
         Task.printDivider();
         System.out.println("Got it. I've marked this task as complete:");
-        System.out.println(toDoList[index].toString());
-        doneTask++;
+        System.out.println(tasks[index].toString());
+        tasksDone++;
         getTasksLeft();
         Task.printDivider();
     }
 
     private static void getTasksLeft() {
-        System.out.println("Now you have " + (currentIndex - doneTask) + " tasks in the list.");
+        System.out.println("Now you have " + (tasksTotal - tasksDone) + " tasks in the list.");
     }
 
     private static void showByeScreen() {
