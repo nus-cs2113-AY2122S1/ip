@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Triss {
 
     /** Logo shown during startup */
     private static final String LOGO = "████████ ██████  ██ ███████ ███████ \n" +
