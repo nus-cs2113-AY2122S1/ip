@@ -13,7 +13,7 @@ public class Parser {
         } else {
             String actionString;
             try{
-                actionString = translateUserAction(args[0]);
+                actionString = translateUserAction(actionArg);
             }catch(IllegalArgumentException e){
                 throw new IllegalArgumentException(e.getMessage());
             }
@@ -24,16 +24,19 @@ public class Parser {
             String mainArgs = parseFlagArguments(remainingArgs, params);
 
             switch(action) {
-                case DO_TASK:
-                    if(mainArgs == null)
-                        throw new IllegalArgumentException("Index not specified");
-                    params.put("index", mainArgs);
-                    break;
-                case ADD_TASK:
-                    if(mainArgs == null)
-                        throw new IllegalArgumentException("Task not specified");
-                    params.put("type", actionArg);
-                    params.put("task", mainArgs);
+            case DO_TASK:
+                if(mainArgs == null)
+                    throw new IllegalArgumentException("Index not specified");
+                params.put("index", mainArgs);
+                break;
+            case ADD_TASK:
+                if(mainArgs == null)
+                    throw new IllegalArgumentException("Task not specified");
+                params.put("type", actionArg);
+                params.put("task", mainArgs);
+                break;
+			default:
+				break;
             }
         }
 
@@ -43,37 +46,53 @@ public class Parser {
     private static String parseFlagArguments(String[] args, HashMap<String, String> flagParams) {
         String mainArgument = "";
         int i = 0;
+        int numOfArgs = args.length;
 
         //Will stop scanning upon encountering a flag
-        while(i < args.length && !isFlag(args[i])) {
+        while(i < numOfArgs && !isFlag(args[i])) {
             mainArgument += args[i] + " ";
             i++;
         }
-
+        
+        //remove trailing space
         mainArgument = mainArgument.strip();
 
         // if no flags, just return from here
-        if(i == args.length)
+        if(i == numOfArgs)
             return mainArgument;
 
         String flagArg="", flag=" ";
         //Start to consume flag
-        while(i < args.length) {
+        while(i < numOfArgs) {
             if(isFlag(args[i])) {
-                flagParams.put(flag.substring(1), flagArg.strip()); //remove leading '/' or any flag characters
-                flagArg = "";
-                flag = args[i];
+            	
+            	//ignore flag if already found
+            	if(flagParams.get(flag) == null) {
+            		
+            		//remove leading '/' or any flag characters
+            		flag = flag.substring(1);
+            		flagArg = flagArg.strip();
+            		
+    	            flagParams.put(flag, flagArg.strip()); 
+    	            
+                    flagArg = "";
+                    flag = args[i];
+            	}
             }
             else {
                 flagArg += args[i] + " ";
             }
-
+            
             i++;
         }
 
         //insert last set of flag argument and remove empty key
         flagParams.remove("");
-        flagParams.put(flag.substring(1), flagArg.strip());
+        
+		flag = flag.substring(1);
+		flagArg = flagArg.strip();
+        flagParams.put(flag, flagArg);
+        
         return mainArgument;
     }
 
