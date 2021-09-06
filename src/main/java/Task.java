@@ -2,14 +2,14 @@ public class Task {
     protected String description;
     protected String taskType;
     protected boolean isDone;
-    protected String eventWhen;
+    protected String eventDate;
 
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.taskType = "";
-        this.eventWhen = "";
+        this.eventDate = "";
     }
 
     public String getStatusIcon() {
@@ -25,7 +25,7 @@ public class Task {
     }
 
     public String getWhen() {
-        return eventWhen;
+        return eventDate;
     }
 
 }
