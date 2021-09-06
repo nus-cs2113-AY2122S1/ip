@@ -1,5 +1,6 @@
+package duke;
+
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -10,7 +11,7 @@ public class Duke {
                                     + "| |_| | |_| |   <  __/\n"
                                     + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "------------------------------------";
-    private static final String HELLO_MESSAGE = "Hello! I'm Duke\nWhat can I do for you?";
+    private static final String HELLO_MESSAGE = "Hello! I'm duke.Duke\nWhat can I do for you?";
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String ERROR_MESSAGE = "You need to specify the task type!";
 
