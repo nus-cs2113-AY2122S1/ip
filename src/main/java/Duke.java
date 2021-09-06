@@ -13,7 +13,7 @@ public class Duke {
      * Function introduces chatbot and asks user for preferred mode and enters that mode.
      * Mode 1 - Echo; 2 - Task; Otherwise - Returns Error Message and stops program.
      */
-    public static void greet() {
+    public static void greet() throws DukeException {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tHi there! I'm Lennox - your personal chatbot\n" +
                 "\tWhat can I do for you today?");
@@ -75,7 +75,7 @@ public class Duke {
      *
      * @param newMode Code for new mode (1 - Echo; 2 - Task)
      */
-    public static void switchMode(int newMode) {
+    public static void switchMode(int newMode) throws DukeException {
         mode = newMode;
         System.out.println("\t" + HOR_LINE);
         if (newMode == ECHO_MODE) {
@@ -94,7 +94,7 @@ public class Duke {
      * Executes Echo mode, where commands of user are echoed back.
      * When "change" is typed in by user, switches program to Task mode.
      */
-    public static void startEcho() {
+    public static void startEcho() throws DukeException {
         String command;
         Scanner in = new Scanner(System.in);
         command = in.nextLine();
@@ -150,7 +150,7 @@ public class Duke {
      *
      * @param userInput String command input by user.
      */
-    public static void createTask(String userInput) {
+    public static void createTask(String userInput) throws DukeException {
         if (userInput.startsWith("event ")) {
             storedTasks[additions] = new Event(userInput);
         }
@@ -172,7 +172,7 @@ public class Duke {
      * When "remove <task id>" or "clear <task id>" entered, removes that task from list.
      * When "change" is typed in by user, switches program to Echo mode.
      */
-    public static void startTask() {
+    public static void startTask() throws DukeException {
         Scanner in = new Scanner(System.in);
         String toAdd = in.nextLine();
         String textLowerC = toAdd.toLowerCase();
@@ -201,7 +201,7 @@ public class Duke {
      * @param toAdd String input by user.
      * @param textLowerC String input by user converted to lower cases for checking.
      */
-    private static void defaultTaskModeBehavior(String toAdd, String textLowerC) {
+    private static void defaultTaskModeBehavior(String toAdd, String textLowerC) throws DukeException {
         // Mark task as complete with an X.
         if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
             int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
@@ -232,7 +232,7 @@ public class Duke {
      * If no, gets user back to Task/Echo mode user was in.
      * If yes, ends program with farewell message.
      */
-    public static void exit() {
+    public static void exit() throws DukeException {
         System.out.print("\tDo you really want to exit chatbot (type y or n)? ");
         Scanner input = new Scanner(System.in);
         String exit_pref = input.nextLine();
@@ -257,7 +257,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         // Actions
         printLogo();
         greet();
