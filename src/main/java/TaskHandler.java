@@ -16,8 +16,8 @@ public class TaskHandler {
     }
 
     public static void printAddedTask() {
-        System.out.println(Duke.INDENT + "Got it. I've added this task:" + Duke.LINE_AND_INDENT +
-                tasks[taskCount] + Duke.LINE_AND_INDENT + "Now you have " + (taskCount + 1) + " tasks in the list.");
+        System.out.println(Duke.INDENT + "Got it. I've added this task:" + Duke.LINE_SEPARATOR_AND_INDENT +
+                tasks[taskCount] + Duke.LINE_SEPARATOR_AND_INDENT + "Now you have " + (taskCount + 1) + " tasks in the list.");
     }
 
     public static void addDeadline(String line) {
