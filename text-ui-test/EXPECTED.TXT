@@ -56,14 +56,14 @@ ____________________________________________________________
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task: 
-      [E][ ] roject meeting (at: Mon 2-4pm)
+      [E][ ] project meeting (at: Mon 2-4pm)
     Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      1.[T][ ] Go To School
      2.[T][ ] watch anime
      3.[D][ ] do homework (by: no idea :-p)
-     4.[E][ ] roject meeting (at: Mon 2-4pm)
+     4.[E][ ] project meeting (at: Mon 2-4pm)
     ____________________________________________________________
     Nice! I've marked this task as done: 
      [T][X] watch anime
@@ -71,7 +71,7 @@ ____________________________________________________________
      1.[T][ ] Go To School
      2.[T][X] watch anime
      3.[D][ ] do homework (by: no idea :-p)
-     4.[E][ ] roject meeting (at: Mon 2-4pm)
+     4.[E][ ] project meeting (at: Mon 2-4pm)
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
@@ -82,16 +82,36 @@ ____________________________________________________________
      1.[T][ ] Go To School
      2.[T][X] watch anime
      3.[D][ ] do homework (by: no idea :-p)
-     4.[E][ ] roject meeting (at: Mon 2-4pm)
+     4.[E][ ] project meeting (at: Mon 2-4pm)
      5.[D][ ] return book (by: Sunday)
     ____________________________________________________________
     Nice! I've marked this task as done: 
      [D][X] do homework (by: no idea :-p)
     Nice! I've marked this task as done: 
-     [E][X] roject meeting (at: Mon 2-4pm)
-    Please Enter the Legit Task Number... Or I won't talk to you!
+     [E][X] project meeting (at: Mon 2-4pm)
     ____________________________________________________________
-    Enter something legit please! :(
+     ☹ OOPS!!! Please Enter the Legit Task Number... Or I won't talk to you!
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The description and event time info of event cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! Don't forget to add /at (must have trail and lead whitespace) to separate description and event time
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! Don't forget to add /at (must have trail and lead whitespace) to separate description and event time
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! The description and event time info of event cannot be empty.
     ____________________________________________________________
 ____________________________________________________________
 

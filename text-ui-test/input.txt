@@ -11,4 +11,10 @@ done 3
 done 4
 done 7
 invalidcommand
+deadline /by
+deadline lightnovel /by
+deadline /by 15Aug
+event /at
+event anime /at
+event /at 6pm
 bye

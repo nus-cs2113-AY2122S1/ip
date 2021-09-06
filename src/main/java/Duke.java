@@ -38,7 +38,8 @@ public class Duke {
     }
 
     /**
-     * Adds a new todo task with the description of task provided.
+     * Adds a new todo task with the description of task provided. Format is
+     * strictly: todo <description>
      *
      * @param userInputString which contains the "todo" command along with
      *                        the description of the todo task. No time
@@ -59,7 +60,10 @@ public class Duke {
 
     /**
      * Adds a new deadline task with the description of deadline task provided
-     * along with the time which is due "by".
+     * along with the time which is due "by". The format of command is quite strict:
+     * deadline <description> /by <time>
+     *
+     * Trail and Leading space are compulsory for /by separator
      *
      * @param userInputString which contains the "deadline" command along with
      *                        the description of the deadline task and followed
@@ -67,34 +71,58 @@ public class Duke {
      */
     public static void addDeadline(String userInputString) throws DukeException {
         try {
-            String taskName = userInputString.substring(9).split("/")[0];
-            String by = userInputString.substring(9).split("/")[1];
+            if (userInputString.indexOf(" /by ") == -1) {
+                throw new DukeException("Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline");
+            }
+            else {
+                String taskName = userInputString.substring(9).split("/")[0];
+                String by = userInputString.substring(9).split("/")[1];
 
-            tasks[numberOfTasks] = new Deadline(taskName, by);
-            numberOfTasks += 1;
+                if (taskName.equals("") || by.equals("by ")) {
+                    throw new DukeException("The description and event time info of event cannot be empty.");
+                } else {
+                    tasks[numberOfTasks] = new Deadline(taskName, by);
+                    numberOfTasks += 1;
 
-            tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+                    tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+                }
+            }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
-            throw new DukeException("The description of a todo cannot be empty.");
+            throw new DukeException("The description and deadline info of deadline cannot be empty!");
         }
     }
 
     /**
      * Adds a new event task with the description of task provided and time
-     * which it is happening "at".
+     * which it is happening "at". The format of command is quite strict:
+     * event <description> /at <time>
+     *
+     * Trail and Leading space are compulsory for /at separator
      *
      * @param userInputString which contains the "event" command along with
      *                        the description of the event task followed by
      *                        a "/" to separate the happening time "at".
      */
     public static void addEvent(String userInputString) throws DukeException {
-        String taskName = userInputString.substring(7).split("/")[0];
-        String by = userInputString.substring(7).split("/")[1];
+        try {
+            if (userInputString.indexOf(" /at ") == -1) {
+                throw new DukeException("Don't forget to add /at (must have trail and lead whitespace) to separate description and event time");
+            } else {
+                String taskName = userInputString.substring(6).split("/")[0];
+                String at = userInputString.substring(6).split("/")[1];
 
-        tasks[numberOfTasks] = new Event(taskName, by);
-        numberOfTasks += 1;
+                if (taskName.equals("") || at.equals("at ")) {
+                    throw new DukeException("The description and event time info of event cannot be empty.");
+                } else {
+                    tasks[numberOfTasks] = new Event(taskName, at);
+                    numberOfTasks += 1;
 
-        tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+                    tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+                }
+            }
+        } catch (IndexOutOfBoundsException indexOutOfBound) {
+            throw new DukeException("The description and event time info of event cannot be empty.");
+        }
     }
 
     /**
@@ -103,13 +131,13 @@ public class Duke {
      * @param userInputString which contains the "done" command along with the
      *                        finished task number.
      */
-    public static void finishTask(String userInputString) {
+    public static void finishTask(String userInputString) throws DukeException {
         int taskNumber = Integer.parseInt(userInputString.split(" ")[1]);
 
         if (taskNumber <= numberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
         } else {
-            System.out.println("    Please Enter the Legit Task Number... Or I won't talk to you!");
+            throw new DukeException("Please Enter the Legit Task Number... Or I won't talk to you!");
         }
     }
 
