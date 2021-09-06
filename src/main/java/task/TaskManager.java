@@ -1,3 +1,11 @@
+package task;
+
+import error.exception.DukeEmptyTaskDescriptionException;
+import error.exception.DukeInvalidDescriptionFormatException;
+import task.subtask.Todo;
+import task.subtask.Deadline;
+import task.subtask.Event;
+
 import java.util.Scanner;
 
 public class TaskManager extends Duke {
@@ -38,8 +46,8 @@ public class TaskManager extends Duke {
         String deadlineDate = getDateFromCommand(input);
 
         Task deadline = new Deadline(deadlineDescription, deadlineDate);
-        list[count] = deadline;
-        count++;
+        Duke.list[Duke.count] = deadline;
+        Duke.count++;
 
         return deadline;
     }
@@ -61,8 +69,8 @@ public class TaskManager extends Duke {
         String eventDate = getDateFromCommand(input);
 
         Task event = new Event(eventDescription, eventDate);
-        list[count] = event;
-        count++;
+        Duke.list[Duke.count] = event;
+        Duke.count++;
 
         return event;
     }
@@ -75,14 +83,14 @@ public class TaskManager extends Duke {
     }
 
 
-    protected static String getUserInput(Scanner in) {
+    public static String getUserInput(Scanner in) {
         String input;
         input = in.nextLine();
 
         return input;
     }
 
-    protected static int getIndex(String input) {
+    public static int getIndex(String input) {
         String[] temp = input.split(" ");
         int index = Integer.parseInt(temp[1]);
         index = index - 1;
@@ -90,7 +98,7 @@ public class TaskManager extends Duke {
         return index;
     }
 
-    protected static String getFirstWordFromCommand(String input) {
+    public static String getFirstWordFromCommand(String input) {
         return input.toLowerCase().split(" ")[0];
     }
 }

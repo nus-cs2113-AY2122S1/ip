@@ -1,3 +1,5 @@
+package error;
+
 public class Error {
     public static void showInvalidCommandError() {
         Printer.printLineSeparator();
