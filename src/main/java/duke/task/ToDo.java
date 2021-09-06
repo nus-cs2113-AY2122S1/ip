@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.command.DisplayManager;
+
 public class ToDo extends Task{
 
     public ToDo(String description) {

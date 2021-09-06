@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.command.DisplayManager;
+
 public class Deadline extends Task{
 
     private String dateTime;
@@ -11,5 +15,4 @@ public class Deadline extends Task{
     public String toString() {
         return DisplayManager.createListBox(this.taskType, this.getStatusIcon()) + " " + super.toString() + " (by: " + this.dateTime + ")";
     }
-
 }
