@@ -15,9 +15,11 @@ public class Duke {
         }
         System.out.println(Line);
     }
+
     public static void bye() {
         System.out.println(Line + "\n" + "     Bye. Hope to see you again soon!" + "\n" + Line);
     }
+    
     public static void greeting() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
