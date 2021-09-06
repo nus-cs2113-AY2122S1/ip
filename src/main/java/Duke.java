@@ -13,8 +13,8 @@ public class Duke {
 
     final static String NO_FORMAT_TAG = " <no additional input required>";
 
-    final static String EXIT_FORMAT = EXIT_COMMAND + " " + NO_FORMAT_TAG;
-    final static String LIST_FORMAT = LIST_COMMAND + " " + NO_FORMAT_TAG;
+    final static String EXIT_FORMAT = EXIT_COMMAND + NO_FORMAT_TAG;
+    final static String LIST_FORMAT = LIST_COMMAND + NO_FORMAT_TAG;
     final static String DONE_FORMAT = SET_DONE_COMMAND + " <task number(can be seen using the list command, eg. 1)>";
     final static String TODO_FORMAT = ADD_TODO_COMMAND + " <task description>";
     final static String DEADLINE_FORMAT = ADD_EVENT_COMMAND + " <task description> /by <due date>";
@@ -92,8 +92,12 @@ public class Duke {
                 addDeadlineTask(taskManager, userInputs);
                 break;
             case SET_DONE_COMMAND:
-                int taskIndex = getTaskIndexFromUserInputs(userInputs);
-                taskManager.setTaskToDone(taskIndex);
+                try {
+                    int taskIndex = getTaskIndexFromUserInputs(userInputs);
+                    taskManager.setTaskToDone(taskIndex);
+                } catch (InvalidTaskNumberException e) {
+                    printFormatErrorMessage(DONE_FORMAT);
+                }
                 break;
             case LIST_COMMAND:
                 taskManager.printAllTasks();
@@ -116,9 +120,9 @@ public class Duke {
      * @return String containing the command given by the user.
      */
     public static String getUserCommand(String userInputs) {
-        try{
+        try {
             return userInputs.split(" ")[0];
-        }catch(Exception e){
+        } catch (Exception e) {
             return userInputs;
         }
     }
@@ -130,7 +134,7 @@ public class Duke {
      * @return The string after a valid bot command.
      */
     public static String getUserPayload(String userInputs) {
-        if(userInputs == null){
+        if (userInputs == null) {
             return userInputs;
         }
         String[] payload = userInputs.split(" ");
@@ -145,12 +149,15 @@ public class Duke {
      * @param userInputs Raw user inputs from scanner.
      * @return An integer representing an index in the tasks list.
      */
-    public static int getTaskIndexFromUserInputs(String userInputs) {
+    public static int getTaskIndexFromUserInputs(String userInputs) throws InvalidTaskNumberException {
         int result = -1;
         try {
             result = Integer.parseInt(userInputs.split(" ")[1]);
         } catch (Exception e) {
-            printFormatErrorMessage(DONE_FORMAT);
+            throw new InvalidTaskNumberException();
+        }
+        if (result < 1) {
+            throw new InvalidTaskNumberException();
         }
         return result;
     }
