@@ -1,3 +1,5 @@
+package duke;
+
 public class TodoFormatException extends Exception {
 
     private final String TODO_INCORRECT_FORMAT_MSG = "\n[Duke]:\n"

@@ -1,3 +1,5 @@
+package duke;
+
 public class InvalidCommandException extends Exception {
 
     private final String INVALID_COMMAND_MSG = "\n[Duke]:\n"

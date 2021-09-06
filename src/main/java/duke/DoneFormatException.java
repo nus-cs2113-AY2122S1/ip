@@ -1,3 +1,5 @@
+package duke;
+
 public class DoneFormatException extends Exception {
 
     private final String DONE_INCORRECT_FORMAT_MSG = "\n[Duke]:\n"

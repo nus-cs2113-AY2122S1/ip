@@ -1,3 +1,5 @@
+package duke;
+
 public class DeadlineFormatException extends Exception {
 
     private final String DEADLINE_INCORRECT_FORMAT_MSG = "\n[Duke]:\n"
