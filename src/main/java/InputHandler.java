@@ -1,14 +1,16 @@
-public class InputHandler {
+import java.util.Objects;
+
+public class InputHandler implements InputInterface{
 
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_VIEW_LIST = "list";
+    private static final String COMMAND_ECHO = "echo";
     private static final String COMMAND_COMPLETE_TASK = "done";
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_EVENT = "event";
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String EVENT_TIME = "at";
     private static final String DEADLINE_DATE = "by";
-    private static final String COMMAND_HELP = "!";
 
     private String description;
     private final ListManager listManager;
@@ -28,14 +30,17 @@ public class InputHandler {
         if(userInput.startsWith(COMMAND_ADD_DEADLINE)){
             return COMMAND_ADD_DEADLINE;
         }
-        if (userInput.startsWith(COMMAND_ADD_TODO)) {
+        if(userInput.startsWith(COMMAND_ADD_TODO)) {
             return COMMAND_ADD_TODO;
         }
         if(userInput.startsWith(COMMAND_ADD_EVENT)){
             return COMMAND_ADD_EVENT;
         }
-        if (userInput.startsWith(COMMAND_COMPLETE_TASK)){
+        if(userInput.startsWith(COMMAND_COMPLETE_TASK)){
             return COMMAND_COMPLETE_TASK;
+        }
+        if (userInput.startsWith(COMMAND_ECHO)){
+            return COMMAND_ECHO;
         }
         return null;
     }
@@ -57,16 +62,34 @@ public class InputHandler {
     }
 
     private void handleToDo(String toDoInput){
-        String taskDescription = toDoInput.replaceFirst(COMMAND_ADD_TODO,"").trim();
-        listManager.addTodo(taskDescription);
+        String removeCommand = toDoInput.replaceFirst(COMMAND_ADD_TODO,"").trim();
+        listManager.addTodo(removeCommand);
     }
 
     private void handleDone(String userInput){
-        String taskDone = userInput.replaceFirst(COMMAND_COMPLETE_TASK,"").trim();
-        String[] taskDoneArray = taskDone.split(",");
+        String removeCommand = userInput.replaceFirst(COMMAND_COMPLETE_TASK,"").trim();
+        String[] taskDoneArray = removeCommand.split(",");
         for (String s: taskDoneArray) {
             int taskDoneIndex = Integer.parseInt(s);
             listManager.completeTask(taskDoneIndex - 1);
+        }
+    }
+
+    private void handleEcho(String userInput){
+        String removeCommand = userInput.replaceFirst(COMMAND_ECHO,"").trim();
+        System.out.println(removeCommand);
+    }
+
+    private void handleList(String userInput){
+        String removeCommand = userInput.replaceFirst(COMMAND_VIEW_LIST,"").trim();
+        if(removeCommand.contains(COMMAND_ADD_TODO)){
+            listManager.printToDo();
+        }else if(removeCommand.contains(COMMAND_ADD_EVENT)) {
+            listManager.printEvent();
+        }else if(removeCommand.contains(COMMAND_ADD_DEADLINE)){
+            listManager.printDeadline();
+        }else {
+            listManager.printList();
         }
     }
 
@@ -85,6 +108,9 @@ public class InputHandler {
             isAddingTask = true;
             description = description.replaceAll(COMMAND_ADD_EVENT,"/"+ COMMAND_ADD_EVENT);
         }
+        if(description.startsWith(COMMAND_VIEW_LIST)){
+            isAddingTask = false;
+        }
         if(isAddingTask) {
             String[] commandList = description.split("/");
             for (int i = 1; i < commandList.length; i++) {
@@ -97,12 +123,12 @@ public class InputHandler {
 
     private void handleCommand(String userInput){
         String inputCommand = taskCategory(userInput);
-        switch(inputCommand){
+        switch(Objects.requireNonNull(inputCommand)){
         case COMMAND_EXIT:
             Duke.isOnline = false;
             break;
         case COMMAND_VIEW_LIST:
-            listManager.printList();
+            handleList(userInput);
             break;
         case COMMAND_COMPLETE_TASK:
             handleDone(userInput);
@@ -117,6 +143,11 @@ public class InputHandler {
             break;
         case COMMAND_ADD_DEADLINE:
             handleDeadline(userInput);
+            break;
+        case COMMAND_ECHO:
+            handleEcho(userInput);
+            break;
+        default:
             break;
         }
     }

@@ -1,7 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class ArtBot {
+public class ArtBot implements ArtInterface{
 
     private final String userInput;
 
@@ -132,13 +131,13 @@ public class ArtBot {
         ArrayList<String[]> artArray = new ArrayList<>();
         String[] mergeString = new String[5];
         for(String s:charArray){
-            String[] letterArtForm = getLogo(s);
-            artArray.add(letterArtForm);
+            String[] letterInArtForm = getLogo(s);
+            artArray.add(letterInArtForm);
         }
         for(int i = 0; i < 5; i++){
             StringBuilder sb = new StringBuilder();
-            for(int j = 0; j < artArray.size(); j ++){
-                String temp = artArray.get(j)[i];
+            for (String[] strings : artArray) {
+                String temp = strings[i];
                 sb.append(temp);
             }
             mergeString[i] = sb.toString();

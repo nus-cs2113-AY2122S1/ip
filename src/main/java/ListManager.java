@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 
 public class ListManager implements TaskList{
+
+    private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task: ";
+    private static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
+    private static final String MESSAGE_TASK_IN_LIST = " tasks in the list.";
+    private static final String MESSAGE_TASK_NOW = "Now you have ";
+    private static final String MESSAGE_SPACER = ". ";
     private final ArrayList<Task> list;
 
     public ListManager(ArrayList<Task> list){
@@ -10,14 +16,40 @@ public class ListManager implements TaskList{
     public void printList(){
         for(int i = 0; i < list.size(); i++){
             int itemIndex= i + 1;
-            System.out.println(itemIndex + ". " + list.get(i).toString());
+            System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
+        }
+    }
+
+    public void printToDo(){
+        for(int i = 0; i < list.size(); i++){
+            int itemIndex= i + 1;
+            if(list.get(i) instanceof ToDo ) {
+                System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
+            }
+        }
+    }
+
+    public void printEvent(){
+        for(int i = 0; i < list.size(); i++){
+            int itemIndex= i + 1;
+            if(list.get(i) instanceof Event ) {
+                System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
+            }
+        }
+    }
+
+    public void printDeadline(){
+        for(int i = 0; i < list.size(); i++){
+            int itemIndex= i + 1;
+            if(list.get(i) instanceof Deadline ) {
+                System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
+            }
         }
     }
 
     private void printAddItem(Task t){
-        System.out.println("Got it. I've added this task: " + System.lineSeparator()
-                            + t.toString() + System.lineSeparator() + "Now you have "
-                            + list.size() +" tasks in the list.");
+        System.out.println(MESSAGE_TASK_ADDED + System.lineSeparator() + t.toString() + System.lineSeparator() + MESSAGE_TASK_NOW
+                            + list.size() + MESSAGE_TASK_IN_LIST);
     }
 
     public void addTodo(String description){
@@ -41,6 +73,6 @@ public class ListManager implements TaskList{
     public void completeTask(int t){
         Task doneTask = list.get(t);
         doneTask.setDone();
-        System.out.println(Logo.divider + "Nice! I've marked this task as done: " + doneTask.getDescription());
+        System.out.println(Logo.divider + MESSAGE_TASK_COMPLETE + doneTask.getDescription());
     }
 }

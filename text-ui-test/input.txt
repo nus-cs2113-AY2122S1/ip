@@ -1,0 +1,10 @@
+echo Hi
+!echo hi
+todo watch et1231 livestream todo watch hankyuu livestream
+todo watch haxxnini livestream
+deadline reach mystic by this season event game session at 10pm
+!help
+list
+done 1,2,3
+list
+bye
