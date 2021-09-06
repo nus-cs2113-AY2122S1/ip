@@ -1,3 +1,10 @@
+package task;
+
+import error.exception.DukeEmptyTaskDescriptionException;
+import error.exception.DukeInvalidDescriptionFormatException;
+import error.Error;
+import error.Printer;
+
 import java.util.Scanner;
 
 public class Duke {

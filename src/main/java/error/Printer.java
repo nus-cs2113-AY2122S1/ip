@@ -1,3 +1,5 @@
+package error;
+
 public class Printer {
     public static void printLineSeparator() {
         String line = "________________________________________________________";
