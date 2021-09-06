@@ -16,8 +16,6 @@ public class Duke {
         System.out.println(Line);
     }
 
-
-    
     public static void bye() {
         System.out.println(Line + "\n" + "     Bye. Hope to see you again soon!" + "\n" + Line);
     }
@@ -113,3 +111,6 @@ public class Duke {
         bye();
     }
 }
+
+
+
