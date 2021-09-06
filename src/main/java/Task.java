@@ -12,10 +12,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     // mark done task with X
     public String getStatusIcon() {
         return (isDone ? "X" : " ");

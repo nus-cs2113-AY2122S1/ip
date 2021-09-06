@@ -19,7 +19,7 @@ public class Duke {
                 + "so that I can fulfill my dream of making someone great.\n"
                 + "Go ahead, give your command\n");
 
-        printWelcomeMessage();
+        Printer.printWelcomeMessage();
         userCommands();
     }
 
@@ -29,16 +29,16 @@ public class Duke {
 
         //Runs until user enters bye
         while (!isOver) {
-            String input = getUserInput(in);
-            String command = getFirstWordFromCommand(input);
+            String input = TaskManager.getUserInput(in);
+            String command = TaskManager.getFirstWordFromCommand(input);
 
             switch (command) {
             case "bye":
-                printByeMessage();
+                Printer.printByeMessage();
                 isOver = true;
                 break;
             case "list":
-                printLineSeparator();
+                Printer.printLineSeparator();
                 System.out.println("Here are the tasks in your list:");
 
                 //Lists down all the tasks added along with its status
@@ -46,133 +46,70 @@ public class Duke {
                     System.out.println((i + 1) + ". " + list[i]);
                 }
 
-                printLineSeparator();
+                Printer.printLineSeparator();
                 break;
             case "done":
 
-                //Extracts the index number from the text and changes status of the task
-                int index = getIndex(input);
-                list[index].markAsDone();
+                try {
+                    //Extracts the index number from the text and changes status of the task
+                    int index = TaskManager.getIndex(input);
+                    list[index].markAsDone();
 
-                printLineSeparator();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(list[index]);
-                printLineSeparator();
+                    Printer.printLineSeparator();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(list[index]);
+                    Printer.printLineSeparator();
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    Error.showDoneFormatError();
+                }
                 break;
             case "todo":
 
-                //Extracts the description, creates a Task object and stores the task in the list
-                Task todo = getTodoDetails(input);
+                try {
+                    //Extracts the description, creates a Task object and stores the task in the list
+                    Task todo = TaskManager.getTodoDetails(input);
 
-                printLineSeparator();
-                System.out.println("Got it. I've added this task:\n" + todo + "\nNow you have " + count + " tasks in the list.");
-                printLineSeparator();
+                    Printer.printLineSeparator();
+                    System.out.println("Got it. I've added this task:\n" + todo + "\nNow you have " + count + " tasks in the list.");
+                    Printer.printLineSeparator();
+                } catch (DukeEmptyTaskDescriptionException e) {
+                    Error.showTaskDescriptionError();
+                }
                 break;
             case "deadline":
 
-                //Extracts the description and day/date, creates a Task object and stores the task in the list
-                Task deadline = getDeadlineDetails(input);
+                try {
+                    //Extracts the description and day/date, creates a Task object and stores the task in the list
+                    Task deadline = TaskManager.getDeadlineDetails(input);
 
-                printLineSeparator();
-                System.out.println("Got it. I've added this task:\n" + deadline + "\nNow you have " + count + " tasks in the list.");
-                printLineSeparator();
+                    Printer.printLineSeparator();
+                    System.out.println("Got it. I've added this task:\n" + deadline + "\nNow you have " + count + " tasks in the list.");
+                    Printer.printLineSeparator();
+                } catch (DukeInvalidDescriptionFormatException e) {
+                    Error.showDeadlineFormatError();
+                } catch (DukeEmptyTaskDescriptionException e) {
+                    Error.showTaskDescriptionError();
+                }
                 break;
             case "event":
 
-                //Extracts the description and the time, creates a Task object and stores the task in the list
-                Task event = getEventDetails(input);
+                try {
+                    //Extracts the description and the time, creates a Task object and stores the task in the list
+                    Task event = TaskManager.getEventDetails(input);
 
-                printLineSeparator();
-                System.out.println("Got it. I've added this task:\n" + event + "\nNow you have " + count + " tasks in the list.");
-                printLineSeparator();
+                    Printer.printLineSeparator();
+                    System.out.println("Got it. I've added this task:\n" + event + "\nNow you have " + count + " tasks in the list.");
+                    Printer.printLineSeparator();
+                } catch (DukeInvalidDescriptionFormatException e) {
+                    Error.showEventFormatError();
+                } catch (DukeEmptyTaskDescriptionException e) {
+                    Error.showTaskDescriptionError();
+                }
                 break;
             default:
 
-                //Shows invalid command incase no matching commands are given
-                printLineSeparator();
-                System.out.println("Invalid command: " + input);
-                System.out.println("Looks like you have to try again");
-                printLineSeparator();
+                Error.showInvalidCommandError();
             }
         }
-    }
-
-    private static String getUserInput(Scanner in) {
-        String input;
-        input = in.nextLine();
-
-        return input;
-    }
-
-    private static int getIndex(String input) {
-        String[] temp = input.split(" ");
-        int index = Integer.parseInt(temp[1]);
-        index = index - 1;
-
-        return index;
-    }
-
-    private static Task getTodoDetails(String input) {
-        // To extract description starting after the four letter word "todo"
-        String todoDescription = input.substring(4).trim();
-
-        Task todo = new Todo(todoDescription);
-        list[count] = todo;
-        count++;
-
-        return todo;
-    }
-
-    private static Task getDeadlineDetails(String input) {
-        // To extract description between the eight-letter word "deadline" and "/by"
-        int endIndex = input.indexOf("/");
-        String deadlineDescription = input.substring(8, endIndex);
-        String deadlineDate = getDateFromCommand(input);
-
-        Task deadline = new Deadline(deadlineDescription, deadlineDate);
-        list[count] = deadline;
-        count++;
-
-        return deadline;
-    }
-
-    private static Task getEventDetails(String input) {
-        // To extract description between the five-letter word "event" and "/at"
-        int endIndex = input.indexOf("/");
-        String eventDescription = input.substring(5, endIndex);
-        String eventDate = getDateFromCommand(input);
-
-        Task event = new Event(eventDescription, eventDate);
-        list[count] = event;
-        count++;
-
-        return event;
-    }
-
-    private static void printLineSeparator() {
-        String line = "________________________________________________________";
-        System.out.println(line);
-    }
-
-    private static void printWelcomeMessage() {
-        printLineSeparator();
-        System.out.println("What can I do for you?");
-        printLineSeparator();
-    }
-
-    private static void printByeMessage() {
-        printLineSeparator();
-        System.out.println("Farewell. Come back when you need more help");
-        printLineSeparator();
-    }
-
-    private static String getFirstWordFromCommand(String input) {
-        return input.toLowerCase().split(" ")[0];
-    }
-
-    private static String getDateFromCommand(String input) {
-        int startIndex = input.indexOf("/");
-
-        return input.substring(startIndex + 3).trim();
     }
 }
