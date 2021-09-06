@@ -235,7 +235,7 @@ public class Duke {
      * @return true if item is added.
      */
     private static boolean checkIfTaskAdded(Task item) {
-        return (item != null) ? true : false;
+        return item != null;
     }
 
     /**
