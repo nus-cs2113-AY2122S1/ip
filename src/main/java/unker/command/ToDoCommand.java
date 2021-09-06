@@ -12,7 +12,7 @@ import unker.Unker;
 public class ToDoCommand extends Command {
 
     public ToDoCommand() {
-        super("todo");
+        super("todo", "todo <description>");
     }
 
     @Override

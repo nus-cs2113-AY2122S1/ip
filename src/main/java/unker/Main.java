@@ -1,6 +1,7 @@
 package unker;
 
 import unker.command.CommandMap;
+import unker.command.InvalidCommandException;
 import unker.ui.UI;
 
 /**
@@ -19,7 +20,11 @@ public class Main {
         // Keep listening for new commands
         while (true) {
             String cmd = ui.getUserInput();
-            commandMap.executeCommand(ui, unker, cmd);
+            try {
+                commandMap.executeCommand(ui, unker, cmd);
+            } catch (InvalidCommandException e) {
+                ui.printInvalidCommandErrorMessage(e);
+            }
             ui.printRequestMoreCommandsMessage();
         }
     }

@@ -24,12 +24,11 @@ public class CommandMap {
      * @param unker The task manager to update the tasks with
      * @param cmdString The command that the user sent
      */
-    public void executeCommand(UI ui, Unker unker, String cmdString) {
+    public void executeCommand(UI ui, Unker unker, String cmdString) throws InvalidCommandException {
         Pattern cmdPattern = Pattern.compile("^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$");
         Matcher cmdMatcher = cmdPattern.matcher(cmdString);
         if (!cmdMatcher.matches()) {
-            ui.printSection("Sorry, can ask something else? Unker don't know how help you.");
-            return;
+            throw new InvalidCommandException("Sorry, can ask something else? Unker don't know how help you.");
         }
         String cmdName = cmdMatcher.group("cmd");
         String cmdData = cmdMatcher.group("cmdData");
@@ -38,7 +37,7 @@ public class CommandMap {
         if (cmd != null) {
             cmd.execute(ui, unker, cmdData);
         } else {
-            ui.printSection("Sorry, can ask something else? Unker don't know how help you.");
+            throw new InvalidCommandException("Sorry, can ask something else? Unker don't know how help you.");
         }
     }
 

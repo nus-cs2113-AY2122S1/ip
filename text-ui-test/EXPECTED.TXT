@@ -17,11 +17,13 @@ Anything else you wan Unker to help you with?
 > 
 --// Unker //----------------------------------------------
 Unker don't think that is a valid number leh.
+Format: done <taskNumber>
 --
 Anything else you wan Unker to help you with?
 > 
 --// Unker //----------------------------------------------
 Unker don't think that is a valid number leh.
+Format: done <taskNumber>
 --
 Anything else you wan Unker to help you with?
 > 
@@ -41,7 +43,7 @@ Anything else you wan Unker to help you with?
 > 
 --// Unker //----------------------------------------------
 Sorry, Unker need you to type this way for me to understand arh (no need brackets):
-deadline <description> /by <time>
+Format: deadline <description> /by <time>
 --
 Anything else you wan Unker to help you with?
 > 
@@ -62,7 +64,7 @@ Anything else you wan Unker to help you with?
 > 
 --// Unker //----------------------------------------------
 Sorry, Unker need you to type this way for me to understand arh (no need brackets):
-event <description> /at <time>
+Format: event <description> /at <time>
 --
 Anything else you wan Unker to help you with?
 > 
