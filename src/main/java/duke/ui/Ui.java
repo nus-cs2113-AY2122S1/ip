@@ -1,3 +1,5 @@
+package duke.ui;
+
 /**
  * This class handles the User Interface of Duke.
  *

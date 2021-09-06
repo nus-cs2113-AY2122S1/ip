@@ -1,3 +1,5 @@
+package duke.command;
+
 /**
  * This class refactors the user command and
  * provides validation.
