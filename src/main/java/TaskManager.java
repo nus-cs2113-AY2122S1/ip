@@ -15,22 +15,22 @@ public class TaskManager {
      * @param taskDescription Name of the task to add.
      * @param taskType        Type of task to add, defined in TaskType.
      */
-    public void addTask(String taskDescription, char taskType) {
+    public void addTask(String taskDescription, char taskType) throws IllegalParameterException {
 
         Task task = null;
         String[] userInput = null;
 
         switch (taskType) {
         case TaskType.TODO:
-            task = new Todo(taskDescription);
+            task = new Todo(processString(taskDescription));
             break;
         case TaskType.DEADLINE:
             userInput = taskDescription.split("/by", 2);
-            task = new Deadline(userInput[0].trim(), userInput[1].trim());
+            task = new Deadline(processString(userInput[0]), processString(userInput[1]));
             break;
         case TaskType.EVENT:
             userInput = taskDescription.split("/at", 2);
-            task = new Event(userInput[0].trim(), userInput[1].trim());
+            task = new Event(processString(userInput[0]), processString(userInput[1]));
             break;
         default:
             System.out.println("An invalid task type has been detected");
@@ -83,5 +83,14 @@ public class TaskManager {
         System.out.println(task.toFormattedString());
     }
 
+    private String processString(String toProcess) throws IllegalParameterException {
+        String processed = toProcess.trim();
+
+        if (processed.isEmpty()){
+            throw new IllegalParameterException("Empty parameter");
+        }
+
+        return processed;
+    }
 }
 
