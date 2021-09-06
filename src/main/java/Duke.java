@@ -82,6 +82,7 @@ public class Duke {
             } else if (line.startsWith("done")) {
                 doneTask(line);
             } else {
+                // exception handling
                 try {
                     addTask(line);
                 } catch (EmptyCommandException e) {
@@ -89,6 +90,7 @@ public class Duke {
                 } catch (IllegalCommandException e) {
                     System.out.println("That's not a known command format!");
                 }
+
             }
             line = in.nextLine();
         }
