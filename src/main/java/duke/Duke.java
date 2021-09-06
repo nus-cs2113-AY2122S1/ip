@@ -70,6 +70,9 @@ public class Duke {
         }
     }
 
+    //@@author okkhoy-reused
+    //Reused from https://github.com/nus-cs2113-AY2122S1/contacts
+    //with minor modifications
     private static String[] splitCommandWordAndArgs(String rawUserInput) {
         final String[] split = rawUserInput.trim().split(" ", 2);
         return split.length == 2 ? split : new String[]{split[0], ""};
@@ -130,6 +133,9 @@ public class Duke {
 
     }
 
+    //@@author okkhoy-reused
+    //Reused from https://github.com/nus-cs2113-AY2122S1/contacts
+    //with minor modifications
     private static String[] splitDeadlineDescriptionAndDate(String rawDescription) {
         String[] split = rawDescription.trim().split("/by", 2);
         for (int i = 0; i < split.length; i++) {
@@ -152,6 +158,9 @@ public class Duke {
         }
     }
 
+    //@@author okkhoy-reused
+    //Reused from https://github.com/nus-cs2113-AY2122S1/contacts
+    //with minor modifications
     private static String[] splitEventDescriptionAndDate(String rawDescription) {
         String[] split = rawDescription.trim().split("/at", 2);
         for (int i = 0; i < split.length; i++) {
