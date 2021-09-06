@@ -31,10 +31,16 @@ public class Duke {
             "\t - Marks the given tasks as done\n\n" +
             "bye\n" +
             "\t - Terminates me :(\n";
+    public static final String MARK_TASKS_USAGE_MESSAGE = HORIZONTAL_LINE +
+            "Please provide me with a valid task to mark as done/not done!\n" +
+            "Some usage examples:\n" +
+            "-> Done 1, 2, 3\n" +
+            "-> Done 1 2 3\n" +
+            HORIZONTAL_LINE;
 
     public static void main(String[] args) {
         // Initialize variables for program startup
-        System.out.println("Hello from\n" + LOGO + GREETING_MESSAGE);
+        System.out.print("Hello from\n" + LOGO + GREETING_MESSAGE);
         boolean isProgramRunning = true;
         String userInput;
         List<Task> list = new ArrayList<>();
@@ -44,76 +50,65 @@ public class Duke {
             userInput = in.nextLine().trim();
             String userInputLowerCase = userInput.toLowerCase();
 
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(GOODBYE_MESSAGE);
-                isProgramRunning = false;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                printList(list);
-            } else if (userInputLowerCase.startsWith("done")) {
-                markTasksAsDone(userInput, list);
-            } else if (userInputLowerCase.startsWith("todo")) {
-                String taskToAdd = removeFirstWord(userInput);
-                addTask(TaskType.TODO, taskToAdd, list);
-            } else if (userInputLowerCase.startsWith("deadline")) {
-                String taskToAdd = removeFirstWord(userInput);
-                addTask(TaskType.DEADLINE, taskToAdd, list);
-            } else if (userInputLowerCase.startsWith("event")) {
-                String taskToAdd = removeFirstWord(userInput);
-                addTask(TaskType.EVENT, taskToAdd, list);
-            } else {
-                System.out.println(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
+            try {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    System.out.println(GOODBYE_MESSAGE);
+                    isProgramRunning = false;
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    printList(list);
+                } else if (userInputLowerCase.startsWith("done")) {
+                    markTasksAsDone(userInput, list);
+                } else if (userInputLowerCase.startsWith("todo")) {
+                    String description = extractDescription(userInput);
+                    addTodo(description, list);
+                } else if (userInputLowerCase.startsWith("deadline")) {
+                    String description = extractDescription(userInput);
+                    addDeadline(description, list);
+                } else if (userInputLowerCase.startsWith("event")) {
+                    String description = extractDescription(userInput);
+                    addEvent(description, list);
+                } else {
+                    System.out.print(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
+                }
+            } catch (DukeException | IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    /**
-     * Adds a task (type to be specified) to an array list of tasks,
-     * printing out the newly added to task to the terminal
-     *
-     * @param type        The type of task (using the TaskType enumerator)
-     * @param description Description of the task to be added
-     * @param taskList    Array list of tasks
-     */
-    private static void addTask(TaskType type, String description, List<Task> taskList) {
-        switch (type) {
-        case DEADLINE:
-            addDeadline(description, taskList);
-            break;
-        case EVENT:
-            addEvent(description, taskList);
-            break;
-        default:
-            taskList.add(new Todo(description));
-            break;
-        }
-
-        Task newlyAddedTask = taskList.get(taskList.size() - 1);
-        System.out.println(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                newlyAddedTask + "\n" + HORIZONTAL_LINE);
+    private static void addTodo(String description, List<Task> taskList) {
+        Todo newTodo = new Todo(description);
+        taskList.add(newTodo);
+        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newTodo + "\n" + HORIZONTAL_LINE);
     }
 
-    private static boolean addEvent(String description, List<Task> taskList) {
-        if (description.contains("/at")) {
-            String[] separated = splitDescriptionFromTiming(TaskType.EVENT, description);
-            taskList.add(new Event(separated[0], separated[1]));
-        } else {
-            System.out.println("You need to specify an event! TIP: Use \"/at\" to do so!\n" +
-                    HORIZONTAL_LINE);
-            return true;
+    private static void addEvent(String input, List<Task> taskList) throws DukeException {
+        String[] separated = splitDescriptionFromTiming(TaskType.EVENT, input);
+        if (separated.length == 1) {
+            throw new DukeException("Give me a timing for the event too man come on...");
         }
-        return false;
+        String description = separated[0];
+        String time = separated[1];
+        Event newEvent = new Event(description, time);
+        taskList.add(newEvent);
+
+        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newEvent + "\n" + HORIZONTAL_LINE);
     }
 
-    private static boolean addDeadline(String description, List<Task> taskList) {
-        if (description.contains("/by")) {
-            String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, description);
-            taskList.add(new Deadline(separated[0], separated[1]));
-        } else {
-            System.out.println("You need to specify a deadline! TIP: Use \"/by\" to do so!\n" +
-                    HORIZONTAL_LINE);
-            return true;
+    private static void addDeadline(String input, List<Task> taskList) throws DukeException {
+        String[] separated = splitDescriptionFromTiming(TaskType.DEADLINE, input);
+        if (separated.length == 1) {
+            throw new DukeException("Tell me more about the deadline too man come on...");
         }
-        return false;
+        String description = separated[0];
+        String time = separated[1];
+        Deadline newDeadline = new Deadline(description, time);
+        taskList.add(newDeadline);
+
+        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+                newDeadline + "\n" + HORIZONTAL_LINE);
     }
 
     /**
@@ -123,13 +118,22 @@ public class Duke {
      * @param description Full string input of the task and its timing
      * @return Returns a string array with index 0 containing the task description and index 1 containing the timing
      */
-    public static String[] splitDescriptionFromTiming(TaskType type, String description) {
+    public static String[] splitDescriptionFromTiming (TaskType type, String description) throws DukeException {
         String[] separated;
         switch (type) {
         case DEADLINE:
+            if (!description.contains("/by")) {
+                throw new DukeException("Am I supposed to guess when your deadline is???\n" +
+                        "TIP: Use \"/by\" to do so!");
+            }
             separated = description.split("/by +");
             break;
         case EVENT:
+            if (!description.contains("/at")) {
+                throw new DukeException(HORIZONTAL_LINE +
+                        "Am I supposed to guess when your event is happening???\n" +
+                        "TIP: Use \"/at\" to do so!");
+            }
             separated = description.split("/at +");
             break;
         default:
@@ -145,46 +149,35 @@ public class Duke {
             task = list.get(i);
             System.out.println(i + 1 + "." + task);
         }
-        System.out.println(HORIZONTAL_LINE);
+        System.out.print(HORIZONTAL_LINE);
     }
 
     /**
      * Marks and prints given tasks as done. Accepts multiple tasks in one input and provides feedback
-     * if invalid inputs are detected.
+     * if invalid inputs are detected. Can identify task numbers amidst redundant input (e.g. done 1, 2 and 3)
      *
      * @param userInput String of user input containing task numbers to be marked as done.
      * @param list      List of tasks
      */
-    public static void markTasksAsDone(String userInput, List<Task> list) {
+    public static void markTasksAsDone(String userInput, List<Task> list) throws DukeException {
         int[] tasksToMarkDone = extractInt(userInput);
 
-        // Error handling: if user inputs no numbers or task number 0
-        if (tasksToMarkDone[0] == 0 || tasksToMarkDone[0] == -1) {
-            System.out.println(HORIZONTAL_LINE +
-                    "Please provide me with a valid task to mark as done/not done!\n" +
-                    "Some usage examples:\n" +
-                    "-> Done 1, 2, 3\n" +
-                    "-> Done 1 2 3\n" +
-                    HORIZONTAL_LINE);
-            return;
-        }
-
-        System.out.println(HORIZONTAL_LINE + "Nice! Let me mark your given tasks as done:");
-
+        System.out.println(HORIZONTAL_LINE + "Nice! Let me see what I have to mark as done:");
         for (int taskNumber : tasksToMarkDone) {
+            // tasksToMarkDone may contain '0's from current implementation of extractInt method
             if (taskNumber == 0) {
                 continue;
             }
-
-            if (taskNumber > list.size()) {
-                System.out.println("Oops! You've given be an invalid task number. Skipping...");
-                continue;
+            try {
+                // TODO: Check whether the given task is already done and throw an exception if it is already done
+                Task currTask = list.get(taskNumber - 1);
+                currTask.markAsDone();
+                System.out.println("[X] " + currTask.getDescription());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Dude you've given be an invalid task number... Skipping...");
             }
-            list.get(taskNumber - 1).markAsDone();
-            System.out.println("[" + list.get(taskNumber - 1).getStatusIcon() + "] " +
-                    list.get(taskNumber - 1).getDescription());
         }
-        System.out.println("All done!\n" + HORIZONTAL_LINE);
+        System.out.print("All done!\n" + HORIZONTAL_LINE);
     }
 
     /**
@@ -195,7 +188,7 @@ public class Duke {
      * @param input String for which integers are to be extracted from.
      * @return An array of the integers extracted, returns -1 at the first element.
      */
-    public static int[] extractInt(String input) {
+    public static int[] extractInt(String input) throws DukeException {
         // Replacing every non-digit number with a space " "
         input = input.replaceAll("[^\\d]", " ");
         input = input.trim();
@@ -204,10 +197,10 @@ public class Duke {
         String[] arrayOfStringInts = input.split(" +");
         int[] extractedInts = new int[arrayOfStringInts.length];
 
-        // If there are no numbers, mark the first element of array as -1 and return
+        // TODO: Tweak implementation such that all extra '0's at the end are not included in the final return
+        // If there are no numbers, throw an exception and alert the user
         if (arrayOfStringInts[0].equals("")) {
-            extractedInts[0] = -1;
-            return extractedInts;
+            throw new DukeException("Monster... You have tricked me and given me NO VALID TASKS!");
         } else {
             for (int i = 0; i < arrayOfStringInts.length; i++) {
                 extractedInts[i] = Integer.parseInt(arrayOfStringInts[i]);
@@ -217,14 +210,11 @@ public class Duke {
         return extractedInts;
     }
 
-    /**
-     * Removes the first word of the input string and returns the remaining input
-     *
-     * @param input
-     * @return The remaining String that is left with the first word removed
-     */
-    public static String removeFirstWord(String input) {
+    public static String extractDescription(String input) throws DukeException {
         String[] splitArray = input.split(" +", 2);
+        if (splitArray.length == 1) {
+            throw new DukeException("Give me a DESCRIPTION too please???");
+        }
         return splitArray[1];
     }
 }
