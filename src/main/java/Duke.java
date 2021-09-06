@@ -30,23 +30,39 @@ public class Duke {
             taskManager.getAndPrintTaskList();
             break;
         case COMMAND_ADD_TODO:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.addToDoTask(taskInfo);
             break;
         case COMMAND_ADD_DEADLINE:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.addDeadlineTask(taskInfo);
             break;
         case COMMAND_ADD_EVENT:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.addEventTask(taskInfo);
             break;
         case COMMAND_FINISH_TASK:
-            taskInfo = inputs[INDEX_TASK_INFO];
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
             taskManager.setAsDone(taskInfo);
             break;
         default:
-            throw new DukeException();
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -57,10 +73,10 @@ public class Duke {
         while (!line.equals(COMMAND_EXIT)) {
             try {
                 processReply(taskManager, line);
-            } catch (IndexOutOfBoundsException e) {
-                DisplayManager.printIndexOutOfBoundsError();
             } catch (DukeException e) {
-                DisplayManager.printDukeExceptionError();
+                DisplayManager.printHorizontalSeparator();
+                System.out.println(e);
+                DisplayManager.printHorizontalSeparator();
             }
             line = in.nextLine();
         }

@@ -1,6 +1,6 @@
 public class DisplayManager {
 
-    private static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
+    public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
     public static final String DISPLAY_MESSAGE_INDENT = "        ";
     public static final String DISPLAY_TASK_INDENT = "    ";
     private static final String DISPLAY_LOGO = "    ____        _        \n"
@@ -136,17 +136,5 @@ public class DisplayManager {
         for (int i = 0; i < invalidCount; i++) {
             System.out.println(DISPLAY_MESSAGE_INDENT + invalidIndexes[i] + " is not a valid index.");
         }
-    }
-
-    public static void printIndexOutOfBoundsError() {
-        printHorizontalSeparator();
-        System.out.println(DISPLAY_MESSAGE_INDENT + "☹ OOPS!!! The description of the command cannot be empty.");
-        printHorizontalSeparator();
-    }
-
-    public static void printDukeExceptionError() {
-        printHorizontalSeparator();
-        System.out.println(DISPLAY_MESSAGE_INDENT + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        printHorizontalSeparator();
     }
 }
