@@ -1,4 +1,8 @@
-package main.java;
+package duke;
+
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.ToDo;
 
 import java.util.Scanner;
 

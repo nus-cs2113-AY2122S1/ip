@@ -1,4 +1,6 @@
-package main.java;
+package duke;
+
+import duke.task.Task;
 
 public class Assistant {
     public static final int MAX_TASKS = 100;

@@ -1,4 +1,4 @@
-package main.java;
+package duke.task;
 
 public class Event extends Task{
     public static final String EVENT_ICON = "[E]";

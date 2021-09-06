@@ -1,4 +1,4 @@
-package main.java;
+package duke.task;
 
 public class Deadline extends Task {
     public static final String DEADLINE_ICON = "[D]";
