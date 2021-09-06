@@ -24,7 +24,9 @@ public class Duke {
         String userInput;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("\nHello! I'm HAL 2113\n" + LOGO_HAL2113);
+        String logo = LOGO_HAL2113;
+
+        System.out.println("\nHello! I'm HAL 2113\n" + logo);
         System.out.println(LINE_BREAK_SINGLE);
         System.out.println("What can I do for you? You can enter the following commands\n" +
                 "1. 'todo task' (replace task with any agenda you wish to add to the list)\n" +
@@ -32,7 +34,7 @@ public class Duke {
                 "3. 'event task /at time' (eg. event running /at Sunday 2-4pm)\n" +
                 "4. 'list (to list all saved tasks)\n" +
                 "5. 'done <task index>' (to mark a completed task; eg. done 2)\n" +
-                "6. 'bye' (to exit the program!)");
+                "6. 'bye' (to exit the program!");
         System.out.print("Enter command: ");
 
         while (!currProgram.getCanTerminateHal()) {
