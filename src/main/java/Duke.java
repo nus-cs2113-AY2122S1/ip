@@ -102,6 +102,8 @@ public class Duke {
             } catch (IllegalCommandException e){
                 System.out.println(e);
                 printHelp();
+            } catch (IllegalParameterException e){
+                System.out.println(e + ": Enter some valid parameters next time.");
             }
 
             System.out.println(DIVIDER);
