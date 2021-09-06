@@ -33,6 +33,12 @@ public class Duke {
     private static final String MESSAGE_NO_INPUT = "No input found! Please type <mode> + item";
     private static final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
 
+    private static final String ERROR_WRONG_EVENT_FORMAT = "The input was wrong :( "
+            + "Please type 'event <description> /at <time of event>'";
+    private static final String ERROR_WRONG_DEADLINE_FORMAT = "The input was wrong :( "
+            + "Please type 'deadline <description> /by <time of event>'";
+    private static final String ERROR_WRONG_TODO_FORMAT = "The input was wrong :( Please type 'todo <description>'";
+
     private static final String TASK_PLURAL = "tasks";
     private static final String TASK_SINGLE = "task";
 
@@ -118,8 +124,14 @@ public class Duke {
      * @param chatInput input of the user
      * @return description of task
      */
-    private static String scanDescription(String chatInput) {
+    private static String scanDescription(String chatInput) throws DukeException {
         String[] words = chatInput.split(SPACING);
+
+        boolean isMissingDescription = (words.length <= 1);
+
+        if (isMissingDescription) {
+            throw new DukeException();
+        }
 
         int spaceCount = 1;
 
@@ -141,20 +153,26 @@ public class Duke {
      * @param chatInput input of user
      * @return either the due date of deadline or event time
      */
-    private static String scanTimePeriod(String chatInput) {
+    private static String getTimeOfEvent(String chatInput) throws DukeException {
         String[] words = chatInput.split(SPACING);
 
         int spaceCount = 1;
         int startIdx = 0;
 
         for (int i = 0; i < words.length; i++) {
-            if (isAtEntry(words[i])) {
+
+            if (i == words.length - 1) {
+                throw new DukeException();
+            }
+
+            if (checkAtEntry(words[i])) {
                 startIdx += ENTRY_AT.length();
                 break;
-            } else if (isByEntry(words[i])) {
+            } else if (checkByEntry(words[i])) {
                 startIdx += ENTRY_BY.length();
                 break;
             }
+
             startIdx += words[i].length() + spaceCount;
         }
         return chatInput.substring(startIdx + spaceCount);
@@ -190,7 +208,7 @@ public class Duke {
      * @param input input of entry
      * @return true if entry is /at
      */
-    private static boolean isAtEntry(String input) {
+    private static boolean checkAtEntry(String input) {
         if (input.equals(ENTRY_AT)) {
             return true;
         }
@@ -203,11 +221,21 @@ public class Duke {
      * @param input input of entry
      * @return true if entry is /by
      */
-    private static boolean isByEntry(String input) {
+    private static boolean checkByEntry(String input) {
         if (input.equals(ENTRY_BY)) {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Checks if task is null
+     *
+     * @param item item at the point of array it is checking
+     * @return true if item is added.
+     */
+    private static boolean checkIfTaskAdded(Task item) {
+        return item != null;
     }
 
     /**
@@ -217,9 +245,14 @@ public class Duke {
      * @return to-do item to be added to task list
      */
     private static ToDo addToDoItem(String chatInput) {
-        ToDo temp = new ToDo(scanDescription(chatInput));
-        System.out.println(MESSAGE_TASK_ADDED + temp);
-        return temp;
+        try {
+            ToDo temp = new ToDo(scanDescription(chatInput));
+            System.out.println(MESSAGE_TASK_ADDED + temp);
+            return temp;
+        } catch (DukeException e) {
+            System.out.println(ERROR_WRONG_TODO_FORMAT);
+        }
+        return null;
     }
 
     /**
@@ -229,9 +262,14 @@ public class Duke {
      * @return event item to be added to task list
      */
     private static Event addEventItem(String chatInput) {
-        Event temp = new Event(scanDescription(chatInput), scanTimePeriod(chatInput));
-        System.out.println(MESSAGE_TASK_ADDED + temp);
-        return temp;
+        try {
+            Event temp = new Event(scanDescription(chatInput), getTimeOfEvent(chatInput));
+            System.out.println(MESSAGE_TASK_ADDED + temp);
+            return temp;
+        } catch (DukeException e) {
+            System.out.println(ERROR_WRONG_EVENT_FORMAT);
+        }
+        return null;
     }
 
     /**
@@ -241,9 +279,14 @@ public class Duke {
      * @return deadline item to be added to task list
      */
     private static Deadline addDeadlineItem(String chatInput) {
-        Deadline temp = new Deadline(scanDescription(chatInput), scanTimePeriod(chatInput));
-        System.out.println(MESSAGE_TASK_ADDED + temp);
-        return temp;
+        try {
+            Deadline temp = new Deadline(scanDescription(chatInput), getTimeOfEvent(chatInput));
+            System.out.println(MESSAGE_TASK_ADDED + temp);
+            return temp;
+        } catch (DukeException e) {
+            System.out.println(ERROR_WRONG_DEADLINE_FORMAT);
+        }
+        return null;
     }
 
     /**
@@ -259,7 +302,7 @@ public class Duke {
         try {
             temp[taskIdx].setDone();
             System.out.println(PRINT_DONE_MESSAGE_FRONT + temp[taskIdx] + PRINT_DONE_MESSAGE_BACK);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             System.out.println(MESSAGE_OUT_OF_RANGE + taskCounter);
         }
         return temp;
@@ -283,17 +326,23 @@ public class Duke {
                 break;
             case COMMAND_TODO:
                 tasks[taskCounter] = addToDoItem(chatInput);
-                taskCounter++;
+                if (checkIfTaskAdded(tasks[taskCounter])) {
+                    taskCounter++;
+                }
                 printTaskNumber(taskCounter);
                 break;
             case COMMAND_EVENT:
                 tasks[taskCounter] = addEventItem(chatInput);
-                taskCounter++;
+                if (checkIfTaskAdded(tasks[taskCounter])) {
+                    taskCounter++;
+                }
                 printTaskNumber(taskCounter);
                 break;
             case COMMAND_DEADLINE:
                 tasks[taskCounter] = addDeadlineItem(chatInput);
-                taskCounter++;
+                if (checkIfTaskAdded(tasks[taskCounter])) {
+                    taskCounter++;
+                }
                 printTaskNumber(taskCounter);
                 break;
             case COMMAND_DONE:
