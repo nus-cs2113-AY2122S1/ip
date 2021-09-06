@@ -1,7 +1,15 @@
+package Duke.RunFile;
+
+import Duke.TaskTypes.Deadline;
+import Duke.TaskTypes.Event;
+import Duke.Exception.DukeException;
+import Duke.TaskTypes.Task;
+import Duke.TaskTypes.Todo;
+
 import java.util.Scanner;
 import java.util.Arrays;
 
-public class Duke {
+public class DukeProgram {
     //List of Special User Commands
     public static final String EXIT_STRING = "bye";
     public static final String LIST_COMMAND = "list";
