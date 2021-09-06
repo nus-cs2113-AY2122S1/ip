@@ -14,6 +14,10 @@ public class Task {
         return numberOfTasks;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public void markAsDone() {
         isDone = true;
     }
