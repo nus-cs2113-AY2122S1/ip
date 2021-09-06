@@ -1,3 +1,5 @@
+package triss.task;
+
 public class Deadline extends Task{
     /** Represents the date this task should be done by */
     private String dueDate;

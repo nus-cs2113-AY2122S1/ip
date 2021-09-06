@@ -1,3 +1,5 @@
+package triss.task;
+
 public class Todo extends Task{
 
     /**

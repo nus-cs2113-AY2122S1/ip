@@ -1,3 +1,11 @@
+package triss;
+
+import triss.exception.TrissException;
+import triss.task.Deadline;
+import triss.task.Event;
+import triss.task.Task;
+import triss.task.Todo;
+
 import java.util.Scanner;
 
 public class Triss {

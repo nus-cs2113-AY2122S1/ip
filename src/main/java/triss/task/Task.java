@@ -1,3 +1,5 @@
+package triss.task;
+
 public class Task {
     /** Name of task */
     private String name;

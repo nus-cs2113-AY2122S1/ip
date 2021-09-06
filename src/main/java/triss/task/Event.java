@@ -1,3 +1,5 @@
+package triss.task;
+
 public class Event extends Task{
     /** The timing this event occurs at */
     private String timing;

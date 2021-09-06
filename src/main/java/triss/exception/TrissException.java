@@ -1,7 +1,8 @@
+package triss.exception;
+
 public class TrissException extends Exception{
 
-    TrissException(String errorMessage) {
+    public TrissException(String errorMessage) {
         super(errorMessage);
     }
-
 }
