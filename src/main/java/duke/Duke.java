@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exception.InvalidTaskNumberException;
+import duke.task.TaskManager;
 import java.util.Scanner;
 
 public class Duke {
