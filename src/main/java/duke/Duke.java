@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.*;
+import duke.task.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -71,7 +76,7 @@ public class Duke {
             tasks.add(new Event(eventDescription, timingDescription));
             GotItMessage();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -86,7 +91,7 @@ public class Duke {
             tasks.add(new Deadline(taskDescription, deadlineDescription));
             GotItMessage();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
         System.out.println(HORIZONTAL_LINE);
     }
