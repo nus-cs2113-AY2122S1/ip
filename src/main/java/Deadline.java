@@ -6,7 +6,7 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = false;
         this.by = by;
-        setNumberOfTasks();
+        increaseNumberOfTasks();
         printNewTaskAddedMessage();
     }
 

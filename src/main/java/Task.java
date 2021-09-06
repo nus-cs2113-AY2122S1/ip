@@ -8,7 +8,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        setNumberOfTasks();
+        increaseNumberOfTasks();
         printNewTaskAddedMessage();
     }
 
@@ -27,7 +27,7 @@ public class Task {
         return numberOfTasks;
     }
 
-    public static void setNumberOfTasks() {
+    public static void increaseNumberOfTasks() {
         Task.numberOfTasks++;
     }
 
@@ -38,7 +38,7 @@ public class Task {
 
     protected void printNewTaskAddedMessage() {
         drawDivider();
-        System.out.println("Karlett now remembers:\n" + "  " + this.toString());
+        System.out.println("Karlett now remembers:\n" + "  " + this);
         if (numberOfTasks == 1) {
             System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
         } else {
@@ -53,7 +53,7 @@ public class Task {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
             for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println("ฅ" + (i + 1) + " " + list[i].toString());
+                System.out.println("ฅ" + (i + 1) + " " + list[i]);
             }
         }
         drawDivider();
@@ -62,7 +62,7 @@ public class Task {
     private void printMarkAsDoneMessage() {
         drawDivider();
         System.out.println("Meow~ Karlett has marked this task as done:\n" +
-                "  " + this.toString());
+                "  " + this);
         drawDivider();
     }
 
