@@ -1,3 +1,5 @@
+package duke.validation;
+
 public class Validation {
 
     public static boolean isValidTodo(String[] inputWords) {

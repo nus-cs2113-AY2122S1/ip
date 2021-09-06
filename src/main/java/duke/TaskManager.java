@@ -1,3 +1,12 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.validation.DukeException;
+import duke.validation.Validation;
+
 public class TaskManager {
     public static final int TODO_DESCRIPTION_BEGIN_INDEX = 5;
     public static final int DEADLINE_DESCRIPTION_BEGIN_INDEX = 9;

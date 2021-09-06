@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task{
     protected String duration;
 
@@ -6,6 +8,7 @@ public class Event extends Task{
         this.duration = duration;
     }
 
+    @Override
     public String listTask() {
         return "[E]" + super.listTask() + " (at: " + duration + ")";
     }

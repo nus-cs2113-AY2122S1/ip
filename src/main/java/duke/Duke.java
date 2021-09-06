@@ -1,3 +1,7 @@
+package duke;
+
+import duke.validation.DukeException;
+
 import java.util.Scanner;
 
 public class Duke {
