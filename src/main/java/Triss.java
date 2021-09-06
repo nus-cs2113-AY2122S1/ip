@@ -60,7 +60,11 @@ public class Triss {
                 handleUserMarkingTaskAsDone(userInput);
                 break;
             default:
-                handleUserCreatingTask(userInput);
+                try {
+                    handleUserCreatingTask(userInput);
+                } catch (TrissException exception) {
+                    printLine(exception.getMessage());
+                }
                 break;
             }
 
@@ -117,7 +121,7 @@ public class Triss {
      * Creates new task depending on first word in user input.
      * @param userInput The user's input.
      */
-    private static void handleUserCreatingTask(String userInput) {
+    private static void handleUserCreatingTask(String userInput) throws TrissException {
         String taskType = parseUserInput(userInput, 0);
 
         switch (taskType) {
@@ -131,8 +135,9 @@ public class Triss {
             createNewTodo(userInput);
             break;
         default:
-            createNewTodo("todo " + userInput.trim());
-            break;
+            String errorMessage = "Oof, I didn't understand your command! Let's try that again.\n"
+                    + " \n" + "Type a todo in this format:\n" + "    todo Eat with Friends";
+            throw new TrissException(errorMessage);
         }
     }
 
@@ -141,16 +146,14 @@ public class Triss {
      * If user did not type in this format: "todo Eat with Friends", it asks the user to try again.
      * @param userInput Any user input starting with the words "todo"
      */
-    private static void createNewTodo(String userInput) {
+    private static void createNewTodo(String userInput) throws TrissException {
         String taskName;
         taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
 
         if (taskName.isBlank()) {
-            printLine("You didn't specify a name for your todo! Let's try that again.");
-            printLine(" ");
-            printLine("Type a todo in this format:");
-            printLine("    todo Eat with Friends");
-            return;
+            String errorMessage = "You didn't specify a name for your todo! Let's try that again.\n"
+                    + " \n" + "Type a todo in this format:\n" + "    todo Eat with Friends";
+            throw new TrissException(errorMessage);
         }
 
         tasks[noOfTasks] = new Todo(taskName);
@@ -168,19 +171,31 @@ public class Triss {
      * If the user types incorrectly, it asks the user to try again.
      * @param userInput Any user input starting with the word "event".
      */
-    private static void createNewEvent(String userInput) {
+    private static void createNewEvent(String userInput) throws TrissException {
         String taskName;
         String eventTiming;
 
+        // Parse the task's name from the user's input
         try {
             taskName = userInput.substring(END_INDEX_OF_WORD_EVENT, userInput.indexOf("/")).trim();
             eventTiming = userInput.substring(userInput.indexOf("/") + 1).trim();
-        } catch (Exception e) {
-            printLine("You didn't write your event properly!");
-            printLine(" ");
-            printLine("Try inserting an event in this format:");
-            printLine("    event Stay in a log cabin /Friday the 13th");
-            return;
+        } catch (Exception error) {
+            String errorMessage = "You didn't format your event properly!\n"
+                    + " \n"
+                    + "Try inserting an event in this format:\n"
+                    + "    event Stay in a log cabin /Friday the 13th";
+            throw new TrissException(errorMessage);
+        }
+
+        // Catch other possible errors
+        // Throw error if user did not type in a name for the task
+        if (taskName.isBlank()) {
+            throw new TrissException("Your event name is blank! Let's try that again.");
+        }
+
+        // Throw error if user did not type in a timing for the event
+        if (eventTiming.isBlank()) {
+            throw new TrissException("You didn't insert a date in your event! Let's try that again.");
         }
 
         tasks[noOfTasks] = new Event(taskName, eventTiming);
@@ -198,19 +213,30 @@ public class Triss {
      * If the user types incorrectly, it asks the user to try again.
      * @param userInput Any user input starting with the word "deadline".
      */
-    private static void createNewDeadline(String userInput) {
+    private static void createNewDeadline(String userInput) throws TrissException {
         String deadlineDate;
         String taskName;
 
         try {
             deadlineDate = userInput.substring(userInput.indexOf("/") + 1).trim();
             taskName = userInput.substring(END_INDEX_OF_WORD_DEADLINE, userInput.indexOf("/")).trim();
-        } catch (Exception e) {
-            printLine("You didn't write your deadline properly!");
-            printLine(" ");
-            printLine("Try inserting a deadline in this format:");
-            printLine("    deadline Meet with Friends /12th July");
-            return;
+        } catch (Exception error) {
+            String errorMessage = "You didn't write your deadline properly!\n"
+                    + " \n"
+                    + "Try inserting a deadline in this format:\n"
+                    + "    deadline Meet with Friends /12th July";
+            throw new TrissException(errorMessage);
+        }
+
+        // Catch other possible errors
+        // Throw error if user did not type in a name for the task
+        if (taskName.isBlank()) {
+            throw new TrissException("Your deadline name is blank! Let's try that again.");
+        }
+
+        // Throw error if user did not type in a timing for the event
+        if (deadlineDate.isBlank()) {
+            throw new TrissException("You didn't insert a date in your deadline! Let's try that again.");
         }
 
         tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
