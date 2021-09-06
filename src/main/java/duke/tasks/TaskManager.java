@@ -1,16 +1,20 @@
+package duke.tasks;
+
 public class TaskManager {
     public static final String DIVIDER = "/";
     public static final String LINE_SEPARATOR = "_____________________________";
     private static int numberOfTasksUndone;
+    private static int numberOfTasksAdded;
     private static Task[] taskList;
 
     public static int getNumberOfTasksUndone() {
         return numberOfTasksUndone;
     }
 
-    public TaskManager(int numberOfTasks) {
+    public TaskManager(int maxNumberOfTasks) {
         this.numberOfTasksUndone = 0;
-        this.taskList = new Task[numberOfTasks];
+        this.numberOfTasksAdded = 0;
+        this.taskList = new Task[maxNumberOfTasks];
     }
 
     /**
@@ -19,7 +23,7 @@ public class TaskManager {
      **/
     public static void printTaskList() {
         System.out.println(LINE_SEPARATOR);
-        for (int i = 0; taskList[i] != null; i++) {
+        for (int i = 0; i < numberOfTasksAdded; i++) {
             System.out.print((i + 1) + ". ");
             System.out.println(taskList[i].toString());
         }
@@ -31,12 +35,12 @@ public class TaskManager {
      * Store to do tasks in a list.
      *
      * @param args  the item after the command the user inputs
-     * @param taskNumber the ith number of task the user entered
      **/
-    public static void addToDoTaskToList(String args, int taskNumber) {
+    public static void addToDoTaskToList(String args) {
 
         Task t = new ToDo(args);
-        taskList[taskNumber] = t;
+        taskList[numberOfTasksAdded] = t;
+        numberOfTasksAdded++;
         numberOfTasksUndone++;
         System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + args);
@@ -48,13 +52,13 @@ public class TaskManager {
      * Store deadline tasks in a list.
      *
      * @param args  the item after the command the user inputs
-     * @param taskNumber the ith number of task the user entered
      **/
-    public static void addDeadlineTaskToList(String args, int taskNumber) {
+    public static void addDeadlineTaskToList(String args) {
         String description = args.substring(0, args.indexOf(DIVIDER)).trim();
         String time = args.substring(args.indexOf(DIVIDER) + 4);
         Task t = new Deadline(description, time);
-        taskList[taskNumber] = t;
+        taskList[numberOfTasksAdded] = t;
+        numberOfTasksAdded++;
         numberOfTasksUndone++;
         System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + description);
@@ -66,13 +70,13 @@ public class TaskManager {
      * Store event tasks in a list.
      *
      * @param args  the item after the command the user inputs
-     * @param taskNumber the ith number of task the user entered
      **/
-    public static void addEventTaskToList(String args, int taskNumber) {
+    public static void addEventTaskToList(String args) {
         String description = args.substring(0, args.indexOf(DIVIDER)).trim();
         String time = args.substring(args.indexOf(DIVIDER) + 4);
         Task t = new Event(description, time);
-        taskList[taskNumber] = t;
+        taskList[numberOfTasksAdded] = t;
+        numberOfTasksAdded++;
         numberOfTasksUndone++;
         System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + description);

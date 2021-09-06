@@ -1,8 +1,12 @@
+package duke;
+
+import duke.tasks.TaskManager;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    public static final int NUMBER_OF_TASKS = 100;
+    public static final int MAX_NUMBER_OF_TASKS = 100;
     public static final String DIVIDER = "/";
     public static final String LINE_SEPARATOR = "_____________________________";
     public static final String COMMAND_EXIT = "bye";
@@ -13,6 +17,7 @@ public class Duke {
     public static final String COMMAND_EVENT = "event";
 
     public static boolean canRunDuke = true;
+
     /**
      * Splits the input string and returns the command at the start of the string
      *
@@ -79,6 +84,60 @@ public class Duke {
         return true;
     }
 
+    /**
+     * Reads the input and command entered by the user and execute task according to user command
+     *
+     * @param inputStr the full input the user entered
+     * @param command the command parsed from the input
+     * @param manager the task manager instance handling the tasks
+     */
+    public static void executeCommand(String inputStr, String command, TaskManager manager) throws DukeException {
+        switch (command) {
+        case COMMAND_EXIT:
+            System.out.println(LINE_SEPARATOR);
+            System.out.println("Bye. Hope to see you again soon!");
+            System.out.println(LINE_SEPARATOR);
+            canRunDuke = false;
+            break;
+        case COMMAND_LIST:
+            manager.printTaskList();
+            break;
+        case COMMAND_DONE:
+            if (isEmptyItem(inputStr)) {
+                throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
+            } else if (manager.getNumberOfTasksUndone() == 0) {
+                throw new DukeException("Oops, there are no tasks to be marked done!");
+            } else if (manager.getNumberOfTasksUndone() < Integer.parseInt(getItem(inputStr))) {
+                throw new DukeException("Oops, there is no task " + Integer.parseInt(getItem(inputStr)) + "!");
+            }
+            manager.markTaskAsDone(inputStr);
+            break;
+        case COMMAND_TODO:
+            if (isEmptyItem(inputStr)) {
+                throw new DukeException("Oops, the description of a ToDo cannot be empty!");
+            }
+            String item = getItem(inputStr);
+            manager.addToDoTaskToList(item);
+            break;
+        case COMMAND_DEADLINE:
+            if (isInvalidItem(inputStr)) {
+                throw new DukeException("Oops, the description of a deadline cannot be empty!");
+            }
+            item = getItem(inputStr);
+            manager.addDeadlineTaskToList(item);
+            break;
+        case COMMAND_EVENT:
+            if (isInvalidItem(inputStr)) {
+                throw new DukeException("Oops, the description of an event cannot be empty!");
+            }
+            item = getItem(inputStr);
+            manager.addEventTaskToList(item);
+            break;
+        default:
+            throw new DukeException("Oops, command not recognised!");
+        }
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -94,75 +153,16 @@ public class Duke {
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
-        int taskNumber = 0;
-        TaskManager manager = new TaskManager(NUMBER_OF_TASKS);
+        TaskManager manager = new TaskManager(MAX_NUMBER_OF_TASKS);
         while(canRunDuke) {
             String inputStr = sc.nextLine();
             String command = getCommand(inputStr);
-
-            switch (command) {
-            case COMMAND_EXIT:
+            try {
+                executeCommand(inputStr, command, manager);
+            } catch (DukeException dukeException) {
                 System.out.println(LINE_SEPARATOR);
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(dukeException);
                 System.out.println(LINE_SEPARATOR);
-                canRunDuke = false;
-                break;
-            case COMMAND_LIST:
-                manager.printTaskList();
-                break;
-            case COMMAND_DONE:
-                if (isEmptyItem(inputStr)) {
-                    System.out.println(LINE_SEPARATOR);
-                    System.out.println("Oops, invalid description!");
-                    System.out.println(LINE_SEPARATOR);
-                    continue;
-                } else if (manager.getNumberOfTasksUndone() == 0
-                        | manager.getNumberOfTasksUndone() < Integer.parseInt(getItem(inputStr))) {
-                    System.out.println(LINE_SEPARATOR);
-                    System.out.println("Oops, invalid description");
-                    System.out.println(LINE_SEPARATOR);
-                    continue;
-                }
-                manager.markTaskAsDone(inputStr);
-                break;
-            case COMMAND_TODO:
-                if (isEmptyItem(inputStr)) {
-                    System.out.println(LINE_SEPARATOR);
-                    System.out.println("Oops, invalid description!");
-                    System.out.println(LINE_SEPARATOR);
-                    continue;
-                }
-                String item = getItem(inputStr);
-                manager.addToDoTaskToList(item, taskNumber);
-                taskNumber++;
-                break;
-            case COMMAND_DEADLINE:
-                if (isInvalidItem(inputStr)) {
-                    System.out.println(LINE_SEPARATOR);
-                    System.out.println("Oops, invalid description!");
-                    System.out.println(LINE_SEPARATOR);
-                    continue;
-                }
-                item = getItem(inputStr);
-                manager.addDeadlineTaskToList(item, taskNumber);
-                taskNumber++;
-                break;
-            case COMMAND_EVENT:
-                if (isInvalidItem(inputStr)) {
-                    System.out.println(LINE_SEPARATOR);
-                    System.out.println("Oops, invalid description!");
-                    System.out.println(LINE_SEPARATOR);
-                    continue;
-                }
-                item = getItem(inputStr);
-                manager.addEventTaskToList(item, taskNumber);
-                taskNumber++;
-                break;
-            default:
-                System.out.println(LINE_SEPARATOR);
-                System.out.println("Oops, command not recognised!");
-                System.out.println(LINE_SEPARATOR);
-                break;
             }
         }
     }
