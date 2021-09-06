@@ -95,11 +95,8 @@ public class TaskHandler {
     public static void showHelp() {
         System.out.println(Duke.INDENT + Duke.HELP_INSTRUCTIONS);
     }
-<<<<<<< Updated upstream
-=======
 
     public static void handleWrongCommand() throws DukeException{
         throw new DukeException(ERROR_INVALID_COMMAND);
     }
->>>>>>> Stashed changes
 }

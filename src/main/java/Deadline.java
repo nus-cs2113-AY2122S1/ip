@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        //return the status of deadline task
         return " [D]" + super.toString() + " (by: " + date + ")";
     }
 }
