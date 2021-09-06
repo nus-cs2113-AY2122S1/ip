@@ -4,6 +4,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Duke {
+    private final static String DONE_TASK_INDICATOR = "^done \\d+";
+    private final static String BYE_INDICATOR = "bye";
+    private final static String LIST_INDICATOR = "list";
+    private final static int TASK_ARRAY_SIZE = 101;
+
+    private final static String TASK_TYPE_TODO = "todo";
+    private final static String TASK_TYPE_EVENT = "event";
+    private final static String TASK_TYPE_DEADLINE = "deadline";
+
+    private final static String EVENT_DATE_INDICATOR = "/at";
+    private final static String DEADLINE_DATE_INDICATOR = "/by";
+
+    // We split the input given by the user with a single white space
+    private final static String USER_INPUT_SPLITTER = " ";
+    
     private static void welcomeMessage() {
         String greetings = "Hello! I'm Duke\n"
                 + "What can I do for you?\n";
@@ -15,52 +30,103 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-    public static void addTaskToTaskList(String userInput, int taskNumber, Task[] taskList) {
-        String[] userInputSplitArray = userInput.split(" ");
-        String taskType = userInputSplitArray[0];
-
-        String taskDescription = "";
-        for (int i = 1; i < userInputSplitArray.length; i++) {
-            taskDescription = taskDescription + " " + userInputSplitArray[i];
+    private static void printNumberOfTask(int taskNumber) {
+        String taskNoun;
+        if (taskNumber == 1) {
+            taskNoun = "task";
+        } else {
+            taskNoun = "tasks";
         }
-        taskDescription = taskDescription.stripLeading();
-
-        if (taskType.equals("todo")) {
-            Todo todo = new Todo(taskDescription);
-            taskList[taskNumber] = todo;
-        } else if (taskType.equals("deadline")) {
-            String[] deadlineSplitByDate = taskDescription.split("/by");
-            String deadlineTask = deadlineSplitByDate[0];
-            String deadlineDate = deadlineSplitByDate[1];
-            Deadline deadline = new Deadline(deadlineTask, deadlineDate);
-            taskList[taskNumber] = deadline;
-        } else if (taskType.equals("event")) {
-            String[] eventSplitByDate = taskDescription.split("/at");
-            String eventTask = eventSplitByDate[0];
-            String eventDate = eventSplitByDate[1];
-            Event event = new Event(eventTask, eventDate);
-            taskList[taskNumber] = event;
-        }
-
-        System.out.println("Now you have " + taskNumber + " tasks in the list.\n");
+        System.out.println("Now you have " + taskNumber + " " +
+                taskNoun +" in the list.\n");
     }
 
-    public static void markTaskAsDone(String userInput, Task[] taskList) {
-        String[] userInputArray = userInput.split(" ");
+    public static String getTaskType(String userInput) throws InvalidTaskTypeException {
+        String[] userInputSplitArray = userInput.split(USER_INPUT_SPLITTER);
+        String taskType = userInputSplitArray[0];
+        if (taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event")) {
+            return taskType;
+        } else {
+            throw new InvalidTaskTypeException();
+        }
+    }
+
+    public static String getTaskDescriptor(String userInput) throws EmptyDescriptionException {
+        String[] userInputSplitArray = userInput.split(USER_INPUT_SPLITTER);
+        if (userInputSplitArray.length < 2) {
+            String taskType = userInputSplitArray[0];
+            throw new EmptyDescriptionException(taskType);
+        } else {
+            String taskDescription = "";
+            for (int i = 1; i < userInputSplitArray.length; i++) {
+                taskDescription = taskDescription + " " + userInputSplitArray[i];
+            }
+            taskDescription = taskDescription.stripLeading();
+            return taskDescription;
+        }
+    }
+
+    public static String getTaskFromTaskDescription(String taskDescription, String dateIndicator)
+            throws InvalidDateIndicatorException {
+        String[] taskDescriptionSplitByDate = taskDescription.split(dateIndicator);
+        if (taskDescriptionSplitByDate.length < 2) {
+            throw new InvalidDateIndicatorException();
+        } else {
+            String task = taskDescriptionSplitByDate[0];
+            return task;
+        }
+    }
+
+    public static String getDateFromTaskDescription(String taskDescription, String dateIndicator)
+            throws InvalidDateIndicatorException {
+        String[] taskDescriptionSplitByDate = taskDescription.split(dateIndicator);
+        if (taskDescriptionSplitByDate.length < 2) {
+            throw new InvalidDateIndicatorException();
+        } else {
+            String date = taskDescriptionSplitByDate[1];
+            return date;
+        }
+    }
+
+    public static void addTaskToTaskArray(String userInput, int taskNumber, Task[] taskArray)
+            throws InvalidTaskTypeException, EmptyDescriptionException, InvalidDateIndicatorException {
+        String taskType = getTaskType(userInput);
+        String taskDescription = getTaskDescriptor(userInput);
+
+        switch (taskType) {
+            case TASK_TYPE_TODO:
+                Todo todo = new Todo(taskDescription);
+                taskArray[taskNumber] = todo;
+                break;
+            case TASK_TYPE_DEADLINE:
+                String deadlineTask = getTaskFromTaskDescription(taskDescription, DEADLINE_DATE_INDICATOR);
+                String deadlineDate = getDateFromTaskDescription(taskDescription, DEADLINE_DATE_INDICATOR);
+                Deadline deadline = new Deadline(deadlineTask, deadlineDate);
+                taskArray[taskNumber] = deadline;
+                break;
+            case TASK_TYPE_EVENT:
+                String eventTask = getTaskFromTaskDescription(taskDescription, EVENT_DATE_INDICATOR);
+                String eventDate = getDateFromTaskDescription(taskDescription, EVENT_DATE_INDICATOR);
+                Event event = new Event(eventTask, eventDate);
+                taskArray[taskNumber] = event;
+                break;
+        }
+
+        printNumberOfTask(taskNumber);
+    }
+
+    public static void markTaskAsDone(String userInput, Task[] taskArray) {
+        String[] userInputArray = userInput.split(USER_INPUT_SPLITTER);
         int doneTaskNumber = Integer.parseInt(userInputArray[1]);
-        Task taskDone = taskList[doneTaskNumber];
+        Task taskDone = taskArray[doneTaskNumber];
         taskDone.setTaskAsDone();
     }
 
-    public static void getAllTask(Task[] taskList) {
+    public static void getAllTask(Task[] taskArray, int taskNumber) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i < taskList.length; i ++) {
-            Task currentTask = taskList[i];
-            if (currentTask == null) {
-                break;
-            } else {
-                System.out.println(i + "." + currentTask.toString());
-            }
+        for (int i = 1; i < taskNumber; i ++) {
+            Task currentTask = taskArray[i];
+            System.out.println(i + "." + currentTask.toString());
         }
         System.out.println();
     }
@@ -70,23 +136,31 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         int taskNumber = 1;
-        Task[] taskList = new Task[101];
-        Pattern doneTaskPattern = Pattern.compile("^done \\d+");
+        Task[] taskArray = new Task[TASK_ARRAY_SIZE];
+        Pattern doneTaskPattern = Pattern.compile(DONE_TASK_INDICATOR);
 
         while (true) {
             String userInput = scanner.nextLine();
             Matcher matcher = doneTaskPattern.matcher(userInput);
-            boolean doneTask = matcher.find();
+            boolean taskIsDone = matcher.find();
 
-            if (userInput.equals("bye")) {
+            if (userInput.equals(BYE_INDICATOR)) {
                 break;
-            } else if (userInput.equals("list")) {
-                getAllTask(taskList);
-            } else if (doneTask) {
-                markTaskAsDone(userInput, taskList);
+            } else if (userInput.equals(LIST_INDICATOR)) {
+                getAllTask(taskArray, taskNumber);
+            } else if (taskIsDone) {
+                markTaskAsDone(userInput, taskArray);
             } else {
-                addTaskToTaskList(userInput, taskNumber, taskList);
-                taskNumber++;
+                try {
+                    addTaskToTaskArray(userInput, taskNumber, taskArray);
+                    taskNumber++;
+                } catch (EmptyDescriptionException e) {
+                    e.printExceptionMessage();
+                } catch (InvalidTaskTypeException e) {
+                    e.printExceptionMessage();
+                } catch (InvalidDateIndicatorException e) {
+                    e.printExceptionMessage();
+                }
             }
         }
         goodbyeMessage();
