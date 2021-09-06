@@ -1,6 +1,8 @@
-import java.util.Scanner;
+package duke;
 
-import static java.lang.Integer.parseInt;
+import duke.command.Command;
+
+import java.util.Scanner;
 
 public class Duke {
     public static final String LINE = "____________________________________________________________\n";

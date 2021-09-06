@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 public class TaskManager {
     public static final String LINE = "____________________________________________________________\n";
     private static final int MAXIMUM_TASKS = 100;

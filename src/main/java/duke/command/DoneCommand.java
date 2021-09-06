@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskManager;
+
 public class DoneCommand extends Command{
     protected int taskIndex;
 
@@ -6,7 +11,7 @@ public class DoneCommand extends Command{
     }
 
     @Override
-    public void executeCommand(TaskManager taskManager) throws DukeException{
+    public void executeCommand(TaskManager taskManager) throws DukeException {
         taskManager.markTaskAsDone(taskIndex);
     }
 }

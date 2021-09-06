@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskManager;
+
 public abstract class Command {
     protected static boolean isExit = false;
 
