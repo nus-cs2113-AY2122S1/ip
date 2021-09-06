@@ -9,7 +9,7 @@ public class Duke {
         System.out.println(DIVIDER);
         String line;
         String[] lists = new String[100];
-        String[] flags = new String[100];
+        String[] taskType = new String[100];
         String[] doneTasks = new String[100];
         String[] dates = new String[100];
         Arrays.fill(doneTasks," ");
@@ -17,15 +17,15 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
+            if (line.substring(0,4).equals("list")) {
                 System.out.println(DIVIDER);
                 System.out.println("    " + "Here are the tasks in your list:");
                 for(int i = 0; i < number; i++) {
-                    System.out.print("    " + (i + 1) + ". " + "[" + flags[i] + "]"
+                    System.out.print("    " + (i + 1) + ". " + "[" + taskType[i] + "]"
                             + "[" + doneTasks[i] + "] " + lists[i]);
-                    if(flags[i].equals("D")) {
+                    if(taskType[i].equals("D")) {
                         System.out.println(" (by: " + dates[i] + ")");
-                    } else if (flags[i].equals("E")) {
+                    } else if (taskType[i].equals("E")) {
                         System.out.println(" (at: " + dates[i] + ")");
                     } else {
                         System.out.println(" ");
@@ -38,10 +38,10 @@ public class Duke {
                 System.out.println(DIVIDER);
                 System.out.println("    Nice! I've marked this task as done:");
                 doneTasks[taskDone - 1] = "X";
-                System.out.print("      [" + flags[taskDone - 1] + "][X] " + lists[taskDone - 1]);
-                if(flags[taskDone - 1].equals("D")) {
+                System.out.print("      [" + taskType[taskDone - 1] + "][X] " + lists[taskDone - 1]);
+                if(taskType[taskDone - 1].equals("D")) {
                     System.out.println(" (by: " + dates[taskDone - 1] + ")");
-                } else if (flags[taskDone - 1].equals("E")) {
+                } else if (taskType[taskDone - 1].equals("E")) {
                     System.out.println(" (at: " + dates[taskDone - 1] + ")");
                 } else {
                     System.out.println(" ");
@@ -49,8 +49,17 @@ public class Duke {
                 System.out.println(DIVIDER);
                 line = in.nextLine();
             } else if (line.contains("todo")) {
+                try {
+                    String task = line.substring(5);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println(DIVIDER);
+                    System.out.println("    ☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(DIVIDER);
+                    line = in.nextLine();
+                    continue;
+                }
                 String task = line.substring(5);
-                flags[number] = "T";
+                taskType[number] = "T";
                 lists[number++] = task;
                 System.out.println(DIVIDER);
                 System.out.println("    Got it. I've added this task: ");
@@ -62,7 +71,7 @@ public class Duke {
                 int taskEnd = line.indexOf('/');
                 String task = line.substring(9,taskEnd);
                 dates[number] = line.substring(taskEnd + 4);
-                flags[number] = "D";
+                taskType[number] = "D";
                 lists[number++] = task;
                 System.out.println(DIVIDER);
                 System.out.println("    Got it. I've added this task: ");
@@ -70,16 +79,21 @@ public class Duke {
                 System.out.println("    Now you have " + number + " tasks in the list");
                 System.out.println(DIVIDER);
                 line = in.nextLine();
-            } else if(line.contains("event")) {
+            } else if (line.contains("event")) {
                 int taskEnd = line.indexOf('/');
                 String task = line.substring(6,taskEnd);
                 dates[number] = line.substring(taskEnd + 4);
-                flags[number] = "E";
+                taskType[number] = "E";
                 lists[number++] = task;
                 System.out.println(DIVIDER);
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("      [E][ ] " + task + " (by: " + dates[number - 1] + ")");
                 System.out.println("    Now you have " + number + " tasks in the list");
+                System.out.println(DIVIDER);
+                line = in.nextLine();
+            } else {
+                System.out.println(DIVIDER);
+                System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println(DIVIDER);
                 line = in.nextLine();
             }
