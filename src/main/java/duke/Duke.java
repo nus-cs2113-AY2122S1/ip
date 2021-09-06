@@ -1,7 +1,9 @@
-package duke.util;
+package duke;
 
+import duke.exceptions.DukeException;
 import duke.task.Task;
 import duke.task.TaskManager;
+import duke.util.InputParser;
 import java.util.Scanner;
 
 public class Duke {
@@ -242,7 +244,7 @@ public class Duke {
             try {
                 parseUserInputString(userInputString);
             } catch (DukeException exception) {
-                showErrorMessage(exception.message);
+                showErrorMessage(exception.getMessage());
             }
             break;
         }

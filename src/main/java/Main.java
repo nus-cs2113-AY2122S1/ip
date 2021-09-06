@@ -1,4 +1,4 @@
-import duke.util.Duke;
+import duke.Duke;
 
 public class Main {
 
