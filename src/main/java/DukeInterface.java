@@ -16,16 +16,14 @@ public class DukeInterface {
 
     private final String EXIT_MSG = "=> Come back soon, I'm still hungry \uD83D\uDE0B";
 
-    private final String ERROR_MSG = "Yikes, your input is invalid! (refer to 'help' command)";
-
     private final String HELP_MSG = "Types of Commands Available [\uD83D\uDCAC]:\n"
             + "1. Terminate Duke            -> bye \n"
-            + "1. Print Tasklist            -> list \n"
-            + "1. Print Available Commands  -> help \n"
-            + "2. Add Todos                 -> {todo <task description>}\n"
-            + "3. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
-            + "4. Add Events                -> {event <task description> /by <task date&time>}\n"
-            + "5. Set Task as Done          -> {done <task ID>}";
+            + "2. Print Tasklist            -> list \n"
+            + "3. Print Available Commands  -> help \n"
+            + "4. Add Todos                 -> {todo <task description>}\n"
+            + "5. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
+            + "6. Add Events                -> {event <task description> /at <task date&time>}\n"
+            + "7. Set Task as Done          -> {done <task ID>}";
 
     public void printUserName() {
         System.out.println("\n[You]:");
@@ -43,6 +41,10 @@ public class DukeInterface {
         System.out.print("=> " + message + "\n");
     }
 
+    public void printWithPadding(String message) {
+        System.out.println("   <" + message + ">");
+    }
+
     public void printWelcomeMsg() {
         System.out.println(LOGO);
         printDukeName();
@@ -57,15 +59,6 @@ public class DukeInterface {
     public void printHelpMsg() {
         printDukeName();
         System.out.println(HELP_MSG);
-    }
-
-    public void printErrorMsg() {
-        printDukeName();
-        System.out.println("=> " + ERROR_MSG);
-    }
-
-    public void printWithPadding(String message) {
-        System.out.println("   <" + message + ">");
     }
 
 }
