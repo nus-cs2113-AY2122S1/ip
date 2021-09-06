@@ -22,14 +22,12 @@ public class Duke {
     private static final String COMMAND_ECHO = "echo";
     private static final String COMMAND_HELP = "help";
 
-    private static final String LOGO = " ██████████              █████\n"
-            + "░░███░░░░███            ░░███\n"
-            + " ░███   ░░███ █████ ████ ░███ █████  ██████\n"
-            + " ░███    ░███░░███ ░███  ░███░░███  ███░░███\n"
-            + " ░███    ░███ ░███ ░███  ░██████░  ░███████\n"
-            + " ░███    ███  ░███ ░███  ░███░░███ ░███░░░\n"
-            + " ██████████   ░░████████ ████ █████░░██████\n"
-            + "░░░░░░░░░░     ░░░░░░░░ ░░░░ ░░░░░  ░░░░░░\n";
+    private static final String LOGO = " ______        _\n" +
+            "(______)      | |\n"
+            + " _     _ _   _| |  _ _____\n"
+            + "| |   | | | | | |_/ ) ___ |\n"
+            + "| |__/ /| |_| |  _ (| ____|\n"
+            + "|_____/ |____/|_| \\_)_____)\n";
 
     private static final String GREET_MESSAGE = "Welcome to\n" + LOGO
             + "Hello there! I'm Duke, your very helpful personal assistant chat bot. \uD83D\uDE0A\n"
