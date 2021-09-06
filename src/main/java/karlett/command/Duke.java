@@ -1,3 +1,9 @@
+package karlett.command;
+
+import karlett.task.Deadline;
+import karlett.task.Event;
+import karlett.task.Task;
+
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
