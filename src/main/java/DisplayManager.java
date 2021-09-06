@@ -137,4 +137,16 @@ public class DisplayManager {
             System.out.println(DISPLAY_MESSAGE_INDENT + invalidIndexes[i] + " is not a valid index.");
         }
     }
+
+    public static void printIndexOutOfBoundsError() {
+        printHorizontalSeparator();
+        System.out.println(DISPLAY_MESSAGE_INDENT + "☹ OOPS!!! The description of the command cannot be empty.");
+        printHorizontalSeparator();
+    }
+
+    public static void printDukeExceptionError() {
+        printHorizontalSeparator();
+        System.out.println(DISPLAY_MESSAGE_INDENT + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        printHorizontalSeparator();
+    }
 }

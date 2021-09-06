@@ -17,10 +17,10 @@ public class Duke {
     }
 
     public static void greetEnd(DisplayManager displayManager) {
-        displayManager.printEndGreet();;
+        displayManager.printEndGreet();
     }
 
-    public static void processReply(TaskManager taskManager, String line) {
+    public static void processReply(TaskManager taskManager, String line) throws DukeException{
         String[] inputs = line.split(" ", 2);
         String taskInfo;
         String command = inputs[INDEX_COMMAND];
@@ -46,7 +46,7 @@ public class Duke {
             taskManager.setAsDone(taskInfo);
             break;
         default:
-            break;
+            throw new DukeException();
         }
     }
 
@@ -55,7 +55,13 @@ public class Duke {
 
         line = in.nextLine();
         while (!line.equals(COMMAND_EXIT)) {
-            processReply(taskManager, line);
+            try {
+                processReply(taskManager, line);
+            } catch (IndexOutOfBoundsException e) {
+                DisplayManager.printIndexOutOfBoundsError();
+            } catch (DukeException e) {
+                DisplayManager.printDukeExceptionError();
+            }
             line = in.nextLine();
         }
     }
