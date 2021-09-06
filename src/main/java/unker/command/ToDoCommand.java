@@ -5,7 +5,7 @@ import unker.ui.UI;
 import unker.Unker;
 
 /**
- * Command to add a new {@link ToDo} into the task manager {@link Unker}. 
+ * Command to add a new {@link unker.task.ToDo} into the task manager {@link unker.Unker}. 
  *
  * Usage in UI: todo description
  */

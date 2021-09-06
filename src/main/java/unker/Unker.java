@@ -10,9 +10,6 @@ public class Unker {
 
     private final ArrayList<Task> tasks;
     private static final Unker UNKER_INSTANCE = new Unker();
-    public static final String INVALID_FORMAT_MESSAGE =
-            "Sorry, Unker need you to type this way for me to understand arh (no need brackets):";
-    public static final String ADDED_TASK_MESSAGE = "Okay Unker help you add this to your to-do list:";
 
     private Unker() {
         this.tasks = new ArrayList<>();

@@ -5,7 +5,7 @@ import unker.ui.UI;
 import unker.Unker;
 
 /**
- * Command that lists all {@link Task} added to the task manager {@link Unker} 
+ * Command that lists all {@link unker.task.Task} added to the task manager {@link unker.Unker} 
  *
  * Usage in UI: list 
  */

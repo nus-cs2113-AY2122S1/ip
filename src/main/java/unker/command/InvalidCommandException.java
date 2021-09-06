@@ -2,7 +2,7 @@ package unker.command;
 
 public class InvalidCommandException extends Exception {
     
-    private Command command;
+    private final Command command;
     
     public InvalidCommandException(String message) {
         this(message, null);
