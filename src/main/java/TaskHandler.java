@@ -1,4 +1,5 @@
 public class TaskHandler {
+    
     protected static final int MAX_TASK_COUNT = 100;
     protected static int taskCount = 0;
     protected static Task[] tasks = new Task[MAX_TASK_COUNT];

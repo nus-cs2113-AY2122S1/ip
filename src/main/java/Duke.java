@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+
     public static final String LINE = "    ____________________________________________________________";
     public static final String INDENT = "     ";
     public static final String LINE_SEPARATOR = System.lineSeparator();
