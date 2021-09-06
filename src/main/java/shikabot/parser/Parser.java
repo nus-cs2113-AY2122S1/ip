@@ -17,6 +17,14 @@ public class Parser {
     public static final int NUMBER_FORMAT_ERROR = 3;
     public static final int NEGATIVE_INDEX_ERROR = 4;
     public static final int INVALID_TASK = 5;
+    public static final int EMPTY_FIELD = 6;
+
+    private static final int DONE_LENGTH = 4;
+    private static final int TODO_LENGTH = 4;
+    private static final int DEADLINE_LENGTH = 8;
+    private static final int EVENT_LENGTH = 5;
+    private static final int DELETE_LENGTH = 6;
+    private static final int DIVIDER_LENGTH = 3;
 
     public boolean isAddCommand(String text) {
         return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
@@ -42,7 +50,7 @@ public class Parser {
     }
 
     private Command parseDoneCommand(String text) {
-        String str = text.substring(text.indexOf("done") + 4).trim();
+        String str = text.substring(text.indexOf("done") + DONE_LENGTH).trim();
         int index;
         try {
             index = Integer.parseInt(str) - 1;
@@ -60,7 +68,7 @@ public class Parser {
     }
 
     private Command parseDeleteCommand(String text) {
-        String str = text.substring(text.indexOf("delete") + 6).trim();
+        String str = text.substring(text.indexOf("delete") + DELETE_LENGTH).trim();
         int index;
         try {
             index = Integer.parseInt(str) - 1;
@@ -80,43 +88,54 @@ public class Parser {
     private Command parseAddCommand(String text) {
         Command command;
         if (text.startsWith("todo")) {
-            command = parseAddTodoCommand(text);
+            try {
+                command = parseAddTodoCommand(text);
+            } catch (EmptyFieldException e) {
+                return new FailedCommand(EMPTY_FIELD);
+            }
         } else if (text.startsWith("deadline")) {
             try {
                 command = parseAddDeadlineCommand(text);
             } catch (Task.InvalidTaskException e) {
                 return new FailedCommand(INVALID_DEADLINE_SYNTAX);
+            } catch (EmptyFieldException e) {
+                return new FailedCommand(EMPTY_FIELD);
             }
         } else {
             try {
                 command = parseAddEventCommand(text);
             } catch (Task.InvalidTaskException e) {
                 return new FailedCommand(INVALID_EVENT_SYNTAX);
+            } catch (EmptyFieldException e) {
+                return new FailedCommand(EMPTY_FIELD);
             }
         }
         return command;
     }
 
-    private Command parseAddTodoCommand(String text) {
-        String name = text.substring(text.indexOf("todo") + 4).trim();
+    private Command parseAddTodoCommand(String text) throws EmptyFieldException {
+        String name = text.substring(text.indexOf("todo") + TODO_LENGTH).trim();
+        if (name.equals("")) throw new EmptyFieldException();
         return new AddCommand('T', name, "");
     }
 
-    private Command parseAddDeadlineCommand(String text) throws Task.InvalidTaskException {
+    private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
         if (!text.contains("/by")) {
             throw new Task.InvalidTaskException();
         }
-        String name = text.substring(text.indexOf("deadline") + 8, text.indexOf("/")).trim();
-        String by = text.substring(text.indexOf("/by") + 3).trim();
+        String name = text.substring(text.indexOf("deadline") + DEADLINE_LENGTH, text.indexOf("/")).trim();
+        String by = text.substring(text.indexOf("/by") + DIVIDER_LENGTH).trim();
+        if (name.equals("") || by.equals("")) throw new EmptyFieldException();
         return new AddCommand('D', name, by);
     }
 
-    private Command parseAddEventCommand(String text) throws Task.InvalidTaskException {
+    private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
         if (!text.contains("/at")) {
             throw new Task.InvalidTaskException();
         }
-        String name = text.substring(text.indexOf("event") + 5, text.indexOf("/")).trim();
-        String at = text.substring(text.indexOf("/at") + 3).trim();
+        String name = text.substring(text.indexOf("event") + EVENT_LENGTH, text.indexOf("/")).trim();
+        String at = text.substring(text.indexOf("/at") + DIVIDER_LENGTH).trim();
+        if (name.equals("") || at.equals("")) throw new EmptyFieldException();
         return new AddCommand('E', name, at);
     }
 

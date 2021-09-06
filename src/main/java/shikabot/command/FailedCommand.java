@@ -2,7 +2,12 @@ package shikabot.command;
 
 import shikabot.ui.TextUi;
 
-import static shikabot.parser.Parser.*;
+import static shikabot.parser.Parser.EMPTY_FIELD;
+import static shikabot.parser.Parser.INVALID_DEADLINE_SYNTAX;
+import static shikabot.parser.Parser.INVALID_EVENT_SYNTAX;
+import static shikabot.parser.Parser.INVALID_TASK;
+import static shikabot.parser.Parser.NEGATIVE_INDEX_ERROR;
+import static shikabot.parser.Parser.NUMBER_FORMAT_ERROR;
 
 public class FailedCommand extends Command{
 
@@ -31,6 +36,8 @@ public class FailedCommand extends Command{
         case (INVALID_TASK):
             ui.printInvalidTaskMessage();
             break;
+        case (EMPTY_FIELD):
+            ui.printEmptyFieldMessage();
         default:
             break;
         }
