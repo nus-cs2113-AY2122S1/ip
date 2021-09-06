@@ -1,3 +1,5 @@
+package duke.taskType;
+
 /**
  * This class responsible for creating Task objects. It includes their
  * description and tracks if the task object "isDone". It is the superclass

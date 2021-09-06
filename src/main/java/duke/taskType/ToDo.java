@@ -1,3 +1,5 @@
+package duke.taskType;
+
 /**
  * ToDo class which is a subclass of Task. It extends Task by providing
  * its own printing format.

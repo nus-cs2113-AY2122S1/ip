@@ -1,3 +1,5 @@
+package duke.exceptionHandler;
+
 /**
  * This is the DukeException Handler and is only targeted at Duke.java class.
  *

@@ -1,9 +1,19 @@
+package duke;
+
 /**
  * This is the main class of the chat bot app that helps user remember their different
  * types of task and "parrot" the task back to them when they request.
  *
  * @author YEOWEIHNGWHYELAB
  */
+
+import duke.commandHandler.CommandHandling;
+import duke.exceptionHandler.DukeException;
+import duke.taskType.Deadline;
+import duke.taskType.Event;
+import duke.taskType.Task;
+import duke.taskType.ToDo;
+import duke.textPrinter.PrintTextFile;
 
 import java.util.Scanner;
 

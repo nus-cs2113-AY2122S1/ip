@@ -1,3 +1,5 @@
+package duke.commandHandler;
+
 /**
  * CommandHandling class helps to check the type of command given.
  *

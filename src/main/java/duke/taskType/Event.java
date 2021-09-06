@@ -1,3 +1,5 @@
+package duke.taskType;
+
 /**
  * Event class which is a subclass of Task. It extends Task by providing
  * its own printing format, and it also has a time "at" parameter added.

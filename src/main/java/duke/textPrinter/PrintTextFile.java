@@ -1,3 +1,5 @@
+package duke.textPrinter;
+
 /**
  * This class allows printing of a text file in the specified directory. It creates
  * objects based on their fileDirectory.
