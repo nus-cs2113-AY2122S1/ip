@@ -1,7 +1,16 @@
+random
+todo
+deadline
+deadline return book /by
+event
+event Exco+ meeting /at
 todo buy food
 deadline return book /by 2 Sep
 event Exco+ meeting /at OYP this sat 10-12pm
 list
 done 1
 list
+done 5
+done a
+done
 bye
