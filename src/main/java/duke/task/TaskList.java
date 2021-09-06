@@ -1,3 +1,9 @@
+package duke.task;
+
+import duke.exception.DukeException;
+import duke.exception.ExceptionMessages;
+import duke.PrintUtils;
+
 public class TaskList {
 
     //Output messages
@@ -16,8 +22,8 @@ public class TaskList {
     }
 
 
-    public void addTask(Task task) throws DukeException{
-        if (task.getDescription() == "") {
+    public void addTask(Task task) throws DukeException {
+        if (task.getDescription().equals("")) {
             throw new DukeException(ExceptionMessages.EXCEPTION_NO_DESCRIPTION);
         }
         PrintUtils.printHorizontalLine();
