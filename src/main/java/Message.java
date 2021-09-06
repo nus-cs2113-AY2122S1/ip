@@ -11,7 +11,8 @@ public class Message {
      *
      * @return PEPE.
      */
-    public static String printPepe() {
+    public static String printDuke() {
+
         String poggers = "⠄⠰⠛⠋⢉⣡⣤⣄⡉⠓⢦⣀⠙⠉⠡⠔⠒⠛⠛⠛⠶⢶⣄⠘⢿⣷⣤⡈⠻⣧\n" +
                          "⢀⡔⠄⠄⠄⠙⣿⣿⣿⣷⣤⠉⠁⡀⠐⠒⢿⣿⣿⣿⣶⣄⡈⠳⢄⣹⣿⣿⣾⣿\n" +
                          "⣼⠁⢠⡄⠄⠄⣿⣿⣿⣿⡟⠄⡐⠁⡀⠄⠈⣿⣿⣿⣿⣿⣷⣤⡈⠻⣿⣿⣿⣿\n" +
@@ -48,7 +49,7 @@ public class Message {
      * @return welcome message.
      */
     public static String printWelcome() {
-        String welcomeMessage = printPepe() + "Poggers! I'm Pepe\n"
+        String welcomeMessage = printDuke() + "Poggers! I'm Pepe\n"
                 + "What can I do for you?";
 
         return welcomeMessage;

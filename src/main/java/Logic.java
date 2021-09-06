@@ -2,7 +2,7 @@
  * Logic class runs the main logic of the programme.
  */
 public class Logic {
-    protected static int lIST_INDEX = 0;
+    protected static int LIST_INDEX = 0;
     protected static int LIST_LENGTH = 100;
     private static UserInterface userInterface;
     protected static Task[] Tasks = new Task[LIST_LENGTH];
@@ -24,18 +24,22 @@ public class Logic {
         userInterface.printMessage(Message.printWelcome());
         boolean isExit = false;
         while (!isExit) {
-            //get input
-            String inputCommand = userInterface.getInput();
-            //parse input
-            Parser parseInput = new Parser(inputCommand);
-            //put parsed input into Command object
-            Command commandHandler = new Command(parseInput.getCommand(),parseInput.getDescription(),parseInput.getDate());
-            //get appropriate message
-            String commandMessage =commandHandler.executeCommand();
-            //print out message
-            userInterface.printMessage(commandMessage);
-            //see whether to exit the program
-            isExit = commandHandler.getExitStatus();
+            try {
+                //get input
+                String inputCommand = userInterface.getInput();
+                //parse input
+                Parser parseInput = new Parser(inputCommand);
+                //put parsed input into Command object
+                Command commandHandler = new Command(parseInput.getCommand(), parseInput.getDescription(), parseInput.getDate());
+                //get appropriate message
+                String commandMessage = commandHandler.executeCommand();
+                //print out message
+                userInterface.printMessage(commandMessage);
+                //see whether to exit the program
+                isExit = commandHandler.getExitStatus();
+            } catch (DukeException e) {
+                userInterface.printMessage(e.getErrorMessage());
+            }
         }
     }
 }
