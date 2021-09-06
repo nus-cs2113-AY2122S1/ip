@@ -14,6 +14,10 @@ public class TaskManager {
     private static final String SEPARATOR_BY = " /by ";
     private static final String SEPARATOR_AT = " /at ";
 
+    private static final int LENGTH_TODO = 4;
+    private static final int LENGTH_DEADLINE = 8;
+    private static final int LENGTH_EVENT = 5;
+
     private static final String DIVIDER = "    ____________________________________________________________";
 
     private Task[] tasks;
@@ -38,68 +42,136 @@ public class TaskManager {
                 String[] inputs = userInput.split(SEPARATOR_SPACE);
                 int taskDoneNumber = Integer.parseInt(inputs[1]);
 
-                setTaskDone(taskDoneNumber - 1);
+                setTaskDoneWithException(taskDoneNumber - 1);
             } else {
-                addTask(userInput);
+                try {
+                    addTask(userInput);
+                } catch (WrongCommandException e) {
+                    printHorizontalLine();
+                    System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    printHorizontalLine();
+                }
+
             }
         }
     }
 
-    private void addTask(String taskInput) {
+    private void addTask(String taskInput) throws WrongCommandException {
         if(taskInput.startsWith(COMMAND_TODO)) {
-            addTodoTask(taskInput);
+            addTodoTaskWithException(taskInput);
         } else if (taskInput.startsWith(COMMAND_DEADLINE)) {
-            addDeadlineTask(taskInput);
+            addDeadlineTaskWithException(taskInput);
         } else if(taskInput.startsWith(COMMAND_EVENT)) {
-            addEventTask(taskInput);
+            addEventTaskWithException(taskInput);
         } else {
-            addNormalTask(taskInput);
+            throw new WrongCommandException();
         }
-
-        printAddTaskMessage();
     }
 
-    private void addNormalTask(String taskInput) {
-        tasks[numberOfTasks] = new Task(taskInput);
-        numberOfTasks++;
+
+    private void addTodoTaskWithException(String taskInput) {
+        try {
+            addTodoTask(taskInput);
+            printAddTaskMessage();
+        } catch (EmptyDescriptionException e) {
+            printHorizontalLine();
+            System.out.println("     ☹ OOPS!!! The description of a todo cannot be empty.");
+            printHorizontalLine();
+        }
     }
 
-    private void addTodoTask(String taskInput) {
-        String taskName = taskInput.substring(5);
+    private void addTodoTask(String taskInput) throws EmptyDescriptionException {
+        String taskName = taskInput.substring(LENGTH_TODO).trim();
+        if(taskName.length() == 0) {
+            throw new EmptyDescriptionException();
+        }
         tasks[numberOfTasks] = new Todo(taskName);
         numberOfTasks++;
     }
 
-    private void addDeadlineTask(String taskInput) {
-        String taskDescriptionAndDeadline = taskInput.substring(9);
+    private void addDeadlineTask(String taskInput) throws EmptyDescriptionException, MissingInformationException {
+        String taskDescriptionAndDeadline = taskInput.substring(LENGTH_DEADLINE).trim();
+        if(taskDescriptionAndDeadline.length() == 0) {
+            throw new EmptyDescriptionException();
+        }
+
         String[] taskDescriptionAndDeadlineArray = taskDescriptionAndDeadline.split(SEPARATOR_BY);
+        if(taskDescriptionAndDeadlineArray.length == 1) {
+            throw new MissingInformationException();
+        }
+
         String taskDescription = taskDescriptionAndDeadlineArray[0];
         String deadline = taskDescriptionAndDeadlineArray[1];
         tasks[numberOfTasks] = new Deadline(taskDescription, deadline);
         numberOfTasks++;
     }
 
-    private void addEventTask(String taskInput) {
-        String taskDescriptionAndStartTime = taskInput.substring(6);
+    private void addDeadlineTaskWithException(String taskInput) {
+        try {
+            addDeadlineTask(taskInput);
+            printAddTaskMessage();
+        } catch (EmptyDescriptionException e) {
+            printHorizontalLine();
+            System.out.println("     ☹ OOPS!!! The description of a deadline cannot be empty.");
+            printHorizontalLine();
+        } catch (MissingInformationException e) {
+            printHorizontalLine();
+            System.out.println("     ☹ OOPS!!! Please follow this deadline format: {task_description} /by {deadline}");
+            printHorizontalLine();
+        }
+    }
+
+    private void addEventTask(String taskInput) throws EmptyDescriptionException, MissingInformationException{
+        String taskDescriptionAndStartTime = taskInput.substring(LENGTH_EVENT).trim();
+        if(taskDescriptionAndStartTime.length() == 0) {
+            throw new EmptyDescriptionException();
+        }
+
         String[] taskDescriptionAndStartTimeArray = taskDescriptionAndStartTime.split(SEPARATOR_AT);
+        if(taskDescriptionAndStartTimeArray.length == 1) {
+            throw new MissingInformationException();
+        }
+
         String taskDescription = taskDescriptionAndStartTimeArray[0];
         String deadline = taskDescriptionAndStartTimeArray[1];
         tasks[numberOfTasks] = new Event(taskDescription, deadline);
         numberOfTasks++;
     }
 
-    private void setTaskDone(int taskIndex) {
+    private void addEventTaskWithException(String taskInput) {
+        try {
+            addEventTask(taskInput);
+            printAddTaskMessage();
+        } catch (EmptyDescriptionException e) {
+            printHorizontalLine();
+            System.out.println("     ☹ OOPS!!! The description of an event cannot be empty.");
+            printHorizontalLine();
+        } catch (MissingInformationException e) {
+            printHorizontalLine();
+            System.out.println("     ☹ OOPS!!! Please follow this deadline format: {event_description} /at {date/time}");
+            printHorizontalLine();
+        }
+    }
+
+    private void setTaskDone(int taskIndex) throws IndexTooSmallException, IndexTooBigException{
         if(taskIndex < 0) {
-            printTaskIndexTooSmallMessage();
-            return;
+            throw new IndexTooSmallException();
         }
         if(taskIndex > numberOfTasks - 1){
-            printTaskIndexTooBigMessage();
-            return;
+            throw new IndexTooBigException();
         }
-
         tasks[taskIndex].markAsDone();
         printMarkAsDoneMessage(taskIndex);
+    }
+
+    private void setTaskDoneWithException(int taskIndex) {
+        try {
+            setTaskDone(taskIndex);
+        } catch (IndexTooSmallException e) {
+            printTaskIndexTooSmallMessage();
+        } catch (IndexTooBigException e) {
+            printTaskIndexTooBigMessage();
+        }
     }
 
     private void printAddTaskMessage() {
