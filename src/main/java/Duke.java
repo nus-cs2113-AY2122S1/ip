@@ -13,7 +13,7 @@ public class Duke {
     }
 
     public static String getCommand(String userInput) {
-        String[] input = userInput.trim().split(" ");
+        String[] input = userInput.trim().toLowerCase().split(" ");
         return input[0];
     }
 
@@ -60,13 +60,16 @@ public class Duke {
     }
 
     public static void taskManager(String input, Task[] tasks) {
-        int dividePos = input.trim().indexOf(" ");
-        String taskType = input.trim().substring(0, dividePos).toLowerCase();
-
-        if (taskType.equalsIgnoreCase("todo")) {
+        String taskType = getCommand(input);
+        switch (taskType) {
+        case ("todo"):
             addTodo(input, tasks);
-        } else if (taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
+            break;
+        case ("deadline"):
+        case ("event"):
             addDeadlineOrEvent(input, tasks);
+            break;
+        default: //add error here
         }
         taskManagerMessage(tasks);
         taskCount++;
