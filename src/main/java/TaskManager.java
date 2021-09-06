@@ -46,6 +46,14 @@ public class TaskManager {
         System.out.println("Slow down there bud! You've already completed this task!");
     }
 
+    public static void printEmptyIndexAfterDoneMessage() {
+        System.out.println("Hey bud, the format for marking off a task is :done [index]");
+    }
+
+    public static void printEmptyArgumentMessage(String command) {
+        System.out.println("Sorry bud! The description after " + command + " can't be blank!");
+    }
+
     public static void printGenericErrorMessage() {
         System.out.println("Oops! Something went wrong :(");
     }
@@ -98,12 +106,18 @@ public class TaskManager {
         taskCount++;
     }
 
-    public void addNewDeadline(String description, String byDateTime) {
+    public void addNewDeadline(String line) {
+        String[] descriptionAndByTimeArray = line.split(SEPARATOR_BY);
+        String byDateTime = descriptionAndByTimeArray[1];
+        String description = descriptionAndByTimeArray[0].substring(DEADLINE_DESCRIPTION_START_INDEX);
         tasks[taskCount] = new Deadline(description, byDateTime);
         taskCount++;
     }
 
-    public void addNewEvent(String description, String startAndEndTime) {
+    public void addNewEvent(String line) {
+        String[] descriptionAndAtTimeArray = line.split(SEPARATOR_AT);
+        String startAndEndTime = descriptionAndAtTimeArray[1];
+        String description = descriptionAndAtTimeArray[0].substring(EVENT_DESCRIPTION_START_INDEX);
         tasks[taskCount] = new Event(description, startAndEndTime);
         taskCount++;
     }
@@ -129,12 +143,19 @@ public class TaskManager {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public void markAsDone(Task task) {
-        if (task.getStatusIcon().equals(ICON_DONE)) {
-            printAlreadyDoneMessage();
+    public void markAsDone(Task[] tasks, String index) {
+
+        int doneIndex = Integer.parseInt(index) - 1;
+
+        if (doneIndex >= taskCount || doneIndex < 0) {
+            printInvalidDoneMessage();
         } else {
-            task.setDone();
-            printMarkAsDoneMessage(task);
+            if (tasks[doneIndex].getStatusIcon().equals(ICON_DONE)) {
+                printAlreadyDoneMessage();
+            } else {
+                tasks[doneIndex].setDone();
+                printMarkAsDoneMessage(tasks[doneIndex]);
+            }
         }
     }
 
@@ -150,40 +171,21 @@ public class TaskManager {
             printLine();
             String[] lineArgs = line.split(SEPARATOR_SPACE);
             String command = lineArgs[0];
-            if (line.equals(COMMAND_LIST)) {
+            if (command.equals(COMMAND_LIST)) {
                 printTaskList(taskCount, tasks);
             } else if (command.equals(COMMAND_DONE)) {
-                int doneIndex = Integer.parseInt(lineArgs[1]) - 1;
-                if (doneIndex >= taskCount || doneIndex < 0) {
-                    printInvalidDoneMessage();
-                } else {
-                    markAsDone(tasks[doneIndex]);
-                }
+                markAsDone(tasks, lineArgs[1]);
+            } else if (command.equals(COMMAND_TODO)) {
+                addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
+                printAddedTaskMessage(tasks[taskCount - 1]);
+            } else if (command.equals(COMMAND_DEADLINE)) {
+                addNewDeadline(line);
+                printAddedTaskMessage(tasks[taskCount - 1]);
+            } else if (command.equals(COMMAND_EVENT)) {
+                addNewEvent(line);
+                printAddedTaskMessage(tasks[taskCount - 1]);
             } else {
-                if (command.equals(COMMAND_TODO)) {
-
-                    addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks[taskCount - 1]);
-
-                } else if (command.equals(COMMAND_DEADLINE)) {
-
-                    String[] descriptionAndByTimeArray = line.split(SEPARATOR_BY);
-                    String byTime = descriptionAndByTimeArray[1];
-                    String description = descriptionAndByTimeArray[0].substring(DEADLINE_DESCRIPTION_START_INDEX);
-                    addNewDeadline(description, byTime);
-                    printAddedTaskMessage(tasks[taskCount - 1]);
-
-                } else if (command.equals(COMMAND_EVENT)) {
-
-                    String[] descriptionAndAtTimeArray = line.split(SEPARATOR_AT);
-                    String atTime = descriptionAndAtTimeArray[1];
-                    String description = descriptionAndAtTimeArray[0].substring(EVENT_DESCRIPTION_START_INDEX);
-                    addNewEvent(description, atTime);
-                    printAddedTaskMessage(tasks[taskCount - 1]);
-
-                } else {
-                    printGenericErrorMessage();
-                }
+                printGenericErrorMessage();
             }
 
             printLine();
