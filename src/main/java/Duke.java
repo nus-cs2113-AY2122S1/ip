@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui();
@@ -16,10 +14,21 @@ public class Duke {
                 break;
             }
 
-            msg = parser.parse(command);
+            msg = runCommand(command);
             ui.print(msg);
         }
 
         ui.bye();
+    }
+
+    public static String runCommand(String command) {
+        String msg;
+
+        try {
+            msg = Parser.parse(command);
+            return msg;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }
