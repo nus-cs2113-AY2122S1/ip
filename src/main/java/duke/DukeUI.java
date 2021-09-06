@@ -1,3 +1,10 @@
+package duke;
+
+import duke.exception.EmptyDescriptionException;
+import duke.exception.MissingParameterException;
+import duke.exception.TaskNotFoundException;
+import duke.exception.WrongCommandException;
+
 public class DukeUI {
     private static final int DEFAULT_LINE_LENGTH = 60;
     private static final String LINEBREAK = System.lineSeparator();
@@ -44,11 +51,11 @@ public class DukeUI {
             drawHorizontalLine();
             System.out.println("☹ OOPS!!! Your command is missing some variables.");
             drawHorizontalLine();
-        }else if (e instanceof TaskNotFoundException) {
+        } else if (e instanceof TaskNotFoundException) {
             drawHorizontalLine();
             System.out.println("☹ OOPS!!! The task you are looking for can't be found :-(");
             drawHorizontalLine();
-        }else {
+        } else {
             drawHorizontalLine();
             System.out.println("☹ OOPS!!! Something wrong with the system");
             drawHorizontalLine();
