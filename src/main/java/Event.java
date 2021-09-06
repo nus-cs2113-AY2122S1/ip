@@ -14,6 +14,7 @@ public class Event extends Task {
     Event(String description, String at) {
         super(description);
         this.at = at;
+        this.taskType = TaskType.EVENT;
     }
 
     /**

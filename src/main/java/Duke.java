@@ -55,9 +55,9 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
 
-        while (!(userInput.equals("bye"))) {
-            if (userInput.equals("list")) {
-                List();
+        while (!(userInput.equalsIgnoreCase("bye"))) {
+            if (userInput.equalsIgnoreCase("list")) {
+                list();
             } else if (userInput.startsWith("done")) {
                 markTaskAsDone(userInput);
             } else {
@@ -78,14 +78,14 @@ public class Duke {
     }
 
     /**
-     * Adds the task to the task list if its a valid task creation statement given by the user.
+     * Adds the task to the task list if it is a valid task creation statement given by the user.
      * Displays appropriate message if task is valid and is created successfully, vice versa.
      * Displays the total number of tasks in the list as well.
      *
      * @param taskDescription TaskDescription Stores the description of the task.
      * @param taskDueBy       TaskDueBy stores the deadline of the task which is created as a deadline.
      * @param taskDueAt       TaskDueAt stores the event timing of the task created as an event.
-     * @param isTaskValid     IsTaskValid stores true if the task statement emtered by the user is a valid task creation statement and fasle, otherwise.
+     * @param isTaskValid     IsTaskValid stores true if the task statement entered by the user is a valid task creation statement and false, otherwise.
      * @param index           Index stores the index of the "/" in the entered String
      */
     private static void addTaskToList(String userInput) {
@@ -142,7 +142,7 @@ public class Duke {
      *
      * @param taskCompletionStatus TaskCompletionStatus stores true if the task is completed, false otherwise.
      */
-    private static void List() {
+    private static void list() {
         int i;
         String taskCompletionStatus;
         printLine();

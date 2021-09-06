@@ -3,6 +3,7 @@ public class Task {
      * Stores the task description.
      */
     protected String description;
+    protected TaskType taskType;
 
     /**
      * Stores true if task is done and false otherwise.
@@ -15,6 +16,7 @@ public class Task {
     public Task() {
         this.description = "";
         this.isDone = false;
+        this.taskType = TaskType.NONE;
     }
 
 

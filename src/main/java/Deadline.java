@@ -13,6 +13,7 @@ public class Deadline extends Task {
     Deadline(String description, String by) {
         super(description);
         this.by = by;
+        this.taskType = TaskType.DEADLINE;
     }
 
     /**
