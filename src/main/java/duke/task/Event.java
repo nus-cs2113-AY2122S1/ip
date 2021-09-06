@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task {
 
     final private static String FLAG_TYPE = "[E]";

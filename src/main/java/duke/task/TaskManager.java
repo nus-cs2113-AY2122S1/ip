@@ -1,3 +1,5 @@
+package duke.task;
+
 public class TaskManager {
 
     private Task[] tasksList;
