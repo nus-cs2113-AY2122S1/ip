@@ -1,3 +1,4 @@
+import exceptions.*;
 import todo.Deadline;
 import todo.Event;
 import todo.Task;
@@ -15,6 +16,7 @@ public class Duke {
     private static int tasksTotal = 0;
     private static int tasksDone = 0;
     private static Task[] tasks;
+    private static String[] commands = {"todo", "event", "deadline"};
 
     public static void main(String[] args) {
         int LIST_SIZE = 100;
@@ -26,13 +28,19 @@ public class Duke {
             line = in.nextLine();
             assert line != null;
             String[] words = line.split(" ", 2);
-            checkValidCommand(words);
+            try{
+                checkValidCommand(words);
+            } catch (InvalidCommandError e) {
+                System.out.println("Invalid command. Try again!");
+            }
+
         }
         return;
     }
 
-    private static void checkValidCommand(String[] words) {
+    private static void checkValidCommand(String[] words) throws InvalidCommandError {
         String command = words[0];
+
         if (command.equals("done")) { //Checks what is the command
             int index = Integer.parseInt(words[1]);
             tasks[index].setDone(true);
@@ -43,7 +51,28 @@ public class Duke {
             showByeScreen();
             return;
         } else { //is a valid task
+            checkValidInput(words);
+        }
+    }
+
+    private static void checkValidInput(String[] words) {
+        try{
             splitInput(words);
+        } catch (EmptyDescriptionError e) {
+            System.out.println("Missing description!!!");
+            Task.printDivider();
+        } catch (MissingDateError e) {
+            System.out.println("Missing date!!");
+            Task.printDivider();
+        } catch (InvalidDescriptionError e) {
+            System.out.println("Description cannot be whitespace!!");
+            Task.printDivider();
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.print("Something went wrong! Please try again!");
+            Task.printDivider();
+        } catch (EmptyDateError e) {
+            System.out.println("Date cannot be empty!");
+            Task.printDivider();
         }
     }
 
@@ -57,21 +86,48 @@ public class Duke {
         Task.printDivider();
     }
 
-    private static void splitInput(String[] words) {
+    private static void splitInput(String[] words)
+            throws EmptyDescriptionError, MissingDateError, InvalidDescriptionError, EmptyDateError {
         String task = null;
         String date = null;
         String type = words[0];
+        if(words.length <= 1) {
+            throw new EmptyDescriptionError();
+        } else if(checkEmptyDescription(words[1])) {
+            throw new InvalidDescriptionError(); //check that description is not just whitespaces
+        }
+
         String[] taskDescription = words[1].split("/", 2); //removes command and splits into action and date
-        if (taskDescription.length > 1) {
+        if(taskDescription.length <= 1) {
+            if(type.equals("todo")){ //todo command
+                task = words[1];
+            } else { //any other commands which requires dates
+                throw new MissingDateError();
+            }
+        }
+        else { //have action and date
             String[] inputDate = taskDescription[1].split(" ", 2); //extract date without prefix
+            if(checkEmptyDate(inputDate)) {
+                throw new EmptyDateError();
+            }
             task = taskDescription[0].trim();
             date = inputDate[1];
-        } else {
-            task = words[1];
         }
 
         checkValidAction(words, task, date, type);
     }
+
+    private static Boolean checkEmptyDate(String[] input) {
+        if(input.length == 1 || input[1].trim().length() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private static Boolean checkEmptyDescription(String word) {
+        return word.trim().length() == 0;
+    }
+
 
     private static void checkValidAction(String[] words, String task, String date,
                                          String type) {
