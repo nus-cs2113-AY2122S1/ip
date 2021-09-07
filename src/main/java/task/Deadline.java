@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 public class Deadline extends Task {
     private String time;
 
@@ -14,7 +18,7 @@ public class Deadline extends Task {
         return time;
     }
 
-    public String printStatus() {
+    public String toString() {
         return "[d] [" + getStatus() + "] " + getDescription()
                 + " (By: " + time + ")";
     }
