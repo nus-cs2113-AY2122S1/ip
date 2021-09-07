@@ -13,51 +13,76 @@ public class Duke {
         String[] inputWords = userInput.split(" ");
         String userCommand = inputWords[0];
 
-        switch (userCommand) {
-        case "bye":
+        try {
+            switch (userCommand) {
+            case "bye":
+                System.out.println("-------------------------------------");
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("-------------------------------------");
+                break;
+            case "list":
+                System.out.println("-------------------------------------");
+                System.out.println("Here are the tasks in your list:");
+                showList();
+                System.out.println("-------------------------------------");
+                handleCommand();
+                break;
+            case "done":
+                System.out.println("-------------------------------------");
+                System.out.println("Nice! I've marked this task as done:");
+                markTaskAsDone(inputWords[1]);
+                System.out.println("-------------------------------------");
+                handleCommand();
+                break;
+            case "deadline":
+                addDeadlineOrEventTask(inputWords, "deadline");
+                handleCommand();
+                break;
+            case "event":
+                addDeadlineOrEventTask(inputWords, "event");
+                handleCommand();
+                break;
+            case "todo":
+                addTodoTask(inputWords);
+                handleCommand();
+                break;
+            default:
+                throw new InvalidCommandException();
+
+            }
+        } catch (InvalidCommandException e) {
             System.out.println("-------------------------------------");
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println("-------------------------------------");
-            break;
-        case "list":
-            System.out.println("-------------------------------------");
-            System.out.println("Here are the tasks in your list:");
-            showList();
+            System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
+            System.out.println("Available commands: deadline, todo, event, done, list, bye");
             System.out.println("-------------------------------------");
             handleCommand();
-            break;
-        case "done":
+        } catch (EmptyCommandArgumentException e) {
             System.out.println("-------------------------------------");
-            System.out.println("Nice! I've marked this task as done:");
-            markTaskAsDone(inputWords[1]);
-            System.out.println("-------------------------------------");
-            handleCommand();
-            break;
-        case "deadline":
-            System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:");
-            addDeadlineOrEventTask(inputWords, "deadline");
+            System.out.println("OOPS! The description of deadline/event/todo cannot be empty! " +
+                    "Please follow this format:");
+            System.out.println("deadline <your task here> /by <your deadline time>");
+            System.out.println("event <your task here> /at <your event time period>");
+            System.out.println("todo <your task here>");
             System.out.println("-------------------------------------");
             handleCommand();
-            break;
-        case "event":
+        } catch (InvalidCommandSeparatorException e) {
             System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:");
-            addDeadlineOrEventTask(inputWords, "event");
-            System.out.println("-------------------------------------");
-            handleCommand();
-            break;
-        default:
-            System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:");
-            addTodoTask(inputWords);
+            System.out.println("OOPS! The deadline/event description must be separated from " +
+                    "the time using '/by' or '/at'. Please follow this format:");
+            System.out.println("deadline <your task here> /by <your deadline time>");
+            System.out.println("event <your task here> /at <your event time period>");
             System.out.println("-------------------------------------");
             handleCommand();
-            break;
         }
     }
 
-    public void addDeadlineOrEventTask(String[] inputWords, String type) {
+    public void addDeadlineOrEventTask(String[] inputWords, String type)
+            throws EmptyCommandArgumentException, InvalidCommandSeparatorException {
+        // Throw exception where command argument is empty
+        if (inputWords.length < 2) {
+            throw new EmptyCommandArgumentException();
+        }
+
         // Find separator index
         int separatorIndex = -1;
         for (int i = 1; i < inputWords.length; i++) {
@@ -65,6 +90,11 @@ public class Duke {
                 separatorIndex = i;
                 break;
             }
+        }
+
+        // Throw exception where separator is not found
+        if (separatorIndex == -1) {
+            throw new InvalidCommandSeparatorException();
         }
 
         // Set description
@@ -84,18 +114,33 @@ public class Duke {
         } else {
             taskList[listSize] = new Event(description, time);
         }
+
+        System.out.println("-------------------------------------");
+        System.out.println("Got it. I've added this task:");
         System.out.println(taskList[listSize]);
+        System.out.println("-------------------------------------");
+
         listSize++;
     }
 
-    public void addTodoTask(String[] inputWords) {
+    public void addTodoTask(String[] inputWords) throws EmptyCommandArgumentException {
+        // Throw exception where command argument is empty
+        if (inputWords.length < 2) {
+            throw new EmptyCommandArgumentException();
+        }
+
         String description = inputWords[1];
         for (int i = 2; i < inputWords.length; i++) {
             description = description + " " + inputWords[i];
         }
 
         taskList[listSize] = new Todo(description);
+
+        System.out.println("-------------------------------------");
+        System.out.println("Got it. I've added this task:");
         System.out.println(taskList[listSize]);
+        System.out.println("-------------------------------------");
+
         listSize++;
     }
 
