@@ -1,5 +1,7 @@
 package kitty.task;
 
+import kitty.Kitty;
+import kitty.KittyException;
 import kitty.Parser;
 
 public class Deadline extends Task{
@@ -10,26 +12,25 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
-    public static void addDeadlineTask(Task[] tasks, String line) {
-        // Get Deadline Name
-        String taskName;
-        if (Parser.hasDeadline(line)) {
-            taskName = Parser.getDeadlineTaskName(line);
+    public static void addDeadlineTask(String line) throws KittyException {
+        if (!Parser.hasDeadline(line)) {
+            throw new KittyException("Deadline formatting is incorrect!");
         } else {
-            taskName = Parser.getTaskName(line);
-        }
+            try {
+                // Get Deadline Name
+                String taskName = Parser.getDeadlineTaskName(line);
 
-        // Get Deadline Date
-        String deadline;
-        if (Parser.hasDeadline(line)) {
-            deadline = Parser.getDeadlineDate(line);
-        } else {
-            deadline = "No Deadline!";
-        }
+                // Get Deadline Date
+                String deadline = Parser.getDeadlineDate(line);
 
-        // Add Deadline Task
-        tasks[Task.totalTasksCount] = new Deadline(taskName, deadline);
+                // Add Deadline Task
+                Kitty.tasks[Task.totalTasksCount] = new Deadline(taskName, deadline);
+            } catch (KittyException e) {
+                throw e;
+            }
+        }
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " [by: " + deadline + "]";
