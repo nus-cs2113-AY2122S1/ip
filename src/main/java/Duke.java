@@ -3,7 +3,6 @@ import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
 import exceptions.DukeException;
-
 import java.util.Scanner;
 
 public class Duke {
