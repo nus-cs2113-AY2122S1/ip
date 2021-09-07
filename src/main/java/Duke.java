@@ -29,6 +29,7 @@ public class Duke {
             switch (command) {
             case ("bye"):
                 isBye = true;
+                printFarewellMessage();
                 break;
             case ("list"):
                 requestList(tasks);
@@ -51,7 +52,7 @@ public class Duke {
         }
     }
 
-    public static void taskManagerMessage(Task[] tasks) {
+    public static void printTaskManagerMessage(Task[] tasks) {
         printHorizontalLine();
         System.out.println("Understood. I've added this task:");
         System.out.println(tasks[taskCount]);
@@ -61,19 +62,21 @@ public class Duke {
 
     public static void taskManager(String input, Task[] tasks) {
         String taskType = getCommand(input);
-        switch (taskType) {
-        case ("todo"):
-            addTodo(input, tasks);
-            break;
-        case ("deadline"):
-        case ("event"):
-            addDeadlineOrEvent(input, tasks);
-            break;
-        default: //add error here
+        try {
+            if (taskType.equalsIgnoreCase("todo")) {
+                addTodo(input, tasks);
+            } else if (taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
+                addDeadlineOrEvent(input, tasks);
+            }
+            printTaskManagerMessage(tasks);
+            taskCount++;
+        } catch (IndexOutOfBoundsException emptyTask) {
+            printHorizontalLine();
+            System.out.println("Task description of " + taskType + " cannot be empty!");
+            printHorizontalLine();
         }
-        taskManagerMessage(tasks);
-        taskCount++;
     }
+
 
     public static void addTodo(String input, Task[] tasks) {
         int dividePos = input.trim().indexOf(" ");
@@ -86,6 +89,7 @@ public class Duke {
         int timePos = input.trim().indexOf("/");
         String taskType = input.trim().substring(0, dividePos).toLowerCase();
         String taskName = input.trim().substring(dividePos, timePos);
+
         String end = input.trim().substring(timePos + 3);
         if (taskType.equalsIgnoreCase("deadline")) {
             tasks[taskCount] = new Deadline(taskName, end);
@@ -174,7 +178,5 @@ public class Duke {
 
         greetUser();
         inputManager();
-        printFarewellMessage();
     }
-
 }
