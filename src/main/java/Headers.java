@@ -1,21 +1,21 @@
 public class Headers {
     public static void printBanner() {
-        final String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println(" Hello! I'm Duke, what can I do for you?");
+        final String logo = " _____    _       _                 \n"
+                + "|  ___|  | |     | |                \n"
+                + "| |__ ___| |_ ___| |__   __ _ _ __  \n"
+                + "|  __/ __| __/ _ \\ '_ \\ / _` | '_ \\ \n"
+                + "| |__\\__ \\ ||  __/ |_) | (_| | | | |\n"
+                + "\\____/___/\\__\\___|_.__/ \\__,_|_| |_|";
+        System.out.println(logo);
+        System.out.println("Hola! Soy Esteban, what can I do for you?");
     }
 
     public static void printExit() {
         System.out.println(" Gracias! Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
     }
 
     public static void printSeparator() {
-        System.out.println("____________________________________________________________");
+        System.out.println("------------------------------------------------------------");
     }
 
 }

@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Duke {
     public static void main(String[] args) {
@@ -17,42 +15,53 @@ public class Duke {
             Command cmd = getCommand(line);
             switch(cmd) {
             case BYE:
-                printExit();
+                Headers.printExit();
                 isContinue = false;
                 break;
             case LIST:
-                System.out.println("____________________________________________________________");
+                Headers.printSeparator();
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(" " + (i+1) + ". " + tasks.get(i).printStatus());
+                    System.out.println((i+1) + ". " + tasks.get(i).printStatus());
                 }
-                System.out.println("____________________________________________________________");
+                Headers.printSeparator();
                 break;
             case TODO:
                 try {
                     ToDo newToDo = new ToDo(line.substring(6));
                     tasks.add(newToDo);
-                    System.out.println(" (+) Added: "+ newToDo.printStatus());
-                    System.out.println(" (i) You have " + tasks.size() + " tasks in the list");
+                    System.out.println("  (+) Added: "+ newToDo.printStatus());
+                    System.out.println("  (i) You have " + tasks.size() + " tasks in the list");
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println(" (!) Todo description cannot be empty!");
+                    System.out.println("  (!) Todo description cannot be empty!");
+                    System.out.println("  (!) Format: /todo <description>");
                 }
                 break;
             case DEADLINE:
-                String description = line.substring(10, line.indexOf("-by")).strip();
-                String time = line.substring(line.indexOf("-by") + 4).strip();
-                Deadline newDeadline = new Deadline(description, time);
-                tasks.add(newDeadline);
-                System.out.println(" (+) Added: "+ newDeadline.printStatus());
-                System.out.println(" (!) You have " + tasks.size() + " tasks in the list");
+                try {
+                    String description = line.substring(10, line.indexOf("-by")).strip();
+                    String time = line.substring(line.indexOf("-by") + 4).strip();
+                    Deadline newDeadline = new Deadline(description, time);
+                    tasks.add(newDeadline);
+                    System.out.println("  (+) Added: "+ newDeadline.printStatus());
+                    System.out.println("  (!) You have " + tasks.size() + " tasks in the list");
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("  (!) Invalid/missing values");
+                    System.out.println("  (!) Format: /deadline <description> -by <date>");
+                }
                 break;
             case EVENT:
-                String des = line.substring(7, line.indexOf("-from")).strip();
-                String from = line.substring(line.indexOf("-from") + 6, line.indexOf("-to")).strip();
-                String to = line.substring(line.indexOf("-to") + 4).strip();
-                Event newEvent = new Event(des, from , to);
-                tasks.add(newEvent);
-                System.out.println(" (+) Added: "+ newEvent.printStatus());
-                System.out.println(" (!) You have " + tasks.size() + " tasks in the list");
+                try {
+                    String des = line.substring(7, line.indexOf("-from")).strip();
+                    String from = line.substring(line.indexOf("-from") + 6, line.indexOf("-to")).strip();
+                    String to = line.substring(line.indexOf("-to") + 4).strip();
+                    Event newEvent = new Event(des, from , to);
+                    tasks.add(newEvent);
+                    System.out.println(" (+) Added: "+ newEvent.printStatus());
+                    System.out.println(" (!) You have " + tasks.size() + " tasks in the list");
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("  (!) Invalid/missing values");
+                    System.out.println("  (!) Format: /event <description> -from <date> -to <date>");
+                }
                 break;
             case DONE:
                 String[] values = line.split(" ");
@@ -72,7 +81,7 @@ public class Duke {
         }
     }
 
-    public static Command getCommand(String input) {
+    public static Command getCommand(String input){
         Command cmd = Command.UNKNOWN;
         if (input.equals("/bye")) {
             cmd = Command.BYE;
@@ -88,11 +97,5 @@ public class Duke {
             cmd = Command.DONE;
         }
         return cmd;
-    }
-
-
-
-    public static void printExit() {
-
     }
 }
