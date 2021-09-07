@@ -1,6 +1,8 @@
 package command;
 
-import manager.MessageManager;
+import exception.DescriptionFormatException;
+import exception.NoDescriptionException;
+import manager.ResponseManager;
 import manager.TaskManager;
 import task.Deadline;
 import task.Event;
@@ -64,40 +66,86 @@ public class Command {
 //        }
 //    }
 
-    public void executeDoneCommand(int taskListIndex, String rawUserInput) {
+    public void executeDoneCommand (int taskListIndex, String rawUserInput) throws DescriptionFormatException,
+            NoDescriptionException, NullPointerException, NumberFormatException, IndexOutOfBoundsException {
         // split the input string into array
         String[] inputWords = rawUserInput.split(" ");
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        }
+        if (inputWords.length > 2) {
+            throw new DescriptionFormatException();
+        }
+
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
 
         // task has not been marked as done and needs to be marked as done
         if (!taskList[doneIndex].getIsDone()) {
             taskList[doneIndex].markAsDone();
-            MessageManager.printTaskDoneMessage(taskList[doneIndex]);
+            ResponseManager.printTaskDoneMessage(taskList[doneIndex]);
         } else{
-            MessageManager.printTaskAlreadyDoneMessage();
+            ResponseManager.printTaskAlreadyDoneMessage();
         }
     }
 
-    // reads List Command then prints out all the tasks
     public void executeListCommand(int taskListIndex) {
-        MessageManager.printTaskList(taskListIndex, taskList);
+        ResponseManager.printTaskList(taskListIndex, taskList);
     }
 
-    public void executeToDoCommand(int taskListIndex, String fullTaskDescription) {
+    public void executeToDoCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException {
+        String[] inputWords = rawUserInput.split(" ");
+        String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
+
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        }
+
         ToDo task = new ToDo(fullTaskDescription);
         taskManager.addTask(task, taskListIndex);
-        MessageManager.printTaskAddedMessage(task, Task.getTotalTasks());
+        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
-    public void executeDeadlineCommand(int taskListIndex, String fullTaskDescription) {
+    public void executeDeadlineCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, DescriptionFormatException {
+        String[] inputWords = rawUserInput.split(" ");
+
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        }
+
+        String[] separatedDescription = rawUserInput.split("/by", 2);
+        String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
+
+        if (separatedDescription.length == 1) {
+            throw new DescriptionFormatException();
+        }
+        if (!rawUserInput.contains(" /by ")) {
+            throw new DescriptionFormatException();
+        }
+
         Deadline task = new Deadline(fullTaskDescription);
         taskManager.addTask(task, taskListIndex);
-        MessageManager.printTaskAddedMessage(task, Task.getTotalTasks());
+        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
-    public void executeEventCommand(int taskListIndex, String fullTaskDescription) {
+    public void executeEventCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, DescriptionFormatException {
+        String[] inputWords = rawUserInput.split(" ");
+
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        }
+
+        String[] separatedDescription = rawUserInput.split("/at", 2);
+        String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
+
+        if (separatedDescription.length == 1) {
+            throw new DescriptionFormatException();
+        }
+        if (!rawUserInput.contains(" /at ")) {
+            throw new DescriptionFormatException();
+        }
+
         Event task = new Event(fullTaskDescription);
         taskManager.addTask(task, taskListIndex);
-        MessageManager.printTaskAddedMessage(task, Task.getTotalTasks());
+        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 }

@@ -40,7 +40,7 @@ public class Task {
     }
 
     public String getType(){
-        return "task.Task";
+        return "Task";
     }
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"

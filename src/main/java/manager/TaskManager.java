@@ -1,5 +1,7 @@
 package manager;
 
+import exception.DescriptionFormatException;
+import exception.NoDescriptionException;
 import task.Task;
 import command.Command;
 
@@ -48,31 +50,39 @@ public class TaskManager {
 
         Command command = new Command(taskCommand, this);
 
-        switch(taskCommand) {
-        case LIST_COMMAND:
-            command.executeListCommand(taskListIndex);
-            break;
-        case DONE_COMMAND:
-            command.executeDoneCommand(taskListIndex, rawUserInput);
-            break;
-        case TODO_COMMAND:
-            fullTaskDescription = getFullTaskDescription(rawUserInput);
-            command.executeToDoCommand(taskListIndex, fullTaskDescription);
-            break;
-        case DEADLINE_COMMAND:
-            fullTaskDescription = getFullTaskDescription(rawUserInput);
-            command.executeDeadlineCommand(taskListIndex, fullTaskDescription);
-            break;
-        case EVENT_COMMAND:
-            fullTaskDescription = getFullTaskDescription(rawUserInput);
-            command.executeEventCommand(taskListIndex, fullTaskDescription);
-            break;
-        default:
-            MessageManager.printInvalidCommandMessage();
-            break;
+        try {
+            switch (taskCommand) {
+            case LIST_COMMAND:
+                command.executeListCommand(taskListIndex);
+                break;
+            case DONE_COMMAND:
+                command.executeDoneCommand(taskListIndex, rawUserInput);
+                break;
+            case TODO_COMMAND:
+                command.executeToDoCommand(taskListIndex, rawUserInput);
+                break;
+            case DEADLINE_COMMAND:
+                command.executeDeadlineCommand(taskListIndex, rawUserInput);
+                break;
+            case EVENT_COMMAND:
+                command.executeEventCommand(taskListIndex, rawUserInput);
+                break;
+            default:
+                ResponseManager.printInvalidCommandMessage();
+                break;
+            }
+        } catch (NoDescriptionException e) {
+            ResponseManager.printNoDescriptionMessage();
+        } catch (DescriptionFormatException e) {
+            ResponseManager.printDescriptionFormatMessage();
+        } catch (NumberFormatException e) {
+            ResponseManager.printNumberFormatMessage();
+        } catch (NullPointerException e) {
+            ResponseManager.printInvalidTaskIndexMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ResponseManager.printArrayOutOfBoundsMessage();
         }
 
     }
-
 
 }
