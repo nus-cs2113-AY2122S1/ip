@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     public void addTask(String request) throws Exception {
-        Task newTask = Request.parseTask(request);
+        Task newTask = Request.getTask(request);
         tasks.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
@@ -16,7 +16,7 @@ public class TaskList {
     }
 
     public void doneTask(String request) {
-        int taskIndex = Request.parseTaskIndex(request.trim());
+        int taskIndex = Request.getTaskIndex(request.trim());
         Task task = tasks.get(taskIndex);
         if(task.isDone()) {
             System.out.println("This task is already done!");

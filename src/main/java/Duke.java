@@ -16,7 +16,7 @@ public class Duke {
             try {
                 if (Request.isList(request)) {
                     list.printTasks();
-                } else if (Request.isDone(request)) { //Should check if it is a task or a command instead
+                } else if (Request.isDone(request)) {
                     list.doneTask(request);
                 } else {
                     System.out.println("task read");
@@ -24,12 +24,15 @@ public class Duke {
                 }
                 request = in.nextLine();
             } catch (Exception ex) {
-                System.out.println(ex.getClass());
                 if (ex instanceof IncompleteInformationException) {
                     System.out.println(ex.getMessage());
                 } else if (ex instanceof InvalidRequestException) {
                     System.out.println("☹ OOPS!!! I can't do that.");
+                } else if (ex instanceof IndexOutOfBoundsException){
+                    System.out.println("Sorry I can't do that! " +
+                            "Try \"done <number inside the list>\" instead :)");
                 } else {
+                    System.out.println(ex.getClass());
                     System.out.println("Some error i don't know of");
                 }
                 request = in.nextLine();

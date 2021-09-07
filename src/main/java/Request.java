@@ -36,11 +36,11 @@ public class Request {
         return isDeadline(request) || isEvent(request);
     }
 
-    public static int parseTaskIndex(String request) {
+    public static int getTaskIndex(String request) {
         return Integer.parseInt(request.substring(Task.TASK_INDEX)) - 1;
     }
 
-    public static Task parseTask(String request) throws Exception {
+    public static Task getTask(String request) throws Exception {
         System.out.println("parsing task");
         if (Request.isTodo(request)) {
             System.out.println("building todo");
