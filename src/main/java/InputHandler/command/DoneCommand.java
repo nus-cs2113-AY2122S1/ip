@@ -16,7 +16,7 @@ public class DoneCommand extends UserCommand {
         Task completedTask;
         try {
             completedTask = this.tasks.markAsDone(index - 1);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskNotExistException();
         }
         System.out.println("     Nice! I've marked this task as done: ");

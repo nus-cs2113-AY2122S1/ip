@@ -25,10 +25,14 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public Task markAsDone(int index) throws NullPointerException{
+    public Task markAsDone(int index) throws IndexOutOfBoundsException{
         Task completedTask = this.tasks.get(index);
         completedTask.setCompleted();
         return completedTask;
+    }
+
+    public Task deleteTask(int index) throws IndexOutOfBoundsException {
+        return this.tasks.remove(index - 1);
     }
 
 
