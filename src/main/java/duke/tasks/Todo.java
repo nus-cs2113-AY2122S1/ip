@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * Todo class to represent a task that needs to be done.
  * Parent class is Task class.

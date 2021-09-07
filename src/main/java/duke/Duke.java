@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Duke class acts as entry point to programme.
  */

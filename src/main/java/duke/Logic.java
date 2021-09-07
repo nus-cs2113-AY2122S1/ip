@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.tasks.Task;
+
 /**
  * Logic class runs the main logic of the programme.
  */

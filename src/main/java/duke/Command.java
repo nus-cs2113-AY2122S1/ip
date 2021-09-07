@@ -1,3 +1,10 @@
+package duke;
+
+import duke.exception.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Todo;
+
 /**
  * Command takes in the parsed input from the user and splits it into three categories.
  * They are the command type, description of the task and the date. Depending on the
@@ -29,7 +36,7 @@ public class Command extends Logic {
      *
      * @return output message to the user.
      */
-    public String executeCommand() throws DukeException{
+    public String executeCommand() throws DukeException {
         switch (command) {
         case "bye":
             isBye = true;

@@ -1,17 +1,19 @@
+package duke.tasks;
+
 /**
- * Event class to represent a task which has an event.
+ * Deadline class to represent a task which has a deadline.
  * Parent class is Task class.
  *
  * @param "description" the name of the task.
- * @param "at" event date
+ * @param "by" deadline of task
  * @return modified message when the toString() method is called.
  */
-public class Event extends Task {
-    protected String at;
+public class Deadline extends Task {
+    protected String by;
 
-    public Event(String description, String at) {
+    public Deadline(String description, String by) {
         super(description);
-        this.at = at;
+        this.by = by;
     }
 
     /**
@@ -21,6 +23,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
