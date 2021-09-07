@@ -5,7 +5,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a new task.Task object to be stored in Duke's list of Tasks,
+     * Creates a new task.Task object to be stored in taro's list of Tasks,
      * sets the name of the task as the name passed in by the user and
      * marks the task as incomplete
      *
@@ -33,10 +33,10 @@ public class Task {
     }
 
     /**
-     * Returns the icon to be printed while listing out tasks stored by Duke
+     * Returns the icon to be printed while listing out tasks stored by main.Duke
      * Done tasks are denoted by X
      *
-     * @return the icon to be used while listing tasks on Duke to standard output
+     * @return the icon to be used while listing tasks on main.Duke to standard output
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
