@@ -1,3 +1,8 @@
+package duke.functions;
+
+import duke.exceptions.EmptyArgException;
+import duke.exceptions.WrongFormatException;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -23,16 +28,14 @@ public class Duke {
                 printTaskList(items);
                 break;
             case "done": {
-                String[] arg = userInput.split(" ");
                 try {
-                    int indexToMark = Integer.parseInt(arg[1]) - 1;
-                    items[indexToMark].markAsDone();
-                    System.out.println("\tNice! I have marked this task as done:");
-                    System.out.println("\t\t" + items[indexToMark]);
+                    handleDone(items, userInput);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid argument, please enter a valid task number!");
+                    System.out.println("\tInvalid argument, please enter a valid task number!");
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("No such task!");
+                    System.out.println("\tNo such task!");
+                } catch (EmptyArgException e){
+                    System.out.println("\tWhich task is done?");
                 }
                 break;
             }
@@ -40,7 +43,7 @@ public class Duke {
                 try {
                     handleTodo(items, userInput);
                 } catch (EmptyArgException e) {
-                    System.out.println("Description of todo cannot be empty!");
+                    System.out.println("\tDescription of todo cannot be empty!");
                 }
                 break;
             }
@@ -48,9 +51,9 @@ public class Duke {
                 try {
                     handleDeadline(items, userInput);
                 } catch (EmptyArgException e) {
-                    System.out.println("Description for deadline cannot be empty");
+                    System.out.println("\tDescription for deadline cannot be empty!");
                 } catch (WrongFormatException e) {
-                    System.out.println("Wrong format! Try \"Deadline [description] \\by [due date]\"");
+                    System.out.println("\tWrong format! Try \"Deadline [description] \\by [due date]\"");
                 }
                 break;
             }
@@ -58,19 +61,30 @@ public class Duke {
                 try {
                     handleEvent(items, userInput);
                 } catch (EmptyArgException e) {
-                    System.out.println("Description for deadline cannot be empty");
+                    System.out.println("\tDescription for deadline cannot be empty!");
                 } catch (WrongFormatException e) {
-                    System.out.println("Wrong format! Try \"Event [description] \\by [due date]\"");
+                    System.out.println("\tWrong format! Try \"Event [description] \\by [due date]\"");
                 }
                 break;
             }
             default:
-                System.out.println("I don't know what that means");
+                System.out.println("\tI don't know what that means");
                 break;
             }
         }
 
         printBye();
+    }
+
+    private static void handleDone(Task[] items, String userInput) throws EmptyArgException {
+        String[] arg = userInput.split(" ");
+        if (arg.length < 2){
+            throw new EmptyArgException();
+        }
+        int indexToMark = Integer.parseInt(arg[1]) - 1;
+        items[indexToMark].markAsDone();
+        System.out.println("\tNice! I have marked this task as done:");
+        System.out.println("\t\t" + items[indexToMark]);
     }
 
     private static void handleEvent(Task[] items, String userInput) throws EmptyArgException, WrongFormatException {
@@ -124,7 +138,6 @@ public class Duke {
         drawLine();
     }
 
-
     private static void incrementItemCount(Task item) {
         System.out.println("\tTask Added:");
         System.out.println("\t\t" + item);
@@ -133,11 +146,14 @@ public class Duke {
     }
 
     private static void printIntro() {
-        drawLine();
-        System.out.println("Hello! I'm Duke");
+        System.out.println("                              _     _\n" +
+                "                             ( \\---/ )\n" +
+                "                              ) . . (\n" +
+                "________________________,--._(___Y___)_,--._______________________ \n" +
+                "                        `--'           `--'");
+        System.out.println("Hello I'm Duke");
         System.out.println("What can I do for you?");
         drawLine();
-        System.out.println();
     }
 
     private static void printBye() {
