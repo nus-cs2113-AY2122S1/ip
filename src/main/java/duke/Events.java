@@ -1,6 +1,6 @@
+package duke;
 
-
-public class Events extends Task{
+public class Events extends Task {
 
     //variables
     protected  String timeAllocation;

@@ -1,9 +1,16 @@
+package duke;
+
+import duke.Deadlines;
+import duke.Events;
+import duke.Task;
+import duke.ToDos;
+
 import java.util.Scanner;
 
 public class Duke {
 
     public static void showWelcomeMessage() {
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm duke.Duke");
         System.out.println("What can I do for you?");
     }
 
