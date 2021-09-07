@@ -7,7 +7,7 @@ public class Duke {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<Task>();
         boolean isContinue = true;
-        printBanner();
+        Headers.printBanner();
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -15,7 +15,6 @@ public class Duke {
             System.out.print("> ");
             line = in.nextLine();
             Command cmd = getCommand(line);
-
             switch(cmd) {
             case BYE:
                 printExit();
@@ -29,15 +28,19 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 break;
             case TODO:
-                ToDo newToDo = new ToDo(line.substring(6));
-                tasks.add(newToDo);
-                System.out.println(" (+) Added: "+ newToDo.printStatus());
-                System.out.println(" (!) You have " + tasks.size() + " tasks in the list");
+                try {
+                    ToDo newToDo = new ToDo(line.substring(6));
+                    tasks.add(newToDo);
+                    System.out.println(" (+) Added: "+ newToDo.printStatus());
+                    System.out.println(" (i) You have " + tasks.size() + " tasks in the list");
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println(" (!) Todo description cannot be empty!");
+                }
                 break;
             case DEADLINE:
-                String desc = line.substring(10, line.indexOf("-by")).strip();
+                String description = line.substring(10, line.indexOf("-by")).strip();
                 String time = line.substring(line.indexOf("-by") + 4).strip();
-                Deadline newDeadline = new Deadline(desc, time);
+                Deadline newDeadline = new Deadline(description, time);
                 tasks.add(newDeadline);
                 System.out.println(" (+) Added: "+ newDeadline.printStatus());
                 System.out.println(" (!) You have " + tasks.size() + " tasks in the list");
@@ -64,7 +67,7 @@ public class Duke {
                 }
                 break;
             default:
-                System.out.println(" (!) Invalid Value! ");
+                System.out.println(" (!) Unrecognised Command! ");
             }
         }
     }
@@ -87,19 +90,9 @@ public class Duke {
         return cmd;
     }
 
-    public static void printBanner() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println(" Hello! I'm Duke, what can I do for you?");
-    }
+
 
     public static void printExit() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye, Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+
     }
 }
