@@ -1,2 +1,2 @@
-public class InvalidRequestException extends Exception{
+public class InvalidRequestException extends DukeException{
 }

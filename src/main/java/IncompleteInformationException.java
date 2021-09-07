@@ -1,4 +1,4 @@
-public class IncompleteInformationException extends Exception{
+public class IncompleteInformationException extends DukeException{
     private String taskType;
     private String description;
 

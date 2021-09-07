@@ -23,12 +23,14 @@ public class Duke {
                     list.addTask(request);
                 }
                 request = in.nextLine();
-            } catch (Exception ex) {
+            } catch (DukeException ex) {
                 if (ex instanceof IncompleteInformationException) {
                     System.out.println(ex.getMessage());
                 } else if (ex instanceof InvalidRequestException) {
                     System.out.println("☹ OOPS!!! I can't do that.");
-                } else if (ex instanceof IndexOutOfBoundsException){
+                }
+            } catch (Exception ex) {
+                if (ex instanceof IndexOutOfBoundsException){
                     System.out.println("Sorry I can't do that! " +
                             "Try \"done <number inside the list>\" instead :)");
                 } else {

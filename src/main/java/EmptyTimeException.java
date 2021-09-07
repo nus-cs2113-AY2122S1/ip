@@ -1,2 +1,2 @@
-public class EmptyTimeException extends Exception{
+public class EmptyTimeException extends DukeException{
 }
