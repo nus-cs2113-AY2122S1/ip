@@ -3,8 +3,13 @@ import java.util.Scanner;
 public class Duke {
     private static final String LINE = "____________________________________________________________";
     private static final String ADD_TASK_MSG = "Got it. I've added this task: ";
-    private static final String ERROR_MSG = "Sorry, I didn't quite get what you want me to do :(";
+    private static final String ERROR_MSG = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    private static final String TODO_ERROR = "The description of a todo cannot be empty.";
+    private static final String DEADLINE_ERROR = "The description of a deadline cannot be empty and must have a '/by'.";
+    private static final String EVENT_ERROR = "The description of an event cannot be empty and must have a '/at'.";
+    private static final String[] taskTypes = {"todo", "deadline", "event"};
     private static final int MAX_TASKS = 100;
+    private static Task[] tasks = new Task[MAX_TASKS];
 
     public static void main(String[] args) {
         showHelloGreeting();
@@ -14,7 +19,6 @@ public class Duke {
 
     private static void executeResponses() {
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS];
         int index = 0;
         String text;
         text = in.nextLine();
@@ -22,47 +26,80 @@ public class Duke {
             System.out.println(LINE);
             String[] words = text.split(" ");
 
-            switch (words[0]) {
-            case "list":
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < index; i++) {
-                    System.out.println((i + 1) + "." + tasks[i].toString());
+            try {
+                switch (words[0]) {
+                case "list":
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < index; i++) {
+                        System.out.println((i + 1) + "." + tasks[i].toString());
+                    }
+                    break;
+                case "done":
+                    int taskNum = Integer.parseInt(words[words.length - 1]);
+                    tasks[taskNum - 1].setDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[x] " + tasks[taskNum - 1].getDescription());
+                    break;
+                case "todo":
+                    addTodo(index, text);
+                    index++;
+                    System.out.println("Now you have " + index + " tasks in the list.");
+                    break;
+                case "deadline":
+                    addDeadline(index, text);
+                    index++;
+                    System.out.println("Now you have " + index + " tasks in the list.");
+                    break;
+                case "event":
+                    addEvent(index, text);
+                    index++;
+                    System.out.println("Now you have " + index + " tasks in the list.");
+                    break;
+                default:
+                    showErrorMessage();
+                    break;
                 }
-                break;
-            case "done":
-                int taskNum = Integer.parseInt(words[words.length - 1]);
-                tasks[taskNum - 1].setDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[x] " + tasks[taskNum - 1].getDescription());
-                break;
-            case "todo":
-                String[] todoTaskInfo = extractInfo(text, "todo");
-                tasks[index] = new Todo(todoTaskInfo[0]);
-                System.out.println(ADD_TASK_MSG);
-                index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
-                break;
-            case "deadline":
-                String[] deadlineTaskInfo = extractInfo(text, "deadline");
-                tasks[index] = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1]);
-                System.out.println(ADD_TASK_MSG);
-                index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
-                break;
-            case "event":
-                String[] eventTaskInfo = extractInfo(text, "event");
-                tasks[index] = new Event(eventTaskInfo[0], eventTaskInfo[1]);
-                System.out.println(ADD_TASK_MSG);
-                index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
-                break;
-            default:
-                System.out.println(ERROR_MSG);
-                break;
+            } catch (DukeException error) {
+                System.out.println("☹ OOPS!!! " + error.getMessage());
             }
             System.out.println(LINE);
             text = in.nextLine();
         }
+    }
+
+    private static void addTodo(int index, String text) throws DukeException {
+        if (text.length() <= taskTypes[0].length()) {
+            throw new DukeException(TODO_ERROR);
+        }
+        String[] todoTaskInfo = extractInfo(text, "todo");
+        tasks[index] = new Todo(todoTaskInfo[0]);
+        System.out.println(ADD_TASK_MSG);
+    }
+
+    private static void addDeadline(int index, String text) throws DukeException {
+        if (text.length() <= taskTypes[1].length()) {
+            throw new DukeException(DEADLINE_ERROR);
+        }
+
+        if (!text.contains("/by")) {
+            throw new DukeException(DEADLINE_ERROR);
+        }
+        String[] deadlineTaskInfo = extractInfo(text, "deadline");
+        tasks[index] = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1]);
+        System.out.println(ADD_TASK_MSG);
+    }
+
+    private static void addEvent(int index, String text) throws DukeException {
+        if (text.length() <= taskTypes[2].length()) {
+            throw new DukeException(EVENT_ERROR);
+        }
+
+        if (!text.contains("/at")) {
+            throw new DukeException(EVENT_ERROR);
+        }
+        String[] eventTaskInfo = extractInfo(text, "event");
+        tasks[index] = new Event(eventTaskInfo[0], eventTaskInfo[1]);
+        System.out.println(ADD_TASK_MSG);
     }
 
     private static void showByeGreeting() {
@@ -102,5 +139,9 @@ public class Duke {
             break;
         }
         return taskInfo;
+    }
+
+    private static void showErrorMessage() throws DukeException {
+        throw new DukeException(ERROR_MSG);
     }
 }
