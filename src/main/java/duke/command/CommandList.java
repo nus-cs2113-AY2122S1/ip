@@ -28,6 +28,10 @@ public class CommandList {
         this.command = command;
     }
 
+    public int getTaskCount() {
+        return taskCount;
+    }
+
     public void addTaskMessage(Task task) {
         System.out.println(border);
         System.out.println("Got it. I've added this task:");

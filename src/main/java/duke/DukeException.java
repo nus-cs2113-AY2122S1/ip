@@ -6,6 +6,8 @@ public class DukeException {
     private static final int ERROR_EVENT_IS_EMPTY = 2;
     private static final int ERROR_DEADLINE_IS_EMPTY = 3;
     private static final int ERROR_COMMAND_NOT_FOUND = 4;
+    private static final int ERROR_IS_INVALID = 5;
+
     private static final String border = "____________________________________________________________\n";
 
     public static void printEmptyDescriptionErrorMessage(String command) {
@@ -16,6 +18,11 @@ public class DukeException {
     public static void printCommandMismatchErrorMessage() {
         System.out.println(border);
         System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(border);
+    }
+    public static void printCommandIsInvalid() {
+        System.out.println(border);
+        System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, the command is invalid.");
         System.out.println(border);
     }
     public DukeException() {
@@ -38,7 +45,10 @@ public class DukeException {
             case ERROR_DEADLINE_IS_EMPTY:
                 printEmptyDescriptionErrorMessage("deadline");
                 break;
-            case ERROR_COMMAND_NOT_FOUND:
+            case ERROR_IS_INVALID:
+                printCommandIsInvalid();
+                break;
+            default:
                 printCommandMismatchErrorMessage();
                 break;
         }

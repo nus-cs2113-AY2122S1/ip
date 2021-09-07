@@ -15,6 +15,7 @@ public class Duke {
     private static final int ERROR_EVENT_IS_EMPTY = 2;
     private static final int ERROR_DEADLINE_IS_EMPTY = 3;
     private static final int ERROR_COMMAND_NOT_FOUND = 4;
+    private static final int ERROR_IS_INVALID = 5;
     private static final int CMD_NOT_FOUND = 0;
     private static final int CMD_TODO = 1;
     private static final int CMD_EVENT = 2;
@@ -39,6 +40,14 @@ public class Duke {
         System.out.println("What do you want?\n" + border);
         System.out.println("Type bye to exit\n" + border);
     }
+    public static boolean isInvalid(CommandList task, String line) {
+        if (!line.split("done")[1].trim().isEmpty()) {
+            if (Integer.parseInt(line.split("done")[1].trim()) > task.getTaskCount()) {
+                return true;
+            }
+        }
+        return (line.length() <= FIVE);
+    }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -53,8 +62,13 @@ public class Duke {
                 task.executeCommand(items, error, line);
                 System.out.println(border);
             } else if (line.length() > FOUR && line.substring(0, FOUR).contains("done")) {
-                task.setCommand(CMD_DONE);
-                task.executeCommand(items, error, line);
+                if (isInvalid(task, line)) {
+                    task.setCommand(CMD_NOT_FOUND);
+                    error.setErrorType(ERROR_IS_INVALID);
+                } else {
+                    task.setCommand(CMD_DONE);
+                }
+                    task.executeCommand(items, error, line);
             } else if (line.length() >= FOUR && line.substring(0, FOUR).contains("todo")) { //improve condition to first word
                 if (line.length() <= FIVE) {
                     error.setErrorType(ERROR_TODO_IS_EMPTY);
