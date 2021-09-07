@@ -3,11 +3,11 @@ import java.util.Scanner;
 
 public class Duke {
     public static void printHorizontalLine() {
-        String horizontal_line = "____________________________________________________________";
-        System.out.println(horizontal_line);
+        String horizontalLine = "____________________________________________________________";
+        System.out.println(horizontalLine);
     }
 
-    public static void welcome() {
+    public static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -34,10 +34,10 @@ public class Duke {
         printHorizontalLine();
         System.out.println(" Here are the tasks in your list:");
         Task[] taskList = Arrays.copyOf(tasks, currCount);
-        int count = 1;
+        int taskCount = 1;
         for (Task elem : taskList) {
-            System.out.println(" " + count + ". " + elem.toString());
-            count += 1;
+            System.out.println(" " + taskCount + ". " + elem.toString());
+            taskCount += 1;
         }
         printHorizontalLine();
     }
@@ -64,14 +64,14 @@ public class Duke {
         return currCount;
     }
 
-    public static void goodbye() {
+    public static void printGoodBye() {
         printHorizontalLine();
         System.out.println(" Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
     public static void main(String[] args) {
-        welcome();
+        printWelcomeMessage();
         Task[] tasks = new Task[100]; // fixed size array for now, each contains a Task element
         int currCount = 0;
         Scanner in = new Scanner(System.in);
@@ -79,13 +79,13 @@ public class Duke {
         while (!line.equals("bye")) {
             if (line.contains("done")) { // mark task as done
                 markAsDone(tasks, line);
-            } else if (!line.equals("list")) { // user inputs a task
-                currCount = addTask(tasks, currCount, line);
-            } else { // print the list
+            } else if (line.equals("list")) { // print the list
                 printList(tasks, currCount);
+            } else { // user inputs a task
+                currCount = addTask(tasks, currCount, line);
             }
             line = in.nextLine();
         }
-        goodbye();
+        printGoodBye();
     }
 }
