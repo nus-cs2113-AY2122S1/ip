@@ -4,10 +4,8 @@ public class Todo extends Task {
      *
      * @param todoDescription Name of task.
      */
-    public Todo(String todoDescription) throws DukeException{
-        super(todoDescription.substring(5), "todo");
-        if (super.description.equals("") | super.description.equals(" ")) {
-            throw new DukeException();
-        }
+    public Todo(String todoDescription) {
+        super(todoDescription, "todo");
+        super.description = todoDescription.substring(5);
     }
 }

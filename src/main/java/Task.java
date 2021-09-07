@@ -1,10 +1,10 @@
 public class Task {
     /** name of task input by user. */
-    public String description;
+    protected String description;
     /** True means task complete, otherwise if false. */
-    public boolean isDone;
+    protected boolean isDone;
     /** Type of task (eg. todo, Deadline, event) stored as string */
-    public String type;
+    protected String type;
 
     /**
      * Constructor for new object of Task class.

@@ -13,7 +13,7 @@ public class Duke {
      * Function introduces chatbot and asks user for preferred mode and enters that mode.
      * Mode 1 - Echo; 2 - Task; Otherwise - Returns Error Message and stops program.
      */
-    public static void greet() throws DukeException {
+    public static void greet() {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tHi there! I'm Lennox - your personal chatbot\n" +
                 "\tWhat can I do for you today?");
@@ -75,7 +75,7 @@ public class Duke {
      *
      * @param newMode Code for new mode (1 - Echo; 2 - Task)
      */
-    public static void switchMode(int newMode) throws DukeException {
+    public static void switchMode(int newMode) {
         mode = newMode;
         System.out.println("\t" + HOR_LINE);
         if (newMode == ECHO_MODE) {
@@ -94,7 +94,7 @@ public class Duke {
      * Executes Echo mode, where commands of user are echoed back.
      * When "change" is typed in by user, switches program to Task mode.
      */
-    public static void startEcho() throws DukeException {
+    public static void startEcho() {
         String command;
         Scanner in = new Scanner(System.in);
         command = in.nextLine();
@@ -119,15 +119,17 @@ public class Duke {
         }
     }
 
-    // Prints task list.
+    /**
+     * Prints task list.
+     */
     public static void printList() {
-            System.out.println("\t" + HOR_LINE);
-            System.out.println("\tCURRENT ADDED LIST");
-            for (int i = 0; i < additions; i++) {
-                System.out.println("\t" + (i + 1) + ". " + storedTasks[i].getTypeIcon() +
-                        storedTasks[i].getStatusIcon() + storedTasks[i].description);
-            }
-            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+        System.out.println("\t" + HOR_LINE);
+        System.out.println("\tCURRENT ADDED LIST");
+        for (int i = 0; i < additions; i++) {
+            System.out.println("\t" + (i + 1) + ". " + storedTasks[i].getTypeIcon() +
+                    storedTasks[i].getStatusIcon() + storedTasks[i].description);
+        }
+        System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
 
     /**
@@ -152,13 +154,30 @@ public class Duke {
      */
     public static void createTask(String userInput) throws DukeException {
         if (userInput.startsWith("event ")) {
-            storedTasks[additions] = new Event(userInput);
-        }
-        else if (userInput.startsWith("deadline")) {
-            storedTasks[additions] = new Deadline(userInput);
-        }
-        else if (userInput.startsWith("todo ")) {
-            storedTasks[additions] = new Todo(userInput);
+            if (userInput.contains("/at ")) {
+                storedTasks[additions] = new Event(userInput);
+            } else {
+                throw new DukeException("\t*** Remember to include event timing after '/at ' in description. ***");
+            }
+        } else if (userInput.startsWith("deadline ")) {
+            if (userInput.contains("/by ")) {
+                storedTasks[additions] = new Deadline(userInput);
+            } else {
+                throw new DukeException("\t*** Remember to indicate deadline after '/by ' in description. ***");
+            }
+        } else if (userInput.startsWith("todo ")) {
+            if (!userInput.substring(4).isBlank()){
+                storedTasks[additions] = new Todo(userInput);
+            } else {
+                throw new DukeException("\t*** OOPS!!! The description of a todo cannot be empty. ***");
+            }
+        } else {
+            throw new DukeException("\t☹ INVALID COMMAND\n" +
+                    "\tPlease begin commands with\n" +
+                    "\t'event', 'deadline', 'todo',\n" +
+                    "\t'done', 'completed',\n" +
+                    "\t'remove', or 'clear', and\n" +
+                    "\tinput description after a whitespace.");
         }
 
         printAddedResponse(storedTasks[additions]);
@@ -172,7 +191,7 @@ public class Duke {
      * When "remove <task id>" or "clear <task id>" entered, removes that task from list.
      * When "change" is typed in by user, switches program to Echo mode.
      */
-    public static void startTask() throws DukeException {
+    public static void startTask() {
         Scanner in = new Scanner(System.in);
         String toAdd = in.nextLine();
         String textLowerC = toAdd.toLowerCase();
@@ -201,29 +220,47 @@ public class Duke {
      * @param toAdd String input by user.
      * @param textLowerC String input by user converted to lower cases for checking.
      */
-    private static void defaultTaskModeBehavior(String toAdd, String textLowerC) throws DukeException {
+    private static void defaultTaskModeBehavior(String toAdd, String textLowerC) {
         // Mark task as complete with an X.
         if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
-            int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-            storedTasks[taskNo].setDone();
-            // Print response when task marked done.
-            System.out.println("\t" + HOR_LINE);
-            System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
-            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            try {
+                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
+                storedTasks[taskNo].setDone();
+                // Print response when task marked done.
+                System.out.println("\t" + HOR_LINE);
+                System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
+                System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            } catch (NumberFormatException e) {
+                System.out.println("\t" + HOR_LINE);
+                System.out.println("\tPLEASE INPUT INVENTORY NO. OF THE TASK SEPARATED BY SPACE\n" +
+                        "\tAFTER 'complete' OR 'done' TO MARK TASK AS DONE.");
+                System.out.println("\t" + HOR_LINE);
+            }
         }
         // Remove task from list.
         else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
-            int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-            System.out.println("\t" + HOR_LINE);
-            System.out.printf("\t%s removed from list!\n", storedTasks[taskNo].description);
-            System.out.println("\t" + HOR_LINE + System.lineSeparator());
-            System.arraycopy(storedTasks,taskNo + 1, storedTasks, taskNo, additions - taskNo);
-            additions--;
-            printList();
+            try {
+                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
+                System.out.println("\t" + HOR_LINE);
+                System.out.printf("\t%s removed from list!\n", storedTasks[taskNo].description);
+                System.out.println("\t" + HOR_LINE + System.lineSeparator());
+                System.arraycopy(storedTasks, taskNo + 1, storedTasks, taskNo, additions - taskNo);
+                additions--;
+                printList();
+            } catch (NumberFormatException e) {
+                System.out.println("\t" + HOR_LINE);
+                System.out.println("\tPLEASE INPUT INVENTORY NO. OF THE TASK SEPARATED BY SPACE\n" +
+                        "\tAFTER 'clear' OR 'remove' TO REMOVE TASK FROM LIST.");
+                System.out.println("\t" + HOR_LINE);
+            }
         }
         // Create a new task if it does not exist in list
         else {
-            createTask(toAdd);
+            try {
+                createTask(toAdd);
+            } catch (DukeException e) {
+                e.printErrorMessage();
+            }
         }
     }
 
@@ -232,7 +269,7 @@ public class Duke {
      * If no, gets user back to Task/Echo mode user was in.
      * If yes, ends program with farewell message.
      */
-    public static void exit() throws DukeException {
+    public static void exit() {
         System.out.print("\tDo you really want to exit chatbot (type y or n)? ");
         Scanner input = new Scanner(System.in);
         String exit_pref = input.nextLine();
@@ -242,22 +279,23 @@ public class Duke {
             System.out.println("\t" + HOR_LINE);
             System.out.println("\tBye. Hope to see you again soon!");
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
-        }
-        else {
+        } else if (exit_pref.equals("n")) {
             System.out.println("\n\tOk that's great! Continue keying in commands. :)");
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
             // Return back to previous mode since user is not exiting.
             if (mode == ECHO_MODE) {
                 startEcho();
-            }
-            else if (mode == TASK_MODE) {
+            } else if (mode == TASK_MODE) {
                 startTask();
             }
+            exit();
+        } else {
+            System.out.println("\tSorry, is it a y(es) or a n(o)?");
             exit();
         }
     }
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         // Actions
         printLogo();
         greet();
