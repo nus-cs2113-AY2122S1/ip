@@ -3,7 +3,7 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) {
-        this.description = "[ ]" + description;
+        this.description = "[][ ]" + description;
         this.isDone = false;
     }
 
@@ -11,8 +11,8 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone() {
+    public void setDone() {
         this.isDone = true;
-        this.description = this.description.replace("[ ]", "[X]");
+        this.description = this.description.replace("[ ]", "[" + this.getStatusIcon()+"]");
     }
 }

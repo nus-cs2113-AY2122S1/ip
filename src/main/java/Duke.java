@@ -2,15 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?\n");
+        printLogo();
+        greetUser();
 
         String userLineInput = "initialize";
         Task[] taskItems = new Task[100]; //create array to store text entered by user
@@ -22,15 +15,49 @@ public class Duke {
             userLineInput = in.nextLine(); //user input
             String[] userWords = userLineInput.split(" ");
 
-            System.out.println("____________________________________________________________");
+            printDottedLine();
             switch (userWords[0]) {
             case "list":
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + "." + taskItems[i].description);
-                }
-                System.out.println("____________________________________________________________");
+                userInputIsList(taskItems, taskCounter);
                 continue;
+
+            case "todo":
+                int todoInputLength = userLineInput.length();
+                String todoTaskInput = userLineInput.substring(4, todoInputLength);
+                taskItems[taskCounter] = new ToDo(todoTaskInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(taskItems[taskCounter].description);
+                taskCounter++;
+                System.out.println("You now have " + taskCounter + " task(s) in the list.");
+                printDottedLine();
+                continue;
+
+            case "event":
+                int atPosition = userLineInput.indexOf("/at");
+                int eventInputLength = userLineInput.length();
+                String eventTaskInput = userLineInput.substring(5, atPosition - 1);
+                String eventDateInput = userLineInput.substring((atPosition + 4), eventInputLength);
+                taskItems[taskCounter] = new Event(eventTaskInput + " (at: " + eventDateInput + ")");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(taskItems[taskCounter].description);
+                taskCounter++;
+                System.out.println("You now have " + taskCounter + " task(s) in the list.");
+                printDottedLine();
+                continue;
+
+            case "deadline":
+                int byPosition = userLineInput.indexOf("/by");
+                int deadlineInputLength = userLineInput.length();
+                String deadlineTaskInput = userLineInput.substring(8, byPosition - 1);
+                String deadlineDateInput = userLineInput.substring((byPosition + 4), deadlineInputLength);
+                taskItems[taskCounter] = new Deadline(deadlineTaskInput + " (by: " + deadlineDateInput + ")");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(taskItems[taskCounter].description);
+                taskCounter++;
+                System.out.println("You now have " + taskCounter + " task(s) in the list.");
+                printDottedLine();
+                continue;
+
 
             case "done":
                 userInputIsDone(taskItems, taskCounter, userWords[1]);
@@ -41,12 +68,36 @@ public class Duke {
                 break;
 
             default:
-                taskItems[taskCounter] = new Task(userLineInput);
-                System.out.println("added: " + userLineInput);
-                taskCounter++;
-                System.out.println("____________________________________________________________");
             }
         }
+    }
+
+
+    private static void userInputIsList(Task[] taskItems, int taskCounter) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskCounter; i++) {
+            System.out.println((i + 1) + "." + taskItems[i].description);
+        }
+        printDottedLine();
+    }
+
+    private static void printDottedLine() {
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void greetUser() {
+        printDottedLine();
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?\n");
+    }
+
+    private static void printLogo() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
     }
 
     private static void userInputIsDone(Task[] taskItems, int taskCounter, String userWord) {
@@ -54,17 +105,17 @@ public class Duke {
         System.out.println("Nice! I've marked this task as done:");
         for (int i = 0; i < taskCounter; i++) {
             if (i == (doneInteger - 1)) {
-                taskItems[i].markAsDone();
+                taskItems[i].setDone();
                 System.out.println(doneInteger + "." + taskItems[i].description);
                 break;
             }
         }
-        System.out.println("____________________________________________________________");
+        printDottedLine();
     }
 
     private static void userInputIsBye() {
-        System.out.println("____________________________________________________________");
+        printDottedLine();
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        printDottedLine();
     }
 }
