@@ -1,15 +1,14 @@
+package tasks;
+
 import java.util.ArrayList;
 
-public class Tasks {
-    public boolean isCompleted;
-    public String name;
+public abstract class Tasks {
+    boolean isCompleted;
+    String name;
 
-    public Tasks(String input) {
-        isCompleted = false;
-        name = input;
-    }
+    public abstract String getName();
 
-    public void makeComplete() {
+    protected void makeComplete() {
         isCompleted = true;
     }
 
@@ -21,12 +20,8 @@ public class Tasks {
         }
     }
 
-    public String getName() {
-        return "[T][" + mark() + "] " + name;
-    }
-
     //Function to execute function to manage tasks
-    static void manageTasks(String input, ArrayList<Tasks> tasksAL) {
+    public static void manageTasks(String input, ArrayList<Tasks> tasksAL) {
         if (input.equalsIgnoreCase("list")) {
             if (tasksAL.size() == 0){
                 System.out.println("There is nothing in your list! Try adding something into your list.");
@@ -53,7 +48,7 @@ public class Tasks {
             if (input.split(" ").length == 1) {
                 System.out.println("Please add a task after 'todo'");
             } else {
-                tasksAL.add(new Tasks(input.substring(5)));
+                tasksAL.add(new TodoTasks(input.substring(5)));
                 printAdded(tasksAL);
             }
 
