@@ -1,3 +1,12 @@
+package duke;
+
+import duke.command.IllegalToDoException;
+import duke.command.InvalidCommandException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -69,7 +78,7 @@ public class Duke {
     }
 
     public static String getTime(String userInput) {
-        String time = "";
+        String time;
         String command = getCommand(userInput);
         if (isDeadline(command)) {
             time = getRequiredSubstring(userInput, "/", 3);
@@ -81,7 +90,7 @@ public class Duke {
         return time;
     }
 
-    public static void main(String[] args) throws IllegalToDoException {
+    public static void main(String[] args) {
 
         Task[] unfilteredTasks = new Task[100];
         int unfilteredCounter = 0;
@@ -91,7 +100,7 @@ public class Duke {
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
-        boolean closeDuke = false;
+        boolean closeDuke;
 
         do {
 
@@ -208,9 +217,5 @@ public class Duke {
             System.out.println(LINE + "Got it. I've added this task:\t");
             System.out.println(String.format("\t%d.", unfilteredCounter + 1) + unfilteredTask + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter + 1) + LINE);
         }
-    }
-
-    private static void InvalidMessage() {
-        System.out.println(LINE + "\tInvalid input, Please Try Again :)\n" + LINE);
     }
 }
