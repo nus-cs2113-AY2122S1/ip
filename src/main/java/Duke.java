@@ -3,21 +3,15 @@ import java.util.Scanner;
 public class Duke {
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("_______________________________________________________");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("_______________________________________________________");
-        System.out.println("Your instructions, my Liege.");
+
+        printMessage message = new printMessage();
+        message.printIntro();
         Information input = new Information();
         Scanner myObj = new Scanner(System.in);
         boolean condition = true;
         int counter = 0;
+
+
         while (condition) {
             String userInput = myObj.nextLine();
             String instruction = userInput.contains(" ") ? userInput.substring(0, userInput.indexOf(" ")): userInput;
@@ -25,7 +19,7 @@ public class Duke {
 
             switch (instruction) {
             case "bye":
-                System.out.println("Farewell, my Lord." + "\n" + "_______________________________________________________\n");
+                System.out.println("widePeepoSad :(" + "\n" + "_______________________________________________________\n");
                 condition = false;
                 break;
             case "list":
@@ -36,7 +30,7 @@ public class Duke {
                         System.out.println((i + 1) + ".[" + input.List[i].getTaskIcon() + "]" + "[" + input.List[i].getStatusIcon() + "] " + input.List[i].getDescription());
                     }
                 }
-                System.out.println("_______________________________________________________");
+                message.printLineBreak();
                 break;
             case "done":
                 int whichTask = 0;
@@ -44,21 +38,21 @@ public class Duke {
                     whichTask = Integer.parseInt(instructionTask.replaceAll("[\\D]", ""));
                 }
                 if (whichTask <= 0) {
-                    System.out.println("Please select a valid task from the list");
-                    System.out.println("_______________________________________________________");
+                    message.printListError();
+                    message.printLineBreak();
                 } else if (whichTask > counter) {
-                    System.out.println("Please select a valid task from the list");
-                    System.out.println("_______________________________________________________");
+                    message.printListError();
+                    message.printLineBreak();
                 } else {
                     input.List[whichTask - 1].markAsDone();
                     System.out.println("OK! That task has been marked as complete");
-                    System.out.println("_______________________________________________________");
+                    message.printLineBreak();
                 }
                 break;
             case "todo":
                 input.List[counter] = new ToDos(instructionTask);
                 System.out.println("The task has been added to your todo list");
-                System.out.println("_______________________________________________________");
+                message.printLineBreak();
                 counter++;
                 break;
             case "deadline":
@@ -67,7 +61,7 @@ public class Duke {
                 String theDeadline = instructionTask.substring(indexOfDeadline);
                 input.List[counter] = new Deadline(theTask, theDeadline);
                 System.out.println("The task has been added to your deadlines");
-                System.out.println("_______________________________________________________");
+                message.printLineBreak();
                 counter++;
                 break;
             case "event":
@@ -76,12 +70,12 @@ public class Duke {
                 String theEvent = instructionTask.substring(indexOfEvent);
                 input.List[counter] = new Events(theTask2, theEvent);
                 System.out.println("The task has been added to your events list");
-                System.out.println("_______________________________________________________");
+                message.printLineBreak();
                 counter++;
                 break;
             default:
                 input.List[counter] = new Task(userInput);
-                System.out.println(userInput + "\n" + "_______________________________________________________\n");
+                message.printLineBreak();
                 counter++;
                 break;
             }
