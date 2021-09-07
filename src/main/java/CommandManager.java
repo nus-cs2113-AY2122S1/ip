@@ -11,7 +11,7 @@ public class CommandManager implements CommandInterface{
                                                 "   todo - Add ToDo Task\n" +
                                                 "   event - Add Event Task - !event for details\n" +
                                                 "   deadline - Add Deadline Task - !deadline for details\n" +
-                                                "   bye - Shut Down";
+                                                "   bye - Shut Down\n";
     private static final String MESSAGE_LIST_HELP = "list displays all tasks\n" +
                                                     "list todo displays all todo tasks\n" +
                                                     "list event displays all event tasks\n" +
@@ -43,16 +43,16 @@ public class CommandManager implements CommandInterface{
         }
         switch(description) {
         case COMMAND_HELP:
-            System.out.println(MESSAGE_HELP);
+            System.out.println(Logo.divider + MESSAGE_HELP + Logo.divider);
             break;
         case COMMAND_LIST_HELP:
-            System.out.println(MESSAGE_LIST_HELP);
+            System.out.println(Logo.divider + MESSAGE_LIST_HELP + Logo.divider);
             break;
         case COMMAND_EVENT_HELP:
-            System.out.println(MESSAGE_EVENT_HELP);
+            System.out.println(Logo.divider + MESSAGE_EVENT_HELP + Logo.divider);
             break;
         case COMMAND_DEADLINE_HELP:
-            System.out.println(MESSAGE_DEADLINE_HELP);
+            System.out.println(Logo.divider + MESSAGE_DEADLINE_HELP + Logo.divider);
             break;
         }
     }

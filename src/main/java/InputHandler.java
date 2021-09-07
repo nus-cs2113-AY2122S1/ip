@@ -84,6 +84,7 @@ public class InputHandler implements InputInterface{
     private void handleDone(String userInput){
         String removeCommand = userInput.replaceFirst(COMMAND_COMPLETE_TASK,"").trim();
         String[] taskDoneArray = removeCommand.split(",");
+        System.out.println(Logo.dividerWithoutNewLine);
         for (String s: taskDoneArray) {
             int taskDoneIndex = Integer.parseInt(s);
             try {
@@ -92,6 +93,7 @@ public class InputHandler implements InputInterface{
                 e.handleException();
             }
         }
+        System.out.println(Logo.dividerWithoutNewLine);
     }
 
     private void handleEcho(String userInput) throws CommandException{
@@ -99,7 +101,7 @@ public class InputHandler implements InputInterface{
         if(removeCommand.isEmpty()){
             throw new CommandException(ErrorList.ERROR_EMPTY_ECHO_INPUT);
         }
-        System.out.println(removeCommand);
+        System.out.println(Logo.divider + removeCommand + Logo.divider);
     }
 
     private void handleList(String userInput) throws CommandException{
@@ -107,6 +109,7 @@ public class InputHandler implements InputInterface{
             throw new CommandException(ErrorList.ERROR_EMPTY_LIST);
         }
         String removeCommand = userInput.replaceFirst(COMMAND_VIEW_LIST,"").trim();
+        System.out.println(Logo.dividerWithoutNewLine);
         if(removeCommand.contains(COMMAND_ADD_TODO)){
             try {
                 listManager.printToDo();
@@ -128,6 +131,7 @@ public class InputHandler implements InputInterface{
         }else {
             listManager.printList();
         }
+        System.out.println(Logo.dividerWithoutNewLine);
     }
 
     public void handleInput() throws CommandException{
@@ -178,7 +182,7 @@ public class InputHandler implements InputInterface{
             case COMMAND_COMPLETE_TASK:
                 handleDone(userInput);
                 listManager.printList();
-                System.out.println(Logo.divider);
+                System.out.println(Logo.dividerWithoutNewLine);
                 break;
             case COMMAND_ADD_EVENT:
                 try {
