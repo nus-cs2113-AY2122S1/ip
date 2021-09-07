@@ -1,4 +1,6 @@
-package typesOfTasks;
+package allTasks.typesOfTasks;
+
+import allTasks.Task;
 
 public class Todo extends Task {
 

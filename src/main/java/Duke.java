@@ -1,7 +1,7 @@
-import typesOfTasks.Deadline;
-import typesOfTasks.Event;
-import typesOfTasks.Task;
-import typesOfTasks.Todo;
+import allTasks.typesOfTasks.Deadline;
+import allTasks.typesOfTasks.Event;
+import allTasks.Task;
+import allTasks.typesOfTasks.Todo;
 
 import java.util.Scanner;
 

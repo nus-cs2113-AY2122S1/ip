@@ -1,4 +1,4 @@
-package typesOfTasks;
+package allTasks;
 
 public class Task {
 
