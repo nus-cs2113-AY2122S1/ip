@@ -17,8 +17,8 @@ public class TaskManager {
 
 
     /**
-     * Only called for events and deadline type tasks, adds an event or deadline task to the list of tasks stored by
-     * taro. Increments the count of the total number of tasks on the list
+     * Adds a new task to the full list of tasks stored by taro based on whether it is a todo, deadline or event.
+     * Increments the total count of tasks.
      *
      * @param taskName the description of the task to be added as specified by the user
      * @param date the date or time (either deadline or event date) to be attached to the task

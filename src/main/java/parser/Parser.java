@@ -17,7 +17,15 @@ public class Parser {
     public static final String ERROR_MISSING_PARAM_MESSAGE = "the description of a todo cannot be empty.";
     public static final String ERROR_INVALID_COMMAND_MESSAGE = "sorry, I didn't understand that command";
 
-    public Command parseInput(String userInput, UI ui) throws DukeException {
+    /**
+     * Parses raw user input passed into commands to execute and if possible, date and description format for
+     * deadlines and events.
+     *
+     * @param userInput raw user input from standard input
+     * @return executable type Command object
+     * @throws DukeException error for either an invalid command or missing parameters for a todo task
+     */
+    public Command parseInput(String userInput) throws DukeException {
         int positionOfSpace = userInput.indexOf(" ");
         String commandWord = positionOfSpace > 0 ? userInput.substring(0, positionOfSpace).strip() : userInput;
 
@@ -38,6 +46,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Filters either todo, deadline or event commands to determine the task to be added and if required, the date
+     * needed for the deadline or event to create an AddCommand object.
+     *
+     * @param commandWord one of: "todo", "deadline" or "event", used to determine what type of task is to be added
+     * @param taskDescription the full description of the task, including (if any) a date
+     * @return the executable AddCommand with relevant fields configured
+     * @throws DukeException error for either missing description for todo command or an invalid command
+     */
     private AddCommand parseAddCommand(String commandWord, String taskDescription) throws DukeException {
         String taskName;
 
