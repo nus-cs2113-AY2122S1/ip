@@ -3,13 +3,11 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    public static final int TASK_INDEX = 5;
-
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String request) {
+    public void addTask(String request) throws Exception {
         Task newTask = Request.parseTask(request);
         tasks.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
@@ -19,9 +17,14 @@ public class TaskList {
 
     public void doneTask(String request) {
         int taskIndex = Request.parseTaskIndex(request);
-        tasks.get(taskIndex).setDone();
-        System.out.printf("Nice! I've marked this task as done:\n" +
-                "  %s\n", tasks.get(taskIndex));
+        Task task = tasks.get(taskIndex);
+        if(task.isDone()) {
+            System.out.println("This task is already done!");
+        } else {
+            tasks.get(taskIndex).setDone();
+            System.out.printf("Nice! I've marked this task as done:\n" +
+                    "  %s\n", tasks.get(taskIndex));
+        }
     }
 
     public void printTasks() {

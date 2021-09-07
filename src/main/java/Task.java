@@ -1,18 +1,20 @@
 public class Task {
     private String description;
-    private boolean isDone;
+    private boolean status;
+
+    public static final int TASK_INDEX = 5;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.status = false;
     }
 
     public void setDone() {
-        this.isDone = true;
+        this.status = true;
     }
 
-    public boolean status() {
-        return this.isDone;
+    public boolean isDone() {
+        return this.status;
     }
 
     public String getDescription() {
@@ -21,7 +23,8 @@ public class Task {
 
     @Override
     public String toString(){
-        String done = this.status()? "X" : " ";
+
+        String done = this.isDone()? "X" : " ";
         String taskType = this.getClass().getName().substring(0,1).toUpperCase();
         return String.format("[%s][%s] %s",taskType, done, this.getDescription());
     }

@@ -19,11 +19,19 @@ public class Duke {
                 } else if (Request.isDone(request)) { //Should check if it is a task or a command instead
                     list.doneTask(request);
                 } else {
+                    System.out.println("task read");
                     list.addTask(request);
                 }
                 request = in.nextLine();
             } catch (Exception ex) {
-                System.out.println("Heyyyy, I can't do that...");
+                System.out.println(ex.getClass());
+                if (ex instanceof IncompleteInformationException) {
+                    System.out.println("wrong info");
+                } else if (ex instanceof InvalidRequestException) {
+                    System.out.println("☹ OOPS!!! I can't do that.");
+                } else {
+                    System.out.println("Some error i don't know of");
+                }
                 request = in.nextLine();
             }
         }
