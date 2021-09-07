@@ -32,7 +32,7 @@ public class Patchi {
                 try {
                     addTask(tasks, nextTaskIndex, input);
                     System.out.println("Patchi: Got it! I have added " + tasks[nextTaskIndex].toString() +
-                            " to your task list Œ(ˆOˆ)B");
+                            " to your task list! Œ(ˆOˆ)B");
                     nextTaskIndex++;
                     System.out.println("Patchi: You have " + nextTaskIndex + " tasks now" +
                             "... Too much work... Œ(ˊnˋ)B");
