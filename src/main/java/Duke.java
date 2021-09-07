@@ -116,7 +116,7 @@ public class Duke {
                     DukeException error = new DukeException(ERROR_DEADLINE_IS_EMPTY);
                     error.printError(error.errorType);
                 }
-            } else {
+            } else if (!line.matches("bye")) {
                 DukeException error = new DukeException(ERROR_COMMAND_NOT_FOUND);
                 error.printError(error.errorType);
             }
