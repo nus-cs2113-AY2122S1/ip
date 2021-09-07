@@ -1,4 +1,6 @@
-package kitty;
+package kitty.task;
+
+import kitty.Parser;
 
 public class Event extends Task{
     protected String eventDate;

@@ -1,4 +1,4 @@
-package kitty;
+package kitty.task;
 
 public class Task {
     private String taskName;
