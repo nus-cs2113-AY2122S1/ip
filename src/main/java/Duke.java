@@ -11,32 +11,37 @@ public class Duke {
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         do {
-            String userInput = in.nextLine();
+            try {
+                String userInput = in.nextLine();
 
-            switch (Parser.processCommand(userInput.split(" ")[0].toLowerCase(Locale.ROOT))) {
-            case BYE:
-                System.out.println("Bye. Hope to see you again soon!");
-                isExit = true;
-                break;
-            case LIST:
-                taskManager.printTask();
-                break;
-            case DONE:
-                taskManager.doneTask(userInput);
-                break;
-            case DEADLINE:
-                taskManager.addDeadlineTask(userInput);
-                break;
-            case EVENT:
-                taskManager.addEventTask(userInput);
-                break;
-            case TODO:
-                taskManager.addToDoTask(userInput);
-                break;
-            default:
-                System.out.println("Sorry I don't understand the command: " + userInput);
+                switch (Parser.processCommand(userInput.split(" ")[0].toLowerCase(Locale.ROOT))) {
+                case BYE:
+                    System.out.println("Bye. Hope to see you again soon!");
+                    isExit = true;
+                    break;
+                case LIST:
+                    taskManager.printTask();
+                    break;
+                case DONE:
+                    taskManager.doneTask(userInput);
+                    break;
+                case DEADLINE:
+                    taskManager.addDeadlineTask(userInput);
+                    break;
+                case EVENT:
+                    taskManager.addEventTask(userInput);
+                    break;
+                case TODO:
+                    taskManager.addToDoTask(userInput);
+                    break;
+                default:
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                System.out.println(DIVIDER);
             }
-            System.out.println(DIVIDER);
         } while (!isExit);
     }
 
