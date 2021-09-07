@@ -16,7 +16,6 @@ public class DoneCommand extends UserCommand {
         Task completedTask;
         try {
             completedTask = this.tasks.markAsDone(index - 1);
-
         } catch (NullPointerException e) {
             throw new TaskNotExistException();
         }
