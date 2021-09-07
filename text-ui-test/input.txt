@@ -5,7 +5,10 @@ deadline essay /by monday
 event seminar /at sunday 4pm
 list
 done 2
+done 2
 list
-todo blah
+todo homework
+done 5
 list
+done 7
 bye
