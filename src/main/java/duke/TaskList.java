@@ -1,3 +1,5 @@
+package duke;
+
 public interface TaskList {
     void printList() throws CommandException;
     void printToDo() throws CommandException;

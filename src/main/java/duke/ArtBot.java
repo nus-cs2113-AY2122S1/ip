@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 
 public class ArtBot implements ArtInterface{

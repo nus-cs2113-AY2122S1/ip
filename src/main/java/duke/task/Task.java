@@ -1,4 +1,8 @@
-public class Task implements TaskInterface{
+package duke.task;
+
+import duke.TaskInterface;
+
+public class Task implements TaskInterface {
     private static final String completeStatusIcon = "[X]";
     private static final String incompleteStatusIcon = "[ ]";
     private final String description;

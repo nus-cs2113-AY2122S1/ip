@@ -1,3 +1,5 @@
+package duke;
+
 public class CommandException extends Exception{
 
     private String errorMessage;
