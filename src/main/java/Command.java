@@ -29,53 +29,65 @@ public class Command extends Logic {
      *
      * @return output message to the user.
      */
-    public String executeCommand() {
+    public String executeCommand() throws DukeException{
         switch (command) {
         case "bye":
             isBye = true;
             returnString = Message.printExit();
             break;
         case "todo":
-            if (lIST_INDEX < LIST_LENGTH) {
-                Tasks[lIST_INDEX] = new Todo(description);
-                lIST_INDEX++;
-                returnString = "Got it. I've added this task:\n" + Tasks[lIST_INDEX - 1] + "\n"
-                        + "Now you have " + String.valueOf(lIST_INDEX) + " tasks in the list.";
-            } else {
-                //>= 100 tasks
-                returnString = "List is full! :(";
+            try {
+                if (LIST_INDEX < LIST_LENGTH) {
+                    Tasks[LIST_INDEX] = new Todo(description);
+                    LIST_INDEX++;
+                    returnString = "Got it. I've added this task:\n" + Tasks[LIST_INDEX - 1] + "\n"
+                            + "Now you have " + String.valueOf(LIST_INDEX) + " tasks in the list.";
+                } else {
+                    //>= 100 tasks
+                    returnString = "List is full! :(";
+                }
+            } catch (Exception e) {
+                throw new ToDoCommandError();
             }
             break;
         case "deadline":
-            if (lIST_INDEX < LIST_LENGTH) {
-                Tasks[lIST_INDEX] = new Deadline(description, date);
-                lIST_INDEX++;
-                returnString = "Got it. I've added this task:\n" + Tasks[lIST_INDEX - 1] + "\n"
-                        + "Now you have " + String.valueOf(lIST_INDEX) + " tasks in the list.";
-            } else {
-                //>= 100 tasks
-                returnString = "List is full! :(";
+            try {
+                if (LIST_INDEX < LIST_LENGTH) {
+                    Tasks[LIST_INDEX] = new Deadline(description, date);
+                    LIST_INDEX++;
+                    returnString = "Got it. I've added this task:\n" + Tasks[LIST_INDEX - 1] + "\n"
+                            + "Now you have " + String.valueOf(LIST_INDEX) + " tasks in the list.";
+                } else {
+                    //>= 100 tasks
+                    returnString = "List is full! :(";
+                }
+            } catch (Exception e) {
+                throw new DeadLineCommandError();
             }
             break;
         case "event":
-            if (lIST_INDEX < LIST_LENGTH) {
-                Tasks[lIST_INDEX] = new Event(description, date);
-                lIST_INDEX++;
-                returnString = "Got it. I've added this task:\n" + Tasks[lIST_INDEX - 1] + "\n"
-                        + "Now you have " + String.valueOf(lIST_INDEX) + " tasks in the list.";
-            } else {
-                //>= 100 tasks
-                returnString = "List is full! :(";
+            try {
+                if (LIST_INDEX < LIST_LENGTH) {
+                    Tasks[LIST_INDEX] = new Event(description, date);
+                    LIST_INDEX++;
+                    returnString = "Got it. I've added this task:\n" + Tasks[LIST_INDEX - 1] + "\n"
+                            + "Now you have " + String.valueOf(LIST_INDEX) + " tasks in the list.";
+                } else {
+                    //>= 100 tasks
+                    returnString = "List is full! :(";
+                }
+            } catch (Exception e) {
+                throw new EventCommandError();
             }
             break;
         case "list":
             //no tasks in list
-            if (lIST_INDEX == 0) {
+            if (LIST_INDEX == 0) {
                 returnString = "No tasks added yet! :)";
             } else {
                 //when there are tasks in list
                 String listMessage = "Here is the list you requested!";
-                for (int i = 1; i <= lIST_INDEX; i++) {
+                for (int i = 1; i <= LIST_INDEX; i++) {
                     listMessage += "\n";
                     listMessage += String.valueOf(i) + ".";
                     listMessage += Tasks[i - 1];
@@ -85,10 +97,20 @@ public class Command extends Logic {
             break;
         case "done":
             int index = Integer.parseInt(description);
+            try {
+                //valid index
+                Tasks[index - 1].markDone();
+                returnString = "Nice! I've marked this task as done:\n"
+                        + "[X] " + Tasks[index - 1].getDescription();
+            } catch (Exception e) {
+                throw new DoneListIndexError();
+            }
+
+            /*
             //index cannot be <= 0
             if (index <= 0) {
                 returnString = "Invalid index";
-            } else if (index <= lIST_INDEX) {
+            } else if (index <= LIST_INDEX) {
                 //valid index
                 Tasks[index - 1].markDone();
                 returnString = "Nice! I've marked this task as done:\n"
@@ -97,9 +119,11 @@ public class Command extends Logic {
                 //not enough tasks to make it to that index
                 returnString = "No task at that index";
             }
+            */
             break;
         default:
-            returnString = "???\n" + "I do not understand what you are saying";
+            //returnString = "???\n" + "I do not understand what you are saying";
+            throw new InvalidCommandError();
         }
         return returnString;
     }
