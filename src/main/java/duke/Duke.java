@@ -1,6 +1,13 @@
 package duke;
 
 import java.util.Scanner;
+import duke.exception.NoSpaceException;
+import duke.exception.NoTimeException;
+import duke.exception.NoDescriptionException;
+import duke.list.Task;
+import duke.list.ToDo;
+import duke.list.Deadline;
+import duke.list.Event;
 
 public class Duke {
     public static final String SEPARATE_LINE = "____________________________________________________________";
