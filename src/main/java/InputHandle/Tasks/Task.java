@@ -1,6 +1,8 @@
-package InputHandler.command;
+package InputHandle.Tasks;
 
-abstract class Task {
+import java.io.Serializable;
+
+abstract public class Task implements Serializable {
     private String taskName;
     private boolean isCompleted;
 

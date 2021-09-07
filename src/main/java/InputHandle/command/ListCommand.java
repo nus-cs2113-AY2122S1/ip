@@ -1,4 +1,6 @@
-package InputHandler.command;
+package InputHandle.command;
+
+import InputHandle.Tasks.TaskList;
 
 public class ListCommand extends UserCommand {
     public ListCommand(TaskList tasks) {

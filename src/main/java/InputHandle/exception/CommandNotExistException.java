@@ -1,4 +1,4 @@
-package InputHandler.exception;
+package InputHandle.exception;
 
 public class CommandNotExistException extends DukeException {
     @Override

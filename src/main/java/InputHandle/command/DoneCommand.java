@@ -1,7 +1,9 @@
-package InputHandler.command;
+package InputHandle.command;
 
 
-import InputHandler.exception.TaskNotExistException;
+import InputHandle.Tasks.Task;
+import InputHandle.Tasks.TaskList;
+import InputHandle.exception.TaskNotExistException;
 
 public class DoneCommand extends UserCommand {
     private int index;
@@ -16,7 +18,7 @@ public class DoneCommand extends UserCommand {
         Task completedTask;
         try {
             completedTask = this.tasks.markAsDone(index - 1);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskNotExistException();
         }
         System.out.println("     Nice! I've marked this task as done: ");

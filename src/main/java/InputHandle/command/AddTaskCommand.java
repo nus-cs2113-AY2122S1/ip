@@ -1,7 +1,9 @@
-package InputHandler.command;
+package InputHandle.command;
 
-import InputHandler.exception.TaskEmptyException;
-import InputHandler.exception.TimeMissingException;
+import InputHandle.Tasks.Task;
+import InputHandle.Tasks.TaskList;
+import InputHandle.exception.TaskEmptyException;
+import InputHandle.exception.TimeMissingException;
 
 public class AddTaskCommand extends UserCommand {
     private String addCommand;

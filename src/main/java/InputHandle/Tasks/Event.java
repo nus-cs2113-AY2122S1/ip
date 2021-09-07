@@ -1,6 +1,6 @@
-package InputHandler.command;
+package InputHandle.Tasks;
 
-class Event extends Task{
+public class Event extends Task{
     String completeTime;
 
     public Event (String taskName, String completeTime, boolean isCompleted) {

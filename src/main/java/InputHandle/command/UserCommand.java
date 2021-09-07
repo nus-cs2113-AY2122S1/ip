@@ -1,6 +1,7 @@
-package InputHandler.command;
+package InputHandle.command;
 
-import InputHandler.exception.DukeException;
+import InputHandle.Tasks.TaskList;
+import InputHandle.exception.DukeException;
 
 public abstract class UserCommand {
     TaskList tasks;

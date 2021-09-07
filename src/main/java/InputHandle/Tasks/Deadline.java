@@ -1,6 +1,6 @@
-package InputHandler.command;
+package InputHandle.Tasks;
 
-class Deadline extends Task {
+public class Deadline extends Task {
     private String deadline;
 
     public Deadline (String taskName, String deadline, boolean isCompleted) {

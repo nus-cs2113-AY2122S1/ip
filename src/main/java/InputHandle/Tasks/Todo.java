@@ -1,6 +1,6 @@
-package InputHandler.command;
+package InputHandle.Tasks;
 
-class Todo extends Task {
+public class Todo extends Task {
 
     public Todo (String taskName, boolean isCompleted) {
         super(taskName, isCompleted);

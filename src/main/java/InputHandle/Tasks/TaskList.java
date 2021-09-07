@@ -1,11 +1,13 @@
-package InputHandler.command;
+package InputHandle.Tasks;
 
-import InputHandler.exception.TaskEmptyException;
-import InputHandler.exception.TimeMissingException;
+import InputHandle.exception.TaskEmptyException;
+import InputHandle.exception.TimeMissingException;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
-public class TaskList {
+public class TaskList implements Serializable {
     private List<Task> tasks = new ArrayList<>();
 
     public Task addList(String userInput) throws TimeMissingException, TaskEmptyException {
@@ -25,7 +27,7 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public Task markAsDone(int index) throws NullPointerException{
+    public Task markAsDone(int index) throws IndexOutOfBoundsException{
         Task completedTask = this.tasks.get(index);
         completedTask.setCompleted();
         return completedTask;
