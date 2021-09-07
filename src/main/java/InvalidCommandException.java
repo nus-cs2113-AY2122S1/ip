@@ -1,8 +1,7 @@
-public class IllegalToDoException extends Exception{
-    //@Override
+public class InvalidCommandException extends Exception{
     public static void printMessage() {
         System.out.println ("\t____________________________________________________________\n" +
-                "\tOOOPS!!! The description of a todo cannot be empty. BIG SADS\n" +
+                "\tOOOPS!!! I'm sorry, but I don't know what that means. EPIC SADS :-(\n" +
                 "\t____________________________________________________________\n\t");
     }
 }
