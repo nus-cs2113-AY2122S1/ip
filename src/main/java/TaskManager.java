@@ -50,8 +50,20 @@ public class TaskManager {
         System.out.println("Hey bud, the format for marking off a task is :done [index]");
     }
 
-    public static void printEmptyArgumentMessage(String command) {
+    public static void printEmptyDescriptionMessage(String command) {
         System.out.println("Sorry bud! The description after " + command + " can't be blank!");
+    }
+
+    public static void printInvalidCommandMessage() {
+        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 6 words!");
+        System.out.println("The six words are:");
+        System.out.printf("list%ndone%ntodo%ndeadline%nevent%nbye%n");
+    }
+
+    public static void printInvalidFormatMessage(String command) {
+        String timeIndicatorCommand = (command.equals(COMMAND_DEADLINE)) ? "by" : "at";
+        System.out.println("Sorry bud, but your formatting is gibberish to me. Here is how it should be formatted: ");
+        System.out.println(command + " {description} /" + timeIndicatorCommand + " {timing}");
     }
 
     public static void printGenericErrorMessage() {
@@ -101,23 +113,47 @@ public class TaskManager {
         }
     }
 
-    public void addNewTodo(String description) {
+    public void addNewTodo(String rawDescription) throws EmptyDescriptionException {
+        String description = rawDescription.trim();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
         tasks[taskCount] = new ToDo(description);
         taskCount++;
     }
 
-    public void addNewDeadline(String line) {
-        String[] descriptionAndByTimeArray = line.split(SEPARATOR_BY);
-        String byDateTime = descriptionAndByTimeArray[1];
-        String description = descriptionAndByTimeArray[0].substring(DEADLINE_DESCRIPTION_START_INDEX);
+    public void addNewDeadline(String descriptionAndTime) throws EmptyDescriptionException, InvalidFormatException {
+
+        String[] descriptionAndByTimeArray = descriptionAndTime.split(SEPARATOR_BY);
+        String description = descriptionAndByTimeArray[0].trim();
+
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        if (descriptionAndByTimeArray.length == 1) {
+            throw new InvalidFormatException();
+        }
+
+        String byDateTime = descriptionAndByTimeArray[1].trim();
+
         tasks[taskCount] = new Deadline(description, byDateTime);
         taskCount++;
     }
 
-    public void addNewEvent(String line) {
-        String[] descriptionAndAtTimeArray = line.split(SEPARATOR_AT);
-        String startAndEndTime = descriptionAndAtTimeArray[1];
-        String description = descriptionAndAtTimeArray[0].substring(EVENT_DESCRIPTION_START_INDEX);
+    public void addNewEvent(String descriptionAndTime) throws EmptyDescriptionException, InvalidFormatException {
+
+        String[] descriptionAndAtTimeArray = descriptionAndTime.split(SEPARATOR_AT);
+        String description = descriptionAndAtTimeArray[0].trim();
+
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        if (descriptionAndAtTimeArray.length == 1) {
+            throw new InvalidFormatException();
+        }
+
+        String startAndEndTime = descriptionAndAtTimeArray[1].trim();
+
         tasks[taskCount] = new Event(description, startAndEndTime);
         taskCount++;
     }
@@ -176,16 +212,38 @@ public class TaskManager {
             } else if (command.equals(COMMAND_DONE)) {
                 markAsDone(tasks, lineArgs[1]);
             } else if (command.equals(COMMAND_TODO)) {
-                addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
-                printAddedTaskMessage(tasks[taskCount - 1]);
+
+                try {
+                    addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
+                    printAddedTaskMessage(tasks[taskCount - 1]);
+                } catch (EmptyDescriptionException | StringIndexOutOfBoundsException e) {
+                    printEmptyDescriptionMessage(COMMAND_TODO);
+                }
+
             } else if (command.equals(COMMAND_DEADLINE)) {
-                addNewDeadline(line);
-                printAddedTaskMessage(tasks[taskCount - 1]);
+
+                try {
+                    addNewDeadline(line.substring(DEADLINE_DESCRIPTION_START_INDEX));
+                    printAddedTaskMessage(tasks[taskCount - 1]);
+                } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+                    printEmptyDescriptionMessage(COMMAND_DEADLINE);
+                } catch (InvalidFormatException e) {
+                    printInvalidFormatMessage(COMMAND_DEADLINE);
+                }
+
             } else if (command.equals(COMMAND_EVENT)) {
-                addNewEvent(line);
-                printAddedTaskMessage(tasks[taskCount - 1]);
+
+                try {
+                    addNewEvent(line.substring(EVENT_DESCRIPTION_START_INDEX));
+                    printAddedTaskMessage(tasks[taskCount - 1]);
+                } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+                    printEmptyDescriptionMessage(COMMAND_EVENT);
+                } catch (InvalidFormatException e) {
+                    printInvalidFormatMessage(COMMAND_EVENT);
+                }
+
             } else {
-                printGenericErrorMessage();
+                printInvalidCommandMessage();
             }
 
             printLine();
