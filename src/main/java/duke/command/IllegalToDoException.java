@@ -1,3 +1,5 @@
+package duke.command;
+
 public class IllegalToDoException extends Exception{
     //@Override
     public static void printMessage() {

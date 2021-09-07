@@ -1,3 +1,5 @@
+package duke.command;
+
 public class InvalidCommandException extends Exception{
     public static void printMessage() {
         System.out.println ("\t____________________________________________________________\n" +
