@@ -87,7 +87,11 @@ public class Duke {
             printList(list, size);
             break;
         case "done":
-            markTaskDone(list, words[1]);
+            try {
+                markTaskDone(list, words[1]);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a done cannot be empty.");
+            }
             break;
         case "todo":
             try {
@@ -97,19 +101,25 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("    OOPS!!! The description of a todo cannot be empty.");
             }
-
             break;
         case "deadline":
-            //extract out deadline description and by
-            Deadlines newDeadline = createNewDeadline(words);
-            addTask(list, newDeadline, size);
-            taskCount ++;
+            try {
+                Deadlines newDeadline = createNewDeadline(words);
+                addTask(list, newDeadline, size);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a deadline cannot be empty.");
+            }
             break;
         case "event":
             //extract out event description and timeAllocation
-            Events newEvent = createNewEvent(words);
-            addTask(list, newEvent, size);
-            taskCount ++;
+            try {
+                Events newEvent = createNewEvent(words);
+                addTask(list, newEvent, size);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a event cannot be empty.");
+            }
             break;
         default:
                 System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
