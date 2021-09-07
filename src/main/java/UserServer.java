@@ -6,17 +6,22 @@ import InputHandle.exception.CommandNotExistException;
 import InputHandle.exception.DukeException;
 import InputHandle.exception.TaskIndexMissingException;
 
-import java.io.Serializable;
+
 import java.util.Scanner;
 
 
-public class UserServer implements Serializable {
+public class UserServer {
+    private String userName;
     private TaskList userTasks = new TaskList();
-    transient private Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     What can I do for you?\n";
 
+
+    public UserServer(String userName) {
+        this.userName = userName;
+    }
 
     public void serviceBegin(){
         System.out.print(DIVISIONLINE + GREETINGS + DIVISIONLINE);
@@ -45,7 +50,7 @@ public class UserServer implements Serializable {
 
     public void save(String userName) {
         FileSaver saver = new FileSaver(userName);
-        saver.save();
+        saver.save(userTasks);
     }
 
     private void commandExecute(UserCommand input) {

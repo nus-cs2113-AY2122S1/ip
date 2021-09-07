@@ -1,6 +1,8 @@
 package InputHandle.Tasks;
 
-public class Deadline extends Task {
+import java.io.Serializable;
+
+public class Deadline extends Task implements Serializable {
     private String deadline;
 
     public Deadline (String taskName, String deadline, boolean isCompleted) {
