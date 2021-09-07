@@ -34,7 +34,6 @@ public class CommandList {
         System.out.println(task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println(border);
-
     }
 
     public void addEvent(Task[] items, String description, String time) {
