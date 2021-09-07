@@ -43,8 +43,13 @@ public class TaskManager {
             addEvent(tasks, message);
             break;
         default:
+            printLine();
+            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            printLine();
         }
-        printAddedTask(tasks[Task.COUNT - 1]);
+        if (Task.COUNT > 0) {
+            printAddedTask(tasks[Task.COUNT - 1]);
+        }
     }
 
     /**
@@ -66,10 +71,17 @@ public class TaskManager {
      *                the task description
      */
     private static void addEvent(Task[] tasks, String message) {
-        message = message.substring(6);
-        String[] eventData = message.split("/", 2);
-        tasks[Task.COUNT] = new Event(eventData[0], eventData[1].substring(3));
-        Task.COUNT++;
+        try {
+            message = message.substring(6);
+            String[] eventData = message.split("/", 2);
+            tasks[Task.COUNT] = new Event(eventData[0], eventData[1].substring(3));
+            Task.COUNT++;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("YOU IDIOT !!??!! The input format should be : ");
+            System.out.println("event description /on date or time");
+        }
     }
 
     /**
@@ -80,10 +92,21 @@ public class TaskManager {
      *                the task description
      */
     private static void addDeadline(Task[] tasks, String message) {
-        message = message.substring(9);
-        String[] deadlineData = message.split("/", 2);
-        tasks[Task.COUNT] = new Deadline(deadlineData[0], deadlineData[1].substring(3));
-        Task.COUNT++;
+        try {
+            message = message.substring(9);
+            String[] deadlineData = message.split("/", 2);
+            tasks[Task.COUNT] = new Deadline(deadlineData[0], deadlineData[1].substring(3));
+            Task.COUNT++;
+        } catch (StringIndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("YOU IDIOT !!??!! The description of a deadline cannot be empty.");
+            printLine();
+        } catch (ArrayIndexOutOfBoundsException d) {
+            printLine();
+            System.out.println("YOU IDIOT !!??!! The input format should be : ");
+            System.out.println("deadline description /by date or time");
+            printLine();
+        }
     }
 
     /**
@@ -94,8 +117,14 @@ public class TaskManager {
      *                the task description
      */
     private static void addTodo(Task[] tasks, String message) {
-        tasks[Task.COUNT] = new Todo(message.substring(5));
-        Task.COUNT++;
+        try {
+            tasks[Task.COUNT] = new Todo(message.substring(5));
+            Task.COUNT++;
+        } catch (StringIndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            printLine();
+        }
     }
 
     /**
@@ -105,6 +134,9 @@ public class TaskManager {
         printLine();
         for (int i = 0; i < Task.COUNT; i++) {
             System.out.println((i + 1) + ". " + tasks[i].getDescription());
+        }
+        if (Task.COUNT == 0) {
+            System.out.println("Smartass, you need to add tasks before listing them !!!");
         }
         printLine();
     }
@@ -119,9 +151,15 @@ public class TaskManager {
      *                the task description
      */
     private static void markDone(Task[] tasks, String message) {
-        String[] arrOfStr = message.split(" ");
-        int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
-        tasks[index].isDone();
+        try {
+            String[] arrOfStr = message.split(" ");
+            int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
+            tasks[index].isDone();
+        } catch (NullPointerException e) {
+            printLine();
+            System.out.println("OH MY GOD, can you maybe type a task that exists ?");
+            printLine();
+        }
     }
 
     /**
