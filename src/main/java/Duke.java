@@ -29,7 +29,7 @@ public class Duke {
     private static final String MESSAGE_FORMAT_DEADLINE_USAGE = "Usage: %s <description> %s <date/time>";
     private static final String MESSAGE_FORMAT_EVENT_USAGE = "Usage: %s <description> %s <date/time>";
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n%s\nThere are %d tasks in the list";
-    private static final String MESSAGE_FORMAT_EXCEPTION = "Something went wrong.\n%s";
+    private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
