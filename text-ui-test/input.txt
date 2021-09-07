@@ -1,0 +1,9 @@
+event CCA /at Tues & Thurs
+deadline CS2113T /by Thursday 2359
+todo CFG1002
+list
+done 1
+list
+done 2
+list
+bye

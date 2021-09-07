@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 
 public class Duke {
@@ -13,18 +14,22 @@ public class Duke {
     private static final int ERROR_COMMAND_NOT_FOUND = 4;
     private static final Task[] items = new Task[ARRAY_SIZE];
     private static int taskCount = 0;
-    private static final String logo = " _____  ___ _____\n"
-            + "|___  | | ||_____| \n"
-            + "   / /  | |   / / \n"
-            + "  / /   | |  / /  \n"
-            + " / /___ | | /_/__  \n"
-            + "|_____| | ||_____| \n";
+    private static final String logo =
+              " _____  ___  _____     ______\n"
+            + "|___  | | | |_____|  / / -- \\ \\ \n"
+            + "   / /  | |    / /  | |      | | \n"
+            + "  / /   | |   / /   | |      | |\n"
+            + " / /___ | |  /_/__  | |  --  | |\n"
+            + "|_____| | | |_____|  \\ \\____/ /\n";
     private static final String border = "____________________________________________________________\n";
 
     public static void addTaskMessage(Task task) {
+        System.out.println(border);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(border);
+
     }
     public static void addEvent(String description, String time) {
         Events newEvent = new Events(description, time);
@@ -74,10 +79,10 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         String line;
         printStartMessage();
         do {
-            Scanner in = new Scanner(System.in);
             line = in.nextLine();
             if (line.matches("list")) {
                 printTasks(items);
@@ -108,7 +113,7 @@ public class Duke {
                     error.printError(error.errorType);
                 }
             } else if (line.length() >= EIGHT && line.substring(0, EIGHT).contains("deadline")) {
-                if (line.length() <= NINE && line.contains("by")) {
+                if (line.length() >= NINE && line.contains("/by")) {
                     String by = line.split("/by")[1].trim();
                     String description = line.split("/by")[0].trim().replace("deadline", "").trim();
                     addDeadline(description, by);
