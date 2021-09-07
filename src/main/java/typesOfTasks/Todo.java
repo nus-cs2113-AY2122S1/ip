@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package typesOfTasks;
+
+public class Todo extends Task {
 
     protected String taskType = "[T]";
 

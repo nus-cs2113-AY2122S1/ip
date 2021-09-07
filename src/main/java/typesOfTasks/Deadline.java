@@ -1,21 +1,23 @@
-public class Event extends Task{
+package typesOfTasks;
+
+public class Deadline extends Task {
 
     protected String by;
-    protected String taskType = "[E]";
+    protected String taskType = "[D]";
 
     /**
-     * Creates new Event task
-     * @param description name of event
-     * @param by time at which event will happen
+     * Creates new deadline task
+     * @param description name of task
+     * @param by due date for task
      */
-    public Event(String description, String by){
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
     /**
-     * Gets the event time
-     * @return event time
+     * Gets the due date of task
+     * @return due date
      */
     public String getBy() {
         return this.by;
@@ -23,7 +25,7 @@ public class Event extends Task{
 
     /**
      * Gets the type of task unique to this class
-     * @return ["E"] for event
+     * @return ["D"] for deadline
      */
     @Override
     public String getTaskType() {
@@ -34,6 +36,6 @@ public class Event extends Task{
     public String printTask() {
         super.printTask();
         return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription()
-                + "(at: " + this.getBy() + ")";
+                + "(by: " + this.getBy() + ")";
     }
 }
