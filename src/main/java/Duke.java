@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -13,10 +14,11 @@ public class Duke {
     private final static String LINES = "    ____________________________________________________________";
     private final static String TAB = "    ";
     private final static String GREETING = TAB + "Hello... I'm Sadge Duke\n    What can I do for you? :(";
-    private final static String GOODBYE = TAB + "Bye. I'll miss you...";
-    private final static String INVALID_GENERAL = TAB + "I'm really sorry... This is an invalid input...";
-    private final static String INVALID_DONE = TAB + "I'm sorry... This is an invalid done input...\n"
+    private final static String GOODBYE = TAB + "Please don't go... I'll miss you...";
+    private final static String INVALID_GENERAL = TAB + "☹ I'm really sorry... This is an invalid input...";
+    private final static String INVALID_DONE = TAB + "I'm sorry... This is an incorrect done input...\n"
             + TAB + "Please use 'list' to see what number can be used...";
+    private final static String INVALID_TASK = "Your task is really weird... I don't think I like it...";
     private final static String TODO = "todo";
     private final static String DEADLINE = "deadline";
     private final static String EVENT = "event";
@@ -75,49 +77,57 @@ public class Duke {
     /**
      * This function adds the input description into list accordingly, based on its task type.
      *
-     * @param input input given by the user.
+     * @param input    input given by the user.
      * @param taskType task type identified beforehand (DEADLINE/EVENT/TODO).
      */
     private static void addToList(String input, String taskType) {
         String[] parameters = new String[2];
-        getParameters(parameters, input, taskType);
-        switch (taskType) {
-        case TODO:
-            getParameters(parameters, input, TODO);
-            list[listIndexTracker] = new Todo(parameters[DESCRIPTION]);
-            break;
-        case DEADLINE:
-            getParameters(parameters, input, DEADLINE);
-            list[listIndexTracker] = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
-            break;
-        case EVENT:
-            getParameters(parameters, input, EVENT);
-            list[listIndexTracker] = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
-            break;
+        //getParameters(parameters, input, taskType);
+        try {
+            switch (taskType) {
+            case TODO:
+                getParameters(parameters, input, TODO);
+                list[listIndexTracker] = new Todo(parameters[DESCRIPTION]);
+                break;
+            case DEADLINE:
+                getParameters(parameters, input, DEADLINE);
+                list[listIndexTracker] = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
+                break;
+            case EVENT:
+                getParameters(parameters, input, EVENT);
+                list[listIndexTracker] = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
+                break;
+            }
+            listIndexTracker++;
+            printAddedMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(INVALID_TASK);
+        } catch (InvalidTaskException e) {
+            System.out.println(INVALID_TASK);
         }
 
-        listIndexTracker++;
-        printAddedMessage();
     }
 
     /**
      * This function prints the message when task is added to list.
      */
     private static void printAddedMessage() {
-        System.out.println(TAB + "Got it. I've added this task: ");
+        System.out.println(TAB + "Okay... I guess I'll add this task... ");
         System.out.println(TAB + TAB + list[listIndexTracker - 1]);
-        System.out.println(TAB + String.format("Now you have %d tasks in the list.", listIndexTracker));
+        System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", listIndexTracker));
     }
 
     /**
      * This function handles the done input by marking task as done.
+     *
      * @param input input given by the user.
      */
     private static void handleDoneInput(String input) {
         int index = getDoneIndex(input);
         try {
             list[index].markAsDone();
-            System.out.print(TAB + "Nice! I've marked this task as done:" + System.lineSeparator() + TAB + TAB);
+            System.out.print(TAB + "Nice... I guess I will mark this task as done...:"
+                    + System.lineSeparator() + TAB + TAB);
             System.out.println(list[index]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(INVALID_DONE);
@@ -145,6 +155,7 @@ public class Duke {
 
     /**
      * This function check if done statement and index in done statement is valid.
+     *
      * @param input input given by the user.
      * @return returns the validity of the done input.
      */
@@ -154,6 +165,7 @@ public class Duke {
 
     /**
      * This function retrieves the index given in done statement.
+     *
      * @param input input given by the user.
      * @return returns the index given in done statement
      */
@@ -164,6 +176,7 @@ public class Duke {
 
     /**
      * This function uses regex to check if to do statement is valid.
+     *
      * @param input input given by the user.
      * @return returns validity of the to do statement.
      */
@@ -173,6 +186,7 @@ public class Duke {
 
     /**
      * This function uses regex to check if deadline statement is valid.
+     *
      * @param input input given by the user.
      * @return returns validity of the deadline statement.
      */
@@ -182,6 +196,7 @@ public class Duke {
 
     /**
      * This function uses regex to check if event statement is valid.
+     *
      * @param input input given by the user.
      * @return returns validity of the event statement.
      */
@@ -191,11 +206,12 @@ public class Duke {
 
     /**
      * This function gets the parameters for the Task subclasses by slicing input.
+     *
      * @param parameters Array of string of fixed size 2 to store parameters for Task subclasses.
-     * @param input User's input into command line.
-     * @param taskType String that is pre-identified (DEADLINE/EVENT/TODO)
+     * @param input      User's input into command line.
+     * @param taskType   String that is pre-identified (DEADLINE/EVENT/TODO)
      */
-    private static void getParameters(String[] parameters, String input, String taskType) {
+    private static void getParameters(String[] parameters, String input, String taskType) throws InvalidTaskException {
         switch (taskType) {
         case TODO:
             String[] todoParts = input.split("(?i)todo ");
@@ -204,15 +220,24 @@ public class Duke {
         case DEADLINE:
             String[] initDeadlineParts = input.split("(?i)deadline ");
             String[] deadlineParts = initDeadlineParts[1].split(" /by ");
+            if (deadlineParts.length != 2) {
+                throw new InvalidTaskException();
+            }
             parameters[DESCRIPTION] = deadlineParts[0];
             parameters[DATETIME] = deadlineParts[1];
             break;
         case EVENT:
             String[] initEventParts = input.split("(?i)event ");
             String[] eventParts = initEventParts[1].split(" /at ");
+            if (eventParts.length != 2) {
+                throw new InvalidTaskException();
+            }
             parameters[DESCRIPTION] = eventParts[0];
             parameters[DATETIME] = eventParts[1];
             break;
+        }
+        if (Objects.equals(parameters[DESCRIPTION], "")) {
+            throw new InvalidTaskException();
         }
     }
 
