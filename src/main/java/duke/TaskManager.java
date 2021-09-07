@@ -15,16 +15,22 @@ public class TaskManager {
     private static void printDivider() {
         System.out.println("____________________________________________________________");
     }
+    
+    private static void InvalidCommandMessage() {
+        System.out.println("☹ OOPS!!! I do not understand what that means!");
+        printDivider();
+    }
+
+    private static void TaskEmptyMessage(String userInput) {
+        System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), userInput.split(" ")[0]);
+        printDivider();
+    }
 
     private static void markAsDoneMessage(int index) {
         System.out.println("Nice! I've marked this task as done: ");
         System.out.println(tasks[index]);
     }
 
-    private static void invalidCommand() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        printDivider();
-    }
 
     private static void taskDone(String userInput) {
         String[] params = userInput.split(" ", 2);
@@ -115,15 +121,16 @@ public class TaskManager {
                 taskDone(userInput);
                 break;
             default:
-                invalidCommand();
+                throw new InvalidCommandException();
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (InvalidCommandException e) {
+           InvalidCommandMessage();
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! You've forgotten to write the task number");
             printDivider();
         } catch (DukeException e) {
-            System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), userInput.split(" ")[0]);
-            printDivider();
-
+            TaskEmptyMessage(userInput);
         }
     }
 }
