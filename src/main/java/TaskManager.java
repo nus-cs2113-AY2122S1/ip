@@ -1,9 +1,9 @@
-package duke;
-
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import exceptions.DukeException;
+import exceptions.InvalidCommandException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 public class TaskManager {
     public static final int MAX_TASKS = 100;
@@ -31,7 +31,7 @@ public class TaskManager {
     }
 
     private static void markAsDoneMessage(int index) {
-        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks[index]);
     }
 
