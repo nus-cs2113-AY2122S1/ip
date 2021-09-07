@@ -1,4 +1,6 @@
-public class Deadlines  extends  Task{
+package duke;
+
+public class Deadlines  extends Task {
 
     //variables
     protected  String by;

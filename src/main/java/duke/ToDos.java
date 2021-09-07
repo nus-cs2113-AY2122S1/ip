@@ -1,5 +1,8 @@
+package duke;
 
-public class ToDos extends Task{
+import duke.Task;
+
+public class ToDos extends Task {
 
     //variables
     public ToDos(String description) {
