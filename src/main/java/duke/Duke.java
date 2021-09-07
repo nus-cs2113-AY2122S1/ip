@@ -1,3 +1,12 @@
+package duke;
+
+import duke.exception.AtEmptyException;
+import duke.exception.ByEmptyException;
+import duke.exception.NumberOutOfBoundsException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {

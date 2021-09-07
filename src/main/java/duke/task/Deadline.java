@@ -1,4 +1,8 @@
-public class Deadline extends Task{
+package duke.task;
+
+import duke.Task;
+
+public class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) {
