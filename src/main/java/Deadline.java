@@ -13,7 +13,7 @@ public class Deadline extends Task {
      * @return The formatted string.
      */
     @Override
-    public String getListEntryString() {
-        return String.format("%s (by: %s)", super.getListEntryString(), by);
+    public String toString() {
+        return String.format("%s (by: %s)", super.toString(), by);
     }
 }
