@@ -21,7 +21,7 @@ public class TaskManager {
             System.out.println("Nice! I've marked this task as done:\n  " + tasks[index].toString());
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter index of task done");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             System.out.println("Please enter index within range 1 to " + taskCount);
         }
     }

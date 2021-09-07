@@ -22,9 +22,12 @@ public class Parser {
         String description = null;
         try {
             String[] words = userInput.split(" ", 2);
+            if (words.length == 1) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
             description = words[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Description of todo task cannot be empty!");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
         return description;
     }
@@ -42,16 +45,22 @@ public class Parser {
         information[1] = "";
         try {
             String[] words = userInput.split(" ", 2);
+            if (words.length == 1) {
+                throw new DukeException("The description of a deadline task cannot be empty.");
+            }
+
             int byIndex = words[1].indexOf("/by");
+            if (byIndex == -1) {
+                throw new DukeException("The deadline time of the deadline task cannot be empty.");
+            }
+
             information[0] = words[1].substring(0, byIndex).trim();
             information[1] = words[1].substring(byIndex + 3).trim();
             if (information[0].equals("") || information[1].equals("")) {
-                System.out.println("Please enter description / deadline by");
+                throw new DukeException("The description or dateline time cannot be empty.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Description and dateline by of deadline task cannot be empty!");
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please enter description / deadline by");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
         return information;
     }
@@ -69,16 +78,22 @@ public class Parser {
         information[1] = "";
         try {
             String[] words = userInput.split(" ", 2);
-            int byIndex = words[1].indexOf("/at");
-            information[0] = words[1].substring(0, byIndex).trim();
-            information[1] = words[1].substring(byIndex + 3).trim();
-            if (information[0].equals("") || information[1].equals("")) {
-                System.out.println("Please enter description / event time");
+            if (words.length == 1) {
+                throw new DukeException("The description of a event task cannot be empty.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Description and event time by of event task cannot be empty!");
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please enter description / event time");
+
+            int atIndex = words[1].indexOf("/at");
+            if (atIndex == -1) {
+                throw new DukeException("The event time of the event task cannot be empty.");
+            }
+
+            information[0] = words[1].substring(0, atIndex).trim();
+            information[1] = words[1].substring(atIndex + 3).trim();
+            if (information[0].equals("") || information[1].equals("")) {
+                throw new DukeException("The description or dateline time cannot be empty.");
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
         return information;
     }
