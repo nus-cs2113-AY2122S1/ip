@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static final int LINE_LENGTH = 40;
 
     public static void printGreetingMessage(LizTextBanner liz) {
         System.out.println("Howdy! It's\n" + liz.getLizText() + liz.getLizLogo());
@@ -16,7 +17,7 @@ public class Duke {
     }
 
     public static void printLine() {
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < LINE_LENGTH; i++) {
             System.out.print("_");
         }
         System.out.println("");
