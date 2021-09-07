@@ -1,3 +1,8 @@
+package duke;
+
+import duke.parser.Parser;
+import duke.task.TaskManager;
+
 import java.util.Locale;
 import java.util.Scanner;
 

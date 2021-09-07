@@ -1,3 +1,7 @@
+package duke.parser;
+
+import duke.DukeException;
+
 public class Parser {
     public static Command processCommand(String command) {
         switch (command) {
@@ -18,6 +22,11 @@ public class Parser {
         }
     }
 
+    /**
+     * @param userInput
+     * @return
+     * description
+     */
     public static String processToDo(String userInput) {
         String description = null;
         try {
