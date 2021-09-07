@@ -1,20 +1,20 @@
 public class Event extends Task{
-    protected String on;
+    protected String eventDate;
 
-    public String getOn() {
-        return on;
+    public String getEventDate() {
+        return eventDate;
     }
 
-    public void setOn(String on) {
-        this.on = on;
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public Event(String description, String on) {
+    public Event(String description, String eventDate) {
         super(description);
-        this.on = on;
+        this.eventDate = eventDate;
     }
 
     public String toString() {
-        return ("[E][" + getStatusIcon() + "] " + description + " (at: " + on + ")");
+        return ("[E][" + getStatusIcon() + "] " + description + " (at: " + eventDate + ")");
     }
 }

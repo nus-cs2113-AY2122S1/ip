@@ -1,21 +1,21 @@
 public class Deadline extends Task {
 
-    protected String by;
+    protected String dueDate;
 
-    public String getBy() {
-        return by;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public void setBy(String by) {
-        this.by = by;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueDate) {
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     public String toString() {
-        return ("[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")");
+        return ("[D][" + getStatusIcon() + "] " + description + " (by: " + dueDate + ")");
     }
 }
