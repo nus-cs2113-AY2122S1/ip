@@ -19,8 +19,8 @@ public class Task {
     public String toString() {
         if (isDone) {
             return "[X] " + description;
-        } else {
-            return "[ ] " + description;
         }
+
+        return "[ ] " + description;
     }
 }

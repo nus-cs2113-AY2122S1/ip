@@ -26,13 +26,13 @@ public class TaskManager {
         }
     }
 
-    public void addTodoTask(String userInput) {
-        String description = Parser.processTodo(userInput);
+    public void addToDoTask(String userInput) {
+        String description = Parser.processToDo(userInput);
         if (description == null) {
             return;
         }
         taskCount++;
-        tasks[taskCount] = new Todo(description);
+        tasks[taskCount] = new ToDo(description);
         printAddSuccess();
     }
 

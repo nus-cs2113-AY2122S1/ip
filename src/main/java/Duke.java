@@ -12,9 +12,8 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         do {
             String userInput = in.nextLine();
-            String[] words = userInput.split(" ");
 
-            switch (Parser.processCommand(words[0].toLowerCase(Locale.ROOT))) {
+            switch (Parser.processCommand(userInput.split(" ")[0].toLowerCase(Locale.ROOT))) {
             case BYE:
                 System.out.println("Bye. Hope to see you again soon!");
                 isExit = true;
@@ -32,7 +31,7 @@ public class Duke {
                 taskManager.addEventTask(userInput);
                 break;
             case TODO:
-                taskManager.addTodoTask(userInput);
+                taskManager.addToDoTask(userInput);
                 break;
             default:
                 System.out.println("Sorry I don't understand the command: " + userInput);

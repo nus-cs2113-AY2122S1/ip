@@ -1,27 +1,24 @@
 public class Parser {
     public static Command processCommand(String command) {
-        boolean isList = command.equals("list");
-        if(isList) return Command.LIST;
-
-        boolean isBye = command.equals("bye");
-        if(isBye) return Command.BYE;
-
-        boolean isDone = command.equals("done");
-        if(isDone) return Command.DONE;
-
-        boolean isTodo = command.equals("todo");
-        if(isTodo) return Command.TODO;
-
-        boolean isDeadline = command.equals("deadline");
-        if(isDeadline) return Command.DEADLINE;
-
-        boolean isEvent = command.equals("event");
-        if(isEvent) return Command.EVENT;
-
-        return Command.NULL;
+        switch (command) {
+        case "list":
+            return Command.LIST;
+        case "bye":
+            return Command.BYE;
+        case "done":
+            return Command.DONE;
+        case "todo":
+            return Command.TODO;
+        case "deadline":
+            return Command.DEADLINE;
+        case "event":
+            return Command.EVENT;
+        default:
+            return Command.NULL;
+        }
     }
 
-    public static String processTodo(String userInput) {
+    public static String processToDo(String userInput) {
         String description = null;
         try {
             String[] words = userInput.split(" ", 2);
