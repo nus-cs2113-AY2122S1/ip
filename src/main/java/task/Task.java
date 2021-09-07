@@ -1,3 +1,5 @@
+package task;
+
 public abstract class Task {
     public static final char TYPE_TODO = 'T';
     public static final char TYPE_DEADLINE = 'D';
