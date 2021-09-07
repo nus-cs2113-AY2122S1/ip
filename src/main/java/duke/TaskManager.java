@@ -15,14 +15,18 @@ public class TaskManager {
     private static void printDivider() {
         System.out.println("____________________________________________________________");
     }
-    
+
     private static void InvalidCommandMessage() {
         System.out.println("☹ OOPS!!! I do not understand what that means!");
         printDivider();
     }
 
-    private static void TaskEmptyMessage(String userInput) {
-        System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), userInput.split(" ")[0]);
+    private static void DukeExceptionMessage(String command) {
+        if (command.equalsIgnoreCase("done")) {
+            System.out.println("☹ OOPS!!! You've forgotten to write the task number");
+        } else {
+            System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), command);
+        }
         printDivider();
     }
 
@@ -32,9 +36,13 @@ public class TaskManager {
     }
 
 
-    private static void taskDone(String userInput) {
+    private static void taskDone(String userInput) throws DukeException {
         String[] params = userInput.split(" ", 2);
-        int index = Integer.parseInt(params[1]) - 1;
+        if (params.length < 2) {
+            throw new DukeException();
+        }
+        String position = params[1];
+        int index = Integer.parseInt(position) - 1;
         tasks[index].markAsDone();
         markAsDoneMessage(index);
         printDivider();
@@ -66,28 +74,6 @@ public class TaskManager {
         }
     }
 
-    private static void addTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        String command = params[0];
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        String description = userInput.substring(command.length() + 1);
-
-        switch (command.toUpperCase()) {
-        case "TODO":
-            addTodo(description);
-            break;
-        case "DEADLINE":
-            addDeadline(description);
-            break;
-        case "EVENT":
-            addEvent(description);
-            break;
-        }
-
-    }
-
     private static void addTodo(String userInput) {
         tasks[taskCount] = new Todo(userInput);
         echoTask(taskCount++);
@@ -107,9 +93,33 @@ public class TaskManager {
         echoTask(taskCount++);
     }
 
+    private static void addTask(String userInput) throws DukeException {
+        String[] params = userInput.split(" ", 2);
+        String command = params[0];
+        if (params.length < 2) {
+            throw new DukeException();
+        }
+
+        String description = params[1];
+
+        switch (command.toUpperCase()) {
+        case "TODO":
+            addTodo(description);
+            break;
+        case "DEADLINE":
+            addDeadline(description);
+            break;
+        case "EVENT":
+            addEvent(description);
+            break;
+        }
+
+    }
+
     public static void handleRequest(String userInput) {
         try {
-            String command = userInput.split(" ")[0];
+            String[] params = userInput.split(" ", 2);
+            String command = params[0];
 
             switch (command.toUpperCase()) {
             case "TODO":
@@ -117,20 +127,17 @@ public class TaskManager {
             case "EVENT":
                 addTask(userInput);
                 break;
+            //fallthrough
             case "DONE":
                 taskDone(userInput);
                 break;
             default:
-                throw new InvalidCommandException();
+                throw new InvalidCommandException(); //if user input is not any of the commands
             }
         } catch (InvalidCommandException e) {
-           InvalidCommandMessage();
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! You've forgotten to write the task number");
-            printDivider();
+            InvalidCommandMessage();
         } catch (DukeException e) {
-            TaskEmptyMessage(userInput);
+            DukeExceptionMessage(userInput);
         }
     }
 }
