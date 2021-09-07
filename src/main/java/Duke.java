@@ -12,8 +12,9 @@ public class Duke {
         printHorizontalLine();
     }
 
+
     public static String getCommand(String userInput) {
-        String[] input = userInput.trim().split(" ");
+        String[] input = userInput.trim().toLowerCase().split(" ");
         return input[0];
     }
 
@@ -29,15 +30,14 @@ public class Duke {
             switch (command) {
             case ("bye"):
                 isBye = true;
+                printFarewellMessage();
                 break;
             case ("list"):
                 requestList(tasks);
                 break;
             case ("done"):
-                inputDone(line, tasks);
-                break;
             case ("undo"):
-                undoDone(line, tasks);
+                changeDoneStatus(line, tasks);
                 break;
             case ("todo"):
             case ("deadline"):
@@ -51,7 +51,7 @@ public class Duke {
         }
     }
 
-    public static void taskManagerMessage(Task[] tasks) {
+    public static void printTaskManagerMessage(Task[] tasks) {
         printHorizontalLine();
         System.out.println("Understood. I've added this task:");
         System.out.println(tasks[taskCount]);
@@ -60,17 +60,22 @@ public class Duke {
     }
 
     public static void taskManager(String input, Task[] tasks) {
-        int dividePos = input.trim().indexOf(" ");
-        String taskType = input.trim().substring(0, dividePos).toLowerCase();
-
-        if (taskType.equalsIgnoreCase("todo")) {
-            addTodo(input, tasks);
-        } else if (taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
-            addDeadlineOrEvent(input, tasks);
+        String taskType = getCommand(input);
+        try {
+            if (taskType.equalsIgnoreCase("todo")) {
+                addTodo(input, tasks);
+            } else if (taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
+                addDeadlineOrEvent(input, tasks);
+            }
+            printTaskManagerMessage(tasks);
+            taskCount++;
+        } catch (IndexOutOfBoundsException emptyTask) {
+            printHorizontalLine();
+            System.out.println("Task description of " + taskType + " cannot be empty!");
+            printHorizontalLine();
         }
-        taskManagerMessage(tasks);
-        taskCount++;
     }
+
 
     public static void addTodo(String input, Task[] tasks) {
         int dividePos = input.trim().indexOf(" ");
@@ -111,15 +116,33 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void inputDone(String line, Task[] tasks) {
+    public static void changeDoneStatus(String line, Task[] tasks) {
+        String[] input = line.split(" ");
+        try {
+            if (input[0].equalsIgnoreCase("done")) {
+                inputDone(line, tasks);
+            } else if (input[0].equalsIgnoreCase("undo")) {
+                undoDone(line, tasks);
+            }
+        } catch (NumberFormatException invalidTaskNumber) {
+            System.out.println("Indicate the task you'd like to do or undo!");
+        } catch (InvalidDoOrUndoException e) {
+            System.out.println(e.getMessage());
+            printHorizontalLine();
+        } catch (NullPointerException e) {
+            printHorizontalLine();
+            System.out.println("No such task number exists!");
+            printHorizontalLine();
+        }
+    }
+
+    public static void inputDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
         int dividePos = line.indexOf(" ");
         int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
         Task t = tasks[taskNumber];
         if (t.isDone) {
             printHorizontalLine();
-            System.out.println("This task has already been done, complete something else!");
-            printHorizontalLine();
-            return;
+            throw new InvalidDoOrUndoException("This task has already been done, complete something else!");
         }
         t.markAsDone();
         printHorizontalLine();
@@ -128,15 +151,13 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void undoDone(String line, Task[] tasks) {
+    public static void undoDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
         int dividePos = line.indexOf(" ");
         int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
         Task t = tasks[taskNumber];
         if (!t.isDone) {
             printHorizontalLine();
-            System.out.println("This task has not been done yet!");
-            printHorizontalLine();
-            return;
+            throw new InvalidDoOrUndoException("This task has not been done yet!");
         }
         t.markAsNotDone();
         printHorizontalLine();
@@ -171,7 +192,5 @@ public class Duke {
 
         greetUser();
         inputManager();
-        printFarewellMessage();
     }
-
 }
