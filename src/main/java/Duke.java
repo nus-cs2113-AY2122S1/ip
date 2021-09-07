@@ -9,12 +9,14 @@ public class Duke {
     private static boolean isDukeDone = false;
     private static Task[] list = new Task[100];
     private static int listIndexTracker = 0;
-    private static boolean isInvalidInput = false;
 
     private final static String LINES = "    ____________________________________________________________";
     private final static String TAB = "    ";
-    private final static String GREETING = "    Hello... I'm Sadge Duke\n    What can I do for you? :(";
-    private final static String GOODBYE = "    Bye. I'll miss you...";
+    private final static String GREETING = TAB + "Hello... I'm Sadge Duke\n    What can I do for you? :(";
+    private final static String GOODBYE = TAB + "Bye. I'll miss you...";
+    private final static String INVALID_GENERAL = TAB + "I'm really sorry... This is an invalid input...";
+    private final static String INVALID_DONE = TAB + "I'm sorry... This is an invalid done input...\n"
+            + TAB + "Please use 'list' to see what number can be used...";
     private final static String TODO = "todo";
     private final static String DEADLINE = "deadline";
     private final static String EVENT = "event";
@@ -32,8 +34,14 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         while (!isDukeDone) {
+            System.out.println(LINES);
             String input = in.nextLine();
-            parseInput(input);
+            try {
+                parseInput(input);
+            } catch (InvalidInputException e) {
+                System.out.println(INVALID_GENERAL);
+            }
+            System.out.println(LINES);
         }
 
 
@@ -44,8 +52,7 @@ public class Duke {
      *
      * @param input input given by the user.
      */
-    private static void parseInput(String input) {
-        System.out.println(LINES);
+    private static void parseInput(String input) throws InvalidInputException {
         if (input.equalsIgnoreCase("Bye")) {
             System.out.println(GOODBYE);
             setDukeDone();
@@ -60,13 +67,8 @@ public class Duke {
         } else if (isValidEventInput(input)) {
             addToList(input, EVENT);
         } else {
-            setInvalidInput(true);
+            throw new InvalidInputException();
         }
-        if (isInvalidInput) {
-            System.out.println(TAB + "Invalid input");
-            setInvalidInput(false);
-        }
-        System.out.println(LINES);
     }
 
 
@@ -113,9 +115,15 @@ public class Duke {
      */
     private static void handleDoneInput(String input) {
         int index = getDoneIndex(input);
-        list[index].markAsDone();
-        System.out.print(TAB + "Nice! I've marked this task as done:" + System.lineSeparator() + TAB + TAB);
-        System.out.println(list[index]);
+        try {
+            list[index].markAsDone();
+            System.out.print(TAB + "Nice! I've marked this task as done:" + System.lineSeparator() + TAB + TAB);
+            System.out.println(list[index]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(INVALID_DONE);
+        } catch (NullPointerException e) {
+            System.out.println(INVALID_DONE);
+        }
     }
 
     /**
@@ -141,14 +149,7 @@ public class Duke {
      * @return returns the validity of the done input.
      */
     private static boolean isValidDoneInput(String input) {
-        boolean validDoneStatement = Pattern.matches("^done \\d+$", input.toLowerCase());
-        if (!validDoneStatement) {
-            return false;
-        }
-        int numberOnly = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-        boolean numberWithinCurrMax = numberOnly <= listIndexTracker;
-        boolean numberWithinPossMax = numberOnly < 100;
-        return  numberWithinCurrMax && numberWithinPossMax;
+        return Pattern.matches("^done \\d+$", input.toLowerCase());
     }
 
     /**
@@ -159,14 +160,6 @@ public class Duke {
     private static int getDoneIndex(String input) {
         String[] parts = input.split(" ");
         return Integer.parseInt(parts[1]) - 1;
-    }
-
-    /**
-     * This function sets error as the given boolean argument.
-     * @param validity boolean to set isInvalidInput as.
-     */
-    private static void setInvalidInput(boolean validity) {
-        isInvalidInput = validity;
     }
 
     /**
