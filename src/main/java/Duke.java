@@ -23,42 +23,42 @@ public class Duke {
             String[] words = text.split(" ");
 
             switch (words[0]) {
-                case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < index; i++) {
-                        System.out.println((i + 1) + "." + tasks[i].toString());
-                    }
-                    break;
-                case "done":
-                    int taskNum = Integer.parseInt(words[words.length - 1]);
-                    tasks[taskNum - 1].setDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[x] " + tasks[taskNum - 1].getDescription());
-                    break;
-                case "todo":
-                    String[] todoTaskInfo = extractInfo(text, "todo");
-                    tasks[index] = new Todo(todoTaskInfo[0]);
-                    System.out.println(ADD_TASK_MSG);
-                    index++;
-                    System.out.println("Now you have " + index + " tasks in the list.");
-                    break;
-                case "deadline":
-                    String[] deadlineTaskInfo = extractInfo(text, "deadline");
-                    tasks[index] = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1]);
-                    System.out.println(ADD_TASK_MSG);
-                    index++;
-                    System.out.println("Now you have " + index + " tasks in the list.");
-                    break;
-                case "event":
-                    String[] eventTaskInfo = extractInfo(text, "event");
-                    tasks[index] = new Event(eventTaskInfo[0], eventTaskInfo[1]);
-                    System.out.println(ADD_TASK_MSG);
-                    index++;
-                    System.out.println("Now you have " + index + " tasks in the list.");
-                    break;
-                default:
-                    System.out.println(ERROR_MSG);
-                    break;
+            case "list":
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < index; i++) {
+                    System.out.println((i + 1) + "." + tasks[i].toString());
+                }
+                break;
+            case "done":
+                int taskNum = Integer.parseInt(words[words.length - 1]);
+                tasks[taskNum - 1].setDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[x] " + tasks[taskNum - 1].getDescription());
+                break;
+            case "todo":
+                String[] todoTaskInfo = extractInfo(text, "todo");
+                tasks[index] = new Todo(todoTaskInfo[0]);
+                System.out.println(ADD_TASK_MSG);
+                index++;
+                System.out.println("Now you have " + index + " tasks in the list.");
+                break;
+            case "deadline":
+                String[] deadlineTaskInfo = extractInfo(text, "deadline");
+                tasks[index] = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1]);
+                System.out.println(ADD_TASK_MSG);
+                index++;
+                System.out.println("Now you have " + index + " tasks in the list.");
+                break;
+            case "event":
+                String[] eventTaskInfo = extractInfo(text, "event");
+                tasks[index] = new Event(eventTaskInfo[0], eventTaskInfo[1]);
+                System.out.println(ADD_TASK_MSG);
+                index++;
+                System.out.println("Now you have " + index + " tasks in the list.");
+                break;
+            default:
+                System.out.println(ERROR_MSG);
+                break;
             }
             System.out.println(LINE);
             text = in.nextLine();
@@ -87,19 +87,19 @@ public class Duke {
         String[] taskInfo = new String[2];
         int slashPos = taskString.indexOf('/');
         switch (taskType) {
-            case "todo":
-                taskInfo[0] = taskString.substring(5);
-                break;
-            case "deadline":
-                taskInfo[0] = taskString.substring(9, slashPos - 1);
-                taskInfo[1] = taskString.substring(slashPos + 4);
-                break;
-            case "event":
-                taskInfo[0] = taskString.substring(6, slashPos - 1);
-                taskInfo[1] = taskString.substring(slashPos + 4);
-                break;
-            default:
-                break;
+        case "todo":
+            taskInfo[0] = taskString.substring(5);
+            break;
+        case "deadline":
+            taskInfo[0] = taskString.substring(9, slashPos - 1);
+            taskInfo[1] = taskString.substring(slashPos + 4);
+            break;
+        case "event":
+            taskInfo[0] = taskString.substring(6, slashPos - 1);
+            taskInfo[1] = taskString.substring(slashPos + 4);
+            break;
+        default:
+            break;
         }
         return taskInfo;
     }
