@@ -20,11 +20,11 @@ public class Duke {
         }
     }
 
-    public static void markDone(Task doneTask, int taskCount, Task[] taskList) {
+    public static void markDone(Task doneTask, int taskCount, Task[] taskList) throws IllegalDoneException {
         String n = doneTask.description.substring(5);
         int doneIndex = Integer.parseInt(n) - 1;
         if(doneIndex >= taskCount) {
-            System.out.println("You have a typo Bbygirl.. ;'( try typing again");
+            throw new IllegalDoneException();
         } else {
             taskList[doneIndex].isDone = true;
             System.out.println("Good job! I've marked these tasks as done:");
@@ -32,31 +32,32 @@ public class Duke {
         }
     }
 
-    public static Task typeOfTask(Task t, int taskCount) {
+    public static Task typeOfTask(Task t) throws IllegalTaskException, InvalidDeadlineFormat, InvalidEventFormat {
         Task newTask = new Task("not initialised");
+        int startOfDate = -1;
         if (t.description.contains("todo")) { // create a new todo
             newTask = new Todo(t.description.substring(5));
             return newTask;
-        } else {
-            int startOfDate = t.description.indexOf('/');
-            if (startOfDate == -1) {
-                return newTask;
+        } else if (t.description.contains("deadline")) {
+            startOfDate = t.description.indexOf('/');
+            if(!t.description.contains("/by")) {
+                throw new InvalidDeadlineFormat();
             }
-            if (t.description.contains("deadline")) {
-                // find the date
-                String task = t.description.substring(9, startOfDate - 1);
-                String date = t.description.substring(startOfDate + 4);
-                newTask = new Deadline(task, date);
-                return newTask;
+            String task = t.description.substring(9, startOfDate - 1);
+            String date = t.description.substring(startOfDate + 4);
+            newTask = new Deadline(task, date);
+            return newTask;
+        } else if (t.description.contains("event")) {
+            startOfDate = t.description.indexOf('/');
+            if(!t.description.contains("/at")) {
+                throw new InvalidEventFormat();
             }
-            if (t.description.contains("event")) {
-                String task = t.description.substring(6, startOfDate - 1);
-                String date = t.description.substring(startOfDate + 4);
-                newTask = new Event(task, date);
-                return newTask;
-            }
+            String task = t.description.substring(6, startOfDate - 1);
+            String date = t.description.substring(startOfDate + 4);
+            newTask = new Event(task, date);
+            return newTask;
         }
-        return newTask;
+        throw new IllegalTaskException();
     }
 
 
@@ -73,15 +74,26 @@ public class Duke {
             if (t.description.equals("list")) {
                 printTaskList(taskList, taskCount);
             } else if (t.description.contains("done")) {
-                markDone(t, taskCount, taskList);
+                try {
+                    markDone(t, taskCount, taskList);
+                } catch (IllegalDoneException e) {
+                    System.out.println("You need to input a correct number BB... ;'( try typing again");
+                }
             } else {
-                Task newTask = typeOfTask(t, taskCount);
-                if (newTask.description.equals("not initialised")) {
-                    System.out.println("You have a typo Bbygirl.. ;'( try typing again");
-                } else {
+                try {
+                    // add the new task into user's task list
+                    Task newTask = typeOfTask(t);
                     taskList[taskCount] = newTask;
                     taskCount += 1;
                     printTask(newTask, taskCount);
+                } catch (IllegalTaskException e) {
+                    System.out.println("You have a typo BB.. ;'( try typing again");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("You need to add an item BB.. ;'( try typing again");
+                } catch (InvalidDeadlineFormat e) {
+                    System.out.println("You need to input deadline with '/by' ... ;'( try typing again");
+                } catch (InvalidEventFormat e) {
+                    System.out.println("You need to input event with '/at' ... ;'( try typing again");
                 }
             }
             t = new Task(in.nextLine());
