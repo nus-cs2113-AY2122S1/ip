@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exception.*;
+
 /**
  * Parser class gets the raw input from Logic class and then returns the specified arguments of interest
  * to the Logic class. These are the type of command, the description of the dask and the date.
@@ -53,7 +57,7 @@ public class Parser {
      *
      * @return description of the task.
      */
-    public String getDescription() throws DukeException{
+    public String getDescription() throws DukeException {
         String description = "";
         int index;
         switch (getCommand()) {

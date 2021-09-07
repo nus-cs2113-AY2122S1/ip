@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Contains common messages to be printed out.
  *

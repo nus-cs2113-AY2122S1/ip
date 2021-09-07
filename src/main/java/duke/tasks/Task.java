@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * Task class to represent a task.
  * Is a parent class to Todo, Event and Deadline classes.
