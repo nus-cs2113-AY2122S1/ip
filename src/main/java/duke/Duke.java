@@ -1,7 +1,10 @@
 package duke;
 
-import duke.exception.*;
-import duke.task.*;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.task.Task;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ public class Duke {
                 if (inputCommand.equals("list")) {
                     showList();
                 } else if (inputCommand.contains("done")) {
-                    MarkAsDone(inputCommand);
+                    markAsDone(inputCommand);
                 } else if (inputCommand.contains("todo")) {
                     addToDo(inputCommand);
                 } else if (inputCommand.contains("deadline")) {
@@ -74,7 +77,7 @@ public class Duke {
             String eventDescription = parts[0];
             String timingDescription = parts[1];
             tasks.add(new Event(eventDescription, timingDescription));
-            GotItMessage();
+            gotItMessage();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
         }
@@ -89,7 +92,7 @@ public class Duke {
             String taskDescription = parts[0];
             String deadlineDescription = parts[1];
             tasks.add(new Deadline(taskDescription, deadlineDescription));
-            GotItMessage();
+            gotItMessage();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
@@ -101,20 +104,20 @@ public class Duke {
         try {
             String taskToDo = inputCommand.substring(5);
             tasks.add(new ToDo(taskToDo));
-            GotItMessage();
+            gotItMessage();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void GotItMessage() {
+    private static void gotItMessage() {
         System.out.println("Got it!! I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void MarkAsDone(String inputCommand) {
+    private static void markAsDone(String inputCommand) {
         System.out.println(HORIZONTAL_LINE);
         try {
             int position = inputCommand.indexOf(" ");
