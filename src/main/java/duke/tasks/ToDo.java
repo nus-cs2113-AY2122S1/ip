@@ -15,7 +15,11 @@ public class ToDo extends Task {
     public String getTaskType() {
         return "ToDo";
     }
-    public String getTaskID() { return "T";}
+
+    public String getTaskID() {
+        return "T";
+    }
+
     public String getDate() {
         return " ";
     }

@@ -13,10 +13,15 @@ public class Event extends Task {
     public String toString() {
         return description;
     }
+
     public String getTaskType() {
         return "Event";
     }
-    public String getTaskID() { return "E";}
+
+    public String getTaskID() {
+        return "E";
+    }
+
     public String getDate() {
         return " (at: " + date + ")";
     }
