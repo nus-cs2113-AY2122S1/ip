@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 public class Event extends Task {
     private String start;
     private String end;
@@ -17,7 +21,7 @@ public class Event extends Task {
         return res;
     }
 
-    public String printStatus() {
+    public String toString() {
         return "[e] [" + getStatus() + "] " + getDescription()
                 + " (" + getTime()[0] + " to " + getTime()[1] + ")";
     }

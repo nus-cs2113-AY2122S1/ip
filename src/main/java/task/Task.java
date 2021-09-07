@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -29,7 +31,7 @@ public class Task {
         return result;
     }
 
-    public String printStatus() {
-        return description;
+    public String toString() {
+        return "";
     }
 }
