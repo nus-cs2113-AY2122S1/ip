@@ -7,7 +7,11 @@ public class TaskManager {
 
     private static Task[] tasks = new Task[MAX_TASKS_COUNT];
 
-    public int getCurrentTasksCount() {
+    public static boolean isValidTaskNumber(int taskNumber) {
+        return (taskNumber <= currentTasksCount && taskNumber > 0);
+    }
+
+    public static int getCurrentTasksCount() {
         return currentTasksCount;
     }
 
@@ -40,7 +44,7 @@ public class TaskManager {
         }
     }
 
-    public Task markTaskAsDone(int taskIndex) {
+    public Task markTaskDone(int taskIndex) {
         tasks[taskIndex - 1].setDone();
         return tasks[taskIndex - 1];
     }
