@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
 
     protected String name;
     protected boolean isDone;
@@ -24,8 +24,5 @@ public class Task {
         isDone = true;
     }
 
-    // placeholder method for inherited classes
-    public void printTask() {
-        return;
-    }
+    public abstract void printTask();
 }
