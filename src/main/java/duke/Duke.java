@@ -1,8 +1,15 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
     private static final String LINE = "____________________________________________________________";
-    private static final String ADD_TASK_MSG = "Got it. I've added this task: ";
+    private static final String ADD_TASK_MSG = "Got it. I've added this duke.task: ";
     private static final String ERROR_MSG = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String TODO_ERROR = "The description of a todo cannot be empty.";
     private static final String DEADLINE_ERROR = "The description of a deadline cannot be empty and must have a '/by'.";
@@ -37,7 +44,7 @@ public class Duke {
                 case "done":
                     int taskNum = Integer.parseInt(words[words.length - 1]);
                     tasks[taskNum - 1].setDone();
-                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("Nice! I've marked this duke.task as done:");
                     System.out.println("[x] " + tasks[taskNum - 1].getDescription());
                     break;
                 case "todo":
@@ -115,7 +122,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println(LINE);
-        System.out.println(" Hello! I'm Duke\n" +
+        System.out.println(" Hello! I'm duke.Duke\n" +
                 " What can I do for you?");
         System.out.println(LINE);
     }
