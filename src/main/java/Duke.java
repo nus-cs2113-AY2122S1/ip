@@ -58,6 +58,7 @@ public class Duke {
         return formattedString;
     }
 
+
     /**
      * Checks if the input string has an empty item after a command
      *
@@ -80,7 +81,7 @@ public class Duke {
     public static boolean canGetTime(String args) {
         String description = getItem(args);
         String[] time = description.substring(description.indexOf("/")).split(" ");
-        if (time.length < 1) {
+        if (time.length < 2) {
             return false;
         }
         return true;
@@ -90,7 +91,7 @@ public class Duke {
      * Checks if the item from the user input is invalid for deadline and event tasks
      *
      * @param args the item to be checked
-     * @return true if the item does not contain a '/by', false otherwise
+     * @return true if the item does not contain a '/by' or does not have time after /by, false otherwise
      */
     public static boolean isInvalidDeadline(String args) {
         if (!getItem(args).contains(BY_DIVIDER)) {
@@ -141,11 +142,14 @@ public class Duke {
                 throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
             } else if (manager.getNumberOfTasksUndone() == 0) {
                 throw new DukeException("Oops, there are no tasks to be marked done!");
-            } else if (manager.getNumberOfTasksUndone() < Integer.parseInt(getItem(inputStr))) {
+            } else if (manager.getNumberOfTasksAdded() < Integer.parseInt(getItem(inputStr))) {
                 throw new DukeException("Oops, there is no task " + Integer.parseInt(getItem(inputStr)) + "!");
+            } else if (manager.isTaskDone(inputStr)) {
+                throw new DukeException("Oops, this task is already marked as done!");
+            } else {
+                manager.markTaskAsDone(inputStr);
+                break;
             }
-            manager.markTaskAsDone(inputStr);
-            break;
         case COMMAND_TODO:
             if (isEmptyItem(inputStr)) {
                 throw new DukeException("Oops, the description of a ToDo cannot be empty!");
@@ -176,7 +180,11 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * prints welcome message
+     *
+     */
+    private static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -188,6 +196,10 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(LINE_SEPARATOR);
+    }
+
+    public static void main(String[] args) {
+        printWelcomeMessage();
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
@@ -204,4 +216,5 @@ public class Duke {
             }
         }
     }
+
 }

@@ -12,6 +12,10 @@ public class TaskManager {
         return numberOfTasksUndone;
     }
 
+    public static int getNumberOfTasksAdded() {
+        return numberOfTasksAdded;
+    }
+
     public TaskManager(int maxNumberOfTasks) {
         this.numberOfTasksUndone = 0;
         this.numberOfTasksAdded = 0;
@@ -101,5 +105,14 @@ public class TaskManager {
         System.out.println(taskList[doneTaskNumber - 1].toString());
         System.out.println("Now you have " + numberOfTasksUndone + " tasks in the list");
         System.out.println(LINE_SEPARATOR);
+    }
+
+    public static boolean isTaskDone(String args) {
+        int stringLength = args.length();
+        int taskNumber = Integer.parseInt(args.substring(stringLength - 1));
+        if (taskList[taskNumber - 1].getStatusIcon().equals("X")) {
+            return true;
+        }
+        return false;
     }
 }
