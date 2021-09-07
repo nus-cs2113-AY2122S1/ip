@@ -4,7 +4,7 @@ public class Request {
     }
 
     public static boolean isList(String request) {
-        return request.equals("list");
+        return request.trim().equals("list");
     }
 
     public static boolean isDone(String request) {

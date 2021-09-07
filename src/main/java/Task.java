@@ -1,24 +1,10 @@
-import java.util.Locale;
-
-//possible to make this class an inner private class in TodoList
 public class Task {
     private String description;
     private boolean isDone;
 
-    private static int count = 0;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.count++;
-    }
-
-    public static int getCount(){
-        return count;
-    }
-
-    public static boolean isEmpty(){
-        return Task.getCount() == 0;
     }
 
     public void setDone() {
