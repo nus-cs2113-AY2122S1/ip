@@ -31,6 +31,7 @@ public class Duke {
     private static final String MESSAGE_COMMAND_EVENT_FORMAT = QUOTATION + COMMAND_EVENT + " X /at Y" + QUOTATION;
     private static final String MESSAGE_COMMAND_LIST_FORMAT = QUOTATION + COMMAND_LIST + QUOTATION;
     private static final String MESSAGE_COMMAND_DONE_FORMAT = QUOTATION + COMMAND_DONE + " X" + QUOTATION;
+    private static final String MESSAGE_COMMAND_COMMAND_LIST_FORMAT =  QUOTATION + COMMAND_COMMAND_LIST + QUOTATION;
     private static final String MESSAGE_COMMAND_BYE_FORMAT = QUOTATION + COMMAND_BYE + QUOTATION;
     private static final String MESSAGE_COMMAND_LIST = "Commands:" + LS
             + MESSAGE_COMMAND_TODO_FORMAT + " : Add task X" + LS
@@ -38,12 +39,13 @@ public class Duke {
             + MESSAGE_COMMAND_EVENT_FORMAT + " : Add event X with date/time details Y" + LS
             + MESSAGE_COMMAND_LIST_FORMAT + " : See lists of tasks" + LS
             + MESSAGE_COMMAND_DONE_FORMAT + " : Mark task number X as done" + LS
+            + MESSAGE_COMMAND_COMMAND_LIST_FORMAT + " : See this list of commands again" + LS
             + MESSAGE_COMMAND_BYE_FORMAT + " : Stop Dude :(";
 
     private static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please specify a name for the task!";
     private static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@";
     private static final String MESSAGE_SUGGEST_COMMAND_LIST = "PS: Forgot the commands? Type "
-            + QUOTATION + COMMAND_COMMAND_LIST + QUOTATION + "!";
+            + MESSAGE_COMMAND_COMMAND_LIST_FORMAT + "!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_DONE_FORMAT = "Invalid format! Please input a task number to be marked as done, "
             + LS + "in the format " + MESSAGE_COMMAND_DONE_FORMAT + ", where X is the task number!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_DEADLINE_FORMAT = "Invalid format! Please input a deadline, "
@@ -52,7 +54,7 @@ public class Duke {
             + LS + "in the format " + MESSAGE_COMMAND_EVENT_FORMAT + ", where X is the event and Y is the date!";
 
     /** List of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
-    private static Task[] tasks = new Task[100];
+    private static final Task[] tasks = new Task[100];
 
     /**
      * Prints lines of messages. Can take in variable number of arguments.
@@ -89,7 +91,7 @@ public class Duke {
      * Prints Welcome message and list of commands
      */
     public static void welcome() {
-        showMessageFramedWithDivider(MESSAGE_WELCOME_DUDE);
+        showMessage(DIVIDER, MESSAGE_WELCOME_DUDE);
         showListOfCommands();
     }
 
@@ -117,6 +119,25 @@ public class Duke {
     }
 
     /**
+     * Returns invalid command format error message specific to the command
+     *
+     * @param commandWord Command word
+     * @return String Invalid command format error message
+     */
+    public static String getInvalidCommandFormatErrorMessage(String commandWord) {
+        switch (commandWord) {
+        case COMMAND_DEADLINE:
+            return MESSAGE_ERROR_INVALID_COMMAND_DEADLINE_FORMAT;
+        case COMMAND_EVENT:
+            return MESSAGE_ERROR_INVALID_COMMAND_EVENT_FORMAT;
+        case COMMAND_DONE:
+            return MESSAGE_COMMAND_DONE_FORMAT;
+        default:
+            return "Invalid command format";
+        }
+    }
+
+    /**
      * Returns a String array where 0th index is command string and 1st index is the remaining parameters
      * Command string and parameter string is assumed to be separated by the first " " in input
      * If no parameters are provided in the input, 1st index will be set to EMPTY
@@ -137,17 +158,21 @@ public class Duke {
     /**
      * Returns a String array where the 0th index is the task description and 1st index is the additional info (i.e date)
      * Description and info is assumed to be separated by the first "/" in input
+     * If no description is provided, throw InvalidCommandFormatException
      * If no additional info is provided, 1st index will be set to EMPTY
      *
      * @param params Params string intended to be returned from splitInputIntoCommandAndParams(),
      *               thus assumed to be from a valid command.
      * @return String array [description, info]
      */
-    public static String[] splitParamsIntoDescriptionAndInfo(String params) {
+    public static String[] splitParamsIntoDescriptionAndInfo(String params) throws InvalidCommandFormatException {
         final String[] splitParams = params.trim().split("/");
         String[] descriptionAndInfo = new String[2];
         //description string
         descriptionAndInfo[0] = splitParams[0];
+        if (descriptionAndInfo[0].equals(EMPTY)) {
+            throw new InvalidCommandFormatException(MESSAGE_ERROR_NO_DESCRIPTION);
+        }
         //other info string, if not given, return EMPTY for error handling
         descriptionAndInfo[1] = (splitParams.length >= 2) ? splitParams[1] : EMPTY;
         return descriptionAndInfo;
@@ -156,16 +181,17 @@ public class Duke {
     /**
      * Returns the date of the task in String form
      * Date is assumed to be after the command prefix strings "at" or "by"
-     * If invalid command prefix is given or no date is provided, returns EMPTY
+     * If invalid command prefix is given or no date is provided, throw InvalidCommandFormatException
      *
      * @param commandPrefix Prefix to extract date with
+     * @param commandWord Command word specifying type of command, used to decide specific exception message
      * @param info String containing prefix and date
      * @return Date in String form
      */
-    public static String extractDate(String commandPrefix, String info) {
+    public static String extractDate(String commandPrefix, String commandWord, String info) throws InvalidCommandFormatException {
         final String[] words = info.split(" ", 2);
         if (!words[0].equals(commandPrefix) || words.length == 1) {
-            return EMPTY;
+            throw new InvalidCommandFormatException(getInvalidCommandFormatErrorMessage(commandWord));
         } else {
             return words[1];
         }
@@ -216,41 +242,37 @@ public class Duke {
      * @param params String containing description and other info of the task
      */
     public static void addTask(String typeOfTask, String params) {
-        final String[] descriptionAndInfo = splitParamsIntoDescriptionAndInfo(params);
-        final String description = descriptionAndInfo[0];
-        final String info = descriptionAndInfo[1];
-        if (description.equals(EMPTY)) {
-            showMessageFramedWithDivider(MESSAGE_ERROR_NO_DESCRIPTION);
-        } else {
+        final String[] descriptionAndInfo;
+        try {
+            descriptionAndInfo = splitParamsIntoDescriptionAndInfo(params);
+            final String description = descriptionAndInfo[0];
+            final String info = descriptionAndInfo[1];
+            Task task;
             switch (typeOfTask){
             case COMMAND_TODO:
-                Todo todo = new Todo(description);
-                tasks[Task.getNumTasks()] = todo;
-                showMessageFramedWithDivider("Added to list: " , todo.toString());
+                task = new Todo(description);
                 break;
             case COMMAND_DEADLINE:
-                String dateDeadline = extractDate(COMMAND_DEADLINE_PREFIX, info);
-                if (dateDeadline.equals(EMPTY)) {
-                    showMessageFramedWithDivider(MESSAGE_ERROR_INVALID_COMMAND_DEADLINE_FORMAT);
-                } else {
-                    Deadline deadline = new Deadline(description, dateDeadline);
-                    tasks[Task.getNumTasks()] = deadline;
-                    showMessageFramedWithDivider("Added to list: ", deadline.toString());
-                }
+                String dateDeadline = extractDate(COMMAND_DEADLINE_PREFIX, COMMAND_DEADLINE, info);
+                task = new Deadline(description, dateDeadline);
                 break;
             case COMMAND_EVENT:
-                String dateEvent = extractDate(COMMAND_EVENT_PREFIX, info);
-                if (dateEvent.equals(EMPTY)) {
-                    showMessageFramedWithDivider(MESSAGE_ERROR_INVALID_COMMAND_EVENT_FORMAT);
-                } else {
-                    Event event = new Event(description, dateEvent);
-                    tasks[Task.getNumTasks()] = event;
-                    showMessageFramedWithDivider("Added to list: ", event.toString());
-                }
+                String dateEvent = extractDate(COMMAND_EVENT_PREFIX, COMMAND_EVENT, info);
+                task = new Event(description, dateEvent);
                 break;
+            default:
+                //Since typeofTask is guaranteed to be either of the 3 above, code should not be reaching this point
+                throw new InvalidCommandFormatException("Error occurred, please check command format!");
             }
+            tasks[Task.getNumTasks()] = task;
+            showMessageFramedWithDivider("Added to list: " , task.toString(),
+                    "Current number of tasks: " + Task.getNumTasks());
+        } catch (InvalidCommandFormatException e) {
+            //Print error for any invalid command format exceptions caught
+            showMessageFramedWithDivider(e.toString());
         }
     }
+
 
     /**
      * Mark a specific task as done
