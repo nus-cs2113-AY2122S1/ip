@@ -26,7 +26,7 @@ public class Duke {
             } catch (Exception ex) {
                 System.out.println(ex.getClass());
                 if (ex instanceof IncompleteInformationException) {
-                    System.out.println("wrong info");
+                    System.out.println(ex.getMessage());
                 } else if (ex instanceof InvalidRequestException) {
                     System.out.println("☹ OOPS!!! I can't do that.");
                 } else {

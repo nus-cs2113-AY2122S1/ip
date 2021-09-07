@@ -16,7 +16,7 @@ public class TaskList {
     }
 
     public void doneTask(String request) {
-        int taskIndex = Request.parseTaskIndex(request);
+        int taskIndex = Request.parseTaskIndex(request.trim());
         Task task = tasks.get(taskIndex);
         if(task.isDone()) {
             System.out.println("This task is already done!");

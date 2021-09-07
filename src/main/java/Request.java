@@ -7,6 +7,7 @@ public class Request {
     private static final String EVENT = "event";
     private static final String INVALID_REQUEST = "invalid";
 
+    //assumes spelling is correct
     public static boolean isBye(String request) {
         return !request.trim().equals(BYE);
     }
@@ -36,26 +37,8 @@ public class Request {
     }
 
     public static int parseTaskIndex(String request) {
-        return Integer.parseInt(request.substring(Task.TASK_INDEX).trim()) - 1;
+        return Integer.parseInt(request.substring(Task.TASK_INDEX)) - 1;
     }
-
-//    public static String type(String request) {
-//        if (isBye(request)) {
-//            return BYE;
-//        } else if (isList(request)) {
-//            return LIST;
-//        } else if (isDone(request)) {
-//            return DONE;
-//        } else if (isDeadline(request)) {
-//            return DEADLINE;
-//        } else if (isTodo(request)) {
-//            return TODO;
-//        } else if (isEvent(request)) {
-//            return EVENT;
-//        } else {
-//            return INVALID_REQUEST;
-//        }
-//    }
 
     public static Task parseTask(String request) throws Exception {
         System.out.println("parsing task");
@@ -88,10 +71,8 @@ public class Request {
             String description = getDescription(request);
             return new Event(description, at);
         } catch (Exception ex) {
-            if (ex instanceof EmptyTimeException) {
-                throw new IncompleteInformationException(EVENT,"time");
-            }
-            throw new IncompleteInformationException(EVENT,"description");
+            String errorType = ex instanceof EmptyTimeException? "time" : "description";
+            throw new IncompleteInformationException(EVENT,errorType);
         }
     }
 
@@ -101,17 +82,15 @@ public class Request {
             String description = getDescription(request);
             return new Deadline(description, by);
         } catch (Exception ex) {
-            if (ex instanceof EmptyTimeException) {
-                throw new IncompleteInformationException(DEADLINE,"time");
-            }
-            throw new IncompleteInformationException(DEADLINE,"description");
+            String errorType = ex instanceof EmptyTimeException? "time" : "description";
+            throw new IncompleteInformationException(EVENT,errorType);
         }
     }
 
     private static String getTime(String request) throws EmptyTimeException{
         try {
             int timeIndex = request.indexOf("/");
-            return request.substring(timeIndex + 1);
+            return request.substring(timeIndex);
         } catch (Exception e) {
             throw new EmptyTimeException();
         }

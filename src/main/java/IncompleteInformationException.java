@@ -6,4 +6,9 @@ public class IncompleteInformationException extends Exception{
         this.taskType = taskType;
         this.description = description;
     }
+
+    @Override
+    public String getMessage(){
+        return String.format("The %s of the %s cannot be empty",description,taskType);
+    }
 }
