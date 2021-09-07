@@ -18,8 +18,7 @@ public interface Timetable {
     static void getTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < thingsToDo.size(); i++) {
-            System.out.println((i + 1)
-                    + ". "
+            System.out.println((i + 1) + ". "
                     + thingsToDo.get(i).toString());
         }
     }
