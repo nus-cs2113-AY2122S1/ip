@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     public static final char TYPE_TODO = 'T';
     public static final char TYPE_DEADLINE = 'D';
     public static final char TYPE_EVENT = 'E';
@@ -27,7 +27,8 @@ public class Task {
      *
      * @return The formatted string.
      */
-    public String getListEntryString() {
-        return String.format("[%c][%c] %s", taskType,(isDone() ? 'x' : ' '), description);
+    @Override
+    public String toString() {
+        return String.format("[%c][%c] %s", taskType, (isDone() ? 'x' : ' '), description);
     }
 }

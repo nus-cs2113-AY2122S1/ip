@@ -13,7 +13,7 @@ public class Event extends Task {
      * @return The formatted string.
      */
     @Override
-    public String getListEntryString() {
-        return String.format("%s (at: %s)", super.getListEntryString(), at);
+    public String toString() {
+        return String.format("%s (at: %s)", super.toString(), at);
     }
 }
