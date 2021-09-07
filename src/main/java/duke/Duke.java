@@ -1,3 +1,9 @@
+package duke;
+
+import duke.exception.IllegalCommandException;
+import duke.exception.IllegalParameterException;
+import duke.task.TaskManager;
+import duke.task.TaskType;
 import java.util.Scanner;
 
 public class Duke {

@@ -1,3 +1,5 @@
+package duke;
+
 /* A list of all commands */
 public final class Commands {
 
