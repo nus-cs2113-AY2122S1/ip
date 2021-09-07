@@ -42,6 +42,7 @@ Oooh I see you've done task 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 Oooh I see you've done task 4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+Task already done!!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 This are all the things I've remembered for you:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
@@ -50,14 +51,20 @@ This are all the things I've remembered for you:
 3.[E][ ] school lab(at: friday 10am-12pm)
 4.[T][X] sweep the house
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
-Theres something wrong with your command! Type again!
+list does not have description!
+list does not have description!
+The description of done cannot be empty!
+The description of done cannot be empty!
+list does not have description!
+The description of todo cannot be empty!
+The description of todo cannot be empty!
+Did not specify /by
+Did not specify /at
+The description of deadline cannot be empty!
+The description of deadline cannot be empty!
+The description of event cannot be empty!
+The description of event cannot be empty!
+The command doesnt exist.....
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 SQUAWK! See you next time! :)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 

@@ -5,13 +5,20 @@ todo sweep the house
 list
 done 2
 done 4
+done 2
 list
+list 
+list efghhh
 done
+done 
 list something
 todo
+todo 
 deadline never add by
 event never add at
 deadline
+deadline 
 event
+event 
 
 bye
