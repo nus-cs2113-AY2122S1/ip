@@ -1,3 +1,7 @@
+package ui;
+
+import task.Task;
+
 import java.util.Scanner;
 public class UI {
     private static final String line = "____________________________________________________________";
@@ -53,7 +57,7 @@ public class UI {
     /**
      * Acknowledge that a task has been added to the list by printing out the task details
      *
-     * @param task the Task object that has been added to the list
+     * @param task the task.Task object that has been added to the list
      * @param taskCount the total number of tasks stored by taro
      */
     public void printTaskAddedMessage(Task task, int taskCount) {
@@ -83,7 +87,7 @@ public class UI {
     /**
      * Print a response when a task has been marked as complete
      *
-     * @param task the Task item that has been marked done
+     * @param task the task.Task item that has been marked done
      */
     public void printMarkedDoneMessage(Task task) {
         printString("great work! I have marked this task as done:\n" +
