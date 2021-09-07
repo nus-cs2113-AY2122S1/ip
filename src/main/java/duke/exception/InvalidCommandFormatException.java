@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class InvalidCommandFormatException extends Exception{
     protected final String errorMessage;
     public InvalidCommandFormatException(String errorMessage) {

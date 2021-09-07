@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * This class is used for tasks that start at a specific time and ends at a specific time.
  * E.g: team meeting at 9pm

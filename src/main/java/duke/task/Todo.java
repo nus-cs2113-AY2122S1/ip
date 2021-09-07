@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * This class is used for tasks without any date/time attached to it.
  * E.g: visit new theme park
