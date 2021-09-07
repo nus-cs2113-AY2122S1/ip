@@ -34,10 +34,10 @@ public class Duke {
         printHorizontalLine();
         System.out.println(" Here are the tasks in your list:");
         Task[] taskList = Arrays.copyOf(tasks, currCount);
-        int count = 1;
+        int taskCount = 1;
         for (Task elem : taskList) {
-            System.out.println(" " + count + ". " + elem.toString());
-            count += 1;
+            System.out.println(" " + taskCount + ". " + elem.toString());
+            taskCount += 1;
         }
         printHorizontalLine();
     }
