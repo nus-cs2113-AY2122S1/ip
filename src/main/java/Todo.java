@@ -8,13 +8,9 @@ public class Todo extends Task implements Timetable {
         isDone = done;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     @Override
     public String getDescription() {
-        return "[T]" + super.toString();
+        return super.description;
     }
 
     @Override

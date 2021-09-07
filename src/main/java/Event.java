@@ -12,7 +12,7 @@ public class Event extends Task implements Timetable {
 
     @Override
     public String getDescription() {
-        return super.getDescription() + " (at: " + this.getDate() + ")";
+        return super.description + " (at: " + this.getDate() + ")";
     }
 
     @Override

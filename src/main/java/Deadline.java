@@ -12,7 +12,7 @@ public class Deadline extends Task implements Timetable {
 
     @Override
     public String getDescription() {
-        return super.getDescription() + " (by: " + this.getDate() + ")";
+        return super.description + " (by: " + this.getDate() + ")";
     }
 
     @Override

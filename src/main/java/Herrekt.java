@@ -59,7 +59,7 @@ public class Herrekt {
     }
 
     static Timetable parsePhraseToTask(String phrase) {
-        Timetable task;
+        Timetable task = null;
         if (phrase.contains("todo")) {
             task = new Todo(phrase.replace("todo ", ""));
         } else if (phrase.contains("deadline")) {
@@ -70,8 +70,6 @@ public class Herrekt {
             phrase = phrase.replace("event ","");
             String[] taskAndTime = phrase.split(" /at ");
             task = new Event(taskAndTime[0], taskAndTime[1]);
-        } else {
-            task = new Task("Invalid Task");
         }
         return task;
     }
