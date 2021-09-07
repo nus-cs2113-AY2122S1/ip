@@ -17,7 +17,7 @@ public class CommandList {
     private static final String border = "____________________________________________________________\n";
 
     protected int command;
-    protected int taskCount;
+    protected int taskCount = 0;
 
     public CommandList() {
 
