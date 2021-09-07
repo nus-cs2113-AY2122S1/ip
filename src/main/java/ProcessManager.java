@@ -1,3 +1,12 @@
+import exceptions.DeadlineException;
+import exceptions.DoneException;
+import exceptions.EventException;
+import exceptions.TodoException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 public class ProcessManager {
     /* --- CONSTANTS --- */
     private static final String EVENT_KEYWORD = "/at";

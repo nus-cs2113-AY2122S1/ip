@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Deadline{
     public Event(String description, String date) {
         super(description, date);

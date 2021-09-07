@@ -1,3 +1,5 @@
+package exceptions;
+
 abstract class AbstractException extends Exception {
     protected String statement;
 
