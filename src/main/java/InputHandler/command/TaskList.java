@@ -31,6 +31,7 @@ public class TaskList {
         return completedTask;
     }
 
+
     private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {
         String taskType, taskName, deadline;
         int taskTypeIndex = userInput.indexOf(" ");

@@ -1,12 +1,7 @@
-import InputHandler.command.AddTaskCommand;
+import InputHandler.command.*;
 import InputHandler.exception.CommandNotExistException;
-import InputHandler.command.DoneCommand;
-import InputHandler.command.ListCommand;
-import InputHandler.command.QuitCommand;
 import InputHandler.exception.DukeException;
 import InputHandler.exception.TaskIndexMissingException;
-import InputHandler.command.TaskList;
-import InputHandler.command.UserCommand;
 
 import java.util.Scanner;
 
