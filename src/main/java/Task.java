@@ -1,4 +1,4 @@
-public class Task {
+public class Task{
     protected String description;
     protected boolean isDone;
 
@@ -21,6 +21,10 @@ public class Task {
 
     public String getTaskType() {
         return getTaskType();
+    }
+
+    public String getTaskID() {
+        return getTaskID();
     }
 
     public String getDate() {

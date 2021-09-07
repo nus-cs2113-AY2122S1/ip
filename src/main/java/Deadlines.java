@@ -11,8 +11,10 @@ public class Deadlines extends Task {
     }
 
     public String getTaskType() {
-        return "D";
+        return "Deadline";
     }
+
+    public String getTaskID() { return "D";}
 
     public String getDate() {
         return " (by: " + date + ")";

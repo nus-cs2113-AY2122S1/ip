@@ -9,10 +9,10 @@ public class ToDo extends Task {
     }
 
     public String getTaskType() {
-        return "T";
+        return "ToDo";
     }
-
+    public String getTaskID() { return "T";}
     public String getDate() {
-        return "nil";
+        return " ";
     }
 }

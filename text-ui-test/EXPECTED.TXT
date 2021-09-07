@@ -27,7 +27,7 @@ Total no. of Tasks = 3
 Here are the tasks in your list:
 1.[E][ ] project meeting (at: Mon 2-4pm)
 2.[D][ ] return book (by: Sunday)
-3.[T][ ] eat shit and dienil
+3.[T][ ] eat shit and die
 ..................................................................
 ..................................................................
 Nice! i have marked this task as done:
@@ -41,7 +41,7 @@ Nice! i have marked this task as done:
 Here are the tasks in your list:
 1.[E][X] project meeting (at: Mon 2-4pm)
 2.[D][ ] return book (by: Sunday)
-3.[T][X] eat shit and dienil
+3.[T][X] eat shit and die
 ..................................................................
 ..................................................................
 GoodBye, Ikaros awaits for future commands

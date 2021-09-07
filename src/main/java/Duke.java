@@ -3,23 +3,20 @@ import java.util.Scanner;
 public class Duke {
 
     public static void main(String[] args) {
-        //initialize variables
-        int listSize = 0;
-        Task[] list = new Task[100];
-        boolean isRunning = true;
-
-        //get initial response
-        Scanner in = new Scanner(System.in);
         IntroductoryMessage();
-
-        //run the chatbot
-        runIkaros(listSize, list, isRunning, in);
+        runIkaros();
         goodbyeMessage();
     }
 
-    private static void runIkaros(int listSize, Task[] list, boolean isRunning, Scanner in) {
+    private static void runIkaros() {
+        List Tasks = new List(0);
+        Task[] listOfTasks = new Task[100];
+        boolean isRunning = true;
+
+        Scanner in = new Scanner(System.in);
         String response;
         String[] command;
+
         while (isRunning) {
             response = in.nextLine();
             lineBreak();
@@ -28,37 +25,83 @@ public class Duke {
             case "echo":
                 echo();
                 break;
-            case "todo":
-                ToDo task = new ToDo(response.substring(5));
-                listSize = addToList(task, listSize, list, response);
-                break;
             case "list":
-                printList(list, listSize);
+                printList(listOfTasks, Tasks.listSize);
                 lineBreak();
                 break;
             case "done":
-                done(list, response);
+                done(listOfTasks, response);
                 break;
             case "deadline":
-                String date = response.substring(response.indexOf("/") + 4);
-                Deadlines work = new Deadlines(response.substring(9, response.indexOf("/") - 1),
-                        date);
-                listSize = addToList(work, listSize, list, response);
-                break;
             case "event":
-                String timing = response.substring(response.indexOf("/") + 4);
-                Event event = new Event(response.substring(6, response.indexOf("/") - 1), timing);
-                listSize = addToList(event, listSize, list, response);
+            case "todo":
+                taskManager(command, Tasks, listOfTasks, response);
                 break;
             case "bye":
                 isRunning = false;
                 break;
             default:
-                System.out.println("bad command");
+                System.out.println("I didn't catch that!");
                 lineBreak();
                 break;
             }
         }
+    }
+
+    private static void taskManager(String[] command, List ofTasks, Task[] list,
+                                    String response) {
+        String TaskType = command[0];
+        try {
+            if (command.length == 1) {
+                throw new TaskException();
+            }
+            else if (command[0].equalsIgnoreCase("event")) {
+                Event(ofTasks, list, response);
+            } else if (command[0].equalsIgnoreCase("todo")) {
+                toDo(ofTasks, list, response);
+            } else if (command[0].equalsIgnoreCase("deadline")) {
+                deadLine(ofTasks, list, response);
+            }
+        } catch (TaskException e) {
+            System.out.println("please specify " + TaskType + " to add!");
+            //lineBreak();
+        } catch (TimeException e) {
+            System.out.println(e.getMessage());
+            //lineBreak();
+        } finally {
+            lineBreak();
+        }
+    }
+
+    private static void Event(List ofTasks, Task[] list, String response)
+            throws TimeException {
+        String timing = response.substring(response.indexOf("/") + 4);
+
+        //checking if user entered timing
+        if (response.indexOf("/") <= 0) {
+            throw new TimeException("when is it being held? [indicate by adding: /at your_timing]");
+        }
+        Event event = new Event(response.substring(6, response.indexOf("/") - 1), timing);
+        addToList(event, ofTasks, list);
+
+    }
+
+    private static void deadLine(List ofTasks, Task[] list, String response)
+            throws TimeException {
+        String timing = response.substring(response.indexOf("/") + 4);
+
+        //checking if user entered timing
+        if (response.indexOf("/") <= 0) {
+            throw new TimeException("when is it due? [indicate by adding: /by your_timing]");
+        }
+        Deadlines work = new Deadlines(response.substring(9, response.indexOf("/") - 1),
+                timing);
+        addToList(work, ofTasks, list);
+    }
+
+    private static void toDo(List ofTasks, Task[] list, String response) {
+        ToDo task = new ToDo(response.substring(5));
+        addToList(task, ofTasks, list);
     }
 
     private static void lineBreak() {
@@ -68,10 +111,10 @@ public class Duke {
     }
 
     private static void IntroductoryMessage() {
-        String logo = "  /\\_/\\\n"
-                + " | @ @ |    Welcome to IKAROS!\n"
-                + " | uWu |  Your one and only butler\n"
-                + " |_____|";
+        String logo = "  /\\ _ /\\\n"
+                + " #  @ @  #    Welcome to IKAROS!\n"
+                + " #   ^   #  Your one and only butler\n"
+                + " #########";
         lineBreak();
 
         System.out.println(logo);
@@ -93,13 +136,12 @@ public class Duke {
         lineBreak();
     }
 
-    private static int addToList(Task task, int listSize, Task[] list, String response) {
-        list[listSize] = task;
+    private static void addToList(Task task, List ofTasks, Task[] list) {
+        list[ofTasks.listSize] = task;
         System.out.println("Task added: " + task);
-        System.out.println("Total no. of Tasks = " + (listSize + 1));
-        lineBreak();
-        listSize += 1;
-        return listSize;
+        System.out.println("Total no. of Tasks = " + (ofTasks.listSize + 1));
+        //lineBreak();
+        ofTasks.listSize += 1;
     }
 
     public static void echo() {
@@ -121,7 +163,7 @@ public class Duke {
     public static void printList(Task[] list, int listSize) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= listSize; i++) {
-            System.out.println(i + ".[" + list[i - 1].getTaskType() + "]" +
+            System.out.println(i + ".[" + list[i - 1].getTaskID() + "]" +
                     "[" + list[i - 1].getStatusIcon() +
                     "] " + list[i - 1].description + list[i - 1].getDate());
         }
