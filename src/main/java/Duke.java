@@ -29,11 +29,11 @@ public class Duke {
         return Arrays.copyOf(isFilteredNull, count);
     }
 
-    public static String GetCommand(String userInput) {
-        if (userInput.equals("\n")){
+    public static String getCommand(String userInput) {
+        if (isEmpty(userInput)) {
             return "again";
         }
-        if (userInput.length() > 2){
+        if (userInput.length() > 2) {
             String[] isolateCommand = userInput.split(" ");
             return isolateCommand[0];
         }
@@ -42,22 +42,32 @@ public class Duke {
 
     public static String GetItem(String userInput) {
         String item = "";
-        if (GetCommand(userInput).equals("Deadline")){
-            item = userInput.substring(userInput.indexOf(" ")+1, userInput.indexOf("/"));
-        } else if (GetCommand(userInput).equals("Event")){
-            item = userInput.substring(userInput.indexOf(" ")+1, userInput.indexOf("/"));
-        } else if (userInput.length() > 3){
-            item = userInput.substring(userInput.indexOf(" ")+1);
+        String command = getCommand(userInput);
+        if (isDeadline(command)) {
+            item = notToDoItem(userInput);
+        } else if (isEvent(command)) {
+            item = notToDoItem(userInput);
+        } else if (userInput.length() > 3) {
+            item = getRequiredSubstring(userInput, " ", 1);
         }
         return item;
     }
 
-    public static String GetTime(String userInput){
+    private static String getRequiredSubstring(String userInput, String s, int i) {
+        return userInput.substring(userInput.indexOf(s) + i);
+    }
+
+    private static String notToDoItem(String userInput) {
+        return userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
+    }
+
+    public static String getTime(String userInput) {
         String time = "";
-        if (GetCommand(userInput).equals("Deadline")){
-            time = userInput.substring(userInput.indexOf("/")+3);
-        } else if (GetCommand(userInput).equals("Event")){
-            time = userInput.substring(userInput.indexOf("/")+3);
+        String command = getCommand(userInput);
+        if (isDeadline(command)) {
+            time = getRequiredSubstring(userInput, "/", 3);
+        } else if (isEvent(command)) {
+            time = getRequiredSubstring(userInput, "/", 3);
         } else {
             return "";
         }
@@ -66,76 +76,115 @@ public class Duke {
 
     public static void main(String[] args) {
 
-
-
         Task[] unfilteredTasks = new Task[100];
         int unfilteredCounter = 0;
 
-        System.out.println("\tHello from\n" + LOGO);
-        System.out.println(GREETING);
+        printGreetings();
 
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
         boolean closeDuke = false;
 
-        while (!closeDuke) {
-            String command = GetCommand(userInput);
-            if (command.equals("done")){
-                System.out.println(LINE + "Nice! I've marked this task as done:");
-                int taskNumber = Integer.parseInt(GetItem(userInput));
-                Task completedTask = unfilteredTasks[(taskNumber - 1)];
-                completedTask.markAsDone();
-                System.out.println("\t\t" + completedTask + "\n" + LINE);
-                userInput = in.nextLine();
-            } else if (userInput.equals("list")) {
-                Task[] filteredNull = FilterNulls(unfilteredTasks);
-                int count = 0;
-                if (filteredNull[0] == null) {
-                    System.out.println(LINE + "\tAll DONE!\n" + LINE);
-                    userInput = in.nextLine();
-                } else {
-                    System.out.println(LINE + "Here are the tasks in your list:\n");
-                    for (Task task : filteredNull) {
-                        count++;
-                        System.out.println("\t" + count + "." + task);
-                    }
-                    System.out.println(LINE);
-                    userInput = in.nextLine();
-                }
+        do {
+            String command = getCommand(userInput);
+            doDone(command, unfilteredTasks, userInput);
+            doList(command, unfilteredTasks);
+            unfilteredTasks[unfilteredCounter] = isToDo(command) ? new ToDo((GetItem(userInput))) : isDeadline(command) ? new Deadline(GetItem(userInput), getTime(userInput)) : isEvent(command) ? new Event(GetItem(userInput), getTime(userInput)) : null;
 
-            } else if (command.equals("ToDo")){
-                unfilteredTasks[unfilteredCounter] = new ToDo(GetItem(userInput));
-                AcknowledgeAddition(unfilteredTasks[unfilteredCounter], unfilteredCounter);
-                unfilteredCounter++;
-                userInput = in.nextLine();
-            } else if (command.equals("Deadline")){
-                unfilteredTasks[unfilteredCounter] = new Deadline(GetItem(userInput), GetTime(userInput));
-                AcknowledgeAddition(unfilteredTasks[unfilteredCounter], unfilteredCounter);
-                unfilteredCounter++;
-                userInput = in.nextLine();
-            } else if (command.equals("Event")){
-                unfilteredTasks[unfilteredCounter] = new Event(GetItem(userInput), GetTime(userInput));
-                AcknowledgeAddition(unfilteredTasks[unfilteredCounter], unfilteredCounter);
-                unfilteredCounter++;
-                userInput = in.nextLine();
+            AcknowledgeAddition(command, unfilteredTasks[unfilteredCounter], unfilteredCounter);
 
-            } else if (command.toLowerCase().equals("bye")) {
-                System.out.println(BYE);
-                closeDuke = true;
+            unfilteredCounter = isInvalidCommand(command) ? unfilteredCounter : isList(command) ? unfilteredCounter : unfilteredCounter + 1;
+            if (!isBye(command)) {
+                userInput = in.nextLine();
+            }
+            doBye(command);
+            closeDuke = isBye(command);
+        } while (!closeDuke);
+    }
+
+    private static void printGreetings() {
+        System.out.println("\tHello from\n" + LOGO);
+        System.out.println(GREETING);
+    }
+
+    private static boolean isToDo(String command) {
+        return command.toLowerCase().equals("todo");
+    }
+
+    private static boolean isBye(String command) {
+        return command.toLowerCase().equals("bye");
+    }
+
+    private static boolean isDeadline(String command) {
+        return command.toLowerCase().equals("deadline");
+    }
+
+    private static boolean isEvent(String command) {
+        return command.toLowerCase().equals("event");
+    }
+
+    private static boolean isList(String userInput) {
+        return userInput.toLowerCase().equals("list");
+    }
+
+    private static boolean isDone(String command) {
+        return command.toLowerCase().equals("done");
+    }
+
+    private static boolean isEmpty(String userInput) {
+        return userInput.equals("\n");
+    }
+
+    private static boolean isInvalidCommand(String command) {
+        return isEvent(command) ? false : isDeadline(command) ? false : isToDo(command) ? false : isList(command) ? false : isBye(command) ? false : true;
+    }
+
+    private static void doDone(String command, Task[] fullTaskList, String userIn) {
+        if (isDone(command)) {
+            markedDoneMessage(fullTaskList, userIn);
+        }
+    }
+
+    private static void doList(String command, Task[] fullTaskList) {
+        Task[] filteredNull = FilterNulls(fullTaskList);
+        int count = 0;
+        if (isList(command)) {
+            if (filteredNull[0] == null) {
+                System.out.println(LINE + "\tYou had no task to begin with\n" + LINE);
             } else {
-                InvalidMessage();
-                userInput = in.nextLine();
+                System.out.println(LINE + "Here are the tasks in your list:\n");
+                for (Task task : filteredNull) {
+                    count++;
+                    System.out.println("\t" + count + "." + task);
+                }
+                System.out.println(LINE);
             }
         }
     }
 
-    private static void InvalidMessage() {
-        System.out.println(LINE + "\tInvalid input, Please Try Again :)\n" + LINE);
+    private static void doBye(String command) {
+        if (isBye(command)) {
+            System.out.println(BYE);
+        }
     }
 
-    private static void AcknowledgeAddition(Task unfilteredTask, int unfilteredCounter) {
-        System.out.println(LINE + "Got it. I've added this task:\t");
-        System.out.println(String.format("\t%d.",unfilteredCounter+1) + unfilteredTask + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter+1) + LINE);
+    private static void markedDoneMessage(Task[] unfilteredTasks, String userInput) {
+        System.out.println(LINE + "Nice! I've marked this task as done:");
+        int taskNumber = Integer.parseInt(GetItem(userInput));
+        Task completedTask = unfilteredTasks[(taskNumber - 1)];
+        completedTask.markAsDone();
+        System.out.println("\t\t" + completedTask + "\n" + LINE);
+    }
+
+    private static void AcknowledgeAddition(String command, Task unfilteredTask, int unfilteredCounter) {
+        if (!isInvalidCommand(command) && !isList(command) && !isBye(command)) {
+            System.out.println(LINE + "Got it. I've added this task:\t");
+            System.out.println(String.format("\t%d.", unfilteredCounter + 1) + unfilteredTask + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter + 1) + LINE);
+        }
+    }
+    
+    private static void InvalidMessage() {
+        System.out.println(LINE + "\tInvalid input, Please Try Again :)\n" + LINE);
     }
 }
