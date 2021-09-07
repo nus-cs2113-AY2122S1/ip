@@ -16,22 +16,22 @@ public class Duke {
         try {
             switch (userCommand) {
             case "bye":
-                System.out.println("-------------------------------------");
+                printLine();
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("-------------------------------------");
+                printLine();
                 break;
             case "list":
-                System.out.println("-------------------------------------");
+                printLine();
                 System.out.println("Here are the tasks in your list:");
                 showList();
-                System.out.println("-------------------------------------");
+                printLine();
                 handleCommand();
                 break;
             case "done":
-                System.out.println("-------------------------------------");
+                printLine();
                 System.out.println("Nice! I've marked this task as done:");
                 markTaskAsDone(inputWords[1]);
-                System.out.println("-------------------------------------");
+                printLine();
                 handleCommand();
                 break;
             case "deadline":
@@ -51,27 +51,27 @@ public class Duke {
 
             }
         } catch (InvalidCommandException e) {
-            System.out.println("-------------------------------------");
+            printLine();
             System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
             System.out.println("Available commands: deadline, todo, event, done, list, bye");
-            System.out.println("-------------------------------------");
+            printLine();
             handleCommand();
         } catch (EmptyCommandArgumentException e) {
-            System.out.println("-------------------------------------");
+            printLine();
             System.out.println("OOPS! The description of deadline/event/todo cannot be empty! " +
                     "Please follow this format:");
             System.out.println("deadline <your task here> /by <your deadline time>");
             System.out.println("event <your task here> /at <your event time period>");
             System.out.println("todo <your task here>");
-            System.out.println("-------------------------------------");
+            printLine();
             handleCommand();
         } catch (InvalidCommandSeparatorException e) {
-            System.out.println("-------------------------------------");
+            printLine();
             System.out.println("OOPS! The deadline/event description must be separated from " +
                     "the time using '/by' or '/at'. Please follow this format:");
             System.out.println("deadline <your task here> /by <your deadline time>");
             System.out.println("event <your task here> /at <your event time period>");
-            System.out.println("-------------------------------------");
+            printLine();
             handleCommand();
         }
     }
@@ -115,10 +115,10 @@ public class Duke {
             taskList[listSize] = new Event(description, time);
         }
 
-        System.out.println("-------------------------------------");
+        printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(taskList[listSize]);
-        System.out.println("-------------------------------------");
+        printLine();
 
         listSize++;
     }
@@ -136,10 +136,10 @@ public class Duke {
 
         taskList[listSize] = new Todo(description);
 
-        System.out.println("-------------------------------------");
+        printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(taskList[listSize]);
-        System.out.println("-------------------------------------");
+        printLine();
 
         listSize++;
     }
@@ -156,6 +156,10 @@ public class Duke {
         System.out.println(taskList[taskIndex]);
     }
 
+    public static void printLine() {
+        System.out.println("-----------------------------------------------");
+    }
+
     public static void main(String[] args) {
         Duke chatBot = new Duke();
 
@@ -168,7 +172,7 @@ public class Duke {
 
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println("-------------------------------------");
+        printLine();
 
         chatBot.handleCommand();
     }
