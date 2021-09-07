@@ -1,36 +1,40 @@
-public class TaskList {
-    private Task[] tasks;
+import java.util.ArrayList;
 
-    private static final int MAX_LIST_SIZE = 100;
-    public static final int TASK_INDEX = 5;
+public class TaskList {
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new Task[MAX_LIST_SIZE];
+        this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String request) {
-        Task newTask = Request.parseTask(request);
-        int taskIndex = Task.getCount() - 1;
-        this.tasks[taskIndex] = newTask;
+    public void addTask(String request) throws Exception {
+        Task newTask = Request.getTask(request);
+        System.out.println("created task");
+        tasks.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
-                ,newTask, Task.getCount());
+                ,newTask, tasks.size());
     }
 
     public void doneTask(String request) {
-        int taskIndex = Request.parseTaskIndex(request);
-        this.tasks[taskIndex].setDone();
-        System.out.printf("Nice! I've marked this task as done:\n" +
-                "  %s\n", tasks[taskIndex]);
+        int taskIndex = Request.getTaskIndex(request.trim());
+        Task task = tasks.get(taskIndex);
+        if(task.isDone()) {
+            System.out.println("This task is already done!");
+        } else {
+            tasks.get(taskIndex).setDone();
+            System.out.printf("Nice! I've marked this task as done:\n" +
+                    "  %s\n", tasks.get(taskIndex));
+        }
     }
 
     public void printTasks() {
-        if (Task.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println("Take a chill pill! Your todo list is empty");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < Task.getCount(); i++) {
-                System.out.printf("%d. %s\n", i + 1, tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, tasks.get(i));
             }
         }
     }
