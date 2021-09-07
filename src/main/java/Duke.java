@@ -33,6 +33,7 @@ public class Duke {
                     ? userMessage.substring(0, userMessage.indexOf(" ")): userMessage;
             String userCommandDetails = userMessage.contains(" ")
                     ? userMessage.substring(userMessage.indexOf(" ") + 1): userMessage;
+            //String userCommandDetails = userMessage.substring(userMessage.indexOf(" ") + 1);
 
             switch (userCommand) {
             case "list":
@@ -47,12 +48,17 @@ public class Duke {
                 printLongLine();
                 break;
             case "todo":
-                entries[entriesCount] = new ToDo(userCommandDetails);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("   [" + entries[entriesCount].getSymbol() + "] ["
-                        + entries[entriesCount].getStatusIcon() + "] " + entries[entriesCount].description);
-                entriesCount++;
-                System.out.println("Now you have " + entriesCount + " tasks in the list.");
+                if (userCommandDetails.equals("todo")) {
+                    System.out.println("Hey! The description of a todo cannot be empty...");
+                }
+                else {
+                    entries[entriesCount] = new ToDo(userCommandDetails);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("   [" + entries[entriesCount].getSymbol() + "] ["
+                            + entries[entriesCount].getStatusIcon() + "] " + entries[entriesCount].description);
+                    entriesCount++;
+                    System.out.println("Now you have " + entriesCount + " tasks in the list.");
+                }
                 break;
             case "deadline":
                 int deadlineIndex = userCommandDetails.indexOf("/by");
