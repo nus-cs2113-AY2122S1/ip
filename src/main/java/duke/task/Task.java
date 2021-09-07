@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * This class is used to create tasks.
  * Each Task must contain a description and can either be marked done or not done.

@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * This class is used for tasks that need to be done before a specific date/time.
  * E.g: submit iP by thurs 2359
