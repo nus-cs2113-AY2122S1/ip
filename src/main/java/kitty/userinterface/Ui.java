@@ -1,5 +1,7 @@
 package kitty.userinterface;
 
+import kitty.KittyException;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -63,7 +65,7 @@ public class Ui {
                                             "   = o_o =_______    \\ \\\n" +
                                             "    __^      __(  \\.__) )\n" +
                                             "(@)<_____>__(_____)____/";
-    public static final String BAR_LINE = "===============================================";
+    public static final String BAR_LINE = "==========================================================";
 
     // Methods
     public static void printCat1() {
@@ -101,16 +103,29 @@ public class Ui {
     public static void greet() {
         printCatLogo();
         printBarLine();
+        printBarLine();
         System.out.println("Hey there! I'm Kitty!");
         System.out.println("What can I do for you?");
+        printBarLine();
+        printBarLine();
+        System.out.println("Here are some things that I can do:");
+        printBarLine();
+        System.out.println("Todo: todo *insert task here*");
+        System.out.println("Deadline: deadline *insert task here* /by *insert deadline here*");
+        System.out.println("Event: event *insert task here* /at *insert event date here*");
+        printBarLine();
         printCat4();
         printBarLine();
     }
 
-    public static void getUserInput() {
-        System.out.print("You: ");
-        userInput = in.nextLine();
-        command = userInput.split(" ")[0];
+    public static void getUserInput() throws KittyException {
+        try {
+            System.out.print("You: ");
+            userInput = in.nextLine();
+            command = userInput.split(" ")[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new KittyException("Invalid Input!");
+        }
     }
 
     public static void exit() {
@@ -130,7 +145,7 @@ public class Ui {
 
     public static void printErrorMessage() {
         System.out.println();
-        System.out.println("Sorry, that is not a valid command! Please try again!");
+        System.out.println("Oops something went wrong! Please try again!");
         printCatError();
         printBarLine();
     }

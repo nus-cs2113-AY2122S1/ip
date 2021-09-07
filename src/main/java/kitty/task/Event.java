@@ -1,5 +1,7 @@
 package kitty.task;
 
+import kitty.Kitty;
+import kitty.KittyException;
 import kitty.Parser;
 
 public class Event extends Task{
@@ -11,25 +13,23 @@ public class Event extends Task{
     }
 
     // Methods
-    public static void addEventTask(Task[] tasks, String line) {
-        // Get Event Name
-        String taskName;
-        if(Parser.hasEventDate(line)) {
-            taskName = Parser.getEventTaskName(line);
+    public static void addEventTask(String line) throws KittyException {
+        if(!Parser.hasEventDate(line)) {
+            throw new KittyException("Event formatting is incorrect!");
         } else {
-            taskName = Parser.getTaskName(line);
-        }
+            try {
+                // Get Event Name
+                String taskName = Parser.getEventTaskName(line);
 
-        // Get Event Date
-        String EventDate;
-        if (Parser.hasEventDate(line)) {
-            EventDate = Parser.getEventDate(line);
-        } else {
-            EventDate = "No Event Date!";
-        }
+                // Get Event Date
+                String EventDate = Parser.getEventDate(line);
 
-        // Add Event Task
-        tasks[Task.totalTasksCount] = new Event(taskName, EventDate);
+                // Add Event Task
+                Kitty.tasks[Task.totalTasksCount] = new Event(taskName, EventDate);
+            } catch (KittyException e) {
+                throw e;
+            }
+        }
     }
 
     @Override

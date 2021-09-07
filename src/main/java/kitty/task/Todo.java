@@ -1,5 +1,7 @@
 package kitty.task;
 
+import kitty.Kitty;
+import kitty.KittyException;
 import kitty.Parser;
 
 public class Todo extends Task{
@@ -9,9 +11,13 @@ public class Todo extends Task{
     }
 
     // Methods
-    public static void addTodoTask(Task[] tasks, String line) {
-        String taskName = Parser.getTaskName(line);
-        tasks[Task.totalTasksCount] = new Todo(taskName);
+    public static void addTodoTask(String line) throws KittyException {
+        try {
+            String taskName = Parser.getTodoTaskName(line);
+            Kitty.tasks[Task.totalTasksCount] = new Todo(taskName);
+        } catch (KittyException e) {
+            throw e;
+        }
     }
 
     @Override
