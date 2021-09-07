@@ -1,10 +1,8 @@
-todo wake up
+todo Dmitri: Answer CS2113 tutorial questions
+deadline weekly CS2113 quiz /by Monday 9pm
 list
-deadline read book /by 234
-list
-event watch movie /at mon 23
-list
-done 2
+event CS2113 lecture /at Friday 4 to 6 pm
 done 1
+done 2
+done 3
 list
-bye
