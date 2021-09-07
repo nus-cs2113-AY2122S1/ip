@@ -1,6 +1,9 @@
+package kitty;
+
 public class Task {
     private String taskName;
     private boolean isDone;
+    public static int totalTasksCount = 0;
 
     //Constructor
     public Task(String name) {
