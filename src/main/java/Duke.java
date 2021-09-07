@@ -3,6 +3,15 @@ import java.util.Arrays;
 
 public class Duke {
 
+    /**
+     *
+     * Informs the user what task they will be adding into their task list and the number of tasks
+     * in their list.
+     * Prints the new task and the new number of tasks in their list.
+     *
+     * @param newTask The new task that will be added to the task list.
+     * @param taskCount The number of tasks that are in the list (including the new task).
+     */
     public static void printTask(Task newTask, int taskCount) {
         String toPrint = newTask.toString();
         System.out.println("Ok! I've added this task:");
@@ -10,6 +19,12 @@ public class Duke {
         System.out.println("Now you have " + taskCount + " tasks in your list uwu");
     }
 
+    /**
+     * Prints all the tasks that the user has in their list.
+     *
+     * @param list List that contains all the tasks from user.
+     * @param totalTasks Total number of tasks user has in their list.
+     */
     public static void printTaskList(Task[] list, int totalTasks) {
         Task[] printList = Arrays.copyOf(list, totalTasks); // only copy until the part you want
         int i = 1;
@@ -20,6 +35,15 @@ public class Duke {
         }
     }
 
+    /**
+     * Marks the task that is specified by user, by number starting from 1, as done.
+     *
+     * @param doneTask Task that is to be marked as done.
+     * @param taskCount Total number of tasks user has in their list.
+     * @param taskList List that contains all the tasks from user.
+     * @throws IllegalDoneException If doneIndex >= taskCount, the task that user wants to mark as
+     * done does not exist in the list
+     */
     public static void markDone(Task doneTask, int taskCount, Task[] taskList) throws IllegalDoneException {
         String n = doneTask.description.substring(5);
         int doneIndex = Integer.parseInt(n) - 1;
@@ -32,6 +56,16 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns the task that is to be added into user's task list.
+     * @param t Task that is to be added into user's list.
+     * @return Task that is to be added to the user's list.
+     * @throws IllegalTaskException Task description does not start with "todo", "deadline" or "event".
+     * @throws InvalidDeadlineFormat Deadline description does not contain the correct format of what is
+     * to be expected for deadline, does not contain '/by'.
+     * @throws InvalidEventFormat Event description does not contain the correct format of what is
+     * to be expected for event, does not contain '/at'.
+     */
     public static Task typeOfTask(Task t) throws IllegalTaskException, InvalidDeadlineFormat, InvalidEventFormat {
         Task newTask = new Task("not initialised");
         int startOfDate = -1;
