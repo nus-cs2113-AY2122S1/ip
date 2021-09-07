@@ -34,18 +34,14 @@ public class Functions {
         case "bye":
             //Checks that "list"/"bye" is the only word
             if (userInputLength > 1) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! Please check your command format again.\n"
-                        + SEPARATOR);
+                DukeException.printFormatError();
                 processedUserInput[0] = "error";
             }
             break;
         case "done":
             //Checks that a task number is entered
             if (userInputLength != 2) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! Please check your command format again.\n"
-                        + SEPARATOR);
+                DukeException.printFormatError();
                 processedUserInput[0] = "error";
                 break;
             }
@@ -56,18 +52,14 @@ public class Functions {
                 String doneDetail = userInput.substring(doneSpaceIndex + 1);
                 processedUserInput[1] = doneDetail;
             } catch (NumberFormatException e) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! Please check that you have entered a valid parameter.\n"
-                        + SEPARATOR);
+                DukeException.printFormatError();
                 processedUserInput[0] = "error";
             }
             break;
         case "todo":
             //Checks that a description is entered
             if (userInputLength < 2) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The description of a todo cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("todoDescription");
                 processedUserInput[0] = "error";
                 break;
             }
@@ -78,17 +70,13 @@ public class Functions {
         case "deadline":
             //Checks that a description is entered
             if (userInputLength < 4) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The description/deadline of a deadline cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("deadlineBoth");
                 processedUserInput[0] = "error";
                 break;
             }
             //Checks that a deadline is entered
             if (!userInput.contains("/by")) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The deadline of a deadline cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("deadlineDeadline");
                 processedUserInput[0] = "error";
                 break;
             }
@@ -96,9 +84,7 @@ public class Functions {
             int deadlineSlashIndex = userInput.indexOf("/");
             //Checks that a description is entered
             if (deadlineSpaceIndex + 1 == deadlineSlashIndex) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The description of a deadline cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("deadlineDescription");
                 processedUserInput[0] = "error";
             } else {
                 String deadlineDetail = userInput.substring(deadlineSpaceIndex + 1, deadlineSlashIndex - 1);
@@ -110,17 +96,13 @@ public class Functions {
         case "event":
             //Checks that a description is entered
             if (userInputLength < 4) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The description/event date of an event cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("eventBoth");
                 processedUserInput[0] = "error";
                 break;
             }
             //Checks that an event date is entered
             if (!userInput.contains("/at")) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The event date of an event cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("eventDate");
                 processedUserInput[0] = "error";
                 break;
             }
@@ -128,9 +110,7 @@ public class Functions {
             int eventSlashIndex = userInput.indexOf("/");
             //Checks that a description is entered
             if (eventSpaceIndex + 1 == eventSlashIndex) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! The description of an event cannot be empty.\n"
-                        + SEPARATOR);
+                DukeException.printMissingParameterError("eventDescription");
                 processedUserInput[0] = "error";
             } else {
                 String eventDetail = userInput.substring(eventSpaceIndex + 1, eventSlashIndex - 1);
@@ -140,9 +120,7 @@ public class Functions {
             }
             break;
         default:
-            System.out.println(SEPARATOR
-                    + " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
-                    + SEPARATOR);
+            DukeException.printInvalidCommandError();
             processedUserInput[0] = "error";
             break;
         }
@@ -162,9 +140,7 @@ public class Functions {
 
     public static void markAsDone(Task[] taskList, int taskListSize, int taskNumber) {
         if (taskNumber > taskListSize - 1) {
-            System.out.println(SEPARATOR
-                    + " ☹ OOPS!!! Please check that you have entered a valid task number.\n"
-                    + SEPARATOR);
+            DukeException.printDoneError();
         } else {
             taskList[taskNumber].setDone();
             System.out.println(SEPARATOR

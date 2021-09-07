@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final String SEPARATOR = "____________________________________________________________\n";
     public static final int TASK_LIST_SIZE = 100;
 
     public static boolean hasSpaceError(String[] splitUserInput, String UserInput) {
@@ -44,9 +43,7 @@ public class Duke {
 
             //Checks for space error
             if (hasSpaceError(splitUserInput, userInput)) {
-                System.out.println(SEPARATOR
-                        + " ☹ OOPS!!! Please check your spacings again.\n"
-                        + SEPARATOR);
+                DukeException.printSpaceError();
                 continue;
             };
 
