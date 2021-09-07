@@ -1,7 +1,9 @@
-public class Deadline extends Task implements Timetable {
-    private String date;
+package herrekt.tasks;
 
-    Deadline(String description, String date) {
+public class Deadline extends Task implements Timetable {
+    protected String date;
+
+    public Deadline(String description, String date) {
         super(description);
         this.date = date;
     }

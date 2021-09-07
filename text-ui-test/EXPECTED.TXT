@@ -17,4 +17,30 @@ Nice! I've marked this task as done:
 	[T][X] read book
 Nice! I've marked this task as done:
 	[D][X] return book (by: Sunday)
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] group meeting (at: Thursday 4-5pm)
+Nice! I've marked this task as done:
+	[E][X] group meeting (at: Thursday 4-5pm)
+ERROR! Please follow format in README.md
+Your input: oh no I forgot to return the book
+ERROR! Please follow format in README.md
+Your input: I mean, new deadline return book /by ASAP
+Alright. I'll put it on the list.
+  [D][ ] return book (by: ASAP)
+For now, you have 4 tasks on the list
+Alright. I'll put it on the list.
+  [E][ ] pay library fine (at: ASAP)
+For now, you have 5 tasks on the list
+Nice! I've marked this task as done:
+	[D][X] return book (by: ASAP)
+Nice! I've marked this task as done:
+	[E][X] pay library fine (at: ASAP)
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: Sunday)
+3. [E][X] group meeting (at: Thursday 4-5pm)
+4. [D][X] return book (by: ASAP)
+5. [E][X] pay library fine (at: ASAP)
 Bye. Hope you will complete everything for today!

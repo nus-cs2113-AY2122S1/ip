@@ -1,7 +1,9 @@
-public class Event extends Task implements Timetable {
-    private String date;
+package herrekt.tasks;
 
-    Event(String description, String date) {
+public class Event extends Task implements Timetable {
+    protected String date;
+
+    public Event(String description, String date) {
         super(description);
         this.date = date;
     }

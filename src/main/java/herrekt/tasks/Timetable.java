@@ -1,7 +1,9 @@
+package herrekt.tasks;
+
 import java.util.ArrayList;
 import java.util.List;
 
-interface Timetable {
+public interface Timetable {
     List<Timetable> thingsToDo = new ArrayList<>();
 
     String getDescription();

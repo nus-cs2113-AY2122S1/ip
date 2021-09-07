@@ -1,4 +1,4 @@
-# Herrekt project template
+# herrekt project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
@@ -13,7 +13,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 3. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-4. After that, locate the `src/main/java/Herrekt.java` file, right-click it, and choose `Run Herrekt.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+4. After that, locate the `src/main/java/herrekt.java` file, right-click it, and choose `Run herrekt.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
 
 5. After initial welcome display, key in one of the following commands:
 	todo <TASK> ~adds a task to be completed.

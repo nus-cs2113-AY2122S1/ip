@@ -1,3 +1,5 @@
+package herrekt.tasks;
+
 public class Todo extends Task implements Timetable {
 
     public Todo(String description) {
