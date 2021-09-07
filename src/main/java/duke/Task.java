@@ -1,3 +1,5 @@
+package duke;
+
 import java.awt.image.SinglePixelPackedSampleModel;
 
 public class Task {

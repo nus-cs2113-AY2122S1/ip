@@ -1,3 +1,8 @@
+import duke.Deadline;
+import duke.DukeException;
+import duke.Event;
+import duke.Task;
+
 import java.util.Scanner;
 
 public class Duke {
