@@ -13,10 +13,6 @@ public class Task {
         return(isDone ? "[X] " : "[ ] ");
     }
 
-    public String getTask(){
-        return this.task;
-    }
-
     public void markAsDone(){
         this.isDone = true;
     }

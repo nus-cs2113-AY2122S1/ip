@@ -62,7 +62,7 @@ public class Duke {
             throw new InvalidCommandException();
         } else if (userInput.length() > 3) {
             item = getRequiredSubstring(userInput, " ", 1);
-            if (item.trim().equals("") || item.toLowerCase().equals("todo")) {
+            if (item.trim().equals("") || item.equalsIgnoreCase("todo")) {
                 throw new IllegalToDoException();
             }
         }
@@ -137,27 +137,27 @@ public class Duke {
     }
 
     private static boolean isToDo(String command) {
-        return command.toLowerCase().equals("todo");
+        return command.equalsIgnoreCase("todo");
     }
 
     private static boolean isBye(String command) {
-        return command.toLowerCase().equals("bye");
+        return command.equalsIgnoreCase("bye");
     }
 
     private static boolean isDeadline(String command) {
-        return command.toLowerCase().equals("deadline");
+        return command.equalsIgnoreCase("deadline");
     }
 
     private static boolean isEvent(String command) {
-        return command.toLowerCase().equals("event");
+        return command.equalsIgnoreCase("event");
     }
 
     private static boolean isList(String userInput) {
-        return userInput.toLowerCase().equals("list");
+        return userInput.equalsIgnoreCase("list");
     }
 
     private static boolean isDone(String command) {
-        return command.toLowerCase().equals("done");
+        return command.equalsIgnoreCase("done");
     }
 
     private static boolean isEmpty(String userInput) {
