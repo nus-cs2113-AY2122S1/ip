@@ -27,12 +27,10 @@ public class Duke {
         if (mode == ECHO_MODE) {
             System.out.println("\tECHO MODE - Commands entered will be echoed back.");
             startEcho();
-        }
-        else if (mode == TASK_MODE) {
+        } else if (mode == TASK_MODE) {
             System.out.println("\tTASK MODE - Enter items to include in to-do list.");
             startTask();
-        }
-        else {
+        } else {
             System.out.println("\tERROR. PLEASE RUN AGAIN AND SELECT RIGHT MODE.\n");
             mode = 0;
         }
@@ -82,8 +80,7 @@ public class Duke {
             System.out.println("\tECHO MODE ENTERED.");
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
             startEcho();
-        }
-        else {
+        } else {
             System.out.println("\tTASK MODE ENTERED.");
             System.out.println("\t" + HOR_LINE + System.lineSeparator());
             startTask();
@@ -197,7 +194,7 @@ public class Duke {
         String textLowerC = toAdd.toLowerCase();
 
         while (!textLowerC.equals("bye") & !textLowerC.equals("list") & !textLowerC.equals("change")) {
-            defaultTaskModeBehavior(toAdd, textLowerC);
+            runTaskMode(toAdd, textLowerC);
             toAdd = in.nextLine();
             textLowerC = toAdd.toLowerCase();
         }
@@ -220,7 +217,7 @@ public class Duke {
      * @param toAdd String input by user.
      * @param textLowerC String input by user converted to lower cases for checking.
      */
-    private static void defaultTaskModeBehavior(String toAdd, String textLowerC) {
+    private static void runTaskMode(String toAdd, String textLowerC) {
         // Mark task as complete with an X.
         if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
             try {
@@ -236,9 +233,8 @@ public class Duke {
                         "\tAFTER 'complete' OR 'done' TO MARK TASK AS DONE.");
                 System.out.println("\t" + HOR_LINE);
             }
-        }
+        } else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
         // Remove task from list.
-        else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
             try {
                 int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
                 System.out.println("\t" + HOR_LINE);
@@ -253,9 +249,8 @@ public class Duke {
                         "\tAFTER 'clear' OR 'remove' TO REMOVE TASK FROM LIST.");
                 System.out.println("\t" + HOR_LINE);
             }
-        }
+        } else {
         // Create a new task if it does not exist in list
-        else {
             try {
                 createTask(toAdd);
             } catch (DukeException e) {
