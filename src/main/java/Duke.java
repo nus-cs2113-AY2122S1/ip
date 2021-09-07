@@ -64,19 +64,20 @@ public class Duke {
                 }
                 break;
             case DONE:
-                String[] values = line.split(" ");
-                int value = Integer.parseInt(values[1]);
-                if (value > tasks.size() || value < 1) {
-                    System.out.println(" (!) Invalid Value! ");
-                } else {
+                try {
+                    String[] values = line.split(" ");
+                    int value = Integer.parseInt(values[1]);
                     tasks.get(value - 1).setStatus(true);
-                    System.out.println("____________________________________________________________");
                     System.out.println(" (+) Marked as Done: "+ tasks.get(value - 1).printStatus());
-                    System.out.println("____________________________________________________________");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("  (!) Task ID cannot be empty!");
+                    System.out.println("  (!) Format: /done <id>");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("  (!) Task ID does not exist >:(");
                 }
                 break;
             default:
-                System.out.println(" (!) Unrecognised Command! ");
+                System.out.println("  (!) Unrecognised Command! ");
             }
         }
     }
