@@ -1,8 +1,17 @@
+todo
 todo sleep
 list
+deadline go to bed
+deadline /by
 deadline go to bed /by 10pm
 list
+done
+done abc
+done 1 2 3
 done 1
+event
+event power nap
+event /at
 event power nap /at 5:15-5:30pm
 list
 done 2

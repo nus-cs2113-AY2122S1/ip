@@ -29,6 +29,9 @@ Hey! I'm Lizzy the Lizard!
 What can I do for you?
 
 ________________________________________
+Sorry bud! The description after todo can't be blank!
+________________________________________
+________________________________________
 Got it. I've added this task:
 [T][ ] sleep
 Now you have 1 tasks in the list.
@@ -38,8 +41,15 @@ Here are the tasks in your list:
 [T][ ] sleep
 ________________________________________
 ________________________________________
+Sorry bud, but your formatting is gibberish to me. Here is how it should be formatted: 
+deadline {description} /by {timing}
+________________________________________
+________________________________________
+Sorry bud! The description after deadline can't be blank!
+________________________________________
+________________________________________
 Got it. I've added this task:
-[D][ ] go to bed (by: 10pm)
+[D][ ] go to bed(by:10pm)
 Now you have 2 tasks in the list.
 ________________________________________
 ________________________________________
@@ -48,12 +58,31 @@ Here are the tasks in your list:
 [D][ ] go to bed (by: 10pm)
 ________________________________________
 ________________________________________
+Hey bud, the format for marking off a task is :done [index]
+________________________________________
+________________________________________
+Sorry bud, that's not a valid task number to check off!
+________________________________________
+________________________________________
+Sorry bud, that's not a valid task number to check off!
+________________________________________
+________________________________________
 Nice! I've marked this task as done:
 [T][X] sleep
 ________________________________________
 ________________________________________
+Sorry bud! The description after event can't be blank!
+________________________________________
+________________________________________
+Sorry bud, but your formatting is gibberish to me. Here is how it should be formatted: 
+event {description} /at {timing}
+________________________________________
+________________________________________
+Sorry bud! The description after event can't be blank!
+________________________________________
+________________________________________
 Got it. I've added this task:
-[E][ ] power nap (at: 5:15-5:30pm)
+[E][ ] power nap(at:5:15-5:30pm)
 Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
@@ -74,7 +103,14 @@ Nice! I've marked this task as done:
 [E][X] power nap (at: 5:15-5:30pm)
 ________________________________________
 ________________________________________
-Oops! Something went wrong :(
+Sorry bud, but that command is gibberish to me. I can only read 6 words!
+The six words are:
+list
+done
+todo
+deadline
+event
+bye
 ________________________________________
 ________________________________________
 Here are the tasks in your list:

@@ -85,10 +85,10 @@ public class TaskManager {
             System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
         } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
             String taskByTime = task.getByDateTime();
-            System.out.printf("[%s][%s] %s(by:%s)%n", taskType, taskStatus, taskDescription, taskByTime);
+            System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
         } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
             String taskAtTime = task.getStartAndEndTime();
-            System.out.printf("[%s][%s] %s(at:%s)%n", taskType, taskStatus, taskDescription, taskAtTime);
+            System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
         } else {
             printGenericErrorMessage();
         }
