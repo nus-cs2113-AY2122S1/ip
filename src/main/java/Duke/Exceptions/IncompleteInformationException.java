@@ -1,3 +1,5 @@
+package Duke.Exceptions;
+
 public class IncompleteInformationException extends DukeException{
     private String taskType;
     private String description;
