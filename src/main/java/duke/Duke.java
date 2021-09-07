@@ -182,7 +182,7 @@ public class Duke {
      * Adds a todo to the task list
      * @param userInput String that the user input
      * @param taskList An array of tasks. Max size of 100
-     * @throws StringIndexOutOfBoundsException Thrown when user does not include description
+     * @throws StringIndexOutOfBoundsException Thrown when user does not include description in input
      */
     public static void addToDo(String userInput, Task[] taskList) throws StringIndexOutOfBoundsException {
         System.out.println(LINEBAR);
