@@ -1,3 +1,5 @@
+package duke.task;
+
 /* A list of all task types */
 public final class TaskType {
 

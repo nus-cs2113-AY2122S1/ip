@@ -1,15 +1,17 @@
-public class Event extends Task {
+package duke.task;
+
+public class Deadline extends Task {
 
     protected String deadline;
 
     /**
-     * Constructor for Task of type Event
+     * Constructor for Task of type Deadline
      *
      * @param description Description of the task to add.
      * @param deadline    Deadline of task
      */
-    public Event(String description, String deadline) {
-        super(description, TaskType.EVENT);
+    public Deadline(String description, String deadline) {
+        super(description, TaskType.DEADLINE);
         this.deadline = deadline;
     }
 
@@ -29,6 +31,6 @@ public class Event extends Task {
      */
     @Override
     public String toFormattedString() {
-        return String.format("%s (at: %s)", super.toFormattedString(), this.deadline);
+        return String.format("%s (by: %s)", super.toFormattedString(), this.deadline);
     }
 }
