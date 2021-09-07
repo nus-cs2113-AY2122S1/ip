@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 public abstract class Task {
     public static final char TYPE_TODO = 'T';
