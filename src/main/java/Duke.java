@@ -2,119 +2,12 @@ import java.util.Scanner;
 
 public class Duke {
 
-    //CONSTANTS
-    public static final String SEPARATOR = "____________________________________________________________\n";
     public static final int TASK_LIST_SIZE = 100;
 
-    //METHODS
-    public static void printGreeting() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n"
-                + logo
-                + SEPARATOR
-                + " Hello! I'm Duke\n"
-                + " What can I do for you?\n"
-                + SEPARATOR);
-    }
-
-    public static void printError() {
-        System.out.println(SEPARATOR
-                + " Oops, something went wrong!\n"
-                + SEPARATOR);
-    }
-
-    public static String[] processUserInput(String userInput) {
-        String[] processedUserInput = new String[3];
-        if (!userInput.contains(" ")) {
-            //command is list
-            processedUserInput[0] = userInput;
-        } else {
-            int spaceIndex = userInput.indexOf(" ");
-            String command = userInput.substring(0, spaceIndex);
-            processedUserInput[0] = command;
-            if (!userInput.contains("/")) {
-                //command is either done or todo
-                String detail = userInput.substring(spaceIndex + 1);
-                processedUserInput[1] = detail;
-            } else {
-                //command is either deadline or event
-                int slashIndex = userInput.indexOf("/");
-                String detail = userInput.substring(spaceIndex + 1, slashIndex - 1);
-                String time = userInput.substring(slashIndex + 1);
-                processedUserInput[1] = detail;
-                processedUserInput[2] = time;
-            }
-        }
-        return processedUserInput;
-    }
-
-    public static void printTaskList(Task[] taskList, int taskListSize) {
-        System.out.println(SEPARATOR
-                + " Here are the tasks in your list:");
-        for (int i = 0; i < taskListSize; i++) {
-            int j = i + 1;
-            System.out.println(" " + j + "." + taskList[i]);
-        }
-        System.out.println(SEPARATOR);
-    }
-
-    public static void markAsDone(Task[] taskList, int taskListSize, int taskNumber) {
-        if (taskNumber > taskListSize - 1) {
-            printError();
-        } else {
-            taskList[taskNumber].setDone();
-            System.out.println(SEPARATOR
-                    + " Nice! I've marked this task as done:\n"
-                    + "  " + taskList[taskNumber] + "\n"
-                    + SEPARATOR);
-        }
-    }
-
-    public static Task createTask(String[] processedUserInput) {
-        String category = processedUserInput[0];
-        String description = processedUserInput[1];
-        String details = processedUserInput[2];
-        Task newTask;
-        switch (category) {
-        case "todo":
-            newTask = new ToDo(description);
-            break;
-        case "deadline":
-            newTask = new Deadline(description, details);
-            break;
-        case "event":
-            newTask = new Event(description, details);
-            break;
-        default:
-            newTask = new Task("Default");
-        }
-        return newTask;
-    }
-
-    public static void addTask(Task[] taskList, int taskListSize, Task newTask) {
-        taskList[taskListSize] = newTask;
-        System.out.println(SEPARATOR
-                + " Got it. I've added this task:\n"
-                + "  " + newTask + "\n"
-                + " Now you have " + (taskListSize + 1) + " tasks in the list.\n"
-                + SEPARATOR);
-    }
-
-    public static void printFarewell() {
-        System.out.println(SEPARATOR
-                + " Bye. Hope to see you again soon!\n"
-                + SEPARATOR);
-    }
-
-    //MAIN METHOD
     public static void main(String[] args) {
 
         //Greeting
-        printGreeting();
+        Functions.printGreeting();
 
         //Initialization
         Task[] taskList = new Task[TASK_LIST_SIZE];
@@ -129,38 +22,38 @@ public class Duke {
             userInput = in.nextLine();
 
             //Processes user input
-            String[] processedUserInput = processUserInput(userInput);
+            String[] processedUserInput = Functions.processUserInput(userInput);
             String command = processedUserInput[0];
 
             //Duke's actions based on command given
             switch (command) {
             case "list":
                 //Prints all tasks in task list
-                printTaskList(taskList, taskListSize);
+                Functions.printTaskList(taskList, taskListSize);
                 break;
             case "done":
                 //Marks task as "done"
                 int taskNumber = Integer.parseInt(processedUserInput[1]) - 1;
-                markAsDone(taskList, taskListSize, taskNumber);
+                Functions.markAsDone(taskList, taskListSize, taskNumber);
                 break;
             case "todo":
             case "deadline":
             case "event":
-                //Adds task to task list
-                Task newTask = createTask(processedUserInput);
-                addTask(taskList, taskListSize, newTask);
+                //Creates and adds task to task list
+                Task newTask = Functions.createTask(processedUserInput);
+                Functions.addTask(taskList, taskListSize, newTask);
                 taskListSize++;
                 break;
             case "bye":
                 break;
             default:
-                printError();
+                Functions.printError();
                 break;
             }
         }
 
         //Farewell
-        printFarewell();
+        Functions.printFarewell();
     }
 
 }
