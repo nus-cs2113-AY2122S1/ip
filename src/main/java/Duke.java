@@ -23,12 +23,7 @@ public class Duke {
 
 
     public static void printHorizontalLine() {
-<<<<<<< HEAD
-        String horizontalLine = "____________________________________________________________";
-        System.out.println(horizontalLine);
-=======
         System.out.println(HORIZONTAL_LINE);
->>>>>>> branch-Level-5
     }
 
     public static void printWelcomeMessage() {
@@ -83,9 +78,6 @@ public class Duke {
         return currCount;
     }
 
-<<<<<<< HEAD
-    public static void printGoodBye() {
-=======
     public static void addEvent(Task[] tasks, int currCount, String line) throws DukeException {
         if (line.length() < EVENT_MIN_LENGTH) {
             throw new DukeException(EVENT_DESCRIPTION_ERROR);
@@ -117,33 +109,19 @@ public class Duke {
         tasks[currCount] = new Todo(line.substring(TODO_DESCRIPTION_START));
     }
 
-    public static void goodbye() {
->>>>>>> branch-Level-5
+    public static void printGoodBye() {
         printHorizontalLine();
         System.out.println(" Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         printWelcomeMessage();
-        Task[] tasks = new Task[100]; // fixed size array for now, each contains a Task element
-=======
-        welcome();
         Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
->>>>>>> branch-Level-5
         int currCount = 0;
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equals("bye")) {
-<<<<<<< HEAD
-            if (line.contains("done")) { // mark task as done
-                markAsDone(tasks, line);
-            } else if (line.equals("list")) { // print the list
-                printList(tasks, currCount);
-            } else { // user inputs a task
-                currCount = addTask(tasks, currCount, line);
-=======
             try {
                 if (line.contains("done")) { // mark task as done
                     markAsDone(tasks, currCount, line);
@@ -166,7 +144,6 @@ public class Duke {
                 printHorizontalLine();
                 System.out.println(e.getMessage());
                 printHorizontalLine();
->>>>>>> branch-Level-5
             }
             line = in.nextLine();
         }
