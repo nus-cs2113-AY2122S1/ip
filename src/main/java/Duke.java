@@ -100,7 +100,7 @@ public class Duke {
         }
 
         }
-
+//a bit useless
 
         public static void addTask (String userInput) throws DukeException{
             String command = userInput.substring(4);
