@@ -1,3 +1,5 @@
+package duke;
+
 public class Logo {
     public static final String divider = "____________________________________________________________\n";
     public static final String dividerWithoutNewLine = "____________________________________________________________";

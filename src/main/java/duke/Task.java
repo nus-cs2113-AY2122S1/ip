@@ -1,3 +1,5 @@
+package duke;
+
 public class Task implements TaskInterface{
     private static final String completeStatusIcon = "[X]";
     private static final String incompleteStatusIcon = "[ ]";

@@ -1,3 +1,5 @@
+package duke;
+
 public class CommandManager implements CommandInterface{
 
     private static final String COMMAND_HELP = "!help";
