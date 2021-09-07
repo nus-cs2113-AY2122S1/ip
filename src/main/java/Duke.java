@@ -2,7 +2,25 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final String SEPARATOR = "____________________________________________________________\n";
     public static final int TASK_LIST_SIZE = 100;
+
+    public static boolean hasSpaceError(String[] splitUserInput, String UserInput) {
+        //Checks whether last character is a space
+        int lastCharacterIndex = UserInput.length() - 1;
+        String lastCharacter = UserInput.substring(lastCharacterIndex);
+        if (lastCharacter.equals(" ")) {
+            return true;
+        }
+        //Checks for multiple spaces between words
+        int userInputLength = splitUserInput.length;
+        for (int i = 0; i < userInputLength; i++) {
+            if (splitUserInput[i].equals("")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
 
@@ -21,11 +39,24 @@ public class Duke {
             //Scans for user input
             userInput = in.nextLine();
 
+            //Splits user input into an array of words
+            String[] splitUserInput = userInput.split(" ");
+
+            //Checks for space error
+            if (hasSpaceError(splitUserInput, userInput)) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! Please check your spacings again.\n"
+                        + SEPARATOR);
+                continue;
+            };
+
             //Processes user input
-            String[] processedUserInput = Functions.processUserInput(userInput);
-            String command = processedUserInput[0];
+            String firstWord = splitUserInput[0];
+            int userInputLength = splitUserInput.length;
+            String[] processedUserInput = Functions.processUserInput(userInput, splitUserInput, firstWord, userInputLength);
 
             //Duke's actions based on command given
+            String command = processedUserInput[0];
             switch (command) {
             case "list":
                 //Prints all tasks in task list
@@ -44,10 +75,8 @@ public class Duke {
                 Functions.addTask(taskList, taskListSize, newTask);
                 taskListSize++;
                 break;
-            case "bye":
-                break;
             default:
-                Functions.printError();
+                //Either "bye" or "error"
                 break;
             }
         }

@@ -8,7 +8,7 @@ public class Functions {
                                     + "| |_| | |_| |   <  __/\n"
                                     + "|____/ \\__,_|_|\\_\\___|\n";
 
-    //PRINT
+    //VISUALS
     public static void printGreeting() {
         System.out.println(logo);
         System.out.println("Hello from\n"
@@ -25,39 +25,131 @@ public class Functions {
                 + SEPARATOR);
     }
 
-    public static void printError() {
-        System.out.println(SEPARATOR
-                + " Oops, something went wrong!\n"
-                + SEPARATOR);
-    }
-
     //PROCESS USER INPUT
-    public static String[] processUserInput(String userInput) {
+    public static String[] processUserInput(String userInput, String[] splitUserInput, String firstWord, int userInputLength) {
         String[] processedUserInput = new String[3];
-        if (!userInput.contains(" ")) {
-            //command is list
-            processedUserInput[0] = userInput;
-        } else {
-            int spaceIndex = userInput.indexOf(" ");
-            String command = userInput.substring(0, spaceIndex);
-            processedUserInput[0] = command;
-            if (!userInput.contains("/")) {
-                //command is either done or todo
-                String detail = userInput.substring(spaceIndex + 1);
-                processedUserInput[1] = detail;
-            } else {
-                //command is either deadline or event
-                int slashIndex = userInput.indexOf("/");
-                String detail = userInput.substring(spaceIndex + 1, slashIndex - 1);
-                String time = userInput.substring(slashIndex + 1);
-                processedUserInput[1] = detail;
-                processedUserInput[2] = time;
+        processedUserInput[0] = firstWord;
+        switch (firstWord) {
+        case "list":
+        case "bye":
+            //Checks that "list"/"bye" is the only word
+            if (userInputLength > 1) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! Please check your command format again.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
             }
+            break;
+        case "done":
+            //Checks that a task number is entered
+            if (userInputLength != 2) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! Please check your command format again.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+                break;
+            }
+            //Checks that the task number is a number
+            try {
+                Integer.parseInt(splitUserInput[1]);
+                int doneSpaceIndex = userInput.indexOf(" ");
+                String doneDetail = userInput.substring(doneSpaceIndex + 1);
+                processedUserInput[1] = doneDetail;
+            } catch (NumberFormatException e) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! Please check that you have entered a valid parameter.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+            }
+            break;
+        case "todo":
+            //Checks that a description is entered
+            if (userInputLength < 2) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The description of a todo cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+                break;
+            }
+            int todoSpaceIndex = userInput.indexOf(" ");
+            String todoDetail = userInput.substring(todoSpaceIndex + 1);
+            processedUserInput[1] = todoDetail;
+            break;
+        case "deadline":
+            //Checks that a description is entered
+            if (userInputLength < 4) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The description/deadline of a deadline cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+                break;
+            }
+            //Checks that a deadline is entered
+            if (!userInput.contains("/by")) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The deadline of a deadline cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+                break;
+            }
+            int deadlineSpaceIndex = userInput.indexOf(" ");
+            int deadlineSlashIndex = userInput.indexOf("/");
+            //Checks that a description is entered
+            if (deadlineSpaceIndex + 1 == deadlineSlashIndex) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The description of a deadline cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+            } else {
+                String deadlineDetail = userInput.substring(deadlineSpaceIndex + 1, deadlineSlashIndex - 1);
+                String deadlineTime = userInput.substring(deadlineSlashIndex + 1);
+                processedUserInput[1] = deadlineDetail;
+                processedUserInput[2] = deadlineTime;
+            }
+            break;
+        case "event":
+            //Checks that a description is entered
+            if (userInputLength < 4) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The description/event date of an event cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+                break;
+            }
+            //Checks that an event date is entered
+            if (!userInput.contains("/at")) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The event date of an event cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+                break;
+            }
+            int eventSpaceIndex = userInput.indexOf(" ");
+            int eventSlashIndex = userInput.indexOf("/");
+            //Checks that a description is entered
+            if (eventSpaceIndex + 1 == eventSlashIndex) {
+                System.out.println(SEPARATOR
+                        + " ☹ OOPS!!! The description of an event cannot be empty.\n"
+                        + SEPARATOR);
+                processedUserInput[0] = "error";
+            } else {
+                String eventDetail = userInput.substring(eventSpaceIndex + 1, eventSlashIndex - 1);
+                String eventTime = userInput.substring(eventSlashIndex + 1);
+                processedUserInput[1] = eventDetail;
+                processedUserInput[2] = eventTime;
+            }
+            break;
+        default:
+            System.out.println(SEPARATOR
+                    + " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                    + SEPARATOR);
+            processedUserInput[0] = "error";
+            break;
         }
         return processedUserInput;
     }
 
-    //LIST
+    //DUKE COMMANDS
     public static void printTaskList(Task[] taskList, int taskListSize) {
         System.out.println(SEPARATOR
                 + " Here are the tasks in your list:");
@@ -68,10 +160,11 @@ public class Functions {
         System.out.println(SEPARATOR);
     }
 
-    //DONE
     public static void markAsDone(Task[] taskList, int taskListSize, int taskNumber) {
         if (taskNumber > taskListSize - 1) {
-            printError();
+            System.out.println(SEPARATOR
+                    + " ☹ OOPS!!! Please check that you have entered a valid task number.\n"
+                    + SEPARATOR);
         } else {
             taskList[taskNumber].setDone();
             System.out.println(SEPARATOR
@@ -81,7 +174,6 @@ public class Functions {
         }
     }
 
-    //TODO / DEADLINE / EVENT
     public static Task createTask(String[] processedUserInput) {
         String category = processedUserInput[0];
         String description = processedUserInput[1];
