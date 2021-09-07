@@ -1,7 +1,9 @@
+package herrekt.taskmanager;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Task implements Timetable {
+public abstract class Task {
     protected final String description;
     protected boolean isDone;
     public final static List<Task> thingsToDo = new ArrayList<>();
@@ -11,23 +13,18 @@ public class Task implements Timetable {
         this.isDone = false;
     }
 
-    @Override
-    public String getDescription() {
-        return description;
-    }
+    public abstract String getDescription();
 
     public boolean isDone() {
-        return isDone;
+        return this.isDone;
     }
 
-    @Override
     public void finishTask() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + this.toString());
+        System.out.println("  " + this.toString());
     }
 
-    @Override
     public String toString() {
         if (this.isDone) {
             return "[X] " + this.description;
