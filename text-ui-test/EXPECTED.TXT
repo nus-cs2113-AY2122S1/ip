@@ -5,111 +5,113 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-____________________________________________
+____________________________________________________________
 Hello! I'm Duke
 What can I do for you?
-____________________________________________
+____________________________________________________________
 Enter command: 
-____________________________________________
-added: first task
-Now you have 1 tasks in the list
-____________________________________________
+____________________________________________________________
+? OOPS! I'm sorry, but I don't know what that means ?
+____________________________________________________________
 Enter command: 
-____________________________________________
-Nice! I've marked this task as done:
-    1.[X] first task
-____________________________________________
+? OOPS! There is no task with this number: 1
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Here are the tasks in your list:
-    1.[X] first task
-____________________________________________
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [T][ ] homework
-Now you have 2 tasks in the list
-____________________________________________
+Now you have 1 tasks in the list
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [T][ ] english essay
-Now you have 3 tasks in the list
-____________________________________________
+Now you have 2 tasks in the list
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Here are the tasks in your list:
-    1.[X] first task
-    2.[T][ ] homework
-    3.[T][ ] english essay
-____________________________________________
+    1.[T][ ] homework
+    2.[T][ ] english essay
+____________________________________________________________
 Enter command: 
-____________________________________________
-Nice! I've marked this task as done:
-    3.[T][X] english essay
-____________________________________________
+? OOPS! There is no task with this number: 3
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Here are the tasks in your list:
-    1.[X] first task
-    2.[T][ ] homework
-    3.[T][X] english essay
-____________________________________________
+    1.[T][ ] homework
+    2.[T][ ] english essay
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [D][ ] proposal (by: tomorrow 9pm)
-Now you have 4 tasks in the list
-____________________________________________
+Now you have 3 tasks in the list
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [D][ ] coding assignment (by: today midnight)
-Now you have 5 tasks in the list
-____________________________________________
+Now you have 4 tasks in the list
+____________________________________________________________
 Enter command: 
-____________________________________________
+? "by:" cannot be empty.
+____________________________________________________________
+Enter command: 
+? "by:" cannot be empty.
+____________________________________________________________
+Enter command: 
+____________________________________________________________
 Nice! I've marked this task as done:
-    4.[D][X] proposal (by: tomorrow 9pm)
-____________________________________________
+    4.[D][X] coding assignment (by: today midnight)
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Here are the tasks in your list:
-    1.[X] first task
-    2.[T][ ] homework
-    3.[T][X] english essay
-    4.[D][X] proposal (by: tomorrow 9pm)
-    5.[D][ ] coding assignment (by: today midnight)
-____________________________________________
+    1.[T][ ] homework
+    2.[T][ ] english essay
+    3.[D][ ] proposal (by: tomorrow 9pm)
+    4.[D][X] coding assignment (by: today midnight)
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [E][ ] business meeting (at: my house)
-Now you have 6 tasks in the list
-____________________________________________
+Now you have 5 tasks in the list
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [E][ ] wedding dinner (at: hotel)
-Now you have 7 tasks in the list
-____________________________________________
+Now you have 6 tasks in the list
+____________________________________________________________
 Enter command: 
-____________________________________________
+? "at:" cannot be empty.
+____________________________________________________________
+Enter command: 
+? "at:" cannot be empty.
+____________________________________________________________
+Enter command: 
+____________________________________________________________
 Here are the tasks in your list:
-    1.[X] first task
-    2.[T][ ] homework
-    3.[T][X] english essay
-    4.[D][X] proposal (by: tomorrow 9pm)
-    5.[D][ ] coding assignment (by: today midnight)
-    6.[E][ ] business meeting (at: my house)
-    7.[E][ ] wedding dinner (at: hotel)
-____________________________________________
+    1.[T][ ] homework
+    2.[T][ ] english essay
+    3.[D][ ] proposal (by: tomorrow 9pm)
+    4.[D][X] coding assignment (by: today midnight)
+    5.[E][ ] business meeting (at: my house)
+    6.[E][ ] wedding dinner (at: hotel)
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Nice! I've marked this task as done:
-    6.[E][X] business meeting (at: my house)
-____________________________________________
+    6.[E][X] wedding dinner (at: hotel)
+____________________________________________________________
 Enter command: 
-____________________________________________
+____________________________________________________________
 Bye. Hope to see you again soon!
-____________________________________________
+____________________________________________________________
