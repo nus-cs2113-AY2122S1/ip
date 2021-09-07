@@ -1,3 +1,5 @@
+package duke.program;
+
 public class LizTextBanner {
 
     private String lizText;

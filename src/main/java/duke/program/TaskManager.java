@@ -1,3 +1,14 @@
+package duke.program;
+
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidFormatException;
+import duke.exception.InvalidIndexException;
+import duke.exception.TaskIndexOutOfBoundsException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Scanner;
 
 public class TaskManager {

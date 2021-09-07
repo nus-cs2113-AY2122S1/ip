@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package duke.program;
 
 public class Duke {
     private static final int LINE_LENGTH = 40;
