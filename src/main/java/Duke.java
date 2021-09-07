@@ -3,60 +3,120 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = "_________________________________________________\n";
+        String LINE  = "_______________________________________________________________\n";
 
-        System.out.println(logo + "Hello! I'm Duke\n" + "Whatchu want\n" + logo);
+        System.out.println(LINE + "Hello! I'm Duke\n" + "Whatchu want\n" + LINE);
 
         Scanner in = new Scanner(System.in);
 
         Task[] Task = new Task[100];
-        String word;
+
+        String userInput;
         String date = "";
+
         int count = 0;
 
         do {
-            word = in.nextLine();
-            String[] words = word.split(" "); // stores string of multiple words in a string Array
+            userInput = in.nextLine();
+            String[] wordArr = userInput.split(" "); // stores string of multiple words in a string Array
+            String firstWord = wordArr[0];
 
-            if (isDone(words[0])) { //complete Tasks
-                int i = Integer.parseInt(words[1]) - 1; // gets Task number
-                Task[i].setDone();
-                System.out.println(logo + "Nice! I've marked this task as done:\n" + Task[i] + "\n" + logo);
+            DukeException invalid = new DukeException(userInput);
+            int wordLength = wordArr.length;
+            int isInvalid = 0; //functions as boolean
+
+            if (isDone(firstWord)  && wordLength > 1) { //complete Tasks
+                int doneNumber = -1;
+                if (isNumber(wordArr[1])) {
+                    doneNumber = Integer.parseInt(wordArr[1]) - 1; // gets Task number
+                }
+                if (isNumber(wordArr[1]) && doneNumber < count) {
+                    Task[doneNumber].setDone();
+                    System.out.println(LINE + "Ok! I've marked this task as done:\n" + Task[doneNumber] + "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
+                }
+                else {
+                    invalid.setDoneNoNumber();
+                    System.out.println(LINE + invalid + LINE);
+                }
             }
 
-            else if (!isBye(word) && !isList(word)) { //Task words
-                if (isTodo(words[0])) { //Todo task
-                    Task[count] = new Todo(word);
-                    count++;
-                }
-                else if (isDeadline(words[0])) { //Deadline task
-                    date = word.substring(word.lastIndexOf("/") + 1);
-                    Task[count] = new Deadline(word, date);
-                    count++;
-                }
-
-                else if (isEvent(words[0])) { //Event task
-                    date = word.substring(word.lastIndexOf("/") + 1);
-                    Task[count] = new Event(word, date);
-                    count++;
-                }
-
-                System.out.println(logo + "Added:\n" + Task[count-1] + "\n" + "Now you have " + count  + " tasks in the list.\n" + logo);
+            else if (isDone(firstWord)  && wordLength <= 1) { //complete Tasks
+                invalid.setNotDone();
+                System.out.println(LINE + invalid + LINE);
             }
 
-            else if (isList(word)) { //List tasks
-                System.out.println(logo + "Here are the tasks in your list:");
+            else if (!isBye(userInput) && !isList(userInput)) { //Task words
+                if (isTodo(firstWord) && wordLength == 1) { //Todo is empty
+                    invalid.setTodoEmpty();
+                    isInvalid = 1;
+                }
+                else if (isTodo(firstWord) && wordLength > 1){ //Todo is not empty
+                    Task[count] = new Todo(userInput);
+                    count++;
+                }
+
+                else if (isDeadline(firstWord) && wordLength == 1 ) { //Deadline is empty
+                    invalid.setDeadlineEmpty();
+                    isInvalid = 1;
+                }
+
+                else if (isDeadline(firstWord) && wordLength > 1 ) { //Deadline is not empty
+                    if (userInput.contains("/")) { //Deadline Task has a date
+                        date = userInput.substring(userInput.lastIndexOf("/") + 1);
+                        Task[count] = new Deadline(userInput, date);
+                        count++;
+                    }
+                    else { //Deadline Task has no date
+                        invalid.setDeadlineNoDate();
+                        isInvalid = 1;
+                    }
+                }
+
+                else if (isEvent(firstWord) && wordLength == 1 ) { //Event task
+                    invalid.setEventEmpty();
+                    isInvalid = 1;
+                }
+
+                else if (isEvent(firstWord) && wordLength > 1 ) { //Event task
+                    if (userInput.contains("/")) { //Event Task has a date
+                        date = userInput.substring(userInput.lastIndexOf("/") + 1);
+                        Task[count] = new Event(userInput, date);
+                        count++;
+                    }
+                    else { //Deadline Task has no date
+                        invalid.setEventNoDate();
+                        isInvalid = 1;
+                    }
+                }
+
+                else { //Other invalid commands
+                    invalid.setInvalidCommand();
+                    isInvalid = 1;
+                }
+
+                switch(isInvalid) { //handles errors
+                    case 0: System.out.println(LINE + "Ok! I've added this " + firstWord.toLowerCase() + ":\n" +
+                            Task[count - 1] + "\n" + "Now you have " + count + (count == 1 ? " task":" tasks") + " in the list.\n" +
+                            "Type 'list' to view your tasks!\n" + LINE);
+                            break;
+                    case 1: System.out.println(LINE + invalid + LINE);
+                            break;
+                }
+
+            }
+
+            else if (isList(userInput)) { //List tasks
+                System.out.println(LINE + "Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
                     System.out.print(i + 1 + ". ");
                     System.out.println(Task[i]);
                 }
-                System.out.print(logo);
+                System.out.print("You can mark them as done by typing 'done' + task number!\n" + LINE);
             }
 
+        } while (!isBye(userInput)); //Exit
 
-        } while (!isBye(word)); //Exit
-
-        System.out.println(logo + "Bye. Hope to see you again soon!\n" + logo);
+        System.out.println(LINE + "Bye. Hope to see you again soon!\n" + LINE);
 
     }
 
@@ -83,4 +143,14 @@ public class Duke {
     public static boolean isEvent(String word) {
         return word.equalsIgnoreCase("event");
     }
+
+    public static boolean isNumber(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+    }
+
 }
