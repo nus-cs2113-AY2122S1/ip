@@ -53,30 +53,75 @@ public class Parser {
      *
      * @return description of the task.
      */
-    public String getDescription() {
+    public String getDescription() throws DukeException{
         String description = "";
         int index;
-        if (getCommand().equals("todo")) {
-            //find first whitespace and assigns everything up to that point to description variable
-            int firstWhitespace = getFirstWhiteSpace(inputString);
-            description =  inputString.substring(firstWhitespace).trim();
-        } else if (getCommand().equals("list")) {
-            description = "";
-        } else if (getCommand().equals("event") || getCommand().equals("deadline")) {
-            //find first whitespace and first backslash and assign whatever is in the middle to description variable
-            int firstWhitespace = getFirstWhiteSpace(inputString);
-            int slashPos = getSlash();
-            //to include error catching
-            if (slashPos != -1) {
-                description = inputString.substring(firstWhitespace, slashPos).trim();
+        switch (getCommand()) {
+        case "todo": {
+            try {
+                //find first whitespace and assigns everything up to that point to description variable
+                int firstWhitespace = getFirstWhiteSpace(inputString);
+                description = inputString.substring(firstWhitespace).trim();
+                if(description.isEmpty()){
+                    throw new ToDoCommandError();
+                }
+                break;
+            } catch (Exception e) {
+                throw new ToDoCommandError();
             }
-        } else if (getCommand().equals("done")) {
-            //only the number(in string) remains
-            description = inputString.replaceAll("[^0-9]","");
-            index = Integer.parseInt(description);
-            description = String.valueOf(index);
-        } else {
-            description = "Invalid command";
+        }
+        case "list":
+            description = "";
+            break;
+        case "event":
+            try {
+                //find first whitespace and first backslash and assign whatever is in the middle to description variable
+                int firstWhitespace = getFirstWhiteSpace(inputString);
+                int slashPos = getSlash();
+                //to include error catching
+                if (slashPos != -1) {
+                    description = inputString.substring(firstWhitespace, slashPos).trim();
+                }
+                //if description is empty or /at is not being used
+                if(description.isEmpty() || !inputString.substring(slashPos+1,slashPos+3).equals("at")){
+                    throw new EventCommandError();
+                }
+                break;
+            } catch (Exception e) {
+                throw new EventCommandError();
+            }
+        case "deadline": {
+            try {
+                //find first whitespace and first backslash and assign whatever is in the middle to description variable
+                int firstWhitespace = getFirstWhiteSpace(inputString);
+                int slashPos = getSlash();
+                if (slashPos != -1) {
+                    description = inputString.substring(firstWhitespace, slashPos).trim();
+                }
+                //if description is empty or /by is not being used
+                if(description.isEmpty() || !inputString.substring(slashPos+1,slashPos+3).equals("by")){
+                    throw new DeadLineCommandError();
+                }
+                break;
+            } catch (Exception e) {
+                throw new DeadLineCommandError();
+            }
+        }
+        case "done":
+            try {
+                //only the number(in string) remains
+                description = inputString.replaceAll("[^0-9]", "");
+                index = Integer.parseInt(description);
+                description = String.valueOf(index);
+                if(description.isEmpty()){
+                    throw new DoneCommandError();
+                }
+                break;
+            } catch (Exception e) {
+                throw new DoneCommandError();
+            }
+            //default:
+            //  throw new InvalidCommandError();
         }
         return description;
     }
@@ -86,15 +131,37 @@ public class Parser {
      *
      * @return date.
      */
-    public String getDate() {
+    public String getDate() throws DukeException{
         String date = "";
-        if (getCommand().equals("deadline") || getCommand().equals(("event"))) {
-            int slashPos = getSlash();
-            //to include error catching
-            if (slashPos != -1) {
-                String dateString = inputString.substring(slashPos + 1);
-                int firstWhitespace = getFirstWhiteSpace(dateString);
-                date = dateString.substring(firstWhitespace);
+        if (getCommand().equals("deadline")) {
+            try {
+                int slashPos = getSlash();
+                //to include error catching
+                if (slashPos != -1) {
+                    String dateString = inputString.substring(slashPos + 1);
+                    int firstWhitespace = getFirstWhiteSpace(dateString);
+                    date = dateString.substring(firstWhitespace);
+                }
+                if(date.isEmpty()){
+                    throw new DeadLineCommandError();
+                }
+            } catch (Exception e) {
+                throw new DeadLineCommandError();
+            }
+        } else if (getCommand().equals(("event"))) {
+            try {
+                int slashPos = getSlash();
+                //to include error catching
+                if (slashPos != -1) {
+                    String dateString = inputString.substring(slashPos + 1);
+                    int firstWhitespace = getFirstWhiteSpace(dateString);
+                    date = dateString.substring(firstWhitespace);
+                }
+                if(date.isEmpty()){
+                    throw new EventCommandError();
+                }
+            } catch (Exception e) {
+                throw new EventCommandError();
             }
         } else {
             //date is not relevant for other commands
