@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static final String LINE = "_______________________________________\n";
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -15,28 +17,31 @@ public class Duke {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n" + LINE);
         inputTask();
     }
-
+    //todo, list, deadline (/by), event (/at), bye
     public static void inputTask() {
         Scanner in = new Scanner(System.in);
         String inputTask = in.nextLine();
-        Task[] tasks = new Task[100];
-        int count = 0;
 
         while(!inputTask.equals("bye")) {
             if (inputTask.equals("list")) {
                 System.out.println(LINE + "Here are the tasks in your list:\n");
-                for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i].getStatusIcon() + " " + tasks[i].getDescription());
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
                 }
+                System.out.println(LINE);
             } else if (inputTask.contains("done")) {
                 int sep = inputTask.indexOf(" ");
                 int number = Integer.parseInt(inputTask.substring(5));
-                MarkasDone(tasks, number);
+                markAsDone(number);
             }
-            else {
-                System.out.println(LINE + "added: " + inputTask);
-                tasks[count] = new Task(inputTask);
-                count++;
+            else if (inputTask.contains("todo")) {
+                addToDo(inputTask);
+            }
+            else if (inputTask.contains("deadline")) {
+                addDeadline(inputTask);
+            }
+            else if (inputTask.contains("event")) {
+                addEvent(inputTask);
             }
             inputTask = in.nextLine();
         }
@@ -46,9 +51,45 @@ public class Duke {
         in.close();
     }
 
-    public static void MarkasDone(Task[] task, int number) {
-        task[number-1].setDone();
+    private static void addToDo(String inputTask) {
+        String taskToDo = inputTask.substring(5);
+        tasks.add(new ToDo(taskToDo));
+
+        System.out.println("Got it. I've added this task:\n"
+                + "[T][]" + taskToDo +"\n" + "Now you have "
+                + tasks.size() + " tasks in this list.");
+        System.out.println(LINE);
+    }
+
+    private static void addDeadline(String inputTask) {
+        String description = inputTask.substring(9);
+        int index = description.indexOf("/by");
+        String deadlineDescription = description.substring(index + 4);
+        String taskDescription = description.substring(0,index);
+        tasks.add(new Deadline(taskDescription, deadlineDescription));
+
+        System.out.println("Got it. I've added this task:\n"
+                + "[D][]" + taskDescription + " (by: " + deadlineDescription + ")\n"
+                + "Now you have " + tasks.size() + " tasks in this list.");
+        System.out.println(LINE);
+    }
+
+    private static void addEvent(String inputTask) {
+        String description = inputTask.substring(6);
+        int index = description.indexOf("/at");
+        String eventDescription = description.substring(index + 4);
+        String taskDescription = description.substring(0,index);
+        tasks.add(new Event(taskDescription, eventDescription));
+
+        System.out.println("Got it. I've added this task:\n"
+                + "[E][]" + taskDescription + " (by: " + eventDescription + ")\n"
+                + "Now you have " + tasks.size() + " tasks in this list.");
+        System.out.println(LINE);
+    }
+
+    public static void markAsDone(int number) {
+        tasks.get(number-1).setDone();
         System.out.println(LINE + "Nice! I've marked this task as done:\n");
-        System.out.println( task[number-1].getStatusIcon() + " " + task[number-1].getDescription());
+        System.out.println( tasks.get(number-1).toString());
     }
 }
