@@ -30,7 +30,6 @@ public class Task {
             return this.getClass().getName().substring(0,1);
         }
     }
-
     public String getDescription(){
         return description;
     }
