@@ -1,5 +1,4 @@
 
-import FileManager.FileSaver;
 import InputHandle.Tasks.TaskList;
 import InputHandle.command.*;
 import InputHandle.exception.CommandNotExistException;
@@ -42,11 +41,6 @@ public class UserServer implements Serializable {
         sc.close();
     }
 
-
-    public void save(String userName) {
-        FileSaver saver = new FileSaver(userName);
-        saver.save();
-    }
 
     private void commandExecute(UserCommand input) {
         System.out.print(DIVISIONLINE);

@@ -16,6 +16,6 @@ public class User {
     }
 
     public void save() {
-        server.save(this.userName);
+        //To be implemented
     }
 }
