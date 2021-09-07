@@ -1,21 +1,20 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "____________________________________________";
     private static final String INDENT = "    ";
     private static final int MAX_TASK_LIMIT = 100;
     private static final int START_OF_STRING = 0;
-    public static final String SAD_FACE = "\uD83D\uDE41";
 
     private static Task[] tasks;
-    private static String inputCommand;
+    private static String userInput;
     private static String todoTask;
     private static String deadlineDescription;
     private static String by;
     private static String eventDescription;
     private static String at;
     private static int inputNum;
-    private static String number;
+    private static int doneTaskNum;
 
     private static int dividerPosition;
     private static int charAfterDividerPosition;
@@ -59,26 +58,9 @@ public class Duke {
         tasks = new Task[MAX_TASK_LIMIT];
     }
 
-    private static void printReply(String userInput) {
-        try {
-            processUserInput(userInput);
-        } catch (NumberFormatException e) {
-            System.out.println(SAD_FACE + " OOPS! The character you entered is not a number: " + number);
-        } catch (NumberOutOfBoundsException e) {
-            System.out.println(SAD_FACE + " OOPS! There is no task with this number: " + number);
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(SAD_FACE + " The description of a " + inputCommand + " cannot be empty.");
-        } catch (AtEmptyException e) {
-            System.out.println(SAD_FACE + " \"at:\" cannot be empty.");
-        } catch (ByEmptyException e) {
-            System.out.println(SAD_FACE + " \"by:\" cannot be empty.");
-        }
-    }
-
-    private static void processUserInput(String userInput) throws NumberOutOfBoundsException,
-            StringIndexOutOfBoundsException, AtEmptyException, ByEmptyException {
+    private static void processUserInput(String userInput) {
         String[] splitInput = userInput.split(" ");
-        inputCommand = splitInput[0];
+        String inputCommand = splitInput[0];
         switch (inputCommand) {
         case COMMAND_LIST:
             performListTask();
@@ -103,13 +85,16 @@ public class Duke {
             exitProgram();
             break;
         default:
-            printInvalidInput();
+            addTask();
         }
     }
 
-    private static void printInvalidInput() {
+    private static void addTask(){
+        Task t = new Task(userInput);
+        tasks[Task.taskCount - 1] = t;
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(SAD_FACE + " OOPS! I'm sorry, but I don't know what that means " + SAD_FACE);
+        System.out.println("added: " + userInput.trim());
+        System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
     private static void performListTask() {
@@ -121,41 +106,34 @@ public class Duke {
         }
     }
 
-    private static void handleIntConversion(String userInput) {
-        number = userInput.replace("done", "");
+    private static void handleIntConversion(String userInput){
+        String number = userInput.replace("done", "");
         number = number.trim();
         inputNum = Integer.parseInt(number);
     }
 
-    private static void performMarkTaskDone(int inputNum) throws NumberOutOfBoundsException {
+    private static void performMarkTaskDone(int inputNum){
         //index of taskNum in tasks array
-        int doneTaskNum = inputNum - 1;
+        doneTaskNum = inputNum - 1;
 
-        boolean isValidNum = (inputNum > 0) && (inputNum <= Task.taskCount);
-        if (isValidNum) {
+        if ((inputNum > 0) && (inputNum <= Task.taskCount)) {
             tasks[doneTaskNum].markAsDone();
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(INDENT + tasks[doneTaskNum].taskNum + "." + tasks[doneTaskNum]);
         } else {
-            throw new NumberOutOfBoundsException();
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Invalid input!");
         }
     }
 
-    private static void splitTodo(String userInput) throws StringIndexOutOfBoundsException {
+    private static void splitTodo(String userInput){
         todoTask = userInput.replace("todo", "");
         todoTask = todoTask.trim();
-        if (todoTask.equals("")) {
-            throw new StringIndexOutOfBoundsException();
-        }
     }
 
-    private static void splitDeadline(String userInput) throws StringIndexOutOfBoundsException,
-            ByEmptyException {
-        dividerPosition = userInput.indexOf("/by");
-        if (dividerPosition == -1) {
-            throw new ByEmptyException();
-        }
+    private static void splitDeadline(String userInput){
+        dividerPosition = userInput.indexOf("/");
         deadlineDescription = userInput.substring(START_OF_STRING, dividerPosition);
         deadlineDescription = deadlineDescription.replace("deadline", "");
         deadlineDescription = deadlineDescription.trim();
@@ -163,17 +141,10 @@ public class Duke {
         by = userInput.substring(charAfterDividerPosition);
         by = by.replace("by", "");
         by = by.trim();
-        if (by.equals("")) {
-            throw new ByEmptyException();
-        }
     }
 
-    private static void splitEvent(String userInput) throws StringIndexOutOfBoundsException,
-            AtEmptyException {
-        dividerPosition = userInput.indexOf("/at");
-        if (dividerPosition == -1) {
-            throw new AtEmptyException();
-        }
+    private static void splitEvent(String userInput){
+        dividerPosition = userInput.indexOf("/");
         eventDescription = userInput.substring(START_OF_STRING, dividerPosition);
         eventDescription = eventDescription.replace("event", "");
         eventDescription = eventDescription.trim();
@@ -181,12 +152,9 @@ public class Duke {
         at = userInput.substring(charAfterDividerPosition);
         at = at.replace("at", "");
         at = at.trim();
-        if (at.equals("")) {
-            throw new AtEmptyException();
-        }
     }
 
-    private static void performAddTodo(String todoTask) {
+    private static void performAddTodo(String todoTask){
         System.out.println(HORIZONTAL_LINE);
         tasks[Task.taskCount] = new Todo(todoTask);
         System.out.println("Got it. I've added this task:");
@@ -194,7 +162,7 @@ public class Duke {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
-    private static void performAddDeadline(String description, String by) {
+    private static void performAddDeadline(String description, String by){
         System.out.println(HORIZONTAL_LINE);
         tasks[Task.taskCount] = new Deadline(description, by);
         System.out.println("Got it. I've added this task:");
@@ -202,7 +170,7 @@ public class Duke {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
-    private static void performAddEvent(String description, String at) {
+    private static void performAddEvent(String description, String at){
         System.out.println(HORIZONTAL_LINE);
         tasks[Task.taskCount] = new Event(description, at);
         System.out.println("Got it. I've added this task:");
@@ -210,7 +178,7 @@ public class Duke {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
-    public static void exitProgram() {
+    public static void exitProgram(){
         printGreeting("Bye. Hope to see you again soon!", HORIZONTAL_LINE);
         System.exit(0);
     }
@@ -220,9 +188,9 @@ public class Duke {
         printLogo();
         printGreeting("Hello! I'm Duke", "What can I do for you?");
         initTaskList();
-        while (true) {
-            String userInput = getUserInput();
-            printReply(userInput);
+        while (true){
+            userInput = getUserInput();
+            processUserInput(userInput);
         }
     }
 }
