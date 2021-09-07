@@ -1,3 +1,4 @@
+import InputHandle.Tasks.TaskList;
 
 public class User {
     private UserServer server;
@@ -8,9 +9,9 @@ public class User {
         server = new UserServer(userName);
     }
 
-    User(String userName) {
+    User(String userName, TaskList tasksList) {
         this.userName = userName;
-        server = new UserServer(userName);
+        server = new UserServer(userName, tasksList);
     }
 
     public void startServe() {

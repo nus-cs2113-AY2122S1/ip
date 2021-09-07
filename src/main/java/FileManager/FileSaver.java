@@ -17,6 +17,13 @@ public class FileSaver {
         filePath = Paths.get("UserStatus", fileName);
     }
 
+    public FileSaver () {
+        String fileName = "default.txt";
+        filePath = Paths.get("UserStatus", fileName);
+    }
+
+
+
     public void save(TaskList tasks) {
         try {
             FileOutputStream fileStream = new FileOutputStream(filePath.toString());
