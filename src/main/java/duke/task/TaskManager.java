@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.parser.Parser;
+
 public class TaskManager {
     protected Task[] tasks;
     protected int taskCount;
