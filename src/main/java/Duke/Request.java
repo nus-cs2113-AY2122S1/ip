@@ -1,4 +1,11 @@
-public class Request {
+package Duke;
+
+import Duke.Exceptions.EmptyDescriptionException;
+import Duke.Exceptions.EmptyTimeException;
+import Duke.Exceptions.IncompleteInformationException;
+import Duke.Exceptions.InvalidRequestException;
+
+public abstract class Request {
     private static final String BYE = "bye";
     private static final String LIST = "list";
     private static final String DONE = "done";
@@ -68,7 +75,7 @@ public class Request {
             System.out.println("description" + description);
             return new Event(description, at);
         } catch (Exception ex) {
-            String errorType = ex instanceof EmptyTimeException? "time" : "description";
+            String errorType = ex instanceof EmptyTimeException ? "time" : "description";
             throw new IncompleteInformationException(EVENT,errorType);
         }
     }
@@ -93,7 +100,7 @@ public class Request {
         }
     }
 
-    private static String getDescription(String request) throws EmptyDescriptionException{
+    private static String getDescription(String request) throws EmptyDescriptionException {
         try {
             int descriptionStartIndex = request.indexOf(" ");
             int descriptionEndIndex = Request.isSpecialTask(request) ? request.indexOf("/") : request.length();

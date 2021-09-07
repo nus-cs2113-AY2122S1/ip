@@ -1,3 +1,9 @@
+package Duke;
+
+import Duke.Exceptions.DukeException;
+import Duke.Exceptions.IncompleteInformationException;
+import Duke.Exceptions.InvalidRequestException;
+
 import java.util.Scanner;
 
 public class Duke {
