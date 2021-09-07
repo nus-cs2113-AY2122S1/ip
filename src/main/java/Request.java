@@ -41,18 +41,13 @@ public class Request {
     }
 
     public static Task getTask(String request) throws Exception {
-        System.out.println("parsing task");
         if (Request.isTodo(request)) {
-            System.out.println("building todo");
             return buildTodo(request.trim());
         } else if (Request.isEvent(request)) {
-            System.out.println("building event");
             return buildEvent(request.trim());
         } else if (Request.isDeadline(request)){
-            System.out.println("building deadline");
             return buildDeadline(request.trim());
         }
-        System.out.println("invalid command");
         throw new InvalidRequestException();
     }
 
@@ -68,7 +63,9 @@ public class Request {
     private static Task buildEvent(String request) throws Exception {
         try {
             String at = getTime(request);
+            System.out.println("at" + at);
             String description = getDescription(request);
+            System.out.println("description" + description);
             return new Event(description, at);
         } catch (Exception ex) {
             String errorType = ex instanceof EmptyTimeException? "time" : "description";

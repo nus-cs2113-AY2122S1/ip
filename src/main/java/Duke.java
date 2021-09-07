@@ -19,7 +19,6 @@ public class Duke {
                 } else if (Request.isDone(request)) {
                     list.doneTask(request);
                 } else {
-                    System.out.println("task read");
                     list.addTask(request);
                 }
                 request = in.nextLine();
@@ -29,8 +28,9 @@ public class Duke {
                 } else if (ex instanceof InvalidRequestException) {
                     System.out.println("☹ OOPS!!! I can't do that.");
                 }
+                request = in.nextLine();
             } catch (Exception ex) {
-                if (ex instanceof IndexOutOfBoundsException){
+                if (ex instanceof IndexOutOfBoundsException) {
                     System.out.println("Sorry I can't do that! " +
                             "Try \"done <number inside the list>\" instead :)");
                 } else {

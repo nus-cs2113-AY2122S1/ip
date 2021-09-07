@@ -9,6 +9,7 @@ public class TaskList {
 
     public void addTask(String request) throws Exception {
         Task newTask = Request.getTask(request);
+        System.out.println("created task");
         tasks.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
