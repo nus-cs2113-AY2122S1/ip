@@ -1,4 +1,4 @@
-package Task;
+package Duke.Task;
 
 public class Events extends Task {
     private String when;

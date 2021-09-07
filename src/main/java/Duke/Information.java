@@ -1,6 +1,6 @@
 package Duke;
 
-import Task.Task;
+import Duke.Task.Task;
 
 public class Information {
     Task List[] = new Task[100];

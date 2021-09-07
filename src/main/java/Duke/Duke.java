@@ -1,9 +1,9 @@
 package Duke;
 
-import Exception.DukeException;
-import Task.Deadline;
-import Task.Events;
-import Task.ToDos;
+import Duke.Exception.DukeException;
+import Duke.Task.Deadline;
+import Duke.Task.Events;
+import Duke.Task.ToDos;
 
 import java.util.Scanner;
 

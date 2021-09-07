@@ -1,4 +1,4 @@
-package Task;
+package Duke.Task;
 
 public class Deadline extends Task{
     private String when;
