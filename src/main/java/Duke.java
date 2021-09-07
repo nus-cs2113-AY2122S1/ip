@@ -113,7 +113,10 @@ public class Duke {
             listLength++;
         }
 
-        public static void printList(Task[] list){
+        public static void printList(Task[] list) throws DukeException{
+            if(list[0] == null){
+                throw new DukeException("Hmm... It seems that you have no task to list in your empty list.");
+            }
             System.out.println(SEPARATOR);
             printList(list,listLength);
             System.out.println(SEPARATOR);
@@ -177,14 +180,18 @@ public class Duke {
 
         }
 
-        public static void markAsDone(){
-            int listNumber;
-            listNumber = Integer.parseInt(userInput.substring(5))-1;
-            list[listNumber].taskDone();
-            System.out.println(SEPARATOR);
-            System.out.println("Nice! I've marked this task as done: ");
-            System.out.println(list[listNumber].toString());
-            System.out.println(SEPARATOR);
+        public static void markAsDone() throws DukeException {
+            if (list[0] == null) {
+                throw new DukeException("Hmm... It seems that you have no task to mark in your empty list.");
+            } else {
+                int listNumber;
+                listNumber = Integer.parseInt(userInput.substring(5)) - 1;
+                list[listNumber].taskDone();
+                System.out.println(SEPARATOR);
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(list[listNumber].toString());
+                System.out.println(SEPARATOR);
+            }
         }
 
 
