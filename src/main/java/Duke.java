@@ -3,10 +3,11 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final Task list[] = new Task[100];
+    public static final int MAX_RECORDS = 100;
     public static final String INDENT = "    │ ";
     private static int taskCount = 0;
     private static int taskCompleted = 0;
+    private static final Task list[] = new Task[MAX_RECORDS];
 
     public static void main(String[] args) {
         greetUser();
@@ -104,12 +105,14 @@ public class Duke {
      * @param taskNumber Number n associated with the task, where n is the nth task in list.
      */
     public static void markTaskAsDone(int taskNumber) {
+        boolean isExists = taskNumber >= 0 || taskNumber < taskCount;
+
         printTopLine();
-        if (taskNumber < 0 || taskNumber >= taskCount) {
+        if (!isExists) {
             System.out.println("    │ Wha- Hey! Task does not exist!");
         } else if (list[taskNumber].isDone) {
             System.out.println("    │ Dude... you've done the task already.");
-        } else {
+        } else if (isExists){
             taskCompleted++;
             list[taskNumber].isDone = true;
             System.out.println("    │ About time. I've mark that task as done:");
@@ -145,7 +148,7 @@ public class Duke {
     public static void byeUser() {
         printTopLine();
         System.out.println(INDENT + "\"Only in the agony of parting do we look into the depths of love.\" │\n"
-                + INDENT + " ── George Eliot                                                   │\n"
+                + INDENT + " —— George Eliot                                                   │\n"
                 + INDENT + "                                                                   │\n"
                 + INDENT + "Ha! As if I care! Goodbye!!                                        │");
         printBottomLine();
