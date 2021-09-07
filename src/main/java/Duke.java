@@ -73,6 +73,7 @@ public class Duke {
             System.out.println("Bye. Hope to see you again soon!");
             return -1;
         }
+
         return 0;
     }
 
