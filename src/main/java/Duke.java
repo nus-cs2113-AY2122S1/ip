@@ -40,7 +40,7 @@ public class Duke {
         return userInput;
     }
 
-    public static String GetItem(String userInput) {
+    public static String GetItem(String userInput) throws IllegalToDoException {
         String item = "";
         String command = getCommand(userInput);
         if (isDeadline(command)) {
@@ -49,7 +49,10 @@ public class Duke {
             item = notToDoItem(userInput);
         } else if (userInput.length() > 3) {
             item = getRequiredSubstring(userInput, " ", 1);
-        }
+            if(item.trim().equals("") || item.toLowerCase().equals("todo")){
+                throw new IllegalToDoException();
+            }
+        } else if (isInvalidCommand(command))
         return item;
     }
 
@@ -74,7 +77,7 @@ public class Duke {
         return time;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalToDoException {
 
         Task[] unfilteredTasks = new Task[100];
         int unfilteredCounter = 0;
@@ -90,9 +93,14 @@ public class Duke {
             String command = getCommand(userInput);
             doDone(command, unfilteredTasks, userInput);
             doList(command, unfilteredTasks);
-            unfilteredTasks[unfilteredCounter] = isToDo(command) ? new ToDo((GetItem(userInput))) : isDeadline(command) ? new Deadline(GetItem(userInput), getTime(userInput)) : isEvent(command) ? new Event(GetItem(userInput), getTime(userInput)) : null;
 
-            AcknowledgeAddition(command, unfilteredTasks[unfilteredCounter], unfilteredCounter);
+            try {
+                unfilteredTasks[unfilteredCounter] = isToDo(command) ? new ToDo((GetItem(userInput))) : isDeadline(command) ? new Deadline(GetItem(userInput), getTime(userInput)) : isEvent(command) ? new Event(GetItem(userInput), getTime(userInput)) : null;
+                AcknowledgeAddition(command, unfilteredTasks[unfilteredCounter], unfilteredCounter);
+            } catch (IllegalToDoException e) {
+                e.printMessage();
+            }
+
 
             unfilteredCounter = isInvalidCommand(command) ? unfilteredCounter : isList(command) ? unfilteredCounter : unfilteredCounter + 1;
             if (!isBye(command)) {
@@ -169,9 +177,14 @@ public class Duke {
         }
     }
 
-    private static void markedDoneMessage(Task[] unfilteredTasks, String userInput) {
+    private static void markedDoneMessage(Task[] unfilteredTasks, String userInput){
         System.out.println(LINE + "Nice! I've marked this task as done:");
-        int taskNumber = Integer.parseInt(GetItem(userInput));
+        int taskNumber = 0;
+        try {
+            taskNumber = Integer.parseInt(GetItem(userInput));
+        } catch (IllegalToDoException e) {
+            System.out.println("Invalid ToDo");
+        }
         Task completedTask = unfilteredTasks[(taskNumber - 1)];
         completedTask.markAsDone();
         System.out.println("\t\t" + completedTask + "\n" + LINE);
