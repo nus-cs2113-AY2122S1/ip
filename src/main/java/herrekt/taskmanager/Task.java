@@ -1,4 +1,4 @@
-package herrekt.tasks;
+package herrekt.taskmanager;
 
 import java.util.ArrayList;
 import java.util.List;

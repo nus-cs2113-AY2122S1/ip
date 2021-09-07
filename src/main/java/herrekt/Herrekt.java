@@ -2,10 +2,10 @@ package herrekt;
 
 import herrekt.exceptions.InvalidInputException;
 import herrekt.exceptions.NoTaskException;
-import herrekt.tasks.Deadline;
-import herrekt.tasks.Event;
-import herrekt.tasks.Timetable;
-import herrekt.tasks.Todo;
+import herrekt.taskmanager.Deadline;
+import herrekt.taskmanager.Event;
+import herrekt.taskmanager.Timetable;
+import herrekt.taskmanager.Todo;
 
 import java.util.Scanner;
 

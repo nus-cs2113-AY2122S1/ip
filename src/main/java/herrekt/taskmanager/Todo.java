@@ -1,4 +1,4 @@
-package herrekt.tasks;
+package herrekt.taskmanager;
 
 public class Todo extends Task implements Timetable {
 

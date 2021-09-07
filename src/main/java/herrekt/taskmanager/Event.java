@@ -1,4 +1,4 @@
-package herrekt.tasks;
+package herrekt.taskmanager;
 
 public class Event extends Task implements Timetable {
     protected String date;
