@@ -107,7 +107,7 @@ public class Duke {
         String[] parsedInput = input.split("/at");
 
         try {
-            parsedInput[1].isEmpty();
+            parsedInput[1] = parsedInput[1];
 
         }catch(ArrayIndexOutOfBoundsException a){
             System.out.println("Description cannot be empty!");
@@ -130,7 +130,7 @@ public class Duke {
         input = input.replaceFirst("deadline", "");
         String[] parsedInput = input.split("/by");
         try {
-            parsedInput[1].isEmpty();
+            parsedInput[1] = parsedInput[1];
         }catch(ArrayIndexOutOfBoundsException a){
             System.out.println("Description cannot be empty!");
             return;
