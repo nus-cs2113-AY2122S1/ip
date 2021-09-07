@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException {
     protected int errorType;
     private static final int ERROR_TODO_IS_EMPTY = 1;
@@ -16,8 +18,14 @@ public class DukeException {
         System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println(border);
     }
-    public DukeException(int errorType) {
-        this.errorType = errorType;
+    public DukeException() {
+        this.errorType = ERROR_COMMAND_NOT_FOUND;
+    }
+    public void setErrorType(int type) {
+        this.errorType = type;
+    }
+    public int getErrorType() {
+        return errorType;
     }
     public void printError(int type) {
         switch (type) {
