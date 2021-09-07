@@ -1,5 +1,12 @@
+package TypeOfTasks;
+
 public class Task {
     protected String description;
+
+    public boolean isDone() {
+        return isDone;
+    }
+
     protected boolean isDone;
 
     public Task(String description) {

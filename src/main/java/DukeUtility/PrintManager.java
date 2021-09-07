@@ -1,3 +1,5 @@
+package DukeUtility;
+
 public class PrintManager {
     public static final String GREETING_MESSAGE = "SQUAWK! See you next time! :)";
     public static final String LOGO = " ______   _       _   _\n"

@@ -1,3 +1,10 @@
+import DukeUtility.OwlException;
+import DukeUtility.PrintManager;
+import TypeOfTasks.Deadline;
+import TypeOfTasks.Event;
+import TypeOfTasks.Task;
+import TypeOfTasks.Todo;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.List;
@@ -96,7 +103,7 @@ public class Duke {
         if(!isValidTaskCount(taskCount, taskNumber)) {
             throw new OwlException("invalid task number");
         }
-        if(tasks[taskIndex].isDone) {
+        if(tasks[taskIndex].isDone()) {
             throw new OwlException("Task already done!!");
         }
         tasks[taskIndex].markDone();

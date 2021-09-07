@@ -1,3 +1,5 @@
+package DukeUtility;
+
 public class OwlException extends Exception{
     public OwlException(String description) {
         super(description);
