@@ -127,32 +127,32 @@ public class Duke {
 
     private void parseUserInputString(String userInputString) throws DukeException {
         String command;
-        String[] parsedUserInput;
+        String[] userInputArray;
         String param;
         String[] params;
         int taskNumber;
 
-        parsedUserInput = PARSER.separateCommand(userInputString);
-        command = parsedUserInput[0].toLowerCase();
+        userInputArray = PARSER.separateCommand(userInputString);
+        command = userInputArray[0].toLowerCase();
         switch (command) {
         case COMMAND_ECHO:
-            param = CHECKER.retrieveEchoParameter(parsedUserInput);
+            param = CHECKER.retrieveEchoParameter(userInputArray);
             echo(param);
             break;
         case COMMAND_MARK_TASK_DONE:
-            taskNumber = CHECKER.retrieveDoneParameter(parsedUserInput);
+            taskNumber = CHECKER.retrieveDoneParameter(userInputArray);
             markTaskDone(taskNumber);
             break;
         case COMMAND_ADD_TODO:
-            param = CHECKER.retrieveTodoParameter(parsedUserInput);
+            param = CHECKER.retrieveTodoParameter(userInputArray);
             addTodo(param);
             break;
         case COMMAND_ADD_DEADLINE:
-            params = CHECKER.retrieveDeadlineParameters(parsedUserInput);
+            params = CHECKER.retrieveDeadlineParameters(userInputArray);
             addDeadline(params[0], params[1]);
             break;
         case COMMAND_ADD_EVENT:
-            params = CHECKER.retrieveEventParameters(parsedUserInput);
+            params = CHECKER.retrieveEventParameters(userInputArray);
             addEvent(params[0], params[1]);
             break;
         default:
