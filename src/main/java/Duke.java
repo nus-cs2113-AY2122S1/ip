@@ -1,3 +1,10 @@
+import duke.exception.DukeInvalidAddTaskException;
+import duke.exception.DukeInvalidMarkDoneException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -20,8 +27,8 @@ public class Duke {
     }
 
     public static void printGreetingMessage() {
-        System.out.println("Hello from\n" + LOGO);
-        System.out.println(BORDER_LINE + System.lineSeparator()
+        System.out.println(LOGO + System.lineSeparator()
+                + BORDER_LINE + System.lineSeparator()
                 + "    Hello!, I'm Duke" + System.lineSeparator()
                 + "    How can I help you?" + System.lineSeparator()
                 + BORDER_LINE);
@@ -47,7 +54,14 @@ public class Duke {
 
     public static void printTaskAlreadyDoneMessage(int taskNumber) {
         System.out.println(BORDER_LINE + System.lineSeparator()
-                + "    Task " + taskNumber + " has already been marked as done!" + System.lineSeparator()
+                + "    Task " + (taskNumber + 1) + " has already been marked as done!" + System.lineSeparator()
+                + BORDER_LINE);
+    }
+    
+    public static void printMarkDoneMessage(int taskNumber) {
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    The following task is now marked as done:" + System.lineSeparator()
+                + "      " + tasks[taskNumber] + System.lineSeparator()
                 + BORDER_LINE);
     }
 
@@ -117,7 +131,7 @@ public class Duke {
         return command;
     }
 
-    public static void showTaskList() {
+    public static void printTaskList() {
         System.out.println(BORDER_LINE);
         if (Task.getNumberOfTasks() == 0) {
             System.out.println("    The list is currently empty!");
@@ -136,12 +150,8 @@ public class Duke {
             printTaskAlreadyDoneMessage(taskNumber);
         } else {
             tasks[taskNumber].markAsDone();
+            printMarkDoneMessage(taskNumber);
         }
-
-        System.out.println(BORDER_LINE + System.lineSeparator()
-                + "    The following task is now marked as done:" + System.lineSeparator()
-                + "      " + tasks[taskNumber] + System.lineSeparator()
-                + BORDER_LINE);
     }
 
     public static void addTask(String userInput, String command) {
@@ -186,7 +196,7 @@ public class Duke {
             }
             switch (command) {
             case "list":
-                showTaskList();
+                printTaskList();
                 break;
             case "done":
                 markDone(userInput);
