@@ -45,8 +45,6 @@ public class Duke {
             }
             System.out.println(LINES);
         }
-
-
     }
 
     /**
@@ -105,7 +103,6 @@ public class Duke {
         } catch (InvalidTaskException e) {
             System.out.println(INVALID_TASK);
         }
-
     }
 
     /**
