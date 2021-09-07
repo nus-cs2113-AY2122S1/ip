@@ -9,6 +9,6 @@ public class ToDos extends Task{
     //methods
     @Override
     public String toString() {
-        return( "[T]" + super.toString() );
+        return("[T]" + super.toString());
     }
 }

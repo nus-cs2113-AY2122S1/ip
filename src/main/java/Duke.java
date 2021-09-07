@@ -53,7 +53,7 @@ public class Duke {
             }
             deadlineDescription = deadlineDescription + " " + words[i];
         }
-        Deadlines newDeadline = new Deadlines( deadlineDescription.substring(1), by);
+        Deadlines newDeadline = new Deadlines(deadlineDescription.substring(1), by);
         return newDeadline;
     }
 
@@ -64,18 +64,18 @@ public class Duke {
         for(int i = 1 ; i < words.length ; i ++) {
             if(words[i].equals("/at")) {
                 eventIndex = i + 1;
-                for( int j = eventIndex ; j < words.length ; j++) {
+                for(int j = eventIndex ; j < words.length ; j++) {
                     timeAllocation = timeAllocation + " " + words[j];
                 }
                 break;
             }
             eventDescription = eventDescription + " " + words[i];
         }
-        Events newEvent = new Events( eventDescription.substring(1), timeAllocation.substring(1));
+        Events newEvent = new Events(eventDescription.substring(1), timeAllocation.substring(1));
         return newEvent;
     }
 
-    public static int distinguishCommand( String command , Task[] list, int size) {
+    public static int distinguishCommand(String command , Task[] list, int size) {
         //split into word array
         String[] words = command.split(" ");
         String firstWord = words[0];
@@ -87,27 +87,43 @@ public class Duke {
             printList(list, size);
             break;
         case "done":
-            markTaskDone(list, words[1]);
+            try {
+                markTaskDone(list, words[1]);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a done cannot be empty.");
+            }
             break;
         case "todo":
-            ToDos newToDo = new ToDos(command.substring(5));
-            addTask(list, newToDo, taskCount);
-            taskCount ++;
+            try {
+                ToDos newToDo = new ToDos(command.substring(5));
+                addTask(list, newToDo, taskCount);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a todo cannot be empty.");
+            }
             break;
         case "deadline":
-            //extract out deadline description and by
-            Deadlines newDeadline = createNewDeadline(words);
-            addTask(list, newDeadline, size);
-            taskCount ++;
+            try {
+                Deadlines newDeadline = createNewDeadline(words);
+                addTask(list, newDeadline, size);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a deadline cannot be empty.");
+            }
             break;
         case "event":
             //extract out event description and timeAllocation
-            Events newEvent = createNewEvent(words);
-            addTask(list, newEvent, size);
-            taskCount ++;
+            try {
+                Events newEvent = createNewEvent(words);
+                addTask(list, newEvent, size);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a event cannot be empty.");
+            }
             break;
         default:
-                System.out.println("    Unknown Command");
+                System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
+
             break;
         }
 
@@ -127,7 +143,7 @@ public class Duke {
         int taskCount = 0;
 
         while (!line.equals("bye")) {
-            taskCount = distinguishCommand( line, list, taskCount);
+            taskCount = distinguishCommand(line, list, taskCount);
             line = in.nextLine();
         }
 
