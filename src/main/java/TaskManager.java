@@ -38,8 +38,12 @@ public class TaskManager {
         System.out.println("");
     }
 
-    public static void printInvalidDoneMessage() {
+    public static void printIndexOutOfBoundsMessage() {
         System.out.println("Sorry bud, you can't check off what is not yet there :/");
+    }
+
+    public static void printInvalidDoneMessage() {
+        System.out.println("Sorry bud, that's not a valid task number to check off!");
     }
 
     public static void printAlreadyDoneMessage() {
@@ -103,10 +107,10 @@ public class TaskManager {
                 System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
             } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
                 String taskByTime = tasks[i].getByDateTime();
-                System.out.printf("[%s][%s] %s(by:%s)%n", taskType, taskStatus, taskDescription, taskByTime);
+                System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
             } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
                 String taskAtTime = tasks[i].getStartAndEndTime();
-                System.out.printf("[%s][%s] %s(at:%s)%n", taskType, taskStatus, taskDescription, taskAtTime);
+                System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
             } else {
                 printGenericErrorMessage();
             }
@@ -179,12 +183,16 @@ public class TaskManager {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public void markAsDone(Task[] tasks, String index) {
+    public void markAsDone(Task[] tasks, String[] lineArgs) throws InvalidIndexException, TaskIndexOutOfBoundsException {
 
-        int doneIndex = Integer.parseInt(index) - 1;
+        if (lineArgs.length > 2) {
+            throw new InvalidIndexException();
+        }
+
+        int doneIndex = Integer.parseInt(lineArgs[1]) - 1;
 
         if (doneIndex >= taskCount || doneIndex < 0) {
-            printInvalidDoneMessage();
+            throw new TaskIndexOutOfBoundsException();
         } else {
             if (tasks[doneIndex].getStatusIcon().equals(ICON_DONE)) {
                 printAlreadyDoneMessage();
@@ -210,7 +218,17 @@ public class TaskManager {
             if (command.equals(COMMAND_LIST)) {
                 printTaskList(taskCount, tasks);
             } else if (command.equals(COMMAND_DONE)) {
-                markAsDone(tasks, lineArgs[1]);
+
+                try {
+                    markAsDone(tasks, lineArgs);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    printEmptyIndexAfterDoneMessage();
+                } catch (InvalidIndexException | NumberFormatException e) {
+                    printInvalidDoneMessage();
+                } catch (TaskIndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsMessage();
+                }
+
             } else if (command.equals(COMMAND_TODO)) {
 
                 try {
