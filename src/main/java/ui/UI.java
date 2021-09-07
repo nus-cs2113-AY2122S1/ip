@@ -10,7 +10,7 @@ public class UI {
     /**
      * Formats and prints strings to standard output
      *
-     * @param response Duke's response to be printed out
+     * @param response taro's response to be printed out
      */
     public void printString(String response) {
         System.out.println(line);

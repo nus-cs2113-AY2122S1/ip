@@ -1,3 +1,5 @@
+package main;
+
 import exceptions.DukeException;
 import parser.Parser;
 import task.TaskManager;
@@ -11,7 +13,7 @@ public class Duke {
     private final Parser parser;
 
     /**
-     * Constructor for Duke (renamed to taro) that initializes the key properties
+     * Constructor for main.Duke (renamed to taro) that initializes the key properties
      */
     public Duke() {
         ui = new UI();
