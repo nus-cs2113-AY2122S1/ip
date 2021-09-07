@@ -12,6 +12,7 @@ public class Duke {
         printHorizontalLine();
     }
 
+
     public static String getCommand(String userInput) {
         String[] input = userInput.trim().toLowerCase().split(" ");
         return input[0];
@@ -35,10 +36,8 @@ public class Duke {
                 requestList(tasks);
                 break;
             case ("done"):
-                inputDone(line, tasks);
-                break;
             case ("undo"):
-                undoDone(line, tasks);
+                changeDoneStatus(line, tasks);
                 break;
             case ("todo"):
             case ("deadline"):
@@ -89,7 +88,6 @@ public class Duke {
         int timePos = input.trim().indexOf("/");
         String taskType = input.trim().substring(0, dividePos).toLowerCase();
         String taskName = input.trim().substring(dividePos, timePos);
-
         String end = input.trim().substring(timePos + 3);
         if (taskType.equalsIgnoreCase("deadline")) {
             tasks[taskCount] = new Deadline(taskName, end);
@@ -118,15 +116,33 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void inputDone(String line, Task[] tasks) {
+    public static void changeDoneStatus(String line, Task[] tasks) {
+        String[] input = line.split(" ");
+        try {
+            if (input[0].equalsIgnoreCase("done")) {
+                inputDone(line, tasks);
+            } else if (input[0].equalsIgnoreCase("undo")) {
+                undoDone(line, tasks);
+            }
+        } catch (NumberFormatException invalidTaskNumber) {
+            System.out.println("Indicate the task you'd like to do or undo!");
+        } catch (InvalidDoOrUndoException e) {
+            System.out.println(e.getMessage());
+            printHorizontalLine();
+        } catch (NullPointerException e) {
+            printHorizontalLine();
+            System.out.println("No such task number exists!");
+            printHorizontalLine();
+        }
+    }
+
+    public static void inputDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
         int dividePos = line.indexOf(" ");
         int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
         Task t = tasks[taskNumber];
         if (t.isDone) {
             printHorizontalLine();
-            System.out.println("This task has already been done, complete something else!");
-            printHorizontalLine();
-            return;
+            throw new InvalidDoOrUndoException("This task has already been done, complete something else!");
         }
         t.markAsDone();
         printHorizontalLine();
@@ -135,15 +151,13 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void undoDone(String line, Task[] tasks) {
+    public static void undoDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
         int dividePos = line.indexOf(" ");
         int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
         Task t = tasks[taskNumber];
         if (!t.isDone) {
             printHorizontalLine();
-            System.out.println("This task has not been done yet!");
-            printHorizontalLine();
-            return;
+            throw new InvalidDoOrUndoException("This task has not been done yet!");
         }
         t.markAsNotDone();
         printHorizontalLine();
