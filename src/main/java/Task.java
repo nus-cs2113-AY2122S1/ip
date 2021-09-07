@@ -7,7 +7,7 @@ public class Task {
     public Task(String input){
         this.name = input;
         this.done = false;
-    }
+}
     public void taskDone(){
 
         this.done = true;
@@ -18,6 +18,6 @@ public class Task {
     }
 
     public String toString(){
-        return "[" + getStatus() + "]" + name;
+        return "[T][" + getStatus() + "]" + name;
     }
 }
