@@ -58,7 +58,7 @@ public class Patchi {
             System.out.println("Patchi: Good job! I've marked this task as done on your list. " +
                     "Time for a break? Œ(ˊwˋ)B");
         } else {
-            System.out.println("Patchi: That task doesn't seem to exist... Œ(ˊnˋ)B");
+            System.out.println("Patchi: That task doesn't seem to exist...... Œ(ˊnˋ)B");
         }
     }
 
