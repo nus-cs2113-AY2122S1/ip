@@ -1,3 +1,4 @@
+package OldCode;
 import java.util.Scanner;
 
 public class Duke {
