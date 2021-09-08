@@ -51,11 +51,15 @@ public class Duke {
                         System.out.println(error.getMessage());
                     }
                 } else  if (command.contains("deadline")) {
-                    createDeadline(command);
+                    try {
+                        createDeadline(command);
+                    } catch (DukeException error) {
+                        System.out.println(error.getMessage());
+                    }
                 } else if (command.contains("event")) {
                     createEvent(command);
                 } else {
-                    System.out.println("Apologies sir but, I believe that command is beyond my understanding...");
+                    System.out.println("Apologies sir but, I don't recognize that protocol");
                 }
             }
         }
@@ -66,7 +70,8 @@ public class Duke {
         try {
             taskDescription = command.substring(TODO_SIZE);
         } catch (Exception e) {
-            throw new DukeException("Sir, that seems to be an inavlid command");
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, that seems to be an inavlid command"
+                    + System.lineSeparator() + LINE);
         }
         if (taskDescription.isBlank()) {
             throw new DukeException("Sir, you haven't given me the name of the task");
@@ -76,17 +81,29 @@ public class Duke {
         printListSummary(itemIndex);
     }
 
-    private static void createDeadline(String command) {
+    private static void createDeadline(String command) throws DukeException{
         // Reads two substrings as param: 1. The task description after keyword "deadline"
         //                                2. The actual deadline after "/by " till end of string
+        String dateOrTime;
+        String taskDescription;
         int dashStart = command.indexOf("/");
-        String dateOrTime = command.substring(dashStart + DASH_INDX);
-        tasks[itemIndex] = new Deadline((command.substring(DEADLINE_SIZE, dashStart)), dateOrTime);
+        try {
+            dateOrTime = command.substring(dashStart + DASH_INDX);
+        } catch (Exception e) {
+            throw new DukeException("Sir, you haven't given me a valid deadline");
+        }
+        try {
+            taskDescription = command.substring(DEADLINE_SIZE, dashStart);
+        } catch (Exception e){
+            throw new DukeException("Sir, I'm afraid that command is invalid. " + System.lineSeparator() +
+                    "Please frame your request in this format: deadline CS2113T Assg /by Wed 2359 hrs");
+        }
+        tasks[itemIndex] = new Deadline(command.substring(DEADLINE_SIZE, dashStart), dateOrTime);
         itemIndex++;
         printListSummary(itemIndex);
     }
 
-    private static void createEvent(String command) {
+    private static void createEvent(String command) throws DukeException {
         int dashStart = command.indexOf("/");
         String dateOrTime = command.substring(dashStart + DASH_INDX);
         tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
