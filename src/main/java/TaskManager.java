@@ -43,8 +43,8 @@ public class TaskManager {
      * @param userParameter Description of task and its parameter given by user
      * @param type          type of task
      * @return return task
-     * @throws InvalidParameterException If deadline/event task do not have the corresponding regax such as /by and /at
-     *                                   or when no description is given after the regax
+     * @throws InvalidParameterException If deadline/event task do not have the corresponding regex such as /by and /at
+     *                                   or when no description is given after the regex
      */
     public Task createTask(String userParameter, char type) throws InvalidParameterException {
         Task task = null;
@@ -86,7 +86,7 @@ public class TaskManager {
      */
     public void addTask(String[] userInputArray, TaskType type) {
 
-        // Check for empty description
+        // Check for empty description and return if no description
         try {
             boolean emptyDescription = userInputArray[1].isBlank();
             if (emptyDescription) {
@@ -94,7 +94,7 @@ public class TaskManager {
                 return;
             }
 
-            // Create task
+            // Create tasks
             Task task = null;
             switch (type) {
             case TODO:
