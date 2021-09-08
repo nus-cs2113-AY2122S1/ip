@@ -31,7 +31,6 @@ public class Ui {
             String input = scanner.nextLine();
             String[] command = input.split(" ");
             String firstWord = command[0];
-
             System.out.print(lineBreak);
             try {
                 switch (firstWord) {
