@@ -130,8 +130,15 @@ public class Terminator {
      * Update the completion status of the Task to true.
      * @param taskNumber The index of the task to be updated.
      */
-    private static void updateTaskCompletionStatus(int taskNumber) {
+    private static void updateTaskCompletionStatus(int taskNumber) throws IndexOutOfBoundsException {
         tasksList.get(taskNumber).setCompleted(true);
+    }
+
+    /**
+     * Prints error message if requested task to access is out of bounds.
+     */
+    private static void printOutOfBoundsMessage() {
+        System.out.println(formatWithHeading("Index is out of bounds! Try again :(", TERMINATOR_FORMATTING));
     }
 
     /**
@@ -290,7 +297,7 @@ public class Terminator {
      * @param userInput String containing the TaskNumber.
      * @return The TaskNumber to be marked as done
      */
-    private static int getTaskNumberFromInput(String userInput) {
+    private static int getTaskNumberFromInput(String userInput) throws IndexOutOfBoundsException {
         return Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
     }
 
@@ -356,16 +363,8 @@ public class Terminator {
         // Checks for the input for keywords BYE and LIST
         switch (keyword.toUpperCase()) {
         case DONE_STRING:
-            // Assumption that there are at least 2 tokens in split input
-            // No check to see if task number is valid yet
-            // No check for format of user input, like is there an /at? or /by?
-            // TODO: Might want to include error checks (like try/catch) at later levels
-
-            // Parse out task number from user input
-            int taskNumber = getTaskNumberFromInput(userLine);
-            // Update the list and print respective message
-            updateTaskCompletionStatus(taskNumber);
-            printUpdateMessage(taskNumber);
+            // Go to helper function to mark task as done
+            handleDoneTask(userLine);
             break;
         case LIST_STRING:
             // Print Tasks with in-built tasksList
@@ -388,6 +387,22 @@ public class Terminator {
         default:
             createNormalTask(userLine);
             break;
+        }
+    }
+
+    /**
+     * Handles the creation of done tasks.
+     * @param userLine Line of input from user.
+     */
+    private static void handleDoneTask(String userLine) {
+        try {
+            // Parse out task number from user input
+            int taskNumber = getTaskNumberFromInput(userLine);
+            // Update the list and print respective message
+            updateTaskCompletionStatus(taskNumber);
+            printUpdateMessage(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            printOutOfBoundsMessage();
         }
     }
 
