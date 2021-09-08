@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Duke {
     private static final Scanner scan = new Scanner(System.in);
@@ -14,6 +13,7 @@ public class Duke {
     private static final String COMMAND_EVENT_WORD = "event";
     private static final String COMMAND_DEADLINE_WORD = "deadline";
     private static final String COMMAND_MARK_AS_DONE_WORD = "done";
+    private static final String COMMAND_HELP_WORD = "help";
     private static final String DIVIDER = "_______________________________";
     private static final String MESSAGE_ADDED = "added: ";
     private static final String MESSAGE_TASK_COMPLETED = "Wow. You finally completed a task after lazying around all day.";
@@ -23,25 +23,31 @@ public class Duke {
     private static final String MESSAGE_EMPTY_TASK_LIST = "There are no tasks in your to-do list. Bet that'll change soon.";
     private static final String MESSAGE_TASKS_FOUND_OVERVIEW = "There are %1$d %2$s in your list";
     private static final String MESSAGE_BYE = "bye. see you never again.";
-    private static final String MESSAGE_CORRECT_FORMAT_ADD_TODO = "add todo format:" + INDENTED_NEW_LINE + "todo wash the dishes";
+    private static final String MESSAGE_CORRECT_FORMAT_ADD_TODO = "add todo format:" + INDENTED_NEW_LINE + "todo (description))";
     private static final String MESSAGE_CORRECT_FORMAT_ADD_EVENT = "add event format: " + INDENTED_NEW_LINE + "event (description) /at (time)";
     private static final String MESSAGE_CORRECT_FORMAT_ADD_DEADLINE = "add deadline format: " + INDENTED_NEW_LINE + "deadline (description) /by (time)";
     private static final String MESSAGE_CORRECT_FORMAT_MARK_AS_DONE = "mark task as completed format: " + INDENTED_NEW_LINE + "done (task number)";
-    private static final int INVALID_NUMBER = -1;
+    private static final String USER_GUIDE = MESSAGE_CORRECT_FORMAT_ADD_TODO + NEW_LINE +
+            MESSAGE_CORRECT_FORMAT_ADD_EVENT + NEW_LINE +
+            MESSAGE_CORRECT_FORMAT_ADD_DEADLINE + NEW_LINE +
+            MESSAGE_CORRECT_FORMAT_MARK_AS_DONE;
     private static int eventsCount;
     private static int deadlinesCount;
     private static int todosCount;
     private static int tasksCount;
     private static Task[] tasks;
     private static final int CAPACITY = 100;
-    private static final String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String LOGO =
+            " ____        _        \n"
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
 
     public static void showWelcomeMessage() {
-        showToUser(LOGO, DIVIDER, "Why are you here again", "What do you want");
+        System.out.println(LOGO);
+        System.out.println(DIVIDER);
+        showToUser("Why are you here again", "What do you want");
     }
 
     private static String getUserInput() {
@@ -72,34 +78,30 @@ public class Duke {
             return executeAddEvent(commandArgs);
         case COMMAND_DEADLINE_WORD:
             return executeAddDeadline(commandArgs);
+        case COMMAND_HELP_WORD:
+            return getUserGuide();
         case COMMAND_EXIT_WORD:
             exitProgram();
         default:
-            return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE +
-                    MESSAGE_CORRECT_FORMAT_ADD_TODO + NEW_LINE +
-                    MESSAGE_CORRECT_FORMAT_ADD_EVENT + NEW_LINE +
-                    MESSAGE_CORRECT_FORMAT_ADD_DEADLINE + NEW_LINE +
-                    MESSAGE_CORRECT_FORMAT_MARK_AS_DONE;
+            return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + USER_GUIDE;
         }
     }
 
-    public static int convertInt(String str) {
-        if (Pattern.matches("\\d+", str)) {
-            return Integer.parseInt(str);
-        }
-        return INVALID_NUMBER;
+    private static String getUserGuide() {
+        return USER_GUIDE;
     }
 
     private static String executeMarkTaskAsDone(String commandArgs) {
-        int n = convertInt(commandArgs.trim());
-        if (n >= 1 && n <= tasksCount) {
-            tasks[n - 1].markAsDone();
-            return MESSAGE_TASK_COMPLETED + tasks[n - 1].toString();
-        }
-        if (n == INVALID_NUMBER) {
+        try {
+            int n = Integer.parseInt(commandArgs.trim());
+            if (n >= 1 && n <= tasksCount) {
+                tasks[n - 1].markAsDone();
+                return MESSAGE_TASK_COMPLETED + tasks[n - 1].toString();
+            }
+            return MESSAGE_TASK_NOT_FOUND;
+        } catch (NumberFormatException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_MARK_AS_DONE;
         }
-        return MESSAGE_TASK_NOT_FOUND;
     }
 
     private static void showToUser(String... message) {
@@ -157,36 +159,41 @@ public class Duke {
     }
 
     private static String executeAddTodo(String description) {
-        addTask(new Todo(description));
-        todosCount++;
-        return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
-                + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, todosCount, COMMAND_TODO_WORD);
+        if (!description.isEmpty()) {
+            addTask(new Todo(description));
+            todosCount++;
+            return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
+                    + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, todosCount, COMMAND_TODO_WORD);
+        }
+        return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_TODO;
     }
 
     private static String executeAddEvent(String commandArgs) {
-        String[] eventAndDate = decodeTask(COMMAND_EVENT_WORD, commandArgs);
-        if (eventAndDate.length == 0) {
+        try {
+            String[] eventAndDate = decodeTask(COMMAND_EVENT_WORD, commandArgs);
+            String description = eventAndDate[0];
+            String date = eventAndDate[1];
+            addTask(new Event(description, date));
+            eventsCount++;
+            return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
+                    + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, eventsCount, COMMAND_EVENT_WORD);
+        } catch (IndexOutOfBoundsException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_EVENT;
         }
-        String description = eventAndDate[0];
-        String date = eventAndDate[1];
-        addTask(new Event(description, date));
-        eventsCount++;
-        return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
-                + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, eventsCount, COMMAND_EVENT_WORD);
     }
 
     private static String executeAddDeadline(String commandArgs) {
-        String[] deadlineAndDate = decodeTask(COMMAND_DEADLINE_WORD, commandArgs);
-        if (deadlineAndDate.length == 0) {
+        try {
+            String[] deadlineAndDate = decodeTask(COMMAND_DEADLINE_WORD, commandArgs);
+            String description = deadlineAndDate[0];
+            String date = deadlineAndDate[1];
+            addTask(new Deadline(description, date));
+            deadlinesCount++;
+            return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
+                    + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, deadlinesCount, COMMAND_DEADLINE_WORD);
+        } catch (IndexOutOfBoundsException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_DEADLINE;
         }
-        String description = deadlineAndDate[0];
-        String date = deadlineAndDate[1];
-        addTask(new Deadline(description, date));
-        deadlinesCount++;
-        return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
-                + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, deadlinesCount, COMMAND_DEADLINE_WORD);
     }
 
     private static String[] decodeTask(String commandType, String commandArgs) {
