@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IncorrectCommandInput {
         Scanner sc = new Scanner(System.in);
         int taskListIndex;
         Task currentTask = new Task();
@@ -17,8 +17,15 @@ public class Duke {
                 + "______________________________\n";
         System.out.print(welcomeMessage);
         String userInput = sc.nextLine();
+        String commandInput = identifyUserInput(userInput)[0];
+        String checkedCommandInput = "";
+        try {
+            checkedCommandInput = commandInputError(commandInput);
+        }catch (IncorrectCommandInput e){
+            System.out.println("Invalid Command!");
+        }
         while(!userInput.contains("bye")){
-            switch(identifyUserInput(userInput)[0]) {
+            switch(checkedCommandInput) {
             case "todo":
                 ToDo toDoTask = new ToDo(userInput.substring(userInput.indexOf(' ',0))
                         ,false);
@@ -62,12 +69,16 @@ public class Duke {
                 currentTask = taskList.findTask(taskListIndex);
                 currentTask.markTaskAsDone();
                 break;
-
             default:
-                System.out.println("Please key in a valid input!");
-                break;
+                System.out.println("Invalid! Please try again.");
             }
-            userInput = sc.nextLine();
+            try {
+                userInput = sc.nextLine();
+                commandInput = identifyUserInput(userInput)[0];
+                checkedCommandInput = commandInputError(commandInput);
+            }catch (IncorrectCommandInput e){
+                System.out.println("Invalid Command! Please try again");
+            }
         }
         System.out.print(goodbyeMessage);
     }
@@ -95,4 +106,29 @@ public class Duke {
         String[] parts = userInput.split("/");
         return parts;
     }
+
+    public static String commandInputError(String userInput) throws IncorrectCommandInput {
+        switch(userInput) {
+        case "todo":
+            return userInput;
+            break;
+        case "event":
+            return userInput;
+            break;
+        case "list":
+            return userInput;
+            break;
+        case "bye":
+            return userInput;
+            break;
+        default:
+            throw new IncorrectCommandInput();
+            break;
+        }
+    }
 }
+
+/*
+!"todo".equals(userInput) || !userInput.equals("event")
+        || !userInput.equals("deadline") || !userInput.equals("list")
+        || !userInput.equals("bye")*/
