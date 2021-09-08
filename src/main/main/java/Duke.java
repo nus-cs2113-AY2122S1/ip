@@ -22,62 +22,82 @@ public class Duke {
         Task[] list = new Task[MAX_TASK_NUM];  //create an array of Tasks
         int listCount = 0;  //keep position count for array
 
+
         do {
             line = in.nextLine();
-            if (line.toLowerCase().contains(COMMAND_LIST)){  //display list if user says list
-                System.out.println(HORIZONTAL_LINE_W_NL + "Here are the tasks in your list Sir:");
-                for(int i = 0; i < listCount; i++){
-                    System.out.println((i+1) + "." + list[i].toString());
+            try {
+                if (line.toLowerCase().contains(COMMAND_LIST)) {  //display list if user says list
+                    System.out.println(HORIZONTAL_LINE_W_NL + "Here are the tasks in your list Sir:");
+                    for (int i = 0; i < listCount; i++) {
+                        System.out.println((i + 1) + "." + list[i].toString());
+                    }
+                    System.out.println(HORIZONTAL_LINE_W_NL);
+                    continue;
                 }
-                System.out.println(HORIZONTAL_LINE_W_NL);
-                continue;
-            } else if (line.toLowerCase().contains(COMMAND_BYE)){  //exit loop if user says bye
-                break;
-            } else if (line.toLowerCase().contains(COMMAND_DONE)) {  //mark task as done if user says done
-                int dividerPosition = line.indexOf(" ");  //find divider pos between done and int
-                int taskNum = Integer.parseInt(line.substring(dividerPosition + 1)); //convert to int from str
-                list[taskNum - 1].markAsDone();  //mark the task as done
+                else if (line.toLowerCase().contains(COMMAND_BYE)) {  //exit loop if user says bye
+                    break;
+                }
+                else if (line.toLowerCase().contains(COMMAND_DONE)) {  //mark task as done if user says done
+                    int dividerPosition = line.indexOf(" ");  //find divider pos between done and int
+                    int taskNum = Integer.parseInt(line.substring(dividerPosition + 1)); //convert to int from str
+                    list[taskNum - 1].markAsDone();  //mark the task as done
+                    System.out.println(HORIZONTAL_LINE_W_NL
+                            + "Good one Sir! I've marked this task as done:\n"
+                            + " " + list[taskNum - 1].toString() + "\n"
+                            + HORIZONTAL_LINE_W_NL);
+                    continue;
+                }
+                else if (line.toLowerCase().contains(COMMAND_TODO)) {  //add task to list
+                    String[] todoInputs = line.split(" ", 2);
+                    if (todoInputs.length < 2) {
+                        throw new DukeException();
+                    }
+                    String description = todoInputs[1];
+                    Todo t = new Todo(description);
+                    list[listCount] = t;
+                    listCount++;
+                }
+                else if (line.toLowerCase().contains(COMMAND_DEADLINE)) {  //add task with deadline to list
+                    String[] deadlineInputs = line.split(" ", 2);
+                    if (deadlineInputs.length < 2) {
+                        throw new DukeException();
+                    }
+                    String[] deadlineDescriptions = deadlineInputs[1].split(" /by ");  //extract description in string
+                    String description = deadlineDescriptions[0];
+                    String by = deadlineDescriptions[1];
+                    Deadline t = new Deadline(description, by);
+                    list[listCount] = t;
+                    listCount++;
+                }
+                else if (line.toLowerCase().contains(COMMAND_EVENT)) {  //add task with time to list
+                    String[] eventInputs = line.split(" ", 2);
+                    if (eventInputs.length < 2) {
+                        throw new DukeException();
+                    }
+                    String[] eventDescriptions = eventInputs[1].split(" /at ");  //extract description in string
+                    String description = eventDescriptions[0];
+                    String at = eventDescriptions[1];
+                    Event t = new Event(description, at);
+                    list[listCount] = t;
+                    listCount++;
+                }
+                else {
+                    throw new IndexOutOfBoundsException();
+                }
+                printAddedTask(list[listCount - 1], listCount);
+            } catch (DukeException e) {
                 System.out.println(HORIZONTAL_LINE_W_NL
-                        + "Good one Sir! I've marked this task as done:\n"
-                        + " " + list[taskNum - 1].toString() + "\n"
-                        + HORIZONTAL_LINE_W_NL);
-                continue;
-            } else if (line.toLowerCase().contains(COMMAND_TODO)) {  //add task to list
-                int todoPosition = line.indexOf(COMMAND_TODO);  //find todo position in string
-                String description = line.substring(todoPosition+5);  //extract description in string
-                Todo t = new Todo(description);
-                list[listCount] = t;
-                listCount++;
-            } else if (line.toLowerCase().contains(COMMAND_DEADLINE)) {  //add task with deadline to list
-                int byPosition = line.indexOf("/by");  //find by keyword
-                int deadlinePosition = line.indexOf("deadline");  //find deadline keyword
-                String description = line.substring(deadlinePosition+9,byPosition);  //extract description in string
-                String by = line.substring(byPosition+4);  //extract due date in string
-                Deadline t = new Deadline(description,by);
-                list[listCount] = t;
-                listCount++;
-            } else if (line.toLowerCase().contains(COMMAND_EVENT)) {  //add task with time to list
-                int atPosition = line.indexOf("/at");  //find at keyword
-                int eventPosition = line.indexOf("event");   //find event keyword
-                String description = line.substring(eventPosition+6, atPosition);  //extract description in string
-                String at = line.substring(atPosition+4);  //extract time in string
-                Event t = new Event(description,at);
-                list[listCount] = t;
-                listCount++;
-            } else {
-                invalidInput();  //if user input is unknown
-                continue;
+                        + "OOPS!!! Please include a task description.\n"
+                        + HORIZONTAL_LINE);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(HORIZONTAL_LINE_W_NL
+                        + "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                        + HORIZONTAL_LINE);
             }
-            printAddedTask(list[listCount - 1], listCount);
-        } while (!line.toLowerCase().contains(COMMAND_BYE));
+        }
+        while (!line.toLowerCase().contains(COMMAND_BYE));
         byeCommand();
-    }
 
-    private static void invalidInput() {
-        System.out.println(HORIZONTAL_LINE_W_NL
-                + "I don't quite get what you said Sir.\n"
-                + "Could you please repeat your command?\n"
-                + HORIZONTAL_LINE_W_NL);
     }
 
     private static void printAddedTask(Task task, int listCount) {
