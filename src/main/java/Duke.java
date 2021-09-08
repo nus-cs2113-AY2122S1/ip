@@ -43,6 +43,8 @@ public class Duke {
         } else if (isCommandExit(command)) {
             showMessage("Bye! Hope to see you again :D");
             System.exit(0);
+        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")){
+            Design.printHelpMenu();
         } else {
             if (isCommandList(command)) {
                 printToDoList(tasks, Task.totalTask, longestTaskDescription);
