@@ -48,6 +48,7 @@ public class PrintTextFile {
             readTextFile.close();
         } catch (IOException except) {
             System.out.println("IO EXCEPTION!");
+            System.out.println("Ensure that you have files in correct directory and named correctly!");
             except.printStackTrace();
         }
 
