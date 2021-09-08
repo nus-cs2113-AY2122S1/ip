@@ -57,15 +57,6 @@ public class TaskManager {
         System.out.println("\t\t" + task.toString().substring(2));
     }
 
-    private static Todo getTask(String name) {
-        for (Todo task : tasks) {
-            if (name == task.getName()) {
-                return task;
-            }
-        }
-        return null;
-    }
-
     private static void printTaskAddedConfirmation(Todo task) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + task.toString().substring(2));

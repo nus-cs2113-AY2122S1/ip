@@ -5,11 +5,11 @@ public class UserInterface {
     private static String userInput;
 
     public static void talkToUser() {
-        boolean valid = false;
+        boolean validUserInput = false;
         do {
             getUserInput();
-            valid = processUserInput();
-            if (!valid) {
+            validUserInput = processUserInput();
+            if (!validUserInput) {
                 return;
             }
             System.out.println(FormatLines.divider);
@@ -24,8 +24,8 @@ public class UserInterface {
     }
 
     private static boolean processUserInput() {
-        Command command = parseCommand();
-        switch (command) {
+        Command userCommand = retrieveUserCommand();
+        switch (userCommand) {
         case DONE:
             TaskManager.markDone(userInput);
             return true;
@@ -48,7 +48,7 @@ public class UserInterface {
         }
     }
 
-    private static Command parseCommand() {
+    private static Command retrieveUserCommand() {
         String commandString;
         int indexOfSpace = userInput.indexOf(' ');
         if (indexOfSpace == -1) {
@@ -56,8 +56,8 @@ public class UserInterface {
         } else {
             commandString = userInput.substring(0, indexOfSpace);
         }
-        Command command = Command.valueOf(commandString.toUpperCase());
-        return command;
+        Command userCommand = Command.valueOf(commandString.toUpperCase());
+        return userCommand;
     }
 
 
