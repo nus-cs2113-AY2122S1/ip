@@ -39,7 +39,6 @@ public class Duke {
         return "";
     }
 
-
     public static void listTasks(Task[] items) {
         int in = 1;
         System.out.println(" /          / ");
@@ -138,11 +137,34 @@ public class Duke {
     }
 
     private static void markTasksAsDone(Scanner in, Task[] taskList) {
-        String number = in.nextLine();
+        String number = null;
+        DukeException doneCheck = new DukeException("doneCheck");
+        do {
+            number = in.nextLine();
+            if (doneCheck.startsWithSpace(number)) {
+                doneCheck.inputFailMessage();
+                doneCheck.printDoneFormat();
+            }
+            else if (doneCheck.isEmpty(number)) {
+                doneCheck.inputFailMessage();
+                doneCheck.printNoNull();
+            }
+            else if (!doneCheck.isIntegerInput(number)) {
+                doneCheck.printIntegerOnly();
+            }
+        } while (doneCheck.startsWithSpace(number)
+                || doneCheck.isEmpty(number)
+                || !doneCheck.isIntegerInput(number)
+                );
+        number = number.trim();
         String[] numberList = number.split(" ");
         System.out.print("remove ");
         for (String i : numberList) {
             int index = Integer.parseInt(i) - 1;
+            if (!doneCheck.inListRange(index, taskCount)) {
+                doneCheck.printNotInRange(index);
+                return;
+            }
             taskList[index].setDone(true);
             System.out.print(taskList[index].getDescription() + ", ");
         }
@@ -192,15 +214,33 @@ public class Duke {
     }
 
     private static void amendTaskDeadline(Scanner in,Task[] taskList) {
-        String input = in.nextLine();
-        input = input.trim();
-        String[] separateInput = input.split("/", 2);
-        if (separateInput.length == 2) {
-            int index = Integer.parseInt(separateInput[0].trim()) - 1;
-            Task toChange = taskList[index];
-            toChange.setDeadline(separateInput[1]);
-            toChange.setToDo(true);
-        }
+        String input;
+        DukeException deadlineCheck = new DukeException("deadlineCheck");
+        do {
+            input = in.nextLine();
+            input = input.trim();
+            if (!input.contains("/")) {
+                deadlineCheck.printDeadlineFormatIssue();
+                continue;
+            }
+            String[] separateInput = input.split("/", 2);
+            if (separateInput.length == 2) {
+                //checks for singular, digit input
+                if (!deadlineCheck.isIntegerInput(separateInput[0])) {
+                    deadlineCheck.printIntegerOnly();
+                    deadlineCheck.printDeadlineFormatIssue();
+                    continue;
+                }
+                int index = Integer.parseInt(separateInput[0].trim()) - 1;
+                if (!deadlineCheck.inListRange(index, taskCount)) {
+                    deadlineCheck.printNotInRange(index);
+                    continue;
+                }
+                Task toChange = taskList[index];
+                toChange.setDeadline(separateInput[1]);
+                toChange.setToDo(true);
+            }
+        } while (!input.equals("stop"));
     }
 
     public static void main(String[] args) {
