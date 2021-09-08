@@ -16,7 +16,7 @@ public class Event extends Todo {
     }
     @Override
     public int getLength(){
-        return description.length()+by.length()+12;
+        return description.length() + by.length() + 12;
     }
     @Override
     public Tasktype getType(){

@@ -1,73 +1,116 @@
 import java.util.*;
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AssignException, TypingException, FormatException, EventStringException, DeadlineStringException, TodoStringException {
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);*/
+        int MAX_TASK = 100;
         String greetings = " Hello! I'm Duke\n" + " What can I do for you?\n";
         System.out.println(greetings);
-        Task[] Tasks = new Task[100];
+        Task[] Tasks = new Task[MAX_TASK];
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-        boolean flag = true;
+        boolean isExit = true;
         int maxlength = 0;
-        for(int j = 0; j < 100 && flag;){
+        for(int j = 0; j < 100 && isExit;){
             String str= sc.nextLine();
-            if(str.equals("bye")){
-                str = "Bye. Hope to see you again soon!";
-                printString(str);
-                flag = false;
-            }else if(str.equals("list")){
-                printList(Tasks, maxlength);
-            }else if(str.contains("todo")) {
-                if(str.length() - 5 + 9> maxlength) maxlength = str.length() - 5 + 9;//- length of "todo " + "1. [X][X]"
-                str = str.substring(5, str.length());
-                Todo t = new Todo(str);
-                addToList(t, Tasks, j);
-                j++;
-                printTask(t, j);
-            }else if(str.contains("deadline")) {
-                if(!str.contains("/by")){
-                    printString("bad format");
-                }else {
+            try {
+                if (str.equals("bye")) {
+                    str = "Bye. Hope to see you again soon!";
+                    printString(str);
+                    isExit = false;
+                } else if (str.equals("list")) {
+                    printList(Tasks, maxlength);
+                } else if (str.contains("todo")) {
+                    checkTodoString(str);
+                    if (str.length() - 5 + 9 > maxlength)
+                        maxlength = str.length() - 5 + 9;//- length of "todo " + "1. [X][X]"
+                    str = str.substring(5, str.length());
+                    Todo t = new Todo(str);
+                    addToList(t, Tasks, j);
+                    j++;
+                    printTask(t, j);
+                } else if (str.contains("deadline")) {
+                    checkDeadlineString(str);
+                    checkFormat(str);
                     String time = str.substring(str.indexOf("/") + 3, str.length());
-                    if (str.length() - 9 + 11 > maxlength) maxlength = str.length() - 9 + 11;//- length of "deadline " + "1. [X][X]" + "(xx:" + ")"
+                    if (str.length() - 9 + 11 > maxlength)
+                        maxlength = str.length() - 9 + 11;//- length of "deadline " + "1. [X][X]" + "(xx:" + ")"
                     Deadline t = new Deadline(str.substring(9, str.indexOf("/") - 1), time);
                     addToList(t, Tasks, j);
                     j++;
                     printTask(t, j);
-                }
-            }else if(str.contains("event")) {
-                if(!str.contains("/at")){
-                    printString("bad format");
-                }else {
+                } else if (str.contains("event")) {
+                    checkEventString(str);
+                    checkFormat(str);
                     String time = str.substring(str.indexOf("/") + 3, str.length());
                     if (str.length() - 6 + 11 > maxlength) maxlength = str.length() - 6 + 11;
                     Event t = new Event(str.substring(6, str.indexOf("/") - 1), time);
                     addToList(t, Tasks, j);
                     j++;
                     printTask(t, j);
-                }
-            }else if(str.contains("done")) {
-                String numberOnly = str.replaceAll("[^0-9]", "");
-                int num = Integer.parseInt(numberOnly);
-                if (num <= j) {
+                } else if (str.contains("done")) {
+                    String numberOnly = str.replaceAll("[^0-9]", "");
+                    int num = Integer.parseInt(numberOnly);
+                    checkNum(num, j);
                     Tasks[num - 1].setDone(true);
                     printDone(Tasks[num - 1]);
                 } else {
-                    str = "not assigned yet";
-                    printString(str);
+                    FormatError();
+                    /*if (str.length() + 9 > maxlength) maxlength = str.length() + 9;
+                    Task t = new Task(str);
+                    addToList(t, Tasks, j);
+                    j++;
+                    printTask(t, j);*/
                 }
-            }else{
-                if(str.length() + 9 > maxlength) maxlength = str.length() + 9;
-                Task t = new Task(str);
-                addToList(t, Tasks, j);
-                j++;
-                printTask(t, j);
+            } catch (AssignException e){
+                  printString("OOPS! not assigned");
+            } catch (DeadlineStringException e){
+                  printString("OOPS! the deadline description cannot be empty");
+            } catch (EventStringException e) {
+                  printString("OOPS! the event description cannot be empty");
+            } catch (FormatException e) {
+                  printString("OOPS! what's the time?");
+            } catch (TodoStringException e) {
+                  printString("OOPS! the todo description cannot be empty");
+            } catch (TypingException e) {
+                  printString("OOPS! what do u mean?");
             }
         }
+    }
+
+    public static void checkNum(int num, int j) throws AssignException {
+        if(num > j)
+            throw new AssignException();
+    }
+
+    public static void checkTodoString(String str) throws TodoStringException {
+        str = str.replaceAll(" ", "");
+        if(str.length() <= 4)
+            throw new TodoStringException();
+    }
+
+    public static void checkDeadlineString(String str) throws DeadlineStringException {
+        str = str.replaceAll(" ", "");
+        if(str.length() <= 8)
+            throw new DeadlineStringException();
+    }
+
+    public static void checkEventString(String str) throws EventStringException {
+        str = str.replaceAll(" ", "");
+        if(str.length() <= 5)
+            throw new EventStringException();
+    }
+
+    public static void checkFormat(String str) throws FormatException {
+        if(!str.contains("/by") && !str.contains("/at"))
+            throw new FormatException();
+    }
+
+    public static void FormatError() throws TypingException {
+        throw new TypingException();
     }
 
     public static void addToList(Task t, Task[] list, int num){
