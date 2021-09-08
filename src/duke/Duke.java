@@ -1,8 +1,8 @@
 package duke;
 
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.ToDo;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidIndexException;
+import duke.exception.MissingInputException;
 
 import java.util.Scanner;
 
@@ -21,21 +21,10 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String INVALID_COMMAND = "Please enter a valid command";
-    public static final String SEPARATOR_SLASH = "/";
+    public static final String INVALID_INDEX = "Please enter a valid task number";
+    public static final String INVALID_DESCRIPTION = "Please enter a valid description";
     public static final String SEPARATOR_SPACE = " ";
 
-    public static String getCommand(String userInput) {
-        int index = userInput.indexOf(SEPARATOR_SPACE);
-        if (index == -1) {
-            return userInput;
-        }
-        return userInput.substring(0, index).toLowerCase();
-    }
-
-    public static String getInput(String userInput) {
-        int index = userInput.indexOf(SEPARATOR_SPACE);
-        return userInput.substring(index + 1).trim();
-    }
 
     public static void main(String[] args) {
         Assistant duke = new Assistant();
@@ -43,48 +32,37 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         System.out.println(WELCOME_MESSAGE);
         userInput = in.nextLine();
-        String inputCommand = getCommand(userInput);
-        String input;
-        int index;
-        while (!inputCommand.equals(COMMAND_EXIT)) {
-            switch (inputCommand) {
-            case COMMAND_LIST:
-                duke.listTasks();
-                break;
-            case COMMAND_DONE:
-                int completedIndex = Integer.parseInt(userInput.substring(userInput.length() - 1));
-                duke.completeTask(completedIndex - 1);
-                break;
-            case COMMAND_DEADLINE:
-                input = getInput(userInput);
-                index = input.indexOf(SEPARATOR_SLASH);
-                if (index == -1) {
-                    System.out.println(INVALID_COMMAND);
+        String[] inputs = userInput.split(SEPARATOR_SPACE,2);
+        while (!inputs[0].equals(COMMAND_EXIT)) { //check command
+            try {
+                switch (inputs[0]) {
+                case COMMAND_LIST:
+                    duke.listTasks();
+                    break;
+                case COMMAND_DONE:
+                    duke.completeTask(inputs[1]);
+                    break;
+                case COMMAND_DEADLINE:
+                    duke.addDeadline(inputs[1]);
+                    break;
+                case COMMAND_EVENT:
+                    duke.addEvent(inputs[1]);
+                    break;
+                case COMMAND_TODO:
+                    duke.addToDo(inputs[1]);
+                    break;
+                default:
+                    throw new InvalidCommandException();
                 }
-                else {
-                    duke.addTask(new Deadline(input.substring(0, index), input.substring(index + 1)));
-                }
-                break;
-            case COMMAND_EVENT:
-                input = getInput(userInput);
-                index = input.indexOf(SEPARATOR_SLASH);
-                if (index == -1) {
-                    System.out.println(INVALID_COMMAND);
-                }
-                else {
-                    duke.addTask(new Event(input.substring(0, index), input.substring(index + 1)));
-                }
-                break;
-            case COMMAND_TODO:
-                input = getInput(userInput);
-                duke.addTask(new ToDo(input));
-                break;
-            default:
+            } catch (MissingInputException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(INVALID_DESCRIPTION);
+            } catch (InvalidCommandException e) {
                 System.out.println(INVALID_COMMAND);
-                break;
+            } catch (InvalidIndexException e) {
+                System.out.println(INVALID_INDEX);
             }
             userInput = in.nextLine();
-            inputCommand = getCommand(userInput);
+            inputs = userInput.split(SEPARATOR_SPACE,2);
         }
         System.out.println("Bye. Hope to see you again soon!");
     }

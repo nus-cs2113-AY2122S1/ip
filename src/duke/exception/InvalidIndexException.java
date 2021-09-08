@@ -1,2 +1,4 @@
-package duke.exception;public class InvalidIndexException {
+package duke.exception;
+
+public class InvalidIndexException extends Throwable {
 }
