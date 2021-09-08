@@ -10,6 +10,6 @@ public class Task {
     }
 
     public String toString() {
-        return "[ ]" + description.substring(5);
+        return "[ ] " + description.substring(5);
     }
 }

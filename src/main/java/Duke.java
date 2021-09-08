@@ -30,30 +30,25 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println(line);
     }
-    public static boolean checkTodo(String userCommand) {
-        boolean isInvalidTodo = true;
+    public static void checkTodo(String userCommand) throws DukeException {
         if(userCommand.length() <= 5) {
-            return isInvalidTodo;
-        } else {
-            return !isInvalidTodo;
+            DukeException e = new DukeException();
+            throw e;
         }
+
     }
 
-    public static boolean checkDeadline(String userCommand) {
-        boolean isInvalidDeadline = true;
+    public static void checkDeadline(String userCommand) throws DukeException {
         if(userCommand.length() <= 9) {
-            return isInvalidDeadline;
-        } else {
-            return !isInvalidDeadline;
+            DukeException e = new DukeException();
+            throw e;
         }
     }
 
-    public static boolean checkEvent(String userCommand) {
-        boolean isInvalidEvent = true;
+    public static void checkEvent(String userCommand) throws DukeException {
         if(userCommand.length() <= 6) {
-            return isInvalidEvent;
-        } else {
-            return !isInvalidEvent;
+            DukeException e = new DukeException();
+            throw e;
         }
     }
 
@@ -74,7 +69,9 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
-                if(checkTodo(userCommand)) {
+                try{
+                    checkTodo(userCommand);
+                } catch (DukeException e) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     System.out.println(line);
                     userCommand = userInput.nextLine();
@@ -85,7 +82,9 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("deadline")) {
-                if(checkDeadline(userCommand)) {
+                try{
+                    checkDeadline(userCommand);
+                } catch(DukeException e) {
                     System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                     System.out.println(line);
                     userCommand = userInput.nextLine();
@@ -96,7 +95,9 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("event")) {
-                if(checkEvent(userCommand)) {
+                try{
+                    checkEvent(userCommand);
+                } catch(DukeException e) {
                     System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
                     System.out.println(line);
                     userCommand = userInput.nextLine();
