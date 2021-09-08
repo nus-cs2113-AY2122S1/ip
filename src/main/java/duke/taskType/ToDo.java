@@ -20,7 +20,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Prints the task is added successfully.
+     * Prints the tasks is added successfully.
      *
      * @param numberOfTasks is the number of task...
      */
