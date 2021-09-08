@@ -1,9 +1,13 @@
-public class Task {
+public abstract class Task {
 
     protected String name;
     protected boolean isDone;
 
-    public Task(String name) {
+    public Task(String name) throws EmptyStringException{
+        if (name.isEmpty()){
+            throw new EmptyStringException();
+        }
+
         this.name = name;
         this.isDone = false;
     }
@@ -24,8 +28,5 @@ public class Task {
         isDone = true;
     }
 
-    // placeholder method for inherited classes
-    public void printTask() {
-        return;
-    }
+    public abstract void printTask();
 }

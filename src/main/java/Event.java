@@ -2,7 +2,7 @@ public class Event extends Task {
 
     protected String at;
 
-    public Event(String name, String at) {
+    public Event(String name, String at) throws EmptyStringException{
         super(name);
         setAt(at);
     }
