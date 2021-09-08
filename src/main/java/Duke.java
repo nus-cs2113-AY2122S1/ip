@@ -128,7 +128,4 @@ public class Duke {
     }
 }
 
-/*
-!"todo".equals(userInput) || !userInput.equals("event")
-        || !userInput.equals("deadline") || !userInput.equals("list")
-        || !userInput.equals("bye")*/
+
