@@ -1,3 +1,5 @@
+import src.main.java.Task;
+
 public class Todo extends Task {
 
     public Todo(String description, char taskType) {
