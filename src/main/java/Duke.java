@@ -29,6 +29,12 @@ public class Duke {
         System.out.println("    _____________________________________________________________");
     }
 
+    public static void printHandleWrongInput() {
+        System.out.println("\t_____________________________________________________________");
+        System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("\t_____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
 
@@ -44,9 +50,18 @@ public class Duke {
             if (line.equalsIgnoreCase("list")) {
                 t1.listTasks();
             } else if (words[0].equalsIgnoreCase("done")) {
-                t1.markAsDone(Integer.parseInt(words[1]));
-            } else {
+                if (words.length > 1) {
+                    t1.markAsDone(words[1]);
+                } else {
+                    System.out.println("\t_____________________________________________________________");
+                    System.out.println("\t ☹ OOPS!!! There must be an input after done.");
+                    System.out.println("\t_____________________________________________________________");
+                }
+            } else if (words[0].equalsIgnoreCase("todo") || words[0].equalsIgnoreCase("deadline")
+                    || words[0].equalsIgnoreCase("event")) {
                 t1.addTask(line);
+            } else {
+                printHandleWrongInput();
             }
             line = in.nextLine();
         }
