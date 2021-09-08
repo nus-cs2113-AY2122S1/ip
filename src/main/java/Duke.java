@@ -41,7 +41,7 @@ public class Duke {
     }
 
     private static void markAsDone(Task[] tasksList, String inputLine) {
-        int taskCompletedIndex = Integer.parseInt(inputLine.split("done ")[1])-1;
+        int taskCompletedIndex = Integer.parseInt(inputLine.split("done ")[1]) - 1;
         tasksList[taskCompletedIndex].setDone(true);
         System.out.print("  Congratulations! You have completed the task:");
         System.out.println(" " + tasksList[taskCompletedIndex]);
