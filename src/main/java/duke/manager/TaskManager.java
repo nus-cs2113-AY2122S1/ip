@@ -1,3 +1,10 @@
+package duke.manager;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class TaskManager {
@@ -44,8 +51,9 @@ public class TaskManager {
             break;
         default:
             printLine();
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("I really cannot understand what you wrote");
             printLine();
+            // Fallthrough
         }
         if (Task.COUNT > 0) {
             printAddedTask(tasks[Task.COUNT - 1]);

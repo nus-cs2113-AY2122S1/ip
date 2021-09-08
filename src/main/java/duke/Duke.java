@@ -1,3 +1,6 @@
+package duke;
+
+import duke.manager.TaskManager;
 
 
 public class Duke {
