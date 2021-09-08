@@ -1,6 +1,8 @@
-public class Deadline extends Todo {
+package duke.task;
+
+public class Event extends Todo {
     protected String by;
-    public Deadline(String description, String by) {
+    public Event(String description, String by) {
         super(description);
         this.by = by;
     }
@@ -20,7 +22,7 @@ public class Deadline extends Todo {
     }
     @Override
     public Tasktype getType(){
-        return Tasktype.DEADLINE;
+        return Tasktype.EVENT;
     }
     @Override
     public String toString() {
