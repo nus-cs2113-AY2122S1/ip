@@ -2,9 +2,10 @@ package duke;
 
 import duke.task.*;
 
+import java.util.ArrayList;
+
 public class TaskManager {
 
-    private static final int MAX_TASK = 100;
     private static final int TASK_NAME_INDEX = 0;
     private static final int TASK_DATE_INDEX = 1;
 
@@ -13,10 +14,13 @@ public class TaskManager {
     private static final String L_TAB = "       ";
 
     private static final String MESSAGE_ADD_TASK = S_TAB + "NOTICE: I've added this task..." + LS
-                                                + L_TAB + "%1$s" + LS
-                                                + S_TAB + "Now you have %2$s task(s) in the list.";
+            + L_TAB + "%1$s" + LS
+            + S_TAB + "Now you have %2$s task(s) in the list.";
+    private static final String MESSAGE_DELETE_TASK = S_TAB + "NOTICE: I've removed this task..." + LS
+            + L_TAB + "%1$s" + LS
+            + S_TAB + "Now you have %2$s task(s) in the list.";
     private static final String MESSAGE_MARK_TASK_AS_DONE = S_TAB + "NOTICE: This task is marked as done..." + LS
-                                                        + L_TAB + "%1$s";
+            + L_TAB + "%1$s";
     private static final String MESSAGE_TASK_IN_LIST = S_TAB + "NOTICE: Here are the task(s) in your list...";
     private static final String MESSAGE_HELP = S_TAB + "NOTICE: This is a list of the possible commands...";
 
@@ -25,15 +29,14 @@ public class TaskManager {
 
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
     private static final String LIST_COMMAND = L_TAB + "1. list" + LS
-                                            + L_TAB + "2. todo <TASK>" + LS
-                                            + L_TAB + "3. deadline <TASK> /by <DATE>" + LS
-                                            + L_TAB + "4. event <TASK> /at <DATE>" + LS
-                                            + L_TAB + "5. done <TASK_NO>" + LS
-                                            + L_TAB + "6. help" + LS
-                                            + L_TAB + "7. bye";
+            + L_TAB + "2. todo <TASK>" + LS
+            + L_TAB + "3. deadline <TASK> /by <DATE>" + LS
+            + L_TAB + "4. event <TASK> /at <DATE>" + LS
+            + L_TAB + "5. done <TASK_NO>" + LS
+            + L_TAB + "6. help" + LS
+            + L_TAB + "7. bye";
 
-    private static Task[] tasks = new Task[MAX_TASK];
-    private static int tasksCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     /**
      * Adds a task to the list of existing tasks.
@@ -46,20 +49,18 @@ public class TaskManager {
      */
     public static void addToList(String taskName, String taskDate, TaskType taskType) {
         String[] information = new String[]{taskName, taskDate};
-        //String[] information = extractTaskInformation(item, type);
         switch (taskType) {
         case TODO:
-            tasks[tasksCount] = new Todo(information[TASK_NAME_INDEX]);
+            tasks.add(new Todo(information[TASK_NAME_INDEX]));
             break;
         case DEADLINE:
-            tasks[tasksCount] = new Deadline(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]);
+            tasks.add(new Deadline(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]));
             break;
         case EVENT:
-            tasks[tasksCount] = new Event(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]);
+            tasks.add(new Event(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]));
             break;
         default:
         }
-        tasksCount++;
         Picture.printLine();
         System.out.println(getMessageForAddTask());
         Picture.printLine();
@@ -71,8 +72,38 @@ public class TaskManager {
      * @return add task message.
      */
     private static String getMessageForAddTask() {
-        final String taskDetails = tasks[tasksCount - 1].toString();
-        return String.format(MESSAGE_ADD_TASK, taskDetails, tasksCount);
+        final String taskDetails = tasks.get(tasks.size() - 1).toString();
+        return String.format(MESSAGE_ADD_TASK, taskDetails, tasks.size());
+    }
+
+    /**
+     * Deletes a task from a list of existing tasks.
+     *
+     * @param itemNumber One index greater than the index of the task in the list.
+     * @throws DukeException If there are no tasks in the list.
+     *                       If itemNumber > number of items in list or not a positive integer.
+     */
+    public static void deleteTask(int itemNumber) throws DukeException {
+        if (tasks.size() == 0) {
+            throw new DukeException(ERROR_NO_TASK_IN_LIST);
+        } else if (itemNumber > tasks.size() || itemNumber < 1) {
+            throw new DukeException(ERROR_INVALID_TASK_SELECTED);
+        } else {
+            Picture.printLine();
+            final String taskDetails = tasks.get(itemNumber - 1).toString();
+            tasks.remove(itemNumber - 1);
+            System.out.println(getMessageForDeleteTask(taskDetails));
+        }
+        Picture.printLine();
+    }
+
+    /**
+     * Constructs a generic delete task message when a task is deleted.
+     *
+     * @return delete task message.
+     */
+    private static String getMessageForDeleteTask(String taskDetails) {
+        return String.format(MESSAGE_DELETE_TASK, taskDetails, tasks.size());
     }
 
     /**
@@ -83,12 +114,12 @@ public class TaskManager {
      * @throws DukeException If itemNumber > number of items in list or not a positive integer
      */
     public static void markAsCompleted(int itemNumber) throws DukeException {
-        if (itemNumber > tasksCount || itemNumber < 1) {
+        if (itemNumber > tasks.size() || itemNumber < 1) {
             throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
             Picture.printLine();
-            tasks[itemNumber - 1].markTaskAsDone();
-            final String taskDetails = tasks[itemNumber - 1].toString();
+            tasks.get(itemNumber - 1).markTaskAsDone();
+            final String taskDetails = tasks.get(itemNumber - 1).toString();
             System.out.println(getMessageForMarkTaskAsDone(taskDetails));
         }
         Picture.printLine();
@@ -109,7 +140,7 @@ public class TaskManager {
      * otherwise prints all the tasks in the list in ascending order.
      */
     public static void printList() throws DukeException {
-        if (tasksCount == 0) {
+        if (tasks.size() == 0) {
             throw new DukeException(ERROR_NO_TASK_IN_LIST);
         } else {
             Picture.printLine();
@@ -125,8 +156,8 @@ public class TaskManager {
      */
     private static void printTasksInList() {
         String taskDetails;
-        for (int i = 0; i < tasksCount; i++) {
-            taskDetails = tasks[i].toString();
+        for (int i = 0; i < tasks.size(); i++) {
+            taskDetails = tasks.get(i).toString();
             System.out.println(getListItem(i + 1, taskDetails));
         }
     }

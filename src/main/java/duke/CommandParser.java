@@ -1,6 +1,12 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
 import duke.task.TaskType;
 
 public class CommandParser {
@@ -11,6 +17,7 @@ public class CommandParser {
     private static final int STRING_LENGTH_TODO = 4;
     private static final int STRING_LENGTH_DEADLINE = 8;
     private static final int STRING_LENGTH_EVENT = 5;
+    private static final int STRING_LENGTH_DELETE = 6;
     private static final int STRING_LENGTH_BY_INDICATOR = 3;
     private static final int STRING_LENGTH_AT_INDICATOR = 3;
 
@@ -30,11 +37,13 @@ public class CommandParser {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_DELETE = "delete";
 
     private static final String FORMAT_DONE = "Command format: 'done <TASK_NUMBER>'";
     private static final String FORMAT_TODO = "Command format: 'todo <TASK_NAME>'";
     private static final String FORMAT_DEADLINE = "Command format: 'deadline <TASK_NAME> /by <TASK_DATE>'";
     private static final String FORMAT_EVENT = "Command format: 'event <TASK_NAME> /at <TASK_DATE>'";
+    private static final String FORMAT_DELETE = "Command format: 'delete <TASK_NAME>'";
 
     private static final String ERROR_DEFAULT = S_TAB + "Invalid command. Type 'help' to see a list of commands.";
     private static final String ERROR_BYE = S_TAB + "ERROR: Type 'bye' without additional parameters to exit.";
@@ -48,7 +57,9 @@ public class CommandParser {
     private static final String ERROR_EVENT_1 = S_TAB + "ERROR: Specify a task and event date." + NL + FORMAT_EVENT;
     private static final String ERROR_EVENT_2 = S_TAB + "ERROR: Specify event date after /at." + NL + FORMAT_EVENT;
     private static final String ERROR_EVENT_3 = S_TAB + "ERROR: Specify an event date." + NL + FORMAT_EVENT;
-    private static final String ERROR_HELP = "ERROR: Type 'help' without additional parameters to view all commands.";
+    private static final String ERROR_HELP = S_TAB + "ERROR: Type 'help' without additional parameters to view all commands.";
+    private static final String ERROR_DELETE_1 = S_TAB + "ERROR: Provide the task number of the task." + NL + FORMAT_DELETE;
+    private static final String ERROR_DELETE_2 = S_TAB + "ERROR: Provide the task number of one task only." + NL + FORMAT_DELETE;
 
     /**
      * Takes in the user input command and breaks down the data.
@@ -74,6 +85,8 @@ public class CommandParser {
             return parseEventCommand(inputCommand);
         case COMMAND_HELP:
             return parseHelpCommand(inputCommand);
+        case COMMAND_DELETE:
+            return parseDeleteCommand(inputCommand, words);
         default:
             throw new DukeException(ERROR_DEFAULT);
         }
@@ -205,6 +218,25 @@ public class CommandParser {
             throw new DukeException(ERROR_HELP);
         }
         return new HelpCommand();
+    }
+
+    /**
+     * Breaks down the data for the delete command.
+     *
+     * @param inputCommand User input command.
+     * @param words        User input command with each word stored in a String array.
+     * @return DeleteCommand subclass.
+     * @throws DukeException If the task number is not specified.
+     *                       If there are superfluous parameters in the done command.
+     */
+    private static Command parseDeleteCommand(String inputCommand, String[] words) throws DukeException {
+        if (inputCommand.length() <= STRING_LENGTH_DELETE + 1) {
+            throw new DukeException(ERROR_DELETE_1);
+        }
+        if (words.length > 2) {
+            throw new DukeException(ERROR_DELETE_2);
+        }
+        return new DeleteCommand(Integer.parseInt(words[TASK_NUMBER]));
     }
 
 }
