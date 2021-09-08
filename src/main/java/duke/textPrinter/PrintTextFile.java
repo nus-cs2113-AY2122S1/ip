@@ -47,6 +47,7 @@ public class PrintTextFile {
             }
             readTextFile.close();
         } catch (IOException except) {
+            System.out.println("IO EXCEPTION!");
             except.printStackTrace();
         }
 
