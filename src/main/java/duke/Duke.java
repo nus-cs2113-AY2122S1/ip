@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exceptions.InvalidCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -97,7 +105,7 @@ public class Duke {
 
     private static void handleDone(String line) {
         int taskNumber = Integer.parseInt(line.substring(END_OF_DONE_INDEX).trim()) - 1;
-        if (tasks[taskNumber].isDone) {
+        if (tasks[taskNumber].isDone()) {
             System.out.println("This task is already done!");
         } else {
             tasks[taskNumber].markAsDone();
