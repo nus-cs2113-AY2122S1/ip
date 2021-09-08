@@ -15,7 +15,6 @@ final public class TaskParser {
         switch (args[0]) {
             case "deadline":
                 int byPosition = Arrays.asList(args).indexOf("/by");
-                // TODO if not found
                 description = String.join(" ", Arrays.copyOfRange(args, 1, byPosition));
                 String by = String.join(" ", Arrays.copyOfRange(args, byPosition + 1, args.length));
                 newTask = new Deadline(description, by);
@@ -27,9 +26,14 @@ final public class TaskParser {
                 newTask = new Event(description, at);
                 break;
             case "todo":
+		if (args.length == 1) {
+		    throw new ArrayIndexOutOfBoundsException();
+		}
                 description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
                 newTask = new Todo(description);
                 break;
+	    default:
+		throw new UnsupportedOperationException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return newTask;
     }
