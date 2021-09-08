@@ -1,3 +1,5 @@
+import src.main.java.Task;
+
 public class Event extends Task {
     protected String by;
 

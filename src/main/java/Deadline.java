@@ -1,3 +1,5 @@
+import src.main.java.Task;
+
 public class Deadline extends Task {
     protected String by;
 
