@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.Task;
+
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -11,7 +15,11 @@ public class ToDo extends Task {
     public String getTaskType() {
         return "ToDo";
     }
-    public String getTaskID() { return "T";}
+
+    public String getTaskID() {
+        return "T";
+    }
+
     public String getDate() {
         return " ";
     }

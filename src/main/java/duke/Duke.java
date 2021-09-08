@@ -1,6 +1,18 @@
+package duke;
+
+import duke.Exceptions.TaskException;
+import duke.Exceptions.TimeException;
+import duke.tasks.Deadlines;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+
 import java.util.Scanner;
 
 public class Duke {
+    public static final int MAX_SIZE = 100;
+    public static final int TIME_COMMAND = 4;
+    public static final int DEADLINE_LENGTH = 9;
+    public static final int EVENT_LENGTH = 6;
 
     public static void main(String[] args) {
         IntroductoryMessage();
@@ -10,7 +22,7 @@ public class Duke {
 
     private static void runIkaros() {
         List Tasks = new List(0);
-        Task[] listOfTasks = new Task[100];
+        Task[] listOfTasks = new Task[MAX_SIZE];
         boolean isRunning = true;
 
         Scanner in = new Scanner(System.in);
@@ -54,8 +66,7 @@ public class Duke {
         try {
             if (command.length == 1) {
                 throw new TaskException();
-            }
-            else if (command[0].equalsIgnoreCase("event")) {
+            } else if (command[0].equalsIgnoreCase("event")) {
                 Event(ofTasks, list, response);
             } else if (command[0].equalsIgnoreCase("todo")) {
                 toDo(ofTasks, list, response);
@@ -75,26 +86,30 @@ public class Duke {
 
     private static void Event(List ofTasks, Task[] list, String response)
             throws TimeException {
-        String timing = response.substring(response.indexOf("/") + 4);
+        String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
 
         //checking if user entered timing
         if (response.indexOf("/") <= 0) {
-            throw new TimeException("when is it being held? [indicate by adding: /at your_timing]");
+            throw new TimeException("when is it being held? " +
+                    "[indicate by adding: /at your_timing]");
         }
-        Event event = new Event(response.substring(6, response.indexOf("/") - 1), timing);
+        Event event = new Event(response.substring
+                (EVENT_LENGTH, response.indexOf("/") - 1), timing);
         addToList(event, ofTasks, list);
 
     }
 
     private static void deadLine(List ofTasks, Task[] list, String response)
             throws TimeException {
-        String timing = response.substring(response.indexOf("/") + 4);
+        String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
 
         //checking if user entered timing
         if (response.indexOf("/") <= 0) {
-            throw new TimeException("when is it due? [indicate by adding: /by your_timing]");
+            throw new TimeException("when is it due? " +
+                    "[indicate by adding: /by your_timing]");
         }
-        Deadlines work = new Deadlines(response.substring(9, response.indexOf("/") - 1),
+        Deadlines work = new Deadlines(response.substring
+                (DEADLINE_LENGTH, response.indexOf("/") - 1),
                 timing);
         addToList(work, ofTasks, list);
     }
