@@ -43,15 +43,15 @@ Gotcha. I've added this task:
 You have a total of 4 tasks now.
 ________________________________________
 ________________________________________
-Gotcha. I've added this task:
-[E][ ] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
-You have a total of 5 tasks now.
+DukeException: Description of event is blank.
 ________________________________________
 ________________________________________
 DukeException: Description of deadline is blank.
 ________________________________________
 ________________________________________
-DukeException: Description of event is blank.
+Gotcha. I've added this task:
+[E][ ] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
+You have a total of 5 tasks now.
 ________________________________________
 ________________________________________
 DukeException: Task already completed.
