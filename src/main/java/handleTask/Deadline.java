@@ -1,7 +1,9 @@
-public class Deadlines extends Task {
+package handleTask;
+
+public class Deadline extends Task {
     private String dueDate;
 
-    public Deadlines(String description, String dueDate) {
+    public Deadline(String description, String dueDate) {
         super(description, 'D');
         this.dueDate = dueDate;
     }

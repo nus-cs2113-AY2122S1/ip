@@ -1,3 +1,12 @@
+package handleInput;
+
+import handleException.DukeEmptyDescriptionException;
+import handleException.DukeEmptyTimeframeException;
+import handleException.DukeUnrecognisedCommandException;
+import handleTask.Event;
+import handleTask.Deadline;
+import handleTask.Todo;
+
 public class FilterInput {
 
     /**
@@ -30,7 +39,7 @@ public class FilterInput {
             break;
         case "deadline":
             checkDescription(words[0],descriptionInput);
-            Deadlines deadline = new Deadlines(descriptionInput[0], descriptionInput[1]);
+            Deadline deadline = new Deadline(descriptionInput[0], descriptionInput[1]);
             Greet.addTask(deadline);
             break;
         case "event":
