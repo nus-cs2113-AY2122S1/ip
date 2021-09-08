@@ -2,6 +2,9 @@ hi
 list
 deadline deadline /by deadline
 todo todo
+todo
+event
+deadline
 event event /at event
 list
 done 2

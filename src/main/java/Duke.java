@@ -1,3 +1,9 @@
+import handleException.DukeEmptyDescriptionException;
+import handleException.DukeEmptyTimeframeException;
+import handleException.DukeUnrecognisedCommandException;
+import handleInput.FilterInput;
+import handleInput.Greet;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -17,7 +23,15 @@ public class Duke {
         do {
             input = in.nextLine();
             String[] words = input.split(" ");
-            FilterInput.checkCommand(words);
+            try {
+                FilterInput.checkCommand(words);
+            } catch (DukeEmptyDescriptionException e) {
+                System.out.println("     ☹ OOPS!!! The description of a " + e.getTypeOfTask() + " cannot be empty.");
+            } catch (DukeUnrecognisedCommandException e) {
+                System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (DukeEmptyTimeframeException e) {
+                System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what is the timeframe of this task :-(");
+            }
             isConversation = !words[0].equals("bye");
         } while (isConversation);
 
