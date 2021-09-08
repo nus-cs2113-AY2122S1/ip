@@ -3,7 +3,11 @@ public abstract class Task {
     protected String name;
     protected boolean isDone;
 
-    public Task(String name) {
+    public Task(String name) throws EmptyStringException{
+        if (name.isEmpty()){
+            throw new EmptyStringException();
+        }
+
         this.name = name;
         this.isDone = false;
     }

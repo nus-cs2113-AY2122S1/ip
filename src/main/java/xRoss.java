@@ -4,7 +4,9 @@ public class xRoss {
 
     // prints a divider line and new line to command line output
     private static void printDividerLine() {
-        System.out.println("..........................................................................................");
+        System.out.println(
+                "....................................................................................................."
+        );
     }
 
     // prints welcome message
@@ -28,35 +30,50 @@ public class xRoss {
         printDividerLine();
     }
 
-    private static void printTaskError(String s){
+    private static void printTaskError(String s) {
         switch (s) {
-        case "todo":
-            System.out.println("\tWrong Todo command format.\n"
+        case "todo_format":
+            System.out.println("\tWrong Todo command format: "
+                    + "String argument expected for Todo name\n"
                     + "\tCorrect format as follows:\n"
                     + "\t\ttodo <name>\n");
             break;
-        case "deadline":
-            System.out.println("\tWrong Deadline command format.\n"
+        case "todo_empty_string":
+            System.out.println("\tString argument for Todo name cannot be empty\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\ttodo <name>\n");
+            break;
+        case "deadline_format":
+            System.out.println("\tWrong Deadline command format: "
+                    + "String argument expected for Deadline name and date/time\n"
                     + "\tCorrect format as follows:\n"
                     + "\t\tdeadline <name> /by <due by date/time>\n");
             break;
-        case "event":
-            System.out.println("\tWrong Event command format.\n"
+        case "deadline_empty_string":
+            System.out.println(
+                    "\tString argument for Deadline name and date/time cannot be empty\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tdeadline <name> /by <due by date/time>\n");
+            break;
+        case "event_format":
+            System.out.println("\tWrong Event command format: "
+                    + "String argument expected for Event name and date/time\n"
                     + "\tCorrect format as follows:\n"
                     + "\t\tevent <name> /at <date/time of event>\n");
             break;
-        case "done_format":
-            System.out.println("\tWrong Mark as Done command format.\n"
+        case "event_empty_string":
+            System.out.println(
+                    "\tString argument for Event name and date/time cannot be empty\n"
                     + "\tCorrect format as follows:\n"
-                    + "\t\tdone <valid task number>\n");
+                    + "\t\tevent <name> /at <date/time of event>\n");
             break;
-        case "done_alpha":
-            System.out.println("\tWrong Mark as Done command argument.(Integer expected)\n"
+        case "done":
+            System.out.println("\tWrong Mark as Done command format: "
+                    + "Integer argument expected for task to be marked as done\n"
                     + "\tCorrect format as follows:\n"
                     + "\t\tdone <valid task number>\n");
             break;
         default:
-            return;
         }
     }
 
@@ -103,24 +120,26 @@ public class xRoss {
 
     private static void printDoneResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
-        try{
-            taskManager.markAsDone(Integer.parseInt(inputLine.substring(5)));
-        } catch (IndexOutOfBoundsException e){
-            printTaskError("done_format");
-        } catch (NumberFormatException e){
-            printTaskError("done_alpha");
+        try {
+            String[] taskNumberDone = inputLine.split("done ");
+
+            taskManager.markAsDone(Integer.parseInt(taskNumberDone[1]));
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            printTaskError("done");
         }
         printDividerLine();
     }
 
     private static void printTodoResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
-        try{
+        try {
             String[] newTodo = inputLine.split("todo ");
 
-            taskManager.addTask(new Todo(newTodo[1]));
-        } catch(IndexOutOfBoundsException e){
-            printTaskError("todo");
+            taskManager.addTask(new Todo(newTodo[1].trim()));
+        } catch (IndexOutOfBoundsException e) {
+            printTaskError("todo_format");
+        } catch (EmptyStringException e) {
+            printTaskError("todo_empty_string");
         }
         printDividerLine();
     }
@@ -130,9 +149,11 @@ public class xRoss {
         try {
             String[] newDeadline = inputLine.split(" /by ");
 
-            taskManager.addTask(new Deadline(newDeadline[0].substring(9), newDeadline[1]));
-        } catch (IndexOutOfBoundsException e){
-            printTaskError("deadline");
+            taskManager.addTask(new Deadline(newDeadline[0].substring(9).trim(), newDeadline[1].trim()));
+        } catch (IndexOutOfBoundsException e) {
+            printTaskError("deadline_format");
+        } catch (EmptyStringException e) {
+            printTaskError("deadline_empty_string");
         }
         printDividerLine();
     }
@@ -142,9 +163,11 @@ public class xRoss {
         try {
             String[] newEvent = inputLine.split(" /at ");
 
-            taskManager.addTask(new Event(newEvent[0].substring(6), newEvent[1]));
-        } catch (IndexOutOfBoundsException e){
-            printTaskError("event");
+            taskManager.addTask(new Event(newEvent[0].substring(6).trim(), newEvent[1].trim()));
+        } catch (IndexOutOfBoundsException e) {
+            printTaskError("event_format");
+        } catch (EmptyStringException e) {
+            printTaskError("event_empty_string");
         }
         printDividerLine();
     }

@@ -1,6 +1,6 @@
 public class Todo extends Task {
 
-    public Todo(String name) {
+    public Todo(String name) throws EmptyStringException{
         super(name);
     }
 
