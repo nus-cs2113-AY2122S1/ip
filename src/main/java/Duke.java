@@ -1,3 +1,5 @@
+import task.*;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -90,7 +92,7 @@ public class Duke {
             break;
         case "todo":
             try {
-                executeTaskCase(input, TODO_STARTING_INDEX,TaskType.TODO);
+                executeTaskCase(input, TODO_STARTING_INDEX, TaskType.TODO);
 
             } catch (StringIndexOutOfBoundsException error) {
                 printErrorMessage(PROMPT_TASK_DESCRIPTION);

@@ -1,3 +1,5 @@
+package task;
+
 public class Deadline extends Task{
     public static final String BY = "by: ";
     protected String date;
