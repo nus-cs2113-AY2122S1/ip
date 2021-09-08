@@ -15,10 +15,10 @@ public class Duke {
     public static final int TASK_ARR_SIZE = 100;
     public static final Task[] tasks      = new Task[TASK_ARR_SIZE];
     public static final String LINE       = "--------------------------------------------------------------------------------";
+    private static int itemIndex          = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
-        int itemIndex = 0;
         boolean botIsActive = false;
         Scanner in = new Scanner(System.in);
 
@@ -27,49 +27,71 @@ public class Duke {
 
         // Cond. is true when input "bye" is given, terminates run
         while (!botIsActive) {
+
             String command = in.nextLine();
+
             if (command.equals("bye")) {
                 botIsActive = true;
                 printBye();
             } else if (command.equals("list")) {
-                printList(tasks, itemIndex);
+                printList(tasks);
             } else if (command.contains("done")) {
-                markAsDone(tasks, itemIndex, command);
+                try {
+                    markAsDone(tasks, itemIndex, command);
+                } catch (NumberFormatException e) {
+                    System.out.println("Sir, I don't believe you provided me with an index number");
+                }
             } else if (command.equals("echo")) {
                 echoMode();
             } else {
                 if (command.contains("todo")) {
-                    createTodo(itemIndex, command);
-                }
-                else {
-                    int dashStart = command.indexOf("/");
-                    String dateOrTime = command.substring(dashStart + DASH_INDX);
-                    if (command.contains("deadline")) {
-                        createDeadline(itemIndex, command, dashStart, dateOrTime);
-                    } else if (command.contains("event")) {
-                        createEvent(itemIndex, command, dashStart, dateOrTime);
-                    } else {
-                        tasks[itemIndex] = new Task(command);
+                    try {
+                        createTodo(command);
+                    } catch (DukeException error) {
+                        System.out.println(error.getMessage());
                     }
+                } else  if (command.contains("deadline")) {
+                    createDeadline(command);
+                } else if (command.contains("event")) {
+                    createEvent(command);
+                } else {
+                    System.out.println("Apologies sir but, I believe that command is beyond my understanding...");
                 }
-                itemIndex++;
-                printListSummary(itemIndex);
             }
         }
     }
 
-    private static void createTodo(int itemIndex, String command) {
+    private static void createTodo(String command) throws DukeException {
+        String taskDescription;
+        try {
+            taskDescription = command.substring(TODO_SIZE);
+        } catch (Exception e) {
+            throw new DukeException("Sir, that seems to be an inavlid command");
+        }
+        if (taskDescription.isBlank()) {
+            throw new DukeException("Sir, you haven't given me the name of the task");
+        }
         tasks[itemIndex] = new Todo(command.substring(TODO_SIZE));
+        itemIndex++;
+        printListSummary(itemIndex);
     }
 
-    private static void createDeadline(int itemIndex, String command, int dashStart, String dateOrTime) {
+    private static void createDeadline(String command) {
         // Reads two substrings as param: 1. The task description after keyword "deadline"
         //                                2. The actual deadline after "/by " till end of string
+        int dashStart = command.indexOf("/");
+        String dateOrTime = command.substring(dashStart + DASH_INDX);
         tasks[itemIndex] = new Deadline((command.substring(DEADLINE_SIZE, dashStart)), dateOrTime);
+        itemIndex++;
+        printListSummary(itemIndex);
     }
 
-    private static void createEvent(int itemIndex, String command, int dashStart, String dateOrTime) {
+    private static void createEvent(String command) {
+        int dashStart = command.indexOf("/");
+        String dateOrTime = command.substring(dashStart + DASH_INDX);
         tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
+        itemIndex++;
+        printListSummary(itemIndex);
     }
 
     public static void printWelcome() {
@@ -91,7 +113,7 @@ public class Duke {
         System.out.println(LINE + System.lineSeparator() + "Affirmative sir, I'll shut down all operations" + LINE);
     }
 
-    public static void printList(Task[] tasks, int itemIndex) {
+    public static void printList(Task[] tasks) {
         System.out.println(LINE + System.lineSeparator() + "Here are the current tasks in your list:");
         for (int count = 0; count < itemIndex; count++) {
             System.out.println(count + 1 + "." + tasks[count].printTask());
@@ -101,7 +123,7 @@ public class Duke {
 
     public static void printListSummary(int itemIndex) {
         System.out.println(LINE + System.lineSeparator() + "Will do sir, I've added: "
-                + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
+                    + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
         if (itemIndex == 1) {
             System.out.printf("Now you have %d task in your list.\n", itemIndex);
         } else {
