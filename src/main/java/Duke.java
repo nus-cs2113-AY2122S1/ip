@@ -50,6 +50,7 @@ public class Duke {
     }
 
     public static void addTodo(String userCommand) {
+        //add exception
         try {
             int contentStart = 5;
             String description = userCommand.substring(contentStart);
@@ -65,6 +66,7 @@ public class Duke {
     }
 
     public static void addEvent(String userCommand) {
+        //add exception
         try {
             int contentStart = 6;
             int contentEnd = userCommand.indexOf("/at") - 1;
@@ -83,6 +85,7 @@ public class Duke {
     }
 
     public static void addDeadline(String userCommand) {
+        //add exception
         try {
             int contentStart = 9;
             int contentEnd = userCommand.indexOf("/by") - 1;
