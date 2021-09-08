@@ -53,7 +53,9 @@ public class Duke {
                 for (int i = 1; i < index; i++) {
                     deadlineDescription = deadlineDescription + words[i] + " ";
                 }
-                by = words[index + 1];
+                for (int i = index + 1; i < words.length; i++) {
+                    by = by + words[i] + " ";
+                }
                 tasks[taskNumber] = new Deadline(deadlineDescription, by);
                 taskNumber++;
                 System.out.println("Got it. I've added this task:");
