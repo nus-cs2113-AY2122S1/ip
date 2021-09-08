@@ -6,7 +6,7 @@ public class Duke {
 
     public static final String HORIZONTAL_LINE_W_NL = "_________________________J.A.R.V.I.S.________________________\n";
     public static final String HORIZONTAL_LINE = "_________________________J.A.R.V.I.S.________________________";
-    public static final int MAX_TASKS = 100;
+    public static final int MAX_TASK_NUM = 100;
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DONE = "done";
@@ -19,7 +19,7 @@ public class Duke {
         greetCommand();
         Scanner in = new Scanner(System.in);
         String line;
-        Task[] list = new Task[MAX_TASKS];  //create an array of Tasks
+        Task[] list = new Task[MAX_TASK_NUM];  //create an array of Tasks
         int listCount = 0;  //keep position count for array
 
         do {
