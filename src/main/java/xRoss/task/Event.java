@@ -1,8 +1,12 @@
+package xRoss.task;
+
+import xRoss.exception.EmptyStringException;
+
 public class Event extends Task {
 
     protected String at;
 
-    public Event(String name, String at) throws EmptyStringException{
+    public Event(String name, String at) throws EmptyStringException {
         super(name);
         setAt(at);
     }

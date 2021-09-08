@@ -1,6 +1,10 @@
+package xRoss.task;
+
+import xRoss.exception.EmptyStringException;
+
 public class Todo extends Task {
 
-    public Todo(String name) throws EmptyStringException{
+    public Todo(String name) throws EmptyStringException {
         super(name);
     }
 

@@ -1,9 +1,13 @@
+package xRoss.task;
+
+import xRoss.exception.EmptyStringException;
+
 public abstract class Task {
 
     protected String name;
     protected boolean isDone;
 
-    public Task(String name) throws EmptyStringException{
+    public Task(String name) throws EmptyStringException {
         if (name.isEmpty()){
             throw new EmptyStringException();
         }
