@@ -1,13 +1,15 @@
-import allTasks.typesOfTasks.Deadline;
-import allTasks.typesOfTasks.Event;
+// List of imported packages
 import allTasks.Task;
 import allTasks.typesOfTasks.Todo;
+import allTasks.typesOfTasks.Event;
+import allTasks.typesOfTasks.Deadline;
 
 import java.util.Scanner;
 
 public class Duke {
 
     // Init constants storing various magic literals or Strings
+    private static int itemIndex          = 0;
     public static final int DASH_INDX     = 4;
     public static final int TODO_SIZE     = 5;
     public static final int EVENT_SIZE    = 6;
@@ -15,7 +17,6 @@ public class Duke {
     public static final int TASK_ARR_SIZE = 100;
     public static final Task[] tasks      = new Task[TASK_ARR_SIZE];
     public static final String LINE       = "--------------------------------------------------------------------------------";
-    private static int itemIndex          = 0;
 
     public static void main(String[] args) throws DukeException {
 
@@ -57,7 +58,11 @@ public class Duke {
                         System.out.println(error.getMessage());
                     }
                 } else if (command.contains("event")) {
-                    createEvent(command);
+                    try {
+                        createEvent(command);
+                    } catch (DukeException error) {
+                        System.out.println(error.getMessage());
+                    }
                 } else {
                     System.out.println("Apologies sir but, I don't recognize that protocol");
                 }
@@ -104,8 +109,20 @@ public class Duke {
     }
 
     private static void createEvent(String command) throws DukeException {
+        String dateOrTime;
+        String taskDescription;
         int dashStart = command.indexOf("/");
-        String dateOrTime = command.substring(dashStart + DASH_INDX);
+        try {
+            dateOrTime = command.substring(dashStart + DASH_INDX);
+        } catch (Exception e) {
+            throw new DukeException("Sir, you haven't given me a valid event date");
+        }
+        try {
+            taskDescription = command.substring(EVENT_SIZE, dashStart);
+        } catch (Exception e){
+            throw new DukeException("Sir, I'm afraid that command is invalid. " + System.lineSeparator() +
+                    "Please frame your request in this format: event My B'day /at 23/07/1999");
+        }
         tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
         itemIndex++;
         printListSummary(itemIndex);
