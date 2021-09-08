@@ -1,6 +1,11 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import duke.task.*;
+import duke.command.TaskParser;
 
 public class Duke {
 
