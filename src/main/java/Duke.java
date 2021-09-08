@@ -6,30 +6,6 @@ public class Duke {
 
     static ArrayList<Task> taskList = new ArrayList<>();
 
-    private static Task parseTask(String[] args) {
-        String description;
-        Task newTask = null;
-        switch (args[0]) {
-            case "deadline":
-                int byPosition = Arrays.asList(args).indexOf("/by");
-                // TODO if not found
-                description = String.join(" ", Arrays.copyOfRange(args, 1, byPosition));
-                String by = String.join(" ", Arrays.copyOfRange(args, byPosition + 1, args.length));
-                newTask = new Deadline(description, by);
-                break;
-            case "event":
-                int atPosition = Arrays.asList(args).indexOf("/at");
-                description = String.join(" ", Arrays.copyOfRange(args, 1, atPosition));
-                String at = String.join(" ", Arrays.copyOfRange(args, atPosition + 1, args.length));
-                newTask = new Event(description, at);
-                break;
-            case "todo":
-                description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-                newTask = new Todo(description);
-                break;
-        }
-        return newTask;
-    }
 
     private static InputHandleStatus handleOneInputLine(String line) {
         String[] splitted = line.split("\\s+");
@@ -48,7 +24,7 @@ public class Duke {
                 System.out.println(target);
                 return InputHandleStatus.OK;
             default:
-                Task newTask = parseTask(splitted);
+                Task newTask = TaskParser.parseTask(splitted);
                 taskList.add(newTask);
                 System.out.println("added: " + newTask);
                 return InputHandleStatus.OK;
