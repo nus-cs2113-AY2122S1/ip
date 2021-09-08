@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-
 public class Duke {
+
     private static Scanner in = new Scanner(System.in);
     static final int MAX_SIZE = 100;
 
@@ -89,7 +89,7 @@ public class Duke {
                         addTask(newDeadline);
                     }
                     catch (NullPointerException e){
-                        System.out.println("INVALID: Empty 'deadline' description");
+                        System.out.println("INVALID: Empty 'deadline' input");
                     }
                     catch (IndexOutOfBoundsException e){
                         System.out.println("INVALID: Insufficient 'deadline' description or time");
@@ -103,11 +103,11 @@ public class Duke {
                         addTask(newEvent);
                     }
                     catch (NullPointerException e){
-                    System.out.println("INVALID: Empty 'event' description");
-                }
+                        System.out.println("INVALID: Empty 'event' description");
+                    }
                     catch (IndexOutOfBoundsException e){
-                    System.out.println("INVALID: Insufficient 'event' description or time");
-                }
+                        System.out.println("INVALID: Insufficient 'event' description or time");
+                    }
                     break;
                 default:
                     System.out.println("INVALID: Invalid command");
@@ -120,5 +120,4 @@ public class Duke {
         System.out.println(exit);
         printBorder();
     }
-
 }
