@@ -25,7 +25,7 @@ public class Duke {
 
 
     private static void chooseTask() {
-        String line, taskType,  taskDescription = null;
+        String line, taskType, taskDescription = null;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
