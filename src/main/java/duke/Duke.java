@@ -1,5 +1,12 @@
+package duke;
+
+import duke.exceptions.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
     private static final String COMMAND_EXIT_WORD = "bye";
