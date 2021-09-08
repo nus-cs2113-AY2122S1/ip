@@ -40,26 +40,29 @@ public class Duke {
         System.out.println(SEPARATE_LINE);
     }
 
-    public static void checkEcho(String command) throws NoDescriptionException{
+    public static void checkEcho(String command) throws NoDescriptionException, NoSpaceException{
         if (command.equals("echo") || command.equals("echo ")) {
             throw new NoDescriptionException();
+        } else if (!command.startsWith("echo ")) {
+            throw new NoSpaceException();
         }
     }
 
     public static void handleEcho(String command) {
-        boolean hasDescription = true;
+        boolean proceed = true;
         System.out.println(SEPARATE_LINE);
         try {
             checkEcho(command);
         } catch (NoDescriptionException e) {
-            hasDescription = false;
+            System.out.println("Sorry, I have no idea what you want me to echo");
+            proceed = false;
+        } catch (NoSpaceException e) {
+            System.out.println("Please use a space to seperate command, task, and time (if any)");
+            proceed = false;
         }
 
-        if (hasDescription) {
+        if (proceed) {
             System.out.println(command.substring(5));
-        } else {
-            System.out.println("Sorry, I have no idea what you want me to echo");
-            System.out.println("Please use the format \"echo description\"");
         }
         System.out.println(SEPARATE_LINE);
     }
