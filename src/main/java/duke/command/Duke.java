@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.task.Mascot;
+import duke.task.Task;
+import duke.security.AccountDetail;
+
 import java.util.Scanner;
 
 public class Duke {

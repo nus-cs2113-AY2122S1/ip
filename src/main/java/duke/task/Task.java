@@ -1,4 +1,4 @@
-import java.util.Locale;
+package duke.task;
 
 public class Task {
     private String description;
