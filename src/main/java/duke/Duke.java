@@ -75,10 +75,8 @@ public class Duke {
             }
         } catch (TaskException e) {
             System.out.println("please specify " + TaskType + " to add!");
-            //lineBreak();
         } catch (TimeException e) {
             System.out.println(e.getMessage());
-            //lineBreak();
         } finally {
             lineBreak();
         }
