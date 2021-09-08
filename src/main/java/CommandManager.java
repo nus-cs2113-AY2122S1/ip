@@ -37,7 +37,22 @@ public class CommandManager {
                 taskManager.addTask(TaskEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                taskManager.doneTask(userInput);
+                try {
+                    taskManager.doneTask(userInput);
+                } catch (NumberFormatException e) {
+                    Duke.printlnTab("Task number is not an integer. Please try again!");
+                    Duke.printDivider();
+
+                } catch (IndexOutOfBoundsException e) {
+                    Duke.printlnTab("Task number is out of bounds. Please try again!");
+                    Duke.printDivider();
+
+                } catch (NullPointerException e) {
+                    Duke.printlnTab("You only have " + taskManager.getTotalTasks() + " tasks");
+                    Duke.printlnTab("Please enter a number smaller or equal to " + taskManager.getTotalTasks());
+                    Duke.printDivider();
+
+                }        
 
             } else if (userInput.equals(COMMAND_BYE)) {
                 Duke.printlnTab("Bye. Hope to see you again soon!");

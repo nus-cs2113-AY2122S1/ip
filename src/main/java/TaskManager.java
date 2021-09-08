@@ -1,7 +1,7 @@
 public class TaskManager {
     private static final int MAX_TASKS = 100;
 
-    //These indexes are the start index os the string which has
+    //These indexes are the start index of the string which has
     //the unnecessary part removed
     private static final int TODO_START_INDEX = 4;
     private static final int DEADLINE_START_INDEX = 8;
@@ -12,6 +12,11 @@ public class TaskManager {
 
     private static final Task[] tasks = new Task[MAX_TASKS];
     private static int tasksIndex = 0; //index of task in tasks array
+
+    public int getTotalTasks() {
+        return tasksIndex + 1;
+
+    }
 
     void listTasks() {
         if (tasksIndex == 0) {
@@ -41,7 +46,7 @@ public class TaskManager {
             return;
 
         case DEADLINE:
-            if (userInput.contains("/b")) {
+            if (userInput.contains("/by")) {
                 strippedUserInput = userInput.substring(DEADLINE_START_INDEX).stripLeading(); // strip "deadline" from userInput
 
                 // array should have length of 2
@@ -59,7 +64,7 @@ public class TaskManager {
             break;
             
         case EVENT:
-            if (userInput.contains("/a")) {
+            if (userInput.contains("/at")) {
                 strippedUserInput = userInput.substring(EVENT_START_INDEX).stripLeading(); // strip event
                 String[] eventDetails = strippedUserInput.split("/at");
 
@@ -94,30 +99,19 @@ public class TaskManager {
     }
 
 
-    void doneTask(String userInput) {
+    void doneTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException, NullPointerException {
         String taskNumberStr = userInput.substring(DONE_NUMBER_INDEX).strip();
         //taskNumber displayed starting with 1
         //but array starts with 0
 
-        int taskNumber, taskIndex;
-        try {
-            taskNumber = Integer.parseInt(taskNumberStr);
-            taskIndex = taskNumber - 1;
-        } catch (Exception e) {
-            Duke.printlnTab("Task number is not an integer. Please try again!");
-            Duke.printDivider();
-            return;
-        }
+        int taskNumber = Integer.parseInt(taskNumberStr);
+        int taskIndex = taskNumber - 1;
 
-        try {
-            (tasks[taskIndex]).markAsDone();
-            Duke.printlnTab("Nice! I've marked this task as done:");
-            Duke.printlnTab(String.format("%s", tasks[taskIndex]));
-            Duke.printDivider();
-        } catch (Exception e) {
-            Duke.printlnTab("Task number is out of bounds. Please try again!");
-            Duke.printDivider();
-        }
+        (tasks[taskIndex]).markAsDone();
+        Duke.printlnTab("Nice! I've marked this task as done:");
+        Duke.printlnTab(String.format("%s", tasks[taskIndex]));
+        Duke.printDivider();
+
 
 
     }
