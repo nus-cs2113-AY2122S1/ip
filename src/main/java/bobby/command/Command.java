@@ -1,14 +1,13 @@
-package command;
+package bobby.command;
 
-import exception.IncorrectDescriptionFormatException;
-import exception.IncorrectDescriptionFormatException;
-import exception.NoDescriptionException;
-import manager.ResponseManager;
-import manager.TaskManager;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import bobby.exception.IncorrectDescriptionFormatException;
+import bobby.exception.NoDescriptionException;
+import bobby.manager.ResponseManager;
+import bobby.manager.TaskManager;
+import bobby.task.Deadline;
+import bobby.task.Event;
+import bobby.task.Task;
+import bobby.task.ToDo;
 
 public class Command {
     private String command;

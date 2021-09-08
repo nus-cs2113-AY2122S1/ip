@@ -1,4 +1,4 @@
-package task;
+package bobby.task;
 
 public class Task {
     protected String fullTaskDescription;

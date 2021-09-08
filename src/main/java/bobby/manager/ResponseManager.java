@@ -1,6 +1,6 @@
-package manager;
+package bobby.manager;
 
-import task.Task;
+import bobby.task.Task;
 
 public abstract class ResponseManager {
     public static final String LINE = "    ____________________________________________________________\n";
@@ -60,12 +60,12 @@ public abstract class ResponseManager {
     }
 
     public static void printNoDescriptionMessage() {
-        String message = "    Empty task description! Please enter a task.\n";
+        String message = "    Empty description! Please specify your command.\n";
         printFormattedMessage(message);
     }
 
-    public static void printDescriptionFormatMessage() {
-        String message = "    Task Description is not entered properly! Please try again.\n";
+    public static void printIncorrectDescriptionFormatMessage() {
+        String message = "    Your Command Description has not been entered properly! Please try again.\n";
         printFormattedMessage(message);
     }
 

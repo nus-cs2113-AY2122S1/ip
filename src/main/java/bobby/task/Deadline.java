@@ -1,4 +1,4 @@
-package task;
+package bobby.task;
 
 public class Deadline extends Task{
     private String by;

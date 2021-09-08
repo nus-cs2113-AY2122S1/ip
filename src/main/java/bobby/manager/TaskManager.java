@@ -1,9 +1,9 @@
-package manager;
+package bobby.manager;
 
-import exception.IncorrectDescriptionFormatException;
-import exception.NoDescriptionException;
-import task.Task;
-import command.Command;
+import bobby.exception.IncorrectDescriptionFormatException;
+import bobby.exception.NoDescriptionException;
+import bobby.task.Task;
+import bobby.command.Command;
 
 
 public class TaskManager {
@@ -74,7 +74,7 @@ public class TaskManager {
         } catch (NoDescriptionException e) {
             ResponseManager.printNoDescriptionMessage();
         } catch (IncorrectDescriptionFormatException e) {
-            ResponseManager.printDescriptionFormatMessage();
+            ResponseManager.printIncorrectDescriptionFormatMessage();
         } catch (NumberFormatException e) {
             ResponseManager.printNumberFormatMessage();
         } catch (NullPointerException e) {

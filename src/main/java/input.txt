@@ -1,8 +1,16 @@
 todo read book
+todo
 list
 event do homework /at home
+event
+even do homework
 list
 done 1
+done 2
+done 3
+done 1000
+deadline
+deadline finish
 deadline finish eating /by 2pm
 list
 done 2
