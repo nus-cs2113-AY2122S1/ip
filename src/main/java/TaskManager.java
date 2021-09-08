@@ -15,12 +15,11 @@ public class TaskManager {
 
     public int getTotalTasks() {
         return tasksIndex + 1;
-
     }
 
     void listTasks() {
         if (tasksIndex == 0) {
-            Duke.printlnTab("You have no task in your list!");
+            Duke.printlnTab("Your task list is empty!");
 
         } else {
             Duke.printlnTab("Here are the tasks in your list:");
@@ -32,52 +31,127 @@ public class TaskManager {
                 Duke.printlnTab(String.format("%d.%s", (i + 1), tasks[i]));
             }
         }
+        Duke.printDivider();
     }
 
-
-    void addTask(TaskEnum taskType, String userInput) {
-        String strippedUserInput; // userInput but without the first taskType keyword "todo" "event" "deadline
+    private void addTask(TaskEnum taskType, String userInput) throws ExceedMaxTasksException {
+        if (getTotalTasks() == 100) {
+            throw new ExceedMaxTasksException();
+        }
 
         switch (taskType) {
         case TODO:
-            strippedUserInput = userInput.substring(TODO_START_INDEX).stripLeading(); // remove "todo" from userInput
-            tasks[tasksIndex] = new Todo(strippedUserInput);
-            addTaskSuccess();
-            return;
-
-        case DEADLINE:
-            if (userInput.contains("/by")) {
-                strippedUserInput = userInput.substring(DEADLINE_START_INDEX).stripLeading(); // strip "deadline" from userInput
-
-                // array should have length of 2
-                //containing Task description (index 0) and Task date (index 1)
-                String[] deadlineDetails = strippedUserInput.split("/by");
-
-                if (deadlineDetails.length == 2) {
-                    String description = deadlineDetails[TASK_DESCRIPTION_INDEX].strip();
-                    String by = deadlineDetails[TASK_DATE_INDEX].strip();
-                    tasks[tasksIndex] = new Deadline(description, by);
-                    addTaskSuccess();
-                    return;
-                }
-            }
+            addTodoPlusException(userInput);
             break;
-            
+        case DEADLINE:
+            addDeadlinePlusException(userInput);
+            break;
         case EVENT:
-            if (userInput.contains("/at")) {
-                strippedUserInput = userInput.substring(EVENT_START_INDEX).stripLeading(); // strip event
-                String[] eventDetails = strippedUserInput.split("/at");
-
-                if (eventDetails.length == 2) {
-                    String description = eventDetails[TASK_DESCRIPTION_INDEX].strip();
-                    String at = eventDetails[TASK_DATE_INDEX].strip();
-                    tasks[tasksIndex] = new Event(description, at);
-                    addTaskSuccess();
-                    return;
-                }
-            }
+            addEventPlusException(userInput);
         }
-        addTaskFail();
+    }
+
+    public void addTaskPlusException(TaskEnum taskType, String userInput) {
+        try {
+            addTask(taskType, userInput);
+        } catch (ExceedMaxTasksException e) {
+            Duke.printlnTab("You have already added the maximum of 100 tasks! You can't add anymore tasks.");
+            Duke.printDivider();
+        }
+    }
+
+    private void addTodo(String userInput) throws BlankDescriptionException {
+        String strippedUserInput = userInput.substring(TODO_START_INDEX).stripLeading(); // remove "todo" from userInput
+        if (strippedUserInput.isEmpty()) {
+            throw new BlankDescriptionException();
+        }
+
+        tasks[tasksIndex] = new Todo(strippedUserInput);
+        addTaskSuccess();
+    }
+
+    private void addDeadline(String userInput) throws BlankDescriptionException, IncompleteInformationException {
+        String strippedUserInput = userInput.substring(DEADLINE_START_INDEX).stripLeading(); // strip "deadline" from userInput
+
+        if (strippedUserInput.isEmpty()) {
+            throw new BlankDescriptionException();
+        }
+
+        String[] deadlineDetails = strippedUserInput.split("/by");
+
+        // array should have length of 2
+        //containing Task description (index 0) and Task date (index 1)
+
+        if (deadlineDetails.length != 2) {
+            throw new IncompleteInformationException();
+        }
+
+        String description = deadlineDetails[TASK_DESCRIPTION_INDEX].strip();
+        String by = deadlineDetails[TASK_DATE_INDEX].strip();
+        tasks[tasksIndex] = new Deadline(description, by);
+        addTaskSuccess();
+    }
+
+
+    private void addEvent(String userInput) throws BlankDescriptionException, IncompleteInformationException {
+
+        String strippedUserInput = userInput.substring(EVENT_START_INDEX).stripLeading(); // strip event
+        if (strippedUserInput.isEmpty()) {
+            throw new BlankDescriptionException();
+        }
+
+        String[] eventDetails = strippedUserInput.split("/at");
+        if (eventDetails.length != 2) {
+            throw new IncompleteInformationException();
+        }
+
+        // array should have length of 2
+        //containing Task description (index 0) and Task date (index 1)
+        String description = eventDetails[TASK_DESCRIPTION_INDEX].strip();
+        String at = eventDetails[TASK_DATE_INDEX].strip();
+        tasks[tasksIndex] = new Event(description, at);
+        addTaskSuccess();
+
+    }
+
+    public void addTodoPlusException(String userInput) {
+        try {
+            addTodo(userInput);
+
+        } catch (BlankDescriptionException e) {
+            Duke.printlnTab("☹ OOPS!!! The description of a todo cannot be empty.");
+            Duke.printDivider();
+        }
+    }
+
+    public void addDeadlinePlusException(String userInput) {
+        try {
+            addDeadline(userInput);
+
+        } catch (BlankDescriptionException e) {
+            Duke.printlnTab("☹ OOPS!!! The description of a deadline cannot be empty.");
+            Duke.printDivider();
+
+        } catch (IncompleteInformationException e) {
+            Duke.printlnTab("☹ OOPS!!! Please enter in the right format for deadline");
+            Duke.printDivider();
+
+        }
+    }
+
+    public void addEventPlusException(String userInput) {
+        try {
+            addEvent(userInput);
+
+        } catch (BlankDescriptionException e) {
+            Duke.printlnTab("☹ OOPS!!! The description of an event cannot be empty.");
+            Duke.printDivider();
+
+        } catch (IncompleteInformationException e) {
+            Duke.printlnTab("☹ OOPS!!! Please enter in the right format for event");
+            Duke.printDivider();
+        }
+
     }
 
     void addTaskSuccess() {
@@ -111,10 +185,24 @@ public class TaskManager {
         Duke.printlnTab("Nice! I've marked this task as done:");
         Duke.printlnTab(String.format("%s", tasks[taskIndex]));
         Duke.printDivider();
-
-
-
     }
 
+    void doneTaskPlusException(String userInput) throws NumberFormatException, IndexOutOfBoundsException, NullPointerException {
+        try {
+            doneTask(userInput);
+        } catch (NumberFormatException e) {
+            Duke.printlnTab("Task number is not an integer. Please try again!");
+            Duke.printDivider();
 
+        } catch (IndexOutOfBoundsException e) {
+            Duke.printlnTab("Task number is out of bounds. Please try again!");
+            Duke.printDivider();
+
+        } catch (NullPointerException e) {
+            Duke.printlnTab("You only have " + getTotalTasks() + " tasks");
+            Duke.printlnTab("Please enter a number smaller or equal to " + getTotalTasks());
+            Duke.printDivider();
+
+        }
+    }
 }

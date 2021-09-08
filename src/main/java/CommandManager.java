@@ -25,34 +25,18 @@ public class CommandManager {
 
             if (userInput.equals(COMMAND_LIST)) {
                 taskManager.listTasks();
-                Duke.printDivider();
 
             } else if (userInput.startsWith(COMMAND_TODO)) {
-                taskManager.addTask(TaskEnum.TODO, userInput);
+                taskManager.addTaskPlusException(TaskEnum.TODO, userInput);
 
             } else if (userInput.startsWith(COMMAND_DEADLINE)) {
-                taskManager.addTask(TaskEnum.DEADLINE, userInput);
+                taskManager.addTaskPlusException(TaskEnum.DEADLINE, userInput);
 
             } else if (userInput.startsWith(COMMAND_EVENT)) {
-                taskManager.addTask(TaskEnum.EVENT, userInput);
+                taskManager.addTaskPlusException(TaskEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                try {
-                    taskManager.doneTask(userInput);
-                } catch (NumberFormatException e) {
-                    Duke.printlnTab("Task number is not an integer. Please try again!");
-                    Duke.printDivider();
-
-                } catch (IndexOutOfBoundsException e) {
-                    Duke.printlnTab("Task number is out of bounds. Please try again!");
-                    Duke.printDivider();
-
-                } catch (NullPointerException e) {
-                    Duke.printlnTab("You only have " + taskManager.getTotalTasks() + " tasks");
-                    Duke.printlnTab("Please enter a number smaller or equal to " + taskManager.getTotalTasks());
-                    Duke.printDivider();
-
-                }        
+                taskManager.doneTaskPlusException(userInput);
 
             } else if (userInput.equals(COMMAND_BYE)) {
                 Duke.printlnTab("Bye. Hope to see you again soon!");
@@ -60,7 +44,7 @@ public class CommandManager {
                 return;
 
             } else { //Invalid inputs
-                Duke.printlnTab("Invalid Input. Please try again!");
+                Duke.printlnTab("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 Duke.printDivider();
 
             }
