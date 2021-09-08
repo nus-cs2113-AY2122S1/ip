@@ -12,11 +12,15 @@ public class TaskManager {
      *
      * @param task Task to be checked
      */
-    public void add(String task) {
+    public void add(String task) throws DukeException {
+        String[] command = task.split(" ");
+        if (command.length < 2) {
+            throw new DukeException();
+        }
         String taskType = getCommand(task);
         Task newTask;
         String description = getDescription(task);
-        switch(taskType) {
+        switch (taskType) {
         case "todo":
             newTask = new ToDo(description);
             taskList.add(newTask);
@@ -40,13 +44,15 @@ public class TaskManager {
         printSize();
     }
 
-    /**
-     * Checks if specified task is done
-     *
-     * @param taskNumber task number of task to be checked
-     */
-    public void checkDone(int taskNumber) {
-        taskList.get(taskNumber - 1).taskDone();
+
+
+    public void checkDone(String[] command) {
+        try {
+            Integer.parseInt(command[1]);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
+        }
+        taskList.get(Integer.parseInt(command[1]) - 1).taskDone();
     }
 
     public String getDescription(String task) {
@@ -57,7 +63,7 @@ public class TaskManager {
         } else if (getCommand(task).equals("deadline")) {
             separator = task.indexOf("/by");
             description = task.substring(9, separator);
-        } else if (getCommand(task).equals("event")){
+        } else if (getCommand(task).equals("event")) {
             separator = task.indexOf("/at");
             description = task.substring(6, separator);
         } else {
@@ -72,6 +78,7 @@ public class TaskManager {
 
         return taskType;
     }
+
     public void printSize() {
         if (getSize() == 1) {
             System.out.println("     Now you have " + 1 + " task in the list.");
@@ -91,32 +98,55 @@ public class TaskManager {
     }
 
 
-
     public int getSize() {
         return taskList.size();
     }
 
 
     public void list() {
-        for (int i = 0; i < taskList.size(); i++) {
-            Task t = taskList.get(i);
-            System.out.println("     " + (i + 1) + "." + t);
+        try {
+            if (taskList.size() == 0) {
+                System.out.println("     ☹ OOPS!!! List is empty");
+                return;
+            }
+            System.out.println("     Here are the tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                System.out.println("     " + (i + 1) + "." + t);
+            }
+        } catch (IndexOutOfBoundsException i) {
+            System.out.println("Error! Please contact admin");
         }
+
     }
 
 
     public String getDate(String description) {
         String date;
-        if (description.contains("/by")) {
-            int indexOfSeparator = description.indexOf("/by");
+        String taskType = getCommand(description);
+        int indexOfSeparator;
+        switch (taskType) {
+        case "deadline":
+            indexOfSeparator = description.indexOf("/by");
             date = description.substring(indexOfSeparator + 3);
-        } else if (description.contains("/at")) {
-            int indexOfSeparator = description.indexOf("/at");
-             date = description.substring(indexOfSeparator + 3);
-        } else {
+            if (date.isEmpty()) {
+                System.out.println("     ☹ OOPS!!! Please enter a date");
+
+            }
+            break;
+        case "event":
+            indexOfSeparator = description.indexOf("/at");
+            date = description.substring(indexOfSeparator + 3);
+            if (date.isEmpty()) {
+                System.out.println("     ☹ OOPS!!! Please enter a date");
+            }
+            break;
+        default:
             date = null;
+            break;
         }
         return date;
     }
+
 
 }
