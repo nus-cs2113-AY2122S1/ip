@@ -6,4 +6,7 @@ done
 list
 done 1
 list
+done -
+done 0
+done 5
 bye
