@@ -34,7 +34,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString(){
-        String s = "[" + deadlineIcon() + "] " + "[" + super.completedTaskIcon() + "]" + super.taskName;
+        String s = "[" + deadlineIcon() + "] " + "[" + super.completedTaskIcon() + "]" + super.taskName + deadLine;
         return s;
     }
 }

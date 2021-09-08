@@ -35,7 +35,7 @@ public class Events extends Task{
     @Override
     public String toString(){
         String s = "[" + eventsIcon() + "] " + "[" + super.completedTaskIcon()
-                + "]" + super.taskName;
+                + "]" + super.taskName +"(" + eventDeadline + ")";
         return s;
     }
 }
