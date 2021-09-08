@@ -40,7 +40,8 @@ public class Duke {
                 try {
                     markAsDone(tasks, itemIndex, command);
                 } catch (NumberFormatException e) {
-                    System.out.println("Sir, I don't believe you provided me with an index number");
+                    System.out.println(LINE + System.lineSeparator() + "Sir, I don't believe you provided me with an index number"
+                            + System.lineSeparator() + LINE);
                 }
             } else if (command.equals("echo")) {
                 echoMode();
@@ -64,7 +65,8 @@ public class Duke {
                         System.out.println(error.getMessage());
                     }
                 } else {
-                    System.out.println("Apologies sir but, I don't recognize that protocol");
+                    System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol"
+                            + System.lineSeparator() + LINE);
                 }
             }
         }
@@ -79,11 +81,12 @@ public class Duke {
                     + System.lineSeparator() + LINE);
         }
         if (taskDescription.isBlank()) {
-            throw new DukeException("Sir, you haven't given me the name of the task");
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me the name of the task"
+                    + System.lineSeparator() + LINE);
         }
         tasks[itemIndex] = new Todo(command.substring(TODO_SIZE));
         itemIndex++;
-        printListSummary(itemIndex);
+        printListSummary();
     }
 
     private static void createDeadline(String command) throws DukeException{
@@ -100,12 +103,13 @@ public class Duke {
         try {
             taskDescription = command.substring(DEADLINE_SIZE, dashStart);
         } catch (Exception e){
-            throw new DukeException("Sir, I'm afraid that command is invalid. " + System.lineSeparator() +
-                    "Please frame your request in this format: deadline CS2113T Assg /by Wed 2359 hrs");
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, I'm afraid that command is invalid. "
+                    + System.lineSeparator() + "Please frame your request in this format: deadline CS2113T Assg /by Wed 2359 hrs"
+                    + System.lineSeparator() + LINE);
         }
         tasks[itemIndex] = new Deadline(command.substring(DEADLINE_SIZE, dashStart), dateOrTime);
         itemIndex++;
-        printListSummary(itemIndex);
+        printListSummary();
     }
 
     private static void createEvent(String command) throws DukeException {
@@ -115,17 +119,19 @@ public class Duke {
         try {
             dateOrTime = command.substring(dashStart + DASH_INDX);
         } catch (Exception e) {
-            throw new DukeException("Sir, you haven't given me a valid event date");
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me a valid event date"
+                    + System.lineSeparator() + LINE);
         }
         try {
             taskDescription = command.substring(EVENT_SIZE, dashStart);
         } catch (Exception e){
-            throw new DukeException("Sir, I'm afraid that command is invalid. " + System.lineSeparator() +
-                    "Please frame your request in this format: event My B'day /at 23/07/1999");
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, I'm afraid that command is invalid."
+                    + System.lineSeparator() + "Please frame your request in this format: event My B'day /at 23/07/1999"
+                    + System.lineSeparator() + LINE);
         }
         tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
         itemIndex++;
-        printListSummary(itemIndex);
+        printListSummary();
     }
 
     public static void printWelcome() {
@@ -144,7 +150,8 @@ public class Duke {
     }
 
     public static void printBye() {
-        System.out.println(LINE + System.lineSeparator() + "Affirmative sir, I'll shut down all operations" + LINE);
+        System.out.println(LINE + System.lineSeparator() + "Affirmative sir, I'll shut down all operations"
+                + System.lineSeparator() + LINE);
     }
 
     public static void printList(Task[] tasks) {
@@ -155,7 +162,7 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static void printListSummary(int itemIndex) {
+    public static void printListSummary() {
         System.out.println(LINE + System.lineSeparator() + "Will do sir, I've added: "
                     + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
         if (itemIndex == 1) {
