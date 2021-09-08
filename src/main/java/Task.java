@@ -2,8 +2,10 @@ public class Task {
 
     /* Description of task */
     protected String description;
+
     /* Status of task. Is completed when is true */
     protected boolean isDone;
+
     /* Type of task: T, D or E */
     protected char type;
 
