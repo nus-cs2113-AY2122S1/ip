@@ -1,3 +1,11 @@
 public class DukeEmptyDescriptionException extends Exception{
-    //No code here at the moment
+    private String typeOfTask;
+
+    public String getTypeOfTask() {
+        return typeOfTask;
+    }
+
+    public DukeEmptyDescriptionException(String typeOfTask) {
+        this.typeOfTask = typeOfTask;
+    }
 }

@@ -21,4 +21,4 @@ REM run the program, feed commands from input.txt file and redirect the output t
 java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
-REM FC ACTUAL.TXT EXPECTED.TXT
+FC ACTUAL.TXT EXPECTED.TXT

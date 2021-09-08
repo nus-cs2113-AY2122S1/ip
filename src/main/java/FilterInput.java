@@ -5,11 +5,11 @@ public class FilterInput {
      *
      * @param words String input by user.
      */
-    public static void checkCommand(String[] words) throws DukeEmptyDescriptionException, DukeUnrecognisedCommandException {
+    public static void checkCommand(String[] words) throws
+            DukeEmptyDescriptionException,
+            DukeUnrecognisedCommandException,
+            DukeEmptyTimeframeException {
         String[] descriptionInput = descriptionInput(words);
-        if (descriptionInput[0].equals("")) {
-            throw new DukeEmptyDescriptionException();
-        }
         switch (words[0]) {
         case "bye":
             Greet.printGoodbyeMessage();
@@ -18,27 +18,39 @@ public class FilterInput {
             Greet.printList();
             break;
         case "done":
+            checkDescription(words[0],descriptionInput);
             int taskNumber = Integer.parseInt(words[1]);
             //might need to catch errors in the future
             Greet.checkDoneTask(taskNumber);
             break;
         case "todo":
+            checkDescription(words[0],descriptionInput);
             Todo todo = new Todo(descriptionInput[0]);
             Greet.addTask(todo);
             break;
         case "deadline":
+            checkDescription(words[0],descriptionInput);
             Deadlines deadline = new Deadlines(descriptionInput[0], descriptionInput[1]);
             Greet.addTask(deadline);
             break;
         case "event":
+            checkDescription(words[0],descriptionInput);
             Event event = new Event(descriptionInput[0], descriptionInput[1]);
             Greet.addTask(event);
             break;
         default:
             throw new DukeUnrecognisedCommandException();
-//            System.out.println("invalid command");
-//            //command = command + in.nextLine();
-//            //Greet.addTask(command);
+        }
+    }
+
+    private static void checkDescription(String command, String[] descriptionInput) throws DukeEmptyDescriptionException {
+        if (descriptionInput[0].equals("")) {
+            throw new DukeEmptyDescriptionException(command);
+        }
+    }
+    private static void checkTimeframe(String[] descriptionInput) throws DukeEmptyTimeframeException {
+        if (descriptionInput[1].equals("")) {
+            throw new DukeEmptyTimeframeException();
         }
     }
 

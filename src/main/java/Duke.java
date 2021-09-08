@@ -20,9 +20,11 @@ public class Duke {
             try {
                 FilterInput.checkCommand(words);
             } catch(DukeEmptyDescriptionException e){
-                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                System.out.println("     ☹ OOPS!!! The description of a " + e.getTypeOfTask() + " cannot be empty.");
             } catch(DukeUnrecognisedCommandException e){
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }catch(DukeEmptyTimeframeException e){
+                System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what is the timeframe of this task :-(");
             }
             isConversation = !words[0].equals("bye");
         } while (isConversation);
