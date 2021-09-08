@@ -1,9 +1,9 @@
-package Duke;
+package duke;
 
-import Duke.Exceptions.EmptyDescriptionException;
-import Duke.Exceptions.EmptyTimeException;
-import Duke.Exceptions.IncompleteInformationException;
-import Duke.Exceptions.InvalidRequestException;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.EmptyTimeException;
+import duke.exceptions.IncompleteInformationException;
+import duke.exceptions.InvalidRequestException;
 
 public abstract class Request {
     private static final String BYE = "bye";
