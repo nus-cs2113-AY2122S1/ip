@@ -1,3 +1,5 @@
+package duke;
+
 public class ToDo extends Task{
 
     protected final static char LETTER = 'T';
