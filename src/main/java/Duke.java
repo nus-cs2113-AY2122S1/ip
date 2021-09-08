@@ -1,4 +1,4 @@
-import manager.MessageManager;
+import manager.ResponseManager;
 import manager.TaskManager;
 
 import java.util.Scanner;
@@ -6,13 +6,11 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        MessageManager.printWelcomeMessage();
+        ResponseManager.printWelcomeMessage();
 
         String rawUserInput;
         Scanner in = new Scanner(System.in);
         rawUserInput = in.nextLine().trim();
-
-
 
         while (!rawUserInput.equalsIgnoreCase("bye")) {
             taskManager.processInput(rawUserInput);
@@ -22,6 +20,6 @@ public class Duke {
         }
 
         //if bye is the input
-        MessageManager.printGoodByeMessage();
+        ResponseManager.printGoodByeMessage();
     }
 }
