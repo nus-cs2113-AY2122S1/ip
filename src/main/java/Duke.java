@@ -2,23 +2,38 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void done(String line, Task[] taskList) {
+    private static String[] stringList = new String[100];
+    private static Task[] taskList = new Task[100];
+    private static int listCount = 0;
+
+    private static final String LINE = "-------------------------------------------------------------------\n";
+    private static final String GREET_USER = "Hello! I'm Duke \nWhat can I do for you?";
+    private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+
+    private static void greetUser() {
+        System.out.println(GREET_USER + "\n \n" + LINE);
+    }
+
+    private static void markAsDone(String line) {
         String taskNumber = line.substring(5);
         int taskListElement = Integer.parseInt(taskNumber) - 1;
         taskList[taskListElement].markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("[X] " + taskList[taskListElement].getDescription());
+        System.out.println(LINE);
     }
 
-    private static void list(Task[] taskList, int listCount) {
+    private static void list() {
         int taskCount = 1;
         for (int i = 0; i < listCount; i++) {
             System.out.println(taskCount + "." + taskList[i]);
             taskCount++;
         }
+        System.out.println(LINE);
     }
 
-    private static Todo todo(String[] stringList, Task[] taskList, int listCount, String line) {
+    private static Todo todo(String line) {
+
         char taskType = line.toUpperCase().charAt(0);
         String taskDisplay = line.substring(5);
 
@@ -28,7 +43,7 @@ public class Duke {
         return todoTask;
     }
 
-    private static Deadline deadline(String[] stringList, Task[] taskList, int listCount, String line) {
+    private static Deadline deadline(String line) {
         int startingIndex = line.indexOf("/");
         String taskDisplay = line.substring(9, startingIndex);
         String doBy = "(" + line.substring(startingIndex + 1) + ")";
@@ -40,7 +55,7 @@ public class Duke {
         return deadlineTask;
     }
 
-    private static Event event(String[] stringList, Task[] taskList, int listCount, String line) {
+    private static Event event(String line) {
         int startingIndex = line.indexOf("/");
         String taskDisplay = line.substring(6, startingIndex);
         String doBy = "(" + line.substring(startingIndex + 1) + ")";
@@ -56,48 +71,74 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + listCount + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    private static void mainProgram(String line, Scanner in) {
+
+        try {
+            if (line.startsWith("done")) {
+                markAsDone(line);
+
+            } else if (line.equals("list")) {
+                list();
+
+            } else if (line.startsWith("todo")) {
+                try {
+                    Todo todoTask = todo(line);
+                    listCount++;
+                    printTask(todoTask, listCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("Please format your input as 'todo <task>'");
+                    System.out.println(LINE);
+                }
+
+            } else if (line.startsWith("deadline")) {
+                try {
+                    Deadline deadlineTask = deadline(line);
+                    listCount++;
+                    printTask(deadlineTask, listCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The format of deadline is wrong");
+                    System.out.println("Please format your input as 'deadline <task>/<due date>'");
+                    System.out.println(LINE);
+                }
+
+            } else if (line.startsWith("event")) {
+                try {
+                    Event eventTask = event(line);
+                    listCount++;
+                    printTask(eventTask, listCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The format of event is wrong");
+                    System.out.println("Please format your input as 'event <task>/<event date and time>'");
+                    System.out.println(LINE);
+                }
+
+            } else {
+                throw new InvalidCommandException();
+            }
+        } catch (InvalidCommandException e) {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println(LINE);
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-
-        String[] stringList = new String[100];
-        Task[] taskList = new Task[100];
-        int listCount = 0;
+        greetUser();
 
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            if (line.startsWith("done")) {
-                done(line, taskList);
-
-            } else if (line.equals("list")) {
-                list(taskList, listCount);
-
-            } else if (line.startsWith("todo")) {
-                Todo todoTask = todo(stringList, taskList, listCount, line);
-                listCount++;
-                printTask(todoTask, listCount);
-
-            } else if (line.startsWith("deadline")) {
-                Deadline deadlineTask = deadline(stringList, taskList, listCount, line);
-                listCount++;
-                printTask(deadlineTask, listCount);
-
-            } else if (line.startsWith("event")) {
-                Event eventTask = event(stringList, taskList, listCount, line);
-                listCount++;
-                printTask(eventTask, listCount);
-
-            } else {
-                System.out.println("Invalid command");
-            }
+            mainProgram(line, in);
             line = in.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!");
+
+        System.out.println(EXIT_MESSAGE);
+        System.out.println(LINE);
     }
 }
 
