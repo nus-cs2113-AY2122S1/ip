@@ -1,8 +1,12 @@
+package xRoss.task;
+
+import xRoss.exception.EmptyStringException;
+
 public class Deadline extends Task {
 
     protected String by;
 
-    public Deadline(String name, String by) throws EmptyStringException{
+    public Deadline(String name, String by) throws EmptyStringException {
         super(name);
         setBy(by);
     }
