@@ -1,43 +1,86 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
 public class Duke {
-    /** Number of tasks in the list */
-    private static int taskCount = 0;
-
     /** List of tasks */
-    private static Task[] tasks = new Task [100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
+    private final static String INVALID_COMMAND_MESSAGE = "Sorry. The command is invalid.";
 
     public static void main(String[] args) {
         printWelcomeMessage();
-        String line;
+        processCommand();
+        printByeMessage();
+    }
+
+    /**
+     * Processes each command input by the user
+     */
+    public static void processCommand() {
         Scanner in = new Scanner(System.in);
-        do {
-            line = (in.nextLine()).trim();
+        String line = in.nextLine();
+        while (!line.equals("bye")) {
             String[] inputs = line.split(" ", 2);
-            printActivatedStatement();
-            if (line.equals("bye")) {
-                printByeStatement();
-                continue;
-            } else if (line.equals("list")) {
-                printList();
-            } else if (inputs[0].equals("done")){
-                markAsDone(parseInt(inputs[1]));
-            } else if (line.equals("help")) {
-                printListOfCommands();
-            } else {
-                addTask(inputs);
+            inputs[0] = inputs[0].toLowerCase();
+            printActivatedMessage();
+            try {
+                switch (inputs[0]) {
+                case "list":
+                    printList(inputs);
+                    break;
+                case "help":
+                    printListOfCommands(inputs);
+                    break;
+                case "done":
+                    markAsDone(inputs);
+                    break;
+                default:
+                    addTask(inputs);
+                }
+            } catch (AustinException e) {
+                System.out.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("Sorry. The format of the task index is invalid");
             }
             printCompletionMessage();
-        } while (!line.equals("bye"));
+            line = in.nextLine();
+        }
+        printActivatedMessage();
+    }
+
+    /**
+     * Adds a task into the list based on the command
+     * @param inputs User's command to add the task
+     * @throws AustinException If the command is invalid
+     */
+    public static void addTask(String[] inputs) throws AustinException {
+        try {
+            switch (inputs[0]) {
+            case "todo":
+                addTodoTask(inputs);
+                break;
+            case "event":
+                addEventTask(inputs);
+                break;
+            case "deadline":
+                addDeadlineTask(inputs);
+                break;
+            default:
+                throw new AustinException(INVALID_COMMAND_MESSAGE);
+            }
+        } catch (AustinException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
      * Prints the logo and the welcome message at the start of the program.
      */
     public static void printWelcomeMessage() {
-        String logo = "        ___      __    __       _______.___________.__  .__   __.\n" +
+        String logo =
+                "        ___      __    __       _______.___________.__  .__   __.\n" +
                 "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
                 "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
                 "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
@@ -47,14 +90,13 @@ public class Duke {
         System.out.println("Hello! I'm Austin\n"
                 + "What can I do for you?\n"
                 + "In case, if you are unsure of any commands, please type \"help\".");
-
     }
 
     /**
      * Prints a goodbye message before the program ends.
      * This method is called once "bye" command is called.
      */
-    public static void printByeStatement() {
+    public static void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("___________________SHUTTING DOWN______________________");
     }
@@ -63,48 +105,66 @@ public class Duke {
      * Prints all the tasks in the list along with the category and status.
      * Error message is printed if there are no tasks in the list.
      * This method is executed once the "list" command is called.
+     *
+     * @param inputs Used to validate the command
+     * @throws AustinException If either there are no items in the list or if
+     *         there are additional keywords in the command
      */
-    public static void printList() {
-        if (taskCount == 0) {
-            System.out.println("No items were added into the list.");
-        } else {
-            System.out.println("Below are the list of tasks in your list:");
-            int i;
-            for (i = 0; i < taskCount; i++) {
-                System.out.print((i + 1) + ". ");
-                System.out.println(tasks[i].toString());
-            }
-            System.out.println("Currently, you have " + taskCount + " tasks in the list.");
+    public static void printList(String[] inputs) throws AustinException {
+        if (inputs.length > 1) {
+            // if the command does not contain extra characters or words
+            throw new AustinException(INVALID_COMMAND_MESSAGE);
         }
+        if (tasks.size() == 0) {
+            // if there are no items in the list
+            throw new AustinException("No items were added into the list.");
+        }
+        System.out.println("Below are the list of tasks in your list:");
+        int i;
+        for (i = 0; i < tasks.size(); i++) {
+            System.out.print((i + 1) + ". ");
+            System.out.println(tasks.get(i).toString());
+        }
+        System.out.println("Currently, you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
-     * Marks the status of a specific task as done by identifying the task index in the command.
-     * Error message is printed if the task index input is out of range.
+     * Marks the status of a specific task as done by identifying the task index
+     * in the command. Error message is printed if the task index input is out of range.
      *
-     * @param taskIndex User's command to mark the task as done
+     * @param inputs User's command to mark the specific task as done
+     * @throws AustinException If either the user didn't input the task index or
+     *         if the task number is out of range
+     * @throws NumberFormatException If the format of the task index is invalid
      */
-    public static void markAsDone(int taskIndex) {
-        if ((taskIndex >= taskCount) || (taskIndex < 0)){
-            // if the task is not assigned to the number given by the user
-            System.out.println("The task number is invalid.");
-        } else {
-            tasks[taskIndex].setDone(true);
-            System.out.println("Amazing! I have marked this task as done:");
-            System.out.println(tasks[taskIndex].toString());
+    private static void markAsDone(String[] inputs) throws AustinException, NumberFormatException {
+        if (inputs.length == 1) {
+            throw new AustinException("Sorry. The task index is missing.");
         }
+        int taskIndex = parseInt(inputs[1]) - 1;
+        if ((taskIndex >= tasks.size()) || (taskIndex < 0)){
+            // if the task index is out of range
+            throw new AustinException("Sorry. The task index given is out of range.");
+        }
+        tasks.get(taskIndex).setDone(true);
+        System.out.println("Amazing! I have marked this task as done:");
+        System.out.println(tasks.get(taskIndex).toString());
     }
 
     /**
      * Adds a todo task into the list.
      * This method is called once the "todo" command is called.
      *
-     * @param task User's command to add the todo task
+     * @param inputs User's command to add the todo task
+     * @throws AustinException If the task description is empty
      */
-    public static void addTodoTask(String task) {
+    private static void addTodoTask(String[] inputs) throws AustinException {
+        if (inputs.length == 1) {
+            throw new AustinException("Sorry. The description of todo cannot be empty.");
+        }
+        String task = inputs[1];
         Todo newTodo = new Todo(task);
-        tasks[taskCount] = newTodo;
-        taskCount++;
+        tasks.add(newTodo);
         printAddTaskMessage();
     }
 
@@ -113,18 +173,22 @@ public class Duke {
      * This method is called once the "event" command is called.
      * Error message is printed if the format of the command is invalid.
      *
-     * @param task User's command to add the event task
+     * @param inputs User's command to add the event task
+     * @throws AustinException If either the task description is empty or
+     *         if the format of the command is invalid
      */
-    public static void addEventTask(String task) {
-        if (task.contains("\\at")) {
-            int index = task.indexOf("\\");
-            Event newEvent = new Event(task.substring(0, index), task.substring(index + 1));
-            tasks[taskCount] = newEvent;
-            taskCount++;
-            printAddTaskMessage();
-        } else {
-            printInvalidCommandMessage();
+    private static void addEventTask(String[] inputs) throws AustinException {
+        if (inputs.length == 1) {
+            throw new AustinException("Sorry. The description of event cannot be empty.");
         }
+        String task = inputs[1];
+        if (!(task.contains("|"))) {
+            throw new AustinException("Sorry. The format of calling event command is invalid.");
+        }
+        int index = task.indexOf("|");
+        Event newEvent = new Event(task.substring(0, index), task.substring(index + 1));
+        tasks.add(newEvent);
+        printAddTaskMessage();
     }
 
     /**
@@ -132,18 +196,22 @@ public class Duke {
      * This method is called once the "deadline" command is called.
      * Error message is printed if the format of the command is invalid.
      *
-     * @param task User's command to add the deadline task
+     * @param inputs User's command to add the deadline task
+     * @throws AustinException If either the task description is empty or
+     *         if the format of the command is invalid
      */
-    public static void addDeadlineTask(String task) {
-        if (task.contains("\\by")) {
-            int index = task.indexOf("\\");
-            Deadline newDeadline = new Deadline(task.substring(0, index), task.substring(index + 1));
-            tasks[taskCount] = newDeadline;
-            taskCount++;
-            printAddTaskMessage();
-        } else {
-            printInvalidCommandMessage();
+    private static void addDeadlineTask(String[] inputs) throws AustinException {
+        if (inputs.length == 1) {
+            throw new AustinException("Sorry. The description of deadline cannot be empty.");
         }
+        String task = inputs[1];
+        if (!(task.contains("|"))) {
+            throw new AustinException("Sorry. The format of calling deadline command is invalid.");
+        }
+        int index = task.indexOf("|");
+        Deadline newDeadline = new Deadline(task.substring(0, index), task.substring(index + 1));
+        tasks.add(newDeadline);
+        printAddTaskMessage();
     }
 
     /**
@@ -151,52 +219,36 @@ public class Duke {
      */
     public static void printAddTaskMessage() {
         System.out.println("Noted. I have successfully added this task:");
-        System.out.println(tasks[taskCount - 1].toString());
-        System.out.println("Now, you have " + taskCount + " tasks in the list.");
-    }
-
-    /**
-     * Calls specific methods to add tasks of specific category based on the input command.
-     * Error message is printed if the command does not exist.
-     *
-     * @param inputs User's command to add the task or if the command is invalid
-     */
-    public static void addTask(String[] inputs) {
-        switch (inputs[0]) {
-        case "todo":
-            addTodoTask(inputs[1]);
-            break;
-        case "event":
-            addEventTask(inputs[1]);
-            break;
-        case "deadline":
-            addDeadlineTask(inputs[1]);
-            break;
-        default:
-            printInvalidCommandMessage();
-        }
+        System.out.println(tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now, you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
      * Prints the message once the command is called.
      */
-    public static void printActivatedStatement() {
+    public static void printActivatedMessage() {
         System.out.println("___________________COMMAND ACTIVATED__________________");
     }
 
     /**
      * Prints the list of commands along with their description and format.
      * This method is called once the "help" command is called.
+     *
+     * @param inputs Validate the command
+     * @throws AustinException If there are additional keywords
      */
-    public static void printListOfCommands() {
+    public static void printListOfCommands(String[] inputs) throws AustinException {
+        if (inputs.length > 1) {
+            throw new AustinException(INVALID_COMMAND_MESSAGE);
+        }
         System.out.println("todo: Adds a todo task into the list.\n" +
                 "      Format: todo <task_description>\n");
         System.out.println("event: Adds a event task into the list. " +
                 "The event date and time description is also needed while creating this task.\n" +
-                "      Format: event <task_description> \\at <date_and_time_information>\n");
+                "      Format: event <task_description> | <date_and_time_information>\n");
         System.out.println("deadline: Adds a task which has a deadline into the list. " +
                 "The deadline date and time information is also needed while creating this task.\n" +
-                "      Format: deadline <task_description> \\by <date_and_time_information>\n");
+                "      Format: deadline <task_description> | <date_and_time_information>\n");
         System.out.println("done: Marks a specific task as done.\n" +
                 "      Format: done <task_id>\n");
         System.out.println("list: Prints all the tasks along with the status of each task.\n" +
@@ -205,13 +257,6 @@ public class Duke {
                 "      Format: bye\n");
         System.out.println("help: Prints a list of commands.\n" +
                 "      Format: help");
-    }
-
-    /**
-     * Prints out the error message when the command called is invalid.
-     */
-    public static void printInvalidCommandMessage() {
-        System.out.println("Sorry. The command given is invalid.");
     }
 
     /**
