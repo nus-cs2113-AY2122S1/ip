@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * This is the main class of the chat bot app that helps user remember their different
+ * This is the main class of the chat-bot app that helps user remember their different
  * types of task and "parrot" the task back to them when they request.
  *
  * @author YEOWEIHNGWHYELAB
@@ -166,7 +166,7 @@ public class Duke {
     }
 
     /**
-     * Main method of the chat bot app.
+     * Main method of the chat-bot app.
      */
     public static void main(String[] args) {
         String userInputString;
@@ -174,7 +174,7 @@ public class Duke {
 
         /**
          * Prints a "Dukey", "Parrot", "Hello" message sequentially
-         * when the user first initialize the chat bot.
+         * when the user first initialize the chat-bot.
          */
         printDukeyText.printText();
         wait(500);
