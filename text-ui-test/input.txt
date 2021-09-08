@@ -17,4 +17,5 @@ deadline /by 15Aug
 event /at
 event anime /at
 event /at 6pm
+event watch show /at 6pm
 bye
