@@ -70,11 +70,11 @@ public class Duke {
 
     /*MAIN*/
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
         printStartMessage();
 
-        String input;
+        String input, error;
         Scanner in = new Scanner(System.in);
 
         Task t;
@@ -100,14 +100,21 @@ public class Duke {
                 printDoneTask(tasks[index - 1]);
 
             } else if (input.contains("todo")) { //task is a todo
-                String description = input.substring(5);
-                t = new Todo(description);
+                String description = input.substring(4).trim();
 
-                addTask(t);
+                if (description.isEmpty()) {
+                    error = "toDoDescriptionEmptyException";
+                    throw new DukeException(error);
+
+                }else{
+                    t = new Todo(description);
+                    addTask(t);
+                }
+
 
             } else if (input.contains("deadline")) { //task is a deadline
                 int slash = input.indexOf("/");
-                String description = input.substring(8, slash);
+                String description = input.substring(9, slash);
                 String by = input.substring(slash + 4);
                 t = new Deadline(description, by);
 
@@ -121,10 +128,12 @@ public class Duke {
 
                 addTask(t);
 
-            } else { //basic task
-                t = new Task(input);
+            } else {//basic task
+//                t = new Task(input);
+//                addTask(t);
 
-                addTask(t);
+                error = "unrecognisedTask";
+                throw new DukeException("unrecognisedTask");
             }
         }
     }
