@@ -1,6 +1,13 @@
 
 
 import java.util.Scanner;
+import duke.task.Todo;
+import duke.task.Task;
+import duke.task.TestTask;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.exception.DukeException;
+
 
 public class Duke {
     static int listLength = 0;
