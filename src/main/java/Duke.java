@@ -13,11 +13,11 @@ public class Duke {
         printWelcome(logo, line);
         String[] arrayInput = new String[100];
         int[] taskStatus = new int[100];
-        InitiateStatus(taskStatus);
+        initiateStatus(taskStatus);
         checkCommand(taskStatus, arrayInput);
     }
 
-    private static void InitiateStatus(int[] taskStatus) {
+    private static void initiateStatus(int[] taskStatus) {
         for (int i = 0; i < 100; i++) {
             taskStatus[i] = 0;        //No "X" in output
         }
@@ -29,6 +29,32 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(line);
+    }
+    public static boolean checkTodo(String userCommand) {
+        boolean isInvalidTodo = true;
+        if(userCommand.length() <= 5) {
+            return isInvalidTodo;
+        } else {
+            return !isInvalidTodo;
+        }
+    }
+
+    public static boolean checkDeadline(String userCommand) {
+        boolean isInvalidDeadline = true;
+        if(userCommand.length() <= 9) {
+            return isInvalidDeadline;
+        } else {
+            return !isInvalidDeadline;
+        }
+    }
+
+    public static boolean checkEvent(String userCommand) {
+        boolean isInvalidEvent = true;
+        if(userCommand.length() <= 6) {
+            return isInvalidEvent;
+        } else {
+            return !isInvalidEvent;
+        }
     }
 
     public static void checkCommand(int[] taskStatus, String[] arrayInput) {
@@ -48,20 +74,44 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
+                if(checkTodo(userCommand)) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(line);
+                    userCommand = userInput.nextLine();
+                    continue;
+                }
                 inputCount = printTodo(arrayInput, userCommand, inputCount);
                 taskType[inputCount - 1] = "T";
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("deadline")) {
+                if(checkDeadline(userCommand)) {
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    System.out.println(line);
+                    userCommand = userInput.nextLine();
+                    continue;
+                }
                 inputCount = printDeadline(arrayInput, userCommand, inputCount);
                 taskType[inputCount - 1] = "D";
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("event")) {
+                if(checkEvent(userCommand)) {
+                    System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+                    System.out.println(line);
+                    userCommand = userInput.nextLine();
+                    continue;
+                }
                 inputCount = printEvent(arrayInput, userCommand, inputCount);
                 taskType[inputCount - 1] = "E";
                 userCommand = userInput.nextLine();
                 continue;
+            } else if(!userCommand.equals("bye")) {
+                printInvalid();
+                System.out.println(line);
+                userCommand = userInput.nextLine();
+                continue;
+
             }
             inputCount = printUpdate(arrayInput, userCommand, inputCount);
             userCommand = userInput.nextLine();
@@ -70,6 +120,10 @@ public class Duke {
         if (userCommand.equals("bye")) {
             printBye();
         }
+    }
+
+    public static void printInvalid() {
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     private static int printEvent(String[] arrayInput, String userCommand, int inputCount) {
@@ -152,9 +206,9 @@ public class Duke {
 
         for (int i = 1; i <= inputCount; i++) {
             if (taskStatus[i - 1] == 1) {
-                System.out.println(i + ".[" + taskType[i - 1] + "]" + "[X]" + arrayInput[i - 1]);
+                System.out.println(i + ".[" + taskType[i - 1] + "]" + "[X] " + arrayInput[i - 1]);
             } else {
-                System.out.println(i + ".[" + taskType[i - 1] + "]" + "[ ]" + arrayInput[i - 1]);
+                System.out.println(i + ".[" + taskType[i - 1] + "]" + "[ ] " + arrayInput[i - 1]);
             }
         }
         System.out.println(line);
