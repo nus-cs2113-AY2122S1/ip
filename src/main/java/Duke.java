@@ -44,7 +44,7 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidParameterException, InvalidCommandException {
 
         // Print welcome message to user
         printMessage(WELCOME_MESSAGE);
@@ -89,9 +89,7 @@ public class Duke {
                 default:
                     throw new InvalidCommandException("Invalid Command Given.\n" + HELP_MESSAGE);
                 }
-            } catch (InvalidCommandException e){
-                printMessage(e.getMessage());
-            } catch (InvalidParameterException e){
+            } catch (InvalidCommandException e) {
                 printMessage(e.getMessage());
             }
         }

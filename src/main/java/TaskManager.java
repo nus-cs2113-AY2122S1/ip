@@ -41,12 +41,12 @@ public class TaskManager {
      * Creates a new task based on type given
      *
      * @param userParameter Description of task and its parameter given by user
-     * @param type         type of task
+     * @param type          type of task
      * @return return task
-     * @throws InvalidParameterException If deadline/event task do not have the corresponding regax such as /by and
-     * /at or when no description is given after the regax
+     * @throws InvalidParameterException If deadline/event task do not have the corresponding regax such as /by and /at
+     *                                   or when no description is given after the regax
      */
-    public Task createTask(String userParameter, char type) throws InvalidParameterException{
+    public Task createTask(String userParameter, char type) throws InvalidParameterException {
         Task task = null;
         String[] userArguments = null;
         boolean regexNotFound = false;
@@ -82,41 +82,45 @@ public class TaskManager {
      * Adds a newly created task with given task description and type to tasks list
      *
      * @param userInputArray Command and parameters given by user
-     * @param type         Type of task given by user input
-     * @throws InvalidParameterException If missing description or description with only spaces
+     * @param type           Type of task given by user input
      */
-    public void addTask(String[] userInputArray, TaskType type) throws InvalidParameterException{
+    public void addTask(String[] userInputArray, TaskType type) {
 
         // Check for empty description
-        try{
+        try {
             boolean emptyDescription = userInputArray[1].isBlank();
             if (emptyDescription) {
-                throw new InvalidParameterException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                Duke.printMessage(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                return;
             }
-        } catch (IndexOutOfBoundsException e){
-            throw new InvalidParameterException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+
+            // Create task
+            Task task = null;
+            switch (type) {
+            case TODO:
+                task = createTask(userInputArray[1], CHAR_TYPE_TODO);
+                break;
+            case EVENT:
+                task = createTask(userInputArray[1], CHAR_TYPE_EVENT);
+                break;
+            case DEADLINE:
+                task = createTask(userInputArray[1], CHAR_TYPE_DEADLINE);
+                break;
+            }
+
+            // As long as task is valid, add to task list and inform user
+            if (task != null) {
+                tasksList.add(task);
+                Duke.printMessage(String.format("Gaben have seen and will add the following task for you:\n" +
+                        "%s\n" + "You now have %d task in the list", task, tasksList.size()));
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+            Duke.printMessage(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+        } catch (InvalidParameterException e) {
+            Duke.printMessage(e.getMessage());
         }
 
-        // Create task
-        Task task = null;
-        switch (type) {
-        case TODO:
-            task = createTask(userInputArray[1], CHAR_TYPE_TODO);
-            break;
-        case EVENT:
-            task = createTask(userInputArray[1], CHAR_TYPE_EVENT);
-            break;
-        case DEADLINE:
-            task = createTask(userInputArray[1], CHAR_TYPE_DEADLINE);
-            break;
-        }
-
-        // As long as task is valid, add to task list and inform user
-        if (task != null) {
-            tasksList.add(task);
-            Duke.printMessage(String.format("Gaben have seen and will add the following task for you:\n" +
-                    "%s\n" + "You now have %d task in the list", task, tasksList.size()));
-        }
     }
 
     /**
@@ -142,28 +146,52 @@ public class TaskManager {
     }
 
     /**
+     * Check for valid number
+     *
+     * @param number Number given by user
+     * @return Integer value of the number given in string
+     * @throws InvalidParameterException If number is not able to be converted to int
+     */
+    public int stringToInteger(String number) throws InvalidParameterException {
+        try {
+            int taskNumber = Integer.parseInt(number);
+            return taskNumber;
+        } catch (NumberFormatException e) {
+            throw new InvalidParameterException(TASK_NUMBER_NOT_VALID_MESSAGE);
+        }
+    }
+
+    /**
+     * Check if task exist
+     *
+     * @param taskNumber Task Number given by user
+     * @return Corresponding task index fpr task number
+     * @throws InvalidParameterException If task index does not exist in the current task list
+     */
+    public int checkTaskExist(int taskNumber) throws InvalidParameterException {
+        boolean isNotWithinSizeLimit = taskNumber < 1 || taskNumber > tasksList.size();
+        if (isNotWithinSizeLimit) {
+            throw new InvalidParameterException(TASK_DOES_NOT_EXIST_MESSAGE);
+        }
+        return taskNumber - 1;
+    }
+
+    /**
      * Set the task to be completed by marking it done.
      *
      * @param userInputArray Command and parameters given by user
-     * @throws InvalidParameterException If invalid number is given or when task index is out of range
      */
-    public void completeTask(String[] userInputArray) throws InvalidParameterException{
-        // Initialized task number index to match task array list
+    public void completeTask(String[] userInputArray) {
         try {
-            int taskNumber = Integer.parseInt(userInputArray[1]);
-            int taskNumberIndex = taskNumber - 1;
-            boolean isWithinSizeLimit = taskNumber < 1 || taskNumber > tasksList.size();
-            if (isWithinSizeLimit) {
-                throw new InvalidParameterException(TASK_DOES_NOT_EXIST_MESSAGE);
-            } else {
-                Task task = tasksList.get(taskNumberIndex);
-                task.markAsDone();
-                Duke.printMessage("Good lad, you have finally completed the task you needed to do.\n" + task.toString());
-            }
-        } catch (NumberFormatException e){
-            throw new InvalidParameterException(TASK_NUMBER_NOT_VALID_MESSAGE);
-        } catch (IndexOutOfBoundsException e){
-            throw new InvalidParameterException(TASK_NUMBER_MISSING_MESSAGE);
+            int taskNumber = stringToInteger(userInputArray[1]);
+            int taskNumberIndex = checkTaskExist(taskNumber);
+            Task task = tasksList.get(taskNumberIndex);
+            task.markAsDone();
+            Duke.printMessage("Good lad, you have finally completed the task you needed to do.\n" + task);
+        } catch (InvalidParameterException e) {
+            Duke.printMessage(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            Duke.printMessage(TASK_NUMBER_MISSING_MESSAGE);
         }
 
     }
