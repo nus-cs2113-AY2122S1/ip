@@ -5,8 +5,11 @@ public class FilterInput {
      *
      * @param words String input by user.
      */
-    public static void checkCommand(String[] words) {
+    public static void checkCommand(String[] words) throws DukeEmptyDescriptionException, DukeUnrecognisedCommandException {
         String[] descriptionInput = descriptionInput(words);
+        if (descriptionInput[0].equals("")) {
+            throw new DukeEmptyDescriptionException();
+        }
         switch (words[0]) {
         case "bye":
             Greet.printGoodbyeMessage();
@@ -32,9 +35,10 @@ public class FilterInput {
             Greet.addTask(event);
             break;
         default:
-            System.out.println("invalid command");
-            //command = command + in.nextLine();
-            //Greet.addTask(command);
+            throw new DukeUnrecognisedCommandException();
+//            System.out.println("invalid command");
+//            //command = command + in.nextLine();
+//            //Greet.addTask(command);
         }
     }
 

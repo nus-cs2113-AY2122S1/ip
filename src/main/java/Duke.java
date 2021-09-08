@@ -17,7 +17,13 @@ public class Duke {
         do {
             input = in.nextLine();
             String[] words = input.split(" ");
-            FilterInput.checkCommand(words);
+            try {
+                FilterInput.checkCommand(words);
+            } catch(DukeEmptyDescriptionException e){
+                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            } catch(DukeUnrecognisedCommandException e){
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
             isConversation = !words[0].equals("bye");
         } while (isConversation);
 
