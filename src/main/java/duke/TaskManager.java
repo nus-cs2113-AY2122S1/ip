@@ -1,3 +1,5 @@
+package duke;
+
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     private Task[] tasks = new Task[MAX_TASKS];

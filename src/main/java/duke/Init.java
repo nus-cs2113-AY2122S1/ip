@@ -1,3 +1,5 @@
+package duke;
+
 public class Init {
     //greetings
     public static void greet(){

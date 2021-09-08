@@ -1,3 +1,6 @@
+package duke;
+import duke.Task;
+
 public class Event extends Task {
     public static final String MARK_IS_EVENT = "[E]";
     public Event(String event){

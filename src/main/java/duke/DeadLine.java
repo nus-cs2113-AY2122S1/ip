@@ -1,3 +1,5 @@
+package duke;
+
 public class DeadLine extends Task {
     public static final String MARK_HAS_DEADLINE = "[D]";
     public DeadLine(String deadline) {
@@ -11,10 +13,10 @@ public class DeadLine extends Task {
         String[] deadlineSplit = deadlineContent.split(" ", 2);
         String deadline = deadlineSplit[1].trim();
         if(isDone){
-            return MARK_HAS_DEADLINE + MARK_AS_DONE + " " + taskContent +  " (by: " + deadline + ")";
+            return MARK_HAS_DEADLINE + Task.MARK_AS_DONE + " " + taskContent +  " (by: " + deadline + ")";
         }
         else{
-            return MARK_HAS_DEADLINE + MARK_AS_NOT_DONE + " " + taskContent +  " (by: " + deadline + ")";
+            return MARK_HAS_DEADLINE + Task.MARK_AS_NOT_DONE + " " + taskContent +  " (by: " + deadline + ")";
         }
     }
 
