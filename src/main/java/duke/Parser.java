@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDos;
+
 public class Parser {
     static private final String COMMAND_LIST = "list";
     static private final String COMMAND_TODO = "todo";
