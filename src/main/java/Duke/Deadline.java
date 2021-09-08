@@ -18,6 +18,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString(){
-        return super.toString() + String.format("(%s)",this.getBy());
+        return super.toString() + String.format(" (%s)",this.getBy());
     }
 }

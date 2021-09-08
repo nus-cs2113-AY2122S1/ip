@@ -13,6 +13,7 @@ public abstract class Request {
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
     private static final String INVALID_REQUEST = "invalid";
+    public static final int TIME_INFO_START_INDEX = 1;
 
     //assumes spelling is correct
     public static boolean isBye(String request) {
@@ -70,9 +71,7 @@ public abstract class Request {
     private static Task buildEvent(String request) throws Exception {
         try {
             String at = getTime(request);
-            System.out.println("at" + at);
             String description = getDescription(request);
-            System.out.println("description" + description);
             return new Event(description, at);
         } catch (Exception ex) {
             String errorType = ex instanceof EmptyTimeException ? "time" : "description";
@@ -94,7 +93,7 @@ public abstract class Request {
     private static String getTime(String request) throws EmptyTimeException{
         try {
             int timeIndex = request.indexOf("/");
-            return request.substring(timeIndex);
+            return request.substring(timeIndex + TIME_INFO_START_INDEX);
         } catch (Exception e) {
             throw new EmptyTimeException();
         }
