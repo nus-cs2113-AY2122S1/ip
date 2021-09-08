@@ -34,6 +34,11 @@ public class TaskManager {
         System.out.println(tasks.get(index));
     }
 
+    private static void deleteTaskMessage(int index) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(index));
+        System.out.println("Now you have " + taskCount + " tasks in the list");
+    }
 
     private static void taskDone(String userInput) throws DukeException {
         String[] params = userInput.split(" ", 2);
@@ -44,6 +49,19 @@ public class TaskManager {
         int index = Integer.parseInt(position) - 1;
         tasks.get(index).markAsDone();
         markAsDoneMessage(index);
+        printDivider();
+    }
+
+    private static void deleteTask(String userInput) throws DukeException {
+        String[] params = userInput.split(" ", 2);
+        if (params.length < 2) {
+            throw new DukeException();
+        }
+        String position = params[1];
+        int index = Integer.parseInt(position) - 1;
+        taskCount--;
+        deleteTaskMessage(index);
+        tasks.remove(index);
         printDivider();
     }
 
@@ -129,6 +147,9 @@ public class TaskManager {
             //fallthrough
             case "DONE":
                 taskDone(userInput);
+                break;
+            case "DELETE":
+                deleteTask(userInput);
                 break;
             default:
                 throw new InvalidCommandException(); //if user input is not any of the commands

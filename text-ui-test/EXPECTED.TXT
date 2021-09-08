@@ -5,19 +5,26 @@ Got it. I've added this task:
 Now you have 1 task in the list
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] coding (by: 11 Sept)
+[D][ ] return book (by: June 6th)
 Now you have 2 tasks in the list
 ____________________________________________________________
-☹ OOPS!!! I do not understand what that means!
-____________________________________________________________
-☹ OOPS!!! The description of a todo cannot be empty
-____________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] read book
-2.[D][ ] coding (by: 11 Sept)
+☹ OOPS!!! You've forgotten to write the task number
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][?] read book
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][?] read book
+2.[D][ ] return book (by: June 6th)
+____________________________________________________________
+Noted. I've removed this task:
+[D][ ] return book (by: June 6th)
+Now you have 1 tasks in the list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][?] read book
+____________________________________________________________
+☹ OOPS!!! I do not understand what that means!
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

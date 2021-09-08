@@ -1,7 +1,9 @@
 todo read book
-deadline coding /by 11 Sept
-bleh
-todo
-list
+deadline return book /by June 6th
+done
 done 1
+list
+delete 2
+list
+bleh
 bye
