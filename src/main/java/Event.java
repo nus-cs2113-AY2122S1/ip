@@ -8,12 +8,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
-    }
-
-    @Override
-    public String doneToString() {
-        return "[E]" + super.doneToString() + " (at: " + at + ")";
+    public String toString(boolean isDone) {
+        return "[E]" + super.toString(isDone) + " (at: " + at + ")";
     }
 }

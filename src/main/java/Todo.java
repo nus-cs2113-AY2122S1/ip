@@ -5,12 +5,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-
-    @Override
-    public String doneToString() {
-        return "[T]" + super.doneToString();
+    public String toString(boolean isDone) {
+        return "[T]" + super.toString(isDone);
     }
 }

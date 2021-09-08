@@ -6,11 +6,13 @@ public class Task {
         this.description = description;
     }
 
-    public String toString() {
-        return "[ ] " + description;
-    }
-
-    public String doneToString() {
-        return "[X] " + description;
+    public String toString(boolean isDone) {
+        String doneSymbol;
+        if (isDone) {
+            doneSymbol = "X";
+        } else {
+            doneSymbol = " ";
+        }
+        return "[" + doneSymbol + "] " + description;
     }
 }
