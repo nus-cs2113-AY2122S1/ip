@@ -1,5 +1,7 @@
+package austin;
+
 public class Event extends Task {
-    /** Event date and time*/
+    /** austin.Event date and time*/
     protected String at;
 
     public Event(String description, String at) {

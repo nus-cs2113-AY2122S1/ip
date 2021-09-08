@@ -1,3 +1,5 @@
+package austin;
+
 public class AustinException extends Exception {
     protected String message;
 

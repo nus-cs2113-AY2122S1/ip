@@ -1,5 +1,7 @@
+package austin;
+
 public class Deadline extends Task {
-    /** Deadline date and time */
+    /** austin.Deadline date and time */
     protected String by;
 
     public Deadline(String description, String by) {

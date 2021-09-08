@@ -1,3 +1,8 @@
+package austin;
+
+import austin.AustinException;
+import austin.Deadline;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
