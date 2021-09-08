@@ -1,12 +1,11 @@
 import java.util.Scanner;
 
-
 public class Duke {
+
     private static Scanner in = new Scanner(System.in);
-    static final int MAX_SIZE = 100;
 
     private static String lineInput = "";
-    private static Task[] taskList = new Task[MAX_SIZE];
+    private static Task[] taskList = new Task[100];
     private static int tasksCount = 0;
 
     public static void addTask(Task t){
@@ -28,7 +27,7 @@ public class Duke {
         }
     }
 
-    private static void markTaskDone(int index) {
+    private static void showTaskDone(int index) {
         taskList[index].markDone();
         Task currTask = taskList[index];
         System.out.println((index + 1) + ". " + currTask);
@@ -56,61 +55,39 @@ public class Duke {
 
         while (!lineInput.equals("bye")) {
             printBorder();
-            String[] inputArray = lineInput.split(" ", 2);
-            String inputCommand = inputArray[0];
-            String inputAction = null;
-            if (inputArray.length > 1){
-                inputAction = inputArray[1];
+            String[] InputArray = lineInput.split(" ", 2);
+            String InputCommand = InputArray[0];
+            String InputAction = null;
+            if (InputArray.length > 1){
+                InputAction = InputArray[1];
             }
 
-            switch(inputCommand){
-                case "":
-                    break;
+            switch(InputCommand){
                 case "list":
                     listTasks();
                     break;
                 case "done":
-                    markTaskDone(Integer.parseInt(inputAction) - 1);
+                    showTaskDone(Integer.parseInt(InputAction) - 1);
                     break;
                 case "todo":
-                    try {
-                        Todo newTodo = new Todo(inputAction);
-                        addTask(newTodo);
-                    }
-                    catch (NullPointerException e){
-                        System.out.println("INVALID: Empty 'todo' input");
-                    }
+                    Todo newTodo = new Todo(InputCommand);
+                    addTask(newTodo);
                     break;
                 case "deadline":
-                    try {
-                        String DeadlineToDo = inputAction.split("/", 2)[0];
-                        String dueDate = inputAction.split("/by", 2)[1];
-                        Deadline newDeadline = new Deadline(DeadlineToDo, dueDate);
-                        addTask(newDeadline);
-                    }
-                    catch (NullPointerException e){
-                        System.out.println("INVALID: Empty 'deadline' description");
-                    }
-                    catch (IndexOutOfBoundsException e){
-                        System.out.println("INVALID: Insufficient 'deadline' description or time");
-                    }
+                    String DeadlineToDo = InputAction.split("/", 2)[0];
+                    String dueDate = InputAction.split("/by", 2)[1];
+                    Deadline newDeadline = new Deadline(DeadlineToDo, dueDate);
+                    addTask(newDeadline);
                     break;
                 case "event":
-                    try {
-                        String EventToDo = inputAction.split("/", 2)[0];
-                        String dueTime = inputAction.split("/at", 2)[1];
-                        Event newEvent = new Event(EventToDo, dueTime);
-                        addTask(newEvent);
-                    }
-                    catch (NullPointerException e){
-                    System.out.println("INVALID: Empty 'event' description");
-                }
-                    catch (IndexOutOfBoundsException e){
-                    System.out.println("INVALID: Insufficient 'event' description or time");
-                }
+                    String EventToDo = InputAction.split("/", 2)[0];
+                    String dueTime = InputAction.split("/at", 2)[1];
+                    Event newEvent = new Event(EventToDo, dueTime);
+                    addTask(newEvent);
                     break;
                 default:
-                    System.out.println("INVALID: Invalid command");
+                    Task newTask = new Task(InputCommand);
+                    addTask(newTask);
                     break;
             }
             printBorder();
@@ -120,5 +97,4 @@ public class Duke {
         System.out.println(exit);
         printBorder();
     }
-
 }
