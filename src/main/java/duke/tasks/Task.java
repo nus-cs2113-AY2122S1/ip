@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +19,10 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     @Override
