@@ -1,3 +1,7 @@
+package duke;
+
+import duke.Task;
+
 public class ToDo extends Task {
     public static final String MARK_TO_DO = "[T]";
     public ToDo(String todo){

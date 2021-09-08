@@ -1,3 +1,5 @@
+package duke;
+
 public class Task {
     public static final int TASK_CONTENT_POSITION = 1;
     protected String task;
