@@ -2,18 +2,13 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____\n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        int taskNum = 0;
-        String userCommand;
-        Task[] tasks = new Task[100];
-        Scanner userType = new Scanner(System.in);
 
+    public static int taskNum = 0;
+    public static Task[] tasks = new Task[100];
+
+    public static void main(String[] args) {
+        String userCommand;
+        Scanner userType = new Scanner(System.in);
         greet();
         do {
             // Read in the keyboard input from user, and refer to different conditions
@@ -26,32 +21,14 @@ public class Duke {
                 int id = Integer.parseInt(userCommand.substring(5));
                 taskDone(tasks[id - 1]);
             } else if (userCommand.startsWith("todo")) {
-                int contentStart = 5;
-                String description = userCommand.substring(contentStart);
-                tasks[taskNum] = new Todo(description);
-                taskNum++;
-                printTotalNumOfTasks(tasks, taskNum);
+                addTodo(userCommand);
             } else if (userCommand.startsWith("event")) {
-                int contentStart = 6;
-                int contentEnd = userCommand.indexOf("/at") - 1;
-                int atStart = userCommand.indexOf("/at") + 4;
-                String description = userCommand.substring(contentStart, contentEnd);
-                String at = userCommand.substring(atStart);
-                tasks[taskNum] = new Event(description, at);
-                taskNum++;
-                printTotalNumOfTasks(tasks, taskNum);
+                addEvent(userCommand);
             } else if (userCommand.startsWith("deadline")) {
-                int contentStart = 9;
-                int contentEnd = userCommand.indexOf("/by") - 1;
-                int byStart = userCommand.indexOf("/by") + 4;
-                String description = userCommand.substring(contentStart, contentEnd);
-                String by = userCommand.substring(byStart);
-                tasks[taskNum] = new Deadline(description, by);
-                taskNum++;
-                printTotalNumOfTasks(tasks, taskNum);
+                addDeadline(userCommand);
             } else {
                 printSign();
-                System.out.println("invalid command");
+                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 printSign();
             }
         } while (!Objects.equals(userCommand, "bye"));
@@ -60,10 +37,67 @@ public class Duke {
 
     public static void greet() {
         // the function is used to greet user in the very first beginning
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____\n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
         printSign();
         System.out.println("Hello! I'm Duke\n");
         System.out.println("What can I do for you?\n");
         printSign();
+    }
+
+    public static void addTodo(String userCommand) {
+        try {
+            int contentStart = 5;
+            String description = userCommand.substring(contentStart);
+            tasks[taskNum] = new Todo(description);
+            taskNum++;
+            printTotalNumOfTasks(tasks, taskNum);
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            printSign();
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            printSign();
+        }
+    }
+
+    public static void addEvent(String userCommand) {
+        try {
+            int contentStart = 6;
+            int contentEnd = userCommand.indexOf("/at") - 1;
+            int atStart = userCommand.indexOf("/at") + 4;
+            String description = userCommand.substring(contentStart, contentEnd);
+            String at = userCommand.substring(atStart);
+            tasks[taskNum] = new Event(description, at);
+            taskNum++;
+            printTotalNumOfTasks(tasks, taskNum);
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            printSign();
+            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+            printSign();
+        }
+    }
+
+    public static void addDeadline(String userCommand) {
+        try {
+            int contentStart = 9;
+            int contentEnd = userCommand.indexOf("/by") - 1;
+            int byStart = userCommand.indexOf("/by") + 4;
+            String description = userCommand.substring(contentStart, contentEnd);
+            String by = userCommand.substring(byStart);
+            tasks[taskNum] = new Deadline(description, by);
+            taskNum++;
+            printTotalNumOfTasks(tasks, taskNum);
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            printSign();
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+            printSign();
+        }
     }
 
     public static void taskDone(Task args) {
