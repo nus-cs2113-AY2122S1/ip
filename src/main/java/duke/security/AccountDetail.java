@@ -1,3 +1,5 @@
+package duke.security;
+
 public class AccountDetail {
     private static String username = "John Doe";
     private static String password = "password";

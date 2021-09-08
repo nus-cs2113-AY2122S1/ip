@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Mascot {
     private static final String name = "John Doe";
 
