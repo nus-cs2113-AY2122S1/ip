@@ -2,6 +2,42 @@ import java.util.Scanner;
 
 public class xRoss {
 
+    // main method for xRoss chat bot
+    public static void main(String[] args) {
+        printWelcomeMessage();
+
+        // TaskManager instance to keep track of all tasks
+        TaskManager taskManager = new TaskManager();
+
+        // setting up variable and scanner for user input
+        String inputLine;
+        Scanner in = new Scanner(System.in);
+
+        // boolean value on whether
+        boolean continueLoop = true;
+
+        while (continueLoop) {
+            inputLine = in.nextLine();
+            if (inputLine.equals("bye")) {
+                continueLoop = false;
+            } else if (inputLine.equals("list")) {
+                printTaskListResponse(taskManager);
+            } else if (inputLine.startsWith("done")) {
+                printDoneResponse(taskManager, inputLine);
+            } else if (inputLine.startsWith("todo")) {
+                printTodoResponse(taskManager, inputLine);
+            } else if (inputLine.startsWith("deadline")) {
+                printDeadlineResponse(taskManager, inputLine);
+            } else if (inputLine.startsWith("event")) {
+                printEventResponse(taskManager, inputLine);
+            } else {
+                printEcho(inputLine);
+            }
+        }
+
+        printExitMessage();
+    }
+
     // prints a divider line and new line to command line output
     private static void printDividerLine() {
         System.out.println(
@@ -30,7 +66,8 @@ public class xRoss {
         printDividerLine();
     }
 
-    private static void printTaskError(String s) {
+    // prints command error messages
+    private static void printCommandErrorMessage(String s) {
         switch (s) {
         case "todo_format":
             System.out.println("\tWrong Todo command format: "
@@ -77,47 +114,14 @@ public class xRoss {
         }
     }
 
-    public static void main(String[] args) {
-        printWelcomeMessage();
-
-        // TaskManager instance to keep track of all tasks
-        TaskManager taskManager = new TaskManager();
-
-        // setting up variable and scanner for user input
-        String inputLine;
-        Scanner in = new Scanner(System.in);
-
-        // boolean value on whether
-        boolean continueLoop = true;
-
-        while (continueLoop) {
-            inputLine = in.nextLine();
-            if (inputLine.equals("bye")) {
-                continueLoop = false;
-            } else if (inputLine.equals("list")) {
-                printTaskListResponse(taskManager);
-            } else if (inputLine.startsWith("done")) {
-                printDoneResponse(taskManager, inputLine);
-            } else if (inputLine.startsWith("todo")) {
-                printTodoResponse(taskManager, inputLine);
-            } else if (inputLine.startsWith("deadline")) {
-                printDeadlineResponse(taskManager, inputLine);
-            } else if (inputLine.startsWith("event")) {
-                printEventResponse(taskManager, inputLine);
-            } else {
-                printEcho(inputLine);
-            }
-        }
-
-        printExitMessage();
-    }
-
+    // prints response to list command
     private static void printTaskListResponse(TaskManager taskManager) {
         printDividerLine();
         taskManager.printTasks();
         printDividerLine();
     }
 
+    // prints response to done command
     private static void printDoneResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -125,11 +129,12 @@ public class xRoss {
 
             taskManager.markAsDone(Integer.parseInt(taskNumberDone[1]));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            printTaskError("done");
+            printCommandErrorMessage("done");
         }
         printDividerLine();
     }
 
+    // prints response to todo command
     private static void printTodoResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -137,13 +142,14 @@ public class xRoss {
 
             taskManager.addTask(new Todo(newTodo[1].trim()));
         } catch (IndexOutOfBoundsException e) {
-            printTaskError("todo_format");
+            printCommandErrorMessage("todo_format");
         } catch (EmptyStringException e) {
-            printTaskError("todo_empty_string");
+            printCommandErrorMessage("todo_empty_string");
         }
         printDividerLine();
     }
 
+    // prints response to deadline command
     private static void printDeadlineResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -151,13 +157,14 @@ public class xRoss {
 
             taskManager.addTask(new Deadline(newDeadline[0].substring(9).trim(), newDeadline[1].trim()));
         } catch (IndexOutOfBoundsException e) {
-            printTaskError("deadline_format");
+            printCommandErrorMessage("deadline_format");
         } catch (EmptyStringException e) {
-            printTaskError("deadline_empty_string");
+            printCommandErrorMessage("deadline_empty_string");
         }
         printDividerLine();
     }
 
+    // prints response to event command
     private static void printEventResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -165,13 +172,14 @@ public class xRoss {
 
             taskManager.addTask(new Event(newEvent[0].substring(6).trim(), newEvent[1].trim()));
         } catch (IndexOutOfBoundsException e) {
-            printTaskError("event_format");
+            printCommandErrorMessage("event_format");
         } catch (EmptyStringException e) {
-            printTaskError("event_empty_string");
+            printCommandErrorMessage("event_empty_string");
         }
         printDividerLine();
     }
 
+    // prints response is command is not recognized
     private static void printEcho(String inputLine) {
         printDividerLine();
         System.out.println("\t" + inputLine);
