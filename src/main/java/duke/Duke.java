@@ -1,3 +1,10 @@
+package duke;
+
+import duke.command.Deadline;
+import duke.command.Event;
+import duke.command.Todo;
+import duke.task.Task;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -44,7 +51,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         printSign();
-        System.out.println("Hello! I'm Duke\n");
+        System.out.println("Hello! I'm duke.Duke\n");
         System.out.println("What can I do for you?\n");
         printSign();
     }
