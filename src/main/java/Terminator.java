@@ -17,6 +17,7 @@ public class Terminator {
     private static final String LIST_STRING = "LIST";
     private static final String TODO_STRING = "TODO";
     private static final String EVENT_STRING = "EVENT";
+    private static final String DELETE_STRING = "DELETE";
     private static final String DEADLINE_STRING = "DEADLINE";
 
     /**
@@ -127,11 +128,31 @@ public class Terminator {
     }
 
     /**
+     * Prints response back to user of task that is deleted.
+     * @param taskNumber The index of the task to be deleted.
+     */
+    private static void printDeleteMessage(int taskNumber) {
+        Task currentTask = tasksList.get(taskNumber);
+        System.out.println("Noted. The following item has been deleted" + System.lineSeparator() +
+                currentTask.toString());
+        System.out.println(formatWithHeading("Is there anything else you would like me to do?",
+                TERMINATOR_FORMATTING));
+    }
+
+    /**
      * Update the completion status of the Task to true.
      * @param taskNumber The index of the task to be updated.
      */
     private static void updateTaskCompletionStatus(int taskNumber) throws IndexOutOfBoundsException {
         tasksList.get(taskNumber).setCompleted(true);
+    }
+
+    /**
+     * Delete the Task from the list.
+     * @param taskNumber The index of the task to be deleted.
+     */
+    private static void deleteTaskFromList(int taskNumber) throws IndexOutOfBoundsException {
+        tasksList.remove(taskNumber);
     }
 
     /**
@@ -366,6 +387,10 @@ public class Terminator {
             // Go to helper function to mark task as done
             handleDoneTask(userLine);
             break;
+        case DELETE_STRING:
+            // Go to helper function to mark task as done
+            handleDeleteTask(userLine);
+            break;
         case LIST_STRING:
             // Print Tasks with in-built tasksList
             printTasks();
@@ -401,6 +426,22 @@ public class Terminator {
             // Update the list and print respective message
             updateTaskCompletionStatus(taskNumber);
             printUpdateMessage(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            printOutOfBoundsMessage();
+        }
+    }
+
+    /**
+     * Handler function to delete task from list.
+     * @param userLine Line of input from user.
+     */
+    private static void handleDeleteTask(String userLine) {
+        try {
+            // Parse out task number from user input
+            int taskNumber = getTaskNumberFromInput(userLine);
+            // Print respective message and delete the task
+            printDeleteMessage(taskNumber);
+            deleteTaskFromList(taskNumber);
         } catch (IndexOutOfBoundsException e) {
             printOutOfBoundsMessage();
         }
