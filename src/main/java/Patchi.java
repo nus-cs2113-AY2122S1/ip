@@ -25,7 +25,7 @@ public class Patchi {
                             " to your task list! Œ(ˆOˆ)B");
                     nextTaskIndex++;
                     System.out.println("Patchi: You have " + nextTaskIndex + " tasks now" +
-                            "! Too much work... Œ(ˊnˋ)B");
+                            "... Too much work... Œ(ˊnˋ)B");
                 } catch (InvalidCommandException e) {
                     System.out.println("Patchi: I'm sorry, I don't understand what that means... Œ(ˊnˋ)B");
                 } catch (NullPointerException e) {
