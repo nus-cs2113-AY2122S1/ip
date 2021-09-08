@@ -14,26 +14,34 @@ public class List {
 
         MessageBubble msg = new MessageBubble();
         msg.addMessage("Got it. I've added this task:");
-        msg.addMessage(String.format(" %d:%s", numOfListItems, task.getDetails()));
+        msg.addMessage(String.format(" %d:%s", numOfListItems, task.toString()));
         msg.addMessage("Now you have " + numOfListItems + " tasks in the list.");
         msg.printMessageBubble();
     }
 
     public void doneItem(int indexOfDoneItem) {
         int adjustedIndex = indexOfDoneItem - 1;
-        items[adjustedIndex].markAsDone();
+        try {
+            items[adjustedIndex].markAsDone();
+        } catch (NullPointerException e) {
+            MessageBubble.printMessageBubble("Oops! I cannot find " + indexOfDoneItem + " in your list");
+        }
     }
 
     public void undoneItem(int indexOfDoneItem) {
         int adjustedIndex = indexOfDoneItem - 1;
-        items[adjustedIndex].markAsNotDone();
+        try {
+            items[adjustedIndex].markAsNotDone();
+        } catch (NullPointerException e) {
+            MessageBubble.printMessageBubble("Oops! I cannot find " + indexOfDoneItem + " in your list");
+        }
     }
 
     public void printList() {
         MessageBubble msg = new MessageBubble();
         msg.addMessage("Here are the tasks in your list:");
         for (int i = 0; i < numOfListItems; i++) {
-            msg.addMessage(String.format(" %d:%s", i + 1, items[i].getDetails()));
+            msg.addMessage(String.format(" %d:%s", i + 1, items[i].toString()));
         }
         msg.printMessageBubble();
     }

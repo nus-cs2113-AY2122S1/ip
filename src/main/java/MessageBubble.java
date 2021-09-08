@@ -24,15 +24,21 @@ public class MessageBubble {
     }
 
     public void addMessage(String msg) {
-        messages[messagesCount++] = msg;
+        if (msg.contains("\n")) {
+            for (String line : msg.split("\n")) {
+                messages[messagesCount++] = line;
+            }
+        } else {
+            messages[messagesCount++] = msg;
+        }
     }
 
     static void printSectionDivider() {
-        System.out.println("    " + DIVIDER_SYMBOL.repeat(DIVIDER_SYMBOL_COUNT));
+        System.out.println("\t" + DIVIDER_SYMBOL.repeat(DIVIDER_SYMBOL_COUNT));
     }
 
     static void printMessage(String msg) {
-        System.out.println("     " + msg);
+        System.out.println("\t " + msg);
     }
 
     public void printMessage(String[] msgs) {
@@ -48,8 +54,8 @@ public class MessageBubble {
     }
 
     static void printMessageBubble(String msg) {
-        printSectionDivider();
-        printMessage(msg);
-        printSectionDivider();
+        MessageBubble temp = new MessageBubble();
+        temp.addMessage(msg);
+        temp.printMessageBubble();
     }
 }

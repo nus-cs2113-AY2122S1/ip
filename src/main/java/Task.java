@@ -44,15 +44,16 @@ public class Task {
         if (Task.class.equals(this.getClass())) {
             return "[ ]";
         } else {
-            return "[" + this.getClass().getName().substring(0, 1) + "]";
+            return String.format("[%s]", this.getClass().getName().substring(0, 1));
         }
     }
 
-    public String getDetails() {
-        return String.format("%s%s %s%s", this.getClassIndicator(), this.getStatusIndicator(), this.getTaskDescription(), this.getTime());
+    public void parseOperation(String command){
+
     }
 
-    public String getTime() {
-        return "";
+    @Override
+    public String toString() {
+        return String.format("%s%s %s", this.getClassIndicator(), this.getStatusIndicator(), this.getTaskDescription());
     }
 }

@@ -4,13 +4,13 @@ public class Duke {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        String logo = " ____        _\n"
+        final String LOGO = " ____        _\n"
                 + "|  _ \\ _   _| | _____\n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        MessageBubble.printMessageBubble("     Hello from\n" + logo + "\n     What can I do for you?");
+        MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
 
         List list = new List();
         keepAsking:
@@ -30,30 +30,37 @@ public class Duke {
                 list.addItem(tempTodo);
                 break;
             case "event":
-                int eventDesc_separatorInd = commandDescription.indexOf("/at");
-                String eventDescription = commandDescription.substring(0, eventDesc_separatorInd-1);
-                String eventTime = commandDescription.substring(eventDesc_separatorInd+4);
-                Events tempEvent = new Events(eventDescription, eventTime);
-                list.addItem(tempEvent);
+                try {
+                    list.addItem(Events.parseEvent(commandDescription));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    MessageBubble.printMessageBubble("Oops! The description of a event cannot be empty");
+                }
                 break;
             case "deadline":
-                int deadlineDesc_separatorInd = commandDescription.indexOf("/by");
-                String deadlineDescription = commandDescription.substring(0, deadlineDesc_separatorInd-1);
-                String deadlineTime = commandDescription.substring(deadlineDesc_separatorInd+4);
-                Deadlines tempDeadline = new Deadlines(deadlineDescription, deadlineTime);
-                list.addItem(tempDeadline);
+                try {
+                    list.addItem(Deadlines.parseDeadlines(commandDescription));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    MessageBubble.printMessageBubble("Oops! The description of a deadline cannot be empty");
+                }
                 break;
             case "done":
-                int indexOfDoneItem = Integer.parseInt(command.substring(command.indexOf(' ')  +1));
-                list.doneItem(indexOfDoneItem);
+                try {
+                    int indexOfDoneItem = Integer.parseInt(command.split(" ")[1]);
+                    list.doneItem(indexOfDoneItem);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                    MessageBubble.printMessageBubble("You can mark item as done using \"done (index of item)\"");
+                }
                 break;
             case "undone":
-                int indexOfUndoneItem = Integer.parseInt(command.substring(command.indexOf(' ')  +1));
-                list.undoneItem(indexOfUndoneItem);
+                try {
+                    int indexOfUndoneItem = Integer.parseInt(command.split(" ")[1]);
+                    list.undoneItem(indexOfUndoneItem);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                    MessageBubble.printMessageBubble("You can mark item as not done using \"undone (index of item)\"");
+                }
                 break;
-            default: // unknown command default to add as new item in the list
-                Task tempTask = new Task(command);
-                list.addItem(tempTask);
+            default:
+                MessageBubble.printMessageBubble("Oops! I'm sorry, but I don't know what that means :-(");
             }
         }
 
