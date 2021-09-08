@@ -48,19 +48,24 @@ public class Duke {
             }
             else if (Objects.equals(arr[0], "d")) {
 //                try {
-                    newline = formattedLine.split("/by");
-                    Deadline t = new Deadline(newline[0], newline[1]);
-                    addTask(t, 1);
-                    System.out.println("Gotcha! I've added this deadline");
+//                    if (formattedLine.contains("/by")) {
+                        newline = formattedLine.split("/by");
+                        Deadline t = new Deadline(newline[0], newline[1]);
+                        addTask(t, 1);
+                        System.out.println("Gotcha! I've added this deadline");
+//                    }
 //                } catch (DukeException e) {
 //                    System.out.println("OOPS! The description cannot be empty. Please input again!");
 //                }
             }
             else if (Objects.equals(arr[0], "e")) {
-                //try {
-                    newline = formattedLine.split("/at");
-                    Event t = new Event(newline[0], newline[1]);
-                    addTask(t, 2);
+//                try {
+//                    if (formattedLine.contains("/at")) {
+                        newline = formattedLine.split("/at");
+                        Event t = new Event(newline[0], newline[1]);
+                        addTask(t, 2);
+                        System.out.println("Gotcha! I've added this event");
+//                    }
 //                } catch (DukeException e) {
 //                    System.out.println("OOPS! The description cannot be empty. Please input again!");
 //                }
