@@ -1,105 +1,30 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Random;
 
 public class Duke {
-    public static final String CURR_VERSION = "Version 4.0";
     public static final int MAX_TASKS = 100;
+    public static final String TOP_LEFT_CORNER = "/";
+    public static final String TOP_RIGHT_CORNER = "\\";
+    public static final String BOTTOM_LEFT_CORNER = "\\";
+    public static final String BOTTOM_RIGHT_CORNER = "/";
     public static Scanner in = new Scanner(System.in);
     public static int longestTaskDescription = 0;
 
-    /**
-     * Print the logo and greeting message
-     */
-    public static void printLogo() {
-        //print the logo when the program starts
-        System.out.println("\t              ##*                                 ");
-        System.out.println("\t   .      . .&####%                               ");
-        System.out.println("\t    #%%%%((&%######%**.                           ");
-        System.out.println("\t    %#############%#%&&%%%%%##(*.                 ");
-        System.out.println("\t . .%%#######%%%%%##############%%%%#(.           ");
-        System.out.println("\t/##&@%####&%####&#####%&&&&&&&&&%%%####&/  .      ");
-        System.out.println("\t&######%%######%&%%%#################%%%%&#       ");
-        System.out.println("\t(@####&#####%&%########################%###@(     ");
-        System.out.println("\t,&%#%%%%##%%############%%%%%%%%%%%##########%.   ");
-        System.out.println("\t*&#&%%&#%&########&%#(%#/((((((/****#&%&%#####%,  ");
-        System.out.println("\t  ,&#%%%%#####%%#(%(((&#(&(((((((((/%#(((%##%%#%. ");
-        System.out.println("\t  (%##%%####%%(((/%&((%&#%##((((((((&#(((%#(((&&, ");
-        System.out.println("\t  (%#%&####%#((##(#(/###.%#.*(##(((%, /##((%#(#( .");
-        System.out.println("\t  *&(&%###%#(((((#/@%%%&,. ...     &%%&%  (&###*  ");
-        System.out.println("\t . (%%%###%(((((#/#####&, .. .... /&(#(&,.%(((#(  ");
-        System.out.println("\t    *&&##%%(((((%*(%###%. .. .. . *%(##&, (%((#(  ");
-        System.out.println("\t      (&#%%((((#%/ .**,. ..... . ...,,,. . (#(%(  ");
-        System.out.println("\t        .(%(((((&/ .   .  ...... .. .. . .(%/#%,  ");
-        System.out.println("\t          .(%(((#&*,,.           . .,*/*%#((#&*   ");
-        System.out.println("\t              ,/(#(    .,,******,.     ####%*     ");
-    }
-
-    /**
-     * Print the welcome message and the ASCII art when the program starts
-     */
-    public static void printWelcomeMessage() {
-        System.out.println("   __          ________ _      _____ ____  __  __ ______    ");
-        System.out.println("   \\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____|  ");
-        System.out.println("    \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__     ");
-        System.out.println("     \\ \\/  \\/ / |  __| | |   | |   | |  | | |\\/| |  __|    ");
-        System.out.println("      \\  /\\  /  | |____| |___| |___| |__| | |  | | |____   ");
-        System.out.println("     __\\/_ \\/   |______|______\\_____\\____/|_|  |_|______|_ ");
-        System.out.println("    / ____| |  | |_   _|  \\/  |   /\\   |  __ \\|_   _| \\ | |");
-        System.out.println("   | (___ | |__| | | | | \\  / |  /  \\  | |__) | | | |  \\| |");
-        System.out.println("    \\___ \\|  __  | | | | |\\/| | / /\\ \\ |  _  /  | | | . ` |");
-        System.out.println("    ____) | |  | |_| |_| |  | |/ ____ \\| | \\ \\ _| |_| |\\  |");
-        System.out.println("   |_____/|_|  |_|_____|_|  |_/_/    \\_\\_|  \\_\\_____|_| \\_|");
-        //greeting
-        System.out.println("\nHi there! My name is Shima Rin and I am a chat robot that can help you do some wonderful jobs!");
-    }
-
-    /**
-     * Show the current version's functionality of the bot
-     */
-    private static void printVersionDescription() {
-        //Uses list to store all the version information
-        List<String> versionDescriptions = new ArrayList<String>();
-        int maxDescriptionsLength = 0;
-        versionDescriptions.add("* " + CURR_VERSION);
-        versionDescriptions.add("* To know more about me, you can view my profile by typing the command \"view -p\"");
-        versionDescriptions.add("* For now I am a note bot that can help you note down any tasks and create a to-do list for you :)");
-        versionDescriptions.add("* In addition, you can mark any task in the to-do list as done!");
-        versionDescriptions.add("* You can type \"todo\" or \"deadline\" or \"event\" to create a task and I will help you save it automatically!");
-        versionDescriptions.add("* You can type \"list\" or \"ls\" to list all the tasks that are waiting to do");
-        versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
-        versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
-        //Finds the length of the longest description to align all '*' displayed
-        for (String str : versionDescriptions) {
-            if (str.length() > maxDescriptionsLength) {
-                maxDescriptionsLength = str.length();
-            }
-        }
-        //Draws the frame for the version description
-        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-        for (String str : versionDescriptions) {
-            //Uses format string to print the '*' at the correct position after each sentence is completed
-            System.out.printf("%1$-" + (maxDescriptionsLength + 1) + "s", str);
-            System.out.println("*");
-        }
-        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
-            System.out.print("-");
-        }
-    }
-
+    @SuppressWarnings("InfiniteLoopStatement") //disable the warning for infinite loop
     public static void main(String[] args) {
         //Prints all the welcome screens
-        printLogo();
-        printWelcomeMessage();
-        printVersionDescription();
+        Design.printLogo();
+        Design.printWelcomeMessage();
+        Design.printVersionDescription();
         System.out.println("\nLet's start:");
         Task[] tasks = new Task[MAX_TASKS];
         while (true) {
-            readCommand(tasks);
+            try{
+                readCommand(tasks);
+            }
+            catch (DukeException ex){
+                showMessage("Sorry, the command is invalid, I cant understand :(");
+                System.out.println("\tTo seek for help, you can type the command \"help\" or \"view -h\"");
+            }
         }
     }
 
@@ -108,13 +33,13 @@ public class Duke {
      *
      * @param tasks The array to store all the tasks required
      */
-    private static void readCommand(Task[] tasks) {
+    private static void readCommand(Task[] tasks) throws DukeException {
         String command = in.nextLine().trim();
         String[] words = command.split(" ");
         if (isCommandEmpty(command)) {
             System.out.println("\t(Empty) <- will not save to the list");
         } else if (isCommandViewPersonality(command)) {
-            printPersonality();
+            Design.printPersonality();
         } else if (isCommandExit(command)) {
             showMessage("Bye! Hope to see you again :D");
             System.exit(0);
@@ -126,7 +51,7 @@ public class Duke {
             } else if (isCommandAddTask(words[0])) {
                 addTask(tasks, command, words);
             } else {
-                showMessage("Sorry, the command is invalid :(");
+                throw new DukeException();
             }
         }
     }
@@ -371,70 +296,76 @@ public class Duke {
      * Prints the to-do list with frames
      *
      * @param tasks     the array of class Task instance which stores all the tasks added by the user
-     * @param stopIndex the last index of the array that is not null
+     * @param totalTask the last index of the array that is not null
      */
-    private static void printToDoList(Task[] tasks, int stopIndex, int maxLength) {
-        //format to-do list
-        System.out.print("\t/");
-        if (maxLength < " My to-do list: ".length()) {
-            maxLength = " My to-do list".length();
+    private static void printToDoList(Task[] tasks, int totalTask, int longestTaskDescription) {
+        final int MIN_LENGTH = " My to-do list: ".length();
+        //if longestTaskDescription is shorter than the length of the string "My to-do list: ", sets it to the length of the string
+        if (longestTaskDescription < MIN_LENGTH) {
+            longestTaskDescription = MIN_LENGTH;
         }
-        for (int i = 0; i < maxLength + "| [ ][ ] 100. ".length(); i++) {
-            System.out.print("-");
-        }
-        System.out.println("\\");
-        System.out.print("\t| My to-do list: ");
-        for (int i = 0; i < maxLength + "| [ ][ ] 100. ".length() - "| My to-do list: ".length() + 1; i++) {
-            System.out.print(" ");
-        }
-        System.out.println("|");
-        //print task
-        for (int i = 0; i < stopIndex; i++) {
-            if (tasks[i].getDone()) {
-                System.out.print("\t| [" + tasks[i].getClassType() + "][X] " + (i + 1) + ". " + tasks[i]);
-            } else {
-                System.out.print("\t| [" + tasks[i].getClassType() + "][ ] " + (i + 1) + ". " + tasks[i]);
-            }
-            for (int j = 0; j < maxLength + "| [ ][ ] 100. ".length() - ("| [ ][ ] " + (i + 1) + ". " + tasks[i].toString()).length() + 1; j++) {
-                System.out.print(" ");
-            }
-            System.out.println("|");
-        }
-        System.out.print("\t\\");
-        for (int i = 0; i < maxLength + "| [ ][ ] 100. ".length(); i++) {
-            System.out.print("-");
-        }
-        System.out.println("/");
-        System.out.println("\tFor your knowledge, ");
-        System.out.println("\tthe first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)");
-        System.out.println("\tthe second [ ] indicates whether the task is completed:\n\t[X] when the task is marked completed\t[ ] when the task is not done.");
+        //Prints the to-do list
+        drawUpperFrame(longestTaskDescription);
+        printTasks(tasks, totalTask, longestTaskDescription);
+        drawLowerFrame(longestTaskDescription);
     }
 
     /**
-     * Prints the ASCII art image of the robot and the description of the personality of the robot
+     * Prints the bottom frame of the to-do list and the guide for reading the to-do list
+     *
+     * @param longestTaskDescription the length of the longest task description string stored in the tasks array
      */
-    public static void printPersonality() {
-        Random random = new Random();
-        int randomNumber = random.nextInt(3);
-        switch (randomNumber) {
-        case 0:
-            System.out.println(ProfilePicture.PICTURE_1);
-            break;
-        case 1:
-            System.out.println(ProfilePicture.PICTURE_2);
-            break;
-        case 2:
-            System.out.println(ProfilePicture.PICTURE_3);
-            break;
+    private static void drawLowerFrame(int longestTaskDescription) {
+        System.out.print("\t" + BOTTOM_LEFT_CORNER);
+        for (int i = 0; i < longestTaskDescription + "| [ ][ ] 100. ".length(); i++) {
+            System.out.print("-");
         }
-        System.out.println("**                                                                                                                   **");
-        System.out.println("**       Greeting!                                                                                                   **");
-        System.out.println("**      -My name is Shima Rin, I am a Japanese anime character that comes from the anime \"Yuru Camp\" :P              **");
-        System.out.println("**      -I love physical camping, especially during the winter season!                                               **");
-        System.out.println("**      -I also love food (especially hot pot!) and hot spring! :P                                                   **");
-        System.out.println("**      -By the way, I am a dog lover!                                                                               **");
-        System.out.println("**                                                                                                                   **");
-        System.out.println("***********************************************************************************************************************");
+        System.out.println(BOTTOM_RIGHT_CORNER);
+        //Shows the guide for understanding the to-do list
+        System.out.println("\tFor your knowledge, ");
+        System.out.println("\tthe first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)");
+        System.out.println("\tthe second [ ] indicates whether the task is completed:\n" +
+                "\t[X] when the task is marked completed\t[ ] when the task is not done.");
+    }
+
+    /**
+     * Prints the tasks stored in the array, the frame starts with '|' and ends with '|', the ending frame is always located at the position of the longest task description
+     * @param tasks the array that stores all the tasks
+     * @param totalTask the number of the tasks stored
+     * @param longestTaskDescription the length of the longest task description stored in the tasks array
+     */
+    private static void printTasks(Task[] tasks, int totalTask, int longestTaskDescription) {
+        for (int i = 0; i < totalTask; i++) {
+            //Fill the first [] with class type, and the second [] with a 'X' if the task is completed
+            if (tasks[i].getDone()) {
+                System.out.print("\t| [" + tasks[i].getClassType() + "][X] " + (i + 1) + ". ");
+            } else {
+                System.out.print("\t| [" + tasks[i].getClassType() + "][ ] " + (i + 1) + ". ");
+            }
+            //Calculates the required spacing for the current task as compared to the longest task description to print '|'
+            int distanceToClosingFrame = longestTaskDescription + "| [ ][ ] 100. ".length() - ("| [ ][ ] " + (i + 1) + ". ").length() + 1;
+            System.out.printf("%1$-" + distanceToClosingFrame + "s", tasks[i]);
+            System.out.println("|");
+        }
+    }
+
+    /**
+     * Prints the upper frame of the to-do list and its default display string
+     *
+     * @param longestTaskDescription the length of the longest task description string stored in the tasks array
+     */
+    private static void drawUpperFrame(int longestTaskDescription) {
+        System.out.print("\t" + TOP_LEFT_CORNER); //the top left corner
+        for (int i = 0; i < longestTaskDescription + "| [ ][ ] 100. ".length(); i++) {
+            System.out.print("-");
+        }
+        System.out.println(TOP_RIGHT_CORNER);
+        //Print default string " My to-do list: "
+        System.out.print("\t| My to-do list: ");
+        for (int i = 0; i < longestTaskDescription + "| [ ][ ] 100. ".length() - "| My to-do list: ".length() + 1; i++) {
+            System.out.print(" ");
+        }
+        System.out.println("|");
     }
 }
 
