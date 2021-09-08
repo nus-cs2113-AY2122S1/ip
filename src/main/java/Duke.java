@@ -1,9 +1,4 @@
 import java.util.Scanner;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.exception.DukeException;
 
 public class Duke {
     public static final String DIVIDING_LINE = "________________________________________";
@@ -69,14 +64,14 @@ public class Duke {
 
         if (completeIndex >= 0 && completeIndex < Task.getTotalTasks()) {
             userTasks[completeIndex].markComplete();
-            System.out.println("Task " + userTasks[completeIndex].getDescription() + " marked as complete.");
+            System.out.println("Task " + userTasks[completeIndex].description + " marked as complete.");
         } else {
             throw new DukeException(DukeException.TASK_INDEX_OOB);
         }
     }
 
     public static void addNewTask(String userInputString, Task[] userTasks) throws DukeException {
-        if (Task.getTotalTasks() >= MAX_STORED_TASKS) {
+        if (Task.totalTasks >= MAX_STORED_TASKS) {
             throw new DukeException(DukeException.TASK_ARRAY_FULL);
         }
 
