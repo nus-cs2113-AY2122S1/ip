@@ -90,28 +90,28 @@ ____________________________________________________________
     Nice! I've marked this task as done: 
      [E][X] project meeting (at: Mon 2-4pm)
     ____________________________________________________________
-     ☹ OOPS! Please Enter the Legit Task Number... Or I won't talk to you!
+     ☹ OOPS!!! Please Enter the Legit Task Number... Or I won't talk to you!
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! I'm sorry, but I don't know what that means :-(
+     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline
+     ☹ OOPS!!! Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline
+     ☹ OOPS!!! Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! The description and event time info of event cannot be empty.
+     ☹ OOPS!!! The description and event time info of event cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! Don't forget to add /at (must have trail and lead whitespace) to separate description and event time
+     ☹ OOPS!!! Don't forget to add /at (must have trail and lead whitespace) to separate description and event time
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! Don't forget to add /at (must have trail and lead whitespace) to separate description and event time
+     ☹ OOPS!!! Don't forget to add /at (must have trail and lead whitespace) to separate description and event time
     ____________________________________________________________
     ____________________________________________________________
-     ☹ OOPS! The description and event time info of event cannot be empty.
+     ☹ OOPS!!! The description and event time info of event cannot be empty.
     ____________________________________________________________
 ____________________________________________________________
 

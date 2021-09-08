@@ -7,7 +7,7 @@ package duke.exceptionHandler;
  */
 
 public class DukeException extends Exception {
-    public static String openingString = "     ☹ OOPS! ";
+    public static String openingString = "     ☹ OOPS!!! ";
 
     /**
      * This calls the superclass Exception constructor and creates the exception
