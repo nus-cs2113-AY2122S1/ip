@@ -1,6 +1,6 @@
 package manager;
 
-import exception.DescriptionFormatException;
+import exception.IncorrectDescriptionFormatException;
 import exception.NoDescriptionException;
 import task.Task;
 import command.Command;
@@ -73,7 +73,7 @@ public class TaskManager {
             }
         } catch (NoDescriptionException e) {
             ResponseManager.printNoDescriptionMessage();
-        } catch (DescriptionFormatException e) {
+        } catch (IncorrectDescriptionFormatException e) {
             ResponseManager.printDescriptionFormatMessage();
         } catch (NumberFormatException e) {
             ResponseManager.printNumberFormatMessage();

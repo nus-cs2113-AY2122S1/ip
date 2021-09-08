@@ -1,6 +1,7 @@
 package command;
 
-import exception.DescriptionFormatException;
+import exception.IncorrectDescriptionFormatException;
+import exception.IncorrectDescriptionFormatException;
 import exception.NoDescriptionException;
 import manager.ResponseManager;
 import manager.TaskManager;
@@ -24,7 +25,7 @@ public class Command {
         return command;
     }
 
-    public void executeDoneCommand (int taskListIndex, String rawUserInput) throws DescriptionFormatException,
+    public void executeDoneCommand (int taskListIndex, String rawUserInput) throws IncorrectDescriptionFormatException,
             NoDescriptionException, NullPointerException, NumberFormatException, IndexOutOfBoundsException {
         // split the input string into array
         String[] inputWords = rawUserInput.split(" ");
@@ -32,7 +33,7 @@ public class Command {
             throw new NoDescriptionException();
         }
         if (inputWords.length > 2) {
-            throw new DescriptionFormatException();
+            throw new IncorrectDescriptionFormatException();
         }
 
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
@@ -63,7 +64,7 @@ public class Command {
         ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
-    public void executeDeadlineCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, DescriptionFormatException {
+    public void executeDeadlineCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
         String[] inputWords = rawUserInput.split(" ");
 
         if (inputWords.length == 1) {
@@ -74,10 +75,10 @@ public class Command {
         String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
 
         if (separatedDescription.length == 1) {
-            throw new DescriptionFormatException();
+            throw new IncorrectDescriptionFormatException();
         }
         if (!rawUserInput.contains(" /by ")) {
-            throw new DescriptionFormatException();
+            throw new IncorrectDescriptionFormatException();
         }
 
         Deadline task = new Deadline(fullTaskDescription);
@@ -85,7 +86,7 @@ public class Command {
         ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
-    public void executeEventCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, DescriptionFormatException {
+    public void executeEventCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
         String[] inputWords = rawUserInput.split(" ");
 
         if (inputWords.length == 1) {
@@ -96,10 +97,10 @@ public class Command {
         String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
 
         if (separatedDescription.length == 1) {
-            throw new DescriptionFormatException();
+            throw new IncorrectDescriptionFormatException();
         }
         if (!rawUserInput.contains(" /at ")) {
-            throw new DescriptionFormatException();
+            throw new IncorrectDescriptionFormatException();
         }
 
         Event task = new Event(fullTaskDescription);
