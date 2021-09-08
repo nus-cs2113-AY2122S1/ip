@@ -32,7 +32,7 @@ public class Duke {
                 } else if(line.trim().equals("list")) {
                     printList();
                 } else if (line.startsWith("done")) {
-                    handleDone(line);
+                    makeDone(line);
                 } else if (line.startsWith("todo")) {
                     addTodoTask(line);
                 } else if (line.startsWith("deadline")) {
@@ -85,26 +85,38 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void handleDone(String line) {
+    private static void makeDone(String line) {
         try {
-            int taskNumber = Integer.parseInt(line.substring(END_OF_DONE_INDEX).trim()) - 1;
-            if (tasks[taskNumber].isDone) {
-                System.out.println("This task is already done!");
-            } else {
-                tasks[taskNumber].markAsDone();
-                printDone(taskNumber);
-            }
+            handleDone(line);
         } catch (NumberFormatException e) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Oh no! An integer must come after the done command!");
-            System.out.println("Please try again!");
-            System.out.println(HORIZONTAL_LINE);
+            printMissingDoneIndexMsg();
         } catch (NullPointerException e) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Oh no! There isn't a task with that index");
-            System.out.println("Please try again!");
-            System.out.println(HORIZONTAL_LINE);
+            printInvalidTaskIndexMsg();
         }
+    }
+
+    private static void handleDone(String line) {
+        int taskNumber = Integer.parseInt(line.substring(END_OF_DONE_INDEX).trim()) - 1;
+        if (tasks[taskNumber].isDone) {
+            System.out.println("This task is already done!");
+        } else {
+            tasks[taskNumber].markAsDone();
+            printDone(taskNumber);
+        }
+    }
+
+    private static void printInvalidTaskIndexMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! There isn't a task with that index");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void printMissingDoneIndexMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! An integer must come after the done command!");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private static void printTaskConfirmation() {
@@ -117,48 +129,66 @@ public class Duke {
 
     private static void addEventTask(String line) {
         try {
-            int endOfDescriptionIndex = line.indexOf("/at");
-            int startOfAtIndex = line.indexOf("/at") + AT_LENGTH;
-            String description = line.substring(END_OF_EVENT_INDEX, endOfDescriptionIndex).trim();
-            String at = line.substring(startOfAtIndex).trim();
-
-            tasks[numberOfTasks] = new Event(description, at);
-            numberOfTasks++;
-
+            handleEventTask(line);
             printTaskConfirmation();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Oh no! Event tasks must be followed by /at keyword!");
-            System.out.println("Please try again!");
-            System.out.println(HORIZONTAL_LINE);
+            printMissingAtErrorMsg();
         }
+    }
 
+    private static void handleEventTask(String line) {
+        int endOfDescriptionIndex = line.indexOf("/at");
+        int startOfAtIndex = line.indexOf("/at") + AT_LENGTH;
+        String description = line.substring(END_OF_EVENT_INDEX, endOfDescriptionIndex).trim();
+        String at = line.substring(startOfAtIndex).trim();
+
+        tasks[numberOfTasks] = new Event(description, at);
+        numberOfTasks++;
+    }
+
+    private static void printMissingAtErrorMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! Event tasks must be followed by /at keyword!");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private static void addDeadlineTask(String line) {
         try {
-            int endOfDescriptionIndex = line.indexOf("/by");
-            int startOfByIndex = line.indexOf("/by") + BY_LENGTH;
-            String description = line.substring(END_OF_DEADLINE_INDEX, endOfDescriptionIndex).trim();
-            String by = line.substring(startOfByIndex).trim();
-
-            tasks[numberOfTasks] = new Deadline(description, by);
-            numberOfTasks++;
-
+            handleDeadlineTask(line);
             printTaskConfirmation();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Oh no! Deadline tasks must be followed by /by keyword!");
-            System.out.println("Please try again!");
-            System.out.println(HORIZONTAL_LINE);
+            printMissingByErrorMsg();
         }
     }
 
+    private static void handleDeadlineTask(String line) {
+        int endOfDescriptionIndex = line.indexOf("/by");
+        int startOfByIndex = line.indexOf("/by") + BY_LENGTH;
+        String description = line.substring(END_OF_DEADLINE_INDEX, endOfDescriptionIndex).trim();
+        String by = line.substring(startOfByIndex).trim();
+
+        tasks[numberOfTasks] = new Deadline(description, by);
+        numberOfTasks++;
+    }
+
+    private static void printMissingByErrorMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! Deadline tasks must be followed by /by keyword!");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+
     private static void addTodoTask(String line) {
+        handleTodoTask(line);
+        printTaskConfirmation();
+    }
+
+    private static void handleTodoTask(String line) {
         String description = line.substring(END_OF_TODO_INDEX).trim();
         tasks[numberOfTasks] = new Todo(description);
         numberOfTasks++;
-        printTaskConfirmation();
     }
 
     private static void exitProgram() {
