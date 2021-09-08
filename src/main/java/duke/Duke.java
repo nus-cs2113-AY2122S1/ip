@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package duke;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -38,7 +39,7 @@ public class Duke {
     }
 
     public static void printTaskTypeResponse() {
-        //printing different responses depending if its Todo/Deadline/Event
+        //printing different responses depending if its duke.Todo/duke.Deadline/duke.Event
         printGotIt();
         tasks[taskCount - 1].printTask();
         printTaskCount();
