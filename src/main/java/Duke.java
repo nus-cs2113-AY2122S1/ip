@@ -3,15 +3,20 @@ import java.util.Scanner;
 public class Duke {
     static final String line_separator = "     _______________________\n";
     static final String spacing = "     ";
+    static final String CANNOT_IDENTIFY =
+            "I am sorry, but I do not know what do you mean. " +
+                    "Please key in a valid input.";
+    static final String GREETINGS = line_separator
+            + spacing + "Hello! I'm Duke\n"
+            + spacing + "What can I do for you?\n"
+            + line_separator;
+    static final String NO_ARGUMENT_1 = "The ";
+    static final String NO_ARGUMENT_2 = " command is incomplete.";
+
     public static void main(String[] args) {
         int MAXIMUM = 100;
         Task[] task_list = new Task[MAXIMUM];
         int task_num = 0;
-        String GREETINGS = line_separator
-                + spacing + "Hello! I'm Duke\n"
-                + spacing + "What can I do for you?\n"
-                + line_separator;
-
         System.out.println(GREETINGS);
         String line;
         Scanner in = new Scanner(System.in);
@@ -25,49 +30,79 @@ public class Duke {
                 list(task_num, task_list);
                 break;
             case "done":
-                int current_task = Integer.parseInt(line.split(" ")[1]) - 1;
-                task_list[current_task].markAsDone();
-                String update = line_separator
-                        + spacing + "Nice! I've marked this task as done: \n"
-                        + spacing + task_list[current_task].toString() + "\n"
-                        + line_separator;
-                System.out.println(update);
+                try {
+                    int current_task = Integer.parseInt(line.split(" ")[1]) - 1;
+                    task_list[current_task].markAsDone();
+                    String update = line_separator
+                            + spacing + "Nice! I've marked this task as done: \n"
+                            + spacing + task_list[current_task].toString() + "\n"
+                            + line_separator;
+                    System.out.println(update);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    String error = line_separator
+                            + spacing + NO_ARGUMENT_1 + "done" + NO_ARGUMENT_2 + "\n"
+                            + line_separator;
+                    System.out.println(error);
+                }
                 break;
             case "deadline":
-                String task_name = line.substring("deadline ".length(), line.indexOf("/by "));
-                String task_ddl = line.substring(line.indexOf("/by ") + "/by ".length());
-                task_list[task_num] = new Deadline(task_name, task_ddl);
-                task_num += 1;
-                String echo = line_separator
-                        + spacing + "added: " + task_list[task_num - 1] + "\n"
-                        + line_separator;
-                System.out.println(echo);
+                try {
+                    String task_name = line.substring("deadline ".length(), line.indexOf("/by "));
+                    String task_ddl = line.substring(line.indexOf("/by ") + "/by ".length());
+                    task_list[task_num] = new Deadline(task_name, task_ddl);
+                    task_num += 1;
+                    String response = line_separator
+                            + spacing + "added: " + task_list[task_num - 1] + "\n"
+                            + line_separator;
+                    System.out.println(response);
+                } catch (StringIndexOutOfBoundsException e) {
+                    String error = line_separator
+                            + spacing + NO_ARGUMENT_1 + "deadline" + NO_ARGUMENT_2 + "\n"
+                            + line_separator;
+                    System.out.println(error);
+                }
+
                 break;
             case "event":
-                task_name = line.substring("event ".length(), line.indexOf("/at "));
-                String task_time = line.substring(line.indexOf("/at ") + "/at ".length());
-                task_list[task_num] = new Event(task_name, task_time);
-                task_num += 1;
-                echo = line_separator
-                        + spacing + "added: " + task_list[task_num - 1] + "\n"
-                        + line_separator;
-                System.out.println(echo);
+                try {
+                    String task_name = line.substring("event ".length(), line.indexOf("/at "));
+                    String task_time = line.substring(line.indexOf("/at ") + "/at ".length());
+                    task_list[task_num] = new Event(task_name, task_time);
+                    task_num += 1;
+                    String response = line_separator
+                            + spacing + "added: " + task_list[task_num - 1] + "\n"
+                            + line_separator;
+                    System.out.println(response);
+                } catch (StringIndexOutOfBoundsException e) {
+                    String error = line_separator
+                            + spacing + NO_ARGUMENT_1 + "event" + NO_ARGUMENT_2 + "\n"
+                            + line_separator;
+                    System.out.println(error);
+                }
+
                 break;
             case "todo":
-                task_list[task_num] = new ToDo(line);
-                task_num += 1;
-                echo = line_separator
-                        + spacing + "added: " + task_list[task_num - 1] + "\n"
-                        + line_separator;
-                System.out.println(echo);
+                try {
+                    String task_name = line.substring("todo ".length());
+                    task_list[task_num] = new ToDo(task_name);
+                    task_num += 1;
+                    String response = line_separator
+                            + spacing + "added: " + task_list[task_num - 1] + "\n"
+                            + line_separator;
+                    System.out.println(response);
+                } catch (StringIndexOutOfBoundsException e) {
+                    String error = line_separator
+                            + spacing + NO_ARGUMENT_1 + "todo" + NO_ARGUMENT_2 + "\n"
+                            + line_separator;
+                    System.out.println(error);
+                }
+
                 break;
             default:
-                task_list[task_num] = new Task(line);
-                task_num += 1;
-                echo = line_separator
-                        + spacing + "added: " + task_list[task_num - 1] + "\n"
+                String response = line_separator
+                        + spacing + CANNOT_IDENTIFY + "\n"
                         + line_separator;
-                System.out.println(echo);
+                System.out.println(response);
             }
         }
 
