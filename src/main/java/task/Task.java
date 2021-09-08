@@ -26,7 +26,6 @@ public class Task {
         return totalTasks;
     }
 
-
     public String getFullTaskDescription() {
         return this.fullTaskDescription;
     }
