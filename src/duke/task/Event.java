@@ -1,6 +1,7 @@
-package main.java;
+package duke.task;
 
 public class Event extends Task{
+    public static final String EVENT_ICON = "[E]";
     private String duration;
 
     public Event(String taskName, String duration) {
@@ -10,6 +11,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + duration + ")";
+        return EVENT_ICON + super.toString() + " (at: " + duration + ")";
     }
 }

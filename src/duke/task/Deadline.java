@@ -1,6 +1,7 @@
-package main.java;
+package duke.task;
 
 public class Deadline extends Task {
+    public static final String DEADLINE_ICON = "[D]";
     private String dueDate;
 
     public Deadline(String taskName, String dueDate) {
@@ -10,6 +11,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate + ")";
+        return DEADLINE_ICON + super.toString() + " (by: " + dueDate + ")";
     }
 }
