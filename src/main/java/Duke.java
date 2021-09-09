@@ -1,5 +1,3 @@
-// this is branch-Level-5 and going to be merged back on to master
-// add another line for testing
 import java.util.Scanner;
 
 public class Duke {
