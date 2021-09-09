@@ -1,3 +1,5 @@
+package duke.messages;
+
 public class MessageBubble {
     static final String DIVIDER_SYMBOL = "_";
     static final int DIVIDER_SYMBOL_COUNT = 60;
@@ -53,7 +55,7 @@ public class MessageBubble {
         printSectionDivider();
     }
 
-    static void printMessageBubble(String msg) {
+    static public void printMessageBubble(String msg) {
         MessageBubble temp = new MessageBubble();
         temp.addMessage(msg);
         temp.printMessageBubble();
