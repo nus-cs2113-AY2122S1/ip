@@ -17,6 +17,12 @@ public class Duke {
     public static void listOperations() {
         Scanner sc = new Scanner(System.in);
         String horizontalLine = "________________________";
+        final String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
+        final String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
+        final String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
+        final String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
+        final String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
+
         boolean isBye;
         boolean isList;
         boolean isDone;
@@ -24,10 +30,10 @@ public class Duke {
         boolean isDeadline;
         boolean isEvent;
 
-        Task[] taskList = new Task[100];
-
+        Task[] tasks = new Task[100];
         do {
             String userInput = sc.nextLine();
+
             isBye = userInput.equals("bye");
             isList = userInput.equals("list");
             isDone = userInput.startsWith("done");
@@ -36,28 +42,52 @@ public class Duke {
             isEvent = userInput.startsWith("event");
             System.out.println(horizontalLine);
 
+
             if (isBye) {
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(GOODBYE_COMMENT);
             } else if (isList) {
-                listTask(taskList, Task.taskCount);
+                listTask(tasks, Task.taskCount);
             } else if (isDone) {
-                markTask(taskList, userInput);
+                markTask(tasks, userInput);
             } else if (isTodo) {
-                addTask(taskList, Task.taskCount, userInput, TaskType.TODO);
+                try {
+                    if (isEmptyDescription(userInput)) {
+                        throw new DukeException();
+                    }
+                    addTask(tasks, Task.taskCount, userInput, TaskType.TODO);
+                } catch (DukeException e) {
+                    System.out.println(ERROR_EMPTY_TODO_DESCRIPTION);
+                }
             } else if (isDeadline) {
-                addTask(taskList, Task.taskCount, userInput, TaskType.DEADLINE);
+                try {
+                    if (isEmptyDescription(userInput)) {
+                        throw new DukeException();
+                    }
+                    addTask(tasks, Task.taskCount, userInput, TaskType.DEADLINE);
+                } catch (DukeException e) {
+                    System.out.println(ERROR_EMPTY_DEADLINE_DESCRIPTION);
+                }
             } else if (isEvent) {
-                addTask(taskList, Task.taskCount, userInput, TaskType.EVENT);
+                try {
+                    if (isEmptyDescription(userInput)) {
+                        throw new DukeException();
+                    }
+                    addTask(tasks, Task.taskCount, userInput, TaskType.EVENT);
+                } catch (DukeException e) {
+                    System.out.println(ERROR_EMPTY_EVENT_DESCRIPTION);
+                }
             } else {
-                System.out.println("Error input..");
+                System.out.println(ERROR_UNKNOWN_INPUT);
             }
             System.out.println(horizontalLine);
 
         } while (!isBye);
+
     }
 
     private static void addTask(Task[] taskList, int taskCount, String userInput, TaskType specificTask) {
-        System.out.println("Got it. I've added this task:");
+        final String ADDED_TASK_COMMENT = "Got it. I've added this task:";
+        System.out.println(ADDED_TASK_COMMENT);
         Task newTask;
 
         switch (specificTask) {
@@ -83,22 +113,30 @@ public class Duke {
         System.out.println(printTaskNumber);
     }
 
-    private static void markTask(Task[] taskList, String userInput) {
+    private static void markTask(Task[] tasks, String userInput) {
         char userInputIntChar = userInput.charAt(userInput.length() - 1);
         int userInputInt = Character.getNumericValue(userInputIntChar);
-        taskList[userInputInt].markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        String formatOutput = String.format("[%s][%s] %s", taskList[userInputInt].taskType, taskList[userInputInt].getStatusIcon(), taskList[userInputInt].description);
+        final String MARK_TASK_COMMENT = "Nice! I've marked this task as done:";
+        tasks[userInputInt].markAsDone();
+        String formatOutput = String.format("[%s][%s] %s", tasks[userInputInt].taskType, tasks[userInputInt].getStatusIcon(), tasks[userInputInt].description);
+
+        System.out.println(MARK_TASK_COMMENT);
         System.out.println(formatOutput);
     }
 
-    private static void listTask(Task[] taskList, int taskCount) {
-        System.out.println("Here are the tasks in your list:");
+    private static void listTask(Task[] tasks, int taskCount) {
+        final String LIST_TASK_COMMENT = "Here are the tasks in your list:";
+        System.out.println(LIST_TASK_COMMENT);
         for (int i = 0; i < taskCount; i++) {
             int indexNumber = i + 1;
-            String formatOutput = String.format("%d.[%s][%s] %s", indexNumber, taskList[i].taskType, taskList[i].getStatusIcon(), taskList[i].description);
+            String formatOutput = String.format("%d.[%s][%s] %s", indexNumber, tasks[i].taskType, tasks[i].getStatusIcon(), tasks[i].description);
             System.out.println(formatOutput);
         }
+    }
+
+    private static boolean isEmptyDescription(String userInput) {
+        String[] trimDescription = userInput.trim().split("\\s+", 2);
+        return trimDescription.length < 2;
     }
 
     public static void main(String[] args) {
