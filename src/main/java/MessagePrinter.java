@@ -10,11 +10,11 @@ public abstract class MessagePrinter {
             + "|_| |_|  |_|\\__,_|\\__,_|\\__, |\n"
             + "                         __/ |\n"
             + "                        |___/ \n";
-    private static final String DASHES = "____________________________________________________________\n";
+    private static final String DASHES = "____________________________________________________________";
 
     // methods to print constants
     private static void friday() {
-        System.out.println(FRIDAY);
+        System.out.print(FRIDAY);
     }
 
     private static void dashes() {
@@ -92,10 +92,37 @@ public abstract class MessagePrinter {
         dashes();
     }
 
+    // message when no task name is specified
+    public static void emptyTaskName() {
+        dashes();
+        System.out.println("I am going to need a name for this task sir.");
+        dashes();
+    }
+
+    // message when no description after keyword is given
+    public static void incompleteCommand() {
+        dashes();
+        System.out.println("I'm afraid you are going to have to be more specific sir.");
+        dashes();
+    }
+
+    // message when keyword is missing
+    public static void missingKeyWord(String word) {
+        dashes();
+        System.out.println("Apologies sir, you need to include /" + word + " in your command");
+        dashes();
+    }
+
+    public static void missingDate(String type) {
+        dashes();
+        System.out.println("May I know the date for this " + type + " sir?");
+        dashes();
+    }
+
     // message printed upon exiting
     public static void exitMessage() {
         dashes();
-        System.out.println("Powering Off now. Good Bye Mr Stark.\n");
+        System.out.println("Powering Off now. Good Bye Mr Stark.");
         dashes();
     }
 }
