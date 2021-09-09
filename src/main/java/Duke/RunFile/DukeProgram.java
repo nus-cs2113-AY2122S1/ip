@@ -63,10 +63,11 @@ public class DukeProgram {
             return false;
         }
         try {
-            return true;
+            int num = Integer.parseInt(strNum);
         } catch (NumberFormatException nfe) {
             return false;
         }
+        return true;
     }
 
     public static boolean isValidDoneInstruction(String inWord, int index) {
@@ -79,7 +80,7 @@ public class DukeProgram {
             return false;
         }
 
-        if(!isNumeric(commands[1])) {
+        if(isNumeric(commands[1])) {
             int taskDoneIndex = Integer.parseInt(commands[1]);
             return taskDoneIndex > 0 && taskDoneIndex <= index;
         }
