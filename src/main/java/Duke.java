@@ -10,8 +10,8 @@ public class Duke {
 
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
-        input = in.nextLine();
 
+        input = in.nextLine();
 
         while (!(input.equals("bye"))) {
 
@@ -22,32 +22,52 @@ public class Duke {
                 input = testTaskDone(input, in);
 
             } else if (input.contains("todo")) {
-                Task whatToDo = toDoMethod(input);
-                System.out.println("    Got it. I've added this task:\n" + "    " + whatToDo + "\n"
-                        + "    Now you have " + inputCount + " tasks in the list.");
+                try {
+                    testInput(input);
 
-                input = in.nextLine();
+                    Task whatToDo = toDoMethod(input);
+                    System.out.println("    Got it. I've added this task:\n" + "    " + whatToDo + "\n"
+                            + "    Now you have " + inputCount + " tasks in the list.");
+
+                    input = in.nextLine();
+                } catch (DukeExceptions e3) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    input = in.nextLine();
+                }
+
 
             } else if (input.contains("deadline")) {
-                Task whatDeadline = deadlineMethod(input);
-                System.out.println("    Got it. I've added this task:\n" + "    " + whatDeadline + "\n"
-                        + "    Now you have " + inputCount + " tasks in the list.");
+                try {
+                    Task whatDeadline = deadlineMethod(input);
+                    System.out.println("    Got it. I've added this task:\n" + "    " + whatDeadline + "\n"
+                            + "    Now you have " + inputCount + " tasks in the list.");
 
-                input = in.nextLine();
+                    input = in.nextLine();
+                } catch (StringIndexOutOfBoundsException e1) {
+                    System.out.println("input = " + input + "\n☹ OOPS!!! Please retype your input!");
+                    input = in.nextLine();
+                } catch (ArrayIndexOutOfBoundsException e2) {
+                    System.out.println("you have typed in = " + input + "\n☹ OOPS!!! where is your /by my friend? ");
+                    input = in.nextLine();
+                }
 
             } else if (input.contains("event")) {
-                Task whatEvent = eventMethod(input);
-                System.out.println("    Got it. I've added this task:\n" + "    " + whatEvent + "\n"
-                        + "    Now you have " + inputCount + " tasks in the list.");
+                try {
+                    Task whatEvent = eventMethod(input);
+                    System.out.println("    Got it. I've added this task:\n" + "    " + whatEvent + "\n"
+                            + "    Now you have " + inputCount + " tasks in the list.");
+                    
+                    input = in.nextLine();
+                } catch (StringIndexOutOfBoundsException e1) {
+                    System.out.println("input = " + input + "\n☹ OOPS!!! Please retype your input!");
+                    input = in.nextLine();
+                } catch (ArrayIndexOutOfBoundsException e2) {
+                    System.out.println("you have typed in = " + input + "\nw☹ OOPS!!! where is your /at bruh? ");
+                    input = in.nextLine();
+                }
 
-                input = in.nextLine();
-
-            } else { //adding in general orders
-                System.out.println("    added: " + input);
-                Task t = new Task(input);
-                tasks[inputCount] = t;
-                inputCount++;
-
+            } else {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 input = in.nextLine();
 
             }
@@ -104,9 +124,11 @@ public class Duke {
         inputCount++;
 
         return tasksToDo;
+
     }
 
     public static Task deadlineMethod(String input) {
+
         String[] deadlineSplitter = input.substring(9).split(" /by ");
         String deadlineDescription = deadlineSplitter[0]; //before /by
         String deadlineBy = deadlineSplitter[1]; // after /by
@@ -116,6 +138,7 @@ public class Duke {
         inputCount++;
 
         return description;
+
     }
 
     public static Task eventMethod(String input) {
@@ -128,6 +151,12 @@ public class Duke {
         inputCount++;
 
         return description;
+    }
+
+    public static void testInput(String input) throws DukeExceptions {
+        if (input.length() < 5) {
+            throw new DukeExceptions();
+        }
     }
 
 }
