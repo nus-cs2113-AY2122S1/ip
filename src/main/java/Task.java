@@ -14,13 +14,14 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
+
     public String getIcon() {
         return "";
     }
+
     public String getTiming() {
         return "";
     }
-
 
     public String toString() {
         return getStatusIcon() + " " + this.description ;

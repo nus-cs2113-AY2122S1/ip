@@ -39,12 +39,9 @@ public class TaskManager {
             System.out.println("     Invalid command, please try again");
             return;
         }
-
         System.out.println("     Got it. I've added this task:\n       " + newTask);
         printSize();
     }
-
-
 
     public void checkDone(String[] command) {
         try {
@@ -72,9 +69,14 @@ public class TaskManager {
         return description;
     }
 
-    public String getCommand(String task) {
-        String[] command = task.split(" ");
-        String taskType = command[0];
+    /**
+     *  Returns type of Task given command
+     * @param command
+     * @return Type of Task
+     */
+    public String getCommand(String command) {
+        String[] task = command.split(" ");
+        String taskType = task[0];
 
         return taskType;
     }
@@ -97,11 +99,9 @@ public class TaskManager {
         return taskList.get(index - 1).toString();
     }
 
-
     public int getSize() {
         return taskList.size();
     }
-
 
     public void list() {
         try {
@@ -120,7 +120,11 @@ public class TaskManager {
 
     }
 
-
+    /**
+     * Returns date of event or deadline
+     * @param description command entered
+     * @return Date of event or deadline
+     */
     public String getDate(String description) {
         String date;
         String taskType = getCommand(description);
@@ -131,7 +135,6 @@ public class TaskManager {
             date = description.substring(indexOfSeparator + 3);
             if (date.isEmpty()) {
                 System.out.println("     ☹ OOPS!!! Please enter a date");
-
             }
             break;
         case "event":
@@ -147,6 +150,4 @@ public class TaskManager {
         }
         return date;
     }
-
-
 }
