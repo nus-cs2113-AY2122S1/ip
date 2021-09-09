@@ -1,4 +1,7 @@
+package duke;
+
 public class Formatter {
+
     private static final String INPUT_START = ">>> ";
     private static final String OUTPUT_START = "  ";
     private static final String OUTPUT_SEPARATOR = "********************************************";
