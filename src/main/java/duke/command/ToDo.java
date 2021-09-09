@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.task.Task;
+
 public class ToDo extends Task {
     public ToDo(String content) {
         super(content);
