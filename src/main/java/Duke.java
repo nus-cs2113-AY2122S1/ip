@@ -40,8 +40,8 @@ public class Duke {
                 try {
                     markAsDone(tasks, itemIndex, command);
                 } catch (NumberFormatException e) {
-                    System.out.println(LINE + System.lineSeparator() + "Sir, I don't believe you provided me with an index number"
-                            + System.lineSeparator() + LINE);
+                    System.out.println(LINE + System.lineSeparator() + "Sir, you didn't give me a valid entry index "
+                            + "\u2639" + System.lineSeparator() + LINE);
                 }
             } else if (command.equals("echo")) {
                 echoMode();
@@ -65,8 +65,8 @@ public class Duke {
                         System.out.println(error.getMessage());
                     }
                 } else {
-                    System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol"
-                            + System.lineSeparator() + LINE);
+                    System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol! "
+                            + "\uD83E\uDD28" + System.lineSeparator() + LINE);
                 }
             }
         }
@@ -77,12 +77,12 @@ public class Duke {
         try {
             taskDescription = command.substring(TODO_SIZE);
         } catch (Exception e) {
-            throw new DukeException(LINE + System.lineSeparator() + "Sir, that seems to be an inavlid command"
-                    + System.lineSeparator() + LINE);
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, that seems to be an inavlid command "
+                    + "\u2639" + System.lineSeparator() + LINE);
         }
         if (taskDescription.isBlank()) {
-            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me the name of the task"
-                    + System.lineSeparator() + LINE);
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me the name of the task "
+                    + "\u2639" + System.lineSeparator() + LINE);
         }
         tasks[itemIndex] = new Todo(command.substring(TODO_SIZE));
         itemIndex++;
@@ -98,12 +98,13 @@ public class Duke {
         try {
             dateOrTime = command.substring(dashStart + DASH_INDX);
         } catch (Exception e) {
-            throw new DukeException("Sir, you haven't given me a valid deadline");
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me a valid deadline "
+                     + "\u2639" + System.lineSeparator() + LINE);
         }
         try {
             taskDescription = command.substring(DEADLINE_SIZE, dashStart);
         } catch (Exception e){
-            throw new DukeException(LINE + System.lineSeparator() + "Sir, I'm afraid that command is invalid. "
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, I'm afraid that command is invalid. " + "\u2639"
                     + System.lineSeparator() + "Please frame your request in this format: deadline CS2113T Assg /by Wed 2359 hrs"
                     + System.lineSeparator() + LINE);
         }
@@ -119,13 +120,13 @@ public class Duke {
         try {
             dateOrTime = command.substring(dashStart + DASH_INDX);
         } catch (Exception e) {
-            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me a valid event date"
-                    + System.lineSeparator() + LINE);
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me a valid event date "
+                    + "\u2639" + System.lineSeparator() + LINE);
         }
         try {
             taskDescription = command.substring(EVENT_SIZE, dashStart);
         } catch (Exception e){
-            throw new DukeException(LINE + System.lineSeparator() + "Sir, I'm afraid that command is invalid."
+            throw new DukeException(LINE + System.lineSeparator() + "Sir, I'm afraid that command is invalid." + "\u2639"
                     + System.lineSeparator() + "Please frame your request in this format: event My B'day /at 23/07/1999"
                     + System.lineSeparator() + LINE);
         }
@@ -145,7 +146,7 @@ public class Duke {
         // Prints enclosed text in italics
         String byline = "\033[3m----------------------------------Just a rather very intelligent system---------\033[0m\n";
         System.out.println(byline + "Good Evening Sir! I'm J.A.R.V.I.S");
-        System.out.println("How may I be of assistance to you today?");
+        System.out.println("How may I be of assistance to you today? " + "\uD83D\uDE01");
         System.out.println(LINE + System.lineSeparator());
     }
 
@@ -179,16 +180,19 @@ public class Duke {
         // Checks if given index holds a task and throws error message if no such task exists
         if (taskDoneIndex > itemIndex - 1 || taskDoneIndex < 0) {
             System.out.println(LINE + System.lineSeparator() +
-                    "Apologies sir but, it seems that task hasn't been created yet :(" + System.lineSeparator() + LINE);
+                    "Apologies sir but, it seems that task hasn't been created yet " +
+                    "\u2639" + System.lineSeparator() + LINE);
         } else {
             // Selects task to be modified with command "done"
             Task taskChosen = tasks[taskDoneIndex];
             // Checks if task has already been marked as done
             if (taskChosen.isDone()) {
-                System.out.println(LINE + System.lineSeparator() + "Sir, I believe this task has already been completed");
+                System.out.println(LINE + System.lineSeparator() + "Sir, I believe this task has already been completed "
+                    + "\uD83E\uDD14");
             } else {
                 taskChosen.changeStatusDone(true);
-                System.out.println(LINE + System.lineSeparator() + "As you wish sir, this task will be marked as done!");
+                System.out.println(LINE + System.lineSeparator() + "As you wish sir, this task will be marked as done! "
+                    + "\uD83D\uDE01");
             }
             // Otherwise, marks task as done with X. E.g. 1.[ ][X] read book if user inputs "done 1"
             System.out.println("    " + taskChosen.printTask() + System.lineSeparator() + LINE);
