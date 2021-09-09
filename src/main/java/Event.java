@@ -9,6 +9,7 @@ public class Event extends Task{
     public String getIcon() {
         return "[E]";
     }
+
     public String getTiming() {
         return "(at:" + timing + ")";
     }
