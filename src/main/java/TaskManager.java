@@ -32,8 +32,8 @@ public class TaskManager {
             }
             // t
             switch (command) {
-            case NULLCOMMAND:
-                MessagePrinter.invalidCommandMessage();
+            case INVALID:
+                MessagePrinter.invalidCommand();
                 break;
             case LIST:
                 getList();
