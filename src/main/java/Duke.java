@@ -7,8 +7,8 @@ public class Duke {
     private static int positionCheck = 0;
     private static Task[] commands = new Task[100];
 
-    // sendCommands() is a method used to allow the user to send his/her commands to C3PO
-    private static void sendCommands() {
+    // sendCommand() is a method used to allow the user to send his/her commands to C3PO
+    private static void sendCommand() {
         String line;
         Scanner in = new Scanner(System.in);
         while (byeFlag != 1) {
@@ -16,12 +16,12 @@ public class Duke {
             System.out.print("Type something: ");
             line = in.nextLine();
             System.out.println("____________________________________________________________\n");
-            checkCommands(line);
+            checkCommand(line);
         }
     }
 
-    // checkCommands() is a method that allows us to determine when the user says bye.
-    private static void checkCommands(String line) {
+    // checkCommand() is a method that allows us to determine when the user says bye.
+    private static void checkCommand(String line) {
         String[] input = line.split(" ");
         if (line.equals("bye")) {
             byeFlag = 1;
@@ -182,7 +182,7 @@ public class Duke {
 
     public static void main(String[] args) {
         greetUser();
-        sendCommands();
+        sendCommand();
         sayBye();
     }
 }
