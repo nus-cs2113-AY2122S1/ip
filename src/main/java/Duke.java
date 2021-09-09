@@ -19,7 +19,7 @@ public class Duke {
 
     private static void initiateStatus(int[] taskStatus) {
         for (int i = 0; i < 100; i++) {
-            taskStatus[i] = 0;        //No "X" in output
+            taskStatus[i] = 0;
         }
     }
 
@@ -31,7 +31,7 @@ public class Duke {
         System.out.println(line);
     }
     public static void checkTodo(String userCommand) throws DukeException {
-        if(userCommand.length() <= 5) {
+        if(userCommand.length() <= 5) {     //generate error when receiving invalid input
             DukeException e = new DukeException();
             throw e;
         }
@@ -39,14 +39,14 @@ public class Duke {
     }
 
     public static void checkDeadline(String userCommand) throws DukeException {
-        if(userCommand.length() <= 9) {
+        if(userCommand.length() <= 9) {     //generate error when receiving invalid input
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkEvent(String userCommand) throws DukeException {
-        if(userCommand.length() <= 6) {
+        if(userCommand.length() <= 6) {     //generate error when receiving invalid input
             DukeException e = new DukeException();
             throw e;
         }
