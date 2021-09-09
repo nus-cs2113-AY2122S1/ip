@@ -1,4 +1,4 @@
-package duke.textPrinter;
+package duke;
 
 /**
  * This class allows printing of a text file in the specified directory. It creates

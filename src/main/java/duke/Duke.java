@@ -13,7 +13,6 @@ import duke.taskType.Deadline;
 import duke.taskType.Event;
 import duke.taskType.Task;
 import duke.taskType.ToDo;
-import duke.textPrinter.PrintTextFile;
 
 import java.util.Scanner;
 
