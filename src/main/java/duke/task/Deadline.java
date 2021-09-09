@@ -4,22 +4,22 @@ package duke.task;
 public class Deadline extends ToDo {
     protected String endTime;
 
-    public Deadline(){
+    public Deadline() {
         super();
         endTime = "";
     }
 
-    public Deadline(String task, String endTime){
+    public Deadline(String task, String endTime) {
         super(task);
         this.endTime = endTime;
     }
 
-    public String getClassType(){
+    public String getClassType() {
         return "D";
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return task + " (by: " + endTime + ")";
     }
 }

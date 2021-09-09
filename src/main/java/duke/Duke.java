@@ -24,10 +24,9 @@ public class Duke {
         System.out.println("\nLet's start:");
         Task[] tasks = new Task[MAX_TASKS];
         while (true) {
-            try{
+            try {
                 readCommand(tasks);
-            }
-            catch (DukeException ex){
+            } catch (DukeException ex) {
                 Default.showMessage("Sorry, the command is invalid, I cant understand :(");
                 System.out.println("\tTo seek for help, you can type the command \"help\" or \"view -h\"");
             }
@@ -49,7 +48,7 @@ public class Duke {
         } else if (Command.isCommandExit(command)) {
             Default.showMessage("Bye! Hope to see you again :D");
             System.exit(0);
-        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")){
+        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")) {
             Default.printHelpMenu();
         } else {
             if (Command.isCommandList(command)) {
@@ -92,7 +91,7 @@ public class Duke {
             return false;
         }
         if (words.length == 1) {
-            Default.showMessage("Sorry, the task is empty!");
+            Default.showMessage("Sorry, the task is empty! I don't know how to record it :(");
             return false;
         }
         tasks[Task.totalTask] = new ToDo(command.replace(words[0], "").trim());
@@ -121,7 +120,7 @@ public class Duke {
         }
         String taskName = command.split("/", 2)[0].trim();
         if (words.length == 1 || taskName.isEmpty()) {
-            Default.showMessage("Sorry, the task is empty!");
+            Default.showMessage("Sorry, the task is empty! I don't know how to record it :(");
             return false;
         }
         if (time.isEmpty()) {
@@ -162,7 +161,7 @@ public class Duke {
         }
         String taskName = command.split("/", 2)[0].trim();
         if (words.length == 1 || taskName.isEmpty()) {
-            Default.showMessage("Sorry, the task is empty!");
+            Default.showMessage("Sorry, the task is empty! I don't know how to record it :(");
             return false;
         }
         if (time.isEmpty()) {

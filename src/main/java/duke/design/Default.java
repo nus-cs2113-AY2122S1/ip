@@ -12,95 +12,14 @@ import java.util.Random;
  */
 public abstract class Default {
     public static final String CURR_VERSION = "Version 5.0";
+
     //Corner symbols for to-do list frames
     public static final String TOP_LEFT_CORNER = "/";
     public static final String TOP_RIGHT_CORNER = "\\";
     public static final String BOTTOM_LEFT_CORNER = "\\";
     public static final String BOTTOM_RIGHT_CORNER = "/";
 
-    /**
-     * Print the logo and greeting message
-     */
-    public static void printLogo() {
-        //print the logo when the program starts
-        System.out.println("\t              ##*                                 ");
-        System.out.println("\t   .      . .&####%                               ");
-        System.out.println("\t    #%%%%((&%######%**.                           ");
-        System.out.println("\t    %#############%#%&&%%%%%##(*.                 ");
-        System.out.println("\t . .%%#######%%%%%##############%%%%#(.           ");
-        System.out.println("\t/##&@%####&%####&#####%&&&&&&&&&%%%####&/  .      ");
-        System.out.println("\t&######%%######%&%%%#################%%%%&#       ");
-        System.out.println("\t(@####&#####%&%########################%###@(     ");
-        System.out.println("\t,&%#%%%%##%%############%%%%%%%%%%%##########%.   ");
-        System.out.println("\t*&#&%%&#%&########&%#(%#/((((((/****#&%&%#####%,  ");
-        System.out.println("\t  ,&#%%%%#####%%#(%(((&#(&(((((((((/%#(((%##%%#%. ");
-        System.out.println("\t  (%##%%####%%(((/%&((%&#%##((((((((&#(((%#(((&&, ");
-        System.out.println("\t  (%#%&####%#((##(#(/###.%#.*(##(((%, /##((%#(#( .");
-        System.out.println("\t  *&(&%###%#(((((#/@%%%&,. ...     &%%&%  (&###*  ");
-        System.out.println("\t . (%%%###%(((((#/#####&, .. .... /&(#(&,.%(((#(  ");
-        System.out.println("\t    *&&##%%(((((%*(%###%. .. .. . *%(##&, (%((#(  ");
-        System.out.println("\t      (&#%%((((#%/ .**,. ..... . ...,,,. . (#(%(  ");
-        System.out.println("\t        .(%(((((&/ .   .  ...... .. .. . .(%/#%,  ");
-        System.out.println("\t          .(%(((#&*,,.           . .,*/*%#((#&*   ");
-        System.out.println("\t              ,/(#(    .,,******,.     ####%*     ");
-    }
-
-    /**
-     * Print the welcome message and the ASCII art when the program starts
-     */
-    public static void printWelcomeMessage() {
-        System.out.println("   __          ________ _      _____ ____  __  __ ______    ");
-        System.out.println("   \\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____|  ");
-        System.out.println("    \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__     ");
-        System.out.println("     \\ \\/  \\/ / |  __| | |   | |   | |  | | |\\/| |  __|    ");
-        System.out.println("      \\  /\\  /  | |____| |___| |___| |__| | |  | | |____   ");
-        System.out.println("     __\\/_ \\/   |______|______\\_____\\____/|_|  |_|______|_ ");
-        System.out.println("    / ____| |  | |_   _|  \\/  |   /\\   |  __ \\|_   _| \\ | |");
-        System.out.println("   | (___ | |__| | | | | \\  / |  /  \\  | |__) | | | |  \\| |");
-        System.out.println("    \\___ \\|  __  | | | | |\\/| | / /\\ \\ |  _  /  | | | . ` |");
-        System.out.println("    ____) | |  | |_| |_| |  | |/ ____ \\| | \\ \\ _| |_| |\\  |");
-        System.out.println("   |_____/|_|  |_|_____|_|  |_/_/    \\_\\_|  \\_\\_____|_| \\_|");
-        //greeting
-        System.out.println("\nHi there! My name is Shima Rin and I am a chat robot that can help you do some wonderful jobs!");
-    }
-
-    /**
-     * Show the current version's functionality of the bot
-     */
-    public static void printVersionDescription() {
-        //Uses list to store all the version information
-        List<String> versionDescriptions = new ArrayList<>();
-        int maxDescriptionsLength = 0;
-        versionDescriptions.add("* " + CURR_VERSION);
-        versionDescriptions.add("* To know more about me, you can view my profile by typing the command \"view -p\"");
-        versionDescriptions.add("* For now I am a note bot that can help you note down any tasks and create a to-do list for you :)");
-        versionDescriptions.add("* In addition, you can mark any task in the to-do list as done!");
-        versionDescriptions.add("* You can type \"todo\" or \"deadline\" or \"event\" to create a task and I will help you save it automatically!");
-        versionDescriptions.add("* You can type \"list\" or \"ls\" to list all the tasks that are waiting to do");
-        versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
-        versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
-        versionDescriptions.add("* For more information about how to use me (YES the bot), you can type \"help\" or \"view-h\"");
-        //Finds the length of the longest description to align all '*' displayed
-        for (String str : versionDescriptions) {
-            if (str.length() > maxDescriptionsLength) {
-                maxDescriptionsLength = str.length();
-            }
-        }
-        //Draws the frame for the version description
-        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-        for (String str : versionDescriptions) {
-            //Uses format string to print the '*' at the correct position after each sentence is completed
-            System.out.printf("%1$-" + (maxDescriptionsLength + 1) + "s", str);
-            System.out.println("*");
-        }
-        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
-            System.out.print("-");
-        }
-    }
-
+    //Pictures for view -p
     public static final String PICTURE_1 = "***********************************************************************************************************************\n" +
             "**                                                                                                                   **\n" +
             "**       (((((((((((((((((((((*#//////*///////*#/////*///////**//*****//******/*****///*,//((((((((((((((((((        **\n" +
@@ -231,6 +150,89 @@ public abstract class Default {
             "**       %%%#%%%%%%%%&&&&&&&&&&&&,%.%%%%%%%&&,%&&&,%%****..,/&@&&&@@@@@*#@@%,   .,,,,,,,,,.@(,,.%%&&&&*&&&&&&        **";
 
     /**
+     * Print the logo and greeting message
+     */
+    public static void printLogo() {
+        //print the logo when the program starts
+        System.out.println("\t              ##*                                 ");
+        System.out.println("\t   .      . .&####%                               ");
+        System.out.println("\t    #%%%%((&%######%**.                           ");
+        System.out.println("\t    %#############%#%&&%%%%%##(*.                 ");
+        System.out.println("\t . .%%#######%%%%%##############%%%%#(.           ");
+        System.out.println("\t/##&@%####&%####&#####%&&&&&&&&&%%%####&/  .      ");
+        System.out.println("\t&######%%######%&%%%#################%%%%&#       ");
+        System.out.println("\t(@####&#####%&%########################%###@(     ");
+        System.out.println("\t,&%#%%%%##%%############%%%%%%%%%%%##########%.   ");
+        System.out.println("\t*&#&%%&#%&########&%#(%#/((((((/****#&%&%#####%,  ");
+        System.out.println("\t  ,&#%%%%#####%%#(%(((&#(&(((((((((/%#(((%##%%#%. ");
+        System.out.println("\t  (%##%%####%%(((/%&((%&#%##((((((((&#(((%#(((&&, ");
+        System.out.println("\t  (%#%&####%#((##(#(/###.%#.*(##(((%, /##((%#(#( .");
+        System.out.println("\t  *&(&%###%#(((((#/@%%%&,. ...     &%%&%  (&###*  ");
+        System.out.println("\t . (%%%###%(((((#/#####&, .. .... /&(#(&,.%(((#(  ");
+        System.out.println("\t    *&&##%%(((((%*(%###%. .. .. . *%(##&, (%((#(  ");
+        System.out.println("\t      (&#%%((((#%/ .**,. ..... . ...,,,. . (#(%(  ");
+        System.out.println("\t        .(%(((((&/ .   .  ...... .. .. . .(%/#%,  ");
+        System.out.println("\t          .(%(((#&*,,.           . .,*/*%#((#&*   ");
+        System.out.println("\t              ,/(#(    .,,******,.     ####%*     ");
+    }
+
+    /**
+     * Print the welcome message and the ASCII art when the program starts
+     */
+    public static void printWelcomeMessage() {
+        System.out.println("   __          ________ _      _____ ____  __  __ ______    ");
+        System.out.println("   \\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____|  ");
+        System.out.println("    \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__     ");
+        System.out.println("     \\ \\/  \\/ / |  __| | |   | |   | |  | | |\\/| |  __|    ");
+        System.out.println("      \\  /\\  /  | |____| |___| |___| |__| | |  | | |____   ");
+        System.out.println("     __\\/_ \\/   |______|______\\_____\\____/|_|  |_|______|_ ");
+        System.out.println("    / ____| |  | |_   _|  \\/  |   /\\   |  __ \\|_   _| \\ | |");
+        System.out.println("   | (___ | |__| | | | | \\  / |  /  \\  | |__) | | | |  \\| |");
+        System.out.println("    \\___ \\|  __  | | | | |\\/| | / /\\ \\ |  _  /  | | | . ` |");
+        System.out.println("    ____) | |  | |_| |_| |  | |/ ____ \\| | \\ \\ _| |_| |\\  |");
+        System.out.println("   |_____/|_|  |_|_____|_|  |_/_/    \\_\\_|  \\_\\_____|_| \\_|");
+        //greeting
+        System.out.println("\nHi there! My name is Shima Rin and I am a chat robot that can help you do some wonderful jobs!");
+    }
+
+    /**
+     * Show the current version's functionality of the bot
+     */
+    public static void printVersionDescription() {
+        //Uses list to store all the version information
+        List<String> versionDescriptions = new ArrayList<>();
+        int maxDescriptionsLength = 0;
+        versionDescriptions.add("* " + CURR_VERSION);
+        versionDescriptions.add("* To know more about me, you can view my profile by typing the command \"view -p\"");
+        versionDescriptions.add("* For now I am a note bot that can help you note down any tasks and create a to-do list for you :)");
+        versionDescriptions.add("* In addition, you can mark any task in the to-do list as done!");
+        versionDescriptions.add("* You can type \"todo\" or \"deadline\" or \"event\" to create a task and I will help you save it automatically!");
+        versionDescriptions.add("* You can type \"list\" or \"ls\" to list all the tasks that are waiting to do");
+        versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
+        versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
+        versionDescriptions.add("* For more information about how to use me (YES the bot), you can type \"help\" or \"view-h\"");
+        //Finds the length of the longest description to align all '*' displayed
+        for (String str : versionDescriptions) {
+            if (str.length() > maxDescriptionsLength) {
+                maxDescriptionsLength = str.length();
+            }
+        }
+        //Draws the frame for the version description
+        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+        for (String str : versionDescriptions) {
+            //Uses format string to print the '*' at the correct position after each sentence is completed
+            System.out.printf("%1$-" + (maxDescriptionsLength + 1) + "s", str);
+            System.out.println("*");
+        }
+        for (int i = 0; i < maxDescriptionsLength + 2; i++) {
+            System.out.print("-");
+        }
+    }
+
+    /**
      * Prints the ASCII art image of the robot and the description of the personality of the robot
      */
     public static void printPersonality() {
@@ -261,8 +263,8 @@ public abstract class Default {
         ArrayList<String> helpLists = createHelpMenu();
         System.out.println("************************************************************************************************************************************************************************");
         System.out.println("Help Menu Version " + CURR_VERSION + "\n");
-        for (int i = 0; i < helpLists.size(); i++){
-            System.out.println("\t" + (i+1) + ". " + helpLists.get(i));
+        for (int i = 0; i < helpLists.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + helpLists.get(i));
         }
         System.out.println("************************************************************************************************************************************************************************");
     }
@@ -331,8 +333,9 @@ public abstract class Default {
 
     /**
      * Prints the tasks stored in the array, the frame starts with '|' and ends with '|', the ending frame is always located at the position of the longest task description
-     * @param tasks the array that stores all the tasks
-     * @param totalTask the number of the tasks stored
+     *
+     * @param tasks                  the array that stores all the tasks
+     * @param totalTask              the number of the tasks stored
      * @param longestTaskDescription the length of the longest task description stored in the tasks array
      */
     private static void printTasks(Task[] tasks, int totalTask, int longestTaskDescription) {
