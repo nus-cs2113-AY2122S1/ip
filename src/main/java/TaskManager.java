@@ -14,7 +14,6 @@ public class TaskManager {
 
 
     public static void manageTasks() {
-        //String userInput = "";
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
@@ -24,7 +23,7 @@ public class TaskManager {
                 userInput = in.nextLine();
             }
             // change to switch case based on enum
-            Commands command = InputParser.parseInput(userInput);
+            Commands command = InputParser.getCommand(userInput);
 
             // if bye, exit straight
             if (command == Commands.BYE) {
@@ -33,105 +32,88 @@ public class TaskManager {
             }
             // t
             switch (command) {
+            case NULLCOMMAND:
+                MessagePrinter.invalidCommandMessage();
+                break;
             case LIST:
                 getList();
                 break;
-            }
-            if (userInput.equals("bye")) {
+            case TODO:
+                addToDo(userInput);
+                break;
+            case DEADLINE:
+                addDeadline(userInput);
+                break;
+            case EVENT:
+                addEvent(userInput);
+                break;
+            case DONE:
+                markAsDone(userInput);
                 break;
             }
-
-
-            // TODO
-            if (userInput.startsWith("todo")) {
-                addToDo(userInput.substring(userInput.indexOf(" ") + 1));
-                continue;
-            }
-
-            // DEADLINES
-            if (userInput.startsWith("deadline")) {
-                String taskName = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/")).trim();
-                String deadline = userInput.substring(userInput.indexOf("/") + 3).trim();
-                addDeadline(taskName, deadline);
-                continue;
-            }
-
-            //EVENTS
-            if (userInput.startsWith("event")) {
-                String taskName = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/")).trim();
-                String eventDate = userInput.substring(userInput.indexOf("/") + 3).trim();
-                addEvent(taskName, eventDate);
-                continue;
-            }
-
-            // if user wants to mark as done
-            if (userInput.startsWith("done")) {
-                // get index of task to change
-                int taskIndex = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1)) - 1;
-
-                // if task out of bounds
-                if (taskIndex < 0 || taskIndex > 99) {
-                    System.out.println(dashes);
-                    System.out.println("Apologies sir, there is no such task in your list.");
-                    System.out.println(dashes);
-                    continue;
-                }
-                // change task to done
-                Task currTask = tasks[taskIndex];
-                if (currTask == null) {
-                    System.out.println(dashes);
-                    System.out.println("Apologies sir, there are currently no tasks in your list");
-                    System.out.println(dashes);
-                    continue;
-                }
-                currTask.setDone(true);
-                System.out.println(dashes);
-                System.out.println("Your task \"" + currTask.getTaskName() + "\" is indicated as complete.");
-                System.out.println("[X]" + currTask.getTaskName());
-                System.out.println(dashes);
-                continue;
-            }
-            // ask user to input task with todo, event or deadline
-            System.out.println(dashes);
-            System.out.println("Enter todo, event or deadline before task name to classify task correctly");
-            System.out.println(dashes);
         }
     }
 
     private static void getList() {
-        // Message Printer
-        System.out.print(dashes);
-        System.out.println("Listing all tasks for today.");
-        for (Task task : tasks) {
-            if (task == null) {
-                break;
-            }
-            System.out.println(task);
+        if (tasksCounter == 0) {
+            MessagePrinter.emptyListMessage();
+            return;
         }
-        System.out.print(dashes);
+        // Message Printer
+        MessagePrinter.printList(tasks, tasksCounter);
     }
 
     private static void addTask(Task newTask, String taskName) {
         tasks[tasksCounter++] = newTask;
         // Message Printer
-        System.out.print(dashes);
-        System.out.println("Very well, adding task \"" + taskName + "\"");
-        System.out.print(dashes);
+        MessagePrinter.addedTask(taskName);
     }
 
-    public static void addToDo(String taskName) {
+    // catch exception for not enough parameters
+    private static void addToDo(String userInput) {
+        // get taskName
+        String taskName = userInput.substring(userInput.indexOf(" ")).trim();
+        // run through input parser to check for parameters
         Todo newTodo = new Todo(false, taskName);
         addTask(newTodo, taskName);
     }
 
-    public static void addDeadline(String taskName, String deadline) {
+    private static void addDeadline(String userInput) {
+        // get taskName
+        String taskName = InputParser.getTaskName(userInput);
+        // get deadline; catch exception for no deadline
+        String deadline = InputParser.getDate(userInput);
         Deadline newDeadline = new Deadline(false, taskName, deadline);
         addTask(newDeadline, taskName);
     }
 
-    public static void addEvent(String taskName, String date) {
-        Event newEvent = new Event(false, taskName, date);
+    private static void addEvent(String userInput) {
+        // get taskName
+        String taskName = InputParser.getTaskName(userInput);
+        // get event date; catch exception for no event date
+        String eventDate = InputParser.getDate(userInput);
+        Event newEvent = new Event(false, taskName, eventDate);
         addTask(newEvent, taskName);
+    }
+
+    private static void markAsDone(String userInput) {
+        // get index of task to chang
+        int taskIndex = InputParser.getTaskIndex(userInput);
+
+        // catch exception for task being out of bounds
+        if (taskIndex < 0 || taskIndex > 99) {
+            MessagePrinter.outOfBoundsTaskIndex();
+            return;
+        }
+
+        // change task to done
+        Task currTask = tasks[taskIndex];
+        if (currTask == null) {
+            MessagePrinter.invalidTaskIndex();
+            return;
+        }
+        currTask.setDone(true);
+        MessagePrinter.taskMarkedAsDone(currTask);
     }
 
 }

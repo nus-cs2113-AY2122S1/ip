@@ -3,6 +3,6 @@ public class Friday {
         MessagePrinter.greetUser();
         // Scan in user input of tasks
         TaskManager.manageTasks();
-        MessagePrinter.exitProgram();
+        MessagePrinter.exitMessage();
     }
 }

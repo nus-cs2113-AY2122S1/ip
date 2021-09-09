@@ -2,7 +2,6 @@ public abstract class InputParser {
     // take in string and check no. of words, words it contains etc.
 
     // flags for all possible cases
-    private static final int TODOPARAMS = 2;
     private static final String LIST = "list";
     private static final String BYE = "bye";
     private static final String TODO = "todo";
@@ -12,16 +11,21 @@ public abstract class InputParser {
     private static final String BY= "/by";
     private static final String AT = "/at";
 
-    private static String getTaskName(String input) {
+
+    public static String getTaskName(String input) {
         return input.substring(input.indexOf(" ") + 1, input.indexOf("/")).trim();
     }
 
-    private static String getDate(String input) {
+    public static String getDate(String input) {
         return input.substring(input.indexOf("/") + 3).trim();
     }
 
+    public static int getTaskIndex(String input) {
+        return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
+    }
+
     // command parser handling all commands; returns enum of commands
-    public static Commands parseInput(String input) {
+    public static Commands getCommand(String input) {
         // checks if it contains list or bye
         if (input.equals(LIST)) {
             return Commands.LIST;
@@ -47,5 +51,6 @@ public abstract class InputParser {
             return Commands.DONE;
         }
 
+        return Commands.NULLCOMMAND;
     }
 }

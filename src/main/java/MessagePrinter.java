@@ -15,6 +15,7 @@ public abstract class MessagePrinter {
             + "                        |___/ \n";
     private static final String DASHES = "____________________________________________________________\n";
 
+    // methods to print constants
     private static void friday() {
         System.out.println(FRIDAY);
     }
@@ -24,6 +25,8 @@ public abstract class MessagePrinter {
     }
 
     // methods to print messages
+
+    // greet User upon entry
     public static void greetUser() {
         dashes();
         friday();
@@ -32,13 +35,61 @@ public abstract class MessagePrinter {
         dashes();
     }
 
+    // Messages for null command enum
+    public static void invalidCommandMessage() {
+        dashes();
+        System.out.println("Apologies sir, I do not understand your command.");
+        dashes();
+    }
+
+    // Messages for Command List
+    public static void emptyListMessage() {
+        dashes();
+        System.out.println("You appear to have no tasks for today. How wonderful Sir.");
+        dashes();
+    }
+    public static void printList(Task[] tasks, int tasksLength) {
+        dashes();
+        System.out.println("You have a total of " + tasksLength +" tasks today sir, listing them out now.");
+        for (Task task : tasks) {
+            if (task == null) {
+                break;
+            }
+            System.out.println(task);
+        }
+        dashes();
+    }
+
+    // Messages for marking task as done
+    public static void outOfBoundsTaskIndex() {
+        dashes();
+        System.out.println("Apologies sir, there is no such task in your list.");
+        dashes();
+    }
+
+    public static void invalidTaskIndex() {
+        dashes();
+        System.out.println("Hmm.. How strange, there appears to be no task at this location... Perhaps you could try another number sir?");
+        dashes();
+    }
+
+    public static void taskMarkedAsDone(Task currTask) {
+        dashes();
+        System.out.println("Your task \"" + currTask.getTaskName() + "\" is indicated as complete.");
+        System.out.println("[X]" + currTask.getTaskName());
+        dashes();
+    }
+
+    // Message for adding tasks
+    public static void addedTask(String taskName) {
+        dashes();
+        System.out.println("Very well, adding task \"" + taskName + "\"");
+        dashes();
+    }
+
     public static void exitMessage() {
         dashes();
         System.out.println("Powering Off now. Good Bye Mr Stark.\n");
         dashes();
     }
-
-    // SUCCESSFUL messages
-
-    // ERROR messages
 }
