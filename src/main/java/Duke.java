@@ -19,19 +19,19 @@ public class Duke {
     public static void printFormattedOutput(String output) {
         String[] outputLines = output.split(System.lineSeparator());
 
-        System.out.println(InoutputFormatter.printOutputSeparator());
+        System.out.println(Formatter.printOutputSeparator());
         for (String line : outputLines) {
-            System.out.print(InoutputFormatter.printOutputStart());
+            System.out.print(Formatter.printOutputStart());
             System.out.println(line);
         }
-        System.out.println(InoutputFormatter.printOutputSeparator());
+        System.out.println(Formatter.printOutputSeparator());
     }
 
     public static void echoUserInput(String input) {
-        InoutputFormatter.printOutputSeparator();
-        InoutputFormatter.printInputStart();
+        Formatter.printOutputSeparator();
+        Formatter.printInputStart();
         System.out.println(input);
-        InoutputFormatter.printOutputSeparator();
+        Formatter.printOutputSeparator();
     }
 
     public static void main(String[] args) {
@@ -42,13 +42,20 @@ public class Duke {
 
         sayHello();
 
-        System.out.print(InoutputFormatter.printInputStart());
+        System.out.print(Formatter.printInputStart());
         line = in.nextLine();
         
         while (!th.inputIsBye(line.toLowerCase())) {
-            printFormattedOutput(th.handleTasks(line));
-            System.out.print(InoutputFormatter.printInputStart());
-            line = in.nextLine();
+            try {
+                printFormattedOutput(th.handleTasks(line));
+            } catch (IllegalArgumentException e) {
+                printFormattedOutput(e.getMessage());
+            } catch (DukeException e) {
+                printFormattedOutput(e.getMessage());
+            } finally {
+                System.out.print(Formatter.printInputStart());
+                line = in.nextLine();
+            }
         }
 
         sayBye();

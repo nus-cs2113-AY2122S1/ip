@@ -1,4 +1,4 @@
-public class InoutputFormatter {
+public class Formatter {
     public static String printInputStart() {
         return ">>> ";
     }
