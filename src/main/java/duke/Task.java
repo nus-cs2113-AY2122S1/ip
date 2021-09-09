@@ -21,6 +21,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public void undo() {
+        this.isDone = false;
+    }
+
     public String getTaskType() {
         return getTaskType();
     }

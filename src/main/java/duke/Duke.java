@@ -2,6 +2,7 @@ package duke;
 
 import duke.Exceptions.TaskException;
 import duke.Exceptions.TimeException;
+import duke.Exceptions.DoneUndoException;
 import duke.tasks.Deadlines;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
@@ -42,7 +43,8 @@ public class Duke {
                 lineBreak();
                 break;
             case "done":
-                done(listOfTasks, response);
+            case "undo":
+                doUndoManager(command, listOfTasks, response);
                 break;
             case "deadline":
             case "event":
@@ -57,6 +59,21 @@ public class Duke {
                 lineBreak();
                 break;
             }
+        }
+    }
+
+    private static void doUndoManager(String[] command, Task[] list, String response) {
+        String doUndo = command[0];
+        try {
+            if (command[0].equalsIgnoreCase("done")) {
+                done(list, response);
+            } else if (command[0].equalsIgnoreCase("undo")) {
+                undo(list, response);
+            }
+        } catch (DoneUndoException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            lineBreak();
         }
     }
 
@@ -86,7 +103,6 @@ public class Duke {
             throws TimeException {
         String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
 
-        //checking if user entered timing
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it being held? " +
                     "[indicate by adding: /at your_timing]");
@@ -141,12 +157,24 @@ public class Duke {
         lineBreak();
     }
 
-    private static void done(Task[] list, String response) {
+    private static void done(Task[] list, String response) throws DoneUndoException {
         int i = Integer.parseInt(response.substring(5)) - 1;
+        if (list[i].isDone) {
+            throw new DoneUndoException("Task is already completed");
+        }
         list[i].markAsDone();
         System.out.println("Nice! i have marked this task as done:\n ["
                 + list[i].getStatusIcon() + "] " + list[i].getDescription());
-        lineBreak();
+    }
+
+    private static void undo(Task[] list, String response) throws DoneUndoException {
+        int i = Integer.parseInt(response.substring(5)) - 1;
+        if (!list[i].isDone) {
+            throw new DoneUndoException("Task is currently incomplete");
+        }
+        list[i].undo();
+        System.out.println("Ok i have changed the status for the specific task:\n ["
+                + list[i].getStatusIcon() + "] " + list[i].getDescription());
     }
 
     private static void addToList(Task task, List ofTasks, Task[] list) {
