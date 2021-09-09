@@ -24,7 +24,7 @@ public class TaskManager {
             Duke.printDivider();
 
         } catch (ExceedMaxTasksException e) {
-            Duke.printlnTab("You have already added the maximum of 100 tasks! You can't add anymore tasks.");
+            Duke.printlnTab("☹ OOPS!!! You have already added the maximum of 100 tasks! You can't add anymore tasks.");
             Duke.printDivider();
         }
     }
@@ -82,7 +82,6 @@ public class TaskManager {
         String[] taskDetails;
         //strip userInputWithoutTaskCommand prevents empty description / dates
         if (taskType == TaskEnum.DEADLINE) {
-            System.out.println(userInputWithoutTaskCommand.strip().split("by").length);
             taskDetails = userInputWithoutTaskCommand.strip().split("/by");
         } else { //if EVENT
             taskDetails = userInputWithoutTaskCommand.strip().split("/at");
@@ -90,6 +89,8 @@ public class TaskManager {
 
         // taskDetails[] should have length of 2
         //containing Task description (index 0) and Task date (index 1)
+        //special case of length 2 when "/by timing" which is still invalid
+        //is checked by .isBlank()
         if (taskDetails.length != 2
                 || taskDetails[TASK_DESCRIPTION_INDEX].isBlank()
                 || taskDetails[TASK_DATE_INDEX].isBlank()) {
@@ -120,18 +121,21 @@ public class TaskManager {
     void addTaskSuccess() {
         Duke.printlnTab("Got it. I've added this task:");
         Duke.printlnTab(" " + tasks[tasksIndex]);
-        if (tasksIndex == 0) {
+        tasksIndex++;
+        if (tasksIndex == 1) {
             Duke.printlnTab("Now you have 1 task");
 
         } else {
-            Duke.printlnTab(String.format("Now you have %d tasks", tasksIndex + 1));
+            Duke.printlnTab(String.format("Now you have %d tasks", tasksIndex));
         }
         Duke.printDivider();
-        tasksIndex++;
     }
 
-    void doneTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException, NullPointerException {
+    void doneTask(String userInput) throws BlankDescriptionException, IndexOutOfBoundsException, NullPointerException {
         String taskNumberStr = userInput.substring(DONE_NUMBER_INDEX).strip();
+        if (taskNumberStr.isBlank()) {
+            throw new BlankDescriptionException();
+        }
         //taskNumber displayed starting with 1
         //but array starts with 0
 
@@ -147,16 +151,21 @@ public class TaskManager {
     void doneTaskPlusException(String userInput) {
         try {
             doneTask(userInput);
+
+        } catch (BlankDescriptionException e) {
+            Duke.printlnTab("☹ OOPS!!! Please enter a task number to complete");
+            Duke.printDivider();
+
         } catch (NumberFormatException e) {
-            Duke.printlnTab("Task number is not an integer. Please try again!");
+            Duke.printlnTab("☹ OOPS!!! Task number is not an integer. Please try again!");
             Duke.printDivider();
 
         } catch (IndexOutOfBoundsException e) {
-            Duke.printlnTab("Task number is out of bounds. Please try again!");
+            Duke.printlnTab("☹ OOPS!!! Task number is out of bounds. Please try again!");
             Duke.printDivider();
 
         } catch (NullPointerException e) {
-            Duke.printlnTab("You only have " + getTotalTasks() + " tasks");
+            Duke.printlnTab("☹ OOPS!!! You only have " + getTotalTasks() + " tasks");
             Duke.printlnTab("Please enter a number smaller or equal to " + getTotalTasks());
             Duke.printDivider();
 
@@ -181,7 +190,7 @@ public class TaskManager {
     }
 
     public int getTotalTasks() {
-        return tasksIndex + 1;
+        return tasksIndex;
     }
 
 }

@@ -44,15 +44,24 @@ public class CommandManager {
                 return;
 
             } else if (userInput.equals("")) { //empty command
-                Duke.printlnTab("Please enter a command keyword");
+                Duke.printlnTab("Please enter a command keyword.");
+                Duke.printDivider();
+
+            } else if (userInput.equals("help") || userInput.equals("h")) { //empty command
+                Duke.printlnTab("List of commands:");
+                Duke.printlnTab("1. list");
+                Duke.printlnTab("2. todo [TASK DESCRIPTION]");
+                Duke.printlnTab("3. deadline [TASK DESCRIPTION] /by [DEADLINE]");
+                Duke.printlnTab("4. event [TASK DESCRIPTION] /at [DATE/TIME]");
+                Duke.printlnTab("5. done [TASK NUMBER]");
+                Duke.printlnTab("6. help");
+                Duke.printlnTab("7. bye");
                 Duke.printDivider();
 
             } else { //Invalid inputs
                 Duke.printlnTab("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 Duke.printDivider();
-
             }
-            //TODO help function also
 
         } while (true);
 
