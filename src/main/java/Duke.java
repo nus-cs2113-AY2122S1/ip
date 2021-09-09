@@ -27,7 +27,11 @@ public class Duke {
             } else if (command.startsWith(TODO_CMD)) {
                 String parsedInput = command.replaceFirst(TODO_CMD, "");
                 String todo = parsedInput.strip();
-                TaskManager.addTodo(todo);
+                try {
+                    TaskManager.addTodo(todo);
+                } catch (TodoException e) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                }
             } else if (command.startsWith(DEADLINE_CMD)) {
                 String [] parsedInput = command.replaceFirst(DEADLINE_CMD, "").split("/by ");
                 String deadlineTitle = parsedInput[0].strip();
@@ -40,7 +44,11 @@ public class Duke {
                 TaskManager.addEvent(eventTitle, eventTime);
             } else {
                 // handle invalid command
-                System.out.println("Invalid command! Please enter a valid command");
+                try {
+                    throw new DukeException();
+                } catch (DukeException e) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
             }
         }
 
