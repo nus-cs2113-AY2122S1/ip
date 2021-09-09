@@ -1,6 +1,8 @@
 package kitty.userinterface;
 
+import kitty.Kitty;
 import kitty.KittyException;
+import kitty.task.Task;
 
 import java.util.Scanner;
 
@@ -66,60 +68,35 @@ public class Ui {
                                             "    __^      __(  \\.__) )\n" +
                                             "(@)<_____>__(_____)____/";
     public static final String BAR_LINE = "==========================================================";
+    public static final String INTRO_MESSAGE = CAT_LOGO + "\n"
+                                                + BAR_LINE + "\n"
+                                                + BAR_LINE + "\n"
+                                                + "Hey there! I'm Kitty!\n"
+                                                + "What can I do for you?\n"
+                                                + BAR_LINE + "\n"
+                                                + BAR_LINE;
+    public static final String HELP_MESSAGE = "Here are some things that I can do:\n"
+                                            + BAR_LINE + "\n"
+                                            + "Todo: todo **INSERT TASK HERE**\n"
+                                            + "Deadline: deadline **INSERT TASK HERE** /by **INSERT DEADLINE HERE**\n"
+                                            + "Event: event **INSERT TASK HERE** /at **INSERT EVENT DATE HERE**\n"
+                                            + BAR_LINE + "\n"
+                                            + CAT_4;
+    public static final String EXIT_MESSAGE = "\n" + "Nap time!! Yawn...\n"
+                                            + CAT_EXIT + "\n"
+                                            + BAR_LINE + "\n";
+    public static final String ERROR_MESSAGE = "\nOops something went wrong! Please try again!\n"
+                                            + CAT_ERROR;
 
     // Methods
-    public static void printCat1() {
-        System.out.println(CAT_1);
-    }
-
-    public static void printCat2() {
-        System.out.println(CAT_2);
-    }
-
-    public static void printCat3() {
-        System.out.println(CAT_3);
-    }
-
-    public static void printCat4() {
-        System.out.println(CAT_4);
-    }
-
-    public static void printCatLogo() {
-        System.out.println(CAT_LOGO);
-    }
-
-    private static void printCatExit() {
-        System.out.println(CAT_EXIT);
-    }
-
-    private static void printCatError() {
-        System.out.println(CAT_ERROR);
-    }
-
-    public static void printBarLine() {
-        System.out.println(BAR_LINE);
-    }
-
     public static void greet() {
-        printCatLogo();
-        printBarLine();
-        printBarLine();
-        System.out.println("Hey there! I'm Kitty!");
-        System.out.println("What can I do for you?");
-        printBarLine();
-        printBarLine();
-        System.out.println("Here are some things that I can do:");
-        printBarLine();
-        System.out.println("Todo: todo *insert task here*");
-        System.out.println("Deadline: deadline *insert task here* /by *insert deadline here*");
-        System.out.println("Event: event *insert task here* /at *insert event date here*");
-        printBarLine();
-        printCat4();
-        printBarLine();
+        System.out.println(INTRO_MESSAGE);
+        System.out.println(HELP_MESSAGE);
     }
 
     public static void getUserInput() throws KittyException {
         try {
+            System.out.println(BAR_LINE);
             System.out.print("You: ");
             userInput = in.nextLine();
             command = userInput.split(" ")[0];
@@ -128,25 +105,27 @@ public class Ui {
         }
     }
 
-    public static void exit() {
+    public static void printAddedTask() {
         System.out.println();
-        System.out.println("Nap time!! Yawn...");
-        printCatExit();
-        printBarLine();
+        System.out.println("Added: " + Kitty.tasks[Task.totalTasksCount - 1]);
+        System.out.println();
+        System.out.println(Ui.CAT_2);
+    }
+
+    public static void exit() {
+        System.out.println(EXIT_MESSAGE);
         System.exit(0);
     }
 
-    public static void echo(String line) {
-        System.out.println();
-        System.out.println(line);
-        printCat2();
-        printBarLine();
-    }
+    // Remove for now, perhaps use in future?
+//    public static void echo(String line) {
+//        System.out.println();
+//        System.out.println(line);
+//        printCat2();
+//        printBarLine();
+//    }
 
     public static void printErrorMessage() {
-        System.out.println();
-        System.out.println("Oops something went wrong! Please try again!");
-        printCatError();
-        printBarLine();
+        System.out.println(ERROR_MESSAGE);
     }
 }

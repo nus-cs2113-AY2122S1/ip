@@ -7,6 +7,8 @@ import kitty.task.Todo;
 import kitty.task.Deadline;
 import kitty.task.Event;
 
+import java.util.Optional;
+
 public class UiHandler {
 
     public static void startApp() {
@@ -54,8 +56,7 @@ public class UiHandler {
                 System.out.println(Kitty.tasks[i]);
             }
             System.out.println();
-            Ui.printCat1();
-            Ui.printBarLine();
+            System.out.println(Ui.CAT_1);
         }
     }
 
@@ -66,8 +67,7 @@ public class UiHandler {
             System.out.println();
             System.out.println("Good Job!! One more thing off your list!!");
             System.out.println(Kitty.tasks[taskNum-1]);
-            Ui.printCat3();
-            Ui.printBarLine();
+            System.out.println(Ui.CAT_3);
         } catch (NullPointerException e) {
             throw new KittyException("Selected a non-existent task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -89,11 +89,7 @@ public class UiHandler {
                 break;
             }
             Task.totalTasksCount++;
-            System.out.println();
-            System.out.println("Added: " + Kitty.tasks[Task.totalTasksCount - 1]);
-            System.out.println();
-            Ui.printCat2();
-            Ui.printBarLine();
+            Ui.printAddedTask();
         } catch (KittyException e) {
             throw e;
         }
