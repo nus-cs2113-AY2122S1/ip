@@ -11,7 +11,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String line = "________________________________________";
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         String curCommand = "";
 
         System.out.println(logo);
@@ -30,22 +30,22 @@ public class Duke {
                 switch (commands[0]) {
                     case "done":
                         int doneIndex = isPositiveNumeric(commands[1]);
-                        if (doneIndex > 0 && doneIndex <= taskList.size()) {
-                            taskList.get(doneIndex - 1).setDone(true);
+                        if (doneIndex > 0 && doneIndex <= tasks.size()) {
+                            tasks.get(doneIndex - 1).setDone(true);
                         }
-                        System.out.println(doneIndex > 0 && doneIndex <= taskList.size()
-                                ? "Nice! I've marked this task as done:\n " + taskToString(taskList.get(doneIndex - 1))
+                        System.out.println(doneIndex > 0 && doneIndex <= tasks.size()
+                                ? "Nice! I've marked this task as done:\n " + taskToString(tasks.get(doneIndex - 1))
                                 : "Formatting error");
                         break;
                     case "todo":
-                        taskList.add(new Task(commands[1], "", 'T', false));
-                        printNew(taskList.get(taskList.size() - 1), taskList.size());
+                        tasks.add(new Task(commands[1], "", 'T', false));
+                        printNew(tasks.get(tasks.size() - 1), tasks.size());
                         break;
                     case "deadline":
                         String[] deadin = commands[1].split(" /by ", 2);
                         if (deadin.length > 1) {
-                            taskList.add(new Task(deadin[0], deadin[1], 'D', false));
-                            printNew(taskList.get(taskList.size() - 1), taskList.size());
+                            tasks.add(new Task(deadin[0], deadin[1], 'D', false));
+                            printNew(tasks.get(tasks.size() - 1), tasks.size());
                         }
                         else {
                             System.out.println("Formatting error");
@@ -54,8 +54,8 @@ public class Duke {
                     case "event":
                         String[] evin = commands[1].split(" /at ", 2);
                         if (evin.length > 1) {
-                            taskList.add(new Task(evin[0], evin[1], 'E', false));
-                            printNew(taskList.get(taskList.size() - 1), taskList.size());
+                            tasks.add(new Task(evin[0], evin[1], 'E', false));
+                            printNew(tasks.get(tasks.size() - 1), tasks.size());
                         }
                         else {
                             System.out.println("Formatting error");
@@ -67,15 +67,12 @@ public class Duke {
                     default:
                         System.out.println("Input error");
                 }
-            }
-
-            // Command has a single parameter
-            else {
+            } else {
                 switch (curCommand) {
                     case "list":
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < taskList.size(); i++) {
-                            System.out.println((i + 1) + "." + taskToString(taskList.get(i)));
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + "." + taskToString(tasks.get(i)));
                         }
                         break;
                     case "bye":
