@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.task.Task;
+
 public class Deadline extends Task {
     protected String ddl;
     public Deadline(String content, String ddl) {
