@@ -1,3 +1,5 @@
+package duke;
+
 //Stores task with deadline specified
 public class Deadline extends ToDo {
     protected String endTime;

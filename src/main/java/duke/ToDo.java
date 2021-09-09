@@ -1,3 +1,5 @@
+package duke;
+
 //Stores task without specific time
 public class ToDo extends Task{
     public ToDo(){

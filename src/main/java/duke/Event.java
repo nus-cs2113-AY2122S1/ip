@@ -1,3 +1,5 @@
+package duke;
+
 public class Event extends ToDo{
     protected String period;
 
