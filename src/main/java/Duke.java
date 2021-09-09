@@ -193,26 +193,21 @@ public class Duke {
 
     //Executes next line commands
     public static void commandExecute(String input) {
-        //adding to task list + update taskCount
         try {
             if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("deadline")
                     || input.toLowerCase().startsWith("event")) {
                 addTask(tasks, input, taskCount);
                 taskCount += 1;
             }
-            //Mark input task as done
             else if (input.toLowerCase().startsWith("done")) {
                 markDone(input, tasks, taskCount);
             }
-            //Show all tasks
             else if (input.equalsIgnoreCase("list")) {
                 list(tasks);
             }
-            //Call echo function
             else if (input.equalsIgnoreCase("echo")) {
                 echo();
             }
-            //Wish a happy birthday
             else if (input.toUpperCase().contains("BIRTHDAY")) {
                 System.out.println(LINES + BIRTHDAY_MESSAGE + LINES);
             }
@@ -222,7 +217,6 @@ public class Duke {
             else if (input.equalsIgnoreCase("genshin")) {
                 genshinHelper();
             }
-            //Exit
             else if (input.equalsIgnoreCase("bye")) {
                 System.out.println(LINES + BYE_MESSAGE + LINES);
                 System.exit(0);
