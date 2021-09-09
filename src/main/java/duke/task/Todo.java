@@ -1,3 +1,4 @@
+package duke.task;
 public class Todo {
     private String name;
     private boolean isDone = false;

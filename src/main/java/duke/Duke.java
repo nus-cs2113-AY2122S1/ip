@@ -1,3 +1,5 @@
+package duke;
+import duke.userinterface.UserInterface;
 import java.util.Scanner;
 import java.util.ArrayList;
 
