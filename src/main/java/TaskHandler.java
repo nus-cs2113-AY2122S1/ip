@@ -1,4 +1,5 @@
 public class TaskHandler {
+
     private int MAX_TASKS = 100;
     private String EMPTY_DESCRIPTION_MSG = "My liege, there is no description!";
 
@@ -137,7 +138,7 @@ public class TaskHandler {
                 int id = inputNum - 1;
                 tasks[id].setDone();
                 return returnTaskCompleted() + System.lineSeparator()
-                        + Formatter.printOutputStart() + tasks[id].toString();
+                        + Formatter.returnOutputStart() + tasks[id].toString();
             } else {
                 return returnDoTaskFail();
             }
@@ -154,7 +155,7 @@ public class TaskHandler {
         String out = "Your magnificent tasks:";
         for (int i = 0; i < tasks.length && tasks[i] != null; i++) {
             //output will be doubly "indented"
-            out += System.lineSeparator() + Formatter.printOutputStart()
+            out += System.lineSeparator() + Formatter.returnOutputStart()
                     + tasks[i].toString();
         }
         return out;
@@ -163,5 +164,5 @@ public class TaskHandler {
     public String returnInputInvalid() {
         return "I do not comprehend, my liege.";
     }
-
 }
+
