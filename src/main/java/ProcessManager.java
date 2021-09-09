@@ -8,7 +8,7 @@ import tasks.Task;
 import tasks.Todo;
 
 public class ProcessManager {
-    /* ---- CONSTANTS ---- */
+    /* --- CONSTANTS --- */
     private static final String EVENT_KEYWORD = "/at";
     private static final String DEADLINE_KEYWORD = "/by";
     private static final String DONE_KEYWORD = " ";
@@ -24,7 +24,7 @@ public class ProcessManager {
     private static final String LINE = "    ____________________________________________________________";
     private static final String LINE_DIVIDER = "    ____________________________________________________________\n";
     private static final String GAP = "     ";
-    /* ---- --------- ---- */
+    /* --- --------- --- */
     public Task[] toDo = new Task[100];
 
     public void handleEventRequest(String line, Integer trackIndex) throws EventException {
