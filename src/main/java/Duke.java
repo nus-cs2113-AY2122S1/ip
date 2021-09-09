@@ -29,7 +29,7 @@ public class Duke {
             if (commands.length > 1) {
                 switch (commands[0]) {
                     case "done":
-                        int doneIndex = isPositiveNumeric(commands[1]);
+                        int doneIndex = getPositiveNumeric(commands[1]);
                         if (doneIndex > 0 && doneIndex <= tasks.size()) {
                             tasks.get(doneIndex - 1).setDone(true);
                         }
@@ -90,7 +90,7 @@ public class Duke {
     }
 
     // Checks if a string is a positive numeric value
-    public static int isPositiveNumeric(String str) {
+    public static int getPositiveNumeric(String str) {
         try {
             return Integer.parseInt(str);
         } catch(NumberFormatException e){
