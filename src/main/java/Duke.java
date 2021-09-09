@@ -57,9 +57,16 @@ public class Duke {
         printLine();
     }
 
-    public void markDone(int index) {
-        index -= 1;
-        list.markDone(index);
-        printLine();
+    public void markDone(String line) {
+        try {
+            line = line.replaceAll("[^(\\d)]", "");
+            int index = Integer.parseInt(line);
+            index -= 1;
+            list.markDone(index);
+        } catch (NumberFormatException e) {
+            System.out.println("\tSorry! I don't understand");
+        } finally {
+            printLine();
+        }
     }
 }

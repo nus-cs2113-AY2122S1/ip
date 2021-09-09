@@ -22,32 +22,30 @@ public class Main {
                 duke.listOut();
                 break;
             default:
-                if(line.contains("done")){
-                    line = line.replaceAll("[^(\\d)]","");
-
-                    int index = Integer.parseInt(line);
-                    duke.markDone(index);
+                if(line.contains("done")) {
+                    duke.markDone(line);
                     break;
                 }
-                if(line.contains("todo")){
+                if(line.contains("todo")) {
                     line = line.substring(5);
                     duke.addList(line,"T");
                     break;
                 }
-                if(line.contains("deadline")){
+                if(line.contains("deadline")) {
                     String time = line.substring(line.indexOf("/")+1);
                     line = line.substring(9,line.indexOf("/")) + "(" + time + ")";
                     duke.addList(line,"D");
                     break;
                 }
-                if(line.contains("event")){
+                if(line.contains("event")) {
                     String time = line.substring(line.indexOf("/")+1);
                     line = line.substring(6,line.indexOf("/")) + "(" + time + ")";
                     duke.addList(line,"E");
                     break;
                 }
-            //default:
-            //    duke.unknownAction();
+                else {
+                    duke.unknownAction();
+                }
             }
         }while(duke.getStatus());
     }
