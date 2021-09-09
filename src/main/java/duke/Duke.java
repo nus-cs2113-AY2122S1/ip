@@ -38,6 +38,10 @@ public class Duke {
         System.out.println("The description of event cannot be empty.");
     }
 
+    public static void printDoneException() {
+        System.out.println("The description of done cannot be empty.");
+    }
+
     public static void printTaskTypeResponse() {
         //printing different responses depending if its duke.Todo/duke.Deadline/duke.Event
         printGotIt();
@@ -53,10 +57,15 @@ public class Duke {
         }
     }
 
-    public static void TaskDone(int index) {
-        tasks[index].setDone();
-        System.out.println("Nice! I've marked this task as done:");
-        tasks[index].printTask();
+    public static void taskDone(String line) throws DoneException {
+        if (line.equals("") || line.equals("done")) {
+            throw new DoneException();
+        } else {
+            int index = Integer.parseInt(line) - 1;
+            tasks[index].setDone();
+            System.out.println("Nice! I've marked this task as done:");
+            tasks[index].printTask();
+        }
     }
 
     public static void addTodo(String line) throws TodoException {
@@ -102,10 +111,12 @@ public class Duke {
         if (command.equals("list")) {
             printList();
         } else if (command.equals("done")) {
-            //find which task user is done with
-            int index = Integer.parseInt(line) - 1;
-            tasks[index].setDone();
-            TaskDone(index);
+            try {
+                //find which task user is done with
+                taskDone(line);
+            } catch (DoneException e) {
+                printDoneException();
+            }
         } else if (command.equals("todo")) {
             try {
                 addTodo(line);
@@ -140,5 +151,6 @@ public class Duke {
             readInput(line);
             line = in.nextLine();
         }
+        printExit();
     }
 }
