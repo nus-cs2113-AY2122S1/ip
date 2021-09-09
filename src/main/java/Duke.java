@@ -27,7 +27,7 @@ public class Duke {
     private static final String BYE_MESSAGE = " Bye! Remember, stay out of fire, suuuuuuper high level " +
             "tactic yea?\n";
     private static final String ADD_MESSAGE = " Got it. I've added this task:\n   ";
-    private static final String MISSING_IN_TODO_MESSAGE = "Please add a task description!\n";
+    private static final String PLEASE_ADD_A_TASK_DESCRIPTION = "Please add a task description!\n" ;
     private static final String MISSING_IN_DEADLINE_MESSAGE = "Please format your input as 'deadline [task]" +
             " /by [deadline]'!\n";
     private static final String MISSING_IN_EVENT_MESSAGE = "Please format your input as 'event [task]" +
@@ -118,12 +118,15 @@ public class Duke {
             tasks[taskCount] = new Todo(input.substring(5));
             printTaskAcknowledgement(tasks[taskCount], taskCount);
         } catch (StringIndexOutOfBoundsException e){
-            System.out.println(LINES + MISSING_IN_TODO_MESSAGE + LINES);
+            System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
         }
     }
     private static void addDeadline(Task[] tasks, String input, int taskCount) {
         try {
-            if (!input.contains("/by")) {
+            if (input.trim().length() == 8) {
+                System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
+            }
+            else if (!input.contains("/by")) {
                 System.out.println(LINES + MISSING_BY_MESSAGE + LINES);
             }
             else {
@@ -138,7 +141,10 @@ public class Duke {
     }
     private static void addEvent(Task[] tasks, String input, int taskCount) {
         try {
-            if (!input.contains("/at")) {
+            if (input.trim().length() == 5) {
+                System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
+            }
+            else if (!input.contains("/at")) {
                 System.out.println(LINES + MISSING_AT_MESSAGE + LINES);
             }
             else {
@@ -185,28 +191,23 @@ public class Duke {
         System.out.println(" Total low tier mats required: " + totalMats + "\n" + LINES);
     }
 
-    //Executes next line commands
+    //Executes next line command
     public static void commandExecute(String input) {
-        //adding to task list + update taskCount
         try {
             if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("deadline")
                     || input.toLowerCase().startsWith("event")) {
                 addTask(tasks, input, taskCount);
                 taskCount += 1;
             }
-            //Mark input task as done
             else if (input.toLowerCase().startsWith("done")) {
                 markDone(input, tasks, taskCount);
             }
-            //Show all tasks
             else if (input.equalsIgnoreCase("list")) {
                 list(tasks);
             }
-            //Call echo function
             else if (input.equalsIgnoreCase("echo")) {
                 echo();
             }
-            //Wish a happy birthday
             else if (input.toUpperCase().contains("BIRTHDAY")) {
                 System.out.println(LINES + BIRTHDAY_MESSAGE + LINES);
             }
@@ -216,7 +217,6 @@ public class Duke {
             else if (input.equalsIgnoreCase("genshin")) {
                 genshinHelper();
             }
-            //Exit
             else if (input.equalsIgnoreCase("bye")) {
                 System.out.println(LINES + BYE_MESSAGE + LINES);
                 System.exit(0);
