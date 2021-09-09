@@ -1,3 +1,5 @@
+package duke.task;
+
 public abstract class Task {
     protected String task;
     protected Boolean isDone;
@@ -9,7 +11,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public Task(String task){
+    public Task(String task) {
         this.task = task;
         this.isDone = false;
     }
@@ -23,7 +25,7 @@ public abstract class Task {
         this.task = task;
     }
 
-    public String getClassType(){
+    public String getClassType() {
         return "Task";
     }
 

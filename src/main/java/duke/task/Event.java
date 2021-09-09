@@ -1,22 +1,24 @@
-public class Event extends ToDo{
+package duke.task;
+
+public class Event extends ToDo {
     protected String period;
 
-    public Event(){
+    public Event() {
         super();
         period = "";
     }
 
-    public Event(String task, String period){
+    public Event(String task, String period) {
         super(task);
         this.period = period;
     }
 
-    public String getClassType(){
+    public String getClassType() {
         return "E";
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return task + " (at: " + period + ")";
     }
 }
