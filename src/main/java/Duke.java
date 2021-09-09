@@ -62,10 +62,18 @@ public class Duke {
      */
     public static void printError() {
         printTopLine();
-        System.out.println(INDENT + "You forgot to input the type of task... again.");
+        System.out.println(INDENT + "You didn't input the type of task. Again. Or you're stupid. Whatever.");
         printBottomLine();
     }
 
+    /**
+     * Prints error message for when user leaves out important information in input.
+     */
+    public static void printMissingTextError() {
+        printTopLine();
+        System.out.println(INDENT + "And?? Retype and complete your sentence like a grown adult. Please.");
+        printBottomLine();
+    }
     /**
      * Adds inputs from user to list[] to keep track of user's tasks, deadlines, and events.
      *
@@ -105,7 +113,7 @@ public class Duke {
      * @param taskNumber Number n associated with the task, where n is the nth task in list.
      */
     public static void markTaskAsDone(int taskNumber) {
-        boolean isExists = taskNumber >= 0 || taskNumber < taskCount;
+        boolean isExists = taskNumber >= 0 && taskNumber < taskCount;
 
         printTopLine();
         if (!isExists) {
@@ -120,6 +128,17 @@ public class Duke {
         }
         printBottomLine();
     }
+
+    /**
+     * Checks whether there exist an input after user input the command word.
+     *
+     * @param input Expected input from user after the command word taskType is typed.
+     * @return true if input is empty, false if input is not empty.
+     */
+    public static boolean isEmpty(String input) {
+        return input.equals("");
+    }
+
 
     /**
      * Prints greeting message to user when code is ran.
@@ -184,27 +203,43 @@ public class Duke {
                 break;
             case "done":
                 userInput = text.next();
-                markTaskAsDone(Integer.parseInt(userInput) - 1);
+                if (isEmpty(userInput)) {
+                    printMissingTextError();
+                } else {
+                    markTaskAsDone(Integer.parseInt(userInput) - 1);
+                }
                 break;
             case "todo":
                 taskName = text.nextLine();
-                addTask(taskName, taskType, taskDetails);
+                if (isEmpty(taskName)) {
+                    printMissingTextError();
+                } else {
+                    addTask(taskName, taskType, taskDetails);
+                }
                 break;
             case "deadline":
                 userInput = text.nextLine();
-                parts = userInput.split(" /by ");
-                taskName = parts[0];
-                taskDetails = parts[1];
+                if (isEmpty(userInput)) {
+                    printMissingTextError();
+                } else {
+                    parts = userInput.split(" /by ");
+                    taskName = parts[0];
+                    taskDetails = parts[1];
 
-                addTask(taskName, taskType, taskDetails);
+                    addTask(taskName, taskType, taskDetails);
+                }
                 break;
             case "event":
                 userInput = text.nextLine();
-                parts = userInput.split(" /at ");
-                taskName = parts[0];
-                taskDetails = parts[1];
+                if (isEmpty(userInput)) {
+                    printMissingTextError();
+                } else {
+                    parts = userInput.split(" /at ");
+                    taskName = parts[0];
+                    taskDetails = parts[1];
 
-                addTask(taskName, taskType, taskDetails);
+                    addTask(taskName, taskType, taskDetails);
+                }
                 break;
             default:
                 printError();
