@@ -11,9 +11,9 @@ import duke.command.Command;
 import java.util.Scanner;
 
 public class Duke {
-    public static final int MAX_TASKS = 100;
+    public static final int MAX_TASKS = 100; //Maximum tasks allowed is 100
     public static Scanner in = new Scanner(System.in);
-    public static int longestTaskDescription = 0;
+    public static int longestTaskDescription = 0; //The length of the longest task description
 
     @SuppressWarnings("InfiniteLoopStatement") //disable the warning for infinite loop
     public static void main(String[] args) {
