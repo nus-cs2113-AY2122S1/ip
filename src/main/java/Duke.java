@@ -90,8 +90,9 @@ public class Duke {
                 return;
             }
         }
-        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. Please enter the task, followed by \"/by\",\n" +
-                "followed by the due date to specify the deadline Master!");
+        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. ");
+        System.out.println("Please enter the task, followed by \"/by\", followed by the due date to");
+        System.out.println(" specify the deadline Master!");
     }
 
     public static void addEvent(String[] input, int length) {
