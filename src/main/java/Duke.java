@@ -1,4 +1,5 @@
 // this is branch-Level-5 and going to be merged back on to master
+// add another line for testing
 import java.util.Scanner;
 
 public class Duke {
@@ -10,7 +11,7 @@ public class Duke {
     private static int numoftask = 0;
 
     // Constructor
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -28,7 +29,7 @@ public class Duke {
         System.out.println(MESSAGE_BOUNDARY + "\n" + greet + MESSAGE_BOUNDARY);
     }
 
-    public static void Echo(){
+    public static void Echo() throws DukeException {
         boolean continueChat;
         Scanner in = new Scanner(System.in);
 
@@ -44,28 +45,33 @@ public class Duke {
         in.close();
     }
 
-    public static boolean giveResponse(String userInput){
-        if(userInput.equals("list")){
-            printList();
-        }else if(userInput.equals("bye")){
-            Exit();
-            return false;
-        }else{
-            int i = userInput.indexOf(" ");
-            String command = userInput.substring(0, i);
+    public static boolean giveResponse(String userInput) throws DukeException {
+        String command = userInput.contains(" ") ? userInput.split(" ")[0] : userInput;
 
-            switch (command){
+        try{
+            switch (command) {
                 case "todo":
                 case "deadline":
                 case "event":
-                    addTask(command, userInput.substring(i + 1));
+                    addTask(command, userInput);
                     break;
                 case "done":
-                    doneTask(userInput.substring(i + 1));
+                    doneTask(userInput);
                     break;
+                case "list":
+                    printList();
+                    break;
+                case "bye":
+                    Exit();
+                    return false;
                 default:
-                    System.out.println("I am sorry, but I don't understand.");
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+        } catch (DukeException e){
+            //Info user that an error occurred
+            System.out.println(MESSAGE_BOUNDARY);
+            System.out.println("OOPS!!! " + e.getMessage());
+            System.out.println(MESSAGE_BOUNDARY);
         }
 
         return true;
@@ -76,26 +82,31 @@ public class Duke {
         System.out.println(MESSAGE_BOUNDARY + "\n" + bye + MESSAGE_BOUNDARY);
     }
 
-    public static void doneTask(String index){
-        int taskIndex = Integer.parseInt(index);
-        tasks[taskIndex-1].markAsDone();
-        System.out.println(MESSAGE_BOUNDARY);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskIndex-1].toString());
-        System.out.println(MESSAGE_BOUNDARY);
+    public static void doneTask(String userInput) throws DukeException {
+        int i = userInput.indexOf(" ");
+        if(i == -1){
+            throw new DukeException("There should be an index of task in the done :-(");
+        }else{
+            int taskIndex = Integer.parseInt(userInput.substring(i + 1));
+            tasks[taskIndex-1].markAsDone();
+            System.out.println(MESSAGE_BOUNDARY);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(tasks[taskIndex-1].toString());
+            System.out.println(MESSAGE_BOUNDARY);
+        }
     }
 
-    public static void addTask(String command, String taskInfo){
-        switch (command){
-            case "todo":
-                tasks[numoftask] = ToDos.parse(taskInfo);
-                break;
-            case "deadline":
-                tasks[numoftask] = Deadline.parse(taskInfo);
-                break;
-            case "event":
-                tasks[numoftask] = Events.parse(taskInfo);
-                break;
+    public static void addTask(String command, String userInput) throws DukeException {
+        int i = userInput.indexOf(" ");
+        String taskInfo = " ";
+        if(i != -1){
+            taskInfo = userInput.substring(i + 1);
+        }
+
+        switch (command) {
+            case "todo" -> tasks[numoftask] = ToDos.parse(taskInfo);
+            case "deadline" -> tasks[numoftask] = Deadline.parse(taskInfo);
+            case "event" -> tasks[numoftask] = Events.parse(taskInfo);
         }
 
         System.out.println(MESSAGE_BOUNDARY + "\n" + "Got it. I've added this task: ");
