@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static final int MAX_TASKS = 100;
+    //Corner symbols for to-do list frames
     public static final String TOP_LEFT_CORNER = "/";
     public static final String TOP_RIGHT_CORNER = "\\";
     public static final String BOTTOM_LEFT_CORNER = "\\";
