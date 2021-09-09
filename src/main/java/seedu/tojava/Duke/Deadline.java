@@ -1,3 +1,4 @@
+package seedu.tojava.Duke;
 public class Deadline extends Todo{
 
     protected String by;

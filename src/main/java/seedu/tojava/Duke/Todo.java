@@ -1,3 +1,4 @@
+package seedu.tojava.Duke;
 public class Todo {
 
     protected boolean isDone;

@@ -1,3 +1,4 @@
+package seedu.tojava.Duke;
 public class Event extends Todo{
     protected String duration;
     public Event(String description) {
