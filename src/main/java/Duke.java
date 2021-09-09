@@ -38,7 +38,7 @@ public class Duke {
                 System.out.println("____________________________________________________________\n");
                 checkCommand(line);
             } catch (DukeException e) {
-                System.out.println(e);
+
             }
         }
     }
