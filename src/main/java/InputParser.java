@@ -1,3 +1,6 @@
+import enums.Commands;
+import enums.Errors;
+
 public abstract class InputParser {
     // constant flags
     private static final String LIST = "list";
@@ -53,4 +56,51 @@ public abstract class InputParser {
 
         return Commands.INVALID;
     }
+
+    // check validity of Deadline command; return string of error to throw in TaskManager
+    public static Errors checkDeadlineCommand(String input) {
+        String[] splitString = input.split("\\s");
+        // if no specifications at all i.e length of split string == 1 WORKS
+        if (splitString.length <= 1) {
+            return Errors.INCOMPLETE_COMMAND;
+        }
+        // check if it contains BY WORKS
+        if (!input.contains(BY)) {
+            return Errors.MISSING_BY;
+        }
+
+        // check if it contains a task name
+        if (splitString.length <= 2) {
+            return Errors.MISSING_TASK;
+        }
+        // check if there is a date after /by i.e. if last element is by WORKS
+        if (input.endsWith(BY)) {
+            return Errors.MISSING_DEADLINE;
+        }
+        return Errors.NONE;
+    }
+
+    // check validity of Event command
+    public static Errors checkEventCommand(String input) {
+        String[] splitString = input.split("\\s");
+        // if no specifications at all i.e length of split string == 1
+        if (splitString.length <= 1) {
+            return Errors.INCOMPLETE_COMMAND;
+        }
+        // check if it contains AT
+        if (!input.contains(AT)) {
+            return Errors.MISSING_AT;
+        }
+
+        // check if it contains a task name
+        if (splitString.length <= 3) {
+            return Errors.MISSING_TASK;
+        }
+        // check if there is a date after /by i.e. if last element is by
+        if (input.endsWith(AT)) {
+            return Errors.MISSING_EVENT;
+        }
+        return Errors.NONE;
+    }
+
 }
