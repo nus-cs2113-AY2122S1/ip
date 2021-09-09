@@ -23,7 +23,7 @@ public class Task {
         numberOfTasks++;
     }
 
-    public boolean isDone() {
+    public boolean getisDone() {
         return isDone;
     }
 
