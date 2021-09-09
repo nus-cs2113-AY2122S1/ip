@@ -1,6 +1,6 @@
-import java.util.Locale;
-import java.util.Scanner;
+package duke;
 
+import java.util.Scanner;
 
 public class Duke {
 
@@ -19,7 +19,7 @@ public class Duke {
                                         "lastly followed by the event duration to specify the timing of the event Master!");
     public static String TODO_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
                                        " Please enter \"todo\", followed by the task you wish to add to your \n" +
-                                       "Todo list Master!");
+                                       "duke.Todo list Master!");
     public static String UNSPECIFIED_TASK = ("Sorry Master! Despite the fact that I am fluent in over six million forms\n" +
                                              " of communication, I am unable to comprehend your request. Please specify\n" +
                                              " the type of task that you wish to add Master!");
