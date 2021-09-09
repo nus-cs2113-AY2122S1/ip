@@ -15,7 +15,7 @@ public class Duke {
     public static Scanner in = new Scanner(System.in);
     public static int longestTaskDescription = 0; //The length of the longest task description
 
-    @SuppressWarnings("InfiniteLoopStatement") //disable the warning for infinite loop
+    @SuppressWarnings("InfiniteLoopStatement") //Disables the warning for infinite loop
     public static void main(String[] args) {
         //Prints all the welcome screens
         Default.printLogo();
