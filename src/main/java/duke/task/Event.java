@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task {
 
     /* Date and time of event */

@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.InvalidCommandException;
+import duke.task.TaskManager;
+import duke.task.TaskType;
 import java.security.InvalidParameterException;
 import java.util.Locale;
 import java.util.Scanner;

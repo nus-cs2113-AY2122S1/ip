@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.Duke;
+import duke.task.exception.InvalidParameterException;
 import java.util.ArrayList;
 
 public class TaskManager {
