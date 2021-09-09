@@ -5,7 +5,8 @@ public class Duke {
 
     private static int byeFlag = 0;
     private static int positionCheck = 0;
-    private static Task[] commands = new Task[100];
+    private static int SIZE = 100;
+    private static Task[] commands = new Task[SIZE];
 
     // sendCommand() is a method used to allow the user to send his/her commands to C3PO
     private static void sendCommand() {
@@ -41,7 +42,7 @@ public class Duke {
             } else {
                 markDone(Integer.parseInt(input[1])-1);
             }
-        } else if (positionCheck >= 100) {
+        } else if (positionCheck >= SIZE) {
             sayExceededCapacity();
         } else {
             checkTypeOfTask(line);
@@ -89,8 +90,9 @@ public class Duke {
                 return;
             }
         }
-        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. Please enter the task, followed by \"/by\",\n" +
-                "followed by the due date to specify the deadline Master!");
+        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. ");
+        System.out.println("Please enter the task, followed by \"/by\", followed by the due date to");
+        System.out.println(" specify the deadline Master!");
     }
 
     public static void addEvent(String[] input, int length) {
