@@ -1,3 +1,4 @@
+package duke.task;
 public class Event extends Todo {
     String time;
 

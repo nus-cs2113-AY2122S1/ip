@@ -1,3 +1,4 @@
+package duke.task;
 public class Deadline extends Todo {
     String deadline;
 

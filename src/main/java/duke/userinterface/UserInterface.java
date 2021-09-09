@@ -1,4 +1,8 @@
+package duke.userinterface;
 import java.util.Scanner;
+import duke.FormatLines;
+import duke.command.Command;
+import duke.task.TaskManager;
 
 public class UserInterface {
     private static Scanner in = new Scanner(System.in);
