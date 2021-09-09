@@ -1,20 +1,12 @@
-public class Event extends Task{
-    protected String eventDate;
+public class Event extends Task {
+    protected String eventTimeRange;
 
-    public String getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public Event(String description, String eventDate) {
+    public Event(String description, String eventTimeRange) {
         super(description);
-        this.eventDate = eventDate;
+        this.eventTimeRange = eventTimeRange;
     }
 
     public String toString() {
-        return ("[E][" + getStatusIcon() + "] " + description + " (at: " + eventDate + ")");
+        return ("[E][" + getStatusIcon() + "] " + description + " (at:" + eventTimeRange + ")");
     }
 }

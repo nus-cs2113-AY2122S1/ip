@@ -5,10 +5,6 @@ public class ToDo extends Task {
         return isDone;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
     public ToDo(String description) {
         super(description);
         isDone = false;
