@@ -15,11 +15,12 @@ public class TaskManager {
 
     public void addTaskPlusException(TaskEnum taskType, String userInput) {
         try {
-            String strippedUserInput = stripUserInput(taskType, userInput);
-            addTask(taskType, strippedUserInput);
+            String userInputWithoutTaskCommand = removeTaskCommand(taskType, userInput);
+            addTask(taskType, userInputWithoutTaskCommand);
 
         } catch (BlankDescriptionException e) {
-            Duke.printlnTab("☹ OOPS!!! The description of a todo cannot be empty.");
+            //TODO differnetiate tasks
+            Duke.printlnTab("☹ OOPS!!! The description of a task cannot be empty.");
             Duke.printDivider();
 
         } catch (ExceedMaxTasksException e) {
@@ -28,18 +29,19 @@ public class TaskManager {
         }
     }
 
-    private String stripUserInput(TaskEnum taskType, String userInput) throws BlankDescriptionException {
+    //command keyword removed eg. "todo clean room"  -> "clean room"
+    private String removeTaskCommand(TaskEnum taskType, String userInput) throws BlankDescriptionException {
         String strippedUserInput = "";
 
         switch (taskType) {
         case TODO:
-            strippedUserInput = userInput.substring(TODO_START_INDEX).stripLeading(); // remove "todo" from userInput
+            strippedUserInput = userInput.substring(TODO_START_INDEX).strip(); // remove "todo" from userInput
             break;
         case DEADLINE:
-            strippedUserInput = userInput.substring(DEADLINE_START_INDEX).stripLeading(); // strip "deadline" from userInput
+            strippedUserInput = userInput.substring(DEADLINE_START_INDEX).strip(); // remove "deadline" from userInput
             break;
         case EVENT:
-            strippedUserInput = userInput.substring(EVENT_START_INDEX).stripLeading(); // strip event
+            strippedUserInput = userInput.substring(EVENT_START_INDEX).strip(); // remove event
             break;
         }
 
@@ -49,7 +51,7 @@ public class TaskManager {
         return strippedUserInput;
     }
 
-    private void addTask(TaskEnum taskType, String strippedUserInput) throws ExceedMaxTasksException {
+    private void addTask(TaskEnum taskType, String userInputWithoutTaskCommand) throws ExceedMaxTasksException {
         if (getTotalTasks() == 100) {
             throw new ExceedMaxTasksException();
         }
@@ -58,14 +60,14 @@ public class TaskManager {
             String[] taskDetails; //array that should be of length 2 if strippedUserInput is valid
             switch (taskType) {
             case TODO:
-                addTodo(strippedUserInput);
+                addTodo(userInputWithoutTaskCommand);
                 break;
             case DEADLINE:
-                taskDetails = getTaskDetails(TaskEnum.DEADLINE, strippedUserInput);
+                taskDetails = getTaskDetails(TaskEnum.DEADLINE, userInputWithoutTaskCommand);
                 addDeadline(taskDetails);
                 break;
             case EVENT:
-                taskDetails = getTaskDetails(TaskEnum.EVENT, strippedUserInput);
+                taskDetails = getTaskDetails(TaskEnum.EVENT, userInputWithoutTaskCommand);
                 addEvent(taskDetails);
             }
 
@@ -76,17 +78,21 @@ public class TaskManager {
         }
     }
 
-    private String[] getTaskDetails(TaskEnum taskType, String strippedUserInput) throws IncompleteInformationException {
+    private String[] getTaskDetails(TaskEnum taskType, String userInputWithoutTaskCommand) throws IncompleteInformationException {
         String[] taskDetails;
+        //strip userInputWithoutTaskCommand prevents empty description / dates
         if (taskType == TaskEnum.DEADLINE) {
-            taskDetails = strippedUserInput.split("/by");
+            System.out.println(userInputWithoutTaskCommand.strip().split("by").length);
+            taskDetails = userInputWithoutTaskCommand.strip().split("/by");
         } else { //if EVENT
-            taskDetails = strippedUserInput.split("/at");
+            taskDetails = userInputWithoutTaskCommand.strip().split("/at");
         }
 
         // taskDetails[] should have length of 2
         //containing Task description (index 0) and Task date (index 1)
-        if (taskDetails.length != 2) {
+        if (taskDetails.length != 2
+                || taskDetails[TASK_DESCRIPTION_INDEX].isBlank()
+                || taskDetails[TASK_DATE_INDEX].isBlank()) {
             throw new IncompleteInformationException();
         }
 
@@ -123,12 +129,6 @@ public class TaskManager {
         Duke.printDivider();
         tasksIndex++;
     }
-
-    void addTaskFail() {
-        Duke.printlnTab("Input is invalid. Please try again");
-        //TODO help function
-    }
-
 
     void doneTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException, NullPointerException {
         String taskNumberStr = userInput.substring(DONE_NUMBER_INDEX).strip();
