@@ -20,7 +20,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * Prints the error message in a formatted fashion.
+     * Prints the error message in a formatted fashion by cocatenation.
      */
     public void printErrorMessage() {
         System.out.println("    ____________________________________________________________");
