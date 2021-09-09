@@ -5,7 +5,7 @@ public class UserInterface {
     private static String userInput;
 
     public static void talkToUser() {
-        boolean validUserInput = false;
+        boolean validUserInput;
         do {
             getUserInput();
             validUserInput = processUserInput();
@@ -20,31 +20,36 @@ public class UserInterface {
     private static void getUserInput() {
         System.out.println();
         userInput = in.nextLine();
+        userInput=userInput.strip();
         System.out.println(FormatLines.divider);
     }
 
     private static boolean processUserInput() {
-        Command userCommand = retrieveUserCommand();
-        switch (userCommand) {
-        case DONE:
-            TaskManager.markDone(userInput);
+        try {
+            Command userCommand = retrieveUserCommand();
+            switch (userCommand) {
+            case DONE:
+                TaskManager.markDone(userInput);
+                return true;
+            case LIST:
+                TaskManager.printTasks();
+                return true;
+            case TODO:
+                TaskManager.addTodo(userInput);
+                return true;
+            case EVENT:
+                TaskManager.addEvent(userInput);
+                return true;
+            case DEADLINE:
+                TaskManager.addDeadline(userInput);
+                return true;
+            case BYE:
+                return false;
+            default:
+                return true;
+            }
+        } catch (NullPointerException e){
             return true;
-        case LIST:
-            TaskManager.printTasks();
-            return true;
-        case TODO:
-            TaskManager.addTodo(userInput);
-            return true;
-        case EVENT:
-            TaskManager.addEvent(userInput);
-            return true;
-        case DEADLINE:
-            TaskManager.addDeadline(userInput);
-            return true;
-        case BYE:
-            return false;
-        default:
-            return false;
         }
     }
 
@@ -56,8 +61,13 @@ public class UserInterface {
         } else {
             commandString = userInput.substring(0, indexOfSpace);
         }
-        Command userCommand = Command.valueOf(commandString.toUpperCase());
-        return userCommand;
+        try {
+            Command userCommand = Command.valueOf(commandString.toUpperCase());
+            return userCommand;
+        } catch (IllegalArgumentException e) {
+            System.out.println("OOPS!!! I'm sorry but I don't know what that means");
+            return null;
+        }
     }
 
 

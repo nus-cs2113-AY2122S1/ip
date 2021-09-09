@@ -4,33 +4,61 @@ public class TaskManager {
     private static ArrayList<Todo> tasks = new ArrayList<Todo>();
 
     public static void addTodo(String userInput) {
-        int startIndexOfTask = userInput.indexOf(' ');
-        String taskName = userInput.substring(startIndexOfTask);
-        Todo newTask = new Todo(userInput, tasks.size() + 1);
-        tasks.add(newTask);
-        printTaskAddedConfirmation(newTask);
+        try {
+            if (userInput.length()<5) {
+                throw new InvalidInputException("OOPS!!! Description of todo cannot be empty :(");
+            }
+            int startIndexOfTask = userInput.indexOf(' ');
+            Todo newTask = new Todo(userInput, tasks.size() + 1);
+            tasks.add(newTask);
+            printTaskAddedConfirmation(newTask);
+        } catch (InvalidInputException e){
+            System.out.println(e.toString().substring(23));
+        }
     }
 
     public static void addDeadline(String userInput) {
-        int startIndexOfTask = userInput.indexOf(' ');
-        int endIndexOfTask = userInput.indexOf('/') - 1;
-        int startIndexOfDeadline = userInput.indexOf('/') + 4;
-        String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
-        String deadline = userInput.substring(startIndexOfDeadline);
-        Deadline newTask = new Deadline(taskName, tasks.size() + 1, deadline);
-        tasks.add(newTask);
-        printTaskAddedConfirmation(newTask);
+        try {
+            if (userInput.length()<9){
+                throw new InvalidInputException("OOPS!!! Description of deadline cannot be empty :(");
+            }
+            if (!userInput.contains("/by ")){
+                throw new InvalidInputException("OOPS!! Please input date of deadline");
+            }
+            int startIndexOfTask = userInput.indexOf(' ');
+            int endIndexOfTask = userInput.indexOf('/') - 1;
+
+            int startIndexOfDeadline = userInput.indexOf('/') + 4;
+            String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
+            String deadline = userInput.substring(startIndexOfDeadline);
+            Deadline newTask = new Deadline(taskName, tasks.size() + 1, deadline);
+            tasks.add(newTask);
+            printTaskAddedConfirmation(newTask);
+        } catch (InvalidInputException e){
+            System.out.println(e.toString().substring(23));
+        }
     }
 
     public static void addEvent(String userInput) {
-        int startIndexOfTask = userInput.indexOf(' ');
-        int endIndexOfTask = userInput.indexOf('/') - 1;
-        int startIndexOfDate = userInput.indexOf('/') + 4;
-        String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
-        String deadline = userInput.substring(startIndexOfDate);
-        Event newTask = new Event(taskName, tasks.size() + 1, deadline);
-        tasks.add(newTask);
-        printTaskAddedConfirmation(newTask);
+        try {
+            if (userInput.length()<6) {
+                throw new InvalidInputException("OOPS!!! Description of event cannot be empty :(");
+            }
+            if (!userInput.contains("/at ")){
+                throw new InvalidInputException("OOPS!! Please input time of event");
+            }
+            int startIndexOfTask = userInput.indexOf(' ');
+            int endIndexOfTask = userInput.indexOf('/') - 1;
+            int startIndexOfDate = userInput.indexOf('/') + 4;
+            String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
+            String deadline = userInput.substring(startIndexOfDate);
+            Event newTask = new Event(taskName, tasks.size() + 1, deadline);
+            tasks.add(newTask);
+            printTaskAddedConfirmation(newTask);
+        } catch (InvalidInputException e){
+            System.out.println(e.toString().substring(23));
+        }
+
     }
 
     public static void printTasks() {
