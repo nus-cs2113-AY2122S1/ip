@@ -5,6 +5,7 @@ public class DeadLine extends Task {
     public DeadLine(String deadline) {
         super(deadline);
     }
+
     @Override
     public String getTask(){
         int indexDivider = task.indexOf("/");

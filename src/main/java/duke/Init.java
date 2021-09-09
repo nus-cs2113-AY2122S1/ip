@@ -1,6 +1,19 @@
 package duke;
 
 public class Init {
+    /**
+     * Show the "Duke" logo and some greeting-message
+     */
+    public static void showWelcomeMessage() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(logo);
+        greet();
+    }
+
     //greetings
     public static void greet(){
         lineSeparator();
@@ -20,7 +33,7 @@ public class Init {
         System.out.println("Bye. Hope to see you again, don't forget to complete your task!");
     }
 
-    private static void lineSeparator() {
+    public static void lineSeparator() {
         System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
     }
 

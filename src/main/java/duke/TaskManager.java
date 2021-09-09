@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exception.TaskIndexOutOfBound;
+
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     private Task[] tasks = new Task[MAX_TASKS];
@@ -13,6 +15,7 @@ public class TaskManager {
         System.out.println("Now you have " + tasksCount + " tasks on the list.");
     }
 
+
     public boolean searchTask(Task task){
         boolean taskFound = false;
         for(int i=0; i<tasksCount; i++){
@@ -23,12 +26,11 @@ public class TaskManager {
         return taskFound;
     }
 
-    public void tasksDone(String taskDone){
+    public void tasksDone(String taskDone) throws TaskIndexOutOfBound {
         String[] words = taskDone.split(" ");
         int indexOfTask = Integer.parseInt(words[1]);
         if(indexOfTask < 1 || indexOfTask > tasksCount){
-            System.out.println("Oops! You input an invalid task index (out of range)! Please try again");
-            return;
+            throw new TaskIndexOutOfBound("Ops! your task index is out of bound!");
         }
         tasks[indexOfTask-1].markAsDone();
         System.out.println("Nice! I've marked this task as done: ");
