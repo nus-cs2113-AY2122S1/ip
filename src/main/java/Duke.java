@@ -1,11 +1,29 @@
 import java.util.Locale;
 import java.util.Scanner;
 
+
 public class Duke {
 
     private static int byeFlag = 0;
     private static int positionCheck = 0;
     private static int SIZE = 100;
+    private static String EMPTY = "There is no data in your list master!";
+    private static String EXCEEDED = "Oh dear me! We have exceeded my system's maximum capacity!";
+    private static String UNSPECIFIED_DONE = "Oh no master, I am not quite sure which task you would like me to mark as done!";
+    private static String INVALID = "Please type in a valid number master! Type \"list\" to check the index number of your list data";
+    public static String DEADLINE_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
+                                           "Please enter \"deadline\", followed by the task, followed by \"/by\", \n" +
+                                           "and lastly followed by the due date to specify the deadline Master!");
+    public static String EVENT_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters. \n" +
+                                        "Please enter \"event\", followed by the event, followed by \"/at\", and \n" +
+                                        "lastly followed by the event duration to specify the timing of the event Master!");
+    public static String TODO_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
+                                       " Please enter \"todo\", followed by the task you wish to add to your \n" +
+                                       "Todo list Master!");
+    public static String UNSPECIFIED_TASK = ("Sorry Master! Despite the fact that I am fluent in over six million forms\n" +
+                                             " of communication, I am unable to comprehend your request. Please specify\n" +
+                                             " the type of task that you wish to add Master!");
+
     private static Task[] commands = new Task[SIZE];
 
     // sendCommand() is a method used to allow the user to send his/her commands to C3PO
@@ -13,37 +31,41 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         while (byeFlag != 1) {
-            System.out.println("____________________________________________________________\n");
-            System.out.print("Type something: ");
-            line = in.nextLine();
-            System.out.println("____________________________________________________________\n");
-            checkCommand(line);
+            try {
+                System.out.println("____________________________________________________________\n");
+                System.out.print("Type something: ");
+                line = in.nextLine();
+                System.out.println("____________________________________________________________\n");
+                checkCommand(line);
+            } catch (DukeException e) {
+
+            }
         }
     }
 
     // checkCommand() is a method that allows us to determine when the user says bye.
-    private static void checkCommand(String line) {
+    private static void checkCommand(String line) throws DukeException {
         String[] input = line.split(" ");
         if (line.equals("bye")) {
             byeFlag = 1;
         } else if (line.equals("list")) {
             if (positionCheck == 0) {
-                sayEmpty();
+                throw new DukeException(EMPTY);
             } else {
                 printList();
             }
         } else if (line.equals("done")) {
-            sayNotSpecified();
+            throw new DukeException(UNSPECIFIED_DONE);
         } else if (input[0].equals("done")) {
-            if ((Integer.parseInt(input[1]) > positionCheck ) || (Integer.parseInt(input[1]) <= 0)) {
-                sayInvalidNumber();
-            } else if (positionCheck<=0) {
-                sayEmpty();
+            if (positionCheck<=0) {
+                throw new DukeException(EMPTY);
+            } else if ((Integer.parseInt(input[1]) > positionCheck ) || (Integer.parseInt(input[1]) <= 0)) {
+                throw new DukeException(INVALID);
             } else {
                 markDone(Integer.parseInt(input[1])-1);
             }
         } else if (positionCheck >= SIZE) {
-            sayExceededCapacity();
+            throw new DukeException(EXCEEDED);
         } else {
             checkTypeOfTask(line);
         }
@@ -54,23 +76,7 @@ public class Duke {
         System.out.println("____________________________________________________________\n");
     }
 
-    public static void sayEmpty() {
-        System.out.println("There is no data in your list master!");
-    }
-
-    public static void sayExceededCapacity() {
-        System.out.println("Oh dear me! We have exceeded my system's maximum capacity!");
-    }
-
-    public static void sayNotSpecified() {
-        System.out.println("Oh no master, I am not quite sure which task you would like me to mark as done");
-    }
-
-    public static void sayInvalidNumber() {
-        System.out.println("Please type in a valid number master! Type \"list\" to check the index number of your list data");
-    }
-
-    public static void addDeadline(String[] input, int length) {
+    public static void addDeadline(String[] input, int length) throws DukeException {
         String description;
         String by;
         for (int i = 1 ; i < length ; i++) {
@@ -90,12 +96,10 @@ public class Duke {
                 return;
             }
         }
-        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. ");
-        System.out.println("Please enter the task, followed by \"/by\", followed by the due date to");
-        System.out.println(" specify the deadline Master!");
+        throw new DukeException(DEADLINE_ERROR);
     }
 
-    public static void addEvent(String[] input, int length) {
+    public static void addEvent(String[] input, int length) throws DukeException{
         String description;
         String at;
         for (int i = 1 ; i < length ; i++) {
@@ -115,15 +119,12 @@ public class Duke {
                 return;
             }
         }
-        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. ");
-        System.out.println("Please enter the event, followed by \"/at\", followed by the event ");
-        System.out.println("duration to specify the timing of the event Master!");
+        throw new DukeException(EVENT_ERROR);
     }
 
-    public static void addTodo (String[] input, int length) {
+    public static void addTodo (String[] input, int length) throws DukeException{
         if (length == 1) {
-            System.out.println("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
-                    " Please enter the task you wish to add to your Todo list Master!");
+            throw new DukeException(TODO_ERROR);
         } else {
             String description = input[1];
             for (int i = 2 ; i < length ; i++) {
@@ -136,7 +137,7 @@ public class Duke {
         }
     }
 
-    public static void checkTypeOfTask(String line) {
+    public static void checkTypeOfTask(String line) throws DukeException {
         String[] input = line.split(" ");
         int length = input.length;
         if (input[0].toLowerCase().equals("deadline")) {
@@ -146,7 +147,7 @@ public class Duke {
         } else if (input[0].toLowerCase().equals("todo")) {
             addTodo(input,length);
         } else {
-            System.out.println("Sorry Master! Please specify the type of task that you wish to add as well!");
+            throw new DukeException(UNSPECIFIED_TASK);
         }
     }
 
@@ -182,7 +183,7 @@ public class Duke {
         System.out.println("What can I do for you my master?\n");
     }
 
-    public static void main(String[] args) {
+    public static void main (String[] args) throws DukeException {
         greetUser();
         sendCommand();
         sayBye();
