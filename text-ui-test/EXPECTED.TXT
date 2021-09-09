@@ -15,60 +15,65 @@ ________________________________________________________
 What can I do for you?
 ________________________________________________________
 ________________________________________________________
-Got it. I've added this task:
-[T][ ] borrow book
-Now you have 1 tasks in the list.
+I'm sorry, I do not know what you are trying to say
+________________________________________________________
+________________________________________________________
+Task description is missing
 ________________________________________________________
 ________________________________________________________
 Got it. I've added this task:
 [T][ ] read book
-Now you have 2 tasks in the list.
+Now you have 1 tasks in the list.
+________________________________________________________
+________________________________________________________
+Task description is missing
+________________________________________________________
+________________________________________________________
+DEADLINE task description is missing "/by" [Format: deadline task description /by deadline time/day/date]
 ________________________________________________________
 ________________________________________________________
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
-Now you have 3 tasks in the list.
+Now you have 2 tasks in the list.
 ________________________________________________________
 ________________________________________________________
-Got it. I've added this task:
-[D][ ] pay bill (by: Tuesday)
-Now you have 4 tasks in the list.
+Task description is missing
 ________________________________________________________
 ________________________________________________________
-Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [T][ ] read book
-3. [D][ ] return book (by: Sunday)
-4. [D][ ] pay bill (by: Tuesday)
-________________________________________________________
-________________________________________________________
-Nice! I've marked this task as done:
-[T][X] read book
+EVENT task description is missing "/at" [Format: event task description /at event time/day/place]
 ________________________________________________________
 ________________________________________________________
 Got it. I've added this task:
 [E][ ] project meeting (at: Mon 2-4pm)
-Now you have 5 tasks in the list.
+Now you have 3 tasks in the list.
+________________________________________________________
+________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
 Nice! I've marked this task as done:
 [D][X] return book (by: Sunday)
 ________________________________________________________
 ________________________________________________________
-Invalid command: blah blah
-Looks like you have to try again
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
-Nice! I've marked this task as done:
-[D][X] pay bill (by: Tuesday)
+I do not know which task you want me to mark. Give the task number my friend
+________________________________________________________
+________________________________________________________
+I do not know which task you want me to mark. Give the task number my friend
 ________________________________________________________
 ________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [T][X] read book
-3. [D][X] return book (by: Sunday)
-4. [D][X] pay bill (by: Tuesday)
-5. [E][ ] project meeting (at: Mon 2-4pm)
+1. [T][ ] read book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
 Farewell. Come back when you need more help

@@ -15,13 +15,13 @@ public class Error {
 
     public static void showDeadlineFormatError() {
         Printer.printLineSeparator();
-        System.out.println("DEADLINE task description is missing \"/by\"");
+        System.out.println("DEADLINE task description is missing \"/by\" [Format: deadline task description /by deadline time/day/date]");
         Printer.printLineSeparator();
     }
 
     public static void showEventFormatError() {
         Printer.printLineSeparator();
-        System.out.println("EVENT task description is missing \"/at\"");
+        System.out.println("EVENT task description is missing \"/at\" [Format: event task description /at event time/day/place]");
         Printer.printLineSeparator();
     }
 
