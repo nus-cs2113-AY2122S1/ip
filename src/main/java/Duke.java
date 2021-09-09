@@ -23,7 +23,7 @@ public class Duke {
     }
 
     /**
-     * Prints the bottom horizontal line ot demarcate text from Tired.
+     * Prints the bottom horizontal line to demarcate text from Tired.
      */
     public static void printBottomLine() {
         System.out.println("    └────────────────────────────────────────────────────────────────────┘");
