@@ -1,3 +1,5 @@
+package duke.task;
+
 public class TaskManager {
     static final int INDEX_OF_KEYWORD_OF_TASK = 0;
 
