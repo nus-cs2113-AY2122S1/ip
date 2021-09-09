@@ -1,8 +1,11 @@
-public class Task {
+package tasks;
+
+public abstract class Task {
     protected boolean isDone;
     protected String taskName;
     // protected String prefix = "[ ]";
 
+    /*
     // constructors
     public Task(boolean isDone, String taskName) {
         this.isDone = isDone;
@@ -12,6 +15,7 @@ public class Task {
     public Task() {
         this(false, "Nothing");
     }
+     */
 
     // getters
     public boolean isDone() {

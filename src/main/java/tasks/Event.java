@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     private String eventDate;
     public Event(boolean done, String name, String date) {
