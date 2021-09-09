@@ -1,3 +1,5 @@
+package duke;
+
 public class Tasks {
     private int length = 0;
     String[] list = new String[100];
