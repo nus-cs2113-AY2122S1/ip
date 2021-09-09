@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 //Stores task with deadline specified
 public class Deadline extends ToDo {

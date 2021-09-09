@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 public class Event extends ToDo{
     protected String period;
