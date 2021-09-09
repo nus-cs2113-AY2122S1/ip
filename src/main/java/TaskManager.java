@@ -14,7 +14,10 @@ public class TaskManager {
         }
     }
 
-    static void addTodo(String todoName) {
+    static void addTodo(String todoName) throws TodoException {
+        if (todoName.isEmpty()) {
+            throw new TodoException();
+        }
         Todo todo = new Todo(todoName);
         addTask(todo);
     }
