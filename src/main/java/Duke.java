@@ -191,7 +191,7 @@ public class Duke {
         System.out.println(" Total low tier mats required: " + totalMats + "\n" + LINES);
     }
 
-    //Executes next line commands
+    //Executes next line command
     public static void commandExecute(String input) {
         try {
             if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("deadline")
