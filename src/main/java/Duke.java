@@ -113,9 +113,9 @@ public class Duke {
                 return;
             }
         }
-        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. \n" +
-                "Please enter the event, followed by \"/at\", followed by the event duration to specify \n" +
-                "the timing of the event Master!");
+        System.out.println("Sorry Master! I don't think you have properly keyed in the parameters. ");
+        System.out.println("Please enter the event, followed by \"/at\", followed by the event ");
+        System.out.println("duration to specify the timing of the event Master!");
     }
 
     public static void addTodo (String[] input, int length) {
