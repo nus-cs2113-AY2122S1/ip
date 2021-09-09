@@ -9,6 +9,7 @@ package duke;
 
 import duke.commandHandler.CommandHandling;
 import duke.exceptionHandler.DukeException;
+import duke.printTextFile.PrintTextFile;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
 import duke.taskType.Task;
