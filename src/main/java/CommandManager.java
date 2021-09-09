@@ -43,6 +43,10 @@ public class CommandManager {
                 Duke.printDivider();
                 return;
 
+            } else if (userInput.equals("")) { //empty command
+                Duke.printlnTab("Please enter a command keyword");
+                Duke.printDivider();
+
             } else { //Invalid inputs
                 Duke.printlnTab("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 Duke.printDivider();
