@@ -27,7 +27,7 @@ public class Duke {
     private static final String BYE_MESSAGE = " Bye! Remember, stay out of fire, suuuuuuper high level " +
             "tactic yea?\n";
     private static final String ADD_MESSAGE = " Got it. I've added this task:\n   ";
-    private static final String MISSING_IN_TODO_MESSAGE = "Please add a task description!\n";
+    private static final String MISSING_IN_TODO_MESSAGE = "Please add a task description!\n" ;
     private static final String MISSING_IN_DEADLINE_MESSAGE = "Please format your input as 'deadline [task]" +
             " /by [deadline]'!\n";
     private static final String MISSING_IN_EVENT_MESSAGE = "Please format your input as 'event [task]" +
