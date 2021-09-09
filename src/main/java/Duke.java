@@ -31,7 +31,7 @@ public class Duke {
         System.out.println(line);
     }
     public static void checkTodo(String userCommand) throws DukeException {
-        if(userCommand.length() <= 5) {     //generate error when receiving invalid input
+        if(userCommand.length() <= 5) {     //generate error when receiving invalid Todoinput
             DukeException e = new DukeException();
             throw e;
         }
@@ -39,14 +39,14 @@ public class Duke {
     }
 
     public static void checkDeadline(String userCommand) throws DukeException {
-        if(userCommand.length() <= 9) {     //generate error when receiving invalid input
+        if(userCommand.length() <= 9) {     //generate error when receiving invalid Deadlineinput
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkEvent(String userCommand) throws DukeException {
-        if(userCommand.length() <= 6) {     //generate error when receiving invalid input
+        if(userCommand.length() <= 6) {     //generate error when receiving invalid Eventinput
             DukeException e = new DukeException();
             throw e;
         }
