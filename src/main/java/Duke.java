@@ -18,10 +18,9 @@ public class Duke {
         System.out.println("\nLet's start:");
         Task[] tasks = new Task[MAX_TASKS];
         while (true) {
-            try{
+            try {
                 readCommand(tasks);
-            }
-            catch (DukeException ex){
+            } catch (DukeException ex) {
                 showMessage("Sorry, the command is invalid, I cant understand :(");
                 System.out.println("\tTo seek for help, you can type the command \"help\" or \"view -h\"");
             }
@@ -43,7 +42,7 @@ public class Duke {
         } else if (isCommandExit(command)) {
             showMessage("Bye! Hope to see you again :D");
             System.exit(0);
-        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")){
+        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")) {
             Design.printHelpMenu();
         } else {
             if (isCommandList(command)) {
@@ -332,8 +331,9 @@ public class Duke {
 
     /**
      * Prints the tasks stored in the array, the frame starts with '|' and ends with '|', the ending frame is always located at the position of the longest task description
-     * @param tasks the array that stores all the tasks
-     * @param totalTask the number of the tasks stored
+     *
+     * @param tasks                  the array that stores all the tasks
+     * @param totalTask              the number of the tasks stored
      * @param longestTaskDescription the length of the longest task description stored in the tasks array
      */
     private static void printTasks(Task[] tasks, int totalTask, int longestTaskDescription) {
