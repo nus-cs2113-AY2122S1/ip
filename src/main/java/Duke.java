@@ -72,7 +72,9 @@ public class Duke {
     }
 
     /**
-     * List out the tasks in the array userInputs with numbers
+     * List out the tasks in the array userInputs with numbering
+     * @param line the user input
+     * @throws DukeException command list is invalid
      */
     public static void listTasks(String line) throws DukeException {
         if (!line.equals("list")) {
@@ -89,8 +91,8 @@ public class Duke {
 
     /**
      * Marks a particular task in userInputs as done
-     *
-     * @param line the index of the task to be marked as done
+     * @param line the user input
+     * @throws DukeException command done has invalid parameters
      */
     public static void markDone(String line) throws DukeException {
         String[] taskInputs = line.split(" ");
@@ -111,9 +113,9 @@ public class Duke {
     }
 
     /**
-     * Adds a todo task into userInputs and increase the counter
-     *
-     * @param line the string command with the description of the task
+     * Adds a task todo into userInputs and increase the counter
+     * @param line the user input
+     * @throws DukeException when description is missing
      */
     public static void addTodo(String line) throws DukeException {
         final int START_INDEX = 5;
@@ -131,8 +133,8 @@ public class Duke {
 
     /**
      * Adds a task with deadline into userInputs and increase the counter
-     *
-     * @param line the string command with the description and deadline of the task
+     * @param line the user input
+     * @throws DukeException when deadline is missing
      */
     public static void addDeadline(String line) throws DukeException {
         if (!line.contains("/by")) {
@@ -152,9 +154,9 @@ public class Duke {
     }
 
     /**
-     * Adds an event with a specific start and end time into userInputs and increase the counter
-     *
-     * @param line the string command with the description and start-end time
+     * dds an event with a specific start and end time into userInputs and increase the counter
+     * @param line the user input
+     * @throws DukeException when start and end time is missing
      */
     public static void addEvent(String line) throws DukeException {
         if (!line.contains("/at")) {
@@ -174,7 +176,8 @@ public class Duke {
     }
 
     /**
-     * Prints the comment when user input is invalid
+     * handle invalid user input
+     * @throws DukeException when input command does not exist
      */
     public static void handleInvalid() throws DukeException {
         throw new DukeException("invalid command");
