@@ -14,6 +14,11 @@ public class Duke {
     private static final String DEADLINE_BY_PREFIX = "/by ";
     private static final String EVENT_AT_PREFIX = "/at ";
 
+    private static final String TODO_EMPTY = "todo cannot be empty!";
+    private static final String DEADLINE_EMPTY = "deadline cannot be empty!";
+    private static final String EVENT_EMPTY = "event cannot be empty!";
+    private static final String INVALID_INPUT = "invalid input, try another command";
+
     private static Task[] tasks = new Task[100];
 
     /*
@@ -59,19 +64,34 @@ public class Duke {
         line = in.nextLine();
         return line;
     }
-    public static void executeCommand(String input) {
+    public static void executeCommand(String input) throws DukeException {
         String[] commandAndParams = splitString(input, " ");
         String command = commandAndParams[0];
         String params = commandAndParams[1];
         switch (command) {
         case COMMAND_TODO:
-            executeTodo(params);
+            try {
+                executeTodo(params);
+            } catch (DukeException e) {
+                System.out.println(TODO_EMPTY);
+                divider();
+            }
             break;
         case COMMAND_DEADLINE:
-            executeDeadline(params);
+            try {
+                executeDeadline(params);
+            } catch (DukeException e) {
+                System.out.println(DEADLINE_EMPTY);
+                divider();
+            }
             break;
         case COMMAND_EVENT:
-            executeEvent(params);
+            try {
+                executeEvent(params);
+            } catch (DukeException e) {
+                System.out.println(EVENT_EMPTY);
+                divider();
+            }
             break;
         case COMMAND_DONE:
             executeDone(params);
@@ -83,7 +103,7 @@ public class Duke {
             executeBye();
             break;
         default:
-            break;
+            throw new DukeException();
         }
     }
 
@@ -94,12 +114,18 @@ public class Duke {
         divider();
     }
 
-    public static void executeTodo(String params) {
+    public static void executeTodo(String params) throws DukeException {
+        if (params == "") {
+            throw new DukeException();
+        }
         Todo t = new Todo(params);
         addTask(t);
     }
 
-    public static void executeDeadline(String params) {
+    public static void executeDeadline(String params) throws DukeException {
+        if (params == "") {
+            throw new DukeException();
+        }
         String[] descAndBy = splitString(params, DEADLINE_BY_PREFIX);
         String description = descAndBy[0];
         String by = descAndBy[1];
@@ -107,7 +133,10 @@ public class Duke {
         addTask(d);
     }
 
-    public static void executeEvent(String params) {
+    public static void executeEvent(String params) throws DukeException {
+        if (params == "") {
+            throw new DukeException();
+        }
         String[] descAndAt = splitString(params, EVENT_AT_PREFIX);
         String description = descAndAt[0];
         String at = descAndAt[1];
@@ -169,7 +198,12 @@ public class Duke {
 
         while (true) {
             String input = getInput();
-            executeCommand(input);
+            try {
+                executeCommand(input);
+            } catch (DukeException e) {
+                System.out.println(INVALID_INPUT);
+                divider();
+            }
         }
 
     }
