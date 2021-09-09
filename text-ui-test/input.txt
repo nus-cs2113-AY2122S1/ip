@@ -2,4 +2,12 @@ deadline watch lecture /by today
 event movie /at 7
 list
 done 1
+done 3
+event
+event soccer / at 4 Sep
+deadline eat dinner / by tonight
+todo buy bread
+list
+done 3
+list
 bye
