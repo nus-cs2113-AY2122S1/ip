@@ -59,6 +59,10 @@ public class Duke {
         try {
             String taskName = userInputString.substring(5);
 
+            if (taskName.equals("")) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
+
             tasks[numberOfTasks] = new ToDo(taskName);
             numberOfTasks += 1;
 
