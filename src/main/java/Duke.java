@@ -5,7 +5,8 @@ public class Duke {
 
     private static int byeFlag = 0;
     private static int positionCheck = 0;
-    private static Task[] commands = new Task[100];
+    private static int SIZE = 100;
+    private static Task[] commands = new Task[SIZE];
 
     // sendCommands() is a method used to allow the user to send his/her commands to C3PO
     private static void sendCommands() {
@@ -41,7 +42,7 @@ public class Duke {
             } else {
                 markDone(Integer.parseInt(input[1])-1);
             }
-        } else if (positionCheck >= 100) {
+        } else if (positionCheck >= SIZE) {
             sayExceededCapacity();
         } else {
             checkTypeOfTask(line);
