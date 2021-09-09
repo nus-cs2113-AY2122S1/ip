@@ -1,7 +1,5 @@
 public abstract class InputParser {
-    // take in string and check no. of words, words it contains etc.
-
-    // flags for all possible cases
+    // constant flags
     private static final String LIST = "list";
     private static final String BYE = "bye";
     private static final String TODO = "todo";
@@ -11,15 +9,17 @@ public abstract class InputParser {
     private static final String BY= "/by";
     private static final String AT = "/at";
 
-
+    // isolate out task name from user input
     public static String getTaskName(String input) {
         return input.substring(input.indexOf(" ") + 1, input.indexOf("/")).trim();
     }
 
+    // get date for deadline / event from user input
     public static String getDate(String input) {
         return input.substring(input.indexOf("/") + 3).trim();
     }
 
+    // get index of task in tasks array to mark as done
     public static int getTaskIndex(String input) {
         return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
     }
@@ -51,6 +51,6 @@ public abstract class InputParser {
             return Commands.DONE;
         }
 
-        return Commands.NULLCOMMAND;
+        return Commands.INVALID;
     }
 }

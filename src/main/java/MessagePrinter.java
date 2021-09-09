@@ -1,7 +1,4 @@
-import tasks.Deadline;
-import tasks.Event;
 import tasks.Task;
-import tasks.Todo;
 
 public abstract class MessagePrinter {
     // constants storing printing messages
@@ -35,19 +32,23 @@ public abstract class MessagePrinter {
         dashes();
     }
 
-    // Messages for null command enum
-    public static void invalidCommandMessage() {
+    // Messages for null command (invalid command) enum
+    public static void invalidCommand() {
         dashes();
         System.out.println("Apologies sir, I do not understand your command.");
         dashes();
     }
 
-    // Messages for Command List
+    // Messages for printing out list of tasks
+
+    // if list is empty
     public static void emptyListMessage() {
         dashes();
         System.out.println("You appear to have no tasks for today. How wonderful Sir.");
         dashes();
     }
+
+    // otherwise
     public static void printList(Task[] tasks, int tasksLength) {
         dashes();
         System.out.println("You have a total of " + tasksLength +" tasks today sir, listing them out now.");
@@ -61,18 +62,22 @@ public abstract class MessagePrinter {
     }
 
     // Messages for marking task as done
+
+    // if taskIndex is out of bounds
     public static void outOfBoundsTaskIndex() {
         dashes();
         System.out.println("Apologies sir, there is no such task in your list.");
         dashes();
     }
 
+    // if no task is at taskIndex specified by user
     public static void invalidTaskIndex() {
         dashes();
         System.out.println("Hmm.. How strange, there appears to be no task at this location... Perhaps you could try another number sir?");
         dashes();
     }
 
+    // after marking task as done
     public static void taskMarkedAsDone(Task currTask) {
         dashes();
         System.out.println("Your task \"" + currTask.getTaskName() + "\" is indicated as complete.");
@@ -87,6 +92,7 @@ public abstract class MessagePrinter {
         dashes();
     }
 
+    // message printed upon exiting
     public static void exitMessage() {
         dashes();
         System.out.println("Powering Off now. Good Bye Mr Stark.\n");
