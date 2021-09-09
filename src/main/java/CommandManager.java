@@ -25,31 +25,43 @@ public class CommandManager {
 
             if (userInput.equals(COMMAND_LIST)) {
                 taskManager.listTasks();
-                Duke.printDivider();
 
             } else if (userInput.startsWith(COMMAND_TODO)) {
-                taskManager.addTask(TaskEnum.TODO, userInput);
+                taskManager.addTaskPlusException(TaskEnum.TODO, userInput);
 
             } else if (userInput.startsWith(COMMAND_DEADLINE)) {
-                taskManager.addTask(TaskEnum.DEADLINE, userInput);
+                taskManager.addTaskPlusException(TaskEnum.DEADLINE, userInput);
 
             } else if (userInput.startsWith(COMMAND_EVENT)) {
-                taskManager.addTask(TaskEnum.EVENT, userInput);
+                taskManager.addTaskPlusException(TaskEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                taskManager.doneTask(userInput);
+                taskManager.doneTaskPlusException(userInput);
 
             } else if (userInput.equals(COMMAND_BYE)) {
                 Duke.printlnTab("Bye. Hope to see you again soon!");
                 Duke.printDivider();
                 return;
 
-            } else { //Invalid inputs
-                Duke.printlnTab("Invalid Input. Please try again!");
+            } else if (userInput.equals("")) { //empty command
+                Duke.printlnTab("Please enter a command keyword.");
                 Duke.printDivider();
 
+            } else if (userInput.equals("help") || userInput.equals("h")) { //empty command
+                Duke.printlnTab("List of commands:");
+                Duke.printlnTab("1. list");
+                Duke.printlnTab("2. todo [TASK DESCRIPTION]");
+                Duke.printlnTab("3. deadline [TASK DESCRIPTION] /by [DEADLINE]");
+                Duke.printlnTab("4. event [TASK DESCRIPTION] /at [DATE/TIME]");
+                Duke.printlnTab("5. done [TASK NUMBER]");
+                Duke.printlnTab("6. help");
+                Duke.printlnTab("7. bye");
+                Duke.printDivider();
+
+            } else { //Invalid inputs
+                Duke.printlnTab("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                Duke.printDivider();
             }
-            //TODO help function also
 
         } while (true);
 
