@@ -2,7 +2,6 @@ package duke;
 
 import duke.manager.TaskManager;
 
-
 public class Duke {
     public static void main(String[] args) {
         welcomeMessage();
