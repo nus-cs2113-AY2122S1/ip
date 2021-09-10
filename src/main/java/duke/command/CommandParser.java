@@ -8,7 +8,7 @@ public class CommandParser {
     public static final String ADD_TODO = "todo";
     public static final String ADD_DEADLINE = "deadline";
     public static final String ADD_EVENT = "event";
-    public static final String REMOVE = "remove";
+    public static final String DELETE = "delete";
     public static final String BYE = "bye";
     public static final String EXIT = "exit";
     public static final String QUIT = "quit";
@@ -31,8 +31,8 @@ public class CommandParser {
         case ADD_EVENT:
             return Command.ADD_EVENT;
 
-        case REMOVE:
-            return Command.REMOVE_TASK;
+        case DELETE:
+            return Command.DELETE_TASK;
 
         case HELP:
             return Command.HELP;

@@ -12,7 +12,13 @@ public class CommandHandler {
 
     public static final String DEADLINE_SEPARATOR = "/by ";
     public static final String EVENT_SEPARATOR = "/at ";
-    private static final String TASK_SEPARATOR = " ";
+    public static final String TASK_SEPARATOR = " ";
+
+    private boolean isListChanged = false;
+
+    public boolean isListChanged() {
+        return isListChanged;
+    }
 
     /**
      * Print messages and changes the task list according to the commands given.
@@ -42,6 +48,7 @@ public class CommandHandler {
                     outputHandler.printTaskDoneMessage();
                 } else {
                     outputHandler.markAsDone(tasks, taskNumber);
+                    isListChanged = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printTaskNumberOutOfBoundsMessage();
@@ -60,6 +67,7 @@ public class CommandHandler {
                     Todo todo = new Todo(description);
                     tasks.add(todo);
                     outputHandler.addTask(tasks, todo);
+                    isListChanged = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printNoTaskNameMessage();
@@ -81,6 +89,7 @@ public class CommandHandler {
                     Deadline deadline = new Deadline(description, by);
                     tasks.add(deadline);
                     outputHandler.addTask(tasks, deadline);
+                    isListChanged = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printNoDeadlineMessage();
@@ -102,16 +111,18 @@ public class CommandHandler {
                     Event event = new Event(description, at);
                     tasks.add(event);
                     outputHandler.addTask(tasks, event);
+                    isListChanged = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printNoEventMessage();
             }
             break;
 
-        case REMOVE_TASK:
+        case DELETE_TASK:
             try {
                 int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
                 outputHandler.removeTask(tasks, taskNumber);
+                isListChanged = true;
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printTaskNumberOutOfBoundsMessage();
             } catch (NumberFormatException e) {

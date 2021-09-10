@@ -1,6 +1,8 @@
 package duke.output;
 
 import duke.task.Task;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class OutputHandler {
@@ -171,7 +173,7 @@ public class OutputHandler {
                 "deadline [task description] /by [due date]", "deadline English assignment /by Wed 5pm");
         printCommandHelpMessage("event", "adds a new event",
                 "event [task description] /at [event date]", "event meeting /at Thurs 9am");
-        printCommandHelpMessage("done", "lists all tasks", "done [task number]",
+        printCommandHelpMessage("done", "marks a task as done", "done [task number]",
                 "done 2");
         printCommandHelpMessage("remove", "removes a task from the list",
                 "remove [task number]", "remove 3");
@@ -218,5 +220,13 @@ public class OutputHandler {
         if (!example.equals("none")) {
             System.out.println("example: " + example);
         }
+    }
+
+    public void printFileNotFoundMessage() {
+        System.out.println("You don't have any saved tasks yet!" + NEWLINE);
+    }
+
+    public void printFileSaveError(IOException e) {
+        System.out.println("Something went wrong while saving tasks: " + e.getMessage());
     }
 }
