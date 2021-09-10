@@ -33,9 +33,9 @@ public class Duke {
             if (userInputSplitted.length > 1) {
                 description = userInputSplitted[1];
             }
-            try{
+            try {
                 processCommands(command, description);
-            }catch (InvalidCommand e){
+            } catch (InvalidCommand e) {
                 // Invalid Command
                 printInvalidCommand();
             }
@@ -245,7 +245,7 @@ public class Duke {
      * @param id String ID of task to be marked as completed.
      */
     public static void markDone(String id) {
-        if(!checkValidTaskId(id)){ // Task id is invalid
+        if (!checkValidTaskId(id)) { // Task id is invalid
             return;
         }
         int taskId = Integer.parseInt(id) - 1; // -1 as array index starts from 0
@@ -268,15 +268,15 @@ public class Duke {
      * @param id String ID of task to be checked.
      * @return a boolean value indicating if a task was valid.
      */
-    public static boolean checkValidTaskId(String id){
+    public static boolean checkValidTaskId(String id) {
         int taskId;
         try {
             taskId = Integer.parseInt(id);
-            if (taskId < 1 || taskId > tasks.size()){ //invalid task ID
+            if (taskId < 1 || taskId > tasks.size()) { //invalid task ID
                 throw new NumberFormatException();
             }
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             customPrint("You have entered an invalid task ID!");
             return false;
         }
