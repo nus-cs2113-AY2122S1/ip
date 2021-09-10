@@ -6,8 +6,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.util.Arrays;
-
 public class TaskManager {
     private final Task[] tasks;
     private int taskCount;
@@ -41,7 +39,7 @@ public class TaskManager {
      */
     public void handleUserInput(String userInput) {
         if (userInput.trim().equalsIgnoreCase(LIST_STRING)) {
-            printTaskList(Arrays.copyOf(tasks, taskCount));
+            handlePrintList();
         } else if (userInput.trim().toLowerCase().startsWith(DONE_STRING)) {
             handleTaskDone(userInput);
         } else if (userInput.trim().toLowerCase().startsWith(TODO_STRING)) {
@@ -58,12 +56,15 @@ public class TaskManager {
     /**
      * Prints a list of the current tasks Duke has
      *
-     * @param tasks The array containing tasks to be printed out
+     * @throws EmptyListException if task list is empty
      */
-    public void printTaskList(Task[] tasks) {
+    public void printTaskList() throws EmptyListException {
+        if (taskCount == 0) {
+            throw new EmptyListException();
+        }
         System.out.println(OUTPUT_DIVIDER);
         System.out.println(MESSAGE_LIST_TASKS);
-        for (int i = 0; i < tasks.length; i++) {
+        for (int i = 0; i < taskCount; i++) {
             System.out.println(" " + (i + 1) + ". " + tasks[i].toString());
         }
         System.out.println(OUTPUT_DIVIDER);
@@ -86,7 +87,7 @@ public class TaskManager {
         }
 
         // Checks if the task ID entered is numeric.
-        if (!isNumeric(doneSentence[1])) {
+        if (!isTaskIdNumeric(doneSentence[1])) {
             throw new NonNumericTaskIdException();
         }
 
@@ -206,6 +207,14 @@ public class TaskManager {
         }
     }
 
+    public void handlePrintList() {
+        try {
+            printTaskList();
+        } catch (EmptyListException emptyListException) {
+            emptyListException.printEmptyListMessage();
+        }
+    }
+
     /**
      * Handles the marking of a task as done, taking into account any erroneous input
      *
@@ -279,14 +288,14 @@ public class TaskManager {
     }
 
     /**
-     * Checks if a string can be parsed to obtain an integer
+     * Checks if the task ID can be parsed to obtain an integer
      *
-     * @param str String to be parsed
-     * @return true if the string is numeric and can be parsed, false otherwise
+     * @param taskId Task ID string to be parsed (supposed to be integer)
+     * @return true if the task ID is numeric and can be parsed, false otherwise
      */
-    public static boolean isNumeric(String str) {
+    public static boolean isTaskIdNumeric(String taskId) {
         try {
-            Integer.parseInt(str);
+            Integer.parseInt(taskId);
             return true;
         } catch (NumberFormatException numberFormatException) {
             return false;
