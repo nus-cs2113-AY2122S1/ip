@@ -9,7 +9,7 @@ import duke.task.Todo;
 
 import java.util.Scanner;
 
-public class DukeInterface {
+public class ListInterface {
     public static void readMultipleCommands() {
         Scanner input = new Scanner(System.in);
         List taskList = new List();
@@ -25,6 +25,8 @@ public class DukeInterface {
                         taskList.addItem(parseEvent(command));
                     } catch (EmptyField e) {
                         MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (time)\" to create event.");
+                    } catch (IllegalOperation illegalOperation) {
+                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                     }
                     continue;
                 } else if (command.startsWith("deadline")) {
@@ -32,6 +34,8 @@ public class DukeInterface {
                         taskList.addItem(parseDeadline(command));
                     } catch (EmptyField e) {
                         MessageBubble.printMessageBubble("Oops! Use \"deadline (name) /by (time)\" to create deadline.");
+                    } catch (IllegalOperation illegalOperation) {
+                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                     }
                     continue;
                 } else if (command.startsWith("todo")) {
@@ -39,6 +43,8 @@ public class DukeInterface {
                         taskList.addItem(parseTodo(command));
                     } catch (EmptyField e) {
                         MessageBubble.printMessageBubble("Oops! Use \"todo (name)\" to create todo.");
+                    } catch (IllegalOperation illegalOperation) {
+                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                     }
                     continue;
                 } else if (command.startsWith("done")) {
