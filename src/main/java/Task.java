@@ -3,9 +3,12 @@ public class Task {
     protected boolean isDone;
     protected char type = 'T';
 
-    public Task(String name) {
+    public Task(String name) throws DukeInvalidInputException {
         this.name = name;
         this.isDone = false;
+        if(this.name.isBlank()) {
+            throw new DukeInvalidInputException();
+        }
     }
 
     public String getName() {

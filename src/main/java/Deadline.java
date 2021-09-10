@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     private String dueTime;
 
-    public Deadline(String name, String dueTime) {
+    public Deadline(String name, String dueTime) throws DukeInvalidInputException {
         super(name);
         this.dueTime = dueTime;
         this.type = 'D';
