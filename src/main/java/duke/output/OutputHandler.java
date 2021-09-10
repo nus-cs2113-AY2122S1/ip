@@ -1,6 +1,7 @@
 package duke.output;
 
 import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class OutputHandler {
@@ -134,16 +135,17 @@ public class OutputHandler {
     }
 
     /**
-     * Print a message when a task is removed.
+     * Print a message when a task is deleted.
      *
      * @param tasks      The list of tasks
-     * @param taskNumber The task number of the task to be removed
+     * @param taskNumber The task number of the task to be deleted
      */
-    public void removeTask(ArrayList<Task> tasks, int taskNumber) {
+    public void deleteTask(ArrayList<Task> tasks, int taskNumber) {
         Task task = tasks.get(taskNumber);
         tasks.remove(taskNumber);
-        System.out.println(NEWLINE + "Got it. I removed this task:");
-        System.out.println(task + NEWLINE);
+        System.out.println(NEWLINE + "Noted. I deleted this task:");
+        System.out.println(TASK_PADDING + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list." + NEWLINE);
     }
 
     /**
@@ -171,10 +173,10 @@ public class OutputHandler {
                 "deadline [task description] /by [due date]", "deadline English assignment /by Wed 5pm");
         printCommandHelpMessage("event", "adds a new event",
                 "event [task description] /at [event date]", "event meeting /at Thurs 9am");
-        printCommandHelpMessage("done", "lists all tasks", "done [task number]",
+        printCommandHelpMessage("done", "marks a task as done", "done [task number]",
                 "done 2");
-        printCommandHelpMessage("remove", "removes a task from the list",
-                "remove [task number]", "remove 3");
+        printCommandHelpMessage("delete", "deletes a task from the list",
+                "delete [task number]", "delete 3");
         printCommandHelpMessage("help", "lists all commands", "none", "none");
     }
 

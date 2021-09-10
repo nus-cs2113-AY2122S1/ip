@@ -108,10 +108,10 @@ public class CommandHandler {
             }
             break;
 
-        case REMOVE_TASK:
+        case DELETE_TASK:
             try {
                 int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
-                outputHandler.removeTask(tasks, taskNumber);
+                outputHandler.deleteTask(tasks, taskNumber);
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printTaskNumberOutOfBoundsMessage();
             } catch (NumberFormatException e) {
@@ -141,4 +141,3 @@ public class CommandHandler {
         }
     }
 }
-
