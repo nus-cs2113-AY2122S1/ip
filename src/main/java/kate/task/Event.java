@@ -9,9 +9,13 @@ public class Event extends Task {
         this.timeFrame = timeFrame;
     }
 
+    public String getTaskInfoForFile() {
+        return EVENT_CHECKBOX + " | " + isDone + " | " + description + " | " + timeFrame;
+    }
+
     @Override
-    public String printTaskInfo() {
-        return EVENT_CHECKBOX + super.printTaskInfo()
+    public String getTaskInfo() {
+        return EVENT_CHECKBOX + super.getTaskInfo()
                 + " (at: " + timeFrame + ")";
     }
 }

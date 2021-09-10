@@ -7,8 +7,12 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public String getTaskInfoForFile() {
+        return TODO_CHECKBOX + " | " + isDone + " | " + description;
+    }
+
     @Override
-    public String printTaskInfo() {
-        return TODO_CHECKBOX + super.printTaskInfo();
+    public String getTaskInfo() {
+        return TODO_CHECKBOX + super.getTaskInfo();
     }
 }
