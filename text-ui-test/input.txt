@@ -1,3 +1,4 @@
+list
 todo Read novel
 deadline Coding assignment /by Next Tuesday 2359hrs
 event Micron Eng. Talk /at 1 Sept 1-2pm
@@ -5,6 +6,10 @@ list
 done 1
 done 4
 done abc
+delete 1
+delete 3
+delete 2
+delete abc
 todo
 deadline
 deadline GE Essay /by

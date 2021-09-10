@@ -102,8 +102,8 @@ public class TaskManager {
         } else {
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_MARKED_DONE);
-            System.out.println("   " + taskList.get(taskToMarkDone - 1));
             taskList.get(taskToMarkDone - 1).setDone(true);
+            System.out.println("   " + taskList.get(taskToMarkDone - 1));
             System.out.println(OUTPUT_DIVIDER);
         }
     }
