@@ -2,7 +2,7 @@ public class Deadline extends TimedTask {
     private static final String PREPOSITION = "by";
     private static final Types type = Types.DEADLINE;
 
-    public Deadline(String userInput) {
+    public Deadline(String userInput) throws WrongNumberOfArgumentsException {
         super(userInput, PREPOSITION, type);
     }
 }
