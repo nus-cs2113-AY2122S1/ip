@@ -9,6 +9,8 @@ import java.util.stream.StreamSupport;
 public class Duke {
 
     public static Task[] list = new Task[100];
+    public static String[] dukeLines = new String[100];
+    public static int dukeLineCount = 0;
     public static int listCount = 0;
     public final static String LINESEPARATER =  "\t______________________________________________________________________";
 
@@ -38,8 +40,22 @@ public class Duke {
         System.out.println(LINESEPARATER);
     }
     public void endLine() {
+        int max_len= 0 ;
+        for(int i = 0 ;i < dukeLineCount; i++) {
+            if(dukeLines[i].length() > max_len) {
+                max_len = dukeLines[i].length();
+            }
+        }
+        for(int i = 0 ;i < dukeLineCount; i++) {
+            for(int j=0; j<LINESEPARATER.length()-max_len+3; j++)
+            {
+                System.out.print(" ");
+            }
+            System.out.println(dukeLines[i]);
+        }
         printLine();
-        System.out.print("\n\t");
+        System.out.print("\t");
+        dukeLineCount = 0;
     }
 
     public void endDuke() {
@@ -53,7 +69,7 @@ public class Duke {
         printLine();
         dukePrint("Hello! I'm Duke");
         dukePrint("What can I do for you?");
-        System.out.print("\n\t");
+        endLine();
     }
 
     public void unknownAction() {
@@ -76,18 +92,8 @@ public class Duke {
         if(listCount==0) {
             dukePrint(" Woohooo no tasks due ~~~~");
         }
-        int max_len = 0;
         for(int i = 0; i< listCount; i++) {
-            if(list[i].toString().length() > max_len) {
-                max_len = list[i].toString().length();
-            }
-        }
-        for(int i = 0; i< listCount; i++) {
-            for(int j=0;j<LINESEPARATER.length()-max_len+3;j++)
-            {
-                System.out.print(" ");
-            }
-            System.out.println(list[i]);
+            dukePrint((i+1) + ". "+list[i].toString());
         }
         endLine();
     }
@@ -109,10 +115,6 @@ public class Duke {
     }
 
     public void dukePrint(String line) {
-        for(int i=0;i<LINESEPARATER.length()-line.length()+3;i++)
-        {
-            System.out.print(" ");
-        }
-        System.out.println(line);
+        dukeLines[dukeLineCount++] = line;
     }
 }
