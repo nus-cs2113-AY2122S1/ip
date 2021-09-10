@@ -13,7 +13,6 @@ public class Duke {
 
     private static String file = "ip/src/main/java/duke.txt";
 
-    //private static Task[] tasks = new Task[100];
     private static ArrayList<String> letter = new ArrayList<>();
     private static ArrayList<String> done = new ArrayList<>();
     private static ArrayList<Task> tasks = new ArrayList<>();
