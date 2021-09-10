@@ -23,8 +23,15 @@ public class Duke {
                 terminateProgram();
                 break;
             } else if (order.contains("done")) {
-                doneTask(order);
-                continue;
+                try {
+                    doneTask(order);
+                    continue;
+                } catch (NumberFormatException e) {
+                    System.out.println(SPLIT_LINE);
+                    System.out.println("    ☹ OOPS!!! The index of a done command cannot be empty.");
+                    System.out.println(SPLIT_LINE);
+                    continue;
+                }
             } else if (order.contains("list")) {
                 printList();
             } else {

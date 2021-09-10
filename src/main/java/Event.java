@@ -1,5 +1,4 @@
 public class Event extends List {
-
     protected String at;
 
     public Event(String description, String at) {
