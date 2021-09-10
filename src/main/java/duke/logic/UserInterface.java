@@ -1,7 +1,8 @@
 package duke.logic;
 
 public class UserInterface {
-    protected final String LOGO = System.lineSeparator()
+
+    protected static final String LOGO = System.lineSeparator()
             + "    ___   ______   ________  _______      ___   ____  _____   .--." + System.lineSeparator()
             + "  .'   `.|_   _ \\ |_   __  ||_   __ \\   .'   `.|_   \\|_   _|.'_\\/_'." + System.lineSeparator()
             + " /  .-.  \\ | |_) |  | |_ \\_|  | |__) | /  .-.  \\ |   \\ | |  '. /\\,.'" + System.lineSeparator()
@@ -11,7 +12,7 @@ public class UserInterface {
             + "                                                           (/\\\\||/" + System.lineSeparator()
             + "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\||^^^^";
 
-    protected final String HORIZONTAL_BAR = "__________________"
+    protected static final String HORIZONTAL_BAR = "__________________"
             + "__________________"
             + "__________________"
             + "_______________";
@@ -23,7 +24,7 @@ public class UserInterface {
      *
      * @param input String to be echo-ed
      */
-    public void echo(String input) {
+    public static void echo(String input) {
         System.out.println(HORIZONTAL_BAR + System.lineSeparator() + input
                 + System.lineSeparator() + HORIZONTAL_BAR);
     }
@@ -31,7 +32,7 @@ public class UserInterface {
     /**
      * Print greeting message upon starting the program
      */
-    public void displayGreetingMessage() {
+    public static void displayGreetingMessage() {
         echo(LOGO + System.lineSeparator() + "  Hello! I'm Oberon"
                 + System.lineSeparator() + "  What can I do for you?");
     }
@@ -39,10 +40,7 @@ public class UserInterface {
     /**
      * Print farewell message upon exiting the program
      */
-    public void displayFarewellMessage() {
+    public static void displayFarewellMessage() {
         echo("  Goodbye. Hope to see you again soon!" + System.lineSeparator() + LOGO);
     }
-
-
-
 }

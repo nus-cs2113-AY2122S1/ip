@@ -1,6 +1,7 @@
 package duke.manager.input;
 
 public class Parser {
+
     private String[] arguments;
     private String input;
     private boolean isMoreThanTwoWords;

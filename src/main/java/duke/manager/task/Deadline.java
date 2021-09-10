@@ -1,11 +1,12 @@
 package duke.manager.task;
 
 public class Deadline extends Task {
+
     protected String by;
 
     public Deadline(String description, String by) {
         super(description);
-        if (by.equals("")) {
+        if (by.equals("") || by.equals("???")) {
             this.by = "???";
         } else {
             this.by = by;

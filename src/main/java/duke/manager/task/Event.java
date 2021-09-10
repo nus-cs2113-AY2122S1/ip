@@ -1,11 +1,12 @@
 package duke.manager.task;
 
 public class Event extends Task {
+
     protected String at;
 
     public Event(String description, String at) {
         super(description);
-        if (at.equals("")) {
+        if (at.equals("") || at.equals("???")) {
             this.at = "???";
         } else {
             this.at = at;

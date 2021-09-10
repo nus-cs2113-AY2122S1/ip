@@ -1,12 +1,17 @@
 package duke.manager.task;
 
 public class Task {
+
     protected String taskDescription;
     protected boolean isDone;
 
     public Task(String description) {
         this.taskDescription = description;
         isDone = false;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public String getTaskDescription() {
