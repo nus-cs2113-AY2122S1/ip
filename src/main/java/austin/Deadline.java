@@ -1,7 +1,7 @@
 package austin;
 
 public class Deadline extends Task {
-    /** austin.Deadline date and time */
+    /** Deadline date and time */
     protected String by;
 
     public Deadline(String description, String by) {
