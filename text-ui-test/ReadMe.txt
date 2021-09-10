@@ -1,3 +1,3 @@
 Warning! The text-art folder is not found in this current directory which can
 lead to IOExcetion being triggered. So you should include the copy of that folder 
-in this current directory too! 
+in this current directory too! You could add path to it too...
