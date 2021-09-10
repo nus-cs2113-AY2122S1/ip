@@ -9,6 +9,7 @@ import duke.task.Todo;
 import java.util.ArrayList;
 
 public class TaskManager {
+
     private final ArrayList<Task> taskList;
 
     // Constants
@@ -17,9 +18,11 @@ public class TaskManager {
     private static final String TODO_STRING = "todo";
     private static final String DEADLINE_STRING = "deadline";
     private static final String EVENT_STRING = "event";
+    private static final String DELETE_STRING = "delete";
     private static final String OUTPUT_DIVIDER = "____________________________________________________________";
     private static final String MESSAGE_LIST_TASKS = " Here are the tasks in your list:";
     private static final String MESSAGE_TASK_ADDED = " I have added a task:";
+    private static final String MESSAGE_TASK_DELETED = " Got it! I've deleted this task:";
     private static final String MESSAGE_TASK_MARKED_DONE = " Great! I have marked the following task as done:";
     private static final String MESSAGE_INVALID_COMMAND = " Please enter a valid command!";
     private static final String DEADLINE_PREFIX = "/by";
@@ -47,6 +50,8 @@ public class TaskManager {
             handleDeadline(userInput);
         } else if (userInput.trim().toLowerCase().startsWith(EVENT_STRING)) {
             handleEvent(userInput);
+        } else if (userInput.trim().toLowerCase().startsWith(DELETE_STRING)) {
+            handleDelete(userInput);
         } else {
             printInvalidCommandMessage();
         }
@@ -72,13 +77,13 @@ public class TaskManager {
     /**
      * Marks a task as done
      *
-     * @param doneTask User command containing the task ID of the task to mark done
+     * @param doneCommand User command containing the task ID of the task to mark done
      * @throws DoneInvalidFormatException if command does not follow correct format "done {task ID}"
      * @throws NonNumericTaskIdException if task ID entered is not an integer
      * @throws TaskNotInListException if the task to mark done is not in the task list
      */
-    public void markTaskDone(String doneTask) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
-        String[] doneSentence = doneTask.split(" ");
+    public void markTaskDone(String doneCommand) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
+        String[] doneSentence = doneCommand.split("\\s+");
 
         // Checks if done command entered does not follow the correct format of "done {task ID}".
         if (doneSentence.length != 2) {
@@ -86,7 +91,7 @@ public class TaskManager {
         }
 
         // Checks if the task ID entered is numeric.
-        if (!isTaskIdNumeric(doneSentence[1])) {
+        if (isNonNumericTaskId(doneSentence[1])) {
             throw new NonNumericTaskIdException();
         }
 
@@ -95,10 +100,10 @@ public class TaskManager {
         if (taskToMarkDone > taskList.size() || taskToMarkDone <= 0) {
             throw new TaskNotInListException();
         } else {
-            taskList.get(taskToMarkDone - 1).setDone(true);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_MARKED_DONE);
             System.out.println("   " + taskList.get(taskToMarkDone - 1));
+            taskList.get(taskToMarkDone - 1).setDone(true);
             System.out.println(OUTPUT_DIVIDER);
         }
     }
@@ -206,6 +211,33 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(String deleteCommand) throws DeleteInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
+        String[] deleteSentence = deleteCommand.split("\\s+");
+
+        // Checks if delete command entered does not follow the correct format of "delete {task ID}"
+        if(deleteSentence.length != 2) {
+            throw new DeleteInvalidFormatException();
+        }
+
+        // Checks if task ID entered is numeric.
+        if (isNonNumericTaskId(deleteSentence[1])) {
+            throw new NonNumericTaskIdException();
+        }
+
+        int taskToDelete = Integer.parseInt(deleteSentence[1]);
+        // Makes sure that the task to delete is in the task list
+        if (taskToDelete > taskList.size() || taskToDelete <= 0) {
+            throw new TaskNotInListException();
+        } else {
+            System.out.println(OUTPUT_DIVIDER);
+            System.out.println(MESSAGE_TASK_DELETED);
+            System.out.println("   " + taskList.get(taskToDelete - 1));
+            taskList.remove(taskToDelete - 1);
+            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
+            System.out.println(OUTPUT_DIVIDER);
+        }
+    }
+
     public void handlePrintList() {
         try {
             printTaskList();
@@ -274,6 +306,18 @@ public class TaskManager {
         }
     }
 
+    public void handleDelete(String userInput) {
+        try {
+            deleteTask(userInput);
+        } catch (DeleteInvalidFormatException deleteInvalidFormatException) {
+            deleteInvalidFormatException.printDeleteInvalidFormatMessage();
+        } catch (NonNumericTaskIdException nonNumericTaskIdException) {
+            nonNumericTaskIdException.printNonNumericTaskIdMessage();
+        } catch (TaskNotInListException taskNotInListException) {
+            taskNotInListException.printTaskNotInListMessage();
+        }
+    }
+
     /**
      * Prints invalid command message if the command input by the user does not match any of the specified commands
      */
@@ -289,12 +333,12 @@ public class TaskManager {
      * @param taskId Task ID string to be parsed (supposed to be integer)
      * @return true if the task ID is numeric and can be parsed, false otherwise
      */
-    public static boolean isTaskIdNumeric(String taskId) {
+    public static boolean isNonNumericTaskId(String taskId) {
         try {
             Integer.parseInt(taskId);
-            return true;
-        } catch (NumberFormatException numberFormatException) {
             return false;
+        } catch (NumberFormatException numberFormatException) {
+            return true;
         }
     }
 
