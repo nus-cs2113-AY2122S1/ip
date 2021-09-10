@@ -1,3 +1,7 @@
+package Duke.task;
+
+import Duke.exception.DukeInvalidInputException;
+
 public class Task {
     protected final String name;
     protected boolean isDone;
