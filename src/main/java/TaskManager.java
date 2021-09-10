@@ -7,49 +7,28 @@ public class TaskManager {
     private static Task[] tasks = new Task[MAX_TASKS];
 
     public static void taskDone(int id) {
-        try {
-            if (id > taskCount - 1) {
-                String message = "That number does not correspond to any task!";
-                throw new ArrayIndexOutOfBoundsException(message);
-            }
-            Task currentTask = tasks[id];
-            currentTask.markAsDone();
-            Message.printWithSpacers("Nice! I've marked this task as done:\n" + currentTask);
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-            Message.printWithSpacers(aiobe.getMessage());
-        }
+        Task currentTask = tasks[id];
+        currentTask.markAsDone();
+        Message.printWithSpacers("Nice! I've marked this task as done:\n" + currentTask);
     }
 
     public static void newTask(String userInput) {
-        try {
-            if (userInput.split("\\s+").length == 1) {
-                throw new NoDescriptionException(userInput);
-            }
-            if(taskCount >= MAX_TASKS){
-                throw new TooManyTasksException();
-            }
-            String command = userInput.split("\\s+")[0];
-            //Remove command from userInput.
-            userInput = userInput.replaceAll(String.format("^%s\\s+", command), "");
-            switch (Task.Types.valueOf(command.toUpperCase())) {
-            case DEADLINE:
-                tasks[taskCount] = new Deadline(userInput);
-                break;
-            case EVENT:
-                tasks[taskCount] = new Event(userInput);
-                break;
-            case TODO:
-                tasks[taskCount] = new Todo(userInput);
-                break;
-            }
-            printInputReceived(tasks[taskCount++]);
-        } catch (NoDescriptionException nde) {
-            Message.printWithSpacers(nde.getMessage());
-        } catch (WrongNumberOfArgumentsException wnoae) {
-            Message.printWithSpacers(wnoae.getMessage());
-        } catch (TooManyTasksException tmte){
-            Message.printWithSpacers(tmte.getMessage());
+        String command = userInput.split(" ")[0];
+        //Remove command from userInput.
+        userInput = userInput.substring(command.length() + 1);
+
+        switch (Task.Types.valueOf(command.toUpperCase())) {
+        case DEADLINE:
+            tasks[taskCount] = new Deadline(userInput);
+            break;
+        case EVENT:
+            tasks[taskCount] = new Event(userInput);
+            break;
+        case TODO:
+            tasks[taskCount] = new Todo(userInput);
+            break;
         }
+        printInputReceived(tasks[taskCount++]);
     }
 
     public static void printInputReceived(Task task) {
@@ -58,18 +37,11 @@ public class TaskManager {
     }
 
     public static void printTasks() {
-        try {
-            if (taskCount == 0) {
-                throw new ListEmptyException();
-            }
-            int count = 1;
-            String message = "";
-            for (Task task : Arrays.copyOf(tasks, taskCount)) {
-                message += String.format("%d.%s\n", count++, task);
-            }
-            Message.printWithSpacers(message);
-        } catch (ListEmptyException lee) {
-            Message.printWithSpacers(lee.getMessage());
+        int count = 1;
+        String message = "";
+        for (Task task : Arrays.copyOf(tasks, taskCount)) {
+            message += String.format("%d.%s\n", count++, task);
         }
+        Message.printWithSpacers(message);
     }
 }

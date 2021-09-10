@@ -9,7 +9,6 @@ public class Message {
     private static final String SPACER = "____________________________________________________________\n";
 
     public static void printWithSpacers(String message) {
-        //If message does not end in newline, insert newline
         if (message.charAt(message.length() - 1) != '\n') {
             message += '\n';
         }

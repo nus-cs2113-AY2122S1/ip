@@ -1,14 +1,11 @@
-public abstract class TimedTask extends Task {
+public class TimedTask extends Task {
     private String dateTime;
     private final String preposition;
 
-    public TimedTask(String userInput, String preposition, Types type) throws WrongNumberOfArgumentsException {
+    public TimedTask(String userInput, String preposition, Types type) {
         //TODO: Is using constructor class to parse inputs good OOP?
         super(type);
         String[] inputs = userInput.split(String.format(" /%s ", preposition));
-        if(inputs.length != 2){
-            throw new WrongNumberOfArgumentsException(type, preposition);
-        }
         this.setDescription(inputs[0]);
         this.dateTime = inputs[1];
         this.preposition = preposition;

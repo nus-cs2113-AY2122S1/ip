@@ -4,17 +4,9 @@ public class Duke {
 
     private static final Scanner IN = new Scanner(System.in);
 
-    private enum Cmd {
-        BYE, LIST, DONE;
-
-        @Override
-        public String toString(){
-            return super.toString().toLowerCase();
-        }
-        private String getRegex(){
-            return String.format("(?i)%s", this.toString());
-        }
-    }
+    private static final String TERMINATE_CONSOLE = "bye";
+    private static final String LIST = "list";
+    private static final String DONE_REGEX = "done \\d+";
 
     private static String getUserInput() {
         return IN.nextLine();
@@ -24,31 +16,17 @@ public class Duke {
         Message.begin();
         while (true) {
             String userInput = getUserInput();
-            try {
-                if (userInput.matches(Cmd.BYE.getRegex())) {
-                    break;
-                } else if (userInput.matches(Cmd.LIST.getRegex())) {
-                    TaskManager.printTasks();
-                } else if (userInput.matches(Cmd.DONE.getRegex())) {
-                    if(!userInput.matches(Cmd.DONE.getRegex()+" \\d+$")){
-                        String message = "Wrong argument(s). Usage: %s <task number>";
-                        message = String.format(message, Cmd.DONE.toString().toLowerCase());
-                        throw new InvalidCommandException(message);
-                    }
-                    int id = Integer.parseInt(userInput.split(" ")[1]);
-                    //id entered with index starting from '1' instead of '0'
-                    TaskManager.taskDone(id - 1);
-                } else if (userInput.matches(Task.Types.getTypesRegex())) {
-                    TaskManager.newTask(userInput);
-                } else {
-                    String message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
-                    throw new InvalidCommandException(message);
-                }
+            if (userInput.equals(TERMINATE_CONSOLE)) {
+                break;
+            } else if (userInput.equals(LIST)) {
+                TaskManager.printTasks();
+            } else if (userInput.matches(DONE_REGEX)) {
+                int id = Integer.parseInt(userInput.split(" ")[1]);
+                //id entered with index starting from '1' instead of '0'
+                TaskManager.taskDone(id - 1);
+            } else {
+                TaskManager.newTask(userInput);
             }
-            catch (InvalidCommandException ive){
-                Message.printWithSpacers(ive.getMessage());
-            }
-
         }
         Message.end();
     }
