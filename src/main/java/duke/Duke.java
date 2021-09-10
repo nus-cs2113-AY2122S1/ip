@@ -1,5 +1,9 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +12,7 @@ public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadData();
         printWelcomeMessage();
         getUserInput();
     }
@@ -69,6 +74,7 @@ public class Duke {
             markDone(description);
             break;
         case "BYE":
+            saveData();
             exit();
         case "DELETE":
             deleteTask(description);
@@ -267,6 +273,7 @@ public class Duke {
      *
      * @param id String ID of task to be checked.
      * @return a boolean value indicating if a task was valid.
+     * @throws NumberFormatException If id was not a number or < 1 or > tasks.size()
      */
     public static boolean checkValidTaskId(String id) {
         int taskId;
@@ -279,6 +286,75 @@ public class Duke {
         } catch (NumberFormatException e) {
             customPrint("You have entered an invalid task ID!");
             return false;
+        }
+    }
+
+    /**
+     * Converts all task to a string to be written to the file Duke.txt.
+     */
+    public static void saveData() {
+        String output = "";
+        for (Task task : tasks) {
+            output += task.toFile() + "\n";
+        }
+
+        try {
+            FileWriter myFile = new FileWriter("Duke.txt");
+            myFile.write(output);
+            myFile.close();
+        } catch (IOException e) {
+            customPrint("Could not write to file!");
+        }
+    }
+
+    /**
+     * Loads the data to task ArrayList if Duke.txt exists.
+     */
+    public static void loadData() {
+        try {
+            File myFile = new File("Duke.txt");
+            Scanner myReader = new Scanner(myFile);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] dataSplit = data.split("\\|");
+
+                if (dataSplit.length < 3) { // Ensure that there should be at least 3 elements
+                    throw new InvalidFile();
+                }
+
+                String taskType = dataSplit[0];
+                Boolean taskCompleted = dataSplit[1].equals("true");
+                String description = dataSplit[2];
+                String date = "";
+
+                if (dataSplit.length > 3) { // There is a date
+                    date = dataSplit[3];
+                }
+
+                Task task;
+                switch (taskType) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, date);
+                    break;
+                case "E":
+                    task = new Event(description, date);
+                    break;
+                default:
+                    throw new InvalidFile();
+                }
+                if (taskCompleted) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            customPrint("Could not read from file!");
+        } catch (InvalidFile invalidFile) {
+            customPrint("File contains invalid data!");
         }
     }
 }
