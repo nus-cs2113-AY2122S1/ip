@@ -11,7 +11,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String line;
         Duke duke = new Duke();
-        duke.greet();
+        //duke.greet();
         do {
             line = in.nextLine();
             line = line.toLowerCase();

@@ -18,18 +18,17 @@ public class Duke {
         list[listCount++] = item;
     }
     private boolean active = false;
-    //Task list = new Task();
 
     public Duke() {
         active = true;
         printLine();
         System.out.println("\tHello from");
         System.out.println("\t ____        _        ");
-        System.out.println("\t  _ \\ _   _| | _____ ");
+        System.out.println("\t| _ \\ _   _| | _____ ");
         System.out.println("\t| | | | | | | |/ / _ \\");
         System.out.println("\t| |_| | |_| |   <  __/");
         System.out.println("\t|____/ \\__,_|_|\\_\\___|");
-
+        endLine();
     }
 
     public boolean getStatus() {
@@ -61,12 +60,12 @@ public class Duke {
     public void endDuke() {
 
         dukePrint("Bye. Hope to see you again soon!");
-        printLine();
+        endLine();
         active = false;
     }
 
     public void greet() {
-        printLine();
+        //printLine();
         dukePrint("Hello! I'm Duke");
         dukePrint("What can I do for you?");
         endLine();
@@ -90,7 +89,10 @@ public class Duke {
     public void listOut() {
         //printLine();
         if(listCount==0) {
-            dukePrint(" Woohooo no tasks due ~~~~");
+            dukePrint("Woohooo no tasks due ~~~~");
+        }
+        else{
+            dukePrint("Now you have " + listCount + " tasks in the list.");
         }
         for(int i = 0; i< listCount; i++) {
             dukePrint((i+1) + ". "+list[i].toString());
