@@ -1,5 +1,9 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +12,7 @@ public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadData();
         printWelcomeMessage();
         getUserInput();
     }
@@ -33,9 +38,9 @@ public class Duke {
             if (userInputSplitted.length > 1) {
                 description = userInputSplitted[1];
             }
-            try{
+            try {
                 processCommands(command, description);
-            }catch (InvalidCommand e){
+            } catch (InvalidCommand e) {
                 // Invalid Command
                 printInvalidCommand();
             }
@@ -69,7 +74,11 @@ public class Duke {
             markDone(description);
             break;
         case "BYE":
+            saveData();
             exit();
+        case "DELETE":
+            deleteTask(description);
+            break;
         default:
             throw new InvalidCommand();
         }
@@ -148,6 +157,23 @@ public class Duke {
     }
 
     /**
+     * Removes a Task from the Task list
+     *
+     * @param id Task id entered by user.
+     */
+    private static void deleteTask(String id) {
+        if (!checkValidTaskId(id)) { // Invalid task id
+            return;
+        }
+
+        int taskId = Integer.parseInt(id) - 1;
+        Task removedTask = tasks.get(taskId);
+        tasks.remove(taskId);
+        customPrint("Noted. I've remove this task:\n" + removedTask.toString() + "\nNow you have "
+                + tasks.size() + " tasks in the list.");
+    }
+
+    /**
      * Prints the exit message and ends the program.
      */
     private static void exit() {
@@ -222,18 +248,13 @@ public class Duke {
     /**
      * Marks a task as done and calls customPrint to print the completed message.
      *
-     * @param description String ID of task to be marked as completed.
+     * @param id String ID of task to be marked as completed.
      */
-    public static void markDone(String description) {
-        int taskId = Integer.parseInt(description) - 1; // -1 as array index starts from 0
-
-        Boolean isNotValidTaskID = taskId < 0 || taskId >= tasks.size();
-
-        // Checks for valid taskID
-        if (isNotValidTaskID) {
-            customPrint("You have entered an invalid task ID!");
+    public static void markDone(String id) {
+        if (!checkValidTaskId(id)) { // Task id is invalid
             return;
         }
+        int taskId = Integer.parseInt(id) - 1; // -1 as array index starts from 0
 
         // Checks if task has been completed
         Task currentTask = tasks.get(taskId);
@@ -244,6 +265,96 @@ public class Duke {
             String textToPrint = "Nice! I've marked this task as done:\n";
             textToPrint += currentTask.toString();
             customPrint(textToPrint);
+        }
+    }
+
+    /**
+     * Checks if a task id is valid.
+     *
+     * @param id String ID of task to be checked.
+     * @return a boolean value indicating if a task was valid.
+     * @throws NumberFormatException If id was not a number or < 1 or > tasks.size()
+     */
+    public static boolean checkValidTaskId(String id) {
+        int taskId;
+        try {
+            taskId = Integer.parseInt(id);
+            if (taskId < 1 || taskId > tasks.size()) { //invalid task ID
+                throw new NumberFormatException();
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            customPrint("You have entered an invalid task ID!");
+            return false;
+        }
+    }
+
+    /**
+     * Converts all task to a string to be written to the file Duke.txt.
+     */
+    public static void saveData() {
+        String output = "";
+        for (Task task : tasks) {
+            output += task.toFile() + "\n";
+        }
+
+        try {
+            FileWriter myFile = new FileWriter("Duke.txt");
+            myFile.write(output);
+            myFile.close();
+        } catch (IOException e) {
+            customPrint("Could not write to file!");
+        }
+    }
+
+    /**
+     * Loads the data to task ArrayList if Duke.txt exists.
+     */
+    public static void loadData() {
+        try {
+            File myFile = new File("Duke.txt");
+            Scanner myReader = new Scanner(myFile);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] dataSplit = data.split("\\|");
+
+                if (dataSplit.length < 3) { // Ensure that there should be at least 3 elements
+                    throw new InvalidFile();
+                }
+
+                String taskType = dataSplit[0];
+                Boolean taskCompleted = dataSplit[1].equals("true");
+                String description = dataSplit[2];
+                String date = "";
+
+                if (dataSplit.length > 3) { // There is a date
+                    date = dataSplit[3];
+                }
+
+                Task task;
+                switch (taskType) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, date);
+                    break;
+                case "E":
+                    task = new Event(description, date);
+                    break;
+                default:
+                    throw new InvalidFile();
+                }
+                if (taskCompleted) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            customPrint("Could not read from file!");
+        } catch (InvalidFile invalidFile) {
+            customPrint("File contains invalid data!");
         }
     }
 }

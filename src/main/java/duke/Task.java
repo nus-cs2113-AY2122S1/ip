@@ -29,4 +29,8 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + getDescription();
     }
+
+    public String toFile() {
+        return isDone + "|" + description;
+    }
 }
