@@ -14,79 +14,64 @@ public class ListInterface {
         Scanner input = new Scanner(System.in);
         List taskList = new List();
 
-        keepAsking:
         while (true) {
             String command = input.nextLine();
-            if (command.contains(" ")) {
-                // multiple words commands
 
-                if (command.startsWith("event")) {
-                    try {
-                        taskList.addItem(parseEvent(command));
-                    } catch (EmptyField e) {
-                        MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (time)\" to create event.");
-                    } catch (IllegalOperation illegalOperation) {
-                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
-                    }
-                    continue;
-                } else if (command.startsWith("deadline")) {
-                    try {
-                        taskList.addItem(parseDeadline(command));
-                    } catch (EmptyField e) {
-                        MessageBubble.printMessageBubble("Oops! Use \"deadline (name) /by (time)\" to create deadline.");
-                    } catch (IllegalOperation illegalOperation) {
-                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
-                    }
-                    continue;
-                } else if (command.startsWith("todo")) {
-                    try {
-                        taskList.addItem(parseTodo(command));
-                    } catch (EmptyField e) {
-                        MessageBubble.printMessageBubble("Oops! Use \"todo (name)\" to create todo.");
-                    } catch (IllegalOperation illegalOperation) {
-                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
-                    }
-                    continue;
-                } else if (command.startsWith("done")) {
-                    try {
-                        taskList.doneItem(parseDoneIndex(command));
-                    } catch (EmptyField e) {
-                        MessageBubble.printMessageBubble("Oops! No index found.");
-                    } catch (IllegalOperation e) {
-                        MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
-                    }
-                    continue;
-                } else if (command.startsWith("undone")) {
-                    try {
-                        taskList.undoneItem(parseDoneIndex(command));
-                    } catch (EmptyField e) {
-                        MessageBubble.printMessageBubble("Oops! No index found.");
-                    } catch (IllegalOperation e) {
-                        MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
-                    }
-                    continue;
-                } else if (command.startsWith("delete")) {
-                    try {
-                        taskList.removeItem(parseDeleteIndex(command));
-                    } catch (EmptyField e) {
-                        MessageBubble.printMessageBubble("Oops! No index found.");
-                    }
-                    continue;
+            if (command.startsWith("event")) {
+                try {
+                    taskList.addItem(parseEvent(command));
+                } catch (EmptyField e) {
+                    MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (time)\" to create event.");
+                } catch (IllegalOperation illegalOperation) {
+                    MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                 }
-
+            } else if (command.startsWith("deadline")) {
+                try {
+                    taskList.addItem(parseDeadline(command));
+                } catch (EmptyField e) {
+                    MessageBubble.printMessageBubble("Oops! Use \"deadline (name) /by (time)\" to create deadline.");
+                } catch (IllegalOperation illegalOperation) {
+                    MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
+                }
+            } else if (command.startsWith("todo")) {
+                try {
+                    taskList.addItem(parseTodo(command));
+                } catch (EmptyField e) {
+                    MessageBubble.printMessageBubble("Oops! Use \"todo (name)\" to create todo.");
+                } catch (IllegalOperation illegalOperation) {
+                    MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
+                }
+            } else if (command.startsWith("done")) {
+                try {
+                    taskList.doneItem(parseDoneIndex(command));
+                } catch (EmptyField e) {
+                    MessageBubble.printMessageBubble("Oops! No index found.");
+                } catch (IllegalOperation e) {
+                    MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
+                }
+            } else if (command.startsWith("undone")) {
+                try {
+                    taskList.undoneItem(parseDoneIndex(command));
+                } catch (EmptyField e) {
+                    MessageBubble.printMessageBubble("Oops! No index found.");
+                } catch (IllegalOperation e) {
+                    MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
+                }
+            } else if (command.startsWith("delete")) {
+                try {
+                    taskList.removeItem(parseDeleteIndex(command));
+                } catch (EmptyField e) {
+                    MessageBubble.printMessageBubble("Oops! No index found.");
+                }
+            } else if (command.equals("bye")) {
+                break;
+            } else if (command.equals("list")) {
+                taskList.printList();
             } else {
-                // single word commands
-
-                if (command.equals("bye")) {
-                    break keepAsking;
-                } else if (command.equals("list")) {
-                    taskList.printList();
-                    continue;
-                }
+                // unrecognized command
+                MessageBubble.printMessageBubble("Oops! I'm sorry, but I don't know what that means :-(");
             }
 
-            // unrecognized command
-            MessageBubble.printMessageBubble("Oops! I'm sorry, but I don't know what that means :-(");
         }
 
         MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
