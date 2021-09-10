@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.WrongNumberOfArgumentsException;
+
 public abstract class TimedTask extends Task {
     private String dateTime;
     private final String preposition;

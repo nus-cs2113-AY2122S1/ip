@@ -1,3 +1,11 @@
+package duke.task;
+
+import duke.Message;
+import duke.exception.ListEmptyException;
+import duke.exception.NoDescriptionException;
+import duke.exception.TooManyTasksException;
+import duke.exception.WrongNumberOfArgumentsException;
+
 import java.util.Arrays;
 
 public class TaskManager {
