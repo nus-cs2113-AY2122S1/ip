@@ -8,6 +8,7 @@ public class Duke {
     public static void main(String[] args) {
         final Scanner SC = new Scanner(System.in);
         printIntro();
+        //DataManager.Write("Hello");
         String input;
         while (true) {
             input = readInput(SC);
@@ -28,6 +29,10 @@ public class Duke {
             }
             System.out.println(BORDER);
         }
+    }
+
+    private static void initializeData() {
+        //DataManager();
     }
 
     /**

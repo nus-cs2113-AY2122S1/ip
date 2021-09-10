@@ -14,10 +14,6 @@ public class TaskManager {
     private static List<Task> listOfTasks = new LinkedList<Task>();
     private static int totalNumberOfTask = 0;
 
-    public TaskManager() {
-
-    }
-
     /**
      * Returns the Task which is at
      * the index, null otherwise.
@@ -307,6 +303,7 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException i) {
             System.out.println("Error in printing task! Contact Admin =(");
         }
-
     }
+
+
 }
