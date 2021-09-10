@@ -2,25 +2,37 @@ package ip.src.main.java;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static String[] letter = new String[100];
-    private static int i = 0;
+    //private static Task[] tasks = new Task[100];
+    private static ArrayList<String> letter = new ArrayList<>();
+    private static ArrayList<String> done = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void addTask(Task t, int type) {
-        tasks[i] = t;
-        i++;
-        if (type == 1) letter[i] = "D";
-        else if (type == 2) letter[i] = "E";
-        else if (type == 3) letter[i] = "T";
+        tasks.add(t);
+        if (type == 1) letter.add("D");
+        else if (type == 2) letter.add("E");
+        else if (type == 3) letter.add("T");
+        done.add(" ");
     }
 
-    public static void printTask(Task[] args) {
-        for (int j=0; j<i; j++) System.out.println(j+1 + ". "
-                + "[" + letter[j+1] + "] "
-                + "[" + args[j].getStatusIcon() + "] " +
-                args[j].description());
+    public static void markDone(int i) {
+        done.set(i, "X");
+    }
+
+    public static void remove(int i) {
+        done.remove(i-1);
+        letter.remove(i-1);
+        tasks.remove(i-1);
+    }
+
+    public static void printTask() {
+        for (int j=1; j<=tasks.size(); j++) System.out.println(j + ". "
+                + "[" + letter.get(j-1) + "] "
+                + "[" + done.get(j-1) + "] " +
+                tasks.get(j-1).description());
     }
 
     public static void main(String[] args) throws DukeException {
@@ -40,11 +52,15 @@ public class Duke {
             String[] arr = line.split(" ", 2);
             if (Objects.equals(line, "list")) {
                 System.out.println("Here are the tasks in your list:");
-                printTask(tasks);
+                printTask();
+            }
+            else if (Objects.equals(arr[0], "remove")) {
+                System.out.println("Removing to do list item boss!");
+                remove(Integer.parseInt(arr[1]));
             }
             else if (Objects.equals(arr[0], "done")) {
                 System.out.println("Nice! I've marked Task " + arr[1] + " as done!");
-                Task.markDone(Integer.parseInt(arr[1]),tasks);
+                markDone(Integer.parseInt(arr[1]));
             }
             else if (Objects.equals(arr[0], "d")) {
 //                try {
