@@ -8,13 +8,9 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-
-    /**
-     * Maximum number of Tasks that can be stored
-     */
-    public static final int MAX_TASKS = 100;
 
     /**
      * The input scanner for the program
@@ -24,7 +20,7 @@ public class Duke {
     /**
      * An array that stores all the tasks
      */
-    public static Task[] taskList;
+    public static ArrayList<Task> taskList;
 
     /**
      * Stores the most recent input from the user in String format
@@ -106,7 +102,7 @@ public class Duke {
             String content = extractContent(input);
             String descr = extractDescrFromEvent(content);
             String at = extractAtFromEvent(content);
-            taskList[Task.getTotalTasks()] = new Event(descr, at);
+            taskList.add(new Event(descr, at));
             printTaskAddedMessage();
         } catch (EmptyArgumentException e) {
             System.out.println("Please specify the event details!");
@@ -129,7 +125,7 @@ public class Duke {
             String content = extractContent(input);
             String descr = extractDescrFromDeadline(content);
             String by = extractByFromDeadline(content);
-            taskList[Task.getTotalTasks()] = new Deadline(descr, by);
+            taskList.add(new Deadline(descr, by));
             printTaskAddedMessage();
         } catch (EmptyArgumentException e) {
             System.out.println("Please specify the deadline details!");
@@ -149,7 +145,7 @@ public class Duke {
         printBorder();
         try {
             String content = extractContent(input);
-            taskList[Task.getTotalTasks()] = new Todo(content);
+            taskList.add(new Todo(content));
             printTaskAddedMessage();
         } catch (EmptyArgumentException e) {
             System.out.println("Please specify the todo description!");
@@ -163,7 +159,7 @@ public class Duke {
      */
     private static void printTaskAddedMessage() {
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + taskList[Task.getTotalTasks() - 1]);
+        System.out.println("  " + taskList.get(Task.getTotalTasks() - 1));
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
     }
 
@@ -257,10 +253,10 @@ public class Duke {
         int taskIndex = Integer.parseInt(taskNumber) - 1; //get the index of the task in the taskList array
         printBorder();
         try {
-            taskList[taskIndex].setDone(true);
+            taskList.get(taskIndex).setDone(true);
             System.out.println("Nice! I've marked this task as done: ");
-            System.out.println("  " + taskList[taskIndex]);
-        } catch (NullPointerException e) { //task index does not exist
+            System.out.println("  " + taskList.get(taskIndex));
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Task number " + (taskIndex + 1) + " does not exist!");
         }
         printBorder();
@@ -278,7 +274,7 @@ public class Duke {
         }
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Task.getTotalTasks(); i++) {
-            System.out.println((i + 1) + "." + taskList[i]);
+            System.out.println((i + 1) + "." + taskList.get(i));
         }
         printBorder();
     }
@@ -287,7 +283,7 @@ public class Duke {
      * Initialize list of tasks
      */
     private static void initTaskList() {
-        taskList = new Task[MAX_TASKS];
+        taskList = new ArrayList<>();
     }
 
     /*
