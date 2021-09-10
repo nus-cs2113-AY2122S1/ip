@@ -12,23 +12,27 @@ import enums.Commands;
 import enums.Errors;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskManager {
     // array storing all task
-    private static Task[] tasks = new Task[100];
+    // change to array list
+    // private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     // task counter to enumerate through task array
-    private static int tasksCounter = 0;
+    // private static int tasksCounter = 0;
 
     public static void manageTasks() {
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
 
-            // parse userInput
+            /*
             while (userInput.trim().isEmpty()) {
                 userInput = in.nextLine();
             }
+             */
             // change to switch case based on enum
             Commands command = InputParser.getCommand(userInput);
 
@@ -53,6 +57,9 @@ public class TaskManager {
                 case EVENT:
                     addEvent(userInput);
                     break;
+                case DELETE:
+                    removeTask(userInput);
+                    break;
                 case DONE:
                     markAsDone(userInput);
                     break;
@@ -76,15 +83,16 @@ public class TaskManager {
     }
 
     private static void getList() throws EmptyListException{
-        if (tasksCounter == 0) {
+        if (tasks.isEmpty()) {
             throw new EmptyListException();
         }
         // Message Printer
-        MessagePrinter.printList(tasks, tasksCounter);
+        MessagePrinter.printList(tasks);
     }
 
     private static void addTask(Task newTask, String taskName) {
-        tasks[tasksCounter++] = newTask;
+        // add to array list
+        tasks.add(newTask);
         // Message Printer
         MessagePrinter.addedTask(taskName);
     }
@@ -151,6 +159,26 @@ public class TaskManager {
         addTask(newEvent, taskName);
     }
 
+    // function to remove a task from the list of tasks
+    private static void removeTask(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
+        int taskIndex = InputParser.getTaskIndex(userInput);
+
+        // catch exception for task being out of bounds
+        if (taskIndex < 0 || taskIndex > 99) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        // change task to done
+        Task currTask = tasks.get(taskIndex);
+        if (currTask == null) {
+            throw new InvalidTaskIndexException();
+        }
+        String taskName = currTask.getTaskName();
+        tasks.remove(currTask);
+        MessagePrinter.removeTask(taskName, tasks.size());
+
+    }
+
     private static void markAsDone(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
         // get index of task to chang
         int taskIndex = InputParser.getTaskIndex(userInput);
@@ -161,7 +189,7 @@ public class TaskManager {
         }
 
         // change task to done
-        Task currTask = tasks[taskIndex];
+        Task currTask = tasks.get(taskIndex);
         if (currTask == null) {
             throw new InvalidTaskIndexException();
         }

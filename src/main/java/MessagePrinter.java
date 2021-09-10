@@ -1,4 +1,5 @@
 import tasks.Task;
+import java.util.ArrayList;
 
 public abstract class MessagePrinter {
     // constants storing printing messages
@@ -49,13 +50,10 @@ public abstract class MessagePrinter {
     }
 
     // otherwise
-    public static void printList(Task[] tasks, int tasksLength) {
+    public static void printList(ArrayList<Task> tasks) {
         dashes();
-        System.out.println("You have a total of " + tasksLength +" tasks today sir, listing them out now.");
+        System.out.println("You have a total of " + tasks.size() +" tasks today sir, listing them out now.");
         for (Task task : tasks) {
-            if (task == null) {
-                break;
-            }
             System.out.println(task);
         }
         dashes();
@@ -89,6 +87,13 @@ public abstract class MessagePrinter {
     public static void addedTask(String taskName) {
         dashes();
         System.out.println("Very well, adding task \"" + taskName + "\"");
+        dashes();
+    }
+
+    public static void removeTask(String taskName, int tasksLength) {
+        dashes();
+        System.out.println("Alright sir, removing task \"" + taskName + "\".");
+        System.out.println("You now have " + tasksLength + " tasks remaining.");
         dashes();
     }
 
