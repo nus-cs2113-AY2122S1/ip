@@ -15,7 +15,7 @@ public class TaskManager {
     }
 
     public static Task getTask(int num) {
-        return tasks.get(num);
+        return tasks.get(num - 1);
     }
 
     public static int getNumOfTasks() {
@@ -24,7 +24,7 @@ public class TaskManager {
 
     public static void setDone(int taskIndex) throws DukeInvalidTaskIndexException {
         if (checkCorrectIndex(taskIndex)) {
-            tasks.get(taskIndex).markDone();
+            tasks.get(taskIndex - 1).markDone();
         } else {
             throw new DukeInvalidTaskIndexException();
         }
@@ -62,6 +62,17 @@ public class TaskManager {
             break;
         }
     }
+    
+    public static Task delete(int index) throws DukeInvalidTaskIndexException{
+        if (checkCorrectIndex(index)) {
+            Task deleting = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            numOfTasks --;
+            return deleting;
+        } else {
+            throw new DukeInvalidTaskIndexException();
+        }
+    }
 
     private static void addToDo(String description) throws DukeBlankDescriptionsException {
         if (!description.isBlank()) {
@@ -74,23 +85,23 @@ public class TaskManager {
 
     private static void addEvent(String description) throws DukeBlankDescriptionsException {
         String[] descriptions = splitDescription(description, " /at ");
-        tasks.add(new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
-        if (checkBlankEntry(descriptions)) {
+        if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
+        tasks.add(new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
         numOfTasks++;
     }
 
     private static void addDeadline(String description) throws DukeBlankDescriptionsException {
         String[] descriptions = splitDescription(description, " /by ");
-        tasks.add(new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
-        if (checkBlankEntry(descriptions)) {
+        if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
+        tasks.add(new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
         numOfTasks++;
     }
 
-    private static boolean checkBlankEntry(String[] descriptions) {
+    private static boolean hasBlankEntry(String[] descriptions) {
         return descriptions[TASK_DESCRIPTION_INDEX].isBlank() || descriptions[BY_OR_AT_INDEX].isBlank();
     }
 }

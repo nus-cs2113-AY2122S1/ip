@@ -1,7 +1,6 @@
 package duke;
 
 import duke.command.Command;
-
 import java.util.Scanner;
 
 public class UserInterface {
@@ -43,6 +42,15 @@ public class UserInterface {
             } catch (ArrayIndexOutOfBoundsException e) {
                 showWrongFormat();
             }
+        } else if (userCommand == Command.DELETE) {
+            try {
+                int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+                showItemDeleted(TaskManager.delete(taskIndex));
+            } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
+                showInvalidIndex();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                showWrongFormat();
+            }
         } else if (userCommand == Command.INVALID) {
             showInvalidCommand();
         }
@@ -66,6 +74,8 @@ public class UserInterface {
             return Command.ADD_EVENT;
         } else if ("done".equals(userInputs[USER_COMMAND_INDEX])) {
             return Command.DONE;
+        } else if ("delete".equals(userInputs[USER_COMMAND_INDEX])) {
+            return Command.DELETE;
         }
         
         return Command.INVALID;
@@ -140,6 +150,14 @@ public class UserInterface {
         UserInterface.printLine();
         System.out.println("Wrong format!");
         System.out.println("Missing some description or wrong command format.");
+        UserInterface.printLine();
+    }
+
+    private static void showItemDeleted(Task task) {
+        UserInterface.printLine();
+        System.out.println("Noted! I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + TaskManager.getNumOfTasks() + " tasks");
         UserInterface.printLine();
     }
 }

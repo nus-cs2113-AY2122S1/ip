@@ -7,5 +7,6 @@ public enum Command {
     ADD_DEADLINE,
     ADD_EVENT,
     DONE,
-    INVALID
+    INVALID,
+    DELETE
 }
