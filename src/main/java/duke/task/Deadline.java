@@ -1,17 +1,20 @@
-public class Event extends Task{
+package duke.task;
+
+public class Deadline extends Task {
+
     protected String timing;
 
-    public Event(String description, String timing) {
+    public Deadline(String description, String by) {
         super(description);
-        this.timing = timing;
+        this.timing = by;
     }
 
     public String getIcon() {
-        return "[E]";
+        return "[D]";
     }
 
     public String getTiming() {
-        return "(at:" + timing + ")";
+        return "(by:" + timing + ")";
     }
 
     @Override
