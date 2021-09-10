@@ -2,6 +2,7 @@ package kate;
 
 import kate.command.Command;
 import kate.exception.EmptyFieldException;
+import kate.exception.EmptyTaskException;
 import kate.exception.InvalidCommandException;
 import kate.exception.InvalidFieldException;
 import kate.task.Deadline;
@@ -42,6 +43,7 @@ public class Kate {
     private static final int TODO_LENGTH = 4;
     private static final int DEADLINE_LENGTH = 8;
     private static final int EVENT_LENGTH = 5;
+    private static final int DELETE_LENGTH = 6;
 
     /**
      * Specific description on how to use the action commands
@@ -51,6 +53,7 @@ public class Kate {
     private static final String COMMAND_DEADLINE = "deadline [description] /by [deadline]";
     private static final String COMMAND_EVENT = "event [description] /at [time frame]";
     private static final String COMMAND_DONE = "done [task number shown in list]";
+    private static final String COMMAND_DELETE = "delete [task number]";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_BYE = "bye";
 
@@ -69,6 +72,12 @@ public class Kate {
     private static final String FAILURE_MESSAGE_INVALID_COMMAND = TEXT_INDENTATION
             + "Please enter a valid command! \n"
             + TEXT_INDENTATION + "Type <help> for the list of commands\n";
+    private static final String FAILURE_MESSAGE_DELETE_TASK = TEXT_INDENTATION
+            + "Please provide a valid task number: \n"
+            + TEXT_INDENTATION + "\"" + COMMAND_DELETE + "\"\n";
+    private static final String FAILURE_MESSAGE_EMPTY_TASK = TEXT_INDENTATION
+            + "Task list is empty!\n"
+            + TEXT_INDENTATION + "Please specify a task using the <help> page \n";
 
     /**
      * Initialise an array list of tasks
@@ -106,6 +115,9 @@ public class Kate {
                     break;
                 case DONE:
                     indicateDone(userInput);
+                    break;
+                case DELETE:
+                    deleteTask(userInput);
                     break;
                 case BYE:
                     return;
@@ -257,10 +269,10 @@ public class Kate {
             String doneMessage = TEXT_INDENTATION + "Nice! I've marked this task as done:\n"
                     + TEXT_INDENTATION + "  " + curTask.printTaskInfo() + "\n";
             printMessage(doneMessage);
-        } catch (EmptyFieldException e) {
+        } catch (EmptyFieldException | InvalidFieldException e) {
             printMessage(FAILURE_MESSAGE_SET_DONE);
-        } catch (InvalidFieldException e) {
-            printMessage(FAILURE_MESSAGE_SET_DONE);
+        } catch (EmptyTaskException e) {
+            printMessage(FAILURE_MESSAGE_EMPTY_TASK);
         }
     }
 
@@ -268,13 +280,19 @@ public class Kate {
      * Process user input to extract the object of the associated task number
      *
      * @param userInput Input provided by user
-     * @return Task object of the provided task number
+     * @return Task object of the task that is done
      * @throws EmptyFieldException   If task number provided is empty
      * @throws InvalidFieldException If task number provided is invalid
+     * @throws EmptyTaskException If task list is empty
      */
-    private static Task processDoneInput(String userInput) throws EmptyFieldException, InvalidFieldException {
-        String[] inputArr = userInput.split(" ");
+    private static Task processDoneInput(String userInput) throws EmptyFieldException, InvalidFieldException,
+            EmptyTaskException {
 
+        if (tasks.isEmpty()) {
+            throw new EmptyTaskException();
+        }
+
+        String[] inputArr = userInput.split(" ");
         try {
             int taskNumber = Integer.parseInt(inputArr[1]);
 
@@ -285,12 +303,69 @@ public class Kate {
             int taskNumberIndex = taskNumber - 1;
 
             return tasks.get(taskNumberIndex);
-        } catch (NumberFormatException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidFieldException();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+
+    }
+
+    /**
+     * Delete a task specified by a task number
+     *
+     * @param userInput Input provided by user
+     */
+    private static void deleteTask(String userInput) {
+        try {
+            Task deletedTask = processDeleteInput(userInput);
+            String deletedTaskInfo = deletedTask.printTaskInfo();
+            tasks.remove(deletedTask);
+
+            String deleteMessage = TEXT_INDENTATION + "Noted. I've removed this task:\n"
+                    + TEXT_INDENTATION + "  " + deletedTaskInfo + "\n"
+                    + TEXT_INDENTATION + "You currently have (" + tasks.size() + ") in your list :)\n";
+            printMessage(deleteMessage);
+        } catch (EmptyFieldException | InvalidFieldException e) {
+            printMessage(FAILURE_MESSAGE_DELETE_TASK);
+        } catch (EmptyTaskException e) {
+            printMessage(FAILURE_MESSAGE_EMPTY_TASK);
+        }
+
+    }
+
+    /**
+     * Process user input to extract the deleted task number
+     *
+     * @param userInput Input provided by the user
+     * @return Task object of the deleted task
+     * @throws EmptyFieldException   If task number provided is empty
+     * @throws InvalidFieldException If task number provided is invalid
+     * @throws EmptyTaskException If task list is empty
+     */
+    private static Task processDeleteInput(String userInput) throws EmptyFieldException, InvalidFieldException,
+            EmptyTaskException {
+        String taskInput = userInput.substring(DELETE_LENGTH).strip();
+
+        if (tasks.isEmpty()) {
+            throw new EmptyTaskException();
+        }
+
+        if (taskInput.isEmpty()) {
             throw new EmptyFieldException();
         }
 
+        try {
+            int taskNumber = Integer.parseInt(taskInput);
+
+            if ((taskNumber > tasks.size()) || (taskNumber < 1)) {
+                throw new InvalidFieldException();
+            }
+
+            int taskIndex = taskNumber - 1;
+            Task deletedTask = tasks.get(taskIndex);
+            return deletedTask;
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new InvalidFieldException();
+        }
     }
 
     public static void printGreetMessage() {
@@ -380,6 +455,7 @@ public class Kate {
                 + TEXT_INDENTATION + "- " + COMMAND_DEADLINE + "\n"
                 + TEXT_INDENTATION + "- " + COMMAND_EVENT + "\n"
                 + TEXT_INDENTATION + "- " + COMMAND_DONE + "\n"
+                + TEXT_INDENTATION + "- " + COMMAND_DELETE + "\n"
                 + TEXT_INDENTATION + "- " + COMMAND_LIST + "\n"
                 + TEXT_INDENTATION + "- " + COMMAND_BYE + "\n";
         printMessage(helpText);
