@@ -9,7 +9,7 @@ import duke.task.Todo;
 
 import java.util.Scanner;
 
-public class DukeInterface {
+public class ListInterface {
     public static void readMultipleCommands() {
         Scanner input = new Scanner(System.in);
         List taskList = new List();
@@ -25,6 +25,8 @@ public class DukeInterface {
                         taskList.addItem(parseEvent(command));
                     } catch (EmptyField e) {
                         MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (time)\" to create event.");
+                    } catch (IllegalOperation illegalOperation) {
+                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                     }
                     continue;
                 } else if (command.startsWith("deadline")) {
@@ -32,6 +34,8 @@ public class DukeInterface {
                         taskList.addItem(parseDeadline(command));
                     } catch (EmptyField e) {
                         MessageBubble.printMessageBubble("Oops! Use \"deadline (name) /by (time)\" to create deadline.");
+                    } catch (IllegalOperation illegalOperation) {
+                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                     }
                     continue;
                 } else if (command.startsWith("todo")) {
@@ -39,6 +43,8 @@ public class DukeInterface {
                         taskList.addItem(parseTodo(command));
                     } catch (EmptyField e) {
                         MessageBubble.printMessageBubble("Oops! Use \"todo (name)\" to create todo.");
+                    } catch (IllegalOperation illegalOperation) {
+                        MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
                     }
                     continue;
                 } else if (command.startsWith("done")) {
@@ -57,6 +63,13 @@ public class DukeInterface {
                         MessageBubble.printMessageBubble("Oops! No index found.");
                     } catch (IllegalOperation e) {
                         MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
+                    }
+                    continue;
+                } else if (command.startsWith("delete")) {
+                    try {
+                        taskList.removeItem(parseDeleteIndex(command));
+                    } catch (EmptyField e) {
+                        MessageBubble.printMessageBubble("Oops! No index found.");
                     }
                     continue;
                 }
@@ -79,10 +92,31 @@ public class DukeInterface {
         MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
     }
 
+    private static int parseDeleteIndex(String command) throws EmptyField {
+        String CMD_DESCRIPTION = "delete";
+
+        if (!command.startsWith(CMD_DESCRIPTION)) {
+            throw new EmptyField();
+        }
+
+        int indexOfDESC = command.indexOf(CMD_DESCRIPTION) + CMD_DESCRIPTION.length() + 1;
+        String description = command.substring(indexOfDESC);
+
+        if (description.isBlank()) {
+            throw new EmptyField();
+        }
+
+        try {
+            return Integer.parseInt(description);
+        } catch (NumberFormatException e) {
+            throw new EmptyField();
+        }
+    }
+
     private static int parseDoneIndex(String command) throws EmptyField, IllegalOperation {
         String CMD_DESCRIPTION = "done";
 
-        if (!command.contains(CMD_DESCRIPTION)) {
+        if (!command.startsWith(CMD_DESCRIPTION)) {
             throw new EmptyField();
         }
 
@@ -104,7 +138,7 @@ public class DukeInterface {
         String CMD_DESCRIPTION = "deadline";
         String CMD_TIME = "/by";
 
-        if (!command.contains(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
+        if (!command.startsWith(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
             throw new EmptyField();
         }
 
@@ -124,7 +158,7 @@ public class DukeInterface {
         String CMD_DESCRIPTION = "event";
         String CMD_TIME = "/at";
 
-        if (!command.contains(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
+        if (!command.startsWith(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
             throw new EmptyField();
         }
 
@@ -143,7 +177,7 @@ public class DukeInterface {
     static Todo parseTodo(String command) throws EmptyField {
         String CMD_DESCRIPTION = "todo";
 
-        if (!command.contains(CMD_DESCRIPTION)) {
+        if (!command.startsWith(CMD_DESCRIPTION)) {
             throw new EmptyField();
         }
 

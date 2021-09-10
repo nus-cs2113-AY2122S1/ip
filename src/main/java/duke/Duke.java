@@ -1,6 +1,6 @@
 package duke;
 
-import duke.list.DukeInterface;
+import duke.list.ListInterface;
 import duke.messages.MessageBubble;
 
 import java.util.Scanner;
@@ -15,6 +15,6 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
 
-        DukeInterface.readMultipleCommands();
+        ListInterface.readMultipleCommands();
     }
 }

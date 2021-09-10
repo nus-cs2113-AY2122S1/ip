@@ -5,9 +5,9 @@ import duke.exceptions.IllegalOperation;
 import duke.messages.MessageBubble;
 
 public abstract class Task {
-    protected String description = new String();
+    protected String description = "";
     protected boolean status = false;
-    protected String time = new String();
+    protected String time = "";
     public String symbolSetTime = "";
 
     public String getDescription() {
