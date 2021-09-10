@@ -144,14 +144,18 @@ public class ListInterface {
 
         int indexOfDESC = command.indexOf(CMD_DESCRIPTION) + CMD_DESCRIPTION.length() + 1;
         int indexOfTIME = command.indexOf(CMD_TIME) + CMD_TIME.length() + 1;
-        String description = command.substring(indexOfDESC, command.indexOf(CMD_TIME) - 1);
-        String time = command.substring(indexOfTIME);
+        try {
+            String description = command.substring(indexOfDESC, command.indexOf(CMD_TIME) - 1);
+            String time = command.substring(indexOfTIME);
 
-        if (description.isBlank() || time.isBlank()) {
+            if (description.isBlank() || time.isBlank()) {
+                throw new EmptyField();
+            }
+
+            return new Deadline(description, time);
+        } catch (StringIndexOutOfBoundsException e) {
             throw new EmptyField();
         }
-
-        return new Deadline(description, time);
     }
 
     static Event parseEvent(String command) throws EmptyField {

@@ -1,4 +1,8 @@
 todo read book
+deadline
+deadline something at sometime
+deadline /by
+deadline /by tmr
 deadline return book /by June 6th
 event project meeting /at Aug 6th 2-4pm
 todo join sports club

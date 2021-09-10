@@ -74,7 +74,8 @@ public class List {
                 }
                 parent.setNext(parent.getNext().getNext());
             }
-            MessageBubble.printMessageBubble("Ok, I have deleted \"" + targetItem.getItem().getDescription() + "\" from your list");
+            MessageBubble.printMessageBubble(String.format("Ok, I have deleted \"%s\" from your list",
+                    targetItem.getItem().getDescription()));
             numOfListItems--;
         } catch (ItemNotFound e) {
             MessageBubble.printMessageBubble("Oops! I cannot find item " + index + " in your list");
