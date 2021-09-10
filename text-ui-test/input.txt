@@ -8,4 +8,11 @@ deadline /by
 event /at
 event aaabbb /at
 deadline helpssss /by
+done x
+done 20
+done
+done 1
+delete x
+delete 3x
+delete
 end
