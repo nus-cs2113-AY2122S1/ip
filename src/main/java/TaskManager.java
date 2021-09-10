@@ -21,6 +21,7 @@ public class TaskManager {
     private static final String ADD_TASK = "Got it. I've added this task: ";
     private static final String DONE_TASK = "Nice! I've marked this task as done: ";
     private static final String LIST_TASK = "Here are your scheduled tasks!";
+    private static final String DELETE_TASK = "Noted. I've removed this task:";
 
     /*------------- PRIVATE VARIABLES ------------ */
     private ArrayList<Task> tasks;
@@ -56,6 +57,22 @@ public class TaskManager {
         taskSize++;
         System.out.println(ADD_TASK);
         System.out.println(t);
+        System.out.println("You now have (" + taskSize + ") tasks!" );
+    }
+
+    public void deleteTask(CommandHandler command) throws DukeException {
+        command.splitByClause("delete", 0, true);
+        try {
+            int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
+            Task t = tasks.get(idx);
+            tasks.remove(idx);
+            System.out.println(DELETE_TASK);
+            System.out.println("  " + t);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            listTasks();
+            throw new DukeException("Please enter a valid task number to delete.");
+        }
+        taskSize--;
         System.out.println("You now have (" + taskSize + ") tasks!" );
     }
 
