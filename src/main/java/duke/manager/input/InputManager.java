@@ -5,6 +5,7 @@ import duke.manager.command.Command;
 import java.util.Scanner;
 
 public class InputManager {
+
     private Scanner scanner = new Scanner(System.in);
     private Command inputCommand;
     private String commandArguments;

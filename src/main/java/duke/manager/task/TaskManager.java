@@ -1,13 +1,112 @@
 package duke.manager.task;
 
+import duke.logic.UserData;
 import duke.logic.UserInterface;
 import duke.manager.command.MissingCommandArgumentException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager extends UserInterface {
 
     private ArrayList<Task> tasks = new ArrayList<Task>();
+    private final int TASK_INDEX = 1;
+    private final int TASK_STATUS_INDEX = 4;
+    private final int TASK_DESCRIPTION_INDEX = 7;
+
+    public String saveTasksAsString() {
+        if (tasks.isEmpty()) {
+            return "";
+        }
+        String taskListAsString = "";
+        String taskLabel = "";
+        int isDoneAsInteger;
+
+        for (Task t : tasks) {
+            isDoneAsInteger = t.isDone() ? 1 : 0;
+            taskLabel = convertTaskTypeToString(t);
+            taskListAsString = taskListAsString + "[" + taskLabel + "]["
+                    + isDoneAsInteger + "] " + t.getTaskDescription()
+                    + convertTaskArgumentToString(t) + System.lineSeparator();
+        }
+
+        return taskListAsString;
+    }
+
+    public String convertTaskTypeToString(Task task) {
+        String output = "";
+        if (task instanceof ToDo) {
+            output = "T";
+        } else if (task instanceof Event) {
+            output = "E";
+        } else if (task instanceof Deadline) {
+            output = "D";
+        }
+        return output;
+    }
+
+    public String convertTaskArgumentToString(Task task) {
+        String output = "";
+        if (task instanceof Event) {
+            output = " : " + ((Event) task).getAt();
+        } else if (task instanceof Deadline) {
+            output = " : " + ((Deadline) task).getBy();
+        }
+        return output;
+    }
+
+    public void preloadTasks() throws FileNotFoundException {
+        File dataFile = new File(UserData.getFilePath());
+
+        // short circuits preload if file is empty
+        if (dataFile.length() == 0) {
+            return;
+        }
+
+        Scanner fileScanner = new Scanner(dataFile);
+        String currentLine;
+        String taskType;
+        boolean taskStatus;
+        while (fileScanner.hasNext()) {
+            currentLine = fileScanner.nextLine();
+
+            // if any empty lines, skip to next iteration of the while loop
+            if (currentLine.equals("")) {
+                continue;
+            }
+            taskType = String.valueOf(currentLine.charAt(TASK_INDEX));
+            taskStatus = String.valueOf(currentLine.charAt(TASK_STATUS_INDEX)).equals("1");
+            String restOfLine[] = currentLine.substring(TASK_DESCRIPTION_INDEX).split(" : ", 2);
+            loadCurrentLineTask(taskType, taskStatus, restOfLine);
+        }
+    }
+
+    public void loadCurrentLineTask(String taskType, boolean taskStatus,
+                                    String[] restOfLine) {
+        if (taskType.equals("T")) {
+            ToDo newToDo = new ToDo(restOfLine[0]);
+            if (taskStatus) {
+                newToDo.setDone();
+            }
+            tasks.add(newToDo);
+        } else if (taskType.equals("E")) {
+            Event newEvent = new Event(restOfLine[0], restOfLine[1]);
+            if (taskStatus) {
+                newEvent.setDone();
+            }
+            tasks.add(newEvent);
+        } else if (taskType.equals("D")) {
+            Deadline newDeadline = new Deadline(restOfLine[0], restOfLine[1]);
+            if (taskStatus) {
+                newDeadline.setDone();
+            }
+            tasks.add(newDeadline);
+        } else {
+            System.out.println("Failed to a line from saved data...");
+        }
+    }
 
     public void printTasks() {
         if (tasks.isEmpty()) {
