@@ -1,8 +1,8 @@
 package duke;
 
-import exception.InvalidCommandException;
-import task.Task;
-import task.TaskManager;
+import duke.exception.InvalidCommandException;
+import duke.task.Task;
+import duke.task.TaskManager;
 
 import java.util.Scanner;
 

@@ -1,7 +1,6 @@
-package task;
+package duke.task;
 
-import exception.WrongNumberOfArgumentsException;
-import task.Task;
+import duke.exception.WrongNumberOfArgumentsException;
 
 public abstract class TimedTask extends Task {
     private String dateTime;

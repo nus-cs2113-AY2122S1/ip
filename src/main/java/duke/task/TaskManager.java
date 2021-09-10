@@ -1,12 +1,10 @@
-package task;
+package duke.task;
 
-import exception.ListEmptyException;
-import exception.NoDescriptionException;
-import exception.TooManyTasksException;
-import exception.WrongNumberOfArgumentsException;
-import task.Deadline;
-import task.Event;
-import task.Task;
+import duke.Message;
+import duke.exception.ListEmptyException;
+import duke.exception.NoDescriptionException;
+import duke.exception.TooManyTasksException;
+import duke.exception.WrongNumberOfArgumentsException;
 
 import java.util.Arrays;
 

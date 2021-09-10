@@ -1,4 +1,6 @@
-package task;
+package duke.task;
+
+import duke.exception.WrongNumberOfArgumentsException;
 
 public class Deadline extends TimedTask {
     private static final String PREPOSITION = "by";

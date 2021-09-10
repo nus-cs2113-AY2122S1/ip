@@ -1,6 +1,6 @@
-package task;
+package duke.task;
 
-import exception.WrongNumberOfArgumentsException;
+import duke.exception.WrongNumberOfArgumentsException;
 
 public class Event extends TimedTask {
     private static final String PREPOSITION = "at";
