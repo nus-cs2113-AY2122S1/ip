@@ -8,7 +8,7 @@ import tasks.Task;
 import tasks.Todo;
 
 public class ProcessManager {
-    /* --- CONSTANTS --- */
+    /* ---- CONSTANTS ---- */
     private static final String EVENT_KEYWORD = "/at";
     private static final String DEADLINE_KEYWORD = "/by";
     private static final String DONE_KEYWORD = " ";
@@ -24,7 +24,7 @@ public class ProcessManager {
     private static final String LINE = "    ____________________________________________________________";
     private static final String LINE_DIVIDER = "    ____________________________________________________________\n";
     private static final String GAP = "     ";
-    /* --- --------- --- */
+    /* ---- --------- ---- */
     public Task[] toDo = new Task[100];
 
     public void handleEventRequest(String line, Integer trackIndex) throws EventException {
@@ -111,7 +111,7 @@ public class ProcessManager {
         System.out.println(output);
     }
 
-    /*--- Function --- */
+    /* ---- Function ---- */
     public boolean tryParse(String text) {
         try {
             Integer.parseInt(text);
@@ -120,9 +120,9 @@ public class ProcessManager {
         }
         return false;
     }
-    /*--- -------- --- */
+    /* ---- -------- ---- */
 
-    /*--- Messages --- */
+    /* ---- Messages ---- */
     public void goodbyeMessage() {
         String output = LINE_DIVIDER + GAP + "Bye. Hope to see you again soon!\n" + LINE;
         System.out.println(output);
@@ -155,5 +155,5 @@ public class ProcessManager {
                 + "     5. Set Task After Completion: done (index on list)\n"
                 + "     6. Exit From Program: bye\n" + LINE;
     }
-    /*--- -------- --- */
+    /* ---- -------- ---- */
 }
