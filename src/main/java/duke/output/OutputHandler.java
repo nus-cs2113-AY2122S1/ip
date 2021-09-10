@@ -179,6 +179,7 @@ public class OutputHandler {
         printCommandHelpMessage("delete", "deletes a task from the list",
                 "delete [task number]", "delete 3");
         printCommandHelpMessage("help", "lists all commands", "none", "none");
+        printCommandHelpMessage("exit, bye, quit", "exits the program", "none", "none");
     }
 
     /**
