@@ -1,3 +1,5 @@
+package duke;
+
 public class TaskHandler {
 
     private int MAX_TASKS = 100;
