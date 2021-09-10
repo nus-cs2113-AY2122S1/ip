@@ -117,7 +117,7 @@ public class UserInterface {
 
     private static void showItemSetDone(int taskIndex) {
         printLine();
-        System.out.println("Got it. I've eliminated this task:\n" + TaskManager.getTask(taskIndex));
+        System.out.println("Got it. I've set this task as done:\n" + TaskManager.getTask(taskIndex));
         printLine();
     }
 
@@ -155,7 +155,7 @@ public class UserInterface {
 
     private static void showItemDeleted(Task task) {
         UserInterface.printLine();
-        System.out.println("Noted! I've removed this task:");
+        System.out.println("Noted! I've deleted this task:");
         System.out.println(task);
         System.out.println("Now you have " + TaskManager.getNumOfTasks() + " tasks");
         UserInterface.printLine();
