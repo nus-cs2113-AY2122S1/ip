@@ -32,7 +32,7 @@ public class TaskManager {
 
 
     /**
-     * adds the task inputted by the user
+     * The function adds the task input by the user
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
@@ -61,7 +61,7 @@ public class TaskManager {
     }
 
     /**
-     * prints the recently added task
+     * The function prints the recently added task
      */
     private static void printAddedTask(Task task) {
         printLine();
@@ -93,7 +93,7 @@ public class TaskManager {
     }
 
     /**
-     * adds the deadline task input by the user
+     * The function adds the deadline task input by the user
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
@@ -118,7 +118,7 @@ public class TaskManager {
     }
 
     /**
-     * adds the event input by the user
+     * The function adds the event input by the user
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
@@ -171,7 +171,7 @@ public class TaskManager {
     }
 
     /**
-     * processes the inputs
+     * The function processes the inputs
      * by the user and calls the necessary
      * functions to add, print and manipulate
      * tasks.
