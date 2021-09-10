@@ -48,6 +48,15 @@ public class CommandManager {
                 taskManager.printMessageForMissingTaskDescription("deadline");
             }
             break;
+        case DELETE_TASK:
+            try {
+                taskManager.deleteTask(commandArguments);
+            } catch (InvalidTaskNumberException ite) {
+                taskManager.printMessageForTaskNumberOutOfRange();
+            } catch (NumberFormatException nfe) {
+                taskManager.printMessageForTaskNumberNonInteger();
+            }
+            break;
         case DONE_TASK:
             try {
                 taskManager.markTaskAsDone(commandArguments);
