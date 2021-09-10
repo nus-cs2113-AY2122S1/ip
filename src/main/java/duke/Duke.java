@@ -17,7 +17,7 @@ public class Duke {
     private static final String DEADLINE_ERROR = "The description of a deadline cannot be empty and must have a '/by'.";
     private static final String EVENT_ERROR = "The description of an event cannot be empty and must have a '/at'.";
     private static final String[] taskTypes = {"todo", "deadline", "event"};
-    private static final String FILE_PATH = "./src/main/java/duke/data/tasks.txt";
+    private static final String FILE_PATH = "tasks.txt";
     private static ArrayList<Task> tasks;
     private static Storage storage;
 
