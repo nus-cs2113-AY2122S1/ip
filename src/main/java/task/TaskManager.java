@@ -63,12 +63,26 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(String[] commandComponents) {
+        try {
+            int taskNumber = InputParser.getTaskNumber(commandComponents);
+            Task deletedTask = allTasks.get(taskNumber);
+            allTasks.remove(taskNumber);
+            taskCount--;
+            Display.displayTaskDeleted(deletedTask, taskCount);
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayTaskNonExistentError();
+        } catch (NumberFormatException e) {
+            Error.displayNotANumberError();
+        }
+    }
+
     public void markTaskAsCompleted(String[] commandComponents) {
         try {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
             allTasks.get(taskNumber).setTaskCompleted();
             Display.displayTaskCompleted(allTasks.get(taskNumber).getTask());
-        } catch (IndexOutOfBoundsException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             Error.displayTaskNonExistentError();
         } catch (NumberFormatException e) {
             Error.displayNotANumberError();

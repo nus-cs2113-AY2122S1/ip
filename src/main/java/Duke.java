@@ -10,6 +10,7 @@ public class Duke {
     public static final String COMMAND_EXIT_PROGRAM = "bye";
     public static final String COMMAND_MARK_DONE = "done";
     public static final String COMMAND_LIST_TASK = "list";
+    public static final String COMMAND_DELETE_TASK = "delete";
     public static final String COMMAND_ADD_TODO_TASK = "todo";
     public static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
     public static final String COMMAND_ADD_EVENT_TASK = "event";
@@ -49,6 +50,9 @@ public class Duke {
                 break;
             case COMMAND_ADD_EVENT_TASK:
                 taskManager.addEventTask(InputParser.getTaskDetails(commandComponents));
+                break;
+            case COMMAND_DELETE_TASK:
+                taskManager.deleteTask(commandComponents);
                 break;
             case COMMAND_EXIT_PROGRAM:
                 isStillInteracting = false;
