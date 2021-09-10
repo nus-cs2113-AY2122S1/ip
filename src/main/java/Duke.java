@@ -62,7 +62,7 @@ public class Duke {
                     System.out.println("input = " + input + "\n☹ OOPS!!! Please retype your input!");
                     input = in.nextLine();
                 } catch (ArrayIndexOutOfBoundsException e2) {
-                    System.out.println("you have typed in = " + input + "\nw☹ OOPS!!! where is your /at bruh? ");
+                    System.out.println("you have typed in = " + input + "\nw☹ OOPS!!! where is your /at brother? ");
                     input = in.nextLine();
                 }
 
