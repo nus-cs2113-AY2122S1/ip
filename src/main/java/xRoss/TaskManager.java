@@ -2,9 +2,11 @@ package xRoss;
 
 import xRoss.task.Task;
 
+import java.util.ArrayList;
+
 public class TaskManager {
 
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int completedTasksCount = 0;
     private int tasksCount = 0;
 
@@ -16,18 +18,18 @@ public class TaskManager {
         System.out.println("\tThis is your current to-do list");
         for (int i = 0; i < tasksCount; i++) {
             System.out.print("\t" + (i + 1) + ".");
-            tasks[i].printTask();
+            tasks.get(i).printTask();
         }
         System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
     }
 
     public void addTask(Task task) {
         // add new task to tasks array
-        tasks[tasksCount] = task;
+        tasks.add(task);
 
         // print name of task to system output
         System.out.print("\tGot it! I've added this task for you:\n\t\t");
-        tasks[tasksCount].printTask();
+        tasks.get(tasksCount).printTask();
 
         // increment total tasksCount
         tasksCount++;
@@ -45,17 +47,17 @@ public class TaskManager {
         }
 
         // check if task is already marked as done
-        if (tasks[taskIndex].isDone()) {
+        if (tasks.get(taskIndex).isDone()) {
             System.out.println("\tThis task has already been completed and marked as done.\n");
             return;
         }
 
-        tasks[taskIndex].setDone();
+        tasks.get(taskIndex).setDone();
         completedTasksCount++;
 
         // Print name of task to system output
         System.out.print("\tGood job! I have marked your task as done.\n\t\t");
-        tasks[taskIndex].printTask();
+        tasks.get(taskIndex).printTask();
         System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your to-do list\n");
     }
 }
