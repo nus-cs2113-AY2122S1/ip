@@ -1,12 +1,13 @@
 package duke;
 
+import duke.data.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     private static final String LINE = "____________________________________________________________";
@@ -16,12 +17,24 @@ public class Duke {
     private static final String DEADLINE_ERROR = "The description of a deadline cannot be empty and must have a '/by'.";
     private static final String EVENT_ERROR = "The description of an event cannot be empty and must have a '/at'.";
     private static final String[] taskTypes = {"todo", "deadline", "event"};
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final String FILE_PATH = "./src/main/java/duke/data/tasks.txt";
+    private static ArrayList<Task> tasks;
+    private static Storage storage;
 
     public static void main(String[] args) {
         showHelloGreeting();
+        fileManager();
         executeResponses();
         showByeGreeting();
+    }
+
+    private static void fileManager() {
+        try {
+            storage = new Storage(FILE_PATH);
+            tasks = storage.loadTasksFromFile();
+        } catch (DukeException err) {
+            System.out.println("Unable to load file.");
+        }
     }
 
     private static void executeResponses() {
@@ -76,6 +89,12 @@ public class Duke {
             System.out.println(LINE);
             text = in.nextLine();
         }
+
+        try {
+            storage.saveTasksToFile(tasks);
+        } catch (DukeException err) {
+            System.out.println("Unable to save file.");
+        }
     }
 
     private static void addTodo(String text) throws DukeException {
@@ -83,7 +102,7 @@ public class Duke {
             throw new DukeException(TODO_ERROR);
         }
         String[] todoTaskInfo = extractInfo(text, "todo");
-        Task newTodo = new Todo(todoTaskInfo[0]);
+        Task newTodo = new Todo(todoTaskInfo[0], false);
         tasks.add(newTodo);
         System.out.println(ADD_TASK_MSG);
     }
@@ -97,7 +116,7 @@ public class Duke {
             throw new DukeException(DEADLINE_ERROR);
         }
         String[] deadlineTaskInfo = extractInfo(text, "deadline");
-        Task newDeadline = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1]);
+        Task newDeadline = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1], false);
         tasks.add(newDeadline);
         System.out.println(ADD_TASK_MSG);
     }
@@ -111,7 +130,7 @@ public class Duke {
             throw new DukeException(EVENT_ERROR);
         }
         String[] eventTaskInfo = extractInfo(text, "event");
-        Task newEvent = new Event(eventTaskInfo[0], eventTaskInfo[1]);
+        Task newEvent = new Event(eventTaskInfo[0], eventTaskInfo[1], false);
         tasks.add(newEvent);
         System.out.println(ADD_TASK_MSG);
     }
@@ -129,7 +148,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println(LINE);
-        System.out.println(" Hello! I'm duke.Duke\n" +
+        System.out.println(" Hello! I'm Duke\n" +
                 " What can I do for you?");
         System.out.println(LINE);
     }
