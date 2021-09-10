@@ -1,5 +1,6 @@
 package duke.list;
 
+import duke.exceptions.ItemNotFound;
 import duke.task.Task;
 
 public class ListItem {

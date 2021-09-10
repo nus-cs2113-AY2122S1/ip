@@ -65,6 +65,13 @@ public class ListInterface {
                         MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
                     }
                     continue;
+                } else if (command.startsWith("delete")) {
+                    try {
+                        taskList.removeItem(parseDeleteIndex(command));
+                    } catch (EmptyField e) {
+                        MessageBubble.printMessageBubble("Oops! No index found.");
+                    }
+                    continue;
                 }
 
             } else {
@@ -85,10 +92,31 @@ public class ListInterface {
         MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
     }
 
+    private static int parseDeleteIndex(String command) throws EmptyField {
+        String CMD_DESCRIPTION = "delete";
+
+        if (!command.startsWith(CMD_DESCRIPTION)) {
+            throw new EmptyField();
+        }
+
+        int indexOfDESC = command.indexOf(CMD_DESCRIPTION) + CMD_DESCRIPTION.length() + 1;
+        String description = command.substring(indexOfDESC);
+
+        if (description.isBlank()) {
+            throw new EmptyField();
+        }
+
+        try {
+            return Integer.parseInt(description);
+        } catch (NumberFormatException e) {
+            throw new EmptyField();
+        }
+    }
+
     private static int parseDoneIndex(String command) throws EmptyField, IllegalOperation {
         String CMD_DESCRIPTION = "done";
 
-        if (!command.contains(CMD_DESCRIPTION)) {
+        if (!command.startsWith(CMD_DESCRIPTION)) {
             throw new EmptyField();
         }
 
@@ -110,7 +138,7 @@ public class ListInterface {
         String CMD_DESCRIPTION = "deadline";
         String CMD_TIME = "/by";
 
-        if (!command.contains(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
+        if (!command.startsWith(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
             throw new EmptyField();
         }
 
@@ -130,7 +158,7 @@ public class ListInterface {
         String CMD_DESCRIPTION = "event";
         String CMD_TIME = "/at";
 
-        if (!command.contains(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
+        if (!command.startsWith(CMD_DESCRIPTION) || !command.contains(CMD_TIME)) {
             throw new EmptyField();
         }
 
@@ -149,7 +177,7 @@ public class ListInterface {
     static Todo parseTodo(String command) throws EmptyField {
         String CMD_DESCRIPTION = "todo";
 
-        if (!command.contains(CMD_DESCRIPTION)) {
+        if (!command.startsWith(CMD_DESCRIPTION)) {
             throw new EmptyField();
         }
 

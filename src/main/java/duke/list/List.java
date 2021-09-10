@@ -5,6 +5,8 @@ import duke.exceptions.ItemNotFound;
 import duke.messages.MessageBubble;
 import duke.task.Task;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class List {
     public static int MAX_LIST_ITEMS = 1000;
     private Task[] items;
@@ -52,15 +54,28 @@ public class List {
         msg.printMessageBubble();
     }
 
-    public void removeItem(int index) throws IllegalOperation {
+    public void removeItem(int index) {
         try {
-            if (index == 0) {
+            if (numOfListItems == 0) {
+                throw new ItemNotFound();
+            }
+
+            ListItem targetItem = getItemAtIndex(index);
+
+            if (numOfListItems == 1) {
+                headItem = null;
+                tailItem = null;
+            } else if (index == 1) {
                 headItem = headItem.getNext();
             } else {
                 ListItem parent = getItemAtIndex(index - 1);
-                ListItem replacement = (parent.getNext() == null)? null : parent.getNext().getNext();
-                parent.setNext(replacement);
+                if (targetItem == tailItem) {
+                    tailItem = parent;
+                }
+                parent.setNext(parent.getNext().getNext());
             }
+            MessageBubble.printMessageBubble("Ok, I have deleted \"" + targetItem.getItem().getDescription() + "\" from your list");
+            numOfListItems--;
         } catch (ItemNotFound e) {
             MessageBubble.printMessageBubble("Oops! I cannot find item " + index + " in your list");
         }
