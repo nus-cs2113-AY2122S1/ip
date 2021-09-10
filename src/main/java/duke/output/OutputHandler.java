@@ -2,6 +2,7 @@ package duke.output;
 
 import duke.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class OutputHandler {
@@ -220,5 +221,13 @@ public class OutputHandler {
         if (!example.equals("none")) {
             System.out.println("example: " + example);
         }
+    }
+
+    public void printFileNotFoundMessage() {
+        System.out.println("You don't have any saved tasks yet!" + NEWLINE);
+    }
+
+    public void printFileSaveError(IOException e) {
+        System.out.println("Something went wrong while saving tasks: " + e.getMessage());
     }
 }
