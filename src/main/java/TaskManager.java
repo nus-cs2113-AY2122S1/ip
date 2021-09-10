@@ -20,6 +20,10 @@ public class TaskManager {
     // task counter to enumerate through task array
     private static int tasksCounter = 0;
 
+    /**
+     * Main function managing all user inputs until program is terminated
+     * via the "bye" command
+     */
     public static void manageTasks() {
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -68,7 +72,7 @@ public class TaskManager {
             } catch (IncompleteCommandException e) {
                 MessagePrinter.incompleteCommand();
             } catch (MissingKeyWordException e) {
-                MessagePrinter.missingKeyWord(e.getkeyWord());
+                MessagePrinter.missingKeyWord(e.getKeyword());
             } catch (MissingDateException e) {
                 MessagePrinter.missingDate(e.getType());
             }

@@ -5,7 +5,7 @@ public class MissingKeyWordException extends Exception {
     public MissingKeyWordException(String word) {
         this.keyword = word;
     }
-    public String getkeyWord() {
+    public String getKeyword() {
         return keyword;
     }
 }
