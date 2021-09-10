@@ -3,8 +3,6 @@ package Duke;
 import Exceptions.InsufficientParametersException;
 import Exceptions.UnknownCommandException;
 
-import java.util.Objects;
-
 public class Duke {
 
     public static String handleInput(TaskManager taskManager, String[] input)
