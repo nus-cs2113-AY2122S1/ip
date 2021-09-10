@@ -42,21 +42,29 @@ public class Duke {
                     break;
                 case "done":
                     int taskNum = Integer.parseInt(words[words.length - 1]);
-                    tasks.get(taskNum - 1).setDone();
+                    Task taskToSetDone = tasks.get(taskNum - 1);
+                    taskToSetDone.setDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[x] " + tasks.get(taskNum - 1).getDescription());
+                    System.out.println(taskToSetDone.getStatusIcon() + taskToSetDone.getDescription());
+                    break;
+                case "delete":
+                    int taskNumToDelete = Integer.parseInt(words[words.length - 1]);
+                    Task taskToDelete = tasks.remove(taskNumToDelete - 1);
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println(taskToDelete.getStatusIcon() + taskToDelete.getDescription());
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     break;
                 case "todo":
                     addTodo(text);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     break;
                 case "deadline":
                     addDeadline(text);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     break;
                 case "event":
                     addEvent(text);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     break;
                 default:
                     showErrorMessage();
