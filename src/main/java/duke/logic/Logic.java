@@ -4,8 +4,8 @@ import duke.manager.command.CommandManager;
 import duke.manager.input.InputManager;
 
 public class Logic extends UserInterface {
-    protected InputManager inputManager = new InputManager();
-    protected CommandManager commandManager = new CommandManager();
+    private InputManager inputManager = new InputManager();
+    private CommandManager commandManager = new CommandManager();
 
     public void runOberon () {
         displayGreetingMessage();
