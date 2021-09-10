@@ -121,6 +121,7 @@ public class Duke {
                 num += c;
             }
         }
+        
         int index = Integer.parseInt(num);
         tasks[index - 1].markedAsDone();
         System.out.println(line
