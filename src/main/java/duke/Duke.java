@@ -1,4 +1,10 @@
-import task.*;
+package duke;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskType;
+import task.ToDo;
 
 import java.util.Scanner;
 
