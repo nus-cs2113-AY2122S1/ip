@@ -31,27 +31,30 @@ public class Duke {
     }
 
 
-    private static void addCommand(String input) {
-        System.out.println(DOTTED_LINE);
-        System.out.println("Got it. I've added this task: ");
+    private static void addCommand(String input) throws DukeInvalidInputException {
         String taskType = input.split(" ")[0];
         int commandIndex = input.indexOf(' ');
         int timeIndex = input.indexOf('/');
+        if(commandIndex == -1)
+            throw new DukeInvalidInputException();
         switch (taskType) {
         case "todo":
-            tasks[taskCount++] = new ToDo(input.substring(commandIndex + 1));
-            System.out.println(tasks[taskCount - 1]);
+            tasks[taskCount] = new ToDo(input.substring(commandIndex + 1));
+            taskCount++;
             break;
         case "deadline":
-            tasks[taskCount++] = new Deadline(input.substring(commandIndex + 1 , timeIndex), input.split("/")[1]);
-            System.out.println(tasks[taskCount - 1]);
+            tasks[taskCount] = new Deadline(input.substring(commandIndex + 1 , timeIndex), input.split("/")[1]);
+            taskCount++;
             break;
         case "event":
-            tasks[taskCount++] = new Event(input.substring(commandIndex + 1 , timeIndex), input.split("/")[1]);
-            System.out.println(tasks[taskCount - 1]);
+            tasks[taskCount] = new Event(input.substring(commandIndex + 1 , timeIndex), input.split("/")[1]);
+            taskCount++;
             break;
         default:
         }
+        System.out.println(DOTTED_LINE);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(tasks[taskCount - 1]);
         System.out.println("You now have " + taskCount + " items in the list.");
         System.out.println(DOTTED_LINE);
     }
@@ -70,7 +73,13 @@ public class Duke {
         case "todo":
         case "deadline":
         case "event":
-            addCommand(input);
+            try {
+                addCommand(input);
+            } catch (IndexOutOfBoundsException | DukeInvalidInputException e) {
+                System.out.println(DOTTED_LINE);
+                System.out.println("Invalid input. Please try again");
+                System.out.println(DOTTED_LINE);
+            }
             break;
         default:
            throw new DukeCommandException();
