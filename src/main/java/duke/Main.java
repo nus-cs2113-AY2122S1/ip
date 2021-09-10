@@ -1,9 +1,13 @@
 package duke;
+import duke.task.*;
 
 import java.util.Scanner;
 
 public class Main {
+
+
     public static void main(String[] args) {
+
         Scanner in = new Scanner(System.in);
         String line;
         Duke duke = new Duke();
@@ -30,19 +34,19 @@ public class Main {
                 }
                 if(line.contains("todo")) {
                     line = line.substring(5);
-                    duke.addList(line,"T");
+                    duke.addList(new Todo(line));
                     break;
                 }
                 if(line.contains("deadline")) {
                     String time = line.substring(line.indexOf("/")+1);
                     line = line.substring(9,line.indexOf("/")) + "(" + time + ")";
-                    duke.addList(line,"D");
+                    duke.addList(new Deadline(line,time));
                     break;
                 }
                 if(line.contains("event")) {
                     String time = line.substring(line.indexOf("/")+1);
                     line = line.substring(6,line.indexOf("/")) + "(" + time + ")";
-                    duke.addList(line,"E");
+                    duke.addList(new Event(line,time));
                     break;
                 }
                 else {

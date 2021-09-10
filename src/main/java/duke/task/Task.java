@@ -1,6 +1,30 @@
-package duke;
+package duke.task;
 
-public class Tasks {
+public class Task {
+    String description;
+    protected boolean isDone = false;
+
+    public Task (String description) {
+        this.description = description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String toString() {
+        return description;
+    }
+
+    /*
     private int length = 0;
     String[] list = new String[100];
     String[] category = new String[100];
@@ -41,5 +65,5 @@ public class Tasks {
             full_list += "\t" + (i+1) +  ".[" + category[i] + "]" + "[" + (mark_as_done[i] ? "X" : " ") + "]" + list[i] + "\n";
         }
         return full_list;
-    }
+    }*/
 }

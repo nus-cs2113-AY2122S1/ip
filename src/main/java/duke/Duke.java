@@ -1,23 +1,33 @@
 package duke;
 
+import duke.task.Task;
+
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.StreamSupport;
 
 public class Duke {
 
+    public static Task[] list = new Task[100];
+    public static int listCount = 0;
+    public final static String LINESEPARATER =  "\t______________________________________________________________________";
+
+    public static void addTask(Task item) {
+        list[listCount++] = item;
+    }
     private boolean active = false;
-    Tasks list = new Tasks();
+    //Task list = new Task();
 
     public Duke() {
         active = true;
         printLine();
-        String logo = "\t ____        _        \n"
-                    + "\t|  _ \\ _   _| | _____ \n"
-                    + "\t| | | | | | | |/ / _ \\\n"
-                    + "\t| |_| | |_| |   <  __/\n"
-                    + "\t|____/ \\__,_|_|\\_\\___|";
-        System.out.println("\tHello from\n" + logo);
-        printLine();
+        System.out.println("\tHello from");
+        System.out.println("\t ____        _        ");
+        System.out.println("\t  _ \\ _   _| | _____ ");
+        System.out.println("\t| | | | | | | |/ / _ \\");
+        System.out.println("\t| |_| | |_| |   <  __/");
+        System.out.println("\t|____/ \\__,_|_|\\_\\___|");
+
     }
 
     public boolean getStatus() {
@@ -25,38 +35,61 @@ public class Duke {
     }
 
     public void printLine() {
-        System.out.println("\t____________________________________________________________");
+        System.out.println(LINESEPARATER);
+    }
+    public void endLine() {
+        printLine();
+        System.out.print("\n\t");
     }
 
     public void endDuke() {
-        System.out.println("\tBye. Hope to see you again soon!");
+
+        dukePrint("Bye. Hope to see you again soon!");
         printLine();
         active = false;
     }
 
     public void greet() {
-        System.out.println("\tHello! I'm Duke");
-        System.out.println("\tWhat can I do for you?");
         printLine();
+        dukePrint("Hello! I'm Duke");
+        dukePrint("What can I do for you?");
+        System.out.print("\n\t");
     }
 
     public void unknownAction() {
-        System.out.println("\tSorry! I don't understand");
-        printLine();
+        //printLine();
+        dukePrint("Sorry! I don't understand");
+        endLine();
     }
 
-    public void addList(String item,String type) {
-        printLine();
-        list.insert(item,type);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t" + list.getItem(list.getLength()-1));
-        System.out.println("\tNow you have " + list.getLength() + " tasks in the list.");
-        printLine();
+    public void addList(Task item) {
+        //printLine();
+        list[listCount++] = item;
+        dukePrint("Got it. I've added this task:");
+        dukePrint(list[listCount-1].toString());
+        dukePrint("Now you have " + listCount + " tasks in the list.");
+        endLine();
     }
 
     public void listOut() {
-        System.out.print(list);
-        printLine();
+        //printLine();
+        if(listCount==0) {
+            dukePrint(" Woohooo no tasks due ~~~~");
+        }
+        int max_len = 0;
+        for(int i = 0; i< listCount; i++) {
+            if(list[i].toString().length() > max_len) {
+                max_len = list[i].toString().length();
+            }
+        }
+        for(int i = 0; i< listCount; i++) {
+            for(int j=0;j<LINESEPARATER.length()-max_len+3;j++)
+            {
+                System.out.print(" ");
+            }
+            System.out.println(list[i]);
+        }
+        endLine();
     }
 
     public void markDone(String line) {
@@ -64,11 +97,22 @@ public class Duke {
             line = line.replaceAll("[^(\\d)]", "");
             int index = Integer.parseInt(line);
             index -= 1;
-            list.markDone(index);
+            list[index].setDone(true);
+            dukePrint("Congrats! you have done the following task");
+            dukePrint(list[index].toString());
         } catch (NumberFormatException e) {
-            System.out.println("\tSorry! I don't understand");
-        } finally {
-            printLine();
+            dukePrint("\tplease enter the index of the task");
+        } catch(ArrayIndexOutOfBoundsException | NullPointerException e) {
+            dukePrint("number entered is invalid");
         }
+        endLine();
+    }
+
+    public void dukePrint(String line) {
+        for(int i=0;i<LINESEPARATER.length()-line.length()+3;i++)
+        {
+            System.out.print(" ");
+        }
+        System.out.println(line);
     }
 }
