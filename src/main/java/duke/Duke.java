@@ -1,3 +1,9 @@
+package duke;
+
+import exception.InvalidCommandException;
+import task.Task;
+import task.TaskManager;
+
 import java.util.Scanner;
 
 public class Duke {

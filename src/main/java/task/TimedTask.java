@@ -1,3 +1,8 @@
+package task;
+
+import exception.WrongNumberOfArgumentsException;
+import task.Task;
+
 public abstract class TimedTask extends Task {
     private String dateTime;
     private final String preposition;

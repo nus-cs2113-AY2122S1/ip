@@ -1,3 +1,5 @@
+package duke;
+
 public class Message {
     private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
