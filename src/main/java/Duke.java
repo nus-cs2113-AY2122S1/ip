@@ -143,6 +143,7 @@ public class Duke {
         } else {
             System.out.print(tasks[numOfTasks + 1].toString());
         }
+
         numOfTasks++;
         System.out.println(line
                 + "Got it. I've added this task: \n"
