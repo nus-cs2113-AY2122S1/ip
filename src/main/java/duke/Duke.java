@@ -70,6 +70,9 @@ public class Duke {
             break;
         case "BYE":
             exit();
+        case "DELETE":
+            deleteTask(description);
+            break;
         default:
             throw new InvalidCommand();
         }
@@ -148,6 +151,23 @@ public class Duke {
     }
 
     /**
+     * Removes a Task from the Task list
+     *
+     * @param id Task id entered by user.
+     */
+    private static void deleteTask(String id) {
+        if (!checkValidTaskId(id)) { // Invalid task id
+            return;
+        }
+
+        int taskId = Integer.parseInt(id) - 1;
+        Task removedTask = tasks.get(taskId);
+        tasks.remove(taskId);
+        customPrint("Noted. I've remove this task:\n" + removedTask.toString() + "\nNow you have "
+                + tasks.size() + " tasks in the list.");
+    }
+
+    /**
      * Prints the exit message and ends the program.
      */
     private static void exit() {
@@ -222,18 +242,13 @@ public class Duke {
     /**
      * Marks a task as done and calls customPrint to print the completed message.
      *
-     * @param description String ID of task to be marked as completed.
+     * @param id String ID of task to be marked as completed.
      */
-    public static void markDone(String description) {
-        int taskId = Integer.parseInt(description) - 1; // -1 as array index starts from 0
-
-        Boolean isNotValidTaskID = taskId < 0 || taskId >= tasks.size();
-
-        // Checks for valid taskID
-        if (isNotValidTaskID) {
-            customPrint("You have entered an invalid task ID!");
+    public static void markDone(String id) {
+        if(!checkValidTaskId(id)){ // Task id is invalid
             return;
         }
+        int taskId = Integer.parseInt(id) - 1; // -1 as array index starts from 0
 
         // Checks if task has been completed
         Task currentTask = tasks.get(taskId);
@@ -244,6 +259,26 @@ public class Duke {
             String textToPrint = "Nice! I've marked this task as done:\n";
             textToPrint += currentTask.toString();
             customPrint(textToPrint);
+        }
+    }
+
+    /**
+     * Checks if a task id is valid.
+     *
+     * @param id String ID of task to be checked.
+     * @return a boolean value indicating if a task was valid.
+     */
+    public static boolean checkValidTaskId(String id){
+        int taskId;
+        try {
+            taskId = Integer.parseInt(id);
+            if (taskId < 1 || taskId > tasks.size()){ //invalid task ID
+                throw new NumberFormatException();
+            }
+            return true;
+        } catch(NumberFormatException e){
+            customPrint("You have entered an invalid task ID!");
+            return false;
         }
     }
 }
