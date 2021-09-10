@@ -23,7 +23,7 @@ public class Duke {
 
             } else if (input.contains("todo")) {
                 try {
-                    testInput(input);
+                    testInput(input); // test todo input
 
                     Task whatToDo = toDoMethod(input);
                     System.out.println("    Got it. I've added this task:\n" + "    " + whatToDo + "\n"
