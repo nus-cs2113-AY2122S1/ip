@@ -154,7 +154,7 @@ public class Duke {
     }
 
     public static void testInput(String input) throws DukeExceptions {
-        if (input.length() < 5) {
+        if (input.length() < 5) { //check for description after todo
             throw new DukeExceptions();
         }
     }
