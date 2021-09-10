@@ -12,19 +12,19 @@ public class TaskManager {
 
     public void printTasks() {
         if (tasksCount == 0) {
-            System.out.println("\tYou have no tasks in your to-do list at the moment.\n");
+            System.out.println("\tYou have no tasks in your task list at the moment.\n");
             return;
         }
-        System.out.println("\tThis is your current to-do list:");
+        System.out.println("\tThis is your current task list:");
         for (int i = 0; i < tasksCount; i++) {
-            System.out.print("\t" + (i + 1) + ".");
+            System.out.print("\t\t" + (i + 1) + ".");
             tasks.get(i).printTask();
         }
-        System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list.\n");
+        printTaskCounts();
     }
 
     public void addTask(Task task) {
-        // add new task to tasks array
+        // add new task to task list
         tasks.add(task);
 
         // print name of task to system output
@@ -33,17 +33,13 @@ public class TaskManager {
 
         // increment total tasksCount
         tasksCount++;
-        System.out.println("\tThere are "
-                + tasksCount
-                + " task(s) in your to-do list, of which "
-                + (tasksCount - completedTasksCount)
-                + " is/are uncompleted.\n");
+        printTaskCounts();
     }
 
     public void markAsDone(int inputTaskIndex) {
         int taskIndex = inputTaskIndex - 1;
 
-        // check if taskIndex is out of bounds of current tasks list
+        // check if taskIndex is out of bounds of current task list
         if (taskIndex < 0 || taskIndex >= tasksCount) {
             System.out.println("\tYou have chosen an invalid task number.\n");
             printTasks();
@@ -65,17 +61,22 @@ public class TaskManager {
         tasks.get(taskIndex).printTask();
         System.out.println("\tYou have "
                 + (tasksCount - completedTasksCount)
-                + " uncompleted task(s) left in your to-do list\n");
+                + " uncompleted task(s) left in your task list\n");
     }
 
     public void deleteTask(int inputTaskIndex){
         int taskIndex = inputTaskIndex - 1;
 
-        // check if taskIndex is out of bounds of current tasks list
+        // check if taskIndex is out of bounds of current task list
         if (taskIndex < 0 || taskIndex >= tasksCount) {
             System.out.println("\tYou have chosen an invalid task number.\n");
             printTasks();
             return;
+        }
+
+         // deduct from completedTasksCount if task to be deleted is completed
+        if (tasks.get(taskIndex).isDone()){
+            completedTasksCount--;
         }
 
         // delete task from task list and deduct from tasksCount
@@ -87,9 +88,13 @@ public class TaskManager {
                 + inputTaskIndex
                 + " from your to-do list.\n\t\t");
         deletedTask.printTask();
-        System.out.println("\tYou have "
+        printTaskCounts();
+    }
+
+    private void printTaskCounts() {
+        System.out.println("\tThere are "
                 + tasksCount
-                + " task(s) in your to-do list, of which "
+                + " task(s) in your task list, of which "
                 + (tasksCount - completedTasksCount)
                 + " is/are uncompleted.\n");
     }
