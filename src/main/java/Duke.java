@@ -2,7 +2,10 @@ import error.Error;
 import console.InputParser;
 import task.TaskManager;
 import utils.Display;
+import utils.FileManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -67,6 +70,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+        FileManager.loadFileData();
         greet();
         interact();
         goodbye();
