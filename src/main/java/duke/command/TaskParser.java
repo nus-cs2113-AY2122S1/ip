@@ -1,6 +1,9 @@
+package duke.command;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import duke.task.*;
 
 final public class TaskParser {
     static private List<Class<? extends Task>> taskTypes = new ArrayList<Class<? extends Task>>();
