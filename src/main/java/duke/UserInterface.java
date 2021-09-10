@@ -88,7 +88,7 @@ public class UserInterface {
         }
     }
 
-    private static void printLine() {
+    public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
