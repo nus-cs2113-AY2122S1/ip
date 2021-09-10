@@ -6,12 +6,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    private final Task[] tasks;
-    private int taskCount;
+    private final ArrayList<Task> taskList;
 
     // Constants
-    private static final int MAX_TASKS = 100;
     private static final String LIST_STRING = "list";
     private static final String DONE_STRING = "done";
     private static final String TODO_STRING = "todo";
@@ -27,8 +27,7 @@ public class TaskManager {
 
     // Constructor
     public TaskManager() {
-        tasks = new Task[MAX_TASKS];
-        taskCount = 0;
+        taskList = new ArrayList<>();
     }
 
     /**
@@ -59,13 +58,13 @@ public class TaskManager {
      * @throws EmptyListException if task list is empty
      */
     public void printTaskList() throws EmptyListException {
-        if (taskCount == 0) {
+        if (taskList.size() == 0) {
             throw new EmptyListException();
         }
         System.out.println(OUTPUT_DIVIDER);
         System.out.println(MESSAGE_LIST_TASKS);
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + taskList.get(i));
         }
         System.out.println(OUTPUT_DIVIDER);
     }
@@ -93,13 +92,13 @@ public class TaskManager {
 
         int taskToMarkDone = Integer.parseInt(doneSentence[1]);
         // Makes sure that the task being mark done is in the task list.
-        if (taskToMarkDone > taskCount || taskToMarkDone <= 0) {
+        if (taskToMarkDone > taskList.size() || taskToMarkDone <= 0) {
             throw new TaskNotInListException();
         } else {
-            tasks[taskToMarkDone - 1].setDone(true);
+            taskList.get(taskToMarkDone - 1).setDone(true);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_MARKED_DONE);
-            System.out.println("   " + tasks[taskToMarkDone - 1].toString());
+            System.out.println("   " + taskList.get(taskToMarkDone - 1));
             System.out.println(OUTPUT_DIVIDER);
         }
     }
@@ -121,11 +120,11 @@ public class TaskManager {
 
         String todoDescription = splitTodo[1].trim();
         Todo newTodo = new Todo(todoDescription);
-        tasks[taskCount] = newTodo;
+        taskList.add(newTodo);
         System.out.println(OUTPUT_DIVIDER);
         System.out.println(MESSAGE_TASK_ADDED);
-        System.out.println("   " + newTodo.toString());
-        System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
+        System.out.println("   " + newTodo);
+        System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_DIVIDER);
     }
 
@@ -157,11 +156,11 @@ public class TaskManager {
         // Deadline with valid format is added to task list
         if (isValidDeadline) {
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
-            tasks[taskCount] = newDeadline;
+            taskList.add(newDeadline);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_ADDED);
-            System.out.println("   " + newDeadline.toString());
-            System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
+            System.out.println("   " + newDeadline);
+            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
             System.out.println(OUTPUT_DIVIDER);
         } else {
             throw new DeadlineLacksArgumentsException();
@@ -196,11 +195,11 @@ public class TaskManager {
         // Event with valid format is added to task list
         if (isValidEvent) {
             Event newEvent = new Event(eventDescription, eventTime);
-            tasks[taskCount] = newEvent;
+            taskList.add(newEvent);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_ADDED);
-            System.out.println("   " + newEvent.toString());
-            System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
+            System.out.println("   " + newEvent);
+            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
             System.out.println(OUTPUT_DIVIDER);
         } else {
             throw new EventLacksArgumentsException();
@@ -240,7 +239,6 @@ public class TaskManager {
     public void handleTodo(String userInput) {
         try {
             addTodo(userInput);
-            taskCount++;
         } catch (TodoInvalidFormatException todoInvalidFormatException) {
             todoInvalidFormatException.printTodoInvalidFormatMessage();
         }
@@ -254,7 +252,6 @@ public class TaskManager {
     public void handleDeadline(String userInput) {
         try {
             addDeadline(userInput);
-            taskCount++;
         } catch (DeadlineInvalidFormatException deadlineInvalidFormatException) {
             deadlineInvalidFormatException.printDeadlineInvalidFormatMessage();
         } catch (DeadlineLacksArgumentsException deadlineLacksArgumentsException) {
@@ -270,7 +267,6 @@ public class TaskManager {
     public void handleEvent(String userInput) {
         try {
             addEvent(userInput);
-            taskCount++;
         } catch (EventInvalidFormatException eventInvalidFormatException) {
             eventInvalidFormatException.printEventInvalidFormatMessage();
         } catch (EventLacksArgumentsException eventLacksArgumentsException) {
