@@ -54,7 +54,7 @@ public class Duke {
     }
 
     public static void markDone(int i) {
-        done.set(i, "X");
+        done.set(i-1, "X");
     }
 
     public static void remove(int i) {
