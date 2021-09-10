@@ -1,5 +1,8 @@
 package duke;
 
+import errors.InvalidCommand;
+import errors.InvalidFile;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
