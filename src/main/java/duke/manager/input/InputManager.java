@@ -22,6 +22,8 @@ public class InputManager {
             inputCommand = Command.ADD_DEADLINE;
         } else if (input.equals("done")) {
             inputCommand = Command.DONE_TASK;
+        } else if (input.equals("delete")) {
+            inputCommand = Command.DELETE_TASK;
         } else {
             inputCommand = Command.INVALID;
         }

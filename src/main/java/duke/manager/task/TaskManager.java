@@ -27,7 +27,7 @@ public class TaskManager extends UserInterface {
     /**
      * Marks task in array as done and prints echo message depending on validity of task no.
      */
-    public void markTaskAsDone(String input) throws InvalidTaskNumberException, NumberFormatException{
+    public void markTaskAsDone(String input) throws InvalidTaskNumberException, NumberFormatException {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(input.trim(), 10);
@@ -36,28 +36,50 @@ public class TaskManager extends UserInterface {
         }
         boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
 
-        if (!taskNumberInRange) { throw new InvalidTaskNumberException(); }
+        if (!taskNumberInRange) {
+            throw new InvalidTaskNumberException();
+        }
 
+        // Mark task as done
         tasks.get(taskNumber - 1).setDone();
         echo("Task " + taskNumber + ": " + tasks.get(taskNumber - 1).getTaskDescription()
                 + System.lineSeparator() + "  Marked as done!");
     }
 
-    public void addToDo (String description) {
+    public void deleteTask(String input) throws InvalidTaskNumberException, NumberFormatException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(input.trim(), 10);
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException();
+        }
+        boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
+
+        if (!taskNumberInRange) {
+            throw new InvalidTaskNumberException();
+        }
+
+        echo("  You have successfully deleted the task:" + System.lineSeparator()
+                + "    " + tasks.get(taskNumber - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
+                + "  You now have " + (tasks.size() - 1) + " tasks in your list!");
+        tasks.remove(taskNumber - 1);
+    }
+
+    public void addToDo(String description) {
         tasks.add(new ToDo(description));
         echo("  You have successfully added the task:" + System.lineSeparator()
                 + "    " + tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
                 + "  You now have " + tasks.size() + " tasks in your list!");
     }
 
-    public void addEvent (String description, String at) {
+    public void addEvent(String description, String at) {
         tasks.add(new Event(description, at));
         echo("  You have successfully added the task:" + System.lineSeparator()
                 + "    " + tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
                 + "  You now have " + tasks.size() + " tasks in your list!");
     }
 
-    public void addDeadline (String description, String by) {
+    public void addDeadline(String description, String by) {
         tasks.add(new Deadline(description, by));
         echo("  You have successfully added the task:" + System.lineSeparator()
                 + "    " + tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus() + System.lineSeparator()
@@ -65,7 +87,9 @@ public class TaskManager extends UserInterface {
     }
 
     public void checkInputThenAddToDo(String argument) throws MissingCommandArgumentException {
-        if (argument.equals("none")) { throw new MissingCommandArgumentException(); }
+        if (argument.equals("none")) {
+            throw new MissingCommandArgumentException();
+        }
         addToDo(argument);
     }
 
@@ -75,41 +99,45 @@ public class TaskManager extends UserInterface {
             addEvent(arguments[0].trim(), arguments[1].trim());
         } else {
             // no arguments after event
-            if (arguments[0].equals("none")) { throw new MissingCommandArgumentException(); }
+            if (arguments[0].equals("none")) {
+                throw new MissingCommandArgumentException();
+            }
             // adds the description, no user input for "at"
             addEvent(arguments[0].trim(), "");
         }
     }
 
     public void checkInputThenAddDeadline(String[] arguments) throws MissingCommandArgumentException {
-        
+
         if (arguments.length > 1) {
             // arguments[0] equals description, arguments[1] equals "by"
             addDeadline(arguments[0].trim(), arguments[1].trim());
         } else {
             // no arguments after deadline
-            if (arguments[0].equals("none")) { throw new MissingCommandArgumentException(); }
+            if (arguments[0].equals("none")) {
+                throw new MissingCommandArgumentException();
+            }
             // adds the description, no user input for "by"
             addDeadline(arguments[0].trim(), "");
         }
     }
 
-    public void printMessageForTaskNumberOutOfRange () {
+    public void printMessageForTaskNumberOutOfRange() {
         echo("  Invalid Task number!" + System.lineSeparator()
                 + "  Please try again with a Task number within range! :)");
     }
 
-    public void printMessageForTaskNumberNonInteger () {
+    public void printMessageForTaskNumberNonInteger() {
         echo("  Invalid Task number!" + System.lineSeparator()
                 + "  Please enter a valid integer! :)");
     }
 
-    public void printMessageForMissingTaskDescription (String taskType) {
+    public void printMessageForMissingTaskDescription(String taskType) {
         echo("  I'm sorry... For a <" + taskType + "> you must include a description!"
                 + System.lineSeparator() + "  Please try again with a valid input! :)");
     }
 
-    public void printMessageForInvalidInput () {
+    public void printMessageForInvalidInput() {
         echo("  Invalid Input..." + System.lineSeparator()
                 + "  Please enter a valid input!");
     }
