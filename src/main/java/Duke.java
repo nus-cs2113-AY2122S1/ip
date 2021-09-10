@@ -26,7 +26,13 @@ public class Duke {
                 exit();
                 break;
             } else if (inputString.equals("list")) {
-                printList(tasks);
+                try {
+                    printList(tasks);
+                }
+                catch(DukeException d) {
+                    System.out.println(line
+                            + d.getMessage() + "\n" + line);
+                }
             } else if (inputString.contains("done") == true) {
                 try {
                     setDone(inputString, tasks);
@@ -92,11 +98,9 @@ public class Duke {
                 + line);
     }
 
-    public static final void printList(Task[] tasks) {
+    public static final void printList(Task[] tasks) throws DukeException{
         if (numOfTasks == 0) {
-            System.out.println(line
-                    + "The list is empty.\n"
-                    + line);
+            throw new DukeException("The list is empty!");
         } else {
             System.out.println(line
                     + "Here are the tasks in your list: ");
