@@ -132,7 +132,7 @@ public class UserInterface {
     private static void showItemAdded() {
         printLine();
         System.out.println("Got it. I've added this task:\n" + TaskManager.getLatestTask());
-        System.out.println("Now you have " + TaskManager.getNumOfTask() + " tasks");
+        System.out.println("Now you have " + TaskManager.getNumOfTasks() + " tasks");
         printLine();
     }
 
