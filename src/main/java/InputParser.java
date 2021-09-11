@@ -7,6 +7,7 @@ public abstract class InputParser {
     private static final String BYE = "bye";
     private static final String TODO = "todo";
     private static final String EVENT = "event";
+    private static final String DELETE = "delete";
     private static final String DONE = "done";
     private static final String DEADLINE = "deadline";
     private static final String BY= "/by";
@@ -48,6 +49,10 @@ public abstract class InputParser {
 
         if (input.startsWith(EVENT)) {
             return Commands.EVENT;
+        }
+
+        if (input.startsWith(DELETE)) {
+            return Commands.DELETE;
         }
 
         if (input.startsWith(DONE)) {
