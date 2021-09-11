@@ -1,0 +1,45 @@
+deadline/by
+deadline /by
+deadline eat/by
+deadline /by 3pm
+deadline eat /by3pm (test no spacing)
+deadline eat /by 3pm (test spacing)
+list
+
+event/at
+event /at
+event circus/at
+event /at 8pm
+event circus8pm
+event circus/at8pm (test no spacing)
+event circus /at 8pm (test spacing)
+
+bobby
+todo
+deadline
+event
+list
+
+todoclean room
+todo clean room
+list
+
+done 1
+done 2
+done asd
+done 0
+done 80 
+done 123
+list
+bye
+
+#unrecognised input
+
+#Blank descrpt
+#tasks > 100
+#incomplete info tasks
+
+# done tasks exceptions
+- number format
+- out of bounds (1-100 exceeded)
+- nullptr
