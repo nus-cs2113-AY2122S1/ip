@@ -22,6 +22,10 @@ public class Display {
         System.out.println("*********************************");
     }
 
+    public static void printDeleteTaskLine() {
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    }
+
     public static void printSeparatingLine() {
         System.out.println("---------------------------------");
     }
@@ -49,6 +53,14 @@ public class Display {
         System.out.println(task);
         System.out.println("Now you have " + taskCount + " tasks in your list");
         printAddTaskLine();
+    }
+
+    public static void displayTaskDeleted(Task task, int taskCount) {
+        printDeleteTaskLine();
+        System.out.println("Noted! I've removed " + task.getTask());
+        System.out.println(task);
+        System.out.println("Now you have " + taskCount + " tasks in your list");
+        printDeleteTaskLine();
     }
 
     public static void displayTaskCompleted(String taskName) {
