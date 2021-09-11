@@ -21,6 +21,7 @@ public class Duke {
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_ADD_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_ECHO = "echo";
     private static final String COMMAND_HELP = "help";
 
@@ -38,6 +39,7 @@ public class Duke {
     private static final String LIST_TASKS_MESSAGE = "Wow! I found these tasks in your list:";
     private static final String CLEAR_TASKS_MESSAGE = "Okay! Now your list is empty, you're FREE!";
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";
+    private static final String DELETE_TASK_MESSAGE = "Alright, I have deleted the following task for you:";
     private static final String MARK_TASK_DONE_MESSAGE = "Good job! You have finished the following:";
     private static final String HELP_MESSAGE =
             "Below is the list of commands and input formats I am currently able to understand:\n"
@@ -114,6 +116,13 @@ public class Duke {
         printDivider();
     }
 
+    private void deleteTask(int taskIndex) {
+        Task deletedTask = TASK_MANAGER.deleteTask(taskIndex);
+        System.out.println(DELETE_TASK_MESSAGE + "\n" + deletedTask.toString());
+        printTasksCount();
+        printDivider();
+    }
+
     private void markTaskDone(int taskIndex) {
         Task finishedTask = TASK_MANAGER.markTaskDone(taskIndex);
         System.out.println(MARK_TASK_DONE_MESSAGE + "\n" + finishedTask.toString());
@@ -140,7 +149,7 @@ public class Duke {
             echo(param);
             break;
         case COMMAND_MARK_TASK_DONE:
-            taskNumber = CHECKER.retrieveDoneParameter(userInputArray);
+            taskNumber = CHECKER.retrieveNumberParameter(userInputArray);
             markTaskDone(taskNumber);
             break;
         case COMMAND_ADD_TODO:
@@ -155,8 +164,13 @@ public class Duke {
             params = CHECKER.retrieveEventParameters(userInputArray);
             addEvent(params[0], params[1]);
             break;
+        case COMMAND_DELETE:
+            taskNumber = CHECKER.retrieveNumberParameter(userInputArray);
+            deleteTask(taskNumber);
+            break;
         default:
             CHECKER.throwInput();
+            break;
         }
     }
 

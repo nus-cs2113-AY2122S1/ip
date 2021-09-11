@@ -45,6 +45,13 @@ public class TaskManager {
         }
     }
 
+    public Task deleteTask(int taskIndex) {
+        Task deletedTask = tasks.get(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
+        currentTasksCount--;
+        return deletedTask;
+    }
+
     public Task markTaskDone(int taskIndex) {
         Task doneTask = tasks.get(taskIndex - 1);
         doneTask.setDone();

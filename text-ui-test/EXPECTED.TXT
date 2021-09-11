@@ -124,11 +124,42 @@ Wow! I found these tasks in your list:
 8. [E][ ] Cry (at: 2am - 4am)
 9. [E][X] Cry again (at: NOW)
 ____________________________________________________________
+Alright, I have deleted the following task for you:
+[T][X] Finish CG2027 videos /by Monday 8pm
+You have 8 tasks in your list now!
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+Alright, I have deleted the following task for you:
+[T][X] Buy flowers for girlfriend
+You have 7 tasks in your list now!
+____________________________________________________________
+Start exception handling test
+____________________________________________________________
+OH NO! You need to specify the task number...
+Enter "list" to check the task number!
+____________________________________________________________
+OH NO! That wasn't a number...
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [D][X] Finish iP project (by: Monday 2359)
+2. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
+3. [E][X] Team Meeting (at: Tuesday 10am)
+4. [T][ ] Make more space
+5. [D][X] Do project report (by: Saturday 2pm)
+6. [E][ ] Cry (at: 2am - 4am)
+7. [E][X] Cry again (at: NOW)
+____________________________________________________________
 Okay! Now your list is empty, you're FREE!
 ____________________________________________________________
 Wow! I found these tasks in your list:
-____________________________________________________________
-Start exception handling test
 ____________________________________________________________
 OH NO! I can't echo if you don't say anything...
 ____________________________________________________________
@@ -154,7 +185,7 @@ OH NO! You need to provide a description for your event...
 ____________________________________________________________
 OH NO! You need to provide a description for your event...
 ____________________________________________________________
-OH NO! You need to specify the task you want to mark as done...
+OH NO! You need to specify the task number...
 Enter "list" to check the task number!
 ____________________________________________________________
 OH NO! That wasn't a number...
