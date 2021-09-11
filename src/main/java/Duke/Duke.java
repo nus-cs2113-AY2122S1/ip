@@ -28,6 +28,8 @@ public class Duke {
             return taskManager.addEventTask(input[1]);
         case "help":
             return taskManager.showCommandHelp();
+        case "delete":
+            return taskManager.deleteTask(Integer.parseInt(input[1]));
         default:
             throw new UnknownCommandException();
         }
