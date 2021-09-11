@@ -2,16 +2,25 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-    /** count tracker for number of tasks in array */
+
+    /**
+     * count tracker for number of tasks in array
+     */
     private static int taskCount = 0;
 
-    /** count tracker for number of uncompleted tasks in array */
+    /**
+     * count tracker for number of uncompleted tasks in array
+     */
     private static int numOfUncompletedTasks = 0;
 
-    /** Array of tasks */
+    /**
+     * Array of tasks
+     */
     private static final Task[] tasks = new Task[100];
 
-    /** Long line separator*/
+    /**
+     * Long line separator
+     */
     private static final String lineSeparator = ("_____________________________________________________");
 
     public static void printSeparator() {
@@ -67,8 +76,8 @@ public class Duke {
     }
 
     /**
-     * Returns date value for tasks which need a date input field.
-     * If user does not have proper date formatting, (i.e. '/by' or '/at') this function returns an empty string.
+     * Returns date value for tasks which need a date input field. If user does not have proper date formatting, (i.e.
+     * '/by' or '/at') this function returns an empty string.
      *
      * @param query user raw data input.
      * @return date value
@@ -84,8 +93,7 @@ public class Duke {
     }
 
     /**
-     * Return void.
-     * Function is responsible for printing out the whole task list of the user.
+     * Return void. Function is responsible for printing out the whole task list of the user.
      *
      * @param tasks list of tasks input by user
      */
@@ -160,8 +168,7 @@ public class Duke {
     }
 
     /**
-     * Returns void.
-     * Function is responsible for adding different Tasks to the task list.
+     * Returns void. Function is responsible for adding different Tasks to the task list.
      *
      * @param query user raw data input
      * @throws NullPointerException if user keys in done [number] when there is no such task.
@@ -188,35 +195,47 @@ public class Duke {
             System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
             break;
         case EVENT_TASK:
-            if (getDate(query).equals("")) {
-                System.out.println("You did not key in any date for your event or deadline.");
-                System.out.println("Did you forget to add in the '/at' again?");
-            } else {
+            try {
+                if (getDate(query).equals("")) {
+                    throw new InvalidInputsException.InvalidDateFormatting("Wrong format of date "
+                            + "has been entered");
+                }
                 tasks[taskCount] = new Event(getQueryDescription(query), getDate(query));
                 taskCount++;
                 numOfUncompletedTasks++;
                 System.out.println("Added an Event Task: " + getQueryDescription(query));
                 System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
+            } catch (InvalidInputsException.InvalidDateFormatting exception) {
+                exception.printStackTrace();
+                System.out.println("Did you forget to add in the '/by' again?");
             }
             break;
         case DEADLINE_TASK:
-            if (getDate(query).equals("")) {
-                System.out.println("You did not key in any date for your event or deadline.");
-                System.out.println("Did you forget to add in the '/by' again?");
-            } else {
+            try {
+                if (getDate(query).equals("")) {
+                    throw new InvalidInputsException.InvalidDateFormatting("Wrong format of date "
+                            + "has been entered");
+                }
                 tasks[taskCount] = new Deadline(getQueryDescription(query), getDate(query));
                 taskCount++;
                 numOfUncompletedTasks++;
                 System.out.println("Added a Todo Task: " + getQueryDescription(query));
                 System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
+            } catch (InvalidInputsException.InvalidDateFormatting exception) {
+                exception.printStackTrace();
+                System.out.println("Did you forget to add in the '/by' again?");
             }
             break;
         case LIST_ITEMS:
             printList(tasks);
             break;
         case NO_KEYWORD:
-            System.out.println("⣿⣿⣿⣿⣿ You have to input <todo>, <deadline> or <event> first! ⣿⣿⣿⣿⣿");
-            waitForQuery();
+            try {
+                throw new InvalidInputsException.MissingKeyword("You have to input <todo>, <deadline> or"
+                        + " <event> first!");
+            } catch (InvalidInputsException.MissingKeyword exception) {
+                exception.printStackTrace();
+            }
             break;
         case GOODBYE_KEYWORD:
             goodbyeMessage();
@@ -229,15 +248,15 @@ public class Duke {
      */
     public static void main(String[] args) {
         String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
-                    + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
-                    + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
-                    + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
-                    + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
-                    + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
-                    + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
-                    + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
-                    + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
-                    + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
+                + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
+                + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
+                + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
+                + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
+                + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
+                + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
+                + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
+                + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
+                + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
         System.out.println(face);
 
         // print greeting message after logo
