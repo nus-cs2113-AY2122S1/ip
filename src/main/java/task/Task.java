@@ -1,6 +1,7 @@
 package task;
 
-public class Task {
+public abstract class Task {
+    public abstract String getType();
     protected String description;
     protected boolean isDone;
 
@@ -9,6 +10,14 @@ public class Task {
         this.isDone = false;
     }
 
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getStatus() {
+        return (isDone ? "1" : "0"); //returns 1 if done, 0 if not done
+    }
     public String getStatusIcon() {
         return (isDone ? "\u2718" : " "); //return tick or X symbols
     }

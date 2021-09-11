@@ -1,24 +1,23 @@
 package task;
 
 public class Event extends Task {
-    protected String by;
+    protected String time;
 
-    public Event(String description, String by) {
+    public Event(String description, String time) {
         super(description);
-        this.by = by;
+        this.time = time;
     }
 
-    public void setBy(String by) {
-        this.by = by;
+    public String getTime() {
+        return time;
     }
 
-    public String getBy() {
-        String[] newBy = by.split(" ", 2);
-        return newBy[1];
+    public String getType() {
+        return "E";
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + getBy() + ")";
+        return "[E]" + super.toString() + " (at: " + getTime() + ")";
     }
 }
