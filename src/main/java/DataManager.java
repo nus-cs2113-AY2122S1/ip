@@ -43,11 +43,17 @@ public class DataManager {
 
     public static void writeFileContents(String filePath) throws IOException {
         //clear contents of file
+        String textToAppend;
         FileWriter fw = new FileWriter(filePath, false);// create a FileWriter in override mode
         fw.write("");
         for (int i = 0; i < TaskManager.taskCount; i++) {
-            Task task = TaskManager.tasks[i];
-            String textToAppend = task.getType() + " | " + task.getStatus() + " | " + task.getDescription()  + System.lineSeparator();
+            Task task = TaskManager.tasks.get(i);
+            if (task.getType().equals("T")) {
+                textToAppend = task.getType() + " | " + task.getStatus() + " | " + task.getDescription() + System.lineSeparator();
+            }
+            else {
+                textToAppend = task.getType() + " | " + task.getStatus() + " | " + task.getDescription() + " | " + task.getTime() + System.lineSeparator();
+            }
             appendToFile(filePath, textToAppend);
         }
     }
