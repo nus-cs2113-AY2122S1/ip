@@ -20,5 +20,8 @@ public class Todo extends Task{
         return this.getTypeOfTask() + this.getDoneStatusAsSymbol() + " " + this.getName();
     }
 
-
+    @Override
+    public String printTaskForStoring() {
+        return super.printTaskForStoring();
+    }
 }

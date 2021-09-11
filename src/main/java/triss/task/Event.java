@@ -32,4 +32,10 @@ public class Event extends Task{
         return this.getTypeOfTask() + this.getDoneStatusAsSymbol() + " "
                 + this.getName() + " (" + this.getTiming() + ")";
     }
+
+    @Override
+    public String printTaskForStoring() {
+        return getTypeOfTask() + "," + getDoneStatusAsSymbol()
+                + "," + getName() + "," + getTiming();
+    }
 }
