@@ -1,6 +1,7 @@
+import java.io.*;
+import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
 import Exception.DukeException;
 import Tasks.Task;
 import Tasks.Event;
@@ -9,6 +10,53 @@ import Tasks.Deadline;
 
 
 public class Duke {
+    private static boolean isLoading = true;
+
+    private static void processInput (List<Task> tasks, boolean isLoading) throws IOException, DukeException {
+
+        // Hard Drive loading
+        if (isLoading) {
+            File f = new File ("data.txt");
+            if (f.createNewFile()) {
+                System.out.println("data.txt created for you");
+            }
+
+            else {
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                String line;
+                while ( (line = br.readLine()) != null ) {
+                    addTask(line, tasks);
+                }
+            }
+            Duke.isLoading = false;
+        }
+
+        // After loading (ready for User Input)
+        else {
+            System.out.println("What can I do for you today?");
+
+            while (true) {
+                Scanner scanner = new Scanner(System.in);
+                String input = scanner.nextLine();
+
+                if (input.equals("bye")) {
+                    System.out.println("See you later alligator");
+                    break;
+                }
+
+                if (!isQuery(input, tasks)) {
+                    try {
+                        Task addedTask = addTask(input, tasks);
+                        System.out.println("I've added:");
+                        addedTask.describe();
+                        System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+        }
+    }
 
     private static boolean isQuery (String input, List<Task> tasks) {
 
@@ -40,9 +88,20 @@ public class Duke {
             throw new DukeException("Description cannot be empty");
         }
 
+        // check to see if NOT loading from Hard Drive
+        else if (!isLoading) {
+            try {
+                BufferedWriter output = new BufferedWriter(new FileWriter("data.txt", true));
+                output.append(input);
+                output.newLine();
+                output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         switch (taskType) {
         case "todo" :
-            System.out.println(input.split(" ")[1]);
             Task todoTask = new Todo(input.replaceAll(taskType, ""));
             tasks.add(todoTask);
             return todoTask;
@@ -63,28 +122,15 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<Task>();
-        System.out.println("What can I do for you today homie");
+        List<Task> tasks = new ArrayList<>();
 
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
-
-            if (input.equals("bye")) {
-                System.out.println("See you later alligator");
-                break;
-            }
-
-            if (!isQuery(input, tasks)) {
-                try {
-                    Task addedTask = addTask(input, tasks);
-                    System.out.println("I've added:");
-                    addedTask.describe();
-                    System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+        try {
+            processInput(tasks, isLoading);           // Hard-drive loading
+            processInput(tasks, isLoading);           // Normal functionality
+        } catch (IOException e) {
+            System.out.println("Failed to read from data.txt");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
