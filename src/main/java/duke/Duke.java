@@ -8,6 +8,10 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     public static final String LOGO = "    ____        _        \n"
@@ -41,6 +45,13 @@ public class Duke {
                 + "    Bye, see you again!" + System.lineSeparator()
                 + BORDER_LINE);
     }
+    
+    public static void printFileNotDetectedMessage() {
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    There is no existing file detected," + System.lineSeparator()
+                + "    Empty task list initialized" + System.lineSeparator()
+                + BORDER_LINE);
+    }
 
     public static void printInvalidAddTaskMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
@@ -71,6 +82,49 @@ public class Duke {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    INVALID COMMAND" + System.lineSeparator()
                 + BORDER_LINE);
+    }
+    
+    public static void addTaskFromFile(String input) {
+        String[] words = input.split("--");
+        String taskType = words[0];
+        String markDoneCharacter = words[1];
+        
+        switch (taskType) {
+        case "T":
+            tasks[Task.getNumberOfTasks()] = new Todo("todo " + words[2]);
+            break;
+        case "D":
+            tasks[Task.getNumberOfTasks()] = new Deadline("deadline " + words[2] + " /by " + words[3]);
+            break;
+        case "E":
+            tasks[Task.getNumberOfTasks()] = new Event("event " + words[2] + " /at " + words[3]);
+            break;
+        default:
+            System.out.println("Invalid task in file");
+            break;
+        }
+
+        if (markDoneCharacter.equals("1")) {
+            tasks[Task.getNumberOfTasks() - 1].markAsDone();
+        }
+    }
+
+    public static void readFile(String filePath) throws FileNotFoundException {
+        File inputFile = new File(filePath);
+        Scanner input = new Scanner(inputFile);
+        String inputTask;
+        while (input.hasNext()) {
+            inputTask = input.nextLine();
+            addTaskFromFile(inputTask);            
+        }
+    }
+    
+    public static void loadTaskFromFile(String filePath) {
+        try {
+            readFile(filePath);
+        } catch (FileNotFoundException e) {
+            printFileNotDetectedMessage();
+        }
     }
 
     public static boolean isAddTaskCommand(String command) {
@@ -217,11 +271,36 @@ public class Duke {
             }
         }
     }
+    
+    public static void updateTaskFile(String pathFile) throws IOException{
+        FileWriter fw = new FileWriter(pathFile);
+        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            String taskAsString = String.valueOf(tasks[i]);
+            String taskType = taskAsString.substring(1, 2);
+            String doneSymbol = taskAsString.substring(4, 5);
+            String formattedTask = taskType + "--" + (doneSymbol.equals("X") ? "1" : "0") + "--";
+            if (taskAsString.contains("(by:")) {
+                formattedTask += taskAsString.substring(7, taskAsString.indexOf(" (by:")) + "--" + taskAsString.substring(taskAsString.indexOf("(by:") + 5, taskAsString.length() - 1);
+            } else if (taskAsString.contains("(at:")) {
+                formattedTask += taskAsString.substring(7, taskAsString.indexOf(" (at:")) + "--" + taskAsString.substring(taskAsString.indexOf("(at:") + 5, taskAsString.length() - 1);
+            } else {
+                formattedTask += taskAsString.substring(7);
+            }
+            fw.write(formattedTask + System.lineSeparator());
+        }
+        fw.close();
+    }
 
     public static void main(String[] args) {
         initializeTasks();
         printGreetingMessage();
+        loadTaskFromFile("data/task.txt");
         userOperation();
+        try {
+            updateTaskFile("data/task.txt");
+        } catch (IOException e) {
+            System.out.println("File not existed");
+        }
         printGoodbyeMessage();
     }
 }
