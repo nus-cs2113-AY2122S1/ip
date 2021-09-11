@@ -5,11 +5,12 @@ import error.exception.DukeInvalidDescriptionFormatException;
 import error.Error;
 import error.Printer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static int count = 0;
-    public static Task[] list = new Task[100];
+    public static ArrayList<Task> list = new ArrayList<>();
 
     public static void main(String[] args) {
         //logo
@@ -50,7 +51,7 @@ public class Duke {
 
                 //Lists down all the tasks added along with its status
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + list[i]);
+                    System.out.println((i + 1) + ". " + list.get(i));
                 }
 
                 Printer.printLineSeparator();
@@ -60,11 +61,11 @@ public class Duke {
                 try {
                     //Extracts the index number from the text and changes status of the task
                     int index = TaskManager.getIndex(input);
-                    list[index].markAsDone();
+                    list.get(index).markAsDone();
 
                     Printer.printLineSeparator();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(list[index]);
+                    System.out.println(list.get(index));
                     Printer.printLineSeparator();
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     Error.showDoneFormatError();
