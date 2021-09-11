@@ -24,6 +24,7 @@ public class Duke {
             + NL
             + "list" + NL
             + "done {index number of task done}  (eg. done 1)" + NL
+            + "delete {index number of task you want to delete}  (eg. delete 1)" + NL
             + "bye";
 
     public static final String LOGO = " ____        _        \n"
@@ -69,9 +70,9 @@ public class Duke {
             try {
                 conversationIsOver = processCommand(conversationIsOver, inputCommand, command);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                // for now these exceptions only occur when a number is passed after done
-                // so we can assume the user made an error using the 'done' command
-                printMessage("Please enter a valid number after \'done\' : " + inputCommand);
+                // for now these exceptions only occur when a number is passed after done or delete
+                // so we can assume the user made an error using the 'done' or 'delete' command
+                printMessage("Please enter a valid number after \'done\' or \'delete\' : " + inputCommand);
             } catch (DukeEmptyDescriptionException e) {
                 printMessage("Please enter a description of the task");
             } catch (DukeExceedMaxTaskException e) {
@@ -117,6 +118,10 @@ public class Duke {
         case "event":
             String eventInput = removeFirstWordInSentence(inputCommand, 5);
             TASK_MANAGER.addEvent(eventInput);
+            break;
+        case "delete":
+            int indexOfTaskBeingDeleted = getIntegerFromCommand(inputCommand);
+            TASK_MANAGER.removeTask(indexOfTaskBeingDeleted);
             break;
         default:
             printMessage(HELP_MESSAGE);

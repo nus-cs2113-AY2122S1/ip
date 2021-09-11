@@ -8,51 +8,44 @@ import duke.exceptions.DukeInvalidTaskIndex;
 import duke.exceptions.DukeTaskAlreadyCompletedException;
 import duke.exceptions.DukeMissingKeywordException;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    public static final int MAX_TASKS = 100;
     private int numberOfTasks;
-    private final Task[] tasks;
+    private ArrayList<Task> tasks;
 
     public TaskManager() {
         numberOfTasks = 0;
-        tasks = new Task[MAX_TASKS];
+        tasks = new ArrayList<>();
     }
 
     public int getNumberOfTasks() {
         return numberOfTasks;
     }
 
-    public Task[] getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public void addTodo(String input) throws DukeEmptyDescriptionException,
-            DukeExceedMaxTaskException {
-        if (numberOfTasks >= MAX_TASKS) {
-            throw new DukeExceedMaxTaskException();
-        }
+    public void addTodo(String input) throws DukeEmptyDescriptionException {
         if (input.isEmpty()) {
             throw new DukeEmptyDescriptionException();
         }
         Task todo = new Todo(input);
-        tasks[numberOfTasks] = todo;
+        tasks.add(todo);
         numberOfTasks++;
         acknowledgeCommand(todo);
     }
 
 
     public void addDeadline(String input) throws DukeEmptyDescriptionException,
-            DukeExceedMaxTaskException,
             DukeEmptyTimeException,
             DukeMissingKeywordException {
-        if (numberOfTasks >= MAX_TASKS) {
-            throw new DukeExceedMaxTaskException();
-        }
         final int indexOfByPrefix = getIndexOfByPrefix(input);
         String deadlineDescription = getDeadlineDescription(input, indexOfByPrefix);
         String deadlineBy = getDeadlineBy(input, indexOfByPrefix);
         Task deadline = new Deadline(deadlineDescription, deadlineBy);
-        tasks[numberOfTasks] = deadline;
+        tasks.add(deadline);
         numberOfTasks++;
         acknowledgeCommand(deadline);
     }
@@ -83,17 +76,13 @@ public class TaskManager {
     }
 
     public void addEvent(String input) throws DukeEmptyDescriptionException,
-            DukeExceedMaxTaskException,
             DukeEmptyTimeException,
             DukeMissingKeywordException {
-        if (numberOfTasks >= MAX_TASKS) {
-            throw new DukeExceedMaxTaskException();
-        }
         final int indexOfAtPrefix = getIndexOfAtPrefix(input);
         String eventDescription = getEventDescription(input, indexOfAtPrefix);
         String eventAt = getEventAt(input, indexOfAtPrefix);
         Task event = new Event(eventDescription, eventAt);
-        tasks[numberOfTasks] = event;
+        tasks.add(event);
         numberOfTasks++;
         acknowledgeCommand(event);
     }
@@ -135,7 +124,7 @@ public class TaskManager {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < numberOfTasks; i++) {
             list.append(i + 1).append(".");
-            list.append(tasks[i].toString());
+            list.append(tasks.get(i).toString());
             if (i < numberOfTasks - 1) {
                 list.append(Duke.NL);
             }
@@ -148,13 +137,23 @@ public class TaskManager {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new DukeInvalidTaskIndex();
         }
-        if (tasks[taskNumber - 1].isDone()) {
+        if (tasks.get(taskNumber - 1).isDone()) {
             throw new DukeTaskAlreadyCompletedException();
         }
 
-        tasks[taskNumber - 1].setDone();
+        tasks.get(taskNumber - 1).setDone();
         Duke.printMessage("Good Job!! I've marked this task as done:" + Duke.NL
-                + tasks[taskNumber - 1].toString());
+                + tasks.get(taskNumber - 1).toString());
+    }
+
+    public void removeTask(int taskNumber) throws DukeInvalidTaskIndex {
+        if (taskNumber > numberOfTasks || taskNumber <= 0) {
+            throw new DukeInvalidTaskIndex();
+        }
+        Task removedTask = tasks.remove(taskNumber - 1);
+        Duke.printMessage("I have removed the task: " + Duke.NL + removedTask.toString()
+                + Duke.NL + "You now have " + (numberOfTasks - 1) + " tasks remaining");
+        numberOfTasks--;
     }
 
 }
