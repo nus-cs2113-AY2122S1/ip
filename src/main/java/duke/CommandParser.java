@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.AddCommand;
 import duke.command.Command;
+import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
@@ -14,6 +15,7 @@ public class CommandParser {
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_NEW_TODO = "todo";
     private static final String COMMAND_NEW_DEADLINE = "deadline";
     private static final String COMMAND_NEW_EVENT = "event";
@@ -43,6 +45,17 @@ public class CommandParser {
                 throw new DukeException("Please specify the index of the task.");
             }
             return new DoneCommand(taskIndex);
+        }
+        if (userInput.startsWith(COMMAND_DELETE)) {
+            int taskIndex = -1;
+            try {
+                taskIndex = Integer.parseInt(userInput.substring(7).strip()) - 1;
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please provide a valid number.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please specify the index of the task.");
+            }
+            return new DeleteCommand(taskIndex);
         }
         if (userInput.startsWith(COMMAND_NEW_TODO)) {
             Task task = parseTask(userInput, TaskType.TODO);

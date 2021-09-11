@@ -1,12 +1,10 @@
 package duke;
 
 import duke.task.Task;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private static final int MAXIMUM_TASKS = 100;
-
-    private Task[] tasks = new Task[MAXIMUM_TASKS];
-    private int tasksCount = 0;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Adds a task to the list of tasks
@@ -14,16 +12,31 @@ public class TaskManager {
      * @param task The task to be added
      * @throws DukeException If the maximum number of tasks has been reached
      */
-    public void addTask(Task task) throws DukeException {
-        if (tasksCount >= MAXIMUM_TASKS) {
-            throw new DukeException("Maximum number of tasks reached.");
-        }
-        tasks[tasksCount] = task;
-        tasksCount++;
+    public void addTask(Task task) {
+        tasks.add(task);
         printLine();
         System.out.println("  Ok! I've added this task:");
-        System.out.println("    " + task.toString());
-        System.out.println("  Now you have " + tasksCount + " tasks.");
+        System.out.println("    " + task);
+        System.out.println("  Now you have " + tasks.size() + " tasks.");
+        printLine();
+    }
+
+    /**
+     * Deletes the task at the specified index
+     *
+     * @param taskIndex the index of the task to be deleted
+     */
+    public void deleteTask(int taskIndex) throws DukeException {
+        if (taskIndex <= -1) {
+            throw new DukeException("Task index must be greater than 0.");
+        } else if (taskIndex >= tasks.size()) {
+            throw new DukeException("Task does not exist.");
+        }
+        Task removedTask = tasks.remove(taskIndex);
+        printLine();
+        System.out.print("  Ok! I've deleted this task:" + System.lineSeparator() + "    ");
+        System.out.println(removedTask);
+        System.out.println("  Now you have " + tasks.size() + " tasks.");
         printLine();
     }
 
@@ -33,9 +46,9 @@ public class TaskManager {
     public void printTasks() {
         printLine();
         System.out.println("  Here are your tasks:");
-        for (int i = 0; i < tasksCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.print("    " + (i + 1) + ".");
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
         }
         printLine();
     }
@@ -48,13 +61,13 @@ public class TaskManager {
     public void completeTask(int taskIndex) throws DukeException {
         if (taskIndex <= -1) {
             throw new DukeException("Task index must be greater than 0.");
-        } else if (taskIndex >= tasksCount) {
+        } else if (taskIndex >= tasks.size()) {
             throw new DukeException("Task does not exist.");
         }
-        tasks[taskIndex].setCompleted();
+        tasks.get(taskIndex).setCompleted();
         printLine();
         System.out.print("  Ok! I've marked this task as done:" + System.lineSeparator() + "    ");
-        System.out.println(tasks[taskIndex]);
+        System.out.println(tasks.get(taskIndex));
         printLine();
     }
 
