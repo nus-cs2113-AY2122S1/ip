@@ -5,6 +5,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public String getTime() {
+        return null;
+    }
+
     public String getType() {
         return "T";
     }

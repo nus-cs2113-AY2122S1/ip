@@ -2,6 +2,7 @@ package task;
 
 public abstract class Task {
     public abstract String getType();
+    public abstract String getTime();
     protected String description;
     protected boolean isDone;
 
