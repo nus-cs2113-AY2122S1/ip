@@ -2,7 +2,7 @@ package duke.message;
 
 import duke.Duke;
 
-public class OutputMessage {
+public abstract class OutputMessage {
     public static final String LOGO = "    ____        _        \n"
             + "   |  _ \\ _   _| | _____ \n"
             + "   | | | | | | | |/ / _ \\\n"
