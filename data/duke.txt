@@ -1,0 +1,4 @@
+T|1|read book
+D|0|adwad (by: 9pm)
+E|0|aidwa (at: 823)
+D|0|return book (by: 9pm)

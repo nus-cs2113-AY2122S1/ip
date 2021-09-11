@@ -1,5 +1,6 @@
 
 import java.util.ArrayList; // import the ArrayList class
+import java.util.regex.PatternSyntaxException;
 
 /*---------LOCAL IMPORT--------*/
 import tasks.TaskType;
@@ -11,11 +12,12 @@ import exceptions.DukeException;
 
 public class TaskManager {
     /*----------- PROCESSING CONSTANTS ---------- */
-    private static final String DEADLINE_CLAUSE = "/by";
-    private static final String EVENT_CLAUSE = "/at";
+    public static final String DEADLINE_CLAUSE = "/by";
+    public static final String EVENT_CLAUSE = "/at";
 
     private static final int DEADLINE_DESCRIPTION_IDX = 9;
     private static final int EVENT_DESCRIPTION_IDX = 6;
+
 
     /*----------- CONSOLE LOGGING ----------- */
     private static final String ADD_TASK = "Got it. I've added this task: ";
@@ -26,9 +28,13 @@ public class TaskManager {
     /*------------- PRIVATE VARIABLES ------------ */
     private ArrayList<Task> tasks;
     private int taskSize;
+
+
+    /*------------- CONSTRUCTOR -------------- */
     public TaskManager() {
         tasks = new ArrayList<Task>();
         taskSize = 0;
+
     }
 
     /**
@@ -36,28 +42,30 @@ public class TaskManager {
      * @param command input that has been parsed by CommandHandler
      * @param type the type of task to be added : Todo / Event / Deadline
      */
-    public void addTask(CommandHandler command, TaskType type) throws DukeException {
+    public void addTask(CommandHandler command, TaskType type, boolean isDone, boolean isLogged) throws DukeException {
         Task t = new Task("");
         switch (type) {
         case TODO:
             command.splitByClause("todo",0,true);
-            t = new Todo(command.descriptorAfterClause);
+            t = new Todo(command.descriptorAfterClause,isDone);
             break;
         case DEADLINE:
             command.splitByClause(DEADLINE_CLAUSE,DEADLINE_DESCRIPTION_IDX,false);
-            t = new Deadline(command.descriptorBeforeClause, command.descriptorAfterClause);
+            t = new Deadline(command.descriptorBeforeClause, command.descriptorAfterClause, isDone);
             break;
         case EVENT:
             command.splitByClause(EVENT_CLAUSE,EVENT_DESCRIPTION_IDX,false);
-            t = new Event(command.descriptorBeforeClause, command.descriptorAfterClause);
+            t = new Event(command.descriptorBeforeClause, command.descriptorAfterClause, isDone);
             break;
         }
 
         tasks.add(t);
         taskSize++;
-        System.out.println(ADD_TASK);
-        System.out.println(t);
-        System.out.println("You now have (" + taskSize + ") tasks!" );
+        if (isLogged) {
+            System.out.println(ADD_TASK);
+            System.out.println(t);
+            System.out.println("You now have (" + taskSize + ") tasks!" );
+        }
     }
 
     public void deleteTask(CommandHandler command) throws DukeException {
@@ -76,6 +84,20 @@ public class TaskManager {
         System.out.println("You now have (" + taskSize + ") tasks!" );
     }
 
+    public void addTask(CommandHandler command, TaskType type) throws DukeException {
+        addTask(command,type,false,true);
+    }
+
+    public void addTask(CommandHandler command, TaskType type, boolean isDone) throws DukeException {
+        addTask(command,type,isDone,true);
+    }
+
+    /**
+     * Marks a task as done. Can be called by input
+     * @param command the input after its been parsed by command handler
+     * @throws DukeException if the input does not have a valid number
+     */
+
     public void markTaskAsDone(CommandHandler command) throws DukeException {
         command.splitByClause("done",0,true);
         try {
@@ -88,14 +110,6 @@ public class TaskManager {
         } finally {
             listTasks();
         }
-    }
-
-    /**
-     * A getter method to obtain the list of tasks
-     * @return An ArrayList of Tasks
-     */
-    public ArrayList<Task> getTasks() {
-        return tasks;
     }
 
     public void listTasks() {
@@ -112,6 +126,14 @@ public class TaskManager {
 
     public void printTask(int idx) {
         System.out.println(tasks.get(idx));
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public int getTaskSize(){
+        return taskSize;
     }
 }
 

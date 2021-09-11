@@ -7,13 +7,15 @@ import tasks.TaskType;
 
 
 public class Duke {
-    private static Scanner myScan = new Scanner(System.in);
+    private static final Scanner myScan = new Scanner(System.in);
     private static TaskManager taskManager = new TaskManager();
     private static boolean isRunning = true;
 
     /*--------- PROCESSING CONSTANTS ------------ */
     private static final String FAREWELL_STR = "Bye. Hope to see you again soon!";
 
+
+    /*----------- PUBLIC FUNCTIONS --------------- */
     public static void greet() {
         String logo = " ____        _        \n"
                  + "|  _ \\ _   _| | _____ \n"
@@ -23,6 +25,10 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("_________________________");
         System.out.println("Hello! I'm Duke");
+        System.out.println("Standby while I load up your schedule");
+        System.out.println("Loading...");
+        TaskSafe.loadFromFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,taskManager);
+        System.out.println("------------------------------------");
         System.out.println("What can I do for you?");
     }
 
@@ -55,6 +61,7 @@ public class Duke {
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
+        TaskSafe.saveToFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,taskManager.getTasks());
     }
 
     public static void run() {
