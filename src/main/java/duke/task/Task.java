@@ -17,4 +17,8 @@ public class Task {
         this.isDone = true;
     }
 
+    public String toSave() {
+        return "";
+    }
+
 }
