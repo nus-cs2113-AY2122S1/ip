@@ -1,6 +1,5 @@
 public class Task {
     
-    public static int numItemsAdded = 0;
     protected Boolean isDone;
     protected String name;
 

@@ -1,32 +1,38 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
+    private static final int TODO_NAME_CONSTANT = 5;
+    private static final int DEADLINE_NAME_CONSTANT = 9;
+    private static final int DEADLINE_BY_CONSTANT = 5;
+    private static final int EVENT_NAME_CONSTANT = 6;
+    private static final int EVENT_AT_CONSTANT = 5;
     public static final String LINE = "____________________________________________________________";
 
-    public static void printList(Task[] list) {
+    private static ArrayList<Task> list = new ArrayList<Task>();
+
+    public static void printList() {
         System.out.println(LINE);
-        if (list[0] == null) {
+        if (list.size() == 0) {
             System.out.println("No items added!");
         }
-        int i = 0;
-        while (list[i] != null) {
-            System.out.println((i+1) + ". " + list[i]);
-            i += 1;
-        }
+        for (int i = 0; i < list.size(); i += 1) {
+            System.out.println((i+1) + ". " + list.get(i));
+        }   
         System.out.println(LINE);
     }
 
-    public static void markTaskAsDone(Task[] list, String[] inputWords) {
+    public static void markTaskAsDone(String[] inputWords) {
         try {
             int taskIndex = Integer.parseInt(inputWords[1]) - 1;
-            if (taskIndex < Task.numItemsAdded && taskIndex >= 0) {
-                if (list[taskIndex].isDone()) {
+            if (taskIndex < list.size() && taskIndex >= 0) {
+                if (list.get(taskIndex).isDone()) {
                     System.out.println(LINE + "\nThat task is already done!\n" + LINE);
                 } else {
-                    list[taskIndex].markAsDone();
+                    list.get(taskIndex).markAsDone();
                     System.out.println(LINE + "\nNice! I've marked this task as done:");
-                    System.out.println(list[taskIndex] + "\n" + LINE);
+                    System.out.println(list.get(taskIndex) + "\n" + LINE);
                 }
             } else {
                 System.out.println("That task does not exist!\n" + LINE);
@@ -38,69 +44,83 @@ public class Duke {
         }
     }
 
-    public static void printAddedTask(Task[] list) {
-        System.out.println(LINE + "\nGot it. I've added this task:");
-        System.out.println(list[Task.numItemsAdded-1]);
-        System.out.format("Now you have %d tasks in the list.\n" + LINE + "\n", Task.numItemsAdded);
+    public static void deleteTask(String[] inputWords) {
+        try {
+            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+            if (taskIndex < list.size() && taskIndex >= 0) {
+                System.out.format(LINE + "\nNoted. I've removed this task: \n   " + list.get(taskIndex) 
+                + "\nNow you have %d tasks in the list.\n" + LINE + "\n", list.size()-1);
+                list.remove(taskIndex);
+            } else {
+                System.out.println("That task does not exist!\n" + LINE);
+            }
+        } catch(NumberFormatException e) {
+            System.out.println(LINE + "\nPlease enter a number after \'done\'!\n" + LINE);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(LINE + "\nPlease enter a number after \'done\'!\n" + LINE);
+        }
     }
 
-    public static void addTodo(Task[] list, String input, String[] inputWords) {
+    public static void printAddedTask() {
+        System.out.println(LINE + "\nGot it. I've added this task:");
+        System.out.println(list.size() + ". " + list.get(list.size() - 1));
+        System.out.format("Now you have %d tasks in the list.\n" + LINE + "\n", list.size());
+    }
+
+    public static void addTodo(String input, String[] inputWords) {
         try {
-            String taskName = input.substring(5);
-            list[Task.numItemsAdded] = new Todo(taskName);
-            Task.numItemsAdded += 1;
-            printAddedTask(list);
+            String taskName = input.substring(TODO_NAME_CONSTANT);
+            list.add(new Todo(taskName));
+            printAddedTask();
         } catch(StringIndexOutOfBoundsException e) {
             System.out.println(LINE + "\n☹ OOPS!!! The description of a todo cannot be empty.\n" + LINE);
         }
     }
 
-    public static void addDeadline(Task[] list, String input, String[] inputWords) {
+    public static void addDeadline(String input, String[] inputWords) {
         try {
             if (!input.contains("/by")) {
                 System.out.println(LINE + "\nIncorrect format for entering deadline!\n" + LINE);
                 return;
             }
             int taskEndIndex = input.indexOf("/by") - 1;
-            String taskName = input.substring(9, taskEndIndex);
-            String deadline = input.substring(taskEndIndex + 5);
-            list[Task.numItemsAdded] = new Deadline(taskName, deadline);
-            Task.numItemsAdded += 1;
-            printAddedTask(list);
+            String taskName = input.substring(DEADLINE_NAME_CONSTANT, taskEndIndex);
+            String deadline = input.substring(taskEndIndex + DEADLINE_BY_CONSTANT);
+            list.add(new Deadline(taskName, deadline));
+            printAddedTask();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(LINE + "\n☹ OOPS!!! The description of a deadline cannot be empty.\n" + LINE);
         }
     }
 
-    public static void addEvent(Task[] list, String input, String[] inputWords) {
+    public static void addEvent(String input, String[] inputWords) {
         try {
             if (!input.contains("/at")) {
                 System.out.println(LINE + "\nIncorrect format for entering event!\n" + LINE);
                 return;
             }
             int taskEndIndex = input.indexOf("/at") - 1;
-            String taskName = input.substring(6, taskEndIndex);
-            String at = input.substring(taskEndIndex + 5);
-            list[Task.numItemsAdded] = new Event(taskName, at);
-            Task.numItemsAdded += 1;
-            printAddedTask(list);
+            String taskName = input.substring(EVENT_NAME_CONSTANT, taskEndIndex);
+            String at = input.substring(taskEndIndex + EVENT_AT_CONSTANT);
+            list.add(new Event(taskName, at));
+            printAddedTask();
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(LINE + "\n☹ OOPS!!! The description of an event cannot be empty.\n" + LINE);
         }
     }
 
-    public static void addTask(Task[] list, String input, String[] inputWords) {
+    public static void addTask(String input, String[] inputWords) {
         String taskType = inputWords[0].toLowerCase();
         try {
             switch(taskType) {
             case "todo":
-                addTodo(list, input, inputWords);
+                addTodo(input, inputWords);
                 break;
             case "deadline":
-                addDeadline(list, input, inputWords);
+                addDeadline(input, inputWords);
                 break;
             case "event":
-                addEvent(list, input, inputWords);
+                addEvent(input, inputWords);
                 break;
             default:
                 throw new DukeException();
@@ -113,7 +133,6 @@ public class Duke {
     public static void main(String[] args) { 
         System.out.println(LINE + "\n Hello! I'm Duke\n What can I do for you?\n" + LINE);
         Boolean isCompleted = false;
-        Task[] list = new Task[100];
         while (!isCompleted) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
@@ -124,14 +143,18 @@ public class Duke {
                 continue;
             }
             if (input.equalsIgnoreCase("list")){
-                printList(list);
+                printList();
                 continue;
             }
             if (inputWords[0].equalsIgnoreCase("done")) {
-                markTaskAsDone(list, inputWords);
+                markTaskAsDone(inputWords);
                 continue;
             }
-            addTask(list, input, inputWords);
+            if (inputWords[0].equalsIgnoreCase("delete")) {
+                deleteTask(inputWords);
+                continue;
+            }
+            addTask(input, inputWords);
         }
         System.out.println(LINE + "\n Bye. Hope to see you again soon!\n" + LINE);
     }
