@@ -34,7 +34,8 @@ public class Duke {
                 "3. 'event task /at time' (eg. event running /at Sunday 2-4pm)\n" +
                 "4. 'list (to list all saved tasks)\n" +
                 "5. 'done <task index>' (to mark a completed task; eg. done 2)\n" +
-                "6. 'bye' (to exit the program!");
+                "6. 'delete <task index>' (to delete a saved task; eg. delete 2)\n" +
+                "7. 'bye' (to exit the program!)");
         System.out.print("Enter command: ");
 
         while (!currProgram.getCanTerminateHal()) {
