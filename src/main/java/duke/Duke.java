@@ -32,6 +32,9 @@ public class Duke {
                 case "done":
                     setTaskDone(Integer.parseInt(commandArgs.get("param")));
                     break;
+                case "delete":
+                    deleteTask(Integer.parseInt(commandArgs.get("param")));
+                    break;
                 case "todo":
                     addTodo(commandArgs.get("param"));
                     break;
@@ -106,7 +109,7 @@ public class Duke {
     }
 
     public static void addTodo(String task) throws MissingArgumentException {
-        if (task == "") {
+        if (task.isEmpty()) {
             throw new MissingArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         Todo todo = new Todo(task);
@@ -115,10 +118,10 @@ public class Duke {
     }
 
     public static void addDeadline(String task, String by) throws MissingArgumentException {
-        if (task == "") {
+        if (task.isEmpty()) {
             throw new MissingArgumentException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
-        if (by == null || by == "") {
+        if (by == null || by.isEmpty()) {
             throw new MissingArgumentException("☹ OOPS!!! The date of a deadline cannot be empty.");
         }
         Deadline deadline = new Deadline(task, by);
@@ -127,10 +130,10 @@ public class Duke {
     }
 
     public static void addEvent(String task, String at) throws MissingArgumentException {
-        if (task == "") {
+        if (task.isEmpty()) {
             throw new MissingArgumentException("☹ OOPS!!! The description of an event cannot be empty.");
         }
-        if (at == null || at == "") {
+        if (at == null || at.isEmpty()) {
             throw new MissingArgumentException("☹ OOPS!!! The date of an event cannot be empty.");
         }
         Event event = new Event(task, at);
@@ -160,5 +163,15 @@ public class Duke {
         task.markAsDone();
         printWithIndent("Nice! I've marked this task as done: ", 5);
         printWithIndent(task.toString(), 7);
+    }
+
+    public static void deleteTask(int index) {
+        Task task = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        printWithIndent("Noted. I've removed this task:", 5);
+        printWithIndent(task.toString(), 7);
+        String taskCount = String.format("Now you have %d task%s in the list.", tasks.size(),
+                tasks.size() == 1 ? "" : "s");
+        printWithIndent(taskCount, 5);
     }
 }
