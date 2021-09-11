@@ -8,13 +8,18 @@ public class ToDo extends Task {
         this.isDone = false;
     }
 
+    public ToDo(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Retrieves the todo information to be written to a file
      *
      * @return Formatted String of Todo information
      */
     public String getTaskInfoForFile() {
-        return TODO_CHECKBOX + " | " + isDone + " | " + description;
+        return "T" + " | " + isDone + " | " + description;
     }
 
     /**

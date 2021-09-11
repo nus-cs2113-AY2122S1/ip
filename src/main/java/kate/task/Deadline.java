@@ -10,13 +10,19 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(String description, boolean isDone, String deadline) {
+        this.description = description;
+        this.isDone = isDone;
+        this.deadline = deadline;
+    }
+
     /**
      * Retrieves the deadline information to be written to a file
      *
      * @return Formatted String of Deadline information
      */
     public String getTaskInfoForFile() {
-        return DEADLINE_CHECKBOX + " | " + isDone + " | " + description + " | " + deadline;
+        return "D" + " | " + isDone + " | " + description + " | " + deadline;
     }
 
     /**

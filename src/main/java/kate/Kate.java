@@ -3,6 +3,7 @@ package kate;
 import kate.command.Command;
 import kate.exception.EmptyFieldException;
 import kate.exception.EmptyTaskException;
+import kate.exception.FileCorruptedException;
 import kate.exception.InvalidCommandException;
 import kate.exception.InvalidFieldException;
 import kate.task.Deadline;
@@ -11,6 +12,7 @@ import kate.task.Task;
 import kate.task.ToDo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -105,6 +107,7 @@ public class Kate {
      */
     private static void startKate() {
         createDataFile();
+        loadDataFile();
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
@@ -496,11 +499,58 @@ public class Kate {
         File dataFile = new File(PATH_KATE);
         try {
             dataDir.mkdirs();
-            dataFile.delete();
             dataFile.createNewFile();
         } catch (IOException e) {
             printMessage("Something went wrong: " + e.getMessage());
         }
+    }
+
+    /**
+     * Loads the task contents from data/kate.txt
+     */
+    private static void loadDataFile() {
+        File dataFile = new File(PATH_KATE);
+        try {
+            Scanner scanner = new Scanner(dataFile);
+            while (scanner.hasNext()) {
+                processData(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            printMessage(TEXT_INDENTATION + "File not found!\n");
+        } catch (FileCorruptedException e) {
+            printMessage(TEXT_INDENTATION + "Did you tamper with the data file? It is CORRUPTED!\n");
+        }
+    }
+
+    /**
+     * Process the text input and pass it into the current array list;
+     * @param storedTask One line of the record in data/kate.txt
+     */
+    private static void processData(String storedTask) throws FileCorruptedException {
+        try {
+            String[] storedArr = storedTask.split(" \\| ");
+            String taskLabel = storedArr[0];
+            boolean isDone = Boolean.parseBoolean(storedArr[1]);
+            String description = storedArr[2];
+            switch (taskLabel) {
+            case "T":
+                tasks.add(new ToDo(description, isDone));
+                break;
+            case "D":
+                String deadline = storedArr[3];
+                tasks.add(new Deadline(description, isDone, deadline));
+                break;
+            case "E":
+                String event = storedArr[3];
+                tasks.add(new Event(description, isDone, event));
+                break;
+            default:
+                break;
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new FileCorruptedException();
+        }
+
     }
 
     /**

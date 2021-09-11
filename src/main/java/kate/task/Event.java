@@ -10,13 +10,19 @@ public class Event extends Task {
         this.timeFrame = timeFrame;
     }
 
+    public Event(String description, boolean isDone, String timeFrame) {
+        this.description = description;
+        this.isDone = isDone;
+        this.timeFrame = timeFrame;
+    }
+
     /**
      * Retrieves the event information to be written to a file
      *
      * @return Formatted String of Event information
      */
     public String getTaskInfoForFile() {
-        return EVENT_CHECKBOX + " | " + isDone + " | " + description + " | " + timeFrame;
+        return "E" + " | " + isDone + " | " + description + " | " + timeFrame;
     }
 
     /**
