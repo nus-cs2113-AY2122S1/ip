@@ -15,7 +15,6 @@ public class Duke {
         if (input.contains("done")) {
             int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
             tasks.get(taskIndex - 1).markAsDone();
-            Task.numberOfTasks -= 1;
             return true;
         }
 
@@ -24,6 +23,19 @@ public class Duke {
                 System.out.print(i + 1 + ".");
                 tasks.get(i).describe();
             }
+            return true;
+        }
+
+        else if (input.contains("delete")) {
+            int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+
+            System.out.println("I have removed this task:");
+            tasks.get(taskIndex - 1).describe();
+
+            tasks.remove(taskIndex -1);
+            Task.numberOfTasks -= 1;
+            System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
+
             return true;
         }
 
