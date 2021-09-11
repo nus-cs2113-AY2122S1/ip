@@ -24,7 +24,7 @@ public class Deadline extends Task{
                 String deadline = Parser.getDeadlineDate(line);
 
                 // Add Deadline Task
-                Kitty.tasks[Task.totalTasksCount] = new Deadline(taskName, deadline);
+                Kitty.tasks.add(new Deadline(taskName, deadline));
             } catch (KittyException e) {
                 throw e;
             }

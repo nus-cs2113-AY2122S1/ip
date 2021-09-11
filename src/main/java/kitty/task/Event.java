@@ -25,7 +25,7 @@ public class Event extends Task{
                 String EventDate = Parser.getEventDate(line);
 
                 // Add Event Task
-                Kitty.tasks[Task.totalTasksCount] = new Event(taskName, EventDate);
+                Kitty.tasks.add(new Event(taskName, EventDate));
             } catch (KittyException e) {
                 throw e;
             }

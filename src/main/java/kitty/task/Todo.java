@@ -4,6 +4,8 @@ import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
 
+import java.util.function.ToDoubleFunction;
+
 public class Todo extends Task{
 
     public Todo(String taskName) {
@@ -14,7 +16,7 @@ public class Todo extends Task{
     public static void addTodoTask(String line) throws KittyException {
         try {
             String taskName = Parser.getTodoTaskName(line);
-            Kitty.tasks[Task.totalTasksCount] = new Todo(taskName);
+            Kitty.tasks.add(new Todo(taskName));
         } catch (KittyException e) {
             throw e;
         }

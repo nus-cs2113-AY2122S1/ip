@@ -34,6 +34,9 @@ public class UiHandler {
                 case "event":
                     addToList(Ui.userInput, "E");
                     break;
+                case "delete":
+                    removeFromList(Ui.userInput);
+                    break;
                 default:
                     throw new KittyException("No such command found");
                 }
@@ -53,7 +56,8 @@ public class UiHandler {
             System.out.println("Here are the tasks you have!");
             for (int i = 0; i < Task.totalTasksCount; i++) {
                 System.out.print(i + 1 + ".");
-                System.out.println(Kitty.tasks[i]);
+//                System.out.println(Kitty.tasks[i]);
+                System.out.println(Kitty.tasks.get(i));
             }
             System.out.println();
             System.out.println(Ui.CAT_1);
@@ -63,15 +67,15 @@ public class UiHandler {
     public static void markTaskAsDone() throws KittyException{
         try {
             int taskNum = Integer.parseInt(Ui.userInput.split(" ")[1]);
-            Kitty.tasks[taskNum-1].setDone();
+            Kitty.tasks.get(taskNum - 1).setDone();
             System.out.println();
             System.out.println("Good Job!! One more thing off your list!!");
-            System.out.println(Kitty.tasks[taskNum-1]);
+            System.out.println(Kitty.tasks.get(taskNum - 1));
             System.out.println(Ui.CAT_3);
-        } catch (NullPointerException e) {
-            throw new KittyException("Selected a non-existent task number!");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new KittyException("Task number has to be more than 0!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new KittyException("Selected an invalid task number!");
+        } catch (NumberFormatException e) {
+            throw new KittyException("Inputted a non-Integer Task Number!");
         }
     }
 
@@ -93,5 +97,9 @@ public class UiHandler {
         } catch (KittyException e) {
             throw e;
         }
+    }
+
+    public static void removeFromList(String line) {
+
     }
 }

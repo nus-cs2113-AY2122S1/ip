@@ -107,7 +107,7 @@ public class Ui {
 
     public static void printAddedTask() {
         System.out.println();
-        System.out.println("Added: " + Kitty.tasks[Task.totalTasksCount - 1]);
+        System.out.println("Added: " + Kitty.tasks.get(Kitty.tasks.size() - 1));
         System.out.println();
         System.out.println(Ui.CAT_2);
     }
@@ -116,14 +116,6 @@ public class Ui {
         System.out.println(EXIT_MESSAGE);
         System.exit(0);
     }
-
-    // Remove for now, perhaps use in future?
-//    public static void echo(String line) {
-//        System.out.println();
-//        System.out.println(line);
-//        printCat2();
-//        printBarLine();
-//    }
 
     public static void printErrorMessage() {
         System.out.println(ERROR_MESSAGE);
