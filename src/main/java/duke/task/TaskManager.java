@@ -64,4 +64,13 @@ public class TaskManager {
         System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
                 taskSelected.getDescription());
     }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for(Task task: taskList) {
+            output += task + "\n";
+        }
+        return output;
+    }
 }

@@ -33,4 +33,9 @@ public class Event extends Task {
     public String getTaskIcon() {
         return "E";
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s | %s", super.toString(), dateTime);
+    }
 }

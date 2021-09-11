@@ -48,4 +48,10 @@ public class Task {
     public void markAsDone() {
         isCompleted = true;
     }
+
+    @Override
+    public String toString() {
+        int numberStatus = isCompleted ? 1 : 0;
+        return String.format("%s | %d | %s", getTaskIcon(), numberStatus, description);
+    }
 }

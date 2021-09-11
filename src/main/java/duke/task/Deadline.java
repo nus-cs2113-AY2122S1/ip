@@ -33,4 +33,9 @@ public class Deadline extends Task {
     public String getTaskIcon() {
         return "D";
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s | %s", super.toString(), dateTime);
+    }
 }
