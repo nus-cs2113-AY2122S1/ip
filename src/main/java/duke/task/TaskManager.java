@@ -1,11 +1,12 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 public class TaskManager {
 
-    private static final int MAX_TASKS_COUNT = 100;
     private static int currentTasksCount = 0;
 
-    private static Task[] tasks = new Task[MAX_TASKS_COUNT];
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static boolean isValidTaskNumber(int taskNumber) {
         return (taskNumber <= currentTasksCount && taskNumber > 0);
@@ -16,36 +17,37 @@ public class TaskManager {
     }
 
     public void clearAllTasks() {
-        tasks = new Task[MAX_TASKS_COUNT];
+        tasks.clear();
         currentTasksCount = 0;
     }
 
     public Task addTodo(String taskDescription) {
-        tasks[currentTasksCount] = new ToDo(taskDescription);
+        tasks.add(new ToDo(taskDescription));
         currentTasksCount++;
-        return tasks[currentTasksCount - 1];
+        return tasks.get(currentTasksCount - 1);
     }
 
     public Task addDeadline(String taskDescription, String taskDue) {
-        tasks[currentTasksCount] = new Deadline(taskDescription, taskDue);
+        tasks.add(new Deadline(taskDescription, taskDue));
         currentTasksCount++;
-        return tasks[currentTasksCount - 1];
+        return tasks.get(currentTasksCount - 1);
     }
 
     public Task addEvent(String taskDescription, String eventDateTime) {
-        tasks[currentTasksCount] = new Event(taskDescription, eventDateTime);
+        tasks.add(new Event(taskDescription, eventDateTime));
         currentTasksCount++;
-        return tasks[currentTasksCount - 1];
+        return tasks.get(currentTasksCount - 1);
     }
 
     public void listTasks() {
         for (int i = 0; i < currentTasksCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
     }
 
     public Task markTaskDone(int taskIndex) {
-        tasks[taskIndex - 1].setDone();
-        return tasks[taskIndex - 1];
+        Task doneTask = tasks.get(taskIndex - 1);
+        doneTask.setDone();
+        return doneTask;
     }
 }
