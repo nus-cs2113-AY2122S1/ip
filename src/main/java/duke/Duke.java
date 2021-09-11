@@ -64,12 +64,15 @@ public class Duke {
     public static void interactWithUser() {
         boolean isInteracting = true;
         TaskList taskList = new TaskList();
-        Storage storage = new Storage();
         Scanner in = new Scanner(System.in);
+        Storage storage = null;
         try {
+            storage = new Storage();
             storage.loadData(taskList);
         } catch (DukeException e) {
-
+            printLine();
+            System.out.println("  " + e.getMessage());
+            printLine();
         }
 
         while (isInteracting) {

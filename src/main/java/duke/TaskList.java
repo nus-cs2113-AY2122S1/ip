@@ -3,22 +3,33 @@ package duke;
 import duke.task.Task;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Adds a task to the list of tasks
      *
-     * @param task The task to be added
-     * @throws DukeException If the maximum number of tasks has been reached
+     * @param task the task to be added
      */
     public void addTask(Task task) {
+        addTask(task, true);
+    }
+
+    /**
+     * Adds a task to the list of tasks, prints completion message if specified
+     *
+     * @param task the task to be added
+     * @param doesPrint Boolean determining whether completion message will be printed
+     */
+    public void addTask(Task task, boolean doesPrint) {
         tasks.add(task);
-        printLine();
-        System.out.println("  Ok! I've added this task:");
-        System.out.println("    " + task);
-        System.out.println("  Now you have " + tasks.size() + " tasks.");
-        printLine();
+        if (doesPrint) {
+            printLine();
+            System.out.println("  Ok! I've added this task:");
+            System.out.println("    " + task);
+            System.out.println("  Now you have " + tasks.size() + " tasks.");
+            printLine();
+        }
     }
 
     /**
@@ -38,6 +49,13 @@ public class TaskManager {
         System.out.println(removedTask);
         System.out.println("  Now you have " + tasks.size() + " tasks.");
         printLine();
+    }
+
+    /**
+     * Deletes all tasks
+     */
+    public void deleteAllTasks() {
+        tasks.clear();
     }
 
     /**
@@ -71,6 +89,18 @@ public class TaskManager {
         printLine();
     }
 
+    /**
+     * Creates a string containing the task information for all Tasks in TaskList
+     *
+     * @return string containing the task information for all Tasks in TaskList, separated by lineSeparators
+     */
+    public String getStorageString() {
+        String storageString = "";
+        for (Task task : tasks) {
+            storageString = storageString + task.getStorageString() + System.lineSeparator();
+        }
+        return storageString;
+    }
 
     /**
      * Prints a horizontal line in the terminal.

@@ -3,7 +3,6 @@ package duke.task;
 public class Task {
     protected String taskName;
     protected boolean isCompleted;
-    protected TaskType taskType = null;
 
     /**
      * Constructor for Task, task is marked as not completed.
@@ -41,15 +40,6 @@ public class Task {
     }
 
     /**
-     * Returns the TaskType corresponding to the task's type.
-     *
-     * @return the enum TaskType specifying the task's type.
-     */
-    public TaskType getTaskType() {
-        return taskType;
-    }
-
-    /**
      * Creates a description of the task containing whether it has been completed and its name.
      *
      * @return a String describing the task.
@@ -60,7 +50,7 @@ public class Task {
     }
 
     /**
-     * Creates a String containing the Task information for storage in a .txt file.
+     * Creates a String containing the Task information for storage.
      *
      * @return a String describing the task for storage.
      */

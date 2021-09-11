@@ -5,7 +5,6 @@ public class Deadline extends Task {
 
     public Deadline(String taskName, String byDate) {
         super(taskName);
-        super.taskType = TaskType.DEADLINE;
         this.byDate = byDate;
     }
 

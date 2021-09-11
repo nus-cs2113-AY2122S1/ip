@@ -5,7 +5,6 @@ public class Event extends Task {
 
     public Event(String taskName, String atDate) {
         super(taskName);
-        super.taskType = TaskType.EVENT;
         this.atDate = atDate;
     }
 
