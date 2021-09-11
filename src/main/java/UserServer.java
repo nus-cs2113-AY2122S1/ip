@@ -68,9 +68,13 @@ public class UserServer implements Serializable {
         case "list":
             input = new ListCommand(userTasks);
             break;
-        case "done":
+        case "done": case "delete":
             try {
-                input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
+                if (inputSplits[0].equals("done")) {
+                    input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
+                } else {
+                    input = new DeleteCommand(Integer.parseInt(inputSplits[1]), userTasks);
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new TaskIndexMissingException();
             }

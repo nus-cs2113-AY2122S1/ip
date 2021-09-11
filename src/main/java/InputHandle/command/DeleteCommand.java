@@ -1,7 +1,7 @@
-package InputHandler.command;
+package InputHandle.command;
 
-import InputHandler.exception.DukeException;
-import InputHandler.exception.TaskNotExistException;
+import InputHandle.Tasks.*;
+import InputHandle.exception.TaskNotExistException;
 
 public class DeleteCommand extends UserCommand{
     private int index;
