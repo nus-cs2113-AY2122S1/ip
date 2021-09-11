@@ -8,6 +8,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String LOGO = "    ____        _        \n"
@@ -18,15 +19,9 @@ public class Duke {
 
     public static final String BORDER_LINE = "------------------------------------------------";
 
-    public static final int MAX_TASK = 100;
-
     public static final int CHARS_UNTIL_NUMBER = 5;
-
-    public static Task[] tasks;
-
-    public static void initializeTasks() {
-        tasks = new Task[MAX_TASK];
-    }
+    
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printGreetingMessage() {
         System.out.println(LOGO + System.lineSeparator()
@@ -63,7 +58,7 @@ public class Duke {
     public static void printMarkDoneMessage(int taskNumber) {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    The following task is now marked as done:" + System.lineSeparator()
-                + "      " + tasks[taskNumber] + System.lineSeparator()
+                + "      " + tasks.get(taskNumber) + System.lineSeparator()
                 + BORDER_LINE);
     }
 
@@ -139,7 +134,7 @@ public class Duke {
             System.out.println("    The list is currently empty!");
         } else {
             for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-                System.out.println("    " + (i + 1) + "." + tasks[i]);
+                System.out.println("    " + (i + 1) + "." + tasks.get(i));
             }
         }
         System.out.println(BORDER_LINE);
@@ -148,10 +143,10 @@ public class Duke {
     public static void markDone(String userInput) {
         String extractedNumber = userInput.substring(CHARS_UNTIL_NUMBER);
         int taskNumber = Integer.parseInt(extractedNumber) - 1;
-        if (tasks[taskNumber].isDone()) {
+        if (tasks.get(taskNumber).isDone()) {
             printTaskAlreadyDoneMessage(taskNumber);
         } else {
-            tasks[taskNumber].markAsDone();
+            tasks.get(taskNumber).markAsDone();
             printMarkDoneMessage(taskNumber);
         }
     }
@@ -159,13 +154,13 @@ public class Duke {
     public static void addTask(String userInput, String command) {
         switch (command) {
         case "todo":
-            tasks[Task.getNumberOfTasks()] = new Todo(userInput);
+            tasks.add(new Todo(userInput));
             break;
         case "deadline":
-            tasks[Task.getNumberOfTasks()] = new Deadline(userInput);
+            tasks.add(new Deadline(userInput));
             break;
         case "event":
-            tasks[Task.getNumberOfTasks()] = new Event(userInput);
+            tasks.add(new Event(userInput));
             break;
         default:
             System.out.println("Invalid Command");
@@ -174,7 +169,7 @@ public class Duke {
 
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    Task added: " + System.lineSeparator()
-                + "      " + tasks[Task.getNumberOfTasks() - 1] + System.lineSeparator()
+                + "      " + tasks.get(Task.getNumberOfTasks() - 1) + System.lineSeparator()
                 + "    You have " + Task.getNumberOfTasks() + " tasks in the list." + System.lineSeparator()
                 + BORDER_LINE);
     }
@@ -219,7 +214,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        initializeTasks();
         printGreetingMessage();
         userOperation();
         printGoodbyeMessage();
