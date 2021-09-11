@@ -29,10 +29,10 @@ ________________________________________
 Task CS2113 coding exercise marked as complete.
 ________________________________________
 ________________________________________
-DukeException: Index of task outside range.
+DukeException: Index outside range.
 ________________________________________
 ________________________________________
-DukeException: Index of task is not a valid integer.
+DukeException: Index is not a valid integer.
 ________________________________________
 ________________________________________
 DukeException: Deadline command does not include '/' character.
@@ -65,6 +65,23 @@ ________________________________________
 3. [E][ ] saw con 2021 (at: 4-6pm tomorrow)
 4. [D][ ] carboncents disagree meeting (by: never)
 5. [E][X] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
+________________________________________
+________________________________________
+Alright. I've deleted this task:
+[E][ ] saw con 2021 (at: 4-6pm tomorrow)
+You have a total of 4 tasks now.
+________________________________________
+________________________________________
+DukeException: Index outside range.
+________________________________________
+________________________________________
+DukeException: Index is not a valid integer.
+________________________________________
+________________________________________
+1. [T][ ] walk dog
+2. [D][X] CS2113 coding exercise (by: next Friday)
+3. [D][ ] carboncents disagree meeting (by: never)
+4. [E][X] tour de france (at: the louvre, 7.30-9.30am on Tuesday)
 ________________________________________
 ________________________________________
 Closing Duke. Have a nice day!

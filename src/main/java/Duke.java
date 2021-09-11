@@ -203,6 +203,8 @@ public class Duke {
                     }
                 }
             }
+            System.out.println("Previous session restored.");
+            System.out.println(DIVIDING_LINE);
         } catch (DukeException e) {
             System.out.println("DukeException:" + e.getMessage());
         } catch (FileNotFoundException e) {
@@ -212,9 +214,6 @@ public class Duke {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Previous session restored.");
-        System.out.println(DIVIDING_LINE);
     }
 
     public static void main(String[] args) {
