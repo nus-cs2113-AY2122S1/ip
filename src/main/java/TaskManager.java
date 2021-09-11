@@ -1,5 +1,6 @@
+import java.util.ArrayList;
+
 public class TaskManager {
-    private static final int MAX_TASKS = 100;
 
     //These indexes are the start index of the string which has
     //the unnecessary part removed
@@ -10,8 +11,7 @@ public class TaskManager {
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int TASK_DATE_INDEX = 1;
 
-    private static final Task[] tasks = new Task[MAX_TASKS];
-    private static int tasksIndex = 0; //index of task in tasks array
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public void addTaskPlusException(TaskEnum taskType, String userInput) {
         try {
@@ -19,12 +19,8 @@ public class TaskManager {
             addTask(taskType, userInputWithoutTaskCommand);
 
         } catch (BlankDescriptionException e) {
-            //TODO differnetiate tasks
+            //TODO differentiate tasks
             Duke.printlnTab("☹ OOPS!!! The description of a task cannot be empty.");
-            Duke.printDivider();
-
-        } catch (ExceedMaxTasksException e) {
-            Duke.printlnTab("☹ OOPS!!! You have already added the maximum of 100 tasks! You can't add anymore tasks.");
             Duke.printDivider();
         }
     }
@@ -51,10 +47,7 @@ public class TaskManager {
         return strippedUserInput;
     }
 
-    private void addTask(TaskEnum taskType, String userInputWithoutTaskCommand) throws ExceedMaxTasksException {
-        if (getTotalTasks() == 100) {
-            throw new ExceedMaxTasksException();
-        }
+    private void addTask(TaskEnum taskType, String userInputWithoutTaskCommand) {
 
         try {
             String[] taskDetails; //array that should be of length 2 if strippedUserInput is valid
@@ -104,29 +97,29 @@ public class TaskManager {
     }
 
     private void addTodo(String strippedUserInput) {
-        tasks[tasksIndex] = new Todo(strippedUserInput);
+        tasks.add(new Todo(strippedUserInput));
         addTaskSuccess();
     }
 
     private void addDeadline(String[] taskDetails) {
-        tasks[tasksIndex] = new Deadline(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]);
+        tasks.add(new Deadline(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]));
         addTaskSuccess();
     }
 
     private void addEvent(String[] taskDetails) {
-        tasks[tasksIndex] = new Event(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]);
+        tasks.add(new Event(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]));
         addTaskSuccess();
     }
 
     void addTaskSuccess() {
         Duke.printlnTab("Got it. I've added this task:");
-        Duke.printlnTab(" " + tasks[tasksIndex]);
-        tasksIndex++;
-        if (tasksIndex == 1) {
+        Duke.printlnTab(" " + tasks.get(tasks.size() - 1)); //latest item
+
+        if (tasks.size() == 1) {
             Duke.printlnTab("Now you have 1 task");
 
         } else {
-            Duke.printlnTab(String.format("Now you have %d tasks", tasksIndex));
+            Duke.printlnTab(String.format("Now you have %d tasks", tasks.size()));
         }
         Duke.printDivider();
     }
@@ -142,9 +135,9 @@ public class TaskManager {
         int taskNumber = Integer.parseInt(taskNumberStr);
         int taskIndex = taskNumber - 1;
 
-        (tasks[taskIndex]).markAsDone();
+        tasks.get(taskIndex).markAsDone();
         Duke.printlnTab("Nice! I've marked this task as done:");
-        Duke.printlnTab(String.format("%s", tasks[taskIndex]));
+        Duke.printlnTab(String.format("%s", tasks.get(taskIndex)));
         Duke.printDivider();
     }
 
@@ -161,19 +154,14 @@ public class TaskManager {
             Duke.printDivider();
 
         } catch (IndexOutOfBoundsException e) {
-            Duke.printlnTab("☹ OOPS!!! Task number is out of bounds. Please try again!");
+            Duke.printlnTab("☹ OOPS!!! You only have " + tasks.size() + " tasks");
+            Duke.printlnTab("Please enter a number smaller or equal to " + tasks.size());
             Duke.printDivider();
-
-        } catch (NullPointerException e) {
-            Duke.printlnTab("☹ OOPS!!! You only have " + getTotalTasks() + " tasks");
-            Duke.printlnTab("Please enter a number smaller or equal to " + getTotalTasks());
-            Duke.printDivider();
-
         }
     }
 
     void listTasks() {
-        if (tasksIndex == 0) {
+        if (tasks.isEmpty()) {
             Duke.printlnTab("Your task list is empty!");
 
         } else {
@@ -182,15 +170,11 @@ public class TaskManager {
             //listing out tasks if userInput == "list"
             //tasks[] start with index 0
             //but printing out tasks starts with index 1
-            for (int i = 0; i < tasksIndex; i++) {
-                Duke.printlnTab(String.format("%d.%s", (i + 1), tasks[i]));
+            for (int i = 0; i < tasks.size(); i++) {
+                Duke.printlnTab(String.format("%d.%s", (i + 1), tasks.get(i)));
             }
         }
         Duke.printDivider();
-    }
-
-    public int getTotalTasks() {
-        return tasksIndex;
     }
 
 }
