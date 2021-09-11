@@ -155,5 +155,5 @@ public class ProcessManager {
                 + "     5. Set Task After Completion: done (index on list)\n"
                 + "     6. Exit From Program: bye\n" + LINE;
     }
-    /* ---- -------- ---- */
+    /* ---- ------- ---- */
 }
