@@ -1,51 +1,68 @@
 package tan;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.nio.file.StandardOpenOption.CREATE;
+
+
+/**
+ * HOW TO USE??
+ *
+ * Call setWriterAndReader to set the csvReader & csvWriter.
+ * Then use respective reader/writer to perform task.
+ *
+ * Look thru code to learn
+ *
+ */
 public class DataManager {
     protected static BufferedReader csvReader;
-    protected static FileWriter csvWriter;
+    protected static BufferedWriter csvWriter;
     private static final String homePath = System.getProperty("user.home");
+    private static final String[] TITLE = {"Type", "Description", "Date"};
+    private static final String FILE_NAME = "taskData.csv";
+
 
     public DataManager() {
-        FileReader fileReader = getReader(homePath);
-        csvReader = new BufferedReader(fileReader);
-        System.out.println("End of test for Files.");
+        //FileReader fileReader = getReader(homePath);
+        //csvReader = new BufferedReader(fileReader);
+        //System.out.println("End of test for Files.");
     }
 
-    private static FileReader getReader(String homePath) {
-        File file = null;
-        FileReader reader;
+    public static void main(String[] args) {
         try {
-            file = getFile(homePath);
-            csvWriter = new FileWriter(file);
-            reader = new FileReader(file);
-        } catch (Exception exp) {
-            reader = null;
+            setWriterAndReader(homePath);
+            csvWriter.append(String.join(",", TITLE));
+            csvWriter.append("\n");
+            String line;
+            while ((line = csvReader.readLine()) != null) {
+                String output = line.replace(',',' ');
+                System.out.println(output);
+            }
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (Exception e) {
+            System.out.println("Error :");
+            e.printStackTrace();
         }
-
-        if (reader == null) {
-            System.out.println("Error Accessing data file. Please contact admin.");
-            System.exit(-1);
-        }
-
-        return reader;
     }
 
-    private static File getFile(String homePath) throws IOException {
-        File file;
-        Path dataPath = Paths.get(homePath,"taskData.csv");
-        String pathString = dataPath.toString();
-        file = new File(pathString);
-        boolean isCreated = file.createNewFile();
-        if (isCreated) {
-            System.out.println("New data file has been created in your home Dir!");
-        } else {
+    private static void setWriterAndReader(String homePath) throws IOException {
+        Path dataPath = Paths.get(homePath, FILE_NAME);
+        boolean isExists = Files.exists(dataPath);
+        //Bottom line sets writer if can find file, else creates file then sets.
+        csvWriter = Files.newBufferedWriter(dataPath, CREATE);
+        if (isExists) {
             System.out.println("Found data file!");
+        } else {
+            System.out.println("New data file has been created in your home Dir!");
         }
-        return file;
+        csvReader = Files.newBufferedReader(dataPath);
     }
 
     public static void Write(String x) {
