@@ -31,4 +31,10 @@ public class Deadline extends Task{
         return this.getTypeOfTask() + this.getDoneStatusAsSymbol() + " "
                 + this.getName() + " (" + this.getDueDate() + ")";
     }
+
+    @Override
+    public String printTaskForStoring() {
+        return getTypeOfTask() + "," + getDoneStatusAsSymbol()
+                + "," + getName() + "," + getDueDate();
+    }
 }

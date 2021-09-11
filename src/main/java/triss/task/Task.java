@@ -64,4 +64,12 @@ public class Task {
     public String printTask() {
         return this.getTypeOfTask() + this.getDoneStatusAsSymbol() + " " + this.getName();
     }
+
+    /**
+     * Returns task for storing in data/storedtasks.txt
+     * @return [Type of Task],[Completion Status],[Name of Task]
+     */
+    public String printTaskForStoring() {
+        return getTypeOfTask() + "," + getDoneStatusAsSymbol() + "," + getName();
+    }
 }

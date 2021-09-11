@@ -8,6 +8,10 @@ import triss.task.Todo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Triss {
 
@@ -46,6 +50,15 @@ public class Triss {
         // Initialise user input reader
         Scanner in = createNewInputReader();
 
+        // Check for any stored data
+        try {
+            initialiseDataStorage();
+        } catch (TrissException error) {
+            System.out.println(error.getMessage());
+        } catch (IOException error) {
+            System.out.println("Tasks storage has been corrupted! Try restarting.");
+        }
+
         // While user has not said "bye", check for next line of input
         while (!hasUserSaidBye) {
 
@@ -57,6 +70,7 @@ public class Triss {
             // Perform actions based on user's command
             switch (userCommand) {
             case "bye":
+                handleUserShuttingDown();
                 printShutdownMessage();
                 break;
             case "list":
@@ -81,6 +95,7 @@ public class Triss {
 
         }
     }
+
 
     private static void handleUserDeletingTask(String userInput) {
         // Get number of task after the term "done"
@@ -109,6 +124,54 @@ public class Triss {
 
         // Print out the task in the following format: "    [X] Task"
         printLine("    " + chosenTask.printTask());
+    }
+
+    private static void initialiseDataStorage() throws IOException, TrissException {
+        File dataDirectory = new File("data");
+        File storedTasks = new File("data/storedtasks.txt");
+        if (dataDirectory.exists()) {
+            Scanner fileReader = new Scanner(storedTasks);
+            while (fileReader.hasNext()) {
+                String lineInFile = fileReader.nextLine();
+                String[] taskDetails = lineInFile.split(",");
+                switch (taskDetails[0]) {
+                case "[T]":
+                    createNewTodo("todo " + taskDetails[2], true);
+                    break;
+                case "[E]":
+                    createNewEvent("event " + taskDetails[2] + " /" + taskDetails[3], true);
+                    break;
+                case "[D]":
+                    createNewDeadline("deadline " + taskDetails[2] + " /" + taskDetails[3], true);
+                    break;
+                default:
+                    throw new TrissException("Tasks storage has been corrupted! Try restarting.");
+                }
+
+                if (taskDetails[1].equals("[X]")) {
+                    tasks.get(tasks.size() - 1).setDone(true);
+                }
+
+            }
+        } else {
+            dataDirectory.mkdir();
+            FileWriter fw = new FileWriter(storedTasks.getAbsoluteFile());
+            fw.close();
+        }
+    }
+
+    private static void handleUserShuttingDown() {
+
+        try {
+            FileWriter fw = new FileWriter("data/storedtasks.txt");
+
+            for (Task task:tasks) {
+                fw.write(task.printTaskForStoring() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException error) {
+            System.out.println("Tasks storage has been corrupted! Try restarting.");
+        }
 
     }
 
@@ -165,13 +228,13 @@ public class Triss {
 
         switch (taskType) {
         case "deadline":
-            createNewDeadline(userInput);
+            createNewDeadline(userInput, false);
             break;
         case "event":
-            createNewEvent(userInput);
+            createNewEvent(userInput, false);
             break;
         case "todo":
-            createNewTodo(userInput);
+            createNewTodo(userInput, false);
             break;
         default:
             String errorMessage = "Oof, I didn't understand your command! Let's try that again.\n"
@@ -185,7 +248,7 @@ public class Triss {
      * If user did not type in this format: "todo Eat with Friends", it asks the user to try again.
      * @param userInput Any user input starting with the words "todo"
      */
-    private static void createNewTodo(String userInput) throws TrissException {
+    private static void createNewTodo(String userInput, boolean isSilent) throws TrissException {
         String taskName;
         taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
 
@@ -199,8 +262,10 @@ public class Triss {
         Task newTodo = new Todo(taskName);
         tasks.add(newTodo);
 
-        // Then, echo the task
-        printLine("I've added: " + newTodo.printTask());
+        // Then, echo the task if not silent
+        if (!isSilent) {
+            printLine("I've added: " + newTodo.printTask());
+        }
     }
 
     /**
@@ -209,7 +274,7 @@ public class Triss {
      * If the user types incorrectly, it asks the user to try again.
      * @param userInput Any user input starting with the word "event".
      */
-    private static void createNewEvent(String userInput) throws TrissException {
+    private static void createNewEvent(String userInput, boolean isSilent) throws TrissException {
         String taskName;
         String eventTiming;
 
@@ -240,8 +305,10 @@ public class Triss {
         Event newEvent = new Event(taskName, eventTiming);
         tasks.add(newEvent);
 
-        // Then, echo the task
-        printLine("I've added: " + newEvent.printTask());
+        // Then, echo the task if not silent
+        if (!isSilent) {
+            printLine("I've added: " + newEvent.printTask());
+        }
     }
 
     /**
@@ -250,7 +317,7 @@ public class Triss {
      * If the user types incorrectly, it asks the user to try again.
      * @param userInput Any user input starting with the word "deadline".
      */
-    private static void createNewDeadline(String userInput) throws TrissException {
+    private static void createNewDeadline(String userInput, boolean isSilent) throws TrissException {
         String deadlineDate;
         String taskName;
 
@@ -280,8 +347,10 @@ public class Triss {
         Deadline newDeadline = new Deadline(taskName, deadlineDate);
         tasks.add(newDeadline);
 
-        // Then, echo the task
-        printLine("I've added: " + newDeadline.printTask());
+        // Then, echo the task if not silent
+        if (!isSilent) {
+            printLine("I've added: " + newDeadline.printTask());
+        }
     }
 
     /**
