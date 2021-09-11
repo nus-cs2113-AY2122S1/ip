@@ -1,25 +1,23 @@
 package task;
 
 public class Deadline extends Task {
-    protected String by;
+    protected String time;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String time) {
         super(description);
-        this.by = by;
+        this.time = time;
     }
 
-    public void setBy(String by) {
-        this.by = by;
+    public String getTime() {
+        return time;
     }
 
-    public String getBy() {
-        String[] newBy = by.split(" ", 2);
-        return newBy[1];
+    public String getType() {
+        return "D";
     }
-
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + getBy() + ")";
+        return "[D]" + super.toString() + "(by: " + getTime() + ")";
     }
 }

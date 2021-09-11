@@ -8,8 +8,8 @@ import task.Todo;
 public class TaskManager {
     public static final int MAX_TASKS = 100;
 
-    private static int taskCount = 0;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    public static int taskCount = 0;
+    public static Task[] tasks = new Task[MAX_TASKS];
 
 
     private static void printDivider() {
@@ -48,6 +48,10 @@ public class TaskManager {
         printDivider();
     }
 
+    public static void taskDoneLatest() {
+        tasks[taskCount - 1].markAsDone();
+    }
+
 
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
@@ -74,23 +78,20 @@ public class TaskManager {
         }
     }
 
-    private static void addTodo(String userInput) {
+    public static void addTodo(String userInput) {
         tasks[taskCount] = new Todo(userInput);
-        echoTask(taskCount++);
+        taskCount++;
+    }
+
+    public static void addDeadline(String description, String time) {
+        tasks[taskCount] = new Deadline(description, time);
+        taskCount++;
     }
 
     //TODO exceptions for empty time for Deadline, Event
-    private static void addDeadline(String description) {
-        String[] params = description.split("/", 2);
-        tasks[taskCount] = new Deadline(params[0], params[1]);
-        echoTask(taskCount++);
-    }
-
-    //TODO exceptions for empty time for Deadline, Event
-    private static void addEvent(String description) {
-        String[] params = description.split("/", 2);
-        tasks[taskCount] = new Event(params[0], params[1]);
-        echoTask(taskCount++);
+    public static void addEvent(String description, String time) {
+        tasks[taskCount] = new Event(description, time);
+        taskCount++;
     }
 
     private static void addTask(String userInput) throws DukeException {
@@ -101,17 +102,24 @@ public class TaskManager {
         }
 
         String description = params[1];
+        String[] separateTime;
+        String[] separatePreposition;
+        String time;
 
-        switch (command.toUpperCase()) {
-        case "TODO":
+        if (command.equals("todo")) {
             addTodo(description);
-            break;
-        case "DEADLINE":
-            addDeadline(description);
-            break;
-        case "EVENT":
-            addEvent(description);
-            break;
+        }
+        else { //timed tasks
+            separateTime = params[1].split("/", 2);
+            description = separateTime[0];
+            separatePreposition = separateTime[1].split(" ", 2);
+            time = separatePreposition[1];
+            if (command.equals("deadline")){
+                addDeadline(description, time);
+            }
+            else {
+                addEvent(description, time);
+            }
         }
 
     }
@@ -126,6 +134,7 @@ public class TaskManager {
             case "DEADLINE":
             case "EVENT":
                 addTask(userInput);
+                echoTask(taskCount - 1);
                 break;
             //fallthrough
             case "DONE":
