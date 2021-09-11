@@ -7,6 +7,7 @@ public class TaskManager {
     private static final int TODO_START_INDEX = 4;
     private static final int DEADLINE_START_INDEX = 8;
     private static final int EVENT_START_INDEX = 5;
+    private static final int DELETE_NUMBER_INDEX = 6;
     private static final int DONE_NUMBER_INDEX = 4;
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int TASK_DATE_INDEX = 1;
@@ -111,20 +112,39 @@ public class TaskManager {
         addTaskSuccess();
     }
 
-    void addTaskSuccess() {
+    private void addTaskSuccess() {
         Duke.printlnTab("Got it. I've added this task:");
         Duke.printlnTab(" " + tasks.get(tasks.size() - 1)); //latest item
-
-        if (tasks.size() == 1) {
-            Duke.printlnTab("Now you have 1 task");
-
-        } else {
-            Duke.printlnTab(String.format("Now you have %d tasks", tasks.size()));
-        }
+        printNumberOfTasksMessage();
         Duke.printDivider();
     }
 
-    void doneTask(String userInput) throws BlankDescriptionException, IndexOutOfBoundsException, NullPointerException {
+
+    public void deleteTask(String userInput) throws BlankDescriptionException, ExceedTotalTasksException {
+        String taskNumberStr = userInput.substring(DELETE_NUMBER_INDEX).strip();
+        if (taskNumberStr.isBlank()) {
+            throw new BlankDescriptionException();
+        }
+
+        //taskNumber displayed starting with 1
+        //but array starts with 0
+        int taskNumber = Integer.parseInt(taskNumberStr);
+        if (taskNumber > tasks.size()) {
+            throw new ExceedTotalTasksException();
+        }
+
+        int taskIndex = taskNumber - 1;
+
+        Duke.printlnTab("Noted. I've removed this task:");
+        Duke.printlnTab(String.format(" %s", tasks.get(taskIndex)));
+
+        tasks.remove(taskIndex);
+
+        printNumberOfTasksMessage();
+        Duke.printDivider();
+    }
+
+    private void doneTask(String userInput) throws BlankDescriptionException, ExceedTotalTasksException {
         String taskNumberStr = userInput.substring(DONE_NUMBER_INDEX).strip();
         if (taskNumberStr.isBlank()) {
             throw new BlankDescriptionException();
@@ -133,6 +153,9 @@ public class TaskManager {
         //but array starts with 0
 
         int taskNumber = Integer.parseInt(taskNumberStr);
+        if (taskNumber > tasks.size()) {
+            throw new ExceedTotalTasksException();
+        }
         int taskIndex = taskNumber - 1;
 
         tasks.get(taskIndex).markAsDone();
@@ -141,9 +164,13 @@ public class TaskManager {
         Duke.printDivider();
     }
 
-    void doneTaskPlusException(String userInput) {
+    public void doneOrDeleteTaskPlusException(String userInput, String COMMAND) {
         try {
-            doneTask(userInput);
+            if (COMMAND.equals(CommandManager.COMMAND_DONE)) {
+                doneTask(userInput);
+            } else {
+                deleteTask(userInput);
+            }
 
         } catch (BlankDescriptionException e) {
             Duke.printlnTab("☹ OOPS!!! Please enter a task number to complete");
@@ -153,14 +180,14 @@ public class TaskManager {
             Duke.printlnTab("☹ OOPS!!! Task number is not an integer. Please try again!");
             Duke.printDivider();
 
-        } catch (IndexOutOfBoundsException e) {
+        } catch (ExceedTotalTasksException e) {
             Duke.printlnTab("☹ OOPS!!! You only have " + tasks.size() + " tasks");
             Duke.printlnTab("Please enter a number smaller or equal to " + tasks.size());
             Duke.printDivider();
         }
     }
 
-    void listTasks() {
+    public void listTasks() {
         if (tasks.isEmpty()) {
             Duke.printlnTab("Your task list is empty!");
 
@@ -175,6 +202,18 @@ public class TaskManager {
             }
         }
         Duke.printDivider();
+    }
+
+    public int getNumberOfTasks() {
+        return tasks.size();
+    }
+
+    private void printNumberOfTasksMessage() {
+        if (tasks.size() == 1) {
+            Duke.printlnTab("Now you have 1 task in the list.");
+        } else {
+            Duke.printlnTab(String.format("Now you have %d tasks in the list.", tasks.size()));
+        }
     }
 
 }

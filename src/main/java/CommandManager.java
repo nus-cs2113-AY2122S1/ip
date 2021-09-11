@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class CommandManager {
     private static final Scanner in = new Scanner(System.in);
     private static final String COMMAND_BYE = "bye";
-    private static final String COMMAND_DONE = "done";
+    public static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
@@ -36,7 +37,10 @@ public class CommandManager {
                 taskManager.addTaskPlusException(TaskEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                taskManager.doneTaskPlusException(userInput);
+                taskManager.doneOrDeleteTaskPlusException(userInput, COMMAND_DONE);
+
+            } else if (userInput.startsWith(COMMAND_DELETE)) {
+                taskManager.doneOrDeleteTaskPlusException(userInput, COMMAND_DELETE);
 
             } else if (userInput.equals(COMMAND_BYE)) {
                 Duke.printlnTab("Bye. Hope to see you again soon!");
