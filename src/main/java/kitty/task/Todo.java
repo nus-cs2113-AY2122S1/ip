@@ -3,6 +3,7 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
+import kitty.io.IO;
 
 import java.util.function.ToDoubleFunction;
 
@@ -17,6 +18,7 @@ public class Todo extends Task{
         try {
             String taskName = Parser.getTodoTaskName(line);
             Kitty.tasks.add(new Todo(taskName));
+            IO.writeNewLine("T|0|" + taskName);
         } catch (KittyException e) {
             throw e;
         }

@@ -3,6 +3,7 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
+import kitty.io.IO;
 
 public class Deadline extends Task{
     protected String deadline;
@@ -25,6 +26,7 @@ public class Deadline extends Task{
 
                 // Add Deadline Task
                 Kitty.tasks.add(new Deadline(taskName, deadline));
+                IO.writeNewLine("D|0|" + taskName + "|" + deadline);
             } catch (KittyException e) {
                 throw e;
             }
