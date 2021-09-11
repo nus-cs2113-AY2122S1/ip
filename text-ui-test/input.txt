@@ -2,17 +2,24 @@ help
 todo exercise
 deadline
 todo shower
+todo running
+delete 2
+list
 I want to sleep
 deadline submit assignment /by tuesday 12am
 event attend lecture /at friday 4pm
+deadline sleep /by 12am
+delete 5
 list
 todo eat dinner
+todo
 done 1 2
 list
 done 7
 done 5 a
 list
 todo running
+event
 event meeting /at saturday 11am
 list
 bye
