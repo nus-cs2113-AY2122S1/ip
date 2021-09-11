@@ -68,6 +68,9 @@ public class Triss {
             case "done":
                 handleUserMarkingTaskAsDone(userInput);
                 break;
+            case "delete":
+                handleUserDeletingTask(userInput);
+                break;
             default:
                 try {
                     handleUserCreatingTask(userInput);
@@ -80,6 +83,39 @@ public class Triss {
             printLine(SEPARATOR_LINE);
 
         }
+    }
+
+    private static void handleUserDeletingTask(String userInput) {
+        // Get number of task after the term "done"
+        int indexOfRemovableTask;
+        // Throw exception if user did not type a number after "done"
+        try {
+            indexOfRemovableTask = Integer.parseInt(parseUserInput(userInput, 1)) - 1;
+        } catch (Exception e) {
+            printLine("Ach, nee! That task does not exist.");
+            return;
+        }
+
+
+        // If task does not exist, do not delete any task
+        if (indexOfRemovableTask > tasks.size() || indexOfRemovableTask < 0) {
+            printLine("Apologies! That task does not exist.");
+            return;
+        }
+
+        // Find task since it exists
+        Task chosenTask = tasks.get(indexOfRemovableTask);
+
+        // Remove task from tasks
+        tasks.remove(chosenTask);
+        printLine("Wunderbar! This task has been deleted:");
+
+        // Update noOfTasks
+        noOfTasks--;
+
+        // Print out the task in the following format: "    [X] Task"
+        printLine("    " + chosenTask.printTask());
+
     }
 
     /**
