@@ -1,5 +1,9 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +22,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
+        loadSave();
         greet();
 
         while (true) {
@@ -30,16 +35,16 @@ public class Duke {
                     list();
                     break;
                 case "done":
-                    setTaskDone(Integer.parseInt(commandArgs.get("param")));
+                    setTaskDone(Integer.parseInt(commandArgs.get("param")), true);
                     break;
                 case "todo":
-                    addTodo(commandArgs.get("param"));
+                    addTodo(commandArgs.get("param"), true);
                     break;
                 case "deadline":
-                    addDeadline(commandArgs.get("param"), commandArgs.get("by"));
+                    addDeadline(commandArgs.get("param"), commandArgs.get("by"), true);
                     break;
                 case "event":
-                    addEvent(commandArgs.get("param"), commandArgs.get("at"));
+                    addEvent(commandArgs.get("param"), commandArgs.get("at"), true);
                     break;
                 case "bye":
                     exit = true;
@@ -57,6 +62,12 @@ public class Duke {
                 String indexErrorMsg = String.format("☹ OOPS!!! Item of index %s does not exist in tasks.",
                         commandArgs.get("param"));
                 printWithIndent(indexErrorMsg, 5);
+            } finally {
+                try {
+                    saveTasks();
+                } catch (IOException e) {
+
+                }
             }
 
             System.out.println(DIVIDER);
@@ -105,16 +116,18 @@ public class Duke {
         printWithIndent("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", 5);
     }
 
-    public static void addTodo(String task) throws MissingArgumentException {
+    public static void addTodo(String task, Boolean print) throws MissingArgumentException {
         if (task == "") {
             throw new MissingArgumentException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         Todo todo = new Todo(task);
         tasks.add(todo);
-        addSuccess(todo);
+        if (print) {
+            addSuccess(todo);
+        }
     }
 
-    public static void addDeadline(String task, String by) throws MissingArgumentException {
+    public static void addDeadline(String task, String by, Boolean print) throws MissingArgumentException {
         if (task == "") {
             throw new MissingArgumentException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
@@ -123,10 +136,12 @@ public class Duke {
         }
         Deadline deadline = new Deadline(task, by);
         tasks.add(deadline);
-        addSuccess(deadline);
+        if (print) {
+            addSuccess(deadline);
+        }
     }
 
-    public static void addEvent(String task, String at) throws MissingArgumentException {
+    public static void addEvent(String task, String at, Boolean print) throws MissingArgumentException {
         if (task == "") {
             throw new MissingArgumentException("☹ OOPS!!! The description of an event cannot be empty.");
         }
@@ -135,7 +150,9 @@ public class Duke {
         }
         Event event = new Event(task, at);
         tasks.add(event);
-        addSuccess(event);
+        if (print) {
+            addSuccess(event);
+        }
     }
 
     public static void addSuccess(Task task) {
@@ -155,10 +172,61 @@ public class Duke {
         }
     }
 
-    public static void setTaskDone(int index) {
+    public static void setTaskDone(int index, Boolean print) {
         Task task = tasks.get(index - 1);
         task.markAsDone();
-        printWithIndent("Nice! I've marked this task as done: ", 5);
-        printWithIndent(task.toString(), 7);
+        if (print) {
+            printWithIndent("Nice! I've marked this task as done: ", 5);
+            printWithIndent(task.toString(), 7);
+        }
+    }
+
+    public static void loadSave() {
+        try {
+            File saveFile = new File("src/main/java/duke/save.txt");
+            Scanner s = new Scanner(saveFile);
+            int index = 1;
+            while (s.hasNext()) {
+                String[] taskParts = s.nextLine().split(" \\| ");
+                String command = taskParts[0];
+                String desc = taskParts[1];
+                Boolean isDone = Boolean.parseBoolean(taskParts[2]);
+                try {
+                    switch (command) {
+                    case "todo":
+                        addTodo(desc, false);
+                        break;
+                    case "deadline":
+                        addDeadline(desc, taskParts[3], false);
+                        break;
+                    case "event":
+                        addEvent(desc, taskParts[3], false);
+                        break;
+                    }
+                } catch (MissingArgumentException e) {
+
+                } finally {
+                    if (isDone) {
+                        setTaskDone(index, false);
+                    }
+                    index++;
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            return;
+        }
+    }
+
+    public static void saveTasks() throws IOException {
+        File saveFile = new File("src/main/java/duke/save.txt");
+        if (!saveFile.exists()) {
+            saveFile.createNewFile();
+        }
+        FileWriter writer = new FileWriter(saveFile);
+        for (Task item : tasks) {
+            writer.append(item.toSave() + System.lineSeparator());
+        }
+        writer.close();
     }
 }

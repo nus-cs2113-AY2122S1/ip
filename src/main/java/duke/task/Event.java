@@ -13,4 +13,9 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E][%s] %s (at: %s)", getStatusIcon(), this.description, this.at);
     }
+
+    @Override
+    public String toSave() {
+        return String.format("event | %s | %b | %s", this.description, this.isDone, this.at);
+    }
 }
