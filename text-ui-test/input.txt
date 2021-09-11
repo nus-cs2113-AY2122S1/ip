@@ -15,6 +15,12 @@ done a
 done 4
 event dinner /at Friday 6pm
 done 4
+delete 4
+delete 4
+list
+delete 1
+done 2
+todo read book
 list
 invalid
 bye

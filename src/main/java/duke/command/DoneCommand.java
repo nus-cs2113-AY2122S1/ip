@@ -16,10 +16,10 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Calls the completeTask method in taskManager to mark the specified task as completed
+     * Calls the completeTask method in taskManager to mark the task at the specified index as completed
      *
      * @param taskManager the taskManager that contains the task to be marked
-     * @throws DukeException If there is no task at the specified index
+     * @throws DukeException If taskIndex < 0 or if there is no task at the specified index
      */
     @Override
     public void execute(TaskManager taskManager) throws DukeException {

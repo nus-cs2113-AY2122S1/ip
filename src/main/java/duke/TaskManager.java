@@ -16,7 +16,26 @@ public class TaskManager {
         tasks.add(task);
         printLine();
         System.out.println("  Ok! I've added this task:");
-        System.out.println("    " + task.toString());
+        System.out.println("    " + task);
+        System.out.println("  Now you have " + tasks.size() + " tasks.");
+        printLine();
+    }
+
+    /**
+     * Deletes the task at the specified index
+     *
+     * @param taskIndex the index of the task to be deleted
+     */
+    public void deleteTask(int taskIndex) throws DukeException {
+        if (taskIndex <= -1) {
+            throw new DukeException("Task index must be greater than 0.");
+        } else if (taskIndex >= tasks.size()) {
+            throw new DukeException("Task does not exist.");
+        }
+        Task removedTask = tasks.remove(taskIndex);
+        printLine();
+        System.out.print("  Ok! I've deleted this task:" + System.lineSeparator() + "    ");
+        System.out.println(removedTask);
         System.out.println("  Now you have " + tasks.size() + " tasks.");
         printLine();
     }

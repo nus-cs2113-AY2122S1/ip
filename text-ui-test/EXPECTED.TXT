@@ -44,14 +44,14 @@
   ──────────────────────────────
   ──────────────────────────────
   Ok! I've added this task:
-    [E][ ] lunch (by: Thursday noon)
+    [E][ ] lunch (at: Thursday noon)
   Now you have 3 tasks.
   ──────────────────────────────
   ──────────────────────────────
   Here are your tasks:
     1.[D][X] submit report (by: Tuesday 23:59)
     2.[T][ ] buy groceries
-    3.[E][ ] lunch (by: Thursday noon)
+    3.[E][ ] lunch (at: Thursday noon)
   ──────────────────────────────
   ──────────────────────────────
   Please provide a valid number.
@@ -61,19 +61,46 @@
   ──────────────────────────────
   ──────────────────────────────
   Ok! I've added this task:
-    [E][ ] dinner (by: Friday 6pm)
+    [E][ ] dinner (at: Friday 6pm)
   Now you have 4 tasks.
   ──────────────────────────────
   ──────────────────────────────
   Ok! I've marked this task as done:
-    [E][X] dinner (by: Friday 6pm)
+    [E][X] dinner (at: Friday 6pm)
+  ──────────────────────────────
+  ──────────────────────────────
+  Ok! I've deleted this task:
+    [E][X] dinner (at: Friday 6pm)
+  Now you have 3 tasks.
+  ──────────────────────────────
+  ──────────────────────────────
+  Task does not exist.
   ──────────────────────────────
   ──────────────────────────────
   Here are your tasks:
     1.[D][X] submit report (by: Tuesday 23:59)
     2.[T][ ] buy groceries
-    3.[E][ ] lunch (by: Thursday noon)
-    4.[E][X] dinner (by: Friday 6pm)
+    3.[E][ ] lunch (at: Thursday noon)
+  ──────────────────────────────
+  ──────────────────────────────
+  Ok! I've deleted this task:
+    [D][X] submit report (by: Tuesday 23:59)
+  Now you have 2 tasks.
+  ──────────────────────────────
+  ──────────────────────────────
+  Ok! I've marked this task as done:
+    [E][X] lunch (at: Thursday noon)
+  ──────────────────────────────
+  ──────────────────────────────
+  Ok! I've added this task:
+    [T][ ] read book
+  Now you have 3 tasks.
+  ──────────────────────────────
+  ──────────────────────────────
+  Here are your tasks:
+    1.[T][ ] buy groceries
+    2.[E][X] lunch (at: Thursday noon)
+    3.[T][ ] read book
   ──────────────────────────────
   ──────────────────────────────
   Sorry, I do not understand your command.
