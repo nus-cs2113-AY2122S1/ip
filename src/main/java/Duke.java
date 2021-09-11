@@ -35,10 +35,10 @@ public class Duke {
                 botIsActive = true;
                 printBye();
             } else if (command.equals("list")) {
-                printList(tasks);
+                printList();
             } else if (command.contains("done")) {
                 try {
-                    markAsDone(tasks, itemIndex, command);
+                    markAsDone(command);
                 } catch (NumberFormatException e) {
                     System.out.println(LINE + System.lineSeparator() + "Sir, you didn't give me a valid entry index "
                             + "\u2639" + System.lineSeparator() + LINE);
@@ -155,7 +155,7 @@ public class Duke {
                 + System.lineSeparator() + LINE);
     }
 
-    public static void printList(Task[] tasks) {
+    public static void printList() {
         System.out.println(LINE + System.lineSeparator() + "Here are the current tasks in your list:");
         for (int count = 0; count < itemIndex; count++) {
             System.out.println(count + 1 + "." + tasks[count].printTask());
@@ -174,7 +174,7 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static void markAsDone(Task[] tasks, int itemIndex, String command) {
+    public static void markAsDone(String command) {
         // When user enters string "done 2", string is split to extract the index 2 only
         int taskDoneIndex = Integer.parseInt(command.split(" ")[1]) - 1;
         // Checks if given index holds a task and throws error message if no such task exists
