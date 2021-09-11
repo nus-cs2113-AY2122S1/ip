@@ -14,8 +14,4 @@ public class User {
     public void startServe() {
         server.serviceBegin();
     }
-
-    public void save() {
-        //To be implemented
-    }
 }

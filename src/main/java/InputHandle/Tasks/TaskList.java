@@ -33,6 +33,10 @@ public class TaskList implements Serializable {
         return completedTask;
     }
 
+    public Task deleteTask(int index) throws IndexOutOfBoundsException {
+        return this.tasks.remove(index - 1);
+    }
+
 
     private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {
         String taskType, taskName, deadline;
