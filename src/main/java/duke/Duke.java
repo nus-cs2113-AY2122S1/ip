@@ -2,10 +2,12 @@ package duke;
 
 import duke.exception.ArgumentNotFoundException;
 import duke.exception.InvalidCommandException;
+import duke.task.Task;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 import duke.util.Parser;
 import duke.util.Ui;
+import java.util.HashMap;
 
 public class Duke {
 
@@ -19,10 +21,16 @@ public class Duke {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
-
+    public static final HashMap<String, TaskType> COMMAND_MAPPING = new HashMap<String, TaskType>() {{
+        put(COMMAND_TODO, TaskType.TODO);
+        put(COMMAND_EVENT, TaskType.EVENT);
+        put(COMMAND_DEADLINE, TaskType.DEADLINE);
+    }};
     public static TaskManager taskList = new TaskManager();
 
-    /** Gets a new instance of Ui class to interact with the user */
+    /**
+     * Gets a new instance of Ui class to interact with the user
+     */
     public static Ui uiInteract = new Ui(USERNAME);
 
     public static boolean isRunning = true;
@@ -96,13 +104,15 @@ public class Duke {
             taskList.markTaskAsDone(uiInteract, parsed.getArgsAsIndex());
             break;
         case COMMAND_TODO:
-            taskList.addTask(uiInteract, parsed, TaskType.TODO);
-            break;
+            // Fallthrough
         case COMMAND_DEADLINE:
-            taskList.addTask(uiInteract, parsed, TaskType.DEADLINE);
-            break;
+            // Fallthrough
         case COMMAND_EVENT:
-            taskList.addTask(uiInteract, parsed, TaskType.EVENT);
+            TaskType type = COMMAND_MAPPING.get(parsed.getCommand());
+            taskList.addTask(uiInteract, parsed, type);
+            break;
+        case "delete":
+            taskList.deleteTask(uiInteract, parsed.getArgsAsIndex());
             break;
         default:
             throw new InvalidCommandException();
