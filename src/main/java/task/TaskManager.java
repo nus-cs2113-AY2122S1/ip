@@ -7,6 +7,9 @@ import task.subtask.Deadline;
 import task.subtask.Event;
 import task.subtask.Todo;
 import utils.Display;
+import utils.FileManager;
+
+import java.io.IOException;
 
 public class TaskManager {
 
@@ -27,8 +30,11 @@ public class TaskManager {
             allTasks[taskCount] = new Todo(getTaskName(taskInformation));
             taskCount++;
             Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_TODO, taskCount);
+            FileManager.updateFileData(allTasks, taskCount);
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (IOException e) {
+            Error.displayFileUpdateError();
         }
     }
 
@@ -40,10 +46,13 @@ public class TaskManager {
             allTasks[taskCount] = new Deadline(taskName, deadline);
             taskCount++;
             Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_DEADLINE, taskCount);
+            FileManager.updateFileData(allTasks, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (IOException e) {
+            Error.displayFileUpdateError();
         }
     }
 
@@ -55,10 +64,13 @@ public class TaskManager {
             allTasks[taskCount] = new Event(taskName, eventTime);
             taskCount++;
             Display.displayTaskCreation(allTasks[taskCount - 1], Display.TASK_NAME_EVENT, taskCount);
+            FileManager.updateFileData(allTasks, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (IOException e) {
+            Error.displayFileUpdateError();
         }
     }
 
@@ -67,10 +79,13 @@ public class TaskManager {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
             allTasks[taskNumber].setTaskCompleted();
             Display.displayTaskCompleted(allTasks[taskNumber].getTask());
+            FileManager.updateFileData(allTasks, taskCount);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             Error.displayTaskNonExistentError();
         } catch (NumberFormatException e) {
             Error.displayNotANumberError();
+        } catch (IOException e) {
+            Error.displayFileUpdateError();
         }
     }
 

@@ -7,7 +7,9 @@ public class Error {
     public static final String ERROR_MESSAGE_TASK_NONEXISTENT = "☹ OOPS!!! Task does not exist :-(";
     public static final String ERROR_MESSAGE_TASK_FORMAT = "☹ OOPS!!! Task detail provided is in the wrong format :-(";
     public static final String ERROR_MESSAGE_TASK_NAME_NONEXISTENT = "☹ OOPS!!! Task name cannot be empty :-(";
+
     public static final String ERROR_MESSAGE_FILE_CREATE_FAIL = "☹ OOPS!!! File failed to create :-(";
+    public static final String ERROR_MESSAGE_FILE_UPDATE_FAIL = "☹ OOPS!!! File failed to update :-(";
 
     public static void displayInvalidCommandError() {
         System.out.println(ERROR_MESSAGE_INVALID_COMMAND);
@@ -31,5 +33,9 @@ public class Error {
 
     public static void displayFileCreateError() {
         System.out.println(ERROR_MESSAGE_FILE_CREATE_FAIL);
+    }
+
+    public static void displayFileUpdateError() {
+        System.out.println(ERROR_MESSAGE_FILE_UPDATE_FAIL);
     }
 }

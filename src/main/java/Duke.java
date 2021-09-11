@@ -1,22 +1,12 @@
-import error.Error;
 import console.InputParser;
 import task.TaskManager;
+import utils.Command;
 import utils.Display;
 import utils.FileManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
-
-    public static final String COMMAND_EXIT_PROGRAM = "bye";
-    public static final String COMMAND_MARK_DONE = "done";
-    public static final String COMMAND_LIST_TASK = "list";
-    public static final String COMMAND_ADD_TODO_TASK = "todo";
-    public static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
-    public static final String COMMAND_ADD_EVENT_TASK = "event";
-    public static final int COMMAND_INDEX = 0;
 
     public static void greet() {
         Display.printSeparatingLine();
@@ -33,33 +23,11 @@ public class Duke {
     public static void interact() {
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+        FileManager.loadFileData(taskManager);
         boolean isStillInteracting = true;
         while (isStillInteracting) {
             String[] commandComponents = InputParser.getCommandComponents(in);
-
-            switch (commandComponents[COMMAND_INDEX]) {
-            case COMMAND_LIST_TASK:
-                taskManager.listTask();
-                break;
-            case COMMAND_MARK_DONE:
-                taskManager.markTaskAsCompleted(commandComponents);
-                break;
-            case COMMAND_ADD_TODO_TASK:
-                taskManager.addTodoTask(InputParser.getTaskDetails(commandComponents));
-                break;
-            case COMMAND_ADD_DEADLINE_TASK:
-                taskManager.addDeadlineTask(InputParser.getTaskDetails(commandComponents));
-                break;
-            case COMMAND_ADD_EVENT_TASK:
-                taskManager.addEventTask(InputParser.getTaskDetails(commandComponents));
-                break;
-            case COMMAND_EXIT_PROGRAM:
-                isStillInteracting = false;
-                break;
-            default:
-                Error.displayInvalidCommandError();
-                break;
-            }
+            isStillInteracting = Command.executeCommand(commandComponents, taskManager);
         }
     }
 
@@ -70,7 +38,6 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        FileManager.loadFileData();
         greet();
         interact();
         goodbye();
