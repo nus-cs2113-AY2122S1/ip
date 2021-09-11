@@ -8,9 +8,10 @@ import duke.command.ListCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.TaskType;
 import duke.task.ToDo;
 
-public class CommandParser {
+public class Parser {
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK_DONE = "done";
@@ -64,7 +65,7 @@ public class CommandParser {
      *
      * @param userInput The String that contains the user's input, must correspond to a
      *                  command that creates a Task
-     * @param taskType The Enum TaskType that specifies the Task subclass to be created
+     * @param taskType  The Enum TaskType that specifies the Task subclass to be created
      * @return The Task that contains the details specified in userInput
      * @throws DukeException If the userInput String is not in the correct format
      *                       or has missing information

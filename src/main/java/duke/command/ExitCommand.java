@@ -1,6 +1,7 @@
 package duke.command;
 
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class ExitCommand extends Command {
 
@@ -17,9 +18,9 @@ public class ExitCommand extends Command {
     /**
      * Does nothing
      *
-     * @param taskManager Does not matter in this subclass implementation
+     * @param taskList Does not matter in this subclass implementation
      */
     @Override
-    public void execute(TaskManager taskManager) {
+    public void execute(TaskList taskList, Storage storage) {
     }
 }

@@ -63,14 +63,20 @@ public class Duke {
      */
     public static void interactWithUser() {
         boolean isInteracting = true;
-        TaskManager taskManager = new TaskManager();
+        TaskList taskList = new TaskList();
+        Storage storage = new Storage();
         Scanner in = new Scanner(System.in);
+        try {
+            storage.loadData(taskList);
+        } catch (DukeException e) {
+
+        }
 
         while (isInteracting) {
             String userInput = getUserInput(in).stripLeading();
             try {
-                Command command = CommandParser.parse(userInput);
-                command.execute(taskManager);
+                Command command = Parser.parse(userInput);
+                command.execute(taskList, storage);
                 isInteracting = !command.isExit();
             } catch (DukeException e) {
                 printLine();

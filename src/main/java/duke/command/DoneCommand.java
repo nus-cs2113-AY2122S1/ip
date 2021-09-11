@@ -1,7 +1,8 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class DoneCommand extends Command {
     private int taskIndex;
@@ -18,11 +19,12 @@ public class DoneCommand extends Command {
     /**
      * Calls the completeTask method in taskManager to mark the specified task as completed
      *
-     * @param taskManager the taskManager that contains the task to be marked
+     * @param taskList the taskManager that contains the task to be marked
      * @throws DukeException If there is no task at the specified index
      */
     @Override
-    public void execute(TaskManager taskManager) throws DukeException {
-        taskManager.completeTask(taskIndex);
+    public void execute(TaskList taskList, Storage storage) throws DukeException {
+        taskList.completeTask(taskIndex);
+        storage.saveData(taskList);
     }
 }

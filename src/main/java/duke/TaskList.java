@@ -2,7 +2,7 @@ package duke;
 
 import duke.task.Task;
 
-public class TaskManager {
+public class TaskList {
     private static final int MAXIMUM_TASKS = 100;
 
     private Task[] tasks = new Task[MAXIMUM_TASKS];
@@ -27,6 +27,21 @@ public class TaskManager {
         printLine();
     }
 
+    public void addTask(Task task, boolean print) throws DukeException {
+        if (tasksCount >= MAXIMUM_TASKS) {
+            throw new DukeException("Maximum number of tasks reached.");
+        }
+        tasks[tasksCount] = task;
+        tasksCount++;
+        if (print) {
+            printLine();
+            System.out.println("  Ok! I've added this task:");
+            System.out.println("    " + task.toString());
+            System.out.println("  Now you have " + tasksCount + " tasks.");
+            printLine();
+        }
+    }
+
     /**
      * Prints a list of all the tasks in the taskManager
      */
@@ -38,6 +53,10 @@ public class TaskManager {
             System.out.println(tasks[i]);
         }
         printLine();
+    }
+
+    public Task[] getTasks() {
+        return tasks;
     }
 
     /**

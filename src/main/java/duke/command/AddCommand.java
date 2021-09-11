@@ -1,7 +1,8 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 import duke.task.Task;
 
 public class AddCommand extends Command {
@@ -19,11 +20,12 @@ public class AddCommand extends Command {
     /**
      * Calls the addTask method in taskManager to add the specified task
      *
-     * @param taskManager The taskManager that the task will be added to
+     * @param taskList The taskManager that the task will be added to
      * @throws DukeException If the maximum number of tasks has been reached
      */
     @Override
-    public void execute(TaskManager taskManager) throws DukeException {
-        taskManager.addTask(task);
+    public void execute(TaskList taskList, Storage storage) throws DukeException {
+        taskList.addTask(task);
+        storage.saveData(taskList);
     }
 }
