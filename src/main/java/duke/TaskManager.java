@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TaskManager {
     private static final int TASK_DESCRIPTION_INDEX = 0;
@@ -29,6 +30,10 @@ public class TaskManager {
             throw new DukeInvalidTaskIndexException();
         }
     }
+    
+    public static Iterator<Task> createIterator() {
+        return tasks.iterator();
+    }
 
     private static String[] splitDescription(String description, String splitBy) {
         return description.split(splitBy, 2);
@@ -44,7 +49,7 @@ public class TaskManager {
             System.out.println(i + 1 + "." + tasks.get(i));
         }
     }
-
+    
     public static boolean checkCorrectIndex(int index) {
         return index > 0 && index <= numOfTasks;
     }
@@ -90,6 +95,7 @@ public class TaskManager {
         }
         tasks.add(new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
         numOfTasks++;
+
     }
 
     private static void addDeadline(String description) throws DukeBlankDescriptionsException {
