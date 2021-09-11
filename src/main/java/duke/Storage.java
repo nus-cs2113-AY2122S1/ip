@@ -16,6 +16,7 @@ public class Storage {
 
     public Storage() throws DukeException {
         try {
+            file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
             throw new DukeException("Error: Unable to load data.");
