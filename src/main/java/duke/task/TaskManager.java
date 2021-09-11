@@ -64,4 +64,22 @@ public class TaskManager {
         System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
                 taskSelected.getDescription());
     }
+
+    /**
+     * Removes the task at the given index.
+     *
+     * @param taskIndex 1-Based index of selected task.
+     */
+    public void deleteTask(int taskIndex) {
+        if (taskIndex <= 0 || taskIndex > taskList.size()) {
+            System.out.println("[-] Task not found");
+            return;
+        }
+        Task taskSelected = taskList.get(taskIndex - 1);
+        taskList.remove(taskIndex - 1);
+        System.out.println("[+] Task removed:");
+        System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
+                taskSelected.getDescription());
+        System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
+    }
 }
