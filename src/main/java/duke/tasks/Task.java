@@ -9,6 +9,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String task, boolean isDone) {
+        this.task = task;
+        this.isDone = isDone;
+    }
+    
+    public abstract String toData(); 
+
     public String getTask() {
         return task;
     }
