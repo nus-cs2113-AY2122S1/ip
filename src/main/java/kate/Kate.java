@@ -10,6 +10,9 @@ import kate.task.Event;
 import kate.task.Task;
 import kate.task.ToDo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -80,6 +83,13 @@ public class Kate {
             + TEXT_INDENTATION + "Please specify a task using the <help> page \n";
 
     /**
+     * Target path names of the saved tasks
+     */
+    private static final String DIRECTORY_NAME_DATA = "data";
+    private static final String FILE_NAME_KATE = "kate.txt";
+    private static final String PATH_KATE = DIRECTORY_NAME_DATA + "/" + FILE_NAME_KATE;
+
+    /**
      * Initialise an array list of tasks
      */
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -94,6 +104,7 @@ public class Kate {
      * Retrieve and process user inputs depending on the commands
      */
     private static void startKate() {
+        createDataFile();
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
@@ -143,6 +154,7 @@ public class Kate {
             String taskDescription = processToDoInput(userInput);
             tasks.add(new ToDo(taskDescription));
             printAddedTask();
+            appendTaskToFile(getAddedTask());
         } catch (EmptyFieldException e) {
             printMessage(FAILURE_MESSAGE_ADD_TODO);
         }
@@ -177,6 +189,7 @@ public class Kate {
 
             tasks.add(new Deadline(taskDescription, deadline));
             printAddedTask();
+            appendTaskToFile(getAddedTask());
         } catch (EmptyFieldException e) {
             printMessage(FAILURE_MESSAGE_ADD_DEADLINE);
         }
@@ -223,6 +236,7 @@ public class Kate {
 
             tasks.add(new Event(taskDescription, timeFrame));
             printAddedTask();
+            appendTaskToFile(getAddedTask());
         } catch (EmptyFieldException e) {
             printMessage(FAILURE_MESSAGE_ADD_EVENT);
         }
@@ -267,8 +281,9 @@ public class Kate {
             curTask.setDone();
 
             String doneMessage = TEXT_INDENTATION + "Nice! I've marked this task as done:\n"
-                    + TEXT_INDENTATION + "  " + curTask.printTaskInfo() + "\n";
+                    + TEXT_INDENTATION + "  " + curTask.getTaskInfo() + "\n";
             printMessage(doneMessage);
+            updateTasksToFile();
         } catch (EmptyFieldException | InvalidFieldException e) {
             printMessage(FAILURE_MESSAGE_SET_DONE);
         } catch (EmptyTaskException e) {
@@ -283,7 +298,7 @@ public class Kate {
      * @return Task object of the task that is done
      * @throws EmptyFieldException   If task number provided is empty
      * @throws InvalidFieldException If task number provided is invalid
-     * @throws EmptyTaskException If task list is empty
+     * @throws EmptyTaskException    If task list is empty
      */
     private static Task processDoneInput(String userInput) throws EmptyFieldException, InvalidFieldException,
             EmptyTaskException {
@@ -294,12 +309,15 @@ public class Kate {
 
         String[] inputArr = userInput.split(" ");
         try {
-            int taskNumber = Integer.parseInt(inputArr[1]);
+            String doneInput = inputArr[1];
+            if (doneInput.isEmpty()) {
+                throw new EmptyFieldException();
+            }
 
+            int taskNumber = Integer.parseInt(doneInput);
             if ((taskNumber > tasks.size()) || (taskNumber < 1) || inputArr.length != 2) {
                 throw new InvalidFieldException();
             }
-
             int taskNumberIndex = taskNumber - 1;
 
             return tasks.get(taskNumberIndex);
@@ -317,13 +335,15 @@ public class Kate {
     private static void deleteTask(String userInput) {
         try {
             Task deletedTask = processDeleteInput(userInput);
-            String deletedTaskInfo = deletedTask.printTaskInfo();
+            String deletedTaskInfo = deletedTask.getTaskInfo();
             tasks.remove(deletedTask);
 
             String deleteMessage = TEXT_INDENTATION + "Noted. I've removed this task:\n"
                     + TEXT_INDENTATION + "  " + deletedTaskInfo + "\n"
-                    + TEXT_INDENTATION + "You currently have (" + tasks.size() + ") in your list :)\n";
+                    + TEXT_INDENTATION + "You currently have ("
+                    + tasks.size() + ") tasks in your list :)\n";
             printMessage(deleteMessage);
+            updateTasksToFile();
         } catch (EmptyFieldException | InvalidFieldException e) {
             printMessage(FAILURE_MESSAGE_DELETE_TASK);
         } catch (EmptyTaskException e) {
@@ -339,15 +359,15 @@ public class Kate {
      * @return Task object of the deleted task
      * @throws EmptyFieldException   If task number provided is empty
      * @throws InvalidFieldException If task number provided is invalid
-     * @throws EmptyTaskException If task list is empty
+     * @throws EmptyTaskException    If task list is empty
      */
     private static Task processDeleteInput(String userInput) throws EmptyFieldException, InvalidFieldException,
             EmptyTaskException {
-        String taskInput = userInput.substring(DELETE_LENGTH).strip();
-
         if (tasks.isEmpty()) {
             throw new EmptyTaskException();
         }
+
+        String taskInput = userInput.substring(DELETE_LENGTH).strip();
 
         if (taskInput.isEmpty()) {
             throw new EmptyFieldException();
@@ -368,11 +388,17 @@ public class Kate {
         }
     }
 
+    /**
+     * Greet message from Kate
+     */
     public static void printGreetMessage() {
         System.out.println(LOGO_KATE);
         printMessage(GREET_MESSAGE);
     }
 
+    /**
+     * Bye message from Kate
+     */
     public static void printByeMessage() {
         printMessage(BYE_MESSAGE);
     }
@@ -394,7 +420,7 @@ public class Kate {
     public static void printAddedTask() {
         String formattedMsg = "";
         formattedMsg += TEXT_WRAPPER + TEXT_INDENTATION + "Okay, I have added this task!\n"
-                + TEXT_INDENTATION + "  " + getAddedTask().printTaskInfo() + "\n"
+                + TEXT_INDENTATION + "  " + getAddedTask().getTaskInfo() + "\n"
                 + TEXT_INDENTATION + "You currently have (" + tasks.size()
                 + ") tasks in your list :)\n" + TEXT_WRAPPER;
         System.out.println(formattedMsg);
@@ -410,7 +436,7 @@ public class Kate {
             Task curTask = tasks.get(i);
             int numberedBullets = i + 1;
             formattedMsg += TEXT_INDENTATION + numberedBullets + ". "
-                    + curTask.printTaskInfo() + "\n";
+                    + curTask.getTaskInfo() + "\n";
         }
         formattedMsg += TEXT_WRAPPER;
         System.out.println(formattedMsg);
@@ -460,4 +486,57 @@ public class Kate {
                 + TEXT_INDENTATION + "- " + COMMAND_BYE + "\n";
         printMessage(helpText);
     }
+
+    /**
+     * Creates the data folder and file if it doesn't exist
+     * The file contents will be wiped out for every instance of the program
+     */
+    public static void createDataFile() {
+        File dataDir = new File(DIRECTORY_NAME_DATA);
+        File dataFile = new File(PATH_KATE);
+        try {
+            dataDir.mkdirs();
+            dataFile.delete();
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            printMessage("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Appends a task to ./data/kate.txt
+     *
+     * @param task Task to be appended
+     */
+    private static void appendTaskToFile(Task task) {
+        try {
+            FileWriter file = new FileWriter(PATH_KATE, true);
+            String taskInfo = task.getTaskInfoForFile() + "\n";
+            file.write(taskInfo);
+            file.close();
+
+        } catch (IOException e) {
+            printMessage("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Update the contents of task information to ./data/kate.txt
+     */
+    private static void updateTasksToFile() {
+        try {
+            FileWriter file = new FileWriter(PATH_KATE);
+            String taskInfo = "";
+            for (int i = 0; i < tasks.size(); ++i) {
+                Task curTask = tasks.get(i);
+                taskInfo += curTask.getTaskInfoForFile() + "\n";
+            }
+            file.write(taskInfo);
+            file.close();
+
+        } catch (IOException e) {
+            printMessage("Something went wrong: " + e.getMessage());
+        }
+    }
+
 }
