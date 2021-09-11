@@ -1,13 +1,19 @@
-class AddTaskCommand extends UserCommand {
+package Command;
+
+import Exception.TaskEmptyException;
+import Exception.TimeMissingException;
+import Tasks.TaskList;
+
+public class AddTaskCommand extends UserCommand {
     private String addCommand;
 
-    AddTaskCommand (String addCommand, TaskList tasks) {
+    public AddTaskCommand (String addCommand, TaskList tasks) {
         super(tasks);
         this.addCommand = addCommand;
     }
 
     @Override
-    public void execute () throws TaskEmptyException, TimeMissingException{
+    public void execute () throws TaskEmptyException, TimeMissingException {
         int totalNumberOfTasks;
         totalNumberOfTasks = tasks.addList(this.addCommand);
         System.out.println("     Got it. I've added this task: ");

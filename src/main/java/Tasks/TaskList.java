@@ -1,8 +1,13 @@
-class TaskList {
+package Tasks;
+
+import Exception.TimeMissingException;
+import Exception.TaskEmptyException;
+
+public class TaskList {
     private Task[] tasks = new Task[100];
     private int totalTasks = 0;
 
-    public int addList(String userInput) throws TimeMissingException, TaskEmptyException{
+    public int addList(String userInput) throws TimeMissingException, TaskEmptyException {
         Task newTask;
         newTask = getTask(userInput);
 

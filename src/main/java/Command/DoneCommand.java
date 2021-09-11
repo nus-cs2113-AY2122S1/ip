@@ -1,4 +1,11 @@
-class DoneCommand extends UserCommand {
+package Command;
+
+import Tasks.TaskList;
+import Exception.DukeException;
+import Exception.InvalidDoneCommandException;
+import Exception.TaskNotExistException;
+
+public class DoneCommand extends UserCommand {
     private int index;
 
     public DoneCommand (int index, TaskList tasks) {

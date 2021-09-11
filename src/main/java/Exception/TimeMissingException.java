@@ -1,7 +1,9 @@
+package Exception;
+
 public class TimeMissingException extends CommandWrongFormatException {
     private String taskType;
 
-    TimeMissingException(String taskType) {
+    public TimeMissingException(String taskType) {
         this.taskType = taskType;
     }
 

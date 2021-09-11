@@ -1,3 +1,5 @@
+package Tasks;
+
 class Todo extends Task {
 
     public Todo (String taskName, boolean isCompleted) {

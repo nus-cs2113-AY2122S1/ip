@@ -1,4 +1,6 @@
-public class TaskIndexMissingException extends InvalidDoneCommand{
+package Exception;
+
+public class TaskIndexMissingException extends InvalidDoneCommandException {
     @Override
     public String toString() {
         return "     ☹ OOPS!!! The task index cannot be empty";
