@@ -10,9 +10,34 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileManager {
+public abstract class FileManager {
 
     public static final String FILE_PATH = "data/savedTasks.txt";
+
+    public static final String REGEX_OPEN_BRACKET = "\\(";
+    public static final String REGEX_CLOSE_BRACKET = "\\)";
+
+    public static final int CHECKBOX_STATUS_INDEX = 4;
+    public static final int CHECKBOX_TASK_TYPE_INDEX = 1;
+
+    public static final int START_INDEX = 0;
+
+    public static void addSavedTask(String taskType, Boolean isDone, String taskDetails, TaskManager taskManager) {
+        switch (taskType) {
+        case Display.CHECKBOX_TODO_TASK_TYPE:
+            taskManager.addSavedTodoTask(isDone, taskDetails);
+            break;
+        case Display.CHECKBOX_DEADLINE_TASK_TYPE:
+            taskManager.addSavedDeadlineTask(isDone, taskDetails);
+            break;
+        case Display.CHECKBOX_EVENT_TASK_TYPE:
+            taskManager.addSavedEventTask(isDone, taskDetails);
+            break;
+        default:
+            Error.displayFileAddTaskError();
+            break;
+        }
+    }
 
     public static void parseFile(TaskManager taskManager) throws IOException {
         File taskFile = new File(FILE_PATH);
@@ -24,7 +49,17 @@ public class FileManager {
         while (s.hasNext()) {
             String[] taskComponents = InputParser.getCommandComponents(s);
             String taskDetails = InputParser.getTaskDetails(taskComponents);
+            addSavedTask(getTaskType(taskComponents[0]), isTaskCompleted(taskComponents[0]), taskDetails, taskManager);
         }
+    }
+
+    public static String getTaskType(String checkboxComponent) {
+        return checkboxComponent.substring(CHECKBOX_TASK_TYPE_INDEX, CHECKBOX_TASK_TYPE_INDEX + 1);
+    }
+
+    public static Boolean isTaskCompleted(String checkboxComponent) {
+        String checkboxStatus = checkboxComponent.substring(CHECKBOX_STATUS_INDEX, CHECKBOX_STATUS_INDEX + 1);
+        return Display.CHECKBOX_TASK_COMPLETE.equals(checkboxStatus);
     }
 
     public static void loadFileData(TaskManager taskManager) {
@@ -35,10 +70,25 @@ public class FileManager {
         }
     }
 
+    public static String clearCheckboxSpace(Task task, String taskInfo) {
+        if (task.getIsCompleted()) {
+            return taskInfo;
+        }
+        return taskInfo.substring(START_INDEX, CHECKBOX_STATUS_INDEX) + taskInfo.substring(CHECKBOX_STATUS_INDEX + 1);
+    }
+
+    public static String clearDateBrackets(String taskInfo) {
+        return taskInfo.replaceAll(REGEX_OPEN_BRACKET, InputParser.DATE_SEPARATOR)
+                .replaceAll(REGEX_CLOSE_BRACKET, InputParser.SEPARATOR).trim();
+    }
+
     public static void updateFileData(Task[] allTasks, int taskCount) throws IOException {
         FileWriter taskFile = new FileWriter(FILE_PATH);
         for (int i = 0; i < taskCount; i++) {
-            taskFile.write(allTasks[i].toString());
+            String taskToAdd = allTasks[i].toString();
+            taskToAdd = clearCheckboxSpace(allTasks[i], taskToAdd);
+            taskToAdd = clearDateBrackets(taskToAdd);
+            taskFile.write(taskToAdd);
             taskFile.write(System.lineSeparator());
         }
         taskFile.close();

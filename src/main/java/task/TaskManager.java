@@ -40,7 +40,7 @@ public class TaskManager {
 
     public void addDeadlineTask(String taskInformation) {
         try {
-            String[] taskComponents = InputParser.getTaskComponents(taskInformation);
+            String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
             String taskName = getTaskName(taskComponents[0]);
             String deadline = taskComponents[1];
             allTasks[taskCount] = new Deadline(taskName, deadline);
@@ -58,7 +58,7 @@ public class TaskManager {
 
     public void addEventTask(String taskInformation) {
         try {
-            String[] taskComponents = InputParser.getTaskComponents(taskInformation);
+            String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
             String taskName = getTaskName(taskComponents[0]);
             String eventTime = taskComponents[1];
             allTasks[taskCount] = new Event(taskName, eventTime);
@@ -95,5 +95,51 @@ public class TaskManager {
             System.out.println(i + 1 + ". " + allTasks[i]);
         }
         Display.printListTaskLine();
+    }
+
+    public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
+        try {
+            allTasks[taskCount] = new Todo(getTaskName(taskDetails));
+            if (isCompleted) {
+                allTasks[taskCount].setTaskCompleted();
+            }
+            taskCount++;
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayFileSavedTaskNameEmptyError();
+        }
+    }
+
+    public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
+        try {
+            String[] taskComponents = InputParser.getTaskWithDateComponents(taskDetails);
+            String taskName = getTaskName(taskComponents[0]);
+            String deadline = taskComponents[1];
+            allTasks[taskCount] = new Deadline(taskName, deadline);
+            if (isCompleted) {
+                allTasks[taskCount].setTaskCompleted();
+            }
+            taskCount++;
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayFileSavedTaskFormatError();
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayFileSavedTaskNameEmptyError();
+        }
+    }
+
+    public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
+        try {
+            String[] taskComponents = InputParser.getTaskWithDateComponents(taskDetails);
+            String taskName = getTaskName(taskComponents[0]);
+            String eventTime = taskComponents[1];
+            allTasks[taskCount] = new Event(taskName, eventTime);
+            if (isCompleted) {
+                allTasks[taskCount].setTaskCompleted();
+            }
+            taskCount++;
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayFileSavedTaskFormatError();
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayFileSavedTaskNameEmptyError();
+        }
     }
 }
