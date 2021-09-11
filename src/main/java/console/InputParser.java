@@ -6,6 +6,7 @@ public abstract class InputParser {
 
     public static final int TASK_INDEX = 1;
     public static final String SEPARATOR = " ";
+    public static final String DATE_SEPARATOR = "/";
 
     public static String getTaskDetails(String[] words) {
         StringBuilder taskName = new StringBuilder();
@@ -25,8 +26,8 @@ public abstract class InputParser {
         return Integer.parseInt(commandComponents[TASK_INDEX]) - 1;
     }
 
-    public static String[] getTaskComponents(String taskInformation) {
-        String[] taskComponents = taskInformation.split("/");
+    public static String[] getTaskWithDateComponents(String taskInformation) {
+        String[] taskComponents = taskInformation.split(DATE_SEPARATOR);
         for (int i = 0; i < taskComponents.length; i++) {
             taskComponents[i] = taskComponents[i].trim();
         }
