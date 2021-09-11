@@ -55,4 +55,10 @@ public class Task {
         return getStatusIcon() + " " + descr;
     }
 
+    public static void decreaseTotalTasks() {
+        if (totalTasks > 0) {
+            totalTasks--;
+        }
+    }
+
 }
