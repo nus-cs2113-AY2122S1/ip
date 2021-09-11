@@ -56,9 +56,8 @@ public class Duke {
                     addDeadline(inputCommand);
                 } else if (inputCommand.contains("event")) {
                     addEvent(inputCommand);
-                } else if (inputCommand.contains("delete")){
-                    deleteTask(inputCommand);
-                } else{
+                }
+                else{
                     throw new DukeException();
                 }
             } catch (DukeException e) {
@@ -68,22 +67,6 @@ public class Duke {
             }
             inputCommand = in.nextLine();
         }
-    }
-
-    private static void deleteTask(String inputCommand) {
-        System.out.println(HORIZONTAL_LINE);
-        try {
-            int position = inputCommand.indexOf(" ");
-            int taskToDelete = Integer.parseInt(inputCommand.trim().substring(position + 1)) - 1;
-            Task removeTask = tasks.get(taskToDelete);
-            tasks.remove(taskToDelete);
-            System.out.println("Noted! I've remove this task:");
-            System.out.println(removeTask.toString());
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Please enter a number after delete.");
-        }
-        System.out.println(HORIZONTAL_LINE);
     }
 
     private static void addEvent(String inputCommand) {
