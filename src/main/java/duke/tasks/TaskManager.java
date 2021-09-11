@@ -146,4 +146,14 @@ public class TaskManager {
                 + tasks.get(taskNumber - 1).toString());
     }
 
+    public void removeTask(int taskNumber) throws DukeInvalidTaskIndex {
+        if (taskNumber > numberOfTasks || taskNumber <= 0) {
+            throw new DukeInvalidTaskIndex();
+        }
+        Task removedTask = tasks.remove(taskNumber - 1);
+        Duke.printMessage("I have removed the task: " + Duke.NL + removedTask.toString()
+                + Duke.NL + "You now have " + (numberOfTasks - 1) + " tasks remaining");
+        numberOfTasks--;
+    }
+
 }
