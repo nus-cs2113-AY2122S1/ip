@@ -4,10 +4,11 @@ import duke.command.Command;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class TaskManager implements Serializable {
-    public static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int numOfTask = 0;
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int BY_OR_AT_INDEX = 1;
@@ -31,6 +32,10 @@ public class TaskManager implements Serializable {
             throw new DukeInvalidTaskIndexException();
         }
     }
+    
+    public static Iterator<Task> createIterator() {
+        return tasks.iterator();
+    }
 
     private static String[] splitDescription(String description, String splitBy) {
         return description.split(splitBy, 2);
@@ -47,7 +52,7 @@ public class TaskManager implements Serializable {
         }
     }
 
-    public static boolean checkCorrectIndex(int index) {
+    private static boolean checkCorrectIndex(int index) {
         return index > 0 && index <= numOfTask;
     }
 

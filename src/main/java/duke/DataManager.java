@@ -5,10 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class DataManager {
-
     private static final String fileName = ".\\src\\main\\java\\duke\\Data.txt";
 
     public static void load() {
@@ -20,12 +20,12 @@ public class DataManager {
                 data = data.replace(']', ',');
                 data = data.replace('[', ' ');
                 String[] dataParts = data.split(",");
-                for (int i = 0; i < 3; i ++) {
+                for (int i = 0; i < 3; i++) {
                     dataParts[i] = dataParts[i].trim();
                 }
                 addTaskEntry(dataParts);
             }
-            sc.close();    
+            sc.close();
             UserInterface.showLoadSuccess();
         } catch (DukeBlankDescriptionsException | DukeInvalidTaskIndexException e) {
             UserInterface.showLoadError();
@@ -67,8 +67,9 @@ public class DataManager {
         }
         BufferedWriter buffer = new BufferedWriter(writer);
         try {
-            for (Task t : TaskManager.tasks) {
-                buffer.write(String.valueOf(t));
+            Iterator<Task> i = TaskManager.createIterator();
+            while (i.hasNext()) {
+                buffer.write(String.valueOf(i.next()));
                 buffer.write("\n");
             }
             buffer.close();
