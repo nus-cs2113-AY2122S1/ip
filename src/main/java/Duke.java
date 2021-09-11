@@ -3,6 +3,10 @@ import todo.Deadline;
 import todo.Event;
 import todo.Task;
 import todo.ToDo;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import java.util.Scanner;
 
@@ -17,12 +21,14 @@ public class Duke {
     private static int tasksDone = 0;
     private static Task[] tasks;
     private static String[] commands = {"todo", "event", "deadline"};
+    private static String filePath = "duke.txt";
 
     public static void main(String[] args) {
         int LIST_SIZE = 100;
         String line = "";
         tasks = new Task[LIST_SIZE];
         showWelcomeScreen();
+        //readFile();
         while (tasksTotal <= LIST_SIZE && !line.contains("bye")) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
@@ -38,6 +44,22 @@ public class Duke {
         return;
     }
 
+    private static void readFile() {
+        try {
+            readFileContents(filePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    private static void readFileContents (String filePath) throws FileNotFoundException{
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            ;
+        }
+    }
+
     private static void checkValidCommand(String[] words) throws InvalidCommandError {
         String command = words[0];
 
@@ -50,6 +72,13 @@ public class Duke {
         } else if (command.equals("bye")) {
             showByeScreen();
             return;
+        } else if (command.equals("save")) {
+            try {
+                saveTasks(filePath, tasks);
+            } catch (IOException e) {
+                System.out.println("Something went wrong!");
+            }
+            
         } else { //is a valid task
             checkValidInput(words);
         }
@@ -148,6 +177,29 @@ public class Duke {
             System.out.println("Invalid command, try again.");
             Task.printDivider();
         }
+    }
+
+    private static void saveTasks(String filePath, Task[] tasks) throws IOException{
+        FileWriter fw = new FileWriter(filePath);
+        String stringToAdd = "";
+        String taskDescription, type, date;
+        Boolean isDone;
+        for(int i = 1; i <= tasksTotal; i++) {
+            taskDescription = tasks[i].toString().split(" ", 3)[1];
+            type = tasks[i].getType();
+            isDone = tasks[i].getStatus();
+            stringToAdd +=  type+ "|" + isDone + "|" + taskDescription;
+            if(type == "e" || type == "d") {
+                String[] splitString = tasks[i].toString().split(":", 2);
+                String removedSpace = splitString[1].trim();
+                date = removedSpace.replace(")", "");
+                stringToAdd += "|" + date;
+            }
+            stringToAdd += System.lineSeparator();
+        }
+        System.out.println(stringToAdd);
+        fw.write(stringToAdd);
+        fw.close();
     }
 
     private static void addSuccess() {

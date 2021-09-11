@@ -5,9 +5,11 @@ public class Task {
 
     private String taskDescription;
     protected Boolean isDone;
+    private String type;
 
 
     protected Task(String description) {
+        type = "";
         setTaskDescription(description);
         isDone = false;
         printDivider();
@@ -15,6 +17,18 @@ public class Task {
 
     public void setDone(Boolean status) {
         this.isDone = status;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Boolean getStatus() {
+        return isDone;
     }
 
     private String getStatusIcon(Boolean status) {
