@@ -3,6 +3,9 @@ package Duke;
 import Exceptions.InsufficientParametersException;
 import Exceptions.UnknownCommandException;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Duke {
 
     public static String handleInput(TaskManager taskManager, String[] input)
@@ -36,11 +39,17 @@ public class Duke {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         UserInterface userInterface = new UserInterface();
+        try {
+            TaskManager.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("Task file could not be found");
+        }
         userInterface.printGreeting();
         while (true) {
             String[] input = userInterface.getUserInput().split(" ", 2);
             try {
                 String infoForUser = handleInput(taskManager, input);
+                TaskManager.saveTasks();
                 if (infoForUser.equals("exit")) {
                     userInterface.printGoodbye();
                     System.exit(0);
@@ -53,8 +62,11 @@ public class Duke {
                 userInterface.printNotNumber();
             } catch (InsufficientParametersException | ArrayIndexOutOfBoundsException e) {
                 userInterface.printInsufficientParameters();
+            } catch (IOException e) {
+                userInterface.printIOException(e.getMessage());
             }
         }
+
     }
 }
 

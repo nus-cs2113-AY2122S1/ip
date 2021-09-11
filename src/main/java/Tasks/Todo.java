@@ -1,12 +1,12 @@
 package Tasks;
 
 public class Todo extends Task{
-    public Todo(String task) {
-        super(task);
+    public Todo(String task, boolean isDone) {
+        super(task, isDone, TaskTypes.TODO);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return super.toString();
     }
 }

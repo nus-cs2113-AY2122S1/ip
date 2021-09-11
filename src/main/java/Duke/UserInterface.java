@@ -9,6 +9,7 @@ public class UserInterface {
     public static final String NOT_A_NUMBER_MESSAGE = "The input was not a number. Please Try Again\n";
     public static final String NOT_ENOUGH_PARAMS_MESSAGE = "The input had insufficient parameters. "
             + "Please Try Again. \nFor command syntax, typ: help\n";
+    public static final String FILE_CANNOT_BE_SAVED_MESSAGE = "The file could not be saved: ";
     private static final String GREETING = "****************************\n"
             + "*  ____             ____   *\n"
             + "* |  _ \\    ____   |  _ \\  *\n"
@@ -55,5 +56,9 @@ public class UserInterface {
 
     public void printNotNumber() {
         System.out.println(BORDER + NOT_A_NUMBER_MESSAGE + BORDER);
+    }
+
+    public void printIOException(String message) {
+        System.out.println(FILE_CANNOT_BE_SAVED_MESSAGE + message + "\n");
     }
 }
