@@ -3,13 +3,13 @@ package Tasks;
 public class Deadline extends Task{
     protected String dueDate;
 
-    public Deadline(String task, String dueDate) {
-        super(task);
+    public Deadline(String task, boolean isDone, String dueDate) {
+        super(task, isDone, TaskTypes.DEADLINE);
         this.dueDate = dueDate;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate + ")";
+        return super.toString() + " | by: " + dueDate ;
     }
 }
