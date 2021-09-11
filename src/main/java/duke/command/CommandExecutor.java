@@ -97,6 +97,7 @@ public class CommandExecutor {
      *
      * @param inputLine Raw input line to search.
      * @return Command that user is trying to run.
+     * @throws CommandException If unable to detect the command in the given input.
      */
     private Command findCommand(String inputLine) throws CommandException {
         for (Command command : commandList) {
@@ -112,6 +113,8 @@ public class CommandExecutor {
      *
      * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
+     * @throws CommandException If an illegal command is executed.
+     * @throws IOException      If a file-related operation has errors.
      */
     private void runCommandUsingInput(Command command, String inputLine) throws CommandException, IOException {
         if (!command.isValidCommandLine(inputLine)) {

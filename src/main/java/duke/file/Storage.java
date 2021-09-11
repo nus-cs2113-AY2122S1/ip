@@ -24,6 +24,7 @@ public class Storage {
      *
      * @param content  Data to write to the file.
      * @param filePath Path of the file to write to.
+     * @throws IOException If a file-related operation has errors.
      */
     public void writeToFile(String content, String filePath) throws IOException {
         File dataDir = new File(dataDirPath);
