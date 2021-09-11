@@ -7,6 +7,12 @@ import duke.exceptions.DukeInvalidTaskIndex;
 import duke.exceptions.DukeTaskAlreadyCompletedException;
 import duke.exceptions.DukeMissingKeywordException;
 import duke.tasks.TaskManager;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
@@ -39,6 +45,9 @@ public class Duke {
 
     public static final Scanner SCANNER = new Scanner(System.in);
     public static final TaskManager TASK_MANAGER = new TaskManager();
+    public static final File DATA_DIRECTORY = new File("data");
+    public static final File DATA_FILE = new File(DATA_DIRECTORY.getPath().concat("/duke.txt"));
+
 
     public static void printMessage(String message) {
         final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -56,9 +65,36 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        loadPreviousData();
         printStartingOrEndingMessage(IS_STARTING);
         runDuke();
         printStartingOrEndingMessage(IS_ENDING);
+    }
+
+    private static void loadPreviousData() {
+        System.out.print("Loading data... ");
+        if (!DATA_DIRECTORY.isDirectory()) {
+            DATA_DIRECTORY.mkdirs();
+        }
+        if (!DATA_FILE.exists()) {
+            System.out.println("No previous data found");
+            return;
+        }
+        try {
+            Scanner loadingScanner = new Scanner(DATA_FILE);
+            while (loadingScanner.hasNext()) {
+                String nextLine = loadingScanner.nextLine();
+                loadTask(nextLine);
+            }
+            System.out.println("Data loaded successfully");
+        } catch (IOException e) {
+            System.out.println("ERROR : " + e);
+        }
+    }
+
+    private static void loadTask(String taskDetails) throws IOException{
+        String[] splitTaskDetails = taskDetails.split("\\|");
+        TASK_MANAGER.addLoadedTask(splitTaskDetails);
     }
 
     private static void runDuke() {
@@ -84,6 +120,8 @@ public class Duke {
                 printMessage("Please enter valid task index number");
             } catch (DukeTaskAlreadyCompletedException e) {
                 printMessage("This task is already completed");
+            } catch (IOException e) {
+                System.out.println("ERROR : " + e);
             }
         }
     }
@@ -94,7 +132,8 @@ public class Duke {
             DukeEmptyDescriptionException,
             DukeExceedMaxTaskException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException {
+            DukeMissingKeywordException,
+            IOException{
         switch (command) {
         case "list":
             TASK_MANAGER.printTasks();

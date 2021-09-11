@@ -8,6 +8,9 @@ import duke.exceptions.DukeInvalidTaskIndex;
 import duke.exceptions.DukeTaskAlreadyCompletedException;
 import duke.exceptions.DukeMissingKeywordException;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     private int numberOfTasks;
@@ -26,8 +29,34 @@ public class TaskManager {
         return tasks;
     }
 
+    public void addLoadedTask(String[] taskDetails) {
+        switch (taskDetails[0].trim()) {
+        case "T":
+            boolean isDone = taskDetails[1].trim().equalsIgnoreCase("1");
+            Task todo = new Todo(taskDetails[2].trim(), isDone);
+            tasks[numberOfTasks] = todo;
+            numberOfTasks++;
+            break;
+        case "D":
+            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
+            Task deadline = new Deadline(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
+            tasks[numberOfTasks] = deadline;
+            numberOfTasks++;
+            break;
+        case "E":
+            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
+            Task event = new Event(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
+            tasks[numberOfTasks] = event;
+            numberOfTasks++;
+            break;
+        default:
+            System.out.println("SOME ERROR HAS OCCURRED!");
+        }
+    }
+
     public void addTodo(String input) throws DukeEmptyDescriptionException,
-            DukeExceedMaxTaskException {
+            DukeExceedMaxTaskException,
+            IOException {
         if (numberOfTasks >= MAX_TASKS) {
             throw new DukeExceedMaxTaskException();
         }
@@ -38,13 +67,17 @@ public class TaskManager {
         tasks[numberOfTasks] = todo;
         numberOfTasks++;
         acknowledgeCommand(todo);
+        FileWriter fw = new FileWriter(Duke.DATA_FILE,true);
+        fw.write(Duke.NL + todo.toData());
+        fw.close();
     }
 
 
     public void addDeadline(String input) throws DukeEmptyDescriptionException,
             DukeExceedMaxTaskException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException {
+            DukeMissingKeywordException,
+            IOException {
         if (numberOfTasks >= MAX_TASKS) {
             throw new DukeExceedMaxTaskException();
         }
@@ -55,6 +88,9 @@ public class TaskManager {
         tasks[numberOfTasks] = deadline;
         numberOfTasks++;
         acknowledgeCommand(deadline);
+        FileWriter fw = new FileWriter(Duke.DATA_FILE,true);
+        fw.write(Duke.NL + deadline.toData());
+        fw.close();
     }
 
     private String getDeadlineBy(String input, int indexOfByPrefix) throws DukeEmptyTimeException {
@@ -85,7 +121,8 @@ public class TaskManager {
     public void addEvent(String input) throws DukeEmptyDescriptionException,
             DukeExceedMaxTaskException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException {
+            DukeMissingKeywordException,
+            IOException {
         if (numberOfTasks >= MAX_TASKS) {
             throw new DukeExceedMaxTaskException();
         }
@@ -96,6 +133,9 @@ public class TaskManager {
         tasks[numberOfTasks] = event;
         numberOfTasks++;
         acknowledgeCommand(event);
+        FileWriter fw = new FileWriter(Duke.DATA_FILE,true);
+        fw.write(Duke.NL + event.toData());
+        fw.close();
     }
 
     private String getEventAt(String input, int indexOfAtPrefix) throws DukeEmptyTimeException {
@@ -144,7 +184,8 @@ public class TaskManager {
     }
 
     public void setTaskAsDone(int taskNumber) throws DukeInvalidTaskIndex,
-            DukeTaskAlreadyCompletedException {
+            DukeTaskAlreadyCompletedException,
+            IOException {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new DukeInvalidTaskIndex();
         }
@@ -155,6 +196,12 @@ public class TaskManager {
         tasks[taskNumber - 1].setDone();
         Duke.printMessage("Good Job!! I've marked this task as done:" + Duke.NL
                 + tasks[taskNumber - 1].toString());
+        
+        FileWriter fw = new FileWriter(Duke.DATA_FILE, false);
+        for (int i = 0; i < numberOfTasks; i++) {
+            fw.write(tasks[i].toData() + ((i >= numberOfTasks - 1) ? "" : Duke.NL));
+        }
+        fw.close();
     }
 
 }
