@@ -1,15 +1,26 @@
 package tasks;
+
+import exceptions.DukeException;
+
 public class Task {
     protected String name;
+    protected String fullDescription;
     protected boolean isDone;
     protected TaskType taskType;
+    protected char taskChar;
 
     protected static int numTasks = 0;
 
-    public Task(String name) {
+    public Task(String name) throws DukeException {
+        this(name,false);
+    }
+
+    public Task(String name, boolean isDone) {
         this.name = name;
-        isDone = false;
+        this.isDone = isDone;
         numTasks++;
+        fullDescription = name;
+        taskChar = 'X';
     }
 
     public void setDone(boolean isDone) {
@@ -27,21 +38,15 @@ public class Task {
     @Override
     public String toString() {
         char mark = isDone ? 'X' : ' ';
-        char type;
-        switch (taskType) {
-        case TODO:
-            type = 'T';
-            break;
-        case DEADLINE:
-            type = 'D';
-            break;
-        case EVENT:
-            type = 'E';
-            break;
-        default:
-            type = 'T';
-            break;
-        }
-        return "[" + type + "][" + mark + "] " + name;
+        return "[" + taskChar + "][" + mark + "] " + name;
     }
+
+    public char getTaskChar() {
+        return taskChar;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
 }

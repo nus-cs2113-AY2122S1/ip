@@ -12,7 +12,10 @@ public class CommandHandler {
     public String descriptorBeforeClause;
     public String descriptorAfterClause;
 
-    public CommandHandler(String input) {
+    public CommandHandler(String input) throws DukeException{
+        if (input.equals("")) {
+            throw new DukeException("Invalid Task Input");
+        }
         // padding extra space to circumvent indexOutOfBounds
         this.input = input + " ";
         this.command = input.split(" ")[0];
