@@ -83,11 +83,11 @@ public class Duke {
     public static void printWelcomeMessage() {
         String logo =
                 "        ___      __    __       _______.___________.__  .__   __.\n" +
-                "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
-                "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
-                "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
-                "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   |\n" +
-                "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|  ";
+                        "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
+                        "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
+                        "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
+                        "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   |\n" +
+                        "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|  ";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Austin\n"
                 + "What can I do for you?\n"
@@ -273,6 +273,6 @@ public class Duke {
     public static void printCompletionMessage() {
         System.out.println("___________________COMMAND EXECUTED___________________");
         System.out.println("Anything else?\n"
-                 + "In case, if you are unsure of any commands, please type \"help\".");
+                + "In case, if you are unsure of any commands, please type \"help\".");
     }
 }
