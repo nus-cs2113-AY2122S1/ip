@@ -5,7 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,10 +22,12 @@ public class Duke {
     private static final int DEADLINE_DESCRIPTION_START = 9;
     private static final String DEADLINE_EMPTY_ERROR = "The deadline must contain a '/by'";
     private static final String DEADLINE_DESCRIPTION_ERROR = "The deadline description cannot be empty";
-    private static final int DONE_MIN_LENGTH = 2;
+    private static final int EVENT_DEADLINE_TIME = 3;
+    private static final int DONE_DELETE_MIN_LENGTH = 2;
     private static final String DONE_DESCRIPTION_ERROR = "The task to be marked as done cannot be empty";
     private static final String DONE_EXCEED_ERROR = "The task to be marked as done does not exist in the list of tasks";
-    private static final int EVENT_DEADLINE_TIME = 3;
+    private static final String DELETE_DESCRIPTION_ERROR = "The task to be deleted cannot be empty";
+    private static final String DELETE_EXCEED_ERROR = "The task to be deleted does not exist in the list of tasks";
     private static final String COMMAND_ERROR = "Sorry, I don't understand what you are saying";
 
 
@@ -46,38 +48,57 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void markAsDone(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void markAsDone(ArrayList<Task> tasks, int currCount, String line) throws DukeException {
         String[] input = line.split(" ");
-        if (input.length < DONE_MIN_LENGTH) {
+        if (input.length < DONE_DELETE_MIN_LENGTH) {
             throw new DukeException(DONE_DESCRIPTION_ERROR);
         }
         int index = Integer.parseInt(input[1]) - 1;
-        if (index >= currCount) {
+        if (index >= currCount || index < 0) {
             throw new DukeException(DONE_EXCEED_ERROR);
         }
-        tasks[index].markAsDone();
+        tasks.get(index).markAsDone();
         printHorizontalLine();
         System.out.println(" Nice! I've marked this task as done:");
-        System.out.println(" " + tasks[index].toString());
+        System.out.println(" " + tasks.get(index).toString());
         printHorizontalLine();
     }
 
-    public static void printList(Task[] tasks, int currCount) {
+    public static int deleteTask(ArrayList<Task> tasks, int currCount, String line) throws DukeException {
+        String[] input = line.split(" ");
+        if (input.length < DONE_DELETE_MIN_LENGTH) {
+            throw new DukeException(DELETE_DESCRIPTION_ERROR);
+        }
+        int index = Integer.parseInt(input[1]) - 1;
+        if (index >= currCount || index < 0) {
+            throw new DukeException(DELETE_EXCEED_ERROR);
+        }
+        printHorizontalLine();
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println(" " + tasks.get(index).toString());
+        tasks.remove(index);
+        int numTasks = currCount - 1;
+        System.out.println(" Now you have " + numTasks + " tasks in the list.");
+        printHorizontalLine();
+        currCount -= 1;
+        return currCount;
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
         printHorizontalLine();
         System.out.println(" Here are the tasks in your list:");
-        Task[] taskList = Arrays.copyOf(tasks, currCount);
         int taskCount = 1;
-        for (Task elem : taskList) {
+        for (Task elem : tasks) {
             System.out.println(" " + taskCount + ". " + elem.toString());
             taskCount += 1;
         }
         printHorizontalLine();
     }
 
-    public static int completeAddTask(Task[] tasks, int currCount) {
+    public static int completeAddTask(ArrayList<Task> tasks, int currCount) {
         printHorizontalLine();
         System.out.println(" Got it. I've added this task:");
-        System.out.println(" " + tasks[currCount].toString());
+        System.out.println(" " + tasks.get(currCount).toString());
         int numTasks = currCount + 1;
         System.out.println(" Now you have " + numTasks + " tasks in the list.");
         printHorizontalLine();
@@ -85,7 +106,7 @@ public class Duke {
         return currCount;
     }
 
-    public static void addEvent(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void addEvent(ArrayList<Task> tasks, int currCount, String line) throws DukeException {
         if (line.length() < EVENT_MIN_LENGTH) {
             throw new DukeException(EVENT_DESCRIPTION_ERROR);
         }
@@ -93,10 +114,10 @@ public class Duke {
             throw new DukeException(EVENT_EMPTY_ERROR);
         }
         String[] input = line.substring(EVENT_DESCRIPTION_START).split("/");
-        tasks[currCount] = new Event(input[0], input[1].substring(EVENT_DEADLINE_TIME));
+        tasks.add(currCount, new Event(input[0], input[1].substring(EVENT_DEADLINE_TIME)));
     }
 
-    public static void addDeadline(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void addDeadline(ArrayList<Task> tasks, int currCount, String line) throws DukeException {
         if (line.length() < DEADLINE_MIN_LENGTH) {
             throw new DukeException(DEADLINE_DESCRIPTION_ERROR);
         }
@@ -105,15 +126,15 @@ public class Duke {
         }
         String[] input = line.substring(DEADLINE_DESCRIPTION_START).split("/");
         // first elem: description, second elem: deadline
-        tasks[currCount] = new Deadline(input[0], input[1].substring(EVENT_DEADLINE_TIME));
+        tasks.add(currCount, new Deadline(input[0], input[1].substring(EVENT_DEADLINE_TIME)));
     }
 
-    public static void addTodo(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void addTodo(ArrayList<Task> tasks, int currCount, String line) throws DukeException {
         if (line.length() < TODO_MIN_LENGTH) {
             throw new DukeException(TODO_DESCRIPTION_ERROR);
         }
         // take the description part of the input string
-        tasks[currCount] = new Todo(line.substring(TODO_DESCRIPTION_START));
+        tasks.add(currCount, new Todo(line.substring(TODO_DESCRIPTION_START)));
     }
 
     public static void printGoodBye() {
@@ -124,7 +145,7 @@ public class Duke {
 
     public static void main(String[] args) {
         printWelcomeMessage();
-        Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
+        ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
         int currCount = 0;
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
@@ -132,6 +153,8 @@ public class Duke {
             try {
                 if (line.contains("done")) { // mark task as done
                     markAsDone(tasks, currCount, line);
+                } else if (line.contains("delete")) { // delete task
+                    currCount = deleteTask(tasks, currCount, line);
                 } else if (line.contains("todo")) {
                     addTodo(tasks, currCount, line);
                     currCount = completeAddTask(tasks, currCount);
@@ -142,7 +165,7 @@ public class Duke {
                     addEvent(tasks, currCount, line);
                     currCount = completeAddTask(tasks, currCount);
                 } else if (line.equals("list")){ // print the list
-                    printList(tasks, currCount);
+                    printList(tasks);
                 }
                 else {
                     throw new DukeException(COMMAND_ERROR);
