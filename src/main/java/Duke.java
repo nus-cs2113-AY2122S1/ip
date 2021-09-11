@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -25,22 +27,22 @@ public class Duke {
     }
 
     public static void manageTasks() {
-        Task[] userTasks = new Task[MAX_STORED_TASKS];
-        int taskIndex = 0;
+        ArrayList<Task> userTasks = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
         String userInputString = userInput.nextLine();
 
         while (!userInputString.equals("bye")) {
             System.out.println(DIVIDING_LINE);
 
-            try  {
+            try {
                 if (userInputString.equals("list")) {
-                    listTasks(taskIndex, userTasks);
-                } else if (userInputString.startsWith("done")) {
+                    listTasks(userTasks);
+                } else if (userInputString.startsWith("done ")) {
                     markTaskDone(userInputString, userTasks);
+                } else if (userInputString.startsWith("delete ")) {
+                    deleteTask(userInputString, userTasks);
                 } else {
                     addNewTask(userInputString, userTasks);
-                    taskIndex++;
                 }
             } catch (DukeException e) {
                 System.out.println("DukeException: " + e.getMessage());
@@ -51,31 +53,55 @@ public class Duke {
         }
     }
 
-    public static void listTasks(int taskIndex, Task[] userTasks) {
-        for (int i = 0; i < taskIndex; i++) {
-            System.out.println((i + 1) + ". " + userTasks[i]);
+    public static void listTasks(ArrayList<Task> userTasks) {
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            System.out.println((i + 1) + ". " + userTasks.get(i));
         }
     }
 
-    public static void markTaskDone(String userInputString, Task[] userTasks) throws DukeException {
+    public static void markTaskDone(String userInputString, ArrayList<Task> userTasks) throws DukeException {
         String[] words = userInputString.split(" ");
         int completeIndex;
 
         try {
             completeIndex = Integer.parseInt(words[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException(DukeException.TASK_INDEX_INVALID);
+            throw new DukeException(DukeException.INDEX_INVALID);
         }
 
         if (completeIndex >= 0 && completeIndex < Task.getTotalTasks()) {
-            userTasks[completeIndex].markComplete();
-            System.out.println("Task " + userTasks[completeIndex].getDescription() + " marked as complete.");
+            userTasks.get(completeIndex).markComplete();
+            System.out.println("Task " + userTasks.get(completeIndex).getDescription() + " marked as complete.");
         } else {
-            throw new DukeException(DukeException.TASK_INDEX_OOB);
+            throw new DukeException(DukeException.INDEX_OOB);
         }
     }
 
-    public static void addNewTask(String userInputString, Task[] userTasks) throws DukeException {
+    public static void deleteTask(String userInputString, ArrayList<Task> userTasks) throws DukeException {
+        String[] words = userInputString.split(" ");
+        int deleteIndex;
+        String taskStorage;
+
+        try {
+            deleteIndex = Integer.parseInt(words[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(DukeException.INDEX_INVALID);
+        }
+
+        if (deleteIndex >= 0 && deleteIndex < Task.getTotalTasks()) {
+            taskStorage = userTasks.get(deleteIndex).toString();
+            userTasks.get(deleteIndex).decrementTaskNumber();
+            userTasks.remove(deleteIndex);
+        } else {
+            throw new DukeException(DukeException.INDEX_OOB);
+        }
+
+        System.out.println("Alright. I've deleted this task:");
+        System.out.println(taskStorage);
+        System.out.println("You have a total of " + Task.getTotalTasks() + " tasks now.");
+    }
+
+    public static void addNewTask(String userInputString, ArrayList<Task> userTasks) throws DukeException {
         if (Task.getTotalTasks() >= MAX_STORED_TASKS) {
             throw new DukeException(DukeException.TASK_ARRAY_FULL);
         }
@@ -89,7 +115,7 @@ public class Duke {
             if (taskSubstring.isBlank()) {
                 throw new DukeException(DukeException.TODO_BLANK_DESC);
             }
-            userTasks[Task.getTotalTasks()] = new Todo(taskSubstring);
+            userTasks.add(new Todo(taskSubstring));
         } else if (userInputString.startsWith("deadline ")) {
             if (slashIndex < 0) {
                 throw new DukeException(DukeException.DEADLINE_NO_SLASH);
@@ -101,7 +127,7 @@ public class Duke {
                 throw new DukeException(DukeException.DEADLINE_BLANK_DESC);
             }
             taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
-            userTasks[Task.getTotalTasks()] = new Deadline(taskSubstring, timeSubstring);
+            userTasks.add(new Deadline(taskSubstring, timeSubstring));
         } else if (userInputString.startsWith("event ")) {
             if (slashIndex < 0) {
                 throw new DukeException(DukeException.EVENT_NO_SLASH);
@@ -113,13 +139,13 @@ public class Duke {
                 throw new DukeException(DukeException.EVENT_BLANK_DESC);
             }
             taskSubstring = userInputString.substring(EVENT_OFFSET, slashIndex - 1);
-            userTasks[Task.getTotalTasks()] = new Event(taskSubstring, timeSubstring);
+            userTasks.add(new Event(taskSubstring, timeSubstring));
         } else {
             throw new DukeException(DukeException.COMMAND_INVALID);
         }
 
         System.out.println("Gotcha. I've added this task:");
-        System.out.println(userTasks[Task.getTotalTasks() - 1]);
+        System.out.println(userTasks.get(Task.getTotalTasks() - 1));
         System.out.println("You have a total of " + Task.getTotalTasks() + " tasks now.");
     }
 

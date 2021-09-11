@@ -14,4 +14,8 @@ event tour de france /at the louvre, 7.30-9.30am on Tuesday
 done 2
 done 5
 list
+delete 3
+delete 44
+delete lmnop
+list
 bye
