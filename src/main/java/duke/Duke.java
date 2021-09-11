@@ -1,13 +1,14 @@
 package duke;
 
 import duke.exception.DukeInvalidAddTaskException;
-import duke.exception.DukeInvalidMarkDoneException;
+import duke.exception.DukeInvalidTaskNotExistedException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String LOGO = "    ____        _        \n"
@@ -17,16 +18,8 @@ public class Duke {
             + "   |____/ \\__,_|_|\\_\\___|\n";
 
     public static final String BORDER_LINE = "------------------------------------------------";
-
-    public static final int MAX_TASK = 100;
-
-    public static final int CHARS_UNTIL_NUMBER = 5;
-
-    public static Task[] tasks;
-
-    public static void initializeTasks() {
-        tasks = new Task[MAX_TASK];
-    }
+    
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printGreetingMessage() {
         System.out.println(LOGO + System.lineSeparator()
@@ -48,10 +41,22 @@ public class Duke {
                 + BORDER_LINE);
     }
 
-    public static void printInvalidMarkDoneMessage() {
+    public static void printInvalidTaskNotExistedMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    INVALID TASK NUMBER PROVIDED" + System.lineSeparator()
                 + BORDER_LINE);
+    }
+
+    public static void printTaskList() {
+        System.out.println(BORDER_LINE);
+        if (tasks.size() == 0) {
+            System.out.println("    The list is currently empty!");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + tasks.get(i));
+            }
+        }
+        System.out.println(BORDER_LINE);
     }
 
     public static void printTaskAlreadyDoneMessage(int taskNumber) {
@@ -63,7 +68,23 @@ public class Duke {
     public static void printMarkDoneMessage(int taskNumber) {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    The following task is now marked as done:" + System.lineSeparator()
-                + "      " + tasks[taskNumber] + System.lineSeparator()
+                + "      " + tasks.get(taskNumber) + System.lineSeparator()
+                + BORDER_LINE);
+    }
+    
+    public static void printAddTaskMessage() {
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    Task added: " + System.lineSeparator()
+                + "      " + tasks.get(tasks.size() - 1) + System.lineSeparator()
+                + "    You have " + tasks.size() + " tasks in the list." + System.lineSeparator()
+                + BORDER_LINE);
+    }
+    
+    public static void printDeleteTaskMessage(int taskNumber) {
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    The following task is removed from the list: " + System.lineSeparator()
+                + "      " + tasks.get(taskNumber) + System.lineSeparator()
+                + "    You now have " + (tasks.size() - 1) + " tasks in the list." + System.lineSeparator()
                 + BORDER_LINE);
     }
 
@@ -107,51 +128,44 @@ public class Duke {
     public static boolean isMarkDoneCommand(String command) {
         return command.equals("done");
     }
+    
+    public static boolean isDeleteTaskCommand(String command) {
+        return command.equals("delete");
+    }
 
     public static boolean containsValidTaskNumber(String userInput) {
         String[] inputWords = userInput.split(" ");
         try {
             int taskNumber = Integer.parseInt(inputWords[1]);
-            return taskNumber <= Task.getNumberOfTasks() && taskNumber > 0;
+            return taskNumber <= tasks.size() && taskNumber > 0;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return false;
         }
     }
 
-    public static String getCommand(String userInput) throws DukeInvalidAddTaskException, DukeInvalidMarkDoneException {
+    public static String getCommand(String userInput) throws DukeInvalidAddTaskException, DukeInvalidTaskNotExistedException {
         String[] words = userInput.split(" ");
         String command = words[0];
         if (isAddTaskCommand(command)) {
             if (!containsValidTaskDescription(userInput)) {
                 throw new DukeInvalidAddTaskException();
             }
-        } else if (isMarkDoneCommand(command)) {
+        } else if (isMarkDoneCommand(command) || isDeleteTaskCommand(command)) {
             if (!containsValidTaskNumber(userInput)) {
-                throw new DukeInvalidMarkDoneException();
+                throw new DukeInvalidTaskNotExistedException();
             }
         }
         return command;
     }
 
-    public static void printTaskList() {
-        System.out.println(BORDER_LINE);
-        if (Task.getNumberOfTasks() == 0) {
-            System.out.println("    The list is currently empty!");
-        } else {
-            for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-                System.out.println("    " + (i + 1) + "." + tasks[i]);
-            }
-        }
-        System.out.println(BORDER_LINE);
-    }
-
     public static void markDone(String userInput) {
-        String extractedNumber = userInput.substring(CHARS_UNTIL_NUMBER);
+        String[] inputWords = userInput.split(" ");
+        String extractedNumber = inputWords[1];
         int taskNumber = Integer.parseInt(extractedNumber) - 1;
-        if (tasks[taskNumber].isDone()) {
+        if (tasks.get(taskNumber).isDone()) {
             printTaskAlreadyDoneMessage(taskNumber);
         } else {
-            tasks[taskNumber].markAsDone();
+            tasks.get(taskNumber).markAsDone();
             printMarkDoneMessage(taskNumber);
         }
     }
@@ -159,24 +173,27 @@ public class Duke {
     public static void addTask(String userInput, String command) {
         switch (command) {
         case "todo":
-            tasks[Task.getNumberOfTasks()] = new Todo(userInput);
+            tasks.add(new Todo(userInput));
             break;
         case "deadline":
-            tasks[Task.getNumberOfTasks()] = new Deadline(userInput);
+            tasks.add(new Deadline(userInput));
             break;
         case "event":
-            tasks[Task.getNumberOfTasks()] = new Event(userInput);
+            tasks.add(new Event(userInput));
             break;
         default:
             System.out.println("Invalid Command");
             break;
         }
-
-        System.out.println(BORDER_LINE + System.lineSeparator()
-                + "    Task added: " + System.lineSeparator()
-                + "      " + tasks[Task.getNumberOfTasks() - 1] + System.lineSeparator()
-                + "    You have " + Task.getNumberOfTasks() + " tasks in the list." + System.lineSeparator()
-                + BORDER_LINE);
+        printAddTaskMessage();
+    }
+    
+    public static void deleteTask(String userInput) {
+        String[] inputWords = userInput.split(" ");
+        String extractedNumber = inputWords[1];
+        int taskNumber = Integer.parseInt(extractedNumber) - 1;
+        printDeleteTaskMessage(taskNumber);
+        tasks.remove(taskNumber);
     }
 
     public static void userOperation() {
@@ -192,8 +209,8 @@ public class Duke {
             } catch (DukeInvalidAddTaskException e) {
                 printInvalidAddTaskMessage();
                 continue;
-            } catch (DukeInvalidMarkDoneException e) {
-                printInvalidMarkDoneMessage();
+            } catch (DukeInvalidTaskNotExistedException e) {
+                printInvalidTaskNotExistedMessage();
                 continue;
             }
             switch (command) {
@@ -208,6 +225,9 @@ public class Duke {
             case "event":
                 addTask(userInput, command);
                 break;
+            case "delete":
+                deleteTask(userInput);
+                break;
             case "bye":
                 hasEnded = true;
                 break;
@@ -219,7 +239,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        initializeTasks();
         printGreetingMessage();
         userOperation();
         printGoodbyeMessage();
