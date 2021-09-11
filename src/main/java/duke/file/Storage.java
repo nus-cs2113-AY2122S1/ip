@@ -17,15 +17,6 @@ public class Storage {
      */
     public Storage(String dataDir) {
         this.dataDirPath = dataDir;
-        initDataDir();
-    }
-
-    /**
-     * Create a directory on the file system, even if it already exists.
-     */
-    private void initDataDir() {
-        File dataDir = new File(dataDirPath);
-        dataDir.mkdir();
     }
 
     /**
@@ -35,8 +26,11 @@ public class Storage {
      * @param filePath Path of the file to write to.
      */
     public void writeToFile(String content, String filePath) throws IOException {
-        FileWriter fw = new FileWriter(new File(dataDirPath, filePath));
-        fw.write(content);
-        fw.close();
+        File dataDir = new File(dataDirPath);
+        dataDir.mkdir();
+
+        FileWriter writer = new FileWriter(new File(dataDirPath, filePath));
+        writer.write(content);
+        writer.close();
     }
 }
