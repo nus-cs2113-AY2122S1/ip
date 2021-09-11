@@ -1,6 +1,5 @@
 package duke;
 
-import duke.exception.CorruptedDataException;
 import duke.exception.EmptyArgumentException;
 import duke.exception.EmptyParameterException;
 import duke.task.Deadline;
@@ -8,12 +7,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
 
 public class Duke {
 
@@ -37,10 +32,8 @@ public class Duke {
      */
     public static boolean isSessionEnding = false;
 
-    public static String taskDataPath;
-
     public static void main(String[] args) {
-        initDuke();
+        initTaskList();
         printGreetingMessage();
 
         //Main loop
@@ -125,7 +118,6 @@ public class Duke {
             String descr = extractDescrFromEvent(content);
             String at = extractAtFromEvent(content);
             taskList.add(new Event(descr, at));
-            updateDataFile();
             printTaskAddedMessage();
         } catch (EmptyArgumentException e) {
             System.out.println("Please specify the event details!");
@@ -149,7 +141,6 @@ public class Duke {
             String descr = extractDescrFromDeadline(content);
             String by = extractByFromDeadline(content);
             taskList.add(new Deadline(descr, by));
-            updateDataFile();
             printTaskAddedMessage();
         } catch (EmptyArgumentException e) {
             System.out.println("Please specify the deadline details!");
@@ -170,7 +161,6 @@ public class Duke {
         try {
             String content = extractContent(input);
             taskList.add(new Todo(content));
-            updateDataFile();
             printTaskAddedMessage();
         } catch (EmptyArgumentException e) {
             System.out.println("Please specify the todo description!");
@@ -279,7 +269,6 @@ public class Duke {
         printBorder();
         try {
             taskList.get(taskIndex).setDone(true);
-            updateDataFile();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + taskList.get(taskIndex));
         } catch (IndexOutOfBoundsException e) {
@@ -299,7 +288,6 @@ public class Duke {
         try {
             Task removedTask = taskList.remove(taskIndex);
             Task.decreaseTotalTasks();
-            updateDataFile();
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask);
             System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
@@ -326,7 +314,12 @@ public class Duke {
         printBorder();
     }
 
-
+    /**
+     * Initialize list of tasks
+     */
+    private static void initTaskList() {
+        taskList = new ArrayList<>();
+    }
 
     /*
      * ===============================================
@@ -363,84 +356,5 @@ public class Duke {
         System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
         System.out.println("\"delete\"");
         printBorder();
-    }
-
-    /*
-     * ===============================================
-     *            Miscellaneous Functions
-     * ===============================================
-     */
-
-    /**
-     * Initialize Duke and generate taskList
-     */
-    private static void initDuke() {
-        taskList = new ArrayList<>();
-        File dataFile = new File("data");
-        dataFile.mkdir(); //create "data" folder if it does not exist
-        taskDataPath = "data/tasks.txt";
-        try {
-            loadFileContents(taskDataPath);
-            System.out.println("Previous data loaded successfully");
-        } catch (FileNotFoundException e) {
-            System.out.println("No existing data");
-        } catch (CorruptedDataException e) {
-            System.out.println("Data file corrupted...");
-        }
-    }
-
-    /**
-     * Tries to load an existing task data file
-     *
-     * @param filePath String representing the path of the data file
-     */
-    private static void loadFileContents(String filePath) throws FileNotFoundException, CorruptedDataException {
-        File f = new File(filePath);
-        Scanner dataScanner = new Scanner(f);
-        while (dataScanner.hasNext()) {
-            String[] data = dataScanner.nextLine().split(" \\| ");
-            switch (data[0]) {
-            case "T":
-                taskList.add(new Todo(data[2]));
-                if (data[1].equals("1")) {
-                    taskList.get(Task.getTotalTasks() - 1).setDone(true);
-                }
-                break;
-
-            case "D":
-                taskList.add(new Deadline(data[2], data[3]));
-                if (data[1].equals("1")) {
-                    taskList.get(Task.getTotalTasks() - 1).setDone(true);
-                }
-                break;
-
-            case "E":
-                taskList.add(new Event(data[2], data[3]));
-                if (data[1].equals("1")) {
-                    taskList.get(Task.getTotalTasks() - 1).setDone(true);
-                }
-                break;
-
-            default:
-                throw new CorruptedDataException();
-            }
-        }
-    }
-
-    /**
-     * Updates the data file to the current state of the task list
-     */
-    private static void updateDataFile() {
-        try {
-            FileWriter fw = new FileWriter(taskDataPath);
-            fw.write(""); //clear data file before write
-            fw.close();
-            for (Task task : taskList) {
-                task.writeToFile(taskDataPath);
-            }
-        } catch (IOException e) {
-            System.out.println("Failed to update data file");
-            System.exit(0);
-        }
     }
 }

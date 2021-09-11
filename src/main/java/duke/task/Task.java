@@ -1,8 +1,6 @@
 package duke.task;
 
-import java.io.IOException;
-
-public abstract class Task {
+public class Task {
 
     /**
      * The description of the Task
@@ -24,8 +22,6 @@ public abstract class Task {
         isDone = false;
         totalTasks++;
     }
-
-    public abstract void writeToFile(String filePath) throws IOException;
 
     /**
      * Set the Task object isDone value to the given boolean
