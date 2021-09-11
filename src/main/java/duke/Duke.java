@@ -15,6 +15,7 @@ public class Duke {
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String ERROR_MESSAGE = "You need to specify the task type!";
 
+    //Store tasks in ArrayList instead of array
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
