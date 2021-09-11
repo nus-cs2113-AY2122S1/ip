@@ -1,22 +1,14 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
 
     /**
-     * count tracker for number of tasks in array
-     */
-    private static int taskCount = 0;
-
-    /**
-     * count tracker for number of uncompleted tasks in array
-     */
-    private static int numOfUncompletedTasks = 0;
-
-    /**
      * Array of tasks
      */
-    private static final Task[] tasks = new Task[100];
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
 
     /**
      * Long line separator
@@ -27,21 +19,25 @@ public class Duke {
         System.out.println(lineSeparator);
     }
 
-    public static void greeting() {
+    public static void printGreeting() {
         printSeparator();
         System.out.println("Hello! I'm Duke the Dancing Dragon.");
         System.out.println("Anything I can help you with, young Padawan?");
         printSeparator();
     }
 
-    public static void goodbyeMessage() {
+    public static void printGoodbyeMessage() {
         System.out.println("It's over Anakin... I can finally eat my lun-");
         System.out.println(lineSeparator);
     }
 
-    public static void printDone(Task arg) {
-        System.out.println("You have marked item " + arg.description + " as done:");
-        System.out.println(arg.getStatusIcon() + " " + arg.description);
+    public static void printDone(Task task) {
+        System.out.println("You have marked item " + task.description + " as done:");
+        System.out.println(task.getStatusIcon() + " " + task.description);
+    }
+
+    public static void printDeletedMessage(Task task) {
+        System.out.println("You have deleted the item: " + "\n" + task);
     }
 
     /**
@@ -53,6 +49,16 @@ public class Duke {
     public static int getTaskNum(String arg) {
         String[] words = arg.trim().split("[\\s]+");
         return Integer.parseInt(words[1]);
+    }
+
+    public static int getNumOfUncompletedTasks(ArrayList<Task> tasks) {
+        int numOfUncompletedTasks = 0;
+        for (Task task : tasks) {
+            if (!task.isDone) {
+                numOfUncompletedTasks++;
+            }
+        }
+        return numOfUncompletedTasks;
     }
 
     /**
@@ -97,11 +103,11 @@ public class Duke {
      *
      * @param tasks list of tasks input by user
      */
-    public static void printList(Task[] tasks) {
+    public static void printList(ArrayList<Task> tasks) {
         int count = 0;
         System.out.println("Here is your list:");
         for (Task item : tasks) {
-            if (tasks[count] != null) {
+            if (tasks.get(count) != null) {
                 count++;
                 System.out.println(count + ". " + item);
             }
@@ -128,6 +134,10 @@ public class Duke {
         return arg.trim().toLowerCase().contains("event");
     }
 
+    public static boolean hasDeleteKeyword(String arg) {
+        return arg.trim().toLowerCase().contains("delete");
+    }
+
     /**
      * Returns the required value for keyword which is the first word keyed in by user.
      *
@@ -148,6 +158,8 @@ public class Duke {
             keyword = Keyword.LIST_ITEMS;
         } else if (query.trim().equals("bye")) {
             keyword = Keyword.GOODBYE_KEYWORD;
+        } else if (hasDeleteKeyword(query)) {
+            keyword = Keyword.DELETE_KEYWORD;
         } else {
             keyword = Keyword.NO_KEYWORD;
         }
@@ -173,26 +185,24 @@ public class Duke {
      * @param query user raw data input
      * @throws NullPointerException if user keys in done [number] when there is no such task.
      */
-    public static void addTask(String query) throws NullPointerException {
+    public static void addTask(String query) throws IndexOutOfBoundsException {
         Keyword keyword = getKeywordStatus(query);
         switch (keyword) {
         case DONE_TASK:
             try {
-                int taskNumber = getTaskNum(query);
-                tasks[taskNumber - 1].markAsDone();
-                printDone(tasks[taskNumber - 1]);
-                numOfUncompletedTasks--;
-                System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
-            } catch (NullPointerException exception) {
+                int taskNumber = getTaskNum(query) - 1;
+                Task referencedTask = tasks.get(taskNumber);
+                referencedTask.markAsDone();
+                printDone(referencedTask);
+                System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
+            } catch (IndexOutOfBoundsException exception) {
                 System.out.println("There is no such task number...");
             }
             break;
         case TODO_TASK:
-            tasks[taskCount] = new Todo(getQueryDescription(query));
-            taskCount++;
-            numOfUncompletedTasks++;
+            tasks.add(new Todo(getQueryDescription(query)));
             System.out.println("Added a Todo Task: " + getQueryDescription(query));
-            System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
+            System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
             break;
         case EVENT_TASK:
             try {
@@ -200,11 +210,9 @@ public class Duke {
                     throw new InvalidInputsException.InvalidDateFormatting("Wrong format of date "
                             + "has been entered");
                 }
-                tasks[taskCount] = new Event(getQueryDescription(query), getDate(query));
-                taskCount++;
-                numOfUncompletedTasks++;
+                tasks.add(new Event(getQueryDescription(query), getDate(query)));
                 System.out.println("Added an Event Task: " + getQueryDescription(query));
-                System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
+                System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
             } catch (InvalidInputsException.InvalidDateFormatting exception) {
                 exception.printStackTrace();
                 System.out.println("Did you forget to add in the '/by' again?");
@@ -216,11 +224,9 @@ public class Duke {
                     throw new InvalidInputsException.InvalidDateFormatting("Wrong format of date "
                             + "has been entered");
                 }
-                tasks[taskCount] = new Deadline(getQueryDescription(query), getDate(query));
-                taskCount++;
-                numOfUncompletedTasks++;
+                tasks.add(new Deadline(getQueryDescription(query), getDate(query)));
                 System.out.println("Added a Todo Task: " + getQueryDescription(query));
-                System.out.println("Total unchecked items in your list: " + numOfUncompletedTasks);
+                System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
             } catch (InvalidInputsException.InvalidDateFormatting exception) {
                 exception.printStackTrace();
                 System.out.println("Did you forget to add in the '/by' again?");
@@ -229,16 +235,28 @@ public class Duke {
         case LIST_ITEMS:
             printList(tasks);
             break;
+        case DELETE_KEYWORD:
+            try {
+                int taskNumber = getTaskNum(query) - 1;
+                Task referencedTask = tasks.get(taskNumber);
+                tasks.remove(taskNumber);
+                printDeletedMessage(referencedTask);
+                System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
+            } catch (IndexOutOfBoundsException exception) {
+                System.out.println("There is no such task number...");
+            }
+            break;
         case NO_KEYWORD:
             try {
                 throw new InvalidInputsException.MissingKeyword("You have to input <todo>, <deadline> or"
                         + " <event> first!");
             } catch (InvalidInputsException.MissingKeyword exception) {
                 exception.printStackTrace();
+                System.out.println("Invalid keyword!!!");
             }
             break;
         case GOODBYE_KEYWORD:
-            goodbyeMessage();
+            printGoodbyeMessage();
             break;
         }
     }
@@ -260,7 +278,7 @@ public class Duke {
         System.out.println(face);
 
         // print greeting message after logo
-        greeting();
+        printGreeting();
         waitForQuery();
     }
 }
