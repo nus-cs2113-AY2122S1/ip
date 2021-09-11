@@ -40,6 +40,9 @@ public class Duke {
         case "done":
             taskManager.markTaskAsDone(command);
             break;
+        case "delete":
+            taskManager.deleteTask(command);
+            break;
         case "deadline":
             taskManager.addTask(command,TaskType.DEADLINE);
             break;
