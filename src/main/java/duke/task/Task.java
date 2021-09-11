@@ -21,6 +21,8 @@ public abstract class Task {
         }
     }
 
+    public abstract String saveString();
+
     public void markComplete() throws DukeException {
         if (isDone) {
             throw new DukeException(DukeException.TASK_ALREADY_DONE);

@@ -1,5 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Paths;
 
 import duke.task.Task;
 import duke.task.Todo;
@@ -13,6 +18,7 @@ public class Duke {
     public static final int TODO_OFFSET = 5;
     public static final int DEADLINE_OFFSET = 9;
     public static final int EVENT_OFFSET = 6;
+    public static final String PATHNAME = Paths.get("data/saveDuke.txt").toString();
 
     public static void printGreeting() {
         System.out.println(DIVIDING_LINE);
@@ -29,6 +35,7 @@ public class Duke {
     public static void manageTasks() {
         ArrayList<Task> userTasks = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
+        loadTasks(userTasks);
         String userInputString = userInput.nextLine();
 
         while (!userInputString.equals("bye")) {
@@ -44,6 +51,7 @@ public class Duke {
                 } else {
                     addNewTask(userInputString, userTasks);
                 }
+                saveTasks(userTasks);
             } catch (DukeException e) {
                 System.out.println("DukeException: " + e.getMessage());
             }
@@ -147,6 +155,66 @@ public class Duke {
         System.out.println("Gotcha. I've added this task:");
         System.out.println(userTasks.get(Task.getTotalTasks() - 1));
         System.out.println("You have a total of " + Task.getTotalTasks() + " tasks now.");
+    }
+
+    public static void saveTasks(ArrayList<Task> userTasks) {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            output.append(userTasks.get(i).saveString());
+            output.append(System.lineSeparator());
+        }
+        try {
+            FileWriter writer = new FileWriter(PATHNAME);
+            writer.write(output.toString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadTasks(ArrayList<Task> userTasks) {
+        File load = new File(PATHNAME);
+
+        if (!load.getParentFile().exists()) {
+            load.getParentFile().mkdir();
+        }
+
+        try {
+            Scanner loadScanner = new Scanner(load);
+            String currTask;
+
+            while (loadScanner.hasNext()) {
+                currTask = loadScanner.nextLine();
+                String[] atomArray = currTask.split(" \\| ");
+                if (atomArray[1].equals("T")) {
+                    userTasks.add(new Todo(atomArray[2]));
+                    if (atomArray[0].equals("[X]")) {
+                        userTasks.get(Task.getTotalTasks() - 1).markComplete();
+                    }
+                } else if (atomArray[1].equals("D")) {
+                    userTasks.add(new Deadline(atomArray[2], atomArray[3]));
+                    if (atomArray[0].equals("[X]")) {
+                        userTasks.get(Task.getTotalTasks() - 1).markComplete();
+                    }
+                } else {
+                    userTasks.add(new Event(atomArray[2], atomArray[3]));
+                    if (atomArray[0].equals("[X]")) {
+                        userTasks.get(Task.getTotalTasks() - 1).markComplete();
+                    }
+                }
+            }
+        } catch (DukeException e) {
+            System.out.println("DukeException:" + e.getMessage());
+        } catch (FileNotFoundException e) {
+            try {
+                load.createNewFile();
+            } catch (IOException ex) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Previous session restored.");
+        System.out.println(DIVIDING_LINE);
     }
 
     public static void main(String[] args) {

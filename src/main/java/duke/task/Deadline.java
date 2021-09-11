@@ -13,4 +13,9 @@ public class Deadline extends Todo {
     public String toString() {
         return super.toString() + " (" + date + ")";
     }
+
+    @Override
+    public String saveString() {
+        return super.saveString() + " | " + date;
+    }
 }
