@@ -81,7 +81,7 @@ public class Duke {
             System.out.println(removeTask.toString());
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Please enter a number after delete.");
+            System.out.println("☹ OOPS!!! Please enter a number after delete!");
         }
         System.out.println(HORIZONTAL_LINE);
     }
