@@ -27,9 +27,6 @@ public class Triss {
     /** Array to keep track of user's tasks */
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    /** Int to keep track of number of tasks stored in tasks */
-    private static int noOfTasks = 0;
-
     /** Length of the word "todo" */
     public static final int END_INDEX_OF_WORD_TODO = 4;
     /** Length of the word "deadline" */
@@ -109,9 +106,6 @@ public class Triss {
         // Remove task from tasks
         tasks.remove(chosenTask);
         printLine("Wunderbar! This task has been deleted:");
-
-        // Update noOfTasks
-        noOfTasks--;
 
         // Print out the task in the following format: "    [X] Task"
         printLine("    " + chosenTask.printTask());
@@ -205,9 +199,6 @@ public class Triss {
         Task newTodo = new Todo(taskName);
         tasks.add(newTodo);
 
-        // Increase current number of tasks by 1
-        noOfTasks++;
-
         // Then, echo the task
         printLine("I've added: " + newTodo.printTask());
     }
@@ -249,9 +240,6 @@ public class Triss {
         Event newEvent = new Event(taskName, eventTiming);
         tasks.add(newEvent);
 
-        // Increase current number of tasks by 1
-        noOfTasks++;
-
         // Then, echo the task
         printLine("I've added: " + newEvent.printTask());
     }
@@ -292,9 +280,6 @@ public class Triss {
         Deadline newDeadline = new Deadline(taskName, deadlineDate);
         tasks.add(newDeadline);
 
-        // Increase current number of tasks by 1
-        noOfTasks++;
-
         // Then, echo the task
         printLine("I've added: " + newDeadline.printTask());
     }
@@ -319,7 +304,7 @@ public class Triss {
 
 
         // If task does not exist, do not delete any task
-        if (indexOfCompletedTask > noOfTasks - 1 || indexOfCompletedTask < 0) {
+        if (indexOfCompletedTask > tasks.size() || indexOfCompletedTask < 0) {
             printLine("Apologies! That task does not exist.");
             return;
         }
