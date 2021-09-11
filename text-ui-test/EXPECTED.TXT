@@ -103,6 +103,12 @@ ____________________________________________________________
    9.[E][ ] cs2113t with cs2101 (at: someday /by)
    10.[E][ ] cs2113t with cs2101 (at: someday /by oneday)
 [root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Error parsing argument!
+[root@taskmon ~]$ [-] Task not found
+[root@taskmon ~]$ [+] Task removed:
+   [T][X] cs2113t
+[=] You now have 9 tasks in the list.
+[root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ ____________________________________________________________
 [*] Deleting traces of compromise...
 [+] Bye. Hope to see you again soon!

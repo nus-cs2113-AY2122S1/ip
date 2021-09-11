@@ -20,6 +20,7 @@ public class CommandExecutor {
     private final static String END_COMMAND = "bye";
     private final static String LIST_COMMAND = "list";
     private final static String DONE_COMMAND = "done";
+    private final static String DELETE_COMMAND = "delete";
     private final static String ADD_TODO_COMMAND = "todo";
     private final static String ADD_DEADLINE_COMMAND = "deadline";
     private final static String ADD_EVENT_COMMAND = "event";
@@ -48,6 +49,7 @@ public class CommandExecutor {
                 new Command(END_COMMAND),
                 new Command(LIST_COMMAND),
                 new CommandWithArgument(DONE_COMMAND, ARGUMENT_TASK_INDEX),
+                new CommandWithArgument(DELETE_COMMAND, ARGUMENT_TASK_INDEX),
                 new CommandWithArgument(ADD_TODO_COMMAND, ARGUMENT_TASK_DESCRIPTION),
                 new CommandWithFlag(ADD_DEADLINE_COMMAND, ARGUMENT_TASK_DESCRIPTION,
                         FLAG_DEADLINE_OPTION, FLAG_TASK_TIMESTAMP),
@@ -116,6 +118,9 @@ public class CommandExecutor {
             break;
         case DONE_COMMAND:
             taskManager.complete(Integer.parseInt(commandResults[ARGUMENT_VALUE_INDEX]));
+            break;
+        case DELETE_COMMAND:
+            taskManager.deleteTask(Integer.parseInt(commandResults[ARGUMENT_VALUE_INDEX]));
             break;
         case ADD_TODO_COMMAND:
             task = new Todo(commandResults[ARGUMENT_VALUE_INDEX]);
