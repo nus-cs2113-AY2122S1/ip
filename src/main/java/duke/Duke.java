@@ -273,6 +273,11 @@ public class Duke {
     }
     
     public static void updateTaskFile(String pathFile) throws IOException{
+        File directory = new File(pathFile);
+        if (!directory.exists()) {
+            directory.getParentFile().mkdirs();
+        }
+        
         FileWriter fw = new FileWriter(pathFile);
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
             String taskAsString = String.valueOf(tasks[i]);
@@ -299,7 +304,7 @@ public class Duke {
         try {
             updateTaskFile("data/task.txt");
         } catch (IOException e) {
-            System.out.println("File not existed");
+            System.out.println("Something went wrong");
         }
         printGoodbyeMessage();
     }
