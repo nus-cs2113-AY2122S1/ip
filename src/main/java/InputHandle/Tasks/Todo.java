@@ -1,6 +1,8 @@
 package InputHandle.Tasks;
 
-public class Todo extends Task {
+import java.io.Serializable;
+
+public class Todo extends Task implements Serializable {
 
     public Todo (String taskName, boolean isCompleted) {
         super(taskName, isCompleted);

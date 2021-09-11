@@ -1,6 +1,8 @@
 package InputHandle.Tasks;
 
-public class Event extends Task{
+import java.io.Serializable;
+
+public class Event extends Task implements Serializable {
     String completeTime;
 
     public Event (String taskName, String completeTime, boolean isCompleted) {
