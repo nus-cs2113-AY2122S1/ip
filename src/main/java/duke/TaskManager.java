@@ -1,29 +1,30 @@
 package duke;
 
 import duke.command.Command;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private static final int MAX_TASKS = 100;
-    private static final Task[] tasks = new Task[MAX_TASKS];
-    private static int numOfTask = 0;
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int BY_OR_AT_INDEX = 1;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static int numOfTasks = 0;
+    
 
     public static Task getLatestTask() {
-        return tasks[numOfTask - 1];
+        return tasks.get(numOfTasks - 1);
     }
 
     public static Task getTask(int num) {
-        return tasks[num - 1];
+        return tasks.get(num - 1);
     }
 
-    public static int getNumOfTask() {
-        return numOfTask;
+    public static int getNumOfTasks() {
+        return numOfTasks;
     }
 
     public static void setDone(int taskIndex) throws DukeInvalidTaskIndexException {
         if (checkCorrectIndex(taskIndex)) {
-            tasks[taskIndex - 1].markDone();
+            tasks.get(taskIndex - 1).markDone();
         } else {
             throw new DukeInvalidTaskIndexException();
         }
@@ -34,18 +35,18 @@ public class TaskManager {
     }
 
     public static void printList() {
-        if (numOfTask == 0) {
+        if (numOfTasks == 0) {
             System.out.println("List is empty!");
             return;
         }
         System.out.println("Here are your items: ");
-        for (int i = 0; i < numOfTask; i++) {
-            System.out.println(i + 1 + "." + tasks[i]);
+        for (int i = 0; i < numOfTasks; i++) {
+            System.out.println(i + 1 + "." + tasks.get(i));
         }
     }
 
     public static boolean checkCorrectIndex(int index) {
-        return index > 0 && index <= numOfTask;
+        return index > 0 && index <= numOfTasks;
     }
 
     public static void addTask(Command type, String description) throws DukeBlankDescriptionsException{
@@ -61,11 +62,22 @@ public class TaskManager {
             break;
         }
     }
+    
+    public static Task delete(int index) throws DukeInvalidTaskIndexException{
+        if (checkCorrectIndex(index)) {
+            Task deleting = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            numOfTasks --;
+            return deleting;
+        } else {
+            throw new DukeInvalidTaskIndexException();
+        }
+    }
 
     private static void addToDo(String description) throws DukeBlankDescriptionsException {
         if (!description.isBlank()) {
-            tasks[numOfTask] = new ToDo(description);
-            numOfTask++;
+            tasks.add(new ToDo(description));
+            numOfTasks++;
         } else {
             throw new DukeBlankDescriptionsException();
         }
@@ -73,23 +85,23 @@ public class TaskManager {
 
     private static void addEvent(String description) throws DukeBlankDescriptionsException {
         String[] descriptions = splitDescription(description, " /at ");
-        tasks[numOfTask] = new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
-        if (checkBlankEntry(descriptions)) {
+        if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
-        numOfTask++;
+        tasks.add(new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
+        numOfTasks++;
     }
 
     private static void addDeadline(String description) throws DukeBlankDescriptionsException {
         String[] descriptions = splitDescription(description, " /by ");
-        tasks[numOfTask] = new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]);
-        if (checkBlankEntry(descriptions)) {
+        if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
-        numOfTask++;
+        tasks.add(new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
+        numOfTasks++;
     }
 
-    private static boolean checkBlankEntry(String[] descriptions) {
+    private static boolean hasBlankEntry(String[] descriptions) {
         return descriptions[TASK_DESCRIPTION_INDEX].isBlank() || descriptions[BY_OR_AT_INDEX].isBlank();
     }
 }

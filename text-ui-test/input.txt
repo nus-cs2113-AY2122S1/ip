@@ -1,17 +1,29 @@
-done               
-done
 todo
-todo read
-list
+deadline
+event         
+todo lol
+deadline
 deadline lol /by lol
-deadline         /by lol
+list
+event     /at qwe
+event qwe /at qwer
+list
+done 4
+delete 4
+done    4
+done   3
+list
+delete 3
+list
+done 1
+list
+delete 1
+list
+regaregaeg
+    gergerag
+deadline fasg /by rthath
 list
 done 2
+delete 2
 list
-event             /at               
-   etge e gte gte 
-done 4
-event fwef /at gre
-list
-deadline
 bye
