@@ -110,7 +110,7 @@ public class Triss {
 
 
         // If task does not exist, do not delete any task
-        if (indexOfRemovableTask > tasks.size() || indexOfRemovableTask < 0) {
+        if (indexOfRemovableTask >= tasks.size() || indexOfRemovableTask < 0) {
             printLine("Apologies! That task does not exist.");
             return;
         }
@@ -373,7 +373,7 @@ public class Triss {
 
 
         // If task does not exist, do not delete any task
-        if (indexOfCompletedTask > tasks.size() || indexOfCompletedTask < 0) {
+        if (indexOfCompletedTask >= tasks.size() || indexOfCompletedTask < 0) {
             printLine("Apologies! That task does not exist.");
             return;
         }
