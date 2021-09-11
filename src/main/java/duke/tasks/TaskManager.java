@@ -63,8 +63,12 @@ public class TaskManager {
         tasks.add(todo);
         numberOfTasks++;
         acknowledgeCommand(todo);
-        FileWriter fw = new FileWriter(Duke.DATA_FILE,true);
-        fw.write(Duke.NL + todo.toData());
+        writeToData(todo);
+    }
+
+    private void writeToData(Task task) throws IOException {
+        FileWriter fw = new FileWriter(Duke.DATA_FILE, true);
+        fw.write(Duke.NL + task.toData());
         fw.close();
     }
 
@@ -80,9 +84,7 @@ public class TaskManager {
         tasks.add(deadline);
         numberOfTasks++;
         acknowledgeCommand(deadline);
-        FileWriter fw = new FileWriter(Duke.DATA_FILE,true);
-        fw.write(Duke.NL + deadline.toData());
-        fw.close();
+        writeToData(deadline);
     }
 
     private String getDeadlineBy(String input, int indexOfByPrefix) throws DukeEmptyTimeException {
@@ -121,9 +123,7 @@ public class TaskManager {
         tasks.add(event);
         numberOfTasks++;
         acknowledgeCommand(event);
-        FileWriter fw = new FileWriter(Duke.DATA_FILE,true);
-        fw.write(Duke.NL + event.toData());
-        fw.close();
+        writeToData(event);
     }
 
     private String getEventAt(String input, int indexOfAtPrefix) throws DukeEmptyTimeException {
@@ -184,14 +184,11 @@ public class TaskManager {
         tasks.get(taskNumber - 1).setDone();
         Duke.printMessage("Good Job!! I've marked this task as done:" + Duke.NL
                 + tasks.get(taskNumber - 1).toString());
-        FileWriter fw = new FileWriter(Duke.DATA_FILE, false);
-        for (int i = 0; i < numberOfTasks; i++) {
-            fw.write(tasks.get(i).toData() + ((i >= numberOfTasks - 1) ? "" : Duke.NL));
-        }
-        fw.close();
+        refreshData();
     }
 
-    public void removeTask(int taskNumber) throws DukeInvalidTaskIndex {
+    public void removeTask(int taskNumber) throws DukeInvalidTaskIndex,
+            IOException {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new DukeInvalidTaskIndex();
         }
@@ -199,6 +196,15 @@ public class TaskManager {
         Duke.printMessage("I have removed the task: " + Duke.NL + removedTask.toString()
                 + Duke.NL + "You now have " + (numberOfTasks - 1) + " tasks remaining");
         numberOfTasks--;
+        refreshData();
+    }
+
+    private void refreshData() throws IOException {
+        FileWriter fw = new FileWriter(Duke.DATA_FILE, false);
+        for (int i = 0; i < numberOfTasks; i++) {
+            fw.write(tasks.get(i).toData() + ((i >= numberOfTasks - 1) ? "" : Duke.NL));
+        }
+        fw.close();
     }
 
 }
