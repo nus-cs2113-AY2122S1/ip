@@ -14,11 +14,11 @@ public class CommandHandler {
     public static final String EVENT_SEPARATOR = "/at ";
     public static final String TASK_SEPARATOR = " ";
 
-    private boolean isListChanged = false;
+//    private boolean isListChanged = false;
 
-    public boolean isListChanged() {
-        return isListChanged;
-    }
+//    public boolean isListChanged() {
+//        return isListChanged;
+//    }
 
     /**
      * Print messages and changes the task list according to the commands given.
@@ -48,7 +48,6 @@ public class CommandHandler {
                     outputHandler.printTaskDoneMessage();
                 } else {
                     outputHandler.markAsDone(tasks, taskNumber);
-                    isListChanged = true;
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printTaskNumberOutOfBoundsMessage();
@@ -66,8 +65,7 @@ public class CommandHandler {
                 } else {
                     Todo todo = new Todo(description);
                     tasks.add(todo);
-                    outputHandler.addTask(tasks, todo);
-                    isListChanged = true;
+                    outputHandler.printAddedTask(tasks, todo);
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printNoTaskNameMessage();
@@ -88,8 +86,7 @@ public class CommandHandler {
                 } else {
                     Deadline deadline = new Deadline(description, by);
                     tasks.add(deadline);
-                    outputHandler.addTask(tasks, deadline);
-                    isListChanged = true;
+                    outputHandler.printAddedTask(tasks, deadline);
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printNoDeadlineMessage();
@@ -110,8 +107,7 @@ public class CommandHandler {
                 } else {
                     Event event = new Event(description, at);
                     tasks.add(event);
-                    outputHandler.addTask(tasks, event);
-                    isListChanged = true;
+                    outputHandler.printAddedTask(tasks, event);
                 }
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printNoEventMessage();
@@ -122,7 +118,6 @@ public class CommandHandler {
             try {
                 int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
                 outputHandler.deleteTask(tasks, taskNumber);
-                isListChanged = true;
             } catch (IndexOutOfBoundsException e) {
                 outputHandler.printTaskNumberOutOfBoundsMessage();
             } catch (NumberFormatException e) {

@@ -1,5 +1,6 @@
 package duke.output;
 
+import duke.fileio.TaskListFileEditor;
 import duke.task.Task;
 
 import java.io.IOException;
@@ -11,7 +12,9 @@ public class OutputHandler {
     public static final String TASK_PADDING = "   ";
     public static final String NEWLINE = "\n";
     public static final String HELP_SEPARATOR = " - ";
-    
+
+    TaskListFileEditor fileEditor = new TaskListFileEditor();
+
     /**
      * Print a welcome message when starting the program.
      */
@@ -120,6 +123,7 @@ public class OutputHandler {
      */
     public void markAsDone(ArrayList<Task> tasks, int taskNumber) {
         tasks.get(taskNumber).markAsDone();
+        saveTasks(tasks);
         System.out.println(NEWLINE + "Nice! I've marked the task as done:");
         System.out.println(TASK_PADDING + tasks.get(taskNumber) + NEWLINE);
     }
@@ -129,7 +133,8 @@ public class OutputHandler {
      *
      * @param tasks The list of tasks
      */
-    public void addTask(ArrayList<Task> tasks, Task task) {
+    public void printAddedTask(ArrayList<Task> tasks, Task task) {
+        saveTasks(tasks);
         System.out.println(NEWLINE + "Got it. I've added this task:");
         System.out.println(TASK_PADDING + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list." + NEWLINE);
@@ -144,6 +149,7 @@ public class OutputHandler {
     public void deleteTask(ArrayList<Task> tasks, int taskNumber) {
         Task task = tasks.get(taskNumber);
         tasks.remove(taskNumber);
+        saveTasks(tasks);
         System.out.println(NEWLINE + "Noted. I deleted this task:");
         System.out.println(TASK_PADDING + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list." + NEWLINE);
@@ -230,5 +236,13 @@ public class OutputHandler {
 
     public void printFileSaveError(IOException e) {
         System.out.println("Something went wrong while saving tasks: " + e.getMessage());
+    }
+
+    public void saveTasks(ArrayList<Task> tasks) {
+        try {
+            fileEditor.saveListToFile(tasks);
+        } catch (IOException e) {
+            printFileSaveError(e);
+        }
     }
 }

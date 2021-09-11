@@ -8,7 +8,7 @@ import duke.output.OutputHandler;
 import duke.task.Task;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,14 +42,6 @@ public class Duke {
             String[] inputTokens = input.split(" ");
             command = commandParser.parseCommand(inputTokens[COMMAND_INDEX]);
             commandHandler.handleCommand(command, input, tasks);
-        }
-
-        if (commandHandler.isListChanged()) {
-            try {
-                fileEditor.saveListToFile(tasks);
-            } catch (IOException e) {
-                outputHandler.printFileSaveError(e);
-            }
         }
     }
 }
