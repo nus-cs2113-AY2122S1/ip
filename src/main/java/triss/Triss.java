@@ -7,6 +7,7 @@ import triss.task.Task;
 import triss.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Triss {
 
@@ -24,7 +25,7 @@ public class Triss {
     private static boolean hasUserSaidBye = false;
 
     /** Array to keep track of user's tasks */
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     /** Int to keep track of number of tasks stored in tasks */
     private static int noOfTasks = 0;
@@ -164,13 +165,15 @@ public class Triss {
             throw new TrissException(errorMessage);
         }
 
-        tasks[noOfTasks] = new Todo(taskName);
+        // Add todo to tasks
+        Task newTodo = new Todo(taskName);
+        tasks.add(newTodo);
 
         // Increase current number of tasks by 1
         noOfTasks++;
 
         // Then, echo the task
-        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+        printLine("I've added: " + newTodo.printTask());
     }
 
     /**
@@ -206,13 +209,15 @@ public class Triss {
             throw new TrissException("You didn't insert a date in your event! Let's try that again.");
         }
 
-        tasks[noOfTasks] = new Event(taskName, eventTiming);
+        // Add event to tasks
+        Event newEvent = new Event(taskName, eventTiming);
+        tasks.add(newEvent);
 
         // Increase current number of tasks by 1
         noOfTasks++;
 
         // Then, echo the task
-        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+        printLine("I've added: " + newEvent.printTask());
     }
 
     /**
@@ -247,13 +252,15 @@ public class Triss {
             throw new TrissException("You didn't insert a date in your deadline! Let's try that again.");
         }
 
-        tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
+        // Add deadline to tasks
+        Deadline newDeadline = new Deadline(taskName, deadlineDate);
+        tasks.add(newDeadline);
 
         // Increase current number of tasks by 1
         noOfTasks++;
 
         // Then, echo the task
-        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+        printLine("I've added: " + newDeadline.printTask());
     }
 
     /**
@@ -282,7 +289,7 @@ public class Triss {
         }
 
         // Find task since it exists
-        Task chosenTask = tasks[indexOfCompletedTask];
+        Task chosenTask = tasks.get(indexOfCompletedTask);
 
         // If task was already done, let user know
         if (chosenTask.isDone()) {
@@ -305,8 +312,8 @@ public class Triss {
      */
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
-        for (int i = 0; i < noOfTasks; i++) {
-            printLine(i + 1 + "." + tasks[i].printTask());
+        for (Task task:tasks) {
+            printLine(tasks.indexOf(task) + 1 + "." + task.printTask());
         }
     }
 
