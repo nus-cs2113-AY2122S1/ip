@@ -1,6 +1,9 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
 
@@ -9,11 +12,12 @@ public class Duke {
      */
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
-
     /**
      * Long line separator
      */
     private static final String lineSeparator = ("_____________________________________________________");
+
+    private static final String FILEPATH = "./list.txt";
 
     public static void printSeparator() {
         System.out.println(lineSeparator);
@@ -51,6 +55,11 @@ public class Duke {
         return Integer.parseInt(words[1]);
     }
 
+    /**
+     * Returns the number or unchecked tasks.
+     * @param tasks ArrayList<Task> for Tasks.
+     * @return int for number of uncompleted tasks.
+     */
     public static int getNumOfUncompletedTasks(ArrayList<Task> tasks) {
         int numOfUncompletedTasks = 0;
         for (Task task : tasks) {
@@ -86,7 +95,7 @@ public class Duke {
      * '/by' or '/at') this function returns an empty string.
      *
      * @param query user raw data input.
-     * @return date value
+     * @return date value.
      */
     public static String getDate(String query) {
         int slashPosition = query.indexOf("/");
@@ -101,7 +110,7 @@ public class Duke {
     /**
      * Return void. Function is responsible for printing out the whole task list of the user.
      *
-     * @param tasks list of tasks input by user
+     * @param tasks list of tasks input by user.
      */
     public static void printList(ArrayList<Task> tasks) {
         int count = 0;
@@ -166,16 +175,54 @@ public class Duke {
         return keyword;
     }
 
+    /**
+     * Function waits for user input, or takes input from ./list.txt.
+     */
     public static void waitForQuery() {
         String query = "";
-        Scanner userInput = new Scanner(System.in);
-
-        while (!query.equals("bye")) {
-            System.out.print("=>");
-            if (userInput.hasNextLine()) {
-                query = userInput.nextLine();
+        try {
+            File file = new File(FILEPATH);
+            Scanner listInput = new Scanner(file);
+            while (listInput.hasNext()) {
+                query = listInput.nextLine();
+                addTask(query);
             }
-            addTask(query);
+            Scanner userInput = new Scanner(System.in);
+            while (!query.equals("bye")) {
+                System.out.print("=>");
+                if (userInput.hasNextLine()) {
+                    query = userInput.nextLine();
+                }
+                try {
+                    appendToFile(FILEPATH, query);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong... ------>" + e.getMessage());
+                }
+                addTask(query);
+            }
+        } catch (IOException exception) {
+            Scanner userInput = new Scanner(System.in);
+
+            while (!query.equals("bye")) {
+                System.out.print("=>");
+                if (userInput.hasNextLine()) {
+                    query = userInput.nextLine();
+                    try {
+                        appendToFile(FILEPATH, query);
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong... ------>" + e.getMessage());
+                    }
+                }
+                addTask(query);
+            }
+        }
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        if (!textToAppend.equals("bye")) {
+            fw.write(textToAppend + "\n");
+            fw.close();
         }
     }
 
@@ -225,7 +272,7 @@ public class Duke {
                             + "has been entered");
                 }
                 tasks.add(new Deadline(getQueryDescription(query), getDate(query)));
-                System.out.println("Added a Todo Task: " + getQueryDescription(query));
+                System.out.println("Added a Deadline Task: " + getQueryDescription(query));
                 System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
             } catch (InvalidInputsException.InvalidDateFormatting exception) {
                 exception.printStackTrace();
