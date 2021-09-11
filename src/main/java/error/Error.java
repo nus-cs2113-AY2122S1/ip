@@ -27,7 +27,13 @@ public class Error {
 
     public static void showDoneFormatError() {
         Printer.printLineSeparator();
-        System.out.println("I do not know which task you want me to mark. Give the task number my friend");
+        System.out.println("I do not know which task you want me to MARK. Give the task number my friend");
+        Printer.printLineSeparator();
+    }
+
+    public static void showDeleteFormatError() {
+        Printer.printLineSeparator();
+        System.out.println("I do not know which task you want me to DELETE. Give the task number my friend");
         Printer.printLineSeparator();
     }
 }

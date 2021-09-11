@@ -56,16 +56,31 @@ public class Duke {
 
                 Printer.printLineSeparator();
                 break;
+            case "delete":
+
+                try {
+                    int indexOfDelete = TaskManager.getIndex(input);
+
+                    Printer.printLineSeparator();
+                    System.out.println("Noted. I've deleted this task:\n" + list.get(indexOfDelete) + "\nNow you have " + (count - 1) + " tasks in the list.");
+                    Printer.printLineSeparator();
+
+                    list.remove(indexOfDelete);
+                    count--;
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    Error.showDeleteFormatError();
+                }
+                break;
             case "done":
 
                 try {
                     //Extracts the index number from the text and changes status of the task
-                    int index = TaskManager.getIndex(input);
-                    list.get(index).markAsDone();
+                    int indexOfDone = TaskManager.getIndex(input);
+                    list.get(indexOfDone).markAsDone();
 
                     Printer.printLineSeparator();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(list.get(index));
+                    System.out.println(list.get(indexOfDone));
                     Printer.printLineSeparator();
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     Error.showDoneFormatError();
