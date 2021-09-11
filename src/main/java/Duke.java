@@ -4,6 +4,7 @@ import todo.Event;
 import todo.Task;
 import todo.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //Check if valid command (Done, List, Bye, Action)
@@ -13,17 +14,14 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static int tasksTotal = 0;
-    private static int tasksDone = 0;
-    private static Task[] tasks;
-    private static String[] commands = {"todo", "event", "deadline"};
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<String> commands = new ArrayList<>();
 
     public static void main(String[] args) {
-        int LIST_SIZE = 100;
         String line = "";
-        tasks = new Task[LIST_SIZE];
         showWelcomeScreen();
-        while (tasksTotal <= LIST_SIZE && !line.contains("bye")) {
+        addCommands();
+        while (!line.contains("bye")) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             assert line != null;
@@ -31,25 +29,39 @@ public class Duke {
             try{
                 checkValidCommand(words);
             } catch (InvalidCommandError e) {
+                printDivider();
                 System.out.println("Invalid command. Try again!");
+                printDivider();
             }
 
         }
         return;
     }
 
+    private static void addCommands() {
+        commands.add("done");
+        commands.add("todo");
+        commands.add("event");
+        commands.add("deadline");
+        commands.add("delete");
+        commands.add("list");
+    }
     private static void checkValidCommand(String[] words) throws InvalidCommandError {
         String command = words[0];
-
+        if(!commands.contains(command)){
+            throw new InvalidCommandError();
+        }
         if (command.equals("done")) { //Checks what is the command
             int index = Integer.parseInt(words[1]);
-            tasks[index].setDone(true);
+            tasks.get(index - 1).setDone(true);
             completeSuccess(index);
         } else if (command.equals("list")) {
             listAllTask();
         } else if (command.equals("bye")) {
             showByeScreen();
             return;
+        } else if (command.equals("delete")) {
+            removeTask(Integer.parseInt(words[1]));
         } else { //is a valid task
             checkValidInput(words);
         }
@@ -59,31 +71,26 @@ public class Duke {
         try{
             splitInput(words);
         } catch (EmptyDescriptionError e) {
+            printDivider();
             System.out.println("Missing description!!!");
-            Task.printDivider();
+            printDivider();
         } catch (MissingDateError e) {
+            printDivider();
             System.out.println("Missing date!!");
-            Task.printDivider();
+            printDivider();
         } catch (InvalidDescriptionError e) {
+            printDivider();
             System.out.println("Description cannot be whitespace!!");
-            Task.printDivider();
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-            System.out.print("Something went wrong! Please try again!");
-            Task.printDivider();
+            printDivider();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            printDivider();
+            System.out.println("Something went wrong! Please try again!");
+            printDivider();
         } catch (EmptyDateError e) {
+            printDivider();
             System.out.println("Date cannot be empty!");
-            Task.printDivider();
+            printDivider();
         }
-    }
-
-
-    private static void listAllTask() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= tasksTotal; i++) {
-            System.out.println(i + ". " + tasks[i].toString());
-        }
-        getTasksLeft();
-        Task.printDivider();
     }
 
     private static void splitInput(String[] words)
@@ -117,6 +124,57 @@ public class Duke {
         checkValidAction(words, task, date, type);
     }
 
+    private static void checkValidAction(String[] words, String task, String date,
+                                         String type) {
+        if (type.equals("deadline")) {
+            tasks.add(new Deadline(task, date));
+            addSuccess();
+        } else if (type.equals("event")) {
+            tasks.add(new Event(task, date));
+            addSuccess();
+        } else if (type.equals("todo")) {
+            tasks.add(new ToDo(task, date));
+            addSuccess();
+        } else { //invalid command
+            printDivider();
+            System.out.println("Invalid command, try again.");
+            printDivider();
+        }
+    }
+
+    private static void listAllTask() {
+        printDivider();
+        if(tasks.size() == 0) {
+            System.out.println("You have no tasks at the moment!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            }
+            getTasksLeft();
+        }
+        printDivider();
+    }
+
+    private static void removeTask(int index) {
+        
+        try {
+            Task t = tasks.get(index - 1);
+            printDivider();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(t);
+            tasks.remove(index - 1);
+            getTasksLeft();
+            printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            printDivider();
+            System.out.println("Something went wrong! Please try again!");
+            printDivider();
+        }
+
+    }
+        
+
     private static Boolean checkEmptyDate(String[] input) {
         if(input.length == 1 || input[1].trim().length() == 0) {
             return true;
@@ -128,52 +186,41 @@ public class Duke {
         return word.trim().length() == 0;
     }
 
-
-    private static void checkValidAction(String[] words, String task, String date,
-                                         String type) {
-        if (type.equals("deadline")) {
-            tasksTotal++;
-            tasks[tasksTotal] = new Deadline(task, date);
-            addSuccess();
-        } else if (type.equals("event")) {
-            tasksTotal++;
-            tasks[tasksTotal] = new Event(task, date);
-            addSuccess();
-        } else if (type.equals("todo")) {
-            tasksTotal++;
-            tasks[tasksTotal] = new ToDo(task, date);
-            addSuccess();
-        } else { //invalid command
-            Task.printDivider();
-            System.out.println("Invalid command, try again.");
-            Task.printDivider();
-        }
-    }
-
     private static void addSuccess() {
+        printDivider();
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[tasksTotal].toString());
+        System.out.println(tasks.get(tasks.size() - 1).toString());
         getTasksLeft();
-        Task.printDivider();
+        printDivider();
     }
 
     private static void completeSuccess(int index) {
-        Task.printDivider();
+        printDivider();
         System.out.println("Got it. I've marked this task as complete:");
-        System.out.println(tasks[index].toString());
-        tasksDone++;
+        System.out.println(tasks.get(index - 1).toString());
         getTasksLeft();
-        Task.printDivider();
+        printDivider();
     }
 
     private static void getTasksLeft() {
-        System.out.println("Now you have " + (tasksTotal - tasksDone) + " tasks in the list.");
+        printDivider();
+        int undoneTasks = 0;
+        for(int i = 0; i < tasks.size(); i++) {
+            if(!tasks.get(i).getStatus()) {
+                undoneTasks++;
+            }
+        }
+        System.out.println("Now you have " + undoneTasks + " tasks in the list.");
     }
 
     private static void showByeScreen() {
-        Task.printDivider();
+        printDivider();
         System.out.println("Bye. Hope to see you again soon!");
-        Task.printDivider();
+        printDivider();
+    }
+
+    public final static void printDivider() {
+        System.out.println("____________________________________________________________\n");
     }
 
     private static void showWelcomeScreen() {
@@ -183,9 +230,9 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        Task.printDivider();
+        printDivider();
         System.out.println(" Hello! I'm Duke\n" + " What can I do for you?\n");
-        Task.printDivider();
+        printDivider();
     }
 }
 
