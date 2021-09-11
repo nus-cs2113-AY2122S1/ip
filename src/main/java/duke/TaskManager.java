@@ -35,7 +35,7 @@ public class TaskManager {
         System.out.println("  Here are your tasks:");
         for (int i = 0; i < tasksCount; i++) {
             System.out.print("    " + (i + 1) + ".");
-            System.out.println(tasks[i].toString());
+            System.out.println(tasks[i]);
         }
         printLine();
     }
@@ -54,7 +54,7 @@ public class TaskManager {
         tasks[taskIndex].setCompleted();
         printLine();
         System.out.print("  Ok! I've marked this task as done:" + System.lineSeparator() + "    ");
-        System.out.println(tasks[taskIndex].toString());
+        System.out.println(tasks[taskIndex]);
         printLine();
     }
 
