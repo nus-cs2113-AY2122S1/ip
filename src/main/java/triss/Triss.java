@@ -7,6 +7,7 @@ import triss.task.Task;
 import triss.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Triss {
 
@@ -24,10 +25,7 @@ public class Triss {
     private static boolean hasUserSaidBye = false;
 
     /** Array to keep track of user's tasks */
-    private static Task[] tasks = new Task[100];
-
-    /** Int to keep track of number of tasks stored in tasks */
-    private static int noOfTasks = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /** Length of the word "todo" */
     public static final int END_INDEX_OF_WORD_TODO = 4;
@@ -67,6 +65,9 @@ public class Triss {
             case "done":
                 handleUserMarkingTaskAsDone(userInput);
                 break;
+            case "delete":
+                handleUserDeletingTask(userInput);
+                break;
             default:
                 try {
                     handleUserCreatingTask(userInput);
@@ -79,6 +80,36 @@ public class Triss {
             printLine(SEPARATOR_LINE);
 
         }
+    }
+
+    private static void handleUserDeletingTask(String userInput) {
+        // Get number of task after the term "done"
+        int indexOfRemovableTask;
+        // Throw exception if user did not type a number after "done"
+        try {
+            indexOfRemovableTask = Integer.parseInt(parseUserInput(userInput, 1)) - 1;
+        } catch (Exception e) {
+            printLine("Ach, nee! That task does not exist.");
+            return;
+        }
+
+
+        // If task does not exist, do not delete any task
+        if (indexOfRemovableTask > tasks.size() || indexOfRemovableTask < 0) {
+            printLine("Apologies! That task does not exist.");
+            return;
+        }
+
+        // Find task since it exists
+        Task chosenTask = tasks.get(indexOfRemovableTask);
+
+        // Remove task from tasks
+        tasks.remove(chosenTask);
+        printLine("Wunderbar! This task has been deleted:");
+
+        // Print out the task in the following format: "    [X] Task"
+        printLine("    " + chosenTask.printTask());
+
     }
 
     /**
@@ -164,13 +195,12 @@ public class Triss {
             throw new TrissException(errorMessage);
         }
 
-        tasks[noOfTasks] = new Todo(taskName);
-
-        // Increase current number of tasks by 1
-        noOfTasks++;
+        // Add todo to tasks
+        Task newTodo = new Todo(taskName);
+        tasks.add(newTodo);
 
         // Then, echo the task
-        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+        printLine("I've added: " + newTodo.printTask());
     }
 
     /**
@@ -206,13 +236,12 @@ public class Triss {
             throw new TrissException("You didn't insert a date in your event! Let's try that again.");
         }
 
-        tasks[noOfTasks] = new Event(taskName, eventTiming);
-
-        // Increase current number of tasks by 1
-        noOfTasks++;
+        // Add event to tasks
+        Event newEvent = new Event(taskName, eventTiming);
+        tasks.add(newEvent);
 
         // Then, echo the task
-        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+        printLine("I've added: " + newEvent.printTask());
     }
 
     /**
@@ -247,19 +276,18 @@ public class Triss {
             throw new TrissException("You didn't insert a date in your deadline! Let's try that again.");
         }
 
-        tasks[noOfTasks] = new Deadline(taskName, deadlineDate);
-
-        // Increase current number of tasks by 1
-        noOfTasks++;
+        // Add deadline to tasks
+        Deadline newDeadline = new Deadline(taskName, deadlineDate);
+        tasks.add(newDeadline);
 
         // Then, echo the task
-        printLine("I've added: " + tasks[noOfTasks - 1].printTask());
+        printLine("I've added: " + newDeadline.printTask());
     }
 
     /**
      * Mark user task as done, if request is valid.
      * Stops if user did not specify a task.
-     * Stops if user's chosent task does not exist.
+     * Stops if user's chosen task does not exist.
      * Informs user if task was already done.
      * @param userInput Any user input starting with "done"
      */
@@ -276,13 +304,13 @@ public class Triss {
 
 
         // If task does not exist, do not delete any task
-        if (indexOfCompletedTask > noOfTasks - 1 || indexOfCompletedTask < 0) {
+        if (indexOfCompletedTask > tasks.size() || indexOfCompletedTask < 0) {
             printLine("Apologies! That task does not exist.");
             return;
         }
 
         // Find task since it exists
-        Task chosenTask = tasks[indexOfCompletedTask];
+        Task chosenTask = tasks.get(indexOfCompletedTask);
 
         // If task was already done, let user know
         if (chosenTask.isDone()) {
@@ -305,8 +333,8 @@ public class Triss {
      */
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
-        for (int i = 0; i < noOfTasks; i++) {
-            printLine(i + 1 + "." + tasks[i].printTask());
+        for (Task task:tasks) {
+            printLine(tasks.indexOf(task) + 1 + "." + task.printTask());
         }
     }
 
