@@ -25,7 +25,7 @@ public class Triss {
     private static boolean hasUserSaidBye = false;
 
     /** Array to keep track of user's tasks */
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /** Length of the word "todo" */
     public static final int END_INDEX_OF_WORD_TODO = 4;
@@ -287,7 +287,7 @@ public class Triss {
     /**
      * Mark user task as done, if request is valid.
      * Stops if user did not specify a task.
-     * Stops if user's chosent task does not exist.
+     * Stops if user's chosen task does not exist.
      * Informs user if task was already done.
      * @param userInput Any user input starting with "done"
      */
