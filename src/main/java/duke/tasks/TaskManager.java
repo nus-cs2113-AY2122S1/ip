@@ -68,7 +68,7 @@ public class TaskManager {
 
     private void writeToData(Task task) throws IOException {
         FileWriter fw = new FileWriter(Duke.DATA_FILE, true);
-        fw.write(Duke.NL + task.toData());
+        fw.write( ((numberOfTasks > 1) ? Duke.NL : "") + task.toData());
         fw.close();
     }
 
