@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.command.Command;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -27,10 +26,11 @@ public class DataManager {
                 addTaskEntry(dataParts);
             }
             sc.close();    
-            System.out.println("Loaded saved data successfully!");
-            UserInterface.printLine();
-        } catch (IOException | DukeBlankDescriptionsException | DukeInvalidTaskIndexException e) {
-            e.printStackTrace();
+            UserInterface.showLoadSuccess();
+        } catch (DukeBlankDescriptionsException | DukeInvalidTaskIndexException e) {
+            UserInterface.showLoadError();
+        } catch (IOException e) {
+            UserInterface.showMissingDataFile();
         }
     }
 
@@ -62,7 +62,7 @@ public class DataManager {
         try {
             writer = new FileWriter(fileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            UserInterface.showSaveError();
             return;
         }
         BufferedWriter buffer = new BufferedWriter(writer);
@@ -73,10 +73,10 @@ public class DataManager {
             }
             buffer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            UserInterface.showSaveError();
             return;
         }
-        System.out.println("Saved Successfully!");
+        UserInterface.showSaveSuccess();
     }
 }
 

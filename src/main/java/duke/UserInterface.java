@@ -137,9 +137,32 @@ public class UserInterface {
     }
 
     private static void showWrongFormat() {
-        UserInterface.printLine();
+        printLine();
         System.out.println("Wrong format!");
         System.out.println("Missing some description or wrong command format.");
-        UserInterface.printLine();
+        printLine();
+    }
+    
+    public static void showLoadSuccess() {
+        System.out.println("Loaded saved data successfully!");
+        printLine();
+    }
+    
+    public static void showSaveSuccess() {
+        System.out.println("Data saved Successfully!");
+    }
+    
+    public static void showLoadError() {
+        System.out.println("Error loading data. Some or all data maybe lost.");
+        printLine();
+    }
+    
+    public static void showSaveError() {
+        System.out.println("Error saving data. Some or all data maybe lost.");
+    }
+    
+    public static void showMissingDataFile() {
+        System.out.println("Missing data file. An empty one is created.");
+        printLine();
     }
 }
