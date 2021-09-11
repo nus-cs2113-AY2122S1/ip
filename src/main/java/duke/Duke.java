@@ -77,6 +77,21 @@ public class Duke {
                 addEvent(strInput);
                 break;
 
+            case "delete":
+                try {
+                    deleteTask(extractContent(strInput));
+                } catch (NumberFormatException e) { //not a number
+                    printBorder();
+                    System.out.println("Not a number!");
+                    printBorder();
+                } catch (EmptyArgumentException e) {
+                    printBorder();
+                    System.out.println("Please specify the index of the task to be marked as done!");
+                    System.out.println("use: delete [task index]");
+                    printBorder();
+                }
+                break;
+
             default:
                 printInvalidCommand();
                 break;
@@ -254,8 +269,28 @@ public class Duke {
         printBorder();
         try {
             taskList.get(taskIndex).setDone(true);
-            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + taskList.get(taskIndex));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task number " + (taskIndex + 1) + " does not exist!");
+        }
+        printBorder();
+    }
+
+    /**
+     * Deletes the task of the given ranking from the list
+     *
+     * @param taskNumber numerical ranking (as a string) of the task to be deleted
+     */
+    private static void deleteTask(String taskNumber) {
+        int taskIndex = Integer.parseInt(taskNumber) - 1; //get the index of the task in the taskList array
+        printBorder();
+        try {
+            Task removedTask = taskList.remove(taskIndex);
+            Task.decreaseTotalTasks();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Task number " + (taskIndex + 1) + " does not exist!");
         }
@@ -319,6 +354,7 @@ public class Duke {
         printBorder();
         System.out.println("Command not recognized!");
         System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
+        System.out.println("\"delete\"");
         printBorder();
     }
 }
