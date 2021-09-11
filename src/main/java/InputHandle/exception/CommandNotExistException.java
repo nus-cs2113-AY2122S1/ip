@@ -1,5 +1,6 @@
 package InputHandle.exception;
 
+
 public class CommandNotExistException extends DukeException {
     @Override
     public String toString () {

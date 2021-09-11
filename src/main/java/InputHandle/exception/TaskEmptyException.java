@@ -1,3 +1,4 @@
+
 package InputHandle.exception;
 
 public class TaskEmptyException extends DukeException {
