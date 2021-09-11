@@ -1,4 +1,12 @@
+package duke;
+
 import java.util.Scanner;
+import duke.exception.EmptyCommandException;
+import duke.exception.IllegalCommandException;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 public class Duke {
 
