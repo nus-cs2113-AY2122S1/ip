@@ -1,3 +1,5 @@
+package duke;
+
 import duke.exception.DukeInvalidAddTaskException;
 import duke.exception.DukeInvalidMarkDoneException;
 import duke.task.Deadline;
