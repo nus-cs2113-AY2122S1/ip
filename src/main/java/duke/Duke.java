@@ -186,7 +186,7 @@ public class Duke {
 
     public static void loadSave() {
         try {
-            File saveFile = new File("src/main/java/duke/save.txt");
+            File saveFile = new File("save.txt");
             Scanner s = new Scanner(saveFile);
             int index = 1;
             while (s.hasNext()) {
@@ -222,7 +222,7 @@ public class Duke {
     }
 
     public static void saveTasks() throws IOException {
-        File saveFile = new File("src/main/java/duke/save.txt");
+        File saveFile = new File("save.txt");
         if (!saveFile.exists()) {
             saveFile.createNewFile();
         }
