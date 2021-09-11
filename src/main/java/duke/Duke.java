@@ -180,9 +180,13 @@ public class Duke {
             }
             break;
         }
+
+        TASK_MANAGER.convertTasksToData();
     }
 
     public void execute() {
+
+        TASK_MANAGER.convertDataToTasks();
 
         String userInputString;
 

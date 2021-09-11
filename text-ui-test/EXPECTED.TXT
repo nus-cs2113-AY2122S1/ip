@@ -8,6 +8,8 @@ Welcome to
 Hello there! I'm Duke, your very helpful personal assistant chat bot. ?
 Enter "help" to see what I can do for you!
 ____________________________________________________________
+Okay! Now your list is empty, you're FREE!
+____________________________________________________________
 Wow! I found these tasks in your list:
 ____________________________________________________________
 Hello World!
