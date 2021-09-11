@@ -1,7 +1,5 @@
 package austin;
 
-import austin.Task;
-
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

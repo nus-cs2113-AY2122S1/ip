@@ -1,8 +1,5 @@
 package austin;
 
-import austin.AustinException;
-import austin.Deadline;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -86,11 +83,11 @@ public class Duke {
     public static void printWelcomeMessage() {
         String logo =
                 "        ___      __    __       _______.___________.__  .__   __.\n" +
-                "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
-                "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
-                "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
-                "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   |\n" +
-                "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|  ";
+                        "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
+                        "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
+                        "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
+                        "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   |\n" +
+                        "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|  ";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Austin\n"
                 + "What can I do for you?\n"
@@ -220,7 +217,8 @@ public class Duke {
     }
 
     /**
-     * Prints a confirmation message to the user to that the task is successfully added into the list.
+     * Prints a confirmation message to the user to that the task is
+     * successfully added into the list.
      */
     public static void printAddTaskMessage() {
         System.out.println("Noted. I have successfully added this task:");
@@ -249,14 +247,19 @@ public class Duke {
         System.out.println("todo: Adds a todo task into the list.\n" +
                 "      Format: todo <task_description>\n");
         System.out.println("event: Adds a event task into the list. " +
-                "The event date and time description is also needed while creating this task.\n" +
-                "      Format: event <task_description> | <date_and_time_information>\n");
+                "The event date and time description is also needed " +
+                "while creating this task.\n" +
+                "      Format: event <task_description> | " +
+                "<date_and_time_information>\n");
         System.out.println("deadline: Adds a task which has a deadline into the list. " +
-                "The deadline date and time information is also needed while creating this task.\n" +
-                "      Format: deadline <task_description> | <date_and_time_information>\n");
+                "The deadline date and time information is also needed while " +
+                "creating this task.\n" +
+                "      Format: deadline <task_description> | " +
+                "<date_and_time_information>\n");
         System.out.println("done: Marks a specific task as done.\n" +
                 "      Format: done <task_id>\n");
-        System.out.println("list: Prints all the tasks along with the status of each task.\n" +
+        System.out.println("list: Prints all the tasks along with the status of" +
+                " each task.\n" +
                 "      Format: list\n");
         System.out.println("bye: Exits the program with a goodbye message.\n" +
                 "      Format: bye\n");
@@ -270,6 +273,6 @@ public class Duke {
     public static void printCompletionMessage() {
         System.out.println("___________________COMMAND EXECUTED___________________");
         System.out.println("Anything else?\n"
-                 + "In case, if you are unsure of any commands, please type \"help\".");
+                + "In case, if you are unsure of any commands, please type \"help\".");
     }
 }
