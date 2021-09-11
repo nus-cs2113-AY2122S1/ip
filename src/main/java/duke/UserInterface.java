@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -33,26 +34,34 @@ public class UserInterface {
                 showWrongFormat();
             }
         } else if (userCommand == Command.DONE) {
-            try {
-                int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
-                TaskManager.setDone(taskIndex);
-                showItemSetDone(taskIndex);
-            } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
-                showInvalidIndex();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                showWrongFormat();
-            }
+            setDone();
         } else if (userCommand == Command.DELETE) {
-            try {
-                int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
-                showItemDeleted(TaskManager.delete(taskIndex));
-            } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
-                showInvalidIndex();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                showWrongFormat();
-            }
+            deleteTask();
         } else if (userCommand == Command.INVALID) {
             showInvalidCommand();
+        }
+    }
+
+    private static void deleteTask() {
+        try {
+            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+            showItemDeleted(TaskManager.delete(taskIndex));
+        } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
+            showInvalidIndex();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            showWrongFormat();
+        }
+    }
+
+    private static void setDone() {
+        try {
+            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+            TaskManager.setDone(taskIndex);
+            showItemSetDone(taskIndex);
+        } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
+            showInvalidIndex();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            showWrongFormat();
         }
     }
 
@@ -77,7 +86,7 @@ public class UserInterface {
         } else if ("delete".equals(userInputs[USER_COMMAND_INDEX])) {
             return Command.DELETE;
         }
-        
+
         return Command.INVALID;
     }
 
