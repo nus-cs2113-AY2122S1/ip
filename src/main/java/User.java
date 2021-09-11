@@ -16,6 +16,6 @@ public class User {
 
     public void startServe() {
         server.serviceBegin();
-        this.save();
+        this.server.save(userName);
     }
 }

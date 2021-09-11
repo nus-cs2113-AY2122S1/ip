@@ -84,7 +84,6 @@ public class UserServer {
         return sc.nextLine();
     }
 
-
     private UserCommand handleCommand(String userInput) throws DukeException {
         String[] inputSplits = userInput.split(" ");
         UserCommand input;
