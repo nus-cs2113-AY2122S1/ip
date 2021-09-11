@@ -41,8 +41,8 @@ public class Duke {
     
     public static void printFileNotDetectedMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
-                + "    There is no existing file detected," + System.lineSeparator()
-                + "    Empty task list initialized" + System.lineSeparator()
+                + "    NO EXISTING FILE DETECTED" + System.lineSeparator()
+                + "    EMPTY TASK LIST INITIALIZED" + System.lineSeparator()
                 + BORDER_LINE);
     }
 
@@ -115,10 +115,10 @@ public class Duke {
             tasks.add(new Todo("todo " + words[2]));
             break;
         case "D":
-            tasks.add(new Todo("deadline " + words[2] + " /by " + words[3]));
+            tasks.add(new Deadline("deadline " + words[2] + " /by " + words[3]));
             break;
         case "E":
-            tasks.add(new Todo("event " + words[2] + " /at " + words[3]));
+            tasks.add(new Event("event " + words[2] + " /at " + words[3]));
             break;
         default:
             System.out.println("Invalid task in file");
@@ -142,7 +142,7 @@ public class Duke {
         }
     }
     
-    public static void loadTaskFromFile(String filePath) {
+    public static void loadDataFromFile(String filePath) {
         try {
             readFile(filePath);
         } catch (FileNotFoundException e) {
@@ -294,39 +294,55 @@ public class Duke {
         }
     }
     
-    public static void updateTaskFile(String pathFile) throws IOException{
-        File directory = new File(pathFile);
+    public static void checkFilePath(String filePath) {
+        File directory = new File(filePath);
         if (!directory.exists()) {
             directory.getParentFile().mkdirs();
         }
-        
-        FileWriter fw = new FileWriter(pathFile);
-        for (int i = 0; i < tasks.size(); i++) {
-            String taskAsString = String.valueOf(tasks.get(i));
+    }
+
+    public static void writeToFile(String filePath) throws IOException {
+        FileWriter writer = new FileWriter(filePath);
+        for (Task task : tasks) {
+            String taskAsString = String.valueOf(task);
             String taskType = taskAsString.substring(1, 2);
-            String doneSymbol = taskAsString.substring(4, 5);
-            String formattedTask = taskType + "--" + (doneSymbol.equals("X") ? "1" : "0") + "--";
-            if (taskAsString.contains("(by:")) {
-                formattedTask += taskAsString.substring(7, taskAsString.indexOf(" (by:")) + "--" + taskAsString.substring(taskAsString.indexOf("(by:") + 5, taskAsString.length() - 1);
-            } else if (taskAsString.contains("(at:")) {
-                formattedTask += taskAsString.substring(7, taskAsString.indexOf(" (at:")) + "--" + taskAsString.substring(taskAsString.indexOf("(at:") + 5, taskAsString.length() - 1);
-            } else {
-                formattedTask += taskAsString.substring(7);
+            String doneSymbol = task.isDone() ? "1" : "0";
+            String formattedTask = null;
+            switch (taskType) {
+            case "T":
+                formattedTask = "T--" + doneSymbol + "--" + task.getDescription();
+                break;
+            case "D":
+                Deadline currentDeadline = (Deadline) task; 
+                formattedTask = "D--" + doneSymbol + "--" + currentDeadline.getDescription() + "--" + currentDeadline.getDeadlineDate();
+                break;
+            case "E":
+                Event currentEvent = (Event) task;
+                formattedTask = "E--" + doneSymbol + "--" + currentEvent.getDescription() + "--" + currentEvent.getEventTime();
+                break;
+            default:
+                System.out.println("Invalid Task Found");
+                break;
             }
-            fw.write(formattedTask + System.lineSeparator());
+            writer.write(formattedTask + System.lineSeparator());
         }
-        fw.close();
+        writer.close();
+    }
+
+    public static void saveDataToFile(String filePath) {
+        checkFilePath(filePath);
+        try {            
+            writeToFile(filePath);
+        } catch (IOException e) {
+            System.out.println("Something went wrong");
+        }
     }
 
     public static void main(String[] args) {
         printGreetingMessage();
-        loadTaskFromFile("data/task.txt");
+        loadDataFromFile("data/task.txt");
         userOperation();
-        try {
-            updateTaskFile("data/task.txt");
-        } catch (IOException e) {
-            System.out.println("Something went wrong");
-        }
+        saveDataToFile("data/task.txt");
         printGoodbyeMessage();
     }
 }
