@@ -3,8 +3,13 @@ package kitty.userinterface;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.task.Task;
+import kitty.task.Todo;
+import kitty.task.Deadline;
+import kitty.task.Event;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.File;
 
 public class Ui {
     public static String userInput;
@@ -87,8 +92,52 @@ public class Ui {
                                             + BAR_LINE + "\n";
     public static final String ERROR_MESSAGE = "\nOops something went wrong! Please try again!\n"
                                             + CAT_ERROR;
+    public static final String DATA_PATH = "src/main/java/kitty/userinterface/data.txt";
 
     // Methods
+    public static void initData() throws KittyException{
+        try {
+            File f = new File(DATA_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String rawData = s.nextLine();
+                String type = rawData.substring(0, rawData.indexOf("|"));
+                String status = rawData.substring(rawData.indexOf("|") + 1, rawData.indexOf("|") + 2);
+                String task = rawData.substring(rawData.indexOf("|") + 3);
+
+                // Add Tasks
+                switch (type) {
+                case "T":
+                    Kitty.tasks.add(new Todo(task));
+                    if (status.equals("1")) {
+                        Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
+                    }
+                    break;
+                case "D":
+                    String deadlineName = task.substring(0, task.indexOf("|"));
+                    String deadlineDate = task.substring(task.indexOf("|") + 1);
+                    Kitty.tasks.add(new Deadline(deadlineName, deadlineDate));
+                    if (status.equals("1")) {
+                        Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
+                    }
+                    break;
+                case "E":
+                    String eventName = task.substring(0, task.indexOf("|"));
+                    String eventDate = task.substring(task.indexOf("|") + 1);
+                    Kitty.tasks.add(new Event(eventName, eventDate));
+                    if (status.equals("1")) {
+                        Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
+                    }
+                    break;
+                default:
+                    throw new KittyException("Invalid Raw Data!");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new KittyException("File not found!");
+        }
+    }
+
     public static void greet() {
         System.out.println(INTRO_MESSAGE);
         System.out.println(HELP_MESSAGE);

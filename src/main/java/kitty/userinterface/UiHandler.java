@@ -48,16 +48,17 @@ public class UiHandler {
 
     public static void printList() throws KittyException{
         // Throw exception if user list with no tasks
-        if (Task.totalTasksCount < 1) {
+        if (Kitty.tasks.size() == 0) {
             throw new KittyException("Sorry you currently have no tasks!");
         } else {
             // Prints list
+            int i = 1;
             System.out.println();
             System.out.println("Here are the tasks you have!");
-            for (int i = 0; i < Task.totalTasksCount; i++) {
-                System.out.print(i + 1 + ".");
-//                System.out.println(Kitty.tasks[i]);
-                System.out.println(Kitty.tasks.get(i));
+            for (Task task: Kitty.tasks) {
+                System.out.print(i + ". ");
+                System.out.println(task);
+                i++;
             }
             System.out.println();
             System.out.println(Ui.CAT_1);
@@ -92,7 +93,6 @@ public class UiHandler {
                 Event.addEventTask(line);
                 break;
             }
-            Task.totalTasksCount++;
             Ui.printAddedTask();
         } catch (KittyException e) {
             throw e;
