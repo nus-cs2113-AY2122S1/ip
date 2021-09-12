@@ -1,6 +1,6 @@
-package Duke.task;
+package duke.task;
 
-import Duke.exception.DukeInvalidInputException;
+import duke.exception.DukeInvalidInputException;
 
 public class ToDo extends Task {
 
