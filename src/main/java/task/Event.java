@@ -16,13 +16,17 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public String[] getTime() {
-        String[] res = {start, end};
-        return res;
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
     }
 
     public String toString() {
         return "[e] [" + getStatus() + "] " + getDescription()
-                + " (" + getTime()[0] + " to " + getTime()[1] + ")";
+                + " (" + getStart() + " to " + getEnd() + ")";
     }
+
 }

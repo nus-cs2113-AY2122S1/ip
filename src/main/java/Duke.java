@@ -4,14 +4,22 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        boolean isContinue = true;
         Headers.printBanner();
+
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        try {
+            tasks = command.Data.read();
+        } catch (IOException e) {
+            System.out.println("  (!) FATAL: Could not process data file, starting with empty data");
+        }
+
+        boolean isContinue = true;
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -36,11 +44,12 @@ public class Duke {
                     ToDo newToDo = new ToDo(line.substring(6));
                     tasks.add(newToDo);
                     System.out.println("  (+) Added: "+ newToDo.toString());
-                    System.out.println("  (i) You have " + tasks.size() + " t1asks in the list");
+                    System.out.println("  (i) You have " + tasks.size() + " tasks in the list");
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("  (!) Todo description cannot be empty!");
                     System.out.println("  (!) Format: /todo <description>");
                 }
+                command.Data.write(tasks);
                 break;
             case DEADLINE:
                 try {
@@ -54,6 +63,7 @@ public class Duke {
                     System.out.println("  (!) Invalid/missing values");
                     System.out.println("  (!) Format: /deadline <description> -by <date>");
                 }
+                command.Data.write(tasks);
                 break;
             case EVENT:
                 try {
@@ -68,6 +78,7 @@ public class Duke {
                     System.out.println("  (!) Invalid/missing values");
                     System.out.println("  (!) Format: /event <description> -from <date> -to <date>");
                 }
+                command.Data.write(tasks);
                 break;
             case DONE:
                 try {
@@ -81,6 +92,7 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  (!) Task ID does not exist >:(");
                 }
+                command.Data.write(tasks);
                 break;
             default:
                 System.out.println("  (!) Unrecognised Command! ");

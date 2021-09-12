@@ -11,7 +11,7 @@ public class Headers {
     }
 
     public static void printExit() {
-        System.out.println(" Gracias! Hope to see you again soon!");
+        System.out.println("Gracias! Hope to see you again soon!");
     }
 
     public static void printSeparator() {
