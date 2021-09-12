@@ -2,6 +2,9 @@ package duke.command;
 
 import duke.task.Task;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class DisplayManager {
 
     public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
@@ -22,7 +25,7 @@ public class DisplayManager {
 
 
     public void printStartGreet() {
-        System.out.println(DISPLAY_LOGO);
+        //System.out.println(DISPLAY_LOGO);
         System.out.println(DISPLAY_GREET_START);
     }
 
@@ -50,7 +53,7 @@ public class DisplayManager {
         printHorizontalSeparator();
     }
 
-    public static void printMultipleTasks(Task[] tasks) {
+    public static void printMultipleTasks(ArrayList<Task> tasks) {
         int counter = 0;
         printHorizontalSeparator();
         System.out.println(DISPLAY_MESSAGE_INDENT + "Here are the tasks in your list:");
@@ -61,10 +64,10 @@ public class DisplayManager {
         printHorizontalSeparator();
     }
 
-    public static void printMultipleValidSetDone(Task[] tasks, int[] validIndexes) {
+    public static void printMultipleValidSetDone(ArrayList<Task> tasks, int[] validIndexes) {
         System.out.println(DisplayManager.DISPLAY_MESSAGE_INDENT + "Nice! I've marked these tasks as done:");
         for (int validIndex : validIndexes) {
-            System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + tasks[validIndex - 1]);
+            System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + tasks.get(validIndex - 1));
         }
     }
 
@@ -82,7 +85,7 @@ public class DisplayManager {
         }
     }
 
-    public static void printSetAsDoneResult(Task[] tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
+    public static void printSetAsDoneResult(ArrayList<Task> tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
         int outOfRangeCount, validIndexCount, doneIndexCount;
 
         if (outOfRangeIndexes == null) {

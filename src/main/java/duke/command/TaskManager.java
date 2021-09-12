@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TaskManager {
@@ -12,7 +13,7 @@ public class TaskManager {
     public static final String STATUS_DONE = "X";
     public static boolean hasInvalidIndex = false;
 
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
     private final int INDEX_DESCRIPTION = 0;
@@ -23,22 +24,25 @@ public class TaskManager {
     }
 
     public void addToDoTask(String taskInfo) {
-        tasks[taskCount] = new ToDo(taskInfo);
-        DisplayManager.printCreateTask(tasks[taskCount]);
+        Task newTask = new ToDo(taskInfo);
+        tasks.add(newTask);
+        DisplayManager.printCreateTask(newTask);
         taskCount++;
     }
 
     public void addDeadlineTask(String taskInfo) {
         String[] taskComponents = splitTaskComponents(taskInfo);
-        tasks[taskCount] = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
-        DisplayManager.printCreateTask(tasks[taskCount]);
+        Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+        tasks.add(newTask);
+        DisplayManager.printCreateTask(newTask);
         taskCount++;
     }
 
     public void addEventTask(String taskInfo) {
         String[] taskComponents = splitTaskComponents(taskInfo);
-        tasks[taskCount] = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
-        DisplayManager.printCreateTask(tasks[taskCount]);
+        Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+        tasks.add(newTask);
+        DisplayManager.printCreateTask(newTask);
         taskCount++;
     }
 
@@ -64,7 +68,7 @@ public class TaskManager {
         int count = 0;
 
         for (int index : indexes) {
-            if (!(index - 1 >= taskCount) && !(tasks[index - 1].getStatusIcon().equals(STATUS_DONE))) {
+            if (!(index - 1 >= taskCount) && !(tasks.get(index - 1).getStatusIcon().equals(STATUS_DONE))) {
                 validIndexes[count] = index;
                 count++;
             }
@@ -81,7 +85,7 @@ public class TaskManager {
         int count = 0;
 
         for (int index : indexes) {
-            if (!(index - 1 >= taskCount) && tasks[index - 1].getStatusIcon().equals(STATUS_DONE)) {
+            if (!(index - 1 >= taskCount) && tasks.get(index - 1).getStatusIcon().equals(STATUS_DONE)) {
                 doneIndexes[count] = index;
                 count++;
             }
@@ -101,7 +105,7 @@ public class TaskManager {
 
         if (validIndexes != null) {
             for (int validIndex : validIndexes) {
-                tasks[validIndex - 1].markAsDone();
+                tasks.get(validIndex - 1).markAsDone();
             }
         }
 
@@ -112,12 +116,12 @@ public class TaskManager {
         if (taskCount == 0) {
             DisplayManager.printErrorList();
         } else {
-            DisplayManager.printMultipleTasks(Arrays.copyOf(tasks, taskCount));
+            DisplayManager.printMultipleTasks(tasks);
         }
     }
 
     /**
-     * @param taskInfo
+     * @param taskInfo contains the information of the task
      * @return taskComponents -> index 0: description, and index 1: dateTime
      */
     public static String[] splitTaskComponents(String taskInfo) {
