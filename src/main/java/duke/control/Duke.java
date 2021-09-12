@@ -52,32 +52,58 @@ public class Duke {
             printHelpMessage();
             break;
         case DONE_COMMAND:
-            try {
-                int entryNumber = list.parseInputForEntryNumber(input, command);
-                list.doneEntry(entryNumber);
-            } catch (NumberFormatException e) {
-                //entry number is an invalid character
-                System.out.println("the done command is of the form \"done x\" where x is an entry number");
-            } catch (NullPointerException e) {
-                //entry number entered does not exist
-                System.out.println("That entry number does not exist in your current list");
-            } catch (StringIndexOutOfBoundsException e) {
-                //no entry number entered
-                System.out.println("The done command must have an entry number, " +
-                        "enter it in the form \"done x\" where x is an entry number");
-            }
+            executeDoneCommand(command, list, input);
             break;
         case DELETE_COMMAND:
-            int entryNumber = list.parseInputForEntryNumber(input, command);
-            list.deleteEntry(entryNumber);
+            executeDeleteCommand(command, list, input);
             break;
         case TASK_COMMAND:
-            try {
-                list.addEntryToList(input);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("todo, deadline or event commands must have task descriptions");
-            }
+            executeTaskCommand(list, input);
             break;
+        }
+    }
+
+    private static void executeTaskCommand(List list, String input) {
+        try {
+            list.addEntryToList(input);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("todo, deadline or event commands must have task descriptions");
+        } catch (InvalidInputFormatException e) {
+            printMissingDateTimeMessage();
+        }
+    }
+
+    private static void executeDeleteCommand(Command command, List list, String input) {
+        try {
+            int entryNumber = list.parseInputForEntryNumber(input, command);
+            list.deleteEntry(entryNumber);
+        } catch (NumberFormatException e) {
+            //entry number is an invalid character
+            System.out.println("the delete command is of the form \"delete x\" where x is an entry number");
+        } catch (StringIndexOutOfBoundsException e) {
+            //entry number is missing
+            System.out.println("The delete command must have an entry number, " +
+                    "enter it in the form \"delete x\" where x is an entry number");
+        } catch (IndexOutOfBoundsException e) {
+            //entry number does not exist in the list
+            System.out.println("That entry number does not exist in your list");
+        }
+    }
+
+    private static void executeDoneCommand(Command command, List list, String input) {
+        try {
+            int entryNumber = list.parseInputForEntryNumber(input, command);
+            list.doneEntry(entryNumber);
+        } catch (NumberFormatException e) {
+            //entry number is an invalid character
+            System.out.println("the done command is of the form \"done x\" where x is an entry number");
+        } catch (StringIndexOutOfBoundsException e) {
+            //entry number is missing
+            System.out.println("The done command must have an entry number, " +
+                    "enter it in the form \"done x\" where x is an entry number");
+        } catch (IndexOutOfBoundsException e) {
+            //entry number does not exist in the list
+            System.out.println("That entry number does not exist in your list");
         }
     }
 
@@ -111,6 +137,13 @@ public class Duke {
     private static void printInvalidInputMessage() {
         System.out.println("I don't know what you mean, please look at the instructions and try again");
     }
+
+    public static void printMissingDateTimeMessage() {
+        System.out.println("Command not entered properly, remember to use \"/by\" or " +
+                "\"/at\" modifiers for deadline and event tasks respectively. Type \"help\"" +
+                " for more information");
+    }
+
 
     private static void printWelcomeMessage() {
         String logo = " ____        _        \n"

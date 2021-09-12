@@ -27,7 +27,7 @@ public class List {
         taskList = new ArrayList<>();
     }
 
-    public void addEntryToList(String input) {
+    public void addEntryToList(String input) throws InvalidInputFormatException {
         TaskType entryType = parseTaskType(input);
         String description = parseDescription(input, entryType);
         Task newEntry;
@@ -45,7 +45,6 @@ public class List {
             taskList.add(newEntry);
             break;
         default:
-            printInvalidEntryMessage();
             break;
         }
         printAddEntryMessage(taskList.get(numberOfEntries));
@@ -59,7 +58,7 @@ public class List {
     }
 
     public void doneEntry(int entryNumber) {
-        (taskList.get(entryNumber)).setDone();
+        (taskList.get(entryNumber-1)).setDone();
         System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
     }
 
@@ -79,7 +78,7 @@ public class List {
         return (input.substring(dateTimeStartIndex).trim());
     }
 
-    public TaskType parseTaskType(String input) {
+    public TaskType parseTaskType(String input) throws InvalidInputFormatException{
         if (input.startsWith("deadline") && input.contains(" /by")) {
             return TaskType.DEADLINE;
         }
@@ -89,7 +88,7 @@ public class List {
         if (input.startsWith("todo")) {
             return TaskType.TODO;
         }
-        return TaskType.INVALID;
+        throw new InvalidInputFormatException();
     }
 
     public String parseDescription(String input, TaskType taskType) {
@@ -120,12 +119,6 @@ public class List {
             }
             System.out.println("You have " + (numberOfEntries) + " task(s) on your list.");
         }
-    }
-
-    public void printInvalidEntryMessage() {
-        System.out.println("Command not entered properly, remember to use \"/by\" or " +
-                "\"/at\" modifiers for deadline and event tasks respectively. Type \"help\"" +
-                " for more information");
     }
 
     public void printAddEntryMessage(Task entry) {
