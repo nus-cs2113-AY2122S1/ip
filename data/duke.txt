@@ -1,4 +1,0 @@
-T | 1 | homework
-T | 1 | sleep
-E | 1 | test | sometimes
-D | 1 | work | tmr
