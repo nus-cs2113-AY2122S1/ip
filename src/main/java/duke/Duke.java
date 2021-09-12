@@ -302,7 +302,16 @@ public class Duke {
         taskListMessage[0] = "Here are the tasks in your list:";
 
         for (int i = 0; i < taskManager.getTotalTasks(); i++) {
-            Task task = taskManager.getTask(i);
+            Task task;
+            try {
+                task = taskManager.getTask(i);
+            } catch (TaskListEmptyException e) {
+                printTaskListEmptyError();
+                return;
+            } catch (InvalidTaskIndexException e) {
+                printInvalidTaskIndexError();
+                return;
+            }
             taskListMessage[i + 1] = (i + 1) + ". " + task.toString();
         }
 
@@ -325,10 +334,19 @@ public class Duke {
             return;
         }
 
-        Task completedTask = taskManager.getTask(taskIndex);
+        Task completedTask;
+        try {
+            completedTask = taskManager.getTask(taskIndex);
+        } catch (TaskListEmptyException e) {
+            printTaskListEmptyError();
+            return;
+        } catch (InvalidTaskIndexException e) {
+            printInvalidTaskIndexError();
+            return;
+        }
+
         blockPrint(new String[]{"Affirmative. I will mark this task as done:",
-                "[" + completedTask.getType() + "][" + completedTask.getStatusIcon() + "] "
-                        + completedTask.getDescription()});
+                completedTask.toString()});
     }
 
     /**
