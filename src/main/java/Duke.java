@@ -291,7 +291,7 @@ public class Duke {
     private static void saveToFile() {
         File saveDir = new File("data");
         saveDir.mkdir();
-        File saveFile = new File(saveDir, "tasks.txt");
+        File saveFile = new File(saveDir, "duke.txt");
         try {
             saveFile.createNewFile();
             FileWriter fw = new FileWriter(saveFile);
@@ -314,7 +314,7 @@ public class Duke {
     private static void instantiateTasksFromFile() {
         File saveDir = new File("data");
         saveDir.mkdir();
-        File savedFile = new File(saveDir, "tasks.txt");
+        File savedFile = new File(saveDir, "duke.txt");
         if (savedFile.exists()) {
             try {
                 Scanner fileScanner = new Scanner(savedFile);
