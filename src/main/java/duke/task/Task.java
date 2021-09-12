@@ -24,6 +24,19 @@ public class Task {
         return description;
     }
 
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    /**
+     * Return description along with other relevant information.
+     *
+     * @return Full description of task.
+     */
+    public String getFullDescription() {
+        return description;
+    }
+
     /**
      * Return the icon representing whether the task is completed.
      *

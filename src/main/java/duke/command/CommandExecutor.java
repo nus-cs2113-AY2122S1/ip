@@ -1,10 +1,12 @@
 package duke.command;
 
+import java.io.IOException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskManager;
 import duke.task.Todo;
+import duke.file.Storage;
 import duke.exception.CommandException;
 
 /**
@@ -32,10 +34,16 @@ public class CommandExecutor {
     private final static String FLAG_DEADLINE_OPTION = "by";
     private final static String FLAG_EVENT_OPTION = "at";
 
+    /* Names of used files and directories */
+    private final static String FILE_PATH = "duke.txt";
+    private final static String DATA_PATH = "data";
+
     /* Used to store tasks */
     private TaskManager taskManager;
     /* Used to store supported commands */
     private Command[] commandList;
+    /* Used to save tasks to file system */
+    private Storage fileManager;
     /* State of whether interaction has terminated. True if interaction has terminated. */
     private boolean isExit;
 
@@ -44,7 +52,7 @@ public class CommandExecutor {
      */
     public CommandExecutor() {
         isExit = false;
-        taskManager = new TaskManager();
+        fileManager = new Storage(DATA_PATH);
         commandList = new Command[] {
                 new Command(END_COMMAND),
                 new Command(LIST_COMMAND),
@@ -56,6 +64,11 @@ public class CommandExecutor {
                 new CommandWithFlag(ADD_EVENT_COMMAND, ARGUMENT_TASK_DESCRIPTION,
                         FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
         };
+        try {
+            taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
+        } catch (IOException err) {
+            taskManager = new TaskManager();
+        }
     }
 
     public boolean isExit() {
@@ -80,6 +93,8 @@ public class CommandExecutor {
             System.out.println("[X] " + err.getMessage());
         } catch (NumberFormatException err) {
             System.out.println("[X] Error parsing argument!");
+        } catch (IOException err) {
+            System.out.println("[X] Error updating save file!");
         }
     }
 
@@ -88,6 +103,7 @@ public class CommandExecutor {
      *
      * @param inputLine Raw input line to search.
      * @return Command that user is trying to run.
+     * @throws CommandException If unable to detect the command in the given input.
      */
     private Command findCommand(String inputLine) throws CommandException {
         for (Command command : commandList) {
@@ -103,8 +119,10 @@ public class CommandExecutor {
      *
      * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
+     * @throws CommandException If an illegal command is executed.
+     * @throws IOException      If a file-related operation has errors.
      */
-    private void runCommandUsingInput(Command command, String inputLine) throws CommandException {
+    private void runCommandUsingInput(Command command, String inputLine) throws CommandException, IOException {
         if (!command.isValidCommandLine(inputLine)) {
             throw new CommandException("Usage: " + command.getUsage());
         }
@@ -140,6 +158,8 @@ public class CommandExecutor {
         default:
             throw new CommandException("Illegal operation");
         }
+
+        fileManager.writeTaskManagerToFile(taskManager, FILE_PATH);
     }
 }
 

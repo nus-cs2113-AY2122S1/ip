@@ -1,7 +1,7 @@
 package duke;
 
-import duke.command.CommandExecutor;
 import java.util.Scanner;
+import duke.command.CommandExecutor;
 
 /**
  * The Duke application serves to aid users in the management of their tasks.

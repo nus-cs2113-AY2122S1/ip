@@ -19,9 +19,18 @@ public class Deadline extends Task {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Return description along with the date time of the deadline.
+     *
+     * @return Full description of task.
+     */
     @Override
-    public String getDescription() {
+    public String getFullDescription() {
         return String.format("%s (by: %s)", super.getDescription(), dateTime);
+    }
+
+    public String getDateTime() {
+        return dateTime;
     }
 
     /**

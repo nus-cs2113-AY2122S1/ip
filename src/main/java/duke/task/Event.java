@@ -19,8 +19,17 @@ public class Event extends Task {
         this.dateTime = dateTime;
     }
 
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    /**
+     * Return description along with the date time of the event.
+     *
+     * @return Full description of task.
+     */
     @Override
-    public String getDescription() {
+    public String getFullDescription() {
         return String.format("%s (at: %s)", super.getDescription(), dateTime);
     }
 
