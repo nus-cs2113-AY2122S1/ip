@@ -3,7 +3,6 @@ package duke.task;
 public abstract class Task {
     protected String task;
     protected Boolean isDone;
-    public static int totalTask = 0; //total number of tasks saved
 
     //Constructor
     public Task() {
