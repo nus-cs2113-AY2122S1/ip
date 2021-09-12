@@ -2,10 +2,10 @@ package unker.command;
 
 import unker.task.Task;
 import unker.ui.UI;
-import unker.Unker;
+import unker.task.Unker;
 
 /**
- * Command to mark a task in the task manager {@link unker.Unker} as done.
+ * Command to mark a task in the task manager {@link Unker} as done.
  * 
  * Usage in UI: done taskNumber
  */
@@ -36,6 +36,7 @@ public class DoneCommand extends Command {
             ui.printSection("You finish this task already leh:", "\t" + task, "");
         } else {
             task.setDone(true);
+            unker.saveData();
             ui.printSection("Good job, this task finish already:", "\t" + task, "");
         }
     }

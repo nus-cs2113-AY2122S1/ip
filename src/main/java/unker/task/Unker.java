@@ -1,18 +1,26 @@
-package unker;
+package unker.task;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import unker.task.Task;
+import java.util.List;
+import java.util.regex.Matcher;
+import unker.task.storage.TasksFile;
+import unker.util.StringUtil;
 
 /**
  * This class manages all the {@link Task} in the program.
  */
 public class Unker {
 
-    private final ArrayList<Task> tasks;
-    private static final Unker UNKER_INSTANCE = new Unker();
+    private final List<Task> tasks;
+    private static Unker UNKER_INSTANCE;
+    private final TasksFile tasksFile;
 
-    private Unker() {
-        this.tasks = new ArrayList<>();
+    private Unker() throws IOException {
+        this.tasksFile = new TasksFile(Path.of(System.getProperty("user.dir"), "data"), "unker.csv");
+        this.tasks = tasksFile.loadDataFile();
     }
 
     /**
@@ -22,9 +30,12 @@ public class Unker {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        saveData();
     }
+    
+    
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
@@ -55,13 +66,25 @@ public class Unker {
     public boolean isTasksEmpty() {
         return tasks.isEmpty();
     }
+    
+    public boolean saveData() {
+        try {
+            tasksFile.saveDataFile(tasks);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 
     /**
      * Returns a singleton instance of Unker.
      *
      * @return A singleton instance of Unker
      */
-    public static Unker getUnkerInstance() {
+    public static Unker getUnkerInstance() throws IOException {
+        if (UNKER_INSTANCE == null) {
+            UNKER_INSTANCE = new Unker();
+        }
         return UNKER_INSTANCE;
     }
 

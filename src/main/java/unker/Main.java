@@ -1,7 +1,9 @@
 package unker;
 
+import java.io.IOException;
 import unker.command.CommandMap;
 import unker.command.InvalidCommandException;
+import unker.task.Unker;
 import unker.ui.UI;
 
 /**
@@ -12,7 +14,12 @@ public class Main {
     public static void main(String[] args) {
         UI ui = UI.getUiInstance();
         // Get the task manager instance
-        Unker unker = Unker.getUnkerInstance();
+        Unker unker = null;
+        try {
+            unker = Unker.getUnkerInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         CommandMap commandMap = CommandMap.getCommandMapInstance();
 
         ui.printBanner();

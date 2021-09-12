@@ -1,9 +1,7 @@
 package unker.command;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import unker.task.Unker;
 import unker.ui.UI;
-import unker.Unker;
 
 /**
  * A generic Command class to handle commands sent by the user.
@@ -44,30 +42,6 @@ public abstract class Command {
         return format;
     }
 
-    /**
-     * Return a {@link java.util.regex.Matcher} based on the data provided.
-     * 
-     * Returns null if the whole pattern is not matched.
-     *  
-     * @param commandPattern The regular expression pattern to match
-     * @param data The data to handle.
-     * @return A {@link java.util.regex.Matcher} with the results from the pattern.
-     */
-    protected Matcher parseUserInput(String commandPattern, String data) {
-        if (data == null) {
-            return null;
-        }
-        Pattern pattern = Pattern.compile(commandPattern);
-        Matcher matcher = pattern.matcher(data);
-
-        // Only return the Matcher if the input is valid
-        if (matcher.matches()) {
-            return matcher;
-        } else {
-            return null;
-        }
-    }
-    
     /**
      * Executes the command provided by the user.
      *
