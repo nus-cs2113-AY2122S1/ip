@@ -72,6 +72,17 @@ public class TaskManager {
     }
 
     /**
+     * The function prints the recently added task
+     */
+    private static void printDeletedTask(Task task, ArrayList<Task> tasks) {
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.getDescription());
+        System.out.println("Now you have " + (tasks.size() - 1) + " tasks in the list.");
+        printLine();
+    }
+
+    /**
      * The function adds the todo task input by the user
      *
      * @param tasks   the array of tasks
@@ -197,6 +208,7 @@ public class TaskManager {
         try {
             String[] arrOfStr = message.strip().split(" ");
             int index = Integer.parseInt(arrOfStr[1]);
+            printDeletedTask(tasks.get(index - 1), tasks);
             tasks.remove(index - 1);
         } catch (NullPointerException e) {
             printLine();
