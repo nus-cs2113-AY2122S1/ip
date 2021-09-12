@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.task.Deadline;
@@ -38,12 +39,8 @@ public class Duke {
     private static final String COMMAND_LIST_TASKS = "list";
     private static final String COMMAND_MARK_TASK_AS_DONE = "done";
 
-    /** Maximum number of tasks possible */
-    private static final int CAPACITY = 100;
     /** Array of Task objects */
-    private static final Task[] tasks = new Task[CAPACITY];
-    /** Total number of tasks */
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Main entry point of Duke.
@@ -161,16 +158,15 @@ public class Duke {
     }
 
     private static String addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
-        return String.format(MESSAGE_TASK_ADDED, task, taskCount);
+        tasks.add(task);
+        return String.format(MESSAGE_TASK_ADDED, task, tasks.size());
     }
 
     /** Returns the list of tasks (numbered) together with their status icons */
     private static String listTasks() {
-        String[] formattedTasks = new String[taskCount];
-        for (int i = 0; i < taskCount; i++) {
-            formattedTasks[i] = String.format("%d.%s", i + 1, tasks[i]);
+        String[] formattedTasks = new String[tasks.size()];
+        for (int i = 0; i < tasks.size(); i++) {
+            formattedTasks[i] = String.format("%d.%s", i + 1, tasks.get(i));
         }
         String taskListOutput = String.join(LS, formattedTasks);
         return String.format(MESSAGE_TASK_LIST, taskListOutput);
@@ -178,7 +174,7 @@ public class Duke {
 
     private static String markTaskAsDone(String args) {
         int taskId = Integer.parseInt(args) - 1;
-        Task task = tasks[taskId];
+        Task task = tasks.get(taskId);
         task.setAsDone();
         String formattedTask = "  " + task;
         return String.format(MESSAGE_TASK_MARKED_AS_DONE, formattedTask);
