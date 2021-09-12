@@ -26,7 +26,7 @@ public class Duke {
     private static final String MESSAGE_TASK_DELETED = "Noted. I've removed this task:" + LS + "  %1$s" + LS
             + "Now you have %2$s task(s) in the list";
     private static final String MESSAGE_TASK_LIST = "Here are the tasks in your list:" + LS + "%1$s";
-    private static final String MESSAGE_TASK_MARKED_AS_DONE = "Nice! I've marked this task as done:" + LS + "%1$s";
+    private static final String MESSAGE_TASK_MARKED_AS_DONE = "Nice! I've marked this task as done:" + LS + "  %1$s";
 
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
@@ -168,8 +168,7 @@ public class Duke {
     }
 
     private static String deleteTask(String args) {
-        int taskId = Integer.parseInt(args) - 1;
-        Task task = tasks.get(taskId);
+        Task task = getTaskFromStringId(args);
         tasks.remove(task);
         return String.format(MESSAGE_TASK_DELETED, task, tasks.size());
     }
@@ -185,11 +184,14 @@ public class Duke {
     }
 
     private static String markTaskAsDone(String args) {
-        int taskId = Integer.parseInt(args) - 1;
-        Task task = tasks.get(taskId);
+        Task task = getTaskFromStringId(args);
         task.setAsDone();
-        String formattedTask = "  " + task;
-        return String.format(MESSAGE_TASK_MARKED_AS_DONE, formattedTask);
+        return String.format(MESSAGE_TASK_MARKED_AS_DONE, task);
+    }
+
+    private static Task getTaskFromStringId(String args) {
+        int taskId = Integer.parseInt(args) - 1;
+        return tasks.get(taskId);
     }
 
     private static String handleUnrecognisedCommand() throws DukeException {
