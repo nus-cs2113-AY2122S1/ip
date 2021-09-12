@@ -5,11 +5,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Program {
     private boolean canTerminateHal = false;    //when true, the program exits
-    private static Task[] listTasks = new Task[999];
+    private static ArrayList<Task> listTasks = new ArrayList<>(999);
     private static int numItems;
 
     private static int DEADLINE_INDEX = 9;
@@ -21,7 +22,7 @@ public class Program {
     public static final String TASK_ADDED_DONE_TEXT = "Got it! I've added this task: ";
     public static final String DONE_TASK_ERROR_MESSAGE = "No such task exist! Are you sure you keyed in the correct number?";
     public static final String DONE_TASK_SUCCESS_MESSAGE = "Nice! I've marked this task as done:";
-    public static final String PRINT_EMPTY_TASKS_MESSAGE = "No items found...Add some items now!";
+    public static final String PRINT_EMPTY_TASKS_MESSAGE = "No items found... Add some items now!";
     public static final String PRINT_ERROR_MESSAGE = "Your input does not follow my format!\n" +
             "Read properly and type it again!";
     public static final String ENTER_COMMAND_TEXT = "Enter command: ";
@@ -29,7 +30,11 @@ public class Program {
             "Hmm... did you forget to write your task?";
     public static final String PRINT_EMPTY_DATE_MESSAGE =
             "Hmm... I think you forgot to write your timings!";
+    public static final String PRINT_DELETE_MESSAGE =
+            "Noted... I've removed the following task:";
+
     public static final String INVALID_NUMBER_ERROR = "Your input wasn't an integer! Write a valid number";
+    public static final String INVALID_RANGE_ERROR = "The index you specified is outside the size of the list";
 
     public Program() {
         this.numItems = 0;
@@ -53,6 +58,8 @@ public class Program {
             addEventTask(string);
         } else if (string.startsWith("todo")){
             addToDoTask(string);
+        } else if (string.startsWith("delete")) {
+            deleteTask(string);
         } else {
             throw new HalException("I'm sorry, but I don't know what that means :((");
         }
@@ -80,7 +87,7 @@ public class Program {
         }
 
         Deadline newDeadlineTask = new Deadline(description, by);
-        listTasks[numItems] = newDeadlineTask;
+        listTasks.add(newDeadlineTask);
         numItems++;
 
         System.out.println(TASK_ADDED_DONE_TEXT);
@@ -112,7 +119,7 @@ public class Program {
         }
 
         Event newEventTask = new Event(description, at);
-        listTasks[numItems] = newEventTask;
+        listTasks.add(newEventTask);
         numItems++;
 
         System.out.println(TASK_ADDED_DONE_TEXT);
@@ -135,7 +142,7 @@ public class Program {
         }
 
         ToDo newTask = new ToDo(description);
-        listTasks[numItems] = newTask;
+        listTasks.add(newTask);
         numItems++;
 
         System.out.println(TASK_ADDED_DONE_TEXT);
@@ -153,7 +160,7 @@ public class Program {
             System.out.println(PRINT_EMPTY_TASKS_MESSAGE);
         }
         for (int i = 0; i < numItems; i++) {
-            System.out.println(i + 1 + ": " + listTasks[i].toString());
+            System.out.println(i + 1 + ": " + listTasks.get(i).toString());
         }
         System.out.println(LINE_BREAK_SINGLE);
         System.out.print(ENTER_COMMAND_TEXT);
@@ -166,9 +173,9 @@ public class Program {
             if (taskNum > getNumItems() || taskNum <= 0) {
                 System.out.println(DONE_TASK_ERROR_MESSAGE);
             } else {
-                listTasks[taskNum - 1].markAsDone();
+                listTasks.get(taskNum-1).markAsDone();
                 System.out.println(DONE_TASK_SUCCESS_MESSAGE);
-                System.out.println(listTasks[taskNum-1].toString());
+                System.out.println(listTasks.get(taskNum-1).toString());
             }
 
             System.out.println(LINE_BREAK_SINGLE);
@@ -178,9 +185,30 @@ public class Program {
             System.out.println(INVALID_NUMBER_ERROR);
             System.out.println(LINE_BREAK_SINGLE);
             System.out.print(ENTER_COMMAND_TEXT);
-
         }
-        
+    }
+
+    public void deleteTask(String index) {
+        System.out.println(LINE_BREAK_SINGLE);
+        try {
+            int taskIndex = Integer.parseInt(index.substring(index.indexOf(" ") + 1)) - 1; //get the index of the task
+            Task tempTask = listTasks.get(taskIndex);
+
+            System.out.println(PRINT_DELETE_MESSAGE);
+            System.out.println(tempTask.toString());
+
+            listTasks.remove(taskIndex);
+            numItems--;
+            printTotalTasks();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(INVALID_RANGE_ERROR);
+        } catch (NumberFormatException e) {
+            System.out.println(INVALID_NUMBER_ERROR);
+        } finally {
+            System.out.println(LINE_BREAK_SINGLE);
+            System.out.print(ENTER_COMMAND_TEXT);
+        }
+
 
     }
 
