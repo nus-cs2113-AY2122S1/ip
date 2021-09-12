@@ -9,6 +9,10 @@ public class Deadline extends Task {
         setBy(by);
     }
 
+    public String getTaskType() {
+        return TASK_TYPE;
+    }
+
     public String getBy() {
         return by;
     }

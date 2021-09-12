@@ -9,6 +9,11 @@ public class Event extends Task {
         setWhen(when);
     }
 
+    public String getTaskType() {
+        return TASK_TYPE;
+    }
+
+
     public String getWhen() {
         return when;
     }

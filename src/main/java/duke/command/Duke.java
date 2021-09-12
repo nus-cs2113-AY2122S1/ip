@@ -1,5 +1,9 @@
 package duke.command;
 
+import duke.datasaver.DataManager;
+import duke.exception.FileTaskInvalidFormatException;
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -19,6 +23,7 @@ public class Duke {
         printLogoAndGreet();
 
         TaskManager dukeTaskManager = new TaskManager();
+        DataManager.loadData(dukeTaskManager.getTaskList());
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
@@ -28,6 +33,7 @@ public class Duke {
             userInput = in.nextLine();
         }
 
+        DataManager.saveData(dukeTaskManager.getTaskList());
         printGoodbye();
     }
 

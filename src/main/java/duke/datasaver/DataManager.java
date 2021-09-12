@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,21 +23,41 @@ public class DataManager {
     protected static final String NOT_DONE = "O";
 
 
-    public static void loadData (ArrayList<Task> taskList) throws FileNotFoundException, FileTaskInvalidFormatException {
+    public static void loadData (ArrayList<Task> taskList) {
         File taskFile = new File(FILE_NAME);
-        Scanner fileScanner = new Scanner(taskFile);
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(taskFile);
+        } catch (FileNotFoundException fileNotFoundException) {
+            try {
+                Files.createFile(Paths.get(FILE_NAME));
+            } catch (IOException ioException) {
+                System.out.println(" Something went wrong: " + ioException.getMessage());
+            }
+        }
 
-        while (fileScanner.hasNext()) {
-            String task = fileScanner.nextLine();
-            addTask(taskList, task);
+        if (fileScanner != null) {
+            while (fileScanner.hasNext()) {
+                String task = fileScanner.nextLine();
+                try {
+                    addTask(taskList, task);
+                } catch (FileTaskInvalidFormatException fileTaskInvalidFormatException) {
+                    fileTaskInvalidFormatException.printFileTaskInvalidFormatMessage();
+                }
+            }
         }
     }
 
-    public static void saveData(ArrayList<Task> taskList) throws IOException {
-        FileWriter fileWriter = new FileWriter(FILE_NAME);
-        StringBuilder formattedTask = new StringBuilder();
-        formatTask(taskList, fileWriter, formattedTask);
-        fileWriter.close();
+    public static void saveData(ArrayList<Task> taskList) {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(FILE_NAME);
+            StringBuilder formattedTask = new StringBuilder();
+            formatTask(taskList, fileWriter, formattedTask);
+            fileWriter.close();
+        } catch (IOException ioException) {
+            System.out.println(" Something went wrong: " + ioException.getMessage());
+        }
     }
 
     public static void addTask(ArrayList<Task> taskList, String task) throws FileTaskInvalidFormatException {
@@ -91,7 +113,7 @@ public class DataManager {
     }
 
     public static void appendDoneStatus(StringBuilder formattedTask, Task task) {
-        if(task.isDone()) {
+        if (task.isDone()) {
             formattedTask.append(DONE).append(ATTRIBUTE_SEPARATOR);
         } else {
             formattedTask.append(NOT_DONE).append(ATTRIBUTE_SEPARATOR);

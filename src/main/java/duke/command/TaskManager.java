@@ -9,7 +9,6 @@ import duke.task.Todo;
 import java.util.ArrayList;
 
 public class TaskManager {
-
     private final ArrayList<Task> taskList;
 
     // Constants
@@ -31,6 +30,11 @@ public class TaskManager {
     // Constructor
     public TaskManager() {
         taskList = new ArrayList<>();
+    }
+
+    // Getter
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     /**
