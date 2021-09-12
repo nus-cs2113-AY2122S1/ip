@@ -1,4 +1,4 @@
-import command.Command;
+import command.*;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Duke {
+public class Esteban {
     public static void main(String[] args) {
         Headers.printBanner();
 
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
-            tasks = command.Data.read();
+            tasks = Data.read();
         } catch (IOException e) {
             System.out.println("  (!) FATAL: Could not process data file, starting with empty data");
         }
@@ -43,13 +43,13 @@ public class Duke {
                 try {
                     ToDo newToDo = new ToDo(line.substring(6), false);
                     tasks.add(newToDo);
-                    System.out.println("  (+) Added: "+ newToDo.toString());
+                    System.out.println("  (+) Added: "+ newToDo);
                     System.out.println("  (i) You have " + tasks.size() + " tasks in the list");
+                    Data.write(tasks);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("  (!) Todo description cannot be empty!");
                     System.out.println("  (!) Format: /todo <description>");
                 }
-                command.Data.write(tasks);
                 break;
             case DEADLINE:
                 try {
@@ -57,13 +57,14 @@ public class Duke {
                     String time = line.substring(line.indexOf("-by") + 4).strip();
                     Deadline newDeadline = new Deadline(description, time, false);
                     tasks.add(newDeadline);
-                    System.out.println("  (+) Added: "+ newDeadline.toString());
+                    System.out.println("  (+) Added: "+ newDeadline);
                     System.out.println("  (!) You have " + tasks.size() + " tasks in the list");
+                    Data.write(tasks);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("  (!) Invalid/missing values");
                     System.out.println("  (!) Format: /deadline <description> -by <date>");
                 }
-                command.Data.write(tasks);
+
                 break;
             case EVENT:
                 try {
@@ -72,13 +73,13 @@ public class Duke {
                     String to = line.substring(line.indexOf("-to") + 4).strip();
                     Event newEvent = new Event(des, from , to, false);
                     tasks.add(newEvent);
-                    System.out.println(" (+) Added: "+ newEvent.toString());
+                    System.out.println(" (+) Added: "+ newEvent);
                     System.out.println(" (!) You have " + tasks.size() + " tasks in the list");
+                    Data.write(tasks);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("  (!) Invalid/missing values");
                     System.out.println("  (!) Format: /event <description> -from <date> -to <date>");
                 }
-                command.Data.write(tasks);
                 break;
             case DONE:
                 try {
@@ -86,13 +87,13 @@ public class Duke {
                     int value = Integer.parseInt(values[1]);
                     tasks.get(value - 1).setStatus(true);
                     System.out.println(" (+) Marked as Done: "+ tasks.get(value - 1).toString());
+                    Data.write(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("  (!) Task ID cannot be empty!");
                     System.out.println("  (!) Format: /done <id>");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  (!) Task ID does not exist >:(");
                 }
-                command.Data.write(tasks);
                 break;
             case DELETE:
                 try {
@@ -102,6 +103,7 @@ public class Duke {
                     tasks.remove(currentTask);
                     System.out.println("  (-) Removed: "+ currentTask.toString());
                     System.out.println("  (!) You have " + tasks.size() + " tasks in the list");
+                    Data.write(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("  (!) Task ID cannot be empty!");
                     System.out.println("  (!) Format: /delete <id>");

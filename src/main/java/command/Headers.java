@@ -1,3 +1,5 @@
+package command;
+
 public class Headers {
     public static void printBanner() {
         final String logo = " _____    _       _                 \n"

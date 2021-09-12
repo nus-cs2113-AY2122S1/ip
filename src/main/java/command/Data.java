@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Data {
+
     public static void write(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("data/data.txt");
@@ -91,7 +92,6 @@ public class Data {
             output += ((Event) current).getStart() + " | ";
             output += ((Event) current).getEnd() + " | ";
         }
-        System.out.println(output);
         return output;
     }
 
