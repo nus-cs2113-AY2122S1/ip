@@ -23,6 +23,8 @@ public class Duke {
     private static final String MESSAGE_ERROR = "☹ OOPS!!! %1$s";
     private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:" + LS + "  %1$s" + LS
             + "Now you have %2$s task(s) in the list";
+    private static final String MESSAGE_TASK_DELETED = "Noted. I've removed this task:" + LS + "  %1$s" + LS
+            + "Now you have %2$s task(s) in the list";
     private static final String MESSAGE_TASK_LIST = "Here are the tasks in your list:" + LS + "%1$s";
     private static final String MESSAGE_TASK_MARKED_AS_DONE = "Nice! I've marked this task as done:" + LS + "%1$s";
 
@@ -36,6 +38,7 @@ public class Duke {
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_ADD_EVENT = "event";
+    private static final String COMMAND_DELETE_TASK = "delete";
     private static final String COMMAND_LIST_TASKS = "list";
     private static final String COMMAND_MARK_TASK_AS_DONE = "done";
 
@@ -117,6 +120,8 @@ public class Duke {
                 return addDeadline(args);
             case COMMAND_ADD_EVENT:
                 return addEvent(args);
+            case COMMAND_DELETE_TASK:
+                return deleteTask(args);
             case COMMAND_LIST_TASKS:
                 return listTasks();
             case COMMAND_MARK_TASK_AS_DONE:
@@ -160,6 +165,13 @@ public class Duke {
     private static String addTask(Task task) {
         tasks.add(task);
         return String.format(MESSAGE_TASK_ADDED, task, tasks.size());
+    }
+
+    private static String deleteTask(String args) {
+        int taskId = Integer.parseInt(args) - 1;
+        Task task = tasks.get(taskId);
+        tasks.remove(task);
+        return String.format(MESSAGE_TASK_DELETED, task, tasks.size());
     }
 
     /** Returns the list of tasks (numbered) together with their status icons */
