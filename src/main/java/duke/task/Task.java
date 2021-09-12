@@ -1,6 +1,7 @@
 package duke.task;
 
 public class Task {
+    protected final String TASK_TYPE = "";
     protected String description;
     protected boolean isDone;
 
@@ -31,6 +32,10 @@ public class Task {
         } else {
             return " ";
         }
+    }
+
+    public String getTaskType() {
+        return TASK_TYPE;
     }
 
     @Override
