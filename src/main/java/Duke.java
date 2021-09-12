@@ -1,11 +1,9 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 
 public class Duke {
     //Array of tasks
-    private static Task[] tasks;
-    //Total number of tasks
-    private static int taskCount;
+    private static ArrayList<Task> tasks;
     //Scanner
     private static final Scanner sc = new Scanner(System.in);
     //GenshinImpact conversion rates
@@ -19,6 +17,8 @@ public class Duke {
     private static final String BIRTHDAY_MESSAGE = " ^o^ Happy birthday to you! ^o^\n";
     private static final String ECHO_MESSAGE = " Echoing after you!\n";
     private static final String QUIT_MESSAGE = " That was annoying huh...\n";
+    private static final String DELETE_MESSAGE = " This task has been spirited away:\n";
+    private static final String EMPTY_LIST_MESSAGE = " This list is empty and sad :(\n";
     private static final String NO_TASK_MESSAGE = "No such task! You're not THAT productive...\n";
     private static final String NO_TASK_DONE_NUMBER_MESSAGE = "Please specify the task you would like to " +
             "mark as done!\n";
@@ -74,26 +74,44 @@ public class Duke {
     }
 
     //list function
-    public static void list(Task[] tasks) {
-        System.out.print(LINES);
-        for (int i = 0; tasks[i] != null; i++) {
-            int j = i + 1;
-            System.out.println(j + "." + tasks[i]);
+    public static void list() {
+        if (tasks.size() == 0) {
+            System.out.println(LINES + EMPTY_LIST_MESSAGE + LINES);
         }
-        System.out.print(LINES);
+        else {
+            System.out.print(LINES);
+            for (int i = 1; i <= tasks.size(); i++) {
+                System.out.println(i + "." + tasks.get(i - 1));
+            }
+            System.out.print(LINES);
+        }
+    }
+
+    //Removes a specified task
+    public static void removeTask(String input) {
+        try {
+            int index = Integer.parseInt(input.substring(7));
+            Task thisTask = tasks.get(index - 1);
+            System.out.println(LINES + DELETE_MESSAGE + "   " + tasks.get(index - 1));
+            tasks.remove(thisTask);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + LINES);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(LINES + NO_TASK_MESSAGE + LINES);
+        }
     }
 
     //Marks a specified task input as done
-    public static void markDone(String input, Task[] tasks, int taskCount) {
+    public static void markDone(String input) {
         try {
             //isolate 'x' from 'done x', where x is a number
             int index = Integer.parseInt(input.substring(5));
+            int taskCount = tasks.size();
             if (index > taskCount) {
                 System.out.println(LINES + NO_TASK_MESSAGE + LINES);
             }
             else {
-                tasks[index - 1].markAsDone();
-                System.out.print(LINES + TASK_COMPLETE_MESSAGE + tasks[index - 1] + "\n" + LINES);
+                tasks.get(index - 1).markAsDone();
+                System.out.print(LINES + TASK_COMPLETE_MESSAGE + tasks.get(index - 1) + "\n" + LINES);
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(LINES + NO_TASK_DONE_NUMBER_MESSAGE + LINES);
@@ -102,26 +120,27 @@ public class Duke {
         }
     }
     //Adds task to tasks
-    public static void addTask(Task[] tasks, String input, int taskCount) {
+    public static void addTask(String input) {
         if (input.toLowerCase().startsWith("todo")) {
-            addTodo(tasks, input, taskCount);
+            addTodo(input);
         }
         else if (input.toLowerCase().startsWith("deadline")) {
-            addDeadline(tasks, input, taskCount);
+            addDeadline(input);
         }
         else if (input.toLowerCase().startsWith("event")){
-            addEvent(tasks, input, taskCount);
+            addEvent(input);
         }
     }
-    private static void addTodo(Task[] tasks, String input, int taskCount) {
+    private static void addTodo(String input) {
         try {
-            tasks[taskCount] = new Todo(input.substring(5));
-            printTaskAcknowledgement(tasks[taskCount], taskCount);
+            tasks.add(new Todo(input.substring(5)));
+            int taskIndex = tasks.size() - 1;
+            printTaskAcknowledgement(tasks.get(taskIndex));
         } catch (StringIndexOutOfBoundsException e){
             System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
         }
     }
-    private static void addDeadline(Task[] tasks, String input, int taskCount) {
+    private static void addDeadline(String input) {
         try {
             if (input.trim().length() == 8) {
                 System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
@@ -131,15 +150,17 @@ public class Duke {
             }
             else {
                 int slashIndex = input.indexOf("/by");
-                String task = input.substring(9, (slashIndex - 1));
-                String dueDate = input.substring(slashIndex + 4);
-                tasks[taskCount] = new Deadline(task, dueDate);
+                String task = input.substring(9, slashIndex).trim();
+                String dueDate = input.substring(slashIndex + 3).trim();
+                tasks.add(new Deadline(task, dueDate));
+                int taskIndex = tasks.size() - 1;
+                printTaskAcknowledgement(tasks.get(taskIndex));
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(LINES + MISSING_IN_DEADLINE_MESSAGE + LINES);
         }
     }
-    private static void addEvent(Task[] tasks, String input, int taskCount) {
+    private static void addEvent(String input) {
         try {
             if (input.trim().length() == 5) {
                 System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
@@ -148,25 +169,25 @@ public class Duke {
                 System.out.println(LINES + MISSING_AT_MESSAGE + LINES);
             }
             else {
-                int slashIndex = input.indexOf("/");
-                String task = input.substring(6, (slashIndex-1));
-                String timeRange = input.substring(slashIndex+4);
-                tasks[taskCount] = new Event(task, timeRange);
+                int slashIndex = input.indexOf("/at");
+                String task = input.substring(6, slashIndex).trim();
+                String timeRange = input.substring(slashIndex + 3).trim();
+                tasks.add(new Event(task, timeRange));
+                int taskIndex = tasks.size() - 1;
+                printTaskAcknowledgement(tasks.get(taskIndex));
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(LINES + MISSING_IN_EVENT_MESSAGE + LINES);
         }
     }
-    private static void printTaskAcknowledgement(Task task, int taskCount) {
+    private static void printTaskAcknowledgement(Task task) {
         System.out.println(LINES + ADD_MESSAGE + task);
-        taskCount += 1;
-        System.out.println(" Now you have " + taskCount + " tasks in the list.\n" + LINES);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + LINES);
     }
 
     //Clears all tasks
     public static void initJim() {
-        tasks = new Task[100];
-        taskCount = 0;
+        tasks = new ArrayList<Task>();
     }
 
     public static String getUserInput() {
@@ -196,14 +217,16 @@ public class Duke {
         try {
             if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("deadline")
                     || input.toLowerCase().startsWith("event")) {
-                addTask(tasks, input, taskCount);
-                taskCount += 1;
+                addTask(input);
             }
             else if (input.toLowerCase().startsWith("done")) {
-                markDone(input, tasks, taskCount);
+                markDone(input);
             }
             else if (input.equalsIgnoreCase("list")) {
-                list(tasks);
+                list();
+            }
+            else if (input.toLowerCase().startsWith("remove")) {
+                removeTask(input);
             }
             else if (input.equalsIgnoreCase("echo")) {
                 echo();
