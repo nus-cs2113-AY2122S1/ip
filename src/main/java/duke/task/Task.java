@@ -24,6 +24,19 @@ public class Task {
         return description;
     }
 
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    /**
+     * Return description along with other relevant information.
+     *
+     * @return Full description of task.
+     */
+    public String getFullDescription() {
+        return description;
+    }
+
     /**
      * Return the icon representing whether the task is completed.
      *
@@ -47,11 +60,5 @@ public class Task {
      */
     public void markAsDone() {
         isCompleted = true;
-    }
-
-    @Override
-    public String toString() {
-        int numberStatus = isCompleted ? 1 : 0;
-        return String.format("%s | %d | %s", getTaskIcon(), numberStatus, description);
     }
 }

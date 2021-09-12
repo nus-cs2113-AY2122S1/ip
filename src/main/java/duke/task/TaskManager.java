@@ -18,6 +18,24 @@ public class TaskManager {
     }
 
     /**
+     * Initialise using an existing list of tasks.
+     *
+     * @param taskList Existing list of tasks.
+     */
+    public TaskManager(ArrayList<Task> taskList) {
+        this.taskList = new ArrayList<>(taskList);
+    }
+
+    /**
+     * Return a copy of the list of tasks.
+     *
+     * @return List of tasks.
+     */
+    public ArrayList<Task> getTaskList() {
+        return new ArrayList<>(taskList);
+    }
+
+    /**
      * Prints the list of tasks in a neatly formatted way.
      */
     public void printTaskList() {
@@ -29,7 +47,7 @@ public class TaskManager {
             for (int i = 0; i < taskList.size(); i++) {
                 task = taskList.get(i);
                 output += String.format("   %d.[%s][%s] %s\n", i + 1, task.getTaskIcon(), task.getStatusIcon(),
-                        task.getDescription());
+                        task.getFullDescription());
             }
         }
         System.out.print(output);
@@ -43,7 +61,7 @@ public class TaskManager {
     public void addTask(Task task) {
         taskList.add(task);
         System.out.println("[+] Task added: ");
-        System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(), task.getDescription());
+        System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(), task.getFullDescription());
         System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
     }
 
@@ -62,15 +80,6 @@ public class TaskManager {
         taskSelected.markAsDone();
         System.out.println("[+] Task marked as done:");
         System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
-                taskSelected.getDescription());
-    }
-
-    @Override
-    public String toString() {
-        String output = "";
-        for(Task task: taskList) {
-            output += task + "\n";
-        }
-        return output;
+                taskSelected.getFullDescription());
     }
 }

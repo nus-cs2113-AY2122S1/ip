@@ -51,7 +51,6 @@ public class CommandExecutor {
      */
     public CommandExecutor() {
         isExit = false;
-        taskManager = new TaskManager();
         fileManager = new Storage(DATA_PATH);
         commandList = new Command[] {
                 new Command(END_COMMAND),
@@ -63,6 +62,11 @@ public class CommandExecutor {
                 new CommandWithFlag(ADD_EVENT_COMMAND, ARGUMENT_TASK_DESCRIPTION,
                         FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
         };
+        try {
+            taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
+        } catch (IOException err) {
+            taskManager = new TaskManager();
+        }
     }
 
     public boolean isExit() {
@@ -150,7 +154,7 @@ public class CommandExecutor {
             throw new CommandException("Illegal operation");
         }
 
-        fileManager.writeToFile(taskManager.toString(), FILE_PATH);
+        fileManager.writeTaskManagerToFile(taskManager, FILE_PATH);
     }
 }
 
