@@ -9,17 +9,11 @@ import java.util.Scanner;
 
 public class FileManager {
 
-    private final String dirPath = "data/";
-    private final String filePath = "data/duke.txt";
-    private final File dir = new File(dirPath);
+    private final String filePath = "duke.txt";
     private final File file = new File(filePath);
 
-    public boolean isFolderCreated() {
-        return dir.mkdir();
-    }
-
-    public boolean isFileCreated() throws IOException {
-        return file.createNewFile();
+    public void createFile() throws IOException {
+        file.createNewFile();
     }
 
     public ArrayList<String> readFile() throws FileNotFoundException {

@@ -3,6 +3,7 @@ package duke.exceptions;
 import duke.task.TaskManager;
 import duke.util.InputParser;
 import duke.util.FileManager;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ public class ExceptionChecker {
                     + "Enter \"list\" to check the task number!";
     public static final String FILE_NOT_FOUND_ERROR =
             "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
-    public static final String FOLDER_NOT_FOUND_ERROR = "The directory data/ has been created for you.";
 
     private boolean hasNullParameter(String[] inputArray) {
         return (inputArray.length < 2);
@@ -119,18 +119,16 @@ public class ExceptionChecker {
     }
 
     public ArrayList<String> tryToReadFile() throws DukeException {
-        ArrayList<String> fileLines = new ArrayList<>();
+        ArrayList<String> fileLines;
         try {
-            if (!FILE_MANAGER.isFileCreated()) {
-                fileLines = FILE_MANAGER.readFile();
-            }
+            fileLines = FILE_MANAGER.readFile();
         } catch (FileNotFoundException exception) {
-            throw new DukeException(FILE_NOT_FOUND_ERROR);
-        } catch (IOException exception) {
-            if (FILE_MANAGER.isFolderCreated()) {
-                throw new DukeException(FOLDER_NOT_FOUND_ERROR);
+            try {
+                FILE_MANAGER.createFile();
+            } catch (IOException ioException) {
+                throw new DukeException("IO Exception encountered: " + exception.getMessage());
             }
-            throw new DukeException("IO Exception encountered: " + exception.getMessage());
+            throw new DukeException(FILE_NOT_FOUND_ERROR);
         }
         return fileLines;
     }
