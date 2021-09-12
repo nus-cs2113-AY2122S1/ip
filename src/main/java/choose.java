@@ -14,8 +14,45 @@ public class choose {
 
     public static void addTask(String line) {
         List[listSize] = new Task(line);
-        System.out.println("added: " + line);
+       // listlast();
         listSize++;
+    }
+
+    public static void list() {
+        for (int i = 0; i < listSize; i++) {
+            System.out.println(i+1 + "." + List[i]);
+        }
+    }
+    public static void listLast() {
+            System.out.println(List[listSize]);
+    }
+
+    public static void setDone(int doneNumber){
+        List[doneNumber-1].setDone("X");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(List[doneNumber-1]);
+    }
+
+    public static void setDeadline(String item, String timing){
+        List[listSize] = new Deadline(item, timing);
+        System.out.println("Got it. I've added this task:");
+        listLast();
+        listSize++;
+        System.out.println(" Now you have "+ listSize +" tasks in the list.");
+    }
+    public static void setEvent(String item, String timing){
+        List[listSize] = new Event(item, timing);
+        System.out.println("Got it. I've added this task:");
+        listLast();
+        listSize++;
+        System.out.println(" Now you have "+ listSize +" tasks in the list.");
+    }
+    public static void setTodo(String item){
+        List[listSize] = new Todo(item);
+        System.out.println("Got it. I've added this task:");
+        listLast();
+        listSize++;
+        System.out.println(" Now you have "+ listSize +" tasks in the list.");
     }
 
 //    public static void checkDoneTask(int taskNumber) {
@@ -24,19 +61,19 @@ public class choose {
 //    }
 
 
-    public static void printWelcomeMessage() {
-        printHorizontalLine();
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
-        printHorizontalLine();
-    }
-
-
-    public static void printGoodbyeMessage() {
-        printHorizontalLine();
-        System.out.println("     Bye. Hope to see you again soon!");
-        printHorizontalLine();
-    }
+//    public static void printWelcomeMessage() {
+//        printHorizontalLine();
+//        System.out.println("     Hello! I'm Duke");
+//        System.out.println("     What can I do for you?");
+//        printHorizontalLine();
+//    }
+//
+//
+//    public static void printGoodbyeMessage() {
+//        printHorizontalLine();
+//        System.out.println("     Bye. Hope to see you again soon!");
+//        printHorizontalLine();
+//    }
 
 
     public static void printList() {
@@ -62,11 +99,7 @@ public class choose {
         printHorizontalLine();
     }
 
-    public static void list() {
-        for (int i = 0; i < listSize; i++) {
-            System.out.println(i+1 + "." + List[i]);
-        }
-    }
+
 
     public static String[] taskLister(String[] todos) {
         int todoCount = 0;

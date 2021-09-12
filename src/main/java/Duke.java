@@ -24,41 +24,40 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         //initialise the 100 todos items array
-        String[] todos = new String[100];
-        String[] checkMarked = new String[100];
-        Arrays.fill(checkMarked, " ");
-        String[] tobeCheckeds = new String[100];
+//        String[] todos = new String[100];
+//        String[] checkMarked = new String[100];
+//        Arrays.fill(checkMarked, " ");
+//        String[] tobeCheckeds = new String[100];
 
         int counter = 0;
 
         while (!(line.equals("bye") || line.equals("Bye"))) {
             line = in.nextLine();
             line = line.toLowerCase();
-            if (splitString(line)) {
-                int listedcount = 1;
-                int doneNumber = 0; //no choice have to make 0 if not ide wont let me run
-                String[] findNumbers = line.split(" ");
-                doneNumber = Integer.parseInt(findNumbers[1]);
-                checkMarked = choose.checkMarker(tobeCheckeds, doneNumber, counter + 1);
-                String[] listeds = choose.taskLister(todos);
-                System.out.println("Here are the tasks in your list:");
-                for (String listed : listeds) {
-                    System.out.println(listedcount + "." + "[" + checkMarked[listedcount] + "]" + "[" + checkMarked[listedcount] + "]" + " " + listed);
-                    listedcount++;
-                }
-                tobeCheckeds = checkMarked;
-                choose.printHorizontalLine();
-            } else if (line.equals("list")) {
+
+            if (line.equals("list")) {
                 //String[] listeds = taskLister(todos);
                 choose.list();
-            } else {
+            } else if((line.split(" ")[0].equals("done"))){
+                int doneNumber= Integer.parseInt((line.split(" ")[1]));
+                choose.setDone(doneNumber);
+            } else if (line.split(" ")[0].equals("deadline")) {
+                choose.setDeadline(line.split("deadline ")[1], line.split("/by")[1]);
+            }else if (line.split(" ")[0].equals("event")) {
+                choose.setEvent(line.split("event ")[1], line.split("/at")[1]);
+            }else if ((line.split(" ")[0].equals("todo"))){
+                choose.setTodo(line.split("todo ")[1]);
+            }
+
+
+
+
+            else {
                 choose.printHorizontalLine();
                 System.out.println("added: " + line);
-                choose.printHorizontalLine();
                 choose.addTask(line);
 //                todos[counter] = line; //save text input to array
-//                counter++;  // prepare to take in the next array item
-
+//                counter++;  // prepare to take in the next array item(
             }
             choose.printHorizontalLine();
 
