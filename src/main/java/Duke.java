@@ -177,7 +177,15 @@ public class Duke {
             manager.addEventTaskToList(item);
             break;
         case COMMAND_DELETE:
-            manager.deleteTask(inputStr);
+            if (isEmptyItem(inputStr)) {
+                throw new DukeException("Oops, did you forget to enter the task to be deleted?");
+            } else if (manager.getNumberOfTasksAdded() == 0) {
+                throw new DukeException("Oops, there are no tasks in the list yet!");
+            } else if (manager.getNumberOfTasksAdded() < Integer.parseInt(getItem(inputStr))) {
+                throw new DukeException("Oops, there is no task " + Integer.parseInt(getItem(inputStr)) + "!");
+            } else {
+                manager.deleteTask(inputStr);
+            }
             break;
         default:
             throw new DukeException("Oops, command not recognised!");
