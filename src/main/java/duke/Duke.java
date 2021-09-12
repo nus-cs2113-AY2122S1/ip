@@ -6,14 +6,15 @@ import duke.Exceptions.DoneUndoException;
 import duke.tasks.Deadlines;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static final int MAX_SIZE = 100;
     public static final int TIME_COMMAND = 4;
     public static final int DEADLINE_LENGTH = 9;
     public static final int EVENT_LENGTH = 6;
+
+    public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         IntroductoryMessage();
@@ -22,8 +23,6 @@ public class Duke {
     }
 
     private static void runIkaros() {
-        List Tasks = new List(0);
-        Task[] listOfTasks = new Task[MAX_SIZE];
         boolean isRunning = true;
 
         Scanner in = new Scanner(System.in);
@@ -39,17 +38,17 @@ public class Duke {
                 echo();
                 break;
             case "list":
-                printList(listOfTasks, Tasks.listSize);
+                printList();
                 lineBreak();
                 break;
             case "done":
             case "undo":
-                doUndoManager(command, listOfTasks, response);
+                doUndoManager(command, response);
                 break;
             case "deadline":
             case "event":
             case "todo":
-                taskManager(command, Tasks, listOfTasks, response);
+                taskManager(command, response);
                 break;
             case "bye":
                 isRunning = false;
@@ -62,13 +61,12 @@ public class Duke {
         }
     }
 
-    private static void doUndoManager(String[] command, Task[] list, String response) {
-        String doUndo = command[0];
+    private static void doUndoManager(String[] command, String response) {
         try {
             if (command[0].equalsIgnoreCase("done")) {
-                done(list, response);
+                done(response);
             } else if (command[0].equalsIgnoreCase("undo")) {
-                undo(list, response);
+                undo(response);
             }
         } catch (DoneUndoException e) {
             System.out.println(e.getMessage());
@@ -77,18 +75,17 @@ public class Duke {
         }
     }
 
-    private static void taskManager(String[] command, List ofTasks, Task[] list,
-                                    String response) {
+    private static void taskManager(String[] command, String response) {
         String TaskType = command[0];
         try {
             if (command.length == 1) {
                 throw new TaskException();
             } else if (command[0].equalsIgnoreCase("event")) {
-                Event(ofTasks, list, response);
+                Event(response);
             } else if (command[0].equalsIgnoreCase("todo")) {
-                toDo(ofTasks, list, response);
+                toDo(response);
             } else if (command[0].equalsIgnoreCase("deadline")) {
-                deadLine(ofTasks, list, response);
+                deadLine(response);
             }
         } catch (TaskException e) {
             System.out.println("please specify " + TaskType + " to add!");
@@ -99,7 +96,7 @@ public class Duke {
         }
     }
 
-    private static void Event(List ofTasks, Task[] list, String response)
+    private static void Event(String response)
             throws TimeException {
         String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
 
@@ -109,11 +106,11 @@ public class Duke {
         }
         Event event = new Event(response.substring
                 (EVENT_LENGTH, response.indexOf("/") - 1), timing);
-        addToList(event, ofTasks, list);
+        addToList(event);
 
     }
 
-    private static void deadLine(List ofTasks, Task[] list, String response)
+    private static void deadLine(String response)
             throws TimeException {
         String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
 
@@ -125,12 +122,12 @@ public class Duke {
         Deadlines work = new Deadlines(response.substring
                 (DEADLINE_LENGTH, response.indexOf("/") - 1),
                 timing);
-        addToList(work, ofTasks, list);
+        addToList(work);
     }
 
-    private static void toDo(List ofTasks, Task[] list, String response) {
+    private static void toDo(String response) {
         ToDo task = new ToDo(response.substring(5));
-        addToList(task, ofTasks, list);
+        addToList(task);
     }
 
     private static void lineBreak() {
@@ -157,32 +154,32 @@ public class Duke {
         lineBreak();
     }
 
-    private static void done(Task[] list, String response) throws DoneUndoException {
+    private static void done(String response) throws DoneUndoException {
         int i = Integer.parseInt(response.substring(5)) - 1;
-        if (list[i].isDone) {
+        if (taskList.get(i).isDone) {
             throw new DoneUndoException("Task is already completed");
         }
-        list[i].markAsDone();
+        taskList.get(i).markAsDone();
         System.out.println("Nice! i have marked this task as done:\n ["
-                + list[i].getStatusIcon() + "] " + list[i].getDescription());
+                + taskList.get(i).getStatusIcon() + "] "
+                + taskList.get(i).getDescription());
     }
 
-    private static void undo(Task[] list, String response) throws DoneUndoException {
+    private static void undo(String response) throws DoneUndoException {
         int i = Integer.parseInt(response.substring(5)) - 1;
-        if (!list[i].isDone) {
+        if (!taskList.get(i).isDone) {
             throw new DoneUndoException("Task is currently incomplete");
         }
-        list[i].undo();
+        taskList.get(i).undo();
         System.out.println("Ok i have changed the status for the specific task:\n ["
-                + list[i].getStatusIcon() + "] " + list[i].getDescription());
+                + taskList.get(i).getStatusIcon() + "] "
+                + taskList.get(i).getDescription());
     }
 
-    private static void addToList(Task task, List ofTasks, Task[] list) {
-        list[ofTasks.listSize] = task;
+    private static void addToList(Task task) {
+        taskList.add(task);
         System.out.println("Task added: " + task);
-        System.out.println("Total no. of Tasks = " + (ofTasks.listSize + 1));
-        //lineBreak();
-        ofTasks.listSize += 1;
+        System.out.println("Total no. of Tasks = " + (taskList.size()));
     }
 
     public static void echo() {
@@ -201,12 +198,14 @@ public class Duke {
         }
     }
 
-    public static void printList(Task[] list, int listSize) {
+    public static void printList() {
+        int i = 1;
         System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= listSize; i++) {
-            System.out.println(i + ".[" + list[i - 1].getTaskID() + "]" +
-                    "[" + list[i - 1].getStatusIcon() +
-                    "] " + list[i - 1].description + list[i - 1].getDate());
+        for (Task task : taskList) {
+            System.out.println(i + ".[" + task.getTaskID() + "]" +
+                    "[" + task.getStatusIcon() +
+                    "] " + task.description + task.getDate());
+            i++;
         }
     }
 }
