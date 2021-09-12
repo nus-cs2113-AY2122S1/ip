@@ -74,8 +74,10 @@ public class Greet {
         System.out.println("     " + newTask);
         System.out.println(GreetMessage.TASK_MESSAGE_START +
                 tasksAdded + GreetMessage.TASK_MESSAGE_END);
-        printLineOnConsole();
+            printLineOnConsole();
     }
 
-
+    public static ArrayList<Task> getList() {
+        return list;
+    }
 }
