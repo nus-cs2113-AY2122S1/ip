@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -11,6 +13,7 @@ public class Parser {
     static private final String COMMAND_EVENT = "event";
     static private final String COMMAND_DEADLINE = "deadline";
     static private final String COMMAND_DONE = "done";
+    static private final String COMMAND_DELETE = "delete";
     static private final String COMMAND_EXIT = "bye";
 
     static private final String INVALID_COMMAND = "Yo check your typing man. I don't get it.";
@@ -25,12 +28,10 @@ public class Parser {
 
     static private final int MAX_NUMBER = 100;
 
-    private static Task[] userTasks;
-    static private int userTaskIndex;
+    private static ArrayList<Task> userTasks;
 
     public Parser() {
-        userTasks = new Task[MAX_NUMBER];
-        userTaskIndex = 0;
+        userTasks = new ArrayList<>();
     }
 
     public static String parse(String command) throws DukeException {
@@ -46,9 +47,34 @@ public class Parser {
             return parseDeadlineCommand(command);
         } else if (words[0].equals(COMMAND_DONE)) {
             return parseDoneCommand(command);
+        } else if (words[0].equals(COMMAND_DELETE)) {
+            return parseDeleteCommand(command);
         }
         else {
             throw new DukeException(INVALID_COMMAND);
+        }
+    }
+
+    private static String parseDeleteCommand(String command) throws DukeException{
+        String msg;
+        String detail = command.substring(COMMAND_DELETE.length()).trim();
+
+        if (detail.length() <= 0) {
+            throw new DukeException("Noating to delete!");
+        }
+
+        try {
+            int taskDeleteNumber = Integer.parseInt(detail);
+
+            Task temp = userTasks.remove(taskDeleteNumber - 1);
+            msg = "Noted. I have removed this thing:\n "
+                    + "\t" + temp.toString();
+
+            return msg;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Err that is not a number bro");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Have not existed...");
         }
     }
 
@@ -59,17 +85,17 @@ public class Parser {
     private static String parseListCommand() {
         String msg = "";
 
-        if (userTaskIndex == 0) {
+        if (userTasks.size() == 0) {
             msg = "Nothing.";
             return msg;
         }
 
-        for (int i = 0; i < userTaskIndex - 1; i++) {
+        for (int i = 0; i < userTasks.size() - 1; i++) {
             msg += (i + 1) + "."
-                    + userTasks[i].toString() + '\n' + '\t';
+                    + userTasks.get(i).toString() + '\n' + '\t';
         }
-        msg = msg + userTaskIndex + "."
-                + userTasks[userTaskIndex - 1].toString();
+        msg = msg + userTasks.size() + "."
+                + userTasks.get(userTasks.size() - 1).toString();
 
         return msg;
     }
@@ -82,14 +108,13 @@ public class Parser {
             throw new DukeException("Bro please let me know what thing you gonna do");
         }
 
-        userTasks[userTaskIndex] = new ToDos(detail);
+        userTasks.add(new ToDos(detail));
 
         msg = "Gotcha. Do this while you're at it:\n"
-                + "\t\t" + userTasks[userTaskIndex].toString() + '\n'
-                + "\tNow you have " + (userTaskIndex + 1)
+                + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
+                + "\tNow you have " + (userTasks.size())
                 + " tasks in the list.";
 
-        userTaskIndex++;
         return msg;
     }
 
@@ -115,14 +140,13 @@ public class Parser {
             contentAndDate[i] = contentAndDate[i].trim();
         }
 
-        userTasks[userTaskIndex] = new Deadline(contentAndDate[0], contentAndDate[1]);
+        userTasks.add(new Deadline(contentAndDate[0], contentAndDate[1]));
 
         msg = "Gotcha. I beg you to do this:\n"
-                + "\t\t" + userTasks[userTaskIndex].toString() + '\n'
-                + "\tNow you have " + (userTaskIndex + 1)
+                + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
+                + "\tNow you have " + (userTasks.size())
                 + " tasks in the list.";
 
-        userTaskIndex++;
         return msg;
     }
 
@@ -148,14 +172,13 @@ public class Parser {
             contentAndDate[i] = contentAndDate[i].trim();
         }
 
-        userTasks[userTaskIndex] = new Event(contentAndDate[0], contentAndDate[1]);
+        userTasks.add(new Event(contentAndDate[0], contentAndDate[1]));
 
         msg = "Gotcha. You wanna attend this:\n"
-                + "\t\t" + userTasks[userTaskIndex].toString() + '\n'
-                + "\tNow you have " + (userTaskIndex + 1)
+                + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
+                + "\tNow you have " + (userTasks.size())
                 + " tasks in the list.";
 
-        userTaskIndex++;
         return msg;
     }
 
@@ -170,10 +193,10 @@ public class Parser {
             try {
                 int taskDoneNumber = Integer.parseInt(detail);
 
-                userTasks[taskDoneNumber - 1].setDone();
+                userTasks.get(taskDoneNumber - 1).setDone();
                 msg = "Good job. You may now enjoy the rest of "
                         + "your suffering:\n"
-                        + "\t" + userTasks[taskDoneNumber - 1].toString();
+                        + "\t" + userTasks.get(taskDoneNumber - 1).toString();
 
                 return msg;
             } catch (NumberFormatException e) {
