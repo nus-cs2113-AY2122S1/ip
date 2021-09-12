@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Functions {
 
     //CONSTANTS
@@ -128,24 +130,25 @@ public class Functions {
     }
 
     //DUKE COMMANDS
-    public static void printTaskList(Task[] taskList, int taskListSize) {
+    public static void printTaskList(ArrayList<Task> taskList) {
+        int index = 0;
         System.out.println(SEPARATOR
                 + " Here are the tasks in your list:");
-        for (int i = 0; i < taskListSize; i++) {
-            int j = i + 1;
-            System.out.println(" " + j + "." + taskList[i]);
+        for (Task task : taskList) {
+            index++;
+            System.out.println(" " + index + "." + task);
         }
         System.out.println(SEPARATOR);
     }
 
-    public static void markAsDone(Task[] taskList, int taskListSize, int taskNumber) {
-        if (taskNumber > taskListSize - 1) {
+    public static void markAsDone(ArrayList<Task> taskList, int taskNumber) {
+        if (taskNumber > taskList.size() - 1) {
             DukeException.printDoneError();
         } else {
-            taskList[taskNumber].setDone();
+            taskList.get(taskNumber).setDone();
             System.out.println(SEPARATOR
                     + " Nice! I've marked this task as done:\n"
-                    + "  " + taskList[taskNumber] + "\n"
+                    + "  " + taskList.get(taskNumber) + "\n"
                     + SEPARATOR);
         }
     }
@@ -171,12 +174,12 @@ public class Functions {
         return newTask;
     }
 
-    public static void addTask(Task[] taskList, int taskListSize, Task newTask) {
-        taskList[taskListSize] = newTask;
+    public static void addTask(ArrayList<Task> taskList, Task newTask) {
+        taskList.add(newTask);
         System.out.println(SEPARATOR
                 + " Got it. I've added this task:\n"
                 + "  " + newTask + "\n"
-                + " Now you have " + (taskListSize + 1) + " tasks in the list.\n"
+                + " Now you have " + taskList.size() + " tasks in the list.\n"
                 + SEPARATOR);
     }
 
