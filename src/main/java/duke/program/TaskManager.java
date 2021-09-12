@@ -10,6 +10,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskManager {
     private static final String COMMAND_BYE = "bye";
@@ -18,6 +19,7 @@ public class TaskManager {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
 
     private static final String SEPARATOR_SPACE = " ";
     private static final String SEPARATOR_BY = "/by";
@@ -28,17 +30,16 @@ public class TaskManager {
     private static final String TASK_TYPE_ICON_EVENT = "E";
     private static final String ICON_DONE = "X";
 
-    private static final int MAX_TASK_COUNT = 100;
     private static final int TODO_DESCRIPTION_START_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_START_INDEX = 9;
     private static final int EVENT_DESCRIPTION_START_INDEX = 6;
     private static final int LINE_LENGTH = 40;
 
-    private Task tasks[];
+    private ArrayList<Task> tasks;
     private int taskCount;
 
     public TaskManager() {
-        this.tasks = new Task[MAX_TASK_COUNT];
+        this.tasks = new ArrayList<>();
         this.taskCount = 0;
     }
 
@@ -105,22 +106,26 @@ public class TaskManager {
         }
     }
 
-    public static void printTaskList(int taskCount, Task tasks[]) {
+    public void printDeletedTaskMessage(Task task) {
+
+    }
+
+    public static void printTaskList(int taskCount, ArrayList<Task> tasks) {
 
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
 
-            String taskType = tasks[i].getType();
-            String taskStatus = tasks[i].getStatusIcon();
-            String taskDescription = tasks[i].getDescription();
+            String taskType = tasks.get(i).getType();
+            String taskStatus = tasks.get(i).getStatusIcon();
+            String taskDescription = tasks.get(i).getDescription();
 
             if (taskType.equals(TASK_TYPE_ICON_TODO)) {
                 System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
             } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-                String taskByTime = tasks[i].getByDateTime();
+                String taskByTime = tasks.get(i).getByDateTime();
                 System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
             } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
-                String taskAtTime = tasks[i].getStartAndEndTime();
+                String taskAtTime = tasks.get(i).getStartAndEndTime();
                 System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
             } else {
                 printGenericErrorMessage();
@@ -133,7 +138,7 @@ public class TaskManager {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        tasks[taskCount] = new ToDo(description);
+        tasks.add(new ToDo(description));
         taskCount++;
     }
 
@@ -151,7 +156,7 @@ public class TaskManager {
 
         String byDateTime = descriptionAndByTimeArray[1].trim();
 
-        tasks[taskCount] = new Deadline(description, byDateTime);
+        tasks.add(new Deadline(description, byDateTime));
         taskCount++;
     }
 
@@ -169,7 +174,7 @@ public class TaskManager {
 
         String startAndEndTime = descriptionAndAtTimeArray[1].trim();
 
-        tasks[taskCount] = new Event(description, startAndEndTime);
+        tasks.add(new Event(description, startAndEndTime));
         taskCount++;
     }
 
@@ -194,7 +199,7 @@ public class TaskManager {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public void markAsDone(Task[] tasks, String[] lineArgs) throws InvalidIndexException, TaskIndexOutOfBoundsException {
+    public void markAsDone(ArrayList<Task> tasks, String[] lineArgs) throws InvalidIndexException, TaskIndexOutOfBoundsException {
 
         if (lineArgs.length > 2) {
             throw new InvalidIndexException();
@@ -205,11 +210,11 @@ public class TaskManager {
         if (doneIndex >= taskCount || doneIndex < 0) {
             throw new TaskIndexOutOfBoundsException();
         } else {
-            if (tasks[doneIndex].getStatusIcon().equals(ICON_DONE)) {
+            if (tasks.get(doneIndex).getStatusIcon().equals(ICON_DONE)) {
                 printAlreadyDoneMessage();
             } else {
-                tasks[doneIndex].setDone();
-                printMarkAsDoneMessage(tasks[doneIndex]);
+                tasks.get(doneIndex).setDone();
+                printMarkAsDoneMessage(tasks.get(doneIndex));
             }
         }
     }
@@ -244,7 +249,7 @@ public class TaskManager {
 
                 try {
                     addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks[taskCount - 1]);
+                    printAddedTaskMessage(tasks.get(taskCount - 1));
                 } catch (EmptyDescriptionException | StringIndexOutOfBoundsException e) {
                     printEmptyDescriptionMessage(COMMAND_TODO);
                 }
@@ -253,7 +258,7 @@ public class TaskManager {
 
                 try {
                     addNewDeadline(line.substring(DEADLINE_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks[taskCount - 1]);
+                    printAddedTaskMessage(tasks.get(taskCount - 1));
                 } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                     printEmptyDescriptionMessage(COMMAND_DEADLINE);
                 } catch (InvalidFormatException e) {
@@ -264,7 +269,7 @@ public class TaskManager {
 
                 try {
                     addNewEvent(line.substring(EVENT_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks[taskCount - 1]);
+                    printAddedTaskMessage(tasks.get(taskCount - 1));
                 } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                     printEmptyDescriptionMessage(COMMAND_EVENT);
                 } catch (InvalidFormatException e) {
