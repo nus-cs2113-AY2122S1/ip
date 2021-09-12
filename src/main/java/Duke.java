@@ -5,7 +5,7 @@ import task.Task;
 import task.Todo;
 
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -15,12 +15,7 @@ public class Duke {
     private static final String CONSOLE_LINE_PREFIX = "____________________________________________________________";
     private static final String SPACE_PREFIX = " ";
     private static final String LINE_BREAK = "\n";
-    private static final String GREETING_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
-            + SPACE_PREFIX + "Hello! You probably know that Iron Man has the best AI-assistant called Jarvis" + LINE_BREAK
-            + SPACE_PREFIX + "and Spiderman has hmmm, maybe his tingly spidey senses?" + LINE_BREAK
-            + SPACE_PREFIX + "But don't worry! You have me, Duke! I am your personal SIDEKICK that does \"something\"!" + LINE_BREAK
-            + SPACE_PREFIX + "What is \"something\" you want me to do?" + LINE_BREAK
-            + CONSOLE_LINE_PREFIX;
+
 
     /**
      * ASCII Art Logo generated using
@@ -54,6 +49,12 @@ public class Duke {
     private static final String TODO_EMPTY_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
             + SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + LINE_BREAK
             + CONSOLE_LINE_PREFIX;
+    private static final String GREETING_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
+            + SPACE_PREFIX + "Hello! You probably know that Iron Man has the best AI-assistant called Jarvis" + LINE_BREAK
+            + SPACE_PREFIX + "and Spiderman has hmmm, maybe his tingly spidey senses?" + LINE_BREAK
+            + SPACE_PREFIX + "But don't worry! You have me, Duke! I am your personal SIDEKICK that does \"something\"!" + LINE_BREAK
+            + SPACE_PREFIX + "What is \"something\" you want me to do?" + LINE_BREAK
+            + CONSOLE_LINE_PREFIX;
 
     // Command Prefixes for checking type of command
     private static final String COMMAND_BYE = "Bye";
@@ -75,20 +76,20 @@ public class Duke {
     /**
      * Maximum number of Tasks for a user.
      */
-    private static final int MAX_TASKS = 100;
+    private static final String COMMAND_DELETE = "Delete";
 
 
     /**
      * These variables are responsible for the management of Tasks
      */
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks;
     private static int taskCounter;
 
     /**
      * Initializes the list of Tasks and Task Counter
      */
     private static void initTasks() {
-        tasks = new Task[MAX_TASKS];
+        tasks = new ArrayList<Task>();
         taskCounter = 0;
     }
 
@@ -130,19 +131,28 @@ public class Duke {
                 + CONSOLE_LINE_PREFIX);
     }
 
+    private static void printDeletedTaskMessage(Task deletedTaskName) {
+        System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
+                + SPACE_PREFIX + "Roger that! I am Thanos and I have snapped away : " + LINE_BREAK
+                + SPACE_PREFIX + deletedTaskName
+                + LINE_BREAK
+                + SPACE_PREFIX + "Now you have " + taskCounter + " tasks left!"
+                + LINE_BREAK
+                + CONSOLE_LINE_PREFIX);
+    }
+
     /**
      * Prints all the Tasks.
      */
     private static void printTasks() {
         // validTasks contains only Tasks that are not NULL
-        Task[] validTasks = Arrays.copyOf(tasks, taskCounter);
         if (taskCounter == 0) {
             System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK + SPACE_PREFIX + "Hi there! You have no dates! LITERALLY"
                     + LINE_BREAK + CONSOLE_LINE_PREFIX);
         } else {
             System.out.println(SPACE_PREFIX + "EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your PLAN/S...");
             for (int i = 0; i < taskCounter; i++) {
-                System.out.println(SPACE_PREFIX + (i + 1) + "." + SPACE_PREFIX + validTasks[i].toString());
+                System.out.println(SPACE_PREFIX + (i + 1) + "." + SPACE_PREFIX + tasks.get(i));
             }
             System.out.println(CONSOLE_LINE_PREFIX);
         }
@@ -158,10 +168,6 @@ public class Duke {
         System.out.print(SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
         userInput = SC.nextLine();
         return userInput;
-    }
-
-    private static int getTaskIndex() {
-        return 0;
     }
 
     /**
@@ -190,10 +196,14 @@ public class Duke {
         if (!unprocessedTaskName.contains(BY_WHEN_PREFIX)) {
             throw new DukeException(INVALID_TASK_MESSAGE);
         }
-        String byWhen = unprocessedTaskName.split(BY_WHEN_PREFIX)[1].trim();
-        String actualTaskName = unprocessedTaskName.replace(BY_WHEN_PREFIX, "").replace(byWhen, "");
-        actualTaskName = actualTaskName.trim();
-        return new Deadline(actualTaskName, byWhen);
+        try {
+            String byWhen = unprocessedTaskName.split(BY_WHEN_PREFIX)[1].trim();
+            String actualTaskName = unprocessedTaskName.replace(BY_WHEN_PREFIX, "").replace(byWhen, "");
+            actualTaskName = actualTaskName.trim();
+            return new Deadline(actualTaskName, byWhen);
+        } catch (ArrayIndexOutOfBoundsException arrError) {
+            throw new DukeException("TOBEREPLACED WITH DEADLINE_EMPTY_MESSAGE");
+        }
     }
 
     /**
@@ -208,10 +218,14 @@ public class Duke {
         if (!unprocessedTaskName.contains(AT_WHEN_PREFIX)) {
             throw new DukeException(INVALID_TASK_MESSAGE);
         }
-        String atWhen = unprocessedTaskName.split(AT_WHEN_PREFIX)[1].trim();
-        String actualTaskName = unprocessedTaskName.replace(AT_WHEN_PREFIX, "").replace(atWhen, "");
-        actualTaskName = actualTaskName.trim();
-        return new Event(actualTaskName, atWhen);
+        try {
+            String atWhen = unprocessedTaskName.split(AT_WHEN_PREFIX)[1].trim();
+            String actualTaskName = unprocessedTaskName.replace(AT_WHEN_PREFIX, "").replace(atWhen, "");
+            actualTaskName = actualTaskName.trim();
+            return new Event(actualTaskName, atWhen);
+        } catch (ArrayIndexOutOfBoundsException arrError) {
+            throw new DukeException("TOBEREPLACED WITH EVENT_EMPTY_MESSAGE");
+        }
     }
 
     /**
@@ -235,7 +249,7 @@ public class Duke {
                 System.out.println(UNKNOWN_COMMAND_MESSAGE);
                 return;
             }
-            tasks[taskCounter] = newTask;
+            tasks.add(newTask);
             taskCounter++;
             printAddedToTaskMessage(newTask.getTaskName());
         } catch (DukeException err) {
@@ -252,8 +266,10 @@ public class Duke {
         try {
             if (taskCounter == 0) {
                 throw new DukeException(NO_TASK_MESSAGE);
+            } else if (taskCounter <= index) {
+                throw new DukeException("OVERFLOWED INDEX PLEASE REPLACE ME");
             }
-            Task task = tasks[index];
+            Task task = tasks.get(index);
             task.setDone();
             System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
                     + SPACE_PREFIX + task + LINE_BREAK
@@ -261,6 +277,15 @@ public class Duke {
         } catch (NullPointerException e) {
             throw new DukeException("TOBECHANGED");
         }
+    }
+
+    private static void deleteTask(int index) {
+        //ArrayUtils.remove(index);
+        Task deletedTask = tasks.get(index);
+        tasks.remove(index);
+        taskCounter--;
+        // Print deleted message
+        printDeletedTaskMessage(deletedTask);
     }
 
     public static void main(String[] args) {
@@ -281,14 +306,17 @@ public class Duke {
                     if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
                         int index = Integer.parseInt(userParams[1]);
                         markTaskAsDone(index - 1);
+                    } else if (userParams[0].equalsIgnoreCase(COMMAND_DELETE)) {
+                        int index = Integer.parseInt(userParams[1]);
+                        deleteTask(index - 1);
                     } else {
                         addToTasks(userInput);
                     }
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException arrError) {
                 System.out.println(MISSING_INDEX_MESSAGE);
-            } catch (DukeException err) {
-                System.out.println(err.getMessage());
+            } catch (DukeException dukeError) {
+                System.out.println(dukeError.getMessage());
             }
         }
         SC.close();
