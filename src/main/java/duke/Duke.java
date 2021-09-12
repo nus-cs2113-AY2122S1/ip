@@ -2,8 +2,13 @@ package duke;
 
 import duke.util.HalException;
 import duke.util.Program;
+import duke.util.UserData;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
+import static duke.util.UserData.initFileWithDirectory;
 
 public class Duke {
 
@@ -19,7 +24,7 @@ public class Duke {
             + "      _)(  )(_\n"
             + "     `---''---`\n";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Program currProgram = new Program();
         String userInput;
         Scanner sc = new Scanner(System.in);
@@ -43,9 +48,11 @@ public class Duke {
                 userInput = sc.nextLine();
                 //get rid of white space
                 userInput = userInput.trim();
+
                 try {
+                    initFileWithDirectory("data/");
                     currProgram.parseAndExecuteTask(userInput);
-                } catch (HalException invalidUserInput) {
+                } catch (HalException | IOException invalidUserInput) {
                     System.out.println(invalidUserInput);
                     System.out.println(LINE_BREAK_SINGLE);
                     System.out.print(ENTER_COMMAND_TEXT);

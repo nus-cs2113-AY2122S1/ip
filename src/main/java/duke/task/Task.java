@@ -2,15 +2,21 @@ package duke.task;
 
 public class Task {
     protected String description;
+    protected String type;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setDescription(String description) {
@@ -23,6 +29,10 @@ public class Task {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getStatusIcon() {
