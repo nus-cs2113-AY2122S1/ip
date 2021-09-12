@@ -12,7 +12,6 @@ public abstract class Request {
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
-    private static final String INVALID_REQUEST = "invalid";
     public static final int TIME_INFO_START_INDEX = 1;
 
     //assumes spelling is correct
