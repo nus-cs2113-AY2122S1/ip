@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exception.InvalidTaskNumberException;
+import duke.file.FileHandler;
 import duke.task.TaskManager;
 import java.io.IOException;
 import java.util.Scanner;

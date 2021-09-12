@@ -1,4 +1,4 @@
-package duke;
+package duke.file;
 
 import duke.task.TaskManager;
 import java.io.File;
