@@ -33,7 +33,7 @@ public class Duke {
                 System.out.println(event.toString(isDone));
                 break;
             default:
-                System.out.println("       Unknown Object");
+                System.out.println("       Unknown Type");
             }
         }
         System.out.println("    ____________________________________________________________");
@@ -51,8 +51,14 @@ public class Duke {
                 continue;
             }
             if (line.startsWith("done")) {
-                int index = Integer.parseInt(line.substring(line.length() - 1));
-                markAsDone(index);
+                int number = Integer.parseInt(line.substring(line.length() - 1));
+                markAsDone(number);
+                line = in.nextLine();
+                continue;
+            }
+            if (line.startsWith("delete")) {
+                int number = Integer.parseInt(line.substring(line.length() - 1));
+                deleteTask(number);
                 line = in.nextLine();
                 continue;
             }
@@ -64,9 +70,9 @@ public class Duke {
                 continue;
             }
             // Command is valid, handle the command
-            handleCommand(line);
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task: ");
+            handleCommand(line);
             System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             line = in.nextLine();
@@ -122,15 +128,16 @@ public class Duke {
         }
     }
 
-    private static void markAsDone(int index) {
+    private static void markAsDone(int number) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
-        String description = descriptions.get(index - 1);
-        String date = dates.get(index - 1);
-        String category = types.get(index - 1);
+        int index = number - 1;
+        String description = descriptions.get(index);
+        String date = dates.get(index);
+        String type = types.get(index);
         // mark as done
-        dones.set(index - 1, true);
-        switch (category) {
+        dones.set(index, true);
+        switch (type) {
         case "T":
             Todo todo = new Todo(description);
             System.out.println("       " + todo.toString(true));
@@ -144,8 +151,41 @@ public class Duke {
             System.out.println("       " + event.toString(true));
             break;
         default:
-            System.out.println("       Unknown Object");
+            System.out.println("       Unknown Type");
         }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void deleteTask(int number) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've removed this task:");
+        int index = number - 1;
+        String description = descriptions.get(index);
+        String date = dates.get(index);
+        String type = types.get(index);
+        boolean done = dones.get(index);
+        // mark as done
+        switch (type) {
+        case "T":
+            Todo todo = new Todo(description);
+            System.out.println("       " + todo.toString(done));
+            break;
+        case "D":
+            Deadline deadline = new Deadline(description, date);
+            System.out.println("       " + deadline.toString(done));
+            break;
+        case "E":
+            Event event = new Event(description, date);
+            System.out.println("       " + event.toString(done));
+            break;
+        default:
+            System.out.println("       Unknown Type");
+        }
+        descriptions.remove(index);
+        dates.remove(index);
+        types.remove(index);
+        dones.remove(index);
+        System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
 
