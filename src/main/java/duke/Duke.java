@@ -1,7 +1,11 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -174,10 +178,94 @@ public class Duke {
             deleteTask(arguments);
             break;
         case "bye":
+            saveData();
             displayByeMessage();
             System.exit(0);
         default:
             throw new DukeException();
+        }
+    }
+
+    private static void writeToFile(String data) throws IOException {
+        FileWriter fw = new FileWriter("data/duke.txt");
+        fw.write(data);
+        fw.close();
+    }
+
+    private static void saveData() {
+        String data = "";
+        for (Task task : tasks) {
+            data += task.toFileFormat() + System.lineSeparator();
+        }
+
+        File myDirectory = new File("data");
+        File myFile = new File("data/duke.txt");
+
+        if (!myDirectory.exists()) {
+            myDirectory.mkdir();
+        }
+
+        try {
+            myFile.createNewFile();
+            writeToFile(data);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void readFromFile(File myFile) throws FileNotFoundException {
+        Scanner sc = new Scanner(myFile);
+        while (sc.hasNext()) {
+            String taskDetails = sc.nextLine();
+
+            String[] splitTaskDetails = taskDetails.split("\\|");
+            String taskType = splitTaskDetails[0];
+            Boolean taskStatus = false;
+            if (splitTaskDetails[1].equals("true")) {
+                taskStatus = true;
+            }
+            String description = splitTaskDetails[2];
+            String date = "";
+            if (splitTaskDetails.length > 3) {
+                date = splitTaskDetails[3];
+            }
+
+            switch (taskType) {
+            case "T":
+                Todo newTodo = new Todo(description);
+                tasks.add(newTodo);
+                if (taskStatus) {
+                    newTodo.markAsDone();
+                }
+                break;
+            case "D":
+                Deadline newDeadline = new Deadline(description, date);
+                tasks.add(newDeadline);
+                if (taskStatus) {
+                    newDeadline.markAsDone();
+                }
+                break;
+            case "E":
+                Event newEvent = new Event(description, date);
+                tasks.add(newEvent);
+                if (taskStatus) {
+                    newEvent.markAsDone();
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    private static void loadData() {
+        File myFile = new File("data/duke.txt");
+        if (myFile.exists()) {
+            try {
+                readFromFile(myFile);
+            } catch (FileNotFoundException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
 
@@ -188,6 +276,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         displayGreetingMessage();
+        loadData();
         while (true) {
             userInput = sc.nextLine();
             String[] splitUserInput = userInput.trim().split("\\s+", 2);
