@@ -169,7 +169,7 @@ public class Duke {
             break;
         }
     }
-    
+
     private static void addAndPrintTask(String userCommand, ArrayList<Task> taskList) {
         String[] taskFromCommand = userCommand.split(" ", 2);
         try {
