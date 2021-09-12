@@ -133,6 +133,33 @@ public class Duke {
                 System.out.println("    Now you have " + number + " tasks in the list");
                 System.out.println(DIVIDER);
                 line = in.nextLine();
+            } else if (line.contains("delete")) {
+                try {
+                    int taskDelete = Integer.parseInt(line.substring(7));
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println(DIVIDER);
+                    System.out.println("    ☹ OOPS!!! The description of a delete cannot be empty.");
+                    System.out.println(DIVIDER);
+                    line = in.nextLine();
+                    continue;
+                }
+                int taskDelete = Integer.parseInt(line.substring(7));
+                System.out.println(DIVIDER);
+                System.out.println("    Noted. I've removed this task:");
+                System.out.print("      [" + taskType[taskDelete - 1] + "][" + doneTasks[taskDelete - 1] + "] " + lists[taskDelete - 1]);
+                if(taskType[taskDelete - 1].equals("D")) {
+                    System.out.println(" (by: " + dates[taskDelete - 1] + ")");
+                } else if (taskType[taskDelete - 1].equals("E")) {
+                    System.out.println(" (at: " + dates[taskDelete - 1] + ")");
+                } else {
+                    System.out.println(" ");
+                }
+                System.out.println("    Now you have " + number-- + " tasks in the list.");
+                for (int i = taskDelete - 1; i < number - 1; i++) {
+                    lists[i] = lists[i + 1];
+                }
+                System.out.println(DIVIDER);
+                line = in.nextLine();
             } else {
                 System.out.println(DIVIDER);
                 System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
