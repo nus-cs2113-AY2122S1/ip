@@ -184,7 +184,6 @@ public class TaskManager {
      */
     public static void processInput() {
 
-        // Task[] tasks = new Task[Task.MAX];
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();

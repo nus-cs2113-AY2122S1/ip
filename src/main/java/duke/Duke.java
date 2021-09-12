@@ -7,6 +7,8 @@ import duke.manager.TaskManager;
  *        Add Delete
  *        Add Save
  *        Add more constants
+ *        Update Tests
+ *        Create more exceptions
  */
 
 public class Duke {
