@@ -5,6 +5,14 @@ import duke.tasks.ToDo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.exceptions.DukeException;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -26,6 +34,75 @@ public class Duke {
     public static final String LIST = "list";
     public static final String DONE = "done";
     public static final String BYE = "bye";
+
+    private static final Path FILE_PATH = Paths.get("/repos/iP/duke.txt");
+
+    public static void readFile() throws DukeException {
+        //past tense of "read" used
+        Task[] readTasks = new Task[100];
+        int readTaskCount = 0;
+
+        try {
+            File f = new File(FILE_PATH.toString());
+
+            if (f.createNewFile()) {
+                printWithLines("New file created.");
+            } else {
+                Scanner s = new Scanner(f);
+                while (s.hasNext()) {
+                    Task t;
+                    String line = s.nextLine();
+                    //type | isDone | description | attribute
+                    String[] inputArray = line.split(" [ | ] ");
+
+                    switch (inputArray[0]) {
+                    case "T":
+                        t = new ToDo(inputArray[2]);
+                        break;
+                    case "D":
+                        t = new Deadline(inputArray[2], inputArray[3]);
+                        break;
+                    case "E":
+                        t = new Event(inputArray[2], inputArray[3]);
+                        break;
+                    default:
+                        throw new DukeException("Error while parsing");
+                    }
+
+                    if (inputArray[1].equals("1")) {
+                        t.setDone();
+                    }
+
+                    readTasks[readTaskCount] = t;
+                    readTaskCount++;
+                }
+
+                tasks = readTasks.clone();
+                taskCount = readTaskCount;
+            }
+        } catch (IOException e) {
+            throw new DukeException("Error while reading file.");
+        }
+    }
+
+    public static void saveFile() throws DukeException {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH.toString());
+            System.out.println("File stored in: " + FILE_PATH);
+
+            String newText = "";
+            for (int i = 0; i < taskCount; i++) {
+                Task t = tasks[i];
+                newText = newText.concat("\n");
+            }
+
+            fw.write(newText);
+            fw.close();
+
+        } catch (IOException e) {
+            throw new DukeException("IO exception");
+        }
+    }
 
     /**
      * Prints text within two horizontal lines.
@@ -147,12 +224,14 @@ public class Duke {
         switch (inputCommand){
         case TODO: case DEADLINE: case EVENT:
             addTask(input);
+            saveFile();
             break;
         case LIST:
             listTasks();
             break;
         case DONE:
             setTaskDone(inputData);
+            saveFile();
             break;
         case BYE:
             printByeMessage();
@@ -165,8 +244,11 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        tasks = new Task[100];
-        taskCount = 0;
+        try {
+            readFile();
+        } catch (DukeException e) {
+            printWithLines(e.toString());
+        }
 
         printHelloMessage();
 
