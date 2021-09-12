@@ -4,11 +4,13 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    public static final int MAX_TASKS = 100;
+    //public static final int MAX_TASKS = 100;
     public static final int SLASH_INDEX_DEADLINE = 8;
     public static final int SLASH_INDEX_EVENT = 5;
-    private Task[] tasks = new Task[MAX_TASKS];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
 
     public void printInvalid() {
@@ -35,7 +37,7 @@ public class TaskManager {
     }
 
     public String trimTodoDescription(String description) throws EmptyTodoException {
-        String todoDescription = description.substring(4, description.length()).trim();
+        String todoDescription = description.substring(4).trim();
         if (todoDescription.isEmpty()) {
             throw new EmptyTodoException();
         }
@@ -43,7 +45,7 @@ public class TaskManager {
     }
 
     private void printNewTodo(String todoDescription) {
-        tasks[taskCount] = new Todo(todoDescription);
+        tasks.add(new Todo(todoDescription));
         taskCount += 1;
         Duke.printLine();
         System.out.println("\tAdded todo: " + todoDescription);
@@ -76,7 +78,7 @@ public class TaskManager {
         String[] deadline = new String[2];
         if (slashIndex > SLASH_INDEX_DEADLINE) {
             deadline[0] = description.substring(SLASH_INDEX_DEADLINE, slashIndex).trim();
-            deadline[1] = description.substring(slashIndex + 3, description.length()).trim();
+            deadline[1] = description.substring(slashIndex + 3).trim();
         } else {
             throw new NoSlashDeadlineException();
         }
@@ -88,7 +90,7 @@ public class TaskManager {
     }
 
     private void printNewDeadline(String deadlineDescription, String deadlineBy) {
-        tasks[taskCount] = new Deadline(deadlineDescription, deadlineBy);
+        tasks.add(new Deadline(deadlineDescription, deadlineBy));
         taskCount += 1;
         Duke.printLine();
         System.out.println("\tAdded deadline: " + deadlineDescription + " (by: " + deadlineBy + ')');
@@ -120,7 +122,7 @@ public class TaskManager {
         String[] event = new String[2];
         if (slashIndex > SLASH_INDEX_EVENT) {
             event[0] = description.substring(SLASH_INDEX_EVENT, slashIndex).trim();
-            event[1] = description.substring(slashIndex + 3, description.length()).trim();
+            event[1] = description.substring(slashIndex + 3).trim();
         } else {
             throw new NoSlashEventException();
         }
@@ -132,7 +134,7 @@ public class TaskManager {
     }
 
     private void printNewEvent(String eventDescription, String eventAt) {
-        tasks[taskCount] = new Event(eventDescription, eventAt);
+        tasks.add(new Event(eventDescription, eventAt));
         taskCount += 1;
         Duke.printLine();
         System.out.println("\tAdded event: " + eventDescription + " (at: " + eventAt + ')');
@@ -143,10 +145,12 @@ public class TaskManager {
         Duke.printLine();
         if (taskCount > 0) {
             System.out.println("\t Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i += 1) {
+            int i = 1;
+            for (Task t: tasks) {
                 System.out.print('\t');
-                System.out.print(i + 1 + ". ");
-                System.out.print(tasks[i].toString() + System.lineSeparator());
+                System.out.print(i + ". ");
+                System.out.print(t.toString() + System.lineSeparator());
+                i += 1;
             }
         } else {
             System.out.println("\tYou have no tasks.");
@@ -155,10 +159,40 @@ public class TaskManager {
     }
 
     public void markAsDone(int index) {
-        tasks[index].setAsDone();
+        try {
+            printMarkedTask(index);
+        } catch (IndexOutOfBoundsException e) {
+            Duke.printLine();
+            System.out.println("\tThat task doesn't exist.");
+            Duke.printLine();
+        }
+    }
+
+    public void printMarkedTask(int index) {
+        String taskDescription = tasks.get(index).getDescription();
+        tasks.get(index).setAsDone();
         Duke.printLine();
         System.out.println("\tNice! You completed this task:");
-        System.out.println("\t  [X] " + tasks[index].getDescription());
+        System.out.println("\t  [X] " + taskDescription);
         Duke.printLine();
+    }
+
+    public void deleteTask(int index) {
+        try {
+            printDeleteTask(index);
+        } catch (IndexOutOfBoundsException e) {
+            Duke.printLine();
+            System.out.println("\tThat task doesn't exist.");
+            Duke.printLine();
+        }
+
+    }
+    public void printDeleteTask(int index) {
+        String taskDescription = tasks.get(index).toString();
+        Duke.printLine();
+        System.out.println("\tSeems like you didn't want this task:");
+        System.out.println("\t" + taskDescription);
+        Duke.printLine();
+        tasks.remove(index);
     }
 }

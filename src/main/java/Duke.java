@@ -62,6 +62,10 @@ public class Duke {
                 int markedIndex = Integer.parseInt(words[1]) - 1;
                 t1.markAsDone(markedIndex);
                 break;
+            case "delete":
+                int deleteIndex = Integer.parseInt(words[1]) - 1;
+                t1.deleteTask(deleteIndex);
+                break;
             default:
                 t1.printInvalid();
                 break;
