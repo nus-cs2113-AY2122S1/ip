@@ -17,6 +17,7 @@ public class Text { //contains all constants used
     public static final String NO_VALID_NUMBER = "Please input a valid number!";
     public static final String TASK_NUMBER_NOT_FOUND = "Task number not found!";
     public static final String TASK_MARKED = "Well done! Task marked:";
+    public static final String TASK_DELETED = "Roger! Task removed from list:";
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";

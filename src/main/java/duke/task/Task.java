@@ -3,7 +3,6 @@ package duke.task;
 public abstract class Task {
 
     protected String taskName;
-    protected int taskNumber;
     protected boolean isDone;
 
     public Task(String taskName) {
@@ -11,16 +10,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public int getTaskNumber() {
-        return taskNumber;
-    }
-
     public boolean isDone() {
         return isDone;
-    }
-
-    public void setTaskNumber(int taskNumber) {
-        this.taskNumber = taskNumber;
     }
 
     public void markDone() {

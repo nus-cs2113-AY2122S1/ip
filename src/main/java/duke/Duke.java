@@ -2,18 +2,19 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.task.Deadlines;
+import duke.task.Events;
 import duke.task.Task;
 import duke.task.ToDos;
 import duke.text.Text;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static void main(String[] args) {
         String userCommand; //store user input
-        Task[] taskList = new Task[100]; //store all the task from user input
-        int listSize = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
 
         printIntroduction();
 
@@ -22,7 +23,7 @@ public class Duke {
 
         while (!userCommand.equalsIgnoreCase("bye")) { //exit command is bye
             if (userCommand.equalsIgnoreCase("list")) { //prints list of task
-                printList(taskList, listSize);
+                printList(taskList);
             }
             else if (userCommand.equalsIgnoreCase("help")) {
                 printHelpList();
@@ -31,18 +32,10 @@ public class Duke {
                 markCompletedTask(userCommand, taskList);
             }
             else if (isValid(userCommand.toLowerCase())){
-                String[] taskFromCommand = userCommand.split(" ", 2);
-                try {
-                    if (taskFromCommand.length <= 1) {
-                        throw new DukeException();
-                    }
-                    addTask(userCommand.toLowerCase(), taskList, listSize);
-                    printAddedTask(taskList[listSize], listSize);
-                    listSize++; //updates the size of list
-                }
-                catch (DukeException e) {
-                    printEmptyTaskMessage(taskFromCommand[0]);
-                }
+                addAndPrintTask(userCommand, taskList);
+            }
+            else if (userCommand.contains("delete ")) {
+                deleteAndPrintTask(userCommand, taskList);
             }
             else {
                 printUnknownCommandMessage();
@@ -60,12 +53,13 @@ public class Duke {
         System.out.println(Text.LINE);
     }
 
-    private static void printList(Task[] taskList, int listSize) {
+    private static void printList(ArrayList<Task> taskList) {
+        int taskNumber = 1;
         System.out.println(Text.LINE);
         System.out.println(Text.LIST_MESSAGE);
-        for (int i = 0; i < listSize; i++) {
-            System.out.print(taskList[i].getTaskNumber());
-            System.out.println("." + taskList[i]);
+        for (Task t : taskList) {
+            System.out.println(taskNumber + "." + t);
+            taskNumber++;
         }
         System.out.println(Text.LINE);
     }
@@ -76,7 +70,7 @@ public class Duke {
         System.out.println(Text.LINE);
     }
 
-    private static void markCompletedTask(String userCommand, Task[] taskList) {
+    private static void markCompletedTask(String userCommand, ArrayList<Task> taskList) {
         String[] taskToMark = userCommand.split(" ");
         int taskNumberToMark;
         try {
@@ -84,10 +78,10 @@ public class Duke {
                 throw new DukeException();
             }
             else {
-                for (int i = 1; i <taskToMark.length; i++) {
+                for (int i = 1; i < taskToMark.length; i++) {
                     taskNumberToMark = Integer.parseInt(taskToMark[i]);
-                    taskList[taskNumberToMark - 1].markDone();
-                    printCompletedTaskMessage(taskList[taskNumberToMark - 1]);
+                    taskList.get(taskNumberToMark - 1).markDone();
+                    printCompletedTaskMessage(taskList.get(taskNumberToMark - 1));
                 }
             }
         }
@@ -108,10 +102,46 @@ public class Duke {
         }
     }
 
+    private static void deleteAndPrintTask(String userCommand, ArrayList<Task> taskList) {
+        String[] taskToDelete = userCommand.split(" ");
+        int taskNumberToDelete;
+        try {
+            if (taskToDelete.length <= 1) {
+                throw new DukeException();
+            }
+            else {
+                taskNumberToDelete = Integer.parseInt(taskToDelete[1]);
+                printTaskDeletedMessage(taskList.get(taskNumberToDelete - 1), taskList);
+                taskList.remove(taskNumberToDelete - 1);
+                System.out.println("You currently have " + taskList.size() + " left in the list.");
+                System.out.println(Text.LINE);
+            }
+        }
+        catch (DukeException e) {
+            System.out.println(Text.LINE);
+            System.out.println(Text.NO_TASK_NUMBER);
+            System.out.println(Text.LINE);
+        }
+        catch (NumberFormatException e) {
+            System.out.println(Text.LINE);
+            System.out.println(Text.NO_VALID_NUMBER);
+            System.out.println(Text.LINE);
+        }
+        catch (RuntimeException e) {
+            System.out.println(Text.LINE);
+            System.out.println(Text.TASK_NUMBER_NOT_FOUND);
+            System.out.println(Text.LINE);
+        }
+    }
+
+    private static void printTaskDeletedMessage(Task task, ArrayList<Task> taskList) {
+        System.out.println(Text.LINE);
+        System.out.println(Text.TASK_DELETED + "\n  " + task);
+    }
+
     private static void printCompletedTaskMessage(Task task) {
         System.out.println(Text.LINE);
-        System.out.println(Text.TASK_MARKED);
-        System.out.println(" " + task);
+        System.out.println(Text.TASK_MARKED + "\n  " + task);
         System.out.println(Text.LINE);
     }
 
@@ -119,32 +149,42 @@ public class Duke {
         return userCommand.contains(Text.TODO) || userCommand.contains(Text.DEADLINE) || userCommand.contains(Text.EVENT);
     }
 
-    private static void addTask(String userCommand, Task[] taskList, int listSize) {
+    private static void addTask(String userCommand, ArrayList<Task> taskList) {
         String[] splitTaskString = userCommand.split(" ", 2);
         String[] taskNameAndDueDate;
         switch (splitTaskString[0]) {
         case Text.TODO:
-            taskList[listSize] = new ToDos(splitTaskString[1]);
+            taskList.add(new ToDos(splitTaskString[1]));
             break;
         case Text.DEADLINE:
             taskNameAndDueDate = splitTaskString[1].split("/by ", 2);
-            taskList[listSize] = new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]);
+            taskList.add(new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]));
             break;
         case Text.EVENT:
             taskNameAndDueDate = splitTaskString[1].split("/at ", 2);
-            taskList[listSize] = new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]);
+            taskList.add(new Events(taskNameAndDueDate[0], taskNameAndDueDate[1]));
             break;
         }
     }
 
-    private static void printAddedTask(Task task, int listSize) {
+    private static void addAndPrintTask(String userCommand, ArrayList<Task> taskList) {
+        String[] taskFromCommand = userCommand.split(" ", 2);
+        try {
+            if (taskFromCommand.length <= 1) {
+                throw new DukeException();
+            }
+            addTask(userCommand.toLowerCase(), taskList);
+            printAddedTask(taskList.get(taskList.size() - 1), taskList);
+        }
+        catch (DukeException e) {
+            printEmptyTaskMessage(taskFromCommand[0]);
+        }
+    }
+
+    private static void printAddedTask(Task task, ArrayList<Task> taskList) {
         System.out.println(Text.LINE);
-        System.out.println("Alright! Added to the list:");
-        System.out.println(" " + task);
-        task.setTaskNumber(listSize + 1); //update the task number
-        System.out.print("You currently have ");
-        System.out.print(listSize + 1);
-        System.out.println(" task recorded in your list.");
+        System.out.println("Alright! Added to the list:\n" + "  " + task);
+        System.out.println("You currently have " + taskList.size() + " task recorded in your list.");
         System.out.println(Text.LINE);
     }
 
