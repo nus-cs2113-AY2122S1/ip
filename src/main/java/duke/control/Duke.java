@@ -11,6 +11,7 @@ public class Duke {
         LIST_COMMAND,
         DONE_COMMAND,
         TASK_COMMAND,
+        DELETE_COMMAND,
         BYE_COMMAND
     }
 
@@ -33,6 +34,9 @@ public class Duke {
         if (input.startsWith("done")) {
             return Command.DONE_COMMAND;
         }
+        if (input.startsWith("delete")) {
+            return Command.DELETE_COMMAND;
+        }
         if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             return Command.TASK_COMMAND;
         }
@@ -49,16 +53,23 @@ public class Duke {
             break;
         case DONE_COMMAND:
             try {
-                int entryNumber = list.parseInputForEntryNumber(input);
+                int entryNumber = list.parseInputForEntryNumber(input, command);
                 list.doneEntry(entryNumber);
             } catch (NumberFormatException e) {
+                //entry number is an invalid character
                 System.out.println("the done command is of the form \"done x\" where x is an entry number");
             } catch (NullPointerException e) {
+                //entry number entered does not exist
                 System.out.println("That entry number does not exist in your current list");
             } catch (StringIndexOutOfBoundsException e) {
+                //no entry number entered
                 System.out.println("The done command must have an entry number, " +
                         "enter it in the form \"done x\" where x is an entry number");
             }
+            break;
+        case DELETE_COMMAND:
+            int entryNumber = list.parseInputForEntryNumber(input, command);
+            list.deleteEntry(entryNumber);
             break;
         case TASK_COMMAND:
             try {
@@ -120,6 +131,7 @@ public class Duke {
         System.out.println("To add a todo task: todo (task name)");
         System.out.println("To add a deadline task: deadline (task name) /by (date or time)");
         System.out.println("To add an event task: event (task name) /at (date or time)");
+        System.out.println("To delete a task in the list: delete (x) where x is the entry number");
         System.out.println("note that only the words in parentheses() can be replaced");
         System.out.println("Use the command \"list\" and I will show you your current list");
         System.out.println("To cross out an entry, use the command \"done x\" where x is the entry number");
