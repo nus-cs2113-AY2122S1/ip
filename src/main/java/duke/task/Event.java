@@ -1,6 +1,7 @@
 package duke.task;
 
 public class Event extends Task {
+    protected final String TASK_TYPE = "E";
     protected String when;
 
     public Event(String description, String when) {
@@ -18,6 +19,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + when + ")";
+        return "[" + TASK_TYPE + "]" + super.toString() + " (at: " + when + ")";
     }
 }

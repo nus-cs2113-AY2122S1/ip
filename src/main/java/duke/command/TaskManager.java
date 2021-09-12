@@ -6,22 +6,23 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private final Task[] tasks;
-    private int taskCount;
+
+    private final ArrayList<Task> taskList;
 
     // Constants
-    private static final int MAX_TASKS = 100;
     private static final String LIST_STRING = "list";
     private static final String DONE_STRING = "done";
     private static final String TODO_STRING = "todo";
     private static final String DEADLINE_STRING = "deadline";
     private static final String EVENT_STRING = "event";
+    private static final String DELETE_STRING = "delete";
     private static final String OUTPUT_DIVIDER = "____________________________________________________________";
     private static final String MESSAGE_LIST_TASKS = " Here are the tasks in your list:";
     private static final String MESSAGE_TASK_ADDED = " I have added a task:";
+    private static final String MESSAGE_TASK_DELETED = " Got it! I've deleted this task:";
     private static final String MESSAGE_TASK_MARKED_DONE = " Great! I have marked the following task as done:";
     private static final String MESSAGE_INVALID_COMMAND = " Please enter a valid command!";
     private static final String DEADLINE_PREFIX = "/by";
@@ -29,8 +30,7 @@ public class TaskManager {
 
     // Constructor
     public TaskManager() {
-        tasks = new Task[MAX_TASKS];
-        taskCount = 0;
+        taskList = new ArrayList<>();
     }
 
     /**
@@ -41,7 +41,7 @@ public class TaskManager {
      */
     public void handleUserInput(String userInput) {
         if (userInput.trim().equalsIgnoreCase(LIST_STRING)) {
-            printTaskList(Arrays.copyOf(tasks, taskCount));
+            handlePrintList();
         } else if (userInput.trim().toLowerCase().startsWith(DONE_STRING)) {
             handleTaskDone(userInput);
         } else if (userInput.trim().toLowerCase().startsWith(TODO_STRING)) {
@@ -50,6 +50,8 @@ public class TaskManager {
             handleDeadline(userInput);
         } else if (userInput.trim().toLowerCase().startsWith(EVENT_STRING)) {
             handleEvent(userInput);
+        } else if (userInput.trim().toLowerCase().startsWith(DELETE_STRING)) {
+            handleDelete(userInput);
         } else {
             printInvalidCommandMessage();
         }
@@ -58,13 +60,16 @@ public class TaskManager {
     /**
      * Prints a list of the current tasks Duke has
      *
-     * @param tasks The array containing tasks to be printed out
+     * @throws EmptyListException if task list is empty
      */
-    public void printTaskList(Task[] tasks) {
+    public void printTaskList() throws EmptyListException {
+        if (taskList.size() == 0) {
+            throw new EmptyListException();
+        }
         System.out.println(OUTPUT_DIVIDER);
         System.out.println(MESSAGE_LIST_TASKS);
-        for (int i = 0; i < tasks.length; i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + taskList.get(i));
         }
         System.out.println(OUTPUT_DIVIDER);
     }
@@ -72,13 +77,13 @@ public class TaskManager {
     /**
      * Marks a task as done
      *
-     * @param doneTask User command containing the task ID of the task to mark done
+     * @param doneCommand User command containing the task ID of the task to mark done
      * @throws DoneInvalidFormatException if command does not follow correct format "done {task ID}"
      * @throws NonNumericTaskIdException if task ID entered is not an integer
      * @throws TaskNotInListException if the task to mark done is not in the task list
      */
-    public void markTaskDone(String doneTask) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
-        String[] doneSentence = doneTask.split(" ");
+    public void markTaskDone(String doneCommand) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
+        String[] doneSentence = doneCommand.split("\\s+");
 
         // Checks if done command entered does not follow the correct format of "done {task ID}".
         if (doneSentence.length != 2) {
@@ -86,19 +91,19 @@ public class TaskManager {
         }
 
         // Checks if the task ID entered is numeric.
-        if (!isNumeric(doneSentence[1])) {
+        if (isNonNumericTaskId(doneSentence[1])) {
             throw new NonNumericTaskIdException();
         }
 
         int taskToMarkDone = Integer.parseInt(doneSentence[1]);
         // Makes sure that the task being mark done is in the task list.
-        if (taskToMarkDone > taskCount || taskToMarkDone <= 0) {
+        if (taskToMarkDone > taskList.size() || taskToMarkDone <= 0) {
             throw new TaskNotInListException();
         } else {
-            tasks[taskToMarkDone - 1].setDone(true);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_MARKED_DONE);
-            System.out.println("   " + tasks[taskToMarkDone - 1].toString());
+            taskList.get(taskToMarkDone - 1).setDone(true);
+            System.out.println("   " + taskList.get(taskToMarkDone - 1));
             System.out.println(OUTPUT_DIVIDER);
         }
     }
@@ -120,11 +125,11 @@ public class TaskManager {
 
         String todoDescription = splitTodo[1].trim();
         Todo newTodo = new Todo(todoDescription);
-        tasks[taskCount] = newTodo;
+        taskList.add(newTodo);
         System.out.println(OUTPUT_DIVIDER);
         System.out.println(MESSAGE_TASK_ADDED);
-        System.out.println("   " + newTodo.toString());
-        System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
+        System.out.println("   " + newTodo);
+        System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
         System.out.println(OUTPUT_DIVIDER);
     }
 
@@ -156,11 +161,11 @@ public class TaskManager {
         // Deadline with valid format is added to task list
         if (isValidDeadline) {
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
-            tasks[taskCount] = newDeadline;
+            taskList.add(newDeadline);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_ADDED);
-            System.out.println("   " + newDeadline.toString());
-            System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
+            System.out.println("   " + newDeadline);
+            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
             System.out.println(OUTPUT_DIVIDER);
         } else {
             throw new DeadlineLacksArgumentsException();
@@ -195,14 +200,49 @@ public class TaskManager {
         // Event with valid format is added to task list
         if (isValidEvent) {
             Event newEvent = new Event(eventDescription, eventTime);
-            tasks[taskCount] = newEvent;
+            taskList.add(newEvent);
             System.out.println(OUTPUT_DIVIDER);
             System.out.println(MESSAGE_TASK_ADDED);
-            System.out.println("   " + newEvent.toString());
-            System.out.println(" You now have " + (taskCount + 1) + " task(s) in the list.");
+            System.out.println("   " + newEvent);
+            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
             System.out.println(OUTPUT_DIVIDER);
         } else {
             throw new EventLacksArgumentsException();
+        }
+    }
+
+    public void deleteTask(String deleteCommand) throws DeleteInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
+        String[] deleteSentence = deleteCommand.split("\\s+");
+
+        // Checks if delete command entered does not follow the correct format of "delete {task ID}"
+        if(deleteSentence.length != 2) {
+            throw new DeleteInvalidFormatException();
+        }
+
+        // Checks if task ID entered is numeric.
+        if (isNonNumericTaskId(deleteSentence[1])) {
+            throw new NonNumericTaskIdException();
+        }
+
+        int taskToDelete = Integer.parseInt(deleteSentence[1]);
+        // Makes sure that the task to delete is in the task list
+        if (taskToDelete > taskList.size() || taskToDelete <= 0) {
+            throw new TaskNotInListException();
+        } else {
+            System.out.println(OUTPUT_DIVIDER);
+            System.out.println(MESSAGE_TASK_DELETED);
+            System.out.println("   " + taskList.get(taskToDelete - 1));
+            taskList.remove(taskToDelete - 1);
+            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
+            System.out.println(OUTPUT_DIVIDER);
+        }
+    }
+
+    public void handlePrintList() {
+        try {
+            printTaskList();
+        } catch (EmptyListException emptyListException) {
+            emptyListException.printEmptyListMessage();
         }
     }
 
@@ -231,7 +271,6 @@ public class TaskManager {
     public void handleTodo(String userInput) {
         try {
             addTodo(userInput);
-            taskCount++;
         } catch (TodoInvalidFormatException todoInvalidFormatException) {
             todoInvalidFormatException.printTodoInvalidFormatMessage();
         }
@@ -245,7 +284,6 @@ public class TaskManager {
     public void handleDeadline(String userInput) {
         try {
             addDeadline(userInput);
-            taskCount++;
         } catch (DeadlineInvalidFormatException deadlineInvalidFormatException) {
             deadlineInvalidFormatException.printDeadlineInvalidFormatMessage();
         } catch (DeadlineLacksArgumentsException deadlineLacksArgumentsException) {
@@ -261,11 +299,22 @@ public class TaskManager {
     public void handleEvent(String userInput) {
         try {
             addEvent(userInput);
-            taskCount++;
         } catch (EventInvalidFormatException eventInvalidFormatException) {
             eventInvalidFormatException.printEventInvalidFormatMessage();
         } catch (EventLacksArgumentsException eventLacksArgumentsException) {
             eventLacksArgumentsException.printEventLacksArgumentsMessage();
+        }
+    }
+
+    public void handleDelete(String userInput) {
+        try {
+            deleteTask(userInput);
+        } catch (DeleteInvalidFormatException deleteInvalidFormatException) {
+            deleteInvalidFormatException.printDeleteInvalidFormatMessage();
+        } catch (NonNumericTaskIdException nonNumericTaskIdException) {
+            nonNumericTaskIdException.printNonNumericTaskIdMessage();
+        } catch (TaskNotInListException taskNotInListException) {
+            taskNotInListException.printTaskNotInListMessage();
         }
     }
 
@@ -279,17 +328,17 @@ public class TaskManager {
     }
 
     /**
-     * Checks if a string can be parsed to obtain an integer
+     * Checks if the task ID can be parsed to obtain an integer
      *
-     * @param str String to be parsed
-     * @return true if the string is numeric and can be parsed, false otherwise
+     * @param taskId Task ID string to be parsed (supposed to be integer)
+     * @return true if the task ID is numeric and can be parsed, false otherwise
      */
-    public static boolean isNumeric(String str) {
+    public static boolean isNonNumericTaskId(String taskId) {
         try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException numberFormatException) {
+            Integer.parseInt(taskId);
             return false;
+        } catch (NumberFormatException numberFormatException) {
+            return true;
         }
     }
 

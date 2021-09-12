@@ -1,6 +1,7 @@
 package duke.task;
 
 public class Todo extends Task {
+    protected final String TASK_TYPE = "T";
 
     public Todo(String description) {
         super(description);
@@ -8,6 +9,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + TASK_TYPE + "]" + super.toString();
     }
 }
