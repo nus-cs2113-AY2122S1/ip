@@ -4,6 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+
 import duke.exception.FileTaskInvalidFormatException;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,9 +51,8 @@ public class DataManager {
     }
 
     public static void saveData(ArrayList<Task> taskList) {
-        FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(FILE_NAME);
+            FileWriter fileWriter = new FileWriter(FILE_NAME, false);
             StringBuilder formattedTask = new StringBuilder();
             formatTask(taskList, fileWriter, formattedTask);
             fileWriter.close();
@@ -105,6 +106,7 @@ public class DataManager {
             appendDoneStatus(formattedTask, task);
             appendTaskDescription(formattedTask, task);
             fileWriter.write(formattedTask + System.lineSeparator());
+            formattedTask = new StringBuilder();
         }
     }
 
