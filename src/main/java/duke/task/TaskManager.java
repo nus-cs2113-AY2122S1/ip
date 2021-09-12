@@ -98,6 +98,11 @@ public class TaskManager {
         printTask(taskIndex);
     }
 
+    /**
+     * Delete the task given by its index in the taskList.
+     *
+     * @param taskNumber Specified task number by list command. Its taskIndex will be taskNumber - 1.
+     */
     public void deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > totalNumberOfTasks) {
             System.out.println("Error: task not found.");
