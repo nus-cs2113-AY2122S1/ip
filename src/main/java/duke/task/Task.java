@@ -27,4 +27,13 @@ public abstract class Task {
             return "[ ] " + taskName;
         }
     }
+
+    public String storageText() {
+        if (isDone()) {
+            return "|1|" + taskName;
+        }
+        else {
+            return "|0|" + taskName;
+        }
+    }
 }

@@ -63,30 +63,30 @@ Error404!!! I don't understand what that is, please try again!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
-  [D][ ] submit assignment  (by: tuesday 12am)
+  [D][ ] submit assignment (by: tuesday 12am)
 You currently have 3 task recorded in your list.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
-  [E][ ] attend lecture  (at: friday 4pm)
+  [E][ ] attend lecture (at: friday 4pm)
 You currently have 4 task recorded in your list.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
-  [D][ ] sleep  (by: 12am)
+  [D][ ] sleep (by: 12am)
 You currently have 5 task recorded in your list.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Roger! Task removed from list:
-  [D][ ] sleep  (by: 12am)
+  [D][ ] sleep (by: 12am)
 You currently have 4 left in the list.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Tasks list so far:
 1.[T][ ] exercise
 2.[T][ ] running
-3.[D][ ] submit assignment  (by: tuesday 12am)
-4.[E][ ] attend lecture  (at: friday 4pm)
+3.[D][ ] submit assignment (by: tuesday 12am)
+4.[E][ ] attend lecture (at: friday 4pm)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
@@ -108,8 +108,8 @@ Well done! Task marked:
 Tasks list so far:
 1.[T][✓] exercise
 2.[T][✓] running
-3.[D][ ] submit assignment  (by: tuesday 12am)
-4.[E][ ] attend lecture  (at: friday 4pm)
+3.[D][ ] submit assignment (by: tuesday 12am)
+4.[E][ ] attend lecture (at: friday 4pm)
 5.[T][ ] eat dinner
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,8 +126,8 @@ Please input a valid number!
 Tasks list so far:
 1.[T][✓] exercise
 2.[T][✓] running
-3.[D][ ] submit assignment  (by: tuesday 12am)
-4.[E][ ] attend lecture  (at: friday 4pm)
+3.[D][ ] submit assignment (by: tuesday 12am)
+4.[E][ ] attend lecture (at: friday 4pm)
 5.[T][✓] eat dinner
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -140,18 +140,18 @@ Error404!!! event task description should not be empty!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
-  [E][ ] meeting  (at: saturday 11am)
+  [E][ ] meeting (at: saturday 11am)
 You currently have 7 task recorded in your list.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Tasks list so far:
 1.[T][✓] exercise
 2.[T][✓] running
-3.[D][ ] submit assignment  (by: tuesday 12am)
-4.[E][ ] attend lecture  (at: friday 4pm)
+3.[D][ ] submit assignment (by: tuesday 12am)
+4.[E][ ] attend lecture (at: friday 4pm)
 5.[T][✓] eat dinner
 6.[T][ ] running
-7.[E][ ] meeting  (at: saturday 11am)
+7.[E][ ] meeting (at: saturday 11am)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 GoodBye! Please finish up your task!

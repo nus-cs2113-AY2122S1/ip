@@ -1,26 +1,27 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.storage.Storage;
 import duke.task.Deadlines;
 import duke.task.Events;
 import duke.task.Task;
 import duke.task.ToDos;
 import duke.text.Text;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
 
     public static void main(String[] args) {
         String userCommand; //store user input
-        ArrayList<Task> taskList = new ArrayList<>();
-
+        ArrayList<Task> taskList = new ArrayList<>(); //store all the task from user input
         printIntroduction();
 
         Scanner in = new Scanner(System.in);
         userCommand = in.nextLine(); //user input
 
+        Storage.openFile(taskList);
         while (!userCommand.equalsIgnoreCase("bye")) { //exit command is bye
             if (userCommand.equalsIgnoreCase("list")) { //prints list of task
                 printList(taskList);
@@ -42,6 +43,7 @@ public class Duke {
             }
             userCommand = in.nextLine();
         }
+        Storage.saveFile(taskList);
         printBye();
     }
 
@@ -157,15 +159,17 @@ public class Duke {
             taskList.add(new ToDos(splitTaskString[1]));
             break;
         case Text.DEADLINE:
-            taskNameAndDueDate = splitTaskString[1].split("/by ", 2);
+
+            taskNameAndDueDate = splitTaskString[1].split(" /by ", 2);
             taskList.add(new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]));
             break;
         case Text.EVENT:
-            taskNameAndDueDate = splitTaskString[1].split("/at ", 2);
+            taskNameAndDueDate = splitTaskString[1].split(" /at ", 2);
             taskList.add(new Events(taskNameAndDueDate[0], taskNameAndDueDate[1]));
             break;
         }
     }
+
 
     private static void addAndPrintTask(String userCommand, ArrayList<Task> taskList) {
         String[] taskFromCommand = userCommand.split(" ", 2);
