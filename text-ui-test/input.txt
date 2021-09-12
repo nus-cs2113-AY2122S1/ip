@@ -27,9 +27,17 @@ event Cry again/at     NOW
 done            9
 done 7
 list
+ delete    5
+delete 9
+delete    1
+echo Start exception handling test
+delete
+delete ok
+delete  12
+delete 0
+list
      clear
 list
-echo Start exception handling test
 echo
 todo
 deadline

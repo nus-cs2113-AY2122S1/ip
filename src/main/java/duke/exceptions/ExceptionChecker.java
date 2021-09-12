@@ -22,11 +22,11 @@ public class ExceptionChecker {
     private static final String INVALID_COMMAND_ERROR =
             "Sorry... I did not understand that, can you try again?\n"
                     + "Or you can enter \"help\" to see what I can do for you!";
-    private static final String DONE_MISSING_NUMBER_ERROR =
-            "OH NO! You need to specify the task you want to mark as done...\n"
+    private static final String MISSING_NUMBER_ERROR =
+            "OH NO! You need to specify the task number...\n"
                     + "Enter \"list\" to check the task number!";
-    private static final String DONE_NUMBER_FORMAT_ERROR = "OH NO! That wasn't a number...";
-    private static final String DONE_NUMBER_NOT_FOUND_ERROR =
+    private static final String NUMBER_FORMAT_ERROR = "OH NO! That wasn't a number...";
+    private static final String NUMBER_NOT_FOUND_ERROR =
             "OH NO! The task number is invalid, I can't find any tasks matching that number...\n"
                     + "Enter \"list\" to check the task number!";
 
@@ -41,19 +41,19 @@ public class ExceptionChecker {
         return inputArray[1];
     }
 
-    public int retrieveDoneParameter(String[] inputArray) throws DukeException {
+    public int retrieveNumberParameter(String[] inputArray) throws DukeException {
         int taskNumber;
 
         if (hasNullParameter(inputArray)) {
-            throw new DukeException(DONE_MISSING_NUMBER_ERROR);
+            throw new DukeException(MISSING_NUMBER_ERROR);
         }
         try {
             taskNumber = Integer.parseInt(inputArray[1]);
         } catch (NumberFormatException exception) {
-            throw new DukeException(DONE_NUMBER_FORMAT_ERROR);
+            throw new DukeException(NUMBER_FORMAT_ERROR);
         }
         if (!TaskManager.isValidTaskNumber(taskNumber)) {
-            throw new DukeException(DONE_NUMBER_NOT_FOUND_ERROR);
+            throw new DukeException(NUMBER_NOT_FOUND_ERROR);
         }
 
         return taskNumber;
