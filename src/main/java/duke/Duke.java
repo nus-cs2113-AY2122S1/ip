@@ -5,6 +5,8 @@ import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.Event;
 import java.util.Scanner;
+import java.util.ArrayList;
+
 
 public class Duke {
 
@@ -15,7 +17,6 @@ public class Duke {
     public static final int TODO_HEADER = 5;
     public static final int EVENT_HEADER = 6;
     public static final int DEADLINE_HEADER = 9;
-    public static final int MAX_LIST_SIZE = 100;
     public static final String LINEBAR = "____________________________________________________________\n";
     public static final String EVENT_IDENTIFIER = "/at ";
     public static final String DEADLINE_IDENTIFIER = "/by ";
@@ -83,7 +84,7 @@ public class Duke {
      *
      * @param taskList An array of tasks. Max size of 100
      */
-    public static void listAllTasks(Task[] taskList, int index) {
+    public static void listAllTasks(ArrayList<Task> taskList, int index) {
         if (index == 0) {
             System.out.println("You do not have any items in your list currently.");
             return;
@@ -92,8 +93,9 @@ public class Duke {
         int taskNumber = 1;
 
         System.out.println(LINEBAR);
-        for (int i = 0; i < index; i++) {
-            System.out.println((taskNumber) + "." + taskList[i].toString());
+        //do something
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(taskNumber + ". " + taskList.get(i));
             taskNumber++;
         }
         System.out.println(LINEBAR);
@@ -111,24 +113,24 @@ public class Duke {
     /**
      * Adds the task 't' specified by user into the task list
      *
-     * @param taskList An array of tasks. Max size of 100
+     * @param taskList An ArrayList of tasks. Max size of 100
      * @param t        user input task
      */
-    public static void addToTaskList(Task[] taskList, Task t, int index) {
-        taskList[index] = t;
+    public static void addToTaskList(ArrayList<Task> taskList, Task t) {
+        taskList.add(t);
     }
 
     /**
      * Modifies a task and sets its boolean isDone to true. Prints out an acknowledgement after.
      *
      * @param userInput String that the user input
-     * @param taskList  An array of tasks. Max size of 100
+     * @param taskList  An ArrayList of tasks.
      * @throws NumberFormatException Thrown when the input is not a valid positive integer e.g. an alphabet
      * @throws NullPointerException Thrown when the value inserted exceeds the number of tasks
-     * @throws ArrayIndexOutOfBoundsException Thrown when input is a negative value, or does not include a value
+     * @throws IndexOutOfBoundsException Thrown when input is a negative value, or does not include a value
      */
-    public static void completeTask(String userInput, Task[] taskList)
-            throws NumberFormatException, NullPointerException, ArrayIndexOutOfBoundsException {
+    public static void completeTask(String userInput, ArrayList<Task> taskList)
+            throws NumberFormatException, NullPointerException, IndexOutOfBoundsException {
         System.out.println(LINEBAR);
 
         try {
@@ -136,15 +138,17 @@ public class Duke {
 
             //Navigate to the given index and change the sign
             int taskIndex = taskNumber - 1;
-            taskList[taskIndex].markAsDone();
+
+            //taskList[taskIndex].markAsDone();
+            taskList.get(taskIndex).markAsDone();
             System.out.println(
-                    "Bueno! The following task is marked as done: \n[" + taskList[taskIndex].getStatusIcon() + "] "
-                            + taskList[taskIndex].taskDescription);
+                    "Bueno! The following task is marked as done: \n[" + taskList.get(taskIndex).getStatusIcon() + "] "
+                            + taskList.get(taskIndex).taskDescription);
         } catch (NumberFormatException e) {
             System.out.println("You must input a positive integer. Format: done [Task Number]");
         } catch (NullPointerException e) {
             System.out.println("The value you inserted is invalid. Please type 'list' to check the number of tasks");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("The value you inserted must be a positive integer. Please try again");
         }
 
@@ -158,7 +162,7 @@ public class Duke {
      * @throws StringIndexOutOfBoundsException Thrown when userInput does not have a description after 'event'
      * @throws ArrayIndexOutOfBoundsException Thrown when userInput does not follow [Description] /at [Time]
      */
-    public static void addEvent(String userInput, Task[] taskList)
+    public static void addEvent(String userInput, ArrayList<Task> taskList)
             throws StringIndexOutOfBoundsException, ArrayIndexOutOfBoundsException {
         System.out.println(LINEBAR);
 
@@ -166,7 +170,7 @@ public class Duke {
             String taskDescription = userInput.split(EVENT_IDENTIFIER)[DESCRIPTION].substring(EVENT_HEADER);
             String timing = userInput.split(EVENT_IDENTIFIER)[TIMING];
             Event event = new Event(taskDescription, timing);
-            addToTaskList(taskList, event, taskIndex);
+            addToTaskList(taskList, event);
             taskIndex++;
             echoUserInput(event, taskIndex);
         } catch (StringIndexOutOfBoundsException e) {
@@ -184,13 +188,13 @@ public class Duke {
      * @param taskList An array of tasks. Max size of 100
      * @throws StringIndexOutOfBoundsException Thrown when user does not include description in input
      */
-    public static void addToDo(String userInput, Task[] taskList) throws StringIndexOutOfBoundsException {
+    public static void addToDo(String userInput, ArrayList<Task> taskList) throws StringIndexOutOfBoundsException {
         System.out.println(LINEBAR);
 
         try {
             String taskDescription = userInput.substring(TODO_HEADER);
             ToDo todo = new ToDo(taskDescription);
-            addToTaskList(taskList, todo, taskIndex);
+            addToTaskList(taskList, todo);
             taskIndex++;
             echoUserInput(todo, taskIndex);
         } catch (StringIndexOutOfBoundsException e) {
@@ -207,7 +211,7 @@ public class Duke {
      * @throws StringIndexOutOfBoundsException Thrown when user does not include any description after 'deadline'
      * @throws ArrayIndexOutOfBoundsException Thrown when user input does not follow [description] /by [time]
      */
-    public static void addDeadline(String userInput, Task[] taskList)
+    public static void addDeadline(String userInput, ArrayList<Task> taskList)
             throws StringIndexOutOfBoundsException, ArrayIndexOutOfBoundsException {
         System.out.println(LINEBAR);
 
@@ -215,7 +219,7 @@ public class Duke {
             String taskDescription = userInput.split(DEADLINE_IDENTIFIER)[DESCRIPTION].substring(DEADLINE_HEADER);
             String timing = userInput.split(DEADLINE_IDENTIFIER)[TIMING];
             Deadline deadline = new Deadline(taskDescription, timing);
-            addToTaskList(taskList, deadline, taskIndex);
+            addToTaskList(taskList, deadline);
             taskIndex++;
             echoUserInput(deadline, taskIndex);
         } catch (StringIndexOutOfBoundsException e) {
@@ -235,6 +239,32 @@ public class Duke {
         System.out.println(LINEBAR);
     }
 
+    public static void deleteTask(String userInput, ArrayList<Task> taskList) {
+        System.out.println(LINEBAR);
+
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER]);
+
+            //Navigate to the given index and change the sign
+            int taskIndex = taskNumber - 1;
+
+            Task toBeDeleted = taskList.get(taskIndex);
+            taskList.remove(taskIndex);
+            System.out.println(
+                    "The following task has been deleted!\n" + toBeDeleted + "\n");
+        } catch (NumberFormatException e) {
+            System.out.println("You must input a positive integer. Format: done [Task Number]");
+        } catch (NullPointerException e) {
+            System.out.println("The value you inserted is invalid. Please type 'list' to check the number of tasks");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("The value you inserted must be a positive integer. Please try again");
+        }
+
+        System.out.println(LINEBAR);
+
+    }
+
+
     /**
      * This function is called upon program execution.
      *
@@ -243,7 +273,7 @@ public class Duke {
     public static void main(String[] args) {
         greetUser();
         Scanner readUserInput = new Scanner(System.in);
-        Task[] taskList = new Task[MAX_LIST_SIZE];
+        ArrayList<Task> taskList = new ArrayList<>();
         String userInput;
         String identifier;
 
@@ -278,6 +308,10 @@ public class Duke {
 
             case "deadline":
                 addDeadline(userInput, taskList);
+                continue;
+
+            case "delete":
+                deleteTask(userInput, taskList);
                 continue;
 
             default:
