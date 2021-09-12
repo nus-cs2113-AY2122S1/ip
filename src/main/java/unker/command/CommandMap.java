@@ -59,6 +59,7 @@ public class CommandMap {
         map.put("todo", new ToDoCommand());
         map.put("deadline", new DeadlineCommand());
         map.put("event", new EventCommand());
+        map.put("delete", new DeleteCommand());
     }
 
 }
