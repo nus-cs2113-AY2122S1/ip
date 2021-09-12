@@ -48,7 +48,7 @@ public class Duke {
         } else if (Command.isCommandExit(command)) {
             Default.showMessage("Bye! Hope to see you again :D");
             System.exit(0);
-        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")) {
+        } else if (Command.isCommandHelp(command)) {
             Default.printHelpMenu();
         } else {
             if (Command.isCommandList(command)) {
