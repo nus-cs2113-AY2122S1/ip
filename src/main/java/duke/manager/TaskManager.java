@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
@@ -36,9 +37,8 @@ public class TaskManager {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
-     *                the task description
      */
-    private static void addTask(Task[] tasks, String message) {
+    private static void addTask(ArrayList<Task> tasks, String message) {
         switch (taskType(message)) {
         case "todo":
             addTodo(tasks, message);
@@ -56,7 +56,7 @@ public class TaskManager {
             // Fallthrough
         }
         if (Task.COUNT > 0) {
-            printAddedTask(tasks[Task.COUNT - 1]);
+            printAddedTask(tasks.get(Task.COUNT - 1));
         }
     }
 
@@ -76,13 +76,12 @@ public class TaskManager {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
-     *                the task description
      */
-    private static void addEvent(Task[] tasks, String message) {
+    private static void addEvent(ArrayList<Task> tasks, String message) {
         try {
             message = message.substring(6);
             String[] eventData = message.split("/", 2);
-            tasks[Task.COUNT] = new Event(eventData[0], eventData[1].substring(3));
+            tasks.set(Task.COUNT, new Event(eventData[0], eventData[1].substring(3)));
             Task.COUNT++;
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
@@ -97,13 +96,12 @@ public class TaskManager {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
-     *                the task description
      */
-    private static void addDeadline(Task[] tasks, String message) {
+    private static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
             message = message.substring(9);
             String[] deadlineData = message.split("/", 2);
-            tasks[Task.COUNT] = new Deadline(deadlineData[0], deadlineData[1].substring(3));
+            tasks.set(Task.COUNT, new Deadline(deadlineData[0], deadlineData[1].substring(3)));
             Task.COUNT++;
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
@@ -122,11 +120,10 @@ public class TaskManager {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
-     *                the task description
      */
-    private static void addTodo(Task[] tasks, String message) {
+    private static void addTodo(ArrayList<Task> tasks, String message) {
         try {
-            tasks[Task.COUNT] = new Todo(message.substring(5));
+            tasks.set(Task.COUNT, new Todo(message.substring(5)));
             Task.COUNT++;
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
@@ -137,11 +134,13 @@ public class TaskManager {
 
     /**
      * Prints all the tasks
+     *
+     * @param tasks the array of tasks
      */
-    private static void printTasks(Task[] tasks) {
+    private static void printTasks(ArrayList<Task> tasks) {
         printLine();
         for (int i = 0; i < Task.COUNT; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getDescription());
+            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
         }
         if (Task.COUNT == 0) {
             System.out.println("Smartass, you need to add tasks before listing them !!!");
@@ -156,13 +155,12 @@ public class TaskManager {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
-     *                the task description
      */
-    private static void markDone(Task[] tasks, String message) {
+    private static void markDone(ArrayList<Task> tasks, String message) {
         try {
             String[] arrOfStr = message.split(" ");
             int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
-            tasks[index].isDone();
+            tasks.get(index).isDone();
         } catch (NullPointerException e) {
             printLine();
             System.out.println("OH MY GOD, can you maybe type a task that exists ?");
@@ -178,7 +176,8 @@ public class TaskManager {
      */
     public static void processInput() {
 
-        Task[] tasks = new Task[Task.MAX];
+        // Task[] tasks = new Task[Task.MAX];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
