@@ -5,7 +5,9 @@ import duke.exception.InvalidCommandException;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 import duke.util.Parser;
+import duke.util.Storage;
 import duke.util.Ui;
+import java.io.IOException;
 
 public class Duke {
 
@@ -21,8 +23,7 @@ public class Duke {
     public static final String COMMAND_EVENT = "event";
 
     public static TaskManager taskList = new TaskManager();
-
-    /** Gets a new instance of Ui class to interact with the user */
+    public static Storage store = new Storage();
     public static Ui uiInteract = new Ui(USERNAME);
 
     public static boolean isRunning = true;
@@ -37,6 +38,12 @@ public class Duke {
      * Handles the user input and loop logic Calls handleCommand and terminates when isRunning is false
      */
     private static void printMenuPrompt() {
+        try {
+            store.loadFile(taskList);
+        } catch (IOException | IllegalArgumentException fileException) {
+            uiInteract.printMessage("Failed to read or create data file!");
+            System.exit(1);
+        }
         while (isRunning) {
             //Printing user prompt
             uiInteract.printPrompt();
@@ -53,18 +60,12 @@ public class Duke {
                 uiInteract.printMessage("☹ OOPS!!! " + invalidArguments.getMessage());
             } catch (InvalidCommandException invalidCommand) {
                 uiInteract.printMessage(UNKNOWN_COMMAND_MESSAGE);
+            } catch (IOException saveException) {
+                uiInteract.printMessage("Could not update file or directory!!");
             }
         }
         uiInteract.printGoodbye();
     }
-
-    /**
-     *
-     *
-     * @param command
-     * @throws ArrayIndexOutOfBoundsException if unable to find arguments
-     * @throws NumberFormatException          if arguments is not a number is not a number
-     */
 
     /**
      * Handles the user input and decide what actions to run
@@ -78,7 +79,8 @@ public class Duke {
      */
     private static void handleCommand(String command)
             throws ArgumentNotFoundException, NumberFormatException,
-            InvalidCommandException, IllegalArgumentException, NullPointerException {
+            InvalidCommandException, IllegalArgumentException, NullPointerException,
+            IOException {
         // Attempting to parse the command
         Parser parsed = new Parser(command);
         if (parsed.getCommand() == null) {
@@ -107,6 +109,7 @@ public class Duke {
         default:
             throw new InvalidCommandException();
         }
+        store.saveFile(taskList);
     }
 
     private static void terminateProgram() {

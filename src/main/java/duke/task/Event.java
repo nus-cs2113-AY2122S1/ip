@@ -22,6 +22,10 @@ public class Event extends Task {
         }
         this.at = at;
     }
+    @Override
+    public String saveToText () {
+        return "E | " + super.saveToText() + " | " + at;
+    }
 
     @Override
     public String toString() {

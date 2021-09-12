@@ -57,6 +57,9 @@ public class Task {
         return isDone;
     }
 
+    public String saveToText () {
+        return (isDone ? "1" : "0") + " | "+ description;
+    }
     /**
      * Overwrites default toString method with the custom print message
      *
