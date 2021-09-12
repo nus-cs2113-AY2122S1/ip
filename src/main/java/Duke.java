@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -31,10 +33,12 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DukeLogo();
         Greet();
         TaskManager t1 = new TaskManager();
+        FileReading.startupScanFileContents(t1);
+        FileWriting.initialise();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String[] words = line.split(" ");
@@ -42,7 +46,7 @@ public class Duke {
         Bye();
     }
 
-    private static void programLogic(TaskManager t1, Scanner in, String line, String[] words) {
+    private static void programLogic(TaskManager t1, Scanner in, String line, String[] words) throws IOException {
 
         while (!words[0].equals("bye")) {
             switch (words[0]) {
