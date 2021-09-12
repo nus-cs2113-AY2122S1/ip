@@ -14,19 +14,18 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 /**
  * HOW TO USE??
- *
+ * <p>
  * Call setWriterAndReader to set the csvReader & csvWriter.
  * Then use respective reader/writer to perform task.
  * Do not close csvWriter until ready. Use Flush to push to file.
- *
+ * <p>
  * Look thru code to learn
- *
  */
 public class DataManager {
     protected static BufferedReader csvReader;
     protected static BufferedWriter csvWriter;
     private static final String homePath = System.getProperty("user.home");
-    private static final String[] TITLE = {"Type", "Description", "Date"};
+    private static final String[] TITLE = {"Type", "Status", "Description", "Date"};
     private static final String FILE_NAME = "taskData.csv";
 
 
@@ -40,7 +39,7 @@ public class DataManager {
             csvWriter.flush();
             String line;
             while ((line = csvReader.readLine()) != null) {
-                String output = line.replace(',',' ');
+                String output = line.replace(',', ' ');
                 System.out.println(output);
             }
             //csvWriter.flush();
@@ -51,13 +50,17 @@ public class DataManager {
         }
     }
 
-    public static void loadData(){
+    public static void loadData() {
         try {
             initializeFile();
             csvWriter.close();
-        } catch (Exception e) {
-            System.out.println("Error :");
+        } catch (IOException e) {
+            System.out.println("Error writing to file!");
             e.printStackTrace();
+            System.exit(-1);
+        } catch (Exception e) {
+            System.out.println("Error :" + e);
+            System.exit(-1);
         }
     }
 
@@ -68,7 +71,7 @@ public class DataManager {
         csvWriter.flush();
     }
 
-    private static void setWriterAndReader(String homePath) throws IOException {
+    private static void setWriterAndReader(String homePath) {
         boolean isExists = false;
 
         try {
@@ -78,9 +81,19 @@ public class DataManager {
             isExists = Files.exists(dataPath);
             csvReader = Files.newBufferedReader(dataPath);
         } catch (InvalidPathException e) {
-            System.out.println("Path not found. Please contact admin");
+            System.out.println("Home path not found. Please contact admin");
+            System.exit(-1);
+        } catch (IOException e) {
+            System.out.println("IO Exception error!");
+            System.exit(-1);
+        } catch (SecurityException e) {
+            System.out.println("Security Error, unable to read data file.");
+            System.exit(-1);
+        } catch (Exception e) {
+            System.out.println("Error :" + e);
             System.exit(-1);
         }
+
         if (isExists) {
             System.out.println("Found data file!");
         } else {
