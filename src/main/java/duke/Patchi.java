@@ -8,10 +8,19 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Patchi {
-    public static void main(String[] args) throws MissingTimingException {
+    static String patchiDataPath = "data/patchidata.txt";
+
+    public static void main(String[] args) {
+        File patchiData = new File("data/patchidata.txt");
+        System.out.println("full path: " + patchiData.getAbsolutePath());
+        System.out.println("file exists?: " + patchiData.exists());
+
         Scanner in = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int nextTaskIndex = 0;
@@ -85,6 +94,9 @@ public class Patchi {
             } else {
                 throw new InvalidCommandException();
             }
+
+           
+
         } catch (MissingDescriptionException e) {
             System.out.println("Patchi: You need to add a task description... Œ(ˊnˋ)B");
         } catch (MissingTimingException e) {
@@ -161,4 +173,11 @@ public class Patchi {
         System.out.println("─── .o * : typing... : ¤ o. ───");
         System.out.print("Me: ");
     }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
 }
