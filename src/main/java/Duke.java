@@ -15,13 +15,14 @@ public class Duke {
         String input;
         System.out.println("Hello from\n" + logo);
         Greet.printWelcomeMessage();
-
+        // load data into arraylist
+        //write file over here
         boolean isConversation;
         do {
             input = in.nextLine();
             String[] words = input.split(" ");
             try {
-                FilterInput.checkCommand(words);
+                FilterInput.checkCommand(words,input);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -30,6 +31,8 @@ public class Duke {
                 System.out.println(ErrorMessage.EXCEPTION_MESSAGE_INPUT_NOT_INT);
             } catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Invalid Number.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Number keyed in is less than the number of task");
             }
             isConversation = !words[0].equals(Command.COMMAND_BYE);
         } while (isConversation);
