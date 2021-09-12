@@ -1,6 +1,4 @@
-package handleTask;
-
-import handleInput.Greet;
+package duke;
 
 public class Task {
     protected String description;

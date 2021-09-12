@@ -1,11 +1,4 @@
-package handleInput;
-
-import handleException.DukeEmptyDescriptionException;
-import handleException.DukeEmptyTimeframeException;
-import handleException.DukeUnrecognisedCommandException;
-import handleTask.Event;
-import handleTask.Deadline;
-import handleTask.Todo;
+package duke;
 
 public class FilterInput {
 

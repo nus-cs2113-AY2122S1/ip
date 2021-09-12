@@ -1,6 +1,6 @@
-package handleInput;
+package duke;
 
-import handleTask.Task;
+import duke.Task;
 public class Greet {
     private static final int MAX_ARRAY_LIMIT = 100;
     protected static Task[] list = new Task[MAX_ARRAY_LIMIT];
