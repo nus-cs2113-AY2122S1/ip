@@ -1,12 +1,12 @@
 package duke.task;
 
-import duke.util.FileManager;
-
+import duke.exceptions.DukeException;
+import duke.exceptions.ExceptionChecker;
 import java.util.ArrayList;
 
 public class TaskManager {
 
-    private static final FileManager FILE_MANAGER = new FileManager();
+    private static final ExceptionChecker CHECKER = new ExceptionChecker();
     private static final int MAX_TASKS_COUNT = 100;
     private static int currentTasksCount = 0;
 
@@ -54,25 +54,25 @@ public class TaskManager {
         return tasks[taskIndex - 1];
     }
 
-    public void convertTasksToData() {
-        String data;
-        boolean append = false;
+    public void convertTasksToData() throws DukeException {
+
+        ArrayList<String> fileLines = new ArrayList<>();
+
         for (int i = 0; i < currentTasksCount; i++) {
-            data = tasks[i].toData() + "\n";
-            FILE_MANAGER.writeFile(data, append);
-            append = true;
+            fileLines.add(tasks[i].toData() + "\n");
         }
+
+        CHECKER.tryToWriteFile(fileLines);
     }
 
-    public void convertDataToTasks() {
+    public void convertDataToTasks() throws DukeException {
 
-        ArrayList<String> contentArray = FILE_MANAGER.readFile();
+        ArrayList<String> fileLines = CHECKER.tryToReadFile();
         String data;
         String[] dataArray;
 
-        for (int i = 0; i < contentArray.size(); i++) {
-
-            data = contentArray.get(i);
+        for (String line : fileLines) {
+            data = line;
             dataArray = data.split(" \\| ");
             switch (dataArray[0]) {
             case "T":

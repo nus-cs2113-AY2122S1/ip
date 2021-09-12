@@ -2,10 +2,15 @@ package duke.exceptions;
 
 import duke.task.TaskManager;
 import duke.util.InputParser;
+import duke.util.FileManager;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ExceptionChecker {
 
     private static final InputParser PARSER = new InputParser();
+    private static final FileManager FILE_MANAGER = new FileManager();
 
     private static final String ECHO_ERROR =
             "OH NO! I can't echo if you don't say anything...";
@@ -29,6 +34,9 @@ public class ExceptionChecker {
     private static final String DONE_NUMBER_NOT_FOUND_ERROR =
             "OH NO! The task number is invalid, I can't find any tasks matching that number...\n"
                     + "Enter \"list\" to check the task number!";
+    public static final String FILE_NOT_FOUND_ERROR =
+            "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
+    public static final String FOLDER_NOT_FOUND_ERROR = "The directory data/ has been created for you.";
 
     private boolean hasNullParameter(String[] inputArray) {
         return (inputArray.length < 2);
@@ -108,5 +116,30 @@ public class ExceptionChecker {
 
     public void throwInput() throws DukeException {
         throw new DukeException(INVALID_COMMAND_ERROR);
+    }
+
+    public ArrayList<String> tryToReadFile() throws DukeException {
+        ArrayList<String> fileLines = new ArrayList<>();
+        try {
+            if (!FILE_MANAGER.isFileCreated()) {
+                fileLines = FILE_MANAGER.readFile();
+            }
+        } catch (FileNotFoundException exception) {
+            throw new DukeException(FILE_NOT_FOUND_ERROR);
+        } catch (IOException exception) {
+            if (FILE_MANAGER.isFolderCreated()) {
+                throw new DukeException(FOLDER_NOT_FOUND_ERROR);
+            }
+            throw new DukeException("IO Exception encountered: " + exception.getMessage());
+        }
+        return fileLines;
+    }
+
+    public void tryToWriteFile(ArrayList<String> fileLines) throws DukeException {
+        try {
+            FILE_MANAGER.writeFile(fileLines);
+        } catch (IOException exception) {
+            throw new DukeException("IO Exception encountered: " + exception.getMessage());
+        }
     }
 }

@@ -9,29 +9,33 @@ import java.util.Scanner;
 
 public class FileManager {
 
+    private final String dirPath = "data/";
     private final String filePath = "data/duke.txt";
+    private final File dir = new File(dirPath);
     private final File file = new File(filePath);
 
-    public ArrayList<String> readFile() {
-        ArrayList<String> contentArray = new ArrayList<>();
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNext()) {
-                contentArray.add(scanner.nextLine());
-            }
-        } catch (FileNotFoundException exception) {
-            System.out.println("File not found");
-        }
-        return contentArray;
+    public boolean isFolderCreated() {
+        return dir.mkdir();
     }
 
-    public void writeFile(String fileContent, boolean append) {
-        try {
-            FileWriter writer = new FileWriter(filePath, append);
-            writer.write(fileContent);
-            writer.close();
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
+    public boolean isFileCreated() throws IOException {
+        return file.createNewFile();
+    }
+
+    public ArrayList<String> readFile() throws FileNotFoundException {
+        ArrayList<String> fileLines = new ArrayList<>();
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            fileLines.add(scanner.nextLine());
         }
+        return fileLines;
+    }
+
+    public void writeFile(ArrayList<String> fileLines) throws IOException {
+        FileWriter writer = new FileWriter(filePath);
+        for (String line : fileLines) {
+            writer.append(line);
+        }
+        writer.close();
     }
 }
