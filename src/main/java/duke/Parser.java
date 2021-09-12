@@ -1,6 +1,11 @@
 package duke;
 
-import duke.exception.*;
+import duke.exception.DeadLineCommandError;
+import duke.exception.DeleteCommandError;
+import duke.exception.DoneCommandError;
+import duke.exception.DukeException;
+import duke.exception.EventCommandError;
+import duke.exception.ToDoCommandError;
 
 /**
  * Parser class gets the raw input from Logic class and then returns the specified arguments of interest
@@ -124,8 +129,19 @@ public class Parser {
             } catch (Exception e) {
                 throw new DoneCommandError();
             }
-            //default:
-            //  throw new InvalidCommandError();
+        case "delete":
+            try {
+                //only the number(in string) remains
+                description = inputString.replaceAll("[^0-9]", "");
+                index = Integer.parseInt(description);
+                description = String.valueOf(index);
+                if(description.isEmpty()){
+                    throw new DeleteCommandError();
+                }
+                break;
+            } catch (Exception e) {
+                throw new DeleteCommandError();
+            }
         }
         return description;
     }
