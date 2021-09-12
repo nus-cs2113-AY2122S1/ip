@@ -1,6 +1,11 @@
 package Duke;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Duke {
     public static final String Line = "    ____________________________________________________________";
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -33,12 +38,29 @@ public class Duke {
         System.out.println(Line);
     }
 
+    private static void writeToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for(int i=0; i<taskSum; i++){
+            Task now = tasks.get(i);
+            fw.write(String.format("%d ",i+1));
+            fw.write(now.toString());
+            fw.write("\n");
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         greeting();
         String command;
         Scanner in = new Scanner(System.in);
+        String f = "data/lines.txt";
         do{
             command = in.nextLine();
+            try {
+                writeToFile(f);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
             if(command.contains("done")){
                 String[] number = command.split(" ");
                 int taskIndex = Integer.parseInt(number[1]) - 1;
