@@ -1,12 +1,17 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import Exception.DukeException;
 import Tasks.Task;
 import Tasks.Event;
 import Tasks.Todo;
 import Tasks.Deadline;
+import Exception.DukeException;
 
 
 public class Duke {
@@ -29,6 +34,7 @@ public class Duke {
         // reading from Hard Drive
         if (isLoading) {
             File f = new File ("data.txt");
+
             if (f.createNewFile()) {
                 System.out.println("data.txt created for you");
             }
@@ -98,12 +104,19 @@ public class Duke {
         else if (input.contains("delete")) {
             int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
 
-            System.out.println("I have removed this task:");
-            tasks.get(taskIndex - 1).describe();
+            if (!isLoading) {
+                saveData(input);
+                System.out.println("I have removed this task:");
+                tasks.get(taskIndex - 1).describe();
+                tasks.remove(taskIndex -1);
+                Task.numberOfTasks -= 1;
+                System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
+            }
 
-            tasks.remove(taskIndex -1);
-            Task.numberOfTasks -= 1;
-            System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
+            else {
+                tasks.remove(taskIndex -1);
+                Task.numberOfTasks -= 1;
+            }
 
             return true;
         }
