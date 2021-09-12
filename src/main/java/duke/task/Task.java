@@ -2,9 +2,13 @@ package duke.task;
 
 public class Task {
 
-    /** The actual description or name of the task */
+    /**
+     * The actual description or name of the task
+     */
     private String description;
-    /** Shows if task is completed */
+    /**
+     * Shows if task is completed
+     */
     private boolean isDone;
 
     public Task(String description) {
@@ -55,6 +59,15 @@ public class Task {
      */
     public boolean getIsDone() {
         return isDone;
+    }
+
+    /**
+     * Format object to be saved as a string
+     *
+     * @return formatted string to save to file
+     */
+    public String saveToText() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 
     /**

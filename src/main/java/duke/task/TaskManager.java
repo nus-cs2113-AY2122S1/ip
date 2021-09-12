@@ -2,7 +2,9 @@ package duke.task;
 
 import duke.exception.ArgumentNotFoundException;
 import duke.util.Parser;
+import duke.util.Storage;
 import duke.util.Ui;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -108,6 +110,15 @@ public class TaskManager {
         ui.printMessage(ADD_TASK_MESSAGE,
                 newTask.toString(),
                 "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    /**
+     * Add a Task object to the taskList
+     *
+     * @param task the Task object to add
+     */
+    public void addTask(Task task) {
+        taskList.add(task);
     }
 
     /**

@@ -24,6 +24,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String saveToText() {
+        return "E | " + super.saveToText() + " | " + at;
+    }
+
+    @Override
     public String toString() {
         return String.format("[E]%s (at: %s)", super.toString(), at);
     }
