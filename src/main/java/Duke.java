@@ -19,6 +19,7 @@ public class Duke {
     private static final String QUIT_MESSAGE = " That was annoying huh...\n";
     private static final String DELETE_MESSAGE = " This task has been spirited away:\n";
     private static final String EMPTY_LIST_MESSAGE = " This list is empty and sad :(\n";
+    private static final String EMPTY_REMOVE_MESSAGE = " Please identify something to remove!\n";
     private static final String NO_TASK_MESSAGE = "No such task! You're not THAT productive...\n";
     private static final String NO_TASK_DONE_NUMBER_MESSAGE = "Please specify the task you would like to " +
             "mark as done!\n";
@@ -91,12 +92,17 @@ public class Duke {
     public static void removeTask(String input) {
         try {
             int index = Integer.parseInt(input.substring(7));
-            Task thisTask = tasks.get(index - 1);
-            System.out.println(LINES + DELETE_MESSAGE + "   " + tasks.get(index - 1));
-            tasks.remove(thisTask);
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + LINES);
+            if (index > tasks.size()) {
+                System.out.println(LINES + NO_TASK_MESSAGE + LINES);
+            }
+            else {
+                Task thisTask = tasks.get(index - 1);
+                System.out.println(LINES + DELETE_MESSAGE + "   " + tasks.get(index - 1));
+                tasks.remove(thisTask);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + LINES);
+            }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(LINES + NO_TASK_MESSAGE + LINES);
+            System.out.println(LINES + EMPTY_REMOVE_MESSAGE + LINES);
         }
     }
 
