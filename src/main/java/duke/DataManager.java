@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DataManager {
-    private static final String fileName = ".\\src\\main\\java\\duke\\Data.txt";
+    private static final String fileName = ".\\DukeData.txt";
 
     public static void load() {
         try {
