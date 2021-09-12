@@ -69,6 +69,7 @@ public class Duke {
                 taskSum++;
                 System.out.println(Line + "\n" + "     Got it. I've added this task: " + "\n" + "       [T][ ] " + item + "\n" + "     Now you have " + taskSum + " tasks in the list");
                 System.out.println(Line);
+                
             }
             else if(command.contains("deadline")){
                 int first = command.indexOf(" ");
