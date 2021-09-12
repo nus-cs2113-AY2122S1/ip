@@ -1,9 +1,6 @@
 package duke.command;
 
 import duke.datasaver.DataManager;
-import duke.exception.FileTaskInvalidFormatException;
-
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
