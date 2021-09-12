@@ -3,6 +3,7 @@ public class FilterInput {
     private static final int DESCRIPTION_PARAMETERS = 2;
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;
+
     /**
      * Returns lateral location of the specified position.
      *
@@ -11,6 +12,7 @@ public class FilterInput {
     public static void checkCommand(String[] words) throws
             DukeException {
         String[] descriptionInput = descriptionInput(words);
+        int taskNumber;
         switch (words[FIRST_ARRAY_PARAMETER]) {
         case Command.COMMAND_BYE:
             Greet.printGoodbyeMessage();
@@ -19,24 +21,29 @@ public class FilterInput {
             Greet.printList();
             break;
         case Command.COMMAND_DONE:
-            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
-            int taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
             //might need to catch errors in the future
             Greet.checkDoneTask(taskNumber);
             break;
+        case Command.COMMAND_DELETE:
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
+            Greet.deleteTask(taskNumber);
+            break;
         case Command.COMMAND_TODO:
-            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             Todo todo = new Todo(descriptionInput[FIRST_ARRAY_PARAMETER]);
             Greet.addTask(todo);
             break;
         case Command.COMMAND_DEADLINE:
-            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
             Greet.addTask(deadline);
             break;
         case Command.COMMAND_EVENT:
-            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
             Greet.addTask(event);
@@ -48,7 +55,7 @@ public class FilterInput {
 
     private static void checkDescription(String command, String[] descriptionInput) throws DukeException {
         if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("")) {
-            switch(command){
+            switch (command) {
             case Command.COMMAND_TODO:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_TODO);
             case Command.COMMAND_DEADLINE:
@@ -60,6 +67,7 @@ public class FilterInput {
             }
         }
     }
+
     private static void checkTimeframe(String[] descriptionInput) throws DukeException {
         if (descriptionInput[SECOND_ARRAY_PARAMETER].equals("")) {
             throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_MISSING_PARAMETERS_AFTER_KEYWORD);
@@ -93,6 +101,5 @@ public class FilterInput {
     private static boolean isDate(int counter, String[] words) {
         return counter < words.length;
     }
-
 
 }
