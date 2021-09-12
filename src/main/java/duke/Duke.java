@@ -79,6 +79,14 @@ public class Duke {
         System.out.println("Usage: " + format);
     }
 
+    /**
+     * Method to process user command accordingly.
+     *
+     * @param fileHandler FileHandler to contain and extract tasks list information.
+     * @param taskManager TaskManager object that handles all task related action.
+     * @param userInputs Raw user inputs from scanner.
+     * @return Whether if the exit command has been triggered.
+     */
     public static boolean processInput(FileHandler fileHandler, TaskManager taskManager, String userInputs) {
         boolean isNotExit = true;
         boolean hasChange = false;
@@ -133,7 +141,7 @@ public class Duke {
         FileHandler fileHandler = new FileHandler(FILE_DIRECTORY);
         TaskManager taskManager = new TaskManager();
         //load data
-        System.out.printf("Loading data from %s...\n",FILE_NAME);
+        System.out.printf("Loading data from %s...\n", FILE_NAME);
         fileHandler.loadToTaskManager(FILE_NAME, taskManager);
         System.out.println("Finish loading.");
         System.out.printf(LINE);

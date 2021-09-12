@@ -131,10 +131,15 @@ public class TaskManager {
         return data;
     }
 
+    /**
+     * Add given string content from file input into the tasks list.
+     *
+     * @param contents A task information given by a file input.
+     */
     public void addTaskFromFile(String contents) {
         String[] contentArray = contents.split("\\|");
         PrintStream originalStream = System.out;
-        PrintStream noOutputStream = new PrintStream(new OutputStream(){
+        PrintStream noOutputStream = new PrintStream(new OutputStream() {
             public void write(int b) {
                 // NO-OP
             }
@@ -176,6 +181,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Method to print the content in which causes the invalid error when inputing data from text file.
+     *
+     * @param s The input that trigger the error.
+     */
     private void printInvalidFileInput(String s) {
         System.out.printf("Error: Invalid input \"%s\"\n", s);
     }

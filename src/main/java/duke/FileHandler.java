@@ -25,6 +25,12 @@ public class FileHandler {
         fw.close();
     }
 
+    /**
+     * Pass inputs from file to task manager to process into the tasks list.
+     *
+     * @param fileName Given file name that contains the many tasks information.
+     * @param taskManager TaskManager that handles any task related operation.
+     */
     public void loadToTaskManager(String fileName, TaskManager taskManager) {
         File f = new File(fileDirectory, fileName);
         try{
