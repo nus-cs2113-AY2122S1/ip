@@ -4,8 +4,12 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
@@ -90,6 +94,7 @@ public class Duke {
     private static void initTasks() {
         tasks = new Task[MAX_TASKS];
         taskCounter = 0;
+        instantiateTasksFromFile();
     }
 
     /**
@@ -214,6 +219,24 @@ public class Duke {
         return new Event(actualTaskName, atWhen);
     }
 
+    private static Task createSavedTask(String fileLine) {
+        String [] splitByDelimiter = fileLine.split("\\|\\|");
+        Task savedTask;
+        switch (splitByDelimiter[0]) {
+        case "D":
+            savedTask = new Deadline(splitByDelimiter[2],
+                    splitByDelimiter[3], Boolean.valueOf(splitByDelimiter[1]));
+            break;
+        case "E":
+            savedTask = new Event(splitByDelimiter[2],
+                    splitByDelimiter[3], Boolean.valueOf(splitByDelimiter[1]));
+            break;
+        default:
+            savedTask = new Todo(splitByDelimiter[2], Boolean.valueOf(splitByDelimiter[1]));
+        }
+        return savedTask;
+    }
+
     /**
      * Adds a new Task to list of Tasks.
      *
@@ -237,6 +260,7 @@ public class Duke {
             }
             tasks[taskCounter] = newTask;
             taskCounter++;
+            saveToFile();
             printAddedToTaskMessage(newTask.getTaskName());
         } catch (DukeException err) {
             System.out.println(err.getMessage());
@@ -258,8 +282,53 @@ public class Duke {
             System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
                     + SPACE_PREFIX + task + LINE_BREAK
                     + CONSOLE_LINE_PREFIX);
+            saveToFile();
         } catch (NullPointerException e) {
             throw new DukeException("TOBECHANGED");
+        }
+    }
+
+    private static void saveToFile() {
+        File saveDir = new File("data");
+        saveDir.mkdir();
+        File saveFile = new File(saveDir, "tasks.txt");
+        try {
+            saveFile.createNewFile();
+            FileWriter fw = new FileWriter(saveFile);
+            for (int i = 0; i < taskCounter; i++) {
+                char taskIdentifier = tasks[i].toString().charAt(1);
+                fw.write(taskIdentifier + "||" + tasks[i].isDone() + "||" + tasks[i].getTaskName());
+                if (taskIdentifier == 'D') {
+                    fw.write("||" + ((Deadline) tasks[i]).getByWhen());
+                } else if (taskIdentifier == 'E') {
+                    fw.write("||" + ((Event) tasks[i]).getAtWhen());
+                }
+                fw.write(LINE_BREAK);
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void instantiateTasksFromFile() {
+        File saveDir = new File("data");
+        saveDir.mkdir();
+        File savedFile = new File(saveDir, "tasks.txt");
+        if (savedFile.exists()) {
+            try {
+                Scanner fileScanner = new Scanner(savedFile);
+                while (fileScanner.hasNext()) {
+                    String fileLine = fileScanner.nextLine();
+                    Task savedTask = createSavedTask(fileLine);
+                    tasks[taskCounter] = savedTask;
+                    taskCounter++;
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            return;
         }
     }
 

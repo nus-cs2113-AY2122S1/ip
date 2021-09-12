@@ -10,6 +10,13 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String taskName, boolean isDone) {
+        this(taskName);
+        if (isDone) {
+            setDone();
+        }
+    }
+
     // Getters and Setters
     public String getTaskName() {
         return taskName;
