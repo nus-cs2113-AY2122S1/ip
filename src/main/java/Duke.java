@@ -4,18 +4,20 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
-
     /**
      * Decorative prefixes to format program's output more neatly/cleaner.
      */
     private static final String CONSOLE_LINE_PREFIX = "____________________________________________________________";
     private static final String SPACE_PREFIX = " ";
     private static final String LINE_BREAK = "\n";
-
 
     /**
      * ASCII Art Logo generated using
@@ -91,6 +93,7 @@ public class Duke {
     private static void initTasks() {
         tasks = new ArrayList<Task>();
         taskCounter = 0;
+        instantiateTasksFromFile();
     }
 
     /**
@@ -228,6 +231,24 @@ public class Duke {
         }
     }
 
+    private static Task createSavedTask(String fileLine) {
+        String[] splitByDelimiter = fileLine.split("\\|\\|");
+        Task savedTask;
+        switch (splitByDelimiter[0]) {
+        case "D":
+            savedTask = new Deadline(splitByDelimiter[2],
+                    splitByDelimiter[3], Boolean.valueOf(splitByDelimiter[1]));
+            break;
+        case "E":
+            savedTask = new Event(splitByDelimiter[2],
+                    splitByDelimiter[3], Boolean.valueOf(splitByDelimiter[1]));
+            break;
+        default:
+            savedTask = new Todo(splitByDelimiter[2], Boolean.valueOf(splitByDelimiter[1]));
+        }
+        return savedTask;
+    }
+
     /**
      * Adds a new Task to list of Tasks.
      *
@@ -251,6 +272,7 @@ public class Duke {
             }
             tasks.add(newTask);
             taskCounter++;
+            saveToFile();
             printAddedToTaskMessage(newTask.getTaskName());
         } catch (DukeException err) {
             System.out.println(err.getMessage());
@@ -274,18 +296,63 @@ public class Duke {
             System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
                     + SPACE_PREFIX + task + LINE_BREAK
                     + CONSOLE_LINE_PREFIX);
+            saveToFile();
         } catch (NullPointerException e) {
             throw new DukeException("TOBECHANGED");
         }
     }
 
     private static void deleteTask(int index) {
-        //ArrayUtils.remove(index);
         Task deletedTask = tasks.get(index);
         tasks.remove(index);
         taskCounter--;
         // Print deleted message
         printDeletedTaskMessage(deletedTask);
+        saveToFile();
+    }
+
+    private static void saveToFile() {
+        File saveDir = new File("data");
+        saveDir.mkdir();
+        File saveFile = new File(saveDir, "duke.txt");
+        try {
+            saveFile.createNewFile();
+            FileWriter fw = new FileWriter(saveFile);
+            for (int i = 0; i < taskCounter; i++) {
+                char taskIdentifier = tasks.get(i).toString().charAt(1);
+                fw.write(taskIdentifier + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName());
+                if (taskIdentifier == 'D') {
+                    fw.write("||" + ((Deadline) tasks.get(i)).getByWhen());
+                } else if (taskIdentifier == 'E') {
+                    fw.write("||" + ((Event) tasks.get(i)).getAtWhen());
+                }
+                fw.write(LINE_BREAK);
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void instantiateTasksFromFile() {
+        File saveDir = new File("data");
+        saveDir.mkdir();
+        File savedFile = new File(saveDir, "duke.txt");
+        if (savedFile.exists()) {
+            try {
+                Scanner fileScanner = new Scanner(savedFile);
+                while (fileScanner.hasNext()) {
+                    String fileLine = fileScanner.nextLine();
+                    Task savedTask = createSavedTask(fileLine);
+                    tasks.add(savedTask);
+                    taskCounter++;
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            return;
+        }
     }
 
     public static void main(String[] args) {
