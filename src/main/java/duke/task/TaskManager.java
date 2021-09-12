@@ -1,5 +1,8 @@
 package duke.task;
 
+
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -119,4 +122,75 @@ public class TaskManager {
 
     }
 
+
+    @Override
+    public String toString() {
+        String data = "";
+        String separator = " | ";
+        for (int i = 0; i < totalNumberOfTasks; i++) {
+            data += tasksList.get(i) + System.lineSeparator();
+        }
+        return data;
+    }
+
+    /**
+     * Add given string content from file input into the tasks list.
+     *
+     * @param contents A task information given by a file input.
+     */
+    public void addTaskFromFile(String contents) {
+        String[] contentArray = contents.split("\\|");
+        PrintStream originalStream = System.out;
+        PrintStream noOutputStream = new PrintStream(new OutputStream() {
+            public void write(int b) {
+                // NO-OP
+            }
+        });
+        boolean hasError = false;
+        System.setOut(noOutputStream);
+        switch (contentArray[0].trim()) {
+        case "[T]":
+            if (contentArray.length < 3) {
+                hasError = true;
+            }
+            createToDoTask(contentArray[2].trim());
+            break;
+        case "[D]":
+            if (contentArray.length < 4) {
+                hasError = true;
+            }
+            createDeadlineTask(contentArray[2].trim(), contentArray[3].trim());
+            break;
+        case "[E]":
+            if (contentArray.length < 4) {
+                hasError = true;
+            }
+            createEventTask(contentArray[2].trim(), contentArray[3].trim());
+            break;
+        default:
+            hasError = true;
+            break;
+        }
+        System.setOut(originalStream);
+        if (hasError) {
+            printInvalidFileInput(contents);
+        } else {
+            boolean isDone = false;
+            if (contentArray[1].trim().equals("1")) {
+                isDone = true;
+            }
+            tasksList.get(totalNumberOfTasks - 1).setDone(isDone);
+        }
+    }
+
+    /**
+     * Method to print the content in which causes the invalid error when inputing data from text file.
+     *
+     * @param s The input that trigger the error.
+     */
+    private void printInvalidFileInput(String s) {
+        System.out.printf("Error: Invalid input \"%s\"\n", s);
+    }
+
 }
+

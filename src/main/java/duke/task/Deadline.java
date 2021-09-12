@@ -25,4 +25,9 @@ public class Deadline extends Task {
     public String getTaskInfo() {
         return getDescription() + " (by: " + dueDate + ")";
     }
+
+    @Override
+    public String toString() {
+        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + dueDate;
+    }
 }
