@@ -4,9 +4,9 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String desc) {
+    public Task(String desc, Boolean status) {
         setDescription(desc);
-        setStatus(false);
+        setStatus(status);
     }
 
     public void setDescription(String description) {

@@ -6,8 +6,8 @@ public class Event extends Task {
     private String start;
     private String end;
 
-    public Event(String desc, String start, String end) {
-        super(desc);
+    public Event(String desc, String start, String end, Boolean status) {
+        super(desc, status);
         setTime(start, end);
     }
 

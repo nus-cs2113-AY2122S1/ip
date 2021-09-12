@@ -41,7 +41,7 @@ public class Duke {
                 break;
             case TODO:
                 try {
-                    ToDo newToDo = new ToDo(line.substring(6));
+                    ToDo newToDo = new ToDo(line.substring(6), false);
                     tasks.add(newToDo);
                     System.out.println("  (+) Added: "+ newToDo.toString());
                     System.out.println("  (i) You have " + tasks.size() + " tasks in the list");
@@ -55,7 +55,7 @@ public class Duke {
                 try {
                     String description = line.substring(10, line.indexOf("-by")).strip();
                     String time = line.substring(line.indexOf("-by") + 4).strip();
-                    Deadline newDeadline = new Deadline(description, time);
+                    Deadline newDeadline = new Deadline(description, time, false);
                     tasks.add(newDeadline);
                     System.out.println("  (+) Added: "+ newDeadline.toString());
                     System.out.println("  (!) You have " + tasks.size() + " tasks in the list");
@@ -70,7 +70,7 @@ public class Duke {
                     String des = line.substring(7, line.indexOf("-from")).strip();
                     String from = line.substring(line.indexOf("-from") + 6, line.indexOf("-to")).strip();
                     String to = line.substring(line.indexOf("-to") + 4).strip();
-                    Event newEvent = new Event(des, from , to);
+                    Event newEvent = new Event(des, from , to, false);
                     tasks.add(newEvent);
                     System.out.println(" (+) Added: "+ newEvent.toString());
                     System.out.println(" (!) You have " + tasks.size() + " tasks in the list");

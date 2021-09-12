@@ -9,6 +9,7 @@ import task.ToDo;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.Scanner;
 
 public class Data {
     public static void write(ArrayList<Task> tasks) {
@@ -25,13 +26,13 @@ public class Data {
     }
 
     public static ArrayList<Task> read() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
         /*
-        check for whether ./data directory exists
+        Check for whether ./data directory exists
         if not, create ./data directory
         */
         File dir = new File("data");
-        if(!dir.exists()) {
+        if (!dir.exists()) {
             dir.mkdir();
         }
         /*
@@ -42,11 +43,34 @@ public class Data {
         File data = new File("data/data.txt");
         if (data.exists()) {
             System.out.println("  (+) Data file found: " + data.getAbsolutePath());
-            
+            /*
+            Read data.txt line by line and populate tasks list accordingly
+             */
+            Scanner s = new Scanner(data);
+            while (s.hasNext()) {
+                String[] line = s.nextLine().split(" \\| ");
+                Boolean status = false;
+                if (line[1].equals("1")) {
+                    status = true;
+                }
+                switch(line[0]) {
+                case "T":
+                    ToDo newToDo = new ToDo(line[2], status);
+                    tasks.add(newToDo);
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(line[2], line[3], status);
+                    tasks.add(newDeadline);
+                    break;
+                case "E":
+                    Event newEvent = new Event(line[2], line[3], line[4], status);
+                    tasks.add(newEvent);
+                    break;
+                }
+            }
             System.out.println("  (+) Loaded " + tasks.size() + " entries");
         } else {
             System.out.println("  (!) Data file not found");
-            System.out.println(data.getAbsolutePath());
             System.out.println("  (+) Empty data file created: " + data.getAbsolutePath());
         }
         return tasks;
@@ -62,7 +86,7 @@ public class Data {
             output += current.getDescription() + " | ";
             output += ((Deadline) current).getTime();
         } else if (current instanceof Event) {
-            output += "D | " + convertStatus(current.getStatus()) + " | ";
+            output += "E | " + convertStatus(current.getStatus()) + " | ";
             output += current.getDescription() + " | ";
             output += ((Event) current).getStart() + " | ";
             output += ((Event) current).getEnd() + " | ";

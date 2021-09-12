@@ -5,8 +5,8 @@ import task.Task;
 public class Deadline extends Task {
     private String time;
 
-    public Deadline (String desc, String time) {
-        super(desc);
+    public Deadline (String desc, String time, Boolean status) {
+        super(desc, status);
         setTime(time);
     }
 
