@@ -10,11 +10,23 @@ import Tasks.Deadline;
 
 
 public class Duke {
-    private static boolean isLoading = true;
+
+    public static boolean isLoading = true;
+
+    private static void saveData (String input) {
+        try {
+            BufferedWriter output = new BufferedWriter(new FileWriter("data.txt", true));
+            output.append(input);
+            output.newLine();
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static void processInput (List<Task> tasks, boolean isLoading) throws IOException, DukeException {
 
-        // Hard Drive loading
+        // reading from Hard Drive
         if (isLoading) {
             File f = new File ("data.txt");
             if (f.createNewFile()) {
@@ -25,13 +37,15 @@ public class Duke {
                 BufferedReader br = new BufferedReader(new FileReader(f));
                 String line;
                 while ( (line = br.readLine()) != null ) {
-                    addTask(line, tasks);
+                    if (!isQuery(line,tasks)) {
+                        addTask(line,tasks);
+                    }
                 }
             }
             Duke.isLoading = false;
         }
 
-        // After loading (ready for User Input)
+        // ready for User Input
         else {
             System.out.println("What can I do for you today?");
 
@@ -63,7 +77,13 @@ public class Duke {
         if (input.contains("done")) {
             int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
             tasks.get(taskIndex - 1).markAsDone();
-            Task.numberOfTasks -= 1;
+
+            if (!isLoading) {
+                saveData(input);
+                System.out.println("This task is done:");
+                tasks.get(taskIndex-1).describe();
+            }
+
             return true;
         }
 
@@ -88,16 +108,9 @@ public class Duke {
             throw new DukeException("Description cannot be empty");
         }
 
-        // check to see if NOT loading from Hard Drive
+        // check to see if NOT loading from Hard Drive (once addTask command is checked to be OK)
         else if (!isLoading) {
-            try {
-                BufferedWriter output = new BufferedWriter(new FileWriter("data.txt", true));
-                output.append(input);
-                output.newLine();
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            saveData(input);
         }
 
         switch (taskType) {
