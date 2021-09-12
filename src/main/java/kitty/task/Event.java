@@ -13,6 +13,11 @@ public class Event extends Task{
         this.eventDate = eventDate;
     }
 
+    //Getter
+    public String getEventDate() {
+        return eventDate;
+    }
+
     // Methods
     public static void addEventTask(String line) throws KittyException {
         if(!Parser.hasEventDate(line)) {
@@ -27,7 +32,7 @@ public class Event extends Task{
 
                 // Add Event Task
                 Kitty.tasks.add(new Event(taskName, EventDate));
-                IO.writeNewLine("E|0|" + taskName + "|" + EventDate);
+//                IO.writeNewLine("E|0|" + taskName + "|" + EventDate);
             } catch (KittyException e) {
                 throw e;
             }

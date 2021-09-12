@@ -4,6 +4,7 @@ import kitty.Kitty;
 import kitty.KittyException;
 import kitty.task.Deadline;
 import kitty.task.Event;
+import kitty.task.Task;
 import kitty.task.Todo;
 
 import java.io.File;
@@ -60,7 +61,7 @@ public class IO {
         }
     }
 
-    public static void writeNewLine(String text) throws KittyException{
+    public static void appendNewLine(String text) throws KittyException{
         try {
             FileWriter fw = new FileWriter(DATA_PATH, true);
             fw.write(text);
@@ -68,6 +69,44 @@ public class IO {
             fw.close();
         } catch (IOException e) {
             throw new KittyException("Invalid Input to Raw Data!");
+        }
+    }
+
+    public static void clearFile() throws KittyException{
+        try {
+            FileWriter fw = new FileWriter(DATA_PATH);
+            fw.close();
+        } catch (IOException e) {
+            throw new KittyException("File not found!");
+        }
+    }
+
+    public static void updateData() throws KittyException{
+        try {
+            clearFile();
+            for (Task task: Kitty.tasks) {
+                if (task instanceof Todo) {
+                    if (task.isDone()) {
+                        appendNewLine("T|1|" + task.getTaskName());
+                    } else {
+                        appendNewLine("T|0|" + task.getTaskName());
+                    }
+                } else if (task instanceof Deadline) {
+                    if (task.isDone()) {
+                        appendNewLine("D|1|" + task.getTaskName() + "|" + ((Deadline) task).getDeadline());
+                    } else {
+                        appendNewLine("D|0|" + task.getTaskName() + "|" + ((Deadline) task).getDeadline());
+                    }
+                } else if (task instanceof Event) {
+                    if (task.isDone()) {
+                        appendNewLine("E|1|" + task.getTaskName() + "|" + ((Event) task).getEventDate());
+                    } else {
+                        appendNewLine("E|0|" + task.getTaskName() + "|" + ((Event) task).getEventDate());
+                    }
+                }
+            }
+        } catch (KittyException e) {
+            throw e;
         }
 
     }

@@ -13,6 +13,7 @@ public class Kitty {
         // Initialise Data
         try {
             IO.initData();
+            IO.clearFile();
         } catch (KittyException e) {
             Ui.printErrorMessage();
             Ui.exit();

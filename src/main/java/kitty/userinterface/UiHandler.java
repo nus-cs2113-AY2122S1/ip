@@ -2,6 +2,7 @@ package kitty.userinterface;
 
 import kitty.Kitty;
 import kitty.KittyException;
+import kitty.io.IO;
 import kitty.task.Task;
 import kitty.task.Todo;
 import kitty.task.Deadline;
@@ -14,6 +15,7 @@ public class UiHandler {
     public static void startApp() {
         while (true) {
             try {
+                IO.updateData();
                 Ui.getUserInput();
                 switch (Ui.command) {
                 case "bye":

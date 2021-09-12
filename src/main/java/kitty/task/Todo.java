@@ -18,7 +18,7 @@ public class Todo extends Task{
         try {
             String taskName = Parser.getTodoTaskName(line);
             Kitty.tasks.add(new Todo(taskName));
-            IO.writeNewLine("T|0|" + taskName);
+//            IO.appendNewLine("T|0|" + taskName);
         } catch (KittyException e) {
             throw e;
         }

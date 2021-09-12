@@ -8,11 +8,18 @@ import kitty.io.IO;
 public class Deadline extends Task{
     protected String deadline;
 
+    // Constructor
     public Deadline(String taskName, String deadline) {
         super(taskName);
         this.deadline = deadline;
     }
 
+    //Getter
+    public String getDeadline() {
+        return deadline;
+    }
+
+    // Methods
     public static void addDeadlineTask(String line) throws KittyException {
         if (!Parser.hasDeadline(line)) {
             throw new KittyException("Deadline formatting is incorrect!");
@@ -26,7 +33,7 @@ public class Deadline extends Task{
 
                 // Add Deadline Task
                 Kitty.tasks.add(new Deadline(taskName, deadline));
-                IO.writeNewLine("D|0|" + taskName + "|" + deadline);
+//                IO.writeNewLine("D|0|" + taskName + "|" + deadline);
             } catch (KittyException e) {
                 throw e;
             }
