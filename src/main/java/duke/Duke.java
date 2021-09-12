@@ -29,11 +29,7 @@ public class Duke {
                 }
                 request = in.nextLine();
             } catch (DukeException ex) {
-                if (ex instanceof IncompleteInformationException) {
-                    System.out.println(ex.getMessage());
-                } else if (ex instanceof InvalidRequestException) {
-                    System.out.println("☹ OOPS!!! I can't do that.");
-                }
+                System.out.println(ex.getMessage());
                 request = in.nextLine();
             } catch (Exception ex) {
                 if (ex instanceof IndexOutOfBoundsException) {
