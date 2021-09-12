@@ -103,18 +103,27 @@ public class TaskManager {
         return taskDetails;
     }
 
-    private void addTodo(String strippedUserInput) {
-        tasks[tasksIndex] = new Todo(strippedUserInput);
+    private void addTodo(String description) {
+        tasks[tasksIndex] = new Todo(description);
+        FileManager.addTaskToFile(description);
         addTaskSuccess();
     }
 
     private void addDeadline(String[] taskDetails) {
-        tasks[tasksIndex] = new Deadline(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]);
+        String description = taskDetails[TASK_DESCRIPTION_INDEX];
+        String date = taskDetails[TASK_DATE_INDEX];
+
+        tasks[tasksIndex] = new Deadline(description, date);
+        FileManager.addTaskToFile(TaskEnum.DEADLINE, description, date);
         addTaskSuccess();
     }
 
     private void addEvent(String[] taskDetails) {
-        tasks[tasksIndex] = new Event(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]);
+        String description = taskDetails[TASK_DESCRIPTION_INDEX];
+        String date = taskDetails[TASK_DATE_INDEX];
+
+        tasks[tasksIndex] = new Event(description, date);
+        FileManager.addTaskToFile(TaskEnum.EVENT, description, date);
         addTaskSuccess();
     }
 
