@@ -20,4 +20,6 @@ public abstract class Task {
     public String toString() {
         return "[" + doneStatus + "] " + description;
     }
+
+    public abstract String toData();
 }

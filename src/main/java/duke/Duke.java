@@ -194,6 +194,12 @@ public class Duke {
             }
             break;
         }
+
+        try {
+            TASK_MANAGER.convertTasksToData();
+        } catch (DukeException exception) {
+            showErrorMessage(exception.getMessage());
+        }
     }
 
     public void execute() {
@@ -201,6 +207,13 @@ public class Duke {
         String userInputString;
 
         greet();
+
+        try {
+            TASK_MANAGER.convertDataToTasks();
+        } catch (DukeException exception) {
+            showErrorMessage(exception.getMessage());
+        }
+
         while (true) {
             userInputString = SCANNER.nextLine().trim();
 

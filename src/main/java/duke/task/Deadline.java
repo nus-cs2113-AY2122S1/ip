@@ -3,6 +3,7 @@ package duke.task;
 public class Deadline extends Task {
 
     private static final String SYMBOL = "D";
+    private static final String SEPARATOR = " | ";
     private String taskDue;
 
     public Deadline(String description, String taskDue) {
@@ -13,5 +14,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString() + " (by: " + taskDue + ")";
+    }
+
+    @Override
+    public String toData() {
+        return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + SEPARATOR + taskDue;
     }
 }

@@ -2,10 +2,16 @@ package duke.exceptions;
 
 import duke.task.TaskManager;
 import duke.util.InputParser;
+import duke.util.FileManager;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ExceptionChecker {
 
     private static final InputParser PARSER = new InputParser();
+    private static final FileManager FILE_MANAGER = new FileManager();
 
     private static final String ECHO_ERROR =
             "OH NO! I can't echo if you don't say anything...";
@@ -29,6 +35,8 @@ public class ExceptionChecker {
     private static final String NUMBER_NOT_FOUND_ERROR =
             "OH NO! The task number is invalid, I can't find any tasks matching that number...\n"
                     + "Enter \"list\" to check the task number!";
+    public static final String FILE_NOT_FOUND_ERROR =
+            "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
 
     private boolean hasNullParameter(String[] inputArray) {
         return (inputArray.length < 2);
@@ -108,5 +116,28 @@ public class ExceptionChecker {
 
     public void throwInput() throws DukeException {
         throw new DukeException(INVALID_COMMAND_ERROR);
+    }
+
+    public ArrayList<String> tryToReadFile() throws DukeException {
+        ArrayList<String> fileLines;
+        try {
+            fileLines = FILE_MANAGER.readFile();
+        } catch (FileNotFoundException exception) {
+            try {
+                FILE_MANAGER.createFile();
+            } catch (IOException ioException) {
+                throw new DukeException("IO Exception encountered: " + exception.getMessage());
+            }
+            throw new DukeException(FILE_NOT_FOUND_ERROR);
+        }
+        return fileLines;
+    }
+
+    public void tryToWriteFile(ArrayList<String> fileLines) throws DukeException {
+        try {
+            FILE_MANAGER.writeFile(fileLines);
+        } catch (IOException exception) {
+            throw new DukeException("IO Exception encountered: " + exception.getMessage());
+        }
     }
 }

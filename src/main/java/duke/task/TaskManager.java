@@ -1,9 +1,12 @@
 package duke.task;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.ExceptionChecker;
 import java.util.ArrayList;
 
 public class TaskManager {
 
+    private static final ExceptionChecker CHECKER = new ExceptionChecker();
     private static int currentTasksCount = 0;
 
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -56,5 +59,42 @@ public class TaskManager {
         Task doneTask = tasks.get(taskIndex - 1);
         doneTask.setDone();
         return doneTask;
+    }
+
+    public void convertTasksToData() throws DukeException {
+
+        ArrayList<String> fileLines = new ArrayList<>();
+
+        for (int i = 0; i < currentTasksCount; i++) {
+            fileLines.add(tasks.get(i).toData() + "\n");
+        }
+
+        CHECKER.tryToWriteFile(fileLines);
+    }
+
+    public void convertDataToTasks() throws DukeException {
+
+        ArrayList<String> fileLines = CHECKER.tryToReadFile();
+        String data;
+        String[] dataArray;
+
+        for (String line : fileLines) {
+            data = line;
+            dataArray = data.split(" \\| ");
+            switch (dataArray[0]) {
+            case "T":
+                addTodo(dataArray[2]);
+                break;
+            case "D":
+                addDeadline(dataArray[2], dataArray[3]);
+                break;
+            case "E":
+                addEvent(dataArray[2], dataArray[3]);
+                break;
+            }
+            if (dataArray[1].equals("1")) {
+                markTaskDone(currentTasksCount);
+            }
+        }
     }
 }
