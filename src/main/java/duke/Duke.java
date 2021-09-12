@@ -50,6 +50,9 @@ public class Duke {
             case "todo":
                 taskManager(command, response);
                 break;
+            case "remove":
+                remove(command);
+                break;
             case "bye":
                 isRunning = false;
                 break;
@@ -59,6 +62,15 @@ public class Duke {
                 break;
             }
         }
+    }
+
+    private static void remove(String[] command) {
+        int i = Integer.parseInt(command[1]);
+        System.out.println("Understood, I have removed "
+                + taskList.get(i - 1).description);
+        taskList.remove(i - 1);
+        System.out.println("Tasks remaining = " + taskList.size());
+        lineBreak();
     }
 
     private static void doUndoManager(String[] command, String response) {
