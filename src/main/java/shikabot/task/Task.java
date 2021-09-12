@@ -1,9 +1,6 @@
 package shikabot.task;
 
-public class Task {
-
-    /** Number of tasks recorded. */
-    public static int count = 0;
+public abstract class Task {
 
     protected String name;
     protected boolean isDone;
@@ -28,5 +25,21 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatus() + "] " + name + " ";
+    }
+
+    public abstract String getType();
+
+    public abstract String getAtBy();
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public static class InvalidTaskException extends Exception {
+
     }
 }

@@ -13,4 +13,13 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    public String getType() {
+        return "D";
+    }
+
+    public String getAtBy() {
+        return by;
+    }
+
 }
