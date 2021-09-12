@@ -15,6 +15,7 @@ public class Duke {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_DELETE = "delete";
 
     public static boolean canRunDuke = true;
 
@@ -175,6 +176,9 @@ public class Duke {
             item = getItem(inputStr);
             manager.addEventTaskToList(item);
             break;
+        case COMMAND_DELETE:
+            manager.deleteTask(inputStr);
+            break;
         default:
             throw new DukeException("Oops, command not recognised!");
         }
@@ -203,7 +207,7 @@ public class Duke {
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
-        TaskManager manager = new TaskManager(MAX_NUMBER_OF_TASKS);
+        TaskManager manager = new TaskManager();
         while(canRunDuke) {
             String inputStr = sc.nextLine();
             String command = getCommand(inputStr);
