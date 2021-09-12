@@ -14,6 +14,7 @@ public class TaskManager {
     public static final String DEADLINE_DELIMITER = "/by";
     public static final String EVENT_DELIMITER = "/at";
     public static final String TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
+    public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:";
 
     private ArrayList<Task> taskList;
 
@@ -34,6 +35,7 @@ public class TaskManager {
     /**
      * Marks a task as done. Informs user that that task has been completed.
      *
+     * @param ui    the ui instance to handle output
      * @param index the index of task in the taskList
      */
     public void markTaskAsDone(Ui ui, int index) {
@@ -106,6 +108,24 @@ public class TaskManager {
         ui.printMessage(ADD_TASK_MESSAGE,
                 newTask.toString(),
                 "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    /**
+     * Deletes an existing task
+     *
+     * @param ui    the ui instance to handle output
+     * @param index the index of the task to delete
+     */
+    public void deleteTask(Ui ui, int index) {
+        if (ensureProperIndex(index)) {
+            Task removedTask = taskList.get(index);
+            taskList.remove(index);
+            ui.printMessage(REMOVE_TASK_MESSAGE,
+                    removedTask.toString(),
+                    "Now you have " + taskList.size() + " tasks in the list.");
+        } else {
+            ui.printMessage(ERROR_TASK_NUMBER);
+        }
     }
 
     /**
