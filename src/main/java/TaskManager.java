@@ -193,4 +193,23 @@ public class TaskManager {
         return tasksIndex;
     }
 
+
+    public void addTodoFromFile(String details, boolean isDone) {
+        tasks[tasksIndex] = new Todo(details);
+        tasks[tasksIndex].isDone = isDone;
+        tasksIndex++;
+    }
+
+    public void addDeadlineFromFile(String details, String date, boolean isDone) {
+        tasks[tasksIndex] = new Deadline(details, date);
+        tasks[tasksIndex].isDone = isDone;
+        tasksIndex++;
+    }
+
+    public void addEventFromFile(String details, String date, boolean isDone) {
+        tasks[tasksIndex] = new Event(details, date);
+        tasks[tasksIndex].isDone = isDone;
+        tasksIndex++;
+    }
+
 }

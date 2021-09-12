@@ -17,26 +17,25 @@ public class CommandManager {
 
     public static void executeCommand() {
 
-        TaskManager taskManager = new TaskManager();
-
         do {
             setUserInput();
             Duke.printDivider();
 
+            //TODO short form "l"
             if (userInput.equals(COMMAND_LIST)) {
-                taskManager.listTasks();
+                Duke.taskManager.listTasks();
 
             } else if (userInput.startsWith(COMMAND_TODO)) {
-                taskManager.addTaskPlusException(TaskEnum.TODO, userInput);
+                Duke.taskManager.addTaskPlusException(TaskEnum.TODO, userInput);
 
             } else if (userInput.startsWith(COMMAND_DEADLINE)) {
-                taskManager.addTaskPlusException(TaskEnum.DEADLINE, userInput);
+                Duke.taskManager.addTaskPlusException(TaskEnum.DEADLINE, userInput);
 
             } else if (userInput.startsWith(COMMAND_EVENT)) {
-                taskManager.addTaskPlusException(TaskEnum.EVENT, userInput);
+                Duke.taskManager.addTaskPlusException(TaskEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                taskManager.doneTaskPlusException(userInput);
+                Duke.taskManager.doneTaskPlusException(userInput);
 
             } else if (userInput.equals(COMMAND_BYE)) {
                 Duke.printlnTab("Bye. Hope to see you again soon!");

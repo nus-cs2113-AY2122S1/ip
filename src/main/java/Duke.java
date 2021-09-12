@@ -1,9 +1,21 @@
+import java.io.IOException;
+
 public class Duke {
+
+    //TODO initialize as such or just use as static class...
+    public static final TaskManager taskManager = new TaskManager();
 
     //TODO Abstract repeated functions
 
     public static void main(String[] args) {
         welcomeMessage();
+        try {
+            FileManager.initializeFile();
+
+        } catch (IOException e) {
+            printlnTab(e.getMessage());
+
+        }
         CommandManager.executeCommand();
     }
 
