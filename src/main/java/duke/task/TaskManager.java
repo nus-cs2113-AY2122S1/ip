@@ -33,9 +33,17 @@ public class TaskManager {
      * Get the task with the specified index from the task list.
      *
      * @param taskIndex Index of the task in the task list.
+     * @throws TaskListEmptyException Task list is empty.
+     * @throws InvalidTaskIndexException Task index provided is not within task list size.
      * @return Task.
      */
-    public Task getTask(int taskIndex) {
+    public Task getTask(int taskIndex) throws TaskListEmptyException, InvalidTaskIndexException {
+        if (getTotalTasks() == 0) {
+            throw new TaskListEmptyException();
+        } else if (!hasTaskIndex(taskIndex)) {
+            throw new InvalidTaskIndexException();
+        }
+
         return this.taskList.get(taskIndex);
     }
 
