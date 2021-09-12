@@ -110,6 +110,11 @@ public class TaskManager {
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Add a Task object to the taskList
+     *
+     * @param task the Task object to add
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }

@@ -76,6 +76,7 @@ public class Duke {
      * @throws InvalidCommandException   the command doesn't exist
      * @throws IllegalArgumentException  the creation of arguments created for a task was not valid
      * @throws NullPointerException      no arguments were provided for a command
+     * @throws IOException               when storing data to file has failed
      */
     private static void handleCommand(String command)
             throws ArgumentNotFoundException, NumberFormatException,

@@ -21,6 +21,7 @@ public class Todo extends Task {
     public String saveToText() {
         return "T | " + super.saveToText();
     }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
