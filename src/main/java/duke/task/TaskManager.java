@@ -6,8 +6,6 @@ public class TaskManager {
 
     private ArrayList<Task> tasksList = new ArrayList<>();
 
-    //private Task[] tasksList;
-
     private int totalNumberOfTasks = 0;
 
     public TaskManager() {
