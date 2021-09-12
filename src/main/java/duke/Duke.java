@@ -1,28 +1,30 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.storage.Storage;
 import duke.task.Deadlines;
+import duke.task.Events;
 import duke.task.Task;
 import duke.task.ToDos;
 import duke.text.Text;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     public static void main(String[] args) {
         String userCommand; //store user input
-        Task[] taskList = new Task[100]; //store all the task from user input
-        int listSize = 0;
-
+        ArrayList<Task> taskList = new ArrayList<>(); //store all the task from user input
         printIntroduction();
 
         Scanner in = new Scanner(System.in);
         userCommand = in.nextLine(); //user input
 
+        Storage.openFile(taskList);
         while (!userCommand.equalsIgnoreCase("bye")) { //exit command is bye
             if (userCommand.equalsIgnoreCase("list")) { //prints list of task
-                printList(taskList, listSize);
+                printList(taskList);
             }
             else if (userCommand.equalsIgnoreCase("help")) {
                 printHelpList();
@@ -36,9 +38,8 @@ public class Duke {
                     if (taskFromCommand.length <= 1) {
                         throw new DukeException();
                     }
-                    addTask(userCommand.toLowerCase(), taskList, listSize);
-                    printAddedTask(taskList[listSize], listSize);
-                    listSize++; //updates the size of list
+                    addTask(userCommand.toLowerCase(), taskList);
+                    printAddedTask(taskList);
                 }
                 catch (DukeException e) {
                     printEmptyTaskMessage(taskFromCommand[0]);
@@ -49,6 +50,7 @@ public class Duke {
             }
             userCommand = in.nextLine();
         }
+        Storage.saveFile(taskList);
         printBye();
     }
 
@@ -60,12 +62,14 @@ public class Duke {
         System.out.println(Text.LINE);
     }
 
-    private static void printList(Task[] taskList, int listSize) {
+    private static void printList(ArrayList<Task> taskList) {
         System.out.println(Text.LINE);
         System.out.println(Text.LIST_MESSAGE);
-        for (int i = 0; i < listSize; i++) {
-            System.out.print(taskList[i].getTaskNumber());
-            System.out.println("." + taskList[i]);
+        int taskNumber = 1;
+        for (Task t: taskList) {
+            System.out.print(taskNumber);
+            System.out.println("." + t);
+            taskNumber++;
         }
         System.out.println(Text.LINE);
     }
@@ -76,7 +80,7 @@ public class Duke {
         System.out.println(Text.LINE);
     }
 
-    private static void markCompletedTask(String userCommand, Task[] taskList) {
+    private static void markCompletedTask(String userCommand, ArrayList<Task> taskList) {
         String[] taskToMark = userCommand.split(" ");
         int taskNumberToMark;
         try {
@@ -86,8 +90,8 @@ public class Duke {
             else {
                 for (int i = 1; i <taskToMark.length; i++) {
                     taskNumberToMark = Integer.parseInt(taskToMark[i]);
-                    taskList[taskNumberToMark - 1].markDone();
-                    printCompletedTaskMessage(taskList[taskNumberToMark - 1]);
+                    taskList.get(taskNumberToMark - 1).markDone();
+                    printCompletedTaskMessage(taskList.get(taskNumberToMark - 1));
                 }
             }
         }
@@ -119,31 +123,30 @@ public class Duke {
         return userCommand.contains(Text.TODO) || userCommand.contains(Text.DEADLINE) || userCommand.contains(Text.EVENT);
     }
 
-    private static void addTask(String userCommand, Task[] taskList, int listSize) {
+    private static void addTask(String userCommand, ArrayList<Task> taskList) {
         String[] splitTaskString = userCommand.split(" ", 2);
         String[] taskNameAndDueDate;
         switch (splitTaskString[0]) {
         case Text.TODO:
-            taskList[listSize] = new ToDos(splitTaskString[1]);
+            taskList.add(new ToDos(splitTaskString[1]));
             break;
         case Text.DEADLINE:
-            taskNameAndDueDate = splitTaskString[1].split("/by ", 2);
-            taskList[listSize] = new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]);
+            taskNameAndDueDate = splitTaskString[1].split(" /by ", 2);
+            taskList.add(new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]));
             break;
         case Text.EVENT:
-            taskNameAndDueDate = splitTaskString[1].split("/at ", 2);
-            taskList[listSize] = new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]);
+            taskNameAndDueDate = splitTaskString[1].split(" /at ", 2);
+            taskList.add(new Events(taskNameAndDueDate[0], taskNameAndDueDate[1]));
             break;
         }
     }
 
-    private static void printAddedTask(Task task, int listSize) {
+    private static void printAddedTask(ArrayList<Task> taskList) {
         System.out.println(Text.LINE);
         System.out.println("Alright! Added to the list:");
-        System.out.println(" " + task);
-        task.setTaskNumber(listSize + 1); //update the task number
+        System.out.println(" " + taskList.get(taskList.size() - 1));
         System.out.print("You currently have ");
-        System.out.print(listSize + 1);
+        System.out.print(taskList.size());
         System.out.println(" task recorded in your list.");
         System.out.println(Text.LINE);
     }
