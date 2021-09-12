@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.Message;
+import duke.task.Task.Types;
 import duke.exception.ListEmptyException;
 import duke.exception.NoDescriptionException;
 import duke.exception.TooManyTasksException;
@@ -9,7 +10,7 @@ import duke.exception.WrongNumberOfArgumentsException;
 import java.util.Arrays;
 
 public class TaskManager {
-    public static final int MAX_TASKS = 100;
+    private static final int MAX_TASKS = 100;
 
     private static int taskCount = 0;
     private static Task[] tasks = new Task[MAX_TASKS];
@@ -22,7 +23,6 @@ public class TaskManager {
             }
             Task currentTask = tasks[id];
             currentTask.markAsDone();
-            Message.printWithSpacers("Nice! I've marked this task as done:\n" + currentTask);
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             Message.printWithSpacers(aiobe.getMessage());
         }
@@ -30,16 +30,17 @@ public class TaskManager {
 
     public static void newTask(String userInput) {
         try {
-            if (userInput.split("\\s+").length == 1) {
+            String[] userInputSplit = Message.splitWhitespace(userInput);
+            if (userInputSplit.length == 1) {
                 throw new NoDescriptionException(userInput);
             }
-            if(taskCount >= MAX_TASKS){
+            if (taskCount >= MAX_TASKS) {
                 throw new TooManyTasksException();
             }
-            String command = userInput.split("\\s+")[0];
+            String command = userInputSplit[0];
             //Remove command from userInput.
-            userInput = userInput.replaceAll(String.format("^%s\\s+", command), "");
-            switch (Task.Types.valueOf(command.toUpperCase())) {
+            userInput = userInput.replaceAll('^' + command + Message.WHITESPACE_REGEX, "");
+            switch (Types.valueOf(command.toUpperCase())) {
             case DEADLINE:
                 tasks[taskCount] = new Deadline(userInput);
                 break;
@@ -55,7 +56,7 @@ public class TaskManager {
             Message.printWithSpacers(nde.getMessage());
         } catch (WrongNumberOfArgumentsException wnoae) {
             Message.printWithSpacers(wnoae.getMessage());
-        } catch (TooManyTasksException tmte){
+        } catch (TooManyTasksException tmte) {
             Message.printWithSpacers(tmte.getMessage());
         }
     }

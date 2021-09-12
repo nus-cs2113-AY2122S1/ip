@@ -9,6 +9,11 @@ public class Message {
     private static final String INTRO = "Hello! I'm Duke\nWhat can I do for you?";
     private static final String END = "Bye. Hope to see you again soon!";
     private static final String SPACER = "____________________________________________________________\n";
+    public static final String WHITESPACE_REGEX = "\\s+";
+
+    public static String[] splitWhitespace(String message) {
+        return message.split(WHITESPACE_REGEX);
+    }
 
     public static void printWithSpacers(String message) {
         //If message does not end in newline, insert newline

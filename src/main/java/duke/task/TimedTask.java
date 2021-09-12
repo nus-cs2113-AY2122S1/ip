@@ -1,17 +1,20 @@
 package duke.task;
 
+import duke.Message;
 import duke.exception.WrongNumberOfArgumentsException;
 
-public abstract class TimedTask extends Task {
+import java.util.Arrays;
+
+abstract class TimedTask extends Task {
     private String dateTime;
     private final String preposition;
 
-    public TimedTask(String userInput, String preposition, Types type) throws WrongNumberOfArgumentsException {
+    TimedTask(String userInput, String preposition, Types type) throws WrongNumberOfArgumentsException {
         //TODO: Is using constructor class to parse inputs good OOP?
         super(type);
-        String[] inputs = userInput.split(String.format(" /%s ", preposition));
-        if(inputs.length != 2){
-            throw new WrongNumberOfArgumentsException(type, preposition);
+        String[] inputs = userInput.split(Message.WHITESPACE_REGEX + '/' + preposition + Message.WHITESPACE_REGEX);
+        if (inputs.length != 2) {
+            throw new WrongNumberOfArgumentsException(type.toString(), preposition);
         }
         this.setDescription(inputs[0]);
         this.dateTime = inputs[1];

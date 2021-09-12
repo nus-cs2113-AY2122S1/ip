@@ -1,9 +1,9 @@
 package duke.task;
 
-public class Todo extends Task {
+class Todo extends Task {
     private static final Types type = Types.TODO;
 
-    public Todo(String description) {
+    Todo(String description) {
         super(description, type);
     }
 }

@@ -1,6 +1,8 @@
 package duke.task;
 
-public abstract class Task {
+import duke.Message;
+
+public class Task {
     private boolean isDone;
     private String description;
     private final Types type;
@@ -8,32 +10,37 @@ public abstract class Task {
     public enum Types {
         DEADLINE, EVENT, TODO;
 
-        public static String getTypesRegex(){
-            String regex =  "(?i:";
-            for (Types type : Types.values()){
-                regex +=type.toString() + ".*|";
+        public static String getTypesRegex() {
+            String regex = "(?i:";
+            for (Types type : Types.values()) {
+                regex += type.toString() + ".*|";
             }
-            return regex.substring(0, regex.length()-1) + ')';
+            return regex.substring(0, regex.length() - 1) + ')';
         }
 
-        public char getChar() {
-            return this.toString().charAt(0);
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+
+        private char getChar() {
+            return super.toString().charAt(0);
         }
     }
 
-    protected Task(Types type) {
+    Task(Types type) {
         this.description = null;
         this.isDone = false;
         this.type = type;
     }
 
-    protected Task(String description, Types type) {
+    Task(String description, Types type) {
         this.description = description;
         this.isDone = false;
         this.type = type;
     }
 
-    protected void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
@@ -41,8 +48,9 @@ public abstract class Task {
         return isDone ? 'X' : ' ';
     }
 
-    public void markAsDone() {
+    void markAsDone() {
         isDone = true;
+        Message.printWithSpacers("Nice! I've marked this task as done:\n" + this);
     }
 
     @Override
