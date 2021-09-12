@@ -60,8 +60,13 @@ public class Duke {
                 break;
             case "done":
                 //Marks task as "done"
-                int taskNumber = Integer.parseInt(processedUserInput[1]) - 1;
-                Functions.markAsDone(taskList, taskNumber);
+                int doneTaskNumber = Integer.parseInt(processedUserInput[1]) - 1;
+                Functions.markAsDone(taskList, doneTaskNumber);
+                break;
+            case "delete":
+                //Deletes task from task list
+                int deleteTaskNumber = Integer.parseInt(processedUserInput[1]) - 1;
+                Functions.deleteTask(taskList, deleteTaskNumber);
                 break;
             case "todo":
             case "deadline":

@@ -41,6 +41,7 @@ public class Functions {
             }
             break;
         case "done":
+        case "delete":
             //Checks that a task number is entered
             if (userInputLength != 2) {
                 DukeException.printFormatError();
@@ -141,14 +142,28 @@ public class Functions {
         System.out.println(SEPARATOR);
     }
 
-    public static void markAsDone(ArrayList<Task> taskList, int taskNumber) {
-        if (taskNumber > taskList.size() - 1) {
-            DukeException.printDoneError();
+    public static void markAsDone(ArrayList<Task> taskList, int doneTaskNumber) {
+        if (doneTaskNumber > taskList.size() - 1) {
+            DukeException.printIndexError();
         } else {
-            taskList.get(taskNumber).setDone();
+            taskList.get(doneTaskNumber).setDone();
             System.out.println(SEPARATOR
                     + " Nice! I've marked this task as done:\n"
-                    + "  " + taskList.get(taskNumber) + "\n"
+                    + "  " + taskList.get(doneTaskNumber) + "\n"
+                    + SEPARATOR);
+        }
+    }
+
+    public static void deleteTask(ArrayList<Task> taskList, int deleteTaskNumber) {
+        if (deleteTaskNumber > taskList.size() - 1) {
+            DukeException.printIndexError();
+        } else {
+            Task deletedTask = taskList.get(deleteTaskNumber);
+            taskList.remove(deleteTaskNumber);
+            System.out.println(SEPARATOR
+                    + " Noted. I've removed this task:\n"
+                    + "  " + deletedTask + "\n"
+                    + " Now you have " + taskList.size() +" tasks in the list.\n"
                     + SEPARATOR);
         }
     }
