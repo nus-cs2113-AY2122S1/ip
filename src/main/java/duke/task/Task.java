@@ -19,7 +19,7 @@ public class Task {
     }
 
     public String getDoneStatus() {
-        if(isDone){
+        if (isDone) {
             return "1";
         }
         return "0";
@@ -56,7 +56,7 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return " " + " | " + getDoneStatus() + " | " + description;
     }
 

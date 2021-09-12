@@ -19,7 +19,7 @@ public class Duke {
     final static String ADD_DEADLINE_COMMAND = "deadline";
 
     final static String NO_FORMAT_TAG = " <no additional input required>";
-    final static String TASK_NUMBER_TAG  = " <task number(can be seen using the list command, eg. 1)>";
+    final static String TASK_NUMBER_TAG = " <task number(can be seen using the list command, eg. 1)>";
 
     final static String EXIT_FORMAT = EXIT_COMMAND + NO_FORMAT_TAG;
     final static String LIST_FORMAT = LIST_COMMAND + NO_FORMAT_TAG;
@@ -88,7 +88,7 @@ public class Duke {
      *
      * @param fileHandler FileHandler to contain and extract tasks list information.
      * @param taskManager TaskManager object that handles all task related action.
-     * @param userInputs Raw user inputs from scanner.
+     * @param userInputs  Raw user inputs from scanner.
      * @return Whether if the exit command has been triggered.
      */
     public static boolean processInput(FileHandler fileHandler, TaskManager taskManager, String userInputs) {

@@ -14,7 +14,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription();
     }
 
