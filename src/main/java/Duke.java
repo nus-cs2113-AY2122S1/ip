@@ -82,6 +82,21 @@ public class Duke {
                     System.out.println("  (!) Task ID does not exist >:(");
                 }
                 break;
+            case DELETE:
+                try {
+                    String[] values = line.split(" ");
+                    int value = Integer.parseInt(values[1]);
+                    Task currentTask = tasks.get(value - 1);
+                    tasks.remove(currentTask);
+                    System.out.println("  (-) Removed: "+ currentTask.toString());
+                    System.out.println("  (!) You have " + tasks.size() + " tasks in the list");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("  (!) Task ID cannot be empty!");
+                    System.out.println("  (!) Format: /delete <id>");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("  (!) Task ID does not exist >:(");
+                }
+                break;
             default:
                 System.out.println("  (!) Unrecognised Command! ");
             }
@@ -102,6 +117,8 @@ public class Duke {
             cmd = Command.EVENT;
         } else if (input.startsWith("/done")) {
             cmd = Command.DONE;
+        } else if (input.startsWith("/delete")) {
+            cmd = Command.DELETE;
         }
         return cmd;
     }
