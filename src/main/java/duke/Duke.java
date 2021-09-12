@@ -12,17 +12,21 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class Duke {
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks;
+    private static ArrayList<Task> readTasks;
     private static int taskCount;
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final String HELLO_MESSAGE = "Hello! I'm MARK\n" + "What can I do for you?";
     public static final String BYE_MESSAGE = "You've terminated MARK. Have a good day!";
     public static final String TASK_DONE = "Task has been marked as done:\n";
+    public static final String TASK_DELETED = "Task has been removed:\n";
     public static final String INVALID_INPUT = "Your input is invalid.";
 
     public static final String TODO = "todo";
@@ -33,13 +37,14 @@ public class Duke {
     public static final String EVENT_EXCEPTION = "Event task requires a /at property.";
     public static final String LIST = "list";
     public static final String DONE = "done";
+    public static final String DELETE = "delete";
     public static final String BYE = "bye";
 
     private static final Path FILE_PATH = Paths.get("/repos/iP/duke.txt");
 
     public static void readFile() throws DukeException {
         //past tense of "read" used
-        Task[] readTasks = new Task[100];
+        readTasks = new ArrayList<Task>(100);
         int readTaskCount = 0;
 
         try {
@@ -73,11 +78,11 @@ public class Duke {
                         t.setDone();
                     }
 
-                    readTasks[readTaskCount] = t;
+                    readTasks.add(t);
                     readTaskCount++;
                 }
 
-                tasks = readTasks.clone();
+                tasks = (ArrayList<Task>) readTasks.clone();
                 taskCount = readTaskCount;
             }
         } catch (IOException e) {
@@ -92,7 +97,7 @@ public class Duke {
 
             String newText = "";
             for (int i = 0; i < taskCount; i++) {
-                Task t = tasks[i];
+                Task t = tasks.get(i);
                 newText = newText.concat("\n");
             }
 
@@ -129,53 +134,75 @@ public class Duke {
         printWithLines(BYE_MESSAGE);
      }
 
-    public static void parseString(String taskData) {
-        if (taskData.startsWith(DEADLINE)) {
-            tasks[taskCount] = new Deadline(taskData.substring(0, taskData.indexOf("/by"))
-                    .replaceFirst(DEADLINE, "").trim(),
-                    taskData.substring(taskData.indexOf("/by") + "/by".length()).trim());
+    public static void parseString(String userInput) {
+        if (userInput.startsWith(DEADLINE)) {
+            String description = userInput.substring(0, userInput.indexOf("/by"))
+                    .replaceFirst(DEADLINE, "").trim();
+            String by = userInput.substring(userInput.indexOf("/by") + "/by".length()).trim();
+            tasks.add(new Deadline(description, by));
         }
 
-        else if (taskData.startsWith(EVENT)) {
-            tasks[taskCount] = new Event(taskData.substring(0, taskData.indexOf("/at"))
-                    .replaceFirst(EVENT, "").trim(),
-                    taskData.substring(taskData.indexOf("/at") + "/at".length()).trim());
+        else if (userInput.startsWith(EVENT)) {
+            String description = userInput.substring(0, userInput.indexOf("/at"))
+                    .replaceFirst(EVENT, "").trim();
+            String at = userInput.substring(userInput.indexOf("/at") + "/at".length()).trim();
+            tasks.add(new Event(description, at));
         }
 
-        else if (taskData.startsWith(TODO)) {
-            tasks[taskCount] = new ToDo(taskData.replaceFirst(TODO, "").trim());
-
+        else if (userInput.startsWith(TODO)) {
+            String description = userInput.replaceFirst(TODO, "").trim();
+            tasks.add(new ToDo(description));
         }
     }
 
-    public static void addTask(String task) throws DukeException {
+    public static void addTask(String userInput) throws DukeException {
 
-        if (task.startsWith(TODO)) {
-            if (task.substring(4).isEmpty()) {
+        if (userInput.startsWith(TODO)) {
+            if (userInput.substring(4).isEmpty()) {
                 throw new DukeException(TODO_EXCEPTION);
             }
-            parseString(task);
+            parseString(userInput);
 
-        } else if (task.startsWith(DEADLINE)) {
-              if (!task.contains("/by")) {
+        } else if (userInput.startsWith(DEADLINE)) {
+              if (!userInput.contains("/by")) {
                   throw new DukeException(DEADLINE_EXCEPTION);
               }
-              parseString(task);
+              parseString(userInput);
 
-        } else if (task.startsWith(EVENT)) {
-              if (!task.contains("/at")) {
+        } else if (userInput.startsWith(EVENT)) {
+              if (!userInput.contains("/at")) {
                   throw new DukeException(EVENT_EXCEPTION);
               }
-              parseString(task);
+              parseString(userInput);
         }
 
         if (taskCount == 0) {
-            printWithLines("I've added this task:\n" + tasks[taskCount].toString() + "\n" + "You have " + 1 + " task in the list.");
+            printWithLines("I've added this task:\n" + tasks.get(taskCount).toString() + "\n" + "You have " + 1 + " task in the list.");
         } else {
-            printWithLines("I've added this task:\n" + tasks[taskCount].toString() + "\n" + "You have " + (taskCount + 1) + " tasks in the list.");
+            printWithLines("I've added this task:\n" + tasks.get(taskCount).toString() + "\n" + "You have " + (taskCount + 1) + " tasks in the list.");
         }
         /* increments after adding a task */
         taskCount++;
+    }
+
+    public static void deleteTask(String userInput) throws DukeException {
+        int taskNumber = Integer.parseInt(userInput.replaceFirst("delete", "").trim()) - 1;
+        if (taskNumber > taskCount - 1) {
+            throw new DukeException("Task number " + (taskNumber + 1) + " is invalid!\nEnter a valid task number.");
+        }
+
+        Task chosenTask = tasks.get(taskNumber);
+
+        if (taskCount == 1) {
+            printWithLines(TASK_DELETED + chosenTask.toString() + "\n" + "You now have no more tasks in the list.");
+        } else if (taskCount == 2) {
+              printWithLines(TASK_DELETED + chosenTask.toString() + "\n" + "You now have 1 task in the list.");
+        } else {
+            printWithLines(TASK_DELETED + chosenTask.toString() + "\n" + "You now have " + (taskCount - 1) + " tasks in the list.");
+        }
+
+        tasks.remove(taskNumber);
+        taskCount--;
     }
 
     /**
@@ -190,7 +217,7 @@ public class Duke {
         }
 
         for (int i = 0; i < taskCount; i++) {
-            taskList = taskList.concat((i + 1) + ". " + tasks[i].toString() + "\n");
+            taskList = taskList.concat((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
 
         // erase last newline character
@@ -211,11 +238,10 @@ public class Duke {
             throw new DukeException("Task number " + (taskNumber + 1) + " is invalid!\nEnter a valid task number.");
         }
 
-        Task chosenTask = tasks[taskNumber];
+        Task chosenTask = tasks.get(taskNumber);
         chosenTask.setDone();
         printWithLines(TASK_DONE + chosenTask.getStatusIcon() + " " + chosenTask.description);
     }
-
 
     public static void selectCommand(String input) throws DukeException {
         String inputCommand = input.trim().split(" ")[0];
@@ -233,6 +259,9 @@ public class Duke {
             setTaskDone(inputData);
             saveFile();
             break;
+        case DELETE:
+            deleteTask(inputData);
+            break;
         case BYE:
             printByeMessage();
             System.exit(0);
@@ -244,6 +273,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        tasks = new ArrayList<>(100);
+        taskCount = 0;
+
         try {
             readFile();
         } catch (DukeException e) {
