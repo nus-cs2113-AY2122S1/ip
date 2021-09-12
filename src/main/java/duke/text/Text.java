@@ -30,6 +30,8 @@ public class Text { //contains all constants used
             + "-> Adds an event task to the task list.\n\n"
             + "done <type task number> <SPACE> <type task number> [eg. done 1 3]\n"
             + "Marks task on the list as completed, can input multiple number with space in between.\n\n"
+            + "delete <type task number> [eg. delete 2]\n"
+            + "Deletes the task found on the task list.\n\n"
             + "list [eg. list]\n"
             + "-> Lists out all tasks on the list.\n\n"
             + "bye [eg. bye]\n"
