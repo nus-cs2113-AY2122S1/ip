@@ -55,19 +55,19 @@ public class TaskManager {
             printLine();
             // Fallthrough
         }
-        if (Task.COUNT > 0) {
-            printAddedTask(tasks.get(Task.COUNT - 1));
+        if (tasks.size() > 0) {
+            printAddedTask(tasks.get(tasks.size() - 1), tasks);
         }
     }
 
     /**
      * The function prints the recently added task
      */
-    private static void printAddedTask(Task task) {
+    private static void printAddedTask(Task task, ArrayList<Task> tasks) {
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(task.getDescription());
-        System.out.println("Now you have " + Task.COUNT + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printLine();
     }
 
@@ -81,8 +81,7 @@ public class TaskManager {
         try {
             message = message.substring(6);
             String[] eventData = message.split("/", 2);
-            tasks.set(Task.COUNT, new Event(eventData[0], eventData[1].substring(3)));
-            Task.COUNT++;
+            tasks.add(new Event(eventData[0], eventData[1].substring(3)));
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -101,8 +100,7 @@ public class TaskManager {
         try {
             message = message.substring(9);
             String[] deadlineData = message.split("/", 2);
-            tasks.set(Task.COUNT, new Deadline(deadlineData[0], deadlineData[1].substring(3)));
-            Task.COUNT++;
+            tasks.add(new Deadline(deadlineData[0], deadlineData[1].substring(3)));
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("YOU IDIOT !!??!! The description of a deadline cannot be empty.");
@@ -123,8 +121,7 @@ public class TaskManager {
      */
     private static void addTodo(ArrayList<Task> tasks, String message) {
         try {
-            tasks.set(Task.COUNT, new Todo(message.substring(5)));
-            Task.COUNT++;
+            tasks.add(new Todo(message.substring(5)));
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
@@ -139,10 +136,10 @@ public class TaskManager {
      */
     private static void printTasks(ArrayList<Task> tasks) {
         printLine();
-        for (int i = 0; i < Task.COUNT; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
         }
-        if (Task.COUNT == 0) {
+        if (tasks.size() == 0) {
             System.out.println("Smartass, you need to add tasks before listing them !!!");
         }
         printLine();
@@ -186,11 +183,30 @@ public class TaskManager {
                 printTasks(tasks);
             } else if (message.contains("done")) {
                 markDone(tasks, message);
+            } else if (message.contains("delete")) {
+                deleteTask(tasks, message);
             } else {
                 addTask(tasks, message);
             }
             message = scanner.nextLine();
         }
         scanner.close();
+    }
+
+    private static void deleteTask(ArrayList<Task> tasks, String message) {
+        try {
+            String[] arrOfStr = message.strip().split(" ");
+            int index = Integer.parseInt(arrOfStr[1]);
+            tasks.remove(index - 1);
+        } catch (NullPointerException e) {
+            printLine();
+            System.out.println("OH MY GOD, can you maybe type things properly ?");
+            System.out.println("Its delete {index}");
+            printLine();
+        } catch (IndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("Dude there's no task at that index");
+            printLine();
+        }
     }
 }

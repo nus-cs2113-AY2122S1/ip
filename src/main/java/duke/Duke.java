@@ -2,6 +2,13 @@ package duke;
 
 import duke.manager.TaskManager;
 
+/**
+ * TODO : Better Documentation
+ *        Add Delete
+ *        Add Save
+ *        Add more constants
+ */
+
 public class Duke {
     public static void main(String[] args) {
         welcomeMessage();
