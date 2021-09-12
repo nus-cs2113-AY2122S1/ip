@@ -49,6 +49,9 @@ public class Duke {
                 case "done":
                     finishTask(input);
                     break;
+                case "delete":
+                    deleteTask(input);
+                    break;
                 default:
                     promptInvalidInput();
                     break;
@@ -64,6 +67,18 @@ public class Duke {
 
     private static void promptInvalidInput() throws DukeException {
         throw new DukeException(ERROR_MESSAGE);
+    }
+
+    private static void deleteTask(String input) throws DukeException {
+        int index = Integer.parseInt(input.split(" ", 2)[1].trim());
+        if (index > tasks.size()) {
+            throw new DukeException("You don't have so many tasks yet!");
+        }
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(tasks.get(index - 1).getTaskInfo());
+        tasks.remove(index - 1);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+
     }
 
     private static void finishTask(String input) throws DukeException {
