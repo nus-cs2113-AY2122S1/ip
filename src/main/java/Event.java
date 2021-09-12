@@ -1,5 +1,3 @@
-package handleTask;
-
 public class Event extends Task {
     private String eventDate;
 

@@ -1,7 +1,3 @@
-package handleTask;
-
-import handleInput.Greet;
-
 public class Task {
     protected String description;
     protected boolean isDone;

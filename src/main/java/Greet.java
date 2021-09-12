@@ -1,13 +1,12 @@
-package handleInput;
+import java.util.ArrayList;
 
-import handleTask.Task;
 public class Greet {
-    private static final int MAX_ARRAY_LIMIT = 100;
-    protected static Task[] list = new Task[MAX_ARRAY_LIMIT];
+    private static final int indexFix = 1;
+    protected static ArrayList<Task> list = new ArrayList<>();
     private static int tasksAdded = 0;
 
     public static void printLineOnConsole() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(GreetMessage.DASH_LINE);
     }
 
     /**
@@ -17,7 +16,7 @@ public class Greet {
      */
     //might move to main/duke class
     public static void addTask(Task newTask) {
-        list[tasksAdded] = newTask;
+        list.add(newTask);
         tasksAdded++;
         printAddNewTask(newTask);
     }
@@ -28,8 +27,8 @@ public class Greet {
      * @param taskNumber Task number that is tagged to the task on console.
      */
     public static void checkDoneTask(int taskNumber) {
-        int taskIndex = taskNumber - 1;
-        list[taskIndex].markAsDone();
+        int taskIndex = taskNumber - indexFix;
+        list.get(taskIndex).markAsDone();
     }
 
     /**
@@ -37,8 +36,7 @@ public class Greet {
      */
     public static void printWelcomeMessage() {
         printLineOnConsole();
-        System.out.println("     Hello! I'm Duke");
-        System.out.println("     What can I do for you?");
+        System.out.println(GreetMessage.WELCOME_MESSAGE);
         printLineOnConsole();
     }
 
@@ -48,7 +46,7 @@ public class Greet {
      */
     public static void printGoodbyeMessage() {
         printLineOnConsole();
-        System.out.println("     Bye. Hope to see you again soon!");
+        System.out.println(GreetMessage.BYE_MESSAGE);
         printLineOnConsole();
     }
 
@@ -59,14 +57,14 @@ public class Greet {
 
         printLineOnConsole();
         if (tasksAdded != 0) {
-            System.out.println("     Here are the tasks in your list:");
+            System.out.println(GreetMessage.LIST_HEADER);
             for (int i = 0; i < tasksAdded; i++) {
-                int numbering = i + 1;
+                int numbering = i + indexFix;
                 // need to replace this with to string
-                System.out.println("     " + numbering + ". " + list[i]);
+                System.out.println("     " + numbering + ". " + list.get(i));
             }
         } else {
-            System.out.println("     You have no tasks in the list at the moment. Please add a new task to begin.");
+            System.out.println(GreetMessage.LIST_NO_TASK);
         }
         printLineOnConsole();
     }
@@ -74,7 +72,8 @@ public class Greet {
     public static void printAddNewTask(Task newTask) {
         printLineOnConsole();
         System.out.println("     " + newTask);
-        System.out.println("     Now you have " + tasksAdded + " tasks in the list.");
+        System.out.println(GreetMessage.TASK_MESSAGE_START +
+                tasksAdded + GreetMessage.TASK_MESSAGE_END);
         printLineOnConsole();
     }
 
