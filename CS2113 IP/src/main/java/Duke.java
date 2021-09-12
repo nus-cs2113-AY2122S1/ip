@@ -18,6 +18,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String horizontalLine = "________________________";
         final String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
+        final String ERROR_MARK_TASK = "Please do not leave your task number empty :-(";
         final String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
         final String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
         final String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
@@ -48,30 +49,25 @@ public class Duke {
             } else if (isList) {
                 listTask(tasks, Task.taskCount);
             } else if (isDone) {
-                markTask(tasks, userInput);
+                try {
+                    markTask(tasks, userInput);
+                } catch (DukeException e) {
+                    System.out.println(ERROR_MARK_TASK);
+                }
             } else if (isTodo) {
                 try {
-                    if (isEmptyDescription(userInput)) {
-                        throw new DukeException();
-                    }
                     addTask(tasks, Task.taskCount, userInput, TaskType.TODO);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_TODO_DESCRIPTION);
                 }
             } else if (isDeadline) {
                 try {
-                    if (isEmptyDescription(userInput)) {
-                        throw new DukeException();
-                    }
                     addTask(tasks, Task.taskCount, userInput, TaskType.DEADLINE);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_DEADLINE_DESCRIPTION);
                 }
             } else if (isEvent) {
                 try {
-                    if (isEmptyDescription(userInput)) {
-                        throw new DukeException();
-                    }
                     addTask(tasks, Task.taskCount, userInput, TaskType.EVENT);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_EVENT_DESCRIPTION);
@@ -85,7 +81,10 @@ public class Duke {
 
     }
 
-    private static void addTask(Task[] taskList, int taskCount, String userInput, TaskType specificTask) {
+    private static void addTask(Task[] taskList, int taskCount, String userInput, TaskType specificTask) throws DukeException {
+        if (isEmptyDescription(userInput)) {
+            throw new DukeException();
+        }
         final String ADDED_TASK_COMMENT = "Got it. I've added this task:";
         System.out.println(ADDED_TASK_COMMENT);
         Task newTask;
@@ -113,7 +112,10 @@ public class Duke {
         System.out.println(printTaskNumber);
     }
 
-    private static void markTask(Task[] tasks, String userInput) {
+    private static void markTask(Task[] tasks, String userInput) throws DukeException {
+        if (isEmptyDescription(userInput)) {
+            throw new DukeException();
+        }
         char userInputIntChar = userInput.charAt(userInput.length() - 1);
         int userInputInt = Character.getNumericValue(userInputIntChar);
         final String MARK_TASK_COMMENT = "Nice! I've marked this task as done:";
