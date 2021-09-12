@@ -1,7 +1,17 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
+    private static void writeToFile(String filePath, String[] lists, String[] taskType, String[] doneTasks, String[] dates, int number) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for(int i = 0; i < number; i++) {
+            fw.write(taskType[i] + " | " + doneTasks[i] + " | " + lists[i] + " | " + dates[i] + "\n" );
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         final String DIVIDER = "    ——————————————————————————————————————————————————————————————";
         System.out.println(DIVIDER);
@@ -13,6 +23,7 @@ public class Duke {
         String[] doneTasks = new String[100];
         String[] dates = new String[100];
         Arrays.fill(doneTasks," ");
+        Arrays.fill(dates," ");
         int number = 0;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
@@ -143,5 +154,11 @@ public class Duke {
         System.out.println(DIVIDER);
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
+
+        try {
+            writeToFile("./src/Duke.txt", lists, taskType, doneTasks, dates, number);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 }
