@@ -9,13 +9,25 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Patchi {
+    static String patchiDataPath = "data/patchidata.txt";
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            loadData(tasks);
+        } catch (FileNotFoundException e) {
+            println("<patchidata.txt file not found>");
+        }
 
         println("─── .o * : *. ¤ .* : ¤ o. ───");
         println("Patchi: Hello! I'm Patchi the tasks fairy Œ(ˊᵕˋ)B\n " +
@@ -43,6 +55,10 @@ public class Patchi {
             } else { //add task OR invalid command
                 try {
                     addTask(tasks, input);
+                    try {
+                        appendToFile(patchiDataPath, input + ",f" + System.lineSeparator());
+                    } catch (IOException e) {
+                    }
                     println("Patchi: Got it! I have added " + tasks.get(tasks.size() - 1).toString() +
                             " to your task list! Œ(ˆOˆ)B");
                     println("Patchi: You have " + tasks.size() + " tasks now" +
@@ -69,6 +85,16 @@ public class Patchi {
         }
         if (tasks.size() > taskIndex) {
             tasks.get(taskIndex).setDone(true);
+
+            //change patchidata
+            String line;
+            try {
+                line = getLine(taskIndex);
+                line = line.replace(",f", ",t");
+                overwriteLine(taskIndex, line);
+            } catch (IOException e) {
+            }
+
             println("Patchi: Good job! I've marked this task as done on your list. " +
                     "Time for a break? Œ(ˊwˋ)B");
         } else {
@@ -121,12 +147,12 @@ public class Patchi {
 
         if (tasks.size() > taskIndex) {
             tasks.remove(taskIndex);
+            deleteLine(taskIndex);
             println("Patchi: Whoosh! I've magicked that task away! Œ(ˊwˋ)B");
             println("Patchi: You now have " + tasks.size() + " tasks! Œ(ˊwˋ)B");
         } else {
             println("Patchi: That task doesn't seem to exist...... Œ(ˊnˋ)B");
         }
-
     }
 
     private static void addTodo(ArrayList<Task> tasks, String input)
@@ -198,5 +224,85 @@ public class Patchi {
 
     public static void print(String message) {
         System.out.print(message);
+    }
+
+    private static void appendToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void overwriteFile(String filePath, String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath, false);
+        fw.write(text);
+        fw.close();
+    }
+
+    private static void loadData(ArrayList<Task> tasks) throws FileNotFoundException {
+        File patchiData = new File(patchiDataPath);
+        Scanner s = new Scanner(patchiData);
+        while (s.hasNext()) {
+            String[] taskInfo = s.nextLine().split(",", 0);
+            String input = taskInfo[0];
+            Boolean isDone = taskInfo[1].equals("t") ? true : false; //t or f
+            try {
+                addTask(tasks, input);
+                tasks.get(tasks.size() - 1).setDone(isDone);
+            } catch (InvalidCommandException e) {
+            }
+        }
+    }
+
+    private static void overwriteLine(Integer lineIndex, String newLine) throws IOException {
+        File patchiData = new File(patchiDataPath);
+        Scanner s = new Scanner(patchiData);
+        String newFileData = "";
+        Integer i = 0;
+
+        while (s.hasNext()) {
+            if (i == lineIndex) {
+                newFileData += newLine + System.lineSeparator();
+                s.nextLine();
+            } else {
+                newFileData += s.nextLine() + System.lineSeparator();
+            }
+            i++;
+        }
+        overwriteFile(patchiDataPath, newFileData);
+    }
+
+    private static void deleteLine(Integer lineIndex) {
+        try {
+            File patchiData = new File(patchiDataPath);
+            Scanner s = new Scanner(patchiData);
+            String newFileData = "";
+            Integer i = 0;
+
+            while (s.hasNext()) {
+                if (i == lineIndex) {
+                    s.nextLine();
+                } else {
+                    newFileData += s.nextLine() + System.lineSeparator();
+                }
+                i++;
+            }
+            overwriteFile(patchiDataPath, newFileData);
+        } catch (IOException e) {
+        }
+    }
+
+    private static String getLine(Integer lineIndex) throws IOException {
+        File patchiData = new File(patchiDataPath);
+        Scanner s = new Scanner(patchiData);
+        Integer i = 0;
+
+        while (s.hasNext()) {
+            if (i == lineIndex) {
+                return s.nextLine();
+            }
+            i++;
+        }
+
+        return null;
     }
 }
