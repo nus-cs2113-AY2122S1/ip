@@ -15,6 +15,12 @@ public class Duke {
     private static final String CONSOLE_LINE_PREFIX = "____________________________________________________________";
     private static final String SPACE_PREFIX = " ";
     private static final String LINE_BREAK = "\n";
+    private static final String GREETING_MESSAGE = CONSOLE_LINE_PREFIX + LINE_BREAK
+            + SPACE_PREFIX + "Hello! You probably know that Iron Man has the best AI-assistant called Jarvis" + LINE_BREAK
+            + SPACE_PREFIX + "and Spiderman has hmmm, maybe his tingly spidey senses?" + LINE_BREAK
+            + SPACE_PREFIX + "But don't worry! You have me, Duke! I am your personal SIDEKICK that does \"something\"!" + LINE_BREAK
+            + SPACE_PREFIX + "What is \"something\" you want me to do?" + LINE_BREAK
+            + CONSOLE_LINE_PREFIX;
 
     /**
      * ASCII Art Logo generated using
@@ -97,13 +103,7 @@ public class Duke {
      * Prints out the program greeting message.
      */
     private static void printGreeting() {
-        String greeting = CONSOLE_LINE_PREFIX + LINE_BREAK
-                + SPACE_PREFIX + "Hello! You probably know that Iron Man has the best AI-assistant called Jarvis" + LINE_BREAK
-                + SPACE_PREFIX + "and Spiderman has hmmm, maybe his tingly spidey senses?" + LINE_BREAK
-                + SPACE_PREFIX + "But don't worry! You have me, Duke! I am your personal SIDEKICK that does \"something\"!" + LINE_BREAK
-                + SPACE_PREFIX + "What is \"something\" you want me to do?" + LINE_BREAK
-                + CONSOLE_LINE_PREFIX;
-        System.out.println(greeting);
+        System.out.println(GREETING_MESSAGE);
     }
 
     /**
