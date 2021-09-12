@@ -112,6 +112,26 @@ public class TaskManager {
         DisplayManager.printSetAsDoneResult(tasks, outOfRangeIndexes, validIndexes, doneIndexes);
     }
 
+    public void deleteTask(String taskInfo) {
+        int[] indexes = filterIndexes(taskInfo);
+        int[] outOfRangeIndexes = filterOutOfRangeIndexes(indexes);
+        int[] validIndexes = filterValidIndexes(indexes);
+        ArrayList<Task> deletedTasks = new ArrayList<>();
+
+        if (validIndexes != null) {
+            for (int validIndex : validIndexes) {
+                deletedTasks.add(tasks.get(validIndex - 1));
+                tasks.set(validIndex - 1, null);
+            }
+            for (int index : indexes) {
+                if (tasks.get(index - 1) == null) {
+                    tasks.remove(index - 1);
+                }
+            }
+        }
+        DisplayManager.printDeleteTasksResult(deletedTasks, outOfRangeIndexes, tasks.size());
+    }
+
     public void getAndPrintTaskList() {
         if (taskCount == 0) {
             DisplayManager.printErrorList();
