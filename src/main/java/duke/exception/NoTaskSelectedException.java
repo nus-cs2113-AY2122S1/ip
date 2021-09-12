@@ -1,2 +1,4 @@
-package duke.exception;public class NoTaskSelectedException {
+package duke.exception;
+
+public class NoTaskSelectedException extends Exception{
 }
