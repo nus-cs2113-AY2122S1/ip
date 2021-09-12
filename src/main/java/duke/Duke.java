@@ -2,7 +2,6 @@ package duke;
 
 import duke.exception.ArgumentNotFoundException;
 import duke.exception.InvalidCommandException;
-import duke.task.Task;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 import duke.util.Parser;
@@ -13,7 +12,7 @@ public class Duke {
 
     public static final String USERNAME = "VeryImportantUsername";
     public static final String UNKNOWN_COMMAND_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String NUMBER_ERROR_MESSAGE = "☹ NO!!! Done should only be given a number!";
+    public static final String NUMBER_ERROR_MESSAGE = "☹ NO!!! done/delete should only be given a number!";
     public static final String ARGUMENTS_ERROR_MESSAGE = "☹ Oh no!!! Arguments or delimiter could not be found.";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_BYE = "bye";
@@ -21,16 +20,13 @@ public class Duke {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_DELETE = "delete";
     public static final HashMap<String, TaskType> COMMAND_MAPPING = new HashMap<String, TaskType>() {{
         put(COMMAND_TODO, TaskType.TODO);
         put(COMMAND_EVENT, TaskType.EVENT);
         put(COMMAND_DEADLINE, TaskType.DEADLINE);
     }};
     public static TaskManager taskList = new TaskManager();
-
-    /**
-     * Gets a new instance of Ui class to interact with the user
-     */
     public static Ui uiInteract = new Ui(USERNAME);
 
     public static boolean isRunning = true;
@@ -111,7 +107,7 @@ public class Duke {
             TaskType type = COMMAND_MAPPING.get(parsed.getCommand());
             taskList.addTask(uiInteract, parsed, type);
             break;
-        case "delete":
+        case COMMAND_DELETE:
             taskList.deleteTask(uiInteract, parsed.getArgsAsIndex());
             break;
         default:
