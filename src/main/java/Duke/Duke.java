@@ -1,16 +1,16 @@
 package Duke;
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Duke {
     public static final String Line = "    ____________________________________________________________";
-    private static Task[] tasks = new Task[110];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskSum = 0;
     public static void printList() {
         Task now;
         System.out.println(Line);
         System.out.println("     Here are the tasks in your list:");
         for(int i=0; i<taskSum; i++){
-            now = tasks[i];
+            now = tasks.get(i);
             System.out.println("     " + (i+1) + "." + now.toString());
         }
         System.out.println(Line);
@@ -42,8 +42,17 @@ public class Duke {
             if(command.contains("done")){
                 String[] number = command.split(" ");
                 int taskIndex = Integer.parseInt(number[1]) - 1;
-                tasks[taskIndex].complete();
-                System.out.println(Line + "\n" + "     Nice! I've marked this task as done:" + "\n     " + tasks[taskIndex].toString() + "\n" + Line);
+                tasks.get(taskIndex).complete();
+                System.out.println(Line + "\n" + "     Nice! I've marked this task as done:" + "\n     " +  tasks.get(taskIndex).toString() + "\n" + Line);
+            }
+            else if(command.contains("delete")){
+                String[] number = command.split(" ");
+                int taskIndex = Integer.parseInt(number[1]) - 1;
+                Task temp = tasks.get(taskIndex);
+                System.out.println(Line + "\n" + "     Noted. I've removed this task: " + "\n     " +  tasks.get(taskIndex).toString() + "\n" + "     Now you have " + taskSum + " tasks in the list");
+                System.out.println(Line);
+                tasks.remove(taskIndex);
+                taskSum--;
             }
             else if(command.contains("todo")){
                 int first = command.indexOf(" ");
@@ -55,15 +64,16 @@ public class Duke {
                     continue;
                 }
                 String item = command.substring(first,command.length());
-                tasks[taskSum] = new Todo(item);
+                Task temp = new Todo(item);
+                tasks.add(temp);
                 taskSum++;
                 System.out.println(Line + "\n" + "     Got it. I've added this task: " + "\n" + "       [T][ ] " + item + "\n" + "     Now you have " + taskSum + " tasks in the list");
                 System.out.println(Line);
             }
             else if(command.contains("deadline")){
                 int first = command.indexOf(" ");
-                int check = command.indexOf("n");
-                if(check == command.length()-2){
+                int check = command.indexOf("deadline");
+                if(check == command.length()-8){
                     System.out.println(Line);
                     System.out.println("     ☹ OOPS!!! The description of a deadline cannot be empty.");
                     System.out.println(Line);
@@ -72,15 +82,16 @@ public class Duke {
                 int itemEnd = command.indexOf("/");
                 String item = command.substring(first,itemEnd);
                 String by = command.substring(itemEnd + 1,command.length());
-                tasks[taskSum] = new Deadline(item,by);
+                Task temp = new Deadline(item,by);
+                tasks.add(temp);
                 taskSum++;
                 System.out.println(Line + "\n" + "     Got it. I've added this task: " + "\n" + "       [D][ ] " + item + " (" + by + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
                 System.out.println(Line);
             }
             else if(command.contains("event")){
                 int first = command.indexOf(" ");
-                int check = command.indexOf("t");
-                if(check == command.length()-1){
+                int check = command.indexOf("event");
+                if(check == command.length()-5){
                     System.out.println(Line);
                     System.out.println("     ☹ OOPS!!! The description of a event cannot be empty.");
                     System.out.println(Line);
@@ -89,7 +100,8 @@ public class Duke {
                 int itemEnd = command.indexOf("/");
                 String item = command.substring(first,itemEnd);
                 String at = command.substring(itemEnd + 1,command.length());
-                tasks[taskSum] = new Event(item,at);
+                Task temp = new Event(item,at);
+                tasks.add(temp);
                 taskSum++;
                 System.out.println(Line + "\n" + "     Got it. I've added this task: " + "\n" + "       [E][ ] " + item + " (" + at + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
                 System.out.println(Line);
