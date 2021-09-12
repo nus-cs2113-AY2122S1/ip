@@ -1,8 +1,13 @@
 // import libraries here
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private static ArrayList<String> descriptions = new ArrayList<>();
@@ -53,12 +58,14 @@ public class Duke {
             if (line.startsWith("done")) {
                 int number = Integer.parseInt(line.substring(line.length() - 1));
                 markAsDone(number);
+                saveTasks();
                 line = in.nextLine();
                 continue;
             }
             if (line.startsWith("delete")) {
                 int number = Integer.parseInt(line.substring(line.length() - 1));
                 deleteTask(number);
+                saveTasks();
                 line = in.nextLine();
                 continue;
             }
@@ -73,6 +80,7 @@ public class Duke {
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task: ");
             handleCommand(line);
+            saveTasks();
             System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             line = in.nextLine();
@@ -84,12 +92,12 @@ public class Duke {
 
     private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event");
-        String[] splitedLine = line.split(" ");
-        String type = splitedLine[0];
+        String[] splitLine = line.split(" ");
+        String type = splitLine[0];
         if (!validCommands.contains(type)) {
             throw new InvalidCommandException();
         }
-        if (splitedLine.length == 1) {
+        if (splitLine.length == 1) {
             throw new EmptyDescriptionException();
         }
     }
@@ -107,18 +115,18 @@ public class Duke {
             System.out.println("       " + todo.toString(false));
         } else if (line.startsWith("deadline")) {
             types.add("D");
-            int seperate = line.indexOf("/by");
-            description = line.substring(9, seperate - 1);
-            date = line.substring(seperate + 4);
+            int separator = line.indexOf("/by");
+            description = line.substring(9, separator - 1);
+            date = line.substring(separator + 4);
             Deadline deadline = new Deadline(description, date);
             descriptions.add(description);
             dates.add(date);
             System.out.println("       " + deadline.toString(false));
         } else if (line.startsWith("event")) {
             types.add("E");
-            int seperate = line.indexOf("/at");
-            description = line.substring(6, seperate - 1);
-            date = line.substring(seperate + 4);
+            int separator = line.indexOf("/at");
+            description = line.substring(6, separator - 1);
+            date = line.substring(separator + 4);
             Event event = new Event(description, date);
             descriptions.add(description);
             dates.add(date);
@@ -156,7 +164,7 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void deleteTask(int number) {
+    private static void deleteTask(int number) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
         int index = number - 1;
@@ -189,6 +197,91 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    private static void loadTasks() {
+        String pathName = "./data/";
+        String fileName = "duke.txt";
+        File file = new File(pathName + fileName);
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String line = sc.nextLine();
+                String[] splitLine = line.split(" \\| ");
+                String type = splitLine[0];
+                boolean done = Boolean.parseBoolean(splitLine[1]);
+                String description = splitLine[2];
+                String date;
+                types.add(type);
+                dones.add(done);
+                descriptions.add(description);
+                if (!type.equals("T")) {
+                    date = splitLine[3];
+                } else {
+                    date = "";
+                }
+                dates.add(date);
+            }
+        } catch (FileNotFoundException e) {
+            createFileOrFolder(pathName, fileName);
+        }
+    }
+
+    private static void saveTasks() {
+        String pathName = "./data/";
+        String fileName = "duke.txt";
+        String separator = " | ";
+        flushFile(pathName, fileName);
+        for (int i = 0; i < descriptions.size(); i++) {
+            StringBuilder sb = new StringBuilder();
+            String description = descriptions.get(i);
+            boolean done = dones.get(i);
+            String type = types.get(i);
+            String date = dates.get(i);
+            sb.append(type);
+            sb.append(separator);
+            sb.append(done);
+            sb.append(separator);
+            sb.append(description);
+            if (!date.equals("")) {
+                sb.append(separator);
+                sb.append(date);
+            }
+            String textToAppend = sb.toString();
+            try {
+                appendToFile(pathName + fileName, textToAppend + System.lineSeparator());
+            } catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void flushFile(String pathName, String fileName) {
+        File file = new File(pathName + fileName);
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write("");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void createFileOrFolder(String pathName, String fileName) {
+        try {
+            Path path = Paths.get(pathName);
+            Files.createDirectory(path);
+            Path file = Paths.get(pathName + fileName);
+            Files.createFile(file);
+        } catch (FileAlreadyExistsException ignored) {
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -197,6 +290,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greeting();
+        loadTasks();
 //        echo();
         getCommand();
     }
