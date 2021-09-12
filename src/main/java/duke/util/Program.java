@@ -5,7 +5,11 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import static duke.util.UserData.readFromFile;
+import static duke.util.UserData.writeToFile;
 
 public class Program {
     private boolean canTerminateHal = false;    //when true, the program exits
@@ -31,16 +35,18 @@ public class Program {
             "Hmm... I think you forgot to write your timings!";
     public static final String INVALID_NUMBER_ERROR = "Your input wasn't an integer! Write a valid number";
 
-    public Program() {
+    public Program() throws IOException {
         this.numItems = 0;
+        loadSavedTasks();
     }
 
+    StorageDataParser parser = new StorageDataParser();
     public static int getNumItems() {
         return numItems;
     }
 
     //function takes in an input string from the user, parses it and runs the corresponding function
-    public void parseAndExecuteTask(String string) throws HalException {
+    public void parseAndExecuteTask(String string) throws HalException, IOException {
         if (Objects.equals(string, "list")) {
             listAllTasks();
         } else if (Objects.equals(string, "bye")) {
@@ -56,6 +62,19 @@ public class Program {
         } else {
             throw new HalException("I'm sorry, but I don't know what that means :((");
         }
+        UserData.writeToFile(parser.saveListAsString(listTasks));
+    }
+
+    //function to load tasks from memory
+    public static void loadSavedTasks() throws IOException {
+        listTasks = readFromFile();
+        int count = 0;
+        for (Object obj : listTasks) {
+            if ( obj != null ) {
+                count++;
+            }
+        }
+        numItems = count;
     }
 
     //function to add a new deadline task
@@ -185,7 +204,8 @@ public class Program {
     }
 
     //function to exit program
-    public void executeBye() {
+    public void executeBye() throws IOException {
+        UserData.writeToFile(parser.saveListAsString(listTasks));
         this.setCanTerminateHal(true);
     }
 
