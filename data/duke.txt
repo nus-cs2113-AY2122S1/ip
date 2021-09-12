@@ -1,0 +1,4 @@
+[T] | 0 | read book
+[T] | 1 | read book
+[D] | 0 | network assignment | 22 sept
+[E] | 0 | exam cs2106 | 29 sept 2.15pm-3.15pm

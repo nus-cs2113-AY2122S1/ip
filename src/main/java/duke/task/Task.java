@@ -14,12 +14,15 @@ public class Task {
         isDone = false;
     }
 
-    public boolean getDoneStatus() {
-        return isDone;
-    }
-
     public void setDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public String getDoneStatus() {
+        if(isDone){
+            return "1";
+        }
+        return "0";
     }
 
     public String getDescription() {
@@ -50,6 +53,11 @@ public class Task {
             isDoneFlag = "[X]";
         }
         return isDoneFlag;
+    }
+
+    @Override
+    public String toString(){
+        return " " + " | " + getDoneStatus() + " | " + description;
     }
 
 }

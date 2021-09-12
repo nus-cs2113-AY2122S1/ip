@@ -2,6 +2,7 @@ package duke;
 
 import duke.exception.InvalidTaskNumberException;
 import duke.task.TaskManager;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -24,13 +25,15 @@ public class Duke {
     final static String DEADLINE_FORMAT = ADD_EVENT_COMMAND + " <task description> /by <due date>";
     final static String EVENT_FORMAT = ADD_DEADLINE_COMMAND + " <task description> /at <start date>";
 
+    final static String FILE_DIRECTORY = "data";
+    final static String FILE_NAME = "duke.txt";
+
     /**
      * Main function to run the bot.
      *
      * @param args Arguments from console input
      */
     public static void main(String[] args) {
-        printWelcomeMessage();
         getMenu();
         printExitMessage();
     }
@@ -76,45 +79,72 @@ public class Duke {
         System.out.println("Usage: " + format);
     }
 
+    public static boolean processInput(FileHandler fileHandler, TaskManager taskManager, String userInputs) {
+        boolean isNotExit = true;
+        boolean hasChange = false;
+        System.out.println(LINE);
+        switch (getUserCommand(userInputs)) {
+        case ADD_TODO_COMMAND:
+            addToDoTask(taskManager, userInputs);
+            hasChange = true;
+            break;
+        case ADD_EVENT_COMMAND:
+            addEventTask(taskManager, userInputs);
+            hasChange = true;
+            break;
+        case ADD_DEADLINE_COMMAND:
+            addDeadlineTask(taskManager, userInputs);
+            hasChange = true;
+            break;
+        case SET_DONE_COMMAND:
+            try {
+                int taskIndex = getTaskIndexFromUserInputs(userInputs);
+                taskManager.setTaskToDone(taskIndex);
+                hasChange = true;
+            } catch (InvalidTaskNumberException e) {
+                printFormatErrorMessage(DONE_FORMAT);
+            }
+            break;
+        case LIST_COMMAND:
+            taskManager.printAllTasks();
+            break;
+        case EXIT_COMMAND:
+            isNotExit = false;
+            return isNotExit;
+        default:
+            System.out.println("Error: Command not found.");
+            break;
+        }
+        System.out.println(LINE);
+        if (hasChange) {
+            try {
+                fileHandler.writeToFile(FILE_NAME, taskManager.toString());
+            } catch (IOException e) {
+                System.out.println("Error: An error has occured when writing to file.");
+            }
+        }
+        return isNotExit;
+    }
+
     /**
      * Get the menu for user to input commands for the bot to perform.
      */
     public static void getMenu() {
-        Scanner in = new Scanner(System.in);
-        String userInputs = in.nextLine();
+        FileHandler fileHandler = new FileHandler(FILE_DIRECTORY);
         TaskManager taskManager = new TaskManager();
-        while (true) {
-            System.out.println(LINE);
-            switch (getUserCommand(userInputs)) {
-            case ADD_TODO_COMMAND:
-                addToDoTask(taskManager, userInputs);
-                break;
-            case ADD_EVENT_COMMAND:
-                addEventTask(taskManager, userInputs);
-                break;
-            case ADD_DEADLINE_COMMAND:
-                addDeadlineTask(taskManager, userInputs);
-                break;
-            case SET_DONE_COMMAND:
-                try {
-                    int taskIndex = getTaskIndexFromUserInputs(userInputs);
-                    taskManager.setTaskToDone(taskIndex);
-                } catch (InvalidTaskNumberException e) {
-                    printFormatErrorMessage(DONE_FORMAT);
-                }
-                break;
-            case LIST_COMMAND:
-                taskManager.printAllTasks();
-                break;
-            case EXIT_COMMAND:
-                return;
-            default:
-                System.out.println("Error: Command not found.");
-                break;
-            }
-            System.out.println(LINE);
+        //load data
+        System.out.printf("Loading data from %s...\n",FILE_NAME);
+        fileHandler.loadToTaskManager(FILE_NAME, taskManager);
+        System.out.println("Finish loading.");
+        System.out.printf(LINE);
+        printWelcomeMessage();
+        String userInputs;
+        Scanner in = new Scanner(System.in);
+        boolean hasNotExit = true;
+        do {
             userInputs = in.nextLine();
-        }
+            hasNotExit = processInput(fileHandler, taskManager, userInputs);
+        } while (hasNotExit);
     }
 
     /**

@@ -25,4 +25,9 @@ public class Event extends Task {
     public String getTaskInfo() {
         return getDescription() + " (at: " + startDate + ")";
     }
+
+    @Override
+    public String toString() {
+        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + startDate;
+    }
 }
