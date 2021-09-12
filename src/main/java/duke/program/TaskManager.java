@@ -66,6 +66,10 @@ public class TaskManager {
         System.out.println("Hey bud, the format for marking off a task is :done [index]");
     }
 
+    public static void printEmptyIndexAfterDeleteMessage() {
+        System.out.println("Hey bud, the format for marking off a task is :delete [index]");
+    }
+
     public static void printEmptyDescriptionMessage(String command) {
         System.out.println("Sorry bud! The description after " + command + " can't be blank!");
     }
@@ -286,7 +290,7 @@ public class TaskManager {
                 try {
                     deleteTask(tasks, lineArgs);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    printEmptyIndexAfterDoneMessage();
+                    printEmptyIndexAfterDeleteMessage();
                 } catch (InvalidIndexException | NumberFormatException e) {
                     printInvalidDoneMessage();
                 } catch (TaskIndexOutOfBoundsException e) {
