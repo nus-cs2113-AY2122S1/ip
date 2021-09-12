@@ -51,11 +51,11 @@ public class TaskManager {
     }
 
     public static void printIndexOutOfBoundsMessage() {
-        System.out.println("Sorry bud, you can't check off what is not yet there :/");
+        System.out.println("Sorry bud, you can't check off/delete what is not yet there :/");
     }
 
     public static void printInvalidDoneMessage() {
-        System.out.println("Sorry bud, that's not a valid task number to check off!");
+        System.out.println("Sorry bud, that's not a valid task number to check off/delete!");
     }
 
     public static void printAlreadyDoneMessage() {
@@ -108,6 +108,24 @@ public class TaskManager {
 
     public void printDeletedTaskMessage(Task task) {
 
+        String taskType = task.getType();
+        String taskStatus = task.getStatusIcon();
+        String taskDescription = task.getDescription();
+
+        System.out.println("Noted. I've removed this task:");
+        if (taskType.equals(TASK_TYPE_ICON_TODO)) {
+            System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
+        } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
+            String taskByTime = task.getByDateTime();
+            System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
+        } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
+            String taskAtTime = task.getStartAndEndTime();
+            System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
+        } else {
+            printGenericErrorMessage();
+        }
+
+        System.out.println("Now you have " + (taskCount - 1) + " tasks in the list.");
     }
 
     public static void printTaskList(int taskCount, ArrayList<Task> tasks) {
@@ -120,13 +138,13 @@ public class TaskManager {
             String taskDescription = tasks.get(i).getDescription();
 
             if (taskType.equals(TASK_TYPE_ICON_TODO)) {
-                System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
+                System.out.printf("%d.[%s][%s] %s%n", i+1, taskType, taskStatus, taskDescription);
             } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
                 String taskByTime = tasks.get(i).getByDateTime();
-                System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
+                System.out.printf("%d.[%s][%s] %s (by: %s)%n", i+1, taskType, taskStatus, taskDescription, taskByTime);
             } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
                 String taskAtTime = tasks.get(i).getStartAndEndTime();
-                System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
+                System.out.printf("%d.[%s][%s] %s (at: %s)%n", i+1, taskType, taskStatus, taskDescription, taskAtTime);
             } else {
                 printGenericErrorMessage();
             }
@@ -219,6 +237,24 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(ArrayList<Task> tasks, String[] lineArgs) throws InvalidIndexException, TaskIndexOutOfBoundsException {
+
+        if (lineArgs.length > 2) {
+            throw new InvalidIndexException();
+        }
+
+        int deleteIndex = Integer.parseInt(lineArgs[1]) - 1;
+
+        if (deleteIndex >= taskCount || deleteIndex < 0) {
+            throw new TaskIndexOutOfBoundsException();
+        } else {
+            printDeletedTaskMessage(tasks.get(deleteIndex));
+            tasks.remove(deleteIndex);
+        }
+
+        taskCount--;
+    }
+
     public void parseUserInput() {
 
         Scanner in = new Scanner(System.in);
@@ -237,6 +273,18 @@ public class TaskManager {
 
                 try {
                     markAsDone(tasks, lineArgs);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    printEmptyIndexAfterDoneMessage();
+                } catch (InvalidIndexException | NumberFormatException e) {
+                    printInvalidDoneMessage();
+                } catch (TaskIndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsMessage();
+                }
+
+            } else if (command.equals(COMMAND_DELETE)) {
+
+                try {
+                    deleteTask(tasks, lineArgs);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     printEmptyIndexAfterDoneMessage();
                 } catch (InvalidIndexException | NumberFormatException e) {
