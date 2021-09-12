@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Storage {
     private final String pathName = "data/data.txt";
-    private File file = new File(pathName);
+    private final File file = new File(pathName);
 
     public Storage() throws DukeException {
         try {
