@@ -11,15 +11,18 @@ public class Duke {
     final static String EXIT_COMMAND = "bye";
     final static String SET_DONE_COMMAND = "done";
     final static String LIST_COMMAND = "list";
+    final static String DELETE_COMMAND = "delete";
     final static String ADD_TODO_COMMAND = "todo";
     final static String ADD_EVENT_COMMAND = "event";
     final static String ADD_DEADLINE_COMMAND = "deadline";
 
     final static String NO_FORMAT_TAG = " <no additional input required>";
+    final static String TASK_NUMBER_TAG  = " <task number(can be seen using the list command, eg. 1)>";
 
     final static String EXIT_FORMAT = EXIT_COMMAND + NO_FORMAT_TAG;
     final static String LIST_FORMAT = LIST_COMMAND + NO_FORMAT_TAG;
-    final static String DONE_FORMAT = SET_DONE_COMMAND + " <task number(can be seen using the list command, eg. 1)>";
+    final static String DONE_FORMAT = SET_DONE_COMMAND + TASK_NUMBER_TAG;
+    final static String DELETE_FORMAT = DELETE_COMMAND + TASK_NUMBER_TAG;
     final static String TODO_FORMAT = ADD_TODO_COMMAND + " <task description>";
     final static String DEADLINE_FORMAT = ADD_EVENT_COMMAND + " <task description> /by <due date>";
     final static String EVENT_FORMAT = ADD_DEADLINE_COMMAND + " <task description> /at <start date>";
@@ -101,6 +104,14 @@ public class Duke {
                     taskManager.setTaskToDone(taskIndex);
                 } catch (InvalidTaskNumberException e) {
                     printFormatErrorMessage(DONE_FORMAT);
+                }
+                break;
+            case DELETE_COMMAND:
+                try {
+                    int taskIndex = getTaskIndexFromUserInputs(userInputs);
+                    taskManager.deleteTask(taskIndex);
+                } catch (InvalidTaskNumberException e) {
+                    printFormatErrorMessage(DELETE_FORMAT);
                 }
                 break;
             case LIST_COMMAND:

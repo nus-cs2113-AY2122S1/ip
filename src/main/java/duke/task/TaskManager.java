@@ -1,13 +1,17 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 public class TaskManager {
 
-    private Task[] tasksList;
+    private ArrayList<Task> tasksList = new ArrayList<>();
+
+    //private Task[] tasksList;
 
     private int totalNumberOfTasks = 0;
 
     public TaskManager() {
-        this.tasksList = new Task[totalNumberOfTasks];
+
     }
 
     /**
@@ -48,22 +52,13 @@ public class TaskManager {
      * @param task Task to be added into tasks list.
      */
     public void addTask(Task task) {
-        increaseTaskListSize();
-        tasksList[totalNumberOfTasks] = task;
+        tasksList.add(task);
         totalNumberOfTasks++;
         System.out.println("Got it. I've added this task:");
         printTask(totalNumberOfTasks - 1);
         System.out.printf("Now you have %d tasks in the list" + System.lineSeparator(), totalNumberOfTasks);
     }
 
-    /**
-     * Increases the size of the tasks list as more task is added into it.
-     */
-    public void increaseTaskListSize() {
-        Task[] newItemsList = new Task[totalNumberOfTasks + 1];
-        System.arraycopy(tasksList, 0, newItemsList, 0, totalNumberOfTasks);
-        tasksList = newItemsList;
-    }
 
     /**
      * Print all task status in the tasks list.
@@ -84,8 +79,8 @@ public class TaskManager {
      */
     public void printTask(int taskIndex) {
         System.out.printf("%s %s" + System.lineSeparator(),
-                tasksList[taskIndex].getStatusIcon(),
-                tasksList[taskIndex].getTaskInfo()
+                tasksList.get(taskIndex).getStatusIcon(),
+                tasksList.get(taskIndex).getTaskInfo()
         );
     }
 
@@ -100,9 +95,25 @@ public class TaskManager {
             return;
         }
         int taskIndex = taskNumber - 1;
-        tasksList[taskIndex].setDone(true);
+        tasksList.get(taskIndex).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         printTask(taskIndex);
+    }
+
+    public void deleteTask(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > totalNumberOfTasks) {
+            System.out.println("Error: task not found.");
+            return;
+        }
+        int taskIndex = taskNumber - 1;
+        String taskDescription =
+                tasksList.get(taskIndex).getStatusIcon() + " " + tasksList.get(taskIndex).getTaskInfo();
+        tasksList.remove(taskIndex);
+        totalNumberOfTasks -= 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskDescription);
+        System.out.printf("Now you have %d tasks in the list" + System.lineSeparator(), totalNumberOfTasks);
+
     }
 
 }
