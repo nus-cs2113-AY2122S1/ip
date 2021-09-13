@@ -20,4 +20,9 @@ public class Event extends Task{
         //output message
         return "[E]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + dueDate + ")";
     }
+
+    @Override
+    public String getDescription() {
+        return description + " /" + by;
+    }
 }

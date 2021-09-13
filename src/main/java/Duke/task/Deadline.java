@@ -18,5 +18,11 @@ public class Deadline extends Task {
         String dueDate = by.substring(spaceIndex+1);
 
         //output message
-        return "[D]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + dueDate + ")";    }
+        return "[D]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + dueDate + ")";
+    }
+
+    @Override
+    public String getDescription() {
+        return description + " /" + by;
+    }
 }
