@@ -33,4 +33,9 @@ public abstract class Task {
     }
 
     public abstract void printTask();
+
+    public String toString(){
+        return " | " + (isDone()? "1": "0")
+                + " | " + getName();
+    }
 }

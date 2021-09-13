@@ -20,4 +20,8 @@ public class Todo extends Task {
         System.out.println("] " + super.getName());
     }
 
+    @Override
+    public String toString() {
+        return "T" + super.toString();
+    }
 }

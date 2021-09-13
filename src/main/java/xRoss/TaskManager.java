@@ -1,12 +1,24 @@
 package xRoss;
 
+import xRoss.exception.EmptyStringException;
+import xRoss.task.Deadline;
+import xRoss.task.Event;
 import xRoss.task.Task;
+import xRoss.task.Todo;
 
-public class TaskManager {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class TaskManager implements FileManager{
 
     private Task[] tasks = new Task[100];
     private int completedTasksCount = 0;
     private int tasksCount = 0;
+
+    final String filepath = "/data/xRoss.txt";
 
     public void printTasks() {
         if (tasksCount == 0) {
@@ -57,5 +69,75 @@ public class TaskManager {
         System.out.print("\tGood job! I have marked your task as done.\n\t\t");
         tasks[taskIndex].printTask();
         System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your to-do list\n");
+    }
+
+    @Override
+    public void readFromFile() {
+        try {
+            File file = new File(filepath);
+
+            Scanner s = new Scanner(file);
+
+            while (s.hasNext()){
+                Task task = convertFileStrToTask(s.nextLine());
+
+                tasks[tasksCount] = task;
+                tasksCount++;
+                if (task.isDone()){
+                    completedTasksCount++;
+                }
+            }
+        } catch (FileNotFoundException e){ // file does not exist on first boot
+            return;
+        }
+
+    }
+
+    private Task convertFileStrToTask(String nextLine) {
+        String[] scannedTask = nextLine.split(" | ");
+        Task task = null;
+
+        try {
+            switch (scannedTask[0]){
+            case "T":
+                task = new Todo(scannedTask[2]);
+                break;
+            case "D":
+                task = new Deadline(scannedTask[2], scannedTask[3]);
+                break;
+            case "E":
+                task = new Event(scannedTask[2], scannedTask[3]);
+                break;
+            default:
+                System.out.println("Error in saved file string...");
+            }
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Error in task type description in saved file string...");
+        } catch (EmptyStringException e){
+            System.out.println("Empty string in saved file string...");
+        }
+
+        // check if scanned task is
+        if (scannedTask[1].equals("1")){
+            task.setDone();
+        }
+
+        return task;
+    }
+
+    @Override
+    public void saveToFile() {
+        try {
+            File file = new File(filepath);
+            file.createNewFile();
+            FileWriter fileWriter = new FileWriter(filepath, true);
+            for (int i = 0; i < tasksCount; i++){
+                fileWriter.write(tasks[i].toString());
+            }
+            fileWriter.close();
+        } catch (IOException e){
+            System.out.println("Something went wrong while saving the task list to file...");
+            e.printStackTrace();
+        }
     }
 }

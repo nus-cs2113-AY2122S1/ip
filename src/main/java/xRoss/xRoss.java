@@ -15,6 +15,9 @@ public class xRoss {
 
         // TaskManager instance to keep track of all tasks
         TaskManager taskManager = new TaskManager();
+        taskManager.readFromFile();
+
+        // Add saved tasks to task manager
 
         // setting up variable and scanner for user input
         String inputLine;
@@ -42,6 +45,8 @@ public class xRoss {
             }
         }
 
+        // save task list to file before exiting
+        taskManager.saveToFile();
         printExitMessage();
     }
 
