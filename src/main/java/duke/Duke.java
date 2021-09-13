@@ -8,16 +8,28 @@ import duke.task.Task;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Duke {
 
     public static int taskNum = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
+    public static final String dataPath = "data/duke.txt";
+
     public static void main(String[] args) {
         String userCommand;
         Scanner userType = new Scanner(System.in);
         greet();
+        try {
+            loadData(dataPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         do {
             // Read in the keyboard input from user, and refer to different conditions
             userCommand = userType.nextLine();
@@ -43,6 +55,59 @@ public class Duke {
             }
         } while (!Objects.equals(userCommand, "bye"));
         exit();
+        saveData();
+    }
+
+    public static void loadData(String dataPath) throws IOException {
+
+        File dataFile = new File(dataPath);
+        Scanner dataScanner = new Scanner(dataFile);
+
+        while (dataScanner.hasNext()) {
+            String content = dataScanner.nextLine();
+            String taskType = content.substring(0,1);
+            String taskContent = content.substring(8);
+            int taskStatusIndex = 4;
+            int taskDateIndex = content.indexOf('|');
+            if (taskType == "T") {
+                tasks.add(new Todo(taskContent));
+                if (content.charAt(taskStatusIndex) == '1') {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+            } else if (taskType == "D") {
+                tasks.add(new Deadline(taskContent.substring(0, taskDateIndex - 1), taskContent.substring(taskDateIndex + 2)));
+                if (content.charAt(taskStatusIndex) == '1') {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+            } else if (taskType == "E") {
+                tasks.add(new Event(taskContent.substring(0, taskDateIndex - 1), taskContent.substring(taskDateIndex + 2)));
+                if (content.charAt(taskStatusIndex) == '1') {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+            }
+        }
+    }
+
+    public static void saveData() {
+        try {
+            FileWriter writer = new FileWriter(dataPath.toString());
+            for (Task task : tasks) {
+                if (task instanceof Todo) {
+                    writer.write("T | " + task.getStatusIcon() + " | " + task.getDescription() + System.lineSeparator());
+                } else if (task instanceof Deadline) {
+                    writer.write("D | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + ((Deadline) task).getBy() + System.lineSeparator());
+                } else if (task instanceof Event) {
+                    writer.write("E | " + task.getStatusIcon() + " | " + task.getDescription() + " | " + ((Event) task).getAt() + System.lineSeparator());
+                } else {
+                    return;
+                }
+            }
+            writer.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();;
+        }
+
     }
 
     public static void greet() {
