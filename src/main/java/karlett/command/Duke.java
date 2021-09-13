@@ -14,6 +14,8 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static final char FILE_DELIMITER = '|';
+
     public static ArrayList<Task> list = new ArrayList<>();
     public static String filePath = "./karlett.txt";
     public static File file = new File(filePath);
@@ -67,8 +69,7 @@ public class Duke {
                 break;
             case 2:
                 System.out.print("Please tell me the new file path meow: ");
-                String newFilePath = in.next();
-                filePath = newFilePath;
+                filePath = in.next();
                 loadData();
                 break;
             case 3:
@@ -126,7 +127,7 @@ public class Duke {
             taskDescription = task.substring(8).trim();
             list.add(list.size(), new Task(taskDescription, isDone));
         } else {
-            indexOfDelimeter = task.indexOf('|', 8);
+            indexOfDelimeter = task.indexOf(FILE_DELIMITER, 8);
             taskDescription = task.substring(8, indexOfDelimeter).trim();
             String time = task.substring(indexOfDelimeter + 1).trim();
             if (taskType == 'D') {
@@ -146,7 +147,7 @@ public class Duke {
         if (userInputWords.length > 1) {
             taskContentWords = Arrays.copyOfRange(userInputWords, 1, userInputWords.length);
         }
-        String taskDescription = "";
+        String taskDescription;
         String[] taskDescriptionWords;
 
         switch (taskType) {
@@ -227,15 +228,14 @@ public class Duke {
         case "list":
             if (taskContentWords.length == 0) {
                 Task.printList(list);
-                break;
             } else {
                 printPendingConfirmationToListMessage();
                 String userConfirmation = in.nextLine().toLowerCase(Locale.ROOT);
                 if (userConfirmation.equals("y")) {
                     Task.printList(list);
                 }
-                break;
             }
+            break;
         case "done":
             try {
                 int index = Integer.parseInt(taskContentWords[0]);
