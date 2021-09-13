@@ -9,19 +9,16 @@ import duke.exception.DoneFormatException;
 import duke.exception.InvalidTaskIdException;
 import duke.exception.TaskAlreadyDoneException;
 
-import duke.task.TaskManager;
 import duke.ui.DukeInterface;
 import duke.local.DataManager;
+import duke.task.TaskManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
 
     private final Scanner in;
     private final DukeInterface dukeUI;
-    private final TaskManager taskMgr;
     private final DataManager dataMgr;
 
     private boolean isRunning;
@@ -35,11 +32,11 @@ public class Duke {
     private final String TERMINATE_CMD = "bye";
 
     private final String FILE_PATH = "data/duke.txt";
+    //private final String FILE_PATH = "test/test.txt";
 
     public Duke() {
         in = new Scanner(System.in);
         dukeUI = new DukeInterface();
-        taskMgr = new TaskManager();
         dataMgr = new DataManager(FILE_PATH);
     }
 
@@ -50,7 +47,7 @@ public class Duke {
         return input;
     }
 
-    public void runCommand(String input) throws InvalidCommandException {
+    public void runCommand(TaskManager taskMgr, String input) throws InvalidCommandException {
         String[] inputArgs = input.split("\\s+", 2);
         String cmd = inputArgs[0];
         String cmdArgument = "";
@@ -110,25 +107,24 @@ public class Duke {
         }
     }
 
-    public void startDuke(){
+    public void startDuke() {
 
-        try {
-            dataMgr.loadDataFromFile();
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
+        TaskManager taskMgr = dataMgr.loadDataFromFile();
+
         dukeUI.printWelcomeMsg();
         isRunning = true;
 
         do {
             String input = readInput();
             try {
-                runCommand(input);
+                runCommand(taskMgr, input);
             } catch (InvalidCommandException e) {
                 System.out.println(e);
             }
 
         } while (isRunning);
+
+        dataMgr.writeToFile(taskMgr);
 
         dukeUI.printExitMsg();
     }

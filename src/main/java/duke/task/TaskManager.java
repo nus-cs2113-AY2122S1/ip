@@ -14,10 +14,8 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    protected ArrayList<Task> tasks;
-    protected DukeInterface dukeUI;
-    private int numTasks;
-    private int numComplete;
+    public ArrayList<Task> tasks;
+    private DukeInterface dukeUI;
 
     private final String ADD_TASK_VALID_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
     private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done [\u2705]:";
@@ -26,15 +24,6 @@ public class TaskManager {
     public TaskManager() {
         tasks = new ArrayList<Task>();
         dukeUI = new DukeInterface();
-        numTasks = 0;
-        numComplete = 0;
-    }
-
-    public TaskManager(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-        dukeUI = new DukeInterface();
-        numTasks = 0;
-        numComplete = 0;
     }
 
     public void addToDo(String todoInfo) throws TodoFormatException {
@@ -46,9 +35,8 @@ public class TaskManager {
         Task newToDo = new ToDo(todoInfo.trim());
         this.tasks.add(newToDo);
 
-        printAddTaskMsg(tasks.get(numTasks).getTaskDescription());
-        numTasks++;
-        printNumTasksInList(numTasks);
+        printAddTaskMsg(tasks.get(tasks.size() - 1).getTaskDescription());
+        printNumTasksInList();
 
     }
 
@@ -62,9 +50,8 @@ public class TaskManager {
         Task newDeadline = new Deadline(deadlineArgs[0].trim(), deadlineArgs[1].trim());
         this.tasks.add(newDeadline);
 
-        printAddTaskMsg(tasks.get(numTasks).getTaskDescription());
-        numTasks++;
-        printNumTasksInList(numTasks);
+        printAddTaskMsg(tasks.get(tasks.size() - 1).getTaskDescription());
+        printNumTasksInList();
 
     }
 
@@ -78,9 +65,8 @@ public class TaskManager {
         Task newEvent = new Event(eventArgs[0].trim(), eventArgs[1].trim());
         this.tasks.add(newEvent);
 
-        printAddTaskMsg(tasks.get(numTasks).getTaskDescription());
-        numTasks++;
-        printNumTasksInList(numTasks);
+        printAddTaskMsg(tasks.get(tasks.size() - 1).getTaskDescription());
+        printNumTasksInList();
 
     }
 
@@ -103,9 +89,8 @@ public class TaskManager {
         }
 
         tasks.get(taskID).isDone = true;
-        numComplete += 1;
         printSetTaskCompleteMsg(tasks.get(taskID).getTaskDescription());
-        printNumTaskComplete(numComplete, numTasks);
+        printNumTaskComplete();
 
     }
 
@@ -122,12 +107,18 @@ public class TaskManager {
 
     }
 
-    public void printNumTasksInList(int numTasks) {
-        dukeUI.printMsgWithCursor("Now you have " + numTasks + " tasks in your list.");
+    public void printNumTasksInList() {
+        dukeUI.printMsgWithCursor("Now you have " + tasks.size() + " tasks in your list.");
     }
 
-    public void printNumTaskComplete(int numComplete, int numTasks) {
-        dukeUI.printMsgWithCursor("You have done " + numComplete + "/" + numTasks + " tasks in your list.");
+    public void printNumTaskComplete() {
+        int numComplete = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).isDone) {
+                numComplete += 1;
+            }
+        }
+        dukeUI.printMsgWithCursor("You have done " + numComplete + "/" + tasks.size() + " tasks in your list.");
     }
 
     public void printAddTaskMsg(String taskDescription) {
