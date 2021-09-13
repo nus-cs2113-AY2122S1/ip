@@ -3,4 +3,11 @@ todo Devotion
 deadline CS2113T /by Tuesday
 event Project Meeting /at Monday 9-11pm
 list
+done 3
+done 1
+done 4
+list
+delete 3
+delete 1
+list
 bye
