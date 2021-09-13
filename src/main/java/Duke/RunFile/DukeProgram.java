@@ -8,6 +8,7 @@ import Duke.TaskTypes.Todo;
 
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class DukeProgram {
     //List of Special User Commands
@@ -25,8 +26,11 @@ public class DukeProgram {
     public static final String DEADLINE_KEYWORD = " /by";
     public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
 
-    public static void printList(Task[] taskList) {
-        if (taskList.length == 0) {
+    //Collections to store all the tasks
+    public static final ArrayList<Task> taskList = new ArrayList<>();
+
+    public static void printList(ArrayList<Task> taskList) {
+        if (taskList.size() == 0) {
             System.out.println(LINE);
             System.out.println(" No Tasks here yet. Go include some tasks!");
             System.out.println(LINE);
@@ -36,8 +40,8 @@ public class DukeProgram {
 
         System.out.println(LINE);
         System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < taskList.length; i++) {
-            System.out.println(" " + (i + 1) + ". " + taskList[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + taskList.get(i).toString());
         }
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
@@ -82,28 +86,28 @@ public class DukeProgram {
 
         if(isNumeric(commands[1])) {
             int taskDoneIndex = Integer.parseInt(commands[1]);
-            return taskDoneIndex > 0 && taskDoneIndex <= index;
+            return taskDoneIndex > 0 && taskDoneIndex < index;
         }
 
         return false;
     }
 
-    public static void printTaskDone(String inWord, int index, Task[] taskList) throws DukeException {
+    public static void printTaskDone(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
         if (!isValidDoneInstruction(inWord, index)) {
             throw new DukeException();
         }
 
         String[] commands = inWord.split(" ");
         int taskDoneIndex = Integer.parseInt(commands[1]);
-        taskList[taskDoneIndex - 1].markAsDone();
+        taskList.get(taskDoneIndex - 1).markAsDone();
         System.out.println(LINE);
         System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + taskList[taskDoneIndex - 1].toString());
+        System.out.println("   " + taskList.get(taskDoneIndex - 1).toString());
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageDoneInstruction(String inWord, int index, Task[] taskList) {
+    public static void manageDoneInstruction(String inWord, int index, ArrayList<Task> taskList) {
         try {
             printTaskDone(inWord, index, taskList);
         } catch (DukeException invalidDoneException){
@@ -132,7 +136,7 @@ public class DukeProgram {
         return !descriptionDetails.isEmpty() && !descriptionAt.isEmpty();
     }
 
-    public static void printEvent(String inWord, int index, Task[] taskList) throws DukeException {
+    public static void printEvent(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
@@ -145,16 +149,16 @@ public class DukeProgram {
         String at = details[1].trim();
 
         Event newItem = new Event(description, at);
-        taskList[index] = newItem;
+        taskList.add(newItem);
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
-        System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
+        System.out.println(" Now you have " + (index) +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageEvent(String inWord, int index, Task[] taskList) {
+    public static void manageEvent(String inWord, int index, ArrayList<Task> taskList) {
         try {
             printEvent(inWord, index, taskList);
         } catch (DukeException invalidEventException) {
@@ -174,7 +178,7 @@ public class DukeProgram {
         return commands.length == 2 && isNonEmptyDetails;
     }
 
-    public static void printTodo(String inWord, int index, Task[] taskList) throws DukeException {
+    public static void printTodo(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
@@ -185,16 +189,16 @@ public class DukeProgram {
 
         String description = commands[1];
         Todo newItem = new Todo(description);
-        taskList[index] = newItem;
+        taskList.add(newItem);
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
-        System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
+        System.out.println(" Now you have " + (index) +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageTodo(String inWord, int index, Task[] taskList) {
+    public static void manageTodo(String inWord, int index, ArrayList<Task> taskList) {
         try {
             printTodo(inWord, index, taskList);
         } catch (DukeException emptyTodoException) {
@@ -223,7 +227,7 @@ public class DukeProgram {
         return !descriptionDetails.isEmpty() && !descriptionBy.isEmpty();
     }
 
-    public static void printDeadline(String inWord, int index, Task[] taskList) throws DukeException {
+    public static void printDeadline(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
@@ -236,16 +240,16 @@ public class DukeProgram {
         String by = details[1].trim();
 
         Deadline newItem = new Deadline(description, by);
-        taskList[index] = newItem;
+        taskList.add(newItem);
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
-        System.out.println(" Now you have " + (index + 1) +" tasks in the list.");
+        System.out.println(" Now you have " + (index) +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageDeadline(String inWord, int index, Task[] taskList) {
+    public static void manageDeadline(String inWord, int index, ArrayList<Task> taskList) {
         try {
             printDeadline(inWord, index, taskList);
         } catch (DukeException invalidDeadlineException) {
@@ -260,14 +264,14 @@ public class DukeProgram {
         System.out.print(System.lineSeparator());
     }
 
-    public static void executeUserInstruction(String inWord, int index, Task[] taskList) {
+    public static void executeUserInstruction(String inWord, int index) {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
         String instructionType = instruction[0];
 
         switch(instructionType) {
         case LIST_COMMAND:
-            printList(Arrays.copyOf(taskList, index));
+            printList(taskList);
             break;
         case DONE_COMMAND:
             manageDoneInstruction(inWord, index, taskList);
@@ -327,11 +331,10 @@ public class DukeProgram {
         inWord = scan.nextLine();
 
 
-        int index = 0;
-        Task[] taskList = new Task[NUM_OF_TASKS];
+        int index = 1;
 
         while (!inWord.equalsIgnoreCase(EXIT_STRING)) {
-            executeUserInstruction(inWord, index, taskList);
+            executeUserInstruction(inWord, index);
             index = updateIndex(index, inWord);
             inWord = scan.nextLine();
         }
