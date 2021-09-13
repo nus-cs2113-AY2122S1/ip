@@ -69,6 +69,9 @@ public class Duke {
      */
     private static final int TASK_SIZE = 100;
 
+    private static Task[] tasks = new Task[TASK_SIZE];
+    private static int taskCounter = 0;
+
     /**
      * Main entry point of the application and starts the interaction with user
      */
@@ -109,15 +112,14 @@ public class Duke {
         for (int i = 0; i < taskCounter; i++) {
             System.out.println(tasks[i]);
         }
-        printTaskNumber(taskCounter);
+        printTaskNumber();
     }
 
     /**
      * Prints the number of tasks
      *
-     * @param taskCounter number of tasks in the array
      */
-    private static void printTaskNumber(int taskCounter) {
+    private static void printTaskNumber() {
         String task = TASK_PLURAL;
         if (taskCounter == 1) {
             task = TASK_SINGLE;
@@ -251,15 +253,16 @@ public class Duke {
      * @param chatInput input of user
      * @return to-do item to be added to task list
      */
-    private static ToDo addToDoItem(String chatInput) {
+    private static void addToDoItem(String chatInput) {
         try {
             ToDo temp = new ToDo(scanDescription(chatInput));
+            tasks[taskCounter] = temp;
+            taskCounter++;
             System.out.println(MESSAGE_TASK_ADDED + temp);
-            return temp;
+            printTaskNumber();
         } catch (DukeException e) {
             System.out.println(ERROR_WRONG_TODO_FORMAT);
         }
-        return null;
     }
 
     /**
@@ -268,15 +271,16 @@ public class Duke {
      * @param chatInput input of user
      * @return event item to be added to task list
      */
-    private static Event addEventItem(String chatInput) {
+    private static void addEventItem(String chatInput) {
         try {
             Event temp = new Event(scanDescription(chatInput), getTimeOfEvent(chatInput));
+            tasks[taskCounter] = temp;
+            taskCounter++;
             System.out.println(MESSAGE_TASK_ADDED + temp);
-            return temp;
+            printTaskNumber();
         } catch (DukeException e) {
             System.out.println(ERROR_WRONG_EVENT_FORMAT);
         }
-        return null;
     }
 
     /**
@@ -285,42 +289,38 @@ public class Duke {
      * @param chatInput input of user
      * @return deadline item to be added to task list
      */
-    private static Deadline addDeadlineItem(String chatInput) {
+    private static void addDeadlineItem(String chatInput) {
         try {
             Deadline temp = new Deadline(scanDescription(chatInput), getTimeOfEvent(chatInput));
+            tasks[taskCounter] = temp;
+            taskCounter++;
             System.out.println(MESSAGE_TASK_ADDED + temp);
-            return temp;
+            printTaskNumber();
         } catch (DukeException e) {
             System.out.println(ERROR_WRONG_DEADLINE_FORMAT);
         }
-        return null;
     }
 
     /**
      * Sets specific task in array as done
      *
-     * @param tasks array containing all the tasks
      * @param chatInput input of user
      * @return the tasks array with specified item marked as done
      */
-    private static Task[] setTaskAsDone(Task[] tasks, String chatInput, int taskCounter) {
-        Task[] temp = tasks;
+    private static void setTaskAsDone(String chatInput) {
         int taskIdx = findTaskNumber(chatInput);
         try {
-            temp[taskIdx].setDone();
-            System.out.println(PRINT_DONE_MESSAGE_FRONT + temp[taskIdx] + PRINT_DONE_MESSAGE_BACK);
+            tasks[taskIdx].setDone();
+            System.out.println(PRINT_DONE_MESSAGE_FRONT + tasks[taskIdx] + PRINT_DONE_MESSAGE_BACK);
         } catch (NullPointerException e) {
             System.out.println(MESSAGE_OUT_OF_RANGE + taskCounter);
         }
-        return temp;
     }
 
     /**
      * Executes the main chatting function
      */
     private static void startChat() {
-        Task[] tasks = new Task[TASK_SIZE];
-        int taskCounter = 0;
         while (true) {
             printDivider();
             String chatInput = in.nextLine();
@@ -332,28 +332,16 @@ public class Duke {
                 printList(tasks, taskCounter);
                 break;
             case COMMAND_TODO:
-                tasks[taskCounter] = addToDoItem(chatInput);
-                if (checkIfTaskAdded(tasks[taskCounter])) {
-                    taskCounter++;
-                }
-                printTaskNumber(taskCounter);
+                addToDoItem(chatInput);
                 break;
             case COMMAND_EVENT:
-                tasks[taskCounter] = addEventItem(chatInput);
-                if (checkIfTaskAdded(tasks[taskCounter])) {
-                    taskCounter++;
-                }
-                printTaskNumber(taskCounter);
+                addEventItem(chatInput);
                 break;
             case COMMAND_DEADLINE:
-                tasks[taskCounter] = addDeadlineItem(chatInput);
-                if (checkIfTaskAdded(tasks[taskCounter])) {
-                    taskCounter++;
-                }
-                printTaskNumber(taskCounter);
+                addDeadlineItem(chatInput);
                 break;
             case COMMAND_DONE:
-                tasks = setTaskAsDone(tasks, chatInput, taskCounter);
+                setTaskAsDone(chatInput);
                 break;
             default:
                 System.out.println(MESSAGE_NO_INPUT);
