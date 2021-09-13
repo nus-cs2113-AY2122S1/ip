@@ -97,7 +97,7 @@ public class Parser {
 
 
     public static void runCommand(String input, Command c)
-            throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException {
+            throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException, InvalidInputException {
         switch (c) {
         case LIST:
             taskList.listTasks();
@@ -108,6 +108,8 @@ public class Parser {
         case DELETE:
             taskList.deleteTask(input);
             break;
+        case INVALID:
+            throw new InvalidInputException();
         case TODO:
         case EVENT:
         case DEADLINE:

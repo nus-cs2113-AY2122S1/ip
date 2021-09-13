@@ -1,10 +1,5 @@
 package duke;
-import duke.exception.EmptyToDoException;
-import duke.exception.TaskIndexOutOfBound;
-import duke.exception.EmptyInputException;
-import duke.exception.InvalidDeadlineTimeException;
-import duke.exception.InvalidEventTimeException;
-import duke.exception.InvalidCommandException;
+import duke.exception.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -24,9 +19,11 @@ public class Duke {
                 c = Command.EVENT;
             } else if (Parser.isToDo()) {
                 c = Command.TODO;
-            } else {
+            } else if (Parser.isBye()){
                 Init.bye();
                 break;
+            } else {
+                c = Command.INVALID;
             }
 
             try {
@@ -40,6 +37,8 @@ public class Duke {
             } catch (InvalidEventTimeException e) {
                 System.out.println(e);
             } catch (InvalidCommandException e) {
+                System.out.println(e);
+            } catch (InvalidInputException e) {
                 System.out.println(e);
             }
 
