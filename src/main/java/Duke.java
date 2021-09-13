@@ -1,13 +1,14 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Duke {
     private final static String DONE_TASK_INDICATOR = "^done \\d+";
+    private final static String DELETE_TASK_INDICATOR = "^delete \\d+";
+
     private final static String BYE_INDICATOR = "bye";
     private final static String LIST_INDICATOR = "list";
-    private final static int TASK_ARRAY_SIZE = 101;
 
     private final static String TASK_TYPE_TODO = "todo";
     private final static String TASK_TYPE_EVENT = "event";
@@ -18,6 +19,8 @@ public class Duke {
 
     // We split the input given by the user with a single white space
     private final static String USER_INPUT_SPLITTER = " ";
+
+    private final static ArrayList<Task> taskArrayList = new ArrayList<Task>();
     
     private static void welcomeMessage() {
         String greetings = "Hello! I'm Duke\n"
@@ -30,14 +33,15 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-    private static void printNumberOfTask(int taskNumber) {
+    private static void printNumberOfTask() {
+        int numberOfTasks = taskArrayList.size();
         String taskNoun;
-        if (taskNumber == 1) {
+        if (numberOfTasks == 1 || numberOfTasks == 0) {
             taskNoun = "task";
         } else {
             taskNoun = "tasks";
         }
-        System.out.println("Now you have " + taskNumber + " " +
+        System.out.println("Now you have " + numberOfTasks + " " +
                 taskNoun +" in the list.\n");
     }
 
@@ -95,7 +99,7 @@ public class Duke {
         }
     }
 
-    public static void addTaskToTaskArray(String userInput, int taskNumber, Task[] taskArray)
+    public static void addTaskToTaskArray(String userInput, ArrayList<Task> taskArrayList)
             throws InvalidTaskTypeException, EmptyDescriptionException, InvalidDateIndicatorException {
         String taskType = getTaskType(userInput);
         String taskDescription = getTaskDescriptor(userInput);
@@ -103,64 +107,100 @@ public class Duke {
         switch (taskType) {
             case TASK_TYPE_TODO:
                 Todo todo = new Todo(taskDescription);
-                taskArray[taskNumber] = todo;
+                taskArrayList.add(todo);
                 break;
             case TASK_TYPE_DEADLINE:
                 String deadlineTask = getTaskFromTaskDescription(taskDescription, DEADLINE_DATE_INDICATOR);
                 String deadlineDate = getDateFromTaskDescription(taskDescription, DEADLINE_DATE_INDICATOR);
                 Deadline deadline = new Deadline(deadlineTask, deadlineDate);
-                taskArray[taskNumber] = deadline;
+                taskArrayList.add(deadline);
                 break;
             case TASK_TYPE_EVENT:
                 String eventTask = getTaskFromTaskDescription(taskDescription, EVENT_DATE_INDICATOR);
                 String eventDate = getDateFromTaskDescription(taskDescription, EVENT_DATE_INDICATOR);
                 Event event = new Event(eventTask, eventDate);
-                taskArray[taskNumber] = event;
+                taskArrayList.add(event);
                 break;
         }
-
-        printNumberOfTask(taskNumber);
+        printNumberOfTask();
     }
 
-    public static void markTaskAsDone(String userInput, Task[] taskArray) {
+    public static void markTaskAsDone(String userInput, ArrayList<Task> taskArrayList) {
         String[] userInputArray = userInput.split(USER_INPUT_SPLITTER);
         int doneTaskNumber = Integer.parseInt(userInputArray[1]);
-        Task taskDone = taskArray[doneTaskNumber];
+
+        // We take doneTaskNumber and subtract 1 from it
+        // since ArrayList's index starts from 1
+        doneTaskNumber = doneTaskNumber - 1;
+        Task taskDone = taskArrayList.get(doneTaskNumber);
         taskDone.setTaskAsDone();
+        System.out.println();
     }
 
-    public static void getAllTask(Task[] taskArray, int taskNumber) {
+    public static void getAllTask(ArrayList<Task> taskArrayList) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i < taskNumber; i ++) {
-            Task currentTask = taskArray[i];
-            System.out.println(i + "." + currentTask.toString());
+        int taskNumber;
+        for (int i = 0; i < taskArrayList.size(); i ++) {
+            Task currentTask = taskArrayList.get(i);
+            taskNumber = i + 1;
+            System.out.println(taskNumber + "." + currentTask.toString());
         }
         System.out.println();
+    }
+
+    public static void deleteTaskMessage(Task taskToDelete) {
+        System.out.println("Noted. I've removed this task:\n" +
+                "  " + taskToDelete.toString());
+    }
+
+    public static void deleteTask(String userInput, ArrayList<Task> taskArrayList) {
+        String[] userInputArray = userInput.split(USER_INPUT_SPLITTER);
+        int deleteTaskNumber = Integer.parseInt(userInputArray[1]);
+        int indexOfTaskToDelete = deleteTaskNumber - 1;
+
+        Task taskToDelete = taskArrayList.get(indexOfTaskToDelete);
+        taskArrayList.remove(indexOfTaskToDelete);
+        deleteTaskMessage(taskToDelete);
+        printNumberOfTask();
+    }
+
+    public static void printInvalidTaskNumberProvided() {
+        System.out.println("Task number provided does not exist!\n");
     }
 
     public static void main(String[] args) {
         welcomeMessage();
         Scanner scanner = new Scanner(System.in);
-
-        int taskNumber = 1;
-        Task[] taskArray = new Task[TASK_ARRAY_SIZE];
         Pattern doneTaskPattern = Pattern.compile(DONE_TASK_INDICATOR);
+        Pattern deleteTaskPattern = Pattern.compile(DELETE_TASK_INDICATOR);
 
         while (true) {
             String userInput = scanner.nextLine();
-            Matcher matcher = doneTaskPattern.matcher(userInput);
-            boolean taskIsDone = matcher.find();
+            Matcher doneMatcher = doneTaskPattern.matcher(userInput);
+            boolean taskIsDone = doneMatcher.find();
+
+            Matcher deleteMatcher = deleteTaskPattern.matcher(userInput);
+            boolean deleteTask = deleteMatcher.find();
 
             if (userInput.equals(BYE_INDICATOR)) {
                 break;
             } else if (userInput.equals(LIST_INDICATOR)) {
-                getAllTask(taskArray, taskNumber);
+                getAllTask(taskArrayList);
             } else if (taskIsDone) {
-                markTaskAsDone(userInput, taskArray);
+                try {
+                    markTaskAsDone(userInput, taskArrayList);
+                } catch (IndexOutOfBoundsException e) {
+                    printInvalidTaskNumberProvided();
+                }
+            } else if (deleteTask) {
+                try {
+                    deleteTask(userInput, taskArrayList);
+                } catch (IndexOutOfBoundsException e) {
+                    printInvalidTaskNumberProvided();
+                }
             } else {
                 try {
-                    addTaskToTaskArray(userInput, taskNumber, taskArray);
-                    taskNumber++;
+                    addTaskToTaskArray(userInput, taskArrayList);
                 } catch (EmptyDescriptionException e) {
                     e.printExceptionMessage();
                 } catch (InvalidTaskTypeException e) {
