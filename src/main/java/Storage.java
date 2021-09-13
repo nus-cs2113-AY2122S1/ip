@@ -2,7 +2,7 @@ public class Storage {
     private static final Task[] inputTasks = new Task[100];
     private static int inputTasksSize = 0;
 
-    public static void storeInput(String input) throws DukeException {
+    public static void storeTask(String input) throws DukeException {
         Task newTask;
         if (input.startsWith("todo")) {
             newTask = new Todo(input.substring(5));
@@ -24,6 +24,7 @@ public class Storage {
 
         Response.echo(acknowledgeMessage);
     }
+
 
     public static void list() {
         System.out.println(Response.getLine());

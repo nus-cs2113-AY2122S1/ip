@@ -53,7 +53,7 @@ public class Response {
             break;
         default:
             try {
-                Storage.storeInput(input);
+                Storage.storeTask(input);
             } catch (DukeException e) {
                 echo("OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (IndexOutOfBoundsException e) {
