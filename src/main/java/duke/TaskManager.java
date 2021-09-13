@@ -42,15 +42,25 @@ public class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     /**
+     * Getter for task array.
+     *
+     * @return Task array containing the lists of all tasks.
+     */
+    public static Task[] getTasks() {
+        return tasks;
+    }
+
+    /**
      * Adds a task to the list of existing tasks.
      *
-     * @param taskName The name of task to be added.
-     * @param taskDate TODO: null.
-     *                 DEADLINE: The due date of the task to be added.
-     *                 EVENT: The event date of the task to be added.
-     * @param taskType The type of task to be added.
+     * @param taskName     The name of task to be added.
+     * @param taskDate     TODO: null.
+     *                     DEADLINE: The due date of the task to be added.
+     *                     EVENT: The event date of the task to be added.
+     * @param taskType     The type of task to be added.
+     * @param printMessage Boolean value that checks if task completion message should be printed.
      */
-    public static void addToList(String taskName, String taskDate, TaskType taskType) {
+    public static void addToList(String taskName, String taskDate, TaskType taskType, Boolean printMessage) {
         String[] information = new String[]{taskName, taskDate};
         switch (taskType) {
         case TODO:
@@ -64,9 +74,12 @@ public class TaskManager {
             break;
         default:
         }
-        Picture.printLine();
-        System.out.println(getMessageForAddTask());
-        Picture.printLine();
+        tasksCount++;
+        if (printMessage) {
+            Picture.printLine();
+            System.out.println(getMessageForAddTask());
+            Picture.printLine();
+        }
     }
 
     /**
@@ -114,18 +127,23 @@ public class TaskManager {
      * Prints a message to confirm that the task has been marked as completed.
      *
      * @param itemNumber One index greater than the index of the task in the list.
-     * @throws DukeException If itemNumber > number of items in list or not a positive integer
+     * @param printMessage Boolean value that checks if task completion message should be printed.
+     * @throws DukeException If itemNumber > number of items in list or not a positive integer.
      */
-    public static void markAsCompleted(int itemNumber) throws DukeException {
-        if (itemNumber > tasks.size() || itemNumber < 1) {
+    public static void markAsCompleted(int itemNumber, Boolean printMessage) throws DukeException {
+        if (itemNumber > tasksCount || itemNumber < 1) {
             throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
-            Picture.printLine();
-            tasks.get(itemNumber - 1).markTaskAsDone();
-            final String taskDetails = tasks.get(itemNumber - 1).toString();
-            System.out.println(getMessageForMarkTaskAsDone(taskDetails));
+            tasks[itemNumber - 1].markTaskAsDone();
+            final String taskDetails = tasks[itemNumber - 1].toString();
+            if (printMessage) {
+                Picture.printLine();
+                System.out.println(getMessageForMarkTaskAsDone(taskDetails));
+            }
         }
-        Picture.printLine();
+        if (printMessage) {
+            Picture.printLine();
+        }
     }
 
     /**

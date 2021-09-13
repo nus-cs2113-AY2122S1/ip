@@ -20,4 +20,19 @@ public abstract class Command {
     public boolean isExitCommand() {
         return false;
     };
+
+    /**
+     * Template method for addCommand subclass.
+     */
+    public void runAddTaskFromFile() {
+        // Does nothing here
+    };
+
+    /**
+     * Template method for doneCommand subclass.
+     * @throws DukeException If exception is thrown by doneCommand subclass.
+     */
+    public void runTaskDoneFromFile() throws DukeException {
+        // Does nothing here
+    }
 }

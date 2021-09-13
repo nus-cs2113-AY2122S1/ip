@@ -22,6 +22,16 @@ public class DoneCommand extends Command {
      */
     @Override
     public void runCommand() throws DukeException {
-        TaskManager.markAsCompleted(taskNumber);
+        TaskManager.markAsCompleted(taskNumber, true);
+    }
+
+    /**
+     * Runs a command to mark task as completed when added from file.
+     *
+     * @throws DukeException If an invalid task number is read from file.
+     */
+    @Override
+    public void runTaskDoneFromFile() throws DukeException {
+        TaskManager.markAsCompleted(taskNumber, false);
     }
 }
