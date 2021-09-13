@@ -8,6 +8,7 @@ import duke.exception.EmptyTasklistException;
 import duke.exception.DoneFormatException;
 import duke.exception.InvalidTaskIdException;
 import duke.exception.TaskAlreadyDoneException;
+import duke.exception.DeleteFormatException;
 
 import duke.task.TaskManager;
 import duke.ui.DukeInterface;
@@ -100,7 +101,13 @@ public class Duke {
             }
             break;
         case DELETE_TASK_CMD:
-            taskMgr.deleteTask(cmdArgument);
+            try {
+                taskMgr.deleteTask(cmdArgument);
+            } catch (DeleteFormatException e) {
+                System.out.println(e);
+            } catch (InvalidTaskIdException e) {
+                System.out.println(e);
+            }
             break;
         default:
             throw new InvalidCommandException();
