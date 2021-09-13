@@ -8,8 +8,8 @@ package duke.task;
  */
 public class Todo extends Task {
     /**
-     * The constructor method. Initializes the
-     * task description.
+     * The constructor method. Initialize task description
+     * and set the initial status to "not done".
      *
      * @param description Task description.
      */
@@ -18,10 +18,22 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns the string representation of Todo.
+     * The constructor method. Initialize task description
+     * and set the initial status according to the given
+     * parameter.
      *
-     * @return The string representation of Todo.
+     * @param description Task description.
+     * @param isDone Initial status.
      */
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
+    @Override
+    public String serialize() {
+        return "T" + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

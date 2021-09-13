@@ -1,5 +1,16 @@
 package duke;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import duke.command.Command;
@@ -20,10 +31,13 @@ import duke.ui.Ui;
  * @author richwill28
  */
 public class Duke {
-    /** A scanner to read from standard input. */
-    private Scanner sc;
+    private static final String ROOT_DIRECTORY = System.getProperty("user.dir");
+    private static final String STORAGE_DIRECTORY = "data";
+    private static final String FILE_NAME = "duke.txt";
+    private static final Path PATH_TO_DIRECTORY = Paths.get(ROOT_DIRECTORY, STORAGE_DIRECTORY);
+    private static final Path PATH_TO_FILE = Paths.get(ROOT_DIRECTORY, STORAGE_DIRECTORY, FILE_NAME);
 
-    /** Stores the list of tasks */
+    private Scanner sc;
     private TaskList taskList;
 
     /**
@@ -39,7 +53,7 @@ public class Duke {
         return sc.nextLine();
     }
 
-    /** Lists all the tasks. */
+    /** List all the tasks. */
     public void list() {
         System.out.print(Ui.LINE);
         System.out.println(Ui.PADDING + "Here are the tasks in your list:");
@@ -47,8 +61,63 @@ public class Duke {
         System.out.println(Ui.LINE);
     }
 
+    /** Create new data file. */
+    public void createDataFile() {
+        try {
+            File file = new File(PATH_TO_FILE.toString());
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (IOException e) {
+            // Unexpected exceptions
+            System.out.println(Ui.PADDING + e);
+        }
+    }
+
+    /** Load stored data, if available. */
+    public void loadDataFile() {
+        try {
+            FileReader fin = new FileReader(PATH_TO_FILE.toString());
+            BufferedReader bin = new BufferedReader(fin);
+            List<String> data = new ArrayList<>();
+            String line;
+            while ((line = bin.readLine()) != null) {
+                data.add(line);
+            }
+            bin.close();
+            taskList = TaskList.deserialize(data);
+            System.out.print(Ui.LINE);
+            System.out.println(Ui.PADDING + "Data retrieved successfully.");
+            System.out.println(Ui.PADDING + "Here are the tasks in your list:");
+            System.out.print(taskList);
+            System.out.println(Ui.LINE);
+        } catch (IllegalArgumentException e) {
+            // Overwrite existing data
+            System.out.println(Ui.PADDING + "Error: Data stored in invalid format. Overwriting file..");
+        } catch (FileNotFoundException e) {
+            // Create new data file
+            System.out.println(Ui.PADDING + "Data not found. Initializing new file..");
+            createDataFile();
+        } catch (IOException e) {
+            // Unexpected exceptions
+            System.out.println(Ui.PADDING + e);
+        }
+    }
+
+    /** Save data into a text file */
+    public void saveData() {
+        try {
+            FileWriter fout = new FileWriter(PATH_TO_FILE.toString());
+            BufferedWriter bout = new BufferedWriter(fout);
+            bout.write(taskList.serialize());
+            bout.close();
+        } catch (IOException e) {
+            // Do nothing
+            System.out.println(Ui.PADDING + "Error: Unable to save data.");
+        }
+    }
+
     /**
-     * Marks a task as done and displays it.
+     * Mark task as done and display it.
      *
      * @param response User response.
      */
@@ -68,11 +137,11 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException(description + " is not a number.");
         }
+        saveData();
     }
 
     /**
-     * Reports to user that the task is added
-     * successfully.
+     * Report to user that task is added successfully.
      *
      * @param task User task.
      */
@@ -85,7 +154,7 @@ public class Duke {
     }
 
     /**
-     * Adds Todo to the list of tasks.
+     * Add Todo to the list of tasks.
      *
      * @param response User response, consists of only
      *                 description.
@@ -99,6 +168,7 @@ public class Duke {
             taskList.addTask(task);
             reportTaskAdded(task);
         }
+        saveData();
     }
 
     /**
@@ -126,6 +196,7 @@ public class Duke {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Looks like you have missing arguments.");
         }
+        saveData();
     }
 
     /**
@@ -153,6 +224,7 @@ public class Duke {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Looks like you have missing arguments.");
         }
+        saveData();
     }
 
     /**
@@ -179,7 +251,7 @@ public class Duke {
         }
     }
 
-    /** Starts the main functionality of Duke. */
+    /** Start the main functionality of Duke. */
     public void start() {
         while (true) {
             try {
@@ -207,9 +279,10 @@ public class Duke {
         }
     }
 
-    /** Runs the whole Duke program. */
+    /** Run the whole Duke program. */
     public void run() {
         Ui.printGreeting();
+        this.loadDataFile();
         this.start();
         Ui.printGoodbye();
     }

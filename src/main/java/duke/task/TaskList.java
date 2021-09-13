@@ -65,10 +65,32 @@ public class TaskList {
     }
 
     /**
-     * Returns the string representation of TaskList.
+     * Serialize task data;
      *
-     * @return The string representation of TaskList.
+     * @return Serialied task data.
      */
+    public String serialize() {
+        String serializedData = "";
+        for (Task task : taskList) {
+            serializedData += task.serialize() + System.lineSeparator();
+        }
+        return serializedData;
+    }
+
+    /**
+     * Deserialize stored data and return a new list.
+     *
+     * @param data Stored data.
+     * @return The new task list after deserialization.
+     */
+    public static TaskList deserialize(List<String> data) throws IllegalArgumentException {
+        TaskList taskList = new TaskList();
+        for (String line : data) {
+            taskList.addTask(Task.deserialize(line));
+        }
+        return taskList;
+    }
+
     @Override
     public String toString() {
         String s = "";

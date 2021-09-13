@@ -22,7 +22,7 @@ public class Ui {
 
     public static final String PADDING = "     ";
 
-    /** Displays logo and greets user */
+    /** Display logo and greet user */
     public static void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
@@ -31,7 +31,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    /** Says goodbye to user. */
+    /** Say goodbye to user. */
     public static void printGoodbye() {
         System.out.print(LINE);
         System.out.println(PADDING + "Bye. Hope to see you again soon!");

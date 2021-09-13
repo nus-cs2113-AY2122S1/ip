@@ -11,8 +11,8 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * The constructor method. Initializes the task
-     * description, status, and deadline.
+     * The constructor method. Initialize task description,
+     * status to "not done", and deadline.
      *
      * @param description Task description.
      * @param by Task deadline.
@@ -23,10 +23,23 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the string representation of Deadline.
+     * The constructor method. Initialize task description,
+     * status according to the given parameter, and deadline.
      *
-     * @return The string representation of Deadline.
+     * @param description Task description.
+     * @param by Task deadline.
+     * @param isDone Initial status.
      */
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    @Override
+    public String serialize() {
+        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
