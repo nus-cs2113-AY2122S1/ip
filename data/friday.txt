@@ -1,0 +1,5 @@
+todo | X | borrow book
+deadline | X | read book | tomorrow
+event | X | return book | next week
+todo | X | buy book
+deadline | X | sell book | tomorrow
