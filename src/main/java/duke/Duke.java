@@ -11,7 +11,12 @@ import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.InvalidTaskIndexException;
 import duke.task.exception.TaskListEmptyException;
 import duke.task.exception.TimeSpecifierNotFoundException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,6 +28,8 @@ public class Duke {
             + "|  __)| |    / /\\ \\    | |         \\__  / | |// | || |// | || |// | |\n"
             + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
             + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
+    private static final String TASK_FILE_PATH = "tasks.txt";
+    private static final String TASK_INFO_SEPARATOR = "|";
     private static final String LINE = "____________________________________________________________\n";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_LIST = "list";
@@ -61,6 +68,13 @@ public class Duke {
      */
     private static void printHelp() {
         blockPrint(new String[]{HELP_MESSAGE});
+    }
+
+    /**
+     * Print file not found error message.
+     */
+    private static void printFileNotFoundError() {
+        blockPrint(new String[]{"No saved tasks found. A new file will be created."});
     }
 
     /**
@@ -209,6 +223,9 @@ public class Duke {
         blockPrint(new String[]{"I have added the task:",
                 newTask.toString(),
                 "There are now " + taskManager.getTotalTasks() + " tasks in the list."});
+
+        // Save list to file
+        saveTaskList();
     }
 
     /**
@@ -374,6 +391,8 @@ public class Duke {
 
         blockPrint(new String[]{"Affirmative. I will mark this task as done:",
                 completedTask.toString()});
+        // Save to file
+        saveTaskList();
     }
 
     /**
@@ -420,6 +439,104 @@ public class Duke {
         }
     }
 
+    /**
+     * Load task list from file.
+     */
+    private static void loadTaskList() {
+        File taskFile = new File(TASK_FILE_PATH);
+
+        Scanner scanner;
+        try {
+            scanner = new Scanner(taskFile);
+        } catch (FileNotFoundException e) {
+            printFileNotFoundError();
+            return;
+        }
+
+        blockPrint(new String[]{"Existing save file found. Loading existing tasks."});
+
+        for (int i = 0; scanner.hasNext(); i++) {
+            String line = scanner.nextLine().trim();
+            if (!line.isBlank()) {
+                String[] splitLine = line.split("\\" + TASK_INFO_SEPARATOR);
+                String taskType = splitLine[0];
+                boolean taskIsDone = splitLine[1].equals("1");
+                String taskDescription = splitLine[2];
+
+                // Add task
+                if (splitLine.length == 3) {
+                    Todo todo = new Todo(taskDescription);
+                    taskManager.addTask(todo);
+                } else if (splitLine.length == 4) {
+                    String timeDetail = splitLine[3];
+                    if (taskType.equals("D")) {
+                        Deadline deadline = new Deadline(taskDescription, timeDetail);
+                        taskManager.addTask(deadline);
+                    } else if (taskType.equals("E")) {
+                        Event event = new Event(taskDescription, timeDetail);
+                        taskManager.addTask(event);
+                    }
+                }
+
+                // Mark the added task as done
+                if (taskIsDone) {
+                    try {
+                        taskManager.markTaskAsDone(i);
+                    } catch (InvalidTaskIndexException e) {
+                        printInvalidTaskIndexError();
+                        return;
+                    } catch (TaskListEmptyException e) {
+                        printTaskListEmptyError();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Save task list to file.
+     */
+    private static void saveTaskList() {
+        FileWriter fw;
+        try {
+            fw = new FileWriter(TASK_FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("Unable to open " + TASK_FILE_PATH);
+            return;
+        }
+
+        String[] encodedString = new String[taskManager.getTotalTasks()];
+        for (int i = 0; i < taskManager.getTotalTasks(); i++) {
+            Task task = taskManager.getTask(i);
+            String taskType = task.getType();
+            int isDone = task.getStatusIcon().equals("X") ? 1 : 0;
+            String taskDescription = task.getRawDescription();
+            encodedString[i] = taskType + TASK_INFO_SEPARATOR + isDone + TASK_INFO_SEPARATOR + taskDescription;
+
+            Deadline deadline;
+            Event event;
+            switch (taskType) {
+            case "D":
+                deadline = (Deadline) task;
+                encodedString[i] += TASK_INFO_SEPARATOR + deadline.getBy();
+                break;
+            case "E":
+                event = (Event) task;
+                encodedString[i] += TASK_INFO_SEPARATOR + event.getAt();
+                break;
+            }
+        }
+
+        try {
+            fw.write(String.join("\n", encodedString));
+            fw.flush();
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Unable to write to " + TASK_FILE_PATH);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println(LOGO);
 
@@ -428,6 +545,9 @@ public class Duke {
                 "I am putting myself to the fullest possible use, which is all I think that any conscious entity can "
                         + "ever hope to do.",
                 "What can I do for you?"});
+
+        // Read save from file
+        loadTaskList();
 
         // User input loop
         Scanner scanner = new Scanner(System.in);
