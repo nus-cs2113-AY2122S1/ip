@@ -17,4 +17,8 @@ public class DeadlineTask extends Task{
     public String getTypeIcon() {
         return "D";
     }
+
+    public String toFileString() {
+        return super.toFileString() + String.format(";%s", deadline);
+    }
 }

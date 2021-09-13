@@ -48,10 +48,11 @@ public class TaskManager {
     public Task addTask(HashMap<String, String> params) throws IllegalArgumentException{
         String type = params.get("type");
         String task = params.get("task");
+        String done = params.get("done");
         Task newTask;
 
         if(task.strip().equals(""))
-            throw new IllegalArgumentException("task.Task not specified");
+            throw new IllegalArgumentException("Task not specified");
 
         switch(type) {
             case "todo":
@@ -75,6 +76,10 @@ public class TaskManager {
                 throw new IllegalArgumentException("Invalid task type");
         }
 
+        if(done != null && (done.equals("1") || done.equals("Y")) ) {
+            newTask.setDone();
+        }
+
         tasks.add(newTask);
         return newTask;
     }
@@ -87,5 +92,26 @@ public class TaskManager {
         } catch(IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Invalid index");
         }
+    }
+
+    public String toFileString() {
+        StringBuilder sb = new StringBuilder();
+        Task currTask;
+        Iterator<Task> it = tasks.iterator();
+        int counter = 1;
+        String statusIcon, fileStatusIcon;
+
+        while(it.hasNext()) {
+            currTask = it.next();
+
+            fileStatusIcon = currTask.getDone() ? "1" : "0";
+
+            sb.append(String.format("%s;%s;%s\n",
+                    currTask.getTypeIcon(),
+                    fileStatusIcon,
+                    currTask.toFileString()));
+        }
+
+        return sb.toString();
     }
 }

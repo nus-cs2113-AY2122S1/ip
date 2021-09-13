@@ -7,7 +7,6 @@ public abstract class Task {
 
     public Task(String name) {
         this.name = name;
-
         isDone = false;
     }
 
@@ -29,6 +28,10 @@ public abstract class Task {
 
     public String toString() {
         return String.format("[%s][%s] %s", getTypeIcon(), getStatusIcon(), name);
+    }
+
+    public String toFileString() {
+        return getName();
     }
 
     public abstract String getTypeIcon();
