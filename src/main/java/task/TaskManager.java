@@ -1,3 +1,5 @@
+package task;
+
 import java.util.*;
 
 public class TaskManager {
@@ -12,6 +14,10 @@ public class TaskManager {
     }
 
     public String listTasks() {
+        if(tasks.size() == 0) {
+            return "No task available\n";
+        }
+
         StringBuilder sb = new StringBuilder();
         Task currTask;
         Iterator<Task> it = tasks.iterator();
@@ -19,10 +25,8 @@ public class TaskManager {
 
         while(it.hasNext()) {
             currTask = it.next();
-            sb.append(String.format("%d.[%s][%s] %s\n",
+            sb.append(String.format("%d. %s\n",
                     counter++,
-                    currTask.getTypeIcon(),
-                    currTask.getStatusIcon(),
                     currTask));
         }
 
@@ -47,7 +51,7 @@ public class TaskManager {
         Task newTask;
 
         if(task.strip().equals(""))
-            throw new IllegalArgumentException("Task not specified");
+            throw new IllegalArgumentException("task.Task not specified");
 
         switch(type) {
             case "todo":
@@ -73,5 +77,15 @@ public class TaskManager {
 
         tasks.add(newTask);
         return newTask;
+    }
+
+    public Task removeTask(int index){
+        index -= 1; //to match array index
+
+        try {
+            return tasks.remove(index);
+        } catch(IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Invalid index");
+        }
     }
 }

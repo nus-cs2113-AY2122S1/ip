@@ -1,3 +1,9 @@
+import parser.Action;
+import parser.Command;
+import parser.Parser;
+import task.Task;
+import task.TaskManager;
+
 import java.util.Scanner;
 
 // The Terminal
@@ -47,6 +53,10 @@ public class Duke {
             case ADD_TASK:
                 addTask(command);
                 break;
+
+            case DELETE_TASK:
+                removeTask(command);
+                break;
                 
             default:
             	printError();
@@ -84,10 +94,27 @@ public class Duke {
         try {
             Task completedTask = taskMgr.doTask(index);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.printf("[%s][%s] %s\n",
-                    completedTask.getTypeIcon(),
-                    completedTask.getStatusIcon(),
-                    completedTask);
+            System.out.printf("%s\n", completedTask);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void removeTask(Command command) {
+        String indexParam = command.getParam("index");
+        int index;
+
+        try {
+            index = Integer.parseInt(indexParam);
+        } catch(NumberFormatException e) {
+            System.out.println("Index is not a number");
+            return;
+        }
+
+        try {
+            Task completedTask = taskMgr.removeTask(index);
+            System.out.println("Noted I've removed this task:");
+            System.out.printf("%s\n", completedTask);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -103,7 +130,7 @@ public class Duke {
         }
 
         System.out.println("Got it. I've added this task: ");
-        System.out.printf("[%s][ ] %s\n", newTask.getTypeIcon(), newTask);
+        System.out.printf("%s\n", newTask);
 
         int numOfTasks = taskMgr.getTasklistLength();
         String plural = (numOfTasks <= 1) ? "task" : "tasks";
