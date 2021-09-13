@@ -1,13 +1,17 @@
 package duke;
 
+import duke.exceptions.EmptyField;
+import duke.exceptions.IllegalOperation;
+import duke.list.List;
 import duke.list.ListInterface;
 import duke.messages.MessageBubble;
+import duke.file.Storage;
 
-import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class Duke {
     public static void run() {
-        Scanner in = new Scanner(System.in);
         final String LOGO = " ____        _\n"
                 + "|  _ \\ _   _| | _____\n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -15,6 +19,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
 
-        ListInterface.readMultipleCommands();
+        List localData = Storage.loadFile();
+        ListInterface.readMultipleCommands(localData);
     }
 }

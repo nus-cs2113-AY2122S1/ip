@@ -32,6 +32,10 @@ public class List {
     }
 
     public void addItem(Task task) throws IllegalOperation {
+        addItem(task, true);
+    }
+
+    public void addItem(Task task, boolean showMessage) throws IllegalOperation {
         if (numOfListItems >= MAX_LIST_ITEMS) {
             throw new IllegalOperation();
         }
@@ -47,11 +51,13 @@ public class List {
             numOfListItems++;
         }
 
-        MessageBubble msg = new MessageBubble();
-        msg.addMessage("Got it. I've added this task:");
-        msg.addMessage(String.format(" %d:%s", numOfListItems, task.toString()));
-        msg.addMessage("Now you have " + numOfListItems + " tasks in the list.");
-        msg.printMessageBubble();
+        if (showMessage) {
+            MessageBubble msg = new MessageBubble();
+            msg.addMessage("Got it. I've added this task:");
+            msg.addMessage(String.format(" %d:%s", numOfListItems, task.toString()));
+            msg.addMessage("Now you have " + numOfListItems + " tasks in the list.");
+            msg.printMessageBubble();
+        }
     }
 
     public void removeItem(int index) {
@@ -116,5 +122,18 @@ public class List {
             temp = temp.getNext();
         }
         msg.printMessageBubble();
+    }
+
+    // TODO: 2021/9/13 correct format
+    public String printListSimple() {
+        String result = "";
+
+        ListItem temp = headItem;
+        for (int i = 1; i <= numOfListItems; i++) {
+            result.concat(String.format(" %d:%s", i, temp.getItem().toString()));
+            temp = temp.getNext();
+        }
+
+        return result;
     }
 }

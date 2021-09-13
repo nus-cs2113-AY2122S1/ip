@@ -11,8 +11,12 @@ import java.util.Scanner;
 
 public class ListInterface {
     public static void readMultipleCommands() {
+        readMultipleCommands(new List());
+    }
+
+    public static void readMultipleCommands(List preloadData) {
         Scanner input = new Scanner(System.in);
-        List taskList = new List();
+        List taskList = preloadData;
 
         while (true) {
             String command = input.nextLine();

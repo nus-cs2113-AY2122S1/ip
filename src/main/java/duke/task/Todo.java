@@ -8,6 +8,11 @@ public class Todo extends Task {
         setDescription(description);
     }
 
+    public Todo(String description, boolean done) throws EmptyField {
+        setDescription(description);
+        setStatus(done);
+    }
+
     @Override
     public String getTime() throws IllegalOperation {
         throw new IllegalOperation();

@@ -10,6 +10,12 @@ public class Deadline extends Task {
         setTime(time);
     }
 
+    public Deadline(String description, boolean done, String time) throws EmptyField {
+        setDescription(description);
+        setTime(time);
+        setStatus(done);
+    }
+
     @Override
     public String getTime() {
         return time;
