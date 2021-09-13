@@ -6,6 +6,7 @@ import duke.command.DoneCommand;
 import duke.task.Task;
 import duke.task.TaskType;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String filePath = "data/duke.txt";
+    private static final String FILE_NAME = "duke.txt";
     private static final String DELIMITER = "@@@";
 
     private static final int TASK_TYPE = 0;
@@ -28,8 +29,9 @@ public class Storage {
      * Loads task data from the file when Duke starts up.
      */
     public static void loadTask() {
+        checkFileExist();
         try {
-            FileInputStream fileInputStream = new FileInputStream(filePath);
+            FileInputStream fileInputStream = new FileInputStream(FILE_NAME);
             Scanner scanner = new Scanner(fileInputStream);
             while (scanner.hasNext()) {
                 parseLine(scanner.nextLine());
@@ -39,6 +41,21 @@ public class Storage {
         } catch (DukeException dukeException) {
             dukeException.getMessage();
         }
+    }
+
+    /**
+     * Checks if the file exists, otherwise new file will be created.
+     */
+    private static void checkFileExist() {
+        File file = new File(System.getProperty("user.dir"), FILE_NAME);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
     }
 
     /**
@@ -74,7 +91,7 @@ public class Storage {
      */
     public static void saveTask() {
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
+            FileWriter fileWriter = new FileWriter(FILE_NAME);
             for (Task task : TaskManager.getTaskList()) {
                 if (task != null) {
                     fileWriter.write(task.toFileString() + System.lineSeparator());

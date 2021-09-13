@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -10,7 +11,7 @@ public class Duke {
     private static final String MESSAGE_WELCOME = S_TAB + "Welcome to Jura Tempest!" + LS
                                                 + S_TAB + "I'm Rimuru Tempest, pleased to make your acquaintance." + LS
                                                 + S_TAB + "How can I help you today?";
-    private static final String MESSAGE_GOODBYE = S_TAB + "Sayonara. Come visit our country again soon!";
+    private static final String MESSAGE_GOODBYE = S_TAB + "Sayonara. Come visit Jura Tempest again soon!";
 
     public static void main(String[] args) {
         greetUser();
