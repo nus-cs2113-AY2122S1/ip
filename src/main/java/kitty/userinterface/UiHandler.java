@@ -35,7 +35,7 @@ public class UiHandler {
                     addToList(Ui.userInput, "E");
                     break;
                 case "delete":
-                    removeFromList(Ui.userInput);
+                    removeFromList();
                     break;
                 default:
                     throw new KittyException("No such command found");
@@ -48,16 +48,18 @@ public class UiHandler {
 
     public static void printList() throws KittyException{
         // Throw exception if user list with no tasks
-        if (Task.totalTasksCount < 1) {
+        if (Kitty.tasks.size() == 0) {
             throw new KittyException("Sorry you currently have no tasks!");
         } else {
             // Prints list
+            int i = 1;
             System.out.println();
             System.out.println("Here are the tasks you have!");
-            for (int i = 0; i < Task.totalTasksCount; i++) {
-                System.out.print(i + 1 + ".");
-//                System.out.println(Kitty.tasks[i]);
-                System.out.println(Kitty.tasks.get(i));
+
+            for (Task task: Kitty.tasks) {
+                System.out.print(i + ". ");
+                System.out.println(task);
+                i++;
             }
             System.out.println();
             System.out.println(Ui.CAT_1);
@@ -92,14 +94,24 @@ public class UiHandler {
                 Event.addEventTask(line);
                 break;
             }
-            Task.totalTasksCount++;
             Ui.printAddedTask();
         } catch (KittyException e) {
             throw e;
         }
     }
 
-    public static void removeFromList(String line) {
+    public static void removeFromList() throws KittyException{
+        try {
+            int taskNum = Integer.parseInt(Ui.userInput.split(" ")[1]);
+            System.out.println();
+            System.out.println("I have deleted '" + Kitty.tasks.get(taskNum - 1) + "' from your list!!");
+            System.out.println(Ui.CAT_3);
 
+            Kitty.tasks.remove(taskNum - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KittyException("Selected an invalid task number!");
+        } catch (NumberFormatException e) {
+            throw new KittyException("Inputted a non-Integer Task Number!");
+        }
     }
 }
