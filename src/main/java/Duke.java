@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -9,6 +10,8 @@ public class Duke {
     private static ArrayList<Task> tasks;
     //Scanner
     private static final Scanner sc = new Scanner(System.in);
+    //Creation of database file
+    private static final String FILEPATH = "data/jim.text";
     //GenshinImpact conversion rates
     private static final int TOP_LOW_CONVERSION_RATE = 27;
     private static final int HIGH_LOW_CONVERSION_RATE = 9;
@@ -24,6 +27,7 @@ public class Duke {
     private static final String EMPTY_LIST_MESSAGE = " This list is empty and sad :(\n";
     private static final String EMPTY_REMOVE_MESSAGE = " Please identify something to remove!\n";
     private static final String NO_TASK_MESSAGE = "No such task! You're not THAT productive...\n";
+    private static final String NO_FILE_MESSAGE = "No database file!\n";
     private static final String TASK_DONE_MESSAGE = "This task was already marked done!\n";
     private static final String NO_TASK_DONE_NUMBER_MESSAGE = "Please specify the task you would like to " +
             "mark as done!\n";
@@ -50,11 +54,6 @@ public class Duke {
             "    7. quit (only in echo mode) = turn back to normal and stop echoing\n" +
             "    8. genshin = begin the genshin helper\n" +
             "    9. bye = shuts me down... ;-;\n";
-
-
-
-
-
 
     //Prints greeting message
     public static void greeting() {
@@ -199,10 +198,28 @@ public class Duke {
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + LINES);
     }
 
-    //Clears all tasks
+    public static void appendDatabase() {
+        //append new tasks to database
+    }
+
+    public static void updateDatabase() {
+        //update after mark done.
+    }
+
+    public static void initList() {
+        //add stuff in jim.text to ArrayList
+    }
+
+    //Initialises the list
     public static void initJim() {
         tasks = new ArrayList<Task>();
-        File f = new File ("data/jim.text");
+        try {
+            File f = new File("data/jim.text");
+            Scanner s = new Scanner(f);
+            initList();
+        } catch (FileNotFoundException e) {
+            System.out.println(LINES + NO_FILE_MESSAGE + LINES);
+        }
     }
 
     public static String getUserInput() {
