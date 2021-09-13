@@ -21,14 +21,14 @@ public class Duke {
     private static int tasksDone = 0;
     private static Task[] tasks;
     private static String[] commands = {"todo", "event", "deadline"};
-    private static String filePath = "duke.txt";
+    private static String filePath = "src/duke.txt";
 
     public static void main(String[] args) {
         int LIST_SIZE = 100;
         String line = "";
         tasks = new Task[LIST_SIZE];
         showWelcomeScreen();
-        //readFile();
+        readFile();
         while (tasksTotal <= LIST_SIZE && !line.contains("bye")) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
@@ -56,7 +56,30 @@ public class Duke {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            ;
+            String[] splitInput = s.nextLine().split("\\|");
+            checkFileInputs(splitInput);
+        }
+    }
+
+    private static void checkFileInputs(String[] splitInput) {
+        String type = splitInput[0];
+        Boolean status = Boolean.parseBoolean(splitInput[1]);
+        String taskDescription = splitInput[2];
+        if(type.equals("t")) {
+            tasksTotal++;
+            tasks[tasksTotal] = new ToDo(taskDescription);
+        } else if(type.equals("d")) {
+            String date = splitInput[3];
+            tasksTotal++;
+            tasks[tasksTotal] = new Deadline(taskDescription, date);
+        } else if(type.equals("e")) {
+            String date = splitInput[3];
+            tasksTotal++;
+            tasks[tasksTotal] = new Event(taskDescription, date);
+        }
+        if(status) {
+            tasks[tasksTotal].setDone(true);
+            tasksDone++;
         }
     }
 
@@ -107,6 +130,7 @@ public class Duke {
 
 
     private static void listAllTask() {
+        Task.printDivider();
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= tasksTotal; i++) {
             System.out.println(i + ". " + tasks[i].toString());
@@ -125,7 +149,6 @@ public class Duke {
         } else if(checkEmptyDescription(words[1])) {
             throw new InvalidDescriptionError(); //check that description is not just whitespaces
         }
-
         String[] taskDescription = words[1].split("/", 2); //removes command and splits into action and date
         if(taskDescription.length <= 1) {
             if(type.equals("todo")){ //todo command
@@ -142,7 +165,6 @@ public class Duke {
             task = taskDescription[0].trim();
             date = inputDate[1];
         }
-
         checkValidAction(words, task, date, type);
     }
 
@@ -170,7 +192,7 @@ public class Duke {
             addSuccess();
         } else if (type.equals("todo")) {
             tasksTotal++;
-            tasks[tasksTotal] = new ToDo(task, date);
+            tasks[tasksTotal] = new ToDo(task);
             addSuccess();
         } else { //invalid command
             Task.printDivider();
@@ -203,6 +225,7 @@ public class Duke {
     }
 
     private static void addSuccess() {
+        Task.printDivider();
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks[tasksTotal].toString());
         getTasksLeft();

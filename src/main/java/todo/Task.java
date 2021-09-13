@@ -12,7 +12,6 @@ public class Task {
         type = "";
         setTaskDescription(description);
         isDone = false;
-        printDivider();
     }
 
     public void setDone(Boolean status) {
