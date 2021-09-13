@@ -1,0 +1,9 @@
+deadline finish assignment /by 1600 hrs | 1
+event gym /at 5pm to 8pm | 1
+todo go and buy milk | 0
+deadline play guitar pieces to teacher /by 1400hrs | 0
+todo sleep | 1
+deadline cycle /by 12 | 1
+todo sex | 1
+todo run | 1
+todo go down | 1
