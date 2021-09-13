@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 public class TaskManager {
-    private static List<Task> listOfTasks = new LinkedList<Task>();
+    private static List<Task> listOfTasks = new LinkedList<>();
     private static int totalNumberOfTask = 0;
 
     public TaskManager() {
@@ -26,7 +26,7 @@ public class TaskManager {
      * @return Task at specified index.
      */
     private static Task getTask(int indexTask) {
-        if (indexTask > listOfTasks.size() || indexTask < 0) {
+        if (isOutOfRange(indexTask)) {
             System.out.println("Task is out of range!");
             return null;
         }
@@ -35,11 +35,15 @@ public class TaskManager {
 
     /**
      * Marks a certain task as done.
+     * Takes in the index of the task
+     * and checks if it is within range.
+     * If it is, mark it as done. If not,
+     * prompt user and return from function.
      *
      * @param indexTask The index of the task to be marked as done.
      */
     public static void markTaskAsDone(int indexTask) {
-        if (indexTask > listOfTasks.size() || indexTask < 0) {
+        if (isOutOfRange(indexTask)) {
             System.out.println("No such task!");
             return;
         }
@@ -47,6 +51,40 @@ public class TaskManager {
         if (currentTask != null) {
             currentTask.markAsDone();
         }
+    }
+
+    /**
+     * Deletes a task.
+     * Takes in the index of the task
+     * and checks if it is within range.
+     * If it is, delete. If not,
+     * prompts user to key in again
+     * and return from function.
+     *
+     * @param indexTask The index of the task to be marked as done.
+     */
+    public static void deleteTask(int indexTask) {
+        if (isOutOfRange(indexTask)) {
+            System.out.println("No such task!");
+            return;
+        }
+        Task toDelete = getTask(indexTask - 1);
+        System.out.println("OooOOHHhh Weeee. I have removed this:");
+        System.out.println(toDelete);
+        listOfTasks.remove(indexTask - 1);
+        totalNumberOfTask -= 1;
+        System.out.println("Number of tasks left: " + totalNumberOfTask);
+    }
+
+    /**
+     * Checks if the index provided is more or less
+     * than the number of current tasks.
+     *
+     * @param index The index of the task.
+     * @return True if it is out of range, False otherwise.
+     */
+    public static boolean isOutOfRange(int index) {
+        return (index > listOfTasks.size() || index < 0);
     }
 
     /**
@@ -88,6 +126,7 @@ public class TaskManager {
         System.out.println("You have added: " + curTask);
         System.out.println("Your current total number of task is: " + totalNumberOfTask);
     }
+
 
     /**
      * Takes in the users input and

@@ -1,6 +1,7 @@
 package tan;
 
 import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
 
 public class Duke {
     final static String BORDER = "------------------------------------------------------------------------";
@@ -20,7 +21,18 @@ public class Duke {
                 TaskManager.printList();
                 break;
             case "done":
-                TaskManager.markTaskAsDone(getIndexOfTask(input));
+                int taskIndex = getIndexOfTask(input);
+                if (taskIndex != -1) {
+                    //Successfully get index
+                    TaskManager.markTaskAsDone(taskIndex);
+                }
+                break;
+            case "delete":
+                int taskNumber = getIndexOfTask(input);
+                if (taskNumber != -1) {
+                    //Successfully get index
+                    TaskManager.deleteTask(taskNumber);
+                }
                 break;
             default:
                 TaskManager.addTask(input);
@@ -75,14 +87,49 @@ public class Duke {
      * splits it into an array along spaces
      * and assumes the user keyed in the corresponding
      * index at the 2nd input. It then returns the index
-     * in integer.
+     * in integer. Returns -1 if the input can't be
+     * converted into an int.
      *
      * @param x The whole user input as a string.
-     * @return The index of the task in integer.
+     * @return The index of the task in integer. Else -1
      */
     public static int getIndexOfTask(String x) {
-        String[] listOfInputs = x.split(" ");
-        //To implement a try-catch here.
+        int taskIndex = -1;
+        try {
+            taskIndex = parseIndex(x);
+            if (taskIndex < 0) {
+                //user keyed in -ve number.
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException exp) {
+            System.out.println("Please input a proper index!");
+            return -1;
+        } catch (PatternSyntaxException exp) {
+            System.out.println("Please stop using the app and contact an Admin!");
+            System.exit(-1);
+        } catch (ArrayIndexOutOfBoundsException exp) {
+            System.out.println("Please check your input.");
+            return -1;
+        }
+        return taskIndex;
+    }
+
+    /**
+     * Takes in the user intput as a string
+     * and tries to get the index of a task when
+     * using the commands done, delete. Note that
+     * this function does not verify if the index is
+     * within rage of the list.
+     *
+     * @param input The whole user's input.
+     * @return The Index as an integer.
+     * @throws NumberFormatException
+     * @throws PatternSyntaxException
+     * @throws ArrayIndexOutOfBoundsException
+     */
+    public static int parseIndex(String input) throws NumberFormatException,
+            PatternSyntaxException, ArrayIndexOutOfBoundsException {
+        String[] listOfInputs = input.split(" ");
         return Integer.parseInt(listOfInputs[1]);
     }
 

@@ -44,7 +44,7 @@ public abstract class Task {
      */
     public void markAsDone() {
         isDone = true;
-        System.out.println("Sweet! You've just completed this task: ");
+        System.out.println("Sweet! You've just completed this task:");
         System.out.println("[" + this.getStatusIcon() + "] " + name);
     }
 
