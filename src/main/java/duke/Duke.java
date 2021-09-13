@@ -45,17 +45,22 @@ public class Duke {
         for (int i = 0; i < numberOfTasks; i += 1) {
             System.out.print("     ");
             System.out.print((i + 1) + ".");
-            tasks[i].printStatus();
+            tasks.get(i).printStatus();
         }
         System.out.println("    ____________________________________________________________");
     }
 
     public static void deleteTask(String userInputString) throws DukeException {
         int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
-
-        if (taskNumberToDelete <= numberOfTasks) {
-            tasks.remove(taskNumberToDelete);
-        } else {
+        try {
+            if (taskNumberToDelete <= numberOfTasks) {
+                tasks.get(taskNumberToDelete - 1).deletedSuccessfully(numberOfTasks - 1);
+                tasks.remove(taskNumberToDelete - 1);
+                numberOfTasks -= 1;
+            } else {
+                throw new DukeException("Please Enter the Legit Task Number to Delete... Or I won't talk to you!");
+            }
+        } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("Please Enter the Legit Task Number to Delete... Or I won't talk to you!");
         }
 
@@ -77,10 +82,10 @@ public class Duke {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
 
-            tasks[numberOfTasks] = new ToDo(taskName);
+            tasks.add(new ToDo(taskName));
             numberOfTasks += 1;
 
-            tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+            tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -109,10 +114,10 @@ public class Duke {
                 if (taskName.equals("") || by.equals("by ")) {
                     throw new DukeException("The description and event time info of event cannot be empty.");
                 } else {
-                    tasks[numberOfTasks] = new Deadline(taskName, by);
+                    tasks.add(new Deadline(taskName, by));
                     numberOfTasks += 1;
 
-                    tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+                    tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
                 }
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
@@ -142,10 +147,10 @@ public class Duke {
                 if (taskName.equals("") || at.equals("at ")) {
                     throw new DukeException("The description and event time info of event cannot be empty.");
                 } else {
-                    tasks[numberOfTasks] = new Event(taskName, at);
+                    tasks.add(new Event(taskName, at));
                     numberOfTasks += 1;
 
-                    tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+                    tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
                 }
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
@@ -163,7 +168,7 @@ public class Duke {
         int taskNumber = Integer.parseInt(userInputString.split(" ")[1]);
 
         if (taskNumber <= numberOfTasks) {
-            tasks[taskNumber - 1].markAsDone();
+            tasks.get(taskNumber - 1).markAsDone();
         } else {
             throw new DukeException("Please Enter the Legit Task Number... Or I won't talk to you!");
         }
@@ -216,6 +221,8 @@ public class Duke {
                 } else if (commandHandle.isDone()) {
                     finishTask(userInputString);
                     continue;
+                } else if (commandHandle.isDelete()) {
+                    deleteTask(userInputString);
                 } else if (commandHandle.isToDo()) {
                     addToDo(userInputString);
                     continue;
