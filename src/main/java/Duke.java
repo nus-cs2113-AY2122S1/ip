@@ -1,7 +1,12 @@
 import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private final static String DONE_TASK_INDICATOR = "^done \\d+";
@@ -168,6 +173,26 @@ public class Duke {
         System.out.println("Task number provided does not exist!\n");
     }
 
+    public static void saveToDukeTextFile(ArrayList<Task> taskArrayList) {
+        try {
+            FileWriter dukeTextFile = new FileWriter("../data/duke.txt");
+            for (int i = 0; i < taskArrayList.size(); i++) {
+                Task currentTask = taskArrayList.get(i);
+                String taskString = currentTask.toString();
+                dukeTextFile.write(taskString);
+                dukeTextFile.write("\n");
+            }
+            dukeTextFile.close();
+        } catch (IOException e) {
+            System.out.println("Error saving into the duke text file. " +
+                    "Data directory not found. \n" +
+                    "Creating a new data directory.");
+            new File("../data").mkdirs();
+            System.out.println("Done creating new data directory.\n");
+            saveToDukeTextFile(taskArrayList);
+        }
+    }
+
     public static void main(String[] args) {
         welcomeMessage();
         Scanner scanner = new Scanner(System.in);
@@ -189,18 +214,21 @@ public class Duke {
             } else if (taskIsDone) {
                 try {
                     markTaskAsDone(userInput, taskArrayList);
+                    saveToDukeTextFile(taskArrayList);
                 } catch (IndexOutOfBoundsException e) {
                     printInvalidTaskNumberProvided();
                 }
             } else if (deleteTask) {
                 try {
                     deleteTask(userInput, taskArrayList);
+                    saveToDukeTextFile(taskArrayList);
                 } catch (IndexOutOfBoundsException e) {
                     printInvalidTaskNumberProvided();
                 }
             } else {
                 try {
                     addTaskToTaskArray(userInput, taskArrayList);
+                    saveToDukeTextFile(taskArrayList);
                 } catch (EmptyDescriptionException e) {
                     e.printExceptionMessage();
                 } catch (InvalidTaskTypeException e) {
