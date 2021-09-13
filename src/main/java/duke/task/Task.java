@@ -41,6 +41,10 @@ public abstract class Task {
         }
     }
 
+    public String getSaveFormat() {
+        return String.format("%s | %s | %s", " ", status? "1":"0", description);
+    }
+
     @Override
     public String toString() {
         String classIndicator = this.getClass().getSimpleName().substring(0,1);
