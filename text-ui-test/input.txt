@@ -1,16 +1,12 @@
 todo borrow book
 list
 deadline return book /by Sunday
-done 1
-list
+done 7
 event project meeting /at Mon 2-4pm
-done 4
-deadline do homework /by no idea :-p
-done 4
 list
-event attend workshop /at Sat 9-11am
-todo clean room
-done 2
+done 5
+deadline do homework /by no idea :-p
+done 3
 list
 todo
 blah
