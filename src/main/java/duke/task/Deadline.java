@@ -9,8 +9,4 @@ class Deadline extends TimedTask {
     Deadline(String userInput) throws WrongNumberOfArgumentsException {
         super(userInput, PREPOSITION, type);
     }
-
-    Deadline(boolean isDone, String description, String dateTime) {
-        super(isDone, description, dateTime, PREPOSITION, type);
-    }
 }

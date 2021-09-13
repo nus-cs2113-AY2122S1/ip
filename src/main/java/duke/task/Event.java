@@ -9,8 +9,4 @@ class Event extends TimedTask {
     Event(String userInput) throws WrongNumberOfArgumentsException {
         super(userInput, PREPOSITION, type);
     }
-
-    Event(boolean isDone, String description, String dateTime) {
-        super(isDone, description, dateTime, PREPOSITION, type);
-    }
 }

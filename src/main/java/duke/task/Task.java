@@ -23,17 +23,8 @@ public class Task {
             return super.toString().toLowerCase();
         }
 
-        public char getChar() {
+        private char getChar() {
             return super.toString().charAt(0);
-        }
-
-        public static Types getType(char firstLetter){
-            for(Types type : values()){
-                if(firstLetter == type.getChar()){
-                    return type;
-                }
-            }
-            return null;
         }
     }
 
@@ -46,12 +37,6 @@ public class Task {
     Task(String description, Types type) {
         this.description = description;
         this.isDone = false;
-        this.type = type;
-    }
-
-    Task(boolean isDone, String description, Types type) {
-        this.isDone = isDone;
-        this.description = description;
         this.type = type;
     }
 
@@ -71,8 +56,5 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%c][%c] %s", type.getChar(), getIsDoneChar(), description);
-    }
-    String getFormattedString() {
-        return String.format("%c|%d|%s", type.getChar(), isDone ? 1 : 0, description);
     }
 }
