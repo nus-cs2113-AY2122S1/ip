@@ -9,6 +9,8 @@ import duke.manager.TaskManager;
  *        Add more constants
  *        Update Tests
  *        Create more exceptions
+ *        Fix commit messages (git convention)
+ *        Add checkstyle
  */
 
 public class Duke {
