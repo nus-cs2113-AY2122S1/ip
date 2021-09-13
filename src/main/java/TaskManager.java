@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static final String FILEPATH = "data/friday.txt";
+
     /**
      * Main function managing all user inputs until program is terminated
      * via the "bye" command.
