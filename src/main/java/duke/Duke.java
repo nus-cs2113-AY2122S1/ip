@@ -16,7 +16,13 @@ import duke.taskType.Event;
 import duke.taskType.Task;
 import duke.taskType.ToDo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -27,7 +33,6 @@ public class Duke {
 
     /* This is an array of task & Total task quantity should not exceed 100! */
     public static ArrayList<Task> tasks = new ArrayList<>();
-    // public static Task[] tasks = new Task[100]; // Previous Implementation of tasks list.
 
     /**
      * These are text objects created that can print text file
@@ -56,12 +61,106 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    public static void removeLineFromFile(String file, String lineToRemove) {
+        try {
+
+            File inFile = new File(file);
+
+            if (!inFile.isFile()) {
+                System.out.println("Parameter is not an existing file");
+                return;
+            }
+
+            //Construct the new file that will later be renamed to the original filename.
+            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+            String line = null;
+
+            //Read from the original file and write to the new
+            //unless content matches data to be removed.
+            while ((line = br.readLine()) != null) {
+
+                if (!line.trim().equals(lineToRemove)) {
+
+                    pw.println(line);
+                    pw.flush();
+                }
+            }
+            pw.close();
+            br.close();
+
+            //Delete the original file
+            if (!inFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            //Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inFile))
+                System.out.println("Could not rename file");
+
+        }
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static void deleteTask(String userInputString) throws DukeException {
         try {
             int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
+            String textToRemove;
 
             if (taskNumberToDelete <= numberOfTasks) {
                 tasks.get(taskNumberToDelete - 1).deletedSuccessfully(numberOfTasks - 1);
+
+                String typeOfTask = tasks.get(taskNumberToDelete - 1).toString().substring(1,2);
+                String taskIsDone = tasks.get(taskNumberToDelete - 1).toString().substring(4,5);
+                String rawTaskDescription = tasks.get(taskNumberToDelete - 1).toString().substring(7);
+
+                if (typeOfTask.equals("T") == true) {
+                    if (taskIsDone.equals("X")) {
+                        textToRemove = "t-/-1-/-" + rawTaskDescription;
+                    } else {
+                        textToRemove = "t-/-0-/-" + rawTaskDescription;
+                    }
+                } else if (typeOfTask.equals("E") == true) {
+                    String taskDescription = rawTaskDescription.split("at: ")[0];
+                    int indexOfDescriptionEnd = taskDescription.length() - 2;
+                    taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
+
+                    String taskAt = rawTaskDescription.split("at: ")[1];
+                    int indexOfByEnd = taskAt.length() - 1;
+                    taskAt = taskAt.substring(0, indexOfByEnd);
+
+                    if (taskIsDone.equals("X")) {
+                        textToRemove = "e-/-1-/-" + taskDescription + " -/-/at" + taskAt;
+                    } else {
+                        textToRemove = "e-/-0-/-" + taskDescription + " -/-/at" + taskAt;
+                    }
+                } else {
+                    String taskDescription = rawTaskDescription.split("by: ")[0];
+                    int indexOfDescriptionEnd = taskDescription.length() - 2;
+                    taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
+
+                    String taskBy = rawTaskDescription.split("by: ")[1];
+                    int indexOfByEnd = taskBy.length() - 1;
+                    taskBy = taskBy.substring(0, indexOfByEnd);
+
+                    if (taskIsDone.equals("X")) {
+                        textToRemove = "d-/-1-/-" + taskDescription + " -/-/by" + taskBy;
+                    } else {
+                        textToRemove = "d-/-0-/-" + taskDescription + " -/-/by" + taskBy;
+                   }
+                }
+
+                removeLineFromFile("./data/duke.txt", textToRemove);
+
                 tasks.remove(taskNumberToDelete - 1);
                 numberOfTasks -= 1;
             } else {
@@ -243,7 +342,6 @@ public class Duke {
                     deleteTask(userInputString);
                 } else if (commandHandle.isToDo()) {
                     addToDo(userInputString, dukeTaskText);
-
                     continue;
                 } else if (commandHandle.isDeadline()) {
                     addDeadline(userInputString, dukeTaskText);
