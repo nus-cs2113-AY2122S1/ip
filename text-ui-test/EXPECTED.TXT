@@ -123,14 +123,25 @@ ____________________________________________________________
      ☹ OOPS!!! The description and event time info of event cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
+     Noted. I've removed this task: 
+     [T][X] watch anime
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
      1.[T][ ] Go To School
      2.[D][X] do homework (by: no idea :-p)
      3.[E][X] project meeting (at: Mon 2-4pm)
      4.[D][ ] return book (by: Sunday)
     ____________________________________________________________
-
-    Please Enter the Legit Task Number to Delete... Or I won't talk to you!
-    Please Enter the Legit Task Number to Delete... Or I won't talk to you!
+    ____________________________________________________________
+     ☹ OOPS!!! Please Enter the Legit Task Number to Delete... Or I won't talk to you!
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! Please Enter the Legit Task Number to Delete... Or I won't talk to you!
+    ____________________________________________________________
+    ____________________________________________________________
+     ☹ OOPS!!! Please Enter the Legit Task Number to Delete... Or I won't talk to you!
+    ____________________________________________________________
 ____________________________________________________________
 
             .-'''-.        .-'''-.                                                        

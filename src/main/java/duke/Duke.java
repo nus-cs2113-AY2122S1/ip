@@ -51,8 +51,9 @@ public class Duke {
     }
 
     public static void deleteTask(String userInputString) throws DukeException {
-        int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
         try {
+            int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
+
             if (taskNumberToDelete <= numberOfTasks) {
                 tasks.get(taskNumberToDelete - 1).deletedSuccessfully(numberOfTasks - 1);
                 tasks.remove(taskNumberToDelete - 1);
