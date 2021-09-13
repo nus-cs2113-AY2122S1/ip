@@ -2,7 +2,6 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.task.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,8 +16,7 @@ public class Duke {
             "|_______/[___][___][___][\\_:  /   \n" +
             "                         \\__.'    \n";
     private static final String GREETING_MESSAGE = HORIZONTAL_LINE +
-            " Hello! I'm Billy\n" +
-            " What can I do for you?\n" +
+            "Hello! I'm Billy\n" +
             HORIZONTAL_LINE;
     private static final String GOODBYE_MESSAGE = HORIZONTAL_LINE +
             " Bye. Hope to see you again soon!\n" +
@@ -46,19 +44,22 @@ public class Duke {
     public static void main(String[] args) {
         // Initialize variables for program startup
         System.out.print("Hello from\n" + LOGO + GREETING_MESSAGE);
-        boolean isProgramRunning = true;
         String userInput;
-        List<Task> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
+        DukeFileUtils.loadSaveData(list);
+        printList(list);
         Scanner in = new Scanner(System.in);
 
-        while (isProgramRunning) {
+
+        while (true) {
             userInput = in.nextLine().trim();
             String userInputLowerCase = userInput.toLowerCase();
 
             try {
                 if (userInput.equalsIgnoreCase("bye")) {
                     System.out.println(GOODBYE_MESSAGE);
-                    isProgramRunning = false;
+                    DukeFileUtils.saveToFile(list);
+                    break;
                 } else if (userInput.equalsIgnoreCase("list")) {
                     printList(list);
                 } else if (userInputLowerCase.startsWith("done")) {
@@ -82,7 +83,7 @@ public class Duke {
     }
 
     private static void addTodo(String description, List<Task> taskList) {
-        Todo newTodo = new Todo(description);
+        Todo newTodo = new Todo(description, TaskType.TODO);
         taskList.add(newTodo);
         System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
                 newTodo + "\n" + HORIZONTAL_LINE);
@@ -95,7 +96,7 @@ public class Duke {
         }
         String description = separated[0];
         String time = separated[1];
-        Event newEvent = new Event(description, time);
+        Event newEvent = new Event(description, TaskType.EVENT, time);
         taskList.add(newEvent);
 
         System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
@@ -109,7 +110,7 @@ public class Duke {
         }
         String description = separated[0];
         String time = separated[1];
-        Deadline newDeadline = new Deadline(description, time);
+        Deadline newDeadline = new Deadline(description, TaskType.DEADLINE,time);
         taskList.add(newDeadline);
 
         System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
