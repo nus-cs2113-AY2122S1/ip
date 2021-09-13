@@ -8,7 +8,7 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-	Hello! I'm Duke ?
+	Hello! I'm Duke
 	What can I do for you?
 ____________________________________________________________
 	OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -23,7 +23,7 @@ ____________________________________________________________
 		[D][ ] return book (by: June 6th)
 	Now you have 2 tasks in the list.
 ____________________________________________________________
-	Nice! ? I've marked this task as done:
+	Nice! I've marked this task as done:
 		[X] read book
 ____________________________________________________________
 	Got it. I've added this task:
@@ -34,7 +34,7 @@ ____________________________________________________________
 		[T][ ] join sports club
 	Now you have 4 tasks in the list.
 ____________________________________________________________
-	Nice! ? I've marked this task as done:
+	Nice! I've marked this task as done:
 		[X] join sports club
 ____________________________________________________________
 	Got it. I've added this task:
@@ -76,5 +76,5 @@ ____________________________________________________________
 ____________________________________________________________
 	 Task index is out of range.
 ____________________________________________________________
-	Bye. Hope to see you again soon! ?
+	Bye. Hope to see you again soon!
 ____________________________________________________________
