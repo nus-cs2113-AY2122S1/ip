@@ -11,6 +11,10 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
+    public Task[] getTasks() {
+        return tasks;
+    }
+
     public void printTask() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= taskCount; i++) {

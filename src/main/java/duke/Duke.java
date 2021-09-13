@@ -51,6 +51,7 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {
+                updateSavedFile(taskManager);
                 System.out.println(DIVIDER);
             }
         } while (!isExit);
@@ -65,6 +66,16 @@ public class Duke {
             System.out.println(e.getMessage());
         }
         return new TaskManager();
+    }
+
+    private static void updateSavedFile(TaskManager taskManager) {
+        try {
+            Storage.writeToFile(FILE_PATH, taskManager);
+        } catch (IOException e) {
+            System.out.println("IO exception error unable to update file " + FILE_PATH);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void printWelcomeMessage() {
