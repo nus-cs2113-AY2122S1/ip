@@ -22,6 +22,11 @@ public class DoneCommand extends Command {
      */
     @Override
     public void runCommand() throws DukeException {
-        TaskManager.markAsCompleted(taskNumber);
+        TaskManager.markAsCompleted(taskNumber, true);
+    }
+
+    @Override
+    public void runTaskDoneFromFile() throws DukeException {
+        TaskManager.markAsCompleted(taskNumber, false);
     }
 }

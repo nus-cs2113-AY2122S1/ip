@@ -35,6 +35,10 @@ public class TaskManager {
     private static Task[] tasks = new Task[MAX_TASK];
     private static int tasksCount = 0;
 
+    public static Task[] getTasks() {
+        return tasks;
+    }
+
     /**
      * Adds a task to the list of existing tasks.
      *
@@ -44,7 +48,7 @@ public class TaskManager {
      *                 EVENT: The event date of the task to be added.
      * @param taskType The type of task to be added.
      */
-    public static void addToList(String taskName, String taskDate, TaskType taskType) {
+    public static void addToList(String taskName, String taskDate, TaskType taskType, Boolean printMessage) {
         String[] information = new String[]{taskName, taskDate};
         //String[] information = extractTaskInformation(item, type);
         switch (taskType) {
@@ -60,9 +64,11 @@ public class TaskManager {
         default:
         }
         tasksCount++;
-        Picture.printLine();
-        System.out.println(getMessageForAddTask());
-        Picture.printLine();
+        if (printMessage) {
+            Picture.printLine();
+            System.out.println(getMessageForAddTask());
+            Picture.printLine();
+        }
     }
 
     /**
@@ -82,16 +88,20 @@ public class TaskManager {
      * @param itemNumber One index greater than the index of the task in the list.
      * @throws DukeException If itemNumber > number of items in list or not a positive integer
      */
-    public static void markAsCompleted(int itemNumber) throws DukeException {
+    public static void markAsCompleted(int itemNumber, Boolean printMessage) throws DukeException {
         if (itemNumber > tasksCount || itemNumber < 1) {
             throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
-            Picture.printLine();
             tasks[itemNumber - 1].markTaskAsDone();
             final String taskDetails = tasks[itemNumber - 1].toString();
-            System.out.println(getMessageForMarkTaskAsDone(taskDetails));
+            if (printMessage) {
+                Picture.printLine();
+                System.out.println(getMessageForMarkTaskAsDone(taskDetails));
+            }
         }
-        Picture.printLine();
+        if (printMessage) {
+            Picture.printLine();
+        }
     }
 
     /**

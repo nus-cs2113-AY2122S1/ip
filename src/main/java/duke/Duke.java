@@ -16,6 +16,7 @@ public class Duke {
 
     public static void main(String[] args) {
         greetUser();
+        Storage.loadTask();
         executeResponse();
     }
 
@@ -58,6 +59,7 @@ public class Duke {
                 Picture.printLine();
             }
         }
+        Storage.saveTask();
         exitDuke();
     }
 

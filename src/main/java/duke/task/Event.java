@@ -1,7 +1,8 @@
 package duke.task;
 
 public class Event extends Task {
-    protected String heldDate;
+
+    private String heldDate;
 
     /**
      * Class event constructor.
@@ -22,5 +23,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + heldDate + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        int stringIsDone = isDone ? 1 : 0;
+        return "E" + DELIMITER + stringIsDone + DELIMITER + description + DELIMITER + heldDate;
     }
 }

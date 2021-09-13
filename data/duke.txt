@@ -1,0 +1,4 @@
+T@@@1@@@event
+T@@@0@@@event
+D@@@1@@@ip@@@monday
+E@@@0@@@tgif@@@friday

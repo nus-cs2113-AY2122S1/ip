@@ -1,6 +1,7 @@
 package duke.task;
 
 public class Deadline extends Task {
+
     protected String dueDate;
 
     /**
@@ -22,5 +23,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + dueDate + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        int stringIsDone = isDone ? 1 : 0;
+        return "D" + DELIMITER + stringIsDone + DELIMITER + description + DELIMITER + dueDate;
     }
 }

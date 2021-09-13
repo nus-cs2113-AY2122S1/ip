@@ -1,8 +1,9 @@
 package duke.task;
 
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected static final String DELIMITER = "@@@";
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Class Task constructor.
@@ -42,6 +43,10 @@ public class Task {
 
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public String toFileString() {
+        return "N" + DELIMITER + description;
     }
 
 }

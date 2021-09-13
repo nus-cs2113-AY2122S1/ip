@@ -20,4 +20,12 @@ public abstract class Command {
     public boolean isExitCommand() {
         return false;
     };
+
+    public void runAddTaskFromFile() {
+        // Does nothing here
+    };
+
+    public void runTaskDoneFromFile() throws DukeException {
+        // Does nothing here
+    }
 }
