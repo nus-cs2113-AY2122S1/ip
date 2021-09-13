@@ -5,17 +5,16 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class StorageDataParser {
     private String SPACE_AND_SEPARATOR = " | ";
     private int TASK_TYPE_INDEX = 0;
     private int DONE_TYPE_INDEX = 4;
     private int DESCRIPTION_INDEX = 8;
-//    private int TASK_TYPE_INDEX = " | ";
 
-    public String saveListAsString (Task[] listTasks) {
-        if (listTasks.length == 0) {
+    public String saveListAsString (ArrayList<Task> listTasks) {
+        if (listTasks.isEmpty()) {
             return "";
         }
         String taskDescription = "";
@@ -24,8 +23,8 @@ public class StorageDataParser {
         String taskTimings = "";
         StringBuilder savedString = new StringBuilder();
 
-        for (int i = 0; i < listTasks.length - 1; i++) {
-            Task tempTask = listTasks[i];
+        for (int i = 0; i < listTasks.size(); i++) {
+            Task tempTask = listTasks.get(i);
             if (tempTask == null) {
                 continue;
             }
@@ -52,6 +51,7 @@ public class StorageDataParser {
     }
 
     public Task readListFromMemory(String str) {
+//        System.out.println(str);
         String taskDescriptionSubstring = "";
         String taskDescription = "";
         String taskTiming = "";
@@ -66,11 +66,9 @@ public class StorageDataParser {
 
         if (taskType != "T") {
             taskTiming = taskDescriptionSubstring.substring(taskDescriptionSubstring.indexOf("|") + 2).trim();
-
         }
 
         //Generate task object
-
         if (taskType.equals("T")) {
             ToDo newToDo = new ToDo(taskDescription);
             if (isDone.equals("1")) {
@@ -79,7 +77,6 @@ public class StorageDataParser {
                 newToDo.setDone(false);
             }
             return newToDo;
-//            tempTasks[numItems] = newToDo;
         } else if (taskType.equals("E")) {
             Event newEvent = new Event(taskDescription,taskTiming);
             if (isDone.equals("1")) {
@@ -88,8 +85,6 @@ public class StorageDataParser {
                 newEvent.setDone(false);
             }
             return newEvent;
-
-//            tempTasks[numItems] = newEvent;
         } else if (taskType.equals("D")) {
             Deadline newDeadline = new Deadline(taskDescription,taskTiming);
             if (isDone.equals("1")) {
@@ -98,7 +93,6 @@ public class StorageDataParser {
                 newDeadline.setDone(false);
             }
             return newDeadline;
-//            tempTasks[numItems] = newDeadline;
         }
         return null;
     }

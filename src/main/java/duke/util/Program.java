@@ -178,7 +178,7 @@ public class Program {
         if (numItems == 0) {
             System.out.println(PRINT_EMPTY_TASKS_MESSAGE);
         }
-        for (int i = 0; i < numItems; i++) {
+        for (int i = 0; i < listTasks.size(); i++) {
             System.out.println(i + 1 + ": " + listTasks.get(i).toString());
         }
         System.out.println(LINE_BREAK_SINGLE);
@@ -230,8 +230,7 @@ public class Program {
     }
 
     //function to exit program
-    public void executeBye() throws IOException {
-        UserData.writeToFile(parser.saveListAsString(listTasks));
+    public void executeBye() {
         this.setCanTerminateHal(true);
     }
 
