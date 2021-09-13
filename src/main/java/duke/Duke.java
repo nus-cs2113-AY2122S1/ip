@@ -20,7 +20,7 @@ public class Duke {
             try {
                 dukeCommand = getDukeCommand(rawInput);
             } catch (DukeException e) {
-                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
                 printHorizontalLine();
                 rawInput = scanner.nextLine();
                 continue;
@@ -36,6 +36,13 @@ public class Duke {
             case LIST:
                 tasks.printTasks();
                 break;
+            case DELETE:
+                try {
+                    tasks.deleteTask(rawInput);
+                } catch (NumberFormatException e) {
+                    System.out.println("\t☹ Wrong format, please retype with format `delete <taskIndex>`.");
+                }
+                break;
             case TODO:
                 tasks.addToDo(rawInput);
                 break;
@@ -47,6 +54,7 @@ public class Duke {
                 break;
             default:
                 System.out.println("Invalid command issued!");
+                break;
             }
             printHorizontalLine();
             rawInput = scanner.nextLine();
@@ -54,19 +62,21 @@ public class Duke {
     }
 
     // Identify and return the duke command issued by user
-    public static DukeCommand getDukeCommand(String raw_input) throws DukeException{
-        if (raw_input.equals("bye")) {
+    public static DukeCommand getDukeCommand(String rawInput) throws DukeException{
+        if (rawInput.equals("bye")) {
             return DukeCommand.BYE;
-        } else if (raw_input.startsWith("done")) {
+        } else if (rawInput.startsWith("done")) {
             return DukeCommand.DONE;
-        } else if (raw_input.equals("list")) {
+        } else if (rawInput.equals("list")) {
             return DukeCommand.LIST;
-        } else if (raw_input.startsWith("todo")) {
+        } else if (rawInput.startsWith("todo")) {
             return DukeCommand.TODO;
-        } else if (raw_input.startsWith("event")) {
+        } else if (rawInput.startsWith("event")) {
             return DukeCommand.EVENT;
-        } else if (raw_input.startsWith("deadline")) {
+        } else if (rawInput.startsWith("deadline")) {
             return DukeCommand.DEADLINE;
+        } else if (rawInput.startsWith("delete")) {
+            return DukeCommand.DELETE;
         } else {
             throw new DukeException();
         }

@@ -34,7 +34,7 @@ public class TasksList {
             System.out.println("\t\t" + this.getTaskString(this.getSize() - 1));
             System.out.println("\tNow you have " + this.getSize() + " tasks in the list.");
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("\tOOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -77,6 +77,19 @@ public class TasksList {
             System.out.println("\tWrong format, please retype with format `done <taskIndex>`.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\t Task index is out of range.");
+        }
+    }
+
+    public void deleteTask(String rawInput) {
+        int taskIndex = Integer.parseInt(rawInput.substring(7)) - 1;
+        try {
+            Task task = tasks.get(taskIndex);
+            System.out.println("\tNoted. I have removed this task:");
+            System.out.println("\t\t" + task.toString());
+            tasks.remove(taskIndex);
+            System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tThere is no task with index " + (taskIndex+1) + ".");
         }
     }
 
