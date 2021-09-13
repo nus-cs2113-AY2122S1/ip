@@ -1,8 +1,9 @@
 package TypeOfTasks;
 
-public class Task {
+public abstract class Task {
     protected String description;
-
+    
+    
     public boolean isDone() {
         return isDone;
     }
@@ -13,8 +14,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
-    protected String getStatus() {
+    public abstract String getTag();
+    public String getStatus() {
         if(isDone) {
             return "X";
         } else {
@@ -24,8 +25,8 @@ public class Task {
     public void printList(Task theTask, int index) {
         System.out.println(index + ".[" + (theTask.getStatus()) + "] "+ theTask.getDescription());
     }
-
-    protected String getDescription() {
+    public abstract String getInfo();
+    public String getDescription() {
         return description;
     }
 
