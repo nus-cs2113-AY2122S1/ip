@@ -72,6 +72,8 @@ public class Duke {
                 } else if (userInputLowerCase.startsWith("event")) {
                     String description = extractDescription(userInput);
                     addEvent(description, list);
+                } else if (userInputLowerCase.startsWith("delete")) {
+                    deleteTask(userInputLowerCase, list);
                 } else {
                     System.out.print(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
                 }
@@ -117,13 +119,41 @@ public class Duke {
     }
 
     /**
+     * Deletes given tasks from the provided list of tasks. Accepts multiple tasks in one input and provides feedback
+     * if invalid inputs are detected. Can identify task numbers amidst redundant input (e.g. done 1, 2 and 3)
+     *
+     * @param userInput String of user input containing task numbers to be deleted.
+     * @param list      List of tasks
+     */
+    public static void deleteTask(String userInput, List<Task> list) throws DukeException {
+        int[] tasksToDelete = extractInt(userInput);
+
+        System.out.println(HORIZONTAL_LINE + "Awesome! I shall now try to delete the following...");
+        for (int taskNumber : tasksToDelete) {
+            // tasksToDelete may contain '0's from current implementation of extractInt method
+            if (taskNumber == 0) {
+                continue;
+            }
+            try {
+                // TODO: Check whether the given task is already done and throw an exception if it is already done
+                Task currTask = list.get(taskNumber - 1);
+                System.out.println("Deleted: " + currTask);
+                list.remove(currTask);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Dude you've given be an invalid task number [" + taskNumber + "] ! Skipping...");
+            }
+        }
+        System.out.print("Boom, insect. The tasks are now DELETED!\n" + HORIZONTAL_LINE);
+    }
+
+    /**
      * Split the description of a Task from its timing (e.g. deadline) if it has one
      *
      * @param type        The type of task
      * @param description Full string input of the task and its timing
      * @return Returns a string array with index 0 containing the task description and index 1 containing the timing
      */
-    public static String[] splitDescriptionFromTiming (TaskType type, String description) throws DukeException {
+    public static String[] splitDescriptionFromTiming(TaskType type, String description) throws DukeException {
         String[] separated;
         switch (type) {
         case DEADLINE:
