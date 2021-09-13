@@ -67,6 +67,14 @@ public class Duke {
         System.out.println(addTask);
     }
 
+    private static void printDeleteTask(Task task) {
+        String deleteTask = " Got it! I've removed this task:" +
+                System.lineSeparator() + "   " + task.toString() +
+                System.lineSeparator() + " Now you have " +
+                taskManager.getTasksCount() + " tasks in the list.";
+        System.out.println(deleteTask);
+    }
+
     private static void printInvalidTaskNumberFormat() {
         String message = "Task ID must be an integer!";
         System.out.println(message);
@@ -137,10 +145,7 @@ public class Duke {
             printInvalidTaskNumber();
             return;
         }
-        System.out.println(" Got it! I've removed this task:" +
-                System.lineSeparator() + "   " + task.toString() +
-                System.lineSeparator() + " Now you have " +
-                taskManager.getTasksCount() + " tasks in the list.");
+        printDeleteTask(task);
     }
 
     private static Integer getTaskId(String line) {
