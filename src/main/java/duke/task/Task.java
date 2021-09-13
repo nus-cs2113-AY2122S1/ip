@@ -26,6 +26,10 @@ public class Task {
         return description;
     }
 
+    public String getRawDescription() {
+        return description;
+    }
+
     /**
      * Returns "X" if the task is done and a whitespace otherwise.
      *
