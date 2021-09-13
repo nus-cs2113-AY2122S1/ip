@@ -7,7 +7,6 @@ package duke.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static int numTasks = 0;
 
     protected static final String ICON_DONE = "[X]";
     protected static final String ICON_NOT_DONE =  "[ ]";
@@ -15,7 +14,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numTasks++;
     }
 
     public String getDescription() {
@@ -34,10 +32,6 @@ public class Task {
             System.out.println("Task has already been marked as done! Good job!");
             System.out.println("Try marking another task as done! ^=^");
         }
-    }
-
-    public static int getNumTasks() {
-        return numTasks;
     }
 
     /**

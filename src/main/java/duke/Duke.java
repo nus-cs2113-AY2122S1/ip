@@ -5,7 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -61,8 +61,8 @@ public class Duke {
     private static final String MESSAGE_ERROR_INVALID_COMMAND_EVENT_FORMAT = "Invalid format! Please input a date, "
             + LS + "in the format " + MESSAGE_COMMAND_EVENT_FORMAT + ", where X is the event and Y is the date!";
 
-    /** List of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
-    private static final Task[] tasks = new Task[100];
+    /** Array list of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints lines of messages. Can take in variable number of arguments.
@@ -115,12 +115,12 @@ public class Duke {
      * Prints current tasks
      */
     public static void printTasks() {
-        if (Task.getNumTasks() == 0) {
+        if (tasks.isEmpty()) {
             showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
         } else {
             showMessage(DIVIDER, MESSAGE_INTRODUCE_TASKS);
-            for (int i = 1; i <= Task.getNumTasks(); i++) {
-                System.out.println(i + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i+1 + ". " + tasks.get(i));
             }
             showMessage(DIVIDER);
         }
@@ -272,9 +272,9 @@ public class Duke {
                 //Since typeofTask is guaranteed to be either of the 3 above, code should not be reaching this point
                 throw new InvalidCommandFormatException("Error occurred, please check command format!");
             }
-            tasks[Task.getNumTasks()] = task;
+            tasks.add(task);
             showMessageFramedWithDivider("Added to list: " , task.toString(),
-                    "Current number of tasks: " + Task.getNumTasks());
+                    "Current number of tasks: " + tasks.size());
         } catch (InvalidCommandFormatException e) {
             //Print error for any invalid command format exceptions caught
             showMessageFramedWithDivider(e.toString());
@@ -295,16 +295,16 @@ public class Duke {
         } else {
             try {
                 int taskNum = Integer.parseInt(params);
-                if (Task.getNumTasks() == 0) {
+                if (tasks.isEmpty()) {
                     //error if user does not have any tasks to be marked completed
                     showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
-                } else if (taskNum > Task.getNumTasks() || taskNum < 1) {
+                } else if (taskNum > tasks.size() || taskNum < 1) {
                     //error if user inputs a task number that does not exist
-                    showMessageFramedWithDivider("Please input a valid task number from 1 to " + Task.getNumTasks() + "!");
+                    showMessageFramedWithDivider("Please input a valid task number from 1 to " + tasks.size() + "!");
                 } else {
                     showMessage(DIVIDER);
-                    tasks[taskNum].markAsDone();
-                    showMessage(tasks[taskNum].toString(), DIVIDER);
+                    tasks.get(taskNum-1).markAsDone();
+                    showMessage(tasks.get(taskNum-1).toString(), DIVIDER);
                 }
             } catch (NumberFormatException e) {
                 //error if user did not input a valid integer for task number
