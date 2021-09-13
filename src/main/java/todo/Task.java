@@ -10,11 +10,14 @@ public class Task {
     protected Task(String description) {
         setTaskDescription(description);
         isDone = false;
-        printDivider();
     }
 
     public void setDone(Boolean status) {
         this.isDone = status;
+    }
+
+    public Boolean getStatus() {
+        return isDone;
     }
 
     private String getStatusIcon(Boolean status) {
@@ -40,9 +43,6 @@ public class Task {
         return "[" + getStatusIcon(isDone) + "] " + getTaskDescription();
     }
 
-    public final static void printDivider() {
-        System.out.println("____________________________________________________________\n");
-    }
 
     public String addDate(String inputLine) {
         String[] words = inputLine.split("/");
