@@ -6,7 +6,7 @@ package duke.commandHandler;
  * @author YEOWEIHNGWHYELAB
  */
 
-public class CommandHandling {
+public class DukeCommandHandling {
     private String commandString;
 
     /**
@@ -16,7 +16,7 @@ public class CommandHandling {
      *
      * @param commandString The raw user input command.
      */
-    public CommandHandling(String commandString) {
+    public DukeCommandHandling(String commandString) {
         this.commandString = commandString;
     }
 

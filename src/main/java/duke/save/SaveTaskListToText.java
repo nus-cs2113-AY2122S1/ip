@@ -1,11 +1,9 @@
 package duke.save;
 
-import duke.commandHandler.CommandHandling;
-import duke.exceptionHandler.DukeException;
+import duke.commandHandler.DukeCommandHandling;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
 import duke.taskType.Task;
-import duke.Duke;
 import duke.taskType.ToDo;
 
 import java.io.File;
@@ -13,14 +11,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class SaveTaskListToText {
-    public static File dukeTaskText = new File("data/duke.txt");
+    public static File directoryOfTaskText = new File("./data");
+    public static File dukeTaskText = new File("./data/duke.txt");
     public static int numberOfTasksAdded = 0;
 
     private static void fileTaskCopy(Task[] tasks) throws IOException {
         Scanner scanText = new Scanner(dukeTaskText); // create a Scanner using the File as the source
         while (scanText.hasNext()) {
             String currentCommand = scanText.nextLine();
-            CommandHandling commandHandle = new CommandHandling(currentCommand);
+            DukeCommandHandling commandHandle = new DukeCommandHandling(currentCommand);
 
             if (commandHandle.isToDo()) {
                 String taskName = currentCommand.substring(5);
@@ -40,8 +39,20 @@ public class SaveTaskListToText {
         }
     }
 
+    /**
+     * Checks if directory exist first. If it doesn't, it means the duke.txt is also missing.
+     * In such a case, make directory and then create duke.txt file there. Then if directory
+     * exist, but duke.txt is missing, add duke.txt.
+     *
+     * @param
+     * @return
+     */
     public static int loadTask(Task[] tasks) throws IOException {
-        if (dukeTaskText.exists() == false) {
+
+        if (directoryOfTaskText.exists() == false) {
+            directoryOfTaskText.mkdir();
+            dukeTaskText.createNewFile();
+        } else if (dukeTaskText.exists() == false) {
             dukeTaskText.createNewFile();
         } else {
             fileTaskCopy(tasks);

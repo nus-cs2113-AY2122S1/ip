@@ -7,7 +7,7 @@ package duke;
  * @author YEOWEIHNGWHYELAB
  */
 
-import duke.commandHandler.CommandHandling;
+import duke.commandHandler.DukeCommandHandling;
 import duke.exceptionHandler.DukeException;
 import duke.printTextFile.PrintTextFile;
 import duke.save.SaveTaskListToText;
@@ -201,7 +201,7 @@ public class Duke {
          */
         while (true) {
             userInputString = userInput.nextLine();
-            CommandHandling commandHandle = new CommandHandling(userInputString);
+            DukeCommandHandling commandHandle = new DukeCommandHandling(userInputString);
             try {
                 if (commandHandle.isBye()) {
                     break;
