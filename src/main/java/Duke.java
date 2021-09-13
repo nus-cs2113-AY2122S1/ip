@@ -4,7 +4,12 @@ import allTasks.typesOfTasks.Todo;
 import allTasks.typesOfTasks.Event;
 import allTasks.typesOfTasks.Deadline;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
 
@@ -133,6 +138,18 @@ public class Duke {
         tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
         itemIndex++;
         printListSummary();
+    }
+
+    private static void dataStorage() throws FileNotFoundException {
+        File f = new File("ip/data/Duke.txt");
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void saveData() throws IOException {
+        FileWriter fw = new FileWriter("ip/data/Duke.txt");
     }
 
     public static void printWelcome() {
