@@ -9,9 +9,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 public class TaskManager {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
@@ -20,6 +26,7 @@ public class TaskManager {
     private static final String COMMAND_DONE = "done";
 
     private static final String SEPARATOR_SPACE = " ";
+    private static final String SEPARATOR_DOT = "\\.";
     private static final String SEPARATOR_BY = "/by";
     private static final String SEPARATOR_AT = "/at";
 
@@ -33,6 +40,8 @@ public class TaskManager {
     private static final int DEADLINE_DESCRIPTION_START_INDEX = 9;
     private static final int EVENT_DESCRIPTION_START_INDEX = 6;
     private static final int LINE_LENGTH = 40;
+
+
 
     private Task tasks[];
     private int taskCount;
@@ -214,9 +223,65 @@ public class TaskManager {
         }
     }
 
-    public void parseUserInput() {
+    private void writeToFile(Task[] tasks) throws IOException {
+
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < taskCount; i++) {
+            String taskType = tasks[i].getType();
+            String taskStatus = tasks[i].getStatusIcon();
+            String taskDescription = tasks[i].getDescription();
+
+            if (taskType.equals(TASK_TYPE_ICON_TODO)) {
+                fw.write(taskType + "." + taskStatus + "." + taskDescription);
+            } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
+                String byTime = tasks[i].getByDateTime();
+                fw.write(taskType + "." + taskStatus + "." + taskDescription + "." + byTime);
+            } else if (taskType.equals((TASK_TYPE_ICON_EVENT))) {
+                String atTime = tasks[i].getStartAndEndTime();
+                fw.write(taskType + "." + taskStatus + "." + taskDescription + "." + atTime);
+            } else {
+                printGenericErrorMessage();
+            }
+
+            fw.write(System.lineSeparator());
+        }
+
+        fw.close();
+    }
+
+    private void readFileIntoTasks(Task[] tasks) throws FileNotFoundException {
+
+        File f = new File(FILE_PATH);
+        Scanner s = new Scanner(f);
+
+        while (s.hasNext()) {
+            String[] taskArgs = s.nextLine().split("\\.");
+            String taskType = taskArgs[0];
+            boolean taskStatus = taskArgs[1].equals("X");
+            String taskDescription = taskArgs[2];
+
+            if (taskType.equals(TASK_TYPE_ICON_TODO)) {
+                tasks[taskCount] = new ToDo(taskDescription, taskStatus);
+            } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
+                String taskByTime = taskArgs[3];
+                tasks[taskCount] = new Deadline(taskDescription, taskByTime, taskStatus);
+            } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
+                String taskAtTime = taskArgs[3];
+                tasks[taskCount] = new Event(taskDescription, taskAtTime, taskStatus);
+            } else {
+                printGenericErrorMessage();
+            }
+
+            taskCount++;
+        }
+
+    }
+
+    public void parseUserInput() throws IOException {
 
         Scanner in = new Scanner(System.in);
+
+        readFileIntoTasks(tasks);
 
         while (true) {
             String line = in.nextLine();
@@ -275,6 +340,7 @@ public class TaskManager {
                 printInvalidCommandMessage();
             }
 
+            writeToFile(tasks);
             printLine();
         }
     }

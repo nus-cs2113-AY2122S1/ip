@@ -1,5 +1,8 @@
 package duke.program;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Duke {
     private static final int LINE_LENGTH = 40;
 
@@ -23,7 +26,7 @@ public class Duke {
         System.out.println("");
     }
 
-    public static void readInputs(TaskManager manager) {
+    public static void readInputs(TaskManager manager) throws IOException {
         manager.parseUserInput();
     }
 
@@ -33,7 +36,11 @@ public class Duke {
         TaskManager manager = new TaskManager();
 
         printGreetingMessage(liz);
-        readInputs(manager);
+        try {
+            readInputs(manager);
+        } catch (IOException e) {
+            System.out.println("Yo something went wrong with the file");
+        }
         printExitMessage();
     }
 }

@@ -10,6 +10,12 @@ public class Deadline extends Task {
         this.type = "D";
     }
 
+    public Deadline(String description, String byDateTime, boolean isDone) {
+        super(description, isDone);
+        this.byDateTime = byDateTime;
+        this.type = "D";
+    }
+
     @Override
     public String getByDateTime() {
         return byDateTime;
