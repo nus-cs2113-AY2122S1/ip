@@ -32,7 +32,11 @@ public class TaskManager {
     private static final String TASK_IS_DONE = "1";
     private static final String TASK_IS_NOT_DONE = "0";
 
-    private static final String DATA_FILEPATH = "data/duke.txt";
+    private static final String INITIAL_TODO = "T";
+    private static final String INITIAL_DEADLINE = "D";
+    private static final String INITIAL_EVENT = "E";
+
+    private static final String DATA_FILEPATH = "duke.txt";
 
     private static final String DIVIDER = "    ____________________________________________________________";
 
@@ -44,6 +48,20 @@ public class TaskManager {
 
     private int getTasksSize() {
         return tasks.size();
+    }
+
+    public void loadData() {
+        try {
+            loadSavedData();
+        } catch (FileNotFoundException e) {
+            File file = new File(DATA_FILEPATH);
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("     Unable to create new file");
+            }
+
+        }
     }
 
     public void loadSavedData() throws FileNotFoundException {
@@ -61,9 +79,9 @@ public class TaskManager {
         String isTaskDone = inputs[1];
         String taskDescription = inputs[2];
 
-        if (taskType.equals("T")) {
+        if (taskType.equals(INITIAL_TODO)) {
             addTodoTaskWithException(COMMAND_TODO + " " + taskDescription);
-        } else if (taskType.equals("D")) {
+        } else if (taskType.equals(INITIAL_DEADLINE)) {
             String taskDeadline = inputs[3];
             addDeadlineTaskWithException(COMMAND_DEADLINE + " " + taskDescription
                     + SEPARATOR_BY + taskDeadline);
@@ -154,11 +172,11 @@ public class TaskManager {
         for(Task task : tasks) {
             String inputToWrite = "";
             if (task instanceof Todo) {
-                inputToWrite += "T";
+                inputToWrite += INITIAL_TODO;
             } else if (task instanceof Deadline) {
-                inputToWrite += "D";
+                inputToWrite += INITIAL_DEADLINE;
             } else {
-                inputToWrite += "E";
+                inputToWrite += INITIAL_EVENT;
             }
 
             inputToWrite += SEPARATOR_WORD_FILE
