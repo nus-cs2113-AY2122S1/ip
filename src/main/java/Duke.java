@@ -1,8 +1,10 @@
+
 import exceptions.*;
-import todo.Deadline;
-import todo.Event;
-import todo.Task;
-import todo.ToDo;
+import todo.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,13 +16,14 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     private static ArrayList<String> commands = new ArrayList<>();
-
+    private static String filePath = "./duke.txt";
     public static void main(String[] args) {
         String line = "";
         showWelcomeScreen();
         addCommands();
+        readFile();
         while (!line.contains("bye")) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
@@ -45,7 +48,69 @@ public class Duke {
         commands.add("deadline");
         commands.add("delete");
         commands.add("list");
+        commands.add("save");
     }
+    private static void readFile() {
+        try {
+            readFileContents(filePath);
+            System.out.println("Saved tasks successfully loaded!");
+            listAllTask();
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no preloaded file found! Please input your own tasks!");
+            printDivider();
+        }
+    }
+
+    private static void readFileContents (String filePath) throws FileNotFoundException{
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] splitInput = s.nextLine().split("\\|");
+            checkFileInputs(splitInput);
+        }
+    }
+
+    public static void saveTasks(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        String stringToAdd = "";
+        String taskDescription, type, date;
+        Boolean isDone;
+        for(int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            taskDescription = currentTask.toString().split(" ", 3)[1];
+            type = currentTask.getType();
+            isDone = currentTask.getStatus();
+            stringToAdd +=  type+ "|" + isDone + "|" + taskDescription;
+            if(type == "e" || type == "d") {
+                String[] splitString = currentTask.toString().split(":", 2);
+                String removedSpace = splitString[1].trim();
+                date = removedSpace.replace(")", "");
+                stringToAdd += "|" + date;
+            }
+            stringToAdd += System.lineSeparator();
+        }
+        fw.write(stringToAdd);
+        fw.close();
+    }
+
+    private static void checkFileInputs(String[] splitInput) {
+        String type = splitInput[0];
+        Boolean status = Boolean.parseBoolean(splitInput[1]);
+        String taskDescription = splitInput[2];
+        if(type.equals("t")) {
+            tasks.add(new ToDo(taskDescription));
+        } else if(type.equals("d")) {
+            String date = splitInput[3];
+            tasks.add(new Deadline(taskDescription, date));
+        } else if(type.equals("e")) {
+            String date = splitInput[3];
+            tasks.add(new Event(taskDescription, date));
+        }
+        if(status) {
+            tasks.get(tasks.size() - 1).setDone(true);
+        }
+    }
+
     private static void checkValidCommand(String[] words) throws InvalidCommandError {
         String command = words[0];
         if(!commands.contains(command)){
@@ -60,6 +125,13 @@ public class Duke {
         } else if (command.equals("bye")) {
             showByeScreen();
             return;
+        } else if (command.equals("save")) {
+            try {
+                saveTasks(filePath);
+            } catch (IOException e) {
+                System.out.println("Something went wrong!");
+            }
+            
         } else if (command.equals("delete")) {
             removeTask(Integer.parseInt(words[1]));
         } else { //is a valid task
@@ -103,7 +175,6 @@ public class Duke {
         } else if(checkEmptyDescription(words[1])) {
             throw new InvalidDescriptionError(); //check that description is not just whitespaces
         }
-
         String[] taskDescription = words[1].split("/", 2); //removes command and splits into action and date
         if(taskDescription.length <= 1) {
             if(type.equals("todo")){ //todo command
@@ -120,7 +191,6 @@ public class Duke {
             task = taskDescription[0].trim();
             date = inputDate[1];
         }
-
         checkValidAction(words, task, date, type);
     }
 
@@ -133,7 +203,7 @@ public class Duke {
             tasks.add(new Event(task, date));
             addSuccess();
         } else if (type.equals("todo")) {
-            tasks.add(new ToDo(task, date));
+            tasks.add(new ToDo(task));
             addSuccess();
         } else { //invalid command
             printDivider();
@@ -210,7 +280,8 @@ public class Duke {
                 undoneTasks++;
             }
         }
-        System.out.println("Now you have " + undoneTasks + " tasks in the list.");
+        System.out.println("You have " + tasks.size() + " tasks in the list.");
+        System.out.println(undoneTasks + " tasks are undone.");
     }
 
     private static void showByeScreen() {

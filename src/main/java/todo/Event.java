@@ -7,9 +7,13 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at;
-        toString();
+        super.setType("e");
     }
     
+    public String getDate() {
+        return at;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
