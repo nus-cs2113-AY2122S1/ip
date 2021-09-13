@@ -1,6 +1,9 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * This represents the Duke Chat bot.
@@ -22,8 +25,13 @@ public class Duke {
     private final static String TODO = "todo";
     private final static String DEADLINE = "deadline";
     private final static String EVENT = "event";
+
     private final static int DESCRIPTION = 0;
     private final static int DATETIME = 1;
+    private final static int TASK_TYPE_INDEX = 0;
+    private final static int IS_DONE_INDEX = 1;
+    private final static int TASK_INDEX = 2;
+    private final static int BY_AT_INDEX = 3;
 
 
     /**
@@ -33,6 +41,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         printWelcomeBanner();
+        readSavedTasks();
 
         Scanner in = new Scanner(System.in);
         while (!isDukeDone) {
@@ -268,5 +277,29 @@ public class Duke {
         System.out.println(GREETING);
         System.out.println(LINES);
     }
+
+    /**
+     * This function adds saved tasks to list.
+     */
+    private static void readSavedTasks() {
+        File dataFile = new File("data/tasks.txt");
+        try {
+            Scanner lineScanner = new Scanner(dataFile);
+            while (lineScanner.hasNext()) {
+                AddLineTask(lineScanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            createFile();
+        }
+
+    }
+
+    private static void AddLineTask(String line) {
+        String[] lineContents = line.split(" | ");
+        if (lineContents[TASK_TYPE_INDEX].equals("T")) {
+            Todo task = new Todo(lineContents[TASK_INDEX]);
+        }
+    }
 }
+
 
