@@ -27,6 +27,7 @@ public class Duke {
     public static final String COMMAND_DEADLINE_WORD = "deadline";
     public static final String COMMAND_EVENT_WORD = "event";
     public static final String COMMAND_EXIT_WORD = "bye";
+    public static final String COMMAND_DELETE_WORD = "delete";
 
     public static final int TASK_DATA_COUNT = 2;
     public static final int TASK_DATA_INDEX_DESCRIPTION = 0;
@@ -57,6 +58,10 @@ public class Duke {
             case COMMAND_LIST_WORD:
                 executeListTasks();
                 break;
+            case COMMAND_DELETE_WORD:
+                checkValidArguments(commandArgs);
+                executeDeleteTask(commandArgs);
+                break;
             case COMMAND_COMPLETED_WORD:
                 checkValidArguments(commandArgs);
                 executeCompleteTask(commandArgs);
@@ -83,7 +88,21 @@ public class Duke {
             System.out.println("Sorry I didn't understand that :( Please try again");
         } catch (EmptyTaskException e) {
             System.out.println("Oops! Your task description cannot be empty D:");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! The task index doesn't exist! Pls try again");
         }
+    }
+
+    private static void executeDeleteTask(String taskIndexString) throws IndexOutOfBoundsException{
+        int taskIndex = Integer.parseInt(taskIndexString) - 1;
+        Task currentTask = tasks.get(taskIndex);
+        tasks.remove(currentTask);
+        showSuccessfulDelete(currentTask);
+    }
+
+    private static void showSuccessfulDelete(Task currentTask) {
+        System.out.println("Got it. I've removed this task for you: \n "
+                + currentTask + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void checkValidArguments(String commandArgs) throws EmptyTaskException {
@@ -155,7 +174,7 @@ public class Duke {
         showSuccessfulAdd();
     }
 
-    private static void executeCompleteTask(String taskIndexString) {
+    private static void executeCompleteTask(String taskIndexString) throws IndexOutOfBoundsException{
         int taskIndex = Integer.parseInt(taskIndexString) - 1;
         Task currentTask = tasks.get(taskIndex);
         currentTask.setDone();
@@ -169,7 +188,11 @@ public class Duke {
     }
 
     private static void executeListTasks() {
-        showAllTasks();
+        if (tasks.size() == 0) {
+            System.out.println("No tasks in the list!");
+        } else {
+            showAllTasks();
+        }
     }
 
     private static void showAllTasks() {
