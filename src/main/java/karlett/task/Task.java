@@ -7,11 +7,13 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(boolean isProcessingUserInput, String description) {
         this.description = description;
         this.isDone = false;
         increaseNumberOfTasks();
-        printNewTaskAddedMessage();
+        if (isProcessingUserInput) {
+            printNewTaskAddedMessage();
+        }
     }
 
     public Task() {
