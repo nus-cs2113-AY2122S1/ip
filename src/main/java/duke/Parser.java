@@ -7,6 +7,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDos;
 
+import java.io.IOException;
+
 public class Parser {
     static private final String COMMAND_LIST = "list";
     static private final String COMMAND_TODO = "todo";
@@ -26,13 +28,20 @@ public class Parser {
 
     static private final int EVENT_DEADLINE_ARGUMENT_COUNT = 2;
 
-    static private final int MAX_NUMBER = 100;
 
     private static ArrayList<Task> userTasks;
+    private static TaskStorage storage;
 
     public Parser() {
-        userTasks = new ArrayList<>();
+        //userTasks = new ArrayList<>();
+        try {
+            storage = new TaskStorage();
+            userTasks = storage.tasksFromFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong in file creation :(");
+        }
     }
+
 
     public static String parse(String command) throws DukeException {
         String[] words = command.split(SPACE_SEPARATOR);
@@ -66,15 +75,17 @@ public class Parser {
         try {
             int taskDeleteNumber = Integer.parseInt(detail);
 
-            Task temp = userTasks.remove(taskDeleteNumber - 1);
+            Task temp = storage.storageDeleteTask(taskDeleteNumber);
             msg = "Noted. I have removed this thing:\n "
                     + "\t" + temp.toString();
 
             return msg;
         } catch (NumberFormatException e) {
-            throw new DukeException("Err that is not a number bro");
+            throw new DukeException("Uhm that definitely not a dumber bro. Pick again.");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Have not existed...");
+            throw new DukeException("Task number not exist!");
+        } catch (IOException e) {
+            throw new DukeException("Cannot delete task in memory");
         }
     }
 
@@ -108,14 +119,18 @@ public class Parser {
             throw new DukeException("Bro please let me know what thing you gonna do");
         }
 
-        userTasks.add(new ToDos(detail));
+        try {
+            storage.storageAddTask(new ToDos(detail, false));
 
-        msg = "Gotcha. Do this while you're at it:\n"
-                + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
-                + "\tNow you have " + (userTasks.size())
-                + " tasks in the list.";
+            msg = "Gotcha. Do this while you're at it:\n"
+                    + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
+                    + "\tNow you have " + (userTasks.size())
+                    + " tasks in the list.";
 
-        return msg;
+            return msg;
+        } catch (IOException e) {
+            throw new DukeException("Err I cannot add this to the memory");
+        }
     }
 
     private static String parseDeadlineCommand(String command) throws DukeException {
@@ -140,14 +155,18 @@ public class Parser {
             contentAndDate[i] = contentAndDate[i].trim();
         }
 
-        userTasks.add(new Deadline(contentAndDate[0], contentAndDate[1]));
+        try {
+            storage.storageAddTask(new Deadline(contentAndDate[0], contentAndDate[1], false));
 
-        msg = "Gotcha. I beg you to do this:\n"
-                + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
-                + "\tNow you have " + (userTasks.size())
-                + " tasks in the list.";
+            msg = "Gotcha. I beg you to do this:\n"
+                    + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
+                    + "\tNow you have " + (userTasks.size())
+                    + " tasks in the list.";
 
-        return msg;
+            return msg;
+        } catch (IOException e) {
+            throw new DukeException("Err I cannot add this to the memory");
+        }
     }
 
     private static String parseEventCommand(String command) throws DukeException {
@@ -172,14 +191,18 @@ public class Parser {
             contentAndDate[i] = contentAndDate[i].trim();
         }
 
-        userTasks.add(new Event(contentAndDate[0], contentAndDate[1]));
+        try {
+            storage.storageAddTask(new Event(contentAndDate[0], contentAndDate[1], false));
 
-        msg = "Gotcha. You wanna attend this:\n"
-                + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
-                + "\tNow you have " + (userTasks.size())
-                + " tasks in the list.";
+            msg = "Gotcha. You wanna attend this:\n"
+                    + "\t\t" + userTasks.get(userTasks.size() - 1).toString() + '\n'
+                    + "\tNow you have " + (userTasks.size())
+                    + " tasks in the list.";
 
-        return msg;
+            return msg;
+        } catch (IOException e) {
+            throw new DukeException("Err I cannot add this to the memory");
+        }
     }
 
     private static String parseDoneCommand(String command) throws DukeException {
@@ -193,7 +216,8 @@ public class Parser {
             try {
                 int taskDoneNumber = Integer.parseInt(detail);
 
-                userTasks.get(taskDoneNumber - 1).setDone();
+                storage.storageSetTaskDone(taskDoneNumber);
+
                 msg = "Good job. You may now enjoy the rest of "
                         + "your suffering:\n"
                         + "\t" + userTasks.get(taskDoneNumber - 1).toString();
@@ -203,6 +227,8 @@ public class Parser {
                 throw new DukeException("Uhm that definitely not a dumber bro. Pick again.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Task number not exist!");
+            } catch (IOException e) {
+                throw new DukeException("Err I cannot set this as done in memory");
             }
         }
     }
