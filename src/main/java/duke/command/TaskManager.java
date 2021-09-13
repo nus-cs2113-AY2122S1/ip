@@ -7,6 +7,7 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class TaskManager {
 
@@ -14,20 +15,18 @@ public class TaskManager {
     public static boolean hasInvalidIndex = false;
 
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int taskCount = 0;
 
     private final int INDEX_DESCRIPTION = 0;
     private final int INDEX_DATETIME = 1;
 
     public static int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
     public void addToDoTask(String taskInfo) {
         Task newTask = new ToDo(taskInfo);
         tasks.add(newTask);
         DisplayManager.printCreateTask(newTask);
-        taskCount++;
     }
 
     public void addDeadlineTask(String taskInfo) {
@@ -35,7 +34,6 @@ public class TaskManager {
         Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
         tasks.add(newTask);
         DisplayManager.printCreateTask(newTask);
-        taskCount++;
     }
 
     public void addEventTask(String taskInfo) {
@@ -43,7 +41,6 @@ public class TaskManager {
         Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
         tasks.add(newTask);
         DisplayManager.printCreateTask(newTask);
-        taskCount++;
     }
 
     public int[] filterOutOfRangeIndexes(int[] indexes) {
@@ -51,7 +48,7 @@ public class TaskManager {
         int count = 0;
 
         for (int index : indexes) {
-            if (index - 1 >= taskCount) {
+            if (index - 1 >= tasks.size()) {
                 outOfRangeIndexes[count] = index;
                 count++;
             }
@@ -68,7 +65,7 @@ public class TaskManager {
         int count = 0;
 
         for (int index : indexes) {
-            if (!(index - 1 >= taskCount) && !(tasks.get(index - 1).getStatusIcon().equals(STATUS_DONE))) {
+            if (!(index - 1 >= tasks.size()) && !(tasks.get(index - 1).getStatusIcon().equals(STATUS_DONE))) {
                 validIndexes[count] = index;
                 count++;
             }
@@ -85,7 +82,7 @@ public class TaskManager {
         int count = 0;
 
         for (int index : indexes) {
-            if (!(index - 1 >= taskCount) && tasks.get(index - 1).getStatusIcon().equals(STATUS_DONE)) {
+            if (!(index - 1 >= tasks.size()) && tasks.get(index - 1).getStatusIcon().equals(STATUS_DONE)) {
                 doneIndexes[count] = index;
                 count++;
             }
@@ -123,17 +120,13 @@ public class TaskManager {
                 deletedTasks.add(tasks.get(validIndex - 1));
                 tasks.set(validIndex - 1, null);
             }
-            for (int index : indexes) {
-                if (tasks.get(index - 1) == null) {
-                    tasks.remove(index - 1);
-                }
-            }
+            tasks.removeIf(Objects::isNull);
         }
         DisplayManager.printDeleteTasksResult(deletedTasks, outOfRangeIndexes, tasks.size());
     }
 
     public void getAndPrintTaskList() {
-        if (taskCount == 0) {
+        if (tasks.size() == 0) {
             DisplayManager.printErrorList();
         } else {
             DisplayManager.printMultipleTasks(tasks);

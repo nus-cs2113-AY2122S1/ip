@@ -49,7 +49,7 @@ public class DisplayManager {
         printHorizontalSeparator();
         System.out.println(DISPLAY_MESSAGE_INDENT + "Got it. I've added this task:");
         System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + task);
-        System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + (TaskManager.getTaskCount() + 1) + " tasks in the list.");
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + (TaskManager.getTaskCount()) + " tasks in the list.");
         printHorizontalSeparator();
     }
 
