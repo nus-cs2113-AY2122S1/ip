@@ -30,6 +30,10 @@ public class TaskManager {
         }
     }
 
+    public void storageDoneTask(int index) {
+        tasks[index].setDone();
+    }
+
     public void addToDoTask(String userInput) {
         String description = Parser.processToDo(userInput);
         if (description == null) {
@@ -37,7 +41,6 @@ public class TaskManager {
         }
         taskCount++;
         tasks[taskCount] = new ToDo(description);
-        printAddSuccess();
     }
 
     public void addDeadlineTask(String userInput) {
@@ -47,7 +50,6 @@ public class TaskManager {
         }
         taskCount++;
         tasks[taskCount] = new Deadline(information[0], information[1]);
-        printAddSuccess();
     }
 
     public void addEventTask(String userInput) {
@@ -57,10 +59,9 @@ public class TaskManager {
         }
         taskCount++;
         tasks[taskCount] = new Event(information[0], information[1]);
-        printAddSuccess();
     }
 
-    private void printAddSuccess() {
+    public void printAddSuccess() {
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + tasks[taskCount].toString());
         System.out.println("Now you have " + taskCount + " tasks in the list");
