@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDos;
 
+import java.io.IOException;
+
 public class Parser {
     static private final String COMMAND_LIST = "list";
     static private final String COMMAND_TODO = "todo";
@@ -27,10 +29,17 @@ public class Parser {
 
     private static Task[] userTasks;
     static private int userTaskIndex;
+    TaskStorage storage;
 
     public Parser() {
         userTasks = new Task[MAX_NUMBER];
         userTaskIndex = 0;
+
+        try {
+            storage = new TaskStorage();
+        } catch (IOException e) {
+            System.out.println("Cannot read task from memory!");
+        }
     }
 
     public static String parse(String command) throws DukeException {
@@ -82,7 +91,7 @@ public class Parser {
             throw new DukeException("Bro please let me know what thing you gonna do");
         }
 
-        userTasks[userTaskIndex] = new ToDos(detail);
+        userTasks[userTaskIndex] = new ToDos(detail, false);
 
         msg = "Gotcha. Do this while you're at it:\n"
                 + "\t\t" + userTasks[userTaskIndex].toString() + '\n'
@@ -115,7 +124,7 @@ public class Parser {
             contentAndDate[i] = contentAndDate[i].trim();
         }
 
-        userTasks[userTaskIndex] = new Deadline(contentAndDate[0], contentAndDate[1]);
+        userTasks[userTaskIndex] = new Deadline(contentAndDate[0], contentAndDate[1], false);
 
         msg = "Gotcha. I beg you to do this:\n"
                 + "\t\t" + userTasks[userTaskIndex].toString() + '\n'
@@ -148,7 +157,7 @@ public class Parser {
             contentAndDate[i] = contentAndDate[i].trim();
         }
 
-        userTasks[userTaskIndex] = new Event(contentAndDate[0], contentAndDate[1]);
+        userTasks[userTaskIndex] = new Event(contentAndDate[0], contentAndDate[1], false);
 
         msg = "Gotcha. You wanna attend this:\n"
                 + "\t\t" + userTasks[userTaskIndex].toString() + '\n'
