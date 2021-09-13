@@ -18,7 +18,6 @@ public class TasksList {
     private static final int LENGTH_OF_TODO = 5;
     private static final int LENGTH_OF_EVENT = 6;
     private static final int LENGTH_OF_DEADLINE = 9;
-    private static final String THUMBS_UP_EMOJI = "\uD83D\uDC4D";
     private static final String FILE_DIR = "./data";
     private static final String FILE_NAME = "duke.txt";
 
@@ -135,7 +134,7 @@ public class TasksList {
         try {
             int taskIndex = Integer.parseInt(rawInput.substring(5)) - 1;
             Task task = tasks.get(taskIndex);
-            System.out.println("\tNice! " + THUMBS_UP_EMOJI + " I've marked this task as done:");
+            System.out.println("\tNice! I've marked this task as done:");
             task.markAsDone();
             System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
         } catch (NumberFormatException e) {
