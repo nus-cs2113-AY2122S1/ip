@@ -21,5 +21,10 @@ public class DeadLine extends Task {
         }
     }
 
+    @Override
+    public String toString() {
+        return "deadline " + task;
+    }
+
 }
 

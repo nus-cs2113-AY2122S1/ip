@@ -1,11 +1,20 @@
 package duke;
 import duke.exception.*;
 
+import java.io.IOException;
+
 public class Duke {
     public static void main(String[] args) {
         Init.showWelcomeMessage();
+        try {
+            Save.loadData();
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         while(true) {
             Parser.input = Parser.getInput();
+            Parser.taskList = Save.taskList;   //load data if there is any
             Command c;
             if (Parser.isList()) {
                 c = Command.LIST;
@@ -38,9 +47,12 @@ public class Duke {
                 System.out.println(e);
             } catch (InvalidCommandException e) {
                 System.out.println(e);
-            } catch (InvalidInputException e) {
+            } catch (EmptyDoneIndexException e) {
                 System.out.println(e);
             }
+
+            Save.saveData(Parser.taskList.getAllTasksListFormatted(), Save.filePath);
+            Save.saveData(Parser.taskList.getAllTasksListOriginal(), Save.originalInputPath);
 
             Init.lineSeparator();
         }

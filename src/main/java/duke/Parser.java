@@ -42,9 +42,7 @@ public class Parser {
         return input.startsWith("todo");
     }
 
-    public static boolean isDelete() {
-        return input.startsWith("delete");
-    }
+    public static boolean isDelete() { return input.startsWith("delete"); }
 
     //check if there is input exception
     public static boolean isInvalidToDo() {
@@ -97,7 +95,7 @@ public class Parser {
 
 
     public static void runCommand(String input, Command c)
-            throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException, InvalidInputException {
+            throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException, EmptyDoneIndexException{
         switch (c) {
         case LIST:
             taskList.listTasks();
@@ -108,13 +106,12 @@ public class Parser {
         case DELETE:
             taskList.deleteTask(input);
             break;
-        case INVALID:
-            throw new InvalidInputException();
         case TODO:
         case EVENT:
         case DEADLINE:
             Task task = convertInputToTask();
             taskList.addTask(task);
+            break;
         }
     }
 }

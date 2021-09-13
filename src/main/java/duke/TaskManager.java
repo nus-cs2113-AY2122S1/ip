@@ -1,12 +1,13 @@
 package duke;
 
 import duke.exception.TaskIndexOutOfBound;
+import duke.exception.EmptyDoneIndexException;
 
 import java.util.ArrayList;
 
 public class TaskManager {
     public static final int MAX_TASKS = 100;
-    private ArrayList<Task> tasks = new ArrayList<>();
+    public  ArrayList<Task> tasks = new ArrayList<>();
 
     public void addTask(Task task){
         tasks.add(task);
@@ -25,7 +26,7 @@ public class TaskManager {
         return taskFound;
     }
 
-    public void deleteTask(String taskDelete) throws TaskIndexOutOfBound {
+    public void deleteTask(String taskDelete) throws TaskIndexOutOfBound,EmptyDoneIndexException {
         int indexOfTask = getIndexOfTask(taskDelete);
         Task taskToDelete = tasks.get(indexOfTask - 1);
         tasks.remove(indexOfTask - 1);
@@ -34,7 +35,7 @@ public class TaskManager {
         System.out.println("Now you have" +  tasks.size()  + "tasks in the list.");
     }
 
-    public void tasksDone(String taskDone) throws TaskIndexOutOfBound {
+    public void tasksDone(String taskDone) throws TaskIndexOutOfBound,EmptyDoneIndexException {
         int indexOfTask = getIndexOfTask(taskDone);
         tasks.get(indexOfTask-1).markAsDone();
         System.out.println("Nice! I've marked this task as done: ");
@@ -43,8 +44,11 @@ public class TaskManager {
 
     // Since I find that codes for tasksDone and removeTasks can be duplicated, so I refactor the common part to this function
     // The exception can also be treated together since they are the same kind of exception
-    private int getIndexOfTask(String taskDone) throws TaskIndexOutOfBound {
+    private int getIndexOfTask(String taskDone) throws TaskIndexOutOfBound, EmptyDoneIndexException {
         String[] words = taskDone.split(" ");
+        if (words.length == 0 || words.length == 1) {
+            throw new EmptyDoneIndexException();
+        }
         int indexOfTask = Integer.parseInt(words[1]);
         if(indexOfTask < 1 || indexOfTask > tasks.size()){
             throw new TaskIndexOutOfBound("Ops! your task index is out of bound!");
@@ -61,5 +65,28 @@ public class TaskManager {
         }
     }
 
+    /**
+     * get all tasks as string list, in order to write in file to store the data.
+     * @return
+     */
+    public String getAllTasksListFormatted() {
+        String data = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            data = data + tasks.get(i).getTask() + "\n";
+        }
+        return data;
+    }
+
+    /**
+     * get all the tasklist in the original input form
+     * @return
+     */
+    public String getAllTasksListOriginal() {
+        String data = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            data = data + tasks.get(i) + "\n";
+        }
+        return data;
+    }
 
 }

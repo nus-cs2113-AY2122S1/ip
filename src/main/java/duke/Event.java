@@ -21,4 +21,9 @@ public class Event extends Task {
             return MARK_IS_EVENT + MARK_AS_NOT_DONE + " " + taskContent +  " (at: " + time + ")";
         }
     }
+
+    @Override
+    public String toString() {
+        return "event " + task;
+    }
 }

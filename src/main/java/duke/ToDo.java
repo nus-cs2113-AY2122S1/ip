@@ -18,4 +18,8 @@ public class ToDo extends Task {
         }
     }
 
+    @Override
+    public String toString() {
+        return "todo " + task;
+    }
 }
