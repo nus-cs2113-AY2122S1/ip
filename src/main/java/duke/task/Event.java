@@ -7,7 +7,7 @@ import duke.task.Task;
  * Inherits Task class.
  */
 public class Event extends Task {
-    String time;
+    public String time;
 
     /**
      * Creates a Deadline and assigns taskDescription and deadline.
@@ -26,5 +26,14 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + time + ")";
+    }
+
+    /**
+     * Formats the details of Event into the supported format for files
+     * @return A string in the format "E,{X, },description,time"
+     */
+    @Override
+    public String toFile() {
+        return "E," + super.toFile() + "," + time + "\n";
     }
 }

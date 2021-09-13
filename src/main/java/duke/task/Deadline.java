@@ -7,7 +7,7 @@ import duke.task.Task;
  * Inherits Task class.
  */
 public class Deadline extends Task {
-    String deadline;
+    public String deadline;
 
     /**
      * Creates a Deadline and assigns taskDescription and deadline.
@@ -25,6 +25,15 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
+    }
+
+    /**
+     * Formats the data to include deadline timing and 'D' header
+     * @return A string in the format "D,{X, },description,timing"
+     */
+    @Override
+    public String toFile() {
+        return "D," + super.toFile() + "," + deadline + "\n";
     }
 }

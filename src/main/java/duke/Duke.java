@@ -5,6 +5,10 @@ import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.Event;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -20,8 +24,10 @@ public class Duke {
     public static final String LINEBAR = "____________________________________________________________\n";
     public static final String EVENT_IDENTIFIER = "/at ";
     public static final String DEADLINE_IDENTIFIER = "/by ";
+    public static final File myFile = new File("tasks.txt");
 
     public static int taskIndex = 0;
+    public static boolean newFileCreated = false;
 
 
     /**
@@ -141,6 +147,7 @@ public class Duke {
 
             //taskList[taskIndex].markAsDone();
             taskList.get(taskIndex).markAsDone();
+            updateFile(myFile, taskList);
             System.out.println(
                     "Bueno! The following task is marked as done: \n[" + taskList.get(taskIndex).getStatusIcon() + "] "
                             + taskList.get(taskIndex).taskDescription);
@@ -171,6 +178,7 @@ public class Duke {
             String timing = userInput.split(EVENT_IDENTIFIER)[TIMING];
             Event event = new Event(taskDescription, timing);
             addToTaskList(taskList, event);
+            writeToFile(myFile, event);
             taskIndex++;
             echoUserInput(event, taskIndex);
         } catch (StringIndexOutOfBoundsException e) {
@@ -195,6 +203,7 @@ public class Duke {
             String taskDescription = userInput.substring(TODO_HEADER);
             ToDo todo = new ToDo(taskDescription);
             addToTaskList(taskList, todo);
+            writeToFile(myFile, todo);
             taskIndex++;
             echoUserInput(todo, taskIndex);
         } catch (StringIndexOutOfBoundsException e) {
@@ -220,6 +229,7 @@ public class Duke {
             String timing = userInput.split(DEADLINE_IDENTIFIER)[TIMING];
             Deadline deadline = new Deadline(taskDescription, timing);
             addToTaskList(taskList, deadline);
+            writeToFile(myFile, deadline);
             taskIndex++;
             echoUserInput(deadline, taskIndex);
         } catch (StringIndexOutOfBoundsException e) {
@@ -231,6 +241,9 @@ public class Duke {
         System.out.println(LINEBAR);
     }
 
+    /**
+     * Shows the list of command supported when the user types in a command that is not supported
+     */
     public static void showListOfCommands() {
         System.out.println(LINEBAR);
         System.out.println("Unfortunately, my definitely human brain is unable to understand what you mean.\nThe list "
@@ -239,6 +252,11 @@ public class Duke {
         System.out.println(LINEBAR);
     }
 
+    /**
+     * Deletes a task based on its index.
+     * @param userInput String that user input
+     * @param taskList An ArrayList of Tasks
+     */
     public static void deleteTask(String userInput, ArrayList<Task> taskList) {
         System.out.println(LINEBAR);
 
@@ -250,6 +268,7 @@ public class Duke {
 
             Task toBeDeleted = taskList.get(taskIndex);
             taskList.remove(taskIndex);
+            updateFile(myFile, taskList);
             System.out.println(
                     "The following task has been deleted!\n" + toBeDeleted + "\n");
         } catch (NumberFormatException e) {
@@ -266,14 +285,126 @@ public class Duke {
 
 
     /**
+     * Returns true if file exists.
+     * @param myFile file that data will be read/written to
+     * @return true if file exists, false otherwise
+     */
+    public static boolean checkFileExists(File myFile) {
+        if (myFile.exists()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Reads data from myFile and adds them as ToDo, Event or Deadlines into the given ArrayList
+     * @param myFile File that data is being read from
+     * @param taskList ArrayList of Tasks
+     */
+    public static void readFileData(File myFile, ArrayList<Task> taskList) {
+        try {
+            Scanner readFileInput = new Scanner(myFile);
+            while (readFileInput.hasNextLine()) {
+                //Data format: {T,D,E} | {0,1} | {Description} | {Timing}
+                String currTask = readFileInput.nextLine();
+                String[] currTaskDetails = currTask.split(",");
+                String taskDescription = currTaskDetails[2];
+                if (currTaskDetails[0].equals("T")) {
+                    ToDo toDo = new ToDo(taskDescription);
+                    if (currTaskDetails[1].equals("X")) {
+                        toDo.markAsDone();
+                    }
+                    addToTaskList(taskList, toDo);
+                    taskIndex++;
+                }
+                else if (currTaskDetails[0].equals("D")) {
+                    String timing = currTaskDetails[3];
+                    Deadline deadline = new Deadline(taskDescription, timing);
+                    if (currTaskDetails[1].equals("X")) {
+                        deadline.markAsDone();
+                    }
+                    addToTaskList(taskList, deadline);
+                    taskIndex++;
+                }
+                else if (currTaskDetails[0].equals("E")) {
+                    String timing = currTaskDetails[3];
+                    Event event = new Event(taskDescription, timing);
+                    if (currTaskDetails[1].equals("X")) {
+                        event.markAsDone();
+                    }
+                    addToTaskList(taskList, event);
+                    taskIndex++;
+                }
+
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found\n");
+        }
+    }
+
+    /**
+     * Writes given task details to file
+     * @param myFile File that data will be written into
+     * @param myTask Task that user input
+     */
+    public static void writeToFile(File myFile, Task myTask) {
+        try {
+            String writeData = myTask.toFile();
+            FileWriter myWriter = new FileWriter(myFile, true);
+            myWriter.write(writeData);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("Could not write to file\n");
+        }
+    }
+
+    /**
+     * Updates the file whenever 'done' or 'delete' is called
+     * @param myFile File that data will be written into
+     * @param taskList Task that user input
+     */
+    public static void updateFile(File myFile, ArrayList<Task> taskList) {
+        try {
+            FileWriter myWriter = new FileWriter(myFile);
+            for (int i = 0; i < taskList.size(); i++) {
+                myWriter.write(taskList.get(i).toFile());
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file. Exiting.\n");
+        }
+    }
+
+    /**
      * This function is called upon program execution.
      *
      * @param args System arguments that are added to the program
      */
     public static void main(String[] args) {
-        greetUser();
-        Scanner readUserInput = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
+        greetUser();
+
+        boolean fileExists = checkFileExists(myFile);
+
+        if (!fileExists) {
+            try {
+                newFileCreated = myFile.createNewFile();
+                System.out.println("No file detected. Now creating a new file!\n");
+            } catch (IOException e) {
+                System.out.println("An error occurred during file creation\n");
+                return;
+            }
+        }
+
+        if (!newFileCreated) {
+            //If new file is not created, that means that there is already a file beforehand. Read data from file
+            readFileData(myFile, taskList);
+        }
+
+        //Create input file if it does not exists, else read from it
+
+        Scanner readUserInput = new Scanner(System.in);
         String userInput;
         String identifier;
 

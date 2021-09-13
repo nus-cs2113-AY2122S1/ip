@@ -39,4 +39,12 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + taskDescription;
     }
+
+    /**
+     * Formats the task into the supported format for file operations
+     * @return A string in the format "{X, },description"
+     */
+    public String toFile() {
+        return getStatusIcon() + "," + taskDescription;
+    }
 }

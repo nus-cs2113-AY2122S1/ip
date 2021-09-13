@@ -25,4 +25,13 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Formats the data of ToDo into the format supported for file operations
+     * @return String in the format "T,{X, },description"
+     */
+    @Override
+    public String toFile() {
+        return "T," + super.toFile() + "\n";
+    }
+
 }
