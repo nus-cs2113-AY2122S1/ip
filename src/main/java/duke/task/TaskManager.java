@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.Message;
+import duke.IoManager;
 import duke.task.Task.Types;
 import duke.exception.ListEmptyException;
 import duke.exception.NoDescriptionException;
@@ -9,7 +10,7 @@ import duke.exception.WrongNumberOfArgumentsException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private static final int MAX_TASKS = 100;
+    public static final int MAX_TASKS = 100;
 
     private static ArrayList<Task> tasks = new ArrayList<Task>(MAX_TASKS);
 

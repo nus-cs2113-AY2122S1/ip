@@ -59,7 +59,6 @@ class Command {
             if (!Commands.contains(userInputSplit[0])) {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            switch (Commands.valueOf(userInputSplit[0])) {
             Commands command = Commands.valueOf(userInputSplit[0].toUpperCase());
             if (userInputSplit.length != command.ARGS || !command.matchesRegex(userInput)) {
                 throw new InvalidCommandException(command.getUsage());
@@ -67,7 +66,7 @@ class Command {
             switch (command) {
             case BYE:
                 return false;
-            //Fallthrough
+                //Fallthrough
             case LIST:
                 TaskManager.printTasks();
                 break;
@@ -77,7 +76,6 @@ class Command {
             case DELETE:
                 TaskManager.deleteTask(Integer.parseInt(userInputSplit[1]) - 1);
                 break;
-            }
             }
         } catch (InvalidCommandException ive) {
             Message.printWithSpacers(ive.getMessage());
