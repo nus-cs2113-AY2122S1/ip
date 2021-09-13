@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TaskManager {
-    private static final int MAX_SIZE = 100;
-
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
@@ -27,11 +25,13 @@ public class TaskManager {
     private static final String DIVIDER = "    ____________________________________________________________";
 
     private List<Task> tasks;
-    private int numberOfTasks;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
-        this.numberOfTasks = 0;
+    }
+
+    private int getTasksSize() {
+        return tasks.size();
     }
 
     public void processUserInput() {
@@ -92,7 +92,6 @@ public class TaskManager {
             throw new EmptyDescriptionException();
         }
         tasks.add(new Todo(taskName));
-        numberOfTasks++;
     }
 
     private void addDeadlineTask(String taskInput) throws EmptyDescriptionException, MissingInformationException {
@@ -109,7 +108,6 @@ public class TaskManager {
         String taskDescription = taskDescriptionAndDeadlineArray[0];
         String deadline = taskDescriptionAndDeadlineArray[1];
         tasks.add(new Deadline(taskDescription, deadline));
-        numberOfTasks++;
     }
 
     private void addDeadlineTaskWithException(String taskInput) {
@@ -141,7 +139,6 @@ public class TaskManager {
         String taskDescription = taskDescriptionAndStartTimeArray[0];
         String deadline = taskDescriptionAndStartTimeArray[1];
         tasks.add(new Event(taskDescription, deadline));
-        numberOfTasks++;
     }
 
     private void addEventTaskWithException(String taskInput) {
@@ -163,7 +160,7 @@ public class TaskManager {
         if(taskIndex < 0) {
             throw new IndexTooSmallException();
         }
-        if(taskIndex > numberOfTasks - 1){
+        if(taskIndex > getTasksSize() - 1){
             throw new IndexTooBigException();
         }
         tasks.get(taskIndex).markAsDone();
@@ -183,16 +180,16 @@ public class TaskManager {
     private void printAddTaskMessage() {
         printHorizontalLine();
         System.out.println("     Got it. I've added this task:\n"
-                + "      " + tasks.get(numberOfTasks - 1)
-                + "\n     Now you have " + numberOfTasks
-                + (numberOfTasks == 1? " task" : " tasks")
+                + "      " + tasks.get(getTasksSize() - 1)
+                + "\n     Now you have " + getTasksSize()
+                + (getTasksSize() == 1? " task" : " tasks")
                 + " in the list.");
         printHorizontalLine();
     }
 
     private void printAllTasks() {
         printHorizontalLine();
-        for(int i = 0; i < numberOfTasks; i++) {
+        for(int i = 0; i < getTasksSize(); i++) {
             System.out.println("     " + (i + 1) + "." + tasks.get(i));
         }
         printHorizontalLine();
@@ -206,7 +203,7 @@ public class TaskManager {
 
     private void printTaskIndexTooBigMessage() {
         printHorizontalLine();
-        System.out.println("     There is only " + numberOfTasks
+        System.out.println("     There is only " + getTasksSize()
                 + " item(s) in the list!");
         printHorizontalLine();
     }
