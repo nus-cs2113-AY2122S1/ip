@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final int MAX_TASK_COUNT = 100;
-
-    public static int taskCount = 1;
-
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printErrorMessage() {
@@ -92,6 +88,7 @@ public class Duke {
             case ("todo"):
             case ("deadline"):
             case ("event"):
+            case ("delete"):
                 taskManager(command, line);
                 break;
             default:
@@ -104,8 +101,8 @@ public class Duke {
     public static void printTaskManagerMessage() {
         printHorizontalLine();
         System.out.println("Understood. I've added this task:");
-        System.out.println(tasks.get(tasks.size()));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
         printHorizontalLine();
     }
 
@@ -114,17 +111,20 @@ public class Duke {
         switch (command) {
         case ("todo"):
             addTodo(input);
+            printTaskManagerMessage();
             break;
         case ("deadline"):
         case ("event"):
             addDeadlineOrEvent(input);
+            printTaskManagerMessage();
+            break;
+        case ("delete"):
+            deleteTask(input);
             break;
         default:
             printErrorMessage();
             break;
         }
-        printTaskManagerMessage();
-        taskCount++;
     }
 
     public static String getTaskType(String input) {
@@ -241,7 +241,7 @@ public class Duke {
     }
 
     public static void inputDone(String line) throws InvalidDoOrUndoException {
-        int taskNumber = getTaskNumber(line);
+        int taskNumber = getTaskNumber(line) - 1;
         Task t = tasks.get(taskNumber);
         if (t.isDone) {
             printHorizontalLine();
@@ -253,7 +253,7 @@ public class Duke {
 
 
     public static void undoDone(String line) throws InvalidDoOrUndoException {
-        int taskNumber = getTaskNumber(line);
+        int taskNumber = getTaskNumber(line) - 1;
         Task t = tasks.get(taskNumber);
         if (!t.isDone) {
             printHorizontalLine();
@@ -261,6 +261,20 @@ public class Duke {
         }
         t.markAsNotDone();
         printUndoneTask(t);
+    }
+
+    public static void deleteTask(String line) {
+        int taskNumber = getTaskNumber(line) - 1;
+        printDeleteMessage(tasks.get(taskNumber));
+        tasks.remove(taskNumber);
+    }
+
+    public static void printDeleteMessage(Task t) {
+        printHorizontalLine();
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(t);
+        System.out.println("Now you have " + (tasks.size() - 1) + " tasks in the list.");
+        printHorizontalLine();
     }
 
 
