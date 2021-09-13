@@ -1,5 +1,6 @@
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import duke.task.Todo;
 import duke.task.Task;
@@ -19,7 +20,8 @@ public class Duke {
     static String command;
     static String description = "No description is needed for this command";
     public static final String SEPARATOR = "-----------------------------------";
-
+    private static ArrayList<Task> tasks;
+    private static int taskCounter;
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -29,6 +31,7 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
 
+        tasks = new ArrayList<>();
 
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
@@ -36,14 +39,16 @@ public class Duke {
         while (!userInput.equals("bye")) {
             try {
                 if (userInput.equals("echo")) {
+
                     echo(userInput);
+
                 } else if (userInput.length() >= 3 && userInput.substring(0, 3).equals("add")) {  // Add the task into the list
 
                     addTask(userInput);
 
                 } else if (userInput.equals("list")) {      /* Show the list to user which contains indicators to indicate that whether this task is done or have a deadline or is an event with given time */
 
-                    printList(list);
+                    printTasks();
 
                 } else if (userInput.length() >= 4 && userInput.substring(0, 4).equals("done")) {   // Mark the task that needs to be done as done in list
 
@@ -60,8 +65,16 @@ public class Duke {
                 } else if (userInput.length() >= 5 && userInput.substring(0, 5).equals("event")) {  // Create an event object and add it into the task list
 
                     createEvent();
+
+                }else if (userInput.length() >= 6 && userInput.substring(0,6).equals("delete")){
+
+                    int taskIndex = Integer.parseInt(String.valueOf(userInput.charAt(7)));
+                    deleteTask(taskIndex - 1);
+
                 }else {
+
                     notValidCommand();
+
                 }
 
 
@@ -113,6 +126,7 @@ public class Duke {
             String command = userInput.substring(4);
             description = userInput.substring(4);
             task = new Task(command);
+            tasks.add(task);
             list[listLength] = task;
             System.out.println(SEPARATOR);
             System.out.println("added:" + " " + command);
@@ -129,6 +143,22 @@ public class Duke {
             System.out.println(SEPARATOR);
         }
 
+        public static void printTasks() throws DukeException{
+            if(listLength == 0){
+                System.out.println(SEPARATOR);
+                System.out.println("Hmm...It seems that you have no task now.");
+                System.out.println(SEPARATOR);
+            }
+            else{
+                System.out.println(SEPARATOR);
+                System.out.println("Here are the tasks in your list:");
+                for(int i = 0; i<listLength;i++){
+                    System.out.println((i+1) + "." + " " + tasks.get(i));
+                }
+                System.out.println(SEPARATOR);
+            }
+        }
+
         public static void createTodo() throws DukeException{
             if(userInput.length()<= 4){
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -137,6 +167,7 @@ public class Duke {
             int currentTaskIndex = listLength;
             command = userInput.substring(5);
             Todo todo = new Todo(command);
+            tasks.add(todo);
             list[currentTaskIndex] = todo;
             list[currentTaskIndex].setNeedToDo();
             int taskNumber = listLength + 1;
@@ -158,6 +189,7 @@ public class Duke {
             int slashByIndex = userInput.indexOf("/by");
             command = userInput.substring(9,slashIndex); //get the description
             String by = userInput.substring(slashByIndex + 4);
+            tasks.add(new Deadline(command,by));
             list[currentTaskIndex] = new Deadline(command,by);
             listLength++;
             System.out.println(SEPARATOR);
@@ -177,6 +209,7 @@ public class Duke {
             int slashAtIndex = userInput.indexOf("/at");
             command = userInput.substring(6,slashIndex);
             String at = userInput.substring(slashAtIndex+4);
+            tasks.add(new Event(command,at));
             list[currentTaskIndex] = new Event(command,at);
             listLength++;
             System.out.println(SEPARATOR);
@@ -188,7 +221,7 @@ public class Duke {
         }
 
         public static void markAsDone() throws DukeException {
-            if (list[0] == null) {
+            /*if (list[0] == null) {
                 throw new DukeException("Hmm... It seems that you have no task to mark in your empty list.");
             } else {
                 int listNumber;
@@ -198,12 +231,41 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(list[listNumber].toString());
                 System.out.println(SEPARATOR);
+            }*/
+            if(listLength == 0){
+                throw new DukeException("Hmm... It seems that you have no task to mark in your empty list.");
+            } else {
+                int index;
+                index = Integer.parseInt(userInput.substring(5)) - 1;
+                tasks.get(index).taskDone();
+                System.out.println(SEPARATOR);
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(tasks.get(index));
+                System.out.println(SEPARATOR);
             }
         }
 
 
           public static void notValidCommand() throws DukeException{
               throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+          }
+
+          public static void deleteTask(int taskIndex) throws DukeException{
+               if(userInput.length() <= 6){
+                   throw new DukeException("☹ OOPS!!! The index of task to be delete cannot be empty.");
+               }
+               Task deletedTask = tasks.get(taskIndex);
+               tasks.remove(taskIndex);
+               listLength--;
+               printDeleteMessage(deletedTask);
+          }
+
+          public static void printDeleteMessage(Task deletedTask){
+               System.out.println(SEPARATOR);
+               System.out.println("Noted. I've removed this task: ");
+               System.out.println(deletedTask);
+               System.out.println("Now you have " + listLength + " tasks in the list.");
+              System.out.println(SEPARATOR);
           }
 
 
