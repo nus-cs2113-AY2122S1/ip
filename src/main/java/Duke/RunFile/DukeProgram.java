@@ -6,6 +6,7 @@ import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 
+import java.awt.*;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class DukeProgram {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
+    public static final String DELETE_COMMAND = "delete";
 
     //Other constants
     public static final int NUM_OF_TASKS = 100;
@@ -193,7 +195,7 @@ public class DukeProgram {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
-        System.out.println(" Now you have " + (index) +" tasks in the list.");
+        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
@@ -257,6 +259,22 @@ public class DukeProgram {
         }
     }
 
+    public static void printDelete(String inWord, int index, ArrayList<Task> taskList) {
+        String[] commands = inWord.split(" ");
+        int taskDeleteIndex = Integer.parseInt(commands[1]);
+        System.out.println(LINE);
+        System.out.println(" Noted! I've removed this task:");
+        System.out.println("   " + taskList.get(taskDeleteIndex - 1).toString());
+        taskList.remove(taskDeleteIndex - 1);
+        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void manageDelete(String inWord, int index, ArrayList<Task> taskList) {
+        printDelete(inWord, index, taskList);
+    }
+
     public static void generalDukeException() {
         System.out.println(LINE);
         System.out.println("Please input a valid command!");
@@ -285,6 +303,9 @@ public class DukeProgram {
         case DEADLINE_COMMAND:
             manageDeadline(inWord, index, taskList);
             break;
+        case DELETE_COMMAND:
+            manageDelete(inWord, index, taskList);
+            break;
         default:
             generalDukeException();
             break;
@@ -311,6 +332,8 @@ public class DukeProgram {
             if (checkValidEvent(inWord)) {
                 return index + 1;
             }
+        case DELETE_COMMAND:
+            return index - 1;
         default:
             return index;
         }
