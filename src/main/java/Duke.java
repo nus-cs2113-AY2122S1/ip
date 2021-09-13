@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     final static String HOR_LINE = "_".repeat(30);
-    private static Task[] storedTasks = new Task[100];
-    private static int additions = 0;
+    private static ArrayList<Task> tasksList = new ArrayList<>();
     private static int mode = 0;
 
     private final static int ECHO_MODE = 1;
@@ -122,9 +122,11 @@ public class Duke {
     public static void printList() {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tCURRENT ADDED LIST");
-        for (int i = 0; i < additions; i++) {
-            System.out.println("\t" + (i + 1) + ". " + storedTasks[i].getTypeIcon() +
-                    storedTasks[i].getStatusIcon() + storedTasks[i].description);
+        int optionNo = 1;
+        for (Task t: tasksList) {
+            System.out.println("\t" + optionNo + ". " + t.getTypeIcon() +
+                    t.getStatusIcon() + t.description);
+            optionNo++;
         }
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
@@ -139,7 +141,7 @@ public class Duke {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tGot it. I've added this task: ");
         System.out.println("\t" + currTask.getTypeIcon() + currTask.getStatusIcon() + currTask.description);
-        System.out.println("\tNow there are " + (additions + 1) + " tasks in the list.");
+        System.out.println("\tNow there are " + tasksList.toArray().length + " tasks in the list.");
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
 
@@ -150,21 +152,25 @@ public class Duke {
      * @param userInput String command input by user.
      */
     public static void createTask(String userInput) throws DukeException {
+        Task t;
         if (userInput.startsWith("event ")) {
             if (userInput.contains("/at ")) {
-                storedTasks[additions] = new Event(userInput);
+                t = new Event(userInput);
+                tasksList.add(t);
             } else {
                 throw new DukeException("\t*** Remember to include event timing after '/at ' in description. ***");
             }
         } else if (userInput.startsWith("deadline ")) {
             if (userInput.contains("/by ")) {
-                storedTasks[additions] = new Deadline(userInput);
+                t = new Deadline(userInput);
+                tasksList.add(t);
             } else {
                 throw new DukeException("\t*** Remember to indicate deadline after '/by ' in description. ***");
             }
         } else if (userInput.startsWith("todo ")) {
             if (!userInput.substring(4).isBlank()){
-                storedTasks[additions] = new Todo(userInput);
+                t = new Todo(userInput);
+                tasksList.add(t);
             } else {
                 throw new DukeException("\t*** OOPS!!! The description of a todo cannot be empty. ***");
             }
@@ -177,8 +183,7 @@ public class Duke {
                     "\tinput description after a whitespace.");
         }
 
-        printAddedResponse(storedTasks[additions]);
-        additions++;
+        printAddedResponse(t);
     }
 
     /**
@@ -222,10 +227,9 @@ public class Duke {
         if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
             try {
                 int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-                storedTasks[taskNo].setDone();
-                // Print response when task marked done.
+                tasksList.get(taskNo).setDone();
                 System.out.println("\t" + HOR_LINE);
-                System.out.printf("\tThat's great! %s has been checked as completed!\n", storedTasks[taskNo].description);
+                System.out.printf("\tThat's great! %s has been checked as completed!\n", tasksList.get(taskNo).description);
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
             } catch (NumberFormatException e) {
                 System.out.println("\t" + HOR_LINE);
@@ -234,14 +238,13 @@ public class Duke {
                 System.out.println("\t" + HOR_LINE);
             }
         } else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
-        // Remove task from list.
+            // Remove task from list.
             try {
                 int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
                 System.out.println("\t" + HOR_LINE);
-                System.out.printf("\t%s removed from list!\n", storedTasks[taskNo].description);
+                System.out.printf("\t%s removed from list!\n", tasksList.get(taskNo).description);
                 System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                System.arraycopy(storedTasks, taskNo + 1, storedTasks, taskNo, additions - taskNo);
-                additions--;
+                tasksList.remove(taskNo);
                 printList();
             } catch (NumberFormatException e) {
                 System.out.println("\t" + HOR_LINE);
@@ -250,7 +253,7 @@ public class Duke {
                 System.out.println("\t" + HOR_LINE);
             }
         } else {
-        // Create a new task if it does not exist in list
+            // Create a new task if it does not exist in list
             try {
                 createTask(toAdd);
             } catch (DukeException e) {
