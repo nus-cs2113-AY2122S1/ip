@@ -12,6 +12,10 @@ public class Deadline extends Task {
         this.deadline = "never";
     }
 
+    public String getDeadline() {
+        return deadline;
+    }
+
     @Override
     public String getPrefix() {
         return "[D]";

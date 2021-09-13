@@ -12,6 +12,10 @@ public class Event extends Task {
         this.eventDate = "never";
     }
 
+    public String getEventDate() {
+        return eventDate;
+    }
+
     @Override
     public String getPrefix() {
         return "[E]";
