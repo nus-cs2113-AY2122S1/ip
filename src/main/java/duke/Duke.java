@@ -11,7 +11,10 @@ import duke.exception.TaskAlreadyDoneException;
 
 import duke.task.TaskManager;
 import duke.ui.DukeInterface;
+import duke.local.DataManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -19,6 +22,7 @@ public class Duke {
     private final Scanner in;
     private final DukeInterface dukeUI;
     private final TaskManager taskMgr;
+    private final DataManager dataMgr;
 
     private boolean isRunning;
 
@@ -30,10 +34,13 @@ public class Duke {
     private final String SET_TASK_DONE_CMD = "done";
     private final String TERMINATE_CMD = "bye";
 
+    private final String FILE_PATH = "data/duke.txt";
+
     public Duke() {
         in = new Scanner(System.in);
         dukeUI = new DukeInterface();
         taskMgr = new TaskManager();
+        dataMgr = new DataManager(FILE_PATH);
     }
 
     public String readInput() {
@@ -103,13 +110,18 @@ public class Duke {
         }
     }
 
-    public void startDuke() {
+    public void startDuke(){
+
+        try {
+            dataMgr.loadDataFromFile();
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
         dukeUI.printWelcomeMsg();
         isRunning = true;
 
         do {
             String input = readInput();
-
             try {
                 runCommand(input);
             } catch (InvalidCommandException e) {

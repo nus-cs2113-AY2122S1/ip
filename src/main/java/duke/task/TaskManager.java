@@ -30,6 +30,13 @@ public class TaskManager {
         numComplete = 0;
     }
 
+    public TaskManager(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        dukeUI = new DukeInterface();
+        numTasks = 0;
+        numComplete = 0;
+    }
+
     public void addToDo(String todoInfo) throws TodoFormatException {
 
         if (todoInfo.equals("")) {
