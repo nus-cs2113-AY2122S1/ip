@@ -13,7 +13,7 @@ public class ToDo extends Task {
     }
 
     public String getTaskType() {
-        return "ToDo";
+        return "todo";
     }
 
     public String getTaskID() {

@@ -15,7 +15,7 @@ public class Event extends Task {
     }
 
     public String getTaskType() {
-        return "Event";
+        return "event";
     }
 
     public String getTaskID() {
@@ -23,6 +23,6 @@ public class Event extends Task {
     }
 
     public String getDate() {
-        return " (at: " + date + ")";
+        return date;
     }
 }

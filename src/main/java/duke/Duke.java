@@ -6,8 +6,13 @@ import duke.Exceptions.DoneUndoException;
 import duke.tasks.Deadlines;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
+
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 
 public class Duke {
     public static final int TIME_COMMAND = 4;
@@ -18,7 +23,9 @@ public class Duke {
 
     public static void main(String[] args) {
         IntroductoryMessage();
+        LoadTasks();
         runIkaros();
+        SaveTasks();
         goodbyeMessage();
     }
 
@@ -61,6 +68,68 @@ public class Duke {
         }
     }
 
+    private static void LoadTasks() {
+        String[] command;
+        File ikarosTaskData = new File("ikarosTaskData.txt");
+        Scanner scan;
+        System.out.println("Loading Task list");
+        try {
+            scan = new Scanner(ikarosTaskData);
+            if (ikarosTaskData.exists()) {
+                while (scan.hasNext()) {
+                    command = scan.nextLine().split(">");
+                    loadingManager(command);
+                }
+            } else {
+                FileWriter f = new FileWriter(ikarosTaskData.getAbsoluteFile());
+                f.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. pls try reload again, or start a new");
+        } catch (IOException e) {
+            System.out.println("File corrupted. pls try reload again, or start a new");
+        } finally {
+            lineBreak();
+        }
+    }
+
+    private static void loadingManager(String[] command) {
+        switch (command[0]) {
+        case "todo":
+            ToDo taskTodo = new ToDo(command[2]);
+            taskList.add(taskTodo);
+            break;
+        case "deadline":
+            Deadlines taskDeadline = new Deadlines(command[2], command[3]);
+            taskList.add(taskDeadline);
+            break;
+        case "event":
+            Event taskEvent = new Event(command[2], command[3]);
+            taskList.add(taskEvent);
+            break;
+        default:
+            System.out.println("file error");
+        }
+        if (command[1].equalsIgnoreCase("X")) {
+            taskList.get(taskList.size() - 1).markAsDone();
+        }
+    }
+
+    private static void SaveTasks() {
+        try {
+            FileWriter fw = new FileWriter("ikarosTaskData.txt");
+            for (Task task : taskList) {
+                fw.write(task.getTaskType() + ">"
+                        + task.getStatusIcon() + ">"
+                        + task.getDescription() + ">"
+                        + task.getDate() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong" + e.getMessage());
+        }
+    }
+
     private static void doUndoManager(String[] command, String response) {
         try {
             if (command[0].equalsIgnoreCase("done")) {
@@ -98,7 +167,8 @@ public class Duke {
 
     private static void Event(String response)
             throws TimeException {
-        String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
+        String timing = " (at: " + response.substring(response.indexOf("/") + TIME_COMMAND)
+                + ")";
 
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it being held? " +
@@ -112,9 +182,9 @@ public class Duke {
 
     private static void deadLine(String response)
             throws TimeException {
-        String timing = response.substring(response.indexOf("/") + TIME_COMMAND);
+        String timing = " (by: " + response.substring(response.indexOf("/") + TIME_COMMAND)
+                + ")";
 
-        //checking if user entered timing
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it due? " +
                     "[indicate by adding: /by your_timing]");
