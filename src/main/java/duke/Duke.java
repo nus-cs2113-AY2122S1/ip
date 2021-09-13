@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -7,6 +8,8 @@ public class Duke {
     public static final int MAX_TASK_COUNT = 100;
 
     public static int taskCount = 1;
+
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printErrorMessage() {
         printHorizontalLine();
@@ -61,7 +64,6 @@ public class Duke {
     public static void inputManager() {
         String line;
         boolean isBye = false;
-        Task[] tasks = new Task[MAX_TASK_COUNT];
         Scanner in = new Scanner(System.in);
 
         while (!isBye) {
@@ -81,16 +83,16 @@ public class Duke {
                 printFarewellMessage();
                 break;
             case ("list"):
-                requestList(tasks);
+                requestList();
                 break;
             case ("done"):
             case ("undo"):
-                changeDoneStatus(line, tasks);
+                changeDoneStatus(line);
                 break;
             case ("todo"):
             case ("deadline"):
             case ("event"):
-                taskManager(command, line, tasks);
+                taskManager(command, line);
                 break;
             default:
                 printErrorMessage();
@@ -99,29 +101,29 @@ public class Duke {
         }
     }
 
-    public static void printTaskManagerMessage(Task[] tasks) {
+    public static void printTaskManagerMessage() {
         printHorizontalLine();
         System.out.println("Understood. I've added this task:");
-        System.out.println(tasks[taskCount]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size()));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printHorizontalLine();
     }
 
     // this function assumes that the input is fully valid
-    public static void taskManager(String command, String input, Task[] tasks) {
+    public static void taskManager(String command, String input) {
         switch (command) {
         case ("todo"):
-            addTodo(input, tasks);
+            addTodo(input);
             break;
         case ("deadline"):
         case ("event"):
-            addDeadlineOrEvent(input, tasks);
+            addDeadlineOrEvent(input);
             break;
         default:
             printErrorMessage();
             break;
         }
-        printTaskManagerMessage(tasks);
+        printTaskManagerMessage();
         taskCount++;
     }
 
@@ -161,37 +163,37 @@ public class Duke {
         return input.substring(atPosition + 3);
     }
 
-    public static void addTodo(String input, Task[] tasks) {
+    public static void addTodo(String input) {
         String taskName = getTodoTaskName(input);
-        tasks[taskCount] = new Todo(taskName);
+        tasks.add(new Todo(taskName));
     }
 
-    public static void addDeadlineOrEvent(String input, Task[] tasks) {
+    public static void addDeadlineOrEvent(String input) {
         String taskType = getTaskType(input);
         String taskName = getDeadlineOrEventTaskName(input);
         String end = getDeadlineOrEventDuration(input);
 
         if (taskType.equalsIgnoreCase("deadline")) {
-            tasks[taskCount] = new Deadline(taskName, end);
+            tasks.add(new Deadline(taskName, end));
         } else if (taskType.equalsIgnoreCase("event")) {
-            tasks[taskCount] = new Event(taskName, end);
+            tasks.add(new Event(taskName, end));
         }
-
     }
 
-    public static void requestList(Task[] tasks) {
+    public static void requestList() {
         printHorizontalLine();
-        if (taskCount == 1) {
+        if (tasks.size() == 0) {
             System.out.println("There are no tasks!");
             printHorizontalLine();
             return;
         }
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i < taskCount; i++) {
-            System.out.println(i + "." + tasks[i]);
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         printHorizontalLine();
     }
+
 
     public static void printFarewellMessage() {
         printHorizontalLine();
@@ -199,13 +201,13 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void changeDoneStatus(String line, Task[] tasks) {
+    public static void changeDoneStatus(String line) {
         String[] input = line.split(" ");
         try {
             if (input[0].equalsIgnoreCase("done")) {
-                inputDone(line, tasks);
+                inputDone(line);
             } else if (input[0].equalsIgnoreCase("undo")) {
-                undoDone(line, tasks);
+                undoDone(line);
             }
         } catch (NumberFormatException invalidTaskNumber) {
             System.out.println("Indicate the task number you'd like to do or undo!");
@@ -238,9 +240,9 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void inputDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
+    public static void inputDone(String line) throws InvalidDoOrUndoException {
         int taskNumber = getTaskNumber(line);
-        Task t = tasks[taskNumber];
+        Task t = tasks.get(taskNumber);
         if (t.isDone) {
             printHorizontalLine();
             throw new InvalidDoOrUndoException("This task has already been done, complete something else!");
@@ -249,9 +251,10 @@ public class Duke {
         printDoneTask(t);
     }
 
-    public static void undoDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
+
+    public static void undoDone(String line) throws InvalidDoOrUndoException {
         int taskNumber = getTaskNumber(line);
-        Task t = tasks[taskNumber];
+        Task t = tasks.get(taskNumber);
         if (!t.isDone) {
             printHorizontalLine();
             throw new InvalidDoOrUndoException("This task has not been done yet!");
