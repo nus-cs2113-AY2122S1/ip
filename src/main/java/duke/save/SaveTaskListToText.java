@@ -1,6 +1,7 @@
 package duke.save;
 
 import duke.commandHandler.DukeCommandHandling;
+import duke.commandHandler.SaveCommandHandling;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
 import duke.taskType.Task;
@@ -19,21 +20,42 @@ public class SaveTaskListToText {
         Scanner scanText = new Scanner(dukeTaskText); // create a Scanner using the File as the source
         while (scanText.hasNext()) {
             String currentCommand = scanText.nextLine();
-            DukeCommandHandling commandHandle = new DukeCommandHandling(currentCommand);
+            SaveCommandHandling commandHandle = new SaveCommandHandling(currentCommand);
 
             if (commandHandle.isToDo()) {
-                String taskName = currentCommand.substring(5);
+                int done = Integer.parseInt(currentCommand.split("-/-")[1]);
+                String taskName = currentCommand.split("-/-")[2];
+
                 tasks[numberOfTasksAdded] = new ToDo(taskName);
+
+                if (done == 1) {
+                    tasks[numberOfTasksAdded].markAsDone();
+                }
+
                 numberOfTasksAdded += 1;
             } else if (commandHandle.isEvent()) {
-                String taskName = currentCommand.substring(6).split("/")[0];
-                String at = currentCommand.substring(6).split("/")[1];
+                int done = Integer.parseInt(currentCommand.split("-/-")[1]);
+                String taskName = currentCommand.split("-/-")[2];
+                String at = currentCommand.split("-/-")[3];
+
                 tasks[numberOfTasksAdded] = new Event(taskName, at);
+
+                if (done == 1) {
+                    tasks[numberOfTasksAdded].markAsDone();
+                }
+
                 numberOfTasksAdded += 1;
             } else if (commandHandle.isDeadline()) {
-                String taskName = currentCommand.substring(9).split("/")[0];
-                String by = currentCommand.substring(9).split("/")[1];
+                int done = Integer.parseInt(currentCommand.split("-/-")[1]);
+                String taskName = currentCommand.split("-/-")[2];
+                String by = currentCommand.split("-/-")[3];
+
                 tasks[numberOfTasksAdded] = new Deadline(taskName, by);
+
+                if (done == 1) {
+                    tasks[numberOfTasksAdded].markAsDone();
+                }
+
                 numberOfTasksAdded += 1;
             }
         }
