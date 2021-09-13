@@ -25,8 +25,11 @@ public class Duke {
                 TaskManager.printList();
                 break;
             case "done":
-                TaskManager.markTaskAsDone(getIndexOfTask(input));
-                saveList();
+                int index = getIndexOfTask(input);
+                if (index >= 0) {
+                    TaskManager.markTaskAsDone(index);
+                    saveList();
+                }
                 break;
             default:
                 TaskManager.addTask(input);
@@ -114,9 +117,19 @@ public class Duke {
      * @return The index of the task in integer.
      */
     public static int getIndexOfTask(String x) {
-        String[] listOfInputs = x.split(" ");
-        //To implement a try-catch here.
-        return Integer.parseInt(listOfInputs[1]);
+        int index;
+        try {
+            String[] listOfInputs = x.split(" ");
+            index = Integer.parseInt(listOfInputs[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Index not recognized. Try again!");
+            index = -1;
+        } catch (Exception e) {
+            System.out.println("Error in converting Index." + e);
+            e.printStackTrace();
+            index = -1;
+        }
+        return index;
     }
 
     /**
