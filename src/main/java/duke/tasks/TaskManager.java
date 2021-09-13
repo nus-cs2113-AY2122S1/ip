@@ -37,6 +37,16 @@ public class TaskManager {
     }
 
     /**
+     * Prints the message containing how many tasks are in the list
+     *
+     * @param size the size of the list, how many tasks are in the list
+     */
+    private static void printTaskNumberMessage(int size) {
+        System.out.println("Now you have " + size + " tasks in the list");
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
      * Deletes a task from the list
      *
      * @param args the string the user inputs
@@ -55,8 +65,7 @@ public class TaskManager {
         }
         taskList.remove(taskIndex - 1);
 
-        System.out.println("Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(LINE_SEPARATOR);
+        printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -71,8 +80,7 @@ public class TaskManager {
         numberOfTasksUndone++;
         System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + args);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(LINE_SEPARATOR);
+        printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -88,8 +96,7 @@ public class TaskManager {
         numberOfTasksUndone++;
         System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + description);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(LINE_SEPARATOR);
+        printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -105,8 +112,7 @@ public class TaskManager {
         numberOfTasksUndone++;
         System.out.println(LINE_SEPARATOR);
         System.out.println("added: " + description);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(LINE_SEPARATOR);
+        printTaskNumberMessage(taskList.size());
     }
 
     /**
