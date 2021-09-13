@@ -24,25 +24,14 @@ public class Duke {
                     list.printTasks();
                 } else if (Request.isDone(request)) {
                     list.doneTask(request);
+                } else if (Request.isDelete(request)) {
+                    list.deleteTask(request);
                 } else {
                     list.addTask(request);
                 }
                 request = in.nextLine();
-            } catch (DukeException ex) {
-                if (ex instanceof IncompleteInformationException) {
-                    System.out.println(ex.getMessage());
-                } else if (ex instanceof InvalidRequestException) {
-                    System.out.println("☹ OOPS!!! I can't do that.");
-                }
-                request = in.nextLine();
             } catch (Exception ex) {
-                if (ex instanceof IndexOutOfBoundsException) {
-                    System.out.println("Sorry I can't do that! " +
-                            "Try \"done <number inside the list>\" instead :)");
-                } else {
-                    System.out.println(ex.getClass());
-                    System.out.println("Some error i don't know of");
-                }
+                System.out.println(ex.getMessage());
                 request = in.nextLine();
             }
         }

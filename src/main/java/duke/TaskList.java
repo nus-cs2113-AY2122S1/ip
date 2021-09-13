@@ -11,7 +11,6 @@ public class TaskList {
 
     public void addTask(String request) throws Exception {
         Task newTask = Request.getTask(request);
-        System.out.println("created task");
         tasks.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
@@ -19,15 +18,33 @@ public class TaskList {
     }
 
     public void doneTask(String request) {
-        int taskIndex = Request.getTaskIndex(request.trim());
-        Task task = tasks.get(taskIndex);
-        if(task.isDone()) {
-            System.out.println("This task is already done!");
-        } else {
-            tasks.get(taskIndex).setDone();
-            System.out.printf("Nice! I've marked this task as done:\n" +
-                    "  %s\n", tasks.get(taskIndex));
+        try {
+            int taskIndex = Request.getTaskIndex(request.trim());
+            Task task = tasks.get(taskIndex);
+            if (task.isDone()) {
+                System.out.println("This task is already done!");
+            } else {
+                tasks.get(taskIndex).setDone();
+                System.out.printf("Nice! I've marked this task as done:\n" +
+                        "  %s\n", tasks.get(taskIndex));
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new ArrayIndexOutOfBoundsException("☹ OOPS!!! The format for 'done' is 'done <task number>'");
+        } catch (IndexOutOfBoundsException ex) {
+            throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
         }
+    }
+
+    public void deleteTask(String request) {
+         try {
+             int taskIndex = Request.getTaskIndex(request.trim());
+             System.out.printf("Noted. I've removed this task:\n" +
+                     "  %s\nNow you have %d task in the list.\n", tasks.remove(taskIndex), tasks.size());
+         } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new ArrayIndexOutOfBoundsException("☹ OOPS!!! The format for 'delete' is 'delete <task number>'");
+         } catch (IndexOutOfBoundsException ex) {
+            throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
+         }
     }
 
     public void printTasks() {

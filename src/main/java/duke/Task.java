@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Locale;
+
 public class Task {
     private String description;
     private boolean status;
@@ -25,9 +27,8 @@ public class Task {
 
     @Override
     public String toString(){
-
         String done = this.isDone()? "X" : " ";
-        String taskType = this.getClass().getName().substring(0,1).toUpperCase();
+        String taskType = this.getClass().getName().substring(5,6).toUpperCase();
         return String.format("[%s][%s] %s",taskType, done, this.getDescription());
     }
 }

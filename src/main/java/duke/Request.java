@@ -9,15 +9,19 @@ public abstract class Request {
     private static final String BYE = "bye";
     private static final String LIST = "list";
     private static final String DONE = "done";
+    private static final String DELETE = "delete";
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
-    private static final String INVALID_REQUEST = "invalid";
     public static final int TIME_INFO_START_INDEX = 1;
 
     //assumes spelling is correct
     public static boolean isBye(String request) {
         return !request.trim().equals(BYE);
+    }
+
+    public static boolean isDelete(String request) {
+        return request.trim().startsWith(DELETE);
     }
 
     public static boolean isList(String request) {
@@ -45,7 +49,7 @@ public abstract class Request {
     }
 
     public static int getTaskIndex(String request) {
-        return Integer.parseInt(request.substring(Task.TASK_INDEX)) - 1;
+        return Integer.parseInt(request.split(" ")[1]) - 1;
     }
 
     public static Task getTask(String request) throws Exception {
