@@ -70,7 +70,7 @@ public class Triss {
             // Perform actions based on user's command
             switch (userCommand) {
             case "bye":
-                handleUserShuttingDown();
+                saveTasks();
                 printShutdownMessage();
                 break;
             case "list":
@@ -91,6 +91,7 @@ public class Triss {
                 break;
             }
 
+            saveTasks();
             printLine(SEPARATOR_LINE);
 
         }
@@ -160,7 +161,7 @@ public class Triss {
         }
     }
 
-    private static void handleUserShuttingDown() {
+    private static void saveTasks() {
 
         try {
             FileWriter fw = new FileWriter("data/storedtasks.txt");
