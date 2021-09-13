@@ -1,7 +1,12 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private final static String DONE_TASK_INDICATOR = "^done \\d+";
@@ -138,6 +143,26 @@ public class Duke {
         System.out.println();
     }
 
+    public static void saveToDukeTextFile(Task[] taskArray, int taskNumber) {
+        try {
+            FileWriter dukeTextFile = new FileWriter("../data/duke.txt");
+            for (int i = 1; i < taskNumber; i++) {
+                Task currentTask = taskArray[i];
+                String taskString = currentTask.toString();
+                dukeTextFile.write(taskString);
+                dukeTextFile.write("\n");
+            }
+            dukeTextFile.close();
+        } catch (IOException e) {
+            System.out.println("Error saving into the duke text file. " +
+                    "Data directory not found. \n" +
+                    "Creating a new data directory.");
+            new File("../data").mkdirs();
+            System.out.println("Done creating new data directory.\n");
+            saveToDukeTextFile(taskArray, taskNumber);
+        }
+    }
+
     public static void main(String[] args) {
         welcomeMessage();
         Scanner scanner = new Scanner(System.in);
@@ -157,10 +182,12 @@ public class Duke {
                 getAllTask(taskArray, taskNumber);
             } else if (taskIsDone) {
                 markTaskAsDone(userInput, taskArray);
+                saveToDukeTextFile(taskArray, taskNumber);
             } else {
                 try {
                     addTaskToTaskArray(userInput, taskNumber, taskArray);
                     taskNumber++;
+                    saveToDukeTextFile(taskArray, taskNumber);
                 } catch (EmptyDescriptionException e) {
                     e.printExceptionMessage();
                 } catch (InvalidTaskTypeException e) {
