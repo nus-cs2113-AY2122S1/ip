@@ -1,3 +1,5 @@
+package duke;
+
 public class InvalidDoOrUndoException extends Exception {
 
     public InvalidDoOrUndoException (String message) {
