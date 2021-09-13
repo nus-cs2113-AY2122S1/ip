@@ -6,6 +6,9 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+REM delete the old data file if it exists
+if exist .\data rmdir /Q /S .\data
+
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\unker\*.java ..\src\main\java\unker\command\*.java ..\src\main\java\unker\task\*.java ..\src\main\java\unker\ui\*.java
 IF ERRORLEVEL 1 (
@@ -19,3 +22,6 @@ java -classpath ..\bin unker.Main < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+REM clean up any data files
+if exist .\data rmdir /Q /S .\data
