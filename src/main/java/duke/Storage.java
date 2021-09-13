@@ -21,8 +21,6 @@ public class Storage {
     private static final int TASK_NAME = 2;
     private static final int TASK_DATE = 3;
 
-    private static int tasksInList = 0;
-
     private static final String ERROR_LOAD = "     File not found. A new list will be started.";
     private static final String ERROR_SAVE = "     Save file not found. List of tasks will not be saved";
 
@@ -65,9 +63,8 @@ public class Storage {
         }
         assert addCommand != null;
         addCommand.runAddTaskFromFile();
-        tasksInList++;
         if (words[TASK_IS_DONE].equals("1")) {
-            Command doneCommand = new DoneCommand(tasksInList);
+            Command doneCommand = new DoneCommand(TaskManager.getListSize());
             doneCommand.runTaskDoneFromFile();
         }
     }
@@ -78,7 +75,7 @@ public class Storage {
     public static void saveTask() {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task : TaskManager.getTasks()) {
+            for (Task task : TaskManager.getTaskList()) {
                 if (task != null) {
                     fileWriter.write(task.toFileString() + System.lineSeparator());
                 }

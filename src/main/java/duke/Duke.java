@@ -4,7 +4,6 @@ import duke.command.Command;
 import java.util.Scanner;
 
 public class Duke {
-
     private static final String LS = System.lineSeparator();
     private static final String S_TAB = "     ";
 
@@ -15,7 +14,6 @@ public class Duke {
 
     public static void main(String[] args) {
         greetUser();
-        Storage.loadTask();
         executeResponse();
     }
 
@@ -43,6 +41,7 @@ public class Duke {
      * until the exit command is typed.
      */
     private static void executeResponse() {
+        Storage.loadTask();
         String userInput;
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
@@ -58,7 +57,6 @@ public class Duke {
                 Picture.printLine();
             }
         }
-        Storage.saveTask();
         exitDuke();
     }
 

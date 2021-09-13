@@ -8,7 +8,6 @@ import duke.task.Todo;
 import java.util.ArrayList;
 
 public class TaskManager {
-
     private static final int TASK_NAME_INDEX = 0;
     private static final int TASK_DATE_INDEX = 1;
 
@@ -39,15 +38,24 @@ public class TaskManager {
             + L_TAB + "6. help" + LS
             + L_TAB + "7. bye";
 
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
 
     /**
      * Getter for task array.
      *
      * @return Task array containing the lists of all tasks.
      */
-    public static Task[] getTasks() {
-        return tasks;
+    public static ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    /**
+     * Gets the number of tasks in the list.
+     *
+     * @return Size of task list.
+     */
+    public static int getListSize() {
+        return taskList.size();
     }
 
     /**
@@ -64,22 +72,22 @@ public class TaskManager {
         String[] information = new String[]{taskName, taskDate};
         switch (taskType) {
         case TODO:
-            tasks.add(new Todo(information[TASK_NAME_INDEX]));
+            taskList.add(new Todo(information[TASK_NAME_INDEX]));
             break;
         case DEADLINE:
-            tasks.add(new Deadline(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]));
+            taskList.add(new Deadline(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]));
             break;
         case EVENT:
-            tasks.add(new Event(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]));
+            taskList.add(new Event(information[TASK_NAME_INDEX], information[TASK_DATE_INDEX]));
             break;
         default:
         }
-        tasksCount++;
         if (printMessage) {
             Picture.printLine();
             System.out.println(getMessageForAddTask());
             Picture.printLine();
         }
+        Storage.saveTask();
     }
 
     /**
@@ -88,8 +96,8 @@ public class TaskManager {
      * @return add task message.
      */
     private static String getMessageForAddTask() {
-        final String taskDetails = tasks.get(tasks.size() - 1).toString();
-        return String.format(MESSAGE_ADD_TASK, taskDetails, tasks.size());
+        final String taskDetails = taskList.get(taskList.size() - 1).toString();
+        return String.format(MESSAGE_ADD_TASK, taskDetails, taskList.size());
     }
 
     /**
@@ -100,17 +108,18 @@ public class TaskManager {
      *                       If itemNumber > number of items in list or not a positive integer.
      */
     public static void deleteTask(int itemNumber) throws DukeException {
-        if (tasks.size() == 0) {
+        if (taskList.size() == 0) {
             throw new DukeException(ERROR_NO_TASK_IN_LIST);
-        } else if (itemNumber > tasks.size() || itemNumber < 1) {
+        } else if (itemNumber > taskList.size() || itemNumber < 1) {
             throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
             Picture.printLine();
-            final String taskDetails = tasks.get(itemNumber - 1).toString();
-            tasks.remove(itemNumber - 1);
+            final String taskDetails = taskList.get(itemNumber - 1).toString();
+            taskList.remove(itemNumber - 1);
             System.out.println(getMessageForDeleteTask(taskDetails));
         }
         Picture.printLine();
+        Storage.saveTask();
     }
 
     /**
@@ -119,7 +128,7 @@ public class TaskManager {
      * @return delete task message.
      */
     private static String getMessageForDeleteTask(String taskDetails) {
-        return String.format(MESSAGE_DELETE_TASK, taskDetails, tasks.size());
+        return String.format(MESSAGE_DELETE_TASK, taskDetails, taskList.size());
     }
 
     /**
@@ -131,11 +140,11 @@ public class TaskManager {
      * @throws DukeException If itemNumber > number of items in list or not a positive integer.
      */
     public static void markAsCompleted(int itemNumber, Boolean printMessage) throws DukeException {
-        if (itemNumber > tasksCount || itemNumber < 1) {
+        if (itemNumber > taskList.size() || itemNumber < 1) {
             throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
-            tasks[itemNumber - 1].markTaskAsDone();
-            final String taskDetails = tasks[itemNumber - 1].toString();
+            taskList.get(itemNumber - 1).markTaskAsDone();
+            final String taskDetails = taskList.get(itemNumber - 1).toString();
             if (printMessage) {
                 Picture.printLine();
                 System.out.println(getMessageForMarkTaskAsDone(taskDetails));
@@ -144,6 +153,7 @@ public class TaskManager {
         if (printMessage) {
             Picture.printLine();
         }
+        Storage.saveTask();
     }
 
     /**
@@ -161,7 +171,7 @@ public class TaskManager {
      * otherwise prints all the tasks in the list in ascending order.
      */
     public static void printList() throws DukeException {
-        if (tasks.size() == 0) {
+        if (taskList.size() == 0) {
             throw new DukeException(ERROR_NO_TASK_IN_LIST);
         } else {
             Picture.printLine();
@@ -177,8 +187,8 @@ public class TaskManager {
      */
     private static void printTasksInList() {
         String taskDetails;
-        for (int i = 0; i < tasks.size(); i++) {
-            taskDetails = tasks.get(i).toString();
+        for (int i = 0; i < taskList.size(); i++) {
+            taskDetails = taskList.get(i).toString();
             System.out.println(getListItem(i + 1, taskDetails));
         }
     }

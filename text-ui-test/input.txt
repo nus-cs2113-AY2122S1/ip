@@ -1,3 +1,5 @@
+delete 2
+delete 1
 todo
 todo read book
 deadline

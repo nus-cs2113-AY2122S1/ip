@@ -17,15 +17,6 @@ public class Task {
     }
 
     /**
-     * Getter for task description.
-     *
-     * @return Short description of task.
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
      * Sets the task as completed.
      */
     public void markTaskAsDone() {
