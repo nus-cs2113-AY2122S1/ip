@@ -52,6 +52,7 @@ public class Command {
             default:
         }
         int taskCount = taskList.size();
+        DataFile.write(taskList.get(taskCount - 1).toString());
         Messages.printDivider();
         System.out.println("Got it. I've added this task: ");
         System.out.println(taskList.get(taskCount - 1));
