@@ -6,4 +6,7 @@ done 4
 list
 done 3
 list
+deadline finish up cs2113t /by tonight
+delete 2
+list
 bye
