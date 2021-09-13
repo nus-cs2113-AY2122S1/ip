@@ -11,6 +11,15 @@ public class Task {
         this.status = false;
     }
 
+    public Task(boolean isDone, String description) {
+        this.description = description;
+        this.status = isDone;
+    }
+
+    public String saveFormat() {
+        return String.format(this.getClass().getName() + "," + status + "," + description);
+    }
+
     public void setDone() {
         this.status = true;
     }

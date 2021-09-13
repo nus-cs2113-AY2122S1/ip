@@ -8,12 +8,22 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    public Deadline(boolean isDone,String description, String by){
+        super(isDone, description);
+        this.by = by;
+    }
+
     public void setBy(String by) {
         this.by = by;
     }
 
     public String getBy() {
         return this.by;
+    }
+
+    @Override
+    public String saveFormat() {
+        return String.format(super.saveFormat() + "," + by);
     }
 
     @Override
