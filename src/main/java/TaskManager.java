@@ -10,7 +10,13 @@ import tasks.Task;
 import tasks.Todo;
 import enums.Commands;
 import enums.Errors;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -23,6 +29,7 @@ public class TaskManager {
     // task counter to enumerate through task array
     // private static int tasksCounter = 0;
 
+    private static final String FILEPATH = "data/friday.txt";
     /**
      * Main function managing all user inputs until program is terminated
      * via the "bye" command
@@ -53,13 +60,13 @@ public class TaskManager {
                     getList();
                     break;
                 case TODO:
-                    addToDo(userInput);
+                    updateList(addToDo(userInput, false));
                     break;
                 case DEADLINE:
-                    addDeadline(userInput);
+                    updateList(addDeadline(userInput, false));
                     break;
                 case EVENT:
-                    addEvent(userInput);
+                    updateList(addEvent(userInput, false));
                     break;
                 case DELETE:
                     removeTask(userInput);
@@ -86,6 +93,115 @@ public class TaskManager {
         }
     }
 
+
+    /**
+     * Function to scan data from saved file upon initiating Friday
+     * Check if fle exists; if it doesn't, create new
+     * Works in loading from saved file
+     */
+    public static void loadData() throws FileNotFoundException {
+        // read from file using Scanner
+        File data = new File(FILEPATH);
+        Scanner s = new Scanner(data);
+        while (s.hasNext()) {
+            // read and parse data into Task array.
+            // Data stored in format type | isDone | taskname | date (if exists)
+            String[] splitString = s.nextLine().split("\\|");
+            boolean isDone = false;
+            if (splitString[1].trim().equals("X")) {
+                isDone = true;
+            }
+            try {
+                // if splitString only has 3 items; means its a todo
+                if (splitString.length == 3) {
+                    addToDo(splitString[0] + " " + splitString[2], isDone);
+                } else { // means it's a deadline or event
+                    if (splitString[0].trim().equals("deadline")) {
+                        addDeadline(splitString[0] + " " + splitString[2] + " /by " + splitString[3], isDone);
+                    } else {
+                        addEvent(splitString[0] + " " + splitString[2] + " /at " + splitString[3], isDone);
+                    }
+                }
+            } catch (EmptyTaskNameException e) {
+                MessagePrinter.emptyTaskName();
+            } catch (IncompleteCommandException e) {
+                MessagePrinter.incompleteCommand();
+            } catch (MissingKeyWordException e) {
+                MessagePrinter.missingKeyWord(e.getKeyword());
+            } catch (MissingDateException e) {
+                MessagePrinter.missingDate(e.getType());
+            }
+        }
+    }
+
+    /**
+     * @throws IOException
+     * Goes through changed list and writes to file (Creates new file each time)
+     * DOesnt work; refer to Irvin method
+     */
+    public static void appendToFile(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    private static void updateList(Task currTask) {
+        String taskName = currTask.getTaskName();
+        String isDoneSymbol = currTask.isDone() ? "X" : "O";
+        // check prefix
+        if (currTask.getPrefix().equals("[T]")) {
+            try {
+                appendToFile("todo | " + isDoneSymbol + " | " + taskName + System.lineSeparator());
+            } catch (IOException e) {
+                e.getMessage();
+            }
+        } else if (currTask.getPrefix().equals("[D]")) {
+            try {
+                Deadline deadlineTask = (Deadline) currTask;
+                String deadline = deadlineTask.getDeadline();
+                appendToFile("deadline | " + isDoneSymbol + " | " + taskName + " | " + deadline + System.lineSeparator());
+            } catch (IOException e) {
+                e.getMessage();
+            }
+        } else {
+            try {
+                Event eventTask = (Event) currTask;
+                String eventDate = eventTask.getEventDate();
+                appendToFile("event | " + isDoneSymbol + " | " + taskName + " | " + eventDate + System.lineSeparator());
+            } catch (IOException e) {
+                e.getMessage();
+            }
+        }
+    }
+
+    /**
+     * Rewrite list; Delete old list and update based on current Task array
+     */
+    private static void rewriteList() {
+        // Clear list
+        try {
+            FileWriter fw = new FileWriter(FILEPATH);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            e.getMessage();
+        }
+
+        // go through current task list and update
+        for (Task task : tasks) {
+            if (task == null) {
+                break;
+            }
+            updateList(task);
+        }
+    }
+
+    /**
+     *
+     * @throws EmptyListException
+     */
+
+    // function to update Task array on adding and deleting task
     private static void getList() throws EmptyListException{
         if (tasks.isEmpty()) {
             throw new EmptyListException();
@@ -102,18 +218,19 @@ public class TaskManager {
     }
 
     // catch exception for not enough parameters
-    private static void addToDo(String userInput) throws EmptyTaskNameException {
+    private static Task addToDo(String userInput, boolean isDone) throws EmptyTaskNameException {
         String[] splitString = userInput.split("\\s");
         if (splitString.length <= 1) {
             throw new EmptyTaskNameException();
         }
         // get taskName
         String taskName = userInput.substring(userInput.indexOf(" ")).trim();
-        Todo newTodo = new Todo(false, taskName);
+        Todo newTodo = new Todo(isDone, taskName);
         addTask(newTodo, taskName);
+        return newTodo;
     }
 
-    private static void addDeadline(String userInput) throws
+    private static Task addDeadline(String userInput, boolean isDone) throws
             IncompleteCommandException,
             EmptyTaskNameException,
             MissingKeyWordException,
@@ -134,11 +251,12 @@ public class TaskManager {
         String taskName = InputParser.getTaskName(userInput);
         // get deadline; catch exception for no deadline
         String deadline = InputParser.getDate(userInput);
-        Deadline newDeadline = new Deadline(false, taskName, deadline);
+        Deadline newDeadline = new Deadline(isDone, taskName, deadline);
         addTask(newDeadline, taskName);
+        return newDeadline;
     }
 
-    private static void addEvent(String userInput) throws
+    private static Task addEvent(String userInput, boolean isDone) throws
             IncompleteCommandException,
             EmptyTaskNameException,
             MissingKeyWordException,
@@ -159,8 +277,9 @@ public class TaskManager {
         String taskName = InputParser.getTaskName(userInput);
         // get event date; catch exception for no event date
         String eventDate = InputParser.getDate(userInput);
-        Event newEvent = new Event(false, taskName, eventDate);
+        Event newEvent = new Event(isDone, taskName, eventDate);
         addTask(newEvent, taskName);
+        return newEvent;
     }
 
     // function to remove a task from the list of tasks
@@ -199,6 +318,7 @@ public class TaskManager {
         }
         currTask.setDone(true);
         MessagePrinter.taskMarkedAsDone(currTask);
+        rewriteList();
     }
 
 }
