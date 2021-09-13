@@ -189,9 +189,6 @@ public class TaskManager {
 
         // go through current task list and update
         for (Task task : tasks) {
-            if (task == null) {
-                break;
-            }
             updateList(task);
         }
     }
@@ -299,6 +296,7 @@ public class TaskManager {
         String taskName = currTask.getTaskName();
         tasks.remove(currTask);
         MessagePrinter.removeTask(taskName, tasks.size());
+        rewriteList();
 
     }
 
