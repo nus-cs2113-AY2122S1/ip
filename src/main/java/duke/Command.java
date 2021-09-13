@@ -9,9 +9,11 @@ class Command {
     private enum Commands {
         BYE("bye"),
         LIST("list"),
-        DONE("done <task number>");
+        DONE("done <task number>"),
+        DELETE("delete <task number>");
 
         private final String usage;
+        private static final String REGEX_FORMAT = "(?i)%s" + Message.WHITESPACE_REGEX + "\\d+$";
 
         private Commands(String usage) {
             this.usage = usage;
@@ -19,6 +21,10 @@ class Command {
 
         private String getUsage() {
             return "Wrong argument(s). Usage: " + usage;
+        }
+
+        private String getRegex() {
+            return String.format(REGEX_FORMAT, this);
         }
 
         private static boolean contains(String userInput) {
@@ -32,8 +38,6 @@ class Command {
         }
     }
 
-    private static final String DONE_REGEX = "(?i)" + Commands.DONE + Message.WHITESPACE_REGEX + "\\d+$";
-
     static boolean handleCommand(String userInput) {
         if (userInput.matches(Task.Types.getTypesRegex())) {
             TaskManager.newTask(userInput);
@@ -44,26 +48,32 @@ class Command {
             if (!Commands.contains(userInputSplit[0])) {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            switch (Commands.valueOf(userInputSplit[0])) {
+            Commands command = Commands.valueOf(userInputSplit[0].toUpperCase());
+            switch (command) {
             case BYE:
-                if (userInputSplit.length != 1) {
-                    throw new InvalidCommandException(Commands.BYE.getUsage());
-                }
-                return false;
                 //Fallthrough
             case LIST:
                 if (userInputSplit.length != 1) {
-                    throw new InvalidCommandException(Commands.LIST.getUsage());
+                    throw new InvalidCommandException(command.getUsage());
+                }
+                if (command == Commands.BYE) {
+                    return false;
                 }
                 TaskManager.printTasks();
                 break;
             case DONE:
-                if (!userInput.matches(Command.DONE_REGEX) || userInputSplit.length != 2) {
-                    throw new InvalidCommandException(Commands.DONE.getUsage());
+                //Fallthrough
+            case DELETE:
+                if (!userInput.matches(command.getRegex()) || userInputSplit.length != 2) {
+                    throw new InvalidCommandException(command.getUsage());
                 }
                 int id = Integer.parseInt(userInputSplit[1]);
                 //id entered with index starting from '1' instead of '0'
-                TaskManager.taskDone(id - 1);
+                if (command == Commands.DONE) {
+                    TaskManager.taskDone(id - 1);
+                } else {
+                    TaskManager.deleteTask(id - 1);
+                }
                 break;
             }
         } catch (InvalidCommandException ive) {

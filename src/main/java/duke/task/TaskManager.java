@@ -4,28 +4,45 @@ import duke.Message;
 import duke.task.Task.Types;
 import duke.exception.ListEmptyException;
 import duke.exception.NoDescriptionException;
-import duke.exception.TooManyTasksException;
 import duke.exception.WrongNumberOfArgumentsException;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class TaskManager {
     private static final int MAX_TASKS = 100;
 
-    private static int taskCount = 0;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<Task>(MAX_TASKS);
+
+    private interface Lambda {
+        void execute();
+    }
+    //TODO What do I even call this class?
+    private static class Runnable {
+        private final int id;
+
+        private Runnable(int id) {
+            this.id = id;
+        }
+
+        private void run(Lambda lambda) {
+            try {
+                if (id > tasks.size() - 1) {
+                    String message = "That number does not correspond to any task!";
+                    throw new ArrayIndexOutOfBoundsException(message);
+                }
+                lambda.execute();
+            } catch (ArrayIndexOutOfBoundsException aiobe) {
+                Message.printWithSpacers(aiobe.getMessage());
+            }
+        }
+    }
 
     public static void taskDone(int id) {
-        try {
-            if (id > taskCount - 1) {
-                String message = "That number does not correspond to any task!";
-                throw new ArrayIndexOutOfBoundsException(message);
-            }
-            Task currentTask = tasks[id];
-            currentTask.markAsDone();
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-            Message.printWithSpacers(aiobe.getMessage());
-        }
+        new Runnable(id).run(() -> tasks.get(id).markAsDone());
+    }
+
+    public static void deleteTask(int id) {
+        new Runnable(id).run(() -> printTaskDeleted(tasks.remove(id)));
     }
 
     public static void newTask(String userInput) {
@@ -34,46 +51,49 @@ public class TaskManager {
             if (userInputSplit.length == 1) {
                 throw new NoDescriptionException(userInput);
             }
-            if (taskCount >= MAX_TASKS) {
-                throw new TooManyTasksException();
-            }
             String command = userInputSplit[0];
             //Remove command from userInput.
             userInput = userInput.replaceAll('^' + command + Message.WHITESPACE_REGEX, "");
             switch (Types.valueOf(command.toUpperCase())) {
             case DEADLINE:
-                tasks[taskCount] = new Deadline(userInput);
+                tasks.add(new Deadline(userInput));
                 break;
             case EVENT:
-                tasks[taskCount] = new Event(userInput);
+                tasks.add(new Event(userInput));
                 break;
             case TODO:
-                tasks[taskCount] = new Todo(userInput);
+                tasks.add(new Todo(userInput));
+                ;
                 break;
             }
-            printInputReceived(tasks[taskCount++]);
+            printTaskDone(tasks.get(tasks.size() - 1));
         } catch (NoDescriptionException nde) {
             Message.printWithSpacers(nde.getMessage());
         } catch (WrongNumberOfArgumentsException wnoae) {
             Message.printWithSpacers(wnoae.getMessage());
-        } catch (TooManyTasksException tmte) {
-            Message.printWithSpacers(tmte.getMessage());
         }
     }
 
-    public static void printInputReceived(Task task) {
-        Message.printWithSpacers(String.format("Got it, I've added this task:\n%s\n" +
-                "Now you have %d tasks in the list.", task, taskCount));
+    private static String getTaskModifiedString(Task task){
+        return String.format("%s\nNow you have %d tasks in the list.", task, tasks.size());
+    }
+
+    private static void printTaskDone(Task task) {
+        Message.printWithSpacers("Got it, I've added this task:\n" + getTaskModifiedString(task));
+    }
+
+    private static void printTaskDeleted(Task task) {
+        Message.printWithSpacers("Noted. I've removed this task:\n" + getTaskModifiedString(task));
     }
 
     public static void printTasks() {
         try {
-            if (taskCount == 0) {
+            if (tasks.size() == 0) {
                 throw new ListEmptyException();
             }
             int count = 1;
             String message = "";
-            for (Task task : Arrays.copyOf(tasks, taskCount)) {
+            for (Task task : tasks) {
                 message += String.format("%d.%s\n", count++, task);
             }
             Message.printWithSpacers(message);
