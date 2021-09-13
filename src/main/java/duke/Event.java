@@ -8,6 +8,15 @@ public class Event extends Task{
         this.at = at;
     }
 
+    public Event(boolean isDone,String description, String at){
+        super(isDone,description);
+        this.at = at;
+    }
+
+    public String saveFormat() {
+        return String.format(super.saveFormat() + "," + at);
+    }
+
     public void setAt(String at) {
         this.at = at;
     }

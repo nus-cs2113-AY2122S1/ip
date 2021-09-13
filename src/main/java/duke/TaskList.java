@@ -9,6 +9,19 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public int size(){
+        return tasks.size();
+    }
+
+    public void loadTask(Task task){
+        tasks.add(task);
+    }
+
+    public String saveTask(int taskIndex){
+        Task task = tasks.get(taskIndex);
+        return task.saveFormat();
+    }
+
     public void addTask(String request) throws Exception {
         Task newTask = Request.getTask(request);
         tasks.add(newTask);
