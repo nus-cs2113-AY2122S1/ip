@@ -10,6 +10,21 @@ public class Deadline extends Task {
         this.dateTime = dateTime;
     }
 
+    public Deadline(String description, boolean isDone, String dateTime) {
+        super(description, isDone);
+        this.dateTime = dateTime;
+    }
+
+    /**
+     * Returns the Task's type in String.
+     *
+     * @return Returns the string "Deadline".
+     */
+    @Override
+    public String getTaskType() {
+        return "Deadline";
+    }
+
     /**
      * Returns the icon for Deadline tasks.
      *
@@ -26,6 +41,7 @@ public class Deadline extends Task {
      *
      * @return Returns deadline in String.
      */
+    @Override
     public String getDateTime() {
         return dateTime;
     }

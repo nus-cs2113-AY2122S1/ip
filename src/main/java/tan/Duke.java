@@ -1,6 +1,10 @@
 package tan;
 
+import tan.tasktype.Task;
+
+import java.util.List;
 import java.util.Scanner;
+
 
 public class Duke {
     final static String BORDER = "------------------------------------------------------------------------";
@@ -8,7 +12,7 @@ public class Duke {
     public static void main(String[] args) {
         final Scanner SC = new Scanner(System.in);
         printIntro();
-        //DataManager.Write("Hello");
+        intializeAndLoadFile();
         String input;
         while (true) {
             input = readInput(SC);
@@ -22,17 +26,41 @@ public class Duke {
                 break;
             case "done":
                 TaskManager.markTaskAsDone(getIndexOfTask(input));
+                saveList();
                 break;
             default:
                 TaskManager.addTask(input);
+                saveList();
                 break;
             }
             System.out.println(BORDER);
         }
     }
 
-    private static void initializeData() {
-        //DataManager();
+    /**
+     * This function saves the current list
+     * into the file taskData. It will also inform
+     * the user if the save was successful or not.
+     */
+    private static void saveList() {
+        int saveStatus = TaskManager.saveCurrentList();
+        if (saveStatus == 0) {
+            System.out.println("File successfully updated.");
+        } else {
+            System.out.println("Error in saving current task! Please check the inputs.");
+        }
+    }
+
+    /**
+     * This function setups the reader & writer
+     * needed to access the data file. If the file is not
+     * found it creates one. After doing so,
+     * reads the current data in the file & loads
+     * it into the tasklist.
+     */
+    private static void intializeAndLoadFile() {
+        List<Task> listOfStoredDatas = DataManager.setFileAndGetTasks();
+        TaskManager.loadDataIntoList(listOfStoredDatas);
     }
 
     /**
