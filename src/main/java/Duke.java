@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    final static String HOR_LINE = "_".repeat(30);
+    final static String HOR_LINE = "_".repeat(60);
     private static ArrayList<Task> tasksList = new ArrayList<>();
     private static int mode = 0;
 
@@ -179,7 +179,7 @@ public class Duke {
                     "\tPlease begin commands with\n" +
                     "\t'event', 'deadline', 'todo',\n" +
                     "\t'done', 'completed',\n" +
-                    "\t'remove', or 'clear', and\n" +
+                    "\t'remove', or 'delete', and\n" +
                     "\tinput description after a whitespace.");
         }
 
@@ -190,7 +190,7 @@ public class Duke {
      * Executes Task mode, where user's commands are added into to-do list.
      * When "list" entered, prints out current to-do list.
      * When "completed <task id>" or "done <task id>" entered, updates that task status.
-     * When "remove <task id>" or "clear <task id>" entered, removes that task from list.
+     * When "remove <task id>" or "delete <task id>" entered, removes that task from list.
      * When "change" is typed in by user, switches program to Echo mode.
      */
     public static void startTask() {
@@ -225,33 +225,10 @@ public class Duke {
     private static void runTaskMode(String toAdd, String textLowerC) {
         // Mark task as complete with an X.
         if (textLowerC.startsWith("completed ") | textLowerC.startsWith("done ")) {
-            try {
-                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-                tasksList.get(taskNo).setDone();
-                System.out.println("\t" + HOR_LINE);
-                System.out.printf("\tThat's great! %s has been checked as completed!\n", tasksList.get(taskNo).description);
-                System.out.println("\t" + HOR_LINE + System.lineSeparator());
-            } catch (NumberFormatException e) {
-                System.out.println("\t" + HOR_LINE);
-                System.out.println("\tPLEASE INPUT INVENTORY NO. OF THE TASK SEPARATED BY SPACE\n" +
-                        "\tAFTER 'complete' OR 'done' TO MARK TASK AS DONE.");
-                System.out.println("\t" + HOR_LINE);
-            }
-        } else if (textLowerC.startsWith("clear ") | textLowerC.startsWith("remove ")) {
+            completeTask(toAdd);
+        } else if (textLowerC.startsWith("delete ") | textLowerC.startsWith("remove ")) {
             // Remove task from list.
-            try {
-                int taskNo = Integer.parseInt(toAdd.replaceAll("[^0-9]", "")) - 1;
-                System.out.println("\t" + HOR_LINE);
-                System.out.printf("\t%s removed from list!\n", tasksList.get(taskNo).description);
-                System.out.println("\t" + HOR_LINE + System.lineSeparator());
-                tasksList.remove(taskNo);
-                printList();
-            } catch (NumberFormatException e) {
-                System.out.println("\t" + HOR_LINE);
-                System.out.println("\tPLEASE INPUT INVENTORY NO. OF THE TASK SEPARATED BY SPACE\n" +
-                        "\tAFTER 'clear' OR 'remove' TO REMOVE TASK FROM LIST.");
-                System.out.println("\t" + HOR_LINE);
-            }
+            deleteTask(toAdd);
         } else {
             // Create a new task if it does not exist in list
             try {
@@ -259,6 +236,44 @@ public class Duke {
             } catch (DukeException e) {
                 e.printErrorMessage();
             }
+        }
+    }
+
+    private static void completeTask(String completed) {
+        try {
+            int taskNo = Integer.parseInt(completed.replaceAll("[^0-9]", "")) - 1;
+            tasksList.get(taskNo).setDone();
+            System.out.println("\t" + HOR_LINE);
+            System.out.printf("\tThat's great! %s has been checked as completed!\n", tasksList.get(taskNo).description);
+            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+        } catch (NumberFormatException e) {
+            System.out.println("\t" + HOR_LINE);
+            System.out.println("\tPLEASE INPUT INVENTORY NO. OF THE TASK SEPARATED BY SPACE\n" +
+                    "\tAFTER 'complete' OR 'done' TO MARK TASK AS DONE.");
+            System.out.println("\t" + HOR_LINE);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tLIST IS CURRENTLY EMPTY OR INPUT INDEX IS OUT OF RANGE!");
+            System.out.println("\t" + HOR_LINE);
+        }
+    }
+
+    private static void deleteTask(String toRemove) {
+        try {
+            int taskNo = Integer.parseInt(toRemove.replaceAll("[^0-9]", "")) - 1;
+            System.out.println("\t" + HOR_LINE);
+            System.out.printf("\t%s removed from list!\n", tasksList.get(taskNo).description);
+            tasksList.remove(taskNo);
+            System.out.printf("\tNow you have %d tasks in the list.\n", tasksList.toArray().length);
+            System.out.println("\t" + HOR_LINE + System.lineSeparator());
+            printList();
+        } catch (NumberFormatException e) {
+            System.out.println("\t" + HOR_LINE);
+            System.out.println("\tPLEASE INPUT INVENTORY NO. OF THE TASK SEPARATED BY SPACE\n" +
+                    "\tAFTER 'delete' OR 'remove' TO REMOVE TASK FROM LIST.");
+            System.out.println("\t" + HOR_LINE);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tLIST IS CURRENTLY EMPTY OR INPUT INDEX IS OUT OF RANGE!");
+            System.out.println("\t" + HOR_LINE);
         }
     }
 
