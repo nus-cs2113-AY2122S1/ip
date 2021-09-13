@@ -59,6 +59,10 @@ public class TaskList {
         taskList.get(index).markAsDone();
     }
 
+    public void deleteTask(int index) {
+        taskList.remove(index);
+    }
+
     /**
      * Returns the string representation of TaskList.
      *

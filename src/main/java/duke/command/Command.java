@@ -7,7 +7,7 @@ package duke.command;
  * @author richwill28
  */
 public class Command {
-    private String command;
+    private final String command;
 
     public Command(String command) {
         this.command = command;
@@ -39,5 +39,9 @@ public class Command {
 
     public boolean isEvent() {
         return command.split(" ")[0].equals("event");
+    }
+
+    public boolean isDelete() {
+        return command.startsWith("delete");
     }
 }

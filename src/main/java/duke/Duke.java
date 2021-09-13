@@ -63,7 +63,7 @@ public class Duke {
                 System.out.println(Ui.PADDING + "  " + taskList.getTask(taskNumber - 1));
                 System.out.println(Ui.LINE);
             } else {
-                throw new DukeException("Invalid number of task given.");
+                throw new DukeException("Invalid task number given.");
             }
         } catch (NumberFormatException e) {
             throw new DukeException(description + " is not a number.");
@@ -155,6 +155,30 @@ public class Duke {
         }
     }
 
+    /**
+     * Delete a task from the list.
+     *
+     * @param response User response.
+     */
+    public void deleteTask(String response) throws DukeException {
+        String description = response.replace("delete", "").strip();
+        try {
+            int taskNumber = Integer.parseInt(description);
+            if (taskNumber <= taskList.getSize()) {
+                System.out.print(Ui.LINE);
+                System.out.println(Ui.PADDING + "Noted. I've removed this task:");
+                System.out.println(Ui.PADDING + "  " + taskList.getTask(taskNumber - 1));
+                taskList.deleteTask(taskNumber - 1);
+                System.out.println(Ui.PADDING + "Now you have " + taskList.getSize() + " tasks in the list.");
+                System.out.println(Ui.LINE);
+            } else {
+                throw new DukeException("Invalid task number given.");
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeException(description + " is not a number.");
+        }
+    }
+
     /** Starts the main functionality of Duke. */
     public void start() {
         while (true) {
@@ -163,15 +187,17 @@ public class Duke {
                 if (response.isBye()) {
                     break;
                 } else if (response.isList()) {
-                    this.list();
+                    list();
                 } else if (response.isDone()) {
-                    this.markAsDone(response.getCommand());
+                    markAsDone(response.getCommand());
                 } else if (response.isTodo()) {
-                    this.addTodo(response.getCommand());
+                    addTodo(response.getCommand());
                 } else if (response.isDeadline()) {
-                    this.addDeadline(response.getCommand());
+                    addDeadline(response.getCommand());
                 } else if (response.isEvent()) {
-                    this.addEvent(response.getCommand());
+                    addEvent(response.getCommand());
+                } else if (response.isDelete()) {
+                    deleteTask(response.getCommand());
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
