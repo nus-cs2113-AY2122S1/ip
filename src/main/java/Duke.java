@@ -301,7 +301,6 @@ public class Duke {
          */
         String text = "█▀ ▄▀█ █▀▄ █▀▀ █▀▀   █▀▄ █░█ █▄▀ █▀▀\n"
                 + "▄█ █▀█ █▄▀ █▄█ ██▄   █▄▀ █▄█ █░█ ██▄";
-
         System.out.println("Hello from\n" + sadge + text);
         System.out.println(LINES);
         System.out.println(GREETING);
