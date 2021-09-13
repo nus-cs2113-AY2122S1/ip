@@ -61,7 +61,7 @@ public class Duke {
      *                        the description of the todo task. No time
      *                        details is needed here.
      */
-    public static void addToDo(String userInputString) throws DukeException {
+    public static void addToDo(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
         try {
             String taskName = userInputString.substring(5);
 
@@ -73,6 +73,8 @@ public class Duke {
             numberOfTasks += 1;
 
             tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
+
+            dukeTaskText.saveToDo(taskName);
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -89,7 +91,7 @@ public class Duke {
      *                        the description of the deadline task and followed
      *                        by a "/" to separate the due time "by".
      */
-    public static void addDeadline(String userInputString) throws DukeException {
+    public static void addDeadline(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
         try {
             if (userInputString.indexOf(" /by ") == -1) {
                 throw new DukeException("Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline");
@@ -106,6 +108,8 @@ public class Duke {
 
                     tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
                 }
+
+                dukeTaskText.saveDeadline(taskName, by);
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description and deadline info of deadline cannot be empty!");
@@ -123,7 +127,7 @@ public class Duke {
      *                        the description of the event task followed by
      *                        a "/" to separate the happening time "at".
      */
-    public static void addEvent(String userInputString) throws DukeException {
+    public static void addEvent(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
         try {
             if (userInputString.indexOf(" /at ") == -1) {
                 throw new DukeException("Don't forget to add /at (must have trail and lead whitespace) to separate description and event time");
@@ -139,6 +143,8 @@ public class Duke {
 
                     tasks[numberOfTasks - 1].printAddingStatus(numberOfTasks - 1);
                 }
+
+                dukeTaskText.saveEvent(taskName, at);
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description and event time info of event cannot be empty.");
@@ -151,14 +157,17 @@ public class Duke {
      * @param userInputString which contains the "done" command along with the
      *                        finished task number.
      */
-    public static void finishTask(String userInputString) throws DukeException {
+    public static void finishTask(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException, IOException {
         int taskNumber = Integer.parseInt(userInputString.split(" ")[1]);
 
         if (taskNumber <= numberOfTasks) {
             tasks[taskNumber - 1].markAsDone();
+
         } else {
             throw new DukeException("Please Enter the Legit Task Number... Or I won't talk to you!");
         }
+
+        dukeTaskText.saveFinishedTask(tasks[taskNumber - 1].toString());
     }
 
     /**
@@ -209,16 +218,17 @@ public class Duke {
                     printTaskList();
                     continue;
                 } else if (commandHandle.isDone()) {
-                    finishTask(userInputString);
+                    finishTask(userInputString, dukeTaskText);
                     continue;
                 } else if (commandHandle.isToDo()) {
-                    addToDo(userInputString);
+                    addToDo(userInputString, dukeTaskText);
+
                     continue;
                 } else if (commandHandle.isDeadline()) {
-                    addDeadline(userInputString);
+                    addDeadline(userInputString, dukeTaskText);
                     continue;
                 } else if (commandHandle.isEvent()) {
-                    addEvent(userInputString);
+                    addEvent(userInputString, dukeTaskText);
                     continue;
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
