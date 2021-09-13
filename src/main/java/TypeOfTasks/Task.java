@@ -25,7 +25,7 @@ public class Task {
         System.out.println(index + ".[" + (theTask.getStatus()) + "] "+ theTask.getDescription());
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return description;
     }
 

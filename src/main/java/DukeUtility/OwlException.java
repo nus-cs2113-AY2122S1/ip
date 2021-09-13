@@ -39,5 +39,8 @@ public class OwlException extends Exception{
         if(description.equals("list does not have description!")) {
             System.out.println(description);
         }
+        if(description.equals("The description of delete cannot be empty!")) {
+            System.out.println(description);
+        }
     }
 }

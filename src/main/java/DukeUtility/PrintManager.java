@@ -1,5 +1,7 @@
 package DukeUtility;
 
+import TypeOfTasks.Task;
+
 public class PrintManager {
     public static final String GREETING_MESSAGE = "SQUAWK! See you next time! :)";
     public static final String LOGO = " ______   _       _   _\n"
@@ -34,7 +36,13 @@ public class PrintManager {
         System.out.println("Oooh I see you've done task " + taskNumber);
         PrintManager.printLine();
     }
-
+    
+    public static void printDeletionMsg(int taskCount, Task deletedTask) {
+        PrintManager.printLine();
+        PrintManager.deleteMessage(deletedTask.getDescription());
+        System.out.println("There are currently " + taskCount + " task now!");
+        PrintManager.printLine();
+    }
     public static void printTaskCount(int taskCount, String command) {
         PrintManager.printLine();
         echoMessage(command);
@@ -45,4 +53,15 @@ public class PrintManager {
     public static void echoMessage(String line) {
         System.out.println("Owl: I've added that!\nOwl: You added this: " + line);
     }
+    public static void deleteMessage(String line) {
+        System.out.println("Owl: I've deleted that!\nOwl: You deleted this: " + line);
+    }
+    
+    public static void printListingMsg() {
+        PrintManager.printLine();
+        System.out.println("This are all the things I've remembered for you:");
+        PrintManager.printLine();
+    }
+    
+    
 }
