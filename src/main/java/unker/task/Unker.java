@@ -56,7 +56,9 @@ public class Unker {
      * @return The task that has been removed.
      */
     public Task removeTask(int index) {
-        return tasks.remove(index);
+        Task task = tasks.remove(index);
+        saveData();
+        return task;
     }
 
     /**

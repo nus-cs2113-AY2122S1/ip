@@ -1,7 +1,7 @@
 package unker.command;
 
-import unker.Unker;
 import unker.task.Task;
+import unker.task.Unker;
 import unker.ui.UI;
 
 public class DeleteCommand extends Command {
