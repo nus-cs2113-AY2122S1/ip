@@ -19,4 +19,10 @@ deadline    submit assignment  /by   8/9/2021
 deadline hand up homework / by friday
 list
 done 15
+delete 2
+delete  3
+dellete 3
+delete4
+delete two
+delete 20
 bye

@@ -10,11 +10,11 @@ import duke.tasks.Todo;
 import java.util.Scanner;
 
 public class Duke {
-
     public static final int END_OF_DONE_INDEX = 4;
     public static final int END_OF_EVENT_INDEX = 5;
     public static final int END_OF_DEADLINE_INDEX = 8;
     public static final int END_OF_TODO_INDEX = 4;
+    public static final int END_OF_DELETE_INDEX = 6;
     public static final int AT_LENGTH = 3;
     public static final int BY_LENGTH = 3;
     public static final String LOGO = " _____         _____\n"
@@ -48,6 +48,8 @@ public class Duke {
                     addDeadlineTask(line);
                 } else if (line.startsWith("event")) {
                     addEventTask(line);
+                } else if (line.startsWith("delete")) {
+                    deleteTask(line);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -101,7 +103,7 @@ public class Duke {
             handleDone(line);
         } catch (NumberFormatException e) {
             printMissingDoneIndexMsg();
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             printInvalidTaskIndexMsg();
         }
     }
@@ -135,7 +137,7 @@ public class Duke {
         int numberOfTasks = tasks.size();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Umm ok added:");
-        System.out.println("  " + tasks.get(numberOfTasks-1));
+        System.out.println("  " + tasks.get(numberOfTasks - 1));
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
     }
@@ -198,6 +200,47 @@ public class Duke {
     private static void handleTodoTask(String line) {
         String description = line.substring(END_OF_TODO_INDEX).trim();
         tasks.add(new Todo(description));
+    }
+
+    private static void deleteTask(String line) {
+        try {
+            Task deletedTask = handleDeleteTask(line);
+            printDeleteConfirmation(deletedTask);
+        } catch (IndexOutOfBoundsException e) {
+            printInvalidDeleteIndexMsg();
+        } catch (NumberFormatException e) {
+            printMissingDeleteIndexMsg();
+        }
+    }
+
+    private static void printInvalidDeleteIndexMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! There isn't a task with that index");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void printMissingDeleteIndexMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! An integer must come after the delete command!");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void printDeleteConfirmation(Task deletedTask) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Okie! Deleted this task:");
+        System.out.println("  " + deletedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static Task handleDeleteTask(String line) {
+        int taskNumber = Integer.parseInt(line.substring(END_OF_DELETE_INDEX).trim());
+        int taskIndex = taskNumber - 1;
+        Task deletedTask = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
+        return deletedTask;
     }
 
     private static void exitProgram() {
