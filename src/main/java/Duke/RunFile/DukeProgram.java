@@ -6,9 +6,8 @@ import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 
-import java.awt.*;
+
 import java.util.Scanner;
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class DukeProgram {
@@ -22,7 +21,6 @@ public class DukeProgram {
     public static final String DELETE_COMMAND = "delete";
 
     //Other constants
-    public static final int NUM_OF_TASKS = 100;
     public static final String LINE = "____________________________________________________________";
     public static final String EVENT_KEYWORD = " /at";
     public static final String DEADLINE_KEYWORD = " /by";
@@ -33,10 +31,7 @@ public class DukeProgram {
 
     public static void printList(ArrayList<Task> taskList) {
         if (taskList.size() == 0) {
-            System.out.println(LINE);
-            System.out.println(" No Tasks here yet. Go include some tasks!");
-            System.out.println(LINE);
-            System.out.print(System.lineSeparator());
+            DukeException.emptyTaskException();
             return;
         }
 
@@ -337,36 +332,6 @@ public class DukeProgram {
         }
     }
 
-    //fix bug in update index
-    /*
-    public static int updateIndex(int index, String inWord) {
-        //split inWord by the first whitespace(s) into 2 separate strings
-        String[] instruction = inWord.split("\\s+", 2);
-        String instructionType = instruction[0];
-
-        //update index only if instruction is valid
-        switch(instructionType) {
-        case TODO_COMMAND:
-            if (checkValidTodo(inWord)) {
-                return index + 1;
-            }
-        case DEADLINE_COMMAND:
-            if (checkValidDeadline(inWord)) {
-                return index + 1;
-            }
-        case EVENT_COMMAND:
-            if (checkValidEvent(inWord)) {
-                return index + 1;
-            }
-        case DELETE_COMMAND:
-            if (isValidDeleteInstruction(inWord, index)) {
-                return index - 1;
-            }
-        default:
-            return index;
-        }
-    }*/
-
     public static void printDukeExit() {
         System.out.println(LINE);
         System.out.println(GOODBYE_MESSAGE);
@@ -383,7 +348,6 @@ public class DukeProgram {
 
         while (!inWord.equalsIgnoreCase(EXIT_STRING)) {
             executeUserInstruction(inWord);
-            //index = updateIndex(index, inWord);
             inWord = scan.nextLine();
         }
 

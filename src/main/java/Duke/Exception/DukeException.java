@@ -42,4 +42,11 @@ public class DukeException extends Exception{
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
+
+    public static void emptyTaskException() {
+        System.out.println(LINE);
+        System.out.println(" No Tasks here yet. Go include some tasks!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
 }
