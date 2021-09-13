@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import duke.ui.Ui;
 
@@ -11,14 +12,14 @@ import duke.ui.Ui;
  */
 public class TaskList {
     /** The list of tasks */
-    private ArrayList<Task> taskList;
+    private List<Task> taskList;
 
     /**
      * The constructor method. Initializes the
      * list of tasks.
      */
     public TaskList() {
-        taskList = new ArrayList<Task>();
+        taskList = new ArrayList<>();
     }
 
     /**
