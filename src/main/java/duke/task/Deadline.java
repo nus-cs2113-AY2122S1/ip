@@ -9,9 +9,25 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
+
     @Override
     public String getTaskDescription() {
         return "[D]" + super.getTaskDescription() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String getTaskFileFormat() {
+        String isDoneString = "0";
+
+        if (isDone) {
+            isDoneString = "1";
+        }
+
+        return "D | " + isDoneString + " | " + description + " | " + by;
     }
 
 }
