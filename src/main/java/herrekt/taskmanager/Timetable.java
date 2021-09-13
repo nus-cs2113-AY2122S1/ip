@@ -1,37 +1,38 @@
 package herrekt.taskmanager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface Timetable {
-    List<Timetable> thingsToDo = new ArrayList<>();
-
-    String getDescription();
-    void finishTask();
 
     static void addTask(Timetable task) {
         System.out.println("Alright. I'll put it on the list.");
-        thingsToDo.add(task);
+        Task.thingsToDo.add((Task) task);
         System.out.println("  " + task.toString());
     }
 
     static void getTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < thingsToDo.size(); i++) {
+        for (int i = 0; i < Task.thingsToDo.size(); i++) {
             System.out.println((i + 1) + ". "
-                    + thingsToDo.get(i).toString());
+                    + Task.thingsToDo.get(i).toString());
         }
     }
 
-    static List<Timetable> getThingsToDo() {
-        return thingsToDo;
+    static List<Task> getThingsToDo() {
+        return Task.thingsToDo;
     }
 
     static int getSize() {
-        return thingsToDo.size();
+        return Task.thingsToDo.size();
     }
 
     static void updateTasks(int taskNumber) {
-        getThingsToDo().get(taskNumber - 1).finishTask();
+        int index = taskNumber - 1;
+        Task.finishTask(index);
+    }
+
+    static void deleteTasks(int taskNumber) {
+        int index = taskNumber - 1;
+        Task.removeTask(index);
     }
 }

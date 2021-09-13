@@ -22,6 +22,9 @@ public class Herrekt {
             } else if (phrase.contains("done")) {
                 int taskNumber = parseDoneInputToInt(phrase);
                 Timetable.updateTasks(taskNumber);
+            } else if (phrase.contains("delete")) {
+                int taskNumber = parseDeleteInputToInt(phrase);
+                Timetable.deleteTasks(taskNumber);
             } else {
                 try {
                     isInputValid(phrase);
@@ -64,6 +67,11 @@ public class Herrekt {
 
     static int parseDoneInputToInt(String phrase) {
         phrase = phrase.replace("done ", "");
+        return Integer.parseInt(phrase);
+    }
+
+    static int parseDeleteInputToInt(String phrase) {
+        phrase = phrase.replace("delete ", "");
         return Integer.parseInt(phrase);
     }
 
