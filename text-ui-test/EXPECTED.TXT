@@ -1,3 +1,5 @@
+Directory ./data created
+File duke.txt created
 ____________________________________________________________
 Hello from
  ____        _        

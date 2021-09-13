@@ -6,6 +6,11 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TasksList {
     private static final int LENGTH_OF_AT = 4;
@@ -14,8 +19,68 @@ public class TasksList {
     private static final int LENGTH_OF_EVENT = 6;
     private static final int LENGTH_OF_DEADLINE = 9;
     private static final String THUMBS_UP_EMOJI = "\uD83D\uDC4D";
+    private static final String FILE_DIR = "./data";
+    private static final String FILE_NAME = "duke.txt";
 
     protected ArrayList<Task> tasks = new ArrayList<>();
+
+    public void initDataStore() throws IOException {
+        File data_dir = new File(FILE_DIR);
+        if (data_dir.mkdir()) {
+            System.out.println("Directory " + FILE_DIR + " created");
+        }
+        File f = new File(FILE_DIR + "/" + FILE_NAME);
+        if (f.createNewFile()) {
+            System.out.println("File " + FILE_NAME + " created");
+        }
+    }
+
+    // Loads tasks that are stored in ./data/duke.txt
+    public void loadTasks() throws FileNotFoundException, DukeException{
+        File file = new File(FILE_DIR + "/" + FILE_NAME);
+        Scanner file_scanner = new Scanner(file);
+        while (file_scanner.hasNext()) {
+            Task task;
+            String raw_task_entry = file_scanner.nextLine();
+            String[] task_data_points = raw_task_entry.split("\\|");
+            switch (task_data_points[0]) {
+            case "T":
+                task = new ToDo(task_data_points[2]);
+                if (task_data_points[1].equals("1")) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+                break;
+            case "D":
+                task = new Deadline(task_data_points[2], task_data_points[3]);
+                if (task_data_points[1].equals("1")) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+                break;
+            case "E":
+                task = new Event(task_data_points[2], task_data_points[3]);
+                if (task_data_points[1].equals("1")) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+                break;
+            default:
+                throw new DukeException();
+            }
+        }
+    }
+
+    // Saves all tasks to ./data/duke.txt
+    public void saveTasks() throws IOException{
+        FileWriter file_writer = new FileWriter(FILE_DIR + "/" + FILE_NAME);
+        StringBuilder output_string = new StringBuilder();
+        for (Task task : tasks) {
+            output_string.append(task.formatForDataStore());
+        }
+        file_writer.write(output_string.toString());
+        file_writer.close();
+    }
 
     public int getSize() {
         return tasks.size();

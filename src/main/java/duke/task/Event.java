@@ -10,8 +10,20 @@ public class Event extends Task{
         this.icon = "E";
     }
 
+    public String getAt() {
+        return at;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString() + " (at: " + at + ")";
+        return "[" + getIcon() + "]" + super.toString() + " (at: " + getAt() + ")";
+    }
+
+    public String formatForDataStore() {
+        return "E|" + ((getIsDone()) ? 1 : 0) + "|" + getDescription() + "|" + getAt() + "\n";
     }
 }
