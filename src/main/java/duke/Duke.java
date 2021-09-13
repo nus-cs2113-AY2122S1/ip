@@ -19,19 +19,37 @@ public class Duke {
         String[] input = userInput.trim().toLowerCase().split(" ");
         String command = input[0];
         if (isValidTaskType(userInput)) {
-            if (!isValidTodoDescription(userInput) || !isValidDeadlineOrEventDescription(userInput)) {
+            if (!isValidTaskDescription(userInput)) {
                 throw new InvalidTaskDescriptionException("Task description of " + command + " is invalid!");
+            } else if (isDeadlineOrEvent(userInput) && !isValidDeadlineOrEventDescription(userInput)) {
+                throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
             }
         }
         return command;
     }
 
-    public static boolean isValidTodoDescription(String input) {
+    public static boolean isValidTaskDescription(String input) {
         String[] description = input.trim().split(" ");
         return description.length > 1;
     }
 
+    public static boolean isDeadlineOrEvent(String input) {
+        return input.equalsIgnoreCase("deadline") || input.equalsIgnoreCase("event");
+    }
+
+    public static boolean isValidDeadlineFormat(String input) {
+        return input.contains("/by");
+    }
+
+    public static boolean isValidEventFormat(String input) {
+        return input.contains("/at");
+    }
+
     public static boolean isValidDeadlineOrEventDescription(String input) {
+        if (!isValidDeadlineFormat(input) || !isValidEventFormat(input)) {
+            return false;
+        }
+
         String description = getDeadlineOrEventTaskName(input);
         String deadlineOrEventDuration = getDeadlineOrEventDuration(input);
         if (description.isEmpty() || deadlineOrEventDuration.isEmpty()) {
@@ -52,7 +70,9 @@ public class Duke {
             try {
                 command = getCommand(line);
             } catch (InvalidTaskDescriptionException e) {
+                printHorizontalLine();
                 System.out.println(e.getMessage());
+                printHorizontalLine();
                 continue;
             }
             switch (command) {
@@ -106,8 +126,8 @@ public class Duke {
     }
 
     public static String getTaskType(String input) {
-        int dividePosition = input.trim().indexOf(" ");
-        return input.trim().substring(0, dividePosition).toLowerCase();
+        String[] description = input.trim().split(" ");
+        return description[0];
     }
 
     public static boolean isValidTaskType(String input) {
@@ -122,12 +142,22 @@ public class Duke {
 
     public static String getDeadlineOrEventTaskName(String input) {
         int descriptionPosition = input.trim().indexOf(" ");
-        int atPosition = input.trim().indexOf("/at");
+        int atPosition = 0;
+        if (input.contains("deadline")) {
+            atPosition = input.trim().indexOf("/by");
+        } else if (input.contains("event")) {
+            atPosition = input.trim().indexOf("/at");
+        }
         return input.substring(descriptionPosition, atPosition);
     }
 
     public static String getDeadlineOrEventDuration(String input) {
-        int atPosition = input.trim().indexOf("/at");
+        int atPosition = 0;
+        if (input.contains("deadline")) {
+            atPosition = input.trim().indexOf("/by");
+        } else if (input.contains("event")) {
+            atPosition = input.trim().indexOf("/at");
+        }
         return input.substring(atPosition + 3);
     }
 
