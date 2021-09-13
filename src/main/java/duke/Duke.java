@@ -15,6 +15,8 @@ import duke.taskType.Event;
 import duke.taskType.Task;
 import duke.taskType.ToDo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,7 +24,8 @@ public class Duke {
     public static int numberOfTasks = 0;
 
     /* This is an array of task & Total task quantity should not exceed 100! */
-    public static Task[] tasks = new Task[100];
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    // public static Task[] tasks = new Task[100]; // Previous Implementation of tasks list.
 
     /**
      * These are text objects created that can print text file
@@ -45,6 +48,17 @@ public class Duke {
             tasks[i].printStatus();
         }
         System.out.println("    ____________________________________________________________");
+    }
+
+    public static void deleteTask(String userInputString) throws DukeException {
+        int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
+
+        if (taskNumberToDelete <= numberOfTasks) {
+            tasks.remove(taskNumberToDelete);
+        } else {
+            throw new DukeException("Please Enter the Legit Task Number to Delete... Or I won't talk to you!");
+        }
+
     }
 
     /**
