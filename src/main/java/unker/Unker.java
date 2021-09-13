@@ -39,6 +39,16 @@ public class Unker {
     }
 
     /**
+     * Removes a task based on the index.
+     * 
+     * @param index The index of the task to remove.
+     * @return The task that has been removed.
+     */
+    public Task removeTask(int index) {
+        return tasks.remove(index);
+    }
+
+    /**
      * Gets the total number of tasks (both completed and pending)
      *
      * @return the total number of tasks (both completed and pending).
