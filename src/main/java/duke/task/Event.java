@@ -25,6 +25,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (at: " + heldDate + ")";
     }
 
+    /**
+     * Formats task details to write onto file.
+     *
+     * @return String containing task details for file format
+     */
     @Override
     public String toFileString() {
         int stringIsDone = isDone ? 1 : 0;

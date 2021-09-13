@@ -31,6 +31,9 @@ public class AddCommand extends Command {
         TaskManager.addToList(taskName, taskDate, taskType, true);
     }
 
+    /**
+     * Runs a command to add task to the list from file.
+     */
     @Override
     public void runAddTaskFromFile() {
         TaskManager.addToList(taskName, taskDate, taskType, false);

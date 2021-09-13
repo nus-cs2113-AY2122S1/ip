@@ -21,6 +21,11 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Formats task details to write onto file.
+     *
+     * @return String containing task details for file format
+     */
     @Override
     public String toFileString() {
         String stringIsDone = isDone ? "1" : "0";

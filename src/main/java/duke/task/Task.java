@@ -45,6 +45,11 @@ public class Task {
         return getStatusIcon() + " " + description;
     }
 
+    /**
+     * Formats task details to write onto file.
+     *
+     * @return String containing task details for file format
+     */
     public String toFileString() {
         return "N" + DELIMITER + description;
     }
