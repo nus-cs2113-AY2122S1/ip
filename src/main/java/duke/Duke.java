@@ -64,17 +64,21 @@ public class Duke {
                     printList(list);
                 } else if (userInputLowerCase.startsWith("done")) {
                     markTasksAsDone(userInput, list);
+                    DukeFileUtils.saveToFile(list);
                 } else if (userInputLowerCase.startsWith("todo")) {
                     String description = extractDescription(userInput);
                     addTodo(description, list);
+                    DukeFileUtils.saveToFile(list);
                 } else if (userInputLowerCase.startsWith("deadline")) {
                     String description = extractDescription(userInput);
                     addDeadline(description, list);
+                    DukeFileUtils.saveToFile(list);
                 } else if (userInputLowerCase.startsWith("event")) {
                     String description = extractDescription(userInput);
                     addEvent(description, list);
                 } else if (userInputLowerCase.startsWith("delete")) {
                     deleteTask(userInputLowerCase, list);
+                    DukeFileUtils.saveToFile(list);
                 } else {
                     System.out.print(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
                 }
