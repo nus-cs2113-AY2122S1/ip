@@ -1,24 +1,76 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.exception.InvalidFile;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.ToDo;
 import duke.task.Task;
+import duke.task.ToDo;
 
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Scanner;
 
 public class Duke {
 
     public static final String HORIZONTAL_LINE = "_____________________________________________";
+    public static final String FILEPATH = "C:\\Users\\GMSF\\Documents\\ip\\Duke.txt";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
+        loadData();
         printHello();
         task();
         printBye();
+    }
+
+    public static void saveData() throws IOException {
+        FileWriter file = new FileWriter(FILEPATH);
+        for (Task item : tasks) {
+            file.append(item.toSave() + System.lineSeparator());
+        }
+        file.close();
+    }
+
+    public static void loadData() {
+        try {
+            File file = new File(FILEPATH);
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String[] descriptionParts = s.nextLine().split("\\|");
+                String typeOfTask = descriptionParts[0];
+                String taskDescription = descriptionParts[1];
+                Boolean isCompleted = Boolean.parseBoolean(descriptionParts[2]);
+                try {
+                    Task task;
+                    switch (typeOfTask) {
+                    case "todo":
+                        task = new ToDo(taskDescription);
+                        break;
+                    case "deadline":
+                        task = new Deadline(taskDescription, descriptionParts[3]);
+                        break;
+                    case "event":
+                        task = new Event(taskDescription, descriptionParts[3]);
+                        break;
+                    default:
+                        throw new InvalidFile();
+                    }
+                    if (isCompleted) {
+                        task.setDone();
+                    }
+                    tasks.add(task);
+                } catch (InvalidFile e){
+                    System.out.println("Invalid input in file");
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot read from file");
+        }
     }
 
     private static void printHello() {
@@ -43,8 +95,8 @@ public class Duke {
     public static void task() {
         Scanner in = new Scanner(System.in);
         String inputCommand = in.nextLine();
-        while (!(inputCommand.equals("bye"))) {
 
+        while (true) {
             try {
                 if (inputCommand.equals("list")) {
                     showList();
@@ -56,8 +108,15 @@ public class Duke {
                     addDeadline(inputCommand);
                 } else if (inputCommand.contains("event")) {
                     addEvent(inputCommand);
-                }
-                else{
+                } else if (inputCommand.contains("delete")){
+                    deleteTask(inputCommand);
+                } else if(inputCommand.contains("bye")){
+                    try {
+                        saveData();
+                    } catch (IOException e){
+                    }
+                    printBye();
+                } else{
                     throw new DukeException();
                 }
             } catch (DukeException e) {
@@ -66,7 +125,24 @@ public class Duke {
                 System.out.println(HORIZONTAL_LINE);
             }
             inputCommand = in.nextLine();
+
         }
+    }
+
+    private static void deleteTask(String inputCommand) {
+        System.out.println(HORIZONTAL_LINE);
+        try {
+            int position = inputCommand.indexOf(" ");
+            int taskToDelete = Integer.parseInt(inputCommand.trim().substring(position + 1)) - 1;
+            Task removeTask = tasks.get(taskToDelete);
+            tasks.remove(taskToDelete);
+            System.out.println("Noted! I've remove this task:");
+            System.out.println(removeTask.toString());
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please enter a number after delete!");
+        }
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private static void addEvent(String inputCommand) {
@@ -140,3 +216,4 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 }
+
