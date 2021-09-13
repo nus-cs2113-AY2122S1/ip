@@ -189,7 +189,7 @@ public class Duke {
         System.out.println((doneTaskNumber+1) + ". " + commands.get(doneTaskNumber));
         commands.remove(commands.get(doneTaskNumber));
         positionCheck -= 1;
-        System.out.println("Goodbye Task, may the force be with you. You have " + positionCheck + " tasks left Master");
+        System.out.println("Goodbye Task, may the force be with you. You have " + positionCheck + " task(s) left Master");
     }
 
     public static void greetUser() {
