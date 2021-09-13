@@ -25,5 +25,13 @@ public class Task {
     public String toString() {
         return description;
     }
+
+    public String toSave() {
+        int done = 0;
+        if (this.isDone) {
+            done = 1;
+        }
+        return "taskType" + done +  " | " +  this.description + "\n";
+    }
 }
 

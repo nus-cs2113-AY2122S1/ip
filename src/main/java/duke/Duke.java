@@ -1,5 +1,10 @@
 package duke;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*;
 
 public class Duke {
     //declarations
@@ -7,17 +12,80 @@ public class Duke {
     private static int quitFlag = 0; //if 0, take user input. Otherwise, don't.
 
     //declare task array and keep track of how many tasks stored
-    public static Task[] t = new Task[100];
+    public static ArrayList<Task> t = new ArrayList<>();
     public static int taskCount = 0;
 
     //Program starts with this greeting
-    public static void start() {
+    public static void start() throws FileNotFoundException, DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
+        loadData();
+    }
+
+    //Saves Task list into local file
+    public static void saveData(ArrayList<Task> t) {
+        String path = "D:\\Documents\\NUS\\Y2S1\\CS2113T\\IP\\UserData.txt";
+        try {
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw, false);
+            pw.flush();
+            pw.close();
+            fw.close();
+            for (int i = 0; i < taskCount; i++) {
+                String input = t.get(i).toSave() + "\n";
+                //line separator
+                Files.write(Paths.get(path), input.getBytes(), StandardOpenOption.APPEND);
+            }
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Loads Task list into Duke
+    public static void loadData() throws FileNotFoundException, DukeException {
+        File f = new File("D:\\Documents\\NUS\\Y2S1\\CS2113T\\IP\\UserData.txt");
+
+        Scanner scan = new Scanner(f);
+        String taskType;
+        String s;
+        int taskNumber = 1; //tracks how many tasks read from .txt file so far
+
+        while(scan.hasNext())                                                                                           //todo hello | 1
+        {                                                                                                               //deadline hello /by Sunday | 1
+            String data = scan.nextLine();                                                                              //event project meeting /at Mon 2-4pm | 0
+            String[] arrayString = data.split(" \\| ");
+            String[] arrayString2 = arrayString[0].split(" ");
+            taskType = arrayString2[0];
+            s = Integer.toString(taskNumber);
+
+            switch (taskType) {
+            case "todo":
+                sayTodo(arrayString[0]);
+                if (arrayString[1].equals("1")) {
+                    sayDone(s);
+                }
+                break;
+            case "deadline":
+                sayDeadline(arrayString[0]);
+                if (arrayString[1].equals("1")) {
+                    sayDone(s);
+                }
+                break;
+            case "event":
+                sayEvent(arrayString[0]);
+                if (arrayString[1].equals("1")) {
+                    sayDone(s);
+                }
+                break;
+            default:
+            }
+            taskNumber++;
+        }
+        scan.close();
     }
 
     //Program exits with this ending
@@ -42,7 +110,7 @@ public class Duke {
             if (taskCount > 0) {
                 System.out.println(line);
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + t[i].toString() + "\n");
+                    System.out.println((i + 1) + ". " + t.get(i).toString() + "\n");
                 }
                 System.out.println(line);
             }
@@ -60,9 +128,9 @@ public class Duke {
             try {
                 String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
                 int finalTaskNumber = Integer.parseInt(taskNumber) - 1;
-                t[finalTaskNumber].markAsDone();
+                t.get(finalTaskNumber).markAsDone();
                 System.out.println(line + "\n" + "Kudos! One less thing to stress about!\n");                           //done 1
-                System.out.println("  " + t[finalTaskNumber].toString() + "\n" + line);
+                System.out.println("  " + t.get(finalTaskNumber).toString() + "\n" + line);
             } catch (NullPointerException e) {
                 System.out.println(line + "\nInvalid task number entered! Please try again!\n" + line);                 //done 101
             }
@@ -78,10 +146,10 @@ public class Duke {
         } else {
             int endIndex = input.length();
             String taskName = input.substring(5, endIndex);
-            t[taskCount] = new Todo(taskName);
+            t.add(taskCount, new Todo(taskName));
             System.out.println(line + "\n");
             System.out.println("That's the spirit! I've added this task:\n");                                           //todo borrow book
-            System.out.println(t[taskCount].toString());
+            System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
         }
@@ -99,10 +167,10 @@ public class Duke {
             String taskName = input.substring(9, endIndex);
             int endIndex2 = input.length();
             String by = input.substring(endIndex + 4, endIndex2);
-            t[taskCount] = new Deadline(taskName, by);
+            t.add(taskCount, new Deadline(taskName, by));
             System.out.println(line + "\n");
             System.out.println("Got it. I've added this task:\n");                                                      //deadline return book /by Sunday
-            System.out.println(t[taskCount].toString());
+            System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
         }
@@ -120,17 +188,37 @@ public class Duke {
             String taskName = input.substring(6, endIndex);
             int endIndex2 = input.length();
             String at = input.substring(endIndex + 4, endIndex2);
-            t[taskCount] = new Event(taskName, at);
+            t.add(taskCount, new Event(taskName, at));
             System.out.println(line + "\n");
             System.out.println("Got it. I've added this task:\n");                                                      //event project meeting /at Tue 3-7pm
-            System.out.println(t[taskCount].toString());
+            System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
         }
     }
 
+    //Deletes a stored task
+    public static void sayDelete(String input) throws DukeException {                                                   //delete 1
+        if (taskCount != 0) {
+            try {
+                String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
+                int finalTaskNumber = Integer.parseInt(taskNumber) - 1;
+                Task taskRemoved = t.get(finalTaskNumber);
+                t.remove(finalTaskNumber);
+                taskCount--;
+                System.out.println(line + "\n" + "One more thing outta your life as always...\n");                      //delete 1
+                System.out.println("  " + taskRemoved.toString() + "\n" + "\nYou now have " + taskCount + " tasks left.\n");
+                System.out.println(line);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(line + "\nInvalid task number entered! Please try again!\n" + line);                 //delete 101
+            }
+        } else {
+            throw new DukeException("Calm down, we don't even have tasks yet!");                                        //delete 1 when taskCount = 0
+        }
+    }
+
     //Creates scanner, takes in user input & filters it to different methods
-    public static void inputSort() throws DukeException {
+    public static void inputSort() throws DukeException, IOException {
         System.out.println("Enter your wish: " + "\n" + line);
         while (quitFlag == 0) {
             Scanner scan = new Scanner(System.in);
@@ -145,15 +233,23 @@ public class Duke {
                 break;
             case "done":
                 sayDone(input);
+                saveData(t);
                 break;
             case "todo":
                 sayTodo(input);
+                saveData(t);
                 break;
             case "deadline":
                 sayDeadline(input);
+                saveData(t);
                 break;
             case "event":
                 sayEvent(input);
+                saveData(t);
+                break;
+            case "delete":
+                sayDelete(input);
+                saveData(t);
                 break;
             default:
                 System.out.println(line + "\n☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
@@ -162,7 +258,7 @@ public class Duke {
     }
 
     //Main
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
         start();
         inputSort();
     }

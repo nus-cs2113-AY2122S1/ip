@@ -1,0 +1,2 @@
+todo hello | 1
+deadline hello /by Sunday | 1
