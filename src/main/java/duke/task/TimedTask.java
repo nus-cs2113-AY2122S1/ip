@@ -3,8 +3,6 @@ package duke.task;
 import duke.Message;
 import duke.exception.WrongNumberOfArgumentsException;
 
-import java.util.Arrays;
-
 abstract class TimedTask extends Task {
     private String dateTime;
     private final String preposition;
@@ -21,10 +19,22 @@ abstract class TimedTask extends Task {
         this.preposition = preposition;
     }
 
+    TimedTask(boolean isDone, String description, String dateTime, String preposition, Types type) {
+        //TODO: Is using constructor class to parse inputs good OOP?
+        super(isDone, description, type);
+        this.dateTime = dateTime;
+        this.preposition = preposition;
+    }
+
     @Override
     public String toString() {
         //Append preposition and datetime
         return String.format("%s (%s: %s)", super.toString(), preposition, dateTime);
+    }
+
+    @Override
+    String getFormattedString(){
+        return super.getFormattedString() + '|' + dateTime;
     }
 
 }
