@@ -76,7 +76,7 @@ public class DukeProgram {
         return true;
     }
 
-    public static boolean isValidDoneInstruction(String inWord, int index) {
+    public static boolean isValidDoneInstruction(String inWord, ArrayList<Task> taskList) {
         if (!inWord.contains(" ")) {
             return false;
         }
@@ -88,14 +88,14 @@ public class DukeProgram {
 
         if(isNumeric(commands[1])) {
             int taskDoneIndex = Integer.parseInt(commands[1]);
-            return taskDoneIndex > 0 && taskDoneIndex < index;
+            return taskDoneIndex > 0 && taskDoneIndex <= taskList.size();
         }
 
         return false;
     }
 
-    public static void printTaskDone(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
-        if (!isValidDoneInstruction(inWord, index)) {
+    public static void printTaskDone(String inWord, ArrayList<Task> taskList) throws DukeException {
+        if (!isValidDoneInstruction(inWord, taskList)) {
             throw new DukeException();
         }
 
@@ -109,9 +109,9 @@ public class DukeProgram {
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageDoneInstruction(String inWord, int index, ArrayList<Task> taskList) {
+    public static void manageDoneInstruction(String inWord, ArrayList<Task> taskList) {
         try {
-            printTaskDone(inWord, index, taskList);
+            printTaskDone(inWord, taskList);
         } catch (DukeException invalidDoneException){
             DukeException.invalidDoneException();
         }
@@ -138,7 +138,7 @@ public class DukeProgram {
         return !descriptionDetails.isEmpty() && !descriptionAt.isEmpty();
     }
 
-    public static void printEvent(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
+    public static void printEvent(String inWord, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
@@ -155,14 +155,14 @@ public class DukeProgram {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
-        System.out.println(" Now you have " + (index) +" tasks in the list.");
+        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageEvent(String inWord, int index, ArrayList<Task> taskList) {
+    public static void manageEvent(String inWord, ArrayList<Task> taskList) {
         try {
-            printEvent(inWord, index, taskList);
+            printEvent(inWord, taskList);
         } catch (DukeException invalidEventException) {
             DukeException.invalidEventException();
         }
@@ -180,7 +180,7 @@ public class DukeProgram {
         return commands.length == 2 && isNonEmptyDetails;
     }
 
-    public static void printTodo(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
+    public static void printTodo(String inWord, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
@@ -200,9 +200,9 @@ public class DukeProgram {
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageTodo(String inWord, int index, ArrayList<Task> taskList) {
+    public static void manageTodo(String inWord, ArrayList<Task> taskList) {
         try {
-            printTodo(inWord, index, taskList);
+            printTodo(inWord, taskList);
         } catch (DukeException emptyTodoException) {
             DukeException.emptyTodoException();
         }
@@ -229,7 +229,7 @@ public class DukeProgram {
         return !descriptionDetails.isEmpty() && !descriptionBy.isEmpty();
     }
 
-    public static void printDeadline(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
+    public static void printDeadline(String inWord, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
@@ -246,20 +246,20 @@ public class DukeProgram {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
-        System.out.println(" Now you have " + (index) +" tasks in the list.");
+        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageDeadline(String inWord, int index, ArrayList<Task> taskList) {
+    public static void manageDeadline(String inWord, ArrayList<Task> taskList) {
         try {
-            printDeadline(inWord, index, taskList);
+            printDeadline(inWord, taskList);
         } catch (DukeException invalidDeadlineException) {
             DukeException.invalidDeadlineException();
         }
     }
 
-    public static boolean isValidDeleteInstruction(String inWord, int index) {
+    public static boolean isValidDeleteInstruction(String inWord) {
         if (!inWord.contains(" ")) {
             return false;
         }
@@ -271,13 +271,13 @@ public class DukeProgram {
 
         if(isNumeric(commands[1])) {
             int taskDoneIndex = Integer.parseInt(commands[1]);
-            return taskDoneIndex > 0 && taskDoneIndex < index;
+            return taskDoneIndex > 0 && taskDoneIndex <= taskList.size();
         }
         return false;
     }
 
-    public static void printDelete(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
-        if (!isValidDeleteInstruction(inWord, index)) {
+    public static void printDelete(String inWord, ArrayList<Task> taskList) throws DukeException {
+        if (!isValidDeleteInstruction(inWord)) {
             throw new DukeException();
         }
 
@@ -292,9 +292,9 @@ public class DukeProgram {
         System.out.print(System.lineSeparator());
     }
 
-    public static void manageDelete(String inWord, int index, ArrayList<Task> taskList) {
+    public static void manageDelete(String inWord, ArrayList<Task> taskList) {
         try {
-            printDelete(inWord, index, taskList);
+            printDelete(inWord, taskList);
         } catch (DukeException invalidDeleteException) {
             DukeException.invalidDeleteException();
         }
@@ -307,7 +307,7 @@ public class DukeProgram {
         System.out.print(System.lineSeparator());
     }
 
-    public static void executeUserInstruction(String inWord, int index) {
+    public static void executeUserInstruction(String inWord) {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
         String instructionType = instruction[0];
@@ -317,19 +317,19 @@ public class DukeProgram {
             printList(taskList);
             break;
         case DONE_COMMAND:
-            manageDoneInstruction(inWord, index, taskList);
+            manageDoneInstruction(inWord, taskList);
             break;
         case EVENT_COMMAND:
-            manageEvent(inWord, index, taskList);
+            manageEvent(inWord, taskList);
             break;
         case TODO_COMMAND:
-            manageTodo(inWord, index, taskList);
+            manageTodo(inWord, taskList);
             break;
         case DEADLINE_COMMAND:
-            manageDeadline(inWord, index, taskList);
+            manageDeadline(inWord, taskList);
             break;
         case DELETE_COMMAND:
-            manageDelete(inWord, index, taskList);
+            manageDelete(inWord, taskList);
             break;
         default:
             generalDukeException();
@@ -338,6 +338,7 @@ public class DukeProgram {
     }
 
     //fix bug in update index
+    /*
     public static int updateIndex(int index, String inWord) {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
@@ -364,7 +365,7 @@ public class DukeProgram {
         default:
             return index;
         }
-    }
+    }*/
 
     public static void printDukeExit() {
         System.out.println(LINE);
@@ -380,12 +381,9 @@ public class DukeProgram {
         System.out.println();
         inWord = scan.nextLine();
 
-
-        int index = 1;
-
         while (!inWord.equalsIgnoreCase(EXIT_STRING)) {
-            executeUserInstruction(inWord, index);
-            index = updateIndex(index, inWord);
+            executeUserInstruction(inWord);
+            //index = updateIndex(index, inWord);
             inWord = scan.nextLine();
         }
 
