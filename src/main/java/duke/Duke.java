@@ -113,6 +113,7 @@ public class Duke {
         }
     }
 
+    //add delete function
     public static void deleteTask(String userCommand) {
         try {
             int contentStart = 7;
