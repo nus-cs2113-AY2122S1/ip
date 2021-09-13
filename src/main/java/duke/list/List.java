@@ -76,13 +76,16 @@ public class List {
 
     public void printList() {
         // TODO: 2021/9/9 print empty list
-
-        MessageBubble msg = new MessageBubble();
-        msg.addMessage("Here are the tasks in your list:");
-        for (int i = 0; i < items.size(); i++) {
-            msg.addMessage(String.format(" %d:%s", i + 1, items.get(i)));
+        if (items.isEmpty()) {
+            MessageBubble.printMessageBubble("There is nothing on your list");
+        } else {
+            MessageBubble msg = new MessageBubble();
+            msg.addMessage("Here are the tasks in your list:");
+            for (int i = 0; i < items.size(); i++) {
+                msg.addMessage(String.format(" %d:%s", i + 1, items.get(i)));
+            }
+            msg.printMessageBubble();
         }
-        msg.printMessageBubble();
     }
 
     public String printListSimple() {
