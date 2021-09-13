@@ -44,6 +44,7 @@ public class TaskManager {
     public Task addTask(HashMap<String, String> params) throws IllegalArgumentException{
         String type = params.get("type");
         String task = params.get("task");
+        String done = params.get("done");
         Task newTask;
 
         if(task.strip().equals(""))
@@ -69,6 +70,10 @@ public class TaskManager {
                 break;
             default:
                 throw new IllegalArgumentException("Invalid task type");
+        }
+
+        if(done.equals("1") || done.equals("Y")) {
+            newTask.setDone();
         }
 
         tasks.add(newTask);
