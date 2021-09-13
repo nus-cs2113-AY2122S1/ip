@@ -14,10 +14,6 @@ import java.util.Scanner;
 public class Duke {
 
     public static Task[] list = new Task[100];
-    /*public static String fileName = "karlett.txt";
-    public static String directoryPath = "./";
-    public static String filePath = directoryPath + fileName;
-     */
     public static String filePath = "./karlett.txt";
     public static File file = new File(filePath);
 
@@ -27,6 +23,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
+            Task.setFilePath(filePath);
             processUserInput(list, userInput);
         }
     }
@@ -115,36 +112,35 @@ public class Duke {
         System.out.println("What can I do for you meow?");
     }
 
-    private static void processFileData(Task[] list, String task) {
+    private static void processFileData(Task[] list, String task) throws IOException {
         char taskType;
-        int taskStatus;
+        char taskStatus;
         String taskDescription;
         int indexOfDelimeter;
         taskType = task.charAt(0);
         taskStatus = task.charAt(4);
+        boolean isDone = taskStatus == '1';
         if (taskType == 'T') {
             taskDescription = task.substring(8).trim();
-            list[Task.getNumberOfTasks()] = new Task(false, taskDescription);
+            list[Task.getNumberOfTasks()] = new Task(taskDescription, isDone);
         } else {
             indexOfDelimeter = task.indexOf('|',8);
             taskDescription = task.substring(8,indexOfDelimeter).trim();
             String time = task.substring(indexOfDelimeter + 1).trim();
             if (taskType == 'D') {
                 list[Task.getNumberOfTasks()] =
-                        new Deadline(false, taskDescription, time);
+                        new Deadline(taskDescription, time, isDone);
             } else {
                 list[Task.getNumberOfTasks()] =
-                        new Event(false, taskDescription, time);
+                        new Event(taskDescription, time, isDone);
             }
         }
     }
 
-    public static void processUserInput(Task[] list, String userInput) {
+    public static void processUserInput(Task[] list, String userInput) throws IOException {
         Scanner in = new Scanner(System.in);
         userInput = userInput.trim();
         String[] userInputWords = userInput.split(" ");
-        // userInputWords = taskType (first word) + taskContent (the rest)
-        //                = taskType (first word) + taskDescription (+ /at OR /by + time)
         String taskType = userInputWords[0];
         String[] taskContentWords = {};
         if (userInputWords.length > 1) {
@@ -160,7 +156,7 @@ public class Duke {
                 break;
             }
             taskDescription = String.join(" ", taskContentWords);
-            list[Task.getNumberOfTasks()] = new Task(true, taskDescription);
+            list[Task.getNumberOfTasks()] = new Task(taskDescription);
             break;
         case "deadline":
             if (taskContentWords.length == 0) {
@@ -194,7 +190,7 @@ public class Duke {
                     indexOfBy + 1, taskContentWords.length);
             String taskDeadline = String.join(" ", taskDeadlineWords);
             list[Task.getNumberOfTasks()] =
-                    new Deadline(true, taskDescription, taskDeadline);
+                    new Deadline(taskDescription, taskDeadline);
             break;
         case "event":
             if (taskContentWords.length == 0) {
@@ -228,7 +224,7 @@ public class Duke {
                     indexOfAt + 1, taskContentWords.length);
             String taskTime = String.join(" ", taskTimeWords);
             list[Task.getNumberOfTasks()] =
-                    new Event(true, taskDescription, taskTime);
+                    new Event(taskDescription, taskTime);
             break;
         case "list":
             if (taskContentWords.length == 0) {
@@ -245,7 +241,7 @@ public class Duke {
         case "done":
             try {
                 int index = Integer.parseInt(taskContentWords[0]);
-                list[index - 1].markAsDone();
+                list[index - 1].markAsDone(index - 1);
                 break;
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
                 printDoneFormatErrorMessage();

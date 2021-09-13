@@ -1,22 +1,55 @@
 package karlett.task;
 
+import java.io.*;
+
 public class Task {
 
     private static int numberOfTasks = 0;
 
+    public static void setFilePath(String filePath) {
+        Task.filePath = filePath;
+    }
+
+    protected static String filePath = "";
+
     protected String description;
     protected boolean isDone;
 
-    public Task(boolean isProcessingUserInput, String description) {
+    /* constructor used for user input */
+    public Task(String description) throws IOException {
         this.description = description;
         this.isDone = false;
         increaseNumberOfTasks();
-        if (isProcessingUserInput) {
-            printNewTaskAddedMessage();
-        }
+        appendNewTaskToFile();
+        printNewTaskAddedMessage();
+    }
+
+    /* constructor used for loading file data */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        increaseNumberOfTasks();
     }
 
     public Task() {
+    }
+
+    private void appendNewTaskToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        String textToAppend = "T | 0 | " + description;
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    protected void printNewTaskAddedMessage() {
+        drawDivider();
+        System.out.println("Karlett now remembers:\n" + "  " + this);
+        if (numberOfTasks == 1) {
+            System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
+        } else {
+            System.out.println("You have " + numberOfTasks + " tasks in the list now meow (((;꒪ꈊ꒪;)))");
+        }
+        drawDivider();
     }
 
     public String getDescription() {
@@ -35,20 +68,33 @@ public class Task {
         Task.numberOfTasks++;
     }
 
-    public void markAsDone() {
+    public void markAsDone(int index) throws IOException {
         this.isDone = true;
+        modifyTaskStatusInFile(index);
         printMarkAsDoneMessage();
     }
 
-    protected void printNewTaskAddedMessage() {
-        drawDivider();
-        System.out.println("Karlett now remembers:\n" + "  " + this);
-        if (numberOfTasks == 1) {
-            System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
-        } else {
-            System.out.println("You have " + numberOfTasks + " tasks in the list now meow (((;꒪ꈊ꒪;)))");
+    private void modifyTaskStatusInFile(int index) throws IOException {
+        String fileContent = "";
+        String line = "";
+        BufferedReader reader = null;
+        FileWriter writer = null;
+        reader = new BufferedReader(new FileReader(filePath));
+        for (int i = 0; i < index; i++) {
+            line = reader.readLine();
+            fileContent = fileContent + line + System.lineSeparator();
         }
-        drawDivider();
+        line = reader.readLine();
+        String updatedTask = line.replaceFirst("0", "1");
+        fileContent = fileContent + updatedTask + System.lineSeparator();
+        for (int i = index + 1; i < numberOfTasks; i++) {
+            line = reader.readLine();
+            fileContent = fileContent + line + System.lineSeparator();
+        }
+        writer = new FileWriter(filePath);
+        writer.write(fileContent);
+        reader.close();
+        writer.close();
     }
 
     public static void printList(Task[] list) {
