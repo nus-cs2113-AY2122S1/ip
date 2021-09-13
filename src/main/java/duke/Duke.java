@@ -24,15 +24,15 @@ public class Duke {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DELETE = "delete";
 
-    private static final String root = System.getProperty("user.dir");
-    private static final Path filePath = Paths.get(root, "src", "main", "status", "status.txt");
-    private static final Path directoryPath = Paths.get(root, "src", "main", "status");
+    private static final String ROOT = System.getProperty("user.dir");
+    private static final Path FILE_PATH = Paths.get(ROOT, "data", "duke.txt");
+    private static final Path DIRECTORY_PATH = Paths.get(ROOT, "data");
 
     // Task manager
     private static final TaskManager taskManager = new TaskManager();
 
     // File manager
-    private static final FileManager fileManager = new FileManager(filePath.toString(), directoryPath.toString());
+    private static final FileManager fileManager = new FileManager(FILE_PATH.toString(), DIRECTORY_PATH.toString());
 
     // Print horizontal line for improving readability
     private static void printHorizontalLine() {
@@ -101,7 +101,7 @@ public class Duke {
     private static void printSavedTasks() {
         printHorizontalLine();
         System.out.println("Current tasks successfully saved at: " +
-                System.lineSeparator() + filePath.toString());
+                System.lineSeparator() + FILE_PATH.toString());
         printHorizontalLine();
     }
 
@@ -219,6 +219,7 @@ public class Duke {
             fileManager.saveDukeStatus(taskManager);
         } catch (IOException e) {
             System.out.println("File write error");
+            return;
         }
         printSavedTasks();
     }

@@ -1,4 +1,0 @@
-T | 0 | task 1
-E | 1 | major event 2 | today
-T | 0 | task 3
-E | 0 | lecture | 12-2pm
