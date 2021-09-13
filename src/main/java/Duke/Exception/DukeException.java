@@ -34,4 +34,12 @@ public class DukeException extends Exception{
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
+
+    public static void invalidDeleteException() {
+        System.out.println(LINE);
+        System.out.println("Your delete command is invalid!");
+        System.out.println("To input a delete command, type \"delete (task index)\"!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
 }

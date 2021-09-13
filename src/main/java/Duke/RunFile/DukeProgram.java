@@ -259,7 +259,28 @@ public class DukeProgram {
         }
     }
 
-    public static void printDelete(String inWord, int index, ArrayList<Task> taskList) {
+    public static boolean isValidDeleteInstruction(String inWord, int index) {
+        if (!inWord.contains(" ")) {
+            return false;
+        }
+
+        String[] commands = inWord.split(" ");
+        if (commands.length != 2) {
+            return false;
+        }
+
+        if(isNumeric(commands[1])) {
+            int taskDoneIndex = Integer.parseInt(commands[1]);
+            return taskDoneIndex > 0 && taskDoneIndex < index;
+        }
+        return false;
+    }
+
+    public static void printDelete(String inWord, int index, ArrayList<Task> taskList) throws DukeException {
+        if (!isValidDeleteInstruction(inWord, index)) {
+            throw new DukeException();
+        }
+
         String[] commands = inWord.split(" ");
         int taskDeleteIndex = Integer.parseInt(commands[1]);
         System.out.println(LINE);
@@ -272,7 +293,11 @@ public class DukeProgram {
     }
 
     public static void manageDelete(String inWord, int index, ArrayList<Task> taskList) {
-        printDelete(inWord, index, taskList);
+        try {
+            printDelete(inWord, index, taskList);
+        } catch (DukeException invalidDeleteException) {
+            DukeException.invalidDeleteException();
+        }
     }
 
     public static void generalDukeException() {
@@ -333,7 +358,9 @@ public class DukeProgram {
                 return index + 1;
             }
         case DELETE_COMMAND:
-            return index - 1;
+            if (isValidDeleteInstruction(inWord, index)) {
+                return index - 1;
+            }
         default:
             return index;
         }
