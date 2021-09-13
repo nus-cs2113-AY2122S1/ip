@@ -51,7 +51,7 @@ public class Duke {
             COMMAND_TODO + " <description>\n" +
             COMMAND_DEADLINE + " <description> /by <date and time>\n" +
             COMMAND_EVENT + " <description> /at <date and time>\n" +
-            COMMAND_DELETE + " <item no.>" +
+            COMMAND_DELETE + " <item no.>\n" +
             COMMAND_BYE;
 
     private static final TaskManager taskManager = new TaskManager();
