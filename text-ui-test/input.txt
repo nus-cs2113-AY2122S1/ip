@@ -12,6 +12,8 @@ done
 done 2
 list
 list 2
+delete
+delete 3
 done 0
 INVALID COMMAND
 help
