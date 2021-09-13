@@ -16,6 +16,7 @@ public class Duke {
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_DELETE = "delete";
 
     // Task manager
     private static TaskManager taskManager = new TaskManager();
@@ -61,9 +62,17 @@ public class Duke {
         }
         String addTask = " Got it. I've added this task:" + System.lineSeparator() +
                 "  " + task.toString() + System.lineSeparator() +
-                " Now you have " + task.getNoOfTasks() +
+                " Now you have " + taskManager.getTasksCount() +
                 " tasks in the list.";
         System.out.println(addTask);
+    }
+
+    private static void printDeleteTask(Task task) {
+        String deleteTask = " Got it! I've removed this task:" +
+                System.lineSeparator() + "   " + task.toString() +
+                System.lineSeparator() + " Now you have " +
+                taskManager.getTasksCount() + " tasks in the list.";
+        System.out.println(deleteTask);
     }
 
     private static void printInvalidTaskNumberFormat() {
@@ -81,24 +90,15 @@ public class Duke {
         taskManager.listTasks();
     }
 
-    private static void executeDone(String taskId) {
-        int num;
-        try {
-            if (taskId.equals("") || taskId.equals("done")) {
-                throw new DukeException("Please provide task ID");
-            }
-            num = Integer.parseInt(taskId);
-        } catch (NumberFormatException e) {
-            printInvalidTaskNumberFormat();
-            return;
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+    private static void executeDone(String line) {
+        Integer taskId = getTaskId(line);
+        if (taskId == null) {
             return;
         }
         Task task;
         try {
-            task = taskManager.markAsDone(num - 1);
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            task = taskManager.markAsDone(taskId - 1);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             printInvalidTaskNumber();
             return;
         }
@@ -133,6 +133,40 @@ public class Duke {
         printAddTask(task);
     }
 
+    private static void executeDelete(String line) {
+        Integer taskId = getTaskId(line);
+        if (taskId == null) {
+            return;
+        }
+        Task task;
+        try {
+            task = taskManager.deleteTask(taskId - 1);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            printInvalidTaskNumber();
+            return;
+        }
+        printDeleteTask(task);
+    }
+
+    private static Integer getTaskId(String line) {
+        int spacePos = line.indexOf(" ");
+        String taskId = line.substring(spacePos + 1).strip();
+        int num;
+        try {
+            if (taskId.equals("") || taskId.equals("done") || taskId.equals("delete")) {
+                throw new DukeException("Please provide task ID");
+            }
+            num = Integer.parseInt(taskId);
+        } catch (NumberFormatException e) {
+            printInvalidTaskNumberFormat();
+            return null;
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return num;
+    }
+
     private static void execute(String line) {
         String[] words = line.split(" "); // Convert sentence into array of words
         String command = words[0];
@@ -144,14 +178,15 @@ public class Duke {
             executeList();
             break;
         case COMMAND_DONE:
-            int spacePos = line.indexOf(" ");
-            String taskId = line.substring(spacePos + 1).strip();
-            executeDone(taskId);
+            executeDone(line);
             break;
         case COMMAND_TODO:
         case COMMAND_DEADLINE:
         case COMMAND_EVENT:
             executeAdd(line, command);
+            break;
+        case COMMAND_DELETE:
+            executeDelete(line);
             break;
         default:
             printInvalid();

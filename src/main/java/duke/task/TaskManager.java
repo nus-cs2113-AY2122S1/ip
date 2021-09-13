@@ -1,19 +1,32 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 public class TaskManager {
     // Constants
     private static final int MAX_TASKS = 100;
 
     // Task list
-    private Task[] tasks = new Task[MAX_TASKS];
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     // Class variable for counting number of tasks
     private static int taskCount = 0;
 
+    public int getTasksCount() {
+        return taskCount;
+    }
+
     // Add new task to the task list
     public Task addTask(Task task) {
-        tasks[taskCount] = task;
+        tasks.add(task);
         taskCount++;
+        return task;
+    }
+
+    public Task deleteTask(int id) {
+        Task task = tasks.get(id);
+        tasks.remove(id);
+        taskCount--;
         return task;
     }
 
@@ -54,8 +67,8 @@ public class TaskManager {
 
     // Mark the specified task as done
     public Task markAsDone(int id) {
-        Task task = tasks[id];
-        tasks[id].markAsDone();
+        Task task = tasks.get(id);
+        task.markAsDone();
         return task;
     }
 
@@ -63,7 +76,7 @@ public class TaskManager {
     public void listTasks() {
         for (int i = 0; i < taskCount; i++) {
             System.out.println(" " + (i + 1) + "." +
-                    tasks[i].toString());
+                    tasks.get(i).toString());
         }
     }
 }
