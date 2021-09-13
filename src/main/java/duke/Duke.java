@@ -231,16 +231,16 @@ public class Duke {
     /**
      * Delete a task.
      *
-     * @param taskPosition Position of task in list.
+     * @param splitUserInput String array of each word in user input.
      */
-    private static void deleteTask(String taskPosition) {
+    private static void deleteTask(String[] splitUserInput) {
         int taskIndex;
         String taskInfo;
         try {
-            taskIndex = Integer.parseInt(taskPosition) - 1;
+            taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
             taskInfo = taskManager.getTask(taskIndex).toString();
             taskManager.deleteTask(taskIndex);
-        } catch (NumberFormatException | InvalidTaskIndexException e) {
+        } catch (NumberFormatException | InvalidTaskIndexException | IndexOutOfBoundsException e) {
             printInvalidTaskIndexError();
             return;
         } catch (TaskListEmptyException e) {
@@ -365,12 +365,14 @@ public class Duke {
     /**
      * Mark a task as done.
      *
-     * @param taskIndex Position of task item in list.
+     * @param splitUserInput String array of each word in user input.
      */
-    private static void markTaskAsDone(int taskIndex) {
+    private static void markTaskAsDone(String[] splitUserInput) {
+        int taskIndex;
         try {
+            taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
             taskManager.markTaskAsDone(taskIndex);
-        } catch (InvalidTaskIndexException e) {
+        } catch (InvalidTaskIndexException | IndexOutOfBoundsException e) {
             printInvalidTaskIndexError();
             return;
         } catch (TaskListEmptyException e) {
@@ -408,16 +410,7 @@ public class Duke {
             listTasks();
             break;
         case COMMAND_DONE:
-            int taskIndex;
-
-            try {
-                taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
-            } catch (NumberFormatException e) {
-                printInvalidTaskIndexError();
-                break;
-            }
-
-            markTaskAsDone(taskIndex);
+            markTaskAsDone(splitUserInput);
             break;
         case COMMAND_TODO:
             addTodo(splitUserInput);
@@ -429,7 +422,7 @@ public class Duke {
             addEvent(splitUserInput);
             break;
         case COMMAND_DELETE:
-            deleteTask(splitUserInput[1]);
+            deleteTask(splitUserInput);
             break;
         case COMMAND_HELP:
             printHelp();
@@ -458,9 +451,9 @@ public class Duke {
         for (int i = 0; scanner.hasNext(); i++) {
             String line = scanner.nextLine().trim();
             if (!line.isBlank()) {
-                String[] splitLine = line.split("\\" + TASK_INFO_SEPARATOR);
+                String[] splitLine = line.split(TASK_INFO_SEPARATOR_ESCAPE + TASK_INFO_SEPARATOR);
                 String taskType = splitLine[0];
-                boolean taskIsDone = splitLine[1].equals("1");
+                boolean taskIsDone = splitLine[1].equals(TASK_INFO_ISDONE_INDICATOR);
                 String taskDescription = splitLine[2];
 
                 // Add task
@@ -508,7 +501,16 @@ public class Duke {
 
         String[] encodedString = new String[taskManager.getTotalTasks()];
         for (int i = 0; i < taskManager.getTotalTasks(); i++) {
-            Task task = taskManager.getTask(i);
+            Task task;
+            try {
+                task = taskManager.getTask(i);
+            } catch (TaskListEmptyException e) {
+                printTaskListEmptyError();
+                return;
+            } catch (InvalidTaskIndexException e) {
+                printInvalidTaskIndexError();
+                return;
+            }
             String taskType = task.getType();
             int isDone = task.getStatusIcon().equals("X") ? 1 : 0;
             String taskDescription = task.getRawDescription();
