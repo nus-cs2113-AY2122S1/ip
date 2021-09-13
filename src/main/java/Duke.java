@@ -1,5 +1,4 @@
 import java.util.Scanner;
-//import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,24 +16,26 @@ public class Duke {
      * in their list.
      * Prints the new task and the new number of tasks in their list.
      *
-     * @param newTask The new task that will be added to the task list.
-     * @param taskCount The number of tasks that are in the list (including the new task).
+     * @param toPrint The new task that will be printed
      */
     public static void printTask(Task toPrint) {
-//        String toPrint = newTask.toString();
         System.out.println("Ok! I've added this task:");
         System.out.println(toPrint);
         System.out.println("Now you have " + taskList.size() + " tasks in your list uwu");
     }
 
+    /**
+     * Deletes the task specified by user from the taskList.
+     *
+     * @param delTask Index of task to be deleted, passed in as String and will be converted to integer.
+     * @throws IllegalDoneException Exception thrown when user inputs an incorrect index of the number.
+     */
     public static void deleteTask(String delTask) throws IllegalDoneException {
         String n = delTask.substring(7);
         int delIndex = Integer.parseInt(n) - 1;
         if (delIndex >= taskList.size()) {
             throw new IllegalDoneException();
         } else {
-//            taskList.remove(delTask);
-//            taskList.setDone();
             System.out.println("Okies! I've removed this task <3 :");
             System.out.println(taskList.get(delIndex));
             taskList.remove(delIndex);
@@ -44,21 +45,14 @@ public class Duke {
     /**
      * Prints all the tasks that the user has in their list.
      *
-     * @param list List that contains all the tasks from user.
-     * @param totalTasks Total number of tasks user has in their list.
+     *
      */
     public static void printTaskList() {
         int pos = 0;
         System.out.println("Here are the tasks in your list:");
         while (pos < taskList.size()) {
-
-//        Task[] printList = Arrays.copyOf(list, totalTasks); // only copy until the part you want
             pos += 1;
             System.out.println(pos + ". " + taskList.get(pos - 1));
-//        for (Task task : printList) {
-//            System.out.println(i + "." + task);
-//            i += 1;
-//        }
         }
     }
 
@@ -66,8 +60,6 @@ public class Duke {
      * Marks the task that is specified by user, by number starting from 1, as done.
      *
      * @param doneTask Task that is to be marked as done.
-     * @param taskCount Total number of tasks user has in their list.
-     * @param taskList List that contains all the tasks from user.
      * @throws IllegalDoneException If doneIndex >= taskCount, the task that user wants to mark as
      * done does not exist in the list
      */
@@ -78,7 +70,6 @@ public class Duke {
             throw new IllegalDoneException();
         } else {
             taskList.get(doneIndex).setDone();
-//            taskList.setDone();
             System.out.println("Good job! I've marked these tasks as done:");
             printTaskList();
         }
@@ -95,7 +86,6 @@ public class Duke {
      * to be expected for event, does not contain '/at'.
      */
     public static void typeOfTask(String t) throws IllegalTaskException, InvalidDeadlineFormat, InvalidEventFormat {
-//        Task newTask;
         int startOfDate = -1;
         if (t.contains("todo")) { // create a new todo
             Todo newTask = new Todo(t.substring(5));
@@ -128,6 +118,12 @@ public class Duke {
         throw new IllegalTaskException();
     }
 
+    /**
+     * Stores taskList to the file specified, tasks will be stored as Todo, Deadline or Event.
+     *
+     * @param filePath Path to file to be written to
+     * @throws IOException Exception is thrown when there is no valid file of the name and path.
+     */
     private static void writeToFile(String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         int i = 0;
@@ -138,7 +134,13 @@ public class Duke {
         fw.close();
     }
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
+    /**
+     * Reads content of the file and stores the tasks into taskList to be used by the user.
+     *
+     * @param filePath Path to the file that is read from
+     * @throws FileNotFoundException Exception is thrown when there is no valid file with the path.
+     */
+    private static void readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
@@ -176,7 +178,7 @@ public class Duke {
 
     public static void main(String[] args) {
         try {
-            printFileContents("temp/lines.txt");
+            readFileContents("temp/lines.txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
@@ -187,9 +189,6 @@ public class Duke {
         System.out.println("Hello Bbygirl! I'm Your Boyfriend <3");
         System.out.println("How can I help you today? ;)");
         String t = in.nextLine();
-//        ArrayList<Task> taskList = new ArrayList<>();
-//        Task[] taskList = new Task[100];
-
 
         while (!t.equals("bye")) {
             if (t.equals("list")) {
@@ -201,7 +200,6 @@ public class Duke {
                     System.out.println("You need to input a correct number BB... ;'( try typing again");
                 }
             } else if(t.startsWith("delete")) {
-                //to fill in
                 try {
                     deleteTask(t);
                 } catch (IllegalDoneException e) {
@@ -209,11 +207,7 @@ public class Duke {
                 }
             } else {
                 try {
-                    // add the new task into user's task list
                     typeOfTask(t);
-//                    taskList.add(newTask);
-//                    taskCount += 1;
-//                    printTask(newTask);
                 } catch (IllegalTaskException e) {
                     System.out.println("You have a typo BB.. ;'( try typing again");
                 } catch (IndexOutOfBoundsException e) {
@@ -226,10 +220,6 @@ public class Duke {
             }
             t = in.nextLine();
         }
-//        File file = new File("temp/lines.txt");
-//        System.out.println("full path: " + file.getAbsolutePath());
-//        System.out.println("file exists?: " + file.exists());
-//        System.out.println("is Directory?: " + file.isDirectory());
         try {
             writeToFile("temp/lines.txt");
         } catch (IOException e) {
