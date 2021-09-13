@@ -8,12 +8,10 @@ done 4
 deadline do homework /by no idea :-p
 done 4
 list
-event attend workshop /at Sat 9-11am
-todo clean room
-done 2
-list
 todo
 blah
 delete 3
+list
+todo clean room
 list
 bye
