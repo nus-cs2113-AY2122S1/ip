@@ -25,7 +25,8 @@ public class DukeInterface {
             + "4. Add Todos                 -> {todo <task description>}\n"
             + "5. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
             + "6. Add Events                -> {event <task description> /at <task date&time>}\n"
-            + "7. Set Task as Done          -> {done <task ID>}";
+            + "7. Set Task as Done          -> {done <task ID>}\n"
+            + "8. Delete Task               -> {delete <task ID>}";
 
     public void printUserName() {
         System.out.println("\n[You]:");

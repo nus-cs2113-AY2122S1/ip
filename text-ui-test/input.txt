@@ -1,6 +1,15 @@
 invalid command
 help
 list
+todo
+deadline
+deadline test1
+deadline test1 /by
+event
+event test1
+event test1 /at
+delete
+delete 1
 todo read book
 deadline return book /by June 6th
 event project meeting 1 /at Aug 6th 2-4pm
@@ -12,6 +21,12 @@ list
 done 2
 list
 done 1
+list
+delete 2
+list
+delete 1
+list
+delete 1
 list
 bye
 
