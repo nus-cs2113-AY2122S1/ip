@@ -8,12 +8,15 @@ import java.util.Scanner;
 
 
 public class Duke {
-    public static final String DOTTED_LINE = "___________________________________________________\n";
     private static ArrayList<Task> taskArrayList = new ArrayList<Task>();
 
     private static void handleInput(String input) throws DukeCommandException {
         String command = input.split(" ")[0];
         switch (command) {
+        case "delete":
+            Command.executeDelete(input, taskArrayList);
+            break;
+
         case "done":
             Command.executeDone(input, taskArrayList);
             break;
@@ -28,9 +31,9 @@ public class Duke {
             try {
                 Command.executeAdd(input, taskArrayList);
             } catch (IndexOutOfBoundsException | DukeInvalidInputException e) {
-                System.out.println(DOTTED_LINE);
+                Messages.printDivider();
                 System.out.println("Invalid input. Please try again");
-                System.out.println(DOTTED_LINE);
+                Messages.printDivider();
             }
             break;
         default:
@@ -49,9 +52,9 @@ public class Duke {
             try {
                 handleInput(userInput);
             } catch (DukeCommandException e) {
-                System.out.println(DOTTED_LINE);
+                Messages.printDivider();
                 System.out.println("Invalid command entered. Please try again");
-                System.out.println(DOTTED_LINE);
+                Messages.printDivider();
             }
             userInput = in.nextLine();
         }
