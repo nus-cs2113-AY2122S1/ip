@@ -15,4 +15,8 @@ public class EventTask extends Task{
     public String getTypeIcon() {
         return "E";
     }
+
+    public String toFileString() {
+        return super.toFileString() + String.format(";%s", datetime);
+    }
 }

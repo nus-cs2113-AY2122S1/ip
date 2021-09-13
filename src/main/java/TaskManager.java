@@ -72,11 +72,32 @@ public class TaskManager {
                 throw new IllegalArgumentException("Invalid task type");
         }
 
-        if(done.equals("1") || done.equals("Y")) {
+        if(done != null && (done.equals("1") || done.equals("Y")) ) {
             newTask.setDone();
         }
 
         tasks.add(newTask);
         return newTask;
+    }
+
+    public String toFileString() {
+        StringBuilder sb = new StringBuilder();
+        Task currTask;
+        Iterator<Task> it = tasks.iterator();
+        int counter = 1;
+        String statusIcon, fileStatusIcon;
+
+        while(it.hasNext()) {
+            currTask = it.next();
+
+            fileStatusIcon = currTask.getDone() ? "1" : "0";
+
+            sb.append(String.format("%s;%s;%s\n",
+                    currTask.getTypeIcon(),
+                    fileStatusIcon,
+                    currTask.toFileString()));
+        }
+
+        return sb.toString();
     }
 }

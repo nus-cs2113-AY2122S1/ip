@@ -8,5 +8,4 @@ public class ToDoTask extends Task{
     public String getTypeIcon() {
         return "T";
     }
-
 }

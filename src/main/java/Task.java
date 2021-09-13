@@ -6,7 +6,6 @@ public abstract class Task {
 
     public Task(String name) {
         this.name = name;
-
         isDone = false;
     }
 
@@ -27,6 +26,10 @@ public abstract class Task {
     }
 
     public String toString() {
+        return getName();
+    }
+
+    public String toFileString() {
         return getName();
     }
 

@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -5,7 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 // The Terminal
 
@@ -56,6 +57,7 @@ public class Duke {
                 
             case DO_TASK:
                 doTask(command);
+                updateTaskFile();
                 break;
                 
             case NO_ACTION:
@@ -63,6 +65,7 @@ public class Duke {
                 
             case ADD_TASK:
                 addTask(command);
+                updateTaskFile();
                 break;
                 
             default:
@@ -87,8 +90,7 @@ public class Duke {
         System.out.print(output);
     }
 
-    private static void loadData() throws IOException, NullPointerException{
-
+    private static void checkAndSetData() throws IOException {
         //Check if data folder exists, then check if data file exists.
         Path dataFolderPath = Paths.get(rootDirectory, dataLocation);
         Path dataFilePath = Paths.get(rootDirectory, dataLocation, dataFilename);
@@ -103,12 +105,15 @@ public class Duke {
         if(!dataFileExists) {
             Files.createFile(dataFilePath);
         }
-        else {
-            readDataFile(dataFilePath);
-        }
     }
 
-    private static void readDataFile(Path filePath) throws NullPointerException, FileNotFoundException{
+    private static void loadData() throws IOException, NullPointerException{
+        checkAndSetData();
+        Path dataFilePath = Paths.get(rootDirectory, dataLocation, dataFilename);
+        readDataFile(dataFilePath);
+    }
+
+    private static void readDataFile(Path filePath) throws NullPointerException, FileNotFoundException {
         if(taskMgr == null)
             throw new NullPointerException("Task Manager not instantiated yet."); //Should never throw this
 
@@ -157,7 +162,22 @@ public class Duke {
             taskMgr.addTask(params);
         }
     }
-    
+
+    private static void updateTaskFile() {
+        String fileDataToWrite = taskMgr.toFileString();
+
+        try {
+            checkAndSetData();
+            Path dataFilePath = Paths.get(rootDirectory, dataLocation, dataFilename);
+
+            FileWriter fw = new FileWriter(dataFilePath.toString());
+            fw.write(fileDataToWrite);
+            fw.close();
+        }catch(IOException e){
+            System.out.println("Cannot update task file.");
+        }
+    }
+
     private static void doTask(Command command) {
     	String indexParam = command.getParam("index");
         int index;
@@ -196,7 +216,7 @@ public class Duke {
         int numOfTasks = taskMgr.getTasklistLength();
         String plural = (numOfTasks <= 1) ? "task" : "tasks";
 
-        System.out.printf("Now you have %d %s in the list.\n\n", numOfTasks, plural);
+        System.out.printf("Now you have %d %s in the list.\n", numOfTasks, plural);
 
     }
     
