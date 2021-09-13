@@ -13,6 +13,10 @@ public class Task {
         return description;
     }
 
+    public Boolean isDone() {
+        return isDone;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -24,5 +28,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + getDescription();
+    }
+
+    public String toSave() {
+        return isDone ? " 1 " : " 0 " + "| " + description;
     }
 }
