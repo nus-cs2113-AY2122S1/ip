@@ -88,7 +88,7 @@ public class Duke {
         }
         Todo todo = new Todo(command.substring(TODO_SIZE));
         tasks.add(todo);
-        printListSummary();
+        printListSummary(tasks.get(tasks.indexOf(todo)));
     }
 
     private static void createDeadline(String command) throws DukeException{
@@ -112,7 +112,7 @@ public class Duke {
         }
         Deadline deadline = new Deadline(command.substring(DEADLINE_SIZE, dashStart), dateOrTime);
         tasks.add(deadline);
-        printListSummary();
+        printListSummary(tasks.get(tasks.indexOf(deadline)));
     }
 
     private static void createEvent(String command) throws DukeException {
@@ -134,7 +134,7 @@ public class Duke {
         }
         Event event = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
         tasks.add(event);
-        printListSummary();
+        printListSummary(tasks.get(tasks.indexOf(event)));
     }
 
     public static void printWelcome() {
@@ -165,9 +165,9 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static void printListSummary() {
+    public static void printListSummary(Task task) {
         System.out.println(LINE + System.lineSeparator() + "Will do sir, I've added: "
-                    + System.lineSeparator() + "  " );
+                    + System.lineSeparator() + "  " + task.printTask());
         if (tasks.size() == 1) {
             System.out.printf("Now you have %d task in your list.\n", tasks.size());
         } else {
@@ -211,7 +211,7 @@ public class Duke {
         Task taskChosen = tasks.get(taskRemoveIndex);
         tasks.remove(taskChosen);
         System.out.println(LINE + System.lineSeparator() + "As you wish sir, this task will be removed at once! "
-                + "\uD83D\uDE01");
+                + "\uD83D\uDE01" + System.lineSeparator() + LINE);
     }
 
     public static void echoMode() {
