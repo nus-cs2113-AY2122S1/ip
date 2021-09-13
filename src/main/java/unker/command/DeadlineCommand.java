@@ -3,7 +3,8 @@ package unker.command;
 import java.util.regex.Matcher;
 import unker.task.Deadline;
 import unker.ui.UI;
-import unker.Unker;
+import unker.task.Unker;
+import unker.util.StringUtil;
 
 /**
  * Command to add a new {@link Deadline} into the task manager Unker. 
@@ -18,10 +19,11 @@ public class DeadlineCommand extends Command {
     
     @Override
     public void execute(UI ui, Unker unker, String data) throws InvalidCommandException {
-        Matcher deadlineMatcher = parseUserInput("^(.+) /[bB][yY] (.+)$", data);
+        Matcher deadlineMatcher = StringUtil.parseUserInput(Deadline.DEADLINE_DATA_PATTERN, data);
         if (deadlineMatcher != null) {
             Deadline d = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
             unker.addTask(d);
+            unker.saveData();
             ui.printSection(ADDED_TASK_MESSAGE, "\t" + d);
         } else {
             throw new InvalidCommandException(INVALID_FORMAT_MESSAGE, this);

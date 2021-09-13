@@ -3,7 +3,8 @@ package unker.command;
 import java.util.regex.Matcher;
 import unker.task.Event;
 import unker.ui.UI;
-import unker.Unker;
+import unker.task.Unker;
+import unker.util.StringUtil;
 
 /**
  * Command to add a new {@link unker.task.Event} into the task manager Unker. 
@@ -18,7 +19,7 @@ public class EventCommand extends Command {
     
     @Override
     public void execute(UI ui, Unker unker, String data) throws InvalidCommandException {
-        Matcher eventMatcher = parseUserInput("^(.+) /[aA][tT] (.+)$", data);
+        Matcher eventMatcher = StringUtil.parseUserInput(Event.EVENT_DATA_PATTERN, data);
         if (eventMatcher != null) {
             Event e = new Event(eventMatcher.group(1), eventMatcher.group(2));
             unker.addTask(e);

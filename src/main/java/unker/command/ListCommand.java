@@ -2,10 +2,10 @@ package unker.command;
 
 import unker.task.Task;
 import unker.ui.UI;
-import unker.Unker;
+import unker.task.Unker;
 
 /**
- * Command that lists all {@link unker.task.Task} added to the task manager {@link unker.Unker} 
+ * Command that lists all {@link unker.task.Task} added to the task manager {@link Unker} 
  *
  * Usage in UI: list 
  */

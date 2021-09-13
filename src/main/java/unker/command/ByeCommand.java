@@ -1,7 +1,7 @@
 package unker.command;
 
 import unker.ui.UI;
-import unker.Unker;
+import unker.task.Unker;
 
 /**
  * Command to run to exit from the software.
@@ -16,6 +16,9 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(UI ui, Unker unker, String data) {
+        if (!unker.saveData()) {
+            ui.printSection("Unker cannot save your data this session!");
+        }
         ui.printByeMessage();
         System.exit(0);
     }

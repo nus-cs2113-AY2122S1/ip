@@ -43,4 +43,8 @@ public class Task {
     public String toString() {
         return String.format("[%c] %s", isDone() ? 'X' : ' ' ,this.getDescription());
     }
+    
+    public String getSaveableString() {
+        return String.format("%s,%d,%s", "T", isDone ? 1 : 0, description);
+    }
 }

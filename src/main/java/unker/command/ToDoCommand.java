@@ -2,10 +2,10 @@ package unker.command;
 
 import unker.task.ToDo;
 import unker.ui.UI;
-import unker.Unker;
+import unker.task.Unker;
 
 /**
- * Command to add a new {@link unker.task.ToDo} into the task manager {@link unker.Unker}. 
+ * Command to add a new {@link unker.task.ToDo} into the task manager {@link Unker}. 
  *
  * Usage in UI: todo description
  */
