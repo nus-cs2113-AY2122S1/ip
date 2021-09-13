@@ -11,8 +11,8 @@ public class Event extends Task {
     protected String at;
 
     /**
-     * The constructor method. Initializes the task
-     * description, status, and time period.
+     * The constructor method. Initialize task description,
+     * status to "not done", and time period.
      *
      * @param description Task description.
      * @param at Time period of the task.
@@ -23,10 +23,23 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the string representation of Event.
+     * The constructor method. Initialize task description,
+     * status according to the given parameter, and deadline.
      *
-     * @return The string representation of Event.
+     * @param description Task description.
+     * @param at Time period of the task.
+     * @param isDone Initial status.
      */
+    public Event(String description, String at, boolean isDone) {
+        super(description, isDone);
+        this.at = at;
+    }
+
+    @Override
+    public String serialize() {
+        return "E" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + at;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
