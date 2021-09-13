@@ -38,6 +38,9 @@ public class TaskManager {
 
     private static final String DATA_FILEPATH = "duke.txt";
 
+    private static final boolean FOR_LOADING = true;
+    private static final boolean NOT_FOR_LOADING = false;
+
     private static final String DIVIDER = "    ____________________________________________________________";
 
     private List<Task> tasks;
@@ -80,15 +83,15 @@ public class TaskManager {
         String taskDescription = inputs[2];
 
         if (taskType.equals(INITIAL_TODO)) {
-            addTodoTaskWithException(COMMAND_TODO + " " + taskDescription);
+            addTodoTaskWithException(COMMAND_TODO + " " + taskDescription, FOR_LOADING);
         } else if (taskType.equals(INITIAL_DEADLINE)) {
             String taskDeadline = inputs[3];
             addDeadlineTaskWithException(COMMAND_DEADLINE + " " + taskDescription
-                    + SEPARATOR_BY + taskDeadline);
+                    + SEPARATOR_BY + taskDeadline, FOR_LOADING);
         } else {
             String eventTime = inputs[3];
             addEventTaskWithException(COMMAND_EVENT + " " + taskDescription
-                    + SEPARATOR_AT + eventTime);
+                    + SEPARATOR_AT + eventTime, FOR_LOADING);
         }
 
         if (isTaskDone.equals(TASK_IS_DONE)) {
@@ -155,16 +158,14 @@ public class TaskManager {
 
     private void addTask(String taskInput) throws WrongCommandException {
         if (taskInput.startsWith(COMMAND_TODO)) {
-            addTodoTaskWithException(taskInput);
+            addTodoTaskWithException(taskInput, NOT_FOR_LOADING);
         } else if (taskInput.startsWith(COMMAND_DEADLINE)) {
-            addDeadlineTaskWithException(taskInput);
+            addDeadlineTaskWithException(taskInput, NOT_FOR_LOADING);
         } else if(taskInput.startsWith(COMMAND_EVENT)) {
-            addEventTaskWithException(taskInput);
+            addEventTaskWithException(taskInput, NOT_FOR_LOADING);
         } else {
             throw new WrongCommandException();
         }
-        saveTasksToDiskWithException();
-        printAddTaskMessage();
     }
 
     private void saveTasksToDisk() throws IOException {
@@ -207,9 +208,13 @@ public class TaskManager {
     }
 
 
-    private void addTodoTaskWithException(String taskInput) {
+    private void addTodoTaskWithException(String taskInput, boolean isForLoading) {
         try {
             addTodoTask(taskInput);
+            saveTasksToDiskWithException();
+            if(!isForLoading) {
+                printAddTaskMessage();
+            }
         } catch (EmptyDescriptionException e) {
             printHorizontalLine();
             System.out.println("     ☹ OOPS!!! The description of a todo cannot be empty.");
@@ -241,9 +246,13 @@ public class TaskManager {
         tasks.add(new Deadline(taskDescription, deadline));
     }
 
-    private void addDeadlineTaskWithException(String taskInput) {
+    private void addDeadlineTaskWithException(String taskInput, boolean isForLoading) {
         try {
             addDeadlineTask(taskInput);
+            saveTasksToDiskWithException();
+            if (!isForLoading) {
+                printAddTaskMessage();
+            }
         } catch (EmptyDescriptionException e) {
             printHorizontalLine();
             System.out.println("     ☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -271,9 +280,13 @@ public class TaskManager {
         tasks.add(new Event(taskDescription, startTime));
     }
 
-    private void addEventTaskWithException(String taskInput) {
+    private void addEventTaskWithException(String taskInput, boolean isForLoading) {
         try {
             addEventTask(taskInput);
+            saveTasksToDiskWithException();
+            if (!isForLoading) {
+                printAddTaskMessage();
+            }
         } catch (EmptyDescriptionException e) {
             printHorizontalLine();
             System.out.println("     ☹ OOPS!!! The description of an event cannot be empty.");
