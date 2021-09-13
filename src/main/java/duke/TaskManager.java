@@ -132,7 +132,7 @@ public class TaskManager {
         } catch (IndexTooBigException e) {
             printTaskIndexTooBigMessage();
         }
-
+        saveTasksToDiskWithException();
     }
 
     private void addTask(String taskInput) throws WrongCommandException {
