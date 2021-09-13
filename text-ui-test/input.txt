@@ -1,11 +1,14 @@
-event
-deadline return book
-event project meeting /at Mon 2-4pm
-deadline return book /by Sunday
-list
-todo eat shit and die
+hello
+add todo eat banana
+add deadline complete cs2113t tutorial prep /by wednesday
+add event freedom from shn /at 20 sept 12 noon
 list
 done 1
-done 3
+list
+done 2
+list
+undo 2
+list
+remove 1
 list
 bye

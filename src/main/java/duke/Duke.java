@@ -1,18 +1,21 @@
 package duke;
 
+import duke.Exceptions.RemoveException;
 import duke.Exceptions.TaskException;
 import duke.Exceptions.TimeException;
 import duke.Exceptions.DoneUndoException;
 import duke.tasks.Deadlines;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static final int TIME_COMMAND = 4;
-    public static final int DEADLINE_LENGTH = 9;
-    public static final int EVENT_LENGTH = 6;
+    public static final int DEADLINE_LENGTH = 13;
+    public static final int EVENT_LENGTH = 10;
+    public static final int TODO_LENGTH = 9;
 
     public static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -22,6 +25,7 @@ public class Duke {
         goodbyeMessage();
     }
 
+    /*Below is the method to run the app*/
     private static void runIkaros() {
         boolean isRunning = true;
 
@@ -45,13 +49,9 @@ public class Duke {
             case "undo":
                 doUndoManager(command, response);
                 break;
-            case "deadline":
-            case "event":
-            case "todo":
-                taskManager(command, response);
-                break;
             case "remove":
-                remove(command);
+            case "add":
+                instructionManager(command, response);
                 break;
             case "bye":
                 isRunning = false;
@@ -64,13 +64,38 @@ public class Duke {
         }
     }
 
-    private static void remove(String[] command) {
-        int i = Integer.parseInt(command[1]);
-        System.out.println("Understood, I have removed "
-                + taskList.get(i - 1).description);
-        taskList.remove(i - 1);
-        System.out.println("Tasks remaining = " + taskList.size());
-        lineBreak();
+    /*Below are the methods for the managers of the functions for the app*/
+    private static void instructionManager(String[] command, String response) {
+        try {
+            if (command[0].equalsIgnoreCase("add")) {
+                taskManager(command, response);
+            } else {
+                remove(command);
+            }
+        } catch (RemoveException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            lineBreak();
+        }
+    }
+
+    private static void taskManager(String[] command, String response) {
+        String TaskType = command[1];
+        try {
+            if ((command.length == 2) || (command[2].isEmpty())) {
+                throw new TaskException();
+            } else if (command[1].equalsIgnoreCase("event")) {
+                Event(response);
+            } else if (command[1].equalsIgnoreCase("todo")) {
+                toDo(response);
+            } else if (command[1].equalsIgnoreCase("deadline")) {
+                deadLine(response);
+            }
+        } catch (TaskException e) {
+            System.out.println("please specify " + TaskType + " to add!");
+        } catch (TimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void doUndoManager(String[] command, String response) {
@@ -87,25 +112,16 @@ public class Duke {
         }
     }
 
-    private static void taskManager(String[] command, String response) {
-        String TaskType = command[0];
-        try {
-            if (command.length == 1) {
-                throw new TaskException();
-            } else if (command[0].equalsIgnoreCase("event")) {
-                Event(response);
-            } else if (command[0].equalsIgnoreCase("todo")) {
-                toDo(response);
-            } else if (command[0].equalsIgnoreCase("deadline")) {
-                deadLine(response);
-            }
-        } catch (TaskException e) {
-            System.out.println("please specify " + TaskType + " to add!");
-        } catch (TimeException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            lineBreak();
+    /*Below are the methods for the functions in the Ikaros app*/
+    private static void remove(String[] command) throws RemoveException {
+        int i = Integer.parseInt(command[1]);
+        if (i > taskList.size()) {
+            throw new RemoveException("That task does not exist");
         }
+        System.out.println("Understood, I have removed "
+                + taskList.get(i - 1).description);
+        taskList.remove(i - 1);
+        System.out.println("Tasks remaining = " + taskList.size());
     }
 
     private static void Event(String response)
@@ -138,32 +154,8 @@ public class Duke {
     }
 
     private static void toDo(String response) {
-        ToDo task = new ToDo(response.substring(5));
+        ToDo task = new ToDo(response.substring(TODO_LENGTH));
         addToList(task);
-    }
-
-    private static void lineBreak() {
-        String lineBreak = "..........................." +
-                ".......................................";
-        System.out.println(lineBreak);
-    }
-
-    private static void IntroductoryMessage() {
-        String logo = "  /\\ _ /\\\n"
-                + " #  @ @  #    Welcome to IKAROS!\n"
-                + " #   ^   #  Your one and only butler\n"
-                + " #########";
-        lineBreak();
-
-        System.out.println(logo);
-        lineBreak();
-        System.out.println("What assistance do you require?");
-        lineBreak();
-    }
-
-    private static void goodbyeMessage() {
-        System.out.println("GoodBye, Ikaros awaits for future commands");
-        lineBreak();
     }
 
     private static void done(String response) throws DoneUndoException {
@@ -219,5 +211,30 @@ public class Duke {
                     "] " + task.description + task.getDate());
             i++;
         }
+    }
+
+    /*Below are the methods for drawing and standard replies on the console*/
+    private static void lineBreak() {
+        String lineBreak = "..........................." +
+                ".......................................";
+        System.out.println(lineBreak);
+    }
+
+    private static void IntroductoryMessage() {
+        String logo = "  /\\ _ /\\\n"
+                + " #  @ @  #    Welcome to IKAROS!\n"
+                + " #   ^   #  Your one and only butler\n"
+                + " #########";
+        lineBreak();
+
+        System.out.println(logo);
+        lineBreak();
+        System.out.println("What assistance do you require?");
+        lineBreak();
+    }
+
+    private static void goodbyeMessage() {
+        System.out.println("GoodBye, Ikaros awaits for future commands");
+        lineBreak();
     }
 }
