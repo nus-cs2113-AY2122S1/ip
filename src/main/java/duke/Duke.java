@@ -23,6 +23,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -71,7 +72,7 @@ public class Duke {
                 return;
             }
 
-            //Construct the new file that will later be renamed to the original filename.
+            // Construct the new file that will later be renamed to the original filename.
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -79,8 +80,8 @@ public class Duke {
 
             String line = null;
 
-            //Read from the original file and write to the new
-            //unless content matches data to be removed.
+            // Read from the original file and write to the new
+            // unless content matches data to be removed.
             while ((line = br.readLine()) != null) {
 
                 if (!line.trim().equals(lineToRemove)) {
@@ -89,18 +90,20 @@ public class Duke {
                     pw.flush();
                 }
             }
+
             pw.close();
             br.close();
 
-            //Delete the original file
+            // Delete the original file
             if (!inFile.delete()) {
                 System.out.println("Could not delete file");
                 return;
             }
 
-            //Rename the new file to the filename the original file had.
-            if (!tempFile.renameTo(inFile))
+            // Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inFile)) {
                 System.out.println("Could not rename file");
+            }
 
         }
         catch (FileNotFoundException ex) {

@@ -64,6 +64,8 @@ public class SaveTaskListToText {
                 numberOfTasksAdded += 1;
             }
         }
+
+        scanText.close();
     }
 
     /**
@@ -156,6 +158,7 @@ public class SaveTaskListToText {
         FileWriter writer = new FileWriter(filePath);
         writer.append(fileContents);
         writer.flush();
+        writer.close();
     }
 
     public static String textToDoSaveFormatter(String rawTaskDescription) throws IOException {
