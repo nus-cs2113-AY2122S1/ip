@@ -42,6 +42,10 @@ public class Parser {
         return input.startsWith("todo");
     }
 
+    public static boolean isDelete() {
+        return input.startsWith("delete");
+    }
+
     //check if there is input exception
     public static boolean isInvalidToDo() {
         return input.substring(TODO_LENGTH).equals("");
@@ -100,6 +104,9 @@ public class Parser {
             break;
         case DONE:
             taskList.tasksDone(input);
+            break;
+        case DELETE:
+            taskList.deleteTask(input);
             break;
         case TODO:
         case EVENT:

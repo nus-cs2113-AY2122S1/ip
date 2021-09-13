@@ -16,6 +16,8 @@ public class Duke {
                 c = Command.LIST;
             } else if (Parser.isDone()) {
                 c = Command.DONE;
+            } else if(Parser.isDelete()) {
+                c = Command.DELETE;    // for level-6 just simply add one command here, no need for other changes
             } else if (Parser.isDeadLine()) {
                 c = Command.DEADLINE;
             } else if (Parser.isEvent()) {

@@ -15,7 +15,6 @@ public class TaskManager {
         System.out.println("Now you have " + tasksCount + " tasks on the list.");
     }
 
-
     public boolean searchTask(Task task){
         boolean taskFound = false;
         for(int i=0; i<tasksCount; i++){
@@ -26,15 +25,34 @@ public class TaskManager {
         return taskFound;
     }
 
+    public void deleteTask(String taskDelete) throws TaskIndexOutOfBound {
+        int indexOfTask = getIndexOfTask(taskDelete);
+        Task taskToDelete = tasks[indexOfTask - 1];
+        for(int i = indexOfTask; i < tasksCount; i++) {
+            tasks[i - 1] = tasks[i];
+        }
+        tasksCount--;
+        System.out.println("Noted! I've removed this task: ");
+        System.out.println(taskToDelete.getTask());
+        System.out.println("Now you have" +  tasksCount  + "tasks in the list.");
+    }
+
     public void tasksDone(String taskDone) throws TaskIndexOutOfBound {
+        int indexOfTask = getIndexOfTask(taskDone);
+        tasks[indexOfTask-1].markAsDone();
+        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println(tasks[indexOfTask-1].getTask());
+    }
+
+    // Since I find that codes for tasksDone and removeTasks can be duplicated, so I refactor the common part to this function
+    // The exception can also be treated together since they are the same kind of exception
+    private int getIndexOfTask(String taskDone) throws TaskIndexOutOfBound {
         String[] words = taskDone.split(" ");
         int indexOfTask = Integer.parseInt(words[1]);
         if(indexOfTask < 1 || indexOfTask > tasksCount){
             throw new TaskIndexOutOfBound("Ops! your task index is out of bound!");
         }
-        tasks[indexOfTask-1].markAsDone();
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println(tasks[indexOfTask-1].getTask());
+        return indexOfTask;
     }
 
 
