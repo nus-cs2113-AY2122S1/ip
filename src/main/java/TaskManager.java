@@ -14,36 +14,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class TaskManager {
-    // array storing all task
-    // change to array list
-    // private static Task[] tasks = new Task[100];
     private static ArrayList<Task> tasks = new ArrayList<Task>();
-
-    // task counter to enumerate through task array
-    // private static int tasksCounter = 0;
-
     private static final String FILEPATH = "data/friday.txt";
     /**
      * Main function managing all user inputs until program is terminated
-     * via the "bye" command
+     * via the "bye" command.
      */
     public static void manageTasks() {
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
 
-            /*
-            while (userInput.trim().isEmpty()) {
-                userInput = in.nextLine();
-            }
-             */
             // change to switch case based on enum
             Commands command = InputParser.getCommand(userInput);
 
@@ -93,10 +78,9 @@ public class TaskManager {
         }
     }
 
-
     /**
      * Function to scan data from saved file upon initiating Friday
-     * Check if fle exists; if it doesn't, create new
+     * Check if fle exists; if it doesn't, create new in main
      * Works in loading from saved file
      */
     public static void loadData() throws FileNotFoundException {
@@ -135,9 +119,10 @@ public class TaskManager {
     }
 
     /**
+     * @param textToAppend
      * @throws IOException
-     * Goes through changed list and writes to file (Creates new file each time)
-     * DOesnt work; refer to Irvin method
+     * function to append new line when user adds in a new line
+     * Called in updateList to get live update as user enters
      */
     public static void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(FILEPATH, true);
@@ -145,6 +130,10 @@ public class TaskManager {
         fw.close();
     }
 
+    /**
+     * @param currTask: current task being added
+     * Function that appends task details in correct format in file
+     */
     private static void updateList(Task currTask) {
         String taskName = currTask.getTaskName();
         String isDoneSymbol = currTask.isDone() ? "X" : "O";
@@ -196,6 +185,7 @@ public class TaskManager {
     /**
      *
      * @throws EmptyListException
+     * Function to print out the current Task List
      */
 
     // function to update Task array on adding and deleting task
@@ -207,6 +197,12 @@ public class TaskManager {
         MessagePrinter.printList(tasks);
     }
 
+    /**
+     *
+     * @param newTask Task object of new Task to add to list
+     * @param taskName name of task to print out
+     * Function to add a new task to the list
+     */
     private static void addTask(Task newTask, String taskName) {
         // add to array list
         tasks.add(newTask);
@@ -297,7 +293,6 @@ public class TaskManager {
         tasks.remove(currTask);
         MessagePrinter.removeTask(taskName, tasks.size());
         rewriteList();
-
     }
 
     private static void markAsDone(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
