@@ -1,7 +1,6 @@
 package duke;
 
 import duke.task.Task;
-
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -47,5 +46,17 @@ public class TaskManager {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(taskIndex));
         System.out.println(LINE);
+    }
+
+    public void deleteTask(int taskIndex) throws DukeException {
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new DukeException("☹ OOPS!!! Please select a task in the task list!");
+        }
+        System.out.println(LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(taskIndex));
+        System.out.println("Now you have " + (tasks.size() - 1) + " tasks in the list.");
+        System.out.println(LINE);
+        tasks.remove(taskIndex);
     }
 }

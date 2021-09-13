@@ -1,7 +1,8 @@
 package duke;
 
-import duke.command.Command;
 import duke.command.AddTaskCommand;
+import duke.command.Command;
+import duke.command.DeleteTaskCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
@@ -17,6 +18,7 @@ public class CommandManager {
     private static final String EVENT_COMMAND = "event";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String DONE_COMMAND = "done";
+    private static final String DELETE_COMMAND = "delete";
 
     /**
      * Extracts command word from user input and processes the command.
@@ -30,15 +32,7 @@ public class CommandManager {
         } else if (userInput.equalsIgnoreCase(LIST_COMMAND)) {
             return new ListCommand();
         } else if ((userInput.toLowerCase()).contains(DONE_COMMAND)) {
-            String[] extractedCommand = userInput.split(" ");
-            int taskIndex;
-            try {
-                taskIndex = Integer.parseInt(extractedCommand[1]);
-            } catch (NumberFormatException e) {
-                throw new DukeException("☹ OOPS!!! Please provide a valid number!");
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("☹ OOPS!!! Please specify index of the task!");
-            }
+            int taskIndex = extractTaskIndex(userInput);
             return new DoneCommand(taskIndex - 1);
         } else if ((userInput.toLowerCase()).contains(TODO_COMMAND)) {
             //4 is index after todo in input string
@@ -75,7 +69,23 @@ public class CommandManager {
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! Please key in command in format: \"deadline taskDescription /by deadline\".");
             }
+        } else if ((userInput.toLowerCase()).contains(DELETE_COMMAND)) {
+            int taskIndex = extractTaskIndex(userInput);
+            return new DeleteTaskCommand(taskIndex - 1);
         }
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    private static int extractTaskIndex(String userInput) throws DukeException {
+        String[] extractedCommand = userInput.split(" ");
+        int taskIndex;
+        try {
+            taskIndex = Integer.parseInt(extractedCommand[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("☹ OOPS!!! Please provide a valid number!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("☹ OOPS!!! Please specify index of the task!");
+        }
+        return taskIndex;
     }
 }
