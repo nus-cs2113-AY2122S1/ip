@@ -1,7 +1,5 @@
 package duke;
 
-import duke.task.TaskManager;
-
 import java.util.Scanner;
 
 public class Duke {
@@ -9,9 +7,6 @@ public class Duke {
     private static final Scanner IN = new Scanner(System.in);
 
     public static void main(String[] args) {
-        if(!IoManager.init()){
-            return;
-        }
         Message.begin();
 
         String userInput;
