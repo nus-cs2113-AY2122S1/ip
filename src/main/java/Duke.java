@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     //Array of tasks
@@ -21,6 +24,7 @@ public class Duke {
     private static final String EMPTY_LIST_MESSAGE = " This list is empty and sad :(\n";
     private static final String EMPTY_REMOVE_MESSAGE = " Please identify something to remove!\n";
     private static final String NO_TASK_MESSAGE = "No such task! You're not THAT productive...\n";
+    private static final String TASK_DONE_MESSAGE = "This task was already marked done!\n";
     private static final String NO_TASK_DONE_NUMBER_MESSAGE = "Please specify the task you would like to " +
             "mark as done!\n";
     private static final String DONE_NOT_INTEGER_MESSAGE = "Please input an integer after done!\n";
@@ -115,6 +119,9 @@ public class Duke {
             if (index > taskCount) {
                 System.out.println(LINES + NO_TASK_MESSAGE + LINES);
             }
+            else if (tasks.get(index - 1).getStatusIcon().equals("X")) {
+                System.out.println(LINES + TASK_DONE_MESSAGE + LINES);
+            }
             else {
                 tasks.get(index - 1).markAsDone();
                 System.out.print(LINES + TASK_COMPLETE_MESSAGE + tasks.get(index - 1) + "\n" + LINES);
@@ -125,6 +132,7 @@ public class Duke {
             System.out.println(LINES + DONE_NOT_INTEGER_MESSAGE + LINES);
         }
     }
+
     //Adds task to tasks
     public static void addTask(String input) {
         if (input.toLowerCase().startsWith("todo")) {
@@ -194,6 +202,7 @@ public class Duke {
     //Clears all tasks
     public static void initJim() {
         tasks = new ArrayList<Task>();
+        File f = new File ("data/jim.text");
     }
 
     public static String getUserInput() {
