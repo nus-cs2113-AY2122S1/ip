@@ -5,8 +5,9 @@ public abstract class Task {
     protected boolean isDone;
     protected TaskType type;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
+        this.type = type;
         this.isDone = false;
     }
 
@@ -28,6 +29,10 @@ public abstract class Task {
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    public String getFileStringFormat() {
+        return String.format("%d | %s", isDone ? 1 : 0, this.description.trim());
     }
 
     @Override
