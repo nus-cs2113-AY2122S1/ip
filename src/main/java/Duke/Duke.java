@@ -5,20 +5,79 @@ import Duke.task.Event;
 import Duke.task.Task;
 import Duke.task.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
 
     private static int taskCounter = 0;
-    //    private static final Task[] tasks = new Task[100];
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasksArrayList = new ArrayList<>();
+    private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private static final java.nio.file.Path filePath = java.nio.file.Paths.get(CURRENT_DIRECTORY);
+
 
     public static void main(String[] args) {
+        initialiseFile();
         printHeaderMessage();
         handleInputs();
         printByeMessage();
     }
+
+    private static void initialiseFile() {
+        try {
+            //get the file, else create file if it does not exist.
+            File taskFile = getTaskFile();
+            Scanner fileTaskLists = new Scanner(taskFile);
+
+            //read and extract the data in the file to store it in the task array list.
+            readAndExtractFile(fileTaskLists);
+        } catch (IOException | DukeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readAndExtractFile(Scanner fileTaskLists) throws DukeException {
+        while (fileTaskLists.hasNextLine()) {
+            String data = fileTaskLists.nextLine();
+            String[] splittedData = data.split("\\|");
+            String taskType = splittedData[0];
+            boolean isMarkedDone = Integer.parseInt(splittedData[1]) == 1;
+            String taskDescription = splittedData[2];
+            String taskCommand;
+
+            switch (taskType) {
+            case "T":
+                taskCommand = "todo " + taskDescription;
+                addTodoTask(taskCommand);
+                break;
+            case "D":
+                taskCommand = "deadline " + taskDescription;
+                addDeadlineTask(taskCommand);
+                break;
+            case "E":
+                taskCommand = "event " + taskDescription;
+                addEventTask(taskCommand);
+                break;
+            }
+            if (isMarkedDone) {
+                markTaskAsDone("done " + taskCounter);
+            }
+        }
+    }
+
+    private static File getTaskFile() throws IOException {
+        File taskFile = new File(filePath + "/taskLists.txt");
+        if (taskFile.createNewFile()) {
+            System.out.println("File created");
+        } else {
+            System.out.println("File already exists");
+        }
+        return taskFile;
+    }
+
 
     private static void handleInputs() {
         String input = getInput();
@@ -53,7 +112,10 @@ public class Duke {
                             + "\tPlease enter a valid input!" + System.lineSeparator()
                             + "\ti.e. todo, deadline, event, list, done or bye.");
                 }
-            } catch (DukeException e) {
+
+                updateFile();
+
+            } catch (DukeException | IOException e) {
                 System.out.println(e.getMessage());
             }
 
@@ -75,7 +137,7 @@ public class Duke {
         String taskName = getTodoTaskName(input);
 
         //create new Todo task
-        tasks.add(new Todo(taskName));
+        tasksArrayList.add(new Todo(taskName));
 
         printNewTaskMsg();
     }
@@ -101,14 +163,13 @@ public class Duke {
         String dueDate = getDueDate(input, slashIndex);
 
         //create new Event task
-        tasks.add(new Event(taskName, dueDate));
-
+        tasksArrayList.add(new Event(taskName, dueDate));
         printNewTaskMsg();
     }
 
     private static String getEventTaskName(String input, int slashIndex) throws DukeException {
         final int EVENT_WORD_LENGTH = 6;
-        int taskNameLastIndex = slashIndex - 1; //the last index of the tsak name
+        int taskNameLastIndex = slashIndex - 1; //the last index of the task name
 
         //if the slash is not present in the input
         if (slashIndex == -1) {
@@ -138,7 +199,7 @@ public class Duke {
         String dueDate = getDueDate(input, slashIndex);
 
         //create new Deadline task
-        tasks.add(new Deadline(taskName, dueDate));
+        tasksArrayList.add(new Deadline(taskName, dueDate));
 
         printNewTaskMsg();
     }
@@ -175,7 +236,7 @@ public class Duke {
     private static void printNewTaskMsg() {
         int taskCount = taskCounter + 1;
         System.out.println("\tAlright! I've just added this task:");
-        System.out.println("\t" + tasks.get(taskCounter).toString());
+        System.out.println("\t" + tasksArrayList.get(taskCounter).toString());
         System.out.println("\tYou now have " + taskCount + " tasks on your task list.");
         printLineSeparator();
         taskCounter++;
@@ -188,7 +249,7 @@ public class Duke {
             System.out.println("\tHere's the list of your tasks: ");
             for (int j = 0; j < taskCounter; j++) {
                 int itemNumber = j + 1;
-                System.out.println("\t" + itemNumber + "." + tasks.get(j).toString());
+                System.out.println("\t" + itemNumber + "." + tasksArrayList.get(j).toString());
             }
         }
         printLineSeparator();
@@ -198,10 +259,7 @@ public class Duke {
 
         String[] splittedInput = s.split(" ");
         try {
-            int taskIndex = Integer.parseInt(splittedInput[1]) - 1;
-            tasks.get(taskIndex).markAsDone();
-            System.out.println("\tGood job! I've marked this task as done: ");
-            System.out.println("\t" + tasks.get(taskIndex));
+            markParticularTaskAsDone(splittedInput[1]);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             if (taskCounter == 0) {
                 System.out.println("\t☹ OOPS!!! The list is empty!");
@@ -212,17 +270,19 @@ public class Duke {
         printLineSeparator();
     }
 
+
+    private static void markParticularTaskAsDone(String s1) {
+        int taskIndex = Integer.parseInt(s1) - 1;
+        tasksArrayList.get(taskIndex).markAsDone();
+        System.out.println("\tGood job! I've marked this task as done: ");
+        System.out.println("\t" + tasksArrayList.get(taskIndex));
+    }
+
     private static void deleteTask(String s) throws IndexOutOfBoundsException, NullPointerException {
         String[] splittedInput = s.split(" ");
 
         try {
-            int taskIndex = Integer.parseInt(splittedInput[1]) - 1;
-
-            System.out.println("\tAlright, I've deleted this task: " + System.lineSeparator()
-                    + "\t" + tasks.get(taskIndex).toString());
-            taskCounter--;
-            tasks.remove(taskIndex);
-            System.out.println("\tYou now have " + taskCounter + " tasks on your task list.");
+            deleteParticularTask(splittedInput[1]);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             if (taskCounter == 0) {
                 System.out.println("\t☹ OOPS!!! The list is empty!");
@@ -231,6 +291,44 @@ public class Duke {
             }
         }
         printLineSeparator();
+    }
+
+    private static void deleteParticularTask(String s1) {
+        int taskIndex = Integer.parseInt(s1) - 1;
+
+        System.out.println("\tAlright, I've deleted this task: " + System.lineSeparator()
+                + "\t" + tasksArrayList.get(taskIndex).toString());
+        taskCounter--;
+        tasksArrayList.remove(taskIndex);
+        System.out.println("\tYou now have " + taskCounter + " tasks on your task list.");
+    }
+
+    private static void updateFile() throws IOException {
+        FileWriter taskWriter = new FileWriter(filePath + "/taskLists.txt", false);
+        for (Task task: tasksArrayList) {
+            String classType = task.getClass().getName();
+            String taskAbbreviation = getTaskAbbreviation(classType);
+            String taskStatus = getTaskStatus(task);
+            String dataWritten = taskAbbreviation + "|" + taskStatus + "|" + task.getDescription() + System.lineSeparator();
+            taskWriter.write(dataWritten);
+        }
+        taskWriter.close();
+    }
+
+    private static String getTaskStatus(Task task) {
+        if (task.getStatusIcon().equals("[X] ")) {
+            return "1";
+        }
+        return "0";
+    }
+
+    private static String getTaskAbbreviation(String classType) {
+        if (classType.equals("Duke.task.Todo")) {
+            return "T";
+        } else if (classType.equals("Duke.task.Deadline")) {
+            return "D";
+        }
+        return "E";
     }
 
     private static void printHeaderMessage() {
