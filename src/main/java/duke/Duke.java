@@ -15,24 +15,29 @@ public class Duke {
     }
 
 
-    public static String getCommand(String userInput) {
+    public static String getCommand(String userInput) throws InvalidTaskDescriptionException {
         String[] input = userInput.trim().toLowerCase().split(" ");
-        return input[0];
+        String command = input[0];
+        if (isValidTaskType(userInput)) {
+            if (!isValidTodoDescription(userInput) || !isValidDeadlineOrEventDescription(userInput)) {
+                throw new InvalidTaskDescriptionException("Task description of " + command + " is invalid!");
+            }
+        }
+        return command;
     }
 
-    public static boolean validTodoDescription(String input) {
+    public static boolean isValidTodoDescription(String input) {
         String[] description = input.trim().split(" ");
         return description.length > 1;
     }
 
-    public static boolean validDeadlineOrEventDescription(String input) {
+    public static boolean isValidDeadlineOrEventDescription(String input) {
         String description = getDeadlineOrEventTaskName(input);
         String deadlineOrEventDuration = getDeadlineOrEventDuration(input);
         if (description.isEmpty() || deadlineOrEventDuration.isEmpty()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public static void inputManager() {
@@ -43,7 +48,13 @@ public class Duke {
 
         while (!isBye) {
             line = in.nextLine();
-            String command = getCommand(line);
+            String command;
+            try {
+                command = getCommand(line);
+            } catch (InvalidTaskDescriptionException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
             switch (command) {
             case ("bye"):
                 isBye = true;
@@ -59,7 +70,7 @@ public class Duke {
             case ("todo"):
             case ("deadline"):
             case ("event"):
-                taskManager(line, tasks);
+                taskManager(command, line, tasks);
                 break;
             default:
                 printErrorMessage();
@@ -76,26 +87,32 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void taskManager(String input, Task[] tasks) {
-        String taskType = getCommand(input);
-        try {
-            if (taskType.equalsIgnoreCase("todo")) {
-                addTodo(input, tasks);
-            } else if (taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event")) {
-                addDeadlineOrEvent(input, tasks);
-            }
-            printTaskManagerMessage(tasks);
-            taskCount++;
-        } catch (IndexOutOfBoundsException emptyTask) {
-            printHorizontalLine();
-            System.out.println("Task description of " + taskType + " cannot be empty!");
-            printHorizontalLine();
+    // this function assumes that the input is fully valid
+    public static void taskManager(String command, String input, Task[] tasks) {
+        switch (command) {
+        case ("todo"):
+            addTodo(input, tasks);
+            break;
+        case ("deadline"):
+        case ("event"):
+            addDeadlineOrEvent(input, tasks);
+            break;
+        default:
+            printErrorMessage();
+            break;
         }
+        printTaskManagerMessage(tasks);
+        taskCount++;
     }
 
     public static String getTaskType(String input) {
         int dividePosition = input.trim().indexOf(" ");
         return input.trim().substring(0, dividePosition).toLowerCase();
+    }
+
+    public static boolean isValidTaskType(String input) {
+        String taskName = getTaskType(input);
+        return taskName.equalsIgnoreCase("todo") || taskName.equalsIgnoreCase("deadline") || taskName.equalsIgnoreCase("event");
     }
 
     public static String getTodoTaskName(String input) {
