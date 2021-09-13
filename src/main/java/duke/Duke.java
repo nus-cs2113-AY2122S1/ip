@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Duke {
 
     public static int taskNum = 0;
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>(); // add collection
 
     public static void main(String[] args) {
         String userCommand;
