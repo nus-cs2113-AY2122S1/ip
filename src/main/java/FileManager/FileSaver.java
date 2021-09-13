@@ -3,7 +3,7 @@ package FileManager;
 import InputHandle.Tasks.TaskList;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.File;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,12 +25,16 @@ public class FileSaver {
 
 
     public void save(TaskList tasks) {
+        File directory = new File("UserStatus");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         try {
             FileOutputStream fileStream = new FileOutputStream(filePath.toString());
             ObjectOutputStream os = new ObjectOutputStream(fileStream);
             os.writeObject(tasks);
             os.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
