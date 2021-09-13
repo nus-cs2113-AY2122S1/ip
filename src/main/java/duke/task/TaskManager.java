@@ -117,8 +117,7 @@ public class TaskManager {
 
         printDeleteTaskMsg(tasks.get(taskID).getTaskDescription());
         tasks.remove(taskID);
-        numTasks -= 1;
-        printNumTasksInList(numTasks);
+        printNumTasksInList();
 
     }
 
