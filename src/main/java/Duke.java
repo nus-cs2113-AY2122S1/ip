@@ -74,6 +74,7 @@ public class Duke {
 
             case DELETE_TASK:
                 removeTask(command);
+                updateTaskFile();
                 break;
 
             default:
