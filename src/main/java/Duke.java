@@ -114,29 +114,29 @@ public class Duke {
         PrintManager.printTaskCount(taskCount, command);
         return taskCount;
     }
-    private static int addEvent(Task[] tasks, int taskCount, String[] brokenDownInput) throws OwlException {
-        String[] brokenDownAt = brokenDownInput[1].split(" /at ", 2);
-        if (brokenDownInput[1].contains(" /at ") && !brokenDownAt[1].isEmpty()) {
-            tasks[taskCount] = new Event(brokenDownAt[0], brokenDownAt[1]);
-            taskCount = addTask(taskCount, ("[E] " + brokenDownAt[0] + "(at: " + brokenDownAt[1]) + ")");
+    private static int addEvent(Task[] tasks, int taskCount, String[] inputs) throws OwlException {
+        String[] inputsAt = inputs[1].split(" /at ", 2);
+        if (inputs[1].contains(" /at ") && !inputsAt[1].isEmpty()) {
+            tasks[taskCount] = new Event(inputsAt[0], inputsAt[1]);
+            taskCount = addTask(taskCount, ("[E] " + inputsAt[0] + "(at: " + inputsAt[1]) + ")");
             return taskCount;
         }
         throw new OwlException("Did not specify /at");
     }
 
-    private static int addDeadline(Task[] tasks, int taskCount, String[] brokenDownInput) throws OwlException {
-        String[] brokenDownBy = brokenDownInput[1].split(" /by ", 2);
-        if (brokenDownInput[1].contains(" /by ") && !brokenDownBy[1].isEmpty()) {
-            tasks[taskCount] = new Deadline(brokenDownBy[0], brokenDownBy[1]);
-            taskCount = addTask(taskCount, ("[D] " + brokenDownBy[0] + "(by: " + brokenDownBy[1]) + ")");
+    private static int addDeadline(Task[] tasks, int taskCount, String[] inputs) throws OwlException {
+        String[] inputsBy = inputs[1].split(" /by ", 2);
+        if (inputs[1].contains(" /by ") && !inputsBy[1].isEmpty()) {
+            tasks[taskCount] = new Deadline(inputsBy[0], inputsBy[1]);
+            taskCount = addTask(taskCount, ("[D] " + inputsBy[0] + "(by: " + inputsBy[1]) + ")");
             return taskCount;
         }
         throw new OwlException("Did not specify /by");
     }
 
-    private static int addTodo(Task[] tasks, int taskCount, String[] brokenDownInput) {
-        tasks[taskCount] = new Todo(brokenDownInput[1]);
-        taskCount = addTask(taskCount, ("[T] " + brokenDownInput[1]));
+    private static int addTodo(Task[] tasks, int taskCount, String[] inputs) {
+        tasks[taskCount] = new Todo(inputs[1]);
+        taskCount = addTask(taskCount, ("[T] " + inputs[1]));
         return taskCount;
     }
 

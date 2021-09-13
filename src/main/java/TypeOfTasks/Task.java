@@ -14,7 +14,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatus() {
+    protected String getStatus() {
         if(isDone) {
             return "X";
         } else {
@@ -25,7 +25,7 @@ public class Task {
         System.out.println(index + ".[" + (theTask.getStatus()) + "] "+ theTask.getDescription());
     }
 
-    public String getDescription() {
+    protected String getDescription() {
         return description;
     }
 
