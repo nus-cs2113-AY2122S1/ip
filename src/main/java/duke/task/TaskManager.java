@@ -56,6 +56,19 @@ public class TaskManager {
 
     }
 
+    /**
+     * Deletes the task at selected index, removing it from the list.
+     *
+     * @param index index of the task to be deleted.
+     */
+    public void deleteTask(int index){
+        index--;
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        System.out.println("I have erased this task from existence:");
+        System.out.println("  " + task.toFormattedString());
+    }
+
     /* Prints a list of all tasks in task manager */
     public void listTasks() {
         if (taskList.size() <= 0) {

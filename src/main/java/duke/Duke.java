@@ -45,6 +45,8 @@ public class Duke {
         System.out.println("\t\tPrints a indexed list of all added tasks");
         System.out.printf("\t%s <task index in list>%n", Commands.DONE);
         System.out.println("\t\tMarks task at supplied index as done");
+        System.out.printf("\t%s <task index in list>%n", Commands.DELETE);
+        System.out.println("\t\tDeletes the task at the supplied index");
         System.out.printf("\t%s%n", Commands.BYE);
         System.out.println("\t\tExits the program");
     }
@@ -77,26 +79,36 @@ public class Duke {
 
             System.out.println(DIVIDER);
 
+            String command = userInput[0].toUpperCase().trim();
+            String options = null;
+
+            if (userInput.length >= 2) {
+                options = userInput[1];
+            }
+
             try {
-                switch (userInput[0].toUpperCase().trim()) {
+                switch (command) {
                 case Commands.LIST:
                     taskManager.listTasks();
                     break;
                 case Commands.DONE:
-                    taskManager.markDone(Integer.parseInt(userInput[1]));
+                    taskManager.markDone(Integer.parseInt(options));
                     break;
                 case Commands.BYE:
                     printGoodbye();
                     exit = true;
                     break;
                 case Commands.TODO:
-                    taskManager.addTask(userInput[1], TaskType.TODO);
+                    taskManager.addTask(options, TaskType.TODO);
                     break;
                 case Commands.DEADLINE:
-                    taskManager.addTask(userInput[1], TaskType.DEADLINE);
+                    taskManager.addTask(options, TaskType.DEADLINE);
                     break;
                 case Commands.EVENT:
-                    taskManager.addTask(userInput[1], TaskType.EVENT);
+                    taskManager.addTask(options, TaskType.EVENT);
+                    break;
+                case Commands.DELETE:
+                    taskManager.deleteTask(Integer.parseInt(options));
                     break;
                 default:
                     throw new IllegalCommandException("Unidentified command");
@@ -105,10 +117,10 @@ public class Duke {
                 System.out.println(e + ": Do you not understand what a number is?");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println(e + ": Enter something that makes sense next time.");
-            } catch (IllegalCommandException e){
+            } catch (IllegalCommandException e) {
                 System.out.println(e);
                 printHelp();
-            } catch (IllegalParameterException e){
+            } catch (IllegalParameterException e) {
                 System.out.println(e + ": Enter some valid parameters next time.");
             }
 
