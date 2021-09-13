@@ -12,8 +12,16 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
-        return (isDone? DONE_ICON : NOT_DONE_ICON);
+        return (getIsDone()? DONE_ICON : NOT_DONE_ICON);
     }
 
     public void markAsDone() {
