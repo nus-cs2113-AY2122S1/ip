@@ -10,11 +10,13 @@ package duke;
 import duke.commandHandler.CommandHandling;
 import duke.exceptionHandler.DukeException;
 import duke.printTextFile.PrintTextFile;
+import duke.save.SaveTaskListToText;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
 import duke.taskType.Task;
 import duke.taskType.ToDo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -32,6 +34,10 @@ public class Duke {
     public static PrintTextFile printByeText = new PrintTextFile("text-art/ByeText.txt");
     public static PrintTextFile printParrotText = new PrintTextFile("text-art/ParrotText.txt");
     public static PrintTextFile printDukeyText = new PrintTextFile("text-art/DukeyText.txt");
+
+    public static int getNumberOfTasks() {
+        return numberOfTasks;
+    }
 
     /**
      * Prints the current list of task when the "list" command is
@@ -172,7 +178,7 @@ public class Duke {
     /**
      * Main method of the chat-bot app.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, DukeException {
         String userInputString;
         Scanner userInput = new Scanner(System.in);
 
@@ -185,6 +191,9 @@ public class Duke {
         printParrotText.printText();
         wait(500);
         printHelloText.printText();
+
+        SaveTaskListToText dukeTaskText = new SaveTaskListToText();
+        numberOfTasks = dukeTaskText.loadTask(tasks);
 
         /**
          * Main while loop of the main() method. It waits for user command
