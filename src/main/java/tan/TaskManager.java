@@ -6,16 +6,42 @@ import tan.tasktype.Event;
 import tan.tasktype.Task;
 import tan.tasktype.ToDo;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 public class TaskManager {
-    private static List<Task> listOfTasks = new LinkedList<>();
+
+    protected static List<Task> listOfTasks = new LinkedList<>();
     private static int totalNumberOfTask = 0;
 
-    public TaskManager() {
+    public static void loadDataIntoList(List<Task> listOfDatas) {
+        listOfTasks.addAll(listOfDatas);
+        totalNumberOfTask = listOfTasks.size();
+    }
 
+    /**
+     * This function saves the current list
+     * into the data file taskData.csv. It calls
+     * the function saveCurrentList and passes it
+     * the current list of task to be saved. It will also
+     * inform the user if any error occurs.
+     *
+     * @return Returns 0 if the file was successfully saved, else -1;
+     */
+    protected static int saveCurrentList() {
+        try {
+            DataManager.saveCurrentList(listOfTasks);
+        } catch (IOException e) {
+            System.out.println("Error in writing/opening file! Please try again.");
+            return -1;
+        } catch (Exception e) {
+            System.out.println("Generic Error in saving file. Error is:" + e);
+            e.printStackTrace();
+            return -1;
+        }
+        return 0;
     }
 
     /**
@@ -346,6 +372,5 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException i) {
             System.out.println("Error in printing task! Contact Admin =(");
         }
-
     }
 }

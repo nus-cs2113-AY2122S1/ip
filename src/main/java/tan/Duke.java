@@ -1,7 +1,11 @@
 package tan;
 
+import tan.tasktype.Task;
+
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
+
 
 public class Duke {
     final static String BORDER = "------------------------------------------------------------------------";
@@ -9,6 +13,7 @@ public class Duke {
     public static void main(String[] args) {
         final Scanner SC = new Scanner(System.in);
         printIntro();
+        intializeAndLoadFile();
         String input;
         while (true) {
             input = readInput(SC);
@@ -25,6 +30,7 @@ public class Duke {
                 if (taskIndex != -1) {
                     //Successfully get index
                     TaskManager.markTaskAsDone(taskIndex);
+                    saveList();
                 }
                 break;
             case "delete":
@@ -32,14 +38,42 @@ public class Duke {
                 if (taskNumber != -1) {
                     //Successfully get index
                     TaskManager.deleteTask(taskNumber);
+                    saveList();
                 }
                 break;
             default:
                 TaskManager.addTask(input);
+                saveList();
                 break;
             }
             System.out.println(BORDER);
         }
+    }
+
+    /**
+     * This function saves the current list
+     * into the file taskData. It will also inform
+     * the user if the save was successful or not.
+     */
+    private static void saveList() {
+        int saveStatus = TaskManager.saveCurrentList();
+        if (saveStatus == 0) {
+            System.out.println("File successfully updated.");
+        } else {
+            System.out.println("Error in saving current task! Please check the inputs.");
+        }
+    }
+
+    /**
+     * This function setups the reader & writer
+     * needed to access the data file. If the file is not
+     * found it creates one. After doing so,
+     * reads the current data in the file & loads
+     * it into the tasklist.
+     */
+    private static void intializeAndLoadFile() {
+        List<Task> listOfStoredDatas = DataManager.setFileAndGetTasks();
+        TaskManager.loadDataIntoList(listOfStoredDatas);
     }
 
     /**
@@ -115,7 +149,7 @@ public class Duke {
     }
 
     /**
-     * Takes in the user intput as a string
+     * Takes in the user input as a string
      * and tries to get the index of a task when
      * using the commands done, delete. Note that
      * this function does not verify if the index is
@@ -129,8 +163,20 @@ public class Duke {
      */
     public static int parseIndex(String input) throws NumberFormatException,
             PatternSyntaxException, ArrayIndexOutOfBoundsException {
-        String[] listOfInputs = input.split(" ");
-        return Integer.parseInt(listOfInputs[1]);
+
+        int index;
+        try {
+            String[] listOfInputs = input.split(" ");
+            index = Integer.parseInt(listOfInputs[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Index not recognized. Try again!");
+            index = -1;
+        } catch (Exception e) {
+            System.out.println("Error in converting Index."+ System.lineSeparator() + e);
+            e.printStackTrace();
+            index = -1;
+        }
+        return index;
     }
 
     /**
@@ -144,5 +190,4 @@ public class Duke {
     public static String getCommand(String x) {
         return x.split(" ")[0];
     }
-
 }

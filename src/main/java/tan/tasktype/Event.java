@@ -10,6 +10,21 @@ public class Event extends Task {
         this.dateTime = dateTime;
     }
 
+    public Event(String description, Boolean isDone, String dateTime) {
+        super(description, isDone);
+        this.dateTime = dateTime;
+    }
+
+    /**
+     * Returns the Task's type in String.
+     *
+     * @return Returns the string "Event".
+     */
+    @Override
+    public String getTaskType() {
+        return "Event";
+    }
+
     /**
      * Returns the icon for Event tasks.
      *
@@ -26,6 +41,7 @@ public class Event extends Task {
      *
      * @return Returns do-by date in String.
      */
+    @Override
     public String getDateTime() {
         return dateTime;
     }

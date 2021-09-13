@@ -9,9 +9,28 @@ public abstract class Task {
         isDone = false;
     }
 
+    public Task(String name, Boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public Task() {
         this("Unnamed");
     }
+
+    /**
+     * Gets the type of task in String.
+     *
+     * @return Returns the type of task in String format.
+     */
+    public abstract String getTaskType();
+
+    /**
+     * Gets the date of task in String.
+     *
+     * @return Returns the date of task in String format.
+     */
+    public abstract String getDateTime();
 
     /**
      * This is the abstract function to
@@ -35,7 +54,7 @@ public abstract class Task {
      *
      * @param x The name of the task.
      */
-    public void setTaskName(String x) {
+    protected void setTaskName(String x) {
         this.name = x;
     }
 
@@ -56,5 +75,14 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the current status in boolean.
+     *
+     * @return Status of Task in Bool.
+     */
+    public Boolean getStatus() {
+        return isDone;
     }
 }
