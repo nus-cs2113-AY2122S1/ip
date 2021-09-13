@@ -14,4 +14,18 @@ public class Todo extends Task {
     public String toString() {
         return "  [T]" + super.toString();
     }
-}
+
+    @Override
+    public String saveToFile() {
+        // return format
+        String printStatus;
+        // return format
+        if(this.isDone == true) {
+            printStatus = "1";
+        } else {
+            printStatus = "0";
+        }
+        return "T " + printStatus + " " + description;
+    }
+    }
+
