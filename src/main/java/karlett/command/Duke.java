@@ -4,6 +4,7 @@ import karlett.task.Deadline;
 import karlett.task.Event;
 import karlett.task.Task;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
@@ -12,14 +13,14 @@ public class Duke {
     public static void main(String[] args) {
         greet();
         Scanner in = new Scanner(System.in);
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
         while (true) {
             String userInput = in.nextLine();
             processUserInput(list, userInput);
         }
     }
 
-    public static void processUserInput(Task[] list, String userInput) {
+    public static void processUserInput(ArrayList<Task> list, String userInput) {
         Scanner in = new Scanner(System.in);
         userInput = userInput.trim();
         String[] userInputWords = userInput.split(" ");
@@ -40,7 +41,7 @@ public class Duke {
                 break;
             }
             taskDescription = String.join(" ", taskContentWords);
-            list[Task.getNumberOfTasks()] = new Task(taskDescription);
+            list.add(Task.getNumberOfTasks(), new Task(taskDescription));
             break;
         case "deadline":
             if (taskContentWords.length == 0) {
@@ -73,7 +74,7 @@ public class Duke {
             String[] taskDeadlineWords = Arrays.copyOfRange(taskContentWords,
                     indexOfBy + 1, taskContentWords.length);
             String taskDeadline = String.join(" ", taskDeadlineWords);
-            list[Task.getNumberOfTasks()] = new Deadline(taskDescription, taskDeadline);
+            list.add(Task.getNumberOfTasks(), new Deadline(taskDescription, taskDeadline));
             break;
         case "event":
             if (taskContentWords.length == 0) {
@@ -106,7 +107,7 @@ public class Duke {
             String[] taskTimeWords = Arrays.copyOfRange(taskContentWords,
                     indexOfAt + 1, taskContentWords.length);
             String taskTime = String.join(" ", taskTimeWords);
-            list[Task.getNumberOfTasks()] = new Event(taskDescription, taskTime);
+            list.add(Task.getNumberOfTasks(), new Event(taskDescription, taskTime));
             break;
         case "list":
             if (taskContentWords.length == 0) {
@@ -123,12 +124,12 @@ public class Duke {
         case "done":
             try {
                 int index = Integer.parseInt(taskContentWords[0]);
-                list[index - 1].markAsDone();
+                list.get(index - 1).markAsDone();
                 break;
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+            } catch (NumberFormatException ex) {
                 printDoneFormatErrorMessage();
                 break;
-            } catch (NullPointerException ex) {
+            } catch (IndexOutOfBoundsException ex) {
                 printOutOfBoundErrorMessage();
                 break;
             }

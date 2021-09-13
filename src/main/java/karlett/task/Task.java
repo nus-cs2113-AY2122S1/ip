@@ -1,5 +1,7 @@
 package karlett.task;
 
+import java.util.ArrayList;
+
 public class Task {
 
     private static int numberOfTasks = 0;
@@ -49,13 +51,13 @@ public class Task {
         drawDivider();
     }
 
-    public static void printList(Task[] list) {
+    public static void printList(ArrayList<Task> list) {
         drawDivider();
         if (numberOfTasks == 0) {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
             for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println("ฅ" + (i + 1) + " " + list[i]);
+                System.out.println("ฅ" + (i + 1) + " " + list.get(i));
             }
         }
         drawDivider();
