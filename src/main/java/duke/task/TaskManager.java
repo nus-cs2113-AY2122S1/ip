@@ -33,14 +33,22 @@ public class TaskManager {
      * Get the task with the specified index from the task list.
      *
      * @param taskIndex Index of the task in the task list.
+     * @throws TaskListEmptyException Task list is empty.
+     * @throws InvalidTaskIndexException Task index provided is not within task list size.
      * @return Task.
      */
-    public Task getTask(int taskIndex) {
+    public Task getTask(int taskIndex) throws TaskListEmptyException, InvalidTaskIndexException {
+        if (getTotalTasks() == 0) {
+            throw new TaskListEmptyException();
+        } else if (!hasTaskIndex(taskIndex)) {
+            throw new InvalidTaskIndexException();
+        }
+
         return this.taskList.get(taskIndex);
     }
 
     /**
-     * Add task into task list.
+     * Add a new task into the task list.
      *
      * @param newTask Task to be added.
      */
@@ -63,5 +71,22 @@ public class TaskManager {
         }
 
         getTask(taskIndex).markAsDone();
+    }
+
+    /**
+     * Delete a task from the task list.
+     *
+     * @param taskIndex Index of task.
+     * @throws InvalidTaskIndexException Task index provided is not within task list size.
+     * @throws TaskListEmptyException Task list is empty.
+     */
+    public void deleteTask(int taskIndex) throws InvalidTaskIndexException, TaskListEmptyException {
+        if (!hasTaskIndex(taskIndex)) {
+            throw new InvalidTaskIndexException();
+        } else if (getTotalTasks() == 0) {
+            throw new TaskListEmptyException();
+        }
+
+        this.taskList.remove(taskIndex);
     }
 }

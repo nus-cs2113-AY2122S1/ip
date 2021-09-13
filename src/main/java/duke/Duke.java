@@ -31,6 +31,7 @@ public class Duke {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
     private static final String TIME_SPECIFIER_BY = "/by";
     private static final String TIME_SPECIFIER_AT = "/at";
     private static final String HELP_MESSAGE = "Here are a list of accepted commands:\n" +
@@ -40,6 +41,7 @@ public class Duke {
             COMMAND_TODO + " <description>\n" +
             COMMAND_DEADLINE + " <description> /by <date and time>\n" +
             COMMAND_EVENT + " <description> /at <date and time>\n" +
+            COMMAND_DELETE + " <item no.>" +
             COMMAND_BYE;
 
     private static final TaskManager taskManager = new TaskManager();
@@ -107,7 +109,7 @@ public class Duke {
      * Print message that task index provided is invalid.
      */
     private static void printInvalidTaskIndexError() {
-        blockPrint(new String[]{"Invalid task index. Please mark a valid task as done."});
+        blockPrint(new String[]{"Invalid task index."});
     }
 
     /**
@@ -210,6 +212,31 @@ public class Duke {
     }
 
     /**
+     * Delete a task.
+     *
+     * @param taskPosition Position of task in list.
+     */
+    private static void deleteTask(String taskPosition) {
+        int taskIndex;
+        String taskInfo;
+        try {
+            taskIndex = Integer.parseInt(taskPosition) - 1;
+            taskInfo = taskManager.getTask(taskIndex).toString();
+            taskManager.deleteTask(taskIndex);
+        } catch (NumberFormatException | InvalidTaskIndexException e) {
+            printInvalidTaskIndexError();
+            return;
+        } catch (TaskListEmptyException e) {
+            printTaskListEmptyError();
+            return;
+        }
+
+        blockPrint(new String[]{"Affirmative. I have removed this task:",
+                taskInfo,
+                "You have " + taskManager.getTotalTasks() + " tasks left in the list."});
+    }
+
+    /**
      * Add new todo task.
      *
      * @param splitUserInput String array of each word in user input.
@@ -302,7 +329,16 @@ public class Duke {
         taskListMessage[0] = "Here are the tasks in your list:";
 
         for (int i = 0; i < taskManager.getTotalTasks(); i++) {
-            Task task = taskManager.getTask(i);
+            Task task;
+            try {
+                task = taskManager.getTask(i);
+            } catch (TaskListEmptyException e) {
+                printTaskListEmptyError();
+                return;
+            } catch (InvalidTaskIndexException e) {
+                printInvalidTaskIndexError();
+                return;
+            }
             taskListMessage[i + 1] = (i + 1) + ". " + task.toString();
         }
 
@@ -325,10 +361,19 @@ public class Duke {
             return;
         }
 
-        Task completedTask = taskManager.getTask(taskIndex);
+        Task completedTask;
+        try {
+            completedTask = taskManager.getTask(taskIndex);
+        } catch (TaskListEmptyException e) {
+            printTaskListEmptyError();
+            return;
+        } catch (InvalidTaskIndexException e) {
+            printInvalidTaskIndexError();
+            return;
+        }
+
         blockPrint(new String[]{"Affirmative. I will mark this task as done:",
-                "[" + completedTask.getType() + "][" + completedTask.getStatusIcon() + "] "
-                        + completedTask.getDescription()});
+                completedTask.toString()});
     }
 
     /**
@@ -363,6 +408,9 @@ public class Duke {
             break;
         case COMMAND_EVENT:
             addEvent(splitUserInput);
+            break;
+        case COMMAND_DELETE:
+            deleteTask(splitUserInput[1]);
             break;
         case COMMAND_HELP:
             printHelp();
