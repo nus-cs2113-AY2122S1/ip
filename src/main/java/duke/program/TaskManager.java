@@ -17,6 +17,7 @@ import java.io.FileWriter;
 
 public class TaskManager {
     private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FOLDER_PATH = "./data";
 
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
@@ -249,9 +250,16 @@ public class TaskManager {
         fw.close();
     }
 
-    private void readFileIntoTasks(Task[] tasks) throws FileNotFoundException {
+    private void readFileIntoTasks(Task[] tasks) throws IOException {
+
+        //Todo: Create a new file
 
         File f = new File(FILE_PATH);
+        File folder = new File(FOLDER_PATH);
+
+        folder.mkdir();
+        f.createNewFile();
+
         Scanner s = new Scanner(f);
 
         while (s.hasNext()) {
