@@ -5,6 +5,7 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
+    public final static String FILE_STRING_SEPARATOR = " | ";
 
 
     /**
@@ -50,4 +51,14 @@ public class Task {
         return String.format("[%s] %s", getStatusIcon(), getDescription());
     }
 
+    public String toFile() {
+        String fileString = "";
+        if (isDone) {
+            fileString += "1" + FILE_STRING_SEPARATOR;
+        } else {
+            fileString += "0" + FILE_STRING_SEPARATOR;
+        }
+        fileString += getDescription();
+        return fileString;
+    }
 }

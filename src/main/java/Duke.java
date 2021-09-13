@@ -1,6 +1,8 @@
+import java.io.FileWriter;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -11,8 +13,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static boolean isDukeDone = false;
-    private static Task[] list = new Task[100];
-    private static int listIndexTracker = 0;
+    private static ArrayList<Task> list = new ArrayList<>();
 
     private final static String LINES = "    ____________________________________________________________";
     private final static String TAB = "    ";
@@ -21,10 +22,13 @@ public class Duke {
     private final static String INVALID_GENERAL = TAB + "☹ I'm really sorry... This is an invalid input...";
     private final static String INVALID_DONE = TAB + "I'm sorry... This is an incorrect done input...\n"
             + TAB + "Please use 'list' to see what number can be used...";
+    private final static String INVALID_DELETE = TAB + "Why would you delete a task... Your delete statement is an "
+            + "incorrect input too...";
     private final static String INVALID_TASK = "Your task is really weird... I don't think I like it...";
     private final static String TODO = "todo";
     private final static String DEADLINE = "deadline";
     private final static String EVENT = "event";
+    private final static String FILE_PATH = "./data/tasks.txt";
 
     private final static int DESCRIPTION = 0;
     private final static int DATETIME = 1;
@@ -75,6 +79,8 @@ public class Duke {
             addToList(input, DEADLINE);
         } else if (isValidEventInput(input)) {
             addToList(input, EVENT);
+        } else if (isValidDeleteInput(input)) {
+            handleDeleteInput(input);
         } else {
             throw new InvalidInputException();
         }
@@ -94,18 +100,23 @@ public class Duke {
             switch (taskType) {
             case TODO:
                 getParameters(parameters, input, TODO);
-                list[listIndexTracker] = new Todo(parameters[DESCRIPTION]);
+                Todo todo = new Todo(parameters[DESCRIPTION]);
+                list.add(todo);
+                saveTaskInFile(todo);
                 break;
             case DEADLINE:
                 getParameters(parameters, input, DEADLINE);
-                list[listIndexTracker] = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
+                Deadline deadline = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
+                list.add(deadline);
+                saveTaskInFile(deadline);
                 break;
             case EVENT:
                 getParameters(parameters, input, EVENT);
-                list[listIndexTracker] = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
+                Event event = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
+                list.add(event);
+                saveTaskInFile(event);
                 break;
             }
-            listIndexTracker++;
             printAddedMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(INVALID_TASK);
@@ -119,8 +130,8 @@ public class Duke {
      */
     private static void printAddedMessage() {
         System.out.println(TAB + "Okay... I guess I'll add this task... ");
-        System.out.println(TAB + TAB + list[listIndexTracker - 1]);
-        System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", listIndexTracker));
+        System.out.println(TAB + TAB + list.get(list.size() - 1));
+        System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", list.size()));
     }
 
     /**
@@ -129,16 +140,35 @@ public class Duke {
      * @param input input given by the user.
      */
     private static void handleDoneInput(String input) {
-        int index = getDoneIndex(input);
+        int index = getIndex(input);
         try {
-            list[index].markAsDone();
+            list.get(index).markAsDone();
             System.out.print(TAB + "Nice... I guess I will mark this task as done...:"
                     + System.lineSeparator() + TAB + TAB);
-            System.out.println(list[index]);
-        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(list.get(index));
+            refreshFile();
+        } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_DONE);
-        } catch (NullPointerException e) {
-            System.out.println(INVALID_DONE);
+        }
+    }
+
+    /**
+     * This function handles the delete input by deleting it.
+     *
+     * @param input input given by the user.
+     */
+    private static void handleDeleteInput(String input) {
+        int index = getIndex(input);
+        try {
+            Task temp = list.get(index);
+            list.remove(index);
+            System.out.print(TAB + "Are you sure about this? I'll just delete this anyway..."
+                    + System.lineSeparator() + TAB + TAB);
+            System.out.println(temp);
+            System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", list.size()));
+            refreshFile();
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println(INVALID_DELETE);
         }
     }
 
@@ -146,9 +176,9 @@ public class Duke {
      * This function prints the individual elements in list.
      */
     private static void printList() {
-        for (int i = 0; i < listIndexTracker; i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.format(TAB + "% 3d.", i + 1);
-            System.out.println(list[i]);
+            System.out.println(list.get(i));
         }
     }
 
@@ -170,12 +200,22 @@ public class Duke {
     }
 
     /**
-     * This function retrieves the index given in done statement.
+     * This function check if done statement and index in delete statement is valid.
      *
      * @param input input given by the user.
-     * @return returns the index given in done statement
+     * @return returns the validity of the delete input.
      */
-    private static int getDoneIndex(String input) {
+    private static boolean isValidDeleteInput(String input) {
+        return Pattern.matches("^delete \\d+$", input.toLowerCase());
+    }
+
+    /**
+     * This function retrieves the index given in done/delete statement.
+     *
+     * @param input input given by the user.
+     * @return returns the index given in done/delete statement
+     */
+    private static int getIndex(String input) {
         String[] parts = input.split(" ");
         return Integer.parseInt(parts[1]) - 1;
     }
@@ -271,7 +311,6 @@ public class Duke {
          */
         String text = "█▀ ▄▀█ █▀▄ █▀▀ █▀▀   █▀▄ █░█ █▄▀ █▀▀\n"
                 + "▄█ █▀█ █▄▀ █▄█ ██▄   █▄▀ █▄█ █░█ ██▄";
-
         System.out.println("Hello from\n" + sadge + text);
         System.out.println(LINES);
         System.out.println(GREETING);
@@ -282,7 +321,7 @@ public class Duke {
      * This function adds saved tasks to list.
      */
     private static void readSavedTasks() {
-        File dataFile = new File("data/tasks.txt");
+        File dataFile = new File(FILE_PATH);
         try {
             Scanner lineScanner = new Scanner(dataFile);
             while (lineScanner.hasNext()) {
@@ -295,9 +334,55 @@ public class Duke {
     }
 
     private static void AddLineTask(String line) {
-        String[] lineContents = line.split(" | ");
-        if (lineContents[TASK_TYPE_INDEX].equals("T")) {
-            Todo task = new Todo(lineContents[TASK_INDEX]);
+        String[] lineContents = line.split(" \\| ");
+        switch (lineContents[TASK_TYPE_INDEX]) {
+        case "T":
+            Todo todo = new Todo(lineContents[TASK_INDEX]);
+            list.add(todo);
+            break;
+        case "D":
+            Deadline deadline = new Deadline(lineContents[TASK_INDEX], lineContents[BY_AT_INDEX]);
+            list.add(deadline);
+            break;
+        case "E":
+            Event event = new Event(lineContents[TASK_INDEX], lineContents[BY_AT_INDEX]);
+            list.add(event);
+            break;
+        }
+        if (lineContents[IS_DONE_INDEX].equals("1")) {
+            list.get(list.size() - 1).markAsDone();
+        }
+    }
+
+    private static void refreshFile() {
+        try {
+            FileWriter file = new FileWriter(FILE_PATH);
+            for (Task task : list) {
+                file.write(task.toFile());
+            }
+            file.close();
+        } catch (java.io.IOException e) {
+            System.out.println("Unable to write to file...");
+        }
+    }
+
+    private static void createFile() {
+        try {
+            File newFile = new File(FILE_PATH);
+            newFile.getParentFile().mkdirs();
+            newFile.createNewFile();
+        } catch (java.io.IOException e) {
+            System.out.println("Unable to create file...");
+        }
+    }
+
+    private static void saveTaskInFile(Task task) {
+        try {
+            FileWriter file = new FileWriter(FILE_PATH, true);
+            file.write(task.toFile());
+            file.close();
+        } catch (java.io.IOException e) {
+            System.out.println("Unable to write to file...");
         }
     }
 }
