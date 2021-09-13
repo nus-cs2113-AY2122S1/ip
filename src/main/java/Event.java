@@ -13,6 +13,22 @@ public class Event extends Task {
         this.by = by;
     }
 
+    public String getBy() {
+        return by;
+    }
+
+    @Override
+    public String saveToFile() {
+        String printStatus;
+        // return format
+        if(this.isDone == true) {
+            printStatus = "1";
+        } else {
+            printStatus = "0";
+        }
+        return "E " + printStatus + " " + description + " | " + by;
+    }
+
     @Override
     public String toString() {
         return "  [E]" + super.toString() + " (at: " + by + ")";

@@ -15,6 +15,19 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String saveToFile() {
+        // return format
+        String printStatus;
+        // return format
+        if(this.isDone == true) {
+            printStatus = "1";
+        } else {
+            printStatus = "0";
+        }
+        return "D " + printStatus + " " + description + " | " + by;
+    }
+
+    @Override
     public String toString() {
         return "  [D]" + super.toString() + " (by: " + by + ")";
     }
