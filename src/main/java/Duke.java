@@ -19,9 +19,8 @@ public class Duke {
     private static ArrayList<Task> list = new ArrayList<Task>();
 
     public static void initList() {
-        String filePath = FILEPATH;
         try {
-            File file = new File(filePath);
+            File file = new File(FILEPATH);
             Scanner s = new Scanner(file); // create a Scanner using the File as the source
             while (s.hasNext()) {
                 String input = s.nextLine();
@@ -52,20 +51,17 @@ public class Duke {
             s.close();
         } catch (FileNotFoundException e) {
             System.out.println(LINE + "\nFile not found\n" + LINE);
-        } catch (DukeException e) {
-            System.out.println(LINE + "\nInput format within file is wrong!\n" + LINE);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (DukeException | ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE + "\nInput format within file is wrong!\n" + LINE);
         }
     }
 
     private static void appendToFile(String textToAppend) throws IOException {
-        String filePath = FILEPATH;
         File file = new File(FILEPATH);
         if (file.length() != 0) {
             textToAppend = System.lineSeparator() + textToAppend;
         }
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(FILEPATH, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
@@ -73,19 +69,19 @@ public class Duke {
     private static void updateFile() {
         try {
             clearFile();
-            for (int i = 0; i < list.size(); i += 1) {
+            for (Task task : list) {
                 String textToAppend = "";
-                if (list.get(i) instanceof Todo) {
-                    String isDone = list.get(i).isDone() ? "1" : "0";
-                    textToAppend = "T / " + isDone + " / " + list.get(i).getName();
-                } else if (list.get(i) instanceof Deadline) {
-                    Deadline deadline = (Deadline) list.get(i);
+                if (task instanceof Todo) {
+                    String isDone = task.isDone() ? "1" : "0";
+                    textToAppend = "T / " + isDone + " / " + task.getName();
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
                     String isDone = deadline.isDone() ? "1" : "0";
                     textToAppend = "D / " + isDone + " / " + deadline.getName() + " / " + deadline.getDeadline();
-                } else if (list.get(i) instanceof Event) {
-                Event event = (Event) list.get(i);
-                String isDone = event.isDone() ? "1" : "0";
-                textToAppend = "E / " + isDone + " / " + event.getName() + " / " + event.getAt();
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    String isDone = event.isDone() ? "1" : "0";
+                    textToAppend = "E / " + isDone + " / " + event.getName() + " / " + event.getAt();
                 }
                 appendToFile(textToAppend);
             }
@@ -95,8 +91,7 @@ public class Duke {
     }
 
     private static void clearFile() throws IOException {
-        String filePath = FILEPATH;
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(FILEPATH);
         fw.write("");
         fw.close();
     }
@@ -127,10 +122,8 @@ public class Duke {
             } else {
                 System.out.println("That task does not exist!\n" + LINE);
             }
-        } catch(NumberFormatException e) {
-            System.out.println(LINE + "\nPlease enter a number after \'done\'!\n" + LINE);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE + "\nPlease enter a number after \'done\'!\n" + LINE);
+        } catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println(LINE + "\nPlease enter a number after 'done'!\n" + LINE);
         }
     }
 
@@ -145,10 +138,8 @@ public class Duke {
             } else {
                 System.out.println("That task does not exist!\n" + LINE);
             }
-        } catch(NumberFormatException e) {
-            System.out.println(LINE + "\nPlease enter a number after \'done\'!\n" + LINE);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE + "\nPlease enter a number after \'done\'!\n" + LINE);
+        } catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println(LINE + "\nPlease enter a number after 'done'!\n" + LINE);
         }
     }
 
@@ -232,7 +223,7 @@ public class Duke {
 
     public static void main(String[] args) { 
         System.out.println(LINE + "\n Hello! I'm Duke\n What can I do for you?\n" + LINE);
-        Boolean isCompleted = false;
+        boolean isCompleted = false;
         initList();
         while (!isCompleted) {
             Scanner in = new Scanner(System.in);
