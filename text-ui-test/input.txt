@@ -13,4 +13,8 @@ done 1
 done 2
 done 4
 list
+delete 5
+delete
+delete 2
+list
 bye
