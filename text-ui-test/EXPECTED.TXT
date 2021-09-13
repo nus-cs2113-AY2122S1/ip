@@ -36,15 +36,12 @@
        [T][X] clean toilet
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
-      [ ] return book
-     Now you have 4 tasks in the list.
+     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
      1.[D][X] do homework (by: Sunday 2359)
      2.[E][X] carnival in the morning (at: Saturday 8am)
      3.[T][X] clean toilet
-     4.[ ] return book
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to see you again soon!
