@@ -178,7 +178,7 @@ public class Duke {
                 undoDone(line, tasks);
             }
         } catch (NumberFormatException invalidTaskNumber) {
-            System.out.println("Indicate the task you'd like to do or undo!");
+            System.out.println("Indicate the task number you'd like to do or undo!");
         } catch (InvalidDoOrUndoException e) {
             System.out.println(e.getMessage());
             printHorizontalLine();
@@ -189,34 +189,45 @@ public class Duke {
         }
     }
 
-    public static void inputDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
-        int dividePos = line.indexOf(" ");
-        int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
-        Task t = tasks[taskNumber];
-        if (t.isDone) {
-            printHorizontalLine();
-            throw new InvalidDoOrUndoException("This task has already been done, complete something else!");
-        }
-        t.markAsDone();
+    public static int getTaskNumber(String line) {
+        int dividePosition = line.indexOf(" ");
+        return Integer.parseInt(line.trim().substring(dividePosition + 1));
+    }
+
+    public static void printDoneTask(Task t) {
         printHorizontalLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(t);
         printHorizontalLine();
     }
 
+    public static void printUndoneTask(Task t) {
+        printHorizontalLine();
+        System.out.println("I've undone this task for you:");
+        System.out.println(t);
+        printHorizontalLine();
+    }
+
+    public static void inputDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
+        int taskNumber = getTaskNumber(line);
+        Task t = tasks[taskNumber];
+        if (t.isDone) {
+            printHorizontalLine();
+            throw new InvalidDoOrUndoException("This task has already been done, complete something else!");
+        }
+        t.markAsDone();
+        printDoneTask(t);
+    }
+
     public static void undoDone(String line, Task[] tasks) throws InvalidDoOrUndoException {
-        int dividePos = line.indexOf(" ");
-        int taskNumber = Integer.parseInt(line.trim().substring(dividePos + 1));
+        int taskNumber = getTaskNumber(line);
         Task t = tasks[taskNumber];
         if (!t.isDone) {
             printHorizontalLine();
             throw new InvalidDoOrUndoException("This task has not been done yet!");
         }
         t.markAsNotDone();
-        printHorizontalLine();
-        System.out.println("I've undone this task for you:");
-        System.out.println(t);
-        printHorizontalLine();
+        printUndoneTask(t);
     }
 
 
