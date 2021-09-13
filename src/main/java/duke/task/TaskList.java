@@ -33,6 +33,14 @@ public class TaskList {
         PrintUtils.printHorizontalLine();
     }
 
+    public void addTaskWithoutMessage(Task task) throws DukeException {
+        if (task.getDescription().equals("")) {
+            throw new DukeException(ExceptionMessages.EXCEPTION_NO_DESCRIPTION);
+        }
+        taskList[taskNumber] = task;
+        taskNumber++;
+    }
+
     private void printAddTaskSuccessMessage() {
         System.out.println(MESSAGE_TASK_ADDED_SUCCESSFULLY);
         PrintUtils.printSpacing();
@@ -81,5 +89,26 @@ public class TaskList {
             System.out.println((i + 1) + ". " + taskList[i]);
         }
         PrintUtils.printHorizontalLine();
+    }
+
+    public String toFile() {
+        StringBuilder fileContent = new StringBuilder();
+        for (int i = 0; i < taskNumber; i++) {
+            if (taskList[i] instanceof Todo) {
+                fileContent.append("T|").append(taskList[i].isDone ? '1' : '0').append('|').append(taskList[i].description);
+            } else if (taskList[i] instanceof Deadline) {
+                fileContent.append("D|").append(taskList[i].isDone ? '1' : '0').append('|').append(taskList[i].description)
+                        .append('|').append(((Deadline) taskList[i]).getBy());
+            } else if (taskList[i] instanceof Event) {
+                fileContent.append("E|").append(taskList[i].isDone ? '1' : '0').append('|').append(taskList[i].description)
+                        .append('|').append(((Event) taskList[i]).getAt());
+            }
+            //skip iteration for last task
+            if (i == taskNumber - 1) {
+                continue;
+            }
+            fileContent.append(System.lineSeparator());
+        }
+        return fileContent.toString();
     }
 }

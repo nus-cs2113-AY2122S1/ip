@@ -79,6 +79,7 @@ public class Duke {
     }
 
     private static void exitProgram() {
+        FileManager.writeTaskListToFile(task);
         PrintUtils.printHorizontalLine();
         System.out.println(MESSAGE_EXIT_APPLICATION);
         PrintUtils.printHorizontalLine();
@@ -174,6 +175,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         System.out.println(MESSAGE_START_APPLICATION);
         PrintUtils.printHorizontalLine();
+        task = FileManager.loadTaskListFromFile();
         while (true) {
             line = in.nextLine();
             try {
