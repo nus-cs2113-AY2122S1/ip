@@ -1,17 +1,33 @@
 package duke;
 
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     private static final String WAVING_EMOJI = "\uD83D\uDC4B";
     private static final String SMILEY_EMOJI = "\uD83D\uDE04";
 
-    public static TasksList tasks = new TasksList();
+    private static final TasksList tasks = new TasksList();
 
     public static void main(String[] args) {
         String rawInput;
         Scanner scanner = new Scanner(System.in);
         DukeCommand dukeCommand;
+
+        try {  // Initialize ./data/duke.txt to store tasks
+            tasks.initDataStore();
+        } catch (IOException e) {
+            System.out.println("\t☹ Directory does not exist, error in loading data store.\n" +
+                    "Please check if ./data/duke.txt exists.");
+        }
+        try {  // Load all tasks stored in ./data/duke.txt
+            tasks.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("\t☹ File is not found.");
+        } catch (DukeException e) {
+            System.out.println("\t☹ Invalid file type in data store.");
+        }
 
         printWelcomeBanner();
 
@@ -20,7 +36,7 @@ public class Duke {
             try {
                 dukeCommand = getDukeCommand(rawInput);
             } catch (DukeException e) {
-                System.out.println("\t☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
                 printHorizontalLine();
                 rawInput = scanner.nextLine();
                 continue;
@@ -48,6 +64,14 @@ public class Duke {
             default:
                 System.out.println("Invalid command issued!");
             }
+
+            try {  // Update ./data/duke.txt so that all tasks are stored
+                tasks.saveTasks();
+            } catch (IOException e) {
+                System.out.println("\t☹ Directory does not exist, error in loading data store.\n" +
+                        "Please check if ./data/duke.txt exists.");
+            }
+
             printHorizontalLine();
             rawInput = scanner.nextLine();
         }

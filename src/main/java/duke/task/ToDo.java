@@ -8,8 +8,16 @@ public class ToDo extends Task{
         this.icon = "T";
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString();
+        return "[" + getIcon() + "]" + super.toString();
+    }
+
+    public String formatForDataStore() {
+        return "T|" + ((getIsDone()) ? 1 : 0) + "|" + getDescription() + "\n";
     }
 }

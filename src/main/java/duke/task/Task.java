@@ -1,8 +1,9 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String icon;
 
     public Task(String description) {
         this.description = description;
@@ -15,7 +16,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (getIsDone() ? "X" : " ");
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     public String getDescription() {
@@ -25,4 +30,6 @@ public class Task {
     public void markAsDone() {
         isDone = true;
     }
+
+    public abstract String formatForDataStore();
 }

@@ -12,6 +12,18 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + icon + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + getIcon() + "]" + super.toString() + " (by: " + getBy() + ")";
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String formatForDataStore() {
+        return "D|" + ((getIsDone()) ? 1 : 0) + "|" + getDescription() + "|" + getBy() + "\n";
     }
 }
