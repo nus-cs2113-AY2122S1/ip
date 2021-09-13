@@ -17,6 +17,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getSaveFormat() {
+        return String.format("%s | %s | %s | %s", "D", status? "1":"0", description, time);
+    }
+
+    @Override
     public String getTime() {
         return time;
     }

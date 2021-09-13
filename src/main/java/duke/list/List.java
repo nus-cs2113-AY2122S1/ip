@@ -28,8 +28,8 @@ public class List {
         if (showMessage) {
             MessageBubble msg = new MessageBubble();
             msg.addMessage("Got it. I've added this task:");
-            msg.addMessage(String.format(" %d:%s", numOfListItems, task.toString()));
-            msg.addMessage("Now you have " + numOfListItems + " tasks in the list.");
+            msg.addMessage(String.format(" %d:%s", items.size(), task.toString()));
+            msg.addMessage("Now you have " + items.size() + " tasks in the list.");
             msg.printMessageBubble();
         }
     }
@@ -75,7 +75,8 @@ public class List {
     }
 
     public void printList() {
-        // TODO: 2021/9/9 print empty list 
+        // TODO: 2021/9/9 print empty list
+
         MessageBubble msg = new MessageBubble();
         msg.addMessage("Here are the tasks in your list:");
         for (int i = 0; i < items.size(); i++) {
@@ -84,16 +85,11 @@ public class List {
         msg.printMessageBubble();
     }
 
-    // TODO: 2021/9/13 correct format
     public String printListSimple() {
         String result = "";
-
-        ListItem temp = headItem;
-        for (int i = 1; i <= numOfListItems; i++) {
-            result.concat(String.format(" %d:%s", i, temp.getItem().toString()));
-            temp = temp.getNext();
+        for (Task item : items) {
+            result = result.concat(item.getSaveFormat() + "\n");
         }
-
         return result;
     }
 }

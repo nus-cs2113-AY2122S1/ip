@@ -2,6 +2,7 @@ package duke.list;
 
 import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
+import duke.file.Storage;
 import duke.messages.MessageBubble;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -20,7 +21,6 @@ public class ListInterface {
 
         while (true) {
             String command = input.nextLine();
-
             if (command.startsWith("event")) {
                 try {
                     taskList.addItem(parseEvent(command));
@@ -76,6 +76,8 @@ public class ListInterface {
                 MessageBubble.printMessageBubble("Oops! I'm sorry, but I don't know what that means :-(");
             }
 
+            // save file after each command
+            Storage.saveFile(taskList);
         }
 
         MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
@@ -103,14 +105,7 @@ public class ListInterface {
     }
 
     private static int parseDoneIndex(String command) throws EmptyField, IllegalOperation {
-        String CMD_DESCRIPTION = "done";
-
-        if (!command.startsWith(CMD_DESCRIPTION)) {
-            throw new EmptyField();
-        }
-
-        int indexOfDESC = command.indexOf(CMD_DESCRIPTION) + CMD_DESCRIPTION.length() + 1;
-        String description = command.substring(indexOfDESC);
+        String description = command.split(" ")[1];
 
         if (description.isBlank()) {
             throw new EmptyField();

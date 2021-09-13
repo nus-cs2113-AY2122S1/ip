@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    static String STORAGEPATH = "/data/duke.txt";
+    static String STORAGE_PATH = "data/dukeData.txt";
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -25,18 +25,17 @@ public class Storage {
 
     public static List loadFile() {
         try {
-            File f = new File(STORAGEPATH); // create a File for the given file path
+            File f = new File(STORAGE_PATH); // create a File for the given file path
             if (!f.exists()) {
-                writeToFile(STORAGEPATH, "");
+                f.createNewFile();
             }
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             List data = new List();
             while (s.hasNext()) {
                 String temp = s.nextLine();
-                String[] divided = temp.split(" | ");
-                String taskDescription = divided[1];
-                boolean isDone = divided[2] == "1";
-
+                String[] divided = temp.split(" \\| ");
+                boolean isDone = divided[1].equals("1");
+                String taskDescription = divided[2];
                 switch (divided[0]){
                 case "T":
                     data.addItem(new Todo(taskDescription, isDone), false);
@@ -54,14 +53,17 @@ public class Storage {
             }
             return data;
         } catch (IOException | EmptyField | IllegalOperation e) {
-            MessageBubble.printMessageBubble("Failed to read local data.");
+            MessageBubble.printMessageBubble("Warning! No local data loaded.");
             return new List();
         }
     }
 
     public static void saveFile(List data) {
-
-
+        try {
+            writeToFile(STORAGE_PATH, data.printListSimple());
+        } catch (IOException e) {
+            MessageBubble.printMessageBubble(e.getMessage() + "Error saving data.");
+        }
     }
 
     private static void printFileContents(String filePath) throws FileNotFoundException {

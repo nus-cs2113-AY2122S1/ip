@@ -14,6 +14,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String getSaveFormat() {
+        return String.format("%s | %s | %s", "T", status? "1":"0", description);
+    }
+
+    @Override
     public String getTime() throws IllegalOperation {
         throw new IllegalOperation();
     }
