@@ -3,6 +3,8 @@
 /out/
 /*.iml
 
+/src/main/java/META-INF/MANIFEST.MF
+
 # Gradle build files
 /.gradle/
 /build/
