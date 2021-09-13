@@ -3,6 +3,7 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
+import kitty.io.IO;
 
 public class Event extends Task{
     protected String eventDate;
@@ -10,6 +11,11 @@ public class Event extends Task{
     public Event(String taskName, String eventDate) {
         super(taskName);
         this.eventDate = eventDate;
+    }
+
+    //Getter
+    public String getEventDate() {
+        return eventDate;
     }
 
     // Methods

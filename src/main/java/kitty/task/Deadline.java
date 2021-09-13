@@ -3,15 +3,23 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
+import kitty.io.IO;
 
 public class Deadline extends Task{
     protected String deadline;
 
+    // Constructor
     public Deadline(String taskName, String deadline) {
         super(taskName);
         this.deadline = deadline;
     }
 
+    //Getter
+    public String getDeadline() {
+        return deadline;
+    }
+
+    // Methods
     public static void addDeadlineTask(String line) throws KittyException {
         if (!Parser.hasDeadline(line)) {
             throw new KittyException("Deadline formatting is incorrect!");

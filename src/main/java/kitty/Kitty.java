@@ -1,5 +1,6 @@
 package kitty;
 
+import kitty.io.IO;
 import kitty.task.Task;
 import kitty.userinterface.Ui;
 import kitty.userinterface.UiHandler;
@@ -9,6 +10,16 @@ public class Kitty {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        // Initialise Data
+        try {
+            IO.initData();
+            IO.clearFile();
+        } catch (KittyException e) {
+            Ui.printErrorMessage();
+            Ui.exit();
+        }
+
+        // Start App
         Ui.greet();
         UiHandler.startApp();
     }
