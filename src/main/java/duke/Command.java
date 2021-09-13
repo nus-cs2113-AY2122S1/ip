@@ -19,8 +19,8 @@ public class Command {
     }
 
     public static void executeDone(String input, ArrayList<Task> taskList) {
-        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             taskList.get(taskIndex).setDone();
             Messages.printDivider();
             System.out.println("Nice I've marked this task as done:");
@@ -29,6 +29,10 @@ public class Command {
         } catch (IndexOutOfBoundsException e) {
             Messages.printDivider();
             System.out.println("No such task exists");
+            Messages.printDivider();
+        } catch (NumberFormatException e) {
+            Messages.printDivider();
+            System.out.println("Invalid command");
             Messages.printDivider();
         }
     }
@@ -57,6 +61,27 @@ public class Command {
         System.out.println(taskList.get(taskCount - 1));
         System.out.println("You now have " + taskCount + " items in the list.");
         Messages.printDivider();
+    }
+
+    public static void executeDelete(String input, ArrayList<Task> taskList) {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            taskList.get(taskIndex); //Throw exception early
+            Messages.printDivider();
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println(taskList.get(taskIndex));
+            taskList.remove(taskIndex);
+            System.out.println("You now have " + taskList.size() + " items in the list.");
+            Messages.printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            Messages.printDivider();
+            System.out.println("No such task exists");
+            Messages.printDivider();
+        } catch (NumberFormatException e) {
+            Messages.printDivider();
+            System.out.println("Invalid command");
+            Messages.printDivider();
+        }
     }
 
 }
