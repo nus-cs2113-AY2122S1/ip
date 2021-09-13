@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 public class Duke {
 
-    private static final String FILEPATH = "C:\\Users\\User\\Documents\\NUS\\CS2113T\\IP\\ip\\data\\duke.txt";
+    private static final String FILEPATH = "ip/data/duke.txt";
     private static final int TODO_NAME_CONSTANT = 5;
     private static final int DEADLINE_NAME_CONSTANT = 9;
     private static final int DEADLINE_BY_CONSTANT = 5;
