@@ -47,9 +47,20 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+        System.out.println("    ____________________________________________________________");
         System.out.println("    Nice! I've marked this task as done: ");
         System.out.print("     ");
         this.printStatus();
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public void deletedSuccessfully(int numberOfTasksLeft) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've removed this task: ");
+        System.out.print("     ");
+        this.printStatus();
+        System.out.println("     " + "Now you have " + numberOfTasksLeft + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
     }
 
     @Override

@@ -1,6 +1,6 @@
 t-/-1-/-read book
 d-/-1-/-return book -/-/byJune 6th
-e-/-0-/-project meeting -/-/atAug 6th 2-4pm
+e-/-1-/-project meeting -/-/atAug 6th 2-4pm
 t-/-1-/-join sports club
 t-/-0-/-joemama
 e-/-1-/-githubbing -/-/attonite 8pm

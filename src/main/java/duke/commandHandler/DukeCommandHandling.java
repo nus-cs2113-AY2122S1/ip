@@ -57,6 +57,18 @@ public class DukeCommandHandling {
     }
 
     /**
+     * Check if the command is "delete"
+     *
+     * @return a boolean of true or false regarding the check.
+     */
+    public boolean isDelete() {
+        if (commandString.split(" ")[0].equals("delete")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Check if the command is "todo"
      *
      * @return a boolean of true or false regarding the check.

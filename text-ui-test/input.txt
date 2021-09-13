@@ -18,4 +18,9 @@ deadline /by 15Aug
 event /at
 event anime /at
 event /at 6pm
+delete 2
+list
+delete
+delete 10
+delete 0
 bye
