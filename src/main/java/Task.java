@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Task {
     protected String description;
     protected String taskType;
@@ -28,4 +31,8 @@ public class Task {
         return eventDate;
     }
 
+    @Override
+    public String toString() {
+        return ("[" + taskType + "]" + "[" + getStatusIcon() + "] " + description);
+    }
 }

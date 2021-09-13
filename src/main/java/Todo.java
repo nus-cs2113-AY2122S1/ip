@@ -8,4 +8,9 @@ public class Todo extends Task {
     public String getType() {
         return "T";
     }
+
+    @Override
+    public String toString() {
+        return ("[T]" + "[" + getStatusIcon() + "] " + description);
+    }
 }
