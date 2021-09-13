@@ -1,9 +1,15 @@
 package duke;
 
+import duke.file.FileManager;
 import duke.task.Task;
 import duke.task.TaskManager;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 public class Duke {
     // Line width
@@ -18,8 +24,15 @@ public class Duke {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DELETE = "delete";
 
+    private static final String root = System.getProperty("user.dir");
+    private static final Path filePath = Paths.get(root, "src", "main", "status", "status.txt");
+    private static final Path directoryPath = Paths.get(root, "src", "main", "status");
+
     // Task manager
-    private static TaskManager taskManager = new TaskManager();
+    private static final TaskManager taskManager = new TaskManager();
+
+    // File manager
+    private static final FileManager fileManager = new FileManager(filePath.toString(), directoryPath.toString());
 
     // Print horizontal line for improving readability
     private static void printHorizontalLine() {
@@ -83,6 +96,13 @@ public class Duke {
     private static void printInvalidTaskNumber() {
         String message = "Task ID does not exist!";
         System.out.println(message);
+    }
+
+    private static void printSavedTasks() {
+        printHorizontalLine();
+        System.out.println("Current tasks successfully saved at: " +
+                System.lineSeparator() + filePath.toString());
+        printHorizontalLine();
     }
 
     private static void executeList() {
@@ -194,7 +214,33 @@ public class Duke {
         }
     }
 
+    private static void saveDuke() {
+        try {
+            fileManager.saveDukeStatus(taskManager);
+        } catch (IOException e) {
+            System.out.println("File write error");
+        }
+        printSavedTasks();
+    }
+
+    private static void initialiseDuke() {
+        fileManager.createDirectory();
+        try {
+            fileManager.createFile();
+        } catch (IOException e) {
+            System.out.println("An error has occurred");
+        }
+        try {
+            fileManager.initialiseDukeStatus(taskManager);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("File error!");
+        }
+    }
+
     public static void main(String[] args) {
+        initialiseDuke();
         printGreeting();
         String line;
         Scanner in = new Scanner(System.in);
@@ -216,5 +262,6 @@ public class Duke {
             printHorizontalLine();
             System.out.print(System.lineSeparator());
         } while (!line.equals(COMMAND_BYE));
+        saveDuke();
     }
 }
