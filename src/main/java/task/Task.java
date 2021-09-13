@@ -1,3 +1,4 @@
+package task;
 
 public abstract class Task {
 
@@ -27,7 +28,7 @@ public abstract class Task {
     }
 
     public String toString() {
-        return getName();
+        return String.format("[%s][%s] %s", getTypeIcon(), getStatusIcon(), name);
     }
 
     public abstract String getTypeIcon();

@@ -1,3 +1,5 @@
+package parser;
+
 import java.util.*;
 
 public class Parser {
@@ -13,25 +15,26 @@ public class Parser {
         } else {
             String actionString;
             try{
-                actionString = translateUserAction(actionArg);
+                action = translateUserAction(actionArg);
             }catch(IllegalArgumentException e){
                 throw new IllegalArgumentException(e.getMessage());
             }
 
-            action = Action.valueOf(actionString);
             String[] remainingArgs = Arrays.copyOfRange(args, 1, args.length);
 
+            /* Assume that each action only takes 1 main argument => user can specify as many flags they want,
+            but the unsupported ones will be ignored */
             String mainArgs = parseFlagArguments(remainingArgs, params);
+
+            if(mainArgs == null)
+                throw new IllegalArgumentException("Index not specified");
 
             switch(action) {
             case DO_TASK:
-                if(mainArgs == null)
-                    throw new IllegalArgumentException("Index not specified");
+            case DELETE_TASK:
                 params.put("index", mainArgs);
                 break;
             case ADD_TASK:
-                if(mainArgs == null)
-                    throw new IllegalArgumentException("Task not specified");
                 params.put("type", actionArg);
                 params.put("task", mainArgs);
                 break;
@@ -43,6 +46,7 @@ public class Parser {
         return new Command(action, params);
     }
 
+    //In the future, this will allow multiple flags to be used
     private static String parseFlagArguments(String[] args, HashMap<String, String> flagParams) {
         String mainArgument = "";
         int i = 0;
@@ -100,20 +104,23 @@ public class Parser {
         return s.startsWith("/");
     }
 
-    private static String translateUserAction(String actionString) throws IllegalArgumentException{
+    //Translates user action word into an enumerated value, which will define how the params are stored in the parser.Command object
+    private static Action translateUserAction(String actionString) throws IllegalArgumentException{
         switch(actionString) {
             case "done":
-                return "DO_TASK";
+                return Action.DO_TASK;
             case "list":
-                return "LIST";
+                return Action.LIST;
             case "bye":
-                return "BYE";
+                return Action.BYE;
             case "todo":
             case "deadline":
             case "event":
-                return "ADD_TASK";
+                return Action.ADD_TASK;
+            case "delete":
+                return Action.DELETE_TASK;
             default:
-                throw new IllegalArgumentException("Invalid command");
+                throw new IllegalArgumentException("Invalid action");
         }
     }
 }
