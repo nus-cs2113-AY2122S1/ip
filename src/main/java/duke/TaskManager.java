@@ -13,6 +13,7 @@ public class TaskManager {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
 
     private static final String SEPARATOR_SPACE = " ";
     private static final String SEPARATOR_BY = " /by ";
@@ -49,7 +50,13 @@ public class TaskManager {
                 int taskDoneNumber = Integer.parseInt(inputs[1]);
 
                 setTaskDoneWithException(taskDoneNumber - 1);
-            } else {
+            } else if (userInput.startsWith(COMMAND_DELETE)) {
+                String[] inputs = userInput.split(SEPARATOR_SPACE);
+                int taskDeleteNumber = Integer.parseInt(inputs[1]);
+
+                deleteTaskWithException(taskDeleteNumber - 1);
+            }
+            else {
                 try {
                     addTask(userInput);
                 } catch (WrongCommandException e) {
@@ -60,6 +67,29 @@ public class TaskManager {
 
             }
         }
+    }
+
+    private void deleteTask(int taskIndex) throws IndexTooSmallException, IndexTooBigException {
+        if(taskIndex < 0) {
+            throw new IndexTooSmallException();
+        }
+        if(taskIndex > getTasksSize() - 1){
+            throw new IndexTooBigException();
+        }
+
+        printDeleteTaskMessage(taskIndex);
+        tasks.remove(taskIndex);
+    }
+
+    private void deleteTaskWithException(int taskIndex) {
+        try {
+            deleteTask(taskIndex);
+        } catch (IndexTooSmallException e) {
+            printTaskIndexTooSmallMessage();
+        } catch (IndexTooBigException e) {
+            printTaskIndexTooBigMessage();
+        }
+
     }
 
     private void addTask(String taskInput) throws WrongCommandException {
@@ -212,6 +242,16 @@ public class TaskManager {
         printHorizontalLine();
         System.out.println("     Nice! I've marked this task as done:");
         System.out.println("       " + tasks.get(taskIndex));
+        printHorizontalLine();
+    }
+
+    private void printDeleteTaskMessage(int taskIndex) {
+        printHorizontalLine();
+        System.out.println("     Noted. I've removed this task: ");
+        System.out.println("       " + tasks.get(taskIndex));
+        System.out.println("     Now you have " + (getTasksSize() - 1)
+                + (getTasksSize() - 1 <= 1? " task" : " tasks")
+                + " in the list.");
         printHorizontalLine();
     }
 
