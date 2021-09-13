@@ -166,7 +166,7 @@ public class Duke {
             System.out.println(temp);
             System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", list.size()));
             refreshFile();
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_DELETE);
         }
     }
