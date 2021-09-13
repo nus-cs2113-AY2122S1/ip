@@ -19,8 +19,9 @@ public class TaskManager {
     private int numTasks;
     private int numComplete;
 
-    private final String ADD_TASK_VALID_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
+    private final String ADD_TASK_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
     private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done [\u2705]:";
+    private final String DELETE_TASK_MSG = "Blaargh! I've deleted this task from the list [\uD83D\uDCDD]:";
     private final String PRINT_TASKLIST_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
 
     public TaskManager() {
@@ -102,6 +103,18 @@ public class TaskManager {
 
     }
 
+    public void deleteTask(String taskIndex) {
+
+        int taskID = Integer.parseInt(taskIndex);
+        taskID = taskID - 1;
+
+        printDeleteTaskMsg(tasks.get(taskID).getTaskDescription());
+        tasks.remove(taskID);
+        numTasks -= 1;
+        printNumTasksInList(numTasks);
+
+    }
+
     public void getTasklist() throws EmptyTasklistException {
 
         if (tasks.size() == 0) {
@@ -125,13 +138,19 @@ public class TaskManager {
 
     public void printAddTaskMsg(String taskDescription) {
         dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(ADD_TASK_VALID_MSG);
+        dukeUI.printMsgWithCursor(ADD_TASK_MSG);
         dukeUI.printWithPadding(taskDescription);
     }
 
     public void printSetTaskCompleteMsg(String taskDescription) {
         dukeUI.printDukeName();
         dukeUI.printMsgWithCursor(SET_TASK_COMPLETE_MSG);
+        dukeUI.printWithPadding(taskDescription);
+    }
+
+    public void printDeleteTaskMsg(String taskDescription) {
+        dukeUI.printDukeName();
+        dukeUI.printMsgWithCursor(DELETE_TASK_MSG);
         dukeUI.printWithPadding(taskDescription);
     }
 

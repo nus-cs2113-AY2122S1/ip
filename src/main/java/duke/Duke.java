@@ -28,6 +28,7 @@ public class Duke {
     private final String ADD_DEADLINE_CMD = "deadline";
     private final String ADD_EVENT_CMD = "event";
     private final String SET_TASK_DONE_CMD = "done";
+    private final String DELETE_TASK_CMD = "delete";
     private final String TERMINATE_CMD = "bye";
 
     public Duke() {
@@ -97,6 +98,9 @@ public class Duke {
             } catch (TaskAlreadyDoneException e) {
                 System.out.println(e);
             }
+            break;
+        case DELETE_TASK_CMD:
+            taskMgr.deleteTask(cmdArgument);
             break;
         default:
             throw new InvalidCommandException();
