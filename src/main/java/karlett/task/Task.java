@@ -16,6 +16,17 @@ public class Task {
         printNewTaskAddedMessage();
     }
 
+    protected void printNewTaskAddedMessage() {
+        drawDivider();
+        System.out.println("Karlett now remembers:\n" + "  " + this);
+        if (numberOfTasks == 1) {
+            System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
+        } else {
+            System.out.println("You have " + numberOfTasks + " tasks in the list now meow (((;꒪ꈊ꒪;)))");
+        }
+        drawDivider();
+    }
+
     public Task() {
     }
 
@@ -40,14 +51,28 @@ public class Task {
         printMarkAsDoneMessage();
     }
 
-    protected void printNewTaskAddedMessage() {
+    private void printMarkAsDoneMessage() {
         drawDivider();
-        System.out.println("Karlett now remembers:\n" + "  " + this);
-        if (numberOfTasks == 1) {
-            System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
-        } else {
-            System.out.println("You have " + numberOfTasks + " tasks in the list now meow (((;꒪ꈊ꒪;)))");
+        System.out.println("Meow~ Karlett has marked this task as done:\n" +
+                "  " + this);
+        drawDivider();
+    }
+
+    public static void remove(ArrayList<Task> list, int index) {
+        Task t = list.get(index - 1);
+        for (int i = index; i < list.size(); i++) {
+            list.set(i - 1, list.get(i));
         }
+        list.trimToSize();
+        numberOfTasks--;
+        printTaskDeletedMessage(t);
+    }
+
+    private static void printTaskDeletedMessage(Task t) {
+        drawDivider();
+        System.out.println("Meow~ Karlett has deleted this task:\n" +
+                "  " + t + "\nYou have " + numberOfTasks +
+                " tasks in the list now meow (((;꒪ꈊ꒪;)))");
         drawDivider();
     }
 
@@ -60,13 +85,6 @@ public class Task {
                 System.out.println("ฅ" + (i + 1) + " " + list.get(i));
             }
         }
-        drawDivider();
-    }
-
-    private void printMarkAsDoneMessage() {
-        drawDivider();
-        System.out.println("Meow~ Karlett has marked this task as done:\n" +
-                "  " + this);
         drawDivider();
     }
 

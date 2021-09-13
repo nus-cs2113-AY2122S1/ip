@@ -10,17 +10,19 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
+
+    public static ArrayList<Task> list = new ArrayList<>();
+
     public static void main(String[] args) {
         greet();
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
         while (true) {
             String userInput = in.nextLine();
-            processUserInput(list, userInput);
+            processUserInput(userInput);
         }
     }
 
-    public static void processUserInput(ArrayList<Task> list, String userInput) {
+    public static void processUserInput(String userInput) {
         Scanner in = new Scanner(System.in);
         userInput = userInput.trim();
         String[] userInputWords = userInput.split(" ");
@@ -133,6 +135,18 @@ public class Duke {
                 printOutOfBoundErrorMessage();
                 break;
             }
+        case "delete":
+            try {
+                int index = Integer.parseInt(taskContentWords[0]);
+                Task.remove(list, index);
+                break;
+            } catch (NumberFormatException ex) {
+                printDeleteFormatErrorMessage();
+                break;
+            } catch (IndexOutOfBoundsException ex) {
+                printOutOfBoundErrorMessage();
+                break;
+            }
         case "bye":
             Task.exit();
         default:
@@ -158,9 +172,23 @@ public class Duke {
         Task.drawDivider();
     }
 
+    private static void printDeleteFormatErrorMessage() {
+        Task.drawDivider();
+        System.out.println("Karlett was expecting an index after \"delete\" meow(๑•́ᆽ•̀๑✿)");
+        Task.drawDivider();
+    }
+
     private static void printOutOfBoundErrorMessage() {
         Task.drawDivider();
-        System.out.println("Karlett can only remember " + Task.getNumberOfTasks() + " tasks(๑•́ᆽ•̀๑✿)");
+        if (Task.getNumberOfTasks() == 0) {
+            System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
+        } else {
+            System.out.println("Karlett can only remember " + Task.getNumberOfTasks() + " tasks(๑•́ᆽ•̀๑✿)");
+            System.out.println("Here they are meow:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("ฅ" + (i + 1) + " " + list.get(i));
+            }
+        }
         Task.drawDivider();
     }
 
