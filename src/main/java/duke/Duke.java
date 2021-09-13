@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -29,8 +28,12 @@ public class Duke {
             + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
             + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
     private static final String TASK_FILE_PATH = "tasks.txt";
+    private static final String TASK_INFO_SEPARATOR_ESCAPE = "\\";
     private static final String TASK_INFO_SEPARATOR = "|";
+    private static final String TASK_INFO_ISDONE_INDICATOR = "1";
     private static final String LINE = "____________________________________________________________\n";
+    private static final String TASK_TYPE_DEADLINE = "D";
+    private static final String TASK_TYPE_EVENT = "E";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
@@ -123,7 +126,7 @@ public class Duke {
      * Print message that task index provided is invalid.
      */
     private static void printInvalidTaskIndexError() {
-        blockPrint(new String[]{"Invalid task index."});
+        blockPrint(new String[]{"Invalid task index. Please provide a valid index."});
     }
 
     /**
@@ -224,7 +227,6 @@ public class Duke {
                 newTask.toString(),
                 "There are now " + taskManager.getTotalTasks() + " tasks in the list."});
 
-        // Save list to file
         saveTaskList();
     }
 
@@ -251,6 +253,8 @@ public class Duke {
         blockPrint(new String[]{"Affirmative. I have removed this task:",
                 taskInfo,
                 "You have " + taskManager.getTotalTasks() + " tasks left in the list."});
+
+        saveTaskList();
     }
 
     /**
@@ -393,7 +397,7 @@ public class Duke {
 
         blockPrint(new String[]{"Affirmative. I will mark this task as done:",
                 completedTask.toString()});
-        // Save to file
+
         saveTaskList();
     }
 
@@ -462,10 +466,10 @@ public class Duke {
                     taskManager.addTask(todo);
                 } else if (splitLine.length == 4) {
                     String timeDetail = splitLine[3];
-                    if (taskType.equals("D")) {
+                    if (taskType.equals(TASK_TYPE_DEADLINE)) {
                         Deadline deadline = new Deadline(taskDescription, timeDetail);
                         taskManager.addTask(deadline);
-                    } else if (taskType.equals("E")) {
+                    } else if (taskType.equals(TASK_TYPE_EVENT)) {
                         Event event = new Event(taskDescription, timeDetail);
                         taskManager.addTask(event);
                     }
