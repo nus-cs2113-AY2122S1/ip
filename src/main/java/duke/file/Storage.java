@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
@@ -27,6 +29,8 @@ public class Storage {
         try {
             File f = new File(STORAGE_PATH); // create a File for the given file path
             if (!f.exists()) {
+                String directory = STORAGE_PATH.substring(0, STORAGE_PATH.lastIndexOf("/"));
+                Files.createDirectories(Paths.get(directory));
                 f.createNewFile();
             }
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
