@@ -20,6 +20,21 @@ public class Duke {
         return input[0];
     }
 
+    public static boolean validTodoDescription(String input) {
+        String[] description = input.trim().split(" ");
+        return description.length > 1;
+    }
+
+    public static boolean validDeadlineOrEventDescription(String input) {
+        String description = getDeadlineOrEventTaskName(input);
+        String deadlineOrEventDuration = getDeadlineOrEventDuration(input);
+        if (description.isEmpty() || deadlineOrEventDuration.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static void inputManager() {
         String line;
         boolean isBye = false;
@@ -78,24 +93,43 @@ public class Duke {
         }
     }
 
+    public static String getTaskType(String input) {
+        int dividePosition = input.trim().indexOf(" ");
+        return input.trim().substring(0, dividePosition).toLowerCase();
+    }
+
+    public static String getTodoTaskName(String input) {
+        int dividePosition = input.trim().indexOf(" ");
+        return input.trim().substring(dividePosition);
+    }
+
+    public static String getDeadlineOrEventTaskName(String input) {
+        int descriptionPosition = input.trim().indexOf(" ");
+        int atPosition = input.trim().indexOf("/at");
+        return input.substring(descriptionPosition, atPosition);
+    }
+
+    public static String getDeadlineOrEventDuration(String input) {
+        int atPosition = input.trim().indexOf("/at");
+        return input.substring(atPosition + 3);
+    }
 
     public static void addTodo(String input, Task[] tasks) {
-        int dividePos = input.trim().indexOf(" ");
-        String taskName = input.trim().substring(dividePos);
+        String taskName = getTodoTaskName(input);
         tasks[taskCount] = new Todo(taskName);
     }
 
     public static void addDeadlineOrEvent(String input, Task[] tasks) {
-        int dividePos = input.trim().indexOf(" ");
-        int timePos = input.trim().indexOf("/");
-        String taskType = input.trim().substring(0, dividePos).toLowerCase();
-        String taskName = input.trim().substring(dividePos, timePos);
-        String end = input.trim().substring(timePos + 3);
+        String taskType = getTaskType(input);
+        String taskName = getDeadlineOrEventTaskName(input);
+        String end = getDeadlineOrEventDuration(input);
+
         if (taskType.equalsIgnoreCase("deadline")) {
             tasks[taskCount] = new Deadline(taskName, end);
         } else if (taskType.equalsIgnoreCase("event")) {
             tasks[taskCount] = new Event(taskName, end);
         }
+
     }
 
     public static void requestList(Task[] tasks) {
