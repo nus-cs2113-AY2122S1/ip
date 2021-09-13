@@ -18,12 +18,32 @@ public class Duke {
 
     public static boolean isLoading = true;
 
-    private static void saveData (String input) {
+    private static void saveData (List<Task> tasks) {
+        File dataFile = new File ("savedData.txt");
+
         try {
-            BufferedWriter output = new BufferedWriter(new FileWriter("data.txt", true));
-            output.append(input);
-            output.newLine();
-            output.close();
+            if (dataFile.createNewFile()) {
+                System.out.println("savedData.txt created for you");
+            }
+
+            BufferedWriter dataFileWriter = new BufferedWriter(new FileWriter(dataFile));
+            for (int i = 0; i < tasks.size(); i++) {
+                dataFileWriter.append(tasks.get(i).describeString());
+                dataFileWriter.newLine();
+            }
+            dataFileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("savedData.txt already created");
+        }
+    }
+
+    private static void saveCommand (String input) {
+        try {
+            BufferedWriter commandFileWriter = new BufferedWriter(new FileWriter("savedCommands.txt", true));
+            commandFileWriter.append(input);
+            commandFileWriter.newLine();
+            commandFileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,16 +53,16 @@ public class Duke {
 
         // reading from Hard Drive
         if (isLoading) {
-            File f = new File ("data.txt");
+            File commandFile = new File ("savedCommands.txt");
 
-            if (f.createNewFile()) {
-                System.out.println("data.txt created for you");
+            if (commandFile.createNewFile()) {
+                System.out.println("savedCommands.txt created for you");
             }
 
             else {
-                BufferedReader br = new BufferedReader(new FileReader(f));
+                BufferedReader commandFileReader = new BufferedReader(new FileReader(commandFile));
                 String line;
-                while ( (line = br.readLine()) != null ) {
+                while ( (line = commandFileReader.readLine()) != null ) {
                     if (!isQuery(line,tasks)) {
                         addTask(line,tasks);
                     }
@@ -56,19 +76,19 @@ public class Duke {
             System.out.println("What can I do for you today?");
 
             while (true) {
-                Scanner scanner = new Scanner(System.in);
-                String input = scanner.nextLine();
+                Scanner systemScanner = new Scanner(System.in);
+                String systemInput = systemScanner.nextLine();
 
-                if (input.equals("bye")) {
+                if (systemInput.equals("bye")) {
                     System.out.println("See you later alligator");
                     break;
                 }
 
-                if (!isQuery(input, tasks)) {
+                if (!isQuery(systemInput, tasks)) {
                     try {
-                        Task addedTask = addTask(input, tasks);
+                        Task addedTask = addTask(systemInput, tasks);
                         System.out.println("I've added:");
-                        addedTask.describe();
+                        addedTask.describePrint();
                         System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
@@ -85,9 +105,9 @@ public class Duke {
             tasks.get(taskIndex - 1).markAsDone();
 
             if (!isLoading) {
-                saveData(input);
+                saveCommand(input);
                 System.out.println("This task is done:");
-                tasks.get(taskIndex-1).describe();
+                tasks.get(taskIndex-1).describePrint();
             }
 
             return true;
@@ -96,7 +116,7 @@ public class Duke {
         else if (input.equals("list")) {
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.print(i + 1 + ".");
-                tasks.get(i).describe();
+                tasks.get(i).describePrint();
             }
             return true;
         }
@@ -105,9 +125,9 @@ public class Duke {
             int taskIndex = Integer.parseInt(input.replaceAll("[^0-9]", ""));
 
             if (!isLoading) {
-                saveData(input);
+                saveCommand(input);
                 System.out.println("I have removed this task:");
-                tasks.get(taskIndex - 1).describe();
+                tasks.get(taskIndex - 1).describePrint();
                 tasks.remove(taskIndex -1);
                 Task.numberOfTasks -= 1;
                 System.out.println("You now have " + Task.numberOfTasks + " tasks in the list");
@@ -134,25 +154,29 @@ public class Duke {
             throw new DukeException("Description cannot be empty");
         }
 
-        // check to see if NOT loading from Hard Drive (once addTask command is checked to be OK)
-        else if (!isLoading) {
-            saveData(input);
-        }
-
         switch (taskType) {
         case "todo" :
             Task todoTask = new Todo(input.replaceAll(taskType, ""));
             tasks.add(todoTask);
+            if (!isLoading) {
+                saveCommand(input);
+            }
             return todoTask;
 
         case "deadline" :
             Task deadlineTask = new Deadline (descriptionAndTime.split("/")[0], descriptionAndTime.split("/")[1]);
             tasks.add(deadlineTask);
+            if (!isLoading) {
+                saveCommand(input);
+            }
             return deadlineTask;
 
         case "event" :
             Task eventTask = new Event(descriptionAndTime.split("/")[0], descriptionAndTime.split("/")[1]);
             tasks.add(eventTask);
+            if (!isLoading) {
+                saveCommand(input);
+            }
             return eventTask;
 
         default :
@@ -166,8 +190,9 @@ public class Duke {
         try {
             processInput(tasks, isLoading);           // Hard-drive loading
             processInput(tasks, isLoading);           // Normal functionality
+            saveData(tasks);                          // provides readable User format of Tasks
         } catch (IOException e) {
-            System.out.println("Failed to read from data.txt");
+            System.out.println("Failed to read from savedCommands.txt");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

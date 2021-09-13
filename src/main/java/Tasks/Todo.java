@@ -9,8 +9,15 @@ public class Todo extends Task {
     }
 
     @Override
-    public void describe() {
+    public void describePrint() {
         System.out.println( "[" + this.taskType + "]"
+                + "[" + this.getStatusIcon() + "] "
+                + this.taskDescription);
+    }
+
+    @Override
+    public String describeString() {
+        return( "[" + this.taskType + "]"
                 + "[" + this.getStatusIcon() + "] "
                 + this.taskDescription);
     }

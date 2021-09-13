@@ -13,8 +13,17 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void describe() {
+    public void describePrint() {
         System.out.println( "[" + this.taskType + "]"
+                + "[" + this.getStatusIcon() + "] "
+                + this.taskDescription
+                + "(by:"
+                + (this.taskTime.replaceAll("by", "")) + ")");
+    }
+
+    @Override
+    public String describeString() {
+        return( "[" + this.taskType + "]"
                 + "[" + this.getStatusIcon() + "] "
                 + this.taskDescription
                 + "(by:"

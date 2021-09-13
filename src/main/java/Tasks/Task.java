@@ -21,9 +21,15 @@ public class Task {
         return (isTaskDone ? "X" : " ");
     }
 
-    public void describe() {
+    public void describePrint() {
         System.out.println( "[" + this.getStatusIcon() + "] "
                 + this.taskDescription);
     }
+
+    public String describeString() {
+        return ("[" + this.getStatusIcon() + "] "
+                + this.taskDescription);
+    }
+
 
 }
