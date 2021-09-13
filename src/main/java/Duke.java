@@ -1,10 +1,10 @@
+import java.io.FileWriter;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * This represents the Duke Chat bot.
@@ -27,6 +27,7 @@ public class Duke {
     private final static String TODO = "todo";
     private final static String DEADLINE = "deadline";
     private final static String EVENT = "event";
+    private final static String FILE_PATH = "./data/tasks.txt";
 
     private final static int DESCRIPTION = 0;
     private final static int DATETIME = 1;
@@ -98,15 +99,21 @@ public class Duke {
             switch (taskType) {
             case TODO:
                 getParameters(parameters, input, TODO);
-                list.add(new Todo(parameters[DESCRIPTION]));
+                Todo todo = new Todo(parameters[DESCRIPTION]);
+                list.add(todo);
+                saveTaskInFile(todo);
                 break;
             case DEADLINE:
                 getParameters(parameters, input, DEADLINE);
-                list.add(new Deadline(parameters[DESCRIPTION], parameters[DATETIME]));
+                Deadline deadline = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
+                list.add(deadline);
+                saveTaskInFile(deadline);
                 break;
             case EVENT:
                 getParameters(parameters, input, EVENT);
-                list.add(new Event(parameters[DESCRIPTION], parameters[DATETIME]));
+                Event event = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
+                list.add(event);
+                saveTaskInFile(event);
                 break;
             }
             printAddedMessage();
@@ -138,6 +145,7 @@ public class Duke {
             System.out.print(TAB + "Nice... I guess I will mark this task as done...:"
                     + System.lineSeparator() + TAB + TAB);
             System.out.println(list.get(index));
+            refreshFile();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_DONE);
         }
@@ -157,6 +165,7 @@ public class Duke {
                     + System.lineSeparator() + TAB + TAB);
             System.out.println(temp);
             System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", list.size()));
+            refreshFile();
         } catch(IndexOutOfBoundsException e) {
             System.out.println(INVALID_DELETE);
         }
@@ -311,7 +320,7 @@ public class Duke {
      * This function adds saved tasks to list.
      */
     private static void readSavedTasks() {
-        File dataFile = new File("data/tasks.txt");
+        File dataFile = new File(FILE_PATH);
         try {
             Scanner lineScanner = new Scanner(dataFile);
             while (lineScanner.hasNext()) {
@@ -324,9 +333,55 @@ public class Duke {
     }
 
     private static void AddLineTask(String line) {
-        String[] lineContents = line.split(" | ");
-        if (lineContents[TASK_TYPE_INDEX].equals("T")) {
-            Todo task = new Todo(lineContents[TASK_INDEX]);
+        String[] lineContents = line.split(" \\| ");
+        switch (lineContents[TASK_TYPE_INDEX]) {
+        case "T":
+            Todo todo = new Todo(lineContents[TASK_INDEX]);
+            list.add(todo);
+            break;
+        case "D":
+            Deadline deadline = new Deadline(lineContents[TASK_INDEX], lineContents[BY_AT_INDEX]);
+            list.add(deadline);
+            break;
+        case "E":
+            Event event = new Event(lineContents[TASK_INDEX], lineContents[BY_AT_INDEX]);
+            list.add(event);
+            break;
+        }
+        if (lineContents[IS_DONE_INDEX].equals("1")) {
+            list.get(list.size() - 1).markAsDone();
+        }
+    }
+
+    private static void refreshFile() {
+        try {
+            FileWriter file = new FileWriter(FILE_PATH);
+            for (Task task : list) {
+                file.write(task.toFile());
+            }
+            file.close();
+        } catch (java.io.IOException e) {
+            System.out.println("Unable to write to file...");
+        }
+    }
+
+    private static void createFile() {
+        try {
+            File newFile = new File(FILE_PATH);
+            newFile.getParentFile().mkdirs();
+            newFile.createNewFile();
+        } catch (java.io.IOException e) {
+            System.out.println("Unable to create file...");
+        }
+    }
+
+    private static void saveTaskInFile(Task task) {
+        try {
+            FileWriter file = new FileWriter(FILE_PATH, true);
+            file.write(task.toFile());
+            file.close();
+        } catch (java.io.IOException e) {
+            System.out.println("Unable to write to file...");
         }
     }
 }
