@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Duke {
 
+    private static ArrayList<Task> taskList = new ArrayList<>();
     /**
      *
      * Informs the user what task they will be adding into their task list and the number of tasks
@@ -12,26 +14,45 @@ public class Duke {
      * @param newTask The new task that will be added to the task list.
      * @param taskCount The number of tasks that are in the list (including the new task).
      */
-    public static void printTask(Task newTask, int taskCount) {
-        String toPrint = newTask.toString();
+    public static void printTask(Task toPrint) {
+//        String toPrint = newTask.toString();
         System.out.println("Ok! I've added this task:");
-        System.out.println(newTask);
-        System.out.println("Now you have " + taskCount + " tasks in your list uwu");
+        System.out.println(toPrint);
+        System.out.println("Now you have " + taskList.size() + " tasks in your list uwu");
     }
 
+    public static void deleteTask(Task delTask) throws IllegalDoneException {
+        String n = delTask.description.substring(7);
+        int delIndex = Integer.parseInt(n) - 1;
+        if (delIndex >= taskList.size()) {
+            throw new IllegalDoneException();
+        } else {
+//            taskList.remove(delTask);
+//            taskList.setDone();
+            System.out.println("Okies! I've removed this task <3 :");
+            System.out.println(taskList.get(delIndex));
+            taskList.remove(delIndex);
+            System.out.println("Now you have " + taskList.size() + " tasks in your list uwu");
+        }
+    }
     /**
      * Prints all the tasks that the user has in their list.
      *
      * @param list List that contains all the tasks from user.
      * @param totalTasks Total number of tasks user has in their list.
      */
-    public static void printTaskList(Task[] list, int totalTasks) {
-        Task[] printList = Arrays.copyOf(list, totalTasks); // only copy until the part you want
-        int i = 1;
+    public static void printTaskList() {
+        int pos = 0;
         System.out.println("Here are the tasks in your list:");
-        for (Task task : printList) {
-            System.out.println(i + "." + task);
-            i += 1;
+        while (pos < taskList.size()) {
+
+//        Task[] printList = Arrays.copyOf(list, totalTasks); // only copy until the part you want
+            pos += 1;
+            System.out.println(pos + ". " + taskList.get(pos - 1));
+//        for (Task task : printList) {
+//            System.out.println(i + "." + task);
+//            i += 1;
+//        }
         }
     }
 
@@ -44,15 +65,16 @@ public class Duke {
      * @throws IllegalDoneException If doneIndex >= taskCount, the task that user wants to mark as
      * done does not exist in the list
      */
-    public static void markDone(Task doneTask, int taskCount, Task[] taskList) throws IllegalDoneException {
+    public static void markDone(Task doneTask) throws IllegalDoneException {
         String n = doneTask.description.substring(5);
         int doneIndex = Integer.parseInt(n) - 1;
-        if(doneIndex >= taskCount) {
+        if(doneIndex >= taskList.size()) {
             throw new IllegalDoneException();
         } else {
-            taskList[doneIndex].isDone = true;
+            taskList.get(doneIndex).setDone();
+//            taskList.setDone();
             System.out.println("Good job! I've marked these tasks as done:");
-            printTaskList(taskList, taskCount);
+            printTaskList();
         }
     }
 
@@ -67,12 +89,12 @@ public class Duke {
      * to be expected for event, does not contain '/at'.
      */
     public static Task typeOfTask(Task t) throws IllegalTaskException, InvalidDeadlineFormat, InvalidEventFormat {
-        Task newTask = new Task("not initialised");
+        Task newTask;
         int startOfDate = -1;
         if (t.description.contains("todo")) { // create a new todo
             newTask = new Todo(t.description.substring(5));
             return newTask;
-        } else if (t.description.contains("deadline")) {
+        } else if (t.description.startsWith("deadline")) {
             startOfDate = t.description.indexOf('/');
             if(!t.description.contains("/by")) {
                 throw new InvalidDeadlineFormat();
@@ -81,7 +103,7 @@ public class Duke {
             String date = t.description.substring(startOfDate + 4);
             newTask = new Deadline(task, date);
             return newTask;
-        } else if (t.description.contains("event")) {
+        } else if (t.description.startsWith("event")) {
             startOfDate = t.description.indexOf('/');
             if(!t.description.contains("/at")) {
                 throw new InvalidEventFormat();
@@ -102,14 +124,22 @@ public class Duke {
         System.out.println("Hello Bbygirl! I'm Your Boyfriend <3");
         System.out.println("How can I help you today? ;)");
         Task t = new Task(in.nextLine());
-        Task[] taskList = new Task[100];
+//        ArrayList<Task> taskList = new ArrayList<>();
+//        Task[] taskList = new Task[100];
 
         while (!t.description.equals("bye")) {
             if (t.description.equals("list")) {
-                printTaskList(taskList, taskCount);
-            } else if (t.description.contains("done")) {
+                printTaskList();
+            } else if (t.description.startsWith("done")) {
                 try {
-                    markDone(t, taskCount, taskList);
+                    markDone(t);
+                } catch (IllegalDoneException e) {
+                    System.out.println("You need to input a correct number BB... ;'( try typing again");
+                }
+            } else if(t.description.startsWith("delete")) {
+                //to fill in
+                try {
+                    deleteTask(t);
                 } catch (IllegalDoneException e) {
                     System.out.println("You need to input a correct number BB... ;'( try typing again");
                 }
@@ -117,9 +147,9 @@ public class Duke {
                 try {
                     // add the new task into user's task list
                     Task newTask = typeOfTask(t);
-                    taskList[taskCount] = newTask;
-                    taskCount += 1;
-                    printTask(newTask, taskCount);
+                    taskList.add(newTask);
+//                    taskCount += 1;
+                    printTask(newTask);
                 } catch (IllegalTaskException e) {
                     System.out.println("You have a typo BB.. ;'( try typing again");
                 } catch (IndexOutOfBoundsException e) {
