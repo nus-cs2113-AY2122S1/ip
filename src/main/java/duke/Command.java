@@ -44,7 +44,7 @@ class Command {
             if (!Commands.contains(userInputSplit[0])) {
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            switch (Commands.valueOf(userInputSplit[0])) {
+            switch (Commands.valueOf(userInputSplit[0].toUpperCase())) {
             case BYE:
                 if (userInputSplit.length != 1) {
                     throw new InvalidCommandException(Commands.BYE.getUsage());
