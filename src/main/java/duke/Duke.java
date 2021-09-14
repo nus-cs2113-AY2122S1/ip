@@ -81,6 +81,7 @@ public class Duke {
             } else {
                 lineToWrite = "E => ";
             }
+
             String taskStatus = task.getStatus();
 
             if (taskStatus.equals("X")) {
@@ -88,6 +89,7 @@ public class Duke {
             } else {
                 lineToWrite = lineToWrite + TASK_INCOMPLETE;
             }
+
             String taskDescription = task.description;
 
             lineToWrite = lineToWrite + " => " + taskDescription;
@@ -98,8 +100,8 @@ public class Duke {
             }
 
             lineToWrite += "\n";
-
             fw.write(lineToWrite);
+
         }
         fw.close();
     }
@@ -133,6 +135,7 @@ public class Duke {
             break;
         default:
         }
+
         if (taskStatus.equals(TASK_COMPLETED)) {
             scheduledTasks.get(scheduledTasks.size() - 1).markAsDone();
         }
@@ -208,7 +211,7 @@ public class Duke {
 
         switch (firstWord) {
         case "todo":
-            if (split.length < 2 || split[1].isEmpty() == true) {
+            if (split.length < 2 || split[1].isEmpty()) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             } else {
                 scheduledTasks.add(new Todo(split[1]));
@@ -224,7 +227,7 @@ public class Duke {
             int indexOfSpace = split[1].indexOf(" ");
             taskDescription = split[1].split("/by", 2)[0];
             timeDueBy = split[1].split("/by", 2)[1];
-            if (taskDescription.isEmpty() == true || timeDueBy.isEmpty() == true) {
+            if (taskDescription.isEmpty() || timeDueBy.isEmpty()) {
                 throw new DukeException("☹ OOPS!!! The description of the task seems incomplete.");
             }
             scheduledTasks.add(new Deadline(userInput.substring(indexOfSpace, index), userInput.substring(index + 3)));
@@ -233,13 +236,13 @@ public class Duke {
 
         case "event":
             index = userInput.indexOf("/");
-            if (split.length < 2 || split[1].isEmpty() == true || index == -1) {
+            if (split.length < 2 || split[1].isEmpty() || index == -1) {
                 throw new DukeException("☹ OOPS!!! The description and time schedule of the event cannot be empty.");
             }
             indexOfSpace = split[1].indexOf(" ");
             taskDescription = split[1].split("/at", 2)[0];
             timeDueAt = split[1].split("/at", 2)[1];
-            if (taskDescription.isEmpty() == true || timeDueAt.isEmpty() == true) {
+            if (taskDescription.isEmpty() || timeDueAt.isEmpty()) {
                 throw new DukeException("☹ OOPS!!! The description or time schedule of the event seems incomplete.");
             }
             scheduledTasks.add(new Event(userInput.substring(indexOfSpace, index), userInput.substring(index + 3)));
