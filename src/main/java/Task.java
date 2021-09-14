@@ -19,6 +19,11 @@ public class Task {
         this.isDone = true;
     }
 
+    public String getDataStorageString() {
+        char isDoneNumber = (isDone) ? '1' : '0';
+        return " | " + isDoneNumber + " | " + description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " +

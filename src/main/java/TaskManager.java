@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class TaskManager {
     private static final int MAX_TASKS = 100;
 
@@ -160,6 +162,7 @@ public class TaskManager {
     void doneTaskPlusException(String userInput) {
         try {
             doneTask(userInput);
+            FileManager.writeToFile();
 
         } catch (BlankDescriptionException e) {
             Duke.printlnTab("☹ OOPS!!! Please enter a task number to complete");
@@ -178,6 +181,8 @@ public class TaskManager {
             Duke.printlnTab("Please enter a number smaller or equal to " + getTotalTasks());
             Duke.printDivider();
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -221,4 +226,18 @@ public class TaskManager {
         tasksIndex++;
     }
 
+    //STRING
+    public String getTasksDataStorageString() {
+        String tasksDataStorageString = "";
+        int i = 0;
+        for (Task task : tasks) {
+            tasksDataStorageString += task.getDataStorageString() + "\n";
+            i++;
+            if (i == tasksIndex) {
+                break;
+            }
+        }
+        return tasksDataStorageString;
+    }
 }
+

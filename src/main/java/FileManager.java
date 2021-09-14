@@ -36,13 +36,11 @@ public class FileManager {
     private static void readFile() throws FileNotFoundException {
         Scanner s = new Scanner(data); // create a Scanner using the File as the source
         while (s.hasNext()) {
-            // System.out.println(s.nextLine());
             parseData(s.nextLine());
         }
-
         // TODO exception for failing to read a particular line?????/
-
     }
+
 
     private static void parseData(String line) {
         String[] taskDetails = line.split(" \\| "); //TODO if userInput includes '|', might need to reject..?
@@ -74,8 +72,11 @@ public class FileManager {
         }
     }
 
-    private static void writeToFile(String textToWrite) throws IOException {
-
+    //rewrite entire data.txt file with latest version of tasks list
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(data);
+        fw.write(Duke.taskManager.getTasksDataStorageString());
+        fw.close();
     }
 
     public static void addTaskToFile(String description) {

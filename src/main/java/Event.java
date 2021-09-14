@@ -11,6 +11,11 @@ public class Event extends Task {
         return at;
     }
 
+    public String getDataStorageString() {
+        return 'E' + super.getDataStorageString() +
+                " | " + at;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() +
