@@ -8,6 +8,7 @@ import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -353,7 +354,7 @@ public class DukeProgram {
             inWord = scan.nextLine();
         }
 
-
+        DataSaver.manageSave(taskList);
         //Exits when user types "bye"
         printDukeExit();
     }

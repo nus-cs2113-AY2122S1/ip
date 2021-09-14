@@ -1,5 +1,7 @@
 package Duke.Exception;
 
+import java.io.IOException;
+
 public class DukeException extends Exception{
     public static final String LINE = "____________________________________________________________";
 
@@ -53,6 +55,13 @@ public class DukeException extends Exception{
     public static void InvalidSaveFileException() {
         System.out.println(LINE);
         System.out.println("Your save file is invalid!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void SaveIOException(IOException ioException) {
+        System.out.println(LINE);
+        System.out.println("Something went wrong: " + ioException.getMessage());
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }

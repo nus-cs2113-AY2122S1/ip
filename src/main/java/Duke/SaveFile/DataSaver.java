@@ -17,17 +17,19 @@ public class DataSaver {
 
     private static final String DONE_STATUS = "1";
     private static final String NOT_DONE_STATUS = "0";
+    private static final String FILE_PATH = "duke.txt";
+    private static final String DIVIDER = " | ";
 
     public static void manageLoad(ArrayList<Task> taskList) {
         try {
             loadFileContents(taskList);
-        } catch (DukeException | FileNotFoundException invalidDeleteException) {
+        } catch (DukeException | FileNotFoundException invalidSaveFileException) {
             DukeException.InvalidSaveFileException();
         }
     }
 
-    private static void loadFileContents(ArrayList<Task> taskList) throws FileNotFoundException, DukeException {
-        File file = new File("duke.txt");
+    public static void loadFileContents(ArrayList<Task> taskList) throws FileNotFoundException, DukeException {
+        File file = new File(FILE_PATH);
         Scanner scan = new Scanner(file);
 
         while (scan.hasNext()) {
@@ -36,7 +38,7 @@ public class DataSaver {
         }
     }
 
-    private static void addToTaskList(ArrayList<Task> taskList, String newTask) throws DukeException {
+    public static void addToTaskList(ArrayList<Task> taskList, String newTask) throws DukeException {
         String[] taskDetails = newTask.split("\\|");
 
         if (!checkValidDetails(taskDetails)) {
@@ -71,7 +73,7 @@ public class DataSaver {
         }
     }
 
-    private static boolean checkValidDetails(String[] taskDetails) {
+    public static boolean checkValidDetails(String[] taskDetails) {
         String status = taskDetails[1].trim();
         if (!status.equals(DONE_STATUS) && !status.equals(NOT_DONE_STATUS)) {
             return false;
@@ -80,13 +82,56 @@ public class DataSaver {
         return taskDetails.length == 3 || taskDetails.length == 4;
     }
 
-    private static void addDoneStatus(Task addedTask, String[] taskDetails) {
+    public static void addDoneStatus(Task addedTask, String[] taskDetails) {
         String status = taskDetails[1].trim();
         if (status.equals(DONE_STATUS)) {
             addedTask.markAsDone();
         }
     }
 
+    public static void manageSave(ArrayList<Task> taskList) {
+        try {
+            saveFileContents(taskList);
+        } catch (IOException ioException) {
+            DukeException.SaveIOException(ioException);
+        }
+    }
 
+    public static void saveFileContents(ArrayList<Task> taskList) throws IOException {
+        FileWriter writeFile = new FileWriter(FILE_PATH);
+        configureTask(taskList, writeFile);
+        writeFile.close();
+    }
 
+    public static void configureTask(ArrayList<Task> taskList, FileWriter writeFile) throws IOException {
+        for (Task task : taskList) {
+            StringBuilder parsedTask = new StringBuilder();
+            parseType(task, parsedTask);
+            parseStatus(task, parsedTask);
+            parseDescription(task, parsedTask);
+            writeFile.write(parsedTask + System.lineSeparator());
+        }
+    }
+
+    public static void parseType(Task task, StringBuilder parsedTask) {
+        String type = task.getType();
+        parsedTask.append(type).append(DIVIDER);
+    }
+
+    public static void parseStatus(Task task, StringBuilder parsedTask) {
+        if (task.getIsDone()) {
+            parsedTask.append("1").append(DIVIDER);
+        } else {
+            parsedTask.append("0").append(DIVIDER);
+        }
+    }
+
+    public static void parseDescription(Task task, StringBuilder parsedTask) {
+        parsedTask.append(task.getDescription()).append(DIVIDER);
+        if (task instanceof Deadline) {
+            parsedTask.append(((Deadline) task).getBy());
+        } else if (task instanceof Event) {
+            parsedTask.append(((Event) task).getAt());
+        }
+    }
 }
