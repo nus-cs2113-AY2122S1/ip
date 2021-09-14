@@ -12,9 +12,4 @@ event task 4
 done
 done 10
 done a
-delete
-delete 10
-delete a
 bye
-
-

@@ -14,6 +14,7 @@ I currently support 3 types of tasks: todo, deadline and event
 To add a todo task: todo (task name)
 To add a deadline task: deadline (task name) /by (date or time)
 To add an event task: event (task name) /at (date or time)
+To delete a task in the list: delete (x) where x is the entry number
 note that only the words in parentheses() can be replaced
 Use the command "list" and I will show you your current list
 To cross out an entry, use the command "done x" where x is the entry number
@@ -28,7 +29,7 @@ I've added the following task:
 I've added the following task:
 [E][ ] task 3 (at: thursday 1pm)
 ========================================================================
-Here if your current list
+Here is your current list
 1.[T][ ] task 1
 2.[D][ ] task 2 (by: monday)
 3.[E][ ] task 3 (at: thursday 1pm)
@@ -38,7 +39,7 @@ task 1 done. Well done.
 ========================================================================
 task 2 done. Well done.
 ========================================================================
-Here if your current list
+Here is your current list
 1.[T][X] task 1
 2.[D][X] task 2 (by: monday)
 3.[E][ ] task 3 (at: thursday 1pm)
@@ -49,5 +50,17 @@ todo, deadline or event commands must have task descriptions
 todo, deadline or event commands must have task descriptions
 ========================================================================
 Command not entered properly, remember to use "/by" or "/at" modifiers for deadline and event tasks respectively. Type "help" for more information
+========================================================================
+The done command must have an entry number, enter it in the form "done x" where x is an entry number
+========================================================================
+That entry number does not exist in your list
+========================================================================
+the done command is of the form "done x" where x is an entry number
+========================================================================
+The delete command must have an entry number, enter it in the form "delete x" where x is an entry number
+========================================================================
+That entry number does not exist in your list
+========================================================================
+the delete command is of the form "delete x" where x is an entry number
 ========================================================================
 Bye! See you soon!
