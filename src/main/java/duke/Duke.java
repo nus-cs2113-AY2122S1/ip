@@ -13,8 +13,6 @@ import java.nio.file.Paths;
 
 public class Duke {
     public static ArrayList<Task> tasks = new ArrayList<>();
-<<<<<<< HEAD
-=======
     public static File f = new File("data/duke.txt"); // create a File for the given file path
 
     public static void loadTasks() throws FileNotFoundException {
@@ -36,7 +34,6 @@ public class Duke {
             }
         }
     }
->>>>>>> branch-Level-7
 
     public static void printGreeting() {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
@@ -99,8 +96,7 @@ public class Duke {
         for (int i = 0; i < tasks.size(); i += 1) {
             System.out.print((i + 1) + ".");
             tasks.get(i).printTask();
-<<<<<<< HEAD
-=======
+
         }
     }
 
@@ -137,7 +133,6 @@ public class Duke {
             writeToFile();
         } catch (IOException e) {
             System.out.println("There has been an error writing to file.");
->>>>>>> branch-Level-7
         }
     }
 
@@ -156,11 +151,7 @@ public class Duke {
         if (line.equals("") || line.equals("todo")) {
             throw new TodoException();
         } else {
-<<<<<<< HEAD
-            tasks.add(new Todo (line));
-=======
             tasks.add(new Todo(line));
->>>>>>> branch-Level-7
             printTaskTypeResponse();
             write();
         }
