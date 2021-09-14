@@ -2,6 +2,9 @@ package duke.command;
 
 import duke.task.Task;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class DisplayManager {
 
     public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    ____________________________________________________________";
@@ -22,7 +25,7 @@ public class DisplayManager {
 
 
     public void printStartGreet() {
-        System.out.println(DISPLAY_LOGO);
+        //System.out.println(DISPLAY_LOGO);
         System.out.println(DISPLAY_GREET_START);
     }
 
@@ -46,11 +49,11 @@ public class DisplayManager {
         printHorizontalSeparator();
         System.out.println(DISPLAY_MESSAGE_INDENT + "Got it. I've added this task:");
         System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + task);
-        System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + (TaskManager.getTaskCount() + 1) + " tasks in the list.");
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + (TaskManager.getTaskCount()) + " tasks in the list.");
         printHorizontalSeparator();
     }
 
-    public static void printMultipleTasks(Task[] tasks) {
+    public static void printMultipleTasks(ArrayList<Task> tasks) {
         int counter = 0;
         printHorizontalSeparator();
         System.out.println(DISPLAY_MESSAGE_INDENT + "Here are the tasks in your list:");
@@ -61,10 +64,10 @@ public class DisplayManager {
         printHorizontalSeparator();
     }
 
-    public static void printMultipleValidSetDone(Task[] tasks, int[] validIndexes) {
+    public static void printMultipleValidSetDone(ArrayList<Task> tasks, int[] validIndexes) {
         System.out.println(DisplayManager.DISPLAY_MESSAGE_INDENT + "Nice! I've marked these tasks as done:");
         for (int validIndex : validIndexes) {
-            System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + tasks[validIndex - 1]);
+            System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + tasks.get(validIndex - 1));
         }
     }
 
@@ -75,6 +78,15 @@ public class DisplayManager {
         }
     }
 
+    public static void printMultipleValidDelete(ArrayList<Task> deletedTasks) {
+        if (!deletedTasks.isEmpty()) {
+            System.out.println(DisplayManager.DISPLAY_MESSAGE_INDENT + "Noted. I've removed this task:");
+            for (Task deletedTask : deletedTasks) {
+                System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + deletedTask);
+            }
+        }
+    }
+
     public static void printMultipleOutOfRange(int[] outOfRangeIndexes) {
         System.out.print("\n");
         for (int outOfRangeIndex : outOfRangeIndexes) {
@@ -82,7 +94,7 @@ public class DisplayManager {
         }
     }
 
-    public static void printSetAsDoneResult(Task[] tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
+    public static void printSetAsDoneResult(ArrayList<Task> tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
         int outOfRangeCount, validIndexCount, doneIndexCount;
 
         if (outOfRangeIndexes == null) {
@@ -102,7 +114,7 @@ public class DisplayManager {
         }
 
         if (outOfRangeCount + validIndexCount + doneIndexCount == 0 && TaskManager.hasInvalidIndex) {
-            DisplayManager.printHorizontalSeparator();
+            printHorizontalSeparator();
             TaskManager.hasInvalidIndex = false;
             return;
         } else if (outOfRangeCount + validIndexCount + doneIndexCount == 0) {
@@ -110,7 +122,7 @@ public class DisplayManager {
         }
 
         if (!TaskManager.hasInvalidIndex) {
-            DisplayManager.printHorizontalSeparator();
+            printHorizontalSeparator();
         } else {
             TaskManager.hasInvalidIndex = false;
             System.out.print("\n");
@@ -126,7 +138,41 @@ public class DisplayManager {
             DisplayManager.printMultipleOutOfRange(outOfRangeIndexes);
         }
 
-        DisplayManager.printHorizontalSeparator();
+        printHorizontalSeparator();
+    }
+
+    public static void printDeleteTasksResult(ArrayList<Task> deletedTasks, int[] outOfRangeIndexes, int taskCount) {
+        int outOfRangeCount;
+
+        if (outOfRangeIndexes == null) {
+            outOfRangeCount = 0;
+        } else {
+            outOfRangeCount = outOfRangeIndexes.length;
+        }
+
+        if (outOfRangeCount == 0 && deletedTasks.isEmpty() && TaskManager.hasInvalidIndex) {
+            printHorizontalSeparator();
+            TaskManager.hasInvalidIndex = false;
+            return;
+        } else if (outOfRangeCount == 0 && deletedTasks.isEmpty()) {
+            return;
+        }
+
+        if (!TaskManager.hasInvalidIndex) {
+            printHorizontalSeparator();
+        } else {
+            TaskManager.hasInvalidIndex = false;
+            System.out.print("\n");
+        }
+
+        DisplayManager.printMultipleValidDelete(deletedTasks);
+        if (outOfRangeCount != 0) {
+            DisplayManager.printMultipleOutOfRange(outOfRangeIndexes);
+        }
+        if (!deletedTasks.isEmpty()) {
+            System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + taskCount + " tasks in your list.");
+        }
+        printHorizontalSeparator();
     }
 
     public static void printErrorList() {
