@@ -39,7 +39,7 @@ public class Duke {
                     markAsDone(inputs);
                     break;
                 default:
-                    addTask(inputs);
+                    addDeleteTask(inputs);
                 }
             } catch (AustinException e) {
                 System.out.println(e.getMessage());
@@ -57,9 +57,12 @@ public class Duke {
      * @param inputs User's command to add the task
      * @throws AustinException If the command is invalid
      */
-    public static void addTask(String[] inputs) throws AustinException {
+    public static void addDeleteTask(String[] inputs) throws AustinException {
         try {
             switch (inputs[0]) {
+            case "delete":
+                deleteTask(inputs);
+                break;
             case "todo":
                 addTodoTask(inputs);
                 break;
@@ -74,6 +77,8 @@ public class Duke {
             }
         } catch (AustinException e) {
             System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry. The format of the task index is invalid");
         }
     }
 
@@ -83,11 +88,16 @@ public class Duke {
     public static void printWelcomeMessage() {
         String logo =
                 "        ___      __    __       _______.___________.__  .__   __.\n" +
-                        "       /   \\    |  |  |  |     /       |           |  | |  \\ |  |\n" +
-                        "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | |   \\|  |\n" +
-                        "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  | |  . `  |\n" +
-                        "    /  _____  \\ |  `--'  | .----)   |      |  |    |  | |  |\\   |\n" +
-                        "   /__/     \\__\\ \\______/  |_______/       |__|    |__| |__| \\__|  ";
+                        "       /   \\    |  |  |  |     /       |           |  | |" +
+                        "  \\ |  |\n" +
+                        "      /  ^  \\   |  |  |  |    |   (----`---|  |----|  | " +
+                        "|   \\|  |\n" +
+                        "     /  /_\\  \\  |  |  |  |     \\   \\       |  |    |  " +
+                        "| |  . `  |\n" +
+                        "    /  _____  \\ |  `--'  | .----)   |      |  |    |  " +
+                        "| |  |\\   |\n" +
+                        "   /__/     \\__\\ \\______/  |_______/       |__|    |__| " +
+                        "|__| \\__|  ";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Austin\n"
                 + "What can I do for you?\n"
@@ -217,6 +227,27 @@ public class Duke {
     }
 
     /**
+     * Removes a task from the list
+     * @param inputs Extract the task index and validate the command
+     * @throws AustinException If the task index is missing or out of range
+     * @throws NumberFormatException If the task index is given in the wrong format
+     */
+    private static void deleteTask(String[] inputs) throws AustinException, NumberFormatException {
+        if (inputs.length == 1) {
+            throw new AustinException("Sorry. The task index is missing.");
+        }
+        int taskIndex = parseInt(inputs[1]) - 1;
+        if ((taskIndex >= tasks.size()) || (taskIndex < 0)){
+            // if the task index is out of range
+            throw new AustinException("Sorry. The task index given is out of range.");
+        }
+        System.out.println("Noted. I have deleted the following task:");
+        System.out.println(tasks.get(taskIndex).toString());
+        tasks.remove(taskIndex);
+        System.out.println("Now, you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
      * Prints a confirmation message to the user to that the task is
      * successfully added into the list.
      */
@@ -261,6 +292,8 @@ public class Duke {
         System.out.println("list: Prints all the tasks along with the status of" +
                 " each task.\n" +
                 "      Format: list\n");
+        System.out.println("delete: Removes a task from the list.\n" +
+                "      Format: delete <task_id>\n");
         System.out.println("bye: Exits the program with a goodbye message.\n" +
                 "      Format: bye\n");
         System.out.println("help: Prints a list of commands.\n" +
