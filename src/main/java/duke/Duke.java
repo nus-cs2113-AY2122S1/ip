@@ -17,7 +17,6 @@ public class Duke {
     private static int loadFlag = 0;
     private static int positionCheck = 0;
     private static String EMPTY = "There is no data in your list master!";
-    //private static String EXCEEDED = "Oh dear me! We have exceeded my system's maximum capacity!";
     private static String UNSPECIFIED_DONE = "Oh no master, I am not quite sure which task you would like me to mark as done!";
     private static String UNSPECIFIED_DELETE = "Oh no master, I am not quite sure which task you would like me to delete!";
     private static String INVALID = "Please type in a valid number master! Type \"list\" to check the index number of your list data";
@@ -33,6 +32,7 @@ public class Duke {
     public static String UNSPECIFIED_TASK = ("Sorry Master! Despite the fact that I am fluent in over six million forms\n" +
             " of communication, I am unable to comprehend your request. Please specify\n" +
             " the type of task that you wish to add Master!");
+    private static String STARTING_MESSAGE = "Accessing archives, loading in data, C3PO systems online!";
 
     private static ArrayList<Task> commands = new ArrayList<>();
 
@@ -286,6 +286,7 @@ public class Duke {
             }
             taskNumber += 1;
         }
+        System.out.println(STARTING_MESSAGE);
         loadFlag = 1;
     }
 
@@ -297,7 +298,6 @@ public class Duke {
         }
         greetUser();
         sendCommand();
-        saveAllTasks();
         sayBye();
     }
 }
