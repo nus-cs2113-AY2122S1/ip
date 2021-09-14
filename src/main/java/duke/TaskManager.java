@@ -7,16 +7,16 @@ import duke.task.ToDo;
 import duke.validation.DukeException;
 import duke.validation.Validation;
 
+import java.util.ArrayList;
+
 public class TaskManager {
     public static final int TODO_DESCRIPTION_BEGIN_INDEX = 5;
     public static final int DEADLINE_DESCRIPTION_BEGIN_INDEX = 9;
     public static final int EVENT_DESCRIPTION_BEGIN_INDEX = 6;
-    public static final int MAX_TASK = 100;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static int taskCount = 0;
 
-    private final Task[] tasks = new Task[MAX_TASK];
-    private int taskCount = 0;
-
-    public void printList() {
+    public static void printList() {
         if (taskCount == 0) {
             UI.printEmptyListMessage();
         } else {
@@ -24,11 +24,11 @@ public class TaskManager {
         }
     }
 
-    public String[] decodeInput(String input) {
+    public static String[] decodeInput(String input) {
         return input.split(" ");
     }
 
-    public void crossOff(String[] inputWords) {
+    public static void crossOff(String[] inputWords) {
         if (!Validation.isValidCrossOff(inputWords)) {
             DukeException.invalidCrossOffException();
             return;
@@ -38,11 +38,28 @@ public class TaskManager {
             DukeException.invalidTaskIndexException();
             return;
         }
-        tasks[taskIndex].setDone();
-        UI.printDoneMessage(tasks[taskIndex]);
+        Task current = tasks.get(taskIndex);
+        current.setDone();
+        UI.printDoneMessage(current);
     }
 
-    public void addTask(String input, String[] inputWords, String command) {
+    public static void deleteTask(String[] inputWords) {
+        if (!Validation.isValidDeleteTask(inputWords)) {
+            DukeException.invalidDeleteTaskException();
+            return;
+        }
+        int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+        if (!Validation.isValidTaskIndex(taskIndex, taskCount)) {
+            DukeException.invalidTaskIndexException();
+            return;
+        }
+        Task current = tasks.get(taskIndex);
+        taskCount = taskCount - 1;
+        UI.printDeleteMessage(current, taskCount);
+        tasks.remove(taskIndex);
+    }
+
+    public static void addTask(String input, String[] inputWords, String command) {
         String description;
         switch (command) {
         case "todo":
@@ -51,7 +68,8 @@ public class TaskManager {
                 return;
             }
             description = input.substring(TODO_DESCRIPTION_BEGIN_INDEX);
-            tasks[taskCount] = new ToDo(description);
+            Task newToDo = new ToDo(description);
+            tasks.add(newToDo);
             break;
         case "deadline":
             if (!Validation.isValidDeadline(input, inputWords)) {
@@ -65,7 +83,8 @@ public class TaskManager {
             description = input.substring(DEADLINE_DESCRIPTION_BEGIN_INDEX, input.indexOf("/by") - 1);
             int endDateBeginIndex = input.indexOf("/by") + 4;
             endDate = input.substring(endDateBeginIndex);
-            tasks[taskCount] = new Deadline(description, endDate);
+            Task newDeadline = new Deadline(description, endDate);
+            tasks.add(newDeadline);
             break;
         case "event":
             if (!Validation.isValidEvent(input, inputWords)) {
@@ -79,12 +98,15 @@ public class TaskManager {
             description = input.substring(EVENT_DESCRIPTION_BEGIN_INDEX, input.indexOf("/at") - 1);
             int durationBeginIndex = input.indexOf("/at") + 4;
             duration = input.substring(durationBeginIndex);
-            tasks[taskCount] = new Event(description, duration);
+            Task newEvent = new Event(description, duration);
+            tasks.add(newEvent);
             break;
         default:
             break;
         }
         taskCount = taskCount + 1;
-        UI.printAdditionMessage(tasks[taskCount - 1], taskCount);
+        Task current = tasks.get(taskCount - 1);
+        UI.printAdditionMessage(current, taskCount);
     }
+
 }

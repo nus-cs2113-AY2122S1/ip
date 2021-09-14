@@ -2,6 +2,8 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 public class UI{
     private static final String BUFFER_LINE = "____________________________________________________________\n";
 
@@ -51,7 +53,16 @@ public class UI{
         System.out.println(doneMessage);
     }
 
-    public static void printList(Task[] tasks) {
+    public static void printDeleteMessage(Task current, int taskCount) {
+        String doneMessage = BUFFER_LINE
+                + " Alright! I've removed this task from the list: \n"
+                + "    " + current.listTask() + "\n"
+                + " Now you have " + taskCount + " tasks in the list.\n"
+                + BUFFER_LINE;
+        System.out.println(doneMessage);
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
         System.out.println(BUFFER_LINE);
         System.out.println(" Here are the tasks in your list:");
         int i = 1;
@@ -114,10 +125,18 @@ public class UI{
         System.out.println(invalidCrossOffMessage);
     }
 
+    public static void printInvalidDeleteTaskMessage() {
+        String invalidDeleteTaskMessage = BUFFER_LINE
+                + "Invalid Input! Missing task number to delete!\n"
+                + BUFFER_LINE;
+        System.out.println(invalidDeleteTaskMessage);
+    }
+
     public static void printInvalidTaskIndexMessage() {
         String invalidTaskIndexMessage = BUFFER_LINE
                 + "Invalid Input! Task number specified cannot be found!\n"
                 + BUFFER_LINE;
         System.out.println(invalidTaskIndexMessage);
     }
+
 }

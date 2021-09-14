@@ -32,7 +32,12 @@ public class DukeException extends Exception{
         UI.printInvalidCrossOffMessage();
     }
 
+    public static void invalidDeleteTaskException() {
+        UI.printInvalidDeleteTaskMessage();
+    }
+
     public static void invalidTaskIndexException() {
         UI.printInvalidTaskIndexMessage();
     }
+
 }

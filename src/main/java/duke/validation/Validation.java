@@ -26,6 +26,10 @@ public class Validation {
         return (inputWords.length == 2);
     }
 
+    public static boolean isValidDeleteTask(String[] inputWords) {
+        return (inputWords.length == 2);
+    }
+
     public static boolean isValidTaskIndex(int taskIndex, int taskCount) {
         return (taskIndex >= 0) && (taskIndex < taskCount);
     }
