@@ -81,11 +81,5 @@ public class FileManager {
             System.out.println("Error while trying to load data file");
         }
     }
-
-    public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
-        loadData(taskManager);
-
-    }
 }
 
