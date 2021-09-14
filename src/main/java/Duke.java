@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,7 +10,8 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
 
-        Task[] Task = new Task[100];
+        //Task[] Task = new Task[100];
+        ArrayList<Task> Task = new ArrayList<>();
 
         String userInput;
         String date = "";
@@ -31,8 +33,9 @@ public class Duke {
                     doneNumber = Integer.parseInt(wordArr[1]) - 1; // gets Task number
                 }
                 if (isNumber(wordArr[1]) && doneNumber < count) {
-                    Task[doneNumber].setDone();
-                    System.out.println(LINE + "Ok! I've marked this task as done:\n" + Task[doneNumber] + "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
+                    //Task[doneNumber].setDone();
+                    Task.get(doneNumber).setDone();
+                    System.out.println(LINE + "Ok! I've marked this task as done:\n" + Task.get(doneNumber) + "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
                 }
                 else {
                     invalid.setDoneNoNumber();
@@ -51,7 +54,7 @@ public class Duke {
                     isInvalid = 1;
                 }
                 else if (isTodo(firstWord) && wordLength > 1){ //Todo is not empty
-                    Task[count] = new Todo(userInput);
+                    Task.add(count, new Todo(userInput));
                     count++;
                 }
 
@@ -63,7 +66,7 @@ public class Duke {
                 else if (isDeadline(firstWord) && wordLength > 1 ) { //Deadline is not empty
                     if (userInput.contains("/")) { //Deadline Task has a date
                         date = userInput.substring(userInput.lastIndexOf("/") + 1);
-                        Task[count] = new Deadline(userInput, date);
+                        Task.add(count, new Deadline(userInput, date));
                         count++;
                     }
                     else { //Deadline Task has no date
@@ -80,7 +83,7 @@ public class Duke {
                 else if (isEvent(firstWord) && wordLength > 1 ) { //Event task
                     if (userInput.contains("/")) { //Event Task has a date
                         date = userInput.substring(userInput.lastIndexOf("/") + 1);
-                        Task[count] = new Event(userInput, date);
+                        Task.add(count, new Event(userInput, date));
                         count++;
                     }
                     else { //Deadline Task has no date
@@ -96,7 +99,7 @@ public class Duke {
 
                 switch(isInvalid) { //handles errors
                     case 0: System.out.println(LINE + "Ok! I've added this " + firstWord.toLowerCase() + ":\n" +
-                            Task[count - 1] + "\n" + "Now you have " + count + (count == 1 ? " task":" tasks") + " in the list.\n" +
+                            Task.get(count - 1) + "\n" + "Now you have " + count + (count == 1 ? " task":" tasks") + " in the list.\n" +
                             "Type 'list' to view your tasks!\n" + LINE);
                             break;
                     case 1: System.out.println(LINE + invalid + LINE);
@@ -109,7 +112,7 @@ public class Duke {
                 System.out.println(LINE + "Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
                     System.out.print(i + 1 + ". ");
-                    System.out.println(Task[i]);
+                    System.out.println(Task.get(i));
                 }
                 System.out.print("You can mark them as done by typing 'done' + task number!\n" + LINE);
             }
