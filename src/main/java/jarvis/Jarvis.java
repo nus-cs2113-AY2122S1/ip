@@ -22,6 +22,7 @@ public class Jarvis {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_DELETE = "delete";
 
     public static void main(String[] args) {
         greetMessage();
@@ -56,6 +57,9 @@ public class Jarvis {
                 break;
             case COMMAND_EVENT:
                 eventTask(userLine, taskList);
+                break;
+            case COMMAND_DELETE:
+                deleteTask(userLine, taskList);
                 break;
             case COMMAND_BYE:
                 byeMessage();
@@ -106,6 +110,20 @@ public class Jarvis {
                 + "Good one Sir! I've marked this task as done:\n"
                 + " " + taskList.get(taskNum-1).toString() + "\n"
                 + LINE);
+    }
+
+    private static void deleteTask(String userLine, ArrayList<Task> taskList) {
+        String[] extractDeleteTask = userLine.toLowerCase().split(" ", 2);
+        int taskNum = Integer.parseInt(extractDeleteTask[1]);
+        if (taskNum < 0 || taskNum > taskList.size()) {
+            throw new ArithmeticException();
+        }
+        System.out.println(LINE_W_NL
+                + "Noted Sir! I've removed this task:\n"
+                + " " + taskList.get(taskNum-1).toString() + "\n"
+                + "You now have " + (taskList.size()-1) + " tasks in the list Sir!\n"
+                + LINE);
+        taskList.remove(taskNum-1);
     }
 
     private static void todoTask(String userLine, ArrayList<Task> taskList) {
