@@ -18,7 +18,7 @@ public class Duke {
     private final static String TAB = "    ";
     private final static String GREETING = TAB + "Hello... I'm Sadge Duke\n    What can I do for you? :(";
     private final static String GOODBYE = TAB + "Please don't go... I'll miss you...";
-    private final static String INVALID_GENERAL = TAB + "☹ I'm really sorry... This is an invalid input...";
+    private final static String INVALID_GENERAL = TAB + "I'm really sorry... This is an invalid input...";
     private final static String INVALID_DONE = TAB + "I'm sorry... This is an incorrect done input...\n"
             + TAB + "Please use 'list' to see what number can be used...";
     private final static String INVALID_DELETE = TAB + "Why would you delete a task... Your delete statement is an "
@@ -130,7 +130,7 @@ public class Duke {
     private static void printAddedMessage() {
         System.out.println(TAB + "Okay... I guess I'll add this task... ");
         System.out.println(TAB + TAB + list.get(list.size() - 1));
-        System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", list.size()));
+        System.out.println(TAB + String.format("Now you have %d tasks in the list...", list.size()));
     }
 
     /**
@@ -164,7 +164,7 @@ public class Duke {
             System.out.print(TAB + "Are you sure about this? I'll just delete this anyway..."
                     + System.lineSeparator() + TAB + TAB);
             System.out.println(temp);
-            System.out.println(TAB + String.format("Now you have %d tasks in the list... ☹", list.size()));
+            System.out.println(TAB + String.format("Now you have %d tasks in the list...", list.size()));
             refreshFile();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(INVALID_DELETE);
@@ -290,26 +290,15 @@ public class Duke {
      * This function prints the welcome banner.
      */
     private static void printWelcomeBanner() {
-        /**
-         * ASCII art source: https://www.twitchquotes.com/copypastas/2059
-         */
-        String sadge = "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠉⣉⣉⠙⠿⠋⣠⢴⣊⣙⢿⣿⣿\n"
-                + "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁⠀⢀⠔⡩⠔⠒⠛⠧⣾⠊⢁⣀⣀⣀⡙⣿\n"
-                + "   ⣿⣿⣿⣿⣿⣿⣿⠟⠛⠁⠀⠀⠀⠀⠀⡡⠊⠀⠀⣀⣠⣤⣌⣾⣿⠏⠀⡈⢿⡜\n"
-                + "   ⣿⣿⣿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠡⣤⣶⠏⢁⠈⢻⡏⠙⠛⠀⣀⣁⣤⢢\n"
-                + "   ⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣄⡀⠣⣌⡙⠀⣘⡁⠜⠈⠑⢮⡭⠴⠚⠉⠀\n"
-                + "   ⠁⠀⢀⠔⠁⣀⣤⣤⣤⣤⣤⣄⣀⠀⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠁⠀⢀⣠⢠\n"
-                + "   ⡀⠀⢸⠀⢼⣿⣿⣶⣭⣭⣭⣟⣛⣛⡿⠷⠶⠶⢶⣶⣤⣤⣤⣶⣶⣾⡿⠿⣫⣾\n"
-                + "   ⠇⠀⠀⠀⠈⠉⠉⠉⠉⠉⠙⠛⠛⠻⠿⠿⠿⠷⣶⣶⣶⣶⣶⣶⣶⣶⡾⢗⣿⣿\n"
-                + "   ⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣶⣾⣿⣿⣿\n"
-                + "   ⣿⣿⣿⣷⣶⣤⣄⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣝⡻⣿⣿⣿⣿⣿⣿⣿⣿\n"
-                + "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡹⣿⣿⣿⣿⣿⣿\n";
 
-        /**
-         * ASCII art source: https://fsymbols.com/text-art/
-         */
-        String text = "█▀ ▄▀█ █▀▄ █▀▀ █▀▀   █▀▄ █░█ █▄▀ █▀▀\n"
-                + "▄█ █▀█ █▄▀ █▄█ ██▄   █▄▀ █▄█ █░█ ██▄";
+        String sadge = ":( :( :( :( :( :( :( :( :( :( :( :(\n"
+                + "D: D: D: D: D: D: D: D: D: D: D: D:\n"
+                + ":( :( :( :( :( :( :( :( :( :( :( :(\n"
+                + "D: D: D: D: D: D: D: D: D: D: D: D:\n"
+                + ":( :( :( :( :( :( :( :( :( :( :( :(\n"
+                + "D: D: D: D: D: D: D: D: D: D: D: D:\n";
+
+        String text = "SADGE DUKE";
         System.out.println("Hello from\n" + sadge + text);
         System.out.println(LINES);
         System.out.println(GREETING);
