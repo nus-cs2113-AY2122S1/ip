@@ -20,19 +20,13 @@ public class Duke {
     public static final int MAX_TASK_LENGTH = 100;
     public static final List ONE_PART_COMMAND = Arrays.asList("list");
     public static final List TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event");
+    
+
     public static void main(String[] args) {
         PrintManager.printWelcome();
-        Scanner in = new Scanner(System.in);
-        int taskCount = 0;
         Task[] tasks = readFile();
-        for(Task task:tasks) {
-            if(task == null) {
-                break;
-            }
-            taskCount++;
-        }
-        
-        
+        int taskCount = getTaskCount(tasks);
+        Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         while(isNotBye(command)) {
             try {
@@ -67,52 +61,32 @@ public class Duke {
         PrintManager.printBye();
     }
 
+    private static int getTaskCount(Task[] tasks) {
+        int taskCount = 0;
+        for(Task task: tasks) {
+            if(task == null) {
+                break;
+            }
+            taskCount++;
+        }
+        return taskCount;
+    }
+
     private static void updateFile(Task[] tasks) {
-        String dataPath = "./ip/text-ui-test/owldata.txt";
-        int i = 0;
+        String dataPath = "data/owlmemory";
         try {
+            int i = 0;
             FileWrite.writeToFile(dataPath, "");
             while (tasks[i] != null) {
                 Task task = tasks[i];
                 if(task.getTag().equals("T")) {
-                    FileWrite.appendToFile(dataPath, task.getTag());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    FileWrite.appendToFile(dataPath, task.getDescription());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    if (task.getStatus().equals("X")) {
-                        FileWrite.appendToFile(dataPath, "1");
-                    } else {
-                        FileWrite.appendToFile(dataPath, "0");
-                    }
-                    FileWrite.appendToFile(dataPath, System.lineSeparator());
+                    writeTodoData(dataPath, task);
                 }
                 if(task.getTag().equals("D")) {
-                    FileWrite.appendToFile(dataPath, task.getTag());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    FileWrite.appendToFile(dataPath, task.getDescription());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    FileWrite.appendToFile(dataPath, task.getInfo());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    if (task.getStatus().equals("X")) {
-                        FileWrite.appendToFile(dataPath, "1");
-                    } else {
-                        FileWrite.appendToFile(dataPath, "0");
-                    }
-                    FileWrite.appendToFile(dataPath, System.lineSeparator());
+                    writeEventDeadlineData(dataPath, task);
                 }
                 if(task.getTag().equals("E")) {
-                    FileWrite.appendToFile(dataPath, task.getTag());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    FileWrite.appendToFile(dataPath, task.getDescription());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    FileWrite.appendToFile(dataPath, task.getInfo());
-                    FileWrite.appendToFile(dataPath, " ~ ");
-                    if (task.getStatus().equals("X")) {
-                        FileWrite.appendToFile(dataPath, "1");
-                    } else {
-                        FileWrite.appendToFile(dataPath, "0");
-                    }
-                    FileWrite.appendToFile(dataPath, System.lineSeparator());
+                    writeEventDeadlineData(dataPath, task);
                 }
                 i++;
             }
@@ -120,15 +94,42 @@ public class Duke {
                 System.out.println("Something went wrong with writing into the file: " + ioe.getMessage());
         }
     }
-    
-    
-    
+
+    private static void writeEventDeadlineData(String dataPath, Task task) throws IOException {
+        FileWrite.appendToFile(dataPath, task.getTag());
+        FileWrite.appendToFile(dataPath, " ~ ");
+        FileWrite.appendToFile(dataPath, task.getDescription());
+        FileWrite.appendToFile(dataPath, " ~ ");
+        FileWrite.appendToFile(dataPath, task.getInfo());
+        FileWrite.appendToFile(dataPath, " ~ ");
+        if (task.getStatus().equals("X")) {
+            FileWrite.appendToFile(dataPath, "1");
+        } else {
+            FileWrite.appendToFile(dataPath, "0");
+        }
+        FileWrite.appendToFile(dataPath, System.lineSeparator());
+    }
+
+    private static void writeTodoData(String dataPath, Task task) throws IOException {
+        FileWrite.appendToFile(dataPath, task.getTag());
+        FileWrite.appendToFile(dataPath, " ~ ");
+        FileWrite.appendToFile(dataPath, task.getDescription());
+        FileWrite.appendToFile(dataPath, " ~ ");
+        if (task.getStatus().equals("X")) {
+            FileWrite.appendToFile(dataPath, "1");
+        } else {
+            FileWrite.appendToFile(dataPath, "0");
+        }
+        FileWrite.appendToFile(dataPath, System.lineSeparator());
+    }
+
+
     private static Task[] readFile() {
         Task[] tasks = new Task[MAX_TASK_LENGTH];
         try {
             int taskCount = 0;
-            File directory = new File("./ip/text-ui-test/owldata.txt");
-            Scanner s = new Scanner(directory); // create a Scanner using the File as the source
+            File file = getFile();
+            Scanner s = new Scanner(file); // create a Scanner using the File as the source
             while(s.hasNext()) {
                 String textLine = s.nextLine();
                 String[] inputs = textLine.split(" ~ ");
@@ -157,10 +158,30 @@ public class Duke {
 
             return tasks;
         } catch(FileNotFoundException fnfe) {
-            System.out.println("FILE NOT FOUND BODOH");
-            return new Task[MAX_TASK_LENGTH];
+            System.out.println("File not found!");
+        } catch(IOException ioe) {
+            System.out.println("Theres a problem with making a new file!");
         }
+        return tasks;
+
     }
+
+    private static File getFile() throws IOException {
+        File file = new File("data/owlmemory");
+        if(!file.exists()) {
+            File makeNewDir = new File("data");
+            if(makeNewDir.mkdir()) {
+                System.out.println("Directory not found so I made a new directory!");
+            }
+            File NewFile = new File("data/owlmemory");
+            if(NewFile.createNewFile()) {
+                System.out.println("File not found so I made a new file!");
+            }
+            return NewFile;
+        }
+        return file;
+    }
+
     private static boolean isInvalidOnePartCmd(String[] inputs, int commandLength) {
         return commandLength > 1 && isOnePartCmd(inputs[0]);
     }
