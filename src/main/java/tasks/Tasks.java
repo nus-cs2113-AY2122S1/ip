@@ -12,7 +12,7 @@ public abstract class Tasks {
         isCompleted = true;
     }
 
-    public String mark(){
+    public String getComplete(){
         if (isCompleted) {
             return "X";
         } else {
@@ -31,17 +31,28 @@ public abstract class Tasks {
 
         } else if(input.toLowerCase().startsWith("done") && input.split(" ").length == 2) {
             try {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                if (tasksAL.get(taskNumber - 1).mark().equals("X")){
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (tasksAL.get(taskIndex - 1).getComplete().equals("X")){
                     System.out.println("You have already completed that task!");
                 } else {
-                    tasksAL.get(taskNumber - 1).makeComplete();
-                    printCompleted(tasksAL, taskNumber);
+                    tasksAL.get(taskIndex).makeComplete();
+                    printCompleted(tasksAL, taskIndex);
                 }
             } catch(IndexOutOfBoundsException e){
                 System.out.println("Number does not exist in list, please try again.");
             } catch(NumberFormatException e){
                 System.out.println("Please add 'todo', 'deadline' or 'event' in the front of your task!");
+            }
+
+        } else if(input.toLowerCase().startsWith("delete") && input.split(" ").length == 2) {
+            try {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                printDeleted(tasksAL, taskIndex);
+                tasksAL.remove(taskIndex);
+            } catch(IndexOutOfBoundsException e){
+                System.out.println("Number does not exist in list, please try again.");
+            } catch(NumberFormatException e){
+                System.out.println("Please enter delete followed by the number of the task you would like deleted.");
             }
 
         } else if (input.toLowerCase().startsWith("todo")) {
@@ -74,8 +85,8 @@ public abstract class Tasks {
     }
 
     private static void printTasks(ArrayList<Tasks> tasksAL) {
-        for (int taskNumber = 0; taskNumber < tasksAL.size(); taskNumber++) {
-            System.out.println(taskNumber + 1 + ". " + tasksAL.get(taskNumber).getName());
+        for (int taskIndex = 0; taskIndex < tasksAL.size(); taskIndex++) {
+            System.out.println(taskIndex + 1 + ". " + tasksAL.get(taskIndex).getName());
         }
     }
 
@@ -94,9 +105,15 @@ public abstract class Tasks {
         System.out.println("Now you have " + tasksAL.size() + " tasks in the list!");
     }
 
-    private static void printCompleted(ArrayList<Tasks> tasksAL, int taskNumber){
+    private static void printCompleted(ArrayList<Tasks> tasksAL, int taskIndex){
         System.out.println("Great job! You have completed the following task:");
-        System.out.println(tasksAL.get(taskNumber - 1).getName());
+        System.out.println(tasksAL.get(taskIndex).getName());
         System.out.println("Now you have " + tasksAL.size() + " tasks in the list!");
+    }
+
+    private static void printDeleted(ArrayList<Tasks> tasksAL, int taskIndex){
+        System.out.println("Noted, I have deleted the following task:");
+        System.out.println(tasksAL.get(taskIndex ).getName());
+        System.out.println("Now you have " + (tasksAL.size() - 1) + " tasks in the list!");
     }
 }
