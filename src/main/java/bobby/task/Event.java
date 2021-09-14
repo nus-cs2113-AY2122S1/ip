@@ -6,6 +6,7 @@ public class Event extends Task{
     public Event(String fullTaskDescription){
         super(fullTaskDescription);
         this.at = getAt();
+        totalTasks ++;
     }
 
     public String getType(){
@@ -20,6 +21,10 @@ public class Event extends Task{
 
     public String getFormattedDescription(){
         return String.format("%s(at:%s)", getTask(),this.at);
+    }
+
+    public String getFormattedFileDescription() {
+        return String.format("Event,%s,%s,%s",getStatusIcon(), getTask(), this.at);
     }
 
     //obtain the task to do from the input description

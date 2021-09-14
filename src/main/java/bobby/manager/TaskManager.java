@@ -1,9 +1,15 @@
 package bobby.manager;
 
+import bobby.FileManager;
 import bobby.exception.IncorrectDescriptionFormatException;
 import bobby.exception.NoDescriptionException;
 import bobby.task.Task;
 import bobby.command.Command;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class TaskManager {
@@ -25,10 +31,10 @@ public class TaskManager {
         return taskList;
     }
 
-    public void addTask(Task task, int taskListIndex){
+    public void addTask(Task task){
+        int taskListIndex = Task.getTotalTasks() - 1;
         this.taskList[taskListIndex] = task;
     }
-
 
 
     public String getTaskCommand(String rawUserInput) {
@@ -57,15 +63,19 @@ public class TaskManager {
                 break;
             case DONE_COMMAND:
                 command.executeDoneCommand(taskListIndex, rawUserInput);
+                FileManager.saveToFile(taskList);
                 break;
             case TODO_COMMAND:
                 command.executeToDoCommand(taskListIndex, rawUserInput);
+                FileManager.saveToFile(taskList);
                 break;
             case DEADLINE_COMMAND:
                 command.executeDeadlineCommand(taskListIndex, rawUserInput);
+                FileManager.saveToFile(taskList);
                 break;
             case EVENT_COMMAND:
                 command.executeEventCommand(taskListIndex, rawUserInput);
+                FileManager.saveToFile(taskList);
                 break;
             default:
                 ResponseManager.printInvalidCommandMessage();
@@ -81,6 +91,8 @@ public class TaskManager {
             ResponseManager.printInvalidTaskIndexMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             ResponseManager.printArrayOutOfBoundsMessage();
+        } catch (IOException e) {
+            ResponseManager.printIOExceptionMessage();
         }
 
     }

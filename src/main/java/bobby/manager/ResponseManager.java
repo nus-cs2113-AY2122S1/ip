@@ -75,13 +75,19 @@ public abstract class ResponseManager {
     }
 
     public static void printInvalidTaskIndexMessage() {
-        String message = "    You have no such task number. Please enter a number within your list of tasks.\n";
+        String message = "    That is not a valid task number :(\n";
         printFormattedMessage(message);
     }
 
     public static void printArrayOutOfBoundsMessage() {
-        String message = "    You have no such task number. Please enter a number within your list of tasks.\n";
+        String message = "    That is not a valid task number :(\n";
         printFormattedMessage(message);
     }
+
+    public static void printIOExceptionMessage() {
+        String message = "    Error when reading or writing to files :(\n";
+        printFormattedMessage(message);
+    }
+
 
 }

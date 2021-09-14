@@ -9,7 +9,6 @@ public class Task {
     public Task(String fullTaskDescription){
         this.fullTaskDescription = fullTaskDescription;
         this.isDone = false;
-        totalTasks ++;
     }
 
 
@@ -44,6 +43,10 @@ public class Task {
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription(){
+        return this.fullTaskDescription;
+    }
+
+    public String getFormattedFileDescription() {
         return this.fullTaskDescription;
     }
 

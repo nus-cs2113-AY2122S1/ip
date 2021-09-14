@@ -6,6 +6,7 @@ public class Deadline extends Task{
     public Deadline(String fullTaskDescription) {
         super(fullTaskDescription);
         this.by = getBy();
+        totalTasks ++;
     }
 
     public String getType() {
@@ -21,6 +22,10 @@ public class Deadline extends Task{
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription() {
         return String.format("%s(by:%s)", getTask(),this.by);
+    }
+
+    public String getFormattedFileDescription() {
+        return String.format("Deadline,%s,%s,%s",getStatusIcon(), getTask(), this.by);
     }
 
 

@@ -1,5 +1,6 @@
 package bobby.command;
 
+import bobby.FileManager;
 import bobby.exception.IncorrectDescriptionFormatException;
 import bobby.exception.NoDescriptionException;
 import bobby.manager.ResponseManager;
@@ -59,7 +60,7 @@ public class Command {
         }
 
         ToDo task = new ToDo(fullTaskDescription);
-        taskManager.addTask(task, taskListIndex);
+        taskManager.addTask(task);
         ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
@@ -81,7 +82,7 @@ public class Command {
         }
 
         Deadline task = new Deadline(fullTaskDescription);
-        taskManager.addTask(task, taskListIndex);
+        taskManager.addTask(task);
         ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 
@@ -103,7 +104,7 @@ public class Command {
         }
 
         Event task = new Event(fullTaskDescription);
-        taskManager.addTask(task, taskListIndex);
+        taskManager.addTask(task);
         ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
     }
 }
