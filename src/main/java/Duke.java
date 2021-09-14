@@ -31,7 +31,7 @@ public class Duke {
                     break;
                 case "blah":
                     logo = "____________________________________________________________\n"
-                            + "blah\n"
+                            + "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                             + "____________________________________________________________\n";
                     System.out.println(logo);
                     break;
@@ -43,29 +43,62 @@ public class Duke {
                     break;
                 default:
                     if(input.substring(0, 4).equals("todo")){
-                        String description = input.substring(5);
-                        todo[todo_index] = new Task(description);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task: ");
-                        System.out.println(todo[todo_index].toString());
-                        todo_index += 1;
-
+                        try {
+                            String description = input.substring(5);
+                            todo[todo_index] = new Task(description);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Got it. I've added this task: ");
+                            System.out.println(todo[todo_index].toString());
+                            todo_index += 1;
+                        } catch (StringIndexOutOfBoundsException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                            System.out.println("____________________________________________________________");
+                        }
                     }else if(input.startsWith("deadline")){
-                        String description = input.substring(input.indexOf("deadline") + 9, input.indexOf("/by") - 1);
-                        String by = input.substring(input.indexOf("/by") + 4);
-                        todo[todo_index] = new Deadline(description, by);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task: ");
-                        System.out.println(todo[todo_index].toString());
-                        todo_index += 1;
+                        int descriptionIndex = 9;
+                        String task =  "deadline";
+                        try {
+                            ExceptionTry(task,input);
+                            String description = input.substring(input.indexOf("deadline") + descriptionIndex, input.indexOf("/by") - 1);
+                            String by = input.substring(input.indexOf("/by") + 4);
+                            todo[todo_index] = new Deadline(description, by);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Got it. I've added this task: ");
+                            System.out.println(todo[todo_index].toString());
+                            todo_index += 1;
+                        } catch (DukeException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! The description of a deadline must have /by.");
+                            System.out.println("____________________________________________________________");
+                        } catch (StringIndexOutOfBoundsException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                            System.out.println("____________________________________________________________");
+                        }
+
                     }else if(input.startsWith("event")){
-                        String description = input.substring(input.indexOf("event") + 6, input.indexOf("/at") - 1);
-                        String at = input.substring(input.indexOf("/at") + 4);
-                        todo[todo_index] = new Event(description, at);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task: ");
-                        System.out.println(todo[todo_index].toString());
-                        todo_index += 1;
+                        int descriptionIndex = 6;
+                        String task =  "event";
+                        try {
+                            ExceptionTry(task,input);
+                            String description = input.substring(input.indexOf("event") + descriptionIndex, input.indexOf("/at") - 1);
+                            String at = input.substring(input.indexOf("/at") + 4);
+                            todo[todo_index] = new Event(description, at);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Got it. I've added this task: ");
+                            System.out.println(todo[todo_index].toString());
+                            todo_index += 1;
+                        }catch (DukeException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! The description of a event must have /at.");
+                            System.out.println("____________________________________________________________");
+                        } catch (StringIndexOutOfBoundsException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! The description of a event cannot be empty.");
+                            System.out.println("____________________________________________________________");
+                        }
+
                     }
                     System.out.println("Now you have "+ todo_index  +" tasks in the list.");
                     System.out.println("____________________________________________________________");
@@ -73,6 +106,24 @@ public class Duke {
                 }
             }
             input = sc.nextLine();
+        }
+    }
+
+    private static void ExceptionTry(String task, String input) throws DukeException {
+        //throw DukeException here if descriptor don't have /by or /at
+        switch (task){
+        case "deadline":
+            if(!input.contains("/by")){
+                throw new DukeException();
+            }
+            break;
+        case "event":
+            if(!input.contains("/at")){
+                throw new DukeException();
+            }
+            break;
+        default:
+            break;
         }
     }
 }
