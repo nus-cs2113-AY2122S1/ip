@@ -1,5 +1,9 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -280,6 +284,30 @@ public class Duke {
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public static void readFile(String filePath) throws FileNotFoundException {
+        File dukeFile = new File(filePath);
+        Scanner s = new Scanner(dukeFile);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    public static void writeToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+
+        // write from ArrayList to file
+        
+        fw.close();
+    }
+
+    public static void loadTaskFile() {
+
+    }
+
+    public static void saveTaskFile() {
+
     }
 
     public static void main(String[] args) {
