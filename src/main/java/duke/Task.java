@@ -1,12 +1,8 @@
 package duke;
 
-import java.util.Locale;
-
 public class Task {
     private String description;
     private boolean status;
-
-    public static final int TASK_INDEX = 5;
 
     public Task(String description) {
         this.description = description;
