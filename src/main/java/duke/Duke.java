@@ -66,6 +66,8 @@ public class Duke {
                     list();
                 } else if (userInput.startsWith("done")) {
                     markTaskAsDone(userInput);
+                } else if (userInput.startsWith("delete")) {
+                    deleteTask(userInput);
                 } else {
                     addTaskToList(userInput);
                 }
@@ -173,6 +175,27 @@ public class Duke {
             throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
         }
     }
+
+    /**
+     * Deletes the task from the task list.
+     *
+     * @param deleteTask DeleteTask stores the task number which is supposed to be deleted.
+     */
+    private static void deleteTask(String userInput) throws DukeException {
+        printLine();
+        int deleteTask = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+
+        if ((deleteTask <= scheduledTasks.size()) && (deleteTask > 0)) {
+            Task taskToBeDeleted = scheduledTasks.get(deleteTask - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(taskToBeDeleted);
+            scheduledTasks.remove(deleteTask - 1);
+            System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
+        } else {
+            throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
+        }
+    }
+
 
     /**
      * Lists all the tasks in the task list along with their task completion status.
