@@ -1,6 +1,7 @@
 package duke.task;
+import java.io.Serializable;
 
-public class Task {
+public class Task implements Serializable {
 
     private String title = "";
     private boolean doneStatus = false;
