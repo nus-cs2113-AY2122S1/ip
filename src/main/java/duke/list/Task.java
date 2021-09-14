@@ -3,12 +3,10 @@ package duke.list;
 public class Task {
     private String description;
     private boolean isDone;
-    private int noOfTask;
 
-    public Task(String description, int noOfTask) {
+    public Task(String description) {
         setDescription(description);
         this.isDone = false;
-        setNoOfTask(noOfTask);
     }
 
     public void setDescription(String description) {
@@ -19,16 +17,9 @@ public class Task {
         this.isDone = true;
     }
 
-    public void setNoOfTask(int index) {
-        this.noOfTask = index;
-    }
 
     public String getDescription() {
         return (this.description);
-    }
-
-    public String getStringNo() {
-        return (Integer.toString(noOfTask));
     }
 
     public String toString() {

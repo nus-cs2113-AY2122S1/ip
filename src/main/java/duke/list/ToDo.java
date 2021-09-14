@@ -2,8 +2,8 @@ package duke.list;
 
 public class ToDo extends Task{
 
-    public ToDo(String description, int noOfTask) {
-        super(description, noOfTask);
+    public ToDo(String description) {
+        super(description);
     }
 
     public String toString() {

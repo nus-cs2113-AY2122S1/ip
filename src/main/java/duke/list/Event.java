@@ -3,8 +3,8 @@ package duke.list;
 public class Event extends Task{
     protected String at;
 
-    public Event(String description, int noOfTask, String at) {
-        super(description, noOfTask);
+    public Event(String description, String at) {
+        super(description);
         setAt(at);
     }
 
