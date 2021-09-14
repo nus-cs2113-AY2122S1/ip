@@ -13,8 +13,12 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public String toFileFormat() {
+        return "E | " + (isDone ? "1" : "0") + " # " + description + " @ " + at + "\n";
+    }
+
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (at:" + at + ")";
+        return"[D] [" + getStatus() + "] " + getDescription() + " (at:" + at + ")";
     }
 }

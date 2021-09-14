@@ -1,5 +1,9 @@
 package austin;
 
+import java.io.*;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,8 +15,11 @@ public class Duke {
 
     private final static String INVALID_COMMAND_MESSAGE = "Sorry. The command is invalid.";
 
+    private final static String FILE_PATH = "data/austin.txt";
+
     public static void main(String[] args) {
         printWelcomeMessage();
+        retrieveTasks();
         processCommand();
         printByeMessage();
     }
@@ -62,6 +69,9 @@ public class Duke {
             switch (inputs[0]) {
             case "delete":
                 deleteTask(inputs);
+                break;
+            case "clear":
+                clearTasks();
                 break;
             case "todo":
                 addTodoTask(inputs);
@@ -124,11 +134,9 @@ public class Duke {
      */
     public static void printList(String[] inputs) throws AustinException {
         if (inputs.length > 1) {
-            // if the command does not contain extra characters or words
             throw new AustinException(INVALID_COMMAND_MESSAGE);
         }
         if (tasks.size() == 0) {
-            // if there are no items in the list
             throw new AustinException("No items were added into the list.");
         }
         System.out.println("Below are the list of tasks in your list:");
@@ -154,11 +162,19 @@ public class Duke {
             throw new AustinException("Sorry. The task index is missing.");
         }
         int taskIndex = parseInt(inputs[1]) - 1;
-        if ((taskIndex >= tasks.size()) || (taskIndex < 0)){
-            // if the task index is out of range
+        if ((taskIndex >= tasks.size()) || (taskIndex < 0)) {
             throw new AustinException("Sorry. The task index given is out of range.");
         }
+        if (tasks.get(taskIndex).isDone) {
+            throw new AustinException("Oops. This task is already marked as done.");
+        }
         tasks.get(taskIndex).setDone(true);
+        try {
+            updateFile();
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
         System.out.println("Amazing! I have marked this task as done:");
         System.out.println(tasks.get(taskIndex).toString());
     }
@@ -176,7 +192,15 @@ public class Duke {
         }
         String task = inputs[1];
         Todo newTodo = new Todo(task);
-        tasks.add(newTodo);
+        try {
+            appendToFile(newTodo.toFileFormat());
+            tasks.add(newTodo);
+
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
+
         printAddTaskMessage();
     }
 
@@ -199,7 +223,13 @@ public class Duke {
         }
         int index = task.indexOf("|");
         Event newEvent = new Event(task.substring(0, index), task.substring(index + 1));
-        tasks.add(newEvent);
+        try {
+            appendToFile(newEvent.toFileFormat());
+            tasks.add(newEvent);
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
         printAddTaskMessage();
     }
 
@@ -222,7 +252,13 @@ public class Duke {
         }
         int index = task.indexOf("|");
         Deadline newDeadline = new Deadline(task.substring(0, index), task.substring(index + 1));
-        tasks.add(newDeadline);
+        try {
+            appendToFile(newDeadline.toFileFormat());
+            tasks.add(newDeadline);
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
         printAddTaskMessage();
     }
 
@@ -243,7 +279,13 @@ public class Duke {
         }
         System.out.println("Noted. I have deleted the following task:");
         System.out.println(tasks.get(taskIndex).toString());
-        tasks.remove(taskIndex);
+        try {
+            updateFile();
+            tasks.remove(taskIndex);
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
         System.out.println("Now, you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -255,6 +297,119 @@ public class Duke {
         System.out.println("Noted. I have successfully added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now, you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * Handles loading of the tasks stored in the file into the array and the
+     * exceptions associated with it.
+     */
+    private static void retrieveTasks() {
+        try {
+            addTasksFromFile();
+            System.out.println("Currently, there are " + tasks.size() +
+                    " tasks in the list");
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Removes all the tasks from the list and in the file.
+     * @throws AustinException If there are no tasks in the list
+     */
+    private static void clearTasks() throws AustinException {
+        if (tasks.size() == 0) {
+            throw new AustinException("Sorry. There are no tasks in the list " +
+                    "right now.");
+        }
+        try {
+            FileChannel.open(Paths.get(FILE_PATH), StandardOpenOption.WRITE)
+                    .truncate(0).close();
+            tasks.clear();
+        } catch (IOException e) {
+            System.out.println("Oops sorry. Something went wrong.");
+            System.out.println(e.getMessage());
+        }
+        System.out.println("All the tasks are cleared from the list.");
+    }
+
+    /**
+     * Adds tasks stored in the file into the array.
+     * @throws IOException If there is an error occurred during file management
+     */
+    private static void addTasksFromFile() throws IOException {
+        File f = loadFile();
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            int descriptionIndex = line.indexOf("#") + 2;
+            switch (line.charAt(0)) {
+            case 'T':
+                Task newTodo = new Todo(line.substring(descriptionIndex));
+                tasks.add(newTodo);
+                break;
+            case 'D':
+                int byIndex = line.indexOf("/");
+                Task newDeadline = new Deadline(line.substring(descriptionIndex, byIndex)
+                        , line.substring(byIndex + 2));
+                tasks.add(newDeadline);
+                break;
+            case 'E':
+                int atIndex = line.indexOf("@");
+                Task newEvent = new Event(line.substring(descriptionIndex, atIndex),
+                        line.substring(atIndex + 2));
+                tasks.add(newEvent);
+                break;
+            }
+            if (line.charAt(4) == '1') {
+                (tasks.get(tasks.size() - 1)).setDone(true);
+            }
+        }
+    }
+
+    /**
+     * Opens the text file for reading if it exists. If the file does not exist in
+     * the directory, a new file is created. A new directory is created if the specified
+     * directory is not available.
+     * @return The file which is used to store tasks
+     * @throws IOException If there is an error due to file management
+     */
+    private static File loadFile() throws IOException {
+        File f = new File(FILE_PATH);
+        if (!f.exists()) {
+            File dir = new File("data");
+            dir.mkdir();
+            File newFile = new File("data/austin.txt");
+            newFile.createNewFile();
+            return newFile;
+        }
+        return f;
+    }
+
+    /**
+     * Updates the text file after a task is deleted or marked as done.
+     * @throws IOException If there is an error due to file management
+     */
+    private static void updateFile() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH, false);
+        int i = 0;
+        while (i < tasks.size()) {
+            fw.write((tasks.get(i)).toFileFormat());
+            i++;
+        }
+        fw.close();
+    }
+
+    /**
+     * Adds the specific task to the end of the text file.
+     * @param textToAdd New task added to the file for storage
+     * @throws IOException If there is an error due to file management
+     */
+    private static void appendToFile(String textToAdd) throws IOException {
+        FileWriter f = new FileWriter(FILE_PATH, true);
+        f.write(textToAdd);
+        f.close();
     }
 
     /**

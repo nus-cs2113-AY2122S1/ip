@@ -5,8 +5,12 @@ public class Todo extends Task {
         super(description);
     }
 
+    public String toFileFormat() {
+        return "T | " + (isDone ? "1" : "0") + " # " + description + "\n";
+    }
+
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        return "[T] [" + getStatus() + "] " + getDescription();
     }
 }
