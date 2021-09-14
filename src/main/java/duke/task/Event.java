@@ -6,7 +6,6 @@ package duke.task;
  */
 public class Event extends Task {
     protected String dateAndTime;
-    protected static final String EVENT_LOGO = "[E]";
 
     public Event(String description, String dateAndTime) {
         super(description);
@@ -29,5 +28,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         return EVENT_LOGO + super.toString() + " (at: " + dateAndTime + ")";
+    }
+
+    /**
+     * Returns Event task formatted for data file in the form "E | 1/0 | description | dateAndTime"
+     *
+     * @return Formatted Event task string for data file
+     */
+    @Override
+    public String toTextFileString() {
+        return EVENT_ACRONYM + " | " + super.toTextFileString() + " | " + dateAndTime;
     }
 }

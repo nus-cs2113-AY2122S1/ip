@@ -6,7 +6,6 @@ package duke.task;
  */
 public class Deadline extends Task {
     protected String deadline;
-    protected static final String DEADLINE_LOGO = "[D]";
 
     public Deadline(String description, String deadline) {
         super(description);
@@ -29,5 +28,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return DEADLINE_LOGO + super.toString() + " (by: " + deadline + ")";
+    }
+
+    /**
+     * Returns Deadline task formatted for data file in the form "D | 1/0 | description | deadline"
+     *
+     * @return Formatted Deadline task string for data file
+     */
+    @Override
+    public String toTextFileString() {
+        return DEADLINE_ACRONYM + " | " + super.toTextFileString() + " | " + deadline;
     }
 }
