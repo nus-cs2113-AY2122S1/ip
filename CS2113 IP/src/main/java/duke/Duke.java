@@ -28,6 +28,8 @@ public class Duke {
         final String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
         final String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
         final String ERROR_EMPTY_DELETE_DESCRIPTION = "Please do not leave your delete task number empty :-(";
+        final String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
+        final String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
 
         boolean isBye;
         boolean isList;
@@ -72,18 +74,24 @@ public class Duke {
                     addTask(tasks, Task.taskCount, userInput, TaskType.TODO);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_TODO_DESCRIPTION);
+                } catch (FormatException e) {
+                    System.out.println(ERROR_EMPTY_TODO_DESCRIPTION);
                 }
             } else if (isDeadline) {
                 try {
                     addTask(tasks, Task.taskCount, userInput, TaskType.DEADLINE);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_DEADLINE_DESCRIPTION);
+                } catch (FormatException e) {
+                    System.out.println(ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION);
                 }
             } else if (isEvent) {
                 try {
                     addTask(tasks, Task.taskCount, userInput, TaskType.EVENT);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_EVENT_DESCRIPTION);
+                } catch (FormatException e) {
+                    System.out.println(ERROR_WRONG_HANDLE_EVENT_DESCRIPTION);
                 }
             } else {
                 System.out.println(ERROR_UNKNOWN_INPUT);
@@ -94,14 +102,14 @@ public class Duke {
 
     }
 
-    private static void addTask(ArrayList<Task> tasks, int taskCount, String userInput, TaskType specificTask) throws DukeException {
+    private static void addTask(ArrayList<Task> tasks, int taskCount, String userInput, TaskType specificTask) throws DukeException, FormatException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
+        } else if (isIncorrectFormat(userInput, specificTask)) {
+            throw new FormatException();
         }
-        final String ADDED_TASK_COMMENT = "Got it. I've added this task:";
-        System.out.println(ADDED_TASK_COMMENT);
-        Task newTask;
 
+        Task newTask;
         switch (specificTask) {
         case EVENT:
             newTask = new Event(userInput, taskCount);
@@ -119,6 +127,8 @@ public class Duke {
         tasks.add(newTask);
         Task.taskCount++;
 
+        final String ADDED_TASK_COMMENT = "Got it. I've added this task:";
+        System.out.println(ADDED_TASK_COMMENT);
         String printTask = String.format(" [%s][ ] %s", newTask.taskType, newTask.description);
         String printTaskNumber = String.format("Now you have %d items in the list.", Task.taskCount);
         System.out.println(printTask);
@@ -173,6 +183,21 @@ public class Duke {
     private static boolean isEmptyDescription(String userInput) {
         String[] trimDescription = userInput.trim().split("\\s+", 2);
         return trimDescription.length < 2;
+    }
+
+    private static boolean isIncorrectFormat(String userInput, TaskType specificTask) {
+        switch (specificTask) {
+        case EVENT:
+            boolean hasIncorrectEventPlaceholder = !userInput.contains("/at");
+            return hasIncorrectEventPlaceholder;
+
+        case DEADLINE:
+            boolean hasIncorrectDeadlinePlaceholder = !userInput.contains("/by");
+            return hasIncorrectDeadlinePlaceholder;
+
+        default:
+            return true;
+        }
     }
 
     public static void main(String[] args) {
