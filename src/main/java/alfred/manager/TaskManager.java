@@ -7,14 +7,13 @@ import alfred.task.Event;
 import alfred.task.Task;
 import alfred.task.Todo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    private Task[] tasks;
-    private int listIndex;
-    private final int TASK_LIST_SIZE = 100;
+    private ArrayList<Task> tasks;
 
     public TaskManager() {
-        tasks = new Task[TASK_LIST_SIZE];
-        listIndex = 0;
+        tasks = new ArrayList<>();
         MessageManager.initMessage();
     }
 
@@ -29,6 +28,30 @@ public class TaskManager {
                 completeTask(userInput);
                 break;
             case "todo":
+                // Fallthrough
+            case "event":
+                // Fallthrough
+            case "deadline":
+                addTask(userInput);
+                break;
+            case "delete":
+                deleteTask(userInput);
+                break;
+            default:
+                MessageManager.invalidCommandMessage();
+            }
+        } catch (NumberFormatException e) {
+            MessageManager.invalidIndexMessage();
+        } catch (IndexOutOfBoundsException e) {
+            MessageManager.uninitialisedTaskIndexMessage(tasks.size());
+        }
+    }
+
+    private void addTask(String userInput) {
+        String[] destructuredInputs = userInput.split(" ");
+        try {
+            switch (destructuredInputs[0]) {
+            case "todo":
                 addTodo(userInput);
                 break;
             case "event":
@@ -42,36 +65,29 @@ public class TaskManager {
             }
         } catch (EmptyDescriptionException e) {
             MessageManager.emptyDescriptionMessage();
-        } catch (NumberFormatException e) {
-            MessageManager.invalidIndexMessage();
-        } catch (NullPointerException e) {
-            MessageManager.uninitialisedTaskIndexMessage(listIndex);
-        } catch (IndexOutOfBoundsException e) {
-            MessageManager.indexOutOfBoundsMessage();
         } catch (InvalidDateException e) {
             MessageManager.invalidDateMessage();
         }
     }
 
-
     private void listTasks() {
         System.out.print(MessageManager.LINE);
-        if (listIndex == 0) {
+        if (tasks.size() == 0) {
             System.out.println(" Your schedule is clear, Master Wayne.");
         } else {
             System.out.println(" Your tasks, sir:");
-            for (int i = 0; i < listIndex; i++) {
-                System.out.println(" " + (i + 1) + "." + tasks[i].toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
             }
         }
         System.out.println(MessageManager.LINE);
     }
 
-    private void completeTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException, NullPointerException {
+    private void completeTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException {
         String[] destructuredInputs = userInput.split(" ");
         int index = Integer.parseInt(destructuredInputs[1]) - 1;
-        tasks[index].setTaskDone();
-        MessageManager.completeTaskMessage(index + 1, tasks[index].toString());
+        tasks.get(index).setTaskDone();
+        MessageManager.completeTaskMessage(index + 1, tasks.get(index).toString());
     }
 
     private void addTodo(String userInput) throws EmptyDescriptionException {
@@ -81,9 +97,8 @@ public class TaskManager {
         }
         String todoName = destructuredInputs[1];
         Todo t = new Todo(todoName);
-        tasks[listIndex] = t;
-        listIndex++;
-        MessageManager.addTaskMessage(t, listIndex);
+        tasks.add(t);
+        MessageManager.addTaskMessage(t, tasks.size());
     }
 
     private void addEvent(String userInput) throws EmptyDescriptionException, InvalidDateException {
@@ -96,9 +111,8 @@ public class TaskManager {
             throw new InvalidDateException();
         }
         Event e = new Event(destructuredArguments[0], destructuredArguments[1]);
-        tasks[listIndex] = e;
-        listIndex++;
-        MessageManager.addTaskMessage(e, listIndex);
+        tasks.add(e);
+        MessageManager.addTaskMessage(e, tasks.size());
     }
 
     private void addDeadline(String userInput) throws EmptyDescriptionException, InvalidDateException {
@@ -111,9 +125,15 @@ public class TaskManager {
             throw new InvalidDateException();
         }
         Deadline d = new Deadline(destructuredArguments[0], destructuredArguments[1]);
-        tasks[listIndex] = d;
-        listIndex++;
-        MessageManager.addTaskMessage(d, listIndex);
+        tasks.add(d);
+        MessageManager.addTaskMessage(d, tasks.size());
     }
 
+    private void deleteTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException {
+        String[] destructuredInputs = userInput.split(" ");
+        int index = Integer.parseInt(destructuredInputs[1]) - 1;
+        Task removedTask = tasks.get(index);
+        tasks.remove(tasks.get(index));
+        MessageManager.deleteTaskMessage(removedTask, tasks.size());
+    }
 }
