@@ -1,10 +1,10 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
@@ -112,9 +112,14 @@ public class Duke {
     }
 
     private static void markDone(String arguments) {
-        int taskNumber = Integer.parseInt(arguments) - 1;
-        tasks.get(taskNumber).markAsDone();
-        displayDoneMessage(taskNumber);
+        int taskNumber = Integer.parseInt(arguments);
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            displayTaskDoesNotExistMessage();
+        } else {
+            int taskIndex = taskNumber - 1;
+            tasks.get(taskNumber).markAsDone();
+            displayDoneMessage(taskNumber);
+        }
     }
 
     private static void acknowledgeAddedTask(Task addedTask) {
@@ -270,20 +275,23 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String userInput = "";
-        String command = "";
-        String arguments = "";
         Scanner sc = new Scanner(System.in);
 
         displayGreetingMessage();
         loadData();
         while (true) {
+            String userInput = "";
+            String command = "";
+            String arguments = "";
+
             userInput = sc.nextLine();
             String[] splitUserInput = userInput.trim().split("\\s+", 2);
             command = splitUserInput[0];
+
             if (splitUserInput.length > 1) {
                 arguments = splitUserInput[1];
             }
+
             try {
                 executeCommand(command, arguments);
             } catch (DukeException e) {
