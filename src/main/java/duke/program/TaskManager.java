@@ -54,7 +54,7 @@ public class TaskManager {
         System.out.println("Sorry bud, you can't check off/delete what is not yet there :/");
     }
 
-    public static void printInvalidDoneMessage() {
+    public static void printInvalidDoneOrDeleteMessage() {
         System.out.println("Sorry bud, that's not a valid task number to check off/delete!");
     }
 
@@ -97,17 +97,7 @@ public class TaskManager {
         String taskDescription = task.getDescription();
 
         System.out.println("Nice! I've marked this task as done:");
-        if (taskType.equals(TASK_TYPE_ICON_TODO)) {
-            System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
-        } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-            String taskByTime = task.getByDateTime();
-            System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
-        } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
-            String taskAtTime = task.getStartAndEndTime();
-            System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
-        } else {
-            printGenericErrorMessage();
-        }
+        printIndividualTask(task, taskType, taskStatus, taskDescription);
     }
 
     public void printDeletedTaskMessage(Task task) {
@@ -117,6 +107,11 @@ public class TaskManager {
         String taskDescription = task.getDescription();
 
         System.out.println("Noted. I've removed this task:");
+        printIndividualTask(task, taskType, taskStatus, taskDescription);
+        System.out.println("Now you have " + (taskCount - 1) + " tasks in the list.");
+    }
+
+    private void printIndividualTask(Task task, String taskType, String taskStatus, String taskDescription) {
         if (taskType.equals(TASK_TYPE_ICON_TODO)) {
             System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
         } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
@@ -128,8 +123,6 @@ public class TaskManager {
         } else {
             printGenericErrorMessage();
         }
-
-        System.out.println("Now you have " + (taskCount - 1) + " tasks in the list.");
     }
 
     public static void printTaskList(int taskCount, ArrayList<Task> tasks) {
@@ -274,65 +267,75 @@ public class TaskManager {
             if (command.equals(COMMAND_LIST)) {
                 printTaskList(taskCount, tasks);
             } else if (command.equals(COMMAND_DONE)) {
-
-                try {
-                    markAsDone(tasks, lineArgs);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    printEmptyIndexAfterDoneMessage();
-                } catch (InvalidIndexException | NumberFormatException e) {
-                    printInvalidDoneMessage();
-                } catch (TaskIndexOutOfBoundsException e) {
-                    printIndexOutOfBoundsMessage();
-                }
-
+                markAsDoneWithExceptionHandling(lineArgs);
             } else if (command.equals(COMMAND_DELETE)) {
-
-                try {
-                    deleteTask(tasks, lineArgs);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    printEmptyIndexAfterDeleteMessage();
-                } catch (InvalidIndexException | NumberFormatException e) {
-                    printInvalidDoneMessage();
-                } catch (TaskIndexOutOfBoundsException e) {
-                    printIndexOutOfBoundsMessage();
-                }
-
+                deleteTaskWithExceptionHandling(lineArgs);
             } else if (command.equals(COMMAND_TODO)) {
-
-                try {
-                    addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks.get(taskCount - 1));
-                } catch (EmptyDescriptionException | StringIndexOutOfBoundsException e) {
-                    printEmptyDescriptionMessage(COMMAND_TODO);
-                }
-
+                addNewTodoWithExceptionHandling(line);
             } else if (command.equals(COMMAND_DEADLINE)) {
-
-                try {
-                    addNewDeadline(line.substring(DEADLINE_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks.get(taskCount - 1));
-                } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                    printEmptyDescriptionMessage(COMMAND_DEADLINE);
-                } catch (InvalidFormatException e) {
-                    printInvalidFormatMessage(COMMAND_DEADLINE);
-                }
-
+                addNewDeadlineWithExceptionHandling(line);
             } else if (command.equals(COMMAND_EVENT)) {
-
-                try {
-                    addNewEvent(line.substring(EVENT_DESCRIPTION_START_INDEX));
-                    printAddedTaskMessage(tasks.get(taskCount - 1));
-                } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                    printEmptyDescriptionMessage(COMMAND_EVENT);
-                } catch (InvalidFormatException e) {
-                    printInvalidFormatMessage(COMMAND_EVENT);
-                }
-
+                addNewEventWithExceptionHandling(line);
             } else {
                 printInvalidCommandMessage();
             }
 
             printLine();
+        }
+    }
+
+    private void addNewEventWithExceptionHandling(String line) {
+        try {
+            addNewEvent(line.substring(EVENT_DESCRIPTION_START_INDEX));
+            printAddedTaskMessage(tasks.get(taskCount - 1));
+        } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            printEmptyDescriptionMessage(COMMAND_EVENT);
+        } catch (InvalidFormatException e) {
+            printInvalidFormatMessage(COMMAND_EVENT);
+        }
+    }
+
+    private void addNewDeadlineWithExceptionHandling(String line) {
+        try {
+            addNewDeadline(line.substring(DEADLINE_DESCRIPTION_START_INDEX));
+            printAddedTaskMessage(tasks.get(taskCount - 1));
+        } catch (EmptyDescriptionException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            printEmptyDescriptionMessage(COMMAND_DEADLINE);
+        } catch (InvalidFormatException e) {
+            printInvalidFormatMessage(COMMAND_DEADLINE);
+        }
+    }
+
+    private void addNewTodoWithExceptionHandling(String line) {
+        try {
+            addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));
+            printAddedTaskMessage(tasks.get(taskCount - 1));
+        } catch (EmptyDescriptionException | StringIndexOutOfBoundsException e) {
+            printEmptyDescriptionMessage(COMMAND_TODO);
+        }
+    }
+
+    private void deleteTaskWithExceptionHandling(String[] lineArgs) {
+        try {
+            deleteTask(tasks, lineArgs);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printEmptyIndexAfterDeleteMessage();
+        } catch (InvalidIndexException | NumberFormatException e) {
+            printInvalidDoneOrDeleteMessage();
+        } catch (TaskIndexOutOfBoundsException e) {
+            printIndexOutOfBoundsMessage();
+        }
+    }
+
+    private void markAsDoneWithExceptionHandling(String[] lineArgs) {
+        try {
+            markAsDone(tasks, lineArgs);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printEmptyIndexAfterDoneMessage();
+        } catch (InvalidIndexException | NumberFormatException e) {
+            printInvalidDoneOrDeleteMessage();
+        } catch (TaskIndexOutOfBoundsException e) {
+            printIndexOutOfBoundsMessage();
         }
     }
 }
