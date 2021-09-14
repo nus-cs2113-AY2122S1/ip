@@ -1,34 +1,40 @@
+import DukeUtility.FileWrite;
 import DukeUtility.OwlException;
 import DukeUtility.PrintManager;
 import TypeOfTasks.Deadline;
 import TypeOfTasks.Event;
 import TypeOfTasks.Task;
 import TypeOfTasks.Todo;
-
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     public static final String INVALID_MESSAGE = "The command doesnt exist.....";
     public static final List<String> ONE_PART_COMMAND = Arrays.asList("list");
     public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event", "delete");
-    
-    
+    public static final String DATA_SEPARATOR = " ~ ";
+    public static final String APPEND_DONE = "1";
+    public static final String APPEND_NOT_DONE = "0";
+    public static final String DATA_DIRECTORY_PATH = "data";
+    public static final String FULL_RELATIVE_MEMORY_PATH = "data/owlmemory";
+    public static final String NO_DATA = "";
+
     public static void main(String[] args) {
         PrintManager.printWelcome();
+        ArrayList<Task> tasks = readFile();
+        int taskCount = tasks.size();
+        
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        int taskCount = 0;
-        String command = in.nextLine();
-
-        //while the command is not bye it keeps asking for more
+        String command = in.nextLine().trim();
         while(isNotBye(command)) {
             try {
                 String[] inputs = command.split(" ", 2);
                 int commandLength = inputs.length;
-                //if 2 part command but the second part is blank. done <blank> or event <blank> its invalid command
                 if(isInvalidOnePartCmd(inputs, commandLength)) {
                     checkException(inputs);
                 } else if (isInvalidTwoPartCmd(inputs, commandLength)) {
@@ -48,12 +54,13 @@ public class Duke {
                 } else {
                     System.out.println(INVALID_MESSAGE);
                 }
-            } catch(OwlException oe) {
-                oe.printErrorMsg();
-            } catch(NumberFormatException nfe) {
-                System.out.println(nfe.getMessage());
+            } catch(OwlException owlException) {
+                owlException.printErrorMsg();
+            } catch(NumberFormatException numberFormatException) {
+                System.out.println(numberFormatException.getMessage());
             }
-            command = in.nextLine();
+            updateFile(tasks);
+            command = in.nextLine().trim();
         }
         PrintManager.printBye();
     }
@@ -61,7 +68,131 @@ public class Duke {
     private static boolean isDelete(int commandLength, String input) {
         return commandLength == 2 && input.equals("delete");
     }
+    
+    private static void updateFile(ArrayList<Task> tasks) {
+        String dataPath = FULL_RELATIVE_MEMORY_PATH;
+        try {
+            int i = 0;
+            wipeData(dataPath);
+            for(Task task:tasks) {
+                if(task.getTag().equals("T")) {
+                    appendTodoData(dataPath, task);
+                }
+                if(task.getTag().equals("D")) {
+                    appendEventDeadlineData(dataPath, task);
+                }
+                if(task.getTag().equals("E")) {
+                    appendEventDeadlineData(dataPath, task);
+                }
+                i++;
+            }
+        } catch (IOException ioexception) {
+                System.out.println("Something went wrong with writing into the file: " + ioexception.getMessage());
+        }
+    }
 
+    private static void wipeData(String dataPath) throws IOException {
+        FileWrite.writeToFile(dataPath, NO_DATA);
+    }
+
+    private static void appendEventDeadlineData(String dataPath, Task task) throws IOException {
+        FileWrite.appendToFile(dataPath, task.getTag());
+        FileWrite.appendToFile(dataPath, DATA_SEPARATOR);
+        FileWrite.appendToFile(dataPath, task.getDescription());
+        FileWrite.appendToFile(dataPath, DATA_SEPARATOR);
+        FileWrite.appendToFile(dataPath, task.getInfo());
+        FileWrite.appendToFile(dataPath, DATA_SEPARATOR);
+        if (task.getStatus().equals("X")) {
+            FileWrite.appendToFile(dataPath, APPEND_DONE);
+        } else {
+            FileWrite.appendToFile(dataPath, APPEND_NOT_DONE);
+        }
+        FileWrite.appendToFile(dataPath, System.lineSeparator());
+    }
+
+    private static void appendTodoData(String dataPath, Task task) throws IOException {
+        FileWrite.appendToFile(dataPath, task.getTag());
+        FileWrite.appendToFile(dataPath, DATA_SEPARATOR);
+        FileWrite.appendToFile(dataPath, task.getDescription());
+        FileWrite.appendToFile(dataPath, DATA_SEPARATOR);
+        if (task.getStatus().equals("X")) {
+            FileWrite.appendToFile(dataPath, APPEND_DONE);
+        } else {
+            FileWrite.appendToFile(dataPath, APPEND_NOT_DONE);
+        }
+        FileWrite.appendToFile(dataPath, System.lineSeparator());
+    }
+
+
+    private static ArrayList<Task> readFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            int taskCount = 0;
+            File file = getFile();
+            Scanner s = new Scanner(file); // create a Scanner using the File as the source
+            while(s.hasNext()) {
+                String textLine = s.nextLine();
+                String[] inputs = textLine.split(DATA_SEPARATOR);
+                if(inputs[0].equals("T")) {
+                    taskCount = loadTodo(tasks, taskCount, inputs);
+                }
+                if(inputs[0].equals("D")) {
+                    taskCount = loadDeadline(tasks, taskCount, inputs);
+                }
+                if(inputs[0].equals("E")) {
+                    taskCount = loadEvent(tasks, taskCount, inputs);
+                }
+            }
+        } catch(FileNotFoundException fileNotFoundException) {
+            System.out.println("File not found!");
+        } catch(IOException ioexception) {
+            System.out.println("Theres a problem with making a new file!");
+        }
+        return tasks;
+    }
+
+    private static int loadEvent(ArrayList<Task> tasks, int taskCount, String[] inputs) {
+        tasks.add(new Event(inputs[1], inputs[2]));
+        taskCount++;
+        if(inputs[3].equals(APPEND_DONE)) {
+            tasks.get(taskCount - 1).markDone();
+        }
+        return taskCount;
+    }
+
+    private static int loadDeadline(ArrayList<Task> tasks, int taskCount, String[] inputs) {
+        tasks.add(new Deadline(inputs[1], inputs[2]));
+        taskCount++;
+        if(inputs[3].equals(APPEND_DONE)) {
+            tasks.get(taskCount - 1).markDone();
+        }
+        return taskCount;
+    }
+
+    private static int loadTodo(ArrayList<Task> tasks, int taskCount, String[] inputs) {
+        tasks.add(new Todo(inputs[1]));
+        taskCount++;
+        if(inputs[2].equals(APPEND_DONE)) {
+            tasks.get(taskCount - 1).markDone();
+        }
+        return taskCount;
+    }
+
+    private static File getFile() throws IOException {
+        File file = new File(FULL_RELATIVE_MEMORY_PATH);
+        if(!file.exists()) {
+            File makeNewDir = new File(DATA_DIRECTORY_PATH);
+            if(makeNewDir.mkdir()) {
+                System.out.println("Directory not found so I made a new directory!");
+            }
+            File NewFile = new File(FULL_RELATIVE_MEMORY_PATH);
+            if(NewFile.createNewFile()) {
+                System.out.println("File not found so I made a new file!");
+            }
+            return NewFile;
+        }
+        return file;
+    }
 
     private static boolean isInvalidOnePartCmd(String[] inputs, int commandLength) {
         return commandLength > 1 && isOnePartCmd(inputs[0]);
@@ -72,10 +203,7 @@ public class Duke {
     }
 
     private static boolean isInvalidTwoPartCmd(String[] inputs, int commandLength) {
-        if(commandLength == 1 && isTwoPartCmd(inputs[0])) {
-            return true;
-        }
-        return commandLength == 2 && isSecondPartInvalid(inputs[1].trim());
+        return commandLength == 1 && isTwoPartCmd(inputs[0]);
     }
     private static boolean isOnePartCmd(String s) {
         return ONE_PART_COMMAND.contains(s);
@@ -120,7 +248,7 @@ public class Duke {
             }
             tasks.get(taskIndex).markDone();
             PrintManager.printTaskCompletionMsg(taskNumber);
-        } catch(NumberFormatException nfe) {
+        } catch(NumberFormatException numberFormatException) {
             throw new NumberFormatException("You can only done a task number");
         }
     }
@@ -136,7 +264,7 @@ public class Duke {
             tasks.remove(taskIndex);
             taskCount--;
             PrintManager.printDeletionMsg(taskCount, deletedTask);
-        } catch(NumberFormatException nfe) {
+        } catch(NumberFormatException numberFormatException) {
             throw new NumberFormatException("You can only delete a task number!!!");
         }
         return taskCount;
