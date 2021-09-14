@@ -22,39 +22,23 @@ public class Duke {
                 continue;
 
             case "todo":
-                int todoInputLength = userLineInput.length();
-                String todoTaskInput = userLineInput.substring(4, todoInputLength);
-                taskItems[taskCounter] = new ToDo(todoTaskInput);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskItems[taskCounter].description);
+                userInputIsTodo(userLineInput, taskItems, taskCounter);
                 taskCounter++;
-                System.out.println("You now have " + taskCounter + " task(s) in the list.");
+                printTaskCount(taskCounter);
                 printDottedLine();
                 continue;
 
             case "event":
-                int atPosition = userLineInput.indexOf("/at");
-                int eventInputLength = userLineInput.length();
-                String eventTaskInput = userLineInput.substring(5, atPosition - 1);
-                String eventDateInput = userLineInput.substring((atPosition + 4), eventInputLength);
-                taskItems[taskCounter] = new Event(eventTaskInput + " (at: " + eventDateInput + ")");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskItems[taskCounter].description);
+                userInputIsEvent(userLineInput, taskItems, taskCounter);
                 taskCounter++;
-                System.out.println("You now have " + taskCounter + " task(s) in the list.");
+                printTaskCount(taskCounter);
                 printDottedLine();
                 continue;
 
             case "deadline":
-                int byPosition = userLineInput.indexOf("/by");
-                int deadlineInputLength = userLineInput.length();
-                String deadlineTaskInput = userLineInput.substring(8, byPosition - 1);
-                String deadlineDateInput = userLineInput.substring((byPosition + 4), deadlineInputLength);
-                taskItems[taskCounter] = new Deadline(deadlineTaskInput + " (by: " + deadlineDateInput + ")");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskItems[taskCounter].description);
+                userInputIsDeadline(userLineInput, taskItems, taskCounter);
                 taskCounter++;
-                System.out.println("You now have " + taskCounter + " task(s) in the list.");
+                printTaskCount(taskCounter);
                 printDottedLine();
                 continue;
 
@@ -70,6 +54,38 @@ public class Duke {
             default:
             }
         }
+    }
+
+    private static void userInputIsTodo(String userLineInput, Task[] taskItems, int taskCounter) {
+        int todoInputLength = userLineInput.length();
+        String todoTaskInput = userLineInput.substring(4, todoInputLength);
+        taskItems[taskCounter] = new ToDo(todoTaskInput);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(taskItems[taskCounter].description);
+    }
+
+    private static void userInputIsDeadline(String userLineInput, Task[] taskItems, int taskCounter) {
+        int byPosition = userLineInput.indexOf("/by");
+        int deadlineInputLength = userLineInput.length();
+        String deadlineTaskInput = userLineInput.substring(8, byPosition - 1);
+        String deadlineDateInput = userLineInput.substring((byPosition + 4), deadlineInputLength);
+        taskItems[taskCounter] = new Deadline(deadlineTaskInput + " (by: " + deadlineDateInput + ")");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(taskItems[taskCounter].description);
+    }
+
+    private static void printTaskCount(int taskCounter) {
+        System.out.println("You now have " + taskCounter + " task(s) in the list.");
+    }
+
+    private static void userInputIsEvent(String userLineInput, Task[] taskItems, int taskCounter) {
+        int atPosition = userLineInput.indexOf("/at");
+        int eventInputLength = userLineInput.length();
+        String eventTaskInput = userLineInput.substring(5, atPosition - 1);
+        String eventDateInput = userLineInput.substring((atPosition + 4), eventInputLength);
+        taskItems[taskCounter] = new Event(eventTaskInput + " (at: " + eventDateInput + ")");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(taskItems[taskCounter].description);
     }
 
 
