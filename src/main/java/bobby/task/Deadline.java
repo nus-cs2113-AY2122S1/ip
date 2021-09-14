@@ -23,6 +23,10 @@ public class Deadline extends Task{
         return String.format("%s (by: %s)", getTask(),this.by);
     }
 
+    public String getFormattedFileDescription() {
+        return String.format("Deadline,%s,%s,%s",getStatusIcon(), getTask(), this.by);
+    }
+
 
     //obtain the task to do from the input description
     public String getTask() {

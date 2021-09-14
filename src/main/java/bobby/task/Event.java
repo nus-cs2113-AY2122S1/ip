@@ -22,6 +22,10 @@ public class Event extends Task{
         return String.format("%s (at: %s)", getTask(),this.at);
     }
 
+    public String getFormattedFileDescription() {
+        return String.format("Event,%s,%s,%s",getStatusIcon(), getTask(), this.at);
+    }
+
     //obtain the task to do from the input description
     public String getTask(){
         int endIndex = this.fullTaskDescription.indexOf(" /at ");

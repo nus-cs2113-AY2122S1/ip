@@ -3,13 +3,11 @@ package bobby.task;
 public class Task {
     protected String fullTaskDescription;
     protected boolean isDone;
-//    protected static int totalTasks = 0;
 
 
     public Task(String fullTaskDescription){
         this.fullTaskDescription = fullTaskDescription;
         this.isDone = false;
-//        totalTasks ++;
     }
 
 
@@ -22,9 +20,6 @@ public class Task {
         }
     }
 
-//    public static int getTotalTasks() {
-//        return totalTasks;
-//    }
 
     public String getFullTaskDescription() {
         return this.fullTaskDescription;
@@ -44,6 +39,10 @@ public class Task {
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription(){
+        return this.fullTaskDescription;
+    }
+
+    public String getFormattedFileDescription() {
         return this.fullTaskDescription;
     }
 

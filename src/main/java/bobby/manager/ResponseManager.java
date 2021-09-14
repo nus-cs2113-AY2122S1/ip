@@ -5,7 +5,7 @@ import bobby.task.Task;
 import java.util.ArrayList;
 
 public abstract class ResponseManager {
-    public static final String LINE = "    ___________________________________________________________________________\n";
+    public static final String LINE = "    _____________________________________________________________________________\n";
     public static final String WELCOME_MESSAGE = " \n" +
             "                        .-\"\"\"-.\n" +
             "                       / .//\". \\\n" +
@@ -99,5 +99,11 @@ public abstract class ResponseManager {
         String message = "    You have no such task number. Please enter a number within your list of tasks.\n";
         printFormattedMessage(message);
     }
+
+    public static void printIOExceptionMessage() {
+        String message = "    Error when reading or writing to files :(\n";
+        printFormattedMessage(message);
+    }
+
 
 }

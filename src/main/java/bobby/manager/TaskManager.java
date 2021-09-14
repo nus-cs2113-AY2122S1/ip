@@ -6,6 +6,7 @@ import bobby.task.Task;
 import bobby.command.Command;
 
 import java.util.ArrayList;
+import java.io.IOException;
 
 
 public class TaskManager {
@@ -32,7 +33,6 @@ public class TaskManager {
     public void addTask(Task task){
         this.taskList.add(task);
     }
-
 
 
     public String getTaskCommand(String rawUserInput) {
@@ -85,6 +85,8 @@ public class TaskManager {
             ResponseManager.printNumberFormatMessage();
         } catch (IndexOutOfBoundsException e) {
             ResponseManager.printIndexOutOfBoundsMessage();
+        } catch (IOException e) {
+            ResponseManager.printIOExceptionMessage();
         }
 
     }
