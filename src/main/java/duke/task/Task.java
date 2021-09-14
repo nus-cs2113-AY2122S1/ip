@@ -8,7 +8,15 @@ public class Task {
     private final Types type;
 
     public enum Types {
-        DEADLINE, EVENT, TODO;
+        DEADLINE(3),
+        EVENT(3),
+        TODO(2);
+
+        public final int NUM_ARGS;
+
+        Types(int numArgs){
+            NUM_ARGS = numArgs;
+        }
 
         public static String getTypesRegex() {
             String regex = "(?i:";

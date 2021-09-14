@@ -1,13 +1,14 @@
 package duke;
 
+import duke.exception.WrongNumberOfArgumentsException;
 import duke.task.TaskManager;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ import java.util.Scanner;
 public class IoManager {
     private static final String SAVE_FOLDER = "data";
     private static final String DIRECTORY = System.getProperty("user.dir") + '/' + SAVE_FOLDER;
-    private static final String FILE_NAME = DIRECTORY + '/' + "duke.txt";
+    private static final String FILE_NAME = DIRECTORY + "/duke.txt";
 
-    public static boolean init(){
+    public static boolean init() {
         try {
             Path path = Paths.get(DIRECTORY);
             Files.createDirectories(path);
@@ -29,42 +30,41 @@ public class IoManager {
                 System.out.println("Loading previously created save file.");
                 TaskManager.loadTasks();
             }
+            return true;
+        } catch (InvalidPathException ipe) {
+            Message.printWithSpacers(String.format("Directory path '%s' is invalid.", DIRECTORY));
         } catch (FileAlreadyExistsException faee) {
-            String message = String.format("Please remove file '%s' in project directory!)", SAVE_FOLDER);
-            Message.printWithSpacers(message);
-            return false;
-        } catch (IOException ioe) {
-            Message.printWithSpacers("IO exception occured during Directory/File creation");
-            return false;
+            Message.printWithSpacers(String.format("Please remove file '%s' in project directory!)", SAVE_FOLDER));
         } catch (SecurityException se) {
-            Message.printWithSpacers("Program does not have permission to create directory");
-            return false;
+            Message.printWithSpacers("Program does not have permission to create directory/file.");
+        } catch (FileNotFoundException fnfe) {
+            Message.printWithSpacers(String.format("Program could not find save file in directory %s", DIRECTORY));
+        } catch (IOException ioe) {
+            Message.printWithSpacers("IO exception occurred during Directory/File creation.");
+        } catch (IllegalArgumentException | WrongNumberOfArgumentsException e) {
+            Message.printWithSpacers(String.format("Save file '%s' has been corrupted!", FILE_NAME));
         }
-        return true;
+        return false;
     }
 
-    public static ArrayList<String> loadFile(){
-        ArrayList<String> loadedTasks = new ArrayList<>(TaskManager.MAX_TASKS);
-        try {
-            File file = new File(FILE_NAME);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                loadedTasks.add(scanner.nextLine());
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            //TODO Handle Error
+    public static ArrayList<String[]> loadFile() throws FileNotFoundException {
+        ArrayList<String[]> loadedTasks = new ArrayList<>(TaskManager.MAX_TASKS);
+        File file = new File(FILE_NAME);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            loadedTasks.add(scanner.nextLine().split("\\|"));
         }
+        scanner.close();
         return loadedTasks;
     }
 
-    public static void overwriteFile(String toWrite){
-        try{
+    public static void overwriteFile(String toWrite) {
+        try {
             FileWriter myWriter = new FileWriter(FILE_NAME);
             myWriter.write(toWrite);
             myWriter.close();
-        } catch (IOException ioe){
-            //TODO Handle Error
+        } catch (IOException ioe) {
+            Message.printWithSpacers("Unable to Write to save file, IO exception encountered.");
         }
     }
 }

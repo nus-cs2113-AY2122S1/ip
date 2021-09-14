@@ -7,7 +7,9 @@ import duke.exception.ListEmptyException;
 import duke.exception.NoDescriptionException;
 import duke.exception.WrongNumberOfArgumentsException;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 
 public class TaskManager {
     public static final int MAX_TASKS = 100;
@@ -32,6 +34,7 @@ public class TaskManager {
                     throw new ArrayIndexOutOfBoundsException(message);
                 }
                 lambda.execute();
+                saveTasks();
             } catch (ArrayIndexOutOfBoundsException aiobe) {
                 Message.printWithSpacers(aiobe.getMessage());
             }
@@ -64,33 +67,35 @@ public class TaskManager {
                 break;
             case TODO:
                 tasks.add(new Todo(userInput));
-                ;
                 break;
             }
             printTaskDone(tasks.get(tasks.size() - 1));
+            saveTasks();
         } catch (NoDescriptionException nde) {
             Message.printWithSpacers(nde.getMessage());
         } catch (WrongNumberOfArgumentsException wnoae) {
             Message.printWithSpacers(wnoae.getMessage());
         }
-        saveTasks();
     }
-    public static void loadTasks() throws IllegalArgumentException {
-        for(String loadedTask : IoManager.loadFile()) {
-            String[] line = loadedTask.split("\\|");
-            Types taskType = Types.getType(line[0].charAt(0));
+    public static void loadTasks() throws IllegalArgumentException, FileNotFoundException, WrongNumberOfArgumentsException {
+        for(String[] loadedTask : IoManager.loadFile()) {
+            Types taskType = loadedTask[0].length() == 1 ? Types.getType(loadedTask[0].charAt(0)) : null;
             if (taskType == null) {
-                throw new IllegalArgumentException("Save file has been corrupted");
+                throw new IllegalArgumentException();
             }
+            if (taskType.NUM_ARGS != loadedTask.length - 1){
+                throw new WrongNumberOfArgumentsException();
+            }
+            boolean isDone = Integer.parseInt(loadedTask[1]) == 1;
             switch (taskType) {
             case DEADLINE:
-                tasks.add(new Deadline(Integer.parseInt(line[1]) == 1, line[2], line[3]));
+                tasks.add(new Deadline(isDone, loadedTask[2], loadedTask[3]));
                 break;
             case EVENT:
-                tasks.add(new Event(Integer.parseInt(line[1]) == 1, line[2], line[3]));
+                tasks.add(new Event(isDone, loadedTask[2], loadedTask[3]));
                 break;
             case TODO:
-                tasks.add(new Todo(Integer.parseInt(line[1]) == 1, line[2]));
+                tasks.add(new Todo(isDone, loadedTask[2]));
                 break;
             }
         }

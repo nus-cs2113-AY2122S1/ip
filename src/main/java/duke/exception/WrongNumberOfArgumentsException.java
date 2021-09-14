@@ -6,4 +6,7 @@ public class WrongNumberOfArgumentsException extends Exception {
     public WrongNumberOfArgumentsException(String type, String preposition) {
         super(String.format(MESSAGE, type, preposition));
     }
+    public WrongNumberOfArgumentsException() {
+        super();
+    }
 }
