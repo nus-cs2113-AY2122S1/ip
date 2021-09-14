@@ -20,7 +20,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void printTask(){
+    public void printTask() {
         System.out.println(index + ". [" + type + "] [" + getStatusIcon() + "] " + description);
+    }
+
+    public String fileFormat() {
+        return (type + " | " + getStatusIcon() + " | " + description);
     }
 }

@@ -12,4 +12,8 @@ public class Event extends Task {
         System.out.println(index + ". [" + type + "] [" + getStatusIcon()
                 + "] " + description + " (at: " + event + ")");
     }
+
+    public String fileFormat() {
+        return (type + " | " + getStatusIcon() + " | " + description + " | " + event);
+    }
 }
