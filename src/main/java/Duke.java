@@ -55,12 +55,11 @@ public class Duke {
         System.out.println("#".repeat(49));
         System.out.println("#\tHello from \t\t\t\t\t\t\t\t\t#");
         System.out.println(logo);
-        System.out.println("# \t\t\t\t\t\t\t\t\t\t\t\t#");
-        System.out.println("#\t\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ \t\t#");
-        System.out.println("#\t\t[| o o |]" + "\t[| o o |]" + "\t[| o o |]\t\t#");
-        System.out.println("#\t\t |  ^  | " + "\t |  ^  | " + "\t |  ^  | \t\t#");
-        System.out.println("#\t\t | '-' | " + "\t | '-' | " + "\t | '-' | \t\t#");
-        System.out.println("#\t\t +-----+ " + "\t +-----+ " + "\t +-----+ \t\t#");
+        System.out.println("#\t\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ " + "\t +\"\"\"\"\"+ #");
+        System.out.println("#\t\t[| o o |]" + "\t[| o o |]" + "\t[| o o |]#");
+        System.out.println("#\t\t |  ^  | " + "\t |  ^  | " + "\t |  ^  | #");
+        System.out.println("#\t\t | '-' | " + "\t | '-' | " + "\t | '-' | #");
+        System.out.println("#\t\t +-----+ " + "\t +-----+ " + "\t +-----+ #");
         System.out.println("#".repeat(49));
     }
 
