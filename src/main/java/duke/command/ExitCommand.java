@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
 
 public class ExitCommand extends Command {
 
@@ -19,8 +20,9 @@ public class ExitCommand extends Command {
      * Does nothing
      *
      * @param taskList Does not matter in this subclass implementation
+     * @param ui The ui class instance that will print out the completion message
      */
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public void execute(TaskList taskList, Storage storage, Ui ui) {
     }
 }

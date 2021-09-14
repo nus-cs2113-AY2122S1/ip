@@ -12,24 +12,18 @@ public class TaskList {
      * @param task the task to be added
      */
     public void addTask(Task task) {
-        addTask(task, true);
+        tasks.add(task);
     }
 
     /**
-     * Adds a task to the list of tasks, prints completion message if specified
+     * Adds a task to the list of tasks, prints completion message via ui
      *
-     * @param task      the task to be added
-     * @param doesPrint Boolean determining whether completion message will be printed
+     * @param task the task to be added
+     * @param ui   Ui class instance to print completion message
      */
-    public void addTask(Task task, boolean doesPrint) {
-        tasks.add(task);
-        if (doesPrint) {
-            printLine();
-            System.out.println("  Ok! I've added this task:");
-            System.out.println("    " + task);
-            System.out.println("  Now you have " + tasks.size() + " tasks.");
-            printLine();
-        }
+    public void addTask(Task task, Ui ui) {
+        addTask(task);
+        ui.printAddTaskMessage(task, tasks.size());
     }
 
     /**
@@ -37,18 +31,24 @@ public class TaskList {
      *
      * @param taskIndex the index of the task to be deleted
      */
-    public void deleteTask(int taskIndex) throws DukeException {
+    public Task deleteTask(int taskIndex) throws DukeException {
         if (taskIndex <= -1) {
             throw new DukeException("Task index must be greater than 0.");
         } else if (taskIndex >= tasks.size()) {
             throw new DukeException("Task does not exist.");
         }
-        Task removedTask = tasks.remove(taskIndex);
-        printLine();
-        System.out.print("  Ok! I've deleted this task:" + System.lineSeparator() + "    ");
-        System.out.println(removedTask);
-        System.out.println("  Now you have " + tasks.size() + " tasks.");
-        printLine();
+        return tasks.remove(taskIndex);
+    }
+
+    /**
+     * Deletes the task at the specified index, prints completion message via ui
+     *
+     * @param taskIndex the index of the task to be deleted
+     * @param ui        Ui class instance to print completion message
+     */
+    public void deleteTask(int taskIndex, Ui ui) throws DukeException {
+        Task deletedTask = deleteTask(taskIndex);
+        ui.printDeleteTaskMessage(deletedTask, tasks.size());
     }
 
     /**
@@ -59,16 +59,10 @@ public class TaskList {
     }
 
     /**
-     * Prints a list of all the tasks in the taskManager
+     * Prints a list of all tasks in taskList
      */
-    public void printTasks() {
-        printLine();
-        System.out.println("  Here are your tasks:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.print("    " + (i + 1) + ".");
-            System.out.println(tasks.get(i));
-        }
-        printLine();
+    public void printTasks(Ui ui) {
+        ui.printAllTasks(tasks);
     }
 
     /**
@@ -83,10 +77,17 @@ public class TaskList {
             throw new DukeException("Task does not exist.");
         }
         tasks.get(taskIndex).setCompleted();
-        printLine();
-        System.out.print("  Ok! I've marked this task as done:" + System.lineSeparator() + "    ");
-        System.out.println(tasks.get(taskIndex));
-        printLine();
+    }
+
+    /**
+     * Marks the task at the specified index as completed, prints completion message via ui
+     *
+     * @param taskIndex the index of the task to be marked as completed
+     * @param ui        Ui class instance to print completion message
+     */
+    public void completeTask(int taskIndex, Ui ui) throws DukeException {
+        completeTask(taskIndex);
+        ui.printCompleteTaskMessage(tasks.get(taskIndex));
     }
 
     /**
@@ -100,12 +101,5 @@ public class TaskList {
             storageString = storageString + task.getStorageString() + System.lineSeparator();
         }
         return storageString;
-    }
-
-    /**
-     * Prints a horizontal line in the terminal.
-     */
-    private static void printLine() {
-        System.out.println("  ──────────────────────────────");
     }
 }

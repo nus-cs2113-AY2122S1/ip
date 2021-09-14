@@ -1,7 +1,6 @@
 package duke;
 
 import duke.command.Command;
-import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -28,7 +27,7 @@ public class Duke {
             String userInput = ui.readInput().stripLeading();
             try {
                 Command command = Parser.parse(userInput);
-                command.execute(taskList, storage);
+                command.execute(taskList, storage, ui);
                 isInteracting = !command.isExit();
             } catch (DukeException e) {
                 ui.printErrorMessage(e.getMessage());

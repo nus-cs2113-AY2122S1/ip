@@ -35,7 +35,7 @@ public class Storage {
             scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 Task task = readTask(scanner.nextLine());
-                taskList.addTask(task, false);
+                taskList.addTask(task);
             }
         } catch (FileNotFoundException | DukeException e) {
             taskList.deleteAllTasks();

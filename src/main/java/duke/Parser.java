@@ -5,6 +5,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -15,6 +16,7 @@ import duke.task.ToDo;
 public class Parser {
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_HELP = "help";
     private static final String COMMAND_MARK_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_NEW_TODO = "todo";
@@ -35,6 +37,9 @@ public class Parser {
         }
         if (userInput.equals(COMMAND_LIST)) {
             return new ListCommand();
+        }
+        if (userInput.equals(COMMAND_HELP)) {
+            return new HelpCommand();
         }
         if (userInput.startsWith(COMMAND_MARK_DONE)) {
             int taskIndex = -1;
