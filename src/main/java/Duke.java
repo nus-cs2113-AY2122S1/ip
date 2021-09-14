@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -17,6 +20,19 @@ public class Duke {
         String date = "";
 
         int count = 0;
+
+        String fileName = "C:\\data\\duke.txt";
+        try {
+            File myFile = new File(fileName);
+            if (myFile.createNewFile()) {
+                System.out.println("File created: " + myFile.getName() + "\n");
+            } else {
+                System.out.println("File already exists.\n");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.\n");
+            e.printStackTrace();
+        }
 
         do {
             userInput = in.nextLine();
@@ -131,10 +147,27 @@ public class Duke {
             }
 
             else if (isList(userInput)) { //List tasks
+
                 System.out.println(LINE + "Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
                     System.out.print(i + 1 + ". ");
                     System.out.println(Task.get(i));
+
+                    String text = toString(Task.get(i), i+1);
+                    if (i == 0) {
+                        try {
+                            writeToFile(fileName, text + System.lineSeparator());
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
+                        }
+                    }
+                    else {
+                        try {
+                            appendToFile(fileName, text + System.lineSeparator());
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
+                        }
+                    }
                 }
                 System.out.print("You can mark them as done by typing 'done' + task number!\n" + LINE);
             }
@@ -180,6 +213,22 @@ public class Duke {
 
     public static boolean isDelete(String word) {
         return word.equalsIgnoreCase("delete");
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    public static String toString(Task task, int i) {
+        return i + ". " + task;
     }
 
 }
