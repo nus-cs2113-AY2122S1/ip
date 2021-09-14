@@ -119,6 +119,23 @@ public class TaskManager {
         return Arrays.copyOf(validIndexes, count);
     }
 
+    public int[] filterValidDeleteIndexes(int[] indexes) {
+        int[] validIndexes = new int[indexes.length];
+        int count = 0;
+
+        for (int index : indexes) {
+            if (!(index - 1>= tasks.size()) ) {
+                validIndexes[count] = index;
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return null;
+        }
+        return Arrays.copyOf(validIndexes, count);
+    }
+
     public int[] filterDoneIndexes(int[] indexes) {
         int[] doneIndexes = new int[indexes.length];
         int count = 0;
@@ -159,7 +176,7 @@ public class TaskManager {
     public void deleteTask(String taskInfo) {
         int[] indexes = filterIndexes(taskInfo);
         int[] outOfRangeIndexes = filterOutOfRangeIndexes(indexes);
-        int[] validIndexes = filterValidIndexes(indexes);
+        int[] validIndexes = filterValidDeleteIndexes(indexes);
         ArrayList<Task> deletedTasks = new ArrayList<>();
 
         if (validIndexes != null) {
