@@ -5,11 +5,12 @@ import duke.task.ToDo;
 import duke.task.Event;
 import duke.task.Deadline;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    private static final Scanner in = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     /**
      * Logo of the bot
@@ -53,6 +54,7 @@ public class Duke {
     private static final String PRINT_TASK_MESSAGE_BACK = " in the list.";
     private static final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
     private static final String PRINT_DONE_MESSAGE_BACK = "\n as done!";
+    private static final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
 
     /**
      * Commands for the different cases
@@ -62,15 +64,14 @@ public class Duke {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_LIST = "list";
 
     /**
-     * Max number of tasks that can be stored
+     * ArrayList that stores all the tasks
      */
-    private static final int TASK_SIZE = 100;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
-    private static Task[] tasks = new Task[TASK_SIZE];
-    private static int taskCounter = 0;
 
     /**
      * Main entry point of the application and starts the interaction with user
@@ -104,27 +105,28 @@ public class Duke {
 
     /**
      * Prints the list of tasks stored
-     *
-     * @param tasks array that stores the different types of tasks
-     * @param taskCounter number of tasks in the array
      */
-    private static void printList(Task[] tasks, int taskCounter) {
-        for (int i = 0; i < taskCounter; i++) {
-            System.out.println(tasks[i]);
+    private static void printList() {
+        for (Task t: tasks) {
+            System.out.println(t);
         }
         printTaskNumber();
+        return;
     }
 
     /**
      * Prints the number of tasks
+<<<<<<< HEAD
      *
+=======
+>>>>>>> branch-Level-6
      */
     private static void printTaskNumber() {
         String task = TASK_PLURAL;
-        if (taskCounter == 1) {
+        if (tasks.size() == 1) {
             task = TASK_SINGLE;
         }
-        System.out.println(PRINT_TASK_MESSAGE_FRONT + taskCounter + SPACING + task + PRINT_TASK_MESSAGE_BACK);
+        System.out.println(PRINT_TASK_MESSAGE_FRONT + tasks.size() + SPACING + task + PRINT_TASK_MESSAGE_BACK);
     }
 
     /**
@@ -193,7 +195,7 @@ public class Duke {
      * @param chatInput input of user
      * @return the command to be executed
      */
-    private static String scanKeyword(String chatInput) {
+    private static String scanCommand(String chatInput) {
         String[] words = chatInput.toLowerCase().split(SPACING);
         return words[0];
     }
@@ -256,8 +258,7 @@ public class Duke {
     private static void addToDoItem(String chatInput) {
         try {
             ToDo temp = new ToDo(scanDescription(chatInput));
-            tasks[taskCounter] = temp;
-            taskCounter++;
+            tasks.add(temp);
             System.out.println(MESSAGE_TASK_ADDED + temp);
             printTaskNumber();
         } catch (DukeException e) {
@@ -274,8 +275,7 @@ public class Duke {
     private static void addEventItem(String chatInput) {
         try {
             Event temp = new Event(scanDescription(chatInput), getTimeOfEvent(chatInput));
-            tasks[taskCounter] = temp;
-            taskCounter++;
+            tasks.add(temp);
             System.out.println(MESSAGE_TASK_ADDED + temp);
             printTaskNumber();
         } catch (DukeException e) {
@@ -287,13 +287,11 @@ public class Duke {
      * Adds a deadline item to the task list
      *
      * @param chatInput input of user
-     * @return deadline item to be added to task list
      */
     private static void addDeadlineItem(String chatInput) {
         try {
             Deadline temp = new Deadline(scanDescription(chatInput), getTimeOfEvent(chatInput));
-            tasks[taskCounter] = temp;
-            taskCounter++;
+            tasks.add(temp);
             System.out.println(MESSAGE_TASK_ADDED + temp);
             printTaskNumber();
         } catch (DukeException e) {
@@ -305,15 +303,28 @@ public class Duke {
      * Sets specific task in array as done
      *
      * @param chatInput input of user
-     * @return the tasks array with specified item marked as done
      */
     private static void setTaskAsDone(String chatInput) {
         int taskIdx = findTaskNumber(chatInput);
         try {
-            tasks[taskIdx].setDone();
-            System.out.println(PRINT_DONE_MESSAGE_FRONT + tasks[taskIdx] + PRINT_DONE_MESSAGE_BACK);
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_OUT_OF_RANGE + taskCounter);
+            Task temp = tasks.get(taskIdx);
+            temp.setDone();
+            tasks.set(taskIdx, temp);
+            System.out.println(PRINT_DONE_MESSAGE_FRONT + temp + PRINT_DONE_MESSAGE_BACK);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(MESSAGE_OUT_OF_RANGE + tasks.size());
+        }
+    }
+
+    private static void deleteTask(String chatInput) {
+        int taskIdx = findTaskNumber(chatInput);
+        try {
+            Task temp = tasks.get(taskIdx);
+            tasks.remove(taskIdx);
+            System.out.println();
+            System.out.println(PRINT_REMOVE_MESSAGE + temp);
+        } catch (IndexOutOfBoundsException e){
+            System.out.println(MESSAGE_OUT_OF_RANGE + tasks.size());
         }
     }
 
@@ -323,13 +334,13 @@ public class Duke {
     private static void startChat() {
         while (true) {
             printDivider();
-            String chatInput = in.nextLine();
+            String chatInput = SCANNER.nextLine();
             printDivider();
-            switch (scanKeyword(chatInput)) {
+            switch (scanCommand(chatInput)) {
             case COMMAND_BYE:
                 return;
             case COMMAND_LIST:
-                printList(tasks, taskCounter);
+                printList();
                 break;
             case COMMAND_TODO:
                 addToDoItem(chatInput);
@@ -342,6 +353,9 @@ public class Duke {
                 break;
             case COMMAND_DONE:
                 setTaskAsDone(chatInput);
+                break;
+            case COMMAND_DELETE:
+                deleteTask(chatInput);
                 break;
             default:
                 System.out.println(MESSAGE_NO_INPUT);
