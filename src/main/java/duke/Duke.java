@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.DirectoryCreationException;
 import duke.exception.IllegalCommandException;
 import duke.exception.IllegalParameterException;
 import duke.task.TaskManager;
@@ -64,12 +65,14 @@ public class Duke {
                 "My favourite feeling is schadenfreude. I also like hiraeth. It's the Welsh concept of longing for home.");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DirectoryCreationException {
         printGreeting();
 
         boolean exit = false;
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+
+        taskManager.loadTasklistFromFile();
 
         while (!exit) {
             /* Splits off first word from input */
@@ -90,13 +93,13 @@ public class Duke {
                     exit = true;
                     break;
                 case Commands.TODO:
-                    taskManager.addTask(userInput[1], TaskType.TODO);
+                    taskManager.processAndAddTask(userInput[1], TaskType.TODO);
                     break;
                 case Commands.DEADLINE:
-                    taskManager.addTask(userInput[1], TaskType.DEADLINE);
+                    taskManager.processAndAddTask(userInput[1], TaskType.DEADLINE);
                     break;
                 case Commands.EVENT:
-                    taskManager.addTask(userInput[1], TaskType.EVENT);
+                    taskManager.processAndAddTask(userInput[1], TaskType.EVENT);
                     break;
                 default:
                     throw new IllegalCommandException("Unidentified command");
