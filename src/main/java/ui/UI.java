@@ -2,6 +2,8 @@ package ui;
 
 import task.Task;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class UI {
     private static final String line = "____________________________________________________________";
@@ -75,11 +77,11 @@ public class UI {
      * @param tasks the list of tasks stored by taro
      * @param taskCount the total number of tasks on the list
      */
-    public void printTasksList(Task[] tasks, int taskCount) {
+    public void printTasksList(ArrayList<Task> tasks, int taskCount) {
         System.out.println(line);
         System.out.println(" here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks[i].toString());
+            System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
         }
         System.out.println(line);
     }

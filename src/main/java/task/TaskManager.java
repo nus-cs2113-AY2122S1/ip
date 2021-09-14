@@ -2,17 +2,17 @@ package task;
 
 import parser.Parser;
 
-public class TaskManager {
-    private static final int MAX_TASK_COUNT = 100;
-    private final Task[] tasks = new Task[MAX_TASK_COUNT];
-    private int taskCount = 0;
+import java.util.ArrayList;
 
-    public Task[] getTasks() {
+public class TaskManager {
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     public int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
 
@@ -30,20 +30,19 @@ public class TaskManager {
         switch(taskType) {
         case Parser.COMMAND_TODO:
             newTask = new Todo(taskName);
-            tasks[taskCount] = newTask;
+            tasks.add(newTask);
             break;
         case Parser.COMMAND_DEADLINE:
             newTask = new Deadline(taskName, date);
-            tasks[taskCount] = newTask;
+            tasks.add(newTask);
             break;
         case Parser.COMMAND_EVENT:
             newTask = new Event(taskName, date);
-            tasks[taskCount] = newTask;
+            tasks.add(newTask);
             break;
         default:
             break;
         }
-        taskCount++;
         return newTask;
     }
 
@@ -52,7 +51,9 @@ public class TaskManager {
      *
      * @param taskIndex the (index + 1) of the task to be marked done in tasks
      */
-    public void markAsDone(int taskIndex) {
-        tasks[taskIndex - 1].setDone();
+    public Task markAsDone(int taskIndex) {
+        Task doneTask = tasks.get(taskIndex - 1);
+        doneTask.setDone();
+        return doneTask;
     }
 }

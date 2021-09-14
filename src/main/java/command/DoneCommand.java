@@ -1,5 +1,6 @@
 package command;
 
+import task.Task;
 import task.TaskManager;
 import ui.UI;
 
@@ -24,7 +25,7 @@ public class DoneCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-        taskManager.markAsDone(taskIndex);
-        ui.printMarkedDoneMessage(taskManager.getTasks()[taskIndex - 1]);
+        Task doneTask = taskManager.markAsDone(taskIndex);
+        ui.printMarkedDoneMessage(doneTask);
     }
 }
