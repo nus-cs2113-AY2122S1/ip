@@ -185,38 +185,44 @@ public class TaskManager {
     public void markAsDone(int index) {
         try {
             printMarkedTask(index);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
             Duke.printLine();
             System.out.println("\tThat task doesn't exist.");
             Duke.printLine();
         }
     }
 
-    public void printMarkedTask(int index) {
+    public void printMarkedTask(int index) throws IOException {
         String taskDescription = tasks.get(index).getDescription();
-        tasks.get(index).setAsDone();
+        markTaskAsDone(index);
+        FileWriting.markEntryDone(index);
         Duke.printLine();
         System.out.println("\tNice! You completed this task:");
         System.out.println("\t  [X] " + taskDescription);
         Duke.printLine();
     }
 
+    public void markTaskAsDone(int index) {
+        tasks.get(index).setAsDone();
+    }
+
     public void deleteTask(int index) {
         try {
             printDeleteTask(index);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
             Duke.printLine();
             System.out.println("\tThat task doesn't exist.");
             Duke.printLine();
         }
 
     }
-    public void printDeleteTask(int index) {
+    public void printDeleteTask(int index) throws IOException {
         String taskDescription = tasks.get(index).toString();
         Duke.printLine();
         System.out.println("\tSeems like you didn't want this task:");
         System.out.println("\t" + taskDescription);
         Duke.printLine();
         tasks.remove(index);
+        FileWriting.deleteEntry(index);
     }
 }
