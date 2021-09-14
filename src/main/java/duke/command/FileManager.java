@@ -78,7 +78,7 @@ public class FileManager {
         try {
             parseFile(taskManager);
         } catch (IOException e) {
-            System.out.println("Error while trying to load data file");
+            DisplayManager.printErrorLoadingData();
         }
     }
 }

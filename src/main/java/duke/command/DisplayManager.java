@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.task.Task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DisplayManager {
@@ -25,7 +24,7 @@ public class DisplayManager {
 
 
     public void printStartGreet() {
-        //System.out.println(DISPLAY_LOGO);
+        System.out.println(DISPLAY_LOGO);
         System.out.println(DISPLAY_GREET_START);
     }
 
@@ -129,13 +128,13 @@ public class DisplayManager {
         }
 
         if (validIndexCount != 0) {
-            DisplayManager.printMultipleValidSetDone(tasks, validIndexes);
+            printMultipleValidSetDone(tasks, validIndexes);
         }
         if (doneIndexCount != 0) {
-            DisplayManager.printMultipleAlreadyDone(doneIndexes);
+            printMultipleAlreadyDone(doneIndexes);
         }
         if (outOfRangeCount != 0) {
-            DisplayManager.printMultipleOutOfRange(outOfRangeIndexes);
+            printMultipleOutOfRange(outOfRangeIndexes);
         }
 
         printHorizontalSeparator();
@@ -165,9 +164,9 @@ public class DisplayManager {
             System.out.print("\n");
         }
 
-        DisplayManager.printMultipleValidDelete(deletedTasks);
+        printMultipleValidDelete(deletedTasks);
         if (outOfRangeCount != 0) {
-            DisplayManager.printMultipleOutOfRange(outOfRangeIndexes);
+            printMultipleOutOfRange(outOfRangeIndexes);
         }
         if (!deletedTasks.isEmpty()) {
             System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + taskCount + " tasks in your list.");
@@ -182,9 +181,33 @@ public class DisplayManager {
     }
 
     public static void printErrorIndex(String[] invalidIndexes, int invalidCount) {
-        DisplayManager.printHorizontalSeparator();
+        printHorizontalSeparator();
         for (int i = 0; i < invalidCount; i++) {
             System.out.println(DISPLAY_MESSAGE_INDENT + invalidIndexes[i] + " is not a valid index.");
         }
+    }
+
+    public static void printErrorLoadingData() {
+        printHorizontalSeparator();
+        System.out.println( DISPLAY_MESSAGE_INDENT + "Error while trying to load data file");
+        printHorizontalSeparator();
+    }
+
+    public static void printErrorFileUpdate() {
+        printHorizontalSeparator();
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Error while trying to update tasks into file");
+        printHorizontalSeparator();
+    }
+
+    public static void printErrorMarkDoneUpdate() {
+        printHorizontalSeparator();
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Error occurred while updating file after marking tasks as done.");
+        printHorizontalSeparator();
+    }
+
+    public static void printErrorDeleteUpdate() {
+        printHorizontalSeparator();
+        System.out.println("Error occurred when trying to save file after deleting task.");
+        printHorizontalSeparator();
     }
 }

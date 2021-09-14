@@ -31,7 +31,7 @@ public class TaskManager {
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
         } catch (IOException e) {
-            System.out.println("File update error"); //fix this
+            DisplayManager.printErrorFileUpdate();
         }
     }
 
@@ -43,7 +43,7 @@ public class TaskManager {
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
         } catch (IOException e) {
-            System.out.println("File update error"); //fix this
+            DisplayManager.printErrorFileUpdate();
         }
     }
 
@@ -55,7 +55,7 @@ public class TaskManager {
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
         } catch (IOException e) {
-            System.out.println("File update error"); //fix this
+            DisplayManager.printErrorFileUpdate();
         }
     }
 
@@ -168,7 +168,7 @@ public class TaskManager {
         try {
             FileManager.updateFile(tasks);
         } catch (IOException e) {
-            System.out.println("Error occurred when trying to save file after marking as done.");
+            DisplayManager.printErrorMarkDoneUpdate();
         }
         DisplayManager.printSetAsDoneResult(tasks, outOfRangeIndexes, validIndexes, doneIndexes);
     }
@@ -190,7 +190,7 @@ public class TaskManager {
         try {
             FileManager.updateFile(tasks);
         } catch (IOException e) {
-            System.out.println("Error occurred when trying to save file after deleting task.");
+            DisplayManager.printErrorDeleteUpdate();
         }
         DisplayManager.printDeleteTasksResult(deletedTasks, outOfRangeIndexes, tasks.size());
     }
