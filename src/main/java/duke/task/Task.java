@@ -10,7 +10,7 @@ public class Task {
      * @param taskName the String containing the name of the task.
      */
     public Task(String taskName) {
-        this.taskName = taskName;
+        this.taskName = taskName.replace("|","");
         isCompleted = false;
     }
 

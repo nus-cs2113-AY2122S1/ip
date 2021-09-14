@@ -87,42 +87,69 @@ public class Parser {
         switch (taskType) {
         case TODO:
             try {
-                String todoName = userInput.substring(5).strip();
+                //if no space character after "todo"
+                if (userInput.charAt(4) != ' ') {
+                    throw new DukeException("Please specify a task name in the format \"todo [task name]\".");
+                }
+                //if task name is not found
+                String todoName = userInput.substring(4).strip();
                 if (todoName.equals("")) {
                     throw new DukeException("Please specify a task name.");
                 }
                 return new ToDo(todoName);
-            } catch (Exception e) {
-                throw new DukeException("Please specify a task name.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please specify a task name in the format \"todo [task name]\".");
             }
         case DEADLINE:
-            int byIndex = userInput.indexOf(" /by ");
-            if (byIndex == -1) {
-                throw new DukeException("Please specify a do by date by using the \" /by \" separator.");
+            try {
+                //if no space character after "deadline"
+                if (userInput.charAt(8) != ' ') {
+                    throw new DukeException("Please specify a task name in the format \"deadline [task name] /by [date]\".");
+                }
+                int byIndex = userInput.indexOf(" /by ");
+                //if " /by " separator is not found
+                if (byIndex == -1) {
+                    throw new DukeException("Please specify a do by date by using the \" /by \" separator.");
+                }
+                String deadlineName = userInput.substring(8, byIndex).strip();
+                //if task name is found
+                if (deadlineName.equals("")) {
+                    throw new DukeException("Please specify a deadline name.");
+                }
+                String deadlineDate = userInput.substring(byIndex + 5).strip();
+                //if do by date is not found
+                if (deadlineDate.equals("")) {
+                    throw new DukeException("Please specify a do by date.");
+                }
+                return new Deadline(deadlineName, deadlineDate);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please specify a task name in the format \"deadline [task name] /by [date]\".");
             }
-            String deadlineName = userInput.substring(9, byIndex).strip();
-            if (deadlineName.equals("")) {
-                throw new DukeException("Please specify a deadline name.");
-            }
-            String deadlineDate = userInput.substring(byIndex + 5).strip();
-            if (deadlineDate.equals("")) {
-                throw new DukeException("Please specify a do by date.");
-            }
-            return new Deadline(deadlineName, deadlineDate);
         case EVENT:
-            int atIndex = userInput.indexOf(" /at ");
-            if (atIndex == -1) {
-                throw new DukeException("Please specify an event date by using the \" /at \" separator.");
+            try {
+                //if no space character after "event"
+                if (userInput.charAt(5) != ' ') {
+                    throw new DukeException("Please specify a task name in the format \"event [task name] /at [date]\".");
+                }
+                int atIndex = userInput.indexOf(" /at ");
+                //if " /at " separator is not found
+                if (atIndex == -1) {
+                    throw new DukeException("Please specify an event date by using the \" /at \" separator.");
+                }
+                String eventName = userInput.substring(5, atIndex).strip();
+                //if task name is not found
+                if (eventName.equals("")) {
+                    throw new DukeException("Please specify an event name.");
+                }
+                String eventDate = userInput.substring(atIndex + 5).strip();
+                //if event date is not found
+                if (eventDate.equals("")) {
+                    throw new DukeException("Please specify an event date.");
+                }
+                return new Event(eventName, eventDate);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please specify a task name in the format \"event [task name] /at [date]\".");
             }
-            String eventName = userInput.substring(6, atIndex).strip();
-            if (eventName.equals("")) {
-                throw new DukeException("Please specify an event name.");
-            }
-            String eventDate = userInput.substring(atIndex + 5).strip();
-            if (eventDate.equals("")) {
-                throw new DukeException("Please specify an event date.");
-            }
-            return new Event(eventName, eventDate);
         }
         return null;
     }

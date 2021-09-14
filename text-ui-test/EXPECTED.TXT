@@ -6,6 +6,9 @@
   Please specify a do by date by using the " /by " separator.
   ──────────────────────────────
   ──────────────────────────────
+  Please specify a do by date by using the " /by " separator.
+  ──────────────────────────────
+  ──────────────────────────────
   Please specify a do by date.
   ──────────────────────────────
   ──────────────────────────────
@@ -18,15 +21,14 @@
     1.[D][ ] submit report (by: Tuesday 23:59)
   ──────────────────────────────
   ──────────────────────────────
+  Please specify the index of the task.
+  ──────────────────────────────
+  ──────────────────────────────
   Ok! I've marked this task as done:
     [D][X] submit report (by: Tuesday 23:59)
   ──────────────────────────────
   ──────────────────────────────
-  Here are your tasks:
-    1.[D][X] submit report (by: Tuesday 23:59)
-  ──────────────────────────────
-  ──────────────────────────────
-  Please specify a task name.
+  Please specify a task name in the format "todo [task name]".
   ──────────────────────────────
   ──────────────────────────────
   Task does not exist.
@@ -37,7 +39,13 @@
   Now you have 2 tasks.
   ──────────────────────────────
   ──────────────────────────────
+  Please specify a task name in the format "event [task name] /at [date]".
+  ──────────────────────────────
+  ──────────────────────────────
   Please specify an event date by using the " /at " separator.
+  ──────────────────────────────
+  ──────────────────────────────
+  Please specify an event name.
   ──────────────────────────────
   ──────────────────────────────
   Please specify an event date.
