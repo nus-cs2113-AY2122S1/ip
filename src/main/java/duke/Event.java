@@ -9,6 +9,10 @@ public class Event extends Task{
         this.duration = duration;
     }
 
+    public String getDuration() {
+        return duration;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(at:" + duration + ")";
