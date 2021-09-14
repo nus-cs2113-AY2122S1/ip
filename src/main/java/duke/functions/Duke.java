@@ -3,16 +3,16 @@ package duke.functions;
 import duke.exceptions.EmptyArgException;
 import duke.exceptions.WrongFormatException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     private static Boolean isFinished = false;
-    private static int itemCount = 0;
 
-    public static void main(String[] args) throws EmptyArgException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Task[] items = new Task[100];
+        ArrayList<Task> items = new ArrayList<>();
 
         printIntro();
 
@@ -34,7 +34,7 @@ public class Duke {
                     System.out.println("\tInvalid argument, please enter a valid task number!");
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("\tNo such task!");
-                } catch (EmptyArgException e){
+                } catch (EmptyArgException e) {
                     System.out.println("\tWhich task is done?");
                 }
                 break;
@@ -76,77 +76,78 @@ public class Duke {
         printBye();
     }
 
-    private static void handleDone(Task[] items, String userInput) throws EmptyArgException {
+    private static void handleDone(ArrayList<Task> items, String userInput) throws EmptyArgException {
         String[] arg = userInput.split(" ");
-        if (arg.length < 2){
+        if (arg.length < 2) {
             throw new EmptyArgException();
         }
         int indexToMark = Integer.parseInt(arg[1]) - 1;
-        items[indexToMark].markAsDone();
+        items.get(indexToMark).markAsDone();
         System.out.println("\tNice! I have marked this task as done:");
-        System.out.println("\t\t" + items[indexToMark]);
+        System.out.println("\t\t" + items.get(indexToMark));
     }
 
-    private static void handleEvent(Task[] items, String userInput) throws EmptyArgException, WrongFormatException {
+    private static void handleEvent(ArrayList<Task> items, String userInput) throws EmptyArgException, WrongFormatException {
         String[] arg = userInput.split(" ", 2);
-        if (arg.length < 2){
+        if (arg.length < 2) {
             throw new EmptyArgException();
         }
         String[] splitArg = arg[1].split("/", 2);
-        if (splitArg.length<2){
+        if (splitArg.length < 2) {
             throw new WrongFormatException();
         }
         String description = splitArg[0].trim();
         String at = splitArg[1].substring(3);
 
-        items[itemCount] = new Event(description, at);
-        incrementItemCount(items[itemCount]);
+        items.add(new Event(description, at));
+        printTaskAdded(items);
     }
 
-    private static void handleDeadline(Task[] items, String userInput) throws EmptyArgException, WrongFormatException {
+    private static void handleDeadline(ArrayList<Task> items, String userInput) throws EmptyArgException, WrongFormatException {
         String[] arg = userInput.split(" ", 2);
-        if (arg.length < 2){
+        if (arg.length < 2) {
             throw new EmptyArgException();
         }
         String[] splitArg = arg[1].split("/", 2);
-        if (splitArg.length < 2){
+        if (splitArg.length < 2) {
             throw new WrongFormatException();
         }
         String description = splitArg[0].trim();
         String by = splitArg[1].substring(3);
 
-        items[itemCount] = new Deadline(description, by);
-        incrementItemCount(items[itemCount]);
+        items.add(new Deadline(description, by));
+        printTaskAdded(items);
     }
 
-    private static void handleTodo(Task[] items, String userInput) throws EmptyArgException {
+    private static void handleTodo(ArrayList<Task> items, String userInput) throws EmptyArgException {
         String[] arg = userInput.split(" ", 2);
         if (arg.length < 2) {
             throw new EmptyArgException();
         }
-        items[itemCount] = new Todo(arg[1]);
-        incrementItemCount(items[itemCount]);
+        items.add(new Todo(arg[1]));
+        printTaskAdded(items);
     }
 
-    private static void printTaskList(Task[] items) {
+    private static void printTaskList(ArrayList<Task> items) {
         drawLine();
         System.out.println("\tHere is your task list:");
-        for (int i = 0; i < itemCount; i++) {
+        for (int i = 0; i < items.size(); i++) {
             System.out.print("\t\t" + (i + 1) + ". ");
-            System.out.println(items[i]);
+            System.out.println(items.get(i));
         }
         drawLine();
     }
 
-    private static void incrementItemCount(Task item) {
+    private static void printTaskAdded(ArrayList<Task> items) {
+        int indexOfLastItem = items.size() - 1;
         System.out.println("\tTask Added:");
-        System.out.println("\t\t" + item);
-        itemCount++;
-        System.out.println("\tYou now have " + itemCount + " tasks");
+        System.out.println("\t\t" + items.get(indexOfLastItem));
+        System.out.println("\tYou now have " + items.size() + " tasks");
     }
 
     private static void printIntro() {
-        System.out.println("                              _     _\n" +
+        System.out.println(
+                "                              _     _\n" +
                 "                             ( \\---/ )\n" +
                 "                              ) . . (\n" +
                 "________________________,--._(___Y___)_,--._______________________ \n" +
