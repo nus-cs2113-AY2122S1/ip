@@ -32,4 +32,9 @@ public class Event extends Task {
         System.out.println("] " + super.getName() + " (at: " + getAt() + ")");
     }
 
+    @Override
+    public String toString() {
+        return "E" + super.toString()
+                + " | " + getAt() + "\n";
+    }
 }

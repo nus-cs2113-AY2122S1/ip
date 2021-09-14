@@ -32,4 +32,10 @@ public class Deadline extends Task {
         System.out.println("] " + super.getName() + " (by: " + getBy() + ")");
     }
 
+    @Override
+    public String toString() {
+        return "D" + super.toString()
+                + " | " + getBy() + "\n";
+    }
+
 }
