@@ -4,18 +4,19 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final Task[] taskList = new Task[100];
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String LIST = "list";
     public static final String DONE = "done";
     public static final String EXIT = "bye";
-    private static int taskIndex = 0;
+    public static final String DELETE = "delete";
+    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static int numberOfTasks = 0;
 
     public static void main(String[] args) {
         greet();
@@ -56,6 +57,9 @@ public class Duke {
         case EXIT:
             bye();
             return;
+        case DELETE:
+             deleteTask(taskDescription);
+             break;
         default:
             printDividerLine();
             System.out.println("Invalid Input!");
@@ -118,7 +122,7 @@ public class Duke {
 
         switch (taskType) {
         case TODO:
-            taskList[taskIndex] = new ToDo(taskDescription);
+            taskList.add((new ToDo(taskDescription)));
             break;
         case DEADLINE:
             if (!taskDescription.contains("/by")) {
@@ -127,7 +131,7 @@ public class Duke {
                 printDividerLine();
                 return;
             }
-            taskList[taskIndex] = new Deadline(taskDescription);
+            taskList.add((new Deadline(taskDescription)));
             break;
         case EVENT:
             if (!taskDescription.contains("/at")) {
@@ -136,27 +140,30 @@ public class Duke {
                 printDividerLine();
                 return;
             }
-            taskList[taskIndex] = new Event(taskDescription);
+            taskList.add((new Event(taskDescription)));
             break;
         }
-        taskIndex++;
 
         printDividerLine();
         System.out.println("I have added this task:");
-        System.out.println("[" + taskList[taskIndex - 1].getType() + "][" + taskList[taskIndex - 1].getStatusIcon() + "] " + taskList[taskIndex - 1].getDescription());
-        System.out.println("You have " + taskIndex + " task(s) in the list.");
+        System.out.println("[" + taskList.get(numberOfTasks).getType() + "][" + taskList.get(numberOfTasks).getStatusIcon() + "] " + taskList.get(numberOfTasks).getDescription());
+        numberOfTasks++;
+        System.out.println("You have " + numberOfTasks + " task(s) in the list.");
         printDividerLine();
+
     }
 
     private static void displayList() {
         printDividerLine();
-        if (taskIndex == 0) {
+        if (numberOfTasks == 0) {
             System.out.println("to-do list is empty! add something");
             return;
         }
         System.out.println("The current to-do list is as follows:");
-        for (int i = 0; i < taskIndex; i++) {
-            System.out.println(i + 1 + ". [" + taskList[i].getType() + "][" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+        int counter = 1;
+        for (Task item : taskList) {
+            System.out.println(counter + ". [" + item.getType() + "][" + item.getStatusIcon() + "] " + item.getDescription());
+            counter ++;
         }
         printDividerLine();
     }
@@ -166,19 +173,42 @@ public class Duke {
 
         try {
             taskNumber = Integer.parseInt(taskDescription);
-            if (taskNumber > taskIndex) {
+            if (taskNumber > numberOfTasks || taskNumber <= 0) {
                 System.out.println("Error! This task does not exist!");
                 return;
             }
             taskNumber--;
-            taskList[taskNumber].markAsDone();
+            taskList.get(taskNumber).markAsDone();
             printDividerLine();
             System.out.println("I have marked it as completed!");
-            System.out.println(taskNumber + 1 + ". [" + taskList[taskNumber].getType() + "][" + taskList[taskNumber].getStatusIcon() + "] " + taskList[taskNumber].getDescription());
+            System.out.println(taskNumber + 1 + ". [" +  taskList.get(taskNumber).getType() + "][" +  taskList.get(taskNumber).getStatusIcon() + "] " +  taskList.get(taskNumber).getDescription());
             printDividerLine();
         } catch (NumberFormatException e) {
             System.out.println("Error! This task does not exist!");
         }
 
     }
+
+    private static void deleteTask(String taskDescription) {
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(taskDescription);
+            if (taskNumber > numberOfTasks || taskNumber <= 0) {
+                System.out.println("Error! This task does not exist!");
+                return;
+            }
+            taskNumber--;
+            printDividerLine();
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println("  [" +  taskList.get(taskNumber).getType() + "][" +  taskList.get(taskNumber).getStatusIcon() + "] " +  taskList.get(taskNumber).getDescription());
+            printDividerLine();
+            taskList.remove(taskNumber);
+            numberOfTasks--;
+        } catch (NumberFormatException e) {
+            System.out.println("Error! This task does not exist!");
+        }
+    }
+
+
 }
