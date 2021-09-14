@@ -188,6 +188,7 @@ public class Duke {
             break;
         default:
             try {
+                CHECKER.checkForIllegalChar(userInputString);
                 parseUserInputString(userInputString);
             } catch (DukeException exception) {
                 showErrorMessage(exception.getMessage());

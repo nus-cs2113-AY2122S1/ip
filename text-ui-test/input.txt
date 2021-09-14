@@ -54,4 +54,5 @@ event /at    sometime
 done
 done    abc
 done 10
+deadline something | very urgent
 bye

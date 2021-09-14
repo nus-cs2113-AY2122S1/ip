@@ -195,5 +195,7 @@ ____________________________________________________________
 OH NO! The task number is invalid, I can't find any tasks matching that number...
 Enter "list" to check the task number!
 ____________________________________________________________
+Please do not use "|" in your input...
+____________________________________________________________
 Bye! Have a great day ahead and see you again soon. ?
 ____________________________________________________________

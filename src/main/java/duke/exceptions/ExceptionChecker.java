@@ -12,6 +12,9 @@ public class ExceptionChecker {
     private static final InputParser PARSER = new InputParser();
     private static final FileManager FILE_MANAGER = new FileManager();
 
+    private static final String ILLEGAL_CHAR = "|";
+    private static final String ILLEGAL_CHAR_ERROR =
+            "Please do not use \"|\" in your input...";
     private static final String ECHO_ERROR =
             "OH NO! I can't echo if you don't say anything...";
     private static final String TODO_ERROR =
@@ -53,6 +56,12 @@ public class ExceptionChecker {
             return (dataArray.length < 4);
         default:
             return true;
+        }
+    }
+
+    public void checkForIllegalChar(String input) throws DukeException {
+        if (input.contains(ILLEGAL_CHAR)) {
+            throw new DukeException(ILLEGAL_CHAR_ERROR);
         }
     }
 
