@@ -31,36 +31,36 @@ public class Response {
     }
 
     public static void parseInput(String input) {
-        if (input.startsWith("done ")) {
-            String[] inputParts = input.split(" ");
-            int completedTask = Integer.parseInt(inputParts[1]);
+        String[] inputParts = input.split(" ");
+        String instruction = inputParts[0];
 
+        switch (instruction) {
+        case "done":
+            int completedTask = Integer.parseInt(inputParts[1]);
             try {
                 Storage.markComplete(completedTask);
             } catch (NullPointerException e) {
                 echo("Please enter a task number from the list");
             }
-
-            return;
-        }
-
-        switch (input) {
+            break;
         case "bye":
             bye();
             break;
         case "list":
             Storage.list();
             break;
+        case "delete":
+            Storage.deleteTask(Integer.parseInt(inputParts[1]));
+            break;
         default:
             try {
-                Storage.storeInput(input);
+                Storage.storeTask(input);
             } catch (DukeException e) {
                 echo("OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (IndexOutOfBoundsException e) {
                 echo("OOPS!!! The description of a task cannot be empty.");
             }
             break;
-
         }
     }
 }
