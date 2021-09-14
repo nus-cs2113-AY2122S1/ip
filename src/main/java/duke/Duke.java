@@ -5,6 +5,11 @@ import duke.task.ToDo;
 import duke.task.Event;
 import duke.task.Deadline;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
@@ -133,10 +138,10 @@ public class Duke {
      * @param chatInput input of the user
      * @return description of task
      */
-    private static String scanDescription(String chatInput) throws DukeException {
+    private static String scanDescription(String chatInput, boolean isSavingFile) throws DukeException, StringIndexOutOfBoundsException {
         String[] words = chatInput.split(SPACING);
 
-        boolean isMissingDescription = (words.length <= 1);
+        boolean isMissingDescription = (words.length <= 1 && !isSavingFile);
 
         if (isMissingDescription) {
             throw new DukeException();
@@ -144,11 +149,15 @@ public class Duke {
 
         int spaceCount = 1;
 
-        int startIdx = words[0].length() + spaceCount;
+        // If saving the file, we can start from the start and need not account for the command
+        int startIdx = isSavingFile ? 0 : words[0].length() + spaceCount;
         int endIdx = 0;
 
         for (int i = 0; i < words.length; i++) {
-            if (words[i].charAt(0) == '/') {
+
+            // true if /by or (by: ...) is detected
+            boolean isEndOfDescription = (words[i].charAt(0) == '/' || words[i].charAt(0) == '(');
+            if (isEndOfDescription) {
                 break;
             }
             endIdx += words[i].length() + spaceCount;
@@ -162,11 +171,12 @@ public class Duke {
      * @param chatInput input of user
      * @return either the due date of deadline or event time
      */
-    private static String getTimeOfEvent(String chatInput) throws DukeException {
+    private static String getTimeOfEvent(String chatInput, boolean isSavingInput) throws DukeException {
         String[] words = chatInput.split(SPACING);
 
         int spaceCount = 1;
-        int startIdx = 0;
+        // Accounting for space and semicolon
+        int startIdx = isSavingInput ? 1 : 0;
 
         for (int i = 0; i < words.length; i++) {
 
@@ -184,7 +194,14 @@ public class Duke {
 
             startIdx += words[i].length() + spaceCount;
         }
-        return chatInput.substring(startIdx + spaceCount);
+        String timeOfEvent = chatInput.substring(startIdx + spaceCount);
+
+        if (isSavingInput) {
+            // Removing the parenthesis from the time of event
+            timeOfEvent = chatInput.substring(startIdx + spaceCount, chatInput.length() - 1);
+        }
+
+        return timeOfEvent;
     }
 
     /**
@@ -218,7 +235,7 @@ public class Duke {
      * @return true if entry is /at
      */
     private static boolean checkAtEntry(String input) {
-        if (input.equals(ENTRY_AT)) {
+        if (input.equals(ENTRY_AT) || input.equals("(at:")) {
             return true;
         }
         return false;
@@ -231,37 +248,39 @@ public class Duke {
      * @return true if entry is /by
      */
     private static boolean checkByEntry(String input) {
-        if (input.equals(ENTRY_BY)) {
+        if (input.equals(ENTRY_BY) || input.equals("(by:")) {
             return true;
         }
         return false;
     }
 
-    /**
-     * Checks if task is null
-     *
-     * @param item item at the point of array it is checking
-     * @return true if item is added.
-     */
-    private static boolean checkIfTaskAdded(Task item) {
-        return item != null;
-    }
 
     /**
      * Adds a to-do item to the task list
      *
      * @param chatInput input of user
-     * @return to-do item to be added to task list
      */
-    private static void addToDoItem(String chatInput) {
+    private static void addToDoItem(String chatInput, boolean isFileItem, boolean isDone) {
         try {
-            ToDo temp = new ToDo(scanDescription(chatInput));
+            ToDo temp = new ToDo(scanDescription(chatInput, false));
             tasks[taskCounter] = temp;
-            taskCounter++;
-            System.out.println(MESSAGE_TASK_ADDED + temp);
-            printTaskNumber();
+            if (isFileItem) {
+                if (isDone) {
+                    tasks[taskCounter].setDone();
+                }
+                taskCounter++;
+            } else {
+                System.out.println(MESSAGE_TASK_ADDED + temp);
+                taskCounter++;
+                printTaskNumber();
+            }
+            saveFile();
         } catch (DukeException e) {
             System.out.println(ERROR_WRONG_TODO_FORMAT);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println("Save failed! Data might be lost.. :(");
         }
     }
 
@@ -269,35 +288,58 @@ public class Duke {
      * Adds an event item to the task list
      *
      * @param chatInput input of user
-     * @return event item to be added to task list
      */
-    private static void addEventItem(String chatInput) {
+    private static void addEventItem(String chatInput, boolean isFileItem, boolean isDone) {
         try {
-            Event temp = new Event(scanDescription(chatInput), getTimeOfEvent(chatInput));
+            Event temp = new Event(scanDescription(chatInput, false), getTimeOfEvent(chatInput, false));
             tasks[taskCounter] = temp;
-            taskCounter++;
-            System.out.println(MESSAGE_TASK_ADDED + temp);
-            printTaskNumber();
+            if (isFileItem) {
+                if (isDone) {
+                    tasks[taskCounter].setDone();
+                }
+                taskCounter++;
+            } else {
+                System.out.println(MESSAGE_TASK_ADDED + temp);
+                taskCounter++;
+                printTaskNumber();
+            }
+            saveFile();
         } catch (DukeException e) {
             System.out.println(ERROR_WRONG_EVENT_FORMAT);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println("Save failed! Data might be lost.. :(");
         }
+
     }
 
     /**
      * Adds a deadline item to the task list
      *
      * @param chatInput input of user
-     * @return deadline item to be added to task list
      */
-    private static void addDeadlineItem(String chatInput) {
+    private static void addDeadlineItem(String chatInput, boolean isFileItem, boolean isDone) {
         try {
-            Deadline temp = new Deadline(scanDescription(chatInput), getTimeOfEvent(chatInput));
+            Deadline temp = new Deadline(scanDescription(chatInput, false), getTimeOfEvent(chatInput, false));
             tasks[taskCounter] = temp;
-            taskCounter++;
-            System.out.println(MESSAGE_TASK_ADDED + temp);
-            printTaskNumber();
+            if (isFileItem) {
+                if (isDone) {
+                    tasks[taskCounter].setDone();
+                }
+                taskCounter++;
+            } else {
+                System.out.println(MESSAGE_TASK_ADDED + temp);
+                taskCounter++;
+                printTaskNumber();
+            }
+            saveFile();
         } catch (DukeException e) {
             System.out.println(ERROR_WRONG_DEADLINE_FORMAT);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println("Save failed! Data might be lost.. :(");
         }
     }
 
@@ -305,40 +347,134 @@ public class Duke {
      * Sets specific task in array as done
      *
      * @param chatInput input of user
-     * @return the tasks array with specified item marked as done
      */
     private static void setTaskAsDone(String chatInput) {
         int taskIdx = findTaskNumber(chatInput);
         try {
             tasks[taskIdx].setDone();
             System.out.println(PRINT_DONE_MESSAGE_FRONT + tasks[taskIdx] + PRINT_DONE_MESSAGE_BACK);
+            saveFile();
         } catch (NullPointerException e) {
             System.out.println(MESSAGE_OUT_OF_RANGE + taskCounter);
+        } catch (NumberFormatException e) {
+            System.out.println("Please key in a number instead pls :(");
+        } catch (IOException e) {
+            System.out.println("Save failed! Data might be lost.. :(");
         }
+
+    }
+
+    private static void loadFile() {
+        makeDirectory();
+        readFromFile();
+    }
+
+    private static void readFromFile() {
+        File f = new File("./data/duke.txt");
+
+        try {
+            if (f.createNewFile()) {
+                System.out.println("Storage file was successfully created!");
+            } else {
+                Scanner s = new Scanner(f);
+                while (s.hasNext()) {
+                    addTaskFromFile(s.nextLine());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("There was an error creating/accessing the file.. :(");
+        }
+    }
+
+    private static void makeDirectory() {
+        try {
+            Files.createDirectories(Paths.get("./data"));
+        } catch (IOException e) {
+            System.out.println("Error in creating directory");
+        }
+    }
+
+    private static void addTaskFromFile(String fileInput) {
+        String[] words = fileInput.split(" ");
+
+        // Command is stored in the 2nd item in the array, while
+        // isDone() value is stored as the first item in the array.
+        // For instance: 1 deadline description /by 9pm
+        // marks the deadline item as done.
+        boolean isDone = "1".equals(words[0]);
+        String command = words[1];
+
+        switch (command) {
+        case COMMAND_DEADLINE:
+            addDeadlineItem(fileInput.substring(2), true, isDone);
+            break;
+        case COMMAND_TODO:
+            addToDoItem(fileInput.substring(2), true, isDone);
+            break;
+        case COMMAND_EVENT:
+            addEventItem(fileInput.substring(2), true, isDone);
+            break;
+        default:
+            break;
+        }
+    }
+
+    private static void saveFile() throws IOException {
+        FileWriter fw = new FileWriter("./data/duke.txt");
+        for (int i = 0; i < taskCounter; i++) {
+
+            String markDone = "0 ";
+            String description = "", timeOfEvent = "";
+            String command = "todo ";
+            String[] words = tasks.toString().split(" ");
+
+            if (tasks[i].isDone()) {
+                markDone = "1 ";
+            }
+
+            try {
+                description = scanDescription(tasks[i].toString().substring(8), true);
+                if (tasks[i] instanceof Event) {
+                    command = "event ";
+                    timeOfEvent = " /at " + getTimeOfEvent(tasks[i].toString().substring(8), true);
+                } else if (tasks[i] instanceof Deadline) {
+                    command = "deadline ";
+                    timeOfEvent = " /by " + getTimeOfEvent(tasks[i].toString().substring(8), true);
+                }
+
+                fw.write(markDone + command + description + timeOfEvent + System.lineSeparator());
+            } catch (DukeException e) {
+                System.out.println("Error in formatting while saving");
+            }
+        }
+        fw.close();
     }
 
     /**
      * Executes the main chatting function
      */
     private static void startChat() {
-        while (true) {
+        loadFile();
+        boolean isActive = true;
+        while (isActive) {
             printDivider();
             String chatInput = in.nextLine();
             printDivider();
             switch (scanKeyword(chatInput)) {
             case COMMAND_BYE:
-                return;
+                isActive = false;
+                break;
             case COMMAND_LIST:
                 printList(tasks, taskCounter);
                 break;
             case COMMAND_TODO:
-                addToDoItem(chatInput);
+                addToDoItem(chatInput, false, false);
                 break;
             case COMMAND_EVENT:
-                addEventItem(chatInput);
+                addEventItem(chatInput, false, false);
                 break;
             case COMMAND_DEADLINE:
-                addDeadlineItem(chatInput);
+                addDeadlineItem(chatInput, false, false);
                 break;
             case COMMAND_DONE:
                 setTaskAsDone(chatInput);
@@ -347,6 +483,11 @@ public class Duke {
                 System.out.println(MESSAGE_NO_INPUT);
                 break;
             }
+        }
+        try {
+            saveFile();
+        } catch (IOException e) {
+            System.out.println("Save failed! Data might be lost.. :(");
         }
     }
 }
