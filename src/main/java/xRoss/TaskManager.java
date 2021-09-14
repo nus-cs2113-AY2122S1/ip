@@ -14,14 +14,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents collection of Tasks and methods to edit them in task list.
+ */
 public class TaskManager implements FileManager{
 
+    /**
+     * tasks                ArrayList containing Tasks in task list
+     * tasksCount           Number of Tasks in task list
+     * completedTasksCount  Number of Tasks in task list that have been marked as done
+     */
     private ArrayList<Task> tasks = new ArrayList<>();
-    private int completedTasksCount = 0;
     private int tasksCount = 0;
+    private int completedTasksCount = 0;
 
+    /**
+     * Specified file path to save task list.
+     */
     final String filepath = "data/xRoss.txt";
 
+    /**
+     * Prints current task list to system output.
+     */
     public void printTasks() {
         if (tasksCount == 0) {
             System.out.println("\tYou have no tasks in your task list at the moment.\n");
@@ -36,6 +50,11 @@ public class TaskManager implements FileManager{
         printTaskCounts();
     }
 
+    /**
+     * Adds new Task to task list.
+     *
+     * @param task  New Task to be added to task list.
+     */
     public void addTask(Task task) {
         // add new task to task list
         tasks.add(task);
@@ -49,6 +68,11 @@ public class TaskManager implements FileManager{
         printTaskCounts();
     }
 
+    /**
+     * Marks a specified Task in current task list as done.
+     *
+     * @param inputTaskIndex    Index of Task in current task list to be marked as done.
+     */
     public void markAsDone(int inputTaskIndex) {
         int taskIndex = inputTaskIndex - 1;
 
@@ -77,6 +101,11 @@ public class TaskManager implements FileManager{
                 + " uncompleted task(s) left in your task list\n");
     }
 
+    /**
+     * Deletes a specified Task in the current task list.
+     *
+     * @param inputTaskIndex    Index of Task in current task list to be deleted.
+     */
     public void deleteTask(int inputTaskIndex){
         int taskIndex = inputTaskIndex - 1;
 
@@ -104,6 +133,9 @@ public class TaskManager implements FileManager{
         printTaskCounts();
     }
 
+    /**
+     * Prints number of tasks and uncompleted tasks in current task list to system output.
+     */
     private void printTaskCounts() {
         System.out.println("\tThere are "
                 + tasksCount
@@ -112,11 +144,15 @@ public class TaskManager implements FileManager{
                 + " is/are uncompleted.\n");
     }
 
+    /**
+     * Reads saved task list from specified text file.
+     */
     @Override
     public void readFromFile() {
         try {
             File file = new File(filepath);
 
+            // instantiate scanner to read file contents
             Scanner s = new Scanner(file);
 
             while (s.hasNext()){
@@ -134,9 +170,16 @@ public class TaskManager implements FileManager{
 
     }
 
-    private Task convertFileStrToTask(String nextLine) {
+    /**
+     * Converts scanned file string to Task instance.
+     *
+     * @param fileStr  Scanned file string.
+     * @return  Converted Task instance from scanned file string.
+     */
+    private Task convertFileStrToTask(String fileStr) {
         // split string using " | " pattern
-        String[] scannedTask = nextLine.split(" \\| ");
+        String[] scannedTask = fileStr.split(" \\| ");
+
         Task task = null;
 
         try {
@@ -159,7 +202,7 @@ public class TaskManager implements FileManager{
             System.out.println("Empty string in saved file string...");
         }
 
-        // check if scanned task is
+        // check if scanned task is done
         if (scannedTask[1].equals("1")){
             task.setDone();
         }
@@ -167,6 +210,9 @@ public class TaskManager implements FileManager{
         return task;
     }
 
+    /**
+     * Writes current task list to specified text file to save it.
+     */
     @Override
     public void saveToFile() {
         try {
@@ -178,6 +224,7 @@ public class TaskManager implements FileManager{
                 file.createNewFile();
             }
 
+            // instantiate FileWriter object to overwrite specified text file
             FileWriter fileWriter = new FileWriter(filepath, false);
             for (int i = 0; i < tasksCount; i++){
                 fileWriter.write(tasks.get(i).toString());
@@ -185,7 +232,6 @@ public class TaskManager implements FileManager{
             fileWriter.close();
         } catch (IOException e){
             System.out.println("Something went wrong while saving the task list to file...");
-            e.printStackTrace();
         }
     }
 }

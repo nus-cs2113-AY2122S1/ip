@@ -7,9 +7,16 @@ import xRoss.task.Todo;
 
 import java.util.Scanner;
 
+/**
+ * Represents implementation of xRoss chat bot.
+ */
 public class xRoss {
 
-    // main method for xRoss chat bot
+    /**
+     * Main function to execute xRoss chat bot.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         printWelcomeMessage();
 
@@ -52,14 +59,18 @@ public class xRoss {
         printExitMessage();
     }
 
-    // prints a divider line and new line to command line output
+    /**
+     * Prints a divider and new line to system output.
+     */
     private static void printDividerLine() {
         System.out.println(
                 "....................................................................................................."
         );
     }
 
-    // prints welcome message
+    /**
+     * Prints welcome message to system output.
+     */
     private static void printWelcomeMessage() {
         String logo = "        _____\n"
                 + "       |  __ \\ _  __  __\n"
@@ -73,14 +84,20 @@ public class xRoss {
         printDividerLine();
     }
 
-    // prints exit message
+    /**
+     * Prints exit message to system output.
+     */
     private static void printExitMessage() {
         printDividerLine();
         System.out.println("\tBye!\n\tHave a nice day and I hope to see you again soon!\n");
         printDividerLine();
     }
 
-    // prints command error messages
+    /**
+     * Prints error messages for incorrect user commands to system output.
+     *
+     * @param s Denotes command and error type to print corresponding error message.
+     */
     private static void printCommandErrorMessage(String s) {
         switch (s) {
         case "todo_format":
@@ -134,14 +151,23 @@ public class xRoss {
         }
     }
 
-    // prints response to list command
+    /**
+     * Prints response to "list" command to system output.
+     *
+     * @param taskManager   Representation of current task list.
+     */
     private static void printTaskListResponse(TaskManager taskManager) {
         printDividerLine();
         taskManager.printTasks();
         printDividerLine();
     }
 
-    // prints response to done command
+    /**
+     * Prints response to "done" command to system output.
+     *
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
+     */
     private static void printDoneResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -154,7 +180,12 @@ public class xRoss {
         printDividerLine();
     }
 
-    // prints response to delete command
+    /**
+     * Prints response to "delete" command to system output.
+     *
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
+     */
     private static void printDeleteResponse(TaskManager taskManager, String inputLine){
         printDividerLine();
         try {
@@ -167,7 +198,12 @@ public class xRoss {
         printDividerLine();
     }
 
-    // prints response to todo command
+    /**
+     * Prints response to "todo" command to system output.
+     *
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
+     */
     private static void printTodoResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -182,7 +218,12 @@ public class xRoss {
         printDividerLine();
     }
 
-    // prints response to deadline command
+    /**
+     * Prints response to "deadline" command to system output.
+     *
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
+     */
     private static void printDeadlineResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -197,7 +238,12 @@ public class xRoss {
         printDividerLine();
     }
 
-    // prints response to event command
+    /**
+     * Prints response to "event" command to system output.
+     *
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
+     */
     private static void printEventResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
         try {
@@ -212,7 +258,9 @@ public class xRoss {
         printDividerLine();
     }
 
-    // prints response is command is not recognized
+    /**
+     * Prints echo of scanned user input if it is not recognized as a command
+     */
     private static void printEcho(String inputLine) {
         printDividerLine();
         System.out.println("\t" + inputLine);
