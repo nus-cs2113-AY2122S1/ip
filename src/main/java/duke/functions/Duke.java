@@ -6,15 +6,27 @@ import duke.exceptions.WrongFormatException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
 
     private static Boolean isFinished = false;
+    private static final String filepath = "SAVEDLIST.txt";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> items = new ArrayList<>();
 
         printIntro();
+
+        try {
+            readSavedList(items);
+        } catch (IOException e) {
+            System.out.println("Error creating/reading task list");
+        }
 
         while (!isFinished) {
             String userInput = sc.nextLine();
@@ -37,17 +49,28 @@ public class Duke {
                 } catch (EmptyArgException e) {
                     System.out.println("\tWhich task is done?");
                 }
+                try {
+                    writeToFile(items);
+                } catch (IOException e) {
+                    System.out.println("\tError writing to file");
+                }
                 break;
             }
-            case "delete":{
+            case "delete": {
                 try {
                     handleDelete(items, userInput);
+                    printTaskList(items);
                 } catch (NumberFormatException e) {
                     System.out.println("\tInvalid argument, please enter a valid task number!");
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("\tNo such task!");
                 } catch (EmptyArgException e) {
                     System.out.println("\tWhich task to delete?");
+                }
+                try {
+                    writeToFile(items);
+                } catch (IOException e) {
+                    System.out.println("\tError writing to file");
                 }
                 break;
             }
@@ -56,6 +79,11 @@ public class Duke {
                     handleTodo(items, userInput);
                 } catch (EmptyArgException e) {
                     System.out.println("\tDescription of todo cannot be empty!");
+                }
+                try {
+                    writeToFile(items);
+                } catch (IOException e) {
+                    System.out.println("\tError writing to file");
                 }
                 break;
             }
@@ -67,6 +95,11 @@ public class Duke {
                 } catch (WrongFormatException e) {
                     System.out.println("\tWrong format! Try \"Deadline [description] \\by [due date]\"");
                 }
+                try {
+                    writeToFile(items);
+                } catch (IOException e) {
+                    System.out.println("\tError writing to file");
+                }
                 break;
             }
             case "event": {
@@ -77,6 +110,11 @@ public class Duke {
                 } catch (WrongFormatException e) {
                     System.out.println("\tWrong format! Try \"Event [description] \\by [due date]\"");
                 }
+                try {
+                    writeToFile(items);
+                } catch (IOException e) {
+                    System.out.println("\tError writing to file");
+                }
                 break;
             }
             default:
@@ -86,6 +124,60 @@ public class Duke {
         }
 
         printBye();
+    }
+
+    private static void writeToFile(ArrayList<Task> items) throws IOException {
+        FileWriter fw = new FileWriter(filepath);
+        for (Task i : items) {
+            if (i instanceof Todo) {
+                fw.write("T" + "--" + i.getStatusIcon() + "--" + i.description);
+                fw.write(System.lineSeparator());
+            } else if (i instanceof Deadline) {
+                fw.write("D" + "--" + i.getStatusIcon() + "--" + i.description + "--" + ((Deadline) i).getBy());
+                fw.write(System.lineSeparator());
+
+            } else if (i instanceof Event) {
+                fw.write("E" + "--" + i.getStatusIcon() + "--" + i.description + "--" + ((Event) i).getAt());
+                fw.write(System.lineSeparator());
+            }
+        }
+        if (items.isEmpty()){
+            fw.write("");
+        }
+        fw.close();
+    }
+
+    private static void readSavedList(ArrayList<Task> items) throws IOException {
+        File f = new File(filepath);
+        if (f.createNewFile()) {
+            drawLine();
+            System.out.println("\tNo saved task list, new file created");
+            drawLine();
+        } else {
+            Scanner fs = new Scanner(f);
+            while (fs.hasNext()) {
+                String[] feed = fs.nextLine().split("--");
+
+                switch (feed[0]) {
+                case "T":
+                    items.add(new Todo(feed[2]));
+                    break;
+                case "D":
+                    items.add(new Deadline(feed[2], feed[3]));
+                    break;
+                case "E":
+                    items.add(new Event(feed[2], feed[3]));
+                    break;
+                default:
+                    break;
+                }
+
+                if (feed[1].equals("X")) {
+                    items.get(items.size() - 1).markAsDone();
+                }
+            }
+            printTaskList(items);
+        }
     }
 
     private static void handleDelete(ArrayList<Task> items, String userInput) throws EmptyArgException {
@@ -154,10 +246,14 @@ public class Duke {
 
     private static void printTaskList(ArrayList<Task> items) {
         drawLine();
-        System.out.println("\tHere is your task list:");
-        for (int i = 0; i < items.size(); i++) {
-            System.out.print("\t\t" + (i + 1) + ". ");
-            System.out.println(items.get(i));
+        if (!items.isEmpty()) {
+            System.out.println("\tHere is your task list:");
+            for (int i = 0; i < items.size(); i++) {
+                System.out.print("\t\t" + (i + 1) + ". ");
+                System.out.println(items.get(i));
+            }
+        } else {
+            System.out.println("\tYou have no tasks");
         }
         drawLine();
     }
@@ -172,13 +268,12 @@ public class Duke {
     private static void printIntro() {
         System.out.println(
                 "                              _     _\n" +
-                "                             ( \\---/ )\n" +
-                "                              ) . . (\n" +
-                "________________________,--._(___Y___)_,--._______________________ \n" +
-                "                        `--'           `--'");
+                        "                             ( \\---/ )\n" +
+                        "                              ) . . (\n" +
+                        "________________________,--._(___Y___)_,--._______________________ \n" +
+                        "                        `--'           `--'");
         System.out.println("Hello I'm Duke");
         System.out.println("What can I do for you?");
-        drawLine();
     }
 
     private static void printBye() {
