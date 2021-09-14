@@ -2,8 +2,10 @@ package bobby.manager;
 
 import bobby.task.Task;
 
+import java.util.ArrayList;
+
 public abstract class ResponseManager {
-    public static final String LINE = "    ____________________________________________________________\n";
+    public static final String LINE = "    ___________________________________________________________________________\n";
     public static final String WELCOME_MESSAGE = " \n" +
             "                        .-\"\"\"-.\n" +
             "                       / .//\". \\\n" +
@@ -25,15 +27,26 @@ public abstract class ResponseManager {
 
     public static void printTaskAddedMessage(Task task, int totalTasks) {
         String message = String.format("    Okay! I've added this task: \n       [%s][%s] %s\n" +
-                "    Now you have %d tasks in your list.\n", task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
+                "    Now you have %d tasks in your list.\n",
+                task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
         printFormattedMessage(message);
     }
 
-    public static void printTaskList(int taskListIndex, Task[] taskList) {
+    public static void printTaskList(ArrayList<Task> taskList) {
+        int listSize = taskList.size();
+
+        //empty list
+        if (listSize == 0) {
+            printFormattedMessage("    Your List is Empty!\n");
+            return;
+        }
+
         String message = String.format("    Task List:\n");
-        for (int i = 0; i < taskListIndex; i ++) {
+
+        for (int i = 0; i < listSize; i ++) {
            message = message + String.format("    %d. [%s][%s] %s\n",
-                   i + 1, taskList[i].getType(), taskList[i].getStatusIcon(), taskList[i].getFormattedDescription());
+                   i + 1, taskList.get(i).getType(), taskList.get(i).getStatusIcon(),
+                   taskList.get(i).getFormattedDescription());
         }
         printFormattedMessage(message);
     }

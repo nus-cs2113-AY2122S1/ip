@@ -5,28 +5,32 @@ import bobby.exception.NoDescriptionException;
 import bobby.task.Task;
 import bobby.command.Command;
 
+import java.util.ArrayList;
+
 
 public class TaskManager {
-    private static final int MAX_TASK = 100;
-
     private static final String LIST_COMMAND = "list";
     private static final String DONE_COMMAND = "done";
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
 
-    private static Task[] taskList;
+//    private static Task[] taskList;
+    private static ArrayList<Task> taskList;
+
 
     public TaskManager() {
-        this.taskList = new Task[MAX_TASK];
+//        this.taskList = new Task[MAX_TASK];
+        this.taskList = new ArrayList<>();
     }
 
-    public Task[] getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    public void addTask(Task task, int taskListIndex){
-        this.taskList[taskListIndex] = task;
+    public void addTask(Task task){
+        this.taskList.add(task);
     }
 
 
@@ -44,7 +48,6 @@ public class TaskManager {
     }
 
     public void processInput(String rawUserInput) {
-        int taskListIndex = Task.getTotalTasks();
         String taskCommand = getTaskCommand(rawUserInput);
         String fullTaskDescription;
 
@@ -53,19 +56,19 @@ public class TaskManager {
         try {
             switch (taskCommand) {
             case LIST_COMMAND:
-                command.executeListCommand(taskListIndex);
+                command.executeListCommand(taskList);
                 break;
             case DONE_COMMAND:
-                command.executeDoneCommand(taskListIndex, rawUserInput);
+                command.executeDoneCommand(rawUserInput);
                 break;
             case TODO_COMMAND:
-                command.executeToDoCommand(taskListIndex, rawUserInput);
+                command.executeToDoCommand(rawUserInput);
                 break;
             case DEADLINE_COMMAND:
-                command.executeDeadlineCommand(taskListIndex, rawUserInput);
+                command.executeDeadlineCommand(rawUserInput);
                 break;
             case EVENT_COMMAND:
-                command.executeEventCommand(taskListIndex, rawUserInput);
+                command.executeEventCommand(rawUserInput);
                 break;
             default:
                 ResponseManager.printInvalidCommandMessage();
@@ -79,7 +82,7 @@ public class TaskManager {
             ResponseManager.printNumberFormatMessage();
         } catch (NullPointerException e) {
             ResponseManager.printInvalidTaskIndexMessage();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             ResponseManager.printArrayOutOfBoundsMessage();
         }
 
