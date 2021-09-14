@@ -37,7 +37,6 @@ public class Duke {
             fw.close();
             for (int i = 0; i < taskCount; i++) {
                 String input = t.get(i).toSave() + "\n";
-                //line separator
                 Files.write(Paths.get(path), input.getBytes(), StandardOpenOption.APPEND);
             }
         }  catch (IOException e) {
@@ -218,7 +217,7 @@ public class Duke {
     }
 
     //Creates scanner, takes in user input & filters it to different methods
-    public static void inputSort() throws DukeException, IOException {
+    public static void inputSort() throws DukeException {
         System.out.println("Enter your wish: " + "\n" + line);
         while (quitFlag == 0) {
             Scanner scan = new Scanner(System.in);

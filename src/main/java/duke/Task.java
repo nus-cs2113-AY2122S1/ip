@@ -31,7 +31,7 @@ public class Task {
         if (this.isDone) {
             done = 1;
         }
-        return "taskType" + done +  " | " +  this.description + "\n";
+        return "taskType" + description + " | " + done;
     }
 }
 
