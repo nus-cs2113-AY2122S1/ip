@@ -3,11 +3,17 @@ public class Todo extends Task {
 
     Todo(String description) {
         super(description);
+        taskSignature = "todo";
     }
 
     @Override
     public String toString() {
-        char completeCharacter = isComplete ? 'X' : ' ';
-        return "[" + TASK_TYPE + "]" + "[" + completeCharacter + "] " + description;
+        completeStatus = isComplete ? COMPLETE_CHARACTER : INCOMPLETE_CHARACTER;
+        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description;
+    }
+
+    @Override
+    public String getEncodedFormat() {
+        return Character.toString(completeStatus) + taskSignature + description;
     }
 }
