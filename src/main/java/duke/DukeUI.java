@@ -4,6 +4,9 @@ import duke.exception.EmptyDescriptionException;
 import duke.exception.MissingParameterException;
 import duke.exception.TaskNotFoundException;
 import duke.exception.WrongCommandException;
+import duke.task.Task;
+
+import java.util.ArrayList;
 
 public class DukeUI {
     private static final int DEFAULT_LINE_LENGTH = 60;
@@ -32,6 +35,41 @@ public class DukeUI {
             System.out.print("\u2500");
         }
         System.out.println();
+    }
+
+    public static void printTaskList(ArrayList<Task> tasks) {
+        drawHorizontalLine();
+        if (tasks.size() == 0) {
+            System.out.println("No task added yet!");
+        } else {
+            System.out.println("Here is your list at the moment:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d. %s" + LINEBREAK, i + 1, tasks.get(i).toString());
+            }
+        }
+        drawHorizontalLine();
+    }
+
+    public static void printCompleteAddTask(Task task, int taskListSize) {
+        drawHorizontalLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskListSize);
+        drawHorizontalLine();
+    }
+
+    public static void printMarkTaskDone(Task task) {
+        drawHorizontalLine();
+        System.out.printf("I have marked \"%s\" as done" + LINEBREAK, task.getDescription());
+        drawHorizontalLine();
+    }
+
+    public static void printCompleteDeleteTask(Task task, int taskListSize) {
+        drawHorizontalLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskListSize);
+        drawHorizontalLine();
     }
 
     public static void printLogo() {

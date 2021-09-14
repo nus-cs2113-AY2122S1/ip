@@ -12,5 +12,6 @@ todo task 4
 list
 done 2
 done 4
+delete 3
 list
 bye

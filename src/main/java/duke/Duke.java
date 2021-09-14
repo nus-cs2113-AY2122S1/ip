@@ -1,9 +1,12 @@
 package duke;
 
+import duke.exception.EmptyDescriptionException;
 import duke.exception.TaskNotFoundException;
 import duke.exception.WrongCommandException;
 
 import java.util.Scanner;
+
+import static duke.Parser.*;
 
 public class Duke {
     private static TaskManager taskManager = new TaskManager();
@@ -15,7 +18,7 @@ public class Duke {
         while (!isProgramFinished) {
             input = readCommand(in);
             try {
-                Action action = Parser.translateAction(input);
+                Action action = translateAction(input);
                 executeCommand(input, action);
             } catch (WrongCommandException e) {
                 DukeUI.printError(e);
@@ -30,39 +33,28 @@ public class Duke {
     }
 
     private static void executeCommand(String input, Action action) {
-        switch (action) {
-        case MARK_DONE:
-            markTaskDone(Parser.parseInput(input));
-            break;
-        case QUIT:
-            isProgramFinished = true;
-            break;
-        case LIST:
-            taskManager.displayTaskList();
-            break;
-        case DELETE:
-           deleteTask(Parser.parseInput(input));
-           break;
-        default:
-            taskManager.addTask(input, action);
-        }
-    }
-
-    public static void deleteTask(String command) {
         try {
-            taskManager.deleteTask(command);
-        } catch (TaskNotFoundException e) {
+            switch (action) {
+            case MARK_DONE:
+                taskManager.markTaskDone(parseNumber(parseInput(input)));
+                break;
+            case QUIT:
+                isProgramFinished = true;
+                break;
+            case LIST:
+                taskManager.displayTaskList();
+                break;
+            case DELETE:
+                taskManager.deleteTask(parseNumber(parseInput(input)));
+                break;
+            default:
+                taskManager.addTask(input, action);
+            }
+        } catch (TaskNotFoundException | EmptyDescriptionException | NumberFormatException e) {
             DukeUI.printError(e);
         }
     }
 
-    public static void markTaskDone(String command) {
-        try {
-            taskManager.markTaskDone(command);
-        } catch (TaskNotFoundException e) {
-            DukeUI.printError(e);
-        }
-    }
 
     public static void main(String[] args) {
         DukeUI.printLogo();

@@ -6,8 +6,10 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DukeStorage {
@@ -19,38 +21,36 @@ public class DukeStorage {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            System.out.println("Welcome back!");
+
         }
     }
 
-    public void saveData(Task[] tasks) {
+    public void saveData(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : tasks) {
-                if (task != null){
+                if (task != null) {
                     fw.write(task.toStorageString() + System.lineSeparator());
                 }
             }
             fw.close();
         } catch (IOException e) {
-
+            System.out.println("Cannot save your tasks");
         }
     }
 
-    public int loadData(Task[] tasks) {
-        int taskCount = 0;
+    public void loadData(ArrayList<Task> tasks) {
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
-                tasks[taskCount] = readTaskData(scanner.nextLine());
-                if(tasks[taskCount] != null){
-                    taskCount++;
+                Task savedTask = readTaskData(scanner.nextLine());
+                if (savedTask != null) {
+                    tasks.add(savedTask);
                 }
             }
-        } catch (Exception e){
-
+        } catch (FileNotFoundException e) {
+            System.out.println("Create a new save file");
         }
-        return taskCount;
     }
 
     public Task readTaskData(String savedTask) {
@@ -62,17 +62,16 @@ public class DukeStorage {
                 task = new ToDo(words[1]);
                 break;
             case "D":
-                task = new Deadline(words[1],words[2] );
+                task = new Deadline(words[1], words[2]);
                 break;
             case "E":
-                task = new Event(words[1],words[2] );
+                task = new Event(words[1], words[2]);
             }
-            System.out.println(words[3]);
             if (words[3].equals("X")) {
                 task.setDone();
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (IndexOutOfBoundsException e) {
+            DukeUI.printError(e);
         }
         return task;
     }
