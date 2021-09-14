@@ -20,7 +20,7 @@ public class Duke {
                 for (int i = 0; i < listSize; i++) {
                     System.out.println(i+1 + "." + List[i]);
                 }
-            } else if(line.split(" ")[0].equals("done")) {
+            } else if (line.split(" ")[0].equals("done")) {
                 //When the user keys in done
                 int taskNumber = Integer.valueOf(line.split(" ")[1]);
                 List[taskNumber-1].setDone("X");
