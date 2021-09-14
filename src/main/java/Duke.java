@@ -9,7 +9,6 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
 
-
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
 
         input = in.nextLine();
