@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public String getTaskInfo() {
         String date = by.split(" ", 2)[1];

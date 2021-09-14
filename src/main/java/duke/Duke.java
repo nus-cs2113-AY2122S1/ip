@@ -1,5 +1,9 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,13 +19,92 @@ public class Duke {
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String ERROR_MESSAGE = "You need to specify the task type!";
 
-    //Store tasks in ArrayList instead of array
+    private static final String FILE_PATH = "data/duke.txt";
+
+    private static final String GAP = " / ";
+
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadTasks();
         printHelloMessage();
         handleCommand();
         printByeMessage();
+        saveTasks();
+    }
+
+    private static void loadTasks() {
+        try {
+            addTasksIntoList();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static File loadFile() throws IOException {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            File dir = new File("data");
+            dir.mkdir();
+            File newFile = new File("data/duke.txt");
+            newFile.createNewFile();
+            return newFile;
+        }
+        return file;
+    }
+
+    private static void addTasksIntoList() throws IOException {
+        File f = loadFile();
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String entry = s.nextLine();
+            String[] entryComponents = entry.split(GAP);
+            String description = entryComponents[0] + " " + entryComponents[2];
+            switch (entryComponents[0]) {
+            case "T":
+                tasks.add(new Todo(description));
+                break;
+            case "D":
+                String by = "by " + entryComponents[3];
+                tasks.add(new Deadline(description, by));
+                break;
+            case "E":
+                String at = "at " + entryComponents[3];
+                tasks.add(new Event(description, at));
+                break;
+            default:
+                break;
+            }
+            if (entryComponents[1].equals("X")) {
+                tasks.get(tasks.size() - 1).completeTask();;
+            }
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            writeTasksToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeTasksToFile() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String details = task.getDescription().substring(task.getDescription().indexOf(" ") + 1);
+            String date = "";
+            if (task instanceof Deadline) {
+                date = ((Deadline) task).getBy().split(" ", 2)[1].trim();
+            } else if (task instanceof Event) {
+                date = ((Event) task).getAt().split(" ", 2)[1].trim();
+            }
+            String taskLabel = task.getType() + GAP + task.getIsDone() + GAP;
+            String taskBody = details.trim() + GAP + date + System.lineSeparator();
+            fw.write(taskLabel + taskBody);
+        }
+        fw.close();
     }
 
     private static void handleCommand() {
@@ -94,7 +177,7 @@ public class Duke {
     private static void addEvent(String input) throws DukeException {
         String at;
         String description;
-        String[] inputSplit = input.split(" ");
+        String[] inputSplit = input.trim().split(" ");
         boolean noInput = inputSplit.length == 1;
         if (noInput) {
             throw new DukeException("You have to specify the task!");
@@ -109,8 +192,8 @@ public class Duke {
         if (noTask || noDate) {
             throw new DukeException("Your task is not in the right format");
         }
-        description = inputWords[0];
-        at = inputWords[1];
+        description = inputWords[0].trim();
+        at = inputWords[1].trim();
         System.out.println("Got it. I've added this task:");
         tasks.add(new Event(description, at));
         System.out.println(tasks.get(tasks.size() - 1).getTaskInfo());
@@ -120,7 +203,7 @@ public class Duke {
     private static void addDeadline(String input) throws DukeException {
         String by;
         String description;
-        String[] inputSplit = input.split(" ");
+        String[] inputSplit = input.trim().split(" ");
         boolean noInput = inputSplit.length == 1;
         if (noInput) {
             throw new DukeException("You have to specify the task!");
@@ -135,8 +218,8 @@ public class Duke {
         if (noTask || noDate) {
             throw new DukeException("Your task is not in the right format");
         }
-        description = inputWords[0];
-        by = inputWords[1];
+        description = inputWords[0].trim();
+        by = inputWords[1].trim();
         System.out.println("Got it. I've added this task:");
         tasks.add(new Deadline(description, by));
         System.out.println(tasks.get(tasks.size() - 1).getTaskInfo());
