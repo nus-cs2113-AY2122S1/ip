@@ -1,27 +1,118 @@
 package duke.task;
 
+import duke.FileManager;
+import duke.exception.DirectoryCreationException;
 import duke.exception.IllegalParameterException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskManager {
 
     private final ArrayList<Task> taskList;
+    private final FileManager fileManager;
+
+    private static final int SAVE_TYPE_LOC = 0;
+    private static final int SAVE_DONE_LOC = 1;
+    private static final int SAVE_DESCRIPTION_LOC = 2;
+    private static final int SAVE_DEADLINE_LOC = 3;
 
     /* Constructor for Taskmanger */
-    public TaskManager() {
+    public TaskManager() throws DirectoryCreationException {
         taskList = new ArrayList<Task>();
+        fileManager = new FileManager();
     }
 
     /**
      * Adds a new task of type Todo to the task manager.
      *
+     * @param task     task to be added to the task manager
+     * @param isSilent if true, does not print add response to terminal
+     */
+    public void addTask(Task task, boolean isSilent) {
+
+        if (task != null) {
+            taskList.add(task);
+
+            if (!isSilent) {
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toFormattedString());
+
+                if (taskList.size() == 1) {
+                    System.out.printf("There is now %d task in the list%n", taskList.size());
+                } else {
+                    System.out.printf("There are now %d tasks in the list%n", taskList.size());
+                }
+            }
+
+        }
+
+        fileManager.saveTasklistToFile(taskList);
+
+    }
+
+    /**
+     * Overloads addTask to provide a default value for isSilent
+     *
+     * @param task task to be added to the task manager
+     */
+    public void addTask(Task task) {
+        addTask(task, false);
+    }
+
+    /**
+     * Loads tasklist from savefile
+     */
+    public void loadTasklistFromFile() {
+        ArrayList<String> fileLines = fileManager.readTasklistFromFile();
+
+        for (String line : fileLines) {
+            Task task;
+            String[] taskData = line.split("\\|");
+
+            char taskType = taskData[SAVE_TYPE_LOC].trim().charAt(0);
+            String taskDescription = taskData[SAVE_DESCRIPTION_LOC].trim();
+            boolean isDone = taskData[SAVE_DONE_LOC].trim().equals("1");
+            String taskDeadline = null;
+
+            if (taskData.length >= 4) {
+                taskDeadline = taskData[SAVE_DEADLINE_LOC].trim();
+            }
+
+            switch (taskType) {
+            case TaskType.TODO:
+                task = new Todo(taskDescription);
+                break;
+            case TaskType.DEADLINE:
+                task = new Deadline(taskDescription, taskDeadline);
+                break;
+            case TaskType.EVENT:
+                task = new Event(taskDescription, taskDeadline);
+                break;
+            default:
+                System.out.println("An invalid task type has been detected");
+                return;
+            }
+
+            if (isDone) {
+                task.setDone();
+            }
+
+            addTask(task, true);
+        }
+
+    }
+
+    /**
+     * Processes user input and adds a new task of type Todo to the task manager.
+     *
      * @param taskDescription Name of the task to add.
      * @param taskType        Type of task to add, defined in TaskType.
+     * @throws IllegalParameterException Exception is thrown if an illegal parameter was passed
      */
-    public void addTask(String taskDescription, char taskType) throws IllegalParameterException {
+    public void processAndAddTask(String taskDescription, char taskType) throws IllegalParameterException {
 
-        Task task = null;
-        String[] userInput = null;
+        Task task;
+        String[] userInput;
 
         switch (taskType) {
         case TaskType.TODO:
@@ -40,17 +131,10 @@ public class TaskManager {
             return;
         }
 
-        if (task != null) {
-            taskList.add(task);
+        addTask(task);
 
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task.toFormattedString());
+    }
 
-            if (taskList.size() == 1) {
-                System.out.printf("There is now %d task in the list%n", taskList.size());
-            } else {
-                System.out.printf("There are now %d tasks in the list%n", taskList.size());
-            }
 
         }
 
@@ -97,12 +181,22 @@ public class TaskManager {
         task.setDone();
         System.out.println("The task has been marked as done. No need to thank me.");
         System.out.println(task.toFormattedString());
+
+        fileManager.saveTasklistToFile(taskList);
     }
 
+    /**
+     * Performs some processing on user inputs
+     *
+     * @param toProcess String to be processed
+     * @return Processed strong
+     * @throws IllegalParameterException exception is thrown if parameter is empty
+     */
     private String processString(String toProcess) throws IllegalParameterException {
         String processed = toProcess.trim();
+        processed = processed.replace("|", "");
 
-        if (processed.isEmpty()){
+        if (processed.isEmpty()) {
             throw new IllegalParameterException("Empty parameter");
         }
 

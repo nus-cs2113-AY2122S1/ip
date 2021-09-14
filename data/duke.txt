@@ -1,0 +1,6 @@
+T | 1 | eat
+T | 0 | sleep
+E | 1 | die | 10pm
+T | 0 | kill
+D | 0 | eat pizza | now
+D | 1 | mark this as done | yesterday
