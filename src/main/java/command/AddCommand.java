@@ -4,6 +4,8 @@ import task.Task;
 import task.TaskManager;
 import ui.UI;
 
+import java.io.IOException;
+
 public class AddCommand extends Command {
     private String taskType;
     private String taskName;
@@ -41,7 +43,11 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-        Task newTask = taskManager.addTask(taskType, taskName, date);
-        ui.printTaskAddedMessage(newTask, taskManager.getTaskCount());
+        try {
+            Task newTask = taskManager.addTask(taskType, taskName, date);
+            ui.printTaskAddedMessage(newTask, taskManager.getTaskCount());
+        } catch (IOException e) {
+            ui.printString("there was an issue writing your new task to saved data");
+        }
     }
 }

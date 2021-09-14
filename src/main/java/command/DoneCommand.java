@@ -4,6 +4,8 @@ import task.Task;
 import task.TaskManager;
 import ui.UI;
 
+import java.io.IOException;
+
 public class DoneCommand extends Command {
     private int taskIndex;
 
@@ -25,7 +27,11 @@ public class DoneCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-        Task doneTask = taskManager.markAsDone(taskIndex);
-        ui.printMarkedDoneMessage(doneTask);
+        try {
+            Task doneTask = taskManager.markAsDone(taskIndex);
+            ui.printMarkedDoneMessage(doneTask);
+        } catch (IOException e) {
+            ui.printString("there was an error while marking that task as done.");
+        }
     }
 }
