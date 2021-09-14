@@ -49,4 +49,11 @@ public class DukeException extends Exception{
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
+
+    public static void InvalidSaveFileException() {
+        System.out.println(LINE);
+        System.out.println("Your save file is invalid!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
 }

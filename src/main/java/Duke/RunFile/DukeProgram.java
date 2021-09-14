@@ -1,5 +1,6 @@
 package Duke.RunFile;
 
+import Duke.SaveFile.DataSaver;
 import Duke.TaskTypes.Deadline;
 import Duke.TaskTypes.Event;
 import Duke.Exception.DukeException;
@@ -340,6 +341,7 @@ public class DukeProgram {
 
     public static void main(String[] args) {
         printDukeGreet();
+        DataSaver.manageLoad(taskList);
 
         String inWord;
         Scanner scan = new Scanner(System.in);
@@ -350,6 +352,7 @@ public class DukeProgram {
             executeUserInstruction(inWord);
             inWord = scan.nextLine();
         }
+
 
         //Exits when user types "bye"
         printDukeExit();
