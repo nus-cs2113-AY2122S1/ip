@@ -17,6 +17,10 @@ public class Event extends ToDo {
         return "E";
     }
 
+    public String getPeriod(){
+        return this.period;
+    }
+
     @Override
     public String toString() {
         return task + " (at: " + period + ")";

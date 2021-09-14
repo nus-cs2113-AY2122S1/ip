@@ -18,6 +18,10 @@ public class Deadline extends ToDo {
         return "D";
     }
 
+    public String getEndTime(){
+        return this.endTime;
+    }
+
     @Override
     public String toString() {
         return task + " (by: " + endTime + ")";

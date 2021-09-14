@@ -8,12 +8,20 @@ import duke.task.Task;
 import duke.task.ToDo;
 import duke.command.Command;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Duke {
-    public static final int MAX_TASKS = 100; //Maximum tasks allowed is 100
     public static Scanner in = new Scanner(System.in);
     public static int longestTaskDescription = 0; //The length of the longest task description
+    public static String STORAGE_MESSAGE = "Welcome to my storage :P, this is how I memorize all your tasks!\n" +
+            "Alert! Please do not delete anything inside this file, else I will get memory loss :(";
 
     @SuppressWarnings("InfiniteLoopStatement") //Disables the warning for infinite loop
     public static void main(String[] args) {
@@ -22,13 +30,16 @@ public class Duke {
         Default.printWelcomeMessage();
         Default.printVersionDescription();
         System.out.println("\nLet's start:");
-        Task[] tasks = new Task[MAX_TASKS];
+        ArrayList<Task> tasks = new ArrayList<>();
         while (true) {
             try {
                 readCommand(tasks);
             } catch (DukeException ex) {
                 Default.showMessage("Sorry, the command is invalid, I cant understand :(");
                 System.out.println("\tTo seek for help, you can type the command \"help\" or \"view -h\"");
+            } catch (IOException ex){
+                Default.showMessage("Unfortunately some things have messed up, I have received this information:");
+                ex.printStackTrace();
             }
         }
     }
@@ -38,7 +49,24 @@ public class Duke {
      *
      * @param tasks The array to store all the tasks required
      */
-    private static void readCommand(Task[] tasks) throws DukeException {
+    private static void readCommand(ArrayList<Task> tasks) throws DukeException, IOException {
+        //access the duke.txt file
+        File file = new File("./shimaStorage.txt");
+        try{
+            Scanner sc = new Scanner(file);
+            int skipTwoLines = 0;
+            while (sc.hasNext()) {
+                if (skipTwoLines < 2) {
+                    sc.nextLine();
+                    skipTwoLines++;
+                } else {
+                    String[] tasksData = sc.nextLine().split("Ø");
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            //create a file called shimaStorage.txt
+            FileWriter createFile = new FileWriter("./shimaStorage.txt");
+        }
         String command = in.nextLine().trim();
         String[] words = command.split(" ");
         if (Command.isCommandEmpty(command)) {
@@ -48,11 +76,11 @@ public class Duke {
         } else if (Command.isCommandExit(command)) {
             Default.showMessage("Bye! Hope to see you again :D");
             System.exit(0);
-        } else if (command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h")) {
+        } else if (Command.isCommandHelp(command)) {
             Default.printHelpMenu();
         } else {
             if (Command.isCommandList(command)) {
-                Default.printToDoList(tasks, Task.totalTask, longestTaskDescription);
+                Default.printToDoList(tasks, longestTaskDescription);
             } else if (Command.isCommandDone(words[0])) {
                 handleTaskDone(tasks, words);
             } else if (Command.isCommandAddTask(words[0])) {
@@ -70,11 +98,10 @@ public class Duke {
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
      */
-    private static void addTask(Task[] tasks, String command, String[] words) {
+    private static void addTask(ArrayList<Task> tasks, String command, String[] words) throws IOException {
         if (isCorrectToDo(tasks, command, words) || isCorrectDeadline(tasks, command, words) || isCorrectEvent(tasks, command, words)) {
-            Default.showMessage(" Class type [" + tasks[Task.totalTask].getClassType() + "] \"" + tasks[Task.totalTask] + "\" has been added to the list!"
-                    + " (" + (Task.totalTask + 1) + " tasks in total)");
-            Task.totalTask++;
+            Default.showMessage(" Class type [" + tasks.get(tasks.size() - 1).getClassType() + "] \"" + tasks.get(tasks.size() - 1) +
+                    "\" has been added to the list!" + " (" + tasks.size() + " tasks in total)");
         }
     }
 
@@ -86,7 +113,7 @@ public class Duke {
      * @param words   The array of words that compose the input command
      * @return Returns true if an instance of the subclass is created and successfully stored in the to-do list
      */
-    private static boolean isCorrectToDo(Task[] tasks, String command, String[] words) {
+    private static boolean isCorrectToDo(ArrayList<Task> tasks, String command, String[] words) throws IOException {
         if (!words[0].equalsIgnoreCase("TODO")) {
             return false;
         }
@@ -94,10 +121,15 @@ public class Duke {
             Default.showMessage("Sorry, the task is empty! I don't know how to record it :(");
             return false;
         }
-        tasks[Task.totalTask] = new ToDo(command.replace(words[0], "").trim());
+        tasks.add(new ToDo(command.replace(words[0], "").trim()));
         if (longestTaskDescription < command.replace(words[0], "").trim().length()) {
             longestTaskDescription = command.replace(words[0], "").trim().length();
         }
+        //append mode
+        FileWriter fw = new FileWriter("./shimaStorage.txt", true);
+        Task currentTask = tasks.get(tasks.size() - 1);
+        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask();
+        fw.write(taskToSave);
         return true;
     }
 
@@ -109,7 +141,7 @@ public class Duke {
      * @param words   The array of words that compose the input command
      * @return Returns true if an instance of the subclass Event is created and successfully stored in the to-do list
      */
-    private static boolean isCorrectEvent(Task[] tasks, String command, String[] words) {
+    private static boolean isCorrectEvent(ArrayList<Task> tasks, String command, String[] words) throws IOException {
         if (!words[0].equalsIgnoreCase("EVENT")) {
             return false;
         }
@@ -135,10 +167,14 @@ public class Duke {
             Default.showMessage("Sorry, fail to create an Event, the period specific character '-' is missing");
             return false;
         }
-        tasks[Task.totalTask] = new Event(taskName, time);
+        tasks.add(new Event(taskName, time));
         if (longestTaskDescription < taskName.length() + time.length()) {
             longestTaskDescription = taskName.length() + "(at: )".length() + time.length();
         }
+        FileWriter fw = new FileWriter("./shimaStorage.txt", true);
+        Task currentTask = tasks.get(tasks.size() - 1);
+        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + currentTask.getPeriod();
+        fw.write(taskToSave);
         return true;
     }
 
@@ -150,7 +186,7 @@ public class Duke {
      * @param words   The array of words that compose the input command
      * @return Returns true if the subclass Deadline is created and successfully stored in the to-do list
      */
-    private static boolean isCorrectDeadline(Task[] tasks, String command, String[] words) {
+    private static boolean isCorrectDeadline(ArrayList<Task> tasks, String command, String[] words) throws IOException {
         if (!words[0].equalsIgnoreCase("DEADLINE")) {
             return false;
         }
@@ -172,10 +208,14 @@ public class Duke {
             Default.showMessage("Sorry, fail to create an Event, the time specific character '/' is missing");
             return false;
         }
-        tasks[Task.totalTask] = new Deadline(taskName, time);
+        tasks.add(new Deadline(taskName, time));
         if (longestTaskDescription < taskName.length() + time.length()) {
             longestTaskDescription = taskName.length() + "(by: )".length() + time.length();
         }
+        FileWriter fw = new FileWriter("./shimaStorage.txt", true);
+        Task currentTask = tasks.get(tasks.size() - 1);
+        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + currentTask.getEndTime();
+        fw.write(taskToSave);
         return true;
     }
 
@@ -185,22 +225,22 @@ public class Duke {
      * @param tasks The array that contains all the tasks stored inside the to-do list
      * @param words The array of words that compose the input command
      */
-    private static void handleTaskDone(Task[] tasks, String[] words) {
+    private static void handleTaskDone(ArrayList<Task> tasks, String[] words) {
         try {
             if (words.length == 1) {
                 Default.showMessage("Sorry, the input task number is missing, please try again! :(");
             }
             for (int i = 1; i < words.length; i++) {
                 //check if the input character after the word "done" is integer value
-                int taskNumber = Integer.parseInt(words[i]);
-                if (taskNumber <= Task.totalTask && taskNumber > 0) {
-                    showTaskDoneMessage(tasks, taskNumber);
-                } else {
-                    Default.showMessage("Sorry, the input task number is invalid, please try again! :(");
-                }
+                int taskIndex = Integer.parseInt(words[i]);
+                showTaskDoneMessage(tasks, taskIndex);
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
             Default.showMessage("Sorry, the input task number is invalid, please try again! :(");
+        } catch (IOException ex){
+            Default.showMessage("An unexpected error occurs when I try to upload the file");
+            System.out.print("\t");
+            ex.printStackTrace();
         }
     }
 
@@ -210,13 +250,32 @@ public class Duke {
      * @param tasks      The array which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
-    private static void showTaskDoneMessage(Task[] tasks, int taskNumber) {
-        if (!tasks[taskNumber - 1].getDone()) {
-            tasks[taskNumber - 1].setDone();
+    private static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber) throws IOException {
+        if (!tasks.get(taskNumber - 1).getDone()) {
+            tasks.get(taskNumber - 1).setDone();
             System.out.println("\tHooray! Task number " + taskNumber + " has been marked completed!");
-            System.out.println("\t[✔] " + tasks[taskNumber - 1].getTask());
+            System.out.println("\t[✔] " + tasks.get(taskNumber - 1).getTask());
+            for (Task t : tasks) {
+                String taskToSave = "";
+                String symbolForDone = (t.getDone()) ? "Y" : "N";
+                boolean doNotSave = false;
+                if (t instanceof Deadline) {
+                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + t.getEndTime();
+                } else if (t instanceof Event){
+                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + t.getPeriod();
+                } else if (t instanceof ToDo){
+                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask();
+                } else{
+                    Default.showMessage("An unexpected error occurs when I try to know the type of the task " + t);
+                    doNotSave = true;
+                }
+                if (!doNotSave){
+                    FileWriter fw = new FileWriter("./shimaStorage.txt");
+                    fw.write(taskToSave);
+                }
+            }
         } else {
-            System.out.println("\tThe task number " + taskNumber + " - \"" + tasks[taskNumber - 1].getTask() + "\" has already been done!");
+            System.out.println("\tThe task number " + taskNumber + " - \"" + tasks.get(taskNumber - 1).getTask() + "\" has already been done!");
         }
     }
 }

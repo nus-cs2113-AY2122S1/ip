@@ -21,6 +21,9 @@ public abstract class Task {
         return task;
     }
 
+    public abstract String getPeriod();
+    public abstract String getEndTime();
+
     public void setTask(String task) {
         this.task = task;
     }

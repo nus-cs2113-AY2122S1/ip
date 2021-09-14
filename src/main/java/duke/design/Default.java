@@ -200,7 +200,7 @@ public abstract class Default {
      */
     public static void printVersionDescription() {
         //Uses list to store all the version information
-        List<String> versionDescriptions = new ArrayList<>();
+        ArrayList<String> versionDescriptions = new ArrayList<>();
         int maxDescriptionsLength = 0;
         versionDescriptions.add("* " + CURR_VERSION);
         versionDescriptions.add("* To know more about me, you can view my profile by typing the command \"view -p\"");
@@ -259,6 +259,9 @@ public abstract class Default {
         System.out.println("***********************************************************************************************************************");
     }
 
+    /**
+     * Prints the help menu to the console
+     */
     public static void printHelpMenu() {
         ArrayList<String> helpLists = createHelpMenu();
         System.out.println("************************************************************************************************************************************************************************");
@@ -299,9 +302,8 @@ public abstract class Default {
      * Prints the to-do list with frames
      *
      * @param tasks     the array of class Task instance which stores all the tasks added by the user
-     * @param totalTask the last index of the array that is not null
      */
-    public static void printToDoList(Task[] tasks, int totalTask, int longestTaskDescription) {
+    public static void printToDoList(ArrayList<Task> tasks, int longestTaskDescription) {
         final int MIN_LENGTH = " My to-do list: ".length();
         //if longestTaskDescription is shorter than the length of the string "My to-do list: ", sets it to the length of the string
         if (longestTaskDescription < MIN_LENGTH) {
@@ -309,7 +311,7 @@ public abstract class Default {
         }
         //Prints the to-do list
         drawUpperFrame(longestTaskDescription);
-        printTasks(tasks, totalTask, longestTaskDescription);
+        printTasks(tasks, longestTaskDescription);
         drawLowerFrame(longestTaskDescription);
     }
 
@@ -335,20 +337,19 @@ public abstract class Default {
      * Prints the tasks stored in the array, the frame starts with '|' and ends with '|', the ending frame is always located at the position of the longest task description
      *
      * @param tasks                  the array that stores all the tasks
-     * @param totalTask              the number of the tasks stored
      * @param longestTaskDescription the length of the longest task description stored in the tasks array
      */
-    private static void printTasks(Task[] tasks, int totalTask, int longestTaskDescription) {
-        for (int i = 0; i < totalTask; i++) {
+    private static void printTasks(ArrayList<Task> tasks, int longestTaskDescription) {
+        for (int i = 0; i < tasks.size(); i++) {
             //Fill the first [] with class type, and the second [] with a 'X' if the task is completed
-            if (tasks[i].getDone()) {
-                System.out.print("\t| [" + tasks[i].getClassType() + "][X] " + (i + 1) + ". ");
+            if (tasks.get(i).getDone()) {
+                System.out.print("\t| [" + tasks.get(i).getClassType() + "][X] " + (i + 1) + ". ");
             } else {
-                System.out.print("\t| [" + tasks[i].getClassType() + "][ ] " + (i + 1) + ". ");
+                System.out.print("\t| [" + tasks.get(i).getClassType() + "][ ] " + (i + 1) + ". ");
             }
             //Calculates the required spacing for the current task as compared to the longest task description to print '|'
             int distanceToClosingFrame = longestTaskDescription + "| [ ][ ] 100. ".length() - ("| [ ][ ] " + (i + 1) + ". ").length() + 1;
-            System.out.printf("%1$-" + distanceToClosingFrame + "s", tasks[i]);
+            System.out.printf("%1$-" + distanceToClosingFrame + "s", tasks.get(i));
             System.out.println("|");
         }
     }
