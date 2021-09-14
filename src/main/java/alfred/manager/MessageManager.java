@@ -71,10 +71,6 @@ public abstract class MessageManager {
         }
     }
 
-    public static void indexOutOfBoundsMessage() {
-        printMessageTemplate(" My old age only allows up to 100 tasks, sir.\n");
-    }
-
     public static void invalidDateMessage() {
         printMessageTemplate(" Is there not a date for your so-called deadline or event, sir?\n");
     }
