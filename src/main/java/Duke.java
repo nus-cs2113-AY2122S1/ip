@@ -66,7 +66,7 @@ public class Duke {
                     Task.get(i).setDone();
                 }
             }
-            System.out.println("Looks like you already have some tasks. Press 'List' to view them!");
+            System.out.println("Looks like you already have some tasks. Type 'list' to view them!");
         }
         do {
             userInput = in.nextLine();
@@ -85,7 +85,8 @@ public class Duke {
                 if (isNumber(wordArr[1]) && doneNumber < count) {
                     //Task[doneNumber].setDone();
                     Task.get(doneNumber).setDone();
-                    System.out.println(LINE + "Ok! I've marked this task as done:\n" + Task.get(doneNumber) + "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
+                    System.out.println(LINE + "Ok! I've marked this task as done:\n" + Task.get(doneNumber) +
+                            "\nYou can add more tasks or view existing ones by typing 'list'!\n"+ LINE);
                 }
                 else {
                     invalid.setDoneNoNumber();
@@ -105,7 +106,8 @@ public class Duke {
                 }
                 if (isNumber(wordArr[1]) && deleteNumber < count) {
                     //Task[doneNumber].setDone();
-                    System.out.println(LINE + "Ok! I've removed this task:\n" + Task.get(deleteNumber) + "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
+                    System.out.println(LINE + "Ok! I've removed this task:\n" + Task.get(deleteNumber) +
+                            "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
                     Task.remove(deleteNumber);
                     count--;
                 }
@@ -172,7 +174,7 @@ public class Duke {
                 switch(isInvalid) { //handles errors
                     case 0: System.out.println(LINE + "Ok! I've added this " + firstWord.toLowerCase() + ":\n" +
                             Task.get(count - 1) + "\n" + "Now you have " + count + (count == 1 ? " task":" tasks") + " in the list.\n" +
-                            "Type 'list' to view your tasks!\n" + LINE);
+                            "Type 'list' to save / view your tasks!\n" + LINE);
                             break;
                     case 1: System.out.println(LINE + invalid + LINE);
                             break;
