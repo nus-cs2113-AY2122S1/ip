@@ -18,7 +18,7 @@ public class TaskList {
     /**
      * Adds a task to the list of tasks, prints completion message if specified
      *
-     * @param task the task to be added
+     * @param task      the task to be added
      * @param doesPrint Boolean determining whether completion message will be printed
      */
     public void addTask(Task task, boolean doesPrint) {

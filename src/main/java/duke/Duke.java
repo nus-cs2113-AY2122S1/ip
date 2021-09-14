@@ -4,58 +4,8 @@ import duke.command.Command;
 import java.util.Scanner;
 
 public class Duke {
-
     public static void main(String[] args) {
-        printStartMessage();
         interactWithUser();
-    }
-
-    /**
-     * Prints the Duke application logo in the terminal.
-     */
-    public static void printAppLogo() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-    }
-
-    /**
-     * Prints a horizontal line in the terminal.
-     */
-    private static void printLine() {
-        System.out.println("  ──────────────────────────────");
-    }
-
-    /**
-     * Prints the application start message in the terminal.
-     */
-    public static void printStartMessage() {
-        printLine();
-        System.out.println("  Hello! I'm Duke\n  How may I assist you");
-        printLine();
-    }
-
-    /**
-     * Prints the application exit message in the terminal.
-     */
-    public static void printExitMessage() {
-        printLine();
-        System.out.println("  Goodbye! Hope to see you soon!");
-        printLine();
-    }
-
-    /**
-     * Gets user input and returns it as a String.
-     *
-     * @return the String containing the user input.
-     */
-    public static String getUserInput(Scanner in) {
-        String line;
-        line = in.nextLine();
-        return line;
     }
 
     /**
@@ -64,29 +14,26 @@ public class Duke {
     public static void interactWithUser() {
         boolean isInteracting = true;
         TaskList taskList = new TaskList();
-        Scanner in = new Scanner(System.in);
+        Ui ui = new Ui();
         Storage storage = null;
+        ui.printStartMessage();
         try {
             storage = new Storage();
             storage.loadData(taskList);
         } catch (DukeException e) {
-            printLine();
-            System.out.println("  " + e.getMessage());
-            printLine();
+            ui.printErrorMessage(e.getMessage());
         }
 
         while (isInteracting) {
-            String userInput = getUserInput(in).stripLeading();
+            String userInput = ui.readInput().stripLeading();
             try {
                 Command command = Parser.parse(userInput);
                 command.execute(taskList, storage);
                 isInteracting = !command.isExit();
             } catch (DukeException e) {
-                printLine();
-                System.out.println("  " + e.getMessage());
-                printLine();
+                ui.printErrorMessage(e.getMessage());
             }
         }
-        printExitMessage();
+        ui.printExitMessage();
     }
 }
