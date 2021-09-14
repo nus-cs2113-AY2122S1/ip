@@ -1,9 +1,12 @@
+package duke.command;
+
 import java.util.Scanner;
+import duke.task.*;
 
 public class Duke {
     public static void main(String[] args) {
         String logo = "____________________________________________________________\n"
-                + "Hello! I'm Duke\n"
+                + "Hello! I'm duke.command.Duke\n"
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
 
@@ -110,7 +113,7 @@ public class Duke {
     }
 
     private static void ExceptionTry(String task, String input) throws DukeException {
-        //throw DukeException here if descriptor don't have /by or /at
+        //throw duke.command.DukeException here if descriptor don't have /by or /at
         switch (task){
         case "deadline":
             if(!input.contains("/by")){
