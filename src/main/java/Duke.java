@@ -33,7 +33,6 @@ public class Duke {
                     ? userMessage.substring(0, userMessage.indexOf(" ")): userMessage;
             String userCommandDetails = userMessage.contains(" ")
                     ? userMessage.substring(userMessage.indexOf(" ") + 1): userMessage;
-            //String userCommandDetails = userMessage.substring(userMessage.indexOf(" ") + 1);
 
             switch (userCommand) {
             case "list":
