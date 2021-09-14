@@ -5,6 +5,7 @@ public class Task {
     protected String description;
     private int id;
     private static int totalTasks = 0;
+    private String taskIcon;
 
     public Task(String description) {
         this.description = description;
@@ -27,10 +28,7 @@ public class Task {
     }
 
     public String getTaskIcon() {
-        if (Task.class.equals(this.getClass())) {return " ";}
-        else {
-            return this.getClass().getName().substring(0,1);
-        }
+        return taskIcon;
     }
 
     public String getDescription(){

@@ -5,5 +5,5 @@ import Duke.Task.Task;
 import java.util.ArrayList;
 
 public class Information {
-    ArrayList<Task> List = new ArrayList<>();
+    public ArrayList<Task> List = new ArrayList<>();
 }

@@ -11,4 +11,8 @@ public class Events extends Task {
     public String getDescription() {
         return String.format("%s (At:%s)", description, when);
     }
+    @Override
+    public String getTaskIcon() {
+        return "E";
+    }
 }

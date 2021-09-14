@@ -11,4 +11,8 @@ public class Deadline extends Task{
     public String getDescription() {
         return String.format("%s (By:%s)", description, when);
     }
+    @Override
+    public String getTaskIcon() {
+        return "D";
+    }
 }
