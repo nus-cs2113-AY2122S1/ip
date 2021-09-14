@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 public class Duke {
 
     private static final String FILEPATH = "ip/data/duke.txt";
+    private static final String FOLDERPATH = "ip/data";
     private static final int TODO_NAME_CONSTANT = 5;
     private static final int DEADLINE_NAME_CONSTANT = 9;
     private static final int DEADLINE_BY_CONSTANT = 5;
@@ -50,9 +51,18 @@ public class Duke {
             }
             s.close();
         } catch (FileNotFoundException e) {
+            createFolder();
             createFile();
         } catch (DukeException | ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE + "\nInput format within file is wrong!\n" + LINE);
+        }
+    }
+
+    public static void createFolder() {
+        File folder = new File(FOLDERPATH);
+        boolean folderIsCreated = folder.mkdir();
+        if (folderIsCreated) {
+            System.out.println("New folder created for storage\n" + LINE);
         }
     }
 
