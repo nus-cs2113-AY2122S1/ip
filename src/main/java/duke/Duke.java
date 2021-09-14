@@ -7,6 +7,10 @@ import duke.task.ToDo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Duke {
 
@@ -23,6 +27,16 @@ public class Duke {
     public static final int INDEX_OF_TASK_DELETED = 6;
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void deleteFile(String filePath) throws IOException {
+        Files.delete(Paths.get(filePath));
+    }
 
     public static void sayHello() {
         System.out.println(HORIZONTAL + "Hello! I'm Duke\n" + "What can I do for you?\n" + HORIZONTAL);
@@ -143,15 +157,34 @@ public class Duke {
         }
     }
 
+    public static String readTasks() {
+        StringBuilder listOfTasks = new StringBuilder();
+        for (Task task : tasks) {
+            listOfTasks.append(task.toText()).append("\n");
+        }
+        return listOfTasks.toString();
+    }
+
     public static void main(String[] args) {
         sayHello();
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+        String dataFile = "data/duke.txt";
         while (!line.equals("bye")) {
             readCommand(line);
+            try {
+                writeToFile(dataFile, readTasks());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
             line = in.nextLine();
         }
         sayBye();
+        try {
+            deleteFile(dataFile);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 }
