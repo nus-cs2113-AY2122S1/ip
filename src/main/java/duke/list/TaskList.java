@@ -10,13 +10,31 @@ public class TaskList {
     public static int MAX_LIST_ITEMS = 1000;
     private final ArrayList<Task> items = new ArrayList<>();
 
+    /**
+     * Convenience constructor
+     */
     public TaskList() {
     }
 
+    /**
+     * Add the specified Task to the end of the TaskList.
+     * A message will be print out to show the result.
+     *
+     * @param task the task to be added
+     * @throws IllegalOperation if the number of tasks >= MAX_LIST_ITEMS
+     */
     public void addItem(Task task) throws IllegalOperation {
         addItem(task, true);
     }
 
+    /**
+     * Add the specified Task to the end of the TaskList.
+     * A message will be print out to show the result if showMessage == true.
+     *
+     * @param task the task to be added
+     * @param showMessage if the message should be printed
+     * @throws IllegalOperation if the number of tasks >= MAX_LIST_ITEMS
+     */
     public void addItem(Task task, boolean showMessage) throws IllegalOperation {
         if (items.size() >= MAX_LIST_ITEMS) {
             throw new IllegalOperation();
@@ -32,6 +50,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Remove the Task at the specified index in the TaskList.
+     *
+     * @param index index of the Task to be removed
+     */
     public void removeItem(int index) {
         int adjustedIndex = index - 1;
         try {
@@ -44,6 +67,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Mark the Task at the specified index in the TaskList as done.
+     * e.g. status = true
+     *
+     * @param indexOfDoneItem index of the Task to be marked as done
+     */
     public void doneItem(int indexOfDoneItem) {
         int adjustedIndex = indexOfDoneItem - 1;
         try {
@@ -58,6 +87,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Mark the Task at the specified index in the TaskList as not done.
+     * e.g. status = false
+     *
+     * @param indexOfDoneItem index of the Task to be marked as not done
+     */
     public void undoneItem(int indexOfDoneItem) {
         int adjustedIndex = indexOfDoneItem - 1;
         try {
@@ -72,6 +107,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Print all Tasks in the TaskList in the chronological order.
+     * For each task, its category, status and description will be displayed in a new line.
+     */
     public void printList() {
         if (items.isEmpty()) {
             MessageBubble.printMessageBubble("There is nothing on your list");
@@ -85,7 +124,12 @@ public class TaskList {
         }
     }
 
-    public String printListSimple() {
+    /**
+     * Returns the entire TaskList as a String that can be saved to a txt file, which can be later read and restored to the original TaskList.
+     *
+     * @return String to be saved as txt file
+     */
+    public String printListSaveFormat() {
         String result = "";
         for (Task item : items) {
             result = result.concat(item.getSaveFormat() + "\n");

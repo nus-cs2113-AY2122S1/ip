@@ -12,6 +12,12 @@ public class Parser {
         isExit = false;
     }
 
+    /**
+     * Parse the given raw command and execute the corresponding methods to the specified TaskList
+     *
+     * @param fullCommand raw command
+     * @param targetTaskList TaskList to be manipulated
+     */
     public void parse(String fullCommand, TaskList targetTaskList) {
         if (fullCommand.startsWith("event")) {
             try {
@@ -39,26 +45,26 @@ public class Parser {
             }
         } else if (fullCommand.startsWith("done")) {
             try {
-                targetTaskList.doneItem(Parser.parseIndex(extractPartialCommand(fullCommand)));
+                targetTaskList.doneItem(Integer.parseInt(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! No index found.");
-            } catch (IllegalOperation e) {
+            } catch (NumberFormatException e) {
                 MessageBubble.printMessageBubble("Oops! Use \"done (integer index of item)\" to mark item as done.");
             }
         } else if (fullCommand.startsWith("undone")) {
             try {
-                targetTaskList.undoneItem(Parser.parseIndex(extractPartialCommand(fullCommand)));
+                targetTaskList.undoneItem(Integer.parseInt(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! No index found.");
-            } catch (IllegalOperation e) {
+            } catch (NumberFormatException e) {
                 MessageBubble.printMessageBubble("Oops! Use \"undone (integer index of item)\" to mark item as not done.");
             }
         } else if (fullCommand.startsWith("delete")) {
             try {
-                targetTaskList.removeItem(Parser.parseIndex(extractPartialCommand(fullCommand)));
+                targetTaskList.removeItem(Integer.parseInt(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! No index found.");
-            } catch (IllegalOperation e) {
+            } catch (NumberFormatException e) {
                 MessageBubble.printMessageBubble("Oops! Wrong index format.");
             }
         } else if (fullCommand.equals("bye")) {
@@ -70,14 +76,13 @@ public class Parser {
         }
     }
 
-    public static int parseIndex(String index) throws IllegalOperation {
-        try {
-            return Integer.parseInt(index);
-        } catch (NumberFormatException e) {
-            throw new IllegalOperation();
-        }
-    }
-
+    /**
+     * Parses the raw information (including the description and latest time to complete) of the Deadline to a Deadline object
+     *
+     * @param full_description raw information
+     * @return parsed Deadline object
+     * @throws EmptyField if any necessary information is missing
+     */
     public static Deadline parseDeadline(String full_description) throws EmptyField {
         String CMD_TIME = "/by";
 
@@ -99,6 +104,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the raw information (including the description and start time) of the Event to a Event object
+     *
+     * @param full_description raw information
+     * @return parsed Event object
+     * @throws EmptyField if any necessary information is missing
+     */
     public static Event parseEvent(String full_description) throws EmptyField {
         String CMD_TIME = "/at";
 
@@ -120,6 +132,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the raw description of the Todo to a Todo object
+     *
+     * @param full_description description of Todo
+     * @return parsed Todo object
+     * @throws EmptyField if any necessary information is missing
+     */
     public static Todo parseTodo(String full_description) throws EmptyField {
         if (full_description.isBlank()) {
             throw new EmptyField();
@@ -128,6 +147,13 @@ public class Parser {
         return new Todo(full_description);
     }
 
+    /**
+     * Returns the command without the first word
+     *
+     * @param fullCommand raw command
+     * @return command without the first word
+     * @throws EmptyField if any necessary information is missing
+     */
     private static String extractPartialCommand(String fullCommand) throws EmptyField {
         if (!fullCommand.contains(" ")) {
             throw new EmptyField();

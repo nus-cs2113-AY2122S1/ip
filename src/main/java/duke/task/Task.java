@@ -2,17 +2,28 @@ package duke.task;
 
 import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
+import duke.ui.MessageBubble;
 
 public abstract class Task {
     protected String description = "";
     protected boolean status = false;
     protected String time = "";
-    public String symbolSetTime = "";
+    protected static String SYMBOL = " ";
+
+    public String getSYMBOL() {
+        return SYMBOL;
+    }
 
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Set description of the task
+     *
+     * @param description task description
+     * @throws EmptyField if description is blank
+     */
     public void setDescription(String description) throws EmptyField {
         if (description.isBlank()) {
             throw new EmptyField();
@@ -28,10 +39,29 @@ public abstract class Task {
         this.status = status;
     }
 
+    /**
+     * Returns the time variable value of the Task
+     *
+     * @return time
+     * @throws IllegalOperation if the task does not contain a time variable
+     */
     public abstract String getTime() throws IllegalOperation;
 
+    /**
+     * Set the time variable of the Task
+     *
+     * @param time time
+     * @throws IllegalOperation if time is badly formatted
+     * @throws EmptyField if time is empty
+     */
     public abstract void setTime(String time) throws IllegalOperation, EmptyField;
 
+    /**
+     * Set the status of the Task to a new status.
+     *
+     * @param status new status
+     * @throws IllegalOperation if new status == current status
+     */
     public void setDone(boolean status) throws IllegalOperation {
         if (this.status == status) {
             throw new IllegalOperation();
@@ -40,8 +70,25 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns a String that can be used to store and restore the information about the Task.
+     *
+     * @return Save format String
+     */
     public String getSaveFormat() {
-        return String.format("%s | %s | %s", " ", status? "1":"0", description);
+        return getSaveFormat(new String[0]);
+    }
+
+    public String getSaveFormat(String additionalInfo) {
+        return getSaveFormat(new String[]{additionalInfo});
+    }
+
+    public String getSaveFormat(String[] additionalInfo) {
+        String temp = String.format("%s | %s | %s", this.getSYMBOL(), this.status? "1":"0", description);
+        for (String info: additionalInfo) {
+            temp = temp + " | " + info;
+        }
+        return temp;
     }
 
     @Override

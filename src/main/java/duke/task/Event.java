@@ -4,12 +4,28 @@ import duke.exceptions.EmptyField;
 
 public class Event extends Task{
     public String symbolSetTime = "/at";
+    protected static String SYMBOL = "E";
 
+    /**
+     * Convenience constructor using raw values.
+     *
+     * @param description description of the Event
+     * @param time start time of the Event
+     * @throws EmptyField if one or more param is missing or of wrong format
+     */
     public Event(String description, String time) throws EmptyField {
         setDescription(description);
         setTime(time);
     }
 
+    /**
+     * Convenience constructor using raw values.
+     *
+     * @param description description of the Event
+     * @param done status of the Event
+     * @param time start time of the Event
+     * @throws EmptyField if one or more param is missing or of wrong format
+     */
     public Event(String description, boolean done, String time) throws EmptyField {
         setDescription(description);
         setTime(time);
@@ -17,8 +33,13 @@ public class Event extends Task{
     }
 
     @Override
+    public String getSYMBOL() {
+        return SYMBOL;
+    }
+
+    @Override
     public String getSaveFormat() {
-        return String.format("%s | %s | %s | %s", "E", status? "1":"0", description, time);
+        return super.getSaveFormat(getTime());
     }
 
     @Override
@@ -34,6 +55,11 @@ public class Event extends Task{
         this.time = time;
     }
 
+    /**
+     * Returns all information of the Event as a user-friendly String format
+     *
+     * @return all information about the Event
+     */
     @Override
     public String toString() {
         String classIndicator = this.getClass().getSimpleName().substring(0,1);
