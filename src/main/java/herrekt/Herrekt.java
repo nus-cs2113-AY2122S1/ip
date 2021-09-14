@@ -2,12 +2,14 @@ package herrekt;
 
 import herrekt.exceptions.InvalidInputException;
 import herrekt.exceptions.NoTaskException;
-import herrekt.taskmanager.Deadline;
-import herrekt.taskmanager.Event;
-import herrekt.taskmanager.Timetable;
-import herrekt.taskmanager.Todo;
+import herrekt.taskmanager.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 
 public class Herrekt {
     public static void main(String[] args) {
@@ -15,10 +17,11 @@ public class Herrekt {
         Scanner sc = new Scanner(System.in);
 
         String phrase = sc.nextLine();
+        loadTasks();
 
         while (!phrase.equals("bye")) {
             if (phrase.equals("list")) {
-                Timetable.getTasks();
+                System.out.println(Timetable.getTasks());
             } else if (phrase.contains("done")) {
                 int taskNumber = parseDoneInputToInt(phrase);
                 Timetable.updateTasks(taskNumber);
@@ -36,8 +39,52 @@ public class Herrekt {
             }
             phrase = sc.nextLine();
         }
-
+        saveTasks(Task.thingsToDo);
         printFarewellMessage();
+        sc.close();
+    }
+
+    private static void loadTasks() {
+        try {
+            List<String> taskListInStringFormat =
+                    FileWriting.convertSavedFileToCurrentTimetable("text-ui-test/test.txt");
+            Task.thingsToDo = convertStringToTask(taskListInStringFormat);
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR! File not found!");
+        }
+    }
+
+    private static void saveTasks(List<Task> taskList) {
+        try {
+            for (Task task : taskList) {
+                FileWriting.appendToFile("text-ui-test/test.txt", ((Timetable) task).toSave());
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR! FILE NOT FOUND!");
+        }
+    }
+
+    private static List<Task> convertStringToTask(List<String> stringList) {
+        List<Task> taskList = new ArrayList<>();
+        for (int i = 0; i < stringList.size(); i++) {
+            String taskInString = stringList.get(i);
+            String[] taskInArray = taskInString.split(" / ");
+            switch (taskInArray[0]) {
+            case "T":
+                taskList.add(new Todo(taskInArray[2]));
+                break;
+            case "D":
+                taskList.add(new Deadline(taskInArray[2], taskInArray[3]));
+                break;
+            case "E":
+                taskList.add(new Event(taskInArray[2], taskInArray[3]));
+                break;
+            }
+            if (taskInArray[1].equals("1")) {
+                taskList.get(i).setDone();
+            }
+        }
+        return taskList;
     }
 
     static void printWelcomeMessage() {
@@ -67,8 +114,8 @@ public class Herrekt {
         return Integer.parseInt(phrase);
     }
 
-    static Timetable parsePhraseToTask(String phrase) {
-        Timetable task = null;
+    static Task parsePhraseToTask(String phrase) {
+        Task task = null;
         if (phrase.contains("todo")) {
             task = new Todo(phrase.replace("todo ", ""));
         } else if (phrase.contains("deadline")) {
@@ -85,7 +132,7 @@ public class Herrekt {
 
     static void recordTask(String phrase) {
         try {
-            Timetable task = parsePhraseToTask(phrase);
+            Task task = parsePhraseToTask(phrase);
             Timetable.addTask(task);
             printNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e3) {
@@ -94,6 +141,7 @@ public class Herrekt {
                     + "\n" + "Your input: " + phrase);
         }
     }
+
     static void isInputValid(String phrase) throws InvalidInputException, NoTaskException {
         if (!(phrase.contains("todo")
                 || phrase.contains("deadline")

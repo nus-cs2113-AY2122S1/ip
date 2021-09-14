@@ -13,6 +13,16 @@ public class Deadline extends Task implements Timetable {
     }
 
     @Override
+    public String toSave() {
+        String spacer = " / ";
+        int done = 0;
+        if (this.isDone) {
+            done = 1;
+        }
+        return "D" + spacer + done + spacer + this.description + spacer + this.date;
+    }
+
+    @Override
     public String getDescription() {
         return super.description + " (by: " + this.getDate() + ")";
     }

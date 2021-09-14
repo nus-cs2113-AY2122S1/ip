@@ -4,31 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface Timetable {
-    List<Timetable> thingsToDo = new ArrayList<>();
 
     String getDescription();
     void finishTask();
+    String toSave();
+    void setDone();
 
-    static void addTask(Timetable task) {
+    static void addTask(Task task) {
         System.out.println("Alright. I'll put it on the list.");
-        thingsToDo.add(task);
+        Task.thingsToDo.add(task);
         System.out.println("  " + task.toString());
     }
 
-    static void getTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < thingsToDo.size(); i++) {
-            System.out.println((i + 1) + ". "
-                    + thingsToDo.get(i).toString());
+    static String getTasks() {
+        String toReturn = "Here are the tasks in your list:" + "\n";
+        for (int i = 0; i < Task.thingsToDo.size(); i++) {
+            if (i == Task.thingsToDo.size() - 1) {
+                toReturn += (i + 1) + ". "
+                        + Task.thingsToDo.get(i).toString();
+                break;
+            }
+            toReturn += (i + 1) + ". "
+                    + Task.thingsToDo.get(i).toString() + "\n";
         }
+        return toReturn;
     }
 
-    static List<Timetable> getThingsToDo() {
-        return thingsToDo;
+    static List<Task> getThingsToDo() {
+        return Task.thingsToDo;
     }
 
     static int getSize() {
-        return thingsToDo.size();
+        return Task.thingsToDo.size();
     }
 
     static void updateTasks(int taskNumber) {

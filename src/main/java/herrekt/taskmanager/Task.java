@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Task {
     protected final String description;
     protected boolean isDone;
-    public final static List<Task> thingsToDo = new ArrayList<>();
+    public static List<Task> thingsToDo = new ArrayList<>();
 
     Task(String description) {
         this.description = description;
@@ -17,6 +17,10 @@ public abstract class Task {
 
     public boolean isDone() {
         return this.isDone;
+    }
+
+    public void setDone() {
+        this.isDone = true;
     }
 
     public void finishTask() {
