@@ -1,11 +1,9 @@
 package duke.task;
 
-import duke.exception.DukeInvalidInputException;
-
 public class Deadline extends Task {
     private String dueTime;
 
-    public Deadline(String name, String dueTime) throws DukeInvalidInputException {
+    public Deadline(String name, String dueTime) {
         super(name);
         this.dueTime = dueTime;
         this.type = 'D';

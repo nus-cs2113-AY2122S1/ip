@@ -1,10 +1,8 @@
 package duke.task;
 
-import duke.exception.DukeInvalidInputException;
-
 public class ToDo extends Task {
 
-    public ToDo(String name) throws DukeInvalidInputException {
+    public ToDo(String name) {
         super(name);
         this.type = 'T';
     }

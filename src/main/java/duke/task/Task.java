@@ -1,18 +1,13 @@
 package duke.task;
 
-import duke.exception.DukeInvalidInputException;
-
 public class Task {
     protected final String name;
     protected boolean isDone;
     protected char type = 'T';
 
-    public Task(String name) throws DukeInvalidInputException {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
-        if(this.name.isBlank()) {
-            throw new DukeInvalidInputException();
-        }
     }
 
     public String getName() {
