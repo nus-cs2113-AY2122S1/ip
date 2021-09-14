@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -8,6 +12,8 @@ public class Duke {
 
     private final static int ECHO_MODE = 1;
     private final static int TASK_MODE = 2;
+
+    private final static String filePath = "data/duke.txt";
 
     /**
      * Function introduces chatbot and asks user for preferred mode and enters that mode.
@@ -177,7 +183,9 @@ public class Duke {
                     "\tinput description after a whitespace.");
         }
 
-        printAddedResponse(storedTasks[additions]);
+        if (mode == TASK_MODE) {
+            printAddedResponse(storedTasks[additions]);
+        }
         additions++;
     }
 
@@ -257,6 +265,12 @@ public class Duke {
                 e.printErrorMessage();
             }
         }
+
+        try {
+            saveToFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -290,7 +304,82 @@ public class Duke {
         }
     }
 
+    public static void initializeList() throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            try {
+                String line = s.nextLine();
+                String[] splitUp = line.strip().split(" < ");
+                String cmd = createCommand(splitUp);
+                createTask(cmd);
+                if (splitUp[1].equals("Done")) {
+                    storedTasks[additions - 1].setDone();
+                }
+            } catch (DukeException e) {
+                e.printErrorMessage();
+            }
+        }
+    }
+
+    public static String createCommand(String[] lineFragments) {
+        String toReturn = null;
+        if (lineFragments.length == 3) {
+            toReturn = "todo " + lineFragments[2];
+        } else if (lineFragments[0].equals("D")) {
+            toReturn = "deadline " + lineFragments[2] + " /by " + lineFragments[3];
+        } else if (lineFragments[0].equals("E")) {
+            toReturn = "event " + lineFragments[2] + " /at " + lineFragments[3];
+        }
+        return toReturn;
+    }
+
+    public static String createLineForFile(Task t) {
+        String toReturn = null;
+        String doneStatus;
+        if (t.getStatusIcon().equals("[X] ")) {
+            doneStatus= "Done";
+        } else {
+            doneStatus = "ND";
+        }
+
+        if (t instanceof Todo) {
+            toReturn = "T < " + doneStatus + " < " + t.description;
+        } else if (t instanceof Deadline) {
+            String[] parts = t.description.split("[(]");
+            toReturn = "D < " + doneStatus + " < " + parts[0] +
+                    " < " + ((Deadline) t).due;
+        } else if (t instanceof Event) {
+            String[] parts = t.description.split("[(]");
+            toReturn = "E < " + doneStatus + " < " + parts[0] +
+                    " < " + ((Event) t).time;
+        }
+        return toReturn;
+    }
+
+    public static void saveToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath, false);
+        for (int i = 0; i < additions; i++) {
+            String textToWrite = createLineForFile(storedTasks[i]) + System.lineSeparator();
+            fw.write(textToWrite);
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
+        // Read in list from previous session if it exists
+        try {
+            initializeList();
+        } catch (FileNotFoundException e) {
+            // Create new text file for saving if file not found
+            File newFile = new File(filePath);
+            try {
+                newFile.createNewFile();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+
         // Actions
         printLogo();
         greet();
