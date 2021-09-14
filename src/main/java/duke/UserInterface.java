@@ -221,4 +221,12 @@ public class UserInterface {
         System.out.println("Now you have " + TaskManager.getNumOfTasks() + " tasks");
         UserInterface.printLine();
     }
+
+    /**
+     * Prints "DukeData.txt has missing data. Some Tasks might be lost." to standard output.
+     */
+    public static void showFileMissingData() {
+        System.out.println("DukeData.txt has missing data. Some Tasks might be lost.");
+        printLine();
+    }
 }
