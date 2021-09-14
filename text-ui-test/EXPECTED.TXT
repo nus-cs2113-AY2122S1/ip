@@ -38,7 +38,7 @@ Now you have 1 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
-[T][ ] sleep
+1.[T][ ] sleep
 ________________________________________
 ________________________________________
 Sorry bud, but your formatting is gibberish to me. Here is how it should be formatted: 
@@ -54,17 +54,17 @@ Now you have 2 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
-[T][ ] sleep
-[D][ ] go to bed (by: 10pm)
+1.[T][ ] sleep
+2.[D][ ] go to bed (by: 10pm)
 ________________________________________
 ________________________________________
 Hey bud, the format for marking off a task is :done [index]
 ________________________________________
 ________________________________________
-Sorry bud, that's not a valid task number to check off!
+Sorry bud, that's not a valid task number to check off/delete!
 ________________________________________
 ________________________________________
-Sorry bud, that's not a valid task number to check off!
+Sorry bud, that's not a valid task number to check off/delete!
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
@@ -87,16 +87,16 @@ Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
-[T][X] sleep
-[D][ ] go to bed (by: 10pm)
-[E][ ] power nap (at: 5:15-5:30pm)
+1.[T][X] sleep
+2.[D][ ] go to bed (by: 10pm)
+3.[E][ ] power nap (at: 5:15-5:30pm)
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
 [D][X] go to bed (by: 10pm)
 ________________________________________
 ________________________________________
-Sorry bud, you can't check off what is not yet there :/
+Sorry bud, you can't check off/delete what is not yet there :/
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
@@ -114,9 +114,9 @@ bye
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
-[T][X] sleep
-[D][X] go to bed (by: 10pm)
-[E][X] power nap (at: 5:15-5:30pm)
+1.[T][X] sleep
+2.[D][X] go to bed (by: 10pm)
+3.[E][X] power nap (at: 5:15-5:30pm)
 ________________________________________
 ________________________________________
 Bye. Hope to see you again soon!
