@@ -25,4 +25,8 @@ public class Task {
         this.isDone = true;
     }
 
+    public String getOriginalDescription(){
+        return description;
+    }
+
 }

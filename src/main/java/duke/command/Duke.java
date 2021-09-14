@@ -5,7 +5,11 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     public static final String TODO = "todo";
@@ -17,13 +21,60 @@ public class Duke {
     public static final String DELETE = "delete";
     private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int numberOfTasks = 0;
+    private static int taskIndex = 0;
+    private static File save;
 
     public static void main(String[] args) {
+        saveCheck();
         greet();
         instructions();
         chooseTask();
     }
 
+    private static void saveCheck() {
+        try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            save = new File(directory + "/" + "duke1.txt");
+            save.createNewFile();
+            Scanner s = new Scanner(save); // create a Scanner using the File as the source
+            int counter = 1;
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split("\\|");
+                String taskType = parts[0].trim();
+                String status = parts[1].trim();
+                String taskDescription = parts[2].trim();
+                switch (taskType) {
+                case "T":
+                    addTask(TODO, taskDescription);
+                    break;
+                case "D":
+                    addTask(DEADLINE, taskDescription);
+                    break;
+                case "E":
+                    addTask(EVENT, taskDescription);
+                    break;
+                }
+                if (status.equals("X")) {
+                    markTaskComplete(Integer.toString(counter));
+                }
+                counter++;
+            }
+
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(save);
+        for (int i = 0; i < taskIndex; i++) {
+            fw.write(taskList.get(i).getType() + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getOriginalDescription() +  System.lineSeparator());
+        }
+        fw.close();
+    }
 
     private static void chooseTask() {
         String line, taskType, taskDescription = null;
@@ -143,6 +194,7 @@ public class Duke {
             taskList.add((new Event(taskDescription)));
             break;
         }
+        taskIndex++;
 
         printDividerLine();
         System.out.println("I have added this task:");
@@ -151,6 +203,11 @@ public class Duke {
         System.out.println("You have " + numberOfTasks + " task(s) in the list.");
         printDividerLine();
 
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     private static void displayList() {
@@ -186,7 +243,11 @@ public class Duke {
         } catch (NumberFormatException e) {
             System.out.println("Error! This task does not exist!");
         }
-
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     private static void deleteTask(String taskDescription) {
@@ -208,7 +269,11 @@ public class Duke {
         } catch (NumberFormatException e) {
             System.out.println("Error! This task does not exist!");
         }
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
     }
-
-
 }

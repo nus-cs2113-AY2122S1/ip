@@ -16,5 +16,4 @@ public class ToDo extends Task {
         return description;
     }
 
-
 }

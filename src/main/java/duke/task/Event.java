@@ -16,4 +16,5 @@ public class Event extends Task {
         int byPos = description.indexOf("/at");
         return (description.substring(0, byPos) + "(at: " + description.substring(byPos + 3).trim() + ")");
     }
+
 }
