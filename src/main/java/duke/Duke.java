@@ -1,5 +1,4 @@
 package duke;
-import java.util.ArrayList;
 
 import duke.exception.NoDescriptionException;
 import duke.exception.NoSpaceException;
@@ -10,7 +9,12 @@ import duke.list.Event;
 import duke.list.Task;
 import duke.list.ToDo;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Duke {
     public static final String SEPARATE_LINE = "____________________________________________________________";
@@ -23,6 +27,8 @@ public class Duke {
             + "list: I will show your task list\n"
             + "help: view the commands you can use\n"
             + "bye: finish using Duke";
+    public static final String LIST_STORAGE_FOLDER = "./data/";
+    public static final String LIST_STORAGE_FILE = "./data/duke.txt";
     
     public static void printGreeting() {
         String logo = " ____        _        \n"
@@ -215,10 +221,18 @@ public class Duke {
         System.out.println(SEPARATE_LINE);
     }
 
-    public static void setTaskDone(ArrayList<Task> tasks, int index) {
+    public static void setTaskDone(ArrayList<Task> tasks, ArrayList<String> taskLines, int index) {
         Task updatedTask = tasks.get(index);
         updatedTask.markAsDone();
         tasks.set(index, updatedTask);
+        if ("T".equals((updatedTask.toString()).substring(1, 2))) {
+            taskLines.set(index, convertTodotoLine((ToDo) updatedTask));
+        } else if ("D".equals((updatedTask.toString()).substring(1, 2))) {
+            taskLines.set(index, convertDeadlinetoLine((Deadline) updatedTask));
+        } else if ("E".equals((updatedTask.toString()).substring(1, 2))) {
+            taskLines.set(index, convertEventtoLine((Event) updatedTask));
+        }
+        storetoHardDisk(taskLines);
         System.out.println("Nice! I've marked this task as done: ");
         System.out.println("\t" + tasks.get(index));
     }
@@ -231,12 +245,12 @@ public class Duke {
         }
     }
 
-    public static void printDone(ArrayList<Task> tasks, String command) {
+    public static void printDone(ArrayList<Task> tasks, ArrayList<String> taskLines, String command) {
         try {
             handleDone(command);
             String taskNumber = command.substring(5);
             int number = Integer.parseInt(taskNumber);
-            setTaskDone(tasks, number - 1);
+            setTaskDone(tasks, taskLines, number - 1);
         } catch (NoDescriptionException e) {
             System.out.println("Which task do you want to mark as done?");
         } catch (NoSpaceException e) {
@@ -256,18 +270,21 @@ public class Duke {
         }
     }
 
-    public static void deleteTask(ArrayList<Task> tasks, int index){
+    public static void deleteTask(ArrayList<Task> tasks, ArrayList<String> taskLines, int index){
         System.out.println("Noted! I've deleted this task: ");
         System.out.println("\t" + tasks.get(index));
         tasks.remove(index);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        taskLines.remove(index);
+        storetoHardDisk(taskLines);
     }
 
-    public static void printDelete(ArrayList<Task> tasks, String command) {
+    public static void printDelete(ArrayList<Task> tasks, ArrayList<String> taskLines, String command) {
         try {
             handleDelete(command);
             String taskNumber = command.substring(7);
             int number = Integer.parseInt(taskNumber);
-            deleteTask(tasks, number - 1);
+            deleteTask(tasks, taskLines, number - 1);
         } catch (NoDescriptionException e) {
             System.out.println("Which task do you want to mark as done?");
         } catch (NoSpaceException e) {
@@ -279,9 +296,156 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static boolean createFile(String filePath) {
+        boolean canCreate = false;
+        File newFile = new File(filePath);
+        try {
+            canCreate = newFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return canCreate;
+    }
+
+    public static boolean createFolder(String folderPath) {
+        boolean canCreate = false;
+        File newFolder = new File(folderPath);
+        if (!newFolder.exists()) {
+            canCreate = newFolder.mkdir();
+        }
+        return canCreate;
+    }
+
+    public static void initializeHardDiskSave() {
+        if (createFolder(LIST_STORAGE_FOLDER)) {
+            System.out.println("Folder created for storing task list");
+        } else {
+            System.out.println("Nice! You already have a folder for storing task list");
+        }
+
+        if (createFile(LIST_STORAGE_FILE)) {
+            System.out.println("duke.txt created inside data folder for storing task list");
+        } else {
+            System.out.println("Nice! You already have a file inside data folder for storing task list");
+        }
+        System.out.println("Reading your List......");
+    }
+
+    public static Task convertLinetoTask(String taskLine) {
+        Task task;
+        String taskType = taskLine.substring(0, 1);
+        String taskDone = taskLine.substring(4, 5);
+        int index = taskLine.indexOf(" | ", 8);
+        String description;
+        String time = "";
+
+        if (index == -1) {
+            description = taskLine.substring(8);
+        } else {
+            description = taskLine.substring(8, index);
+            time = taskLine.substring(index + 3);
+        }
+
+        switch (taskType) {
+        case "D":
+            task = new Deadline(description, time);
+            if (taskDone.equals("√")) {
+                task.markAsDone();
+            }
+        case "E":
+            task = new Event(description, time);
+            if (taskDone.equals("√")) {
+                task.markAsDone();
+            }
+        default:
+            task = new ToDo(description);
+            if (taskDone.equals("√")) {
+                task.markAsDone();
+            }
+        }
+        return task;
+    }
+
+    public static String convertTodotoLine(ToDo task) {
+        if (task.isDone()) {
+            return ("T | √ | " + task.getDescription());
+        } else {
+            return ("T | X | " + task.getDescription());
+        }
+    }
+
+    public static String convertDeadlinetoLine(Deadline task) {
+        if (task.isDone()) {
+            return ("D | √ | " + task.getDescription() + " | " + task.getBy());
+        } else {
+            return ("D | X | " + task.getDescription() + " | " + task.getBy());
+        }
+    }
+
+    public static String convertEventtoLine(Event task) {
+        if (task.isDone()) {
+            return ("E | √ | " + task.getDescription() + " | " + task.getAt());
+        } else {
+            return ("E | X | " + task.getDescription() + " | " + task.getAt());
+        }
+    }
+
+    public static void initializeList(ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(LIST_STORAGE_FILE);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            tasks.add(convertLinetoTask(s.nextLine()));
+        }
+        printList(tasks, tasks.size());
+    }
+
+    public static void initializeTaskLineList(ArrayList<String> taskLines) throws FileNotFoundException {
+        File f = new File(LIST_STORAGE_FILE);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            taskLines.add(s.nextLine());
+        }
+    }
+
+    public static void appendToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(LIST_STORAGE_FILE, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void clearFile() throws IOException {
+        FileWriter fw = new FileWriter(LIST_STORAGE_FILE);
+        fw.write("");
+        fw.close();
+    }
+
+    public static void storetoHardDisk(ArrayList<String> taskLines) {
+        try {
+            clearFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        for (String taskLine : taskLines) {
+            try {
+                appendToFile(taskLine + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args){
         printGreeting();
+        initializeHardDiskSave();
         ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<String> taskLines = new ArrayList<>();
+        try {
+            initializeTaskLineList(taskLines);
+            initializeList(tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, pls try again");
+        }
+
         Scanner in = new Scanner(System.in);
         while (true) {
             String command = in.nextLine();
@@ -296,6 +460,8 @@ public class Duke {
                 if (proceed) {
                     tasks.add(new ToDo(command.substring(5)));
                     int size = tasks.size();
+                    taskLines.add(convertTodotoLine((ToDo) tasks.get(size - 1)));
+                    storetoHardDisk(taskLines);
                     printToDo(tasks.get(size - 1), size);
                 }
                 System.out.println(SEPARATE_LINE);
@@ -305,6 +471,8 @@ public class Duke {
                 if (proceed) {
                     tasks.add(setupDeadline(command));
                     int size = tasks.size();
+                    taskLines.add(convertDeadlinetoLine((Deadline) tasks.get(size - 1)));
+                    storetoHardDisk(taskLines);
                     printDeadline(tasks.get(size - 1), size);
                 }
                 System.out.println(SEPARATE_LINE);
@@ -314,6 +482,8 @@ public class Duke {
                 if (proceed) {
                     tasks.add(setupEvent(command));
                     int size = tasks.size();
+                    taskLines.add(convertEventtoLine((Event) tasks.get(size - 1)));
+                    storetoHardDisk(taskLines);
                     printEvent(tasks.get(size - 1), size);
                 }
                 System.out.println(SEPARATE_LINE);
@@ -322,11 +492,11 @@ public class Duke {
                 printList(tasks, size);
             } else if (command.startsWith("done")) {
                 System.out.println(SEPARATE_LINE);
-                printDone(tasks, command);
+                printDone(tasks, taskLines, command);
                 System.out.println(SEPARATE_LINE);
             } else if (command.startsWith("delete")) {
                 System.out.println(SEPARATE_LINE);
-                printDelete(tasks, command);
+                printDelete(tasks, taskLines, command);
                 System.out.println(SEPARATE_LINE);
             } else if (command.equals("help")) {
                 System.out.println(SEPARATE_LINE);
