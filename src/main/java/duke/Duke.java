@@ -8,7 +8,7 @@ public class Duke {
     public static void main(String[] args) {
         UserInterface.showGreet();
         DataManager.load();
-        
+
         while (isRunning) {
             Command userCommand = UserInterface.interpretUserInput();
             UserInterface.executeCommand(userCommand);

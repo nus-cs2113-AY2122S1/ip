@@ -13,17 +13,22 @@ public class Task {
         return description;
     }
 
+    /**
+     * Returns Status of task in String format.
+     *
+     * @return Status of task in String format.
+     */
     public String getStatus() {
         if (isDone) {
             return "[X]";
         }
         return "[ ]";
     }
-
+    
     public void markDone() {
         isDone = true;
     }
-    
+
     @Override
     public String toString() {
         return getStatus() + " " + getDescription();

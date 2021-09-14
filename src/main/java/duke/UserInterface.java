@@ -18,6 +18,12 @@ public class UserInterface {
     private static final Scanner sc = new Scanner(System.in);
     private static String[] userInputs;
 
+    /**
+     * Executes the command give.
+     * If command given is invalid, user will be notified through standard output.
+     * 
+     * @param userCommand The command given by the user.
+     */
     public static void executeCommand(Command userCommand) {
         if (userCommand == Command.EXIT) {
             showExitMessage();
@@ -65,6 +71,11 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Interpret the command given by the user.
+     * 
+     * @return The command given by the user.
+     */
     public static Command interpretUserInput() {
         String userInput = sc.nextLine();
         if (userInput.replaceAll(" ", "").equals("bye")) {
@@ -107,10 +118,13 @@ public class UserInterface {
         }
     }
 
-    public static void printLine() {
+    private static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints a greeting to standard output.
+     */
     public static void showGreet() {
         System.out.println("Greetings from\n" + LOGO);
         printLine();
@@ -161,25 +175,40 @@ public class UserInterface {
         System.out.println("Missing some description or wrong command format.");
         printLine();
     }
-    
+
+    /**
+     * Prints "Loaded saved data successfully!" to standard output.
+     */
     public static void showLoadSuccess() {
         System.out.println("Loaded saved data successfully!");
         printLine();
     }
-    
+
+    /**
+     * Prints "Data saved Successfully!" to standard output.
+     */
     public static void showSaveSuccess() {
         System.out.println("Data saved Successfully!");
     }
-    
+
+    /**
+     * Prints "Error loading data. Some or all data maybe lost." to standard output.
+     */
     public static void showLoadError() {
         System.out.println("Error loading data. Some or all data maybe lost.");
         printLine();
     }
-    
+
+    /**
+     * Prints "Error saving data. Some or all data maybe lost." to standard output.
+     */
     public static void showSaveError() {
         System.out.println("Error saving data. Some or all data maybe lost.");
     }
-    
+
+    /**
+     * Prints "Missing data file. An empty one is created." to standard output.
+     */
     public static void showMissingDataFile() {
         System.out.println("Missing data file. An empty one is created.");
         printLine();
