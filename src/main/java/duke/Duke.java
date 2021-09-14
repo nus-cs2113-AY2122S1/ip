@@ -41,9 +41,9 @@ public class Duke {
             else {
                 printUnknownCommandMessage();
             }
+            Storage.saveFile(taskList);
             userCommand = in.nextLine();
         }
-        Storage.saveFile(taskList);
         printBye();
     }
 
