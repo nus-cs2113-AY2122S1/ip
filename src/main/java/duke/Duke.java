@@ -315,15 +315,15 @@ public class Duke {
 
             switch (taskType) {
             case ("T"):
-                fw.write("T | " + taskStatus + " | " + task.description);
+                fw.write("T | " + taskStatus + " |" + task.description);
                 break;
             case ("D"):
                 Deadline deadlineTask = (Deadline) task;
-                fw.write("D | " + taskStatus + " | " + task.description + " | " + deadlineTask.getBy());
+                fw.write("D | " + taskStatus + " |" + task.description + "|" + deadlineTask.getBy());
                 break;
             case ("E"):
                 Event eventTask = (Event) task;
-                fw.write("E | " + taskStatus + " | " + task.description + " | " + eventTask.getDuration());
+                fw.write("E | " + taskStatus + " |" + task.description + "|" + eventTask.getDuration());
                 break;
             default:
                 System.out.println("Something went wrong!");
@@ -344,9 +344,9 @@ public class Duke {
 
     // function populates empty task ArrayList given contents of the Task file
     public static void fillArrayListFromFile(String input) {
-        String[] taskContent = input.split( " | ");
-        String taskType = taskContent[0];
-        String ifDone = taskContent[1];
+        String[] taskContent = input.split( "\\|");
+        String taskType = taskContent[0].trim();
+        String ifDone = taskContent[1].trim();
         String taskName = taskContent[2];
 
         switch (taskType) {
