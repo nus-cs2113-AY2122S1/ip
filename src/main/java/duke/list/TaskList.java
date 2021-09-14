@@ -72,6 +72,25 @@ public class TaskList {
         }
     }
 
+    public void searchItem(String keyword) {
+        ArrayList<Task> searchResults = new ArrayList<>();
+        for (Task item: items) {
+            if (item.getDescription().contains(keyword)) {
+                searchResults.add(item);
+            }
+        }
+        if (searchResults.isEmpty()) {
+            MessageBubble.printMessageBubble("No result found.");
+        } else {
+            MessageBubble msg = new MessageBubble();
+            msg.addMessage("Here are the matching tasks in your list:");
+            for (Task item: searchResults) {
+                msg.addMessage(String.format(" %d:%s", items.indexOf(item), item));
+            }
+            msg.printMessageBubble();
+        }
+    }
+
     public void printList() {
         if (items.isEmpty()) {
             MessageBubble.printMessageBubble("There is nothing on your list");
