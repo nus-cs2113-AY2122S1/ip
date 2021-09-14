@@ -105,15 +105,15 @@ public class FileManager {
         switch (taskType) {
         case "T":
             String todoDescription = taskDetails[2];
-            return new Todo(todoDescription);
+            return new Todo(todoDescription, isDone);
         case "D":
             String deadlineDescription = taskDetails[2];
             String deadlineBy = taskDetails[3];
-            return new Deadline(deadlineDescription, deadlineBy);
+            return new Deadline(deadlineDescription, deadlineBy, isDone);
         case "E":
             String eventDescription = taskDetails[2];
             String eventAt = taskDetails[3];
-            return new Event(eventDescription, eventAt);
+            return new Event(eventDescription, eventAt, isDone);
         default:
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_FILE_LINE);
         }
