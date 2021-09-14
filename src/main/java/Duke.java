@@ -13,7 +13,8 @@ public class Duke {
     private final static int ECHO_MODE = 1;
     private final static int TASK_MODE = 2;
 
-    private final static String filePath = "data/duke.txt";
+    // All Task items created will be saved to ip/lennox.txt local file.
+    private final static String filePath = "lennox.txt";
 
     /**
      * Function introduces chatbot and asks user for preferred mode and enters that mode.
