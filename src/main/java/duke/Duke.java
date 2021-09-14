@@ -4,13 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    public static final int MAX_TASK_COUNT = 100;
-
-    public static int taskCount = 1;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printErrorMessage() {
         printHorizontalLine();
@@ -286,33 +285,95 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    public static void readFile(String filePath) throws FileNotFoundException {
-        File dukeFile = new File(filePath);
-        Scanner s = new Scanner(dukeFile);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
 
     public static void writeToFile(String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
-        // write from ArrayList to file
-        
+        // Solution below adapted from @@NonRNP
+        for (Task task : tasks) {
+            String taskAsString = String.valueOf(task);
+            String taskType = taskAsString.substring(1, 2);
+            String taskStatus = task.isDone ? "1" : "0";
+
+            switch (taskType) {
+            case ("T"):
+                fw.write("T | " + taskStatus + " | " + task.description);
+                break;
+            case ("D"):
+                Deadline deadlineTask = (Deadline) task;
+                fw.write("D | " + taskStatus + " | " + task.description + " | " + deadlineTask.getBy());
+                break;
+            case ("E"):
+                Event eventTask = (Event) task;
+                fw.write("E | " + taskStatus + " | " + task.description + " | " + eventTask.getDuration());
+                break;
+            default:
+                System.out.println("Something went wrong!");
+                break;
+            }
+            fw.write(System.lineSeparator());
+        }
         fw.close();
     }
 
-    public static void loadTaskFile() {
-
+    public static void saveTaskFile(String filePath) {
+        try {
+            writeToFile(filePath);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
-    public static void saveTaskFile() {
+    // function populates empty task ArrayList given contents of the Task file
+    public static void fillArrayListFromFile(String input) {
+        String[] taskContent = input.split( " | ");
+        String taskType = taskContent[0];
+        String ifDone = taskContent[1];
+        String taskName = taskContent[2];
 
+        switch (taskType) {
+        case ("T"):
+            tasks.add(new Todo(taskName));
+            break;
+        case ("D"):
+            String taskDeadline = taskContent[3];
+            tasks.add(new Deadline(taskName, taskDeadline));
+            break;
+        case ("E"):
+            String taskDuration = taskContent[3];
+            tasks.add(new Event(taskName, taskDuration));
+            break;
+        default:
+            System.out.println("Something went wrong!");
+            break;
+        }
+        if (ifDone.equals("1")) {
+            tasks.get(tasks.size() - 1).markAsDone();
+        }
+    }
+
+
+    public static void readTaskFile(String filePath) throws FileNotFoundException {
+        File taskFile = new File(filePath);
+        Scanner scan = new Scanner(taskFile);
+        while (scan.hasNext()) {
+            String taskToAdd = scan.nextLine();
+            fillArrayListFromFile(taskToAdd);
+        }
+    }
+
+    public static void loadTaskFile(String filePath) {
+        try {
+            readTaskFile(filePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
     }
 
     public static void main(String[] args) {
-
+        loadTaskFile("data/duke.txt");
         greetUser();
         inputManager();
+        saveTaskFile("data/duke.txt");
     }
 }
