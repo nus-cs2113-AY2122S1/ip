@@ -114,25 +114,24 @@ public class TaskHandler {
     }
 
     public static void addTodoFromFile(String[] words) {
-        tasks[taskCount] = new Todo(words[2].trim());
-        markLatestTaskDoneFromFile(words[1].trim());
+        tasks.add(new Todo(words[2].trim()));
+        if (words[1].trim().equals("1")) {
+            tasks.get(tasks.size() - 1).markAsDoneWithoutMessage();
+        }
     }
 
     public static void addEventFromFile(String[] words) {
-        tasks[taskCount] = new Event(words[2].trim(), words[3].trim());
-        markLatestTaskDoneFromFile(words[1].trim());
+        tasks.add(new Event(words[2].trim(), words[3].trim()));
+        if (words[1].trim().equals("1")) {
+            tasks.get(tasks.size() - 1).markAsDoneWithoutMessage();
+        }
     }
 
     public static void addDeadlineFromFile(String[] words) {
-        tasks[taskCount] = new Deadline(words[2].trim(), words[3].trim());
-        markLatestTaskDoneFromFile(words[1].trim());
-    }
-
-    public static void markLatestTaskDoneFromFile(String isTaskDone) {
-        if (isTaskDone.equals("1")) {
-            tasks[taskCount].markAsDoneWithoutMessage();
+        tasks.add(new Deadline(words[2].trim(), words[3].trim()));
+        if (words[1].trim().equals("1")) {
+            tasks.get(tasks.size() - 1).markAsDoneWithoutMessage();
         }
-        taskCount++;
     }
 
     public static void showHelp() {

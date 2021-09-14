@@ -29,8 +29,7 @@ public class DataSaver {
         FileWriter fw = new FileWriter(filePath, false);
         fw.write("");
 
-        for (int i = 0; i < TaskHandler.taskCount; i++) {
-            Task task = TaskHandler.tasks[i];
+        for (Task task : TaskHandler.tasks) {
             text = task.getType() + " | " + task.getStatus() + " | " +
                     task.getDescription() + " | " + task.getDate() + System.lineSeparator();
             writeToFile(filePath, text);

@@ -85,6 +85,7 @@ public class Duke {
                     break;
                 case "delete":
                     TaskHandler.deleteTask(words);
+                    saveData();
                     break;
                 default:
                     TaskHandler.handleWrongCommand();
