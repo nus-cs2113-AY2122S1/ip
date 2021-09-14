@@ -1,6 +1,5 @@
 import duke.tasks.*;
-
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,13 +8,13 @@ public class Duke {
     static final int MAX_SIZE = 100;
 
     private static String lineInput = "";
-    private static Task[] taskList = new Task[MAX_SIZE];
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
     private static int tasksCount = 0;
 
     public static void addTask(Task t){
         if (t.getDescription().length() > 0) {
             System.out.println("Got it. I've added this task:");
-            taskList[tasksCount] = t;
+            taskList.add(t);
             tasksCount++;
             System.out.println(t);
             System.out.println("Now you have " + tasksCount + " tasks on the list.");
@@ -26,15 +25,24 @@ public class Duke {
     private static void listTasks(){
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= tasksCount; i++) {
-            Task currTask = taskList[i - 1];
+            Task currTask = taskList.get(i - 1);
             System.out.println(i + ". " + currTask);
         }
     }
 
     private static void markTaskDone(int index) {
-        taskList[index].markDone();
-        Task currTask = taskList[index];
+        taskList.get(index).markDone();
+        Task currTask = taskList.get(index);
         System.out.println((index + 1) + ". " + currTask);
+    }
+
+    private static void deleteTask(int index) {
+        Task currTask = taskList.get(index);
+        System.out.println("Noted. I've removed this task:");
+        taskList.remove(index);
+        System.out.println(currTask);
+        tasksCount--;
+        System.out.println("Now you have " + tasksCount + " tasks on the list.");
     }
 
     private static void printBorder(){
@@ -73,7 +81,15 @@ public class Duke {
                     listTasks();
                     break;
                 case "done":
-                    markTaskDone(Integer.parseInt(inputAction) - 1);
+                    try {
+                        markTaskDone(Integer.parseInt(inputAction) - 1);
+                    }
+                    catch (NullPointerException e){
+                        System.out.println("INVALID: Empty 'done' index");
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("INVALID: Index out of bounds");
+                    }
                     break;
                 case "todo":
                     try {
@@ -110,6 +126,17 @@ public class Duke {
                     }
                     catch (IndexOutOfBoundsException e){
                         System.out.println("INVALID: Insufficient 'event' description or time");
+                    }
+                    break;
+                case "delete":
+                    try {
+                        deleteTask(Integer.parseInt(inputAction) - 1);
+                    }
+                    catch (NullPointerException e){
+                        System.out.println("INVALID: Empty 'delete' index");
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("INVALID: Index out of bounds");
                     }
                     break;
                 default:
