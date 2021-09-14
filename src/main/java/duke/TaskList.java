@@ -65,7 +65,7 @@ public class TaskList {
     }
 
     /**
-     * Creates a string containing the task information for all Tasks in TaskList for printing to terminal
+     * Creates a String containing the task information for all Tasks in TaskList for printing to terminal
      *
      * @return String containing the task information for all Tasks in TaskList for printing to terminal
      */
@@ -74,7 +74,7 @@ public class TaskList {
     }
 
     /**
-     * Creates a string containing the task information for all Tasks in TaskList for storage
+     * Creates a String containing the task information for all Tasks in TaskList for storage
      *
      * @return String containing the task information for all Tasks in TaskList, separated by lineSeparators
      */
@@ -84,5 +84,34 @@ public class TaskList {
             storageString = storageString + task.getStorageString() + System.lineSeparator();
         }
         return storageString;
+    }
+
+    /**
+     * Searches through the TaskList and returns Tasks whose name contains the given keyword,
+     * i.e. keyword is a substring of the task's name
+     *
+     * @param keyword substring that will be searched for in the list of Tasks
+     * @return ArrayList containing the tasks that contain keyword as a substring
+     */
+    private ArrayList<Task> searchTasks(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(keyword)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }
+
+    /**
+     * Creates a String containing the task information for all Tasks in TaskList that contain
+     * the given keyword for printing to terminal
+     *
+     * @param keyword substring that will be searched for in the list of Tasks
+     * @return String containing the information of all Tasks containing the keyword
+     */
+    public String getSearchedTasksMessage(String keyword) {
+        ArrayList<Task> filteredTasks = searchTasks(keyword);
+        return Output.getTaskListMessage(filteredTasks);
     }
 }

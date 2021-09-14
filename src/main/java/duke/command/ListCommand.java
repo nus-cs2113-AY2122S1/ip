@@ -7,9 +7,9 @@ import duke.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Calls the printTasks method in taskManager to list out its Tasks
+     * Lists out the Tasks in taskList to the terminal
      *
-     * @param taskList the TaskManager that will be read
+     * @param taskList the taskList that will be read
      * @param storage  not used in this subclass implementation
      * @param ui       the ui class instance that will print out the completion message
      */

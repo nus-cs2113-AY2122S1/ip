@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Calls the deleteTask method in taskList to delete the task at the specified index
+     * deletes the task at the specified index in taskList
      *
      * @param taskList the taskList that contains the task to be marked
      * @param storage  the storage class that will store the updated TaskList
