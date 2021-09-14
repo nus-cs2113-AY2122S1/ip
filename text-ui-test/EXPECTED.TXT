@@ -8,6 +8,7 @@
 SQUAWK!!!
 How can I help you?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+There are no task in the list!!!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 Owl: I've added that!
 Owl: You added this: [T] CS2101 slide prep
@@ -64,7 +65,30 @@ The description of deadline cannot be empty!
 The description of deadline cannot be empty!
 The description of event cannot be empty!
 The description of event cannot be empty!
-The command doesnt exist.....
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+This are all the things I've remembered for you:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+1.[T][ ] CS2101 slide prep
+2.[D][X] text_ui testing(by: 1st Sept 2359)
+3.[E][ ] school lab(at: friday 10am-12pm)
+4.[T][X] sweep the house
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+Owl: I've deleted that!
+Owl: You deleted this: CS2101 slide prep
+There are currently 3 task now!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+This are all the things I've remembered for you:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+1.[D][X] text_ui testing(by: 1st Sept 2359)
+2.[E][ ] school lab(at: friday 10am-12pm)
+3.[T][X] sweep the house
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+You have keyed in an invalid task number!!!
+You can only delete a task number!!!
+The description of delete cannot be empty!
+The description of delete cannot be empty!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 SQUAWK! See you next time! :)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 

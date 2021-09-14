@@ -1,3 +1,4 @@
+list
 todo CS2101 slide prep
 deadline text_ui testing /by 1st Sept 2359
 event school lab /at friday 10am-12pm
@@ -11,7 +12,7 @@ list
 list efghhh
 done
 done 
-list something
+list 100000
 todo
 todo 
 deadline never add by
@@ -20,5 +21,11 @@ deadline
 deadline 
 event
 event 
-
+list
+delete 1
+list
+delete -1
+delete chiwawa
+delete 
+delete  
 bye

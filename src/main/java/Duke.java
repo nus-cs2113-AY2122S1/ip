@@ -8,17 +8,18 @@ import TypeOfTasks.Todo;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String INVALID_MESSAGE = "The command doesnt exist.....";
-    public static final String LISTING_MESSAGE = "This are all the things I've remembered for you:";
-    public static final int MAX_TASK_LENGTH = 100;
-    public static final List ONE_PART_COMMAND = Arrays.asList("list");
-    public static final List TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event");
+    public static final List<String> ONE_PART_COMMAND = Arrays.asList("list");
+    public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event", "delete");
+    
+    
     public static void main(String[] args) {
         PrintManager.printWelcome();
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASK_LENGTH];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
         String command = in.nextLine();
 
@@ -42,18 +43,25 @@ public class Duke {
                     taskCount = addDeadline(tasks, taskCount, inputs);
                 } else if (isEvent(commandLength, inputs[0])) {
                     taskCount = addEvent(tasks, taskCount, inputs);
+                } else if (isDelete(commandLength, inputs[0])) {
+                    taskCount = deleteTask(tasks, taskCount, inputs[1]);
                 } else {
                     System.out.println(INVALID_MESSAGE);
                 }
             } catch(OwlException oe) {
                 oe.printErrorMsg();
-            } catch(NumberFormatException e) {
-                System.out.println("You can only done a task number!!!");
+            } catch(NumberFormatException nfe) {
+                System.out.println(nfe.getMessage());
             }
             command = in.nextLine();
         }
         PrintManager.printBye();
     }
+
+    private static boolean isDelete(int commandLength, String input) {
+        return commandLength == 2 && input.equals("delete");
+    }
+
 
     private static boolean isInvalidOnePartCmd(String[] inputs, int commandLength) {
         return commandLength > 1 && isOnePartCmd(inputs[0]);
@@ -95,53 +103,82 @@ public class Duke {
         if(inputs[0].equals("list")) {
             throw new OwlException("list does not have description!");
         }
+        if(inputs[0].equals("delete")) {
+            throw new OwlException("The description of delete cannot be empty!");
+        }
     }
 
-    private static void markCompletionOfTask(Task[] tasks, int taskCount, String s) throws OwlException {
-        int taskNumber = Integer.parseInt(s);
-        int taskIndex = taskNumber - 1;
-        if(!isValidTaskCount(taskCount, taskNumber)) {
-            throw new OwlException("invalid task number");
+    private static void markCompletionOfTask(ArrayList<Task> tasks, int taskCount, String s) throws OwlException {
+        try {
+            int taskNumber = Integer.parseInt(s);
+            int taskIndex = taskNumber - 1;
+            if (isInvalidTaskCount(taskCount, taskNumber)) {
+                throw new OwlException("invalid task number");
+            }
+            if (tasks.get(taskIndex).isDone()) {
+                throw new OwlException("Task already done!!");
+            }
+            tasks.get(taskIndex).markDone();
+            PrintManager.printTaskCompletionMsg(taskNumber);
+        } catch(NumberFormatException nfe) {
+            throw new NumberFormatException("You can only done a task number");
         }
-        if(tasks[taskIndex].isDone()) {
-            throw new OwlException("Task already done!!");
-        }
-        tasks[taskIndex].markDone();
-        PrintManager.printTaskCompletionMsg(taskNumber);
     }
+
+    private static int deleteTask(ArrayList<Task> tasks, int taskCount, String input) throws OwlException {
+        try {
+            int taskNumber = Integer.parseInt(input);
+            int taskIndex = taskNumber - 1;
+            if(isInvalidTaskCount(taskCount, taskNumber)) {
+                throw new OwlException("invalid task number");
+            }
+            Task deletedTask = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+            taskCount--;
+            PrintManager.printDeletionMsg(taskCount, deletedTask);
+        } catch(NumberFormatException nfe) {
+            throw new NumberFormatException("You can only delete a task number!!!");
+        }
+        return taskCount;
+    }
+
     private static int addTask(int taskCount, String command) {
         taskCount++;
         PrintManager.printTaskCount(taskCount, command);
         return taskCount;
     }
-    private static int addEvent(Task[] tasks, int taskCount, String[] inputs) throws OwlException {
+    
+    private static int addEvent(ArrayList<Task> tasks, int taskCount, String[] inputs) throws OwlException {
         String[] inputsAt = inputs[1].split(" /at ", 2);
         if (inputs[1].contains(" /at ") && !inputsAt[1].isEmpty()) {
-            tasks[taskCount] = new Event(inputsAt[0], inputsAt[1]);
+            Event newEvent = new Event(inputsAt[0], inputsAt[1]);
+            tasks.add(newEvent);
             taskCount = addTask(taskCount, ("[E] " + inputsAt[0] + "(at: " + inputsAt[1]) + ")");
             return taskCount;
         }
         throw new OwlException("Did not specify /at");
     }
 
-    private static int addDeadline(Task[] tasks, int taskCount, String[] inputs) throws OwlException {
+    private static int addDeadline(ArrayList<Task> tasks, int taskCount, String[] inputs) throws OwlException {
         String[] inputsBy = inputs[1].split(" /by ", 2);
         if (inputs[1].contains(" /by ") && !inputsBy[1].isEmpty()) {
-            tasks[taskCount] = new Deadline(inputsBy[0], inputsBy[1]);
+            Deadline newDeadline = new Deadline(inputsBy[0], inputsBy[1]);
+            tasks.add(newDeadline);
             taskCount = addTask(taskCount, ("[D] " + inputsBy[0] + "(by: " + inputsBy[1]) + ")");
             return taskCount;
         }
         throw new OwlException("Did not specify /by");
     }
 
-    private static int addTodo(Task[] tasks, int taskCount, String[] inputs) {
-        tasks[taskCount] = new Todo(inputs[1]);
+    private static int addTodo(ArrayList<Task> tasks, int taskCount, String[] inputs) {
+        Todo newTodo = new Todo(inputs[1]);
+        tasks.add(newTodo);
         taskCount = addTask(taskCount, ("[T] " + inputs[1]));
         return taskCount;
     }
 
-    private static boolean isValidTaskCount(int taskCount, int taskNumber) {
-        return taskNumber > 0 && taskNumber <= taskCount;
+    private static boolean isInvalidTaskCount(int taskCount, int taskNumber) {
+        return taskNumber <= 0 || taskNumber > taskCount;
     }
 
     private static boolean isSecondPartInvalid(String trim) {
@@ -169,24 +206,18 @@ public class Duke {
     }
     
 
-    private static void listTask(Task[] tasks, int taskCount) {
+    private static void listTask(ArrayList<Task> tasks, int taskCount) {
         if(taskCount > 0) {
-            Task[] taskList = Arrays.copyOf(tasks, taskCount);
-            int taskIndex = 0;
-            int index = 1;
-            PrintManager.printLine();
-            System.out.println(LISTING_MESSAGE);
-            PrintManager.printLine();
-            for(Task task: taskList) {
-                Task theTask = taskList[taskIndex];
-                theTask.printList(theTask,index);
-                index++;
-                taskIndex++;
+            int listIndex = 1;
+            PrintManager.printListingMsg();
+            for(Task task: tasks) {
+                task.printList(task,listIndex);
+                listIndex++;
             }
             PrintManager.printLine();
             return;
         }
-        System.out.println("There are no task in the list!!");
+        System.out.println("There are no task in the list!!!");
     }
 
 }
