@@ -1,6 +1,7 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     public static final String longLine = "____________________________________________________________";
@@ -22,9 +23,16 @@ public class Duke {
         System.out.println(longLine);
     }
 
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         welcomeMessage();
         ArrayList<Task> entries = new ArrayList<>();
+        String dukeDataPath = "C:\\Users\\edly1\\Documents\\ip\\data\\dukeData.txt";
         Scanner in = new Scanner(System.in);
         int entriesCount = 0;
         String userMessage = in.nextLine();
@@ -34,6 +42,7 @@ public class Duke {
                     ? userMessage.substring(0, userMessage.indexOf(" ")): userMessage;
             String userCommandDetails = userMessage.contains(" ")
                     ? userMessage.substring(userMessage.indexOf(" ") + 1): userMessage;
+            String toBePrinted;
 
             switch (userCommand) {
             case "list":
@@ -54,10 +63,16 @@ public class Duke {
                 else {
                     entries.add(entriesCount, new ToDo(userCommandDetails));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("   [" + entries.get(entriesCount).getSymbol() + "] ["
-                            + entries.get(entriesCount).getStatusIcon() + "] " + entries.get(entriesCount).description);
+                    toBePrinted = "[" + entries.get(entriesCount).getSymbol() + "] ["
+                            + entries.get(entriesCount).getStatusIcon() + "] " + entries.get(entriesCount).description;
+                    System.out.println("   " + toBePrinted);
                     entriesCount++;
                     System.out.println("Now you have " + entriesCount + " tasks in the list.");
+                    try {
+                        writeToFile(dukeDataPath, toBePrinted + System.lineSeparator());
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 }
                 break;
             case "deadline":
@@ -66,10 +81,16 @@ public class Duke {
                 String taskDeadline = userCommandDetails.substring(deadlineIndex);
                 entries.add(entriesCount, new Deadline(taskDescription, taskDeadline));
                 System.out.println("Got it. I've added this task:");
-                System.out.println("   [" + entries.get(entriesCount).getSymbol() + "] ["
-                        + entries.get(entriesCount).getStatusIcon() + "] " + entries.get(entriesCount).description);
+                toBePrinted = "[" + entries.get(entriesCount).getSymbol() + "] ["
+                        + entries.get(entriesCount).getStatusIcon() + "] " + entries.get(entriesCount).description;
+                System.out.println("   " + toBePrinted);
                 entriesCount++;
                 System.out.println("Now you have " + entriesCount + " tasks in the list.");
+                try {
+                    writeToFile(dukeDataPath, toBePrinted + System.lineSeparator());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
                 break;
             case "event":
                 int eventDateTimeIndex = userCommandDetails.indexOf("/at");
@@ -77,10 +98,16 @@ public class Duke {
                 String eventDateTime = userCommandDetails.substring(eventDateTimeIndex);
                 entries.add(entriesCount, new Event(eventDescription, eventDateTime));
                 System.out.println("Got it. I've added this task:");
-                System.out.println("   [" + entries.get(entriesCount).getSymbol() + "] ["
-                        + entries.get(entriesCount).getStatusIcon() + "] " + entries.get(entriesCount).description);
+                toBePrinted = "[" + entries.get(entriesCount).getSymbol() + "] ["
+                        + entries.get(entriesCount).getStatusIcon() + "] " + entries.get(entriesCount).description;
+                System.out.println("   " + toBePrinted);
                 entriesCount++;
                 System.out.println("Now you have " + entriesCount + " tasks in the list.");
+                try {
+                    writeToFile(dukeDataPath, toBePrinted + System.lineSeparator());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
                 break;
             case "done":
                 String stringTaskIndex = userMessage.substring(userMessage.indexOf(" ") + 1);

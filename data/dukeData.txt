@@ -1,0 +1,4 @@
+[T] [ ] wash
+[T] [ ] clean
+[D] [ ] eat
+[E] [ ] lecture
