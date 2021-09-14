@@ -3,18 +3,16 @@ package duke;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.MissingParameterException;
 import duke.exception.TaskNotFoundException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.*;
 
 public class TaskManager {
     private static final String LINEBREAK = System.lineSeparator();
     private Task[] tasks = new Task[100];
+    private DukeStorage storage = new DukeStorage();
     private int taskCount;
 
     public TaskManager() {
-        taskCount = 0;
+        taskCount = storage.loadData(tasks);
     }
 
     public void displayTaskList() {
@@ -50,6 +48,7 @@ public class TaskManager {
             System.out.printf("Now you have %d tasks in the list" + LINEBREAK, taskCount + 1);
             DukeUI.drawHorizontalLine();
             taskCount++;
+            storage.saveData(tasks);
         } catch (EmptyDescriptionException | MissingParameterException e) {
             DukeUI.printError(e);
         }
@@ -62,6 +61,7 @@ public class TaskManager {
                 throw new TaskNotFoundException();
             }
             tasks[taskNumber - 1].setDone();
+            storage.saveData(tasks);
             DukeUI.drawHorizontalLine();
             System.out.printf("I have marked \"%s\" as done" + LINEBREAK, tasks[taskNumber - 1].getDescription());
             DukeUI.drawHorizontalLine();
