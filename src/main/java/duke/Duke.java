@@ -102,13 +102,13 @@ public class Duke {
                     exit = true;
                     break;
                 case Commands.TODO:
-                    taskManager.addTask(options, TaskType.TODO);
+                    taskManager.processAndAddTask(options, TaskType.TODO);
                     break;
                 case Commands.DEADLINE:
-                    taskManager.addTask(options, TaskType.DEADLINE);
+                    taskManager.processAndAddTask(options, TaskType.DEADLINE);
                     break;
                 case Commands.EVENT:
-                    taskManager.addTask(options, TaskType.EVENT);
+                    taskManager.processAndAddTask(options, TaskType.EVENT);
                     break;
                 case Commands.DELETE:
                     taskManager.deleteTask(Integer.parseInt(options));

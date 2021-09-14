@@ -135,11 +135,6 @@ public class TaskManager {
 
     }
 
-
-        }
-
-    }
-
     /**
      * Deletes the task at selected index, removing it from the list.
      *
@@ -151,6 +146,8 @@ public class TaskManager {
         taskList.remove(index);
         System.out.println("I have erased this task from existence:");
         System.out.println("  " + task.toFormattedString());
+
+        fileManager.saveTasklistToFile(taskList);
     }
 
     /* Prints a list of all tasks in task manager */
