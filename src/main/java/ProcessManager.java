@@ -30,21 +30,13 @@ public class ProcessManager {
 
     private static final String ADD_TASK_REPLY = "     Got it. I've added this task:\n";
     private static final String TASK_COMPLETED = "     Nice! I've marked this task as done:\n";
-    private static final String LINE = "    ____________________________________________________________";
-    private static final String LINE_DIVIDER = "    ____________________________________________________________\n";
-    private static final String GAP = "     ";
-    private static final String DELETED_TASK = "     Noted. I've removed this task:\n";
-    /* ---- --------- ---- */
-    public ArrayList<Task> taskList = new ArrayList<>();
-  
-    private static final String TASK_COMPLETED = "     Nice! I've marked this task as done: \n";
     private static final String LINE = "________________________________________________________________";
     private static final String LINE_DIVIDER = "________________________________________________________________\n";
     private static final String GAP = "     ";
+    private static final String DELETED_TASK = "     Noted. I've removed this task:\n";
     private static final String FILEPATH = "data/SavedTask.txt";
     /* ---- --------- ---- */
-    public Task[] toDo = new Task[100];
-    public Integer trackIndex = 0;
+    public ArrayList<Task> taskList = new ArrayList<>();
 
     /* ---- File Function ---- */
     public void loadTasks() {
@@ -83,29 +75,26 @@ public class ProcessManager {
         String date = line.substring(dividerPosition2, dividerPosition3 - 1).trim();
         String status = line.substring(dividerPosition3).trim();
         if (line.startsWith("T")) {
-            toDo[trackIndex] = new Todo(description);
+            taskList.add(new Todo(description));
             try {
                 checkStatus(status);
             } catch (DukeException e) {
                 e.printStatement();
             }
-            trackIndex++;
         } else if (line.startsWith("D")) {
-            toDo[trackIndex] = new Deadline(description, date);
+            taskList.add(new Deadline(description, date));
             try {
                 checkStatus(status);
             } catch (DukeException e) {
                 e.printStatement();
             }
-            trackIndex++;
         } else if (line.startsWith("E")) {
-            toDo[trackIndex] = new Event(description, date);
+            taskList.add(new Event(description, date));
             try {
                 checkStatus(status);
             } catch (DukeException e) {
                 e.printStatement();
             }
-            trackIndex++;
         } else {
             throw new DukeException("Task Syntax Corrupted, Unable to Parse Request");
         }
@@ -114,9 +103,9 @@ public class ProcessManager {
     public void saveTasks() throws IOException {
         FileWriter fileWrite = new FileWriter(FILEPATH);
         fileWrite.close();
-        for (int i = 0; trackIndex > i; i++) {
+        for (Task task : taskList) {
             try {
-                toDo[i].saveTask(FILEPATH);
+                task.saveTask(FILEPATH);
             } catch (IOException e) {
                 throw new IOException("Error Occurred While Saving File");
             }
@@ -141,7 +130,6 @@ public class ProcessManager {
         taskList.add(new Event(description, date));
         String output = taskAddedMessage();
         System.out.println(output);
-        trackIndex++;
     }
 
     public void handleDeadlineRequest(String line) throws DeadlineException {
@@ -160,24 +148,22 @@ public class ProcessManager {
         taskList.add(new Deadline(description, date));
         String output = taskAddedMessage();
         System.out.println(output);
-        trackIndex++;
     }
 
     public void handleToDoRequest(String line) throws TodoException {
         if (line.length() == TASK_DATE_DIVIDER) {
-        if (line.length() == 4) {
             throw new TodoException("Todo Request Does Not Contain A Description");
         }
         String description = line.substring(TODO_DIVIDER);
         taskList.add(new Todo(description));
         String output = taskAddedMessage();
         System.out.println(output);
-        trackIndex++;
     }
 
     public void handleDoneRequest(String line) throws DoneException {
         if (line.length() == TASK_DATE_DIVIDER) {
             throw new DoneException("Request Does Not Contain A Number");
+        }
         if (line.length() == 4) {
             throw new DoneException("Done Request Does Not Contain A Number");
         }
@@ -195,19 +181,19 @@ public class ProcessManager {
         System.out.println(output);
     }
 
+
     public void handleListRequest() {
         String output = LINE_DIVIDER;
         for (int number = 0; taskList.size() > number; number++) {
             String record = GAP + (number + ARRAY_INDEX_FINDER) + "." + taskList.get(number).toString() + "\n";
             output = output.concat(record);
         }
-        if (getLastIndex() == ZERO) {
+        if (taskList.size() == ZERO) {
             output = output.concat(GAP + "Nothing Has Been Added To The List Yet\n");
         }
         output = output.concat(LINE);
         System.out.println(output);
     }
-    /* ---- -------- ---- */
 
     public void handleDeleteRequest(String line) throws DeleteException {
         if (line.length() == TASK_DATE_DIVIDER) {
@@ -241,6 +227,14 @@ public class ProcessManager {
         int index = taskList.size() - ARRAY_INDEX_FINDER;
         return Math.max(index, ZERO);
     }
+
+    public void checkStatus(String status) throws DukeException {
+        if (status.equals("true")) {
+            taskList.get(getLastIndex()).setIsDone();
+        } else if (!status.equals("false")) {
+            throw new DukeException("Invalid Status");
+        }
+    }
     /*--- -------- --- */
 
     /*--- Messages --- */
@@ -260,20 +254,9 @@ public class ProcessManager {
                 + getAddTaskReturn(getLastIndex()) + LINE;
     }
 
-    public void checkStatus(String status) throws DukeException {
-        if (status.equals("true")) {
-            toDo[trackIndex].setIsDone();
-        } else if (status.equals("false")) {
-            toDo[trackIndex].setIsDone();
-        } else {
-            throw new DukeException("Invalid Status");
-        }
-    }
-    /* --- -------- --- */
-
-    /* --- Messages --- */
     public void goodbyeMessage() {
-        String output = LINE_DIVIDER + GAP + "Bye. Hope to see you again soon!\n" + LINE;
+        String output = "File has been saved!\n"
+                + LINE_DIVIDER + GAP + "Bye. Hope to see you again soon!\n" + LINE;
         System.out.println(output);
     }
 

@@ -4,7 +4,6 @@ import exceptions.DeadlineException;
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
-import exceptions.DeadlineException;
 import exceptions.DeleteException;
 
 import java.util.Scanner;
