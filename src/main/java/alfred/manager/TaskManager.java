@@ -8,13 +8,13 @@ import alfred.task.Task;
 import alfred.task.Todo;
 
 public class TaskManager {
-    private Task[] tasks;
+    private final Task[] tasks;
     private int listIndex;
     private final int TASK_LIST_SIZE = 100;
 
     public TaskManager() {
         tasks = new Task[TASK_LIST_SIZE];
-        listIndex = 0;
+        listIndex = DataManager.populateTasks(tasks);
         MessageManager.initMessage();
     }
 
@@ -72,6 +72,7 @@ public class TaskManager {
         int index = Integer.parseInt(destructuredInputs[1]) - 1;
         tasks[index].setTaskDone();
         MessageManager.completeTaskMessage(index + 1, tasks[index].toString());
+        DataManager.saveAllTasks(tasks, listIndex);
     }
 
     private void addTodo(String userInput) throws EmptyDescriptionException {
@@ -84,6 +85,7 @@ public class TaskManager {
         tasks[listIndex] = t;
         listIndex++;
         MessageManager.addTaskMessage(t, listIndex);
+        DataManager.saveAllTasks(tasks, listIndex);
     }
 
     private void addEvent(String userInput) throws EmptyDescriptionException, InvalidDateException {
@@ -99,6 +101,7 @@ public class TaskManager {
         tasks[listIndex] = e;
         listIndex++;
         MessageManager.addTaskMessage(e, listIndex);
+        DataManager.saveAllTasks(tasks, listIndex);
     }
 
     private void addDeadline(String userInput) throws EmptyDescriptionException, InvalidDateException {
@@ -114,6 +117,7 @@ public class TaskManager {
         tasks[listIndex] = d;
         listIndex++;
         MessageManager.addTaskMessage(d, listIndex);
+        DataManager.saveAllTasks(tasks, listIndex);
     }
 
 }
