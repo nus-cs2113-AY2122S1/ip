@@ -11,4 +11,9 @@ public class TodoTasks extends Tasks{
     public String getName() {
         return "[T][" + mark() + "] " + name;
     }
+
+    @Override
+    public String getTaskData(){
+        return "T," + isCompleted + "," + name;
+    }
 }

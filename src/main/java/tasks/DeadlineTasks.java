@@ -14,4 +14,9 @@ public class DeadlineTasks extends Tasks {
         return "[D][" + super.mark() + "] " + name + "(" + Deadline.substring(0,Deadline.indexOf(" ")) + ": "
                 + Deadline.substring(Deadline.indexOf(" ") + 1) + ")";
     }
+
+    @Override
+    public String getTaskData(){
+        return "D," + isCompleted + "," + name + "," + Deadline;
+    }
 }

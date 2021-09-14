@@ -1,17 +1,20 @@
 import tasks.Tasks;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 
 public class Duke {
+    final public static String saveFilesDir = System.getProperty("user.dir") + File.separator + "saveFiles.txt";
     public static void main(String[] args) {
         showStartMessage();
         executeTillExit();
         showExitMessage();
     }
-
     private static void showStartMessage() {
         String line = "_______________________________________________________________________________________________";
         String logo =
@@ -63,6 +66,7 @@ public class Duke {
                 break;
 
             case "list": //Activate list actions
+                loadSaves(tasksAL);
                 while (true) {
                     System.out.println("To view your list, enter 'list'. " +
                             "To add to your list type 'todo', 'event' or 'deadline' then your task.");
@@ -84,6 +88,27 @@ public class Duke {
             if (isStop) {
                 break;
             }
+        }
+    }
+
+    private static void loadSaves(ArrayList<Tasks> tasksAL){
+        try {
+            File file = new File(saveFilesDir);
+            if (file.createNewFile()){
+                System.out.println("No save file detected. New save file created.");
+            } else {
+                Scanner myReader = new Scanner(file);
+                while (myReader.hasNextLine()) {
+                    Tasks.loadTasks(myReader.nextLine(), tasksAL);
+                }
+                myReader.close();
+                System.out.println("Save file detected. Save file has been loaded.");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file detected. New save file created.");
+        } catch (IOException e) {
+            System.out.println("IO error.");
+            e.printStackTrace();
         }
     }
 
