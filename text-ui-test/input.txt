@@ -13,4 +13,9 @@ list
 done 5
 done a
 done
+delete 5
+delete a
+delete
+delete 1
+list
 bye
