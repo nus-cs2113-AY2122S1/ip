@@ -62,25 +62,27 @@ public class Duke {
 
         File dataFile = new File(dataPath);
         Scanner dataScanner = new Scanner(dataFile);
-
         while (dataScanner.hasNext()) {
             String content = dataScanner.nextLine();
             String taskType = content.substring(0,1);
             String taskContent = content.substring(8);
             int taskStatusIndex = 4;
-            int taskDateIndex = content.indexOf('|');
-            if (taskType == "T") {
+            int taskDateIndex = taskContent.indexOf('|');
+            if (taskType.equals("T")) {
                 tasks.add(new Todo(taskContent));
+                taskNum++;
                 if (content.charAt(taskStatusIndex) == '1') {
                     tasks.get(tasks.size() - 1).markAsDone();
                 }
-            } else if (taskType == "D") {
+            } else if (taskType.equals("D")) {
                 tasks.add(new Deadline(taskContent.substring(0, taskDateIndex - 1), taskContent.substring(taskDateIndex + 2)));
+                taskNum++;
                 if (content.charAt(taskStatusIndex) == '1') {
                     tasks.get(tasks.size() - 1).markAsDone();
                 }
-            } else if (taskType == "E") {
+            } else if (taskType.equals("E")) {
                 tasks.add(new Event(taskContent.substring(0, taskDateIndex - 1), taskContent.substring(taskDateIndex + 2)));
+                taskNum++;
                 if (content.charAt(taskStatusIndex) == '1') {
                     tasks.get(tasks.size() - 1).markAsDone();
                 }
@@ -90,7 +92,7 @@ public class Duke {
 
     public static void saveData() {
         try {
-            FileWriter writer = new FileWriter(dataPath.toString());
+            FileWriter writer = new FileWriter(dataPath);
             for (Task task : tasks) {
                 if (task instanceof Todo) {
                     writer.write("T | " + task.getStatusIcon() + " | " + task.getDescription() + System.lineSeparator());
