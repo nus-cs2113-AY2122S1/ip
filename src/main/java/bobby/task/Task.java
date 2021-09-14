@@ -3,13 +3,13 @@ package bobby.task;
 public class Task {
     protected String fullTaskDescription;
     protected boolean isDone;
-    protected static int totalTasks = 0;
+//    protected static int totalTasks = 0;
 
 
     public Task(String fullTaskDescription){
         this.fullTaskDescription = fullTaskDescription;
         this.isDone = false;
-        totalTasks ++;
+//        totalTasks ++;
     }
 
 
@@ -22,9 +22,9 @@ public class Task {
         }
     }
 
-    public static int getTotalTasks() {
-        return totalTasks;
-    }
+//    public static int getTotalTasks() {
+//        return totalTasks;
+//    }
 
     public String getFullTaskDescription() {
         return this.fullTaskDescription;

@@ -25,8 +25,9 @@ public class Command {
         return command;
     }
 
-    public void executeDoneCommand (String rawUserInput) throws IncorrectDescriptionFormatException,
-            NoDescriptionException, NullPointerException, NumberFormatException, IndexOutOfBoundsException {
+    public void executeDoneCommand (String rawUserInput)
+            throws IncorrectDescriptionFormatException, NoDescriptionException,
+            NumberFormatException, IndexOutOfBoundsException {
 
         // split the input string into array
         String[] inputWords = rawUserInput.split(" ");
@@ -48,6 +49,28 @@ public class Command {
         }
     }
 
+    public void executeDeleteCommand(ArrayList<Task> taskList, String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException,
+            NumberFormatException, IndexOutOfBoundsException{
+
+        String[] inputWords = rawUserInput.split(" ");
+
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        } else if (inputWords.length > 2) {
+            throw new IncorrectDescriptionFormatException();
+        }
+
+        //find the index of the task to delete and the task itself
+        int deleteIndex = Integer.parseInt(inputWords[1]) - 1;
+        Task taskToDelete = taskList.get(deleteIndex);
+        //delete the task
+        taskList.remove(deleteIndex);
+        int totalTasks = taskList.size();
+
+        ResponseManager.printTaskDeletedMessage(taskToDelete, totalTasks);
+    }
+
     public void executeListCommand(ArrayList<Task> taskList) {
         ResponseManager.printTaskList(taskList);
     }
@@ -62,7 +85,9 @@ public class Command {
 
         ToDo task = new ToDo(fullTaskDescription);
         taskManager.addTask(task);
-        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
+
+        int totalTasks = taskList.size();
+        ResponseManager.printTaskAddedMessage(task, totalTasks);
     }
 
     public void executeDeadlineCommand(String rawUserInput)
@@ -85,7 +110,9 @@ public class Command {
 
         Deadline task = new Deadline(fullTaskDescription);
         taskManager.addTask(task);
-        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
+
+        int totalTasks = taskList.size();
+        ResponseManager.printTaskAddedMessage(task, totalTasks);
     }
 
     public void executeEventCommand(String rawUserInput)
@@ -95,7 +122,7 @@ public class Command {
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
         }
-
+        // for checking if valid
         String[] separatedDescription = rawUserInput.split("/at", 2);
         String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
 
@@ -107,6 +134,9 @@ public class Command {
 
         Event task = new Event(fullTaskDescription);
         taskManager.addTask(task);
-        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
+
+        int totalTasks = taskList.size();
+        ResponseManager.printTaskAddedMessage(task, totalTasks);
     }
+
 }

@@ -70,6 +70,9 @@ public class TaskManager {
             case EVENT_COMMAND:
                 command.executeEventCommand(rawUserInput);
                 break;
+            case DELETE_COMMAND:
+                command.executeDeleteCommand(taskList, rawUserInput);
+                break;
             default:
                 ResponseManager.printInvalidCommandMessage();
                 break;
@@ -80,10 +83,8 @@ public class TaskManager {
             ResponseManager.printIncorrectDescriptionFormatMessage();
         } catch (NumberFormatException e) {
             ResponseManager.printNumberFormatMessage();
-        } catch (NullPointerException e) {
-            ResponseManager.printInvalidTaskIndexMessage();
         } catch (IndexOutOfBoundsException e) {
-            ResponseManager.printArrayOutOfBoundsMessage();
+            ResponseManager.printIndexOutOfBoundsMessage();
         }
 
     }

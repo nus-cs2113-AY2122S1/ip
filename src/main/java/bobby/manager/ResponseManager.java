@@ -32,6 +32,13 @@ public abstract class ResponseManager {
         printFormattedMessage(message);
     }
 
+    public static void printTaskDeletedMessage(Task task, int totalTasks) {
+        String message = String.format("    Okay! I've removed this task: \n       [%s][%s] %s\n" +
+                        "    Now you have %d tasks in your list.\n",
+                task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
+        printFormattedMessage(message);
+    }
+
     public static void printTaskList(ArrayList<Task> taskList) {
         int listSize = taskList.size();
 
@@ -62,6 +69,7 @@ public abstract class ResponseManager {
         printFormattedMessage(message);
     }
 
+
     public static void printGoodByeMessage() {
         String message = "    Bye, my friend :( \n";
         printFormattedMessage(message);
@@ -87,12 +95,7 @@ public abstract class ResponseManager {
         printFormattedMessage(message);
     }
 
-    public static void printInvalidTaskIndexMessage() {
-        String message = "    You have no such task number. Please enter a number within your list of tasks.\n";
-        printFormattedMessage(message);
-    }
-
-    public static void printArrayOutOfBoundsMessage() {
+    public static void printIndexOutOfBoundsMessage() {
         String message = "    You have no such task number. Please enter a number within your list of tasks.\n";
         printFormattedMessage(message);
     }
