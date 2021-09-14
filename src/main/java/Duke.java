@@ -191,6 +191,11 @@ public class Duke {
 
         if (mode == TASK_MODE) {
             printAddedResponse(t);
+            try {
+                saveToFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -325,6 +330,7 @@ public class Duke {
     public static void initializeList() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        int lineNo = 0;
         while (s.hasNext()) {
             try {
                 String line = s.nextLine();
@@ -332,8 +338,9 @@ public class Duke {
                 String cmd = createCommand(splitUp);
                 createTask(cmd);
                 if (splitUp[1].equals("Done")) {
-                    storedTasks[additions - 1].setDone();
+                    tasksList.get(lineNo).setDone();
                 }
+                lineNo++;
             } catch (DukeException e) {
                 e.printErrorMessage();
             }
@@ -377,8 +384,8 @@ public class Duke {
 
     public static void saveToFile() throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
-        for (int i = 0; i < additions; i++) {
-            String textToWrite = createLineForFile(storedTasks[i]) + System.lineSeparator();
+        for (Task item: tasksList) {
+            String textToWrite = createLineForFile(item) + System.lineSeparator();
             fw.write(textToWrite);
         }
         fw.close();
