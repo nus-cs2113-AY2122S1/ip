@@ -10,6 +10,12 @@ public class Event extends Task {
         this.type = "E";
     }
 
+    public Event(String description, String startAndEndTime, boolean isDone) {
+        super(description, isDone);
+        this.startAndEndTime = startAndEndTime;
+        this.type = "E";
+    }
+
     @Override
     public String getStartAndEndTime() {
         return startAndEndTime;

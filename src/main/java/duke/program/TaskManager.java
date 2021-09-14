@@ -9,10 +9,17 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+
 
 public class TaskManager {
+    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FOLDER_PATH = "./data";
+
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
@@ -22,6 +29,8 @@ public class TaskManager {
     private static final String COMMAND_DELETE = "delete";
 
     private static final String SEPARATOR_SPACE = " ";
+    private static final String SEPARATOR_DOT = ".";
+    private static final String SEPARATOR_DOT_WITH_ESCAPE = "\\.";
     private static final String SEPARATOR_BY = "/by";
     private static final String SEPARATOR_AT = "/at";
 
@@ -111,7 +120,7 @@ public class TaskManager {
         System.out.println("Now you have " + (taskCount - 1) + " tasks in the list.");
     }
 
-    private void printIndividualTask(Task task, String taskType, String taskStatus, String taskDescription) {
+    private static void printIndividualTask(Task task, String taskType, String taskStatus, String taskDescription) {
         if (taskType.equals(TASK_TYPE_ICON_TODO)) {
             System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
         } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
@@ -134,17 +143,8 @@ public class TaskManager {
             String taskStatus = tasks.get(i).getStatusIcon();
             String taskDescription = tasks.get(i).getDescription();
 
-            if (taskType.equals(TASK_TYPE_ICON_TODO)) {
-                System.out.printf("%d.[%s][%s] %s%n", i+1, taskType, taskStatus, taskDescription);
-            } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-                String taskByTime = tasks.get(i).getByDateTime();
-                System.out.printf("%d.[%s][%s] %s (by: %s)%n", i+1, taskType, taskStatus, taskDescription, taskByTime);
-            } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
-                String taskAtTime = tasks.get(i).getStartAndEndTime();
-                System.out.printf("%d.[%s][%s] %s (at: %s)%n", i+1, taskType, taskStatus, taskDescription, taskAtTime);
-            } else {
-                printGenericErrorMessage();
-            }
+            System.out.printf("%d.", i+1);
+            printIndividualTask(tasks.get(i), taskType, taskStatus, taskDescription);
         }
     }
 
@@ -252,9 +252,71 @@ public class TaskManager {
         taskCount--;
     }
 
-    public void parseUserInput() {
+    private void writeToFile(ArrayList<Task> tasks) throws IOException {
+
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < taskCount; i++) {
+            String taskType = tasks.get(i).getType();
+            String taskStatus = tasks.get(i).getStatusIcon();
+            String taskDescription = tasks.get(i).getDescription();
+
+            if (taskType.equals(TASK_TYPE_ICON_TODO)) {
+                fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription);
+            } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
+                String byTime = tasks.get(i).getByDateTime();
+                fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription + SEPARATOR_DOT + byTime);
+            } else if (taskType.equals((TASK_TYPE_ICON_EVENT))) {
+                String atTime = tasks.get(i).getStartAndEndTime();
+                fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription + SEPARATOR_DOT + atTime);
+            } else {
+                printGenericErrorMessage();
+            }
+
+            fw.write(System.lineSeparator());
+        }
+
+        fw.close();
+    }
+
+    private void readFileIntoTasks(ArrayList<Task> tasks) throws IOException {
+
+        File f = new File(FILE_PATH);
+        File folder = new File(FOLDER_PATH);
+
+        folder.mkdir();
+        f.createNewFile();
+
+        Scanner s = new Scanner(f);
+
+        while (s.hasNext()) {
+            String[] taskArgs = s.nextLine().split(SEPARATOR_DOT_WITH_ESCAPE);
+            String taskType = taskArgs[0];
+            boolean taskStatus = taskArgs[1].equals(ICON_DONE);
+            String taskDescription = taskArgs[2];
+
+            if (taskType.equals(TASK_TYPE_ICON_TODO)) {
+                tasks.add(new ToDo(taskDescription, taskStatus));
+            } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
+                String taskByTime = taskArgs[3];
+                tasks.add(new Deadline(taskDescription, taskByTime, taskStatus));
+            } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
+                String taskAtTime = taskArgs[3];
+                tasks.add(new Event(taskDescription, taskAtTime, taskStatus));
+            } else {
+                printGenericErrorMessage();
+            }
+
+            taskCount++;
+        }
+
+    }
+
+    public void parseUserInput() throws IOException {
+
 
         Scanner in = new Scanner(System.in);
+
+        readFileIntoTasks(tasks);
 
         while (true) {
             String line = in.nextLine();
@@ -280,6 +342,7 @@ public class TaskManager {
                 printInvalidCommandMessage();
             }
 
+            writeToFile(tasks);
             printLine();
         }
     }
