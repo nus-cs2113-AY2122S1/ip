@@ -1,3 +1,2 @@
-T |   | fire
-E |   | buutt | 134
-D |   | omg | helo
+T |   | 66
+T | X | fire

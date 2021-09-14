@@ -29,4 +29,7 @@ public class Task {
         System.out.println("[" + type + "] [" + getStatusIcon() + "] " + description);
         System.out.println("Now you have " + count + " tasks in the list.");
     }
+    public String fileFormat() {
+        return (type + " | " + getStatusIcon() + " | " + description);
+    }
 }
