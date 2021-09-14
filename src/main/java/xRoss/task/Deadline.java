@@ -35,7 +35,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "D" + super.toString()
-                + " | " + getBy();
+                + " | " + getBy() + "\n";
     }
 
 }

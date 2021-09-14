@@ -18,19 +18,19 @@ public class TaskManager implements FileManager{
     private int completedTasksCount = 0;
     private int tasksCount = 0;
 
-    final String filepath = "/data/xRoss.txt";
+    final String filepath = "data/xRoss.txt";
 
     public void printTasks() {
         if (tasksCount == 0) {
-            System.out.println("\tYou have no tasks in your to-do list at the moment\n");
+            System.out.println("\tYou have no tasks in your task list at the moment\n");
             return;
         }
-        System.out.println("\tThis is your current to-do list");
+        System.out.println("\tThis is your current task list");
         for (int i = 0; i < tasksCount; i++) {
             System.out.print("\t" + (i + 1) + ".");
             tasks[i].printTask();
         }
-        System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
+        System.out.println("\tThere are " + tasksCount + " task(s) in your task list\n");
     }
 
     public void addTask(Task task) {
@@ -43,7 +43,7 @@ public class TaskManager implements FileManager{
 
         // increment total tasksCount
         tasksCount++;
-        System.out.println("\tThere are " + tasksCount + " task(s) in your to-do list\n");
+        System.out.println("\tThere are " + tasksCount + " task(s) in your task list\n");
     }
 
     public void markAsDone(int inputTaskIndex) {
@@ -68,7 +68,7 @@ public class TaskManager implements FileManager{
         // Print name of task to system output
         System.out.print("\tGood job! I have marked your task as done.\n\t\t");
         tasks[taskIndex].printTask();
-        System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your to-do list\n");
+        System.out.println("\tYou have " + (tasksCount - completedTasksCount) + " uncompleted task(s) left in your task list\n");
     }
 
     @Override
@@ -94,7 +94,8 @@ public class TaskManager implements FileManager{
     }
 
     private Task convertFileStrToTask(String nextLine) {
-        String[] scannedTask = nextLine.split(" | ");
+        // split string using " | " pattern
+        String[] scannedTask = nextLine.split(" \\| ");
         Task task = null;
 
         try {
@@ -129,8 +130,14 @@ public class TaskManager implements FileManager{
     public void saveToFile() {
         try {
             File file = new File(filepath);
-            file.createNewFile();
-            FileWriter fileWriter = new FileWriter(filepath, true);
+
+            // create new directory and file if they do not exist
+            if (!file.exists()){
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(filepath, false);
             for (int i = 0; i < tasksCount; i++){
                 fileWriter.write(tasks[i].toString());
             }
