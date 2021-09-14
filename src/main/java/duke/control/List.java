@@ -5,6 +5,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.File;
+import java.io.StringBufferInputStream;
+
 public class List {
     private static final int TODO_NAME_START_INDEX = 5;
     private static final int DONE_NUMBER_INDEX = 5;
@@ -23,24 +26,6 @@ public class List {
 
     public List() {
         taskList = new Task[LIST_MAX_ENTRIES];
-    }
-
-    public void printEntry(Task entry, int entryIndex) {
-        int entryNumber = entryIndex + 1;
-        System.out.println(entryNumber + "." + entry.toString());
-    }
-
-    public void printList() {
-        System.out.println("Here if your current list");
-        for (int i = 0; i < numberOfEntries; i++) {
-            printEntry(taskList[i], i);
-        }
-        System.out.println("You have " + (numberOfEntries) + " task(s) on your list.");
-    }
-
-    public void printAddEntryMessage(Task entry) {
-        System.out.println("I've added the following task:");
-        System.out.println(entry.toString());
     }
 
     public void addEntryToList(String input) {
@@ -104,8 +89,106 @@ public class List {
         }
     }
 
+    public void getDataFromFile(String inputLineFromFile) {
+        try {
+            TaskType entryType = getTaskTypeFromFile(inputLineFromFile);
+            Boolean isDone = getIsDoneFromFile(inputLineFromFile);
+            String description = getDescriptionFromFile(inputLineFromFile, entryType);
+            String dateTime = "";
+            if (entryType.equals(TaskType.DEADLINE) || entryType.equals(TaskType.EVENT)) {
+                dateTime = getDateTimeFromFile(inputLineFromFile);
+            }
+            switch (entryType) {
+            case TODO:
+                taskList[numberOfEntries] = new ToDo(description);
+                break;
+            case DEADLINE:
+                taskList[numberOfEntries] = new Deadline(description, dateTime);
+                break;
+            case EVENT:
+                taskList[numberOfEntries] = new Event(description, dateTime);
+                break;
+            default:
+                throw new InvalidInputFormatException();
+            }
+            if (isDone) {
+                taskList[numberOfEntries].setDone();
+            }
+            numberOfEntries++;
+        } catch (InvalidInputFormatException e) {
+            System.out.println("Something went wrong, could not load saved data");
+        }
+    }
+
+    private boolean getIsDoneFromFile(String inputLineFromFile) throws InvalidInputFormatException{
+        switch (inputLineFromFile.charAt(4)) {
+        case (' '):
+            return false;
+        case ('X'):
+            return true;
+        default:
+            throw new InvalidInputFormatException();
+        }
+    }
+
+    private TaskType getTaskTypeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
+        switch (inputLineFromFile.charAt(1)) {
+        case ('T'):
+            return TaskType.TODO;
+        case ('D'):
+            return TaskType.DEADLINE;
+        case ('E'):
+            return TaskType.EVENT;
+        default:
+            throw new InvalidInputFormatException();
+        }
+    }
+
+    private String getDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
+        int markerIndex = inputLineFromFile.indexOf('/');
+        int dateTimeStartIndex = markerIndex + 3;
+        return (inputLineFromFile.substring(dateTimeStartIndex).trim());
+    }
+
+    private String getDescriptionFromFile(String inputLineFromFile, TaskType taskType) throws
+            InvalidInputFormatException {
+        if (taskType.equals(TaskType.TODO)) {
+            return inputLineFromFile.substring(7);
+        } else if (taskType.equals(TaskType.DEADLINE) || taskType.equals(TaskType.EVENT)) {
+            return inputLineFromFile.substring(7, inputLineFromFile.indexOf(" /"));
+        } else {
+            throw new InvalidInputFormatException();
+        }
+    }
+
     public void doneEntry(int entryNumber) {
         taskList[entryNumber-1].setDone();
         System.out.println(taskList[entryNumber-1].getName() + " done. Well done.");
+    }
+
+    public int getNumberOfEntries() {
+        return numberOfEntries;
+    }
+
+    public Task[] getTaskList() {
+        return taskList;
+    }
+
+    public void printEntry(Task entry, int entryIndex) {
+        int entryNumber = entryIndex + 1;
+        System.out.println(entryNumber + "." + entry.toString());
+    }
+
+    public void printList() {
+        System.out.println("Here if your current list");
+        for (int i = 0; i < numberOfEntries; i++) {
+            printEntry(taskList[i], i);
+        }
+        System.out.println("You have " + (numberOfEntries) + " task(s) on your list.");
+    }
+
+    public void printAddEntryMessage(Task entry) {
+        System.out.println("I've added the following task:");
+        System.out.println(entry.toString());
     }
 }

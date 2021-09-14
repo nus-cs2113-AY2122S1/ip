@@ -1,5 +1,7 @@
 package duke.control;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -73,6 +75,12 @@ public class Duke {
     public static void main(String[] args) {
         printWelcomeMessage();
         List list = new List();
+        new FileManager();
+        try {
+            FileManager.readDukeDataFromFile(list);
+        } catch (IOException e) {
+            System.out.println("Something went wrong, cannot load saved data");
+        }
         Scanner in = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -86,6 +94,7 @@ public class Duke {
             }
             if (command.equals(Command.BYE_COMMAND)) {
                 printExitMessage();
+                FileManager.saveData(list);
                 break;
             }
             executeCommand(command, list, userInput);
