@@ -2,26 +2,28 @@ package duke;
 
 import exception.DukeException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
     /**
-     * Number of tasks scheduled
+     * Task type Array list to store the tasks the user will create
      */
-    public static int taskCounter = 0;
-
-    /**
-     * Task type 100 objects to store the tasks the user will create
-     */
-
     private static ArrayList<Task> scheduledTasks = new ArrayList<>();
 
+    private static final String FILE_PATH = "duke.txt";
+    public static final String TASK_COMPLETED = "1";
+    public static final String TASK_INCOMPLETE = "0";
+
     /**
-     * This is the main function which is responsible for executing all the functions
+     * This is the main function responsible for the execution of this program
      */
     public static void main(String[] args) {
+        loadData();
         greet();
         runDuke();
         greetBye();
@@ -42,6 +44,99 @@ public class Duke {
      */
     public static void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+
+    public static void loadData() {
+        try {
+            loadPreviousData();
+        } catch (FileNotFoundException e) {
+            File file = new File(FILE_PATH);
+            try {
+                file.createNewFile();
+            } catch (IOException ee) {
+                System.out.println("Cannot create a new file");
+            }
+        }
+    }
+
+    public static void loadPreviousData() throws FileNotFoundException {
+        File file = new File(FILE_PATH);
+        Scanner sc = new Scanner(file);
+
+        while (sc.hasNext()) {
+            loadSavedTasksToList(sc.nextLine());
+        }
+    }
+
+    public static void saveTaskInDisk() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        String lineToWrite = "";
+        for (Task task : scheduledTasks) {
+            lineToWrite = "";
+            if (task.taskType == TaskType.TODO) {
+                lineToWrite = "T => ";
+            } else if (task.taskType == TaskType.DEADLINE) {
+                lineToWrite = "D => ";
+            } else {
+                lineToWrite = "E => ";
+            }
+            String taskStatus = task.getStatus();
+
+            if (taskStatus.equals("X")) {
+                lineToWrite = lineToWrite + TASK_COMPLETED;
+            } else {
+                lineToWrite = lineToWrite + TASK_INCOMPLETE;
+            }
+            String taskDescription = task.description;
+
+            lineToWrite = lineToWrite + " => " + taskDescription;
+            if (task instanceof Deadline) {
+                lineToWrite = lineToWrite + " => " + ((Deadline) task).by;
+            } else if (task instanceof Event) {
+                lineToWrite = lineToWrite + " => " + ((Event) task).at;
+            }
+
+            lineToWrite += "\n";
+
+            fw.write(lineToWrite);
+        }
+        fw.close();
+    }
+
+    public static void saveTaskToList() {
+        try {
+            saveTaskInDisk();
+        } catch (IOException e) {
+            System.out.println("Unable to save data to the disk");
+        }
+    }
+
+
+    public static void loadSavedTasksToList(String input) {
+        String[] splitInput = input.split("=>");
+        String taskType = splitInput[0].trim();
+        String taskStatus = splitInput[1].trim();
+        String taskDescription = splitInput[2].trim();
+
+        switch (taskType) {
+        case "T":
+            scheduledTasks.add(new Todo(taskDescription));
+            break;
+        case "D":
+            String timeDueBy = splitInput[3];
+            scheduledTasks.add(new Deadline(taskDescription, timeDueBy));
+            break;
+        case "E":
+            String timeDueAt = splitInput[3];
+            scheduledTasks.add(new Event(taskDescription, timeDueAt));
+            break;
+        default:
+        }
+        if (taskStatus.equals(TASK_COMPLETED)) {
+            scheduledTasks.get(scheduledTasks.size() - 1).markAsDone();
+        }
+
     }
 
     /**
@@ -74,6 +169,8 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException ee) {
+                System.out.println("Could not save data to file");
             }
             printLine();
             userInput = in.nextLine();
@@ -114,8 +211,9 @@ public class Duke {
             if (split.length < 2 || split[1].isEmpty() == true) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             } else {
-                scheduledTasks.add(new Todo(userInput));
+                scheduledTasks.add(new Todo(split[1]));
             }
+            saveTaskToList();
             break;
 
         case "deadline":
@@ -123,12 +221,14 @@ public class Duke {
             if (split.length < 2 || split[1].isEmpty() == true || index == -1) {
                 throw new DukeException("☹ OOPS!!! The description or the deadline of the task cannot be empty.");
             }
+            int indexOfSpace = split[1].indexOf(" ");
             taskDescription = split[1].split("/by", 2)[0];
             timeDueBy = split[1].split("/by", 2)[1];
             if (taskDescription.isEmpty() == true || timeDueBy.isEmpty() == true) {
                 throw new DukeException("☹ OOPS!!! The description of the task seems incomplete.");
             }
-            scheduledTasks.add(new Deadline(userInput.substring(0, index), userInput.substring(index + 3)));
+            scheduledTasks.add(new Deadline(userInput.substring(indexOfSpace, index), userInput.substring(index + 3)));
+            saveTaskToList();
             break;
 
         case "event":
@@ -136,12 +236,14 @@ public class Duke {
             if (split.length < 2 || split[1].isEmpty() == true || index == -1) {
                 throw new DukeException("☹ OOPS!!! The description and time schedule of the event cannot be empty.");
             }
+            indexOfSpace = split[1].indexOf(" ");
             taskDescription = split[1].split("/at", 2)[0];
             timeDueAt = split[1].split("/at", 2)[1];
             if (taskDescription.isEmpty() == true || timeDueAt.isEmpty() == true) {
                 throw new DukeException("☹ OOPS!!! The description or time schedule of the event seems incomplete.");
             }
-            scheduledTasks.add(new Event(userInput.substring(0, index), userInput.substring(index + 3)));
+            scheduledTasks.add(new Event(userInput.substring(indexOfSpace, index), userInput.substring(index + 3)));
+            saveTaskToList();
             break;
 
         default:
@@ -153,7 +255,6 @@ public class Duke {
             printLine();
             System.out.println("Got it. I've added this task:");
             System.out.println(" " + scheduledTasks.get(scheduledTasks.size() - 1));
-            taskCounter++;
             System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
         }
     }
@@ -172,6 +273,7 @@ public class Duke {
             scheduledTasks.get(taskNumberCompleted - 1).markAsDone();
             System.out.println("Nice! I have marked this task as done:");
             System.out.println(scheduledTasks.get(taskNumberCompleted - 1));
+            saveTaskToList();
         } else {
             throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
         }
@@ -183,7 +285,7 @@ public class Duke {
      *
      * @param deleteTask DeleteTask stores the task number which is supposed to be deleted.
      */
-    private static void deleteTask(String userInput) throws DukeException {
+    private static void deleteTask(String userInput) throws DukeException, IOException {
         printLine();
         int deleteTask = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
 
@@ -193,6 +295,7 @@ public class Duke {
             System.out.println(taskToBeDeleted);
             scheduledTasks.remove(deleteTask - 1);
             System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
+            saveTaskInDisk();
         } else {
             throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
         }
