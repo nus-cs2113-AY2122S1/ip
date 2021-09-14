@@ -2,13 +2,20 @@ package duke;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class Duke {
 
     private static int byeFlag = 0;
+    private static int loadFlag = 0;
     private static int positionCheck = 0;
     private static String EMPTY = "There is no data in your list master!";
-    //private static String EXCEEDED = "Oh dear me! We have exceeded my system's maximum capacity!";
     private static String UNSPECIFIED_DONE = "Oh no master, I am not quite sure which task you would like me to mark as done!";
     private static String UNSPECIFIED_DELETE = "Oh no master, I am not quite sure which task you would like me to delete!";
     private static String INVALID = "Please type in a valid number master! Type \"list\" to check the index number of your list data";
@@ -27,7 +34,10 @@ public class Duke {
 
     private static ArrayList<Task> commands = new ArrayList<>();
 
-    // sendCommand() is a method used to allow the user to send his/her commands to C3PO
+    private static String STARTING_MESSAGE = "Accessing archives, loading in data, C3PO systems online!";
+
+    private static String filePath = "C:\\Users\\visha\\Desktop\\Year 2 Sem 1 Modules\\CS2113T\\IndivFinalProject\\Tasks.txt";
+
     private static void sendCommand() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -42,12 +52,13 @@ public class Duke {
                 System.out.println("Master, please type in a number to indicate the task you want me to perform the necessary actions for!");
             } catch (DukeException e) {
 
+            } catch (IOException e) {
+
             }
         }
     }
 
-    // checkCommand() is a method that allows us to determine when the user says bye.
-    private static void checkCommand(String line) throws DukeException {
+    private static void checkCommand(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
         if (line.equals("bye")) {
             byeFlag = 1;
@@ -83,7 +94,7 @@ public class Duke {
         System.out.println("____________________________________________________________\n");
     }
 
-    public static void addDeadline(String[] input, int length) throws DukeException {
+    public static void addDeadline(String[] input, int length) throws DukeException, IOException {
         String description;
         String by;
         for (int i = 1 ; i < length ; i++) {
@@ -97,8 +108,11 @@ public class Duke {
                     by += (" " + input[k]);
                 }
                 commands.add( new Deadline(description,by) );
-                System.out.println("Added to Galactic database:" );
-                System.out.println(commands.get(positionCheck));
+                if (loadFlag == 1) {
+                    System.out.println("Added to Galactic database:" );
+                    System.out.println(commands.get(positionCheck));
+                    saveNewTask(input);
+                }
                 positionCheck += 1;
                 return;
             }
@@ -106,7 +120,7 @@ public class Duke {
         throw new DukeException(DEADLINE_ERROR);
     }
 
-    public static void addEvent(String[] input, int length) throws DukeException{
+    public static void addEvent(String[] input, int length) throws DukeException, IOException{
         String description;
         String at;
         for (int i = 1 ; i < length ; i++) {
@@ -120,11 +134,11 @@ public class Duke {
                     at += (" " + input[k]);
                 }
                 commands.add( new Event(description,at) );
-                System.out.println("Added to Galactic database:" );
-                System.out.println(commands.get(positionCheck));
-                //commands[positionCheck] = new Event(description,at);
-                //System.out.println("Added to Galactic database:" );
-                //System.out.println(commands[positionCheck]);
+                if (loadFlag == 1) {
+                    System.out.println("Added to Galactic database:");
+                    System.out.println(commands.get(positionCheck));
+                    saveNewTask(input);
+                }
                 positionCheck += 1;
                 return;
             }
@@ -132,7 +146,7 @@ public class Duke {
         throw new DukeException(EVENT_ERROR);
     }
 
-    public static void addTodo (String[] input, int length) throws DukeException{
+    public static void addTodo (String[] input, int length) throws DukeException, IOException{
         if (length == 1) {
             throw new DukeException(TODO_ERROR);
         } else {
@@ -141,16 +155,16 @@ public class Duke {
                 description += (" " + input[i]);
             }
             commands.add( new Todo(description) );
-            System.out.println("Added to Galactic database:" );
-            System.out.println(commands.get(positionCheck));
-            //commands[positionCheck] = new Todo(description);
-            //System.out.println("Added to Galactic database:" );
-            //System.out.println(commands[positionCheck]);
+            if (loadFlag == 1) {
+                System.out.println("Added to Galactic database:");
+                System.out.println(commands.get(positionCheck));
+                saveNewTask(input);
+            }
             positionCheck += 1;
         }
     }
 
-    public static void checkTypeOfTask(String line) throws DukeException {
+    public static void checkTypeOfTask(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
         int length = input.length;
         if (input[0].toLowerCase().equals("deadline")) {
@@ -171,25 +185,24 @@ public class Duke {
             System.out.println(i + ". " + num);
             i += 1;
         }
-
-        // for (int i = 0; i < positionCheck; i++) {
-        //    System.out.println((i+1) + ". " + commands[i]);
-        //}
     }
 
-    private static void markDone(int doneTaskNumber) {
+    private static void markDone(int doneTaskNumber) throws IOException{
         (commands.get(doneTaskNumber)).markAsDone();
-        //commands[doneTaskNumber].markAsDone();
-        System.out.println("The following task has been marked as done Master!");
-        System.out.println((doneTaskNumber+1) + ". " + commands.get(doneTaskNumber));
+        if (loadFlag == 1) {
+            System.out.println("The following task has been marked as done Master!");
+            System.out.println((doneTaskNumber + 1) + ". " + commands.get(doneTaskNumber));
+        }
+        saveAllTasks();
     }
 
-    private static void deleteTask(int doneTaskNumber) {
+    private static void deleteTask(int doneTaskNumber) throws IOException {
         System.out.println("Taking one last look Master, at this Task. Removing the following from my memory");
         System.out.println((doneTaskNumber+1) + ". " + commands.get(doneTaskNumber));
         commands.remove(commands.get(doneTaskNumber));
         positionCheck -= 1;
         System.out.println("Goodbye Task, may the force be with you. You have " + positionCheck + " task(s) left Master");
+        saveAllTasks();
     }
 
     public static void greetUser() {
@@ -211,7 +224,76 @@ public class Duke {
         System.out.println("What can I do for you my master?\n");
     }
 
-    public static void main (String[] args) throws DukeException {
+    public static void saveNewTask(String[] input) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        String fullTaskAsString = "";
+        for (String individualString : input) {
+            fullTaskAsString += individualString + " ";
+        }
+        fullTaskAsString += "| 0";
+        fw.write(fullTaskAsString + "\n");
+        fw.close();
+    }
+
+    public static void saveAllTasks() throws IOException {
+        FileWriter fw = new FileWriter(filePath, false);
+        String taskInFile = "";
+        String done = "";
+        for (Task individualTask : commands) {
+            if (individualTask instanceof Deadline) {
+                taskInFile = "deadline " + individualTask.description + " /by " + ((Deadline) individualTask).by;
+            } else if (individualTask instanceof Event) {
+                taskInFile = "event " + individualTask.description + " /at " + ((Event) individualTask).at;
+            } else {
+                taskInFile = "todo " + individualTask.description;
+            }
+            if (individualTask.isDone) {
+                done = "1";
+            } else {
+                done = "0";
+            }
+            String fullTaskAsString = taskInFile + " | " + done + "\n";
+            Files.write(Paths.get(filePath), fullTaskAsString.getBytes(), StandardOpenOption.APPEND);
+        }
+    }
+
+    public static void loadTasks() throws FileNotFoundException, DukeException, IOException {
+        File f = new File("C:\\Users\\visha\\Desktop\\Year 2 Sem 1 Modules\\CS2113T\\IndivFinalProject\\Tasks.txt");
+        Scanner s = new Scanner(f);
+        int taskNumber = 0;
+        String textFromFile;
+        String[] taskFromFile;
+        String[] taskInput;
+        while (s.hasNext()) {
+            textFromFile = s.nextLine();
+            taskFromFile = textFromFile.split(" \\| ");
+            taskInput = (taskFromFile[0]).split(" ");
+            switch(taskInput[0]) {
+            case "deadline":
+                addDeadline(taskInput, taskInput.length);
+                break;
+            case "event":
+                addEvent(taskInput, taskInput.length);
+                break;
+            case "todo":
+                addTodo(taskInput, taskInput.length);
+            default:
+            }
+            if ( taskFromFile[1].equals("1")) {
+                markDone(taskNumber);
+            }
+            taskNumber += 1;
+        }
+        System.out.println(STARTING_MESSAGE);
+        loadFlag = 1;
+    }
+
+    public static void main (String[] args) throws DukeException, IOException {
+        try {
+            loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
         greetUser();
         sendCommand();
         sayBye();
