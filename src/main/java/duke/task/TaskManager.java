@@ -74,12 +74,9 @@ public class TaskManager {
     public void convertDataToTasks() throws DukeException {
 
         ArrayList<String> fileLines = CHECKER.tryToReadFile();
-        String data;
-        String[] dataArray;
+        ArrayList<String[]> dataArrayList = CHECKER.tryToProcessFile(fileLines);
 
-        for (String line : fileLines) {
-            data = line;
-            dataArray = data.split(" \\| ");
+        for (String[] dataArray : dataArrayList) {
             switch (dataArray[0]) {
             case "T":
                 addTodo(dataArray[2]);

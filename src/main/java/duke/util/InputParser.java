@@ -4,6 +4,7 @@ public class InputParser {
 
     private static final String DEADLINE_PREFIX = "/by";
     private static final String EVENT_PREFIX = "/at";
+    private static final String DATA_SEPARATOR = "\\|";
 
     private String[] trimArrayElements(String[] inputArray) {
         for (int i = 0; i < inputArray.length; i++) {
@@ -22,5 +23,9 @@ public class InputParser {
 
     public String[] separateEvent(String input) {
         return trimArrayElements(input.split(EVENT_PREFIX, 2));
+    }
+
+    public String[] parseData(String data) {
+        return trimArrayElements(data.split(DATA_SEPARATOR));
     }
 }

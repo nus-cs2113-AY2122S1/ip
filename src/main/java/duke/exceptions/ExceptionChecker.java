@@ -3,7 +3,6 @@ package duke.exceptions;
 import duke.task.TaskManager;
 import duke.util.InputParser;
 import duke.util.FileManager;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,9 +36,24 @@ public class ExceptionChecker {
                     + "Enter \"list\" to check the task number!";
     public static final String FILE_NOT_FOUND_ERROR =
             "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
+    public static final String CORRUPTED_DATA_ERROR =
+            "OH NO! Your data is corrupted, starting a new file for you...";
 
     private boolean hasNullParameter(String[] inputArray) {
         return (inputArray.length < 2);
+    }
+
+    private boolean hasCorruptedData(String[] dataArray) {
+        switch (dataArray[0]) {
+        case "T":
+            return (dataArray.length < 3);
+        case "D":
+            // Fallthrough
+        case "E":
+            return (dataArray.length < 4);
+        default:
+            return true;
+        }
     }
 
     public String retrieveEchoParameter(String[] inputArray) throws DukeException {
@@ -131,6 +145,19 @@ public class ExceptionChecker {
             throw new DukeException(FILE_NOT_FOUND_ERROR);
         }
         return fileLines;
+    }
+
+    public ArrayList<String[]> tryToProcessFile(ArrayList<String> fileLines) throws DukeException {
+        ArrayList<String[]> dataArrayList = new ArrayList<>();
+        String[] dataArray;
+        for (String line : fileLines) {
+            dataArray = PARSER.parseData(line);
+            if (hasCorruptedData(dataArray)) {
+                throw new DukeException(CORRUPTED_DATA_ERROR);
+            }
+            dataArrayList.add(dataArray);
+        }
+        return dataArrayList;
     }
 
     public void tryToWriteFile(ArrayList<String> fileLines) throws DukeException {
