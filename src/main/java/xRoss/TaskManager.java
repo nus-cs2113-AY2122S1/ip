@@ -86,7 +86,7 @@ public class TaskManager {
         // print name of task to system output
         System.out.print("\tI have deleted task "
                 + inputTaskIndex
-                + " from your to-do list.\n\t\t");
+                + " from your task list.\n\t\t");
         deletedTask.printTask();
         printTaskCounts();
     }
