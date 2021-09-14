@@ -10,7 +10,6 @@ public class Functions {
 
     //VISUALS
     public static void printGreeting() {
-        System.out.println(logo);
         System.out.println("Hello from\n"
                 + logo
                 + SEPARATOR
