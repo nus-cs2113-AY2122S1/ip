@@ -2,16 +2,6 @@ package duke.command;
 
 public abstract class Command {
     /**
-     * Checks if the command is meant to see the help menu
-     *
-     * @param command The input command
-     * @return Returns true if the command is equivalent to 'help' or 'view -h' no matter it is uppercase or lowercase or mixed, false otherwise
-     */
-    public static boolean isCommandHelp(String command) {
-        return command.equalsIgnoreCase("help") || command.equalsIgnoreCase("view -h");
-    }
-
-    /**
      * Checks if the command is meant to add task to the to-do list
      *
      * @param word The array of words that compose the input command
