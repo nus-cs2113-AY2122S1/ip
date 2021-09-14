@@ -10,7 +10,6 @@ import tasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ProcessManager {
@@ -27,12 +26,10 @@ public class ProcessManager {
 
     private static final String ADD_TASK_REPLY = "     Got it. I've added this task:\n";
     private static final String TASK_COMPLETED = "     Nice! I've marked this task as done: \n";
-    private static final String LINE = "    ____________________________________________________________";
-    private static final String LINE_DIVIDER = "    ____________________________________________________________\n";
+    private static final String LINE = "________________________________________________________________";
+    private static final String LINE_DIVIDER = "________________________________________________________________\n";
     private static final String GAP = "     ";
-
     private static final String FILEPATH = "data/SavedTask.txt";
-
     /* ---- --------- ---- */
     public Task[] toDo = new Task[100];
     public Integer trackIndex = 0;
@@ -44,6 +41,7 @@ public class ProcessManager {
             if (file.exists()) {
                 System.out.println("Welcome back to Duke!");
                 System.out.println("Give me a moment while I set things up for you");
+                System.out.println("Loading Tasks...");
                 Scanner fileScan = new Scanner(file);
                 while (fileScan.hasNext()) {
                     try {
@@ -52,20 +50,19 @@ public class ProcessManager {
                         e.printStatement();
                     }
                 }
+                System.out.println("Task Successfully Imported\n");
             } else {
                 file.getParentFile().mkdirs();
+                System.out.println("I am your very own schedule assistant here to enhanced your everyday life");
+                System.out.println("Type help to see what i can do!");
             }
         } catch (IOException e) {
             System.out.println("Something went wrong during file creation :( ");
         } catch (SecurityException e) {
             System.out.println("File could not be accessed");
-        } finally {
-            System.out.println("Loading Tasks...");
-            System.out.println("Task Successfully Imported\n");
         }
     }
 
-    //Data Format T | <Description> | <Date, null> | <status>
     public void parseTasks(String line) throws DukeException {
         int dividerPosition1 = line.indexOf("|") + 1;
         int dividerPosition2 = line.indexOf("|", dividerPosition1) + 1;
@@ -204,7 +201,7 @@ public class ProcessManager {
     }
     /* ---- -------- ---- */
 
-    /* ---- Function ---- */
+    /* --- Function --- */
     public boolean tryParse(String text) {
         try {
             Integer.parseInt(text);
@@ -223,10 +220,9 @@ public class ProcessManager {
             throw new DukeException("Invalid Status");
         }
     }
-    /*--- -------- --- */
+    /* --- -------- --- */
 
-
-    /* ---- Messages ---- */
+    /* --- Messages --- */
     public void goodbyeMessage() {
         String output = LINE_DIVIDER + GAP + "Bye. Hope to see you again soon!\n" + LINE;
         System.out.println(output);
@@ -240,7 +236,6 @@ public class ProcessManager {
                 + "    | | | | | | | |/ / _ \\\n"
                 + "    | |_| | |_| |   <  __/\n"
                 + "    |____/ \\__,_|_|\\_\\___|\n"
-                + "     What can I do for you?\n"
                 + LINE;
         System.out.println(output);
     }
@@ -259,5 +254,5 @@ public class ProcessManager {
                 + "     5. Set Task After Completion: done (index on list)\n"
                 + "     6. Exit From Program: bye\n" + LINE;
     }
-    /* ---- -------- ---- */
+    /* --- -------- --- */
 }
