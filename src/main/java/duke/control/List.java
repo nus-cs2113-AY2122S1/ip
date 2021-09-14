@@ -6,6 +6,9 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.StringBufferInputStream;
+
 public class List {
     private static final int TODO_NAME_START_INDEX = 5;
     private static final int DONE_NUMBER_INDEX = 5;
@@ -101,6 +104,88 @@ public class List {
         default:
             return input;
         }
+    }
+
+    public void getDataFromFile(String inputLineFromFile) {
+        try {
+            TaskType entryType = getTaskTypeFromFile(inputLineFromFile);
+            Boolean isDone = getIsDoneFromFile(inputLineFromFile);
+            String description = getDescriptionFromFile(inputLineFromFile, entryType);
+            String dateTime = "";
+            if (entryType.equals(TaskType.DEADLINE) || entryType.equals(TaskType.EVENT)) {
+                dateTime = getDateTimeFromFile(inputLineFromFile);
+            }
+            Task newEntry;
+            switch (entryType) {
+            case TODO:
+                newEntry = new ToDo(description);
+                break;
+            case DEADLINE:
+                newEntry = new Deadline(description, dateTime);
+                break;
+            case EVENT:
+                newEntry = new Event(description, dateTime);
+                break;
+            default:
+                throw new InvalidInputFormatException();
+            }
+            taskList.add(newEntry);
+            if (isDone) {
+                taskList.get(numberOfEntries).setDone();
+            }
+            numberOfEntries++;
+        } catch (InvalidInputFormatException e) {
+            System.out.println("Something went wrong, could not load saved data");
+        }
+    }
+
+    private boolean getIsDoneFromFile(String inputLineFromFile) throws InvalidInputFormatException{
+        switch (inputLineFromFile.charAt(4)) {
+        case (' '):
+            return false;
+        case ('X'):
+            return true;
+        default:
+            throw new InvalidInputFormatException();
+        }
+    }
+
+    private TaskType getTaskTypeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
+        switch (inputLineFromFile.charAt(1)) {
+        case ('T'):
+            return TaskType.TODO;
+        case ('D'):
+            return TaskType.DEADLINE;
+        case ('E'):
+            return TaskType.EVENT;
+        default:
+            throw new InvalidInputFormatException();
+        }
+    }
+
+    private String getDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
+        int markerIndex = inputLineFromFile.indexOf('/');
+        int dateTimeStartIndex = markerIndex + 3;
+        return (inputLineFromFile.substring(dateTimeStartIndex).trim());
+    }
+
+    private String getDescriptionFromFile(String inputLineFromFile, TaskType taskType) throws
+            InvalidInputFormatException {
+        if (taskType.equals(TaskType.TODO)) {
+            return inputLineFromFile.substring(7);
+        } else if (taskType.equals(TaskType.DEADLINE) || taskType.equals(TaskType.EVENT)) {
+            return inputLineFromFile.substring(7, inputLineFromFile.indexOf(" /"));
+        } else {
+            throw new InvalidInputFormatException();
+        }
+    }
+
+    public int getNumberOfEntries() {
+        return numberOfEntries;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     public void printEntry(Task entry, int entryIndex) {
