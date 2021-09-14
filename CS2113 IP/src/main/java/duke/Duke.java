@@ -1,5 +1,10 @@
 package duke;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
@@ -141,6 +146,24 @@ public class Duke {
     private static boolean isEmptyDescription(String userInput) {
         String[] trimDescription = userInput.trim().split("\\s+", 2);
         return trimDescription.length < 2;
+    }
+
+
+    private static void createFile() throws IOException {
+        Path currentRelativePath = Paths.get("");
+        Path currentPath = currentRelativePath.toAbsolutePath();
+        String writePath = currentPath + "/data/duke.txt";
+        File f = new File(writePath);
+        if (f.createNewFile()) {
+            System.out.println("File created: " + f.getName());
+        } else {
+            System.out.println("File already exists.");
+        }
+    }
+
+    private static void writeFile(String writePath) throws IOException {
+        FileWriter fw = new FileWriter(writePath);
+        fw.close();
     }
 
     public static void main(String[] args) {
