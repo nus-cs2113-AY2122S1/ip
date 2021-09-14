@@ -4,12 +4,18 @@ public class Event extends Task {
 
     Event(String description, String at) {
         super(description);
-        this.AT = at;
+        taskSignature = "event";
+        AT = at;
     }
 
     @Override
     public String toString() {
-        char completeCharacter = isComplete ? 'X' : ' ';
-        return "[" + TASK_TYPE + "]" + "[" + completeCharacter + "] " + description + " (at: " + this.AT + ")";
+        completeStatus = isComplete ? COMPLETE_CHARACTER : INCOMPLETE_CHARACTER;
+        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description + " (at: " + AT + ")";
+    }
+
+    @Override
+    public String getEncodedFormat() {
+        return Character.toString(completeStatus) + taskSignature + description + "/at" + AT;
     }
 }

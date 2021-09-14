@@ -4,12 +4,18 @@ public class Deadline extends Task {
 
     Deadline(String description, String by) {
         super(description);
-        this.BY = by;
+        taskSignature = "deadline";
+        BY = by;
     }
 
     @Override
     public String toString() {
-        char completeCharacter = isComplete ? 'X' : ' ';
-        return "[" + TASK_TYPE + "]" + "[" + completeCharacter + "] " + description + " (by: " + this.BY + ")";
+        completeStatus = isComplete ? COMPLETE_CHARACTER : INCOMPLETE_CHARACTER;
+        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description + " (by: " + BY + ")";
+    }
+
+    @Override
+    public String getEncodedFormat() {
+        return Character.toString(completeStatus) + taskSignature + description + "/by" + BY;
     }
 }

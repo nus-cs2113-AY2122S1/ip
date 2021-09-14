@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static void main(String[] args) {
+        Storage.setupStorage();
         Response.greet();
 
         String input;

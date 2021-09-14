@@ -38,7 +38,7 @@ public class Response {
         case "done":
             int completedTask = Integer.parseInt(inputParts[1]);
             try {
-                Storage.markComplete(completedTask);
+                Storage.markComplete(completedTask, true);
             } catch (NullPointerException e) {
                 echo("Please enter a task number from the list");
             }
@@ -54,7 +54,7 @@ public class Response {
             break;
         default:
             try {
-                Storage.storeTask(input);
+                Storage.storeTask(input, true);
             } catch (DukeException e) {
                 echo("OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (IndexOutOfBoundsException e) {
