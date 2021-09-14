@@ -1,25 +1,28 @@
 package duke;
 
-import duke.exceptions.EmptyField;
-import duke.exceptions.IllegalOperation;
-import duke.list.List;
-import duke.list.ListInterface;
-import duke.messages.MessageBubble;
+import duke.list.TaskList;
+import duke.task.Parser;
+import duke.ui.MessageBubble;
 import duke.file.Storage;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.Scanner;
 
 public class Duke {
     public static void run() {
-        final String LOGO = " ____        _\n"
-                + "|  _ \\ _   _| | _____\n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
+        MessageBubble.printWelcomeMessage();
+        TaskList taskList = Storage.loadFile(); // load saved data
+        Scanner input = new Scanner(System.in);
+        boolean isExit = false;
+        while (!isExit) {
+            String command = input.nextLine();
+            Parser result = new Parser();
+            result.parse(command, taskList);
+            isExit = result.isExit;
 
-        List localData = Storage.loadFile();
-        ListInterface.readMultipleCommands(localData);
+            // save file after each command
+            Storage.saveFile(taskList);
+        }
+
+        MessageBubble.printByeMessage();
     }
 }

@@ -1,18 +1,16 @@
 package duke.list;
 
 import duke.exceptions.IllegalOperation;
-import duke.messages.MessageBubble;
+import duke.ui.MessageBubble;
 import duke.task.Task;
 
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     public static int MAX_LIST_ITEMS = 1000;
-    private ArrayList<Task> items;
+    private final ArrayList<Task> items = new ArrayList<>();
 
-    public List() {
-        // TODO: 2021/9/9 make linked list
-        items = new ArrayList<>();
+    public TaskList() {
     }
 
     public void addItem(Task task) throws IllegalOperation {
@@ -75,7 +73,6 @@ public class List {
     }
 
     public void printList() {
-        // TODO: 2021/9/9 print empty list
         if (items.isEmpty()) {
             MessageBubble.printMessageBubble("There is nothing on your list");
         } else {

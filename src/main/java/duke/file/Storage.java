@@ -2,8 +2,8 @@ package duke.file;
 
 import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
-import duke.list.List;
-import duke.messages.MessageBubble;
+import duke.list.TaskList;
+import duke.ui.MessageBubble;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -25,16 +25,18 @@ public class Storage {
         fw.close();
     }
 
-    public static List loadFile() {
+    public static TaskList loadFile() {
         try {
             File f = new File(STORAGE_PATH); // create a File for the given file path
             if (!f.exists()) {
                 String directory = STORAGE_PATH.substring(0, STORAGE_PATH.lastIndexOf("/"));
                 Files.createDirectories(Paths.get(directory));
-                f.createNewFile();
+                if (f.createNewFile()) {
+                    MessageBubble.printMessageBubble("New task list database created!");
+                }
             }
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            List data = new List();
+            TaskList data = new TaskList();
             while (s.hasNext()) {
                 String temp = s.nextLine();
                 String[] divided = temp.split(" \\| ");
@@ -58,11 +60,11 @@ public class Storage {
             return data;
         } catch (IOException | EmptyField | IllegalOperation e) {
             MessageBubble.printMessageBubble("Warning! No local data loaded.");
-            return new List();
+            return new TaskList();
         }
     }
 
-    public static void saveFile(List data) {
+    public static void saveFile(TaskList data) {
         try {
             writeToFile(STORAGE_PATH, data.printListSimple());
         } catch (IOException e) {

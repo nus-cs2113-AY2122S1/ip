@@ -1,4 +1,4 @@
-package duke.messages;
+package duke.ui;
 
 public class MessageBubble {
     static final String DIVIDER_SYMBOL = "_";
@@ -59,5 +59,18 @@ public class MessageBubble {
         MessageBubble temp = new MessageBubble();
         temp.addMessage(msg);
         temp.printMessageBubble();
+    }
+
+    static public void printWelcomeMessage() {
+        final String LOGO = " ____        _\n"
+                + "|  _ \\ _   _| | _____\n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
+    }
+
+    static public void printByeMessage() {
+        MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
     }
 }

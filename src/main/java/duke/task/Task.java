@@ -2,7 +2,6 @@ package duke.task;
 
 import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
-import duke.messages.MessageBubble;
 
 public abstract class Task {
     protected String description = "";
