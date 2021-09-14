@@ -1,4 +1,5 @@
 import duke.command.DisplayManager;
+import duke.command.FileManager;
 import duke.command.TaskManager;
 
 import java.util.Scanner;
@@ -94,12 +95,17 @@ public class Duke {
         }
     }
 
+    public static void loadDataFile(TaskManager taskManager) {
+        FileManager.loadData(taskManager);
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
         DisplayManager displayManager = new DisplayManager();
 
         greetStart(displayManager);
+        loadDataFile(taskManager);
         reply(in, taskManager);
         greetEnd(displayManager);
     }

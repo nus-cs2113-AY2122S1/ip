@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -24,23 +25,64 @@ public class TaskManager {
     }
 
     public void addToDoTask(String taskInfo) {
-        Task newTask = new ToDo(taskInfo);
-        tasks.add(newTask);
-        DisplayManager.printCreateTask(newTask);
+        try {
+            Task newTask = new ToDo(taskInfo);
+            tasks.add(newTask);
+            DisplayManager.printCreateTask(newTask);
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("File update error"); //fix this
+        }
     }
 
     public void addDeadlineTask(String taskInfo) {
-        String[] taskComponents = splitTaskComponents(taskInfo);
-        Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
-        tasks.add(newTask);
-        DisplayManager.printCreateTask(newTask);
+        try {
+            String[] taskComponents = splitTaskComponents(taskInfo);
+            Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+            tasks.add(newTask);
+            DisplayManager.printCreateTask(newTask);
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("File update error"); //fix this
+        }
     }
 
     public void addEventTask(String taskInfo) {
+        try {
+            String[] taskComponents = splitTaskComponents(taskInfo);
+            Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+            tasks.add(newTask);
+            DisplayManager.printCreateTask(newTask);
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("File update error"); //fix this
+        }
+    }
+
+    public void addSavedToDo(String taskInfo, boolean taskIsDone) {
+        Task savedTask = new ToDo(taskInfo);
+        tasks.add(savedTask);
+        if (taskIsDone) {
+            tasks.get(tasks.size() - 1).markAsDone();
+        }
+    }
+
+    public void addSavedDeadline(String taskInfo, boolean taskIsDone) {
         String[] taskComponents = splitTaskComponents(taskInfo);
-        Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
-        tasks.add(newTask);
-        DisplayManager.printCreateTask(newTask);
+        Task savedTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+        tasks.add(savedTask);
+        if (taskIsDone) {
+            tasks.get(tasks.size() - 1).markAsDone();
+        }
+    }
+
+    public void addSavedEvent(String taskInfo, boolean taskIsDone) {
+        String[] taskComponents = splitTaskComponents(taskInfo);
+        Task savedTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+        tasks.add(savedTask);
+        if (taskIsDone) {
+            tasks.get(tasks.size() - 1).markAsDone();
+        }
     }
 
     public int[] filterOutOfRangeIndexes(int[] indexes) {
@@ -106,6 +148,11 @@ public class TaskManager {
             }
         }
 
+        try {
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Error occurred when trying to save file after marking as done.");
+        }
         DisplayManager.printSetAsDoneResult(tasks, outOfRangeIndexes, validIndexes, doneIndexes);
     }
 
@@ -121,6 +168,12 @@ public class TaskManager {
                 tasks.set(validIndex - 1, null);
             }
             tasks.removeIf(Objects::isNull);
+        }
+
+        try {
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Error occurred when trying to save file after deleting task.");
         }
         DisplayManager.printDeleteTasksResult(deletedTasks, outOfRangeIndexes, tasks.size());
     }

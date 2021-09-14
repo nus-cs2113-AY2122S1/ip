@@ -15,4 +15,8 @@ public class Event extends Task{
     public String toString() {
         return DisplayManager.createListBox(this.taskType, this.getStatusIcon()) + " " + super.toString() + " (at: " + this.dateTime + ")";
     }
+
+    public String toDataFormat() {
+        return super.toDataFormat() + " | " + this.dateTime;
+    }
 }

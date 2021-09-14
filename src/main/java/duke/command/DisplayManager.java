@@ -11,10 +11,10 @@ public class DisplayManager {
     public static final String DISPLAY_MESSAGE_INDENT = "        ";
     public static final String DISPLAY_TASK_INDENT = "    ";
     private static final String DISPLAY_LOGO = "    ____        _        \n"
-                                     + "   |  _ \\ _   _| | _____ \n"
-                                     + "   | | | | | | | |/ / _ \\\n"
-                                     + "   | |_| | |_| |   <  __/\n"
-                                     + "   |____/ \\__,_|_|\\_\\___|";
+            + "   |  _ \\ _   _| | _____ \n"
+            + "   | | | | | | | |/ / _ \\\n"
+            + "   | |_| | |_| |   <  __/\n"
+            + "   |____/ \\__,_|_|\\_\\___|";
     private static final String DISPLAY_GREET_START = DISPLAY_HORIZONTAL_SEPARATOR + "\n" +
             "        Hello! I'm Duke\n" +
             "        What can I do for you?\n" +

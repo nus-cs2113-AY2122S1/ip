@@ -15,4 +15,8 @@ public class Deadline extends Task{
     public String toString() {
         return DisplayManager.createListBox(this.taskType, this.getStatusIcon()) + " " + super.toString() + " (by: " + this.dateTime + ")";
     }
+
+    public String toDataFormat() {
+        return super.toDataFormat() + " | " + this.dateTime;
+    }
 }
