@@ -13,7 +13,7 @@ public abstract class Task {
     protected boolean status = false;
     protected LocalDateTime time;
     public String symbolSetTime = "";
-    protected DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("d/M/yyyy kk:mm");
+    protected DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("d/M/yyyy kk[mm]");
     protected DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, kk:mm");
 
     public String getDescription() {
@@ -43,7 +43,7 @@ public abstract class Task {
         try {
             this.time = LocalDateTime.parse(time, saveFormatter);
         } catch (DateTimeParseException e) {
-            MessageBubble.printMessageBubble("Time format error, set default to tmr");
+            MessageBubble.printMessageBubble("Time format error. Example: 15/9/2021 2142");
             this.time = LocalDateTime.now().plusDays(1);
         }
     }
