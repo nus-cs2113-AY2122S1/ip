@@ -2,12 +2,22 @@ package duke;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
     protected int count = 0;
     ArrayList<Task> list = new ArrayList<>();
     protected Scanner in;
+
+    public void writeToFile(String filePath) throws IOException {
+        FileWriter file = new FileWriter(filePath);
+        for (Task task : list) {
+            file.write(task.fileFormat() + System.lineSeparator());
+        }
+        file.close();
+    }
 
     public static void printAdded(Task task, int count) {
         System.out.println("Got it. I've added this task:");
@@ -135,6 +145,11 @@ public class Duke {
                 System.out.println("☹ OOPS!!! Please input the index of the item.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! There is no such item.");
+            }
+            try {
+                writeToFile("temp/tasks.txt");
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
             input = in.nextLine();
         }

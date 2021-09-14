@@ -12,4 +12,8 @@ public class Deadline extends Task {
         System.out.println(index + ". [" + type + "] [" + getStatusIcon()
                 + "] " + description + " (by: " + deadline + ")");
     }
+
+    public String fileFormat() {
+        return (type + " | " + getStatusIcon() + " | " + description + " | " + deadline);
+    }
 }
