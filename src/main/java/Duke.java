@@ -178,7 +178,7 @@ public class Duke {
 
     public static void markAsDone(String command) {
         // When user enters string "done 2", string is split to extract the index 2 only
-        int taskDoneIndex = Integer.parseInt(String.valueOf(command.charAt(DONE_SIZE))) - 1;
+        int taskDoneIndex = Integer.parseInt(String.valueOf(command.substring(DONE_SIZE))) - 1;
                 //Integer.parseInt(command.split(" ")[1]) - 1;
         // Checks if given index holds a task and throws error message if no such task exists
         if (taskDoneIndex >= tasks.size() || taskDoneIndex < 0) {
@@ -203,7 +203,7 @@ public class Duke {
     }
 
     public static void removeFromList(String command) {
-        int taskRemoveIndex = Integer.parseInt(String.valueOf(command.charAt(DELETE_SIZE))) - 1;
+        int taskRemoveIndex = Integer.parseInt(String.valueOf(command.substring(DELETE_SIZE))) - 1;
         if (taskRemoveIndex >= tasks.size() || taskRemoveIndex < 0) {
             System.out.println(LINE + System.lineSeparator() +
                     "Apologies sir but, there is no such task under that index " +
