@@ -21,7 +21,8 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void listOperations() {
+    public static void listOperations(Task[] tasks) throws IOException {
+
         Scanner sc = new Scanner(System.in);
         String horizontalLine = "________________________";
         final String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
@@ -38,7 +39,6 @@ public class Duke {
         boolean isDeadline;
         boolean isEvent;
 
-        Task[] tasks = new Task[100];
         do {
             String userInput = sc.nextLine();
 
@@ -49,7 +49,6 @@ public class Duke {
             isDeadline = userInput.startsWith("deadline");
             isEvent = userInput.startsWith("event");
             System.out.println(horizontalLine);
-
 
             if (isBye) {
                 System.out.println(GOODBYE_COMMENT);
@@ -85,7 +84,6 @@ public class Duke {
             System.out.println(horizontalLine);
 
         } while (!isBye);
-
     }
 
     private static void addTask(Task[] taskList, int taskCount, String userInput, TaskType specificTask) throws DukeException {
@@ -148,26 +146,91 @@ public class Duke {
         return trimDescription.length < 2;
     }
 
-
-    private static void createFile() throws IOException {
-        Path currentRelativePath = Paths.get("");
-        Path currentPath = currentRelativePath.toAbsolutePath();
-        String writePath = currentPath + "/data/duke.txt";
+    private static void createFile(String writePath) throws IOException {
         File f = new File(writePath);
         if (f.createNewFile()) {
-            System.out.println("File created: " + f.getName());
+            System.out.println("Duke database creation <<>><<>><<>><<>><<>> created " + f.getName());
         } else {
-            System.out.println("File already exists.");
+            System.out.println("Duke database up-to-date! <<>><<>><<>><<>><<>> >:)");
         }
     }
 
-    private static void writeFile(String writePath) throws IOException {
-        FileWriter fw = new FileWriter(writePath);
+    private static void setUpDuke(String filePath, Task[] tasks) throws IOException {
+        File backupData = new File(filePath);
+        Scanner sc = new Scanner(backupData);
+        final int TASK_TYPE_INDEX = 0;
+        final int DONE_INDEX = 1;
+        final int DESCRIPTION_INDEX = 2;
+
+        while (sc.hasNext()) {
+            boolean isDone;
+            Task newTask;
+            String userInput;
+            String lineDataString = sc.nextLine();
+            String[] lineData = lineDataString.trim().split(" \\| ");
+            String taskTypeString = lineData[TASK_TYPE_INDEX];
+            String isDoneString = lineData[DONE_INDEX];
+            String description = lineData[DESCRIPTION_INDEX];
+            isDone = isDoneString.equals("X");
+
+            switch (taskTypeString) {
+            case ("T"):
+                userInput = String.format("todo %s", description.trim());
+                newTask = new Todo(userInput, Task.taskCount);
+                tasks[Task.taskCount] = newTask;
+                break;
+            case ("E"):
+                userInput = String.format("event %s", description.trim());
+                newTask = new Event(userInput, Task.taskCount);
+                tasks[Task.taskCount] = newTask;
+                break;
+            case ("D"):
+                userInput = String.format("deadline %s", description.trim());
+                newTask = new Deadline(userInput, Task.taskCount);
+                tasks[Task.taskCount] = newTask;
+                break;
+            }
+            if (isDone) {
+                tasks[Task.taskCount].markAsDone();
+            }
+            Task.taskCount++;
+        }
+    }
+
+    private static void writeFile(String writePath, Task[] tasks) throws IOException {
+        FileWriter fw = new FileWriter(writePath, true);
+        for (int i = 0; i < Task.taskCount; i++) {
+            boolean isEvent = tasks[i].taskType.equals("E");
+            boolean isDeadline = tasks[i].taskType.equals("D");
+            String formatDescription;
+            if (isEvent) {
+                formatDescription = String.format("%s /at %s", tasks[i].specificDescription, tasks[i].date);
+            } else if (isDeadline) {
+                formatDescription = String.format("%s /by %s", tasks[i].specificDescription, tasks[i].deadline);
+            } else {
+                formatDescription = tasks[i].description;
+            }
+            String formatToWrite = String.format("%s | %s | %s\n", tasks[i].taskType, tasks[i].getStatusIcon(), formatDescription);
+            fw.write(formatToWrite);
+        }
         fw.close();
     }
 
-    public static void main(String[] args) {
+    private static String getFilePath() throws IOException {
+        Path currentRelativePath = Paths.get("");
+        Path currentPath = currentRelativePath.toAbsolutePath();
+        String filePath = currentPath + "/data/duke.txt";
+        return filePath;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Task[] tasks = new Task[100];
+        String filePath = getFilePath();
+
+        createFile(filePath);
+        setUpDuke(filePath, tasks);
         Greet();
-        listOperations();
+        listOperations(tasks);
+        writeFile(filePath, tasks);
     }
 }

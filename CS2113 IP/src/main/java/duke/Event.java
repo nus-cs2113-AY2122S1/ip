@@ -1,12 +1,12 @@
 package duke;
 
 public class Event extends Task {
-    protected String date;
 
     public Event(String description, int index) {
         super(description, index);
         String trimString = trimUserInput(description);
         this.date = extractDate(trimString);
+        this.specificDescription = extractDescription(trimString);
         this.description = String.format("%s (at: %s)", extractDescription(trimString), extractDate(trimString));
         taskType = "E";
     }
