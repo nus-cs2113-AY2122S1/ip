@@ -68,7 +68,7 @@ public class FileManager {
             scanner.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println(e + "Save file not found!");
+            System.out.println("Save file not found! A new save file will be created.\n");
         }
 
         return fileLines;
@@ -81,7 +81,7 @@ public class FileManager {
      * @throws DirectoryCreationException Throws exception if file directory cannot be created
      */
     private void checkFileExists(File file) throws DirectoryCreationException {
-        if (!file.exists()) {
+        if (!file.getParentFile().exists()) {
             if (!file.getParentFile().mkdirs()) {
                 throw new DirectoryCreationException(file.toString());
             }
