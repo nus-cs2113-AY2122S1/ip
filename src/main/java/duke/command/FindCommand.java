@@ -7,7 +7,7 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private String keyword;
 
     /**

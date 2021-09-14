@@ -5,7 +5,6 @@ import duke.TaskList;
 import duke.Ui;
 
 public class ListCommand extends Command {
-
     /**
      * Lists out the Tasks in taskList to the terminal
      *
