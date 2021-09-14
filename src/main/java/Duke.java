@@ -49,6 +49,9 @@ public class Duke {
                 case "help":
                     TaskHandler.showHelp();
                     break;
+                case "delete":
+                    TaskHandler.deleteTask(words);
+                    break;
                 default:
                     TaskHandler.handleWrongCommand();
                     break;

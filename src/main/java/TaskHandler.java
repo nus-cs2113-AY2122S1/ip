@@ -1,19 +1,19 @@
+import java.util.ArrayList;
+
 public class TaskHandler {
     
-    protected static final int MAX_TASK_COUNT = 100;
-    protected static int taskCount = 0;
-    protected static Task[] tasks = new Task[MAX_TASK_COUNT];
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static final String ERROR_NO_TODO_DESCRIPTION = Duke.INDENT +
             "OOPS!! The description of todo can't be empty.";
     protected static final String ERROR_NO_DEADLINE_DESCRIPTION = Duke.INDENT +
             "OOPS!! The description of deadline can't be empty.";
     protected static final String ERROR_NO_EVENT_DESCRIPTION = Duke.INDENT +
             "OOPS!! The description of event can't be empty.";
-    protected static final String ERROR_NO_DONE_INDEX = Duke.INDENT +
+    protected static final String ERROR_NO_INDEX = Duke.INDENT +
             "OOPS!! The task's index can't be empty.";
-    protected static final String ERROR_DONE_INDEX_NOT_NUMBER = Duke.INDENT +
+    protected static final String ERROR_INDEX_NOT_NUMBER = Duke.INDENT +
             "OOPS!! The task's index should be a number.";
-    protected static final String ERROR_DONE_INDEX_OUT_OF_BOUND = Duke.INDENT +
+    protected static final String ERROR_INDEX_OUT_OF_BOUND = Duke.INDENT +
             "OOPS!! The task's index should be positive and " +
             Duke.LINE_SEPARATOR_AND_INDENT + "smaller than the total number of tasks";
     protected static final String ERROR_NO_EVENT_DATE = Duke.INDENT +
@@ -28,31 +28,36 @@ public class TaskHandler {
 
     public static void markTaskAsDone(String[] words) throws DukeException, NumberFormatException{
         if (words.length == 1) {
-            throw new DukeException(ERROR_NO_DONE_INDEX);
+            throw new DukeException(ERROR_NO_INDEX);
         }
         try {
             Integer.parseInt(words[1]);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException(ERROR_DONE_INDEX_NOT_NUMBER);
+            throw new NumberFormatException(ERROR_INDEX_NOT_NUMBER);
         }
         int taskIndex = Integer.parseInt(words[1]);
-        if (taskIndex > taskCount || taskIndex < 1) {
-            throw new DukeException(ERROR_DONE_INDEX_OUT_OF_BOUND);
+        if (taskIndex > tasks.size() || taskIndex < 1) {
+            throw new DukeException(ERROR_INDEX_OUT_OF_BOUND);
 
         }
-        tasks[taskIndex - 1].markAsDone();
+        tasks.get(taskIndex - 1).markAsDone();
     }
 
     public static void printTaskList() {
         System.out.println(Duke.INDENT + "Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(Duke.INDENT + (i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(Duke.INDENT + (i + 1) + "." + tasks.get(i));
         }
     }
 
     public static void printAddedTask() {
         System.out.println(Duke.INDENT + "Got it. I've added this task:" + Duke.LINE_SEPARATOR_AND_INDENT +
-                tasks[taskCount] + Duke.LINE_SEPARATOR_AND_INDENT + "Now you have " + (taskCount + 1) + " tasks in the list.");
+                tasks.get(tasks.size() - 1) + Duke.LINE_SEPARATOR_AND_INDENT + "Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public static void printRemovedTask(int index) {
+        System.out.println(Duke.INDENT + "Got it. I've removed this task:" + Duke.LINE_SEPARATOR_AND_INDENT +
+                tasks.get(index) + Duke.LINE_SEPARATOR_AND_INDENT + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
     }
 
     public static void addDeadline(String line) throws DukeException {
@@ -64,9 +69,8 @@ public class TaskHandler {
         if (words.length == 1) {
             throw new DukeException(ERROR_NO_DEADLINE_DATE);
         }
-        tasks[taskCount] = new Deadline(words[0].trim(), words[1].trim());
+        tasks.add(new Deadline(words[0].trim(), words[1].trim()));
         printAddedTask();
-        taskCount++;
     }
 
     public static void addEvent(String line) throws DukeException {
@@ -78,9 +82,8 @@ public class TaskHandler {
         if (words.length == 1) {
             throw new DukeException(ERROR_NO_EVENT_DATE);
         }
-        tasks[taskCount] = new Event(words[0].trim(), words[1].trim());
+        tasks.add(new Event(words[0].trim(), words[1].trim()));
         printAddedTask();
-        taskCount++;
     }
 
     public static void addTodo(String line) throws DukeException {
@@ -88,9 +91,26 @@ public class TaskHandler {
         if (words.length == 0) {
             throw new DukeException(ERROR_NO_TODO_DESCRIPTION);
         }
-        tasks[taskCount] = new Todo(words[1].trim());
+        tasks.add(new Todo(words[1].trim()));
         printAddedTask();
-        taskCount++;
+    }
+
+    public static void deleteTask(String[] words) throws DukeException, NumberFormatException{
+        if (words.length == 1) {
+            throw new DukeException(ERROR_NO_INDEX);
+        }
+        try {
+            Integer.parseInt(words[1]);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException(ERROR_INDEX_NOT_NUMBER);
+        }
+        int taskIndex = Integer.parseInt(words[1]);
+        if (taskIndex > tasks.size() || taskIndex < 1) {
+            throw new DukeException(ERROR_INDEX_OUT_OF_BOUND);
+
+        }
+        printRemovedTask(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
     }
 
     public static void showHelp() {
