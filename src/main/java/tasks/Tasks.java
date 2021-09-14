@@ -1,12 +1,17 @@
 package tasks;
 
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 
 public abstract class Tasks {
+    final public static String saveFilesDir = System.getProperty("user.dir") + File.separator + "saveFiles.txt";
     boolean isCompleted;
     String name;
 
     public abstract String getName();
+    public abstract String getTaskData();
 
     protected void makeComplete() {
         isCompleted = true;
@@ -82,6 +87,39 @@ public abstract class Tasks {
         } else {
             System.out.println("Please add 'todo', 'deadline' or 'event' in the front of your task!");
         }
+        try {
+            FileWriter myWriter = new FileWriter(saveFilesDir); //directory
+            for (Tasks task : tasksAL) {
+                myWriter.write(task.getTaskData());
+                myWriter.write(System.lineSeparator());
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+    }
+
+    public static void loadTasks(String input, ArrayList<Tasks> tasksAL) {
+        String[] data = input.split(",");
+        switch (data[0]){
+        case "T":
+            tasksAL.add(new TodoTasks(data[2]));
+            break;
+        case "D":
+            tasksAL.add(new DeadlineTasks(data[2], data[3]));
+            break;
+        case "E":
+            tasksAL.add(new EventTasks(data[2], data[3]));
+            break;
+        default:
+            checkComplete(data[1], tasksAL);
+        }
+    }
+
+    private static void checkComplete(String check, ArrayList<Tasks> tasksAL) {
+        if (check.equals("true")) {
+            tasksAL.get(tasksAL.size() - 1).makeComplete();
+        }
     }
 
     private static void printTasks(ArrayList<Tasks> tasksAL) {
@@ -89,7 +127,6 @@ public abstract class Tasks {
             System.out.println(taskIndex + 1 + ". " + tasksAL.get(taskIndex).getName());
         }
     }
-
 
     private static String extractDateTime(String input){
         return input.substring(input.indexOf("/") + 1);

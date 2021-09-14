@@ -15,4 +15,9 @@ public class EventTasks extends Tasks {
                 + ": " + Date.substring(Date.indexOf(" ") + 1) + ")";
     }
 
+    @Override
+    public String getTaskData(){
+        return "E," + isCompleted + "," + name + "," + Date;
+    }
+
 }
