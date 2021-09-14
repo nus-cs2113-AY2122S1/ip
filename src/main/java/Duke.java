@@ -1,4 +1,9 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+
 
 public class Duke {
     public static final String LINE_DIVIDER = "____________________________________________________________";
@@ -38,6 +43,9 @@ public class Duke {
     public static final int DEADLINE_BY_OFFSET = 4;
     public static final int EVENT_DESC_OFFSET = 6;
     public static final int EVENT_BY_OFFSET = 4;
+    public static final int TASK_INIT_OFFSET = 1;
+    public static final String DIRECTORY_NAME = "data";
+    public static final String FILE_PATH = "data/duke.txt";
 
     private static Task[] tasks = new Task[MAX_STORED_TASKS]; // Store up to 100 tasks.
     private static int totalTasksCounter = 0;
@@ -193,6 +201,59 @@ public class Duke {
         printAddedEvent(eventDescription, eventAt);
     }
 
+    public static void folderInit() {
+        File directory = new File(DIRECTORY_NAME);
+        if (!directory.exists()) {
+            directory.mkdir();
+            System.out.println("Missing directory, creating new directory.");
+        }
+    }
+
+    public static void saveFileInit() throws FileNotFoundException{
+        File f = new File(FILE_PATH);
+        Scanner saveFile = new Scanner(f);
+        int addCounter = 0;
+        while (saveFile.hasNextLine()) {
+            String line = saveFile.nextLine();
+            String[] processWordsArr = line.split(("[|]"));
+            if (line.charAt(0) == 'T') {
+                addTask(new Todo(processWordsArr[2].substring(TASK_INIT_OFFSET)));
+            } else if (line.charAt(0) == 'D') {
+                addTask(new Deadline(processWordsArr[2].substring(TASK_INIT_OFFSET), processWordsArr[3].substring(TASK_INIT_OFFSET)));
+            } else if (line.charAt(0) == 'E') {
+                addTask(new Event(processWordsArr[2].substring(TASK_INIT_OFFSET), processWordsArr[3].substring(TASK_INIT_OFFSET)));
+            }
+            if (processWordsArr[1].charAt(1) == '1') {
+                tasks[addCounter].markAsDone();
+            }
+                addCounter++;
+        }
+    }
+
+    public static void writeToSave() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < totalTasksCounter; i++) {
+
+            String doneNumber = "0";
+            if (tasks[i].isDone) {
+                doneNumber = "1";
+            }
+
+            String textToAdd;
+            if (tasks[i].getType().equals("T")) {
+                textToAdd = tasks[i].getType() + " | "
+                    + doneNumber + " | "
+                    +  tasks[i].description + System.lineSeparator();
+            } else {
+                textToAdd = tasks[i].getType() + " | "
+                        + doneNumber + " | "
+                        +  tasks[i].description + "| " + tasks[i].getWhen() + System.lineSeparator();
+            }
+            fw.write(textToAdd);
+        }
+        fw.close();
+    }
+
     public static void processInputs(Scanner in, String line) {
         // while input is not "bye", keep taking inputs.
         while (!line.equals("bye")) {
@@ -246,8 +307,16 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // initialize input
+        folderInit();
+        try {
+            saveFileInit();
+        } catch (FileNotFoundException e) {
+            File f = new File(FILE_PATH);
+            f.createNewFile();
+            System.out.println("Missing duke.txt, creating new file.");
+        }
         Scanner in = new Scanner(System.in);
         String line;
 
@@ -258,7 +327,12 @@ public class Duke {
         // process inputs by user
         processInputs(in, line);
 
-        // exit after finished
+        // save to file and exit after finished
+        try {
+            writeToSave();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
         System.out.println(EXIT_MESSAGE);
     }
 }
