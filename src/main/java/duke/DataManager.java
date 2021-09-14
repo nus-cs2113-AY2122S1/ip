@@ -20,31 +20,42 @@ public class DataManager {
      * Adds all entries in DukeData.txt.
      */
     public static void load() {
+        boolean hasCorruptedLines = false;
         try {
             FileInputStream fis = new FileInputStream(fileName);
             Scanner sc = new Scanner(fis);
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
                 data = processData(data);
-                String[] dataParts = splitToParts(data);
+                String[] dataParts;
+                try {
+                    dataParts = splitToParts(data);
+                } catch (DukeMissingDataException e) {
+                    hasCorruptedLines = true;
+                    continue;
+                }
                 addTaskEntry(dataParts);
             }
             sc.close();
-            UserInterface.showLoadSuccess();
+            if (hasCorruptedLines) {
+                UserInterface.showFileCorrupted();
+            } else {
+                UserInterface.showLoadSuccess();
+            }
         } catch (DukeBlankDescriptionsException | DukeInvalidTaskIndexException e) {
             UserInterface.showLoadError();
         } catch (IOException e) {
             UserInterface.showMissingDataFile();
-        } catch (DukeMissingDataException e) {
-            UserInterface.showFileMissingData();
         }
     }
 
     /**
      * Returns an array of Strings each representing a characteristic of the Task class.
+     * If String given cannot be split into 3 parts, String is considered corrupted. Exception will be thrown.
      *
      * @param data String to be split.
      * @return Split data.
+     * @throws DukeMissingDataException If data cannot be split into 3 parts.
      */
     private static String[] splitToParts(String data) throws DukeMissingDataException {
         String[] dataParts = data.split(",");
