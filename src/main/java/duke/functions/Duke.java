@@ -3,18 +3,29 @@ package duke.functions;
 import duke.exceptions.EmptyArgException;
 import duke.exceptions.WrongFormatException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
 
     private static Boolean isFinished = false;
     private static int itemCount = 0;
+    private static String filepath = "savedlist.txt";
 
-    public static void main(String[] args) throws EmptyArgException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Task[] items = new Task[100];
 
         printIntro();
+        try {
+            readSavedList();
+        } catch (IOException e) {
+            System.out.println("Error creating/reading task list");
+        }
+        drawLine();
 
         while (!isFinished) {
             String userInput = sc.nextLine();
@@ -36,6 +47,11 @@ public class Duke {
                     System.out.println("\tNo such task!");
                 } catch (EmptyArgException e){
                     System.out.println("\tWhich task is done?");
+                }
+                try {
+                    writeToFile(items);
+                } catch (IOException e) {
+                    System.out.println("\tError writing to file");
                 }
                 break;
             }
@@ -74,6 +90,29 @@ public class Duke {
         }
 
         printBye();
+    }
+
+    private static void writeToFile(Task[] items) throws IOException {
+        FileWriter fw = new FileWriter(filepath);
+        for (Task i : items){
+            fw.write(i + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static void readSavedList() throws IOException {
+        File f = new File(filepath);
+        if (f.createNewFile()){
+            System.out.println("\tNo saved task list, new file created");
+        }
+        else {
+            Scanner fs = new Scanner(f);
+            System.out.println("\tYour list of saved task:");
+            while (fs.hasNext()) {
+                System.out.println("\t\t" + fs.nextLine());
+            }
+        }
+
     }
 
     private static void handleDone(Task[] items, String userInput) throws EmptyArgException {
