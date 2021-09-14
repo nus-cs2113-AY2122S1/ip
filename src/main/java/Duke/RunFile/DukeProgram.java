@@ -1,11 +1,11 @@
 package Duke.RunFile;
 
+import Duke.SaveFile.DataSaver;
 import Duke.TaskTypes.Deadline;
 import Duke.TaskTypes.Event;
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
-
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -340,6 +340,7 @@ public class DukeProgram {
 
     public static void main(String[] args) {
         printDukeGreet();
+        DataSaver.manageLoad(taskList);
 
         String inWord;
         Scanner scan = new Scanner(System.in);
@@ -351,6 +352,7 @@ public class DukeProgram {
             inWord = scan.nextLine();
         }
 
+        DataSaver.manageSave(taskList);
         //Exits when user types "bye"
         printDukeExit();
     }
