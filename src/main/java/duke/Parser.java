@@ -10,12 +10,13 @@ public class Parser {
         return command.toLowerCase().trim();
     }
 
-    public static int parseMarkDone(String command) throws EmptyDescriptionException, NumberFormatException {
+    public static int parseNumber(String command) throws EmptyDescriptionException, NumberFormatException {
         if (command.split(" ").length < 2) {
             throw new EmptyDescriptionException();
         }
         return Integer.parseInt(command.split(" ")[1]);
     }
+
 
     public static String[] parseTask(String command, Action taskType) throws EmptyDescriptionException, MissingParameterException {
         String[] parameters = new String[2];
@@ -66,6 +67,8 @@ public class Parser {
             return Action.DEADLINE;
         } else if (normalizedCommand.equals("event")) {
             return Action.EVENT;
+        } else if (normalizedCommand.equals("delete")) {
+            return Action.DELETE;
         } else {
             throw new WrongCommandException();
         }

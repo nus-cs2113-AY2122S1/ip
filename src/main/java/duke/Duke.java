@@ -40,8 +40,19 @@ public class Duke {
         case LIST:
             taskManager.displayTaskList();
             break;
+        case DELETE:
+           deleteTask(Parser.parseInput(input));
+           break;
         default:
             taskManager.addTask(input, action);
+        }
+    }
+
+    public static void deleteTask(String command) {
+        try {
+            taskManager.deleteTask(command);
+        } catch (TaskNotFoundException e) {
+            DukeUI.printError(e);
         }
     }
 
