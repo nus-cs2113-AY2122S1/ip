@@ -1,16 +1,16 @@
 package duke;
+import java.util.ArrayList;
 
-import java.util.Scanner;
-
-import duke.exception.LargeTaskNumberException;
+import duke.exception.NoDescriptionException;
 import duke.exception.NoSpaceException;
 import duke.exception.NoTimeException;
-import duke.exception.NoDescriptionException;
-import duke.exception.LargeTaskNumberException;
-import duke.list.Task;
-import duke.list.ToDo;
+import duke.exception.WrongTimeTypeException;
 import duke.list.Deadline;
 import duke.list.Event;
+import duke.list.Task;
+import duke.list.ToDo;
+
+import java.util.Scanner;
 
 public class Duke {
     public static final String SEPARATE_LINE = "____________________________________________________________";
@@ -97,7 +97,7 @@ public class Duke {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public static void checkDeadline(String command) throws NoDescriptionException, NoTimeException, NoSpaceException{
+    public static void checkDeadline(String command) throws NoDescriptionException, NoTimeException, NoSpaceException, WrongTimeTypeException{
         int slashIndex = command.indexOf("/");
         if (command.equals("deadline") || command.equals("deadline ")) {
             throw new NoDescriptionException();
@@ -109,10 +109,14 @@ public class Duke {
             throw new NoDescriptionException();
         }  else if (command.charAt(slashIndex - 1) != ' ') {
             throw new NoSpaceException();
-        } else if ((command.length() == slashIndex + 3) || (command.length() == slashIndex + 4)) {
+        } else if ((command.length() == slashIndex + 3)) {
+            throw new NoTimeException();
+        } else if ((command.length() == (slashIndex + 4)) && (command.charAt(slashIndex + 3) == ' ')) {
             throw new NoTimeException();
         } else if (command.charAt(slashIndex + 3) != ' ') {
             throw new NoSpaceException();
+        } else if (command.contains("/at")) {
+            throw new WrongTimeTypeException();
         }
     }
 
@@ -120,7 +124,7 @@ public class Duke {
         try {
             checkDeadline(command);
         } catch (NoDescriptionException e) {
-            System.out.println("What task do you want to add?");
+            System.out.println("What is the description of the task?");
             return false;
         } catch (NoTimeException e) {
             System.out.println("When is the deadline?");
@@ -128,16 +132,19 @@ public class Duke {
         } catch (NoSpaceException e) {
             System.out.println("Please use a space to separate command, task, and time (if any)");
             return false;
+        } catch (WrongTimeTypeException e) {
+            System.out.println("Please use \"\\by\" for deadline type tasks");
+            return false;
         }
         return true;
     }
 
-    public static Deadline setupDeadline(int size, String command) {
+    public static Deadline setupDeadline(String command) {
         int slashIndex = command.indexOf("/");
         int startIndex = command.indexOf(" ");
         String description = command.substring(startIndex+1, slashIndex-1);
         String by = command.substring(slashIndex+4);
-        return (new Deadline(description, size, by));
+        return (new Deadline(description, by));
     }
 
     public static void printDeadline(Task task, int size) {
@@ -145,7 +152,7 @@ public class Duke {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public static void checkEvent(String command) throws NoDescriptionException, NoTimeException, NoSpaceException{
+    public static void checkEvent(String command) throws NoDescriptionException, NoTimeException, NoSpaceException, WrongTimeTypeException {
         int slashIndex = command.indexOf("/");
         if (command.equals("event") || command.equals("event ")) {
             throw new NoDescriptionException();
@@ -157,10 +164,14 @@ public class Duke {
             throw new NoDescriptionException();
         } else if (command.charAt(slashIndex - 1) != ' ') {
             throw new NoSpaceException();
-        } else if ((command.length() == slashIndex + 3) || (command.length() == slashIndex + 4)) {
+        } else if ((command.length() == slashIndex + 3)) {
+            throw new NoTimeException();
+        } else if ((command.length() == (slashIndex + 4)) && (command.charAt(slashIndex + 3) == ' ')) {
             throw new NoTimeException();
         } else if (command.charAt(slashIndex + 3) != ' ') {
             throw new NoSpaceException();
+        } else if (command.contains("/by")) {
+            throw new WrongTimeTypeException();
         }
     }
 
@@ -168,7 +179,7 @@ public class Duke {
         try {
             checkEvent(command);
         } catch (NoDescriptionException e) {
-            System.out.println("What task do you want to add?");
+            System.out.println("What is the description of the task?");
             return false;
         } catch (NoTimeException e) {
             System.out.println("When is the time?");
@@ -176,16 +187,19 @@ public class Duke {
         } catch (NoSpaceException e) {
             System.out.println("Please use a space to separate command, task, and time (if any)");
             return false;
+        } catch (WrongTimeTypeException e) {
+            System.out.println("Please use \"\\at\" for deadline type tasks");
+            return false;
         }
         return true;
     }
 
-    public static Event setupEvent(int size, String command) {
+    public static Event setupEvent(String command) {
         int slashIndex = command.indexOf("/");
         int startIndex = command.indexOf(" ");
         String description = command.substring(startIndex+1, slashIndex-1);
         String at = command.substring(slashIndex+4);
-        return (new Event(description, size, at));
+        return (new Event(description, at));
     }
 
     public static void printEvent(Task task, int size) {
@@ -193,18 +207,20 @@ public class Duke {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public static void printList(Task[] tasks, int size) {
+    public static void printList(ArrayList<Task> tasks, int size) {
         System.out.println(SEPARATE_LINE);
         for (int i = 0; i < size; i++) {
-            System.out.println(tasks[i].getStringNo() + "." + tasks[i].toString());
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println(SEPARATE_LINE);
     }
 
-    public static void setTaskDone(Task task) {
-        task.markAsDone();
+    public static void setTaskDone(ArrayList<Task> tasks, int index) {
+        Task updatedTask = tasks.get(index);
+        updatedTask.markAsDone();
+        tasks.set(index, updatedTask);
         System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("\t" + task.toString());
+        System.out.println("\t" + tasks.get(index));
     }
 
     public static void handleDone(String command) throws NoDescriptionException, NoSpaceException {
@@ -215,17 +231,17 @@ public class Duke {
         }
     }
 
-    public static void printDone(Task[] tasks, String command) {
+    public static void printDone(ArrayList<Task> tasks, String command) {
         try {
             handleDone(command);
             String taskNumber = command.substring(5);
             int number = Integer.parseInt(taskNumber);
-            setTaskDone(tasks[number-1]);
+            setTaskDone(tasks, number - 1);
         } catch (NoDescriptionException e) {
             System.out.println("Which task do you want to mark as done?");
         } catch (NoSpaceException e) {
             System.out.println("Please use a space to separate command, task, and time (if any)");
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Sorry, this is not one of the task");
         } catch (NumberFormatException e) {
             System.out.println("Please use the number of the task");
@@ -240,39 +256,32 @@ public class Duke {
         }
     }
 
-    public static void checkNumber(int number, int size) throws LargeTaskNumberException {
-        if (number > size) {
-            throw new LargeTaskNumberException();
-        }
+    public static void deleteTask(ArrayList<Task> tasks, int index){
+        System.out.println("Noted! I've deleted this task: ");
+        System.out.println("\t" + tasks.get(index));
+        tasks.remove(index);
     }
 
-    public static int findIndex(int size, String command) {
-        int number;
+    public static void printDelete(ArrayList<Task> tasks, String command) {
         try {
             handleDelete(command);
             String taskNumber = command.substring(7);
-            number = Integer.parseInt(taskNumber);
-            checkNumber(number, size);
+            int number = Integer.parseInt(taskNumber);
+            deleteTask(tasks, number - 1);
         } catch (NoDescriptionException e) {
-            System.out.println("Which task do you want to delete?");
-            return -1;
+            System.out.println("Which task do you want to mark as done?");
         } catch (NoSpaceException e) {
             System.out.println("Please use a space to separate command, task, and time (if any)");
-            return -1;
+        } catch (NullPointerException e) {
+            System.out.println("Sorry, this is not one of the task");
         } catch (NumberFormatException e) {
             System.out.println("Please use the number of the task");
-            return -1;
-        } catch (LargeTaskNumberException e) {
-            System.out.println("Sorry, this is not one of the task");
-            return -1;
         }
-        return number-1;
     }
 
     public static void main(String[] args) {
         printGreeting();
-        int size = 0;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         while (true) {
             String command = in.nextLine();
@@ -285,30 +294,31 @@ public class Duke {
                 System.out.println(SEPARATE_LINE);
                 boolean proceed = proceedTodo(command);
                 if (proceed) {
-                    size++;
-                    tasks[size-1] = new ToDo(command.substring(5), size);
-                    printToDo(tasks[size-1], size);
+                    tasks.add(new ToDo(command.substring(5)));
+                    int size = tasks.size();
+                    printToDo(tasks.get(size - 1), size);
                 }
                 System.out.println(SEPARATE_LINE);
             } else if (command.startsWith("deadline")) {
                 System.out.println(SEPARATE_LINE);
                 boolean proceed = proceedDeadline(command);
                 if (proceed) {
-                    size++;
-                    tasks[size-1] = setupDeadline(size, command);
-                    printDeadline(tasks[size-1], size);
+                    tasks.add(setupDeadline(command));
+                    int size = tasks.size();
+                    printDeadline(tasks.get(size - 1), size);
                 }
                 System.out.println(SEPARATE_LINE);
             } else if (command.startsWith("event")) {
                 System.out.println(SEPARATE_LINE);
                 boolean proceed = proceedEvent(command);
                 if (proceed) {
-                    size++;
-                    tasks[size - 1] = setupEvent(size, command);
-                    printEvent(tasks[size-1], size);
+                    tasks.add(setupEvent(command));
+                    int size = tasks.size();
+                    printEvent(tasks.get(size - 1), size);
                 }
                 System.out.println(SEPARATE_LINE);
             } else if (command.equals("list")) {
+                int size = tasks.size();
                 printList(tasks, size);
             } else if (command.startsWith("done")) {
                 System.out.println(SEPARATE_LINE);
@@ -316,17 +326,7 @@ public class Duke {
                 System.out.println(SEPARATE_LINE);
             } else if (command.startsWith("delete")) {
                 System.out.println(SEPARATE_LINE);
-                int index = findIndex(size, command);
-                if (index >= 0) {
-                    System.out.println("Noted. I've removed this task: ");
-                    System.out.println(tasks[index].toString());
-                    size --;
-                    for (int i = index; i < size; i++) {
-                        tasks[i] = tasks[i + 1];
-                        tasks[i].setNoOfTask(i + 1);
-                    }
-                    System.out.println("Now you have " + size + " tasks in the list.");
-                }
+                printDelete(tasks, command);
                 System.out.println(SEPARATE_LINE);
             } else if (command.equals("help")) {
                 System.out.println(SEPARATE_LINE);
