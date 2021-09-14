@@ -1,4 +1,5 @@
 import duke.command.DisplayManager;
+import duke.command.FileManager;
 import duke.command.TaskManager;
 
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class Duke {
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_ADD_EVENT = "event";
     private static final String COMMAND_FINISH_TASK = "done";
+    private static final String COMMAND_DELETE_TASK = "delete";
     private static final String COMMAND_EXIT = "bye";
 
     private static final int INDEX_COMMAND = 0;
@@ -64,6 +66,14 @@ public class Duke {
             }
             taskManager.setAsDone(taskInfo);
             break;
+        case COMMAND_DELETE_TASK:
+            try {
+                taskInfo = inputs[INDEX_TASK_INFO];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + command + " cannot be empty.");
+            }
+            taskManager.deleteTask(taskInfo);
+            break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -85,12 +95,17 @@ public class Duke {
         }
     }
 
+    public static void loadDataFile(TaskManager taskManager) {
+        FileManager.loadData(taskManager);
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
         DisplayManager displayManager = new DisplayManager();
 
         greetStart(displayManager);
+        loadDataFile(taskManager);
         reply(in, taskManager);
         greetEnd(displayManager);
     }

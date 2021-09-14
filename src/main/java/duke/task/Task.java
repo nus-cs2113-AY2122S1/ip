@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.command.TaskManager;
+
 public class Task {
 
     protected String description;
@@ -16,8 +18,8 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getTaskType() {
+        return this.taskType;
     }
 
     public void markAsDone() {
@@ -26,5 +28,10 @@ public class Task {
 
     public String toString() {
         return this.description;
+    }
+
+    public String toDataFormat() {
+        return this.taskType + " | " + (getStatusIcon().equals(TaskManager.STATUS_DONE) ? "1" : "0")
+                + " | " + this.description;
     }
 }
