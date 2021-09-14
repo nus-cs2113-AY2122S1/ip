@@ -80,15 +80,21 @@ Here are the tasks in your list:
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
+Noted. I've removed this task:
+    3.[D][ ] proposal (by: tomorrow 9pm)
+Now you have 3 tasks in the list
+____________________________________________________________
+Enter command: 
+____________________________________________________________
 Got it. I've added this task:
     [E][ ] business meeting (at: my house)
-Now you have 5 tasks in the list
+Now you have 4 tasks in the list
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
 Got it. I've added this task:
     [E][ ] wedding dinner (at: hotel)
-Now you have 6 tasks in the list
+Now you have 5 tasks in the list
 ____________________________________________________________
 Enter command: 
 ? "at:" cannot be empty.
@@ -101,15 +107,29 @@ ____________________________________________________________
 Here are the tasks in your list:
     1.[T][ ] homework
     2.[T][ ] english essay
-    3.[D][ ] proposal (by: tomorrow 9pm)
-    4.[D][X] coding assignment (by: today midnight)
-    5.[E][ ] business meeting (at: my house)
-    6.[E][ ] wedding dinner (at: hotel)
+    3.[D][X] coding assignment (by: today midnight)
+    4.[E][ ] business meeting (at: my house)
+    5.[E][ ] wedding dinner (at: hotel)
+____________________________________________________________
+Enter command: 
+? OOPS! There is no task with this number: 6
+____________________________________________________________
+Enter command: 
+? OOPS! There is no task with this number: 6
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
-Nice! I've marked this task as done:
-    6.[E][X] wedding dinner (at: hotel)
+Noted. I've removed this task:
+    5.[E][ ] wedding dinner (at: hotel)
+Now you have 4 tasks in the list
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+    3.[D][X] coding assignment (by: today midnight)
+    4.[E][ ] business meeting (at: my house)
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________

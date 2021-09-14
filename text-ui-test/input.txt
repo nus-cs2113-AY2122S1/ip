@@ -12,10 +12,14 @@ deadline    submit essay /
 deadline submit homework /by
 done   4
 list
+delete 3
 event business meeting /at my house
 event     wedding dinner    /at    hotel
 event   attend class  /at
 event  go home /
 list
 done 6
+delete 6
+delete 5
+list
 bye
