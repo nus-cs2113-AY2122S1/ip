@@ -5,7 +5,7 @@ import duke.command.Command;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String LINE = "____________________________________________________________\n";
+    public static final String LINE = "─────────────────────────────────────────────────────────────\n";
 
     public static void main(String[] args) {
         printHelloMessage();
@@ -19,11 +19,20 @@ public class Duke {
         boolean isProcessing = true;
         TaskManager taskManager = new TaskManager();
         Scanner input = new Scanner(System.in);
+        DataHandler dataHandler = null;
+        try {
+            dataHandler = new DataHandler();
+            dataHandler.loadData(taskManager);
+        } catch (DukeException e) {
+            System.out.println(LINE);
+            System.out.println(e.getMessage());
+            System.out.println(LINE);
+        }
         while (isProcessing) {
             String userInput = input.nextLine().stripLeading();
             try {
                 Command command = CommandManager.processCommand(userInput);
-                command.executeCommand(taskManager);
+                command.executeCommand(taskManager, dataHandler);
                 isProcessing = !Command.getIsExit();
             } catch (DukeException e) {
                 System.out.println(LINE);

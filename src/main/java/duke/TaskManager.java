@@ -3,27 +3,33 @@ package duke;
 import duke.task.Task;
 
 public class TaskManager {
-    public static final String LINE = "____________________________________________________________\n";
+    public static final String LINE = "─────────────────────────────────────────────────────────────\n";
     private static final int MAXIMUM_TASKS = 100;
     Task[] tasks = new Task[MAXIMUM_TASKS];
     int noOfTasks = 0;
+
+    public Task[] getTasks() {
+        return tasks;
+    }
 
     /**
      * Adds task to task list represented by tasks array.
      * @param task Task to add
      * @throws DukeException Throws exception to aid in identifying errors
      */
-    public void addTasks(Task task) throws DukeException {
+    public void addTasks(Task task, boolean toPrint) throws DukeException {
         if (noOfTasks >= MAXIMUM_TASKS) {
             throw new DukeException("☹ OOPS!!! Task list capacity reached!");
         }
         tasks[noOfTasks] = task;
         noOfTasks++;
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + (noOfTasks) + " tasks in the list.");
-        System.out.println(LINE);
+        if (toPrint) {
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + (noOfTasks) + " tasks in the list.");
+            System.out.println(LINE);
+        }
     }
 
     /**

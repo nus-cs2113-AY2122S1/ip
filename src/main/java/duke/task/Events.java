@@ -12,4 +12,7 @@ public class Events extends Task{
     public String toString() {
         return "[E]" + getStatusIcon() + description + " (at:" + at + ")";
     }
+
+    @Override
+    public String convertToCSV() { return ("E," + getStatusIcon() + "," + description + "," + at); }
 }
