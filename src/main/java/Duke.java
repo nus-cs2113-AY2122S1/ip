@@ -90,8 +90,23 @@ public class Duke {
                         + "   [" + entries[intTaskIndex].getSymbol()
                         + "] [" + entries[intTaskIndex].getStatusIcon() + "] " + entries[intTaskIndex].description);
                 break;
+            case "delete":
+                stringTaskIndex = userMessage.substring(userMessage.indexOf(" ") + 1);
+                intTaskIndex = Integer.parseInt(stringTaskIndex) - 1;
+                System.out.println("Noted. I've removed this task:\n"
+                        + "   [" + entries[intTaskIndex].getSymbol()
+                        + "] [" + entries[intTaskIndex].getStatusIcon() + "] " + entries[intTaskIndex].description);
+                System.out.println("Now you have " + (entriesCount - 1) + " tasks in the list.");
+                for (i = intTaskIndex; i < entriesCount - 1; i++) {
+                    entries[i] = entries[i + 1];
+                }
+                entries[entriesCount - 1] = null;
+                entriesCount -= 1;
+                break;
             default:
+                printLongLine();
                 System.out.println(userCommand + " is an invalid command, try again");
+                printLongLine();
                 break;
             }
             userMessage = in.nextLine();
