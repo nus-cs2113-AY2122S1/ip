@@ -30,7 +30,9 @@ public class ProcessManager {
     private static final String LINE = "    ____________________________________________________________";
     private static final String LINE_DIVIDER = "    ____________________________________________________________\n";
     private static final String GAP = "     ";
+
     private static final String FILEPATH = "data/SavedTask.txt";
+
     /* ---- --------- ---- */
     public Task[] toDo = new Task[100];
     public Integer trackIndex = 0;
@@ -202,7 +204,7 @@ public class ProcessManager {
     }
     /* ---- -------- ---- */
 
-    /*--- Function --- */
+    /* ---- Function ---- */
     public boolean tryParse(String text) {
         try {
             Integer.parseInt(text);
@@ -223,7 +225,8 @@ public class ProcessManager {
     }
     /*--- -------- --- */
 
-    /*--- Messages --- */
+
+    /* ---- Messages ---- */
     public void goodbyeMessage() {
         String output = LINE_DIVIDER + GAP + "Bye. Hope to see you again soon!\n" + LINE;
         System.out.println(output);
@@ -256,5 +259,5 @@ public class ProcessManager {
                 + "     5. Set Task After Completion: done (index on list)\n"
                 + "     6. Exit From Program: bye\n" + LINE;
     }
-    /*--- -------- --- */
+    /* ---- -------- ---- */
 }
