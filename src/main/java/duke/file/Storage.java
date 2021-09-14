@@ -25,6 +25,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Load Duke data from local directory and parse the data to a TaskList object.
+     * If no data is found, a new data file will be created and used.
+     *
+     * @return Stored TaskList
+     */
     public static TaskList loadFile() {
         try {
             File f = new File(STORAGE_PATH); // create a File for the given file path
@@ -55,7 +61,6 @@ public class Storage {
                 default:
                     throw new EmptyField();
                 }
-
             }
             return data;
         } catch (IOException | EmptyField | IllegalOperation | IllegalArgumentException e) {
@@ -64,14 +69,25 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the specified TaskList to the local file.
+     *
+     * @param data TaskList to be stored
+     */
     public static void saveFile(TaskList data) {
         try {
-            writeToFile(STORAGE_PATH, data.printListSimple());
+            writeToFile(STORAGE_PATH, data.printListSaveFormat());
         } catch (IOException e) {
             MessageBubble.printMessageBubble(e.getMessage() + "Error saving data.");
         }
     }
 
+    /**
+     * Print out all information in the specified file
+     *
+     * @param filePath path to the specified file
+     * @throws FileNotFoundException if no file is found
+     */
     private static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
