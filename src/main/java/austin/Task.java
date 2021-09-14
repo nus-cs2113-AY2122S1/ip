@@ -1,6 +1,6 @@
 package austin;
 
-public class Task {
+public abstract class Task {
     /** Description of the task */
     protected String description;
 
@@ -36,8 +36,8 @@ public class Task {
         return " ";
     }
 
+    public abstract String toFileFormat();
+
     @Override
-    public String toString() {
-        return "[" + getStatus() + "] " + getDescription();
-    }
+    public abstract String toString();
 }

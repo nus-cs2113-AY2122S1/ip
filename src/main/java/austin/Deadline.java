@@ -13,8 +13,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String toFileFormat() {
+        return "D | " + (isDone? "1" : "0") + " # " + description + " / " + by + "\n";
+    }
+
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by:" + by + ")";
+        return "[D] [" + getStatus() + "] " + getDescription() + " (by:" + by + ")";
     }
 }
