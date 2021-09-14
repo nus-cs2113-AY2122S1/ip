@@ -16,6 +16,9 @@ public class List {
     private static final int EVENT_NAME_START_INDEX = 6;
     private static final int DATETIME_START_INDEX_OFFSET = 3;
     private static final int DELETE_NUMBER_INDEX = 7;
+    private static final int FILE_TASK_NAME_INDEX = 7;
+    private static final int FILE_TASKTYPE_INDEX = 1;
+    private static final int FILE_ISDONE_INDEX = 4;
     private int numberOfEntries = 0;
     private ArrayList<Task> taskList;
 
@@ -29,7 +32,7 @@ public class List {
         taskList = new ArrayList<>();
     }
 
-    public void addEntryToList(String input) throws InvalidInputFormatException {
+    protected void addEntryToList(String input) throws InvalidInputFormatException {
         TaskType entryType = parseTaskType(input);
         String description = parseDescription(input, entryType);
         Task newEntry;
@@ -53,18 +56,18 @@ public class List {
         numberOfEntries++;
     }
 
-    public void deleteEntry(int entryNumber) {
+    protected void deleteEntry(int entryNumber) {
         printDeleteEntryMessage(taskList.get(entryNumber-1));
         taskList.remove(entryNumber-1);
         numberOfEntries--;
     }
 
-    public void doneEntry(int entryNumber) {
+    protected void doneEntry(int entryNumber) {
         (taskList.get(entryNumber-1)).setDone();
         System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
     }
 
-    public int parseInputForEntryNumber(String input, Duke.Command command) {
+    public static int parseInputForEntryNumber(String input, Duke.Command command) {
         if (command.equals(Duke.Command.DONE_COMMAND)) {
             return Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
         }
@@ -74,13 +77,13 @@ public class List {
         return 0;
     }
 
-    public String parseInputForDateTime(String input) {
+    private String parseInputForDateTime(String input) {
         int markerIndex = input.indexOf('/');
         int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
         return (input.substring(dateTimeStartIndex).trim());
     }
 
-    public TaskType parseTaskType(String input) throws InvalidInputFormatException{
+    private TaskType parseTaskType(String input) throws InvalidInputFormatException{
         if (input.startsWith("deadline") && input.contains(" /by")) {
             return TaskType.DEADLINE;
         }
@@ -93,7 +96,7 @@ public class List {
         throw new InvalidInputFormatException();
     }
 
-    public String parseDescription(String input, TaskType taskType) {
+    private String parseDescription(String input, TaskType taskType) {
         switch (taskType) {
         case TODO:
             return input.substring(TODO_NAME_START_INDEX);
@@ -106,7 +109,7 @@ public class List {
         }
     }
 
-    public void getDataFromFile(String inputLineFromFile) {
+    protected void addEntryFromFile(String inputLineFromFile) {
         try {
             TaskType entryType = getTaskTypeFromFile(inputLineFromFile);
             Boolean isDone = getIsDoneFromFile(inputLineFromFile);
@@ -140,7 +143,7 @@ public class List {
     }
 
     private boolean getIsDoneFromFile(String inputLineFromFile) throws InvalidInputFormatException{
-        switch (inputLineFromFile.charAt(4)) {
+        switch (inputLineFromFile.charAt(FILE_ISDONE_INDEX)) {
         case (' '):
             return false;
         case ('X'):
@@ -151,7 +154,7 @@ public class List {
     }
 
     private TaskType getTaskTypeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
-        switch (inputLineFromFile.charAt(1)) {
+        switch (inputLineFromFile.charAt(FILE_TASKTYPE_INDEX)) {
         case ('T'):
             return TaskType.TODO;
         case ('D'):
@@ -165,16 +168,16 @@ public class List {
 
     private String getDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
         int markerIndex = inputLineFromFile.indexOf('/');
-        int dateTimeStartIndex = markerIndex + 3;
+        int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
         return (inputLineFromFile.substring(dateTimeStartIndex).trim());
     }
 
     private String getDescriptionFromFile(String inputLineFromFile, TaskType taskType) throws
             InvalidInputFormatException {
         if (taskType.equals(TaskType.TODO)) {
-            return inputLineFromFile.substring(7);
+            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX);
         } else if (taskType.equals(TaskType.DEADLINE) || taskType.equals(TaskType.EVENT)) {
-            return inputLineFromFile.substring(7, inputLineFromFile.indexOf(" /"));
+            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX, inputLineFromFile.indexOf(" /"));
         } else {
             throw new InvalidInputFormatException();
         }

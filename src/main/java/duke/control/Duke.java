@@ -14,6 +14,8 @@ public class Duke {
         DONE_COMMAND,
         TASK_COMMAND,
         DELETE_COMMAND,
+        CLEAR_SAVE_COMMAND,
+        SAVE_COMMAND,
         BYE_COMMAND
     }
 
@@ -39,13 +41,19 @@ public class Duke {
         if (input.startsWith("delete")) {
             return Command.DELETE_COMMAND;
         }
+        if (input.startsWith("clearsave")) {
+            return Command.CLEAR_SAVE_COMMAND;
+        }
+        if (input.startsWith("save")) {
+            return Command.SAVE_COMMAND;
+        }
         if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             return Command.TASK_COMMAND;
         }
         throw new InvalidInputFormatException();
     }
 
-    private static void executeCommand(Command command, List list, String input) {
+    private static void executeCommand(Command command, List list, String input, FileManager fileManager) {
         switch (command) {
         case LIST_COMMAND:
             list.printList();
@@ -58,6 +66,12 @@ public class Duke {
             break;
         case DELETE_COMMAND:
             executeDeleteCommand(command, list, input);
+            break;
+        case CLEAR_SAVE_COMMAND:
+            executeClearSaveCommand(fileManager);
+            break;
+        case SAVE_COMMAND:
+            executeSaveCommand(fileManager, list);
             break;
         case TASK_COMMAND:
             executeTaskCommand(list, input);
@@ -109,15 +123,26 @@ public class Duke {
         }
     }
 
+    private static void executeClearSaveCommand(FileManager fileManager) {
+        try {
+            fileManager.clearSavedData();
+        } catch (IOException e) {
+            System.out.println("Could not find save file to clear. The file will be created after the first \"bye\"" +
+                    "or \"save\" command that you enter");
+        }
+        System.out.println("I've cleared your saved data");
+    }
+
+    private static void executeSaveCommand(FileManager fileManager, List list) {
+        fileManager.saveData(list);
+        System.out.println("List has been saved");
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
         List list = new List();
-        new FileManager();
-        try {
-            FileManager.readDukeDataFromFile(list);
-        } catch (IOException e) {
-            System.out.println("Something went wrong, cannot load saved data");
-        }
+        FileManager fileManager = new FileManager();
+        loadDataFromFile(list);
         Scanner in = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -131,11 +156,19 @@ public class Duke {
             }
             if (command.equals(Command.BYE_COMMAND)) {
                 printExitMessage();
-                FileManager.saveData(list);
+                fileManager.saveData(list);
                 break;
             }
-            executeCommand(command, list, userInput);
+            executeCommand(command, list, userInput, fileManager);
             printResponseSeparator();
+        }
+    }
+
+    private static void loadDataFromFile(List list) {
+        try {
+            FileManager.readDukeDataFromFile(list);
+        } catch (IOException e) {
+            System.out.println("Something went wrong, cannot load saved data");
         }
     }
 
@@ -174,9 +207,11 @@ public class Duke {
         System.out.println("To add an event task: event (task name) /at (date or time)");
         System.out.println("To delete a task in the list: delete (x) where x is the entry number");
         System.out.println("note that only the words in parentheses() can be replaced");
-        System.out.println("Use the command \"list\" and I will show you your current list");
+        System.out.println("To see your current list, Use the command \"list\"");
         System.out.println("To cross out an entry, use the command \"done x\" where x is the entry number");
-        System.out.println("When you're done, type \"bye\" to end the program");
+        System.out.println("To save your current data, use the command \"save\"");
+        System.out.println("To clear all your saved data, use the command \"clearsave\"");
+        System.out.println("When you're done, type \"bye\" to end the program (automatically saves your current list)");
     }
 
     private static void printResponseSeparator() {

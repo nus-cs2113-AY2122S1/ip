@@ -43,8 +43,14 @@ public class FileManager {
         File file = new File(filePath);
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
-            list.getDataFromFile(s.nextLine());
+            list.addEntryFromFile(s.nextLine());
         }
+    }
+
+    protected static void clearSavedData() throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write("");
+        fw.close();
     }
 
     private static String getPath() {
