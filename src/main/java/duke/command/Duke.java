@@ -5,8 +5,7 @@ import duke.task.Mascot;
 import duke.task.Task;
 import duke.security.AccountDetail;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     public static final int STOP_ADD = -1;
@@ -69,7 +68,7 @@ public class Duke {
     }
 
     public static void printDone(String task) {
-        System.out.println(task + " completed successfully ");
+        System.out.println(task + " completed");
     }
 
     public static void runDuke() {
@@ -121,6 +120,10 @@ public class Duke {
                 amendTaskDeadline(in, taskList);
                 printDone("amend deadline");
                 break;
+            case("delete"):
+                deleteTasks(in, taskList);
+                printDone("delete tasks");
+                break;
             case ("bye"):
                 break;
             default:
@@ -128,6 +131,41 @@ public class Duke {
             }
         } while (!command.equals("bye"));
         sayGoodbye();
+    }
+
+    private static void deleteTasks(Scanner in, ArrayList<Task> taskList) {
+        DukeException doneCheck = new DukeException("doneCheck");
+        //1. collect data
+        List<Integer> toDeleteList = new ArrayList<Integer>();
+        String input = in.nextLine();
+        String[] inputData = input.split(" ");
+        for (String s : inputData) {
+            if (doneCheck.startsWithSpace(s)) {
+                doneCheck.inputFailMessage();
+                doneCheck.printDoneFormat();
+                return;
+            }
+            else if (doneCheck.isEmpty(s)) {
+                doneCheck.inputFailMessage();
+                doneCheck.printNoNull();
+                return;
+            }
+            else if (!doneCheck.isIntegerInput(s)) {
+                doneCheck.printIntegerOnly();
+                return;
+            }
+            //after checks
+            int sData = Integer.parseInt(s) - 1;
+            toDeleteList.add(sData);
+        }
+        //2. sort in decreasing order
+        Collections.sort(toDeleteList, Collections.reverseOrder());
+        //3. remove from list
+        for (int i : toDeleteList) {
+            System.out.println("remove " + (i + 1) + ": " + taskList.get(i).getDescription());
+            taskList.remove(i);
+            taskCount--;
+        }
     }
 
     private static boolean isDukeFail() {
@@ -154,6 +192,7 @@ public class Duke {
 
     private static void clearTaskList(ArrayList<Task> taskList) {
         taskList.clear();
+        taskCount = 0;
     }
 
     private static void markTasksAsDone(Scanner in, ArrayList<Task> taskList) {
@@ -179,7 +218,7 @@ public class Duke {
                     );
             number = number.trim();
             String[] numberList = number.split(" ");
-            System.out.print("remove ");
+            System.out.print("done ");
             for (String i : numberList) {
                 int index = Integer.parseInt(i) - 1;
                 if (!doneCheck.inListRange(index, taskCount)) {
