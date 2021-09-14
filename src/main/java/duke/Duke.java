@@ -22,9 +22,7 @@ public class Duke {
         System.out.println("What can I do for you?");
         Scanner in = new Scanner(System.in);
         TaskList list = new TaskList();
-        //if file exist, load file into TaskList. else create file
         File file = loadFile();
-        //read file and store data into list
         readFile(list,file);
         String request = in.nextLine();
         while (Request.isBye(request)) {
