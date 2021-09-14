@@ -7,6 +7,10 @@ public class Event extends Task {
         this.date = date;
     }
 
+    public String getType() {
+        return "E";
+    }
+
     public String getDate() {
         return date;
     }

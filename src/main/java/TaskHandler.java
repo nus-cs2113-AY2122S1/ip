@@ -93,6 +93,28 @@ public class TaskHandler {
         taskCount++;
     }
 
+    public static void addTodoFromFile(String[] words) {
+        tasks[taskCount] = new Todo(words[2].trim());
+        markLatestTaskDoneFromFile(words[1].trim());
+    }
+
+    public static void addEventFromFile(String[] words) {
+        tasks[taskCount] = new Event(words[2].trim(), words[3].trim());
+        markLatestTaskDoneFromFile(words[1].trim());
+    }
+
+    public static void addDeadlineFromFile(String[] words) {
+        tasks[taskCount] = new Deadline(words[2].trim(), words[3].trim());
+        markLatestTaskDoneFromFile(words[1].trim());
+    }
+
+    public static void markLatestTaskDoneFromFile(String isTaskDone) {
+        if (isTaskDone.equals("1")) {
+            tasks[taskCount].markAsDoneWithoutMessage();
+        }
+        taskCount++;
+    }
+
     public static void showHelp() {
         System.out.println(Duke.INDENT + Duke.HELP_INSTRUCTIONS);
     }

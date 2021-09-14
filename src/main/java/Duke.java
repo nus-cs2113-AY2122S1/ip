@@ -1,4 +1,10 @@
+import javax.xml.crypto.Data;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 public class Duke {
 
@@ -14,8 +20,32 @@ public class Duke {
             LINE_SEPARATOR_AND_INDENT + " To get help: help" +
             LINE_SEPARATOR_AND_INDENT + " To end the program: bye";
 
+    public static String filePath = Paths.get(System.getProperty("user.dir"), "data/duke.txt").normalize().toString();
+
+
     public static void echo(String line) {
         System.out.println(LINE + LINE_SEPARATOR + INDENT + line + LINE_SEPARATOR + LINE);
+    }
+
+    public static void loadData() {
+        try {
+            DataSaver.checkFileExist("data/duke.txt");
+            DataSaver.loadFileContents("data/duke.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void saveData() {
+        try {
+            Path filePath = Paths.get("data/duke.txt");
+            Files.createDirectories(filePath.getParent());
+            DataSaver.writeFileContents("data/duke.txt");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void executeRequest() {
@@ -36,15 +66,19 @@ public class Duke {
                     break;
                 case "done":
                     TaskHandler.markTaskAsDone(words);
+                    saveData();
                     break;
                 case "deadline":
                     TaskHandler.addDeadline(line);
+                    saveData();
                     break;
                 case "event":
                     TaskHandler.addEvent(line);
+                    saveData();
                     break;
                 case "todo":
                     TaskHandler.addTodo(line);
+                    saveData();
                     break;
                 case "help":
                     TaskHandler.showHelp();
@@ -74,6 +108,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        loadData();
         greetUser();
         executeRequest();
         farewellUser();
