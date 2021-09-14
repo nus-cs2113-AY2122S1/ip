@@ -5,7 +5,11 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -13,6 +17,8 @@ import java.util.Scanner;
  */
 public class Duke {
 
+    //File path to store task data
+    private static final String DATA_FILE_PATH = "./data/duke.txt";
 
     //Commands
     private static final String COMMAND_BYE = "bye";
@@ -27,7 +33,7 @@ public class Duke {
     private static final String COMMAND_COMMAND_LIST = "commands";
 
     //Commonly used message formats in UI
-    private static final String DIVIDER = "____________________________________________________________________________";
+    private static final String DIVIDER = "_________________________________________________________________________________";
     private static final String LS = System.lineSeparator();
     private static final String QUOTATION = "\"";
     private static final String EMPTY = "";
@@ -52,6 +58,9 @@ public class Duke {
             + MESSAGE_COMMAND_DELETE_FORMAT + " : Delete task number X" + LS
             + MESSAGE_COMMAND_COMMAND_LIST_FORMAT + " : See this list of commands again" + LS
             + MESSAGE_COMMAND_BYE_FORMAT + " : Stop Dude :(";
+    private static final String MESSAGE_DATA_LOADING = "Loading old data...";
+    private static final String MESSAGE_DATA_LOADED = "Your old data has been successfully loaded!" + LS
+            + "Type " + MESSAGE_COMMAND_LIST_FORMAT + " to see current tasks!";
 
     private static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please specify a name for the task!";
     private static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@";
@@ -65,9 +74,16 @@ public class Duke {
             + LS + "in the format " + MESSAGE_COMMAND_DEADLINE_FORMAT + ", where X is the task and Y is the deadline!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_EVENT_FORMAT = "Invalid format! Please input a date, "
             + LS + "in the format " + MESSAGE_COMMAND_EVENT_FORMAT + ", where X is the event and Y is the date!";
+    private static final String MESSAGE_ERROR_CANNOT_WRITE_TO_FILE = "Error! System does not have sufficient permission to write to data file?!" + LS
+            + "Dude is unable to store your task data locally. :(";
+    private static final String MESSAGE_ERROR_CANNOT_READ_FROM_FILE = "Error! System does not have sufficient permission to read data file?!" + LS
+            + "Dude is unable to restore your task data. :(";
+    private static final String MESSAGE_ERROR_INVALID_FILE_SYNTAX = "Error restoring data due to invalid syntax! This line of data will not be added:";
+    private static final String MESSAGE_ERROR_DATA_FILE_MISSING = "Hmm? Your data file suddenly got deleted... I'll add this task to the new file," + LS
+            + "but all the tasks above this will not be stored! :(";
 
     /** Array list of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints lines of messages. Can take in variable number of arguments.
@@ -94,14 +110,14 @@ public class Duke {
     }
 
     /**
-     * Prints list of commands
+     * Prints list of commands.
      */
     public static void showListOfCommands() {
         showMessageFramedWithDivider(MESSAGE_COMMAND_LIST);
     }
 
     /**
-     * Prints Welcome message and list of commands
+     * Prints Welcome message and list of commands.
      */
     public static void welcome() {
         showMessage(DIVIDER, MESSAGE_WELCOME_DUDE);
@@ -114,6 +130,124 @@ public class Duke {
     public static void exit() {
         showMessageFramedWithDivider(MESSAGE_BYE);
         System.exit(0);
+    }
+
+
+    /**
+     * Create data file if it does not exist.
+     * As a precaution, this function should be run before every read/write operation to the file.
+     *
+     * @param shouldExist True if this function is called while program is running (Add/Update tasks)
+     */
+    public static void createFileIfDoesNotExist(boolean shouldExist) {
+        File f = new File(DATA_FILE_PATH);
+        try {
+            f.getParentFile().mkdirs(); //Make the directory for the file if it does not exist
+            if (!f.exists()) {
+                if (shouldExist) {
+                    /*This file should exist while the program is running, if it is deleted mid-run, print error
+                    and create new file*/
+                    showMessageFramedWithDivider(MESSAGE_ERROR_DATA_FILE_MISSING);
+                }
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+           showMessageFramedWithDivider(MESSAGE_ERROR_CANNOT_WRITE_TO_FILE, DIVIDER);
+        }
+    }
+    /**
+     * Load data from task list file
+     */
+    public static void loadTasksFromFile() {
+        createFileIfDoesNotExist(false);
+        showMessage(MESSAGE_DATA_LOADING, DIVIDER);
+        File f = new File(DATA_FILE_PATH);
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                addTaskFromFile(s.nextLine());
+            }
+            showMessage(MESSAGE_DATA_LOADED, DIVIDER);
+        } catch (IOException e) {
+            showMessage(MESSAGE_ERROR_CANNOT_READ_FROM_FILE, DIVIDER);
+        }
+    }
+
+    /**
+     * Add task from task list file
+     *
+     * @param taskDataString String from data file with all necessary information to create Task
+     */
+    public static void addTaskFromFile(String taskDataString) {
+        Task task;
+        boolean isDone;
+        String[] words = taskDataString.split(" \\| "); //Length = 3 for Todo; 4 for Deadline, Event
+        try {
+            switch (words[1]) {
+            case "0":
+                isDone = false;
+                break;
+            case "1":
+                isDone = true;
+                break;
+            default: //if second letter (done status) is not 0 or 1
+                throw new InvalidCommandFormatException(MESSAGE_ERROR_INVALID_FILE_SYNTAX + LS + taskDataString);
+            }
+
+            switch (words[0]) {
+            case Task.TODO_ACRONYM:
+                task = new Todo(words[2]);
+                break;
+            case Task.DEADLINE_ACRONYM:
+                task = new Deadline(words[2], words[3]);
+                break;
+            case Task.EVENT_ACRONYM:
+                task = new Event(words[2], words[3]);
+                break;
+            default: //if first letter is not any of the valid task acronyms
+                throw new InvalidCommandFormatException(MESSAGE_ERROR_INVALID_FILE_SYNTAX + LS + taskDataString);
+            }
+            tasks.add(task);
+            if (isDone)  {
+                task.markAsDone();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            showMessage(MESSAGE_ERROR_INVALID_FILE_SYNTAX, taskDataString, DIVIDER);
+        } catch (InvalidCommandFormatException e) {
+            showMessage(e.toString(), DIVIDER);
+        }
+    }
+
+    /**
+     * Append new data into task list file
+     *
+     * @param task Task to be appended to end of file
+     */
+    public static void appendNewTaskToFile(Task task) {
+        createFileIfDoesNotExist(true);
+        try {
+            FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
+            fw.write(task.toTextFileString() + LS);
+            fw.close();
+        } catch (IOException e) {
+            showMessageFramedWithDivider(MESSAGE_ERROR_CANNOT_WRITE_TO_FILE);
+        }
+    }
+
+    /**
+     * Rewrite file with updated list of tasks
+     */
+    public static void rewriteTaskListToFile() {
+        createFileIfDoesNotExist(true);
+        try {
+            FileWriter fw = new FileWriter(DATA_FILE_PATH);
+            for (Task task : tasks) {
+               appendNewTaskToFile(task);
+            }
+            fw.close();
+        } catch (IOException e) {
+            showMessageFramedWithDivider(MESSAGE_ERROR_CANNOT_WRITE_TO_FILE);
+        }
     }
 
     /**
@@ -182,12 +316,12 @@ public class Duke {
         final String[] splitParams = params.trim().split("/");
         String[] descriptionAndInfo = new String[2];
         //description string
-        descriptionAndInfo[0] = splitParams[0];
+        descriptionAndInfo[0] = splitParams[0].trim();
         if (descriptionAndInfo[0].equals(EMPTY)) {
             throw new InvalidCommandFormatException(MESSAGE_ERROR_NO_DESCRIPTION);
         }
         //other info string, if not given, return EMPTY for error handling
-        descriptionAndInfo[1] = (splitParams.length >= 2) ? splitParams[1] : EMPTY;
+        descriptionAndInfo[1] = (splitParams.length >= 2) ? splitParams[1].trim() : EMPTY;
         return descriptionAndInfo;
     }
 
@@ -280,7 +414,9 @@ public class Duke {
                 //Since typeofTask is guaranteed to be either of the 3 above, code should not be reaching this point
                 throw new InvalidCommandFormatException("Error occurred, please check command format!");
             }
+
             tasks.add(task);
+            appendNewTaskToFile(task);
             showMessageFramedWithDivider("Added to list: " , task.toString(),
                     "Current number of tasks: " + tasks.size());
         } catch (InvalidCommandFormatException e) {
@@ -311,6 +447,7 @@ public class Duke {
                 } else {
                     final String deletedTaskString = tasks.get(taskNum-1).toString();
                     tasks.remove(taskNum-1);
+                    rewriteTaskListToFile();
                     showMessageFramedWithDivider("Alrightys! I have removed the following task:", deletedTaskString,
                             "Current number of tasks: " + tasks.size());
                 }
@@ -342,7 +479,8 @@ public class Duke {
                     showMessageFramedWithDivider("Please input a valid task number from 1 to " + tasks.size() + "!");
                 } else {
                     showMessage(DIVIDER);
-                    tasks.get(taskNum-1).markAsDone();
+                    showMessage(tasks.get(taskNum-1).markAsDone());
+                    rewriteTaskListToFile();
                     showMessage(tasks.get(taskNum-1).toString(), DIVIDER);
                 }
             } catch (NumberFormatException e) {
@@ -371,8 +509,9 @@ public class Duke {
      * Shows welcome message and enters task mode, which handles the user interaction
      */
     public static void main(String[] args) {
-      welcome();
-      enterTaskMode();
+        welcome();
+        loadTasksFromFile();
+        enterTaskMode();
     }
 }
 
