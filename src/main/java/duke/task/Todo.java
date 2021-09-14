@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.exceptions.EmptyField;
-import duke.exceptions.IllegalOperation;
 
 public class Todo extends Task {
     protected static String SYMBOL = "T";
@@ -36,15 +35,5 @@ public class Todo extends Task {
     @Override
     public String getSaveFormat() {
         return super.getSaveFormat();
-    }
-
-    @Override
-    public String getTime() throws IllegalOperation {
-        throw new IllegalOperation();
-    }
-
-    @Override
-    public void setTime(String time) throws IllegalOperation {
-        throw new IllegalOperation();
     }
 }

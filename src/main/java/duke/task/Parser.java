@@ -5,6 +5,11 @@ import duke.exceptions.IllegalOperation;
 import duke.list.TaskList;
 import duke.ui.MessageBubble;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public boolean isExit;
 
@@ -67,6 +72,12 @@ public class Parser {
             } catch (NumberFormatException e) {
                 MessageBubble.printMessageBubble("Oops! Wrong index format.");
             }
+        } else if (fullCommand.startsWith("search")) {
+            try {
+                targetTaskList.searchItem(extractPartialCommand(fullCommand));
+            } catch (EmptyField e) {
+                MessageBubble.printMessageBubble("Oops! Use \"search (keywords)\" to search in your task list.");
+            }
         } else if (fullCommand.equals("bye")) {
             isExit = true;
         } else if (fullCommand.equals("list")) {
@@ -84,7 +95,7 @@ public class Parser {
      * @throws EmptyField if any necessary information is missing
      */
     public static Deadline parseDeadline(String full_description) throws EmptyField {
-        String CMD_TIME = "/by";
+        String CMD_TIME = " /by ";
 
         if (!full_description.contains(CMD_TIME)) {
             throw new EmptyField();
@@ -112,7 +123,7 @@ public class Parser {
      * @throws EmptyField if any necessary information is missing
      */
     public static Event parseEvent(String full_description) throws EmptyField {
-        String CMD_TIME = "/at";
+        String CMD_TIME = " /at ";
 
         if (!full_description.contains(CMD_TIME)) {
             throw new EmptyField();

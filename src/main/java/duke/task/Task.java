@@ -3,12 +3,18 @@ package duke.task;
 import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
 import duke.ui.MessageBubble;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public abstract class Task {
     protected String description = "";
     protected boolean status = false;
-    protected String time = "";
     protected static String SYMBOL = " ";
+    protected LocalDateTime time;
+    public String symbolSetTime = "";
+    protected DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("d/M/yyyy kk[mm]");
+    protected DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, kk:mm");
 
     public String getSYMBOL() {
         return SYMBOL;
@@ -38,14 +44,16 @@ public abstract class Task {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
+  
     /**
      * Returns the time variable value of the Task
      *
      * @return time
      * @throws IllegalOperation if the task does not contain a time variable
      */
-    public abstract String getTime() throws IllegalOperation;
+    public String getTime() {
+        return time.format(readFormatter);
+    }
 
     /**
      * Set the time variable of the Task
@@ -54,7 +62,14 @@ public abstract class Task {
      * @throws IllegalOperation if time is badly formatted
      * @throws EmptyField if time is empty
      */
-    public abstract void setTime(String time) throws IllegalOperation, EmptyField;
+    public void setTime(String time) {
+        try {
+            this.time = LocalDateTime.parse(time, saveFormatter);
+        } catch (DateTimeParseException e) {
+            MessageBubble.printMessageBubble("Time format error. Example: 15/9/2021 2142");
+            this.time = LocalDateTime.now().plusDays(1);
+        }
+    }
 
     /**
      * Set the status of the Task to a new status.

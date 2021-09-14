@@ -42,19 +42,6 @@ public class Event extends Task{
         return super.getSaveFormat(getTime());
     }
 
-    @Override
-    public String getTime() {
-        return time;
-    }
-
-    @Override
-    public void setTime(String time) throws EmptyField {
-        if (time.isBlank()) {
-            throw new EmptyField();
-        }
-        this.time = time;
-    }
-
     /**
      * Returns all information of the Event as a user-friendly String format
      *
@@ -64,6 +51,6 @@ public class Event extends Task{
     public String toString() {
         String classIndicator = this.getClass().getSimpleName().substring(0,1);
         String statusIndicator = status ? "X" : " ";
-        return String.format("[%s][%s] %s (at: %s)", classIndicator, statusIndicator, description, time);
+        return String.format("[%s][%s] %s (at: %s)", classIndicator, statusIndicator, description, getTime());
     }
 }
