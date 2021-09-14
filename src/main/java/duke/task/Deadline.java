@@ -10,9 +10,17 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
+        if (description.contains("|")) {
+            description = description.replace("|", ",");
+        }
         return "[D]" + getStatusIcon() + description + " (by:" + by + ")";
     }
 
     @Override
-    public String convertToCSV() { return ("D," + getStatusIcon() + "," + description + "," + by); }
+    public String convertToCSV() {
+        if (description.contains(",")) {
+            description = description.replace(",", "|");
+        }
+        return ("D," + getStatusIcon() + "," + description + "," + by);
+    }
 }

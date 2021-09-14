@@ -11,9 +11,6 @@ public class Duke {
         processUserInput();
     }
 
-    /**
-     * Processes user input
-     */
     private static void processUserInput() {
         boolean isProcessing = true;
         TaskManager taskManager = new TaskManager();
@@ -42,17 +39,11 @@ public class Duke {
         printByeMessage();
     }
 
-    /**
-     * Prints Goodbye message before app exits
-     */
     private static void printByeMessage() {
         String byeGreeting = "Bye. Hope to see you again soon!\n";
         System.out.println(LINE + byeGreeting + LINE);
     }
 
-    /**
-     * Prints the welcome message when app is launched
-     */
     private static void printHelloMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

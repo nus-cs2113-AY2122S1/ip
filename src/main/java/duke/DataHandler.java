@@ -49,6 +49,9 @@ public class DataHandler {
     private Task readTask(String data) {
         Task task = null;
         String[] taskBreakdown = data.split(",");
+        if (taskBreakdown[2].contains("|")) {
+            taskBreakdown[2] = taskBreakdown[2].replace("|", ",");
+        }
         switch (taskBreakdown[0]) {
         case "T":
             task = new ToDos(taskBreakdown[2]);

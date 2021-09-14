@@ -10,9 +10,17 @@ public class Events extends Task{
 
     @Override
     public String toString() {
+        if (description.contains("|")) {
+            description = description.replace("|", ",");
+        }
         return "[E]" + getStatusIcon() + description + " (at:" + at + ")";
     }
 
     @Override
-    public String convertToCSV() { return ("E," + getStatusIcon() + "," + description + "," + at); }
+    public String convertToCSV() {
+        if (description.contains(",")) {
+            description = description.replace(",", "|");
+        }
+        return ("E," + getStatusIcon() + "," + description + "," + at);
+    }
 }

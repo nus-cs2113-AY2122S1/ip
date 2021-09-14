@@ -8,9 +8,17 @@ public class ToDos extends Task{
 
     @Override
     public String toString() {
+        if (description.contains("|")) {
+            description = description.replace("|", ",");
+        }
         return "[T]" + getStatusIcon() + description;
     }
 
     @Override
-    public String convertToCSV() { return ("T," + getStatusIcon() + "," + description); }
+    public String convertToCSV() {
+        if (description.contains(",")) {
+            description = description.replace(",", "|");
+        }
+        return ("T," + getStatusIcon() + "," + description);
+    }
 }
