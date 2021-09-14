@@ -13,8 +13,8 @@ public class TaskManager {
     public static final int TODO_DESCRIPTION_BEGIN_INDEX = 5;
     public static final int DEADLINE_DESCRIPTION_BEGIN_INDEX = 9;
     public static final int EVENT_DESCRIPTION_BEGIN_INDEX = 6;
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int taskCount = 0;
+    protected static ArrayList<Task> tasks = new ArrayList<>();
+    protected static int taskCount = 0;
 
     public static void printList() {
         if (taskCount == 0) {

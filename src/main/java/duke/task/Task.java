@@ -20,4 +20,16 @@ public class Task {
     public String listTask() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String getIcon() {
+        return " ";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDate() {
+        return " ";
+    }
 }

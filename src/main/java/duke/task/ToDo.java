@@ -9,4 +9,9 @@ public class ToDo extends Task{
     public String listTask() {
         return "[T]" + super.listTask();
     }
+
+    @Override
+    public String getIcon() {
+        return "T";
+    }
 }
