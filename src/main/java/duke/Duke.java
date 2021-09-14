@@ -1,11 +1,12 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     protected int count = 0;
-    protected Task[] list = new Task[100];
+    ArrayList<Task> list = new ArrayList<>();
     protected Scanner in;
 
     public static void printAdded(Task task, int count) {
@@ -35,12 +36,12 @@ public class Duke {
         case "list":
             for(Task task: list){
                 task.printTask();
-                if (task.index == count) {
-                    break;
-                }
             }
             return 0;
         case "done":
+            if (description==null) {
+                throw new NumberFormatException();
+            }
             int index = Integer.parseInt(description);
             for (Task task : list) {
                 if (task.index == index) {
@@ -48,37 +49,39 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("[" + task.getStatusIcon() + "] " + task.description);
                     break;
-                } else if (task.index == count) {
-                    throw new StringIndexOutOfBoundsException();
                 }
             }
             return 0;
         case "todo":
-            count++;
-            Todo todo = new Todo(description, count);
-            if (todo.description==null) {
+            if (description==null) {
                 throw new DukeException("nullTodo");
             }
+            count++;
+            Todo todo = new Todo(description, count);
             printAdded(todo,count);
-            list[count-1] = todo;
+            list.add(todo);
             return 0;
         case "deadline":
+            if (description==null) {
+                throw new DukeException("nullTodo");
+            } else if (time==null) {
+                throw new DukeException("nullTime");
+            }
             count++;
             Deadline deadline = new Deadline(description, count, time);
-            if (deadline.deadline==null) {
-                throw new DukeException("nullDeadline");
-            }
             printAdded(deadline,count);
-            list[count-1] = deadline;
+            list.add(deadline);
             return 0;
         case "event":
+            if (description==null) {
+                throw new DukeException("nullTodo");
+            } else if (time==null) {
+                throw new DukeException("nullTime");
+            }
             count++;
             Event event = new Event(description, count, time);
-            if (event.event==null) {
-                throw new DukeException("nullEvent");
-            }
             printAdded(event,count);
-            list[count-1] = event;
+            list.add(event);
             return 0;
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
@@ -101,11 +104,9 @@ public class Duke {
                 if (e.error.equals("unknownCommand")) {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } else if (e.error.equals("nullTodo")) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                } else if (e.error.equals("nullDeadline")) {
-                    System.out.println("☹ OOPS!!! The time of a deadline cannot be empty.");
-                } else if (e.error.equals("nullEvent")) {
-                    System.out.println("☹ OOPS!!! The time of a event cannot be empty.");
+                    System.out.println("☹ OOPS!!! The description cannot be empty.");
+                } else if (e.error.equals("nullTime")) {
+                    System.out.println("☹ OOPS!!! The time cannot be empty.");
                 } else {
                     System.out.println("☹ OOPS!!! There is an unknown error.");
                 }
