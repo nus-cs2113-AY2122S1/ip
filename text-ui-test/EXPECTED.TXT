@@ -10,6 +10,9 @@ Hello! I'm Duke!
 So far, I can create a simple task list for you.
 What can I do for you?
 
+No data detected! I see you are a new user...Starting afresh!
+------------------------------------------------------
+------------------------------------------------------
 Use the following commands!
 To add a task without deadline: to do [taskName]
 To add a task with a deadline: deadline [deadlineName] /by [deadline]
@@ -219,22 +222,40 @@ No number or Invalid number specified! Please specify the number on the list of 
 No number or Invalid number specified! Please specify the number on the list of the task you have completed!
 No number or Invalid number specified! Please specify the number on the list of the task you have completed!
 ------------------------------------------------------
+I got you! I've deleted this task:
 1.[T][X] run
-2.[D][X] journal (by:saturday)
-3.[D][X] walk (by:saturday 4pm)
-4.[E][X] team meeting (at:sunday 2-4pm)
-5.[T][X] hike
-6.[T][X] cook
-7.[E][ ] live performance (at:monday 3pm)
-8.[D][ ] run (by:sunday)
-9.[E][ ] marathon (at:sunday 2 - 3pm)
-10.[T][X] run
-11.[T][ ] 1
-12.[T][X] 2
-13.[T][ ] 3
-14.[E][ ] run (at:sunday 2 - 3pm)
-15.[D][ ] assignment (by:25/6/2020)
-16.[D][ ] assignment (by:2359)
+------------------------------------------------------
+------------------------------------------------------
+I got you! I've deleted this task:
+2.[D][X] walk
+------------------------------------------------------
+------------------------------------------------------
+I got you! I've deleted this task:
+3.[T][X] hike
+------------------------------------------------------
+------------------------------------------------------
+I got you! I've deleted this task:
+4.[E][ ] live performance
+------------------------------------------------------
+------------------------------------------------------
+I got you! I've deleted this task:
+5.[E][ ] marathon
+------------------------------------------------------
+------------------------------------------------------
+I got you! I've deleted this task:
+6.[T][ ] 1
+------------------------------------------------------
+------------------------------------------------------
+1.[D][X] journal (by:saturday)
+2.[E][X] team meeting (at:sunday 2-4pm)
+3.[T][X] cook
+4.[D][ ] run (by:sunday)
+5.[T][X] run
+6.[T][X] 2
+7.[T][ ] 3
+8.[E][ ] run (at:sunday 2 - 3pm)
+9.[D][ ] assignment (by:25/6/2020)
+10.[D][ ] assignment (by:2359)
 ------------------------------------------------------
 Bye! Hope to see you again soon!
 ------------------------------------------------------
