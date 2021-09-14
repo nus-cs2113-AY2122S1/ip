@@ -36,16 +36,27 @@ public class Duke {
     private static void loadTasks() {
         try {
             addTasksIntoList();
-        } catch (FileNotFoundException e) {
-            System.out.println("The given file path is invalid:(");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    private static void addTasksIntoList() throws FileNotFoundException {
-        File f = new File(FILE_PATH);
+    private static File loadFile() throws IOException {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            File dir = new File("data");
+            dir.mkdir();
+            File newFile = new File("data/duke.txt");
+            newFile.createNewFile();
+            return newFile;
+        }
+        return file;
+    }
+
+    private static void addTasksIntoList() throws IOException {
+        File f = loadFile();
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            //load tasks here
             String entry = s.nextLine();
             String[] entryComponents = entry.split(GAP);
             String description = entryComponents[0] + " " + entryComponents[2];
