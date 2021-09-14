@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Duke {
 
     // Init constants storing various magic literals or Strings
+    public static final int DONE_SIZE          = 5;
+    public static final int DELETE_SIZE        = 7;
     public static final int DASH_INDX          = 4;
     public static final int TODO_SIZE          = 5;
     public static final int EVENT_SIZE         = 6;
@@ -47,29 +49,27 @@ public class Duke {
                 removeFromList(command);
             } else if (command.equals("echo")) {
                 echoMode();
-            } else {
-                if (command.contains("todo")) {
-                    try {
-                        createTodo(command);
-                    } catch (DukeException error) {
-                        System.out.println(error.getMessage());
-                    }
-                } else  if (command.contains("deadline")) {
-                    try {
-                        createDeadline(command);
-                    } catch (DukeException error) {
-                        System.out.println(error.getMessage());
-                    }
-                } else if (command.contains("event")) {
-                    try {
-                        createEvent(command);
-                    } catch (DukeException error) {
-                        System.out.println(error.getMessage());
-                    }
-                } else {
-                    System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol! "
-                            + "\uD83E\uDD28" + System.lineSeparator() + LINE);
+            } else if (command.contains("todo")) {
+                try {
+                    createTodo(command);
+                } catch (DukeException error) {
+                    System.out.println(error.getMessage());
                 }
+            } else if (command.contains("deadline")) {
+                try {
+                    createDeadline(command);
+                } catch (DukeException error) {
+                    System.out.println(error.getMessage());
+                }
+            } else if (command.contains("event")) {
+                try {
+                    createEvent(command);
+                } catch (DukeException error) {
+                    System.out.println(error.getMessage());
+                }
+            } else {
+                System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol! "
+                        + "\uD83E\uDD28" + System.lineSeparator() + LINE);
             }
         }
     }
@@ -178,7 +178,8 @@ public class Duke {
 
     public static void markAsDone(String command) {
         // When user enters string "done 2", string is split to extract the index 2 only
-        int taskDoneIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+        int taskDoneIndex = Integer.parseInt(String.valueOf(command.charAt(DONE_SIZE))) - 1;
+                //Integer.parseInt(command.split(" ")[1]) - 1;
         // Checks if given index holds a task and throws error message if no such task exists
         if (taskDoneIndex >= tasks.size() || taskDoneIndex < 0) {
             System.out.println(LINE + System.lineSeparator() +
@@ -202,21 +203,23 @@ public class Duke {
     }
 
     public static void removeFromList(String command) {
-        int taskRemoveIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+        int taskRemoveIndex = Integer.parseInt(String.valueOf(command.charAt(DELETE_SIZE))) - 1;
         if (taskRemoveIndex >= tasks.size() || taskRemoveIndex < 0) {
             System.out.println(LINE + System.lineSeparator() +
                     "Apologies sir but, there is no such task under that index " +
                     "\u2639" + System.lineSeparator() + LINE);
+        } else {
+            Task taskChosen = tasks.get(taskRemoveIndex);
+            tasks.remove(taskChosen);
+            System.out.println(LINE + System.lineSeparator() + "As you wish sir, this task will be removed at once! "
+                    + "\uD83D\uDE01" + System.lineSeparator() + LINE);
         }
-        Task taskChosen = tasks.get(taskRemoveIndex);
-        tasks.remove(taskChosen);
-        System.out.println(LINE + System.lineSeparator() + "As you wish sir, this task will be removed at once! "
-                + "\uD83D\uDE01" + System.lineSeparator() + LINE);
     }
 
     public static void echoMode() {
         // Simply echos given command until user types "stop"
-        System.out.println("What would you like me to repeat sir?");
+        System.out.println(LINE + System.lineSeparator() + "What would you like me to repeat sir?"
+                + System.lineSeparator() + LINE);
         Scanner echo = new Scanner(System.in);
         boolean isExit = false;
         while (!isExit) {
