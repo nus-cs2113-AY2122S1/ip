@@ -1,5 +1,8 @@
 package duke.actions;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Deadline extends Task {
 
     public static final int INDEX_OF_DEADLINE = 8;

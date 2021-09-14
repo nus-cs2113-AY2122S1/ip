@@ -2,7 +2,12 @@ package duke;
 
 import duke.actions.Task;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GeneralMethods {
 
@@ -66,6 +71,11 @@ public class GeneralMethods {
 
     public static void printErrorForInvalidCommand(String userInput) {
         System.out.println("Aw man! I am unable to " + userInput + " yet! Please specify a different function! :D");
+    }
+    public static void printTaskDeletedConfirmation(Task taskAdded, int index) {
+        System.out.println(HORIZONTAL_LINE);
+        taskAdded.printTaskDeletedMessage(index);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static boolean isValidNumber(String strNum) {

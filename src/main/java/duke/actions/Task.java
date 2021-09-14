@@ -26,6 +26,10 @@ public class Task {
         return ("");
     }
 
+    public String getDescription(){
+        return description;
+    }
+
     public void printMarkAsDoneMessage(int taskNumber) {
         System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
     }
@@ -36,6 +40,10 @@ public class Task {
 
     public void printTaskAddedMessage() {
         System.out.println("I can do that! I have added [" + description + "] to your task list!");
+    }
+
+    public void printTaskDeletedMessage(int taskNumber) {
+        System.out.println("I got you! I've deleted this task:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
     }
 
     public String toString() {
