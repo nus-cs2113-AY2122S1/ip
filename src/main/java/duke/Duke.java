@@ -134,6 +134,22 @@ public class Duke {
         printDivider();
     }
 
+    private void loadTasksData() {
+        try {
+            TASK_MANAGER.convertDataToTasks();
+        } catch (DukeException exception) {
+            showErrorMessage(exception.getMessage());
+        }
+    }
+
+    private void updateTasksData() {
+        try {
+            TASK_MANAGER.convertTasksToData();
+        } catch (DukeException exception) {
+            showErrorMessage(exception.getMessage());
+        }
+    }
+
     private void parseUserInputString(String userInputString) throws DukeException {
         String command;
         String[] userInputArray;
@@ -195,34 +211,25 @@ public class Duke {
             }
             break;
         }
-
-        try {
-            TASK_MANAGER.convertTasksToData();
-        } catch (DukeException exception) {
-            showErrorMessage(exception.getMessage());
-        }
     }
 
-    public void execute() {
-
+    private void runInputLoop() {
         String userInputString;
-
-        greet();
-
-        try {
-            TASK_MANAGER.convertDataToTasks();
-        } catch (DukeException exception) {
-            showErrorMessage(exception.getMessage());
-        }
-
         while (true) {
             userInputString = SCANNER.nextLine().trim();
 
             if (userInputString.equalsIgnoreCase(COMMAND_EXIT)) {
-                exit();
                 break;
             }
             handleUserInput(userInputString);
+            updateTasksData();
         }
+    }
+
+    public void execute() {
+        greet();
+        loadTasksData();
+        runInputLoop();
+        exit();
     }
 }
