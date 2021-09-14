@@ -11,18 +11,19 @@ public class Duke {
     }
 
     private static void showStartMessage() {
-        String line = "________________________________________";
-        String logo = "      ____                U _____ u   ____      ____        _\n" +
-                      "     / __\"| u      ___    \\| ___\"|/U |  _\"\\ uU |  _\"\\ u U  /\"\\  u\n" +
-                     "    <\\___ \\/      |_\"_|    |  _|\"   \\| |_) |/ \\| |_) |/  \\/ _ \\/\n" +
-                      "     u___) |       | |     | |___    |  _ <    |  _ <    / ___ \\\n" +
-                      "     |____/>>    U/| |\\u   |_____|   |_| \\_\\   |_| \\_\\  /_/   \\_\\\n" +
-                      "      )(  (__).-,_|___|_,-.<<   >>   //   \\\\_  //   \\\\_  \\\\    >>\n" +
-                      "     (__)      \\_)-' '-(_/(__) (__) (__)  (__)(__)  (__)(__)  (__)";
+        String line = "_______________________________________________________________________________________________";
+        String logo =
+            "      ____                U _____ u   ____      ____        _" + System.lineSeparator() +
+            "     / __\"| u      ___    \\| ___\"|/U |  _\"\\ uU |  _\"\\ u U  /\"\\  u" + System.lineSeparator() +
+            "    <\\___ \\/      |_\"_|    |  _|\"   \\| |_) |/ \\| |_) |/  \\/ _ \\/" + System.lineSeparator() +
+            "     u___) |       | |     | |___    |  _ <    |  _ <    / ___ \\" + System.lineSeparator() +
+            "     |____/>>    U/| |\\u   |_____|   |_| \\_\\   |_| \\_\\  /_/   \\_\\" + System.lineSeparator() +
+            "      )(  (__).-,_|___|_,-.<<   >>   //   \\\\_  //   \\\\_  \\\\    >>" + System.lineSeparator() +
+            "     (__)      \\_)-' '-(_/(__) (__) (__)  (__)(__)  (__)(__)  (__)";
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from" + System.lineSeparator() + logo);
         System.out.println(line);
-        System.out.println("Hello! I'm Sierra!\n" + "What can I do for you?");
+        System.out.println("Hello! I'm Sierra!" + System.lineSeparator() + "What can I do for you?");
         System.out.println(line);
     }
 
@@ -70,7 +71,7 @@ public class Duke {
                     } else if (userInput.equalsIgnoreCase("change")) {
                         break;
                     } else {
-                        Tasks.list(userInput, tasksAL);
+                        Tasks.manageTasks(userInput, tasksAL);
                     }
                 }
                 break;

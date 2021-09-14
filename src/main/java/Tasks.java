@@ -25,8 +25,8 @@ public class Tasks {
         return "[T][" + mark() + "] " + name;
     }
 
-    //Function to execute the list program
-    static void list(String input, ArrayList<Tasks> tasksAL) {
+    //Function to execute function to manage tasks
+    static void manageTasks(String input, ArrayList<Tasks> tasksAL) {
         if (input.equalsIgnoreCase("list")) {
             if (tasksAL.size() == 0){
                 System.out.println("There is nothing in your list! Try adding something into your list.");
@@ -50,8 +50,12 @@ public class Tasks {
             }
 
         } else if (input.toLowerCase().startsWith("todo")) {
-            tasksAL.add(new Tasks(input.substring(5)));
-            printAdded(tasksAL);
+            if (input.split(" ").length == 1) {
+                System.out.println("Please add a task after 'todo'");
+            } else {
+                tasksAL.add(new Tasks(input.substring(5)));
+                printAdded(tasksAL);
+            }
 
         } else if (input.toLowerCase().startsWith("deadline")) {
             try {
@@ -86,8 +90,8 @@ public class Tasks {
     }
 
     private static String extractTask(String input, String type){
-        int jumpNumber = type.length() + 1;
-        return input.substring(jumpNumber, input.indexOf("/"));
+        int indexOfTask = type.length() + 1;
+        return input.substring(indexOfTask, input.indexOf("/"));
     }
 
     private static void printAdded(ArrayList<Tasks> tasksAL){
