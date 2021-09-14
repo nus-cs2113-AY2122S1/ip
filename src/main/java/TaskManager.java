@@ -139,10 +139,12 @@ public class TaskManager {
 
         int taskIndex = taskNumber - 1;
 
-        Duke.printlnTab("Noted. I've removed this task:");
-        Duke.printlnTab(String.format(" %s", tasks.get(taskIndex)));
+        String taskToStringOutput = String.format(" %s", tasks.get(taskIndex));
 
         tasks.remove(taskIndex);
+
+        Duke.printlnTab("Noted. I've removed this task:");
+        Duke.printlnTab(taskToStringOutput);
 
         printNumberOfTasksMessage();
         Duke.printDivider();
