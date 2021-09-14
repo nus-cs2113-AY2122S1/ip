@@ -10,6 +10,10 @@ public class Deadline extends Task {
         return date;
     }
 
+    public String getType() {
+        return "D";
+    }
+
     @Override
     public String toString() {
         //return the status of deadline task
