@@ -1,23 +1,30 @@
 package duke;
 
 import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskManager {
-    public static final String LINE = "____________________________________________________________\n";
+    public static final String LINE = "─────────────────────────────────────────────────────────────\n";
     ArrayList<Task> tasks = new ArrayList<>();
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
     /**
      * Adds task to task list represented by tasks array.
      * @param task Task to add
      */
-    public void addTasks(Task task) {
+    public void addTasks(Task task, boolean toPrint) {
         tasks.add(task);
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
-        System.out.println(LINE);
+        if (toPrint) {
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
+            System.out.println(LINE);
+        }
     }
 
     /**
