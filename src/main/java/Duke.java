@@ -1,4 +1,9 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class Duke {
 
@@ -25,12 +30,11 @@ public class Duke {
             + logo
             + "What can I do for you?\n"
             + helpMessage
-            + "____________________________________________________________\n" ;
+            + "____________________________________________________________\n";
 
     public static String goodbye = "____________________________________________________________\n"
             + "Bye. Hope to see you again soon!\n"
-            +  "____________________________________________________________\n";
-
+            + "____________________________________________________________\n";
 
 
     public static String emptyTaskError = "____________________________________________________________\n"
@@ -43,8 +47,78 @@ public class Duke {
             + helpMessage
             + "____________________________________________________________\n";
 
-    public static Task[] taskList = new Task[100];
-    public static int itemCount = 0;
+    public static String fileNotFound = "____________________________________________________________\n"
+            + "No preloaded file found! Please input your own data.\n"
+            + "____________________________________________________________\n";
+
+    //public static Task[] taskList = new Task[100];
+    //public static int itemCount = 0;\
+    public static ArrayList<Task> taskList = new ArrayList<>();
+
+    private static char getTaskType(Task task) {
+        if (task instanceof Todo) {
+            return 'T';
+        }
+        if (task instanceof Deadline) {
+            return 'D';
+        }
+        return 'E';
+    }
+
+    private static void updateData(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath); //to write first line
+        FileWriter fa = new FileWriter(filePath, true); //append the rest
+
+        Task currentTask = taskList.get(0);
+        char taskType = getTaskType(currentTask);
+        int isDone = (currentTask.getStatus()) ? 1 : 0;
+        String fullTask = currentTask.toString().substring(7);
+
+        fw.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
+
+        for (int i = 1; i < taskList.size(); i++) {
+            currentTask = taskList.get(i);
+            taskType = getTaskType(currentTask);
+            isDone = (currentTask.getStatus()) ? 1 : 0;
+            fullTask = currentTask.toString().substring(7);
+            fa.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
+        }
+
+        fw.close();
+        fa.close();
+    }
+
+    private static void readData(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+
+            String taskInfo = s.nextLine();
+
+            if (taskInfo.startsWith("T")) {
+                Task newTask = new Todo(taskInfo.substring(8));
+                taskList.add(newTask);
+                if (taskInfo.charAt(4) == '1') {
+                    newTask.markAsDone();
+                }
+
+            } else if (taskInfo.startsWith("D")) {
+                int indexOfSlash = taskInfo.indexOf("/");
+                Task newTask = new Deadline(taskInfo.substring(8, indexOfSlash - 1), taskInfo.substring(indexOfSlash + 4));
+                if (taskInfo.charAt(4) == '1') {
+                    newTask.markAsDone();
+                }
+
+            } else {
+                int indexOfSlash = taskInfo.indexOf("/");
+                Task newTask = new Event(taskInfo.substring(8, indexOfSlash - 1), taskInfo.substring(indexOfSlash + 4));
+                if (taskInfo.charAt(4) == '1') {
+                    newTask.markAsDone();
+                }
+            }
+        }
+    }
+
 
     //main function to process input
     public static void processLine(String line) throws UnknownCommandException, EmptyTaskException {
@@ -57,11 +131,11 @@ public class Duke {
             System.out.println("____________________________________________________________");
             System.out.println("Here are your remaining tasks:");
 
-            for (int i = 1; i <= itemCount; i++) {
+            for (int i = 1; i <= taskList.size(); i++) {
                 System.out.println(
                         Integer.toString(i)
                                 + ". "
-                                + taskList[i-1]
+                                + taskList.get(i - 1)
                 );
             }
             System.out.println("____________________________________________________________\n");
@@ -69,11 +143,11 @@ public class Duke {
         } else if (line.startsWith("done")) {
             try {
                 int i = Integer.parseInt(line.substring(5)) - 1;
-                taskList[i].markAsDone();
+                taskList.get(i).markAsDone();
 
                 System.out.println("____________________________________________________________\n"
                         + "Well done! I've marked this task as done: \n"
-                        + taskList[i]
+                        + taskList.get(i)
                         + System.lineSeparator()
                         + "____________________________________________________________\n"
                 );
@@ -86,47 +160,46 @@ public class Duke {
 
         } else if (isProperTask) {
 
-                if (isTodoTask) {
+            if (isTodoTask) {
 
-                    String actualTask = line.substring(4).trim();
-                    if (actualTask.isBlank()) {
-                        throw new EmptyTaskException();
-                    }
-                    taskList[itemCount] = new Todo(actualTask);
-
-                } else if (isDeadlineTask) {
-                    int indexOfSlash = line.indexOf("/");
-                    String actualTask = line.substring(8, indexOfSlash - 1).trim();
-                    String deadlineBy = line.substring(indexOfSlash + 4);
-                    if (actualTask.isBlank()) {
-                        throw new EmptyTaskException();
-                    }
-                    taskList[itemCount] = new Deadline(actualTask, deadlineBy);
-
-
-                } else {
-                    int indexOfSlash = line.indexOf("/");
-                    String actualTask = line.substring(5, indexOfSlash - 1).trim();
-                    String eventAt = line.substring(indexOfSlash + 4);
-                    if (actualTask.isBlank()) {
-                        throw new EmptyTaskException();
-                    }
-                    taskList[itemCount] = new Event(actualTask, eventAt);
+                String actualTask = line.substring(4).trim();
+                if (actualTask.isBlank()) {
+                    throw new EmptyTaskException();
                 }
+                taskList.add(new Todo(actualTask));
 
-                itemCount++;
-                System.out.println("____________________________________________________________\n"
-                        + "Got it! I've added this task: "
-                        + System.lineSeparator()
-                        + "  "
-                        + taskList[itemCount - 1]
-                        + System.lineSeparator()
-                        + "Now you have "
-                        + Integer.toString(itemCount)
-                        + " tasks left in the list."
-                        + System.lineSeparator()
-                        + "____________________________________________________________\n"
-                );
+            } else if (isDeadlineTask) {
+                int indexOfSlash = line.indexOf("/");
+                String actualTask = line.substring(8, indexOfSlash - 1).trim();
+                String deadlineBy = line.substring(indexOfSlash + 4);
+                if (actualTask.isBlank()) {
+                    throw new EmptyTaskException();
+                }
+                taskList.add(new Deadline(actualTask, deadlineBy));
+
+
+            } else {
+                int indexOfSlash = line.indexOf("/");
+                String actualTask = line.substring(5, indexOfSlash - 1).trim();
+                String eventAt = line.substring(indexOfSlash + 4);
+                if (actualTask.isBlank()) {
+                    throw new EmptyTaskException();
+                }
+                taskList.add(new Event(actualTask, eventAt));
+            }
+
+            System.out.println("____________________________________________________________\n"
+                    + "Got it! I've added this task: "
+                    + System.lineSeparator()
+                    + "  "
+                    + taskList.get(taskList.size() - 1)
+                    + System.lineSeparator()
+                    + "Now you have "
+                    + taskList.size()
+                    + " tasks left in the list."
+                    + System.lineSeparator()
+                    + "____________________________________________________________\n"
+            );
 
 
         } else if (line.startsWith("help")) {
@@ -137,14 +210,26 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(greeting);
+
+        File dukeData = new File("data/duke.txt");
+
+        //read in duke.txt
+        try {
+            readData(dukeData.getPath());
+
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFound);
+
+        }
+
 
         String line;
         Scanner in = new Scanner(System.in);
 
         //user input loop
-        while(true) {
+        while (true) {
             line = in.nextLine();
 
             if (line.equals("bye")) {
@@ -154,84 +239,19 @@ public class Duke {
 
             try {
                 processLine(line);
+                updateData(dukeData.getPath());
 
-            } catch (UnknownCommandException e) {
+            } catch (UnknownCommandException | IndexOutOfBoundsException e) {
                 System.out.println(invalidTaskError);
 
-            } catch(EmptyTaskException e) {
+            } catch (EmptyTaskException e) {
                 System.out.println(emptyTaskError);
+
+            } catch (IOException e) {
+                System.out.println("An error has occurred!");
             }
 
         }
     }
 }
 
- /* boolean isTodoTask = line.startsWith("todo ");
-            boolean isDeadlineTask = line.startsWith("deadline ");
-            boolean isEventTask = line.startsWith("event ");
-            boolean isProperTask = isTodoTask || isDeadlineTask || isEventTask;
-
-
-            if (line.equals("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are your remaining tasks:");
-
-                for (int i = 1; i <= itemCount; i++) {
-                    System.out.println(
-                            Integer.toString(i)
-                                    + ". "
-                                    + taskList[i-1]
-                    );
-                }
-                System.out.println("____________________________________________________________\n");
-
-            } else if (line.startsWith("done ")) {
-                int i = Integer.parseInt(line.substring(5)) - 1;
-                taskList[i].markAsDone();
-
-                System.out.println("____________________________________________________________\n"
-                        + "Well done! I've marked this task as done: \n"
-                        + taskList[i]
-                        + System.lineSeparator()
-                        + "____________________________________________________________\n"
-                );
-
-            } else if (isProperTask) {
-                try {
-                    if (isTodoTask) {
-                        taskList[itemCount] = new Todo(line.substring(5));
-                    } else if (isDeadlineTask) {
-                        int indexOfSlash = line.indexOf("/");
-                        String actualTask = line.substring(9, indexOfSlash - 1);
-                        String deadlineBy = line.substring(indexOfSlash + 4);
-                        taskList[itemCount] = new Deadline(actualTask, deadlineBy);
-                    } else {
-                        int indexOfSlash = line.indexOf("/");
-                        String actualTask = line.substring(6, indexOfSlash - 1);
-                        String eventAt = line.substring(indexOfSlash + 4);
-                        taskList[itemCount] = new Event(actualTask, eventAt);
-                    }
-
-                    itemCount++;
-                    System.out.println("____________________________________________________________\n"
-                            + "Got it! I've added this task: "
-                            + System.lineSeparator()
-                            + "  "
-                            + taskList[itemCount - 1]
-                            + System.lineSeparator()
-                            + "Now you have "
-                            + Integer.toString(itemCount)
-                            + " tasks left in the list."
-                            + System.lineSeparator()
-                            + "____________________________________________________________\n"
-                    );
-                } catch (EmptyTaskException e) {
-                    System.out.println("____________________________________________________________\n"
-                            + "☹ OOPS!!! The description of a todo cannot be empty.\n"
-                            + "____________________________________________________________");
-                }
-            } else if (line.startsWith("help")) {
-                System.out.println(instructions);
-            } else {
-                System.out.println("Enter \"help\" to read instructions on how to use me!\n");
-            }*/
