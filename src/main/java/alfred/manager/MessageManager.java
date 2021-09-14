@@ -38,6 +38,12 @@ public abstract class MessageManager {
         printMessageTemplate(messageString);
     }
 
+    public static void deleteTaskMessage(Task t, int numberOfTasks) {
+        String messageString = " Very well, Master Wayne, I shall remove this: \n    " + t.toString() + "\n" +
+                " Sir, the number of Tasks you have scheduled currently amounts to " + numberOfTasks + "." + "\n";
+        printMessageTemplate(messageString);
+    }
+
     // Error Messages
     public static void invalidCommandMessage() {
         printMessageTemplate(" Perhaps you could rephrase that in a way us civilians could comprehend.\n");
@@ -49,12 +55,12 @@ public abstract class MessageManager {
 
     public static void invalidIndexMessage() {
         String messageString = " Sir, the bats must've gone to your head.\n" + " Do try again with a number that " +
-                "identifies your task to mark for completion.\n";
+                "identifies your task.\n";
         printMessageTemplate(messageString);
     }
 
     public static void uninitialisedTaskIndexMessage(int numberOfTasks) {
-        String noTaskMessageString = " Sir, you have nothing scheduled, and thus nothing to complete.\n";
+        String noTaskMessageString = " Sir, you have nothing scheduled.\n";
         String singularMessageString = " Sir, might I remind you that you only have 1 task.\n" +
                 " Try again with a number in that range.\n";
         String pluralMessageString = " Sir, might I remind you that you only have " + numberOfTasks + " tasks.\n" +

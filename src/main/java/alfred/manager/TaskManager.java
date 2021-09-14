@@ -34,6 +34,9 @@ public class TaskManager {
             case "deadline":
                 addTask(userInput);
                 break;
+            case "delete":
+                deleteTask(userInput);
+                break;
             default:
                 MessageManager.invalidCommandMessage();
             }
@@ -126,4 +129,11 @@ public class TaskManager {
         MessageManager.addTaskMessage(d, tasks.size());
     }
 
+    private void deleteTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException {
+        String[] destructuredInputs = userInput.split(" ");
+        int index = Integer.parseInt(destructuredInputs[1]) - 1;
+        Task removedTask = tasks.get(index);
+        tasks.remove(tasks.get(index));
+        MessageManager.deleteTaskMessage(removedTask, tasks.size());
+    }
 }
