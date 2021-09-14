@@ -72,9 +72,13 @@ public class UI {
      */
     public void printTasksList(ArrayList<Task> tasks, int taskCount) {
         System.out.println(line);
-        System.out.println(" here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
+        if (taskCount > 0) {
+            System.out.println(" here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
+            }
+        } else {
+            System.out.println(" there are no tasks on your list :)");
         }
         System.out.println(line);
     }

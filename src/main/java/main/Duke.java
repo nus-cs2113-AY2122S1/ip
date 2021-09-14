@@ -9,6 +9,7 @@ import command.Command;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -22,6 +23,7 @@ public class Duke {
     private static final String ROOT_DIR = System.getProperty("user.dir");
     private static final String DATA_DIR = "data";
     private static final String DATA_FILE = "taro.txt";
+    public static final Path DATA_DIR_PATH = Paths.get(ROOT_DIR, "src", DATA_DIR);
     public static final Path DATA_FILE_PATH = Paths.get(ROOT_DIR, "src", DATA_DIR, DATA_FILE);
 
     /**
@@ -67,7 +69,12 @@ public class Duke {
     private void getDataFile() {
         try {
             dataFile = new File(String.valueOf(DATA_FILE_PATH));
-            if (!dataFile.createNewFile()) {
+            if(dataFile.getParentFile().mkdirs()) {
+                ui.printString("a new directory \"data\" was created to save your data");
+            }
+            if (dataFile.createNewFile()) {
+                ui.printString("a new file \"data/taro.txt\" was created to save your data");
+            } else {
                 try {
                     taskManager.loadFileContent(dataFile);
                     ui.printString("your saved data has been loaded");
