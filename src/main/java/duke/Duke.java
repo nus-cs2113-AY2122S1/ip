@@ -2,6 +2,7 @@ package duke;
 
 import exception.DukeException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,7 +15,7 @@ public class Duke {
     /**
      * Task type 100 objects to store the tasks the user will create
      */
-    public static Task[] scheduledTasks = new Task[100];
+    private static ArrayList<Task> scheduledTasks = new ArrayList<>();
 
     /**
      * This is the main function which is responsible for executing all the functions
@@ -110,7 +111,7 @@ public class Duke {
             if (split.length < 2 || split[1].isEmpty() == true) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             } else {
-                scheduledTasks[taskCounter] = new Todo(userInput);
+                scheduledTasks.add(new Todo(userInput));
             }
             break;
 
@@ -124,7 +125,7 @@ public class Duke {
             if (taskDescription.isEmpty() == true || timeDueBy.isEmpty() == true) {
                 throw new DukeException("☹ OOPS!!! The description of the task seems incomplete.");
             }
-            scheduledTasks[taskCounter] = new Deadline(userInput.substring(0, index), userInput.substring(index + 3));
+            scheduledTasks.add(new Deadline(userInput.substring(0, index), userInput.substring(index + 3)));
             break;
 
         case "event":
@@ -137,7 +138,7 @@ public class Duke {
             if (taskDescription.isEmpty() == true || timeDueAt.isEmpty() == true) {
                 throw new DukeException("☹ OOPS!!! The description or time schedule of the event seems incomplete.");
             }
-            scheduledTasks[taskCounter] = new Event(userInput.substring(0, index), userInput.substring(index + 3));
+            scheduledTasks.add(new Event(userInput.substring(0, index), userInput.substring(index + 3)));
             break;
 
         default:
@@ -148,9 +149,9 @@ public class Duke {
         if (isTaskValid) {
             printLine();
             System.out.println("Got it. I've added this task:");
-            System.out.println(" " + scheduledTasks[taskCounter]);
+            System.out.println(" " + scheduledTasks.get(scheduledTasks.size() - 1));
             taskCounter++;
-            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+            System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
         }
     }
 
@@ -164,10 +165,10 @@ public class Duke {
         printLine();
         int taskNumberCompleted = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
 
-        if ((taskNumberCompleted <= taskCounter) && (taskNumberCompleted > 0)) {
-            scheduledTasks[taskNumberCompleted - 1].markAsDone();
+        if ((taskNumberCompleted <= scheduledTasks.size()) && (taskNumberCompleted > 0)) {
+            scheduledTasks.get(taskNumberCompleted - 1).markAsDone();
             System.out.println("Nice! I have marked this task as done:");
-            System.out.println(scheduledTasks[taskNumberCompleted - 1]);
+            System.out.println(scheduledTasks.get(taskNumberCompleted - 1));
         } else {
             throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
         }
@@ -183,15 +184,17 @@ public class Duke {
         int i;
         String taskCompletionStatus;
         printLine();
-        if (taskCounter == 0) {
+        if (scheduledTasks.size() == 0) {
             throw new DukeException("Sorry, no tasks have been added to the list as yet!\n" +
                     "You can add tasks to this list simply by typing and pressing \"Enter\"!!");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (i = 0; i < taskCounter; i++) {
-                taskCompletionStatus = scheduledTasks[i].getStatus();
+            i = 0;
+            for (Task task : scheduledTasks) {
+                taskCompletionStatus = task.getStatus();
                 System.out.print((i + 1) + ".");
-                System.out.println(scheduledTasks[i]);
+                System.out.println(task);
+                i++;
             }
         }
     }
