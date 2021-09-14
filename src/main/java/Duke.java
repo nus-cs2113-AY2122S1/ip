@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+
 
 public class Duke {
 
@@ -77,6 +79,8 @@ public class Duke {
         FileWriter fa = new FileWriter(filePath, true); //append the rest
 
         if (taskList.isEmpty()) {
+            fw.close();
+            fa.close();
             return;
         }
 
@@ -253,7 +257,7 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         System.out.println(greeting);
 
-        File dukeData = new File("data/duke.txt");
+        File dukeData = new File("Duke.txt");
 
         //read in duke.txt
         try {
@@ -287,7 +291,6 @@ public class Duke {
 
             } catch (UnknownCommandException | StringIndexOutOfBoundsException | InvalidCommandException e) {
                 System.out.println(invalidTaskError);
-                System.out.println(e);
 
             } catch (EmptyTaskException e) {
                 System.out.println(emptyTaskError);
