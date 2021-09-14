@@ -22,12 +22,19 @@ public class Duke {
                     System.out.println(i + ": " + taskList.get(i - 1));
                 }
 		break;
-            case "done":
+            case "done": {
                 Task target = taskList.get(Integer.parseInt(splitted[1]) - 1);
                 target.setDoneStatus(true);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(target);
 		break;
+	    }
+	    case "delete": {
+                Task target = taskList.remove(Integer.parseInt(splitted[1]) - 1);
+		System.out.println("Noted. I've removed this task:");
+		System.out.println(target);
+		break;
+	    }
             default:
 		Task newTask = null;
 		try {
