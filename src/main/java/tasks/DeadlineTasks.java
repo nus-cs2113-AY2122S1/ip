@@ -11,7 +11,7 @@ public class DeadlineTasks extends Tasks {
 
     @Override
     public String getName() {
-        return "[D][" + super.mark() + "] " + name + "(" + Deadline.substring(0,Deadline.indexOf(" ")) + ": "
+        return "[D][" + getComplete() + "] " + name + "(" + Deadline.substring(0,Deadline.indexOf(" ")) + ": "
                 + Deadline.substring(Deadline.indexOf(" ") + 1) + ")";
     }
 }

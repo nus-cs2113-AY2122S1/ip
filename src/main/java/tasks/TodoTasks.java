@@ -9,6 +9,6 @@ public class TodoTasks extends Tasks{
 
     @Override
     public String getName() {
-        return "[T][" + mark() + "] " + name;
+        return "[T][" + getComplete() + "] " + name;
     }
 }
