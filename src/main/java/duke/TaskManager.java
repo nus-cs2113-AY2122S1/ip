@@ -55,6 +55,11 @@ public class TaskManager {
         System.out.println(LINE);
     }
 
+    /**
+     * Deletes a task given by its index
+     * @param taskIndex Index of task in task list to delete
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     public void deleteTask(int taskIndex) throws DukeException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new DukeException("☹ OOPS!!! Please select a task in the task list!");

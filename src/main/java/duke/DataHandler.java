@@ -24,6 +24,11 @@ public class DataHandler {
         }
     }
 
+    /**
+     * Loads data from csv file into the array list
+     * @param taskManager Manages the tasks after loading data
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     public void loadData(TaskManager taskManager) throws DukeException {
         try {
             Scanner scanner = new Scanner(file);
@@ -36,6 +41,11 @@ public class DataHandler {
         }
     }
 
+    /**
+     * Reads in data from csv file, breaks it down and stores them in task object
+     * @param data Data read in from csv file
+     * @return task Returns task created from data read from csv file
+     */
     private Task readTask(String data) {
         Task task = null;
         String[] taskBreakdown = data.split(",");
@@ -59,6 +69,11 @@ public class DataHandler {
         return task;
     }
 
+    /**
+     * Saves Tasks from arraylist tasklist into csv file
+     * @param taskManager Manages the tasks after loading data
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     public void saveData(TaskManager taskManager) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(STORAGE_PATH);

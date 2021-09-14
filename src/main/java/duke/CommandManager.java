@@ -76,6 +76,12 @@ public class CommandManager {
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    /**
+     * Extracts index of task to delete or mark as done
+     * @param userInput User input read as a string
+     * @return taskIndex Returns index of task to delete or mark as done
+     * @throws DukeException Throws exception to aid in identifying errors
+     */
     private static int extractTaskIndex(String userInput) throws DukeException {
         String[] extractedCommand = userInput.split(" ");
         int taskIndex;
