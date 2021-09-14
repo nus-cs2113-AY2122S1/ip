@@ -36,6 +36,7 @@ public class Duke {
                 } else {
                     list.addTask(request);
                 }
+                writeFile(list,file);
                 request = in.nextLine();
             } catch (DukeException ex) {
                 if (ex instanceof IncompleteInformationException) {
@@ -56,7 +57,7 @@ public class Duke {
             }
         }
         //write taskList into the txt file
-        writeFile(list,file);
+
         System.out.println("Bye. Hope to see you again soon!");
     }
 
