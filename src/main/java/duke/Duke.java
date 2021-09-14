@@ -1,12 +1,14 @@
-package duke.command;
+package duke;
 
 import java.util.Scanner;
+
+import duke.command.DukeException;
 import duke.task.*;
 
 public class Duke {
     public static void main(String[] args) {
         String logo = "____________________________________________________________\n"
-                + "Hello! I'm duke.command.Duke\n"
+                + "Hello! I'm duke.Duke\n"
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
 
