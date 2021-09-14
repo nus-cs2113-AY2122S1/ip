@@ -8,7 +8,6 @@ import task.Task;
 import task.Todo;
 
 public class TaskManager {
-    public static int taskCount = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void printDivider() {
@@ -37,7 +36,7 @@ public class TaskManager {
     private static void deleteTaskMessage(int index) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(tasks.get(index));
-        System.out.println("Now you have " + taskCount + " tasks in the list");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
     private static void taskDone(String userInput) throws DukeException {
@@ -59,20 +58,19 @@ public class TaskManager {
         }
         String position = params[1];
         int index = Integer.parseInt(position) - 1;
-        taskCount--;
         deleteTaskMessage(index);
         tasks.remove(index);
         printDivider();
     }
 
     public static void taskDoneLatest() {
-        tasks.get(taskCount - 1).markAsDone();
+        tasks.get(tasks.size() - 1).markAsDone();
     }
 
 
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d.%s" + System.lineSeparator(), i + 1, tasks.get(i));
         }
         printDivider();
@@ -81,7 +79,7 @@ public class TaskManager {
     private static void echoTask(int index) {
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(index));
-        taskCountMessage(taskCount);
+        taskCountMessage(tasks.size());
         printDivider();
     }
 
@@ -97,17 +95,14 @@ public class TaskManager {
 
     public static void addTodo(String userInput) {
         tasks.add(new Todo(userInput));
-        taskCount++;
     }
 
     public static void addDeadline(String description, String time) {
         tasks.add(new Deadline(description, time));
-        taskCount++;
     }
 
     public static void addEvent(String description, String time) {
         tasks.add(new Event(description, time));
-        taskCount++;
     }
 
     private static void addTask(String userInput) throws DukeException {
@@ -150,7 +145,7 @@ public class TaskManager {
             case "DEADLINE":
             case "EVENT":
                 addTask(userInput);
-                echoTask(taskCount - 1);
+                echoTask(tasks.size() - 1);
                 break;
             //fallthrough
             case "DONE":

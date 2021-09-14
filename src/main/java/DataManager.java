@@ -50,7 +50,7 @@ public class DataManager {
         String textToAppend;
         FileWriter fw = new FileWriter(filePath, false);// create a FileWriter in override mode
         fw.write("");
-        for (int i = 0; i < TaskManager.taskCount; i++) {
+        for (int i = 0; i < TaskManager.tasks.size(); i++) {
             Task task = TaskManager.tasks.get(i);
             textToAppend = task.getType() + " | " + task.getStatus() + " | " + task.getDescription() + " | " + task.getTime() + System.lineSeparator();
             appendToFile(filePath, textToAppend);
