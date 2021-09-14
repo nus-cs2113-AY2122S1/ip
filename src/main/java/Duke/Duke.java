@@ -31,12 +31,8 @@ public class Duke {
                 condition = false;
                 break;
             case "list": // Lists out all the current tasks in the order that they were added in
-                for (int i = 0; i < 100; i++) {
-                    if (input.List[i] == null) {
-                        break;
-                    } else {
-                        System.out.println((i + 1) + ".[" + input.List[i].getTaskIcon() + "]" + "[" + input.List[i].getStatusIcon() + "] " + input.List[i].getDescription());
-                    }
+                for (int i = 0; i < input.List.size(); i++) {
+                    System.out.println((i + 1) + ".[" + input.List.get(i).getTaskIcon() + "]" + "[" + input.List.get(i).getStatusIcon() + "] " + input.List.get(i).getDescription());
                 }
                 message.printLineBreak();
                 break;
@@ -50,7 +46,7 @@ public class Duke {
                         message.printListError();
                         message.printLineBreak();
                     } else {
-                        input.List[whichTask - 1].markAsDone();
+                        input.List.get(whichTask - 1).markAsDone();
                         System.out.println("YAY! That task has been marked as complete");
                         message.printLineBreak();
                     }
@@ -64,7 +60,7 @@ public class Duke {
                     if (instructionTask.isEmpty() || instructionTask.equals(" ")) {
                         throw new DukeException();
                     }
-                    input.List[counter] = new ToDos(instructionTask);
+                    input.List.add(counter, new ToDos(instructionTask));
                     System.out.println("Nice! The task has been added to your todo list");
                     message.printLineBreak();
                     counter++;
@@ -81,7 +77,7 @@ public class Duke {
                     int indexOfDeadline = instructionTask.indexOf("/by");
                     String theTask = instructionTask.substring(0, indexOfDeadline - 1);
                     String theDeadline = instructionTask.substring(indexOfDeadline);
-                    input.List[counter] = new Deadline(theTask, theDeadline);
+                    input.List.add(counter, new Deadline(theTask, theDeadline));
                     System.out.println("Nice! The task has been added to your deadlines");
                     message.printLineBreak();
                     counter++;
@@ -98,7 +94,7 @@ public class Duke {
                     int indexOfEvent = instructionTask.indexOf("/at");
                     String theTask2 = instructionTask.substring(0, indexOfEvent - 1);
                     String theEvent = instructionTask.substring(indexOfEvent);
-                    input.List[counter] = new Events(theTask2, theEvent);
+                    input.List.add(counter, new Events(theTask2, theEvent));
                     System.out.println("Nice! The task has been added to your events list");
                     message.printLineBreak();
                     counter++;
@@ -110,6 +106,20 @@ public class Duke {
             case "help":
                 message.printHelp();
                 message.printLineBreak();
+                break;
+            case "delete":
+                try {
+                    if (instructionTask.isEmpty() || instructionTask.equals(" ")) {
+                        throw new DukeException();
+                    }
+                    int number = Integer.parseInt(instructionTask);
+                    input.List.remove(number - 1);
+                    System.out.println("Ok! The task has been deleted from your list");
+                    message.printLineBreak();
+                } catch (DukeException | NumberFormatException | IndexOutOfBoundsException e) {
+                    message.printListError();
+                    message.printLineBreak();
+                }
                 break;
             default: // When no specific command is selected, the input is added automatically to the list of tasks.
                 message.printIntructionsUnclear();

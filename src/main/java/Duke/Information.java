@@ -2,7 +2,8 @@ package Duke;
 
 import Duke.Task.Task;
 
+import java.util.ArrayList;
+
 public class Information {
-    Task List[] = new Task[100];
-    int listLength = 0;
+    ArrayList<Task> List = new ArrayList<>();
 }
