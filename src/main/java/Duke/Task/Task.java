@@ -35,4 +35,6 @@ public class Task {
         return description;
     }
 
+    public String getOriginalDescription() { return description;}
+
 }

@@ -5,7 +5,7 @@ import Duke.Information;
 import Duke.printMessage;
 
 public class TaskManager {
-    private static Information input = new Information();
+    public static Information input = new Information();
     private static printMessage message = new printMessage();
 
     public static void printList() {
@@ -15,13 +15,13 @@ public class TaskManager {
         message.printLineBreak();
     }
 
-    public static void thisDone(String instructionTask, int counter) {
+    public static void thisDone(String instructionTask) {
         try {
             int whichTask = Integer.parseInt(instructionTask.replaceAll("[\\D]", ""));
             if (whichTask <= 0) {
                 message.printListError();
                 message.printLineBreak();
-            } else if (whichTask > counter) {
+            } else if (whichTask > input.List.size()) {
                 message.printListError();
                 message.printLineBreak();
             } else {
@@ -30,17 +30,18 @@ public class TaskManager {
                 message.printLineBreak();
             }
         } catch (NumberFormatException e) {
+            System.out.println("counter");
             message.printListError();
             message.printLineBreak();
         }
     }
 
-    public static void addToDo(String instructionTask, int counter) {
+    public static void addToDo(String instructionTask) {
         try {
             if (instructionTask.isEmpty() || instructionTask.equals(" ")) {
                 throw new DukeException();
             }
-            input.List.add(counter, new ToDos(instructionTask));
+            input.List.add(new ToDos(instructionTask));
             System.out.println("Nice! The task has been added to your todo list");
             message.printLineBreak();
         } catch (DukeException e) {
@@ -49,7 +50,7 @@ public class TaskManager {
         }
     }
 
-    public static void addDeadline(String instructionTask, int counter) {
+    public static void addDeadline(String instructionTask) {
         try {
             if (!instructionTask.contains("/by")) {
                 throw new DukeException();
@@ -57,7 +58,7 @@ public class TaskManager {
             int indexOfDeadline = instructionTask.indexOf("/by");
             String theTask = instructionTask.substring(0, indexOfDeadline - 1);
             String theDeadline = instructionTask.substring(indexOfDeadline);
-            input.List.add(counter, new Deadline(theTask, theDeadline));
+            input.List.add(new Deadline(theTask, theDeadline));
             System.out.println("Nice! The task has been added to your deadlines");
             message.printLineBreak();
         } catch (DukeException e) {
@@ -66,7 +67,7 @@ public class TaskManager {
         }
     }
 
-    public static void addEvent(String instructionTask, int counter) {
+    public static void addEvent(String instructionTask) {
         try {
             if (!instructionTask.contains("/at")) {
                 throw new DukeException();
@@ -74,7 +75,7 @@ public class TaskManager {
             int indexOfEvent = instructionTask.indexOf("/at");
             String theTask2 = instructionTask.substring(0, indexOfEvent - 1);
             String theEvent = instructionTask.substring(indexOfEvent);
-            input.List.add(counter, new Events(theTask2, theEvent));
+            input.List.add(new Events(theTask2, theEvent));
             System.out.println("Nice! The task has been added to your events list");
             message.printLineBreak();
         } catch (DukeException e) {
