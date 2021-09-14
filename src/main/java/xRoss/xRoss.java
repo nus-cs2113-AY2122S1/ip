@@ -31,7 +31,9 @@ public class xRoss {
                 printTaskListResponse(taskManager);
             } else if (inputLine.startsWith("done")) {
                 printDoneResponse(taskManager, inputLine);
-            } else if (inputLine.startsWith("todo")) {
+            } else if (inputLine.startsWith("delete")){
+                printDeleteResponse(taskManager, inputLine);
+            }else if (inputLine.startsWith("todo")) {
                 printTodoResponse(taskManager, inputLine);
             } else if (inputLine.startsWith("deadline")) {
                 printDeadlineResponse(taskManager, inputLine);
@@ -117,6 +119,12 @@ public class xRoss {
                     + "\tCorrect format as follows:\n"
                     + "\t\tdone <valid task number>\n");
             break;
+        case "delete":
+            System.out.println("\tWrong Delete command format: "
+                    + "Integer argument expected for task to be deleted\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tdelete <valid task number>\n");
+            break;
         default:
         }
     }
@@ -137,6 +145,19 @@ public class xRoss {
             taskManager.markAsDone(Integer.parseInt(taskNumberDone[1]));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             printCommandErrorMessage("done");
+        }
+        printDividerLine();
+    }
+
+    // prints response to delete command
+    private static void printDeleteResponse(TaskManager taskManager, String inputLine){
+        printDividerLine();
+        try {
+            String[] taskNumberDone = inputLine.split("delete ");
+
+            taskManager.deleteTask(Integer.parseInt(taskNumberDone[1]));
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            printCommandErrorMessage("delete");
         }
         printDividerLine();
     }
