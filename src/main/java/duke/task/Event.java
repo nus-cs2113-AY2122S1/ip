@@ -12,4 +12,13 @@ public class Event extends Task{
     public String listTask() {
         return "[E]" + super.listTask() + " (at: " + duration + ")";
     }
+
+    @Override
+    public String getIcon() {
+        return "E";
+    }
+
+    public String getDate() {
+        return duration;
+    }
 }

@@ -12,4 +12,13 @@ public class Deadline extends Task{
     public String listTask() {
         return "[D]" + super.listTask() + " (by: " + endDate + ")";
     }
+
+    @Override
+    public String getIcon() {
+        return "D";
+    }
+
+    public String getDate() {
+        return endDate;
+    }
 }

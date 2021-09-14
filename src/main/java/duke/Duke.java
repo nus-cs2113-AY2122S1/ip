@@ -2,12 +2,18 @@ package duke;
 
 import duke.validation.DukeException;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
         UI.printWelcomeMessage();
+        if (InputFile.hasInput()) {
+            InputFile.readInput();
+            InputFile.deleteInput();
+        }
         String input;
         String[] inputWords;
         String command;
@@ -31,11 +37,15 @@ public class Duke {
             case "list":
                 TaskManager.printList();
                 break;
+            case "bye":
+                break;
             default:
                 DukeException.invalidInputException();
                 break;
             }
         } while (!command.equals("bye"));
+        InputFile.createInput();
+        InputFile.writeToInput();
         UI.printEndMessage();
     }
 }
