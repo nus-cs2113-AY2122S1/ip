@@ -34,24 +34,22 @@ public class Duke {
         }
         switch(command){
         case "list":
+            if (list.isEmpty()) {
+                throw new NullPointerException();
+            }
             for(Task task: list){
                 task.printTask();
             }
-            return 0;
+            break;
         case "done":
             if (description==null) {
                 throw new NumberFormatException();
             }
-            int index = Integer.parseInt(description);
-            for (Task task : list) {
-                if (task.index == index) {
-                    task.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[" + task.getStatusIcon() + "] " + task.description);
-                    break;
-                }
-            }
-            return 0;
+            int index = Integer.parseInt(description)-1;
+            list.get(index).markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("[" + list.get(index).getStatusIcon() + "] " + list.get(index).description);
+            break;
         case "todo":
             if (description==null) {
                 throw new DukeException("nullTodo");
@@ -60,7 +58,7 @@ public class Duke {
             Todo todo = new Todo(description, count);
             printAdded(todo,count);
             list.add(todo);
-            return 0;
+            break;
         case "deadline":
             if (description==null) {
                 throw new DukeException("nullTodo");
@@ -71,7 +69,7 @@ public class Duke {
             Deadline deadline = new Deadline(description, count, time);
             printAdded(deadline,count);
             list.add(deadline);
-            return 0;
+            break;
         case "event":
             if (description==null) {
                 throw new DukeException("nullTodo");
@@ -82,12 +80,26 @@ public class Duke {
             Event event = new Event(description, count, time);
             printAdded(event,count);
             list.add(event);
-            return 0;
+            break;
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             return -1;
+        case "delete":
+            if (description==null) {
+                throw new NumberFormatException();
+            }
+            int index2 = Integer.parseInt(description)-1;
+            list.get(index2).printTaskDelete(count-1);
+            list.remove(index2);
+            count--;
+            for (int i=index2; i<count; i++) {
+                list.get(i).index--;
+            }
+            break;
+        default:
+            throw new DukeException("unknownCommand");
         }
-        throw new DukeException("unknownCommand");
+        return 0;
     }
 
     public void run() {
@@ -101,21 +113,28 @@ public class Duke {
                     break;
                 }
             } catch (DukeException e) {
-                if (e.error.equals("unknownCommand")) {
+                switch (e.error) {
+                case "unknownCommand":
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                } else if (e.error.equals("nullTodo")) {
+                    break;
+                case "nullTodo":
                     System.out.println("☹ OOPS!!! The description cannot be empty.");
-                } else if (e.error.equals("nullTime")) {
+                    break;
+                case "nullTime":
                     System.out.println("☹ OOPS!!! The time cannot be empty.");
-                } else {
+                    break;
+                default:
                     System.out.println("☹ OOPS!!! There is an unknown error.");
+                    break;
                 }
             } catch (NullPointerException e) {
                 System.out.println("☹ OOPS!!! There are no items in the list.");
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! There is no such item to be done.");
             } catch (NumberFormatException e) {
-                System.out.println("☹ OOPS!!! Please input the index of the item to be done.");
+                System.out.println("☹ OOPS!!! Please input the index of the item.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("☹ OOPS!!! There is no such item.");
             }
             input = in.nextLine();
         }

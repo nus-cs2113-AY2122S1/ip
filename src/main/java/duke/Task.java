@@ -23,4 +23,10 @@ public class Task {
     public void printTask(){
         System.out.println(index + ". [" + type + "] [" + getStatusIcon() + "] " + description);
     }
+
+    public void printTaskDelete(int count){
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("[" + type + "] [" + getStatusIcon() + "] " + description);
+        System.out.println("Now you have " + count + " tasks in the list.");
+    }
 }
