@@ -15,4 +15,13 @@ deadline finish eating /by 2pm
 list
 done 2
 done 3
+list
+delete 1
+delete 3
+list
+delete 4
+delete 2
+list
+delete 1
+list
 bye

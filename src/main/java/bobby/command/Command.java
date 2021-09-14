@@ -8,11 +8,12 @@ import bobby.task.Deadline;
 import bobby.task.Event;
 import bobby.task.Task;
 import bobby.task.ToDo;
+import java.util.ArrayList;
 
 public class Command {
     private String command;
     private TaskManager taskManager;
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
 
     public Command(String command, TaskManager taskManager) {
         this.command = command;
@@ -24,33 +25,57 @@ public class Command {
         return command;
     }
 
-    public void executeDoneCommand (int taskListIndex, String rawUserInput) throws IncorrectDescriptionFormatException,
-            NoDescriptionException, NullPointerException, NumberFormatException, IndexOutOfBoundsException {
+    public void executeDoneCommand (String rawUserInput)
+            throws IncorrectDescriptionFormatException, NoDescriptionException,
+            NumberFormatException, IndexOutOfBoundsException {
+
         // split the input string into array
         String[] inputWords = rawUserInput.split(" ");
+
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
-        }
-        if (inputWords.length > 2) {
+        } else if (inputWords.length > 2) {
             throw new IncorrectDescriptionFormatException();
         }
 
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
 
         // task has not been marked as done and needs to be marked as done
-        if (!taskList[doneIndex].getIsDone()) {
-            taskList[doneIndex].markAsDone();
-            ResponseManager.printTaskDoneMessage(taskList[doneIndex]);
+        if (!taskList.get(doneIndex).getIsDone()) {
+            taskList.get(doneIndex).markAsDone();
+            ResponseManager.printTaskDoneMessage(taskList.get(doneIndex));
         } else{
             ResponseManager.printTaskAlreadyDoneMessage();
         }
     }
 
-    public void executeListCommand(int taskListIndex) {
-        ResponseManager.printTaskList(taskListIndex, taskList);
+    public void executeDeleteCommand(ArrayList<Task> taskList, String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException,
+            NumberFormatException, IndexOutOfBoundsException{
+
+        String[] inputWords = rawUserInput.split(" ");
+
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        } else if (inputWords.length > 2) {
+            throw new IncorrectDescriptionFormatException();
+        }
+
+        //find the index of the task to delete and the task itself
+        int deleteIndex = Integer.parseInt(inputWords[1]) - 1;
+        Task taskToDelete = taskList.get(deleteIndex);
+        //delete the task
+        taskList.remove(deleteIndex);
+        int totalTasks = taskList.size();
+
+        ResponseManager.printTaskDeletedMessage(taskToDelete, totalTasks);
     }
 
-    public void executeToDoCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException {
+    public void executeListCommand(ArrayList<Task> taskList) {
+        ResponseManager.printTaskList(taskList);
+    }
+
+    public void executeToDoCommand(String rawUserInput) throws NoDescriptionException {
         String[] inputWords = rawUserInput.split(" ");
         String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
 
@@ -59,11 +84,15 @@ public class Command {
         }
 
         ToDo task = new ToDo(fullTaskDescription);
-        taskManager.addTask(task, taskListIndex);
-        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
+        taskManager.addTask(task);
+
+        int totalTasks = taskList.size();
+        ResponseManager.printTaskAddedMessage(task, totalTasks);
     }
 
-    public void executeDeadlineCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+    public void executeDeadlineCommand(String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException {
+
         String[] inputWords = rawUserInput.split(" ");
 
         if (inputWords.length == 1) {
@@ -75,35 +104,39 @@ public class Command {
 
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
-        }
-        if (!rawUserInput.contains(" /by ")) {
+        } else if (!rawUserInput.contains(" /by ")) {
             throw new IncorrectDescriptionFormatException();
         }
 
         Deadline task = new Deadline(fullTaskDescription);
-        taskManager.addTask(task, taskListIndex);
-        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
+        taskManager.addTask(task);
+
+        int totalTasks = taskList.size();
+        ResponseManager.printTaskAddedMessage(task, totalTasks);
     }
 
-    public void executeEventCommand(int taskListIndex, String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+    public void executeEventCommand(String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException {
         String[] inputWords = rawUserInput.split(" ");
 
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
         }
-
+        // for checking if valid
         String[] separatedDescription = rawUserInput.split("/at", 2);
         String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
 
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
-        }
-        if (!rawUserInput.contains(" /at ")) {
+        } else if (!rawUserInput.contains(" /at ")) {
             throw new IncorrectDescriptionFormatException();
         }
 
         Event task = new Event(fullTaskDescription);
-        taskManager.addTask(task, taskListIndex);
-        ResponseManager.printTaskAddedMessage(task, Task.getTotalTasks());
+        taskManager.addTask(task);
+
+        int totalTasks = taskList.size();
+        ResponseManager.printTaskAddedMessage(task, totalTasks);
     }
+
 }
