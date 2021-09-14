@@ -5,9 +5,12 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
-
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class Duke {
 
@@ -52,9 +55,87 @@ public class Duke {
             + helpMessage
             + "____________________________________________________________\n";
 
-    //public static Task[] taskList = new Task[100];
+
     public static ArrayList<Task> taskList = new ArrayList<>();
-    //public static int itemCount = 0;
+
+    public static String fileNotFound = "____________________________________________________________\n"
+            + "No preloaded file found! Please input your own data.\n"
+            + "____________________________________________________________\n";
+
+    private static char getTaskType(Task task) {
+        if (task instanceof Todo) {
+            return 'T';
+        }
+        if (task instanceof Deadline) {
+            return 'D';
+        }
+        return 'E';
+    }
+
+    private static void updateData(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath); //to write first line
+        FileWriter fa = new FileWriter(filePath, true); //append the rest
+
+        if (taskList.isEmpty()) {
+            return;
+        }
+
+        Task currentTask = taskList.get(0);
+        char taskType = getTaskType(currentTask);
+        int isDone = (currentTask.getStatus()) ? 1 : 0;
+        String fullTask = currentTask.toString().substring(7);
+
+        fw.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
+
+        for (int i = 1; i < taskList.size(); i++) {
+            currentTask = taskList.get(i);
+            taskType = getTaskType(currentTask);
+            isDone = (currentTask.getStatus()) ? 1 : 0;
+            fullTask = currentTask.toString().substring(7);
+            fa.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
+        }
+
+        fw.close();
+        fa.close();
+    }
+
+    private static void readData(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+
+            String taskInfo = s.nextLine();
+
+            if (taskInfo.startsWith("T")) {
+                Task newTask = new Todo(taskInfo.substring(8));
+                taskList.add(newTask);
+                if (taskInfo.charAt(4) == '1') {
+                    newTask.markAsDone();
+                }
+
+            } else if (taskInfo.startsWith("D")) {
+                int indexOfColon = taskInfo.indexOf(":");
+                int indexOfOpenBracket = taskInfo.indexOf("(");
+                int indexOfCloseBracket = taskInfo.indexOf(")");
+                Task newTask = new Deadline(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
+                taskList.add(newTask);
+                if (taskInfo.charAt(4) == '1') {
+                    newTask.markAsDone();
+                }
+
+            } else {
+                int indexOfColon = taskInfo.indexOf(":");
+                int indexOfOpenBracket = taskInfo.indexOf("(");
+                int indexOfCloseBracket = taskInfo.indexOf(")");
+                Task newTask = new Event(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
+                taskList.add(newTask);
+                if (taskInfo.charAt(4) == '1') {
+                    newTask.markAsDone();
+                }
+            }
+        }
+    }
+
 
     //main function to process input
     public static void processLine(String line) throws UnknownCommandException, EmptyTaskException, InvalidCommandException {
@@ -109,7 +190,7 @@ public class Duke {
                 if (actualTask.isBlank()) {
                     throw new EmptyTaskException();
                 }
-                if (!actualTask.contains("/by")) {
+                if (!line.contains("/by")) {
                     throw new InvalidCommandException();
                 }
                 taskList.add(new Deadline(actualTask, deadlineBy));
@@ -121,7 +202,7 @@ public class Duke {
                 if (actualTask.isBlank()) {
                     throw new EmptyTaskException();
                 }
-                if (!actualTask.contains("/at")) {
+                if (!line.contains("/at")) {
                     throw new InvalidCommandException();
                 }
                 taskList.add(new Event(actualTask, eventAt));
@@ -169,8 +250,22 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(greeting);
+
+        File dukeData = new File("data/duke.txt");
+
+        //read in duke.txt
+        try {
+            readData(dukeData.getPath());
+
+        } catch (FileNotFoundException e) {
+            System.out.println(fileNotFound);
+
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("An error has occurred!");
+        }
+
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -188,17 +283,18 @@ public class Duke {
             //process the other commands
             try {
                 processLine(line);
+                updateData(dukeData.getPath());
 
             } catch (UnknownCommandException | StringIndexOutOfBoundsException | InvalidCommandException e) {
                 System.out.println(invalidTaskError);
+                System.out.println(e);
 
             } catch (EmptyTaskException e) {
                 System.out.println(emptyTaskError);
 
+            } catch (IOException e) {
+                System.out.println("An error has occurred!");
             }
-
         }
     }
 }
-
-

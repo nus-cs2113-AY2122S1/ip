@@ -1,2 +1,0 @@
-T | 1 | sex
-D | 0 | sex (by: tmr)
