@@ -148,6 +148,25 @@ public class Duke {
         fw.close();
     }
 
+    public static void removeTask(String[] processedUserInput, int taskNumber, String filePath) throws FileNotFoundException, IOException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        String finalText = "";
+        int lineNumber = 0;
+        while (s.hasNext()) {
+            if (lineNumber == taskNumber) {
+                //Do nothing
+                s.nextLine();
+            } else {
+                finalText = finalText + s.nextLine() + "\n";
+            }
+            lineNumber++;
+        }
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(finalText);
+        fw.close();
+    }
+
     public static void main(String[] args) {
 
         //Greeting
@@ -220,9 +239,14 @@ public class Duke {
                 //Deletes task from task list
                 int deleteTaskNumber = Integer.parseInt(processedUserInput[1]) - 1;
                 Functions.deleteTask(taskList, deleteTaskNumber);
-                int taskNumber = Integer.parseInt(processedUserInput[1]) - 1;
-                Functions.markAsDone(taskList, taskNumber);
-                //Update duke.txt
+                //Deletes from duke.txt
+                try {
+                    removeTask(processedUserInput, deleteTaskNumber, filePath);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "todo":
             case "deadline":
