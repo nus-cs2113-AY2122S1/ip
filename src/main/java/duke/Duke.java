@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Duke {
 
@@ -59,7 +57,7 @@ public class Duke {
     }
 
     public static void loadData(String dataPath) throws IOException {
-
+        // load data from duke.txt file every time it starts up
         File dataFile = new File(dataPath);
         Scanner dataScanner = new Scanner(dataFile);
         while (dataScanner.hasNext()) {
@@ -91,6 +89,7 @@ public class Duke {
     }
 
     public static void saveData() {
+        // save data to duke.txt file every time it ends up
         try {
             FileWriter writer = new FileWriter(dataPath);
             for (Task task : tasks) {
