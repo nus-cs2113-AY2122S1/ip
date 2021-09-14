@@ -96,6 +96,12 @@ public class UI {
                 "  " + task);
     }
 
+    public void printTaskDeletedMessage(Task deletedTask, int taskCount) {
+        printString("noted. I've removed this task:\n" +
+                "  " + deletedTask +
+                "\n now you have " + taskCount + " tasks in the list.");
+    }
+
     public void printExitMessage() {
         printString("bye. I hope to see you soon!");
     }

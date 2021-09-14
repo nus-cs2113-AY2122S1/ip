@@ -11,6 +11,7 @@ public class Parser {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_DELETE = "delete";
     private static final int DATE_BUFFER = 3;
     public static final String PREFIX_BY = "/by";
     public static final String PREFIX_AT = "/at";
@@ -37,8 +38,11 @@ public class Parser {
         case COMMAND_LIST:
             return new ListCommand();
         case COMMAND_DONE:
-            int taskIndex = Integer.parseInt(userInput.substring(positionOfSpace + 1));
-            return new DoneCommand(taskIndex);
+            int doneIndex = Integer.parseInt(userInput.substring(positionOfSpace + 1)) - 1;
+            return new DoneCommand(doneIndex);
+        case COMMAND_DELETE:
+            int deleteIndex = Integer.parseInt(userInput.substring(positionOfSpace + 1)) - 1;
+            return new DeleteCommand(deleteIndex);
         case COMMAND_EXIT:
             return new ExitCommand();
         default:
