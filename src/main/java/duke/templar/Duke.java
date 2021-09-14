@@ -3,14 +3,13 @@ package duke.templar;
 import duke.exception.*;
 
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 
 public class Duke {
 
     public static final String MESSAGE_DIVIDER = "____________________________________________________________";
-    public static int taskCount = 0;
-    public static Task[] tasks = new Task[100];
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException {
         String logo = " ____        _        \n"
@@ -38,8 +37,7 @@ public class Duke {
             line = in.nextLine();
 
             TaskManager activateTaskManager = new TaskManager();
-            activateTaskManager.processInput(line, tasks, taskCount);
-            taskCount++;
+            activateTaskManager.processInput(line, tasks);
 
             if (line.contains("bye")) {
                 System.out.println(MESSAGE_DIVIDER);
