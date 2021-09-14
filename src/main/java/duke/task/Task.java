@@ -36,6 +36,10 @@ public abstract class Task {
         return "N/A";
     }
 
+    public String toStorageString() {
+        return String.format("%s//%s//%s//%s", getTaskType(),getDescription(),getAdditionalDescription(),getStatusIcon());
+    }
+
     @Override
     public String toString() {
         return String.format("[%s][%s] %s", getTaskType(), getStatusIcon(), getDescription());
