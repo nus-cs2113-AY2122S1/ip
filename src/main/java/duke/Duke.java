@@ -7,11 +7,20 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Duke {
 
+    public static final String SAVEFILE_SEPERATOR = "|";
+    public static final String FILE_PATH = "duke.txt";
     public static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -102,12 +111,19 @@ public class Duke {
         userInput = in.nextLine();
         boolean closeDuke;
 
+        /*try {
+            unfilteredTasks = loadFile(FILE_PATH, unfilteredTasks);
+        } catch (FileNotFoundException e){
+            File dukeCheckpoint = new File(FILE_PATH);
+        }
+*/
         do {
-
             String command = getCommand(userInput);
             try {
+
                 String newTask = GetItem(userInput);
                 String time = getTime(userInput);
+                String dukeUpdate = "";
 
                 doDone(command, unfilteredTasks, userInput);
                 doList(command, unfilteredTasks);
@@ -116,12 +132,16 @@ public class Duke {
                 AcknowledgeAddition(command, unfilteredTasks[unfilteredCounter], unfilteredCounter);
                 unfilteredCounter = (isInvalidCommand(command) || isList(command) || isDone(command)) ? unfilteredCounter : unfilteredCounter + 1;
 
+                dukeUpdate = autoSave(unfilteredTasks, dukeUpdate);
+                writeToFile(FILE_PATH, dukeUpdate);
+
             } catch (IllegalToDoException e) {
                 IllegalToDoException.printMessage();
             } catch (InvalidCommandException e) {
                 InvalidCommandException.printMessage();
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
-
 
             if (!isBye(command)) {
                 userInput = in.nextLine();
@@ -129,6 +149,52 @@ public class Duke {
             doBye(command);
             closeDuke = isBye(command);
         } while (!closeDuke);
+    }
+
+    private static String autoSave(Task[] unfilteredTasks, String dukeUpdate) {
+        for (Task task : unfilteredTasks) {
+            if (task != null) {
+                String completionStatus = task.isDone() ? "1" : "0";
+                dukeUpdate = dukeUpdate + task.getType() + " | " + completionStatus + " | " + task.getTask();
+                dukeUpdate = (task instanceof Deadline || task instanceof Event) ? dukeUpdate + " | " + task.getTime() : dukeUpdate;
+                dukeUpdate = dukeUpdate + "\n";
+            }
+        }
+        return dukeUpdate;
+    }
+
+    private static void loadFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            loadCommands(s.nextLine());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter dukeIn = new FileWriter(filePath);
+        dukeIn.write(textToAdd);
+        dukeIn.close();
+    }
+
+    private static void loadCommands(String taskDetails) {
+        String[] taskBreakdown = taskDetails.split(SAVEFILE_SEPERATOR);
+        String taskType = taskBreakdown[0];
+        String completionStatus = taskBreakdown[1];
+        String task = taskBreakdown[2];
+        String savedInput;
+
+        switch (taskType) {
+        case "T":
+            savedInput = "todo " + task;
+            break;
+        case "D":
+            savedInput = "deadline " + task + " /by " + taskBreakdown[3];
+            break;
+        case "E":
+            savedInput = "event " + task + " /at " + taskBreakdown[3];
+            break;
+        }
     }
 
     private static void printGreetings() {

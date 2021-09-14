@@ -3,6 +3,7 @@ package duke.task;
 public class Task {
     protected String task;
     protected boolean isDone;
+    protected String type;
 
     public Task(String task){
         this.task = task;
@@ -11,6 +12,22 @@ public class Task {
 
     public String getStatusIcon() {
         return(isDone ? "[X] " : "[ ] ");
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getTime(){
+        return "";
+    }
+
+    public String getTask(){
+        return task;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void markAsDone(){
