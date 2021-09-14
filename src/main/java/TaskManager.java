@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -14,10 +15,12 @@ public class TaskManager {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
+    //only for adding tasks when program is already runnning
+    //not for adding the tasks when loaded into the syste
     public void addTaskPlusException(TaskEnum taskType, String userInput) {
         try {
             String userInputWithoutTaskCommand = removeTaskCommand(taskType, userInput);
-            addTask(taskType, userInputWithoutTaskCommand);
+            addTask(taskType, userInputWithoutTaskCommand, false);
 
         } catch (BlankDescriptionException e) {
             //TODO differentiate tasks
@@ -48,27 +51,32 @@ public class TaskManager {
         return strippedUserInput;
     }
 
-    private void addTask(TaskEnum taskType, String userInputWithoutTaskCommand) {
+    private void addTask(TaskEnum taskType, String userInputWithoutTaskCommand, boolean isDone) {
 
         try {
             String[] taskDetails; //array that should be of length 2 if strippedUserInput is valid
             switch (taskType) {
             case TODO:
-                addTodo(userInputWithoutTaskCommand);
+                addTodo(userInputWithoutTaskCommand, isDone);
                 break;
             case DEADLINE:
                 taskDetails = getTaskDetails(TaskEnum.DEADLINE, userInputWithoutTaskCommand);
-                addDeadline(taskDetails);
+                addDeadline(taskDetails, isDone);
                 break;
             case EVENT:
                 taskDetails = getTaskDetails(TaskEnum.EVENT, userInputWithoutTaskCommand);
-                addEvent(taskDetails);
+                addEvent(taskDetails, isDone);
             }
+            addTaskSuccess();
+            FileManager.writeToFile();
 
         } catch (IncompleteInformationException e) {
             Duke.printlnTab("☹ OOPS!!! Please enter the right format for the task");
             //TODO Deadline and event formats
             Duke.printDivider();
+        } catch (IOException e) {
+            Duke.printlnTab("☹ OOPS!!! Error writing to data file");
+
         }
     }
 
@@ -97,19 +105,16 @@ public class TaskManager {
         return taskDetails;
     }
 
-    private void addTodo(String strippedUserInput) {
-        tasks.add(new Todo(strippedUserInput));
-        addTaskSuccess();
+    public void addTodo(String description, boolean isDone) {
+        tasks.add(new Todo(description, isDone));
     }
 
-    private void addDeadline(String[] taskDetails) {
-        tasks.add(new Deadline(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]));
-        addTaskSuccess();
+    public void addDeadline(String[] taskDetails, boolean isDone) {
+        tasks.add(new Deadline(taskDetails[TASK_DESCRIPTION_INDEX], isDone, taskDetails[TASK_DATE_INDEX]));
     }
 
-    private void addEvent(String[] taskDetails) {
-        tasks.add(new Event(taskDetails[TASK_DESCRIPTION_INDEX], taskDetails[TASK_DATE_INDEX]));
-        addTaskSuccess();
+    public void addEvent(String[] taskDetails, boolean isDone) {
+        tasks.add(new Event(taskDetails[TASK_DESCRIPTION_INDEX], isDone, taskDetails[TASK_DATE_INDEX]));
     }
 
     private void addTaskSuccess() {
@@ -118,7 +123,6 @@ public class TaskManager {
         printNumberOfTasksMessage();
         Duke.printDivider();
     }
-
 
     public void deleteTask(String userInput) throws BlankDescriptionException, ExceedTotalTasksException {
         String taskNumberStr = userInput.substring(DELETE_NUMBER_INDEX).strip();
@@ -171,6 +175,7 @@ public class TaskManager {
             } else {
                 deleteTask(userInput);
             }
+            FileManager.writeToFile();
 
         } catch (BlankDescriptionException e) {
             Duke.printlnTab("☹ OOPS!!! Please enter a task number to complete");
@@ -183,6 +188,11 @@ public class TaskManager {
         } catch (ExceedTotalTasksException e) {
             Duke.printlnTab("☹ OOPS!!! You only have " + tasks.size() + " tasks");
             Duke.printlnTab("Please enter a number smaller or equal to " + tasks.size());
+            Duke.printDivider();
+
+        } catch (IOException e) {
+            //TODO File errors?
+            Duke.printlnTab("IOException Error");
             Duke.printDivider();
         }
     }
@@ -216,4 +226,12 @@ public class TaskManager {
         }
     }
 
+    public String getTasksDataStorageString() {
+        String tasksDataStorageString = "";
+        for (Task task : tasks) {
+            tasksDataStorageString += task.getDataStorageString() + "\n";
+        }
+        return tasksDataStorageString;
+    }
 }
+
