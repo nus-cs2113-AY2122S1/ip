@@ -30,7 +30,7 @@ public abstract class DataManager {
                 return false;
             }
         } catch (IOException e) {
-            System.out.println("IO EXCEPTION");
+            System.out.println("IO Exception at hasExistingFile()");
         }
         return true;
     }
@@ -47,12 +47,12 @@ public abstract class DataManager {
                 index++;
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            System.out.println("File not found Exception at populateTasks().");
         }
     }
 
     private static void decodeAndLoadTask(ArrayList<Task> tasks, String input, int index) {
-        String[] destructuredInputs = input.split(",");
+        String[] destructuredInputs = input.split(SEPARATOR);
         switch (destructuredInputs[0]) {
         case "T":
             tasks.add(new Todo(destructuredInputs[2]));
@@ -80,7 +80,7 @@ public abstract class DataManager {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("IO Exception at FW.");
+            System.out.println("IO Exception at saveAllTasks()");
         }
     }
 
