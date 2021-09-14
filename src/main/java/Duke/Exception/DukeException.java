@@ -52,9 +52,16 @@ public class DukeException extends Exception{
         System.out.print(System.lineSeparator());
     }
 
-    public static void InvalidSaveFileException() {
+    public static void invalidSaveFileException() {
         System.out.println(LINE);
         System.out.println("Your save file is invalid!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void createIOException(IOException ioException) {
+        System.out.println(LINE);
+        System.out.println("Something went wrong: " + ioException.getMessage());
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }

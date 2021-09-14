@@ -2,16 +2,18 @@ package Duke.SaveFile;
 
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
-
 import Duke.TaskTypes.Todo;
 import Duke.TaskTypes.Event;
 import Duke.TaskTypes.Deadline;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DataSaver {
 
@@ -21,20 +23,32 @@ public class DataSaver {
     private static final String DIVIDER = " | ";
 
     public static void manageLoad(ArrayList<Task> taskList) {
+        File file = new File(FILE_PATH);
+        Scanner scan = null;
         try {
-            loadFileContents(taskList);
-        } catch (DukeException | FileNotFoundException invalidSaveFileException) {
-            DukeException.InvalidSaveFileException();
+            scan = new Scanner(file);
+        } catch (FileNotFoundException fileNotFoundException) {
+            createNewFile();
+        }
+        loadFileContents(taskList, scan);
+    }
+
+    public static void createNewFile() {
+        try {
+            Files.createFile(Paths.get(FILE_PATH));
+        } catch (IOException ioException) {
+            DukeException.createIOException(ioException);
         }
     }
 
-    public static void loadFileContents(ArrayList<Task> taskList) throws FileNotFoundException, DukeException {
-        File file = new File(FILE_PATH);
-        Scanner scan = new Scanner(file);
-
-        while (scan.hasNext()) {
+    public static void loadFileContents(ArrayList<Task> taskList, Scanner scan) {
+        while (scan != null && scan.hasNext()) {
             String newTask = scan.nextLine();
-            addToTaskList(taskList, newTask);
+            try {
+                addToTaskList(taskList, newTask);
+            } catch (DukeException invalidSaveFileException) {
+                DukeException.invalidSaveFileException();
+            }
         }
     }
 

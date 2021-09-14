@@ -7,8 +7,6 @@ import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 
-
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
