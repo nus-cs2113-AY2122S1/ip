@@ -7,6 +7,8 @@ import alfred.task.Event;
 import alfred.task.Task;
 import alfred.task.Todo;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+
 public class TaskManager {
     private Task[] tasks;
     private int listIndex;
@@ -29,6 +31,29 @@ public class TaskManager {
                 completeTask(userInput);
                 break;
             case "todo":
+                // Fallthrough
+            case "event":
+                // Fallthrough
+            case "deadline":
+                addTask(userInput);
+                break;
+            default:
+                MessageManager.invalidCommandMessage();
+            }
+        } catch (NumberFormatException e) {
+            MessageManager.invalidIndexMessage();
+        } catch (NullPointerException e) {
+            MessageManager.uninitialisedTaskIndexMessage(listIndex);
+        } catch (IndexOutOfBoundsException e) {
+            MessageManager.indexOutOfBoundsMessage();
+        }
+    }
+
+    private void addTask(String userInput) {
+        String[] destructuredInputs = userInput.split(" ");
+        try {
+            switch (destructuredInputs[0]) {
+            case "todo":
                 addTodo(userInput);
                 break;
             case "event":
@@ -42,17 +67,10 @@ public class TaskManager {
             }
         } catch (EmptyDescriptionException e) {
             MessageManager.emptyDescriptionMessage();
-        } catch (NumberFormatException e) {
-            MessageManager.invalidIndexMessage();
-        } catch (NullPointerException e) {
-            MessageManager.uninitialisedTaskIndexMessage(listIndex);
-        } catch (IndexOutOfBoundsException e) {
-            MessageManager.indexOutOfBoundsMessage();
         } catch (InvalidDateException e) {
             MessageManager.invalidDateMessage();
         }
     }
-
 
     private void listTasks() {
         System.out.print(MessageManager.LINE);
