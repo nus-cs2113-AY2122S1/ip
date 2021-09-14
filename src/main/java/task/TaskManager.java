@@ -52,8 +52,14 @@ public class TaskManager {
      * @param taskIndex the (index + 1) of the task to be marked done in tasks
      */
     public Task markAsDone(int taskIndex) {
-        Task doneTask = tasks.get(taskIndex - 1);
+        Task doneTask = tasks.get(taskIndex);
         doneTask.setDone();
         return doneTask;
+    }
+
+    public Task deleteTask(int taskIndex) {
+        Task toDelete = tasks.get(taskIndex);
+        tasks.remove(toDelete);
+        return toDelete;
     }
 }
