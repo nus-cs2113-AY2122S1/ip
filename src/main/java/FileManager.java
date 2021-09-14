@@ -7,10 +7,9 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class FileManager {
-    private static final String home = System.getProperty("user.home");
-    private static final Path dukeDirPath = Paths.get(home, "Duke");
+    private static final Path dukeDirPath = Paths.get("DukeData");
     private static final File dukeDir = new File(dukeDirPath.toString());
-    private static final Path dataPath = Paths.get(home, "Duke/data.txt");
+    private static final Path dataPath = Paths.get("DukeData/data.txt");
     private static final File data = new File(dataPath.toString());
 
     public static void initializeFile() throws IOException {
@@ -26,7 +25,7 @@ public class FileManager {
                 try {
                     readFile();
                 } catch (FileNotFoundException e) {
-                    System.out.println(home + "/Duke/data.txt not found!!!");
+                    System.out.println("/Duke/data.txt not found!!!");
                 }
                 Duke.taskManager.listTasks();
             }
@@ -63,14 +62,14 @@ public class FileManager {
 
         case "D":
             date = taskDetails[3];
-            String[] deadlineDetails = { description, date };
-            
+            String[] deadlineDetails = {description, date};
+
             Duke.taskManager.addDeadline(deadlineDetails, isDone);
             break;
 
         case "E":
             date = taskDetails[3];
-            String[] eventDetails = { description, date };
+            String[] eventDetails = {description, date};
             Duke.taskManager.addEvent(eventDetails, isDone);
             break;
         }

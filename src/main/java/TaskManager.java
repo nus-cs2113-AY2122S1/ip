@@ -182,12 +182,16 @@ public class TaskManager {
             Duke.printDivider();
 
         } catch (NumberFormatException e) {
-            Duke.printlnTab("☹ OOPS!!! Task number is not an integer. Please try again!");
+            Duke.printlnTab("☹ OOPS!!! Task number is not an integer.");
             Duke.printDivider();
 
         } catch (ExceedTotalTasksException e) {
             Duke.printlnTab("☹ OOPS!!! You only have " + tasks.size() + " tasks");
             Duke.printlnTab("Please enter a number smaller or equal to " + tasks.size());
+            Duke.printDivider();
+
+        } catch (IndexOutOfBoundsException e) {
+            Duke.printlnTab("☹ OOPS!!! Please enter a number greater than or equal to 1.");
             Duke.printDivider();
 
         } catch (IOException e) {
@@ -212,10 +216,6 @@ public class TaskManager {
             }
         }
         Duke.printDivider();
-    }
-
-    public int getNumberOfTasks() {
-        return tasks.size();
     }
 
     private void printNumberOfTasksMessage() {

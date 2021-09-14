@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class CommandManager {
+    public static final String COMMAND_DONE = "done";
     private static final Scanner in = new Scanner(System.in);
     private static final String COMMAND_BYE = "bye";
-    public static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
@@ -56,9 +56,10 @@ public class CommandManager {
                 Duke.printlnTab("2. todo [TASK DESCRIPTION]");
                 Duke.printlnTab("3. deadline [TASK DESCRIPTION] /by [DEADLINE]");
                 Duke.printlnTab("4. event [TASK DESCRIPTION] /at [DATE/TIME]");
-                Duke.printlnTab("5. done [TASK NUMBER]");
-                Duke.printlnTab("6. help");
-                Duke.printlnTab("7. bye");
+                Duke.printlnTab("5. delete [TASK NUMBER]");
+                Duke.printlnTab("6. done [TASK NUMBER]");
+                Duke.printlnTab("7. help");
+                Duke.printlnTab("8. bye");
                 Duke.printDivider();
 
             } else { //Invalid inputs

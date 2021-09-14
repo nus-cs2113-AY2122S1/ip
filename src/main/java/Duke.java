@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 public class Duke {
 
@@ -16,7 +17,12 @@ public class Duke {
             printlnTab(e.getMessage());
 
         }
-        CommandManager.executeCommand();
+        try {
+            CommandManager.executeCommand();
+        } catch (NoSuchElementException e) {
+            printlnTab("Bye. Hope to see you again soon!");
+            printDivider();
+        }
     }
 
     public static void printlnTab(String str) {
