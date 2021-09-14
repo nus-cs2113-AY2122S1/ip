@@ -26,6 +26,10 @@ public class Task {
         return ("");
     }
 
+    public String getDescription(){
+        return description;
+    }
+
     public void printMarkAsDoneMessage(int taskNumber) {
         System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
     }
