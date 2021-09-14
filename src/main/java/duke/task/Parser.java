@@ -72,11 +72,11 @@ public class Parser {
             } catch (NumberFormatException e) {
                 MessageBubble.printMessageBubble("Oops! Wrong index format.");
             }
-        } else if (fullCommand.startsWith("search")) {
+        } else if (fullCommand.startsWith("find")) {
             try {
                 targetTaskList.searchItem(extractPartialCommand(fullCommand));
             } catch (EmptyField e) {
-                MessageBubble.printMessageBubble("Oops! Use \"search (keywords)\" to search in your task list.");
+                MessageBubble.printMessageBubble("Oops! Use \"find (keywords)\" to search in your task list.");
             }
         } else if (fullCommand.equals("bye")) {
             isExit = true;
