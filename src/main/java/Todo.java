@@ -17,7 +17,7 @@ public class Todo extends Task {
 
         if (isTodo){
             taskType = "[T]";
-            description = Description.substring(4, Description.length());
+            description = Description.substring(Description.indexOf(" "), Description.length());
         } else taskType = "";
         return taskType + "[" + super.getStatusIcon() + "]" + description;
     }

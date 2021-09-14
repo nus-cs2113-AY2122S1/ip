@@ -21,7 +21,7 @@ public class Deadline extends Task {
         if (isDeadline){
             taskType = "[D]";
             description = Description.substring(8, Description.lastIndexOf("/"));
-            middle = Date.substring(Date.lastIndexOf("by ") + 3, Date.length());
+            middle = Date.substring(Date.indexOf(" ")+1, Date.length());
             finalDate = "(by: " + middle + ")";
         } else taskType = "";
         return taskType + "[" + super.getStatusIcon() + "]" + description + finalDate;

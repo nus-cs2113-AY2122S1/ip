@@ -1,16 +1,19 @@
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    private static final ArrayList<String> Data = new ArrayList<>();
+    private static boolean hasData = false;
+    public static void main(String[] args) throws FileNotFoundException {
         String LINE  = "_______________________________________________________________\n";
 
-        System.out.println(LINE + "Hello! I'm Duke\n" + "Whatchu want\n" + LINE);
+
 
         Scanner in = new Scanner(System.in);
 
@@ -22,7 +25,7 @@ public class Duke {
 
         int count = 0;
 
-        String fileName = "C:\\data\\duke.txt";
+        String fileName = "C:\\data\\duke.txt"; //handles data file creation
         try {
             File myFile = new File(fileName);
             if (myFile.createNewFile()) {
@@ -34,7 +37,37 @@ public class Duke {
             System.out.println("An error occurred.\n");
             e.printStackTrace();
         }
+        scanFileContents(fileName); //scans data
 
+        System.out.println(LINE + "Hello! I'm Duke\n" + "Whatchu want\n" + LINE);
+
+        if (hasData) {
+            for (int i = 0; i < Data.size(); i++) { //transfers data into task array
+                if (Data.get(i).contains("[T]")) {
+                    String task = "todo " + Data.get(i).substring(10);
+                    Task.add(count, new Todo(task));
+                    count++;
+                }
+                if (Data.get(i).contains("[D]")) {
+                    String task = Data.get(i).substring(Data.get(i).lastIndexOf("]") + 1, Data.get(i).lastIndexOf("("));
+                    task = "deadline" + task + "/";
+                    date = Data.get(i).substring(Data.get(i).lastIndexOf("(") + 1, Data.get(i).lastIndexOf(")"));
+                    Task.add(count, new Deadline(task, date));
+                    count++;
+                }
+                if (Data.get(i).contains("[E]")) {
+                    String task = Data.get(i).substring(Data.get(i).lastIndexOf("]") + 1, Data.get(i).lastIndexOf("("));
+                    task = "event" + task + "/";
+                    date = Data.get(i).substring(Data.get(i).lastIndexOf("(") + 1, Data.get(i).lastIndexOf(")"));
+                    Task.add(count, new Event(task, date));
+                    count++;
+                }
+                if (Data.get(i).contains("[X]")) {
+                    Task.get(i).setDone();
+                }
+            }
+            System.out.println("Looks like you already have some tasks. Press 'List' to view them!");
+        }
         do {
             userInput = in.nextLine();
             String[] wordArr = userInput.split(" "); // stores string of multiple words in a string Array
@@ -104,7 +137,7 @@ public class Duke {
 
                 else if (isDeadline(firstWord) && wordLength > 1 ) { //Deadline is not empty
                     if (userInput.contains("/")) { //Deadline Task has a date
-                        date = userInput.substring(userInput.lastIndexOf("/") + 1);
+                        date = userInput.substring(userInput.lastIndexOf("/"));
                         Task.add(count, new Deadline(userInput, date));
                         count++;
                     }
@@ -121,7 +154,7 @@ public class Duke {
 
                 else if (isEvent(firstWord) && wordLength > 1 ) { //Event task
                     if (userInput.contains("/")) { //Event Task has a date
-                        date = userInput.substring(userInput.lastIndexOf("/") + 1);
+                        date = userInput.substring(userInput.lastIndexOf("/"));
                         Task.add(count, new Event(userInput, date));
                         count++;
                     }
@@ -155,7 +188,7 @@ public class Duke {
                     System.out.println(Task.get(i));
 
                     String text = toString(Task.get(i), i+1);
-                    if (i == 0) {
+                    if (i==0) {
                         try {
                             writeToFile(fileName, text + System.lineSeparator());
                         } catch (IOException e) {
@@ -169,6 +202,7 @@ public class Duke {
                             System.out.println("Something went wrong: " + e.getMessage());
                         }
                     }
+
                 }
                 System.out.print("You can mark them as done by typing 'done' + task number!\n" + LINE);
             }
@@ -230,6 +264,17 @@ public class Duke {
 
     public static String toString(Task task, int i) {
         return i + ". " + task;
+    }
+
+    private static void scanFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            hasData = true;
+            String word = s.nextLine();
+            Data.add(word);
+        }
+
     }
 
 }

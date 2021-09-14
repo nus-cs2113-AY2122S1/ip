@@ -21,7 +21,7 @@ public class Event extends Task {
         if (isEvent){
             taskType = "[E]";
             description = Description.substring(5, Description.lastIndexOf("/"));
-            middle = Date.substring(Date.lastIndexOf("at ") + 3, Date.length());
+            middle = Date.substring(Date.indexOf(" ")+1, Date.length());
             finalDate = "(at: " + middle + ")";
         } else taskType = "";
         return taskType + "[" + super.getStatusIcon() + "]" + description + finalDate;
