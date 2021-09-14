@@ -7,6 +7,17 @@ import java.util.ArrayList;
 public class TaskManager {
     private ArrayList<Task> taskList;
 
+    private static final String TO_DO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String ADDED_TASK = "     Got it. I've added this task:\n       ";
+    private static final String BY_SEPARATOR = "by";
+    private static final String AT_SEPARATOR = "at";
+    private static final int TODO_STRING_LENGTH = 5;
+    private static final int DEADLINE_STRING_LENGTH = 9;
+    private static final int EVENT_STRING_LENGTH = 6;
+    private static final int SEPARATOR_STRING_LENGTH = 3;
+
     public TaskManager() {
         this.taskList = new ArrayList<>();
     }
@@ -22,29 +33,47 @@ public class TaskManager {
             throw new DukeException();
         }
         String taskType = getCommand(task);
-        Task newTask;
-        String description = getDescription(task);
         switch (taskType) {
-        case "todo":
-            newTask = new ToDo(description);
-            taskList.add(newTask);
+        case TO_DO:
+            addToDo(task);
             break;
-        case "deadline":
-            String by = getDate(task);
-            newTask = new Deadline(description, by);
-            taskList.add(newTask);
+        case DEADLINE:
+            addDeadline(task);
             break;
-        case "event":
-            String at = getDate(task);
-            newTask = new Event(description, at);
-            taskList.add(newTask);
+        case EVENT:
+            addEvent(task);
             break;
         default:
             System.out.println("     Invalid command, please try again");
             return;
         }
-        System.out.println("     Got it. I've added this task:\n       " + newTask);
         printSize();
+    }
+
+    public void addToDo(String task) {
+        Task newTask;
+        String description = getDescription(task);
+        newTask = new ToDo(description);
+        taskList.add(newTask);
+        System.out.println(ADDED_TASK + newTask);
+    }
+
+    public void addDeadline(String task) {
+        Task newTask;
+        String description = getDescription(task);
+        String by = getDate(task);
+        newTask = new Deadline(description, by);
+        taskList.add(newTask);
+        System.out.println(ADDED_TASK + newTask);
+    }
+
+    public void addEvent(String task) {
+        Task newTask;
+        String description = getDescription(task);
+        String at = getDate(task);
+        newTask = new Event(description, at);
+        taskList.add(newTask);
+        System.out.println(ADDED_TASK + newTask);
     }
 
     public void checkDone(String[] command) {
@@ -59,19 +88,21 @@ public class TaskManager {
     public String getDescription(String task) {
         String description;
         int separator;
-        if (getCommand(task).equals("todo")) {
-            description = task.substring(5);
-        } else if (getCommand(task).equals("deadline")) {
-            separator = task.indexOf("/by");
-            description = task.substring(9, separator);
-        } else if (getCommand(task).equals("event")) {
-            separator = task.indexOf("/at");
-            description = task.substring(6, separator);
+        if (getCommand(task).equals(TO_DO)) {
+            description = task.substring(TODO_STRING_LENGTH);
+        } else if (getCommand(task).equals(DEADLINE)) {
+            separator = task.indexOf(BY_SEPARATOR);
+            description = task.substring(DEADLINE_STRING_LENGTH, separator);
+        } else if (getCommand(task).equals(EVENT)) {
+            separator = task.indexOf(AT_SEPARATOR);
+            description = task.substring(EVENT_STRING_LENGTH, separator);
         } else {
             description = null;
         }
         return description;
     }
+
+
 
     /**
      *  Returns type of Task given command
@@ -125,25 +156,26 @@ public class TaskManager {
     }
 
     /**
-     * Returns date of event or deadline
-     * @param description command entered
-     * @return Date of event or deadline
+     * Returns date of event or deadline.
+     *
+     * @param description command entered.
+     * @return Date of event or deadline.
      */
     public String getDate(String description) {
         String date;
         String taskType = getCommand(description);
         int indexOfSeparator;
         switch (taskType) {
-        case "deadline":
-            indexOfSeparator = description.indexOf("/by");
-            date = description.substring(indexOfSeparator + 3);
+        case DEADLINE:
+            indexOfSeparator = description.indexOf(BY_SEPARATOR);
+            date = description.substring(indexOfSeparator + SEPARATOR_STRING_LENGTH);
             if (date.isEmpty()) {
                 System.out.println("     ☹ OOPS!!! Please enter a date");
             }
             break;
-        case "event":
-            indexOfSeparator = description.indexOf("/at");
-            date = description.substring(indexOfSeparator + 3);
+        case EVENT:
+            indexOfSeparator = description.indexOf(AT_SEPARATOR);
+            date = description.substring(indexOfSeparator + SEPARATOR_STRING_LENGTH);
             if (date.isEmpty()) {
                 System.out.println("     ☹ OOPS!!! Please enter a date");
             }
@@ -153,5 +185,13 @@ public class TaskManager {
             break;
         }
         return date;
+    }
+
+    public void deleteTask(String[] input) {
+        int taskToDelete = Integer.parseInt(input[1]);
+        Task thisTask = taskList.get(taskToDelete - 1);
+        System.out.println("       " + thisTask);
+        taskList.remove(taskToDelete - 1);
+        printSize();
     }
 }
