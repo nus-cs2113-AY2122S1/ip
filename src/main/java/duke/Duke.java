@@ -109,10 +109,11 @@ public class Duke {
 
                 doDone(command, unfilteredTasks, userInput);
                 doList(command, unfilteredTasks);
+                unfilteredTasks = doDelete(command,unfilteredTasks, userInput);
 
                 unfilteredTasks = addNewTask(command, unfilteredTasks, newTask, time);
                 AcknowledgeAddition(command, unfilteredTasks, unfilteredCounter);
-                unfilteredCounter = (isInvalidCommand(command) || isList(command) || isDone(command) ||isBye(command)) ? unfilteredCounter : unfilteredCounter + 1;
+                unfilteredCounter = (isInvalidCommand(command) || isList(command) || isDone(command) ||isBye(command)) ? unfilteredCounter : (isDelete(command)) ? unfilteredCounter - 1 : unfilteredCounter + 1;
 
             } catch (IllegalToDoException e) {
                 IllegalToDoException.printMessage();
@@ -180,7 +181,7 @@ public class Duke {
     }
 
     private static boolean isInvalidCommand(String command) {
-        return !isEvent(command) && !isDeadline(command) && !isToDo(command) && !isList(command) && !isBye(command) && !isDone(command);
+        return !isEvent(command) && !isDeadline(command) && !isToDo(command) && !isList(command) && !isBye(command) && !isDone(command) && !isDelete(command);
     }
 
     private static void doDone(String command, ArrayList<Task> fullTaskList, String userIn) {
@@ -189,6 +190,25 @@ public class Duke {
         }
     }
 
+    private static ArrayList<Task> doDelete(String command, ArrayList<Task> fullTaskList, String userIn){
+        if (isDelete(command)) {
+                System.out.println(LINE + "Noted! I've removed this task:");
+                int taskNumber = 0;
+                try {
+                    taskNumber = Integer.parseInt(GetItem(userIn));
+                } catch (IllegalToDoException e) {
+                    System.out.println("Invalid ToDo");
+                } catch (InvalidCommandException e) {
+                    System.out.println("Invalid Command");
+                } catch (EmptyCommand e) {
+                    System.out.println("Empty Command");
+                }
+                //System.out.println("\t\t" + fullTaskList.get(taskNumber - 1) + "\n" + LINE);
+                System.out.println(String.format("\t%d.", taskNumber) + fullTaskList.get(taskNumber - 1) + "\n" + String.format("\tNow you have %d tasks in the list.\n", fullTaskList.size() - 1) + LINE);
+                fullTaskList.remove(taskNumber - 1);
+        }
+        return fullTaskList;
+    }
     private static void doList(String command, ArrayList<Task> fullTaskList) {
         //Task[] filteredNull = FilterNulls(fullTaskList);
         int count = 0;
