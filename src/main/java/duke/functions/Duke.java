@@ -39,6 +39,18 @@ public class Duke {
                 }
                 break;
             }
+            case "delete":{
+                try {
+                    handleDelete(items, userInput);
+                } catch (NumberFormatException e) {
+                    System.out.println("\tInvalid argument, please enter a valid task number!");
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
+                    System.out.println("\tNo such task!");
+                } catch (EmptyArgException e) {
+                    System.out.println("\tWhich task to delete?");
+                }
+                break;
+            }
             case "todo": {
                 try {
                     handleTodo(items, userInput);
@@ -74,6 +86,18 @@ public class Duke {
         }
 
         printBye();
+    }
+
+    private static void handleDelete(ArrayList<Task> items, String userInput) throws EmptyArgException {
+        String[] arg = userInput.split(" ");
+        if (arg.length < 2) {
+            throw new EmptyArgException();
+        }
+        int indexToDelete = Integer.parseInt(arg[1]) - 1;
+        Task removedItem = items.get(indexToDelete);
+        items.remove(indexToDelete);
+        System.out.println("\tItem deleted:");
+        System.out.println("\t\t" + removedItem);
     }
 
     private static void handleDone(ArrayList<Task> items, String userInput) throws EmptyArgException {
