@@ -144,7 +144,6 @@ public class Duke {
                 " for more information");
     }
 
-
     private static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

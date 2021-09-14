@@ -20,7 +20,6 @@ public class List {
         TODO,
         DEADLINE,
         EVENT,
-        INVALID
     }
 
     public List() {
