@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.DataHandler;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class ListCommand extends Command{
 
     @Override
-    public void executeCommand(TaskManager taskManager, DataHandler dataHandler) {
-        taskManager.printTasks();
+    public void executeCommand(TaskList taskList, Storage storage) {
+        taskList.printTasks();
     }
 }

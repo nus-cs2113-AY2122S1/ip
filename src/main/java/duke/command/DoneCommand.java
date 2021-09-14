@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.DataHandler;
+import duke.Storage;
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 
 public class DoneCommand extends Command{
     protected int taskIndex;
@@ -12,8 +12,8 @@ public class DoneCommand extends Command{
     }
 
     @Override
-    public void executeCommand(TaskManager taskManager, DataHandler dataHandler) throws DukeException {
-        taskManager.markTaskAsDone(taskIndex);
-        dataHandler.saveData(taskManager);
+    public void executeCommand(TaskList taskList, Storage storage) throws DukeException {
+        taskList.markTaskAsDone(taskIndex);
+        storage.saveData(taskList);
     }
 }

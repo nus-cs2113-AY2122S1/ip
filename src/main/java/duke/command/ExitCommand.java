@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.DataHandler;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class ExitCommand extends Command{
 
@@ -10,6 +10,6 @@ public class ExitCommand extends Command{
     }
 
     @Override
-    public void executeCommand(TaskManager taskManager, DataHandler dataHandler) {
+    public void executeCommand(TaskList taskList, Storage storage) {
     }
 }

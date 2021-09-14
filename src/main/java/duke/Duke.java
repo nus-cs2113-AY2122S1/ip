@@ -4,55 +4,43 @@ import duke.command.Command;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String LINE = "─────────────────────────────────────────────────────────────\n";
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        printHelloMessage();
+    public Duke() {
+        ui = new Ui();
+        taskList = new TaskList(ui);
+        try {
+            storage = new Storage();
+            storage.loadData(taskList);
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
+        }
+    }
+
+    public void run() {
+        ui.printHelloMessage();
         processUserInput();
     }
 
-    private static void processUserInput() {
+    public static void main(String[] args) {
+        new Duke().run();
+    }
+
+    private void processUserInput() {
         boolean isProcessing = true;
-        TaskManager taskManager = new TaskManager();
         Scanner input = new Scanner(System.in);
-        DataHandler dataHandler = null;
-        try {
-            dataHandler = new DataHandler();
-            dataHandler.loadData(taskManager);
-        } catch (DukeException e) {
-            System.out.println(LINE);
-            System.out.println(e.getMessage());
-            System.out.println(LINE);
-        }
         while (isProcessing) {
             String userInput = input.nextLine().stripLeading();
             try {
-                Command command = CommandManager.processCommand(userInput);
-                command.executeCommand(taskManager, dataHandler);
+                Command command = Parser.processCommand(userInput);
+                command.executeCommand(taskList, storage);
                 isProcessing = !Command.getIsExit();
             } catch (DukeException e) {
-                System.out.println(LINE);
-                System.out.println(e.getMessage());
-                System.out.println(LINE);
+               ui.printErrorMessage(e);
             }
         }
-        printByeMessage();
+        ui.printByeMessage();
     }
-
-    private static void printByeMessage() {
-        String byeGreeting = "Bye. Hope to see you again soon!\n";
-        System.out.println(LINE + byeGreeting + LINE);
-    }
-
-    private static void printHelloMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        String helloGreeting = "Hello! I'm Duke\n" + "What can I do for you?\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println(LINE + helloGreeting + LINE);
-    }
-
 }

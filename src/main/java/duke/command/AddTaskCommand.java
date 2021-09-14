@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.DataHandler;
+import duke.Storage;
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 import duke.task.Task;
 
 public class AddTaskCommand extends Command{
@@ -13,8 +13,8 @@ public class AddTaskCommand extends Command{
     }
 
     @Override
-    public void executeCommand(TaskManager taskManager, DataHandler dataHandler) throws DukeException {
-        taskManager.addTasks(task, true);
-        dataHandler.saveData(taskManager);
+    public void executeCommand(TaskList taskList, Storage storage) throws DukeException {
+        taskList.addTasks(task, true);
+        storage.saveData(taskList);
     }
 }

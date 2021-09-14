@@ -11,11 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class DataHandler {
+public class Storage {
     private final String STORAGE_PATH = "data/tasks.csv";
     private final File file = new File(STORAGE_PATH);
 
-    public DataHandler() throws DukeException {
+    public Storage() throws DukeException {
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
@@ -26,18 +26,20 @@ public class DataHandler {
 
     /**
      * Loads data from csv file into the array list
-     * @param taskManager Manages the tasks after loading data
+     * @param taskList Manages the tasks after loading data
      * @throws DukeException Throws exception to aid in identifying errors
      */
-    public void loadData(TaskManager taskManager) throws DukeException {
+    public void loadData(TaskList taskList) throws DukeException {
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 Task task = readTask(scanner.nextLine());
-                taskManager.addTasks(task,false);
+                taskList.addTasks(task,false);
             }
         } catch (FileNotFoundException e) {
             throw new DukeException("☹ OOPS!!! Error loading data!");
+        } catch (DukeException readTaskException) {
+            throw readTaskException;
         }
     }
 
@@ -46,7 +48,7 @@ public class DataHandler {
      * @param data Data read in from csv file
      * @return task Returns task created from data read from csv file
      */
-    private Task readTask(String data) {
+    private Task readTask(String data) throws DukeException {
         Task task = null;
         String[] taskBreakdown = data.split(",");
         if (taskBreakdown[2].contains("|")) {
@@ -63,8 +65,7 @@ public class DataHandler {
             task = new Events(taskBreakdown[2], taskBreakdown[3]);
             break;
         default:
-            System.out.println("☹ OOPS!!! Error reading data!");
-            break;
+            throw new DukeException("☹ OOPS!!! Error saving data!");
         }
         if (taskBreakdown[1].equals("[X]") && task != null) {
             task.markAsDone();
@@ -73,14 +74,14 @@ public class DataHandler {
     }
 
     /**
-     * Saves Tasks from arraylist tasklist into csv file
-     * @param taskManager Manages the tasks after loading data
+     * Saves Tasks from arraylist taskList into csv file
+     * @param taskList Manages the tasks after loading data
      * @throws DukeException Throws exception to aid in identifying errors
      */
-    public void saveData(TaskManager taskManager) throws DukeException {
+    public void saveData(TaskList taskList) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(STORAGE_PATH);
-            for (Task task : taskManager.getTasks()) {
+            for (Task task : taskList.getTasks()) {
                 if (task != null) {
                     fileWriter.write(task.convertToCSV() + System.lineSeparator());
                 }
