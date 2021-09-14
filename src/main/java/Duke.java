@@ -1,8 +1,7 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-
-    public static final int TASK_LIST_SIZE = 100;
 
     public static boolean hasSpaceError(String[] splitUserInput, String UserInput) {
         //Checks whether last character is a space
@@ -27,8 +26,8 @@ public class Duke {
         Functions.printGreeting();
 
         //Initialization
-        Task[] taskList = new Task[TASK_LIST_SIZE];
-        int taskListSize = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
+        int taskListSize = taskList.size();
         String userInput = "start";
         Scanner in = new Scanner(System.in);
 
@@ -57,19 +56,24 @@ public class Duke {
             switch (command) {
             case "list":
                 //Prints all tasks in task list
-                Functions.printTaskList(taskList, taskListSize);
+                Functions.printTaskList(taskList);
                 break;
             case "done":
                 //Marks task as "done"
-                int taskNumber = Integer.parseInt(processedUserInput[1]) - 1;
-                Functions.markAsDone(taskList, taskListSize, taskNumber);
+                int doneTaskNumber = Integer.parseInt(processedUserInput[1]) - 1;
+                Functions.markAsDone(taskList, doneTaskNumber);
+                break;
+            case "delete":
+                //Deletes task from task list
+                int deleteTaskNumber = Integer.parseInt(processedUserInput[1]) - 1;
+                Functions.deleteTask(taskList, deleteTaskNumber);
                 break;
             case "todo":
             case "deadline":
             case "event":
                 //Creates and adds task to task list
                 Task newTask = Functions.createTask(processedUserInput);
-                Functions.addTask(taskList, taskListSize, newTask);
+                Functions.addTask(taskList, newTask);
                 taskListSize++;
                 break;
             default:

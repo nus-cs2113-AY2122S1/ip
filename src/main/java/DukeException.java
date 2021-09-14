@@ -20,7 +20,7 @@ public class DukeException {
                 + SEPARATOR);
     }
 
-    public static void printDoneError() {
+    public static void printIndexError() {
         System.out.println(SEPARATOR
                 + " ☹ OOPS!!! Please check that you have entered a valid task number.\n"
                 + SEPARATOR);
