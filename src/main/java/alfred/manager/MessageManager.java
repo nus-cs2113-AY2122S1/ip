@@ -78,4 +78,8 @@ public abstract class MessageManager {
     public static void invalidDateMessage() {
         printMessageTemplate(" Is there not a date for your so-called deadline or event, sir?\n");
     }
+
+    public static void createNewFileMessage() {
+        printMessageTemplate(" A new file has been created for Alfred, by Alfred.\n");
+    }
 }
