@@ -1,18 +1,12 @@
-<<<<<<< HEAD
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import exceptions.DeadlineException;
-=======
-import exceptions.DukeException;
->>>>>>> branch-Level-6
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
-import exceptions.DeadlineException;
-import exceptions.DeleteException;
-
+import exceptions.DukeException;
 import java.util.Scanner;
 
 public class Duke {
@@ -39,16 +33,6 @@ public class Duke {
                 processManager.goodbyeMessage();
             } else if (line.equals("list")) {
                 processManager.handleListRequest();
-<<<<<<< HEAD
-=======
-            } else if (line.startsWith("delete")) {
-                try {
-                    processManager.handleDeleteRequest(line);
-                } catch (DeleteException e) {
-                    e.printStatement();
-                    System.out.println("Invalid Delete Request. Format: delete (number)");
-                }
->>>>>>> branch-Level-6
             } else if (line.startsWith("done")) {
                 try {
                     processManager.handleDoneRequest(line);

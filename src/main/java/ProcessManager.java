@@ -1,35 +1,46 @@
-import exceptions.DeadlineException;
-import exceptions.DoneException;
 import exceptions.EventException;
 import exceptions.TodoException;
+<<<<<<< HEAD
 import exceptions.DukeException;
+=======
+import exceptions.DoneException;
+import exceptions.DeadlineException;
+import exceptions.DeleteException;
+>>>>>>> branch-Level-6
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+=======
+import java.util.ArrayList;
+>>>>>>> branch-Level-6
 
 public class ProcessManager {
     /* ---- CONSTANTS ---- */
     private static final String EVENT_KEYWORD = "/at";
     private static final String DEADLINE_KEYWORD = "/by";
-    private static final String DONE_KEYWORD = " ";
+    private static final String DONE_DELETE_KEYWORD = " ";
 
     private static final Integer EVENT_DIVIDER = 6;
     private static final Integer DEADLINE_DIVIDER = 9;
     private static final Integer TODO_DIVIDER = 5;
     private static final Integer TASK_DESCRIPTION_DIVIDER = 1;
     private static final Integer TASK_DATE_DIVIDER = 4;
+    private static final Integer ARRAY_INDEX_FINDER = 1;
+    private static final Integer ZERO = 0;
 
     private static final String ADD_TASK_REPLY = "     Got it. I've added this task:\n";
-    private static final String TASK_COMPLETED = "     Nice! I've marked this task as done: \n";
+    private static final String TASK_COMPLETED = "     Nice! I've marked this task as done:\n";
     private static final String LINE = "    ____________________________________________________________";
     private static final String LINE_DIVIDER = "    ____________________________________________________________\n";
     private static final String GAP = "     ";
+<<<<<<< HEAD
     private static final String FILEPATH = "data/SavedTask.txt";
     /* ---- --------- ---- */
     public Task[] toDo = new Task[100];
@@ -113,6 +124,12 @@ public class ProcessManager {
     /* ---- ------------- ---- */
 
     /* ---- Handle Functions ---- */
+=======
+    private static final String DELETED_TASK = "     Noted. I've removed this task:\n";
+    /* ---- --------- ---- */
+    public ArrayList<Task> taskList = new ArrayList<>();
+
+>>>>>>> branch-Level-6
     public void handleEventRequest(String line) throws EventException {
         if (!line.contains(EVENT_KEYWORD)) {
             throw new EventException("Event Request Does Not Contain /at");
@@ -126,10 +143,8 @@ public class ProcessManager {
             throw new EventException("Event Request Does Not Contain A Date");
         }
         String date = line.substring(dividerPosition + TASK_DATE_DIVIDER);
-        toDo[trackIndex] = new Event(description, date);
-        String output = LINE_DIVIDER + ADD_TASK_REPLY
-                + GAP + toDo[trackIndex].toString() + "\n"
-                + getAddTaskReturn(trackIndex) + LINE;
+        taskList.add(new Event(description, date));
+        String output = taskAddedMessage();
         System.out.println(output);
         trackIndex++;
     }
@@ -147,60 +162,85 @@ public class ProcessManager {
             throw new DeadlineException("Deadline Request Does Not Contain A Date");
         }
         String date = line.substring(dividerPosition + TASK_DATE_DIVIDER);
-        toDo[trackIndex] = new Deadline(description, date);
-        String output = LINE_DIVIDER + ADD_TASK_REPLY
-                + GAP + toDo[trackIndex].toString() + "\n"
-                + getAddTaskReturn(trackIndex) + LINE;
+        taskList.add(new Deadline(description, date));
+        String output = taskAddedMessage();
         System.out.println(output);
         trackIndex++;
     }
 
     public void handleToDoRequest(String line) throws TodoException {
+<<<<<<< HEAD
         if (line.length() == 4) {
+=======
+        if (line.length() == TASK_DATE_DIVIDER) {
+>>>>>>> branch-Level-6
             throw new TodoException("Todo Request Does Not Contain A Description");
         }
         String description = line.substring(TODO_DIVIDER);
-        toDo[trackIndex] = new Todo(description);
-        String output = LINE_DIVIDER + ADD_TASK_REPLY
-                + GAP + toDo[trackIndex].toString() + "\n"
-                + getAddTaskReturn(trackIndex) + LINE;
+        taskList.add(new Todo(description));
+        String output = taskAddedMessage();
         System.out.println(output);
         trackIndex++;
     }
 
     public void handleDoneRequest(String line) throws DoneException {
+<<<<<<< HEAD
         if (line.length() == 4) {
             throw new DoneException("Done Request Does Not Contain A Number");
+=======
+        if (line.length() == TASK_DATE_DIVIDER) {
+            throw new DoneException("Request Does Not Contain A Number");
+>>>>>>> branch-Level-6
         }
-        int dividerPosition = line.indexOf(DONE_KEYWORD);
+        int dividerPosition = line.indexOf(DONE_DELETE_KEYWORD);
         String number = line.substring(dividerPosition + TASK_DESCRIPTION_DIVIDER);
         if (tryParse(number)) {
             throw new DoneException("Done Request Has Invalid Number");
         }
         int numberInTaskArray = Integer.parseInt(number) - TASK_DESCRIPTION_DIVIDER;
-        if (trackIndex <= numberInTaskArray) {
-            throw new DoneException("Array Out Of Bonds");
+        if (getLastIndex() < numberInTaskArray || numberInTaskArray < ZERO) {
+            throw new DoneException("Index Of Task Does Not Exist");
         }
-        toDo[numberInTaskArray].setIsDone();
-        String output = LINE_DIVIDER + TASK_COMPLETED + GAP + "[X] " 
-                + toDo[numberInTaskArray].getDescription() + "\n" + LINE;
+        taskList.get(numberInTaskArray).setIsDone();
+        String output = doneMessage(numberInTaskArray);
         System.out.println(output);
     }
 
     public void handleListRequest() {
         String output = LINE_DIVIDER;
-        for (int number = 0; trackIndex > number; number++) {
-            String record = GAP + (number + 1) + "." + toDo[number].toString() + "\n";
+        for (int number = 0; taskList.size() > number; number++) {
+            String record = GAP + (number + ARRAY_INDEX_FINDER) + "." + taskList.get(number).toString() + "\n";
             output = output.concat(record);
         }
-        if (trackIndex == 1) {
-            output = output.concat("Nothing Has Been Added To The List Yet");
+        if (getLastIndex() == ZERO) {
+            output = output.concat(GAP + "Nothing Has Been Added To The List Yet\n");
         }
         output = output.concat(LINE);
         System.out.println(output);
     }
     /* ---- -------- ---- */
 
+<<<<<<< HEAD
+=======
+    public void handleDeleteRequest(String line) throws DeleteException {
+        if (line.length() == TASK_DATE_DIVIDER) {
+            throw new DeleteException("Request Does Not Contain A Number");
+        }
+        int dividerPosition = line.indexOf(DONE_DELETE_KEYWORD);
+        String number = line.substring(dividerPosition + TASK_DESCRIPTION_DIVIDER);
+        if (tryParse(number)) {
+            throw new DeleteException("Request Has Invalid Number");
+        }
+        int numberInTaskArray = Integer.parseInt(number) - TASK_DESCRIPTION_DIVIDER;
+        if (getLastIndex() < numberInTaskArray || numberInTaskArray < ZERO) {
+            throw new DeleteException("Array Out Of Bonds");
+        }
+        String output = deleteMessage(numberInTaskArray);
+        System.out.println(output);
+        taskList.remove(numberInTaskArray);
+    }
+
+>>>>>>> branch-Level-6
     /*--- Function --- */
     public boolean tryParse(String text) {
         try {
@@ -211,6 +251,7 @@ public class ProcessManager {
         return false;
     }
 
+<<<<<<< HEAD
     public void checkStatus(String status) throws DukeException {
         if (status.equals("true")) {
             toDo[trackIndex].setIsDone();
@@ -219,10 +260,34 @@ public class ProcessManager {
         } else {
             throw new DukeException("Invalid Status");
         }
+=======
+    public int getLastIndex() {
+        int index = taskList.size() - ARRAY_INDEX_FINDER;
+        return Math.max(index, ZERO);
+>>>>>>> branch-Level-6
     }
     /*--- -------- --- */
 
     /*--- Messages --- */
+<<<<<<< HEAD
+=======
+    public String taskAddedMessage() {
+        return LINE_DIVIDER + ADD_TASK_REPLY
+                + GAP + taskList.get(getLastIndex()).toString() + "\n"
+                + getAddTaskReturn(getLastIndex() + ARRAY_INDEX_FINDER) + LINE;
+    }
+
+    public String doneMessage(Integer numberInTaskArray) {
+        return LINE_DIVIDER + TASK_COMPLETED + GAP + "[X] "
+                + taskList.get(numberInTaskArray).getDescription() + "\n" + LINE;
+    }
+
+    public String deleteMessage(Integer numberInTaskArray) {
+        return LINE_DIVIDER + DELETED_TASK + GAP + taskList.get(numberInTaskArray).toString() + "\n"
+                + getAddTaskReturn(getLastIndex()) + LINE;
+    }
+
+>>>>>>> branch-Level-6
     public void goodbyeMessage() {
         String output = LINE_DIVIDER + GAP + "Bye. Hope to see you again soon!\n" + LINE;
         System.out.println(output);
@@ -241,8 +306,8 @@ public class ProcessManager {
         System.out.println(output);
     }
 
-    public String getAddTaskReturn(Integer trackIndex) {
-        return "     Now you have " + (trackIndex + 1) + " tasks in the list.\n";
+    public String getAddTaskReturn(int number) {
+        return "     Now you have " + (number) + " tasks in the list.\n";
     }
 
     public String help() {
