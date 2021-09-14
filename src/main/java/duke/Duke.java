@@ -8,13 +8,11 @@ import duke.task.Task;
 import duke.task.ToDo;
 import duke.command.Command;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Duke {
-    public static final int MAX_TASKS = 100; //Maximum tasks allowed is 100
     public static Scanner in = new Scanner(System.in);
     public static int longestTaskDescription = 0; //The length of the longest task description
 
@@ -53,25 +51,8 @@ public class Duke {
             System.exit(0);
         } else if (Command.isCommandHelp(command)) {
             Default.printHelpMenu();
-        } else if (words[0].equalsIgnoreCase("delete")) {
-            if (words.length == 1) {
-                Default.showMessage("Sorry, the input task index to delete is missing!");
-            } else if (words[1].equalsIgnoreCase("all")) {
-                tasks.clear();
-                Default.showMessage("All tasks have been removed!");
-            } else {
-                try {
-                    int index = Integer.parseInt(words[1]);
-                    if (tasks.get(index - 1).getDone()){
-                        Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][X] " + tasks.get(index - 1) + "...");
-                    } else{
-                        Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][ ] " + tasks.get(index - 1) + "...");
-                    }
-                    tasks.remove(index - 1);
-                } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-                    Default.showMessage("Sorry, the input task index to delete is invalid!");
-                }
-            }
+        } else if (Command.isCommandDelete(command)) {
+            deleteTasks(tasks, words);
         } else {
             if (Command.isCommandList(command)) {
                 Default.printToDoList(tasks, longestTaskDescription);
@@ -86,9 +67,101 @@ public class Duke {
     }
 
     /**
+     * Deletes the task(s) according to the task index/indices provided
+     *
+     * @param tasks The array list that stored all the tasks
+     * @param words The array of words that compose the input command
+     */
+    private static void deleteTasks(ArrayList<Task> tasks, String[] words) {
+        switch (words.length) {
+        case 1:
+            Default.showMessage("Sorry, the input task index to delete is missing!");
+            break;
+        case 2:
+            if (Command.isCommandDeleteAll(words[1])) {
+                deleteAllTasks(tasks);
+            } else {
+                deleteSingleTask(tasks, words[1]);
+            }
+            break;
+        default:
+            deleteMultipleTasks(tasks, words);
+        }
+    }
+
+    /**
+     * Deletes all the tasks stored
+     *
+     * @param tasks The array list that stored all the tasks
+     */
+    private static void deleteAllTasks(ArrayList<Task> tasks) {
+        tasks.clear();
+        Default.showMessage("All tasks have been removed! Time to chill?");
+    }
+
+    /**
+     * Deletes the specific task when there is only one task specified
+     *
+     * @param tasks The array list that stored all the tasks
+     * @param word The array of words that compose the input command
+     */
+    private static void deleteSingleTask(ArrayList<Task> tasks, String word) {
+        try {
+            int index = Integer.parseInt(word);
+            if (tasks.get(index - 1).getDone()) {
+                Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][X] " + tasks.get(index - 1));
+            } else {
+                Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][ ] " + tasks.get(index - 1));
+            }
+            tasks.remove(index - 1);
+            if (tasks.size() > 0) {
+                System.out.println("You have left " + tasks.size() + " tasks to do!");
+            } else {
+                System.out.println("\tNice! You have finished all tasks! Time to chill~");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            Default.showMessage("Sorry, the input task index to delete is invalid!");
+        }
+    }
+
+    /**
+     * Deletes multiple tasks when there are multiple task indices provided
+     *
+     * @param tasks The array list that stored all the tasks
+     * @param words The array of words that compose the input command
+     */
+    private static void deleteMultipleTasks(ArrayList<Task> tasks, String[] words) {
+        try {
+            ArrayList<Integer> taskIndices = new ArrayList<>();
+            //Checks if the input task indices are valid
+            for (int i = 1; i < words.length; i++) {
+                taskIndices.add(Integer.parseInt(words[i]) - 1);
+            }
+            //Deletes the task with the largest task index first
+            taskIndices.sort(Collections.reverseOrder());
+            for (Integer i : taskIndices) {
+                if (tasks.get(i).getDone()) {
+                    Default.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "][X] " + tasks.get(i));
+                } else {
+                    Default.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "][ ] " + tasks.get(i));
+                }
+                tasks.remove((int) i);
+            }
+            //Prints the message according to tasks left
+            if (tasks.size() > 0) {
+                System.out.println("You have left " + tasks.size() + " tasks to do!");
+            } else {
+                System.out.println("\tNice! You have finished all tasks! Time to chill~");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            Default.showMessage("Sorry, there are some task indices which are invalid, I do not know how to handle :(");
+        }
+    }
+
+    /**
      * Performs the add task action
      *
-     * @param tasks   The array that stores all the tasks
+     * @param tasks   The array list that stores all the tasks
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
      */
@@ -102,7 +175,7 @@ public class Duke {
     /**
      * Checks the syntax for the command to create a new task, and add to the to-do list if the syntax is correct
      *
-     * @param tasks   The array that stores all the tasks
+     * @param tasks   The array list that stores all the tasks
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
      * @return Returns true if an instance of the subclass is created and successfully stored in the to-do list
@@ -125,7 +198,7 @@ public class Duke {
     /**
      * Checks the syntax for the command to create an 'Event' instance, and add to the to-do list if the syntax is correct
      *
-     * @param tasks   The array that stores all the tasks
+     * @param tasks   The array list that stores all the tasks
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
      * @return Returns true if an instance of the subclass Event is created and successfully stored in the to-do list
@@ -166,7 +239,7 @@ public class Duke {
     /**
      * Checks the syntax for the command to create an 'Deadline' instance, and add to the to-do list if the syntax is correct
      *
-     * @param tasks   The array that stores all the tasks
+     * @param tasks   The array list that stores all the tasks
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
      * @return Returns true if the subclass Deadline is created and successfully stored in the to-do list
@@ -203,7 +276,7 @@ public class Duke {
     /**
      * Marks the given tasks as done, and handles the possible errors if the input task number is not valid
      *
-     * @param tasks The array that contains all the tasks stored inside the to-do list
+     * @param tasks The array list that contains all the tasks stored inside the to-do list
      * @param words The array of words that compose the input command
      */
     private static void handleTaskDone(ArrayList<Task> tasks, String[] words) {
@@ -224,7 +297,7 @@ public class Duke {
     /**
      * Shows the message to indicate that the task is marked as done
      *
-     * @param tasks      The array which stores all the tasks
+     * @param tasks      The array list which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
     private static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber) {

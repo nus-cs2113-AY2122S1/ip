@@ -2,6 +2,25 @@ package duke.command;
 
 public abstract class Command {
     /**
+     * Checks if the command is meant to delete the task(s)
+     *
+     * @param command The input command
+     * @return Returns true if the command starts with 'delete' no matter it is uppercase or lowercase or mixed, false otherwise
+     */
+    public static boolean isCommandDelete(String command) {
+        return command.toLowerCase().startsWith("delete");
+    }
+
+    /**
+     * Checks if the command is meantto delete all the tasks stored
+     *
+     * @param word The second word in the command
+     * @return Returns true if the second word in the command is equivalent to 'all' or '*' no matter it is uppercaseor lowercase or mixed, false otherwise
+     */
+    public static boolean isCommandDeleteAll(String word) {
+        return word.equalsIgnoreCase("all") || word.equals("*");
+    }
+    /**
      * Checks if the command is meant to see the help menu
      *
      * @param command The input command
