@@ -19,8 +19,9 @@ public class ExitCommand extends Command {
     /**
      * Does nothing
      *
-     * @param taskList Does not matter in this subclass implementation
-     * @param ui The ui class instance that will print out the completion message
+     * @param taskList not used in this subclass implementation
+     * @param storage  not used in this subclass implementation
+     * @param ui       not used in this subclass implementation
      */
     @Override
     public void execute(TaskList taskList, Storage storage, Ui ui) {

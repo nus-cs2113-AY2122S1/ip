@@ -7,7 +7,16 @@ public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Adds a task to the list of tasks
+     * Returns the number of Tasks in TaskList
+     *
+     * @return the number of Tasks in TaskList
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
+     * Adds the task to the list of tasks
      *
      * @param task the task to be added
      */
@@ -16,23 +25,14 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list of tasks, prints completion message via ui
-     *
-     * @param task the task to be added
-     * @param ui   Ui class instance to print completion message
-     */
-    public void addTask(Task task, Ui ui) {
-        addTask(task);
-        ui.printAddTaskMessage(task, tasks.size());
-    }
-
-    /**
      * Deletes the task at the specified index
      *
      * @param taskIndex the index of the task to be deleted
+     * @return the Task that was deleted
+     * @throws DukeException if taskIndex is < 0 or if there is no task at the specified index
      */
     public Task deleteTask(int taskIndex) throws DukeException {
-        if (taskIndex <= -1) {
+        if (taskIndex < 0) {
             throw new DukeException("Task index must be greater than 0.");
         } else if (taskIndex >= tasks.size()) {
             throw new DukeException("Task does not exist.");
@@ -41,59 +41,42 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task at the specified index, prints completion message via ui
-     *
-     * @param taskIndex the index of the task to be deleted
-     * @param ui        Ui class instance to print completion message
-     */
-    public void deleteTask(int taskIndex, Ui ui) throws DukeException {
-        Task deletedTask = deleteTask(taskIndex);
-        ui.printDeleteTaskMessage(deletedTask, tasks.size());
-    }
-
-    /**
-     * Deletes all tasks
+     * Deletes all tasks in TaskList
      */
     public void deleteAllTasks() {
         tasks.clear();
     }
 
     /**
-     * Prints a list of all tasks in taskList
-     */
-    public void printTasks(Ui ui) {
-        ui.printAllTasks(tasks);
-    }
-
-    /**
      * Marks the task at the specified index as completed
      *
      * @param taskIndex the index of the task to be marked as completed
+     * @return the Task that was marked as completed
+     * @throws DukeException if taskIndex < 0 or if there is no task at the specified index
      */
-    public void completeTask(int taskIndex) throws DukeException {
-        if (taskIndex <= -1) {
+    public Task completeTask(int taskIndex) throws DukeException {
+        if (taskIndex < 0) {
             throw new DukeException("Task index must be greater than 0.");
         } else if (taskIndex >= tasks.size()) {
             throw new DukeException("Task does not exist.");
         }
         tasks.get(taskIndex).setCompleted();
+        return tasks.get(taskIndex);
     }
 
     /**
-     * Marks the task at the specified index as completed, prints completion message via ui
+     * Creates a string containing the task information for all Tasks in TaskList for printing to terminal
      *
-     * @param taskIndex the index of the task to be marked as completed
-     * @param ui        Ui class instance to print completion message
+     * @return String containing the task information for all Tasks in TaskList for printing to terminal
      */
-    public void completeTask(int taskIndex, Ui ui) throws DukeException {
-        completeTask(taskIndex);
-        ui.printCompleteTaskMessage(tasks.get(taskIndex));
+    public String getMessageString() {
+        return Output.getTaskListMessage(tasks);
     }
 
     /**
-     * Creates a string containing the task information for all Tasks in TaskList
+     * Creates a string containing the task information for all Tasks in TaskList for storage
      *
-     * @return string containing the task information for all Tasks in TaskList, separated by lineSeparators
+     * @return String containing the task information for all Tasks in TaskList, separated by lineSeparators
      */
     public String getStorageString() {
         String storageString = "";

@@ -15,12 +15,12 @@ public class Duke {
         TaskList taskList = new TaskList();
         Ui ui = new Ui();
         Storage storage = null;
-        ui.printStartMessage();
+        ui.printOutput(Output.getStartMessage());
         try {
             storage = new Storage();
             storage.loadData(taskList);
         } catch (DukeException e) {
-            ui.printErrorMessage(e.getMessage());
+            ui.printOutput("  " + e.getMessage() + System.lineSeparator());
         }
 
         while (isInteracting) {
@@ -30,9 +30,9 @@ public class Duke {
                 command.execute(taskList, storage, ui);
                 isInteracting = !command.isExit();
             } catch (DukeException e) {
-                ui.printErrorMessage(e.getMessage());
+                ui.printOutput("  " + e.getMessage() + System.lineSeparator());
             }
         }
-        ui.printExitMessage();
+        ui.printOutput(Output.getExitMessage());
     }
 }
