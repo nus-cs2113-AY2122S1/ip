@@ -17,4 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 #txt file to store tasks
-/data/duke.txt
+data/duke.txt
