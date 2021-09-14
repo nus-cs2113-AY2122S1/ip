@@ -5,24 +5,24 @@ public class Task {
     protected boolean isDone;
     protected String type;
 
-    public Task(String task){
+    public Task(String task) {
         this.task = task;
         this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return(isDone ? "[X] " : "[ ] ");
+        return (isDone ? "[X] " : "[ ] ");
     }
 
     public boolean isDone() {
         return isDone;
     }
 
-    public String getTime(){
+    public String getTime() {
         return "";
     }
 
-    public String getTask(){
+    public String getTask() {
         return task;
     }
 
@@ -30,11 +30,11 @@ public class Task {
         return type;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    public String toString(){
+    public String toString() {
         return this.getStatusIcon() + this.task;
     }
 

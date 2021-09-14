@@ -11,15 +11,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Duke {
 
-    public static final String SAVEFILE_SEPERATOR = "|";
+    public static final String SAVEFILE_SEPERATOR = "\\|";
     public static final String FILE_PATH = "duke.txt";
     public static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -111,12 +108,17 @@ public class Duke {
         userInput = in.nextLine();
         boolean closeDuke;
 
-        /*try {
+        try {
             unfilteredTasks = loadFile(FILE_PATH, unfilteredTasks);
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             File dukeCheckpoint = new File(FILE_PATH);
+            try {
+                dukeCheckpoint.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
-*/
+
         do {
             String command = getCommand(userInput);
             try {
@@ -127,6 +129,9 @@ public class Duke {
 
                 doDone(command, unfilteredTasks, userInput);
                 doList(command, unfilteredTasks);
+                while (unfilteredTasks[unfilteredCounter] != null) {
+                    unfilteredCounter++;
+                }
 
                 unfilteredTasks[unfilteredCounter] = isToDo(command) ? new ToDo(newTask) : isDeadline(command) ? new Deadline(newTask, time) : isEvent(command) ? new Event(newTask, time) : null;
                 AcknowledgeAddition(command, unfilteredTasks[unfilteredCounter], unfilteredCounter);
@@ -163,12 +168,15 @@ public class Duke {
         return dukeUpdate;
     }
 
-    private static void loadFile(String filePath) throws FileNotFoundException {
+    private static Task[] loadFile(String filePath, Task[] taskList) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        int countTracker = 0;
         while (s.hasNext()) {
-            loadCommands(s.nextLine());
+            taskList[countTracker] = loadCommands(s.nextLine());
+            countTracker++;
         }
+        return taskList;
     }
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
@@ -177,24 +185,29 @@ public class Duke {
         dukeIn.close();
     }
 
-    private static void loadCommands(String taskDetails) {
+    private static Task loadCommands(String taskDetails) {
         String[] taskBreakdown = taskDetails.split(SAVEFILE_SEPERATOR);
-        String taskType = taskBreakdown[0];
-        String completionStatus = taskBreakdown[1];
-        String task = taskBreakdown[2];
-        String savedInput;
-
+        String taskType = taskBreakdown[0].trim();
+        String completionStatus = taskBreakdown[1].trim();
+        String task = taskBreakdown[2].trim();
+        Task savedTask;
         switch (taskType) {
         case "T":
-            savedInput = "todo " + task;
+            savedTask = new ToDo(task);
             break;
         case "D":
-            savedInput = "deadline " + task + " /by " + taskBreakdown[3];
+            savedTask = new Deadline(task, taskBreakdown[3].trim());
             break;
         case "E":
-            savedInput = "event " + task + " /at " + taskBreakdown[3];
+            savedTask = new Event(task, taskBreakdown[3].trim());
             break;
+        default:
+            savedTask = null;
         }
+        if (completionStatus.equals("1")) {
+            savedTask.markAsDone();
+        }
+        return savedTask;
     }
 
     private static void printGreetings() {

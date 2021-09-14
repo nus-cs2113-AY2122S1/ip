@@ -4,8 +4,8 @@ public class ToDo extends Task {
 
     protected String type = "T";
 
-    public ToDo(String description){
-        super (description);
+    public ToDo(String description) {
+        super(description);
     }
 
     public String getType() {
@@ -13,7 +13,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 }
