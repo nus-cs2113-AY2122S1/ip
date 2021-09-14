@@ -1,4 +1,4 @@
 package duke;
 
-public class EventException extends Exception{
+public class EventException extends Exception {
 }

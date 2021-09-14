@@ -1,4 +1,4 @@
 package duke;
 
-public class DeadlineException extends Exception{
+public class DeadlineException extends Exception {
 }

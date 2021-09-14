@@ -1,4 +1,4 @@
 package duke;
 
-public class TaskCountException extends Exception{
+public class TaskCountException extends Exception {
 }

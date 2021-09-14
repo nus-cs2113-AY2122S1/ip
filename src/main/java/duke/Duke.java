@@ -1,10 +1,10 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static Task[] tasks = new Task[100];
-    public static int taskCount = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printGreeting() {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
@@ -22,8 +22,12 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
     }
 
+    public static void printRemoveIt() {
+        System.out.println("Noted. I've removed this task:");
+    }
+
     public static void printTaskCount() {
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void printTodoException() {
@@ -42,18 +46,27 @@ public class Duke {
         System.out.println("The description of done cannot be empty.");
     }
 
+    public static void printDeleteException() {
+        System.out.println("The description of delete cannot be empty.");
+    }
+
     public static void printTaskTypeResponse() {
         //printing different responses depending if its duke.Todo/duke.Deadline/duke.Event
         printGotIt();
-        tasks[taskCount - 1].printTask();
+        tasks.get(tasks.size() - 1).printTask();
         printTaskCount();
+    }
+
+    public static void printDeleteResponse() {
+        printRemoveIt();
+        tasks.get(tasks.size() - 1).printTask();
     }
 
     public static void printList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i += 1) {
+        for (int i = 0; i < tasks.size(); i += 1) {
             System.out.print((i + 1) + ".");
-            tasks[i].printTask();
+            tasks.get(i).printTask();
         }
     }
 
@@ -62,9 +75,9 @@ public class Duke {
             throw new DoneException();
         } else {
             int index = Integer.parseInt(line) - 1;
-            tasks[index].setDone();
+            tasks.get(index).setDone();
             System.out.println("Nice! I've marked this task as done:");
-            tasks[index].printTask();
+            tasks.get(index).printTask();
         }
     }
 
@@ -72,8 +85,7 @@ public class Duke {
         if (line.equals("") || line.equals("todo")) {
             throw new TodoException();
         } else {
-            tasks[taskCount] = new Todo(line);
-            taskCount = taskCount + 1;
+            tasks.add(new Todo (line));
             printTaskTypeResponse();
         }
     }
@@ -85,8 +97,7 @@ public class Duke {
             //extracting the description and date
             String description = line.replaceAll("/.+", "");
             String by = line.replaceAll(".+/by", "");
-            tasks[taskCount] = new Deadline(description, by);
-            taskCount = taskCount + 1;
+            tasks.add(new Deadline (description, by));
             printTaskTypeResponse();
         }
     }
@@ -97,10 +108,20 @@ public class Duke {
         } else {
             //extracting the description and date
             String description = line.replaceAll("/.+", "");
-            String by = line.replaceAll(".+/at", "");
-            tasks[taskCount] = new Event(description, by);
-            taskCount = taskCount + 1;
+            String at = line.replaceAll(".+/at", "");
+            tasks.add(new Event (description, at));
             printTaskTypeResponse();
+        }
+    }
+
+    public static void deleteTask(String line) throws DeleteException {
+        if (line.equals("") || line.equals("delete")) {
+            throw new DeleteException();
+        } else {
+            int index = Integer.parseInt(line) - 1;
+            printDeleteResponse();
+            tasks.remove(index);
+            printTaskCount();
         }
     }
 
@@ -134,6 +155,12 @@ public class Duke {
                 addEvent(line);
             } catch (EventException e) {
                 printEventException();
+            }
+        } else if (command.equals("delete")) {
+            try {
+                deleteTask(line);
+            } catch (DeleteException e) {
+                printDeleteException();
             }
         } else {
             //error with input

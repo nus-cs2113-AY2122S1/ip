@@ -1,4 +1,4 @@
 package duke;
 
-public class DoneException extends Exception{
+public class DoneException extends Exception {
 }
