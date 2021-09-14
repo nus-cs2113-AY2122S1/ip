@@ -1,8 +1,9 @@
 package duke;
 
 import java.util.Scanner;
-import duke.exception.EmptyCommandException;
+import java.util.ArrayList;
 import duke.exception.IllegalCommandException;
+import duke.exception.EmptyCommandException;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -10,7 +11,7 @@ import duke.task.Todo;
 
 public class Duke {
 
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     /** Prints a farewell message when the user exits the program. */
     public static void commandBye() {
@@ -21,7 +22,7 @@ public class Duke {
     public static void commandList() {
         System.out.println("Here are your current tasks and their status:");
         for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
@@ -41,20 +42,22 @@ public class Duke {
         }
 
         if (line.startsWith("todo")) {
-            tasks[Task.getTaskCount()] = new Todo(line.replace("todo ", ""));
-        } else if (!line.contains("/")) {
+            tasks.add(Task.getTaskCount(), new Todo(line.replace("todo ", "")));
+        }
+
+        else if (!line.contains("/")) {
             throw new IllegalCommandException();
         } else if (line.startsWith("deadline")) {
             String[] words = line.split("/");
-            tasks[Task.getTaskCount()] = new Deadline(words[0].replace("deadline ", ""),
-                                                                        words[1].replace("by ", ""));
+            tasks.add(Task.getTaskCount(), new Deadline(words[0].replace("deadline ", ""),
+                                                                        words[1].replace("by ", "")));
         } else if (line.startsWith("event")) {
             String[] words = line.split("/");
-            tasks[Task.getTaskCount()] = new Event(words[0].replace("event ", ""),
-                                                                words[1].replace("at ", ""));
+            tasks.add(Task.getTaskCount(), new Event(words[0].replace("event ", ""),
+                                                                words[1].replace("at ", "")));
         }
 
-        System.out.println("I've added that to your list:\n" + tasks[Task.getTaskCount() - 1]);
+        System.out.println("I've added that to your list:\n" + tasks.get(Task.getTaskCount() - 1));
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
@@ -71,9 +74,9 @@ public class Duke {
             System.out.println("You didn't give me the task's number, try that command again.");
         } else {
             int taskIndex = Integer.parseInt(words[1]);
-            tasks[taskIndex - 1].setDone(true);
+            tasks.get(taskIndex - 1).setDone(true);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks[taskIndex - 1]);
+            System.out.println(tasks.get(taskIndex - 1));
         }
     }
 
