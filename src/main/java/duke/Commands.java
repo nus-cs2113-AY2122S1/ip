@@ -9,4 +9,5 @@ public final class Commands {
     public static final String TODO = "TODO";
     public static final String DEADLINE = "DEADLINE";
     public static final String EVENT = "EVENT";
+    public static final String DELETE = "DELETE";
 }
