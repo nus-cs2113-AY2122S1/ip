@@ -1,6 +1,10 @@
 package duke;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Duke {
     //declarations
@@ -12,13 +16,75 @@ public class Duke {
     public static int taskCount = 0;
 
     //Program starts with this greeting
-    public static void start() {
+    public static void start() throws FileNotFoundException, DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
+        loadData();
+    }
+
+    //Saves Task list into local file
+    public static void saveData(ArrayList<Task> t) {
+        String path = "D:\\Documents\\NUS\\Y2S1\\CS2113T\\IP\\UserData.txt";
+        try {
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw, false);
+            pw.flush();
+            pw.close();
+            fw.close();
+            for (int i = 0; i < taskCount; i++) {
+                String input = t.get(i).toSave() + "\n";
+                Files.write(Paths.get(path), input.getBytes(), StandardOpenOption.APPEND);
+            }
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Loads Task list into Duke
+    public static void loadData() throws FileNotFoundException, DukeException {
+        File f = new File("D:\\Documents\\NUS\\Y2S1\\CS2113T\\IP\\UserData.txt");
+
+        Scanner scan = new Scanner(f);
+        String taskType;
+        String s;
+        int taskNumber = 1; //tracks how many tasks read from .txt file so far
+
+        while(scan.hasNext())                                                                                           //todo hello | 1
+        {                                                                                                               //deadline hello /by Sunday | 1
+            String data = scan.nextLine();                                                                              //event project meeting /at Mon 2-4pm | 0
+            String[] arrayString = data.split(" \\| ");
+            String[] arrayString2 = arrayString[0].split(" ");
+            taskType = arrayString2[0];
+            s = Integer.toString(taskNumber);
+
+            switch (taskType) {
+            case "todo":
+                sayTodo(arrayString[0]);
+                if (arrayString[1].equals("1")) {
+                    sayDone(s);
+                }
+                break;
+            case "deadline":
+                sayDeadline(arrayString[0]);
+                if (arrayString[1].equals("1")) {
+                    sayDone(s);
+                }
+                break;
+            case "event":
+                sayEvent(arrayString[0]);
+                if (arrayString[1].equals("1")) {
+                    sayDone(s);
+                }
+                break;
+            default:
+            }
+            taskNumber++;
+        }
+        scan.close();
     }
 
     //Program exits with this ending
@@ -166,18 +232,23 @@ public class Duke {
                 break;
             case "done":
                 sayDone(input);
+                saveData(t);
                 break;
             case "todo":
                 sayTodo(input);
+                saveData(t);
                 break;
             case "deadline":
                 sayDeadline(input);
+                saveData(t);
                 break;
             case "event":
                 sayEvent(input);
+                saveData(t);
                 break;
-            case "delete":
+            case "delete": //lvl 7
                 sayDelete(input);
+                saveData(t);
                 break;
             default:
                 System.out.println(line + "\n☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
@@ -186,7 +257,7 @@ public class Duke {
     }
 
     //Main
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
         start();
         inputSort();
     }
