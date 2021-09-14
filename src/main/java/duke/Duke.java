@@ -2,9 +2,41 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class Duke {
     public static ArrayList<Task> tasks = new ArrayList<>();
+<<<<<<< HEAD
+=======
+    public static File f = new File("data/duke.txt"); // create a File for the given file path
+
+    public static void loadTasks() throws FileNotFoundException {
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            String task = s.nextLine();
+            String[] taskSplit= task.split(" \\| ");
+            String taskType = taskSplit[0];
+            boolean isDone = taskSplit[1].equals("1");
+            String description = taskSplit[2];
+            String preposition = taskSplit.length >= 4 ? taskSplit[3] : "";
+            if (taskType.equals("E")){
+                tasks.add(new Event(description, isDone, preposition));
+            } else if (taskType.equals("D")){
+                tasks.add(new Deadline(description, isDone, preposition));
+
+            } else {
+                tasks.add(new Todo(description, isDone));
+            }
+        }
+    }
+>>>>>>> branch-Level-7
 
     public static void printGreeting() {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
@@ -67,6 +99,45 @@ public class Duke {
         for (int i = 0; i < tasks.size(); i += 1) {
             System.out.print((i + 1) + ".");
             tasks.get(i).printTask();
+<<<<<<< HEAD
+=======
+        }
+    }
+
+    public static void createFile() throws IOException{
+        Path pathToFile = Paths.get("data/duke.txt");
+        Files.createDirectories(pathToFile.getParent());
+        f.createNewFile();
+    }
+
+    public static void initialiseTasks(){
+        try {
+            loadTasks();
+        } catch (FileNotFoundException e0){
+            System.out.println("The file data/duke.txt is not found.");
+            try {
+                createFile();
+            } catch (IOException e1){
+                System.out.println("There has been an error creating a new file.");
+            }
+            System.out.println("A new file data/duke.txt has been created.");
+        }
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("data/duke.txt");
+        for (Task list : tasks) {
+            fw.write(list.saveTask() + "\n");
+        }
+        fw.close();
+    }
+
+    public static void write() {
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println("There has been an error writing to file.");
+>>>>>>> branch-Level-7
         }
     }
 
@@ -85,8 +156,13 @@ public class Duke {
         if (line.equals("") || line.equals("todo")) {
             throw new TodoException();
         } else {
+<<<<<<< HEAD
             tasks.add(new Todo (line));
+=======
+            tasks.add(new Todo(line));
+>>>>>>> branch-Level-7
             printTaskTypeResponse();
+            write();
         }
     }
 
@@ -99,6 +175,7 @@ public class Duke {
             String by = line.replaceAll(".+/by", "");
             tasks.add(new Deadline (description, by));
             printTaskTypeResponse();
+            write();
         }
     }
 
@@ -111,6 +188,7 @@ public class Duke {
             String at = line.replaceAll(".+/at", "");
             tasks.add(new Event (description, at));
             printTaskTypeResponse();
+            write();
         }
     }
 
@@ -169,6 +247,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        initialiseTasks();
         printGreeting();
         String line;
         Scanner in = new Scanner(System.in);
