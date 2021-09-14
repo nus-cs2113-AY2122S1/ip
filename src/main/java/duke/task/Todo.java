@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.exceptions.EmptyField;
-import duke.exceptions.IllegalOperation;
 
 public class Todo extends Task {
     public Todo(String description) throws EmptyField {
@@ -16,15 +15,5 @@ public class Todo extends Task {
     @Override
     public String getSaveFormat() {
         return String.format("%s | %s | %s", "T", status? "1":"0", description);
-    }
-
-    @Override
-    public String getTime() throws IllegalOperation {
-        throw new IllegalOperation();
-    }
-
-    @Override
-    public void setTime(String time) throws IllegalOperation {
-        throw new IllegalOperation();
     }
 }

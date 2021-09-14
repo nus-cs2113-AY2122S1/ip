@@ -58,7 +58,7 @@ public class Storage {
 
             }
             return data;
-        } catch (IOException | EmptyField | IllegalOperation e) {
+        } catch (IOException | EmptyField | IllegalOperation | IllegalArgumentException e) {
             MessageBubble.printMessageBubble("Warning! No local data loaded.");
             return new TaskList();
         }

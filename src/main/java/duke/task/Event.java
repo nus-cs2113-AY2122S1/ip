@@ -18,26 +18,13 @@ public class Event extends Task{
 
     @Override
     public String getSaveFormat() {
-        return String.format("%s | %s | %s | %s", "E", status? "1":"0", description, time);
-    }
-
-    @Override
-    public String getTime() {
-        return time;
-    }
-
-    @Override
-    public void setTime(String time) throws EmptyField {
-        if (time.isBlank()) {
-            throw new EmptyField();
-        }
-        this.time = time;
+        return String.format("%s | %s | %s | %s", "E", status? "1":"0", description, this.time.format(saveFormatter));
     }
 
     @Override
     public String toString() {
         String classIndicator = this.getClass().getSimpleName().substring(0,1);
         String statusIndicator = status ? "X" : " ";
-        return String.format("[%s][%s] %s (at: %s)", classIndicator, statusIndicator, description, time);
+        return String.format("[%s][%s] %s (at: %s)", classIndicator, statusIndicator, description, getTime());
     }
 }

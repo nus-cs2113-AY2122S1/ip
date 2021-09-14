@@ -5,6 +5,11 @@ import duke.exceptions.IllegalOperation;
 import duke.list.TaskList;
 import duke.ui.MessageBubble;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public boolean isExit;
 
@@ -79,7 +84,7 @@ public class Parser {
     }
 
     public static Deadline parseDeadline(String full_description) throws EmptyField {
-        String CMD_TIME = "/by";
+        String CMD_TIME = " /by ";
 
         if (!full_description.contains(CMD_TIME)) {
             throw new EmptyField();
@@ -100,7 +105,7 @@ public class Parser {
     }
 
     public static Event parseEvent(String full_description) throws EmptyField {
-        String CMD_TIME = "/at";
+        String CMD_TIME = " /at ";
 
         if (!full_description.contains(CMD_TIME)) {
             throw new EmptyField();
