@@ -1,3 +1,5 @@
+
+
 public class DukeException {
     protected boolean isInvalidCommand;
     protected boolean isNotDone;
