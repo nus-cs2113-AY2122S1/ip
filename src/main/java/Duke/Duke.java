@@ -2,7 +2,6 @@ package Duke;
 
 import Duke.Task.TaskManager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {

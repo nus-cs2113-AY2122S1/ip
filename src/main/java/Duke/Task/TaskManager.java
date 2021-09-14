@@ -30,7 +30,6 @@ public class TaskManager {
                 message.printLineBreak();
             }
         } catch (NumberFormatException e) {
-            System.out.println("counter");
             message.printListError();
             message.printLineBreak();
         }
