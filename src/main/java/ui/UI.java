@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class UI {
     private static final String line = "____________________________________________________________";
-    private static final Scanner scanner = new Scanner(System.in);
 
     /**
      * Formats and prints strings to standard output
@@ -46,14 +45,8 @@ public class UI {
      * @return a String containing the raw user input
      */
     public String readUserInput() {
+        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
-    }
-
-    /**
-     * Print out a message when the command entered by the user is unrecognised
-     */
-    public void printInvalidCommandMessage() {
-        printString("sorry, I didn't understand that command");
     }
 
     /**

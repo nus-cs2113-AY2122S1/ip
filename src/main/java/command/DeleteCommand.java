@@ -4,6 +4,8 @@ import task.Task;
 import task.TaskManager;
 import ui.UI;
 
+import java.io.IOException;
+
 public class DeleteCommand extends Command {
 
     private int taskIndex;
@@ -14,7 +16,11 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-        Task deletedTask = taskManager.deleteTask(taskIndex);
-        ui.printTaskDeletedMessage(deletedTask, taskManager.getTaskCount());
+       try {
+            Task deletedTask = taskManager.deleteTask(taskIndex);
+            ui.printTaskDeletedMessage(deletedTask, taskManager.getTaskCount());
+        } catch (IOException e) {
+           ui.printString("there was an error while deleting that task in memory");
+       }
     }
 }

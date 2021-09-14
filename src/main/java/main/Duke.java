@@ -6,11 +6,23 @@ import task.TaskManager;
 import ui.UI;
 import command.Command;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Duke {
 
     private final TaskManager taskManager;
     private final UI ui;
     private final Parser parser;
+    private File dataFile;
+
+    private static final String ROOT_DIR = System.getProperty("user.dir");
+    private static final String DATA_DIR = "data";
+    private static final String DATA_FILE = "taro.txt";
+    public static final Path DATA_FILE_PATH = Paths.get(ROOT_DIR, "src", DATA_DIR, DATA_FILE);
 
     /**
      * Constructor for main.Duke (renamed to taro) that initializes the key properties
@@ -31,6 +43,7 @@ public class Duke {
     private void startDuke() {
         ui.printLogo();
         ui.greetUser();
+        getDataFile();
         handleCommands();
     }
 
@@ -48,6 +61,22 @@ public class Duke {
             } catch (DukeException e) {
                 ui.printString(e.getMessage());
             }
+        }
+    }
+
+    private void getDataFile() {
+        try {
+            dataFile = new File(String.valueOf(DATA_FILE_PATH));
+            if (!dataFile.createNewFile()) {
+                try {
+                    taskManager.loadFileContent(dataFile);
+                    ui.printString("your saved data has been loaded");
+                } catch (FileNotFoundException e) {
+                    ui.printString("there was an error retrieving your saved data");
+                }
+            }
+        } catch (IOException e) {
+            ui.printString("there was an error retrieving your saved data");
         }
     }
 
