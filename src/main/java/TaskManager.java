@@ -72,11 +72,16 @@ public class TaskManager {
                 taskDetails = getTaskDetails(TaskEnum.EVENT, userInputWithoutTaskCommand);
                 addEvent(taskDetails);
             }
+            addTaskSuccess();
+            FileManager.writeToFile();
 
         } catch (IncompleteInformationException e) {
             Duke.printlnTab("☹ OOPS!!! Please enter the right format for the task");
             //TODO Deadline and event formats
             Duke.printDivider();
+        } catch (IOException e) {
+            Duke.printlnTab("☹ OOPS!!! Error writing to data file");
+
         }
     }
 
@@ -107,8 +112,6 @@ public class TaskManager {
 
     private void addTodo(String description) {
         tasks[tasksIndex] = new Todo(description);
-        FileManager.addTaskToFile(description);
-        addTaskSuccess();
     }
 
     private void addDeadline(String[] taskDetails) {
@@ -116,8 +119,6 @@ public class TaskManager {
         String date = taskDetails[TASK_DATE_INDEX];
 
         tasks[tasksIndex] = new Deadline(description, date);
-        FileManager.addTaskToFile(TaskEnum.DEADLINE, description, date);
-        addTaskSuccess();
     }
 
     private void addEvent(String[] taskDetails) {
@@ -125,8 +126,6 @@ public class TaskManager {
         String date = taskDetails[TASK_DATE_INDEX];
 
         tasks[tasksIndex] = new Event(description, date);
-        FileManager.addTaskToFile(TaskEnum.EVENT, description, date);
-        addTaskSuccess();
     }
 
     void addTaskSuccess() {

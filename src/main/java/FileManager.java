@@ -79,31 +79,4 @@ public class FileManager {
         fw.close();
     }
 
-    public static void addTaskToFile(String description) {
-        String textToAppend = "T | 0 | " + description + "\n";
-
-        try {
-            appendToFile(textToAppend);
-        } catch (IOException e) {
-            System.out.println("Unable to append to Duke/data.txt: " + e.getMessage());
-        }
-    }
-
-    public static void addTaskToFile(TaskEnum taskType, String description, String date) {
-        String textToAppend = (taskType == TaskEnum.DEADLINE) ? "D" : "E";
-        textToAppend += " | 0 | " + description + " | " + date + "\n";
-
-        try {
-            appendToFile(textToAppend);
-        } catch (IOException e) {
-            System.out.println("Unable to append to Duke/data.txt: " + e.getMessage());
-        }
-    }
-
-    private static void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(data, true);
-        fw.write(textToAppend);
-        fw.close();
-    }
-
 }
