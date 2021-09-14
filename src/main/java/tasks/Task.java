@@ -1,6 +1,8 @@
 package tasks;
 
-public class Task {
+import java.io.IOException;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -21,7 +23,15 @@ public class Task {
         return description;
     }
 
+    public Boolean getDone() {
+        return isDone;
+    }
+
+    public abstract String getClassType();
+
     public void setIsDone() {
         isDone = true;
     }
+
+    public abstract void saveTask(String filePath) throws IOException;
 }

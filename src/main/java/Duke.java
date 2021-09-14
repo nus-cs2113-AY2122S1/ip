@@ -1,4 +1,6 @@
 import exceptions.DukeException;
+import java.io.IOException;
+import exceptions.DeadlineException;
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
@@ -11,6 +13,7 @@ public class Duke {
     public static ProcessManager processManager = new ProcessManager();
     public static void main(String[] args) {
         processManager.welcomeMessage();
+        processManager.loadTasks();
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -22,6 +25,11 @@ public class Duke {
 
             if (line.equals("bye")) {
                 isProgress = false;
+                try {
+                    processManager.saveTasks();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
                 processManager.goodbyeMessage();
             } else if (line.equals("list")) {
                 processManager.handleListRequest();
