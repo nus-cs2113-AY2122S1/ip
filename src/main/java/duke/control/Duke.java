@@ -142,7 +142,7 @@ public class Duke {
         printWelcomeMessage();
         List list = new List();
         FileManager fileManager = new FileManager();
-        loadDataFromFile(list);
+        loadDataFromFile(fileManager, list);
         Scanner in = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -164,11 +164,14 @@ public class Duke {
         }
     }
 
-    private static void loadDataFromFile(List list) {
-        try {
-            FileManager.readDukeDataFromFile(list);
-        } catch (IOException e) {
-            System.out.println("Something went wrong, cannot load saved data");
+    private static void loadDataFromFile(FileManager fileManager, List list) {
+        File file = new File(fileManager.getFilePath());
+        if (file.exists()) {
+            try {
+                fileManager.readDukeDataFromFile(list);
+            } catch (IOException e) {
+                System.out.println("Something went wrong, cannot load saved data");
+            }
         }
     }
 

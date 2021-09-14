@@ -16,6 +16,10 @@ public class FileManager {
 
     protected static void createFile() throws IOException {
         File file = new File(filePath);
+        File dir = new File(System.getProperty("user.dir") + "/Data");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
         if (!file.exists()) {
             file.createNewFile();
         }
@@ -55,5 +59,9 @@ public class FileManager {
 
     private static String getPath() {
         return(System.getProperty("user.dir") + "/Data/dukeData.txt");
+    }
+
+    public static String getFilePath() {
+        return filePath;
     }
 }
