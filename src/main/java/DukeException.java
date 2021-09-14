@@ -7,6 +7,8 @@ public class DukeException {
     protected boolean isEventEmpty;
     protected boolean isDeadlineNoDate;
     protected boolean isEventNoDate;
+    protected boolean isNotDelete;
+    protected boolean isDeleteNoNumber;
     protected String Description;
 
     public DukeException(String description) {
@@ -19,6 +21,8 @@ public class DukeException {
         isEventEmpty = false;
         isDeadlineNoDate = false;
         isEventNoDate = false;
+        isNotDelete = false;
+        isDeleteNoNumber = false;
 
     }
 
@@ -34,6 +38,12 @@ public class DukeException {
         }
         else if (isDoneNoNumber) {
             description = "Done what??? Use the correct task number instead!\n" + "Use 'list' to access task number!\n";
+        }
+        else if (isNotDelete) {
+            description = "Delete what??? Add the task number!\n";
+        }
+        else if (isDeleteNoNumber) {
+            description = "Delete what??? Use the correct task number instead!\n" + "Use 'list' to access task number!\n";
         }
         else if (isTodoEmpty) {
             description = "Todo what???\n";
@@ -67,6 +77,14 @@ public class DukeException {
 
     public void setDoneNoNumber() {
         isDoneNoNumber = true;
+    }
+
+    public void setNotDelete() {
+        isNotDelete = true;
+    }
+
+    public void setDeleteNoNumber() {
+        isDeleteNoNumber = true;
     }
 
     public void setTodoEmpty() {

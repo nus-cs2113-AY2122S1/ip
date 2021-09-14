@@ -48,6 +48,28 @@ public class Duke {
                 System.out.println(LINE + invalid + LINE);
             }
 
+            else if (isDelete(firstWord)  && wordLength > 1) { //complete Tasks
+                int deleteNumber = -1;
+                if (isNumber(wordArr[1])) {
+                    deleteNumber = Integer.parseInt(wordArr[1]) - 1; // gets Task number to delete
+                }
+                if (isNumber(wordArr[1]) && deleteNumber < count) {
+                    //Task[doneNumber].setDone();
+                    System.out.println(LINE + "Ok! I've removed this task:\n" + Task.get(deleteNumber) + "\nYou can add more tasks or view existing ones by typing 'list'!\n" + LINE);
+                    Task.remove(deleteNumber);
+                    count--;
+                }
+                else {
+                    invalid.setDeleteNoNumber();
+                    System.out.println(LINE + invalid + LINE);
+                }
+            }
+
+            else if (isDelete(firstWord)  && wordLength <= 1) { //complete Tasks
+                invalid.setNotDelete();
+                System.out.println(LINE + invalid + LINE);
+            }
+
             else if (!isBye(userInput) && !isList(userInput)) { //Task words
                 if (isTodo(firstWord) && wordLength == 1) { //Todo is empty
                     invalid.setTodoEmpty();
@@ -154,6 +176,10 @@ public class Duke {
         } catch (final NumberFormatException e) {
             return false;
         }
+    }
+
+    public static boolean isDelete(String word) {
+        return word.equalsIgnoreCase("delete");
     }
 
 }
