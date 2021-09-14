@@ -10,12 +10,24 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatus(){
-        return (isDone) ? "[X]" : "[ ]";
+    public String getDescription() {
+        return description;
+    }
+
+    public char getType() {
+        return taskType;
+    }
+
+    public char getIsDone() {
+        return (isDone) ? 'X' : ' ';
     }
 
     public String getTaskType() {
-        return "[" + taskType + "]";
+        return "[" + getType() + "]";
+    }
+
+    public String getStatus(){
+        return "[" + getIsDone() + "]";
     }
 
     public void completeTask() {
