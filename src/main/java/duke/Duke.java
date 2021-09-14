@@ -3,6 +3,7 @@ package duke;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.*;
 
 import duke.task.*;
 import duke.command.TaskParser;
@@ -10,7 +11,29 @@ import duke.command.TaskParser;
 public class Duke {
 
     static ArrayList<Task> taskList = new ArrayList<>();
+    static final String FILENAME = "tasklist";
 
+    private static void saveTaskListToFile() {
+	try {
+	    FileOutputStream fileos = new FileOutputStream(FILENAME);
+	    ObjectOutputStream objos = new ObjectOutputStream(fileos);
+	    objos.writeObject(taskList);
+	} catch (IOException e) {
+	    System.out.println("Error saving to file.");
+	    System.out.println(e.getMessage());
+	}
+    }
+
+    private static void readTaskListFromFile() {
+	try {
+	    FileInputStream fileis = new FileInputStream(FILENAME);
+	    ObjectInputStream objis = new ObjectInputStream(fileis);
+	    taskList = (ArrayList<Task>) objis.readObject();
+	} catch (IOException | ClassNotFoundException e) {
+	    System.out.println("Error reading from file.");
+	    System.out.println(e.getMessage());
+	}
+    }
 
     private static boolean handleOneInputLine(String line) {
         String[] splitted = line.split("\\s+");
@@ -36,12 +59,14 @@ public class Duke {
 		    throw new ArrayIndexOutOfBoundsException("OOPS! Some required arguments are missing.");
 		}
                 taskList.add(newTask);
+		saveTaskListToFile();
                 System.out.println("added: " + newTask);
         }
 	return false;
     }
 
     private static void initialise() {
+	readTaskListFromFile();
         String greeting = "Hello! I'm Duke";
         String assist = "What can I do for you?";
         System.out.println(greeting);
