@@ -200,7 +200,7 @@ public class Duke {
             return hasIncorrectDeadlinePlaceholder;
 
         default:
-            return true;
+            return false;
         }
     }
 
