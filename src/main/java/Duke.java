@@ -50,9 +50,21 @@ public class Duke {
             }
             s.close();
         } catch (FileNotFoundException e) {
-            System.out.println(LINE + "\nFile not found\n" + LINE);
+            createFile();
         } catch (DukeException | ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE + "\nInput format within file is wrong!\n" + LINE);
+        }
+    }
+
+    public static void createFile() {
+        File file = new File(FILEPATH);
+        try {
+            boolean fileIsCreated = file.createNewFile();
+            if (fileIsCreated) {
+                System.out.println("New text file created for storage\n" + LINE);
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
