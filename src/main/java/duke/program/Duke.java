@@ -19,6 +19,10 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    public static void printFileErrorMessage() {
+        System.out.println("Hey bud, something went wrong with the file :/");
+    }
+
     public static void printLine() {
         for (int i = 0; i < LINE_LENGTH; i++) {
             System.out.print("_");
@@ -39,7 +43,7 @@ public class Duke {
         try {
             readInputs(manager);
         } catch (IOException e) {
-            System.out.println("Yo something went wrong with the file");
+            printFileErrorMessage();
         }
         printExitMessage();
     }
