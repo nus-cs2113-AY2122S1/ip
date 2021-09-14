@@ -8,6 +8,12 @@ import duke.task.Event;
 import duke.task.Deadline;
 import duke.exception.DukeException;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     static int listLength = 0;
@@ -186,6 +192,75 @@ public class Duke {
             System.out.println(SEPARATOR);
 
         }
+
+        public static void saveFile(){
+            File saveDirection = new File("data");
+            saveDirection.mkdir();
+            File saveFile = new File(saveDirection,"duke.txt");
+            try{
+                saveFile.createNewFile();
+                FileWriter fileWriter = new FileWriter(saveFile);
+                for(int i = 0; i < listLength;i++){
+                    char taskType = tasks.get(i).toString().charAt(1);
+                    fileWriter.write(taskType + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName()););
+                    if (taskType == 'D'){
+                        fileWriter.write("||" + ((Deadline) tasks.get(i)).getBy());
+                    } else if (taskType == 'E'){
+                        fileWriter.write("||" + ((Event) tasks.get(i)).getEventTime());
+                    }
+                    fileWriter.write("\n");
+                }
+                fileWriter.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        public static void setTasks(){
+             tasks = new ArrayList<Task>();
+             listLength = 0;
+             openTaskFromFile();
+        }
+
+        public static Task createSavedTask(String line){
+            String[] lineDivision = line.split("\\|\\|");
+            Task saveTask;
+            if(lineDivision[0].equals("D")){
+
+                saveTask = new Deadline(lineDivision[2],lineDivision[3],Boolean.parseBoolean(lineDivision[1]));
+
+            } else if (lineDivision[0].equals("E")){
+
+                saveTask = new Event(lineDivision[2],lineDivision[3],Boolean.parseBoolean(lineDivision[1]));
+
+            } else {
+
+                saveTask = saveTask = new Todo(lineDivision[2],Boolean.parseBoolean(lineDivision[1]));
+
+            }
+            return saveTask;
+        }
+
+
+        public static void openTaskFromFile(){
+            File saveDirection = new File("data");
+            saveDirection.mkdir();
+            File saveFile = new File(saveDirection,"duke.txt");
+            if(saveFile.exists()){
+                try{
+                    Scanner scanFile = new Scanner(saveFile);
+                    while(scanFile.hasNext()){
+                        String line = scanFile.nextLine();
+                        Task saveTask = createSavedTask(line);
+                        tasks.add(saveTask);
+                        listLength++;
+                    }
+                } catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
 
         public static void markAsDone() throws DukeException {
             if (list[0] == null) {
