@@ -5,7 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -23,6 +23,7 @@ public class Duke {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_EVENT_PREFIX = "at";
     private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_COMMAND_LIST = "commands";
 
     //Commonly used message formats in UI
@@ -39,6 +40,7 @@ public class Duke {
     private static final String MESSAGE_COMMAND_EVENT_FORMAT = QUOTATION + COMMAND_EVENT + " X /at Y" + QUOTATION;
     private static final String MESSAGE_COMMAND_LIST_FORMAT = QUOTATION + COMMAND_LIST + QUOTATION;
     private static final String MESSAGE_COMMAND_DONE_FORMAT = QUOTATION + COMMAND_DONE + " X" + QUOTATION;
+    private static final String MESSAGE_COMMAND_DELETE_FORMAT = QUOTATION + COMMAND_DELETE + " X" + QUOTATION;
     private static final String MESSAGE_COMMAND_COMMAND_LIST_FORMAT =  QUOTATION + COMMAND_COMMAND_LIST + QUOTATION;
     private static final String MESSAGE_COMMAND_BYE_FORMAT = QUOTATION + COMMAND_BYE + QUOTATION;
     private static final String MESSAGE_COMMAND_LIST = "Commands:" + LS
@@ -47,6 +49,7 @@ public class Duke {
             + MESSAGE_COMMAND_EVENT_FORMAT + " : Add event X with date/time details Y" + LS
             + MESSAGE_COMMAND_LIST_FORMAT + " : See lists of tasks" + LS
             + MESSAGE_COMMAND_DONE_FORMAT + " : Mark task number X as done" + LS
+            + MESSAGE_COMMAND_DELETE_FORMAT + " : Delete task number X" + LS
             + MESSAGE_COMMAND_COMMAND_LIST_FORMAT + " : See this list of commands again" + LS
             + MESSAGE_COMMAND_BYE_FORMAT + " : Stop Dude :(";
 
@@ -56,13 +59,15 @@ public class Duke {
             + MESSAGE_COMMAND_COMMAND_LIST_FORMAT + "!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_DONE_FORMAT = "Invalid format! Please input a task number to be marked as done, "
             + LS + "in the format " + MESSAGE_COMMAND_DONE_FORMAT + ", where X is the task number!";
+    private static final String MESSAGE_ERROR_INVALID_COMMAND_DELETE_FORMAT = "Invalid format! Please input a task number to be deleted, "
+            + LS + "in the format " + MESSAGE_COMMAND_DELETE_FORMAT + ", where X is the task number!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_DEADLINE_FORMAT = "Invalid format! Please input a deadline, "
             + LS + "in the format " + MESSAGE_COMMAND_DEADLINE_FORMAT + ", where X is the task and Y is the deadline!";
     private static final String MESSAGE_ERROR_INVALID_COMMAND_EVENT_FORMAT = "Invalid format! Please input a date, "
             + LS + "in the format " + MESSAGE_COMMAND_EVENT_FORMAT + ", where X is the event and Y is the date!";
 
-    /** List of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
-    private static final Task[] tasks = new Task[100];
+    /** Array list of all tasks (Event, Deadline, Todo all inherit 'Task' class) */
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints lines of messages. Can take in variable number of arguments.
@@ -115,12 +120,12 @@ public class Duke {
      * Prints current tasks
      */
     public static void printTasks() {
-        if (Task.getNumTasks() == 0) {
+        if (tasks.isEmpty()) {
             showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
         } else {
             showMessage(DIVIDER, MESSAGE_INTRODUCE_TASKS);
-            for (int i = 1; i <= Task.getNumTasks(); i++) {
-                System.out.println(i + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i+1 + ". " + tasks.get(i));
             }
             showMessage(DIVIDER);
         }
@@ -231,6 +236,9 @@ public class Duke {
         case COMMAND_DONE:
             markTaskAsDone(params);
             break;
+        case COMMAND_DELETE:
+            deleteTask(params);
+            break;
         case COMMAND_BYE:
             exit();
             break;
@@ -272,15 +280,46 @@ public class Duke {
                 //Since typeofTask is guaranteed to be either of the 3 above, code should not be reaching this point
                 throw new InvalidCommandFormatException("Error occurred, please check command format!");
             }
-            tasks[Task.getNumTasks()] = task;
+            tasks.add(task);
             showMessageFramedWithDivider("Added to list: " , task.toString(),
-                    "Current number of tasks: " + Task.getNumTasks());
+                    "Current number of tasks: " + tasks.size());
         } catch (InvalidCommandFormatException e) {
             //Print error for any invalid command format exceptions caught
             showMessageFramedWithDivider(e.toString());
         }
     }
 
+    /**
+     * Deletes a specific task
+     * If task number is not provided or invalid, prints an error
+     *
+     * @param params String in the format "delete X", where X is supposed to be the task number
+     */
+    public static void deleteTask(String params) {
+        if (tasks.isEmpty()) {
+            //error if user does not have any tasks to be deleted
+            showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
+        } else if (params.equals(EMPTY)) {
+            //error if user inputs only "delete" with no number behind
+            showMessageFramedWithDivider(MESSAGE_ERROR_INVALID_COMMAND_DELETE_FORMAT);
+        } else {
+            try {
+                int taskNum = Integer.parseInt(params);
+                if (taskNum > tasks.size() || taskNum < 1) {
+                    //error if user inputs a task number that does not exist
+                    showMessageFramedWithDivider("Please input a valid task number from 1 to " + tasks.size() + "!");
+                } else {
+                    final String deletedTaskString = tasks.get(taskNum-1).toString();
+                    tasks.remove(taskNum-1);
+                    showMessageFramedWithDivider("Alrightys! I have removed the following task:", deletedTaskString,
+                            "Current number of tasks: " + tasks.size());
+                }
+            } catch (NumberFormatException e) {
+                //error if user did not input a valid integer for task number
+                showMessageFramedWithDivider(MESSAGE_ERROR_INVALID_COMMAND_DELETE_FORMAT);
+            }
+        }
+    }
 
     /**
      * Mark a specific task as done
@@ -289,22 +328,22 @@ public class Duke {
      * @param params String in the format "done X", where X is supposed to be the task number
      */
     public static void markTaskAsDone(String params) {
-        if (params.equals(EMPTY)) {
+        if (tasks.isEmpty()) {
+            //error if user does not have any tasks to be marked completed
+            showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
+        } else if (params.equals(EMPTY)) {
             //error if user inputs only "done" with no number behind
             showMessageFramedWithDivider(MESSAGE_ERROR_INVALID_COMMAND_DONE_FORMAT);
         } else {
             try {
                 int taskNum = Integer.parseInt(params);
-                if (Task.getNumTasks() == 0) {
-                    //error if user does not have any tasks to be marked completed
-                    showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
-                } else if (taskNum > Task.getNumTasks() || taskNum < 1) {
+                if (taskNum > tasks.size() || taskNum < 1) {
                     //error if user inputs a task number that does not exist
-                    showMessageFramedWithDivider("Please input a valid task number from 1 to " + Task.getNumTasks() + "!");
+                    showMessageFramedWithDivider("Please input a valid task number from 1 to " + tasks.size() + "!");
                 } else {
                     showMessage(DIVIDER);
-                    tasks[taskNum].markAsDone();
-                    showMessage(tasks[taskNum].toString(), DIVIDER);
+                    tasks.get(taskNum-1).markAsDone();
+                    showMessage(tasks.get(taskNum-1).toString(), DIVIDER);
                 }
             } catch (NumberFormatException e) {
                 //error if user did not input a valid integer for task number
@@ -312,6 +351,8 @@ public class Duke {
             }
         }
     }
+
+
 
     /**
      * Continuously processes user inputs
