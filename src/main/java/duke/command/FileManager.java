@@ -39,7 +39,7 @@ public class FileManager {
     public static void addSavedTask(TaskManager taskManager, String[] dataComponents) {
         String dataTaskType = dataComponents[INDEX_TYPE];
         String taskInfo;
-        boolean taskStatus = dataComponents[INDEX_STATUS].equals("1");
+        boolean taskStatus = dataComponents[INDEX_STATUS].trim().equals("1");
 
         int i = 0;
         for (String dataComponent : dataComponents) {

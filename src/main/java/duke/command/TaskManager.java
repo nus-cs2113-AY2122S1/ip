@@ -149,6 +149,11 @@ public class TaskManager {
             }
         }
 
+        try {
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Error occurred when trying to save file after marking as done.");
+        }
         DisplayManager.printSetAsDoneResult(tasks, outOfRangeIndexes, validIndexes, doneIndexes);
     }
 
@@ -164,6 +169,12 @@ public class TaskManager {
                 tasks.set(validIndex - 1, null);
             }
             tasks.removeIf(Objects::isNull);
+        }
+
+        try {
+            FileManager.updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Error occurred when trying to save file after deleting task.");
         }
         DisplayManager.printDeleteTasksResult(deletedTasks, outOfRangeIndexes, tasks.size());
     }
