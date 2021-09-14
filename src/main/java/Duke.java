@@ -1,9 +1,12 @@
+import exceptions.DukeException;
 import java.io.IOException;
 import exceptions.DeadlineException;
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
-import exceptions.DukeException;
+import exceptions.DeadlineException;
+import exceptions.DeleteException;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -30,6 +33,13 @@ public class Duke {
                 processManager.goodbyeMessage();
             } else if (line.equals("list")) {
                 processManager.handleListRequest();
+            } else if (line.startsWith("delete")) {
+                try {
+                    processManager.handleDeleteRequest(line);
+                } catch (DeleteException e) {
+                    e.printStatement();
+                    System.out.println("Invalid Delete Request. Format: delete (number)");
+                }
             } else if (line.startsWith("done")) {
                 try {
                     processManager.handleDoneRequest(line);
