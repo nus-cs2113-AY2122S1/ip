@@ -14,6 +14,7 @@ public class TaskManager {
 
     public TaskManager() {
         tasks = new ArrayList<>();
+        DataManager.populateTasks(tasks);
         MessageManager.initMessage();
     }
 
@@ -88,6 +89,7 @@ public class TaskManager {
         int index = Integer.parseInt(destructuredInputs[1]) - 1;
         tasks.get(index).setTaskDone();
         MessageManager.completeTaskMessage(index + 1, tasks.get(index).toString());
+        DataManager.saveAllTasks(tasks);
     }
 
     private void addTodo(String userInput) throws EmptyDescriptionException {
@@ -99,6 +101,7 @@ public class TaskManager {
         Todo t = new Todo(todoName);
         tasks.add(t);
         MessageManager.addTaskMessage(t, tasks.size());
+        DataManager.saveAllTasks(tasks);
     }
 
     private void addEvent(String userInput) throws EmptyDescriptionException, InvalidDateException {
@@ -113,6 +116,7 @@ public class TaskManager {
         Event e = new Event(destructuredArguments[0], destructuredArguments[1]);
         tasks.add(e);
         MessageManager.addTaskMessage(e, tasks.size());
+        DataManager.saveAllTasks(tasks);
     }
 
     private void addDeadline(String userInput) throws EmptyDescriptionException, InvalidDateException {
@@ -127,6 +131,7 @@ public class TaskManager {
         Deadline d = new Deadline(destructuredArguments[0], destructuredArguments[1]);
         tasks.add(d);
         MessageManager.addTaskMessage(d, tasks.size());
+        DataManager.saveAllTasks(tasks);
     }
 
     private void deleteTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException {
@@ -135,5 +140,6 @@ public class TaskManager {
         Task removedTask = tasks.get(index);
         tasks.remove(tasks.get(index));
         MessageManager.deleteTaskMessage(removedTask, tasks.size());
+        DataManager.saveAllTasks(tasks);
     }
 }

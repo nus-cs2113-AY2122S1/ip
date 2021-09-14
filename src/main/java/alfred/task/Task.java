@@ -1,6 +1,6 @@
 package alfred.task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -9,9 +9,17 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String getDescription() {
         return description;
     }
+
+    public abstract String getType();
+
+    public abstract String getDate();
 
     @Override
     public String toString() {
