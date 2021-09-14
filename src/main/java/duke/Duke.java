@@ -39,6 +39,9 @@ public class Duke {
                 case TODO:
                     taskManager.addToDoTask(userInput);
                     break;
+                case DELETE:
+                    taskManager.deleteTask(userInput);
+                    break;
                 default:
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }

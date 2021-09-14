@@ -17,6 +17,8 @@ public class Parser {
             return Command.DEADLINE;
         case "event":
             return Command.EVENT;
+        case "delete":
+            return Command.DELETE;
         default:
             return Command.NULL;
         }

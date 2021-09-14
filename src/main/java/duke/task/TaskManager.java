@@ -2,31 +2,46 @@ package duke.task;
 
 import duke.parser.Parser;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    protected Task[] tasks;
-    protected int taskCount;
+    protected ArrayList<Task> tasks;
 
     public TaskManager() {
-        this.tasks = new Task[100];
-        this.taskCount = 0;
+        this.tasks = new ArrayList<>();
     }
 
     public void printTask() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= taskCount; i++) {
-            System.out.println(i + ". " + tasks[i].toString());
+        int currentIndex = 1;
+        for (Task task : tasks) {
+            System.out.println(currentIndex + ". " + task.toString());
+            currentIndex++;
         }
     }
 
     public void doneTask(String userInput) {
         try {
-            int index = Integer.parseInt(userInput.split(" ")[1]);
-            tasks[index].setDone();
-            System.out.println("Nice! I've marked this task as done:\n  " + tasks[index].toString());
+            int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            tasks.get(index).setDone();
+            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index).toString());
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter index of task done");
-        } catch (NullPointerException | NumberFormatException e) {
-            System.out.println("Please enter index within range 1 to " + taskCount);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("Please enter index within range 1 to " + tasks.size());
+        }
+    }
+
+    public void deleteTask(String userInput) {
+        try {
+            int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            Task removedTask = tasks.get(index);
+            tasks.remove(index);
+            System.out.println("Noted. I've removed this task:\n  " + removedTask.toString());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please enter index of task to be removed");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("Please enter index within range 1 to " + tasks.size());
         }
     }
 
@@ -35,9 +50,9 @@ public class TaskManager {
         if (description == null) {
             return;
         }
-        taskCount++;
-        tasks[taskCount] = new ToDo(description);
-        printAddSuccess();
+        ToDo todo = new ToDo(description);
+        tasks.add(todo);
+        printAddSuccess(todo.toString());
     }
 
     public void addDeadlineTask(String userInput) {
@@ -45,9 +60,9 @@ public class TaskManager {
         if (information[0].equals("") || information[1].equals("")) {
             return;
         }
-        taskCount++;
-        tasks[taskCount] = new Deadline(information[0], information[1]);
-        printAddSuccess();
+        Deadline deadline = new Deadline(information[0], information[1]);
+        tasks.add(deadline);
+        printAddSuccess(deadline.toString());
     }
 
     public void addEventTask(String userInput) {
@@ -55,15 +70,14 @@ public class TaskManager {
         if (information[0].equals("") || information[1].equals("")) {
             return;
         }
-        taskCount++;
-        tasks[taskCount] = new Event(information[0], information[1]);
-        printAddSuccess();
+        Event event = new Event(information[0], information[1]);
+        tasks.add(event);
+        printAddSuccess(event.toString());
     }
 
-    private void printAddSuccess() {
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("  " + tasks[taskCount].toString());
-        System.out.println("Now you have " + taskCount + " tasks in the list");
+    private void printAddSuccess(String addedTask) {
+        System.out.println("Got it. I've added this task:\n  " + addedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
 }
