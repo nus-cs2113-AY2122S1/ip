@@ -24,6 +24,7 @@ public class Duke {
     private static final String COMMAND_ADD_TODO_TASK = "todo";
     private static final String COMMAND_ADD_DEADLINE_TASK = "deadline";
     private static final String COMMAND_ADD_EVENT_TASK = "event";
+    private static final String COMMAND_SAVE_TASK_LIST = "save";
 
     //Output Messages
     public static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() + "What can I do for you?";
@@ -34,6 +35,7 @@ public class Duke {
     public static final String MESSAGE_INVALID_COMMAND = "I am sorry but I am not able to recognise this command";
     public static final String MESSAGE_NO_TASK_NUMBER_TO_MARK = "Please provide a task number e.g 'done 2'";
     public static final String MESSAGE_INVALID_TASK_NUMBER = "Sorry, but the task does not exist, unable to mark as done.\nYou can view a list of your tasks using the 'list' command";
+    public static final String MESSAGE_SAVE_TASK_LIST = "You task list has been saved successfully";
 
     //Default values for tasks
     private static final String DEFAULT_DEADLINE_TIME_CONTENT = "No deadline provided";
@@ -65,6 +67,9 @@ public class Duke {
         case COMMAND_ADD_EVENT_TASK:
             addEventTaskToList(commandArgs);
             break;
+        case COMMAND_SAVE_TASK_LIST:
+            saveTaskList();
+            break;
         default:
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_COMMAND);
         }
@@ -84,6 +89,14 @@ public class Duke {
         System.out.println(MESSAGE_EXIT_APPLICATION);
         PrintUtils.printHorizontalLine();
         System.exit(0);
+    }
+
+    private static void saveTaskList() {
+        FileManager.writeTaskListToFile(task);
+        PrintUtils.printHorizontalLine();
+        System.out.println(MESSAGE_SAVE_TASK_LIST);
+        PrintUtils.printHorizontalLine();
+
     }
 
     private static void listAllTasks() {
