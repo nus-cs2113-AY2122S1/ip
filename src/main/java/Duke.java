@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class Duke {
     public static final String LINE_DIVIDER = "____________________________________________________________";
@@ -243,7 +244,7 @@ public class Duke {
                 addTask(new Event(processWordsArr[2].substring(TASK_INIT_OFFSET), processWordsArr[3].substring(TASK_INIT_OFFSET)));
             }
             if (processWordsArr[1].charAt(1) == '1') {
-                tasks[addCounter].markAsDone();
+                tasks.get(addCounter).markAsDone();
             }
                 addCounter++;
         }
@@ -251,22 +252,22 @@ public class Duke {
 
     public static void writeToSave() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (int i = 0; i < totalTasksCounter; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
 
             String doneNumber = "0";
-            if (tasks[i].isDone) {
+            if (tasks.get(i).isDone) {
                 doneNumber = "1";
             }
 
             String textToAdd;
-            if (tasks[i].getType().equals("T")) {
-                textToAdd = tasks[i].getType() + " | "
+            if (tasks.get(i).getType().equals("T")) {
+                textToAdd = tasks.get(i).getType() + " | "
                     + doneNumber + " | "
-                    +  tasks[i].description + System.lineSeparator();
+                    +  tasks.get(i).description + System.lineSeparator();
             } else {
-                textToAdd = tasks[i].getType() + " | "
+                textToAdd = tasks.get(i).getType() + " | "
                         + doneNumber + " | "
-                        +  tasks[i].description + "| " + tasks[i].getWhen() + System.lineSeparator();
+                        +  tasks.get(i).description + "| " + tasks.get(i).getWhen() + System.lineSeparator();
             }
             fw.write(textToAdd);
         }
