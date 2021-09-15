@@ -1,6 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.StringJoiner;
 import java.util.ArrayList;
+import java.io.FileWriter;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Terminator {
 
@@ -60,6 +66,7 @@ public class Terminator {
      */
     public static final int TASK_NAME_INDEX = 0;
     public static final int DATE_TIME_INDEX = 1;
+    public static final int COMPLETION_INDEX = 2;
 
     /**
      * Global variable used to show if loop to get user input should continue running.
@@ -72,13 +79,30 @@ public class Terminator {
     public static ArrayList<Task> tasksList = new ArrayList<Task>();
 
     /**
+     * Global File Path to save and retrieve Task Records
+     */
+    public static String DIR_LOCATION = "./data";
+    public static String FILE_LOCATION = "./data/records.txt";
+
+    /**
+     * Global variables used to determine if input for Task Creation is from file or from user
+     */
+    public static int FROM_USER = 0;
+    public static int FROM_FILE = 1;
+
+    /**
+     * Global variable to show the deliminator for strings stored in the file format
+     */
+    public static String DELIMINATOR_FOR_FILE = " | ";
+
+    /**
      * Given user input, extract Task Name and UserInput.
      * @param userInput The string given by the user.
      * @param eventType The type of task to extract based on.
      * @return String array containing userinput and eventType.
      */
     private static String[] extractNameDateTime(String userInput, String eventType) {
-        String[] returnArray = new String[2];
+        String[] returnArray = new String[3];
         if (Objects.equals(eventType, DEADLINE_TYPE)) {
             // Get indexes to substring
             int startOfByIndex = userInput.indexOf(BY_KEYWORD);
@@ -325,12 +349,23 @@ public class Terminator {
     /**
      * Worker class to create ToDo Tasks.
      * @param userLine Line that is inputted by the user.
+     * @param option FROM_USER or FROM_FILE.
      */
-    private static void createToDoTask(String userLine) {
+    private static void createToDoTask(String userLine, int option) {
         // Extract values and create ToDo Task
-        String[] extractedValues = extractNameDateTime(userLine, TODO_TYPE);
-        String taskName = extractedValues[TASK_NAME_INDEX];
+        String[] extractedValues = new String[3];
+        String taskName, completionStatus = " ";
+        if (option == FROM_USER) {
+            extractedValues = extractNameDateTime(userLine, TODO_TYPE);
+        } else if (option == FROM_FILE) {
+            extractedValues = parseFileFormattedString(userLine, TODO_TYPE);
+        }
+        taskName = extractedValues[TASK_NAME_INDEX];
+        completionStatus = extractedValues[COMPLETION_INDEX];
         Task createdTask = createTask(taskName, TODO_TYPE);
+        if (Objects.equals(completionStatus, "X")) {
+            createdTask.setCompleted(true);
+        }
         addTask(createdTask);
         printAddTaskMessage(createdTask);
     }
@@ -338,13 +373,24 @@ public class Terminator {
     /**
      * Worker class to create Deadline Tasks.
      * @param userLine Line that is inputted by the user.
+     * @param option FROM_USER or FROM_FILE.
      */
-    private static void createDeadlineTask(String userLine) {
+    private static void createDeadlineTask(String userLine, int option) {
         // Extract values and create Deadline Task
-        String[] extractedValues = extractNameDateTime(userLine, DEADLINE_TYPE);
-        String taskName = extractedValues[TASK_NAME_INDEX];
-        String dateTime = extractedValues[DATE_TIME_INDEX];
+        String[] extractedValues = new String[3];
+        String taskName, dateTime, completionStatus = " ";
+        if (option == FROM_USER) {
+            extractedValues = extractNameDateTime(userLine, DEADLINE_TYPE);
+        } else if (option == FROM_FILE) {
+            extractedValues = parseFileFormattedString(userLine, DEADLINE_TYPE);
+        }
+        taskName = extractedValues[TASK_NAME_INDEX];
+        dateTime = extractedValues[DATE_TIME_INDEX];
+        completionStatus = extractedValues[COMPLETION_INDEX];
         Task createdTask = createTask(taskName, dateTime, DEADLINE_TYPE);
+        if (Objects.equals(completionStatus, "X")) {
+            createdTask.setCompleted(true);
+        }
         addTask(createdTask);
         printAddTaskMessage(createdTask);
     }
@@ -352,13 +398,24 @@ public class Terminator {
     /**
      * Worker class to create Event Tasks.
      * @param userLine Line that is inputted by the user.
+     * @param option FROM_USER or FROM_FILE.
      */
-    private static void createEventTask(String userLine) {
+    private static void createEventTask(String userLine, int option) {
         // Extract values and create Event Task
-        String[] extractedValues = extractNameDateTime(userLine, EVENT_TYPE);
-        String taskName = extractedValues[TASK_NAME_INDEX];
-        String dateTime = extractedValues[DATE_TIME_INDEX];
+        String[] extractedValues = new String[3];
+        String taskName, dateTime, completionStatus = " ";
+        if (option == FROM_USER) {
+            extractedValues = extractNameDateTime(userLine, EVENT_TYPE);
+        } else if (option == FROM_FILE) {
+            extractedValues = parseFileFormattedString(userLine, EVENT_TYPE);
+        }
+        taskName = extractedValues[TASK_NAME_INDEX];
+        dateTime = extractedValues[DATE_TIME_INDEX];
+        completionStatus = extractedValues[COMPLETION_INDEX];
         Task createdTask = createTask(taskName, dateTime, EVENT_TYPE);
+        if (Objects.equals(completionStatus, "X")) {
+            createdTask.setCompleted(true);
+        }
         addTask(createdTask);
         printAddTaskMessage(createdTask);
     }
@@ -372,6 +429,128 @@ public class Terminator {
         Task createdTask = createTask(userLine, NORMAL_TYPE);
         addTask(createdTask);
         printAddTaskMessage(createdTask);
+    }
+
+    /**
+     * Handles the scenario if a file is not found.
+     */
+    private static void handleFileNotFound() {
+        System.out.println(formatWithHeading("Directory (data) and/or File (data/records.txt) does not exist!",
+                TERMINATOR_FORMATTING));
+        System.out.println(formatWithHeading("Create a directory named data in your local directory!",
+                TERMINATOR_FORMATTING));
+        handleByeSequence();
+    }
+
+    /**
+     * Handle the bye sequence for Terminator.
+     */
+    private static void handleByeSequence() {
+        toContinue = false;
+        printGoodByeMessage();
+    }
+
+    /**
+     * Generates string version of all the tasks to be stored.
+     * @return A String of all the tasks to be stored in a text file.
+     */
+    private static String generateStringToStore() {
+        StringJoiner taskJoiner = new StringJoiner(System.lineSeparator());
+        for (Task t: tasksList) {
+            taskJoiner.add(t.toFileStringFormat());
+        }
+        return taskJoiner.toString();
+    }
+
+    /**
+     * Stores given string into the file path.
+     * @param stringToBeSaved A string to be be stored into the file.
+     */
+    private static void writeToFile(String stringToBeSaved) {
+        try {
+            FileWriter fw = new FileWriter(FILE_LOCATION);
+            fw.write(stringToBeSaved);
+            fw.close();
+        } catch (IOException e) {
+            handleFileNotFound();
+        }
+    }
+
+    /**
+     * Handler function for updating Tasks to File.
+     */
+    private static void updateTasksToFile() {
+        String generatedString = generateStringToStore();
+        writeToFile(generatedString);
+    }
+
+    /**
+     * Reads Strings from file, add them to arraylist and return arraylist.
+     */
+    private static ArrayList<String> readFromFile() {
+        ArrayList<String> returnArrayList = new ArrayList<String>();
+        try {
+            File fileObject = new File(FILE_LOCATION);
+            Scanner scanObject = new Scanner(fileObject);
+
+            // Iterate through the lines and add it into the arrayList.
+            while (scanObject.hasNext()) {
+                returnArrayList.add(scanObject.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            handleFileNotFound();
+        }
+        return returnArrayList;
+    }
+
+    /**
+     * Parse the String into different parts based on format.
+     * @param fileFormattedString A string extracted from the input file.
+     * @param eventType The type of task to extract based on.
+     * @return String array of parsed Strings
+     */
+    private static String[] parseFileFormattedString(String fileFormattedString, String eventType) {
+        String[] returnArray = new String[3];
+        String[] splitResult = fileFormattedString.split(Pattern.quote(DELIMINATOR_FOR_FILE));
+        returnArray[COMPLETION_INDEX] = splitResult[1];
+        returnArray[TASK_NAME_INDEX] = splitResult[2];
+        if (Objects.equals(eventType, DEADLINE_TYPE) || Objects.equals(eventType, EVENT_TYPE)) {
+            returnArray[DATE_TIME_INDEX] = splitResult[3];
+        }
+        return returnArray;
+    }
+
+    /**
+     * Facilitates the task object creation given the strings from the file.
+     * @param fileFormattedTaskStrings An ArrayList of Strings read from a file
+     */
+    private static void facilitateTaskObjectCreation(ArrayList<String> fileFormattedTaskStrings) {
+        for (String fileFormatString: fileFormattedTaskStrings) {
+            // Get the first char from the string
+            String firstChar = fileFormatString.substring(0,1);
+            switch (firstChar.toUpperCase()) {
+            case EVENT_TYPE:
+                createEventTask(fileFormatString, FROM_FILE);
+                break;
+            case DEADLINE_TYPE:
+                createDeadlineTask(fileFormatString, FROM_FILE);
+                break;
+            default:
+                createToDoTask(fileFormatString, FROM_FILE);
+            }
+        }
+    }
+
+    /**
+     * Handler function for updating Tasks from File.
+     */
+    private static void loadTasksFromFile() {
+        ArrayList<String> contentFromFile =  readFromFile();
+        facilitateTaskObjectCreation(contentFromFile);
+    }
+
+    private static void printUnknownCommand() {
+        System.out.println(formatWithHeading("Entered command is invalid", TERMINATOR_FORMATTING));
     }
 
     /**
@@ -396,23 +575,26 @@ public class Terminator {
             printTasks();
             break;
         case BYE_STRING:
-            // Stop loop and print Goodbye message
-            toContinue = false;
-            printGoodByeMessage();
+            // Stop loop and print Goodbye
+            handleByeSequence();
             break;
         case TODO_STRING:
-            createToDoTask(userLine);
+            createToDoTask(userLine, FROM_USER);
             break;
         case DEADLINE_STRING:
-            createDeadlineTask(userLine);
+            createDeadlineTask(userLine, FROM_USER);
             break;
         case EVENT_STRING:
-            createEventTask(userLine);
+            createEventTask(userLine, FROM_USER);
             break;
         default:
-            createNormalTask(userLine);
+            printUnknownCommand();
             break;
         }
+
+        // Update the list
+        updateTasksToFile();
+
     }
 
     /**
@@ -454,6 +636,7 @@ public class Terminator {
     public static void main(String[] args) {
         // Prints opening message
         printHelloMessage();
+        loadTasksFromFile();
 
         // Continue Running Loop until bye is called
         while (toContinue) {

@@ -44,4 +44,13 @@ public class Event extends Task{
     public String toString() {
         return String.format("%s (at: %s)", super.toString(), datetime);
     }
+
+    /**
+     * Changes a Task into a human-readable format to be stored in file.
+     * @return A formatted String of the Event, its status, type, description and datetime.
+     */
+    @Override
+    public String toFileStringFormat() {
+        return String.format("%s | %s", super.toFileStringFormat(), datetime);
+    }
 }
