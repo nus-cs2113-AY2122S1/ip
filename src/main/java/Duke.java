@@ -22,13 +22,12 @@ public class Duke {
 
     static Task task;
 
-    static Task[] list = new Task[100];
+
     static String userInput;
     static String command;
     static String description = "No description is needed for this command";
     public static final String SEPARATOR = "-----------------------------------";
     private static ArrayList<Task> tasks;
-    private static int taskCounter;
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -134,7 +133,7 @@ public class Duke {
             description = userInput.substring(4);
             task = new Task(command);
             tasks.add(task);
-            list[listLength] = task;
+            //list[listLength] = task;
             System.out.println(SEPARATOR);
             System.out.println("added:" + " " + command);
             System.out.println(SEPARATOR);
@@ -175,12 +174,11 @@ public class Duke {
             command = userInput.substring(5);
             Todo todo = new Todo(command);
             tasks.add(todo);
-            list[currentTaskIndex] = todo;
-            list[currentTaskIndex].setNeedToDo();
             int taskNumber = listLength + 1;
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task:");
-            System.out.println(list[currentTaskIndex].toString());
+            //System.out.println(list[currentTaskIndex].toString());
+            System.out.println(todo);
             System.out.println("Now you have" + " "+ taskNumber + " tasks in the list.");
             System.out.println(SEPARATOR);
             listLength++;
@@ -196,12 +194,14 @@ public class Duke {
             int slashByIndex = userInput.indexOf("/by");
             command = userInput.substring(9,slashIndex); //get the description
             String by = userInput.substring(slashByIndex + 4);
-            tasks.add(new Deadline(command,by));
-            list[currentTaskIndex] = new Deadline(command,by);
+            Deadline deadline = new Deadline(command,by);
+            tasks.add(deadline);
+            //list[currentTaskIndex] = new Deadline(command,by);
             listLength++;
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task: ");
-            System.out.println(list[currentTaskIndex].toString());
+            //System.out.println(list[currentTaskIndex].toString());
+            System.out.println(deadline);
             System.out.println("Now you have " + listLength + " tasks in the list");
             System.out.println(SEPARATOR);
         }
@@ -216,12 +216,14 @@ public class Duke {
             int slashAtIndex = userInput.indexOf("/at");
             command = userInput.substring(6,slashIndex);
             String at = userInput.substring(slashAtIndex+4);
-            tasks.add(new Event(command,at));
-            list[currentTaskIndex] = new Event(command,at);
+            Event event = new Event(command,at);
+            tasks.add(event);
+            //list[currentTaskIndex] = new Event(command,at);
             listLength++;
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task: ");
-            System.out.println(list[currentTaskIndex].toString());
+            //System.out.println(list[currentTaskIndex].toString());
+            System.out.println(event);
             System.out.println("Now you have " + listLength + " tasks in the list");
             System.out.println(SEPARATOR);
 
