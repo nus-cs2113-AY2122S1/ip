@@ -11,4 +11,5 @@ event lunch
 event lunch /at
 deadline assignment
 deadline assignment /by
+delete 3
 bye
