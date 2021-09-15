@@ -25,17 +25,17 @@ public class Duke {
     private static final String COMMAND_ECHO = "echo";
     private static final String COMMAND_HELP = "help";
 
-    private static final String LOGO = " ______        _\n" +
-            "(______)      | |\n"
+    private static final String LOGO = " ______        _\n"
+            + "(______)      | |\n"
             + " _     _ _   _| |  _ _____\n"
             + "| |   | | | | | |_/ ) ___ |\n"
             + "| |__/ /| |_| |  _ (| ____|\n"
             + "|_____/ |____/|_| \\_)_____)\n";
 
     private static final String GREET_MESSAGE = "Welcome to\n" + LOGO
-            + "Hello there! I'm Duke, your very helpful personal assistant chat bot. \uD83D\uDE0A\n"
+            + "Hello there! I'm Duke, your very helpful personal assistant chat bot.\n"
             + "Enter \"help\" to see what I can do for you!";
-    private static final String EXIT_MESSAGE = "Bye! Have a great day ahead and see you again soon. \uD83D\uDE04";
+    private static final String EXIT_MESSAGE = "Bye! Have a great day ahead and see you again soon.";
     private static final String LIST_TASKS_MESSAGE = "Wow! I found these tasks in your list:";
     private static final String CLEAR_TASKS_MESSAGE = "Okay! Now your list is empty, you're FREE!";
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";

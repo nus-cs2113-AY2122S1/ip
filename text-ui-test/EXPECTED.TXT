@@ -5,7 +5,7 @@ Welcome to
 | |   | | | | | |_/ ) ___ |
 | |__/ /| |_| |  _ (| ____|
 |_____/ |____/|_| \_)_____)
-Hello there! I'm Duke, your very helpful personal assistant chat bot. ?
+Hello there! I'm Duke, your very helpful personal assistant chat bot.
 Enter "help" to see what I can do for you!
 ____________________________________________________________
 Okay! Now your list is empty, you're FREE!
@@ -197,5 +197,5 @@ Enter "list" to check the task number!
 ____________________________________________________________
 Please do not use "|" in your input...
 ____________________________________________________________
-Bye! Have a great day ahead and see you again soon. ?
+Bye! Have a great day ahead and see you again soon.
 ____________________________________________________________
