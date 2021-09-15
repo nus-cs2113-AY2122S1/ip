@@ -279,6 +279,7 @@ public class Duke {
     private static String deleteTask(String args) {
         Task task = getTaskFromStringId(args);
         tasks.remove(task);
+        saveData();
         return String.format(MESSAGE_TASK_DELETED, task, tasks.size());
     }
 
