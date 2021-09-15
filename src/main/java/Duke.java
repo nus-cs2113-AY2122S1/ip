@@ -1,21 +1,68 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
     public static final String LINE = "_______________________________________\n";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static File file = new File("C:\\Users\\weich\\Documents\\CS2113T\\CS2113T\\ip\\src\\main\\java\\duke.txt");
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " ____        _        \n" + "|  _ \\ _   _| | _____ \n" + "| | | | | | | |/ / _ \\\n" + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n" + LINE);
         inputTask();
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(file);
+        for (int i = 0; i < tasks.size(); i++) {
+            fw.write(tasks.get(i).toString() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static void saveToFile() throws IOException{
+        try {
+            File directory = new File("D:/data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            Task task;
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String[] parts = s.nextLine().split("\\|");
+                String taskType = parts[0].trim();
+                Boolean isDone = Boolean.parseBoolean(parts[1].trim());
+                String taskDescription = parts[2].trim();
+
+                switch (taskType) {
+                case "todo":
+                    task = new ToDo(taskDescription);
+                    break;
+                case "deadline":
+                    task = new Deadline(taskDescription, parts[3]);
+                    break;
+                case "event":
+                    task = new Event(taskDescription, parts[3]);
+                    break;
+                default:
+                    throw new FileNotFoundException();
+                }
+                if (isDone) {
+                    task.setDone();
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to find file\n");
+        }
     }
 
     public static void inputTask() {
@@ -53,6 +100,9 @@ public class Duke {
             inputTask = in.nextLine();
         }
         if (inputTask.equals("bye")) {
+            try {
+                writeToFile();
+            } catch (IOException e) {}
             System.out.println(LINE + "Bye. Hope to see you again soon!\n");
         }
         in.close();
