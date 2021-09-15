@@ -14,4 +14,9 @@ public class Event extends Task{
         String icon = (isDone ? "X" : " ");
         return addSquareBrackets(IDENTIFIER) + addSquareBrackets(icon) + " " + description + " " + addBrackets(AT + dateAndTime);
     }
+
+    public String getStatusIconAndDescriptionForFile() {
+        String icon = (isDone ? "1" : "0");
+        return  IDENTIFIER + SEPARATOR + icon + SEPARATOR + description + SEPARATOR + dateAndTime;
+    }
 }

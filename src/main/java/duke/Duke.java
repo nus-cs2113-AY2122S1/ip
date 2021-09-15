@@ -6,7 +6,10 @@ import task.Task;
 import task.TaskType;
 import task.ToDo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
 
 public class Duke {
     public static final String DIVIDER = "___________________________________________________________";
@@ -35,17 +38,48 @@ public class Duke {
             " you're missing some arguments, do type 'help' if you're unsure :)";
     public static final String PROMPT_TASK_NUMBER = "Please tell me which task you finished :)";
     public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1-100 :)";
+    public static final int EXPECTED_FILE_DEADLINE_AND_EVENT_LENGTH = 4;
+    public static final String FILE_NOT_CREATED = "Looks like you don't have a file for your tasks, let me create one now.....";
+    public static final String FILE_IS_EMPTY = "Looks like you don't have any task, you can start saving some now!";
+    public static final String SEPARATOR = " | ";
+    public static final String UNEXPECTED_ERROR = "Oops,something unexpected happened";
+    public static final String INCORRECT_FORMAT = "Oops, file format is incorrect. Please correct it!";
+    public static final int EXPECTED_FILE_TODO_LENGTH = 3;
     public static Task[] tasks = new Task[100];
 
     public static void main(String[] args) {
         printStartingMessage();
+        getTaskFromFileMessage();
+        initialFileProcessing();
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (!input.equals("bye")) {
             processInput(input);
             input = in.nextLine();
         }
+        finalFileProcessing();
         printGoodbyeMessage();
+    }
+
+    private static void finalFileProcessing() {
+        try {
+            saveTasksToFile();
+        } catch (IOException error){
+            printErrorMessage(UNEXPECTED_ERROR);
+            System.exit(1);
+        }
+    }
+
+    private static void initialFileProcessing() {
+        try {
+            loadTextFile();
+        } catch (DukeException error) {
+            printErrorMessage(INCORRECT_FORMAT);
+            System.exit(1);
+        } catch (IOException error) {
+            printErrorMessage(UNEXPECTED_ERROR);
+            System.exit(1);
+        }
     }
 
     public static void printIndentationAndDivider() {
@@ -169,7 +203,7 @@ public class Duke {
         return parsedOutput;
     }
 
-    private static void addTask(String input,TaskType type) throws StringIndexOutOfBoundsException, DukeException {
+    private static void addTask(String input,TaskType type) throws StringIndexOutOfBoundsException, DukeException{
         String[] parsedOutput = parseInputForDifferentTask(input,type);
         switch(type){
         case TODO:
@@ -223,5 +257,68 @@ public class Duke {
         }
         printIndentationAndDivider();
         System.out.println();
+    }
+
+    private static void loadTextFile() throws IOException,DukeException {
+        File file = new File("duke.txt");
+        if(file.createNewFile()) {
+            printErrorMessage(FILE_NOT_CREATED);
+        }
+        Scanner s = new Scanner(file);
+        if(!s.hasNext()) {
+            printErrorMessage(FILE_IS_EMPTY);
+        }
+        while (s.hasNext()) {
+            copyTasksToList(s);
+            Task.setTotalTasks(Task.getTotalTasks() + 1);
+        }
+    }
+
+    private static void copyTasksToList(Scanner s) throws DukeException {
+        String[] parsedOutput = s.nextLine().split(" / ");
+        switch(parsedOutput[0]){
+        case "T":
+            if(parsedOutput.length < EXPECTED_FILE_TODO_LENGTH) {
+                throw new DukeException();
+            }
+            tasks[Task.getTotalTasks()] = new ToDo(parsedOutput[2]);
+            updateTaskStatus(parsedOutput[1]);
+            break;
+        case "E":
+            if(parsedOutput.length < EXPECTED_FILE_DEADLINE_AND_EVENT_LENGTH) {
+                throw new DukeException();
+            }
+            tasks[Task.getTotalTasks()] = new Event(parsedOutput[2], parsedOutput[EXPECTED_FILE_TODO_LENGTH]);
+            updateTaskStatus(parsedOutput[1]);
+            break;
+        case "D":
+            if(parsedOutput.length < EXPECTED_FILE_DEADLINE_AND_EVENT_LENGTH) {
+                throw new DukeException();
+            }
+            tasks[Task.getTotalTasks()] = new Deadline(parsedOutput[2], parsedOutput[EXPECTED_FILE_TODO_LENGTH]);
+            updateTaskStatus(parsedOutput[1]);
+            break;
+        }
+    }
+
+    private static void getTaskFromFileMessage() {
+        printIndentationAndDivider();
+        printWordsWithIndentation("Getting your tasks.....");
+        printIndentationAndDivider();
+        System.out.println();
+    }
+
+    private static void updateTaskStatus(String done) {
+        if (done.equals("1")) {
+            tasks[Task.getTotalTasks()].markAsDone();
+        }
+    }
+
+    private static void saveTasksToFile() throws IOException{
+        FileWriter fw = new FileWriter ("duke.txt");
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            fw.write(tasks[i].getStatusIconAndDescriptionForFile() + System.lineSeparator());
+        }
+        fw.close();
     }
 }
