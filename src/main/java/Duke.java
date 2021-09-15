@@ -2,10 +2,17 @@ import duke.tasks.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Duke {
 
     private static Scanner in = new Scanner(System.in);
     static final int MAX_SIZE = 100;
+    private static String content = "";
 
     private static String lineInput = "";
     private static ArrayList<Task> taskList = new ArrayList<Task>();
@@ -18,6 +25,13 @@ public class Duke {
             tasksCount++;
             System.out.println(t);
             System.out.println("Now you have " + tasksCount + " tasks on the list.");
+        }
+    }
+
+    public static void addTask(Task t, boolean b){
+        if (t.getDescription().length() > 0) {
+            taskList.add(t);
+            tasksCount++;
         }
     }
 
@@ -49,6 +63,44 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            String lineType = currentLine.split("\\|", 3)[0];
+            String lineIsDone = currentLine.split("\\|", 3)[1];
+            String lineAction = currentLine.split("\\|", 3)[2];
+            String lineDescription;
+            String lineDueDate;
+            switch(lineType){
+                case "[T]":
+                    Todo oldTodo = new Todo(lineAction, Boolean.valueOf(lineIsDone));
+                    addTask(oldTodo, true);
+                    break;
+                case "[D]":
+                    lineDescription = lineAction.split("/by", 2)[0];
+                    lineDueDate = lineAction.split("/by", 2)[1];
+                    Deadline oldDeadline = new Deadline(lineDescription, Boolean.valueOf(lineIsDone), lineDueDate);
+                    addTask(oldDeadline, true);
+                    break;
+                case "[E]":
+                    lineDescription = lineAction.split("/at", 2)[0];
+                    lineDueDate = lineAction.split("/at", 2)[1];
+                    Event oldEvent = new Event(lineDescription, Boolean.valueOf(lineIsDone), lineDueDate);
+                    addTask(oldEvent, true);
+                    break;
+            }
+        }
+    }
+
+
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -60,10 +112,19 @@ public class Duke {
                 + "What can I do for you?";
         String exit = "Bye. Hope to see you again soon!";
 
+
         printBorder();
         System.out.println("Hello from\n" + logo);
         System.out.println(greet);
         printBorder();
+
+        try {
+            printFileContents("data/duke.txt");
+
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
         while (!lineInput.equals("bye")) {
             printBorder();
@@ -147,6 +208,28 @@ public class Duke {
             lineInput = in.nextLine();
         }
         printBorder();
+        String file = "data/duke.txt";
+        try {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task currentTask = taskList.get(i);
+                String currentType = currentTask.getType();
+                switch(currentType){
+                    case "[T]":
+                        content += currentType +  '|' + String.valueOf(currentTask.getIsDone()) + '|' + currentTask.getDescription() + System.lineSeparator();
+                        break;
+                    case "[D]":
+                        content += currentType +  '|' + String.valueOf(currentTask.getIsDone()) + '|' + currentTask.getDescription() + "/by" + currentTask.getDueDate() + System.lineSeparator();
+                        break;
+                    case "[E]":
+                        content += currentType +  '|' + String.valueOf(currentTask.getIsDone()) + '|' + currentTask.getDescription() + "/at" + currentTask.getDueDate() + System.lineSeparator();
+                        break;
+                }
+            }
+            writeToFile(file, content);
+        }
+        catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
         System.out.println(exit);
         printBorder();
     }
