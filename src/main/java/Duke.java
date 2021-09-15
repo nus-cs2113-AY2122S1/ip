@@ -53,6 +53,13 @@ public class Duke {
             case "done":
                 markTaskAsDone(taskList, userInput);
                 break;
+            case "delete":
+                try {
+                    deleteTaskFromList(taskList, userInput);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please input a valid index.");
+                }
+                break;
             default:
                 System.out.println("Invalid! Please try again.");
             }
@@ -65,6 +72,15 @@ public class Duke {
             }
         }
         printGoodbyeMessage();
+    }
+
+    private static void deleteTaskFromList(TaskList taskList, String userInput){
+        String userInputIndex = identifyUserInput(userInput)[1];
+        int index = Integer.parseInt(userInputIndex);
+        taskList.deleteTask(index);
+        System.out.println("Item " + userInputIndex + " has been deleted");
+        System.out.println("Here is the new list: ");
+        listTask(taskList);
     }
 
     /**
@@ -203,6 +219,7 @@ public class Duke {
         case "list":
         case "bye":
         case "done":
+        case "delete":
             return userInput;
         default:
             throw new IncorrectCommandInput();
