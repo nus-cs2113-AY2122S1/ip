@@ -16,7 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
-    static int listLength = 0;
+    static int listLength;
 
     static Task task;
 
@@ -35,8 +35,8 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
 
-        tasks = new ArrayList<>();
-
+        //tasks = new ArrayList<>();
+        setTasks();
 
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
@@ -51,7 +51,8 @@ public class Duke {
 
                 } else if (userInput.equals("list")) {      /* Show the list to user which contains indicators to indicate that whether this task is done or have a deadline or is an event with given time */
 
-                    printList(list);
+                    //printList(list);
+                    printTasks();
 
                 } else if (userInput.length() >= 4 && userInput.substring(0, 4).equals("done")) {   // Mark the task that needs to be done as done in list
 
@@ -68,7 +69,12 @@ public class Duke {
                 } else if (userInput.length() >= 5 && userInput.substring(0, 5).equals("event")) {  // Create an event object and add it into the task list
 
                     createEvent();
-                }else {
+                }else if (userInput.length() >= 6 && userInput.substring(0,6).equals("delete")){
+
+                    int taskIndex = Integer.parseInt(String.valueOf(userInput.charAt(7)));
+                    deleteTask(taskIndex - 1);
+
+                } else {
                     notValidCommand();
                 }
 
@@ -137,6 +143,7 @@ public class Duke {
             System.out.println("added:" + " " + command);
             System.out.println(SEPARATOR);
             listLength++;
+            saveFile();
         }
 
        /* public static void printList(Task[] list) throws DukeException{
@@ -199,6 +206,7 @@ public class Duke {
             System.out.println("Now you have" + " "+ taskNumber + " tasks in the list.");
             System.out.println(SEPARATOR);
             listLength++;
+            saveFile();
         }
 
 
@@ -239,6 +247,7 @@ public class Duke {
         System.out.println(list[currentTaskIndex].toString());
         System.out.println("Now you have " + listLength + " tasks in the list");
         System.out.println(SEPARATOR);
+        saveFile();
     }
 
         /*public static void createEvent() throws DukeException{
@@ -279,6 +288,7 @@ public class Duke {
         System.out.println(list[currentTaskIndex].toString());
         System.out.println("Now you have " + listLength + " tasks in the list");
         System.out.println(SEPARATOR);
+        saveFile();
     }
 
         public static void saveFile(){
@@ -290,7 +300,7 @@ public class Duke {
                 FileWriter fileWriter = new FileWriter(saveFile);
                 for(int i = 0; i < listLength;i++){
                     char taskType = tasks.get(i).toString().charAt(1);
-                    fileWriter.write(taskType + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName());
+                    fileWriter.write(taskType + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskCommand());
                     if (taskType == 'D'){
                         fileWriter.write("||" + ((Deadline) tasks.get(i)).getBy());
                     } else if (taskType == 'E'){
@@ -323,7 +333,7 @@ public class Duke {
 
             } else {
 
-                saveTask = saveTask = new Todo(lineDivision[2],Boolean.parseBoolean(lineDivision[1]));
+                saveTask = new Todo(lineDivision[2],Boolean.parseBoolean(lineDivision[1]));
 
             }
             return saveTask;
@@ -376,6 +386,7 @@ public class Duke {
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println(tasks.get(index));
             System.out.println(SEPARATOR);
+            saveFile();
         }
     }
 
@@ -392,6 +403,7 @@ public class Duke {
         tasks.remove(taskIndex);
         listLength--;
         printDeleteMessage(deletedTask);
+        saveFile();
     }
 
     public static void printDeleteMessage(Task deletedTask){

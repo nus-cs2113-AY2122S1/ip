@@ -16,13 +16,20 @@ public class Task {
         this.isDone = false;
     }
 
-    public Task(String command,boolean isDone){
+    public String getTaskCommand() {
+        return command;
+    }
+
+    public Task(String command, boolean isDone){
         this(command);
         if(isDone){
             taskDone();
         }
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
 
     public void setNeedToDo() {
         this.needToDo = true;
