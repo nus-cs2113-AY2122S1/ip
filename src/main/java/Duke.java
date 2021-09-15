@@ -12,20 +12,32 @@ public class Duke {
         System.out.println("...................................................");
         Scanner in = new Scanner(System.in);
         String lineIn = "";
-        String[] listIn = new String[100];
-        int listCounter = 0;
-        while(!lineIn.equals("bye")){
+        Task[] listIn = new Task[100];
+        int inputIndex = 0;
+        int currentIndex = 0;
+        while(!lineIn.equals("bye")) {
             lineIn = in.nextLine();
+            String[] lineInput = lineIn.split(" ");
             System.out.println("...................................................");
-            if(lineIn.equals("list")){
-                for(int i = 0; i < listCounter; i++){
-                    System.out.println((i+1) + ". " + listIn[i]);
+            if (lineInput[0].equals("bye")) {
+                break;
+            }
+            if (lineInput[0].equals("list")) {
+                System.out.println("Here are the tasks in your list: ");
+                for (int i = 0; i < currentIndex; i++) {
+                    System.out.println((i + 1) + ".[" + listIn[i].getStatus() + "] " + listIn[i].getName());
                 }
                 System.out.println("...................................................");
+            } else if (lineInput[0].equals("done")) {
+                inputIndex = Integer.parseInt(lineInput[1]) - 1;
+                listIn[inputIndex].markAsDone();
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("[" + listIn[inputIndex].getStatus() + "] " + listIn[inputIndex].getName());
+                System.out.println("...................................................");
             } else {
-                listIn[listCounter] = lineIn;
-                System.out.println("added: "+ lineIn);
-                listCounter++;
+                listIn[currentIndex] = new Task(lineIn);
+                System.out.println("Added: " + lineIn);
+                currentIndex++;
                 System.out.println("...................................................");
             }
         }
