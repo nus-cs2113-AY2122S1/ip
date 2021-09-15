@@ -311,6 +311,7 @@ public class Duke {
 
             case COMMAND_DELETE:
                 executeDeleteCommand(argument);
+                hasListChanged = true;
                 break;
 
             default:
