@@ -173,6 +173,15 @@ public class Duke {
                 for (int i = taskDelete - 1; i < number; i++) {
                     lists[i] = lists[i + 1];
                 }
+                for (int i = taskDelete - 1; i < number; i++) {
+                    taskType[i] = taskType[i + 1];
+                }
+                for (int i = taskDelete - 1; i < number; i++) {
+                    doneTasks[i] = doneTasks[i + 1];
+                }
+                for (int i = taskDelete - 1; i < number; i++) {
+                    dates[i] = dates[i + 1];
+                }
                 System.out.println(DIVIDER);
                 line = in.nextLine();
             } else {
