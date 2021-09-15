@@ -10,7 +10,7 @@ public class Task {
     }
 
     public String TaskStatus() {
-        return (isDone? "X":" ");
+        return (isDone ? "X" : " ");
     }
 
     public void markAsDone() {
