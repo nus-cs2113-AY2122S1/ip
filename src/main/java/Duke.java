@@ -1,6 +1,9 @@
 import duke.DukeException;
+import duke.tasks.FileManager;
 import duke.tasks.TaskManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -15,6 +18,8 @@ public class Duke {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
+    public static final String FILE_PATH = "data/duke.txt";
+    public static final String DIRECTORY_PATH = "data";
 
     public static boolean canRunDuke = true;
 
@@ -124,30 +129,33 @@ public class Duke {
      *
      * @param inputStr the full input the user entered
      * @param command the command parsed from the input
-     * @param manager the task manager instance handling the tasks
-     */
-    public static void executeCommand(String inputStr, String command, TaskManager manager) throws DukeException {
+     * @param taskManager the task manager instance handling the tasks
+     * @param fileManager the file manager handling the files
+     *
+     **/
+    public static void executeCommand(String inputStr, String command, TaskManager taskManager, FileManager fileManager) throws DukeException {
         switch (command) {
         case COMMAND_EXIT:
+            fileManager.writeArrayToFile(taskManager);
             System.out.println(LINE_SEPARATOR);
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println(LINE_SEPARATOR);
             canRunDuke = false;
             break;
         case COMMAND_LIST:
-            manager.printTaskList();
+            taskManager.printTaskList();
             break;
         case COMMAND_DONE:
             if (isEmptyItem(inputStr)) {
                 throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
-            } else if (manager.getNumberOfTasksUndone() == 0) {
+            } else if (taskManager.getNumberOfTasksUndone() == 0) {
                 throw new DukeException("Oops, there are no tasks to be marked done!");
-            } else if (manager.getNumberOfTasksAdded() < Integer.parseInt(getItem(inputStr))) {
+            } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(getItem(inputStr))) {
                 throw new DukeException("Oops, there is no task " + Integer.parseInt(getItem(inputStr)) + "!");
-            } else if (manager.isTaskDone(inputStr)) {
+            } else if (taskManager.isTaskDone(inputStr)) {
                 throw new DukeException("Oops, this task is already marked as done!");
             } else {
-                manager.markTaskAsDone(inputStr);
+                taskManager.markTaskAsDone(inputStr);
                 break;
             }
         case COMMAND_TODO:
@@ -155,7 +163,7 @@ public class Duke {
                 throw new DukeException("Oops, the description of a ToDo cannot be empty!");
             }
             String item = getItem(inputStr);
-            manager.addToDoTaskToList(item);
+            taskManager.addToDoTaskToList(item);
             break;
         case COMMAND_DEADLINE:
             if (isEmptyItem(inputStr)) {
@@ -164,7 +172,7 @@ public class Duke {
                 throw new DukeException("Oops, the time of a deadline cannot be empty!");
             }
             item = getItem(inputStr);
-            manager.addDeadlineTaskToList(item);
+            taskManager.addDeadlineTaskToList(item);
             break;
         case COMMAND_EVENT:
             if (isEmptyItem(inputStr)) {
@@ -173,7 +181,7 @@ public class Duke {
                 throw new DukeException("Oops, the time of an event cannot be empty!");
             }
             item = getItem(inputStr);
-            manager.addEventTaskToList(item);
+            taskManager.addEventTaskToList(item);
             break;
         default:
             throw new DukeException("Oops, command not recognised!");
@@ -203,12 +211,22 @@ public class Duke {
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
-        TaskManager manager = new TaskManager(MAX_NUMBER_OF_TASKS);
+        TaskManager taskManager = new TaskManager(MAX_NUMBER_OF_TASKS);
+        FileManager fileManager = new FileManager();
+        try {
+            File taskFile = new File(FILE_PATH);
+            fileManager.retrieveFile(taskFile, taskManager);
+        } catch (FileNotFoundException e) {
+            File directory = new File(DIRECTORY_PATH);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+        }
         while(canRunDuke) {
             String inputStr = sc.nextLine();
             String command = getCommand(inputStr);
             try {
-                executeCommand(inputStr, command, manager);
+                executeCommand(inputStr, command, taskManager, fileManager);
             } catch (DukeException dukeException) {
                 System.out.println(LINE_SEPARATOR);
                 System.out.println(dukeException.getMessage());

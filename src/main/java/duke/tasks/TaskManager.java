@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class TaskManager {
     public static final String BY_DIVIDER = "/by";
     public static final String AT_DIVIDER = "/at";
@@ -20,6 +23,10 @@ public class TaskManager {
         this.numberOfTasksUndone = 0;
         this.numberOfTasksAdded = 0;
         this.taskList = new Task[maxNumberOfTasks];
+    }
+
+    public static Task[] getTaskList() {
+        return taskList;
     }
 
     /**
@@ -43,7 +50,7 @@ public class TaskManager {
      **/
     public static void addToDoTaskToList(String args) {
 
-        Task t = new ToDo(args);
+        ToDo t = new ToDo(args);
         taskList[numberOfTasksAdded] = t;
         numberOfTasksAdded++;
         numberOfTasksUndone++;
@@ -61,7 +68,7 @@ public class TaskManager {
     public static void addDeadlineTaskToList(String args) {
         String description = args.substring(0, args.indexOf(BY_DIVIDER)).trim();
         String time = args.substring(args.indexOf(BY_DIVIDER) + 4);
-        Task t = new Deadline(description, time);
+        Deadline t = new Deadline(description, time);
         taskList[numberOfTasksAdded] = t;
         numberOfTasksAdded++;
         numberOfTasksUndone++;
@@ -79,7 +86,7 @@ public class TaskManager {
     public static void addEventTaskToList(String args) {
         String description = args.substring(0, args.indexOf(AT_DIVIDER)).trim();
         String time = args.substring(args.indexOf(AT_DIVIDER) + 4);
-        Task t = new Event(description, time);
+        Event t = new Event(description, time);
         taskList[numberOfTasksAdded] = t;
         numberOfTasksAdded++;
         numberOfTasksUndone++;
