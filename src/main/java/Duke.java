@@ -1,9 +1,13 @@
 
+import java.awt.desktop.SystemEventListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-
+    public static final String filePath = "duke.txt";
     public static void main(String[] args) throws IOException {
 
         String logo = " ____        _        \n"
@@ -11,13 +15,27 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        Scanner in = new Scanner(System.in);
+
         String input;
         System.out.println("Hello from\n" + logo);
         Greet.printWelcomeMessage();
         // load data into arraylist
-        //write file over here
-        boolean isConversation;
+        //require file
+        File f = new File(filePath);
+        f.createNewFile();
+
+        // and scanner input
+        try {
+            Scanner in = new Scanner(f);
+            Storage.loadData(f, in);
+            // throws FileNotFoundException
+            in.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+        }
+
+        Scanner in = new Scanner(System.in);
+        boolean isConversation;// true by default
         do {
             input = in.nextLine();
             String[] words = input.split(" ");
@@ -32,9 +50,16 @@ public class Duke {
             } catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Invalid Number.");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Number keyed in is less than the number of task");
+                System.out.println("Number keyed in is invalid");
+            }
+            try {
+                FileWriter fileWrite = new FileWriter(filePath);
+                Storage.storeData(fileWrite);
+            } catch (FileNotFoundException e) {
+                System.out.println("file not found, tasks cannot be saved. Exiting");
             }
             isConversation = !words[0].equals(Command.COMMAND_BYE);
+
         } while (isConversation);
 
     }

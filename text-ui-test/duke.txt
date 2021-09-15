@@ -1,0 +1,12 @@
+D | 1 | deadline | deadline
+T | 1 | todo
+E | 1 | event | event
+D | 0 | deadline | deadline
+T | 0 | todo
+E | 0 | event | event
+D | 0 | deadline | deadline
+T | 0 | todo
+E | 0 | event | event
+D | 0 | deadline | deadline
+T | 0 | todo
+E | 0 | event | event

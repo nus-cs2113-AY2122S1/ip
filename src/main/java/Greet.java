@@ -21,6 +21,16 @@ public class Greet {
     }
 
     /**
+     * Add new Task in list
+     *
+     * @param newTask Task object created based on command.
+     */
+    //might move to main/duke class
+    public static void reloadTask(Task newTask) {
+        list.add(newTask);
+    }
+
+    /**
      * Calls Task.markAsDone().
      *
      * @param taskNumber Task number that is tagged to the task on console.
