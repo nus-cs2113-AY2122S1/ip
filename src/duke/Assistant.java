@@ -6,6 +6,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+
 import java.util.ArrayList;
 
 import java.io.File;
@@ -20,16 +21,13 @@ public class Assistant {
     public static final String FILE_NAME = "duke/data/duke.txt";
     public static final String DIRECTORY_NAME = "duke/data/";
 
-    private File data;
-
     public Assistant() {
         tasks = new ArrayList<>();
     }
 
     public void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + ". " + tasks.get(i).getStatus() + tasks.get(i).toString()
-            );
+            System.out.println((i + 1) + ". " + tasks.get(i).getStatus() + tasks.get(i).toString());
         }
     }
 
@@ -49,7 +47,7 @@ public class Assistant {
 
     public void addDeadline(String deadline) throws MissingInputException {
         String[] inputs = deadline.split(SEPARATOR_SLASH, 2);
-        if(inputs.length == 1  || inputs[1].equals("")) { //no / detected
+        if (inputs.length == 1 || inputs[1].equals("")) { //no / detected
             throw new MissingInputException();
         }
         addTask(new Deadline(inputs[0], inputs[1]));
@@ -57,7 +55,7 @@ public class Assistant {
 
     public void addEvent(String event) throws MissingInputException {
         String[] inputs = event.split(SEPARATOR_SLASH, 2);
-        if(inputs.length == 1 || inputs[1].equals("")) { //no / detected or / without input
+        if (inputs.length == 1 || inputs[1].equals("")) { //no / detected or / without input
             throw new MissingInputException();
         }
         addTask(new Event(inputs[0], inputs[1]));
@@ -73,22 +71,22 @@ public class Assistant {
         System.out.println("Removed task: " + tasks.get(index).getTaskName());
         tasks.remove(index);
     }
-    
+
     public void loadFile() {
-        data = new File(FILE_NAME);
-        File directory = new File(DIRECTORY_NAME);
+        File saveDataFile = new File(FILE_NAME);
+        File saveDataDirectory = new File(DIRECTORY_NAME);
         //if save file does not exist, create new file
         //otherwise, read and load duke.data
         try {
-            if (!directory.exists()) {
-                data.getParentFile().mkdirs();
+            if (!saveDataDirectory.exists()) {
+                saveDataFile.getParentFile().mkdirs();
             }
-            if (!data.exists()) {
-                data.createNewFile();
+            if (!saveDataFile.exists()) {
+                saveDataFile.createNewFile();
                 System.out.println("No existing save duke.data\nNew file created");
             }
             else {
-                Scanner in = new Scanner(data);
+                Scanner in = new Scanner(saveDataFile);
                 while (in.hasNext()) {
                     String nextLine = in.nextLine();
                     String[] inputs = nextLine.split("\\|");
@@ -122,12 +120,12 @@ public class Assistant {
 
     public void saveFile() {
         try {
-            FileWriter fw = new FileWriter(FILE_NAME, false);
+            FileWriter fileWriter = new FileWriter(FILE_NAME, false);
             for (int i = 0; i < tasks.size(); i++) {
                 String data = tasks.get(i).exportTask();
-                fw.write(data);
+                fileWriter.write(data);
             }
-            fw.close();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error writing to save file");
