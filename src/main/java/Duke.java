@@ -283,8 +283,7 @@ public class Duke {
             }
         }
 
-
-      
+        
 
     public static void markAsDone() throws DukeException {
         if(listLength == 0){
