@@ -3,16 +3,19 @@ package duke;
 import duke.exception.EmptyCommandArgumentException;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidCommandSeparatorException;
+import duke.exception.InvalidTaskIndexException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
-    private Task[] taskList = new Task[100];
+    private ArrayList<Task> taskList = new ArrayList<>();
     private int listSize = 0;
 
     public void handleCommand() {
@@ -56,23 +59,27 @@ public class Duke {
                 addTodoTask(inputWords);
                 handleCommand();
                 break;
+            case "delete":
+                deleteTask(inputWords);
+                handleCommand();
+                break;
             default:
                 throw new InvalidCommandException();
-
             }
         } catch (InvalidCommandException e) {
             printLine();
             System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
-            System.out.println("Available commands: deadline, todo, event, done, list, bye");
+            System.out.println("Available commands: deadline, todo, event, done, list, delete, bye");
             printLine();
             handleCommand();
         } catch (EmptyCommandArgumentException e) {
             printLine();
-            System.out.println("OOPS! The description of deadline/event/todo cannot be empty! " +
+            System.out.println("OOPS! The description of deadline/event/todo/delete cannot be empty! " +
                     "Please follow this format:");
             System.out.println("deadline <your task here> /by <your deadline time>");
             System.out.println("event <your task here> /at <your event time period>");
             System.out.println("todo <your task here>");
+            System.out.println("delete <task number>");
             printLine();
             handleCommand();
         } catch (InvalidCommandSeparatorException e) {
@@ -83,7 +90,34 @@ public class Duke {
             System.out.println("event <your task here> /at <your event time period>");
             printLine();
             handleCommand();
+        } catch (InvalidTaskIndexException e) {
+            printLine();
+            System.out.println("OOPS! That task does not exist!");
+            printLine();
+            handleCommand();
         }
+    }
+
+    public void deleteTask(String[] inputWords)
+            throws EmptyCommandArgumentException, InvalidTaskIndexException {
+
+        if (inputWords.length < 2) {
+            throw new EmptyCommandArgumentException();
+        }
+
+        int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
+
+        Task deletedTask = taskList.get(taskIndex);
+        taskList.remove(taskIndex);
+
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask);
+        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+        printLine();
     }
 
     public void addDeadlineOrEventTask(String[] inputWords, String type)
@@ -120,14 +154,14 @@ public class Duke {
         }
 
         if (type.equals("deadline")) {
-            taskList[listSize] = new Deadline(description, time);
+            taskList.add(new Deadline(description, time));
         } else {
-            taskList[listSize] = new Event(description, time);
+            taskList.add(new Event(description, time));
         }
 
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[listSize]);
+        System.out.println(taskList.get(taskList.size() - 1));
         printLine();
 
         listSize++;
@@ -144,26 +178,26 @@ public class Duke {
             description = description + " " + inputWords[i];
         }
 
-        taskList[listSize] = new Todo(description);
+        taskList.add(new Todo(description));
 
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[listSize]);
+        System.out.println(taskList.get(taskList.size() - 1));
         printLine();
 
         listSize++;
     }
 
     public void showList() {
-        for (int i = 0; i < listSize; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
     }
 
     public void markTaskAsDone(String taskNumber) {
         int taskIndex = Integer.parseInt(taskNumber) - 1;
-        taskList[taskIndex].setAsDone();
-        System.out.println(taskList[taskIndex]);
+        taskList.get(taskIndex).setAsDone();
+        System.out.println(taskList.get(taskIndex));
     }
 
     public static void printLine() {
