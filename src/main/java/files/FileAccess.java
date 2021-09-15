@@ -4,7 +4,6 @@ import jarvis.Jarvis;
 import features.Task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,15 +79,15 @@ public class FileAccess {
     public static void fillJarvisFile(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
-            for (int i = 0; i < taskList.size(); i++){
-                String type = taskList.get(i).getType();
+            for (Task task : taskList) {
+                String type = task.getType();
                 String doneStatus;
-                if (taskList.get(i).isDone()){
+                if (task.isDone()) {
                     doneStatus = "1";
                 } else {
                     doneStatus = "0";
                 }
-                writer.write(type + DIVIDER + doneStatus + DIVIDER + taskList.get(i).getDescription() + System.lineSeparator());
+                writer.write(type + DIVIDER + doneStatus + DIVIDER + task.getDescription() + System.lineSeparator());
             }
             writer.close();
         } catch (IOException e) {
