@@ -33,11 +33,12 @@ public class Duke {
     public static final String LIST_IS_EMPTY = "You're a free man :)";
     public static final String MISSING_ARGUMENTS_FOR_EVENT_AND_DEADLINE = "Sorry," +
             " you're missing some arguments, do type 'help' if you're unsure :)";
-    public static final String PROMPT_TASK_NUMBER = "Please tell me which task you finished :)";
-    public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1-";
+    public static final String PROMPT_TASK_NUMBER = "Please tell me which task you want to select :)";
+    public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1 and ";
     public static final int EXPECTED_LENGTH_FOR_EVENT_AND_DEADLINE = 2;
     public static final int EXPECTED_LENGTH_FOR_DONE_INPUT = 6;
     public static final String DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!";
+    public static final int EXPECTED_LENGTH_FOR_DELETE_INPUT = 8;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -120,6 +121,21 @@ public class Duke {
 
             } catch (StringIndexOutOfBoundsException error) {
                 printErrorMessage(PROMPT_TASK_DESCRIPTION);
+
+            }
+            break;
+        case "delete":
+            try {
+                executeDeleteCase(input);
+
+            } catch (DukeException error) {
+                printErrorMessage(PROMPT_TASK_NUMBER);
+
+            } catch (IndexOutOfBoundsException error) {
+                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+
+            } catch (NumberFormatException error) {
+                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
 
             }
             break;
@@ -216,10 +232,30 @@ public class Duke {
         printTaskCompletedMessage(tasks.get(index));
     }
 
+    private static void executeDeleteCase(String input) throws DukeException,
+            IndexOutOfBoundsException,NumberFormatException {
+        if(input.length() < EXPECTED_LENGTH_FOR_DELETE_INPUT) {
+            throw new DukeException();
+        }
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        printTaskDeletedMessage(tasks.get(index));
+        tasks.remove(index);
+    }
+
     private static void printTaskCompletedMessage(Task task) {
         printIndentationAndDivider();
         printWordsWithIndentation(TASK_COMPLETED_MESSAGE);
         printWordsWithIndentation(task.getStatusIconAndDescription());
+        printIndentationAndDivider();
+        System.out.println();
+    }
+
+    private static void printTaskDeletedMessage(Task task) {
+        Task.setTotalTasks(Task.getTotalTasks() - 1);
+        printIndentationAndDivider();
+        printWordsWithIndentation("Alright, I've removed this task:");
+        printWordsWithIndentation(task.getStatusIconAndDescription());
+        printWordsWithIndentation(notifyNumberOfTasks());
         printIndentationAndDivider();
         System.out.println();
     }
@@ -244,6 +280,9 @@ public class Duke {
     }
 
     private static String getSensibleRange(int number) {
+        if(number < 1) {
+            return LIST_IS_EMPTY;
+        }
         return PROMPT_SENSIBLE_INDEX + number + " :)";
     }
 }
