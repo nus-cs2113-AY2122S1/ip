@@ -148,7 +148,7 @@ public class Duke {
     // Read from file
     public static void readFromFile() {
         try {
-            String dir = System.getProperty("user.dir") ;
+            String dir = System.getProperty("user.dir");
             File file = new File(dir + "\\data\\duke.txt");
             file.createNewFile();
 
@@ -166,4 +166,5 @@ public class Duke {
             e.printStackTrace();
         }
     }
+
 }
