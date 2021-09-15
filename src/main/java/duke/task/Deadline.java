@@ -18,7 +18,7 @@ public class Deadline extends Task {
         return "D";
     }
 
-    public String getTime(){
+    public String getTime() {
         return this.endTime;
     }
 

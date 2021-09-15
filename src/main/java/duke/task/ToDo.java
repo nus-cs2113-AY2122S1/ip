@@ -14,7 +14,7 @@ public class ToDo extends Task {
         return "T";
     }
 
-    public String getTime(){
+    public String getTime() {
         return "";
     }
 

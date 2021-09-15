@@ -20,6 +20,7 @@ public abstract class Command {
     public static boolean isCommandDeleteAll(String word) {
         return word.equalsIgnoreCase("all") || word.equals("*");
     }
+
     /**
      * Checks if the command is meant to see the help menu
      *

@@ -1,54 +1,34 @@
-	              ##*                                 
-	   .      . .&####%                               
-	    #%%%%((&%######%**.                           
-	    %#############%#%&&%%%%%##(*.                 
-	 . .%%#######%%%%%##############%%%%#(.           
-	/##&@%####&%####&#####%&&&&&&&&&%%%####&/  .      
-	&######%%######%&%%%#################%%%%&#       
-	(@####&#####%&%########################%###@(     
-	,&%#%%%%##%%############%%%%%%%%%%%##########%.   
-	*&#&%%&#%&########&%#(%#/((((((/****#&%&%#####%,  
-	  ,&#%%%%#####%%#(%(((&#(&(((((((((/%#(((%##%%#%. 
-	  (%##%%####%%(((/%&((%&#%##((((((((&#(((%#(((&&, 
-	  (%#%&####%#((##(#(/###.%#.*(##(((%, /##((%#(#( .
-	  *&(&%###%#(((((#/@%%%&,. ...     &%%&%  (&###*  
-	 . (%%%###%(((((#/#####&, .. .... /&(#(&,.%(((#(  
-	    *&&##%%(((((%*(%###%. .. .. . *%(##&, (%((#(  
-	      (&#%%((((#%/ .**,. ..... . ...,,,. . (#(%(  
-	        .(%(((((&/ .   .  ...... .. .. . .(%/#%,  
-	          .(%(((#&*,,.           . .,*/*%#((#&*   
-	              ,/(#(    .,,******,.     ####%*     
-   __          ________ _      _____ ____  __  __ ______    
-   \ \        / /  ____| |    / ____/ __ \|  \/  |  ____|  
-    \ \  /\  / /| |__  | |   | |   | |  | | \  / | |__     
-     \ \/  \/ / |  __| | |   | |   | |  | | |\/| |  __|    
-      \  /\  /  | |____| |___| |___| |__| | |  | | |____   
-     __\/_ \/   |______|______\_____\____/|_|  |_|______|_ 
-    / ____| |  | |_   _|  \/  |   /\   |  __ \|_   _| \ | |
-   | (___ | |__| | | | | \  / |  /  \  | |__) | | | |  \| |
-    \___ \|  __  | | | | |\/| | / /\ \ |  _  /  | | | . ` |
-    ____) | |  | |_| |_| |  | |/ ____ \| | \ \ _| |_| |\  |
-   |_____/|_|  |_|_____|_|  |_/_/    \_\_|  \_\_____|_| \_|
+************************************************************************************************************************************************************************
+Help Menu Version Version 7.0
 
-Hi there! My name is Shima Rin and I am a chat robot that can help you do some wonderful jobs!
-------------------------------------------------------------------------------------------------------------
-* Version 4.0                                                                                              *
-* To know more about me, you can view my profile by typing the command "view -p"                           *
-* For now I am a note bot that can help you note down any tasks and create a to-do list for you :)         *
-* In addition, you can mark any task in the to-do list as done!                                            *
-* You can type "todo" or "deadline" or "event" to create a task and I will help you save it automatically! *
-* You can type "list" or "ls" to list all the tasks that are waiting to do                                 *
-* You can type "done i" where i is the index of the task to mark the specific task as done                 *
-* You can type "exit" or "bye" to stop me and exit the program                                             *
-------------------------------------------------------------------------------------------------------------
-Let's start:
-	/----------------------------\
-	| My to-do list:             |
-	\----------------------------/
-	For your knowledge, 
-	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
-	the second [ ] indicates whether the task is completed:
-	[X] when the task is marked completed	[ ] when the task is not done.
+	1. To add a new to-do task, use the command "todo" with syntax:
+		todo [YOUR_TASK_DESCRIPTION]
+		eg. todo read book	<-- will add the task "read book" to your to-do list
+
+	2. To add a new task specified with deadline, use the command "deadline" with syntax:
+		deadline [YOUR_TASK_DESCRIPTION] /[DEADLINE]
+		eg. deadline submit assignment /by Friday 6pm	<-- will add the task "submit assignment" with deadline "Friday 6pm
+
+	3. To add an event specified with start time and end time, use the command "event" with syntax:
+		event [YOUR_TASK_DESCRIPTION] /[START_TIME]-[END_TIME]
+		eg. event attend tutorial /at Friday 2 - 4pm	<-- will add the event "attend tutorial" with the event day Friday and start time 2pm and end time 4pm
+
+	4. To print the to-do list, use the command "list" or "ls", it will then show you the to-do list
+
+	5. To mark the task as done, use the command "done" with syntax:
+		done [TASK_INDEX]
+		eg. done 1	<-- will mark the 1st task as completed
+			done 1 2 3	<-- will mark the 1st, 2nd and 3rd tasks as completed
+
+	6. To delete task, use the command "delete" with syntax:
+		delete [TASK_INDEX]
+		eg. delete 1	<--will delete the 1st task
+			delete 1 2 3	<-- will delete the tasks with index 1, 2 and 3
+		delete all	<-- will delete all the tasks in the list
+
+	7. To exit the program, use the command "exit" or "bye"
+
+************************************************************************************************************************************************************************
 	@-------------------------------------------------------------------------------@
 	    Class type [T] "play games" has been added to the list! (1 tasks in total)
 	@-------------------------------------------------------------------------------@
@@ -68,12 +48,13 @@ Let's start:
 	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
 	the second [ ] indicates whether the task is completed:
 	[X] when the task is marked completed	[ ] when the task is not done.
-	@------------------------------------@
-	   Sorry, the command is invalid :(
-	@------------------------------------@
-	@-----------------------------@
-	   Sorry, the task is empty!
-	@-----------------------------@
+	@-------------------------------------------------------@
+	   Sorry, the command is invalid, I cant understand :(
+	@-------------------------------------------------------@
+	To seek for help, you can type the command "help" or "view -h"
+	@--------------------------------------------------------------@
+	   Sorry, the task is empty! I don't know how to record it :(
+	@--------------------------------------------------------------@
 	Hooray! Task number 1 has been marked completed!
 	[✔] play games
 	/-------------------------------------------\
@@ -95,6 +76,32 @@ Let's start:
 	| [T][X] 1. play games                      |
 	| [D][X] 2. do assignment (by: Sunday 6pm)  |
 	| [E][X] 3. attend lecture (at: by Friday 4-6pm)|
+	\-------------------------------------------/
+	For your knowledge, 
+	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
+	the second [ ] indicates whether the task is completed:
+	[X] when the task is marked completed	[ ] when the task is not done.
+	@-------------------------------------------------------------------@
+	   I have removed this task: [D][X] do assignment (by: Sunday 6pm)
+	@-------------------------------------------------------------------@
+You have left 2 tasks to do!
+	/-------------------------------------------\
+	| My to-do list:                            |
+	| [T][X] 1. play games                      |
+	| [E][X] 2. attend lecture (at: by Friday 4-6pm)|
+	\-------------------------------------------/
+	For your knowledge, 
+	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)
+	the second [ ] indicates whether the task is completed:
+	[X] when the task is marked completed	[ ] when the task is not done.
+	@-----------------------------------------------------@
+	   Sorry, the input task index to delete is missing!
+	@-----------------------------------------------------@
+	@-----------------------------------------------@
+	   All tasks have been removed! Time to chill?
+	@-----------------------------------------------@
+	/-------------------------------------------\
+	| My to-do list:                            |
 	\-------------------------------------------/
 	For your knowledge, 
 	the first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)

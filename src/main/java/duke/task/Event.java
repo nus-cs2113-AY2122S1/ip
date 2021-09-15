@@ -17,7 +17,7 @@ public class Event extends Task {
         return "E";
     }
 
-    public String getTime(){
+    public String getTime() {
         return this.period;
     }
 

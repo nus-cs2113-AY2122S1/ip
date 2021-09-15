@@ -11,7 +11,7 @@ import java.util.Random;
  * The website available: "https://manytools.org/hacker-tools/convert-images-to-ascii-art/"
  */
 public abstract class Default {
-    public static final String CURR_VERSION = "Version 5.0";
+    public static final String CURR_VERSION = "Version 7.0";
 
     //Corner symbols for to-do list frames
     public static final String TOP_LEFT_CORNER = "/";
@@ -204,11 +204,12 @@ public abstract class Default {
         int maxDescriptionsLength = 0;
         versionDescriptions.add("* " + CURR_VERSION);
         versionDescriptions.add("* To know more about me, you can view my profile by typing the command \"view -p\"");
-        versionDescriptions.add("* For now I am a note bot that can help you note down any tasks and create a to-do list for you :)");
-        versionDescriptions.add("* In addition, you can mark any task in the to-do list as done!");
+        versionDescriptions.add("* I can help you create a to-do list, you can perform tasks addition, deletion, and mark tasks as done");
+        versionDescriptions.add("* In addition, I will memorise all the tasks that you entered, so that you can refer back when you revisit me :)");
         versionDescriptions.add("* You can type \"todo\" or \"deadline\" or \"event\" to create a task and I will help you save it automatically!");
         versionDescriptions.add("* You can type \"list\" or \"ls\" to list all the tasks that are waiting to do");
         versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
+        versionDescriptions.add("* You can type \"delete i\" where i is the index of the task to delete the task whenever necessary");
         versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
         versionDescriptions.add("* For more information about how to use me (YES the bot), you can type \"help\" or \"view-h\"");
         //Finds the length of the longest description to align all '*' displayed
@@ -292,7 +293,10 @@ public abstract class Default {
         helpLists.add("To print the to-do list, use the command \"list\" or \"ls\", it will then show you the to-do list\n");
         //Done command
         helpLists.add("To mark the task as done, use the command \"done\" with syntax:\n\t\tdone [TASK_INDEX]\n\t\teg. done 1\t<-- will mark the 1st task as completed\n\t" +
-                "    done 1 2 3\t<-- will mark the 1st, 2nd and 3rd tasks as completed\n");
+                "\t\tdone 1 2 3\t<-- will mark the 1st, 2nd and 3rd tasks as completed\n");
+        //Delete command
+        helpLists.add("To delete task, use the command \"delete\" with syntax:\n\t\tdelete [TASK_INDEX]\n\t\teg. delete 1\t<--will delete the 1st task\n\t" +
+                "\t\tdelete 1 2 3\t<-- will delete the tasks with index 1, 2 and 3\n\t\tdelete all\t<-- will delete all the tasks in the list\n");
         //Exit command
         helpLists.add("To exit the program, use the command \"exit\" or \"bye\"\n");
         return helpLists;
