@@ -37,7 +37,12 @@ public class Event extends Task {
     @Override
     public String printTask() {
         super.printTask();
-        return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription()
-                + "(at: " + this.getBy() + ")";
+        return getTaskType() + getStatusIcon() + " " + getDescription()
+                + "(at: " + getBy() + ")";
+    }
+
+    @Override
+    public String printForSave() {
+        return getTaskType() + "," + getStatusIcon() + "," + getDescription() + "," + getBy();
     }
 }

@@ -4,36 +4,35 @@ import allTasks.typesOfTasks.Todo;
 import allTasks.typesOfTasks.Event;
 import allTasks.typesOfTasks.Deadline;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileWriter;
+
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     // Init constants storing various magic literals or Strings
-    private static int itemIndex          = 0;
-    public static final int DASH_INDX     = 4;
-    public static final int TODO_SIZE     = 5;
-    public static final int EVENT_SIZE    = 6;
-    public static final int DEADLINE_SIZE = 9;
-    public static final int TASK_ARR_SIZE = 100;
-    public static final Task[] tasks      = new Task[TASK_ARR_SIZE];
-    public static final String LINE       = "--------------------------------------------------------------------------------";
+    public static final int DASH_INDX          = 4;
+    public static final int TODO_SIZE          = 5;
+    public static final int EVENT_SIZE         = 6;
+    public static final int DEADLINE_SIZE      = 9;
+    public static final int TASK_ARR_SIZE      = 100;
+    public static final String LINE            = "--------------------------------------------------------------------------------";
+    public static final ArrayList<Task> tasks  = new ArrayList<>();
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
 
         boolean botIsActive = false;
         Scanner in = new Scanner(System.in);
-
-        // Prints logo and welcome message
+        dataStorage();
         printWelcome();
 
         // Cond. is true when input "bye" is given, terminates run
         while (!botIsActive) {
 
+            writeData(tasks);
             String command = in.nextLine();
 
             if (command.equals("bye")) {
@@ -50,29 +49,27 @@ public class Duke {
                 }
             } else if (command.equals("echo")) {
                 echoMode();
-            } else {
-                if (command.contains("todo")) {
-                    try {
-                        createTodo(command);
-                    } catch (DukeException error) {
-                        System.out.println(error.getMessage());
-                    }
-                } else  if (command.contains("deadline")) {
-                    try {
-                        createDeadline(command);
-                    } catch (DukeException error) {
-                        System.out.println(error.getMessage());
-                    }
-                } else if (command.contains("event")) {
-                    try {
-                        createEvent(command);
-                    } catch (DukeException error) {
-                        System.out.println(error.getMessage());
-                    }
-                } else {
-                    System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol! "
-                            + "\uD83E\uDD28" + System.lineSeparator() + LINE);
+            } else if (command.contains("todo")) {
+                try {
+                    createTodo(command);
+                } catch (DukeException error) {
+                    System.out.println(error.getMessage());
                 }
+            } else if (command.contains("deadline")) {
+                try {
+                    createDeadline(command);
+                } catch (DukeException error) {
+                    System.out.println(error.getMessage());
+                }
+            } else if (command.contains("event")) {
+                try {
+                    createEvent(command);
+                } catch (DukeException error) {
+                    System.out.println(error.getMessage());
+                }
+            } else {
+                System.out.println(LINE + System.lineSeparator() + "Apologies sir but, I don't recognize that protocol! "
+                        + "\uD83E\uDD28" + System.lineSeparator() + LINE);
             }
         }
     }
@@ -89,9 +86,9 @@ public class Duke {
             throw new DukeException(LINE + System.lineSeparator() + "Sir, you haven't given me the name of the task "
                     + "\u2639" + System.lineSeparator() + LINE);
         }
-        tasks[itemIndex] = new Todo(command.substring(TODO_SIZE));
-        itemIndex++;
-        printListSummary();
+        Todo todo = new Todo(command.substring(TODO_SIZE));
+        tasks.add(todo);
+        printListSummary(tasks.get(tasks.indexOf(todo)));
     }
 
     private static void createDeadline(String command) throws DukeException{
@@ -113,9 +110,9 @@ public class Duke {
                     + System.lineSeparator() + "Please frame your request in this format: deadline CS2113T Assg /by Wed 2359 hrs"
                     + System.lineSeparator() + LINE);
         }
-        tasks[itemIndex] = new Deadline(command.substring(DEADLINE_SIZE, dashStart), dateOrTime);
-        itemIndex++;
-        printListSummary();
+        Deadline deadline = new Deadline(command.substring(DEADLINE_SIZE, dashStart), dateOrTime);
+        tasks.add(deadline);
+        printListSummary(tasks.get(tasks.indexOf(deadline)));
     }
 
     private static void createEvent(String command) throws DukeException {
@@ -135,21 +132,42 @@ public class Duke {
                     + System.lineSeparator() + "Please frame your request in this format: event My B'day /at 23/07/1999"
                     + System.lineSeparator() + LINE);
         }
-        tasks[itemIndex] = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
-        itemIndex++;
-        printListSummary();
+        Event event = new Event((command.substring(EVENT_SIZE, dashStart)), dateOrTime);
+        tasks.add(event);
+        printListSummary(tasks.get(tasks.indexOf(event)));
     }
 
-    private static void dataStorage() throws FileNotFoundException {
-        File f = new File("ip/data/Duke.txt");
-        Scanner s = new Scanner(f);
-        while(s.hasNext()) {
-            System.out.println(s.nextLine());
+    private static void dataStorage() throws IOException, DukeException {
+        File dirPath = new File("data");
+        File filePath = new File("data/Duke.txt");
+        if (filePath.exists()) {
+            Scanner fileReader = new Scanner(filePath);
+            while (fileReader.hasNext()) {
+                String currLine = fileReader.nextLine();
+                String[] taskTokens = currLine.split(",");
+                if (taskTokens[0].equals("[T]")) {
+                    createTodo("todo " + taskTokens[2]);
+                } else if (taskTokens[0].equals("[D]")) {
+                    createDeadline("deadline " + taskTokens[2] + "/by " + taskTokens[3]);
+                } else if (taskTokens[0].equals("[E]")) {
+                    createEvent("event " + taskTokens[2] + "/at " + taskTokens[3]);
+                }
+
+                if (taskTokens[1].equals("[X]")) {
+                    markAsDone("done " + new Integer(tasks.size()).toString());
+                }
+            }
+        } else {
+            dirPath.mkdir();
         }
     }
 
-    private static void saveData() throws IOException {
-        FileWriter fw = new FileWriter("ip/data/Duke.txt");
+    private static void writeData(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("data/Duke.txt");
+        for (Task task : Duke.tasks) {
+            fw.write(task.printForSave() + System.lineSeparator());
+        }
+        fw.close();
     }
 
     public static void printWelcome() {
@@ -174,19 +192,19 @@ public class Duke {
 
     public static void printList() {
         System.out.println(LINE + System.lineSeparator() + "Here are the current tasks in your list:");
-        for (int count = 0; count < itemIndex; count++) {
-            System.out.println(count + 1 + "." + tasks[count].printTask());
+        for (Task task : tasks) {
+            System.out.println(tasks.indexOf(task) + 1 + "." + task.printTask());
         }
         System.out.println(LINE);
     }
 
-    public static void printListSummary() {
+    public static void printListSummary(Task task) {
         System.out.println(LINE + System.lineSeparator() + "Will do sir, I've added: "
-                    + System.lineSeparator() + "  " + tasks[itemIndex - 1].printTask());
-        if (itemIndex == 1) {
-            System.out.printf("Now you have %d task in your list.\n", itemIndex);
+                    + System.lineSeparator() + "  " + task.printTask());
+        if (tasks.size() == 1) {
+            System.out.printf("Now you have %d task in your list.\n", tasks.size());
         } else {
-            System.out.printf("Now you have %d tasks in your list.\n", itemIndex);
+            System.out.printf("Now you have %d tasks in your list.\n", tasks.size());
         }
         System.out.println(LINE);
     }
@@ -195,13 +213,13 @@ public class Duke {
         // When user enters string "done 2", string is split to extract the index 2 only
         int taskDoneIndex = Integer.parseInt(command.split(" ")[1]) - 1;
         // Checks if given index holds a task and throws error message if no such task exists
-        if (taskDoneIndex > itemIndex - 1 || taskDoneIndex < 0) {
+        if ((taskDoneIndex > tasks.size()) || (taskDoneIndex < 0)) {
             System.out.println(LINE + System.lineSeparator() +
                     "Apologies sir but, it seems that task hasn't been created yet " +
                     "\u2639" + System.lineSeparator() + LINE);
         } else {
             // Selects task to be modified with command "done"
-            Task taskChosen = tasks[taskDoneIndex];
+            Task taskChosen = tasks.get(taskDoneIndex);
             // Checks if task has already been marked as done
             if (taskChosen.isDone()) {
                 System.out.println(LINE + System.lineSeparator() + "Sir, I believe this task has already been completed "
