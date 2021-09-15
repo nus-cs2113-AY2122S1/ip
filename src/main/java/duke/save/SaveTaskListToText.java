@@ -159,6 +159,7 @@ public class SaveTaskListToText {
                     return true;
                 }
             }
+            scanner.close();
         } catch(FileNotFoundException e) {
             System.out.println("File not found!");
         }
@@ -183,7 +184,7 @@ public class SaveTaskListToText {
 
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
                 if (fileIsEmpty == false) {
-                    addToDo.write("\n");//appends the string to the file
+                    addToDo.write("\n"); //appends the string to the file
                 }
                 addToDo.write(textToWrite1);
                 addToDo.close();
