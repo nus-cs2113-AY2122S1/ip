@@ -44,4 +44,13 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("%s (by: %s)", super.toString(), datetime);
     }
+
+    /**
+     * Changes a Task into a human-readable format to be stored in file.
+     * @return A formatted String of the Deadline, its status, type, description and datetime.
+     */
+    @Override
+    public String toFileStringFormat() {
+        return String.format("%s | %s", super.toFileStringFormat(), datetime);
+    }
 }

@@ -77,4 +77,12 @@ public class Task {
     public String toString() {
         return String.format("[%s][%s] %s", getItemType(), getStatusIcon(), name);
     }
+
+    /**
+     * Changes a Task into a human-readable format to be stored in file.
+     * @return A formatted String of the Task, its status, type and description.
+     */
+    public String toFileStringFormat() {
+        return String.format("%s | %s | %s", getItemType(), getStatusIcon(), name);
+    }
 }
