@@ -79,8 +79,7 @@ public class Duke {
             if (s.equalsIgnoreCase("quit")) {
                 System.out.println(LINES + QUIT_MESSAGE + LINES);
                 echoState = false;
-            }
-            else {
+            } else {
                 String output = LINES + " " + s  + System.lineSeparator() + LINES;
                 System.out.println(output);
             }
@@ -91,8 +90,7 @@ public class Duke {
     public static void list() {
         if (tasks.size() == 0) {
             System.out.println(LINES + EMPTY_LIST_MESSAGE + LINES);
-        }
-        else {
+        } else {
             System.out.print(LINES);
             for (int i = 1; i <= tasks.size(); i++) {
                 System.out.println(i + "." + tasks.get(i - 1));
@@ -108,8 +106,7 @@ public class Duke {
             //given task does not exist in list
             if (index > tasks.size()) {
                 System.out.println(LINES + NO_TASK_MESSAGE + LINES);
-            }
-            else {
+            } else {
                 Task thisTask = tasks.get(index - 1);
                 System.out.println(LINES + DELETE_MESSAGE + "   " + tasks.get(index - 1));
                 tasks.remove(thisTask);
@@ -131,12 +128,9 @@ public class Duke {
             //task given is not in list
             if (index > taskCount) {
                 System.out.println(LINES + NO_TASK_MESSAGE + LINES);
-            }
-            //task already done
-            else if (tasks.get(index - 1).getStatusIcon().equals("X")) {
+            } else if (tasks.get(index - 1).getStatusIcon().equals("X")) {
                 System.out.println(LINES + TASK_DONE_MESSAGE + LINES);
-            }
-            else {
+            } else {
                 tasks.get(index - 1).markAsDone();
                 System.out.print(LINES + TASK_COMPLETE_MESSAGE + tasks.get(index - 1)  +
                         System.lineSeparator() + LINES);
@@ -155,15 +149,13 @@ public class Duke {
             addTodo(input);
             int indexOfAddedTask = tasks.size() - 1;
             appendDatabase("T", tasks.get(indexOfAddedTask).description, "0");
-        }
-        else if (input.toLowerCase().startsWith("deadline")) {
+        } else if (input.toLowerCase().startsWith("deadline")) {
             addDeadline(input);
             int indexOfAddedTask = tasks.size() - 1;
             Deadline addedDeadline = (Deadline) tasks.get(indexOfAddedTask);
             String deadlineInput = addedDeadline.description + "/by" + addedDeadline.by;
             appendDatabase("D", deadlineInput, "0");
-        }
-        else if (input.toLowerCase().startsWith("event")){
+        } else if (input.toLowerCase().startsWith("event")){
             addEvent(input);
             int indexOfAddedTask = tasks.size() - 1;
             Event addedEvent = (Event) tasks.get(indexOfAddedTask);
@@ -184,11 +176,9 @@ public class Duke {
         try {
             if (input.trim().length() == 8) {
                 System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
-            }
-            else if (!input.contains("/by")) {
+            } else if (!input.contains("/by")) {
                 System.out.println(LINES + MISSING_BY_MESSAGE + LINES);
-            }
-            else {
+            } else {
                 int slashIndex = input.indexOf("/by");
                 String task = input.substring(9, slashIndex).trim();
                 String dueDate = input.substring(slashIndex + 3).trim();
@@ -204,11 +194,9 @@ public class Duke {
         try {
             if (input.trim().length() == 5) {
                 System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
-            }
-            else if (!input.contains("/at")) {
+            } else if (!input.contains("/at")) {
                 System.out.println(LINES + MISSING_AT_MESSAGE + LINES);
-            }
-            else {
+            } else {
                 int slashIndex = input.indexOf("/at");
                 String task = input.substring(6, slashIndex).trim();
                 String timeRange = input.substring(slashIndex + 3).trim();
@@ -274,13 +262,11 @@ public class Duke {
                 String isDone = task.isDone? "1" : "0";
                 if (task instanceof Todo) {
                     appendDatabase("T", task.description, isDone);
-                }
-                else if (task instanceof Deadline) {
+                } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
                     String input = deadline.description + "/by" + deadline.getDeadline();
                     appendDatabase("D", input , isDone);
-                }
-                else if (task instanceof Event) {
+                } else if (task instanceof Event) {
                     Event event = (Event) task;
                     String input = event.description + "/at" + event.getDeadline();
                     appendDatabase("E", input , isDone);
@@ -344,8 +330,7 @@ public class Duke {
         System.out.println(LINES + "Checking for database folder..." + System.lineSeparator());
         if (result) {
             System.out.println("Folder not present...creating new folder!" + System.lineSeparator() + LINES);
-        }
-        else {
+        } else {
             System.out.println("Folder located!" + System.lineSeparator() + LINES);
         }
     }
@@ -356,8 +341,7 @@ public class Duke {
             System.out.println(LINES + "Checking for database..." + System.lineSeparator());
             if (result) {
                 System.out.println("Database not present...creating new database!" + System.lineSeparator() + LINES);
-            }
-            else {
+            } else {
                 System.out.println("Database located!" + System.lineSeparator() + LINES);
             }
         } catch (IOException e) {
@@ -394,37 +378,27 @@ public class Duke {
             if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("deadline")
                     || input.toLowerCase().startsWith("event")) {
                 addTask(input);
-            }
-            else if (input.toLowerCase().startsWith("done")) {
+            } else if (input.toLowerCase().startsWith("done")) {
                 markDone(input);
-            }
-            else if (input.equalsIgnoreCase("list")) {
+            } else if (input.equalsIgnoreCase("list")) {
                 list();
-            }
-            else if (input.toLowerCase().startsWith("remove")) {
+            } else if (input.toLowerCase().startsWith("remove")) {
                 removeTask(input);
-            }
-            else if (input.equalsIgnoreCase("echo")) {
+            } else if (input.equalsIgnoreCase("echo")) {
                 echo();
-            }
-            else if (input.equalsIgnoreCase("clear database")) {
+            } else if (input.equalsIgnoreCase("clear database")) {
                 clearDatabase();
                 System.out.println(LINES + CLEAR_DB_MESSAGE + LINES);
-            }
-            else if (input.toUpperCase().contains("BIRTHDAY")) {
+            } else if (input.toUpperCase().contains("BIRTHDAY")) {
                 System.out.println(LINES + BIRTHDAY_MESSAGE + LINES);
-            }
-            else if (input.equalsIgnoreCase("help")) {
+            } else if (input.equalsIgnoreCase("help")) {
                 System.out.println(LINES + HELP_MESSAGE + LINES);
-            }
-            else if (input.equalsIgnoreCase("genshin")) {
+            } else if (input.equalsIgnoreCase("genshin")) {
                 genshinHelper();
-            }
-            else if (input.equalsIgnoreCase("bye")) {
+            } else if (input.equalsIgnoreCase("bye")) {
                 System.out.println(LINES + BYE_MESSAGE + LINES);
                 System.exit(0);
-            }
-            else {
+            } else {
                 throw new JimException();
             }
         } catch (JimException e) {
