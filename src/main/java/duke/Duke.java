@@ -114,6 +114,7 @@ public class Duke {
     private static void markTaskAsDone(String input) {
         try {
             task.markTaskAsDone(input);
+            FileManager.writeTaskListToFile(task);
         } catch (DukeException e) {
             final String message = e.getMessage();
             switch (message) {
@@ -150,6 +151,7 @@ public class Duke {
     private static void addTodoTaskToList(String input) {
         try {
             task.addTask(new Todo(input));
+            FileManager.writeTaskListToFile(task);
         } catch (DukeException e) {
             final String message = e.getMessage();
             if (message.equals(ExceptionMessages.EXCEPTION_NO_DESCRIPTION)) {
@@ -166,6 +168,7 @@ public class Duke {
 
         try {
             task.addTask(new Deadline(description, by));
+            FileManager.writeTaskListToFile(task);
         } catch (DukeException e) {
             final String message = e.getMessage();
             if (message.equals(ExceptionMessages.EXCEPTION_NO_DESCRIPTION)) {
@@ -192,6 +195,7 @@ public class Duke {
         final String at = taskDescriptionAndAt[1];
         try {
             task.addTask(new Event(description, at));
+            FileManager.writeTaskListToFile(task);
         } catch (DukeException e) {
             final String message = e.getMessage();
             if (message.equals(ExceptionMessages.EXCEPTION_NO_DESCRIPTION)) {
