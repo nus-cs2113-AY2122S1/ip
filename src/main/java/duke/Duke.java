@@ -2,13 +2,14 @@ package duke;
 
 import duke.command.CommandList;
 import duke.task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final int ARRAY_SIZE = 100;
     private static final int FOUR = 4;
     private static final int FIVE = 5;
-    private static final int SIX = 6;
+    private static final int SIX = 6;;
     private static final int EIGHT = 8;
     private static final int NINE = 9;
     private static final int ERROR_TODO_IS_EMPTY = 1;
@@ -23,7 +24,8 @@ public class Duke {
     private static final int CMD_LIST = 4;
     private static final int CMD_DONE = 5;
     private static final int CMD_TERMINATE = 6;
-    private static final Task[] items = new Task[ARRAY_SIZE];
+    private static final int CMD_DELETE = 7;
+    private static final ArrayList<Task> items = new ArrayList<>();
     private static final String logo =
               " _____  ___  _____     ______\n"
             + "|___  | | | |_____|  / / -- \\ \\ \n"
@@ -40,9 +42,9 @@ public class Duke {
         System.out.println("What do you want?\n" + border);
         System.out.println("Type bye to exit\n" + border);
     }
-    public static boolean isInvalid(CommandList task, String line) {
-        if (!line.split("done")[1].trim().isEmpty()) {
-            if (Integer.parseInt(line.split("done")[1].trim()) > task.getTaskCount()) {
+    public static boolean isInvalid(CommandList task, String line , String key) {
+        if (!line.split(key)[1].trim().isEmpty()) {
+            if (Integer.parseInt(line.split(key)[1].trim()) > task.getTaskCount()) {
                 return true;
             }
         }
@@ -62,7 +64,7 @@ public class Duke {
                 task.executeCommand(items, error, line);
                 System.out.println(border);
             } else if (line.length() > FOUR && line.substring(0, FOUR).contains("done")) {
-                if (isInvalid(task, line)) {
+                if (isInvalid(task, line, "done")) {
                     task.setCommand(CMD_NOT_FOUND);
                     error.setErrorType(ERROR_IS_INVALID);
                 } else {
@@ -91,6 +93,14 @@ public class Duke {
                 } else {
                     error.setErrorType(ERROR_DEADLINE_IS_EMPTY);
                     task.setCommand(CMD_NOT_FOUND);
+                }
+                task.executeCommand(items, error, line);
+            } else if (line.length() >= SIX && line.substring(0, SIX).contains("delete")) {
+                if (isInvalid(task, line,"delete")) {
+                    task.setCommand(CMD_NOT_FOUND);
+                    error.setErrorType(ERROR_IS_INVALID);
+                } else {
+                    task.setCommand(CMD_DELETE);
                 }
                 task.executeCommand(items, error, line);
             } else if (!line.matches("bye")) {
