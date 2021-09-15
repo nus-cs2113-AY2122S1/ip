@@ -5,7 +5,7 @@ import duke.task.Mascot;
 import duke.task.Task;
 import duke.security.AccountDetail;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     public static final int STOP_ADD = -1;
@@ -46,7 +46,7 @@ public class Duke {
         return "";
     }
 
-    public static void listTasks(Task[] items) {
+    public static void listTasks(ArrayList<Task> items) {
         int in = 1;
         System.out.println(" /          / ");
         for (Task item : items) {
@@ -67,6 +67,10 @@ public class Duke {
         isFail = Boolean.logicalXor(isFail, true);
     }
 
+    public static void printDone(String task) {
+        System.out.println(task + " completed");
+    }
+
     public static void runDuke() {
         Scanner in = new Scanner(System.in);
         if (isDukeFail()) {
@@ -75,36 +79,50 @@ public class Duke {
         setupUsernamePassword(in);
         sayHi(AccountDetail.getUsername());
         String command;
-        Task[] taskList = new Task[100];
+        //Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>();
         do {
             command = in.nextLine();
             switch (command) {
             case ("list"):
                 listTasks(taskList);
+                printDone("list");
                 break;
             case ("add"):
                 addTaskToList(in, taskList);
+                printDone("add");
                 break;
             case ("done"):
                 markTasksAsDone(in, taskList);
+                printDone("mark task as done");
                 break;
             case ("clear"):
-                taskList = clearTaskList();
+                clearTaskList(taskList);
+                printDone("clear list");
                 break;
             case ("mascot"):
                 mascotSay(in);
+                printDone("mascot say");
                 break;
             case("echo"):
                 readInputEchoCommand();
+                printDone("echo");
                 break;
             case("todo"):
                 addTodoToList(in, taskList);
+                printDone("add todo");
                 break;
             case("event"):
                 addEventToList(in, taskList);
+                printDone("add event");
                 break;
             case("deadline"):
                 amendTaskDeadline(in, taskList);
+                printDone("amend deadline");
+                break;
+            case("delete"):
+                deleteTasks(in, taskList);
+                printDone("delete tasks");
                 break;
             case ("bye"):
                 break;
@@ -113,6 +131,41 @@ public class Duke {
             }
         } while (!command.equals("bye"));
         sayGoodbye();
+    }
+
+    private static void deleteTasks(Scanner in, ArrayList<Task> taskList) {
+        DukeException doneCheck = new DukeException("doneCheck");
+        //1. collect data
+        List<Integer> toDeleteList = new ArrayList<Integer>();
+        String input = in.nextLine();
+        String[] inputData = input.split(" ");
+        for (String s : inputData) {
+            if (doneCheck.startsWithSpace(s)) {
+                doneCheck.inputFailMessage();
+                doneCheck.printDoneFormat();
+                return;
+            }
+            else if (doneCheck.isEmpty(s)) {
+                doneCheck.inputFailMessage();
+                doneCheck.printNoNull();
+                return;
+            }
+            else if (!doneCheck.isIntegerInput(s)) {
+                doneCheck.printIntegerOnly();
+                return;
+            }
+            //after checks
+            int sData = Integer.parseInt(s) - 1;
+            toDeleteList.add(sData);
+        }
+        //2. sort in decreasing order
+        Collections.sort(toDeleteList, Collections.reverseOrder());
+        //3. remove from list
+        for (int i : toDeleteList) {
+            System.out.println("remove " + (i + 1) + ": " + taskList.get(i).getDescription());
+            taskList.remove(i);
+            taskCount--;
+        }
     }
 
     private static boolean isDukeFail() {
@@ -137,13 +190,12 @@ public class Duke {
         AccountDetail.setPassword(in.nextLine());
     }
 
-    private static Task[] clearTaskList() {
-        Task[] taskList = new Task[100];
+    private static void clearTaskList(ArrayList<Task> taskList) {
+        taskList.clear();
         taskCount = 0;
-        return taskList;
     }
 
-    private static void markTasksAsDone(Scanner in, Task[] taskList) {
+    private static void markTasksAsDone(Scanner in, ArrayList<Task> taskList) {
         DukeException doneCheck = new DukeException("doneCheck");
         try {
             String number = null;
@@ -166,15 +218,15 @@ public class Duke {
                     );
             number = number.trim();
             String[] numberList = number.split(" ");
-            System.out.print("remove ");
+            System.out.print("done ");
             for (String i : numberList) {
                 int index = Integer.parseInt(i) - 1;
                 if (!doneCheck.inListRange(index, taskCount)) {
                     doneCheck.printNotInRange(index);
                     return;
                 }
-                taskList[index].setDone(true);
-                System.out.print(taskList[index].getDescription() + ", ");
+                taskList.get(index).setDone(true);
+                System.out.print(taskList.get(index).getDescription() + ", ");
             }
             System.out.println("\n / done tasks, good job! / ");
         } catch (NumberFormatException e) {
@@ -184,55 +236,58 @@ public class Duke {
         }
     }
 
-    private static int addTaskToList(Scanner in, Task[] taskList) {
+    private static int addTaskToList(Scanner in, ArrayList<Task> taskList) {
         String taskName;
         do {
             taskName = in.nextLine();
             if (taskName.equals("stop")) {
                 return STOP_ADD;
             }
-            taskList[taskCount] = new Task(taskName);
+            taskList.add(new Task(taskName));
             taskCount++;
         } while (!taskName.equals("stop"));
         System.out.println("Finished adding tasks!");
         return ADD_SUCCESS;
     }
 
-    private static int addTodoToList(Scanner in, Task[] taskList) {
+    private static int addTodoToList(Scanner in, ArrayList<Task> taskList) {
         String todoName;
         do {
             todoName = in.nextLine();
             if (todoName.equals("stop")) {
                 return STOP_ADD;
             }
-            taskList[taskCount] = new Task(todoName, "todo");
+            taskList.add(new Task(todoName, "todo"));
             taskCount++;
         } while (!todoName.equals("stop"));
         System.out.println("Finished adding todos!");
         return ADD_SUCCESS;
     }
 
-    private static int addEventToList(Scanner in, Task[] taskList) {
+    private static int addEventToList(Scanner in, ArrayList<Task> taskList) {
         String eventName;
         do {
             eventName = in.nextLine();
             if (eventName.equals("stop")) {
                 return STOP_ADD;
             }
-            taskList[taskCount] = new Task(eventName, "event");
+            taskList.add(new Task(eventName, "event"));
             taskCount++;
         } while (!eventName.equals("stop"));
         System.out.println("Finished adding todos!");
         return ADD_SUCCESS;
     }
 
-    private static void amendTaskDeadline(Scanner in,Task[] taskList) {
+    private static void amendTaskDeadline(Scanner in, ArrayList<Task> taskList) {
         DukeException deadlineCheck = new DukeException("deadlineCheck");
         try {
             String input;
             do {
                 input = in.nextLine();
                 input = input.trim();
+                if (input.startsWith("stop")) {
+                    break;
+                }
                 if (!input.contains("/")) {
                     deadlineCheck.printDeadlineFormatIssue();
                     continue;
@@ -250,7 +305,7 @@ public class Duke {
                         deadlineCheck.printNotInRange(index);
                         continue;
                     }
-                    Task toChange = taskList[index];
+                    Task toChange = taskList.get(index);
                     toChange.setDeadline(separateInput[1]);
                     toChange.setToDo(true);
                 }
