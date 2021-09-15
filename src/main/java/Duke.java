@@ -9,6 +9,13 @@ import duke.task.Event;
 import duke.task.Deadline;
 import duke.exception.DukeException;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Duke {
     static int listLength = 0;
@@ -221,17 +228,6 @@ public class Duke {
         }
 
         public static void markAsDone() throws DukeException {
-            /*if (list[0] == null) {
-                throw new DukeException("Hmm... It seems that you have no task to mark in your empty list.");
-            } else {
-                int listNumber;
-                listNumber = Integer.parseInt(userInput.substring(5)) - 1;
-                list[listNumber].taskDone();
-                System.out.println(SEPARATOR);
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(list[listNumber].toString());
-                System.out.println(SEPARATOR);
-            }*/
             if(listLength == 0){
                 throw new DukeException("Hmm... It seems that you have no task to mark in your empty list.");
             } else {
@@ -267,6 +263,10 @@ public class Duke {
                System.out.println("Now you have " + listLength + " tasks in the list.");
               System.out.println(SEPARATOR);
           }
+
+
+
+
 
 
 }
