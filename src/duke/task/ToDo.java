@@ -9,6 +9,11 @@ public class ToDo extends Task{
     }
 
     @Override
+    public String exportTask() {
+        return "T|" + super.getStatus() + "|" + super.toString() + "|" + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
         return TODO_ICON + super.toString();
     }

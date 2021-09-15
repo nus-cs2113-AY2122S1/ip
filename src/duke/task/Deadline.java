@@ -10,6 +10,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String exportTask() {
+        return "D|" + super.getStatus() + "|" + super.toString() + "|" + dueDate + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
         return DEADLINE_ICON + super.toString() + " (by: " + dueDate + ")";
     }

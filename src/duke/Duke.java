@@ -25,12 +25,12 @@ public class Duke {
     public static final String INVALID_DESCRIPTION = "Please enter a valid description";
     public static final String SEPARATOR_SPACE = " ";
 
-
     public static void main(String[] args) {
+        System.out.println(WELCOME_MESSAGE);
         Assistant duke = new Assistant();
+        duke.loadFile();
         String userInput;
         Scanner in = new Scanner(System.in);
-        System.out.println(WELCOME_MESSAGE);
         userInput = in.nextLine();
         String[] inputs = userInput.split(SEPARATOR_SPACE,2);
         while (!inputs[0].equals(COMMAND_EXIT)) { //check command
@@ -54,13 +54,14 @@ public class Duke {
                 default:
                     throw new InvalidCommandException();
                 }
-            } catch (MissingInputException | ArrayIndexOutOfBoundsException e) {
+            } catch (MissingInputException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 System.out.println(INVALID_DESCRIPTION);
             } catch (InvalidCommandException e) {
                 System.out.println(INVALID_COMMAND);
             } catch (InvalidIndexException e) {
                 System.out.println(INVALID_INDEX);
             }
+            duke.saveFile();
             userInput = in.nextLine();
             inputs = userInput.split(SEPARATOR_SPACE,2);
         }

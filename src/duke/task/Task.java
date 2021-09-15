@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     private String taskName;
     private boolean isDone;
 
@@ -24,6 +24,8 @@ public class Task {
     public void finishTask() {
         isDone = true;
     }
+
+    public abstract String exportTask();
 
     @Override
     public String toString() {
