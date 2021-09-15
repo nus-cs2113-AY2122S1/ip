@@ -9,9 +9,15 @@ deadline project /at
 deadline project /by 3pm
 list
 event concert /at 5pm
+delete 5
+delete 0
+delete asda
+done asdas
+done 5
 list
 done 0
 done 1
 done 2
+delete 2
 list
 bye

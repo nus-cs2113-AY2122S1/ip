@@ -20,6 +20,7 @@ public class Duke {
     public static final String USER_COMMAND_DONE = "DONE";
     public static final String USER_COMMAND_BYE = "BYE";
     public static final String USER_COMMAND_HELP = "HELP";
+    public static final String USER_COMMAND_DELETE = "DELETE";
 
     /* A nicely formatted line */
     private static final String LINE = "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
@@ -86,16 +87,24 @@ public class Duke {
                     taskManager.addTask(userInputArray, TaskType.TODO);
                     break;
                 case USER_COMMAND_DONE:
-                    taskManager.completeTask(userInputArray);
+                    taskManager.completeTask(Integer.parseInt(userInputArray[1]));
+                    break;
+                case USER_COMMAND_DELETE:
+                    taskManager.deleteTask(Integer.parseInt(userInputArray[1]));
                     break;
                 case USER_COMMAND_HELP:
                     printMessage(HELP_MESSAGE);
                     break;
+
                 default:
                     throw new InvalidCommandException("Invalid Command Given.\n" + HELP_MESSAGE);
                 }
             } catch (InvalidCommandException e) {
                 printMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                printMessage("Please give a number for the following command: " + userCommand + " <number>");
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
             }
         }
         printMessage(EXIT_MESSAGE);

@@ -27,10 +27,17 @@ public class TaskManager {
             + "EVENT <description> /at <date and time>";
     private static final String TASK_DOES_NOT_EXIST_MESSAGE = "Sorry, task selected does not exist! Please double "
             + "check if task number exist with the list command.";
-    private static final String TASK_NUMBER_NOT_VALID_MESSAGE = "Error in detecting task number. Please enter a valid"
-            + " number after done as such DONE <TASK NUMBER>, i.e: DONE 1";
-    private static final String TASK_NUMBER_MISSING_MESSAGE = "Task number was not given. Please give me a task "
-            + "number as such DONE <TASK NUMBER>, i.e: DONE 1";
+    private static final String DELETE_TASK_MESSAGE = "Why would you delete the following task? But anyways I have "
+            + "removed the following task.\n"
+            + "%s\n"
+            + "Now you have left %d tasks in the list.";
+    private static final String COMPLETE_TASK_MESSAGE = "Good lad, you have finally completed the task you needed "
+            + "to do.\n"
+            + "%s";
+    private static final String ADD_TASK_MESSAGE = "Gaben have seen and will add the following task for you:\n"
+            + "%s\n"
+            + "You now have %d task in the list";
+
 
     /* List of tasks */
     private final ArrayList<Task> tasksList;
@@ -115,8 +122,7 @@ public class TaskManager {
             // As long as task is valid, add to task list and inform user
             if (task != null) {
                 tasksList.add(task);
-                Duke.printMessage(String.format("Gaben have seen and will add the following task for you:\n" +
-                        "%s\n" + "You now have %d task in the list", task, tasksList.size()));
+                Duke.printMessage(String.format(ADD_TASK_MESSAGE, task, tasksList.size()));
             }
 
         } catch (IndexOutOfBoundsException e) {
@@ -150,22 +156,6 @@ public class TaskManager {
     }
 
     /**
-     * Check for valid number
-     *
-     * @param number Number given by user
-     * @return Integer value of the number given in string
-     * @throws InvalidParameterException If number is not able to be converted to int
-     */
-    public int stringToInteger(String number) throws InvalidParameterException {
-        try {
-            int taskNumber = Integer.parseInt(number);
-            return taskNumber;
-        } catch (NumberFormatException e) {
-            throw new InvalidParameterException(TASK_NUMBER_NOT_VALID_MESSAGE);
-        }
-    }
-
-    /**
      * Check if task exist
      *
      * @param taskNumber Task Number given by user
@@ -183,21 +173,33 @@ public class TaskManager {
     /**
      * Set the task to be completed by marking it done.
      *
-     * @param userInputArray Command and parameters given by user
+     * @param taskNumber task number given by user
      */
-    public void completeTask(String[] userInputArray) {
+    public void completeTask(int taskNumber) {
         try {
-            int taskNumber = stringToInteger(userInputArray[1]);
             int taskNumberIndex = checkTaskExist(taskNumber);
             Task task = tasksList.get(taskNumberIndex);
             task.markAsDone();
-            Duke.printMessage("Good lad, you have finally completed the task you needed to do.\n" + task);
+            Duke.printMessage( String.format(COMPLETE_TASK_MESSAGE,task));
         } catch (InvalidParameterException e) {
             Duke.printMessage(e.getMessage());
-        } catch (IndexOutOfBoundsException e) {
-            Duke.printMessage(TASK_NUMBER_MISSING_MESSAGE);
         }
+    }
 
+    /**
+     * Delete task as request by user.
+     *
+     * @param taskNumber task number given by user
+     */
+    public void deleteTask(int taskNumber) {
+        try {
+            int taskNumberIndex = checkTaskExist(taskNumber);
+            Task task = tasksList.get(taskNumberIndex);
+            Duke.printMessage(String.format(DELETE_TASK_MESSAGE, task, tasksList.size()));
+            tasksList.remove(taskNumberIndex);
+        } catch (InvalidParameterException e) {
+            Duke.printMessage(e.getMessage());
+        }
     }
 
 }

@@ -65,12 +65,28 @@ Gaben have seen and will add the following task for you:
 You now have 5 task in the list
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Total of 5 task(s)
+Why would you delete the following task? But anyways I have removed the following task.
+[E][ ] concert  (at: 5pm)
+Now you have left 5 tasks in the list.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Sorry, task selected does not exist! Please double check if task number exist with the list command.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Please give a number for the following command: DELETE <number>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Please give a number for the following command: DONE <number>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Sorry, task selected does not exist! Please double check if task number exist with the list command.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Total of 4 task(s)
 1.[T][ ] eat
 2.[T][ ] sleep
 3.[T][ ] play
 4.[D][ ] project  (by: 3pm)
-5.[E][ ] concert  (at: 5pm)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -85,12 +101,15 @@ Good lad, you have finally completed the task you needed to do.
 [T][X] sleep
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-Total of 5 task(s)
+Why would you delete the following task? But anyways I have removed the following task.
+[T][X] sleep
+Now you have left 4 tasks in the list.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Total of 3 task(s)
 1.[T][X] eat
-2.[T][X] sleep
-3.[T][ ] play
-4.[D][ ] project  (by: 3pm)
-5.[E][ ] concert  (at: 5pm)
+2.[T][ ] play
+3.[D][ ] project  (by: 3pm)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
