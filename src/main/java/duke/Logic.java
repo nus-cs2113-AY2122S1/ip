@@ -20,7 +20,6 @@ public class Logic {
         userInterface = new UserInterface();
         database = new Database(filePath);
         tasks = database.loadTasks();
-
     }
 
     /**

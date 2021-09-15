@@ -18,7 +18,6 @@ import java.util.Scanner;
  * @param "filepath" filepath of storage file, duke.txt.
  */
 public class Database{
-
     private static String filePath;
 
     public Database(String filePath) {

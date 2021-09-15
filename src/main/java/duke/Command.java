@@ -141,6 +141,4 @@ public class Command extends Logic {
     public boolean getExitStatus() {
         return isBye;
     }
-
-
 }
