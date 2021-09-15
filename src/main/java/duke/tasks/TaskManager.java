@@ -10,6 +10,10 @@ public class TaskManager {
     private static int numberOfTasksUndone;
     private static ArrayList<Task> taskList;
 
+    public TaskManager() {
+        taskList = new ArrayList<>();
+    }
+
     public static int getNumberOfTasksUndone() {
         return numberOfTasksUndone;
     }
@@ -18,6 +22,9 @@ public class TaskManager {
         return taskList.size();
     }
 
+    public static ArrayList<Task> getTaskList() {
+        return taskList;
+    }
 
     /**
      * Prints the task list
@@ -26,6 +33,9 @@ public class TaskManager {
     public static void printTaskList() {
         System.out.println(LINE_SEPARATOR);
         for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.size() == 0) {
+                break;
+            }
             System.out.print((i + 1) + ". ");
             System.out.println(taskList.get(i).toString());
         }
