@@ -27,7 +27,8 @@ public class Duke {
         boolean isStillInteracting = true;
         while (isStillInteracting) {
             String[] commandComponents = InputParser.getCommandComponents(in);
-            isStillInteracting = Command.executeCommand(commandComponents, taskManager);
+            Command.executeCommand(commandComponents, taskManager);
+            isStillInteracting = !commandComponents[0].equals(Command.COMMAND_EXIT_PROGRAM);
         }
     }
 

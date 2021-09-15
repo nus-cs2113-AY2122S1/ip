@@ -14,8 +14,7 @@ public class Command {
     public static final String COMMAND_ADD_EVENT_TASK = "event";
     public static final int COMMAND_INDEX = 0;
 
-    public static boolean executeCommand(String[] commandComponents, TaskManager taskManager) {
-        boolean isInteracting = true;
+    public static void executeCommand(String[] commandComponents, TaskManager taskManager) {
         switch (commandComponents[COMMAND_INDEX]) {
         case COMMAND_LIST_TASK:
             taskManager.listTask();
@@ -36,13 +35,10 @@ public class Command {
             taskManager.deleteTask(commandComponents);
             break;
         case COMMAND_EXIT_PROGRAM:
-            isInteracting = false;
             break;
         default:
             Error.displayInvalidCommandError();
             break;
         }
-
-        return isInteracting;
     }
 }
