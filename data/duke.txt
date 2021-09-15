@@ -1,5 +1,2 @@
-T||false||a
-D||true||b ||b
 E||true||shit ||when
- ||false||b
-E||false||c ||c
+ ||false||hello
