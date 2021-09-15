@@ -23,8 +23,8 @@ public class TaskList {
     }
 
     public void addTask(String request) throws Exception {
-        Task newTask = Request.getTask(request);
-        tasks.add(newTask);
+        Task newTask = RequestParser.getTask(request);
+        loadTask(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
                 ,newTask, tasks.size());
@@ -32,7 +32,7 @@ public class TaskList {
 
     public void doneTask(String request) {
         try {
-            int taskIndex = Request.getTaskIndex(request.trim());
+            int taskIndex = RequestParser.getTaskIndex(request.trim());
             Task task = tasks.get(taskIndex);
             if (task.isDone()) {
                 System.out.println("This task is already done!");
@@ -50,7 +50,7 @@ public class TaskList {
 
     public void deleteTask(String request) {
          try {
-             int taskIndex = Request.getTaskIndex(request.trim());
+             int taskIndex = RequestParser.getTaskIndex(request.trim());
              System.out.printf("Noted. I've removed this task:\n" +
                      "  %s\nNow you have %d task in the list.\n", tasks.remove(taskIndex), tasks.size());
          } catch (ArrayIndexOutOfBoundsException ex) {

@@ -19,13 +19,13 @@ public class Duke {
         File file = FileHandler.loadFile();
         FileHandler.readFile(list,file);
         String request = in.nextLine();
-        while (Request.isBye(request)) {
+        while (CommandType.isNotBye(request)) {
             try {
-                if (Request.isList(request)) {
+                if (CommandType.isList(request)) {
                     list.printTasks();
-                } else if (Request.isDone(request)) {
+                } else if (CommandType.isDone(request)) {
                     list.doneTask(request);
-                } else if (Request.isDelete(request)) {
+                } else if (CommandType.isDelete(request)) {
                     list.deleteTask(request);
                 } else {
                     list.addTask(request);

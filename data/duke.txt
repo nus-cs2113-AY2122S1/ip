@@ -1,1 +1,2 @@
-duke.Task,true,work
+duke.Task,false,work
+duke.Event,false,more work,done
