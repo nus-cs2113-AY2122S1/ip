@@ -18,3 +18,5 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 /text-ui-test/runtest.bat
 duke/data/duke.txt
+src/META-INF/MANIFEST.MF
+/*.jar
