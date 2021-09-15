@@ -248,7 +248,7 @@ public class Duke {
             String textToAppend = sb.toString();
             try {
                 appendToFile(pathName + fileName, textToAppend + System.lineSeparator());
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
         }
