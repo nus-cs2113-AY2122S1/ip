@@ -133,6 +133,7 @@ public class Duke {
     private static void deleteTask(String input) {
         try {
             task.deleteTask(input);
+            FileManager.writeTaskListToFile(task);
         } catch (DukeException e) {
             final String message = e.getMessage();
             switch (message) {
