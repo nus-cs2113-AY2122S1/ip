@@ -62,8 +62,11 @@ public class FileManager {
 
     /**
      * Loads a task as an object in the program
+     *
+     * @param input String of input task from file to program
+     * @param tasks Arraylist of tasks
      */
-    private static void loadStoredTasks(String input, Task[] tasks) {
+    private static void loadStoredTasks(String input, ArrayList<Task> tasks) {
         String[] splitArr = input.split("\\|");
         String taskType = splitArr[0].trim();
         String taskIsDone = splitArr[1].trim();
