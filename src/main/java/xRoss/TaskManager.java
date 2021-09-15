@@ -43,6 +43,9 @@ public class TaskManager implements FileManager{
 
         // increment total tasksCount
         tasksCount++;
+
+        saveToFile();
+
         System.out.println("\tThere are " + tasksCount + " task(s) in your task list\n");
     }
 
@@ -64,6 +67,8 @@ public class TaskManager implements FileManager{
 
         tasks[taskIndex].setDone();
         completedTasksCount++;
+
+        saveToFile();
 
         // Print name of task to system output
         System.out.print("\tGood job! I have marked your task as done.\n\t\t");
