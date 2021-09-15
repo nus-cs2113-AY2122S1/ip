@@ -12,7 +12,9 @@ public class ListManager implements TaskList{
     private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task: ";
     private static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
     private static final String MESSAGE_TASK_IN_LIST = " tasks in the list.";
+    private static final String MESSAGE_LIST_TASK = "Here are the tasks in your list:";
     private static final String MESSAGE_TASK_NOW = "Now you have ";
+    private static final String MESSAGE_DELETE = "Noted. I've removed this task: ";
     private static final String MESSAGE_SPACER = ". ";
     private final ArrayList<Task> list;
 
@@ -21,6 +23,7 @@ public class ListManager implements TaskList{
     }
 
     public void printList(){
+        System.out.println(MESSAGE_LIST_TASK);
         for(int i = 0; i < list.size(); i++){
             int itemIndex= i + 1;
             System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
@@ -119,7 +122,17 @@ public class ListManager implements TaskList{
         }
         Task doneTask = list.get(t);
         doneTask.setDone();
-        System.out.println(Logo.divider + MESSAGE_TASK_COMPLETE + doneTask.getDescription());
+        System.out.println(Logo.divider + MESSAGE_TASK_COMPLETE + doneTask.toString());
+    }
+
+    public void deleteTask(int t) throws CommandException{
+        if(t > list.size() || t < 0){
+            throw new CommandException(ErrorList.ERROR_DELETE_TASK);
+        }
+        Task removeTask = list.get(t);
+        list.remove(t);
+        System.out.println(MESSAGE_DELETE + System.lineSeparator() + removeTask.toString() + System.lineSeparator() +
+                MESSAGE_TASK_NOW + list.size() + MESSAGE_TASK_IN_LIST);
     }
 
     public int getListSize(){

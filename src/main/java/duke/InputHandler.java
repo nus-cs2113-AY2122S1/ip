@@ -13,6 +13,7 @@ public class InputHandler implements InputInterface{
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String EVENT_TIME = "at";
     private static final String DEADLINE_DATE = "by";
+    private static final String COMMAND_DELETE = "delete";
 
     private String description;
     private final ListManager listManager;
@@ -43,6 +44,9 @@ public class InputHandler implements InputInterface{
         }
         if (userInput.startsWith(COMMAND_ECHO)){
             return COMMAND_ECHO;
+        }
+        if(userInput.startsWith(COMMAND_DELETE)){
+            return COMMAND_DELETE;
         }
         return null;
     }
@@ -103,7 +107,7 @@ public class InputHandler implements InputInterface{
         if(removeCommand.isEmpty()){
             throw new CommandException(ErrorList.ERROR_EMPTY_ECHO_INPUT);
         }
-        System.out.println(Logo.divider + removeCommand + Logo.divider);
+        System.out.println(Logo.divider + removeCommand + System.lineSeparator() + Logo.divider);
     }
 
     private void handleList(String userInput) throws CommandException{
@@ -136,29 +140,44 @@ public class InputHandler implements InputInterface{
         System.out.println(Logo.dividerWithoutNewLine);
     }
 
+    private void handleDelete(String userInput)throws CommandException{
+        String removeCommand = userInput.replaceFirst(COMMAND_DELETE,"").trim();
+        String[] taskDoneArray = removeCommand.split(",");
+        System.out.println(Logo.dividerWithoutNewLine);
+        for (String s: taskDoneArray) {
+            int taskDoneIndex = Integer.parseInt(s);
+            try {
+                listManager.deleteTask(taskDoneIndex - 1);
+            }catch (CommandException e){
+                e.handleException();
+            }
+        }
+        System.out.println(Logo.dividerWithoutNewLine);
+    }
+
     public void handleInput() throws CommandException{
         if(description.isEmpty()){
             throw new CommandException(ErrorList.ERROR_NULL);
         }
         boolean isAddingTask = false;
-        description = description.replaceAll("/","");
+        description = description.replaceAll(";","");
         if(description.contains(COMMAND_ADD_DEADLINE)){
             isAddingTask = true;
-            description = description.replaceAll(COMMAND_ADD_DEADLINE,"/"+ COMMAND_ADD_DEADLINE);
+            description = description.replaceAll(COMMAND_ADD_DEADLINE,";"+ COMMAND_ADD_DEADLINE);
         }
         if(description.contains(COMMAND_ADD_TODO)){
             isAddingTask = true;
-            description = description.replaceAll(COMMAND_ADD_TODO,"/"+ COMMAND_ADD_TODO);
+            description = description.replaceAll(COMMAND_ADD_TODO,";"+ COMMAND_ADD_TODO);
         }
         if(description.contains(COMMAND_ADD_EVENT)){
             isAddingTask = true;
-            description = description.replaceAll(COMMAND_ADD_EVENT,"/"+ COMMAND_ADD_EVENT);
+            description = description.replaceAll(COMMAND_ADD_EVENT,";"+ COMMAND_ADD_EVENT);
         }
         if(description.startsWith(COMMAND_VIEW_LIST)){
             isAddingTask = false;
         }
         if(isAddingTask) {
-            String[] commandList = description.split("/");
+            String[] commandList = description.split(";");
             for (int i = 1; i < commandList.length; i++) {
                 handleCommand(commandList[i]);
             }
@@ -214,6 +233,12 @@ public class InputHandler implements InputInterface{
                     e.handleException();
                 }
                 break;
+            case COMMAND_DELETE:
+                try{
+                    handleDelete(userInput);
+                }catch (CommandException e){
+                    e.handleException();;
+                }
             }
         }catch(NullPointerException e){
             try {

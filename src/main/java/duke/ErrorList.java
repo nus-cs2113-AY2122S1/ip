@@ -15,5 +15,6 @@ public class ErrorList {
     public static final String ERROR_EMPTY_EVENT_TIME = "☹ OOPS!!! The timing of a event cannot be empty.\n";
     public static final String ERROR_EMPTY_DEADLINE_TIME = "☹ OOPS!!! The due date of a deadline cannot be empty.\n";
     public static final String ERROR_DONE_TASK_NOT_IN_LIST ="☹ OOPS!!! Task done not found in list\n";
+    public static final String ERROR_DELETE_TASK ="☹ OOPS!!! Cannot remove task that does not exist.\n";
     public static final String ERROR_LETTER_NOT_FOUND = "☹ OOPS!!! Something went wrong. Do not input space or symbols.\n";
 }

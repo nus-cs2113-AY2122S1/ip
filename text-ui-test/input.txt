@@ -2,9 +2,11 @@ echo Hi
 !echo hi
 todo watch et1231 livestream todo watch hankyuu livestream
 todo watch haxxnini livestream
-deadline reach mystic by this season event game session at 10pm
+deadline reach radiant by this season
+event G2 vs Sentinel at 12am
 !help
 list
-done 1,2,3
+done 1,2,4
+delete 1
 list
 bye
