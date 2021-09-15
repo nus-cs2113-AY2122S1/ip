@@ -7,6 +7,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Parser {
@@ -14,6 +15,7 @@ public class Parser {
     static final int TODO_OFFSET = 5;
     static final int DEADLINE_OFFSET = 9;
     static final int EVENT_OFFSET = 6;
+    static final int FIND_OFFSET = 5;
 
     private final Scanner userInput = new Scanner(System.in);
     private String userInputString;
@@ -59,6 +61,10 @@ public class Parser {
                 } else {
                     throw new DukeException(DukeException.INDEX_OOB);
                 }
+            } else if (userInputString.startsWith("find ")) {
+                String key = userInputString.substring(FIND_OFFSET).trim();
+                return new FindCommand(key);
+
             } else {
                 if (Task.getTotalTasks() >= MAX_STORED_TASKS) {
                     throw new DukeException(DukeException.TASK_ARRAY_FULL);
