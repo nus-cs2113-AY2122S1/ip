@@ -57,6 +57,13 @@ public class Duke {
             case "done":
                 markTaskAsDone(taskList, userInput);
                 break;
+            case "delete":
+                try {
+                    deleteTaskFromList(taskList, userInput);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please input a valid index.");
+                }
+                break;
             default:
                 System.out.println("Invalid! Please try again.");
             }
@@ -69,6 +76,16 @@ public class Duke {
             }
         }
         printGoodbyeMessage();
+    }
+
+    private static void deleteTaskFromList(TaskList taskList, String userInput){
+        String userInputIndex = identifyUserInput(userInput)[1];
+        int index = Integer.parseInt(userInputIndex);
+        taskList.deleteTask(index);
+        System.out.println("Item " + userInputIndex + " has been deleted");
+        System.out.println("Here is the new list: ");
+        listTask(taskList);
+        createNewOutputFile(taskList);
     }
 
     /**
@@ -199,8 +216,14 @@ public class Duke {
      * @param userInput
      */
     private static void addToDoTask(TaskList taskList, String userInput) {
+        boolean completed = false;
+        if(userInput.contains("[X]")){
+            completed = true;
+        }  else {
+            completed = false;
+        }
         ToDo toDoTask = new ToDo(userInput.substring(userInput.indexOf(' ',0))
-                ,false);
+                ,completed);
         taskList.addTasks(toDoTask);
         toDoTask.initialiseToDo();
     }
@@ -212,9 +235,15 @@ public class Duke {
      * @param userInput
      */
     private static void addEventTask(TaskList taskList, String userInput) {
+        boolean completed = false;
+        if(userInput.contains("[X]")){
+            completed = true;
+        }  else {
+            completed = false;
+        }
         Events eventTask = new Events(
                 userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/')),
-                false,"/" + identifyDeadlineCommand(userInput)[1]);
+        completed,"/" + identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(eventTask);
         eventTask.initialiseEvent();
     }
@@ -226,9 +255,15 @@ public class Duke {
      * @param userInput
      */
     private static void addDeadlineTask(TaskList taskList, String userInput) {
+        boolean completed = false;
+        if(userInput.contains("[X]")){
+            completed = true;
+        }  else {
+            completed = false;
+        }
         Deadline deadLineTask = new Deadline(
                 userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/'))
-                ,false,"/" + identifyDeadlineCommand(userInput)[1]);
+                ,completed,"/" + identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(deadLineTask);
         deadLineTask.initialiseDeadline();
     }
@@ -330,6 +365,7 @@ public class Duke {
         case "list":
         case "bye":
         case "done":
+        case "delete":
         case "deadline":
             return userInput;
         default:
