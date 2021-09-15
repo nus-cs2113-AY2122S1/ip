@@ -122,6 +122,7 @@ public class Duke {
         System.out.println(deletedTask);
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
         printLine();
+        updateTasksInFile();
     }
 
     public void addDeadlineOrEventTask(String[] inputWords, String type)
@@ -204,6 +205,7 @@ public class Duke {
         int taskIndex = Integer.parseInt(taskNumber) - 1;
         taskList.get(taskIndex).setAsDone();
         System.out.println(taskList.get(taskIndex));
+        updateTasksInFile();
     }
 
     public static void printLine() {
@@ -234,6 +236,7 @@ public class Duke {
         }
     }
 
+    // Takes in task details in 'file' format and interprets it.
     public void processDataFile(String dataTask) {
         String[] taskDetails = dataTask.split(" \\| ");
         String taskType = taskDetails[0];
@@ -269,10 +272,29 @@ public class Duke {
         }
     }
 
+    // This function is executed when we add a task to the list. The task is added to the file.
     public void appendTaskToFile(Task task) {
         try {
             FileWriter file = new FileWriter("data/duke.txt", true);
             String taskDetails = task.getTaskDetailsInFileFormat() + "\n";
+            file.write(taskDetails);
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    // This function is executed when we need to update the tasks in the file.
+    // ie. When we delete a task, or mark a task as done.
+    public void updateTasksInFile() {
+        try {
+            FileWriter file = new FileWriter("data/duke.txt");
+            String taskDetails = "";
+
+            for (int i = 0; i < taskList.size(); i++) {
+                taskDetails += taskList.get(i).getTaskDetailsInFileFormat() + "\n";
+            }
+
             file.write(taskDetails);
             file.close();
         } catch (IOException e) {
