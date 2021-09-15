@@ -1,8 +1,10 @@
 package duke;
 
 import java.util.Scanner;
-import duke.exception.EmptyCommandException;
+import java.util.ArrayList;
+
 import duke.exception.IllegalCommandException;
+import duke.exception.EmptyCommandException;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -10,18 +12,22 @@ import duke.task.Todo;
 
 public class Duke {
 
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>();
 
-    /** Prints a farewell message when the user exits the program. */
+    /**
+     * Prints a farewell message when the user exits the program.
+     */
     public static void commandBye() {
         System.out.println("Bye! I hope to see you again soon :)");
     }
 
-    /** Lists all tasks with their status. */
+    /**
+     * Lists all tasks with their status.
+     */
     public static void commandList() {
         System.out.println("Here are your current tasks and their status:");
-        for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (Task task : tasks) {
+            System.out.println(tasks.indexOf(task) + ". " + task);
         }
     }
 
@@ -41,20 +47,20 @@ public class Duke {
         }
 
         if (line.startsWith("todo")) {
-            tasks[Task.getTaskCount()] = new Todo(line.replace("todo ", ""));
+            tasks.add(Task.getTaskCount(), new Todo(line.replace("todo ", "")));
         } else if (!line.contains("/")) {
             throw new IllegalCommandException();
         } else if (line.startsWith("deadline")) {
             String[] words = line.split("/");
-            tasks[Task.getTaskCount()] = new Deadline(words[0].replace("deadline ", ""),
-                                                                        words[1].replace("by ", ""));
+            tasks.add(Task.getTaskCount(), new Deadline(words[0].replace("deadline ", ""),
+                    words[1].replace("by ", "")));
         } else if (line.startsWith("event")) {
             String[] words = line.split("/");
-            tasks[Task.getTaskCount()] = new Event(words[0].replace("event ", ""),
-                                                                words[1].replace("at ", ""));
+            tasks.add(Task.getTaskCount(), new Event(words[0].replace("event ", ""),
+                    words[1].replace("at ", "")));
         }
 
-        System.out.println("I've added that to your list:\n" + tasks[Task.getTaskCount() - 1]);
+        System.out.println("I've added that to your list:\n" + tasks.get(Task.getTaskCount() - 1));
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
@@ -65,15 +71,35 @@ public class Duke {
      *
      * @param line The command entered by the user.
      */
-    public static void doneTask(String line) {
+    public static void doneTask(String line) throws EmptyCommandException, IllegalCommandException {
         String[] words = line.split(" ");
         if (words.length < 2) {
-            System.out.println("You didn't give me the task's number, try that command again.");
+            throw new EmptyCommandException();
         } else {
-            int taskIndex = Integer.parseInt(words[1]);
-            tasks[taskIndex - 1].setDone(true);
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks[taskIndex - 1]);
+            try {
+                int taskIndex = Integer.parseInt(words[1]);
+                tasks.get(taskIndex - 1).setDone(true);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(tasks.get(taskIndex - 1));
+            } catch (NumberFormatException e) {
+                throw new IllegalCommandException();
+            }
+        }
+    }
+
+    public static void deleteTask(String line) throws EmptyCommandException, IllegalCommandException {
+        String[] words = line.split(" ");
+        if (words.length < 2) {
+            throw new EmptyCommandException();
+        } else {
+            try {
+                int taskIndex = Integer.parseInt(words[1]);
+                System.out.println("Okay, I've deleted that task!");
+                System.out.println(tasks.get(taskIndex - 1));
+                tasks.remove(taskIndex - 1);
+            } catch (NumberFormatException e) {
+                throw new IllegalCommandException();
+            }
         }
     }
 
@@ -85,21 +111,23 @@ public class Duke {
         // Check which command the user entered and
         // call the corresponding method.
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
-                commandList();
-            } else if (line.startsWith("done")) {
-                doneTask(line);
-            } else {
-                // exception handling
-                try {
+            try {
+                if (line.equals("list")) {
+                    commandList();
+                } else if (line.startsWith("done")) {
+                    doneTask(line);
+                } else if (line.startsWith("delete")) {
+                    deleteTask(line);
+                } else {
                     addTask(line);
-                } catch (EmptyCommandException e) {
-                    System.out.println("Sorry, you didn't give me a fitting description for your task.");
-                } catch (IllegalCommandException e) {
-                    System.out.println("That's not a known command format!");
                 }
-
+            //exception handling
+            } catch (EmptyCommandException e) {
+                System.out.println("Sorry, you didn't give me a fitting description for your task.");
+            } catch (IllegalCommandException e) {
+                System.out.println("That's not a known command format!");
             }
+
             line = in.nextLine();
         }
         commandBye();
