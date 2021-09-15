@@ -23,7 +23,7 @@ public class TaskManager extends Duke {
         String todoDescription = input.substring(INDEX_AFTER_TODO).trim();
 
         Task todo = new Todo(todoDescription);
-        list[count] = todo;
+        list.add(count,todo);
         count++;
 
         return todo;
@@ -46,8 +46,8 @@ public class TaskManager extends Duke {
         String deadlineDate = getDateFromCommand(input);
 
         Task deadline = new Deadline(deadlineDescription, deadlineDate);
-        Duke.list[Duke.count] = deadline;
-        Duke.count++;
+        list.add(count,deadline);
+        count++;
 
         return deadline;
     }
@@ -69,8 +69,8 @@ public class TaskManager extends Duke {
         String eventDate = getDateFromCommand(input);
 
         Task event = new Event(eventDescription, eventDate);
-        Duke.list[Duke.count] = event;
-        Duke.count++;
+        list.add(count,event);
+        count++;
 
         return event;
     }
