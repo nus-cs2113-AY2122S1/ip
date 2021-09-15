@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import duke.command.DukeException;
 import duke.task.*;
@@ -15,22 +16,29 @@ public class Duke {
         System.out.println(logo);
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        Task[] todo = new Task[100];
+        //Task[] todo = new Task[100];
+        ArrayList<Task> todo = new ArrayList<>(100);
         int todo_index = 0;
         while (true) {
-            if (input.substring(0, 4).equals("done")) {
+            if (input.equals("bye")) {
+                logo = "____________________________________________________________\n"
+                        + "Bye. Hope to see you again soon!\n"
+                        + "____________________________________________________________\n";
+                System.out.println(logo);
+                break;
+            } else if (input.substring(0, 4).equals("done")) {
                 int i = Integer.parseInt(input.substring(5));
-                todo[i - 1].markAsDone();
+                todo.get(i - 1).markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(todo[i - 1].toString());
+                System.out.println(todo.get(i - 1).toString());
                 System.out.println("____________________________________________________________");
             } else {
                 switch (input) {
                 case "list":
                     System.out.println("____________________________________________________________");
                     for (int i = 0; i < todo_index; i++) {
-                        System.out.println(i + 1 + ". " + todo[i].toString());
+                        System.out.println(i + 1 + ". " + todo.get(i).toString());
                     }
                     System.out.println("____________________________________________________________");
                     break;
@@ -40,37 +48,31 @@ public class Duke {
                             + "____________________________________________________________\n";
                     System.out.println(logo);
                     break;
-                case "bye":
-                    logo = "____________________________________________________________\n"
-                            + "Bye. Hope to see you again soon!\n"
-                            + "____________________________________________________________\n";
-                    System.out.println(logo);
-                    break;
                 default:
-                    if(input.substring(0, 4).equals("todo")){
+                    if (input.substring(0, 4).equals("todo")) {
                         try {
                             String description = input.substring(5);
-                            todo[todo_index] = new Task(description);
+                            todo.add(new Task(description));
                             System.out.println("____________________________________________________________");
                             System.out.println("Got it. I've added this task: ");
-                            System.out.println(todo[todo_index].toString());
+                            System.out.println(todo.get(todo_index).toString());
                             todo_index += 1;
                         } catch (StringIndexOutOfBoundsException e) {
                             System.out.println("____________________________________________________________");
                             System.out.println("OOPS!!! The description of a todo cannot be empty.");
                             System.out.println("____________________________________________________________");
                         }
-                    }else if(input.startsWith("deadline")){
+                    } else if (input.startsWith("deadline")) {
                         int descriptionIndex = 9;
-                        String task =  "deadline";
+                        String task = "deadline";
                         try {
-                            ExceptionTry(task,input);
+                            ExceptionTry(task, input);
                             String description = input.substring(input.indexOf("deadline") + descriptionIndex, input.indexOf("/by") - 1);
                             String by = input.substring(input.indexOf("/by") + 4);
-                            todo[todo_index] = new Deadline(description, by);
+                            todo.add(new Deadline(description, by));
                             System.out.println("____________________________________________________________");
                             System.out.println("Got it. I've added this task: ");
-                            System.out.println(todo[todo_index].toString());
+                            System.out.println(todo.get(todo_index).toString());
                             todo_index += 1;
                         } catch (DukeException e) {
                             System.out.println("____________________________________________________________");
@@ -82,19 +84,19 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                         }
 
-                    }else if(input.startsWith("event")){
+                    } else if (input.startsWith("event")) {
                         int descriptionIndex = 6;
-                        String task =  "event";
+                        String task = "event";
                         try {
-                            ExceptionTry(task,input);
+                            ExceptionTry(task, input);
                             String description = input.substring(input.indexOf("event") + descriptionIndex, input.indexOf("/at") - 1);
                             String at = input.substring(input.indexOf("/at") + 4);
-                            todo[todo_index] = new Event(description, at);
+                            todo.add(new Event(description, at));
                             System.out.println("____________________________________________________________");
                             System.out.println("Got it. I've added this task: ");
-                            System.out.println(todo[todo_index].toString());
+                            System.out.println(todo.get(todo_index).toString());
                             todo_index += 1;
-                        }catch (DukeException e) {
+                        } catch (DukeException e) {
                             System.out.println("____________________________________________________________");
                             System.out.println("OOPS!!! The description of a event must have /at.");
                             System.out.println("____________________________________________________________");
@@ -104,8 +106,15 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                         }
 
-                    }
-                    System.out.println("Now you have "+ todo_index  +" tasks in the list.");
+                    }else if(input.startsWith("delete")){
+                            int i = Integer.parseInt(input.substring(7));
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Noted. I've removed this task: ");
+                            System.out.println(todo.get(i - 1).toString());
+                            todo.remove(i-1);
+                            todo_index -= 1;
+                        }
+                    System.out.println("Now you have " + todo_index + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     break;
                 }
