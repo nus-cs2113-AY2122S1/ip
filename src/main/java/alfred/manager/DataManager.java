@@ -30,7 +30,7 @@ public abstract class DataManager {
                 return false;
             }
         } catch (IOException e) {
-            System.out.println("IO Exception at hasExistingFile()");
+            System.out.println(e);
         }
         return true;
     }
@@ -41,13 +41,13 @@ public abstract class DataManager {
         }
         int index = 0;
         try {
-            Scanner s = new Scanner(taskFile);
-            while (s.hasNext()) {
-                decodeAndLoadTask(tasks, s.nextLine(), index);
+            Scanner fileScanner = new Scanner(taskFile);
+            while (fileScanner.hasNext()) {
+                decodeAndLoadTask(tasks, fileScanner.nextLine(), index);
                 index++;
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found Exception at populateTasks().");
+            System.out.println(e);
         }
     }
 
@@ -73,14 +73,14 @@ public abstract class DataManager {
 
     public static void saveAllTasks(ArrayList<Task> tasks) {
         try {
-            FileWriter fw = new FileWriter(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (Task t : tasks) {
                 String encodedTask = encodeTask(t);
-                fw.write(encodedTask);
+                fileWriter.write(encodedTask);
             }
-            fw.close();
+            fileWriter.close();
         } catch (IOException e) {
-            System.out.println("IO Exception at saveAllTasks()");
+            System.out.println(e);
         }
     }
 
