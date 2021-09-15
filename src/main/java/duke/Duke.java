@@ -112,8 +112,11 @@ public class Duke {
      * Prints the list of tasks stored
      */
     private static void printList() {
+        int counter = 1;
         for (Task t: tasks) {
+            System.out.print(counter + ". ");
             System.out.println(t);
+            counter++;
         }
         printTaskNumber();
         return;
@@ -121,10 +124,6 @@ public class Duke {
 
     /**
      * Prints the number of tasks
-<<<<<<< HEAD
-     *
-=======
->>>>>>> branch-Level-6
      */
     private static void printTaskNumber() {
         String task = TASK_PLURAL;
