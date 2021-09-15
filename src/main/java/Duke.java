@@ -1,11 +1,15 @@
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Duke {
     public static void main(String[] args) throws IncorrectCommandInput {
         Scanner sc = new Scanner(System.in);
         LinkedList<Task> savedTasks = new LinkedList<Task>();
         TaskList taskList = new TaskList(savedTasks);
+        checkExistingOutputFile(taskList);
         printWelcomeMessage();
         String userInput = "";
         String commandInput = "";
@@ -68,6 +72,127 @@ public class Duke {
     }
 
     /**
+     * Check if there are existing saved files.
+     * If not will create a new one.
+     * @param taskList
+     */
+    public static void checkExistingOutputFile(TaskList taskList){
+        try{
+            Path path = Paths.get("duke.txt");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader(path.toAbsolutePath().toString()));
+            String outputFileLineText = "";
+            while((outputFileLineText = bufferedReader.readLine()) != null){
+                String command = outputFileLineText.substring(0, 3);
+                switch(command){
+                case "[T]":
+                    addToDoTaskFromSavedList(taskList, outputFileLineText);
+                    break;
+                case "[D]":
+                    addDeadlineTaskFromSavedList(taskList,outputFileLineText);
+                    break;
+                case "[E]":
+                    addEventTaskFromSavedList(taskList,outputFileLineText);
+                    break;
+                }
+            }
+            bufferedReader.close();
+            listTask(taskList);
+        } catch (FileNotFoundException e){
+            System.out.println("There is no such file, a new file named duke.txt will be created");
+
+        } catch(IOException e){
+            System.out.println("There is no text in the file");
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * Adds todo task from saved list to program list.
+     * @param taskList
+     * @param userInput
+     */
+    private static void addToDoTaskFromSavedList(TaskList taskList, String userInput) {
+        boolean completed = false;
+        String taskDescription = "";
+        if(userInput.contains("[X]")){
+            completed = true;
+            //taskDescription = userInput.split(" ", 3)[2];
+        } else{
+            completed = false;
+            //taskDescription = userInput.split(" ", 4)[3];
+        }
+        taskDescription = userInput.substring(userInput.indexOf(" ", 7));
+        ToDo toDoTask = new ToDo(taskDescription
+                ,completed);
+        taskList.addTasks(toDoTask);
+        toDoTask.initialiseToDo();
+    }
+
+    /**
+     * Adds Event task from saved list to program list.
+     * @param taskList
+     * @param userInput
+     */
+    private static void addEventTaskFromSavedList(TaskList taskList, String userInput) {
+        boolean completed = false;
+        String taskDescriptionOnly = "";
+        if(userInput.contains("[X]")){
+            completed = true;
+            //taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 6), userInput.indexOf("/"));
+        } else{
+            completed = false;
+            //taskDescriptionOnly = userInput.split(" ", 4)[3];
+        }
+        taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 7), userInput.indexOf("/"));
+        Events eventTask = new Events( taskDescriptionOnly,
+                completed,identifyDeadlineCommand(userInput)[1]);
+        taskList.addTasks(eventTask);
+        eventTask.initialiseEvent();
+    }
+
+    /**
+     * Adds deadline task from saved list to program list.
+     * @param taskList
+     * @param userInput
+     */
+    private static void addDeadlineTaskFromSavedList(TaskList taskList, String userInput) {
+        boolean completed = false;
+        String taskDescriptionOnly = "";
+        if(userInput.contains("[X]")){
+            completed = true;
+            //taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 6), userInput.indexOf("/"));
+        } else{
+            completed = false;
+            //taskDescriptionOnly = userInput.split(" ", 4)[3];
+        }
+        taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 7), userInput.indexOf("/"));
+        Deadline deadLineTask = new Deadline(taskDescriptionOnly,
+                completed,identifyDeadlineCommand(userInput)[1]);
+        taskList.addTasks(deadLineTask);
+        deadLineTask.initialiseDeadline();
+    }
+
+    /**
+     * Creates a new output file if there is no saved file
+     *
+     * @param taskList
+     */
+    public static void createNewOutputFile(TaskList taskList) {
+        try {
+            String dir = System.getProperty("user.dir");
+            BufferedWriter bufferedWriter = new BufferedWriter(
+                    new FileWriter(dir + "\\duke.txt"));
+            for (int i = 0; i < taskList.savedTasks.size(); i++) {
+                bufferedWriter.write(taskList.savedTasks.get(i).toString() + "\n");
+            }
+            bufferedWriter.close();
+        } catch(IOException e){
+            return;
+        }
+    }
+
+    /**
      * Adds a new todo task into the list of task.
      * Displays that the task has been added into the list.
      * @param taskList
@@ -89,7 +214,7 @@ public class Duke {
     private static void addEventTask(TaskList taskList, String userInput) {
         Events eventTask = new Events(
                 userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/')),
-                false,identifyDeadlineCommand(userInput)[1]);
+                false,"/" + identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(eventTask);
         eventTask.initialiseEvent();
     }
@@ -103,7 +228,7 @@ public class Duke {
     private static void addDeadlineTask(TaskList taskList, String userInput) {
         Deadline deadLineTask = new Deadline(
                 userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/'))
-                ,false,identifyDeadlineCommand(userInput)[1]);
+                ,false,"/" + identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(deadLineTask);
         deadLineTask.initialiseDeadline();
     }
@@ -119,7 +244,8 @@ public class Duke {
         try{
             taskListIndex = Integer.parseInt(identifyUserInput(userInput)[1]);
             currentTask = taskList.findTask(taskListIndex);
-            currentTask.markTaskAsDone();}
+            currentTask.markTaskAsDone();
+            createNewOutputFile(taskList);}
         catch(NumberFormatException e){
             System.out.println("Please choose a viable task");
         }
@@ -164,6 +290,7 @@ public class Duke {
         System.out.println("Now you have " + taskList.countTaskInList()
                 + " tasks in the list");
         System.out.println("______________________________\n");
+        createNewOutputFile(taskList);
     }
 
     /**
@@ -203,6 +330,7 @@ public class Duke {
         case "list":
         case "bye":
         case "done":
+        case "deadline":
             return userInput;
         default:
             throw new IncorrectCommandInput();
