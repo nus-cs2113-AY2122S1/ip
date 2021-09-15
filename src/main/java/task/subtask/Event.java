@@ -20,6 +20,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + "[" + getStatusIcon() + "]" + description + "(at: " + at + ")";
+        return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")";
+    }
+
+    @Override
+    public String getStoreDataString() {
+        String checkDone = isDone ? "1" : "0";
+        return "E | " + checkDone + " | " + description + " | " + at;
     }
 }

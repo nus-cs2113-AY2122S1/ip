@@ -5,12 +5,18 @@ import error.exception.DukeInvalidDescriptionFormatException;
 import error.Error;
 import error.Printer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    static Storage storage = new Storage();
     public static int count = 0;
-    public static Task[] list = new Task[100];
+    public static ArrayList<Task> list = new ArrayList<>();
 
+    /**
+     *  Prints the logo of the chatbot and calls userCommands for reading user input.
+     *  Data is also loaded at this stage.
+     */
     public static void main(String[] args) {
         //logo
         String logo = " _____  ________    _        ______  ___  ___  ______\n"
@@ -27,14 +33,17 @@ public class Duke {
                 + "Go ahead, give your command\n");
 
         Printer.printWelcomeMessage();
+        storage.loadData();
         userCommands();
     }
 
+    /**
+     *  Reads the different types of user input/commands until bye command is received.
+     */
     private static void userCommands() {
         boolean isOver = false;
         Scanner in = new Scanner(System.in);
 
-        //Runs until user enters bye
         while (!isOver) {
             String input = TaskManager.getUserInput(in);
             String command = TaskManager.getFirstWordFromCommand(input);
@@ -50,48 +59,45 @@ public class Duke {
 
                 //Lists down all the tasks added along with its status
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + list[i]);
+                    System.out.println((i + 1) + ". " + list.get(i));
                 }
 
                 Printer.printLineSeparator();
                 break;
             case "done":
-
                 try {
-                    //Extracts the index number from the text and changes status of the task
                     int index = TaskManager.getIndex(input);
-                    list[index].markAsDone();
+                    list.get(index).markAsDone();
 
                     Printer.printLineSeparator();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(list[index]);
+                    System.out.println(list.get(index));
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     Error.showDoneFormatError();
                 }
                 break;
             case "todo":
-
                 try {
-                    //Extracts the description, creates a Task object and stores the task in the list
                     Task todo = TaskManager.getTodoDetails(input);
 
                     Printer.printLineSeparator();
                     System.out.println("Got it. I've added this task:\n" + todo + "\nNow you have " + count + " tasks in the list.");
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (DukeEmptyTaskDescriptionException e) {
                     Error.showTaskDescriptionError();
                 }
                 break;
             case "deadline":
-
                 try {
-                    //Extracts the description and day/date, creates a Task object and stores the task in the list
                     Task deadline = TaskManager.getDeadlineDetails(input);
 
                     Printer.printLineSeparator();
                     System.out.println("Got it. I've added this task:\n" + deadline + "\nNow you have " + count + " tasks in the list.");
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (DukeInvalidDescriptionFormatException e) {
                     Error.showDeadlineFormatError();
                 } catch (DukeEmptyTaskDescriptionException e) {
@@ -99,14 +105,13 @@ public class Duke {
                 }
                 break;
             case "event":
-
                 try {
-                    //Extracts the description and the time, creates a Task object and stores the task in the list
                     Task event = TaskManager.getEventDetails(input);
 
                     Printer.printLineSeparator();
                     System.out.println("Got it. I've added this task:\n" + event + "\nNow you have " + count + " tasks in the list.");
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (DukeInvalidDescriptionFormatException e) {
                     Error.showEventFormatError();
                 } catch (DukeEmptyTaskDescriptionException e) {
@@ -114,7 +119,6 @@ public class Duke {
                 }
                 break;
             default:
-
                 Error.showInvalidCommandError();
             }
         }

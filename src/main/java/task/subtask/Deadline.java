@@ -20,6 +20,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatusIcon() + "]" + description + "(by: " + by + ")";
+        return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+    }
+
+    @Override
+    public String getStoreDataString() {
+        String checkDone = isDone ? "1" : "0";
+        return "D | " + checkDone + " | " + description + " | " + by;
     }
 }
