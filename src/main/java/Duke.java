@@ -40,7 +40,10 @@ public class Duke {
                     addDeadline(inputTask);
                 } else if (inputTask.contains("event")) {
                     addEvent(inputTask);
-                } else {
+                } else if (inputTask.contains("delete")) {
+                    deleteTask(inputTask);
+                }
+                else {
                     throw new DukeException();
                 }
             } catch (DukeException e) {
@@ -100,9 +103,19 @@ public class Duke {
         }
     }
 
+    public static void deleteTask(String inputTask) {
+        int sep = inputTask.indexOf(" ");
+        int number = Integer.parseInt(inputTask.substring(7));
+
+        System.out.println("Noted. I've removed this task: \n" + tasks.get(number-1) + "\n");
+        tasks.remove(number-1);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+        System.out.println(LINE);
+    }
+
     public static void markAsDone(int number) {
         tasks.get(number-1).setDone();
         System.out.println(LINE + "Nice! I've marked this task as done:\n");
-        System.out.println( tasks.get(number-1).toString());
+        System.out.println(tasks.get(number-1).toString());
     }
 }
