@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -40,27 +41,36 @@ public class Duke {
     public static final String COMMAND_EVENT_DESC = "Adds a task of \"EVENT\" type to the list";
     public static final String COMMAND_EVENT_PARAMETER = "TASK_DESCRIPTION "
                                                     + TASK_DATA_PREFIX_EVENT + "TIME_RANGE";
-    public static final int MAX_TASKS = 100;
+
+    public static final String COMMAND_DELETE_WORD = "delete";
+    public static final String COMMAND_DELETE_DESC = "Deletes a task";
+    public static final String COMMAND_DELETE_PARAMETER = "TASK_INDEX";
 
 
     /** List of all Tasks */
-    private static Task[] allTasks;
+    private static ArrayList<Task> allTasks;
+    private static boolean exit = true;
 
+    /** Text Messages **/
     private static final String LOGO = " ____        _        \n"
                                     + "|  _ \\ _   _| | _____ \n"
                                     + "| | | | | | | |/ / _ \\\n"
                                     + "| |_| | |_| |   <  __/\n"
                                     + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String DIVIDER = "____________________________________________________________\n";
+    private static final String DIVIDER = "____________________________________________________________" + System.lineSeparator();
+    private static final String EMPTY_LIST_MESSAGE = "☹ There are currently no tasks in the list";
+    private static final String EXIT_MESSAGE = "Bye, see you!";
+
     private static int tasksCount;
 
     public static void main(String[] args) {
         initTaskList();
         showWelcomeMessage();
-        while(true) {
+        while(exit) {
             String userInput = getUserInput();
             handleUserInput(userInput);
         }
+        System.out.println(EXIT_MESSAGE + System.lineSeparator() + DIVIDER);
     }
 
     private static String getUserInput() {
@@ -81,14 +91,21 @@ public class Duke {
                 break;
             case COMMAND_LIST_WORD:
                 executeListTasks();
+                System.out.println(DIVIDER);
                 break;
             case COMMAND_DONE_WORD:
                 executeCompleteTask(commandArgs);
+                System.out.println(DIVIDER);
                 break;
             case COMMAND_TODO_WORD:
             case COMMAND_DEADLINE_WORD:
             case COMMAND_EVENT_WORD:
                 addTasks(commandType, commandArgs);
+                System.out.println(DIVIDER);
+                break;
+            case COMMAND_DELETE_WORD:
+                deleteTask(commandArgs);
+                System.out.println(DIVIDER);
                 break;
             default:
                 throw new InvalidCommandException();
@@ -98,8 +115,6 @@ public class Duke {
         } catch (EmptyParamsException e) {
             showEmptyParamMessage(commandType);
         }
-
-        System.out.println(DIVIDER);
     }
 
     private static void addTasks(String taskType, String taskParams) throws EmptyParamsException {
@@ -119,24 +134,23 @@ public class Duke {
         }
     }
 
-    private static void addToDoTask(String commandArgs) {
-        ToDo newToDo = new ToDo(commandArgs);
-        allTasks[tasksCount] = newToDo;
+    private static void addToDoTask(String taskParams) {
+        ToDo newToDo = new ToDo(taskParams);
+        allTasks.add(newToDo);
         tasksCount++;
         showTaskMessage(tasksCount, newToDo);
     }
 
-    private static void addDeadlineTask(String commandArgs) {
+    private static void addDeadlineTask(String taskParams) {
         try {
-            String[] taskDescriptionAndDeadline = commandArgs.split("/by", 2);
+            String[] taskDescriptionAndDeadline = taskParams.split("/by", 2);
             String taskDescription = taskDescriptionAndDeadline[0];
             String deadline = taskDescriptionAndDeadline[1];
             if(taskDescription.equals("") || deadline.equals("")) {
                 showMissingTaskDescriptionMessage();
-            }
-            else {
+            } else {
                 Deadline newDeadline = new Deadline(taskDescription, deadline);
-                allTasks[tasksCount] = newDeadline;
+                allTasks.add(newDeadline);
                 tasksCount++;
                 showTaskMessage(tasksCount, newDeadline);
             }
@@ -146,17 +160,16 @@ public class Duke {
     }
 
 
-    private static void addEventTask(String commandArgs) {
+    private static void addEventTask(String taskParams) {
         try {
-            String[] taskDescriptionAndTimeRange = commandArgs.split("/at", 2);
+            String[] taskDescriptionAndTimeRange = taskParams.split("/at", 2);
             String taskDescription = taskDescriptionAndTimeRange[0];
             String timeRange = taskDescriptionAndTimeRange[1];
             if(taskDescription.equals("") || timeRange.equals("")) {
                 showMissingTaskDescriptionMessage();
-            }
-            else {
+            } else {
                 Event newEvent = new Event(taskDescription, timeRange);
-                allTasks[tasksCount] = newEvent;
+                allTasks.add(newEvent);
                 tasksCount++;
                 showTaskMessage(tasksCount, newEvent);
             }
@@ -166,31 +179,53 @@ public class Duke {
 
     }
 
-    private static void executeCompleteTask(String commandArgs) {
+    private static void executeCompleteTask(String userInput) {
         try {
-            int taskCompleted = Integer.parseInt(commandArgs) - 1;
-            if (allTasks[taskCompleted].isDone()) {
+            int taskIndex = Integer.parseInt(userInput) - 1;
+            if (allTasks.get(taskIndex).isDone()) {
                 System.out.println("You have already marked this task as done! Time to move on :)");
             } else {
-                allTasks[taskCompleted].markAsDone();
+                allTasks.get(taskIndex).markAsDone();
                 System.out.println("Awesome! You've completed the following task:");
-                System.out.println(" [X] " + allTasks[taskCompleted].getDescription());
+                System.out.println(" [X] " + allTasks.get(taskIndex).getDescription());
             }
+        } catch (NumberFormatException e) {
+            showInvalidTaskIndexMessage(COMMAND_DONE_WORD);
+        } catch (IndexOutOfBoundsException e) {
+            showExceedTaskIndexMessage();
         }
-        catch (NumberFormatException e) {
-            showInvalidTaskIndexMessage();
+    }
+
+    public static void deleteTask(String userInput) {
+        try {
+            int taskIndex = Integer.parseInt(userInput) - 1;
+            //given task does not exist in list
+            Task taskToDelete = allTasks.get(taskIndex);
+            System.out.println("Successfully deleted the following task:" + System.lineSeparator() +
+                    "   " + taskToDelete);
+            allTasks.remove(taskToDelete);
+            System.out.println("Now you have " + allTasks.size() + " tasks in the list." +
+                    System.lineSeparator());
+        } catch (NumberFormatException e) {
+            showInvalidTaskIndexMessage(COMMAND_DELETE_WORD);
+        } catch (IndexOutOfBoundsException e) {
+            showExceedTaskIndexMessage();
         }
     }
 
     private static void executeListTasks() {
-        for(int i = 0; i < tasksCount; i++){
-            System.out.println((i + 1) + "." + allTasks[i]);
+        if (tasksCount == 0) {
+            System.out.println(EMPTY_LIST_MESSAGE);
+        }
+        else {
+            for(int i = 0; i < tasksCount; i++){
+                System.out.println((i + 1) + "." + allTasks.get(i));
+            }
         }
     }
 
     private static void exitProgram() {
-        System.out.println("Bye, see you!\n" + DIVIDER);
-        System.exit(0);
+        exit = false;
     }
 
     private static String[] splitCommandWordAndArgs(String userInput) {
@@ -199,13 +234,13 @@ public class Duke {
     }
 
     private static void initTaskList() {
-        allTasks = new Task[MAX_TASKS];
+        allTasks = new ArrayList<>();
         tasksCount = 0;
     }
 
     private static void showTaskMessage(int inputCount, Task task) {
         System.out.println("Successfully added. Here's the added task: ");
-        System.out.println(task);
+        System.out.println("   " + task);
         if (inputCount == 1) {
             System.out.println("There is 1 task in the list now.");
         } else {
@@ -227,7 +262,8 @@ public class Duke {
                 + getUsageInfoForEventCommand() + System.lineSeparator()
                 + getUsageInfoForDoneCommand() + System.lineSeparator()
                 + getUsageInfoForListCommand() + System.lineSeparator()
-                + getUsageInfoForExitCommand() + System.lineSeparator();
+                + getUsageInfoForExitCommand() + System.lineSeparator()
+                + getUsageInfoForDeleteCommand() + System.lineSeparator();
     }
 
     private static String getUsageInfoForTodoCommand() {
@@ -248,6 +284,11 @@ public class Duke {
     private static String getUsageInfoForDoneCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_DONE_WORD, COMMAND_DONE_DESC) + System.lineSeparator()
                 + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DONE_PARAMETER) + System.lineSeparator();
+    }
+
+    private static String getUsageInfoForDeleteCommand() {
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_DELETE_WORD, COMMAND_DELETE_DESC) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DELETE_PARAMETER) + System.lineSeparator();
     }
 
     private static String getUsageInfoForListCommand() {
@@ -285,8 +326,17 @@ public class Duke {
         System.out.println("☹ OOPS!!! Your task description is missing some key fields.");
     }
 
-    private static void showInvalidTaskIndexMessage() {
-        System.out.println("☹ OOPS!!! \"done\" command should be followed by Task index.");
+    private static void showInvalidTaskIndexMessage(String commandType) {
+        System.out.printf("☹ OOPS!!! \"%s\" command should be followed by Task index."+ System.lineSeparator(), commandType);
+    }
+
+    private static void showExceedTaskIndexMessage() {
+        if (tasksCount == 0) {
+            System.out.println("☹ OOPS!!! You do not have any tasks in the list yet!");
+        }
+        else {
+            System.out.println("☹ OOPS!!! The task index you are referring to does not exist in the list!");
+        }
     }
 
 }
