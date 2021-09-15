@@ -61,7 +61,7 @@ public class Storage {
             System.out.println("Previous session restored.");
         } catch (DukeException e) {
             System.out.println("DukeException:" + e.getMessage());
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
             try {
                 load.createNewFile();
             } catch (IOException ex) {
