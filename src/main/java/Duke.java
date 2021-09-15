@@ -4,6 +4,10 @@ import allTasks.typesOfTasks.Todo;
 import allTasks.typesOfTasks.Event;
 import allTasks.typesOfTasks.Deadline;
 
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -20,17 +24,17 @@ public class Duke {
     public static final String LINE            = "--------------------------------------------------------------------------------";
     public static final ArrayList<Task> tasks  = new ArrayList<>();
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
 
         boolean botIsActive = false;
         Scanner in = new Scanner(System.in);
-
-        // Prints logo and welcome message
+        dataStorage();
         printWelcome();
 
         // Cond. is true when input "bye" is given, terminates run
         while (!botIsActive) {
 
+            writeData(tasks);
             String command = in.nextLine();
 
             if (command.equals("bye")) {
@@ -137,6 +141,39 @@ public class Duke {
         printListSummary(tasks.get(tasks.indexOf(event)));
     }
 
+    private static void dataStorage() throws IOException, DukeException {
+        File dirPath = new File("data");
+        File filePath = new File("data/Duke.txt");
+        if (filePath.exists()) {
+            Scanner fileReader = new Scanner(filePath);
+            while (fileReader.hasNext()) {
+                String currLine = fileReader.nextLine();
+                String[] taskTokens = currLine.split(",");
+                if (taskTokens[0].equals("[T]")) {
+                    createTodo("todo " + taskTokens[2]);
+                } else if (taskTokens[0].equals("[D]")) {
+                    createDeadline("deadline " + taskTokens[2] + "/by " + taskTokens[3]);
+                } else if (taskTokens[0].equals("[E]")) {
+                    createEvent("event " + taskTokens[2] + "/at " + taskTokens[3]);
+                }
+
+                if (taskTokens[1].equals("[X]")) {
+                    markAsDone("done " + new Integer(tasks.size()).toString());
+                }
+            }
+        } else {
+            dirPath.mkdir();
+        }
+    }
+
+    private static void writeData(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("data/Duke.txt");
+        for (Task task : Duke.tasks) {
+            fw.write(task.printForSave() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
     public static void printWelcome() {
         String logo = "        _|       _|_|        _|_|_|      _|      _|    _|_|_|        _|_|_|\n"
                 + "        _|     _|    _|      _|    _|    _|      _|      _|        _|\n"
@@ -181,7 +218,7 @@ public class Duke {
         int taskDoneIndex = Integer.parseInt(String.valueOf(command.substring(DONE_SIZE))) - 1;
                 //Integer.parseInt(command.split(" ")[1]) - 1;
         // Checks if given index holds a task and throws error message if no such task exists
-        if (taskDoneIndex >= tasks.size() || taskDoneIndex < 0) {
+        if ((taskDoneIndex > tasks.size()) || (taskDoneIndex < 0)) {
             System.out.println(LINE + System.lineSeparator() +
                     "Apologies sir but, it seems that task hasn't been created yet " +
                     "\u2639" + System.lineSeparator() + LINE);

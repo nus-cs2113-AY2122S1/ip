@@ -1,6 +1,6 @@
 package allTasks;
 
-public class Task {
+public abstract class Task {
 
     protected String description;
     protected String taskType = "[ ]";
@@ -53,6 +53,10 @@ public class Task {
     }
 
     public String printTask() {
-        return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription();
+        return getTaskType() + getStatusIcon() + " " + getDescription();
+    }
+
+    public String printForSave() {
+        return getTaskType() + "," + getStatusIcon() + "," + getDescription();
     }
 }

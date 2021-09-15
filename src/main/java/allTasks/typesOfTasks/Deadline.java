@@ -37,7 +37,12 @@ public class Deadline extends Task {
     @Override
     public String printTask() {
         super.printTask();
-        return this.getTaskType() + this.getStatusIcon() + " " + this.getDescription()
-                + "(by: " + this.getBy() + ")";
+        return getTaskType() + getStatusIcon() + " " + getDescription()
+                + "(by: " + getBy() + ")";
+    }
+
+    @Override
+    public String printForSave() {
+        return getTaskType() + "," + getStatusIcon() + "," + getDescription() + "," + getBy();
     }
 }
