@@ -249,6 +249,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException(description + " is not a number.");
         }
+        saveData();
     }
 
     /** Start the main functionality of Duke. */
