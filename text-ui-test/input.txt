@@ -19,4 +19,7 @@ done 4
 done 3
 gibberish
 list
+delete 1
+delete 1
+delete 1
 bye

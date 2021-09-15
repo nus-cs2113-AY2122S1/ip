@@ -84,9 +84,9 @@ public class TaskManager {
     }
 
     public static void printInvalidCommandMessage() {
-        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 6 words!");
-        System.out.println("The six words are:");
-        System.out.printf("list%ndone%ntodo%ndeadline%nevent%nbye%n");
+        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 7 words!");
+        System.out.println("The seven words are:");
+        System.out.printf("list%ndone%ndelete%ntodo%ndeadline%nevent%nbye%n");
     }
 
     public static void printInvalidFormatMessage(String command) {

@@ -103,10 +103,11 @@ Nice! I've marked this task as done:
 [E][X] power nap (at: 5:15-5:30pm)
 ________________________________________
 ________________________________________
-Sorry bud, but that command is gibberish to me. I can only read 6 words!
-The six words are:
+Sorry bud, but that command is gibberish to me. I can only read 7 words!
+The seven words are:
 list
 done
+delete
 todo
 deadline
 event
@@ -117,6 +118,21 @@ Here are the tasks in your list:
 1.[T][X] sleep
 2.[D][X] go to bed (by: 10pm)
 3.[E][X] power nap (at: 5:15-5:30pm)
+________________________________________
+________________________________________
+Noted. I've removed this task:
+[T][X] sleep
+Now you have 2 tasks in the list.
+________________________________________
+________________________________________
+Noted. I've removed this task:
+[D][X] go to bed (by: 10pm)
+Now you have 1 tasks in the list.
+________________________________________
+________________________________________
+Noted. I've removed this task:
+[E][X] power nap (at: 5:15-5:30pm)
+Now you have 0 tasks in the list.
 ________________________________________
 ________________________________________
 Bye. Hope to see you again soon!
