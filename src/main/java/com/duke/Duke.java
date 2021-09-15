@@ -1,13 +1,18 @@
-package duke;
+package com.duke;
 
-import duke.task.Task;
+import com.file.FileManager;
+import com.task.Deadline;
+import com.task.Event;
+import com.task.Task;
+import com.task.Todo;
 
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.stream.StreamSupport;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.io.IOException;
 
 public class Duke {
 
+    public static FileManager fileTask;
     public static Task[] list = new Task[100];
     public static String[] dukeLines = new String[100];
     public static int dukeLineCount = 0;
@@ -19,7 +24,7 @@ public class Duke {
     }
     private boolean active = false;
 
-    public Duke() {
+    public Duke(){
         active = true;
         printLine();
         System.out.println("\tHello from");
@@ -28,9 +33,38 @@ public class Duke {
         System.out.println("\t| | | | | | | |/ / _ \\");
         System.out.println("\t| |_| | |_| |   <  __/");
         System.out.println("\t|____/ \\__,_|_|\\_\\___|");
+        loadFromFile();
         endLine();
-    }
 
+    }
+    public void loadFromFile(){
+        try {
+            fileTask = new FileManager("Task.txt");
+            ArrayList<String> Lines = fileTask.readFile();
+            for(String line : Lines) {
+                if(line.contains("[T]")) {
+                    String description = line.substring(6);
+                    list[listCount++] = new Todo(description);
+                }
+                else if (line.contains("[E]")) {
+                    String description = line.substring(6, Lines.indexOf("("));
+                    String ddl = line.substring(Lines.indexOf("(")+1,Lines.indexOf(")"));
+                    list[listCount++] = new Event(description,ddl);
+                }else if (line.contains("[D]")) {
+                    String description = line.substring(6, Lines.indexOf("("));
+                    String ddl = line.substring(Lines.indexOf("(")+1,Lines.indexOf(")"));
+                    list[listCount++] = new Deadline(description,ddl);
+                }
+                list[listCount-1].setDone(line.contains("[X]"));
+            }
+        } catch (FileNotFoundException e) {
+            dukePrint("unable to locate file");
+        }catch (IOException e) {
+            dukePrint("unable to create file");
+        }
+
+
+    }
     public boolean getStatus() {
         return active;
     }
@@ -83,6 +117,12 @@ public class Duke {
         dukePrint("Got it. I've added this task:");
         dukePrint(list[listCount-1].toString());
         dukePrint("Now you have " + listCount + " tasks in the list.");
+        try {
+            fileTask.addToFile(list[listCount-1].toString());
+        }catch (IOException e) {
+            dukePrint("unable to write to file");
+        }
+
         endLine();
     }
 

@@ -1,13 +1,14 @@
-package duke;
-import duke.task.*;
+package com;
+import com.duke.Duke;
+import com.task.*;
 
 import java.util.Scanner;
 
+
+
 public class Main {
 
-
     public static void main(String[] args) {
-
         Scanner in = new Scanner(System.in);
         String line;
         Duke duke = new Duke();

@@ -1,4 +1,4 @@
-package duke.task;
+package com.task;
 public class Todo extends Task {
 
     protected String type = "[T]";
@@ -19,4 +19,5 @@ public class Todo extends Task {
         }
         return this.type + status +  super.toString() ;
     }
+
 }

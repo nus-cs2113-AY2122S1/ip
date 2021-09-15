@@ -1,4 +1,4 @@
-package duke.task;
+package com.task;
 
 public class Deadline extends Todo {
     protected String by;
