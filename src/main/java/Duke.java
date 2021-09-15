@@ -305,7 +305,8 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void printDone(ArrayList<Integer> taskStatus, ArrayList<String> taskType, ArrayList<String> arrayInput, String userCommand) {
+    private static void printDone(ArrayList<Integer> taskStatus, ArrayList<String> taskType,
+                                  ArrayList<String> arrayInput, String userCommand) {
         char taskID;
         int taskIDInt;
         int len = userCommand.length();
@@ -332,7 +333,8 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static ArrayList<String> convertToArrayList(ArrayList<String> output, ArrayList<String> taskType, ArrayList<Integer> taskStatus,
+    public static ArrayList<String> convertToArrayList(ArrayList<String> output, ArrayList<String> taskType,
+                                                       ArrayList<Integer> taskStatus,
                                                        ArrayList<String> arrayInput, int inputCount) {
         String tempTask;
         output.clear();
