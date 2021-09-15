@@ -2,6 +2,12 @@ package duke;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+//for reading file
+import java.io.File;
+import java.io.FileNotFoundException;
+//for writing to file
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
@@ -60,38 +66,49 @@ public class Duke {
         System.out.println("    Now you have " + (size - 1) + " tasks in the list.");
     }
 
-    public static Deadlines createNewDeadline(String[] words) {
-        int deadlineIndex = 0;
+
+
+    public static Deadlines createNewDeadline(String command) {
+        String[] words = command.split(" ");
         String by = "";
         String deadlineDescription = "";
-        for(int i = 1 ; i < words.length ; i ++) {
-            if(words[i].equals("/by")) {
-                deadlineIndex = i + 1;
-                by = words[deadlineIndex];
-                break;
+        boolean foundBy = false;
+        for(int i = 0 ; i < words.length ; i ++) {
+            if(foundBy) {
+                by = by + " " + words[i];
+            } else {
+                if(words[i].equals("/by")) {
+                    foundBy = true;
+                } else {
+                    deadlineDescription = deadlineDescription + " " + words[i];
+                }
             }
-            deadlineDescription = deadlineDescription + " " + words[i];
         }
-        Deadlines newDeadline = new Deadlines(deadlineDescription.substring(1), by);
+        Deadlines newDeadline = new Deadlines(deadlineDescription.substring(1), by.substring(1));
         return newDeadline;
+
     }
 
-    public static Events createNewEvent(String[] words) {
-        int eventIndex = 0;
+    public static Events createNewEvent(String command) {
+
+        String[] words = command.split(" ");
         String timeAllocation = "";
         String eventDescription = "";
-        for(int i = 1 ; i < words.length ; i ++) {
-            if(words[i].equals("/at")) {
-                eventIndex = i + 1;
-                for(int j = eventIndex ; j < words.length ; j++) {
-                    timeAllocation = timeAllocation + " " + words[j];
+        boolean foundAt = false;
+        for(int i = 0 ; i < words.length ; i ++) {
+            if(foundAt) {
+                timeAllocation = timeAllocation + " " + words[i];
+            } else {
+                if(words[i].equals("/at")) {
+                    foundAt = true;
+                } else {
+                    eventDescription =  eventDescription + " " + words[i];
                 }
-                break;
             }
-            eventDescription = eventDescription + " " + words[i];
         }
         Events newEvent = new Events(eventDescription.substring(1), timeAllocation.substring(1));
         return newEvent;
+
     }
 
     public static int distinguishCommand(String command , ArrayList<Task> list, int size) {
@@ -123,7 +140,7 @@ public class Duke {
             break;
         case "deadline":
             try {
-                Deadlines newDeadline = createNewDeadline(words);
+                Deadlines newDeadline = createNewDeadline(command.substring(9));
                 addTask(list, newDeadline, size);
                 taskCount ++;
             } catch (IndexOutOfBoundsException e) {
@@ -133,7 +150,7 @@ public class Duke {
         case "event":
             //extract out event description and timeAllocation
             try {
-                Events newEvent = createNewEvent(words);
+                Events newEvent = createNewEvent(command.substring(6));
                 addTask(list, newEvent, size);
                 taskCount ++;
             } catch (IndexOutOfBoundsException e) {
@@ -154,20 +171,146 @@ public class Duke {
             break;
         }
 
+        try{
+            writeToFile("data/data.txt",list, taskCount);
+        } catch (IOException e) {
+            System.out.println("    OOPS!!! There was an error updating the data filelist");
+        }
         return taskCount;
     }
 
+    public static int distinguishText(String command , ArrayList<Task> list, int size) {
+        //split into word array
+        String[] sections = command.split("[|]");
+        String firstSection = sections[0];
+        String[] description = sections[2].split(" ");
+        int taskCount = size;
+        System.out.println(description[0]);
+
+        //create objects
+        switch (firstSection) {
+        case "T":
+            try {
+                ToDos newToDo = new ToDos(sections[2]);
+                if(sections[1].equals("1")) {
+                    newToDo.setDone();
+                }
+                Duke.addTask(list, newToDo, taskCount);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a todo cannot be empty.");
+            }
+            break;
+        case "D":
+            try {
+                Deadlines newDeadline = createNewDeadline(command.substring(4));
+                if(sections[1].equals("1")) {
+                    newDeadline.setDone();
+                }
+                Duke.addTask(list, newDeadline, size);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a deadline cannot be empty.");
+            }
+            break;
+        case "E":
+            try {
+                Events newEvent = createNewEvent(command.substring(4));
+                if(sections[1].equals("1")) {
+                    newEvent.setDone();
+                }
+                Duke.addTask(list, newEvent, size);
+                taskCount ++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a event cannot be empty.");
+            }
+            break;
+        default:
+            System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
+            break;
+        }
+        return taskCount;
+    }
+
+    public static int loadFileContents(String filePath, ArrayList<Task> list) throws FileNotFoundException {
+        int taskCount = 0;
+        // create a File for the given file path
+        File f = new File(filePath);
+        // create a Scanner using the File as the source
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            taskCount = distinguishText(s.nextLine(), list, taskCount);
+        }
+        return taskCount;
+    }
+
+    private static int getDoneNumber( boolean bool) {
+        if(bool == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
+    private static void writeToFile(String filePath, ArrayList<Task> tasks, int size) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for( int i = 0 ; i < size; i ++ ) {
+            Task task = tasks.get(i);
+            String className = task.getClass().getName();
+            String textDescription = "";
+            if(className.equals("duke.ToDos")) {
+                ToDos todo = (ToDos) task;
+                textDescription = "T" + "|" + getDoneNumber(todo.getDone()) + "|" + todo.getDescription();
+            } else if ( className.equals("duke.Deadlines")) {
+                Deadlines deadline = (Deadlines) task;
+                textDescription = "D" + "|" + getDoneNumber(deadline.getDone()) + "|" + task.getDescription()+ " /by " + deadline.by;
+            } else if (className.equals("duke.Events") ) {
+                Events event = (Events) task;
+                textDescription = "E" + "|" + getDoneNumber(event.getDone()) + "|" + task.getDescription() + " /at " + event.timeAllocation;
+            }
+
+            fw.write(textDescription +  System.lineSeparator());
+            //do not create a string variable by itself with System.lineSeparator()
+            System.lineSeparator();
+        }
+        fw.close();
+    }
 
 
     public static void main(String[] args) {
 
         String line;
         Scanner in = new Scanner(System.in);
-        showWelcomeMessage();
-        line = in.nextLine();
 
         ArrayList<Task> list = new ArrayList<>();
         int taskCount = 0;
+
+        //create directory if it does not exist
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //create txt file if it does not exist
+        File file = new File("data/data.txt");
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //if both directory and file exist read in the data
+        if(directory.exists() && file.exists() ) {
+            try {
+                taskCount = loadFileContents("data/data.txt", list);
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            }
+        }
+
+        showWelcomeMessage();
+        line = in.nextLine();
 
         while (!line.equals("bye")) {
             taskCount = distinguishCommand(line, list, taskCount);
