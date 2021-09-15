@@ -1,7 +1,13 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 import duke.exception.IllegalCommandException;
 import duke.exception.EmptyCommandException;
@@ -12,7 +18,10 @@ import duke.task.Todo;
 
 public class Duke {
 
-    static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static final String FILE_NAME = "duke.txt";
+    public static final String DIR_NAME = "data";
+    public static final String FILE_PATH = DIR_NAME + "/" + FILE_NAME;
 
     /**
      * Prints a farewell message when the user exits the program.
@@ -27,7 +36,7 @@ public class Duke {
     public static void commandList() {
         System.out.println("Here are your current tasks and their status:");
         for (Task task : tasks) {
-            System.out.println(tasks.indexOf(task) + ". " + task);
+            System.out.println((tasks.indexOf(task) + 1) + ". " + task);
         }
     }
 
@@ -36,7 +45,7 @@ public class Duke {
      *
      * @param line The command entered by the user.
      */
-    public static void addTask(String line) throws EmptyCommandException, IllegalCommandException {
+    public static void addTask(String line) throws EmptyCommandException, IllegalCommandException, IOException {
 
         if (!line.startsWith("todo") && !line.startsWith("deadline") && !line.startsWith("event")) {
             throw new IllegalCommandException();
@@ -51,17 +60,16 @@ public class Duke {
         } else if (!line.contains("/")) {
             throw new IllegalCommandException();
         } else if (line.startsWith("deadline")) {
-            String[] words = line.split("/");
-            tasks.add(Task.getTaskCount(), new Deadline(words[0].replace("deadline ", ""),
-                    words[1].replace("by ", "")));
+            String[] words = line.split(" /by ");
+            tasks.add(Task.getTaskCount(), new Deadline(words[0].replace("deadline ", ""), words[1]));
         } else if (line.startsWith("event")) {
-            String[] words = line.split("/");
-            tasks.add(Task.getTaskCount(), new Event(words[0].replace("event ", ""),
-                    words[1].replace("at ", "")));
+            String[] words = line.split(" /at ");
+            tasks.add(Task.getTaskCount(), new Event(words[0].replace("event ", ""), words[1]));
         }
 
         System.out.println("I've added that to your list:\n" + tasks.get(Task.getTaskCount() - 1));
         System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        saveData();
     }
 
     /**
@@ -71,7 +79,7 @@ public class Duke {
      *
      * @param line The command entered by the user.
      */
-    public static void doneTask(String line) throws EmptyCommandException, IllegalCommandException {
+    public static void doneTask(String line) throws EmptyCommandException, IllegalCommandException, IOException {
         String[] words = line.split(" ");
         if (words.length < 2) {
             throw new EmptyCommandException();
@@ -85,9 +93,10 @@ public class Duke {
                 throw new IllegalCommandException();
             }
         }
+        saveData();
     }
 
-    public static void deleteTask(String line) throws EmptyCommandException, IllegalCommandException {
+    public static void deleteTask(String line) throws EmptyCommandException, IllegalCommandException, IOException {
         String[] words = line.split(" ");
         if (words.length < 2) {
             throw new EmptyCommandException();
@@ -101,10 +110,68 @@ public class Duke {
                 throw new IllegalCommandException();
             }
         }
+        saveData();
+    }
+
+    public static void startDuke() throws IOException {
+        if (Files.notExists(Paths.get(FILE_PATH))) {
+            Files.createDirectories(Paths.get(FILE_PATH).getParent());
+            Files.createFile(Paths.get(FILE_PATH));
+            System.out.println("Hi! I'm Duke. I've created your data file for you, what would you like me to do?");
+        } else {
+            loadData();
+            System.out.println("Welcome back!");
+            commandList();
+        }
+    }
+
+    public static void loadData() throws FileNotFoundException {
+        File f = new File(FILE_PATH);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            tasks.add(parseTask(s.nextLine()));
+        }
+    }
+
+    public static void saveData() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (Task task : tasks) {
+            fw.write(task.toText() + "\n");
+        }
+        fw.close();
+    }
+
+    public static Task parseTask(String taskInfo) throws IllegalArgumentException {
+        String[] infoParsed = taskInfo.split("\\|");
+        Task newTask;
+
+        switch (infoParsed[0]) {
+            case "[D] ":
+                newTask = new Deadline(infoParsed[2].strip(), infoParsed[3].strip());
+                break;
+            case "[E] ":
+                newTask = new Event(infoParsed[2].strip(), infoParsed[3].strip());
+                break;
+            case "[T] ":
+                newTask = new Todo(infoParsed[2].strip());
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+
+        if (infoParsed[1].equals(" [X] ")) {
+            newTask.setDone(true);
+        }
+        return newTask;
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Duke.\nWhat can I do for you?");
+        try {
+            startDuke();
+        } catch (IOException e) {
+            System.out.println("I could not create/load your file!");
+            System.exit(1);
+        }
         Scanner in = new Scanner(System.in);
         // Read a command from the user.
         String line = in.nextLine();
@@ -126,6 +193,8 @@ public class Duke {
                 System.out.println("Sorry, you didn't give me a fitting description for your task.");
             } catch (IllegalCommandException e) {
                 System.out.println("That's not a known command format!");
+            } catch (IOException e) {
+                System.out.println("Something went wrong reading/writing to your data file.");
             }
 
             line = in.nextLine();

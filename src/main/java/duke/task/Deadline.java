@@ -13,6 +13,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toText() {
+        return type + " | " + super.toText() + " | " + by;
+    }
+
+    @Override
     public String toString() {
         return type + super.toString() + " (by: " + by + ")";
     }

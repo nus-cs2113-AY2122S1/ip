@@ -13,6 +13,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toText() {
+        return type + " | " + super.toText() + " | " + at;
+    }
+
+    @Override
     public String toString() {
         return type + super.toString() + " (at: " + at + ")";
     }
