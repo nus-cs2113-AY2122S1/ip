@@ -16,27 +16,36 @@ public class FileManager {
         taskFile = new File(FILE_PATH);
     }
 
-    public void writeToDoToFile(Task task) {
+    public void writeToDoToFile(Task task, int taskNumber, TaskManager taskManager) {
         try {
-            appendToFile("| " + task.getStatusIcon() + "| " + task.getDescription());
+            appendToFile("T" + " | " + task.getStatusIcon() + " | " + task.getDescription());
+            if (taskNumber != taskManager.getNumberOfTasksAdded() - 1) {
+                appendToFile(System.lineSeparator());
+            }
         } catch (IOException e) {
             System.out.println("Oops, something went wrong! " + e.getMessage());
         }
     }
 
-    public void writeDeadlineToFile(Deadline deadline) {
+    public void writeDeadlineToFile(Deadline deadline, int taskNumber, TaskManager taskManager) {
         try {
-            appendToFile("B " + "| " + deadline.getStatusIcon() + "| "
-                    + deadline.getDescription() + " | "+ deadline.getBy());
+            appendToFile("D" + " | " + deadline.getStatusIcon() + " | "
+                    + deadline.getDescription() + " | " + deadline.getBy());
+            if (taskNumber != taskManager.getNumberOfTasksAdded() - 1) {
+                appendToFile(System.lineSeparator());
+            }
         } catch (IOException e) {
             System.out.println("Oops, something went wrong! " + e.getMessage());
         }
     }
 
-    public void writeEventToFile(Event event) {
+    public void writeEventToFile(Event event, int taskNumber, TaskManager taskManager) {
         try {
-            appendToFile("B " + "| " + event.getStatusIcon() + "| "
-                    + event.getDescription() + " | "+ event.getAt());
+            appendToFile("E" + " | " + event.getStatusIcon() + " | "
+                    + event.getDescription() + " | " + event.getAt());
+            if (taskNumber != taskManager.getNumberOfTasksAdded() - 1) {
+                appendToFile(System.lineSeparator());
+            }
         } catch (IOException e) {
             System.out.println("Oops, something went wrong! " + e.getMessage());
         }
@@ -111,33 +120,18 @@ public class FileManager {
         }
         for (int i = 0; i < taskManager.getNumberOfTasksAdded(); i++) {
             String taskType = taskList.get(i).toString().substring(1, 2);
-            try {
-                switch (taskType) {
-                case ("T"):
-                    appendToFile("T" + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getDescription());
-                    if (i != taskManager.getNumberOfTasksAdded() - 1) {
-                        appendToFile(System.lineSeparator());
-                    }
-                    break;
-                case ("D"):
-                    Deadline deadline = (Deadline) taskList.get(i);
-                    appendToFile("D" + " | " + deadline.getStatusIcon() + " | " + deadline.getDescription()
-                            + " | "+ deadline.getBy());
-                    if (i != taskManager.getNumberOfTasksAdded() - 1) {
-                        appendToFile(System.lineSeparator());
-                    }
-                    break;
-                case ("E"):
-                    Event event = (Event) taskList.get(i);
-                    appendToFile("E" + " | " + event.getStatusIcon() + " | " + event.getDescription()
-                            + " | " + event.getAt());
-                    if (i != taskManager.getNumberOfTasksAdded() - 1) {
-                        appendToFile(System.lineSeparator());
-                    }
-                    break;
-                }
-            } catch (IOException e) {
-                System.out.println("Oops!" + e.getMessage());
+            switch (taskType) {
+            case ("T"):
+                writeToDoToFile(taskList.get(i), i, taskManager);
+                break;
+            case ("D"):
+                Deadline deadline = (Deadline) taskList.get(i);
+                writeDeadlineToFile(deadline, i, taskManager);
+                break;
+            case ("E"):
+                Event event = (Event) taskList.get(i);
+                writeEventToFile(event, i , taskManager);
+                break;
             }
         }
     }
