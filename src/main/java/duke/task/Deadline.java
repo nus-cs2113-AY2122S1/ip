@@ -1,7 +1,7 @@
 package duke.task;
 
 //Stores task with deadline specified
-public class Deadline extends ToDo {
+public class Deadline extends Task {
     protected String endTime;
 
     public Deadline() {
@@ -18,7 +18,7 @@ public class Deadline extends ToDo {
         return "D";
     }
 
-    public String getEndTime(){
+    public String getTime(){
         return this.endTime;
     }
 

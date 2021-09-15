@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Event extends ToDo {
+public class Event extends Task {
     protected String period;
 
     public Event() {
@@ -17,7 +17,7 @@ public class Event extends ToDo {
         return "E";
     }
 
-    public String getPeriod(){
+    public String getTime(){
         return this.period;
     }
 

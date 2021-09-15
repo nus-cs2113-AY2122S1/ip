@@ -21,7 +21,8 @@ public class Duke {
     public static Scanner in = new Scanner(System.in);
     public static int longestTaskDescription = 0; //The length of the longest task description
     public static String STORAGE_MESSAGE = "Welcome to my storage :P, this is how I memorize all your tasks!\n" +
-            "Alert! Please do not delete anything inside this file, else I will get memory loss :(";
+            "Alert! Please do not delete anything inside this file, else I will get memory loss :(\n";
+    public static File file = new File("src/main/java/shimaStorage.txt");
 
     @SuppressWarnings("InfiniteLoopStatement") //Disables the warning for infinite loop
     public static void main(String[] args) {
@@ -29,30 +30,32 @@ public class Duke {
         Default.printLogo();
         Default.printWelcomeMessage();
         Default.printVersionDescription();
-        System.out.println("\nLet's start:");
         ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            readFromStorage(tasks);
+        }
+        catch (IOException ex) {
+            Default.showMessage("Unfortunately some things have messed up, I have received this information:");
+            ex.printStackTrace();
+        } catch (DukeException.StorageException ex) {
+            Default.showMessage("There is an error occurs when I try to read data from the shimaStorage.txt file, please help me fix it :(");
+        }
+        System.out.println("\nLet's start:");
         while (true) {
             try {
                 readCommand(tasks);
-            } catch (DukeException ex) {
+            } catch (DukeException.CommandException ex) {
                 Default.showMessage("Sorry, the command is invalid, I cant understand :(");
                 System.out.println("\tTo seek for help, you can type the command \"help\" or \"view -h\"");
-            } catch (IOException ex){
+            } catch (IOException ex) {
                 Default.showMessage("Unfortunately some things have messed up, I have received this information:");
                 ex.printStackTrace();
             }
         }
     }
 
-    /**
-     * Reads the input command entered by the user and handles each command
-     *
-     * @param tasks The array to store all the tasks required
-     */
-    private static void readCommand(ArrayList<Task> tasks) throws DukeException, IOException {
-        //access the duke.txt file
-        File file = new File("./shimaStorage.txt");
-        try{
+    public static void readFromStorage(ArrayList<Task> tasks) throws DukeException.StorageException, IOException{
+        try {
             Scanner sc = new Scanner(file);
             int skipTwoLines = 0;
             while (sc.hasNext()) {
@@ -61,12 +64,49 @@ public class Duke {
                     skipTwoLines++;
                 } else {
                     String[] tasksData = sc.nextLine().split("Ø");
+                    Task currentTask;
+                    switch (tasksData[0]) {
+                    case "T":
+                        tasks.add(new ToDo(tasksData[2]));
+                        currentTask = tasks.get(tasks.size() - 1);
+                        longestTaskDescription = Math.max(currentTask.getTask().length(), longestTaskDescription);
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(tasksData[2], tasksData[3]));
+                        currentTask = tasks.get(tasks.size() - 1);
+                        longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(), longestTaskDescription);
+                        break;
+                    case "E":
+                        tasks.add(new Event(tasksData[2], tasksData[3]));
+                        currentTask = tasks.get(tasks.size() - 1);
+                        longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(), longestTaskDescription);
+                        break;
+                    default:
+                        throw new DukeException.StorageException();
+                    }
+                    if (tasksData[1].equals("Y")) {
+                        tasks.get(tasks.size() - 1).setDone();
+                    }
                 }
+            }
+            if (tasks.size() > 0) {
+                System.out.println("\n\tHello user! I have helped you written down the to-do list from my previous record!");
+                Default.printToDoList(tasks, longestTaskDescription);
             }
         } catch (FileNotFoundException ex) {
             //create a file called shimaStorage.txt
-            FileWriter createFile = new FileWriter("./shimaStorage.txt");
+            FileWriter createFile = new FileWriter("src/main/java/shimaStorage.txt");
+            createFile.write(STORAGE_MESSAGE);
+            createFile.close();
         }
+    }
+
+    /**
+     * Reads the input command entered by the user and handles each command
+     *
+     * @param tasks The array to store all the tasks required
+     */
+    private static void readCommand(ArrayList<Task> tasks) throws DukeException.CommandException, IOException{
         String command = in.nextLine().trim();
         String[] words = command.split(" ");
         if (Command.isCommandEmpty(command)) {
@@ -86,7 +126,7 @@ public class Duke {
             } else if (Command.isCommandAddTask(words[0])) {
                 addTask(tasks, command, words);
             } else {
-                throw new DukeException();
+                throw new DukeException.CommandException();
             }
         }
     }
@@ -126,10 +166,12 @@ public class Duke {
             longestTaskDescription = command.replace(words[0], "").trim().length();
         }
         //append mode
-        FileWriter fw = new FileWriter("./shimaStorage.txt", true);
+        FileWriter fw = new FileWriter(file, true);
         Task currentTask = tasks.get(tasks.size() - 1);
-        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask();
+        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + System.lineSeparator();
+        System.out.println("\tAdd task " + taskToSave);
         fw.write(taskToSave);
+        fw.close();
         return true;
     }
 
@@ -171,10 +213,11 @@ public class Duke {
         if (longestTaskDescription < taskName.length() + time.length()) {
             longestTaskDescription = taskName.length() + "(at: )".length() + time.length();
         }
-        FileWriter fw = new FileWriter("./shimaStorage.txt", true);
+        FileWriter fw = new FileWriter(file, true);
         Task currentTask = tasks.get(tasks.size() - 1);
-        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + currentTask.getPeriod();
+        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + "Ø" + currentTask.getTime() + System.lineSeparator();
         fw.write(taskToSave);
+        fw.close();
         return true;
     }
 
@@ -212,10 +255,11 @@ public class Duke {
         if (longestTaskDescription < taskName.length() + time.length()) {
             longestTaskDescription = taskName.length() + "(by: )".length() + time.length();
         }
-        FileWriter fw = new FileWriter("./shimaStorage.txt", true);
+        FileWriter fw = new FileWriter(file, true);
         Task currentTask = tasks.get(tasks.size() - 1);
-        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + currentTask.getEndTime();
+        String taskToSave = currentTask.getClassType() + "Ø" + "N" + "Ø" + currentTask.getTask() + "Ø" + currentTask.getTime() + System.lineSeparator();
         fw.write(taskToSave);
+        fw.close();
         return true;
     }
 
@@ -235,9 +279,30 @@ public class Duke {
                 int taskIndex = Integer.parseInt(words[i]);
                 showTaskDoneMessage(tasks, taskIndex);
             }
+            FileWriter fw = new FileWriter(file);
+            fw.write(STORAGE_MESSAGE);
+            for (Task t : tasks) {
+                String taskToSave = "";
+                String symbolForDone = (t.getDone()) ? "Y" : "N";
+                boolean doNotSave = false;
+                if (t instanceof Deadline) {
+                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + "Ø" + t.getTime() + System.lineSeparator();
+                } else if (t instanceof Event) {
+                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + "Ø" + t.getTime() + System.lineSeparator();
+                } else if (t instanceof ToDo) {
+                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + System.lineSeparator();
+                } else {
+                    Default.showMessage("An unexpected error occurs when I try to know the type of the task " + t);
+                    doNotSave = true;
+                }
+                if (!doNotSave) {
+                    fw.write(taskToSave);
+                }
+            }
+            fw.close();
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
             Default.showMessage("Sorry, the input task number is invalid, please try again! :(");
-        } catch (IOException ex){
+        } catch (IOException ex) {
             Default.showMessage("An unexpected error occurs when I try to upload the file");
             System.out.print("\t");
             ex.printStackTrace();
@@ -250,30 +315,11 @@ public class Duke {
      * @param tasks      The array which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
-    private static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber) throws IOException {
+    private static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber){
         if (!tasks.get(taskNumber - 1).getDone()) {
             tasks.get(taskNumber - 1).setDone();
             System.out.println("\tHooray! Task number " + taskNumber + " has been marked completed!");
             System.out.println("\t[✔] " + tasks.get(taskNumber - 1).getTask());
-            for (Task t : tasks) {
-                String taskToSave = "";
-                String symbolForDone = (t.getDone()) ? "Y" : "N";
-                boolean doNotSave = false;
-                if (t instanceof Deadline) {
-                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + t.getEndTime();
-                } else if (t instanceof Event){
-                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask() + t.getPeriod();
-                } else if (t instanceof ToDo){
-                    taskToSave = t.getClassType() + "Ø" + symbolForDone + "Ø" + t.getTask();
-                } else{
-                    Default.showMessage("An unexpected error occurs when I try to know the type of the task " + t);
-                    doNotSave = true;
-                }
-                if (!doNotSave){
-                    FileWriter fw = new FileWriter("./shimaStorage.txt");
-                    fw.write(taskToSave);
-                }
-            }
         } else {
             System.out.println("\tThe task number " + taskNumber + " - \"" + tasks.get(taskNumber - 1).getTask() + "\" has already been done!");
         }
