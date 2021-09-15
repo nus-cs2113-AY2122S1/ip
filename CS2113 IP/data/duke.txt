@@ -1,0 +1,8 @@
+T | X | ice coffee
+T |   | panic attack
+E |   | CS1231 Tutorial /at Monday 2pm
+D | X | presentation preparation /by Saturday 2pm
+T | X | ice coffee
+T |   | panic attack
+E |   | CS1231 Tutorial /at Monday 2pm
+D | X | presentation preparation /by Saturday 2pm

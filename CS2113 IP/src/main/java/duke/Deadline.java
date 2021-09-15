@@ -1,12 +1,12 @@
 package duke;
 
 public class Deadline extends Task {
-    protected String deadline = "";
 
     public Deadline(String description, int index) {
         super(description, index);
         String trimString = trimUserInput(description);
         this.deadline = extractDeadline(trimString);
+        this.specificDescription = extractDescription(trimString);
         this.description = String.format("%s (by: %s)", extractDescription(trimString), extractDeadline(trimString));
         taskType = "D";
     }
