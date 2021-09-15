@@ -1,9 +1,12 @@
 package duke.task;
 
+import static duke.Duke.DATA_FILE_SEPARATOR;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
  */
 public class Deadline extends Task {
+    public static final String TASK_TYPE_ICON = "D";
     /** Deadline for the task (date/time) */
     protected String by;
 
@@ -18,14 +21,24 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public String getTaskTypeIcon() {
+        return TASK_TYPE_ICON;
+    }
+
     /**
-     * Returns a string representation of the task (consisting of the symbol for the task type, the deadline, as well as
-     * the string representation from the parent class).
+     * Returns a string representation of the task (consisting of the deadline, as well as the string representation
+     * from the parent class).
      *
      * @return A string representation of the deadline task.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toDataString() {
+        return super.toDataString() + DATA_FILE_SEPARATOR + by;
     }
 }

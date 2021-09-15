@@ -1,9 +1,11 @@
 package duke.task;
 
+import static duke.Duke.DATA_FILE_SEPARATOR;
+
 /**
  * Represents a task.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     /** Whether the task has been completed */
     protected boolean isDone;
@@ -30,6 +32,13 @@ public class Task {
     }
 
     /**
+     * Returns the icon for the type of task.
+     *
+     * @return Icon for the type of task.
+     */
+    public abstract String getTaskTypeIcon();
+
+    /**
      * Returns the description of the task.
      *
      * @return Description of the task.
@@ -44,12 +53,22 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the task (consisting of its status icon and description).
+     * Returns a string representation of the task (consisting of the task type icon, status icon and description).
      *
      * @return A string representation of the task.
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), getDescription());
+        return String.format("[%s][%s] %s", getTaskTypeIcon(), getStatusIcon(), getDescription());
+    }
+
+    /**
+     * Returns a string representation of the task that can be used for data storage.
+     * With this representation, the Task object can be recreated from scratch.
+     *
+     * @return A string representation of the task for data storage.
+     */
+    public String toDataString() {
+        return getTaskTypeIcon() + DATA_FILE_SEPARATOR + (isDone ? 1 : 0) + DATA_FILE_SEPARATOR + getDescription();
     }
 }
