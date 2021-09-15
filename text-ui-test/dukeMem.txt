@@ -1,0 +1,7 @@
+
+D~0~return book~June 6th
+T~1~join sports club
+D~0~read book~Sunday
+E~0~live lecture~Mon 2-4pm
+E~0~live performance~6pm
+D~0~submit assignment~8/9/2021

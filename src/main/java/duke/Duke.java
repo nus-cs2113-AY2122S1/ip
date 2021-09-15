@@ -7,7 +7,15 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+
 
 public class Duke {
     public static final int END_OF_DONE_INDEX = 4;
@@ -25,9 +33,13 @@ public class Duke {
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static boolean isRunning = true;
     public static ArrayList<Task> tasks = new ArrayList<>();
-    //public static int numberOfTasks = 0;
+    public static String dukeString = "dukeMem.txt";
+    public static Path dukePath = Paths.get(dukeString);
+    public static File dukeMem = new File(dukeString);
 
     public static void main(String[] args) {
+
+        initTasksArrayFromMem();
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -58,6 +70,70 @@ public class Duke {
             }
         }
         sayBye();
+    }
+
+    private static void initTasksArrayFromMem() {
+        if (!dukeMem.exists()) {
+            createDukeMem();
+        } else {
+            try {
+                loadMemToTaskArray();
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: Seems like the file does not exist!");
+            }
+        }
+    }
+
+    private static void loadMemToTaskArray() throws FileNotFoundException {
+        Scanner s = new Scanner(dukeMem);
+        String memAsString = "";
+        while (s.hasNextLine()) {
+            String nextLine = s.nextLine();
+            memAsString += nextLine + System.lineSeparator();
+            writeTaskToTasksArray(nextLine);
+        }
+        String memAsTrimmedString = memAsString.substring(0, memAsString.length()-2);
+        rewriteMem(memAsTrimmedString);
+    }
+
+    private static void writeTaskToTasksArray(String nextLine) {
+        String lineData[] = nextLine.split("~");
+        if (lineData[0].equals("T")) {
+            todoMemToTasksArray(lineData);
+        } else if (lineData[0].equals("D")) {
+            deadlineMemToTaskArray(lineData);
+        } else if (lineData[0].equals("E")) {
+            eventMemToTaskArray(lineData);
+        }
+    }
+
+    private static void createDukeMem() {
+        try {
+            Files.createFile(dukePath);
+        } catch (IOException e) {
+            System.out.println("Error: Seems like the directory does not exist!");
+        }
+    }
+
+    private static void eventMemToTaskArray(String[] lineData) {
+        tasks.add(new Event(lineData[2], lineData[3]));
+        if (lineData[1].equals("1")) {
+            tasks.get(tasks.size()-1).markAsDone();
+        }
+    }
+
+    private static void deadlineMemToTaskArray(String[] lineData) {
+        tasks.add(new Deadline(lineData[2], lineData[3]));
+        if (lineData[1].equals("1")) {
+            tasks.get(tasks.size() - 1).markAsDone();
+        }
+    }
+
+    private static void todoMemToTasksArray(String[] lineData) {
+        tasks.add(new Todo(lineData[2]));
+        if (lineData[1].equals("1")) {
+            tasks.get(tasks.size()-1).markAsDone();
+        }
     }
 
     private static void sayHello() {
@@ -116,6 +192,7 @@ public class Duke {
         } else {
             tasks.get(taskIndex).markAsDone();
             printDone(taskIndex);
+            writeDoneToMem(taskIndex);
         }
     }
 
@@ -156,8 +233,9 @@ public class Duke {
         int startOfAtIndex = line.indexOf("/at") + AT_LENGTH;
         String description = line.substring(END_OF_EVENT_INDEX, endOfDescriptionIndex).trim();
         String at = line.substring(startOfAtIndex).trim();
-
+        String eventText = makeEventText(description, at);
         tasks.add(new Event(description, at));
+        appendToMem(eventText);
     }
 
     private static void printMissingAtErrorMsg() {
@@ -181,8 +259,9 @@ public class Duke {
         int startOfByIndex = line.indexOf("/by") + BY_LENGTH;
         String description = line.substring(END_OF_DEADLINE_INDEX, endOfDescriptionIndex).trim();
         String by = line.substring(startOfByIndex).trim();
-
+        String deadlineText = makeDeadlineText(description, by);
         tasks.add(new Deadline(description, by));
+        appendToMem(deadlineText);
     }
 
     private static void printMissingByErrorMsg() {
@@ -199,7 +278,9 @@ public class Duke {
 
     private static void handleTodoTask(String line) {
         String description = line.substring(END_OF_TODO_INDEX).trim();
+        String todoText = makeTodoText(description);
         tasks.add(new Todo(description));
+        appendToMem(todoText);
     }
 
     private static void deleteTask(String line) {
@@ -240,7 +321,85 @@ public class Duke {
         int taskIndex = taskNumber - 1;
         Task deletedTask = tasks.get(taskIndex);
         tasks.remove(taskIndex);
+        try {
+            deleteTaskFromMem(taskIndex);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Seems like the file does not exist!");
+        }
         return deletedTask;
+    }
+
+    private static void deleteTaskFromMem(int taskIndex) throws FileNotFoundException {
+        Scanner s = new Scanner(dukeMem);
+        int lineCount = 0;
+        String memAsString = "";
+        while (s.hasNextLine()) {
+            if (lineCount == taskIndex) {
+                String deletedString = s.nextLine();
+            } else {
+                memAsString += s.nextLine() + System.lineSeparator();
+            }
+            lineCount++;
+        }
+        String memAsTrimmedString = memAsString.substring(0, memAsString.length()-2);
+        rewriteMem(memAsTrimmedString);
+    }
+
+    private static void writeDoneToMem(int taskIndex) {
+        try {
+            markDoneInMem(taskIndex);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Seems like the file does not exist!");
+        }
+    }
+
+    private static void markDoneInMem(int taskIndex) throws FileNotFoundException {
+        Scanner s = new Scanner(dukeMem);
+        int lineCount = 0;
+        String memAsString = "";
+        while (s.hasNextLine()) {
+            if (lineCount == taskIndex) {
+                String targetTask = s.nextLine().replaceFirst("0", "1");
+                memAsString += targetTask + System.lineSeparator();
+            } else {
+                memAsString += s.nextLine() + System.lineSeparator();
+            }
+            lineCount++;
+        }
+        String memAsTrimmedString = memAsString.substring(0, memAsString.length()-2);
+        rewriteMem(memAsTrimmedString);
+    }
+
+    private static void rewriteMem(String memAsTrimmedString) {
+        try {
+            FileWriter fw = new FileWriter(dukeMem);
+            fw.write(memAsTrimmedString);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error: Seems like the directory does not exist!");
+        }
+    }
+
+    private static void appendToMem(String text) {
+        try {
+            FileWriter fw = new FileWriter(dukeMem, true);
+            fw.write(text);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error: Seems like the directory does not exist!");
+        }
+    }
+
+    private static String makeTodoText(String description) {
+        return System.lineSeparator() + "T~0~" + description;
+    }
+
+    private static String makeDeadlineText(String description, String by) {
+        return System.lineSeparator() + "D~0~" + description + "~" + by;
+    }
+
+    private static String makeEventText(String description, String at) {
+        return System.lineSeparator() + "E~0~" + description + "~" + at;
     }
 
     private static void exitProgram() {
