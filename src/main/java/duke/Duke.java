@@ -20,7 +20,7 @@ import duke.task.Todo;
 public class Duke {
     private static final String INDENTED_HORIZONTAL_LINE = " ".repeat(4) + "_".repeat(60);
     /** Platform independent line separator */
-    private static final String LS = System.lineSeparator();
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -37,15 +37,18 @@ public class Duke {
             + DATA_FILE_PATH + "'";
     private static final String MESSAGE_DATA_FILE_PARSE_ERROR = "There was an error parsing the data file:";
 
-    private static final String MESSAGE_GREETING = "Hello! I'm Duke" + LS + "What can I do for you?";
+    private static final String MESSAGE_GREETING = "Hello! I'm Duke" + LINE_SEPARATOR + "What can I do for you?";
     private static final String MESSAGE_FAREWELL = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_ERROR = "☹ OOPS!!! %1$s";
-    private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:" + LS + "  %1$s" + LS
+    private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:" + LINE_SEPARATOR
+            + "  %1$s" + LINE_SEPARATOR
             + "Now you have %2$s task(s) in the list";
-    private static final String MESSAGE_TASK_DELETED = "Noted. I've removed this task:" + LS + "  %1$s" + LS
+    private static final String MESSAGE_TASK_DELETED = "Noted. I've removed this task:" + LINE_SEPARATOR
+            + "  %1$s" + LINE_SEPARATOR
             + "Now you have %2$s task(s) in the list";
-    private static final String MESSAGE_TASK_LIST = "Here are the tasks in your list:" + LS + "%1$s";
-    private static final String MESSAGE_TASK_MARKED_AS_DONE = "Nice! I've marked this task as done:" + LS + "  %1$s";
+    private static final String MESSAGE_TASK_LIST = "Here are the tasks in your list:" + LINE_SEPARATOR + "%1$s";
+    private static final String MESSAGE_TASK_MARKED_AS_DONE = "Nice! I've marked this task as done:" + LINE_SEPARATOR
+            + "  %1$s";
 
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
@@ -62,6 +65,9 @@ public class Duke {
     private static final String COMMAND_DELETE_TASK = "delete";
     private static final String COMMAND_LIST_TASKS = "list";
     private static final String COMMAND_MARK_TASK_AS_DONE = "done";
+
+    private static final int INDEX_COMMAND = 0;
+    private static final int INDEX_ARGS = 1;
 
     /** Array of Task objects */
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -97,11 +103,11 @@ public class Duke {
     }
 
     private static String indent(String text) {
-        String[] lines = text.split(LS);
+        String[] lines = text.split(LINE_SEPARATOR);
         for (int i = 0; i < lines.length; i++) {
             lines[i] = " ".repeat(5) + lines[i];
         }
-        return String.join(LS, lines);
+        return String.join(LINE_SEPARATOR, lines);
     }
 
     private static void loadData() {
@@ -110,14 +116,14 @@ public class Duke {
         File dataFile = DATA_FILE_PATH.toFile();
         try {
             if (dataFile.createNewFile()) {
-                printResponseBlock((createdDataDirectory ? MESSAGE_DATA_DIRECTORY_CREATED + LS : "")
+                printResponseBlock((createdDataDirectory ? MESSAGE_DATA_DIRECTORY_CREATED + LINE_SEPARATOR : "")
                         + MESSAGE_DATA_FILE_CREATED);
             } else {
                 printResponseBlock(MESSAGE_DATA_FILE_FOUND);
                 parseDataFromFile(dataFile);
             }
         } catch (IOException e) {
-            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LS + e.getMessage());
+            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LINE_SEPARATOR + e.getMessage());
             System.exit(0);
         }
     }
@@ -132,7 +138,7 @@ public class Duke {
                 tasks.add(task);
             }
         } catch (DukeException e) {
-            printResponseBlock(MESSAGE_DATA_FILE_PARSE_ERROR + LS + e.getMessage());
+            printResponseBlock(MESSAGE_DATA_FILE_PARSE_ERROR + LINE_SEPARATOR + e.getMessage());
             System.exit(0);
         }
     }
@@ -171,7 +177,7 @@ public class Duke {
             fw.write(formatTasksAsDataOutput());
             fw.close();
         } catch (IOException e) {
-            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LS + e.getMessage());
+            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LINE_SEPARATOR + e.getMessage());
             System.exit(0);
         }
     }
@@ -181,7 +187,7 @@ public class Duke {
         for (Task task : tasks) {
             taskDataStrings.add(task.toDataString());
         }
-        return String.join(LS, taskDataStrings);
+        return String.join(LINE_SEPARATOR, taskDataStrings);
     }
 
     /**
@@ -207,8 +213,8 @@ public class Duke {
      */
     private static String executeCommand(String userInput) {
         final String[] commandAndArgs = userInput.split(" ", 2);
-        final String command = commandAndArgs[0];
-        final String args = commandAndArgs.length > 1 ? commandAndArgs[1] : "";
+        final String command = commandAndArgs[INDEX_COMMAND];
+        final String args = commandAndArgs.length > INDEX_ARGS ? commandAndArgs[INDEX_ARGS] : "";
 
         try {
             switch (command) {
@@ -282,7 +288,7 @@ public class Duke {
         for (int i = 0; i < tasks.size(); i++) {
             formattedTasks[i] = String.format("%d.%s", i + 1, tasks.get(i));
         }
-        String taskListOutput = String.join(LS, formattedTasks);
+        String taskListOutput = String.join(LINE_SEPARATOR, formattedTasks);
         return String.format(MESSAGE_TASK_LIST, taskListOutput);
     }
 
