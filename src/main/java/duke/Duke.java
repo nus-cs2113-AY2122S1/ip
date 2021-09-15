@@ -27,7 +27,7 @@ public class Duke {
     private static final Path DATA_DIRECTORY_PATH = Paths.get("data");
     private static final String DATA_FILE_NAME = "duke.txt";
     private static final Path DATA_FILE_PATH = DATA_DIRECTORY_PATH.resolve(DATA_FILE_NAME);
-    public static final String DATA_FILE_SEPARATOR = " ∥ ";
+    public static final String DATA_FILE_SEPARATOR = " ` ";
 
     private static final String MESSAGE_DATA_DIRECTORY_CREATED = "Created new directory: '" + DATA_DIRECTORY_PATH + "'";
     private static final String MESSAGE_DATA_FILE_CREATED = "No data file found. Created new file: '"
@@ -36,6 +36,7 @@ public class Duke {
     private static final String MESSAGE_DATA_FILE_ACCESS_ERROR = "There was an error accessing the data file: '"
             + DATA_FILE_PATH + "'";
     private static final String MESSAGE_DATA_FILE_PARSE_ERROR = "There was an error parsing the data file:";
+    private static final String MESSAGE_TASK_FORMAT_ERROR = "Unrecognised task format.";
 
     private static final String MESSAGE_GREETING = "Hello! I'm Duke" + LINE_SEPARATOR + "What can I do for you?";
     private static final String MESSAGE_FAREWELL = "Bye. Hope to see you again soon!";
@@ -150,6 +151,9 @@ public class Duke {
     }
 
     private static Task decodeTaskFromString(String[] args) throws DukeException {
+        if (args.length < 3) {
+            throw new DukeException(MESSAGE_TASK_FORMAT_ERROR);
+        }
         final String taskTypeIcon = args[0];
         final String statusString = args[1];
         final String description = args[2];
@@ -159,10 +163,16 @@ public class Duke {
             task = new Todo(description);
             break;
         case Event.TASK_TYPE_ICON:
+            if (args.length < 4) {
+                throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
+            }
             final String at = args[3];
             task = new Event(description, at);
             break;
         case Deadline.TASK_TYPE_ICON:
+            if (args.length < 4) {
+                throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
+            }
             final String by = args[3];
             task = new Deadline(description, by);
             break;
