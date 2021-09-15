@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
@@ -33,9 +35,13 @@ public class Storage {
                 if (atomArray[1].equals("T")) {
                     userTasks.taskList.add(new Todo(atomArray[2]));
                 } else if (atomArray[1].equals("D")) {
-                    userTasks.taskList.add(new Deadline(atomArray[2], atomArray[3]));
+                    LocalDate parsedDate =
+                            LocalDate.parse(atomArray[3], DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
+                    userTasks.taskList.add(new Deadline(atomArray[2], parsedDate));
                 } else {
-                    userTasks.taskList.add(new Event(atomArray[2], atomArray[3]));
+                    LocalDate parsedDate =
+                            LocalDate.parse(atomArray[3], DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
+                    userTasks.taskList.add(new Event(atomArray[2], parsedDate));
                 }
                 if (atomArray[0].equals("[X]")) {
                     userTasks.taskList.get(Task.getTotalTasks() - 1).markComplete();

@@ -1,19 +1,26 @@
 package duke.util;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ListCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Parser {
     static final int MAX_STORED_TASKS = 100;
     static final int TODO_OFFSET = 5;
     static final int DEADLINE_OFFSET = 9;
     static final int EVENT_OFFSET = 6;
+    static final int DATE_OFFSET = 4;
 
     private final Scanner userInput = new Scanner(System.in);
     private String userInputString;
@@ -23,7 +30,7 @@ public class Parser {
         return !userInputString.equalsIgnoreCase("bye");
     }
 
-    public Command processCommands(TaskList userTasks, UI ui) {
+    public Command processCommands(UI ui) {
         System.out.println(UI.DIVIDING_LINE);
 
         try {
@@ -66,8 +73,8 @@ public class Parser {
 
                 int slashIndex = userInputString.indexOf('/');
                 String taskSubstring;
-                String timeSubstring = userInputString.substring(slashIndex + 1);
-                timeSubstring = timeSubstring.replaceFirst(" ", ": ");
+                String timeSubstring = userInputString.substring(slashIndex + DATE_OFFSET);
+                LocalDate parsedDate;
 
                 if (userInputString.startsWith("todo ")) {
                     taskSubstring = userInputString.substring(TODO_OFFSET);
@@ -85,8 +92,13 @@ public class Parser {
                     if (DEADLINE_OFFSET >= slashIndex - 1) {
                         throw new DukeException(DukeException.DEADLINE_BLANK_DESC);
                     }
+                    try {
+                        parsedDate = LocalDate.parse(timeSubstring);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException(DukeException.DATE_INVALID);
+                    }
                     taskSubstring = userInputString.substring(DEADLINE_OFFSET, slashIndex - 1);
-                    return new AddCommand(new Deadline(taskSubstring, timeSubstring));
+                    return new AddCommand(new Deadline(taskSubstring, parsedDate));
                 } else if (userInputString.startsWith("event ")) {
                     if (slashIndex < 0) {
                         throw new DukeException(DukeException.EVENT_NO_SLASH);
@@ -97,8 +109,13 @@ public class Parser {
                     if (EVENT_OFFSET >= slashIndex - 1) {
                         throw new DukeException(DukeException.EVENT_BLANK_DESC);
                     }
+                    try {
+                        parsedDate = LocalDate.parse(timeSubstring);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException(DukeException.DATE_INVALID);
+                    }
                     taskSubstring = userInputString.substring(EVENT_OFFSET, slashIndex - 1);
-                    return new AddCommand(new Event(taskSubstring, timeSubstring));
+                    return new AddCommand(new Event(taskSubstring, parsedDate));
                 } else {
                     throw new DukeException(DukeException.COMMAND_INVALID);
                 }

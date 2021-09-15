@@ -20,7 +20,7 @@ public class Duke {
     public void run() {
         ui.printGreeting();
         while (parser.parseNextLine()) {
-            Command c = parser.processCommands(tasks, ui);
+            Command c = parser.processCommands(ui);
             if (c != null) {
                 c.execute(tasks);
             }

@@ -8,6 +8,7 @@ public class DukeException extends Exception {
     public static final String INDEX_INVALID = "Index is not a valid integer.";
 
     public static final String COMMAND_INVALID = "Command given cannot be recognized.";
+    public static final String DATE_INVALID = "Date given has the wrong format.";
 
     public static final String TODO_BLANK_DESC = "Description of todo is blank.";
 
