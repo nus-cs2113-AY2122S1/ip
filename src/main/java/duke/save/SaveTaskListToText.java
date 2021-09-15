@@ -21,6 +21,59 @@ public class SaveTaskListToText {
     public static File dukeTaskText = new File("./data/duke.txt");
     public static int numberOfTasksAdded = 0;
 
+
+    public static void removeLineFromFile(String file, String lineToRemove) {
+        try {
+            File inFile = new File(file);
+
+            if (!inFile.isFile()) {
+                System.out.println("Parameter is not an existing file");
+                return;
+            }
+
+            // Construct the new file that will later be renamed to the original filename.
+            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+            String line = null;
+
+            // Read from the original file and write to the new
+            // unless content matches data to be removed.
+            while ((line = br.readLine()) != null) {
+
+                if (!line.trim().equals(lineToRemove)) {
+
+                    pw.println(line);
+                    pw.flush();
+                }
+            }
+
+            pw.close();
+            br.close();
+
+            // Delete the original file
+            if (!inFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            // Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inFile)) {
+                System.out.println("Could not rename file");
+            }
+
+        }
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
     private static void fileTaskCopy(ArrayList<Task> tasks) throws IOException {
         Scanner scanText = new Scanner(dukeTaskText); // create a Scanner using the File as the source
         while (scanText.hasNext()) {
@@ -120,8 +173,18 @@ public class SaveTaskListToText {
         try {
             if (checkLineExist(textToWrite1) == false && checkLineExist(textToWrite2) == false) {
                 String dukeDirectory = "data/duke.txt";
+
+                File file = new File(dukeDirectory);
+                boolean fileIsEmpty = false;
+
+                if (file.length() == 0) {
+                    fileIsEmpty = true;
+                }
+
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
-                addToDo.write("\n");//appends the string to the file
+                if (fileIsEmpty == false) {
+                    addToDo.write("\n");//appends the string to the file
+                }
                 addToDo.write(textToWrite1);
                 addToDo.close();
             } else {
@@ -141,8 +204,17 @@ public class SaveTaskListToText {
         try {
             if (checkLineExist(eventToWrite1) == false && checkLineExist(eventToWrite2) == false) {
                 String dukeDirectory = "data/duke.txt";
+                File file = new File(dukeDirectory);
+                boolean fileIsEmpty = false;
+
+                if (file.length() == 0) {
+                    fileIsEmpty = true;
+                }
+
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
-                addToDo.write("\n");//appends the string to the file
+                if (fileIsEmpty == false) {
+                    addToDo.write("\n");//appends the string to the file
+                }
                 addToDo.write(eventToWrite1);
                 addToDo.close();
             } else {
@@ -161,8 +233,17 @@ public class SaveTaskListToText {
         try {
             if (checkLineExist(deadlineToWrite1) == false && checkLineExist(deadlineToWrite2) == false) {
                 String dukeDirectory = "data/duke.txt";
+                File file = new File(dukeDirectory);
+                boolean fileIsEmpty = false;
+
+                if (file.length() == 0) {
+                    fileIsEmpty = true;
+                }
+
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
-                addToDo.write("\n");//appends the string to the file
+                if (fileIsEmpty == false) {
+                    addToDo.write("\n");//appends the string to the file
+                }
                 addToDo.write(deadlineToWrite1);
                 addToDo.close();
             } else {
