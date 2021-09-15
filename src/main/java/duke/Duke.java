@@ -38,9 +38,9 @@ public class Duke {
 
     private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done.";
     private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
-    private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n %s\nThere are %d tasks in the list.";
+    private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n  %s\nThere are %d tasks in the list.";
     private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
-    private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n %s\nThere are %d tasks left in the list.";
+    private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
