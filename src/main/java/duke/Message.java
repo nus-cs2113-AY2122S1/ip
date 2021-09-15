@@ -51,7 +51,7 @@ public class Message {
      * @return welcome message.
      */
     public static String printWelcome() {
-        String welcomeMessage = printDuke() + "Poggers! I'm Pepe\n"
+        String welcomeMessage = "Poggers! I'm Pepe\n"
                 + "What can I do for you?";
 
         return welcomeMessage;
