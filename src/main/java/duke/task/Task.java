@@ -2,6 +2,7 @@ package duke.task;
 import duke.exception.DukeException;
 
 public abstract class Task {
+    public static final String DATE_FORMAT = "MMM dd yyyy";
     protected String description;
     protected char type;
     protected boolean isDone = false;
