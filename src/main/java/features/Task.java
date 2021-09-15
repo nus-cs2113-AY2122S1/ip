@@ -3,6 +3,7 @@ package features;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
     public Task(String description) {
         this.description = description;
@@ -17,6 +18,18 @@ public class Task {
     public void markAsDone(){
         //change isDone for task to true
         this.isDone = true;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String toString() {
