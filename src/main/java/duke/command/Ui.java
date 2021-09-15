@@ -8,52 +8,69 @@ public class Ui {
     private TaskManager taskManager;
     private Scanner scanner;
 
+    private static final String LINE = "    ____________________________________________________________\n";
+    private static final String LOGO = "\n" +
+            "                                                   \n" +
+            "  ,--.       ,------.       ,--.  ,--.      ,--.   \n" +
+            ",-'  '-.,---.|  .-.  \\ ,---.|  |  `--',---,-'  '-. \n" +
+            "'-.  .-| .-. |  |  \\  | .-. |  |  ,--(  .-'-.  .-' \n" +
+            "  |  | ' '-' |  '--'  ' '-' |  '--|  .-'  `)|  |   \n" +
+            "  `--'  `---'`-------' `---'`-----`--`----' `--'   \n" +
+            "                                                   \n";
+    private static final String GREETINGS = LINE
+            + LOGO
+            + "     Welcome to the toDoList Chatbot\n"
+            + "     What would you like to do today?\n"
+            + LINE;
+    private static final String FAREWELL = "     Bye. Hope to see you again soon!";
+
+    private static final String TO_DO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String BYE = "bye";
+    private static final String LIST = "list";
+    private static final String DONE = "done";
+    private static final String DELETE = "delete";
+    private static final String ADD_SUCCESS = "     Nice! I've marked this task as done: ";
+    private static final String DELETE_SUCCESS = "     Noted. I've removed this task:";
+
     public Ui(TaskManager taskManager, Scanner scanner) {
         this.taskManager = taskManager;
         this.scanner = scanner;
     }
 
     public void start() {
-        String lineBreak = "    ____________________________________________________________\n";
-        String logo = "\n" +
-                "                                                   \n" +
-                "  ,--.       ,------.       ,--.  ,--.      ,--.   \n" +
-                ",-'  '-.,---.|  .-.  \\ ,---.|  |  `--',---,-'  '-. \n" +
-                "'-.  .-| .-. |  |  \\  | .-. |  |  ,--(  .-'-.  .-' \n" +
-                "  |  | ' '-' |  '--'  ' '-' |  '--|  .-'  `)|  |   \n" +
-                "  `--'  `---'`-------' `---'`-----`--`----' `--'   \n" +
-                "                                                   \n";
-        String greetings = lineBreak
-                + logo
-                + "     Welcome to the toDoList Chatbot\n"
-                + "     What would you like to do today?\n"
-                + lineBreak;
-        String farewell = "     Bye. Hope to see you again soon!";
-        System.out.println(greetings);
-
-        while (true) {
+        System.out.println(GREETINGS);
+        boolean isExit = false;
+        while (!isExit) {
             String input = scanner.nextLine();
             String[] command = input.split(" ");
             String firstWord = command[0];
-            System.out.print(lineBreak);
+
+            System.out.print(LINE);
             try {
                 switch (firstWord) {
-                case "bye":
-                    System.out.println(farewell);
-                    return;
-                case "list":
+                case BYE:
+                    System.out.println(FAREWELL);
+                    isExit = true;
+                    break;
+                case LIST:
                     taskManager.list();
                     break;
-                case "done":
+                case DONE:
                     int taskNumber = Integer.parseInt(command[1]);
-                    System.out.println("     Nice! I've marked this task as done: ");
+                    System.out.println(ADD_SUCCESS);
                     taskManager.checkDone(command);
                     System.out.println("       " + taskManager.getName(taskNumber));
                     break;
-                case "todo":
-                case "deadline":
-                case "event":
+                case TO_DO:
+                case DEADLINE:
+                case EVENT:
                     taskManager.add(input);
+                    break;
+                case DELETE:
+                    System.out.println(DELETE_SUCCESS);
+                    taskManager.deleteTask(command);
                     break;
                 default:
                     System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -63,7 +80,7 @@ public class Ui {
             } catch (NumberFormatException e) {
                 System.out.println("     ☹ OOPS!!! The task's index should be an integer.");
             }
-            System.out.print(lineBreak);
+            System.out.print(LINE);
         }
     }
 }
