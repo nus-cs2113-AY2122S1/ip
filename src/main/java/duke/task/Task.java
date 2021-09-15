@@ -7,8 +7,9 @@ package duke.task;
  * @version 1.0
  * @since 2021-08-25
  */
-public class Task {
-    public static int numOfTasks = 0;
+
+public abstract class Task {
+    protected static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
     protected int itemIndex;
@@ -22,6 +23,10 @@ public class Task {
         isDone = false;
         numOfTasks++;
         itemIndex = numOfTasks;
+    }
+
+    public static void decrementNumOfTasks() {
+        numOfTasks--;
     }
 
     public String getStatusIcon() {
@@ -47,5 +52,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String getDue() {
+        return null;
     }
 }

@@ -18,4 +18,9 @@ public class Deadline extends Task{
     public String toString() {
         return ". [" + this.getTaskIcon() +"]" + super.toString() + " by: " + by;
     }
+
+    @Override
+    public String getDue() {
+        return by;
+    }
 }

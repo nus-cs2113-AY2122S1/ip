@@ -17,4 +17,9 @@ public class Event extends Task{
     public String toString() {
         return ". [" + this.getTaskIcon() + "]" + super.toString() + " at: " + at;
     }
+
+    @Override
+    public String getDue() {
+        return at;
+    }
 }
