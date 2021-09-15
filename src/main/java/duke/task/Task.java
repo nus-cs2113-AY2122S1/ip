@@ -5,15 +5,17 @@ public abstract class Task {
     public static final char TYPE_DEADLINE = 'D';
     public static final char TYPE_EVENT = 'E';
 
-    private String description;
-    private boolean isDone;
-    private char taskType;
+    protected String description;
+    protected boolean isDone;
+    protected char taskType;
 
     public Task(String description, char taskType) {
         this.description = description;
         this.isDone = false;
         this.taskType = taskType;
     }
+
+    public abstract String toFileString();
 
     public boolean isDone() {
         return isDone;
