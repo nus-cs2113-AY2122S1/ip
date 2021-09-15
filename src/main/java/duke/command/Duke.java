@@ -4,6 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class Duke {
     private static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(save);
         for (int i = 0; i < taskIndex; i++) {
-            fw.write(taskList.get(i).getType() + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getOriginalDescription() +  System.lineSeparator());
+            fw.write(taskList.get(i).getType() + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getOriginalDescription() + System.lineSeparator());
         }
         fw.close();
     }
@@ -109,8 +110,8 @@ public class Duke {
             bye();
             return;
         case DELETE:
-             deleteTask(taskDescription);
-             break;
+            deleteTask(taskDescription);
+            break;
         default:
             printDividerLine();
             System.out.println("Invalid Input!");
@@ -220,7 +221,7 @@ public class Duke {
         int counter = 1;
         for (Task item : taskList) {
             System.out.println(counter + ". [" + item.getType() + "][" + item.getStatusIcon() + "] " + item.getDescription());
-            counter ++;
+            counter++;
         }
         printDividerLine();
     }
@@ -238,7 +239,7 @@ public class Duke {
             taskList.get(taskNumber).markAsDone();
             printDividerLine();
             System.out.println("I have marked it as completed!");
-            System.out.println(taskNumber + 1 + ". [" +  taskList.get(taskNumber).getType() + "][" +  taskList.get(taskNumber).getStatusIcon() + "] " +  taskList.get(taskNumber).getDescription());
+            System.out.println(taskNumber + 1 + ". [" + taskList.get(taskNumber).getType() + "][" + taskList.get(taskNumber).getStatusIcon() + "] " + taskList.get(taskNumber).getDescription());
             printDividerLine();
         } catch (NumberFormatException e) {
             System.out.println("Error! This task does not exist!");
@@ -262,7 +263,7 @@ public class Duke {
             taskNumber--;
             printDividerLine();
             System.out.println("Noted. I've removed this task: ");
-            System.out.println("  [" +  taskList.get(taskNumber).getType() + "][" +  taskList.get(taskNumber).getStatusIcon() + "] " +  taskList.get(taskNumber).getDescription());
+            System.out.println("  [" + taskList.get(taskNumber).getType() + "][" + taskList.get(taskNumber).getStatusIcon() + "] " + taskList.get(taskNumber).getDescription());
             printDividerLine();
             taskList.remove(taskNumber);
             numberOfTasks--;
