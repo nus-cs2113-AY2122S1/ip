@@ -6,10 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
-    private static void writeToFile(String filePath, String[] lists, String[] taskType, String[] doneTasks, String[] dates, int number) throws IOException {
+    private static void writeToFile(String filePath, List<String> lists, String[] taskType, String[] doneTasks, String[] dates, int number) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for(int i = 0; i < number; i++) {
-            fw.write(taskType[i] + " | " + doneTasks[i] + " | " + lists[i] + " | " + dates[i] + "\n" );
+            fw.write(taskType[i] + " | " + doneTasks[i] + " | " + lists.get(i) + " | " + dates[i] + "\n" );
         }
         fw.close();
     }
@@ -20,7 +20,6 @@ public class Duke {
         System.out.println("    Hello! I'm Duke\n    What can I do for you?");
         System.out.println(DIVIDER);
         String line;
-        String[] lists = new String[100];
         String[] taskType = new String[100];
         String[] doneTasks = new String[100];
         String[] dates = new String[100];
@@ -47,7 +46,7 @@ public class Duke {
                 System.out.println("    " + "Here are the tasks in your list:");
                 for(int i = 0; i < number; i++) {
                     System.out.print("    " + (i + 1) + ". " + "[" + taskType[i] + "]"
-                            + "[" + doneTasks[i] + "] " + lists[i]);
+                            + "[" + doneTasks[i] + "] " + tasks.get(i));
                     if(taskType[i].equals("D")) {
                         System.out.println(" (by: " + dates[i] + ")");
                     } else if (taskType[i].equals("E")) {
@@ -72,7 +71,7 @@ public class Duke {
                 System.out.println(DIVIDER);
                 System.out.println("    Nice! I've marked this task as done:");
                 doneTasks[taskDone - 1] = "X";
-                System.out.print("      [" + taskType[taskDone - 1] + "][X] " + lists[taskDone - 1]);
+                System.out.print("      [" + taskType[taskDone - 1] + "][X] " + tasks.get(taskDone - 1));
                 if(taskType[taskDone - 1].equals("D")) {
                     System.out.println(" (by: " + dates[taskDone - 1] + ")");
                 } else if (taskType[taskDone - 1].equals("E")) {
@@ -93,9 +92,8 @@ public class Duke {
                     continue;
                 }
                 String task = line.substring(5);
+                taskType[number++] = "T";
                 tasks.add(task);
-                taskType[number] = "T";
-                lists[number++] = task;
                 System.out.println(DIVIDER);
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("      [T][ ] " + task);
@@ -117,8 +115,8 @@ public class Duke {
                 int taskEnd = line.indexOf('/');
                 String task = line.substring(9,taskEnd);
                 dates[number] = line.substring(taskEnd + 4);
-                taskType[number] = "D";
-                lists[number++] = task;
+                taskType[number++] = "D";
+                tasks.add(task);
                 System.out.println(DIVIDER);
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("      [D][ ] " + task + " (by: " + dates[number - 1] + ")");
@@ -140,8 +138,8 @@ public class Duke {
                 int taskEnd = line.indexOf('/');
                 String task = line.substring(6,taskEnd);
                 dates[number] = line.substring(taskEnd + 4);
-                taskType[number] = "E";
-                lists[number++] = task;
+                taskType[number++] = "E";
+                tasks.add(task);
                 System.out.println(DIVIDER);
                 System.out.println("    Got it. I've added this task: ");
                 System.out.println("      [E][ ] " + task + " (by: " + dates[number - 1] + ")");
@@ -161,7 +159,7 @@ public class Duke {
                 int taskDelete = Integer.parseInt(line.substring(7));
                 System.out.println(DIVIDER);
                 System.out.println("    Noted. I've removed this task:");
-                System.out.print("      [" + taskType[taskDelete - 1] + "][" + doneTasks[taskDelete - 1] + "] " + lists[taskDelete - 1]);
+                System.out.print("      [" + taskType[taskDelete - 1] + "][" + doneTasks[taskDelete - 1] + "] " + tasks.get(taskDelete - 1));
                 if(taskType[taskDelete - 1].equals("D")) {
                     System.out.println(" (by: " + dates[taskDelete - 1] + ")");
                 } else if (taskType[taskDelete - 1].equals("E")) {
@@ -170,9 +168,7 @@ public class Duke {
                     System.out.println(" ");
                 }
                 System.out.println("    Now you have " + --number + " tasks in the list.");
-                for (int i = taskDelete - 1; i < number; i++) {
-                    lists[i] = lists[i + 1];
-                }
+                tasks.remove(taskDelete);
                 for (int i = taskDelete - 1; i < number; i++) {
                     taskType[i] = taskType[i + 1];
                 }
@@ -195,7 +191,7 @@ public class Duke {
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
         try {
-            writeToFile("./src/Duke.txt", lists, taskType, doneTasks, dates, number);
+            writeToFile("./src/Duke.txt", tasks, taskType, doneTasks, dates, number);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
