@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Greet {
     private static final int indexFix = 1;
     protected static ArrayList<Task> list = new ArrayList<>();
-    private static int tasksAdded = 0;
 
     public static void printLineOnConsole() {
         System.out.println(GreetMessage.DASH_LINE);
@@ -17,7 +16,6 @@ public class Greet {
     //might move to main/duke class
     public static void addTask(Task newTask) {
         list.add(newTask);
-        tasksAdded++;
         printAddNewTask(newTask);
     }
 
@@ -56,9 +54,9 @@ public class Greet {
     public static void printList() {
 
         printLineOnConsole();
-        if (tasksAdded != 0) {
+        if (list.size() != 0) {
             System.out.println(GreetMessage.LIST_HEADER);
-            for (int i = 0; i < tasksAdded; i++) {
+            for (int i = 0; i < list.size(); i++) {
                 int numbering = i + indexFix;
                 // need to replace this with to string
                 System.out.println("     " + numbering + ". " + list.get(i));
@@ -73,9 +71,18 @@ public class Greet {
         printLineOnConsole();
         System.out.println("     " + newTask);
         System.out.println(GreetMessage.TASK_MESSAGE_START +
-                tasksAdded + GreetMessage.TASK_MESSAGE_END);
+                list.size() + GreetMessage.TASK_MESSAGE_END);
         printLineOnConsole();
     }
+    
+    public static void deleteTask(int taskNumber) {
+        int taskIndex = taskNumber - indexFix;
+        // need to get the task and then remove the task
+        Task task = list.remove(taskIndex);
+        System.out.println(GreetMessage.DELETE_MESSAGE);
+        System.out.println("     " + task);
+        System.out.println(GreetMessage.TASK_MESSAGE_START + list.size()
+                + GreetMessage.TASK_MESSAGE_END);
 
-
+    }
 }

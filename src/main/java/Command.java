@@ -6,5 +6,6 @@ public class Command {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_DELETE = "delete";
 
 }

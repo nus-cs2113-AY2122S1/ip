@@ -26,7 +26,7 @@ public class Duke {
                 System.out.println("Please key in an integer");
             } catch (NullPointerException e) {
                 System.out.println(ErrorMessage.EXCEPTION_MESSAGE_INPUT_NOT_INT);
-            } catch (ArrayIndexOutOfBoundsException e){
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid Number.");
             }
             isConversation = !words[0].equals(Command.COMMAND_BYE);
