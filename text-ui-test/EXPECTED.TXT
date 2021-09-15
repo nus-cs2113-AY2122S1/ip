@@ -4,8 +4,8 @@ What can I do for you?
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Got it. Task added:
-[T][ ] borrow book
-There are 1 tasks in the list
+  [T][ ] borrow book
+There are 1 tasks in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Task List:
@@ -13,13 +13,13 @@ Task List:
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Got it. Task added:
-[D][ ] return book (by: Sunday)
-There are 2 tasks in the list
+  [D][ ] return book (by: Sunday)
+There are 2 tasks in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Got it. Task added:
-[E][ ] project meeting (at: Mon 2-4pm)
-There are 3 tasks in the list
+  [E][ ] project meeting (at: Mon 2-4pm)
+There are 3 tasks in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Task marked as done:
@@ -33,7 +33,7 @@ Task List:
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred.
-Task #2 is already marked as done
+Task #2 is already marked as done.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred.
@@ -58,6 +58,11 @@ Usage: deadline <description> /by <date/time>
 $ ------------------------------------------------------------
 An exception has occurred.
 Usage: deadline <description> /by <date/time>
+------------------------------------------------------------
+$ ------------------------------------------------------------
+Task deleted:
+  [E][ ] project meeting (at: Mon 2-4pm)
+There are 2 tasks left in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Bye. Hope to see you again soon!
