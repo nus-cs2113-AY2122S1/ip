@@ -2,10 +2,7 @@ package herrekt;
 
 import herrekt.exceptions.InvalidInputException;
 import herrekt.exceptions.NoTaskException;
-import herrekt.taskmanager.Deadline;
-import herrekt.taskmanager.Event;
-import herrekt.taskmanager.Timetable;
-import herrekt.taskmanager.Todo;
+import herrekt.taskmanager.*;
 
 import java.util.Scanner;
 
@@ -85,7 +82,7 @@ public class Herrekt {
 
     static void recordTask(String phrase) {
         try {
-            Timetable task = parsePhraseToTask(phrase);
+            Task task = (Task) parsePhraseToTask(phrase);
             Timetable.addTask(task);
             printNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e3) {
