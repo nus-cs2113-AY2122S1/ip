@@ -39,9 +39,11 @@ public class Duke {
                     }catch(CommandException e){
                         e.handleException();
                     }
-                    fileManager.writeToFile(list.get(0),false);
-                    for (int i = 1; i < list.size(); i ++) {
-                        fileManager.writeToFile(list.get(i), true);
+                    if(list.size() != 0) {
+                        fileManager.writeToFile(list.get(0), false);
+                        for (int i = 1; i < list.size(); i++) {
+                            fileManager.writeToFile(list.get(i), true);
+                        }
                     }
                 }
         }
