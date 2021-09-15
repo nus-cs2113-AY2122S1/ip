@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +14,9 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String line = "________________________________________";
         String curCommand = "";
+
+        readFromFile();
+        writeIntoFile();
 
         System.out.println(logo);
         System.out.println(line);
@@ -48,10 +52,12 @@ public class Duke {
             System.out.println(doneIndex > 0 && doneIndex <= tasks.size()
                     ? "Nice! I've marked this task as done:\n " + MessageManager.taskToString(tasks.get(doneIndex - 1))
                     : "Formatting error");
+            writeIntoFile();
             break;
         case "todo":
             tasks.add(new Task(commands[1], "", 'T', false));
             MessageManager.printNewTask(tasks.get(tasks.size() - 1), tasks.size());
+            writeIntoFile();
             break;
         case "deadline":
             String[] deadin = commands[1].split(" /by ", 2);
@@ -62,6 +68,7 @@ public class Duke {
             else {
                 System.out.println("Formatting error");
             }
+            writeIntoFile();
             break;
         case "event":
             String[] evin = commands[1].split(" /at ", 2);
@@ -72,16 +79,10 @@ public class Duke {
             else {
                 System.out.println("Formatting error");
             }
+            writeIntoFile();
             break;
         case "help":
             MessageManager.printHelp(commands[1]);
-            break;
-        case "delete":
-            int deleteIndex = getPositiveNumeric(commands[1]);
-            System.out.println(deleteIndex > 0 && deleteIndex <= tasks.size()
-                    ? "Noted. I've removed this task:\n " + MessageManager.taskToString(tasks.get(deleteIndex - 1)) + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.\n"
-                    : "Formatting error");
-            tasks.remove(deleteIndex - 1);
             break;
         default:
             System.out.println("Input error");
@@ -114,6 +115,55 @@ public class Duke {
             return Integer.parseInt(str);
         } catch(NumberFormatException e){
             return -1;
+        }
+    }
+
+    // Write into file
+    public static void writeIntoFile() {
+        try {
+            String dir = System.getProperty("user.dir") ;
+            File newDir = new File(dir + "\\data");
+            newDir.mkdir();
+
+            File newFile = new File(dir + "\\data\\duke.txt");
+            newFile.createNewFile();
+
+            FileWriter myWriter = new FileWriter(dir + "\\data\\duke.txt");
+
+            for (Task t : tasks) {
+                myWriter.write(t.getTask()
+                        + " / " + t.getTrail()
+                        + " / " + t.getType()
+                        + " / " + (t.isDone() ? 1 : 0)
+                        + "\n"
+                );
+            }
+
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Read from file
+    public static void readFromFile() {
+        try {
+            String dir = System.getProperty("user.dir") ;
+            File file = new File(dir + "\\data\\duke.txt");
+            file.createNewFile();
+
+            FileReader fileReader = null;
+            fileReader = new FileReader(file);
+
+            BufferedReader bufferedreader = new BufferedReader(fileReader);
+            String strLine;
+
+            while ((strLine = bufferedreader.readLine()) != null) {
+                String[] saved = strLine.split(" / ", 4);
+                tasks.add(new Task(saved[0], saved[1], saved[2].charAt(0), saved[3].equals("1")));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
