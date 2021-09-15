@@ -7,6 +7,12 @@ public class Event extends Task{
     public Event(String description, String eventTime) {
         super(description);
         this.eventTime = eventTime;
+        this.taskType = "E";
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description + " /at " + this.eventTime;
     }
 
     @Override
