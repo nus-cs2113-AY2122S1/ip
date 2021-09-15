@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String TEXT_SPACER = "    ";
@@ -15,12 +16,10 @@ public class Duke {
         printLineSpacer();
         System.out.println(TEXT_SPACER + "Hey, what's up!\n" + TEXT_SPACER + "What can I help you with today?");
         printLineSpacer();
-
-        Task[] userLists = new Task[100];
+        ArrayList<Task> userLists = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String userLineInput;
         int numOfTasks = 0;
-
         do {
             userLineInput = scanner.nextLine();
             String[] splitInputs = userLineInput.split(" ");
@@ -50,10 +49,19 @@ public class Duke {
                                     "Description of your task can't be empty. At least enter something!");
                         }
                         break;
+                    case "delete":
+                        try {
+                            deleteEvent(userLists, splitInputs, numOfTasks);
+                            numOfTasks--;
+                        } catch (ArrayIndexOutOfBoundsException | NullPointerException e){
+                            System.out.println(TEXT_SPACER + "Please choose a valid entry to delete.");
+                        }
+                        break;
                     default:
                         throw new DukeExceptions(TEXT_SPACER +
                                 "Sorry mate, I don't understand what you are trying to get me to do.");
                     }
+
                 } catch (DukeExceptions e) {
                     System.out.println(e.getMessage());
                 }
@@ -74,26 +82,26 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
     }
 
-    private static void printList(Task[] userLists, int numOfTasks) {
+    private static void printList(ArrayList userLists, int numOfTasks) {
         if (numOfTasks == 0) {
             System.out.println(TEXT_SPACER + "List is empty!");
         } else {
             System.out.println(TEXT_SPACER + "Here's your list of tasks:");
             for (int i = 0; i < numOfTasks; i++) {
-                System.out.println("    " + (i + 1) + "." + userLists[i].toString());
+                System.out.println("    " + (i + 1) + "." + userLists.get(i).toString());
             }
         }
     }
 
-    private static void completeTask(Task[] userLists, String[] splitInput) {
+    private static void completeTask(ArrayList userLists, String[] splitInput) {
         int chosenEntry;
         chosenEntry = Integer.parseInt(splitInput[1]) - 1;
-        userLists[chosenEntry].markAsDone();
+        ((Task)userLists.get(chosenEntry)).markAsDone();
         System.out.println(TEXT_SPACER + "Good job on completing a task!");
-        System.out.println(TEXT_SPACER + userLists[chosenEntry].toString());
+        System.out.println(TEXT_SPACER + userLists.get(chosenEntry).toString());
     }
 
-    private static void storeTasks(Task[] userLists, String userLineInput,
+    private static void storeTasks(ArrayList userLists, String userLineInput,
                                    int numOfTasks, String userCommand) throws DukeExceptions{
         if (userCommand.equals("event")){
             storeEvent(userLists, userLineInput, numOfTasks);
@@ -105,13 +113,13 @@ public class Duke {
         System.out.println(TEXT_SPACER + "Now you have " + (numOfTasks + 1) + " tasks in your list");
     }
 
-    private static void storeToDo(Task[] userLists, String userLineInput, int numOfTasks) {
-        userLists[numOfTasks] = new ToDo(userLineInput.substring(5));
+    private static void storeToDo(ArrayList userLists, String userLineInput, int numOfTasks) {
+        userLists.add(numOfTasks, new ToDo(userLineInput.substring(5)));
         System.out.println(TEXT_SPACER + "Aight, I've added the following task to your list:");
-        System.out.println(TEXT_SPACER + userLists[numOfTasks].toString());
+        System.out.println(TEXT_SPACER + userLists.get(numOfTasks).toString());
     }
 
-    private static void storeDeadline(Task[] userLists, String userLineInput, int numOfTasks) throws DukeExceptions{
+    private static void storeDeadline(ArrayList userLists, String userLineInput, int numOfTasks) throws DukeExceptions{
         int infoIndex = userLineInput.indexOf("/");
         //checks for "/by" in the user input
         if ((infoIndex <= 9) && userLineInput.length() > 8) {
@@ -120,11 +128,20 @@ public class Duke {
         }
         String taskDescription = userLineInput.substring(9, infoIndex);
         String dueDate = userLineInput.substring(infoIndex + 3);
-        userLists[numOfTasks] = new Deadline(taskDescription, dueDate);
-        System.out.println(TEXT_SPACER + userLists[numOfTasks].toString());
+        userLists.add(numOfTasks, new Deadline(taskDescription, dueDate));
+        System.out.println(TEXT_SPACER + userLists.get(numOfTasks).toString());
     }
 
-    private static void storeEvent(Task[] userLists, String userLineInput, int numOfTasks) throws DukeExceptions{
+    private static void deleteEvent(ArrayList userList, String[] splitInput, int numOfTasks){
+        int chosenEntry;
+        chosenEntry = Integer.parseInt(splitInput[1]) - 1;
+        System.out.println(TEXT_SPACER + "Alright, the following task has been removed");
+        System.out.println(TEXT_SPACER + userList.get(chosenEntry).toString());
+        System.out.println(TEXT_SPACER + "Now you have " + (numOfTasks - 1) + " tasks left");
+        userList.remove(chosenEntry);
+    }
+
+    private static void storeEvent(ArrayList userLists, String userLineInput, int numOfTasks) throws DukeExceptions{
         int infoIndex = userLineInput.indexOf("/");
         //checks for "/at" in the user input
         if ((infoIndex <= 6) && userLineInput.length() > 5) {
@@ -133,8 +150,8 @@ public class Duke {
         }
         String taskDescription = userLineInput.substring(6, infoIndex);
         String eventTime = userLineInput.substring(infoIndex + 3);
-        userLists[numOfTasks] = new Event(taskDescription, eventTime);
-        System.out.println(TEXT_SPACER + userLists[numOfTasks].toString());
+        userLists.add(numOfTasks, new Event(taskDescription, eventTime));
+        System.out.println(TEXT_SPACER + userLists.get(numOfTasks).toString());
     }
 
 
