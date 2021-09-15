@@ -4,6 +4,7 @@ import features.Task;
 import features.Todo;
 import features.Deadline;
 import features.Event;
+import files.FileAccess;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -26,10 +27,11 @@ public class Jarvis {
 
     public static void main(String[] args) {
         greetMessage();
+        ArrayList<Task> taskList = new ArrayList<>();
+        FileAccess.findTaskFile(taskList);
         Scanner in = new Scanner(System.in);
         String userLine;
-        ArrayList<Task> taskList = new ArrayList<>();
-        Boolean isOn = true;
+        boolean isOn = true;
         while (isOn) {
             userLine = in.nextLine().trim();
             if (userLine.toLowerCase().contains(COMMAND_BYE)) {
@@ -51,12 +53,15 @@ public class Jarvis {
                 break;
             case COMMAND_TODO:
                 todoTask(userLine, taskList);
+                printAddedTask(taskList.get(taskList.size()-1), taskList);
                 break;
             case COMMAND_DEADLINE:
                 deadlineTask(userLine, taskList);
+                printAddedTask(taskList.get(taskList.size()-1), taskList);
                 break;
             case COMMAND_EVENT:
                 eventTask(userLine, taskList);
+                printAddedTask(taskList.get(taskList.size()-1), taskList);
                 break;
             case COMMAND_DELETE:
                 deleteTask(userLine, taskList);
@@ -91,7 +96,7 @@ public class Jarvis {
         }
     }
 
-    private static void listTasks(ArrayList<Task> taskList) {
+    public static void listTasks(ArrayList<Task> taskList) {
         System.out.println(LINE_W_NL + "Here are the tasks in your list Sir:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println((i + 1) + "." + taskList.get(i).toString());
@@ -99,7 +104,7 @@ public class Jarvis {
         System.out.println(LINE);
     }
 
-    private static void doneTask(String userLine, ArrayList<Task> taskList) {
+    public static void doneTask(String userLine, ArrayList<Task> taskList) {
         String[] extractDoneTask = userLine.toLowerCase().split(" ", 2);
         int taskNum = Integer.parseInt(extractDoneTask[1]);
         if (taskNum < 0 || taskNum > taskList.size()) {
@@ -110,6 +115,7 @@ public class Jarvis {
                 + "Good one Sir! I've marked this task as done:\n"
                 + " " + taskList.get(taskNum-1).toString() + "\n"
                 + LINE);
+        FileAccess.fillJarvisFile(taskList);
     }
 
     private static void deleteTask(String userLine, ArrayList<Task> taskList) {
@@ -126,7 +132,7 @@ public class Jarvis {
         taskList.remove(taskNum-1);
     }
 
-    private static void todoTask(String userLine, ArrayList<Task> taskList) {
+    public static void todoTask(String userLine, ArrayList<Task> taskList) {
         String[] todoInputs = userLine.split(" ", 2);
         if (todoInputs.length < 2) {
             throw new NumberFormatException();
@@ -134,10 +140,10 @@ public class Jarvis {
         String description = todoInputs[1];
         Todo t = new Todo(description);
         taskList.add(t);
-        printAddedTask(t,taskList);
+        FileAccess.fillJarvisFile(taskList);
     }
 
-    private static void deadlineTask(String userLine, ArrayList<Task> taskList) {
+    public static void deadlineTask(String userLine, ArrayList<Task> taskList) {
         String[] deadlineInputs = userLine.split(" ", 2);
         if (deadlineInputs.length < 2) {
             throw new NumberFormatException();
@@ -147,10 +153,10 @@ public class Jarvis {
         String by = deadlineDescriptions[1];
         Deadline t = new Deadline(description, by);
         taskList.add(t);
-        printAddedTask(t,taskList);
+        FileAccess.fillJarvisFile(taskList);
     }
 
-    private static void eventTask(String userLine, ArrayList<Task> taskList) {
+    public static void eventTask(String userLine, ArrayList<Task> taskList) {
         String[] eventInputs = userLine.split(" ", 2);
         if (eventInputs.length < 2) {
             throw new NumberFormatException();
@@ -160,7 +166,22 @@ public class Jarvis {
         String at = eventDescriptions[1];
         Event t = new Event(description, at);
         taskList.add(t);
-        printAddedTask(t,taskList);
+        FileAccess.fillJarvisFile(taskList);
+    }
+
+    public static void todoFileTask(String description, ArrayList<Task> taskList) {
+        Todo t = new Todo(description);
+        taskList.add(t);
+    }
+
+    public static void deadlineFileTask(String description, String by, ArrayList<Task> taskList) {
+        Deadline t = new Deadline(description, by);
+        taskList.add(t);
+    }
+
+    public static void eventFileTask(String description, String at, ArrayList<Task> taskList) {
+        Event t = new Event(description, at);
+        taskList.add(t);
     }
 
     private static void printAddedTask(Task task, ArrayList<Task> taskList) {
@@ -179,8 +200,7 @@ public class Jarvis {
     private static void greetMessage() {
         System.out.println(JARVIS_LOGO
                 + LINE_W_NL
-                + "Good day Sir! J.A.R.V.I.S. here \n"
-                + "What would you like me to do Sir?\n"
+                + "Good day Sir! J.A.R.V.I.S. here!\n"
                 + LINE);
     }
 
