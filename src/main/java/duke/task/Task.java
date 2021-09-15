@@ -29,6 +29,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public String toText() {
+        return getStatusIcon() + "| " + this.description;
+    }
+
     @Override
     public String toString() {
         return this.getStatusIcon() + this.description;

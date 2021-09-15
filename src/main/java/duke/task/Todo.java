@@ -11,6 +11,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String toText() {
+        return type + " | " + super.toText();
+    }
+
+    @Override
     public String toString() {
          return type + super.toString();
     }
