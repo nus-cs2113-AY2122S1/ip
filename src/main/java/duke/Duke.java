@@ -3,6 +3,7 @@ package duke;
 import duke.exception.EmptyCommandArgumentException;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidCommandSeparatorException;
+import duke.exception.InvalidTaskIndexException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -58,22 +59,27 @@ public class Duke {
                 addTodoTask(inputWords);
                 handleCommand();
                 break;
+            case "delete":
+                deleteTask(inputWords);
+                handleCommand();
+                break;
             default:
                 throw new InvalidCommandException();
             }
         } catch (InvalidCommandException e) {
             printLine();
             System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
-            System.out.println("Available commands: deadline, todo, event, done, list, bye");
+            System.out.println("Available commands: deadline, todo, event, done, list, delete, bye");
             printLine();
             handleCommand();
         } catch (EmptyCommandArgumentException e) {
             printLine();
-            System.out.println("OOPS! The description of deadline/event/todo cannot be empty! " +
+            System.out.println("OOPS! The description of deadline/event/todo/delete cannot be empty! " +
                     "Please follow this format:");
             System.out.println("deadline <your task here> /by <your deadline time>");
             System.out.println("event <your task here> /at <your event time period>");
             System.out.println("todo <your task here>");
+            System.out.println("delete <task number>");
             printLine();
             handleCommand();
         } catch (InvalidCommandSeparatorException e) {
@@ -84,7 +90,34 @@ public class Duke {
             System.out.println("event <your task here> /at <your event time period>");
             printLine();
             handleCommand();
+        } catch (InvalidTaskIndexException e) {
+            printLine();
+            System.out.println("OOPS! That task does not exist!");
+            printLine();
+            handleCommand();
         }
+    }
+
+    public void deleteTask(String[] inputWords)
+            throws EmptyCommandArgumentException, InvalidTaskIndexException {
+
+        if (inputWords.length < 2) {
+            throw new EmptyCommandArgumentException();
+        }
+
+        int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
+
+        Task deletedTask = taskList.get(taskIndex);
+        taskList.remove(taskIndex);
+
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask);
+        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+        printLine();
     }
 
     public void addDeadlineOrEventTask(String[] inputWords, String type)
