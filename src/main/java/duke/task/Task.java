@@ -34,6 +34,19 @@ public class Task {
             }
         }
     }
+    public Task(char type, String deadline, String description, Boolean isDone, String eventDescription) {
+        //1 set type
+        if (type == 'D') {
+            this.isToDo = true;
+            this.setDeadline(deadline);
+        } else if (type == 'E') {
+            this.isEvent = true;
+            this.eventDescription = eventDescription;
+        }
+        //this.setDeadline(deadline);
+        this.setDescription(description);
+        this.isDone = isDone;
+    }
 
     public String getDescription() {
         return description;
@@ -91,6 +104,14 @@ public class Task {
         else if (this.isEvent) {
             return 'E';
         }
-        else return 'T';    //todo or task by mutual exclusion
+        else return 'T';      //todo or task by mutual exclusion
+    }
+
+    //print format: TYPE : DEADLINE : DESC
+    @Override
+    public String toString() {
+        return Character.toString(getType()) + '|' + getDeadline()
+                + '|' + getDescription()
+                + '|' + isDone() + '|' + ((this.isEvent)? this.getEventDescription() : "" + '|');
     }
 }

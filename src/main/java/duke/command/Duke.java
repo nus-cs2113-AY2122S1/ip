@@ -5,13 +5,15 @@ import duke.task.Mascot;
 import duke.task.Task;
 import duke.security.AccountDetail;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class Duke {
     public static final int STOP_ADD = -1;
     public static final int ADD_SUCCESS = 1;
     private static boolean isFail = false;
-    private static int taskCount = 0;
+    public static int taskCount = 0;
     public static void printLine() {
         System.out.println("                 ...                 ");
     }
@@ -71,16 +73,16 @@ public class Duke {
         System.out.println(task + " completed");
     }
 
-    public static void runDuke() {
+    public static void runDuke() throws IOException {
         Scanner in = new Scanner(System.in);
         if (isDukeFail()) {
             return;
         }
+        StoreData saveTool = new StoreData();
         setupUsernamePassword(in);
         sayHi(AccountDetail.getUsername());
         String command;
-        //Task[] taskList = new Task[100];
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = StoreData.readList("data/list.txt");
         do {
             command = in.nextLine();
             switch (command) {
@@ -91,38 +93,47 @@ public class Duke {
             case ("add"):
                 addTaskToList(in, taskList);
                 printDone("add");
+               // StoreData.saveList(taskList);
                 break;
             case ("done"):
                 markTasksAsDone(in, taskList);
                 printDone("mark task as done");
+              //  StoreData.saveList(taskList);
                 break;
             case ("clear"):
                 clearTaskList(taskList);
                 printDone("clear list");
+               // StoreData.saveList(taskList);
                 break;
             case ("mascot"):
                 mascotSay(in);
                 printDone("mascot say");
+              //  StoreData.saveList(taskList);
                 break;
             case("echo"):
                 readInputEchoCommand();
                 printDone("echo");
+                //StoreData.saveList(taskList);
                 break;
             case("todo"):
                 addTodoToList(in, taskList);
                 printDone("add todo");
+                //StoreData.saveList(taskList);
                 break;
             case("event"):
                 addEventToList(in, taskList);
                 printDone("add event");
+              //  StoreData.saveList(taskList);
                 break;
             case("deadline"):
                 amendTaskDeadline(in, taskList);
                 printDone("amend deadline");
+              //  StoreData.saveList(taskList);
                 break;
             case("delete"):
                 deleteTasks(in, taskList);
                 printDone("delete tasks");
+             //   StoreData.saveList(taskList);
                 break;
             case ("bye"):
                 break;
@@ -131,6 +142,7 @@ public class Duke {
             }
         } while (!command.equals("bye"));
         sayGoodbye();
+        StoreData.saveList(taskList);
     }
 
     private static void deleteTasks(Scanner in, ArrayList<Task> taskList) {
@@ -221,9 +233,9 @@ public class Duke {
             System.out.print("done ");
             for (String i : numberList) {
                 int index = Integer.parseInt(i) - 1;
-                if (!doneCheck.inListRange(index, taskCount)) {
+                if (index >= taskList.size()) {
                     doneCheck.printNotInRange(index);
-                    return;
+                    break;
                 }
                 taskList.get(index).setDone(true);
                 System.out.print(taskList.get(index).getDescription() + ", ");
@@ -317,7 +329,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Duke bot = new Duke();
         runDuke();
     }
