@@ -104,8 +104,34 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                         }
 
+<<<<<<< HEAD
                     }
                     System.out.println("Now you have "+ todo_index  +" tasks in the list.");
+=======
+                    }else if(input.startsWith("delete")){
+                        try {
+                            int i = Integer.parseInt(input.substring(7));
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Noted. I've removed this task: ");
+                            System.out.println(todo.get(i - 1).toString());
+                            todo.remove(i-1);
+                            todo_index -= 1;
+                        } catch (NumberFormatException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! Delete must follow by a number.");
+                            System.out.println("____________________________________________________________");
+                        } catch (StringIndexOutOfBoundsException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! Delete cannot be empty.");
+                            System.out.println("____________________________________________________________");
+                        } catch (IndexOutOfBoundsException e){
+                            System.out.println("____________________________________________________________");
+                            System.out.println("OOPS!!! Delete a valid item in list.");
+                            System.out.println("____________________________________________________________");
+                        }
+                        }
+                    System.out.println("Now you have " + todo_index + " tasks in the list.");
+>>>>>>> branch-Level-6
                     System.out.println("____________________________________________________________");
                     break;
                 }
