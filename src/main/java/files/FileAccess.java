@@ -11,36 +11,36 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 public class FileAccess {
-    private static final String FILE_PATH = "jarvis/jarvis.txt";
+    private static final String LINE = Jarvis.LINE;
+    private static final String LINE_W_NL = Jarvis.LINE_W_NL;
+    private static final String JARVIS_TXT = "jarvis/jarvis.txt";
     private static final String DIVIDER = ",";
 
     public static void findTaskFile(ArrayList<Task> taskList) {
-        File jarvisFile = new File(FILE_PATH);
+        File jarvisFile = new File(JARVIS_TXT);
         try {
             if (!jarvisFile.exists()) {
                 jarvisFile.getParentFile().mkdirs();
-            }
-            if (jarvisFile.createNewFile()) {
+                jarvisFile.createNewFile();
                 System.out.println("A new file has been created to store your tasks Sir!\n"
                         + "What would you like me to do Sir?\n"
-                        + Jarvis.LINE);
-            }
-            else {
+                        + LINE);
+            } else {
                 System.out.println("Give me a moment to load up your tasks Sir!\n"
                         + ".\n" + ".\n" + "Done\n"
                         + "What would you like me to do Sir?\n"
-                        + Jarvis.LINE);
+                        + LINE);
                 loadTasks(taskList, jarvisFile);
             }
         } catch (IOException e) {
-            System.out.println(Jarvis.LINE_W_NL
+            System.out.println(LINE_W_NL
                     + "There has been an error detected when creating a new file Sir!\n"
                     + "You might want to take a look at it.\n"
-                    + Jarvis.LINE);
+                    + LINE);
         }
     }
 
-    private static void loadTasks(ArrayList<Task> taskList, File jarvisFile) {
+    public static void loadTasks(ArrayList<Task> taskList, File jarvisFile) {
         int lineCount = 0;
         try {
             Scanner j = new Scanner(jarvisFile);
@@ -49,15 +49,15 @@ public class FileAccess {
                 lineCount++;
             }
         } catch (FileNotFoundException e) {
-            System.out.println(Jarvis.LINE_W_NL
+            System.out.println(LINE_W_NL
                     + "I can't seem to find the file Sir.\n"
-                    + Jarvis.LINE);
+                    + LINE);
         }
 
     }
 
     public static void inputTask(ArrayList<Task> taskList, String textLine, int lineCount) {
-        String[] lineInputs = textLine.split(",");
+        String[] lineInputs = textLine.split(DIVIDER);
         switch(lineInputs[0]){
         case "T":
             Jarvis.todoFileTask(lineInputs[2], taskList);
@@ -69,16 +69,16 @@ public class FileAccess {
             Jarvis.eventFileTask(lineInputs[2],lineInputs[3], taskList);
             break;
         default:
-            return;
+            break;
         }
-        if (lineInputs[1].equals("1")) {
+        if (lineInputs[1].trim().equals("1")) {
             taskList.get(lineCount).markAsDone();
         }
     }
 
     public static void fillJarvisFile(ArrayList<Task> taskList) {
         try {
-            FileWriter writer = new FileWriter(FILE_PATH);
+            FileWriter writer = new FileWriter(JARVIS_TXT);
             for (Task task : taskList) {
                 String type = task.getType();
                 String doneStatus;
@@ -91,11 +91,10 @@ public class FileAccess {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println(Jarvis.LINE_W_NL
+            System.out.println(LINE_W_NL
                     + "There seems to be an error saving the task Sir.\n"
-                    + Jarvis.LINE);
+                    + LINE);
         }
 
     }
-
 }
