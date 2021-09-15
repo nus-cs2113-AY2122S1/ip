@@ -33,15 +33,19 @@ public class TaskManager {
             throw new DukeException();
         }
         String taskType = getCommand(task);
+        String description = getDescription(task);
+        String date;
         switch (taskType) {
         case TO_DO:
-            addToDo(task);
+            addToDo(description);
             break;
         case DEADLINE:
-            addDeadline(task);
+            date = getDate(task);
+            addDeadline(description, date);
             break;
         case EVENT:
-            addEvent(task);
+            date = getDate(task);
+            addEvent(description, date);
             break;
         default:
             System.out.println("     Invalid command, please try again");
@@ -50,30 +54,19 @@ public class TaskManager {
         printSize();
     }
 
-    public void addToDo(String task) {
-        Task newTask;
-        String description = getDescription(task);
-        newTask = new ToDo(description);
-        taskList.add(newTask);
-        System.out.println(ADDED_TASK + newTask);
+    public void addToDo(String description) {
+        taskList.add(new ToDo(description));
+        System.out.println(ADDED_TASK + new ToDo(description));
     }
 
-    public void addDeadline(String task) {
-        Task newTask;
-        String description = getDescription(task);
-        String by = getDate(task);
-        newTask = new Deadline(description, by);
-        taskList.add(newTask);
-        System.out.println(ADDED_TASK + newTask);
+    public void addDeadline(String description, String time) {
+        taskList.add(new Deadline(description, time));
+        System.out.println(ADDED_TASK + new Deadline(description, time));
     }
 
-    public void addEvent(String task) {
-        Task newTask;
-        String description = getDescription(task);
-        String at = getDate(task);
-        newTask = new Event(description, at);
-        taskList.add(newTask);
-        System.out.println(ADDED_TASK + newTask);
+    public void addEvent(String description, String time) {
+        taskList.add(new Event(description, time));
+        System.out.println(ADDED_TASK + new Event(description, time));
     }
 
     public void checkDone(String[] command) {
