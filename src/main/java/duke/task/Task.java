@@ -2,12 +2,7 @@ package duke.task;
 
 public abstract class Task {
     protected String task;
-<<<<<<< HEAD
-    protected Boolean isDone;
-=======
     protected boolean isDone;
-    public static int totalTask = 0; //total number of tasks saved
->>>>>>> branch-Level-7
 
     //Constructor
     public Task() {

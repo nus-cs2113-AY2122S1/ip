@@ -301,7 +301,7 @@ public abstract class Default {
     /**
      * Prints the to-do list with frames
      *
-     * @param tasks     the array of class Task instance which stores all the tasks added by the user
+     * @param tasks the array of class Task instance which stores all the tasks added by the user
      */
     public static void printToDoList(ArrayList<Task> tasks, int longestTaskDescription) {
         final int MIN_LENGTH = " My to-do list: ".length();
