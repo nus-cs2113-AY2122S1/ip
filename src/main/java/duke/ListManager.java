@@ -122,7 +122,7 @@ public class ListManager implements TaskList{
         }
         Task doneTask = list.get(t);
         doneTask.setDone();
-        System.out.println(Logo.divider + MESSAGE_TASK_COMPLETE + doneTask.toString());
+        System.out.println(MESSAGE_TASK_COMPLETE + doneTask.toString());
     }
 
     public void deleteTask(int t) throws CommandException{

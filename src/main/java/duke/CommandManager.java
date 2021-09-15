@@ -45,16 +45,16 @@ public class CommandManager implements CommandInterface{
         }
         switch(description) {
         case COMMAND_HELP:
-            System.out.println(Logo.divider + MESSAGE_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_HELP + Logo.dividerWithoutNewLine);
             break;
         case COMMAND_LIST_HELP:
-            System.out.println(Logo.divider + MESSAGE_LIST_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_LIST_HELP + Logo.dividerWithoutNewLine);
             break;
         case COMMAND_EVENT_HELP:
-            System.out.println(Logo.divider + MESSAGE_EVENT_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_EVENT_HELP + Logo.dividerWithoutNewLine);
             break;
         case COMMAND_DEADLINE_HELP:
-            System.out.println(Logo.divider + MESSAGE_DEADLINE_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_DEADLINE_HELP + Logo.dividerWithoutNewLine);
             break;
         }
     }
