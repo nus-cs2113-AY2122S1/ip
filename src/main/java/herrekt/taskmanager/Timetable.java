@@ -4,18 +4,29 @@ import java.util.List;
 
 public interface Timetable {
 
-    static void addTask(Timetable task) {
+    String getDescription();
+    String toSave();
+    void setDone();
+
+
+    static void addTask(Task task) {
         System.out.println("Alright. I'll put it on the list.");
-        Task.thingsToDo.add((Task) task);
+        Task.thingsToDo.add(task);
         System.out.println("  " + task.toString());
     }
 
-    static void getTasks() {
-        System.out.println("Here are the tasks in your list:");
+    static String getTasks() {
+        String toReturn = "Here are the tasks in your list:" + "\n";
         for (int i = 0; i < Task.thingsToDo.size(); i++) {
-            System.out.println((i + 1) + ". "
-                    + Task.thingsToDo.get(i).toString());
+            if (i == Task.thingsToDo.size() - 1) {
+                toReturn += (i + 1) + ". "
+                        + Task.thingsToDo.get(i).toString();
+                break;
+            }
+            toReturn += (i + 1) + ". "
+                    + Task.thingsToDo.get(i).toString() + "\n";
         }
+        return toReturn;
     }
 
     static List<Task> getThingsToDo() {
