@@ -50,7 +50,7 @@ public class Herrekt {
     private static void loadTasks() {
         try {
             List<String> taskListInStringFormat =
-                    FileWriting.convertSavedFileToCurrentTimetable("text-ui-test/test.txt");
+                    FileWriting.convertSavedFileToCurrentTimetable("text-ui-test/save.txt");
             Task.thingsToDo = convertStringToTask(taskListInStringFormat);
         } catch (FileNotFoundException e) {
             System.out.println("ERROR! File not found!");
@@ -60,17 +60,18 @@ public class Herrekt {
     private static void saveTasks(List<Task> taskList) {
         try {
             if (taskList.size() == 0) {
-                FileWriting.writeToFile("text-ui-test/test.txt", "");
+                FileWriting.writeToFile("text-ui-test/save.txt", "");
             } else {
                 StringBuilder toSaveToFile = new StringBuilder();
                 for (int i = 0; i < taskList.size(); i++ ) {
                     if (i == taskList.size() - 1) {
                         toSaveToFile.append(((Timetable) taskList.get(i)).toSave());
+                    } else {
+                        toSaveToFile.append(((Timetable) taskList.get(i)).toSave());
+                        toSaveToFile.append("\n");
                     }
-                    toSaveToFile.append(((Timetable) taskList.get(i)).toSave());
-                    toSaveToFile.append("\n");
                 }
-                FileWriting.writeToFile("text-ui-test/test.txt", toSaveToFile.toString());
+                FileWriting.writeToFile("text-ui-test/save.txt", toSaveToFile.toString());
 
             }
         } catch (IOException e) {
