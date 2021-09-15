@@ -59,6 +59,8 @@ public class Duke {
                 addDeadline(input);
             } else if (input.startsWith("event")) {
                 addEvent(input);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else {
                 handleInvalid();
             }
@@ -177,6 +179,23 @@ public class Duke {
 
         System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
         userInputCount++;
+    }
+
+    public static void deleteTask(String line) throws DukeException {
+        String[] inputs = line.split(" ");
+
+        if (inputs.length != 2) {
+            throw new DukeException("incorrect number of parameters for command delete");
+        }
+
+        final int INDEX_DELETE = 1;
+        int taskIndexDelete = Integer.parseInt(inputs[INDEX_DELETE]) - 1;
+
+        System.out.println(SEPARATOR + "\n\tdeleted this task... less things to do:\n\t\t" +
+                userInputs.get(taskIndexDelete));
+        userInputs.remove(taskIndexDelete);
+        userInputCount--;
+        System.out.println(SEPARATOR);
     }
 
     /**
