@@ -60,6 +60,11 @@ public class TaskList {
         System.out.println("You have a total of " + Task.getTotalTasks() + " tasks now.");
     }
 
+    /**
+     * Finds a task in a list of Tasks given a String key.
+     * @param key The String to match when searching in the list of Tasks.
+     * @return ArrayList The list of Tasks matching the given key.
+     */
     public ArrayList<Task> findTasks(String key) {
         ArrayList<Task> keyMatch = new ArrayList<>();
         for (Task t : taskList) {

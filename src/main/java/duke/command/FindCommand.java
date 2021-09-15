@@ -5,6 +5,9 @@ import duke.util.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the command to find tasks in a list with a given String key.
+ */
 public class FindCommand extends Command {
     String key;
 
@@ -12,6 +15,10 @@ public class FindCommand extends Command {
         this.key = key;
     }
 
+    /**
+     * Finds all the tasks containing the String key in a given list of Tasks.
+     * @param tl The list of tasks to be searched.
+     */
     @Override
     public void execute(TaskList tl) {
         ArrayList<Task> results = tl.findTasks(key);

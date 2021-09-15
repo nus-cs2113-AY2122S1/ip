@@ -64,7 +64,7 @@ ________________________________________
 ________________________________________
 ________________________________________
 Alright. I've deleted this task:
-[D][ ] carboncents disagree meeting (by: Sep 05 2021)
+[D][X] CS2113 coding exercise (by: Oct 15 2021)
 You have a total of 3 tasks now.
 ________________________________________
 ________________________________________
@@ -75,13 +75,13 @@ DukeException: Index is not a valid integer.
 ________________________________________
 ________________________________________
 1. [T][ ] meet my mom
-2. [D][X] CS2113 coding exercise (by: Oct 15 2021)
+2. [D][ ] carboncents disagree meeting (by: Sep 05 2021)
 3. [E][ ] tour de france (at: Nov 03 2021)
 ________________________________________
 ________________________________________
 Here are the tasks matching your key:
 1. [T][ ] meet my mom
-2. [D][ ] carboncents disagree meeting (by: never)
+2. [D][ ] carboncents disagree meeting (by: Sep 05 2021)
 ________________________________________
 ________________________________________
 No tasks match your key.
