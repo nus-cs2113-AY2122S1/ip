@@ -52,7 +52,7 @@ public class Duke {
     }
     public static void markDone(String input, Tasks user) throws ArrayIndexOutOfBoundsException, MultiMarkDoneException {
         int index = Integer.parseInt(input.substring(5)) - 1;
-        if (index < user.listLength) {
+        if (index < user.listLength &&  index >= 0) {
             if (user.list[index].complete) {
                 throw new MultiMarkDoneException();
             }
@@ -64,7 +64,24 @@ public class Duke {
 
         }
     }
-    public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException {
+
+    public static void deleteEvent(String input, Tasks user) throws ArrayIndexOutOfBoundsException {
+        int index = Integer.parseInt(input) - 1;
+        if (index < user.listLength && index >= 0) {
+            if (!user.list[index].complete) {
+                user.tasksIncomplete --;
+            }
+            System.out.println("\tSir, as per your request, I have deleted the task:\n\t" + user.list[index] + "\n\tNow you have " + user.tasksIncomplete + " incomplete tasks.");
+            for (int i = index; i < user.listLength; i++) {
+                user.list[i] = user.list[i + 1];
+            }
+            user.listLength --;
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
+
+    public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException, DeleteTaskFormatException {
         String[] inputArr = input.split(" ");
         switch (inputArr[0]) {
         case ("list"):
@@ -94,6 +111,12 @@ public class Duke {
             break;
         case ("done"):
             markDone(input, user);
+            break;
+        case ("delete"):
+            if (inputArr.length != 2) {
+                throw new DeleteTaskFormatException();
+            }
+            deleteEvent(inputArr[1], user);
             break;
         default:
             throw new IllegalCommandException();
@@ -151,9 +174,11 @@ public class Duke {
             } catch (DueDateFormatException e) {
                 System.out.println("Sir, may i suggest putting a date to your task with the / indicator.");
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Sir, I am afraid that task you are trying to delete does not exist.");
+                System.out.println("Sir, I am afraid that task you are referring to does not exist.");
             } catch (MultiMarkDoneException e) {
                 System.out.println("Sir, this task has already been marked as done.");
+            } catch (DeleteTaskFormatException e) {
+                System.out.println("Sir, May I suggest specifying the task you want to delete more clearly? (eg. delete 1)");
             }
             line();
             input = sc.nextLine();
