@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.FileWriter;
@@ -22,6 +24,7 @@ public class Duke {
         String[] taskType = new String[100];
         String[] doneTasks = new String[100];
         String[] dates = new String[100];
+        List<String> tasks = new ArrayList<>();
         Arrays.fill(doneTasks," ");
         Arrays.fill(dates," ");
         int number = 0;
@@ -90,6 +93,7 @@ public class Duke {
                     continue;
                 }
                 String task = line.substring(5);
+                tasks.add(task);
                 taskType[number] = "T";
                 lists[number++] = task;
                 System.out.println(DIVIDER);
@@ -165,8 +169,8 @@ public class Duke {
                 } else {
                     System.out.println(" ");
                 }
-                System.out.println("    Now you have " + number-- + " tasks in the list.");
-                for (int i = taskDelete - 1; i < number - 1; i++) {
+                System.out.println("    Now you have " + --number + " tasks in the list.");
+                for (int i = taskDelete - 1; i < number; i++) {
                     lists[i] = lists[i + 1];
                 }
                 System.out.println(DIVIDER);
@@ -181,7 +185,6 @@ public class Duke {
         System.out.println(DIVIDER);
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
-
         try {
             writeToFile("./src/Duke.txt", lists, taskType, doneTasks, dates, number);
         } catch (IOException e) {
