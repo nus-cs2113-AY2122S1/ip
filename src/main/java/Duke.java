@@ -90,8 +90,14 @@ public class Duke {
      * @param userInput
      */
     private static void addToDoTask(TaskList taskList, String userInput) {
+        boolean completed = false;
+        if(userInput.contains("[X]")){
+            completed = true;
+        }  else {
+            completed = false;
+        }
         ToDo toDoTask = new ToDo(userInput.substring(userInput.indexOf(' ',0))
-                ,false);
+                ,completed);
         taskList.addTasks(toDoTask);
         toDoTask.initialiseToDo();
     }
@@ -103,9 +109,15 @@ public class Duke {
      * @param userInput
      */
     private static void addEventTask(TaskList taskList, String userInput) {
+        boolean completed = false;
+        if(userInput.contains("[X]")){
+            completed = true;
+        }  else {
+            completed = false;
+        }
         Events eventTask = new Events(
                 userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/')),
-                false,identifyDeadlineCommand(userInput)[1]);
+                completed,identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(eventTask);
         eventTask.initialiseEvent();
     }
@@ -117,9 +129,15 @@ public class Duke {
      * @param userInput
      */
     private static void addDeadlineTask(TaskList taskList, String userInput) {
+        boolean completed = false;
+        if(userInput.contains("[X]")){
+            completed = true;
+        }  else {
+            completed = false;
+        }
         Deadline deadLineTask = new Deadline(
                 userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/'))
-                ,false,identifyDeadlineCommand(userInput)[1]);
+                ,completed,identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(deadLineTask);
         deadLineTask.initialiseDeadline();
     }
@@ -220,6 +238,7 @@ public class Duke {
         case "bye":
         case "done":
         case "delete":
+        case "deadline":
             return userInput;
         default:
             throw new IncorrectCommandInput();
