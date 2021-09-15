@@ -22,4 +22,23 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Changes todo task in list format
+     * to saved file format
+     *
+     * @return string of todo task in saved file format
+     */
+    @Override
+    public String toStringStore() {
+        String storeString = "T | ";
+        if (isDone) {
+            storeString += "1 | ";
+        }
+        else {
+            storeString += "0 | ";
+        }
+        storeString += description;
+        return storeString;
+    }
 }
