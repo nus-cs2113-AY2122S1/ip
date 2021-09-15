@@ -10,6 +10,11 @@ public class Event extends Task{
     }
 
     @Override
+    public String exportTask() {
+        return "E|" + super.getStatus() + "|" + super.toString() + "|" + duration + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
         return EVENT_ICON + super.toString() + " (at: " + duration + ")";
     }
