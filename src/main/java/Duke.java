@@ -2,12 +2,16 @@ import task.type.Deadline;
 import task.type.Event;
 import task.type.Task;
 import task.type.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     private static ArrayList<Task> taskList;
     private static int taskCount;
+    private static Storage storage;
 
     private static void printIncorrectCommandError(String input) throws DukeException {
         printWithLines("☹ OOPS!!! I cannot understand");
@@ -115,6 +119,11 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         printWithLines("Hello! I'm Duke\n" + "What can I do for you?");
+        try{
+            taskList = Storage.loadData();
+        } catch(FileNotFoundException f) {
+            System.out.println("Error: save file not found");
+        }
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
         while (!userInput.equals("bye"))
@@ -127,6 +136,11 @@ public class Duke {
                 deleteTask(Integer.parseInt(userInput.split("delete")[1].trim()));
             } else {
                 addTask(userInput);
+            }
+            try {
+                Storage.saveData(taskList);
+            } catch (IOException e){
+                System.out.println("Failed to write data");
             }
             userInput = in.nextLine();
         }

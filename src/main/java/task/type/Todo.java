@@ -1,21 +1,19 @@
 package task.type;
 
 public class Todo extends Task {
-
+    public static final String type = "T";
     public Todo(String description) {
         super(description);
     }
-
-    public String getStatusIcon() {
-        return "[T]" + (isDone ? "[X]" : "[ ]"); //return tick or X symbols
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
-
     @Override
     public String toString() {
-        return this.getStatusIcon() + description;
+        return "[" + type + "]" + super.toString();
     }
-
-    public void markAsDone() {
-        this.isDone = true;
+    @Override
+    public String getTaskType() {
+        return type;
     }
 }
