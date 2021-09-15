@@ -1,28 +1,43 @@
 package duke;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.String;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
 
 public class Duke {
     public static final int FIND_TASK_TODO = 5;
     public static final int FIND_TASK_DEADLINE = 9;
     public static final int FIND_TASK_EVENT = 6;
     public static final int FIND_TIME = 3;
-    public static ArrayList<List> allList = new ArrayList<>();
-    public static ArrayList<List> dList = new ArrayList<>();
+    public static ArrayList<List> list = new ArrayList<>();
+    public static ArrayList<List> doneList = new ArrayList<>();
     private static final String SPLIT_LINE  = "    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         showWelcomeScreen();
-
+        readFiles();
+        printList();
+        printDoneList();
         while (true) {
             Scanner in = new Scanner(System.in);
             String order;
             order = in.nextLine();
             if (order.contains("bye")) {
+                try {
+                    createListFile();
+                    createDoneListFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 terminateProgram();
                 break;
             } else if (order.contains("done")) {
@@ -37,18 +52,22 @@ public class Duke {
                 }
             } else if (order.contains("list")) {
                 printList();
-            } else if (order.contains("delete")) {
+            } else if(order.contains("delete")) {
                 try {
-                    int index = Integer. parseInt(order.substring(order.indexOf(" ") + 1));
+                    int index = Integer.parseInt(order.substring(order.indexOf(" ") + 1));
+                    if (index > list.size()) {
+                        System.out.println(SPLIT_LINE);
+                        System.out.println("    Out of range. Please try again");
+                        System.out.println(SPLIT_LINE);
+                        continue;
+                    }
                     System.out.println(SPLIT_LINE);
-                    System.out.println("    Noted. I've removed this task: ");
-                    System.out.println("    " + allList.get(index - 1));
-                    allList.remove(index - 1);
-                    System.out.println("    Now you have " + allList.size() + " task(s) in the list.");
+                    System.out.println("    Noted. I've removed this task:\n    " + list.get(index - 1));
+                    list.remove(index - 1);
+                    System.out.println("    Now you have " + list.size() + " tasks in the list.");
                     System.out.println(SPLIT_LINE);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(SPLIT_LINE);
-                    System.out.println("    ☹ OOPS!!! The description of a delete cannot be empty.");
+                    System.out.println("    ☹ OOPS!!! The description of a delete cannot be empty! Please try again.");
                     System.out.println(SPLIT_LINE);
                     continue;
                 }
@@ -56,7 +75,7 @@ public class Duke {
                 if (order.contains("todo")) {
                     try {
                         String task = order.substring(order.indexOf("todo") + FIND_TASK_TODO);
-                        allList.add(new Todo(task));
+                        list.add(new Todo(task));
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(SPLIT_LINE);
                         System.out.println("    ☹ OOPS!!! The description of a todo cannot be empty.");
@@ -68,7 +87,7 @@ public class Duke {
                         String task = order.substring(order.indexOf("event")
                             + FIND_TASK_EVENT, order.indexOf("/") - 1);
                         String at = order.substring(order.indexOf("at") + FIND_TIME);
-                        allList.add(new Event(task, at));
+                        list.add(new Event(task,at));
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(SPLIT_LINE);
                         System.out.println("    ☹ OOPS!!! The description of an event cannot be empty.");
@@ -80,7 +99,7 @@ public class Duke {
                         String task = order.substring(order.indexOf("deadline")
                             + FIND_TASK_DEADLINE, order.indexOf("/") - 1);
                         String by = order.substring(order.indexOf("by") + FIND_TIME);
-                        allList.add(new Deadline(task, by));
+                        list.add(new Deadline(task, by));
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(SPLIT_LINE);
                         System.out.println("    ☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -99,8 +118,8 @@ public class Duke {
                 }
                 System.out.println(SPLIT_LINE);
                 System.out.println("    Got it. I've added this task:");
-                System.out.println("     " + allList.get(allList.size() - 1));
-                System.out.println("    Now you have " + allList.size() + " task(s) in the list.");
+                System.out.println("     " + list.get(list.size() - 1));
+                System.out.println("    Now you have " + list.size() + " task(s) in the list.");
                 System.out.println(SPLIT_LINE);
             }
         }
@@ -119,6 +138,96 @@ public class Duke {
             + "    What can I do for you?\n" + SPLIT_LINE);
     }
 
+    public static void readFiles() throws IOException {
+        try {
+            File listFile = new File("data/dukeList.txt");
+            File listDoneFile = new File("data/dukeDoneList.txt");
+            BufferedReader bufferList = new BufferedReader(new FileReader(listFile));
+            BufferedReader bufferDoneList = new BufferedReader(new FileReader(listDoneFile));
+            String str;
+            while ((str = bufferList.readLine()) != null) {
+                String[] tasks = str.split(",");
+                for (int i = 0; i < tasks.length; i++) {
+                    String description = tasks[i].substring(8);
+                    if (i == tasks.length - 1) {
+                        description = description.substring(0, description.length() - 1);
+                    }
+                    switch (tasks[i].substring(2, 3)) {
+                    case "T":
+                        if (tasks[i].contains("X")) {
+                            Todo todo = new Todo(description);
+                            todo.description = todo.description.replaceFirst(" ", "X");
+                            todo.isDone = true;
+                            list.add(todo);
+                        } else {
+                            list.add(new Todo(description));
+                        }
+                        continue;
+                    case "D":
+                        String by = tasks[i].substring(tasks[i].indexOf(":") + 2, tasks[i].indexOf(")"));
+                        if (tasks[i].contains("X")) {
+                            Deadline deadline = new Deadline(description.substring(0, description.indexOf("(")), by);
+                            deadline.description = deadline.description.replaceFirst(" ", "X");
+                            deadline.isDone = true;
+                            list.add(deadline);
+                        } else {
+                            list.add(new Deadline(description.substring(0, description.indexOf("(")), by));
+                        }
+                        continue;
+                    case "E":
+                        String at = tasks[i].substring(tasks[i].indexOf(":") + 2, tasks[i].indexOf(")"));
+                        if (tasks[i].contains("X")) {
+                            Event event = new Event(description.substring(0, description.indexOf("(")), at);
+                            event.description = event.description.replaceFirst(" ", "X");
+                            event.isDone = true;
+                            list.add(event);
+                        } else {
+                            list.add(new Event(description.substring(0, description.indexOf("(")), at));
+                        }
+                        continue;
+                    default:
+                        System.out.println("There are errors in reading in files.");
+                    }
+                }
+            }
+
+            while ((str = bufferDoneList.readLine()) != null) {
+                String[] tasks = str.split(",");
+                for (int i = 0; i < tasks.length; i++) {
+                    String description = tasks[i].substring(8);
+                    if (i == tasks.length - 1) {
+                        description = description.substring(0, description.length() - 1);
+                    }
+                    switch (tasks[i].substring(2, 3)) {
+                    case "T":
+                        Todo todo = new Todo(description);
+                        todo.description = todo.description.replaceFirst(" ", "X");
+                        todo.isDone = true;
+                        doneList.add(todo);
+                        continue;
+                    case "D":
+                        String by = tasks[i].substring(tasks[i].indexOf(":") + 2, tasks[i].indexOf(")"));
+                        Deadline deadline = new Deadline(description.substring(0, description.indexOf("(")), by);
+                        deadline.description = deadline.description.replaceFirst(" ", "X");
+                        deadline.isDone = true;
+                        doneList.add(deadline);
+                        continue;
+                    case "E":
+                        String at = tasks[i].substring(tasks[i].indexOf(":") + 2, tasks[i].indexOf(")"));
+                        Event event = new Event(description.substring(0, description.indexOf("(")), at);
+                        event.description = event.description.replaceFirst(" ", "X");
+                        event.isDone = true;
+                        doneList.add(event);
+                        continue;
+                    default:
+                        System.out.println("There are errors in reading in files.");
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No files saved. Please start using Duke now!");
+        }
+    }
     public static void terminateProgram() {
         System.out.println(SPLIT_LINE);
         System.out.println("    Bye. Hope to see you again soon!\n" + SPLIT_LINE);
@@ -126,16 +235,16 @@ public class Duke {
 
     public static void printList() {
         System.out.println(SPLIT_LINE + "\n    Here are the tasks in your list:");
-        for (int i = 0; i < allList.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + allList.get(i));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + list.get(i));
         }
         System.out.println(SPLIT_LINE);
     }
 
     public static void printDoneList() {
-        System.out.println("    Congratulations! Now you have done " + dList.size() + " task(s):");
-        for (int i = 0; i < dList.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + dList.get(i));
+        System.out.println("    Congratulations! Now you have done " + doneList.size() + " task(s):");
+        for (int i = 0; i < doneList.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + doneList.get(i));
         }
         System.out.println(SPLIT_LINE);
     }
@@ -151,21 +260,45 @@ public class Duke {
             }
         }
         int index = Integer.parseInt(str) - 1;
-        if (index >= allList.size()) {
+        if (index >= list.size()) {
             System.out.println(SPLIT_LINE);
             System.out.println("    Out of range. Please try again");
             System.out.println(SPLIT_LINE);
             return;
         } else {
-            List temp = allList.get(index);
-            temp.description = temp.description.replaceFirst(" ", "X");
-            dList.add(temp);
+            list.get(index).isDone = true;
+            list.get(index).description = list.get(index).description.replaceFirst(" ", "X");
+            doneList.add(list.get(index));
             System.out.println(SPLIT_LINE);
             System.out.println("    Nice! I've marked this task as done:\n    "
-                + dList.get(index));
+                + list.get(index));
             System.out.println(SPLIT_LINE);
             printDoneList();
         }
+    }
+
+    public static void createListFile() throws IOException {
+        File dukeData = new File("data/dukeList.txt");
+        if (!dukeData.exists()) {
+            dukeData.createNewFile();
+        }
+        FileWriter writer = new FileWriter(dukeData);
+        BufferedWriter out = new BufferedWriter(writer);
+        out.write(String.valueOf(list));
+        out.flush();
+        out.close();
+    }
+
+    public static void createDoneListFile() throws IOException {
+        File dukeDoneData = new File("data/dukeDoneList.txt");
+        if (!dukeDoneData.exists()) {
+            dukeDoneData.createNewFile();
+        }
+        FileWriter writer = new FileWriter(dukeDoneData);
+        BufferedWriter out = new BufferedWriter(writer);
+        out.write(String.valueOf(doneList));
+        out.flush();
+        out.close();
     }
 
     public static void invalidInput(boolean isInValid) throws DukeException{
