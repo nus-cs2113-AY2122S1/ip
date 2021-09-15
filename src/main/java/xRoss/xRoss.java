@@ -35,6 +35,7 @@ public class xRoss {
 
         while (continueLoop) {
             inputLine = in.nextLine();
+
             if (inputLine.equals("bye")) {
                 continueLoop = false;
             } else if (inputLine.equals("list")) {
@@ -53,9 +54,6 @@ public class xRoss {
                 printEcho(inputLine);
             }
         }
-
-        // save task list to file before exiting
-        taskManager.saveToFile();
         printExitMessage();
     }
 

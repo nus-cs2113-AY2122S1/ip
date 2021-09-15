@@ -66,6 +66,9 @@ public class TaskManager implements FileManager{
         // increment total tasksCount
         tasksCount++;
         printTaskCounts();
+
+        // save current task list after change
+        saveToFile();
     }
 
     /**
@@ -99,6 +102,9 @@ public class TaskManager implements FileManager{
         System.out.println("\tYou have "
                 + (tasksCount - completedTasksCount)
                 + " uncompleted task(s) left in your task list\n");
+
+        // save current task list after change
+        saveToFile();
     }
 
     /**
@@ -131,6 +137,9 @@ public class TaskManager implements FileManager{
                 + " from your task list.\n\t\t");
         deletedTask.printTask();
         printTaskCounts();
+
+        // save current task list after change
+        saveToFile();
     }
 
     /**
