@@ -116,6 +116,28 @@ public class Duke {
         endLine();
     }
 
+    public void deleteItem(String line) {
+        try {
+            line = line.replaceAll("[^(\\d)]", "");
+            int index = Integer.parseInt(line);
+            index -= 1;
+            if (listCount - index > 0) {
+                System.arraycopy(list, index + 1, list, index, listCount - index);
+            }
+            else {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            listCount--;
+            endLine();
+        } catch (NumberFormatException e) {
+            dukePrint("\tPlease enter the index of the task.");
+            listOut();
+        } catch(ArrayIndexOutOfBoundsException | NullPointerException e) {
+            dukePrint("Number entered is invalid.");
+            listOut();
+        }
+    }
+
     public void dukePrint(String line) {
         dukeLines[dukeLineCount++] = line;
     }
