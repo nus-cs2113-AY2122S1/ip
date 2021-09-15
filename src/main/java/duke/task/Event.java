@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.List;
+
 public class Event extends List {
     protected String at;
 
