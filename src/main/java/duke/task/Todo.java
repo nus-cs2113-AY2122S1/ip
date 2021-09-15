@@ -23,4 +23,9 @@ public class Todo extends Task {
         return "[T]" + super.getDescription();
     }
 
+    @Override
+    public String fileDescription() {
+        return "T | " + super.fileDescription();
+    }
+
 }

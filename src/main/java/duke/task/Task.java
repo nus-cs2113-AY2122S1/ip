@@ -1,10 +1,10 @@
 package duke.task;
 
+import java.util.Objects;
+
 public class Task {
     protected String description;
     protected boolean isDone;
-    public static int COUNT = 0;
-    public static final int MAX = 100;
 
     /**
      * Constructor to initialise Task description
@@ -38,6 +38,16 @@ public class Task {
     }
 
     /**
+     * Returns the formatted Description of the task for saving in a file.
+     *
+     * @return returns a String with the task description
+     */
+    public String fileDescription() {
+        String isDone = Objects.equals(getStatusIcon(), "X") ? "1" : "0";
+        return isDone + " | " + this.description;
+    }
+
+    /**
      * Makes the boolean isDone true,
      * indicating that the task is done
      * and prints the task.
@@ -48,5 +58,13 @@ public class Task {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.getDescription());
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Makes the boolean isDone true,
+     * indicating that the task is done
+     */
+    public void markDone() {
+        this.isDone = true;
     }
 }

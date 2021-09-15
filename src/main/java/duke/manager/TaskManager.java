@@ -55,9 +55,9 @@ public class TaskManager {
             printLine();
             // Fallthrough
         }
-        if (tasks.size() > 0) {
-            printAddedTask(tasks.get(tasks.size() - 1), tasks);
-        }
+      //  if (tasks.size() > 0) {
+     //       printAddedTask(tasks.get(tasks.size() - 1), tasks);
+       // }
     }
 
     /**
@@ -93,6 +93,8 @@ public class TaskManager {
             message = message.substring(6);
             String[] eventData = message.split("/", 2);
             tasks.add(new Event(eventData[0], eventData[1].substring(3)));
+            printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            FileManager.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -112,6 +114,8 @@ public class TaskManager {
             message = message.substring(9);
             String[] deadlineData = message.split("/", 2);
             tasks.add(new Deadline(deadlineData[0], deadlineData[1].substring(3)));
+            printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            FileManager.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("YOU IDIOT !!??!! The description of a deadline cannot be empty.");
@@ -133,6 +137,8 @@ public class TaskManager {
     private static void addTodo(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(new Todo(message.substring(5)));
+            printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            FileManager.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
@@ -169,6 +175,7 @@ public class TaskManager {
             String[] arrOfStr = message.split(" ");
             int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
             tasks.get(index).isDone();
+            FileManager.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             printLine();
             System.out.println("OH MY GOD, can you maybe type a task that exists ?");
@@ -185,6 +192,7 @@ public class TaskManager {
     public static void processInput() {
 
         ArrayList<Task> tasks = new ArrayList<>();
+        FileManager.getStoredData(tasks);
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
@@ -203,12 +211,19 @@ public class TaskManager {
         scanner.close();
     }
 
+    /**
+     * Deletes the task of the provided index
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string containing
+     */
     private static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
             String[] arrOfStr = message.strip().split(" ");
             int index = Integer.parseInt(arrOfStr[1]);
             printDeletedTask(tasks.get(index - 1), tasks);
             tasks.remove(index - 1);
+            FileManager.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             printLine();
             System.out.println("OH MY GOD, can you maybe type things properly ?");

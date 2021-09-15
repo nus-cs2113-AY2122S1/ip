@@ -26,4 +26,9 @@ public class Event extends Task {
     public String getDescription() {
         return "[E]" + super.getDescription() + " (on: " + on + ")";
     }
+
+    @Override
+    public String fileDescription() {
+        return "E | " + super.fileDescription() + " | " + on;
+    }
 }
