@@ -76,6 +76,13 @@ public class Duke {
         case "help":
             MessageManager.printHelp(commands[1]);
             break;
+        case "delete":
+            int deleteIndex = getPositiveNumeric(commands[1]);
+            System.out.println(deleteIndex > 0 && deleteIndex <= tasks.size()
+                    ? "Noted. I've removed this task:\n " + MessageManager.taskToString(tasks.get(deleteIndex - 1)) + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.\n"
+                    : "Formatting error");
+            tasks.remove(deleteIndex - 1);
+            break;
         default:
             System.out.println("Input error");
         }
