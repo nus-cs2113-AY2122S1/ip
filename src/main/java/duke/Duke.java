@@ -50,7 +50,9 @@ public class Duke {
                 f.close();
             }
         } catch (IOException e) {
-            System.out.println("There is an issue with the file. Please try again.");
+            System.out.println("There is an issue with the data file.");
+            System.out.println("A new file will be created.");
+            System.out.println("No action is required. Cheers!");
         } finally {
             System.out.println("--------------------");
         }
