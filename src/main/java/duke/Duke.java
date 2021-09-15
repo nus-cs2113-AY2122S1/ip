@@ -54,6 +54,12 @@ public class Duke {
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
     private static final String MESSAGE_UNRECOGNISED_TASK_TYPE_ICON = "Unrecognised task type icon: '%1$s'";
     private static final String MESSAGE_UNRECOGNISED_TASK_STATUS_ICON = "Unrecognised task status icon: '%1$s'";
+    private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format. " + LINE_SEPARATOR
+            + "Please ensure you provide the date/time of the event.";
+    private static final String MESSAGE_UNRECOGNISED_DEADLINE_FORMAT = "Unrecognised deadline format. " + LINE_SEPARATOR
+            + "Please ensure you provide the date/time of the deadline.";
+    private static final String MESSAGE_INVALID_TASK_NUMBER = "Please use a valid integer for the task number.";
+    private static final String MESSAGE_NONEXISTENT_TASK_NUMBER = "That task number does not exist!";
 
     private static final String DEADLINE_PREFIX_BY = "/by";
     private static final String EVENT_PREFIX_AT = "/at";
@@ -254,16 +260,22 @@ public class Duke {
         return addTask(task);
     }
 
-    private static String addDeadline(String args) {
+    private static String addDeadline(String args) throws DukeException {
         final String[] splitArgs = args.split(" " + DEADLINE_PREFIX_BY + " ");
+        if (splitArgs.length < 2) {
+            throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
+        }
         final String description = splitArgs[0];
         final String by = splitArgs[1];
         Task task = new Deadline(description, by);
         return addTask(task);
     }
 
-    private static String addEvent(String args) {
+    private static String addEvent(String args) throws DukeException {
         final String[] splitArgs = args.split(" " + EVENT_PREFIX_AT + " ");
+        if (splitArgs.length < 2) {
+            throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
+        }
         final String description = splitArgs[0];
         final String at = splitArgs[1];
         Task task = new Event(description, at);
@@ -276,7 +288,7 @@ public class Duke {
         return String.format(MESSAGE_TASK_ADDED, task, tasks.size());
     }
 
-    private static String deleteTask(String args) {
+    private static String deleteTask(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
         tasks.remove(task);
         saveData();
@@ -293,16 +305,22 @@ public class Duke {
         return String.format(MESSAGE_TASK_LIST, taskListOutput);
     }
 
-    private static String markTaskAsDone(String args) {
+    private static String markTaskAsDone(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
         task.setAsDone();
         saveData();
         return String.format(MESSAGE_TASK_MARKED_AS_DONE, task);
     }
 
-    private static Task getTaskFromStringId(String args) {
-        int taskId = Integer.parseInt(args) - 1;
-        return tasks.get(taskId);
+    private static Task getTaskFromStringId(String args) throws DukeException {
+        try {
+            int taskId = Integer.parseInt(args) - 1;
+            return tasks.get(taskId);
+        } catch (NumberFormatException e) {
+            throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(MESSAGE_NONEXISTENT_TASK_NUMBER);
+        }
     }
 
     private static String handleUnrecognisedCommand() throws DukeException {
