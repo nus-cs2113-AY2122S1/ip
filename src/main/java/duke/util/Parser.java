@@ -21,6 +21,7 @@ public class Parser {
     static final int DEADLINE_OFFSET = 9;
     static final int EVENT_OFFSET = 6;
     static final int DATE_OFFSET = 4;
+    static final int FIND_OFFSET = 5;
 
     private final Scanner userInput = new Scanner(System.in);
     private String userInputString;
@@ -66,6 +67,10 @@ public class Parser {
                 } else {
                     throw new DukeException(DukeException.INDEX_OOB);
                 }
+            } else if (userInputString.startsWith("find ")) {
+                String key = userInputString.substring(FIND_OFFSET).trim();
+                return new FindCommand(key);
+
             } else {
                 if (Task.getTotalTasks() >= MAX_STORED_TASKS) {
                     throw new DukeException(DukeException.TASK_ARRAY_FULL);

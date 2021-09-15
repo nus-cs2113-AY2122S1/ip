@@ -4,7 +4,7 @@ What can I do for you?
 ________________________________________
 ________________________________________
 Gotcha. I've added this task:
-[T][ ] walk dog
+[T][ ] meet my mom
 You have a total of 1 tasks now.
 ________________________________________
 ________________________________________
@@ -19,7 +19,7 @@ ________________________________________
 DukeException: Date given has the wrong format.
 ________________________________________
 ________________________________________
-1. [T][ ] walk dog
+1. [T][ ] meet my mom
 2. [D][ ] CS2113 coding exercise (by: Oct 15 2021)
 ________________________________________
 ________________________________________
@@ -57,7 +57,7 @@ ________________________________________
 DukeException: Index outside range.
 ________________________________________
 ________________________________________
-1. [T][ ] walk dog
+1. [T][ ] meet my mom
 2. [D][X] CS2113 coding exercise (by: Oct 15 2021)
 3. [D][ ] carboncents disagree meeting (by: Sep 05 2021)
 4. [E][ ] tour de france (at: Nov 03 2021)
@@ -74,9 +74,17 @@ ________________________________________
 DukeException: Index is not a valid integer.
 ________________________________________
 ________________________________________
-1. [T][ ] walk dog
+1. [T][ ] meet my mom
 2. [D][X] CS2113 coding exercise (by: Oct 15 2021)
 3. [E][ ] tour de france (at: Nov 03 2021)
+________________________________________
+________________________________________
+Here are the tasks matching your key:
+1. [T][ ] meet my mom
+2. [D][ ] carboncents disagree meeting (by: never)
+________________________________________
+________________________________________
+No tasks match your key.
 ________________________________________
 ________________________________________
 Closing Duke. Have a nice day!

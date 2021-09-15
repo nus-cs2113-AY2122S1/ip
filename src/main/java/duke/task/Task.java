@@ -1,6 +1,8 @@
 package duke.task;
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
+
 public abstract class Task {
     public static final String DATE_FORMAT = "MMM dd yyyy";
     protected String description;

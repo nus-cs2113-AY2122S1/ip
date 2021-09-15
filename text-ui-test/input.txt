@@ -1,4 +1,4 @@
-todo walk dog
+todo meet my mom
 water plants
 deadline CS2113 coding exercise /by 2021-10-15
 event saw con 2021 /at 4-6pm tomorrow
@@ -18,4 +18,6 @@ delete 3
 delete 44
 delete lmnop
 list
+find meet
+find z
 bye

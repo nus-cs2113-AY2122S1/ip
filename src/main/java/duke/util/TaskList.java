@@ -6,7 +6,7 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> taskList;
+    public ArrayList<Task> taskList;
 
     public TaskList() {
         taskList = new ArrayList<>();
@@ -39,5 +39,15 @@ public class TaskList {
         System.out.println("Gotcha. I've added this task:");
         System.out.println(taskList.get(Task.getTotalTasks() - 1));
         System.out.println("You have a total of " + Task.getTotalTasks() + " tasks now.");
+    }
+
+    public ArrayList<Task> findTasks(String key) {
+        ArrayList<Task> keyMatch = new ArrayList<>();
+        for (Task t : taskList) {
+            if (t.getDescription().contains(key)) {
+                keyMatch.add(t);
+            }
+        }
+        return keyMatch;
     }
 }
