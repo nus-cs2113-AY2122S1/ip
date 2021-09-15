@@ -16,12 +16,13 @@ public class Duke {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
 
     private static final String TASK_DEADLINE_SPLITTER = "/by";
     private static final String TASK_EVENT_SPLITTER = "/at";
 
     private static final String MESSAGE_WALL = "------------------------------------------------------------";
-    private static final String MESSAGE_LIST_EMPTY = "List is empty";
+    private static final String MESSAGE_LIST_EMPTY = "Task list is empty";
     private static final String MESSAGE_LIST_HEADER = "Task List:";
     private static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number";
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
@@ -30,13 +31,16 @@ public class Duke {
     private static final String MESSAGE_INVALID_TASK_TYPE = "Invalid task type";
 
     private static final String MESSAGE_FORMAT_DONE_USAGE = "Usage: %s <task number>";
-    private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done";
-    private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
     private static final String MESSAGE_FORMAT_TODO_USAGE = "Usage: %s <description>";
     private static final String MESSAGE_FORMAT_DEADLINE_USAGE = "Usage: %s <description> %s <date/time>";
     private static final String MESSAGE_FORMAT_EVENT_USAGE = "Usage: %s <description> %s <date/time>";
-    private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n%s\nThere are %d tasks in the list";
+    private static final String MESSAGE_FORMAT_DELETE_USAGE = "Usage: %s <task number>";
+
+    private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done.";
+    private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
+    private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n %s\nThere are %d tasks in the list.";
     private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
+    private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n %s\nThere are %d tasks left in the list.";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
@@ -126,16 +130,17 @@ public class Duke {
      * Checks if task index is valid.
      * Note: Task index starts from 1 (not 0).
      *
-     * @param taskIndex The task index.
+     * @param taskNumber The task index.
      * @return true if task index is valid, else false.
      */
-    private static boolean isValidTaskIndex(int taskIndex) {
-        return (taskIndex > 0 && taskIndex <= TASKS.size());
+    private static boolean isValidTaskNumber(int taskNumber) {
+        return (taskNumber > 0 && taskNumber <= TASKS.size());
     }
 
     /**
      * Executes the done command. Marks the given task as done.
      *
+     * @param argument The argument from getCommandAndArgument(<string>).
      * @throws DukeException If argument is invalid/missing or task is already marked as done.
      */
     private static void executeDoneCommand(String argument) throws DukeException {
@@ -143,16 +148,16 @@ public class Duke {
             throw new DukeException(String.format(MESSAGE_FORMAT_DONE_USAGE, COMMAND_DONE));
         }
 
-        int taskIndex = Integer.parseInt(argument);
-        if (!isValidTaskIndex(taskIndex)) {
+        int taskNumber = Integer.parseInt(argument);
+        if (!isValidTaskNumber(taskNumber)) {
             throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
         }
 
         // Get task object associated to the task index from list
-        Task task = TASKS.get(taskIndex - 1);
+        Task task = TASKS.get(taskNumber - 1);
 
         if (task.isDone()) {
-            throw new DukeException(String.format(MESSAGE_FORMAT_TASK_ALREADY_MARKED, taskIndex));
+            throw new DukeException(String.format(MESSAGE_FORMAT_TASK_ALREADY_MARKED, taskNumber));
         }
 
         task.setAsDone();
@@ -163,6 +168,7 @@ public class Duke {
      * Gets the task description and argument.
      *
      * @param argument The argument from getCommandAndArgument(<string>).
+     * @param splitString The string to split at.
      * @return String array: [0] - Description, [1] - Argument Value.
      */
     private static String[] getTaskDescriptionAndArg(String argument, String splitString) {
@@ -220,6 +226,26 @@ public class Duke {
     }
 
     /**
+     * TODO
+     *
+     * @param argument The argument from getCommandAndArgument(<string>).
+     * @throws DukeException If argument is invalid/missing.
+     */
+    private static void executeDeleteCommand(String argument) throws DukeException {
+        if (!isInteger(argument)) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_DELETE_USAGE, COMMAND_DELETE));
+        }
+
+        int taskNumber = Integer.parseInt(argument);
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
+        }
+
+        Task removedTask = TASKS.remove(taskNumber - 1);
+        printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.size()));
+    }
+
+    /**
      * Executes a command.
      *
      * @param command  The command from getCommandAndArgument(<string>).
@@ -246,6 +272,10 @@ public class Duke {
 
             case COMMAND_EVENT:
                 executeAddTask(argument, Task.TYPE_EVENT);
+                break;
+
+            case COMMAND_DELETE:
+                executeDeleteCommand(argument);
                 break;
 
             default:
