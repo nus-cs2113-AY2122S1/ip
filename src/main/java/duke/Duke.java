@@ -8,11 +8,13 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
-    private Task[] taskList = new Task[100];
+    private ArrayList<Task> taskList = new ArrayList<>();
     private int listSize = 0;
 
     public void handleCommand() {
@@ -58,7 +60,6 @@ public class Duke {
                 break;
             default:
                 throw new InvalidCommandException();
-
             }
         } catch (InvalidCommandException e) {
             printLine();
@@ -120,14 +121,14 @@ public class Duke {
         }
 
         if (type.equals("deadline")) {
-            taskList[listSize] = new Deadline(description, time);
+            taskList.add(new Deadline(description, time));
         } else {
-            taskList[listSize] = new Event(description, time);
+            taskList.add(new Event(description, time));
         }
 
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[listSize]);
+        System.out.println(taskList.get(taskList.size() - 1));
         printLine();
 
         listSize++;
@@ -144,26 +145,26 @@ public class Duke {
             description = description + " " + inputWords[i];
         }
 
-        taskList[listSize] = new Todo(description);
+        taskList.add(new Todo(description));
 
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList[listSize]);
+        System.out.println(taskList.get(taskList.size() - 1));
         printLine();
 
         listSize++;
     }
 
     public void showList() {
-        for (int i = 0; i < listSize; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
     }
 
     public void markTaskAsDone(String taskNumber) {
         int taskIndex = Integer.parseInt(taskNumber) - 1;
-        taskList[taskIndex].setAsDone();
-        System.out.println(taskList[taskIndex]);
+        taskList.get(taskIndex).setAsDone();
+        System.out.println(taskList.get(taskIndex));
     }
 
     public static void printLine() {
