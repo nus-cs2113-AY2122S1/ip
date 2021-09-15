@@ -5,10 +5,14 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String TASKS_FILENAME = "./data/duke.txt";
+
     private static final String INPUT_PROMPT = "$ ";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_BYE = "bye";
@@ -29,6 +33,7 @@ public class Duke {
     private static final String MESSAGE_WELCOME = "Hello! I'm Duke\nWhat can I do for you?";
     private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_INVALID_TASK_TYPE = "Invalid task type";
+    private static final String MESSAGE_FILEWRITER_ERROR = "FileWriter Error";
 
     private static final String MESSAGE_FORMAT_DONE_USAGE = "Usage: %s <task number>";
     private static final String MESSAGE_FORMAT_TODO_USAGE = "Usage: %s <description>";
@@ -41,6 +46,7 @@ public class Duke {
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n  %s\nThere are %d tasks in the list.";
     private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
+    private static final String MESSAGE_FORMAT_CREATE_FILE_FAILED = "Fail to create file - %s\n";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
@@ -245,6 +251,29 @@ public class Duke {
         printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.size()));
     }
 
+     /** Writes the tasks in the list to the specified file
+     *
+     * @param filename The file to write into.
+     * @throws DukeException If file fails to create or something went wrong when writing to the file.
+     */
+    private static void writeTasksToFile(String filename) throws DukeException {
+        if (!Util.createFile(filename)) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_CREATE_FILE_FAILED, TASKS_FILENAME));
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+
+            for (Task task : TASKS) {
+                fileWriter.write(String.format("%s\n", task.toFileString()));
+            }
+
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new DukeException(MESSAGE_FILEWRITER_ERROR);
+        }
+    }
+
     /**
      * Executes a command.
      *
@@ -253,6 +282,8 @@ public class Duke {
      */
     private static void executeCommand(String command, String argument) {
         try {
+            boolean hasListChanged = false;
+
             switch (command) {
             case COMMAND_LIST:
                 executeListCommand();
@@ -260,18 +291,22 @@ public class Duke {
 
             case COMMAND_DONE:
                 executeDoneCommand(argument);
+                hasListChanged = true;
                 break;
 
             case COMMAND_TODO:
                 executeAddTask(argument, Task.TYPE_TODO);
+                hasListChanged = true;
                 break;
 
             case COMMAND_DEADLINE:
                 executeAddTask(argument, Task.TYPE_DEADLINE);
+                hasListChanged = true;
                 break;
 
             case COMMAND_EVENT:
                 executeAddTask(argument, Task.TYPE_EVENT);
+                hasListChanged = true;
                 break;
 
             case COMMAND_DELETE:
@@ -280,6 +315,10 @@ public class Duke {
 
             default:
                 throw new DukeException(MESSAGE_UNKNOWN_COMMAND);
+            }
+
+            if (hasListChanged) {
+                writeTasksToFile(TASKS_FILENAME);
             }
         } catch (DukeException e) {
             printMessage(String.format(MESSAGE_FORMAT_EXCEPTION, e.getMessage()));

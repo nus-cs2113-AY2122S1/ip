@@ -18,4 +18,9 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s (at: %s)", super.toString(), at);
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("%c | %d | %s | %s", taskType, (isDone) ? 1 : 0, description, at);
+    }
 }

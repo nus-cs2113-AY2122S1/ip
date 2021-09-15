@@ -18,4 +18,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s (by: %s)", super.toString(), by);
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("%c | %d | %s | %s", taskType, (isDone) ? 1 : 0, description, by);
+    }
 }
