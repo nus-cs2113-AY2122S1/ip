@@ -1,3 +1,5 @@
+package duke.templar;
+
 public class Event extends Task {
     String eventDate;
 

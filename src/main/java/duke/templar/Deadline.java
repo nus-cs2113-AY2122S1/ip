@@ -1,3 +1,5 @@
+package duke.templar;
+
 public class Deadline extends Task {
     protected String deadlineDate;
 
