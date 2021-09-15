@@ -1,6 +1,6 @@
 package duke.tasks;
 
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -9,9 +9,22 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getDescription(){
         return this.description;
     }
+
+    public boolean getIsDone(){
+        return this.isDone;
+    }
+
+    public abstract String getType();
+    public abstract String getDueDate();
+
 
     public void markDone(){
         if (!this.isDone) {

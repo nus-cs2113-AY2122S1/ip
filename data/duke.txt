@@ -1,0 +1,3 @@
+[T]|true|go for lecture
+[D]|false|quiz /by Friday
+[E]|true|dinner /at NUS, Thursday
