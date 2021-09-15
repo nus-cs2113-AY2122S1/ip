@@ -187,26 +187,30 @@ public class Duke {
     }
 
     public static void writeData () {
+        String ddlIndicator = "(by:";
+        int statusIdx = 4;
+        int contentStartIdx = 7;
         String filePath = "data/data.txt";
         String updatedData = "";
+        int indicatorLength = 5;
         for (int i = 0; i < taskList.size(); i++) {
             String currentTask = taskList.get(i).toString();
             String type = currentTask.substring(1,2);
-            String status = (currentTask.charAt(4) == 'X') ? "1" : "0";
-            if (currentTask.contains("(by:")) {
-                int end = currentTask.indexOf("(by: ");
-                String content = currentTask.substring(7, end);
-                String ddl = currentTask.substring(end + 5, currentTask.length() - 1);
+            String status = (currentTask.charAt(statusIdx) == 'X') ? "1" : "0";
+            if (currentTask.contains(ddlIndicator)) {
+                int end = currentTask.indexOf(ddlIndicator);
+                String content = currentTask.substring(contentStartIdx, end);
+                String ddl = currentTask.substring(end + indicatorLength, currentTask.length() - 1);
                 updatedData += type + " * " + status + " * " + content + " * " + ddl
                         + System.lineSeparator();
             } else if (currentTask.contains("(at:")) {
                 int end = currentTask.indexOf("(at: ");
-                String content = currentTask.substring(7, end);
-                String time = currentTask.substring(end + 5, currentTask.length() - 1);
+                String content = currentTask.substring(contentStartIdx, end);
+                String time = currentTask.substring(end + indicatorLength, currentTask.length() - 1);
                 updatedData += type + " * " + status + " * " + content + " * " + time
                         + System.lineSeparator();
             } else {
-                String content = currentTask.substring(7);
+                String content = currentTask.substring(contentStartIdx);
                 updatedData += type + " * " + status + " * " + content
                         + System.lineSeparator();
             }
