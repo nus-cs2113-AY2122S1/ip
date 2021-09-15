@@ -25,4 +25,23 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
+
+    /**
+     * Changes event task in list format
+     * to saved file format
+     *
+     * @return string of event task in saved file format
+     */
+    @Override
+    public String toStringStore() {
+        String storeString = "D | ";
+        if (isDone) {
+            storeString += "1 | ";
+        }
+        else {
+            storeString += "0 | ";
+        }
+        storeString += description + " | " + at;
+        return storeString;
+    }
 }

@@ -25,4 +25,23 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Changes deadline task in list format
+     * to saved file format
+     *
+     * @return string of deadline task in saved file format
+     */
+    @Override
+    public String toStringStore() {
+        String storeString = "D | ";
+        if (isDone) {
+            storeString += "1 | ";
+        }
+        else {
+            storeString += "0 | ";
+        }
+        storeString += description + " | " + by;
+        return storeString;
+    }
 }

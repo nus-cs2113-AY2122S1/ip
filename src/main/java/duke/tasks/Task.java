@@ -52,4 +52,14 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Psuedo abstract method to change task in list format
+     * to saved file format
+     *
+     * @return string of task in saved file format
+     */
+    public String toStringStore() {
+        return "";
+    }
 }

@@ -124,8 +124,6 @@ public class Parser {
             } catch (Exception e) {
                 throw new DoneCommandError();
             }
-            //default:
-            //  throw new InvalidCommandError();
         }
         return description;
     }

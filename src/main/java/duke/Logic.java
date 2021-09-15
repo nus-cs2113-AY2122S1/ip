@@ -3,18 +3,26 @@ package duke;
 import duke.exception.DukeException;
 import duke.tasks.Task;
 
+import java.util.ArrayList;
+
+//import static duke.Database.loadTasks;
+
 /**
  * Logic class runs the main logic of the programme.
  */
 public class Logic {
-    protected static int LIST_INDEX = 0;
-    protected static int LIST_LENGTH = 100;
+    public static int LIST_INDEX = 0;
     private static UserInterface userInterface;
-    protected static Task[] Tasks = new Task[LIST_LENGTH];
+    private Database database;
+    protected static String fileAddress;
+    protected static ArrayList<Task> tasks;
 
-
-    public Logic() {
+    public Logic(String filePath) {
+        fileAddress = filePath;
         userInterface = new UserInterface();
+        database = new Database(filePath);
+        tasks = database.loadTasks();
+
     }
 
     /**
