@@ -13,11 +13,11 @@ public class InputParser {
         String parameters = input.replaceFirst(command, "");
         int separatorIndex = parameters.indexOf('/');
         if(separatorIndex != -1 && separatorIndex != parameters.length() - 1) {
-            arguments.add(parameters.split("/")[0]);
-            arguments.add(parameters.split("/")[1]);
+            arguments.add(parameters.split("/")[0].trim());
+            arguments.add(parameters.split("/")[1].trim());
         } else {
             if(!parameters.isBlank())
-                arguments.add(parameters);
+                arguments.add(parameters.trim());
         }
         return arguments;
     }
@@ -26,10 +26,12 @@ public class InputParser {
         switch (arguments.get(0)) {
         case "delete":
             Command.executeDelete(arguments);
+            DataFile.write();
             break;
 
         case "done":
             Command.executeDone(arguments);
+            DataFile.write();
             break;
 
         case "list":
@@ -40,6 +42,7 @@ public class InputParser {
         case "deadline":
         case "event":
             Command.executeAdd(arguments);
+            DataFile.write();
             break;
         default:
             throw new DukeCommandException();

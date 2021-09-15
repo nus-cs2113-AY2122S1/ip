@@ -7,4 +7,9 @@ public class ToDo extends Task {
         this.type = 'T';
     }
 
+    public ToDo(String name, Boolean isDone) {
+        super(name,isDone);
+        this.type = 'T';
+    }
+
 }

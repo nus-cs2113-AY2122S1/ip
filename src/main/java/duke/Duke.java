@@ -5,17 +5,16 @@ import duke.exception.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Duke {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
+        DataFile.load();
         Messages.welcomeMessage();
-
         String userInput = in.nextLine();
         while (!userInput.equals("bye")) {
             try {
-                ArrayList<String> arguments = InputParser.parseInput(userInput);
+                ArrayList<String> arguments = InputParser.parseInput(userInput.trim());
                 InputParser.handleInput(arguments);
             } catch (DukeCommandException e) {
                 Messages.printDivider();

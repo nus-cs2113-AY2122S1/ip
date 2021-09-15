@@ -10,6 +10,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public String getName() {
         return name;
     }
@@ -26,5 +31,10 @@ public class Task {
     public String toString() {
         String done = isDone ? "X" : " " ;
         return "[" + type + "]"+ "["+ done +"] " + name;
+    }
+
+    public String formatData() {
+        String formattedOutput = type + "|" + isDone + "|" + name;
+        return formattedOutput;
     }
 }

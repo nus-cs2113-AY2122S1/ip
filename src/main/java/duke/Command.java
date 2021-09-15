@@ -54,17 +54,47 @@ public class Command {
                 default:
             }
             int taskCount = taskList.size();
-            DataFile.write(taskList.get(taskCount - 1).toString());
             Messages.printDivider();
             System.out.println("Got it. I've added this task: ");
             System.out.println(taskList.get(taskCount - 1));
             System.out.println("You now have " + taskCount + " items in the list.");
             Messages.printDivider();
+
         } catch (IndexOutOfBoundsException e) {
             Messages.printDivider();
             System.out.println("Missing parameters");
             Messages.printDivider();
         }
+    }
+
+    public static void executeAdd(String input) {
+        String[] arguments = input.split("\\|");
+        ArrayList<Task> taskList = TaskCollection.getTaskList();
+        switch (arguments[0]) {
+            case "T":
+                if(arguments[1].equals("false")) {
+                    taskList.add(new ToDo(arguments[2]));
+                } else {
+                    taskList.add(new ToDo(arguments[2], true));
+                }
+                break;
+            case "D":
+                if(arguments[1].equals("false")) {
+                    taskList.add(new Deadline(arguments[2], arguments[3]));
+                } else {
+                    taskList.add(new Deadline(arguments[2], arguments[3], true));
+                }
+                break;
+            case "E":
+                if(arguments[1].equals("false")) {
+                    taskList.add(new Event(arguments[2], arguments[3]));
+                } else {
+                    taskList.add(new Event(arguments[2], arguments[3], true));
+                }
+                break;
+            default:
+        }
+
     }
 
     public static void executeDelete(ArrayList<String> arguments) {
