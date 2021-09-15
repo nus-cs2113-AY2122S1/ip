@@ -11,4 +11,9 @@ public class ToDo extends Task{
         String icon = (isDone ? "X" : " ");
         return addSquareBrackets(IDENTIFIER) + addSquareBrackets(icon) + " " + description;
     }
+
+    public String getStatusIconAndDescriptionForFile() {
+        String icon = (isDone ? "1" : "0");
+        return  IDENTIFIER + SEPARATOR + icon + SEPARATOR + description;
+    }
 }

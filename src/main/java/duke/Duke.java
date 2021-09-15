@@ -6,8 +6,11 @@ import task.Task;
 import task.TaskType;
 import task.ToDo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Duke {
     public static final String DIVIDER = "___________________________________________________________";
@@ -39,17 +42,50 @@ public class Duke {
     public static final int EXPECTED_LENGTH_FOR_DONE_INPUT = 6;
     public static final String DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!";
     public static final int EXPECTED_LENGTH_FOR_DELETE_INPUT = 8;
+    public static final String FILE_NOT_CREATED = "Looks like you don't have a file for your tasks, let me create one now.....";
+    public static final String UNEXPECTED_ERROR = "Oops,something unexpected happened";
+    public static final String INCORRECT_FORMAT = "Oops, file format is incorrect. Please correct it!";
+    public static final String DONE = "Done!";
+    public static final String GETTING_TASK = "Getting your tasks.....";
+    public static final String TASK_REMOVED = "Alright, I've removed this task:";
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         printStartingMessage();
+        initialFileProcessing();
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (!input.equals("bye")) {
             processInput(input);
             input = in.nextLine();
         }
+        finalFileProcessing();
         printGoodbyeMessage();
+    }
+
+    private static void finalFileProcessing() {
+        try {
+            saveTasksToFile();
+        } catch (IOException error){
+            printMessage(UNEXPECTED_ERROR);
+            System.exit(1);
+        }
+    }
+
+    /**
+     * Reads the duke.txt file and saves it in the ArrayList "tasks" for modification
+     */
+    private static void initialFileProcessing() {
+        printMessage(GETTING_TASK);
+        try {
+            loadTextFile();
+        } catch (IndexOutOfBoundsException error) {
+            printMessage(INCORRECT_FORMAT);
+            System.exit(1);
+        } catch (IOException error) {
+            printMessage(UNEXPECTED_ERROR);
+            System.exit(1);
+        }
     }
 
     public static void printIndentationAndDivider() {
@@ -77,6 +113,13 @@ public class Duke {
         printIndentationAndDivider();
     }
 
+    /**
+     *
+     * @param input
+     *
+     * Performs addition of different tasks, deletion of tasks, or list printing, depending on
+     * the first word.
+     */
     private static void processInput(String input) {
         switch(input.split(" ")[0].toLowerCase()) {
         case "list":
@@ -87,13 +130,13 @@ public class Duke {
                 executeDoneCase(input);
 
             } catch (DukeException error) {
-                printErrorMessage(PROMPT_TASK_NUMBER);
+                printMessage(PROMPT_TASK_NUMBER);
 
             } catch (IndexOutOfBoundsException error) {
-                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+                printMessage(getSensibleRange(Task.getTotalTasks()));
 
             } catch (NumberFormatException error) {
-                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+                printMessage(getSensibleRange(Task.getTotalTasks()));
 
             }
             break;
@@ -102,7 +145,7 @@ public class Duke {
                 executeTaskCase(input, TODO_STARTING_INDEX, TaskType.TODO);
 
             } catch (StringIndexOutOfBoundsException error) {
-                printErrorMessage(PROMPT_TASK_DESCRIPTION);
+                printMessage(PROMPT_TASK_DESCRIPTION);
 
             }
             break;
@@ -111,7 +154,7 @@ public class Duke {
                 executeTaskCase(input, DEADLINE_STARTING_INDEX,TaskType.DEADLINE);
 
             } catch (StringIndexOutOfBoundsException error) {
-                printErrorMessage(PROMPT_TASK_DESCRIPTION);
+                printMessage(PROMPT_TASK_DESCRIPTION);
 
             }
             break;
@@ -120,7 +163,7 @@ public class Duke {
                 executeTaskCase(input, EVENT_STARTING_INDEX,TaskType.EVENT);
 
             } catch (StringIndexOutOfBoundsException error) {
-                printErrorMessage(PROMPT_TASK_DESCRIPTION);
+                printMessage(PROMPT_TASK_DESCRIPTION);
 
             }
             break;
@@ -129,18 +172,18 @@ public class Duke {
                 executeDeleteCase(input);
 
             } catch (DukeException error) {
-                printErrorMessage(PROMPT_TASK_NUMBER);
+                printMessage(PROMPT_TASK_NUMBER);
 
             } catch (IndexOutOfBoundsException error) {
-                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+                printMessage(getSensibleRange(Task.getTotalTasks()));
 
             } catch (NumberFormatException error) {
-                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+                printMessage(getSensibleRange(Task.getTotalTasks()));
 
             }
             break;
         default:
-            printErrorMessage(TYPE_SUITABLE_COMMAND_MESSAGE);
+            printMessage(TYPE_SUITABLE_COMMAND_MESSAGE);
 
         }
     }
@@ -154,9 +197,9 @@ public class Duke {
         System.out.println();
     }
 
-    private static void printErrorMessage(String error_message) {
+    private static void printMessage(String message) {
         printIndentationAndDivider();
-        printWordsWithIndentation(error_message);
+        printWordsWithIndentation(message);
         printIndentationAndDivider();
         System.out.println();
     }
@@ -168,7 +211,7 @@ public class Duke {
             printTaskMessage();
 
         } catch (DukeException error) {
-            printErrorMessage(MISSING_ARGUMENTS_FOR_EVENT_AND_DEADLINE);
+            printMessage(MISSING_ARGUMENTS_FOR_EVENT_AND_DEADLINE);
 
         }
     }
@@ -186,7 +229,7 @@ public class Duke {
             parsedOutput = input.split(EVENT_DESCRIPTION_AND_DATE_TIME_SPLITTER);
             break;
         default :
-            printErrorMessage(DEFAULT_ERROR_MESSAGE);
+            printMessage(DEFAULT_ERROR_MESSAGE);
             break;
         }
         return parsedOutput;
@@ -212,7 +255,7 @@ public class Duke {
             tasks.add(new Deadline(parsedOutput[0], parsedOutput[1]));
             break;
         default :
-            printErrorMessage(DEFAULT_ERROR_MESSAGE);
+            printMessage(DEFAULT_ERROR_MESSAGE);
             return;
         }
         Task.setTotalTasks(Task.getTotalTasks() + 1);
@@ -253,7 +296,7 @@ public class Duke {
     private static void printTaskDeletedMessage(Task task) {
         Task.setTotalTasks(Task.getTotalTasks() - 1);
         printIndentationAndDivider();
-        printWordsWithIndentation("Alright, I've removed this task:");
+        printWordsWithIndentation(TASK_REMOVED);
         printWordsWithIndentation(task.getStatusIconAndDescription());
         printWordsWithIndentation(notifyNumberOfTasks());
         printIndentationAndDivider();
@@ -265,18 +308,18 @@ public class Duke {
         if(Task.getTotalTasks() == 0) {
             printWordsWithIndentation(LIST_IS_EMPTY);
         }
-        for (int i = 0; i < Task.getTotalTasks(); i++) {
-            printTask(i);
-        }
+        printTask();
         printIndentationAndDivider();
         System.out.println();
     }
 
     /**
-     *Prints out each task in a specific format
+     * Prints the tasks based on the given format
      */
-    private static void printTask(int i) {
-        printWordsWithIndentation(i + 1 + "." + tasks.get(i).getStatusIconAndDescription());
+    private static void printTask() {
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            printWordsWithIndentation(i + 1 + "." + tasks.get(i).getStatusIconAndDescription());
+        }
     }
 
     private static String getSensibleRange(int number) {
@@ -284,5 +327,50 @@ public class Duke {
             return LIST_IS_EMPTY;
         }
         return PROMPT_SENSIBLE_INDEX + number + " :)";
+    }
+
+    private static void loadTextFile() throws IOException {
+        File file = new File("duke.txt");
+        if(file.createNewFile()) {
+            printMessage(FILE_NOT_CREATED);
+        }
+        printMessage(DONE);
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            copyTasksToList(s);
+            Task.setTotalTasks(Task.getTotalTasks() + 1);
+        }
+    }
+
+    private static void copyTasksToList(Scanner s) throws IndexOutOfBoundsException {
+        String[] parsedOutput = s.nextLine().split(" / ");
+        switch(parsedOutput[0]){
+        case "T":
+            tasks.add(new ToDo(parsedOutput[2]));
+            updateTaskStatus(parsedOutput[1]);
+            break;
+        case "E":
+            tasks.add(new Event(parsedOutput[2], parsedOutput[3]));
+            updateTaskStatus(parsedOutput[1]);
+            break;
+        case "D":
+            tasks.add(new Deadline(parsedOutput[2], parsedOutput[3]));
+            updateTaskStatus(parsedOutput[1]);
+            break;
+        }
+    }
+
+    private static void updateTaskStatus(String done) {
+        if (done.equals("1")) {
+            tasks.get(Task.getTotalTasks()).markAsDone();
+        }
+    }
+
+    private static void saveTasksToFile() throws IOException{
+        FileWriter fw = new FileWriter ("duke.txt");
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            fw.write(tasks.get(i).getStatusIconAndDescriptionForFile() + System.lineSeparator());
+        }
+        fw.close();
     }
 }

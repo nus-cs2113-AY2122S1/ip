@@ -1,6 +1,7 @@
 package task;
 
 public class Task {
+    protected static final String SEPARATOR = " / ";
     protected boolean isDone;
     protected String description;
 
@@ -18,6 +19,11 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    public String getStatusIconAndDescriptionForFile() {
+        String icon = (isDone ? "1" : "0");
+        return icon + SEPARATOR + description;
     }
 
     public static int getTotalTasks() {
