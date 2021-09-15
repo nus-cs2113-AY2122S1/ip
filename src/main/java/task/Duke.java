@@ -11,7 +11,12 @@ import java.util.Scanner;
 public class Duke {
     public static int count = 0;
     public static ArrayList<Task> list = new ArrayList<>();
+    static Storage storage = new Storage();
 
+    /**
+     * Prints the logo of the chatbot and calls userCommands for reading user input.
+     * Data is also loaded at this stage.
+     */
     public static void main(String[] args) {
         //logo
         String logo = " _____  ________    _        ______  ___  ___  ______\n"
@@ -28,14 +33,17 @@ public class Duke {
                 + "Go ahead, give your command\n");
 
         Printer.printWelcomeMessage();
+        storage.loadData();
         userCommands();
     }
 
+    /**
+     * Reads the different types of user input/commands until bye command is received.
+     */
     private static void userCommands() {
         boolean isOver = false;
         Scanner in = new Scanner(System.in);
 
-        //Runs until user enters bye
         while (!isOver) {
             String input = TaskManager.getUserInput(in);
             String command = TaskManager.getFirstWordFromCommand(input);
@@ -57,7 +65,6 @@ public class Duke {
                 Printer.printLineSeparator();
                 break;
             case "delete":
-
                 try {
                     int indexOfDelete = TaskManager.getIndex(input);
 
@@ -67,12 +74,12 @@ public class Duke {
 
                     list.remove(indexOfDelete);
                     count--;
+                    storage.saveData(list);
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     Error.showDeleteFormatError();
                 }
                 break;
             case "done":
-
                 try {
                     //Extracts the index number from the text and changes status of the task
                     int indexOfDone = TaskManager.getIndex(input);
@@ -82,32 +89,31 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(list.get(indexOfDone));
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     Error.showDoneFormatError();
                 }
                 break;
             case "todo":
-
                 try {
-                    //Extracts the description, creates a Task object and stores the task in the list
                     Task todo = TaskManager.getTodoDetails(input);
 
                     Printer.printLineSeparator();
                     System.out.println("Got it. I've added this task:\n" + todo + "\nNow you have " + count + " tasks in the list.");
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (DukeEmptyTaskDescriptionException e) {
                     Error.showTaskDescriptionError();
                 }
                 break;
             case "deadline":
-
                 try {
-                    //Extracts the description and day/date, creates a Task object and stores the task in the list
                     Task deadline = TaskManager.getDeadlineDetails(input);
 
                     Printer.printLineSeparator();
                     System.out.println("Got it. I've added this task:\n" + deadline + "\nNow you have " + count + " tasks in the list.");
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (DukeInvalidDescriptionFormatException e) {
                     Error.showDeadlineFormatError();
                 } catch (DukeEmptyTaskDescriptionException e) {
@@ -115,14 +121,13 @@ public class Duke {
                 }
                 break;
             case "event":
-
                 try {
-                    //Extracts the description and the time, creates a Task object and stores the task in the list
                     Task event = TaskManager.getEventDetails(input);
 
                     Printer.printLineSeparator();
                     System.out.println("Got it. I've added this task:\n" + event + "\nNow you have " + count + " tasks in the list.");
                     Printer.printLineSeparator();
+                    storage.saveData(list);
                 } catch (DukeInvalidDescriptionFormatException e) {
                     Error.showEventFormatError();
                 } catch (DukeEmptyTaskDescriptionException e) {
@@ -130,7 +135,6 @@ public class Duke {
                 }
                 break;
             default:
-
                 Error.showInvalidCommandError();
             }
         }

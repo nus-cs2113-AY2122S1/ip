@@ -36,4 +36,22 @@ public class Error {
         System.out.println("I do not know which task you want me to DELETE. Give the task number my friend");
         Printer.printLineSeparator();
     }
+
+    public static void showUnableToParseError() {
+        Printer.printLineSeparator();
+        System.out.println("Unable to parse data!");
+        Printer.printLineSeparator();
+    }
+
+    public static void showUnableToSaveError() {
+        Printer.printLineSeparator();
+        System.out.println("Unable to save data!");
+        Printer.printLineSeparator();
+    }
+
+    public static void showUnableToLoadError() {
+        Printer.printLineSeparator();
+        System.out.println("Unable to load data!");
+        Printer.printLineSeparator();
+    }
 }
