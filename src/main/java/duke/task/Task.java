@@ -2,7 +2,12 @@ package duke.task;
 
 public abstract class Task {
     protected String task;
+<<<<<<< HEAD
     protected Boolean isDone;
+=======
+    protected boolean isDone;
+    public static int totalTask = 0; //total number of tasks saved
+>>>>>>> branch-Level-7
 
     //Constructor
     public Task() {
@@ -20,13 +25,9 @@ public abstract class Task {
         return task;
     }
 
-    public void setTask(String task) {
-        this.task = task;
-    }
+    public abstract String getTime();
 
-    public String getClassType() {
-        return "Task";
-    }
+    public abstract String getClassType();
 
     public Boolean getDone() {
         return isDone;
