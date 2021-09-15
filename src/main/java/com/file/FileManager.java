@@ -37,14 +37,12 @@ public class FileManager {
             fw.append(line).append("\n");
         }
         fw.close();
-        System.out.println("file written");
     }
 
     public void addToFile(String line) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.append(line);
         fw.close();
-        System.out.println("file written");
     }
 
 }
