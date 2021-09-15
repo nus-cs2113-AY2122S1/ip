@@ -1,9 +1,7 @@
 package duke;
-
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.String;

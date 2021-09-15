@@ -1,5 +1,4 @@
 package duke.task;
-
 import duke.List;
 
 public class Deadline extends List {

@@ -1,5 +1,4 @@
 package duke.task;
-
 import duke.List;
 
 public class Todo extends List {
