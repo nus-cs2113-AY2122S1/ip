@@ -2,9 +2,9 @@ import java.util.Arrays;
 
 public class choose {
     protected static Task[] list = new Task[100];
-    private static int tasksAdded = 0;
+    private static final int tasksAdded = 0;
     private static final int LINE_WIDTH = 60;
-    private static Task[] List = new Task[100];
+    private static final Task[] List = new Task[100];
     private static int listSize = 0;
 
 
