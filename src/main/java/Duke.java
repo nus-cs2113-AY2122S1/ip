@@ -9,21 +9,31 @@ public class Duke {
     }
 
     public static void markDone(String line, Task[] tasks) {
-        int index = Integer.parseInt(line.substring(5)) - 1;
-        tasks[index].setDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
+        try {
+            int index = Integer.parseInt(line.substring(5)) - 1;
+            tasks[index].setDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! The description of a mark-done cannot be empty.");
+        }
     }
 
-    public static void addTodo(String line, Task[] tasks, int taskNumber) {
-        tasks[taskNumber] = new ToDo(line.substring(5));
-        taskNumber++;
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskNumber - 1]);
-        System.out.println("Now you have " + taskNumber + " tasks in the list");
+    public static boolean addTodo(String line, Task[] tasks, int taskNumber) {
+        try {
+            tasks[taskNumber] = new ToDo(line.substring(5));
+            taskNumber++;
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + tasks[taskNumber - 1]);
+            System.out.println("Now you have " + taskNumber + " tasks in the list");
+            return true;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            return false;
+        }
     }
 
-    public static void addDeadline(String line, Task[] tasks, int taskNumber) {
+    public static boolean addDeadline(String line, Task[] tasks, int taskNumber) {
         String[] words = line.split(" ");
         int index = 0;
         String deadlineDescription = "";
@@ -33,6 +43,10 @@ public class Duke {
                 index = i;
                 break;
             }
+        }
+        if (index == 0) {
+            System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+            return false;
         }
         for (int i = 1; i < index; i++) {
             deadlineDescription = deadlineDescription + words[i] + " ";
@@ -45,9 +59,10 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks[taskNumber - 1]);
         System.out.println("Now you have " + taskNumber + " tasks in the list");
+        return true;
     }
 
-    public static void addEvent(String line, Task[] tasks, int taskNumber) {
+    public static boolean addEvent(String line, Task[] tasks, int taskNumber) {
         String[] words = line.split(" ");
         int index = 0;
         String eventDescription = "";
@@ -57,6 +72,10 @@ public class Duke {
                 index = i;
                 break;
             }
+        }
+        if (index == 0) {
+            System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+            return false;
         }
         for (int i = 1; i < index; i++) {
             eventDescription = eventDescription + words[i] + " ";
@@ -69,6 +88,7 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks[taskNumber - 1]);
         System.out.println("Now you have " + taskNumber + " tasks in the list");
+        return true;
     }
 
     public static void sayHi() {
@@ -81,7 +101,7 @@ public class Duke {
     }
 
     public static void running() {
-        Task[] tasks= new Task[100];
+        Task[] tasks = new Task[100];
         int taskNumber = 0;
         String line;
         Scanner in = new Scanner(System.in);
@@ -95,14 +115,19 @@ public class Duke {
             } else if (line.startsWith("done")) {
                 markDone(line, tasks);
             } else if (line.startsWith("todo")) {
-                addTodo(line, tasks, taskNumber);
-                taskNumber++;
+                if (addTodo(line, tasks, taskNumber)) {
+                    taskNumber++;
+                }
             } else if (line.startsWith("deadline")) {
-                addDeadline(line, tasks, taskNumber);
-                taskNumber++;
+                if (addDeadline(line, tasks, taskNumber)) {
+                    taskNumber++;
+                }
             } else if (line.startsWith("event")) {
-                addEvent(line, tasks, taskNumber);
-                taskNumber++;
+                if (addEvent(line, tasks, taskNumber)) {
+                    taskNumber++;
+                }
+            } else {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
