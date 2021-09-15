@@ -1,7 +1,11 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static int eventsCount;
+    private static int deadlinesCount;
+    private static int todosCount;
     private static final Scanner scan = new Scanner(System.in);
     private static final String LINE_PREFIX = "\t";
     private static final String NEW_LINE = "\n\t";
@@ -16,10 +20,12 @@ public class Duke {
     private static final String COMMAND_MARK_AS_DONE_WORD = "done";
     private static final String COMMAND_DELETE_WORD = "delete";
     private static final String COMMAND_HELP_WORD = "help";
+    private static final String COMMAND_CLEAR_HISTORY = "clear";
+    private static final String COMMAND_GET_STATS = "stats";
     private static final String DIVIDER = "_______________________________";
     private static final String MESSAGE_ADDED = "added: ";
     private static final String MESSAGE_TASK_COMPLETED = "Wow. You finally completed a task after lazying around all day.";
-    private static final String MESSAGE_TASK_DELETED =  "I've deleted the task: ";
+    private static final String MESSAGE_TASK_DELETED = "I've deleted the task: ";
     private static final String MESSAGE_TASK_NOT_FOUND = "Error. Task does not exist. Try again.";
     private static final String MESSAGE_LIST_ALL_TASKS = "Look at that ever-expanding to-do list." + NEW_LINE + "You really should stop procrastinating.";
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format.";
@@ -31,22 +37,16 @@ public class Duke {
     private static final String MESSAGE_CORRECT_FORMAT_ADD_DEADLINE = "add deadline format:" + INDENTED_NEW_LINE + "deadline {DESCRIPTION} /by {TIME}";
     private static final String MESSAGE_CORRECT_FORMAT_MARK_AS_DONE = "mark task as completed format:" + INDENTED_NEW_LINE + "done {TASK_NUMBER}";
     private static final String MESSAGE_CORRECT_FORMAT_DELETE_TASK = "delete task format:" + INDENTED_NEW_LINE + "delete {TASK_NUMBER}";
-    private static final String USER_GUIDE =
-            MESSAGE_CORRECT_FORMAT_ADD_TODO + NEW_LINE +
-            MESSAGE_CORRECT_FORMAT_ADD_EVENT + NEW_LINE +
-            MESSAGE_CORRECT_FORMAT_ADD_DEADLINE + NEW_LINE +
-            MESSAGE_CORRECT_FORMAT_MARK_AS_DONE + NEW_LINE +
-            MESSAGE_CORRECT_FORMAT_DELETE_TASK;
-    private static int eventsCount;
-    private static int deadlinesCount;
-    private static int todosCount;
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    private static final String LOGO =
-                    " ____        _\n"
-                    + "|  _ \\ _   _| | _____\n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String USER_GUIDE = MESSAGE_CORRECT_FORMAT_ADD_TODO + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_EVENT + NEW_LINE +
+            MESSAGE_CORRECT_FORMAT_ADD_DEADLINE + NEW_LINE + MESSAGE_CORRECT_FORMAT_MARK_AS_DONE + NEW_LINE + MESSAGE_CORRECT_FORMAT_DELETE_TASK;
+
+    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static final String LOGO = " ____        _\n"
+            + "|  _ \\ _   _| | _____\n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String FILEPATH = "data/Duke.txt";
 
     public static void showWelcomeMessage() {
         System.out.println(LOGO);
@@ -60,6 +60,62 @@ public class Duke {
             input = scan.nextLine();
         }
         return input;
+    }
+
+    public static void readFromFile() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
+            String line = reader.readLine();
+            while (line != null) {
+                convertFileStringToTaskAndAddTask(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error while reading from file");
+        }
+    }
+
+    private static void convertFileStringToTaskAndAddTask(String line) {
+        try {
+            final String[] split = line.trim().split("\\|");
+            char taskType = split[0].charAt(0);
+            int isComplete = Integer.parseInt(split[1].trim());
+            boolean isDone = isComplete == 1;
+            String description = split[2].trim();
+
+            switch (taskType) {
+            case 'D':
+                String by = split[3].trim();
+                addTask(new Deadline(description, isDone, by));
+                return;
+            case 'E':
+                String at = split[3].trim();
+                addTask(new Event(description, isDone, at));
+                return;
+            default:
+                addTask(new Todo(description, isDone));
+            }
+        } catch (ArrayIndexOutOfBoundsException a) {
+            System.out.println("Error converting file string to task");
+        }
+    }
+    public static void clearHistory() throws IOException {
+        FileWriter writer = new FileWriter(FILEPATH, false);
+        writer.write("");
+        writer.close();
+    }
+
+    public static void saveToFile() {
+        try {
+            FileWriter writer = new FileWriter(FILEPATH, false);
+            for (Task task : taskList) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error while saving to file");
+        }
     }
 
     private static String[] splitCommandWordsAndArgs(String rawUserInput) {
@@ -86,6 +142,10 @@ public class Duke {
             return getUserGuide();
         case COMMAND_DELETE_WORD:
             return executeDeleteTask(commandArgs);
+        case COMMAND_CLEAR_HISTORY:
+            return executeClearHistory();
+        case COMMAND_GET_STATS:
+            return executeGetStats();
         case COMMAND_EXIT_WORD:
             exitProgram();
         default:
@@ -93,25 +153,47 @@ public class Duke {
         }
     }
 
+    private static String executeGetStats() {
+        return "Total no. of tasks: " + taskList.size() + NEW_LINE +
+                "No. of todos: " + todosCount + NEW_LINE +
+                "No. of events: " + eventsCount + NEW_LINE +
+                "No. of deadlines: " + deadlinesCount + NEW_LINE;
+    }
+
+    private static String executeClearHistory() {
+//        try {
+//            clearHistory();
+//        } catch (IOException e) {
+//            System.out.println("Error while clearing History.");
+//        }
+        taskList.clear();
+
+        return "History cleared.\n";
+    }
+
     private static String executeDeleteTask(String commandArgs) {
         try {
             int n = Integer.parseInt(commandArgs.trim());
             if (n >= 1 && n <= taskList.size()) {
-                int index = n -1;
+                int index = n - 1;
                 String message = MESSAGE_TASK_DELETED + taskList.get(index).toString();
-                if (taskList.get(index) instanceof Todo) {
-                    todosCount--;
-                } else if (taskList.get(index) instanceof Deadline) {
-                    deadlinesCount--;
-                } else if (taskList.get(index) instanceof Event) {
-                    eventsCount--;
-                }
+                modifyTaskCountAfterDeletion(taskList.get(index));
                 taskList.remove(index);
                 return message;
             }
             return MESSAGE_TASK_NOT_FOUND;
         } catch (NumberFormatException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_DELETE_TASK;
+        }
+    }
+
+    private static void modifyTaskCountAfterDeletion(Task task) {
+        if (task instanceof Todo) {
+            todosCount--;
+        } else if (task instanceof Deadline) {
+            deadlinesCount--;
+        } else if (task instanceof Event) {
+            eventsCount--;
         }
     }
 
@@ -123,7 +205,7 @@ public class Duke {
         try {
             int n = Integer.parseInt(commandArgs.trim());
             if (n >= 1 && n <= taskList.size()) {
-                int index = n -1;
+                int index = n - 1;
                 taskList.get(index).markAsDone();
                 return MESSAGE_TASK_COMPLETED + taskList.get(index).toString();
             }
@@ -158,9 +240,12 @@ public class Duke {
     public static void main(String[] args) {
         initTaskList();
         showWelcomeMessage();
+        readFromFile();
+        showResultToUser(executeListAllTasks());
         while (true) {
             String userCommand = getUserInput();
             String feedback = executeCommand(userCommand);
+            saveToFile();
             showResultToUser(feedback);
         }
     }
@@ -186,9 +271,9 @@ public class Duke {
 
     private static String executeAddTodo(String description) {
         if (!description.isEmpty()) {
-            addTask(new Todo(description));
+            addTask(new Todo(description, false));
             todosCount++;
-            return MESSAGE_ADDED + taskList.get(taskList.size()-1).toString() + NEW_LINE
+            return MESSAGE_ADDED + taskList.get(taskList.size() - 1).toString() + NEW_LINE
                     + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, todosCount, COMMAND_TODO_WORD);
         }
         return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_TODO;
@@ -199,9 +284,9 @@ public class Duke {
             String[] eventAndDate = decodeTask(COMMAND_EVENT_WORD, commandArgs);
             String description = eventAndDate[0];
             String date = eventAndDate[1];
-            addTask(new Event(description, date));
+            addTask(new Event(description, false, date));
             eventsCount++;
-            return MESSAGE_ADDED + taskList.get(taskList.size()-1).toString() + NEW_LINE
+            return MESSAGE_ADDED + taskList.get(taskList.size() - 1).toString() + NEW_LINE
                     + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, eventsCount, COMMAND_EVENT_WORD);
         } catch (IndexOutOfBoundsException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_EVENT;
@@ -213,9 +298,9 @@ public class Duke {
             String[] deadlineAndDate = decodeTask(COMMAND_DEADLINE_WORD, commandArgs);
             String description = deadlineAndDate[0];
             String date = deadlineAndDate[1];
-            addTask(new Deadline(description, date));
+            addTask(new Deadline(description, false, date));
             deadlinesCount++;
-            return MESSAGE_ADDED + taskList.get(taskList.size()-1).toString() + NEW_LINE
+            return MESSAGE_ADDED + taskList.get(taskList.size() - 1).toString() + NEW_LINE
                     + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, deadlinesCount, COMMAND_DEADLINE_WORD);
         } catch (IndexOutOfBoundsException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_DEADLINE;
