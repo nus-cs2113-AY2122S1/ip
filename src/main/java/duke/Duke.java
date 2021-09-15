@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Duke {
 
