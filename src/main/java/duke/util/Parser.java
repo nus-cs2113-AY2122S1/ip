@@ -9,6 +9,10 @@ import duke.task.Todo;
 
 import java.util.Scanner;
 
+/**
+ * Processes user input and translates it into a Command which can be executed for various results. Uses a Scanner
+ * userInput to get input from the user, and stores it in a String userInputString for further processing.
+ */
 public class Parser {
     static final int MAX_STORED_TASKS = 100;
     static final int TODO_OFFSET = 5;
@@ -18,12 +22,23 @@ public class Parser {
     private final Scanner userInput = new Scanner(System.in);
     private String userInputString;
 
+    /**
+     * Gets the next line of user input from the user. If the user command closes the program, this function returns
+     * true, and false otherwise.
+     * @return boolean Returns true if the command issued closes the program, false otherwise.
+     */
     public boolean parseNextLine() {
         userInputString = userInput.nextLine();
         return !userInputString.equalsIgnoreCase("bye");
     }
 
-    public Command processCommands(TaskList userTasks, UI ui) {
+    /**
+     * Tries to translate the String given by the user into a Command that can be executed.
+     * Returns null if no command can be recognised.
+     * @param ui The UI class from the main program.
+     * @return Command The command that is obtained from processing the user string.
+     */
+    public Command processCommands(UI ui) {
         System.out.println(UI.DIVIDING_LINE);
 
         try {

@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a Deadline task and has a type of D. It is defined by a description String and a date String.
+ */
 public class Deadline extends Todo {
     protected String date;
 
