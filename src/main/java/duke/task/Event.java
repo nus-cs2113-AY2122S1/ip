@@ -2,8 +2,8 @@ package duke.task;
 public class Event extends Todo {
     String time;
 
-    public Event(String name, int taskNumber, String time) {
-        super(name, taskNumber);
+    public Event(String name, String time) {
+        super(name);
         setTime(time);
     }
 
@@ -20,7 +20,7 @@ public class Event extends Todo {
     @Override
     public String toString() {
         String boolString = super.getIsDone() ? "X" : " ";
-        return String.format("%d.[E][%s] %s (at: %s)", super.getTaskNumber(), boolString, super.getName(), time);
+        return String.format("[E][%s] %s (at: %s)", boolString, super.getName(), time);
     }
 
 

@@ -2,11 +2,9 @@ package duke.task;
 public class Todo {
     private String name;
     private boolean isDone = false;
-    private int taskNumber;
 
-    public Todo(String name, int taskNumber) {
+    public Todo(String name) {
         setName(name);
-        setTaskNumber(taskNumber);
     }
 
     public String getName() {
@@ -15,18 +13,7 @@ public class Todo {
     }
 
     public void setName(String name) {
-
         this.name = name;
-    }
-
-    public int getTaskNumber() {
-
-        return taskNumber;
-    }
-
-    public void setTaskNumber(int taskNumber) {
-
-        this.taskNumber = taskNumber;
     }
 
     public boolean getIsDone() {
@@ -41,7 +28,7 @@ public class Todo {
 
     public String toString() {
         String boolString = isDone ? "X" : " ";
-        return String.format("%d.[T][%s] %s", taskNumber, boolString, name);
+        return String.format("[T][%s] %s", boolString, name);
     }
 
 }

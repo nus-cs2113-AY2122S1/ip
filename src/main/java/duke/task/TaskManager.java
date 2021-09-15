@@ -2,6 +2,7 @@ package duke.task;
 import duke.exception.InvalidInputException;
 import java.util.ArrayList;
 
+
 public class TaskManager {
     private static ArrayList<Todo> tasks = new ArrayList<Todo>();
 
@@ -11,7 +12,7 @@ public class TaskManager {
                 throw new InvalidInputException("OOPS!!! Description of todo cannot be empty :(");
             }
             int startIndexOfTask = userInput.indexOf(' ');
-            Todo newTask = new Todo(userInput, tasks.size() + 1);
+            Todo newTask = new Todo(userInput);
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
         } catch (InvalidInputException e){
@@ -33,7 +34,7 @@ public class TaskManager {
             int startIndexOfDeadline = userInput.indexOf('/') + 4;
             String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
             String deadline = userInput.substring(startIndexOfDeadline);
-            Deadline newTask = new Deadline(taskName, tasks.size() + 1, deadline);
+            Deadline newTask = new Deadline(taskName, deadline);
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
         } catch (InvalidInputException e){
@@ -54,7 +55,7 @@ public class TaskManager {
             int startIndexOfDate = userInput.indexOf('/') + 4;
             String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
             String deadline = userInput.substring(startIndexOfDate);
-            Event newTask = new Event(taskName, tasks.size() + 1, deadline);
+            Event newTask = new Event(taskName, deadline);
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
         } catch (InvalidInputException e){
@@ -68,9 +69,11 @@ public class TaskManager {
             System.out.println("\tNo tasks added");
             return;
         }
+        int count =1;
         for (Todo task : tasks) {
             System.out.println("\tHere are the tasks in your list");
-            System.out.println("\t" + task);
+            System.out.println("\t"+count+"." + task);
+            count++;
         }
     }
 
@@ -84,12 +87,26 @@ public class TaskManager {
         Todo task = tasks.get(taskNumber - 1);
         task.setIsDone();
         System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t\t" + task.toString().substring(2));
+        System.out.println("\t\t" + task);
+    }
+
+    public static void deleteTask(String userInput){
+        int indexOfTaskNumber = userInput.indexOf(' ') + 1;
+        int taskNumber = Integer.parseInt(userInput.substring(indexOfTaskNumber));
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
+            System.out.println("\tNo such task");
+            return;
+        }
+        Todo task = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber-1);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t\t"+task.toString());
+        System.out.println("\t Now you have "+tasks.size()+" tasks in the list.");
     }
 
     private static void printTaskAddedConfirmation(Todo task) {
         System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t\t" + task.toString().substring(2));
+        System.out.println("\t\t" + task.toString());
         System.out.format("\tNow you have %d tasks in the list.\n", tasks.size());
     }
 }

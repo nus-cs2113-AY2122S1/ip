@@ -2,8 +2,8 @@ package duke.task;
 public class Deadline extends Todo {
     String deadline;
 
-    public Deadline(String name, int taskNumber, String deadline) {
-        super(name, taskNumber);
+    public Deadline(String name, String deadline) {
+        super(name);
         setDeadline(deadline);
     }
 
@@ -21,6 +21,6 @@ public class Deadline extends Todo {
     @Override
     public String toString() {
         String boolString = super.getIsDone() ? "X" : " ";
-        return String.format("%d.[D][%s] %s (by: %s)", super.getTaskNumber(), boolString, super.getName(), deadline);
+        return String.format("[D][%s] %s (by: %s)", boolString, super.getName(), deadline);
     }
 }

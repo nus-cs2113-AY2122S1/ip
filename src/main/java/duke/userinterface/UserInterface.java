@@ -47,6 +47,9 @@ public class UserInterface {
             case DEADLINE:
                 TaskManager.addDeadline(userInput);
                 return true;
+            case DELETE:
+                TaskManager.deleteTask(userInput);
+                return true;
             case BYE:
                 return false;
             default:
