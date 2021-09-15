@@ -290,7 +290,7 @@ public class Duke {
                 FileWriter fileWriter = new FileWriter(saveFile);
                 for(int i = 0; i < listLength;i++){
                     char taskType = tasks.get(i).toString().charAt(1);
-                    fileWriter.write(taskType + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName()););
+                    fileWriter.write(taskType + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName());
                     if (taskType == 'D'){
                         fileWriter.write("||" + ((Deadline) tasks.get(i)).getBy());
                     } else if (taskType == 'E'){
