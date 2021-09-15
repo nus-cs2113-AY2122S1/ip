@@ -33,6 +33,10 @@ public class Main {
                     duke.markDone(line);
                     break;
                 }
+                if(line.contains("delete")) {
+                    duke.deleteItem(line);
+                    break;
+                }
                 if(line.contains("todo")) {
                     line = line.substring(5);
                     duke.addList(new Todo(line));
