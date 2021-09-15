@@ -6,6 +6,9 @@ import duke.task.ToDo;
 import duke.task.Task;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -20,10 +23,10 @@ public class Duke {
             + LINE_SEPARATOR;
     static final String NO_ARGUMENT_1 = "The ";
     static final String NO_ARGUMENT_2 = " command is incomplete.";
+    static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
-        ArrayList<Task> taskList = new ArrayList<>();
-        int taskNum = 0;
+        readData();
         System.out.println(GREETINGS);
         String line;
         Scanner in = new Scanner(System.in);
@@ -34,7 +37,7 @@ public class Duke {
             }
             switch (line.split(" ")[0]) {
             case "list":
-                list(taskNum, taskList);
+                list();
                 break;
             case "done":
                 try {
@@ -45,6 +48,7 @@ public class Duke {
                             + SPACING + taskList.get(currentTask).toString() + "\n"
                             + LINE_SEPARATOR;
                     System.out.println(update);
+                    writeData();
                 } catch (IndexOutOfBoundsException e) {
                     String error = LINE_SEPARATOR
                             + SPACING + NO_ARGUMENT_1 + "done" + NO_ARGUMENT_2 + "\n"
@@ -57,11 +61,11 @@ public class Duke {
                     String taskName = line.substring("deadline ".length(), line.indexOf("/by "));
                     String taskDdl = line.substring(line.indexOf("/by ") + "/by ".length());
                     taskList.add(new Deadline(taskName, taskDdl));
-                    taskNum += 1;
                     String response = LINE_SEPARATOR
                             + SPACING + "added: " + taskList.get(taskList.size() - 1) + "\n"
                             + LINE_SEPARATOR;
                     System.out.println(response);
+                    writeData();
                 } catch (StringIndexOutOfBoundsException e) {
                     String error = LINE_SEPARATOR
                             + SPACING + NO_ARGUMENT_1 + "deadline" + NO_ARGUMENT_2 + "\n"
@@ -79,6 +83,7 @@ public class Duke {
                             + SPACING + "added: " + taskList.get(taskList.size() - 1) + "\n"
                             + LINE_SEPARATOR;
                     System.out.println(response);
+                    writeData();
                 } catch (StringIndexOutOfBoundsException e) {
                     String error = LINE_SEPARATOR
                             + SPACING + NO_ARGUMENT_1 + "event" + NO_ARGUMENT_2 + "\n"
@@ -91,11 +96,11 @@ public class Duke {
                 try {
                     String taskName = line.substring("todo ".length());
                     taskList.add(new ToDo(taskName));
-                    taskNum += 1;
                     String response = LINE_SEPARATOR
                             + SPACING + "added: " + taskList.get(taskList.size() - 1) + "\n"
                             + LINE_SEPARATOR;
                     System.out.println(response);
+                    writeData();
                 } catch (StringIndexOutOfBoundsException e) {
                     String error = LINE_SEPARATOR
                             + SPACING + NO_ARGUMENT_1 + "todo" + NO_ARGUMENT_2 + "\n"
@@ -112,6 +117,7 @@ public class Duke {
                             + LINE_SEPARATOR;
                     System.out.println(update);
                     taskList.remove(currentTask);
+                    writeData();
                 } catch (IndexOutOfBoundsException e) {
                     String error = LINE_SEPARATOR
                             + SPACING + NO_ARGUMENT_1 + "delete" + NO_ARGUMENT_2 + "\n"
@@ -134,7 +140,7 @@ public class Duke {
     }
 
 
-    public static void list(int taskNum, ArrayList<Task> taskList ) {
+    public static void list() {
         String listOutput = LINE_SEPARATOR;
         for (int i = 0; i < taskList.size(); i++) {
             listOutput += SPACING + (i + 1) + ". "
@@ -144,5 +150,78 @@ public class Duke {
         System.out.println(listOutput);
 
     }
+    public static void readData() {
+        String filePath = "data/data.txt";
+        try {
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String currentLine = s.nextLine();
+                String[] currentData = currentLine.split(" \\* ");
+                switch (currentData[0]) {
+                case "T":
+                    taskList.add(new ToDo(currentData[2]));
+                    if (currentData[1].equals("1")) {
+                        taskList.get(taskList.size() - 1).markAsDone();
+                    }
+                    break;
+                case "D":
+                    taskList.add(new Deadline(currentData[2], currentData[3]));
+                    if (currentData[1].equals("1")) {
+                        taskList.get(taskList.size() - 1).markAsDone();
+                    }
+                    break;
+                case "E":
+                    taskList.add(new Event(currentData[2], currentData[3]));
+                    if (currentData[1].equals("1")) {
+                        taskList.get(taskList.size() - 1).markAsDone();
+                    }
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Something is wrong...");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("File corrupted!");
+        }
+    }
 
+    public static void writeData () {
+        String filePath = "data/data.txt";
+        String updatedData = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            String currentTask = taskList.get(i).toString();
+            String type = currentTask.substring(1,2);
+            String status = (currentTask.charAt(4) == 'X') ? "1" : "0";
+            if (currentTask.contains("(by:")) {
+                int end = currentTask.indexOf("(by: ");
+                String content = currentTask.substring(7, end);
+                String ddl = currentTask.substring(end + 5, currentTask.length() - 1);
+                updatedData += type + " * " + status + " * " + content + " * " + ddl
+                        + System.lineSeparator();
+            } else if (currentTask.contains("(at:")) {
+                int end = currentTask.indexOf("(at: ");
+                String content = currentTask.substring(7, end);
+                String time = currentTask.substring(end + 5, currentTask.length() - 1);
+                updatedData += type + " * " + status + " * " + content + " * " + time
+                        + System.lineSeparator();
+            } else {
+                String content = currentTask.substring(7);
+                updatedData += type + " * " + status + " * " + content
+                        + System.lineSeparator();
+            }
+        }
+
+        try {
+            writeToFile(filePath, updatedData);
+        } catch (IOException e) {
+            System.out.println("Error!");
+        }
+    }
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
 }

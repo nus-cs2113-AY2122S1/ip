@@ -20,5 +20,13 @@ public class Task {
     public String toString() {
         return "[" + this.TaskStatus() + "] " + this.content;
     }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public Boolean getIsDone() {
+        return this.isDone;
+    }
 }
 

@@ -13,4 +13,8 @@ public class Deadline extends Task {
         return "[D]" + "[" + this.TaskStatus() + "] " + this.content
                 + "(by: " + this.ddl + ")";
     }
+
+    public String getDdl() {
+        return this.ddl;
+    }
 }
