@@ -28,6 +28,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String parseToStore() {
+        return "D |" + super.parseToStore() + " | " + this.by;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

@@ -2,36 +2,40 @@ package duke.command;
 
 import duke.exception.DukeException;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
     // Constants
-    private static final String MESSAGE_BOUNDARY = "____________________________________________________________";
+    public static final String LOGO = " ____        _        \n"
+                                    + "|  _ \\ _   _| | _____ \n"
+                                    + "| | | | | | | |/ / _ \\\n"
+                                    + "| |_| | |_| |   <  __/\n"
+                                    + "|____/ \\__,_|_|\\_\\___|\n";
+    public static final String MESSAGE_BOUNDARY = "____________________________________________________________";
+    public static final String FILE_NAME = "data/duke.txt";
 
     // Attributes
-    private static TaskOperation doTask = new TaskOperation();
+    private static final TaskOperation doTask = new TaskOperation();
 
-    // Constructor
-    public static void main(String[] args) throws DukeException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+    // Main function
+    public static void main(String[] args) throws DukeException, FileNotFoundException {
         Greet();
+        doTask.loadFile(FILE_NAME);
         Echo();
+        doTask.saveFile(FILE_NAME);
+
     }
 
     public static void Greet(){
-        String lines = "____________________________________________________________";
+        System.out.println("Hello from\n" + LOGO);
         String greet = " Hello! I'm duke.command.Duke\n"
                     + " What can I do for you?\n";
         System.out.println(MESSAGE_BOUNDARY + "\n" + greet + MESSAGE_BOUNDARY);
     }
 
     public static void Echo() throws DukeException {
-        boolean continueChat;
+        boolean isChat;
         Scanner in = new Scanner(System.in);
 
         do{
@@ -39,9 +43,9 @@ public class Duke {
             String userInput = in.nextLine();
 
             // Give response
-            continueChat = giveResponse(userInput);
+            isChat = giveResponse(userInput);
 
-        }while(continueChat);
+        }while(isChat);
 
         in.close();
     }
