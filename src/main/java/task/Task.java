@@ -20,10 +20,6 @@ public class Task {
         isDone = true;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public static int getTotalTasks() {
         return totalTasks;
     }

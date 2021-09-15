@@ -7,6 +7,7 @@ import task.TaskType;
 import task.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String DIVIDER = "___________________________________________________________";
@@ -29,13 +30,16 @@ public class Duke {
     public static final int DEADLINE_STARTING_INDEX = 9;
     public static final int EVENT_STARTING_INDEX = 6;
     public static final String PROMPT_TASK_DESCRIPTION = "Please tell me what do you need to do :)";
-    public static final String INPUT_MORE_THAN_NUMBER_OF_TASKS = "Woah, you don't have THAT many things to do!";
     public static final String LIST_IS_EMPTY = "You're a free man :)";
     public static final String MISSING_ARGUMENTS_FOR_EVENT_AND_DEADLINE = "Sorry," +
             " you're missing some arguments, do type 'help' if you're unsure :)";
-    public static final String PROMPT_TASK_NUMBER = "Please tell me which task you finished :)";
-    public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1-100 :)";
-    public static Task[] tasks = new Task[100];
+    public static final String PROMPT_TASK_NUMBER = "Please tell me which task you want to select :)";
+    public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1 and ";
+    public static final int EXPECTED_LENGTH_FOR_EVENT_AND_DEADLINE = 2;
+    public static final int EXPECTED_LENGTH_FOR_DONE_INPUT = 6;
+    public static final String DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!";
+    public static final int EXPECTED_LENGTH_FOR_DELETE_INPUT = 8;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         printStartingMessage();
@@ -82,17 +86,14 @@ public class Duke {
             try {
                 executeDoneCase(input);
 
-            } catch (NullPointerException error) {
-                printErrorMessage(INPUT_MORE_THAN_NUMBER_OF_TASKS);
-
             } catch (DukeException error) {
                 printErrorMessage(PROMPT_TASK_NUMBER);
 
-            } catch (ArrayIndexOutOfBoundsException error) {
-                printErrorMessage(PROMPT_SENSIBLE_INDEX);
+            } catch (IndexOutOfBoundsException error) {
+                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
 
             } catch (NumberFormatException error) {
-                printErrorMessage(PROMPT_SENSIBLE_INDEX);
+                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
 
             }
             break;
@@ -102,6 +103,7 @@ public class Duke {
 
             } catch (StringIndexOutOfBoundsException error) {
                 printErrorMessage(PROMPT_TASK_DESCRIPTION);
+
             }
             break;
         case "deadline":
@@ -119,17 +121,34 @@ public class Duke {
 
             } catch (StringIndexOutOfBoundsException error) {
                 printErrorMessage(PROMPT_TASK_DESCRIPTION);
+
+            }
+            break;
+        case "delete":
+            try {
+                executeDeleteCase(input);
+
+            } catch (DukeException error) {
+                printErrorMessage(PROMPT_TASK_NUMBER);
+
+            } catch (IndexOutOfBoundsException error) {
+                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+
+            } catch (NumberFormatException error) {
+                printErrorMessage(getSensibleRange(Task.getTotalTasks()));
+
             }
             break;
         default:
             printErrorMessage(TYPE_SUITABLE_COMMAND_MESSAGE);
+
         }
     }
 
     private static void printTaskMessage() {
         printIndentationAndDivider();
         printWordsWithIndentation(ADDED_TO_LIST);
-        printWordsWithIndentation(tasks[Task.getTotalTasks() - 1].getStatusIconAndDescription());
+        printWordsWithIndentation(tasks.get(Task.getTotalTasks() - 1).getStatusIconAndDescription());
         printWordsWithIndentation(notifyNumberOfTasks());
         printIndentationAndDivider();
         System.out.println();
@@ -150,6 +169,7 @@ public class Duke {
 
         } catch (DukeException error) {
             printErrorMessage(MISSING_ARGUMENTS_FOR_EVENT_AND_DEADLINE);
+
         }
     }
 
@@ -165,28 +185,35 @@ public class Duke {
         case EVENT:
             parsedOutput = input.split(EVENT_DESCRIPTION_AND_DATE_TIME_SPLITTER);
             break;
+        default :
+            printErrorMessage(DEFAULT_ERROR_MESSAGE);
+            break;
         }
         return parsedOutput;
     }
 
-    private static void addTask(String input,TaskType type) throws StringIndexOutOfBoundsException, DukeException {
+    private static void addTask(String input,TaskType type)
+            throws StringIndexOutOfBoundsException, DukeException {
         String[] parsedOutput = parseInputForDifferentTask(input,type);
         switch(type){
         case TODO:
-            tasks[Task.getTotalTasks()] = new ToDo(parsedOutput[0]);
+            tasks.add(new ToDo(parsedOutput[0]));
             break;
         case EVENT:
-            if(parsedOutput.length < 2) {
+            if(parsedOutput.length < EXPECTED_LENGTH_FOR_EVENT_AND_DEADLINE) {
                 throw new DukeException();
             }
-            tasks[Task.getTotalTasks()] = new Event(parsedOutput[0], parsedOutput[1]);
+            tasks.add(new Event(parsedOutput[0], parsedOutput[1]));
             break;
         case DEADLINE:
-            if(parsedOutput.length < 2) {
+            if(parsedOutput.length < EXPECTED_LENGTH_FOR_EVENT_AND_DEADLINE) {
                 throw new DukeException();
             }
-            tasks[Task.getTotalTasks()] = new Deadline(parsedOutput[0], parsedOutput[1]);
+            tasks.add(new Deadline(parsedOutput[0], parsedOutput[1]));
             break;
+        default :
+            printErrorMessage(DEFAULT_ERROR_MESSAGE);
+            return;
         }
         Task.setTotalTasks(Task.getTotalTasks() + 1);
     }
@@ -195,14 +222,24 @@ public class Duke {
         return "Now you have " + Task.getTotalTasks() + " task(s) in the list";
     }
 
-    private static void executeDoneCase(String input) throws NullPointerException,DukeException,
-            ArrayIndexOutOfBoundsException, NumberFormatException{
-        if(input.length() < 6) {
+    private static void executeDoneCase(String input) throws DukeException,
+            IndexOutOfBoundsException,NumberFormatException {
+        if(input.length() < EXPECTED_LENGTH_FOR_DONE_INPUT) {
             throw new DukeException();
         }
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        tasks[index].markAsDone();
-        printTaskCompletedMessage(tasks[index]);
+        tasks.get(index).markAsDone();
+        printTaskCompletedMessage(tasks.get(index));
+    }
+
+    private static void executeDeleteCase(String input) throws DukeException,
+            IndexOutOfBoundsException,NumberFormatException {
+        if(input.length() < EXPECTED_LENGTH_FOR_DELETE_INPUT) {
+            throw new DukeException();
+        }
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        printTaskDeletedMessage(tasks.get(index));
+        tasks.remove(index);
     }
 
     private static void printTaskCompletedMessage(Task task) {
@@ -213,15 +250,39 @@ public class Duke {
         System.out.println();
     }
 
+    private static void printTaskDeletedMessage(Task task) {
+        Task.setTotalTasks(Task.getTotalTasks() - 1);
+        printIndentationAndDivider();
+        printWordsWithIndentation("Alright, I've removed this task:");
+        printWordsWithIndentation(task.getStatusIconAndDescription());
+        printWordsWithIndentation(notifyNumberOfTasks());
+        printIndentationAndDivider();
+        System.out.println();
+    }
+
     private static void executeListCase() {
         printIndentationAndDivider();
         if(Task.getTotalTasks() == 0) {
             printWordsWithIndentation(LIST_IS_EMPTY);
         }
         for (int i = 0; i < Task.getTotalTasks(); i++) {
-            printWordsWithIndentation(i + 1 + "." + tasks[i].getStatusIconAndDescription());
+            printTask(i);
         }
         printIndentationAndDivider();
         System.out.println();
+    }
+
+    /**
+     *Prints out each task in a specific format
+     */
+    private static void printTask(int i) {
+        printWordsWithIndentation(i + 1 + "." + tasks.get(i).getStatusIconAndDescription());
+    }
+
+    private static String getSensibleRange(int number) {
+        if(number < 1) {
+            return LIST_IS_EMPTY;
+        }
+        return PROMPT_SENSIBLE_INDEX + number + " :)";
     }
 }
