@@ -25,17 +25,23 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         ArrayList <Task> list = new ArrayList<>();
         ListManager listManager = new ListManager(list);
+        FileManager fileManager = new FileManager(listManager);
+        fileManager.covertStringToTask();
         while(isOnline) {
             String userInput = in.nextLine().toLowerCase().trim();
                 if (userInput.startsWith("!")) {
                     CommandManager commandManager = new CommandManager(userInput);
                     commandManager.handleCommand();
                 } else {
-                    InputHandler inputManager = new InputHandler(userInput, listManager);
+                    InputHandler inputManager = new InputHandler(userInput, listManager, fileManager);
                     try {
                         inputManager.handleInput();
                     }catch(CommandException e){
                         e.handleException();
+                    }
+                    fileManager.writeToFile(list.get(0),false);
+                    for (int i = 1; i < list.size(); i ++) {
+                        fileManager.writeToFile(list.get(i), true);
                     }
                 }
         }

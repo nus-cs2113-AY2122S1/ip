@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class ListManager implements TaskList{
 
     private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task: ";
-    private static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
     private static final String MESSAGE_TASK_IN_LIST = " tasks in the list.";
     private static final String MESSAGE_LIST_TASK = "Here are the tasks in your list:";
     private static final String MESSAGE_TASK_NOW = "Now you have ";
     private static final String MESSAGE_DELETE = "Noted. I've removed this task: ";
     private static final String MESSAGE_SPACER = ". ";
+
     private final ArrayList<Task> list;
 
     public ListManager(ArrayList<Task> list){
@@ -92,37 +92,45 @@ public class ListManager implements TaskList{
                             + list.size() + MESSAGE_TASK_IN_LIST);
     }
 
-    public void addTodo(String description){
+    public void addTodo(String description, boolean isFromFile){
         Task t = new ToDo(description);
         list.add(t);
-        System.out.println(Logo.dividerWithoutNewLine);
-        printAddItem(t);
-        System.out.println(Logo.dividerWithoutNewLine);
+        if(!isFromFile) {
+            System.out.println(Logo.dividerWithoutNewLine);
+            printAddItem(t);
+            System.out.println(Logo.dividerWithoutNewLine);
+        }
     }
 
-    public void addEvent(String description, String time){
+    public void addEvent(String description, String time, boolean isFromFile){
         Task t = new Event(description, time);
         list.add(t);
-        System.out.println(Logo.dividerWithoutNewLine);
-        printAddItem(t);
-        System.out.println(Logo.dividerWithoutNewLine);
+        if(!isFromFile) {
+            System.out.println(Logo.dividerWithoutNewLine);
+            printAddItem(t);
+            System.out.println(Logo.dividerWithoutNewLine);
+        }
     }
 
-    public void  addDeadline(String description, String deadline){
+    public void  addDeadline(String description, String deadline, boolean isFromFile){
         Task t = new Deadline(description, deadline);
         list.add(t);
-        System.out.println(Logo.dividerWithoutNewLine);
-        printAddItem(t);
-        System.out.println(Logo.dividerWithoutNewLine);
+        if(!isFromFile) {
+            System.out.println(Logo.dividerWithoutNewLine);
+            printAddItem(t);
+            System.out.println(Logo.dividerWithoutNewLine);
+        }
     }
 
-    public void completeTask(int t) throws CommandException{
+    public void completeTask(int t, boolean isFromFile) throws CommandException{
         if (t > list.size() || t < 0){
             throw new CommandException(ErrorList.ERROR_DONE_TASK_NOT_IN_LIST);
         }
         Task doneTask = list.get(t);
         doneTask.setDone();
-        System.out.println(Logo.divider + MESSAGE_TASK_COMPLETE + doneTask.toString());
+        if (!isFromFile) {
+            System.out.println(doneTask.toString());
+        }
     }
 
     public void deleteTask(int t) throws CommandException{

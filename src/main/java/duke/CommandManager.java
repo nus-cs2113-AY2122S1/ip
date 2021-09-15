@@ -18,8 +18,8 @@ public class CommandManager implements CommandInterface{
                                                     "list todo displays all todo tasks\n" +
                                                     "list event displays all event tasks\n" +
                                                     "list deadline displays all deadline tasks\n";
-    private static final String MESSAGE_EVENT_HELP = "event command requires a timing indicated using \"at\" [timing]";
-    private static final String MESSAGE_DEADLINE_HELP = "deadline command requires a end time indicated using \"by\"[end time]";
+    private static final String MESSAGE_EVENT_HELP = "event command requires a timing indicated using \"at\" [timing]\n";
+    private static final String MESSAGE_DEADLINE_HELP = "deadline command requires a end time indicated using \"by\"[end time]\n";
 
     private final String description;
 
@@ -45,16 +45,16 @@ public class CommandManager implements CommandInterface{
         }
         switch(description) {
         case COMMAND_HELP:
-            System.out.println(Logo.divider + MESSAGE_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_HELP + Logo.dividerWithoutNewLine);
             break;
         case COMMAND_LIST_HELP:
-            System.out.println(Logo.divider + MESSAGE_LIST_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_LIST_HELP + Logo.dividerWithoutNewLine);
             break;
         case COMMAND_EVENT_HELP:
-            System.out.println(Logo.divider + MESSAGE_EVENT_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_EVENT_HELP + Logo.dividerWithoutNewLine);
             break;
         case COMMAND_DEADLINE_HELP:
-            System.out.println(Logo.divider + MESSAGE_DEADLINE_HELP + Logo.divider);
+            System.out.println(Logo.divider + MESSAGE_DEADLINE_HELP + Logo.dividerWithoutNewLine);
             break;
         }
     }
