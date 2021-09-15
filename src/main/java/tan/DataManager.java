@@ -25,14 +25,17 @@ import static java.nio.file.StandardOpenOption.CREATE;
  * <p>
  * Call setWriterAndReader to set the csvReader & csvWriter.
  * Then use respective reader/writer to perform task.
- * Do not close csvWriter until ready. Use Flush to push to file.
+ * Note, if you close csvWriter, you have to write from top
+ * aga in. Use Flush to push to current writing in buffer to file.
  * <p>
- * Look thru code to learn
+ *
+ * homePath - The directory that the data file is saved at in String.
+ *
  */
 public class DataManager {
     protected static BufferedReader csvReader;
     protected static BufferedWriter csvWriter;
-    private static final String homePath = System.getProperty("user.home");
+    private static final String homePath = System.getProperty("user.dir");
     private static final String[] TITLE = {"Type", "Status", "Description", "Date"};
     private static final String FILE_NAME = "taskData.csv";
     private static Path DATA_PATH;
