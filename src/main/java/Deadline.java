@@ -1,12 +1,14 @@
 public class Deadline extends Task {
     private String dueDate;
+    public static final char TASK_TYPE_DEADLINE = 'D';
 
     public Deadline(String description, String dueDate) {
-        super(description, 'D');
+        super(description, TASK_TYPE_DEADLINE);
         this.dueDate = dueDate;
     }
-    public Deadline(String description,boolean isDone, String dueDate) {
-        super(description, 'D',isDone);
+
+    public Deadline(String description, boolean isDone, String dueDate) {
+        super(description, TASK_TYPE_DEADLINE, isDone);
         this.dueDate = dueDate;
     }
 

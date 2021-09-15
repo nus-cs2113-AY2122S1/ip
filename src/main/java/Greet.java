@@ -84,7 +84,7 @@ public class Greet {
         printLineOnConsole();
 
     }
-    
+
     public static void deleteTask(int taskNumber) {
         int taskIndex = taskNumber - indexFix;
         Task task = list.remove(taskIndex);

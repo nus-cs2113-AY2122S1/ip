@@ -11,7 +11,7 @@ public class FilterInput {
      */
     public static void checkCommand(String[] words, String input) throws
             DukeException {
-        String[] descriptionInput = descriptionInput(words,input);
+        String[] descriptionInput = descriptionInput(words, input);
         switch (words[FIRST_ARRAY_PARAMETER]) {
         case Command.COMMAND_BYE:
             Greet.printGoodbyeMessage();
@@ -37,14 +37,14 @@ public class FilterInput {
             Greet.addTask(todo);
             break;
         case Command.COMMAND_DEADLINE:
-            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             checkTimeframe(descriptionInput);
             Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
             Greet.addTask(deadline);
             break;
         case Command.COMMAND_EVENT:
-            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             checkTimeframe(descriptionInput);
             Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
@@ -59,7 +59,7 @@ public class FilterInput {
 
         if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("") ||
                 descriptionInput[FIRST_ARRAY_PARAMETER].equals(" ")) {
-            switch(command){
+            switch (command) {
             case Command.COMMAND_TODO:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_TODO);
             case Command.COMMAND_DEADLINE:
@@ -74,7 +74,7 @@ public class FilterInput {
 
     private static void checkTimeframe(String[] descriptionInput) throws DukeException {
         if (descriptionInput[SECOND_ARRAY_PARAMETER].equals("") ||
-                descriptionInput[SECOND_ARRAY_PARAMETER].equals(" ") ) {
+                descriptionInput[SECOND_ARRAY_PARAMETER].equals(" ")) {
             throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_MISSING_PARAMETERS_AFTER_KEYWORD);
         }
     }
@@ -83,14 +83,14 @@ public class FilterInput {
         String[] output = new String[DESCRIPTION_PARAMETERS];
         output[0] = "";
         output[1] = "";
-        if(words.length < 2){
+        if (words.length < 2) {
             return output;
         }
-        String[] newWord = input.split(" ",2);
-        if (words[0].equals("deadline") && newWord[1].contains("/by")){
+        String[] newWord = input.split(" ", 2);
+        if (words[0].equals("deadline") && newWord[1].contains("/by")) {
             // need to try new outliers
             output = newWord[1].split(" /by ", 2);
-        } else if (words[0].equals("event") && newWord[1].contains(" /at ")){
+        } else if (words[0].equals("event") && newWord[1].contains(" /at ")) {
             output = newWord[1].split(" /at ", 2);
         } else {
             output[0] = newWord[1];

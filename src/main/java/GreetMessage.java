@@ -9,5 +9,6 @@ public class GreetMessage {
     public static final String TASK_MESSAGE_START = "     Now you have ";
     public static final String TASK_MESSAGE_END = " tasks in the list.";
     public static final String DELETE_MESSAGE = "     Noted. I've removed this task:";
+    public static final String TASK_CHECK_DONE = "     Nice! I've marked this task as done:";
 
 }

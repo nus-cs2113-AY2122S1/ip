@@ -1,10 +1,12 @@
 public class Todo extends Task {
+    public static final char TASK_TYPE_TODO = 'T';
 
     public Todo(String description) {
-        super(description, 'T');
+        super(description, TASK_TYPE_TODO);
     }
-    public Todo(String description,boolean isDone) {
-        super(description, 'T', isDone);
+
+    public Todo(String description, boolean isDone) {
+        super(description, TASK_TYPE_TODO, isDone);
     }
 
     @Override

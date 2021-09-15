@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static final String filePath = "duke.txt";
+
     public static void main(String[] args) throws IOException {
 
         String logo = " ____        _        \n"
@@ -39,7 +40,7 @@ public class Duke {
             input = in.nextLine();
             String[] words = input.split(" ");
             try {
-                FilterInput.checkCommand(words,input);
+                FilterInput.checkCommand(words, input);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
