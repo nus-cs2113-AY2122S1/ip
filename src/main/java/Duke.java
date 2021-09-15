@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -13,33 +14,36 @@ public class Duke {
     private static final String COMMAND_EVENT_WORD = "event";
     private static final String COMMAND_DEADLINE_WORD = "deadline";
     private static final String COMMAND_MARK_AS_DONE_WORD = "done";
+    private static final String COMMAND_DELETE_WORD = "delete";
     private static final String COMMAND_HELP_WORD = "help";
     private static final String DIVIDER = "_______________________________";
     private static final String MESSAGE_ADDED = "added: ";
     private static final String MESSAGE_TASK_COMPLETED = "Wow. You finally completed a task after lazying around all day.";
+    private static final String MESSAGE_TASK_DELETED =  "I've deleted the task: ";
     private static final String MESSAGE_TASK_NOT_FOUND = "Error. Task does not exist. Try again.";
     private static final String MESSAGE_LIST_ALL_TASKS = "Look at that ever-expanding to-do list." + NEW_LINE + "You really should stop procrastinating.";
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format.";
     private static final String MESSAGE_EMPTY_TASK_LIST = "There are no tasks in your to-do list. Bet that'll change soon.";
     private static final String MESSAGE_TASKS_FOUND_OVERVIEW = "There are %1$d %2$s in your list";
     private static final String MESSAGE_BYE = "bye. see you never again.";
-    private static final String MESSAGE_CORRECT_FORMAT_ADD_TODO = "add todo format:" + INDENTED_NEW_LINE + "todo (description))";
-    private static final String MESSAGE_CORRECT_FORMAT_ADD_EVENT = "add event format: " + INDENTED_NEW_LINE + "event (description) /at (time)";
-    private static final String MESSAGE_CORRECT_FORMAT_ADD_DEADLINE = "add deadline format: " + INDENTED_NEW_LINE + "deadline (description) /by (time)";
-    private static final String MESSAGE_CORRECT_FORMAT_MARK_AS_DONE = "mark task as completed format: " + INDENTED_NEW_LINE + "done (task number)";
-    private static final String USER_GUIDE = MESSAGE_CORRECT_FORMAT_ADD_TODO + NEW_LINE +
+    private static final String MESSAGE_CORRECT_FORMAT_ADD_TODO = "add todo format:" + INDENTED_NEW_LINE + "todo {DESCRIPTION}";
+    private static final String MESSAGE_CORRECT_FORMAT_ADD_EVENT = "add event format:" + INDENTED_NEW_LINE + "event {DESCRIPTION} /at {TIME}";
+    private static final String MESSAGE_CORRECT_FORMAT_ADD_DEADLINE = "add deadline format:" + INDENTED_NEW_LINE + "deadline {DESCRIPTION} /by {TIME}";
+    private static final String MESSAGE_CORRECT_FORMAT_MARK_AS_DONE = "mark task as completed format:" + INDENTED_NEW_LINE + "done {TASK_NUMBER}";
+    private static final String MESSAGE_CORRECT_FORMAT_DELETE_TASK = "delete task format:" + INDENTED_NEW_LINE + "delete {TASK_NUMBER}";
+    private static final String USER_GUIDE =
+            MESSAGE_CORRECT_FORMAT_ADD_TODO + NEW_LINE +
             MESSAGE_CORRECT_FORMAT_ADD_EVENT + NEW_LINE +
             MESSAGE_CORRECT_FORMAT_ADD_DEADLINE + NEW_LINE +
-            MESSAGE_CORRECT_FORMAT_MARK_AS_DONE;
+            MESSAGE_CORRECT_FORMAT_MARK_AS_DONE + NEW_LINE +
+            MESSAGE_CORRECT_FORMAT_DELETE_TASK;
     private static int eventsCount;
     private static int deadlinesCount;
     private static int todosCount;
-    private static int tasksCount;
-    private static Task[] tasks;
-    private static final int CAPACITY = 100;
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String LOGO =
-            " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
+                    " ____        _\n"
+                    + "|  _ \\ _   _| | _____\n"
                     + "| | | | | | | |/ / _ \\\n"
                     + "| |_| | |_| |   <  __/\n"
                     + "|____/ \\__,_|_|\\_\\___|\n";
@@ -80,10 +84,34 @@ public class Duke {
             return executeAddDeadline(commandArgs);
         case COMMAND_HELP_WORD:
             return getUserGuide();
+        case COMMAND_DELETE_WORD:
+            return executeDeleteTask(commandArgs);
         case COMMAND_EXIT_WORD:
             exitProgram();
         default:
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + USER_GUIDE;
+        }
+    }
+
+    private static String executeDeleteTask(String commandArgs) {
+        try {
+            int n = Integer.parseInt(commandArgs.trim());
+            if (n >= 1 && n <= taskList.size()) {
+                int index = n -1;
+                String message = MESSAGE_TASK_DELETED + taskList.get(index).toString();
+                if (taskList.get(index) instanceof Todo) {
+                    todosCount--;
+                } else if (taskList.get(index) instanceof Deadline) {
+                    deadlinesCount--;
+                } else if (taskList.get(index) instanceof Event) {
+                    eventsCount--;
+                }
+                taskList.remove(index);
+                return message;
+            }
+            return MESSAGE_TASK_NOT_FOUND;
+        } catch (NumberFormatException e) {
+            return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_DELETE_TASK;
         }
     }
 
@@ -94,9 +122,10 @@ public class Duke {
     private static String executeMarkTaskAsDone(String commandArgs) {
         try {
             int n = Integer.parseInt(commandArgs.trim());
-            if (n >= 1 && n <= tasksCount) {
-                tasks[n - 1].markAsDone();
-                return MESSAGE_TASK_COMPLETED + tasks[n - 1].toString();
+            if (n >= 1 && n <= taskList.size()) {
+                int index = n -1;
+                taskList.get(index).markAsDone();
+                return MESSAGE_TASK_COMPLETED + taskList.get(index).toString();
             }
             return MESSAGE_TASK_NOT_FOUND;
         } catch (NumberFormatException e) {
@@ -116,12 +145,12 @@ public class Duke {
 
     private static String executeListAllTasks() {
         StringBuilder str = new StringBuilder();
-        if (tasksCount <= 0) {
+        if (taskList.size() <= 0) {
             return str.append(MESSAGE_EMPTY_TASK_LIST).toString();
         }
-        for (int i = 0; i < tasksCount; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             int displayIndex = i + 1;
-            str.append(displayIndex).append(" ").append(tasks[i].toString()).append(NEW_LINE);
+            str.append(displayIndex).append(" ").append(taskList.get(i).toString()).append(NEW_LINE);
         }
         return str.append(MESSAGE_LIST_ALL_TASKS).toString();
     }
@@ -137,8 +166,6 @@ public class Duke {
     }
 
     private static void initTaskList() {
-        tasks = new Task[CAPACITY];
-        tasksCount = 0;
         todosCount = 0;
         eventsCount = 0;
         deadlinesCount = 0;
@@ -154,15 +181,14 @@ public class Duke {
     }
 
     private static void addTask(Task t) {
-        tasks[tasksCount] = t;
-        tasksCount++;
+        taskList.add(t);
     }
 
     private static String executeAddTodo(String description) {
         if (!description.isEmpty()) {
             addTask(new Todo(description));
             todosCount++;
-            return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
+            return MESSAGE_ADDED + taskList.get(taskList.size()-1).toString() + NEW_LINE
                     + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, todosCount, COMMAND_TODO_WORD);
         }
         return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_TODO;
@@ -175,7 +201,7 @@ public class Duke {
             String date = eventAndDate[1];
             addTask(new Event(description, date));
             eventsCount++;
-            return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
+            return MESSAGE_ADDED + taskList.get(taskList.size()-1).toString() + NEW_LINE
                     + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, eventsCount, COMMAND_EVENT_WORD);
         } catch (IndexOutOfBoundsException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_EVENT;
@@ -189,7 +215,7 @@ public class Duke {
             String date = deadlineAndDate[1];
             addTask(new Deadline(description, date));
             deadlinesCount++;
-            return MESSAGE_ADDED + tasks[tasksCount - 1].toString() + NEW_LINE
+            return MESSAGE_ADDED + taskList.get(taskList.size()-1).toString() + NEW_LINE
                     + String.format(MESSAGE_TASKS_FOUND_OVERVIEW, deadlinesCount, COMMAND_DEADLINE_WORD);
         } catch (IndexOutOfBoundsException e) {
             return MESSAGE_INVALID_COMMAND_FORMAT + NEW_LINE + MESSAGE_CORRECT_FORMAT_ADD_DEADLINE;
