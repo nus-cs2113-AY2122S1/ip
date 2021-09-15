@@ -2,12 +2,18 @@ package duke.task;
 
 public class ToDo extends Task {
 
-    public ToDo(String description){
-        super (description);
+    protected String type = "T";
+
+    public ToDo(String description) {
+        super(description);
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 }

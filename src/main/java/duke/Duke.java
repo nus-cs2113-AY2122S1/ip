@@ -8,11 +8,17 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
 
+    public static final String SAVEFILE_SEPERATOR = "\\|";
+    public static final String FILE_PATH = "duke.txt";
     public static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -26,18 +32,6 @@ public class Duke {
             + "Hello! I'm Anderson\n\t"
             + "What do you need to do?\n"
             + LINE;
-/*
-    public static ArrayList<String> FilterNulls(ArrayList<String> tasks) {
-        ArrayList<String> isFilteredNull = new ArrayList<String>();
-        int count = 0;
-        for (int i = 0; i < 100; i++) {
-            if (tasks[i] != null) {
-                isFilteredNull[count] = tasks[i];
-                count++;
-            }
-        }
-        return Arrays.copyOf(isFilteredNull, count);
-    }*/
 
     public static String getCommand(String userInput) {
         if (userInput.length() > 2) {
@@ -61,7 +55,7 @@ public class Duke {
             if (item.trim().equals("") || item.equalsIgnoreCase("todo")) {
                 throw new IllegalToDoException();
             }
-        } else if (isEmpty(command)){
+        } else if (isEmpty(command)) {
             throw new EmptyCommand();
         }
         return item;
@@ -100,29 +94,46 @@ public class Duke {
         userInput = in.nextLine();
         boolean closeDuke;
 
-        do {
+        try {
+            unfilteredTasks = loadFile(FILE_PATH, unfilteredTasks);
+        } catch (FileNotFoundException e) {
+            File dukeCheckpoint = new File(FILE_PATH);
+            try {
+                dukeCheckpoint.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
 
+        do {
             String command = getCommand(userInput);
             try {
+
                 String newTask = GetItem(userInput);
                 String time = getTime(userInput);
+                String dukeUpdate = "";
 
                 doDone(command, unfilteredTasks, userInput);
                 doList(command, unfilteredTasks);
-                unfilteredTasks = doDelete(command,unfilteredTasks, userInput);
+
+                unfilteredTasks = doDelete(command, unfilteredTasks, userInput);
 
                 unfilteredTasks = addNewTask(command, unfilteredTasks, newTask, time);
-                AcknowledgeAddition(command, unfilteredTasks, unfilteredCounter);
-                unfilteredCounter = (isInvalidCommand(command) || isList(command) || isDone(command) ||isBye(command)) ? unfilteredCounter : (isDelete(command)) ? unfilteredCounter - 1 : unfilteredCounter + 1;
+                AcknowledgeAddition(command, unfilteredTasks);
+                unfilteredCounter = (isInvalidCommand(command) || isList(command) || isDone(command) || isBye(command)) ? unfilteredCounter : (isDelete(command)) ? unfilteredCounter - 1 : unfilteredCounter + 1;
+
+                dukeUpdate = autoSave(unfilteredTasks, dukeUpdate);
+                writeToFile(FILE_PATH, dukeUpdate);
 
             } catch (IllegalToDoException e) {
                 IllegalToDoException.printMessage();
-            } catch (EmptyCommand e){
+            } catch (EmptyCommand e) {
                 EmptyCommand.printMessage();
-            }catch (InvalidCommandException e) {
+            } catch (InvalidCommandException e) {
                 InvalidCommandException.printMessage();
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
-
 
             if (!isBye(command)) {
                 userInput = in.nextLine();
@@ -132,15 +143,68 @@ public class Duke {
         } while (!closeDuke);
     }
 
-    private static ArrayList<Task> addNewTask(String command, ArrayList<Task> allTasks, String newTask, String time){
-        if (isToDo(command)){
+    private static ArrayList<Task> addNewTask(String command, ArrayList<Task> allTasks, String newTask, String time) {
+        if (isToDo(command)) {
             allTasks.add(new ToDo(newTask));
-        } else if (isDeadline(command)){
+        } else if (isDeadline(command)) {
             allTasks.add(new Deadline(newTask, time));
-        } else if (isEvent(command)){
+        } else if (isEvent(command)) {
             allTasks.add(new Event(newTask, time));
         }
         return allTasks;
+    }
+
+    private static String autoSave(ArrayList<Task> unfilteredTasks, String dukeUpdate) {
+        for (Task task : unfilteredTasks) {
+            if (task != null) {
+                String completionStatus = task.isDone() ? "1" : "0";
+                dukeUpdate = dukeUpdate + task.getType() + " | " + completionStatus + " | " + task.getTask();
+                dukeUpdate = (task instanceof Deadline || task instanceof Event) ? dukeUpdate + " | " + task.getTime() : dukeUpdate;
+                dukeUpdate = dukeUpdate + "\n";
+            }
+        }
+        return dukeUpdate;
+    }
+
+    private static ArrayList<Task> loadFile(String filePath, ArrayList<Task> taskList) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            taskList = loadCommands(s.nextLine(), taskList);
+        }
+        return taskList;
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter dukeIn = new FileWriter(filePath);
+        dukeIn.write(textToAdd);
+        dukeIn.close();
+    }
+
+    private static ArrayList<Task> loadCommands(String taskDetails, ArrayList<Task> taskList) {
+        String[] taskBreakdown = taskDetails.split(SAVEFILE_SEPERATOR);
+        String taskType = taskBreakdown[0].trim();
+        String completionStatus = taskBreakdown[1].trim();
+        String task = taskBreakdown[2].trim();
+        Task savedTask;
+        switch (taskType) {
+        case "T":
+            savedTask = new ToDo(task);
+            break;
+        case "D":
+            savedTask = new Deadline(task, taskBreakdown[3].trim());
+            break;
+        case "E":
+            savedTask = new Event(task, taskBreakdown[3].trim());
+            break;
+        default:
+            savedTask = null;
+        }
+        if (completionStatus.equals("1")) {
+            savedTask.markAsDone();
+        }
+        taskList.add(savedTask);
+        return taskList;
     }
 
     private static void printGreetings() {
@@ -190,27 +254,26 @@ public class Duke {
         }
     }
 
-    private static ArrayList<Task> doDelete(String command, ArrayList<Task> fullTaskList, String userIn){
+    private static ArrayList<Task> doDelete(String command, ArrayList<Task> fullTaskList, String userIn) {
         if (isDelete(command)) {
-                System.out.println(LINE + "Noted! I've removed this task:");
-                int taskNumber = 0;
-                try {
-                    taskNumber = Integer.parseInt(GetItem(userIn));
-                } catch (IllegalToDoException e) {
-                    System.out.println("Invalid ToDo");
-                } catch (InvalidCommandException e) {
-                    System.out.println("Invalid Command");
-                } catch (EmptyCommand e) {
-                    System.out.println("Empty Command");
-                }
-                //System.out.println("\t\t" + fullTaskList.get(taskNumber - 1) + "\n" + LINE);
-                System.out.println(String.format("\t%d.", taskNumber) + fullTaskList.get(taskNumber - 1) + "\n" + String.format("\tNow you have %d tasks in the list.\n", fullTaskList.size() - 1) + LINE);
-                fullTaskList.remove(taskNumber - 1);
+            System.out.println(LINE + "Noted! I've removed this task:");
+            int taskNumber = 0;
+            try {
+                taskNumber = Integer.parseInt(GetItem(userIn));
+            } catch (IllegalToDoException e) {
+                System.out.println("Invalid ToDo");
+            } catch (InvalidCommandException e) {
+                System.out.println("Invalid Command");
+            } catch (EmptyCommand e) {
+                System.out.println("Empty Command");
+            }
+            System.out.println(String.format("\t%d.", taskNumber) + fullTaskList.get(taskNumber - 1) + "\n" + String.format("\tNow you have %d tasks in the list.\n", fullTaskList.size() - 1) + LINE);
+            fullTaskList.remove(taskNumber - 1);
         }
         return fullTaskList;
     }
+
     private static void doList(String command, ArrayList<Task> fullTaskList) {
-        //Task[] filteredNull = FilterNulls(fullTaskList);
         int count = 0;
         if (isList(command)) {
             if (fullTaskList.size() == 0) {
@@ -249,10 +312,10 @@ public class Duke {
         System.out.println("\t\t" + completedTask + "\n" + LINE);
     }
 
-    private static void AcknowledgeAddition(String command, ArrayList<Task> unfilteredTasks, int unfilteredCounter) {
+    private static void AcknowledgeAddition(String command, ArrayList<Task> unfilteredTasks) {
         if (isToDo(command) || isDeadline(command) || isEvent(command)) {
             System.out.println(LINE + "Got it. I've added this task:\t");
-            System.out.println(String.format("\t%d.", unfilteredCounter + 1) + unfilteredTasks.get(unfilteredCounter) + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredCounter + 1) + LINE);
+            System.out.println(String.format("\t%d.", unfilteredTasks.size()) + unfilteredTasks.get(unfilteredTasks.size() - 1) + "\n" + String.format("\tNow you have %d tasks in the list.\n", unfilteredTasks.size()) + LINE);
         }
     }
 }
