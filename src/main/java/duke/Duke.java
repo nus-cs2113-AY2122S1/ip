@@ -8,6 +8,7 @@ package duke;
  */
 
 import duke.commandHandler.DukeCommandHandling;
+import duke.delay.Delay_ms;
 import duke.exceptionHandler.DukeException;
 import duke.printTextFile.PrintTextFile;
 import duke.save.SaveTaskListToText;
@@ -242,19 +243,7 @@ public class Duke {
         dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toString());
     }
 
-    /**
-     * Causes a delay in execution of code for specified duration
-     * before returning control back to the caller of this method.
-     *
-     * @param ms The amount of millisecond to delay execution.
-     */
-    public static void wait(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
+
 
     /**
      * Main method of the chat-bot app.
@@ -267,19 +256,16 @@ public class Duke {
          * Prints a "Dukey", "Parrot", "Hello" message sequentially
          * when the user first initialize the chat-bot.
          */
+        Delay_ms delay = new Delay_ms();
         printDukeyText.printText();
-        wait(500);
+        delay.wait(500);
         printParrotText.printText();
-        wait(500);
+        delay.wait(500);
         printHelloText.printText();
 
         SaveTaskListToText dukeTaskText = new SaveTaskListToText();
         numberOfTasks = dukeTaskText.loadTask(tasks);
 
-        /**
-         * Main while loop of the main() method. It waits for user command
-         * and determines what command the user entered
-         */
         while (true) {
             userInputString = userInput.nextLine();
             DukeCommandHandling commandHandle = new DukeCommandHandling(userInputString);
@@ -312,10 +298,6 @@ public class Duke {
         }
 
         userInput.close();
-
-        /**
-         * Prints a "Bye" message when the user enters "bye" command.
-         */
         printByeText.printText();
     }
 }

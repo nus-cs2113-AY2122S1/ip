@@ -22,11 +22,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    /**
-     * Prints the task is added successfully.
-     *
-     * @param numberOfTasks is the number of task...
-     */
     public void printAddingStatus(int numberOfTasks) {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Got it. I've added this task:\n" +

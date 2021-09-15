@@ -19,9 +19,6 @@ public class DukeException extends Exception {
         super(errorMessage);
     }
 
-    /**
-     * Prints the error message in a formatted fashion by cocatenation.
-     */
     public void printErrorMessage() {
         System.out.println("    ____________________________________________________________");
         System.out.println(openingString + this.getMessage());
