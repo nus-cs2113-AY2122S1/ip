@@ -120,13 +120,7 @@ public class Duke {
 
         }
 
-        public static void printList(Task[] list, int listLength){
-            for(int i = 0;i< listLength;i++){
-                System.out.println(i+1 + "." + list[i].toString());
-        }
-
-        }
-//a bit useless
+       
 
         public static void addTask (String userInput) throws DukeException{
             String command = userInput.substring(4);
@@ -140,14 +134,6 @@ public class Duke {
             listLength++;
         }
 
-        public static void printList(Task[] list) throws DukeException{
-            if(list[0] == null){
-                throw new DukeException("Hmm... It seems that you have no task to list in your empty list.");
-            }
-            System.out.println(SEPARATOR);
-            printList(list,listLength);
-            System.out.println(SEPARATOR);
-        }
 
         public static void printTasks() throws DukeException{
             if(listLength == 0){
@@ -177,7 +163,6 @@ public class Duke {
             int taskNumber = listLength + 1;
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task:");
-            //System.out.println(list[currentTaskIndex].toString());
             System.out.println(todo);
             System.out.println("Now you have" + " "+ taskNumber + " tasks in the list.");
             System.out.println(SEPARATOR);
@@ -196,11 +181,9 @@ public class Duke {
             String by = userInput.substring(slashByIndex + 4);
             Deadline deadline = new Deadline(command,by);
             tasks.add(deadline);
-            //list[currentTaskIndex] = new Deadline(command,by);
             listLength++;
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task: ");
-            //System.out.println(list[currentTaskIndex].toString());
             System.out.println(deadline);
             System.out.println("Now you have " + listLength + " tasks in the list");
             System.out.println(SEPARATOR);
@@ -218,11 +201,9 @@ public class Duke {
             String at = userInput.substring(slashAtIndex+4);
             Event event = new Event(command,at);
             tasks.add(event);
-            //list[currentTaskIndex] = new Event(command,at);
             listLength++;
             System.out.println(SEPARATOR);
             System.out.println("Got it. I've added this task: ");
-            //System.out.println(list[currentTaskIndex].toString());
             System.out.println(event);
             System.out.println("Now you have " + listLength + " tasks in the list");
             System.out.println(SEPARATOR);
