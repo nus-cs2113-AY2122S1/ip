@@ -1,6 +1,9 @@
 package duke.task;
 import duke.exception.InvalidInputException;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import duke.FileIOManager;
 
 public class TaskManager {
     private static ArrayList<Todo> tasks = new ArrayList<Todo>();
@@ -10,10 +13,10 @@ public class TaskManager {
             if (userInput.length()<5) {
                 throw new InvalidInputException("OOPS!!! Description of todo cannot be empty :(");
             }
-            int startIndexOfTask = userInput.indexOf(' ');
             Todo newTask = new Todo(userInput, tasks.size() + 1);
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
+            updateFile();
         } catch (InvalidInputException e){
             System.out.println(e.toString().substring(23));
         }
@@ -27,7 +30,7 @@ public class TaskManager {
             if (!userInput.contains("/by ")){
                 throw new InvalidInputException("OOPS!! Please input date of deadline");
             }
-            int startIndexOfTask = userInput.indexOf(' ');
+            int startIndexOfTask = userInput.indexOf(' ')+1;
             int endIndexOfTask = userInput.indexOf('/') - 1;
 
             int startIndexOfDeadline = userInput.indexOf('/') + 4;
@@ -36,6 +39,7 @@ public class TaskManager {
             Deadline newTask = new Deadline(taskName, tasks.size() + 1, deadline);
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
+            updateFile();
         } catch (InvalidInputException e){
             System.out.println(e.toString().substring(23));
         }
@@ -49,7 +53,7 @@ public class TaskManager {
             if (!userInput.contains("/at ")){
                 throw new InvalidInputException("OOPS!! Please input time of event");
             }
-            int startIndexOfTask = userInput.indexOf(' ');
+            int startIndexOfTask = userInput.indexOf(' ')+1;
             int endIndexOfTask = userInput.indexOf('/') - 1;
             int startIndexOfDate = userInput.indexOf('/') + 4;
             String taskName = userInput.substring(startIndexOfTask, endIndexOfTask);
@@ -57,6 +61,7 @@ public class TaskManager {
             Event newTask = new Event(taskName, tasks.size() + 1, deadline);
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
+            updateFile();
         } catch (InvalidInputException e){
             System.out.println(e.toString().substring(23));
         }
@@ -85,11 +90,75 @@ public class TaskManager {
         task.setIsDone();
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t\t" + task.toString().substring(2));
+        updateFile();
     }
 
     private static void printTaskAddedConfirmation(Todo task) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + task.toString().substring(2));
         System.out.format("\tNow you have %d tasks in the list.\n", tasks.size());
+    }
+
+    private static void updateFile(){
+        try {
+            FileIOManager.write(tasks);
+        } catch (IOException e){
+            System.out.println(e);
+        }
+    }
+    public static void convertTaskStringToTasks(ArrayList<String> tasksString){
+        if (tasksString==null){
+            return;
+        }
+        if (tasksString.isEmpty()){
+            return;
+        }
+        int startIndexOfTask;
+        int endIndexOfTask;
+        int startIndexOfDate;
+        int endIndexOfDate;
+        String date;
+        String taskName;
+        for (String taskString: tasksString){
+            char type = taskString.charAt(3);
+            switch(type) {
+            case 'T':
+                startIndexOfTask = 9;
+                taskName = taskString.substring(startIndexOfTask);
+                Todo newTodo = new Todo(taskName, tasks.size()+1);
+                tasks.add(newTodo);
+                if (taskString.charAt(6)=='X'){
+                    newTodo.setIsDone();
+                }
+                continue;
+            case 'D':
+                startIndexOfTask = 9;
+                endIndexOfTask = taskString.indexOf('(')-1;
+                startIndexOfDate = endIndexOfTask+6;
+                endIndexOfDate = taskString.indexOf(')');
+                taskName = taskString.substring(startIndexOfTask, endIndexOfTask);
+                date = taskString.substring(startIndexOfDate,endIndexOfDate);
+                Deadline newDeadline = new Deadline(taskName, tasks.size() + 1, date);
+                tasks.add(newDeadline);
+                if (taskString.charAt(6)=='X'){
+                    newDeadline.setIsDone();
+                }
+                continue;
+            case'E':
+                startIndexOfTask = 9;
+                endIndexOfTask = taskString.indexOf('(')-1;
+                startIndexOfDate = endIndexOfTask+6;
+                endIndexOfDate = taskString.indexOf(')');
+                taskName = taskString.substring(startIndexOfTask, endIndexOfTask);
+                date = taskString.substring(startIndexOfDate,endIndexOfDate);
+                Event newEvent = new Event(taskName, tasks.size() + 1, date);
+                tasks.add(newEvent);
+                if (taskString.charAt(6)=='X'){
+                    newEvent.setIsDone();
+                }
+                continue;
+            }
+
+        }
     }
 }
