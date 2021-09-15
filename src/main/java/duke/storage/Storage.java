@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static final String FILEPATH = "src/main/java/duke/storage/shimaStorage.txt";
+    public static final String FILEPATH = "./shimaStorage.txt";
     public static final String DELIMITER = "Ø";
     public static File file = new File(FILEPATH);
     public static String STORAGE_MESSAGE = "Welcome to my storage :P, this is how I memorize all your tasks!\n" +

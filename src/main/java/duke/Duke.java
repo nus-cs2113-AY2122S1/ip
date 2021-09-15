@@ -28,6 +28,7 @@ public class Duke {
         try {
             Storage.readFromStorage(tasks);
         } catch (IOException ex) {
+            System.out.println();
             Default.showMessage("Unfortunately somethings have messed up, I have received this information:");
             ex.printStackTrace();
         } catch (DukeException.StorageException ex) {
