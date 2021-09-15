@@ -91,7 +91,7 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
-                if(!isValidTodo(userCommand)) {
+                if (!isValidTodo(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
@@ -100,7 +100,7 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("deadline")) {
-                if(!isValidDeadline(userCommand)) {
+                if (!isValidDeadline(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
@@ -109,7 +109,7 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("event")) {
-                if(!isValidEvent(userCommand)) {
+                if (!isValidEvent(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
@@ -118,7 +118,7 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("delete")) {
-                if(!isValidDelete(userCommand)) {
+                if (!isValidDelete(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
@@ -206,7 +206,7 @@ public class Duke {
     }
 
 
-    public static boolean isValidEvent (String userCommand) {
+    public static boolean isValidEvent(String userCommand) {
         try {
             checkEvent(userCommand);
         } catch (DukeException e) {
@@ -217,7 +217,7 @@ public class Duke {
         return true;
     }
 
-    public static boolean isValidDelete(String userCommand){
+    public static boolean isValidDelete(String userCommand) {
         try {
             checkDelete(userCommand);
         } catch (DukeException e) {
@@ -339,10 +339,10 @@ public class Duke {
         for (int i = 1; i <= inputCount; i++) {
             if (taskStatus.get(i - 1) == 1) {
                 tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[X] " + arrayInput.get(i - 1);
-                output.add(i-1, tempTask);
+                output.add(i - 1, tempTask);
             } else {
                 tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + arrayInput.get(i - 1);
-                output.add(i-1, tempTask);
+                output.add(i - 1, tempTask);
             }
         }
         return output;
@@ -366,7 +366,7 @@ public class Duke {
 
         try {
             FileWriter myWriter = new FileWriter("D:/data/duke.txt");
-            for(int i=0; i<output.size(); i++) {
+            for (int i = 0; i < output.size(); i++) {
                 myWriter.write(output.get(i));
                 myWriter.write("\n");
             }
