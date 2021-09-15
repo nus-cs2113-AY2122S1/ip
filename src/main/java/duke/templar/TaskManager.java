@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TaskManager {
     public static final String MESSAGE_DIVIDER = "____________________________________________________________";
     boolean valid;
-    private final ArrayList<Task> tasks;
+    public final ArrayList<Task> tasks;
     int[] taskDone = new int[100]; //this array stores 1 or 0 - task done or not
     String[] validCommands = new String[] {
         "print commands",
@@ -21,8 +21,8 @@ public class TaskManager {
     };
 
 
-    public TaskManager() {
-        tasks = new ArrayList<>();
+    public TaskManager(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /*
@@ -39,7 +39,8 @@ public class TaskManager {
     * @throws taskNumberInvalidException for alphabetical done input
     * @throws noSuchTaskException for done input of task not in list
     */
-    public void processInput(String line, ArrayList<Task> tasks) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException {
+    public void processInput(String line, ArrayList<Task> tasks) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException
+    {
         valid = false; //default case
         try {
             for (int i = 0; i < validCommands.length; i++) {
@@ -50,9 +51,6 @@ public class TaskManager {
             }
             if (!valid) {
                 throw new CommandInvalidException();
-            } else if (!line.startsWith("bye")) {
-                System.out.println("[The Templar:]");
-                System.out.println("What further assistance do you require?");
             }
 
             if (line.startsWith("deadline")) {
@@ -147,7 +145,13 @@ public class TaskManager {
                 } else {
                     throw new NoSuchTaskException();
                 }
+            } else if (!line.startsWith("bye")) {
+                System.out.println(MESSAGE_DIVIDER);
+                System.out.println("[The Templar:]");
+                System.out.println("What further assistance do you require?");
+                System.out.println(MESSAGE_DIVIDER);
             }
+
         }
         catch (CommandInvalidException commandInvalidException) {
             commandInvalidException.printCommandInvalidException();
