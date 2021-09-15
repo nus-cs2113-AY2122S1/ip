@@ -20,8 +20,8 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String HELLO_MESSAGE_2 = "Hello! I'm Duke, your friendly neighbourhood task manager";
-    public static final String HELLO_MESSAGE_3 = "What can I do for you? :D";
+    public static final String HELLO_MESSAGE_2 = "Hello! I'm Duke, your friendly neighbourhood task manager\n" +
+            INDENTATION + "What can I do for you? :D\n" + INDENTATION  + "(press help if you're not sure what to do!)";
     public static final String TASK_COMPLETED_MESSAGE = "You've completed the task! Well done!";
     public static final String ADDED_TO_LIST = "I've added this to your list :D";
     public static final String DEADLINE_DESCRIPTION_AND_DATE_SPLITTER = " /by ";
@@ -42,12 +42,25 @@ public class Duke {
     public static final int EXPECTED_LENGTH_FOR_DONE_INPUT = 6;
     public static final String DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!";
     public static final int EXPECTED_LENGTH_FOR_DELETE_INPUT = 8;
-    public static final String FILE_NOT_CREATED = "Looks like you don't have a file for your tasks, let me create one now.....";
+    public static final String FILE_NOT_CREATED = "Looks like you don't have a file for your tasks, " +
+            "let me create one now.....";
     public static final String UNEXPECTED_ERROR = "Oops,something unexpected happened";
     public static final String INCORRECT_FORMAT = "Oops, file format is incorrect. Please correct it!";
     public static final String DONE = "Done!";
     public static final String GETTING_TASK = "Getting your tasks.....";
     public static final String TASK_REMOVED = "Alright, I've removed this task:";
+    public static final String HELP_MESSAGE = "list\n" +INDENTATION +
+            "- Shows you the list of tasks you have\n\n" +INDENTATION +
+            "todo (insert task description)\n" + INDENTATION +
+            "- Saves a general todo task\n\n" + INDENTATION +
+            "deadline (insert deadline description) /by (insert time)\n" + INDENTATION +
+            "- Saves a task with a given deadline\n\n" + INDENTATION +
+            "event (insert event description) /at (insert time interval)\n" + INDENTATION +
+            "- Saves an event happening at a certain time period\n\n" + INDENTATION +
+            "delete (insert number)\n" + INDENTATION +
+            "- Deletes a task with the corresponding number on the list\n\n" + INDENTATION +
+            "done (insert number)\n" + INDENTATION +
+            "- Marks the task with the corresponding number as done";
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -102,7 +115,6 @@ public class Duke {
         System.out.println("Hello from\n" + LOGO);
         printIndentationAndDivider();
         printWordsWithIndentation(HELLO_MESSAGE_2);
-        printWordsWithIndentation(HELLO_MESSAGE_3);
         printIndentationAndDivider();
         System.out.println();
     }
@@ -181,6 +193,9 @@ public class Duke {
                 printMessage(getSensibleRange(Task.getTotalTasks()));
 
             }
+            break;
+        case "help":
+            printHelpMessage();
             break;
         default:
             printMessage(TYPE_SUITABLE_COMMAND_MESSAGE);
@@ -372,5 +387,12 @@ public class Duke {
             fw.write(tasks.get(i).getStatusIconAndDescriptionForFile() + System.lineSeparator());
         }
         fw.close();
+    }
+
+    private static void printHelpMessage() {
+        printIndentationAndDivider();
+        printWordsWithIndentation(HELP_MESSAGE);
+        printIndentationAndDivider();
+        System.out.println();
     }
 }
