@@ -13,4 +13,8 @@ public class Event extends Task {
         return "[E]" + "[" + this.TaskStatus() + "] " + this.content
                 + "(at: " + this.time + ")";
     }
+
+    public String getTime() {
+        return this.time;
+    }
 }

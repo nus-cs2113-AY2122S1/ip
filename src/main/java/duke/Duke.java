@@ -5,6 +5,10 @@ import duke.command.Event;
 import duke.command.ToDo;
 import duke.task.Task;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -19,11 +23,12 @@ public class Duke {
             + line_separator;
     static final String NO_ARGUMENT_1 = "The ";
     static final String NO_ARGUMENT_2 = " command is incomplete.";
+    static final int MAXIMUM = 100;
+    static Task[] task_list = new Task[MAXIMUM];
+    static int task_num = 0;
 
     public static void main(String[] args) {
-        int MAXIMUM = 100;
-        Task[] task_list = new Task[MAXIMUM];
-        int task_num = 0;
+        readData();
         System.out.println(GREETINGS);
         String line;
         Scanner in = new Scanner(System.in);
@@ -45,6 +50,7 @@ public class Duke {
                             + spacing + task_list[current_task].toString() + "\n"
                             + line_separator;
                     System.out.println(update);
+                    writeData();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     String error = line_separator
                             + spacing + NO_ARGUMENT_1 + "done" + NO_ARGUMENT_2 + "\n"
@@ -62,6 +68,7 @@ public class Duke {
                             + spacing + "added: " + task_list[task_num - 1] + "\n"
                             + line_separator;
                     System.out.println(response);
+                    writeData();
                 } catch (StringIndexOutOfBoundsException e) {
                     String error = line_separator
                             + spacing + NO_ARGUMENT_1 + "deadline" + NO_ARGUMENT_2 + "\n"
@@ -80,6 +87,7 @@ public class Duke {
                             + spacing + "added: " + task_list[task_num - 1] + "\n"
                             + line_separator;
                     System.out.println(response);
+                    writeData();
                 } catch (StringIndexOutOfBoundsException e) {
                     String error = line_separator
                             + spacing + NO_ARGUMENT_1 + "event" + NO_ARGUMENT_2 + "\n"
@@ -97,6 +105,7 @@ public class Duke {
                             + spacing + "added: " + task_list[task_num - 1] + "\n"
                             + line_separator;
                     System.out.println(response);
+                    writeData();
                 } catch (StringIndexOutOfBoundsException e) {
                     String error = line_separator
                             + spacing + NO_ARGUMENT_1 + "todo" + NO_ARGUMENT_2 + "\n"
@@ -129,6 +138,84 @@ public class Duke {
         list_output += line_separator;
         System.out.println(list_output);
 
+    }
+
+    public static void readData() {
+        String filePath = "data/data.txt";
+        try {
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String currentLine = s.nextLine();
+                String[] currentData = currentLine.split(" \\* ");
+                switch (currentData[0]) {
+                case "T":
+                    task_list[task_num] = new ToDo(currentData[2]);
+                    task_num += 1;
+                    if (currentData[1].equals("1")) {
+                        task_list[task_num - 1].markAsDone();
+                    }
+                    break;
+                case "D":
+                    task_list[task_num] = new Deadline(currentData[2], currentData[3]);
+                    task_num += 1;
+                    if (currentData[1].equals("1")) {
+                        task_list[task_num - 1].markAsDone();
+                    }
+                    break;
+                case "E":
+                    task_list[task_num] = new Event(currentData[2], currentData[3]);
+                    task_num += 1;
+                    if (currentData[1].equals("1")) {
+                        task_list[task_num - 1].markAsDone();
+                    }
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Something is wrong...");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("File corrupted!");
+        }
+    }
+
+    public static void writeData () {
+        String filePath = "data/data.txt";
+        String updatedData = "";
+        for (int i = 0; i < task_num; i++) {
+            String currentTask = task_list[i].toString();
+            String type = currentTask.substring(1,2);
+            String status = (currentTask.charAt(4) == 'X') ? "1" : "0";
+            if (currentTask.contains("(by:")) {
+                int end = currentTask.indexOf("(by: ");
+                String content = currentTask.substring(7, end);
+                String ddl = currentTask.substring(end + 5, currentTask.length() - 1);
+                updatedData += type + " * " + status + " * " + content + " * " + ddl
+                        + System.lineSeparator();
+            } else if (currentTask.contains("(at:")) {
+                int end = currentTask.indexOf("(at: ");
+                String content = currentTask.substring(7, end);
+                String time = currentTask.substring(end + 5, currentTask.length() - 1);
+                updatedData += type + " * " + status + " * " + content + " * " + time
+                        + System.lineSeparator();
+            } else {
+                String content = currentTask.substring(7);
+                updatedData += type + " * " + status + " * " + content
+                        + System.lineSeparator();
+            }
+        }
+
+        try {
+            writeToFile(filePath, updatedData);
+        } catch (IOException e) {
+            System.out.println("Error!");
+        }
+    }
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
     }
 //    public boolean mode(String input) {
 //
