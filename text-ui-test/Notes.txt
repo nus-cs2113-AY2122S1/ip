@@ -1,5 +1,0 @@
-Important
-
-1) Our implementation doesn't work with same type of task and same description and by/at due to
-   the way the done, delete command operates as its finds the exact string to match.
-2) Reference code from others.

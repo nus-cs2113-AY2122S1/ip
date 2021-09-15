@@ -1,5 +1,0 @@
-1) Ensure that file directory are name properly!!!
-2) Ensure that the text documents should not contain characters that cannot be picked up when doing
-   text-ui-test.
-3) Ensure a copy of this directory is at the text-ui-test folder when doing the runtest.bat.
-4) Ensure a copy of this is also at the out/artifacts/IndividualProject_jar/ directory.
