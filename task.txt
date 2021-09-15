@@ -1,0 +1,3 @@
+D | 0 | finish work  /by  tonight
+T | 0 | read a book
+E | 0 | sleep  /at  2AM
