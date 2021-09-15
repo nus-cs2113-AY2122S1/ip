@@ -18,6 +18,11 @@ public class ToDos extends Task {
     }
 
     @Override
+    public String parseToStore() {
+        return "T |" + super.parseToStore();
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

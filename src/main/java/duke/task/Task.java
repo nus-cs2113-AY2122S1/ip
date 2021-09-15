@@ -18,6 +18,11 @@ public class Task {
         this.isDone = true;
     }
 
+    public String parseToStore() {
+        int doneStatus = this.isDone ? 1 : 0;
+        return String.format(" %d | %s", doneStatus, this.description);
+    }
+
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.description);
     }

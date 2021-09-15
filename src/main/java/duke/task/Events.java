@@ -28,6 +28,11 @@ public class Events extends Task {
     }
 
     @Override
+    public String parseToStore() {
+        return "E |" + super.parseToStore() + " | " + this.at;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
