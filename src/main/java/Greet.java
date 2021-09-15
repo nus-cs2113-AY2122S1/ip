@@ -20,6 +20,16 @@ public class Greet {
     }
 
     /**
+     * Add new Task in list
+     *
+     * @param newTask Task object created based on command.
+     */
+    //might move to main/duke class
+    public static void reloadTask(Task newTask) {
+        list.add(newTask);
+    }
+
+    /**
      * Calls Task.markAsDone().
      *
      * @param taskNumber Task number that is tagged to the task on console.
@@ -58,7 +68,6 @@ public class Greet {
             System.out.println(GreetMessage.LIST_HEADER);
             for (int i = 0; i < list.size(); i++) {
                 int numbering = i + indexFix;
-                // need to replace this with to string
                 System.out.println("     " + numbering + ". " + list.get(i));
             }
         } else {
@@ -73,16 +82,21 @@ public class Greet {
         System.out.println(GreetMessage.TASK_MESSAGE_START +
                 list.size() + GreetMessage.TASK_MESSAGE_END);
         printLineOnConsole();
+
     }
     
     public static void deleteTask(int taskNumber) {
         int taskIndex = taskNumber - indexFix;
-        // need to get the task and then remove the task
         Task task = list.remove(taskIndex);
         System.out.println(GreetMessage.DELETE_MESSAGE);
         System.out.println("     " + task);
         System.out.println(GreetMessage.TASK_MESSAGE_START + list.size()
                 + GreetMessage.TASK_MESSAGE_END);
-
     }
+
+    public static ArrayList<Task> getList() {
+        return list;
+    }
+
+
 }

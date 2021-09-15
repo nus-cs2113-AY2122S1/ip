@@ -9,10 +9,9 @@ public class FilterInput {
      *
      * @param words String input by user.
      */
-    public static void checkCommand(String[] words) throws
+    public static void checkCommand(String[] words, String input) throws
             DukeException {
-        String[] descriptionInput = descriptionInput(words);
-        int taskNumber;
+        String[] descriptionInput = descriptionInput(words,input);
         switch (words[FIRST_ARRAY_PARAMETER]) {
         case Command.COMMAND_BYE:
             Greet.printGoodbyeMessage();
@@ -21,6 +20,7 @@ public class FilterInput {
             Greet.printList();
             break;
         case Command.COMMAND_DONE:
+            int taskNumber;
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
             //might need to catch errors in the future
@@ -37,13 +37,15 @@ public class FilterInput {
             Greet.addTask(todo);
             break;
         case Command.COMMAND_DEADLINE:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkTimeframe(descriptionInput);
             Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
             Greet.addTask(deadline);
             break;
         case Command.COMMAND_EVENT:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            checkDescription(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            checkTimeframe(descriptionInput);
             Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
             Greet.addTask(event);
@@ -54,8 +56,10 @@ public class FilterInput {
     }
 
     private static void checkDescription(String command, String[] descriptionInput) throws DukeException {
-        if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("")) {
-            switch (command) {
+
+        if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("") ||
+                descriptionInput[FIRST_ARRAY_PARAMETER].equals(" ")) {
+            switch(command){
             case Command.COMMAND_TODO:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_TODO);
             case Command.COMMAND_DEADLINE:
@@ -69,27 +73,27 @@ public class FilterInput {
     }
 
     private static void checkTimeframe(String[] descriptionInput) throws DukeException {
-        if (descriptionInput[SECOND_ARRAY_PARAMETER].equals("")) {
+        if (descriptionInput[SECOND_ARRAY_PARAMETER].equals("") ||
+                descriptionInput[SECOND_ARRAY_PARAMETER].equals(" ") ) {
             throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_MISSING_PARAMETERS_AFTER_KEYWORD);
         }
     }
 
-    private static String[] descriptionInput(String[] words) {
+    private static String[] descriptionInput(String[] words, String input) {
         String[] output = new String[DESCRIPTION_PARAMETERS];
-        output[FIRST_ARRAY_PARAMETER] = "";
-        output[SECOND_ARRAY_PARAMETER] = "";
-
-        int changeString = FIRST_ARRAY_PARAMETER;
-        // mistake over here
-        for (int counter = 1; counter < words.length; counter++) {
-            if (words[counter].equals("/by") || words[counter].equals("/at")) {
-                //Switch from string0 to string1
-                changeString = SECOND_ARRAY_PARAMETER;
-                continue;
-            }
-            output[changeString] += " ";
-            output[changeString] += words[counter];
-
+        output[0] = "";
+        output[1] = "";
+        if(words.length < 2){
+            return output;
+        }
+        String[] newWord = input.split(" ",2);
+        if (words[0].equals("deadline") && newWord[1].contains("/by")){
+            // need to try new outliers
+            output = newWord[1].split(" /by ", 2);
+        } else if (words[0].equals("event") && newWord[1].contains(" /at ")){
+            output = newWord[1].split(" /at ", 2);
+        } else {
+            output[0] = newWord[1];
         }
         return output;
     }

@@ -14,6 +14,18 @@ public class Task {
         this.isDone = false;
         this.taskType = taskType;
     }
+    /**
+     * Constructor of Task object.
+     *
+     * @param description Task name of Task.
+     * @param taskType    T:todo D:deadline E:event
+     * @param isDone      Status of Task
+     */
+    public Task(String description, char taskType, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.taskType = taskType;
+    }
 
     /**
      * Returns status of Task.
@@ -43,5 +55,9 @@ public class Task {
 
     public char getTaskType() {
         return taskType;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 }

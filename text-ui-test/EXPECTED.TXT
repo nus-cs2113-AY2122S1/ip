@@ -42,11 +42,11 @@ Hello from
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [T][X]  todo
+     [T][X] todo
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [E][X]  event
+     [E][X] event
     ____________________________________________________________
     ____________________________________________________________
      Here are the tasks in your list:
@@ -57,7 +57,7 @@ Hello from
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [D][X]  deadline
+     [D][X] deadline
     ____________________________________________________________
     ____________________________________________________________
      Here are the tasks in your list:
@@ -67,17 +67,17 @@ Hello from
      4. [T][ ] todo2
     ____________________________________________________________
      Noted. I've removed this task:
-[T][ ] todo2
-     Now you have 3 tasks in your list
+     [T][ ] todo2
+     Now you have 3 tasks in the list.
      Noted. I've removed this task:
-[D][X] deadline (by: deadline)
-     Now you have 2 tasks in your list
+     [D][X] deadline (by: deadline)
+     Now you have 2 tasks in the list.
      Noted. I've removed this task:
-[T][X] todo
-     Now you have 1 tasks in your list
+     [T][X] todo
+     Now you have 1 tasks in the list.
      Noted. I've removed this task:
-[E][X] event (at: event)
-     Now you have 0 tasks in your list
+     [E][X] event (at: event)
+     Now you have 0 tasks in the list.
     ____________________________________________________________
      You have no tasks in the list at the moment.
      Please add a new task to begin.
