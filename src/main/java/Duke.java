@@ -13,7 +13,6 @@ public class Duke {
     public static void main(String[] args) {
         printWelcome(LOGO, LINE);
         ArrayList<String> arrayInput = new ArrayList<>();
-
         ArrayList<Integer> taskStatus = new ArrayList<>();
         checkCommand(taskStatus, arrayInput);
     }
@@ -27,32 +26,31 @@ public class Duke {
     }
 
     public static void checkTodo(String userCommand) throws DukeException {
-        if(userCommand.length() <= 5) {     //generate error when receiving invalid Todoinput
+        if (userCommand.length() <= 5) {     //generate error when receiving invalid Todoinput
             DukeException e = new DukeException();
             throw e;
         }
-
     }
 
     public static void checkDeadline(String userCommand) throws DukeException {
-        if(userCommand.length() <= 9) {     //generate error when receiving invalid Deadlineinput
+        if (userCommand.length() <= 9) {     //generate error when receiving invalid Deadlineinput
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkEvent(String userCommand) throws DukeException {
-        if(userCommand.length() <= 6) {     //generate error when receiving invalid Eventinput
+        if (userCommand.length() <= 6) {     //generate error when receiving invalid Eventinput
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkDelete(String userCommand) throws DukeException {
-        if(userCommand.length() <= 7) {     //generate error when receiving invalid delete input
+        if (userCommand.length() <= 7) {     //generate error when receiving invalid delete input
             DukeException e = new DukeException();
             throw e;
-        } else if(!isInt(userCommand.valueOf(7))) {
+        } else if (!isInt(userCommand.valueOf(7))) {
             DukeException e = new DukeException();
             throw e;
         }
@@ -61,9 +59,9 @@ public class Duke {
     public static boolean isInt(String input) {
         try {
             Integer.parseInt(input);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
         return true;
@@ -78,7 +76,7 @@ public class Duke {
         char taskID;
         while (!userCommand.equals("bye")) {
             if (userCommand.equals("list")) {
-                System.out.println("status = "+taskStatus.get(0));
+                System.out.println("status = " + taskStatus.get(0));
                 printList(taskType, taskStatus, arrayInput, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
@@ -87,7 +85,7 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
-                try{
+                try {
                     checkTodo(userCommand);
                 } catch (DukeException e) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -101,9 +99,9 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("deadline")) {
-                try{
+                try {
                     checkDeadline(userCommand);
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                     System.out.println(LINE);
                     userCommand = userInput.nextLine();
@@ -115,9 +113,9 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("event")) {
-                try{
+                try {
                     checkEvent(userCommand);
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
                     System.out.println(LINE);
                     userCommand = userInput.nextLine();
@@ -128,8 +126,8 @@ public class Duke {
                 taskStatus.add(inputCount - 1, 0);
                 userCommand = userInput.nextLine();
                 continue;
-            } else if(userCommand.contains("delete")) {
-                try{
+            } else if (userCommand.contains("delete")) {
+                try {
                     checkDelete(userCommand);
                 } catch (DukeException e) {
                     System.out.println("☹ OOPS!!! The delete command is invalid.");
@@ -140,14 +138,13 @@ public class Duke {
                 inputCount = printDelete(taskType, taskStatus, arrayInput, inputCount, userCommand);
                 userCommand = userInput.nextLine();
 
-            } else if(!userCommand.equals("bye")) {
+            } else if (!userCommand.equals("bye")) {
                 printInvalid();
                 System.out.println(LINE);
                 userCommand = userInput.nextLine();
                 continue;
             }
         }
-
         if (userCommand.equals("bye")) {
             printBye();
         }
@@ -190,7 +187,7 @@ public class Duke {
         System.out.println(LINE);
         String taskName = event.description.substring(6, index - 10);
         String eventName = taskName + " (at: " + at + ")";
-        arrayInput.add(inputCount-1, eventName);
+        arrayInput.add(inputCount - 1, eventName);
         return inputCount;
     }
 
@@ -207,7 +204,7 @@ public class Duke {
         System.out.println(LINE);
         String taskName = deadline.description.substring(9, index - 2);
         String deadlineName = taskName + " (by: " + by + ")";
-        arrayInput.add(inputCount-1, deadlineName);
+        arrayInput.add(inputCount - 1, deadlineName);
         return inputCount;
     }
 
@@ -220,7 +217,7 @@ public class Duke {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(LINE);
         String todoName = todo.description.substring(5);
-        arrayInput.add(inputCount-1, todoName);
+        arrayInput.add(inputCount - 1, todoName);
         return inputCount;
     }
 
