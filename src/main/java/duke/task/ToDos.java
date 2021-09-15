@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 public class ToDos extends Task {
 
     public ToDos(String description) {

@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.task.*;
+import duke.exception.DukeException;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -22,7 +27,7 @@ public class Duke {
 
     public static void Greet(){
         String lines = "____________________________________________________________";
-        String greet = " Hello! I'm Duke\n"
+        String greet = " Hello! I'm duke.command.Duke\n"
                     + " What can I do for you?\n";
         System.out.println(MESSAGE_BOUNDARY + "\n" + greet + MESSAGE_BOUNDARY);
     }
