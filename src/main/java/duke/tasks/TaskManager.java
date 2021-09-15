@@ -2,6 +2,7 @@ package duke.tasks;
 
 import java.util.ArrayList;
 
+
 public class TaskManager {
     public static final String BY_DIVIDER = "/by";
     public static final String AT_DIVIDER = "/at";
@@ -17,10 +18,6 @@ public class TaskManager {
         return taskList.size();
     }
 
-    public TaskManager() {
-        this.numberOfTasksUndone = 0;
-        taskList = new ArrayList<>();
-    }
 
     /**
      * Prints the task list
