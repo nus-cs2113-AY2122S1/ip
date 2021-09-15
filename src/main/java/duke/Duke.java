@@ -226,7 +226,7 @@ public class Duke {
     }
 
     /**
-     * TODO
+     * Executes the delete command. Removes the task from list.
      *
      * @param argument The argument from getCommandAndArgument(<string>).
      * @throws DukeException If argument is invalid/missing.
