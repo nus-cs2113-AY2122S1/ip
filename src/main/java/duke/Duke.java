@@ -1,5 +1,11 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,6 +24,19 @@ public class Duke {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
+    private static final Path DATA_DIRECTORY_PATH = Paths.get("data");
+    private static final String DATA_FILE_NAME = "duke.txt";
+    private static final Path DATA_FILE_PATH = DATA_DIRECTORY_PATH.resolve(DATA_FILE_NAME);
+    public static final String DATA_FILE_SEPARATOR = " ∥ ";
+
+    private static final String MESSAGE_DATA_DIRECTORY_CREATED = "Created new directory: '" + DATA_DIRECTORY_PATH + "'";
+    private static final String MESSAGE_DATA_FILE_CREATED = "No data file found. Created new file: '"
+            + DATA_FILE_PATH + "'";
+    private static final String MESSAGE_DATA_FILE_FOUND = "Data file found. Using data from '" + DATA_FILE_PATH + "'";
+    private static final String MESSAGE_DATA_FILE_ACCESS_ERROR = "There was an error accessing the data file: '"
+            + DATA_FILE_PATH + "'";
+    private static final String MESSAGE_DATA_FILE_PARSE_ERROR = "There was an error parsing the data file:";
+
     private static final String MESSAGE_GREETING = "Hello! I'm Duke" + LS + "What can I do for you?";
     private static final String MESSAGE_FAREWELL = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_ERROR = "☹ OOPS!!! %1$s";
@@ -30,6 +49,8 @@ public class Duke {
 
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
+    private static final String MESSAGE_UNRECOGNISED_TASK_TYPE_ICON = "Unrecognised task type icon: '%1$s'";
+    private static final String MESSAGE_UNRECOGNISED_TASK_STATUS_ICON = "Unrecognised task status icon: '%1$s'";
 
     private static final String DEADLINE_PREFIX_BY = "/by";
     private static final String EVENT_PREFIX_AT = "/at";
@@ -49,6 +70,7 @@ public class Duke {
      * Main entry point of Duke.
      */
     public static void main(String[] args) {
+        loadData();
         printGreeting();
         while (true) {
             final String userInput = getUserInput();
@@ -80,6 +102,86 @@ public class Duke {
             lines[i] = " ".repeat(5) + lines[i];
         }
         return String.join(LS, lines);
+    }
+
+    private static void loadData() {
+        boolean createdDataDirectory = DATA_DIRECTORY_PATH.toFile().mkdir();
+
+        File dataFile = DATA_FILE_PATH.toFile();
+        try {
+            if (dataFile.createNewFile()) {
+                printResponseBlock((createdDataDirectory ? MESSAGE_DATA_DIRECTORY_CREATED + LS : "")
+                        + MESSAGE_DATA_FILE_CREATED);
+            } else {
+                printResponseBlock(MESSAGE_DATA_FILE_FOUND);
+                parseDataFromFile(dataFile);
+            }
+        } catch (IOException e) {
+            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LS + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    private static void parseDataFromFile(File dataFile) throws FileNotFoundException {
+        final Scanner scanner = new Scanner(dataFile);
+        try {
+            while (scanner.hasNext()) {
+                final String line = scanner.nextLine();
+                final String[] args = line.split(DATA_FILE_SEPARATOR);
+                Task task = decodeTaskFromString(args);
+                tasks.add(task);
+            }
+        } catch (DukeException e) {
+            printResponseBlock(MESSAGE_DATA_FILE_PARSE_ERROR + LS + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    private static Task decodeTaskFromString(String[] args) throws DukeException {
+        final String taskTypeIcon = args[0];
+        final String statusString = args[1];
+        final String description = args[2];
+        Task task;
+        switch (taskTypeIcon) {
+        case Todo.TASK_TYPE_ICON:
+            task = new Todo(description);
+            break;
+        case Event.TASK_TYPE_ICON:
+            final String at = args[3];
+            task = new Event(description, at);
+            break;
+        case Deadline.TASK_TYPE_ICON:
+            final String by = args[3];
+            task = new Deadline(description, by);
+            break;
+        default:
+            throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_TYPE_ICON, taskTypeIcon));
+        }
+        if (statusString.equals("1")) {
+            task.setAsDone();
+        } else if (!statusString.equals("0")){
+            throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_STATUS_ICON, statusString));
+        }
+        return task;
+    }
+
+    private static void saveData() {
+        try {
+            FileWriter fw = new FileWriter(DATA_FILE_PATH.toFile());
+            fw.write(formatTasksAsDataOutput());
+            fw.close();
+        } catch (IOException e) {
+            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LS + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    private static String formatTasksAsDataOutput() {
+        ArrayList<String> taskDataStrings = new ArrayList<>();
+        for (Task task : tasks) {
+            taskDataStrings.add(task.toDataString());
+        }
+        return String.join(LS, taskDataStrings);
     }
 
     /**
@@ -164,6 +266,7 @@ public class Duke {
 
     private static String addTask(Task task) {
         tasks.add(task);
+        saveData();
         return String.format(MESSAGE_TASK_ADDED, task, tasks.size());
     }
 
@@ -186,6 +289,7 @@ public class Duke {
     private static String markTaskAsDone(String args) {
         Task task = getTaskFromStringId(args);
         task.setAsDone();
+        saveData();
         return String.format(MESSAGE_TASK_MARKED_AS_DONE, task);
     }
 

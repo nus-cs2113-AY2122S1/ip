@@ -4,6 +4,8 @@ package duke.task;
  * Represents a task that does not have any date/time attached to it.
  */
 public class Todo extends Task {
+    public static final String TASK_TYPE_ICON = "T";
+
     /**
      * Creates a task with the specified description.
      *
@@ -13,14 +15,8 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Returns a string representation of the task (consisting of the symbol for the task type, as well as the string
-     * representation from the parent class).
-     *
-     * @return A string representation of the task.
-     */
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public String getTaskTypeIcon() {
+        return TASK_TYPE_ICON;
     }
 }
