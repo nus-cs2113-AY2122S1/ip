@@ -3,10 +3,11 @@ package duke.task;
 import duke.TaskInterface;
 
 public class Task implements TaskInterface {
-    private static final String completeStatusIcon = "[X]";
-    private static final String incompleteStatusIcon = "[ ]";
+    private static final String COMPLETE_STATUS_ICON = "[X]";
+    private static final String INCOMPLETE_STATUS_ICON = "[ ]";
     private final String description;
     private boolean isDone;
+    protected static final String SEPARATOR = ";";
 
     public Task(String description){
         this.description = description;
@@ -22,10 +23,14 @@ public class Task implements TaskInterface {
     }
 
     public String getStatusIcon(){
-        return(isDone ? completeStatusIcon : incompleteStatusIcon);
+        return(isDone ? COMPLETE_STATUS_ICON : INCOMPLETE_STATUS_ICON);
     }
 
     public String toString(){
         return getStatusIcon() + description;
+    }
+
+    public String toFile(){
+        return getStatusIcon() + SEPARATOR + description;
     }
 }

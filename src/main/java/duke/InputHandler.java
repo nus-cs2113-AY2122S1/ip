@@ -14,13 +14,16 @@ public class InputHandler implements InputInterface{
     private static final String EVENT_TIME = "at";
     private static final String DEADLINE_DATE = "by";
     private static final String COMMAND_DELETE = "delete";
+    private static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
 
     private String description;
     private final ListManager listManager;
+    private final FileManager fileManager;
 
-    public InputHandler(String description, ListManager listManager){
+    public InputHandler(String description, ListManager listManager, FileManager fileManager){
         this.description = description;
         this.listManager = listManager;
+        this.fileManager = fileManager;
     }
 
     private String taskCategory(String userInput){
@@ -62,7 +65,7 @@ public class InputHandler implements InputInterface{
             throw new CommandException(ErrorList.ERROR_EMPTY_EVENT_INPUT);
         }
         String eventTime = taskDescription.replaceFirst(eventDescription,"").replaceFirst(EVENT_TIME,"").strip();
-        listManager.addEvent(eventDescription,eventTime);
+        listManager.addEvent(eventDescription,eventTime, false);
     }
 
     private void handleDeadline(String deadlineInput) throws CommandException{
@@ -76,7 +79,7 @@ public class InputHandler implements InputInterface{
             throw new CommandException(ErrorList.ERROR_EMPTY_DEADLINE_INPUT);
         }
         String deadlineDate = taskDescription.replaceFirst(deadlineDescription,"").replaceFirst(DEADLINE_DATE,"").strip();
-        listManager.addDeadline(deadlineDescription,deadlineDate);
+        listManager.addDeadline(deadlineDescription,deadlineDate, false);
     }
 
     private void handleToDo(String toDoInput) throws CommandException{
@@ -84,17 +87,17 @@ public class InputHandler implements InputInterface{
         if(removeCommand.isEmpty()){
             throw new CommandException(ErrorList.ERROR_EMPTY_TODO_INPUT);
         }
-        listManager.addTodo(removeCommand);
+        listManager.addTodo(removeCommand,false);
     }
 
     private void handleDone(String userInput){
         String removeCommand = userInput.replaceFirst(COMMAND_COMPLETE_TASK,"").trim();
         String[] taskDoneArray = removeCommand.split(",");
-        System.out.println(Logo.dividerWithoutNewLine);
+        System.out.println(Logo.dividerWithoutNewLine + System.lineSeparator() + MESSAGE_TASK_COMPLETE);
         for (String s: taskDoneArray) {
             int taskDoneIndex = Integer.parseInt(s);
             try {
-                listManager.completeTask(taskDoneIndex - 1);
+                listManager.completeTask(taskDoneIndex - 1, false);
             }catch (CommandException e){
                 e.handleException();
             }
@@ -107,7 +110,7 @@ public class InputHandler implements InputInterface{
         if(removeCommand.isEmpty()){
             throw new CommandException(ErrorList.ERROR_EMPTY_ECHO_INPUT);
         }
-        System.out.println(Logo.divider + removeCommand + System.lineSeparator() + Logo.divider);
+        System.out.println(Logo.divider + removeCommand + System.lineSeparator() + Logo.dividerWithoutNewLine);
     }
 
     private void handleList(String userInput) throws CommandException{
@@ -237,7 +240,7 @@ public class InputHandler implements InputInterface{
                 try{
                     handleDelete(userInput);
                 }catch (CommandException e){
-                    e.handleException();;
+                    e.handleException();
                 }
             }
         }catch(NullPointerException e){

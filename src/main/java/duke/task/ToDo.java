@@ -12,4 +12,9 @@ public class ToDo extends Task{
     public String toString() {
         return TASK_SYMBOL + super.toString();
     }
+
+    @Override
+    public String toFile(){
+        return TASK_SYMBOL + SEPARATOR + super.toFile() +System.lineSeparator();
+    }
 }

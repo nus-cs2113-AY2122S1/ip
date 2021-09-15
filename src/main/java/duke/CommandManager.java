@@ -18,8 +18,8 @@ public class CommandManager implements CommandInterface{
                                                     "list todo displays all todo tasks\n" +
                                                     "list event displays all event tasks\n" +
                                                     "list deadline displays all deadline tasks\n";
-    private static final String MESSAGE_EVENT_HELP = "event command requires a timing indicated using \"at\" [timing]";
-    private static final String MESSAGE_DEADLINE_HELP = "deadline command requires a end time indicated using \"by\"[end time]";
+    private static final String MESSAGE_EVENT_HELP = "event command requires a timing indicated using \"at\" [timing]\n";
+    private static final String MESSAGE_DEADLINE_HELP = "deadline command requires a end time indicated using \"by\"[end time]\n";
 
     private final String description;
 

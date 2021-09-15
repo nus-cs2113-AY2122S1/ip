@@ -14,4 +14,9 @@ public class Event extends Task{
     public String toString(){
         return TASK_SYMBOL + super.toString() + "(at:" + startTime + ")";
     }
+
+    @Override
+    public  String toFile(){
+        return TASK_SYMBOL + SEPARATOR + super.toString() + SEPARATOR + startTime + System.lineSeparator();
+    }
 }

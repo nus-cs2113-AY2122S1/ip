@@ -14,4 +14,9 @@ public class Deadline extends Task{
     public String toString(){
     return TASK_SYMBOL + super.toString() + "(by: " + dueDate + ")";
     }
+
+    @Override
+    public String toFile(){
+        return TASK_SYMBOL + SEPARATOR + super.toFile() + SEPARATOR + dueDate + System.lineSeparator();
+    }
 }
