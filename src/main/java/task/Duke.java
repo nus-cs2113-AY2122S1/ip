@@ -4,6 +4,7 @@ import error.exception.DukeEmptyTaskDescriptionException;
 import error.exception.DukeInvalidDescriptionFormatException;
 import error.Error;
 import error.Printer;
+import task.subtask.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;

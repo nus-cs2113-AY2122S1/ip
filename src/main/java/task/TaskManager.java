@@ -2,6 +2,7 @@ package task;
 
 import error.exception.DukeEmptyTaskDescriptionException;
 import error.exception.DukeInvalidDescriptionFormatException;
+import task.subtask.Task;
 import task.subtask.Todo;
 import task.subtask.Deadline;
 import task.subtask.Event;
@@ -21,7 +22,7 @@ public class TaskManager extends Duke {
      * @throws DukeEmptyTaskDescriptionException if no description is present after todo command
      */
     public static Task getTodoDetails(String input) throws DukeEmptyTaskDescriptionException {
-        if (input.substring(INDEX_AFTER_TODO).isEmpty()) {
+        if (input.substring(INDEX_AFTER_TODO).isBlank()) {
             throw new DukeEmptyTaskDescriptionException();
         }
 
@@ -35,7 +36,7 @@ public class TaskManager extends Duke {
     }
 
     /**
-     * Extracts the description and day/date, creates a Task object and stores the task in the list
+     * Extracts the description and day/date, creates a deadline Task object and stores the task in the list
      *
      * @param input is the command given by the user
      * @return the deadline object created under Task
@@ -43,7 +44,7 @@ public class TaskManager extends Duke {
      * @throws DukeEmptyTaskDescriptionException     if no description is present after deadline command
      */
     public static Task getDeadlineDetails(String input) throws DukeInvalidDescriptionFormatException, DukeEmptyTaskDescriptionException {
-        if (input.substring(INDEX_AFTER_DEADLINE).isEmpty()) {
+        if (input.substring(INDEX_AFTER_DEADLINE).isBlank()) {
             throw new DukeEmptyTaskDescriptionException();
         }
 
@@ -64,7 +65,7 @@ public class TaskManager extends Duke {
     }
 
     /**
-     * Extracts the description and the time, creates a Task object and stores the task in the list
+     * Extracts the description and the time, creates an event Task object and stores the task in the list
      *
      * @param input is the command given by the user
      * @return the event object created under Task
@@ -72,7 +73,7 @@ public class TaskManager extends Duke {
      * @throws DukeEmptyTaskDescriptionException     if no description is present after event command
      */
     public static Task getEventDetails(String input) throws DukeInvalidDescriptionFormatException, DukeEmptyTaskDescriptionException {
-        if (input.substring(INDEX_AFTER_EVENT).isEmpty()) {
+        if (input.substring(INDEX_AFTER_EVENT).isBlank()) {
             throw new DukeEmptyTaskDescriptionException();
         }
 
@@ -92,6 +93,13 @@ public class TaskManager extends Duke {
         return event;
     }
 
+    public static String getUserInput(Scanner in) {
+        String input;
+        input = in.nextLine();
+
+        return input;
+    }
+
     /**
      * @param input is the command given by the user
      * @return the substring after the three-letter words /by or /at
@@ -100,13 +108,6 @@ public class TaskManager extends Duke {
         int startIndex = input.indexOf("/");
 
         return input.substring(startIndex + 3).trim();
-    }
-
-    public static String getUserInput(Scanner in) {
-        String input;
-        input = in.nextLine();
-
-        return input;
     }
 
     /**

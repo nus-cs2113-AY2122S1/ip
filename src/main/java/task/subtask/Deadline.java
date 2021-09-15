@@ -1,7 +1,5 @@
 package task.subtask;
 
-import task.Task;
-
 public class Deadline extends Task {
     protected String by;
 

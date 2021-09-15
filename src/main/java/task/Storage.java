@@ -2,6 +2,7 @@ package task;
 
 import task.subtask.Deadline;
 import task.subtask.Event;
+import task.subtask.Task;
 import task.subtask.Todo;
 
 import java.io.File;
@@ -31,6 +32,7 @@ public class Storage {
 
     /**
      * Adds data from the task list to the text file
+     *
      * @param list contains the tasks stored
      */
     public void saveData(ArrayList<Task> list) {
