@@ -7,6 +7,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -41,21 +44,26 @@ public class Duke {
             "\t _____| || ||_|| ||       ||   |  | ||   |    \n" +
             "\t|_______||_|   |_||_______||___|  |_||___|    ";
     private static Task[] taskList = new Task[100];
+    private static final String FILE_PATH = "data/userData.txt";
+    private static final String FILE_DIRECTORY = "data";
 
     public static void main(String[] args) {
         boolean isDone = false;
         Scanner in = new Scanner(System.in);
 
         printWelcomeMessage();
+        loadData();
 
         do {
             // Read inputs and split them into substrings
             String[] userInputs = readUserInput(in);
             String command = userInputs[0];
 
+            // Execute commands
             switch (command) {
             case "bye":
                 isDone = true;
+                saveData();
                 printExitMessage();
                 break;
             case "list":
@@ -106,6 +114,88 @@ public class Duke {
         } while (!isDone);
     }
 
+    private static void saveData() {
+        try {
+            writeToFile();
+        } catch (IOException exception) {
+            System.out.println("something went wrong while saving..." + exception.getMessage());
+        }
+    }
+
+    private static void writeToFile() throws  IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        for (Task t : taskList) {
+            String taskData = "";
+            if (t instanceof Todo) {
+                taskData = t.getTaskIcon().concat(" | ")
+                        .concat(t.getStatusIcon()).concat(" | ")
+                        .concat(t.getDescription()).concat(System.lineSeparator());
+            } else if (t instanceof Event || t instanceof Deadline){
+                taskData = t.getTaskIcon().concat(" | ")
+                        .concat(t.getStatusIcon()).concat(" | ")
+                        .concat(t.getDescription()).concat(" | ")
+                        .concat(t.getDue()).concat(System.lineSeparator());
+            }
+            fileWriter.write(taskData);
+        }
+        fileWriter.close();
+    }
+
+    private static void loadData() {
+        try {
+            File file = loadFile();
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNext()) {
+                String data = scanner.nextLine();
+                String[] dataSubstrings = data.split("\\|");
+                String type = dataSubstrings[0].strip();
+                boolean done = dataSubstrings[1].strip().equals("X");
+                String description = dataSubstrings[2].strip();
+                String due;
+
+                switch (type) {
+                case "T":
+                    Task todoTask = new Todo(description);
+                    if (done) {
+                        todoTask.setDone();
+                    }
+                    taskList[Task.getNumOfTasks() - 1] = todoTask;
+                    break;
+                case "D":
+                    due = dataSubstrings[3].strip();
+                    Task deadlineTask = new Deadline(description, due);
+                    if (done) {
+                        deadlineTask.setDone();
+                    }
+                    taskList[Task.getNumOfTasks() - 1] = deadlineTask;
+                    break;
+                case "E":
+                    due = dataSubstrings[3].strip();
+                    Task eventTask = new Event(description, due);
+                    if (done) {
+                        eventTask.setDone();
+                    }
+                    taskList[Task.getNumOfTasks() - 1] = eventTask;
+                    break;
+                }
+            }
+        } catch (IOException exception) {
+            System.out.println("oops something went wrong..." + exception.getMessage());
+        }
+    }
+
+    private static File loadFile() throws IOException {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            File dir = new File(FILE_DIRECTORY);
+            dir.mkdir();
+            File newFile = new File(FILE_PATH);
+            newFile.createNewFile();
+            return newFile;
+        } else {
+            return file;
+        }
+    }
 
 
     private static void executeEvent(String[] userInputs) throws EmptyDescriptionException, EmptyTimeFieldException {

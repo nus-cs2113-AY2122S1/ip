@@ -7,7 +7,7 @@ package duke.task;
  * @version 1.0
  * @since 2021-08-25
  */
-public class Task {
+public abstract class Task {
     protected static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
@@ -47,5 +47,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String getDue() {
+        return null;
     }
 }
