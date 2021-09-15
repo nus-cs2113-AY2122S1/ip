@@ -1,12 +1,13 @@
 package duke.templar;
 
 import duke.exception.*;
+import java.util.ArrayList;
 
 
 public class TaskManager {
     public static final String MESSAGE_DIVIDER = "____________________________________________________________";
     boolean valid;
-    Task[] tasks;
+    private final ArrayList<Task> tasks;
     int[] taskDone = new int[100]; //this array stores 1 or 0 - task done or not
     String[] validCommands = new String[] {
         "print commands",
@@ -15,11 +16,13 @@ public class TaskManager {
         "event" ,
         "list" ,
         "done" ,
+        "delete",
         "bye"
     };
 
 
     public TaskManager() {
+        tasks = new ArrayList<>();
     }
 
     /*
@@ -36,7 +39,7 @@ public class TaskManager {
     * @throws taskNumberInvalidException for alphabetical done input
     * @throws noSuchTaskException for done input of task not in list
     */
-    public void processInput(String line, Task[] tasks, int taskCount) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException {
+    public void processInput(String line, ArrayList<Task> tasks) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException {
         valid = false; //default case
         try {
             for (int i = 0; i < validCommands.length; i++) {
@@ -63,13 +66,14 @@ public class TaskManager {
                 }
                 String deadlineDescription = secondSplit[0];
                 String deadlineDate = secondSplit[1];
-                tasks[taskCount] = new Deadline(deadlineDescription, deadlineDate);
-                taskCount++;
+                Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+                tasks.add(newDeadline);
+
                 System.out.println(MESSAGE_DIVIDER);
                 System.out.println("[DUKE:]");
                 System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED: " + tasks[taskCount - 1].toString() + "=============");
-                System.out.println("current execution total: " + taskCount);
+                System.out.println("============= TASK ACQUIRED: " + newDeadline + "=============");
+                System.out.println("current execution total: " + tasks.size());
                 System.out.println(MESSAGE_DIVIDER);
 
             } else if (line.startsWith("todo")) {
@@ -78,13 +82,14 @@ public class TaskManager {
                     throw new TodoInvalidFormatException();
                 }
                 String todoDescription = todoSplit[1];
-                tasks[taskCount] = new ToDo(todoDescription);
-                taskCount++;
+                ToDo newToDo = new ToDo(todoDescription);
+                tasks.add(newToDo);
+
                 System.out.println(MESSAGE_DIVIDER);
                 System.out.println("[DUKE:]");
                 System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED: " + tasks[taskCount - 1].toString() + "=============");
-                System.out.println("current execution total: " + taskCount);
+                System.out.println("============= TASK ACQUIRED: " + newToDo + "=============");
+                System.out.println("current execution total: " + tasks.size());
                 System.out.println(MESSAGE_DIVIDER);
 
             } else if (line.startsWith("event")) {
@@ -98,13 +103,14 @@ public class TaskManager {
                 }
                 String eventDescription = secondSplit[0];
                 String eventDate = secondSplit[1];
-                tasks[taskCount] = new Event(eventDescription, eventDate);
-                taskCount++;
+                Event newEvent = new Event(eventDescription, eventDate);
+                tasks.add(newEvent);
+
                 System.out.println(MESSAGE_DIVIDER);
                 System.out.println("[DUKE:]");
                 System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED: " + tasks[taskCount - 1].toString() + "=============");
-                System.out.println("current execution total: " + taskCount);
+                System.out.println("============= TASK ACQUIRED: " + newEvent + "=============");
+                System.out.println("current execution total: " + tasks.size());
                 System.out.println(MESSAGE_DIVIDER);
             }
 
@@ -125,8 +131,19 @@ public class TaskManager {
                     throw new TaskNumberInvalidException();
                 }
                 int taskNumber = Integer.parseInt(number[1]);
-                if (taskNumber <= taskCount) {
+                if (taskNumber <= tasks.size()) {
                     taskDone[doneTask(taskNumber, tasks)] = 1; //mark task as done in memory
+                } else {
+                    throw new NoSuchTaskException();
+                }
+            } else if (line.startsWith("delete")) {
+                String[] number = line.split(" ");
+                if (number.length != 2 || !isNumerical(number[1])) {
+                    throw new TaskNumberInvalidException();
+                }
+                int taskNumber = Integer.parseInt(number[1]);
+                if (taskNumber <= tasks.size()) {
+                    deleteTask(taskNumber, tasks); //mark task as done in memory
                 } else {
                     throw new NoSuchTaskException();
                 }
@@ -160,24 +177,32 @@ public class TaskManager {
     *
     @return the task (in tasks array) that has been marked done
      */
-    public static int doneTask(int taskNumber, Task[] tasks) {
-        tasks[taskNumber - 1].setDone(true); //mark task as done
-        System.out.println("TARGET NEUTRALISED: " + taskNumber + ". " + tasks[taskNumber - 1]);
+    public static int doneTask(int taskNumber, ArrayList<Task> tasks) {
+        tasks.get(taskNumber - 1).setDone(true); //mark task as done
+        System.out.println("TARGET NEUTRALISED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
         return taskNumber - 1;
 
     }
+
+
+    public static void deleteTask(int taskNumber, ArrayList<Task> tasks) {
+        System.out.println("TARGET REMOVED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
+        tasks.remove(taskNumber-1);
+    }
+
+
 
     /*
     method prints the current updated task list when called
     *
     @params tasks the array of tasks
      */
-    public static void printList(Task[] tasks) {
+    public static void printList(ArrayList<Task> tasks) {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("PENDING HIT LIST:");
-        for (int i = 0; i < tasks.length; i++) {
-            if (tasks[i] != null) {
-                System.out.println(i + 1 + "." + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.size() != 0) {
+                System.out.println(i + 1 + "." + tasks.get(i));
             }
         }
         System.out.println(MESSAGE_DIVIDER);
