@@ -8,7 +8,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("...................................................");
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println("Hi! I'm Duke\n" + "How can I help make your life easier?");
         System.out.println("...................................................");
         Scanner in = new Scanner(System.in);
         String lineIn = "";
@@ -31,7 +31,7 @@ public class Duke {
             } else if (lineInput[0].equals("done")) {
                 inputIndex = Integer.parseInt(lineInput[1]) - 1;
                 listIn[inputIndex].markAsDone();
-                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("Wonderful! This task is now marked as done: ");
                 System.out.println("[" + listIn[inputIndex].getStatus() + "] " + listIn[inputIndex].getName());
                 System.out.println("...................................................");
             } else {
@@ -41,7 +41,7 @@ public class Duke {
                 System.out.println("...................................................");
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Byebye! Have a wonderful day!");
         System.out.println("...................................................");
     }
 }
