@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import duke.exceptions.InvalidCommandException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -9,11 +10,11 @@ import duke.tasks.Todo;
 import java.util.Scanner;
 
 public class Duke {
-
     public static final int END_OF_DONE_INDEX = 4;
     public static final int END_OF_EVENT_INDEX = 5;
     public static final int END_OF_DEADLINE_INDEX = 8;
     public static final int END_OF_TODO_INDEX = 4;
+    public static final int END_OF_DELETE_INDEX = 6;
     public static final int AT_LENGTH = 3;
     public static final int BY_LENGTH = 3;
     public static final String LOGO = " _____         _____\n"
@@ -23,8 +24,8 @@ public class Duke {
             + "|_____/|_____||_____/|_____|\n";
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static boolean isRunning = true;
-    public static Task[] tasks = new Task[100];
-    public static int numberOfTasks = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    //public static int numberOfTasks = 0;
 
     public static void main(String[] args) {
 
@@ -47,6 +48,8 @@ public class Duke {
                     addDeadlineTask(line);
                 } else if (line.startsWith("event")) {
                     addEventTask(line);
+                } else if (line.startsWith("delete")) {
+                    deleteTask(line);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -80,16 +83,18 @@ public class Duke {
     private static void printList() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        int taskNumber = 1;
+        for (Task task : tasks) {
+            System.out.println((taskNumber) + "." + task);
+            taskNumber++;
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void printDone(int taskNumber) {
+    private static void printDone(int taskIndex) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Okie! Marked this as done:");
-        System.out.println((taskNumber + 1) + "." + tasks[taskNumber]);
+        System.out.println((taskIndex + 1) + "." + tasks.get(taskIndex));
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -98,18 +103,19 @@ public class Duke {
             handleDone(line);
         } catch (NumberFormatException e) {
             printMissingDoneIndexMsg();
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             printInvalidTaskIndexMsg();
         }
     }
 
     private static void handleDone(String line) {
-        int taskNumber = Integer.parseInt(line.substring(END_OF_DONE_INDEX).trim()) - 1;
-        if (tasks[taskNumber].isDone()) {
+        int taskNumber = Integer.parseInt(line.substring(END_OF_DONE_INDEX).trim());
+        int taskIndex = taskNumber - 1;
+        if (tasks.get(taskIndex).isDone()) {
             System.out.println("This task is already done!");
         } else {
-            tasks[taskNumber].markAsDone();
-            printDone(taskNumber);
+            tasks.get(taskIndex).markAsDone();
+            printDone(taskIndex);
         }
     }
 
@@ -128,9 +134,10 @@ public class Duke {
     }
 
     private static void printTaskConfirmation() {
+        int numberOfTasks = tasks.size();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Umm ok added:");
-        System.out.println("  " + tasks[numberOfTasks - 1]);
+        System.out.println("  " + tasks.get(numberOfTasks - 1));
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
     }
@@ -150,8 +157,7 @@ public class Duke {
         String description = line.substring(END_OF_EVENT_INDEX, endOfDescriptionIndex).trim();
         String at = line.substring(startOfAtIndex).trim();
 
-        tasks[numberOfTasks] = new Event(description, at);
-        numberOfTasks++;
+        tasks.add(new Event(description, at));
     }
 
     private static void printMissingAtErrorMsg() {
@@ -176,8 +182,7 @@ public class Duke {
         String description = line.substring(END_OF_DEADLINE_INDEX, endOfDescriptionIndex).trim();
         String by = line.substring(startOfByIndex).trim();
 
-        tasks[numberOfTasks] = new Deadline(description, by);
-        numberOfTasks++;
+        tasks.add(new Deadline(description, by));
     }
 
     private static void printMissingByErrorMsg() {
@@ -187,7 +192,6 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-
     private static void addTodoTask(String line) {
         handleTodoTask(line);
         printTaskConfirmation();
@@ -195,8 +199,48 @@ public class Duke {
 
     private static void handleTodoTask(String line) {
         String description = line.substring(END_OF_TODO_INDEX).trim();
-        tasks[numberOfTasks] = new Todo(description);
-        numberOfTasks++;
+        tasks.add(new Todo(description));
+    }
+
+    private static void deleteTask(String line) {
+        try {
+            Task deletedTask = handleDeleteTask(line);
+            printDeleteConfirmation(deletedTask);
+        } catch (IndexOutOfBoundsException e) {
+            printInvalidDeleteIndexMsg();
+        } catch (NumberFormatException e) {
+            printMissingDeleteIndexMsg();
+        }
+    }
+
+    private static void printInvalidDeleteIndexMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! There isn't a task with that index");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void printMissingDeleteIndexMsg() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Oh no! An integer must come after the delete command!");
+        System.out.println("Please try again!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void printDeleteConfirmation(Task deletedTask) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Okie! Deleted this task:");
+        System.out.println("  " + deletedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static Task handleDeleteTask(String line) {
+        int taskNumber = Integer.parseInt(line.substring(END_OF_DELETE_INDEX).trim());
+        int taskIndex = taskNumber - 1;
+        Task deletedTask = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
+        return deletedTask;
     }
 
     private static void exitProgram() {
