@@ -12,6 +12,10 @@ import duke.task.Todo;
 import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
@@ -163,6 +167,7 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(taskList.get(taskList.size() - 1));
         printLine();
+        appendTaskToFile(taskList.get(taskList.size() - 1));
 
         listSize++;
     }
@@ -184,6 +189,7 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(taskList.get(taskList.size() - 1));
         printLine();
+        appendTaskToFile(taskList.get(taskList.size() - 1));
 
         listSize++;
     }
@@ -204,6 +210,76 @@ public class Duke {
         System.out.println("-----------------------------------------------");
     }
 
+    public void createDataFile() {
+        File dataFolder = new File("data");
+        File dataFile = new File("data/duke.txt");
+
+        try {
+            dataFolder.mkdir();
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public void loadDataFile() {
+        File dataFile = new File("data/duke.txt");
+        try {
+            Scanner s = new Scanner(dataFile);
+            while (s.hasNext()) {
+                processDataFile(s.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(("File not found!"));
+        }
+    }
+
+    public void processDataFile(String dataTask) {
+        String[] taskDetails = dataTask.split(" \\| ");
+        String taskType = taskDetails[0];
+        boolean taskIsDone = Boolean.parseBoolean(taskDetails[1]);
+        String taskDescription = taskDetails[2];
+
+        switch (taskType) {
+        case "T":
+            taskList.add(new Todo(taskDescription));
+            if (taskIsDone) {
+                taskList.get(taskList.size() - 1).setAsDone();
+            }
+            listSize++;
+            break;
+        case "D":
+            String deadline = taskDetails[3];
+            taskList.add(new Deadline(taskDescription, deadline));
+            if (taskIsDone) {
+                taskList.get(taskList.size() - 1).setAsDone();
+            }
+            listSize++;
+            break;
+        case "E":
+            String eventTime = taskDetails[3];
+            taskList.add(new Event(taskDescription, eventTime));
+            if (taskIsDone) {
+                taskList.get(taskList.size() - 1).setAsDone();
+            }
+            listSize++;
+            break;
+        default:
+            break;
+        }
+    }
+
+    public void appendTaskToFile(Task task) {
+        try {
+            FileWriter file = new FileWriter("data/duke.txt", true);
+            String taskDetails = task.getTaskDetailsInFileFormat() + "\n";
+            file.write(taskDetails);
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Duke chatBot = new Duke();
 
@@ -218,6 +294,9 @@ public class Duke {
         System.out.println("What can I do for you?");
         printLine();
 
+        chatBot.createDataFile();
+        chatBot.loadDataFile();
+        Scanner in = new Scanner(System.in);
         chatBot.handleCommand();
     }
 }
