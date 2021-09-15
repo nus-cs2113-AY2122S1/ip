@@ -1,7 +1,7 @@
 t-/-0-/-eat lunch bunch
 d-/-1-/-return book -/-/byJune 6th
 e-/-1-/-project meeting -/-/atAug 6th 2-4pm
-t-/-1-/-join sports club
-t-/-0-/-repair laptop
+t-/-0-/-join sports club
+t-/-1-/-repair laptop
 e-/-1-/-githubbing -/-/attonite 8pm
 d-/-1-/-introToPython book -/-/bysunday evening

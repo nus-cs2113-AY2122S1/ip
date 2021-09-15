@@ -29,10 +29,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    /* Task Counter */
-    public static int numberOfTasks = 0;
-
-    /* This is an array of task & Total task quantity should not exceed 100! */
+    public static int numberOfTasks = 0; // Task Counter
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
@@ -191,12 +188,14 @@ public class Duke {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
 
-            tasks.add(new ToDo(taskName));
-            numberOfTasks += 1;
+            if (dukeTaskText.saveToDo(taskName) == true) {
+                tasks.add(new ToDo(taskName));
+                numberOfTasks += 1;
 
-            tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
-            dukeTaskText.saveToDo(taskName);
-
+                tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+            } else {
+                throw new DukeException("Please enter a different description.");
+            }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -225,13 +224,15 @@ public class Duke {
                 if (taskName.equals("") || by.equals("by ")) {
                     throw new DukeException("The description and event time info of event cannot be empty.");
                 } else {
-                    tasks.add(new Deadline(taskName, by));
-                    numberOfTasks += 1;
+                    if (dukeTaskText.saveDeadline(taskName, by) == true) {
+                        tasks.add(new Deadline(taskName, by));
+                        numberOfTasks += 1;
 
-                    tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+                        tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+                    } else {
+                        throw new DukeException("Please enter a different description.");
+                    }
                 }
-
-                dukeTaskText.saveDeadline(taskName, by);
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description and deadline info of deadline cannot be empty!");
@@ -260,13 +261,15 @@ public class Duke {
                 if (taskName.equals("") || at.equals("at ")) {
                     throw new DukeException("The description and event time info of event cannot be empty.");
                 } else {
-                    tasks.add(new Event(taskName, at));
-                    numberOfTasks += 1;
+                    if (dukeTaskText.saveEvent(taskName, at) == true) {
+                        tasks.add(new Event(taskName, at));
+                        numberOfTasks += 1;
 
-                    tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+                        tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+                    } else {
+                        throw new DukeException("Please enter a different description.");
+                    }
                 }
-
-                dukeTaskText.saveEvent(taskName, at);
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description and event time info of event cannot be empty.");

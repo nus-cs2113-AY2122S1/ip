@@ -90,47 +90,88 @@ public class SaveTaskListToText {
         return numberOfTasksAdded;
     }
 
-    public static void saveToDo(String taskName) {
+    public static boolean checkLineExist(String stringToCheck) {
+        File file = new File("./data/duke.txt");
+
         try {
-            String dukeDirectory = "data/duke.txt";
-            FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
-            addToDo.write("\n");//appends the string to the file
-            addToDo.write("t-/-0-/-" + taskName);
-            addToDo.close();
+            Scanner scanner = new Scanner(file);
+
+            int lineNum = 0;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                lineNum++;
+
+                if(line.equals(stringToCheck)) {
+                    return true;
+                }
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("File not found!");
         }
 
-        catch(IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
-        }
+        return false;
     }
 
-    public static void saveEvent(String taskName, String at) {
-        try {
-            String dukeDirectory = "data/duke.txt";
-            FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
-            addToDo.write("\n");//appends the string to the file
-            System.out.print(at);
-            addToDo.write("e-/-0-/-" + taskName + "-/-/at" + at.substring(3));
-            addToDo.close();
-        }
+    public static boolean saveToDo(String taskName) {
+        String textToWrite1 = "t-/-0-/-" + taskName;
+        String textToWrite2 = "t-/-1-/-" + taskName;
 
-        catch(IOException ioe) {
+        try {
+            if (checkLineExist(textToWrite1) == false && checkLineExist(textToWrite2) == false) {
+                String dukeDirectory = "data/duke.txt";
+                FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
+                addToDo.write("\n");//appends the string to the file
+                addToDo.write(textToWrite1);
+                addToDo.close();
+            } else {
+                return false;
+            }
+        } catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+
+        return true;
     }
 
-    public static void saveDeadline(String taskName, String by) {
-        try {
-            String dukeDirectory = "data/duke.txt";
-            FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
-            addToDo.write("\n");//appends the string to the file
-            addToDo.write("d-/-0-/-" + taskName + "-/-/by" + by.substring(3));
-            addToDo.close();
-        }
+    public static boolean saveEvent(String taskName, String at) {
+        String eventToWrite1 = "e-/-0-/-" + taskName + "-/-/at" + at.substring(3);
+        String eventToWrite2 = "e-/-1-/-" + taskName + "-/-/at" + at.substring(3);
 
-        catch(IOException ioe) {
+        try {
+            if (checkLineExist(eventToWrite1) == false && checkLineExist(eventToWrite2) == false) {
+                String dukeDirectory = "data/duke.txt";
+                FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
+                addToDo.write("\n");//appends the string to the file
+                addToDo.write(eventToWrite1);
+                addToDo.close();
+            } else {
+                return false;
+            }
+        } catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+        return true;
+    }
+
+    public static boolean saveDeadline(String taskName, String by) {
+        String deadlineToWrite1 = "d-/-0-/-" + taskName + "-/-/by" + by.substring(3);
+        String deadlineToWrite2 = "d-/-1-/-" + taskName + "-/-/by" + by.substring(3);
+
+        try {
+            if (checkLineExist(deadlineToWrite1) == false && checkLineExist(deadlineToWrite2) == false) {
+                String dukeDirectory = "data/duke.txt";
+                FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
+                addToDo.write("\n");//appends the string to the file
+                addToDo.write(deadlineToWrite1);
+                addToDo.close();
+            } else {
+                return false;
+            }
+        } catch(IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+        }
+        return true;
     }
 
     public static void textFileTaskDoneMarker(String oldLine, Character taskType) throws IOException {
