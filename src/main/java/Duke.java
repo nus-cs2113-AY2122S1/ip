@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
 
 public class Duke {
     public static final String MESSAGE = "Here are the tasks in your list:";
@@ -14,7 +18,8 @@ public class Duke {
         printWelcome(LOGO, LINE);
         ArrayList<String> arrayInput = new ArrayList<>();
         ArrayList<Integer> taskStatus = new ArrayList<>();
-        checkCommand(taskStatus, arrayInput);
+        ArrayList<String> output = new ArrayList<>();
+        checkCommand(output, taskStatus, arrayInput);
     }
 
     public static void printWelcome(String logo, String line) {
@@ -67,7 +72,8 @@ public class Duke {
         return true;
     }
 
-    public static void checkCommand(ArrayList<Integer> taskStatus, ArrayList<String> arrayInput) {
+    public static void checkCommand(ArrayList<String> output, ArrayList<Integer> taskStatus, ArrayList<String> arrayInput) {
+        File file = new File("D:/data/duke.txt");
         Scanner userInput = new Scanner(System.in);
         String userCommand = userInput.nextLine();
         ArrayList<String> taskType = new ArrayList<>();
@@ -81,63 +87,45 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("done")) {
-                printDone(taskStatus, taskType, arrayInput, userCommand);
+                output = getUpdateDone(output, taskStatus, arrayInput, file, userCommand, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
-                try {
-                    checkTodo(userCommand);
-                } catch (DukeException e) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                    System.out.println(LINE);
+                if(!isValidTodo(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
                 inputCount = printTodo(arrayInput, userCommand, inputCount);
-                taskType.add(inputCount - 1, "T");
-                taskStatus.add(inputCount - 1, 0);
+                output = getUpdateTodo(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("deadline")) {
-                try {
-                    checkDeadline(userCommand);
-                } catch (DukeException e) {
-                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-                    System.out.println(LINE);
+                if(!isValidDeadline(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
                 inputCount = printDeadline(arrayInput, userCommand, inputCount);
-                taskType.add(inputCount - 1, "D");
-                taskStatus.add(inputCount - 1, 0);
+                output = getUpdateDeadline(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("event")) {
-                try {
-                    checkEvent(userCommand);
-                } catch (DukeException e) {
-                    System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
-                    System.out.println(LINE);
+                if(!isValidEvent(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
                 inputCount = printEvent(arrayInput, userCommand, inputCount);
-                taskType.add(inputCount - 1, "E");
-                taskStatus.add(inputCount - 1, 0);
+                output = getUpdateEvent(output, taskStatus, arrayInput, file, taskType, inputCount, "E");
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("delete")) {
-                try {
-                    checkDelete(userCommand);
-                } catch (DukeException e) {
-                    System.out.println("☹ OOPS!!! The delete command is invalid.");
-                    System.out.println(LINE);
+                if(!isValidDelete(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
                 }
                 inputCount = printDelete(taskType, taskStatus, arrayInput, inputCount, userCommand);
+                output = getUpdateDelete(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
-
+                continue;
             } else if (!userCommand.equals("bye")) {
                 printInvalid();
                 System.out.println(LINE);
@@ -148,6 +136,96 @@ public class Duke {
         if (userCommand.equals("bye")) {
             printBye();
         }
+    }
+
+    private static ArrayList<String> getUpdateDelete(ArrayList<String> output, ArrayList<Integer> taskStatus, ArrayList<String> arrayInput, File file, ArrayList<String> taskType, int inputCount) {
+        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        writeTasksToFile(file, output);
+        return output;
+    }
+
+    private static ArrayList<String> getUpdateEvent(ArrayList<String> output, ArrayList<Integer> taskStatus,
+                                                    ArrayList<String> arrayInput, File file,
+                                                    ArrayList<String> taskType, int inputCount, String e) {
+        taskType.add(inputCount - 1, e);
+        taskStatus.add(inputCount - 1, 0);
+        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        writeTasksToFile(file, output);
+        return output;
+    }
+
+    private static ArrayList<String> getUpdateDeadline(ArrayList<String> output, ArrayList<Integer> taskStatus,
+                                                       ArrayList<String> arrayInput, File file,
+                                                       ArrayList<String> taskType, int inputCount) {
+        taskType.add(inputCount - 1, "D");
+        taskStatus.add(inputCount - 1, 0);
+        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        writeTasksToFile(file, output);
+        return output;
+    }
+
+    private static ArrayList<String> getUpdateTodo(ArrayList<String> output, ArrayList<Integer> taskStatus,
+                                                   ArrayList<String> arrayInput, File file,
+                                                   ArrayList<String> taskType, int inputCount) {
+        taskType.add(inputCount - 1, "T");
+        taskStatus.add(inputCount - 1, 0);
+        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        writeTasksToFile(file, output);
+        return output;
+    }
+
+    private static ArrayList<String> getUpdateDone(ArrayList<String> output, ArrayList<Integer> taskStatus,
+                                                   ArrayList<String> arrayInput, File file, String userCommand,
+                                                   ArrayList<String> taskType, int inputCount) {
+        printDone(taskStatus, taskType, arrayInput, userCommand);
+        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        writeTasksToFile(file, output);
+        return output;
+    }
+
+    public static boolean isValidTodo(String userCommand) {
+        try {
+            checkTodo(userCommand);
+        } catch (DukeException e) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println(LINE);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidDeadline(String userCommand) {
+        try {
+            checkDeadline(userCommand);
+        } catch (DukeException e) {
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+            System.out.println(LINE);
+            return false;
+        }
+        return true;
+    }
+
+
+    public static boolean isValidEvent (String userCommand) {
+        try {
+            checkEvent(userCommand);
+        } catch (DukeException e) {
+            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+            System.out.println(LINE);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidDelete(String userCommand){
+        try {
+            checkDelete(userCommand);
+        } catch (DukeException e) {
+            System.out.println("☹ OOPS!!! The delete command is invalid.");
+            System.out.println(LINE);
+            return false;
+        }
+        return true;
     }
 
     public static int printDelete(ArrayList<String> taskType, ArrayList<Integer> taskStatus,
@@ -252,5 +330,53 @@ public class Duke {
             }
         }
         System.out.println(LINE);
+    }
+
+    public static ArrayList<String> convertToArrayList(ArrayList<String> output, ArrayList<String> taskType, ArrayList<Integer> taskStatus,
+                                                       ArrayList<String> arrayInput, int inputCount) {
+        String tempTask;
+        output.clear();
+        for (int i = 1; i <= inputCount; i++) {
+            if (taskStatus.get(i - 1) == 1) {
+                tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[X] " + arrayInput.get(i - 1);
+                output.add(i-1, tempTask);
+            } else {
+                tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + arrayInput.get(i - 1);
+                output.add(i-1, tempTask);
+            }
+        }
+        return output;
+    }
+
+    public static void writeTasksToFile(File file, ArrayList<String> output) {
+        File directory = new File("D:/data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error!");
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter myWriter = new FileWriter("D:/data/duke.txt");
+            for(int i=0; i<output.size(); i++) {
+                myWriter.write(output.get(i));
+                myWriter.write("\n");
+            }
+
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+            System.out.println(LINE);
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
