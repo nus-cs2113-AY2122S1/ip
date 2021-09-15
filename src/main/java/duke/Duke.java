@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,8 +10,12 @@ public class Duke {
 
     public static ArrayList<Task> list = new ArrayList<>();
     public static int counter = 0;
+    public static final String filePath = "C:/Users/kairo/Documents/ip/src/main/java/duke/DukeTaskData.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        // Load Tasks
+        loadTasks();
 
         // Welcome Message
         printWelcomeMessage();
@@ -16,8 +23,79 @@ public class Duke {
         // Active Chat
         activeChat();
 
+        // Save Tasks
+        saveTasks();
+
         // Goodbye Message
         printGoodbyeMessage();
+    }
+
+    private static void loadTasks() {
+
+        File DukeTaskData = new File(filePath);
+        Scanner scan;
+        String[] execute;
+
+        System.out.println("Currently Loading List of Tasks");
+
+        try {
+            scan = new Scanner(DukeTaskData);
+            if (DukeTaskData.exists()) {
+                while (scan.hasNext()) {
+                    execute = scan.nextLine().split("/");
+                    processLoading(execute);
+                }
+            } else {
+                FileWriter f = new FileWriter(DukeTaskData.getAbsoluteFile());
+                f.close();
+            }
+        } catch (IOException e) {
+            System.out.println("There is an issue with the file. Please try again.");
+        } finally {
+            System.out.println("--------------------");
+        }
+
+    }
+
+    private static void processLoading(String[] execute) {
+        switch (execute[0]) {
+        case "T":
+            ToDo taskTodo = new ToDo(execute[2]);
+            list.add(taskTodo);
+            counter += 1;
+            break;
+        case "D":
+            Deadline taskDeadline = new Deadline(execute[2], execute[3]);
+            list.add(taskDeadline);
+            counter += 1;
+            break;
+        case "E":
+            Event taskEvent = new Event(execute[2], execute[3]);
+            list.add(taskEvent);
+            counter += 1;
+            break;
+        default:
+            System.out.println("Error With File");
+        }
+        if (execute[1].equalsIgnoreCase("X")) {
+            list.get(list.size() - 1).setDone();
+        }
+    }
+
+    private static void saveTasks() throws IOException {
+
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            for (int i = 0; i <= counter - 1; i += 1) {
+                fw.write(list.get(i).getLetter() + "/"
+                        + list.get(i).getStatusIcon() + "/"
+                        + list.get(i).getDescription() + "/"
+                        + list.get(i).getDate() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("There is an error" + e.getMessage());
+        }
     }
 
     private static void activeChat() {
@@ -45,8 +123,6 @@ public class Duke {
                     System.out.println("Please include /by for deadline and /at for event");
                 }
             }
-            //test size
-            System.out.println(list.size());
         }
     }
 
