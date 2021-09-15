@@ -8,7 +8,7 @@ package duke.task;
  * @since 2021-08-25
  */
 public class Task {
-    protected static int numOfTasks = 0;
+    public static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
     protected int itemIndex;

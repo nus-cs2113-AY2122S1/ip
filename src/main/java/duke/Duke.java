@@ -7,6 +7,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,21 +19,26 @@ import java.util.Scanner;
  */
 public class Duke {
     private static final String SEPARATOR = "\t==============================================";
-    private static final String logoArt = "\t                                        \n" +
-            "\t             ..........                 \n" +
-            "\t           .,,..,.,,,,                  \n" +
-            "\t           ,.,,,,.,...                  \n" +
-            "\t          ,.......,*,/& .               \n" +
-            "\t          ,..,..,((/**(((,              \n" +
-            "\t           *(#%(((#/#((/       *        \n" +
-            "\t         /(%#########%##(*,,,((*        \n" +
-            "\t              ((#(((((#      (((*       \n" +
-            "\t        ((((((   /((((/,., .... #       \n" +
-            "\t         (((#    .(((..*...,*///        \n" +
-            "\t         ((/      .,,**  ..**///        \n" +
-            "\t                  .,*,..  ,**//         \n" +
-            "\t                ..,,,..,/ ,*//          \n" +
-            "\t             *,,****,        " ;
+    private static final String logoArt = "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@..............@@@@@@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@(...................@@@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@.....................@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@.................../@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@@.................../@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@((#@.((((((((((............@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@#((((((((((((((/(((/.........@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@%#(((((((((((((((//*(/((/,@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@#####(((((((((((/(((/(((@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@#########((((/(((((((@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@%######(####%#&@@@@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@(.,,*/(###((((#/##@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@(...,,*//(((((((###/#@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@* ..,,((((((((((####/#@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@((((((((((((((((####/#%@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@((((((((((((((#######@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@@@@@@%((((((((###&@@@@@@@@@@@@@@@\n" +
+            "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
     private static final String nameArt = "\t _______  __   __  __   __  ______    _______ \n" +
             "\t|       ||  |_|  ||  | |  ||    _ |  |       |\n" +
             "\t|  _____||       ||  | |  ||   | ||  |    ___|\n" +
@@ -40,7 +46,7 @@ public class Duke {
             "\t|_____  ||       ||       ||    __  ||    ___|\n" +
             "\t _____| || ||_|| ||       ||   |  | ||   |    \n" +
             "\t|_______||_|   |_||_______||___|  |_||___|    ";
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean isDone = false;
@@ -59,7 +65,7 @@ public class Duke {
                 printExitMessage();
                 break;
             case "list":
-                printTaskList(taskList);
+                printTaskList();
                 break;
             case "done":
                 try {
@@ -99,14 +105,19 @@ public class Duke {
                     printErrorMessage();
                 }
                 break;
+            case "delete":
+                try {
+                    executeDelete(userInputs);
+                } catch (Exception exception) {
+                    printErrorMessage();
+                }
+                break;
             default:
                 printErrorMessage();
                 break;
             }
         } while (!isDone);
     }
-
-
 
     private static void executeEvent(String[] userInputs) throws EmptyDescriptionException, EmptyTimeFieldException {
         if (userInputs.length < 2) {
@@ -124,8 +135,9 @@ public class Duke {
         String eventAt = userInputs[1].substring((userInputs[1]
                         .indexOf("/") + 3))
                 .strip();
-        taskList[Task.getNumOfTasks()] = new Event(eventDescription, eventAt);
-        printAddTask(taskList[Task.getNumOfTasks() - 1]);
+        Task newTask = new Event(eventDescription, eventAt);
+        tasks.add(newTask);
+        printAddTask(newTask);
     }
 
     private static void executeDeadline(String[] userInputs) throws EmptyDescriptionException, EmptyTimeFieldException {
@@ -144,8 +156,9 @@ public class Duke {
         String deadlineBy = userInputs[1]
                 .substring((userInputs[1].indexOf("/") + 3))
                 .strip();
-        taskList[Task.getNumOfTasks()] = new Deadline(deadlineDescription, deadlineBy);
-        printAddTask(taskList[Task.getNumOfTasks() - 1]);
+        Task newTask = new Deadline(deadlineDescription, deadlineBy);
+        tasks.add(newTask);
+        printAddTask(newTask);
     }
 
     private static void executeTodo(String[] userInputs) throws EmptyDescriptionException {
@@ -153,14 +166,24 @@ public class Duke {
             throw new EmptyDescriptionException();
         }
         String todoDescription = userInputs[1].strip();
-        taskList[Task.getNumOfTasks()] = new Todo(todoDescription);
-        printAddTask(taskList[Task.getNumOfTasks() - 1]);
+        Task newTask = new Todo(todoDescription);
+        tasks.add(newTask);
+        printAddTask(newTask);
     }
 
     private static void executeDone(String[] userInputs) {
         int itemNum = Integer.parseInt(userInputs[1].replaceAll("[^0-9]", ""));
-        taskList[itemNum - 1].setDone();
-        printDoneTask(taskList[itemNum - 1], itemNum);
+        Task doneTask = tasks.get(itemNum - 1);
+        doneTask.setDone();
+        Task.numOfTasks--;
+        printDoneTask(doneTask, itemNum);
+    }
+
+    private static void executeDelete(String[] userInputs) {
+        int itemNum = Integer.parseInt(userInputs[1].replaceAll("[^0-9]", ""));
+        Task deletedTask = tasks.get(itemNum - 1);
+        tasks.remove(itemNum - 1);
+        printDeleteTask(deletedTask);
     }
 
     private static String[] readUserInput(Scanner in) {
@@ -180,25 +203,33 @@ public class Duke {
 
     private static void printDoneTask(Task task, int itemNum) {
         System.out.println(SEPARATOR);
-        System.out.println("\tBrainy Smurf: aah another thing done\n");
+        System.out.println("\tBrainy Smurf: aah another thing done");
         System.out.printf("\t%d. [%s][%s] %s\n", itemNum, task.getTaskIcon(), task.getStatusIcon(),
                 task.getDescription());
         System.out.println(SEPARATOR);
     }
 
-    private static void printAddTask(Task task) {
+    private static void printDeleteTask(Task deletedTask) {
         System.out.println(SEPARATOR);
-        System.out.println("\tHandy Smurf is here to give you a hand!\n");
-        System.out.println("\tI have added: ");
-        System.out.println("\t" + task);
+        System.out.println("\tI will get Weakling smurf to do it for you.");
+        System.out.printf("\t   [%s][%s] %s\n", deletedTask.getTaskIcon(), deletedTask.getStatusIcon(),
+                deletedTask.getDescription());
         System.out.println(SEPARATOR);
     }
 
-    private static void printTaskList(Task[] taskList) {
+    private static void printAddTask(Task task) {
         System.out.println(SEPARATOR);
-        System.out.println("\t\"Tracker Smurf!! I need you here!!\"\n");
-        for (int i = 0; i < Task.getNumOfTasks(); i++) {
-            System.out.println("\t" + taskList[i]);
+        System.out.println("\tHandy Smurf is here to give you a hand!");
+        System.out.println("\tI have added: ");
+        System.out.println("\t" + (tasks.indexOf(task) + 1) + task);
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printTaskList() {
+        System.out.println(SEPARATOR);
+        System.out.println("\t\"Tracker Smurf!! I need you here!!\"");
+        for (Task task : tasks) {
+            System.out.println("\t" + (tasks.indexOf(task) + 1) + task);
         }
         System.out.println(SEPARATOR);
     }
