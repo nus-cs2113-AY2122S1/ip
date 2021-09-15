@@ -15,9 +15,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of the list of user tasks to a text file, saveDuke.txt, in a folder in the same
+ * directory, /data.
+ */
 public class Storage {
     public static final String PATHNAME = Paths.get("data/saveDuke.txt").toString();
 
+    /**
+     * Tries to load the save file from PATHNAME. If the directory does not exist, creates the folder /data in the
+     * same directory. If the file does not exist, creates the file saveDuke.txt within /data. If the file exists, the
+     * function loads the Tasks into the given list.
+     * @param userTasks The list of Tasks that the Tasks are loaded into.
+     */
     public Storage(TaskList userTasks) {
         File load = new File(PATHNAME);
 
@@ -60,6 +70,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the specified list of Tasks to a text file.
+     * @param userTasks The list of Tasks to be saved.
+     */
     public void saveTasks(TaskList userTasks) {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < Task.getTotalTasks(); i++) {
