@@ -2,9 +2,12 @@ package duke.command;
 
 import duke.task.TaskManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
+    static final String SEPARATOR = " \\| ";
 
     public static void printDividerLine() {
         System.out.println("\t_____________________________________________________________________________");
@@ -43,15 +46,33 @@ public class Duke {
         printDividerLine();
     }
 
+    public static void readFromFile(String filePath, TaskManager t1) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] words = line.split(SEPARATOR);
+            t1.readInLine(words);
+        }
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
+
+        TaskManager t1 = new TaskManager();
+
+        try {
+            readFromFile("data/duke.txt", t1);
+        } catch (FileNotFoundException e) {
+            printDividerLine();
+            System.out.println("\t File not found.");
+            printDividerLine();
+        }
 
         String line;
 
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-
-        TaskManager t1 = new TaskManager();
 
         while (!line.equalsIgnoreCase("bye")) {
             String[] words = line.split(" ");
