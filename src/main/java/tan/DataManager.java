@@ -219,7 +219,9 @@ public class DataManager {
         String curLine;
         List<String[]> allTasks = new ArrayList<>();
         try {
+            //Reading the file line by line.
             while ((curLine = csvReader.readLine()) != null) {
+                //Split line by comma.
                 String[] output = curLine.split(",");
                 allTasks.add(output);
                 totalLinesLoaded += 1;
@@ -273,11 +275,11 @@ public class DataManager {
      * @param homePath user home directory in String format.
      */
     private static void setWriterAndReaderAndDataPath(String homePath) {
-        boolean isExists = false;
+        boolean isFileExist = false;
 
         try {
             DATA_PATH = Paths.get(homePath, FILE_NAME);
-            isExists = Files.exists(DATA_PATH);
+            isFileExist = Files.exists(DATA_PATH);
             //Sets writer if can find file, else creates file then sets.
             csvWriter = Files.newBufferedWriter(DATA_PATH, CREATE);
             csvReader = Files.newBufferedReader(DATA_PATH);
@@ -295,7 +297,7 @@ public class DataManager {
             System.exit(-1);
         }
 
-        if (isExists) {
+        if (isFileExist) {
             System.out.println("Found data file!");
         } else {
             System.out.println("A new data file has been created at: " + DATA_PATH.toString());
