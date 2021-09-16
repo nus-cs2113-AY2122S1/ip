@@ -54,6 +54,7 @@ public class Duke {
             }
         }
         saveData();
+        System.out.println("Data is saved to hard drive.");
     }
 
 
