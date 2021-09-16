@@ -7,16 +7,18 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String INDENT = "    ";
-    private static final int MAX_TASK_LIMIT = 100;
     private static final int START_OF_STRING = 0;
     public static final String SAD_FACE = "\uD83D\uDE41";
 
-    private static Task[] tasks;
     private static String inputCommand;
     private static String todoTask;
     private static String deadlineDescription;
@@ -35,8 +37,12 @@ public class Duke {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
 
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static final ArrayList<Task> taskArrayList = new ArrayList<>();
+    public static final String FILEPATH = "data/duke.txt";
+    public static final String FOLDERPATH = "data";
 
     private static void printLogo() {
         String logo = " ____        _        \n"
@@ -64,10 +70,6 @@ public class Duke {
         return input;
     }
 
-    private static void initTaskList() {
-        tasks = new Task[MAX_TASK_LIMIT];
-    }
-
     private static void printReply(String userInput) {
         try {
             processUserInput(userInput);
@@ -93,20 +95,29 @@ public class Duke {
             performListTask();
             break;
         case COMMAND_DONE:
-            handleIntConversion(userInput);
+            handleIntConversion(userInput, COMMAND_DONE);
             performMarkTaskDone(inputNum);
+            saveFile();
             break;
         case COMMAND_TODO:
             splitTodo(userInput);
             performAddTodo(todoTask);
+            saveFile();
             break;
         case COMMAND_DEADLINE:
             splitDeadline(userInput);
             performAddDeadline(deadlineDescription, by);
+            saveFile();
             break;
         case COMMAND_EVENT:
             splitEvent(userInput);
             performAddEvent(eventDescription, at);
+            saveFile();
+            break;
+        case COMMAND_DELETE:
+            handleIntConversion(userInput, COMMAND_DELETE);
+            performDelete(inputNum);
+            saveFile();
             break;
         case COMMAND_BYE:
             exitProgram();
@@ -125,29 +136,57 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
 
-        for (int i = 0; i < Task.taskCount; i++) {
-            System.out.println(INDENT + tasks[i].taskNum + "." + tasks[i]);
+        for (Task t : taskArrayList) {
+            System.out.println(INDENT + t.taskNum + "." + t);
         }
     }
 
-    private static void handleIntConversion(String userInput) {
-        number = userInput.replace("done", "");
+    private static void handleIntConversion(String userInput, String command) {
+        number = userInput.replace(command, "");
         number = number.trim();
         inputNum = Integer.parseInt(number);
     }
 
     private static void performMarkTaskDone(int inputNum) throws NumberOutOfBoundsException {
-        //index of taskNum in tasks array
+        //index of taskNum in taskArrayList
         int doneTaskNum = inputNum - 1;
 
         boolean isValidNum = (inputNum > 0) && (inputNum <= Task.taskCount);
         if (isValidNum) {
-            tasks[doneTaskNum].markAsDone();
+            taskArrayList.get(doneTaskNum).markAsDone();
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(INDENT + tasks[doneTaskNum].taskNum + "." + tasks[doneTaskNum]);
+            System.out.println(INDENT + taskArrayList.get(doneTaskNum).taskNum + "." + taskArrayList.get(doneTaskNum));
         } else {
             throw new NumberOutOfBoundsException();
+        }
+    }
+
+    private static void performDelete(int inputNum) throws NumberOutOfBoundsException {
+        //index of taskNum in taskArrayList
+        int deleteTaskNum = inputNum - 1;
+
+        boolean isValidNum = (inputNum > 0) && (inputNum <= Task.taskCount);
+        if (isValidNum) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(INDENT + taskArrayList.get(deleteTaskNum).taskNum + "." + taskArrayList.get(deleteTaskNum));
+            taskArrayList.remove(deleteTaskNum);
+            updateTaskCount();
+            updateTaskNum(deleteTaskNum);
+            System.out.println("Now you have " + Task.taskCount + " tasks in the list");
+        } else {
+            throw new NumberOutOfBoundsException();
+        }
+    }
+
+    private static void updateTaskCount() {
+        Task.taskCount = Task.taskCount - 1;
+    }
+
+    private static void updateTaskNum(int deleteTaskNum) {
+        for (int i = deleteTaskNum; i < taskArrayList.size(); i++) {
+            taskArrayList.get(i).taskNum = taskArrayList.get(i).taskNum - 1;
         }
     }
 
@@ -191,25 +230,25 @@ public class Duke {
 
     private static void performAddTodo(String todoTask) {
         System.out.println(HORIZONTAL_LINE);
-        tasks[Task.taskCount] = new Todo(todoTask);
+        taskArrayList.add(new Todo(todoTask));
         System.out.println("Got it. I've added this task:");
-        System.out.println(INDENT + tasks[Task.taskCount - 1]);
+        System.out.println(INDENT + taskArrayList.get(Task.taskCount - 1));
         System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
     private static void performAddDeadline(String description, String by) {
         System.out.println(HORIZONTAL_LINE);
-        tasks[Task.taskCount] = new Deadline(description, by);
+        taskArrayList.add(new Deadline(description, by));
         System.out.println("Got it. I've added this task:");
-        System.out.println(INDENT + tasks[Task.taskCount - 1]);
+        System.out.println(INDENT + taskArrayList.get(Task.taskCount - 1));
         System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
     private static void performAddEvent(String description, String at) {
         System.out.println(HORIZONTAL_LINE);
-        tasks[Task.taskCount] = new Event(description, at);
+        taskArrayList.add(new Event(description, at));
         System.out.println("Got it. I've added this task:");
-        System.out.println(INDENT + tasks[Task.taskCount - 1]);
+        System.out.println(INDENT + taskArrayList.get(Task.taskCount - 1));
         System.out.println("Now you have " + Task.taskCount + " tasks in the list");
     }
 
@@ -218,11 +257,43 @@ public class Duke {
         System.exit(0);
     }
 
+    private static void saveFile() {
+        try {
+            createFolder();
+            createFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void createFolder() {
+        File folder = new File(FOLDERPATH);
+        if (folder.mkdir()) {
+            System.out.println("Folder created: " + folder.getName());
+        }
+    }
+
+    private static void createFile() throws IOException {
+        File f = new File(FILEPATH);
+        if (f.createNewFile()) {
+            System.out.println("File created: " + f.getName());
+        }
+        writeToFile();
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH);
+        for (Task t : taskArrayList){
+            fw.write(t.taskNum + "." + t + System.lineSeparator());
+        }
+        fw.close();
+        System.out.println("File \"duke.txt\" updated");
+    }
+
 
     public static void main(String[] args) {
         printLogo();
         printGreeting("Hello! I'm Duke", "What can I do for you?");
-        initTaskList();
         while (true) {
             String userInput = getUserInput();
             printReply(userInput);

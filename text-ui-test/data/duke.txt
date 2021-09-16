@@ -1,0 +1,6 @@
+1.[T][ ] homework
+2.[T][ ] english essay
+3.[D][ ] proposal (by: tomorrow 9pm)
+4.[D][X] coding assignment (by: today midnight)
+5.[E][ ] business meeting (at: my house)
+6.[E][X] wedding dinner (at: hotel)
