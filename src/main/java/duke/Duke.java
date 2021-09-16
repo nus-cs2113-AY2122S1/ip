@@ -1,24 +1,41 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import duke.command.DukeException;
 import duke.task.*;
 
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = "____________________________________________________________\n"
                 + "Hello! I'm duke.Duke\n"
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
 
         System.out.println(logo);
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
         Task[] todo = new Task[100];
         int todo_index = 0;
+
+        //create duke.txt in folder named 'data'
+        //idea from https://stackoverflow.com/questions/9658297/java-how-to-create-a-file-in-a-directory-using-relative-path
+        File dir = new File("data");
+        dir.mkdirs();
+        File tmp = new File(dir, "duke.txt");
+        tmp.createNewFile();
+        String save = "";
+
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+
         while (true) {
-            if (input.substring(0, 4).equals("done")) {
+            if (input.startsWith("done")) {
                 int i = Integer.parseInt(input.substring(5));
                 todo[i - 1].markAsDone();
                 System.out.println("____________________________________________________________");
@@ -45,7 +62,7 @@ public class Duke {
                             + "Bye. Hope to see you again soon!\n"
                             + "____________________________________________________________\n";
                     System.out.println(logo);
-                    break;
+                    return;
                 default:
                     if(input.substring(0, 4).equals("todo")){
                         try {
@@ -54,6 +71,8 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                             System.out.println("Got it. I've added this task: ");
                             System.out.println(todo[todo_index].toString());
+                            save += todo[todo_index].toString()+"\n";
+                            writeToFile("data/duke.txt",save);
                             todo_index += 1;
                         } catch (StringIndexOutOfBoundsException e) {
                             System.out.println("____________________________________________________________");
@@ -71,6 +90,8 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                             System.out.println("Got it. I've added this task: ");
                             System.out.println(todo[todo_index].toString());
+                            save += todo[todo_index].toString()+"\n";
+                            writeToFile("data/duke.txt",save);
                             todo_index += 1;
                         } catch (DukeException e) {
                             System.out.println("____________________________________________________________");
@@ -93,6 +114,8 @@ public class Duke {
                             System.out.println("____________________________________________________________");
                             System.out.println("Got it. I've added this task: ");
                             System.out.println(todo[todo_index].toString());
+                            save += todo[todo_index].toString()+"\n";
+                            writeToFile("data/duke.txt",save);
                             todo_index += 1;
                         }catch (DukeException e) {
                             System.out.println("____________________________________________________________");
@@ -131,4 +154,20 @@ public class Duke {
             break;
         }
     }
+
+
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
 }
