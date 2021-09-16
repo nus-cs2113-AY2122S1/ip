@@ -40,4 +40,8 @@ public class Task {
     public static int getNumberOfTasks() {
         return numberOfTasks;
     }
+
+    public static void decreaseNumberOfTasks() {
+        numberOfTasks--;
+    }
 }
