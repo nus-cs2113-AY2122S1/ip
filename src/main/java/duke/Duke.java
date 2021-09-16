@@ -5,19 +5,23 @@ import duke.command.Event;
 import duke.command.Todo;
 import duke.task.Task;
 
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.nio.file.Paths;
 
 public class Duke {
 
     public static int taskNum = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static final String dataPath = "data/duke.txt";
+    public static final String root = System.getProperty("user.dir");
+    public static final Path dataPath = Paths.get(root, "data", "duke.txt");
+    public static final Path dirPath = Paths.get(root, "data");
 
     public static void main(String[] args) {
         String userCommand;
@@ -56,9 +60,18 @@ public class Duke {
         saveData();
     }
 
-    public static void loadData(String dataPath) throws IOException {
+    public static void loadData(Path dataPath) throws IOException {
+        File dataDirectory = new File(dirPath.toString());
 
-        File dataFile = new File(dataPath);
+        if(!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        File dataFile = new File(dataPath.toString());
+        if (!dataFile.exists()) {
+            dataFile.createNewFile();
+        }
+
         Scanner dataScanner = new Scanner(dataFile);
         while (dataScanner.hasNext()) {
             String content = dataScanner.nextLine();
@@ -90,7 +103,7 @@ public class Duke {
 
     public static void saveData() {
         try {
-            FileWriter writer = new FileWriter(dataPath);
+            FileWriter writer = new FileWriter(dataPath.toString());
             for (Task task : tasks) {
                 if (task instanceof Todo) {
                     writer.write("T | " + task.getStatusIcon() + " | " + task.getDescription() + System.lineSeparator());
