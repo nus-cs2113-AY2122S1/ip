@@ -34,7 +34,8 @@ public class TaskList {
     public Task deleteTask(int taskIndex) throws DukeException {
         if (taskIndex < 0) {
             throw new DukeException("Task index must be greater than 0.");
-        } else if (taskIndex >= tasks.size()) {
+        }
+        if (taskIndex >= tasks.size()) {
             throw new DukeException("Task does not exist.");
         }
         return tasks.remove(taskIndex);
@@ -57,7 +58,8 @@ public class TaskList {
     public Task completeTask(int taskIndex) throws DukeException {
         if (taskIndex < 0) {
             throw new DukeException("Task index must be greater than 0.");
-        } else if (taskIndex >= tasks.size()) {
+        }
+        if (taskIndex >= tasks.size()) {
             throw new DukeException("Task does not exist.");
         }
         tasks.get(taskIndex).setCompleted();

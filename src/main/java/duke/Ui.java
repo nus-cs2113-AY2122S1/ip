@@ -9,7 +9,7 @@ public class Ui {
     private static final String LINE = "  ────────────────────────────────────────────────";
 
     /**
-     * Gets user input and returns it as a String.
+     * Gets user input from terminal and returns it as a String.
      *
      * @return the String containing the user input.
      */
