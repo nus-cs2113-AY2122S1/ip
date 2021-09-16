@@ -10,9 +10,9 @@ import src.main.java.Task;
 public class Duke {
 
 
-    private static String[] stringList = new String[100];
+    private static ArrayList<String> stringList = new ArrayList<>();
     private static ArrayList<Task> taskList = new ArrayList<>();
-    private static String[] dueDate = new String[100];
+    private static ArrayList<String> dueDate = new ArrayList<>();
 
     private static int listCount = 0;
 
@@ -48,7 +48,8 @@ public class Duke {
         char taskType = line.toUpperCase().charAt(0);
         String taskDisplay = line.substring(5);
 
-        stringList[listCount] = taskDisplay;
+        stringList.add(listCount, taskDisplay);
+        dueDate.add(listCount, null);
         Todo todoTask = new Todo(taskDisplay, taskType);
         taskList.add(listCount, todoTask);
         return todoTask;
@@ -60,8 +61,8 @@ public class Duke {
         String doBy = "(" + line.substring(startingIndex + 1) + ")";
         char taskType = line.toUpperCase().charAt(0);
 
-        stringList[listCount] = taskDisplay;
-        dueDate[listCount] = line.substring(startingIndex + 1);
+        stringList.add(listCount, taskDisplay);
+        dueDate.add(listCount, line.substring(startingIndex + 1));
         Deadline deadlineTask = new Deadline(taskDisplay, taskType, doBy);
         taskList.add(listCount, deadlineTask);
         return deadlineTask;
@@ -73,8 +74,8 @@ public class Duke {
         String doBy = "(" + line.substring(startingIndex + 1) + ")";
         char taskType = line.toUpperCase().charAt(0);
 
-        stringList[listCount] = taskDisplay;
-        dueDate[listCount] = line.substring(startingIndex + 1);
+        stringList.add(listCount, taskDisplay);
+        dueDate.add(listCount, line.substring(startingIndex + 1));
         Event eventTask = new Event(taskDisplay, taskType, doBy);
         taskList.add(listCount, eventTask);
         return eventTask;
@@ -96,6 +97,8 @@ public class Duke {
         System.out.println("Now you have " + listCount + " tasks in the list.");
         System.out.println(LINE);
         taskList.remove(taskIndex);
+        dueDate.remove(taskIndex);
+        stringList.remove(taskIndex);
     }
 
     private static void mainProgram(String line, Scanner in) {
@@ -184,7 +187,7 @@ public class Duke {
 
             if (line.startsWith("T")) {
                 String taskDisplay = line.substring(8);
-                stringList[listCount] = taskDisplay;
+                stringList.add(listCount, taskDisplay);
                 Todo todoTask = new Todo(taskDisplay, 'T');
                 taskList.add(listCount, todoTask);
 
@@ -194,7 +197,7 @@ public class Duke {
             } else if (line.startsWith("D")) {
                 int deadlineIndex = line.indexOf("/");
                 String taskDisplay = line.substring(8, deadlineIndex);
-                stringList[listCount] = taskDisplay;
+                stringList.add(listCount, taskDisplay);
                 String doBy = "(" + line.substring(deadlineIndex + 1) + ")";
                 Deadline deadlineTask = new Deadline(taskDisplay, 'D', doBy);
                 taskList.add(listCount, deadlineTask);
@@ -205,7 +208,7 @@ public class Duke {
             } else if (line.startsWith("E")) {
                 int eventIndex = line.indexOf("/");
                 String taskDisplay = line.substring(8, eventIndex);
-                stringList[listCount] = taskDisplay;
+                stringList.add(listCount, taskDisplay);
                 String doBy = "(" + line.substring(eventIndex + 1) + ")";
                 Event eventTask = new Event(taskDisplay, 'E', doBy);
                 taskList.add(listCount, eventTask);
@@ -232,18 +235,18 @@ public class Duke {
 
     public static void writeData(){
         try{
-            String firstData = taskList.get(0).getTaskType() + " | " + taskList.get(0).getWrittenIcon() + " | " + stringList[0];
+            String firstData = taskList.get(0).getTaskType() + " | " + taskList.get(0).getWrittenIcon() + " | " + stringList.get(0);
             writeToFile(DATA_FILE_PATH , firstData + System.lineSeparator());
 
             for (int i = 1; i < listCount; i++){
                 if (taskList.get(i).getTaskType() == 'T') {
-                    String data = "T | " + taskList.get(i).getWrittenIcon() + " | " + stringList[i];
+                    String data = "T | " + taskList.get(i).getWrittenIcon() + " | " + stringList.get(i);
                     appendToFile(DATA_FILE_PATH , data + System.lineSeparator());
                 } else if (taskList.get(i).getTaskType() == 'D') {
-                    String data = "D | " + taskList.get(i).getWrittenIcon() + " | " + stringList[i] + " /" + dueDate[i];
+                    String data = "D | " + taskList.get(i).getWrittenIcon() + " | " + stringList.get(i) + " /" + dueDate.get(i);
                     appendToFile(DATA_FILE_PATH,data + System.lineSeparator());
                 } else if (taskList.get(i).getTaskType() == 'E') {
-                    String data = "E | " + taskList.get(i).getWrittenIcon() + " | " + stringList[i] + " /" + dueDate[i];
+                    String data = "E | " + taskList.get(i).getWrittenIcon() + " | " + stringList.get(i) + " /" + dueDate.get(i);
                     appendToFile(DATA_FILE_PATH,data + System.lineSeparator());
                 }
             }
