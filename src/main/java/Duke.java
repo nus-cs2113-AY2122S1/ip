@@ -14,7 +14,7 @@ public class Duke {
     //private static Task[] tasks = new Task[100]; //array to store task list
     //private static int taskCount; //store total number of tasks
     private static String filePath = "data/duke.txt";
-    //private static File taskList = new File(filePath);
+    private static File taskText = new File(filePath);
 
 
     /*METHODS*/
@@ -28,7 +28,7 @@ public class Duke {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
 
-        writeFile();
+        writeToFile();
     }
 
     //prints task list when "list" is keyed by user
@@ -48,7 +48,7 @@ public class Duke {
     //prints specific task that is done
     public static void setDoneTask(Task t, int i) throws IOException {
         tasks.get(i).setDone(true);
-        writeFile();
+        writeToFile();
 
         printHorizontalLine();
         System.out.println("Nice, I've marked this task as done:");
@@ -77,13 +77,19 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void writeFile() throws IOException {
+    public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
 
-        for (int i = 0; i < tasks.size(); i++) {
+        for (Task task : tasks) {
             try {
                 clearFile();
-                fw.write(tasks.get(i).type + " | " + tasks.get(i).getStatusIcon() + " | " + tasks.get(i).description + System.lineSeparator());
+
+                String status = "ND";
+                if (task.getStatusIcon().equals("X")) {
+                    status = "D";
+                }
+                fw.write(task.type + " | " + status + " | "
+                        + task.description + System.lineSeparator());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
@@ -97,8 +103,53 @@ public class Duke {
         fw.close();
     }
 
+    public static void readFile() throws FileNotFoundException {
+        Scanner s = new Scanner(taskText);
+        String[] arr;
+
+        while (s.hasNext()) {
+            String text = s.nextLine();
+            arr = text.split("\\|");
+
+            boolean status = arr[1].trim().equals("D");
+
+            Task t;
+            switch (arr[0].trim()) {
+            case "T":
+                t = new Todo(arr[2].trim());
+                t.isDone = status;
+                tasks.add(t);
 
 
+                break;
+            case "D": {
+                String fulltext = arr[2];
+                int index = fulltext.lastIndexOf("(by:");
+                String name = fulltext.substring(0, index).trim();
+                String by = fulltext.substring(index + 4, fulltext.length() - 1).trim();
+
+                t = new Deadline(name, by);
+                t.isDone = status;
+                tasks.add(t);
+
+                break;
+            }
+            case "E": {
+                String fulltext = arr[2];
+                int index = fulltext.lastIndexOf("(at:");
+                String name = fulltext.substring(0, index).trim();
+                String at = fulltext.substring(index + 4, fulltext.length() - 1).trim();
+
+                t = new Event(name, at);
+                t.isDone = status;
+                tasks.add(t);
+                break;
+            }
+            }
+
+        }
+        s.close();
+    }
 
     /*MAIN*/
 
@@ -106,12 +157,18 @@ public class Duke {
 
         printStartMessage();
 
+        try {
+            readFile();
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+
         String input, error;
         Scanner in = new Scanner(System.in);
 
         Task t;
         boolean isBye = false;
-        File taskList = new File(filePath);
+//        File taskList = new File(filePath);
 
         while (!isBye) {
             input = in.nextLine();
@@ -163,7 +220,7 @@ public class Duke {
 //                addTask(t);
 
                 error = "unrecognisedTask";
-                throw new DukeException("unrecognisedTask");
+                throw new DukeException(error);
             }
         }
     }
