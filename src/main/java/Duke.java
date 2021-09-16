@@ -1,9 +1,12 @@
-import tasks.Deadline;
-import tasks.DukeException;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import commands.Command;
+import duke.Deadline;
+import duke.DukeException;
+import duke.Event;
+import duke.Task;
+
+import javax.imageio.IIOException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,7 +14,7 @@ public class Duke {
     private boolean exit = false;
     private TaskList taskList = new TaskList();
 
-    public void run() {
+    public void run() throws IOException {
         String userInput;
         Scanner in = new Scanner(System.in);
 
@@ -21,6 +24,10 @@ public class Duke {
         System.out.println("____________________________________________________________");
         exit = true;
         while(exit) {
+        SaveFile s = new SaveFile("data.txt");
+        t = s.read();
+        listIndex = t.size();
+        while(true){
             userInput = in.nextLine();
             try {
                 Command c = Parser.parse(userInput, taskList);
@@ -29,6 +36,7 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
+            s.save(t);
         }
 
     }

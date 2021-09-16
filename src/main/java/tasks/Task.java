@@ -17,6 +17,10 @@ public class Task {
         return (done ? "X" : " ");
     }
 
+    public String getName(){
+        return this.name;
+    }
+
     public String toString(){
         return "[T][" + getStatus() + "]" + name;
     }

@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String getTime(){
+        return this.by;
+    }
+
     public String toString(){
         return "[D][" + super.getStatus() + "]" + super.name + "by: " + by;
     }
