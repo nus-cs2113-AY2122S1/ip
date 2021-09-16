@@ -1,13 +1,17 @@
 public class Deadline extends Task {
 
-    protected String dueDate;
+    protected String deadline;
 
-    public Deadline(String description, String dueDate) {
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public Deadline(String description, String deadline) {
         super(description);
-        this.dueDate = dueDate;
+        this.deadline = deadline;
     }
 
     public String toString() {
-        return ("[D][" + getStatusIcon() + "] " + description + " (by:" + dueDate + ")");
+        return ("[D][" + getStatusIcon() + "] " + description + " (by:" + deadline + ")");
     }
 }

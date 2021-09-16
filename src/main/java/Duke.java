@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
@@ -15,17 +19,21 @@ public class Duke {
 
     public static final String COMMAND_EXIT_WORD = "bye";
     public static final String COMMAND_EXIT_DESC = "Exits the program.";
+    public static final String COMMAND_EXIT_EXAMPLE = COMMAND_EXIT_WORD;
 
     public static final String COMMAND_LIST_WORD = "list";
     public static final String COMMAND_LIST_DESC = "Displays all tasks as a list with index numbers.";
+    public static final String COMMAND_LIST_EXAMPLE = COMMAND_LIST_WORD;
 
     public static final String COMMAND_DONE_WORD = "done";
     public static final String COMMAND_DONE_DESC = "Marks a task as complete.";
     public static final String COMMAND_DONE_PARAMETER = "TASK_INDEX";
+    public static final String COMMAND_DONE_EXAMPLE = COMMAND_DONE_WORD + " 1";
 
     public static final String COMMAND_TODO_WORD = "todo";
     public static final String COMMAND_TODO_DESC = "Adds a task of \"TODO\" type to the list";
     public static final String COMMAND_TODO_PARAMETER = "TASK_DESCRIPTION";
+    public static final String COMMAND_TODO_EXAMPLE = COMMAND_TODO_WORD + " do laundry";
 
     private static final String TASK_DATA_PREFIX_DEADLINE = "/by ";
     private static final String TASK_DATA_PREFIX_EVENT = "/at ";
@@ -33,23 +41,32 @@ public class Duke {
     public static final String COMMAND_DEADLINE_WORD = "deadline";
     public static final String COMMAND_DEADLINE_DESC = "Adds a task of \"DEADLINE\" type to the list";
     public static final String COMMAND_DEADLINE_PARAMETER = "TASK_DESCRIPTION "
-                                                        + TASK_DATA_PREFIX_DEADLINE
-                                                        + "DEADLINE";
+            + TASK_DATA_PREFIX_DEADLINE
+            + "DEADLINE";
+    public static final String COMMAND_DEADLINE_EXAMPLE = COMMAND_DEADLINE_WORD + " do laundry /by 3pm";
 
 
     public static final String COMMAND_EVENT_WORD = "event";
     public static final String COMMAND_EVENT_DESC = "Adds a task of \"EVENT\" type to the list";
     public static final String COMMAND_EVENT_PARAMETER = "TASK_DESCRIPTION "
-                                                    + TASK_DATA_PREFIX_EVENT + "TIME_RANGE";
+            + TASK_DATA_PREFIX_EVENT + "TIME_RANGE";
+    public static final String COMMAND_EVENT_EXAMPLE = COMMAND_EVENT_WORD + " do laundry /at 2-3pm";
 
     public static final String COMMAND_DELETE_WORD = "delete";
     public static final String COMMAND_DELETE_DESC = "Deletes a task";
     public static final String COMMAND_DELETE_PARAMETER = "TASK_INDEX";
+    public static final String COMMAND_DELETE_EXAMPLE = COMMAND_DELETE_WORD + " 1";
 
 
-    /** List of all Tasks */
+    /** List of all Tasks and Length of list*/
     private static ArrayList<Task> allTasks;
-    private static boolean exit = true;
+
+    /** Create a database file **/
+    private static final String FILE_PATH = "data/task_list.txt";
+    private static final String FOLDER_PATH = "data";
+
+
+    private static boolean exit = false;
 
     /** Text Messages **/
     private static final String LOGO = " ____        _        \n"
@@ -58,19 +75,27 @@ public class Duke {
                                     + "| |_| | |_| |   <  __/\n"
                                     + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String DIVIDER = "____________________________________________________________" + System.lineSeparator();
-    private static final String EMPTY_LIST_MESSAGE = "☹ There are currently no tasks in the list";
-    private static final String EXIT_MESSAGE = "Bye, see you!";
+    private static final String MESSAGE_EMPTY_LIST = "☹ There are currently no tasks in the list";
+    private static final String MESSAGE_EXIT = "Bye, see you!";
+    private static final String MESSAGE_NEW_FOLDER_CREATED = "New data folder created.";
 
-    private static int tasksCount;
 
+    /**
+     * Main entry point of the application.
+     * Initializes the application and starts the interaction with the user.
+     */
     public static void main(String[] args) {
-        initTaskList();
         showWelcomeMessage();
-        while(exit) {
+        initTaskList();
+        while(!exit) {
             String userInput = getUserInput();
-            handleUserInput(userInput);
+            executeCommand(userInput);
         }
-        System.out.println(EXIT_MESSAGE + System.lineSeparator() + DIVIDER);
+        System.out.println(MESSAGE_EXIT + System.lineSeparator() + DIVIDER);
+    }
+
+    private static void exitProgram() {
+        exit = true;
     }
 
     private static String getUserInput() {
@@ -79,10 +104,10 @@ public class Duke {
         return input;
     }
 
-    private static void handleUserInput(String userInput) {
+    private static void executeCommand(String userInput) {
         final String[] commandTypeAndParams =  splitCommandWordAndArgs(userInput);
         final String commandType = commandTypeAndParams[0];
-        final String commandArgs = commandTypeAndParams[1];
+        final String commandParams = commandTypeAndParams[1];
 
         try {
             switch (commandType) {
@@ -94,17 +119,17 @@ public class Duke {
                 System.out.println(DIVIDER);
                 break;
             case COMMAND_DONE_WORD:
-                executeCompleteTask(commandArgs);
+                executeCompleteTask(commandParams);
                 System.out.println(DIVIDER);
                 break;
             case COMMAND_TODO_WORD:
             case COMMAND_DEADLINE_WORD:
             case COMMAND_EVENT_WORD:
-                addTasks(commandType, commandArgs);
+                addTasks(commandType, commandParams);
                 System.out.println(DIVIDER);
                 break;
             case COMMAND_DELETE_WORD:
-                deleteTask(commandArgs);
+                deleteTask(commandParams);
                 System.out.println(DIVIDER);
                 break;
             default:
@@ -117,10 +142,19 @@ public class Duke {
         }
     }
 
+    /**
+     *Checks the type of Task and correspondingly calls the add function
+     *
+     * @param taskType type of task to add
+     * @param taskParams string containing the task parameters
+     * @throws EmptyParamsException If the task parameter is left empty
+     */
     private static void addTasks(String taskType, String taskParams) throws EmptyParamsException {
         if (taskParams.equals("")) {
             throw new EmptyParamsException();
         }
+        createFolder();
+        updateDataFile();
         switch(taskType) {
         case COMMAND_TODO_WORD:
             addToDoTask(taskParams);
@@ -134,11 +168,21 @@ public class Duke {
         }
     }
 
-    private static void addToDoTask(String taskParams) {
-        ToDo newToDo = new ToDo(taskParams);
-        allTasks.add(newToDo);
-        tasksCount++;
-        showTaskMessage(tasksCount, newToDo);
+    /**
+     * Adds a task of 'todo' type to the list
+     *
+     * @param toDoDescription the description of the ToDo task
+     */
+    private static void addToDoTask(String toDoDescription) {
+        try {
+            ToDo newToDo = new ToDo(toDoDescription);
+            allTasks.add(newToDo);
+            showTaskMessage(newToDo);
+            appendToDataFile("T / 0 / " + toDoDescription);
+        } catch (IOException e){
+            showIOExceptionMessage(e);
+        }
+
     }
 
     private static void addDeadlineTask(String taskParams) {
@@ -151,11 +195,13 @@ public class Duke {
             } else {
                 Deadline newDeadline = new Deadline(taskDescription, deadline);
                 allTasks.add(newDeadline);
-                tasksCount++;
-                showTaskMessage(tasksCount, newDeadline);
+                showTaskMessage(newDeadline);
+                appendToDataFile("D / 0 / " + taskDescription + "|" + deadline);
             }
         } catch (ArrayIndexOutOfBoundsException e){
             showInvalidDeadlineMessage();
+        } catch (IOException e){
+            showIOExceptionMessage(e);
         }
     }
 
@@ -170,13 +216,14 @@ public class Duke {
             } else {
                 Event newEvent = new Event(taskDescription, timeRange);
                 allTasks.add(newEvent);
-                tasksCount++;
-                showTaskMessage(tasksCount, newEvent);
+                showTaskMessage(newEvent);
+                appendToDataFile("E / 0 / " + taskDescription + "|" + timeRange);
             }
         } catch (ArrayIndexOutOfBoundsException e){
             showInvalidEventMessage();
+        } catch (IOException e){
+            showIOExceptionMessage(e);
         }
-
     }
 
     private static void executeCompleteTask(String userInput) {
@@ -188,6 +235,7 @@ public class Duke {
                 allTasks.get(taskIndex).markAsDone();
                 System.out.println("Awesome! You've completed the following task:");
                 System.out.println(" [X] " + allTasks.get(taskIndex).getDescription());
+                updateDataFile();
             }
         } catch (NumberFormatException e) {
             showInvalidTaskIndexMessage(COMMAND_DONE_WORD);
@@ -198,14 +246,14 @@ public class Duke {
 
     public static void deleteTask(String userInput) {
         try {
-            int taskIndex = Integer.parseInt(userInput) - 1;
-            //given task does not exist in list
-            Task taskToDelete = allTasks.get(taskIndex);
+            int indexOfTaskToDelete = Integer.parseInt(userInput) - 1;
+            Task taskToDelete = allTasks.get(indexOfTaskToDelete);
             System.out.println("Successfully deleted the following task:" + System.lineSeparator() +
                     "   " + taskToDelete);
             allTasks.remove(taskToDelete);
             System.out.println("Now you have " + allTasks.size() + " tasks in the list." +
                     System.lineSeparator());
+            updateDataFile();
         } catch (NumberFormatException e) {
             showInvalidTaskIndexMessage(COMMAND_DELETE_WORD);
         } catch (IndexOutOfBoundsException e) {
@@ -214,8 +262,9 @@ public class Duke {
     }
 
     private static void executeListTasks() {
+        int tasksCount = allTasks.size();
         if (tasksCount == 0) {
-            System.out.println(EMPTY_LIST_MESSAGE);
+            System.out.println(MESSAGE_EMPTY_LIST);
         }
         else {
             for(int i = 0; i < tasksCount; i++){
@@ -224,8 +273,41 @@ public class Duke {
         }
     }
 
-    private static void exitProgram() {
-        exit = false;
+
+    public static void updateDataFile() {
+        try {
+            clearDataFile();
+            for (Task task: allTasks) {
+                String textToAppend = null;
+                String isDone = task.isDone ? "1" : "0";
+                if (task instanceof ToDo) {
+                    textToAppend = "T / " + isDone + " / " + task.description;
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    String taskParams = deadline.description + "|" + deadline.getDeadline();
+                    textToAppend = "D / " + isDone + " / " + taskParams;
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    String taskParams = event.description + "|" + event.getEventTimeRange();
+                    textToAppend = "E / " + isDone + " / " + taskParams;
+                }
+                appendToDataFile(textToAppend);
+            }
+        } catch (IOException e) {
+            showIOExceptionMessage(e);
+        }
+    }
+
+    private static void appendToDataFile(String textToAppend) throws IOException{
+        FileWriter fileWriter = new FileWriter(FILE_PATH, true); // create a FileWriter in append mode
+        fileWriter.write(textToAppend + System.lineSeparator());
+        fileWriter.close();
+    }
+
+    private static void clearDataFile() throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        fileWriter.write("");
+        fileWriter.close();
     }
 
     private static String[] splitCommandWordAndArgs(String userInput) {
@@ -235,16 +317,71 @@ public class Duke {
 
     private static void initTaskList() {
         allTasks = new ArrayList<>();
-        tasksCount = 0;
+        try {
+            File dataFile = new File(FILE_PATH);
+            Scanner s = new Scanner(dataFile); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                String task = s.nextLine();
+                String[] taskTypeAndParams = task.split(" / ");
+                String taskType = taskTypeAndParams[0];
+                String isDone = taskTypeAndParams[1];
+                String taskParams =  taskTypeAndParams[2];
+                int taskIndex = allTasks.size() - 1;
+                switch(taskType) {
+                case "T":
+                    allTasks.add(new ToDo(taskParams));
+                    if (isDone.equals("1")) {
+                        allTasks.get(taskIndex).markAsDone();
+                    }
+                    break;
+                case "D":
+                    String[] taskDescriptionAndDeadline = taskParams.split(" \\| ");
+                    String deadlineDescription = taskDescriptionAndDeadline[0];
+                    String deadline = taskDescriptionAndDeadline[1];
+                    allTasks.add(new Deadline(deadlineDescription, deadline));
+
+                    if (isDone.equals("1")) {
+                        allTasks.get(taskIndex).markAsDone();
+                    }
+                    break;
+                case "E":
+                    String[] taskDescriptionAndTimeRange = taskParams.split(" \\| ");
+                    String eventDescription = taskDescriptionAndTimeRange[0];
+                    String timeRange = taskDescriptionAndTimeRange[1];
+                    allTasks.add(new Event(eventDescription, timeRange));
+                    if (isDone.equals("1")) {
+                        allTasks.get(taskIndex).markAsDone();
+                    }
+                    break;
+                default:
+                    throw new CorruptedFileException();
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            createFolder();
+        } catch (CorruptedFileException | ArrayIndexOutOfBoundsException e) {
+            showInvalidFileFormatMessage();
+        }
     }
 
-    private static void showTaskMessage(int inputCount, Task task) {
+    private static void createFolder() {
+        File folder = new File(FOLDER_PATH);
+        boolean folderIsCreated = folder.mkdir();
+        if (folderIsCreated) {
+            System.out.println(MESSAGE_NEW_FOLDER_CREATED);
+            System.out.println(DIVIDER);
+        }
+    }
+
+    private static void showTaskMessage(Task task) {
         System.out.println("Successfully added. Here's the added task: ");
         System.out.println("   " + task);
-        if (inputCount == 1) {
+        int tasksCount = allTasks.size();
+        if (tasksCount == 1) {
             System.out.println("There is 1 task in the list now.");
         } else {
-            System.out.println("There are " + inputCount + " tasks in the list now.");
+            System.out.println("There are " + tasksCount + " tasks in the list now.");
         }
     }
 
@@ -256,47 +393,68 @@ public class Duke {
                 + showUsageInfoForAllCommands() + DIVIDER);
     }
 
+    /*
+     * ===============================================
+     *         COMMAND HELP INFO FOR USERS
+     * ===============================================
+     */
+
+    /** Prints usage info for all commands **/
     private static String showUsageInfoForAllCommands() {
         return  getUsageInfoForTodoCommand() + System.lineSeparator()
                 + getUsageInfoForDeadlineCommand() + System.lineSeparator()
                 + getUsageInfoForEventCommand() + System.lineSeparator()
                 + getUsageInfoForDoneCommand() + System.lineSeparator()
+                + getUsageInfoForDeleteCommand() + System.lineSeparator()
                 + getUsageInfoForListCommand() + System.lineSeparator()
-                + getUsageInfoForExitCommand() + System.lineSeparator()
-                + getUsageInfoForDeleteCommand() + System.lineSeparator();
+                + getUsageInfoForExitCommand() + System.lineSeparator();
     }
 
+    /** Prints the string for 'todo' command usage instruction **/
     private static String getUsageInfoForTodoCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_TODO_WORD, COMMAND_TODO_DESC) + System.lineSeparator()
-                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_TODO_PARAMETER) + System.lineSeparator();
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_TODO_PARAMETER) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_TODO_EXAMPLE) + System.lineSeparator();
     }
 
+    /** Prints the string for 'deadline' command usage instruction **/
     private static String getUsageInfoForDeadlineCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_DEADLINE_WORD, COMMAND_DEADLINE_DESC) + System.lineSeparator()
-                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DEADLINE_PARAMETER) + System.lineSeparator();
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DEADLINE_PARAMETER) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_DEADLINE_EXAMPLE) + System.lineSeparator();
     }
 
+    /** Prints the string for 'event' command usage instruction **/
     private static String getUsageInfoForEventCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_EVENT_WORD, COMMAND_EVENT_DESC) + System.lineSeparator()
-                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_EVENT_PARAMETER) + System.lineSeparator();
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_EVENT_PARAMETER) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_EVENT_EXAMPLE) + System.lineSeparator();
     }
 
+    /** Prints the string for 'done' command usage instruction **/
     private static String getUsageInfoForDoneCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_DONE_WORD, COMMAND_DONE_DESC) + System.lineSeparator()
-                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DONE_PARAMETER) + System.lineSeparator();
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DONE_PARAMETER) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_DONE_EXAMPLE) + System.lineSeparator();
     }
 
+    /** Prints the string for 'delete' command usage instruction **/
     private static String getUsageInfoForDeleteCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_DELETE_WORD, COMMAND_DELETE_DESC) + System.lineSeparator()
-                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DELETE_PARAMETER) + System.lineSeparator();
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_DELETE_PARAMETER) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_DELETE_EXAMPLE) + System.lineSeparator();
     }
 
+    /** Prints the string for 'list' command usage instruction **/
     private static String getUsageInfoForListCommand() {
-        return String.format(MESSAGE_COMMAND_HELP, COMMAND_LIST_WORD, COMMAND_LIST_DESC) + System.lineSeparator();
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_LIST_WORD, COMMAND_LIST_DESC) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_LIST_EXAMPLE) + System.lineSeparator();
     }
 
+    /** Prints the string for 'exit' command usage instruction **/
     private static String getUsageInfoForExitCommand() {
-        return String.format(MESSAGE_COMMAND_HELP, COMMAND_EXIT_WORD, COMMAND_EXIT_DESC) + System.lineSeparator();
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_EXIT_WORD, COMMAND_EXIT_DESC) + System.lineSeparator()
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_EXIT_EXAMPLE) + System.lineSeparator();
     }
 
 
@@ -331,6 +489,7 @@ public class Duke {
     }
 
     private static void showExceedTaskIndexMessage() {
+        int tasksCount = allTasks.size();
         if (tasksCount == 0) {
             System.out.println("☹ OOPS!!! You do not have any tasks in the list yet!");
         }
@@ -339,4 +498,11 @@ public class Duke {
         }
     }
 
+    private static void showIOExceptionMessage(IOException e) {
+        System.out.println("Something went wrong: " + e.getMessage());
+    }
+
+    private static void showInvalidFileFormatMessage() {
+        System.out.println("Data file is corrupted.");
+    }
 }
