@@ -1,0 +1,4 @@
+1.[T][ ] something
+2.[E][X] dinner (at: home)
+3.[T][ ] mark test
+4.[D][X] submit code (by: next week)

@@ -25,12 +25,14 @@ ____________________________________________________________
 Got it. I've added this task:
     [T][ ] homework
 Now you have 1 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
 Got it. I've added this task:
     [T][ ] english essay
 Now you have 2 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
@@ -52,12 +54,14 @@ ____________________________________________________________
 Got it. I've added this task:
     [D][ ] proposal (by: tomorrow 9pm)
 Now you have 3 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
 Got it. I've added this task:
     [D][ ] coding assignment (by: today midnight)
 Now you have 4 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ? The description of the deadline is not complete.
@@ -69,6 +73,7 @@ Enter command:
 ____________________________________________________________
 Nice! I've marked this task as done:
     4.[D][X] coding assignment (by: today midnight)
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
@@ -83,18 +88,21 @@ ____________________________________________________________
 Noted. I've removed this task:
     3.[D][ ] proposal (by: tomorrow 9pm)
 Now you have 3 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
 Got it. I've added this task:
     [E][ ] business meeting (at: my house)
 Now you have 4 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________
 Got it. I've added this task:
     [E][ ] wedding dinner (at: hotel)
 Now you have 5 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ? "at:" cannot be empty.
@@ -122,6 +130,7 @@ ____________________________________________________________
 Noted. I've removed this task:
     5.[E][ ] wedding dinner (at: hotel)
 Now you have 4 tasks in the list
+File "duke.txt" updated
 ____________________________________________________________
 Enter command: 
 ____________________________________________________________

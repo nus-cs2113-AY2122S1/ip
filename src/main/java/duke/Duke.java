@@ -6,6 +6,10 @@ import duke.exception.NumberOutOfBoundsException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,6 +41,8 @@ public class Duke {
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> taskArrayList = new ArrayList<>();
+    public static final String FILEPATH = "data/duke.txt";
+    public static final String FOLDERPATH = "data";
 
     private static void printLogo() {
         String logo = " ____        _        \n"
@@ -91,22 +97,27 @@ public class Duke {
         case COMMAND_DONE:
             handleIntConversion(userInput, COMMAND_DONE);
             performMarkTaskDone(inputNum);
+            saveFile();
             break;
         case COMMAND_TODO:
             splitTodo(userInput);
             performAddTodo(todoTask);
+            saveFile();
             break;
         case COMMAND_DEADLINE:
             splitDeadline(userInput);
             performAddDeadline(deadlineDescription, by);
+            saveFile();
             break;
         case COMMAND_EVENT:
             splitEvent(userInput);
             performAddEvent(eventDescription, at);
+            saveFile();
             break;
         case COMMAND_DELETE:
             handleIntConversion(userInput, COMMAND_DELETE);
             performDelete(inputNum);
+            saveFile();
             break;
         case COMMAND_BYE:
             exitProgram();
@@ -244,6 +255,39 @@ public class Duke {
     public static void exitProgram() {
         printGreeting("Bye. Hope to see you again soon!", HORIZONTAL_LINE);
         System.exit(0);
+    }
+
+    private static void saveFile() {
+        try {
+            createFolder();
+            createFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void createFolder() {
+        File folder = new File(FOLDERPATH);
+        if (folder.mkdir()) {
+            System.out.println("Folder created: " + folder.getName());
+        }
+    }
+
+    private static void createFile() throws IOException {
+        File f = new File(FILEPATH);
+        if (f.createNewFile()) {
+            System.out.println("File created: " + f.getName());
+        }
+        writeToFile();
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH);
+        for (Task t : taskArrayList){
+            fw.write(t.taskNum + "." + t + System.lineSeparator());
+        }
+        fw.close();
+        System.out.println("File \"duke.txt\" updated");
     }
 
 
