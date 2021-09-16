@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.lang.String;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -11,18 +12,17 @@ public class Duke {
     public static final int AT_POS = 4;
     public static final int EVENT_POS = 6;
 
-    public static int numOfTasks = 0;
-
     public static void main(String[] args) {
 
         greeting();
 
-        Task[] tasks = new Task[MAX_NUM_OF_TASKS];
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         Scanner input = new Scanner(System.in);
         while (true) {
             String inputString = input.nextLine();
             if (inputString.equals("bye")) {
+                saveDataToFile("tasks", tasks);
                 exit();
                 break;
             } else if (inputString.equals("list")) {
@@ -52,6 +52,8 @@ public class Duke {
                             + "☹ OOPS!!! The index is out of range.\n"
                             + line);
                 }
+            } else if (inputString.contains("delete") == true) {
+                deleteTask(inputString, tasks);
             } else {
                 try {
                     addTask(inputString, tasks);
@@ -65,14 +67,15 @@ public class Duke {
                     } else if (inputString.contains("event")) {
                         type = "event";
                     }
-                    System.out.println(line
-                            + "☹ OOPS!!! The description of a " + type + " cannot be empty.\n"
-                            + line);
-                }
-                catch(NullPointerException n) {
-                    System.out.println(line
-                            + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
-                            + line);
+                    if (type == "") {
+                        System.out.println(line
+                                + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                                + line);
+                    } else {
+                        System.out.println(line
+                                + "☹ OOPS!!! The description of a " + type + " cannot be empty.\n"
+                                + line);
+                    }
                 }
             }
         }
@@ -98,22 +101,22 @@ public class Duke {
                 + line);
     }
 
-    public static final void printList(Task[] tasks) throws DukeException{
-        if (numOfTasks == 0) {
+    public static final void printList(ArrayList<Task> tasks) throws DukeException{
+        if (tasks.size() == 0) {
             throw new DukeException("The list is empty!");
         } else {
             System.out.println(line
                     + "Here are the tasks in your list: ");
 
-            for (int index = 0; index < numOfTasks; index++) {
+            for (int index = 0; index < tasks.size(); index++) {
                 System.out.println((index + 1) + ". "
-                        + tasks[index].toString());
+                        + tasks.get(index).toString());
             }
             System.out.println(line);
         }
     }
 
-    public static final void setDone(String input, Task[] tasks) {
+    public static final void setDone(String input, ArrayList<Task> tasks) {
         String num = "";
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
@@ -123,34 +126,51 @@ public class Duke {
         }
 
         int index = Integer.parseInt(num);
-        tasks[index - 1].markedAsDone();
+        tasks.get(index - 1).markedAsDone();
         System.out.println(line
                 + "Nice! I've marked this task as done: \n"
-                + tasks[index - 1] + "\n"
+                + tasks.get(index - 1) + "\n"
                 + line);
     }
 
-    public static final void addTask(String input, Task[] tasks) throws NullPointerException {
+    public static final void addTask(String input, ArrayList<Task> tasks) throws NullPointerException {
         if (input.contains("todo") == true) {
-            tasks[numOfTasks] = new Todo(input.substring(TODO_POS));
+            tasks.add(new Todo(input.substring(TODO_POS)));
         } else if (input.contains("deadline") == true) {
             String by = input.substring(input.indexOf("/") + BY_POS);
-            tasks[numOfTasks] = new Deadline(input.substring(DEADLINE_POS,
-                    input.indexOf("/")), by);
+            tasks.add(new Deadline(input.substring(DEADLINE_POS,
+                    input.indexOf("/")), by));
         } else if (input.contains("event") == true) {
             String at = input.substring(input.indexOf("/") + AT_POS);
-            tasks[numOfTasks] = new Event(input.substring(EVENT_POS,
-                    input.indexOf("/")), at);
+            tasks.add(new Event(input.substring(EVENT_POS,
+                    input.indexOf("/")), at));
         } else {
-            System.out.print(tasks[numOfTasks + 1].toString());
+            System.out.print(tasks.get(tasks.size() + 1).toString());
         }
 
-        numOfTasks++;
         System.out.println(line
                 + "Got it. I've added this task: \n"
-                + tasks[numOfTasks - 1] + "\n"
-                + "Now you have " + numOfTasks
+                + tasks.get(tasks.size() - 1) + "\n"
+                + "Now you have " + tasks.size()
                 + " tasks in the list\n"
                 + line);
     }
-}
+
+    public static final void deleteTask(String input, ArrayList<Task> tasks) {
+        String num = "";
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (Character.isDigit(c) == true) {
+                num += c;
+            }
+        }
+
+        int index = Integer.parseInt(num);
+        Task removedTask = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        System.out.println(line
+                + "Noted. I've removed this task: \n"
+                + removedTask.toString()
+                + "\nNow you have " + tasks.size()
+                + " tasks in the list.\n" + line);
+    }
