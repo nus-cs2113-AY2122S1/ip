@@ -13,12 +13,10 @@ public class Event extends Task{
         this.eventDate = eventDate;
     }
 
-    //Getter
     public String getEventDate() {
         return eventDate;
     }
 
-    // Methods
     public static void addEventTask(String line) throws KittyException {
         if(!Parser.hasEventDate(line)) {
             throw new KittyException("Event formatting is incorrect!");

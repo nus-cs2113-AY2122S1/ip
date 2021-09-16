@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class IO {
 
-    public static final String DATA_PATH = "src/main/java/kitty/userinterface/data.txt";
+    public static final String DATA_PATH = "C:\\Users\\ASUS\\Desktop\\CS2113\\ip\\src\\main\\java\\kitty\\userinterface\\data.txt";
 
     public static void initData() throws KittyException {
         try {
@@ -24,33 +24,20 @@ public class IO {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String rawData = s.nextLine();
-                String type = rawData.substring(0, rawData.indexOf("|"));
-                String status = rawData.substring(rawData.indexOf("|") + 1, rawData.indexOf("|") + 2);
-                String task = rawData.substring(rawData.indexOf("|") + 3);
+                String type = IOParser.getDataType(rawData);
+                String status = IOParser.getDataStatus(rawData);
+                String task = IOParser.getDataTask(rawData);
 
                 // Add Tasks
                 switch (type) {
                 case "T":
-                    Kitty.tasks.add(new Todo(task));
-                    if (status.equals("1")) {
-                        Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
-                    }
+                    addTodoFromRawData(status, task);
                     break;
                 case "D":
-                    String deadlineName = task.substring(0, task.indexOf("|"));
-                    String deadlineDate = task.substring(task.indexOf("|") + 1);
-                    Kitty.tasks.add(new Deadline(deadlineName, deadlineDate));
-                    if (status.equals("1")) {
-                        Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
-                    }
+                    addDeadlineFromRawData(status, task);
                     break;
                 case "E":
-                    String eventName = task.substring(0, task.indexOf("|"));
-                    String eventDate = task.substring(task.indexOf("|") + 1);
-                    Kitty.tasks.add(new Event(eventName, eventDate));
-                    if (status.equals("1")) {
-                        Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
-                    }
+                    addEventFromRawData(status, task);
                     break;
                 default:
                     throw new KittyException("Invalid Raw Data!");
@@ -58,6 +45,31 @@ public class IO {
             }
         } catch (FileNotFoundException e) {
             throw new KittyException("File not found!");
+        }
+    }
+
+    private static void addEventFromRawData(String status, String task) {
+        String eventName = IOParser.getTaskName(task);
+        String eventDate = IOParser.getTaskDate(task);
+        Kitty.tasks.add(new Event(eventName, eventDate));
+        if (IOParser.isTaskDone(status)) {
+            Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
+        }
+    }
+
+    private static void addDeadlineFromRawData(String status, String task) {
+        String deadlineName = IOParser.getTaskName(task);
+        String deadlineDate = IOParser.getTaskDate(task);
+        Kitty.tasks.add(new Deadline(deadlineName, deadlineDate));
+        if (IOParser.isTaskDone(status)) {
+            Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
+        }
+    }
+
+    private static void addTodoFromRawData(String status, String task) {
+        Kitty.tasks.add(new Todo(task));
+        if (IOParser.isTaskDone(status)) {
+            Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
         }
     }
 

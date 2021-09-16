@@ -4,7 +4,6 @@ public class Task {
     private String taskName;
     private boolean isDone;
 
-    //Constructor
     public Task(String name) {
         this.taskName = name;
         this.isDone = false;

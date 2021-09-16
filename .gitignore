@@ -17,3 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 DATA_PATH
 src/main/java/kitty/userinterface/data.txt
+src/main/java/META-INF/MANIFEST.MF

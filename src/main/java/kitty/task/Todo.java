@@ -13,7 +13,6 @@ public class Todo extends Task{
         super(taskName);
     }
 
-    // Methods
     public static void addTodoTask(String line) throws KittyException {
         try {
             String taskName = Parser.getTodoTaskName(line);
