@@ -1,7 +1,15 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Duke {
+    private static File save;
+
     public static String addTaskSalutation(String item) {
         Random rand = new Random();
         String out = "";
@@ -31,26 +39,20 @@ public class Duke {
     }
     public static void addTodo(String input, Tasks user) {
         user.list[user.listLength] = new Todo(input.substring(5));
-        System.out.println("\t" + addTaskSalutation(input.substring(5)));
         user.listLength ++;
         user.tasksIncomplete ++;
-        System.out.println("\tNow you have " + user.listLength + " tasks in the list, " + user.tasksIncomplete + " incomplete tasks.");
     }
     public static void addDeadline(String input, Tasks user) {
-        user.list[user.listLength] = new Deadline(input.substring(9, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 1));
-        System.out.println("\t" + addTaskSalutation(input.substring(9, input.indexOf("/") - 1)));
+        user.list[user.listLength] = new Deadline(input.substring(9, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 1), input.substring(9));
         user.listLength ++;
         user.tasksIncomplete ++;
-        System.out.println("\tNow you have " + user.listLength + " tasks in the list, " + user.tasksIncomplete + " incomplete tasks.");
     }
     public static void addEvent(String input, Tasks user) {
-        user.list[user.listLength] = new Event(input.substring(6, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 1));
-        System.out.println("\t" + addTaskSalutation(input.substring(6, input.indexOf("/") - 1)));
+        user.list[user.listLength] = new Event(input.substring(6, input.indexOf("/") - 1), input.substring(input.indexOf("/") + 1), input.substring(6));
         user.listLength ++;
         user.tasksIncomplete ++;
-        System.out.println("\tNow you have " + user.listLength + " tasks in the list, " + user.tasksIncomplete + " incomplete tasks.");
     }
-    public static void markDone(String input, Tasks user) throws ArrayIndexOutOfBoundsException, MultiMarkDoneException {
+    public static String markDone(String input, Tasks user) throws ArrayIndexOutOfBoundsException, MultiMarkDoneException {
         int index = Integer.parseInt(input.substring(5)) - 1;
         if (index < user.listLength &&  index >= 0) {
             if (user.list[index].complete) {
@@ -58,12 +60,13 @@ public class Duke {
             }
             user.list[index].markComplete();
             user.tasksIncomplete --;
-            System.out.println("\tAs you wish sir. I have marked this task as done:\n\t[X] " + user.list[index].item + "\n\tNow you have " + user.tasksIncomplete + " incomplete tasks.");
+            return ("\tAs you wish sir. I have marked this task as done:\n\t[X] " + user.list[index].item + "\n\tNow you have " + user.tasksIncomplete + " incomplete tasks.");
         } else {
             throw new ArrayIndexOutOfBoundsException();
 
         }
     }
+<<<<<<< HEAD
 
     public static void deleteEvent(String input, Tasks user) throws ArrayIndexOutOfBoundsException {
         int index = Integer.parseInt(input) - 1;
@@ -82,6 +85,9 @@ public class Duke {
     }
 
     public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException, DeleteTaskFormatException {
+=======
+    public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException, IOException {
+>>>>>>> branch-Level-7
         String[] inputArr = input.split(" ");
         switch (inputArr[0]) {
         case ("list"):
@@ -94,12 +100,14 @@ public class Duke {
                 throw new DueDateFormatException();
             }
             addDeadline(input, user);
+            System.out.println("\t" + addTaskSalutation(input.substring(9, input.indexOf("/") - 1)) + "\n\tNow you have " + user.listLength + " tasks in the list, " + user.tasksIncomplete + " incomplete tasks.");
             break;
         case ("todo"):
             if (inputArr.length < 2) {
                 throw new IllegalTaskException();
             }
             addTodo(input, user);
+            System.out.println("\t" + addTaskSalutation(input.substring(5)) + "\n\tNow you have " + user.listLength + " tasks in the list, " + user.tasksIncomplete + " incomplete tasks.");
             break;
         case ("event"):
             if (inputArr.length < 2) {
@@ -108,9 +116,10 @@ public class Duke {
                 throw new DueDateFormatException();
             }
             addEvent(input, user);
+            System.out.println("\t" + addTaskSalutation(input.substring(6, input.indexOf("/") - 1)) + "\n\tNow you have " + user.listLength + " tasks in the list, " + user.tasksIncomplete + " incomplete tasks.");
             break;
         case ("done"):
-            markDone(input, user);
+            System.out.println(markDone(input, user));
             break;
         case ("delete"):
             if (inputArr.length != 2) {
@@ -121,6 +130,7 @@ public class Duke {
         default:
             throw new IllegalCommandException();
         }
+        writeToFile(user);
     }
     public static void greet(String logo) {
         System.out.println("\n" + logo);
@@ -131,6 +141,48 @@ public class Duke {
     public static void exit() {
         System.out.println("Goodbye Sir. I shall be at your service again whenever you require.\n"); //exit message
         line();
+    }
+    public static void openSaveFile (Tasks user) {
+        try {
+            File directory = new File ("data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            save = new File(directory + "/" + "duke.txt");
+            save.createNewFile();
+            Scanner s = new Scanner(save);
+            int i = 1;
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split("\\|");
+                String type = parts[0].trim();
+                String completion = parts[1].trim();
+                String item = parts[2].trim();
+                switch (type) {
+                    case "T":
+                        addTodo("todo " + item, user);
+                        break;
+                    case "D":
+                        addDeadline("deadline " + item, user);
+                        break;
+                    case "E":
+                        addEvent("event " + item, user);
+                        break;
+                }
+                if (completion.equals("X")) {
+                    markDone("done " + Integer.toString(i), user);
+                }
+                i++;
+            }
+        } catch (IOException | MultiMarkDoneException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+    private static void writeToFile(Tasks user) throws IOException {
+        FileWriter fw = new FileWriter(save);
+        for (int i = 0; i < user.listLength; i++) {
+            fw.write(user.list[i].getType() + " | " + user.list[i].getStatus() + " | " + user.list[i].getOriginalInput() +  System.lineSeparator());
+        }
+        fw.close();
     }
     public static void main(String[] args) {
         String logo = "                       ./((((((((((((((/.                    \n" +
@@ -161,6 +213,7 @@ public class Duke {
                 " */**.    */.      /*  **    ./*      */      ,*.  ,******  ";
         greet(logo);
         Tasks user = new Tasks();
+        openSaveFile(user);
         Scanner sc= new Scanner(System.in);
         String input = sc.nextLine();
         line();
@@ -177,8 +230,13 @@ public class Duke {
                 System.out.println("Sir, I am afraid that task you are referring to does not exist.");
             } catch (MultiMarkDoneException e) {
                 System.out.println("Sir, this task has already been marked as done.");
+<<<<<<< HEAD
             } catch (DeleteTaskFormatException e) {
                 System.out.println("Sir, May I suggest specifying the task you want to delete more clearly? (eg. delete 1)");
+=======
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+>>>>>>> branch-Level-7
             }
             line();
             input = sc.nextLine();
