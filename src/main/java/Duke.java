@@ -251,8 +251,7 @@ public class Duke {
             System.out.println("Successfully deleted the following task:" + System.lineSeparator() +
                     "   " + taskToDelete);
             allTasks.remove(taskToDelete);
-            System.out.println("Now you have " + allTasks.size() + " tasks in the list." +
-                    System.lineSeparator());
+            System.out.println("Now you have " + allTasks.size() + " tasks in the list.");
             updateDataFile();
         } catch (NumberFormatException e) {
             showInvalidTaskIndexMessage(COMMAND_DELETE_WORD);
@@ -466,6 +465,7 @@ public class Duke {
 
     private static void showInvalidCommandMessage() {
         System.out.println("☹ Sorry, I did not understand your command.");
+        System.out.println(DIVIDER);
     }
 
     private static void showInvalidDeadlineMessage() {
@@ -478,6 +478,7 @@ public class Duke {
 
     private static void showEmptyParamMessage(String commandType) {
         System.out.printf("☹ OOPS!!! The description of a %s cannot be empty." + System.lineSeparator(), commandType);
+        System.out.println(DIVIDER);
     }
 
     private static void showMissingTaskDescriptionMessage() {
@@ -504,5 +505,6 @@ public class Duke {
 
     private static void showInvalidFileFormatMessage() {
         System.out.println("Data file is corrupted.");
+        System.out.println(DIVIDER);
     }
 }
