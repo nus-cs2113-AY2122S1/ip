@@ -105,7 +105,7 @@ public class Task {
     }
 
     public static void remove(ArrayList<Task> list, int index) throws IOException {
-        removeTaskInFile(index);
+        removeTaskInFile(index - 1);
         Task t = list.get(index - 1);
         for (int i = index; i < list.size(); i++) {
             list.set(i - 1, list.get(i));
@@ -121,13 +121,11 @@ public class Task {
         BufferedReader reader = null;
         FileWriter writer = null;
         reader = new BufferedReader(new FileReader(filePath));
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < numberOfTasks; i++) {
             line = reader.readLine();
-            fileContent = fileContent + line + System.lineSeparator();
-        }
-        line = reader.readLine();
-        for (int i = index + 1; i < numberOfTasks; i++) {
-            line = reader.readLine();
+            if (i == index) {
+                continue;
+            }
             fileContent = fileContent + line + System.lineSeparator();
         }
         writer = new FileWriter(filePath);
