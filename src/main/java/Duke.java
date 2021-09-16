@@ -220,16 +220,16 @@ public class Duke {
             FileWriter fw = new FileWriter(FILEPATH, true);
             switch (type) {
             case "T":
-                fw.write(type + " / " + isDone + " / " + input + System.lineSeparator());
+                fw.write(type + " | " + isDone + " | " + input + System.lineSeparator());
                 break;
             case "D":
                 String[] deadlineSplit = input.split("/by", 2);
-                fw.write(type + " / " + isDone + " / " + deadlineSplit[0] + " / " +
+                fw.write(type + " | " + isDone + " | " + deadlineSplit[0] + " | " +
                         deadlineSplit[1] + System.lineSeparator());
                 break;
             case "E":
                 String[] eventSplit = input.split("/at", 2);
-                fw.write(type + " / " + isDone + " / " + eventSplit[0] + " / " + eventSplit[1]
+                fw.write(type + " | " + isDone + " | " + eventSplit[0] + " | " + eventSplit[1]
                         + System.lineSeparator());
                 break;
             default:
@@ -255,32 +255,27 @@ public class Duke {
     public static void updateDatabase() {
         //update after mark done.
         //clear file then append from list
-        try {
-            FileWriter fw = new FileWriter(FILEPATH, true);
-            clearDatabase();
-            for (Task task: tasks) {
-                String isDone = task.isDone? "1" : "0";
-                if (task instanceof Todo) {
-                    appendDatabase("T", task.description, isDone);
-                } else if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    String input = deadline.description + "/by" + deadline.getDeadline();
-                    appendDatabase("D", input , isDone);
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    String input = event.description + "/at" + event.getDeadline();
-                    appendDatabase("E", input , isDone);
-                }
+        clearDatabase();
+        for (Task task: tasks) {
+            String isDone = task.isDone? "1" : "0";
+            if (task instanceof Todo) {
+                appendDatabase("T", task.description, isDone);
+            } else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                String input = deadline.description + "/by" + deadline.getDeadline();
+                appendDatabase("D", input , isDone);
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                String input = event.description + "/at" + event.getDeadline();
+                appendDatabase("E", input , isDone);
             }
-        } catch (IOException e) {
-            System.out.println(LINES + NO_FILE_MESSAGE + LINES);
         }
     }
 
     public static void initList(Scanner s) throws JimException {
         while (s.hasNext()) {
             String task = s.nextLine();
-            String[] listedTask = task.split(" / ", 4);
+            String[] listedTask = task.split(" \\| ", 4);
             switch (listedTask[0]) {
             case "T":
                 tasks.add(new Todo(listedTask[2]));
