@@ -12,7 +12,6 @@ public class Duke {
     public static int inputCount = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
     private static final String taskDoneChecker = "0";
-    private static final String filePath = "C:\\Users\\Edwar\\Documents\\ip\\data\\duke.txt";
     private static final String INPUT_BYE = "bye";
     private static final String INPUT_LIST = "list";
     private static final String INPUT_DONE = "done";
@@ -26,7 +25,7 @@ public class Duke {
         try {
             loadFile();
         } catch (FileNotFoundException e22) {
-            System.out.println("file not found!");
+            System.out.println("File not found! Continue entering commands for automatic file creation!");
         }
 
         String input;
@@ -139,7 +138,12 @@ public class Duke {
 
     }
 
-
+    /**
+     * Returns a print statement of all tasks in the file Duke.txt
+     *
+     * @param in input of user
+     * @return prints list of all tasks
+     */
     private static String printList(Scanner in) {
         String input;
         System.out.println("    Here are the tasks in your list:");
@@ -151,6 +155,15 @@ public class Duke {
         return input;
     }
 
+    /**
+     * Test if the index number of the user's input after calling "done" is within
+     * the index number of all the tasks in the file. If it is valid,
+     * enter setTaskDone, if not, prints error message
+     *
+     * @param input String containing the user command
+     * @return setTaskDone or invalid message if index number provided is less than 1,
+     * or more than the last task
+     */
     private static String testTaskDone(String input, Scanner in) {
         int taskNumber;
         String[] inputSplitter;
@@ -168,6 +181,15 @@ public class Duke {
         return input;
     }
 
+    /**
+     * Test if the index number of the user's input after calling "delete" is within
+     * the index number of all the tasks in the file. If it is valid,
+     * enter setTaskDone, if not, prints error message
+     *
+     * @param input String containing the user command
+     * @return setTaskDone or invalid message if index number provided is less than 1,
+     * or more than the last task
+     */
     private static String testDeleteTask(String input, Scanner in) {
         int taskNumber;
         String[] inputSplitter;
@@ -187,6 +209,14 @@ public class Duke {
         return input;
     }
 
+    /**
+     * Sets the task, identified by its index number, to be done, marking an x in its [ ]
+     * when printList is called
+     *
+     * @param in String containing the user command
+     * @param task list of all tasks
+     * @return marks x in [ ] in the list operation when printList is called
+     */
     private static String setTaskDone(Scanner in, Task task) {
         String input;
         System.out.println("    Nice! I've marked this task as done:" + System.lineSeparator());
@@ -200,6 +230,14 @@ public class Duke {
         return input;
     }
 
+    /**
+     * Deletes the task, identified by its index number, by removing it from task
+     *
+     * @param in String containing the user command
+     * @param task list of all tasks
+     * @return prints out the task that has been deleted and shows the remaining number
+     * of tasks left.
+     */
     private static String setTaskDelete(Scanner in, Task task) {
         String input;
         System.out.println("    Noted. I've removed this task:");
@@ -210,6 +248,12 @@ public class Duke {
         return input;
     }
 
+    /**
+     * creates a new todo task by using child class Todo and ovverride toString() function
+     *
+     * @param input String containing the user command
+     * @return tasksToDo which contains the new todo task to be added
+     */
     public static Task getToDoMethod(String input) {
         String toDoDescription = input.substring(4).trim();
 
@@ -259,6 +303,7 @@ public class Duke {
     }
 
     public static void appendTodo(String input) {
+        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
         String isDone = taskDoneChecker;
         String addToDoDescription = input.substring(4).trim(); // "return book"
 
@@ -272,6 +317,7 @@ public class Duke {
     }
 
     public static void appendEvent(String input) {
+        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
         String isDone = taskDoneChecker;
         String[] eventSplitterString = input.substring(6).split(" /at ");
         String addEventDescription = eventSplitterString[0];
@@ -287,6 +333,7 @@ public class Duke {
     }
 
     public static void appendDeadline(String input) {
+        String filePath = new File("./data/duke.txt").getAbsolutePath(); //addded
         String isDone = taskDoneChecker;
         String[] deadlineSplitterString = input.substring(9).split(" /by ");
         String addDeadlineDescription = deadlineSplitterString[0];
@@ -301,6 +348,7 @@ public class Duke {
     }
 
     public static void replaceAllTasks() throws IOException {
+        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
         FileWriter fw = new FileWriter(filePath, false);
         String taskToSave;
 
@@ -320,6 +368,7 @@ public class Duke {
     }
 
     public static void loadFile() throws FileNotFoundException {
+        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
         File f = new File(filePath);
         Scanner fileScan = new Scanner(f);
         String taskType;
