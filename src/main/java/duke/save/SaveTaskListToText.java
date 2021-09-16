@@ -259,13 +259,16 @@ public class SaveTaskListToText {
         Scanner sc = new Scanner(new File(filePath));
         StringBuffer buffer = new StringBuffer();
 
-        while (sc.hasNextLine()) {
-            buffer.append(sc.nextLine()+System.lineSeparator());
+        while (sc.hasNextLine() == true) {
+            buffer.append(sc.nextLine());
+            if (sc.hasNextLine() == true) {
+                buffer.append(System.lineSeparator());
+            }
         }
+
         String fileContents = buffer.toString();
 
         String newLine = "";
-
         if (taskType == 't') {
             newLine += "t-/-1-/-" + oldLine.substring(8);
         } else if (taskType == 'e') {
@@ -275,7 +278,9 @@ public class SaveTaskListToText {
         }
 
         sc.close();
+
         fileContents = fileContents.replaceAll(oldLine, newLine);
+
         FileWriter writer = new FileWriter(filePath);
         writer.append(fileContents);
         writer.flush();
