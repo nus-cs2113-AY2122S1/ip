@@ -1,7 +1,17 @@
 import java.util.Scanner;
 import seedu.tojava.Duke.*;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 public class Duke {
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException{
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -12,28 +22,50 @@ public class Duke {
         greeting();
     }
 
-    public static void showList(ArrayList items, int x){
-        if(x == 0)  System.out.println("\n____________________________________________________________");
-        else{
-            System.out.println("\n____________________________________________________________");
-            for(int i = 0; i < x; i++){
-                if(items.get(i) instanceof Deadline){
-                    Deadline dummy = (Deadline) items.get(i);
-                    System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " + dummy.getDescription() + " (" + dummy.getBy() + ")");
-                }
-                else if(items.get(i) instanceof Event){
-                    Event dummy = (Event)items.get(i);
-                    System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " + dummy.getDescription() + " (" + dummy.getDuration() + ")");
-                }
-                else{
-                    Todo dummy = (Todo) items.get(i);
-                    System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " +  dummy.getDescription());
-                }
-            }
+    public static void showList(ArrayList<Todo> items, int x) {
+        String file1 = "C:\\Users\\Demons\\IdeaProjects\\ip\\out\\duke1.txt";
 
+        if (x == 0) System.out.println("\n____________________________________________________________");
+        else {
             System.out.println("\n____________________________________________________________");
+            for (int i = 0; i < x; i++) {
+                if (items.get(i) instanceof Deadline) {
+                    Deadline dummy = (Deadline) items.get(i);
+                    System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getBy() + ")");
+                    try {
+                        writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getBy() + ")");
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
+                } else if (items.get(i) instanceof Event) {
+                    Event dummy = (Event) items.get(i);
+                    System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " + dummy.getDescription() + " (" + dummy.getDuration() + ")");
+                } else if (items.get(i) instanceof Event) {
+                        Event dummy = (Event) items.get(i);
+                        System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getDuration() + ")");
+                        try {
+                            writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getDuration() + ")");
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
+                        }
+                    } else {
+                        Todo dummy = (Todo) items.get(i);
+                        System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " + dummy.getDescription());
+                        System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription());
+                        try {
+                            writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription());
+                        } catch (IOException e) {
+                            System.out.println("Something went wrong: " + e.getMessage());
+                        }
+
+                    }
+                }
+
+                System.out.println("\n____________________________________________________________");
+            }
         }
-    }
+
+
 
     public static void doneTodo(ArrayList<Todo> items, String order){
         String dummy = order.trim();
