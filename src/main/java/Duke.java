@@ -370,7 +370,7 @@ public class Duke {
                 System.out.println("File already exists.");
             }
         } catch (IOException e) {
-            System.out.println("Error!");
+            System.out.println("An error occurred, please try again!");
             e.printStackTrace();
         }
 
@@ -380,12 +380,11 @@ public class Duke {
                 myWriter.write(output.get(i));
                 myWriter.write("\n");
             }
-
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
             System.out.println(LINE);
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred, please try again");
             e.printStackTrace();
         }
     }
