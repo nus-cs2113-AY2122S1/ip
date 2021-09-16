@@ -1,43 +1,69 @@
 package duke;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TaskHandler {
 
     private String EMPTY_DESCRIPTION_MSG = "My liege, there is no description!";
 
     protected ArrayList<Task> tasks;
+    private Path dataPath;
 
     public TaskHandler() {
         this.tasks = new ArrayList<Task>();
+        openFile();
     }
 
     public String handleTasks(String line) throws IllegalArgumentException, DukeException {
-            String lc = line.toLowerCase();
-            if (inputIsList(lc)) {
-                return listTasks();
-            } else if (inputIsDone(lc)) {
-                return doTask(lc);
-            } else if (inputIsDelete(lc)) {
-                return deleteTask(lc);
-            } else if (inputIsTodo(lc)) {
-                return addTodo(line);
-            } else if (inputIsDeadline(lc)) {
-                if (!deadlineContainsBy(lc)) {
-                    return returnDeadlineNoBy();
-                } else {
-                    return addDeadline(line);
-                }
-            } else if (inputIsEvent(lc)) {
-                if (!eventContainsAt(lc)) {
-                    return returnEventNoAt();
-                } else {
-                    return addEvent(line);
-                }
+        String lc = line.toLowerCase();
+        if (inputIsList(lc)) {
+            return listTasks();
+        } else if (inputIsClear(lc)) {
+            return clearFileData();
+        } else if (inputIsDone(lc)) {
+            return doTask(lc);
+        } else if (inputIsDelete(lc)) {
+            return deleteTask(lc);
+        } else if (inputIsTodo(lc)) {
+            return addTodo(line);
+        } else if (inputIsDeadline(lc)) {
+            if (!deadlineContainsBy(lc)) {
+                return returnDeadlineNoBy();
             } else {
-                throw new DukeException(returnInputInvalid());
+                return addDeadline(line);
             }
+        } else if (inputIsEvent(lc)) {
+            if (!eventContainsAt(lc)) {
+                return returnEventNoAt();
+            } else {
+                return addEvent(line);
+            }
+        } else {
+            return returnInputInvalid();
+        }
     }
+
+    private void openFile() {
+        try {
+            String home = System.getProperty("user.dir");
+            Path dataDirPath = Paths.get(home, "/data/");
+            Files.createDirectories(dataDirPath);
+            Path dataPath = Paths.get(home, "/data/duke.txt");
+            if (!Files.exists(dataPath)) {
+                Files.createFile(dataPath);
+            }
+            this.dataPath = dataPath;
+        } catch (IOException e) {
+            System.err.println("Open failure: " + e.getMessage());
+        }
+    }
+
 
     public boolean inputIsTodo(String lc) {
         //lc: lowercase line
@@ -77,6 +103,10 @@ public class TaskHandler {
         return lc.startsWith("done");
     }
 
+    public boolean inputIsClear(String lc) {
+        return lc.startsWith("clear");
+    }
+
     public boolean inputIsBye(String lc) {
         return lc.equals("bye");
     }
@@ -92,6 +122,7 @@ public class TaskHandler {
         String description = line.substring(5).trim();
         Todo newTodo = new Todo(description);
         tasks.add(newTodo);
+        appendLinetoFileData(newTodo.toString());
         return returnAddTaskSuccess() + newTodo.toString();
     }
 
@@ -108,6 +139,7 @@ public class TaskHandler {
         }
         Deadline newDeadline = new Deadline(description, by);
         tasks.add(newDeadline);
+        appendLinetoFileData(newDeadline.toString());
         return returnAddTaskSuccess() + newDeadline.toString();
     }
 
@@ -124,6 +156,7 @@ public class TaskHandler {
         }
         Event newEvent = new Event(description, at);
         tasks.add(newEvent);
+        appendLinetoFileData(newEvent.toString());
         return returnAddTaskSuccess() + newEvent.toString();
     }
 
@@ -154,6 +187,7 @@ public class TaskHandler {
         }
         int id = inputNum - 1;
         tasks.get(id).setDone();
+        editFileData(id, tasks.get(id).toString());
         return returnTaskCompleted() + System.lineSeparator()
                 + Formatter.returnOutputStart() + tasks.get(id).toString();
     }
@@ -169,6 +203,7 @@ public class TaskHandler {
         }
         int id = inputNum - 1;
         Task deletedTask = tasks.remove(id);
+        deleteLinefromFileData(id);
         return returnTaskDeleted() + System.lineSeparator()
                 + Formatter.returnOutputStart() + deletedTask.toString();
     }
@@ -179,10 +214,14 @@ public class TaskHandler {
 
     public String listTasks() {
         String out = "Your magnificent tasks:";
-        for (int i = 0; i < tasks.size() && tasks.get(i) != null; i++) {
-            //output will be doubly "indented"
-            out += System.lineSeparator() + Formatter.returnOutputStart() + (i + 1)
-                    + "." + tasks.get(i).toString();
+        try {
+            List<String> lines = Files.readAllLines(dataPath);
+            for (int i = 0; i < lines.size(); i++) {
+                out += System.lineSeparator() + Formatter.returnOutputStart() + (i + 1) + "."
+                        + lines.get(i);
+            }
+        } catch (IOException e) {
+            System.err.println("Read failure: " + e.getMessage());
         }
         return out;
     }
@@ -194,5 +233,43 @@ public class TaskHandler {
     public String returnInputOutOfRange() {
         return "Have mercy, for that is beyond my knowledge.";
     }
-}
 
+    private void appendLinetoFileData(String line) {
+        try {
+            List<String> lines = Files.readAllLines(dataPath);
+            lines.add(line);
+            Files.write(dataPath, lines);
+        } catch (IOException e) {
+            System.err.println("Write failure: " + e.getMessage());
+        }
+    }
+
+    private void editFileData(int index, String line) {
+        try {
+            List<String> lines = Files.readAllLines(dataPath);
+            lines.set(index, line);
+            Files.write(dataPath, lines);
+        } catch (IOException e) {
+            System.err.println("Write failure: " + e.getMessage());
+        }
+    }
+
+    private void deleteLinefromFileData(int index) {
+        try {
+            List<String> lines = Files.readAllLines(dataPath);
+            lines.remove(index);
+            Files.write(dataPath, lines);
+        } catch (IOException e) {
+            System.err.println("Write failure: " + e.getMessage());
+        }
+    }
+
+    private String clearFileData() {
+        try {
+            Files.write(dataPath, Collections.EMPTY_LIST);
+        } catch (IOException e) {
+            System.err.println("Write failure: " + e.getMessage());
+        }
+        return "A clean slate, my liege!";
+    }
+}
