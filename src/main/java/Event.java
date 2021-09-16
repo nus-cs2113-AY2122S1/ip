@@ -1,6 +1,10 @@
 public class Event extends Task {
     protected String eventTimeRange;
 
+    public String getEventTimeRange() {
+        return eventTimeRange;
+    }
+
     public Event(String description, String eventTimeRange) {
         super(description);
         this.eventTimeRange = eventTimeRange;
