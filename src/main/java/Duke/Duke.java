@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -88,50 +89,51 @@ public class Duke {
             case("T"):
                 taskToAdd = new Todo(description);
                 taskToAdd.setDone(isDone);
-                addTask(taskToAdd);
+                addTaskFromFile(taskToAdd);
                 break;
             case("D"):
                 taskToAdd = new Deadline(description, extraDescription);
                 taskToAdd.setDone(isDone);
-                addTask(taskToAdd);
+                addTaskFromFile(taskToAdd);
                 break;
             case("E"):
                 taskToAdd = new Event(description, extraDescription);
                 taskToAdd.setDone(isDone);
-                addTask(taskToAdd);
+                addTaskFromFile(taskToAdd);
                 break;
             }
         }
     }
 
-    public static void appendToFile(Task t) throws IOException {
+    public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         String description = "";
         String status;
-        if (t.isDone) {
-            status = "1";
-        } else {
-            status = "0";
-        }
+        for (Task t: tasks){
+            if (t.isDone) {
+                status = "1";
+            } else {
+                status = "0";
+            }
 
-        switch(t.taskType) {
-        case "D":
-            description = String.format("%s | %s", t.getDescription(), t.getBy());
-            break;
-        case "E":
-            description = String.format("%s | %s", t.getDescription(), t.getAt());
-            break;
-        case "T":
-            description = t.getDescription();
+            switch(t.taskType) {
+            case "D":
+                description = String.format("%s | %s", t.getDescription(), t.getBy());
+                break;
+            case "E":
+                description = String.format("%s | %s", t.getDescription(), t.getAt());
+                break;
+            case "T":
+                description = t.getDescription();
+            }
+            String textToAppend = String.format("%s | %s | %s\n", t.taskType, status, description);
+            fw.write(textToAppend);
         }
-
-        String textToAppend = String.format("%s | %s | %s", t.taskType, status, description);
-        fw.write(textToAppend);
         fw.close();
     }
 
 
-    public static void executeCommand(String input) throws DukeException {
+    public static void executeCommand(String input) throws DukeException, IOException {
         String[] commandAndParams = splitCommandString(input, " ");
         String command = commandAndParams[0];
         String params = commandAndParams[1];
@@ -167,6 +169,7 @@ public class Duke {
             executeDelete(params);
             break;
         case COMMAND_BYE:
+            writeToFile();
             executeBye();
             break;
         default:
@@ -177,12 +180,12 @@ public class Duke {
     public static void addTask(Task t) {
         tasks.add(t);
         Task.setTaskCount(1);
-        try {
-            appendToFile(t);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         printAdd(t);
+    }
+
+    public static void addTaskFromFile(Task t) {
+        tasks.add(t);
+        Task.setTaskCount(1);
     }
 
     public static void executeTodo(String params) throws DukeException {
@@ -253,7 +256,7 @@ public class Duke {
     }
 
     public static String[] splitDataString(String input) {
-        String[] split = input.trim().split("\\|", 4);
+        String[] split = input.trim().split(" \\| ", 4);
         return split.length == 4 ? split: new String[] {split[0], split[1], split[2], ""};
     }
 
@@ -308,7 +311,7 @@ public class Duke {
 //        System.out.println(text);
 //    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printGreeting();
         manageFile();
 
@@ -320,6 +323,5 @@ public class Duke {
                 print(INVALID_INPUT);
             }
         }
-
     }
 }
