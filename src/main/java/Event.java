@@ -1,6 +1,6 @@
 public class Event extends Task {
 
-    private String at;
+    public String at;
 
     public Event(String description, String at) {
         super(description);
@@ -10,5 +10,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")";
+    }
+
+    @Override
+    public String getStoreDataString() {
+        String checkDone = isDone ? "1" : "0";
+        return "event " + description + " /at " + at + " | " + checkDone + System.lineSeparator();
     }
 }

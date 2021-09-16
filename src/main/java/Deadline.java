@@ -1,6 +1,6 @@
 public class Deadline extends Task {
 
-    private String by;
+    public String by;
 
     public Deadline(String description, String by) {
         super(description);
@@ -12,4 +12,11 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
     }
+
+    @Override
+    public String getStoreDataString() {
+        String checkDone = isDone ? "1" : "0";
+        return "deadline " + description + " /by " + by + " | " + checkDone + System.lineSeparator();
+    }
+
 }
