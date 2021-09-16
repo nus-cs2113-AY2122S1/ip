@@ -51,7 +51,7 @@ public class Duke {
             } catch (AustinException e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
-                System.out.println("Sorry. The format of the task index is invalid");
+                System.out.println("Sorry. The format of the task index is invalid.");
             }
             printCompletionMessage();
             line = in.nextLine();
@@ -279,9 +279,9 @@ public class Duke {
         }
         System.out.println("Noted. I have deleted the following task:");
         System.out.println(tasks.get(taskIndex).toString());
+        tasks.remove(taskIndex);
         try {
             updateFile();
-            tasks.remove(taskIndex);
         } catch (IOException e) {
             System.out.println("Oops sorry. Something went wrong.");
             System.out.println(e.getMessage());
