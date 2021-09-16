@@ -1,6 +1,16 @@
 import java.util.Scanner;
 import seedu.tojava.Duke.*;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException{
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -11,7 +21,9 @@ public class Duke {
         greeting();
     }
 
+
     public static void showList(Todo list[], int x){
+        String file1 = "C:\\Users\\Demons\\IdeaProjects\\ip\\out\\duke1.txt";
         if(x == 0)  System.out.println("\n____________________________________________________________");
         else{
             System.out.println("\n____________________________________________________________");
@@ -19,13 +31,29 @@ public class Duke {
                 if(list[i] instanceof Deadline){
                     Deadline dummy = (Deadline) list[i];
                     System.out.println("[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + " (" + dummy.getBy() + ")");
+                    try{
+                        writeToFile(file1, "[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + " (" + dummy.getBy() + ")");
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 }
                 else if(list[i] instanceof Event){
                     Event dummy = (Event)list[i];
                     System.out.println("[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + " (" + dummy.getDuration() + ")");
+                    try{
+                        writeToFile(file1, "[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + " (" + dummy.getDuration() + ")");
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                 }
                 else{
                     System.out.println("[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " +  list[i].getDescription());
+                    try{
+                        writeToFile(file1, "[" + list[i].returnType() + "] " + "[" + list[i].getStatusIcon() + "] " +  list[i].getDescription());
+                    } catch (IOException e){
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
+
                 }
             }
 
