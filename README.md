@@ -1,6 +1,12 @@
-# duke.command.Duke project template
+# Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+
+## Duke Overview
+
+Project Duke is a educational software project designed to take you through the steps of building a small software incrementally, while applying as many Java and SE techniques as possible along the way.
+
+**The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things.** The name Duke was chosen as a placeholder name, in honor of [Duke, the Java Mascot](https://www.oracle.com/java/duke.html). You may give it any other name and personality you wish.
 
 ## Setting up in Intellij
 
@@ -22,3 +28,68 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## Duke Learning objectives
+
+- Java
+- OOP
+- IDEs
+- Git and GitHub
+- Project automation tools
+- Code quality
+
+##  Duke Sample interaction
+ 
+ ```bash
+   ____________________________________________________________
+      ____        _        
+     |  _ \ _   _| | _____ 
+     | | | | | | | |/ / _ \
+     | |_| | |_| |   <  __/
+     |____/ \__,_|_|\_\___|
+
+     Hello! I'm Duke
+     What can I do for you?
+    ____________________________________________________________
+
+list
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[T][X] read book
+     2.[D][ ] return book (by: June 6th)
+     3.[E][ ] project meeting (at: Aug 6th 2-4pm)
+     4.[T][X] join sports club
+    ____________________________________________________________
+
+todo borrow book
+    ____________________________________________________________
+     Got it. I've added this task: 
+       [T][ ] borrow book
+     Now you have 5 tasks in the list.
+    ____________________________________________________________
+
+
+deadline return book /by Sunday
+    ____________________________________________________________
+     Got it. I've added this task: 
+       [D][ ] return book (by: Sunday)
+     Now you have 6 tasks in the list.
+    ____________________________________________________________
+
+done 2
+    ____________________________________________________________
+     Nice! I've marked this task as done: 
+       [D][X] return book (by: June 6th)
+    ____________________________________________________________
+
+blah
+    ____________________________________________________________
+     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+    ____________________________________________________________
+
+bye
+    ____________________________________________________________
+     Bye. Hope to see you again soon!
+    ____________________________________________________________
+
+ ```
