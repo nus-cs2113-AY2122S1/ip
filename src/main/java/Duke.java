@@ -185,7 +185,6 @@ public class Duke {
         readFileContents("lines.txt");
 
         Scanner in = new Scanner(System.in);
-        int taskCount = 0;
 
         System.out.println("Hello Bbygirl! I'm Your Boyfriend <3");
         System.out.println("How can I help you today? ;)");
