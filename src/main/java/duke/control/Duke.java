@@ -53,7 +53,7 @@ public class Duke {
         throw new InvalidInputFormatException();
     }
 
-    private static void executeCommand(Command command, List list, String input, FileManager fileManager) {
+    private static void executeCommand(Command command, List list, String input) {
         switch (command) {
         case LIST_COMMAND:
             list.printList();
@@ -68,10 +68,10 @@ public class Duke {
             executeDeleteCommand(command, list, input);
             break;
         case CLEAR_SAVE_COMMAND:
-            executeClearSaveCommand(fileManager);
+            executeClearSaveCommand();
             break;
         case SAVE_COMMAND:
-            executeSaveCommand(fileManager, list);
+            executeSaveCommand(list);
             break;
         case TASK_COMMAND:
             executeTaskCommand(list, input);
@@ -82,6 +82,7 @@ public class Duke {
     private static void executeTaskCommand(List list, String input) {
         try {
             list.addEntryToList(input);
+            FileManager.saveData(list);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("todo, deadline or event commands must have task descriptions");
         } catch (InvalidInputFormatException e) {
@@ -104,6 +105,7 @@ public class Duke {
             //entry number does not exist in the list
             System.out.println("That entry number does not exist in your list");
         }
+        FileManager.saveData(list);
     }
 
     private static void executeDoneCommand(Command command, List list, String input) {
@@ -123,9 +125,9 @@ public class Duke {
         }
     }
 
-    private static void executeClearSaveCommand(FileManager fileManager) {
+    private static void executeClearSaveCommand() {
         try {
-            fileManager.clearSavedData();
+            FileManager.clearSavedData();
         } catch (IOException e) {
             System.out.println("Could not find save file to clear. The file will be created after the first \"bye\"" +
                     "or \"save\" command that you enter");
@@ -133,16 +135,15 @@ public class Duke {
         System.out.println("I've cleared your saved data");
     }
 
-    private static void executeSaveCommand(FileManager fileManager, List list) {
-        fileManager.saveData(list);
+    private static void executeSaveCommand(List list) {
+        FileManager.saveData(list);
         System.out.println("List has been saved");
     }
 
     public static void main(String[] args) {
         printWelcomeMessage();
         List list = new List();
-        FileManager fileManager = new FileManager();
-        loadDataFromFile(fileManager, list);
+        loadDataFromFile(list);
         Scanner in = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -156,19 +157,20 @@ public class Duke {
             }
             if (command.equals(Command.BYE_COMMAND)) {
                 printExitMessage();
-                fileManager.saveData(list);
+                FileManager.saveData(list);
                 break;
             }
-            executeCommand(command, list, userInput, fileManager);
+            executeCommand(command, list, userInput);
             printResponseSeparator();
         }
     }
 
-    private static void loadDataFromFile(FileManager fileManager, List list) {
-        File file = new File(fileManager.getFilePath());
+    private static void loadDataFromFile(List list) {
+        FileManager.setPath();
+        File file = new File(FileManager.getFilePath());
         if (file.exists()) {
             try {
-                fileManager.readDukeDataFromFile(list);
+                FileManager.readDukeDataFromFile(list);
             } catch (IOException e) {
                 System.out.println("Something went wrong, cannot load saved data");
             }

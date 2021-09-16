@@ -6,8 +6,6 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.util.ArrayList;
 
-import java.io.File;
-import java.io.StringBufferInputStream;
 
 public class List {
     private static final int TODO_NAME_START_INDEX = 5;
@@ -20,7 +18,7 @@ public class List {
     private static final int FILE_TASKTYPE_INDEX = 1;
     private static final int FILE_ISDONE_INDEX = 4;
     private int numberOfEntries = 0;
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     enum TaskType {
         TODO,
@@ -67,7 +65,7 @@ public class List {
         System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
     }
 
-    public static int parseInputForEntryNumber(String input, Duke.Command command) {
+    public int parseInputForEntryNumber(String input, Duke.Command command) {
         if (command.equals(Duke.Command.DONE_COMMAND)) {
             return Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
         }
@@ -112,7 +110,7 @@ public class List {
     protected void addEntryFromFile(String inputLineFromFile) {
         try {
             TaskType entryType = getTaskTypeFromFile(inputLineFromFile);
-            Boolean isDone = getIsDoneFromFile(inputLineFromFile);
+            boolean isDone = getIsDoneFromFile(inputLineFromFile);
             String description = getDescriptionFromFile(inputLineFromFile, entryType);
             String dateTime = "";
             if (entryType.equals(TaskType.DEADLINE) || entryType.equals(TaskType.EVENT)) {

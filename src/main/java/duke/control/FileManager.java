@@ -1,4 +1,5 @@
 package duke.control;
+
 import duke.task.Task;
 
 import java.io.File;
@@ -9,10 +10,6 @@ import java.util.Scanner;
 
 public class FileManager {
     private static String filePath;
-
-    public FileManager() {
-        filePath = getPath();
-    }
 
     protected static void createFile() throws IOException {
         File file = new File(filePath);
@@ -57,8 +54,8 @@ public class FileManager {
         fw.close();
     }
 
-    private static String getPath() {
-        return(System.getProperty("user.dir") + "/Data/dukeData.txt");
+    protected static void setPath() {
+        filePath = System.getProperty("user.dir") + "/Data/dukeData.txt";
     }
 
     public static String getFilePath() {
