@@ -15,7 +15,7 @@ import duke.task.ToDos;
 
 public class TaskStorage {
     static final String DATA_FILE_PATH = "./data/tasks.txt";
-    static final String SPACE_SEPARATOR = " ";
+    static final String SPACE_SEPARATOR = "\\|";
 
     private File dataFile;
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -82,15 +82,15 @@ public class TaskStorage {
     private String taskToString(Task t) {
         if (t instanceof ToDos) {
             ToDos todoTask = (ToDos) t;
-            return String.format("todo %s %b", todoTask.getTaskDescription(),
+            return String.format("todo|%s|%b", todoTask.getTaskDescription(),
                     todoTask.isDone());
         } else if (t instanceof Event) {
             Event eventTask = (Event) t;
-            return String.format("event %s %s %b", eventTask.getTaskDescription(),
+            return String.format("event|%s|%s|%b", eventTask.getTaskDescription(),
                     eventTask.getDate(), eventTask.isDone());
         } else if (t instanceof  Deadline) {
             Deadline deadlineTask = (Deadline) t;
-            return String.format("deadline %s %s %b", deadlineTask.getTaskDescription(),
+            return String.format("deadline|%s|%s|%b", deadlineTask.getTaskDescription(),
                     deadlineTask.getDate(), deadlineTask.isDone());
         } else {
             return null;
