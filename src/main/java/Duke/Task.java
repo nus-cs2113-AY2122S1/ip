@@ -3,6 +3,7 @@ package Duke;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
     private static int taskCount = 0;
 
     public Task(String description) {
@@ -22,12 +23,19 @@ public class Task {
         return taskCount;
     }
 
-    public void setDone() {
-        isDone = true;
+    public void setDone(boolean b) {
+        isDone = b;
     }
 
-    public static void setTaskCount() {
-        Task.taskCount += 1;
+    public String getBy(){
+        return "";
+    }
+    public String getAt(){
+        return "";
+    }
+
+    public static void setTaskCount(int amt) {
+        Task.taskCount += amt;
     }
 
     @Override
