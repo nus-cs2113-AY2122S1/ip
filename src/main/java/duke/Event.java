@@ -9,6 +9,10 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public String getTime(){
+        return this.at;
+    }
+
     public String toString(){
         return "[E][" + super.getStatus() + "]" + super.name + "at: " + at;
     }

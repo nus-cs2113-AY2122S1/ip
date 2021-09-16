@@ -3,14 +3,18 @@ import duke.DukeException;
 import duke.Event;
 import duke.Task;
 
+import javax.imageio.IIOException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    Task[] t = new Task[100];
+    ArrayList<Task> t = new ArrayList<>();
     int listIndex = 0;
 
-    public void run() {
+    public void run() throws IOException {
         String userInput;
         Scanner in = new Scanner(System.in);
 
@@ -18,7 +22,9 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-
+        SaveFile s = new SaveFile("data.txt");
+        t = s.read();
+        listIndex = t.size();
         while(true){
             userInput = in.nextLine();
             if(userInput.contentEquals("bye")){
@@ -65,6 +71,7 @@ public class Duke {
                     System.out.println("Sorry I dont understand");
                 System.out.println("____________________________________________________________");
                 }
+            s.save(t);
             }
 
     }
@@ -78,11 +85,11 @@ public class Duke {
             throw new DukeException("That is not in the list");
         }
         int task_index = Integer.parseInt(parsedInput[1]);
-        t[task_index - 1].taskDone();
+        t.get(task_index - 1).taskDone();
         System.out.println("____________________________________________________________");
         System.out.println("List so far: ");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t[task_index - 1]);
+        System.out.println(t.get(listIndex - 1));
         System.out.println("____________________________________________________________");
     }
 
@@ -93,10 +100,10 @@ public class Duke {
         if(taskDescription.isEmpty()){
             throw new DukeException("Description cannot be empty!");
         }
-        t[listIndex] = new Task(taskDescription);
+        t.add(new Task(taskDescription));
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task: ");
-        System.out.println(t[listIndex]);
+        System.out.println(t.get(listIndex));
         System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
         System.out.println("____________________________________________________________");
         listIndex++;
@@ -117,10 +124,10 @@ public class Duke {
         if(parsedInput[1].stripLeading().isEmpty()){
             throw new DukeException("Description cannot be empty!");
         }
-        t[listIndex] = new Event(parsedInput[0], parsedInput[1].stripLeading());
+        t.add(new Event(parsedInput[0], parsedInput[1].stripLeading()));
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task: ");
-        System.out.println(t[listIndex]);
+        System.out.println(t.get(listIndex));
         System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
         System.out.println("____________________________________________________________");
         listIndex++;
@@ -138,10 +145,10 @@ public class Duke {
         if(parsedInput[1].stripLeading().isEmpty()){
             throw new DukeException("Description cannot be empty!");
         }
-        t[listIndex] = new Deadline(parsedInput[0], parsedInput[1].stripLeading());
+        t.add(new Deadline(parsedInput[0], parsedInput[1].stripLeading())) ;
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task: ");
-        System.out.println(t[listIndex]);
+        System.out.println(t.get(listIndex));
         System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
         System.out.println("____________________________________________________________");
         listIndex++;
@@ -152,12 +159,12 @@ public class Duke {
         System.out.println("List so far: ");
         for(int i = 0; i < listIndex; i++) {
             System.out.print(i +  1);
-            System.out.println(t[i]);
+            System.out.println(t.get(i));
         }
         System.out.println("____________________________________________________________");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
        Duke d = new Duke();
        d.run();
     }
