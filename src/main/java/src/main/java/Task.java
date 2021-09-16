@@ -15,6 +15,8 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getWrittenIcon() { return (isDone ? "1" : "0"); }
+
     public char getTaskType() {
         return taskType;
     }
