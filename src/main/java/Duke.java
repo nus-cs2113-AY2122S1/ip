@@ -4,10 +4,16 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 import java.util.ArrayList;
-
 import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Duke {
-    public static void main(String[] args) throws AssignException, TypingException, FormatException, EventStringException, DeadlineStringException, TodoStringException {
+    public static void main(String[] args) throws AssignException, TypingException, FormatException, EventStringException, DeadlineStringException, TodoStringException, IOException {
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -19,6 +25,14 @@ public class Duke {
         System.out.println(greetings);
         //Task[] Tasks = new Task[MAX_TASK];
         ArrayList<Task> Tasks = new ArrayList<>(MAX_TASK);
+        String file = "data/tasks.txt";
+        try {
+            readFile(Tasks,file);
+            printFileContents(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
         boolean isExit = true;
         int maxlength = 0;
@@ -65,8 +79,6 @@ public class Duke {
                     Task t = Tasks.get(num - 1);
                     Tasks.remove(num - 1);
                     printDelete(t, Tasks.size());
-                    /*Tasks.get(num - 1).setDone(true);
-                    printDone(Tasks.get(num - 1));*/
                 } else if (str.contains("done")) {
                     String numberOnly = str.replaceAll("[^0-9]", "");
                     if(numberOnly.length() == 0) numberOnly = "0"; // to avoid empty string error
@@ -76,11 +88,6 @@ public class Duke {
                     printDone(Tasks.get(num - 1));
                 } else {
                     FormatError();
-                    /*if (str.length() + 9 > maxlength) maxlength = str.length() + 9;
-                    Task t = new Task(str);
-                    addToList(t, Tasks, Tasks.size());
-                    j++;
-                    printTask(t, Tasks.size());*/
                 }
             } catch (AssignException e){
                   printString("OOPS! not assigned");
@@ -98,6 +105,78 @@ public class Duke {
                   printString("OOPS! empty list");
             }
         }
+
+        try {
+            FileWriter fileWriter =new FileWriter(file);
+            fileWriter.write("");
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String textToAdd = "";
+        for(int i = 0; i < Tasks.size(); i++){
+            switch (Tasks.get(i).getType()){
+            case TODO:
+                textToAdd += "T | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + System.lineSeparator();
+                break;
+            case DEADLINE:
+                textToAdd += "D | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + " | " + Tasks.get(i).getBy() + System.lineSeparator();
+                break;
+            case EVENT:
+                textToAdd += "E | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + " | " + Tasks.get(i).getBy() + System.lineSeparator();
+                break;
+            }
+        }
+        try {
+            writeToFile(file, textToAdd);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Task> readFile(ArrayList<Task> Tasks, String filePath) throws FileNotFoundException{
+        File f = new File(filePath);
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            switch (str.substring(0,1)) {
+            case "T":
+                String[] strT = str.split("|");
+                Todo t = new Todo(strT[2]);
+                if(strT[1].trim() == "1") t.setDone(true);
+                addToList(t, Tasks, Tasks.size());
+                break;
+            case "D":
+                String[] strD = str.split("|");
+                Deadline d = new Deadline(strD[2], strD[3]);
+                if(strD[1].trim() == "1") d.setDone(true);
+                addToList(d, Tasks, Tasks.size());
+                break;
+            case "E":
+                String[] strE = str.split("|");
+                Event e = new Event(strE[2], strE[3]);
+                if(strE[1].trim() == "1") e.setDone(true);
+                addToList(e, Tasks, Tasks.size());
+                break;
+            }
+        }
+        return Tasks;
+    }
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        System.out.println("Tasks recorded: ");
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
     }
 
     public static void checkNum(int num, int j) throws AssignException {
