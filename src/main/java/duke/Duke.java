@@ -1,20 +1,21 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import duke.task.*;
 
 public class Duke {
     private static final String LOGO =
             " _______  __   __  ______   _______  _______  _______  __   __  _______\n" +
-                    "|       ||  | |  ||      | |       ||       ||   _   ||  |_|  ||   _   |\n" +
-                    "|    ___||  | |  ||  _    ||    ___||_     _||  |_|  ||       ||  |_|  |\n" +
-                    "|   | __ |  |_|  || | |   ||   |___   |   |  |       ||       ||       |\n" +
-                    "|   ||  ||       || |_|   ||    ___|  |   |  |       ||       ||       |\n" +
-                    "|   |_| ||       ||       ||   |___   |   |  |   _   || ||_|| ||   _   |\n" +
-                    "|_______||_______||______| |_______|  |___|  |__| |__||_|   |_||__| |__|\n";
+            "|       ||  | |  ||      | |       ||       ||   _   ||  |_|  ||   _   |\n" +
+            "|    ___||  | |  ||  _    ||    ___||_     _||  |_|  ||       ||  |_|  |\n" +
+            "|   | __ |  |_|  || | |   ||   |___   |   |  |       ||       ||       |\n" +
+            "|   ||  ||       || |_|   ||    ___|  |   |  |       ||       ||       |\n" +
+            "|   |_| ||       ||       ||   |___   |   |  |   _   || ||_|| ||   _   |\n" +
+            "|_______||_______||______| |_______|  |___|  |__| |__||_|   |_||__| |__|\n";
     private static final String SEPARATOR = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n";
     private static final int MAX_TASK = 100;
-    private static Task[] userInputs = new Task[MAX_TASK];
+    private static ArrayList<Task> userInputs = new ArrayList<>();
     private static int userInputCount = 0;
 
     /**
@@ -58,6 +59,8 @@ public class Duke {
                 addDeadline(input);
             } else if (input.startsWith("event")) {
                 addEvent(input);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else {
                 handleInvalid();
             }
@@ -86,8 +89,8 @@ public class Duke {
 
         System.out.println(SEPARATOR + "\n\tTasks to do... so lazy:");
 
-        for (int i = 0; i < userInputCount; i++) {
-            System.out.println("\t" + (i + 1) + "." + userInputs[i]);
+        for (int i = 1; i <= userInputCount; i++) {
+            System.out.println("\t" + i + "." + userInputs.get(i - 1));
         }
         System.out.println(SEPARATOR);
     }
@@ -107,11 +110,11 @@ public class Duke {
         final int INDEX_DONE = 1;
         int taskIndexDone = Integer.parseInt(taskInputs[INDEX_DONE]) - 1;
 
-        userInputs[taskIndexDone].markAsDone();
+        userInputs.get(taskIndexDone).markAsDone();
 
         System.out.println(
                 SEPARATOR + "\n\tfinished this task... I need a break:\n\t\t" +
-                userInputs[taskIndexDone]);
+                userInputs.get(taskIndexDone));
         System.out.println(SEPARATOR);
     }
 
@@ -128,9 +131,9 @@ public class Duke {
             throw new DukeException("command todo description missing");
         }
 
-        userInputs[userInputCount] = new Todo(line.substring(START_INDEX));
+        userInputs.add(new Todo(line.substring(START_INDEX)));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs[userInputCount] + "\n" + SEPARATOR);
+        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
         userInputCount++;
     }
 
@@ -149,10 +152,10 @@ public class Duke {
         final int START_INDEX = 9;
 
         String[] deadlineInputs = line.substring(START_INDEX).split("/by");
-        userInputs[userInputCount] = new Deadline(deadlineInputs[DESCRIPTION_INDEX].trim(),
-                deadlineInputs[BY_INDEX].trim());
+        userInputs.add(new Deadline(deadlineInputs[DESCRIPTION_INDEX].trim(),
+                deadlineInputs[BY_INDEX].trim()));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs[userInputCount] + "\n" + SEPARATOR);
+        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
         userInputCount++;
     }
 
@@ -171,11 +174,28 @@ public class Duke {
         final int START_INDEX = 6;
 
         String[] eventInputs = line.substring(START_INDEX).split("/at");
-        userInputs[userInputCount] = new Event(eventInputs[DESCRIPTION_INDEX].trim(),
-                eventInputs[AT_INDEX].trim());
+        userInputs.add(new Event(eventInputs[DESCRIPTION_INDEX].trim(),
+                eventInputs[AT_INDEX].trim()));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs[userInputCount] + "\n" + SEPARATOR);
+        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
         userInputCount++;
+    }
+
+    public static void deleteTask(String line) throws DukeException {
+        String[] inputs = line.split(" ");
+
+        if (inputs.length != 2) {
+            throw new DukeException("incorrect number of parameters for command delete");
+        }
+
+        final int INDEX_DELETE = 1;
+        int taskIndexDelete = Integer.parseInt(inputs[INDEX_DELETE]) - 1;
+
+        System.out.println(SEPARATOR + "\n\tdeleted this task... less things to do:\n\t\t" +
+                userInputs.get(taskIndexDelete));
+        userInputs.remove(taskIndexDelete);
+        userInputCount--;
+        System.out.println(SEPARATOR);
     }
 
     /**
