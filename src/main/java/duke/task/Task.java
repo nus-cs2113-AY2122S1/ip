@@ -23,6 +23,20 @@ public class Task {
         this.type = type;
     }
 
+    /* Getter for boolean if task is done */
+    public int getIsDone() {
+        return isDone ? 1 : 0;
+    }
+
+    /**
+     * Set isDone based on integer given. True = 1, False = 0
+     *
+     * @param booleanValue either 1 or 0 according to what was saved in data.txt
+     */
+    public void setIsDone(int booleanValue) {
+        this.isDone = booleanValue == 1;
+    }
+
     /* Getter for task type */
     public char getType() {
         return type;
@@ -55,13 +69,22 @@ public class Task {
     }
 
     /**
-     * Formats description of task  to be displayed to user
+     * Formats description of task to be displayed to user
      *
      * @return Formatted string of a task
      */
     @Override
     public String toString() {
         return String.format("[%c][%c] %s", this.getType(), this.getStatusIcon(), this.getDescription());
+    }
+
+    /**
+     * Formats description of task to be saved as txt
+     *
+     * @return Formatted string of a task
+     */
+    public String toSave() {
+        return String.format("%s,%d,%s", this.getType(), this.getIsDone(), this.getDescription());
     }
 
 

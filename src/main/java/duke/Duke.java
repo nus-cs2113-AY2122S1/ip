@@ -57,6 +57,7 @@ public class Duke {
 
         // Create task manager to manage task given by user
         TaskManager taskManager = new TaskManager();
+        taskManager.loadData();
 
         // Create a scanner to read user input
         Scanner in = new Scanner(System.in);
@@ -107,6 +108,8 @@ public class Duke {
                 printMessage("Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
             }
         }
+        taskManager.saveData();
         printMessage(EXIT_MESSAGE);
+
     }
 }

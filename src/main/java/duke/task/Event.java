@@ -30,4 +30,15 @@ public class Event extends Task {
     public String toString() {
         return super.toString() + String.format(" (at: %s)", this.getDuring());
     }
+
+    /**
+     * Formats description of task to be saved as txt
+     *
+     * @return Formatted string of a task
+     */
+    @Override
+    public String toSave() {
+        return String.format("%s,%d,%s,%s", this.getType(), this.getIsDone(), this.getDescription(),
+                this.getDuring());
+    }
 }
