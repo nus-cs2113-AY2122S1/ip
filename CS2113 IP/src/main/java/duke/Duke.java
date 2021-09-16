@@ -9,6 +9,19 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    final private static String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
+    final private static String ERROR_MARK_TASK = "Please do not leave your task number empty :-(";
+    final private static String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
+    final private static String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
+    final private static String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
+    final private static String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
+    final private static String ERROR_EMPTY_DELETE_DESCRIPTION = "Please do not leave your delete task number empty :-(";
+    final private static String ERROR_WRONG_HANDLE_TODO_DESCRIPTION = "Check for missing fields in your description!";
+    final private static String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
+    final private static String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
+    final private static ArrayList<Task> tasks = new ArrayList<Task>();
+    final private static String filePath = getFilePath();
+
     public static void Greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -22,20 +35,10 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void listOperations(ArrayList<Task> tasks) throws IOException {
+    public static void listOperations() throws IOException {
 
         Scanner sc = new Scanner(System.in);
         String horizontalLine = "________________________";
-        final String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
-        final String ERROR_MARK_TASK = "Please do not leave your task number empty :-(";
-        final String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
-        final String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
-        final String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
-        final String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
-        final String ERROR_EMPTY_DELETE_DESCRIPTION = "Please do not leave your delete task number empty :-(";
-        final String ERROR_WRONG_HANDLE_TODO_DESCRIPTION = "Check for missing fields in your description!";
-        final String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
-        final String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
 
         boolean isBye;
         boolean isList;
@@ -60,22 +63,22 @@ public class Duke {
             if (isBye) {
                 System.out.println(GOODBYE_COMMENT);
             } else if (isList) {
-                listTask(tasks, Task.taskCount);
+                listTask(Task.taskCount);
             } else if (isDone) {
                 try {
-                    markTask(tasks, userInput);
+                    markTask(userInput);
                 } catch (DukeException e) {
                     System.out.println(ERROR_MARK_TASK);
                 }
             } else if (isDelete) {
                 try {
-                    deleteTask(tasks, userInput);
+                    deleteTask(userInput);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_DELETE_DESCRIPTION);
                 }
             } else if (isTodo) {
                 try {
-                    addTask(tasks, Task.taskCount, userInput, TaskType.TODO);
+                    addTask(userInput, TaskType.TODO);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_TODO_DESCRIPTION);
                 } catch (FormatException e) {
@@ -83,7 +86,7 @@ public class Duke {
                 }
             } else if (isDeadline) {
                 try {
-                    addTask(tasks, Task.taskCount, userInput, TaskType.DEADLINE);
+                    addTask(userInput, TaskType.DEADLINE);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_DEADLINE_DESCRIPTION);
                 } catch (FormatException e) {
@@ -91,7 +94,7 @@ public class Duke {
                 }
             } else if (isEvent) {
                 try {
-                    addTask(tasks, Task.taskCount, userInput, TaskType.EVENT);
+                    addTask(userInput, TaskType.EVENT);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_EVENT_DESCRIPTION);
                 } catch (FormatException e) {
@@ -105,7 +108,7 @@ public class Duke {
         } while (!isBye);
     }
 
-    private static void addTask(ArrayList<Task> tasks, int taskCount, String userInput, TaskType specificTask) throws DukeException, FormatException {
+    private static void addTask(String userInput, TaskType specificTask) throws DukeException, FormatException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
         } else if (isIncorrectFormat(userInput, specificTask)) {
@@ -115,16 +118,16 @@ public class Duke {
         Task newTask;
         switch (specificTask) {
         case EVENT:
-            newTask = new Event(userInput, taskCount);
+            newTask = new Event(userInput, Task.taskCount);
             break;
         case TODO:
-            newTask = new Todo(userInput, taskCount);
+            newTask = new Todo(userInput, Task.taskCount);
             break;
         case DEADLINE:
-            newTask = new Deadline(userInput, taskCount);
+            newTask = new Deadline(userInput, Task.taskCount);
             break;
         default:
-            newTask = new Task(userInput, taskCount);
+            newTask = new Task(userInput, Task.taskCount);
             break;
         }
         tasks.add(newTask);
@@ -138,7 +141,7 @@ public class Duke {
         System.out.println(printTaskNumber);
     }
 
-    private static void deleteTask(ArrayList<Task> tasks, String userInput) throws DukeException {
+    private static void deleteTask(String userInput) throws DukeException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
         }
@@ -158,7 +161,7 @@ public class Duke {
         System.out.println(printTaskNumber);
     }
 
-    private static void markTask(ArrayList<Task> tasks, String userInput) throws DukeException {
+    private static void markTask(String userInput) throws DukeException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
         }
@@ -173,7 +176,7 @@ public class Duke {
         System.out.println(formatOutput);
     }
 
-    private static void listTask(ArrayList<Task> tasks, int taskCount) {
+    private static void listTask(int taskCount) {
         final String LIST_TASK_COMMENT = "Here are the tasks in your list:";
         System.out.println(LIST_TASK_COMMENT);
         for (int i = 0; i < taskCount; i++) {
@@ -203,8 +206,8 @@ public class Duke {
         }
     }
 
-    private static void createFile(String writePath) throws IOException {
-        File f = new File(writePath);
+    private static void createFile() throws IOException {
+        File f = new File(filePath);
         if (f.createNewFile()) {
             System.out.println("Duke database creation <<>><<>><<>><<>><<>> created " + f.getName());
         } else {
@@ -212,7 +215,7 @@ public class Duke {
         }
     }
 
-    private static void setUpDuke(String filePath, ArrayList<Task> tasks) throws IOException {
+    private static void setUpDuke() throws IOException {
         File backupData = new File(filePath);
         Scanner sc = new Scanner(backupData);
         final int TASK_TYPE_INDEX = 0;
@@ -254,8 +257,8 @@ public class Duke {
         }
     }
 
-    private static void writeFile(String writePath, ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(writePath, true);
+    private static void writeFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
         for (int i = 0; i < Task.taskCount; i++) {
             boolean isEvent = tasks.get(i).taskType.equals("E");
             boolean isDeadline = tasks.get(i).taskType.equals("D");
@@ -273,21 +276,31 @@ public class Duke {
         fw.close();
     }
 
-    private static String getFilePath() throws IOException {
+    private static String getFilePath() {
         Path currentRelativePath = Paths.get("");
         Path currentPath = currentRelativePath.toAbsolutePath();
         String filePath = currentPath + "/data/duke.txt";
         return filePath;
     }
 
-    public static void main(String[] args) throws IOException {
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        String filePath = getFilePath();
+    private static void createDirectory() {
+        Path currentRelativePath = Paths.get("");
+        Path currentPath = currentRelativePath.toAbsolutePath();
+        File f = new File(currentPath + "/data");
+        boolean isCreated = f.mkdir();
+        if(isCreated){
+            System.out.println("data directory created successfully >>::))");
+        } else{
+            System.out.println("Duke-data directory exists >>::))");
+        }
+    }
 
-        createFile(filePath);
-        setUpDuke(filePath, tasks);
+    public static void main(String[] args) throws IOException {
+        createDirectory();
+        createFile();
+        setUpDuke();
         Greet();
-        listOperations(tasks);
-        writeFile(filePath, tasks);
+        listOperations();
+        writeFile();
     }
 }
