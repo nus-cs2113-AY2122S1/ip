@@ -12,6 +12,6 @@ public class Deadline extends List {
     
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by:" + by + ")";
     }
 }
