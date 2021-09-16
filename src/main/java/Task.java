@@ -23,7 +23,7 @@ public class Task {
         return description;
     }
 
-    public String getStoreDataString() {
+    public String getStoredDataString() {
        return "";
     }
 }

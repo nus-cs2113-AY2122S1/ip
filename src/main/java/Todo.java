@@ -14,7 +14,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String getStoreDataString() {
+    public String getStoredDataString() {
         String checkDone = isDone ? "1" : "0";
         return "todo "  +  description + " | "  + checkDone + System.lineSeparator();
     }

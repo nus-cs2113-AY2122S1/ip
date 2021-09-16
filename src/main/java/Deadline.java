@@ -14,7 +14,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getStoreDataString() {
+    public String getStoredDataString() {
         String checkDone = isDone ? "1" : "0";
         return "deadline " + description + " /by " + by + " | " + checkDone + System.lineSeparator();
     }

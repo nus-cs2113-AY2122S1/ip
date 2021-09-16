@@ -1,5 +1,3 @@
-todo return book | 0
 deadline shjakb /by shjkab | 1
-event akjsfa /at sjfak | 1
-todo return book | 1
-deadline aksja /by skjab | 0
+deadline aksja /by skjab | 1
+todo ajhfak | 0

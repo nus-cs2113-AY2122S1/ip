@@ -11,8 +11,16 @@ import java.nio.file.StandardOpenOption;
 public class Duke {
     public static int inputCount = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
-    private static String taskDoneChecker = "0";
-    private static String filePath = "C:\\Users\\Edwar\\Documents\\ip\\data\\duke.txt";
+    private static final String taskDoneChecker = "0";
+    private static final String filePath = "C:\\Users\\Edwar\\Documents\\ip\\data\\duke.txt";
+    private static final String INPUT_BYE = "bye";
+    private static final String INPUT_LIST = "list";
+    private static final String INPUT_DONE = "done";
+    private static final String INPUT_DELETE = "delete";
+    private static final String INPUT_TODO = "todo";
+    private static final String INPUT_DEADLINE = "deadline";
+    private static final String INPUT_EVENT = "event";
+
 
     public static void main(String[] args) {
         try {
@@ -20,94 +28,104 @@ public class Duke {
         } catch (FileNotFoundException e22) {
             System.out.println("file not found!");
         }
+
         String input;
         Scanner in = new Scanner(System.in);
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
-
         input = in.nextLine();
 
-        while (!(input.equals("bye"))) {
+        while (!(input.equals(INPUT_BYE))) {
 
-            if (input.equals("list")) {
+            if (input.equals(INPUT_LIST)) {
                 input = printList(in);
 
-            } else if (input.contains("done")) {
+            } else if (input.contains(INPUT_DONE)) {
                 try {
                     input = testTaskDone(input, in);
-                    saveAllTasks();
+                    replaceAllTasks();
 
                 } catch (NumberFormatException e3) {
                     System.out.println("Did you type in a number?");
                     input = in.nextLine();
+
                 } catch (ArrayIndexOutOfBoundsException e4) {
                     System.out.println("Finish the command!");
                     input = in.nextLine();
+
                 } catch (IOException e33) {
-                    System.out.println("check your inputs!");
+                    System.out.println("IOException error, theres an input/output error");
                     input = in.nextLine();
+
                 }
 
-            } else if (input.contains("todo")) {
+            } else if (input.contains(INPUT_TODO)) {
                 try {
                     testInput(input); // test todo input
-                    addTodo(input); // add new entry to duke.txt
-                    Task whatToDo = toDoMethod(input);
+                    appendTodo(input); // add new entry to duke.txt
+                    Task whatToDo = getToDoMethod(input);
                     System.out.println("    Got it. I've added this task:\n" + "    " + whatToDo + "\n"
                             + "    Now you have " + tasks.size() + " tasks in the list.");
 
                     input = in.nextLine();
+
                 } catch (DukeExceptions e5) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     input = in.nextLine();
+
                 }
 
-
-            } else if (input.contains("deadline")) {
+            } else if (input.contains(INPUT_DEADLINE)) {
                 try {
-                    addDeadline(input); //add new entry to duke.txt
-                    Task whatDeadline = deadlineMethod(input);
+                    appendDeadline(input); //add new entry to duke.txt
+                    Task whatDeadline = getDeadlineMethod(input);
                     System.out.println("    Got it. I've added this task:\n" + "    " + whatDeadline + "\n"
                             + "    Now you have " + tasks.size() + " tasks in the list.");
 
                     input = in.nextLine();
+
                 } catch (StringIndexOutOfBoundsException e1) {
                     System.out.println("input = " + input + "\n☹ OOPS!!! Please retype your input!");
                     input = in.nextLine();
+
                 } catch (ArrayIndexOutOfBoundsException e2) {
                     System.out.println("you have typed in = " + input + "\n☹ OOPS!!! where is your /by my friend? ");
                     input = in.nextLine();
                 }
 
-            } else if (input.contains("event")) {
+            } else if (input.contains(INPUT_EVENT)) {
                 try {
-                    addEvent(input); //add new entry to duke.txt
-                    Task whatEvent = eventMethod(input);
+                    appendEvent(input); //add new entry to duke.txt
+                    Task whatEvent = getEventMethod(input);
                     System.out.println("    Got it. I've added this task:\n" + "    " + whatEvent + "\n"
                             + "    Now you have " + tasks.size() + " tasks in the list.");
 
                     input = in.nextLine();
+
                 } catch (StringIndexOutOfBoundsException e6) {
                     System.out.println("input = " + input + "\n☹ OOPS!!! Please retype your input!");
                     input = in.nextLine();
+
                 } catch (ArrayIndexOutOfBoundsException e7) {
                     System.out.println("you have typed in = " + input + "\nw☹ OOPS!!! where is your /at brother? ");
                     input = in.nextLine();
                 }
 
-            } else if (input.contains("delete")) {
+            } else if (input.contains(INPUT_DELETE)) {
                 try {
                     input = testDeleteTask(input, in);
-                    saveAllTasks();
+                    replaceAllTasks();
+
                 } catch (NumberFormatException e8) {
                     System.out.println("Did you type in a number?");
                     input = in.nextLine();
+
                 } catch (ArrayIndexOutOfBoundsException e9) {
                     System.out.println("Finish the command!");
                     input = in.nextLine();
-                }
-                catch (IOException e34) {
-                    System.out.println("check your input!");
+
+                } catch (IOException e34) {
+                    System.out.println("IOException error, theres an input/output error");
                     input = in.nextLine();
                 }
 
@@ -141,7 +159,7 @@ public class Duke {
         taskNumber = taskNumber - 1;
 
         if (((taskNumber + 1) > 0) && ((taskNumber + 1) <= tasks.size())) { //check for invalid inputs
-            input = taskDone(in, tasks.get(taskNumber));
+            input = setTaskDone(in, tasks.get(taskNumber));
 
         } else {
             System.out.println("    Invalid input! Please check the list again!");
@@ -158,17 +176,18 @@ public class Duke {
         taskNumber = taskNumber - 1;
 
         if (((taskNumber + 1) > 0) && ((taskNumber + 1) <= tasks.size())) { //check for invalid inputs
-            input = taskDelete(in, tasks.remove(taskNumber));
+            input = setTaskDelete(in, tasks.remove(taskNumber));
 
         } else {
             System.out.println("    Invalid input! Please check the list again!");
             input = in.nextLine();
 
         }
+
         return input;
     }
 
-    private static String taskDone(Scanner in, Task task) {
+    private static String setTaskDone(Scanner in, Task task) {
         String input;
         System.out.println("    Nice! I've marked this task as done:" + System.lineSeparator());
         System.out.println("    " + task + " has been updated to -->");
@@ -177,19 +196,21 @@ public class Duke {
 
         System.out.println("    " + task);
         input = in.nextLine();
+
         return input;
     }
 
-    private static String taskDelete(Scanner in, Task task) {
+    private static String setTaskDelete(Scanner in, Task task) {
         String input;
         System.out.println("    Noted. I've removed this task:");
         System.out.println("    " + task);
         System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
         input = in.nextLine();
+
         return input;
     }
 
-    public static Task toDoMethod(String input) {
+    public static Task getToDoMethod(String input) {
         String toDoDescription = input.substring(4).trim();
 
         Task tasksToDo = new Todo(toDoDescription);
@@ -200,7 +221,7 @@ public class Duke {
 
     }
 
-    public static Task deadlineMethod(String input) {
+    public static Task getDeadlineMethod(String input) {
         String[] deadlineSplitter = input.substring(9).split(" /by ");
         String deadlineDescription = deadlineSplitter[0]; //before /by
         String deadlineBy = deadlineSplitter[1]; // after /by
@@ -213,7 +234,7 @@ public class Duke {
 
     }
 
-    public static Task eventMethod(String input) {
+    public static Task getEventMethod(String input) {
         String[] eventSplitter = input.substring(6).split(" /at ");
         String eventDescription = eventSplitter[0]; //before /at
         String eventAt = eventSplitter[1]; // after /at
@@ -237,7 +258,7 @@ public class Duke {
         fw.close();
     }
 
-    public static void addTodo(String input) {
+    public static void appendTodo(String input) {
         String isDone = taskDoneChecker;
         String addToDoDescription = input.substring(4).trim(); // "return book"
 
@@ -245,54 +266,56 @@ public class Duke {
             writeToFile(filePath,
                     "todo " + addToDoDescription + " | " + isDone + System.lineSeparator());
         } catch (IOException e) {
-            System.out.println("check your input!");
+            System.out.println("IOException error, theres an input/output error");
         }
 
     }
 
-    public static void addEvent(String input) {
+    public static void appendEvent(String input) {
         String isDone = taskDoneChecker;
         String[] eventSplitterString = input.substring(6).split(" /at ");
         String addEventDescription = eventSplitterString[0];
         String location = eventSplitterString[1];
 
         try {
-            writeToFile(filePath,
-                     "event " + addEventDescription + " /at " + location + " | " + isDone + System.lineSeparator());
+            writeToFile(filePath, "event " + addEventDescription + " /at "
+                    + location + " | " + isDone + System.lineSeparator());
 
         } catch (IOException e) {
-            System.out.println("check your input!");
+            System.out.println("IOException error, theres an input/output error");
         }
     }
 
-    public static void addDeadline(String input) {
+    public static void appendDeadline(String input) {
         String isDone = taskDoneChecker;
         String[] deadlineSplitterString = input.substring(9).split(" /by ");
         String addDeadlineDescription = deadlineSplitterString[0];
         String date = deadlineSplitterString[1];
 
         try {
-            writeToFile(filePath,
-                     "deadline " + addDeadlineDescription + " /by " + date + " | " + isDone + System.lineSeparator());
+            writeToFile(filePath, "deadline " + addDeadlineDescription + " /by "
+                    + date + " | " + isDone + System.lineSeparator());
         } catch (IOException e) {
-            System.out.println("check your input!");
+            System.out.println("IOException error, theres an input/output error");
         }
     }
 
-    public static void saveAllTasks() throws IOException {
+    public static void replaceAllTasks() throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
-        String taskInFile = "";
+        String taskToSave;
+
         for (Task individualTask : tasks) {
             if (individualTask instanceof Deadline) {
-                taskInFile = individualTask.getStoreDataString();
+                taskToSave = individualTask.getStoredDataString();
+
             } else if (individualTask instanceof Event) {
-                taskInFile = individualTask.getStoreDataString();
+                taskToSave = individualTask.getStoredDataString();
+
             } else {
-                taskInFile = individualTask.getStoreDataString();
+                taskToSave = individualTask.getStoredDataString();
             }
 
-            String fullTaskAsString = taskInFile;
-            Files.write(Paths.get(filePath), fullTaskAsString.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(filePath), taskToSave.getBytes(), StandardOpenOption.APPEND);
         }
     }
 
@@ -304,33 +327,35 @@ public class Duke {
 
         while (fileScan.hasNext()) {
             String data = fileScan.nextLine(); //scans first line of the file
-            String[] arrayString = data.split(" \\| "); //split "todo hello" "0"
-            String[] arrayString2 = arrayString[0].split(" ");//split "todo hello"  -> "todo" "hello"
-            taskType = arrayString2[0]; //chooses "todo"
+            String[] arraySplitter = data.split(" \\| "); //split "todo hello" "0"
+            String[] arraySplitter2 = arraySplitter[0].split(" ");//split "todo hello"  -> "todo" "hello"
+            taskType = arraySplitter2[0]; //chooses "todo"
 
             switch (taskType) {
             case "todo":
-                toDoMethod(arrayString[0]);
-                if (arrayString[1].equals("1")) {
+                getToDoMethod(arraySplitter[0]);
+                if (arraySplitter[1].equals("1")) {
                     loadFileDone(fileScanNumber);
                 }
                 break;
             case "deadline":
-                deadlineMethod(arrayString[0]);
-                if (arrayString[1].equals("1")) {
+                getDeadlineMethod(arraySplitter[0]);
+                if (arraySplitter[1].equals("1")) {
                     loadFileDone(fileScanNumber);
                 }
                 break;
             case "event":
-                eventMethod(arrayString[0]);
-                if (arrayString[1].equals("1")) {
+                getEventMethod(arraySplitter[0]);
+                if (arraySplitter[1].equals("1")) {
                     loadFileDone(fileScanNumber);
                 }
                 break;
             default:
             }
+
             fileScanNumber++;
         }
+
         fileScan.close();
     }
 
