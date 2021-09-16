@@ -6,12 +6,12 @@ public class Task {
         this.isDone = false;
     }
     public String getStatus() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "[X]" : "[ ]");
     }
     public void markAsDone() {
         this.isDone = true;
     }
-    public String getName() {
-        return this.name;
+    public String toString() {
+        return getStatus() + this.name;
     }
 }

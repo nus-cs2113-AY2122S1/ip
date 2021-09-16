@@ -13,8 +13,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String lineIn = "";
         Task[] listIn = new Task[100];
-        int inputIndex = 0;
-        int currentIndex = 0;
+        int totalNumber = 0;
         while(!lineIn.equals("bye")) {
             lineIn = in.nextLine();
             String[] lineInput = lineIn.split(" ");
@@ -23,25 +22,42 @@ public class Duke {
                 break;
             }
             if (lineInput[0].equals("list")) {
-                System.out.println("Here are the tasks in your list: ");
-                for (int i = 0; i < currentIndex; i++) {
-                    System.out.println((i + 1) + ".[" + listIn[i].getStatus() + "] " + listIn[i].getName());
-                }
-                System.out.println("...................................................");
-            } else if (lineInput[0].equals("done")) {
-                inputIndex = Integer.parseInt(lineInput[1]) - 1;
-                listIn[inputIndex].markAsDone();
-                System.out.println("Wonderful! This task is now marked as done: ");
-                System.out.println("[" + listIn[inputIndex].getStatus() + "] " + listIn[inputIndex].getName());
-                System.out.println("...................................................");
-            } else {
-                listIn[currentIndex] = new Task(lineIn);
-                System.out.println("Added: " + lineIn);
-                currentIndex++;
-                System.out.println("...................................................");
+                showTask(listIn,totalNumber);
+            } else if (lineInput[0].equals("done")){
+                doneTask(listIn,lineInput);
+            } else if (lineInput[0].equals("event") || lineInput[0].equals("deadline") || lineInput[0].equals("todo")) {
+                recordTask(listIn,lineIn,totalNumber,lineInput[0]);
+                totalNumber++;
             }
         }
         System.out.println("Byebye! Have a wonderful day!");
+        System.out.println("...................................................");
+    }
+    private static void showTask(Task[] listIn, int totalNumber) {
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < totalNumber; i++) {
+            System.out.println((i + 1) + "." + listIn[i].toString());
+        }
+    }
+
+    private static void doneTask(Task[] listIn, String[] lineInput) {
+        int inputIndex = Integer.parseInt(lineInput[1]) - 1;
+        listIn[inputIndex].markAsDone();
+        System.out.println("Wonderful! This task is now marked as done: ");
+        System.out.println(listIn[inputIndex].toString());
+    }
+
+    private static void recordTask(Task[] listIn, String lineInput, int totalNumber, String firstInput) {
+        System.out.println("Got it. I've added this task:");
+        if (firstInput.equals("event")) {
+            listIn[totalNumber] = new Event(lineInput.substring(6, lineInput.indexOf("/")), lineInput.substring(lineInput.indexOf("/") + 3));
+        } else if (firstInput.equals("deadline")) {
+            listIn[totalNumber] = new Deadline(lineInput.substring(9, lineInput.indexOf("/")), lineInput.substring(lineInput.indexOf("/") + 3));
+        } else {
+            listIn[totalNumber] = new ToDo(lineInput.substring(5));
+        }
+        System.out.println(listIn[totalNumber].toString());
+        System.out.println("Now you have " + (totalNumber + 1) + " tasks in your list");
         System.out.println("...................................................");
     }
 }
