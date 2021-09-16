@@ -1,7 +1,14 @@
 package duke.command;
 
+import duke.data.Storage;
 import duke.task.TaskManager;
 import duke.DukeException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Ui {
@@ -33,13 +40,35 @@ public class Ui {
     private static final String DELETE = "delete";
     private static final String ADD_SUCCESS = "     Nice! I've marked this task as done: ";
     private static final String DELETE_SUCCESS = "     Noted. I've removed this task:";
+    private static final String PATH_NAME = "data/output.txt";
 
     public Ui(TaskManager taskManager, Scanner scanner) {
         this.taskManager = taskManager;
         this.scanner = scanner;
     }
 
-    public void start() {
+    private static void saveData() {
+        try {
+            String pathName = PATH_NAME;
+            //create folder with file if absent initially
+            Path path = Paths.get(pathName);
+            Files.createDirectories(path.getParent());
+            Storage.writeToFile(pathName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadData() throws IOException {
+        try {
+            Storage.load(PATH_NAME);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void start() throws IOException {
+        loadData();
         System.out.println(GREETINGS);
         boolean isExit = false;
         while (!isExit) {
@@ -82,5 +111,6 @@ public class Ui {
             }
             System.out.print(LINE);
         }
+        saveData();
     }
 }

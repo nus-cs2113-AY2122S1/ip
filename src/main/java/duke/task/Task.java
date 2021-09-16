@@ -17,11 +17,23 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    public String getStatus() {
+        return (isDone ? "1" : "0");
+    }
+
     public String getIcon() {
         return "";
     }
 
     public String getTiming() {
+        return "";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTime() {
         return "";
     }
 

@@ -6,10 +6,11 @@ public class ToDo extends Task {
     }
 
     public String getIcon() {
-        return "[T]";
+        return "T";
     }
+
     @Override
     public String toString() {
-        return getIcon() + super.toString();
+        return "[" + getIcon() + "]"+ super.toString();
     }
 }
