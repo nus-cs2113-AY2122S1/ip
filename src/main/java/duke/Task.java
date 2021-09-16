@@ -6,17 +6,10 @@ public class Task {
     protected boolean isDone;
 
     private static int numOfTasks = 0;
-    private int id;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.id = numOfTasks;
-        Task.numOfTasks++;
-    }
-
-    public static int getNumOfTasks() {
-        return Task.numOfTasks;
     }
 
     public String getStatusIcon() {
@@ -25,10 +18,6 @@ public class Task {
     
     public void setDone() {
         this.isDone = true;
-    }
-
-    public int getId() {
-        return id;
     }
     
     @Override
