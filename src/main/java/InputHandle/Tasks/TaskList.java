@@ -17,6 +17,10 @@ public class TaskList implements Serializable {
         return newTask;
     }
 
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
     public void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("     " + (i + 1) + "." + tasks.get(i));
@@ -36,7 +40,6 @@ public class TaskList implements Serializable {
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
         return this.tasks.remove(index - 1);
     }
-
 
     private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {
         String taskType, taskName, deadline;
@@ -66,5 +69,12 @@ public class TaskList implements Serializable {
         return new Event(taskName, deadline, false);
     }
 
+    public String save() {
+        String result = "";
+        for (Task task : tasks) {
+            result += task.save();
+        }
+        return result;
+    }
 
 }

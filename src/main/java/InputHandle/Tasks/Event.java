@@ -14,4 +14,9 @@ public class Event extends Task implements Serializable {
     public String toString() {
         return "[E]" + super.toString() + "(" + this.completeTime + ")";
     }
+
+
+    public String save() {
+        return "E | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + " | " + this.completeTime + "\n";
+    }
 }

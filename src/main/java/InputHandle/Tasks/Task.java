@@ -17,6 +17,14 @@ abstract public class Task implements Serializable {
         return "[" + (isCompleted ? "X" : " ") + "] ";
     }
 
+    public boolean hasCompleted() {
+        return this.isCompleted;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
+    }
+
 
     @Override
     public String toString () {
@@ -26,4 +34,6 @@ abstract public class Task implements Serializable {
     public void setCompleted () {
         this.isCompleted = true;
     }
+
+    abstract public String save();
 }
