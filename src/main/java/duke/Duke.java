@@ -7,6 +7,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -18,7 +24,7 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|";
-    private static final String MESSAGE_WELCOME = " Hello! I'm Duke! Tell me what to do! Available commands: todo, deadline, event, list, bye";
+    private static final String MESSAGE_WELCOME = " Hello! I'm Duke! Tell me what to do! Available commands: todo, deadline, event, list, delete, bye";
     public static final String MESSAGE_GOODBYE = " Bye! Do visit next time! More upgrades coming soon :-)";
 
     public static final String COMMAND_LIST_WORD = "list";
@@ -33,6 +39,8 @@ public class Duke {
     public static final int TASK_DATA_INDEX_DESCRIPTION = 0;
     public static final int TASK_DATA_INDEX_ADDITIONAL_INFO = 1;
 
+    public static final String NUMBER_DONE = "1";
+
     private static ArrayList<Task> tasks;
 
     public static void main(String[] args) {
@@ -42,6 +50,59 @@ public class Duke {
             String userCommand = getInput();
             executeCommand(userCommand);
             showBottomMessage();
+        }
+    }
+
+    private static void appendFileContentsToArrayList() throws FileNotFoundException {
+        File f = new File("data/duke.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] commandInput = s.nextLine().split(" \\| ",4);
+            String commandWord = commandInput[0];
+            String isCompleteString = commandInput[1];
+            String taskDescription = commandInput[2];
+            String additionalDescription;
+            if (commandWord.equals("T")) {
+                additionalDescription = "";
+            } else {
+                additionalDescription = commandInput[3];
+            }
+            switch (commandWord) {
+            case ("T"):
+                tasks.add(new Todo(taskDescription));
+                setTaskAsDone(isCompleteString);
+                break;
+            case("D"):
+                tasks.add(new Deadline(taskDescription, additionalDescription));
+                setTaskAsDone(isCompleteString);
+                break;
+            case("E"):
+                tasks.add(new Event(taskDescription, additionalDescription));
+                setTaskAsDone(isCompleteString);
+                break;
+            }
+        }
+    }
+
+    private static void setTaskAsDone(String isCompleteString) {
+        if (isCompleteString.equals(NUMBER_DONE)) {
+            tasks.get(tasks.size() - 1).setDone();
+        }
+    }
+
+    private static void writeToFile(String taskInstance, String rawText, String additionalText, boolean isDone) throws IOException {
+        FileWriter fw = new FileWriter("data/duke.txt", true);
+        String additionalTextWithBorders = (additionalText.equals("") ? "" : " | " + additionalText);
+        String taskAsText = taskInstance + " | " + isDoneString(isDone) + " | " + rawText + additionalTextWithBorders + System.lineSeparator();
+        fw.write(taskAsText);
+        fw.close();
+    }
+
+    private static String isDoneString(boolean isDone) {
+        if (isDone) {
+            return "1";
+        } else {
+            return "0";
         }
     }
 
@@ -97,6 +158,7 @@ public class Duke {
         int taskIndex = Integer.parseInt(taskIndexString) - 1;
         Task currentTask = tasks.get(taskIndex);
         tasks.remove(currentTask);
+        OverwriteListToFile();
         showSuccessfulDelete(currentTask);
     }
 
@@ -121,17 +183,26 @@ public class Duke {
         String description = getDescription(decodedInput);
         String at = getAdditionalInfo(decodedInput);
         createEventTask(description, at);
+        appendEventToFile(description, at);
+        showSuccessfulAdd();
+    }
+
+    private static void appendEventToFile(String description, String at) {
+        try {
+            writeToFile("E",description,at,false);
+        } catch (IOException e) {
+            System.out.println("IO error!");
+        }
     }
 
     private static void createEventTask(String description, String at) {
-        tasks.add(new Event(description, at));
-        showSuccessfulAdd();
+        tasks.add(new Event(description,at));
     }
 
     private static void showSuccessfulAdd() {
         System.out.println("Got it! I've added this task: ");
         System.out.println(tasks.get(tasks.size()-1));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
     }
 
     private static String[] decodeInput(String rawInput) {
@@ -143,9 +214,7 @@ public class Duke {
         return decoded;
     }
 
-
     private static String getAdditionalInfo(String[] decodedInput) {
-
         return decodedInput[1];
     }
 
@@ -158,27 +227,76 @@ public class Duke {
         String description = getDescription(decodedInput);
         String by = getAdditionalInfo(decodedInput);
         createDeadlineTask(description, by);
+        appendDeadlineToFile(description, by);
+        showSuccessfulAdd();
+
+    }
+
+    private static void appendDeadlineToFile(String description, String by) {
+        try {
+            writeToFile("E",description,by,false);
+        } catch (IOException e) {
+            System.out.println("IO error!");
+        }
     }
 
     private static void createDeadlineTask(String description, String by) {
-        tasks.add(new Deadline(description, by));
-        showSuccessfulAdd();
+        tasks.add(new Deadline(description,by));
     }
 
     private static void executeTodoTask(String todoInput) {
         createTodoTask(todoInput);
+        appendTodoToFile(todoInput);
+        showSuccessfulAdd();
+    }
+
+    private static void appendTodoToFile(String todoInput) {
+        try {
+            writeToFile("T", todoInput,"", false);
+        } catch (IOException e) {
+            System.out.println("IO error!");
+        }
     }
 
     private static void createTodoTask(String todoInput) {
         tasks.add(new Todo(todoInput));
-        showSuccessfulAdd();
     }
 
     private static void executeCompleteTask(String taskIndexString) throws IndexOutOfBoundsException{
         int taskIndex = Integer.parseInt(taskIndexString) - 1;
         Task currentTask = tasks.get(taskIndex);
         currentTask.setDone();
+        OverwriteListToFile();
         showSuccessfulComplete(currentTask);
+    }
+
+    private static void OverwriteListToFile() {
+        try {
+            clearFile();
+            for (Task task : tasks) {
+                if (task instanceof Todo) {
+                    writeToFile("T",task.getDescription(),"",task.isDone());
+                } else if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    writeToFile("D",deadlineTask.getDescription(),deadlineTask.getBy(),deadlineTask.isDone());
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    writeToFile("E",eventTask.getDescription(),eventTask.getAt(),eventTask.isDone());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IO Error!");
+        }
+    }
+
+    private static void clearFile() {
+        try {
+            FileWriter fw = new FileWriter("data/duke.txt");
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("IO Error!");
+        }
     }
 
     private static void showSuccessfulComplete(Task currentTask) {
@@ -223,6 +341,16 @@ public class Duke {
 
     private static void initTaskList() {
         tasks = new ArrayList<>();
+        try {
+            appendFileContentsToArrayList();
+        } catch (FileNotFoundException e) {
+            File f = new File("./data/");
+            if (f.mkdir()) {
+                System.out.println("No saved task lists found! Created a new one for you :-)" + System.lineSeparator());
+            } else {
+                System.out.println("Error! Failed to create data folder...");
+            }
+        }
     }
 
     private static void showWelcomeMessage() {
