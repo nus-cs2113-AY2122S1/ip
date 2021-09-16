@@ -16,47 +16,38 @@ public class Duke {
     private static final String DEADLINE_BY_PREFIX = "/by ";
     private static final String EVENT_AT_PREFIX = "/at ";
 
-    private static final String TODO_EMPTY = "todo cannot be empty!";
-    private static final String DEADLINE_EMPTY = "deadline cannot be empty!";
-    private static final String EVENT_EMPTY = "event cannot be empty!";
-    private static final String INVALID_INPUT = "invalid input, try another command";
+    //pepepopo response text output
+    private static final String GREETING = "Hello! I'm Pepepopo\n" +
+                                            "What can I do for you?";
+    private static final String DIVIDER = "____________________________________________________________";
+    private static final String BYE = "PLEASE DONT LEAVE :( \n" +
+                                        "a....noo.....ahhhhh..\n" +
+                                        "..AAAAAAGHHHH.......pepepopo loved u :(";
+
+    private static final String TASK_ADD = "New task! Pepepopo has added it to the list: ";
+    private static final String TASK_DONE = "Yay! Pepepopo has marked your task as done:";
+
+    private static final String TODO_EMPTY = "Todo cannot be empty!";
+    private static final String DEADLINE_EMPTY = "Deadline cannot be empty!";
+    private static final String EVENT_EMPTY = "Event cannot be empty!";
+    private static final String INVALID_INPUT = "Invalid input, try another command";
+    private static final String INVALID_DONE_NUMBER = "Please enter a valid number after done";
 
     private static Task[] tasks = new Task[100];
 
-    /*
-    Standard text output by pepepopo
-     */
     public static void greeting() {
-        String greeting = " Hello! I'm Pepepopo\n" +
-                        " What can I do for you?";
-        System.out.println(greeting);
-        divider();
+        printDiv(GREETING);
     }
 
-    public static void divider() {
-        String divider = "____________________________________________________________";
-        System.out.println(divider);
-    }
-
-    public static void bye() {
-        String bye = "PLEASE DONT LEAVE :( \n" +
-                    "a....noo.....ahhhhh..\n" +
-                    "..AAAAAAGHHHH.......pepepopo loved u :(";
-        System.out.println(bye);
-        divider();
-
-    }
-
-    public static void added(Task t) {
-        System.out.println("New task! Pepepopo has added it to the list: ");
-        System.out.println("  " + t);
-        System.out.println("You now have " + Task.getTaskCount() + " task(s) in your list.");
+    public static void added(Task task) {
+        printDiv(TASK_ADD +
+                    "\n  " + task +
+                    "\nYou now have " + Task.getTaskCount() + " task(s) in your list.");
     }
 
     public static void done(Task[] tasks, int taskNumber) {
-        System.out.println("Yay! Pepepopo has marked your task as done:");
-        System.out.println(tasks[taskNumber]);
-        divider();
+        printDiv(TASK_DONE +
+                "\n" + tasks[taskNumber]);
     }
 
     public static String getInput() {
@@ -66,6 +57,7 @@ public class Duke {
         line = in.nextLine();
         return line;
     }
+
     public static void executeCommand(String input) throws DukeException {
         String[] commandAndParams = splitString(input, " ");
         String command = commandAndParams[0];
@@ -75,24 +67,21 @@ public class Duke {
             try {
                 executeTodo(params);
             } catch (DukeException e) {
-                System.out.println(TODO_EMPTY);
-                divider();
+                printDiv(TODO_EMPTY);
             }
             break;
         case COMMAND_DEADLINE:
             try {
                 executeDeadline(params);
             } catch (DukeException e) {
-                System.out.println(DEADLINE_EMPTY);
-                divider();
+                printDiv(DEADLINE_EMPTY);
             }
             break;
         case COMMAND_EVENT:
             try {
                 executeEvent(params);
             } catch (DukeException e) {
-                System.out.println(EVENT_EMPTY);
-                divider();
+                printDiv(EVENT_EMPTY);
             }
             break;
         case COMMAND_DONE:
@@ -113,7 +102,6 @@ public class Duke {
         tasks[Task.getTaskCount()] = t;
         Task.setTaskCount();
         added(t);
-        divider();
     }
 
     public static void executeTodo(String params) throws DukeException {
@@ -161,11 +149,11 @@ public class Duke {
             System.out.println(curr + "." + item);
             curr += 1;
         }
-        divider();
+        print(DIVIDER);
     }
 
     public static void executeBye() {
-        bye();
+        printDiv(BYE);
         System.exit(0);
     }
 
@@ -180,6 +168,7 @@ public class Duke {
         }
         int taskNumber = Integer.parseInt(params);
         if (taskNumber > Task.getTaskCount()) {
+            printDiv(INVALID_DONE_NUMBER);
             return false;
         } else {
             return true;
@@ -191,8 +180,18 @@ public class Duke {
             int intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
+            printDiv(INVALID_DONE_NUMBER);
         }
         return false;
+    }
+
+    public static void printDiv(String text) {
+        System.out.println(text);
+        System.out.println(DIVIDER);
+    }
+
+    public static void print(String text) {
+        System.out.println(text);
     }
 
     public static void main(String[] args) {
@@ -203,8 +202,7 @@ public class Duke {
             try {
                 executeCommand(input);
             } catch (DukeException e) {
-                System.out.println(INVALID_INPUT);
-                divider();
+                printDiv(INVALID_INPUT);
             }
         }
 
