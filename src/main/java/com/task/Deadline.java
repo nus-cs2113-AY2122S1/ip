@@ -16,6 +16,6 @@ public class Deadline extends Todo {
         this.by = ddl;
     }
     public String toString() {
-        return super.toString();
+        return super.toString() + "(" + this.by + ")";
     }
 }

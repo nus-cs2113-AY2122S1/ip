@@ -44,13 +44,13 @@ public class Main {
                 }
                 if(line.contains("deadline")) {
                     String time = line.substring(line.indexOf("/")+1);
-                    line = line.substring(9,line.indexOf("/")) + "(" + time + ")";
+                    line = line.substring(9,line.indexOf("/"));
                     duke.addList(new Deadline(line,time));
                     break;
                 }
                 if(line.contains("event")) {
                     String time = line.substring(line.indexOf("/")+1);
-                    line = line.substring(6,line.indexOf("/")) + "(" + time + ")";
+                    line = line.substring(6,line.indexOf("/"));
                     duke.addList(new Event(line,time));
                     break;
                 }
