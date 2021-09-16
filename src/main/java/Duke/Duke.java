@@ -71,10 +71,12 @@ public class Duke {
     private static File getTaskFile() throws IOException {
         File taskFile = new File(filePath + "/taskLists.txt");
         if (taskFile.createNewFile()) {
-            System.out.println("File created");
+            System.out.println("A new file has been created at " + filePath);
         } else {
-            System.out.println("File already exists");
+            System.out.println(taskFile + " accessed.");
         }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         return taskFile;
     }
 
@@ -89,12 +91,15 @@ public class Duke {
                 switch (splittedInput[0].toLowerCase()) {
                 case "todo":
                     addTodoTask(input);
+                    printNewTaskMsg();
                     break;
                 case "deadline":
                     addDeadlineTask(input);
+                    printNewTaskMsg();
                     break;
                 case "event":
                     addEventTask(input);
+                    printNewTaskMsg();
                     break;
                 case "list":
                     printListMessage();
@@ -139,7 +144,7 @@ public class Duke {
         //create new Todo task
         tasksArrayList.add(new Todo(taskName));
 
-        printNewTaskMsg();
+        taskCounter++;
     }
 
     private static String getTodoTaskName(String input) throws DukeException {
@@ -164,7 +169,7 @@ public class Duke {
 
         //create new Event task
         tasksArrayList.add(new Event(taskName, dueDate));
-        printNewTaskMsg();
+        taskCounter++;
     }
 
     private static String getEventTaskName(String input, int slashIndex) throws DukeException {
@@ -201,7 +206,7 @@ public class Duke {
         //create new Deadline task
         tasksArrayList.add(new Deadline(taskName, dueDate));
 
-        printNewTaskMsg();
+        taskCounter++;
     }
 
     private static String getDeadlineTaskName(String input, int slashIndex) throws DukeException {
@@ -234,12 +239,11 @@ public class Duke {
     }
 
     private static void printNewTaskMsg() {
-        int taskCount = taskCounter + 1;
+        int taskIndex = taskCounter - 1;
         System.out.println("\tAlright! I've just added this task:");
-        System.out.println("\t" + tasksArrayList.get(taskCounter).toString());
-        System.out.println("\tYou now have " + taskCount + " tasks on your task list.");
+        System.out.println("\t" + tasksArrayList.get(taskIndex).toString());
+        System.out.println("\tYou now have " + taskCounter + " tasks on your task list.");
         printLineSeparator();
-        taskCounter++;
     }
 
     private static void printListMessage() {
