@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import src.main.java.Task;
 
 public class Duke {
 
+
     private static String[] stringList = new String[100];
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int listCount = 0;
 
     private static final String LINE = "-------------------------------------------------------------------\n";
@@ -18,29 +21,28 @@ public class Duke {
     private static void markAsDone(String line) {
         String taskNumber = line.substring(5);
         int taskListElement = Integer.parseInt(taskNumber) - 1;
-        taskList[taskListElement].markAsDone();
+        taskList.get(taskListElement).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[X] " + taskList[taskListElement].getDescription());
+        System.out.println("[X] " + taskList.get(taskListElement).getDescription());
         System.out.println(LINE);
     }
 
     private static void list() {
         int taskCount = 1;
         for (int i = 0; i < listCount; i++) {
-            System.out.println(taskCount + "." + taskList[i]);
+            System.out.println(taskCount + "." + taskList.get(i));
             taskCount++;
         }
         System.out.println(LINE);
     }
 
     private static Todo todo(String line) {
-
         char taskType = line.toUpperCase().charAt(0);
         String taskDisplay = line.substring(5);
 
         stringList[listCount] = taskDisplay;
         Todo todoTask = new Todo(taskDisplay, taskType);
-        taskList[listCount] = todoTask;
+        taskList.add(listCount, todoTask);
         return todoTask;
     }
 
@@ -52,7 +54,7 @@ public class Duke {
 
         stringList[listCount] = taskDisplay;
         Deadline deadlineTask = new Deadline(taskDisplay, taskType, doBy);
-        taskList[listCount] = deadlineTask;
+        taskList.add(listCount, deadlineTask);
         return deadlineTask;
     }
 
@@ -64,7 +66,7 @@ public class Duke {
 
         stringList[listCount] = taskDisplay;
         Event eventTask = new Event(taskDisplay, taskType, doBy);
-        taskList[listCount] = eventTask;
+        taskList.add(listCount, eventTask);
         return eventTask;
     }
 
@@ -73,6 +75,17 @@ public class Duke {
         System.out.println(task);
         System.out.println("Now you have " + listCount + " tasks in the list.");
         System.out.println(LINE);
+    }
+
+    private static void delete(String line){
+        int taskIndex = Integer.parseInt(line.substring(7)) - 1;
+        Task task = taskList.get(taskIndex);
+        listCount--;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + listCount + " tasks in the list.");
+        System.out.println(LINE);
+        taskList.remove(taskIndex);
     }
 
     private static void mainProgram(String line, Scanner in) {
@@ -114,6 +127,15 @@ public class Duke {
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! The format of event is wrong");
                     System.out.println("Please format your input as 'event <task>/<event date and time>'");
+                    System.out.println(LINE);
+                }
+
+            } else if (line.startsWith("delete")) {
+                try {
+                    delete(line);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The task number is not valid");
+                    System.out.println("Please check again and format your input as 'delete <task number>'");
                     System.out.println(LINE);
                 }
 
