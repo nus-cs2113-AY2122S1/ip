@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Todo extends Task {
 
     /*CONSTRUCTOR*/
@@ -11,7 +13,7 @@ public class Todo extends Task {
 
     @Override
     public void printTaskNotif() {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this duke.task:");
         System.out.println("[T] [ ] " + description);
     }
 }

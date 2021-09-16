@@ -1,9 +1,11 @@
+package duke.task;
+
 public class Task {
 
     /*ATTRIBUTES*/
 
-    protected String type = " "; //empty for basic task, T: todo, D: deadline, E: event
-    protected String description;
+    public String type = " "; //empty for basic duke.task, T: todo, D: deadline, E: event
+    public String description;
     protected boolean isDone;
 
 
@@ -28,7 +30,7 @@ public class Task {
 
     //set icon as "X" for done, " " for not done
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
     public void printTaskNotif() {

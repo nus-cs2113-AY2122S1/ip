@@ -1,8 +1,10 @@
+package duke.task;
+
 public class Deadline extends Task {
 
     /*ATTRIBUTES*/
 
-    private String name; //name of task only (eg return book)
+    private String name; //name of duke.task only (eg return book)
     protected String by; //due date
 
     /*CONSTRUCTOR*/
@@ -18,7 +20,7 @@ public class Deadline extends Task {
 
     @Override
     public void printTaskNotif() {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this duke.task:");
         System.out.println("[D] [ ] " + description);
 
     }

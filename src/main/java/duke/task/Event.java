@@ -1,8 +1,10 @@
+package duke.task;
+
 public class Event extends Task {
 
     /*ATTRIBUTES*/
 
-    private String name; //name of task only (eg return book)
+    private String name; //name of duke.task only (eg return book)
     protected String at; //time
 
     /*CONSTRUCTOR*/
@@ -19,7 +21,7 @@ public class Event extends Task {
 
     @Override
     public void printTaskNotif() {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this duke.task:");
         System.out.println("[E] [ ] " + description);
     }
 

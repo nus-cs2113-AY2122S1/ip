@@ -1,40 +1,49 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     /*ATTRIBUTES*/
 
-    private static Task[] tasks = new Task[100]; //array to store task list
+    private static ArrayList<Task> tasks = new ArrayList<>(); //array to store duke.task list
     private static int taskCount; //store total number of tasks
 
 
     /*METHODS*/
 
-    //adds task to the task list
+    //adds duke.task to the duke.task list
     public static void addTask(Task t) {
         printHorizontalLine();
-        tasks[taskCount] = t;
+        tasks.add(t);
         t.printTaskNotif();
-        System.out.println("Now you have " + (taskCount + 1) + " tasks in the list");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
 
         taskCount++;
     }
 
-    //prints task list when "list" is keyed by user
+    //prints duke.task list when "list" is keyed by user
     public static void printList() {
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            String type = tasks[i].type;
-            String icon = tasks[i].getStatusIcon();
-            System.out.println((i + 1) + "." + "[" + type + "]" + " [" + icon + "] " + tasks[i].description);
+        for (int i = 0; i < tasks.size(); i++) {
+            String type = tasks.get(i).type;
+            String icon = tasks.get(i).getStatusIcon();
+            System.out.println((i + 1) + "." + "[" + type + "]" + " [" + icon + "] " + tasks.get(i).description);
         }
-        printHorizontalLine();
     }
 
-    //prints specific task that is done
-    public static void printDoneTask(Task t) {
+    //prints specific duke.task that is done
+    public static void setDoneTask(Task t, int i) {
+        tasks.get(i).setDone(true);
+
         printHorizontalLine();
         System.out.println("Nice, I've marked this task as done:");
         String type = t.type;
@@ -43,9 +52,17 @@ public class Duke {
         printHorizontalLine();
     }
 
-    //sets task as done
-    public static void setDone(int number) {
-        tasks[number].setDone(true);
+
+    public static void deleteTask (Task t){
+        tasks.remove(t);
+
+        printHorizontalLine();
+        System.out.println("Noted, I've removed this task:");
+        String type = t.type;
+        String icon = t.getStatusIcon();
+        System.out.println("[" + type + "]" + " [" + icon + "] " + t.description);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        printHorizontalLine();
     }
 
     public static void printHorizontalLine() {
@@ -90,16 +107,22 @@ public class Duke {
                 printByeMessage();
 
             } else if (input.equalsIgnoreCase("list")) {
-                printList(); //print task list
+                printList(); //print duke.task list
 
             } else if (input.contains("done")) {
                 String[] splitString = input.split(" ");
-                int index = Integer.parseInt(splitString[1]); //task number to be marked as done
+                int index = Integer.parseInt(splitString[1]); //duke.task number to be marked as done
 
-                setDone(index - 1);
-                printDoneTask(tasks[index - 1]);
+                setDoneTask(tasks.get(index - 1), index - 1);
 
-            } else if (input.contains("todo")) { //task is a todo
+            } else if (input.contains("delete")){
+                String[] splitString = input.split(" ");
+                int index = Integer.parseInt(splitString[1]);
+
+                deleteTask(tasks.get(index - 1));
+
+
+            } else if (input.contains("todo")) { //duke.task is a todo
                 String description = input.substring(4).trim();
 
                 if (description.isEmpty()) {
@@ -111,8 +134,7 @@ public class Duke {
                     addTask(t);
                 }
 
-
-            } else if (input.contains("deadline")) { //task is a deadline
+            } else if (input.contains("deadline")) { //duke.task is a deadline
                 int slash = input.indexOf("/");
                 String description = input.substring(9, slash);
                 String by = input.substring(slash + 4);
@@ -120,7 +142,7 @@ public class Duke {
 
                 addTask(t);
 
-            } else if (input.contains("event")) { //task is an event
+            } else if (input.contains("event")) { //duke.task is an event
                 int slash = input.indexOf("/");
                 String description = input.substring(6, slash);
                 String at = input.substring(slash + 4);
@@ -128,12 +150,12 @@ public class Duke {
 
                 addTask(t);
 
-            } else {//basic task
-//                t = new Task(input);
+            } else {//basic duke.task
+//                t = new duke.task.Task(input);
 //                addTask(t);
 
                 error = "unrecognisedTask";
-                throw new DukeException("unrecognisedTask");
+                throw new DukeException(error);
             }
         }
     }
