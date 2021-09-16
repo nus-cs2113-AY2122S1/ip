@@ -1,4 +1,8 @@
-[T] [ ] wash
-[T] [ ] clean
-[D] [ ] eat
-[E] [ ] lecture
+[T] [ ] eat
+[T] [ ] sleep
+[D] [ ] assignment
+[E] [ ] tutorial
+[E] [ ] Edly attend CS2113T lecture
+[T] [ ] eat
+[T] [ ] eat
+[T] [ ] sleep
