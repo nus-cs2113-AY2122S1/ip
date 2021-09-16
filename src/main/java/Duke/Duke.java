@@ -36,8 +36,7 @@ public class Duke {
     private static final String INVALID_INPUT = "Invalid input, try another command";
     private static final String INVALID_NUMBER = "Please enter a valid number after the command";
     private static final String INVALID_DONE_NUMBER = "Please enter a number within the list";
-
-//    private static Task[] tasks = new Task[100];
+    
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static String getInput() {
@@ -48,9 +47,6 @@ public class Duke {
         return line;
     }
 
-    public static String readFile() {
-        
-    }
 
     public static void executeCommand(String input) throws DukeException {
         String[] commandAndParams = splitString(input, " ");
