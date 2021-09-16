@@ -66,7 +66,6 @@ public class Duke {
 
         }
     }
-<<<<<<< HEAD
 
     public static void deleteEvent(String input, Tasks user) throws ArrayIndexOutOfBoundsException {
         int index = Integer.parseInt(input) - 1;
@@ -84,10 +83,7 @@ public class Duke {
         }
     }
 
-    public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException, DeleteTaskFormatException {
-=======
-    public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException, IOException {
->>>>>>> branch-Level-7
+    public static void response(String input, Tasks user) throws IllegalCommandException, IllegalTaskException, DueDateFormatException, MultiMarkDoneException, IOException, DeleteTaskFormatException {
         String[] inputArr = input.split(" ");
         switch (inputArr[0]) {
         case ("list"):
@@ -230,13 +226,10 @@ public class Duke {
                 System.out.println("Sir, I am afraid that task you are referring to does not exist.");
             } catch (MultiMarkDoneException e) {
                 System.out.println("Sir, this task has already been marked as done.");
-<<<<<<< HEAD
             } catch (DeleteTaskFormatException e) {
                 System.out.println("Sir, May I suggest specifying the task you want to delete more clearly? (eg. delete 1)");
-=======
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
->>>>>>> branch-Level-7
             }
             line();
             input = sc.nextLine();
