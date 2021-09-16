@@ -5,14 +5,14 @@ import duke.DukeException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private ArrayList<Task> taskList;
+    public static ArrayList<Task> taskList;
 
     private static final String TO_DO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
     private static final String ADDED_TASK = "     Got it. I've added this task:\n       ";
-    private static final String BY_SEPARATOR = "by";
-    private static final String AT_SEPARATOR = "at";
+    private static final String BY_SEPARATOR = "/by";
+    private static final String AT_SEPARATOR = "/at";
     private static final int TODO_STRING_LENGTH = 5;
     private static final int DEADLINE_STRING_LENGTH = 9;
     private static final int EVENT_STRING_LENGTH = 6;
@@ -54,17 +54,17 @@ public class TaskManager {
         printSize();
     }
 
-    public void addToDo(String description) {
+    public static void addToDo(String description) {
         taskList.add(new ToDo(description));
         System.out.println(ADDED_TASK + new ToDo(description));
     }
 
-    public void addDeadline(String description, String time) {
+    public static void addDeadline(String description, String time) {
         taskList.add(new Deadline(description, time));
         System.out.println(ADDED_TASK + new Deadline(description, time));
     }
 
-    public void addEvent(String description, String time) {
+    public static void addEvent(String description, String time) {
         taskList.add(new Event(description, time));
         System.out.println(ADDED_TASK + new Event(description, time));
     }
@@ -85,10 +85,10 @@ public class TaskManager {
             description = task.substring(TODO_STRING_LENGTH);
         } else if (getCommand(task).equals(DEADLINE)) {
             separator = task.indexOf(BY_SEPARATOR);
-            description = task.substring(DEADLINE_STRING_LENGTH, separator);
+            description = task.substring(DEADLINE_STRING_LENGTH, separator - 1);
         } else if (getCommand(task).equals(EVENT)) {
             separator = task.indexOf(AT_SEPARATOR);
-            description = task.substring(EVENT_STRING_LENGTH, separator);
+            description = task.substring(EVENT_STRING_LENGTH, separator - 1);
         } else {
             description = null;
         }
@@ -108,6 +108,8 @@ public class TaskManager {
 
         return taskType;
     }
+
+
 
     public void printSize() {
         if (getSize() == 1) {
@@ -130,6 +132,7 @@ public class TaskManager {
     public int getSize() {
         return taskList.size();
     }
+
 
     public void list() {
         try {

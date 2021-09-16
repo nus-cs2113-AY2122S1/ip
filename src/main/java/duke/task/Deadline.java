@@ -10,15 +10,19 @@ public class Deadline extends Task {
     }
 
     public String getIcon() {
-        return "[D]";
+        return "D";
     }
 
     public String getTiming() {
         return "(by:" + timing + ")";
     }
 
+    public String getTime() {
+        return timing;
+    }
+
     @Override
     public String toString() {
-        return getIcon() + super.toString() + getTiming();
+        return "[" + getIcon() + "]" + super.toString() + getTiming();
     }
 }
