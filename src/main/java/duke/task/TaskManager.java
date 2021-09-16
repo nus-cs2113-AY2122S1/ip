@@ -59,15 +59,28 @@ public class TaskManager {
         System.out.println(ADDED_TASK + new ToDo(description));
     }
 
+    public static void loadToDoFromFile(String description) {
+        taskList.add(new ToDo(description));
+    }
+
     public static void addDeadline(String description, String time) {
         taskList.add(new Deadline(description, time));
         System.out.println(ADDED_TASK + new Deadline(description, time));
+    }
+
+    public static void loadDeadlineFromFile(String description, String time) {
+        taskList.add(new Deadline(description, time));
     }
 
     public static void addEvent(String description, String time) {
         taskList.add(new Event(description, time));
         System.out.println(ADDED_TASK + new Event(description, time));
     }
+
+    public static void loadEventFromFile(String description, String time) {
+        taskList.add(new Event(description, time));
+    }
+
 
     public void checkDone(String[] command) {
         try {
@@ -112,8 +125,10 @@ public class TaskManager {
 
 
     public void printSize() {
-        if (getSize() == 1) {
-            System.out.println("     Now you have " + 1 + " task in the list.");
+        if (getSize() == 0) {
+            System.out.println("     Now you have 0 task in the list.");
+        } else if (getSize() == 1) {
+            System.out.println("     Now you have 1 task in the list.");
         } else {
             System.out.println("     Now you have " + getSize() + " tasks in the list.");
         }

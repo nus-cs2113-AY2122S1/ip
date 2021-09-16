@@ -21,13 +21,13 @@ public class Storage {
             String[] array = line.split(" | ");
             switch (array[0]) {
             case "T":
-                TaskManager.addToDo(array[2]);
+                TaskManager.loadToDoFromFile(array[2]);
                 break;
             case "D":
-                TaskManager.addDeadline(array[2], array[3]);
+                TaskManager.loadDeadlineFromFile(array[2], array[3]);
                 break;
             case "E":
-                TaskManager.addEvent(array[2], array[3]);
+                TaskManager.loadEventFromFile(array[2], array[3]);
                 break;
             }
         }
