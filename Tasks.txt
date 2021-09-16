@@ -1,2 +1,1 @@
-todo run | 1
-event swim /at 4:30 | 1
+event 6 /at 6pm | 0

@@ -15,83 +15,79 @@ public class Duke {
     private static int byeFlag = 0;
     private static int loadFlag = 0;
     private static int positionCheck = 0;
-    private static String EMPTY = "There is no data in your list master!";
-    private static String UNSPECIFIED_DONE = "Oh no master, I am not quite sure which task you would like me to mark as done!";
-    private static String UNSPECIFIED_DELETE = "Oh no master, I am not quite sure which task you would like me to delete!";
-    private static String INVALID = "Please type in a valid number master! Type \"list\" to check the index number of your list data";
-    public static String DEADLINE_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
-            "Please enter \"deadline\", followed by the task, followed by \"/by\", \n" +
-            "and lastly followed by the due date to specify the deadline Master!");
-    public static String EVENT_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters. \n" +
-            "Please enter \"event\", followed by the event, followed by \"/at\", and \n" +
-            "lastly followed by the event duration to specify the timing of the event Master!");
-    public static String TODO_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
-            " Please enter \"todo\", followed by the task you wish to add to your \n" +
-            "duke.Todo list Master!");
-    public static String UNSPECIFIED_TASK = ("Sorry Master! Despite the fact that I am fluent in over six million forms\n" +
-            " of communication, I am unable to comprehend your request. Please specify\n" +
-            " the type of task that you wish to add Master!");
+
+    //private static final String filePath = "./data/Tasks.txt";
 
     private static ArrayList<Task> commands = new ArrayList<>();
-
-    private static String STARTING_MESSAGE = "Accessing archives, loading in data, C3PO systems online!";
-
-    private static String filePath = "C:\\Users\\visha\\Desktop\\Year 2 Sem 1 Modules\\CS2113T\\IndivFinalProject\\Tasks.txt";
 
     private static void sendCommand() {
         String line;
         Scanner in = new Scanner(System.in);
         while (byeFlag != 1) {
             try {
-                System.out.println("____________________________________________________________\n");
-                System.out.print("Type something: ");
+                System.out.println(Response.LINE);
+                System.out.print(Response.USER_PROMPT_MESSAGE);
                 line = in.nextLine();
-                System.out.println("____________________________________________________________\n");
+                System.out.println(Response.LINE);
                 checkCommand(line);
             } catch (NumberFormatException e) {
-                System.out.println("Master, please type in a number to indicate the task you want me to perform the necessary actions for!");
+                System.out.println(Response.NUMBER_FORMAT_EXCEPTION);
             } catch (DukeException e) {
-
+                System.out.print("");
             } catch (IOException e) {
-
+                System.out.print("");
             }
         }
     }
 
     private static void checkCommand(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
-        if (line.equals("bye")) {
-            byeFlag = 1;
-        } else if (line.equals("list")) {
-            if (positionCheck == 0) {
-                throw new DukeException(EMPTY);
-            } else {
-                printList();
-            }
-        } else if (line.equals("done")) {
-            throw new DukeException(UNSPECIFIED_DONE);
-        } else if (line.equals("delete")) {
-            throw new DukeException(UNSPECIFIED_DELETE);
-        } else if ((input[0].equals("done")) || (input[0].equals("delete"))) {
-            if (positionCheck<=0) {
-                throw new DukeException(EMPTY);
-            } else if ((Integer.parseInt(input[1]) > positionCheck ) || (Integer.parseInt(input[1]) <= 0)) {
-                throw new DukeException(INVALID);
-            } else {
-                if (input[0].equals("done")) {
-                    markDone(Integer.parseInt(input[1])-1);
+        String firstWord = input[0];
+        if (input.length == 1) {
+            switch (line) {
+            case "bye":
+                byeFlag = 1;
+                break;
+            case "list":
+                if (positionCheck == 0) {
+                    throw new DukeException(Response.EMPTY);
                 } else {
-                    deleteTask(Integer.parseInt(input[1])-1);
+                    printList();
+                    break;
                 }
+            case "done":
+                throw new DukeException(Response.UNSPECIFIED_DONE);
+            case "delete":
+                throw new DukeException(Response.UNSPECIFIED_DELETE);
+            default:
+                throw new DukeException(Response.UNSPECIFIED_TASK);
             }
         } else {
-            checkTypeOfTask(line);
+            switch (firstWord) {
+            case "done":
+            case "delete":
+                int taskNumber = Integer.parseInt(input[1]);
+                int taskIndex = taskNumber - 1;
+                if (positionCheck <= 0) {
+                    throw new DukeException(Response.EMPTY);
+                } else if ( (taskNumber > positionCheck ) || ( taskNumber <= 0) ) {
+                    throw new DukeException(Response.INVALID);
+                } else if (firstWord.equals("done")) {
+                    markDone(taskIndex);
+                    break;
+                } else {
+                    deleteTask(taskIndex);
+                    break;
+                }
+            default:
+                checkTypeOfTask(line);
+                break;
+            }
         }
     }
 
     public static void sayBye() {
-        System.out.println("Goodbye master! May the force be with you!\n");
-        System.out.println("____________________________________________________________\n");
+        System.out.println(Response.ENDING_MESSAGE + Response.LINE);
     }
 
     public static void addDeadline(String[] input, int length) throws DukeException, IOException {
@@ -117,10 +113,10 @@ public class Duke {
                 return;
             }
         }
-        throw new DukeException(DEADLINE_ERROR);
+        throw new DukeException(Response.DEADLINE_ERROR);
     }
 
-    public static void addEvent(String[] input, int length) throws DukeException, IOException{
+    public static void addEvent(String[] input, int length) throws DukeException, IOException {
         String description;
         String at;
         for (int i = 1 ; i < length ; i++) {
@@ -143,12 +139,12 @@ public class Duke {
                 return;
             }
         }
-        throw new DukeException(EVENT_ERROR);
+        throw new DukeException(Response.EVENT_ERROR);
     }
 
-    public static void addTodo (String[] input, int length) throws DukeException, IOException{
+    public static void addTodo(String[] input, int length) throws DukeException, IOException {
         if (length == 1) {
-            throw new DukeException(TODO_ERROR);
+            throw new DukeException(Response.TODO_ERROR);
         } else {
             String description = input[1];
             for (int i = 2 ; i < length ; i++) {
@@ -167,14 +163,19 @@ public class Duke {
     public static void checkTypeOfTask(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
         int length = input.length;
-        if (input[0].toLowerCase().equals("deadline")) {
+        String firstWord = input[0];
+        switch (firstWord) {
+        case "deadline":
             addDeadline(input,length);
-        } else if (input[0].toLowerCase().equals("event")) {
+            break;
+        case "event":
             addEvent(input,length);
-        } else if (input[0].toLowerCase().equals("todo")) {
+            break;
+        case "todo":
             addTodo(input,length);
-        } else {
-            throw new DukeException(UNSPECIFIED_TASK);
+            break;
+        default:
+            throw new DukeException(Response.UNSPECIFIED_TASK);
         }
     }
 
@@ -187,13 +188,13 @@ public class Duke {
         }
     }
 
-    private static void markDone(int doneTaskNumber) throws IOException{
+    private static void markDone(int doneTaskNumber) throws IOException {
         (commands.get(doneTaskNumber)).markAsDone();
         if (loadFlag == 1) {
             System.out.println("The following task has been marked as done Master!");
             System.out.println((doneTaskNumber + 1) + ". " + commands.get(doneTaskNumber));
+            saveAllTasks();
         }
-        saveAllTasks();
     }
 
     private static void deleteTask(int doneTaskNumber) throws IOException {
@@ -206,25 +207,11 @@ public class Duke {
     }
 
     public static void greetUser() {
-        String logo = "       /~\\\n"
-                + "      |oo )\n"
-                + "      _\\=/_\n"
-                + "     /     \\\n"
-                + "    //|/.\\|\\\\\n"
-                + "   ||  \\_/  ||\n"
-                + "   || |\\ /| ||\n"
-                + "    # \\_ _/  #\n"
-                + "      | | |\n"
-                + "      | | |\n"
-                + "      []|[]\n"
-                + "      | | |\n"
-                + "     /_]_[_\\\n";
-        System.out.println("____________________________________________________________\n");
-        System.out.println("Hello! I am C3P0! Human-cyborg relations! \n" + " \n" + logo);
-        System.out.println("What can I do for you my master?\n");
+        System.out.println(Response.GREETINGS);
     }
 
     public static void saveNewTask(String[] input) throws IOException {
+        String filePath = new File("Tasks.txt").getAbsolutePath();
         FileWriter fw = new FileWriter(filePath, true);
         String fullTaskAsString = "";
         for (String individualString : input) {
@@ -236,9 +223,10 @@ public class Duke {
     }
 
     public static void saveAllTasks() throws IOException {
+        String filePath = new File("Tasks.txt").getAbsolutePath();
         FileWriter fw = new FileWriter(filePath, false);
-        String taskInFile = "";
-        String done = "";
+        String taskInFile;
+        String done;
         for (Task individualTask : commands) {
             if (individualTask instanceof Deadline) {
                 taskInFile = "deadline " + individualTask.description + " /by " + ((Deadline) individualTask).by;
@@ -257,8 +245,9 @@ public class Duke {
         }
     }
 
-    public static void loadTasks() throws FileNotFoundException, DukeException, IOException {
-        File f = new File("C:\\Users\\visha\\Desktop\\Year 2 Sem 1 Modules\\CS2113T\\IndivFinalProject\\Tasks.txt");
+    public static void loadTasks() throws DukeException, IOException {
+        String filePath = new File("Tasks.txt").getAbsolutePath();
+        File f = new File(filePath);
         Scanner s = new Scanner(f);
         int taskNumber = 0;
         String textFromFile;
@@ -284,15 +273,16 @@ public class Duke {
             }
             taskNumber += 1;
         }
-        System.out.println(STARTING_MESSAGE);
+        System.out.println(Response.STARTING_MESSAGE);
         loadFlag = 1;
     }
 
-    public static void main (String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws DukeException, IOException {
         try {
             loadTasks();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not found. Automatic text file creation initiated master!");
+            loadFlag = 1;
         }
         greetUser();
         sendCommand();
