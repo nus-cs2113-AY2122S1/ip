@@ -1,4 +1,3 @@
-T--0--wakeup
-D--1--eat--morning
+T--1--wakeup
+D--0--eat--morning
 E--0--sleep--night
-T--1--work

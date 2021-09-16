@@ -31,7 +31,8 @@ public class Duke {
         try {
             loadSave();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not found" + System.lineSeparator() + "Empty file created");
+            System.out.println(SEPARATOR);
         }
     }
 
@@ -45,6 +46,12 @@ public class Duke {
         final String DEADLINE_CODE = "D";
         final String EVENT_CODE = "E";
         String line;
+        File dir = new File("data");
+
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
         File f = new File("data/duke.txt");
         Scanner s = new Scanner(f);
 
@@ -79,6 +86,7 @@ public class Duke {
             processInput(line);
             line = in.nextLine();
         }
+
         try {
             printEnd();
         } catch (IOException e) {
