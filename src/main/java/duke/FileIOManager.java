@@ -8,12 +8,11 @@ import java.util.Scanner;
 public class FileIOManager {
     public static void write(ArrayList<Todo> tasks) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("tasks.txt"));
-        //int count = 1;
+        int count = 1;
         for (Todo task : tasks) {
-            //writer.write(count+"."+task.toString());
-            writer.write(task.toString());
+            writer.write(count+"."+task.toString());
             writer.newLine();
-            //count++;
+            count++;
         }
         writer.flush();
         writer.close();
