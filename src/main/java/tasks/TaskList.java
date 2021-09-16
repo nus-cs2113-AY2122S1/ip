@@ -29,4 +29,7 @@ public class TaskList {
         }
     }
 
+    public void  remove(Task t){
+        taskList.remove(t);
+    }
 }

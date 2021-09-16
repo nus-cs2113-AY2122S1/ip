@@ -10,16 +10,9 @@ public class AddTaskCommand extends Command{
     private  Task t;
     private TaskList tlist;
 
-    public AddTaskCommand(TaskList tlist, Task t) {
+    public AddTaskCommand(TaskList tlist, Task t){
         this.tlist = tlist;
         this.t = t;
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(tlist.size());
-        System.out.println("Now you have " + tlist.size() + " tasks in the list");
-        System.out.println("____________________________________________________________");
-
     }
 
     public  void run(){

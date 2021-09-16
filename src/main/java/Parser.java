@@ -53,7 +53,17 @@ public class Parser {
             }
             int task_index = Integer.parseInt(parsedInput[1]);
             return new DoneCommand(taskList, task_index - 1);
-        } else if (input.startsWith("list")) {
+        } else if (input.startsWith("delete")) {
+            String[] parsedInput = input.split(" ");
+            if (parsedInput.length < 2) {
+                throw new DukeException("Sorry done ____ cannot  be empty");
+            }
+            if (Integer.parseInt(parsedInput[1]) >= taskList.size() + 1) {
+                throw new DukeException("That is not in the list");
+            }
+            int task_index = Integer.parseInt(parsedInput[1]);
+            return new DeleteCommand(taskList, task_index - 1);
+        }else if (input.startsWith("list")) {
             return new ListCommand(taskList);
         } else{
             throw new DukeException("Sorry I dont understand");
