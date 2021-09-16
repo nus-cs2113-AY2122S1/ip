@@ -1,15 +1,15 @@
-import duke.Deadline;
-import duke.DukeException;
-import duke.Event;
-import duke.Task;
-import java.util.ArrayList;
-
+import tasks.Deadline;
+import tasks.DukeException;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import commands.Command;
 import java.util.Scanner;
 
 public class Duke {
 
-    ArrayList<Task> t = new ArrayList<>();
-    int listIndex = 0;
+    private boolean exit = false;
+    private TaskList taskList = new TaskList();
 
     public void run() {
         String userInput;
@@ -19,143 +19,18 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-
-        while(true){
+        exit = true;
+        while(exit) {
             userInput = in.nextLine();
-            if(userInput.contentEquals("bye")){
-                System.out.println("____________________________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
-                break;
+            try {
+                Command c = Parser.parse(userInput, taskList);
+                c.run();
+                exit = c.exit();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
-            else if(userInput.contains("done")){
-                try {
-                    this.doTask(userInput);
-                }
-                catch (DukeException e){
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            else if(userInput.startsWith("todo")){
-                try {
-                    this.addTodo(userInput);
-                }catch(DukeException e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            else if(userInput.startsWith("event")){
-                try {
-                    this.addEvent(userInput);
-                }catch(DukeException e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            else if(userInput.startsWith("deadline")){
-                try {
-                    this.addDeadline(userInput);
-                }catch(DukeException e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            else if(userInput.startsWith("list")){
-                this.printList();
-            }
-            else {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Sorry I dont understand");
-                System.out.println("____________________________________________________________");
-                }
-            }
-
-    }
-
-    public void doTask(String input) throws DukeException{
-        String[] parsedInput = input.split(" ");
-        if(parsedInput.length < 2){
-            throw new DukeException("Sorry done ____ cannot  be empty");
-        }
-        if(Integer.parseInt(parsedInput[1]) >= listIndex + 1){
-            throw new DukeException("That is not in the list");
-        }
-        int task_index = Integer.parseInt(parsedInput[1]);
-        t.get(task_index - 1).taskDone();
-        System.out.println("____________________________________________________________");
-        System.out.println("List so far: ");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t.get(task_index - 1));
-        System.out.println("____________________________________________________________");
-    }
-
-    public void addTodo(String input)throws DukeException{
-
-        String taskDescription = input.replaceFirst("todo", "");
-        taskDescription = taskDescription.stripLeading();
-        if(taskDescription.isEmpty()){
-            throw new DukeException("Description cannot be empty!");
-        }
-        t.add(new Task(taskDescription));
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t.get(listIndex));
-        System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
-        System.out.println("____________________________________________________________");
-        listIndex++;
-    }
-
-    public void addEvent(String input) throws DukeException{
-        input = input.replaceFirst("event", "");
-        String[] parsedInput = input.split("/at");
-
-        try {
-            parsedInput[1] = parsedInput[1];
-
-        }catch(ArrayIndexOutOfBoundsException a){
-            System.out.println("Description cannot be empty!");
-            return;
         }
 
-        if(parsedInput[1].stripLeading().isEmpty()){
-            throw new DukeException("Description cannot be empty!");
-        }
-        t.add(new Event(parsedInput[0], parsedInput[1].stripLeading()));
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t.get(listIndex));
-        System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
-        System.out.println("____________________________________________________________");
-        listIndex++;
-    }
-
-    public void addDeadline(String input) throws DukeException{
-        input = input.replaceFirst("deadline", "");
-        String[] parsedInput = input.split("/by");
-        try {
-            parsedInput[1] = parsedInput[1];
-        }catch(ArrayIndexOutOfBoundsException a){
-            System.out.println("Description cannot be empty!");
-            return;
-        }
-        if(parsedInput[1].stripLeading().isEmpty()){
-            throw new DukeException("Description cannot be empty!");
-        }
-        t.add(new Deadline(parsedInput[0], parsedInput[1].stripLeading()));
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(t.get(listIndex));
-        System.out.println("Now you have " + (listIndex + 1) + " tasks in the list");
-        System.out.println("____________________________________________________________");
-        listIndex++;
-    }
-
-    public void printList(){
-        System.out.println("____________________________________________________________");
-        System.out.println("List so far: ");
-        for(int i = 0; i < listIndex; i++) {
-            System.out.print(i +  1);
-            System.out.println(t.get(i));
-        }
-        System.out.println("____________________________________________________________");
     }
 
     public static void main(String[] args) {
