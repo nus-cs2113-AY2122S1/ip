@@ -5,6 +5,9 @@ import duke.task.Deadlines;
 import duke.task.Todo;
 import duke.task.Events
         ;
+
+import java.util.ArrayList;
+
 public class CommandList {
     private static final int CMD_NOT_FOUND = 0;
     private static final int CMD_TODO = 1;
@@ -13,7 +16,9 @@ public class CommandList {
     private static final int CMD_LIST = 4;
     private static final int CMD_DONE = 5;
     private static final int CMD_TERMINATE = 6;
+    private static final int CMD_DELETE = 7;
     private static final int FIVE = 5;
+    private static final int SEVEN = 7;
     private static final String border = "____________________________________________________________\n";
 
     protected int command;
@@ -39,26 +44,37 @@ public class CommandList {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println(border);
     }
+    public void removeTaskMessage(Task task) {
+        System.out.println(border);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(border);
+    }
 
-    public void addEvent(Task[] items, String description, String time) {
+    public void addEvent(ArrayList<Task> items, String description, String time) {
         Events newEvent = new Events(description, time);
-        items[taskCount] = newEvent;
+        items.add(taskCount, newEvent);
         taskCount++;
         addTaskMessage(newEvent);
     }
 
-    public void addDeadline(Task[] items, String description, String by) {
+    public void addDeadline(ArrayList<Task> items, String description, String by) {
         Deadlines newDeadline = new Deadlines(description, by);
-        items[taskCount] = newDeadline;
+        items.add(taskCount, newDeadline);
         taskCount++;
         addTaskMessage(newDeadline);
     }
 
-    public void addTodo(Task[] items, String description) {
+    public void addTodo(ArrayList<Task> items, String description) {
         Todo newTodo = new Todo(description);
-        items[taskCount] = newTodo;
+        items.add(taskCount, newTodo);
         taskCount++;
         addTaskMessage(newTodo);
+    }
+    public void removeItem(ArrayList<Task> items, int taskNum) {
+        removeTaskMessage(items.get(taskNum));
+        items.remove(taskNum);
     }
 
     public static void printEndMessage() {
@@ -70,7 +86,7 @@ public class CommandList {
         error.printError(error.getErrorType());
     }
 
-    public void executeCommand(Task[] items, DukeException error, String input) {
+    public void executeCommand(ArrayList<Task> items, DukeException error, String input) {
 
         switch (command) {
             case CMD_TODO:
@@ -85,7 +101,7 @@ public class CommandList {
             case CMD_LIST:
                 int j = 1;
                 System.out.println(border);
-                System.out.println("Here is your list");
+                System.out.println("Here are the task in your list:");
                 for (Task item : items) {
                     if (item != null) {
                         System.out.print(j + ".");
@@ -100,12 +116,21 @@ public class CommandList {
                 if (endPosition > FIVE) {
                     String num = input.substring(dividerPosition, endPosition);
                     int taskNum = Integer.parseInt(num) - 1;
-                    items[taskNum].markDone();
+                    items.get(taskNum).markDone();
                     System.out.println(border + "Nice! task is done " + '\n' + border);
                 }
                 break;
             case CMD_TERMINATE:
                 printEndMessage();
+                break;
+            case CMD_DELETE:
+                dividerPosition = input.indexOf(" ") + 1;
+                endPosition = input.length();
+                if (endPosition > SEVEN) {
+                    String num = input.substring(dividerPosition, endPosition);
+                    int taskNum = Integer.parseInt(num) - 1;
+                    removeItem(items, taskNum);
+                }
                 break;
             default:
                 printErrorMessage(error);
