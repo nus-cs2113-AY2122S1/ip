@@ -7,6 +7,8 @@
 _______________________________
 	Why are you here again
 	What do you want
+	There are no tasks in your to-do list. Bet that'll change soon.
+	_______________________________
 	Invalid command format.
 	add todo format:
 		todo {DESCRIPTION}
@@ -26,38 +28,38 @@ _______________________________
 	add deadline format:
 		deadline {DESCRIPTION} /by {TIME}
 	_______________________________
-	added: [D][ ] homework  (by:  29 March)
+	added: [D][ ] homework (by: 29 March)
 	There are 1 deadline in your list
 	_______________________________
 	1 [T][ ] wash the dishes
-	2 [D][ ] homework  (by:  29 March)
+	2 [D][ ] homework (by: 29 March)
 	Look at that ever-expanding to-do list.
 	You really should stop procrastinating.
 	_______________________________
 	Wow. You finally completed a task after lazying around all day.[T][X] wash the dishes
 	_______________________________
 	1 [T][X] wash the dishes
-	2 [D][ ] homework  (by:  29 March)
+	2 [D][ ] homework (by: 29 March)
 	Look at that ever-expanding to-do list.
 	You really should stop procrastinating.
 	_______________________________
-	added: [E][ ] TV  (at:  9pm)
+	added: [E][ ] TV (at: 9pm)
 	There are 1 event in your list
 	_______________________________
 	added: [T][ ] tomato
 	There are 2 todo in your list
 	_______________________________
 	1 [T][X] wash the dishes
-	2 [D][ ] homework  (by:  29 March)
-	3 [E][ ] TV  (at:  9pm)
+	2 [D][ ] homework (by: 29 March)
+	3 [E][ ] TV (at: 9pm)
 	4 [T][ ] tomato
 	Look at that ever-expanding to-do list.
 	You really should stop procrastinating.
 	_______________________________
 	I've deleted the task: [T][X] wash the dishes
 	_______________________________
-	1 [D][ ] homework  (by:  29 March)
-	2 [E][ ] TV  (at:  9pm)
+	1 [D][ ] homework (by: 29 March)
+	2 [E][ ] TV (at: 9pm)
 	3 [T][ ] tomato
 	Look at that ever-expanding to-do list.
 	You really should stop procrastinating.
@@ -65,8 +67,8 @@ _______________________________
 	added: [T][ ] potato
 	There are 2 todo in your list
 	_______________________________
-	1 [D][ ] homework  (by:  29 March)
-	2 [E][ ] TV  (at:  9pm)
+	1 [D][ ] homework (by: 29 March)
+	2 [E][ ] TV (at: 9pm)
 	3 [T][ ] tomato
 	4 [T][ ] potato
 	Look at that ever-expanding to-do list.

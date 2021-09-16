@@ -46,6 +46,7 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String ROOT_FOLDER = System.getProperty("user.dir");
     private static final String FILEPATH = "data/Duke.txt";
 
     public static void showWelcomeMessage() {
@@ -64,13 +65,18 @@ public class Duke {
 
     public static void readFromFile() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
-            String line = reader.readLine();
-            while (line != null) {
-                convertFileStringToTaskAndAddTask(line);
-                line = reader.readLine();
+            File file = new File(FILEPATH);
+            if (file.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
+                String line = reader.readLine();
+                while (line != null) {
+                    convertFileStringToTaskAndAddTask(line);
+                    line = reader.readLine();
+                }
+                reader.close();
             }
-            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
         } catch (IOException e) {
             System.out.println("Error while reading from file");
         }
@@ -100,21 +106,30 @@ public class Duke {
             System.out.println("Error converting file string to task");
         }
     }
+
     public static void clearHistory() throws IOException {
         FileWriter writer = new FileWriter(FILEPATH, false);
         writer.write("");
         writer.close();
     }
 
-    public static void saveToFile() {
+    public static void saveToFile() throws IOException {
         try {
-            FileWriter writer = new FileWriter(FILEPATH, false);
-            for (Task task : taskList) {
-                writer.write(task.toFileString() + "\n");
+            File file = new File(FILEPATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdir();
+                file.createNewFile();
             }
-            writer.close();
+            FileWriter fw = new FileWriter(file, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for (Task task : taskList) {
+                bw.write(task.toFileString() + "\n");
+            }
+            bw.close();
         } catch (IOException e) {
             System.out.println("Error while saving to file");
+            e.printStackTrace();
         }
     }
 
@@ -161,14 +176,8 @@ public class Duke {
     }
 
     private static String executeClearHistory() {
-//        try {
-//            clearHistory();
-//        } catch (IOException e) {
-//            System.out.println("Error while clearing History.");
-//        }
         taskList.clear();
-
-        return "History cleared.\n";
+        return "History cleared.";
     }
 
     private static String executeDeleteTask(String commandArgs) {
@@ -237,7 +246,7 @@ public class Duke {
         return str.append(MESSAGE_LIST_ALL_TASKS).toString();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         initTaskList();
         showWelcomeMessage();
         readFromFile();
