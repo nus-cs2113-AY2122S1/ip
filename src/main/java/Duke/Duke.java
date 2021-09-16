@@ -1,7 +1,8 @@
 package Duke;
 
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.io.File;
 
 public class Duke {
     //define constants
@@ -11,6 +12,7 @@ public class Duke {
 
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_BYE = "bye";
 
     private static final String DEADLINE_BY_PREFIX = "/by ";
@@ -26,29 +28,17 @@ public class Duke {
 
     private static final String TASK_ADD = "New task! Pepepopo has added it to the list: ";
     private static final String TASK_DONE = "Yay! Pepepopo has marked your task as done:";
+    private static final String TASK_DELETE = "Alright! Pepepopo has removed the task:";
 
     private static final String TODO_EMPTY = "Todo cannot be empty!";
     private static final String DEADLINE_EMPTY = "Deadline cannot be empty!";
     private static final String EVENT_EMPTY = "Event cannot be empty!";
     private static final String INVALID_INPUT = "Invalid input, try another command";
-    private static final String INVALID_DONE_NUMBER = "Please enter a valid number after done";
+    private static final String INVALID_NUMBER = "Please enter a valid number after the command";
+    private static final String INVALID_DONE_NUMBER = "Please enter a number within the list";
 
-    private static Task[] tasks = new Task[100];
-
-    public static void greeting() {
-        printDiv(GREETING);
-    }
-
-    public static void added(Task task) {
-        printDiv(TASK_ADD +
-                    "\n  " + task +
-                    "\nYou now have " + Task.getTaskCount() + " task(s) in your list.");
-    }
-
-    public static void done(Task[] tasks, int taskNumber) {
-        printDiv(TASK_DONE +
-                "\n" + tasks[taskNumber]);
-    }
+//    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static String getInput() {
         String line;
@@ -56,6 +46,10 @@ public class Duke {
 
         line = in.nextLine();
         return line;
+    }
+
+    public static String readFile() {
+        
     }
 
     public static void executeCommand(String input) throws DukeException {
@@ -67,21 +61,21 @@ public class Duke {
             try {
                 executeTodo(params);
             } catch (DukeException e) {
-                printDiv(TODO_EMPTY);
+                print(TODO_EMPTY);
             }
             break;
         case COMMAND_DEADLINE:
             try {
                 executeDeadline(params);
             } catch (DukeException e) {
-                printDiv(DEADLINE_EMPTY);
+                print(DEADLINE_EMPTY);
             }
             break;
         case COMMAND_EVENT:
             try {
                 executeEvent(params);
             } catch (DukeException e) {
-                printDiv(EVENT_EMPTY);
+                print(EVENT_EMPTY);
             }
             break;
         case COMMAND_DONE:
@@ -89,6 +83,9 @@ public class Duke {
             break;
         case COMMAND_LIST:
             executeList();
+            break;
+        case COMMAND_DELETE:
+            executeDelete(params);
             break;
         case COMMAND_BYE:
             executeBye();
@@ -99,9 +96,9 @@ public class Duke {
     }
 
     public static void addTask(Task t) {
-        tasks[Task.getTaskCount()] = t;
-        Task.setTaskCount();
-        added(t);
+        tasks.add(t);
+        Task.setTaskCount(1);
+        printAdd(t);
     }
 
     public static void executeTodo(String params) throws DukeException {
@@ -137,23 +134,32 @@ public class Duke {
     public static void executeDone(String params) {
         if (isDone(params)) {
             int taskNumber = Integer.parseInt(params) - 1;
-            tasks[taskNumber].setDone();
-            done(tasks, taskNumber);
+            tasks.get(taskNumber).setDone();
+            printDone(taskNumber);
+        }
+    }
+
+    public static void executeDelete(String params) {
+        if (isDone(params)) {
+            int taskNumber = Integer.parseInt(params) - 1;
+            Task.setTaskCount(-1);
+            printDelete(taskNumber);
+            tasks.remove(taskNumber);
         }
     }
 
     public static void executeList() {
-        Task[] listPrint = Arrays.copyOf(tasks, Task.getTaskCount());
-        int curr = 1;
-        for (Task item : listPrint) {
+//        Task[] listPrint = Arrays.copyOf(tasks, Task.getTaskCount());
+//        int curr = 1;
+        for (Task item : tasks) {
+            int curr = tasks.indexOf(item) + 1;
             System.out.println(curr + "." + item);
-            curr += 1;
         }
-        print(DIVIDER);
+        print("");
     }
 
     public static void executeBye() {
-        printDiv(BYE);
+        print(BYE);
         System.exit(0);
     }
 
@@ -163,46 +169,65 @@ public class Duke {
     }
 
     public static boolean isDone(String params) {
-        if (!isNumeric(params)) {
-            return false;
-        }
+        isInt(params);
         int taskNumber = Integer.parseInt(params);
         if (taskNumber > Task.getTaskCount()) {
-            printDiv(INVALID_DONE_NUMBER);
+            print(INVALID_NUMBER);
             return false;
         } else {
             return true;
         }
     }
 
-    public static boolean isNumeric(String string) {
+    public static void isInt(String string) {
         try {
             int intValue = Integer.parseInt(string);
-            return true;
         } catch (NumberFormatException e) {
-            printDiv(INVALID_DONE_NUMBER);
+            print(INVALID_NUMBER);
         }
-        return false;
     }
 
-    public static void printDiv(String text) {
-        System.out.println(text);
-        System.out.println(DIVIDER);
+    public static void printGreeting() {
+        print(GREETING);
+    }
+
+    public static void printAdd(Task task) {
+        print(TASK_ADD +
+                "\n  " + task +
+                "\nYou now have " + Task.getTaskCount() + " task(s) in your list.");
+    }
+
+    public static void printDone(int taskNumber) {
+        print(TASK_DONE +
+                "\n" + tasks.get(taskNumber));
+    }
+
+    public static void printDelete(int taskNumber) {
+        print(TASK_DELETE +
+                "\n" + tasks.get(taskNumber) +
+                "\nYou now have " + Task.getTaskCount() + " task(s) in your list.");
     }
 
     public static void print(String text) {
-        System.out.println(text);
+        if (!text.equals("")) {
+            System.out.println(text);
+        }
+            System.out.println(DIVIDER);
     }
 
+    //public static void print(String text) {
+//        System.out.println(text);
+//    }
+
     public static void main(String[] args) {
-        greeting();
+        printGreeting();
 
         while (true) {
             String input = getInput();
             try {
                 executeCommand(input);
             } catch (DukeException e) {
-                printDiv(INVALID_INPUT);
+                print(INVALID_INPUT);
             }
         }
 

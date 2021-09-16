@@ -26,8 +26,8 @@ public class Task {
         isDone = true;
     }
 
-    public static void setTaskCount() {
-        Task.taskCount += 1;
+    public static void setTaskCount(int amt) {
+        Task.taskCount += amt;
     }
 
     @Override
