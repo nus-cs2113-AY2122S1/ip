@@ -1,6 +1,10 @@
 package duke;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import duke.task.*;
 
 public class Duke {
@@ -23,6 +27,44 @@ public class Duke {
     public static void initiateDuke() {
         System.out.println(SEPARATOR + "Hi... from GUDETAMA... so sleepy\n" + LOGO);
         System.out.println("Give me five more minutes..... What can I do for you?\n" + SEPARATOR);
+
+        try {
+            loadSave();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public static void loadSave() throws FileNotFoundException {
+        final String LOAD_DELIMITER = "--";
+        final int TASK_INDEX = 0;
+        final int DONE_INDEX = 1;
+        final int DESCRIPTION_INDEX = 2;
+        final int BY_AT_INDEX = 3;
+        final String TODO_CODE = "T";
+        final String DEADLINE_CODE = "D";
+        final String EVENT_CODE = "E";
+        String line;
+        File f = new File("data/duke.txt");
+        Scanner s = new Scanner(f);
+
+        while (s.hasNext()) {
+            line = s.nextLine();
+            String[] lineData = line.split(LOAD_DELIMITER);
+
+            if (lineData[TASK_INDEX].equals(TODO_CODE)) {
+                userInputs[userInputCount] = new Todo(lineData[DESCRIPTION_INDEX]);
+            } else if (lineData[TASK_INDEX].equals(DEADLINE_CODE)) {
+                userInputs[userInputCount] = new Deadline(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]);
+            } else if (lineData[TASK_INDEX].equals(EVENT_CODE)) {
+                userInputs[userInputCount] = new Event(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]);
+            }
+
+            if (lineData[DONE_INDEX].equals("1")) {
+                userInputs[userInputCount].markAsDone();
+            }
+            userInputCount++;
+        }
     }
 
     /**
@@ -37,7 +79,11 @@ public class Duke {
             processInput(line);
             line = in.nextLine();
         }
-        printEnd();
+        try {
+            printEnd();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e);
+        }
     }
 
     /**
@@ -70,7 +116,36 @@ public class Duke {
     /**
      * Prints the ending messages before ending the program
      */
-    public static void printEnd() {
+    public static void printEnd() throws IOException{
+        final String DELIMITER = "--";
+        int doneValue;
+        FileWriter beginWrite = new FileWriter("data/duke.txt");
+
+        beginWrite.write("");
+        beginWrite.close();
+
+        FileWriter fw = new FileWriter("data/duke.txt", true);
+
+        for (int i = 0; i < userInputCount; i++) {
+            if (userInputs[i].getCode().equals("T")) {
+                String lineToAppend = userInputs[i].getCode() + DELIMITER + userInputs[i].getDoneValue() +
+                        DELIMITER + userInputs[i].getDescription();
+                fw.write(lineToAppend);
+                fw.write(System.lineSeparator());
+            } else if (userInputs[i].getCode().equals("D")) {
+                String lineToAppend = userInputs[i].getCode() + DELIMITER + userInputs[i].getDoneValue() +
+                        DELIMITER + userInputs[i].getDescription() + DELIMITER + userInputs[i].getBy();
+                fw.write(lineToAppend);
+                fw.write(System.lineSeparator());
+            } else if (userInputs[i].getCode().equals("E")) {
+                String lineToAppend = userInputs[i].getCode() + DELIMITER + userInputs[i].getDoneValue() +
+                        DELIMITER + userInputs[i].getDescription() + DELIMITER + userInputs[i].getAt();
+                fw.write(lineToAppend);
+                fw.write(System.lineSeparator());
+            }
+        }
+        fw.close();
+
         System.out.println(SEPARATOR + "\nBye. I'm going back to sleep... zzz");
     }
 

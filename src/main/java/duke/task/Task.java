@@ -33,6 +33,22 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public int getDoneValue() {
+        return (isDone ? 1 : 0);
+    }
+
+    public String getCode() {
+        return " ";
+    }
+
+    public String getBy() {
+        return " ";
+    }
+
+    public String getAt() {
+        return " ";
+    }
+
     /**
      * Mark the boolean variable isDone as true
      */

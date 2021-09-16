@@ -16,6 +16,10 @@ public class Event extends Task {
         return this.at;
     }
 
+    public String getCode() {
+        return "E";
+    }
+
     /**
      * Set the string, at
      * @param at the start and end time of event
