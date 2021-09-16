@@ -37,10 +37,8 @@ public class Duke {
                     } catch (IOException e) {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
-                } else if (items.get(i) instanceof Event) {
-                    Event dummy = (Event) items.get(i);
-                    System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " + dummy.getDescription() + " (" + dummy.getDuration() + ")");
-                } else if (items.get(i) instanceof Event) {
+                }
+                else if (items.get(i) instanceof Event) {
                         Event dummy = (Event) items.get(i);
                         System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getDuration() + ")");
                         try {
@@ -48,17 +46,17 @@ public class Duke {
                         } catch (IOException e) {
                             System.out.println("Something went wrong: " + e.getMessage());
                         }
-                    } else {
-                        Todo dummy = (Todo) items.get(i);
-                        System.out.println("[" + dummy.returnType() + "] " + "[" + dummy.getStatusIcon() + "] " + dummy.getDescription());
-                        System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription());
-                        try {
-                            writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription());
-                        } catch (IOException e) {
-                            System.out.println("Something went wrong: " + e.getMessage());
-                        }
+                } else {
+                    Todo dummy = (Todo) items.get(i);
 
+                    System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription());
+                    try {
+                        writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription());
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
                     }
+
+                }
                 }
 
                 System.out.println("\n____________________________________________________________");
