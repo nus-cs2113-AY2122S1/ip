@@ -12,6 +12,7 @@ import duke.delay.Delay_ms;
 import duke.exceptionHandler.DukeException;
 import duke.printTextFile.PrintTextFile;
 import duke.save.SaveTaskListToText;
+import duke.taskOperations.StringToRemoveFormat;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
 import duke.taskType.Task;
@@ -64,7 +65,7 @@ public class Duke {
                 String taskIsDone = tasks.get(taskNumberToDelete - 1).toString().substring(4,5);
                 String rawTaskDescription = tasks.get(taskNumberToDelete - 1).toString().substring(7);
 
-                textToRemove = getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
+                textToRemove = StringToRemoveFormat.getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
 
                 dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove);
 
@@ -76,54 +77,6 @@ public class Duke {
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("Please Enter the Legit Task Number to Delete... Or I won't talk to you!");
         }
-    }
-
-    private static String getStringToRemove(String typeOfTask, String taskIsDone, String rawTaskDescription) {
-        String textToRemove;
-        if (typeOfTask.equals("T") == true) {
-            textToRemove = getStringToDoFormat(taskIsDone, rawTaskDescription);
-        } else if (typeOfTask.equals("E") == true) {
-            String taskDescription = rawTaskDescription.split("at: ")[0];
-            int indexOfDescriptionEnd = taskDescription.length() - 2;
-            taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
-
-            String taskAt = rawTaskDescription.split("at: ")[1];
-            int indexOfByEnd = taskAt.length() - 1;
-            taskAt = taskAt.substring(0, indexOfByEnd);
-
-            textToRemove = getStringEventDeadlineFormat(taskIsDone, taskDescription, taskAt, "e", " -/-/at");
-        } else {
-            String taskDescription = rawTaskDescription.split("by: ")[0];
-            int indexOfDescriptionEnd = taskDescription.length() - 2;
-            taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
-
-            String taskBy = rawTaskDescription.split("by: ")[1];
-            int indexOfByEnd = taskBy.length() - 1;
-            taskBy = taskBy.substring(0, indexOfByEnd);
-
-            textToRemove = getStringEventDeadlineFormat(taskIsDone, taskDescription, taskBy, "d", " -/-/by");
-        }
-        return textToRemove;
-    }
-
-    private static String getStringEventDeadlineFormat(String taskIsDone, String taskDescription, String taskAtBy, String typeOfTask, String separator) {
-        String textToRemove;
-        if (taskIsDone.equals("X")) {
-            textToRemove = typeOfTask + "-/-1-/-" + taskDescription + separator + taskAtBy;
-        } else {
-            textToRemove = typeOfTask + "-/-0-/-" + taskDescription + separator + taskAtBy;
-        }
-        return textToRemove;
-    }
-
-    private static String getStringToDoFormat(String taskIsDone, String rawTaskDescription) {
-        String textToRemove;
-        if (taskIsDone.equals("X")) {
-            textToRemove = "t-/-1-/-" + rawTaskDescription;
-        } else {
-            textToRemove = "t-/-0-/-" + rawTaskDescription;
-        }
-        return textToRemove;
     }
 
     /**
