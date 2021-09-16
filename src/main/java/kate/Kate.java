@@ -545,7 +545,7 @@ public class Kate {
                 tasks.add(new Event(description, isDone, event));
                 break;
             default:
-                break;
+                throw new FileCorruptedException();
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new FileCorruptedException();
@@ -564,7 +564,6 @@ public class Kate {
             String taskInfo = task.getTaskInfoForFile() + "\n";
             file.write(taskInfo);
             file.close();
-
         } catch (IOException e) {
             printMessage("Something went wrong: " + e.getMessage());
         }
