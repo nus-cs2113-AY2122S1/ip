@@ -50,7 +50,7 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    public static void main(String[] args) throws InvalidParameterException, InvalidCommandException {
+    public static void main(String[] args) throws InvalidParameterException {
 
         // Print welcome message to user
         printMessage(WELCOME_MESSAGE);

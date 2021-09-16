@@ -33,7 +33,6 @@ public class TaskManager {
             + "EVENT <description> /at <date and time>";
     private static final String TASK_DOES_NOT_EXIST_MESSAGE = "Sorry, task selected does not exist! Please double "
             + "check if task number exist with the list command.";
-<<<<<<< HEAD
     private static final String DELETE_TASK_MESSAGE = "Why would you delete the following task? But anyways I have "
             + "removed the following task.\n"
             + "%s\n"
@@ -44,14 +43,8 @@ public class TaskManager {
     private static final String ADD_TASK_MESSAGE = "Gaben have seen and will add the following task for you:\n"
             + "%s\n"
             + "You now have %d task in the list";
-
-=======
-    private static final String TASK_NUMBER_NOT_VALID_MESSAGE = "Error in detecting task number. Please enter a valid"
-            + " number after done as such DONE <TASK NUMBER>, i.e: DONE 1";
-    private static final String TASK_NUMBER_MISSING_MESSAGE = "Task number was not given. Please give me a task "
-            + "number as such DONE <TASK NUMBER>, i.e: DONE 1";
     private static final String FILE_IO_ERROR_MESSAGE = "Sorry, there was some issues regarding the data files.";
->>>>>>> branch-Level-7
+
 
     /* List of tasks */
     private final ArrayList<Task> tasksList;
