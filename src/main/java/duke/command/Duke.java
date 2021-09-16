@@ -5,6 +5,7 @@ import duke.task.TaskManager;
 import java.util.Scanner;
 
 public class Duke {
+
     public static void printDividerLine() {
         System.out.println("\t_____________________________________________________________________________");
     }
@@ -67,6 +68,14 @@ public class Duke {
             } else if (words[0].equalsIgnoreCase("todo") || words[0].equalsIgnoreCase("deadline")
                     || words[0].equalsIgnoreCase("event")) {
                 t1.addTask(line);
+            } else if (words[0].equalsIgnoreCase("delete")) {
+                if (words.length > 1) {
+                    t1.deleteTask(words[1]);
+                } else {
+                    printDividerLine();
+                    System.out.println("\t ☹ OOPS!!! There must be an input after delete.");
+                    printDividerLine();
+                }
             } else {
                 printHandleWrongInput();
             }
