@@ -1,12 +1,12 @@
-import duke.Deadline;
-import duke.DukeException;
-import duke.Event;
-import duke.Task;
-
+import tasks.Deadline;
+import tasks.DukeException;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
 import javax.imageio.IIOException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import commands.Command;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,26 +23,26 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
         exit = true;
-        while(exit) {
-        SaveFile s = new SaveFile("data.txt");
-        t = s.read();
-        listIndex = t.size();
-        while(true){
-            userInput = in.nextLine();
-            try {
-                Command c = Parser.parse(userInput, taskList);
-                c.run();
-                exit = c.exit();
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
+        while (exit) {
+            SaveFile s = new SaveFile("data.txt");
+            taskList = s.read();
+            while (true) {
+                userInput = in.nextLine();
+                try {
+                    Command c = Parser.parse(userInput, taskList);
+                    c.run();
+                    exit = c.exit();
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                s.save(taskList);
             }
-            s.save(t);
+
         }
-
     }
 
-    public static void main(String[] args) {
-       Duke d = new Duke();
-       d.run();
-    }
+        public static void main (String[]args) throws IOException {
+            Duke d = new Duke();
+            d.run();
+        }
 }

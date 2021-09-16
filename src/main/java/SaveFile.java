@@ -1,6 +1,7 @@
-import duke.Deadline;
-import duke.Event;
-import duke.Task;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,11 +19,11 @@ public class SaveFile {
         this.path = path;
     }
 
-    public ArrayList<Task> read() throws IOException{
+    public TaskList read() throws IOException{
 
         File t = new File(this.path);
 
-        ArrayList<Task> taskArrayList = new ArrayList<>();
+        TaskList taskArrayList = new TaskList();
         if(t.exists()){
             try{
                 Scanner scanner = new Scanner(t);
@@ -63,12 +64,13 @@ public class SaveFile {
         return taskArrayList;
     }
 
-    public void save(ArrayList<Task> taskList) throws IOException {
+    public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(path);
 
         StringBuilder txtData = new StringBuilder();
 
-        for (Task t : taskList) {
+        for (int i = 0; i < taskList.size() ;i++) {
+            Task t = taskList.get(i);
             if (t instanceof Event) {
                 txtData.append("E|").append(t.getStatus()).append("|").append(t.getName()).append("|").append(((Event) t).getTime());
             } else if (t instanceof Deadline) {
