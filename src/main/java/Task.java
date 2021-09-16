@@ -8,6 +8,23 @@ public class Task {
     public void markComplete() {
         this.complete = true;
     }
+    public String getStatus() {
+        if (complete) {
+            return "X";
+        }
+        return " ";
+    }
+    public String getDescription() {
+        return item;
+    }
+
+    public String getOriginalInput() {
+        return item;
+    }
+
+    public String getType() {
+        return " ";
+    }
 
     public String toString() {
         if (complete) {
@@ -15,4 +32,5 @@ public class Task {
         }
         return "[ ] " + item;
     }
+
 }
