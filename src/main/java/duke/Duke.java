@@ -17,16 +17,8 @@ import duke.taskType.Event;
 import duke.taskType.Task;
 import duke.taskType.ToDo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -72,41 +64,7 @@ public class Duke {
                 String taskIsDone = tasks.get(taskNumberToDelete - 1).toString().substring(4,5);
                 String rawTaskDescription = tasks.get(taskNumberToDelete - 1).toString().substring(7);
 
-                if (typeOfTask.equals("T") == true) {
-                    if (taskIsDone.equals("X")) {
-                        textToRemove = "t-/-1-/-" + rawTaskDescription;
-                    } else {
-                        textToRemove = "t-/-0-/-" + rawTaskDescription;
-                    }
-                } else if (typeOfTask.equals("E") == true) {
-                    String taskDescription = rawTaskDescription.split("at: ")[0];
-                    int indexOfDescriptionEnd = taskDescription.length() - 2;
-                    taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
-
-                    String taskAt = rawTaskDescription.split("at: ")[1];
-                    int indexOfByEnd = taskAt.length() - 1;
-                    taskAt = taskAt.substring(0, indexOfByEnd);
-
-                    if (taskIsDone.equals("X")) {
-                        textToRemove = "e-/-1-/-" + taskDescription + " -/-/at" + taskAt;
-                    } else {
-                        textToRemove = "e-/-0-/-" + taskDescription + " -/-/at" + taskAt;
-                    }
-                } else {
-                    String taskDescription = rawTaskDescription.split("by: ")[0];
-                    int indexOfDescriptionEnd = taskDescription.length() - 2;
-                    taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
-
-                    String taskBy = rawTaskDescription.split("by: ")[1];
-                    int indexOfByEnd = taskBy.length() - 1;
-                    taskBy = taskBy.substring(0, indexOfByEnd);
-
-                    if (taskIsDone.equals("X")) {
-                        textToRemove = "d-/-1-/-" + taskDescription + " -/-/by" + taskBy;
-                    } else {
-                        textToRemove = "d-/-0-/-" + taskDescription + " -/-/by" + taskBy;
-                   }
-                }
+                textToRemove = getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
 
                 dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove);
 
@@ -118,7 +76,54 @@ public class Duke {
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("Please Enter the Legit Task Number to Delete... Or I won't talk to you!");
         }
+    }
 
+    private static String getStringToRemove(String typeOfTask, String taskIsDone, String rawTaskDescription) {
+        String textToRemove;
+        if (typeOfTask.equals("T") == true) {
+            textToRemove = getStringToDoFormat(taskIsDone, rawTaskDescription);
+        } else if (typeOfTask.equals("E") == true) {
+            String taskDescription = rawTaskDescription.split("at: ")[0];
+            int indexOfDescriptionEnd = taskDescription.length() - 2;
+            taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
+
+            String taskAt = rawTaskDescription.split("at: ")[1];
+            int indexOfByEnd = taskAt.length() - 1;
+            taskAt = taskAt.substring(0, indexOfByEnd);
+
+            textToRemove = getStringEventDeadlineFormat(taskIsDone, taskDescription, taskAt, "e", " -/-/at");
+        } else {
+            String taskDescription = rawTaskDescription.split("by: ")[0];
+            int indexOfDescriptionEnd = taskDescription.length() - 2;
+            taskDescription = taskDescription.substring(0, indexOfDescriptionEnd);
+
+            String taskBy = rawTaskDescription.split("by: ")[1];
+            int indexOfByEnd = taskBy.length() - 1;
+            taskBy = taskBy.substring(0, indexOfByEnd);
+
+            textToRemove = getStringEventDeadlineFormat(taskIsDone, taskDescription, taskBy, "d", " -/-/by");
+        }
+        return textToRemove;
+    }
+
+    private static String getStringEventDeadlineFormat(String taskIsDone, String taskDescription, String taskAtBy, String typeOfTask, String separator) {
+        String textToRemove;
+        if (taskIsDone.equals("X")) {
+            textToRemove = typeOfTask + "-/-1-/-" + taskDescription + separator + taskAtBy;
+        } else {
+            textToRemove = typeOfTask + "-/-0-/-" + taskDescription + separator + taskAtBy;
+        }
+        return textToRemove;
+    }
+
+    private static String getStringToDoFormat(String taskIsDone, String rawTaskDescription) {
+        String textToRemove;
+        if (taskIsDone.equals("X")) {
+            textToRemove = "t-/-1-/-" + rawTaskDescription;
+        } else {
+            textToRemove = "t-/-0-/-" + rawTaskDescription;
+        }
+        return textToRemove;
     }
 
     /**
@@ -143,7 +148,7 @@ public class Duke {
 
                 tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
             } else {
-                throw new DukeException("Please enter a different description.");
+                throw new DukeException("Please enter a different description. Or I will destroy your computer!");
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description of a todo cannot be empty.");
@@ -170,21 +175,29 @@ public class Duke {
                 String taskName = userInputString.substring(9).split("/")[0];
                 String by = userInputString.substring(9).split("/")[1];
 
-                if (taskName.equals("") || by.equals("by ")) {
-                    throw new DukeException("The description and event time info of event cannot be empty.");
-                } else {
-                    if (dukeTaskText.saveDeadline(taskName, by) == true) {
-                        tasks.add(new Deadline(taskName, by));
-                        numberOfTasks += 1;
-
-                        tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
-                    } else {
-                        throw new DukeException("Please enter a different description.");
-                    }
-                }
+                addDeadlineCheckDescription(dukeTaskText, taskName, by);
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description and deadline info of deadline cannot be empty!");
+        }
+    }
+
+    private static void addDeadlineCheck(SaveTaskListToText dukeTaskText, String taskName, String by) throws DukeException {
+        if (dukeTaskText.saveDeadline(taskName, by) == true) {
+            tasks.add(new Deadline(taskName, by));
+            numberOfTasks += 1;
+
+            tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+        } else {
+            throw new DukeException("Please enter a different description. Or I will destroy your computer!");
+        }
+    }
+
+    private static void addDeadlineCheckDescription(SaveTaskListToText dukeTaskText, String taskName, String by) throws DukeException {
+        if (taskName.equals("") || by.equals("by ")) {
+            throw new DukeException("The description and event time info of event cannot be empty.");
+        } else {
+            addDeadlineCheck(dukeTaskText, taskName, by);
         }
     }
 
@@ -207,21 +220,29 @@ public class Duke {
                 String taskName = userInputString.substring(6).split("/")[0];
                 String at = userInputString.substring(6).split("/")[1];
 
-                if (taskName.equals("") || at.equals("at ")) {
-                    throw new DukeException("The description and event time info of event cannot be empty.");
-                } else {
-                    if (dukeTaskText.saveEvent(taskName, at) == true) {
-                        tasks.add(new Event(taskName, at));
-                        numberOfTasks += 1;
-
-                        tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
-                    } else {
-                        throw new DukeException("Please enter a different description.");
-                    }
-                }
+                addEventCheckDescription(dukeTaskText, taskName, at);
             }
         } catch (IndexOutOfBoundsException indexOutOfBound) {
             throw new DukeException("The description and event time info of event cannot be empty.");
+        }
+    }
+
+    private static void addEventCheck(SaveTaskListToText dukeTaskText, String taskName, String at) throws DukeException {
+        if (dukeTaskText.saveEvent(taskName, at) == true) {
+            tasks.add(new Event(taskName, at));
+            numberOfTasks += 1;
+
+            tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
+        } else {
+            throw new DukeException("Please enter a different description. Or I will destroy your computer!");
+        }
+    }
+
+    private static void addEventCheckDescription(SaveTaskListToText dukeTaskText, String taskName, String at) throws DukeException {
+        if (taskName.equals("") || at.equals("at ")) {
+            throw new DukeException("The description and event time info of event cannot be empty.");
+        } else {
+            addEventCheck(dukeTaskText, taskName, at);
         }
     }
 
@@ -243,19 +264,10 @@ public class Duke {
         dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toString());
     }
 
-
-
-    /**
-     * Main method of the chat-bot app.
-     */
     public static void main(String[] args) throws IOException, DukeException {
         String userInputString;
         Scanner userInput = new Scanner(System.in);
 
-        /**
-         * Prints a "Dukey", "Parrot", "Hello" message sequentially
-         * when the user first initialize the chat-bot.
-         */
         Delay_ms delay = new Delay_ms();
         printDukeyText.printText();
         delay.wait(500);

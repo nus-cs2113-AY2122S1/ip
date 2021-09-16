@@ -64,11 +64,9 @@ public class SaveTaskListToText {
                 System.out.println("Could not rename file");
             }
 
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -126,7 +124,6 @@ public class SaveTaskListToText {
      * In such a case, make directory and then create duke.txt file there. Then if directory
      * exist, but duke.txt is missing, add duke.txt.
      *
-     * @param
      * @param tasks
      * @return
      */
