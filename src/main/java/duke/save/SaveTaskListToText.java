@@ -152,7 +152,8 @@ public class SaveTaskListToText {
                 String line = scanner.nextLine();
                 lineNum++;
 
-                if(line.equals(stringToCheck)) {
+                if (line.equals(stringToCheck)) {
+                    scanner.close(); // Don't forget!
                     return true;
                 }
             }
