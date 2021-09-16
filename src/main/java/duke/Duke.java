@@ -49,6 +49,8 @@ public class Duke {
                 System.out.println(e);
             } catch (EmptyDoneIndexException e) {
                 System.out.println(e);
+            } catch (InvalidInputException e) {
+                System.out.println(e);
             }
 
             Save.saveData(Parser.taskList.getAllTasksListFormatted(), Save.filePath);
