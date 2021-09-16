@@ -16,20 +16,24 @@ public class Duke {
     public static int taskCount = 0;
 
     //Program starts with this greeting
-    public static void start() throws FileNotFoundException, DukeException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
-        loadData();
+    public static void start() throws DukeException {
+        try {
+            loadData();
+            String logo = " ____        _        \n"
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
+            System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
+        } catch (FileNotFoundException e) {
+            System.out.println("Saved file could not be found. I've used one of your wishes to create a new file for you! Thank me later.");
+        }
     }
 
     //Saves Task list into local file
     public static void saveData(ArrayList<Task> t) {
-        String path = "D:\\Documents\\NUS\\Y2S1\\CS2113T\\IP\\UserData.txt";
         try {
+            String path = new File("userData.txt").getAbsolutePath();
             FileWriter fw = new FileWriter(path, false);
             PrintWriter pw = new PrintWriter(fw, false);
             pw.flush();
@@ -40,7 +44,7 @@ public class Duke {
                 Files.write(Paths.get(path), input.getBytes(), StandardOpenOption.APPEND);
             }
         }  catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("ERROR: Could not write to file");
         }
     }
 
@@ -246,7 +250,7 @@ public class Duke {
                 sayEvent(input);
                 saveData(t);
                 break;
-            case "delete": //lvl 7
+            case "delete":
                 sayDelete(input);
                 saveData(t);
                 break;
@@ -257,7 +261,7 @@ public class Duke {
     }
 
     //Main
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws DukeException {
         start();
         inputSort();
     }
