@@ -119,7 +119,7 @@ public class Duke {
                 output = getUpdateEvent(output, taskStatus, arrayInput, file, taskType, inputCount, "E");
                 userCommand = userInput.nextLine();
                 continue;
-            } else if (userCommand.contains("delete")) {
+            } else if (userCommand.contains("delete")) {        //add the delete function
                 if (!isValidDelete(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
@@ -128,14 +128,14 @@ public class Duke {
                 output = getUpdateDelete(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
-            } else if (!userCommand.equals("bye")) {
+            } else if (!userCommand.equals("bye")) {        //invalid input detected
                 printInvalid();
                 System.out.println(LINE);
                 userCommand = userInput.nextLine();
                 continue;
             }
         }
-        if (userCommand.equals("bye")) {
+        if (userCommand.equals("bye")) {        //terminate the loop
             printBye();
         }
     }
@@ -386,7 +386,7 @@ public class Duke {
             System.out.println("Successfully wrote to the file.");
             System.out.println(LINE);
         } catch (IOException e) {
-            System.out.println("An error occurred, please try again");
+            System.out.println("An error occurred, please try again!");
             e.printStackTrace();
         }
     }
