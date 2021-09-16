@@ -26,6 +26,23 @@ public class Duke {
         }
     }
 
+    public static boolean deleteTask(String line, Task[] tasks, int taskNumber) {
+        try {
+            int index = Integer.parseInt(line.substring(7)) - 1;
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + tasks[index]);
+            System.out.println("Now you have " + (taskNumber - 1) + " tasks in the list");
+            for (int i = index; i < taskNumber - 1; i++) {
+                tasks[i] = tasks[i + 1];
+                //what to do to the last one?
+            }
+            return true;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! The description of a deletion cannot be empty.");
+            return false;
+        }
+    }
+
     public static boolean addTodo(String line, Task[] tasks, int taskNumber) {
         try {
             tasks[taskNumber] = new ToDo(line.substring(5));
@@ -99,7 +116,7 @@ public class Duke {
     }
 
     public static void sayHi() {
-        System.out.println("Hello I'm duke.command.Duke");
+        System.out.println("Hello I'm Duke");
         System.out.println("What can I do for you?");
     }
 
@@ -121,6 +138,10 @@ public class Duke {
                 listOut(tasks, taskNumber);
             } else if (line.startsWith("done")) {
                 markDone(line, tasks);
+            } else if (line.startsWith("delete")) {
+                if (deleteTask(line, tasks, taskNumber)) {
+                    taskNumber--;
+                }
             } else if (line.startsWith("todo")) {
                 if (addTodo(line, tasks, taskNumber)) {
                     taskNumber++;
