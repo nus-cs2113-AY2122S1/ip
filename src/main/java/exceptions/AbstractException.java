@@ -7,7 +7,7 @@ abstract class AbstractException extends Exception {
         statement = description;
     }
 
-    public void printStatement() {
-        System.out.println(statement);
+    public String printStatement() {
+        return statement + "\n";
     }
 }

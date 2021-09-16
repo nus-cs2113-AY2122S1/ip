@@ -9,6 +9,14 @@ import exceptions.DeleteException;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String BYE = "bye";
+    private static final String EVENT = "event";
+    private static final String DEADLINE = "deadline";
+    private static final String LIST = "list";
+    private static final String DELETE = "delete";
+    private static final String DONE = "done";
+    private static final String TODO = "todo";
+
     public static ProcessManager processManager = new ProcessManager();
     public static void main(String[] args) {
         processManager.welcomeMessage();
@@ -22,7 +30,7 @@ public class Duke {
             line = in.nextLine();
             line = line.trim();
 
-            if (line.equals("bye")) {
+            if (line.equals(BYE)) {
                 isProgress = false;
                 try {
                     processManager.saveTasks();
@@ -30,47 +38,40 @@ public class Duke {
                     System.out.println(e.getMessage());
                 }
                 processManager.goodbyeMessage();
-            } else if (line.equals("list")) {
+            } else if (line.equals(LIST)) {
                 processManager.handleListRequest();
-            } else if (line.startsWith("delete")) {
+            } else if (line.startsWith(DELETE)) {
                 try {
                     processManager.handleDeleteRequest(line);
                 } catch (DeleteException e) {
-                    e.printStatement();
-                    System.out.println("Invalid Delete Request. Format: delete (number)");
+                    processManager.printDeleteException(e);
                 }
-            } else if (line.startsWith("done")) {
+            } else if (line.startsWith(DONE)) {
                 try {
                     processManager.handleDoneRequest(line);
                 } catch (DoneException e) {
-                    e.printStatement();
-                    System.out.println("Invalid Done Request. Format: done (number)");
+                    processManager.printDoneException(e);
                 }
-            } else if (line.startsWith("todo")) {
+            } else if (line.startsWith(TODO)) {
                 try {
                     processManager.handleToDoRequest(line);
                 } catch (TodoException e) {
-                    e.printStatement();
-                    System.out.println("Invalid Todo Request. Format: todo (description)");
+                    processManager.printTodoException(e);
                 }
-            } else if (line.startsWith("deadline")) {
+            } else if (line.startsWith(DEADLINE)) {
                 try {
                     processManager.handleDeadlineRequest(line);
                 } catch (DeadlineException e) {
-                    e.printStatement();
-                    System.out.println("Invalid Deadline Request. Format: deadline (description) /by (Date)");
+                    processManager.printDeadlineException(e);
                 }
-            } else if (line.startsWith("event")) {
+            } else if (line.startsWith(EVENT)){
                 try {
                     processManager.handleEventRequest(line);
                 } catch (EventException e) {
-                    e.printStatement();
-                    System.out.println("Invalid Event Request. Format: event (description) /at (Date)");
-                    System.out.println("    ____________________________________________________________\n");
+                    processManager.printEventException(e);
                 }
             } else {
-                DukeException e = new DukeException(processManager.help());
-                e.printStatement();
+                processManager.help();
             }
         }
     }

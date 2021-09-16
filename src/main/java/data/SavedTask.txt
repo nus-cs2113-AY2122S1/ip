@@ -1,6 +1,0 @@
-D | Read Bible | Mon 4-6pm | true
-T | Sleep | null | true
-T | Eat | null | true
-E | Dinner | Wednesday 6pm | true
-T | Submit CS2113T iP | null | true
-E | Go for a Run | Thursday | false
