@@ -246,7 +246,6 @@ public class Duke {
             FileWriter fw = new FileWriter(FILEPATH);
             fw.write("");
             fw.close();
-            tasks.clear();
         } catch (IOException e) {
             System.out.println(LINES + NO_FILE_MESSAGE + LINES);
         }
@@ -383,6 +382,7 @@ public class Duke {
                 echo();
             } else if (input.equalsIgnoreCase("clear database")) {
                 clearDatabase();
+                tasks.clear();
                 System.out.println(LINES + CLEAR_DB_MESSAGE + LINES);
             } else if (input.toUpperCase().contains("BIRTHDAY")) {
                 System.out.println(LINES + BIRTHDAY_MESSAGE + LINES);
