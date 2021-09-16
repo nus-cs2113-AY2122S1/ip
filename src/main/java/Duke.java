@@ -138,13 +138,17 @@ public class Duke {
         }
     }
 
-    private static ArrayList<String> getUpdateDelete(ArrayList<String> output, ArrayList<Integer> taskStatus, ArrayList<String> arrayInput, File file, ArrayList<String> taskType, int inputCount) {
+    private static ArrayList<String> getUpdateDelete(ArrayList<String> output,
+                                                     ArrayList<Integer> taskStatus,
+                                                     ArrayList<String> arrayInput, File file,
+                                                     ArrayList<String> taskType, int inputCount) {
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
         writeTasksToFile(file, output);
         return output;
     }
 
-    private static ArrayList<String> getUpdateEvent(ArrayList<String> output, ArrayList<Integer> taskStatus,
+    private static ArrayList<String> getUpdateEvent(ArrayList<String> output,
+                                                    ArrayList<Integer> taskStatus,
                                                     ArrayList<String> arrayInput, File file,
                                                     ArrayList<String> taskType, int inputCount, String e) {
         taskType.add(inputCount - 1, e);
@@ -154,7 +158,8 @@ public class Duke {
         return output;
     }
 
-    private static ArrayList<String> getUpdateDeadline(ArrayList<String> output, ArrayList<Integer> taskStatus,
+    private static ArrayList<String> getUpdateDeadline(ArrayList<String> output,
+                                                       ArrayList<Integer> taskStatus,
                                                        ArrayList<String> arrayInput, File file,
                                                        ArrayList<String> taskType, int inputCount) {
         taskType.add(inputCount - 1, "D");
@@ -164,7 +169,8 @@ public class Duke {
         return output;
     }
 
-    private static ArrayList<String> getUpdateTodo(ArrayList<String> output, ArrayList<Integer> taskStatus,
+    private static ArrayList<String> getUpdateTodo(ArrayList<String> output,
+                                                   ArrayList<Integer> taskStatus,
                                                    ArrayList<String> arrayInput, File file,
                                                    ArrayList<String> taskType, int inputCount) {
         taskType.add(inputCount - 1, "T");
@@ -174,8 +180,10 @@ public class Duke {
         return output;
     }
 
-    private static ArrayList<String> getUpdateDone(ArrayList<String> output, ArrayList<Integer> taskStatus,
-                                                   ArrayList<String> arrayInput, File file, String userCommand,
+    private static ArrayList<String> getUpdateDone(ArrayList<String> output,
+                                                   ArrayList<Integer> taskStatus,
+                                                   ArrayList<String> arrayInput, File file,
+                                                   String userCommand,
                                                    ArrayList<String> taskType, int inputCount) {
         printDone(taskStatus, taskType, arrayInput, userCommand);
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
