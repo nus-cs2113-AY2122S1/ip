@@ -62,8 +62,8 @@ public class Duke {
     }
 
     public static boolean isInt(String input) {
-        try {
-            Integer.parseInt(input);
+        try {                               //generate error when receiving non-integer input
+            Integer.parseInt(input);        //for the delete command
         } catch (NumberFormatException e) {
             return false;
         } catch (NullPointerException e) {
