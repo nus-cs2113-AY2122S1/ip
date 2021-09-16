@@ -30,4 +30,15 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + String.format(" (by: %s)", this.getBy());
     }
+
+    /**
+     * Formats description of task to be saved as txt
+     *
+     * @return Formatted string of a task
+     */
+    @Override
+    public String toSave() {
+        return String.format("%s,%d,%s,%s", this.getType(), this.getIsDone(), this.getDescription(),
+                this.getBy());
+    }
 }

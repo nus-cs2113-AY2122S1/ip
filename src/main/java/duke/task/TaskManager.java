@@ -2,6 +2,11 @@ package duke.task;
 
 import duke.Duke;
 import duke.task.exception.InvalidParameterException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -14,6 +19,7 @@ public class TaskManager {
     /* Types of string split regex  */
     public static final String EVENT_STRING_SPLIT_REGEX = "/at ";
     public static final String DEADLINE_STRING_SPLIT_REGEX = "/by ";
+    public static final String DATA_TEXT_SEPERATOR = ",";
 
     /* Error messages */
     private static final String DEADLINE_ERROR_MESSAGE = "Sorry please input a valid DEADLINE TASK with date and time "
@@ -31,6 +37,7 @@ public class TaskManager {
             + " number after done as such DONE <TASK NUMBER>, i.e: DONE 1";
     private static final String TASK_NUMBER_MISSING_MESSAGE = "Task number was not given. Please give me a task "
             + "number as such DONE <TASK NUMBER>, i.e: DONE 1";
+    private static final String FILE_IO_ERROR_MESSAGE = "Sorry, there was some issues regarding the data files.";
 
     /* List of tasks */
     private final ArrayList<Task> tasksList;
@@ -196,6 +203,70 @@ public class TaskManager {
             Duke.printMessage(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             Duke.printMessage(TASK_NUMBER_MISSING_MESSAGE);
+        }
+
+    }
+
+    /**
+     * Save all task data to ./data/task.txt
+     */
+    public void saveData() {
+        try {
+            File taskFileDirectory = new File("data");
+            File taskFile = new File("data" + File.separator + "task.txt");
+            // Create directory and file
+            if (!taskFileDirectory.exists()) {
+                taskFileDirectory.mkdir();
+            }
+            if (!taskFile.exists()) {
+                taskFile.createNewFile();
+            }
+            FileWriter myWriter = new FileWriter("data" + File.separator + "task.txt");
+            for (Task task : tasksList) {
+                myWriter.write(task.toSave() + "\n");
+            }
+            myWriter.close();
+
+        } catch (IOException e) {
+            Duke.printMessage(FILE_IO_ERROR_MESSAGE);
+        }
+
+    }
+
+    /**
+     * Load all task data from ./data/task.txt to task manager
+     */
+    public void loadData() {
+        try {
+            File taskFile = new File("data" + File.separator + "task.txt");
+            if (taskFile.exists()) {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(taskFile));
+                String line;
+                Task task;
+                while ((line = bufferedReader.readLine()) != null) {
+                    String[] userInputArray = line.split(DATA_TEXT_SEPERATOR);
+                    switch (userInputArray[0].charAt(0)) {
+                    case CHAR_TYPE_TODO:
+                        task = new Todo(userInputArray[2]);
+                        task.setIsDone(Integer.parseInt(userInputArray[1]));
+                        tasksList.add(task);
+                        break;
+                    case CHAR_TYPE_DEADLINE:
+                        task = new Deadline(userInputArray[2], userInputArray[3]);
+                        task.setIsDone(Integer.parseInt(userInputArray[1]));
+                        tasksList.add(task);
+                        break;
+                    case CHAR_TYPE_EVENT:
+                        task = new Event(userInputArray[2], userInputArray[3]);
+                        task.setIsDone(Integer.parseInt(userInputArray[1]));
+                        tasksList.add(task);
+                        break;
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            Duke.printMessage(FILE_IO_ERROR_MESSAGE);
         }
 
     }
