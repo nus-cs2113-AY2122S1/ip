@@ -1,6 +1,4 @@
-package duke;
-
-import java.awt.image.SinglePixelPackedSampleModel;
+package tasks;
 
 public class Task {
     protected String name;
