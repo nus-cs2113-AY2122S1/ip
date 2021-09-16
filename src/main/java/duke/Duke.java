@@ -8,6 +8,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -26,13 +27,13 @@ public class Duke {
     public static final String COMMAND_DEADLINE_WORD = "deadline";
     public static final String COMMAND_EVENT_WORD = "event";
     public static final String COMMAND_EXIT_WORD = "bye";
+    public static final String COMMAND_DELETE_WORD = "delete";
 
     public static final int TASK_DATA_COUNT = 2;
     public static final int TASK_DATA_INDEX_DESCRIPTION = 0;
     public static final int TASK_DATA_INDEX_ADDITIONAL_INFO = 1;
 
-    private static Task[] taskList;
-    private static int listCount;
+    private static ArrayList<Task> tasks;
 
     public static void main(String[] args) {
         showWelcomeMessage();
@@ -56,6 +57,10 @@ public class Duke {
             switch (commandType) {
             case COMMAND_LIST_WORD:
                 executeListTasks();
+                break;
+            case COMMAND_DELETE_WORD:
+                checkValidArguments(commandArgs);
+                executeDeleteTask(commandArgs);
                 break;
             case COMMAND_COMPLETED_WORD:
                 checkValidArguments(commandArgs);
@@ -83,7 +88,21 @@ public class Duke {
             System.out.println("Sorry I didn't understand that :( Please try again");
         } catch (EmptyTaskException e) {
             System.out.println("Oops! Your task description cannot be empty D:");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! The task index doesn't exist! Pls try again");
         }
+    }
+
+    private static void executeDeleteTask(String taskIndexString) throws IndexOutOfBoundsException{
+        int taskIndex = Integer.parseInt(taskIndexString) - 1;
+        Task currentTask = tasks.get(taskIndex);
+        tasks.remove(currentTask);
+        showSuccessfulDelete(currentTask);
+    }
+
+    private static void showSuccessfulDelete(Task currentTask) {
+        System.out.println("Got it. I've removed this task for you: \n "
+                + currentTask + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void checkValidArguments(String commandArgs) throws EmptyTaskException {
@@ -105,16 +124,14 @@ public class Duke {
     }
 
     private static void createEventTask(String description, String at) {
-        taskList[listCount] = new Event(description, at);
+        tasks.add(new Event(description, at));
         showSuccessfulAdd();
-        listCount++;
     }
 
     private static void showSuccessfulAdd() {
         System.out.println("Got it! I've added this task: ");
-        System.out.println(" " + taskList[listCount]);
-        int totalListCount = listCount + 1;
-        System.out.println("Now you have " + totalListCount + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size()-1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static String[] decodeInput(String rawInput) {
@@ -144,9 +161,8 @@ public class Duke {
     }
 
     private static void createDeadlineTask(String description, String by) {
-        taskList[listCount] = new Deadline(description, by);
+        tasks.add(new Deadline(description, by));
         showSuccessfulAdd();
-        listCount++;
     }
 
     private static void executeTodoTask(String todoInput) {
@@ -154,14 +170,13 @@ public class Duke {
     }
 
     private static void createTodoTask(String todoInput) {
-        taskList[listCount] = new Todo(todoInput);
+        tasks.add(new Todo(todoInput));
         showSuccessfulAdd();
-        listCount++;
     }
 
-    private static void executeCompleteTask(String taskIndexString) {
+    private static void executeCompleteTask(String taskIndexString) throws IndexOutOfBoundsException{
         int taskIndex = Integer.parseInt(taskIndexString) - 1;
-        Task currentTask = taskList[taskIndex];
+        Task currentTask = tasks.get(taskIndex);
         currentTask.setDone();
         showSuccessfulComplete(currentTask);
     }
@@ -173,17 +188,17 @@ public class Duke {
     }
 
     private static void executeListTasks() {
-        showAllTasks();
+        if (tasks.size() == 0) {
+            System.out.println("No tasks in the list!");
+        } else {
+            showAllTasks();
+        }
     }
 
     private static void showAllTasks() {
         System.out.println("Here are the tasks in your list:");
-        int itemCount = 1;
-        for (Task item : taskList) {
-            if (item != null) {
-                System.out.println(itemCount + "." + item);
-                itemCount++;
-            }
+        for (Task item : tasks) {
+                System.out.println(tasks.indexOf(item)+1 + "." + item);
         }
     }
 
@@ -207,8 +222,7 @@ public class Duke {
     }
 
     private static void initTaskList() {
-        taskList = new Task[100];
-        listCount = 0;
+        tasks = new ArrayList<>();
     }
 
     private static void showWelcomeMessage() {
