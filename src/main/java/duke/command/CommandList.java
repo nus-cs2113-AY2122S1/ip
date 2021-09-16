@@ -3,9 +3,9 @@ import duke.DukeException;
 import duke.task.Task;
 import duke.task.Deadlines;
 import duke.task.Todo;
-import duke.task.Events
-        ;
+import duke.task.Events;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CommandList {
@@ -17,6 +17,11 @@ public class CommandList {
     private static final int CMD_DONE = 5;
     private static final int CMD_TERMINATE = 6;
     private static final int CMD_DELETE = 7;
+    private static final String TODO = "todo";
+    private static final String EVENT = "event";
+    private static final String DEADLINE = "deadline";
+    private static final String BY = "/by";
+    private static final String AT = "/at";
     private static final int FIVE = 5;
     private static final int SEVEN = 7;
     private static final String border = "____________________________________________________________\n";
@@ -37,7 +42,12 @@ public class CommandList {
         return taskCount;
     }
 
+    public void loadTaskCount(ArrayList<Task> items) {
+        this.taskCount = items.size();
+    }
+
     public void addTaskMessage(Task task) {
+        taskCount++;
         System.out.println(border);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -55,24 +65,19 @@ public class CommandList {
     public void addEvent(ArrayList<Task> items, String description, String time) {
         Events newEvent = new Events(description, time);
         items.add(taskCount, newEvent);
-        taskCount++;
-        addTaskMessage(newEvent);
     }
 
     public void addDeadline(ArrayList<Task> items, String description, String by) {
         Deadlines newDeadline = new Deadlines(description, by);
         items.add(taskCount, newDeadline);
-        taskCount++;
-        addTaskMessage(newDeadline);
     }
 
     public void addTodo(ArrayList<Task> items, String description) {
         Todo newTodo = new Todo(description);
         items.add(taskCount, newTodo);
-        taskCount++;
-        addTaskMessage(newTodo);
     }
     public void removeItem(ArrayList<Task> items, int taskNum) {
+        taskCount--;
         removeTaskMessage(items.get(taskNum));
         items.remove(taskNum);
     }
@@ -87,16 +92,21 @@ public class CommandList {
     }
 
     public void executeCommand(ArrayList<Task> items, DukeException error, String input) {
-
+        String[] inputs;
         switch (command) {
             case CMD_TODO:
-                addTodo(items, input.replace("todo", "").trim());
+                addTodo(items, input.replace(TODO, "").trim());
+                addTaskMessage(items.get(taskCount));
                 break;
             case CMD_EVENT:
-                addEvent(items, input.split("/at")[1].trim(), input.split("/at")[0].trim().replace("event", "").trim());
+                inputs = input.split(AT);
+                addEvent(items, inputs[0].trim().replace(EVENT, "").trim(), inputs[1].trim());
+                addTaskMessage(items.get(taskCount));
                 break;
             case CMD_DEADLINE:
-                addDeadline(items, input.split("/by")[1].trim(), input.split("/by")[0].trim().replace("deadline", "").trim());
+                inputs = input.split(BY);
+                addDeadline(items, inputs[0].trim().replace(DEADLINE, "").trim(), inputs[1].trim());
+                addTaskMessage(items.get(taskCount));
                 break;
             case CMD_LIST:
                 int j = 1;
