@@ -50,7 +50,8 @@ public class Duke {
 
     //Loads Task list into Duke
     public static void loadData() throws FileNotFoundException, DukeException {
-        File f = new File("D:\\Documents\\NUS\\Y2S1\\CS2113T\\IP\\UserData.txt");
+        String path = new File("userData.txt").getAbsolutePath();
+        File f = new File(path);
 
         Scanner scan = new Scanner(f);
         String taskType;
