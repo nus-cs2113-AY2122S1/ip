@@ -3,6 +3,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import java.util.ArrayList;
 
 import java.util.*;
 public class Duke {
@@ -16,11 +17,12 @@ public class Duke {
         int MAX_TASK = 100;
         String greetings = " Hello! I'm Duke\n" + " What can I do for you?\n";
         System.out.println(greetings);
-        Task[] Tasks = new Task[MAX_TASK];
+        //Task[] Tasks = new Task[MAX_TASK];
+        ArrayList<Task> Tasks = new ArrayList<>(MAX_TASK);
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
         boolean isExit = true;
         int maxlength = 0;
-        for(int j = 0; j < 100 && isExit;){
+        for(; Tasks.size() < 100 && isExit;){
             String str= sc.nextLine();
             try {
                 if (str.equals("bye")) {
@@ -28,6 +30,7 @@ public class Duke {
                     printString(str);
                     isExit = false;
                 } else if (str.equals("list")) {
+                    checkList(Tasks.size());
                     printList(Tasks, maxlength);
                 } else if (str.contains("todo")) {
                     checkTodoString(str);
@@ -35,9 +38,8 @@ public class Duke {
                         maxlength = str.length() - 5 + 9;//- length of "todo " + "1. [X][X]"
                     str = str.substring(5, str.length());
                     Todo t = new Todo(str);
-                    addToList(t, Tasks, j);
-                    j++;
-                    printTask(t, j);
+                    addToList(t, Tasks, Tasks.size());
+                    printTask(t, Tasks.size());
                 } else if (str.contains("deadline")) {
                     checkDeadlineString(str);
                     checkFormat(str);
@@ -45,31 +47,40 @@ public class Duke {
                     if (str.length() - 9 + 11 > maxlength)
                         maxlength = str.length() - 9 + 11;//- length of "deadline " + "1. [X][X]" + "(xx:" + ")"
                     Deadline t = new Deadline(str.substring(9, str.indexOf("/") - 1), time);
-                    addToList(t, Tasks, j);
-                    j++;
-                    printTask(t, j);
+                    addToList(t, Tasks, Tasks.size());
+                    printTask(t, Tasks.size());
                 } else if (str.contains("event")) {
                     checkEventString(str);
                     checkFormat(str);
                     String time = str.substring(str.indexOf("/") + 3, str.length());
                     if (str.length() - 6 + 11 > maxlength) maxlength = str.length() - 6 + 11;
                     Event t = new Event(str.substring(6, str.indexOf("/") - 1), time);
-                    addToList(t, Tasks, j);
-                    j++;
-                    printTask(t, j);
+                    addToList(t, Tasks, Tasks.size());
+                    printTask(t, Tasks.size());
+                } else if (str.contains("delete")) {
+                    String numberOnly = str.replaceAll("[^0-9]", "");
+                    if(numberOnly.length() == 0) numberOnly = "0"; // to avoid empty string error
+                    int num = Integer.parseInt(numberOnly);
+                    checkNum(num, Tasks.size());
+                    Task t = Tasks.get(num - 1);
+                    Tasks.remove(num - 1);
+                    printDelete(t, Tasks.size());
+                    /*Tasks.get(num - 1).setDone(true);
+                    printDone(Tasks.get(num - 1));*/
                 } else if (str.contains("done")) {
                     String numberOnly = str.replaceAll("[^0-9]", "");
+                    if(numberOnly.length() == 0) numberOnly = "0"; // to avoid empty string error
                     int num = Integer.parseInt(numberOnly);
-                    checkNum(num, j);
-                    Tasks[num - 1].setDone(true);
-                    printDone(Tasks[num - 1]);
+                    checkNum(num, Tasks.size());
+                    Tasks.get(num - 1).setDone(true);
+                    printDone(Tasks.get(num - 1));
                 } else {
                     FormatError();
                     /*if (str.length() + 9 > maxlength) maxlength = str.length() + 9;
                     Task t = new Task(str);
-                    addToList(t, Tasks, j);
+                    addToList(t, Tasks, Tasks.size());
                     j++;
-                    printTask(t, j);*/
+                    printTask(t, Tasks.size());*/
                 }
             } catch (AssignException e){
                   printString("OOPS! not assigned");
@@ -83,13 +94,20 @@ public class Duke {
                   printString("OOPS! the todo description cannot be empty");
             } catch (TypingException e) {
                   printString("OOPS! what do u mean?");
+            } catch (EmptyListException e) {
+                  printString("OOPS! empty list");
             }
         }
     }
 
     public static void checkNum(int num, int j) throws AssignException {
-        if(num > j)
+        if(num > j || num <= 0)
             throw new AssignException();
+    }
+
+    public static void checkList(int num) throws EmptyListException {
+        if(num < 1)
+            throw new EmptyListException();
     }
 
     public static void checkTodoString(String str) throws TodoStringException {
@@ -119,8 +137,8 @@ public class Duke {
         throw new TypingException();
     }
 
-    public static void addToList(Task t, Task[] list, int num){
-        list[num] = t;
+    public static void addToList(Task t, ArrayList<Task> list, int num){
+        list.add(t);
     }
 
     public static void printString(String str){
@@ -161,7 +179,38 @@ public class Duke {
         System.out.println("|");
     }
 
-    public static void printList(Task[] list, int num){
+    public static void printDelete(Task t, int num){
+        String str = "Noted. I've removed this task: ";
+        String str2 = "Now you have " + num + " tasks in the list.";
+        int length = Math.max(t.getLength(), Math.max(str.length(), str2.length()));
+        System.out.print("      ");
+        for(int i = 0; i < length; i++) System.out.print("_");
+        System.out.println("");
+        System.out.print("     |" + str);
+        for(int n = 0; n < length - str.length(); n++) System.out.print(" ");
+        System.out.println("|");
+        switch(t.getType()){
+        case TODO:
+            System.out.print("     |[T][" + t.getStatusIcon() + "]"+ t.getDescription());
+            break;
+        case DEADLINE:
+            System.out.print("     |[D][" + t.getStatusIcon() + "]" + t.getDescription() + "(by: " + t.getBy() + ")");
+            break;
+        case EVENT:
+            System.out.print("     |[E][" + t.getStatusIcon() + "]" + t.getDescription() + "(at: " + t.getBy() + ")");
+            break;
+        }
+        for(int n = 0; n < length - t.getLength(); n++) System.out.print(" ");
+        System.out.println("|");
+        System.out.print("     |" + str2);
+        for(int n = 0; n < length - str2.length(); n++) System.out.print(" ");
+        System.out.println("|");
+        System.out.print("     |");
+        for(int i = 0; i < length; i++) System.out.print("_");
+        System.out.println("|");
+    }
+
+    public static void printList(ArrayList<Task> list, int num){
         String listing = "Here are the tasks in your list:";
         if(listing.length() > num) num = listing.length();
         System.out.print("      ");
@@ -170,19 +219,19 @@ public class Duke {
         System.out.print("     |" + listing);
         for(int n = 0; n < num - listing.length(); n++) System.out.print(" ");
         System.out.println("|");
-        for(int j = 1; list[j-1] != null; j++) {
-            switch(list[j-1].getType()){
+        for(int j = 1; j <= list.size(); j++) {
+            switch(list.get(j - 1).getType()){
             case TODO:
-                System.out.print("     |" + j + ". [T][" + list[j-1].getStatusIcon() + "]"+ list[j-1].getDescription());
+                System.out.print("     |" + j + ". [T][" + list.get(j - 1).getStatusIcon() + "]"+ list.get(j - 1).getDescription());
                 break;
             case DEADLINE:
-                System.out.print("     |" + j + ". [D][" + list[j-1].getStatusIcon() + "]" + list[j-1].getDescription() + "(by: " + list[j-1].getBy() + ")");
+                System.out.print("     |" + j + ". [D][" + list.get(j - 1).getStatusIcon() + "]" + list.get(j - 1).getDescription() + "(by: " + list.get(j - 1).getBy() + ")");
                 break;
             case EVENT:
-                System.out.print("     |" + j + ". [E][" + list[j-1].getStatusIcon() + "]" + list[j-1].getDescription() + "(at: " + list[j-1].getBy() + ")");
+                System.out.print("     |" + j + ". [E][" + list.get(j - 1).getStatusIcon() + "]" + list.get(j - 1).getDescription() + "(at: " + list.get(j - 1).getBy() + ")");
                 break;
             }
-            for(int n = 0; n < num - list[j-1].getLength() - 3 - (int)Math.log10(j); n++) System.out.print(" ");
+            for(int n = 0; n < num - list.get(j - 1).getLength() - 3 - (int)Math.log10(j); n++) System.out.print(" ");
             System.out.println("|");
         }
         System.out.print("     |");
