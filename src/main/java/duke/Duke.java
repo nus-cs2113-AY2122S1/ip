@@ -6,31 +6,41 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Duke {
 
     /*ATTRIBUTES*/
 
-    private static ArrayList<Task> tasks = new ArrayList<>(); //array to store duke.task list
-    private static int taskCount; //store total number of tasks
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    //private static Task[] tasks = new Task[100]; //array to store task list
+    //private static int taskCount; //store total number of tasks
+    private static String filePath = "data/duke.txt";
+    private static File taskText = new File(filePath);
 
 
     /*METHODS*/
 
-    //adds duke.task to the duke.task list
-    public static void addTask(Task t) {
+
+    //adds task to the task list
+    public static void addTask(Task t) throws IOException {
         printHorizontalLine();
         tasks.add(t);
+
         t.printTaskNotif();
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         printHorizontalLine();
 
-        taskCount++;
+        writeToFile();
     }
 
     //prints duke.task list when "list" is keyed by user
     public static void printList() {
+
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -40,9 +50,10 @@ public class Duke {
         }
     }
 
-    //prints specific duke.task that is done
-    public static void setDoneTask(Task t, int i) {
+    //prints specific task that is done
+    public static void setDoneTask(Task t, int i) throws IOException {
         tasks.get(i).setDone(true);
+        writeToFile();
 
         printHorizontalLine();
         System.out.println("Nice, I've marked this task as done:");
@@ -84,20 +95,98 @@ public class Duke {
         printHorizontalLine();
     }
 
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+
+        for (Task task : tasks) {
+            try {
+                clearFile();
+
+                String status = "ND";
+                if (task.getStatusIcon().equals("X")) {
+                    status = "D";
+                }
+                fw.write(task.type + " | " + status + " | "
+                        + task.description + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+        fw.close();
+    }
+
+    public static void clearFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write("");
+        fw.close();
+    }
+
+    public static void readFile() throws FileNotFoundException {
+        Scanner s = new Scanner(taskText);
+        String[] arr;
+
+        while (s.hasNext()) {
+            String text = s.nextLine();
+            arr = text.split("\\|");
+
+            boolean status = arr[1].trim().equals("D");
+
+            Task t;
+            switch (arr[0].trim()) {
+            case "T":
+                t = new Todo(arr[2].trim());
+                t.isDone = status;
+                tasks.add(t);
+
+
+                break;
+            case "D": {
+                String fulltext = arr[2];
+                int index = fulltext.lastIndexOf("(by:");
+                String name = fulltext.substring(0, index).trim();
+                String by = fulltext.substring(index + 4, fulltext.length() - 1).trim();
+
+                t = new Deadline(name, by);
+                t.isDone = status;
+                tasks.add(t);
+
+                break;
+            }
+            case "E": {
+                String fulltext = arr[2];
+                int index = fulltext.lastIndexOf("(at:");
+                String name = fulltext.substring(0, index).trim();
+                String at = fulltext.substring(index + 4, fulltext.length() - 1).trim();
+
+                t = new Event(name, at);
+                t.isDone = status;
+                tasks.add(t);
+                break;
+            }
+            }
+
+        }
+        s.close();
+    }
 
     /*MAIN*/
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
 
         printStartMessage();
+
+        try {
+            readFile();
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
 
         String input, error;
         Scanner in = new Scanner(System.in);
 
         Task t;
-        taskCount = 0;
         boolean isBye = false;
-
+//        File taskList = new File(filePath);
 
         while (!isBye) {
             input = in.nextLine();
@@ -120,6 +209,7 @@ public class Duke {
                 int index = Integer.parseInt(splitString[1]);
 
                 deleteTask(tasks.get(index - 1));
+                setDoneTask(tasks.get(index - 1), index - 1);
 
 
             } else if (input.contains("todo")) { //duke.task is a todo
@@ -129,7 +219,7 @@ public class Duke {
                     error = "toDoDescriptionEmptyException";
                     throw new DukeException(error);
 
-                }else{
+                } else {
                     t = new Todo(description);
                     addTask(t);
                 }
@@ -160,3 +250,4 @@ public class Duke {
         }
     }
 }
+

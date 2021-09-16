@@ -6,7 +6,7 @@ public class Task {
 
     public String type = " "; //empty for basic duke.task, T: todo, D: deadline, E: event
     public String description;
-    protected boolean isDone;
+    public boolean isDone;
 
 
     /*CONSTRUCTOR*/
