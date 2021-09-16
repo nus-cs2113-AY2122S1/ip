@@ -2,6 +2,10 @@ package duke;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import duke.task.*;
 
 public class Duke {
@@ -16,7 +20,7 @@ public class Duke {
     private static final String SEPARATOR = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n";
     private static final int MAX_TASK = 100;
     private static ArrayList<Task> userInputs = new ArrayList<>();
-    private static int userInputCount = 0;
+    private static int userInputsCount = 0;
 
     /**
      * Initiate the program and print the various messages
@@ -24,6 +28,51 @@ public class Duke {
     public static void initiateDuke() {
         System.out.println(SEPARATOR + "Hi... from GUDETAMA... so sleepy\n" + LOGO);
         System.out.println("Give me five more minutes..... What can I do for you?\n" + SEPARATOR);
+
+        try {
+            loadSave();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found" + System.lineSeparator() + "Empty file created");
+            System.out.println(SEPARATOR);
+        }
+    }
+
+    public static void loadSave() throws FileNotFoundException {
+        final String LOAD_DELIMITER = "--";
+        final int TASK_INDEX = 0;
+        final int DONE_INDEX = 1;
+        final int DESCRIPTION_INDEX = 2;
+        final int BY_AT_INDEX = 3;
+        final String TODO_CODE = "T";
+        final String DEADLINE_CODE = "D";
+        final String EVENT_CODE = "E";
+        String line;
+        File dir = new File("data");
+
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        File f = new File("data/duke.txt");
+        Scanner s = new Scanner(f);
+
+        while (s.hasNext()) {
+            line = s.nextLine();
+            String[] lineData = line.split(LOAD_DELIMITER);
+
+            if (lineData[TASK_INDEX].equals(TODO_CODE)) {
+                userInputs.add(new Todo(lineData[DESCRIPTION_INDEX]));
+            } else if (lineData[TASK_INDEX].equals(DEADLINE_CODE)) {
+                userInputs.add(new Deadline(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]));
+            } else if (lineData[TASK_INDEX].equals(EVENT_CODE)) {
+                userInputs.add(new Event(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]));
+            }
+
+            if (lineData[DONE_INDEX].equals("1")) {
+                userInputs.get(userInputsCount).markAsDone();
+            }
+            userInputsCount++;
+        }
     }
 
     /**
@@ -38,7 +87,12 @@ public class Duke {
             processInput(line);
             line = in.nextLine();
         }
-        printEnd();
+
+        try {
+            printEnd();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e);
+        }
     }
 
     /**
@@ -73,7 +127,36 @@ public class Duke {
     /**
      * Prints the ending messages before ending the program
      */
-    public static void printEnd() {
+    public static void printEnd() throws IOException{
+        final String DELIMITER = "--";
+        int doneValue;
+        FileWriter beginWrite = new FileWriter("data/duke.txt");
+
+        beginWrite.write("");
+        beginWrite.close();
+
+        FileWriter fw = new FileWriter("data/duke.txt", true);
+
+        for (int i = 0; i < userInputsCount; i++) {
+            if (userInputs.get(i).getCode().equals("T")) {
+                String lineToAppend = userInputs.get(i).getCode() + DELIMITER + userInputs.get(i).getDoneValue() +
+                        DELIMITER + userInputs.get(i).getDescription();
+                fw.write(lineToAppend);
+                fw.write(System.lineSeparator());
+            } else if (userInputs.get(i).getCode().equals("D")) {
+                String lineToAppend = userInputs.get(i).getCode() + DELIMITER + userInputs.get(i).getDoneValue() +
+                        DELIMITER + userInputs.get(i).getDescription() + DELIMITER + userInputs.get(i).getBy();
+                fw.write(lineToAppend);
+                fw.write(System.lineSeparator());
+            } else if (userInputs.get(i).getCode().equals("E")) {
+                String lineToAppend = userInputs.get(i).getCode() + DELIMITER + userInputs.get(i).getDoneValue() +
+                        DELIMITER + userInputs.get(i).getDescription() + DELIMITER + userInputs.get(i).getAt();
+                fw.write(lineToAppend);
+                fw.write(System.lineSeparator());
+            }
+        }
+        fw.close();
+
         System.out.println(SEPARATOR + "\nBye. I'm going back to sleep... zzz");
     }
 
@@ -89,7 +172,7 @@ public class Duke {
 
         System.out.println(SEPARATOR + "\n\tTasks to do... so lazy:");
 
-        for (int i = 1; i <= userInputCount; i++) {
+        for (int i = 1; i <= userInputsCount; i++) {
             System.out.println("\t" + i + "." + userInputs.get(i - 1));
         }
         System.out.println(SEPARATOR);
@@ -133,8 +216,8 @@ public class Duke {
 
         userInputs.add(new Todo(line.substring(START_INDEX)));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
-        userInputCount++;
+        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputsCount) + "\n" + SEPARATOR);
+        userInputsCount++;
     }
 
     /**
@@ -155,8 +238,8 @@ public class Duke {
         userInputs.add(new Deadline(deadlineInputs[DESCRIPTION_INDEX].trim(),
                 deadlineInputs[BY_INDEX].trim()));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
-        userInputCount++;
+        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputsCount) + "\n" + SEPARATOR);
+        userInputsCount++;
     }
 
     /**
@@ -177,8 +260,8 @@ public class Duke {
         userInputs.add(new Event(eventInputs[DESCRIPTION_INDEX].trim(),
                 eventInputs[AT_INDEX].trim()));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputCount) + "\n" + SEPARATOR);
-        userInputCount++;
+        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputsCount) + "\n" + SEPARATOR);
+        userInputsCount++;
     }
 
     public static void deleteTask(String line) throws DukeException {
@@ -194,7 +277,7 @@ public class Duke {
         System.out.println(SEPARATOR + "\n\tdeleted this task... less things to do:\n\t\t" +
                 userInputs.get(taskIndexDelete));
         userInputs.remove(taskIndexDelete);
-        userInputCount--;
+        userInputsCount--;
         System.out.println(SEPARATOR);
     }
 

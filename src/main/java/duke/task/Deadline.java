@@ -24,6 +24,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String getCode() {
+        return "D";
+    }
+
     @Override
     public String toString() {
         return "[D][" + super.getStatusIcon() + "] " + super.getDescription() +
