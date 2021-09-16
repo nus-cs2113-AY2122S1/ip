@@ -17,7 +17,12 @@ public class Task {
 
         return this.description;
     }
-
+    public String getStatus() {
+        return (isDone ? "1" : "0");
+    }
+    public String getDate() {
+        return "empty";
+    }
     public void markDone() {
 
         this.isDone = true;
