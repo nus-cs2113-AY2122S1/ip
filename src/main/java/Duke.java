@@ -53,7 +53,7 @@ public class Duke {
                     input = in.nextLine();
 
                 } catch (IOException e33) {
-                    System.out.println("IOException error, theres an input/output error");
+                    System.out.println("IOexception, incorrect input or output");
                     input = in.nextLine();
 
                 }
@@ -124,7 +124,7 @@ public class Duke {
                     input = in.nextLine();
 
                 } catch (IOException e34) {
-                    System.out.println("IOException error, theres an input/output error");
+                    System.out.println("IOexception, incorrect input or output");
                     input = in.nextLine();
                 }
 
@@ -303,7 +303,7 @@ public class Duke {
     }
 
     public static void appendTodo(String input) {
-        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
+        String filePath = new File("duke.txt").getAbsolutePath(); //added
         String isDone = taskDoneChecker;
         String addToDoDescription = input.substring(4).trim(); // "return book"
 
@@ -317,7 +317,7 @@ public class Duke {
     }
 
     public static void appendEvent(String input) {
-        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
+        String filePath = new File("duke.txt").getAbsolutePath(); //added
         String isDone = taskDoneChecker;
         String[] eventSplitterString = input.substring(6).split(" /at ");
         String addEventDescription = eventSplitterString[0];
@@ -333,7 +333,7 @@ public class Duke {
     }
 
     public static void appendDeadline(String input) {
-        String filePath = new File("./data/duke.txt").getAbsolutePath(); //addded
+        String filePath = new File("duke.txt").getAbsolutePath(); //addded
         String isDone = taskDoneChecker;
         String[] deadlineSplitterString = input.substring(9).split(" /by ");
         String addDeadlineDescription = deadlineSplitterString[0];
@@ -348,7 +348,7 @@ public class Duke {
     }
 
     public static void replaceAllTasks() throws IOException {
-        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
+        String filePath = new File("duke.txt").getAbsolutePath(); //added
         FileWriter fw = new FileWriter(filePath, false);
         String taskToSave;
 
@@ -368,7 +368,7 @@ public class Duke {
     }
 
     public static void loadFile() throws FileNotFoundException {
-        String filePath = new File("./data/duke.txt").getAbsolutePath(); //added
+        String filePath = new File("duke.txt").getAbsolutePath(); //added
         File f = new File(filePath);
         Scanner fileScan = new Scanner(f);
         String taskType;
