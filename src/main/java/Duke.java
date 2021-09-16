@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.lang.String;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Duke {
 
@@ -15,8 +16,15 @@ public class Duke {
     public static void main(String[] args) {
 
         greeting();
-
         ArrayList<Task> tasks = new ArrayList<Task>();
+
+        if (getDatafromFile("tasks").size() > 0) {
+            tasks = getDatafromFile("tasks");
+            System.out.println("Tasks have been loaded.");
+        } else {
+            System.out.println("No task can be loaded.");
+        }
+
 
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -28,32 +36,40 @@ public class Duke {
             } else if (inputString.equals("list")) {
                 try {
                     printList(tasks);
-                }
-                catch(DukeException d) {
+                } catch (DukeException d) {
                     System.out.println(line
                             + d.getMessage() + "\n" + line);
                 }
             } else if (inputString.contains("done") == true) {
                 try {
                     setDone(inputString, tasks);
-                }
-                catch(IndexOutOfBoundsException i) {
+                } catch (IndexOutOfBoundsException i) {
+                    System.out.println(line
+                            + "☹ OOPS!!! The index is out of range.\n"
+                            + line);
+                } catch (NumberFormatException n) {
+                    System.out.println(line
+                            + "☹ OOPS!!! The index of done indstruction should be a number.\n"
+                            + line);
+                } catch (NullPointerException p) {
                     System.out.println(line
                             + "☹ OOPS!!! The index of done indstruction cannot be empty.\n"
                             + line);
                 }
-                catch(NumberFormatException n) {
-                    System.out.println(line
-                            + "☹ OOPS!!! The index of done indstruction should be a number.\n"
-                            + line);
-                }
-                catch(NullPointerException p) {
+            } else if (inputString.contains("delete") == true) {
+                try {
+                    deleteTask(inputString, tasks);
+                } catch (IndexOutOfBoundsException i) {
                     System.out.println(line
                             + "☹ OOPS!!! The index is out of range.\n"
                             + line);
+                } catch (NumberFormatException n) {
+                    System.out.println(line
+                            + "☹ OOPS!!! The index of delete indstruction should be a number.\n"
+                            + line);
                 }
-            } else if (inputString.contains("delete") == true) {
-                deleteTask(inputString, tasks);
+            } else if (inputString.contains("clear") == true) {
+                clearList(tasks);
             } else {
                 try {
                     addTask(inputString, tasks);
@@ -174,3 +190,93 @@ public class Duke {
                 + "\nNow you have " + tasks.size()
                 + " tasks in the list.\n" + line);
     }
+
+    public static final void clearList(ArrayList<Task> tasks) {
+        while (tasks.size() > 0) {
+            tasks.remove(0);
+        }
+        System.out.println(line
+                + "The list has been cleared. Now the list is empty.\n"
+                + line);
+    }
+
+    public static final ArrayList<Task> getDatafromFile(String fileName) {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        String Path="C:\\Users\\XUEY0013\\Documents\\ip\\src\\main\\" + fileName+ ".txt";
+        BufferedReader reader = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(Path);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
+            reader = new BufferedReader(inputStreamReader);
+            String tempString = "";
+            Task task = new Task("null");
+            while ((tempString = reader.readLine()) != null) {
+                if (tempString.charAt(4) == 'T') {
+                    task = (new Todo(tempString.substring(10)));
+                } else if (tempString.charAt(4) == 'E') {
+                    String event = tempString.substring(10,
+                            tempString.indexOf("(") - 1);
+                    String at = tempString.substring(tempString.indexOf(":") + 2,
+                            tempString.indexOf(")"));
+                    task = (new Event(event, at));
+                } else if (tempString.charAt(4) == 'D') {
+                    String deadline = tempString.substring(10,
+                            tempString.indexOf("(") - 1);
+                    String by = tempString.substring(tempString.indexOf(":") + 2,
+                            tempString.indexOf(")"));
+                    task = (new Deadline(deadline, by));
+                }
+
+                if (tempString.charAt(7) == 'X') {
+                    task.markedAsDone();
+                }
+
+                tasks.add(task);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return tasks;
+    }
+
+    public static final void saveDataToFile(String fileName,ArrayList<Task> tasks) {
+        BufferedWriter writer = null;
+        File file = new File("C:\\Users\\XUEY0013\\Documents\\ip\\src\\main\\"+ fileName + ".txt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,false), "UTF-8"));
+            for (Task task : tasks) {
+                int i = 0;
+                writer.write(i + 1 + ". " + task.toString());
+                i++;
+                writer.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(writer != null){
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("The list of tasks have been saved！");
+    }
+}
