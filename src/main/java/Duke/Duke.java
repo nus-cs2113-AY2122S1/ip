@@ -1,8 +1,16 @@
 package Duke;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Duke {
     //define constants
@@ -20,11 +28,11 @@ public class Duke {
 
     //pepepopo response text output
     private static final String GREETING = "Hello! I'm Pepepopo\n" +
-                                            "What can I do for you?";
+            "What can I do for you?";
     private static final String DIVIDER = "____________________________________________________________";
     private static final String BYE = "PLEASE DONT LEAVE :( \n" +
-                                        "a....noo.....ahhhhh..\n" +
-                                        "..AAAAAAGHHHH.......pepepopo loved u :(";
+            "a....noo.....ahhhhh..\n" +
+            "..AAAAAAGHHHH.......pepepopo loved u :(";
 
     private static final String TASK_ADD = "New task! Pepepopo has added it to the list: ";
     private static final String TASK_DONE = "Yay! Pepepopo has marked your task as done:";
@@ -35,8 +43,12 @@ public class Duke {
     private static final String EVENT_EMPTY = "Event cannot be empty!";
     private static final String INVALID_INPUT = "Invalid input, try another command";
     private static final String INVALID_NUMBER = "Please enter a valid number after the command";
-    private static final String INVALID_DONE_NUMBER = "Please enter a number within the list";
-    
+
+    private static final String NEW_FILE = "Pepepopo has created new data file!";
+    private static final String COPY_FILE = "Pepepopo has updated your database from duke.txt";
+
+    private static String filePath = String.valueOf(Paths.get("data/duke.txt"));
+
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static String getInput() {
@@ -47,9 +59,81 @@ public class Duke {
         return line;
     }
 
+    public static void manageFile() {
+        try {
+            readFile("data/duke.txt");
+        } catch (FileNotFoundException e) {
+            try {
+                Path filePath = Paths.get("data/duke.txt");
+                Files.createDirectories(filePath.getParent());
+            } catch (IOException e1) {
+                e1.getMessage();
+            }
+        }
+    }
 
-    public static void executeCommand(String input) throws DukeException {
-        String[] commandAndParams = splitString(input, " ");
+    public static void readFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String rawLineData = s.nextLine();
+            String [] lineData = splitDataString(rawLineData);
+            String taskType = lineData[0];
+            boolean isDone = lineData[1].equals("X");
+            String description = lineData[2];
+            String extraDescription = lineData[3];
+            Task taskToAdd;
+
+            switch (taskType) {
+            case("T"):
+                taskToAdd = new Todo(description);
+                taskToAdd.setDone(isDone);
+                addTaskFromFile(taskToAdd);
+                break;
+            case("D"):
+                taskToAdd = new Deadline(description, extraDescription);
+                taskToAdd.setDone(isDone);
+                addTaskFromFile(taskToAdd);
+                break;
+            case("E"):
+                taskToAdd = new Event(description, extraDescription);
+                taskToAdd.setDone(isDone);
+                addTaskFromFile(taskToAdd);
+                break;
+            }
+        }
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        String description = "";
+        String status;
+        for (Task t: tasks){
+            if (t.isDone) {
+                status = "1";
+            } else {
+                status = "0";
+            }
+
+            switch(t.taskType) {
+            case "D":
+                description = String.format("%s | %s", t.getDescription(), t.getBy());
+                break;
+            case "E":
+                description = String.format("%s | %s", t.getDescription(), t.getAt());
+                break;
+            case "T":
+                description = t.getDescription();
+            }
+            String textToAppend = String.format("%s | %s | %s\n", t.taskType, status, description);
+            fw.write(textToAppend);
+        }
+        fw.close();
+    }
+
+
+    public static void executeCommand(String input) throws DukeException, IOException {
+        String[] commandAndParams = splitCommandString(input, " ");
         String command = commandAndParams[0];
         String params = commandAndParams[1];
         switch (command) {
@@ -84,6 +168,7 @@ public class Duke {
             executeDelete(params);
             break;
         case COMMAND_BYE:
+            writeToFile();
             executeBye();
             break;
         default:
@@ -95,6 +180,11 @@ public class Duke {
         tasks.add(t);
         Task.setTaskCount(1);
         printAdd(t);
+    }
+
+    public static void addTaskFromFile(Task t) {
+        tasks.add(t);
+        Task.setTaskCount(1);
     }
 
     public static void executeTodo(String params) throws DukeException {
@@ -109,7 +199,7 @@ public class Duke {
         if (params == "") {
             throw new DukeException();
         }
-        String[] descAndBy = splitString(params, DEADLINE_BY_PREFIX);
+        String[] descAndBy = splitCommandString(params, DEADLINE_BY_PREFIX);
         String description = descAndBy[0];
         String by = descAndBy[1];
         Deadline d = new Deadline(description, by);
@@ -120,7 +210,7 @@ public class Duke {
         if (params == "") {
             throw new DukeException();
         }
-        String[] descAndAt = splitString(params, EVENT_AT_PREFIX);
+        String[] descAndAt = splitCommandString(params, EVENT_AT_PREFIX);
         String description = descAndAt[0];
         String at = descAndAt[1];
         Event e = new Event(description, at);
@@ -130,7 +220,7 @@ public class Duke {
     public static void executeDone(String params) {
         if (isDone(params)) {
             int taskNumber = Integer.parseInt(params) - 1;
-            tasks.get(taskNumber).setDone();
+            tasks.get(taskNumber).setDone(true);
             printDone(taskNumber);
         }
     }
@@ -159,9 +249,14 @@ public class Duke {
         System.exit(0);
     }
 
-    public static String[] splitString(String input, String separator) {
+    public static String[] splitCommandString(String input, String separator) {
         String[] split = input.trim().split(separator, 2);
         return split.length == 2 ? split : new String[] {split[0], ""};
+    }
+
+    public static String[] splitDataString(String input) {
+        String[] split = input.trim().split(" \\| ", 4);
+        return split.length == 4 ? split: new String[] {split[0], split[1], split[2], ""};
     }
 
     public static boolean isDone(String params) {
@@ -208,15 +303,12 @@ public class Duke {
         if (!text.equals("")) {
             System.out.println(text);
         }
-            System.out.println(DIVIDER);
+        System.out.println(DIVIDER);
     }
 
-    //public static void print(String text) {
-//        System.out.println(text);
-//    }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printGreeting();
+        manageFile();
 
         while (true) {
             String input = getInput();
@@ -226,6 +318,5 @@ public class Duke {
                 print(INVALID_INPUT);
             }
         }
-
     }
 }

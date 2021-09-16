@@ -3,6 +3,7 @@ package Duke;
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
+        taskType = "T";
     }
 
     @Override
