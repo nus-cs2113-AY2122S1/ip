@@ -21,7 +21,8 @@ public class SaveTaskListToText {
     public static File dukeTaskText = new File("./data/duke.txt");
     public static int numberOfTasksAdded = 0;
 
-
+    // Solution below adapted from
+    // https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
     public static void removeLineFromFile(String file, String lineToRemove) {
         try {
             File inFile = new File(file);
@@ -140,6 +141,8 @@ public class SaveTaskListToText {
         return numberOfTasksAdded;
     }
 
+    // Solution below adapted from
+    // https://stackoverflow.com/questions/5600422/method-to-find-string-inside-of-the-text-file-then-getting-the-following-lines
     public static boolean checkLineExist(String stringToCheck) {
         File file = new File("./data/duke.txt");
 
@@ -165,6 +168,7 @@ public class SaveTaskListToText {
         return false;
     }
 
+    // Solution below adapted from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
     public static boolean saveToDo(String taskName) {
         String textToWrite1 = "t-/-0-/-" + taskName;
         String textToWrite2 = "t-/-1-/-" + taskName;
@@ -182,7 +186,7 @@ public class SaveTaskListToText {
 
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
                 if (fileIsEmpty == false) {
-                    addToDo.write("\n"); //appends the string to the file
+                    addToDo.write("\n");
                 }
                 addToDo.write(textToWrite1);
                 addToDo.close();
@@ -196,6 +200,7 @@ public class SaveTaskListToText {
         return true;
     }
 
+    // Solution below adapted from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
     public static boolean saveEvent(String taskName, String at) {
         String eventToWrite1 = "e-/-0-/-" + taskName + "-/-/at" + at.substring(3);
         String eventToWrite2 = "e-/-1-/-" + taskName + "-/-/at" + at.substring(3);
@@ -212,7 +217,7 @@ public class SaveTaskListToText {
 
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
                 if (fileIsEmpty == false) {
-                    addToDo.write("\n");//appends the string to the file
+                    addToDo.write("\n");
                 }
                 addToDo.write(eventToWrite1);
                 addToDo.close();
@@ -225,6 +230,7 @@ public class SaveTaskListToText {
         return true;
     }
 
+    // Solution below adapted from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
     public static boolean saveDeadline(String taskName, String by) {
         String deadlineToWrite1 = "d-/-0-/-" + taskName + "-/-/by" + by.substring(3);
         String deadlineToWrite2 = "d-/-1-/-" + taskName + "-/-/by" + by.substring(3);
@@ -241,7 +247,7 @@ public class SaveTaskListToText {
 
                 FileWriter addToDo = new FileWriter(dukeDirectory, true); //the true will append the new data
                 if (fileIsEmpty == false) {
-                    addToDo.write("\n");//appends the string to the file
+                    addToDo.write("\n");
                 }
                 addToDo.write(deadlineToWrite1);
                 addToDo.close();
@@ -254,6 +260,7 @@ public class SaveTaskListToText {
         return true;
     }
 
+    // Solution below adapted from https://stackoverflow.com/questions/20039980/java-replace-line-in-text-file
     public static void textFileTaskDoneMarker(String oldLine, Character taskType) throws IOException {
         String filePath = "./data/duke.txt";
         Scanner sc = new Scanner(new File(filePath));
