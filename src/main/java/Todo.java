@@ -12,4 +12,10 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + "[" + getStatusIcon() + "]" + " " + description;
     }
+
+    @Override
+    public String getStoreDataString() {
+        String checkDone = isDone ? "1" : "0";
+        return "todo "  +  description + " | "  + checkDone + System.lineSeparator();
+    }
 }
