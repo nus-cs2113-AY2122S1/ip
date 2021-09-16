@@ -138,7 +138,7 @@ public class Parser {
         String detail = command.substring(COMMAND_DEADLINE.length()).trim();
         String[] contentAndDate = detail.split(COMMAND_DEADLINE_SEPARATOR);
 
-        if (detail.length() <= 0) {
+        if (detail.length() <= 0 || contentAndDate.length <= 0) {
             throw new DukeException("Invalid format. Enter by this format:\n"
                     + "\t\t\"deadline [description] /by [deadline]\"");
         }
@@ -174,7 +174,7 @@ public class Parser {
         String detail = command.substring(COMMAND_EVENT.length()).trim();
         String[] contentAndDate = detail.split(COMMAND_EVENT_SEPARATOR);
 
-        if (detail.length() <= 0) {
+        if (detail.length() <= 0 || contentAndDate.length <= 0) {
             throw new DukeException("Invalid format. Enter by this format:\n"
                     + "\t\t\"event [description] /at [date]\"");
         }
@@ -224,7 +224,7 @@ public class Parser {
 
                 return msg;
             } catch (NumberFormatException e) {
-                throw new DukeException("Uhm that definitely not a dumber bro. Pick again.");
+                throw new DukeException("Uhm that definitely not a number bro. Pick again.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Task number not exist!");
             } catch (IOException e) {
