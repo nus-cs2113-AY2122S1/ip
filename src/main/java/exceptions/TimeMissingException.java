@@ -1,4 +1,4 @@
-package InputHandle.exception;
+package exceptions;
 
 public class TimeMissingException extends DukeException {
 

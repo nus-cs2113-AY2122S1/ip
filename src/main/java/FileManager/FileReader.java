@@ -1,10 +1,10 @@
 package FileManager;
 
-import InputHandle.Tasks.TaskList;
-import InputHandle.Tasks.Task;
-import InputHandle.Tasks.Todo;
-import InputHandle.Tasks.Event;
-import InputHandle.Tasks.Deadline;
+import tasks.TaskList;
+import tasks.Task;
+import tasks.Todo;
+import tasks.Event;
+import tasks.Deadline;
 
 
 import java.util.Scanner;

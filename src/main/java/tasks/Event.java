@@ -1,4 +1,4 @@
-package InputHandle.Tasks;
+package tasks;
 
 import java.io.Serializable;
 

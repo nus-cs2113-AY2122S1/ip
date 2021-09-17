@@ -1,7 +1,8 @@
-package InputHandle.command;
+package commands;
 
-import InputHandle.Tasks.*;
-import InputHandle.exception.TaskNotExistException;
+import exceptions.TaskNotExistException;
+import tasks.Task;
+import tasks.TaskList;
 
 public class DeleteCommand extends UserCommand{
     private int index;
@@ -12,15 +13,17 @@ public class DeleteCommand extends UserCommand{
     }
 
     @Override
-    public void execute () throws TaskNotExistException {
+    public String execute () throws TaskNotExistException {
         Task deletedTask;
         try {
             deletedTask = this.tasks.deleteTask(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotExistException();
         }
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + deletedTask);
-        System.out.println("     Now you have " + this.tasks.getTotalTaskNumber() + " tasks in the list.");
+
+        String result = "     Noted. I've removed this task:\n";
+        result += "       " + deletedTask;
+        result += "     Now you have " + this.tasks.getTotalTaskNumber() + " tasks in the list.";
+        return result;
     }
 }

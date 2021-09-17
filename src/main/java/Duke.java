@@ -1,12 +1,12 @@
-import java.util.Scanner;
+import userManagement.UserManager;
+import userManagement.UserServer;
 
 public class Duke {
     private static UserManager userManager = new UserManager();
 
     public static void main (String[] args) {
-        String userName = userManager.getUserName();
-        User newUser = new User(userName, userManager.loadUser(userName));
-        newUser.startServe();
+        UserServer newUser = new UserServer(userManager);
+        newUser.run();
     }
 }
 

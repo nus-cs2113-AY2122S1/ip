@@ -1,7 +1,7 @@
-package InputHandle.Tasks;
+package tasks;
 
-import InputHandle.exception.TaskEmptyException;
-import InputHandle.exception.TimeMissingException;
+import exceptions.TaskEmptyException;
+import exceptions.TimeMissingException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,10 +21,12 @@ public class TaskList implements Serializable {
         this.tasks.add(task);
     }
 
-    public void listTasks() {
+    public String listTasks() {
+        String tasklist = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     " + (i + 1) + "." + tasks.get(i));
+            tasklist += "     " + (i + 1) + "." + tasks.get(i) + "\n";
         }
+        return tasklist;
     }
 
     public int getTotalTaskNumber() {
