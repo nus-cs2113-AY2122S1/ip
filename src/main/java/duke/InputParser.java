@@ -24,6 +24,10 @@ public class InputParser {
 
     public static void handleInput(ArrayList<String> arguments) throws DukeCommandException {
         switch (arguments.get(0)) {
+        case "help":
+            Messages.helpMessage();
+            break;
+
         case "delete":
             Command.executeDelete(arguments);
             DataFile.write();

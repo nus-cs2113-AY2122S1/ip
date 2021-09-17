@@ -1,6 +1,6 @@
 package duke;
 
-import duke.exception.*;
+import duke.exception.DukeCommandException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,6 +19,7 @@ public class Duke {
             } catch (DukeCommandException e) {
                 Messages.printDivider();
                 System.out.println("Invalid command entered. Please try again");
+                System.out.println("For information on how to use me try using the help command!");
                 Messages.printDivider();
             }
             userInput = in.nextLine();

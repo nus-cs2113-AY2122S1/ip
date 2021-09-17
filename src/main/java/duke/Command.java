@@ -34,6 +34,7 @@ public class Command {
         } catch (NumberFormatException e) {
             Messages.printDivider();
             System.out.println("Invalid command");
+            System.out.println("For information on how to use me try using the help command!");
             Messages.printDivider();
         }
     }
@@ -63,6 +64,7 @@ public class Command {
         } catch (IndexOutOfBoundsException e) {
             Messages.printDivider();
             System.out.println("Missing parameters");
+            System.out.println("For information on how to use me try using the help command!");
             Messages.printDivider();
         }
     }
@@ -115,6 +117,7 @@ public class Command {
         } catch (NumberFormatException e) {
             Messages.printDivider();
             System.out.println("Invalid command");
+            System.out.println("For information on how to use me try using the help command!");
             Messages.printDivider();
         }
     }
