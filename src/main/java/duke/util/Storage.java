@@ -17,17 +17,21 @@ public class Storage {
 
     public static final String CURRENT_DIRECTORY = "user.dir";
     public static final String STRING_IP = "ip";
+
     public static final int BEGIN_INDEX = 0;
     public static final int NOT_FOUND_INDEX = -1;
+
     public static final String DIRECTORY = "data";
     public static final String STORAGE_FILE = "duke.txt";
     public static final String DELIMITER = "\\|";
     public static final String TODO_TYPE = "T";
     public static final String EVENT_TYPE = "E";
     public static final String DEADLINE_TYPE = "D";
+
     public static final int MAX_INDEX = 3;
     public static final int DESCRIPTION_INDEX = 2;
     public static final int MAX_EVENT_DEADLINE = 4;
+
     private Path storagePath;
 
     /**
@@ -78,20 +82,20 @@ public class Storage {
         if (taskInfo.length < MAX_INDEX) {
             throw new IllegalArgumentException();
         }
-        Task SingleTask;
+        Task singleTask;
         if (taskInfo[BEGIN_INDEX].equals(TODO_TYPE) && taskInfo.length == MAX_INDEX) {
-            SingleTask = new Todo(taskInfo[DESCRIPTION_INDEX]);
+            singleTask = new Todo(taskInfo[DESCRIPTION_INDEX]);
         } else if (taskInfo[BEGIN_INDEX].equals(EVENT_TYPE) && taskInfo.length == MAX_EVENT_DEADLINE) {
-            SingleTask = new Event(taskInfo[DESCRIPTION_INDEX], taskInfo[MAX_INDEX]);
+            singleTask = new Event(taskInfo[DESCRIPTION_INDEX], taskInfo[MAX_INDEX]);
         } else if (taskInfo[BEGIN_INDEX].equals(DEADLINE_TYPE) && taskInfo.length == MAX_EVENT_DEADLINE) {
-            SingleTask = new Deadline(taskInfo[DESCRIPTION_INDEX], taskInfo[MAX_INDEX]);
+            singleTask = new Deadline(taskInfo[DESCRIPTION_INDEX], taskInfo[MAX_INDEX]);
         } else {
             throw new IllegalArgumentException();
         }
         if (taskInfo[1].equals("1")) {
-            SingleTask.markAsDone();
+            singleTask.markAsDone();
         }
-        return SingleTask;
+        return singleTask;
     }
 
     /**

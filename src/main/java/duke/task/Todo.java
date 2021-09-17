@@ -12,7 +12,7 @@ public class Todo extends Task {
      */
     public Todo(String description) throws IllegalArgumentException {
         super(description);
-        if (checkStringNullOrEmpty(description)) {
+        if (isStringNullOrEmpty(description)) {
             throw new IllegalArgumentException(DESCRIPTION_EMPTY_ERROR_MESSAGE);
         }
     }

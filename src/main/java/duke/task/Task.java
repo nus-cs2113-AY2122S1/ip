@@ -2,13 +2,10 @@ package duke.task;
 
 public class Task {
 
-    /**
-     * The actual description or name of the task
-     */
+    public static final String TASK_IS_DONE = "1";
+    public static final String TASK_IS_NOT_DONE = "0";
+
     private String description;
-    /**
-     * Shows if task is completed
-     */
     private boolean isDone;
 
     public Task(String description) {
@@ -22,7 +19,7 @@ public class Task {
      * @param validString the user String input
      * @return true if string is empty or null and false otherwise
      */
-    public boolean checkStringNullOrEmpty(String validString) {
+    public boolean isStringNullOrEmpty(String validString) {
         return validString == null || validString.isEmpty();
 
     }
@@ -67,7 +64,7 @@ public class Task {
      * @return formatted string to save to file
      */
     public String saveToText() {
-        return (isDone ? "1" : "0") + " | " + description;
+        return (isDone ? TASK_IS_DONE : TASK_IS_NOT_DONE) + " | " + description;
     }
 
     /**
