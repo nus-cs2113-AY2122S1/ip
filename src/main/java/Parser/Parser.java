@@ -1,12 +1,7 @@
 package Parser;
 
+import commands.*;
 import tasks.TaskList;
-import commands.UserCommand;
-import commands.DoneCommand;
-import commands.ListCommand;
-import commands.QuitCommand;
-import commands.AddTaskCommand;
-import commands.DeleteCommand;
 import exceptions.InvalidCommandException;
 import exceptions.DukeException;
 import exceptions.TaskIndexMissingException;
@@ -41,6 +36,10 @@ public class Parser {
 
         case "todo" : case "deadline" : case "event":
             input = new AddTaskCommand(command, userTasks);
+            break;
+
+        case "find":
+            input = new FindTaskCommand(userTasks, inputSplits[1]);
             break;
 
         default:

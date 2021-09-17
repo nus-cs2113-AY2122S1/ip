@@ -19,5 +19,5 @@ public class Deadline extends Task implements Serializable {
         return "D | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + " | " + this.deadline + "\n";
     }
 
-    
+
 }
