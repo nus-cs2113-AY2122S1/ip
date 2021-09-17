@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +11,7 @@ public class Duke {
     private static final Scanner scan = new Scanner(System.in);
     private static final String LINE_PREFIX = "\t";
     private static final String NEW_LINE = "\n\t";
+    private static final String GREETING ="Why are you here again"+NEW_LINE+ "What do you want";
     private static final String INDENTED_NEW_LINE = "\n\t\t";
     private static final String KEYWORD_DEADLINE_DATE = "/by";
     private static final String KEYWORD_EVENT_DATE = "/at";
@@ -24,6 +27,7 @@ public class Duke {
     private static final String COMMAND_GET_STATS = "stats";
     private static final String DIVIDER = "_______________________________";
     private static final String MESSAGE_ADDED = "added: ";
+    private static final String MESSAGE_CLEAR_HISTORY = "History cleared.";
     private static final String MESSAGE_TASK_COMPLETED = "Wow. You finally completed a task after lazying around all day.";
     private static final String MESSAGE_TASK_DELETED = "I've deleted the task: ";
     private static final String MESSAGE_TASK_NOT_FOUND = "Error. Task does not exist. Try again.";
@@ -46,13 +50,17 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String ROOT_FOLDER = System.getProperty("user.dir");
-    private static final String FILEPATH = "data/Duke.txt";
+
+    private static final String ROOT = System.getProperty("user.dir");
+    private static final String PARENT_NAME = "data";
+    private static final String FILENAME = "Duke.txt";
+    private static final String PARENT_PATH = ROOT + "/" + PARENT_NAME;
+    private static final String FILEPATH = PARENT_PATH + "/" + FILENAME;
 
     public static void showWelcomeMessage() {
         System.out.println(LOGO);
         System.out.println(DIVIDER);
-        showToUser("Why are you here again", "What do you want");
+        showToUser(GREETING);
     }
 
     private static String getUserInput() {
@@ -107,17 +115,11 @@ public class Duke {
         }
     }
 
-    public static void clearHistory() throws IOException {
-        FileWriter writer = new FileWriter(FILEPATH, false);
-        writer.write("");
-        writer.close();
-    }
-
-    public static void saveToFile() throws IOException {
+    public static void saveToFile() {
         try {
+            Files.createDirectories(Paths.get(PARENT_PATH));
             File file = new File(FILEPATH);
             if (!file.exists()) {
-                file.getParentFile().mkdir();
                 file.createNewFile();
             }
             FileWriter fw = new FileWriter(file, false);
@@ -129,13 +131,15 @@ public class Duke {
             bw.close();
         } catch (IOException e) {
             System.out.println("Error while saving to file");
-            e.printStackTrace();
         }
     }
 
     private static String[] splitCommandWordsAndArgs(String rawUserInput) {
         final String[] split = rawUserInput.trim().split("\\s+", 2);
-        return split.length == 2 ? split : new String[]{split[0], ""};
+        if (split.length == 2) {
+            return split;
+        }
+        return new String[]{split[0], ""};
     }
 
     private static String executeCommand(String userInputString) {
@@ -177,7 +181,7 @@ public class Duke {
 
     private static String executeClearHistory() {
         taskList.clear();
-        return "History cleared.";
+        return MESSAGE_CLEAR_HISTORY;
     }
 
     private static String executeDeleteTask(String commandArgs) {
@@ -246,7 +250,7 @@ public class Duke {
         return str.append(MESSAGE_LIST_ALL_TASKS).toString();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         initTaskList();
         showWelcomeMessage();
         readFromFile();
