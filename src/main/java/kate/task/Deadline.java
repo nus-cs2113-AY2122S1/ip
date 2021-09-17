@@ -1,19 +1,31 @@
 package kate.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    protected String deadline;
+    protected LocalDate deadline;
     private static final String DEADLINE_CHECKBOX = "[D]";
 
     public Deadline(String description, String deadline) {
         this.description = description;
         this.isDone = false;
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public Deadline(String description, boolean isDone, String deadline) {
         this.description = description;
         this.isDone = isDone;
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
+    }
+
+    /**
+     * Formats the date into MMM d yyyy
+     *
+     * @return Formatted date in String
+     */
+    public String getFormattedDate() {
+        return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**
@@ -33,6 +45,6 @@ public class Deadline extends Task {
     @Override
     public String getTaskInfo() {
         return DEADLINE_CHECKBOX + super.getTaskInfo()
-                + " (by: " + deadline + ")";
+                + " (by: " + getFormattedDate() + ")";
     }
 }

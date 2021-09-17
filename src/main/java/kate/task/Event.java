@@ -1,19 +1,31 @@
 package kate.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    protected String timeFrame;
+    protected LocalDate timeFrame;
     private static final String EVENT_CHECKBOX = "[E]";
 
     public Event(String description, String timeFrame) {
         this.description = description;
         this.isDone = false;
-        this.timeFrame = timeFrame;
+        this.timeFrame = LocalDate.parse(timeFrame);
     }
 
     public Event(String description, boolean isDone, String timeFrame) {
         this.description = description;
         this.isDone = isDone;
-        this.timeFrame = timeFrame;
+        this.timeFrame = LocalDate.parse(timeFrame);
+    }
+
+    /**
+     * Formats the date into MMM d yyyy
+     *
+     * @return Formatted date in String
+     */
+    public String getFormattedDate() {
+        return timeFrame.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**
@@ -33,6 +45,6 @@ public class Event extends Task {
     @Override
     public String getTaskInfo() {
         return EVENT_CHECKBOX + super.getTaskInfo()
-                + " (at: " + timeFrame + ")";
+                + " (at: " + getFormattedDate() + ")";
     }
 }
