@@ -43,6 +43,8 @@ public class CommandExecutor {
     private TaskList taskManager;
     /* Used to store supported commands */
     private Command[] commandList;
+    /* Used to perform parsing operations */
+    private Parser parser;
     /* Used to save tasks to file system */
     private Storage fileManager;
     /* State of whether interaction has terminated. True if interaction has terminated. */
@@ -65,6 +67,7 @@ public class CommandExecutor {
                 new CommandWithFlag(ADD_EVENT_COMMAND, ARGUMENT_TASK_DESCRIPTION,
                         FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
         };
+        parser = new Parser(commandList);
         try {
             taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
         } catch (IOException err) {
@@ -86,10 +89,8 @@ public class CommandExecutor {
      * @param inputLine Raw input line to check.
      */
     public void execute(String inputLine) {
-        Command command;
         try {
-            command = findCommand(inputLine);
-            runCommandUsingInput(command, inputLine);
+            runCommandUsingInput(inputLine);
         } catch (CommandException err) {
             Ui.printError(err.getMessage());
         } catch (NumberFormatException err) {
@@ -100,36 +101,16 @@ public class CommandExecutor {
     }
 
     /**
-     * Finds the correct command according to the given input string.
-     *
-     * @param inputLine Raw input line to search.
-     * @return Command that user is trying to run.
-     * @throws CommandException If unable to detect the command in the given input.
-     */
-    private Command findCommand(String inputLine) throws CommandException {
-        for (Command command : commandList) {
-            if (command.isCommand(inputLine)) {
-                return command;
-            }
-        }
-        throw new CommandException("Command not found");
-    }
-
-    /**
      * Perform execution of the given command using the given input string. After every successful command execution,
-     * state of the task manager to saved to a file.
+     * state of the task manager is saved to a file.
      *
-     * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
-     * @throws CommandException If an illegal command is executed.
+     * @throws CommandException If an illegal command is executed or there is an error parsing the user's command.
      * @throws IOException      If a file-related operation has errors.
      */
-    private void runCommandUsingInput(Command command, String inputLine) throws CommandException, IOException {
-        if (!command.isValidCommandLine(inputLine)) {
-            throw new CommandException("Usage: " + command.getUsage());
-        }
-
-        String[] commandLineValues = command.extractCommandLineValues(inputLine);
+    private void runCommandUsingInput(String inputLine) throws CommandException, IOException {
+        Command command = parser.findCommand(inputLine);
+        String[] commandLineValues = parser.parseCommandLineValues(command, inputLine);
         Task task;
         int taskIndex;
         String taskDescription;

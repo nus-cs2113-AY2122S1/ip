@@ -43,11 +43,12 @@ public class CommandWithArgument extends Command {
      */
     @Override
     public boolean isValidCommandLine(String inputLine) {
-        String commandLine = inputLine.strip();
-        String[] tokens = commandLine.split(" ", -1);
-        String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
+        String strippedLine = inputLine.strip();
+        String[] tokens = strippedLine.split(" ", -1);
+        String[] argumentTokens = Arrays.copyOfRange(tokens, 1, tokens.length);
+        String argumentValue = String.join(" ", argumentTokens);
 
-        boolean isStartWithCommand = commandLine.startsWith(super.getCommand() + " ");
+        boolean isStartWithCommand = strippedLine.startsWith(super.getCommand() + " ");
         boolean isNonEmptyArgument = argumentValue.length() > 0;
 
         return isStartWithCommand && isNonEmptyArgument;
@@ -61,8 +62,8 @@ public class CommandWithArgument extends Command {
      */
     @Override
     public String[] extractCommandLineValues(String inputLine) {
-        String commandLine = inputLine.strip();
-        String[] tokens = commandLine.split(" ", -1);
+        String strippedLine = inputLine.strip();
+        String[] tokens = strippedLine.split(" ", -1);
         String[] argumentTokens = Arrays.copyOfRange(tokens, 1, tokens.length);
         String argumentValue = String.join(" ", argumentTokens);
 

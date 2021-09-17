@@ -52,18 +52,21 @@ public class CommandWithFlag extends CommandWithArgument {
      */
     @Override
     public boolean isValidCommandLine(String inputLine) {
-        String commandLine = inputLine.strip();
-        String[] tokens = commandLine.split(" ", -1);
+        String strippedLine = inputLine.strip();
+        String[] tokens = strippedLine.split(" ", -1);
         int flagIndex = findFlagIndex(tokens);
 
         if (flagIndex == NOT_FOUND) {
             return false;
         }
 
-        String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, flagIndex));
-        String flagValue = String.join(" ", Arrays.copyOfRange(tokens, flagIndex + 1, tokens.length));
+        String[] argumentTokens = Arrays.copyOfRange(tokens, 1, flagIndex);
+        String[] flagTokens = Arrays.copyOfRange(tokens, flagIndex + 1, tokens.length);
 
-        boolean isStartWithCommand = commandLine.startsWith(super.getCommand() + " ");
+        String argumentValue = String.join(" ", argumentTokens);
+        String flagValue = String.join(" ", flagTokens);
+
+        boolean isStartWithCommand = strippedLine.startsWith(super.getCommand() + " ");
         boolean isNonEmptyArgument = argumentValue.length() > 0;
         boolean isNonEmptyFlag = flagValue.length() > 0;
 
@@ -78,8 +81,8 @@ public class CommandWithFlag extends CommandWithArgument {
      */
     @Override
     public String[] extractCommandLineValues(String inputLine) {
-        String commandLine = inputLine.strip();
-        String[] tokens = commandLine.split(" ", -1);
+        String strippedLine = inputLine.strip();
+        String[] tokens = strippedLine.split(" ", -1);
         int flagIndex = findFlagIndex(tokens);
 
         String[] argumentTokens = Arrays.copyOfRange(tokens, 1, flagIndex);
