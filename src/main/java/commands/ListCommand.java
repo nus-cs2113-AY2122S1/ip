@@ -9,7 +9,7 @@ public class ListCommand extends UserCommand {
 
     @Override
     public String execute() {
-        String result = "     Here are the tasks in your list:\n";
+        String result = "     Here are the tasks in your list:";
         result += this.tasks.listTasks();
         return result;
     }
