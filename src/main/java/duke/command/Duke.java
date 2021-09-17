@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
     public static final String TODO = "todo";
@@ -22,7 +21,6 @@ public class Duke {
     public static final String DELETE = "delete";
     private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int numberOfTasks = 0;
-    private static int taskIndex = 0;
     private static File save;
 
     public static void main(String[] args) {
@@ -71,7 +69,7 @@ public class Duke {
 
     private static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(save);
-        for (int i = 0; i < taskIndex; i++) {
+        for (int i = 0; i < numberOfTasks; i++) {
             fw.write(taskList.get(i).getType() + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getOriginalDescription() + System.lineSeparator());
         }
         fw.close();
@@ -195,7 +193,6 @@ public class Duke {
             taskList.add((new Event(taskDescription)));
             break;
         }
-        taskIndex++;
 
         printDividerLine();
         System.out.println("I have added this task:");
