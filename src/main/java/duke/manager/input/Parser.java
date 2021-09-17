@@ -28,7 +28,7 @@ public class Parser {
         this.input = input.trim();
     }
 
-    public boolean isMoreThanTwoWords (String input) {
+    public boolean isMoreThanTwoWords(String input) {
         if (input.trim().indexOf(" ") > -1) {
             this.isMoreThanTwoWords = true;
             return true;
@@ -37,7 +37,7 @@ public class Parser {
         return false;
     }
 
-    public String getFirstWord () {
+    public String getFirstWord() {
         return arguments[0].trim();
     }
 }

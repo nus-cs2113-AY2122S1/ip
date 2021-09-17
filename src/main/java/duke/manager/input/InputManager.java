@@ -9,24 +9,41 @@ public class InputManager {
     private Scanner scanner = new Scanner(System.in);
     private Command inputCommand;
     private String commandArguments;
+    private static final String INPUT_BYE = "bye";
+    private static final String INPUT_LIST = "list";
+    private static final String INPUT_TODO = "todo";
+    private static final String INPUT_EVENT = "event";
+    private static final String INPUT_DEADLINE = "deadline";
+    private static final String INPUT_DONE = "done";
+    private static final String INPUT_DELETE = "delete";
+    private static final String NO_ARGUMENT_INPUT = "none";
 
     public void setInputCommand(String input) {
-        if (input.equals("bye")) {
+        switch (input) {
+        case INPUT_BYE:
             inputCommand = Command.EXIT;
-        } else if (input.equals("list")) {
+            break;
+        case INPUT_LIST:
             inputCommand = Command.SHOW_LIST;
-        } else if (input.equals("todo")) {
+            break;
+        case INPUT_TODO:
             inputCommand = Command.ADD_TODO;
-        } else if (input.equals("event")) {
+            break;
+        case INPUT_EVENT:
             inputCommand = Command.ADD_EVENT;
-        } else if (input.equals("deadline")) {
+            break;
+        case INPUT_DEADLINE:
             inputCommand = Command.ADD_DEADLINE;
-        } else if (input.equals("done")) {
+            break;
+        case INPUT_DONE:
             inputCommand = Command.DONE_TASK;
-        } else if (input.equals("delete")) {
+            break;
+        case INPUT_DELETE:
             inputCommand = Command.DELETE_TASK;
-        } else {
+            break;
+        default:
             inputCommand = Command.INVALID;
+            break;
         }
     }
 
@@ -47,7 +64,7 @@ public class InputManager {
             commandArguments = parsedInput.getArguments()[1].trim();
         } else {
             setInputCommand(parsedInput.getInput()); //one word/empty string
-            commandArguments = "none";
+            commandArguments = NO_ARGUMENT_INPUT;
         }
     }
 }

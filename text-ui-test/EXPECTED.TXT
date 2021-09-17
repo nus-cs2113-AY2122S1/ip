@@ -47,15 +47,15 @@ _____________________________________________________________________
   5. [D][ ] User Guide (by: ???)
 _____________________________________________________________________
 _____________________________________________________________________
-  I'm sorry... For a <todo> you must include a description!
+  I'm sorry... For a <ToDo> you must include a description!
   Please try again with a valid input! :)
 _____________________________________________________________________
 _____________________________________________________________________
-  I'm sorry... For a <event> you must include a description!
+  I'm sorry... For a <Event> you must include a description!
   Please try again with a valid input! :)
 _____________________________________________________________________
 _____________________________________________________________________
-  I'm sorry... For a <deadline> you must include a description!
+  I'm sorry... For a <Deadline> you must include a description!
   Please try again with a valid input! :)
 _____________________________________________________________________
 _____________________________________________________________________

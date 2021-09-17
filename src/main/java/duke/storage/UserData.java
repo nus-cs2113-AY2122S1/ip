@@ -21,7 +21,7 @@ public class UserData {
         fileWriter.close();
     }
 
-    public static void initDataOnStartUp () {
+    public static void initDataOnStartUp() {
         File dataFile = new File(FILE_PATH);
         File directory = new File(DIRECTORY);
         // if directory already exists, nothing happens
@@ -35,7 +35,7 @@ public class UserData {
         }
     }
 
-    public static void saveData (String textToAdd) {
+    public static void saveData(String textToAdd) {
         try {
             writeToFile(textToAdd);
         } catch (IOException ioe) {

@@ -13,16 +13,16 @@ import java.util.Scanner;
 public class TaskManager {
 
     private ArrayList<Task> tasks;
-    private final int TASK_INDEX = 1;
-    private final int TASK_STATUS_INDEX = 4;
-    private final int TASK_DESCRIPTION_INDEX = 7;
-    private final String TODO_TASK_LABEL = "T";
-    private final String EVENT_TASK_LABEL = "E";
-    private final String DEADLINE_TASK_LABEL = "D";
-    private final String INVALID_TASK_LABEL = "I";
-    private final String INVALID_TASK_ARGUMENT = "Invalid";
-    private final String NO_ARGUMENT_INPUT = "none";
-    private final String EMPTY_LINE = "";
+    private static final int TASK_INDEX = 1;
+    private static final int TASK_STATUS_INDEX = 4;
+    private static final int TASK_DESCRIPTION_INDEX = 7;
+    private static final String TODO_TASK_LABEL = "T";
+    private static final String EVENT_TASK_LABEL = "E";
+    private static final String DEADLINE_TASK_LABEL = "D";
+    private static final String INVALID_TASK_LABEL = "I";
+    private static final String INVALID_TASK_ARGUMENT = "Invalid";
+    private static final String NO_ARGUMENT_INPUT = "none";
+    private static final String EMPTY_LINE = "";
 
     public TaskManager() {
         tasks = new ArrayList<Task>();
@@ -103,8 +103,7 @@ public class TaskManager {
         }
     }
 
-    public void loadCurrentLineTask(String taskType, boolean taskStatus,
-                                    String[] restOfLine) {
+    public void loadCurrentLineTask(String taskType, boolean taskStatus, String[] restOfLine) {
         if (taskType.equals(TODO_TASK_LABEL)) {
             ToDo newToDo = new ToDo(restOfLine[0]);
             if (taskStatus) {
@@ -179,30 +178,6 @@ public class TaskManager {
         tasks.remove(taskNumber - 1);
     }
 
-    public void addToDo(String description) {
-        tasks.add(new ToDo(description));
-        String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
-        UserInterface.printMessage(
-                Message.getMessageForAddingTask(taskDescriptionWithStatus, tasks.size())
-        );
-    }
-
-    public void addEvent(String description, String at) {
-        tasks.add(new Event(description, at));
-        String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
-        UserInterface.printMessage(
-                Message.getMessageForAddingTask(taskDescriptionWithStatus, tasks.size())
-        );
-    }
-
-    public void addDeadline(String description, String by) {
-        tasks.add(new Deadline(description, by));
-        String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
-        UserInterface.printMessage(
-                Message.getMessageForAddingTask(taskDescriptionWithStatus, tasks.size())
-        );
-    }
-
     public void checkInputThenAddToDo(String argument) throws MissingCommandArgumentException {
         if (argument.equals(NO_ARGUMENT_INPUT)) {
             throw new MissingCommandArgumentException();
@@ -225,7 +200,6 @@ public class TaskManager {
     }
 
     public void checkInputThenAddDeadline(String[] arguments) throws MissingCommandArgumentException {
-
         if (arguments.length > 1) {
             // arguments[0] equals description, arguments[1] equals "by"
             addDeadline(arguments[0].trim(), arguments[1].trim());
@@ -239,27 +213,27 @@ public class TaskManager {
         }
     }
 
-    public void printMessageForTaskNumberOutOfRange() {
+    public void addToDo(String description) {
+        tasks.add(new ToDo(description));
+        String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
         UserInterface.printMessage(
-                Message.TASK_NUMBER_OUT_OF_RANGE_MESSAGE
+                Message.getMessageForAddingTask(taskDescriptionWithStatus, tasks.size())
         );
     }
 
-    public void printMessageForTaskNumberNonInteger() {
+    public void addEvent(String description, String at) {
+        tasks.add(new Event(description, at));
+        String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
         UserInterface.printMessage(
-                Message.TASK_NUMBER_WRONG_FORMAT_MESSAGE
+                Message.getMessageForAddingTask(taskDescriptionWithStatus, tasks.size())
         );
     }
 
-    public void printMessageForMissingTaskDescription(String taskType) {
+    public void addDeadline(String description, String by) {
+        tasks.add(new Deadline(description, by));
+        String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
         UserInterface.printMessage(
-                Message.getMessageForMissingTaskDescription(taskType)
-        );
-    }
-
-    public void printMessageForInvalidInput() {
-        UserInterface.printMessage(
-                Message.INVALID_INPUT_MESSAGE
+                Message.getMessageForAddingTask(taskDescriptionWithStatus, tasks.size())
         );
     }
 }
