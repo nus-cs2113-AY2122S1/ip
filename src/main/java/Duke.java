@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 import src.main.java.Task;
 
 public class Duke {
@@ -88,7 +89,7 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void delete(String line){
+    private static void delete(String line) {
         int taskIndex = Integer.parseInt(line.substring(7)) - 1;
         Task task = taskList.get(taskIndex);
         listCount--;
@@ -166,11 +167,11 @@ public class Duke {
         }
     }
 
-    public static void createFile(){
+    public static void createFile() {
         File f = new File(DATA_FILE_PATH);
         try {
             f.getParentFile().mkdirs();
-            if (!f.exists()){
+            if (!f.exists()) {
                 f.createNewFile();
             }
         } catch (IOException e) {
@@ -190,8 +191,9 @@ public class Duke {
                 stringList.add(listCount, taskDisplay);
                 Todo todoTask = new Todo(taskDisplay, 'T');
                 taskList.add(listCount, todoTask);
+                dueDate.add(listCount, null);
 
-                if(line.charAt(4) == '1'){
+                if (line.charAt(4) == '1') {
                     taskList.get(listCount).markAsDone();
                 }
             } else if (line.startsWith("D")) {
@@ -201,8 +203,9 @@ public class Duke {
                 String doBy = "(" + line.substring(deadlineIndex + 1) + ")";
                 Deadline deadlineTask = new Deadline(taskDisplay, 'D', doBy);
                 taskList.add(listCount, deadlineTask);
+                dueDate.add(listCount, line.substring(deadlineIndex + 1));
 
-                if(line.charAt(4) == '1'){
+                if (line.charAt(4) == '1') {
                     taskList.get(listCount).markAsDone();
                 }
             } else if (line.startsWith("E")) {
@@ -212,8 +215,9 @@ public class Duke {
                 String doBy = "(" + line.substring(eventIndex + 1) + ")";
                 Event eventTask = new Event(taskDisplay, 'E', doBy);
                 taskList.add(listCount, eventTask);
+                dueDate.add(listCount, line.substring(eventIndex + 1));
 
-                if(line.charAt(4) == '1') {
+                if (line.charAt(4) == '1') {
                     taskList.get(listCount).markAsDone();
                 }
             }
@@ -233,24 +237,29 @@ public class Duke {
         fw.close();
     }
 
-    public static void writeData(){
-        try{
-            String firstData = taskList.get(0).getTaskType() + " | " + taskList.get(0).getWrittenIcon() + " | " + stringList.get(0);
-            writeToFile(DATA_FILE_PATH , firstData + System.lineSeparator());
+    public static void writeData() {
+        try {
+            if (taskList.get(0).getTaskType() == 'T') {
+                String firstData = taskList.get(0).getTaskType() + " | " + taskList.get(0).getWrittenIcon() + " | " + stringList.get(0);
+                writeToFile(DATA_FILE_PATH, firstData + System.lineSeparator());
+            } else {
+                String firstData = taskList.get(0).getTaskType() + " | " + taskList.get(0).getWrittenIcon() + " | " + stringList.get(0) + " /" + dueDate.get(0);
+                writeToFile(DATA_FILE_PATH, firstData + System.lineSeparator());
+            }
 
-            for (int i = 1; i < listCount; i++){
+            for (int i = 1; i < listCount; i++) {
                 if (taskList.get(i).getTaskType() == 'T') {
                     String data = "T | " + taskList.get(i).getWrittenIcon() + " | " + stringList.get(i);
-                    appendToFile(DATA_FILE_PATH , data + System.lineSeparator());
+                    appendToFile(DATA_FILE_PATH, data + System.lineSeparator());
                 } else if (taskList.get(i).getTaskType() == 'D') {
                     String data = "D | " + taskList.get(i).getWrittenIcon() + " | " + stringList.get(i) + " /" + dueDate.get(i);
-                    appendToFile(DATA_FILE_PATH,data + System.lineSeparator());
+                    appendToFile(DATA_FILE_PATH, data + System.lineSeparator());
                 } else if (taskList.get(i).getTaskType() == 'E') {
                     String data = "E | " + taskList.get(i).getWrittenIcon() + " | " + stringList.get(i) + " /" + dueDate.get(i);
-                    appendToFile(DATA_FILE_PATH,data + System.lineSeparator());
+                    appendToFile(DATA_FILE_PATH, data + System.lineSeparator());
                 }
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             System.out.println(" I/O ERROR ");
         }
     }
@@ -258,6 +267,7 @@ public class Duke {
     public static void main(String[] args) throws FileNotFoundException {
         readData();
         greetUser();
+        System.out.println(listCount);
 
         String line;
         Scanner in = new Scanner(System.in);
