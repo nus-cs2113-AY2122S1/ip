@@ -89,7 +89,7 @@ public class Ui {
      * Print information about the newly deleted task.
      *
      * @param taskList List of tasks.
-     * @param task     Newly added task.
+     * @param task     Newly deleted task.
      */
     public static void printTaskListDeleteMessage(ArrayList<Task> taskList, Task task) {
         System.out.println("[+] Task removed:");
@@ -101,7 +101,7 @@ public class Ui {
     /**
      * Print information about the newly completed task.
      *
-     * @param task Newly added task.
+     * @param task Newly completed task.
      */
     public static void printTaskListCompleteMessage(Task task) {
         System.out.println("[+] Task marked as done:");
