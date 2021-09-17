@@ -202,8 +202,8 @@ public class TaskManager {
         try {
             int taskNumberIndex = checkTaskExist(taskNumber);
             Task task = tasksList.get(taskNumberIndex);
-            Duke.printMessage(String.format(DELETE_TASK_MESSAGE, task, tasksList.size()));
             tasksList.remove(taskNumberIndex);
+            Duke.printMessage(String.format(DELETE_TASK_MESSAGE, task, tasksList.size()));
         } catch (InvalidParameterException e) {
             Duke.printMessage(e.getMessage());
         }
