@@ -409,6 +409,10 @@ public class Duke {
                 }
 
                 Task task = getTaskFromLine(line);
+                if (task == null) {
+                    continue;
+                }
+
                 TASKS.add(task);
             }
 
