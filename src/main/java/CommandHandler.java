@@ -1,6 +1,7 @@
 
 /*---------LOCAL IMPORT--------*/
 import exceptions.DukeException;
+import tasks.TaskType;
 
 public class CommandHandler {
 
@@ -42,5 +43,32 @@ public class CommandHandler {
 
     public String getCommand() {
         return command;
+    }
+
+    public void execute() throws DukeException{
+        switch (command) {
+        case "bye":
+            Duke.exit();
+        case "list":
+            Duke.taskManager.listTasks();
+            break;
+        case "done":
+            Duke.taskManager.markTaskAsDone(this);
+            break;
+        case "delete":
+            Duke.taskManager.deleteTask(this);
+            break;
+        case "deadline":
+            Duke.taskManager.addTask(this, TaskType.DEADLINE);
+            break;
+        case "event":
+            Duke.taskManager.addTask(this, TaskType.EVENT);
+            break;
+        case "todo":
+            Duke.taskManager.addTask(this, TaskType.TODO);
+            break;
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
     }
 }

@@ -7,78 +7,36 @@ import tasks.TaskType;
 
 
 public class Duke {
-    private static final Scanner myScan = new Scanner(System.in);
-    private static TaskManager taskManager = new TaskManager();
     private static boolean isRunning = true;
+    public static final TaskManager taskManager = new TaskManager();
 
-    /*--------- PROCESSING CONSTANTS ------------ */
-    private static final String FAREWELL_STR = "Bye. Hope to see you again soon!";
-
-
-    /*----------- PUBLIC FUNCTIONS --------------- */
-    public static void greet() {
-        String logo = " ____        _        \n"
-                 + "|  _ \\ _   _| | _____ \n"
-                 + "| | | | | | | |/ / _ \\\n"
-                 + "| |_| | |_| |   <  __/\n"
-                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("_________________________");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("Standby while I load up your schedule");
-        System.out.println("Loading...");
-        TaskSafe.loadFromFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,taskManager);
-        System.out.println("------------------------------------");
-        System.out.println("What can I do for you?");
-    }
-
-    public static void processInput(String input) throws DukeException {
-        CommandHandler command = new CommandHandler(input);
-        switch (command.getCommand()) {
-        case "bye":
-            System.out.println(FAREWELL_STR);
-            myScan.close();
-            isRunning = false;
-            return;
-        case "list":
-            taskManager.listTasks();
-            break;
-        case "done":
-            taskManager.markTaskAsDone(command);
-            break;
-        case "delete":
-            taskManager.deleteTask(command);
-            break;
-        case "deadline":
-            taskManager.addTask(command,TaskType.DEADLINE);
-            break;
-        case "event":
-            taskManager.addTask(command, TaskType.EVENT);
-            break;
-        case "todo":
-            taskManager.addTask(command, TaskType.TODO);
-            break;
-        default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+    public static void processInput(String input) {
+        try {
+            CommandHandler command = new CommandHandler(input);
+            command.execute();
+            TaskSafe.saveToFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,taskManager.getTasks());
+        } catch (DukeException e) {
+            UI.showError(e);
         }
-        TaskSafe.saveToFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,taskManager.getTasks());
+
     }
 
     public static void run() {
         while (isRunning) {
-            String input = myScan.nextLine();
-            System.out.println("------------------------------------------");
-            try {
-                processInput(input);
-            } catch (DukeException e) {
-                System.out.println(e);
-            }
-            System.out.println("------------------------------------------");
+            String input = UI.getCommand();
+            UI.printDivider();
+            processInput(input);
+            UI.printDivider();
         }
     }
 
+    public static void exit() {
+        UI.close();
+        isRunning = false;
+    }
+
     public static void main(String[] args) {
-        greet();
+        UI.greet();
         run();
     }
 }

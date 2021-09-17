@@ -15,7 +15,7 @@ import tasks.TaskType;
 public class TaskSafe {
 
     /*------------ PUBLIC STAIC VARIABLES --------- */
-    public static final String DATA_PATH = "/ip/data/duke.txt";
+    public static final String DATA_PATH = "/data/duke.txt";
     public static String rootPath = new File(".").getAbsolutePath();
 
     /*-------------- SAVE ------------ */
