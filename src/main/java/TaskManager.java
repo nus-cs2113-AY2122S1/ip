@@ -94,7 +94,7 @@ public class TaskManager {
 
     /**
      * Marks a task as done. Can be called by input
-     * @param command the input after its been parsed by command handler
+     * @param command the input after it's been parsed by command handler
      * @throws DukeException if the input does not have a valid number
      */
 
