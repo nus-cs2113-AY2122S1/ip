@@ -11,7 +11,7 @@ public class Storage {
     public static final int FALSE_VALUE = 0;
     public static final int RESULT_TASK_TYPE = 0;
     public static final int RESULT_IS_DONE = 1;
-    public static final int RESULT_DESCRIPTION = 1;
+    public static final int RESULT_DESCRIPTION = 2;
     public static final int RESULT_TIME = 3;
 
     public static void loadData(File f, Scanner readFile) {
