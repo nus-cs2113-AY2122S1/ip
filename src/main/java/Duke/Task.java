@@ -1,9 +1,8 @@
 package Duke;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected String taskType;
     private static int taskCount = 0;
 
     public Task(String description) {
@@ -29,10 +28,10 @@ public class Task {
 
     public String getBy(){
         return "";
-    }
+    };
     public String getAt(){
         return "";
-    }
+    };
 
     public static void setTaskCount(int amt) {
         Task.taskCount += amt;
