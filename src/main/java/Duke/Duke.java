@@ -1,12 +1,14 @@
 package Duke;
 
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.ArrayList;
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -43,14 +45,10 @@ public class Duke {
     private static final String INVALID_NUMBER = "Please enter a valid number after the command";
 
     private static final String NEW_FILE = "Pepepopo has created new data file!";
-    private static final String UPDATE_FILE = "Pepepopo has updated your database from duke.txt";
-    private static final String CORRUPT_FILE = "Pepepopo can't read your corrupted file :(";
-
-    private static final String TODO_TYPE = "T";
-    private static final String DEADLINE_TYPE = "D";
-    private static final String EVENT_TYPE = "E";
+    private static final String COPY_FILE = "Pepepopo has updated your database from duke.txt";
 
     private static String filePath = String.valueOf(Paths.get("data/duke.txt"));
+
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static String getInput() {
@@ -60,6 +58,79 @@ public class Duke {
         line = in.nextLine();
         return line;
     }
+
+    public static void manageFile() {
+        try {
+            readFile("data/duke.txt");
+        } catch (FileNotFoundException e) {
+            try {
+                Path filePath = Paths.get("data/duke.txt");
+                Files.createDirectories(filePath.getParent());
+            } catch (IOException e1) {
+                e1.getMessage();
+            }
+        }
+    }
+
+    public static void readFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String rawLineData = s.nextLine();
+            String [] lineData = splitDataString(rawLineData);
+            String taskType = lineData[0];
+            boolean isDone = lineData[1].equals("X");
+            String description = lineData[2];
+            String extraDescription = lineData[3];
+            Task taskToAdd;
+
+            switch (taskType) {
+            case("T"):
+                taskToAdd = new Todo(description);
+                taskToAdd.setDone(isDone);
+                addTaskFromFile(taskToAdd);
+                break;
+            case("D"):
+                taskToAdd = new Deadline(description, extraDescription);
+                taskToAdd.setDone(isDone);
+                addTaskFromFile(taskToAdd);
+                break;
+            case("E"):
+                taskToAdd = new Event(description, extraDescription);
+                taskToAdd.setDone(isDone);
+                addTaskFromFile(taskToAdd);
+                break;
+            }
+        }
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        String description = "";
+        String status;
+        for (Task t: tasks){
+            if (t.isDone) {
+                status = "1";
+            } else {
+                status = "0";
+            }
+
+            switch(t.taskType) {
+            case "D":
+                description = String.format("%s | %s", t.getDescription(), t.getBy());
+                break;
+            case "E":
+                description = String.format("%s | %s", t.getDescription(), t.getAt());
+                break;
+            case "T":
+                description = t.getDescription();
+            }
+            String textToAppend = String.format("%s | %s | %s\n", t.taskType, status, description);
+            fw.write(textToAppend);
+        }
+        fw.close();
+    }
+
 
     public static void executeCommand(String input) throws DukeException, IOException {
         String[] commandAndParams = splitCommandString(input, " ");
@@ -108,11 +179,12 @@ public class Duke {
     public static void addTask(Task t) {
         tasks.add(t);
         Task.setTaskCount(1);
+        printAdd(t);
     }
 
-    public static void addAndPrintTask(Task t) {
-        addTask(t);
-        printAdd(t);
+    public static void addTaskFromFile(Task t) {
+        tasks.add(t);
+        Task.setTaskCount(1);
     }
 
     public static void executeTodo(String params) throws DukeException {
@@ -120,7 +192,7 @@ public class Duke {
             throw new DukeException();
         }
         Todo t = new Todo(params);
-        addAndPrintTask(t);
+        addTask(t);
     }
 
     public static void executeDeadline(String params) throws DukeException {
@@ -131,7 +203,7 @@ public class Duke {
         String description = descAndBy[0];
         String by = descAndBy[1];
         Deadline d = new Deadline(description, by);
-        addAndPrintTask(d);
+        addTask(d);
     }
 
     public static void executeEvent(String params) throws DukeException {
@@ -142,7 +214,7 @@ public class Duke {
         String description = descAndAt[0];
         String at = descAndAt[1];
         Event e = new Event(description, at);
-        addAndPrintTask(e);
+        addTask(e);
     }
 
     public static void executeDone(String params) {
@@ -163,6 +235,8 @@ public class Duke {
     }
 
     public static void executeList() {
+//        Task[] listPrint = Arrays.copyOf(tasks, Task.getTaskCount());
+//        int curr = 1;
         for (Task item : tasks) {
             int curr = tasks.indexOf(item) + 1;
             System.out.println(curr + "." + item);
@@ -171,9 +245,18 @@ public class Duke {
     }
 
     public static void executeBye() {
-        print(UPDATE_FILE);
         print(BYE);
         System.exit(0);
+    }
+
+    public static String[] splitCommandString(String input, String separator) {
+        String[] split = input.trim().split(separator, 2);
+        return split.length == 2 ? split : new String[] {split[0], ""};
+    }
+
+    public static String[] splitDataString(String input) {
+        String[] split = input.trim().split(" \\| ", 4);
+        return split.length == 4 ? split: new String[] {split[0], split[1], split[2], ""};
     }
 
     public static boolean isDone(String params) {
@@ -193,111 +276,6 @@ public class Duke {
         } catch (NumberFormatException e) {
             print(INVALID_NUMBER);
         }
-    }
-
-    public static void manageFile() {
-        try {
-            readFile("data/duke.txt");
-        } catch (FileNotFoundException e) {
-            try {
-                Path filePath = Paths.get("data/duke.txt");
-                Files.createDirectories(filePath.getParent());
-                print(NEW_FILE);
-            } catch (IOException e1) {
-                e1.getMessage();
-            }
-        }
-    }
-
-    public static void readFile(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String rawLineData = s.nextLine();
-            try {
-                String [] lineData = splitDataString(rawLineData);
-                manageTaskFromFile(lineData);
-            } catch (DukeException e){
-                print(CORRUPT_FILE);
-            }
-        }
-    }
-
-    public static void manageTaskFromFile(String[] lineData) throws DukeException {
-        String taskType = lineData[0];
-        boolean isDone = lineData[1].equals("1");
-        String description = lineData[2];
-        String extraDescription = lineData[3];
-        Task taskToAdd;
-        switch (taskType) {
-        case(TODO_TYPE):
-            taskToAdd = new Todo(description);
-            break;
-        case(DEADLINE_TYPE):
-            taskToAdd = new Deadline(description, extraDescription);
-            break;
-        case(EVENT_TYPE):
-            taskToAdd = new Event(description, extraDescription);
-            break;
-        default:
-            throw new DukeException();
-        }
-        taskToAdd.setDone(isDone);
-        addTask(taskToAdd);
-    }
-
-    public static void writeToFile() throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        for (Task t: tasks){
-            String textToWrite = formatStringForFile(t);
-            fw.write(textToWrite);
-        }
-        fw.close();
-    }
-
-    public static String formatStringForFile(Task t) {
-        String description = "";
-        String taskType = "";
-        String status = getStringStatus(t.isDone);
-        if (t instanceof Todo) {
-            description = t.getDescription();
-            taskType = "T";
-        }
-        else if (t instanceof Deadline) {
-            description = String.format("%s | %s", t.getDescription(), t.getBy());
-            taskType = "D";
-            System.out.println(description);
-            System.out.println(t.getDescription());
-        }
-        else if (t instanceof Event) {
-            description = String.format("%s | %s", t.getDescription(), t.getAt());
-            taskType = "E";
-        }
-        String textToWrite = String.format("%s | %s | %s\n", taskType, status, description);
-        return textToWrite;
-    }
-
-    public static String getStringStatus(boolean b) {
-        String status;
-        if (b) {
-            status = "1";
-        } else {
-            status = "0";
-        }
-        return status;
-    }
-
-    public static String[] splitCommandString(String input, String separator) {
-        String[] split = input.trim().split(separator, 2);
-        return split.length == 2 ? split : new String[] {split[0], ""};
-    }
-
-    public static String[] splitDataString(String input) throws DukeException {
-        String[] split = input.trim().split(" \\| ", 4);
-        if (split.length < 3) {
-            throw new DukeException();
-        }
-        return split.length == 4 ? split: new String[] {split[0], split[1], split[2], ""};
     }
 
     public static void printGreeting() {
