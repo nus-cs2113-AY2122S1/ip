@@ -8,13 +8,6 @@ import java.util.ArrayList;
 
 
 public class TaskList {
-    private static final int TODO_NAME_START_INDEX = 5;
-    private static final int DEADLINE_NAME_START_INDEX = 9;
-    private static final int EVENT_NAME_START_INDEX = 6;
-    private static final int DATETIME_START_INDEX_OFFSET = 4;
-    private static final int FILE_TASK_NAME_INDEX = 7;
-    private static final int FILE_TASKTYPE_INDEX = 1;
-    private static final int FILE_ISDONE_INDEX = 4;
     private int numberOfEntries = 0;
     private final ArrayList<Task> taskList;
 
@@ -35,8 +28,8 @@ public class TaskList {
      * @throws InvalidInputFormatException user input is not in the correct format.
      */
     public void addEntryToList(String input) throws InvalidInputFormatException {
-        TaskType entryType = parseTaskType(input);
-        String description = parseDescription(input, entryType);
+        TaskType entryType = Parser.parseTaskType(input);
+        String description = Parser.parseDescription(input, entryType);
         Task newEntry;
         switch (entryType) {
         case TODO:
@@ -44,11 +37,11 @@ public class TaskList {
             taskList.add(newEntry);
             break;
         case DEADLINE:
-            newEntry = new Deadline(description, parseInputForDateTime(input));
+            newEntry = new Deadline(description, Parser.parseInputForDateTime(input));
             taskList.add(newEntry);
             break;
         case EVENT:
-            newEntry = new Event(description, parseInputForDateTime(input));
+            newEntry = new Event(description, Parser.parseInputForDateTime(input));
             taskList.add(newEntry);
             break;
         default:
@@ -79,38 +72,6 @@ public class TaskList {
         System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
     }
 
-    private String parseInputForDateTime(String input) {
-        int markerIndex = input.indexOf('/');
-        int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
-        return (input.substring(dateTimeStartIndex).trim());
-    }
-
-    private TaskType parseTaskType(String input) throws InvalidInputFormatException{
-        if (input.startsWith("deadline") && input.contains(" /by")) {
-            return TaskType.DEADLINE;
-        }
-        if (input.startsWith("event") && input.contains(" /at")) {
-            return TaskType.EVENT;
-        }
-        if (input.startsWith("todo")) {
-            return TaskType.TODO;
-        }
-        throw new InvalidInputFormatException();
-    }
-
-    private String parseDescription(String input, TaskType taskType) {
-        switch (taskType) {
-        case TODO:
-            return input.substring(TODO_NAME_START_INDEX);
-        case DEADLINE:
-            return input.substring(DEADLINE_NAME_START_INDEX, input.indexOf(" /"));
-        case EVENT:
-            return input.substring(EVENT_NAME_START_INDEX, input.indexOf(" /"));
-        default:
-            return input;
-        }
-    }
-
     /**
      * Adds an entry to the list using one line of input obtained from the save file.
      * The string is stored in the same format as it is displayed: [T][X] name (at: dateTime)
@@ -121,12 +82,12 @@ public class TaskList {
      */
     protected void addEntryFromFile(String inputLineFromFile) {
         try {
-            TaskType entryType = parseTaskTypeFromFile(inputLineFromFile);
-            boolean isDone = parseIsDoneFromFile(inputLineFromFile);
-            String description = parseDescriptionFromFile(inputLineFromFile, entryType);
+            TaskType entryType = Parser.parseTaskTypeFromFile(inputLineFromFile);
+            boolean isDone = Parser.parseIsDoneFromFile(inputLineFromFile);
+            String description = Parser.parseDescriptionFromFile(inputLineFromFile, entryType);
             String dateTime = "";
             if (entryType.equals(TaskType.DEADLINE) || entryType.equals(TaskType.EVENT)) {
-                dateTime = parseDateTimeFromFile(inputLineFromFile);
+                dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
             }
 
             Task newEntry;
@@ -150,48 +111,6 @@ public class TaskList {
             numberOfEntries++;
         } catch (InvalidInputFormatException e) {
             System.out.println("Something went wrong, could not load saved data");
-        }
-    }
-
-    private boolean parseIsDoneFromFile(String inputLineFromFile) throws InvalidInputFormatException{
-        switch (inputLineFromFile.charAt(FILE_ISDONE_INDEX)) {
-        case (' '):
-            return false;
-        case ('X'):
-            return true;
-        default:
-            throw new InvalidInputFormatException();
-        }
-    }
-
-    private TaskType parseTaskTypeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
-        switch (inputLineFromFile.charAt(FILE_TASKTYPE_INDEX)) {
-        case ('T'):
-            return TaskType.TODO;
-        case ('D'):
-            return TaskType.DEADLINE;
-        case ('E'):
-            return TaskType.EVENT;
-        default:
-            throw new InvalidInputFormatException();
-        }
-    }
-
-    private String parseDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
-        int markerIndex = inputLineFromFile.indexOf('(');
-        int endIndex = inputLineFromFile.indexOf(')');
-        int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
-        return (inputLineFromFile.substring(dateTimeStartIndex, endIndex).trim());
-    }
-
-    private String parseDescriptionFromFile(String inputLineFromFile, TaskType taskType) throws
-            InvalidInputFormatException, StringIndexOutOfBoundsException {
-        if (taskType.equals(TaskType.TODO)) {
-            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX);
-        } else if (taskType.equals(TaskType.DEADLINE) || taskType.equals(TaskType.EVENT)) {
-            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX, inputLineFromFile.indexOf(" ("));
-        } else {
-            throw new InvalidInputFormatException();
         }
     }
 
