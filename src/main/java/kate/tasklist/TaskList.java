@@ -6,10 +6,11 @@ import kate.task.Task;
 import kate.task.ToDo;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
-    public ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -116,5 +117,17 @@ public class TaskList {
      */
     public void deleteTask(Task deletedTask) {
         tasks.remove(deletedTask);
+    }
+
+    /**
+     * Filter tasks by a specific keyword
+     *
+     * @param keyword Keyword provided by user
+     * @return ArrayList of task objects
+     */
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        return (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getTaskInfo().contains(keyword))
+                .collect(Collectors.toList());
     }
 }
