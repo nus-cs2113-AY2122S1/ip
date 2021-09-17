@@ -195,6 +195,7 @@ public class Duke {
         while (tasks.size() > 0) {
             tasks.remove(0);
         }
+        
         System.out.println(line
                 + "The list has been cleared. Now the list is empty.\n"
                 + line);
