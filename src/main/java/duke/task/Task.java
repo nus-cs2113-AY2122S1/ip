@@ -1,10 +1,15 @@
 package duke.task;
 
+import duke.exception.DukeInvalidAddTaskException;
+
 public abstract class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws DukeInvalidAddTaskException {
+        if (description.contains("--")) {
+            throw new DukeInvalidAddTaskException();
+        }
         this.description = description;
         this.isDone = false;
     }

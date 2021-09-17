@@ -1,10 +1,12 @@
 package duke.task;
 
+import duke.exception.DukeInvalidAddTaskException;
+
 public class Deadline extends Task {
     private String deadlineDate;
 
-    public Deadline(String description) {
-        super(description.substring(9, description.indexOf(" /by")));
+    public Deadline(String description) throws DukeInvalidAddTaskException { //will get problem?
+        super(description.substring(0, description.indexOf(" /by")));
         this.deadlineDate = description.substring(description.indexOf("/by") + 4);
     }
 

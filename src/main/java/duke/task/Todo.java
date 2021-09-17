@@ -1,8 +1,10 @@
 package duke.task;
 
+import duke.exception.DukeInvalidAddTaskException;
+
 public class Todo extends Task {
-    public Todo(String description) {
-        super(description.substring(5));
+    public Todo(String description) throws DukeInvalidAddTaskException {
+        super(description);
     }
 
     public String toString() {
