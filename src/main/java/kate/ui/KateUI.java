@@ -1,45 +1,30 @@
 package kate.ui;
 
+import kate.common.Message;
 import kate.task.Task;
-import kate.tasklist.TaskList;
 
 import java.util.Scanner;
 
 public class KateUI {
-    private static final String TEXT_INDENTATION = "    ";
     private static final String LOGO_INDENTATION = "                    ";
     private static final String TEXT_WRAPPER = "================================="
             + "====================================\n";
 
-    /**
-     * A custom ASCII art logo for Project Kate
-     */
     private static final String LOGO_KATE = LOGO_INDENTATION + " _  __     _\n"
             + LOGO_INDENTATION + "| |/ /__ _| |_ ___\n"
             + LOGO_INDENTATION + "| ' </ _` |  _/ -_)\n"
             + LOGO_INDENTATION + "|_|\\_\\__,_|\\__\\___|\n";
 
-    private static final String GREET_MESSAGE = TEXT_INDENTATION
+    private static final String GREET_MESSAGE = Message.TEXT_INDENTATION
             + "This is Kate, your personal assistant ;)\n"
-            + TEXT_INDENTATION + "How can I help you?\n";
-    private static final String BYE_MESSAGE = TEXT_INDENTATION
+            + Message.TEXT_INDENTATION + "How can I help you?\n";
+    private static final String BYE_MESSAGE = Message.TEXT_INDENTATION
             + "Leaving already? Oh well see you again soon!\n";
 
-    private static final String FAILURE_MESSAGE_INVALID_COMMAND = TEXT_INDENTATION
+    private static final String FAILURE_MESSAGE_INVALID_COMMAND = Message.TEXT_INDENTATION
             + "Please enter a valid command!\n"
-            + TEXT_INDENTATION + "Type <help> for the list of commands\n";
+            + Message.TEXT_INDENTATION + "Type <help> for the list of commands\n";
 
-    /**
-     * Specific description on how to use the action commands
-     * User inputs should be in location with square brackets
-     */
-    private static final String COMMAND_TODO = "todo [description]";
-    private static final String COMMAND_DEADLINE = "deadline [description] /by [deadline]";
-    private static final String COMMAND_EVENT = "event [description] /at [time frame]";
-    private static final String COMMAND_DONE = "done [task number shown in list]";
-    private static final String COMMAND_DELETE = "delete [task number]";
-    private static final String COMMAND_LIST = "list";
-    private static final String COMMAND_BYE = "bye";
 
     private Scanner in;
 
@@ -83,9 +68,9 @@ public class KateUI {
      * @param taskSize  Number of tasks
      */
     public void printAddedTask(Task addedTask, int taskSize) {
-        String formattedMsg = TEXT_INDENTATION + "Okay, I have added this task!\n"
-                + TEXT_INDENTATION + "  " + addedTask.getTaskInfo() + "\n"
-                + TEXT_INDENTATION + "You currently have (" + taskSize
+        String formattedMsg = Message.TEXT_INDENTATION + "Okay, I have added this task!\n"
+                + Message.TEXT_INDENTATION + "  " + addedTask.getTaskInfo() + "\n"
+                + Message.TEXT_INDENTATION + "You currently have (" + taskSize
                 + ") tasks in your list :)\n";
         printMessage(formattedMsg);
     }
@@ -95,33 +80,15 @@ public class KateUI {
      * Only prints when user key in an invalid command
      */
     public void printHelpPage() {
-        String helpText = TEXT_INDENTATION + "Please enter only the following commands: \n"
-                + TEXT_INDENTATION + "- " + COMMAND_TODO + "\n"
-                + TEXT_INDENTATION + "- " + COMMAND_DEADLINE + "\n"
-                + TEXT_INDENTATION + "- " + COMMAND_EVENT + "\n"
-                + TEXT_INDENTATION + "- " + COMMAND_DONE + "\n"
-                + TEXT_INDENTATION + "- " + COMMAND_DELETE + "\n"
-                + TEXT_INDENTATION + "- " + COMMAND_LIST + "\n"
-                + TEXT_INDENTATION + "- " + COMMAND_BYE + "\n";
+        String helpText = Message.TEXT_INDENTATION + "Please enter only the following commands: \n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_TODO + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_DEADLINE + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_EVENT + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_DONE + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_DELETE + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_LIST + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_BYE + "\n";
         printMessage(helpText);
-    }
-
-    /**
-     * Prints all the tasks entered by the user
-     *
-     * @param tasks TaskList object of all the tasks
-     */
-    public void printTasks(TaskList tasks) {
-        StringBuilder allTasks = new StringBuilder();
-        String taskHeading = TEXT_INDENTATION + "Here are the tasks in your list:\n";
-        allTasks.append(taskHeading);
-        for (int i = 0; i < tasks.getTaskSize(); ++i) {
-            int numberedBullets = i + 1;
-            Task curTask = tasks.getCurrentTask(i);
-            String taskRow = TEXT_INDENTATION + numberedBullets + ". " + curTask.getTaskInfo() + "\n";
-            allTasks.append(taskRow);
-        }
-        printMessage(String.valueOf(allTasks));
     }
 
     /**

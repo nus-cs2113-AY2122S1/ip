@@ -38,39 +38,14 @@ public class Kate {
         }
 
         ui.printGreetMessage();
-        while (true) {
+
+        boolean isExit = false;
+        while (!isExit) {
             String userInput = ui.getInput();
             try {
                 Command command = Parser.extractCommand(userInput);
-
-                switch (command) {
-                case TODO:
-                    tasks.addToDo(ui, storage, userInput);
-                    break;
-                case DEADLINE:
-                    tasks.addDeadline(ui, storage, userInput);
-                    break;
-                case EVENT:
-                    tasks.addEvent(ui, storage, userInput);
-                    break;
-                case LIST:
-                    ui.printTasks(tasks);
-                    break;
-                case DONE:
-                    tasks.indicateDone(ui, storage, userInput);
-                    break;
-                case DELETE:
-                    tasks.deleteTask(ui, storage, userInput);
-                    break;
-                case BYE:
-                    ui.printByeMessage();
-                    return;
-                case HELP:
-                    ui.printHelpPage();
-                    break;
-                default:
-                    break;
-                }
+                command.execute(ui, storage, tasks);
+                isExit = command.getExitStatus();
             } catch (InvalidCommandException e) {
                 ui.printInvalidCommandMessage();
             }

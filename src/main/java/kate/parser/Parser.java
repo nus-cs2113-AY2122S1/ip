@@ -1,6 +1,14 @@
 package kate.parser;
 
+import kate.command.ByeCommand;
 import kate.command.Command;
+import kate.command.DeadlineCommand;
+import kate.command.DeleteCommand;
+import kate.command.DoneCommand;
+import kate.command.EventCommand;
+import kate.command.HelpCommand;
+import kate.command.ListCommand;
+import kate.command.ToDoCommand;
 import kate.exception.EmptyFieldException;
 import kate.exception.EmptyTaskException;
 import kate.exception.FileCorruptedException;
@@ -9,8 +17,6 @@ import kate.exception.InvalidFieldException;
 import kate.task.Task;
 import kate.tasklist.TaskList;
 
-import java.util.ArrayList;
-
 public class Parser {
 
     private static final int LENGTH_TODO = 4;
@@ -18,7 +24,7 @@ public class Parser {
     private static final int LENGTH_EVENT = 5;
     private static final int LENGTH_DELETE = 6;
 
-    private static final String DELIM_PIPE =  " \\| ";
+    private static final String DELIM_PIPE = " \\| ";
     private static final String DELIM_SPACE = " ";
 
     /**
@@ -37,12 +43,28 @@ public class Parser {
     public static Command extractCommand(String userInput) throws InvalidCommandException {
         String[] inputArr = userInput.split(" ");
         String givenCommand = inputArr[0].toUpperCase();
-        for (Command command : Command.values()) {
-            if (command.name().equals(givenCommand)) {
-                return command;
-            }
+
+        //switch case to create new command objects
+        switch (givenCommand) {
+        case "TODO":
+            return new ToDoCommand(userInput);
+        case "DEADLINE":
+            return new DeadlineCommand(userInput);
+        case "EVENT":
+            return new EventCommand(userInput);
+        case "LIST":
+            return new ListCommand();
+        case "DONE":
+            return new DoneCommand(userInput);
+        case "DELETE":
+            return new DeleteCommand(userInput);
+        case "BYE":
+            return new ByeCommand();
+        case "HELP":
+            return new HelpCommand();
+        default:
+            throw new InvalidCommandException();
         }
-        throw new InvalidCommandException();
     }
 
     /**
@@ -52,7 +74,7 @@ public class Parser {
      * @return Task description for ToDo
      * @throws EmptyFieldException If task description is empty
      */
-    public static String processToDoInput(String userInput) throws EmptyFieldException {
+    public static String extractToDoInput(String userInput) throws EmptyFieldException {
         String taskDescription = userInput.substring(LENGTH_TODO).strip();
 
         if (taskDescription.isEmpty()) {
@@ -68,7 +90,7 @@ public class Parser {
      * @return String array of description and deadline
      * @throws EmptyFieldException If description or deadline is empty
      */
-    public static String[] processDeadlineInput(String userInput) throws EmptyFieldException {
+    public static String[] extractDeadlineInput(String userInput) throws EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_DEADLINE).strip();
         String[] infoArr = taskInfo.split(" /by ", 2);
 
@@ -96,7 +118,7 @@ public class Parser {
      * @return String array of description and time frame
      * @throws EmptyFieldException If description or time frame is empty
      */
-    public static String[] processEventInput(String userInput) throws EmptyFieldException {
+    public static String[] extractEventInput(String userInput) throws EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_EVENT).strip();
         String[] infoArr = taskInfo.split(" /at ", 2);
 
@@ -120,17 +142,17 @@ public class Parser {
     /**
      * Process user input to extract the object of the associated task number
      *
-     * @param tasks     The array list of tasks
+     * @param tasks     The list of tasks
      * @param userInput Input provided by user
      * @return Task object of the task that is done
      * @throws EmptyFieldException   If task number provided is empty
      * @throws InvalidFieldException If task number provided is invalid
      * @throws EmptyTaskException    If task list is empty
      */
-    public static Task processDoneInput(ArrayList<Task> tasks, String userInput) throws EmptyFieldException,
+    public static Task extractDoneInput(TaskList tasks, String userInput) throws EmptyFieldException,
             InvalidFieldException, EmptyTaskException {
 
-        if (tasks.isEmpty()) {
+        if (tasks.isEmptyTask()) {
             throw new EmptyTaskException();
         }
 
@@ -142,12 +164,12 @@ public class Parser {
             }
 
             int taskNumber = Integer.parseInt(doneInput);
-            if ((taskNumber > tasks.size() || (taskNumber < 1) || inputArr.length != 2)) {
+            if ((taskNumber > tasks.getTaskSize() || (taskNumber < 1) || inputArr.length != 2)) {
                 throw new InvalidFieldException();
             }
             int taskNumberIndex = taskNumber - 1;
 
-            return tasks.get(taskNumberIndex);
+            return tasks.getCurrentTask(taskNumberIndex);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidFieldException();
         }
@@ -156,17 +178,17 @@ public class Parser {
     /**
      * Process user input to extract the deleted task number
      *
-     * @param tasks     The array list of tasks
+     * @param tasks     The list of tasks
      * @param userInput Input provided by the user
      * @return Task object of the deleted task
      * @throws EmptyFieldException   If task number provided is empty
      * @throws InvalidFieldException If task number provided is invalid
      * @throws EmptyTaskException    If task list is empty
      */
-    public static Task processDeleteInput(ArrayList<Task> tasks, String userInput) throws EmptyFieldException,
+    public static Task extractDeleteInput(TaskList tasks, String userInput) throws EmptyFieldException,
             InvalidFieldException, EmptyTaskException {
 
-        if (tasks.isEmpty()) {
+        if (tasks.isEmptyTask()) {
             throw new EmptyTaskException();
         }
 
@@ -179,13 +201,13 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(taskInput);
 
-            if ((taskNumber > tasks.size()) || (taskNumber < 1)) {
+            if ((taskNumber > tasks.getTaskSize()) || (taskNumber < 1)) {
                 throw new InvalidFieldException();
             }
 
             int taskIndex = taskNumber - 1;
 
-            return tasks.get(taskIndex);
+            return tasks.getCurrentTask(taskIndex);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidFieldException();
         }

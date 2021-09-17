@@ -1,5 +1,6 @@
 package kate.storage;
 
+import kate.common.Message;
 import kate.exception.FileCorruptedException;
 import kate.parser.Parser;
 import kate.task.Task;
@@ -9,15 +10,10 @@ import kate.ui.KateUI;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String TEXT_INDENTATION = "    ";
 
-    /**
-     * Target path names of the saved tasks
-     */
     private static final String DIRECTORY_NAME_DATA = "data";
     private static final String FILE_NAME_KATE = "kate.txt";
     private static final String PATH_KATE = DIRECTORY_NAME_DATA + "/" + FILE_NAME_KATE;
@@ -59,10 +55,10 @@ public class Storage {
                 Parser.processData(tasks, scanner.nextLine());
             }
         } catch (IOException e) {
-            ui.printMessage(TEXT_INDENTATION + "I can't seem to create the file... Please try again :(\n");
+            ui.printMessage(Message.TEXT_INDENTATION + "I can't seem to create the file... Please try again :(\n");
             throw new IOException();
         } catch (FileCorruptedException e) {
-            ui.printMessage(TEXT_INDENTATION + "Did you tamper with the data file? It is CORRUPTED!\n");
+            ui.printMessage(Message.TEXT_INDENTATION + "Did you tamper with the data file? It is CORRUPTED!\n");
             throw new FileCorruptedException();
         }
     }
@@ -90,12 +86,12 @@ public class Storage {
      * @param ui    KateUI object to interact with UI
      * @param tasks TaskList object to update tasks from program to file
      */
-    public void updateTasksToFile(KateUI ui, ArrayList<Task> tasks) {
+    public void updateTasksToFile(KateUI ui, TaskList tasks) {
         try {
             FileWriter file = new FileWriter(PATH_KATE);
             StringBuilder taskInfo = new StringBuilder();
-            for (int i = 0; i < tasks.size(); ++i) {
-                Task curTask = tasks.get(i);
+            for (int i = 0; i < tasks.getTaskSize(); ++i) {
+                Task curTask = tasks.getCurrentTask(i);
                 taskInfo.append(curTask.getTaskInfo()).append("\n");
             }
             file.write(String.valueOf(taskInfo));
