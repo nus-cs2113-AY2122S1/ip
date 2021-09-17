@@ -4,10 +4,11 @@ import java.io.IOException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskManager;
 import duke.task.Todo;
+import duke.task.TaskList;
 import duke.file.Storage;
 import duke.exception.CommandException;
+import duke.ui.Ui;
 
 /**
  * The CommandExecutor class deals with the execution of supported commands.
@@ -39,9 +40,11 @@ public class CommandExecutor {
     private final static String DATA_PATH = "data";
 
     /* Used to store tasks */
-    private TaskManager taskManager;
+    private TaskList taskManager;
     /* Used to store supported commands */
     private Command[] commandList;
+    /* Used to perform parsing operations */
+    private Parser parser;
     /* Used to save tasks to file system */
     private Storage fileManager;
     /* State of whether interaction has terminated. True if interaction has terminated. */
@@ -64,10 +67,12 @@ public class CommandExecutor {
                 new CommandWithFlag(ADD_EVENT_COMMAND, ARGUMENT_TASK_DESCRIPTION,
                         FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
         };
+        parser = new Parser(commandList);
         try {
             taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
         } catch (IOException err) {
-            taskManager = new TaskManager();
+            Ui.printFileReadError();
+            taskManager = new TaskList();
         }
     }
 
@@ -85,50 +90,28 @@ public class CommandExecutor {
      * @param inputLine Raw input line to check.
      */
     public void execute(String inputLine) {
-        Command command;
         try {
-            command = findCommand(inputLine);
-            runCommandUsingInput(command, inputLine);
+            runCommandUsingInput(inputLine);
         } catch (CommandException err) {
-            System.out.println("[X] " + err.getMessage());
+            Ui.printError(err.getMessage());
         } catch (NumberFormatException err) {
-            System.out.println("[X] Error parsing argument!");
+            Ui.printConvertError();
         } catch (IOException err) {
-            System.out.println("[X] Error updating save file!");
+            Ui.printFileUpdateError();
         }
-    }
-
-    /**
-     * Finds the correct command according to the given input string.
-     *
-     * @param inputLine Raw input line to search.
-     * @return Command that user is trying to run.
-     * @throws CommandException If unable to detect the command in the given input.
-     */
-    private Command findCommand(String inputLine) throws CommandException {
-        for (Command command : commandList) {
-            if (command.isCommand(inputLine)) {
-                return command;
-            }
-        }
-        throw new CommandException("Command not found");
     }
 
     /**
      * Perform execution of the given command using the given input string. After every successful command execution,
-     * state of the task manager to saved to a file.
+     * state of the task manager is saved to a file.
      *
-     * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
-     * @throws CommandException If an illegal command is executed.
+     * @throws CommandException If an illegal command is executed or there is an error parsing the user's command.
      * @throws IOException      If a file-related operation has errors.
      */
-    private void runCommandUsingInput(Command command, String inputLine) throws CommandException, IOException {
-        if (!command.isValidCommandLine(inputLine)) {
-            throw new CommandException("Usage: " + command.getUsage());
-        }
-
-        String[] commandLineValues = command.extractCommandLineValues(inputLine);
+    private void runCommandUsingInput(String inputLine) throws CommandException, IOException {
+        Command command = parser.findCommand(inputLine);
+        String[] commandLineValues = parser.parseCommandLineValues(command, inputLine);
         Task task;
         int taskIndex;
         String taskDescription;

@@ -1,11 +1,12 @@
 package duke.task;
 
 import java.util.ArrayList;
+import duke.ui.Ui;
 
 /**
  * The TaskManager class manages the list of tasks, including adding and printing.
  */
-public class TaskManager {
+public class TaskList {
 
     /* List of tasks */
     private ArrayList<Task> taskList;
@@ -13,7 +14,7 @@ public class TaskManager {
     /**
      * Initialise a new list of tasks.
      */
-    public TaskManager() {
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
@@ -22,7 +23,7 @@ public class TaskManager {
      *
      * @param taskList Existing list of tasks.
      */
-    public TaskManager(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = new ArrayList<>(taskList);
     }
 
@@ -36,24 +37,14 @@ public class TaskManager {
     }
 
     /**
-     * Prints the list of tasks in a neatly formatted way.
+     * Prints the list of tasks.
      */
     public void printTaskList() {
-        Task task;
-        String output;
-        System.out.println("[*] Here are your list of tasks:");
         if(taskList.size() == 0) {
-            output = "[x] No tasks found :(";
-            System.out.println(output);
+            Ui.printTaskListEmptyError();
             return;
         }
-        output = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            task = taskList.get(i);
-            output += String.format("   %d.[%s][%s] %s\n", i + 1, task.getTaskIcon(), task.getStatusIcon(),
-                    task.getFullDescription());
-        }
-        System.out.print(output);
+        Ui.printTaskListFormattedMessage(taskList);
     }
 
     /**
@@ -63,9 +54,7 @@ public class TaskManager {
      */
     public void addTask(Task task) {
         taskList.add(task);
-        System.out.println("[+] Task added: ");
-        System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(), task.getFullDescription());
-        System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
+        Ui.printTaskListAddMessage(taskList, task);
     }
 
     /**
@@ -75,15 +64,13 @@ public class TaskManager {
      */
     public void complete(int taskIndex) {
         if (taskIndex <= 0 || taskIndex > taskList.size()) {
-            System.out.println("[-] Task not found");
+            Ui.printTaskListNotFoundError();
             return;
         }
 
         Task taskSelected = taskList.get(taskIndex - 1);
         taskSelected.markAsDone();
-        System.out.println("[+] Task marked as done:");
-        System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
-                taskSelected.getFullDescription());
+        Ui.printTaskListCompleteMessage(taskSelected);
     }
 
     /**
@@ -93,14 +80,11 @@ public class TaskManager {
      */
     public void deleteTask(int taskIndex) {
         if (taskIndex <= 0 || taskIndex > taskList.size()) {
-            System.out.println("[-] Task not found");
+            Ui.printTaskListNotFoundError();
             return;
         }
         Task taskSelected = taskList.get(taskIndex - 1);
         taskList.remove(taskIndex - 1);
-        System.out.println("[+] Task removed:");
-        System.out.printf("   [%s][%s] %s\n", taskSelected.getTaskIcon(), taskSelected.getStatusIcon(),
-                taskSelected.getDescription());
-        System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
+        Ui.printTaskListDeleteMessage(taskList, taskSelected);
     }
 }

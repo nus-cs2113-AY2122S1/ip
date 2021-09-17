@@ -1,3 +1,4 @@
+[X] Error reading save file! Starting from clean slate...
 ____________________________________________________________
 [*] Detecting chat-bot version...
 [+] Chat-bot version is *VULNERABLE*!
@@ -6,19 +7,19 @@ ____________________________________________________________
 [+] Interactive shell spawned. You can now manipulate the chat-bot directly!
 ____________________________________________________________
 [root@taskmon ~]$ [*] Here are your list of tasks:
-[x] No tasks found :(
+[X] No tasks found :(
 [root@taskmon ~]$ [X] Usage: list
 [root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ [X] Usage: done <Task Index>
 [root@taskmon ~]$ [-] Task not found
-[root@taskmon ~]$ [X] Error parsing argument!
-[root@taskmon ~]$ [X] Error parsing argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
 [root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ [X] Usage: todo <Task Description>
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [T][ ] cs2113t
 [=] You now have 1 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [T][ ] cs2113t with cs2101
 [=] You now have 2 tasks in the list.
 [root@taskmon ~]$ [X] Command not found
@@ -33,16 +34,16 @@ ____________________________________________________________
 [root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
 [root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
 [root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [D][ ] cs2113t with cs2101 (by: someday)
 [=] You now have 3 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [D][ ] cs2113t with cs2101 (by: someday oneday)
 [=] You now have 4 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [D][ ] cs2113t with cs2101 (by: someday /by)
 [=] You now have 5 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [D][ ] cs2113t with cs2101 (by: someday /by oneday)
 [=] You now have 6 tasks in the list.
 [root@taskmon ~]$ [X] Command not found
@@ -61,16 +62,16 @@ ____________________________________________________________
 [root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
 [root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
 [root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [E][ ] cs2113t with cs2101 (at: someday)
 [=] You now have 7 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [E][ ] cs2113t with cs2101 (at: someday oneday)
 [=] You now have 8 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [E][ ] cs2113t with cs2101 (at: someday /by)
 [=] You now have 9 tasks in the list.
-[root@taskmon ~]$ [+] Task added: 
+[root@taskmon ~]$ [+] Task added:
    [E][ ] cs2113t with cs2101 (at: someday /by oneday)
 [=] You now have 10 tasks in the list.
 [root@taskmon ~]$ [X] Command not found
@@ -103,7 +104,7 @@ ____________________________________________________________
    9.[E][ ] cs2113t with cs2101 (at: someday /by)
    10.[E][ ] cs2113t with cs2101 (at: someday /by oneday)
 [root@taskmon ~]$ [X] Command not found
-[root@taskmon ~]$ [X] Error parsing argument!
+[root@taskmon ~]$ [X] Error converting argument!
 [root@taskmon ~]$ [-] Task not found
 [root@taskmon ~]$ [+] Task removed:
    [T][X] cs2113t
