@@ -1,7 +1,8 @@
-package duke.task;
+package shima.task.action;
 
-import duke.storage.Storage;
-import duke.design.Default;
+import shima.design.Default;
+import shima.storage.Storage;
+import shima.task.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;

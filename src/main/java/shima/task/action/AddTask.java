@@ -1,8 +1,12 @@
-package duke.task;
+package shima.task.action;
 
-import duke.Duke;
-import duke.storage.Storage;
-import duke.design.Default;
+import shima.Shima;
+import shima.design.Default;
+import shima.storage.Storage;
+import shima.task.Deadline;
+import shima.task.Event;
+import shima.task.Task;
+import shima.task.ToDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,8 +43,8 @@ public class AddTask {
             return false;
         }
         tasks.add(new ToDo(command.replace(words[0], "").trim()));
-        if (Duke.longestTaskDescription < command.replace(words[0], "").trim().length()) {
-            Duke.longestTaskDescription = command.replace(words[0], "").trim().length();
+        if (Shima.longestTaskDescription < command.replace(words[0], "").trim().length()) {
+            Shima.longestTaskDescription = command.replace(words[0], "").trim().length();
         }
         Storage.saveTaskToFile(tasks);
         return true;
@@ -81,8 +85,8 @@ public class AddTask {
             return false;
         }
         tasks.add(new Event(taskName, time));
-        if (Duke.longestTaskDescription < taskName.length() + time.length()) {
-            Duke.longestTaskDescription = taskName.length() + "(at: )".length() + time.length();
+        if (Shima.longestTaskDescription < taskName.length() + time.length()) {
+            Shima.longestTaskDescription = taskName.length() + "(at: )".length() + time.length();
         }
         Storage.saveTaskToFile(tasks);
         return true;
@@ -119,8 +123,8 @@ public class AddTask {
             return false;
         }
         tasks.add(new Deadline(taskName, time));
-        if (Duke.longestTaskDescription < taskName.length() + time.length()) {
-            Duke.longestTaskDescription = taskName.length() + "(by: )".length() + time.length();
+        if (Shima.longestTaskDescription < taskName.length() + time.length()) {
+            Shima.longestTaskDescription = taskName.length() + "(by: )".length() + time.length();
         }
         Storage.saveTaskToFile(tasks);
         return true;

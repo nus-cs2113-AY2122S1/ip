@@ -1,4 +1,4 @@
-package duke.task;
+package shima.task;
 
 //Stores task without specific time
 public class ToDo extends Task {

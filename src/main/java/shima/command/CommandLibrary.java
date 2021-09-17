@@ -1,6 +1,6 @@
-package duke.command;
+package shima.command;
 
-public abstract class Command {
+public abstract class CommandLibrary {
     /**
      * Checks if the command is meant to delete the task(s)
      *

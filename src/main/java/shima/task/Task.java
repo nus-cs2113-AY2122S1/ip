@@ -1,4 +1,4 @@
-package duke.task;
+package shima.task;
 
 public abstract class Task {
     protected String task;

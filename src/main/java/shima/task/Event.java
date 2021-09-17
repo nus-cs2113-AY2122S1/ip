@@ -1,4 +1,4 @@
-package duke.task;
+package shima.task;
 
 public class Event extends Task {
     protected String period;

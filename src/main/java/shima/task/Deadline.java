@@ -1,4 +1,4 @@
-package duke.task;
+package shima.task;
 
 //Stores task with deadline specified
 public class Deadline extends Task {

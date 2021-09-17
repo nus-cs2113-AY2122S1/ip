@@ -1,8 +1,9 @@
-package duke.task;
+package shima.task.action;
 
-import duke.storage.Storage;
-import duke.command.Command;
-import duke.design.Default;
+import shima.design.Default;
+import shima.storage.Storage;
+import shima.command.CommandLibrary;
+import shima.task.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class DeleteTasks {
             Default.showMessage("Sorry, the input task index to delete is missing!");
             break;
         case 2:
-            if (Command.isCommandDeleteAll(words[1])) {
+            if (CommandLibrary.isCommandDeleteAll(words[1])) {
                 deleteAllTasks(tasks);
             } else {
                 deleteSingleTask(tasks, words[1]);

@@ -1,6 +1,6 @@
-package duke.exception;
+package shima.exception;
 
-public class DukeException extends Exception {
+public class ShimaException extends Exception {
     public static class CommandException extends Exception {
         //Throws this exception when the input command is invalid
     }

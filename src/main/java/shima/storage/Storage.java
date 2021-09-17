@@ -1,12 +1,13 @@
-package duke.storage;
+package shima.storage;
 
-import duke.Duke;
-import duke.design.Default;
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import shima.Shima;
+import shima.design.ToDoList;
+import shima.design.Default;
+import shima.exception.ShimaException;
+import shima.task.Deadline;
+import shima.task.Event;
+import shima.task.Task;
+import shima.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,10 +38,10 @@ public class Storage {
      * Reads the data from the storage file
      *
      * @param tasks The array list that stores all the tasks
-     * @throws DukeException.StorageException Throws this exception when the data stored in the storage file is invalid
+     * @throws ShimaException.StorageException Throws this exception when the data stored in the storage file is invalid
      * @throws IOException                    Throws this exception when error occurs during the write file process
      */
-    public static void readFromStorage(ArrayList<Task> tasks) throws DukeException.StorageException, IOException {
+    public static void readFromStorage(ArrayList<Task> tasks) throws ShimaException.StorageException, IOException {
         try {
             Scanner sc = new Scanner(Storage.file);
             //Skips the first two lines of storage descriptions in the file
@@ -58,22 +59,22 @@ public class Storage {
                         tasks.add(new ToDo(tasksData[2]));
                         currentTask = tasks.get(tasks.size() - 1);
                         //Updates the longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-                        Duke.longestTaskDescription = Math.max(currentTask.getTask().length(), Duke.longestTaskDescription);
+                        Shima.longestTaskDescription = Math.max(currentTask.getTask().length(), Shima.longestTaskDescription);
                         break;
                     case "D":
                         tasks.add(new Deadline(tasksData[2], tasksData[3]));
                         currentTask = tasks.get(tasks.size() - 1);
                         //Updates the Duke.longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-                        Duke.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(), Duke.longestTaskDescription);
+                        Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(), Shima.longestTaskDescription);
                         break;
                     case "E":
                         tasks.add(new Event(tasksData[2], tasksData[3]));
                         currentTask = tasks.get(tasks.size() - 1);
                         //Updates the Duke.longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-                        Duke.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(), Duke.longestTaskDescription);
+                        Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(), Shima.longestTaskDescription);
                         break;
                     default:
-                        throw new DukeException.StorageException();
+                        throw new ShimaException.StorageException();
                     }
                     //If the task is done, set it to done
                     if (tasksData[1].equals("Y")) {
@@ -84,7 +85,7 @@ public class Storage {
             //Displays the to-do list if it is not empty
             if (tasks.size() > 0) {
                 System.out.println("\nHello user! I have helped you written down the to-do list from my previous record!");
-                Default.printToDoList(tasks, Duke.longestTaskDescription);
+                ToDoList.printToDoList(tasks, Shima.longestTaskDescription);
             }
         } catch (FileNotFoundException ex) {
             //Creates a file called shimaStorage.txt if the file is not found
