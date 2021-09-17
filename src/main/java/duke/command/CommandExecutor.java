@@ -4,8 +4,8 @@ import java.io.IOException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskManager;
 import duke.task.Todo;
+import duke.task.TaskList;
 import duke.file.Storage;
 import duke.exception.CommandException;
 import duke.ui.Ui;
@@ -40,7 +40,7 @@ public class CommandExecutor {
     private final static String DATA_PATH = "data";
 
     /* Used to store tasks */
-    private TaskManager taskManager;
+    private TaskList taskManager;
     /* Used to store supported commands */
     private Command[] commandList;
     /* Used to save tasks to file system */
@@ -68,7 +68,7 @@ public class CommandExecutor {
         try {
             taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
         } catch (IOException err) {
-            taskManager = new TaskManager();
+            taskManager = new TaskList();
         }
     }
 

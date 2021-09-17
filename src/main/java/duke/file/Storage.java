@@ -7,10 +7,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import duke.task.Task;
-import duke.task.TaskManager;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+import duke.task.TaskList;
 import duke.exception.TaskException;
 
 /**
@@ -52,7 +52,7 @@ public class Storage {
      * @param filePath    Path of the file to write to.
      * @throws IOException If a file-related operation has errors.
      */
-    public void writeTaskManagerToFile(TaskManager taskManager, String filePath) throws IOException {
+    public void writeTaskManagerToFile(TaskList taskManager, String filePath) throws IOException {
         File dataDir = new File(dataDirPath);
         dataDir.mkdir();
 
@@ -77,7 +77,7 @@ public class Storage {
      * @return Task Manager that is extracted from the given file.
      * @throws IOException If a file-related operation has errors.
      */
-    public TaskManager readTaskManagerFromFile(String filePath) throws IOException {
+    public TaskList readTaskManagerFromFile(String filePath) throws IOException {
         File file = new File(dataDirPath, filePath);
         if (!file.exists()) {
             throw new FileNotFoundException(String.format("%s does not exist", filePath));
@@ -101,7 +101,7 @@ public class Storage {
         }
 
         in.close();
-        return new TaskManager(taskList);
+        return new TaskList(taskList);
     }
 
     /**

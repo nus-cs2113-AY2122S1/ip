@@ -6,7 +6,7 @@ import duke.ui.Ui;
 /**
  * The TaskManager class manages the list of tasks, including adding and printing.
  */
-public class TaskManager {
+public class TaskList {
 
     /* List of tasks */
     private ArrayList<Task> taskList;
@@ -14,7 +14,7 @@ public class TaskManager {
     /**
      * Initialise a new list of tasks.
      */
-    public TaskManager() {
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
@@ -23,7 +23,7 @@ public class TaskManager {
      *
      * @param taskList Existing list of tasks.
      */
-    public TaskManager(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = new ArrayList<>(taskList);
     }
 
