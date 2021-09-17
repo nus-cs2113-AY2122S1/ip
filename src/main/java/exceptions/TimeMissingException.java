@@ -10,6 +10,6 @@ public class TimeMissingException extends DukeException {
 
     @Override
     public String toString() {
-        return "     ☹ OOPS!!! The time of a " + this.taskType + " cannot be empty";
+        return "     ☹ OOPS!!! The time of a " + this.taskType + " cannot be empty\n";
     }
 }

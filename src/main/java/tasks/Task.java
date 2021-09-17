@@ -7,13 +7,12 @@ abstract public class Task implements Serializable {
     private String taskName;
     private boolean isCompleted;
 
-
-    public Task (String taskName, boolean isCompleted) {
+    public Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
         this.isCompleted = isCompleted;
     }
 
-    private String outputTaskStatus () {
+    private String outputTaskStatus() {
         return "[" + (isCompleted ? "X" : " ") + "] ";
     }
 
@@ -25,13 +24,12 @@ abstract public class Task implements Serializable {
         return this.taskName;
     }
 
-
     @Override
-    public String toString () {
+    public String toString() {
         return this.outputTaskStatus() + this.taskName;
     }
 
-    public void setCompleted () {
+    public void setCompleted() {
         this.isCompleted = true;
     }
 

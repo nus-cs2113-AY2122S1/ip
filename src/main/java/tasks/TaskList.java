@@ -33,7 +33,7 @@ public class TaskList implements Serializable {
         return this.tasks.size();
     }
 
-    public Task markAsDone(int index) throws IndexOutOfBoundsException{
+    public Task markAsDone(int index) throws IndexOutOfBoundsException {
         Task completedTask = this.tasks.get(index);
         completedTask.setCompleted();
         return completedTask;
