@@ -8,6 +8,7 @@ import duke.task.TaskManager;
 import duke.task.Todo;
 import duke.file.Storage;
 import duke.exception.CommandException;
+import duke.ui.Ui;
 
 /**
  * The CommandExecutor class deals with the execution of supported commands.
@@ -90,11 +91,11 @@ public class CommandExecutor {
             command = findCommand(inputLine);
             runCommandUsingInput(command, inputLine);
         } catch (CommandException err) {
-            System.out.println("[X] " + err.getMessage());
+            Ui.printError(err.getMessage());
         } catch (NumberFormatException err) {
-            System.out.println("[X] Error parsing argument!");
+            Ui.printConvertError();
         } catch (IOException err) {
-            System.out.println("[X] Error updating save file!");
+            Ui.printFileError();
         }
     }
 
