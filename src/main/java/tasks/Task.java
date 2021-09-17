@@ -36,4 +36,8 @@ abstract public class Task implements Serializable {
     }
 
     abstract public String save();
+
+    public boolean searchKeyword(String keyword) {
+        return taskName.contains(keyword);
+    }
 }
