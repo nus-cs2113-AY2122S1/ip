@@ -64,16 +64,33 @@ Here are the tasks in your list:
 3. [E][ ] project meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
-I do not know which task you want me to mark. Give the task number my friend
+I do not know which task you want me to MARK. Give the task number my friend
 ________________________________________________________
 ________________________________________________________
-I do not know which task you want me to mark. Give the task number my friend
+I do not know which task you want me to MARK. Give the task number my friend
 ________________________________________________________
 ________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
 2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (at: Mon 2-4pm)
+________________________________________________________
+________________________________________________________
+________________________________________________________
+I do not know which task you want me to DELETE. Give the task number my friend
+________________________________________________________
+________________________________________________________
+I do not know which task you want me to DELETE. Give the task number my friend
+________________________________________________________
+________________________________________________________
+Noted. I've deleted this task:
+[T][ ] read book
+Now you have 2 tasks in the list.
+________________________________________________________
+________________________________________________________
+Here are the tasks in your list:
+1. [D][X] return book (by: Sunday)
+2. [E][ ] project meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
 Farewell. Come back when you need more help

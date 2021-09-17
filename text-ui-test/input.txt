@@ -13,4 +13,8 @@ list
 done
 done a
 list
+delete 6
+delete
+delete 1
+list
 bye
