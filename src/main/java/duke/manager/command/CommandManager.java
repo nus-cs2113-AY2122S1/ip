@@ -1,6 +1,6 @@
 package duke.manager.command;
 
-import duke.logic.UserData;
+import duke.storage.UserData;
 import duke.manager.task.InvalidTaskNumberException;
 import duke.manager.task.TaskManager;
 
