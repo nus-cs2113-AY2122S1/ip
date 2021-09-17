@@ -7,7 +7,7 @@ public abstract class Task {
     /**
      * The description of the Task
      */
-    protected String description; //descr as an abbreviation for description
+    protected String description;
 
     /**
      * The done status of the Task
@@ -51,7 +51,8 @@ public abstract class Task {
      * @return "[X]" if isDone is true, "[ ]" otherwise
      */
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); //icon "[X]" as done and "[ ]" as not done
+        //icon "[X]" as done and "[ ]" as not done
+        return (isDone ? "[X]" : "[ ]");
     }
 
     @Override

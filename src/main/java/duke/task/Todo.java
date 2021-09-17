@@ -1,8 +1,9 @@
 package duke.task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Todo extends Task{
+public class Todo extends Task {
     public static final String SYMBOL = "T";
 
     public Todo(String description) {

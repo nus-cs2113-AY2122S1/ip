@@ -6,7 +6,7 @@ import duke.exception.EmptyParameterException;
 /**
  * Methods that deal with making sense of the user input.
  * Note: The "command" is the first word of the input. The "content" is everything
- *       beyond the first word.
+ * beyond the first word.
  */
 public class Parser {
 
@@ -101,7 +101,7 @@ public class Parser {
      *
      * @param input the input string given
      * @return the integer value of the content of the input string
-     * @throws NumberFormatException when the content of the input is not a number
+     * @throws NumberFormatException  when the content of the input is not a number
      * @throws EmptyArgumentException when the content of the input is empty
      */
     public int extractIndex(String input) throws NumberFormatException, EmptyArgumentException {

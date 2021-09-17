@@ -91,7 +91,8 @@ public class Duke {
         ui = new Ui();
         parser = new Parser();
         Storage storage = new Storage();
-        taskList.updateTaskList(storage.loadFile()); //load storage data into the task list
+        //load storage data into the task list
+        taskList.updateTaskList(storage.loadFile());
 
     }
 

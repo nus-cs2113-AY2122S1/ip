@@ -26,7 +26,7 @@ public class Storage {
     public ArrayList<Task> loadFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         File dataFile = new File("data");
-        dataFile.mkdir(); //create "data" folder if it does not exist
+        dataFile.mkdir();
         try {
             decodeFileContent(taskList);
             System.out.println("Previous data loaded successfully");
@@ -43,7 +43,7 @@ public class Storage {
      * given Task ArrayList.
      *
      * @param taskList the ArrayList to be written into
-     * @throws FileNotFoundException when no existing data file is found
+     * @throws FileNotFoundException  when no existing data file is found
      * @throws CorruptedDataException when the existing data file has corrupted data
      */
     public void decodeFileContent(ArrayList<Task> taskList) throws FileNotFoundException, CorruptedDataException {
@@ -88,7 +88,8 @@ public class Storage {
     public void updateDataFile(ArrayList<Task> taskList) {
         try {
             FileWriter fw = new FileWriter(TASK_DATA_PATH);
-            fw.write(""); //clear data file before write
+            //clear data file before write
+            fw.write("");
             fw.close();
             for (Task task : taskList) {
                 task.writeToFile(TASK_DATA_PATH);

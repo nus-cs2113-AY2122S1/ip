@@ -83,7 +83,8 @@ public class TaskList {
      * @param input numerical ranking (as a string) of the task to be marked as done
      */
     public void markTaskAsDone(String input) {
-        int index; //to store the array index of the task
+        //to store the array index of the task
+        int index;
         try {
             index = parser.extractIndex(input);
             taskList.get(index).setDone(true);
