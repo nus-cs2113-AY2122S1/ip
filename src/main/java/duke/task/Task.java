@@ -7,7 +7,7 @@ public abstract class Task {
     /**
      * The description of the Task
      */
-    protected String descr; //descr as an abbreviation for description
+    protected String description; //descr as an abbreviation for description
 
     /**
      * The done status of the Task
@@ -19,8 +19,8 @@ public abstract class Task {
      */
     private static int totalTasks = 0;
 
-    public Task(String descr) {
-        this.descr = descr;
+    public Task(String description) {
+        this.description = description;
         isDone = false;
         totalTasks++;
     }
@@ -56,7 +56,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + descr;
+        return getStatusIcon() + " " + description;
     }
 
     public static void decreaseTotalTasks() {

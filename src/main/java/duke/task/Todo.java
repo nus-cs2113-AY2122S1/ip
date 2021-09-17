@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Todo extends Task{
+    public static final String SYMBOL = "T";
 
     public Todo(String description) {
         super(description);
@@ -11,12 +12,12 @@ public class Todo extends Task{
     @Override
     public void writeToFile(String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
-        fw.write("T" + " | " + (isDone ? 1 : 0) + " | " + descr + System.lineSeparator());
+        fw.write(SYMBOL + " | " + (isDone ? 1 : 0) + " | " + description + System.lineSeparator());
         fw.close();
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + SYMBOL + "]" + super.toString();
     }
 }
