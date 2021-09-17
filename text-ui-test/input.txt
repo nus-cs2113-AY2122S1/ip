@@ -23,6 +23,8 @@ deadline cs2113t with cs2101 /by someday
 deadline cs2113t with cs2101 /by someday oneday
 deadline cs2113t with cs2101 /by someday /by
 deadline cs2113t with cs2101 /by someday /by oneday
+deadline cs2113t with cs2101 /by 2021-05-05
+deadline cs2113t with cs2101 /by 2021-06-06 1359
 
 list
 
@@ -37,6 +39,8 @@ event cs2113t with cs2101 /at someday
 event cs2113t with cs2101 /at someday oneday
 event cs2113t with cs2101 /at someday /by
 event cs2113t with cs2101 /at someday /by oneday
+event cs2113t with cs2101 /at 2021-05-05
+event cs2113t with cs2101 /at 2021-06-06 1359
 
 list
 

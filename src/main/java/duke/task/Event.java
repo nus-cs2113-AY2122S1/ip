@@ -1,12 +1,12 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class manages a task that start at a specific time and ends at a specific time.
  */
-public class Event extends Task {
-
-    /* Timestamp of occurrence */
-    private String dateTime;
+public class Event extends Deadline {
 
     /**
      * Initialise a new incomplete task with time of occurrence.
@@ -15,12 +15,7 @@ public class Event extends Task {
      * @param dateTime    When the task is occurring at.
      */
     public Event(String description, String dateTime) {
-        super(description);
-        this.dateTime = dateTime;
-    }
-
-    public String getDateTime() {
-        return dateTime;
+        super(description, dateTime);
     }
 
     /**
@@ -30,6 +25,8 @@ public class Event extends Task {
      */
     @Override
     public String getFullDescription() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        String dateTime = String.format("%s %s", date.format(formatter), time);
         return String.format("%s (at: %s)", super.getDescription(), dateTime);
     }
 
