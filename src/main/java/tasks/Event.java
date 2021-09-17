@@ -1,22 +1,26 @@
 package tasks;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task implements Serializable {
 
-    String completeTime;
+    LocalDateTime completeTime;
 
     public Event (String taskName, String completeTime, boolean isCompleted) {
         super(taskName, isCompleted);
-        this.completeTime = completeTime;
+        this.completeTime = LocalDateTime.parse(completeTime);
     }
 
     public String toString() {
-        return "[E]" + super.toString() + "(" + this.completeTime + ")";
+        return "[E]" + super.toString() + "(" +
+                this.completeTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:ss")) + ")";
     }
 
 
     public String save() {
-        return "E | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + " | " + this.completeTime + "\n";
+        return "E | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + " | "
+                + this.completeTime.toString() + "\n";
     }
 }
