@@ -216,6 +216,7 @@ public class Duke {
             reader = new BufferedReader(inputStreamReader);
             String tempString = "";
             Task task = new Task("null");
+
             while ((tempString = reader.readLine()) != null) {
                 if (tempString.charAt(TYPE_POS) == 'T') {
                     task = (new Todo(tempString.substring(TASK_POS)));
