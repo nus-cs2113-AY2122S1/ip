@@ -13,9 +13,14 @@ import kate.exception.EmptyFieldException;
 import kate.exception.EmptyTaskException;
 import kate.exception.FileCorruptedException;
 import kate.exception.InvalidCommandException;
+import kate.exception.InvalidDateTimeException;
 import kate.exception.InvalidFieldException;
 import kate.task.Task;
 import kate.tasklist.TaskList;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -90,7 +95,7 @@ public class Parser {
      * @return String array of description and deadline
      * @throws EmptyFieldException If description or deadline is empty
      */
-    public static String[] extractDeadlineInput(String userInput) throws EmptyFieldException {
+    public static String[] extractDeadlineInput(String userInput) throws InvalidDateTimeException, EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_DEADLINE).strip();
         String[] infoArr = taskInfo.split(" /by ", 2);
 
@@ -102,12 +107,16 @@ public class Parser {
                 throw new EmptyFieldException();
             }
 
+            LocalDate parsedDate = LocalDate.parse(deadline);
+
             infoArr[0] = taskDescription;
             infoArr[1] = deadline;
 
             return infoArr;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyFieldException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
         }
     }
 
@@ -118,24 +127,28 @@ public class Parser {
      * @return String array of description and time frame
      * @throws EmptyFieldException If description or time frame is empty
      */
-    public static String[] extractEventInput(String userInput) throws EmptyFieldException {
+    public static String[] extractEventInput(String userInput) throws InvalidDateTimeException, EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_EVENT).strip();
         String[] infoArr = taskInfo.split(" /at ", 2);
 
         try {
             String taskDescription = infoArr[0].strip();
-            String timeframe = infoArr[1].strip();
+            String timeFrame = infoArr[1].strip();
 
-            if (taskDescription.isEmpty() || timeframe.isEmpty()) {
+            if (taskDescription.isEmpty() || timeFrame.isEmpty()) {
                 throw new EmptyFieldException();
             }
 
+            LocalDate date = LocalDate.parse(timeFrame);
+
             infoArr[0] = taskDescription;
-            infoArr[1] = timeframe;
+            infoArr[1] = timeFrame;
 
             return infoArr;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyFieldException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
         }
     }
 
@@ -226,25 +239,27 @@ public class Parser {
             String taskLabel = storedArr[0];
             boolean isDone = Boolean.parseBoolean(storedArr[1]);
             String description = storedArr[2];
+            LocalDate date;
             switch (taskLabel) {
             case "T":
                 tasks.addToDoFromFile(description, isDone);
                 break;
             case "D":
                 String deadline = storedArr[3];
+                date = LocalDate.parse(deadline);
                 tasks.addDeadlineFromFile(description, isDone, deadline);
                 break;
             case "E":
                 String event = storedArr[3];
+                date = LocalDate.parse(event);
                 tasks.addEventFromFile(description, isDone, event);
                 break;
             default:
                 throw new FileCorruptedException();
             }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new FileCorruptedException();
         }
-
     }
 
 }

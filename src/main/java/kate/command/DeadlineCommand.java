@@ -2,6 +2,7 @@ package kate.command;
 
 import kate.common.Message;
 import kate.exception.EmptyFieldException;
+import kate.exception.InvalidDateTimeException;
 import kate.parser.Parser;
 import kate.storage.Storage;
 import kate.tasklist.TaskList;
@@ -29,6 +30,8 @@ public class DeadlineCommand extends Command {
             storage.appendTaskToFile(ui, tasks.getMostRecentAddedTask());
         } catch (EmptyFieldException e) {
             ui.printMessage(FAILURE_MESSAGE_ADD_DEADLINE);
+        } catch (InvalidDateTimeException e) {
+            ui.printMessage(Message.FAILURE_PARSE_DATE);
         }
     }
 }

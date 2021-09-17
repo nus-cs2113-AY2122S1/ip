@@ -2,6 +2,7 @@ package kate.storage;
 
 import kate.common.Message;
 import kate.exception.FileCorruptedException;
+import kate.exception.InvalidDateTimeException;
 import kate.parser.Parser;
 import kate.task.Task;
 import kate.tasklist.TaskList;
@@ -92,7 +93,7 @@ public class Storage {
             StringBuilder taskInfo = new StringBuilder();
             for (int i = 0; i < tasks.getTaskSize(); ++i) {
                 Task curTask = tasks.getCurrentTask(i);
-                taskInfo.append(curTask.getTaskInfo()).append("\n");
+                taskInfo.append(curTask.getTaskInfoForFile()).append("\n");
             }
             file.write(String.valueOf(taskInfo));
             file.close();
