@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import duke.task.Task;
 
+/**
+ * The Ui class deals with printing of messages and reading of user input.
+ */
 public class Ui {
 
     private final static String LINE = "____________________________________________________________";
