@@ -1,12 +1,9 @@
 package FileManager;
 
-import InputHandle.Tasks.TaskList;
-import InputHandle.Tasks.Task;
+import tasks.TaskList;
 
-import java.io.FileOutputStream;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -18,15 +15,6 @@ public class FileSaver {
         String fileName = userName + ".txt";
         filePath = Paths.get("UserStatus", fileName);
     }
-
-    public FileSaver () {
-        String fileName = "default.txt";
-        filePath = Paths.get("UserStatus", fileName);
-    }
-
-
-
-
 
     public void save (TaskList tasks) {
         File directory = new File("UserStatus");
