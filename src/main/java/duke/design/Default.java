@@ -211,7 +211,7 @@ public abstract class Default {
         versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
         versionDescriptions.add("* You can type \"delete i\" where i is the index of the task to delete the task whenever necessary");
         versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
-        versionDescriptions.add("* For more information about how to use me (YES the bot), you can type \"help\" or \"view-h\"");
+        versionDescriptions.add("* You can type \"help\" or \"view -h\" for more information about how to use me (YES the bot), ");
         //Finds the length of the longest description to align all '*' displayed
         for (String str : versionDescriptions) {
             if (str.length() > maxDescriptionsLength) {
@@ -296,7 +296,7 @@ public abstract class Default {
                 "\t\tdone 1 2 3\t<-- will mark the 1st, 2nd and 3rd tasks as completed\n");
         //Delete command
         helpLists.add("To delete task, use the command \"delete\" with syntax:\n\t\tdelete [TASK_INDEX]\n\t\teg. delete 1\t<--will delete the 1st task\n\t" +
-                "\t\tdelete 1 2 3\t<-- will delete the tasks with index 1, 2 and 3\n\t\tdelete all\t<-- will delete all the tasks in the list\n");
+                "\t\tdelete 1 2 3\t<-- will delete the tasks with index 1, 2 and 3\n\t\t\tdelete all\t<-- will delete all the tasks in the list\n");
         //Exit command
         helpLists.add("To exit the program, use the command \"exit\" or \"bye\"\n");
         return helpLists;
