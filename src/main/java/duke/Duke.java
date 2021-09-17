@@ -27,35 +27,35 @@ public class Duke {
 
         while (true) {
             String command = scan.nextLine();
-            HashMap<String, String> commandArgs = parseCommand(command);
+            HashMap<String, String> commandArgs = Parser.parseCommand(command);
             System.out.println(DIVIDER);
             try {
                 switch (commandArgs.get("command").toLowerCase()) {
-                case "list":
-                    list();
-                    break;
-                case "done":
-                    setTaskDone(Integer.parseInt(commandArgs.get("param")), true);
-                    break;
-                case "delete":
-                    deleteTask(Integer.parseInt(commandArgs.get("param")));
-                    break;
-                case "todo":
-                    addTodo(commandArgs.get("param"), true);
-                    break;
-                case "deadline":
-                    addDeadline(commandArgs.get("param"), commandArgs.get("by"), true);
-                    break;
-                case "event":
-                    addEvent(commandArgs.get("param"), commandArgs.get("at"), true);
-                    break;
-                case "bye":
-                    exit = true;
-                    bye();
-                    break;
-                default:
-                    printUnknownCommand();
-                    break;
+                    case "list":
+                        list();
+                        break;
+                    case "done":
+                        setTaskDone(Integer.parseInt(commandArgs.get("param")), true);
+                        break;
+                    case "delete":
+                        deleteTask(Integer.parseInt(commandArgs.get("param")));
+                        break;
+                    case "todo":
+                        addTodo(commandArgs.get("param"), true);
+                        break;
+                    case "deadline":
+                        addDeadline(commandArgs.get("param"), commandArgs.get("by"), true);
+                        break;
+                    case "event":
+                        addEvent(commandArgs.get("param"), commandArgs.get("at"), true);
+                        break;
+                    case "bye":
+                        exit = true;
+                        bye();
+                        break;
+                    default:
+                        printUnknownCommand();
+                        break;
                 }
             } catch (MissingArgumentException e) {
                 printWithIndent(e.getMessage(), 5);
@@ -83,21 +83,6 @@ public class Duke {
         }
 
         scan.close();
-    }
-
-    public static HashMap<String, String> parseCommand(String command) {
-        String[] parts = command.split(" /");
-        HashMap<String, String> map = new HashMap<String, String>();
-        String[] commandParts = parts[0].split(" ", 2);
-        map.put("command", commandParts[0]);
-        map.put("param", commandParts.length > 1 ? commandParts[1] : "");
-        for (int i = 1; i < parts.length; i++) {
-            String[] argParts = parts[i].split(" ", 2);
-            if (argParts.length == 2) {
-                map.put(argParts[0], argParts[1]);
-            }
-        }
-        return map;
     }
 
     public static void printWithIndent(String text, int count) {
@@ -196,15 +181,15 @@ public class Duke {
                 Boolean isDone = Boolean.parseBoolean(taskParts[2]);
                 try {
                     switch (command) {
-                    case "todo":
-                        addTodo(desc, false);
-                        break;
-                    case "deadline":
-                        addDeadline(desc, taskParts[3], false);
-                        break;
-                    case "event":
-                        addEvent(desc, taskParts[3], false);
-                        break;
+                        case "todo":
+                            addTodo(desc, false);
+                            break;
+                        case "deadline":
+                            addDeadline(desc, taskParts[3], false);
+                            break;
+                        case "event":
+                            addEvent(desc, taskParts[3], false);
+                            break;
                     }
                 } catch (MissingArgumentException e) {
 
