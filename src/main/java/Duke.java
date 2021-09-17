@@ -27,6 +27,14 @@ public class Duke {
         ArrayList<Task> Tasks = new ArrayList<>(MAX_TASK);
         String file = "data/tasks.txt";
         try {
+            File dukeFile = new File(file);
+            File directory = dukeFile.getParentFile();
+            if(!directory.exists()){
+                directory.mkdir();
+            }
+            if(!dukeFile.exists()){
+                dukeFile.createNewFile();
+            }
             readFile(Tasks,file);
             printFileContents(file);
         } catch (FileNotFoundException e) {
@@ -143,19 +151,22 @@ public class Duke {
             String str = s.nextLine();
             switch (str.substring(0,1)) {
             case "T":
-                String[] strT = str.split("|");
+                String[] strT = str.split(" \\| ");
+                for(String st: strT) System.out.println(st);
                 Todo t = new Todo(strT[2]);
                 if(strT[1].trim() == "1") t.setDone(true);
                 addToList(t, Tasks, Tasks.size());
                 break;
             case "D":
-                String[] strD = str.split("|");
+                String[] strD = str.split(" \\| ");
+                for(String st: strD) System.out.println(st);
                 Deadline d = new Deadline(strD[2], strD[3]);
                 if(strD[1].trim() == "1") d.setDone(true);
                 addToList(d, Tasks, Tasks.size());
                 break;
             case "E":
-                String[] strE = str.split("|");
+                String[] strE = str.split(" \\| ");
+                for(String st: strE) System.out.println(st);
                 Event e = new Event(strE[2], strE[3]);
                 if(strE[1].trim() == "1") e.setDone(true);
                 addToList(e, Tasks, Tasks.size());
