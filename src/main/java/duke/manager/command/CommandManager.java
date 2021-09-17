@@ -21,7 +21,7 @@ public class CommandManager {
         try {
             this.taskManager.preloadTasks();
         } catch (FileNotFoundException fne) {
-            System.out.println(Message.DATA_FILE_NOT_FOUND);
+            System.out.println(Message.DATA_FILE_NOT_FOUND_MESSAGE);
         }
     }
 
@@ -37,6 +37,9 @@ public class CommandManager {
             break;
         case SHOW_LIST:
             executeShowTaskList();
+            break;
+        case FIND_KEYWORD:
+            executeFindKeyword(commandArguments);
             break;
         case ADD_TODO:
             executeAddToDo(commandArguments);
@@ -62,7 +65,11 @@ public class CommandManager {
     }
 
     private void executeShowTaskList() {
-        taskManager.printTasks();
+        taskManager.printTaskList();
+    }
+
+    private void executeFindKeyword(String keyword) {
+        taskManager.printFilteredTaskList(keyword);
     }
 
     private void executeDoneTask(String commandArguments) {

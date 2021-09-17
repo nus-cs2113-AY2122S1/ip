@@ -11,7 +11,8 @@ public class Message {
     public static final String EMPTY_TASK_LIST_MESSAGE = "  Task List is empty!";
     public static final String FAILED_TO_CREATE_DATA_FILE_MESSAGE = "  Failed to create new user data file!";
     public static final String SAVE_DATA_ERROR_MESSAGE = "  Something went wrong when writing into user data file!";
-    public static final String DATA_FILE_NOT_FOUND = "  Data file not found!";
+    public static final String DATA_FILE_NOT_FOUND_MESSAGE = "  Data file not found!";
+    public static final String KEYWORD_NOT_FOUND_MESSAGE = "  I'm sorry, I could not find any tasks with that keyword";
 
     public static String getMessageForMissingTaskDescription(String taskType) {
         return "  I'm sorry... For a <" + taskType + "> you must include a description!"
