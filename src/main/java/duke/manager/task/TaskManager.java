@@ -70,7 +70,9 @@ public class TaskManager {
 
     public String convertTaskArgumentToString(Task task) {
         String output;
-        if (task instanceof Event) {
+        if (task instanceof ToDo) {
+            output = "";
+        } else if (task instanceof Event) {
             output = " : " + ((Event) task).getAt();
         } else if (task instanceof Deadline) {
             output = " : " + ((Deadline) task).getBy();

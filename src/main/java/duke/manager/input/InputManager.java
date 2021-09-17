@@ -1,12 +1,13 @@
 package duke.manager.input;
 
 import duke.manager.command.Command;
+import duke.ui.UserInterface;
 
 import java.util.Scanner;
 
 public class InputManager {
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private Command inputCommand;
     private String commandArguments;
     private static final String INPUT_BYE = "bye";
@@ -17,6 +18,10 @@ public class InputManager {
     private static final String INPUT_DONE = "done";
     private static final String INPUT_DELETE = "delete";
     private static final String NO_ARGUMENT_INPUT = "none";
+
+    public InputManager() {
+        scanner = new Scanner(System.in);
+    }
 
     public void setInputCommand(String input) {
         switch (input) {
@@ -56,6 +61,7 @@ public class InputManager {
     }
 
     public void readInput() {
+        System.out.print(UserInterface.INPUT_PROMPT);
         String input = scanner.nextLine();
         Parser parsedInput = new Parser(input);
         if (parsedInput.isMoreThanTwoWords()) {
