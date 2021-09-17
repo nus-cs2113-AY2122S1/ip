@@ -16,4 +16,11 @@ public class Task {
     public void setDone() {
         this.isDone = true;
     }
+
+    public String encode() {
+        String PARTITION = " | ";
+        String isDoneCode = (this.isDone) ? "1" : "0";
+
+        return "T" + PARTITION + isDoneCode + PARTITION + this.description;
+    }
 }
