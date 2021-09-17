@@ -3,7 +3,10 @@ public class Deadline extends Task{
     public Deadline (String description, String deadlineDate) {
         super(description);
         this.deadlineDate = deadlineDate;
-        System.out.println("  " + this.toString());
+    }
+
+    public String getDeadlineDate() {
+        return this.deadlineDate;
     }
 
     @Override
