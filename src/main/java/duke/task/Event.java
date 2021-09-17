@@ -21,6 +21,11 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("%c | %d | %s | %s", taskType, (isDone) ? 1 : 0, description, at);
+        return generateFileString(new String[]{
+                Character.toString(taskType),
+                Integer.toString((isDone) ? 1 : 0),
+                description,
+                at
+        });
     }
 }

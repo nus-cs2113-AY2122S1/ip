@@ -21,6 +21,11 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("%c | %d | %s | %s", taskType, (isDone) ? 1 : 0, description, by);
+        return generateFileString(new String[]{
+                Character.toString(taskType),
+                Integer.toString((isDone) ? 1 : 0),
+                description,
+                by
+        });
     }
 }

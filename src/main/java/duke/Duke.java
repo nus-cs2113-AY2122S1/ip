@@ -5,10 +5,13 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Duke {
     private static final String TASKS_FILENAME = "./data/duke.txt";
@@ -46,7 +49,7 @@ public class Duke {
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n  %s\nThere are %d tasks in the list.";
     private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
-    private static final String MESSAGE_FORMAT_CREATE_FILE_FAILED = "Fail to create file - %s\n";
+    private static final String MESSAGE_FORMAT_CREATE_FILE_FAILED = "Fail to create file - %s";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
@@ -83,7 +86,7 @@ public class Duke {
      * @param string The string to check.
      * @return true if string can be converted to integer, else false.
      */
-    private static boolean isInteger(String string) {
+    private static boolean isStringInteger(String string) {
         boolean isInt;
         try {
             int value = Integer.parseInt(string);
@@ -150,7 +153,7 @@ public class Duke {
      * @throws DukeException If argument is invalid/missing or task is already marked as done.
      */
     private static void executeDoneCommand(String argument) throws DukeException {
-        if (!isInteger(argument)) {
+        if (!isStringInteger(argument)) {
             throw new DukeException(String.format(MESSAGE_FORMAT_DONE_USAGE, COMMAND_DONE));
         }
 
@@ -238,7 +241,7 @@ public class Duke {
      * @throws DukeException If argument is invalid/missing.
      */
     private static void executeDeleteCommand(String argument) throws DukeException {
-        if (!isInteger(argument)) {
+        if (!isStringInteger(argument)) {
             throw new DukeException(String.format(MESSAGE_FORMAT_DELETE_USAGE, COMMAND_DELETE));
         }
 
@@ -272,6 +275,15 @@ public class Duke {
         } catch (IOException e) {
             throw new DukeException(MESSAGE_FILEWRITER_ERROR);
         }
+    }
+
+    /**
+     * Prints an exception.
+     *
+     * @param exception The exception to print.
+     */
+    private static void printException(Exception exception) {
+        printMessage(String.format(MESSAGE_FORMAT_EXCEPTION, exception.getMessage()));
     }
 
     /**
@@ -322,12 +334,92 @@ public class Duke {
                 writeTasksToFile(TASKS_FILENAME);
             }
         } catch (DukeException e) {
-            printMessage(String.format(MESSAGE_FORMAT_EXCEPTION, e.getMessage()));
+            printException(e);
+        }
+    }
+
+    /**
+     * Parses the line and returns a task object.
+     *
+     * @param line The line to parse.
+     * @return A Task object if line is successfully parsed, else false.
+     */
+    private static Task getTaskFromLine(String line) {
+        String[] lineSplit = line.split(Pattern.quote(Task.COLUMN_SEPARATOR));
+        if (lineSplit.length < 3) {
+            return null;
+        }
+
+        String taskTypeColumn = lineSplit[0].trim();
+        String isDoneColumn = lineSplit[1].trim();
+        String descriptionColumn = lineSplit[2];
+
+        if (taskTypeColumn.length() != 1 || isDoneColumn.length() != 1) {
+            return null;
+        }
+
+        Task task = null;
+        char taskType = taskTypeColumn.charAt(0);
+        boolean isDone = isDoneColumn.equals("1");
+        switch (taskType) {
+        case Task.TYPE_TODO:
+            task = new Todo(descriptionColumn);
+            break;
+
+        case Task.TYPE_DEADLINE:
+            String byColumn = lineSplit[3];
+            if (lineSplit.length == 4) {
+                task = new Deadline(descriptionColumn, byColumn);
+            }
+            break;
+
+        case Task.TYPE_EVENT:
+            String atColumn = lineSplit[3];
+            if (lineSplit.length == 4) {
+                task = new Event(descriptionColumn, atColumn);
+            }
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.setAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @param filename The file to load from.
+     */
+    private static void loadTasksFromFile(String filename) {
+        if (!Util.fileExists(filename)) {
+            return;
+        }
+
+        File file = new File(filename);
+        try {
+            Scanner fileReader = new Scanner(file);
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                Task task = getTaskFromLine(line);
+                TASKS.add(task);
+            }
+
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            printException(e);
         }
     }
 
     public static void main(String[] args) {
         printMessage(MESSAGE_WELCOME);
+        loadTasksFromFile(TASKS_FILENAME);
 
         boolean isRunning = true;
         do {

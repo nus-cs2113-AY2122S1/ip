@@ -7,6 +7,10 @@ public class Todo extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("%c | %d | %s", taskType, (isDone) ? 1 : 0, description);
+        return generateFileString(new String[]{
+                Character.toString(taskType),
+                Integer.toString((isDone) ? 1 : 0),
+                description
+        });
     }
 }
