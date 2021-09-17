@@ -143,8 +143,15 @@ public class Ui {
     /**
      * Print the error when updating the file storing the list of tasks.
      */
-    public static void printFileError() {
+    public static void printFileUpdateError() {
         printError("Error updating save file!");
+    }
+
+    /**
+     * Print the error when updating the file storing the list of tasks.
+     */
+    public static void printFileReadError() {
+        printError("Error reading save file! Starting from clean slate...");
     }
 
     /**

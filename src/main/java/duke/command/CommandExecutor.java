@@ -71,6 +71,7 @@ public class CommandExecutor {
         try {
             taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
         } catch (IOException err) {
+            Ui.printFileReadError();
             taskManager = new TaskList();
         }
     }
@@ -96,7 +97,7 @@ public class CommandExecutor {
         } catch (NumberFormatException err) {
             Ui.printConvertError();
         } catch (IOException err) {
-            Ui.printFileError();
+            Ui.printFileUpdateError();
         }
     }
 

@@ -8,24 +8,28 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    /**
-     * Provides an interactive prompt to the user.
-     */
-    private static void interact() {
-        String rawLine;
-        CommandExecutor commandExecutor = new CommandExecutor();
-        Ui ui = new Ui();
-        Ui.printWelcomeMessage();
+    private CommandExecutor commandExecutor;
+    private Ui ui;
 
+    public Duke() {
+        commandExecutor = new CommandExecutor();
+        ui = new Ui();
+    }
+
+    /**
+     * Starts the Duke application.
+     */
+    public void run() {
+        String rawLine;
+        Ui.printWelcomeMessage();
         do {
             rawLine = ui.readInput();
             commandExecutor.execute(rawLine);
         } while (!commandExecutor.isExit());
-
         Ui.printByeMessage();
     }
 
     public static void main(String[] args) {
-        interact();
+        new Duke().run();
     }
 }
