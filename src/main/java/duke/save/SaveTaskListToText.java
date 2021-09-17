@@ -23,9 +23,10 @@ public class SaveTaskListToText {
 
     // Solution below adapted from
     // https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
-    public static void removeLineFromFile(String file, String lineToRemove) {
+    public static void removeLineFromFile(String file, String lineToRemove, boolean lastLine, int taskNumberToDelete) {
         try {
             File inFile = new File(file);
+            int count = 0;
 
             if (!inFile.isFile()) {
                 System.out.println("Parameter is not an existing file");
@@ -43,11 +44,15 @@ public class SaveTaskListToText {
             // Read from the original file and write to the new
             // unless content matches data to be removed.
             while ((line = br.readLine()) != null) {
-
+                count += 1;
                 if (!line.trim().equals(lineToRemove)) {
-
-                    pw.println(line);
-                    pw.flush();
+                    if (lastLine == true && count == taskNumberToDelete - 1) {
+                        pw.print(line); // No newline...
+                        pw.flush();
+                    } else {
+                        pw.println(line);
+                        pw.flush();
+                    }
                 }
             }
 
@@ -64,7 +69,6 @@ public class SaveTaskListToText {
             if (!tempFile.renameTo(inFile)) {
                 System.out.println("Could not rename file");
             }
-
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {

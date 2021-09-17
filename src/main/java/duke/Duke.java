@@ -57,6 +57,11 @@ public class Duke {
         try {
             int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
             String textToRemove;
+            boolean lastLine = false;
+
+            if (taskNumberToDelete == numberOfTasks && numberOfTasks != 1) {
+                lastLine = true;
+            }
 
             if (taskNumberToDelete <= numberOfTasks) {
                 tasks.get(taskNumberToDelete - 1).deletedSuccessfully(numberOfTasks - 1);
@@ -67,7 +72,7 @@ public class Duke {
 
                 textToRemove = StringToRemoveFormat.getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
 
-                dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove);
+                dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove, lastLine, taskNumberToDelete);
 
                 tasks.remove(taskNumberToDelete - 1);
                 numberOfTasks -= 1;
