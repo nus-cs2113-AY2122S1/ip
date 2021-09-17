@@ -34,58 +34,48 @@ ____________________________________________________________
 [root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
 [root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
 [root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
 [root@taskmon ~]$ [+] Task added:
-   [D][ ] cs2113t with cs2101 (by: someday)
+   [D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
 [=] You now have 3 tasks in the list.
 [root@taskmon ~]$ [+] Task added:
-   [D][ ] cs2113t with cs2101 (by: someday oneday)
+   [D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
 [=] You now have 4 tasks in the list.
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [*] Here are your list of tasks:
+   1.[T][ ] cs2113t
+   2.[T][ ] cs2113t with cs2101
+   3.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   4.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
 [root@taskmon ~]$ [+] Task added:
-   [D][ ] cs2113t with cs2101 (by: someday /by)
+   [E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
 [=] You now have 5 tasks in the list.
 [root@taskmon ~]$ [+] Task added:
-   [D][ ] cs2113t with cs2101 (by: someday /by oneday)
+   [E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
 [=] You now have 6 tasks in the list.
 [root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ [*] Here are your list of tasks:
    1.[T][ ] cs2113t
    2.[T][ ] cs2113t with cs2101
-   3.[D][ ] cs2113t with cs2101 (by: someday)
-   4.[D][ ] cs2113t with cs2101 (by: someday oneday)
-   5.[D][ ] cs2113t with cs2101 (by: someday /by)
-   6.[D][ ] cs2113t with cs2101 (by: someday /by oneday)
-[root@taskmon ~]$ [X] Command not found
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
-[root@taskmon ~]$ [+] Task added:
-   [E][ ] cs2113t with cs2101 (at: someday)
-[=] You now have 7 tasks in the list.
-[root@taskmon ~]$ [+] Task added:
-   [E][ ] cs2113t with cs2101 (at: someday oneday)
-[=] You now have 8 tasks in the list.
-[root@taskmon ~]$ [+] Task added:
-   [E][ ] cs2113t with cs2101 (at: someday /by)
-[=] You now have 9 tasks in the list.
-[root@taskmon ~]$ [+] Task added:
-   [E][ ] cs2113t with cs2101 (at: someday /by oneday)
-[=] You now have 10 tasks in the list.
-[root@taskmon ~]$ [X] Command not found
-[root@taskmon ~]$ [*] Here are your list of tasks:
-   1.[T][ ] cs2113t
-   2.[T][ ] cs2113t with cs2101
-   3.[D][ ] cs2113t with cs2101 (by: someday)
-   4.[D][ ] cs2113t with cs2101 (by: someday oneday)
-   5.[D][ ] cs2113t with cs2101 (by: someday /by)
-   6.[D][ ] cs2113t with cs2101 (by: someday /by oneday)
-   7.[E][ ] cs2113t with cs2101 (at: someday)
-   8.[E][ ] cs2113t with cs2101 (at: someday oneday)
-   9.[E][ ] cs2113t with cs2101 (at: someday /by)
-   10.[E][ ] cs2113t with cs2101 (at: someday /by oneday)
+   3.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   4.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+   5.[E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
+   6.[E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
 [root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ [-] Task not found
 [root@taskmon ~]$ [+] Task marked as done:
@@ -95,20 +85,16 @@ ____________________________________________________________
 [root@taskmon ~]$ [*] Here are your list of tasks:
    1.[T][X] cs2113t
    2.[T][ ] cs2113t with cs2101
-   3.[D][ ] cs2113t with cs2101 (by: someday)
-   4.[D][ ] cs2113t with cs2101 (by: someday oneday)
-   5.[D][ ] cs2113t with cs2101 (by: someday /by)
-   6.[D][ ] cs2113t with cs2101 (by: someday /by oneday)
-   7.[E][ ] cs2113t with cs2101 (at: someday)
-   8.[E][ ] cs2113t with cs2101 (at: someday oneday)
-   9.[E][ ] cs2113t with cs2101 (at: someday /by)
-   10.[E][ ] cs2113t with cs2101 (at: someday /by oneday)
+   3.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   4.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+   5.[E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
+   6.[E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
 [root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ [X] Error converting argument!
 [root@taskmon ~]$ [-] Task not found
 [root@taskmon ~]$ [+] Task removed:
    [T][X] cs2113t
-[=] You now have 9 tasks in the list.
+[=] You now have 5 tasks in the list.
 [root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ ____________________________________________________________
 [*] Deleting traces of compromise...
