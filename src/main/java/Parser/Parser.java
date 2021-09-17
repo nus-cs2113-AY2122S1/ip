@@ -26,8 +26,7 @@ public class Parser {
                 input = new ListCommand(userTasks);
                 break;
 
-            case "done":
-            case "delete":
+            case "done": case "delete":
                 try {
                     if (inputSplits[0].equals("done")) {
                         input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
@@ -39,9 +38,7 @@ public class Parser {
                 }
                 break;
 
-            case "todo":
-            case "deadline":
-            case "event":
+            case "todo": case "deadline": case "event":
                 input = new AddTaskCommand(command, userTasks);
                 break;
 
