@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return description along with the date time of the deadline.
+     * Return the description along with the date time of the deadline.
      *
      * @return Full description of task.
      */
