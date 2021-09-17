@@ -50,6 +50,7 @@ public class Duke {
     private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
     private static final String MESSAGE_FORMAT_CREATE_FILE_FAILED = "Fail to create file - %s";
+    private static final String MESSAGE_FORMAT_FILE_NOT_FOUND = "File not found - %s";
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final ArrayList<Task> TASKS = new ArrayList<>();
@@ -280,10 +281,10 @@ public class Duke {
     /**
      * Prints an exception.
      *
-     * @param exception The exception to print.
+     * @param message The message to print.
      */
-    private static void printException(Exception exception) {
-        printMessage(String.format(MESSAGE_FORMAT_EXCEPTION, exception.getMessage()));
+    private static void printException(String message) {
+        printMessage(String.format(MESSAGE_FORMAT_EXCEPTION, message));
     }
 
     /**
@@ -334,7 +335,7 @@ public class Duke {
                 writeTasksToFile(TASKS_FILENAME);
             }
         } catch (DukeException e) {
-            printException(e);
+            printException(e.getMessage());
         }
     }
 
@@ -342,7 +343,7 @@ public class Duke {
      * Parses the line and returns a task object.
      *
      * @param line The line to parse.
-     * @return A Task object if line is successfully parsed, else false.
+     * @return A Task object if line is successfully parsed, else null.
      */
     private static Task getTaskFromLine(String line) {
         String[] lineSplit = line.split(Pattern.quote(Task.COLUMN_SEPARATOR));
@@ -413,7 +414,7 @@ public class Duke {
 
             fileReader.close();
         } catch (FileNotFoundException e) {
-            printException(e);
+            printException(String.format(MESSAGE_FORMAT_FILE_NOT_FOUND, filename));
         }
     }
 
