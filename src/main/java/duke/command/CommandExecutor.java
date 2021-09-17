@@ -1,6 +1,7 @@
 package duke.command;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -70,7 +71,7 @@ public class CommandExecutor {
         parser = new Parser(commandList);
         try {
             taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
-        } catch (IOException err) {
+        } catch (IOException | DateTimeParseException err) {
             Ui.printFileReadError();
             taskManager = new TaskList();
         }
@@ -94,7 +95,7 @@ public class CommandExecutor {
             runCommandUsingInput(inputLine);
         } catch (CommandException err) {
             Ui.printError(err.getMessage());
-        } catch (NumberFormatException err) {
+        } catch (NumberFormatException | DateTimeParseException err) {
             Ui.printConvertError();
         } catch (IOException err) {
             Ui.printFileUpdateError();
