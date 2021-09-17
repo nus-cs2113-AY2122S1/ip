@@ -12,17 +12,18 @@ public class Duke {
     public static final int DEADLINE_POS = 9;
     public static final int AT_POS = 4;
     public static final int EVENT_POS = 6;
+    public static final int TYPE_POS = 4;
+    public static final int TASK_POS = 10;
 
     public static void main(String[] args) {
 
         greeting();
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = getDatafromFile("tasks");
 
-        if (getDatafromFile("tasks").size() > 0) {
-            tasks = getDatafromFile("tasks");
-            System.out.println("Tasks have been loaded.");
+        if (tasks.size() == 0) {
+            System.out.println("No tasks can be loaded.");
         } else {
-            System.out.println("No task can be loaded.");
+            System.out.println("Tasks have been loaded.");
         }
 
 
@@ -203,25 +204,29 @@ public class Duke {
 
     public static final ArrayList<Task> getDatafromFile(String fileName) {
         ArrayList<Task> tasks = new ArrayList<Task>();
-        String Path="C:\\Users\\XUEY0013\\Documents\\ip\\src\\main\\" + fileName+ ".txt";
+        String path = "C:\\Users\\XUEY0013\\Documents\\ip\\src\\main\\" + fileName+ ".txt";
+        File file = new File(path);
+        if (!file.exists()) {
+            return new ArrayList<Task> ();
+        }
         BufferedReader reader = null;
         try {
-            FileInputStream fileInputStream = new FileInputStream(Path);
+            FileInputStream fileInputStream = new FileInputStream(path);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
             reader = new BufferedReader(inputStreamReader);
             String tempString = "";
             Task task = new Task("null");
             while ((tempString = reader.readLine()) != null) {
-                if (tempString.charAt(4) == 'T') {
-                    task = (new Todo(tempString.substring(10)));
-                } else if (tempString.charAt(4) == 'E') {
-                    String event = tempString.substring(10,
+                if (tempString.charAt(TYPE_POS) == 'T') {
+                    task = (new Todo(tempString.substring(TASK_POS)));
+                } else if (tempString.charAt(TYPE_POS) == 'E') {
+                    String event = tempString.substring(TASK_POS,
                             tempString.indexOf("(") - 1);
                     String at = tempString.substring(tempString.indexOf(":") + 2,
                             tempString.indexOf(")"));
                     task = (new Event(event, at));
-                } else if (tempString.charAt(4) == 'D') {
-                    String deadline = tempString.substring(10,
+                } else if (tempString.charAt(TYPE_POS) == 'D') {
+                    String deadline = tempString.substring(TASK_POS,
                             tempString.indexOf("(") - 1);
                     String by = tempString.substring(tempString.indexOf(":") + 2,
                             tempString.indexOf(")"));
@@ -252,7 +257,7 @@ public class Duke {
     public static final void saveDataToFile(String fileName,ArrayList<Task> tasks) {
         BufferedWriter writer = null;
         File file = new File("C:\\Users\\XUEY0013\\Documents\\ip\\src\\main\\"+ fileName + ".txt");
-        if(!file.exists()){
+        if(!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
