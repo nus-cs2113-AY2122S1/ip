@@ -54,4 +54,7 @@ delete something
 delete 0
 delete 1
 
+find
+find cs2113t
+
 bye

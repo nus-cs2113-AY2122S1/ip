@@ -25,6 +25,7 @@ public class CommandExecutor {
     private final static String LIST_COMMAND = "list";
     private final static String DONE_COMMAND = "done";
     private final static String DELETE_COMMAND = "delete";
+    private final static String FIND_COMMAND = "find";
     private final static String ADD_TODO_COMMAND = "todo";
     private final static String ADD_DEADLINE_COMMAND = "deadline";
     private final static String ADD_EVENT_COMMAND = "event";
@@ -32,6 +33,7 @@ public class CommandExecutor {
     /* Names of supported arguments/flags */
     private final static String ARGUMENT_TASK_INDEX = "Task Index";
     private final static String ARGUMENT_TASK_DESCRIPTION = "Task Description";
+    private final static String ARGUMENT_TASK_KEYWORD = "Keyword";
     private final static String FLAG_TASK_TIMESTAMP = "Timestamp";
     private final static String FLAG_DEADLINE_OPTION = "by";
     private final static String FLAG_EVENT_OPTION = "at";
@@ -62,6 +64,7 @@ public class CommandExecutor {
                 new Command(LIST_COMMAND),
                 new CommandWithArgument(DONE_COMMAND, ARGUMENT_TASK_INDEX),
                 new CommandWithArgument(DELETE_COMMAND, ARGUMENT_TASK_INDEX),
+                new CommandWithArgument(FIND_COMMAND, ARGUMENT_TASK_KEYWORD),
                 new CommandWithArgument(ADD_TODO_COMMAND, ARGUMENT_TASK_DESCRIPTION),
                 new CommandWithFlag(ADD_DEADLINE_COMMAND, ARGUMENT_TASK_DESCRIPTION,
                         FLAG_DEADLINE_OPTION, FLAG_TASK_TIMESTAMP),
@@ -117,6 +120,7 @@ public class CommandExecutor {
         int taskIndex;
         String taskDescription;
         String taskDateTime;
+        String keyword;
 
         switch (command.getCommand()) {
         case LIST_COMMAND:
@@ -129,6 +133,10 @@ public class CommandExecutor {
         case DELETE_COMMAND:
             taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
             taskManager.deleteTask(taskIndex);
+            break;
+        case FIND_COMMAND:
+            keyword = commandLineValues[ARGUMENT_VALUE_INDEX];
+            taskManager.filterTask(keyword);
             break;
         case ADD_TODO_COMMAND:
             taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
