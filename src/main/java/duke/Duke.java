@@ -11,6 +11,9 @@ public class Duke {
     private CommandExecutor commandExecutor;
     private Ui ui;
 
+    /**
+     * Instantiates the Duke application.
+     */
     public Duke() {
         commandExecutor = new CommandExecutor();
         ui = new Ui();
