@@ -7,12 +7,17 @@ import duke.task.Todo;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Duke {
+//    private static final File dukeDir = new File("Duke");
+    private static final Path dukeDataPath = Paths.get("Duke/data.txt");
+    private static final File dukeData = new File(dukeDataPath.toString());
     private static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -139,7 +144,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void executeCommands(int currCount) throws IOException {
+    public static void executeCommands(int currCount) {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equals("bye")) {
@@ -174,8 +179,7 @@ public class Duke {
     }
 
     public static int readFile() throws FileNotFoundException {
-        File f = new File("Duke/data.txt");
-        Scanner s = new Scanner(f);
+        Scanner s = new Scanner(dukeData);
         int currCount = 0;
         while (s.hasNext()) {
             parseDataFromFile(s.nextLine(), currCount);
@@ -211,10 +215,14 @@ public class Duke {
         }
     }
 
-    public static void writeToFile() throws IOException {
-        FileWriter fw = new FileWriter("Duke/data.txt");
-        fw.write(parseDataIntoFile());
-        fw.close();
+    public static void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter("Duke/data.txt");
+            fw.write(parseDataIntoFile());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Unable to write to file");
+        }
     }
 
     public static String parseDataIntoFile() {
@@ -225,13 +233,35 @@ public class Duke {
         return output;
     }
 
-    public static void createFile() {
-
-    }
+//    public static int createAndProcessFile() throws IOException {
+//        int currCount = 0;
+//        if (!dukeData.createNewFile()) {
+//            try {
+//                currCount = readFile();
+//            } catch (FileNotFoundException e) {
+//                System.out.println("Duke/data.txt is not found");
+//            }
+//        }
+//        return currCount;
+//    }
 
     public static void main(String[] args) {
         printWelcomeMessage();
-        int currCount = readFile();
+        int currCount = 0;
+        try {
+            currCount = readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("Duke/data.txt is not found");
+            try {
+                dukeData.createNewFile();
+            }
+            catch (IOException f) {
+                System.out.println("Unable to create new file");
+            }
+            finally {
+                System.out.println("New file Duke/data.txt is created");
+            }
+        }
         executeCommands(currCount);
         printGoodBye();
     }
