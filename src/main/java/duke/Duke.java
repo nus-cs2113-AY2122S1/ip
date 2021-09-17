@@ -8,7 +8,6 @@ import duke.command.CommandExecutor;
  */
 public class Duke {
 
-    /* Hard-coded line */
     private final static String LINE = "____________________________________________________________";
 
     /* Name of chat-bot */

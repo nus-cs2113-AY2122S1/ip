@@ -60,10 +60,11 @@ public class CommandWithArgument extends Command {
      * @return List of parsed values.
      */
     @Override
-    public String[] parseCommand(String inputLine) {
+    public String[] extractCommandLineValues(String inputLine) {
         String commandLine = inputLine.strip();
         String[] tokens = commandLine.split(" ", -1);
-        String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
+        String[] argumentTokens = Arrays.copyOfRange(tokens, 1, tokens.length);
+        String argumentValue = String.join(" ", argumentTokens);
 
         return new String[] {argumentValue};
     }

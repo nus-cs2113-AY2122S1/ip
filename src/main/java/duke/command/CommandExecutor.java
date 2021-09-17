@@ -115,7 +115,8 @@ public class CommandExecutor {
     }
 
     /**
-     * Perform execution of the given command using the given input string.
+     * Perform execution of the given command using the given input string. After every successful command execution,
+     * state of the task manager to saved to a file.
      *
      * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to read from.
@@ -127,29 +128,39 @@ public class CommandExecutor {
             throw new CommandException("Usage: " + command.getUsage());
         }
 
-        String[] commandResults = command.parseCommand(inputLine);
+        String[] commandLineValues = command.extractCommandLineValues(inputLine);
         Task task;
+        int taskIndex;
+        String taskDescription;
+        String taskDateTime;
 
         switch (command.getCommand()) {
         case LIST_COMMAND:
             taskManager.printTaskList();
             break;
         case DONE_COMMAND:
-            taskManager.complete(Integer.parseInt(commandResults[ARGUMENT_VALUE_INDEX]));
+            taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
+            taskManager.complete(taskIndex);
             break;
         case DELETE_COMMAND:
-            taskManager.deleteTask(Integer.parseInt(commandResults[ARGUMENT_VALUE_INDEX]));
+            taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
+            taskManager.deleteTask(taskIndex);
             break;
         case ADD_TODO_COMMAND:
-            task = new Todo(commandResults[ARGUMENT_VALUE_INDEX]);
+            taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
+            task = new Todo(taskDescription);
             taskManager.addTask(task);
             break;
         case ADD_DEADLINE_COMMAND:
-            task = new Deadline(commandResults[ARGUMENT_VALUE_INDEX], commandResults[FLAG_VALUE_INDEX]);
+            taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
+            taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
+            task = new Deadline(taskDescription, taskDateTime);
             taskManager.addTask(task);
             break;
         case ADD_EVENT_COMMAND:
-            task = new Event(commandResults[ARGUMENT_VALUE_INDEX], commandResults[FLAG_VALUE_INDEX]);
+            taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
+            taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
+            task = new Event(taskDescription, taskDateTime);
             taskManager.addTask(task);
             break;
         case END_COMMAND:

@@ -37,9 +37,9 @@ public class Command {
      * @return True if the user is trying to run this command.
      */
     public boolean isCommand(String inputLine) {
-        String commandLine = inputLine.strip();
-        boolean isExactCommand = commandLine.equals(command);
-        boolean isStartWithCommand = commandLine.startsWith(command + " ");
+        String strippedLine = inputLine.strip();
+        boolean isExactCommand = strippedLine.equals(command);
+        boolean isStartWithCommand = strippedLine.startsWith(command + " ");
         return isExactCommand || isStartWithCommand;
     }
 
@@ -50,17 +50,17 @@ public class Command {
      * @return True if the input is valid.
      */
     public boolean isValidCommandLine(String inputLine) {
-        String commandLine = inputLine.strip();
-        return commandLine.equals(command);
+        String strippedLine = inputLine.strip();
+        return strippedLine.equals(command);
     }
 
     /**
-     * Returns the parsed values from the argument.
+     * Returns the parsed values (if any) from the given command line.
      *
      * @param inputLine Raw input line to parse.
      * @return List of parsed values.
      */
-    public String[] parseCommand(String inputLine) {
+    public String[] extractCommandLineValues(String inputLine) {
         return new String[] {};
     }
 }

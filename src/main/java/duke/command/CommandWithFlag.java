@@ -54,7 +54,7 @@ public class CommandWithFlag extends CommandWithArgument {
     public boolean isValidCommandLine(String inputLine) {
         String commandLine = inputLine.strip();
         String[] tokens = commandLine.split(" ", -1);
-        int flagIndex = findFlagOption(tokens);
+        int flagIndex = findFlagIndex(tokens);
 
         if (flagIndex == NOT_FOUND) {
             return false;
@@ -77,13 +77,16 @@ public class CommandWithFlag extends CommandWithArgument {
      * @return List of parsed values.
      */
     @Override
-    public String[] parseCommand(String inputLine) {
+    public String[] extractCommandLineValues(String inputLine) {
         String commandLine = inputLine.strip();
         String[] tokens = commandLine.split(" ", -1);
-        int flagIndex = findFlagOption(tokens);
+        int flagIndex = findFlagIndex(tokens);
 
-        String argumentValue = String.join(" ", Arrays.copyOfRange(tokens, 1, flagIndex));
-        String flagValue = String.join(" ", Arrays.copyOfRange(tokens, flagIndex + 1, tokens.length));
+        String[] argumentTokens = Arrays.copyOfRange(tokens, 1, flagIndex);
+        String[] flagTokens = Arrays.copyOfRange(tokens, flagIndex + 1, tokens.length);
+
+        String argumentValue = String.join(" ", argumentTokens);
+        String flagValue = String.join(" ", flagTokens);
 
         return new String[] {argumentValue, flagValue};
     }
@@ -94,7 +97,7 @@ public class CommandWithFlag extends CommandWithArgument {
      * @param tokens List of tokens to check.
      * @return Index of the flag option. NOT_FOUND if cannot be found.
      */
-    private int findFlagOption(String[] tokens) {
+    private int findFlagIndex(String[] tokens) {
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i].equals(FLAG_PREFIX + flagOption)) {
                 return i;

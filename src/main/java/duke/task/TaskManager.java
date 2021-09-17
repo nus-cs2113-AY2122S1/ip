@@ -40,15 +40,18 @@ public class TaskManager {
      */
     public void printTaskList() {
         Task task;
+        String output;
         System.out.println("[*] Here are your list of tasks:");
-        String output = "[x] No tasks found :(\n";
-        if (taskList.size() > 0) {
-            output = "";
-            for (int i = 0; i < taskList.size(); i++) {
-                task = taskList.get(i);
-                output += String.format("   %d.[%s][%s] %s\n", i + 1, task.getTaskIcon(), task.getStatusIcon(),
-                        task.getFullDescription());
-            }
+        if(taskList.size() == 0) {
+            output = "[x] No tasks found :(";
+            System.out.println(output);
+            return;
+        }
+        output = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            task = taskList.get(i);
+            output += String.format("   %d.[%s][%s] %s\n", i + 1, task.getTaskIcon(), task.getStatusIcon(),
+                    task.getFullDescription());
         }
         System.out.print(output);
     }
