@@ -3,7 +3,6 @@ package Duke;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected String taskType;
     private static int taskCount = 0;
 
     public Task(String description) {
