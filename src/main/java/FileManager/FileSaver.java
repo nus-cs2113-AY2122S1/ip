@@ -1,10 +1,9 @@
 package FileManager;
 
-import InputHandle.Tasks.TaskList;
+import tasks.TaskList;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,20 +16,19 @@ public class FileSaver {
         filePath = Paths.get("UserStatus", fileName);
     }
 
-    public FileSaver () {
-        String fileName = "default.txt";
-        filePath = Paths.get("UserStatus", fileName);
-    }
+    public void save (TaskList tasks) {
+        File directory = new File("UserStatus");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
 
 
-
-    public void save(TaskList tasks) {
         try {
-            FileOutputStream fileStream = new FileOutputStream(filePath.toString());
-            ObjectOutputStream os = new ObjectOutputStream(fileStream);
-            os.writeObject(tasks);
-            os.close();
-        } catch (IOException e) {
+            FileWriter writer = new FileWriter(filePath.toString());
+            writer.write(tasks.save());
+            writer.close();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

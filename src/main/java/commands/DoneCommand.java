@@ -1,9 +1,8 @@
-package InputHandle.command;
+package commands;
 
-
-import InputHandle.Tasks.Task;
-import InputHandle.Tasks.TaskList;
-import InputHandle.exception.TaskNotExistException;
+import tasks.Task;
+import tasks.TaskList;
+import exceptions.TaskNotExistException;
 
 public class DoneCommand extends UserCommand {
     private int index;
@@ -14,14 +13,16 @@ public class DoneCommand extends UserCommand {
     }
 
     @Override
-    public void execute () throws TaskNotExistException {
+    public String execute () throws TaskNotExistException {
         Task completedTask;
         try {
             completedTask = this.tasks.markAsDone(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotExistException();
         }
-        System.out.println("     Nice! I've marked this task as done: ");
-        System.out.println("       " + completedTask);
+
+        String result = "     Nice! I've marked this task as done: \n";
+        result += "       " + completedTask;
+        return result;
     }
 }

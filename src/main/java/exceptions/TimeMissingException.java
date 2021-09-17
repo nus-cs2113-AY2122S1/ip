@@ -1,6 +1,7 @@
-package InputHandle.exception;
+package exceptions;
 
 public class TimeMissingException extends DukeException {
+
     private String taskType;
 
     public TimeMissingException(String taskType) {
