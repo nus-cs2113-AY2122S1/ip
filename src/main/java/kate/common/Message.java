@@ -9,6 +9,7 @@ public class Message {
     public static final String COMMAND_EVENT = "event [description] /at [time frame]";
     public static final String COMMAND_DONE = "done [task number shown in list]";
     public static final String COMMAND_DELETE = "delete [task number]";
+    public static final String COMMAND_FIND = "find [keyword]";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_BYE = "bye";
 

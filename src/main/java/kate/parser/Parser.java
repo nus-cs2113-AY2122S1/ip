@@ -6,6 +6,7 @@ import kate.command.DeadlineCommand;
 import kate.command.DeleteCommand;
 import kate.command.DoneCommand;
 import kate.command.EventCommand;
+import kate.command.FindCommand;
 import kate.command.HelpCommand;
 import kate.command.ListCommand;
 import kate.command.ToDoCommand;
@@ -23,6 +24,7 @@ public class Parser {
     private static final int LENGTH_DEADLINE = 8;
     private static final int LENGTH_EVENT = 5;
     private static final int LENGTH_DELETE = 6;
+    private static final int LENGTH_FIND = 4;
 
     private static final String DELIM_PIPE = " \\| ";
     private static final String DELIM_SPACE = " ";
@@ -58,6 +60,8 @@ public class Parser {
             return new DoneCommand(userInput);
         case "DELETE":
             return new DeleteCommand(userInput);
+        case "FIND":
+            return new FindCommand(userInput);
         case "BYE":
             return new ByeCommand();
         case "HELP":
@@ -247,4 +251,12 @@ public class Parser {
 
     }
 
+    public static String extractKeyword(String userInput) throws EmptyFieldException {
+        String keyword = userInput.substring(LENGTH_FIND).strip();
+
+        if (keyword.isEmpty()) {
+            throw new EmptyFieldException();
+        }
+        return keyword;
+    }
 }
