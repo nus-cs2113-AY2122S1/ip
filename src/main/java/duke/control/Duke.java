@@ -1,15 +1,21 @@
 package duke.control;
 
-import duke.control.command.*;
-
+import duke.control.command.ByeCommand;
+import duke.control.command.Command;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    private static TaskList list;
+    private static Storage storage;
+
+    public Duke() {
+        this.list = new TaskList();
+        storage = new Storage();
+        storage.loadDataFromFile(list);
         Ui.printWelcomeMessage();
-        TaskList list = new TaskList();
-        Storage.setPath();
-        Storage.loadDataFromFile(list);
+    }
+
+    public static void run() {
         Scanner in = new Scanner(System.in);
         String userInput;
         while (true) {
@@ -26,8 +32,13 @@ public class Duke {
                 Storage.saveData(list);
                 break;
             }
-            command.executeCommand(list, userInput);
+            command.executeCommand(list, userInput, storage);
             Ui.printResponseSeparator();
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke();
+        run();
     }
 }

@@ -1,12 +1,13 @@
 package duke.control.command;
 
+import duke.control.Storage;
 import duke.control.TaskList;
 
 public class DeleteCommand extends Command {
     private static final int DELETE_NUMBER_INDEX = 7;
 
     @Override
-    public void executeCommand(TaskList list, String input) {
+    public void executeCommand(TaskList list, String input, Storage storage) {
         try {
             int entryNumber = Integer.parseInt(input.substring(DELETE_NUMBER_INDEX));
             list.deleteEntry(entryNumber);

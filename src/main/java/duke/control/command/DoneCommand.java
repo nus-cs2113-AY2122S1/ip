@@ -1,12 +1,13 @@
 package duke.control.command;
 
+import duke.control.Storage;
 import duke.control.TaskList;
 
 public class DoneCommand extends Command {
     private static final int DONE_NUMBER_INDEX = 5;
 
     @Override
-    public void executeCommand(TaskList list, String input) {
+    public void executeCommand(TaskList list, String input, Storage storage) {
         try {
             int entryNumber = Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
             list.doneEntry(entryNumber);

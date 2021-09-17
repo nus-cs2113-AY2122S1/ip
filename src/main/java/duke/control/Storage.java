@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Storage {
     private static String filePath;
 
-    private Storage() {
+    public Storage() {
         setPath();
     }
 

@@ -79,17 +79,6 @@ public class TaskList {
         System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
     }
 
-    /*
-    public int parseInputForEntryNumber(String input, Duke.Command command) {
-        if (command.equals(Duke.Command.DONE_COMMAND)) {
-            return Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
-        }
-        if (command.equals(Duke.Command.DELETE_COMMAND)) {
-            return Integer.parseInt(input.substring(DELETE_NUMBER_INDEX));
-        }
-        return 0;
-    } */
-
     private String parseInputForDateTime(String input) {
         int markerIndex = input.indexOf('/');
         int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;

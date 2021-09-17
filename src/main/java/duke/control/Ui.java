@@ -1,6 +1,12 @@
 package duke.control;
 
-import duke.control.command.*;
+import duke.control.command.ByeCommand;
+import duke.control.command.Command;
+import duke.control.command.TaskCommand;
+import duke.control.command.DoneCommand;
+import duke.control.command.DeleteCommand;
+import duke.control.command.HelpCommand;
+import duke.control.command.ListCommand;
 
 import java.util.Scanner;
 
@@ -8,11 +14,11 @@ public class Ui {
     static final String RESPONSE_SEPARATOR = "=============================" +
             "===========================================";
 
-    static void printExitMessage() {
+    public static void printExitMessage() {
         System.out.println("Bye! See you soon!");
     }
 
-    static void printInvalidInputMessage() {
+    public static void printInvalidInputMessage() {
         System.out.println("I don't know what you mean, please look at the instructions and try again");
     }
 
@@ -57,10 +63,21 @@ public class Ui {
     public static String getUserResponse(Scanner in) {
         String line;
         line = in.nextLine();
+        while (isEmptyLine(line)) {
+            line = in.nextLine();
+        }
         return line;
     }
 
-    static Command processInput(String input) throws InvalidInputFormatException {
+    protected static boolean isEmptyLine(String input) {
+        String userInput = input.trim();
+        if (userInput.length() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    protected static Command processInput(String input) throws InvalidInputFormatException {
         Command command;
         if (input.equals("list")) {
             command = new ListCommand();
