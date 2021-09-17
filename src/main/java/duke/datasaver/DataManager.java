@@ -18,21 +18,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataManager {
-    // private static final String DIRECTORY_NAME = "dukeData";
+    private static final String DIRECTORY_NAME = "dukeData";
     private static final String FILE_NAME = "tasks.txt";
+    private static final String FILE_PATH = DIRECTORY_NAME + "\\" + FILE_NAME;
     protected static final String ATTRIBUTE_SEPARATOR = " | ";
     protected static final String DONE = "X";
     protected static final String NOT_DONE = "O";
 
+    public static void createFileInDirectory() throws IOException {
+        Files.createDirectories(Paths.get(DIRECTORY_NAME));
+        Files.createFile(Paths.get(FILE_PATH));
+    }
 
     public static void loadData (ArrayList<Task> taskList) {
-        File taskFile = new File(FILE_NAME);
+        File taskFile = new File(FILE_PATH);
         Scanner fileScanner = null;
         try {
             fileScanner = new Scanner(taskFile);
         } catch (FileNotFoundException fileNotFoundException) {
             try {
-                Files.createFile(Paths.get(FILE_NAME));
+                createFileInDirectory();
             } catch (IOException ioException) {
                 System.out.println(" Something went wrong: " + ioException.getMessage());
             }
@@ -52,7 +57,7 @@ public class DataManager {
 
     public static void saveData(ArrayList<Task> taskList) {
         try {
-            FileWriter fileWriter = new FileWriter(FILE_NAME, false);
+            FileWriter fileWriter = new FileWriter(FILE_PATH, false);
             StringBuilder formattedTask = new StringBuilder();
             formatTask(taskList, fileWriter, formattedTask);
             fileWriter.close();
