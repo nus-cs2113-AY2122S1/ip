@@ -21,7 +21,7 @@ public class AddTaskCommand extends UserCommand {
         String result = "     Got it. I've added this task: \n";
         result += "       " + newTask;
         result += "\n     Now you have " + totalNumberOfTasks +
-                ((totalNumberOfTasks > 1) ? " tasks" : " task") + " in the list.\n";
+                ((totalNumberOfTasks > 1) ? " tasks" : " task") + " in the list.";
         return result;
     }
 }

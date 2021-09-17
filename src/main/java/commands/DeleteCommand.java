@@ -23,7 +23,7 @@ public class DeleteCommand extends UserCommand{
 
         String result = "     Noted. I've removed this task:\n";
         result += "       " + deletedTask;
-        result += "     Now you have " + this.tasks.getTotalTaskNumber() + " tasks in the list.\n";
+        result += "     Now you have " + this.tasks.getTotalTaskNumber() + " tasks in the list.";
         return result;
     }
 }

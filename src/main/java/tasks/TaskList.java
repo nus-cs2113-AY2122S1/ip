@@ -33,7 +33,7 @@ public class TaskList implements Serializable {
         return this.tasks.size();
     }
 
-    public Task markAsDone(int index) throws IndexOutOfBoundsException {
+    public Task markAsDone(int index) throws IndexOutOfBoundsException{
         Task completedTask = this.tasks.get(index);
         completedTask.setCompleted();
         return completedTask;
@@ -71,6 +71,10 @@ public class TaskList implements Serializable {
         return new Event(taskName, deadline, false);
     }
 
+    private void add(Task e) {
+        this.tasks.add(e);
+    }
+
     public String save() {
         String result = "";
         for (Task task : tasks) {
@@ -78,5 +82,17 @@ public class TaskList implements Serializable {
         }
         return result;
     }
+
+    public TaskList findTask(String keyword) {
+        TaskList satisfiedTasks = new TaskList();
+        for (Task t: tasks) {
+            if (t.getTaskName().contains(keyword)) {
+                satisfiedTasks.add(t);
+            }
+        }
+        return satisfiedTasks;
+    }
+
+
 
 }

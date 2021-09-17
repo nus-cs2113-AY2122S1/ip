@@ -10,7 +10,7 @@ public class TaskEmptyException extends DukeException {
 
     @Override
     public String toString() {
-             return "     ☹ OOPS!!! The description of a " + this.taskType + " cannot be empty\n";
+             return "     ☹ OOPS!!! The description of a " + this.taskType + " cannot be empty";
     }
 
 
