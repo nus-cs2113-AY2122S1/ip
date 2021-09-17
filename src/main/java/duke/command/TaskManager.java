@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.datasaver.DataManager;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -285,6 +286,7 @@ public class TaskManager {
     public void handleTodo(String userInput) {
         try {
             addTodo(userInput);
+            DataManager.saveData(taskList);
         } catch (TodoInvalidFormatException todoInvalidFormatException) {
             todoInvalidFormatException.printTodoInvalidFormatMessage();
         }
@@ -298,6 +300,7 @@ public class TaskManager {
     public void handleDeadline(String userInput) {
         try {
             addDeadline(userInput);
+            DataManager.saveData(taskList);
         } catch (DeadlineInvalidFormatException deadlineInvalidFormatException) {
             deadlineInvalidFormatException.printDeadlineInvalidFormatMessage();
         } catch (DeadlineLacksArgumentsException deadlineLacksArgumentsException) {
@@ -313,6 +316,7 @@ public class TaskManager {
     public void handleEvent(String userInput) {
         try {
             addEvent(userInput);
+            DataManager.saveData(taskList);
         } catch (EventInvalidFormatException eventInvalidFormatException) {
             eventInvalidFormatException.printEventInvalidFormatMessage();
         } catch (EventLacksArgumentsException eventLacksArgumentsException) {
@@ -323,6 +327,7 @@ public class TaskManager {
     public void handleDelete(String userInput) {
         try {
             deleteTask(userInput);
+            DataManager.saveData(taskList);
         } catch (DeleteInvalidFormatException deleteInvalidFormatException) {
             deleteInvalidFormatException.printDeleteInvalidFormatMessage();
         } catch (NonNumericTaskIdException nonNumericTaskIdException) {

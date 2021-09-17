@@ -30,7 +30,6 @@ public class Duke {
             userInput = in.nextLine();
         }
 
-        DataManager.saveData(dukeTaskManager.getTaskList());
         printGoodbye();
     }
 
