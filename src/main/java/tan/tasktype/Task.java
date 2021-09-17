@@ -19,22 +19,21 @@ public abstract class Task {
     }
 
     /**
-     * Gets the type of task in String.
+     * Returns the type of task in String.
      *
      * @return Returns the type of task in String format.
      */
     public abstract String getTaskType();
 
     /**
-     * Gets the date of task in String.
+     * Returns the date of task in String.
      *
      * @return Returns the date of task in String format.
      */
     public abstract String getDateTime();
 
     /**
-     * This is the abstract function to
-     * get each task's respective icon.
+     * Returns each respective task's icon.
      *
      * @return The icon in String.
      */
@@ -52,7 +51,7 @@ public abstract class Task {
     /**
      * Sets the name of the task.
      *
-     * @param x The name of the task.
+     * @param x The name of the task in String.
      */
     protected void setTaskName(String x) {
         this.name = x;

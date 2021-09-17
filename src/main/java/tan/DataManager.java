@@ -43,7 +43,7 @@ public class DataManager {
 
 
     /**
-     * This function deletes the old taskData.csv file and
+     * Saves the current list by deleting the old taskData.csv file and
      * recreates a new one with the new List of task. The file's
      * location is specified by the DATA_PATH variable.
      * As such, ensure that the DATA_PATH is set
@@ -74,9 +74,9 @@ public class DataManager {
     }
 
     /**
-     * This function takes in any Task and returns
-     * its properties in CSV format. If the function fails
-     * to convert the string into CSV, it will return NULL instead.
+     * Returns the properties of a task in String, CSV format.
+     * If the function fails to convert the string into CSV,
+     * it will return NULL instead.
      *
      * @param curTask The Task to be converted.
      * @return The task's properties in CSV format, null otherwise.
@@ -101,12 +101,13 @@ public class DataManager {
     }
 
     /**
+     * Returns the integer corresponding to its task type, else -1.
      * This function takes in a task-type in String
      * and returns its corresponding integer value.
-     * the task type accepted is not case sensitive.
+     * Its corresponding task type to integers are,
      * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
      *
-     * @param taskType The task type in String.
+     * @param taskType The Task type in String.
      * @return The value corresponding to its task type in integer. -1 if unknown.
      */
     public static int getTaskTypeInt(String taskType) {
@@ -125,13 +126,12 @@ public class DataManager {
     }
 
     /**
-     * This task retrieves all the tasks stored
-     * in the file, converts them into their respective
-     * task and puts them into a list and then returns it.
+     * Returns a list of task containing all the tasks that
+     * was originally in the file.
      * View the getStoredData function to understand more about
      * the data retrieval.
      *
-     * @return A list of task that were stored in the file.
+     * @return The list of tasks that the file contained.
      */
     public static List<Task> setFileAndGetTasks() {
         initializeFile();
@@ -147,7 +147,7 @@ public class DataManager {
         }
         return listOfStoredTasks;
     }
-
+///////////////////////////////////////////////////////////////////////////////////////////
     /**
      * This program takes in a row of data from the data
      * file but in an array format instead of CSV. It then
@@ -234,7 +234,7 @@ public class DataManager {
     }
 
     /**
-     * This function calls the necessary
+     * Calls the necessary
      * functions to setup the file, file reader,
      * file writer based on the homePath.
      */

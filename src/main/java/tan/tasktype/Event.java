@@ -47,11 +47,12 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the formatted string to print the task nicely.
      * This will return the whole string
      * including its icon, status, task name
      * and do-by date.
      *
-     * @return The task icon, status, name and do-by date in String.
+     * @return The task icon, status, name and do-by date all in a String.
      */
     @Override
     public String toString() {

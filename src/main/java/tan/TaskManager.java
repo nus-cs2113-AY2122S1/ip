@@ -22,13 +22,13 @@ public class TaskManager {
     }
 
     /**
-     * This function saves the current list
-     * into the data file taskData.csv. It calls
-     * the function saveCurrentList and passes it
+     * Returns 0 if the file successfully saved, -1 otherwise.
+     * Saves the current list into the data file taskData.csv.
+     * It calls the function saveCurrentList and passes it
      * the current list of task to be saved. It will also
      * inform the user if any error occurs.
      *
-     * @return Returns 0 if the file was successfully saved, else -1;
+     * @return Returns 0 if the file was successfully saved, else -1.
      */
     protected static int saveCurrentList() {
         try {
@@ -46,9 +46,9 @@ public class TaskManager {
 
     /**
      * Returns the Task which is at
-     * the index, null otherwise.
+     * the index specified by indexTask, null otherwise.
      *
-     * @param indexTask index of the task to obtain.
+     * @param indexTask Index of the task to obtain.
      * @return Task at specified index.
      */
     private static Task getTask(int indexTask) {
@@ -80,12 +80,9 @@ public class TaskManager {
     }
 
     /**
-     * Deletes a task.
-     * Takes in the index of the task
-     * and checks if it is within range.
-     * If it is, delete. If not,
-     * prompts user to key in again
-     * and return from function.
+     * Deletes a task by checking if the index is
+     * within range if it is, delete. If not,
+     * prompts user to key in again.
      *
      * @param indexTask The index of the task to be marked as done.
      */
@@ -103,8 +100,8 @@ public class TaskManager {
     }
 
     /**
-     * Checks if the index provided is more or less
-     * than the number of current tasks.
+     * Returns true if index provided is out of the range
+     * for the current number of stored task. Else false.
      *
      * @param index The index of the task.
      * @return True if it is out of range, False otherwise.
@@ -114,13 +111,12 @@ public class TaskManager {
     }
 
     /**
-     * Takes the user input as a string
-     * and decides what type of command it is and
-     * executes its respective jobs.
-     * If none of the inputs matches any of the command,
-     * It tells the user to try again.
+     * Adds a new task by taking the user input as a string
+     * and decides what type of task it is and
+     * executes its respective jobs. If none of the task type
+     * matches, prompts the user to try again.
      *
-     * @param userInput The entire input from the user.
+     * @param userInput The entire input from the user as a String.
      */
     public static void addTask(String userInput) {
         String typeOfTask = getTypeOfTask(userInput);
@@ -155,16 +151,14 @@ public class TaskManager {
 
 
     /**
-     * Takes in the users input and
-     * splits tries to get the description
-     * and the event date, then creates a new
-     * event task as the parameters and returns it.
-     * If getting the description or Event date fails,
-     * it will throw either a DukeFormatException or
-     * IndexOutOfBoundsException.
+     * Adds an Event Task to the list and returns the same task, else
+     * returns null.
+     * This function takes in the users input and tries to get the
+     * description and the event date, then creates a new
+     * event task adds it to the current list and returns the task.
      *
      * @param userInput - The user input in String.
-     * @return returns the task created, else null.
+     * @return The Event task created, else null.
      */
     private static Task getEventTask(String userInput) {
         try {
@@ -182,16 +176,14 @@ public class TaskManager {
     }
 
     /**
-     * Takes in the users input and
-     * splits tries to get the description
-     * and the deadline date, then creates a new
-     * deadline task as the parameters and returns it.
-     * If getting the description or deadline date fails,
-     * it will throw either a DukeFormatException or
-     * IndexOutOfBoundsException.
+     * Adds a Deadline Task to the list and returns the same task, else
+     * returns null.
+     * This function takes in the users input and tries to get the
+     * description and the deadline date, then creates a new
+     * deadline task adds it to the current list and returns the task.
      *
      * @param userInput - The user input in String.
-     * @return returns the task created, else null.
+     * @return The Task created, else null.
      */
     private static Task getDeadlineTask(String userInput) {
         try {
@@ -209,10 +201,11 @@ public class TaskManager {
     }
 
     /**
-     * This function takes in the users input
-     * as a String and tries to create the ToDo
-     * Task with it. If there is an issue
-     * with the formatting, it will return NULL.
+     * Adds a Todo Task to the list and returns the same task, else
+     * returns null.
+     * This function takes in the users input and tries to get the
+     * description, then creates a new Todo task and
+     * adds it to the current list and returns a copy of the task.
      *
      * @param userInput The user's input in String.
      * @return Returns the task else NULL.
@@ -230,16 +223,16 @@ public class TaskManager {
         return null;
     }
 
-
     /**
-     * Takes in the whole user input as a string
-     * when the user is adding an event and returns
-     * the "at" date/time as a string. The function
-     * uses the "/at" to find the date/time. Throws a
-     * DukeFormatExceptions error if its unable to find "/at".
+     * Returns the Date/Time specified when creating an Event task,
+     * else throws a DukeFormatExceptions. The function
+     * uses the "/at" specified in the user's input to find the date/time.
+     * Throws a DukeFormatExceptions error if its unable to find "/at".
      *
      * @param x The whole user input as a String.
-     * @return the date/time of the input.
+     * @return The date/time of the input in String.
+     * @throws DukeFormatExceptions If "/at" does not exists in the Input.
+     * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
      */
     private static String getDateTimeOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /at... format.
@@ -253,14 +246,17 @@ public class TaskManager {
     }
 
     /**
-     * Takes in the whole user input as a string
-     * when the user is adding an event and returns
-     * the description as a string. The function
-     * uses the "/at" to find the description. Throws a
-     * DukeFormatExceptions error if its unable to find "/at".
+     * Returns the description of an event task from the user's input.
+     * Else throws a DukeFormatExceptions error
+     * The function Takes in the whole user input as a string
+     * when the user is adding an event. The function assumes the
+     * description is between the first " " and the "/at" in the input.
      *
      * @param x The whole user input as a String.
-     * @return the date/time of the input.
+     * @return The date/time of the input in String.
+     * @throws DukeFormatExceptions If "/at" does not exists in the Input.
+     * @throws IndexOutOfBoundsException If index of /at is out of the index range of the input
+     * or there is no " " in the input.
      */
     private static String getDescriptionOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /by... format.
@@ -274,14 +270,15 @@ public class TaskManager {
     }
 
     /**
-     * Takes in the whole user input as a string
-     * when the user is adding a deadline and returns
-     * the deadline date/time as a string. The function
-     * uses the "/by" to find the date/time. Throws a
-     * DukeFormatExceptions error if its unable to find "/by".
+     * Returns the Date/Time specified when creating a deadline task,
+     * else throws a DukeFormatExceptions. The function
+     * uses the "/by" specified in the user's input to find the date/time.
+     * Throws a DukeFormatExceptions error if its unable to find "/by".
      *
      * @param x The whole user input as a String.
-     * @return the date/time of the input
+     * @return The date/time of the input in String.
+     * @throws DukeFormatExceptions If "/by" does not exists in the Input.
+     * @throws IndexOutOfBoundsException If index of (/by + 3) is out of the index range of the input.
      */
     private static String getDateTimeOfDeadline(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /by... format.
@@ -295,14 +292,17 @@ public class TaskManager {
     }
 
     /**
-     * Takes in the whole user input as a string
-     * when the user is adding a deadline and returns
-     * the description as a string. The function
-     * uses the "/by" to find the description. Throws a
-     * * DukeFormatExceptions error if its unable to find "/by".
+     * Returns the description of a deadline task from the user's input.
+     * Else throws a DukeFormatExceptions error
+     * The function takes in the whole user input as a string
+     * when the user is adding a deadline. The function assumes the
+     * description is between the first " " and the "/by" in the input.
      *
      * @param x The whole user input as a String.
-     * @return the date/time of the input or null if "/by" is not found.
+     * @return The date/time of the input in String.
+     * @throws DukeFormatExceptions If "/by" does not exists in the Input.
+     * @throws IndexOutOfBoundsException If index of /by is out of the index range of the input
+     * or there is no " " in the input.
      */
     private static String getDescriptionOfDeadline(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /by... format.
@@ -316,32 +316,36 @@ public class TaskManager {
     }
 
     /**
+     * Returns the type of task in String, else null.
      * Assumes the type of tasks is the
      * first word in the string and returns
      * that word. If unable to split, returns null.
      *
      * @param x The whole string of user input.
-     * @return The first word of that String, else null.
+     * @return The type of task in String, else null.
      */
     private static String getTypeOfTask(String x) {
         try {
             String[] inputs = x.split(" ");
             return inputs[0].toLowerCase();
         } catch (PatternSyntaxException p) {
-            System.out.println("Unable to the input properly. Please try again.");
+            System.out.println("Unable to read the input properly. Please try again.");
         }
         return null;
     }
 
     /**
-     * Returns the original string with the first
-     * word excluded. It finds the first space char
-     * and assumes anything before it is the first word.
-     * This will throw a DukeFormatExceptions error
-     * if it is unable to find a space character in the string.
+     * Returns the description of a Todo task from the user's input.
+     * Else throws a DukeFormatExceptions error
+     * The function takes in the whole user input as a string
+     * when the user is adding a todo task. The function assumes the
+     * description is after the first " " in the input.
      *
      * @param x The whole user input as a String.
      * @return The remaining String excluding the 1st word.
+     * @throws DukeFormatExceptions If there is no " "(Space) in the string.
+     * @throws IndexOutOfBoundsException If the index of the space + 1 is out of
+     * range of the current input.
      */
     private static String getDescriptionOfToDo(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Gets the index of the first space.
@@ -355,7 +359,7 @@ public class TaskManager {
 
     /**
      * Prints all the task & their current status
-     * in the list. Or informs the user if the list
+     * in the list else, informs the user if the list
      * is empty.
      */
     public static void printList() {

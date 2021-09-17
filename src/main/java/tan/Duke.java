@@ -10,6 +10,11 @@ import java.util.regex.PatternSyntaxException;
 public class Duke {
     final static String BORDER = "------------------------------------------------------------------------";
 
+    /**
+     * The main function to start running Duke!
+     *
+     * @param args Arguments.
+     */
     public static void main(String[] args) {
         final Scanner SC = new Scanner(System.in);
         printIntro();
@@ -28,7 +33,7 @@ public class Duke {
             case "done":
                 int taskIndex = getIndexOfTask(input);
                 if (taskIndex != -1) {
-                    //Successfully get index
+                    //if successfully get index
                     TaskManager.markTaskAsDone(taskIndex);
                     saveList();
                 }
@@ -36,12 +41,13 @@ public class Duke {
             case "delete":
                 int taskNumber = getIndexOfTask(input);
                 if (taskNumber != -1) {
-                    //Successfully get index
+                    //if successfully get index
                     TaskManager.deleteTask(taskNumber);
                     saveList();
                 }
                 break;
             default:
+                //Assumes that the command is adding some task.
                 TaskManager.addTask(input);
                 saveList();
                 break;
@@ -51,7 +57,7 @@ public class Duke {
     }
 
     /**
-     * This function saves the current list
+     * Saves the current list
      * into the file taskData. It will also inform
      * the user if the save was successful or not.
      */
@@ -65,7 +71,7 @@ public class Duke {
     }
 
     /**
-     * This function setups the reader & writer
+     * Setups the reader & writer
      * needed to access the data file. If the file is not
      * found it creates one. After doing so,
      * reads the current data in the file & loads
@@ -77,8 +83,7 @@ public class Duke {
     }
 
     /**
-     * Simply prints the intro message
-     * & border once.
+     * Prints the intro message & border once.
      */
     public static void printIntro() {
         System.out.println("Top of the morning my good sir, what can I do for you on this fine day?");
@@ -86,8 +91,7 @@ public class Duke {
     }
 
     /**
-     * Simply prints the outro message
-     * & border once.
+     * Prints the outro message & border once.
      */
     public static void printOutro() {
         System.out.println("I bid you farewell my good man. Good Bye.");
@@ -95,12 +99,11 @@ public class Duke {
     }
 
     /**
-     * This function reads the users input
-     * and strips any extra front & back space
-     * and returns the String.
+     * Returns the user's input in String
+     * after stripping leading and trailing spaces.
      *
-     * @param sc The scanner that allows java to read from the terminal.
-     * @return The user input in a String format without any trailing spaces
+     * @param sc Scanner that allows java to read from the terminal.
+     * @return User's input in a String format without any trailing spaces.
      */
     public static String readInput(Scanner sc) {
         String input = sc.nextLine();
@@ -117,15 +120,15 @@ public class Duke {
     }
 
     /**
+     * Returns the index in integer.
+     * Else, Returns -1 if the input can't be converted into an int.
      * Takes in the whole user input as a String
      * splits it into an array along spaces
      * and assumes the user keyed in the corresponding
-     * index at the 2nd input. It then returns the index
-     * in integer. Returns -1 if the input can't be
-     * converted into an int.
+     * index after the first space.
      *
      * @param x The whole user input as a string.
-     * @return The index of the task in integer. Else -1
+     * @return The index of the task in integer, else -1.
      */
     public static int getIndexOfTask(String x) {
         int taskIndex = -1;
@@ -138,54 +141,56 @@ public class Duke {
         } catch (NumberFormatException exp) {
             System.out.println("Please input a proper index!");
             return -1;
-        } catch (PatternSyntaxException exp) {
-            System.out.println("Please stop using the app and contact an Admin!");
-            System.exit(-1);
-        } catch (ArrayIndexOutOfBoundsException exp) {
-            System.out.println("Please check your input.");
+        } catch (Exception exp) {
+            System.out.println("Error: " + exp);
+            System.out.println("Please try again.");
             return -1;
         }
         return taskIndex;
     }
 
     /**
-     * Takes in the user input as a string
-     * and tries to get the index of a task when
-     * using the commands done, delete. Note that
-     * this function does not verify if the index is
-     * within rage of the list.
+     * Returns the index of the desired task in string.
+     * Else, -1. It takes in the user input as a string
+     * and assumes the index is after the first space.
+     * Note that this function does not verify if the
+     * index is within rage of the list.
      *
-     * @param input The whole user's input.
-     * @return The Index as an integer.
-     * @throws NumberFormatException
-     * @throws PatternSyntaxException
-     * @throws ArrayIndexOutOfBoundsException
+     * @param input The whole user's input as a String.
+     * @return The Index as an integer, else -1.
      */
-    public static int parseIndex(String input) throws NumberFormatException,
-            PatternSyntaxException, ArrayIndexOutOfBoundsException {
+    public static int parseIndex(String input) {
 
-        int index;
+        int index = -1;
         try {
             String[] listOfInputs = input.split(" ");
             index = Integer.parseInt(listOfInputs[1]);
         } catch (NumberFormatException e) {
             System.out.println("Index not recognized. Try again!");
             index = -1;
+        } catch (ArrayIndexOutOfBoundsException exp) {
+            System.out.println("Please check your input.");
+            return -1;
+        } catch (PatternSyntaxException exp) {
+            System.out.println("Please stop using the app and contact an Admin!");
+            System.exit(-1);
         } catch (Exception e) {
-            System.out.println("Error in converting Index."+ System.lineSeparator() + e);
+            System.out.println("Error in converting Index." + System.lineSeparator() + e);
             e.printStackTrace();
-            index = -1;
+            return -1;
         }
+
         return index;
     }
 
     /**
+     * Returns the command of the user's input.
      * Takes in the whole user input
      * splits it along the spaces & returns
      * the first "word" of the string.
      *
-     * @param x The whole string.
-     * @return The first word of the string.
+     * @param x The whole user input as a String.
+     * @return The Command in String.
      */
     public static String getCommand(String x) {
         return x.split(" ")[0];
