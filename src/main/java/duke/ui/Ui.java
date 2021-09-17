@@ -50,10 +50,17 @@ public class Ui {
     }
 
     /**
-     * Prints the bye message as a section.
+     * Print the bye message as a section.
      */
     public static void printByeMessage() {
         printSection(BYE_MESSAGE);
+    }
+
+    /**
+     * Print the header for the list command.
+     */
+    public static void printTaskListHeader() {
+        System.out.println("[*] Here are your list of tasks:");
     }
 
     /**
@@ -61,8 +68,7 @@ public class Ui {
      *
      * @param taskList List of tasks.
      */
-    public static void printTaskListFormattedMessage(ArrayList<Task> taskList) {
-        System.out.println("[*] Here are your list of tasks:");
+    public static void printTaskListFormatted(ArrayList<Task> taskList) {
         Task task;
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
@@ -107,6 +113,13 @@ public class Ui {
         System.out.println("[+] Task marked as done:");
         System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(),
                 task.getFullDescription());
+    }
+
+    /**
+     * Print the header for the find command.
+     */
+    public static void printTaskListFilterHeader() {
+        System.out.println("[*] Here are the matching tasks in your list:");
     }
 
     /**

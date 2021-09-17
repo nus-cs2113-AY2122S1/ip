@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import duke.ui.Ui;
 
 /**
@@ -44,7 +45,8 @@ public class TaskList {
             Ui.printTaskListEmptyError();
             return;
         }
-        Ui.printTaskListFormattedMessage(taskList);
+        Ui.printTaskListHeader();
+        Ui.printTaskListFormatted(taskList);
     }
 
     /**
@@ -86,5 +88,19 @@ public class TaskList {
         Task taskSelected = taskList.get(taskIndex - 1);
         taskList.remove(taskIndex - 1);
         Ui.printTaskListDeleteMessage(taskList, taskSelected);
+    }
+
+    public void filterTask(String keyword) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        if (filteredTasks.size() == 0) {
+            Ui.printTaskListEmptyError();
+            return;
+        }
+
+        Ui.printTaskListFilterHeader();
+        Ui.printTaskListFormatted(filteredTasks);
     }
 }

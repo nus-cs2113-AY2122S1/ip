@@ -110,6 +110,18 @@ ____________________________________________________________
    [T][X] cs2113t
 [=] You now have 9 tasks in the list.
 [root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: find <Keyword>
+[root@taskmon ~]$ [*] Here are the matching tasks in your list:
+   1.[T][ ] cs2113t with cs2101
+   2.[D][ ] cs2113t with cs2101 (by: someday)
+   3.[D][ ] cs2113t with cs2101 (by: someday oneday)
+   4.[D][ ] cs2113t with cs2101 (by: someday /by)
+   5.[D][ ] cs2113t with cs2101 (by: someday /by oneday)
+   6.[E][ ] cs2113t with cs2101 (at: someday)
+   7.[E][ ] cs2113t with cs2101 (at: someday oneday)
+   8.[E][ ] cs2113t with cs2101 (at: someday /by)
+   9.[E][ ] cs2113t with cs2101 (at: someday /by oneday)
+[root@taskmon ~]$ [X] Command not found
 [root@taskmon ~]$ ____________________________________________________________
 [*] Deleting traces of compromise...
 [+] Bye. Hope to see you again soon!
