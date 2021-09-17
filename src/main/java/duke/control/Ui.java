@@ -1,5 +1,7 @@
 package duke.control;
 
+import duke.control.command.*;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -20,7 +22,7 @@ public class Ui {
                 " for more information");
     }
 
-    static void printWelcomeMessage() {
+    public static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -34,7 +36,7 @@ public class Ui {
         printResponseSeparator();
     }
 
-    static void printHelpMessage() {
+    public static void printHelpMessage() {
         System.out.println("I currently support 3 types of tasks: todo, deadline and event");
         System.out.println("To add a todo task: todo (task name)");
         System.out.println("To add a deadline task: deadline (task name) /by (date or time)");
@@ -48,13 +50,33 @@ public class Ui {
         System.out.println("When you're done, type \"bye\" to end the program (automatically saves your current list)");
     }
 
-    static void printResponseSeparator() {
+    public static void printResponseSeparator() {
         System.out.println(RESPONSE_SEPARATOR);
     }
 
-    static String getUserResponse(Scanner in) {
+    public static String getUserResponse(Scanner in) {
         String line;
         line = in.nextLine();
         return line;
+    }
+
+    static Command processInput(String input) throws InvalidInputFormatException {
+        Command command;
+        if (input.equals("list")) {
+            command = new ListCommand();
+        } else if (input.equals("help")) {
+            command = new HelpCommand();
+        } else if (input.equals("bye")) {
+            command = new ByeCommand();
+        } else if (input.startsWith("done")) {
+            command = new DoneCommand();
+        } else if (input.startsWith("delete")) {
+            command = new DeleteCommand();
+        } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+            command = new TaskCommand();
+        } else {
+            throw new InvalidInputFormatException();
+        }
+        return command;
     }
 }

@@ -9,11 +9,9 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static final int TODO_NAME_START_INDEX = 5;
-    private static final int DONE_NUMBER_INDEX = 5;
     private static final int DEADLINE_NAME_START_INDEX = 9;
     private static final int EVENT_NAME_START_INDEX = 6;
     private static final int DATETIME_START_INDEX_OFFSET = 4;
-    private static final int DELETE_NUMBER_INDEX = 7;
     private static final int FILE_TASK_NAME_INDEX = 7;
     private static final int FILE_TASKTYPE_INDEX = 1;
     private static final int FILE_ISDONE_INDEX = 4;
@@ -36,7 +34,7 @@ public class TaskList {
      * @param input user input
      * @throws InvalidInputFormatException user input is not in the correct format.
      */
-    protected void addEntryToList(String input) throws InvalidInputFormatException {
+    public void addEntryToList(String input) throws InvalidInputFormatException {
         TaskType entryType = parseTaskType(input);
         String description = parseDescription(input, entryType);
         Task newEntry;
@@ -65,7 +63,7 @@ public class TaskList {
      * @param entryNumber the entry number for the item to be deleted. To the user, the list indexes from 1, so the
      *                    actual index of the item is entryNumber-1
      */
-    protected void deleteEntry(int entryNumber) {
+    public void deleteEntry(int entryNumber) {
         printDeleteEntryMessage(taskList.get(entryNumber-1));
         taskList.remove(entryNumber-1);
         numberOfEntries--;
@@ -76,18 +74,13 @@ public class TaskList {
      * @param entryNumber the entry number of the list item to be set. To the user, the list indexes from 1, so the
      *      *                    actual index of the item is entryNumber-1
      */
-    protected void doneEntry(int entryNumber) {
+    public void doneEntry(int entryNumber) {
         (taskList.get(entryNumber-1)).setDone();
         System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
     }
 
-    /**
-     * Parses and returns the entry number entered for the "done" or "delete" commands
-     * @param input user input
-     * @param command type of command. Either "done" or "delete" commands
-     * @return the entry number of the list entry to be set as done or deleted
-     */
-    protected int parseInputForEntryNumber(String input, Duke.Command command) {
+    /*
+    public int parseInputForEntryNumber(String input, Duke.Command command) {
         if (command.equals(Duke.Command.DONE_COMMAND)) {
             return Integer.parseInt(input.substring(DONE_NUMBER_INDEX));
         }
@@ -95,7 +88,7 @@ public class TaskList {
             return Integer.parseInt(input.substring(DELETE_NUMBER_INDEX));
         }
         return 0;
-    }
+    } */
 
     private String parseInputForDateTime(String input) {
         int markerIndex = input.indexOf('/');

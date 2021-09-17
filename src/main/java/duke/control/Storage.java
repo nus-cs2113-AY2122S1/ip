@@ -38,7 +38,7 @@ public class Storage {
      *
      * @param list TaskList that will be saved
      */
-    protected static void saveData(TaskList list) {
+    public static void saveData(TaskList list) {
         try {
             createFile();
             writeDukeDataIntoFile(list);
