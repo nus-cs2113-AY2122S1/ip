@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaskManager {
 
@@ -129,13 +130,26 @@ public class TaskManager {
         }
     }
 
-    public void printTasks() {
+    public void printTaskList() {
         if (tasks.isEmpty()) {
             UserInterface.printMessage(
                     Message.EMPTY_TASK_LIST_MESSAGE
             );
         } else {
             UserInterface.printTaskList(tasks);
+        }
+    }
+
+    public void printFilteredTaskList(String filterString) {
+        ArrayList<Task> filteredTaskList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getTaskDescription().contains(filterString))
+                .collect(Collectors.toList());
+        if (filteredTaskList.isEmpty()) {
+            UserInterface.printMessage(
+                    Message.KEYWORD_NOT_FOUND_MESSAGE
+            );
+        } else {
+            UserInterface.printTaskList(filteredTaskList);
         }
     }
 
