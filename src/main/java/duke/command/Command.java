@@ -1,5 +1,8 @@
 package duke.command;
 
+/**
+ * Contains the type and description of a user's command.
+ */
 public class Command {
     public static final String COMMAND_ADD_TODO = "todo";
     public static final String COMMAND_ADD_DEADLINE = "deadline";

@@ -1,5 +1,8 @@
 package duke.command;
 
+/**
+ * Contains the result of an executed command.
+ */
 public class CommandResult {
     public static final String EXECUTION_SUCCESS = "S";
     public static final String EXECUTION_FAIL = "F";
@@ -31,7 +34,7 @@ public class CommandResult {
         return commandResult;
     }
     
-    public String getDescription() {
+    public String getResultDescription() {
         return resultDescription;
     }
 }
