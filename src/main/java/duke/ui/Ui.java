@@ -129,6 +129,28 @@ public class Ui {
                 + "    You now have " + Duke.getTaskList().getTasks().size() + " tasks in the list." + System.lineSeparator()
                 + BORDER_LINE);
     }
+    
+    private void printTaskListWithKeyword(String keyword) {
+        int taskSize = Duke.getTaskList().getTasks().size();
+        System.out.println(BORDER_LINE);
+        if (taskSize == 0) {
+            System.out.println("    The list is currently empty!");
+        } else {
+            int taskWithKeywordCount = 0;
+            System.out.println("    Finding tasks with keyword \"" + keyword + "\":");
+            for (int i = 0; i < taskSize; i++) {
+                String taskDescription = Duke.getTaskList().getTasks().get(i).getDescription();
+                if (taskDescription.contains(keyword)) {
+                    System.out.println("    " + (taskWithKeywordCount + 1) + "." + Duke.getTaskList().getTasks().get(i));
+                    taskWithKeywordCount++;
+                }  
+            }
+            if (taskWithKeywordCount == 0) {
+                System.out.println("    There is no task containing the keyword \"" + keyword + "\"");
+            }
+        }
+        System.out.println(BORDER_LINE);
+    }
 
     private void printInvalidCommandMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
@@ -158,6 +180,9 @@ public class Ui {
         case Command.COMMAND_DELETE:
             printDeleteTaskMessage(result.getResultDescription());
             break;
+        case Command.COMMAND_FIND:
+            printTaskListWithKeyword(result.getResultDescription());
+            break;    
         case Command.COMMAND_EXIT:
             break;
         default:
