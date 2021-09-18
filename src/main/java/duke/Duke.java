@@ -9,21 +9,30 @@ import java.util.Scanner;
 import static duke.constants.DukeCommandStrings.EXIT_COMMAND;
 
 public class Duke {
+    private TaskManager dukeTaskManager;
 
     public static void main(String[] args) {
-        Ui.printHeyMessage();
-
-        TaskManager dukeTaskManager = new TaskManager();
-        DataManager.loadData(dukeTaskManager.getTaskList());
-        String userInput;
-        Scanner in = new Scanner(System.in);
-        userInput = in.nextLine();
-
-        while (!userInput.trim().equalsIgnoreCase(EXIT_COMMAND)) {
-            dukeTaskManager.handleUserInput(userInput);
-            userInput = in.nextLine();
-        }
-
-        Ui.printByeMessage();
+        new Duke().run();
     }
+
+    private void run() {
+        start();
+        runLoopUntilExitCommand(this.dukeTaskManager);
+    }
+
+    private void start() {
+        this.dukeTaskManager = new TaskManager();
+        DataManager.loadData(this.dukeTaskManager.getTaskList());
+        Ui.printHeyMessage();
+    }
+
+    private void runLoopUntilExitCommand(TaskManager dukeTaskManager) {
+        String userInput;
+        do {
+            userInput = Ui.readUserInput();
+            dukeTaskManager.handleUserInput(userInput);
+        } while (!userInput.trim().toLowerCase().startsWith(EXIT_COMMAND));
+    }
+
+
 }
