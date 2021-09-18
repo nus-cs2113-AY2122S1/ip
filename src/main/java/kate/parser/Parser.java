@@ -266,6 +266,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Process user input to extract keyword for filter
+     *
+     * @param userInput Input provided by user
+     * @return Keyword for filtering
+     * @throws EmptyFieldException If keyword is empty
+     */
     public static String extractKeyword(String userInput) throws EmptyFieldException {
         String keyword = userInput.substring(LENGTH_FIND).strip();
 
