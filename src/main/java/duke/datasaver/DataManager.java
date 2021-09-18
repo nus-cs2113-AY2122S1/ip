@@ -1,11 +1,12 @@
 package duke.datasaver;
 
+import duke.exception.InvalidFileDataException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import duke.exception.FileTaskInvalidFormatException;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,8 +49,8 @@ public class DataManager {
                 String task = fileScanner.nextLine();
                 try {
                     addTask(taskList, task);
-                } catch (FileTaskInvalidFormatException fileTaskInvalidFormatException) {
-                    fileTaskInvalidFormatException.printFileTaskInvalidFormatMessage();
+                } catch (InvalidFileDataException e) {
+                    Ui.printFileTaskInvalidFormatMessage();
                 }
             }
         }
@@ -66,7 +67,7 @@ public class DataManager {
         }
     }
 
-    public static void addTask(ArrayList<Task> taskList, String task) throws FileTaskInvalidFormatException {
+    public static void addTask(ArrayList<Task> taskList, String task) throws InvalidFileDataException {
         String[] taskAttributes = task.split("\\|");
         String taskType = taskAttributes[0].trim();
         String doneStatus = taskAttributes[1].trim();
@@ -74,7 +75,7 @@ public class DataManager {
         boolean hasInvalidTaskAttributes = (taskAttributes.length < 3 || taskAttributes.length > 4);
         boolean hasInvalidDoneStatus = (!doneStatus.equals(DONE) && !doneStatus.equals(NOT_DONE));
         if (hasInvalidTaskAttributes || hasInvalidDoneStatus) {
-            throw new FileTaskInvalidFormatException();
+            throw new InvalidFileDataException();
         }
 
         boolean isDone = (doneStatus.equals(DONE));
@@ -100,7 +101,7 @@ public class DataManager {
             taskList.add(newEvent);
             break;
         default:
-            throw new FileTaskInvalidFormatException();
+            throw new InvalidFileDataException();
         }
     }
 

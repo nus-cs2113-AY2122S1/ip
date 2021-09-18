@@ -1,42 +1,19 @@
 package duke.command;
 
 import duke.datasaver.DataManager;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.Ui;
 
-import duke.exception.DeadlineInvalidFormatException;
-import duke.exception.DeadlineLacksArgumentsException;
-import duke.exception.DeleteInvalidFormatException;
-import duke.exception.DoneInvalidFormatException;
-import duke.exception.EmptyListException;
-import duke.exception.EventInvalidFormatException;
-import duke.exception.EventLacksArgumentsException;
-import duke.exception.NonNumericTaskIdException;
-import duke.exception.TaskNotInListException;
-import duke.exception.TodoInvalidFormatException;
+import static duke.constants.DukeCommandStrings.*;
 
 import java.util.ArrayList;
 
 public class TaskManager {
     private final ArrayList<Task> taskList;
-
-    // Constants
-    private static final String LIST_STRING = "list";
-    private static final String DONE_STRING = "done";
-    private static final String TODO_STRING = "todo";
-    private static final String DEADLINE_STRING = "deadline";
-    private static final String EVENT_STRING = "event";
-    private static final String DELETE_STRING = "delete";
-    private static final String OUTPUT_DIVIDER = "____________________________________________________________";
-    private static final String MESSAGE_LIST_TASKS = " Here are the tasks in your list:";
-    private static final String MESSAGE_TASK_ADDED = " I have added a task:";
-    private static final String MESSAGE_TASK_DELETED = " Got it! I've deleted this task:";
-    private static final String MESSAGE_TASK_MARKED_DONE = " Great! I have marked the following task as done:";
-    private static final String MESSAGE_INVALID_COMMAND = " Please enter a valid command!";
-    private static final String DEADLINE_PREFIX = "/by";
-    private static final String EVENT_PREFIX = "/at";
 
     // Constructor
     public TaskManager() {
@@ -55,71 +32,56 @@ public class TaskManager {
      * @param userInput Command input by the user
      */
     public void handleUserInput(String userInput) {
-        if (userInput.trim().equalsIgnoreCase(LIST_STRING)) {
+        if (userInput.trim().equalsIgnoreCase(LIST_COMMAND)) {
             handlePrintList();
-        } else if (userInput.trim().toLowerCase().startsWith(DONE_STRING)) {
+        } else if (userInput.trim().toLowerCase().startsWith(DONE_COMMAND)) {
             handleTaskDone(userInput);
-        } else if (userInput.trim().toLowerCase().startsWith(TODO_STRING)) {
+        } else if (userInput.trim().toLowerCase().startsWith(TODO_COMMAND)) {
             handleTodo(userInput);
-        } else if (userInput.trim().toLowerCase().startsWith(DEADLINE_STRING)) {
+        } else if (userInput.trim().toLowerCase().startsWith(DEADLINE_COMMAND)) {
             handleDeadline(userInput);
-        } else if (userInput.trim().toLowerCase().startsWith(EVENT_STRING)) {
+        } else if (userInput.trim().toLowerCase().startsWith(EVENT_COMMAND)) {
             handleEvent(userInput);
-        } else if (userInput.trim().toLowerCase().startsWith(DELETE_STRING)) {
+        } else if (userInput.trim().toLowerCase().startsWith(DELETE_COMMAND)) {
             handleDelete(userInput);
         } else {
-            printInvalidCommandMessage();
+            Ui.printUnrecognizedCommandMessage();
         }
     }
 
     /**
      * Prints a list of the current tasks Duke has
      *
-     * @throws EmptyListException if task list is empty
+     * @throws EmptyOrFullListException if task list is empty
      */
-    public void printTaskList() throws EmptyListException {
+    public void printTaskList() throws EmptyOrFullListException {
         if (taskList.size() == 0) {
-            throw new EmptyListException();
+            throw new EmptyOrFullListException();
         }
-        System.out.println(OUTPUT_DIVIDER);
-        System.out.println(MESSAGE_LIST_TASKS);
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(" " + (i + 1) + ". " + taskList.get(i));
-        }
-        System.out.println(OUTPUT_DIVIDER);
+        Ui.printTaskList(taskList);
     }
 
     /**
      * Marks a task as done
      *
      * @param doneCommand User command containing the task ID of the task to mark done
-     * @throws DoneInvalidFormatException if command does not follow correct format "done {task ID}"
-     * @throws NonNumericTaskIdException if task ID entered is not an integer
-     * @throws TaskNotInListException if the task to mark done is not in the task list
      */
-    public void markTaskDone(String doneCommand) throws DoneInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
-        String[] doneSentence = doneCommand.split("\\s+");
+    public void markTaskDone(String doneCommand) throws InvalidCommandException {
+        String[] doneSentence = doneCommand.split(WHITESPACE_SEQUENCE);
 
         // Checks if done command entered does not follow the correct format of "done {task ID}".
         if (doneSentence.length != 2) {
-            throw new DoneInvalidFormatException();
+            throw new InvalidCommandException();
         }
 
-        // Checks if the task ID entered is numeric.
-        if (isNonNumericTaskId(doneSentence[1])) {
-            throw new NonNumericTaskIdException();
-        }
-
-        int taskToMarkDone = Integer.parseInt(doneSentence[1]);
-        // Makes sure that the task being mark done is in the task list.
-        if (taskToMarkDone > taskList.size() || taskToMarkDone <= 0) {
-            throw new TaskNotInListException();
-        } else {
-            System.out.println(OUTPUT_DIVIDER);
-            System.out.println(MESSAGE_TASK_MARKED_DONE);
-            taskList.get(taskToMarkDone - 1).setDone(true);
-            System.out.println("   " + taskList.get(taskToMarkDone - 1));
-            System.out.println(OUTPUT_DIVIDER);
+        try {
+            int indexOfTaskToMarkDone = Integer.parseInt(doneSentence[1]) - 1;
+            Ui.printTaskMarkedDoneMessage(taskList.get(indexOfTaskToMarkDone));
+            taskList.get(indexOfTaskToMarkDone).setDone(true);
+        } catch (NumberFormatException e) {
+            Ui.printInvalidCommandFormatMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Ui.printTaskNotInListMessage();
         }
     }
 
@@ -129,23 +91,18 @@ public class TaskManager {
      * its description
      *
      * @param addedTodo User command containing the todo description
-     * @throws TodoInvalidFormatException if the command does not follow the correct format "todo {description}"
      */
-    public void addTodo(String addedTodo) throws TodoInvalidFormatException {
-        String[] splitTodo = addedTodo.split("\\s+", 2);
+    public void addTodo(String addedTodo) throws InvalidCommandException {
+        String[] splitTodo = addedTodo.split(WHITESPACE_SEQUENCE, 2);
 
-        if(splitTodo.length != 2) {
-            throw new TodoInvalidFormatException();
+        if (splitTodo.length != 2) {
+            throw new InvalidCommandException();
         }
 
         String todoDescription = splitTodo[1].trim();
         Todo newTodo = new Todo(todoDescription);
         taskList.add(newTodo);
-        System.out.println(OUTPUT_DIVIDER);
-        System.out.println(MESSAGE_TASK_ADDED);
-        System.out.println("   " + newTodo);
-        System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
-        System.out.println(OUTPUT_DIVIDER);
+        Ui.printTaskAddedMessage(newTodo, taskList.size());
     }
 
     /**
@@ -155,19 +112,17 @@ public class TaskManager {
      * to obtain the arguments needed for Deadline constructor
      *
      * @param addedDeadline User command containing the deadline description and deadline
-     * @throws DeadlineInvalidFormatException if the command does not follow the correct format "deadline {description} /by {deadline}
-     * @throws DeadlineLacksArgumentsException if the command does not contain the deadline description or the deadline
      */
-    public void addDeadline(String addedDeadline) throws DeadlineInvalidFormatException, DeadlineLacksArgumentsException {
-        String[] splitDeadline = addedDeadline.split("\\s+", 2);
+    public void addDeadline(String addedDeadline) throws InvalidCommandException {
+        String[] splitDeadline = addedDeadline.split(WHITESPACE_SEQUENCE, 2);
 
-        if(splitDeadline.length != 2) {
-            throw new DeadlineInvalidFormatException();
+        if (splitDeadline.length != 2) {
+            throw new InvalidCommandException();
         }
 
         String[] deadlineDescriptionAndDeadline = splitDeadline[1].split(DEADLINE_PREFIX, 2);
-        if(deadlineDescriptionAndDeadline.length != 2) {
-            throw new DeadlineInvalidFormatException();
+        if (deadlineDescriptionAndDeadline.length != 2) {
+            throw new InvalidCommandException();
         }
 
         String deadlineDescription = deadlineDescriptionAndDeadline[0].trim();
@@ -177,13 +132,9 @@ public class TaskManager {
         if (isValidDeadline) {
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
             taskList.add(newDeadline);
-            System.out.println(OUTPUT_DIVIDER);
-            System.out.println(MESSAGE_TASK_ADDED);
-            System.out.println("   " + newDeadline);
-            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
-            System.out.println(OUTPUT_DIVIDER);
+            Ui.printTaskAddedMessage(newDeadline, taskList.size());
         } else {
-            throw new DeadlineLacksArgumentsException();
+            throw new InvalidCommandException();
         }
     }
 
@@ -194,19 +145,17 @@ public class TaskManager {
      * to obtain the arguments needed for Event constructor
      *
      * @param addedEvent User command containing the event description and time
-     * @throws EventInvalidFormatException if the command does not follow the correct format "event {description} /at {time}"
-     * @throws EventLacksArgumentsException if the command does not contain the event description or the event time
      */
-    public void addEvent(String addedEvent) throws EventInvalidFormatException, EventLacksArgumentsException {
-        String[] splitEvent = addedEvent.split("\\s+", 2);
+    public void addEvent(String addedEvent) throws InvalidCommandException {
+        String[] splitEvent = addedEvent.split(WHITESPACE_SEQUENCE, 2);
 
-        if(splitEvent.length != 2) {
-            throw new EventInvalidFormatException();
+        if (splitEvent.length != 2) {
+            throw new InvalidCommandException();
         }
 
         String[] eventDescriptionAndTime = splitEvent[1].split(EVENT_PREFIX, 2);
         if (eventDescriptionAndTime.length != 2) {
-            throw new EventInvalidFormatException();
+            throw new InvalidCommandException();
         }
 
         String eventDescription = eventDescriptionAndTime[0].trim();
@@ -216,48 +165,36 @@ public class TaskManager {
         if (isValidEvent) {
             Event newEvent = new Event(eventDescription, eventTime);
             taskList.add(newEvent);
-            System.out.println(OUTPUT_DIVIDER);
-            System.out.println(MESSAGE_TASK_ADDED);
-            System.out.println("   " + newEvent);
-            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
-            System.out.println(OUTPUT_DIVIDER);
+            Ui.printTaskAddedMessage(newEvent, taskList.size());
         } else {
-            throw new EventLacksArgumentsException();
+            throw new InvalidCommandException();
         }
     }
 
-    public void deleteTask(String deleteCommand) throws DeleteInvalidFormatException, NonNumericTaskIdException, TaskNotInListException {
+    public void deleteTask(String deleteCommand) throws InvalidCommandException {
         String[] deleteSentence = deleteCommand.split("\\s+");
 
         // Checks if delete command entered does not follow the correct format of "delete {task ID}"
-        if(deleteSentence.length != 2) {
-            throw new DeleteInvalidFormatException();
+        if (deleteSentence.length != 2) {
+            throw new InvalidCommandException();
         }
 
-        // Checks if task ID entered is numeric.
-        if (isNonNumericTaskId(deleteSentence[1])) {
-            throw new NonNumericTaskIdException();
-        }
-
-        int taskToDelete = Integer.parseInt(deleteSentence[1]);
-        // Makes sure that the task to delete is in the task list
-        if (taskToDelete > taskList.size() || taskToDelete <= 0) {
-            throw new TaskNotInListException();
-        } else {
-            System.out.println(OUTPUT_DIVIDER);
-            System.out.println(MESSAGE_TASK_DELETED);
-            System.out.println("   " + taskList.get(taskToDelete - 1));
-            taskList.remove(taskToDelete - 1);
-            System.out.println(" You now have " + taskList.size() + " task(s) in the list.");
-            System.out.println(OUTPUT_DIVIDER);
+        try {
+            int indexOfTaskToDelete = Integer.parseInt(deleteSentence[1]) - 1;
+            Ui.printTaskDeletedMessage(taskList.get(indexOfTaskToDelete), taskList.size());
+            taskList.remove(taskList.get(indexOfTaskToDelete));
+        } catch (NumberFormatException e) {
+            Ui.printInvalidCommandFormatMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Ui.printTaskNotInListMessage();
         }
     }
 
     public void handlePrintList() {
         try {
             printTaskList();
-        } catch (EmptyListException emptyListException) {
-            emptyListException.printEmptyListMessage();
+        } catch (EmptyOrFullListException emptyOrFullListException) {
+            emptyOrFullListException.printEmptyListMessage();
         }
     }
 
@@ -269,12 +206,8 @@ public class TaskManager {
     public void handleTaskDone(String userInput) {
         try {
             markTaskDone(userInput);
-        } catch (DoneInvalidFormatException doneInvalidFormatException) {
-            doneInvalidFormatException.printDoneInvalidFormatMessage();
-        } catch (NonNumericTaskIdException nonNumericTaskIdException) {
-            nonNumericTaskIdException.printNonNumericTaskIdMessage();
-        } catch (TaskNotInListException taskNotInListException) {
-            taskNotInListException.printTaskNotInListMessage();
+        } catch (InvalidCommandException e) {
+            Ui.printInvalidCommandFormatMessage();
         }
     }
 
@@ -287,8 +220,8 @@ public class TaskManager {
         try {
             addTodo(userInput);
             DataManager.saveData(taskList);
-        } catch (TodoInvalidFormatException todoInvalidFormatException) {
-            todoInvalidFormatException.printTodoInvalidFormatMessage();
+        } catch (InvalidCommandException e) {
+            Ui.printInvalidCommandFormatMessage();
         }
     }
 
@@ -301,10 +234,8 @@ public class TaskManager {
         try {
             addDeadline(userInput);
             DataManager.saveData(taskList);
-        } catch (DeadlineInvalidFormatException deadlineInvalidFormatException) {
-            deadlineInvalidFormatException.printDeadlineInvalidFormatMessage();
-        } catch (DeadlineLacksArgumentsException deadlineLacksArgumentsException) {
-            deadlineLacksArgumentsException.printDeadlineLacksArgumentsMessage();
+        } catch (InvalidCommandException e) {
+            Ui.printInvalidCommandFormatMessage();
         }
     }
 
@@ -317,10 +248,8 @@ public class TaskManager {
         try {
             addEvent(userInput);
             DataManager.saveData(taskList);
-        } catch (EventInvalidFormatException eventInvalidFormatException) {
-            eventInvalidFormatException.printEventInvalidFormatMessage();
-        } catch (EventLacksArgumentsException eventLacksArgumentsException) {
-            eventLacksArgumentsException.printEventLacksArgumentsMessage();
+        } catch (InvalidCommandException e) {
+            Ui.printInvalidCommandFormatMessage();
         }
     }
 
@@ -328,38 +257,8 @@ public class TaskManager {
         try {
             deleteTask(userInput);
             DataManager.saveData(taskList);
-        } catch (DeleteInvalidFormatException deleteInvalidFormatException) {
-            deleteInvalidFormatException.printDeleteInvalidFormatMessage();
-        } catch (NonNumericTaskIdException nonNumericTaskIdException) {
-            nonNumericTaskIdException.printNonNumericTaskIdMessage();
-        } catch (TaskNotInListException taskNotInListException) {
-            taskNotInListException.printTaskNotInListMessage();
+        } catch (InvalidCommandException e) {
+            Ui.printInvalidCommandFormatMessage();
         }
     }
-
-    /**
-     * Prints invalid command message if the command input by the user does not match any of the specified commands
-     */
-    public static void printInvalidCommandMessage() {
-        System.out.println(OUTPUT_DIVIDER);
-        System.out.println(MESSAGE_INVALID_COMMAND);
-        System.out.println(OUTPUT_DIVIDER);
-    }
-
-    /**
-     * Checks if the task ID can be parsed to obtain an integer
-     *
-     * @param taskId Task ID string to be parsed (supposed to be integer)
-     * @return true if the task ID is numeric and can be parsed, false otherwise
-     */
-    public static boolean isNonNumericTaskId(String taskId) {
-        try {
-            Integer.parseInt(taskId);
-            return false;
-        } catch (NumberFormatException numberFormatException) {
-            return true;
-        }
-    }
-
-
 }
