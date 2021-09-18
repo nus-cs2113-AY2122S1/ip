@@ -1,11 +1,12 @@
 package ui;
 
 /**
- * The UI class helps to format and print all the output to the console.
+ * Helps to format and print all the output to the console.
  */
 
 public class Ui {
     private final int noOfPlus = 120;
+
     /**
      * Prints out a statement with borders.
      *

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The Main class helps to start the application and initialise all variables used as
- * well as to continuously prompt for input from the user until "BYE" is received.
+ * Helps to start the application, load the data from file and initialise all variables
+ * used as well as to continuously prompt for input from the user until "BYE" is received.
  */
 
 public class Main {

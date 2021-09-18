@@ -1,5 +1,9 @@
 package commands;
 
+/**
+ * Consists of all the accepted commands in the program.
+ */
+
 public class CommandList {
     public static final String LIST = "LIST";
     public static final String TODO = "TODO";

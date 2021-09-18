@@ -9,30 +9,18 @@ import ui.Ui;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Represents the Event command. Helps to do all operations of the event command such as
+ * creating the event object and does all the error handling such as invalid date.
+ */
+
 public class EventCommand extends Command {
     private static final String atNotProvided = "I could not find '/at dd/MM/YYYY HHmm' in your command!";
     private static final String eventTitleNotProvided = "I could not find the title of your event!";
-    public static final String commandSyntax = "Command Syntax for Event: event <event name> "
-            + "/at <date in dd/MM/YYYY HHmm>";
+    public static final String commandSyntax = "Command Syntax: event <event name> /at <date in dd/MM/YYYY HHmm>";
 
     public String eventName;
     public String at;
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    public String getAt() {
-        return at;
-    }
-
-    public void setAt(String at) {
-        this.at = at;
-    }
 
     public EventCommand(String command, String eventName, String at) {
         super(command);

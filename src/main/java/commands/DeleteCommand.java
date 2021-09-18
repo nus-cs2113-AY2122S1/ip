@@ -6,10 +6,15 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the Delete command. Helps to do all operations of the delete command such as
+ * removing the task from the list and ensures that the ID input is valid.
+ */
+
 public class DeleteCommand extends Command {
     private static final String removeTaskMessage = "Noted. I've removed this task:\n%1$s\nNow you have %2$o tasks"
             + " in the list.";
-    public static final String commandSyntax = "Command Syntax for Delete: delete <task id>";
+    public static final String commandSyntax = "Command Syntax: delete <task id>";
 
     String id;
 

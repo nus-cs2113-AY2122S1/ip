@@ -6,10 +6,15 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the Done command. Helps to do all operations of the done command such as
+ * marking a task as completed and ensuring that the ID input is valid.
+ */
+
 public class DoneCommand extends Command {
     private static final String taskAlreadyCompleted = "You have already completed the task [%1$s]!";
     private static final String taskMarkedDone = "Nice! I've marked this task as done:\n%1$s";
-    public static final String commandSyntax = "Command Syntax for Done: done <task id>";
+    public static final String commandSyntax = "Command Syntax: done <task id>";
     public String id;
 
     public DoneCommand(String command, String id) {

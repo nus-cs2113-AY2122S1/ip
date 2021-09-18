@@ -7,9 +7,14 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the Todo command. Helps to do all operations of the Todo command such as
+ * creating the Todo object and does all the error handling such as a empty description.
+ */
+
 public class TodoCommand extends Command {
     private static final String todoError = "☹ OOPS!!! The description of a todo cannot be empty.";
-    public static final String commandSyntax = "Command Syntax for Todo: todo <task name>";
+    public static final String commandSyntax = "Command Syntax: todo <task name>";
 
     public String description;
 

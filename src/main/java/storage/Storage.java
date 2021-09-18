@@ -28,7 +28,10 @@ public class Storage {
     }
 
     /**
-     * Converts all task to a string to be written to the file Duke.txt.
+     * Converts all tasks to a string to be written to the file Duke.txt.
+     *
+     * @param ui    Reference to the UI object passed by Main.
+     * @param tasks Reference to the ArrayList of Tasks passed by Main.
      */
     public void saveData(Ui ui, ArrayList<Task> tasks) {
         StringBuilder output = new StringBuilder();
@@ -47,6 +50,9 @@ public class Storage {
 
     /**
      * Loads the data to task ArrayList if Duke.txt exists.
+     *
+     * @param ui Reference to the UI object passed by Main.
+     * @return ArrayList of Tasks
      */
     public ArrayList<Task> loadData(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -55,14 +61,14 @@ public class Storage {
             Scanner myReader = new Scanner(myFile);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                String[] dataSplit = data.split("\\|");
+                String[] dataSplit = data.split("\\|"); // Split by |
 
                 if (dataSplit.length < 3) { // Ensure that there should be at least 3 elements
                     throw new InvalidFile();
                 }
 
                 String taskType = dataSplit[0];
-                Boolean taskCompleted = dataSplit[1].equals("true");
+                boolean taskCompleted = dataSplit[1].equals("true");
                 String description = dataSplit[2];
                 Date date = null;
 

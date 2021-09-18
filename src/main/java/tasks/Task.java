@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a generic task. A Task object is represented by a description and a boolean flag
- * representing whether the task is completed.
+ * representing whether the task is completed. It is inherited by all other tasks.
  */
 
 public class Task {

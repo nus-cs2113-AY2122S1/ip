@@ -9,8 +9,13 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the WhatsOn command. Helps to list out all the tasks in the list that matches
+ * the date given by the user. It also helps to ensure that the date given is valid.
+ */
+
 public class WhatsOnCommand extends Command {
-    public static final String commandSyntax = "Command Syntax for WhatsOn: whatson <date in dd/MM/YYYY>";
+    public static final String commandSyntax = "Command Syntax: whatson <date in dd/MM/YYYY>";
     String date;
 
     public WhatsOnCommand(String command, String date) {

@@ -1,7 +1,7 @@
 package tasks;
 
 /**
- * Represents a Todo task. A Todo object is represented by a description of the todo task.
+ * Represents a Todo task. A Todo object is represented by a description of the task.
  */
 
 public class Todo extends Task {

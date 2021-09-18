@@ -6,15 +6,14 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the List command. Helps to list out all the tasks in the list.
+ */
+
 public class ListCommand extends Command {
 
     public ListCommand(String command) {
         super(command);
-    }
-
-    @Override
-    public String help() {
-        return null;
     }
 
     @Override

@@ -6,8 +6,13 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the Find command. Helps to list out all the tasks with the matching string provided
+ * by the user. It also does all the error handling related to that command.
+ */
+
 public class FindCommand extends Command{
-    public static final String commandSyntax = "Command Syntax for Find: find <string to search>";
+    public static final String commandSyntax = "Command Syntax: find <string to search>";
 
     public String searchTerm;
 
@@ -34,11 +39,11 @@ public class FindCommand extends Command{
         }
 
         // Checks if tasks exists
-        /*if (filteredTasks.size() == 0) {
+        if (filteredTasks.size() == 0) {
             taskString.append(Task.noTasks);
         } else {
             taskString.append(Task.hereAreYourTasks);
-        }*/
+        }
         for (int i = 0; i < filteredTasks.size(); i++) {
             Task currentTask = filteredTasks.get(i);
             taskString.append(i + 1).append(".").append(currentTask.toString()).append("\n");

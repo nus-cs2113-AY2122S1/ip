@@ -9,11 +9,15 @@ import ui.Ui;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Represents the Deadline command. Helps to do all operations of the deadline command such as
+ * creating the Deadline object and does all the error handling related to that command.
+ */
+
 public class DeadlineCommand extends Command {
     private static final String byNotProvided = "I could not find '/by dd/MM/YYYY HHmm' in your command!";
     private static final String deadlineTitleNotProvided = "I could not find the title of your deadline!";
-    public static final String commandSyntax = "Command Syntax for Deadline: deadline <name> "
-            + "/by <date in dd/MM/YYYY HHmm>";
+    public static final String commandSyntax = "Command Syntax: deadline <name> /by <date in dd/MM/YYYY HHmm>";
 
     public String description;
     public String date;
