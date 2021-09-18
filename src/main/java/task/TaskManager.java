@@ -2,6 +2,7 @@ package task;
 
 import parser.command.AddCommand;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class TaskManager {
@@ -166,5 +167,9 @@ public class TaskManager {
             Task newTask = createNewTask(params);
             tasks.add(newTask);
         }
+    }
+
+    public Iterator<Task> getAllTasks() {
+        return tasks.iterator();
     }
 }

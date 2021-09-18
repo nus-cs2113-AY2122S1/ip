@@ -52,6 +52,11 @@ public class Parser {
             command = new ExitCommand(params);
             break;
 
+        case "FIND":
+        case "MATCH":
+            command = new FindCommand(params);
+            break;
+
         default:
             command = new InvalidCommand(params);
             break;
