@@ -53,7 +53,7 @@ public class UserInterface {
 
     private static void deleteTask() {
         try {
-            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+            int taskIndex = Parser.getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
             showItemDeleted(TaskManager.delete(taskIndex));
         } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
             showInvalidIndex();
@@ -64,7 +64,7 @@ public class UserInterface {
 
     private static void setDone() {
         try {
-            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+            int taskIndex = Parser.getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
             TaskManager.setDone(taskIndex);
             showItemSetDone(taskIndex);
         } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
@@ -88,7 +88,7 @@ public class UserInterface {
             return Command.LIST;
         }
 
-        userInputs = splitCommandAndRemainder(userInput);
+        userInputs = Parser.splitCommandAndRemainder(userInput);
 
         if (Parser.isAddTodoCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_TODO;
@@ -103,14 +103,6 @@ public class UserInterface {
         }
 
         return Command.INVALID;
-    }
-    
-    private static int getTaskIndex(String word) {
-        return Integer.parseInt(word.replaceAll(" ", ""));
-    }
-
-    private static String[] splitCommandAndRemainder(String line) {
-        return line.split(" ", 2);
     }
 
     private static void addTask(Command addCommand, String line) {

@@ -80,8 +80,6 @@ public class DataManager {
         }
     }
     
-    
-
     /**
      * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
      */

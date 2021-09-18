@@ -178,4 +178,25 @@ public class Parser {
         dataParts[DESCRIPTION_INDEX] = dataParts[DESCRIPTION_INDEX].replace(")", "");
         dataParts[DESCRIPTION_INDEX] = dataParts[DESCRIPTION_INDEX].replace("(at:", "/at");
     }
+
+    /**
+     * Returns task index given by user in int format so can use methods that take in int.
+     * 
+     * @param word Index given by user in String format.
+     * @return Task index given by user in int format.
+     */
+    public static int getTaskIndex(String word) {
+        return Integer.parseInt(word.replaceAll(" ", ""));
+    }
+
+    /**
+     * Returns an array of Strings where first String is user command.
+     * So that methods that take in commands only can be used.
+     * 
+     * @param line Full input given by user.
+     * @return Returns an array of Strings where first String is user command.
+     */
+    public static String[] splitCommandAndRemainder(String line) {
+        return line.split(" ", 2);
+    }
 }
