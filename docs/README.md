@@ -4,7 +4,7 @@ Duke is a local task manager
 
 ## How To Run
 
-download the ip.jar file from releases </br>
+download the ip.jar file from releases <br />
 run `java -jar ip.jar`
 
 ## Features 
@@ -12,22 +12,22 @@ run `java -jar ip.jar`
 ### Tasks
 
 Duke comes with 3 types of tasks (todo, deadline, event), with the ability to mark each as done
-</br>
+<br />
 
 ### Storage
 
 Duke saves created tasks in a local text file as storage, allowing tasks to be maintained between sessions
-</br>
+<br />
 
 ### User Interface
 
 Duke displays information in an easy-to-read manner
-</br>
+<br />
 
 ### Search
 
 Duke can search for specific tasks
-</br>
+<br />
 
 ## Usage
 
@@ -50,7 +50,7 @@ Here are the tasks in your list:
      3.[E][ ] project meeting (at: Aug 6th 2-4pm)
 ```
 
-</br>
+<br />
 
 ### `todo <description>` - Adds a todo task item
 
@@ -70,7 +70,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-</br>
+<br />
 
 ### `deadline <description> /by <datetime>` - Adds a deadline task item
 
@@ -90,7 +90,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-</br>
+<br />
 
 ### `event <description> /at <datetime>` - Adds an event task item
 
@@ -110,7 +110,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-</br>
+<br />
 
 ### `done <index>` - Marks a task as completed
 
@@ -129,7 +129,7 @@ Nice! I've marked this task as done:
     [D][X] return book (by: June 6th)
 ```
 
-</br>
+<br />
 
 ### `delete <index>` - Removes a task from the list of tasks
 
@@ -149,7 +149,7 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
-</br>
+<br />
 
 ### `find <phrase>` - Search for matching tasks
 
@@ -169,7 +169,7 @@ Here are the matching tasks in your list:
     2.[D][X] return book (by: June 6th)
 ```
 
-</br>
+<br />
 
 ### `bye` - Exits Duke
 
