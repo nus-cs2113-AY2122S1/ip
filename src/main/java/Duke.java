@@ -14,7 +14,7 @@ public class Duke {
         try {
             CommandHandler command = new CommandHandler(input);
             command.execute();
-            TaskSafe.saveToFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,taskManager.getTasks());
+            TaskSafe.saveToFile(taskManager.getTasks());
         } catch (DukeException e) {
             UI.showError(e);
         }

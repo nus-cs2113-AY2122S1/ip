@@ -7,8 +7,6 @@ public class UI {
 
     /*----------- CONSOLE LOGGING ----------- */
     private static final String ADD_TASK = "Got it. I've added this task: ";
-    private static final String DONE_TASK = "Nice! I've marked this task as done: ";
-    private static final String LIST_TASK = "Here are your scheduled tasks!";
     private static final String DELETE_TASK = "Noted. I've removed this task: ";
 
     /*--------- PROCESSING CONSTANTS ------------ */
@@ -33,7 +31,7 @@ public class UI {
     public static void greet() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(GREETING);
-        TaskSafe.loadFromFile(TaskSafe.rootPath + TaskSafe.DATA_PATH,Duke.taskManager);
+        TaskSafe.loadFromFile(Duke.taskManager);
         System.out.println("------------------------------------");
         System.out.println("What can I do for you?");
     }

@@ -15,13 +15,14 @@ import tasks.TaskType;
 public class TaskSafe {
 
     /*------------ PUBLIC STAIC VARIABLES --------- */
-    public static final String DATA_PATH = "/data/duke.txt";
-    public static String rootPath = new File(".").getAbsolutePath();
+    private static final String DATA_PATH = "/data/duke.txt";
+    private static String rootPath = new File(".").getAbsolutePath();
+    private static String fullPath = rootPath + DATA_PATH;
 
     /*-------------- SAVE ------------ */
-    private static void appendToFile(String file_path, Task task) throws DukeException{
+    private static void appendToFile(Task task) throws DukeException{
         try {
-            FileWriter fw = new FileWriter(file_path,true);
+            FileWriter fw = new FileWriter(fullPath,true);
             char isDone = task.isDone() ? '1' : '0';
             String taskToAdd =
                     task.getTaskChar() + "|" + isDone + "|" + task.getFullDescription() + '\n';
@@ -37,15 +38,15 @@ public class TaskSafe {
      * Saves a tasklist to a file and overwrites what is in it
      * @param taskList
      */
-    public static void saveToFile(String file_path, ArrayList<Task> taskList) {
+    public static void saveToFile(ArrayList<Task> taskList) {
         try {
-            new FileWriter(file_path,false).close();
+            new FileWriter(fullPath,false).close();
         } catch (IOException e) {
             System.out.println(e);
         }
         for (Task t : taskList) {
             try {
-                appendToFile(file_path,t);
+                appendToFile(t);
             } catch (DukeException e) {
                 System.out.println(e);
             }
@@ -53,8 +54,8 @@ public class TaskSafe {
     }
 
     /*-------------- LOAD ------------ */
-    public static void loadFromFile(String file_path, TaskManager taskManager) {
-        File file = new File(file_path);
+    public static void loadFromFile( TaskManager taskManager) {
+        File file = new File(fullPath);
         try {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {

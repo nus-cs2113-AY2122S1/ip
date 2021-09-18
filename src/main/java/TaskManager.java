@@ -20,19 +20,17 @@ public class TaskManager {
 
 
     /*----------- CONSOLE LOGGING ----------- */
-    private static final String ADD_TASK = "Got it. I've added this task: ";
     private static final String DONE_TASK = "Nice! I've marked this task as done: ";
     private static final String LIST_TASK = "Here are your scheduled tasks!";
-    private static final String DELETE_TASK = "Noted. I've removed this task: ";
 
     /*------------- PRIVATE VARIABLES ------------ */
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
     private int taskSize;
 
 
     /*------------- CONSTRUCTOR -------------- */
     public TaskManager() {
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
         taskSize = 0;
 
     }
@@ -84,16 +82,11 @@ public class TaskManager {
         addTask(command,type,false,true);
     }
 
-    public void addTask(CommandHandler command, TaskType type, boolean isDone) throws DukeException {
-        addTask(command,type,isDone,true);
-    }
-
     /**
      * Marks a task as done. Can be called by input
      * @param command the input after it's been parsed by command handler
      * @throws DukeException if the input does not have a valid number
      */
-
     public void markTaskAsDone(CommandHandler command) throws DukeException {
         command.splitByClause("done",0,true);
         try {
