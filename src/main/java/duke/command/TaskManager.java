@@ -55,6 +55,9 @@ public class TaskManager {
         case HELP:
             Ui.printHelp();
             break;
+        case EXIT:
+            Ui.printByeMessage();
+            break;
         case INVALID:
             Ui.printUnrecognizedCommandMessage();
             break;
