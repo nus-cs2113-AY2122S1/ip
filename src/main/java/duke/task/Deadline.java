@@ -4,8 +4,12 @@ public class Deadline extends Task {
 
     private String by;
 
-    public Deadline(String task, String by) {
-        super(task);
+    public Deadline(String description, String by) {
+        this(description, by, false);
+    }
+
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
         this.by = by;
     }
 
