@@ -7,6 +7,7 @@ import duke.exceptions.DukeExceedMaxTaskException;
 import duke.exceptions.DukeInvalidTaskIndex;
 import duke.exceptions.DukeTaskAlreadyCompletedException;
 import duke.exceptions.DukeMissingKeywordException;
+import static duke.Ui.NL;
 
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -68,7 +69,7 @@ public class TaskManager {
 
     private void writeToData(Task task) throws IOException {
         FileWriter fw = new FileWriter(Duke.DATA_FILE, true);
-        fw.write( ((numberOfTasks > 1) ? Duke.NL : "") + task.toData());
+        fw.write( ((numberOfTasks > 1) ? NL : "") + task.toData());
         fw.close();
     }
 
@@ -153,10 +154,10 @@ public class TaskManager {
 
     private void acknowledgeCommand(Task task) {
         String acknowledgementMessage = "Understood, "
-                + Duke.NL + task.toString()
-                + Duke.NL + "has been added. You now have "
+                + NL + task.toString()
+                + NL + "has been added. You now have "
                 + numberOfTasks + " " + "task(s) in the list";
-        Duke.printMessage(acknowledgementMessage);
+        Duke.UI.printMessage(acknowledgementMessage);
     }
 
     public void printTasks() {
@@ -165,10 +166,10 @@ public class TaskManager {
             list.append(i + 1).append(".");
             list.append(tasks.get(i).toString());
             if (i < numberOfTasks - 1) {
-                list.append(Duke.NL);
+                list.append(NL);
             }
         }
-        Duke.printMessage(list.toString());
+        Duke.UI.printMessage(list.toString());
     }
 
     public void setTaskAsDone(int taskNumber) throws DukeInvalidTaskIndex,
@@ -182,7 +183,7 @@ public class TaskManager {
         }
 
         tasks.get(taskNumber - 1).setDone();
-        Duke.printMessage("Good Job!! I've marked this task as done:" + Duke.NL
+        Duke.UI.printMessage("Good Job!! I've marked this task as done:" + NL
                 + tasks.get(taskNumber - 1).toString());
         refreshData();
     }
@@ -193,8 +194,8 @@ public class TaskManager {
             throw new DukeInvalidTaskIndex();
         }
         Task removedTask = tasks.remove(taskNumber - 1);
-        Duke.printMessage("I have removed the task: " + Duke.NL + removedTask.toString()
-                + Duke.NL + "You now have " + (numberOfTasks - 1) + " tasks remaining");
+        Duke.UI.printMessage("I have removed the task: " + NL + removedTask.toString()
+                + NL + "You now have " + (numberOfTasks - 1) + " tasks remaining");
         numberOfTasks--;
         refreshData();
     }
@@ -202,7 +203,7 @@ public class TaskManager {
     private void refreshData() throws IOException {
         FileWriter fw = new FileWriter(Duke.DATA_FILE, false);
         for (int i = 0; i < numberOfTasks; i++) {
-            fw.write(tasks.get(i).toData() + ((i >= numberOfTasks - 1) ? "" : Duke.NL));
+            fw.write(tasks.get(i).toData() + ((i >= numberOfTasks - 1) ? "" : NL));
         }
         fw.close();
     }
