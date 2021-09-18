@@ -57,6 +57,9 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Prints the help page for users
+     */
     public void printCommandHelp() {
         printMessage("Please run one of the following commands:",
                 "1. todo <description> - Creates a todo task",
@@ -100,7 +103,7 @@ public class Ui {
     /**
      * Prints the message with 2 lines before and after
      *
-     * @param messages Array of messages that are input into the function
+     * @param messages Variable number of messages that are input into the function
      */
     public void printMessage(String... messages) {
         System.out.println(LINE);
@@ -113,6 +116,8 @@ public class Ui {
 
     /**
      * List all task added by the user Show which task has been completed
+     *
+     * @param taskList the TaskList object to print all existing tasks
      */
     public void printAllTasks(TaskList taskList) {
         StringBuilder allTasksMessage = new StringBuilder();
@@ -122,37 +127,6 @@ public class Ui {
             allTasksMessage.append(String.format("%d. %s" + System.lineSeparator(), (i + 1), taskList.getTask(i)));
         }
         printMessage(allTasksMessage.toString().strip());
-    }
-
-    /**
-     * Shows only if the list of task is empty
-     */
-    public void printEmptyTaskMessage() {
-        printMessage(TASKLIST_EMPTY);
-    }
-
-    public void printUnknownCommandError() {
-        printMessage(UNKNOWN_COMMAND_ERROR_MESSAGE);
-    }
-
-    public void printArgumentsError() {
-        printMessage(ARGUMENTS_ERROR_MESSAGE);
-    }
-
-    public void printNumberError() {
-        printMessage(NUMBER_ERROR_MESSAGE);
-    }
-
-    public void printInvalidArguments(String errorMessage) {
-        printMessage("☹ OOPS!!! " + errorMessage);
-    }
-
-    public void printInvalidFileError() {
-        printMessage(FILE_ERROR_MESSAGE);
-    }
-
-    public void printInvalidFileInitialisationError() {
-        printMessage(FILE_INITIALISATION_ERROR_MESSAGE);
     }
 
     /**
@@ -170,10 +144,70 @@ public class Ui {
         printMessage(foundTasksMessage.toString().strip());
     }
 
+    /**
+     * Shows only if the list of task is empty
+     */
+    public void printEmptyTaskMessage() {
+        printMessage(TASKLIST_EMPTY);
+    }
+
+    /**
+     * Error message for unknown commands
+     */
+    public void printUnknownCommandError() {
+        printMessage(UNKNOWN_COMMAND_ERROR_MESSAGE);
+    }
+
+    /**
+     * Error message for invalid number of arguments
+     */
+    public void printArgumentsError() {
+        printMessage(ARGUMENTS_ERROR_MESSAGE);
+    }
+
+    /**
+     * Error message for failing to parse arguments as a number
+     */
+    public void printNumberError() {
+        printMessage(NUMBER_ERROR_MESSAGE);
+    }
+
+    /**
+     * Error message for invalid arguments being passed into the function
+     *
+     * @param errorMessage the string error message that is given by the throw error
+     */
+    public void printInvalidArguments(String errorMessage) {
+        printMessage("☹ OOPS!!! " + errorMessage);
+    }
+
+    /**
+     * Error message for invalid files
+     */
+    public void printInvalidFileError() {
+        printMessage(FILE_ERROR_MESSAGE);
+    }
+
+    /**
+     * Error message for failure to read or create files
+     */
+    public void printInvalidFileInitialisationError() {
+        printMessage(FILE_INITIALISATION_ERROR_MESSAGE);
+    }
+
+
+    /**
+     * Error message failure to properly parse files
+     */
     public void printInvalidFileParseError() {
         printMessage(FILE_PARSE_ERROR);
     }
 
+    /**
+     * Error message for invalid date or datetime format
+     *
+     * @param dateError Error message for the exception
+     */
     public void printInvalidDateError(String dateError) {
         printMessage(DATE_PARSE_ERROR, dateError);
     }

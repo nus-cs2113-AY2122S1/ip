@@ -23,7 +23,6 @@ public class Task {
      */
     public boolean isStringNullOrEmpty(String validString) {
         return validString == null || validString.isEmpty();
-
     }
 
     /**
@@ -61,9 +60,9 @@ public class Task {
     }
 
     /**
-     * Format object to be saved as a string
+     * Formats task object to a savable string format
      *
-     * @return formatted string to save to file
+     * @return formatted task object as a String to be saved
      */
     public String saveToText() {
         return (isDone ? TASK_IS_DONE : TASK_IS_NOT_DONE) + " | " + description;
