@@ -1,5 +1,6 @@
 package duke.tasklist;
 
+import duke.Time;
 import duke.generalmethods.GeneralMethods;
 import duke.exceptions.DukeException;
 import duke.ui.Ui;
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 
 public class TaskManager extends Ui {
 
-    public static final String INCORRECT_TASK_COMMAND = "Please specify a task to be added!";
-    public static final String INCORRECT_DEADLINE_COMMAND = "Please specify a task/deadline of completion!";
-    public static final String INCORRECT_EVENT_COMMAND = "Please specify an event/time of the event!";
+    public static final String INCORRECT_TASK_COMMAND = "Please specify a valid task to be added!";
+    public static final String INCORRECT_DEADLINE_COMMAND = "Please specify a valid task/deadline of completion!";
+    public static final String INCORRECT_EVENT_COMMAND = "Please specify a valid event/time of the event!";
     public static final String INCORRECT_DONE_COMMAND = "Please specify the number of the task to be marked as done!";
     public static final String INCORRECT_DELETE_COMMAND = "Please specify a valid number of the task to be deleted!";
     public static final String INVALID_INDEX = "No number or Invalid number specified! Please specify the number on the list of the task you have completed!";
@@ -23,7 +24,7 @@ public class TaskManager extends Ui {
     public static void addTaskAsEvent(ArrayList<Task> taskList, String userInput, Boolean isPrintingPreviousList) throws DukeException {
         if (userInput.contains("/at")) {
             Task taskAdded = new Event(userInput);
-            if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("")) {
+            if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("") && Time.isDateValid(taskAdded.getDeadline())) {
                 taskList.add(taskAdded);
                 if(!isPrintingPreviousList) {
                     printTaskAddedConfirmation(taskAdded);
@@ -39,7 +40,7 @@ public class TaskManager extends Ui {
     public static void addTaskAsDeadline(ArrayList<Task> taskList, String userInput, Boolean isPrintingPreviousList) throws DukeException {
         if (userInput.contains("/by")) {
             Task taskAdded = new Deadline(userInput);
-            if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("")) {
+            if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("") && Time.isDateValid(taskAdded.getDeadline())) {
                 taskList.add(taskAdded);
                 if(!isPrintingPreviousList) {
                     printTaskAddedConfirmation(taskAdded);

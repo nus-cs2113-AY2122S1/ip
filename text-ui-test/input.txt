@@ -1,66 +1,17 @@
-list
-help
-to do run
-deadline journal /by Saturday
-deadline walk/by Saturday 4pm
-list
-event team meeting /at Sunday 2-4pm
-to do hike
-help
-to do cook
-event live performance /at Monday 3pm
-list
-done 12
-done 1n2
-list
-done 1 2
-done 3,4,5
-list
-done 5 and 6
-done 9
-done 10
-list
-deadline
-deadline
-deadline run
-deadline run /by
-deadline run /by
-deadline run /by Sunday
-event
-event
-event run
-event run /at
-event run /at
-event marathon /at Sunday 2 - 3pm
-to do run
-to do
-to do
-werewetodo
-asdsadevent
-efsfsddeadline /by Sunday 2359
-dasdasdsadevent /at Saturday
-list
 to do 1
 to do 2
 to do 3
-event run /at Sunday 2 - 3pm
+to do 4
 list
-deadline assignment /by 25/6/2020
-event
-event /at 2359
-event marathon
-event marathon /at
-deadline
-deadline /by 2359
-deadline assignment /by
-deadline assignment /by 2359
+event run /at 2pm
+deadline assignment /by 4pm
+deadline assignment /by 02 06 2021 14:02
+event marathon /at 02 04 2021 15:00
 list
-done 1
-done 10
-done 1 2 12
-done 17
-done 0
-done -1
-delete 1 2 3 4 5 6
+deadline cg2027 /by 03 09 2021 00:00
+event conference /at 09 04 2021 08:00
+delete 1
+delete 2
+done 1 2 3
 list
 bye
