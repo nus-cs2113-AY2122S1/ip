@@ -8,7 +8,6 @@ import tasks.Task;
 import ui.Ui;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class WhatsOnCommand extends Command {
     public static final String commandSyntax = "Command Syntax for WhatsOn: whatson <date in dd/MM/YYYY>";
