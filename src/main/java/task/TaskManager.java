@@ -10,11 +10,16 @@ import ui.Display;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskManager class is responsible for storing and managing all the different types of tasks.
+ */
 public class TaskManager {
 
     public static final String EMPTY_TASK_NAME = "";
     public static final int NAME_INDEX = 0;
     public static final int DATE_INDEX = 1;
+
+    /** Offset required to convert between 0 and 1 indexing. */
     public static final int INDEX_OFFSET = 1;
 
     private static ArrayList<Task> allTasks = new ArrayList<>();
@@ -24,14 +29,23 @@ public class TaskManager {
         return allTasks;
     }
 
+    /** Increases the current number of tasks by 1. */
     public void increaseTaskCount() {
         taskCount++;
     }
 
+    /** Decreases the current number of tasks by 1. */
     public void decreaseTaskCount() {
         taskCount--;
     }
 
+    /**
+     * Returns the name of the task.
+     *
+     * @param taskName Name of the task.
+     * @return Name of the task.
+     * @throws DukeTaskNameEmptyException If the user does not provide a task name.
+     */
     public String getTaskName(String taskName) throws DukeTaskNameEmptyException {
         if (taskName.equals(EMPTY_TASK_NAME)) {
             throw new DukeTaskNameEmptyException();
@@ -49,6 +63,13 @@ public class TaskManager {
         return taskComponents[DATE_INDEX];
     }
 
+    /**
+     * Adds a 'todo' type task.
+     * Shows the user an acknowledgement message after a successful addition of new 'todo' type task.
+     * Increases the current number of tasks in the TaskManager by 1.
+     *
+     * @param taskInformation Task details provided by user.
+     */
     public void addTodoTask(String taskInformation) {
         try {
             allTasks.add(new Todo(getTaskName(taskInformation)));
@@ -59,6 +80,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a 'deadline' type task.
+     * Shows the user an acknowledgement message after a successful addition of new 'deadline' type task.
+     * Increases the current number of tasks in the TaskManager by 1.
+     *
+     * @param taskInformation Task details provided by user.
+     */
     public void addDeadlineTask(String taskInformation) {
         try {
             allTasks.add(new Deadline(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
@@ -71,6 +99,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a 'event' type task.
+     * Shows the user an acknowledgement message after a successful addition of new 'event' type task.
+     * Increases the current number of tasks in the TaskManager by 1.
+     *
+     * @param taskInformation Task details provided by user.
+     */
     public void addEventTask(String taskInformation) {
         try {
             allTasks.add(new Event(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
@@ -83,6 +118,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Removes a task from the TaskManager.
+     * Shows the user an acknowledgement message after a successful deletion of task.
+     * Decreases the current number of tasks in the TaskManager by 1.
+     *
+     * @param commandComponents User input in a string array form.
+     */
     public void deleteTask(String[] commandComponents) {
         try {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
@@ -97,6 +139,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Updates the status of a task as completed.
+     * Shows the user an acknowledgement message after a successful update of task.
+     *
+     * @param commandComponents User input in a string array form.
+     */
     public void markTaskAsCompleted(String[] commandComponents) {
         try {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
@@ -109,6 +157,7 @@ public class TaskManager {
         }
     }
 
+    /** Displays all the tasks found in the TaskManager. */
     public void listTask() {
         Display.printListTaskLine();
         for (int i = 0; i < taskCount; i++) {
@@ -117,6 +166,13 @@ public class TaskManager {
         Display.printListTaskLine();
     }
 
+    /**
+     * Adds a 'todo' type task when loading task from storage file.
+     * If task loaded from storage has a completed status, task is marked as completed.
+     *
+     * @param isCompleted Task completion status.
+     * @param taskDetails Task details that were saved.
+     */
     public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Todo(getTaskName(taskDetails)));
@@ -129,6 +185,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a 'deadline' type task when loading task from storage file.
+     * If task loaded from storage has a completed status, task is marked as completed.
+     *
+     * @param isCompleted Task completion status.
+     * @param taskDetails Task details that were saved.
+     */
     public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Deadline(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
@@ -143,6 +206,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds an 'event' type task when loading task from storage file.
+     * If task loaded from storage has a completed status, task is marked as completed.
+     *
+     * @param isCompleted Task completion status.
+     * @param taskDetails Task details that were saved.
+     */
     public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Event(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
