@@ -11,6 +11,12 @@ public class ExitCommand extends Command {
         return true;
     }
 
+    /**
+     * Exits the application.
+     * @param taskList The <code>TaskList</code> used in the application.
+     * @param ui The <code>Ui</code> used in the application.
+     * @param storage The <code>Storage</code> used in the application.
+     */
     public void execute(TasksList taskList, Ui ui, Storage storage) {
         ui.showGoodbye();
     };

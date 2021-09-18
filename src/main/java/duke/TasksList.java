@@ -13,6 +13,10 @@ public class TasksList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Initialises a new <code>TaskList</code> with the same tasks as the input <code>TaskList</code>.
+     * @param oldTaskList The <code>TaskList</code> whose tasks are to be copied.
+     */
     public TasksList(TasksList oldTaskList) {
         this.tasks = oldTaskList.tasks;
     }

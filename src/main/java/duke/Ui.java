@@ -34,6 +34,10 @@ public class Ui {
         System.out.println("\tBye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints all tasks within the input <code>TaskList</code>.
+     * @param tasks The <code>TaskList</code> whose tasks are to be printed.
+     */
     public void showAllTasks(TasksList tasks) {
         System.out.println("\tHere are the tasks in your list:");
         for (int i=0; i<tasks.getSize(); i++) {
@@ -41,17 +45,31 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a notification to show that a task has been added to a <code>TaskList</code>.
+     * @param task The task that has been added.
+     * @param taskListSize The number of tasks within the <code>TaskList</code>.
+     */
     public void showTaskAdded(Task task, int taskListSize) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + task.toString());
         System.out.println("\tNow you have " + taskListSize + " tasks in the list.");
     }
 
+    /**
+     * Prints a notification to show that a task has been marked as done.
+     * @param task The task that has been marked as done.
+     */
     public void showTaskDone(Task task) {
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getDescription());
     }
 
+    /**
+     * Prints a notification to show that a task has been deleted.
+     * @param task The task that has been deleted.
+     * @param taskListSize The number of tasks within the <code>TaskList</code>.
+     */
     public void showTaskDeleted(Task task, int taskListSize) {
         System.out.println("\tNoted. I have removed this task:");
         System.out.println("\t\t" + task.toString());

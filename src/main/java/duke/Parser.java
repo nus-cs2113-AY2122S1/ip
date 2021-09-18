@@ -21,6 +21,13 @@ public class Parser{
     private static final int LENGTH_OF_BY = 5;
     private static final int LENGTH_OF_AT = 5;
 
+    /**
+     * Returns a <code>Command</code> with the appropriate information.
+     * Purpose is to process raw input from the user.
+     * @param rawInput The raw input as input by the user.
+     * @return The command which is called by the user that can be executed.
+     * @throws DukeException If the parser is unable to parse the raw input.
+     */
     public static Command parse(String rawInput) throws DukeException {
         Command command;
         String details;
