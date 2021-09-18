@@ -27,6 +27,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method of Duke, which creates a Duke class and runs it.
+     *
+     * @param args Not applicable.
+     */
     public static void main(String[] args) {
         new Duke("duke.txt").run();
     }
