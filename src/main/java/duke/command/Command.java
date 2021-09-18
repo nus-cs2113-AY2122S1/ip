@@ -8,6 +8,8 @@ public class Command {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_FIND = "find";
+    
     
     private String commandType;
     private String commandDescription;
