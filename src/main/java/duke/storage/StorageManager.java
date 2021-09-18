@@ -114,17 +114,13 @@ public class StorageManager {
         writer.close();
     }
 
-    private void saveDataToFile() {
+    public void updateStorage(ArrayList<Task> tasks) {
+        this.tasks = tasks;
         checkFilePath();
         try {
             writeToFile();
         } catch (IOException e) {
             System.out.println("Something went wrong");
         }
-    }
-    
-    public void updateStorage(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-        saveDataToFile();
     }
 }
