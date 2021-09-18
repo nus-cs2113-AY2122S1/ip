@@ -18,7 +18,7 @@ public class Duke {
 
     protected static ArrayList<Task> tasks = new ArrayList<>();
     private static ArrayList<String> commands = new ArrayList<>();
-    private static String filePath = "./duke.txt";
+    private static String filePath = "./src/main/java/duke.txt";
     public static void main(String[] args) {
         String line = "";
         showWelcomeScreen();
@@ -49,6 +49,7 @@ public class Duke {
         commands.add("delete");
         commands.add("list");
         commands.add("save");
+        commands.add("bye");
     }
     private static void readFile() {
         try {
@@ -77,7 +78,7 @@ public class Duke {
         Boolean isDone;
         for(int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
-            taskDescription = currentTask.toString().split(" ", 3)[1];
+            taskDescription = extractTask(currentTask);
             type = currentTask.getType();
             isDone = currentTask.getStatus();
             stringToAdd +=  type+ "|" + isDone + "|" + taskDescription;
@@ -91,6 +92,17 @@ public class Duke {
         }
         fw.write(stringToAdd);
         fw.close();
+        printDivider();
+        System.out.println("Tasks saved successfully");
+        printDivider();
+    }
+
+    private static String extractTask(Task currentTask) {
+        String taskWithDate;
+        String[] taskDescription;
+        taskWithDate = currentTask.toString().split(" ", 2)[1];
+        taskDescription = taskWithDate.split("\\(", 2);
+        return taskDescription[0].trim();
     }
 
     private static void checkFileInputs(String[] splitInput) {
