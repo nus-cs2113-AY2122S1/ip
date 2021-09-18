@@ -1,6 +1,6 @@
 package duke.exception;
 
-public class EmptyListException extends Exception {
+public class EmptyOrFullListException extends Exception {
     private static final String OUTPUT_DIVIDER = "____________________________________________________________";
     private static final String MESSAGE_LIST_EMPTY = " The list is empty! Add a task first.";
 
