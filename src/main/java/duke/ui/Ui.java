@@ -150,6 +150,11 @@ public class Ui {
         printMessage(FILE_INITIALISATION_ERROR_MESSAGE);
     }
 
+    /**
+     * Print all the task found by the find command
+     *
+     * @param foundTasks list of task that was found from the search
+     */
     public void printFoundTask(ArrayList<Task> foundTasks) {
         StringBuilder foundTasksMessage = new StringBuilder();
         foundTasksMessage

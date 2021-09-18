@@ -155,9 +155,15 @@ public class TaskList {
             ui.printEmptyTaskMessage();
             return;
         }
-            ui.printAllTasks(this);
+        ui.printAllTasks(this);
     }
 
+    /**
+     * finds the all task with the searchTerm and print them
+     *
+     * @param ui         the Ui instance to format and print messages
+     * @param searchTerm the String to find in the tasks description
+     */
     public void findTasks(Ui ui, String searchTerm) {
         ArrayList<Task> foundTasks = (ArrayList<Task>) taskList
                 .stream()
