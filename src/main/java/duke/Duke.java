@@ -57,51 +57,51 @@ public class Duke {
             ui.printDivider();
             try {
                 switch (commandArgs.get("command").toLowerCase()) {
-                    case "list":
-                        ui.listAll(tasks.getTasks());
-                        break;
-                    case "done": {
-                        Integer index = Integer.parseInt(commandArgs.get("param"));
-                        ui.markDone(tasks.setTaskDone(index));
-                        break;
-                    }
-                    case "delete": {
-                        Integer index = Integer.parseInt(commandArgs.get("param"));
-                        ui.deleteSuccess(tasks.deleteTask(index), tasks.size());
-                        break;
-                    }
-                    case "todo": {
-                        String description = commandArgs.get("param");
-                        Todo todo = tasks.addTodo(description);
-                        ui.addSuccess(todo, tasks.size());
-                        break;
-                    }
-                    case "deadline": {
-                        String description = commandArgs.get("param");
-                        String by = commandArgs.get("by");
-                        Deadline deadline = tasks.addDeadline(description, by);
-                        ui.addSuccess(deadline, tasks.size());
-                        break;
-                    }
-                    case "event": {
-                        String description = commandArgs.get("param");
-                        String at = commandArgs.get("at");
-                        Event event = tasks.addEvent(description, at);
-                        ui.addSuccess(event, tasks.size());
-                        break;
-                    }
-                    case "find": {
-                        String search = commandArgs.get("param");
-                        ui.listSearch(tasks.findTasks(search));
-                        break;
-                    }
-                    case "bye":
-                        exit = true;
-                        ui.bye();
-                        break;
-                    default:
-                        ui.printUnknownCommand();
-                        break;
+                case "list":
+                    ui.listAll(tasks.getTasks());
+                    break;
+                case "done": {
+                    Integer index = Integer.parseInt(commandArgs.get("param"));
+                    ui.markDone(tasks.setTaskDone(index));
+                    break;
+                }
+                case "delete": {
+                    Integer index = Integer.parseInt(commandArgs.get("param"));
+                    ui.deleteSuccess(tasks.deleteTask(index), tasks.size());
+                    break;
+                }
+                case "todo": {
+                    String description = commandArgs.get("param");
+                    Todo todo = tasks.addTodo(description);
+                    ui.addSuccess(todo, tasks.size());
+                    break;
+                }
+                case "deadline": {
+                    String description = commandArgs.get("param");
+                    String by = commandArgs.get("by");
+                    Deadline deadline = tasks.addDeadline(description, by);
+                    ui.addSuccess(deadline, tasks.size());
+                    break;
+                }
+                case "event": {
+                    String description = commandArgs.get("param");
+                    String at = commandArgs.get("at");
+                    Event event = tasks.addEvent(description, at);
+                    ui.addSuccess(event, tasks.size());
+                    break;
+                }
+                case "find": {
+                    String search = commandArgs.get("param");
+                    ui.listSearch(tasks.findTasks(search));
+                    break;
+                }
+                case "bye":
+                    exit = true;
+                    ui.bye();
+                    break;
+                default:
+                    ui.printUnknownCommand();
+                    break;
                 }
             } catch (MissingArgumentException e) {
                 ui.printErrorMessage(e.getMessage());

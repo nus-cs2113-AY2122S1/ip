@@ -59,15 +59,15 @@ public class Storage {
             String description = taskParts[1];
             Boolean isDone = Boolean.parseBoolean(taskParts[2]);
             switch (command) {
-                case "todo":
-                    tasks.add(new Todo(description, isDone));
-                    break;
-                case "deadline":
-                    tasks.add(new Deadline(description, taskParts[3], isDone));
-                    break;
-                case "event":
-                    tasks.add(new Event(description, taskParts[3], isDone));
-                    break;
+            case "todo":
+                tasks.add(new Todo(description, isDone));
+                break;
+            case "deadline":
+                tasks.add(new Deadline(description, taskParts[3], isDone));
+                break;
+            case "event":
+                tasks.add(new Event(description, taskParts[3], isDone));
+                break;
             }
         }
         s.close();
