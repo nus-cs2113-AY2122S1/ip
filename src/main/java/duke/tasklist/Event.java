@@ -1,5 +1,7 @@
 package duke.tasklist;
 
+import duke.Time;
+
 public class Event extends Task {
 
     public static final int INDEX_OF_EVENT = 5;
@@ -20,13 +22,17 @@ public class Event extends Task {
         return (deadline);
     }
 
+    public String convertDeadline() {
+        return Time.convertDate(deadline);
+    }
+
     @Override
     public void printMarkAsDoneMessage(int taskNumber) {
-        System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + getDeadline() + ")");
+        System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
     }
 
     @Override
     public void printTaskList(int listIndex) {
-        System.out.println(listIndex + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + getDeadline() + ")");
+        System.out.println(listIndex + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
     }
 }
