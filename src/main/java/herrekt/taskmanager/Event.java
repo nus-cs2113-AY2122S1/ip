@@ -14,15 +14,16 @@ public class Event extends Task implements Timetable {
 
     @Override
     public String toSave() {
-        String spacer = " / ";
         int done = 0;
         if (this.isDone) {
             done = 1;
         }
-        return "E" + spacer + done + spacer + this.description + spacer + this.date;
+        return "E" + SAVE_FILE_SPACER
+                + done + SAVE_FILE_SPACER
+                + this.description + SAVE_FILE_SPACER
+                + this.date;
     }
 
-    @Override
     public String getDescription() {
         return super.description + " (at: " + this.getDate() + ")";
     }

@@ -6,21 +6,18 @@ public class Todo extends Task implements Timetable {
         super(description);
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
     @Override
     public String toSave() {
-        String spacer = " / ";
+
         int done = 0;
         if (this.isDone) {
             done = 1;
         }
-        return "T" + spacer + done + spacer + this.description;
+        return "T" + SAVE_FILE_SPACER
+                + done + SAVE_FILE_SPACER
+                + this.description;
     }
 
-    @Override
     public String getDescription() {
         return super.description;
     }
