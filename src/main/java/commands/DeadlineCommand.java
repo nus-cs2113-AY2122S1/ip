@@ -41,6 +41,7 @@ public class DeadlineCommand extends Command {
             Deadline deadline = new Deadline(description, dateObj);
             tasks.add(deadline);
             ui.customPrint(String.format(addTaskMessage, deadline, tasks.size()));
+            storage.saveData(ui, tasks);
         }
     }
 }

@@ -36,6 +36,7 @@ public class DoneCommand extends Command {
             } else {
                 currentTask.markAsDone(); // Mark current task as done
                 ui.customPrint(String.format(taskMarkedDone, currentTask));
+                storage.saveData(ui, tasks);
             }
         }
     }

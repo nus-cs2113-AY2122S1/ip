@@ -32,6 +32,7 @@ public class DeleteCommand extends Command {
             Task removedTask = tasks.get(taskId);
             tasks.remove(taskId);
             ui.customPrint(String.format(removeTaskMessage, removedTask, tasks.size()));
+            storage.saveData(ui, tasks);
         }
     }
 }

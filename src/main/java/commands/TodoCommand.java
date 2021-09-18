@@ -30,6 +30,7 @@ public class TodoCommand extends Command {
             Todo todo = new Todo(description);
             tasks.add(todo);
             ui.customPrint(String.format(addTaskMessage, todo, tasks.size()));
+            storage.saveData(ui, tasks);
         }
     }
 }

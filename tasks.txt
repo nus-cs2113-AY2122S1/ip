@@ -1,4 +1,2 @@
-E|false|def|11/11/2021 1600
-T|true|abc
-D|false|def|11/11/2021 1000
-E|true|hi|11/11/2021 1900
+E|false|video|18/09/2021 1700
+D|false|assignment|19/09/2021 1900
