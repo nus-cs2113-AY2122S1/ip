@@ -18,6 +18,7 @@ public class Event extends Task {
         this.completeTime = completeTime;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + "(" + this.completeTime + ")";
     }

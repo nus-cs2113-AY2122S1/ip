@@ -63,8 +63,9 @@ public class FileReader {
             return new Deadline(split[2].strip(), split[3].strip(), split[1].strip().equals("1"));
         case "E":
             return new Event(split[2].strip(), split[3].strip(), split[1].strip().equals("1"));
+        default:
+            return null;
         }
-        return null;
     }
 
 }

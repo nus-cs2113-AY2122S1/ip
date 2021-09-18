@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class TextUI {
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     Can I get your name?\n";
-    private String WELCOME1 = "     Hello! ";
-    private String WELCOME2 = "\n" + "     What can I do for you?\n";
+    private final String WELCOME1 = "     Hello! ";
+    private final String WELCOME2 = "\n" + "     What can I do for you?\n";
 
     private Scanner sc = new Scanner(System.in);
 
