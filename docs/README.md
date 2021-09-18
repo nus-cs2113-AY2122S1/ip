@@ -2,6 +2,19 @@
 
 **Task Monitor** (**`taskmon`**) is a **Command Line Interface (CLI) app to assist in the management of your everyday tasks with a hacker-like feel**. If you are curious about hacking, and you type fast like a hacker, get ready to immerse yourself in the world of hacking as you compromise the `taskmon` chatbot and use it as your personal task manager!
 
+* [Quick Start](#quick-start)
+* [Features](#features)
+  * [Add a task: `todo`, `deadline`, `event`](#add-a-task-todo-deadline-event)
+  * [List all tasks: `list`](#list-all-tasks-list)
+  * [Mark a task as completed: `done`](#mark-a-task-as-completed-done)
+  * [Delete a task: `delete`](#delete-a-task-delete)
+  * [Find tasks: `find`](#find-tasks-find)
+  * [Exit the program: `bye`](#exit-the-program-bye)
+  * [Save the data to a save file](#save-the-data-to-a-save-file)
+  * [Edit the save file](#edit-the-save-file)
+* [FAQ](#faq)
+* [Command Summary](#command-summary)
+
 ## Quick start 
 
 ----
@@ -28,16 +41,6 @@ ____________________________________________________________
 ## Features 
 
 ---
-
-Here are the list of supported features:
-* Add a task: `todo`, `deadline`, `event`
-* List all tasks: `list`
-* Mark a task as completed: `done`
-* Delete a task: `delete`
-* Find tasks: `find`
-* Exit the program: `bye`
-* Save the data to a save file
-* Edit the save file
 
 ### Add a task: `todo`, `deadline`, `event`
 
@@ -199,7 +202,7 @@ Advanced users are able to update the tasks directly by editing the save file.
 
 | Action                      | Format                                                                                                                       | Example |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Add a task                  | `todo <Task Description>` <br> `deadline <Task Description> /by <Timestamp>` <br> `event <Task Description> /at <Timestamp>` | `todo my homework` <br> `deadline assignment /by 2021-10-01 2359` <br> `event midterms /at 2021-10-01 1800`  
+| Add a task                  | `todo <Task Description>` <br><br> `deadline <Task Description> /by <Timestamp>` <br><br> `event <Task Description> /at <Timestamp>` | `todo my homework` <br><br> `deadline assignment /by 2021-10-01 2359` <br><br> `event midterms /at 2021-10-01 1800`  
 | List all tasks              | `list` | `list`
 | Mark task as <br> completed | `done <Task Index>` | `done 1` |
 | Delete a task               | `delete <Task Index>` | `delete 1` |
