@@ -12,6 +12,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Represents a save file modifier. A storage object corresponds to a save file in a specified
+ * location
+ */
 public class Storage {
 
     String path;
@@ -20,6 +24,13 @@ public class Storage {
         this.path = filepath;
     }
 
+    /**
+     * Saves list of tasks to a text file in a specified location
+     *
+     * @param tasks list of tasks to save
+     * @throws IOException If file cannot be opened, e.g. location specified is a folder rather than a
+     *         regular file
+     */
     public void saveTasks(List<Task> tasks) throws IOException {
         File saveFile = new File(this.path);
         if (!saveFile.exists()) {
@@ -32,6 +43,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Extracts tasks from a save file and places the tasks into a task array
+     *
+     * @return List of tasks
+     * @throws FileNotFoundException If the save file cannot be found
+     */
     public List<Task> load() throws FileNotFoundException {
         List<Task> tasks = new ArrayList<Task>();
         File saveFile = new File(this.path);

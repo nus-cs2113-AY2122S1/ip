@@ -2,12 +2,20 @@ package duke.parser;
 
 import java.util.HashMap;
 
+/**
+ * Represents a command extractor for Duke.
+ */
 public class Parser {
 
     public Parser() {
 
     }
 
+    /**
+     * Parses the duke command given, mapping the arguments of the command to their parameters
+     *
+     * @return Map of parameters to given value
+     */
     public static HashMap<String, String> parseCommand(String command) {
         String[] parts = command.split(" /");
         HashMap<String, String> map = new HashMap<String, String>();

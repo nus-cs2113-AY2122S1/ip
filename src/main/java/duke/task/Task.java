@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Represents a task item. A Task object corresponds to an item represented by its description and
+ * completion status
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,6 +17,11 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Get the completion status of the task, marked by "X" as completed or " " as incomplete
+     * 
+     * @return String "X" or " " depending on completion status
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

@@ -13,12 +13,22 @@ import duke.exception.MissingArgumentException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 
+/**
+ * Represents a task manager. A duke object combines the functionality of storage, tasks and ui to
+ * perform as a task manager
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a duke object with specified save file path
+     *
+     * @param filePath relative path to save file
+     * @return duke object
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -30,6 +40,12 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Runs the duke program until user exits
+     *
+     * @return null
+     */
     public void run() {
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
