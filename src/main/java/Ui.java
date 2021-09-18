@@ -1,3 +1,7 @@
+import task.Task;
+
+import java.util.ArrayList;
+
 public class Ui {
 
     public static void printDivider() {
@@ -68,4 +72,11 @@ public class Ui {
         System.out.println("Local file has been created.");
     }
 
+    public static void printData(ArrayList<Task> tasks, String userInput) {
+        System.out.printf("There are %d tasks containing \"%s\"" + System.lineSeparator(), tasks.size(), userInput );
+        for (Task t : tasks) {
+            System.out.println(t);
+        }
+        printDivider();
+    }
 }

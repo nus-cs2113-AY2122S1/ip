@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import exceptions.DukeException;
 import exceptions.InvalidCommandException;
@@ -65,6 +66,18 @@ public class TaskManager {
         tasks.add(new Event(description, time));
     }
 
+    public static ArrayList<Task> filterTasksByString(ArrayList<Task> tasks, String filterString) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(filterString))
+                .collect(Collectors.toList());
+        return filteredList;
+    }
+
+    public void findTask(String userInput) {
+        ArrayList<Task> filteredList = filterTasksByString(tasks, userInput);
+        Ui.printData(filteredList, userInput);
+    }
+
     private void addTask(String userInput) throws DukeException {
         String[] params = userInput.split(" ", 2);
         String command = params[0];
@@ -111,6 +124,9 @@ public class TaskManager {
                 echoTask(tasks.size() - 1);
                 break;
             //fallthrough
+            case "FIND":
+                findTask(params[1]);
+                break;
             case "DONE":
                 taskDone(userInput);
                 break;
