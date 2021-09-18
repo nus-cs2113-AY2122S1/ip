@@ -4,3 +4,10 @@ E | 0 | project meeting | Aug 6th 2-4pm
 T | 1 | join sports club
 1 | T |   |  cwecwecewcewce
 2 | T |   |  wefwefwfweff
+01T |   |  ff
+12T |   |  dddddd
+01T |   |  rrrr
+0 1T |   |  wrrer
+0 1 | T |   |  rrrrrr
+1 | T |   |  yyy
+1 | T |   |  qw
