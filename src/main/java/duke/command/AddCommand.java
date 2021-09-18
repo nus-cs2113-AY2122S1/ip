@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
 import duke.task.Task;
 
 public class AddCommand extends Command {
@@ -21,11 +22,12 @@ public class AddCommand extends Command {
      * and save changes to an external file.
      *
      * @param tasks   List that stores all the tasks.
+     * @param ui      User interface of duke.
      * @param storage Reference to the file where data is stored.
      */
     @Override
-    public void runCommand(TaskList tasks, Storage storage) {
-        tasks.addTask(task, true);
+    public void runCommand(TaskList tasks, Ui ui, Storage storage) {
+        tasks.addTask(task, ui, true);
         storage.saveTask(tasks);
     }
 

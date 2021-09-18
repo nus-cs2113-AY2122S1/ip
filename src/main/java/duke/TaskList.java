@@ -32,7 +32,7 @@ public class TaskList {
             + L_TAB + "6. help" + LS
             + L_TAB + "7. bye";
 
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    protected ArrayList<Task> tasks = new ArrayList<Task>();
 
     /**
      * Gets the number of tasks in the list.
@@ -57,14 +57,15 @@ public class TaskList {
      * Adds a task to the list.
      *
      * @param task    Task object to be added.
+     * @param ui      User interface of duke.
      * @param isPrint Boolean that checks if a message for task adding should be printed.
      */
-    public void addTask(Task task, boolean isPrint) {
+    public void addTask(Task task, Ui ui, boolean isPrint) {
         tasks.add(task);
         if (isPrint) {
-            Picture.printLine();
+            ui.showLine();
             System.out.println(getMessageForAddTask());
-            Picture.printLine();
+            ui.showLine();
         }
     }
 
@@ -81,64 +82,70 @@ public class TaskList {
 
     /**
      * Print all the tasks in the list.
+     *
+     * @param ui User interface of duke.
      */
-    public void printList() {
-        Picture.printLine();
+    public void printList(Ui ui) throws DukeException {
         if (tasks.size() == 0) {
-            System.out.println(ERROR_NO_TASK_IN_LIST);
+            throw new DukeException(ERROR_NO_TASK_IN_LIST);
         } else {
+            ui.showLine();
             System.out.println(MESSAGE_TASK_IN_LIST);
             printTaskInList();
+            ui.showLine();
         }
-        Picture.printLine();
     }
 
     /**
      * Deletes a task in the list.
      *
      * @param taskNumber Task number of the task to be deleted.
+     * @param ui         User interface of duke.
      */
-    public void deleteTask(int taskNumber) {
-        Picture.printLine();
+    public void deleteTask(int taskNumber, Ui ui) throws DukeException {
         if (isListEmpty()) {
-            System.out.println(ERROR_NO_TASK_IN_LIST);
+            throw new DukeException(ERROR_NO_TASK_IN_LIST);
         } else if (doesTaskNumberExist(taskNumber)) {
-            System.out.println(ERROR_INVALID_TASK_SELECTED);
+            throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
+            ui.showLine();
             String taskDetails = getTaskDetails(taskNumber - 1);
             tasks.remove(taskNumber - 1);
             System.out.println(getMessageForDeleteTask(taskDetails));
+            ui.showLine();
         }
-        Picture.printLine();
     }
 
     /**
      * Marks a task in the list as completed.
      *
      * @param taskNumber Task number of the task to be marked as completed.
+     * @param ui         User interface of duke.
      * @param isPrint    Boolean that checks if a message for task adding should be printed.
      */
-    public void markAsCompleted(int taskNumber, boolean isPrint) {
-        Picture.printLine();
+    public void markAsCompleted(int taskNumber, Ui ui, boolean isPrint) throws DukeException {
         if (doesTaskNumberExist(taskNumber)) {
-            System.out.println(ERROR_INVALID_TASK_SELECTED);
+            throw new DukeException(ERROR_INVALID_TASK_SELECTED);
         } else {
+            ui.showLine();
             markTaskAsCompleted(taskNumber - 1);
             String taskDetails = getTaskDetails(taskNumber);
             if (isPrint) {
                 System.out.println(getMessageForMarkTaskAsDone(taskDetails));
             }
+            ui.showLine();
         }
-        Picture.printLine();
     }
 
     /**
      * Prints the list of all possible commands when the "help" command is used.
+     *
+     * @param ui User interface of duke.
      */
-    public void printHelpMessage() {
-        Picture.printLine();
+    public void printHelpMessage(Ui ui) {
+        ui.showLine();
         System.out.println(MESSAGE_HELP + LS + LIST_COMMAND);
-        Picture.printLine();
+        ui.showLine();
     }
 
     /*

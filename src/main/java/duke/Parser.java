@@ -11,7 +11,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
-public class CommandParser {
+public class Parser {
 
     private static final int COMMAND_KEYWORD = 0;
 

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_NAME = "duke.txt";
     private static final String DELIMITER = "@@@";
 
     private static final int TASK_TYPE = 0;
@@ -25,13 +24,20 @@ public class Storage {
     private static final String ERROR_SAVE = "     Save file not found. List of tasks will not be saved";
     private static final String ERROR_UNRECOGNISED_TASK_TYPE = "     Task type not recognised";
 
+    protected String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     /**
      * Loads task data from the file when Duke starts up.
      */
-    public void loadTask(TaskList tasks) throws DukeException {
+    public TaskList load() throws DukeException {
+        TaskList tasks = new TaskList();
         checkFileExist();
         try {
-            FileInputStream fileInputStream = new FileInputStream(FILE_NAME);
+            FileInputStream fileInputStream = new FileInputStream(filePath);
             Scanner scanner = new Scanner(fileInputStream);
             while (scanner.hasNext()) {
                 Task task = parseLine(scanner.nextLine());
@@ -40,13 +46,14 @@ public class Storage {
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(ERROR_LOAD);
         }
+        return tasks;
     }
 
     /**
      * Checks if the file exists, otherwise new file will be created.
      */
     private void checkFileExist() {
-        File file = new File(System.getProperty("user.dir"), FILE_NAME);
+        File file = new File(System.getProperty("user.dir"), filePath);
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -126,7 +133,7 @@ public class Storage {
      */
     public void saveTask(TaskList tasks) {
         try {
-            FileWriter fileWriter = new FileWriter(FILE_NAME);
+            FileWriter fileWriter = new FileWriter(filePath);
             for (int i = 0; i < tasks.getListSize(); i++) {
                 fileWriter.write(tasks.getTaskStringForStorage(i));
             }

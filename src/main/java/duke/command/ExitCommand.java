@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
 
 public class ExitCommand extends Command {
 
@@ -9,10 +10,11 @@ public class ExitCommand extends Command {
      * Override superclass Command to not perform any actions.
      *
      * @param tasks   Not applicable.
+     * @param ui      Not applicable.
      * @param storage Not applicable.
      */
     @Override
-    public void runCommand(TaskList tasks, Storage storage) {
+    public void runCommand(TaskList tasks, Ui ui, Storage storage) {
         // Nothing required for the implementation of exit command
     }
 
@@ -22,7 +24,7 @@ public class ExitCommand extends Command {
      * @return true
      */
     @Override
-    public boolean isExitCommand() {
+    public boolean isExit() {
         return true;
     }
 }
