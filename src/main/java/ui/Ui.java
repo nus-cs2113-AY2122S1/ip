@@ -5,15 +5,16 @@ package ui;
  */
 
 public class Ui {
+    private final int noOfPlus = 120;
     /**
      * Prints out a statement with borders.
      *
      * @param statement Statement to be printed.
      */
     public void customPrint(String statement) {
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+".repeat(noOfPlus));
         System.out.println(statement.trim()); // Remove any trailing spaces
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+".repeat(noOfPlus));
     }
 
     /**

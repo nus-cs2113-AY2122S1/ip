@@ -15,7 +15,8 @@ public class HelpCommand extends Command {
             + "\nEvent: Creates an event. " + EventCommand.commandSyntax
             + "\nHelp: Displays the help message."
             + "\nList: Lists all tasks."
-            + "\nTodo: Creates a Todo task. " + TodoCommand.commandSyntax;
+            + "\nTodo: Creates a Todo task. " + TodoCommand.commandSyntax
+            + "\nWhat's On: Lists all tasks occuring on the specified day. " + WhatsOnCommand.commandSyntax;
 
 
     public HelpCommand(String command) {
