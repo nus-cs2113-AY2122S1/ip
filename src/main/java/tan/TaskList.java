@@ -9,12 +9,51 @@ import tan.tasktype.ToDo;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
     protected static List<Task> listOfTasks = new LinkedList<>();
     private static int totalNumberOfTask = 0;
+
+    /**
+     * Prints a list of tasks that contains
+     * a substring in its description of what the user input.
+     * If no task matched, it will inform the user.
+     *
+     * @param userInput The whole user's input in String
+     */
+    public static void findTask(String userInput) {
+        String searchString = Parser.getDescription(userInput);
+        if (searchString == null) {
+            return;
+        }
+        List<Task> listOfMatchedTask = getAllMatchingTask(searchString);
+        if (listOfMatchedTask == null) {
+            //No matching task found.
+            System.out.println("No tasks matched your input! Please try again.");
+        } else {
+            System.out.println("The tasks that matched your inputs are:");
+            Ui.printListOfTask(listOfMatchedTask);
+        }
+    }
+
+    /**
+     * Returns a list containing all the tasks with descriptions
+     * that contain the string provided. If none matched, return null.
+     *
+     * @param stringToMatch String to match.
+     * @return List of Tasks containing the string provided. Null if list is empty.
+     */
+    public static List<Task> getAllMatchingTask(String stringToMatch) {
+        List<Task> matchedTasks = listOfTasks.stream()
+                .filter((t) -> t.getTaskName().contains(stringToMatch))
+                .collect(Collectors.toList());
+        if (matchedTasks.size() == 0) {
+            return null;
+        }
+        return matchedTasks;
+    }
 
     /**
      * Initializes the file & loads the tasks stored in the file
@@ -123,7 +162,7 @@ public class TaskList {
      * @param userInput The entire input from the user as a String.
      */
     public static void addTask(String userInput) {
-        String typeOfTask = getTypeOfTask(userInput);
+        String typeOfTask = Parser.getTypeOfTask(userInput);
         Task curTask;
         switch (typeOfTask) {
         case "todo":
@@ -166,8 +205,8 @@ public class TaskList {
      */
     private static Task getEventTask(String userInput) {
         try {
-            String eventDesc = getDescriptionOfEvent(userInput);
-            String eventTimeDate = getDateTimeOfEvent(userInput);
+            String eventDesc = Parser.getDescriptionOfEvent(userInput);
+            String eventTimeDate = Parser.getDateTimeOfEvent(userInput);
             Task curTask = new Event(eventDesc, eventTimeDate);
             listOfTasks.add(curTask);
             return curTask;
@@ -191,8 +230,8 @@ public class TaskList {
      */
     private static Task getDeadlineTask(String userInput) {
         try {
-            String deadlineDesc = getDescriptionOfDeadline(userInput);
-            String deadlineDateTime = getDateTimeOfDeadline(userInput);
+            String deadlineDesc = Parser.getDescriptionOfDeadline(userInput);
+            String deadlineDateTime = Parser.getDateTimeOfDeadline(userInput);
             Task curTask = new Deadline(deadlineDesc, deadlineDateTime);
             listOfTasks.add(curTask);
             return curTask;
@@ -217,7 +256,7 @@ public class TaskList {
     private static Task getToDoTask(String userInput) {
 
         try {
-            String todoDesc = getDescriptionOfToDo(userInput);
+            String todoDesc = Parser.getDescriptionOfToDo(userInput);
             Task curTask = new ToDo(todoDesc);
             listOfTasks.add(curTask);
             return curTask;
@@ -228,159 +267,11 @@ public class TaskList {
     }
 
     /**
-     * Returns the Date/Time specified when creating an Event task,
-     * else throws a DukeFormatExceptions. The function
-     * uses the "/at" specified in the user's input to find the date/time.
-     * Throws a DukeFormatExceptions error if its unable to find "/at".
-     *
-     * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
-     * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
+     * Calls the necessary functions to print the current
+     * list of tasks.
      */
-    private static String getDateTimeOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
-        //Checks if user has used the /at... format.
-        if (x.toLowerCase().contains("/at")) {
-            int indexOfSlash = x.indexOf("/at");
-            //+3 to the index as we don't want to capture "/at" itself.
-            String dateTime = x.substring(indexOfSlash + 3);
-            return dateTime.trim();
-        }
-        throw new DukeFormatExceptions("Code could not find '/at'");
+    public static void printCurrentList() {
+        Ui.printListOfTask(listOfTasks);
     }
 
-    /**
-     * Returns the description of an event task from the user's input.
-     * Else throws a DukeFormatExceptions error
-     * The function Takes in the whole user input as a string
-     * when the user is adding an event. The function assumes the
-     * description is between the first " " and the "/at" in the input.
-     *
-     * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
-     * @throws IndexOutOfBoundsException If index of /at is out of the index range of the input
-     *                                   or there is no " " in the input.
-     */
-    private static String getDescriptionOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
-        //Checks if user has used the /by... format.
-        if (x.toLowerCase().contains("/at")) {
-            int indexOfFirstSpace = x.indexOf(" ");
-            int indexOfSlash = x.indexOf("/at");
-            //Minus 1 and plus 1 to index to avoid capturing the " " & "/" itself.
-            String description = x.substring(indexOfFirstSpace + 1, indexOfSlash - 1);
-            return description.trim();
-        }
-        throw new DukeFormatExceptions("Code could not find '/at'");
-    }
-
-    /**
-     * Returns the Date/Time specified when creating a deadline task,
-     * else throws a DukeFormatExceptions. The function
-     * uses the "/by" specified in the user's input to find the date/time.
-     * Throws a DukeFormatExceptions error if its unable to find "/by".
-     *
-     * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions      If "/by" does not exists in the Input.
-     * @throws IndexOutOfBoundsException If index of (/by + 3) is out of the index range of the input.
-     */
-    private static String getDateTimeOfDeadline(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
-        //Checks if user has used the /by... format.
-        if (x.toLowerCase().contains("/by")) {
-            int indexOfSlash = x.indexOf("/by");
-            //+3 to the index as we don't want to capture "/by".
-            String dateTime = x.substring(indexOfSlash + 3);
-            return dateTime.trim();
-        }
-        throw new DukeFormatExceptions("Code could not find '/by'");
-    }
-
-    /**
-     * Returns the description of a deadline task from the user's input.
-     * Else throws a DukeFormatExceptions error
-     * The function takes in the whole user input as a string
-     * when the user is adding a deadline. The function assumes the
-     * description is between the first " " and the "/by" in the input.
-     *
-     * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions      If "/by" does not exists in the Input.
-     * @throws IndexOutOfBoundsException If index of /by is out of the index range of the input
-     *                                   or there is no " " in the input.
-     */
-    private static String getDescriptionOfDeadline(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
-        //Checks if user has used the /by... format.
-        if (x.toLowerCase().contains("/by")) {
-            int indexOfFirstSpace = x.indexOf(" ");
-            int indexOfSlash = x.indexOf("/by");
-            //Minus 1 and plus 1 to index to avoid capturing the " " & "/" itself.
-            String description = x.substring(indexOfFirstSpace + 1, indexOfSlash - 1);
-            return description.trim();
-        }
-        throw new DukeFormatExceptions("Code could not find '/by'");
-    }
-
-    /**
-     * Returns the type of task in String, else null.
-     * Assumes the type of tasks is the
-     * first word in the string and returns
-     * that word. If unable to split, returns null.
-     *
-     * @param x The whole string of user input.
-     * @return The type of task in String, else null.
-     */
-    private static String getTypeOfTask(String x) {
-        try {
-            String[] inputs = x.split(" ");
-            return inputs[0].toLowerCase();
-        } catch (PatternSyntaxException p) {
-            System.out.println("Unable to read the input properly. Please try again.");
-        }
-        return null;
-    }
-
-    /**
-     * Returns the description of a Todo task from the user's input.
-     * Else throws a DukeFormatExceptions error
-     * The function takes in the whole user input as a string
-     * when the user is adding a todo task. The function assumes the
-     * description is after the first " " in the input.
-     *
-     * @param x The whole user input as a String.
-     * @return The remaining String excluding the 1st word.
-     * @throws DukeFormatExceptions      If there is no " "(Space) in the string.
-     * @throws IndexOutOfBoundsException If the index of the space + 1 is out of
-     *                                   range of the current input.
-     */
-    private static String getDescriptionOfToDo(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
-        //Gets the index of the first space.
-        int indexOfFirstSpace = x.indexOf(" ");
-        if (indexOfFirstSpace == -1) {
-            throw new DukeFormatExceptions("Parameters are empty! Please try again.");
-        }
-        String description = x.substring(indexOfFirstSpace + 1);
-        return description;
-    }
-
-    /**
-     * Prints all the task & their current status
-     * in the list else, informs the user if the list
-     * is empty.
-     */
-    public static void printList() {
-        if (listOfTasks.size() == 0) {
-            System.out.println("List is empty!");
-            return;
-        }
-        System.out.println("Your list of tasks contains:");
-        try {
-            for (int i = 0; i < listOfTasks.size(); i++) {
-                Task currentTask = listOfTasks.get(i);
-                System.out.println(currentTask);
-            }
-        } catch (IndexOutOfBoundsException i) {
-            System.out.println("Error in printing task! Contact Admin =(");
-        }
-    }
 }

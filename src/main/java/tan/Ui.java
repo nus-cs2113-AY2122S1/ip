@@ -1,5 +1,8 @@
 package tan;
 
+import tan.tasktype.Task;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -35,5 +38,25 @@ public class Ui {
 
     static void printBorder() {
         System.out.println(BORDER);
+    }
+
+    /**
+     * Prints all the task & their current status
+     * in the list else, informs the user if the list
+     * is empty.
+     */
+    public static void printListOfTask(List<Task> listOfTasks) {
+        if (listOfTasks.size() == 0) {
+            System.out.println("List is empty!");
+            return;
+        }
+        try {
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                Task currentTask = listOfTasks.get(i);
+                System.out.println(currentTask);
+            }
+        } catch (IndexOutOfBoundsException i) {
+            System.out.println("Error in printing task! Contact Admin =(");
+        }
     }
 }
