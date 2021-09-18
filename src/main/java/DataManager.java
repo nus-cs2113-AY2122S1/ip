@@ -82,6 +82,5 @@ public class DataManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

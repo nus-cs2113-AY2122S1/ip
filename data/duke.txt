@@ -2,3 +2,4 @@ T | 1 | read book | null
 D | 0 | return book | June 6th
 T | 1 | join sports club | null
 T | 0 | buy tomato | null
+D | 0 | return book  | Oct 15 2019
