@@ -10,4 +10,5 @@ public class CommandList {
     public static final String DELETE = "DELETE";
     public static final String HELP = "HELP";
     public static final String WHATSON = "WHATSON";
+    public static final String FIND = "FIND";
 }

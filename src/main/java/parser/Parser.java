@@ -45,6 +45,8 @@ public class Parser {
             return new HelpCommand(command);
         case BYE:
             return new ByeCommand(command);
+        case FIND:
+            return new FindCommand(command, description);
         case WHATSON:
             return new WhatsOnCommand(command, description);
         default:
