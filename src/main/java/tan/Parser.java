@@ -3,6 +3,7 @@ package tan;
 import java.util.regex.PatternSyntaxException;
 
 public class Parser {
+
     /**
      * Returns the command of the user's input.
      * Takes in the whole user input
