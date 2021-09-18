@@ -24,7 +24,7 @@ Wow! I found these tasks in your list:
 1. [T][ ] Buy flowers for girlfriend
 ____________________________________________________________
 Yay! I have added the following task for you:
-[D][ ] Finish iP project (by: Monday 2359)
+[D][ ] Finish iP project (by: Aug 22 2021)
 You have 2 tasks in your list now!
 ____________________________________________________________
 Good job! You have finished the following:
@@ -32,21 +32,21 @@ Good job! You have finished the following:
 ____________________________________________________________
 Wow! I found these tasks in your list:
 1. [T][X] Buy flowers for girlfriend
-2. [D][ ] Finish iP project (by: Monday 2359)
+2. [D][ ] Finish iP project (by: Aug 22 2021)
 ____________________________________________________________
 Good job! You have finished the following:
-[D][X] Finish iP project (by: Monday 2359)
+[D][X] Finish iP project (by: Aug 22 2021)
 ____________________________________________________________
 Wow! I found these tasks in your list:
 1. [T][X] Buy flowers for girlfriend
-2. [D][X] Finish iP project (by: Monday 2359)
+2. [D][X] Finish iP project (by: Aug 22 2021)
 ____________________________________________________________
 Yay! I have added the following task for you:
-[E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
+[E][ ] Attend Bob's wedding (at: Sep 18 2021)
 You have 3 tasks in your list now!
 ____________________________________________________________
 Yay! I have added the following task for you:
-[E][ ] Team Meeting (at: Tuesday 10am)
+[E][ ] Team Meeting (at: Sep 16 2021)
 You have 4 tasks in your list now!
 ____________________________________________________________
 Yay! I have added the following task for you:
@@ -55,22 +55,22 @@ You have 5 tasks in your list now!
 ____________________________________________________________
 Wow! I found these tasks in your list:
 1. [T][X] Buy flowers for girlfriend
-2. [D][X] Finish iP project (by: Monday 2359)
-3. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
-4. [E][ ] Team Meeting (at: Tuesday 10am)
+2. [D][X] Finish iP project (by: Aug 22 2021)
+3. [E][ ] Attend Bob's wedding (at: Sep 18 2021)
+4. [E][ ] Team Meeting (at: Sep 16 2021)
 5. [T][ ] Finish CG2027 videos /by Monday 8pm
 ____________________________________________________________
 Good job! You have finished the following:
-[E][X] Team Meeting (at: Tuesday 10am)
+[E][X] Team Meeting (at: Sep 16 2021)
 ____________________________________________________________
 Good job! You have finished the following:
 [T][X] Finish CG2027 videos /by Monday 8pm
 ____________________________________________________________
 Wow! I found these tasks in your list:
 1. [T][X] Buy flowers for girlfriend
-2. [D][X] Finish iP project (by: Monday 2359)
-3. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
-4. [E][X] Team Meeting (at: Tuesday 10am)
+2. [D][X] Finish iP project (by: Aug 22 2021)
+3. [E][ ] Attend Bob's wedding (at: Sep 18 2021)
+4. [E][X] Team Meeting (at: Sep 16 2021)
 5. [T][X] Finish CG2027 videos /by Monday 8pm
 ____________________________________________________________
 This has been a great test so far!
@@ -98,33 +98,33 @@ Yay! I have added the following task for you:
 You have 6 tasks in your list now!
 ____________________________________________________________
 Yay! I have added the following task for you:
-[D][ ] Do project report (by: Saturday 2pm)
+[D][ ] Do project report (by: Oct 10 2021)
 You have 7 tasks in your list now!
 ____________________________________________________________
 Yay! I have added the following task for you:
-[E][ ] Cry (at: 2am - 4am)
+[E][ ] Cry (at: Nov 11 2021)
 You have 8 tasks in your list now!
 ____________________________________________________________
 Yay! I have added the following task for you:
-[E][ ] Cry again (at: NOW)
+[E][ ] Cry again (at: Jul 1 2021)
 You have 9 tasks in your list now!
 ____________________________________________________________
 Good job! You have finished the following:
-[E][X] Cry again (at: NOW)
+[E][X] Cry again (at: Jul 1 2021)
 ____________________________________________________________
 Good job! You have finished the following:
-[D][X] Do project report (by: Saturday 2pm)
+[D][X] Do project report (by: Oct 10 2021)
 ____________________________________________________________
 Wow! I found these tasks in your list:
 1. [T][X] Buy flowers for girlfriend
-2. [D][X] Finish iP project (by: Monday 2359)
-3. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
-4. [E][X] Team Meeting (at: Tuesday 10am)
+2. [D][X] Finish iP project (by: Aug 22 2021)
+3. [E][ ] Attend Bob's wedding (at: Sep 18 2021)
+4. [E][X] Team Meeting (at: Sep 16 2021)
 5. [T][X] Finish CG2027 videos /by Monday 8pm
 6. [T][ ] Make more space
-7. [D][X] Do project report (by: Saturday 2pm)
-8. [E][ ] Cry (at: 2am - 4am)
-9. [E][X] Cry again (at: NOW)
+7. [D][X] Do project report (by: Oct 10 2021)
+8. [E][ ] Cry (at: Nov 11 2021)
+9. [E][X] Cry again (at: Jul 1 2021)
 ____________________________________________________________
 Alright, I have deleted the following task for you:
 [T][X] Finish CG2027 videos /by Monday 8pm
@@ -151,13 +151,13 @@ OH NO! The task number is invalid, I can't find any tasks matching that number..
 Enter "list" to check the task number!
 ____________________________________________________________
 Wow! I found these tasks in your list:
-1. [D][X] Finish iP project (by: Monday 2359)
-2. [E][ ] Attend Bob's wedding (at: Sunday 7pm - 10pm)
-3. [E][X] Team Meeting (at: Tuesday 10am)
+1. [D][X] Finish iP project (by: Aug 22 2021)
+2. [E][ ] Attend Bob's wedding (at: Sep 18 2021)
+3. [E][X] Team Meeting (at: Sep 16 2021)
 4. [T][ ] Make more space
-5. [D][X] Do project report (by: Saturday 2pm)
-6. [E][ ] Cry (at: 2am - 4am)
-7. [E][X] Cry again (at: NOW)
+5. [D][X] Do project report (by: Oct 10 2021)
+6. [E][ ] Cry (at: Nov 11 2021)
+7. [E][X] Cry again (at: Jul 1 2021)
 ____________________________________________________________
 Okay! Now your list is empty, you're FREE!
 ____________________________________________________________
@@ -196,6 +196,10 @@ OH NO! The task number is invalid, I can't find any tasks matching that number..
 Enter "list" to check the task number!
 ____________________________________________________________
 Please do not use "|" in your input...
+____________________________________________________________
+OH NO! Please key in your date in the format yyyy-mm-dd...
+____________________________________________________________
+OH NO! Please key in your date in the format yyyy-mm-dd...
 ____________________________________________________________
 Bye! Have a great day ahead and see you again soon.
 ____________________________________________________________

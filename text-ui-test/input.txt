@@ -4,13 +4,13 @@ echo Hello World!
 list
 todo Buy flowers for girlfriend
 list
-deadline Finish iP project /by Monday 2359
+deadline Finish iP project /by 2021-08-22
 done 1
 list
 done 2
 list
-event Attend Bob's wedding /at Sunday 7pm - 10pm
-event Team Meeting /at Tuesday 10am
+event Attend Bob's wedding /at 2021-09-18
+event Team Meeting /at 2021-09-16
 todo Finish CG2027 videos /by Monday 8pm
 list
 done 4
@@ -22,9 +22,9 @@ random cmd
 more dummy
 echo           If you can see this, then it's all good.
 todo                 Make more space
-deadline         Do project report/bySaturday 2pm
-event                  Cry         /at          2am - 4am
-event Cry again/at     NOW
+deadline         Do project report/by2021-10-10
+event                  Cry         /at          2021-11-11
+event Cry again/at     2021-07-01
 done            9
 done 7
 list
@@ -55,4 +55,6 @@ done
 done    abc
 done 10
 deadline something | very urgent
+deadline something /by sometime
+event something /at 20200109
 bye

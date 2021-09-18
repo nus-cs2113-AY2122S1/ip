@@ -5,6 +5,9 @@ import duke.parser.Parser;
 import duke.tasks.Deadline;
 import duke.tasks.TaskManager;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class AddDeadlineCommand extends Command {
 
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";
@@ -12,6 +15,8 @@ public class AddDeadlineCommand extends Command {
             "OH NO! You need to provide a description for your deadline task...";
     private static final String DEADLINE_DATE_ERROR =
             "OH NO! You need to specify a due date for your deadline task...";
+    private static final String DATE_WRONG_FORMAT_ERROR =
+            "OH NO! Please key in your date in the format yyyy-mm-dd...";
     private static final String ILLEGAL_CHAR = "|";
     private static final String ILLEGAL_CHAR_ERROR = "Please do not use \"|\" in your input...";
 
@@ -22,6 +27,15 @@ public class AddDeadlineCommand extends Command {
         if (argument.contains(ILLEGAL_CHAR)) {
             throw new DukeException(ILLEGAL_CHAR_ERROR);
         }
+    }
+
+    private boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date);
+        } catch (DateTimeParseException exception) {
+            return false;
+        }
+        return true;
     }
 
     private String[] retrieveDeadlineParameters(String argument) throws DukeException {
@@ -36,14 +50,18 @@ public class AddDeadlineCommand extends Command {
         if (isEmptyArgument(taskDue)) {
             throw new DukeException(DEADLINE_DATE_ERROR);
         }
+        if (!isValidDate(taskDue)) {
+            throw new DukeException(DATE_WRONG_FORMAT_ERROR);
+        }
 
         return parameters;
     }
 
     @Override
     public CommandResult executeCommand() throws DukeException {
+
         String[] parameters = retrieveDeadlineParameters(argument);
-        deadline = new Deadline(parameters[0], parameters[1]);
+        deadline = new Deadline(parameters[0], LocalDate.parse(parameters[1]));
         TaskManager.addTask(deadline);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + deadline.toString() + "\n"
