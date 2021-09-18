@@ -19,7 +19,7 @@ public class DataManager {
     private static final String NEWLINE = "\n";
 
     /**
-     * Adds all entries in DukeData.txt.
+     * Adds all entries in DukeData.txt into TaskManager.
      */
     public static void load() {
         boolean hasCorruptedLines = false;
@@ -104,5 +104,32 @@ public class DataManager {
             return;
         }
         UserInterface.showSaveSuccess();
+    }
+
+    /**
+     * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
+     * Successful saves are silent.
+     */
+    public static void saveWithoutMessages() {
+        FileWriter writer;
+        try {
+            writer = new FileWriter(FILENAME);
+        } catch (IOException e) {
+            UserInterface.showSaveError();
+            Duke.isRunning = false;
+            return;
+        }
+        BufferedWriter buffer = new BufferedWriter(writer);
+        try {
+            Iterator<Task> i = TaskManager.createIterator();
+            while (i.hasNext()) {
+                buffer.write(String.valueOf(i.next()));
+                buffer.write(NEWLINE);
+            }
+            buffer.close();
+        } catch (IOException e) {
+            UserInterface.showSaveError();
+            Duke.isRunning = false;
+        }
     }
 }
