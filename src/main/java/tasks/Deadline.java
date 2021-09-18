@@ -19,11 +19,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(" + this.deadline + ")";
+        return String.format("[D] %s (%s)", super.toString(), this.deadline);
     }
 
     public String save() {
-        return "D | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + " | " + this.deadline + "\n";
+        return String.format("D | %d | %s | %s\n", super.hasCompleted(), this.getTaskName(), this.deadline);
     }
 
 

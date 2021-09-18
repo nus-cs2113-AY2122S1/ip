@@ -105,7 +105,7 @@ public class TaskList {
         TaskList satisfiedTasks = new TaskList();
         for (Task t: tasks) {
             if (t.getTaskName().contains(keyword)) {
-                satisfiedTasks.add(t);
+                satisfiedTasks.addTask(t);
             }
         }
         return satisfiedTasks;

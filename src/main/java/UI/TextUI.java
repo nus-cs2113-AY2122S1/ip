@@ -10,8 +10,7 @@ import java.util.Scanner;
 public class TextUI {
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     Can I get your name?\n";
-    private final String WELCOME1 = "     Hello! ";
-    private final String WELCOME2 = "\n" + "     What can I do for you?\n";
+    private static final String WELCOME = "     Hello! %s\n     What can I do for you?\n";
 
     private Scanner sc = new Scanner(System.in);
 
@@ -29,20 +28,28 @@ public class TextUI {
     }
 
     public void showWelcomeMessage(String userName) {
-        System.out.print(DIVISIONLINE + WELCOME1 + userName + WELCOME2 + DIVISIONLINE);
+        System.out.print(DIVISIONLINE);
+        System.out.printf(WELCOME, userName);
+        System.out.print(DIVISIONLINE);
     }
 
     public void showError(Exception e) {
-        System.out.println(DIVISIONLINE + e.toString() + DIVISIONLINE);
+        System.out.print(DIVISIONLINE);
+        System.out.print(e.toString());
+        System.out.print(DIVISIONLINE);
     }
 
     public void printCommandResult(String result) {
-        System.out.println(DIVISIONLINE + result + DIVISIONLINE);
+        System.out.print(DIVISIONLINE);
+        System.out.print(result);
+        System.out.print(DIVISIONLINE);
     }
 
     private boolean shouldIgnore(String input) {
         if (input.trim().isEmpty()) {
-            System.out.println(DIVISIONLINE + "    Input should not be empty! Please try it again!\n" + DIVISIONLINE);
+            System.out.print(DIVISIONLINE);
+            System.out.print("    Input should not be empty! Please try it again!\n");
+            System.out.print(DIVISIONLINE);
             return true;
         }
         return false;

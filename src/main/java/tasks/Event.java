@@ -20,11 +20,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(" + this.completeTime + ")";
+        return String.format("[E] %s (%s)", super.toString(), this.completeTime);
     }
 
 
     public String save() {
-        return "E | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + " | " + this.completeTime + "\n";
+        return String.format("E | %d | %s | %s\n", super.hasCompleted(), this.getTaskName(), this.completeTime);
     }
 }

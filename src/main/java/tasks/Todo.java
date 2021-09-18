@@ -18,6 +18,6 @@ public class Todo extends Task {
     }
 
     public String save() {
-        return "T | " + (super.hasCompleted()? "1 | " : "0 | ") + this.getTaskName() + "\n";
+        return String.format("T | %d | %s\n", super.hasCompleted(), this.getTaskName());
     }
 }

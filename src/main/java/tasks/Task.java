@@ -14,7 +14,7 @@ abstract public class Task {
     }
 
     private String outputTaskStatus () {
-        return "[" + (isCompleted ? "X" : " ") + "] ";
+        return String.format("[%s]", isCompleted ? "X":" ");
     }
 
     public boolean hasCompleted() {
