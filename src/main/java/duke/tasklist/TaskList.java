@@ -2,6 +2,7 @@ package duke.tasklist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import duke.exception.MissingArgumentException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -53,24 +54,29 @@ public class TaskList {
         return event;
     }
 
-    public Task deleteTask(int index) {
-        Task task = getTask(index);
-        tasks.remove(index - 1);
-        return task;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
     public Task setTaskDone(int index) {
         Task task = getTask(index);
         task.markAsDone();
         return task;
     }
 
+    public Task deleteTask(int index) {
+        Task task = getTask(index);
+        tasks.remove(index - 1);
+        return task;
+    }
+
+    public List<Task> findTasks(String search) {
+        return this.tasks.stream().filter(item -> item.getDescription().contains(search))
+                .collect(Collectors.toList());
+    }
+
     public Task getTask(int index) {
         return tasks.get(index - 1);
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public int size() {

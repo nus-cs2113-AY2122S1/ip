@@ -55,8 +55,17 @@ public class Ui {
         printWithIndent(taskCount, 5);
     }
 
-    public void list(List<Task> tasks) {
+    public void listAll(List<Task> tasks) {
         printWithIndent("Here are the tasks in your list:", 5);
+        listTasks(tasks);
+    }
+
+    public void listSearch(List<Task> tasks) {
+        printWithIndent("Here are the matching tasks in your list:", 5);
+        listTasks(tasks);
+    }
+
+    public void listTasks(List<Task> tasks) {
         int index = 1;
         for (Task item : tasks) {
             printWithIndent(String.format("%d.%s", index, item), 5);

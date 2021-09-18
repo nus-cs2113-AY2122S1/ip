@@ -42,7 +42,7 @@ public class Duke {
             try {
                 switch (commandArgs.get("command").toLowerCase()) {
                     case "list":
-                        ui.list(tasks.getTasks());
+                        ui.listAll(tasks.getTasks());
                         break;
                     case "done": {
                         Integer index = Integer.parseInt(commandArgs.get("param"));
@@ -72,6 +72,11 @@ public class Duke {
                         String at = commandArgs.get("at");
                         Event event = tasks.addEvent(description, at);
                         ui.addSuccess(event, tasks.size());
+                        break;
+                    }
+                    case "find": {
+                        String search = commandArgs.get("param");
+                        ui.listSearch(tasks.findTasks(search));
                         break;
                     }
                     case "bye":
