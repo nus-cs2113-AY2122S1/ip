@@ -28,6 +28,8 @@ public class Parser extends TaskManager {
                     markTaskAsDone(taskList, userInput);
                 } else if (userInput.startsWith("bye")) {
                     break;
+                } else if (userInput.startsWith("find ")) {
+                    searchForTask(taskList,userInput);
                 } else {
                     printErrorForInvalidCommand(userInput);
                 }
