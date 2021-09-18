@@ -80,6 +80,11 @@ public class TaskList {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, deletedTask);
     }
     
+    private CommandResult executeFindCommand(Command userCommand) {
+        String keyword = userCommand.getCommandDescription();
+        return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, keyword);
+    }
+    
     private CommandResult executeExitCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
@@ -96,6 +101,8 @@ public class TaskList {
             return executeAddCommand(userCommand);
         case Command.COMMAND_DELETE:
             return executeDeleteCommand(userCommand);
+        case Command.COMMAND_FIND:
+            return executeFindCommand(userCommand);
         case Command.COMMAND_EXIT:
             return executeExitCommand(userCommand);
         default:
