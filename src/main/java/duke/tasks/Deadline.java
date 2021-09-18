@@ -21,6 +21,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getDate() {
+        return taskDue.toString();
+    }
+
+    @Override
     public String toDataStringFormat() {
         return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + SEPARATOR + taskDue + "\n";
     }

@@ -21,5 +21,6 @@ public abstract class Task {
         return "[" + doneStatus + "] " + description;
     }
 
+    public abstract String getDate();
     public abstract String toDataStringFormat();
 }

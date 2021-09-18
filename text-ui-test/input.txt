@@ -24,14 +24,16 @@ echo           If you can see this, then it's all good.
 todo                 Make more space
 deadline         Do project report/by2021-10-10
 event                  Cry         /at          2021-11-11
-event Cry again/at     2021-07-01
+event Cry again/at     2021-08-22
 done            9
 done 7
 list
  delete    5
 delete 9
 delete    1
+date   2021-08-22
 echo Start exception handling test
+date  abc
 delete
 delete ok
 delete  12

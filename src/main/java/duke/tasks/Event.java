@@ -21,6 +21,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getDate() {
+        return eventDateTime.toString();
+    }
+
+    @Override
     public String toDataStringFormat() {
         return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + SEPARATOR + eventDateTime + "\n";
     }

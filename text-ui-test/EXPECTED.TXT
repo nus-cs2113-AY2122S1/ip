@@ -106,11 +106,11 @@ Yay! I have added the following task for you:
 You have 8 tasks in your list now!
 ____________________________________________________________
 Yay! I have added the following task for you:
-[E][ ] Cry again (at: Jul 1 2021)
+[E][ ] Cry again (at: Aug 22 2021)
 You have 9 tasks in your list now!
 ____________________________________________________________
 Good job! You have finished the following:
-[E][X] Cry again (at: Jul 1 2021)
+[E][X] Cry again (at: Aug 22 2021)
 ____________________________________________________________
 Good job! You have finished the following:
 [D][X] Do project report (by: Oct 10 2021)
@@ -124,7 +124,7 @@ Wow! I found these tasks in your list:
 6. [T][ ] Make more space
 7. [D][X] Do project report (by: Oct 10 2021)
 8. [E][ ] Cry (at: Nov 11 2021)
-9. [E][X] Cry again (at: Jul 1 2021)
+9. [E][X] Cry again (at: Aug 22 2021)
 ____________________________________________________________
 Alright, I have deleted the following task for you:
 [T][X] Finish CG2027 videos /by Monday 8pm
@@ -137,7 +137,13 @@ Alright, I have deleted the following task for you:
 [T][X] Buy flowers for girlfriend
 You have 7 tasks in your list now!
 ____________________________________________________________
+Here are your tasks that are occurring on the date specified:
+1. [D][X] Finish iP project (by: Aug 22 2021)
+2. [E][X] Cry again (at: Aug 22 2021)
+____________________________________________________________
 Start exception handling test
+____________________________________________________________
+OH NO! Please key in your date in the format yyyy-mm-dd...
 ____________________________________________________________
 OH NO! You need to specify the task number...
 Enter "list" to check the task number!
@@ -157,7 +163,7 @@ Wow! I found these tasks in your list:
 4. [T][ ] Make more space
 5. [D][X] Do project report (by: Oct 10 2021)
 6. [E][ ] Cry (at: Nov 11 2021)
-7. [E][X] Cry again (at: Jul 1 2021)
+7. [E][X] Cry again (at: Aug 22 2021)
 ____________________________________________________________
 Okay! Now your list is empty, you're FREE!
 ____________________________________________________________

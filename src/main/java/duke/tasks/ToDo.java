@@ -15,6 +15,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String getDate() {
+        return "";
+    }
+
+    @Override
     public String toDataStringFormat() {
         return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + "\n";
     }
