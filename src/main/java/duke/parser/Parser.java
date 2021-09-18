@@ -1,5 +1,7 @@
 package duke.parser;
 
+import java.time.LocalDate;
+
 public class Parser {
     private static final int CHAR_TO_DESCRIPTION = 5;
     
@@ -11,7 +13,9 @@ public class Parser {
         return description.substring(0, description.indexOf(timeKeyword));
     }
     
-    public static String getTime(String description, String timeKeyword) {
-        return description.substring(description.indexOf(timeKeyword) + CHAR_TO_DESCRIPTION);
+    //assume users always input time in correct format
+    public static LocalDate getTime(String description, String timeKeyword) {
+        String time = description.substring(description.indexOf(timeKeyword) + CHAR_TO_DESCRIPTION);
+        return LocalDate.parse(time);
     }
 }

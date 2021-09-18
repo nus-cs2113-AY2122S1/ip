@@ -3,17 +3,24 @@ package duke.task;
 import duke.parser.Parser;
 import duke.exception.DukeInvalidAddTaskException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     private static final String EVENT_TIME_KEYWORD = " /at";
     
-    private String eventTime;
+    private LocalDate eventTime;
 
     public Event(String description) throws DukeInvalidAddTaskException {
         super(Parser.getDescription(description, EVENT_TIME_KEYWORD));
-        this.eventTime = Parser.getTime(description, EVENT_TIME_KEYWORD);
+        try {
+            this.eventTime = Parser.getTime(description, EVENT_TIME_KEYWORD);
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidAddTaskException();
+        }    
     }
 
-    public String getEventTime() {
+    public LocalDate getEventTime() {
         return eventTime;
     }
 
