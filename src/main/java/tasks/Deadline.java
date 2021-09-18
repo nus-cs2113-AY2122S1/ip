@@ -4,6 +4,10 @@ import parser.DateParser;
 
 import java.util.Date;
 
+/**
+ * Represents a task with deadline. A Deadline object is represented by a description and date.
+ */
+
 public class Deadline extends Task {
     public Date date;
 

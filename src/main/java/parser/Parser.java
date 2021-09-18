@@ -6,6 +6,11 @@ import errors.InvalidCommand;
 import static commands.CommandList.*;
 import static commands.CommandList.WHATSON;
 
+/**
+ * The Parser class helps extract the user's command as well as the task description
+ * and date if applicable.
+ */
+
 public class Parser {
     /**
      * Processes the user input into a Command Object.

@@ -4,6 +4,10 @@ import parser.DateParser;
 
 import java.util.Date;
 
+/**
+ * Represents an event. An Event object is represented by a description and at (the date and time of the event).
+ */
+
 public class Event extends Task {
 
     public Date at;

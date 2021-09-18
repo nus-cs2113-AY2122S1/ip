@@ -9,6 +9,11 @@ import errors.InvalidCommand;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Main class helps to start the application and initialise all variables used as
+ * well as to continuously prompt for input from the user until "BYE" is received.
+ */
+
 public class Main {
     private Ui ui;
     private Storage storage;
