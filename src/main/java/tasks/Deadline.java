@@ -1,4 +1,5 @@
 package tasks;
+
 public class Deadline extends Task {
     protected String by;
     public static final String DEADLINE_BY = "(by:";
@@ -13,6 +14,10 @@ public class Deadline extends Task {
         this.by = by;
         this.taskChar = 'D';
         this.fullDescription = this.name + " " + DEADLINE_BY + " " + this.by + ")";
+    }
+
+    public String getDate() {
+        return by;
     }
 
 }

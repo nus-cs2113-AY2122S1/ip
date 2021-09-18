@@ -1,5 +1,3 @@
-T|1|read book
-D|0|adwad (by: 9pm)
-E|1|aidwa (at: 823)
-D|1|return book (by: 9pm)
-T|0|aifuhwa
+T|0|read book
+D|0|return book (by: May 29 1998 18:00)
+D|0|eat food (by: Sep 18 2021 23:59)

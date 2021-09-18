@@ -1,6 +1,10 @@
+package processing;
 
 import java.util.ArrayList; // import the ArrayList class
-import java.util.regex.PatternSyntaxException;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.time.LocalDateTime;
 
 /*---------LOCAL IMPORT--------*/
 import tasks.TaskType;
@@ -24,20 +28,40 @@ public class TaskManager {
     private static final String LIST_TASK = "Here are your scheduled tasks!";
 
     /*------------- PRIVATE VARIABLES ------------ */
-    private final ArrayList<Task> tasks;
+    private final SortedSet<Task> tasks;
     private int taskSize;
 
 
-    /*------------- CONSTRUCTOR -------------- */
-    public TaskManager() {
-        tasks = new ArrayList<>();
-        taskSize = 0;
 
+    /*------------- CONSTRUCTOR -------------- */
+
+    static class TaskComparator implements Comparator<Task> {
+
+        @Override
+        public int compare(Task o1, Task o2) {
+            if (o1.getTaskType() == TaskType.TODO) {
+                return -1;
+            } else if (o2.getTaskType() == TaskType.TODO) {
+                return 1;
+            }
+            try {
+                LocalDateTime t1Date = DateParser.parseDate(o1.getDate());
+                LocalDateTime t2Date = DateParser.parseDate(o2.getDate());
+                return t1Date.compareTo(t2Date);
+            } catch (DukeException e) {
+                return 0;
+            }
+        }
+    }
+
+    public TaskManager() {
+        tasks = new TreeSet<>(new TaskComparator());
+        taskSize = 0;
     }
 
     /**
      * adds a Task into a variable-size array of Tasks
-     * @param command input that has been parsed by CommandHandler
+     * @param command input that has been parsed by processing.CommandHandler
      * @param type the type of task to be added : Todo / Event / Deadline
      */
     public void addTask(CommandHandler command, TaskType type, boolean isDone, boolean isLogged) throws DukeException {
@@ -49,11 +73,13 @@ public class TaskManager {
             break;
         case DEADLINE:
             command.splitByClause(DEADLINE_CLAUSE,DEADLINE_DESCRIPTION_IDX,false);
-            t = new Deadline(command.descriptorBeforeClause, command.descriptorAfterClause, isDone);
+            t = new Deadline(command.descriptorBeforeClause,
+                    DateParser.formatDate(command.descriptorAfterClause), isDone);
             break;
         case EVENT:
             command.splitByClause(EVENT_CLAUSE,EVENT_DESCRIPTION_IDX,false);
-            t = new Event(command.descriptorBeforeClause, command.descriptorAfterClause, isDone);
+            t = new Event(command.descriptorBeforeClause,
+                    DateParser.formatDate(command.descriptorAfterClause), isDone);
             break;
         }
         tasks.add(t);
@@ -67,15 +93,14 @@ public class TaskManager {
         command.splitByClause("delete", 0, true);
         try {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
-            Task t = tasks.get(idx);
-            tasks.remove(idx);
+            Task t = getTask(idx);
+            tasks.remove(t);
+            taskSize--;
             UI.showDeleteTask(t,taskSize);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             listTasks();
             throw new DukeException("Please enter a valid task number to delete.");
         }
-        taskSize--;
-
     }
 
     public void addTask(CommandHandler command, TaskType type) throws DukeException {
@@ -110,19 +135,24 @@ public class TaskManager {
     }
 
     public void updateTask(int idx, boolean isDone) {
-        tasks.get(idx).setDone(isDone);
+        getTask(idx).setDone(isDone);
     }
 
     public void printTask(int idx) {
-        System.out.println(tasks.get(idx));
+        System.out.println(getTask(idx));
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return new ArrayList<>(tasks);
     }
 
     public int getTaskSize(){
         return taskSize;
+    }
+
+    public Task getTask(int idx) {
+        ArrayList<Task> list = new ArrayList<>(tasks);
+        return list.get(idx);
     }
 }
 

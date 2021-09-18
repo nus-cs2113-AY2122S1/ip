@@ -1,13 +1,14 @@
-
+package processing;
 /*---------LOCAL IMPORT--------*/
+import Duke.Duke;
 import exceptions.DukeException;
 import tasks.TaskType;
 
 public class CommandHandler {
 
     /*-------- Private Variables -----*/
-    private String command;
-    private String input;
+    private final String command;
+    private final String input;
 
     /*------- Public Variables ---------*/
     public String descriptorBeforeClause;
@@ -45,27 +46,27 @@ public class CommandHandler {
         return command;
     }
 
-    public void execute() throws DukeException{
+    public void execute(TaskManager taskManager) throws DukeException{
         switch (command) {
         case "bye":
             Duke.exit();
         case "list":
-            Duke.taskManager.listTasks();
+            taskManager.listTasks();
             break;
         case "done":
-            Duke.taskManager.markTaskAsDone(this);
+            taskManager.markTaskAsDone(this);
             break;
         case "delete":
-            Duke.taskManager.deleteTask(this);
+            taskManager.deleteTask(this);
             break;
         case "deadline":
-            Duke.taskManager.addTask(this, TaskType.DEADLINE);
+            taskManager.addTask(this, TaskType.DEADLINE);
             break;
         case "event":
-            Duke.taskManager.addTask(this, TaskType.EVENT);
+            taskManager.addTask(this, TaskType.EVENT);
             break;
         case "todo":
-            Duke.taskManager.addTask(this, TaskType.TODO);
+            taskManager.addTask(this, TaskType.TODO);
             break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
