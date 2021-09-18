@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 /**
  * <h1>TaskManager</h1>
- * This class is in charge of managing the tasks within the task list.
+ * A <code>TaskManager</code> object is in charge of managing the tasks within the task list.
  * Methods for adding/deleting/marking tasks in the task list are within this class.
  * It also contains methods to load data from user data file and saving data to user data file.
  */
@@ -148,7 +148,7 @@ public class TaskManager {
      * @param taskType   The task label.
      * @param taskStatus The status of the task.
      * @param restOfLine The rest of the line which contains task description and additional arguments
-     *                   for deadline and events.
+     *                   for deadlines and events.
      */
     public void loadCurrentLineTask(String taskType, boolean taskStatus, String[] restOfLine) {
         if (taskType.equals(TODO_TASK_LABEL)) {

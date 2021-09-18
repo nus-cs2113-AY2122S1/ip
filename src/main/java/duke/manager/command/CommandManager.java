@@ -8,6 +8,12 @@ import duke.ui.UserInterface;
 
 import java.io.FileNotFoundException;
 
+/**
+ * <h1>CommandManager</h1>
+ * A <code>CommandManager</code> object is in charge of managing and executing commands based off user inputs.
+ * It executes commands and prints out relevant messages for the user depending on whether commands are valid or
+ * whether they are executed successfully.
+ */
 public class CommandManager {
 
     private boolean isExit = false;
@@ -61,10 +67,19 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Prints the task list for the user to look at.
+     */
     private void executeShowTaskList() {
         taskManager.printTasks();
     }
 
+    /**
+     * Attempts to mark a specific task as done and prints out a relevant message depending on the outcome.
+     * If a task is successfully marked as done, updated task list is saved into the user data file.
+     *
+     * @param commandArguments Argument specified for DONE_TASK.
+     */
     private void executeDoneTask(String commandArguments) {
         try {
             taskManager.markTaskAsDone(commandArguments);
@@ -80,6 +95,12 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Attempts to delete a specific task and prints out a relevant message depending on the outcome.
+     * If a task is successfully deleted, updated task list is saved into the user data file.
+     *
+     * @param commandArguments Argument specified for DELETE_TASK.
+     */
     private void executeDeleteTask(String commandArguments) {
         try {
             taskManager.deleteTask(commandArguments);
@@ -95,6 +116,12 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Attempts to add a todo into the task list and prints out a relevant message depending on the outcome.
+     * If a todo is successfully added, updated task list is saved into the user data file.
+     *
+     * @param commandArguments Argument specified for ADD_TODO.
+     */
     private void executeAddToDo(String commandArguments) {
         try {
             // commandArguments is the description for ToDos
@@ -107,6 +134,12 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Attempts to add an event into the task list and prints out a relevant message depending on the outcome.
+     * If an event is successfully added, updated task list is saved into the user data file.
+     *
+     * @param argument Arguments specified for ADD_EVENT.
+     */
     private void executeAddEvent(String[] argument) {
         try {
             taskManager.checkInputThenAddEvent(argument);
@@ -118,6 +151,12 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Attempts to add a deadline into the task list and prints out a relevant message depending on the outcome.
+     * If an deadline is successfully added, updated task list is saved into the user data file.
+     *
+     * @param argument Arguments specified for ADD_DEADLINE.
+     */
     private void executeAddDeadline(String[] argument) {
         try {
             taskManager.checkInputThenAddDeadline(argument);
@@ -129,6 +168,9 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Prints relevant message when user input is an invalid command.
+     */
     private void printMessageForInvalidCommand() {
         UserInterface.printMessage(
                 Message.INVALID_INPUT_MESSAGE

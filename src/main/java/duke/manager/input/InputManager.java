@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 /**
  * <h1>InputManager</h1>
- * This class manages inputs. <code>inputCommand</code> is an enum for commands which is assigned by
- * <code>setInputCommand()</code> whenever <code>readInput()</code> is called. <code>commandArguments</code>, which
- * represents the arguments tied to the inputted command, is also assigned a value whenever <code>readInput()</code>
+ * An <code>InputManger</code> abject is in charge of managing inputs given by the user. <code>inputCommand</code>
+ * is an enum for commands which is assigned by <code>setInputCommand()</code> whenever <code>readInput()</code>
  * is called.
+ * <code>commandArguments</code>, which represents the arguments tied to the inputted command, is also assigned a value
+ * whenever <code>readInput()</code> is called.
  * <code>inputCommand</code> and <code>commandArguments</code> can subsequently be read through their getter methods
  * when executing commands.
  */

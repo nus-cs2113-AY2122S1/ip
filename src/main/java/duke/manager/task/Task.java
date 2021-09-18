@@ -2,7 +2,7 @@ package duke.manager.task;
 
 /**
  * <h1>Task</h1>
- * Represents any task. A <code>Task</code> object is represented by a String of the task description
+ * Represents any kind of task. A <code>Task</code> object is represented by a String of the task description
  * <code>taskDescription</code> and a boolean of the status of the task <code>isDone</code>.
  */
 public class Task {
