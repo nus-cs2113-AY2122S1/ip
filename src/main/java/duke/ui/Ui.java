@@ -70,13 +70,6 @@ public class Ui {
         System.out.println(STRAIGHT_LINE);
     }
 
-    public static void printCommandLacksArgumentsMessage() {
-        System.out.println(STRAIGHT_LINE);
-        System.out.println(COMMAND_LACKS_ARG_MESSAGE);
-        System.out.println(ENTER_HELP);
-        System.out.println(STRAIGHT_LINE);
-    }
-
     public static void printTaskNotInListMessage() {
         System.out.println(STRAIGHT_LINE);
         System.out.println(TASK_NOT_IN_LIST_MESSAGE);
