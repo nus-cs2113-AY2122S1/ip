@@ -73,8 +73,12 @@ public class TaskManager {
         return filteredList;
     }
 
-    public void findTask(String userInput) {
-        ArrayList<Task> filteredList = filterTasksByString(tasks, userInput);
+    public void findTask(String userInput) throws DukeException {
+        String[] params = userInput.split(" ", 2);
+        if (params.length < 2) {
+            throw new DukeException();
+        }
+        ArrayList<Task> filteredList = filterTasksByString(tasks, params[1]);
         Ui.printData(filteredList, userInput);
     }
 
@@ -125,7 +129,7 @@ public class TaskManager {
                 break;
             //fallthrough
             case "FIND":
-                findTask(params[1]);
+                findTask(userInput);
                 break;
             case "DONE":
                 taskDone(userInput);
