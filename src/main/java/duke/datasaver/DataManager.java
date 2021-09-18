@@ -18,13 +18,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.constants.DukeDataStorageConstants.*;
+
 public class DataManager {
-    private static final String DIRECTORY_NAME = "dukeData";
-    private static final String FILE_NAME = "tasks.txt";
-    private static final String FILE_PATH = DIRECTORY_NAME + "\\" + FILE_NAME;
-    protected static final String ATTRIBUTE_SEPARATOR = " | ";
-    protected static final String DONE = "X";
-    protected static final String NOT_DONE = "O";
 
     public static void createFileInDirectory() throws IOException {
         Files.createDirectories(Paths.get(DIRECTORY_NAME));
