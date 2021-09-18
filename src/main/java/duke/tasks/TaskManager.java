@@ -28,7 +28,7 @@ public class TaskManager {
         return tasks;
     }
 
-    public static ArrayList<Task> filterList(String filterWord) {
+    public static ArrayList<Task> filterListByDate(String filterWord) {
         ArrayList<Task> filteredList =
                 (ArrayList<Task>) tasks.stream()
                         .filter((task) -> filterWord.equals(task.getDate()))

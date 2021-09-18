@@ -37,7 +37,7 @@ public class DateCommand extends Command {
     @Override
     public CommandResult executeCommand() throws DukeException {
         String parameter = retrieveDateParameter(argument);
-        ArrayList<Task> filteredList = TaskManager.filterList(parameter);
+        ArrayList<Task> filteredList = TaskManager.filterListByDate(parameter);
         String listOfTasks = TaskManager.listTasks(filteredList);
         CommandResult result = new CommandResult(DATE_MESSAGE + listOfTasks);
         return result;
