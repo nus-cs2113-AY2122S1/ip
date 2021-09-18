@@ -1,8 +1,9 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.task.Task;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Ui {
@@ -55,6 +56,13 @@ public class Ui {
         System.out.println("\tNoted. I have removed this task:");
         System.out.println("\t\t" + task.toString());
         System.out.println("\tNow you have " + taskListSize + " tasks in the list.");
+    }
+
+    public void showFoundTasks(ArrayList<Task> foundTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i=0; i<foundTasks.size(); i++) {
+            System.out.println("\t" + (i+1) + "." + foundTasks.get(i).toString());
+        }
     }
 
     public void showLoadingError() {

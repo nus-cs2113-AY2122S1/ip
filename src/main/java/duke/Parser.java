@@ -1,18 +1,20 @@
 package duke;
 
-import duke.Commands.Command;
-import duke.Commands.AddCommand;
-import duke.Commands.DeleteCommand;
-import duke.Commands.DoneCommand;
-import duke.Commands.ExitCommand;
-import duke.Commands.ListCommand;
-import duke.Exceptions.DukeException;
-import duke.Exceptions.CommandNotFoundException;
-import duke.Exceptions.InvalidDeadlineFormatException;
-import duke.Exceptions.InvalidDeleteFormatException;
-import duke.Exceptions.InvalidDoneFormatException;
-import duke.Exceptions.InvalidEventFormatException;
-import duke.Exceptions.InvalidToDoFormatException;
+import duke.commands.Command;
+import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.FindCommand;
+import duke.exceptions.DukeException;
+import duke.exceptions.CommandNotFoundException;
+import duke.exceptions.InvalidDeadlineFormatException;
+import duke.exceptions.InvalidDeleteFormatException;
+import duke.exceptions.InvalidDoneFormatException;
+import duke.exceptions.InvalidEventFormatException;
+import duke.exceptions.InvalidToDoFormatException;
+import duke.exceptions.InvalidFindFormatException;
 
 
 public class Parser{
@@ -74,6 +76,13 @@ public class Parser{
                 command = new DeleteCommand(Integer.parseInt(userInput[1]) - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidDeleteFormatException();
+            }
+            break;
+        case "find":
+            try {
+                command = new FindCommand(userInput[1].toLowerCase());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidFindFormatException();
             }
             break;
         default:
