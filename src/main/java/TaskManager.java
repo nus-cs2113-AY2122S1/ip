@@ -20,19 +20,17 @@ public class TaskManager {
 
 
     /*----------- CONSOLE LOGGING ----------- */
-    private static final String ADD_TASK = "Got it. I've added this task: ";
     private static final String DONE_TASK = "Nice! I've marked this task as done: ";
     private static final String LIST_TASK = "Here are your scheduled tasks!";
-    private static final String DELETE_TASK = "Noted. I've removed this task:";
 
     /*------------- PRIVATE VARIABLES ------------ */
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
     private int taskSize;
 
 
     /*------------- CONSTRUCTOR -------------- */
     public TaskManager() {
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
         taskSize = 0;
 
     }
@@ -58,13 +56,10 @@ public class TaskManager {
             t = new Event(command.descriptorBeforeClause, command.descriptorAfterClause, isDone);
             break;
         }
-
         tasks.add(t);
         taskSize++;
         if (isLogged) {
-            System.out.println(ADD_TASK);
-            System.out.println(t);
-            System.out.println("You now have (" + taskSize + ") tasks!" );
+            UI.showAddTask(t,taskSize);
         }
     }
 
@@ -74,22 +69,17 @@ public class TaskManager {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
             Task t = tasks.get(idx);
             tasks.remove(idx);
-            System.out.println(DELETE_TASK);
-            System.out.println("  " + t);
+            UI.showDeleteTask(t,taskSize);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             listTasks();
             throw new DukeException("Please enter a valid task number to delete.");
         }
         taskSize--;
-        System.out.println("You now have (" + taskSize + ") tasks!" );
+
     }
 
     public void addTask(CommandHandler command, TaskType type) throws DukeException {
         addTask(command,type,false,true);
-    }
-
-    public void addTask(CommandHandler command, TaskType type, boolean isDone) throws DukeException {
-        addTask(command,type,isDone,true);
     }
 
     /**
@@ -97,7 +87,6 @@ public class TaskManager {
      * @param command the input after it's been parsed by command handler
      * @throws DukeException if the input does not have a valid number
      */
-
     public void markTaskAsDone(CommandHandler command) throws DukeException {
         command.splitByClause("done",0,true);
         try {
