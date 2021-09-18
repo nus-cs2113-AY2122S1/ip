@@ -1,126 +1,120 @@
 package parser;
 
+import parser.command.*;
+
 import java.util.*;
 
 public class Parser {
 
-    public static Command parse(String input) throws IllegalArgumentException{
+    public Command parseCommand(String input) {
         HashMap<String, String> params = new HashMap<>();
-        String[] args = input.split(" ");
+        Command command;
+
+        String[] args = input.split(" ", 2);
         String actionArg = args[0];
-        Action action;
 
-        if (actionArg.equals("")) {
-            action = Action.valueOf("NO_ACTION");
-        } else {
-            String actionString;
-            try{
-                action = translateUserAction(actionArg);
-            }catch(IllegalArgumentException e){
-                throw new IllegalArgumentException(e.getMessage());
-            }
-
-            String[] remainingArgs = Arrays.copyOfRange(args, 1, args.length);
-
-            /* Assume that each action only takes 1 main argument => user can specify as many flags they want,
-            but the unsupported ones will be ignored */
-            String mainArgs = parseFlagArguments(remainingArgs, params);
-
-            if(mainArgs == null)
-                throw new IllegalArgumentException("Index not specified");
-
-            switch(action) {
-            case DO_TASK:
-            case DELETE_TASK:
-                params.put("index", mainArgs);
-                break;
-            case ADD_TASK:
-                params.put("type", actionArg);
-                params.put("task", mainArgs);
-                break;
-			default:
-				break;
-            }
+        if(args.length > 1) {
+            String arguments = args[1];
+            params = parseArguments(arguments);
         }
-
-        return new Command(action, params);
+        command = createNewCommand(actionArg, params);
+        return command;
     }
 
-    //In the future, this will allow multiple flags to be used
-    private static String parseFlagArguments(String[] args, HashMap<String, String> flagParams) {
+    private Command createNewCommand(String action, HashMap<String, String> params) {
+        action = action.toUpperCase();
+        Command command;
+
+        switch(action) {
+        case "TODO":
+        case "EVENT":
+        case "DEADLINE":
+            params.put("type", action.toLowerCase());
+            command = new AddCommand(params);
+            break;
+
+        case "LIST":
+            command = new ListCommand(params);
+            break;
+
+        case "DELETE":
+        case "REMOVE":
+            command = new DeleteCommand(params);
+            break;
+
+        case "DONE":
+        case "DO":
+            command = new DoCommand(params);
+            break;
+
+        case "BYE":
+        case "EXIT":
+            command = new ExitCommand(params);
+            break;
+
+        default:
+            command = new InvalidCommand(params);
+            break;
+        }
+
+        return command;
+    }
+
+
+    private HashMap<String, String> parseArguments(String args) {
+
+        HashMap<String, String> params = new HashMap<>();
+        String[] splitArgs = args.split(" ");
+
         String mainArgument = "";
         int i = 0;
-        int numOfArgs = args.length;
+        int numOfArgs = splitArgs.length;
 
-        //Will stop scanning upon encountering a flag
-        while(i < numOfArgs && !isFlag(args[i])) {
-            mainArgument += args[i] + " ";
+        //Get the main argument of the command
+        while(i < numOfArgs && !isFlag(splitArgs[i])) {
+            mainArgument += splitArgs[i] + " ";
             i++;
         }
-        
-        //remove trailing space
-        mainArgument = mainArgument.strip();
 
-        // if no flags, just return from here
+        params.put("main", mainArgument.strip());
         if(i == numOfArgs)
-            return mainArgument;
+            return params;
 
         String flagArg="", flag=" ";
         //Start to consume flag
-        while(i < numOfArgs) {
-            if(isFlag(args[i])) {
-            	
-            	//ignore flag if already found
-            	if(flagParams.get(flag) == null) {
+        for(; i < numOfArgs; i++) {
+            if(isFlag(splitArgs[i])) {
+
+                //add flag that was already consumed
+            	//add flag only if it is not found yet
+            	if(params.get(flag) == null) {
             		
-            		//remove leading '/' or any flag characters
-            		flag = flag.substring(1);
-            		flagArg = flagArg.strip();
-            		
-    	            flagParams.put(flag, flagArg.strip()); 
+            		putFlagIntoParams(params, flag, flagArg);
     	            
                     flagArg = "";
-                    flag = args[i];
+                    flag = splitArgs[i]; //start tracking newly-found flag
             	}
             }
             else {
-                flagArg += args[i] + " ";
+                flagArg += splitArgs[i] + " ";
             }
-            
-            i++;
         }
 
         //insert last set of flag argument and remove empty key
-        flagParams.remove("");
+        putFlagIntoParams(params, flag, flagArg);
+        params.remove(" ");
         
-		flag = flag.substring(1);
-		flagArg = flagArg.strip();
-        flagParams.put(flag, flagArg);
-        
-        return mainArgument;
+        return params;
     }
 
-    private static boolean isFlag(String s) {
+    private void putFlagIntoParams(HashMap<String, String> params, String flag, String flagArg) {
+        flag = flag.substring(1);
+        flagArg = flagArg.strip();
+
+        params.put(flag, flagArg.strip());
+    }
+
+    private boolean isFlag(String s) {
         return s.startsWith("/");
-    }
-
-    //Translates user action word into an enumerated value, which will define how the params are stored in the parser.Command object
-    private static Action translateUserAction(String actionString) throws IllegalArgumentException{
-        switch(actionString) {
-            case "done":
-                return Action.DO_TASK;
-            case "list":
-                return Action.LIST;
-            case "bye":
-                return Action.BYE;
-            case "todo":
-            case "deadline":
-            case "event":
-                return Action.ADD_TASK;
-            case "delete":
-                return Action.DELETE_TASK;
-            default:
-                throw new IllegalArgumentException("Invalid action");
-        }
     }
 }

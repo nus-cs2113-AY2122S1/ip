@@ -1,6 +1,7 @@
 *.class
 *.idea
 bin
+out
 .project
 .classpath
 *.txt
