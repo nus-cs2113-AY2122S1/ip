@@ -1,17 +1,18 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class ListCommand extends Command {
 
     /**
-     * Runs a command to print the entire task list.
+     * Runs a command that prints the entire task list
      *
-     * @throws DukeException If there are no tasks in the list.
+     * @param tasks   List that stores all the tasks.
+     * @param storage Not applicable.
      */
     @Override
-    public void runCommand() throws DukeException {
-        TaskManager.printList();
+    public void runCommand(TaskList tasks, Storage storage) {
+        tasks.printList();
     }
 }

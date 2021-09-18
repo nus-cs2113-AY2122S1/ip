@@ -7,7 +7,9 @@ import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
-import duke.task.TaskType;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 public class CommandParser {
 
@@ -151,7 +153,7 @@ public class CommandParser {
             throw new DukeException(ERROR_TODO);
         }
         String taskName = inputCommand.substring(STRING_LENGTH_TODO + 1);
-        return new AddCommand(taskName, null, TaskType.TODO);
+        return new AddCommand(new Todo(taskName));
     }
 
     /**
@@ -177,7 +179,7 @@ public class CommandParser {
         }
         String taskName = inputCommand.substring(STRING_LENGTH_DEADLINE + 1, startIndexOfByIndicator - 1);
         String datetime = inputCommand.substring(startIndexOfDatetime);
-        return new AddCommand(taskName, datetime, TaskType.DEADLINE);
+        return new AddCommand(new Deadline(taskName, datetime));
     }
 
     /**
@@ -203,7 +205,7 @@ public class CommandParser {
         }
         String taskName = inputCommand.substring(STRING_LENGTH_EVENT + 1, startIndexOfAtIndicator - 1);
         String datetime = inputCommand.substring(startIndexOfDatetime);
-        return new AddCommand(taskName, datetime, TaskType.EVENT);
+        return new AddCommand(new Event(taskName, datetime));
     }
 
     /**

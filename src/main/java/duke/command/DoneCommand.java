@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class DoneCommand extends Command {
     private int taskNumber;
@@ -16,22 +16,15 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Runs a command to mark task as completed.
+     * Runs a command to mark tasks as completed.
      *
-     * @throws DukeException If an invalid task number is provided.
+     * @param tasks   List that stores all the tasks.
+     * @param storage Reference to the file where data is stored.
      */
     @Override
-    public void runCommand() throws DukeException {
-        TaskManager.markAsCompleted(taskNumber, true);
+    public void runCommand(TaskList tasks, Storage storage) {
+        tasks.markAsCompleted(taskNumber, true);
+        storage.saveTask(tasks);
     }
 
-    /**
-     * Runs a command to mark task as completed when added from file.
-     *
-     * @throws DukeException If an invalid task number is read from file.
-     */
-    @Override
-    public void runTaskDoneFromFile() throws DukeException {
-        TaskManager.markAsCompleted(taskNumber, false);
-    }
 }

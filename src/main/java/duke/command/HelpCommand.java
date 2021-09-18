@@ -1,14 +1,18 @@
 package duke.command;
 
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class HelpCommand extends Command {
 
     /**
-     * Runs a command to print a lis of possible commands.
+     * Runs a command to print a list of possible commands.
+     *
+     * @param tasks   List that stores all the tasks.
+     * @param storage Not applicable.
      */
     @Override
-    public void runCommand() {
-        TaskManager.printHelpMessage();
+    public void runCommand(TaskList tasks, Storage storage) {
+        tasks.printHelpMessage();
     }
 }

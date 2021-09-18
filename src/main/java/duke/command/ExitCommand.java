@@ -1,13 +1,19 @@
 package duke.command;
 
+import duke.Storage;
+import duke.TaskList;
+
 public class ExitCommand extends Command {
 
     /**
      * Override superclass Command to not perform any actions.
+     *
+     * @param tasks   Not applicable.
+     * @param storage Not applicable.
      */
     @Override
-    public void runCommand() {
-        // Do nothing for now
+    public void runCommand(TaskList tasks, Storage storage) {
+        // Nothing required for the implementation of exit command
     }
 
     /**

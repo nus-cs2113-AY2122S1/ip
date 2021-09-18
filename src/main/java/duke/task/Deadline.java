@@ -6,11 +6,11 @@ public class Deadline extends Task {
     /**
      * Class deadline constructor.
      *
-     * @param description Short description of the task.
-     * @param dueDate     Date that the task has to be completed by.
+     * @param taskName Name of the task.
+     * @param dueDate  Date that the task has to be completed by.
      */
-    public Deadline(String description, String dueDate) {
-        super(description);
+    public Deadline(String taskName, String dueDate) {
+        super(taskName);
         this.dueDate = dueDate;
     }
 
@@ -32,6 +32,6 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         int stringIsDone = isDone ? 1 : 0;
-        return "D" + DELIMITER + stringIsDone + DELIMITER + description + DELIMITER + dueDate;
+        return "D" + DELIMITER + stringIsDone + DELIMITER + taskName + DELIMITER + dueDate;
     }
 }

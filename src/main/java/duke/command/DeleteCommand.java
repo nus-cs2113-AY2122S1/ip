@@ -1,10 +1,11 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.Storage;
+import duke.TaskList;
 
 public class DeleteCommand extends Command {
-    private int taskNumber;
+    protected int taskNumber;
 
     /**
      * Class delete command constructor.
@@ -16,13 +17,15 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Runs a command to delete task.
+     * Runs a command to delete a task
      *
-     * @throws DukeException If an invalid task number is provided.
+     * @param tasks   List that stores all the tasks.
+     * @param storage Reference to the file where data is stored.
      */
     @Override
-    public void runCommand() throws DukeException {
-        TaskManager.deleteTask(taskNumber);
+    public void runCommand(TaskList tasks, Storage storage) throws DukeException {
+        tasks.deleteTask(taskNumber);
+        storage.saveTask(tasks);
     }
 
 }

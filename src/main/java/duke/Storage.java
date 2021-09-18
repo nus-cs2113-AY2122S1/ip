@@ -1,10 +1,9 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DoneCommand;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskType;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,35 +17,35 @@ public class Storage {
     private static final String DELIMITER = "@@@";
 
     private static final int TASK_TYPE = 0;
-    private static final int TASK_IS_DONE = 1;
+    private static final int TASK_COMPLETION_STATUS = 1;
     private static final int TASK_NAME = 2;
     private static final int TASK_DATE = 3;
 
     private static final String ERROR_LOAD = "     File not found. A new list will be started.";
     private static final String ERROR_SAVE = "     Save file not found. List of tasks will not be saved";
+    private static final String ERROR_UNRECOGNISED_TASK_TYPE = "     Task type not recognised";
 
     /**
      * Loads task data from the file when Duke starts up.
      */
-    public static void loadTask() {
+    public void loadTask(TaskList tasks) throws DukeException {
         checkFileExist();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILE_NAME);
             Scanner scanner = new Scanner(fileInputStream);
             while (scanner.hasNext()) {
-                parseLine(scanner.nextLine());
+                Task task = parseLine(scanner.nextLine());
+                tasks.addTask(task);
             }
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(ERROR_LOAD);
-        } catch (DukeException dukeException) {
-            dukeException.getMessage();
         }
     }
 
     /**
      * Checks if the file exists, otherwise new file will be created.
      */
-    private static void checkFileExist() {
+    private void checkFileExist() {
         File file = new File(System.getProperty("user.dir"), FILE_NAME);
         try {
             if (!file.exists()) {
@@ -55,7 +54,6 @@ public class Storage {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
     }
 
     /**
@@ -65,37 +63,72 @@ public class Storage {
      * @param line Single line read from the file as a string.
      * @throws DukeException If there is an error with the string format on the file.
      */
-    private static void parseLine(String line) throws DukeException {
+    private Task parseLine(String line) throws DukeException {
         String[] words = line.split(DELIMITER);
-        Command addCommand = null;
+        Task task = parseTask(words);
+        setTaskCompletionStatus(task, words[TASK_COMPLETION_STATUS]);
+        return task;
+    }
+
+    /**
+     * Creates a new Task depending on the task type specifications.
+     *
+     * @param words String array containing details about the task.
+     * @return New task depending on task type specifications.
+     * @throws DukeException If an unrecognised task type is detected.
+     *                       Unlikely to happen unless the file is corrupted.
+     */
+    private Task parseTask(String[] words) throws DukeException {
+        Task task;
         switch(words[TASK_TYPE]) {
         case "T":
-            addCommand = new AddCommand(words[TASK_NAME], null, TaskType.TODO);
+            task = new Todo(words[TASK_NAME]);
             break;
         case "D":
-            addCommand = new AddCommand(words[TASK_NAME], words[TASK_DATE], TaskType.DEADLINE);
+            task = new Deadline(words[TASK_NAME], words[TASK_DATE]);
             break;
         case "E":
-            addCommand = new AddCommand(words[TASK_NAME], words[TASK_DATE], TaskType.EVENT);
+            task = new Event(words[TASK_NAME], words[TASK_DATE]);
+            break;
+        default:
+            throw new DukeException(ERROR_UNRECOGNISED_TASK_TYPE);
         }
-        assert addCommand != null;
-        addCommand.runAddTaskFromFile();
-        if (words[TASK_IS_DONE].equals("1")) {
-            Command doneCommand = new DoneCommand(TaskManager.getListSize());
-            doneCommand.runTaskDoneFromFile();
+        return task;
+    }
+
+    /**
+     * Marks a task in the list as completed if defined as such in the save file.
+     *
+     * @param task               Task in the list.
+     * @param completedIndicator "1" if task is mark as completed.
+     *      *                    "0" if task is not mark as completed.
+     */
+    private void setTaskCompletionStatus(Task task, String completedIndicator) {
+        if (isTaskCompleted(completedIndicator)) {
+            task.markTaskAsDone();
         }
+    }
+
+    /**
+     * Checks if a task is marked as completed in the save file.
+     *
+     * @param completedIndicator "1" if task is mark as completed.
+     *                           "0" if task is not mark as completed.
+     * @return True if task is mark as completed.
+     *         False if task is not mark as completed.
+     */
+    private boolean isTaskCompleted(String completedIndicator) {
+        return completedIndicator.equals("1");
     }
 
     /**
      * Save the tasks in the file upon exiting Duke.
      */
-    public static void saveTask() {
+    public void saveTask(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_NAME);
-            for (Task task : TaskManager.getTaskList()) {
-                if (task != null) {
-                    fileWriter.write(task.toFileString() + System.lineSeparator());
-                }
+            for (int i = 0; i < tasks.getListSize(); i++) {
+                fileWriter.write(tasks.getTaskStringForStorage(i));
             }
             fileWriter.close();
         } catch (FileNotFoundException fileNotFoundException) {

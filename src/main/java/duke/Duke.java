@@ -13,6 +13,9 @@ public class Duke {
                                                 + S_TAB + "How can I help you today?";
     private static final String MESSAGE_GOODBYE = S_TAB + "Sayonara. Come visit Jura Tempest again soon!";
 
+    private static TaskList tasks = new TaskList();
+    private static Storage storage = new Storage();
+
     public static void main(String[] args) {
         greetUser();
         executeResponse();
@@ -28,6 +31,51 @@ public class Duke {
     }
 
     /**
+     * Continually waits for input user commands,
+     * and executes the corresponding actions,
+     * until the exit command is typed.
+     */
+    private static void executeResponse() {
+        loadData();
+        handleUserInput();
+        exitDuke();
+    }
+
+    /**
+     * Loads task data from an external save file.
+     */
+    private static void loadData() {
+        try {
+            storage.loadTask(tasks);
+        } catch (DukeException e) {
+            Picture.printLine();
+            System.out.println(e.getMessage());
+            Picture.printLine();
+        }
+    }
+
+    /**
+     * Reads in user input and performs a corresponding command.
+     */
+    private static void handleUserInput() {
+        String userInput;
+        boolean isExit = false;
+        Scanner in = new Scanner(System.in);
+        while (!isExit) {
+            userInput = in.nextLine().strip();
+            try {
+                Command command = CommandParser.parse(userInput);
+                command.runCommand(tasks, storage);
+                isExit = command.isExitCommand();
+            } catch (DukeException e) {
+                Picture.printLine();
+                System.out.println(e.getMessage());
+                Picture.printLine();
+            }
+        }
+    }
+
+    /**
      * Prints an exit message.
      */
     private static void exitDuke() {
@@ -36,29 +84,6 @@ public class Duke {
         Picture.printLine();
     }
 
-    /**
-     * Continually waits for input user commands,
-     * and executes the corresponding actions,
-     * until the exit command is typed.
-     */
-    private static void executeResponse() {
-        Storage.loadTask();
-        String userInput;
-        boolean isExit = false;
-        Scanner in = new Scanner(System.in);
-        while (!isExit) {
-            userInput = in.nextLine().stripLeading().stripTrailing();
-            try {
-                Command command = CommandParser.parse(userInput);
-                command.runCommand();
-                isExit = command.isExitCommand();
-            } catch (DukeException e) {
-                Picture.printLine();
-                System.out.println(e.getMessage());
-                Picture.printLine();
-            }
-        }
-        exitDuke();
-    }
+
 
 }

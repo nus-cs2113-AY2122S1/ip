@@ -7,11 +7,11 @@ public class Event extends Task {
     /**
      * Class event constructor.
      *
-     * @param description Short description of the task.
-     * @param heldDate    Date when the event is held.
+     * @param taskName Name of the task.
+     * @param heldDate Date when the event is held.
      */
-    public Event(String description, String heldDate) {
-        super(description);
+    public Event(String taskName, String heldDate) {
+        super(taskName);
         this.heldDate = heldDate;
     }
 
@@ -33,6 +33,6 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         int stringIsDone = isDone ? 1 : 0;
-        return "E" + DELIMITER + stringIsDone + DELIMITER + description + DELIMITER + heldDate;
+        return "E" + DELIMITER + stringIsDone + DELIMITER + taskName + DELIMITER + heldDate;
     }
 }

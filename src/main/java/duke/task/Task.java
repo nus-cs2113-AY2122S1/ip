@@ -2,17 +2,17 @@ package duke.task;
 
 public class Task {
     protected static final String DELIMITER = "@@@";
-    protected String description;
+    protected String taskName;
     protected boolean isDone;
 
     /**
      * Class Task constructor.
      * Task is initially declared as not completed.
      *
-     * @param description Short description of the task.
+     * @param taskName Name of the task.
      */
-    public Task(String description) {
-        this.description = description;
+    public Task(String taskName) {
+        this.taskName = taskName;
         this.isDone = false;
     }
 
@@ -33,7 +33,7 @@ public class Task {
     }
 
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return getStatusIcon() + " " + taskName;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Task {
      * @return String containing task details for file format
      */
     public String toFileString() {
-        return "N" + DELIMITER + description;
+        return "N" + DELIMITER + taskName;
     }
 
 }

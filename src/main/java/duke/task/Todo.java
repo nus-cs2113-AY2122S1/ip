@@ -5,10 +5,10 @@ public class Todo extends Task {
     /**
      * Class Todo constructor.
      *
-     * @param description Short description of the task.
+     * @param taskName Name of the task.
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String taskName) {
+        super(taskName);
     }
 
     /**
@@ -29,6 +29,6 @@ public class Todo extends Task {
     @Override
     public String toFileString() {
         String stringIsDone = isDone ? "1" : "0";
-        return "T" + DELIMITER + stringIsDone + DELIMITER + description;
+        return "T" + DELIMITER + stringIsDone + DELIMITER + taskName;
     }
 }

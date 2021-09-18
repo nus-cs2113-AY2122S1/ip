@@ -1,15 +1,19 @@
 package duke.command;
 
 import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
 
 public abstract class Command {
 
     /**
      * Abstract method that runs user input commands.
      *
+     * @param tasks   List that stores all the tasks.
+     * @param storage Reference to the file where data is stored.
      * @throws DukeException If exception is thrown by Command subclasses.
      */
-    public abstract void runCommand() throws DukeException;
+    public abstract void runCommand(TaskList tasks, Storage storage) throws DukeException;
 
     /**
      * Checks if the exit command is being called.
@@ -21,18 +25,4 @@ public abstract class Command {
         return false;
     };
 
-    /**
-     * Template method for addCommand subclass.
-     */
-    public void runAddTaskFromFile() {
-        // Does nothing here
-    };
-
-    /**
-     * Template method for doneCommand subclass.
-     * @throws DukeException If exception is thrown by doneCommand subclass.
-     */
-    public void runTaskDoneFromFile() throws DukeException {
-        // Does nothing here
-    }
 }

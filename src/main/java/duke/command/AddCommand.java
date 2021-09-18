@@ -1,41 +1,32 @@
 package duke.command;
 
-import duke.TaskManager;
-import duke.task.TaskType;
+import duke.Storage;
+import duke.TaskList;
+import duke.task.Task;
 
 public class AddCommand extends Command {
-    private String taskName;
-    private String taskDate;
-    private TaskType taskType;
+    protected Task task;
 
     /**
      * Class add command constructor.
      *
-     * @param taskName Name of task to be added.
-     * @param taskDate TODO: Not applicable.
-     *                 DEADLINE: Due date of the task to be added.
-     *                 EVENT: Event date of the task to be added.
-     * @param taskType Type of task to be added.
+     * @param task Task to be added to the list.
      */
-    public AddCommand(String taskName, String taskDate, TaskType taskType) {
-        this.taskName = taskName;
-        this.taskDate = taskDate;
-        this.taskType = taskType;
+    public AddCommand(Task task) {
+        this.task = task;
     }
 
     /**
-     * Runs a command to add task to the list.
+     * Runs a command to add task to the list
+     * and save changes to an external file.
+     *
+     * @param tasks   List that stores all the tasks.
+     * @param storage Reference to the file where data is stored.
      */
     @Override
-    public void runCommand() {
-        TaskManager.addToList(taskName, taskDate, taskType, true);
+    public void runCommand(TaskList tasks, Storage storage) {
+        tasks.addTask(task, true);
+        storage.saveTask(tasks);
     }
 
-    /**
-     * Runs a command to add task to the list from file.
-     */
-    @Override
-    public void runAddTaskFromFile() {
-        TaskManager.addToList(taskName, taskDate, taskType, false);
-    }
 }
