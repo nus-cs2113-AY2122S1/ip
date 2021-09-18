@@ -27,9 +27,9 @@ public class Duke {
     
     public static void main(String[] args) {
         loadPreviousData();
-        UI.printStartingOrEndingMessage(IS_STARTING);
+        UI.showStartingOrEndingMessage(IS_STARTING);
         runDuke();
-        UI.printStartingOrEndingMessage(IS_ENDING);
+        UI.showStartingOrEndingMessage(IS_ENDING);
     }
 
     private static void loadPreviousData() {
@@ -61,26 +61,26 @@ public class Duke {
     private static void runDuke() {
         boolean conversationIsOver = false;
         while (!conversationIsOver) {
-            String inputCommand = SCANNER.nextLine().trim();
+            String inputCommand = UI.readCommand();
             String command = getFirstWord(inputCommand);
             try {
                 conversationIsOver = processCommand(conversationIsOver, inputCommand, command);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 // for now these exceptions only occur when a number is passed after done or delete
                 // so we can assume the user made an error using the 'done' or 'delete' command
-                UI.printMessage("Please enter a valid number after \'done\' or \'delete\' : " + inputCommand);
+                UI.showMessage("Please enter a valid number after 'done' or 'delete' : " + inputCommand);
             } catch (DukeEmptyDescriptionException e) {
-                UI.printMessage("Please enter a description of the task");
+                UI.showMessage("Please enter a description of the task");
             } catch (DukeExceedMaxTaskException e) {
-                UI.printMessage("Exceeded maximum task limit, please delete a task to continue");
+                UI.showMessage("Exceeded maximum task limit, please delete a task to continue");
             } catch (DukeEmptyTimeException e) {
-                UI.printMessage("Please enter the deadline/event time");
+                UI.showMessage("Please enter the deadline/event time");
             } catch (DukeMissingKeywordException e) {
-                UI.printMessage("No " + e.getKeyword() + " detected, press enter to see command syntax");
+                UI.showMessage("No " + e.getKeyword() + " detected, press enter to see command syntax");
             } catch (DukeInvalidTaskIndex e) {
-                UI.printMessage("Please enter valid task index number");
+                UI.showMessage("Please enter valid task index number");
             } catch (DukeTaskAlreadyCompletedException e) {
-                UI.printMessage("This task is already completed");
+                UI.showMessage("This task is already completed");
             } catch (IOException e) {
                 System.out.println("ERROR : " + e);
             }
@@ -123,7 +123,7 @@ public class Duke {
             TASK_MANAGER.removeTask(indexOfTaskBeingDeleted);
             break;
         default:
-            UI.printHelpMessage();
+            UI.showHelpMessage();
             break;
         }
         return conversationIsOver;
