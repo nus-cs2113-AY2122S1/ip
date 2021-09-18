@@ -4,15 +4,16 @@ public class Duke {
 
     public static void main(String[] args) {
         Storage.setupStorage();
-        Response.greet();
+        Ui.greet();
 
         String input;
         do {
             Scanner scan = new Scanner(System.in);
             input = scan.nextLine();
 
-            Response.parseInput(input);
-        } while (!input.equals("bye"));
+            Parser.parseInput(input);
+
+        } while (!input.startsWith("bye"));
 
     }
 }
