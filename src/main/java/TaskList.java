@@ -54,6 +54,20 @@ public class TaskList {
         }
     }
 
+    public static void findTask(String query) {
+        System.out.println(Ui.getLine());
+        System.out.println("Here are the matching tasks in your list:");
+        int taskNumber = 1;
+        for (Task task : inputTasks) {
+            if (task.description.contains(query)) {
+                System.out.println(taskNumber + ". " + task);
+                taskNumber++;
+            }
+        }
+
+        System.out.println(Ui.getLine());
+    }
+
     public static void list() {
         System.out.println(Ui.getLine());
 
