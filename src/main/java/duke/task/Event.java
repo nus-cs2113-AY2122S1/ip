@@ -4,6 +4,7 @@ import duke.parser.Parser;
 import duke.exception.DukeInvalidAddTaskException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
@@ -25,6 +26,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + eventTime + ")";
+        String formattedDate = eventTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[E]" + super.toString() + " (at: " + formattedDate + ")";
     }
 }

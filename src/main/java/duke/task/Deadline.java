@@ -4,6 +4,7 @@ import duke.parser.Parser;
 import duke.exception.DukeInvalidAddTaskException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
@@ -25,6 +26,7 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadlineDate + ")";
+        String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }
