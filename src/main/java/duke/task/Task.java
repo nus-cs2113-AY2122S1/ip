@@ -23,7 +23,6 @@ public class Task {
      */
     public boolean isStringNullOrEmpty(String validString) {
         return validString == null || validString.isEmpty();
-
     }
 
     /**

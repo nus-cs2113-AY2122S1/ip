@@ -13,6 +13,8 @@ public class Deadline extends Task {
             + "be completed cannot be "
             + "empty.";
 
+    private static final String DATE_TIME_FORMAT = "MMM dd yyyy";
+
     protected LocalDate by;
     protected DateTimeFormatter printFormatter;
 
@@ -22,16 +24,20 @@ public class Deadline extends Task {
      * @param description to describe the deadline
      * @param by          the time at which the deadline should be completed
      * @throws IllegalArgumentException if the description or by is empty or null
+     * @throws DateTimeParseException   unable to parse datetime according to the format
      */
     public Deadline(String description, String by)
             throws IllegalArgumentException, DateTimeParseException {
         super(description);
-        printFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+        printFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+
         if (isStringNullOrEmpty(description)) {
             throw new IllegalArgumentException(DESCRIPTION_EMPTY_ERROR_MESSAGE);
         } else if (isStringNullOrEmpty(by)) {
             throw new IllegalArgumentException(BY_EMPTY_ERROR_MESSAGE);
         }
+
         this.by = LocalDate.parse(by);
     }
 

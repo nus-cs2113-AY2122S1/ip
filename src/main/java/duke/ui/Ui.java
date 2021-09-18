@@ -130,6 +130,21 @@ public class Ui {
     }
 
     /**
+     * Print all the task found by the find command
+     *
+     * @param foundTasks list of task that was found from the search
+     */
+    public void printFoundTask(ArrayList<Task> foundTasks) {
+        StringBuilder foundTasksMessage = new StringBuilder();
+        foundTasksMessage
+                .append(SEARCH_FOUND_MESSAGE)
+                .append(System.lineSeparator());
+        // Printing all tasks with their completion status
+        foundTasks.forEach((i) -> foundTasksMessage.append(i).append(System.lineSeparator()));
+        printMessage(foundTasksMessage.toString().strip());
+    }
+
+    /**
      * Shows only if the list of task is empty
      */
     public void printEmptyTaskMessage() {
@@ -174,31 +189,25 @@ public class Ui {
     }
 
     /**
-     * Error message for failure to parse or read or create files
+     * Error message for failure to read or create files
      */
     public void printInvalidFileInitialisationError() {
         printMessage(FILE_INITIALISATION_ERROR_MESSAGE);
     }
 
-    /**
-     * Print all the task found by the find command
-     *
-     * @param foundTasks list of task that was found from the search
-     */
-    public void printFoundTask(ArrayList<Task> foundTasks) {
-        StringBuilder foundTasksMessage = new StringBuilder();
-        foundTasksMessage
-                .append(SEARCH_FOUND_MESSAGE)
-                .append(System.lineSeparator());
-        // Printing all tasks with their completion status
-        foundTasks.forEach((i) -> foundTasksMessage.append(i).append(System.lineSeparator()));
-        printMessage(foundTasksMessage.toString().strip());
-    }
 
+    /**
+     * Error message failure to properly parse files
+     */
     public void printInvalidFileParseError() {
         printMessage(FILE_PARSE_ERROR);
     }
 
+    /**
+     * Error message for invalid date or datetime format
+     *
+     * @param dateError Error message for the exception
+     */
     public void printInvalidDateError(String dateError) {
         printMessage(DATE_PARSE_ERROR, dateError);
     }

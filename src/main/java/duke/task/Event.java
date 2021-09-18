@@ -11,6 +11,10 @@ public class Event extends Task {
     private static final String AT_EMPTY_ERROR_MESSAGE = "The time at which of a "
             + "event should be completed cannot be"
             + " empty.";
+
+    private static final String INPUT_FORMATTER = "yyyy-MM-dd HHmm";
+    private static final String DATE_TIME_FORMATTER = "MMM dd yyyy HH:mm";
+    
     protected DateTimeFormatter formatter;
     protected DateTimeFormatter printFormatter;
     protected LocalDateTime at;
@@ -21,13 +25,14 @@ public class Event extends Task {
      * @param description to describe the event
      * @param at          the time at which the event is at
      * @throws IllegalArgumentException if the description or at is empty or null
+     * @throws DateTimeParseException   unable to parse datetime according to the format
      */
     public Event(String description, String at)
             throws IllegalArgumentException, DateTimeParseException {
         super(description);
 
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        printFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        formatter = DateTimeFormatter.ofPattern(INPUT_FORMATTER);
+        printFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER);
 
         if (isStringNullOrEmpty(description)) {
             throw new IllegalArgumentException(DESCRIPTION_EMPTY_ERROR_MESSAGE);

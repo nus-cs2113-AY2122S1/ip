@@ -22,7 +22,7 @@ public class TaskList {
     private static final String TASK_ALREADY_COMPLETED = "Task already marked as completed!";
     private static final String TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
     private static final String TASK_REMOVE_MESSAGE = "Noted. I've removed this task:";
-    private static final String NO_TASK_FOUND_ERROR = "No matching task has been found";
+    private static final String TASK_NOT_FOUND_ERROR = "No matching task has been found";
 
     protected ArrayList<Task> taskList;
 
@@ -89,7 +89,8 @@ public class TaskList {
      *
      * @param description the commandline input and its arguments
      * @throws ArrayIndexOutOfBoundsException in the case of invalid input by Events or Deadlines
-     * @throws InvalidCommandException in the case of unrecognized commands
+     * @throws InvalidCommandException        in the case of unrecognized commands
+     * @throws DateTimeParseException         unable to parse datetime according to the format
      */
     public void addTask(Ui ui, Parser description)
             throws ArgumentNotFoundException, InvalidCommandException, DateTimeParseException {
@@ -172,7 +173,7 @@ public class TaskList {
                 .filter((i) -> i.getDescription().contains(searchTerm))
                 .collect(Collectors.toList());
         if (foundTasks.size() <= 0) {
-            ui.printMessage(NO_TASK_FOUND_ERROR);
+            ui.printMessage(TASK_NOT_FOUND_ERROR);
             return;
         }
         ui.printFoundTask(foundTasks);

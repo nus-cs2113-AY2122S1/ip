@@ -120,7 +120,7 @@ public class Duke {
             break;
         case FIND_COMMAND:
             String searchTerm = parsed.getArguments();
-            taskList.findTasks(ui,searchTerm);
+            taskList.findTasks(ui, searchTerm);
             break;
         default:
             taskList.addTask(ui, parsed);

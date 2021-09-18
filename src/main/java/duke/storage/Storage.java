@@ -37,6 +37,7 @@ public class Storage {
 
     /**
      * Use the current directory and tries to find the string ip and maps out the data directory
+     *
      * @param storageFilePath the file path to store the file at, if not specified defaults is used
      */
     public Storage(String storageFilePath) {
@@ -76,6 +77,7 @@ public class Storage {
      * @param task the task as a string
      * @return the task object
      * @throws IllegalArgumentException file does not follow format
+     * @throws DateTimeParseException   unable to parse datetime according to the format
      */
     private Task parseTask(String task)
             throws IllegalArgumentException, DateTimeParseException {
