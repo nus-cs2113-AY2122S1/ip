@@ -17,8 +17,8 @@ public class Ui {
             "To end your chat with me, simply type: bye\n" +
             HORIZONTAL_LINE;
     public static final String STRING_LOGO =
-            " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
+            " ____        _\n"
+            + "|  _ \\ _   _| | _____\n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
