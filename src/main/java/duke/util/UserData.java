@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.Duke.LINE_BREAK_SINGLE;
-
 
 public class UserData {
     private static final String FILE_PATH = "data/hal.txt";
     public static final String EXCEPTION_FILE_NOT_FOUND = "File was not found :(";
     public static final String EXCEPTION_IO = "File could not be created for some reason... :(";
     static StorageDataParser sr = new StorageDataParser();
+    public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
 
     public static void writeToFile(String str) throws IOException {
         try {
