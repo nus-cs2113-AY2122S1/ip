@@ -27,6 +27,7 @@ public class InputManager {
     private static final String INPUT_DEADLINE = "deadline";
     private static final String INPUT_DONE = "done";
     private static final String INPUT_DELETE = "delete";
+    private static final String INPUT_FIND = "find";
     private static final String NO_ARGUMENT_INPUT = "none";
 
     public InputManager() {
@@ -40,6 +41,9 @@ public class InputManager {
             break;
         case INPUT_LIST:
             inputCommand = Command.SHOW_LIST;
+            break;
+        case INPUT_FIND:
+            inputCommand = Command.FIND_KEYWORD;
             break;
         case INPUT_TODO:
             inputCommand = Command.ADD_TODO;

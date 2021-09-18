@@ -17,6 +17,7 @@ public class Message {
     public static final String FAILED_TO_CREATE_DATA_FILE_MESSAGE = "  Failed to create new user data file!";
     public static final String SAVE_DATA_ERROR_MESSAGE = "  Something went wrong when writing into user data file!";
     public static final String DATA_FILE_NOT_FOUND_MESSAGE = "  Data file not found!";
+    public static final String KEYWORD_NOT_FOUND_MESSAGE = "  I'm sorry, I could not find any tasks with that keyword";
     public static final String NOT_DATE_TIME_MESSAGE = "  User input was not in DateTime Format: dd/MM/yyyy HH:mm"
             + System.lineSeparator() + "  Input will be stored as String...";
 

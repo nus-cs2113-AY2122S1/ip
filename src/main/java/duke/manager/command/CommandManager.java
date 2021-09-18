@@ -44,6 +44,9 @@ public class CommandManager {
         case SHOW_LIST:
             executeShowTaskList();
             break;
+        case FIND_KEYWORD:
+            executeFindKeyword(commandArguments);
+            break;
         case ADD_TODO:
             executeAddToDo(commandArguments);
             break;
@@ -71,7 +74,11 @@ public class CommandManager {
      * Prints the task list for the user to look at.
      */
     private void executeShowTaskList() {
-        taskManager.printTasks();
+        taskManager.printTaskList();
+    }
+
+    private void executeFindKeyword(String keyword) {
+        taskManager.printFilteredTaskList(keyword);
     }
 
     /**
