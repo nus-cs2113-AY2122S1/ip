@@ -2,6 +2,7 @@ package task;
 
 import parser.command.AddCommand;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class TaskManager {
@@ -15,14 +16,18 @@ public class TaskManager {
         return tasks.size();
     }
 
-    public String listTasks() {
-        if(tasks.size() == 0) {
+    public String listAllTasks() {
+        return listTasks(tasks);
+    }
+
+    public String listTasks(ArrayList<Task> listOfTasks) {
+        if(listOfTasks.size() == 0) {
             return "No task available\n";
         }
 
         StringBuilder sb = new StringBuilder();
         Task currTask;
-        Iterator<Task> it = tasks.iterator();
+        Iterator<Task> it = listOfTasks.iterator();
         int counter = 1;
 
         while(it.hasNext()) {
@@ -82,7 +87,6 @@ public class TaskManager {
         return sb.toString();
     }
 
-
     public Task createNewTask(HashMap<String, String> params) throws IllegalArgumentException{
         Task newTask;
 
@@ -122,7 +126,6 @@ public class TaskManager {
 
         return newTask;
     }
-
 
     public void loadTasks(String[] fileOutput) {
         String delimiter = ";";
@@ -166,5 +169,20 @@ public class TaskManager {
             Task newTask = createNewTask(params);
             tasks.add(newTask);
         }
+    }
+
+    public String getOverdueTasks(LocalDateTime timeToCheck) {
+        ArrayList<Task> overdueTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task instanceof TimedTask) {
+                LocalDateTime taskDueTime = ((TimedTask) task).getTime();
+                if (!task.getDone() && taskDueTime.isBefore(timeToCheck)) {
+                    overdueTasks.add(task);
+                }
+            }
+        }
+
+        return listTasks(overdueTasks);
     }
 }

@@ -13,7 +13,7 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(Storage storage, TaskManager tm, Ui ui) {
-        String output = tm.listTasks();
+        String output = tm.listAllTasks();
         ui.printMessage(output);
     }
 }

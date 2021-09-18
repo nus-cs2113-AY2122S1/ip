@@ -1,24 +1,22 @@
 package task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-public class DeadlineTask extends Task{
-
-    private String deadline;
+public class DeadlineTask extends TimedTask{
 
     public DeadlineTask(String task, String deadline) {
-        super(task);
-        this.deadline = deadline;
+        super(task, deadline);
     }
 
     public String toString() {
-        return super.toString() + String.format(" (by: %s)", deadline);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String deadlineString = datetime.format(formatter);
+        return super.toString() + String.format(" (by: %s)", deadlineString);
     }
 
     @Override
     public String getTypeIcon() {
         return "D";
-    }
-
-    public String toFileString() {
-        return super.toFileString() + String.format(";%s", deadline);
     }
 }
