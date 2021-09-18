@@ -1,6 +1,6 @@
 package duke;
 
-import duke.Exceptions.TaskHasBeenDoneException;
+import duke.exceptions.TaskHasBeenDoneException;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -44,5 +44,15 @@ public class TasksList {
             throw new TaskHasBeenDoneException(taskIndex);
         }
         task.markAsDone();
+    }
+
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 }

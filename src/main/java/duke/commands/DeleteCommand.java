@@ -1,7 +1,7 @@
-package duke.Commands;
+package duke.commands;
 
-import duke.Exceptions.DukeException;
-import duke.Exceptions.InvalidTaskIndexException;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidTaskIndexException;
 import duke.Storage;
 import duke.TasksList;
 import duke.Ui;

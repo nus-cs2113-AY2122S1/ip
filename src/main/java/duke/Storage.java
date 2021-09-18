@@ -1,9 +1,9 @@
 package duke;
 
-import duke.Exceptions.DukeException;
-import duke.Exceptions.StorageFileCreationFailedException;
-import duke.Exceptions.InvalidTaskTypeException;
-import duke.Exceptions.DataStoreNotFoundException;
+import duke.exceptions.DukeException;
+import duke.exceptions.StorageFileCreationFailedException;
+import duke.exceptions.InvalidTaskTypeException;
+import duke.exceptions.DataStoreNotFoundException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
