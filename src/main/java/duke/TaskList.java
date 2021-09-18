@@ -19,9 +19,11 @@ public class TaskList {
     private static final String MESSAGE_MARK_TASK_AS_DONE = S_TAB + "NOTICE: This task is marked as done..." + LS
             + L_TAB + "%1$s";
     private static final String MESSAGE_HELP = S_TAB + "NOTICE: This is a list of the possible commands...";
+    private static final String MESSAGE_MATCHING_TASK = S_TAB + "NOTICE: Here are the matching tasks in your list...";
 
     private static final String ERROR_NO_TASK_IN_LIST = S_TAB + "ERROR: There are no tasks in your list.";
     private static final String ERROR_INVALID_TASK_SELECTED = S_TAB + "ERROR: Invalid task selected.";
+    private static final String ERROR_NO_MATCHING_TASK = S_TAB + "ERROR: No matching tasks found.";
 
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
     private static final String LIST_COMMAND = L_TAB + "1. list" + LS
@@ -148,6 +150,25 @@ public class TaskList {
         ui.showLine();
     }
 
+    /**
+     * Checks through existing task list for task names that contains the keyword and prints them.
+     *
+     * @param keyword Keyword to check the task list against.
+     * @param ui      User interface of duke.
+     * @throws DukeException If there are no matching tasks found.
+     */
+    public void printMatchingTask(String keyword, Ui ui) throws DukeException {
+        ArrayList<String> matchingTaskList = new ArrayList<String>();
+        findMatchingTask(matchingTaskList, keyword);
+        if (matchingTaskList.isEmpty()) {
+            throw new DukeException(ERROR_NO_MATCHING_TASK);
+        } else {
+            ui.showLine();
+            printMatchingTaskList(matchingTaskList);
+            ui.showLine();
+        }
+    }
+
     /*
      * NOTE : ==================================================================
      * The following are private methods that are used to implement SLAP for the
@@ -245,4 +266,31 @@ public class TaskList {
     private String getMessageForMarkTaskAsDone(String taskDetails) {
         return String.format(MESSAGE_MARK_TASK_AS_DONE, taskDetails);
     }
+
+    /**
+     * Finds all tasks containing the keyword and adds them to a String ArrayList.
+     *
+     * @param matchingTaskList ArrayList containing strings of task names that matches keywords.
+     * @param keyword          Keyword to check the task list against.
+     */
+    private void findMatchingTask(ArrayList<String> matchingTaskList, String keyword) {
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(keyword)) {
+                matchingTaskList.add(task.toString());
+            }
+        }
+    }
+
+    /**
+     * Prints out the tasks containing the keywords
+     *
+     * @param matchingTaskList ArrayList containing strings of task names that matches keywords.
+     */
+    private void printMatchingTaskList(ArrayList<String> matchingTaskList) {
+        System.out.println(MESSAGE_MATCHING_TASK);
+        for (int i = 0; i < matchingTaskList.size(); i++) {
+            System.out.println(L_TAB + (i + 1) + "." + matchingTaskList.get(i));
+        }
+    }
+
 }
