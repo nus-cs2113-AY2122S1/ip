@@ -2,8 +2,8 @@ package duke.task;
 
 import duke.exception.ArgumentNotFoundException;
 import duke.exception.InvalidCommandException;
-import duke.util.Parser;
-import duke.util.Ui;
+import duke.parser.Parser;
+import duke.ui.Ui;
 import java.util.ArrayList;
 
 public class TaskManager {
