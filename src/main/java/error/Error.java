@@ -8,7 +8,7 @@ public class Error {
     public static final String ERROR_MESSAGE_TASK_FORMAT = "☹ OOPS!!! Task detail provided is in the wrong format :-(";
     public static final String ERROR_MESSAGE_TASK_NAME_NONEXISTENT = "☹ OOPS!!! Task name cannot be empty :-(";
 
-    public static final String ERROR_MESSAGE_FILE_CREATE_FAIL = "☹ OOPS!!! File failed to create :-(";
+    public static final String ERROR_MESSAGE_FILE_LOAD_FAIL = "☹ OOPS!!! File failed to load data :-(";
     public static final String ERROR_MESSAGE_FILE_UPDATE_FAIL = "☹ OOPS!!! File failed to update :-(";
     public static final String ERROR_MESSAGE_FILE_ADD_TASK_FAIL = "☹ OOPS!!! Failed to add saved task :-(";
     public static final String ERROR_MESSAGE_FILE_TASK_NAME_NONEXISTENT = "☹ OOPS!!! Saved Task has no name :-(";
@@ -34,8 +34,8 @@ public class Error {
         System.out.println(ERROR_MESSAGE_TASK_NAME_NONEXISTENT);
     }
 
-    public static void displayFileCreateError() {
-        System.out.println(ERROR_MESSAGE_FILE_CREATE_FAIL);
+    public static void displayFileLoadError() {
+        System.out.println(ERROR_MESSAGE_FILE_LOAD_FAIL);
     }
 
     public static void displayFileUpdateError() {

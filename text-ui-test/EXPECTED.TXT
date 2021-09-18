@@ -9,6 +9,7 @@ Hello from
 Hello! I'm Duke
 What can I do for you?
 
+No saved file found, creating one now.
 *********************************
 Noted! I've added a new TODO task
 [T][ ] read book

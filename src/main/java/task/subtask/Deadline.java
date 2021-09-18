@@ -1,7 +1,7 @@
 package task.subtask;
 
 import task.Task;
-import utils.Display;
+import ui.Display;
 
 public class Deadline extends Task {
 

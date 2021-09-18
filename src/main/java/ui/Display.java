@@ -1,4 +1,4 @@
-package utils;
+package ui;
 
 import task.Task;
 
@@ -30,19 +30,39 @@ public class Display {
         System.out.println("---------------------------------");
     }
 
+    public static void displayGreetings() {
+        printSeparatingLine();
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?\n");
+    }
+
+    public static void displayGoodbyes() {
+        printSeparatingLine();
+        System.out.println("Bye. Hope to see you again soon!\n");
+        printSeparatingLine();
+    }
+
+    public static void displayCreateFile() {
+        System.out.println("No saved file found, creating one now.");
+    }
+
+    public static void displayLoadingFile() {
+        System.out.println("Loading data from saved file.");
+    }
+
     public static String createCheckboxDisplay(String checkBoxType) {
         return "[" + checkBoxType + "]";
     }
 
     public static String getStatusCheckbox(Boolean isCompleted) {
         if (isCompleted) {
-            return Display.createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE);
+            return createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE);
         }
-        return Display.createCheckboxDisplay(Display.CHECKBOX_TASK_INCOMPLETE);
+        return createCheckboxDisplay(Display.CHECKBOX_TASK_INCOMPLETE);
     }
 
     public static String getTwoCheckboxDisplay(String taskType, Boolean isCompleted) {
-        String taskCheckboxType = Display.createCheckboxDisplay(taskType);
+        String taskCheckboxType = createCheckboxDisplay(taskType);
         String statusCheckboxType = getStatusCheckbox(isCompleted);
         return taskCheckboxType + statusCheckboxType;
     }
@@ -65,6 +85,6 @@ public class Display {
 
     public static void displayTaskCompleted(String taskName) {
         System.out.println("Nice! Marking " + taskName + " as done!");
-        System.out.println(Display.createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE) + " " + taskName);
+        System.out.println(createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE) + " " + taskName);
     }
 }
