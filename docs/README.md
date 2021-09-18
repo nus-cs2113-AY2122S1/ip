@@ -7,12 +7,12 @@ Duke is a command line task tracking application that helps you keep track of yo
 3. In the directory containing the `Duke.jar` file, run `java -jar Duke.jar`.
 
 ## Features
-* [Add a task](#Add-a-task)
-* [Delete a task](#Delete-a-task)
-* [Mark a task as done](#Mark-a-task-as-done)
-* [Find a task](#Find-a-task)
-* [List all tasks](#List-all-tasks)
-* [Exit Duke](#Exit-Duke)
+* [Add a task](#add-a-task)
+* [Delete a task](#delete-a-task)
+* [Mark a task as done](#mark-a-task-as-done)
+* [Find a task](#find-a-task)
+* [List all tasks](#list-all-tasks)
+* [Exit Duke](#exit-Duke)
 
 ### Add a task
 Duke supports 3 types of tasks:
