@@ -20,7 +20,7 @@
 ----
 
 1. Ensure that you have `Java 11` or above installed on your machine.
-2. Download the latest copy of `taskmon.jar` from [here](https://github.com/rizemon/ip/releases/download/A-Jar/taskmon.jar).
+2. Download the latest copy of `taskmon.jar` from [here](https://github.com/rizemon/ip/releases/latest).
 3. Create or find a suitable directory and move `taskmon.jar` into it.
 4. Open a command prompt by executing `cmd.exe` and navigate to the directory mentioned in the previous step.
 5. Execute the command `java -jar  taskmon.jar` and you see something like this:
