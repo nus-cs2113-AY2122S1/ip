@@ -1,8 +1,5 @@
 package tasks;
 
-import exceptions.TaskEmptyException;
-import exceptions.TimeMissingException;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,19 +10,6 @@ import java.util.ArrayList;
 public class TaskList {
     private List<Task> tasks = new ArrayList<>();
 
-    /**
-     * Adds a task into the list using the add task command.
-     * @param userInput A String follows the exact format of adding a task
-     * @return Task The Task object that has been added the list.
-     * @throws TimeMissingException Throws TimeMissingException if the time of Deadline/Event is missing.
-     * @throws TaskEmptyException Throws TaskEmptyException if the content of a task is missing.
-     */
-    public Task addTask (String userInput) throws TimeMissingException, TaskEmptyException {
-        Task newTask;
-        newTask = getTask(userInput);
-        this.tasks.add(newTask);
-        return newTask;
-    }
 
     /**
      * Adds a task into the list with a Task object.
@@ -71,35 +55,6 @@ public class TaskList {
         }
         return result;
     }
-
-    private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {
-        String taskType, taskName, deadline;
-        int taskTypeIndex = userInput.indexOf(" ");
-        int deadlineIndex = userInput.lastIndexOf("/");
-
-        try {
-            taskType = userInput.substring(0, taskTypeIndex);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new TaskEmptyException(userInput);
-        }
-
-        if (taskType.equals("todo")) {
-            taskName = userInput.substring(taskTypeIndex + 1);
-            return new Todo(taskName, false);
-        }
-
-        if (deadlineIndex == -1) {
-            throw new TimeMissingException(taskType);
-        }
-
-        deadline = userInput.substring(deadlineIndex + 1);
-        taskName = userInput.substring(taskTypeIndex, deadlineIndex);
-        if (taskType.equals("deadline")) {
-            return new Deadline(taskName, deadline, false);
-        }
-        return new Event(taskName, deadline, false);
-    }
-
 
     public TaskList findTask(String keyword) {
         TaskList satisfiedTasks = new TaskList();

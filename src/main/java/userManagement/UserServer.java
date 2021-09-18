@@ -3,11 +3,13 @@ package userManagement;
 import FileManager.FileSaver;
 import Parser.Parser;
 import UI.TextUI;
+import exceptions.*;
 import tasks.TaskList;
-import exceptions.DukeException;
 
 import commands.QuitCommand;
 import commands.UserCommand;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * A class to serve user's requests
@@ -43,7 +45,7 @@ public class UserServer {
 
     private void serve() {
         UI.showWelcomeMessage(userName);
-        UserCommand command;
+        UserCommand command = null;
 
         do {
             String userInput = UI.readInput();
@@ -52,9 +54,7 @@ public class UserServer {
                 UI.printCommandResult(commandExecute(command));
             } catch (DukeException e) {
                 UI.showError(e);
-                command = null;
             }
-
         } while (! (command instanceof QuitCommand));
     }
 

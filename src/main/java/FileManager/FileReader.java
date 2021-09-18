@@ -7,6 +7,8 @@ import tasks.Event;
 import tasks.Deadline;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,10 +61,15 @@ public class FileReader {
         switch(split[0].strip()) {
         case "T" :
             return new Todo(split[2].strip(), split[1].strip().equals("1"));
+
         case "D":
-            return new Deadline(split[2].strip(), split[3].strip(), split[1].strip().equals("1"));
+            return new Deadline(split[2].strip(), LocalDate.parse(split[3].strip()),
+                    split[1].strip().equals("1"));
+
         case "E":
-            return new Event(split[2].strip(), split[3].strip(), split[1].strip().equals("1"));
+            return new Event(split[2].strip(), LocalDateTime.parse(split[3].strip()),
+                    split[1].strip().equals("1"));
+
         default:
             return null;
         }

@@ -1,11 +1,15 @@
 package Parser;
 
 import commands.*;
-import tasks.TaskList;
+import exceptions.TaskIndexException;
+import exceptions.TimeMissingException;
+import tasks.*;
 import exceptions.InvalidCommandException;
 import exceptions.DukeException;
-import exceptions.TaskIndexMissingException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 
 /**
@@ -22,42 +26,107 @@ public class Parser {
      * @return The command type
      * @throws DukeException Throws exception if the command is not exactly following the format.
      */
-    public UserCommand parseCommand(String command, TaskList userTasks) throws DukeException {
-        String[] inputSplits = command.split(" ");
-        UserCommand input;
+    public UserCommand parseCommand(String command, TaskList userTasks) throws DukeException{
 
-        switch (inputSplits[0]) {
-        case "bye":
-            input = new QuitCommand();
-            break;
+        /*
+        exceptions already handled:
+        (1) Done / Delete command:
+            1. not provide the task index or task index not a number (NumberFormatException)
 
-        case "list":
-            input = new ListCommand(userTasks);
-            break;
 
-        case "done": case "delete":
-            try {
-                if (inputSplits[0].equals("done")) {
-                    input = new DoneCommand(Integer.parseInt(inputSplits[1]), userTasks);
-                } else {
-                    input = new DeleteCommand(Integer.parseInt(inputSplits[1]), userTasks);
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new TaskIndexMissingException();
+       (2) Deadline / Event command
+            1. the time does not follow required format (DateTimeParseException)
+            2. task name is missing
+            3. time is missing (ArrayIndexOutOfBoundsException)
+
+        (3) command not exists (InvalidCommandException);
+         */
+
+        int firstSpace = command.indexOf(" ");
+
+        if (firstSpace == -1) {
+            if (command.equals("bye")) {
+                return new QuitCommand();
             }
-            break;
 
-        case "todo" : case "deadline" : case "event":
-            input = new AddTaskCommand(command, userTasks);
-            break;
-
-        case "find":
-            input = new FindTaskCommand(userTasks, inputSplits[1]);
-            break;
-
-        default:
+            if (command.equals("list")) {
+                return new ListCommand(userTasks);
+            }
             throw new InvalidCommandException();
         }
-        return input;
+
+        String commandType = command.substring(0, firstSpace);
+        String restCommand = command.substring(firstSpace).strip();
+        if (commandType.equals("done")) {
+            return parseDoneCommand(restCommand, userTasks);
+        }
+
+        if (commandType.equals("delete")) {
+            return parseDeleteCommand(restCommand, userTasks);
+        }
+
+        if (commandType.equals("todo")) {
+            return parseTodoCommand(restCommand, userTasks);
+        }
+
+        if (commandType.equals("find")) {
+            return parseFindCommand(restCommand, userTasks);
+        }
+
+        if (commandType.equals("deadline")) {
+            return parseDeadlineCommand(restCommand, userTasks);
+        }
+
+        if (commandType.equals("event")) {
+            return parseEventCommand(restCommand, userTasks);
+        }
+
+        throw new InvalidCommandException();
+    }
+
+    private DeleteCommand parseDeleteCommand(String taskIndex, TaskList userTask) throws TaskIndexException {
+        try {
+            return new DeleteCommand(Integer.parseInt(taskIndex), userTask);
+        } catch (NumberFormatException e) {
+            throw new TaskIndexException();
+        }
+    }
+
+    private DoneCommand parseDoneCommand(String taskIndex, TaskList userTask) throws TaskIndexException{
+        try {
+            return new DoneCommand(Integer.parseInt(taskIndex), userTask);
+        } catch (NumberFormatException e) {
+            throw new TaskIndexException();
+        }
+    }
+
+    private AddTaskCommand parseTodoCommand(String taskName, TaskList userTask) {
+        return new AddTaskCommand(new Todo(taskName, false), userTask);
+    }
+
+    private AddTaskCommand parseDeadlineCommand(String restCommand, TaskList userTask)
+            throws DateTimeParseException, TimeMissingException {
+        try {
+            String[] split = restCommand.split("/");
+            return new AddTaskCommand(new Deadline(split[0].strip(),
+                    LocalDate.parse(split[1].strip()), false), userTask);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new TimeMissingException();
+        }
+    }
+
+    private AddTaskCommand parseEventCommand(String restCommand, TaskList userTask)
+            throws DateTimeParseException, TimeMissingException {
+        try {
+            String[] split = restCommand.split("/");
+            return new AddTaskCommand(new Event(split[0].strip(),
+                    LocalDateTime.parse(split[1].strip()), false), userTask);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new TimeMissingException();
+        }
+    }
+
+    private FindTaskCommand parseFindCommand(String restCommand, TaskList userTask) {
+        return new FindTaskCommand(userTask, restCommand.strip());
     }
 }

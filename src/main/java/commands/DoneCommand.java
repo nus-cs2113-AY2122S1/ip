@@ -25,8 +25,6 @@ public class DoneCommand extends UserCommand {
             throw new TaskNotExistException();
         }
 
-        String result = "     Nice! I've marked this task as done: \n";
-        result += "       " + completedTask;
-        return result;
+        return String.format("     Nice! I've marked this task as done: \n       %s\n", completedTask);
     }
 }

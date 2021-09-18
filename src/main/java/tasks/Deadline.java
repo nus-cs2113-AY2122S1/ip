@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private String deadline;
+    private LocalDate deadline;
 
-    public Deadline (String taskName, String deadline, boolean isCompleted) {
+    public Deadline (String taskName, LocalDate deadline, boolean isCompleted) {
         super(taskName, isCompleted);
         this.deadline = deadline;
     }
@@ -19,11 +19,13 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D] %s (%s)", super.toString(), this.deadline);
+        return String.format("[D] %s (%s)", super.toString(),
+                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     public String save() {
-        return String.format("D | %d | %s | %s\n", super.hasCompleted(), this.getTaskName(), this.deadline);
+        return String.format("D | %b | %s | %s\n", super.hasCompleted(), this.getTaskName(),
+                this.deadline.toString());
     }
 
 

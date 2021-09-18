@@ -2,29 +2,30 @@ package commands;
 
 import tasks.Task;
 import tasks.TaskList;
-import exceptions.TaskEmptyException;
-import exceptions.TimeMissingException;
 
 /**
  * A class to handle commands of adding tasks into the task list. Types of tasks can be Todo, Deadline, and Event.
  */
 public class AddTaskCommand extends UserCommand {
-    private String addCommand;
+    private Task newTask;
 
-    public AddTaskCommand (String addCommand, TaskList tasks) {
-        super(tasks);
-        this.addCommand = addCommand;
+    public static String giveHelp() {
+        return String.format("     The correct format of the command to ask a task should be:\n     ");
     }
 
+    public AddTaskCommand(Task newTask, TaskList tasks) {
+        super(tasks);
+        this.newTask = newTask;
+    }
+
+
     @Override
-    public String execute () throws TaskEmptyException, TimeMissingException {
-        Task newTask = tasks.addTask(this.addCommand);
+    public String execute () {
+        tasks.addTask(this.newTask);
         int totalNumberOfTasks = tasks.getTotalTaskNumber();
 
-        String result = "     Got it. I've added this task: \n";
-        result += "       " + newTask;
-        result += "\n     Now you have " + totalNumberOfTasks +
-                ((totalNumberOfTasks > 1) ? " tasks" : " task") + " in the list.";
-        return result;
+        return String.format("     Got it. I've added this task: \n       %s" +
+                "\n     Now you have %d %s in the list.\n", newTask, totalNumberOfTasks,
+                (totalNumberOfTasks > 1) ? "tasks" : "task");
     }
 }

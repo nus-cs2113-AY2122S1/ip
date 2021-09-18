@@ -25,9 +25,7 @@ public class DeleteCommand extends UserCommand{
             throw new TaskNotExistException();
         }
 
-        String result = "     Noted. I've removed this task:\n";
-        result += "       " + deletedTask;
-        result += "     Now you have " + this.tasks.getTotalTaskNumber() + " tasks in the list.";
-        return result;
+        return String.format("     Noted. I've removed this task:\n       %s\n" +
+                "     Now you have %d tasks in the list.\n", deletedTask, tasks.getTotalTaskNumber());
     }
 }
