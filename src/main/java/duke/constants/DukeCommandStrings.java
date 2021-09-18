@@ -1,6 +1,7 @@
 package duke.constants;
 
 public class DukeCommandStrings extends DukeConstants {
+
     // Commands recognized by Duke
     public static final String LIST_COMMAND = "list";
     public static final String DONE_COMMAND = "done";
@@ -8,6 +9,7 @@ public class DukeCommandStrings extends DukeConstants {
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
     public static final String DELETE_COMMAND = "delete";
+    public static final String EXIT_COMMAND = "bye";
 
     // Prefixes and regex that help with the parsing of user input
     public static final String WHITESPACE_SEQUENCE = "\\s+";

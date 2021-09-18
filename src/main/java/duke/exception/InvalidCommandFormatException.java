@@ -1,5 +1,6 @@
 package duke.exception;
 
-public class InvalidCommandException extends DukeException {
+public class InvalidCommandFormatException extends DukeException {
+
     // Nothing here
 }
