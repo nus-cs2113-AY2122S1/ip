@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exception.DukeMissingDataException;
+
 public class Parser {
     private static final String DELETE_KEYWORD = "delete";
     private static final String DONE_KEYWORD = "done";

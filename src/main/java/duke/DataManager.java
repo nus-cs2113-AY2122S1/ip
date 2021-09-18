@@ -1,6 +1,10 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.DukeBlankDescriptionsException;
+import duke.exception.DukeInvalidTaskIndexException;
+import duke.exception.DukeMissingDataException;
+import duke.task.Task;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;

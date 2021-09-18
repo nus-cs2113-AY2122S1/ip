@@ -1,6 +1,12 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.DukeBlankDescriptionsException;
+import duke.exception.DukeInvalidTaskIndexException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.Iterator;

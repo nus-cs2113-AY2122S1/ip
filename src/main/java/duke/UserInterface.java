@@ -1,6 +1,9 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.DukeBlankDescriptionsException;
+import duke.exception.DukeInvalidTaskIndexException;
+import duke.task.Task;
 
 import java.util.Scanner;
 
@@ -101,9 +104,7 @@ public class UserInterface {
 
         return Command.INVALID;
     }
-
     
-
     private static int getTaskIndex(String word) {
         return Integer.parseInt(word.replaceAll(" ", ""));
     }
