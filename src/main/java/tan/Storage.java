@@ -31,7 +31,7 @@ import static java.nio.file.StandardOpenOption.CREATE;
  * <p>
  * homePath - The directory that the data file is saved at in String.
  */
-public class DataManager {
+public class Storage {
     protected static BufferedReader csvReader;
     protected static BufferedWriter csvWriter;
     private static final String homePath = System.getProperty("user.dir");
@@ -39,7 +39,6 @@ public class DataManager {
     private static final String FILE_NAME = "taskData.csv";
     private static Path DATA_PATH;
     private static int totalLinesLoaded = 0;
-
 
     /**
      * Saves the current list by deleting the old taskData.csv file and
@@ -84,7 +83,7 @@ public class DataManager {
 
         try {
             String type = curTask.getTaskType();
-            int taskTypeInt = getTaskTypeInt(type);
+            int taskTypeInt = getTaskTypeInInt(type);
             if (taskTypeInt == -1) {
                 throw new TaskToStringException();
             }
@@ -109,7 +108,7 @@ public class DataManager {
      * @param taskType The Task type in String.
      * @return The value corresponding to its task type in integer. -1 if unknown.
      */
-    public static int getTaskTypeInt(String taskType) {
+    public static int getTaskTypeInInt(String taskType) {
         taskType = taskType.toLowerCase();
         switch (taskType) {
         case "todo":
@@ -130,9 +129,9 @@ public class DataManager {
      * View the getStoredData function to understand more about
      * the data retrieval.
      *
-     * @return The list of tasks that the file contained.
+     * @return A list of Task that was saved in the data file.
      */
-    public static List<Task> setFileAndGetTasks() {
+    public static List<Task> initializeFileAndGetTasks() {
         initializeFile();
         List<String[]> storedTasks = getStoredDataInString();
         List<Task> listOfStoredTasks = new ArrayList<>();
@@ -243,7 +242,7 @@ public class DataManager {
             writeHeader();
             csvWriter.close();
         } catch (IOException e) {
-            System.out.println("Error in writing to file.");
+            System.out.println("Error in accessing/writing file.");
             System.exit(-1);
         } catch (Exception e) {
             System.out.println(e);

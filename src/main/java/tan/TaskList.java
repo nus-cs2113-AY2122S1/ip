@@ -11,14 +11,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
-public class TaskManager {
+public class TaskList {
 
     protected static List<Task> listOfTasks = new LinkedList<>();
     private static int totalNumberOfTask = 0;
 
-    public static void loadDataIntoList(List<Task> listOfDatas) {
-        listOfTasks.addAll(listOfDatas);
+    /**
+     * Initializes the file & loads the tasks stored in the file
+     * into the list. Then updates the total number of tasks.
+     */
+    public static void initializeFileAndLoadDataIntoList() {
+        List<Task> listOfStoredTasks = Storage.initializeFileAndGetTasks();
+        listOfTasks.addAll(listOfStoredTasks);
         totalNumberOfTask = listOfTasks.size();
+        System.out.println("Successfully loaded " + totalNumberOfTask + " tasks.");
     }
 
     /**
@@ -30,18 +36,16 @@ public class TaskManager {
      *
      * @return Returns 0 if the file was successfully saved, else -1.
      */
-    protected static int saveCurrentList() {
+    protected static void saveCurrentList() {
         try {
-            DataManager.saveCurrentList(listOfTasks);
+            Storage.saveCurrentList(listOfTasks);
+            System.out.println("File successfully updated.");
         } catch (IOException e) {
             System.out.println("Error in writing/opening file! Please try again.");
-            return -1;
         } catch (Exception e) {
             System.out.println("Generic Error in saving file. Error is:" + e);
             e.printStackTrace();
-            return -1;
         }
-        return 0;
     }
 
     /**
@@ -73,7 +77,7 @@ public class TaskManager {
             System.out.println("No such task!");
             return;
         }
-        Task currentTask = getTask(indexTask - 1);
+        Task currentTask = getTask(indexTask - 1); //Minus 1 as array's index starts at 0.
         if (currentTask != null) {
             currentTask.markAsDone();
         }
@@ -91,7 +95,7 @@ public class TaskManager {
             System.out.println("No such task!");
             return;
         }
-        Task toDelete = getTask(indexTask - 1);
+        Task toDelete = getTask(indexTask - 1); //Minus 1 as array's index starts at 0.
         System.out.println("OooOOHHhh Weeee. I have removed this:");
         System.out.println(toDelete);
         listOfTasks.remove(indexTask - 1);
@@ -231,14 +235,14 @@ public class TaskManager {
      *
      * @param x The whole user input as a String.
      * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions If "/at" does not exists in the Input.
+     * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
      */
     private static String getDateTimeOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /at... format.
         if (x.toLowerCase().contains("/at")) {
             int indexOfSlash = x.indexOf("/at");
-            //+3 to the index as we don't want to capture "/at".
+            //+3 to the index as we don't want to capture "/at" itself.
             String dateTime = x.substring(indexOfSlash + 3);
             return dateTime.trim();
         }
@@ -254,15 +258,16 @@ public class TaskManager {
      *
      * @param x The whole user input as a String.
      * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions If "/at" does not exists in the Input.
+     * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of /at is out of the index range of the input
-     * or there is no " " in the input.
+     *                                   or there is no " " in the input.
      */
     private static String getDescriptionOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /by... format.
         if (x.toLowerCase().contains("/at")) {
             int indexOfFirstSpace = x.indexOf(" ");
             int indexOfSlash = x.indexOf("/at");
+            //Minus 1 and plus 1 to index to avoid capturing the " " & "/" itself.
             String description = x.substring(indexOfFirstSpace + 1, indexOfSlash - 1);
             return description.trim();
         }
@@ -277,7 +282,7 @@ public class TaskManager {
      *
      * @param x The whole user input as a String.
      * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions If "/by" does not exists in the Input.
+     * @throws DukeFormatExceptions      If "/by" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of (/by + 3) is out of the index range of the input.
      */
     private static String getDateTimeOfDeadline(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
@@ -300,15 +305,16 @@ public class TaskManager {
      *
      * @param x The whole user input as a String.
      * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions If "/by" does not exists in the Input.
+     * @throws DukeFormatExceptions      If "/by" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of /by is out of the index range of the input
-     * or there is no " " in the input.
+     *                                   or there is no " " in the input.
      */
     private static String getDescriptionOfDeadline(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /by... format.
         if (x.toLowerCase().contains("/by")) {
             int indexOfFirstSpace = x.indexOf(" ");
             int indexOfSlash = x.indexOf("/by");
+            //Minus 1 and plus 1 to index to avoid capturing the " " & "/" itself.
             String description = x.substring(indexOfFirstSpace + 1, indexOfSlash - 1);
             return description.trim();
         }
@@ -343,9 +349,9 @@ public class TaskManager {
      *
      * @param x The whole user input as a String.
      * @return The remaining String excluding the 1st word.
-     * @throws DukeFormatExceptions If there is no " "(Space) in the string.
+     * @throws DukeFormatExceptions      If there is no " "(Space) in the string.
      * @throws IndexOutOfBoundsException If the index of the space + 1 is out of
-     * range of the current input.
+     *                                   range of the current input.
      */
     private static String getDescriptionOfToDo(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Gets the index of the first space.
