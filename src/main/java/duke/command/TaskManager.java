@@ -80,7 +80,7 @@ public class TaskManager {
             taskList.get(indexOfTaskToMarkDone).setDone(true);
         } catch (NumberFormatException e) {
             Ui.printInvalidCommandFormatMessage();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             Ui.printTaskNotInListMessage();
         }
     }
@@ -185,7 +185,7 @@ public class TaskManager {
             taskList.remove(taskList.get(indexOfTaskToDelete));
         } catch (NumberFormatException e) {
             Ui.printInvalidCommandFormatMessage();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             Ui.printTaskNotInListMessage();
         }
     }
