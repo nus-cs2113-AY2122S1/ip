@@ -1,9 +1,10 @@
 package duke.task;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline extends Task {
-    protected Date dueDate;
+    protected String dueDate;
 
     /**
      * Class deadline constructor.
@@ -13,7 +14,8 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, Date dueDate) {
         super(taskName);
-        this.dueDate = dueDate;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        this.dueDate = simpleDateFormat.format(dueDate);
     }
 
     /**

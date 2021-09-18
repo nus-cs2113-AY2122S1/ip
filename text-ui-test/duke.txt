@@ -1,2 +1,2 @@
 T@@@0@@@read book
-D@@@1@@@return book@@@Mon Dec 06 18:00:00 SGT 2021
+D@@@1@@@return book@@@06/12/2021 1800

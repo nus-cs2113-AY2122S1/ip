@@ -33,7 +33,8 @@ public class Storage {
     /**
      * Loads task data from the file when Duke starts up.
      */
-    public void loadTask(TaskList tasks) throws DukeException {
+    public TaskList load() throws DukeException {
+        TaskList tasks = new TaskList();
         checkFileExist();
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
@@ -45,6 +46,7 @@ public class Storage {
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(ERROR_LOAD);
         }
+        return tasks;
     }
 
     /**
@@ -53,7 +55,9 @@ public class Storage {
     private void checkFileExist() {
         File file = new File(System.getProperty("user.dir"), filePath);
         try {
-            file.createNewFile();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

@@ -1,10 +1,10 @@
 package duke.task;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event extends Task {
-
-    private Date heldDate;
+    protected String heldDate;
 
     /**
      * Class event constructor.
@@ -14,7 +14,8 @@ public class Event extends Task {
      */
     public Event(String taskName, Date heldDate) {
         super(taskName);
-        this.heldDate = heldDate;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        this.heldDate = simpleDateFormat.format(heldDate);
     }
 
     /**

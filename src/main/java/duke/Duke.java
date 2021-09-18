@@ -19,8 +19,12 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList();
-
+        try {
+            tasks = storage.load();
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
     public static void main(String[] args) {
@@ -32,17 +36,8 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
-        loadData();
         handleUserInput();
         ui.showGoodbye();
-    }
-
-    private void loadData() {
-        try {
-            storage.loadTask(tasks);
-        } catch (DukeException e) {
-            ui.showLoadingError();
-        }
     }
 
     /**
