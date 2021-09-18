@@ -48,8 +48,8 @@ public class Parser {
             return new HelpCommand(command);
         case BYE:
             return new ByeCommand(command);
-        //case WHATSON:
-        //    return new FilterBy().Date(date);
+        case FIND:
+            return new FindCommand(command, description);
         default:
             throw new InvalidCommand();
         }
