@@ -5,10 +5,14 @@ import duke.Commands.Command;
 
 
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TasksList tasks;
-    private Ui ui;
+    private final Ui ui;
 
+    /**
+     * Initialises the main components (TaskList, Parser, Storage, Ui) of the application.
+     * @param filePath Path to the file used for data storage.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +29,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the application.
+     * Takes in an input from the user, process it and execute the command.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

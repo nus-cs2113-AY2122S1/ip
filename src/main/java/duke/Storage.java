@@ -37,6 +37,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a <code>TaskList</code> with data that is stored in the data storage.
+     * @return A <code>TaskList</code> of all tasks stored in the data storage.
+     * @throws DukeException If the data storage file cannot be found or is corrupted.
+     */
     public TasksList load() throws DukeException {
         String DONE_INDICATOR = "1";
         int TASK_TYPE_INDEX = 0;
@@ -87,6 +92,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Adds all data in a taskList to the data store.
+     * @param taskList A <code>TaskList</code> whose data is to be saved.
+     * @throws DukeException If the data storage file cannot be found.
+     */
     public void save(TasksList taskList) throws DukeException {
         FileWriter fileWriter;
         StringBuilder outputString;

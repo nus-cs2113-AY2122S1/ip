@@ -5,7 +5,9 @@ import duke.TasksList;
 import duke.Ui;
 import duke.Exceptions.DukeException;
 
-
+/**
+ * Parent abstract class of all commands that Duke can perform.
+ */
 abstract public class Command {
     public boolean isExit() {
         return false;
