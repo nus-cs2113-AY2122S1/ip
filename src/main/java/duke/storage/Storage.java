@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -76,7 +77,8 @@ public class Storage {
      * @return the task object
      * @throws IllegalArgumentException file does not follow format
      */
-    private Task parseTask(String task) throws IllegalArgumentException {
+    private Task parseTask(String task)
+            throws IllegalArgumentException, DateTimeParseException {
         String[] taskInfo = Arrays.stream(task.split(DELIMITER))
                 .map(String::strip)
                 .toArray(String[]::new);

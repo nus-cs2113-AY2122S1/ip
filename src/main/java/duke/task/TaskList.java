@@ -4,6 +4,7 @@ import duke.exception.ArgumentNotFoundException;
 import duke.exception.InvalidCommandException;
 import duke.parser.Parser;
 import duke.ui.Ui;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -89,7 +90,7 @@ public class TaskList {
      * @throws InvalidCommandException in the case of unrecognized commands
      */
     public void addTask(Ui ui, Parser description)
-            throws ArgumentNotFoundException, InvalidCommandException {
+            throws ArgumentNotFoundException, InvalidCommandException, DateTimeParseException {
         // Creates new task to add to the list
         Task newTask;
         switch (description.getCommand()) {
