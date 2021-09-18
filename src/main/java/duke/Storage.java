@@ -37,7 +37,7 @@ public class Storage {
         }
     }
 
-    public TasksList load() throws DukeException{
+    public TasksList load() throws DukeException {
         Scanner fileScanner;
         TasksList taskList = new TasksList();
 
@@ -49,23 +49,34 @@ public class Storage {
         }
         while (fileScanner.hasNext()) {
             Task task;
-            String raw_task_entry = fileScanner.nextLine();
-            String[] task_data_points = raw_task_entry.split("\\|");
-            String taskType = task_data_points[0];
+            String doneIndicator = "1";
+            int taskTypeIndex = 0;
+            int doneStatusIndex = 1;
+            int taskIndex = 2;
+            int taskDetailsIndex = 3;
+            String rawTaskEntry = fileScanner.nextLine();
+            String[] taskDataPoints = rawTaskEntry.split("\\|");
+            String taskType = taskDataPoints[taskTypeIndex];
             switch (taskType) {
             case "T":
-                task = new ToDo(task_data_points[2]);
-                if (task_data_points[1].equals("1")) { task.markAsDone(); }
+                task = new ToDo(taskDataPoints[taskIndex]);
+                if (taskDataPoints[doneStatusIndex].equals(doneIndicator)) {
+                    task.markAsDone();
+                }
                 taskList.addTask(task);
                 break;
             case "D":
-                task = new Deadline(task_data_points[2], task_data_points[3]);
-                if (task_data_points[1].equals("1")) { task.markAsDone(); }
+                task = new Deadline(taskDataPoints[taskIndex], taskDataPoints[taskDetailsIndex]);
+                if (taskDataPoints[doneStatusIndex].equals(doneIndicator)) {
+                    task.markAsDone();
+                }
                 taskList.addTask(task);
                 break;
             case "E":
-                task = new Event(task_data_points[2], task_data_points[3]);
-                if (task_data_points[1].equals("1")) { task.markAsDone(); }
+                task = new Event(taskDataPoints[taskIndex], taskDataPoints[taskDetailsIndex]);
+                if (taskDataPoints[doneStatusIndex].equals(doneIndicator)) {
+                    task.markAsDone();
+                }
                 taskList.addTask(task);
                 break;
             default:
@@ -75,19 +86,19 @@ public class Storage {
         return taskList;
     }
 
-    public void save(TasksList taskList) throws DukeException{
-        FileWriter file_writer;
-        StringBuilder output_string;
+    public void save(TasksList taskList) throws DukeException {
+        FileWriter fileWriter;
+        StringBuilder outputString;
 
         try {
-            file_writer = new FileWriter(FILEPATH);
-            output_string = new StringBuilder();
+            fileWriter = new FileWriter(FILEPATH);
+            outputString = new StringBuilder();
             for (int i=0; i< taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                output_string.append(task.formatForDataStore());
+                outputString.append(task.formatForDataStore());
             }
-            file_writer.write(output_string.toString());
-            file_writer.close();
+            fileWriter.write(outputString.toString());
+            fileWriter.close();
         } catch (IOException e) {
             throw new DataStoreNotFoundException(FILEPATH);
         }

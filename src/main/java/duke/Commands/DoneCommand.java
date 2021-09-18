@@ -7,7 +7,7 @@ import duke.TasksList;
 import duke.Ui;
 
 
-public class DoneCommand extends Command{
+public class DoneCommand extends Command {
     public int taskIndex;
 
     public DoneCommand(int taskIndex) {

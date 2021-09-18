@@ -8,7 +8,7 @@ import duke.Ui;
 import duke.task.Task;
 
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     int taskIndex;
 
     public DeleteCommand(int taskIndex) {

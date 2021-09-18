@@ -11,7 +11,7 @@ import duke.task.Event;
 import duke.task.Deadline;
 
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private final String taskType;
     private final String details;
     private String time;
