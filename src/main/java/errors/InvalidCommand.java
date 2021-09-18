@@ -1,6 +1,6 @@
 package errors;
 
-public class InvalidCommand extends Exception{
-    public void InvalidCommand(){
+public class InvalidCommand extends Exception {
+    public void InvalidCommand() {
     }
 }

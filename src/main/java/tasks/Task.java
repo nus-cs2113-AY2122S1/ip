@@ -1,6 +1,10 @@
 package tasks;
 
+import java.util.ArrayList;
+
 public class Task {
+    public static final String taskDoesNotExist = "The task ID does not exist!";
+
     private String description;
     private boolean isDone;
 
@@ -32,5 +36,25 @@ public class Task {
 
     public String toFile() {
         return isDone + "|" + description;
+    }
+
+    /**
+     * Checks if a task id is valid.
+     *
+     * @param id String ID of task to be checked.
+     * @return a boolean value indicating if a task was valid.
+     * @throws NumberFormatException If id was not a number or < 1 or > tasks.size()
+     */
+    public static boolean isValidTaskId(String id, ArrayList<Task> tasks) {
+        int taskId;
+        try {
+            taskId = Integer.parseInt(id);
+            if (taskId < 1 || taskId > tasks.size()) { //invalid task ID
+                throw new NumberFormatException();
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

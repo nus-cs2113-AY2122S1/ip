@@ -1,21 +1,33 @@
 package tasks;
 
+import parser.DateParser;
+
+import java.util.Date;
+
 public class Event extends Task {
 
-    protected String at;
+    public Date at;
 
-    public Event(String description, String at) {
+    public Date getAt() {
+        return at;
+    }
+
+    public void setAt(Date at) {
+        this.at = at;
+    }
+
+    public Event(String description, Date at) {
         super(description);
         this.at = at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + DateParser.dateToString(at) + ")";
     }
 
     @Override
     public String toFile() {
-        return "E|" + super.toFile() + "|" + at;
+        return "E|" + super.toFile() + "|" + DateParser.dateToFile(at);
     }
 }

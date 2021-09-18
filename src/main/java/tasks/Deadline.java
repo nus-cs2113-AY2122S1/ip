@@ -1,21 +1,32 @@
 package tasks;
 
+import parser.DateParser;
+
+import java.util.Date;
+
 public class Deadline extends Task {
+    public Date date;
 
-    protected String date;
+    public Date getDate() {
+        return date;
+    }
 
-    public Deadline(String description, String date) {
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Deadline(String description, Date date) {
         super(description);
         this.date = date;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        return "[D]" + super.toString() + " (by: " + DateParser.dateToString(date) + ")";
     }
 
     @Override
     public String toFile() {
-        return "D|" + super.toFile() + "|" + date;
+        return "D|" + super.toFile() + "|" + DateParser.dateToFile(date);
     }
 }

@@ -1,7 +1,13 @@
 package parser;
 
-import commands.Command;
-import commands.CommandList;
+import commands.*;
+import errors.InvalidCommand;
+import filter.FilterBy;
+
+import java.util.Date;
+
+import static commands.CommandList.*;
+import static commands.CommandList.WHATSON;
 
 public class Parser {
     /**
@@ -9,25 +15,44 @@ public class Parser {
      *
      * @param userInput Input provided by user.
      * @return Command object containing command, description and date (if command was deadline or event)
+     * @throws InvalidCommand If a command does not exist.
      */
-    public Command processCommand(String userInput) {
+    public Command processCommand(String userInput) throws InvalidCommand {
         // Splits user input by spaces
         String[] userInputSplitted = userInput.split("\\s+", 2);
         String command = userInputSplitted[0].toUpperCase();
         String description = "";
+        String[] descriptionAndDate;
 
         // Ensure description exists
         if (userInputSplitted.length > 1) {
             description = userInputSplitted[1];
         }
 
-        // Check for Deadline and Event commands
-        if (command.equals(CommandList.DEADLINE) || command.equals(CommandList.EVENT)) {
-            String delimiter = (command.equals(CommandList.EVENT)) ? "/at" : "/by";
-            String[] descriptionAndDate = spiltString(delimiter, description);
-            return new Command(command, descriptionAndDate[0], descriptionAndDate[1]);
+        switch (command) {
+        case LIST:
+            return new ListCommand(command);
+        case TODO:
+            return new TodoCommand(command, description);
+        case DEADLINE:
+            descriptionAndDate = spiltString("/by", description);
+            return new DeadlineCommand(command, descriptionAndDate[0], descriptionAndDate[1]);
+        case EVENT:
+            descriptionAndDate = spiltString("/at", description);
+            return new EventCommand(command, descriptionAndDate[0], descriptionAndDate[1]);
+        case DONE:
+            return new DoneCommand(command, description);
+        case DELETE:
+            return new DeleteCommand(command, description);
+        case HELP:
+            return new HelpCommand(command);
+        case BYE:
+            return new ByeCommand(command);
+        //case WHATSON:
+        //    return new FilterBy().Date(date);
+        default:
+            throw new InvalidCommand();
         }
-        return new Command(command, description);
     }
 
     /**
@@ -42,7 +67,7 @@ public class Parser {
         int byIndex = description.indexOf(delimiter);
         if (byIndex == -1) {
             returnValues[0] = description;
-        } else{
+        } else {
             String taskDescription = description.substring(0, byIndex).trim(); // Remove trailing spaces
             String date = description.substring(byIndex + delimiter.length()).trim(); // Remove leading spaces
             returnValues[0] = taskDescription;

@@ -1,6 +1,6 @@
 package errors;
 
-public class InvalidFile extends Exception{
-    public void InvalidFile(){
+public class InvalidFile extends Exception {
+    public void InvalidFile() {
     }
 }

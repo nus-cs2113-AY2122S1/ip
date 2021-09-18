@@ -1,5 +1,6 @@
 package storage;
 
+import parser.DateParser;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -12,36 +13,38 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Storage {
     String filePath;
-    public Storage(String filePath){
+
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
      * Converts all task to a string to be written to the file Duke.txt.
      */
-    public void saveData(ArrayList<Task> tasks) {
-        String output = "";
+    public void saveData(Ui ui, ArrayList<Task> tasks) {
+        StringBuilder output = new StringBuilder();
         for (Task task : tasks) {
-            output += task.toFile() + "\n";
+            output.append(task.toFile()).append("\n");
         }
 
         try {
             FileWriter myFile = new FileWriter(filePath);
-            myFile.write(output);
+            myFile.write(output.toString());
             myFile.close();
         } catch (IOException e) {
-            new Ui().customPrint("Could not write to file!");
+            ui.customPrint("Could not write to file!");
         }
     }
 
     /**
      * Loads the data to task ArrayList if Duke.txt exists.
      */
-    public ArrayList<Task> loadData() {
+    public ArrayList<Task> loadData(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File myFile = new File(filePath);
@@ -57,10 +60,10 @@ public class Storage {
                 String taskType = dataSplit[0];
                 Boolean taskCompleted = dataSplit[1].equals("true");
                 String description = dataSplit[2];
-                String date = "";
+                Date date = null;
 
                 if (dataSplit.length > 3) { // There is a date
-                    date = dataSplit[3];
+                    date = DateParser.stringToDateTime(dataSplit[3]);
                 }
 
                 Task task;
@@ -84,9 +87,9 @@ public class Storage {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            new Ui().customPrint("Could not read from file!");
+            ui.customPrint("Could not read from file!");
         } catch (InvalidFile invalidFile) {
-            new Ui().customPrint("File contains invalid data!");
+            ui.customPrint("File contains invalid data!");
         }
         return tasks;
     }

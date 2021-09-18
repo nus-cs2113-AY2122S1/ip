@@ -1,26 +1,22 @@
 package commands;
 
-import tasks.TaskList;
-import errors.InvalidCommand;
+import storage.Storage;
+import tasks.Task;
+import ui.Ui;
 
-import static commands.CommandList.*;
+import java.util.ArrayList;
 
-public class Command {
+public abstract class Command {
+    public static final String addTaskMessage = "Got it. I've added this task:\n%1$s\nNow you have"
+            + " %2$o tasks in the list.";
+
     String command;
-    String description;
-    String date;
 
-    public Command(String command, String description) {
+    public Command(String command) {
         this.command = command;
-        this.description = description;
-        this.date = null;
     }
 
-    public Command(String command, String description, String date) {
-        this.command = command;
-        this.description = description;
-        this.date = date;
-    }
+    public abstract String help();
 
     public String getCommand() {
         return command;
@@ -30,47 +26,5 @@ public class Command {
         this.command = command;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    /**
-     * Processes the commands entered by the user.
-     *
-     * @return Success/error message to be printed in console.
-     * @throws InvalidCommand If an invalid command is entered.
-     */
-    public String execute() throws InvalidCommand {
-        // Capitalise the command
-        switch (command) {
-        case LIST:
-            return TaskList.listTasks();
-        case TODO:
-            return TaskList.addTodo(description);
-        case DEADLINE:
-            return TaskList.addDeadline(description, date);
-        case EVENT:
-            return TaskList.addEvent(description, date);
-        case DONE:
-            return TaskList.markDone(description);
-        case DELETE:
-            return TaskList.deleteTask(description);
-        case HELP:
-            return HelpCommand.helpMessage;
-        default:
-            throw new InvalidCommand();
-        }
-    }
+    public abstract void execute(Ui ui, ArrayList<Task> tasks, Storage storage);
 }

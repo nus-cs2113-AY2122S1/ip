@@ -1,7 +1,6 @@
 import commands.Command;
 import commands.CommandList;
 import tasks.Task;
-import tasks.TaskList;
 import parser.Parser;
 import storage.Storage;
 import ui.Ui;
@@ -13,11 +12,15 @@ import java.util.Scanner;
 public class Main {
     private Ui ui;
     private Storage storage;
+    private Parser parser;
+    ArrayList<Task> tasks;
+
 
     public Main(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        TaskList.tasks = storage.loadData();
+        parser = new Parser();
+        tasks = storage.loadData(ui);
     }
 
     public static void main(String[] args) {
@@ -38,14 +41,12 @@ public class Main {
         while (true) {
             // Reads user input
             userInput = in.nextLine();
-            Command command = new Parser().processCommand(userInput);
             try {
-                if (command.getCommand().equals(CommandList.BYE)){
-                    storage.saveData(TaskList.tasks);
-                    ui.customPrint("Bye. Hope to see you again soon!");
+                Command command = parser.processCommand(userInput);
+                command.execute(ui, tasks, storage);
+                if (command.getCommand().equals(CommandList.BYE)) {
                     break;
                 }
-                ui.customPrint(command.execute());
             } catch (InvalidCommand e) {
                 // Invalid Command
                 ui.printInvalidCommandMessage();

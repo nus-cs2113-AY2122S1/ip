@@ -1,0 +1,4 @@
+E|false|def|11/11/2021 1600
+T|true|abc
+D|false|def|11/11/2021 1000
+E|true|hi|11/11/2021 1900

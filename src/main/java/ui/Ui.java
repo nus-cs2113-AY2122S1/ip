@@ -7,9 +7,9 @@ public class Ui {
      * @param statement Statement to be printed.
      */
     public void customPrint(String statement) {
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(statement.trim()); // Remove any trailing spaces
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
     /**

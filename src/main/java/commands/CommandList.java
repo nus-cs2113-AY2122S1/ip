@@ -9,4 +9,5 @@ public class CommandList {
     public static final String BYE = "BYE";
     public static final String DELETE = "DELETE";
     public static final String HELP = "HELP";
+    public static final String WHATSON = "WHATSON";
 }
