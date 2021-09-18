@@ -1,14 +1,12 @@
-package duke;
+package duke.tasklist;
 
-import duke.actions.Deadline;
-import duke.actions.Event;
-import duke.actions.Task;
-import duke.actions.Todo;
+import duke.generalmethods.GeneralMethods;
 import duke.exceptions.DukeException;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-public class TaskManager extends GeneralMethods {
+public class TaskManager extends Ui {
 
     public static final String INCORRECT_TASK_COMMAND = "Please specify a task to be added!";
     public static final String INCORRECT_DEADLINE_COMMAND = "Please specify a task/deadline of completion!";
@@ -71,7 +69,7 @@ public class TaskManager extends GeneralMethods {
         boolean numberExists = false;
         String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
         for (String word : splitTask) {
-            if (isValidNumber(word)) {
+            if (GeneralMethods.isValidNumber(word)) {
                 numberExists = true;
                 int taskNumber = (Integer.parseInt(splitTask[wordIndex])) - 1;
                 try {
@@ -93,7 +91,7 @@ public class TaskManager extends GeneralMethods {
         boolean numberExists = false;
         String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
         for (String word : splitTask) {
-            if (isValidNumber(word)) {
+            if (GeneralMethods.isValidNumber(word)) {
                 numberExists = true;
                 int taskNumber = (Integer.parseInt(splitTask[wordIndex])) - 1;
                 try {

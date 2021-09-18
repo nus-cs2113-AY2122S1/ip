@@ -1,52 +1,41 @@
 package duke;
 
-import duke.actions.Task;
-import duke.exceptions.DukeException;
+import duke.tasklist.Task;
+import duke.parser.Parser;
+import duke.storage.DataManager;
+import duke.ui.Ui;
 
-import javax.xml.crypto.Data;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke extends TaskManager {
+public class Duke {
 
     public static final String FILE_PATH = "duke.txt";
 
     public static void main(String[] args) {
+        Duke.run();
+    }
+
+    public static void run() {
         Scanner in = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
         String userInput = "";
-        printIntro();
+        start();
+        runCommandLoopUntilExitCommand(in, taskList, userInput);
+        end();
+    }
+
+    public static void start() {
+        Ui.printIntro();
+    }
+
+    private static void runCommandLoopUntilExitCommand(Scanner in, ArrayList<Task> taskList, String userInput) {
         DataManager.printPreviousFileContents(FILE_PATH, taskList);
-        while (!userInput.startsWith("bye")) {
-            userInput = in.nextLine().toLowerCase();
-            try {
-                if (userInput.contains("help")) {
-                    printHelpList();
-                } else if (userInput.startsWith("to do ")) {
-                    addTaskAsToDo(taskList, userInput, false);
-                } else if (userInput.startsWith("deadline ")) {
-                    addTaskAsDeadline(taskList, userInput, false);
-                } else if (userInput.startsWith("event ")) {
-                    addTaskAsEvent(taskList, userInput, false);
-                } else if (userInput.startsWith("list")) {
-                    printTaskList(taskList);
-                } else if (userInput.startsWith("delete")) {
-                    deleteTaskFromToDo(taskList, userInput);
-                } else if (userInput.startsWith("done ")) {
-                    markTaskAsDone(taskList, userInput);
-                } else if (userInput.startsWith("bye")) {
-                    break;
-                } else {
-                    printErrorForInvalidCommand(userInput);
-                }
-            } catch (DukeException | IndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        Parser.parseCommand(in, taskList, userInput);
         DataManager.storeCurrentList(FILE_PATH, taskList);
-        printOutro();
+    }
+
+    public static void end() {
+        Ui.printOutro();
     }
 }

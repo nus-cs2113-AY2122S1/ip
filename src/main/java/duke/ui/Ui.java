@@ -1,15 +1,10 @@
-package duke;
+package duke.ui;
 
-import duke.actions.Task;
+import duke.tasklist.Task;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class GeneralMethods {
+public class Ui {
 
     public static final String HORIZONTAL_LINE = "------------------------------------------------------";
     public static final String HELP_LIST =
@@ -76,17 +71,5 @@ public class GeneralMethods {
         System.out.println(HORIZONTAL_LINE);
         taskAdded.printTaskDeletedMessage(index);
         System.out.println(HORIZONTAL_LINE);
-    }
-
-    public static boolean isValidNumber(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            int d = Integer.parseInt(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
     }
 }

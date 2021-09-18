@@ -1,7 +1,4 @@
-package duke.actions;
-
-import java.io.FileWriter;
-import java.io.IOException;
+package duke.tasklist;
 
 public class Deadline extends Task {
 

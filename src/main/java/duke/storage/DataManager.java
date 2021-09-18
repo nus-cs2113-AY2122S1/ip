@@ -1,10 +1,10 @@
-package duke;
+package duke.storage;
 
-import duke.actions.Task;
+import duke.tasklist.TaskManager;
+import duke.tasklist.Task;
 import duke.exceptions.DukeException;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
