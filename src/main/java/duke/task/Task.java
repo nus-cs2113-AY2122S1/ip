@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.parser.Parser;
 import duke.exception.DukeInvalidAddTaskException;
 
 public abstract class Task {
@@ -10,7 +11,7 @@ public abstract class Task {
         if (description.contains("--")) {
             throw new DukeInvalidAddTaskException();
         }
-        this.description = description;
+        this.description = Parser.getDescription(description);
         this.isDone = false;
     }
 

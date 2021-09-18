@@ -1,13 +1,16 @@
 package duke.task;
 
+import duke.parser.Parser;
 import duke.exception.DukeInvalidAddTaskException;
 
 public class Deadline extends Task {
+    private static final String DEADLINE_TIME_KEYWORD = " /by";
+    
     private String deadlineDate;
 
-    public Deadline(String description) throws DukeInvalidAddTaskException { //will get problem?
-        super(description.substring(0, description.indexOf(" /by")));
-        this.deadlineDate = description.substring(description.indexOf("/by") + 4);
+    public Deadline(String description) throws DukeInvalidAddTaskException {
+        super(Parser.getDescription(description, DEADLINE_TIME_KEYWORD));
+        this.deadlineDate = Parser.getTime(description, DEADLINE_TIME_KEYWORD);
     }
 
     public String getDeadlineDate() {
