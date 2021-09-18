@@ -89,10 +89,22 @@ public class TaskList {
         list.get(index).setDone();
     }
 
+
     /**
      * Lists all tasks in the task list. Will prompt user if task list is empty.
      * @return string of the task list
      */
+    public TaskList search(String keyword) {
+        TaskList resultsList = new TaskList();
+
+        for (Task t : list) {
+            if (t.contains(keyword)) {
+                resultsList.add(t);
+            }
+        }
+        return resultsList;
+    }
+
     public String listTasks() {
 
         String text;
