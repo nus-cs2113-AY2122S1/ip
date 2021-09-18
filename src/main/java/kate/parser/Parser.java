@@ -20,7 +20,6 @@ import kate.task.Task;
 import kate.tasklist.TaskList;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -33,10 +32,9 @@ public class Parser {
 
     private static final String DELIM_PIPE = " \\| ";
     private static final String DELIM_SPACE = " ";
+    private static final String DELIM_BY = " /by ";
+    private static final String DELIM_AT = " /at ";
 
-    /**
-     * Default constructor for Parser Class
-     */
     public Parser() {
     }
 
@@ -48,10 +46,9 @@ public class Parser {
      * @throws InvalidCommandException If command is invalid
      */
     public static Command extractCommand(String userInput) throws InvalidCommandException {
-        String[] inputArr = userInput.split(" ");
+        String[] inputArr = userInput.split(DELIM_SPACE);
         String givenCommand = inputArr[0].toUpperCase();
 
-        //switch case to create new command objects
         switch (givenCommand) {
         case "TODO":
             return new ToDoCommand(userInput);
@@ -101,7 +98,7 @@ public class Parser {
      */
     public static String[] extractDeadlineInput(String userInput) throws InvalidDateTimeException, EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_DEADLINE).strip();
-        String[] infoArr = taskInfo.split(" /by ", 2);
+        String[] infoArr = taskInfo.split(DELIM_BY, 2);
 
         try {
             String taskDescription = infoArr[0].strip();
@@ -133,7 +130,7 @@ public class Parser {
      */
     public static String[] extractEventInput(String userInput) throws InvalidDateTimeException, EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_EVENT).strip();
-        String[] infoArr = taskInfo.split(" /at ", 2);
+        String[] infoArr = taskInfo.split(DELIM_AT, 2);
 
         try {
             String taskDescription = infoArr[0].strip();

@@ -2,7 +2,6 @@ package kate.storage;
 
 import kate.common.Message;
 import kate.exception.FileCorruptedException;
-import kate.exception.InvalidDateTimeException;
 import kate.parser.Parser;
 import kate.task.Task;
 import kate.tasklist.TaskList;
