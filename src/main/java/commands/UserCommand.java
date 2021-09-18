@@ -3,6 +3,10 @@ package commands;
 import tasks.TaskList;
 import exceptions.DukeException;
 
+
+/**
+ * An abstract class to handle all kinds of user commands.
+ */
 public abstract class UserCommand {
     TaskList tasks;
 
