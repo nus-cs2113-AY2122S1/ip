@@ -7,10 +7,17 @@ import ui.Ui;
 
 public class Duke {
 
+    /**
+     * Main method
+     * @param args System arguments
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
 
+    /**
+     * Start the Duke program
+     */
     public void run() {
         Ui ui = new Ui();
         TaskManager taskMgr = new TaskManager();

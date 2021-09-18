@@ -37,6 +37,11 @@ public class Storage {
         return dataFilePath;
     }
 
+    /**
+     * Read all the data from the task file
+     * @return An array of read lines
+     * @throws FileNotFoundException
+     */
     public String[] readTaskData() throws FileNotFoundException {
         Scanner sc;
         ArrayList<String> rawTasks = new ArrayList<>();
@@ -57,6 +62,12 @@ public class Storage {
         return rawTasks.toArray(rawTasksString);
     }
 
+    /**
+     * Write the task file with the contents specified.
+     * This is called in the Command object when there is an update to the TaskManager task list.
+     * @param fileDataToWrite The raw contents of TaskManager task list
+     * @throws IOException
+     */
     public void updateTaskFile(String fileDataToWrite) throws IOException{
         try {
             checkAndSetData();

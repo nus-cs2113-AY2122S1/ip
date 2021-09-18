@@ -11,11 +11,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * Represents a command for checking tasks that are due
+ */
 public class DueCommand extends Command{
     public DueCommand(HashMap<String, String> params) {
         super(params);
     }
 
+    /**
+     * Execute the command based on its type
+     * @param storage Storage for updating data file
+     * @param taskMgr TaskManager to manage internal task list
+     * @param ui Ui to print output messages
+     */
     @Override
     public void execute(Storage storage, TaskManager taskMgr, Ui ui) {
         LocalDateTime now = LocalDateTime.now();

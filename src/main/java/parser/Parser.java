@@ -4,8 +4,17 @@ import parser.command.*;
 
 import java.util.*;
 
+/**
+ * The Parser class is used to parse user input into executable actions.
+ * The user input may contain multiple flags, which are additional options/arguments that can be used in the actions.
+ */
 public class Parser {
 
+    /**
+     * Parse the user input into Command objects that can be executed.
+     * @param input The user input
+     * @return The Command object
+     */
     public Command parseCommand(String input) {
         HashMap<String, String> params = new HashMap<>();
         Command command;
@@ -21,6 +30,12 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Create different types of Command objects based on action word.
+     * @param action The action word
+     * @param params The parameters from user input
+     * @return The Command object
+     */
     private Command createNewCommand(String action, HashMap<String, String> params) {
         action = action.toUpperCase();
         Command command;
@@ -70,7 +85,11 @@ public class Parser {
         return command;
     }
 
-
+    /**
+     * Process the user input into the main argument, and if exists, the flag arguments
+     * @param args The argument string, without the action word
+     * @return A HashMap of parameters
+     */
     private HashMap<String, String> parseArguments(String args) {
 
         HashMap<String, String> params = new HashMap<>();

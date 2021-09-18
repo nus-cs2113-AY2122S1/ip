@@ -9,11 +9,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * Represents a command for finding tasks with specified keywords
+ */
 public class FindCommand extends Command{
     public FindCommand(HashMap<String, String> params) {
         super(params);
     }
 
+    /**
+     * Execute the command based on its type
+     * @param storage Storage for updating data file
+     * @param taskMgr TaskManager to manage internal task list
+     * @param ui Ui to print output messages
+     */
     @Override
     public void execute(Storage storage, TaskManager taskMgr, Ui ui) {
         Iterator<Task> allTasksIt = taskMgr.getAllTasks();
@@ -39,18 +48,7 @@ public class FindCommand extends Command{
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
-        Iterator<Task> it = matchedTasks.iterator();
-        int counter = 1;
-
-        while(it.hasNext()) {
-            Task currTask = it.next();
-            sb.append(String.format("%d. %s\n",
-                    counter++,
-                    currTask));
-        }
-
         ui.printSuccessMessage("Here are the matching tasks in your list");
-        ui.printMessage(sb.toString());
+        ui.printMessage(taskMgr.listTasks(matchedTasks));
     }
 }

@@ -3,6 +3,10 @@ package task;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Manage the tasks.
+ * Any change to the tasks will be performed using the TaskManager class.
+ */
 public class TaskManager {
     private ArrayList<Task> tasks;
 
@@ -10,14 +14,27 @@ public class TaskManager {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Gets the current number of tasks.
+     * @return The total number of tasks
+     */
     public int getNumOfTasks() {
         return tasks.size();
     }
 
+    /**
+     * Returns the printable string of all tasks.
+     * @return A string of all tasks
+     */
     public String listAllTasks() {
         return listTasks(tasks);
     }
 
+    /**
+     * Prints the list of tasks in a well-formatted string
+     * @param listOfTasks A list of tasks
+     * @return A well-formatted string of the tasks
+     */
     public String listTasks(ArrayList<Task> listOfTasks) {
         if(listOfTasks.size() == 0) {
             return "No task available\n";
@@ -38,6 +55,11 @@ public class TaskManager {
         return sb.toString();
     }
 
+    /**
+     * Set a specified task in the task list to completed
+     * @param index The index of the task in the task list
+     * @return The task that was set to completed
+     */
     public Task doTask(int index) {
         index -= 1; //to match array index
 
@@ -50,11 +72,22 @@ public class TaskManager {
         return tasks.get(index);
     }
 
+    /**
+     * Add a new task into the task list.
+     * @param newTask The new task
+     */
     public void addTask(Task newTask) {
         tasks.add(newTask);
     }
 
-    public Task removeTask(int index){
+    /**
+     * Remove a specified task from the task list
+     * @param index The index of the task in the task list
+     * @return The task that was removed
+     *
+     * @throws IndexOutOfBoundsException
+     */
+    public Task removeTask(int index) throws IndexOutOfBoundsException{
         index -= 1; //to match array index
 
         try {
@@ -64,6 +97,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints the contents of the task list into a string that can be saved in the data file
+     * @return The raw contents of the task list
+     */
     public String toFileString() {
         StringBuilder sb = new StringBuilder();
         Task currTask;
@@ -85,6 +122,12 @@ public class TaskManager {
         return sb.toString();
     }
 
+    /**
+     * Create a new task based on the parameters specified from user input.
+     * @param params The parameters from the user input
+     * @return The new Task
+     * @throws IllegalArgumentException
+     */
     public Task createNewTask(HashMap<String, String> params) throws IllegalArgumentException{
         Task newTask;
 
@@ -125,6 +168,10 @@ public class TaskManager {
         return newTask;
     }
 
+    /**
+     * Populates the task list with the contents read from the data file.
+     * @param fileOutput The raw contents of the data file
+     */
     public void loadTasks(String[] fileOutput) {
         String delimiter = ";";
         String input, type, done, name, otherArgs;
@@ -169,6 +216,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns an iterator to the task list.
+     * This allows the Command objects to access the task list.
+     * @return An iterator of the task list
+     */
     public Iterator<Task> getAllTasks() {
         return tasks.iterator();
     }
