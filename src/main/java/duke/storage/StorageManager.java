@@ -27,22 +27,40 @@ public class StorageManager {
         this.filePath = filePath;
     }
     
-    private Task getTask(String input) {
+    private String getTaskType(String input) {
         String[] words = input.split("--");
-        String taskType = words[0];
-        String markDoneCharacter = words[1];
+        return words[0];
+    }
+    
+    private String getTaskDescription(String input) {
+        String[] words = input.split("--");
+        return words[2];
+    }
+    
+    private String getTaskDate(String input) {
+        String[] words = input.split("--");
+        return words[3];
+    }
+
+    private boolean isMarkedDoneTask(String input) {
+        String[] words = input.split("--");
+        return words[1].equals("1");
+    }
+    
         Task task = null;
         
         try {
             switch (taskType) {
             case TASK_TODO:
-                task = new Todo(words[2]);
+                task = new Todo(taskDescription);
                 break;
             case TASK_DEADLINE:
-                task = new Deadline(words[2] + " /by " + words[3]);
+                String deadlineDate = getTaskDate(input);
+                task = new Deadline(taskDescription + " /by " + deadlineDate);
                 break;
             case TASK_EVENT:
-                task = new Event(words[2] + " /at " + words[3]);
+                String eventDate = getTaskDate(input);
+                task = new Event(taskDescription + " /at " + eventDate);
                 break;
             default:
                 Duke.getUi().printInvalidTaskInFileMessage();
@@ -52,7 +70,7 @@ public class StorageManager {
             System.out.println("INVALID TASK FOUND IN FILE");
         }
         
-        if (task != null && markDoneCharacter.equals("1")) {
+        if (task != null && isMarkedDoneTask(input)) {
             task.markAsDone();
         }
         
@@ -113,18 +131,11 @@ public class StorageManager {
         }
         writer.close();
     }
-
-    private void saveDataToFile() {
         checkFilePath();
         try {
             writeToFile();
         } catch (IOException e) {
             System.out.println("Something went wrong");
         }
-    }
-    
-    public void updateStorage(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-        saveDataToFile();
     }
 }
