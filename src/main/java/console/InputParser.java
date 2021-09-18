@@ -2,6 +2,7 @@ package console;
 
 import commands.DeadlineCommand;
 import commands.EventCommand;
+import commands.FindCommand;
 import commands.HelpCommand;
 import commands.ToDoCommand;
 import commands.Command;
@@ -17,7 +18,9 @@ import java.util.Scanner;
 public abstract class InputParser {
 
     public static final int TASK_INDEX = 1;
+    public static final int KEYWORD_INDEX = 1;
     public static final int COMMAND_INDEX = 0;
+    public static final String EMPTY_KEYWORD = "";
     public static final String DATE_SEPARATOR = "/";
     public static final String SEPARATOR = " ";
 
@@ -45,6 +48,9 @@ public abstract class InputParser {
             break;
         case DeleteCommand.COMMAND_WORD:
             command = new DeleteCommand(taskManager);
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand(taskManager);
             break;
         case ExitCommand.COMMAND_WORD:
             command = new ExitCommand(taskManager);
@@ -80,5 +86,13 @@ public abstract class InputParser {
             taskComponents[i] = taskComponents[i].trim();
         }
         return taskComponents;
+    }
+
+    public static String getKeyword(String[] words) {
+        if (words.length == 1) {
+            return EMPTY_KEYWORD;
+        }
+
+        return words[KEYWORD_INDEX];
     }
 }

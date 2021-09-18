@@ -117,6 +117,14 @@ public class TaskManager {
         Display.printListTaskLine();
     }
 
+    public void findTask(String taskKeyword) {
+        Display.printListTaskLine();
+        allTasks.stream()
+                .filter((task) -> task.getTask().contains(taskKeyword))
+                .forEach(System.out::println);
+        Display.printListTaskLine();
+    }
+
     public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Todo(getTaskName(taskDetails)));
