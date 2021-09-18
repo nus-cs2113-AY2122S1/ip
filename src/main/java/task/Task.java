@@ -12,7 +12,7 @@ public class Task {
     /**
      * Creates a task and set its name and completion status.
      *
-     * @param taskName Task name provided by user
+     * @param taskName Task name provided by user.
      */
     public Task(String taskName) {
         this.taskName = taskName;
