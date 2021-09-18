@@ -17,6 +17,7 @@ public class DeleteTaskCommand extends Command{
     public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeInvalidTaskIndex,
             IOException {
         Task removedTask = tasks.removeTask(indexOfTask);
+        storage.refreshData(tasks.getTasks());
         ui.acknowledgeRemoveCommand(removedTask, tasks.getNumberOfTasks());
     }
 }

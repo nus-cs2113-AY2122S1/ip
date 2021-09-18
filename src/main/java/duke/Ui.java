@@ -64,7 +64,7 @@ public class Ui {
                 list.append(NL);
             }
         }
-        Duke.UI.showMessage(list.toString());
+        showMessage(list.toString());
     }
     
     public void acknowledgeDoneCommand(Task taskDone) {

@@ -19,6 +19,7 @@ public class MarkAsDoneCommand extends Command{
             DukeTaskAlreadyCompletedException,
             IOException {
         tasks.setTaskAsDone(indexOfTaskDone);
+        storage.refreshData(tasks.getTasks());
         ui.acknowledgeDoneCommand(tasks.getTasks().get(indexOfTaskDone - 1));
     }
 }

@@ -18,6 +18,7 @@ public class AddDeadlineCommand extends Command{
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         Deadline toAdd = new Deadline(description,by,false);
         tasks.addTask(toAdd);
+        storage.writeToData(toAdd, tasks.getNumberOfTasks());
         ui.acknowledgeAddCommand(toAdd, tasks.getNumberOfTasks());
     }
 }

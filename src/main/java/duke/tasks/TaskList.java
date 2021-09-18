@@ -20,10 +20,15 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
     
+    public TaskList(ArrayList<Task> loadedData) {
+        tasks = loadedData;
+        numberOfTasks = loadedData.size();
+    }
+    
     public void addTask(Task task) throws IOException {
         tasks.add(task);
         numberOfTasks++;
-        writeToData(task);
+        //writeToData(task);
     }
     
     public int getNumberOfTasks() {
@@ -33,7 +38,7 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-    //TODO Storage
+    /**
     public void addLoadedTask(String[] taskDetails) {
         switch (taskDetails[0].trim()) {
         case "T":
@@ -58,7 +63,7 @@ public class TaskList {
             //TODO change this to ui.printError 
             System.out.println("SOME ERROR HAS OCCURRED!");
         }
-    }
+    }*/
     //TODO Storage
     private void writeToData(Task task) throws IOException {
         FileWriter fw = new FileWriter(Duke.DATA_FILE, true);
@@ -77,7 +82,7 @@ public class TaskList {
         }
 
         tasks.get(taskNumber - 1).setDone();
-        refreshData();
+        //refreshData();
     }
 
     //TODO storage
@@ -88,7 +93,7 @@ public class TaskList {
         }
         Task removedTask = tasks.remove(taskNumber - 1);
         numberOfTasks--;
-        refreshData();
+        //refreshData();
         return removedTask;
     }
     //TODO storage

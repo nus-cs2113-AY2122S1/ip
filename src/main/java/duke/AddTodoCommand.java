@@ -17,6 +17,7 @@ public class AddTodoCommand extends Command{
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         Todo toAdd = new Todo(description, false);
         tasks.addTask(toAdd);
+        storage.writeToData(toAdd, tasks.getNumberOfTasks());
         ui.acknowledgeAddCommand(toAdd, tasks.getNumberOfTasks());
     }
 }

@@ -19,6 +19,7 @@ public class AddEventCommand extends Command {
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         Event toAdd = new Event(description,at,false);
         tasks.addTask(toAdd);
+        storage.writeToData(toAdd, tasks.getNumberOfTasks());
         ui.acknowledgeAddCommand(toAdd,tasks.getNumberOfTasks());
     }
 }
