@@ -56,6 +56,11 @@ public class Parser {
         case "MATCH":
             command = new FindCommand(params);
             break;
+            
+        case "DUE":
+            command = new DueCommand(params);
+
+            break;
 
         default:
             command = new InvalidCommand(params);
