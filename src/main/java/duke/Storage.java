@@ -33,8 +33,7 @@ public class Storage {
     /**
      * Loads task data from the file when Duke starts up.
      */
-    public TaskList load() throws DukeException {
-        TaskList tasks = new TaskList();
+    public void loadTask(TaskList tasks) throws DukeException {
         checkFileExist();
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
@@ -46,7 +45,6 @@ public class Storage {
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(ERROR_LOAD);
         }
-        return tasks;
     }
 
     /**
@@ -55,9 +53,7 @@ public class Storage {
     private void checkFileExist() {
         File file = new File(System.getProperty("user.dir"), filePath);
         try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            file.createNewFile();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -92,10 +88,10 @@ public class Storage {
             task = new Todo(words[TASK_NAME]);
             break;
         case "D":
-            task = new Deadline(words[TASK_NAME], words[TASK_DATE]);
+            task = new Deadline(words[TASK_NAME], Parser.parseDateTime(words[TASK_DATE]));
             break;
         case "E":
-            task = new Event(words[TASK_NAME], words[TASK_DATE]);
+            task = new Event(words[TASK_NAME], Parser.parseDateTime(words[TASK_DATE]));
             break;
         default:
             throw new DukeException(ERROR_UNRECOGNISED_TASK_TYPE);

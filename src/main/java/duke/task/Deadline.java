@@ -1,7 +1,9 @@
 package duke.task;
 
+import java.util.Date;
+
 public class Deadline extends Task {
-    protected String dueDate;
+    protected Date dueDate;
 
     /**
      * Class deadline constructor.
@@ -9,7 +11,7 @@ public class Deadline extends Task {
      * @param taskName Name of the task.
      * @param dueDate  Date that the task has to be completed by.
      */
-    public Deadline(String taskName, String dueDate) {
+    public Deadline(String taskName, Date dueDate) {
         super(taskName);
         this.dueDate = dueDate;
     }

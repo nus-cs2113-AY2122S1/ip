@@ -1,8 +1,10 @@
 package duke.task;
 
+import java.util.Date;
+
 public class Event extends Task {
 
-    private String heldDate;
+    private Date heldDate;
 
     /**
      * Class event constructor.
@@ -10,7 +12,7 @@ public class Event extends Task {
      * @param taskName Name of the task.
      * @param heldDate Date when the event is held.
      */
-    public Event(String taskName, String heldDate) {
+    public Event(String taskName, Date heldDate) {
         super(taskName);
         this.heldDate = heldDate;
     }
