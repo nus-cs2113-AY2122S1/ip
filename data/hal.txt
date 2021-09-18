@@ -1,3 +1,1 @@
-T | 1 | task2 | 
-D | 0 | task3 | tme
-E | 0 | task45 | tmr
+T | 1 | task1 | 

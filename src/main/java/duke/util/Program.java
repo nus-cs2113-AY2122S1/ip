@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -8,6 +9,7 @@ import duke.ui.HalUi;
 
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import static duke.util.UserData.readFromFile;
@@ -18,28 +20,9 @@ public class Program {
     private static ArrayList<Task> listTasks = new ArrayList<>(999);
     private static int numItems;
 
-    private static int DEADLINE_INDEX = 9;
-    private static int EVENT_INDEX = 5;
-    private static int TODO_INDEX = 4;
-    private static int TASK_STRING_OFFSET = 3;
-
-//    public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
-//    public static final String TASK_ADDED_DONE_TEXT = "Got it! I've added this task: ";
-//    public static final String DONE_TASK_ERROR_MESSAGE = "No such task exist! Are you sure you keyed in the correct number?";
-//    public static final String DONE_TASK_SUCCESS_MESSAGE = "Nice! I've marked this task as done:";
-//    public static final String PRINT_EMPTY_TASKS_MESSAGE = "No items found... Add some items now!";
-//    public static final String PRINT_ERROR_MESSAGE = "Your input does not follow my format!\n" +
-//            "Read properly and type it again!";
-//    public static final String ENTER_COMMAND_TEXT = "Enter command: ";
-//    public static final String PRINT_EMPTY_DESCRIPTION_MESSAGE =
-//            "Hmm... did you forget to write your task?";
-//    public static final String PRINT_EMPTY_DATE_MESSAGE =
-//            "Hmm... I think you forgot to write your timings!";
-//    public static final String PRINT_DELETE_MESSAGE =
-//            "Noted... I've removed the following task:";
-//
-//    public static final String INVALID_NUMBER_ERROR = "Your input wasn't an integer! Write a valid number";
-//    public static final String INVALID_RANGE_ERROR = "The index you specified is outside the size of the list";
+    ToDo dummyTodo = new ToDo(null);
+    Event dummyEvent = new Event(null, null);
+    Deadline dummyDeadline = new Deadline(null, null);
 
     public Program() throws IOException {
         this.numItems = 0;
@@ -48,6 +31,7 @@ public class Program {
 
     StorageDataParser parser = new StorageDataParser();
     static HalUi ui = new HalUi();
+    static Parser messageParser = new Parser();
     public static int getNumItems() {
         return numItems;
     }
@@ -61,11 +45,11 @@ public class Program {
         } else if (string.startsWith("done")) {
             this.executeDoneTask(string);
         } else if (string.startsWith("deadline")) {
-            addDeadlineTask(string);
+            addTasks(string,dummyDeadline);
         } else if (string.startsWith("event")) {
-            addEventTask(string);
+            addTasks(string,dummyEvent);
         } else if (string.startsWith("todo")){
-            addToDoTask(string);
+            addTasks(string,dummyTodo);
         } else if (string.startsWith("delete")) {
             deleteTask(string);
         } else {
@@ -86,84 +70,30 @@ public class Program {
         numItems = count;
     }
 
-    //function to add a new deadline task
-    public static void addDeadlineTask(String deadlineTask) throws HalException {
-        ui.printSingleLineBreak();
-
-        //check if string contains '/by' tag
-        if (!deadlineTask.contains("/by")) {
-            ui.printErrorMessage();
-            throw new HalException("Wrong Deadline task format");
-        }
-
-        String description = deadlineTask.substring(DEADLINE_INDEX, deadlineTask.indexOf('/')).trim();
-        String by = deadlineTask.substring(deadlineTask.indexOf("/by") + TASK_STRING_OFFSET).trim();
-
-        if (description.equals("")) {
-            ui.printEmptyDescriptionMessage();
-            throw new HalException("Empty description");
-        } else if (by.equals("")) {
-            ui.printEmptyDateMessage();
-            throw new HalException("Empty date");
-        }
-
-        Deadline newDeadlineTask = new Deadline(description, by);
-        listTasks.add(newDeadlineTask);
-        numItems++;
-
-        ui.printTaskMessage(newDeadlineTask);
-        printTotalTasks();
-        ui.printEnterCommandMessage();
-    }
-
-    //function to add a new event task
-    public static void addEventTask(String eventTask) throws HalException {
-        ui.printSingleLineBreak();
-
-        //check if string contains '/at' tag
-        if (!eventTask.contains("/at")) {
-            ui.printErrorMessage();
-            throw new HalException("Wrong Event task format");
-        }
-
-        String description = eventTask.substring(EVENT_INDEX, eventTask.indexOf('/')).trim();
-        String at = eventTask.substring(eventTask.indexOf("/at") + TASK_STRING_OFFSET).trim();
-
-        if (description.equals("")) {
-            ui.printEmptyDescriptionMessage();
-            throw new HalException("Empty description");
-        } else if (at.equals("")) {
-            ui.printEmptyDateMessage();
-            throw new HalException("Empty date");
-        }
-
-        Event newEventTask = new Event(description, at);
-        listTasks.add(newEventTask);
-        numItems++;
-
-        ui.printTaskMessage(newEventTask);
-        printTotalTasks();
-        ui.printEnterCommandMessage();
-    }
-
-    //function to add a new todo task
-    public static void addToDoTask(String toDoTask) throws HalException {
+    public static void addTasks(String taskMessage, Task type) throws HalException {
         ui.printSingleLineBreak();
         String description;
+        String timing;
 
-        description = toDoTask.substring(TODO_INDEX).trim();
+        List<String> returnVal = messageParser.parseTextInput(type, taskMessage);
+        description = returnVal.get(0);
+        timing = returnVal.get(1);
 
-        if (description.equals("")) {
-            ui.printEmptyDescriptionMessage();
-            throw new HalException("Empty description");
+        if (type instanceof ToDo) {
+            ToDo newTask = new ToDo(description);
+            listTasks.add(newTask);
+            ui.printTaskMessage(newTask);
+        } else if (type instanceof Deadline) {
+            Deadline newDeadlineTask = new Deadline(description, timing);
+            listTasks.add(newDeadlineTask);
+            ui.printTaskMessage(newDeadlineTask);
+        } else if (type instanceof Event) {
+            Event newEventTask = new Event(description, timing);
+            listTasks.add(newEventTask);
+            ui.printTaskMessage(newEventTask);
         }
-
-        ToDo newTask = new ToDo(description);
-        listTasks.add(newTask);
         numItems++;
-
-        ui.printTaskMessage(newTask);
-        printTotalTasks();
+        ui.printNumItemsMessage(numItems);
         ui.printEnterCommandMessage();
     }
 
@@ -182,39 +112,33 @@ public class Program {
 
     //function to mark individual tasks as done
     public void executeDoneTask(String task) {
-        try {
-            int taskNum = Integer.parseInt(task.substring(task.indexOf(' ') + 1));
-            if (taskNum > getNumItems() || taskNum <= 0) {
-                ui.printDoneTaskErrorMessage();
-            } else {
-                listTasks.get(taskNum-1).markAsDone();
-                ui.printDoneTaskSuccessMessage();
-                System.out.println(listTasks.get(taskNum-1).toString());
-            }
-
-            ui.printEnterCommandMessage();
-
-        } catch (NumberFormatException error) {
-            ui.printInvalidNumberMessage();
-            ui.printEnterCommandMessage();
+        int taskNum = messageParser.parseInt(task);
+        if (taskNum > getNumItems() || taskNum <= 0) {
+            ui.printDoneTaskErrorMessage();
+        } else {
+            listTasks.get(taskNum-1).markAsDone();
+            ui.printDoneTaskSuccessMessage();
+            System.out.println(listTasks.get(taskNum-1).toString());
         }
+
+        ui.printEnterCommandMessage();
     }
 
     public void deleteTask(String index) {
         ui.printSingleLineBreak();
         try {
-            int taskIndex = Integer.parseInt(index.substring(index.indexOf(" ") + 1)) - 1; //get the index of the task
+            int taskIndex = messageParser.parseInt(index) - 1; //minus 1 due to 0 index base
             Task tempTask = listTasks.get(taskIndex);
 
             ui.printDeleteMessage(tempTask);
 
             listTasks.remove(taskIndex);
             numItems--;
-            printTotalTasks();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidRangeMessage();
+            ui.printNumItemsMessage(numItems);
         } catch (NumberFormatException e) {
             ui.printInvalidNumberMessage();
+        } catch (IndexOutOfBoundsException e) {
+            ui.printInvalidRangeMessage();
         } finally {
             ui.printEnterCommandMessage();
         }
@@ -223,10 +147,6 @@ public class Program {
     //function to exit program
     public void executeBye() {
         this.setCanTerminateHal(true);
-    }
-
-    public static void printTotalTasks() {
-        System.out.println("You now have " + numItems + " task(s) in your list!");
     }
 
     public Boolean getCanTerminateHal() {
