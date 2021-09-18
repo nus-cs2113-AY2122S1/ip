@@ -52,6 +52,10 @@ public class Parser {
             command = new ExitCommand(params);
             break;
 
+        case "DUE":
+            command = new DueCommand(params);
+            break;
+
         default:
             command = new InvalidCommand(params);
             break;
