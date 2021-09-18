@@ -38,6 +38,12 @@ public class Storage {
     }
 
     public TasksList load() throws DukeException {
+        String DONE_INDICATOR = "1";
+        int TASK_TYPE_INDEX = 0;
+        int DONE_STATUS_INDEX = 1;
+        int TASK_INDEX = 2;
+        int TASK_DETAILS_INDEX = 3;
+
         Scanner fileScanner;
         TasksList taskList = new TasksList();
 
@@ -49,32 +55,27 @@ public class Storage {
         }
         while (fileScanner.hasNext()) {
             Task task;
-            String doneIndicator = "1";
-            int taskTypeIndex = 0;
-            int doneStatusIndex = 1;
-            int taskIndex = 2;
-            int taskDetailsIndex = 3;
             String rawTaskEntry = fileScanner.nextLine();
             String[] taskDataPoints = rawTaskEntry.split("\\|");
-            String taskType = taskDataPoints[taskTypeIndex];
+            String taskType = taskDataPoints[TASK_TYPE_INDEX];
             switch (taskType) {
             case "T":
-                task = new ToDo(taskDataPoints[taskIndex]);
-                if (taskDataPoints[doneStatusIndex].equals(doneIndicator)) {
+                task = new ToDo(taskDataPoints[TASK_INDEX]);
+                if (taskDataPoints[DONE_STATUS_INDEX].equals(DONE_INDICATOR)) {
                     task.markAsDone();
                 }
                 taskList.addTask(task);
                 break;
             case "D":
-                task = new Deadline(taskDataPoints[taskIndex], taskDataPoints[taskDetailsIndex]);
-                if (taskDataPoints[doneStatusIndex].equals(doneIndicator)) {
+                task = new Deadline(taskDataPoints[TASK_INDEX], taskDataPoints[TASK_DETAILS_INDEX]);
+                if (taskDataPoints[DONE_STATUS_INDEX].equals(DONE_INDICATOR)) {
                     task.markAsDone();
                 }
                 taskList.addTask(task);
                 break;
             case "E":
-                task = new Event(taskDataPoints[taskIndex], taskDataPoints[taskDetailsIndex]);
-                if (taskDataPoints[doneStatusIndex].equals(doneIndicator)) {
+                task = new Event(taskDataPoints[TASK_INDEX], taskDataPoints[TASK_DETAILS_INDEX]);
+                if (taskDataPoints[DONE_STATUS_INDEX].equals(DONE_INDICATOR)) {
                     task.markAsDone();
                 }
                 taskList.addTask(task);
