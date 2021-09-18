@@ -59,12 +59,12 @@ public class Ui {
             break;
         case CommandResult.INVALID_DEADLINE:
             description = "DEADLINE FORMAT: deadline [description] /by [date]" + System.lineSeparator()
-                    + "       WITH DATE FORMAT YYYY-MM-DD" + System.lineSeparator()
+                    + "      WITH DATE FORMAT YYYY-MM-DD" + System.lineSeparator()
                     + "      NOTE: DO NOT INCLUDE \"--\" IN YOUR TASK DESCRIPTION";
             break;
         case CommandResult.INVALID_EVENT:
             description = "EVENT FORMAT: event [description] /at [date]" + System.lineSeparator()
-                    + "       WITH DATE FORMAT YYYY-MM-DD" + System.lineSeparator()
+                    + "      WITH DATE FORMAT YYYY-MM-DD" + System.lineSeparator()
                     + "      NOTE: DO NOT INCLUDE \"--\" IN YOUR TASK DESCRIPTION";
             break;
         default:
