@@ -98,14 +98,14 @@ public class Display {
     public static void displayEventHelperText() {
         printSeparatingLine();
         System.out.println("Command: event");
-        System.out.println("Example input: event project/On Monday");
+        System.out.println("Example input: event project/2021-09-10 18:00");
         printSeparatingLine();
     }
 
     public static void displayDeadlineHelperText() {
         printSeparatingLine();
         System.out.println("Command: deadline");
-        System.out.println("Example input: deadline Submit file/By Friday");
+        System.out.println("Example input: deadline Submit file/2021-09-10 18:00");
         printSeparatingLine();
     }
 

@@ -10,9 +10,12 @@ import commands.DeleteCommand;
 import commands.ExitCommand;
 import commands.ListCommand;
 import commands.MarkDoneCommand;
+import error.DukeTaskNameEmptyException;
 import error.Error;
 import task.TaskManager;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public abstract class InputParser {
@@ -20,9 +23,18 @@ public abstract class InputParser {
     public static final int TASK_INDEX = 1;
     public static final int KEYWORD_INDEX = 1;
     public static final int COMMAND_INDEX = 0;
+
+    public static final int TASK_INFORMATION_DATE_INDEX = 1;
+    public static final int TASK_INFORMATION_NAME_INDEX = 0;
+
+    public static final int DATETIME_DATE_INDEX = 0;
+    public static final int DATETIME_TIME_INDEX = 1;
+    public static final int INDEX_OFFSET = 1;
+
     public static final String EMPTY_KEYWORD = "";
     public static final String DATE_SEPARATOR = "/";
     public static final String SEPARATOR = " ";
+    public static final String EMPTY_TASK_NAME = "";
 
     public static String getUserCommand(Scanner in) {
         return in.nextLine();
@@ -77,7 +89,14 @@ public abstract class InputParser {
     }
 
     public static int getTaskNumber(String[] commandComponents) {
-        return Integer.parseInt(commandComponents[TASK_INDEX]) - 1;
+        return Integer.parseInt(commandComponents[TASK_INDEX]) - INDEX_OFFSET;
+    }
+
+    public static String getTaskName(String taskName) throws DukeTaskNameEmptyException {
+        if (taskName.equals(EMPTY_TASK_NAME)) {
+            throw new DukeTaskNameEmptyException();
+        }
+        return taskName;
     }
 
     public static String[] getTaskWithDateComponents(String taskInformation) {
@@ -94,5 +113,37 @@ public abstract class InputParser {
         }
 
         return words[KEYWORD_INDEX];
+    }
+
+    public static String getTaskNameComponent(String taskInformation) throws DukeTaskNameEmptyException {
+        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        return getTaskName(taskComponents[TASK_INFORMATION_NAME_INDEX]);
+    }
+
+    public static String getDateTimeStringComponent(String taskInformation) {
+        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        return taskComponents[TASK_INFORMATION_DATE_INDEX];
+    }
+
+    public static String[] separateDateAndTimeComponent(String dateTimeInformation) {
+        return dateTimeInformation.split(SEPARATOR);
+    }
+
+    public static String getDateStringComponent(String dateTimeInformation) {
+        return separateDateAndTimeComponent(dateTimeInformation)[DATETIME_DATE_INDEX];
+    }
+
+    public static String getTimeStringComponent(String dateTimeInformation) {
+        return separateDateAndTimeComponent(dateTimeInformation)[DATETIME_TIME_INDEX];
+    }
+
+    public static LocalDate getDateComponent(String taskInformation) {
+        String dateTimeInformation = getDateTimeStringComponent(taskInformation);
+        return LocalDate.parse(InputParser.getDateStringComponent(dateTimeInformation));
+    }
+
+    public static LocalTime getTimeComponent(String taskInformation) {
+        String dateTimeInformation = getDateTimeStringComponent(taskInformation);
+        return LocalTime.parse(InputParser.getTimeStringComponent(dateTimeInformation));
     }
 }
