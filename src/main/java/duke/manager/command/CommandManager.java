@@ -27,7 +27,7 @@ public class CommandManager {
         try {
             this.taskManager.preloadTasks();
         } catch (FileNotFoundException fne) {
-            System.out.println(Message.DATA_FILE_NOT_FOUND);
+            System.out.println(Message.DATA_FILE_NOT_FOUND_MESSAGE);
         }
     }
 
