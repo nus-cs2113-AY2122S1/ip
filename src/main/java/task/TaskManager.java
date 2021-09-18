@@ -8,13 +8,11 @@ import task.subtask.Event;
 import task.subtask.Todo;
 import ui.Display;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskManager {
 
-    public static final String EMPTY_TASK_NAME = "";
-    public static final int NAME_INDEX = 0;
-    public static final int DATE_INDEX = 1;
     public static final int INDEX_OFFSET = 1;
 
     private static ArrayList<Task> allTasks = new ArrayList<>();
@@ -32,26 +30,9 @@ public class TaskManager {
         taskCount--;
     }
 
-    public String getTaskName(String taskName) throws DukeTaskNameEmptyException {
-        if (taskName.equals(EMPTY_TASK_NAME)) {
-            throw new DukeTaskNameEmptyException();
-        }
-        return taskName;
-    }
-
-    public String getTaskNameComponent(String taskInformation) throws DukeTaskNameEmptyException {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
-        return getTaskName(taskComponents[NAME_INDEX]);
-    }
-
-    public String getDateComponent(String taskInformation) {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
-        return taskComponents[DATE_INDEX];
-    }
-
     public void addTodoTask(String taskInformation) {
         try {
-            allTasks.add(new Todo(getTaskName(taskInformation)));
+            allTasks.add(new Todo(InputParser.getTaskName(taskInformation)));
             increaseTaskCount();
             Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_TODO, taskCount);
         } catch (DukeTaskNameEmptyException e) {
@@ -61,25 +42,33 @@ public class TaskManager {
 
     public void addDeadlineTask(String taskInformation) {
         try {
-            allTasks.add(new Deadline(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
+            allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskInformation),
+                    InputParser.getDateComponent(taskInformation),
+                    InputParser.getTimeComponent(taskInformation)));
             increaseTaskCount();
             Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_DEADLINE, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayDateFormatError();
         }
     }
 
     public void addEventTask(String taskInformation) {
         try {
-            allTasks.add(new Event(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
+            allTasks.add(new Event(InputParser.getTaskNameComponent(taskInformation),
+                    InputParser.getDateComponent(taskInformation),
+                    InputParser.getTimeComponent(taskInformation)));
             increaseTaskCount();
             Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_EVENT, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayDateFormatError();
         }
     }
 
@@ -119,7 +108,7 @@ public class TaskManager {
 
     public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
         try {
-            allTasks.add(new Todo(getTaskName(taskDetails)));
+            allTasks.add(new Todo(InputParser.getTaskName(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -131,7 +120,9 @@ public class TaskManager {
 
     public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
         try {
-            allTasks.add(new Deadline(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
+            allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskDetails),
+                    InputParser.getDateComponent(taskDetails),
+                    InputParser.getTimeComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -140,12 +131,16 @@ public class TaskManager {
             Error.displayFileSavedTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayFileSavedTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayFileSavedDateFormatError();
         }
     }
 
     public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
         try {
-            allTasks.add(new Event(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
+            allTasks.add(new Event(InputParser.getTaskNameComponent(taskDetails),
+                    InputParser.getDateComponent(taskDetails),
+                    InputParser.getTimeComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -154,6 +149,8 @@ public class TaskManager {
             Error.displayFileSavedTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayFileSavedTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayFileSavedDateFormatError();
         }
     }
 }

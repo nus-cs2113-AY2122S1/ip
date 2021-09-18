@@ -3,22 +3,28 @@ package task.subtask;
 import task.Task;
 import ui.Display;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    private String deadlineTime;
+    public final String DATE_REGEX = "MMM dd yyyy HH:mm";
+    private LocalDateTime time;
 
-    public Deadline(String taskName, String deadline) {
+    public Deadline(String taskName, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(taskName);
-        deadlineTime = deadline;
+        time = LocalDateTime.of(deadlineDate, deadlineTime);
     }
 
-    public String getDeadlineTime() {
-        return deadlineTime;
+    public String getTime() {
+        return time.format(DateTimeFormatter.ofPattern(DATE_REGEX));
     }
 
     @Override
     public String toString() {
         return Display.getTwoCheckboxDisplay(Display.CHECKBOX_DEADLINE_TASK_TYPE, getIsCompleted())
-                + " " + super.toString() + " (" + getDeadlineTime() + ")";
+                + " " + super.toString() + " (" + getTime() + ")";
     }
 }

@@ -1,11 +1,11 @@
 todo read book
 todo revise work
-deadline programming project /By next Monday
-deadline math homework /this friday
+deadline programming project /2020-01-20 18:00
+deadline math homework /2021-01-20 18:00
 list
 done 2
 list
-event presentation /at 12 noon later
+event presentation /2021-01-20 18:00
 list
 done 5
 list
