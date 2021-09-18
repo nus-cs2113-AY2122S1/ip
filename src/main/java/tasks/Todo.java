@@ -1,9 +1,12 @@
 
 package tasks;
 
-import java.io.Serializable;
 
-public class Todo extends Task implements Serializable {
+
+/**
+ * <h1>The <b>Todo</b> type {@link Task} from users</h1>
+ */
+public class Todo extends Task {
 
     public Todo (String taskName, boolean isCompleted) {
         super(taskName, isCompleted);

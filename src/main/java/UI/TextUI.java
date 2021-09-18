@@ -2,6 +2,11 @@ package UI;
 
 import java.util.Scanner;
 
+/**
+ * Command Line Interface to handle input and output issues.
+ * Read the inputs from users and pass it to the back-end server.
+ * Get the result from server and print it out to users.
+ */
 public class TextUI {
     private static final String DIVISIONLINE = "    ____________________________________________________________\n";
     private static final String GREETINGS = "     Hello! I'm Duke\n" + "     Can I get your name?\n";
@@ -15,7 +20,6 @@ public class TextUI {
         do {
             input = sc.nextLine();
         } while (shouldIgnore(input));
-
         return input;
     }
 
