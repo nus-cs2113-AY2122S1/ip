@@ -3,7 +3,7 @@
  */
 public class Event extends Task {
     public static final char TASK_TYPE = 'E';
-    private final String AT;
+    private String at;
 
     /**
      * Constructor for the Event class.
@@ -14,7 +14,7 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         taskSignature = "event";
-        AT = at;
+        this.at = at;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         completeStatus = isComplete ? COMPLETE_CHARACTER : INCOMPLETE_CHARACTER;
-        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description + " (at: " + AT + ")";
+        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description + " (at: " + at + ")";
     }
 
     /**
@@ -36,6 +36,6 @@ public class Event extends Task {
      */
     @Override
     public String getEncodedFormat() {
-        return Character.toString(completeStatus) + taskSignature + description + "/at" + AT;
+        return Character.toString(completeStatus) + taskSignature + description + "/at" + at;
     }
 }

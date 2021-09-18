@@ -3,7 +3,7 @@
  */
 public class Deadline extends Task {
     public static final char TASK_TYPE = 'D';
-    private final String BY;
+    private String by;
 
     /**
      * Constructor for the Deadline class.
@@ -14,7 +14,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         taskSignature = "deadline";
-        BY = by;
+        this.by = by;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         completeStatus = isComplete ? COMPLETE_CHARACTER : INCOMPLETE_CHARACTER;
-        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description + " (by: " + BY + ")";
+        return "[" + TASK_TYPE + "]" + "[" + completeStatus + "] " + description + " (by: " + by + ")";
     }
 
     /**
@@ -36,6 +36,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getEncodedFormat() {
-        return Character.toString(completeStatus) + taskSignature + description + "/by" + BY;
+        return Character.toString(completeStatus) + taskSignature + description + "/by" + by;
     }
 }
