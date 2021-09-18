@@ -5,67 +5,67 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
----------------------------------
+------------------------------------------------------
 Hello! I'm Duke
 What can I do for you?
 
 No saved file found, creating one now.
-*********************************
+******************************************************
 Noted! I've added a new TODO task
 [T][ ] read book
 Now you have 1 tasks in your list
-*********************************
-*********************************
+******************************************************
+******************************************************
 Noted! I've added a new TODO task
 [T][ ] revise work
 Now you have 2 tasks in your list
-*********************************
-*********************************
+******************************************************
+******************************************************
 Noted! I've added a new DEADLINE task
-[D][ ] programming project (By next Monday)
+[D][ ] programming project (Jan 20 2020 18:00)
 Now you have 3 tasks in your list
-*********************************
-*********************************
+******************************************************
+******************************************************
 Noted! I've added a new DEADLINE task
-[D][ ] math homework (this friday)
+[D][ ] math homework (Jan 20 2021 18:00)
 Now you have 4 tasks in your list
-*********************************
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+******************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 1. [T][ ] read book
 2. [T][ ] revise work
-3. [D][ ] programming project (By next Monday)
-4. [D][ ] math homework (this friday)
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+3. [D][ ] programming project (Jan 20 2020 18:00)
+4. [D][ ] math homework (Jan 20 2021 18:00)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 Nice! Marking revise work as done!
 [X] revise work
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 1. [T][ ] read book
 2. [T][X] revise work
-3. [D][ ] programming project (By next Monday)
-4. [D][ ] math homework (this friday)
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-*********************************
+3. [D][ ] programming project (Jan 20 2020 18:00)
+4. [D][ ] math homework (Jan 20 2021 18:00)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+******************************************************
 Noted! I've added a new EVENT task
-[E][ ] presentation (at 12 noon later)
+[E][ ] presentation (Jan 20 2021 18:00)
 Now you have 5 tasks in your list
-*********************************
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+******************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 1. [T][ ] read book
 2. [T][X] revise work
-3. [D][ ] programming project (By next Monday)
-4. [D][ ] math homework (this friday)
-5. [E][ ] presentation (at 12 noon later)
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+3. [D][ ] programming project (Jan 20 2020 18:00)
+4. [D][ ] math homework (Jan 20 2021 18:00)
+5. [E][ ] presentation (Jan 20 2021 18:00)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 Nice! Marking presentation as done!
 [X] presentation
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 1. [T][ ] read book
 2. [T][X] revise work
-3. [D][ ] programming project (By next Monday)
-4. [D][ ] math homework (this friday)
-5. [E][X] presentation (at 12 noon later)
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
----------------------------------
+3. [D][ ] programming project (Jan 20 2020 18:00)
+4. [D][ ] math homework (Jan 20 2021 18:00)
+5. [E][X] presentation (Jan 20 2021 18:00)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+------------------------------------------------------
 Bye. Hope to see you again soon!
 
----------------------------------
+------------------------------------------------------
