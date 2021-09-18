@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.exceptions.DukeException;
+import duke.parser.Parser;
 import duke.tasks.Deadline;
 import duke.tasks.TaskManager;
 
@@ -25,7 +26,7 @@ public class AddDeadlineCommand extends Command {
 
     private String[] retrieveDeadlineParameters(String argument) throws DukeException {
 
-        String[] parameters = PARSER.separateDeadline(argument);
+        String[] parameters = Parser.separateDeadline(argument);
         String description = parameters[0];
         String taskDue = parameters[1];
 
@@ -43,7 +44,7 @@ public class AddDeadlineCommand extends Command {
     public CommandResult executeCommand() throws DukeException {
         String[] parameters = retrieveDeadlineParameters(argument);
         deadline = new Deadline(parameters[0], parameters[1]);
-        taskManager.addTask(deadline);
+        TaskManager.addTask(deadline);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + deadline.toString() + "\n"
                         + "You have " + TaskManager.getCurrentTasksCount() + " tasks in your list now!");

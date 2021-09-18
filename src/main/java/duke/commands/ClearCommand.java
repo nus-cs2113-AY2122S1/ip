@@ -1,5 +1,7 @@
 package duke.commands;
 
+import duke.tasks.TaskManager;
+
 public class ClearCommand extends Command {
 
     private static final String CLEAR_TASKS_MESSAGE = "Okay! Now your list is empty, you're FREE!";
@@ -10,7 +12,7 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult executeCommand() {
-        taskManager.clearAllTasks();
+        TaskManager.clearAllTasks();
         CommandResult result = new CommandResult(CLEAR_TASKS_MESSAGE);
         return result;
     }

@@ -36,7 +36,7 @@ public class AddToDoCommand extends Command {
     public CommandResult executeCommand() throws DukeException {
         String parameter = retrieveTodoParameter(argument);
         toDo = createToDo(parameter);
-        taskManager.addTask(toDo);
+        TaskManager.addTask(toDo);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + toDo.toString() + "\n"
                         + "You have " + TaskManager.getCurrentTasksCount() + " tasks in your list now!");

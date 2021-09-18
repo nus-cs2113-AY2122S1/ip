@@ -1,6 +1,17 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddToDoCommand;
+import duke.commands.ClearCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.EchoCommand;
+import duke.commands.ExitCommand;
+import duke.commands.HelpCommand;
+import duke.commands.InvalidCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkTaskDoneCommand;
 import duke.storage.Data;
 import duke.exceptions.DukeException;
 
@@ -21,14 +32,14 @@ public class Parser {
     private static final String EVENT_PREFIX = "/at";
     private static final String DATA_SEPARATOR = "\\|";
 
-    private String[] trimArrayElements(String[] inputArray) {
+    private static String[] trimArrayElements(String[] inputArray) {
         for (int i = 0; i < inputArray.length; i++) {
             inputArray[i] = inputArray[i].trim();
         }
         return inputArray;
     }
 
-    private String[] separateCommand(String input) {
+    private static String[] separateCommand(String input) {
         String[] commandArgArray = new String[2];
         String[] separatedInput = input.split(" ", 2);
         commandArgArray[0] = separatedInput[0].trim();
@@ -36,7 +47,7 @@ public class Parser {
         return commandArgArray;
     }
 
-    public String[] separateDeadline(String input) {
+    public static String[] separateDeadline(String input) {
         String[] descriptionDateArray = new String[2];
         String[] separatedInput = input.split(DEADLINE_PREFIX, 2);
         descriptionDateArray[0] = separatedInput[0].trim();
@@ -47,7 +58,7 @@ public class Parser {
         return descriptionDateArray;
     }
 
-    public String[] separateEvent(String input) {
+    public static String[] separateEvent(String input) {
         String[] descriptionDateArray = new String[2];
         String[] separatedInput = input.split(EVENT_PREFIX, 2);
         descriptionDateArray[0] = separatedInput[0].trim();
@@ -58,7 +69,7 @@ public class Parser {
         return descriptionDateArray;
     }
 
-    private Command parseCommandWithArguments(String userInputString) throws DukeException {
+    private static Command parseCommandWithArguments(String userInputString) throws DukeException {
 
         String[] commandArgArray = separateCommand(userInputString);
         String command = commandArgArray[0].toLowerCase();
@@ -82,7 +93,7 @@ public class Parser {
         }
     }
 
-    public Command parseCommand(String userInputString) throws DukeException {
+    public static Command parseCommand(String userInputString) throws DukeException {
 
         switch (userInputString.toLowerCase()) {
         case COMMAND_LIST_TASKS:
@@ -98,7 +109,7 @@ public class Parser {
         }
     }
 
-    public Data parseData(String fileLine) throws DukeException {
+    public static Data parseData(String fileLine) throws DukeException {
         String[] dataParameters = trimArrayElements(fileLine.split(DATA_SEPARATOR));
         return new Data(dataParameters);
     }

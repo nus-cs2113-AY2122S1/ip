@@ -42,7 +42,7 @@ public class MarkTaskDoneCommand extends Command {
     @Override
     public CommandResult executeCommand() throws DukeException {
         taskNumber = retrieveNumberParameter(argument);
-        Task doneTask = taskManager.markTaskDone(taskNumber);
+        Task doneTask = TaskManager.markTaskDone(taskNumber);
         CommandResult result = new CommandResult(MARK_TASK_DONE_MESSAGE + "\n" + doneTask.toString());
         return result;
     }

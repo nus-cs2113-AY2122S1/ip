@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Duke {
 
     private static final DukeUi UI = new DukeUi();
-    private static final Parser PARSER = new Parser();
     private static final DataManager DATA_MANAGER = new DataManager();
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -41,7 +40,7 @@ public class Duke {
         while (true) {
             try {
                 String userInputString = readUserInput();
-                Command command = PARSER.parseCommand(userInputString);
+                Command command = Parser.parseCommand(userInputString);
                 CommandResult result = command.executeCommand();
                 UI.showFeedbackToUser(result);
                 if (command instanceof ExitCommand) {

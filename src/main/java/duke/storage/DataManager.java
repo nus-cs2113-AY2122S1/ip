@@ -16,10 +16,6 @@ public class DataManager {
 
     private final String storagePath = "duke.txt";
     private final File storage = new File(storagePath);
-
-    private static final Parser PARSER = new Parser();
-    private static final TaskManager TASK_MANAGER = new TaskManager();
-
     private static final String STORAGE_CREATED_MESSAGE =
             "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
 
@@ -50,7 +46,7 @@ public class DataManager {
         ArrayList<Data> dataList = new ArrayList<>();
         Data data;
         for (String line : fileLines) {
-            data = PARSER.parseData(line);
+            data = Parser.parseData(line);
             dataList.add(data);
         }
         return dataList;
@@ -59,7 +55,7 @@ public class DataManager {
     private void addDataToTaskList(ArrayList<Data> dataObjects) throws DukeException {
         for (Data data : dataObjects) {
             Task task = data.toTask();
-            TASK_MANAGER.addTask(task);
+            TaskManager.addTask(task);
         }
     }
 

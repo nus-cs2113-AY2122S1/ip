@@ -42,7 +42,7 @@ public class DeleteTaskCommand extends Command {
     @Override
     public CommandResult executeCommand() throws DukeException {
         taskNumber = retrieveNumberParameter(argument);
-        Task deletedTask = taskManager.deleteTask(taskNumber);
+        Task deletedTask = TaskManager.deleteTask(taskNumber);
         CommandResult result = new CommandResult(
                 DELETE_TASK_MESSAGE + "\n" + deletedTask.toString() + "\n"
                         + "You have " + TaskManager.getCurrentTasksCount() + " tasks in your list now!");

@@ -24,17 +24,17 @@ public class TaskManager {
         return taskDataStrings;
     }
 
-    public void clearAllTasks() {
+    public static void clearAllTasks() {
         TASKS.clear();
         currentTasksCount = 0;
     }
 
-    public void addTask(Task task) {
+    public static void addTask(Task task) {
         TASKS.add(task);
         currentTasksCount++;
     }
 
-    public String listTasks() {
+    public static String listTasks() {
         String listOfTasks = "";
         for (int i = 0; i < currentTasksCount; i++) {
             listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + TASKS.get(i).toString());
@@ -42,14 +42,14 @@ public class TaskManager {
         return listOfTasks;
     }
 
-    public Task deleteTask(int taskIndex) {
+    public static Task deleteTask(int taskIndex) {
         Task deletedTask = TASKS.get(taskIndex - 1);
         TASKS.remove(taskIndex - 1);
         currentTasksCount--;
         return deletedTask;
     }
 
-    public Task markTaskDone(int taskIndex) {
+    public static Task markTaskDone(int taskIndex) {
         Task doneTask = TASKS.get(taskIndex - 1);
         doneTask.setDone();
         return doneTask;

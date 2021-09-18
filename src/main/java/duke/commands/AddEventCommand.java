@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.exceptions.DukeException;
+import duke.parser.Parser;
 import duke.tasks.Event;
 import duke.tasks.TaskManager;
 
@@ -25,7 +26,7 @@ public class AddEventCommand extends Command {
 
     private String[] retrieveEventParameters(String argument) throws DukeException {
 
-        String[] parameters = PARSER.separateEvent(argument);
+        String[] parameters = Parser.separateEvent(argument);
         String description = parameters[0];
         String dateAndTime = parameters[1];
 
@@ -43,7 +44,7 @@ public class AddEventCommand extends Command {
     public CommandResult executeCommand() throws DukeException {
         String[] parameters = retrieveEventParameters(argument);
         event = new Event(parameters[0], parameters[1]);
-        taskManager.addTask(event);
+        TaskManager.addTask(event);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + event.toString() + "\n"
                         + "You have " + TaskManager.getCurrentTasksCount() + " tasks in your list now!");
