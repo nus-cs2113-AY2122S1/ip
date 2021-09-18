@@ -1,3 +1,7 @@
+import task.Task;
+
+import java.util.ArrayList;
+
 public class Ui {
 
     public static void printDivider() {
@@ -45,6 +49,8 @@ public class Ui {
     public static void printDukeExceptionMessage(String command) {
         if (command.equalsIgnoreCase("done")) {
             System.out.println("☹ OOPS!!! You've forgotten to write the task number");
+        } else if (command.equalsIgnoreCase("find")) {
+            System.out.println("☹ OOPS!!! What are you finding?");
         } else {
             System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), command);
         }
@@ -68,4 +74,11 @@ public class Ui {
         System.out.println("Local file has been created.");
     }
 
+    public static void printData(ArrayList<Task> tasks, String userInput) {
+        System.out.printf("There are %d tasks containing \"%s\"" + System.lineSeparator(), tasks.size(), userInput);
+        for (Task t : tasks) {
+            System.out.println(t);
+        }
+        printDivider();
+    }
 }
