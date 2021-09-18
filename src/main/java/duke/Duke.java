@@ -10,6 +10,10 @@ public class Duke {
     private Parser parser;
     private TaskList tasks;
 
+    /**
+     * Duke constructor which initialises the User Interface(UI), Storage, Parser and TaskList.
+     * @param filePath file path of duke_data, which stores data of Duke
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath, ui);
@@ -24,6 +28,7 @@ public class Duke {
         parser = new Parser(ui, storage, tasks);
     }
 
+    /** Reads user command and executes it until the exit command is entered by the user. */
     public void run() {
         ui.printHelloMessage();
 
