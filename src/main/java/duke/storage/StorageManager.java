@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manage reading and writing task list from and to the specified text file.
+ */
 public class StorageManager {
     private static final String TASK_TODO = "T";
     private static final String TASK_DEADLINE = "D";
@@ -22,11 +25,25 @@ public class StorageManager {
     private ArrayList<Task> tasks;
     
     private String filePath;
-    
+
+    /**
+     * Constructor of the StorageManager object, initializing the path to the
+     * text file.
+     * 
+     * @param filePath path to text file containing the task list.
+     */
     public StorageManager(String filePath) {
         this.filePath = filePath;
     }
     
+    /**
+     * Read each task stored in the text file and convert them to a task
+     * to be added to the task list.
+     * 
+     * @param input a line inside the text file containing the task type, done
+     *              status, and description.
+     * @return the task created from the input description.
+     */
     private Task getTask(String input) {
         String[] words = input.split("--");
         String taskType = words[0];
@@ -51,14 +68,21 @@ public class StorageManager {
         } catch (DukeInvalidAddTaskException | ArrayIndexOutOfBoundsException e) {
             System.out.println("INVALID TASK FOUND IN FILE");
         }
-        
+
         if (task != null && markDoneCharacter.equals("1")) {
             task.markAsDone();
         }
         
         return task;
     }
-    
+
+    /**
+     * Get the tasks stored in the text file, keep reading the stored tasks and
+     * adding each of them to the task list until the last line in the text file.
+     * 
+     * @return list of tasks stored in the file
+     * @throws FileNotFoundException if the text file doesn't exist.
+     */
     private ArrayList<Task> getStoredList() throws FileNotFoundException {
         tasks = new ArrayList<>();
         File inputFile = new File(filePath);
@@ -70,7 +94,13 @@ public class StorageManager {
         }
         return tasks;
     }
-    
+
+    /**
+     * Read the tasks stored in the text file. If the file doesn't exist, 
+     * return an empty list.
+     * 
+     * @return task list stored in the file.
+     */
     public ArrayList<Task> readFile() {
         try {
             return getStoredList();
@@ -79,6 +109,9 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Check if the text file exists or not. If not, then create a new one.
+     */
     private void checkFilePath() {
         File directory = new File(filePath);
         if (!directory.exists()) {
@@ -86,6 +119,11 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Write each task in the task list to the text file.
+     * 
+     * @throws IOException if the text file doesn't exist.
+     */
     private void writeToFile() throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {
@@ -114,6 +152,11 @@ public class StorageManager {
         writer.close();
     }
 
+    /**
+     * Update the text file with the task list provided.
+     * 
+     * @param tasks task list provided.
+     */
     public void updateStorage(ArrayList<Task> tasks) {
         this.tasks = tasks;
         checkFilePath();
