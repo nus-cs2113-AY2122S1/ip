@@ -5,11 +5,17 @@ todo read book
 deadline
 deadline return book
 deadline return book /by
+deadline /by return book
 deadline return book /by June 6th
+deadline return book /by 06/12/21 1800
+deadline return book /by 06/12/2021 1800
 event
 event project meeting
 event project meeting /at
+event /at project meeting
 event project meeting /at Aug 6th 2-4pm
+event project meeting /at 07/07/2021 2100
+event project meeting /at 07/12/2021 2100
 find
 find book
 done
