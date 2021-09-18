@@ -1,6 +1,6 @@
 package task.subtask;
 
-import utils.Display;
+import ui.Display;
 
 public class Event extends Deadline {
 

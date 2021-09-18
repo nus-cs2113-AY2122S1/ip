@@ -6,18 +6,31 @@ import error.Error;
 import task.subtask.Deadline;
 import task.subtask.Event;
 import task.subtask.Todo;
-import utils.Display;
-import utils.FileManager;
-
-import java.io.IOException;
+import ui.Display;
 
 import java.util.ArrayList;
 
 public class TaskManager {
 
     public static final String EMPTY_TASK_NAME = "";
+    public static final int NAME_INDEX = 0;
+    public static final int DATE_INDEX = 1;
+    public static final int INDEX_OFFSET = 1;
+
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int taskCount;
+
+    public ArrayList<Task> getAllTasks() {
+        return allTasks;
+    }
+
+    public void increaseTaskCount() {
+        taskCount++;
+    }
+
+    public void decreaseTaskCount() {
+        taskCount--;
+    }
 
     public String getTaskName(String taskName) throws DukeTaskNameEmptyException {
         if (taskName.equals(EMPTY_TASK_NAME)) {
@@ -26,52 +39,47 @@ public class TaskManager {
         return taskName;
     }
 
+    public String getTaskNameComponent(String taskInformation) throws DukeTaskNameEmptyException {
+        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        return getTaskName(taskComponents[NAME_INDEX]);
+    }
+
+    public String getDateComponent(String taskInformation) {
+        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        return taskComponents[DATE_INDEX];
+    }
+
     public void addTodoTask(String taskInformation) {
         try {
             allTasks.add(new Todo(getTaskName(taskInformation)));
-            taskCount++;
-            Display.displayTaskCreation(allTasks.get(taskCount - 1), Display.TASK_NAME_TODO, taskCount);
-            FileManager.updateFileData(allTasks);
+            increaseTaskCount();
+            Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_TODO, taskCount);
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
-        } catch (IOException e) {
-            Error.displayFileUpdateError();
         }
     }
 
     public void addDeadlineTask(String taskInformation) {
         try {
-            String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
-            String taskName = getTaskName(taskComponents[0]);
-            String deadline = taskComponents[1];
-            allTasks.add(new Deadline(taskName, deadline));
-            taskCount++;
-            Display.displayTaskCreation(allTasks.get(taskCount - 1), Display.TASK_NAME_DEADLINE, taskCount);
-            FileManager.updateFileData(allTasks);
+            allTasks.add(new Deadline(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
+            increaseTaskCount();
+            Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_DEADLINE, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
-        } catch (IOException e) {
-            Error.displayFileUpdateError();
         }
     }
 
     public void addEventTask(String taskInformation) {
         try {
-            String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
-            String taskName = getTaskName(taskComponents[0]);
-            String eventTime = taskComponents[1];
-            allTasks.add(new Event(taskName, eventTime));
-            taskCount++;
-            Display.displayTaskCreation(allTasks.get(taskCount - 1), Display.TASK_NAME_EVENT, taskCount);
-            FileManager.updateFileData(allTasks);
+            allTasks.add(new Event(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
+            increaseTaskCount();
+            Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_EVENT, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
-        } catch (IOException e) {
-            Error.displayFileUpdateError();
         }
     }
 
@@ -80,15 +88,12 @@ public class TaskManager {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
             Task deletedTask = allTasks.get(taskNumber);
             allTasks.remove(taskNumber);
-            taskCount--;
+            decreaseTaskCount();
             Display.displayTaskDeleted(deletedTask, taskCount);
-            FileManager.updateFileData(allTasks);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskNonExistentError();
         } catch (NumberFormatException e) {
             Error.displayNotANumberError();
-        } catch (IOException e) {
-            Error.displayFileUpdateError();
         }
     }
 
@@ -97,20 +102,17 @@ public class TaskManager {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
             allTasks.get(taskNumber).setTaskCompleted();
             Display.displayTaskCompleted(allTasks.get(taskNumber).getTask());
-            FileManager.updateFileData(allTasks);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskNonExistentError();
         } catch (NumberFormatException e) {
             Error.displayNotANumberError();
-        } catch (IOException e) {
-            Error.displayFileUpdateError();
         }
     }
 
     public void listTask() {
         Display.printListTaskLine();
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(i + 1 + ". " + allTasks.get(i));
+            System.out.println(i + INDEX_OFFSET + ". " + allTasks.get(i));
         }
         Display.printListTaskLine();
     }
@@ -121,7 +123,7 @@ public class TaskManager {
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
-            taskCount++;
+            increaseTaskCount();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayFileSavedTaskNameEmptyError();
         }
@@ -129,14 +131,11 @@ public class TaskManager {
 
     public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
         try {
-            String[] taskComponents = InputParser.getTaskWithDateComponents(taskDetails);
-            String taskName = getTaskName(taskComponents[0]);
-            String deadline = taskComponents[1];
-            allTasks.add(new Deadline(taskName, deadline));
+            allTasks.add(new Deadline(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
-            taskCount++;
+            increaseTaskCount();
         } catch (IndexOutOfBoundsException e) {
             Error.displayFileSavedTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
@@ -146,14 +145,11 @@ public class TaskManager {
 
     public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
         try {
-            String[] taskComponents = InputParser.getTaskWithDateComponents(taskDetails);
-            String taskName = getTaskName(taskComponents[0]);
-            String eventTime = taskComponents[1];
-            allTasks.add(new Event(taskName, eventTime));
+            allTasks.add(new Event(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
-            taskCount++;
+            increaseTaskCount();
         } catch (IndexOutOfBoundsException e) {
             Error.displayFileSavedTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
