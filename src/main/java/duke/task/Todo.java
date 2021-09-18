@@ -16,7 +16,11 @@ public class Todo extends Task {
             throw new IllegalArgumentException(DESCRIPTION_EMPTY_ERROR_MESSAGE);
         }
     }
-
+    /**
+     * Formats todo object to a savable string format
+     *
+     * @return formatted Todo object as a String to be saved
+     */
     @Override
     public String saveToText() {
         return "T | " + super.saveToText();

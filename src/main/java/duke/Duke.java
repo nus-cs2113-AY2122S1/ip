@@ -37,6 +37,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main logic of the program
+     */
     public void run() {
         ui.printBanner();
         dukeMainLoop();
@@ -114,10 +117,20 @@ public class Duke {
         store.saveFile(taskList);
     }
 
+    /**
+     * Sets isRunning variable
+     *
+     * @param isRunning
+     */
     private void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
     }
 
+    /**
+     * Obtains the value of isRunning
+     *
+     * @return true if the program is still running or else false
+     */
     private boolean getIsRunning() {
         return isRunning;
     }

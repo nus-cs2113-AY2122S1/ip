@@ -86,6 +86,7 @@ public class TaskList {
      *
      * @param description the commandline input and its arguments
      * @throws ArrayIndexOutOfBoundsException in the case of invalid input by Events or Deadlines
+     * @throws InvalidCommandException in the case of unrecognized commands
      */
     public void addTask(Ui ui, Parser description)
             throws ArgumentNotFoundException, InvalidCommandException {

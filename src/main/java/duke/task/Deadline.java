@@ -27,6 +27,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Formats deadline object to a savable string format
+     *
+     * @return formatted Deadline object as a String to be saved
+     */
     @Override
     public String saveToText() {
         return "D | " + super.saveToText() + " | " + by;

@@ -27,6 +27,11 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * Formats event object to a savable string format
+     *
+     * @return formatted Event object as a String to be saved
+     */
     @Override
     public String saveToText() {
         return "E | " + super.saveToText() + " | " + at;
