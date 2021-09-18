@@ -1,9 +1,9 @@
-package duke.Commands;
+package duke.commands;
 
 import duke.Storage;
 import duke.TasksList;
 import duke.Ui;
-import duke.Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 /**
  * Parent abstract class of all commands that Duke can perform.
