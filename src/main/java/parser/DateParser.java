@@ -6,6 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The DateParser class implement methods to convert String to Date and Date to String.
+ */
+
 public class DateParser {
     public static String dateToString(Date date) {
         String dateString = new SimpleDateFormat("MMM dd yyyy HHmm").format(date);

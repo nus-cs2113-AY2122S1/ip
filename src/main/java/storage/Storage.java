@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * The Storage class helps to do all the saving and loading of data to the tasks Arraylist.
+ */
+
 public class Storage {
     String filePath;
 

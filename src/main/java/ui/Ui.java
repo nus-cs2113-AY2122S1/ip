@@ -1,5 +1,9 @@
 package ui;
 
+/**
+ * The UI class helps to format and print all the output to the console.
+ */
+
 public class Ui {
     /**
      * Prints out a statement with borders.

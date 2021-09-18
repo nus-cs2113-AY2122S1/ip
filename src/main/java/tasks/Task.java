@@ -2,6 +2,11 @@ package tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a generic task. A Task object is represented by a description and a boolean flag
+ * representing whether the task is completed.
+ */
+
 public class Task {
     public static final String taskDoesNotExist = "The task ID does not exist!";
 
