@@ -53,6 +53,9 @@ public class CommandHandler {
         case "list":
             taskManager.listTasks();
             break;
+        case "find":
+            taskManager.queryTasks(this);
+            break;
         case "done":
             taskManager.markTaskAsDone(this);
             break;

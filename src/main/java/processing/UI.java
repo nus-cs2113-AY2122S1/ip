@@ -14,18 +14,15 @@ public class UI {
     public static final String FAREWELL_STR = "Bye. Hope to see you again soon!";
     private static final String DIVIDER = "------------------------------------------";
     private static final String BEGIN_STR = "What can I do for you?";
-    private static final String LOGO = """
-             ____        _       \s
-            |  _ \\ _   _| | _____\s
-            | | | | | | | |/ / _ \\
-            | |_| | |_| |   <  __/
-            |____/ \\__,_|_|\\_\\___|
-            """;
-    private static final String GREETING = """
-            _________________________
-            Hello! I'm Duke.Duke
-            Standby while I load up your schedule
-            Loading...""";
+    private static final String LOGO = " ____        _        \n" +
+                                       "|  _ \\ _   _| | _____ \n" +
+                                       "| | | | | | | |/ / _ \\\n" +
+                                       "| |_| | |_| |   <  __/\n" +
+                                       "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String GREETING = "_________________________\n" +
+                                           "Hello! I'm Duke.Duke\n" +
+                                           "Standby while I load up your schedule\n" +
+                                           "Loading...";
 
     private static void showNumTasks(Task t, int taskSize) {
         System.out.println(t);

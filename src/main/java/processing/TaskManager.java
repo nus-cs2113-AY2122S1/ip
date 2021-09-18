@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+import java.util.List;
 
 /*---------LOCAL IMPORT--------*/
 import tasks.TaskType;
@@ -18,6 +20,7 @@ public class TaskManager {
     /*----------- PROCESSING CONSTANTS ---------- */
     public static final String DEADLINE_CLAUSE = "/by";
     public static final String EVENT_CLAUSE = "/at";
+    public static final String FIND_CLAUSE = "find";
 
     private static final int DEADLINE_DESCRIPTION_IDX = 9;
     private static final int EVENT_DESCRIPTION_IDX = 6;
@@ -26,6 +29,8 @@ public class TaskManager {
     /*----------- CONSOLE LOGGING ----------- */
     private static final String DONE_TASK = "Nice! I've marked this task as done: ";
     private static final String LIST_TASK = "Here are your scheduled tasks!";
+    private static final String QUERY_TASK = "Your query returned the following results: ";
+    private static final String EMPTY_QUERY = "     >>No tasks can be found with the regex : ";
 
     /*------------- PRIVATE VARIABLES ------------ */
     private final SortedSet<Task> tasks;
@@ -126,11 +131,35 @@ public class TaskManager {
         }
     }
 
+    public void queryTasks(CommandHandler command) throws DukeException {
+        command.splitByClause(FIND_CLAUSE,0,true);
+        String regex = command.descriptorAfterClause;
+        listTasksByRegex(regex);
+    }
+
     public void listTasks() {
         System.out.println(LIST_TASK);
-        for (int i = 0; i < taskSize; i++) {
-            System.out.printf("%d.", i + 1);
-            printTask(i);
+        listTasks(new ArrayList<>(tasks));
+    }
+
+    public void listTasksByRegex(String regex) {
+        System.out.println(QUERY_TASK);
+        List<Task> listOfTasks = tasks
+                .stream()
+                .filter(task -> task.getFullDescription().matches("(?i).*" + regex + ".*"))
+                .collect(Collectors.toList());
+        listTasks(listOfTasks);
+        if (listOfTasks.isEmpty()) {
+            System.out.println(EMPTY_QUERY + regex);
+        }
+    }
+
+    public void listTasks(List<Task> tasks) {
+        int idx = 0;
+        for (Task task : tasks) {
+            idx++;
+            System.out.printf("%d.", idx);
+            System.out.println(task);
         }
     }
 
