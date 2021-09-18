@@ -106,6 +106,14 @@ public class TaskManager {
         Display.printListTaskLine();
     }
 
+    public void findTask(String taskKeyword) {
+        Display.printListTaskLine();
+        allTasks.stream()
+                .filter((task) -> task.getTask().contains(taskKeyword))
+                .forEach(System.out::println);
+        Display.printListTaskLine();
+    }
+
     public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Todo(InputParser.getTaskName(taskDetails)));
@@ -121,8 +129,8 @@ public class TaskManager {
     public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskDetails),
-                    InputParser.getDateComponent(taskDetails),
-                    InputParser.getTimeComponent(taskDetails)));
+                    InputParser.getSavedDateComponent(taskDetails),
+                    InputParser.getSavedTimeComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -139,8 +147,8 @@ public class TaskManager {
     public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Event(InputParser.getTaskNameComponent(taskDetails),
-                    InputParser.getDateComponent(taskDetails),
-                    InputParser.getTimeComponent(taskDetails)));
+                    InputParser.getSavedDateComponent(taskDetails),
+                    InputParser.getSavedTimeComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }

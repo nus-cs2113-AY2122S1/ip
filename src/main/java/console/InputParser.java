@@ -2,6 +2,7 @@ package console;
 
 import commands.DeadlineCommand;
 import commands.EventCommand;
+import commands.FindCommand;
 import commands.HelpCommand;
 import commands.ToDoCommand;
 import commands.Command;
@@ -15,12 +16,15 @@ import task.TaskManager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public abstract class InputParser {
 
     public static final int TASK_INDEX = 1;
+    public static final int KEYWORD_INDEX = 1;
     public static final int COMMAND_INDEX = 0;
+
     public static final int TASK_INFORMATION_DATE_INDEX = 1;
     public static final int TASK_INFORMATION_NAME_INDEX = 0;
 
@@ -28,9 +32,11 @@ public abstract class InputParser {
     public static final int DATETIME_TIME_INDEX = 1;
     public static final int INDEX_OFFSET = 1;
 
+    public static final String EMPTY_KEYWORD = "";
     public static final String DATE_SEPARATOR = "/";
     public static final String SEPARATOR = " ";
     public static final String EMPTY_TASK_NAME = "";
+    public static final String DATE_REGEX = "MMM dd yyyy";
 
     public static String getUserCommand(Scanner in) {
         return in.nextLine();
@@ -56,6 +62,9 @@ public abstract class InputParser {
             break;
         case DeleteCommand.COMMAND_WORD:
             command = new DeleteCommand(taskManager);
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand(taskManager);
             break;
         case ExitCommand.COMMAND_WORD:
             command = new ExitCommand(taskManager);
@@ -100,13 +109,21 @@ public abstract class InputParser {
         return taskComponents;
     }
 
+    public static String getKeyword(String[] words) {
+        if (words.length == 1) {
+            return EMPTY_KEYWORD;
+        }
+
+        return words[KEYWORD_INDEX];
+    }
+
     public static String getTaskNameComponent(String taskInformation) throws DukeTaskNameEmptyException {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        String[] taskComponents = getTaskWithDateComponents(taskInformation);
         return getTaskName(taskComponents[TASK_INFORMATION_NAME_INDEX]);
     }
 
     public static String getDateTimeStringComponent(String taskInformation) {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        String[] taskComponents = getTaskWithDateComponents(taskInformation);
         return taskComponents[TASK_INFORMATION_DATE_INDEX];
     }
 
@@ -124,11 +141,32 @@ public abstract class InputParser {
 
     public static LocalDate getDateComponent(String taskInformation) {
         String dateTimeInformation = getDateTimeStringComponent(taskInformation);
-        return LocalDate.parse(InputParser.getDateStringComponent(dateTimeInformation));
+        return LocalDate.parse(getDateStringComponent(dateTimeInformation));
     }
 
     public static LocalTime getTimeComponent(String taskInformation) {
         String dateTimeInformation = getDateTimeStringComponent(taskInformation);
-        return LocalTime.parse(InputParser.getTimeStringComponent(dateTimeInformation));
+        return LocalTime.parse(getTimeStringComponent(dateTimeInformation));
+    }
+
+    public static String getSavedDateStringComponent(String dateTimeInformation) {
+        int lastSpaceIndex = dateTimeInformation.lastIndexOf(SEPARATOR);
+        return dateTimeInformation.substring(DATETIME_DATE_INDEX, lastSpaceIndex);
+    }
+
+    public static String getSavedTimeStringComponent(String dateTimeInformation) {
+        int lastSpaceIndex = dateTimeInformation.lastIndexOf(SEPARATOR);
+        return dateTimeInformation.substring(lastSpaceIndex + INDEX_OFFSET);
+    }
+
+    public static LocalDate getSavedDateComponent(String taskInformation) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_REGEX);
+        String dateTimeInformation = getDateTimeStringComponent(taskInformation);
+        return LocalDate.parse(getSavedDateStringComponent(dateTimeInformation), dateTimeFormatter);
+    }
+
+    public static LocalTime getSavedTimeComponent(String taskInformation) {
+        String dateTimeInformation = getDateTimeStringComponent(taskInformation);
+        return LocalTime.parse(getSavedTimeStringComponent(dateTimeInformation));
     }
 }
