@@ -1,7 +1,9 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class Deadline extends Task {
 
@@ -12,6 +14,7 @@ public class Deadline extends Task {
             + "empty.";
 
     protected LocalDate by;
+    protected DateTimeFormatter printFormatter;
 
     /**
      * Creates a Deadline Task
@@ -23,6 +26,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by)
             throws IllegalArgumentException, DateTimeParseException {
         super(description);
+        printFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         if (isStringNullOrEmpty(description)) {
             throw new IllegalArgumentException(DESCRIPTION_EMPTY_ERROR_MESSAGE);
         } else if (isStringNullOrEmpty(by)) {
@@ -38,6 +42,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        return String.format("[D]%s (by: %s)", super.toString(), by.format(printFormatter));
     }
 }
