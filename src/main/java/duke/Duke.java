@@ -1,14 +1,14 @@
-package duke.command;
+package duke;
 
+import duke.command.TaskManager;
 import duke.datasaver.DataManager;
 import duke.ui.Ui;
 
 import java.util.Scanner;
 
-public class Duke {
+import static duke.constants.DukeCommandStrings.EXIT_COMMAND;
 
-    // Constants
-    public static final String EXIT_STRING = "bye";
+public class Duke {
 
     public static void main(String[] args) {
         Ui.printHeyMessage();
@@ -19,7 +19,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
 
-        while (!userInput.trim().equalsIgnoreCase(EXIT_STRING)) {
+        while (!userInput.trim().equalsIgnoreCase(EXIT_COMMAND)) {
             dukeTaskManager.handleUserInput(userInput);
             userInput = in.nextLine();
         }
