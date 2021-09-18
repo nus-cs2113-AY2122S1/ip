@@ -1,0 +1,3 @@
+T | 0 | buy McD
+T | 1 | iP submission
+T | 0 | match
