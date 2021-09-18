@@ -114,15 +114,20 @@ Here are your tasks in your list:
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
+Unable to parse date or time! Please use the format yyyy-mm-dd or yyyy-mm-dd hhmm
+Text 'tomorrow' could not be parsed at index 0
+____________________________________________________________
+┌─[ShellRPG@Newbie]-[~]
+└──╼ $ ____________________________________________________________
 Got it. I've added this task:
-[D][ ] word limit is not a requirement (by: tomorrow)
+[D][ ] word limit is not a requirement (by: Sep 20 2021)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are the matching tasks in your list:
-[D][X] this should word (by: tiger time :-))
-[D][ ] word limit is not a requirement (by: tomorrow)
+[D][X] this should word (by: Sep 01 2021)
+[D][ ] word limit is not a requirement (by: Sep 20 2021)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
