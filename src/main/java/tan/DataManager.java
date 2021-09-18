@@ -28,9 +28,8 @@ import static java.nio.file.StandardOpenOption.CREATE;
  * Note, if you close csvWriter, you have to write from top
  * aga in. Use Flush to push to current writing in buffer to file.
  * <p>
- *
+ * <p>
  * homePath - The directory that the data file is saved at in String.
- *
  */
 public class DataManager {
     protected static BufferedReader csvReader;
@@ -147,12 +146,14 @@ public class DataManager {
         }
         return listOfStoredTasks;
     }
-///////////////////////////////////////////////////////////////////////////////////////////
+
     /**
-     * This program takes in a row of data from the data
+     * Returns the created task according to the parameters
+     * passed in. Null otherwise.
+     * This program takes in a row worth of data from the data
      * file but in an array format instead of CSV. It then
      * parses all the data to get the necessary information
-     * to create a Task by calling createTask().
+     * to create a Task.
      *
      * @param curTaskString The array of the task's data from the dataFile.
      * @return The Task created according to the data in the array. Null otherwise.
@@ -168,6 +169,7 @@ public class DataManager {
     }
 
     /**
+     * Returns a Task based on the parameters passed in. Null otherwise.
      * This function creates & returns the actual task based on the
      * parameters passed in. If the task type integer is not recognized,
      * null is returned.
@@ -203,15 +205,14 @@ public class DataManager {
     }
 
     /**
-     * Reads the dataFile converts the data
+     * Returns a List of strings arrays containing the data
+     * in the file by reading the dataFile & converts the data
      * from CSV into a list of string array and returns it.
-     * <p>
      * Each List element is a row and
      * each array element is a row split along the commas.
      * In the event that a row is un-readable due to IO exception,
      * it will inform the user.
-     * <p>
-     * Note: setup the csvReader before using this function.
+     * Note: Setup the csvReader before using this function.
      *
      * @return The data file's information in a List of arrays.
      */
@@ -234,9 +235,7 @@ public class DataManager {
     }
 
     /**
-     * Calls the necessary
-     * functions to setup the file, file reader,
-     * file writer based on the homePath.
+     * Setups the the file, file reader, file writer based on the homePath.
      */
     private static void initializeFile() {
         try {
@@ -254,21 +253,21 @@ public class DataManager {
     }
 
     /**
-     * This function writes the Header, as per
-     * TITLE values, for the data file.
+     * Writes the header values for the data file.
      * Note to setup the csvWriter before calling this.
      *
      * @throws IOException Thrown in the event of an error while writing.
      */
     private static void writeHeader() throws IOException {
-        csvWriter.append(String.join(",", TITLE));
+        String header = String.join(",", TITLE);
+        csvWriter.append(header);
         csvWriter.append(System.lineSeparator());
         csvWriter.flush();
     }
 
     /**
-     * This function sets up the file, file Writer/Reader
-     * and DATA_PATH. If the file is not found, it will
+     * Sets up the file, file Writer/Reader and DATA_PATH value.
+     * If the file is not found, it will
      * create a new file for the user at the specified
      * directory.
      *

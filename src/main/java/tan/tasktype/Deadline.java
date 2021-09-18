@@ -47,9 +47,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * This will return the whole string
+     * Returns the whole string
      * including its icon, status, task name
-     * and deadline.
+     * and deadline to be printed.
      *
      * @return The task icon, status, name and deadline in String.
      */

@@ -26,7 +26,7 @@ public class ToDo extends Task {
      * Returns "-" for the Todo as it
      * does not have a date.
      *
-     * @return Returns "-".
+     * @return Returns the string "-".
      */
     @Override
     public String getDateTime() {
@@ -36,7 +36,7 @@ public class ToDo extends Task {
     /**
      * Returns the icon for todo tasks.
      *
-     * @return Returns the String "T"
+     * @return Returns the String "T".
      */
     @Override
     public String getIcon() {
@@ -44,8 +44,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * This will return the whole string
-     * including its icon, status & task name.
+     * Returns the whole string
+     * including its icon, status & task name to be printed.
      *
      * @return The task icon, status & name in String.
      */
