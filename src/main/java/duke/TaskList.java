@@ -54,6 +54,17 @@ public class TaskList {
         list.get(index).setDone();
     }
 
+    public TaskList search(String keyword) {
+        TaskList resultsList = new TaskList();
+
+        for (Task t : list) {
+            if (t.contains(keyword)) {
+                resultsList.add(t);
+            }
+        }
+        return resultsList;
+    }
+
     public String listTasks() {
 
         String text;

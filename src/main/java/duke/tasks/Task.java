@@ -23,4 +23,8 @@ public class Task {
 
         return "T" + PARTITION + isDoneCode + PARTITION + this.description;
     }
+
+    public boolean contains(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
 }
