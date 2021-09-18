@@ -78,28 +78,31 @@ public class UserInterface {
      */
     public static Command interpretUserInput() {
         String userInput = sc.nextLine();
-        if (userInput.replaceAll(" ", "").equals("bye")) {
+        if (Parser.isExitCommand(userInput)) {
             return Command.EXIT;
-        } else if (userInput.replaceAll(" ", "").equals("list")) {
+        }
+        if (Parser.isListCommand(userInput)) {
             return Command.LIST;
         }
 
         userInputs = splitCommandAndRemainder(userInput);
 
-        if ("todo".equals(userInputs[USER_COMMAND_INDEX])) {
+        if (Parser.isAddTodoCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_TODO;
-        } else if ("deadline".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isAddDeadlineCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_DEADLINE;
-        } else if ("event".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isAddEventCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_EVENT;
-        } else if ("done".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isSetDoneCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.DONE;
-        } else if ("delete".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isDeleteCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.DELETE;
         }
 
         return Command.INVALID;
     }
+
+    
 
     private static int getTaskIndex(String word) {
         return Integer.parseInt(word.replaceAll(" ", ""));

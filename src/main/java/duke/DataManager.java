@@ -10,11 +10,9 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DataManager {
-    private static final String fileName = ".\\DukeData.txt";
-    private static final int TASK_TYPE_INDEX = 0;
-    private static final int DONE_INDEX = 1;
+    private static final String FILENAME = ".\\DukeData.txt";
     private static final int DESCRIPTION_INDEX = 2;
-    private static final int TOTAL_DATA_PARTS = 3;
+    private static final String NEWLINE = "\n";
 
     /**
      * Adds all entries in DukeData.txt.
@@ -22,14 +20,14 @@ public class DataManager {
     public static void load() {
         boolean hasCorruptedLines = false;
         try {
-            FileInputStream fis = new FileInputStream(fileName);
+            FileInputStream fis = new FileInputStream(FILENAME);
             Scanner sc = new Scanner(fis);
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
-                data = processData(data);
+                data = Parser.processFileData(data);
                 String[] dataParts;
                 try {
-                    dataParts = splitToParts(data);
+                    dataParts = Parser.splitToDataParts(data);
                 } catch (DukeMissingDataException e) {
                     hasCorruptedLines = true;
                     continue;
@@ -50,37 +48,6 @@ public class DataManager {
     }
 
     /**
-     * Returns an array of Strings each representing a characteristic of the Task class.
-     * If String given cannot be split into 3 parts, String is considered corrupted. Exception will be thrown.
-     *
-     * @param data String to be split.
-     * @return Split data.
-     * @throws DukeMissingDataException If data cannot be split into 3 parts.
-     */
-    private static String[] splitToParts(String data) throws DukeMissingDataException {
-        String[] dataParts = data.split(",");
-        if (dataParts.length < TOTAL_DATA_PARTS) {
-            throw new DukeMissingDataException();
-        }
-        for (int i = 0; i < TOTAL_DATA_PARTS; i++) {
-            dataParts[i] = dataParts[i].trim();
-        }
-        return dataParts;
-    }
-
-    /**
-     * Returns a processed String that can be easily split into parts later.
-     *
-     * @param data String to be processed.
-     * @return A processed String.
-     */
-    private static String processData(String data) {
-        data = data.replace(']', ',');
-        data = data.replace('[', ' ');
-        return data;
-    }
-
-    /**
      * Returns lateral location of the specified position.
      *
      * @param dataParts Strings to be passed into TaskManager functions.
@@ -89,37 +56,27 @@ public class DataManager {
      */
     private static void addTaskEntry(String[] dataParts) throws DukeBlankDescriptionsException,
             DukeInvalidTaskIndexException {
-        if (dataParts[TASK_TYPE_INDEX].equals("T")) {
+        if (Parser.isTodoEntry(dataParts)) {
             TaskManager.addTask(Command.ADD_TODO, dataParts[DESCRIPTION_INDEX]);
-            if (dataParts[DONE_INDEX].equals("X")) {
+            if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }
-        } else if (dataParts[TASK_TYPE_INDEX].equals("D")) {
-            processDescription(dataParts, "(by:", "/by");
+        } else if (Parser.isDeadlineEntry(dataParts)) {
+            Parser.processDeadlineDescription(dataParts);
             TaskManager.addTask(Command.ADD_DEADLINE, dataParts[DESCRIPTION_INDEX]);
-            if (dataParts[DONE_INDEX].equals("X")) {
+            if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }
         } else {
-            processDescription(dataParts, "(at:", "/at");
+            Parser.processEventDescription(dataParts);
             TaskManager.addTask(Command.ADD_EVENT, dataParts[DESCRIPTION_INDEX]);
-            if (dataParts[DONE_INDEX].equals("X")) {
+            if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }
         }
     }
-
-    /**
-     * Changes description field in dataParts.
-     *
-     * @param dataParts   Contains Strings that needs to be processed.
-     * @param target      Substring to be replaced.
-     * @param replacement The replacement.
-     */
-    private static void processDescription(String[] dataParts, String target, String replacement) {
-        dataParts[DESCRIPTION_INDEX] = dataParts[DESCRIPTION_INDEX].replace(")", "");
-        dataParts[DESCRIPTION_INDEX] = dataParts[DESCRIPTION_INDEX].replace(target, replacement);
-    }
+    
+    
 
     /**
      * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
@@ -127,7 +84,7 @@ public class DataManager {
     public static void save() {
         FileWriter writer;
         try {
-            writer = new FileWriter(fileName);
+            writer = new FileWriter(FILENAME);
         } catch (IOException e) {
             UserInterface.showSaveError();
             return;
@@ -137,7 +94,7 @@ public class DataManager {
             Iterator<Task> i = TaskManager.createIterator();
             while (i.hasNext()) {
                 buffer.write(String.valueOf(i.next()));
-                buffer.write("\n");
+                buffer.write(NEWLINE);
             }
             buffer.close();
         } catch (IOException e) {
