@@ -19,7 +19,7 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the EXPECTED_2.TXT
+# run the program, feed commands from input.txt file and redirect the output to the EXPECTED.TXT
 java -classpath ../bin Duke < input.txt > EXPECTED_2.TXT
 
 # convert to UNIX format

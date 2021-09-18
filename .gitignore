@@ -14,6 +14,8 @@ src/main/resources/docs/
 bin/
 
 /text-ui-test/ACTUAL.txt
+/text-ui-test/ACTUAL_2.TXT
+/text-ui-test/ACTUAL_3.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 data/
 src/main/java/META-INF/

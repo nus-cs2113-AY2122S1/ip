@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.DukeException;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Ui {
         }
     }
 
-    public void acknowledgeCommand(Task task, int numberOfTasks) {
+    public void acknowledgeAddCommand(Task task, int numberOfTasks) {
         String acknowledgementMessage = "Understood, "
                 + NL + task.toString()
                 + NL + "has been added. You now have "
@@ -66,8 +67,22 @@ public class Ui {
         Duke.UI.showMessage(list.toString());
     }
     
+    public void acknowledgeDoneCommand(Task taskDone) {
+        showMessage("Good Job!! I've marked this task as done:" + NL
+                + taskDone.toString());
+    }
+    
+    public void acknowledgeRemoveCommand(Task removedTask, int numberOfTasks) {
+        showMessage("I have removed the task: " + NL + removedTask.toString()
+                + NL + "You now have " + numberOfTasks + " tasks remaining");
+    }
+    
     public void showHelpMessage() {
         showMessage(HELP_MESSAGE);
+    }
+    
+    public void showError(DukeException de) {
+        showMessage(de.getErrorMessage());
     }
     
     
