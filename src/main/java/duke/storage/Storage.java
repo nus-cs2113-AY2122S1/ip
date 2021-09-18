@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.tasks.Task;
 import duke.tasks.TaskManager;
 import duke.parser.Parser;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
@@ -12,10 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DataManager {
+public class Storage {
 
-    private final String storagePath = "duke.txt";
-    private final File storage = new File(storagePath);
+    private static final String STORAGE_PATH = "duke.txt";
+    private File storage = new File(STORAGE_PATH);
     private static final String STORAGE_CREATED_MESSAGE =
             "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
 
@@ -27,7 +26,7 @@ public class DataManager {
         }
     }
 
-    public ArrayList<String> readFromStorage() throws DukeException {
+    private ArrayList<String> readFromStorage() throws DukeException {
 
         ArrayList<String> fileLines = new ArrayList<>();
         try {
@@ -42,17 +41,17 @@ public class DataManager {
         return fileLines;
     }
 
-    public ArrayList<Data> processStorage(ArrayList<String> fileLines) throws DukeException {
-        ArrayList<Data> dataList = new ArrayList<>();
-        Data data;
-        for (String line : fileLines) {
-            data = Parser.parseData(line);
-            dataList.add(data);
+    private ArrayList<Data> processStorageToData(ArrayList<String> fileLines) throws DukeException {
+        ArrayList<Data> dataObjects = new ArrayList<>();
+        Data dataObject;
+        for (String fileLine : fileLines) {
+            dataObject = Parser.parseData(fileLine);
+            dataObjects.add(dataObject);
         }
-        return dataList;
+        return dataObjects;
     }
 
-    private void addDataToTaskList(ArrayList<Data> dataObjects) throws DukeException {
+    private void writeToTaskList(ArrayList<Data> dataObjects) throws DukeException {
         for (Data data : dataObjects) {
             Task task = data.toTask();
             TaskManager.addTask(task);
@@ -62,13 +61,13 @@ public class DataManager {
     public void loadStorageToTaskList() throws DukeException {
 
         ArrayList<String> fileLines = readFromStorage();
-        ArrayList<Data> dataObjects = processStorage(fileLines);
-        addDataToTaskList(dataObjects);
+        ArrayList<Data> dataObjects = processStorageToData(fileLines);
+        writeToTaskList(dataObjects);
     }
 
-    public void writeToStorage(ArrayList<String> fileLines) throws DukeException {
+    private void writeToStorage(ArrayList<String> fileLines) throws DukeException {
         try {
-            FileWriter writer = new FileWriter(storagePath);
+            FileWriter writer = new FileWriter(STORAGE_PATH);
             for (String line : fileLines) {
                 writer.append(line);
             }

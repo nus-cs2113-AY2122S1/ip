@@ -12,26 +12,26 @@ public class Data {
     private static final String CORRUPTED_DATA_ERROR =
             "OH NO! Your data is corrupted, starting a new file for you...";
 
-    private static boolean hasCorruptedData(String[] parsedDataString) {
-        switch (parsedDataString[0]) {
+    private boolean hasCorruptedData(String[] parameters) {
+        switch (parameters[0]) {
         case "T":
-            return (parsedDataString.length < 3);
+            return (parameters.length < 3);
         case "D":
             // Fallthrough
         case "E":
-            return (parsedDataString.length < 4);
+            return (parameters.length < 4);
         default:
             return true;
         }
     }
 
-    public Data(String ... parsedDataString) throws DukeException {
+    public Data(String ... parameters) throws DukeException {
 
-        if (hasCorruptedData(parsedDataString)) {
+        if (hasCorruptedData(parameters)) {
             throw new DukeException(CORRUPTED_DATA_ERROR);
         }
 
-        this.parameters = parsedDataString;
+        this.parameters = parameters;
     }
 
     public Task toTask() throws DukeException {

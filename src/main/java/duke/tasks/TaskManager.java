@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class TaskManager {
 
-    private static final ArrayList<Task> TASKS = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int currentTasksCount = 0;
 
     public static boolean isValidTaskNumber(int taskNumber) {
@@ -18,39 +18,39 @@ public class TaskManager {
 
     public static ArrayList<String> convertTasksToDataStringFormat() {
         ArrayList<String> taskDataStrings =
-                (ArrayList<String>) TASKS.stream()
+                (ArrayList<String>) tasks.stream()
                         .map(Task::toDataStringFormat)
                         .collect(Collectors.toList());
         return taskDataStrings;
     }
 
     public static void clearAllTasks() {
-        TASKS.clear();
+        tasks.clear();
         currentTasksCount = 0;
     }
 
     public static void addTask(Task task) {
-        TASKS.add(task);
+        tasks.add(task);
         currentTasksCount++;
     }
 
     public static String listTasks() {
         String listOfTasks = "";
         for (int i = 0; i < currentTasksCount; i++) {
-            listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + TASKS.get(i).toString());
+            listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + tasks.get(i).toString());
         }
         return listOfTasks;
     }
 
     public static Task deleteTask(int taskIndex) {
-        Task deletedTask = TASKS.get(taskIndex - 1);
-        TASKS.remove(taskIndex - 1);
+        Task deletedTask = tasks.get(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
         currentTasksCount--;
         return deletedTask;
     }
 
     public static Task markTaskDone(int taskIndex) {
-        Task doneTask = TASKS.get(taskIndex - 1);
+        Task doneTask = tasks.get(taskIndex - 1);
         doneTask.setDone();
         return doneTask;
     }

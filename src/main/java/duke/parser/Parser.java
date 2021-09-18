@@ -110,7 +110,7 @@ public class Parser {
     }
 
     public static Data parseData(String fileLine) throws DukeException {
-        String[] dataParameters = trimArrayElements(fileLine.split(DATA_SEPARATOR));
-        return new Data(dataParameters);
+        String[] parameters = trimArrayElements(fileLine.split(DATA_SEPARATOR));
+        return new Data(parameters);
     }
 }

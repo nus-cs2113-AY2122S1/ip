@@ -4,35 +4,35 @@ import duke.commands.Command;
 import duke.commands.CommandResult;
 import duke.commands.ExitCommand;
 import duke.exceptions.DukeException;
-import duke.storage.DataManager;
-import duke.ui.DukeUi;
+import duke.storage.Storage;
+import duke.ui.Ui;
 import duke.parser.Parser;
 import java.util.Scanner;
 
 public class Duke {
 
-    private static final DukeUi UI = new DukeUi();
-    private static final DataManager DATA_MANAGER = new DataManager();
-    private static final Scanner SCANNER = new Scanner(System.in);
+    private Ui ui = new Ui();
+    private Storage storage = new Storage();
+    private Scanner scanner = new Scanner(System.in);
 
     private void loadStorage() {
         try {
-            DATA_MANAGER.loadStorageToTaskList();
+            storage.loadStorageToTaskList();
         } catch (DukeException exception) {
-            UI.showErrorMessage(exception);
+            ui.showErrorMessage(exception);
         }
     }
 
     private void updateStorage() {
         try {
-            DATA_MANAGER.loadTaskListToStorage();
+            storage.loadTaskListToStorage();
         } catch (DukeException exception) {
-            UI.showErrorMessage(exception);
+            ui.showErrorMessage(exception);
         }
     }
 
     private String readUserInput() {
-        return SCANNER.nextLine().trim();
+        return scanner.nextLine().trim();
     }
 
     private void executeUserInputs() {
@@ -42,12 +42,12 @@ public class Duke {
                 String userInputString = readUserInput();
                 Command command = Parser.parseCommand(userInputString);
                 CommandResult result = command.executeCommand();
-                UI.showFeedbackToUser(result);
+                ui.showFeedbackToUser(result);
                 if (command instanceof ExitCommand) {
                     break;
                 }
             } catch (DukeException exception) {
-                UI.showErrorMessage(exception);
+                ui.showErrorMessage(exception);
             } finally {
                 updateStorage();
             }
@@ -55,7 +55,7 @@ public class Duke {
     }
 
     public void run() {
-        UI.showGreetMessage();
+        ui.showGreetMessage();
         loadStorage();
         executeUserInputs();
     }

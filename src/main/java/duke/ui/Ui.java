@@ -3,7 +3,7 @@ package duke.ui;
 import duke.commands.CommandResult;
 import duke.exceptions.DukeException;
 
-public class DukeUi {
+public class Ui {
 
     private static final String LOGO = " ______        _\n"
             + "(______)      | |\n"
