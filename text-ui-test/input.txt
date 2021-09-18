@@ -17,4 +17,8 @@ event    /at
 deadline    /by
 delete 1
 list
+deadline word limit is not a requirement /by tomorrow
+deadline word limit is not a requirement /by 2021-09-20
+find word
+find not a word
 bye
