@@ -26,7 +26,7 @@ public class DoneCommand extends UserCommand {
         }
 
         String result = "     Nice! I've marked this task as done: \n";
-        result += "       " + completedTask + "\n";
+        result += "       " + completedTask;
         return result;
     }
 }
