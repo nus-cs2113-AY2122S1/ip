@@ -26,15 +26,15 @@ I've added the following task:
 [T][ ] task 1
 ========================================================================
 I've added the following task:
-[D][ ] task 2 (by: tomorrow)
+[D][ ] task 2 (by: Dec 9 2020 12:0 )
 ========================================================================
 I've added the following task:
-[E][ ] task 3 (at: thursday 1pm)
+[E][ ] task 3 (at: Dec 12 2021 9:30 )
 ========================================================================
 Here is your current list
 1.[T][ ] task 1
-2.[D][ ] task 2 (by: tomorrow)
-3.[E][ ] task 3 (at: thursday 1pm)
+2.[D][ ] task 2 (by: Dec 9 2020 12:0 )
+3.[E][ ] task 3 (at: Dec 12 2021 9:30 )
 You have 3 task(s) on your list.
 ========================================================================
 task 1 done. Well done.
@@ -51,9 +51,9 @@ the done command is of the form "done x" where x is an entry number
 That entry number does not exist in your list
 ========================================================================
 I've deleted the following entry
-[D][X] task 2 (by: tomorrow)
+[D][X] task 2 (by: Dec 9 2020 12:0 )
 ========================================================================
 I've deleted the following entry
-[E][X] task 3 (at: thursday 1pm)
+[E][X] task 3 (at: Dec 12 2021 9:30 )
 ========================================================================
 Bye! See you soon!

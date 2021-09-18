@@ -1,25 +1,42 @@
 package duke.control;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Takes input for adding Tasks and parses the information. Input is a String, either from user or from save file.
+ */
 public class Parser {
     private static final int TODO_NAME_START_INDEX = 5;
     private static final int DEADLINE_NAME_START_INDEX = 9;
     private static final int EVENT_NAME_START_INDEX = 6;
     private static final int DATETIME_START_INDEX_OFFSET = 4;
+    private static final int FILE_DATETIME_INDEX_OFFSET = 3;
     private static final int FILE_TASK_NAME_INDEX = 7;
     private static final int FILE_TASKTYPE_INDEX = 1;
     private static final int FILE_ISDONE_INDEX = 4;
 
-    protected static String parseInputForDateTime(String input) {
+    /**
+     * Parses the user input to obtain Date and Time information for Deadline and Event tasks
+     * Method is called by parseTaskType, which performs the check for whether the input is in the correct format,
+     * so it can be assumed that the input is valid. Format is yyyy-mm-dd xx:xx
+     *
+     * @param input user input String
+     * @return the Date and Time information for a Deadline or Event task
+     */
+    protected static LocalDateTime parseInputForDateTime(String input) throws DateTimeParseException {
         int markerIndex = input.indexOf('/');
         int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
-        return (input.substring(dateTimeStartIndex).trim());
+        String dateTimeString = input.substring(dateTimeStartIndex).trim();
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
+        return dateTime;
     }
 
     protected static TaskList.TaskType parseTaskType(String input) throws InvalidInputFormatException {
-        if (input.startsWith("deadline") && input.contains(" /by")) {
+        if (input.startsWith("deadline") && input.contains(" /by ")) {
             return TaskList.TaskType.DEADLINE;
         }
-        if (input.startsWith("event") && input.contains(" /at")) {
+        if (input.startsWith("event") && input.contains(" /at ")) {
             return TaskList.TaskType.EVENT;
         }
         if (input.startsWith("todo")) {
@@ -66,11 +83,19 @@ public class Parser {
         }
     }
 
-    protected static String parseDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
-        int markerIndex = inputLineFromFile.indexOf('(');
-        int endIndex = inputLineFromFile.indexOf(')');
-        int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
-        return (inputLineFromFile.substring(dateTimeStartIndex, endIndex).trim());
+    /**
+     * Parses date and time information from a line from the save file.
+     * Data is saved in the form [D][X] name (by: MMM d yyyy
+     *
+     * @param inputLineFromFile
+     * @return
+     * @throws InvalidInputFormatException
+     */
+    protected static LocalDateTime parseDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
+        int markerIndex = inputLineFromFile.indexOf("DT: ");
+        int dateTimeStartIndex = markerIndex + FILE_DATETIME_INDEX_OFFSET;
+        String dateTimeString = inputLineFromFile.substring(dateTimeStartIndex).trim();
+        return LocalDateTime.parse(dateTimeString);
     }
 
     protected static String parseDescriptionFromFile(String inputLineFromFile, TaskList.TaskType taskType) throws
@@ -78,7 +103,7 @@ public class Parser {
         if (taskType.equals(TaskList.TaskType.TODO)) {
             return inputLineFromFile.substring(FILE_TASK_NAME_INDEX);
         } else if (taskType.equals(TaskList.TaskType.DEADLINE) || taskType.equals(TaskList.TaskType.EVENT)) {
-            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX, inputLineFromFile.indexOf(" ("));
+            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX, inputLineFromFile.indexOf("DT:"));
         } else {
             throw new InvalidInputFormatException();
         }

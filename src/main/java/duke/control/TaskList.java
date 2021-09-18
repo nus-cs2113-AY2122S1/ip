@@ -4,6 +4,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -85,21 +87,16 @@ public class TaskList {
             TaskType entryType = Parser.parseTaskTypeFromFile(inputLineFromFile);
             boolean isDone = Parser.parseIsDoneFromFile(inputLineFromFile);
             String description = Parser.parseDescriptionFromFile(inputLineFromFile, entryType);
-            String dateTime = "";
-            if (entryType.equals(TaskType.DEADLINE) || entryType.equals(TaskType.EVENT)) {
-                dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
-            }
-
             Task newEntry;
             switch (entryType) {
             case TODO:
                 newEntry = new ToDo(description);
                 break;
             case DEADLINE:
-                newEntry = new Deadline(description, dateTime);
+                newEntry = addDeadlineFromFile(inputLineFromFile, description);
                 break;
             case EVENT:
-                newEntry = new Event(description, dateTime);
+                newEntry = addEventFromFile(inputLineFromFile, description);
                 break;
             default:
                 throw new InvalidInputFormatException();
@@ -112,6 +109,17 @@ public class TaskList {
         } catch (InvalidInputFormatException e) {
             System.out.println("Something went wrong, could not load saved data");
         }
+    }
+
+    private Deadline addDeadlineFromFile(String inputLineFromFile, String description) throws
+            InvalidInputFormatException{
+        LocalDateTime dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
+        return new Deadline(description, dateTime);
+    }
+
+    private Event addEventFromFile(String inputLineFromFile, String description) throws InvalidInputFormatException {
+        LocalDateTime dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
+        return new Event(description, dateTime);
     }
 
     public int getNumberOfEntries() {

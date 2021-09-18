@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone = false;
 
@@ -10,10 +10,6 @@ public class Task {
 
     public String getStatusSymbol() {
         return ("[" + (isDone ? "X" : " ") + "]");
-    }
-
-    public String getTaskSymbol() {
-        return "[T]";
     }
 
     public String getName() {
@@ -35,4 +31,8 @@ public class Task {
     public String toString() {
         return (getTaskSymbol() + getStatusSymbol() + " " + name);
     }
+
+    public abstract String getTaskSymbol();
+
+    public abstract String toStringForSave();
 }

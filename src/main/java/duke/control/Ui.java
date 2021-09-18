@@ -28,6 +28,15 @@ public class Ui {
                 " for more information");
     }
 
+    public static void printLoadSaveErrorMessage() {
+        System.out.println("Something went wrong, could not load save file.");
+    }
+
+    private static void printInvalidDateTimeFormatMessage() {
+        System.out.println("date and time information in the wrong format. Please enter date and time as " +
+                "yyyy-mm-ddTxx:xx where xx:xx is 24-hour time");
+    }
+
     public static void printWelcomeMessage() {
         String logo = " ____        _\n"
                 + "|  _ \\ _   _| | _____\n"
