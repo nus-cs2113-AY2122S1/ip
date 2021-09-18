@@ -4,6 +4,10 @@ import tasks.Task;
 import tasks.TaskList;
 import exceptions.TaskNotExistException;
 
+
+/**
+ * A class to handle commands of setting certain task done.
+ */
 public class DoneCommand extends UserCommand {
     private int index;
 

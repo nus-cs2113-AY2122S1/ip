@@ -3,24 +3,45 @@ package tasks;
 import exceptions.TaskEmptyException;
 import exceptions.TimeMissingException;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
-public class TaskList implements Serializable {
+/**
+ * <h1>Stores all tasks of a user</h1>
+ *
+ */
+public class TaskList {
     private List<Task> tasks = new ArrayList<>();
 
-    public Task addList(String userInput) throws TimeMissingException, TaskEmptyException {
+    /**
+     * Adds a task into the list using the add task command.
+     * @param userInput A String follows the exact format of adding a task
+     * @return Task The Task object that has been added the list.
+     * @throws TimeMissingException Throws TimeMissingException if the time of Deadline/Event is missing.
+     * @throws TaskEmptyException Throws TaskEmptyException if the content of a task is missing.
+     */
+    public Task addTask (String userInput) throws TimeMissingException, TaskEmptyException {
         Task newTask;
         newTask = getTask(userInput);
         this.tasks.add(newTask);
         return newTask;
     }
 
+    /**
+     * Adds a task into the list with a Task object.
+     *
+     * @param task A Task object to be inserted into the list
+     * @return Nothing
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * List all the tasks stored as plain text.
+     *
+     * @return String The plain text describes all tasks stored.
+     */
     public String listTasks() {
         String tasklist = "";
         for (int i = 0; i < tasks.size(); i++) {
@@ -41,6 +62,14 @@ public class TaskList implements Serializable {
 
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
         return this.tasks.remove(index - 1);
+    }
+
+    public String save() {
+        String result = "";
+        for (Task task : tasks) {
+            result += task.save();
+        }
+        return result;
     }
 
     private Task getTask(String userInput) throws TaskEmptyException, TimeMissingException {
@@ -71,17 +100,6 @@ public class TaskList implements Serializable {
         return new Event(taskName, deadline, false);
     }
 
-    private void add(Task e) {
-        this.tasks.add(e);
-    }
-
-    public String save() {
-        String result = "";
-        for (Task task : tasks) {
-            result += task.save();
-        }
-        return result;
-    }
 
     public TaskList findTask(String keyword) {
         TaskList satisfiedTasks = new TaskList();

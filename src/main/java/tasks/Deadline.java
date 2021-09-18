@@ -1,8 +1,13 @@
 package tasks;
 
-import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task implements Serializable {
+
+/**
+ * <h1>The <b>Deadline</b> type {@link Task} from users</h1>
+ */
+public class Deadline extends Task {
 
     private String deadline;
 

@@ -4,6 +4,10 @@ import exceptions.TaskNotExistException;
 import tasks.Task;
 import tasks.TaskList;
 
+
+/**
+ * A class to handle commands of deleting certain task inside the task list.
+ */
 public class DeleteCommand extends UserCommand{
     private int index;
 

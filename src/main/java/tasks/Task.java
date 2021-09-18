@@ -1,9 +1,9 @@
-
 package tasks;
 
-import java.io.Serializable;
-
-abstract public class Task implements Serializable {
+/**
+ * <h1>A class to represent tasks from users</h1>
+ */
+abstract public class Task {
     private String taskName;
     private boolean isCompleted;
 

@@ -11,6 +11,11 @@ import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * <h1>Load saved user status</h1>
+ * <p>This FildReader provides methods to reload the tasks that a user saved previously.</p>
+ *
+ */
 public class FileReader {
     private Path filePath;
 
@@ -19,11 +24,12 @@ public class FileReader {
         filePath = Paths.get(System.getProperty("user.dir"), "UserStatus", fileName);
     }
 
-    public FileReader() {
-        String fileName = "default.txt";
-        filePath = Paths.get(System.getProperty("user.dir"),"UserStatus", fileName);
-    }
 
+    /**
+     * Load all tasks that a user has saved before.
+     *
+     * @return {@link TaskList} returns the reloaded task with a {@link TaskList} object.
+     */
     public TaskList restore() {
         try {
             Scanner fileReader = new Scanner(filePath);
@@ -39,6 +45,11 @@ public class FileReader {
         }
     }
 
+    /**
+     * checks whether the corresponding file that saves the users' tasks exist or not
+     *
+     * @return boolean returns true if the file exists, otherwise false.
+     */
     public boolean fileExists() {
         return filePath.toFile().exists();
     }

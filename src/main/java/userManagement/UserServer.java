@@ -9,11 +9,12 @@ import exceptions.DukeException;
 import commands.QuitCommand;
 import commands.UserCommand;
 
-
+/**
+ * A class to serve user's requests
+ */
 public class UserServer {
     private String userName;
     private TaskList userTasks;
-
     private UserManager userManager;
     private TextUI UI = new TextUI();
     private Parser parser = new Parser();

@@ -5,6 +5,9 @@ import tasks.TaskList;
 import exceptions.TaskEmptyException;
 import exceptions.TimeMissingException;
 
+/**
+ * A class to handle commands of adding tasks into the task list. Types of tasks can be Todo, Deadline, and Event.
+ */
 public class AddTaskCommand extends UserCommand {
     private String addCommand;
 
@@ -15,7 +18,7 @@ public class AddTaskCommand extends UserCommand {
 
     @Override
     public String execute () throws TaskEmptyException, TimeMissingException {
-        Task newTask = tasks.addList(this.addCommand);
+        Task newTask = tasks.addTask(this.addCommand);
         int totalNumberOfTasks = tasks.getTotalTaskNumber();
 
         String result = "     Got it. I've added this task: \n";

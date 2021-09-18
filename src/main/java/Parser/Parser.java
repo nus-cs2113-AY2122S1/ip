@@ -7,8 +7,21 @@ import exceptions.DukeException;
 import exceptions.TaskIndexMissingException;
 
 
+
+/**
+ * A class to interpret user commands.
+ */
 public class Parser {
 
+    /**
+     * Interprets user input, and gets what type of command it is.
+     *
+     * @param command The user input
+     * @param userTasks The TaskList object holds all tasks of this user.
+     *
+     * @return The command type
+     * @throws DukeException Throws exception if the command is not exactly following the format.
+     */
     public UserCommand parseCommand(String command, TaskList userTasks) throws DukeException {
         String[] inputSplits = command.split(" ");
         UserCommand input;

@@ -1,8 +1,15 @@
 package tasks;
 
-import java.io.Serializable;
 
-public class Event extends Task implements Serializable {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
+
+/**
+ * <h1>The <b>Event</b> type {@link Task} from users</h1>
+ */
+public class Event extends Task {
 
     String completeTime;
 
