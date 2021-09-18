@@ -23,7 +23,7 @@ public class TaskManager {
     private static final String INVALID_TASK_LABEL = "I";
     private static final String INVALID_TASK_ARGUMENT = "Invalid";
     private static final String NO_ARGUMENT_INPUT = "none";
-    private static final String EMPTY_LINE = "";
+    private static final String EMPTY_STRING = "";
 
     public TaskManager() {
         tasks = new ArrayList<Task>();
@@ -31,7 +31,7 @@ public class TaskManager {
 
     public String saveTasksAsString() {
         if (tasks.isEmpty()) {
-            return EMPTY_LINE; //return empty data file
+            return EMPTY_STRING; //return empty data file
         }
         String taskListAsString = "";
         String taskLabel;
@@ -96,12 +96,12 @@ public class TaskManager {
         while (fileScanner.hasNext()) {
             currentLine = fileScanner.nextLine();
             // if any empty lines, skip to next iteration of the while loop
-            if (currentLine.equals(EMPTY_LINE)) {
+            if (currentLine.equals(EMPTY_STRING)) {
                 continue;
             }
             taskType = String.valueOf(currentLine.charAt(TASK_INDEX));
             taskStatus = String.valueOf(currentLine.charAt(TASK_STATUS_INDEX)).equals("1");
-            String restOfLine[] = currentLine.substring(TASK_DESCRIPTION_INDEX).split(" : ", 2);
+            String[] restOfLine = currentLine.substring(TASK_DESCRIPTION_INDEX).split(" : ", 2);
             loadCurrentLineTask(taskType, taskStatus, restOfLine);
         }
     }
