@@ -7,7 +7,7 @@ import duke.util.Program;
 import java.io.IOException;
 
 
-import static duke.util.UserData.initFileWithDirectory;
+import static duke.storage.UserData.initFileWithDirectory;
 
 public class Duke {
 

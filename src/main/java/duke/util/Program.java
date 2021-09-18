@@ -1,6 +1,8 @@
 package duke.util;
 
 import duke.parser.Parser;
+import duke.storage.StorageDataParser;
+import duke.storage.UserData;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -12,8 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import static duke.util.UserData.readFromFile;
-import static duke.util.UserData.writeToFile;
+import static duke.storage.UserData.readFromFile;
 
 public class Program {
     private boolean canTerminateHal = false;    //when true, the program exits
@@ -29,7 +30,7 @@ public class Program {
         loadSavedTasks();
     }
 
-    StorageDataParser parser = new StorageDataParser();
+    StorageDataParser storageParser = new StorageDataParser();
     static HalUi ui = new HalUi();
     static Parser messageParser = new Parser();
     public static int getNumItems() {
@@ -55,7 +56,7 @@ public class Program {
         } else {
             throw new HalException("I'm sorry, but I don't know what that means :((");
         }
-        UserData.writeToFile(parser.saveListAsString(listTasks));
+        UserData.writeToFile(storageParser.saveListAsString(listTasks));
     }
 
     //function to load tasks from memory

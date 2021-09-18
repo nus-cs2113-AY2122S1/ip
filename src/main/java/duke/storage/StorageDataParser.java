@@ -1,4 +1,4 @@
-package duke.util;
+package duke.storage;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -51,7 +51,6 @@ public class StorageDataParser {
     }
 
     public Task readListFromMemory(String str) {
-//        System.out.println(str);
         String taskDescriptionSubstring = "";
         String taskDescription = "";
         String taskTiming = "";
