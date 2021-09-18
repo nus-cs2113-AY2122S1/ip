@@ -17,6 +17,10 @@ public abstract class Task {
         this.doneStatus = "X";
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String toString() {
         return "[" + doneStatus + "] " + description;
     }

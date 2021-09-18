@@ -24,6 +24,26 @@ public class TaskManager {
         return taskDataStrings;
     }
 
+    public static ArrayList<Task> getTaskList() {
+        return tasks;
+    }
+
+    public static ArrayList<Task> filterListByKeyword(String filterWord) {
+        ArrayList<Task> filteredList =
+                (ArrayList<Task>) tasks.stream()
+                        .filter((task) -> task.getDescription().toLowerCase().contains(filterWord.toLowerCase()))
+                        .collect(Collectors.toList());
+        return filteredList;
+    }
+
+    public static String listTasks(ArrayList<Task> tasks) {
+        String listOfTasks = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + tasks.get(i).toString());
+        }
+        return listOfTasks;
+    }
+
     public static void clearAllTasks() {
         tasks.clear();
         currentTasksCount = 0;
@@ -32,14 +52,6 @@ public class TaskManager {
     public static void addTask(Task task) {
         tasks.add(task);
         currentTasksCount++;
-    }
-
-    public static String listTasks() {
-        String listOfTasks = "";
-        for (int i = 0; i < currentTasksCount; i++) {
-            listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + tasks.get(i).toString());
-        }
-        return listOfTasks;
     }
 
     public static Task deleteTask(int taskIndex) {

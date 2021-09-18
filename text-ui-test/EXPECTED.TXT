@@ -137,7 +137,13 @@ Alright, I have deleted the following task for you:
 [T][X] Buy flowers for girlfriend
 You have 7 tasks in your list now!
 ____________________________________________________________
+Here are the matching tasks in your list:
+1. [E][ ] Cry (at: 2am - 4am)
+2. [E][X] Cry again (at: NOW)
+____________________________________________________________
 Start exception handling test
+____________________________________________________________
+OH NO! Please provide a keyword to find your tasks...
 ____________________________________________________________
 OH NO! You need to specify the task number...
 Enter "list" to check the task number!

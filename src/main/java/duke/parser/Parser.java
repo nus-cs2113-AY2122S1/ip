@@ -12,6 +12,7 @@ import duke.commands.HelpCommand;
 import duke.commands.InvalidCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkTaskDoneCommand;
+import duke.commands.FindCommand;
 import duke.storage.Data;
 import duke.exceptions.DukeException;
 
@@ -27,6 +28,7 @@ public class Parser {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_ECHO = "echo";
     private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_FIND = "find";
 
     private static final String DEADLINE_PREFIX = "/by";
     private static final String EVENT_PREFIX = "/at";
@@ -88,6 +90,8 @@ public class Parser {
             return new AddEventCommand(argument);
         case COMMAND_DELETE:
             return new DeleteTaskCommand(argument);
+        case COMMAND_FIND:
+            return new FindCommand(argument);
         default:
             return new InvalidCommand();
         }

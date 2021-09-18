@@ -1,6 +1,8 @@
 package duke.commands;
 
+import duke.tasks.Task;
 import duke.tasks.TaskManager;
+import java.util.ArrayList;
 
 public class ListCommand extends Command {
 
@@ -12,7 +14,8 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult executeCommand() {
-        String listOfTasks = TaskManager.listTasks();
+        ArrayList<Task> tasks = TaskManager.getTaskList();
+        String listOfTasks = TaskManager.listTasks(tasks);
         CommandResult result = new CommandResult(LIST_TASKS_MESSAGE + listOfTasks);
         return result;
     }

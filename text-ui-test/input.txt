@@ -31,7 +31,9 @@ list
  delete    5
 delete 9
 delete    1
+find cry
 echo Start exception handling test
+find
 delete
 delete ok
 delete  12
