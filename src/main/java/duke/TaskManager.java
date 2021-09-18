@@ -38,7 +38,7 @@ public class TaskManager {
      * @throws DukeInvalidTaskIndexException  If wrong index is passed into the function.
      */
     public static void setDone(int taskIndex) throws DukeInvalidTaskIndexException {
-        if (checkCorrectIndex(taskIndex)) {
+        if (isCorrectIndex(taskIndex)) {
             tasks.get(taskIndex - 1).markDone();
         } else {
             throw new DukeInvalidTaskIndexException();
@@ -70,7 +70,7 @@ public class TaskManager {
         }
     }
 
-    private static boolean checkCorrectIndex(int index) {
+    private static boolean isCorrectIndex(int index) {
         return index > 0 && index <= numOfTasks;
     }
 
@@ -104,7 +104,7 @@ public class TaskManager {
      * @throws DukeInvalidTaskIndexException If the index given exceeds the range of current number of Task.
      */
     public static Task delete(int taskIndex) throws DukeInvalidTaskIndexException {
-        if (checkCorrectIndex(taskIndex)) {
+        if (isCorrectIndex(taskIndex)) {
             Task deleting = tasks.get(taskIndex - 1);
             tasks.remove(taskIndex - 1);
             numOfTasks--;

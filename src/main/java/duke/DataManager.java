@@ -82,6 +82,7 @@ public class DataManager {
     
     /**
      * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
+     * Will notify user whether the save was successful or not.
      */
     public static void save() {
         FileWriter writer;
@@ -109,6 +110,7 @@ public class DataManager {
     /**
      * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
      * Successful saves are silent.
+     * User will be notified if save was noy successful.
      */
     public static void saveWithoutMessages() {
         FileWriter writer;
