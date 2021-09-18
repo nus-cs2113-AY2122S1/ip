@@ -2,6 +2,7 @@ package console;
 
 import commands.DeadlineCommand;
 import commands.EventCommand;
+import commands.HelpCommand;
 import commands.ToDoCommand;
 import commands.Command;
 import commands.DeleteCommand;
@@ -49,8 +50,7 @@ public abstract class InputParser {
             command = new ExitCommand(taskManager);
             break;
         default:
-            // fake command first
-            command = new ExitCommand(taskManager);
+            command = new HelpCommand(taskManager);
             Error.displayInvalidCommandError();
             break;
         }

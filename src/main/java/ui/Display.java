@@ -15,19 +15,19 @@ public class Display {
     public static final String TASK_NAME_EVENT = "EVENT";
 
     public static void printListTaskLine() {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 
     public static void printAddTaskLine() {
-        System.out.println("*********************************");
+        System.out.println("******************************************************");
     }
 
     public static void printDeleteTaskLine() {
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     }
 
     public static void printSeparatingLine() {
-        System.out.println("---------------------------------");
+        System.out.println("------------------------------------------------------");
     }
 
     public static void displayGreetings() {
@@ -86,5 +86,66 @@ public class Display {
     public static void displayTaskCompleted(String taskName) {
         System.out.println("Nice! Marking " + taskName + " as done!");
         System.out.println(createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE) + " " + taskName);
+    }
+
+    public static void displayToDoHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: todo");
+        System.out.println("Example input: todo homework");
+        printSeparatingLine();
+    }
+
+    public static void displayEventHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: event");
+        System.out.println("Example input: event project/On Monday");
+        printSeparatingLine();
+    }
+
+    public static void displayDeadlineHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: deadline");
+        System.out.println("Example input: deadline Submit file/By Friday");
+        printSeparatingLine();
+    }
+
+    public static void displayListHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: list");
+        System.out.println("Example input: list");
+        printSeparatingLine();
+    }
+
+    public static void displayDoneHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: done");
+        System.out.println("Example input: done 3");
+        printSeparatingLine();
+    }
+
+    public static void displayDeleteHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: delete");
+        System.out.println("Example input: delete 1");
+        printSeparatingLine();
+    }
+
+    public static void displayByeHelperText() {
+        printSeparatingLine();
+        System.out.println("Command: bye");
+        System.out.println("Example input: bye");
+        printSeparatingLine();
+    }
+
+
+    public static void displayHelperText() {
+        System.out.println("Please refer to the details for acceptable commands");
+        displayToDoHelperText();
+        displayEventHelperText();
+        displayDeadlineHelperText();
+        displayListHelperText();
+        displayDoneHelperText();
+        displayDeleteHelperText();
+        displayByeHelperText();
     }
 }
