@@ -16,6 +16,7 @@ import task.TaskManager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public abstract class InputParser {
@@ -35,6 +36,7 @@ public abstract class InputParser {
     public static final String DATE_SEPARATOR = "/";
     public static final String SEPARATOR = " ";
     public static final String EMPTY_TASK_NAME = "";
+    public static final String DATE_REGEX = "MMM dd yyyy";
 
     public static String getUserCommand(Scanner in) {
         return in.nextLine();
@@ -116,12 +118,12 @@ public abstract class InputParser {
     }
 
     public static String getTaskNameComponent(String taskInformation) throws DukeTaskNameEmptyException {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        String[] taskComponents = getTaskWithDateComponents(taskInformation);
         return getTaskName(taskComponents[TASK_INFORMATION_NAME_INDEX]);
     }
 
     public static String getDateTimeStringComponent(String taskInformation) {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
+        String[] taskComponents = getTaskWithDateComponents(taskInformation);
         return taskComponents[TASK_INFORMATION_DATE_INDEX];
     }
 
@@ -139,11 +141,32 @@ public abstract class InputParser {
 
     public static LocalDate getDateComponent(String taskInformation) {
         String dateTimeInformation = getDateTimeStringComponent(taskInformation);
-        return LocalDate.parse(InputParser.getDateStringComponent(dateTimeInformation));
+        return LocalDate.parse(getDateStringComponent(dateTimeInformation));
     }
 
     public static LocalTime getTimeComponent(String taskInformation) {
         String dateTimeInformation = getDateTimeStringComponent(taskInformation);
-        return LocalTime.parse(InputParser.getTimeStringComponent(dateTimeInformation));
+        return LocalTime.parse(getTimeStringComponent(dateTimeInformation));
+    }
+
+    public static String getSavedDateStringComponent(String dateTimeInformation) {
+        int lastSpaceIndex = dateTimeInformation.lastIndexOf(SEPARATOR);
+        return dateTimeInformation.substring(DATETIME_DATE_INDEX, lastSpaceIndex);
+    }
+
+    public static String getSavedTimeStringComponent(String dateTimeInformation) {
+        int lastSpaceIndex = dateTimeInformation.lastIndexOf(SEPARATOR);
+        return dateTimeInformation.substring(lastSpaceIndex + INDEX_OFFSET);
+    }
+
+    public static LocalDate getSavedDateComponent(String taskInformation) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_REGEX);
+        String dateTimeInformation = getDateTimeStringComponent(taskInformation);
+        return LocalDate.parse(getSavedDateStringComponent(dateTimeInformation), dateTimeFormatter);
+    }
+
+    public static LocalTime getSavedTimeComponent(String taskInformation) {
+        String dateTimeInformation = getDateTimeStringComponent(taskInformation);
+        return LocalTime.parse(getSavedTimeStringComponent(dateTimeInformation));
     }
 }

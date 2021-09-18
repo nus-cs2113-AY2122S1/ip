@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    public final String DATE_REGEX = "MMM dd yyyy HH:mm";
+    public final String DATE_TIME_REGEX = "MMM dd yyyy HH:mm";
     private LocalDateTime time;
 
     public Deadline(String taskName, LocalDate deadlineDate, LocalTime deadlineTime) {
@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     public String getTime() {
-        return time.format(DateTimeFormatter.ofPattern(DATE_REGEX));
+        return time.format(DateTimeFormatter.ofPattern(DATE_TIME_REGEX));
     }
 
     @Override
