@@ -6,6 +6,9 @@ import duke.Duke;
 
 import java.util.Scanner;
 
+/**
+ * Managing output messages and reading inputs from the user.
+ */
 public class Ui {
     private static final String LOGO = "    ____        _        \n"
             + "   |  _ \\ _   _| | _____ \n"
@@ -51,7 +54,7 @@ public class Ui {
     }
 
     private void printInvalidAddTaskMessage(CommandResult result) {
-        String description = result.getDescription();
+        String description = result.getResultDescription();
         switch (description) {
         case CommandResult.INVALID_TODO:
             description = "TODO FORMAT: todo [description]" + System.lineSeparator()
@@ -131,57 +134,81 @@ public class Ui {
                 + BORDER_LINE);
     }
 
-    public void printCommandResult(CommandResult result) {
+    /**
+     * Print successful command result.
+     * 
+     * @param result command result from user's input.
+     */
+    private void printSuccessCommandResult(CommandResult result) {
         String commandType = result.getCommand().getCommandType();
-        String commandResult = result.getResult();
-        switch (commandResult) {
-        case CommandResult.EXECUTION_SUCCESS:
-            switch (commandType) {
-            case Command.COMMAND_LIST:
-                printTaskList();
+        switch (commandType) {
+        case Command.COMMAND_LIST:
+            printTaskList();
+            break;
+        case Command.COMMAND_DONE:
+            printMarkDoneMessage(result);
+            break;
+        case Command.COMMAND_ADD_TODO:
+        case Command.COMMAND_ADD_DEADLINE:
+        case Command.COMMAND_ADD_EVENT:
+            printAddTaskMessage();
+            break;
+        case Command.COMMAND_DELETE:
+            printDeleteTaskMessage(result.getResultDescription());
+            break;
+        case Command.COMMAND_EXIT:
+            break;
+        default:
+            printInvalidCommandMessage();
+            break;
+        }
+    }
+
+    /**
+     * Print command result that failed to be executed.
+     * 
+     * @param result command result from user's input.
+     */
+    private void printFailCommandResult(CommandResult result) {
+        String commandType = result.getCommand().getCommandType();
+        switch (commandType) {
+        case Command.COMMAND_DONE:
+            switch (result.getResultDescription()) {
+            case CommandResult.INVALID_NUMBER:
+                printInvalidTaskNotExistedMessage();
                 break;
-            case Command.COMMAND_DONE:
-                printMarkDoneMessage(result);
-                break;
-            case Command.COMMAND_ADD_TODO:
-            case Command.COMMAND_ADD_DEADLINE:
-            case Command.COMMAND_ADD_EVENT:
-                printAddTaskMessage();
-                break;
-            case Command.COMMAND_DELETE:
-                printDeleteTaskMessage(result.getDescription());
-                break;
-            case Command.COMMAND_EXIT:
-                break;
-            default:
-                printInvalidCommandMessage();
+            case CommandResult.INVALID_TASK_ALREADY_DONE:
+                printInvalidTaskAlreadyDoneMessage(result);
                 break;
             }
             break;
+        case Command.COMMAND_DELETE:
+            printInvalidTaskNotExistedMessage();
+            break;
+        case Command.COMMAND_ADD_TODO:
+        case Command.COMMAND_ADD_DEADLINE:
+        case Command.COMMAND_ADD_EVENT:
+            printInvalidAddTaskMessage(result);
+            break;
+        default:
+            printInvalidCommandMessage();
+            break;
+        }
+    }
+
+    /**
+     * Print command result of each user's command.
+     * 
+     * @param result command result from user's input.
+     */
+    public void printCommandResult(CommandResult result) {
+        String commandResult = result.getResult();
+        switch (commandResult) {
+        case CommandResult.EXECUTION_SUCCESS:
+            printSuccessCommandResult(result);
+            break;
         case CommandResult.EXECUTION_FAIL:
-            switch (commandType) {
-            case Command.COMMAND_DONE:
-                switch (result.getDescription()) {
-                case CommandResult.INVALID_NUMBER:
-                    printInvalidTaskNotExistedMessage();
-                    break;
-                case CommandResult.INVALID_TASK_ALREADY_DONE:
-                    printInvalidTaskAlreadyDoneMessage(result);
-                    break;
-                }
-                break;
-            case Command.COMMAND_DELETE:
-                printInvalidTaskNotExistedMessage();
-                break;
-            case Command.COMMAND_ADD_TODO:
-            case Command.COMMAND_ADD_DEADLINE:
-            case Command.COMMAND_ADD_EVENT:
-                printInvalidAddTaskMessage(result);
-                break;
-            default:
-                printInvalidCommandMessage();
-                break;
-            }
+            printFailCommandResult(result);
             break;
         default:
             System.out.println("SOMETHING WENT WRONG");

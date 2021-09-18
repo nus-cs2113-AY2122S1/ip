@@ -28,6 +28,9 @@ public class Duke {
         ui.printWelcomeMessage();
     }
 
+    /**
+     * Run Duke until user enter the command "bye"
+     */
     public static void runDukeOperations() {
         Command userCommand;
         CommandResult result;

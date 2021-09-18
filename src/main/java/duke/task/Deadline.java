@@ -8,6 +8,15 @@ public class Deadline extends Task {
     
     private String deadlineDate;
 
+    /**
+     * Constructor of deadline objects by first initializing a task object
+     * then the deadlineDate of this object.
+     * 
+     * @param description task description from user's input, containing the task
+     *                    description and deadline date.
+     * @throws DukeInvalidAddTaskException if task description contains "--", which
+     * is a format reserved for only when saving the task to the text file.
+     */
     public Deadline(String description) throws DukeInvalidAddTaskException {
         super(Parser.getDescription(description, DEADLINE_TIME_KEYWORD));
         this.deadlineDate = Parser.getTime(description, DEADLINE_TIME_KEYWORD);
