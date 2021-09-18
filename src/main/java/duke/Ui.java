@@ -36,7 +36,7 @@ public class Ui {
 
     /**
      * Prints text within two horizontal lines.
-     * @param text String to be printed.
+     * @param text string to be printed.
      */
     public void printWithLines(String text) {
         out.println(HORIZONTAL_LINE);

@@ -31,12 +31,22 @@ public class Parser {
     public static final String INVALID_INPUT = "Your input is invalid.";
 
 
+    /**
+     * Parser constructor with its associated UI, Storage and TaskList
+     * @param ui UI to be used by Parser
+     * @param storage Storage to be used by Parser
+     * @param tasks TaskList to be used by Parser
+     */
     public Parser(Ui ui, Storage storage, TaskList tasks) {
         this.ui = ui;
         this.storage = storage;
         this.tasks = tasks;
     }
 
+    /**
+     * Parses user's raw input and initiates a new task to be added according to its type.
+     * @param input string of user's raw input
+     */
     public void trimInput(String input) {
 
         if (input.startsWith(DEADLINE)) {
@@ -57,6 +67,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Dissects user's raw input and returns an appropriate AddCommand object.
+     * @param input string of user's raw input
+     * @return an appropriate AddCommand object
+     * @throws DukeException
+     */
     public Command addTask(String input) throws DukeException {
 
         if (input.startsWith(TODO)) {
@@ -88,18 +104,34 @@ public class Parser {
         return new AddCommand(ui, tasks, newTask);
     }
 
+    /**
+     * Dissects user's raw input and returns an appropriate SetDoneCommand
+     * @param input string of user's raw input
+     * @return a SetDoneCommand object
+     */
     public Command markTaskDone(String input) {
         int taskNumber = Integer.parseInt(input.replace("done ", "")) - 1;
 
         return new SetDoneCommand(ui, tasks, taskNumber);
     }
 
+    /**
+     * Dissects user's raw input and returns an appropriate DeleteCommand
+     * @param input string of user's raw input
+     * @return a DeleteCommand object
+     */
     public Command deleteTask(String input) {
         int taskNumber = Integer.parseInt(input.replaceFirst("delete", "").trim()) - 1;
 
         return new DeleteCommand(ui, tasks, taskNumber);
     }
 
+    /**
+     * Dissects user's raw input beforehand and then calls appropriate command methods.
+     * @param input string of user's raw input
+     * @return a Command object
+     * @throws DukeException
+     */
     public Command findTask(String input) {
         String keyword = input.replaceFirst("find", "").trim();
 
