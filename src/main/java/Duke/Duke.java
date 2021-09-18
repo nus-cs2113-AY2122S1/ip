@@ -1,9 +1,9 @@
-import java.util.Scanner; // Import the Scanner class
-
-/*---------LOCAL IMPORT--------*/
+package Duke;/*---------LOCAL IMPORT--------*/
 import exceptions.DukeException;
-import tasks.TaskType;
-
+import processing.CommandHandler;
+import processing.TaskManager;
+import processing.TaskSafe;
+import processing.UI;
 
 
 public class Duke {
@@ -13,7 +13,7 @@ public class Duke {
     public static void processInput(String input) {
         try {
             CommandHandler command = new CommandHandler(input);
-            command.execute();
+            command.execute(taskManager);
             TaskSafe.saveToFile(taskManager.getTasks());
         } catch (DukeException e) {
             UI.showError(e);
@@ -36,7 +36,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        UI.greet();
+        UI.greetPartOne();
+        TaskSafe.loadFromFile(Duke.taskManager);
+        UI.greetPartTwo();
         run();
     }
 }

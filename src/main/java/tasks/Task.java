@@ -1,7 +1,5 @@
 package tasks;
 
-import exceptions.DukeException;
-
 public class Task {
     protected String name;
     protected String fullDescription;
@@ -11,7 +9,7 @@ public class Task {
 
     protected static int numTasks = 0;
 
-    public Task(String name) throws DukeException {
+    public Task(String name) {
         this(name,false);
     }
 
@@ -27,10 +25,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public boolean isDone() {
         return isDone;
     }
@@ -38,7 +32,7 @@ public class Task {
     @Override
     public String toString() {
         char mark = isDone ? 'X' : ' ';
-        return "[" + taskChar + "][" + mark + "] " + name;
+        return "[" + taskChar + "][" + mark + "] " + fullDescription;
     }
 
     public char getTaskChar() {
@@ -47,6 +41,14 @@ public class Task {
 
     public String getFullDescription() {
         return fullDescription;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public String getDate() {
+        return "";
     }
 
 }

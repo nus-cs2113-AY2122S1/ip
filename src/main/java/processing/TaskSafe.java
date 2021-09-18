@@ -1,3 +1,5 @@
+package processing;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,10 +16,10 @@ import tasks.TaskType;
 
 public class TaskSafe {
 
-    /*------------ PUBLIC STAIC VARIABLES --------- */
+    /*------------ PUBLIC STATIC VARIABLES --------- */
     private static final String DATA_PATH = "/data/duke.txt";
-    private static String rootPath = new File(".").getAbsolutePath();
-    private static String fullPath = rootPath + DATA_PATH;
+    private static final String rootPath = new File(".").getAbsolutePath();
+    private static final String fullPath = rootPath + DATA_PATH;
 
     /*-------------- SAVE ------------ */
     private static void appendToFile(Task task) throws DukeException{
@@ -29,26 +31,26 @@ public class TaskSafe {
             fw.write(taskToAdd);
             fw.close();
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
             throw new DukeException("Failed to save following task: \n" + task);
         }
     }
 
     /**
-     * Saves a tasklist to a file and overwrites what is in it
-     * @param taskList
+     * Saves a task list to a file and overwrites what is in it
+     * @param taskList list of tasks to save to file
      */
     public static void saveToFile(ArrayList<Task> taskList) {
         try {
             new FileWriter(fullPath,false).close();
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         for (Task t : taskList) {
             try {
                 appendToFile(t);
             } catch (DukeException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
@@ -78,13 +80,11 @@ public class TaskSafe {
             String[] split = task.split("\\|");
             switch (split[0]) {
             case "T":
-                t = TaskType.TODO;
                 descriptor = "todo " + split[2];
                 break;
             case "D":
                 t = TaskType.DEADLINE;
                 descriptor = split[2].replace(Deadline.DEADLINE_BY,TaskManager.DEADLINE_CLAUSE);
-                System.out.println(descriptor);
                 descriptor = descriptor.trim().replaceAll(".$",""); //remove last ')'
                 descriptor = "deadline " + descriptor;
                 break;
@@ -95,7 +95,7 @@ public class TaskSafe {
                 descriptor = "event " + descriptor;
                 break;
             }
-            isDone = split[1].equals("0") ? false : true;
+            isDone = !split[1].equals("0");
             CommandHandler command = new CommandHandler(descriptor);
             taskManager.addTask(command,t,isDone,false);
         } catch (PatternSyntaxException | DukeException e) {

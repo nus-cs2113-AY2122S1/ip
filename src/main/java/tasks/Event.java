@@ -14,4 +14,8 @@ public class Event extends Task {
         this.taskChar = 'E';
         this.fullDescription = name + " " + EVENT_AT + " " + this.at + ")";
     }
+
+    public String getDate() {
+        return at;
+    }
 }

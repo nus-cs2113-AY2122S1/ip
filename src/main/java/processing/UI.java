@@ -1,4 +1,5 @@
-import exceptions.DukeException;
+package processing;
+
 import tasks.Task;
 import java.util.Scanner;
 
@@ -11,16 +12,20 @@ public class UI {
 
     /*--------- PROCESSING CONSTANTS ------------ */
     public static final String FAREWELL_STR = "Bye. Hope to see you again soon!";
-    private static final String DIVIDER ="------------------------------------------";
-    private static final String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String GREETING = "_________________________\n"
-            + "Hello! I'm Duke\n"
-            + "Standby while I load up your schedule\n"
-            + "Loading...";
+    private static final String DIVIDER = "------------------------------------------";
+    private static final String BEGIN_STR = "What can I do for you?";
+    private static final String LOGO = """
+             ____        _       \s
+            |  _ \\ _   _| | _____\s
+            | | | | | | | |/ / _ \\
+            | |_| | |_| |   <  __/
+            |____/ \\__,_|_|\\_\\___|
+            """;
+    private static final String GREETING = """
+            _________________________
+            Hello! I'm Duke.Duke
+            Standby while I load up your schedule
+            Loading...""";
 
     private static void showNumTasks(Task t, int taskSize) {
         System.out.println(t);
@@ -28,12 +33,15 @@ public class UI {
     }
 
     /*----------- PUBLIC FUNCTIONS --------------- */
-    public static void greet() {
+    public static void greetPartOne() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(GREETING);
-        TaskSafe.loadFromFile(Duke.taskManager);
-        System.out.println("------------------------------------");
-        System.out.println("What can I do for you?");
+
+    }
+
+    public static void greetPartTwo() {
+        printDivider();
+        System.out.println(BEGIN_STR);
     }
 
     public static void printDivider() {
@@ -41,7 +49,7 @@ public class UI {
     }
 
     public static void showError(Exception e) {
-        System.out.println(e);
+        e.printStackTrace();
     }
 
     public static void showAddTask (Task t, int taskSize) {
