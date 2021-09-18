@@ -23,6 +23,8 @@ public class Parser {
             return CommandWord.EVENT;
         } else if (beginsWith(userInput, DELETE_COMMAND)) {
             return CommandWord.DELETE;
+        } else if (beginsWith(userInput, HELP_COMMAND)) {
+            return CommandWord.HELP;
         } else {
             return CommandWord.INVALID;
         }

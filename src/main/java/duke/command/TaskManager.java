@@ -52,6 +52,9 @@ public class TaskManager {
         case DELETE:
             deleteTask(userInput);
             break;
+        case HELP:
+            Ui.printHelp();
+            break;
         case INVALID:
             Ui.printUnrecognizedCommandMessage();
             break;

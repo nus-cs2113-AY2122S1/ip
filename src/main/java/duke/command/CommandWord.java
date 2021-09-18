@@ -7,5 +7,6 @@ public enum CommandWord {
     DEADLINE,
     EVENT,
     DELETE,
+    HELP,
     INVALID
 }
