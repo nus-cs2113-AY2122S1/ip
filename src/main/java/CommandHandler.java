@@ -14,7 +14,7 @@ public class CommandHandler {
     public String descriptorAfterClause;
 
     public CommandHandler(String input) throws DukeException{
-        if (input.equals("")) {
+        if (input.isBlank()) {
             throw new DukeException("Invalid Task Input");
         }
         // padding extra space to circumvent indexOutOfBounds
