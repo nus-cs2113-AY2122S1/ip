@@ -25,6 +25,8 @@ public class Parser {
             return CommandWord.DELETE;
         } else if (beginsWith(userInput, HELP_COMMAND)) {
             return CommandWord.HELP;
+        } else if (beginsWith(userInput, EXIT_COMMAND)) {
+            return CommandWord.EXIT;
         } else {
             return CommandWord.INVALID;
         }
