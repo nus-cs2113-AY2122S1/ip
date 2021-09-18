@@ -5,6 +5,7 @@ import duke.exception.InvalidCommandException;
 import duke.parser.Parser;
 import duke.ui.Ui;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -15,11 +16,12 @@ public class TaskList {
     private static final String DEADLINE_DELIMITER = "/by";
     private static final String EVENT_DELIMITER = "/at";
 
-    private static final String ERROR_TASK_NUMBER = "Invalid task number!";
-    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
+    private static final String TASK_NUMBER_ERROR = "Invalid task number!";
+    private static final String TASK_ADD_MESSAGE = "Got it. I've added this task:";
     private static final String TASK_ALREADY_COMPLETED = "Task already marked as completed!";
     private static final String TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
-    private static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:";
+    private static final String TASK_REMOVE_MESSAGE = "Noted. I've removed this task:";
+    private static final String NO_TASK_FOUND_ERROR = "No matching task has been found";
 
     protected ArrayList<Task> taskList;
 
@@ -57,7 +59,7 @@ public class TaskList {
                 ui.printMessage(TASK_DONE_MESSAGE, currentTask.toString());
             }
         } else {
-            ui.printMessage(ERROR_TASK_NUMBER);
+            ui.printMessage(TASK_NUMBER_ERROR);
         }
     }
 
@@ -111,7 +113,7 @@ public class TaskList {
         }
         // Adding the task to the list of task
         taskList.add(newTask);
-        ui.printMessage(ADD_TASK_MESSAGE,
+        ui.printMessage(TASK_ADD_MESSAGE,
                 newTask.toString(),
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
@@ -132,15 +134,15 @@ public class TaskList {
      * @param index the index of the task to delete
      */
     public void deleteTask(Ui ui, int index) {
-        if (ensureProperIndex(index)) {
-            Task removedTask = taskList.get(index);
-            taskList.remove(index);
-            ui.printMessage(REMOVE_TASK_MESSAGE,
-                    removedTask.toString(),
-                    "Now you have " + taskList.size() + " tasks in the list.");
-        } else {
-            ui.printMessage(ERROR_TASK_NUMBER);
+        if (!ensureProperIndex(index)) {
+            ui.printMessage(TASK_NUMBER_ERROR);
+            return;
         }
+        Task removedTask = taskList.get(index);
+        taskList.remove(index);
+        ui.printMessage(TASK_REMOVE_MESSAGE,
+                removedTask.toString(),
+                "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
@@ -151,9 +153,22 @@ public class TaskList {
     public void listTasks(Ui ui) {
         if (taskList.size() == 0) {
             ui.printEmptyTaskMessage();
-        } else {
-            ui.printAllTasks(this);
+            return;
         }
+            ui.printAllTasks(this);
+    }
+
+    public void findTasks(Ui ui, String searchTerm) {
+        ArrayList<Task> foundTasks = (ArrayList<Task>) taskList
+                .stream()
+                .filter((i) -> i.getDescription().contains(searchTerm))
+                .collect(Collectors.toList());
+        if (foundTasks.size() <= 0) {
+            ui.printMessage(NO_TASK_FOUND_ERROR);
+            return;
+        }
+        ui.printFoundTask(foundTasks);
+
     }
 }
 

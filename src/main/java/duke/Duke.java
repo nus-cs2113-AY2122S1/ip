@@ -16,6 +16,7 @@ public class Duke {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
+    private static final String FIND_COMMAND = "find";
 
     protected TaskList taskList;
     protected Storage store;
@@ -107,6 +108,10 @@ public class Duke {
         case COMMAND_DELETE:
             int taskDeleteIndex = parsed.getArgsAsIndex();
             taskList.deleteTask(ui, taskDeleteIndex);
+            break;
+        case FIND_COMMAND:
+            String searchTerm = parsed.getArguments();
+            taskList.findTasks(ui,searchTerm);
             break;
         default:
             taskList.addTask(ui, parsed);

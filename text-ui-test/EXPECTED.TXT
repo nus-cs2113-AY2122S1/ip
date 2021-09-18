@@ -114,5 +114,21 @@ Here are your tasks in your list:
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
+Got it. I've added this task:
+[D][ ] word limit is not a requirement (by: tomorrow)
+Now you have 3 tasks in the list.
+____________________________________________________________
+┌─[ShellRPG@Newbie]-[~]
+└──╼ $ ____________________________________________________________
+Here are the matching tasks in your list:
+[D][X] this should word (by: tiger time :-))
+[D][ ] word limit is not a requirement (by: tomorrow)
+____________________________________________________________
+┌─[ShellRPG@Newbie]-[~]
+└──╼ $ ____________________________________________________________
+No matching task has been found
+____________________________________________________________
+┌─[ShellRPG@Newbie]-[~]
+└──╼ $ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

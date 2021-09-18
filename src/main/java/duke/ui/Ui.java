@@ -1,6 +1,8 @@
 package duke.ui;
 
+import duke.task.Task;
 import duke.task.TaskList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -19,8 +21,9 @@ public class Ui {
     private static final String TASKLIST_EMPTY = "There are no tasks in your list";
     private static final String TASKLIST_MESSAGE = "Here are your tasks in your list:";
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+    private static final String SEARCH_FOUND_MESSAGE = "Here are the matching tasks in your list:";
 
-    private static final String UNKNOWN_COMMAND_MESSAGE = "☹ OOPS!!! I'm sorry, "
+    private static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "☹ OOPS!!! I'm sorry, "
             + "but I don't know what that means "
             + ":-(";
     private static final String NUMBER_ERROR_MESSAGE = "☹ NO!!! done/delete "
@@ -30,6 +33,7 @@ public class Ui {
     private static final String FILE_ERROR_MESSAGE = "Could not update file or directory!!";
     private static final String FILE_INITIALISATION_ERROR_MESSAGE = "Failed to "
             + "read or create data file!";
+
 
     protected String username;
     protected Scanner in;
@@ -77,7 +81,7 @@ public class Ui {
     public void printPrompt() {
         System.out.printf("┌─["
                 + "ShellRPG@%s" +
-                "]-[~]\n", username);
+                "]-[~]" + System.lineSeparator(), username);
         System.out.print("└──╼ $ ");
     }
 
@@ -101,17 +105,18 @@ public class Ui {
         System.out.println(LINE);
     }
 
+
     /**
      * List all task added by the user Show which task has been completed
      */
     public void printAllTasks(TaskList taskList) {
-        System.out.println(LINE);
-        System.out.println(TASKLIST_MESSAGE);
+        StringBuilder allTasksMessage = new StringBuilder();
+        allTasksMessage.append(TASKLIST_MESSAGE).append(System.lineSeparator());
         // Printing all tasks with their completion status
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-            System.out.printf("%d. %s\n", (i + 1), taskList.getTask(i));
+            allTasksMessage.append(String.format("%d. %s" + System.lineSeparator(), (i + 1), taskList.getTask(i)));
         }
-        System.out.println(LINE);
+        printMessage(allTasksMessage.toString().strip());
     }
 
     /**
@@ -122,7 +127,7 @@ public class Ui {
     }
 
     public void printUnknownCommandError() {
-        printMessage(UNKNOWN_COMMAND_MESSAGE);
+        printMessage(UNKNOWN_COMMAND_ERROR_MESSAGE);
     }
 
     public void printArgumentsError() {
@@ -143,5 +148,15 @@ public class Ui {
 
     public void printInvalidFileInitialisationError() {
         printMessage(FILE_INITIALISATION_ERROR_MESSAGE);
+    }
+
+    public void printFoundTask(ArrayList<Task> foundTasks) {
+        StringBuilder foundTasksMessage = new StringBuilder();
+        foundTasksMessage
+                .append(SEARCH_FOUND_MESSAGE)
+                .append(System.lineSeparator());
+        // Printing all tasks with their completion status
+        foundTasks.forEach((i) -> foundTasksMessage.append(i).append(System.lineSeparator()));
+        printMessage(foundTasksMessage.toString().strip());
     }
 }
