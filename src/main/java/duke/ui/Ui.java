@@ -133,6 +133,7 @@ public class Ui {
             System.out.println("    The list is currently empty!");
         } else {
             int taskWithKeywordCount = 0;
+            System.out.println("    Finding tasks with keyword \"" + keyword + "\":");
             for (int i = 0; i < taskSize; i++) {
                 String taskDescription = Duke.getTaskList().getTasks().get(i).getDescription();
                 if (taskDescription.contains(keyword)) {
