@@ -92,10 +92,10 @@ public class Storage {
             task = new Todo(words[TASK_NAME]);
             break;
         case "D":
-            task = new Deadline(words[TASK_NAME], words[TASK_DATE]);
+            task = new Deadline(words[TASK_NAME], Parser.parseDateTime(words[TASK_DATE]));
             break;
         case "E":
-            task = new Event(words[TASK_NAME], words[TASK_DATE]);
+            task = new Event(words[TASK_NAME], Parser.parseDateTime(words[TASK_DATE]));
             break;
         default:
             throw new DukeException(ERROR_UNRECOGNISED_TASK_TYPE);
