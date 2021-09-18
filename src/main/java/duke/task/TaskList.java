@@ -6,25 +6,24 @@ import duke.parser.Parser;
 import duke.ui.Ui;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
 
-    public static final String COMMAND_TODO = "todo";
-    public static final String COMMAND_DEADLINE = "deadline";
-    public static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
 
-    public static final String DEADLINE_DELIMITER = "/by";
-    public static final String EVENT_DELIMITER = "/at";
+    private static final String DEADLINE_DELIMITER = "/by";
+    private static final String EVENT_DELIMITER = "/at";
 
-    public static final String ERROR_TASK_NUMBER = "Invalid task number!";
-    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
-    public static final String TASK_ALREADY_COMPLETED = "Task already marked as completed!";
-    public static final String TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
-    public static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:";
+    private static final String ERROR_TASK_NUMBER = "Invalid task number!";
+    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:";
+    private static final String TASK_ALREADY_COMPLETED = "Task already marked as completed!";
+    private static final String TASK_DONE_MESSAGE = "Nice! I've marked this task as done:";
+    private static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:";
 
+    protected ArrayList<Task> taskList;
 
-    private final ArrayList<Task> taskList;
-
-    public TaskManager() {
+    public TaskList() {
         taskList = new ArrayList<>();
     }
 

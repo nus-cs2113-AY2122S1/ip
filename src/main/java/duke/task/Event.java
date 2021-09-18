@@ -2,12 +2,13 @@ package duke.task;
 
 public class Event extends Task {
 
-    public static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of "
+    private static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of "
             + "a event cannot be empty.";
-    public static final String AT_EMPTY_ERROR_MESSAGE = "The time at which of a "
+    private static final String AT_EMPTY_ERROR_MESSAGE = "The time at which of a "
             + "event should be completed cannot be"
             + " empty.";
-    private String at;
+
+    protected String at;
 
     /**
      * Creates an Event Task

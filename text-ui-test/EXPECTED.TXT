@@ -1,7 +1,7 @@
 ____________________________________________________________
 [+] Welcome to Shell RPG
 [+] Searching for Character........
-[+] Character VeryImportantUsername Found!
+[+] Character Newbie Found!
 [+] Character Level: 100
 [+] Access Granted! Welcome to: 
  #####  #     # ####### #       #          ######  ######   #####  
@@ -12,107 +12,107 @@ ____________________________________________________________
 #     # #     # #       #       #          #    #  #       #     # 
  #####  #     # ####### ####### #######    #     # #        #####  
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 There are no tasks in your list
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Invalid task number!
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Got it. I've added this task:
 [T][ ] Work out
 Now you have 1 tasks in the list.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][ ] Work out
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 ☹ Oh no!!! Arguments or delimiter could not be found.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Got it. I've added this task:
 [D][ ] this should word (by: tiger time :-))
 Now you have 2 tasks in the list.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][ ] Work out
 2. [D][ ] this should word (by: tiger time :-))
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 ☹ Oh no!!! Arguments or delimiter could not be found.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Got it. I've added this task:
 [E][ ] project meeting (at: Some day and sometime)
 Now you have 3 tasks in the list.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][ ] Work out
 2. [D][ ] this should word (by: tiger time :-))
 3. [E][ ] project meeting (at: Some day and sometime)
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] Work out
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][X] Work out
 2. [D][ ] this should word (by: tiger time :-))
 3. [E][ ] project meeting (at: Some day and sometime)
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Nice! I've marked this task as done:
 [D][X] this should word (by: tiger time :-))
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][X] Work out
 2. [D][X] this should word (by: tiger time :-))
 3. [E][ ] project meeting (at: Some day and sometime)
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 ☹ OOPS!!! The description of a event cannot be empty.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 ☹ OOPS!!! The description of a deadline cannot be empty.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Noted. I've removed this task:
 [T][X] Work out
 Now you have 2 tasks in the list.
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [D][X] this should word (by: tiger time :-))
 2. [E][ ] project meeting (at: Some day and sometime)
 ____________________________________________________________
-┌─[ShellRPG@VeryImportantUsername]-[~]
+┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

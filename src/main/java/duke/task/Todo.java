@@ -2,7 +2,7 @@ package duke.task;
 
 public class Todo extends Task {
 
-    public static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of a todo cannot be empty.";
+    private static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of a todo cannot be empty.";
 
     /**
      * Creates a Todo Task

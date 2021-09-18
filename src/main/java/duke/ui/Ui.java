@@ -1,13 +1,13 @@
-package duke.util;
+package duke.ui;
 
-import duke.task.TaskManager;
+import duke.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
 
-    public static final String LINE = "____________________________________________________________";
-    public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
-    public static final String SHELL_RPG_BANNER =
+    private static final String LINE = "____________________________________________________________";
+
+    private static final String SHELL_RPG_BANNER =
             " #####  #     # ####### #       #          ######  ######   #####  \n"
                     + "#     # #     # #       #       #          #     # #     # #     # \n"
                     + "#       #     # #       #       #          #     # #     # #       \n"
@@ -15,10 +15,24 @@ public class Ui {
                     + "      # #     # #       #       #          #   #   #       #     # \n"
                     + "#     # #     # #       #       #          #    #  #       #     # \n"
                     + " #####  #     # ####### ####### #######    #     # #        #####  ";
-    public static final String TASKLIST_EMPTY = "There are no tasks in your list";
-    public static final String TASKLIST_MESSAGE = "Here are your tasks in your list:";
-    private String username;
-    private Scanner in;
+
+    private static final String TASKLIST_EMPTY = "There are no tasks in your list";
+    private static final String TASKLIST_MESSAGE = "Here are your tasks in your list:";
+    private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+
+    private static final String UNKNOWN_COMMAND_MESSAGE = "☹ OOPS!!! I'm sorry, "
+            + "but I don't know what that means "
+            + ":-(";
+    private static final String NUMBER_ERROR_MESSAGE = "☹ NO!!! done/delete "
+            + "should only be given a number!";
+    private static final String ARGUMENTS_ERROR_MESSAGE = "☹ Oh no!!! Arguments or "
+            + "delimiter could not be found.";
+    private static final String FILE_ERROR_MESSAGE = "Could not update file or directory!!";
+    private static final String FILE_INITIALISATION_ERROR_MESSAGE = "Failed to "
+            + "read or create data file!";
+
+    protected String username;
+    protected Scanner in;
 
     public Ui(String username) {
         this.username = username;
@@ -90,7 +104,7 @@ public class Ui {
     /**
      * List all task added by the user Show which task has been completed
      */
-    public void printAllTasks(TaskManager taskList) {
+    public void printAllTasks(TaskList taskList) {
         System.out.println(LINE);
         System.out.println(TASKLIST_MESSAGE);
         // Printing all tasks with their completion status
@@ -105,5 +119,29 @@ public class Ui {
      */
     public void printEmptyTaskMessage() {
         printMessage(TASKLIST_EMPTY);
+    }
+
+    public void printUnknownCommandError() {
+        printMessage(UNKNOWN_COMMAND_MESSAGE);
+    }
+
+    public void printArgumentsError() {
+        printMessage(ARGUMENTS_ERROR_MESSAGE);
+    }
+
+    public void printNumberError() {
+        printMessage(NUMBER_ERROR_MESSAGE);
+    }
+
+    public void printInvalidArguments(String errorMessage) {
+        printMessage("☹ OOPS!!! " + errorMessage);
+    }
+
+    public void printInvalidFileError() {
+        printMessage(FILE_ERROR_MESSAGE);
+    }
+
+    public void printInvalidFileInitialisationError() {
+        printMessage(FILE_INITIALISATION_ERROR_MESSAGE);
     }
 }

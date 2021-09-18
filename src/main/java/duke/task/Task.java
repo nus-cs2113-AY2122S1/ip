@@ -2,11 +2,13 @@ package duke.task;
 
 public class Task {
 
-    public static final String TASK_IS_DONE = "1";
-    public static final String TASK_IS_NOT_DONE = "0";
+    private static final String TASK_IS_DONE = "1";
+    private static final String TASK_IS_NOT_DONE = "0";
+    private static final String TASK_COMPLETED_ICON = "X";
+    private static final String TASK_NOT_COMPLETED_ICON = " ";
 
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -39,7 +41,7 @@ public class Task {
      * @return X if task is already completed else just blank
      */
     private String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? TASK_COMPLETED_ICON : TASK_NOT_COMPLETED_ICON);
     }
 
     /**

@@ -2,72 +2,71 @@ package duke;
 
 import duke.exception.ArgumentNotFoundException;
 import duke.exception.InvalidCommandException;
-import duke.task.TaskManager;
-import duke.util.Parser;
-import duke.util.Storage;
-import duke.util.Ui;
+import duke.task.TaskList;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.ui.Ui;
 import java.io.IOException;
 
 public class Duke {
 
-    public static final String USERNAME = "VeryImportantUsername";
+    private static final String USERNAME = "Newbie";
 
-    public static final String UNKNOWN_COMMAND_MESSAGE = "☹ OOPS!!! I'm sorry, "
-            + "but I don't know what that means "
-            + ":-(";
-    public static final String NUMBER_ERROR_MESSAGE = "☹ NO!!! done/delete "
-            + "should only be given a number!";
-    public static final String ARGUMENTS_ERROR_MESSAGE = "☹ Oh no!!! Arguments or "
-            + "delimiter could not be found.";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
 
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_BYE = "bye";
-    public static final String COMMAND_DONE = "done";
-    public static final String COMMAND_DELETE = "delete";
+    protected TaskList taskList;
+    protected Storage store;
+    protected Ui ui;
 
-    public static TaskManager taskList = new TaskManager();
-    public static Storage store = new Storage();
-    public static Ui uiInteract = new Ui(USERNAME);
+    protected boolean isRunning;
 
-    public static boolean isRunning = true;
+    public Duke(String filePath) {
+        ui = new Ui(USERNAME);
+        store = new Storage(filePath);
+        taskList = new TaskList();
+        setIsRunning(true);
 
+        try {
+            store.loadFile(taskList);
+        } catch (IOException | IllegalArgumentException fileException) {
+            ui.printInvalidFileInitialisationError();
+            System.exit(1);
+        }
+    }
 
-    public static void main(String[] args) {
-        uiInteract.printBanner();
-        printMenuPrompt();
+    public void run() {
+        ui.printBanner();
+        dukeMainLoop();
     }
 
     /**
      * Handles the user input and loop logic Calls handleCommand and terminates when isRunning is false
      */
-    private static void printMenuPrompt() {
-        try {
-            store.loadFile(taskList);
-        } catch (IOException | IllegalArgumentException fileException) {
-            uiInteract.printMessage("Failed to read or create data file!");
-            System.exit(1);
-        }
-        while (isRunning) {
+    public void dukeMainLoop() {
+        while (getIsRunning()) {
             //Printing user prompt
-            uiInteract.printPrompt();
+            ui.printPrompt();
             // Reading user input
-            String userInput = uiInteract.getUserInput();
+            String userInput = ui.getUserInput();
             //Handling Exceptions
             try {
                 handleCommand(userInput);
             } catch (ArgumentNotFoundException | NullPointerException errorMessage) {
-                uiInteract.printMessage(ARGUMENTS_ERROR_MESSAGE);
+                ui.printArgumentsError();
             } catch (NumberFormatException invalidParsing) {
-                uiInteract.printMessage(NUMBER_ERROR_MESSAGE);
+                ui.printNumberError();
             } catch (IllegalArgumentException invalidArguments) {
-                uiInteract.printMessage("☹ OOPS!!! " + invalidArguments.getMessage());
+                ui.printInvalidArguments(invalidArguments.getMessage());
             } catch (InvalidCommandException invalidCommand) {
-                uiInteract.printMessage(UNKNOWN_COMMAND_MESSAGE);
+                ui.printUnknownCommandError();
             } catch (IOException saveException) {
-                uiInteract.printMessage("Could not update file or directory!!");
+                ui.printInvalidFileError();
             }
         }
-        uiInteract.printGoodbye();
+        ui.printGoodbye();
     }
 
     /**
@@ -81,7 +80,7 @@ public class Duke {
      * @throws NullPointerException      no arguments were provided for a command
      * @throws IOException               when storing data to file has failed
      */
-    private static void handleCommand(String command)
+    public void handleCommand(String command)
             throws ArgumentNotFoundException, NumberFormatException,
             InvalidCommandException, IllegalArgumentException, NullPointerException,
             IOException {
@@ -90,32 +89,40 @@ public class Duke {
         Parser parsed = new Parser(command);
 
         if (parsed.getCommand() == null) {
-            uiInteract.printCommandHelp();
+            ui.printCommandHelp();
             return;
         }
 
         switch (parsed.getCommand()) {
         case COMMAND_LIST:
-            taskList.listTasks(uiInteract);
+            taskList.listTasks(ui);
             break;
         case COMMAND_BYE:
-            terminateProgram();
+            setIsRunning(false);
             break;
         case COMMAND_DONE:
             int taskDoneIndex = parsed.getArgsAsIndex();
-            taskList.markTaskAsDone(uiInteract, taskDoneIndex);
+            taskList.markTaskAsDone(ui, taskDoneIndex);
             break;
         case COMMAND_DELETE:
             int taskDeleteIndex = parsed.getArgsAsIndex();
-            taskList.deleteTask(uiInteract, taskDeleteIndex);
+            taskList.deleteTask(ui, taskDeleteIndex);
             break;
         default:
-            taskList.addTask(uiInteract, parsed);
+            taskList.addTask(ui, parsed);
         }
         store.saveFile(taskList);
     }
 
-    private static void terminateProgram() {
-        isRunning = false;
+    private void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    private boolean getIsRunning() {
+        return isRunning;
+    }
+
+    public static void main(String[] args) {
+        new Duke(null).run();
     }
 }

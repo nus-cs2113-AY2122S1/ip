@@ -1,9 +1,9 @@
-package duke.util;
+package duke.storage;
 
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 import duke.task.Todo;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,35 +15,35 @@ import java.util.stream.Stream;
 
 public class Storage {
 
-    public static final String CURRENT_DIRECTORY = "user.dir";
-    public static final String STRING_IP = "ip";
+    private static final String CURRENT_DIRECTORY = "user.dir";
+    private static final String DATA_DIRECTORY = "data";
+    private static final String STORAGE_FILE = "duke.txt";
 
-    public static final int BEGIN_INDEX = 0;
-    public static final int NOT_FOUND_INDEX = -1;
+    private static final String DELIMITER = "\\|";
 
-    public static final String DIRECTORY = "data";
-    public static final String STORAGE_FILE = "duke.txt";
-    public static final String DELIMITER = "\\|";
-    public static final String TODO_TYPE = "T";
-    public static final String EVENT_TYPE = "E";
-    public static final String DEADLINE_TYPE = "D";
+    private static final String TODO_TYPE = "T";
+    private static final String EVENT_TYPE = "E";
+    private static final String DEADLINE_TYPE = "D";
+    private static final String TASK_COMPLETED_STATUS = "1";
 
-    public static final int MAX_INDEX = 3;
-    public static final int DESCRIPTION_INDEX = 2;
-    public static final int MAX_EVENT_DEADLINE = 4;
+    private static final int BEGIN_INDEX = 0;
+    private static final int MAX_INDEX = 3;
+    private static final int DESCRIPTION_INDEX = 2;
+    private static final int MAX_EVENT_DEADLINE_LENGTH = 4;
 
-    private Path storagePath;
+
+    protected Path storagePath;
 
     /**
      * Use the current directory and tries to find the string ip and maps out the data directory
      */
-    public Storage() {
+    public Storage(String storageFilePath) {
         String path = System.getProperty(CURRENT_DIRECTORY);
-        int findIpIndex = path.indexOf(STRING_IP);
-        if (findIpIndex != NOT_FOUND_INDEX) {
-            path = path.substring(BEGIN_INDEX, findIpIndex + STRING_IP.length());
+        if (storageFilePath != null && !storageFilePath.isEmpty()) {
+            storagePath = Paths.get(path, storageFilePath);
+        } else {
+            storagePath = Paths.get(path, DATA_DIRECTORY, STORAGE_FILE);
         }
-        storagePath = Paths.get(path, DIRECTORY, STORAGE_FILE);
     }
 
     /**
@@ -85,14 +85,14 @@ public class Storage {
         Task singleTask;
         if (taskInfo[BEGIN_INDEX].equals(TODO_TYPE) && taskInfo.length == MAX_INDEX) {
             singleTask = new Todo(taskInfo[DESCRIPTION_INDEX]);
-        } else if (taskInfo[BEGIN_INDEX].equals(EVENT_TYPE) && taskInfo.length == MAX_EVENT_DEADLINE) {
+        } else if (taskInfo[BEGIN_INDEX].equals(EVENT_TYPE) && taskInfo.length == MAX_EVENT_DEADLINE_LENGTH) {
             singleTask = new Event(taskInfo[DESCRIPTION_INDEX], taskInfo[MAX_INDEX]);
-        } else if (taskInfo[BEGIN_INDEX].equals(DEADLINE_TYPE) && taskInfo.length == MAX_EVENT_DEADLINE) {
+        } else if (taskInfo[BEGIN_INDEX].equals(DEADLINE_TYPE) && taskInfo.length == MAX_EVENT_DEADLINE_LENGTH) {
             singleTask = new Deadline(taskInfo[DESCRIPTION_INDEX], taskInfo[MAX_INDEX]);
         } else {
             throw new IllegalArgumentException();
         }
-        if (taskInfo[1].equals("1")) {
+        if (taskInfo[1].equals(TASK_COMPLETED_STATUS)) {
             singleTask.markAsDone();
         }
         return singleTask;
@@ -101,27 +101,24 @@ public class Storage {
     /**
      * loads the data file from and parses it
      *
-     * @param taskList the TaskManager to store all the loaded task
+     * @param taskList the TaskList to store all the loaded task
      * @throws IOException              Unable to read file
      * @throws IllegalArgumentException parsing of file failed
      */
-    public void loadFile(TaskManager taskList) throws IOException, IllegalArgumentException {
+    public void loadFile(TaskList taskList) throws IOException, IllegalArgumentException {
         createDataDirectory();
         createStorageFile();
-        try (Stream<String> stream = Files.lines(storagePath)) {
-            stream.map(this::parseTask).forEach(taskList::addTask);
-        } catch (IOException fileException) {
-            throw new IOException();
-        }
+        Stream<String> stream = Files.lines(storagePath);
+        stream.map(this::parseTask).forEach(taskList::addTask);
     }
 
     /**
      * Stores data to storage file
      *
-     * @param taskList TaskManager containing the task we want to store
+     * @param taskList TaskList containing the task we want to store
      * @throws IOException Unable to write to file
      */
-    public void saveFile(TaskManager taskList) throws IOException {
+    public void saveFile(TaskList taskList) throws IOException {
         FileWriter storageFile = new FileWriter(storagePath.toFile());
         for (int i = BEGIN_INDEX; i < taskList.getNumberOfTasks(); i++) {
             storageFile.write(taskList.getTask(i).saveToText() + "\n");

@@ -2,12 +2,13 @@ package duke.task;
 
 public class Deadline extends Task {
 
-    public static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of a"
+    private static final String DESCRIPTION_EMPTY_ERROR_MESSAGE = "The description of a"
             + " deadline cannot be empty.";
-    public static final String BY_EMPTY_ERROR_MESSAGE = "The time of a deadline should "
+    private static final String BY_EMPTY_ERROR_MESSAGE = "The time of a deadline should "
             + "be completed cannot be "
             + "empty.";
-    private String by;
+
+    protected String by;
 
     /**
      * Creates a Deadline Task

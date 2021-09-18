@@ -1,13 +1,15 @@
-package duke.util;
+package duke.parser;
 
 import duke.exception.ArgumentNotFoundException;
 
 public class Parser {
 
-    private String command;
-    private String arguments;
-    public static final String SPACE_DELIMITER = " ";
-    public static final int START_INDEX = 0;
+    private static final String SPACE_DELIMITER = " ";
+    private static final int START_INDEX = 0;
+
+    protected String command;
+    protected String arguments;
+
 
     /**
      * Parse input and separates the command from the arguments
@@ -66,9 +68,9 @@ public class Parser {
     }
 
     /**
-     * Attempts to parse the arguments as an index for TaskManager
+     * Attempts to parse the arguments as an index for TaskList
      *
-     * @return the index to item in TaskManager
+     * @return the index to item in TaskList
      * @throws NumberFormatException if the input is not a number
      */
     public int getArgsAsIndex() throws NumberFormatException {
