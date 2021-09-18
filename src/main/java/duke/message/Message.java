@@ -33,7 +33,7 @@ public class Message {
      * Returns message for successfully adding a task.
      *
      * @param taskDescriptionWithStatus The task description and its status as a String.
-     * @param numberOfTasks Total number of tasks.
+     * @param numberOfTasks             Total number of tasks.
      * @return String Message for added task.
      */
     public static String getMessageForAddingTask(String taskDescriptionWithStatus, int numberOfTasks) {
@@ -46,7 +46,7 @@ public class Message {
      * Returns message for successfully deleting a task.
      *
      * @param taskDescriptionWithStatus The task description and its status as a String.
-     * @param numberOfTasksRemaining Number of tasks remaining.
+     * @param numberOfTasksRemaining    Number of tasks remaining.
      * @return String Message for deleted task.
      */
     public static String getMessageForDeletingTask(String taskDescriptionWithStatus, int numberOfTasksRemaining) {
@@ -59,7 +59,7 @@ public class Message {
      * Returns message for successfully marking a task as done.
      *
      * @param taskDescription The task description and its status as a String.
-     * @param taskNumber The task's number in the task list.
+     * @param taskNumber      The task's number in the task list.
      * @return String Message for marking task as done.
      */
     public static String getMessageForMarkingTaskAsDone(String taskDescription, int taskNumber) {
