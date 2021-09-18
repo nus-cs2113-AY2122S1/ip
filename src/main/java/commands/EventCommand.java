@@ -57,6 +57,7 @@ public class EventCommand extends Command {
             Event event = new Event(eventName, dateObj);
             tasks.add(event);
             ui.customPrint(String.format(addTaskMessage, event, tasks.size()));
+            storage.saveData(ui, tasks);
         }
     }
 }

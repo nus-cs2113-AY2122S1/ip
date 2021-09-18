@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Task {
     public static final String taskDoesNotExist = "The task ID does not exist!";
+    public static final String noTasks = "You have no tasks in your list!";
+    public static final String hereAreYourTasks = "Here are the tasks in your list:\n";
 
     private String description;
     private boolean isDone;

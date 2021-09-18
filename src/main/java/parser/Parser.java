@@ -2,9 +2,6 @@ package parser;
 
 import commands.*;
 import errors.InvalidCommand;
-import filter.FilterBy;
-
-import java.util.Date;
 
 import static commands.CommandList.*;
 import static commands.CommandList.WHATSON;
@@ -50,6 +47,8 @@ public class Parser {
             return new ByeCommand(command);
         case FIND:
             return new FindCommand(command, description);
+        case WHATSON:
+            return new WhatsOnCommand(command, description);
         default:
             throw new InvalidCommand();
         }
