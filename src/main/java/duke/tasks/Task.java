@@ -1,4 +1,4 @@
-package duke.task;
+package duke.tasks;
 
 public abstract class Task {
 
@@ -21,5 +21,5 @@ public abstract class Task {
         return "[" + doneStatus + "] " + description;
     }
 
-    public abstract String toData();
+    public abstract String toDataStringFormat();
 }

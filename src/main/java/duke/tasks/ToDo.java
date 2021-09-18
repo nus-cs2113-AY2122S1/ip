@@ -1,4 +1,4 @@
-package duke.task;
+package duke.tasks;
 
 public class ToDo extends Task {
 
@@ -15,7 +15,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toData() {
-        return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description;
+    public String toDataStringFormat() {
+        return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + "\n";
     }
 }

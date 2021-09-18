@@ -1,4 +1,4 @@
-package duke.task;
+package duke.tasks;
 
 public class Deadline extends Task {
 
@@ -17,7 +17,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toData() {
-        return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + SEPARATOR + taskDue;
+    public String toDataStringFormat() {
+        return SYMBOL + SEPARATOR + (isDone ? 1 : 0) + SEPARATOR + description + SEPARATOR + taskDue + "\n";
     }
 }
