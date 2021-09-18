@@ -25,7 +25,7 @@ public class Event extends Task {
     public Event(String description, String at)
             throws IllegalArgumentException, DateTimeParseException {
         super(description);
-        
+
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         printFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
@@ -35,7 +35,7 @@ public class Event extends Task {
             throw new IllegalArgumentException(AT_EMPTY_ERROR_MESSAGE);
         }
 
-        this.at = LocalDateTime.parse(at,formatter);
+        this.at = LocalDateTime.parse(at, formatter);
     }
 
     @Override
