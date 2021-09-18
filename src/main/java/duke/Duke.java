@@ -7,6 +7,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -31,8 +32,11 @@ public class Duke {
 
         try {
             store.loadFile(taskList);
-        } catch (IOException | IllegalArgumentException fileException) {
+        } catch (IOException fileException) {
             ui.printInvalidFileInitialisationError();
+            System.exit(1);
+        } catch (DateTimeParseException | IllegalArgumentException parseException) {
+            ui.printInvalidFileParseError();
             System.exit(1);
         }
     }
@@ -64,6 +68,8 @@ public class Duke {
                 ui.printUnknownCommandError();
             } catch (IOException saveException) {
                 ui.printInvalidFileError();
+            } catch (DateTimeParseException dateTimeError) {
+                ui.printInvalidDateError(dateTimeError.getMessage());
             }
         }
         ui.printGoodbye();
@@ -83,7 +89,7 @@ public class Duke {
     public void handleCommand(String command)
             throws ArgumentNotFoundException, NumberFormatException,
             InvalidCommandException, IllegalArgumentException, NullPointerException,
-            IOException {
+            IOException, DateTimeParseException {
 
         // Attempting to parse the command
         Parser parsed = new Parser(command);

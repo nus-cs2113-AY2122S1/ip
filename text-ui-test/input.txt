@@ -3,10 +3,10 @@ done -1
 todo Work out
 list
 deadline this should not work
-deadline this should word /by tiger time :-)
+deadline this should word /by 2021-09-01
 list
 event fake event
-event project meeting /at Some day and sometime
+event project meeting /at 2021-09-04 1400
 list
 done 1
 list

@@ -38,14 +38,14 @@ ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Got it. I've added this task:
-[D][ ] this should word (by: tiger time :-))
+[D][ ] this should word (by: 2021-09-01)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][ ] Work out
-2. [D][ ] this should word (by: tiger time :-))
+2. [D][ ] this should word (by: 2021-09-01)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
@@ -54,15 +54,15 @@ ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (at: Some day and sometime)
+[E][ ] project meeting (at: 2021-09-04 1400)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][ ] Work out
-2. [D][ ] this should word (by: tiger time :-))
-3. [E][ ] project meeting (at: Some day and sometime)
+2. [D][ ] this should word (by: 2021-09-01)
+3. [E][ ] project meeting (at: 2021-09-04 1400)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
@@ -73,20 +73,20 @@ ____________________________________________________________
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][X] Work out
-2. [D][ ] this should word (by: tiger time :-))
-3. [E][ ] project meeting (at: Some day and sometime)
+2. [D][ ] this should word (by: 2021-09-01)
+3. [E][ ] project meeting (at: 2021-09-04 1400)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Nice! I've marked this task as done:
-[D][X] this should word (by: tiger time :-))
+[D][X] this should word (by: 2021-09-01)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
 1. [T][X] Work out
-2. [D][X] this should word (by: tiger time :-))
-3. [E][ ] project meeting (at: Some day and sometime)
+2. [D][X] this should word (by: 2021-09-01)
+3. [E][ ] project meeting (at: 2021-09-04 1400)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
@@ -109,8 +109,8 @@ ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
 Here are your tasks in your list:
-1. [D][X] this should word (by: tiger time :-))
-2. [E][ ] project meeting (at: Some day and sometime)
+1. [D][X] this should word (by: 2021-09-01)
+2. [E][ ] project meeting (at: 2021-09-04 1400)
 ____________________________________________________________
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ ____________________________________________________________
