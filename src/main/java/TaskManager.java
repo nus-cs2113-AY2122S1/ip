@@ -10,36 +10,7 @@ import task.Todo;
 public class TaskManager {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    private static void printDivider() {
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void InvalidCommandMessage() {
-        System.out.println("☹ OOPS!!! I do not understand what that means!");
-        printDivider();
-    }
-
-    private static void DukeExceptionMessage(String command) {
-        if (command.equalsIgnoreCase("done")) {
-            System.out.println("☹ OOPS!!! You've forgotten to write the task number");
-        } else {
-            System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), command);
-        }
-        printDivider();
-    }
-
-    private static void markAsDoneMessage(int index) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(index));
-    }
-
-    private static void deleteTaskMessage(int index) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(index));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
-    }
-
-    private static void taskDone(String userInput) throws DukeException {
+    private void taskDone(String userInput) throws DukeException {
         String[] params = userInput.split(" ", 2);
         if (params.length < 2) {
             throw new DukeException();
@@ -47,20 +18,19 @@ public class TaskManager {
         String position = params[1];
         int index = Integer.parseInt(position) - 1;
         tasks.get(index).markAsDone();
-        markAsDoneMessage(index);
-        printDivider();
+        Ui.printMarkAsDoneMessage(index);
+        Ui.printDivider();
     }
 
-    private static void deleteTask(String userInput) throws DukeException {
+    private void deleteTask(String userInput) throws DukeException {
         String[] params = userInput.split(" ", 2);
         if (params.length < 2) {
             throw new DukeException();
         }
         String position = params[1];
         int index = Integer.parseInt(position) - 1;
-        deleteTaskMessage(index);
+        Ui.printDeleteTaskMessage(index);
         tasks.remove(index);
-        printDivider();
     }
 
     public static void taskDoneLatest() {
@@ -68,30 +38,20 @@ public class TaskManager {
     }
 
 
-    public static void listTasks() {
+    public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d.%s" + System.lineSeparator(), i + 1, tasks.get(i));
         }
-        printDivider();
+        Ui.printDivider();
     }
 
-    private static void echoTask(int index) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(index));
-        taskCountMessage(tasks.size());
-        printDivider();
+    private void echoTask(int index) {
+        Ui.printNewlyAddedTask(index);
+        Ui.printTaskCount();
+        Ui.printDivider();
     }
 
-    private static void taskCountMessage(int count) {
-        if (count == 0) {
-            System.out.print("You have not added any tasks");
-        } else if (count == 1) { //grammar
-            System.out.print("Now you have 1 task in the list" + System.lineSeparator());
-        } else {
-            System.out.printf("Now you have %d tasks in the list" + System.lineSeparator(), count);
-        }
-    }
 
     public static void addTodo(String userInput) {
         tasks.add(new Todo(userInput));
@@ -105,7 +65,7 @@ public class TaskManager {
         tasks.add(new Event(description, time));
     }
 
-    private static void addTask(String userInput) throws DukeException {
+    private void addTask(String userInput) throws DukeException {
         String[] params = userInput.split(" ", 2);
         String command = params[0];
         if (params.length < 2) {
@@ -135,12 +95,15 @@ public class TaskManager {
 
     }
 
-    public static void handleRequest(String userInput) {
+    public void handleRequest(String userInput) {
         try {
             String[] params = userInput.split(" ", 2);
             String command = params[0];
 
             switch (command.toUpperCase()) {
+            case "LIST":
+                listTasks();
+                break;
             case "TODO":
             case "DEADLINE":
             case "EVENT":
@@ -158,9 +121,9 @@ public class TaskManager {
                 throw new InvalidCommandException(); //if user input is not any of the commands
             }
         } catch (InvalidCommandException e) {
-            InvalidCommandMessage();
+            Ui.printInvalidCommandMessage();
         } catch (DukeException e) {
-            DukeExceptionMessage(userInput);
+            Ui.printDukeExceptionMessage(userInput);
         }
     }
 }
