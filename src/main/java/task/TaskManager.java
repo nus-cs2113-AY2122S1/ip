@@ -169,23 +169,8 @@ public class TaskManager {
         }
     }
 
-
     public Iterator<Task> getAllTasks() {
         return tasks.iterator();
     }
-  
-    public String getOverdueTasks(LocalDateTime timeToCheck) {
-        ArrayList<Task> overdueTasks = new ArrayList<>();
 
-        for (Task task : tasks) {
-            if (task instanceof TimedTask) {
-                LocalDateTime taskDueTime = ((TimedTask) task).getTime();
-                if (!task.getDone() && taskDueTime.isBefore(timeToCheck)) {
-                    overdueTasks.add(task);
-                }
-            }
-        }
-
-        return listTasks(overdueTasks);
-    }
 }
