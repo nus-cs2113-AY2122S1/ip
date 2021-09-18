@@ -79,6 +79,13 @@ public class Ui {
                 + "    INVALID TASK NUMBER PROVIDED" + System.lineSeparator()
                 + BORDER_LINE);
     }
+    
+    private void printInvalidTaskAlreadyDoneMessage(CommandResult result) {
+        int taskNumber = Integer.parseInt(result.getCommand().getCommandDescription());
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    Task " + taskNumber + " has already been marked as done!" + System.lineSeparator()
+                + BORDER_LINE);
+    }
 
     private void printTaskList() {
         int taskSize = Duke.getTaskList().getTasks().size();
@@ -95,16 +102,10 @@ public class Ui {
     
     private void printMarkDoneMessage(CommandResult result) {
         int taskNumber = Integer.parseInt(result.getCommand().getCommandDescription());
-        if (result.getDescription().equals(CommandResult.INVALID_TASK_ALREADY_DONE)) {
-            System.out.println(BORDER_LINE + System.lineSeparator()
-                    + "    Task " + taskNumber + " has already been marked as done!" + System.lineSeparator()
-                    + BORDER_LINE);
-        } else {
-            System.out.println(BORDER_LINE + System.lineSeparator()
-                    + "    The following task is now marked as done:" + System.lineSeparator()
-                    + "      " + Duke.getTaskList().getTasks().get(taskNumber - 1) + System.lineSeparator()
-                    + BORDER_LINE);
-        }    
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    The following task is now marked as done:" + System.lineSeparator()
+                + "      " + Duke.getTaskList().getTasks().get(taskNumber - 1) + System.lineSeparator()
+                + BORDER_LINE);
     }
 
     private void printAddTaskMessage() {
@@ -160,6 +161,15 @@ public class Ui {
         case CommandResult.EXECUTION_FAIL:
             switch (commandType) {
             case Command.COMMAND_DONE:
+                switch (result.getDescription()) {
+                case CommandResult.INVALID_NUMBER:
+                    printInvalidTaskNotExistedMessage();
+                    break;
+                case CommandResult.INVALID_TASK_ALREADY_DONE:
+                    printInvalidTaskAlreadyDoneMessage(result);
+                    break;
+                }
+                break;
             case Command.COMMAND_DELETE:
                 printInvalidTaskNotExistedMessage();
                 break;

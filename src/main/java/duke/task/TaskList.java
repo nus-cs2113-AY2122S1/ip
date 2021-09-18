@@ -26,7 +26,7 @@ public class TaskList {
         try {
             taskNumber = Integer.parseInt(userCommand.getCommandDescription());
             if (tasks.get(taskNumber - 1).isDone()) {
-                return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.INVALID_TASK_ALREADY_DONE);
+                return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_TASK_ALREADY_DONE);
             }
             tasks.get(taskNumber - 1).markAsDone();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
