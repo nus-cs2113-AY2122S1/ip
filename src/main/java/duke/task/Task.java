@@ -1,5 +1,6 @@
 package duke.task;
 
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +10,8 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public abstract String formatForDataStore();
 
     @Override
     public String toString() {
@@ -30,6 +33,4 @@ public abstract class Task {
     public void markAsDone() {
         isDone = true;
     }
-
-    public abstract String formatForDataStore();
 }

@@ -1,5 +1,5 @@
-Directory ./data created
-File duke.txt created
+Directories created
+File data/tasks.txt created
 ____________________________________________________________
 Hello from
  ____        _        
@@ -8,38 +8,49 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-	Hello! I'm Duke
+	Hello! I'm Duke!
 	What can I do for you?
 ____________________________________________________________
-	OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
-	OOPS!!! The description of a todo cannot be empty.
+        The command 'baba' is not recognised.
+____________________________________________________________
+____________________________________________________________
+	Wrong format for todo!
+	Correct format: todo <details>
+____________________________________________________________
 ____________________________________________________________
 	Got it. I've added this task:
 		[T][ ] read book
 	Now you have 1 tasks in the list.
 ____________________________________________________________
+____________________________________________________________
 	Got it. I've added this task:
 		[D][ ] return book (by: June 6th)
 	Now you have 2 tasks in the list.
 ____________________________________________________________
+____________________________________________________________
 	Nice! I've marked this task as done:
 		[X] read book
+____________________________________________________________
 ____________________________________________________________
 	Got it. I've added this task:
 		[E][ ] project meeting (at: Aug 6th 2-4pm)
 	Now you have 3 tasks in the list.
 ____________________________________________________________
+____________________________________________________________
 	Got it. I've added this task:
 		[T][ ] join sports club
 	Now you have 4 tasks in the list.
 ____________________________________________________________
+____________________________________________________________
 	Nice! I've marked this task as done:
 		[X] join sports club
+____________________________________________________________
 ____________________________________________________________
 	Got it. I've added this task:
 		[T][ ] borrow book
 	Now you have 5 tasks in the list.
+____________________________________________________________
 ____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][X] read book
@@ -48,17 +59,21 @@ ____________________________________________________________
 	4.[T][X] join sports club
 	5.[T][ ] borrow book
 ____________________________________________________________
+____________________________________________________________
 	Noted. I have removed this task:
 		[E][ ] project meeting (at: Aug 6th 2-4pm)
 	Now you have 4 tasks in the list.
+____________________________________________________________
 ____________________________________________________________
 	Got it. I've added this task:
 		[D][ ] return book (by: Sunday)
 	Now you have 5 tasks in the list.
 ____________________________________________________________
+____________________________________________________________
 	Got it. I've added this task:
 		[E][ ] project meeting (at: Mon 2-4pm)
 	Now you have 6 tasks in the list.
+____________________________________________________________
 ____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][X] read book
@@ -68,13 +83,21 @@ ____________________________________________________________
 	5.[D][ ] return book (by: Sunday)
 	6.[E][ ] project meeting (at: Mon 2-4pm)
 ____________________________________________________________
-	Wrong deadline format! Please follow `deadline <description> /at <at>`.
 ____________________________________________________________
-	Wrong deadline format! Please follow `deadline <description> /by <by>`.
+        Wrong format for event!
+        Correct format: event <details> /at <location>
 ____________________________________________________________
-	Wrong format, please retype with format `done <taskIndex>`.
 ____________________________________________________________
-	 Task index is out of range.
+        Wrong format for deadline!
+        Correct format: deadline <details> /by <time>
+____________________________________________________________
+____________________________________________________________
+        Wrong format for done!
+        Correct format: done <taskIndex>
+____________________________________________________________
+____________________________________________________________
+        There is no task with task index 1000.
+____________________________________________________________
 ____________________________________________________________
 	Bye. Hope to see you again soon!
 ____________________________________________________________
