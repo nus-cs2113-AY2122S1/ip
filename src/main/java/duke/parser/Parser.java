@@ -1,5 +1,7 @@
 package duke.parser;
 
+import java.time.LocalDate;
+
 public class Parser {
     private static final int CHAR_TO_DESCRIPTION = 5;
 
@@ -26,7 +28,7 @@ public class Parser {
     public static String getDescription(String description, String timeKeyword) {
         return description.substring(0, description.indexOf(timeKeyword));
     }
-
+    
     /**
      * Used for retrieving a task's time from deadline and event type tasks,
      * as the description input from the user's command contains both the 
@@ -35,9 +37,10 @@ public class Parser {
      * @param description task description from user's command.
      * @param timeKeyword keyword which specified the time for deadline and event
      *                    type tasks.
-     * @return a string containing only the time of the task.
+     * @return a LocalDate containing only the time of the task.
      */
-    public static String getTime(String description, String timeKeyword) {
-        return description.substring(description.indexOf(timeKeyword) + CHAR_TO_DESCRIPTION);
+    public static LocalDate getTime(String description, String timeKeyword) {
+        String time = description.substring(description.indexOf(timeKeyword) + CHAR_TO_DESCRIPTION);
+        return LocalDate.parse(time);
     }
 }

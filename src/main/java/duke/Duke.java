@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class Duke {
-    private static final String FILE_PATH = "data/task.txt";
+    private static final String FILE_PATH = "./data/task.txt";
 
     private static StorageManager storage;
     private static TaskList taskList;
