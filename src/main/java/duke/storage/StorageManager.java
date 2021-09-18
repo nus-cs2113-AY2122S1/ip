@@ -47,6 +47,9 @@ public class StorageManager {
         return words[1].equals("1");
     }
     
+    private Task getTask(String input) {
+        String taskType = getTaskType(input);
+        String taskDescription = getTaskDescription(input);
         Task task = null;
         
         try {
@@ -131,6 +134,9 @@ public class StorageManager {
         }
         writer.close();
     }
+    
+    public void updateStorage(ArrayList<Task> tasks) {
+        this.tasks = tasks;
         checkFilePath();
         try {
             writeToFile();
