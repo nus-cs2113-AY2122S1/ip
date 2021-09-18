@@ -1,7 +1,5 @@
 package task;
 
-import parser.command.AddCommand;
-
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -171,6 +169,11 @@ public class TaskManager {
         }
     }
 
+
+    public Iterator<Task> getAllTasks() {
+        return tasks.iterator();
+    }
+  
     public String getOverdueTasks(LocalDateTime timeToCheck) {
         ArrayList<Task> overdueTasks = new ArrayList<>();
 
