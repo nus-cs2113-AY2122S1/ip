@@ -20,21 +20,33 @@ _____________________________________________________________________
   You now have 1 tasks in your list!
 _____________________________________________________________________
 > Enter Command: _____________________________________________________________________
+  User input was not in DateTime Format: dd/MM/yyyy HH:mm
+  Input will be stored as String...
+_____________________________________________________________________
   You have successfully added the task:
     [E][ ] Eat Lunch (at: 12pm)
   You now have 2 tasks in your list!
 _____________________________________________________________________
 > Enter Command: _____________________________________________________________________
+  User input was not in DateTime Format: dd/MM/yyyy HH:mm
+  Input will be stored as String...
+_____________________________________________________________________
   You have successfully added the task:
     [E][ ] Go running (at: ???)
   You now have 3 tasks in your list!
 _____________________________________________________________________
 > Enter Command: _____________________________________________________________________
+  User input was not in DateTime Format: dd/MM/yyyy HH:mm
+  Input will be stored as String...
+_____________________________________________________________________
   You have successfully added the task:
     [D][ ] Project Report (by: Monday 11:59pm)
   You now have 4 tasks in your list!
 _____________________________________________________________________
 > Enter Command: _____________________________________________________________________
+  User input was not in DateTime Format: dd/MM/yyyy HH:mm
+  Input will be stored as String...
+_____________________________________________________________________
   You have successfully added the task:
     [D][ ] User Guide (by: ???)
   You now have 5 tasks in your list!
