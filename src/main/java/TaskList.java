@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * TaskList class contains and facilitate operations on the inputTasks.
+ */
 public class TaskList {
     private static ArrayList<Task> inputTasks = new ArrayList<>();
     private static String acknowledgeMessage;
@@ -12,6 +15,13 @@ public class TaskList {
         return inputTasks;
     }
 
+    /**
+     * Parses a given input String and stores it as a new task corresponding to todo/event/deadline.
+     *
+     * @param input              Command entered by the user.
+     * @param shouldAppendToFile Flag to indicate whether the parsed task should be appended to file.
+     * @throws DukeException If neither todo, deadline or event correspond to the input String.
+     */
     public static void storeTask(String input, boolean shouldAppendToFile) throws DukeException {
         Task newTask;
         if (input.startsWith("todo")) {
@@ -38,6 +48,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list inputTasks based on its index.
+     *
+     * @param taskNumber Index of the task in inputTasks to be deleted.
+     */
     public static void deleteTask(int taskNumber) {
         int taskIndex = taskNumber - 1;
         try {
@@ -54,6 +69,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints all tasks in inputTasks that contain a given query String in their descriptions
+     *
+     * @param query Substring to search for within each task's description
+     */
     public static void findTask(String query) {
         System.out.println(Ui.getLine());
         System.out.println("Here are the matching tasks in your list:");
@@ -68,6 +88,9 @@ public class TaskList {
         System.out.println(Ui.getLine());
     }
 
+    /**
+     * Prints all tasks in inputTasks
+     */
     public static void list() {
         System.out.println(Ui.getLine());
 
@@ -78,6 +101,12 @@ public class TaskList {
         System.out.println(Ui.getLine());
     }
 
+    /**
+     * Marks a pre-existing task in the inputTasks list as completed.
+     *
+     * @param completedTask     Index of the task in inputTasks to be marked as complete.
+     * @param shouldWriteToFile Flag indicating whether the updated inputTasks list should be written to file.
+     */
     public static void markComplete(int completedTask, boolean shouldWriteToFile) {
         try {
             inputTasks.get(completedTask - 1).markComplete();

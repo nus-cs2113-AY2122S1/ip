@@ -6,13 +6,22 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+/**
+ * Storage class facilitates loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
 
     private static final String STORAGE_PATH = "duke.txt";
     private static final int OK_EXIT_CODE = 0;
     public static final char COMPLETE_CHARACTER = 'X';
 
-    public static void loadStoredTasks(File storedTasks) throws FileNotFoundException {
+    /**
+     * Loads stored tasks from file.
+     *
+     * @param storedTasks File at STORED_PATH.
+     * @throws FileNotFoundException If the file at STORED_PATH does not exist.
+     */
+    private static void loadStoredTasks(File storedTasks) throws FileNotFoundException {
         Scanner scanner = new Scanner(storedTasks);
         try {
             scanner.nextLine(); //Moves past prefix \n of file
@@ -39,6 +48,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads pre-existing tasks from file at STORAGE_PATH or creates a new file if it does not exist.
+     */
     public static void setupStorage() {
         try {
             File storedTasks = new File(STORAGE_PATH);
@@ -57,6 +69,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites the file at STORAGE_PATH with the tasks from the inputTasks list in the TaskList class.
+     */
     public static void writeTasksToFile() {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH, false);
@@ -66,10 +81,15 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println(STORAGE_PATH + " cannot be overwritten. Changes will be lost when the program is closed");
+            System.out.println(STORAGE_PATH + " can't be overwritten. Changes will be lost when the program is closed");
         }
     }
 
+    /**
+     * Appends a new task to the file at STORAGE_PATH.
+     *
+     * @param newTask Task to append to the file at STORAGE_PATH.
+     */
     public static void appendTaskToFile(Task newTask) {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH, true);
