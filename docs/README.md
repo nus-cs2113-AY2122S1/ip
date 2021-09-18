@@ -12,7 +12,7 @@ Duke is a command line task tracking application that helps you keep track of yo
 * [Mark a task as done](#mark-a-task-as-done)
 * [Find a task](#find-a-task)
 * [List all tasks](#list-all-tasks)
-* [Exit Duke](#exit-Duke)
+* [Exit Duke](#exit-duke)
 
 ### Add a task
 Duke supports 3 types of tasks:
