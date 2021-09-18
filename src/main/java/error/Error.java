@@ -10,9 +10,16 @@ public class Error {
 
     public static final String ERROR_MESSAGE_FILE_LOAD_FAIL = "☹ OOPS!!! File failed to load data :-(";
     public static final String ERROR_MESSAGE_FILE_UPDATE_FAIL = "☹ OOPS!!! File failed to update :-(";
-    public static final String ERROR_MESSAGE_FILE_ADD_TASK_FAIL = "☹ OOPS!!! Failed to add saved task :-(";
+    public static final String ERROR_MESSAGE_FILE_ADD_TASK_FAIL = "☹ OOPS!!! Failed to add saved task :-( " +
+            "Please check the savedTask.txt file";
     public static final String ERROR_MESSAGE_FILE_TASK_NAME_NONEXISTENT = "☹ OOPS!!! Saved Task has no name :-(";
-    public static final String ERROR_MESSAGE_FILE_TASK_FORMAT = "☹ OOPS!!! Saved Task is in the wrong format :-(";
+    public static final String ERROR_MESSAGE_FILE_TASK_FORMAT = "☹ OOPS!!! Saved Task is in the wrong format :-( " +
+            "Please check the savedTask.txt file";
+    public static final String ERROR_MESSAGE_FILE_DATE_FORMAT = "☹ OOPS!!! Saved Task has the wrong date format :-( " +
+            "Please check the savedTask.txt file";
+
+    public static final String ERROR_MESSAGE_DATE_FORMAT = "☹ OOPS!!! Date time format given is wrong :-( " +
+            "Please provide it in YYYY-MM-DD HH:MM format.";
 
     public static void displayInvalidCommandError() {
         System.out.println(ERROR_MESSAGE_INVALID_COMMAND);
@@ -52,5 +59,13 @@ public class Error {
 
     public static void displayFileSavedTaskFormatError() {
         System.out.println(ERROR_MESSAGE_FILE_TASK_FORMAT);
+    }
+
+    public static void displayFileSavedDateFormatError() {
+        System.out.println(ERROR_MESSAGE_FILE_DATE_FORMAT);
+    }
+
+    public static void displayDateFormatError() {
+        System.out.println(ERROR_MESSAGE_DATE_FORMAT);
     }
 }
