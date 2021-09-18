@@ -10,6 +10,8 @@ event
 event project meeting
 event project meeting /at
 event project meeting /at Aug 6th 2-4pm
+find
+find book
 done
 done 2
 list

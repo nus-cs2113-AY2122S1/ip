@@ -17,6 +17,15 @@ public class Task {
     }
 
     /**
+     * Getter for taskName.
+     *
+     * @return String name of the task.
+     */
+    public String getTaskName() {
+        return taskName;
+    }
+
+    /**
      * Sets the task as completed.
      */
     public void markTaskAsDone() {

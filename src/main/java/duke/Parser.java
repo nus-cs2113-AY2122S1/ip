@@ -1,12 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.AddCommand;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -20,6 +14,7 @@ public class Parser {
     private static final int STRING_LENGTH_DEADLINE = 8;
     private static final int STRING_LENGTH_EVENT = 5;
     private static final int STRING_LENGTH_DELETE = 6;
+    private static final int STRING_LENGTH_FIND = 4;
     private static final int STRING_LENGTH_BY_INDICATOR = 3;
     private static final int STRING_LENGTH_AT_INDICATOR = 3;
 
@@ -40,12 +35,14 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     private static final String FORMAT_DONE = "Command format: 'done <TASK_NUMBER>'";
     private static final String FORMAT_TODO = "Command format: 'todo <TASK_NAME>'";
     private static final String FORMAT_DEADLINE = "Command format: 'deadline <TASK_NAME> /by <TASK_DATE>'";
     private static final String FORMAT_EVENT = "Command format: 'event <TASK_NAME> /at <TASK_DATE>'";
     private static final String FORMAT_DELETE = "Command format: 'delete <TASK_NAME>'";
+    private static final String FORMAT_FIND = "Command format: 'find <KEYWORD>'";
 
     private static final String ERROR_DEFAULT = S_TAB + "Invalid command. Type 'help' to see a list of commands.";
     private static final String ERROR_BYE = S_TAB + "ERROR: Type 'bye' without additional parameters to exit.";
@@ -62,6 +59,7 @@ public class Parser {
     private static final String ERROR_HELP = S_TAB + "ERROR: Type 'help' without additional parameters to view all commands.";
     private static final String ERROR_DELETE_1 = S_TAB + "ERROR: Provide the task number of the task." + NL + FORMAT_DELETE;
     private static final String ERROR_DELETE_2 = S_TAB + "ERROR: Provide the task number of one task only." + NL + FORMAT_DELETE;
+    private static final String ERROR_FIND = S_TAB + "ERROR: Provide a keyword." + NL + FORMAT_FIND;
 
     /**
      * Takes in the user input command and breaks down the data.
@@ -89,6 +87,8 @@ public class Parser {
             return parseHelpCommand(inputCommand);
         case COMMAND_DELETE:
             return parseDeleteCommand(inputCommand, words);
+        case COMMAND_FIND:
+            return parseFindCommand(inputCommand);
         default:
             throw new DukeException(ERROR_DEFAULT);
         }
@@ -239,6 +239,21 @@ public class Parser {
             throw new DukeException(ERROR_DELETE_2);
         }
         return new DeleteCommand(Integer.parseInt(words[TASK_NUMBER]));
+    }
+
+    /**
+     * Breaks down the data for the find command.
+     *
+     * @param inputCommand User input command.
+     * @return FindCommand subclass.
+     * @throws DukeException If there are superfluous parameters in the find command.
+     */
+    private static Command parseFindCommand(String inputCommand) throws DukeException {
+        if (inputCommand.length() <= STRING_LENGTH_FIND + 1) {
+            throw new DukeException(ERROR_FIND);
+        }
+        String keyword = inputCommand.substring(STRING_LENGTH_FIND + 1);
+        return new FindCommand(keyword);
     }
 
 }
