@@ -7,28 +7,23 @@ import task.Task;
  */
 public class Display {
 
-    /** Creates a gap to indicate an unchecked box. */
+    /** A gap to indicate an unchecked box. */
     public static final String CHECKBOX_TASK_INCOMPLETE = " ";
 
-    /** Marks the checkbox with a 'X' to indicate the task as completed. */
+    /** A marker that indicates the task is completed. */
     public static final String CHECKBOX_TASK_COMPLETE = "X";
 
-    /** Labels the checkbox with a 'T' to indicate the task is a 'todo' type. */
+    /** A task type label to indicate the task is a 'todo' type. */
     public static final String CHECKBOX_TODO_TASK_TYPE = "T";
 
-    /** Labels the checkbox with a 'D' to indicate the task is a 'deadline' type. */
+    /** A task type label to indicate the task is a 'deadline' type. */
     public static final String CHECKBOX_DEADLINE_TASK_TYPE = "D";
 
-    /** Labels the checkbox with an 'E' to indicate the task is an 'event' type. */
+    /** A task type label to indicate the task is an 'event' type. */
     public static final String CHECKBOX_EVENT_TASK_TYPE = "E";
 
-    /** Displays to the user that a 'todo' type task was just added. */
     public static final String TASK_NAME_TODO = "TODO";
-
-    /** Displays to the user that a 'deadline' type task was just added. */
     public static final String TASK_NAME_DEADLINE = "DEADLINE";
-
-    /** Displays to the user that an 'event' type task was just added. */
     public static final String TASK_NAME_EVENT = "EVENT";
 
     /** Creates a demarcation line to wrap around the list of tasks displayed to the user. */
