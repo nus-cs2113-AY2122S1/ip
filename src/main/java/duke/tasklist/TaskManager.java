@@ -4,6 +4,7 @@ import duke.generalmethods.GeneralMethods;
 import duke.exceptions.DukeException;
 import duke.ui.Ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskManager extends Ui {
@@ -105,5 +106,43 @@ public class TaskManager extends Ui {
         if (!numberExists) {
             throw new DukeException(INCORRECT_DONE_COMMAND);
         }
+    }
+
+    public static void searchForTask(ArrayList<Task> taskList, String userInput) throws DukeException {
+        String searchedTask = userInput.replace("find ", " ").trim();
+        ArrayList<Task> searchList = new ArrayList<>();
+        boolean isFound = false;
+        int taskListIndex = 0;
+        int searchListIndex = 0;
+        for (Task task : taskList) {
+            if ((task.getDescription().contains(searchedTask))) {
+                isFound = true;
+                String taskType = taskList.get(taskListIndex).getTaskType();
+                switch (taskType) {
+                case "E":
+                    addTaskAsEvent(searchList, "event " + task.description + " /at" + task.getDeadline(), true);
+                    if(task.getStatusIcon().equals("X")){
+                       searchList.get(searchListIndex).updateIsDone();
+                    }
+                    break;
+                case "D":
+                    addTaskAsDeadline(searchList,"deadline " + task.description + " /by" + task.getDeadline(), true);
+                    if(task.getStatusIcon().equals("X")){
+                        searchList.get(searchListIndex).updateIsDone();
+                    }
+                    break;
+                case "T":
+                    addTaskAsToDo(searchList, task.description, true);
+                    if(task.getStatusIcon().equals("X")){
+                        searchList.get(searchListIndex).updateIsDone();
+                    }
+                    break;
+                }
+                searchListIndex++;
+            }
+            taskListIndex++;
+        }
+        printValidSearch(isFound);
+        printSearchList(searchList);
     }
 }

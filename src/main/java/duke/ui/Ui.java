@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.tasklist.Task;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Ui {
@@ -52,6 +53,23 @@ public class Ui {
             listIndex++;
         }
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void printSearchList(ArrayList<Task> searchList) {
+        int listIndex = 1;
+        for (Task task : searchList) {
+            task.printTaskList(listIndex);
+            listIndex++;
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void printValidSearch(boolean isFound) {
+        if (isFound) {
+            System.out.println("Search found! ");
+        } else {
+            System.out.println("Task not found in the task list!");
+        }
     }
 
     public static void printTaskAddedConfirmation(Task taskAdded) {
