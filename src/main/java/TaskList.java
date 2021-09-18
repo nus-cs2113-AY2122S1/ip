@@ -70,6 +70,25 @@ public class TaskList {
     }
 
     /**
+     * Prints all tasks in inputTasks that contain a given query String in their descriptions
+     *
+     * @param query Substring to search for within each task's description
+     */
+    public static void findTask(String query) {
+        System.out.println(Ui.getLine());
+        System.out.println("Here are the matching tasks in your list:");
+        int taskNumber = 1;
+        for (Task task : inputTasks) {
+            if (task.description.contains(query)) {
+                System.out.println(taskNumber + ". " + task);
+                taskNumber++;
+            }
+        }
+
+        System.out.println(Ui.getLine());
+    }
+
+    /**
      * Prints all tasks in inputTasks
      */
     public static void list() {

@@ -25,6 +25,9 @@ public class Parser {
         case "delete":
             TaskList.deleteTask(Integer.parseInt(inputParts[1]));
             break;
+        case "find":
+            TaskList.findTask(inputParts[1]);
+            break;
         default:
             attemptStore(input);
             break;
