@@ -33,6 +33,11 @@ public class Ui {
     private static final String FILE_ERROR_MESSAGE = "Could not update file or directory!!";
     private static final String FILE_INITIALISATION_ERROR_MESSAGE = "Failed to "
             + "read or create data file!";
+    private static final String FILE_PARSE_ERROR =
+            "Failed to parse file into the correct format!";
+    public static final String DATE_PARSE_ERROR = "Unable to parse date or time! "
+            + "Please use the format "
+            + "yyyy-mm-dd or yyyy-mm-dd hhmm";
 
 
     protected String username;
@@ -55,8 +60,8 @@ public class Ui {
     public void printCommandHelp() {
         printMessage("Please run one of the following commands:",
                 "1. todo <description> - Creates a todo task",
-                "2. deadline <description> /by <some deadline> - Creates a deadline task",
-                "3. event <description> /at <some day and time> - Creates a event task",
+                "2. deadline <description> /by <yyyy-mm-dd> - Creates a deadline task",
+                "3. event <description> /at <yyyy-mm-dd hhmm> - Creates a event task",
                 "4. list - List all tasks",
                 "5. done <task number> - Marks a task as completed",
                 "6. bye - exits program");
@@ -163,5 +168,13 @@ public class Ui {
         // Printing all tasks with their completion status
         foundTasks.forEach((i) -> foundTasksMessage.append(i).append(System.lineSeparator()));
         printMessage(foundTasksMessage.toString().strip());
+    }
+
+    public void printInvalidFileParseError() {
+        printMessage(FILE_PARSE_ERROR);
+    }
+
+    public void printInvalidDateError(String dateError) {
+        printMessage(DATE_PARSE_ERROR, dateError);
     }
 }
