@@ -25,6 +25,7 @@ public class Parser {
     public static final String INVALID_TASK_TYPE = "Invalid task type. Try a todo, deadline or event.";
     public static final String LIST = "list";
     public static final String DONE = "done";
+    public static final String FIND = "find";
     public static final String DELETE = "delete";
     public static final String BYE = "bye";
     public static final String INVALID_INPUT = "Your input is invalid.";
@@ -99,6 +100,12 @@ public class Parser {
         return new DeleteCommand(ui, tasks, taskNumber);
     }
 
+    public Command findTask(String input) {
+        String keyword = input.replaceFirst("find", "").trim();
+
+        return new FindCommand(ui, tasks, keyword);
+    }
+
     public Command selectCommand(String input) throws DukeException {
 
         String trimmedInput = input.trim().split(" ")[0];
@@ -113,6 +120,9 @@ public class Parser {
             break;
         case DONE:
             commandFromInput = markTaskDone(input);
+            break;
+        case FIND:
+            commandFromInput = findTask(input);
             break;
         case DELETE:
             commandFromInput = deleteTask(input);
