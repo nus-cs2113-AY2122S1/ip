@@ -1,6 +1,6 @@
 package Commands;
 
-import Duke.TaskList;
+import Tasks.TaskList;
 
 /**
  * Deletes the task with the specified index

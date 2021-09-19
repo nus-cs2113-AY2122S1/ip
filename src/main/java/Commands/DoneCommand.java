@@ -1,6 +1,6 @@
 package Commands;
 
-import Duke.TaskList;
+import Tasks.TaskList;
 
 /**
  * Marks the task at the specified index as complete

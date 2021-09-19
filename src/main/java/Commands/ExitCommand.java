@@ -1,8 +1,6 @@
 package Commands;
 
-import Duke.TaskList;
-
-import javax.swing.text.TabableView;
+import Tasks.TaskList;
 
 public class ExitCommand extends Command {
 

@@ -1,5 +1,6 @@
-package Duke;
+package Storage;
 
+import Tasks.TaskList;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;

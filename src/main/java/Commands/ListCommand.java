@@ -1,6 +1,6 @@
 package Commands;
 
-import Duke.TaskList;
+import Tasks.TaskList;
 
 /**
  * Displays all tasks currently in the task list

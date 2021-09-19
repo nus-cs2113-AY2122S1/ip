@@ -1,15 +1,10 @@
-package Duke;
+package UI;
 
 import java.util.Scanner;
 
 public class UserInterface {
     Scanner line = new Scanner(System.in);
     public static final String BORDER = "_________________________________________\n";
-    public static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, I didn't understand.\n";
-    public static final String NOT_A_NUMBER_MESSAGE = "The input was not a number. Please Try Again\n";
-    public static final String NOT_ENOUGH_PARAMS_MESSAGE = "The input had insufficient parameters. "
-            + "Please Try Again. \nFor command syntax, typ: help\n";
-    public static final String FILE_CANNOT_BE_SAVED_MESSAGE = "The file could not be saved: ";
     private static final String GREETING = "****************************\n"
             + "*  ____             ____   *\n"
             + "* |  _ \\    ____   |  _ \\  *\n"
@@ -27,11 +22,7 @@ public class UserInterface {
     public static final String EXIT_MESSAGE = BORDER + "Bye. Have a nice day!\n" + BORDER;
 
     public UserInterface() {
-        Scanner line = new Scanner(System.in);
-    }
-
-    public void printInsufficientParameters() {
-        System.out.println(BORDER + NOT_ENOUGH_PARAMS_MESSAGE + BORDER);
+        printGreeting();
     }
 
     public void printGreeting() {
@@ -46,19 +37,11 @@ public class UserInterface {
         return line.nextLine().trim();
     }
 
-    public void printInfo(String infoForUser) {
-        System.out.println(BORDER + infoForUser + BORDER);
+    public void showOutputToUser(String output) {
+        System.out.println(BORDER + output + BORDER);
     }
 
-    public void printUnknownCommand() {
-        System.out.println(BORDER + UNKNOWN_COMMAND_MESSAGE + BORDER);
-    }
-
-    public void printNotNumber() {
-        System.out.println(BORDER + NOT_A_NUMBER_MESSAGE + BORDER);
-    }
-
-    public void printIOException(String message) {
-        System.out.println(FILE_CANNOT_BE_SAVED_MESSAGE + message + "\n");
+    public void printErrorMessage(String errorMessage) {
+        System.out.println(BORDER + errorMessage + "\n" + BORDER);
     }
 }

@@ -1,8 +1,6 @@
 package Commands;
 
-import Duke.TaskList;
-
-import java.util.ArrayList;
+import Tasks.TaskList;
 
 /**
  * Represents a command
