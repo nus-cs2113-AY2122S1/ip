@@ -3,6 +3,7 @@ package shikabot.command;
 import shikabot.ui.TextUi;
 
 import static shikabot.parser.Parser.EMPTY_FIELD;
+import static shikabot.parser.Parser.INVALID_DATE_SYNTAX;
 import static shikabot.parser.Parser.INVALID_DEADLINE_SYNTAX;
 import static shikabot.parser.Parser.INVALID_EVENT_SYNTAX;
 import static shikabot.parser.Parser.INVALID_TASK;

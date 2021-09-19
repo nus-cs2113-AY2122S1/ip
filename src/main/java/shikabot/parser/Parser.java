@@ -128,16 +128,16 @@ public class Parser {
     private Command parseAddTodoCommand(String text) throws EmptyFieldException {
         String name = text.substring(text.indexOf("todo") + TODO_LENGTH).trim();
         if (name.equals("")) throw new EmptyFieldException();
-        return new AddCommand('T', name, "");
+        return new AddCommand('T', name, null);
     }
 
-    private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
+    private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
         if (!text.contains("/by")) {
             throw new Task.InvalidTaskException();
         }
         String name = text.substring(text.indexOf("deadline") + DEADLINE_LENGTH, text.indexOf("/")).trim();
-        String by = text.substring(text.indexOf("/by") + DIVIDER_LENGTH).trim();
-        if (name.equals("") || by.equals("")) throw new EmptyFieldException();
+        String date = text.substring(text.indexOf("/by") + DIVIDER_LENGTH).trim();
+        if (name.equals("") || date.equals("")) throw new EmptyFieldException();
         try {
             LocalDate by = LocalDate.parse(date, TIME_PARSER);
             return new AddCommand('D', name, by);
@@ -146,13 +146,13 @@ public class Parser {
         }
     }
 
-    private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
+    private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
         if (!text.contains("/at")) {
             throw new Task.InvalidTaskException();
         }
         String name = text.substring(text.indexOf("event") + EVENT_LENGTH, text.indexOf("/")).trim();
-        String at = text.substring(text.indexOf("/at") + DIVIDER_LENGTH).trim();
-        if (name.equals("") || at.equals("")) throw new EmptyFieldException();
+        String date = text.substring(text.indexOf("/at") + DIVIDER_LENGTH).trim();
+        if (name.equals("") || date.equals("")) throw new EmptyFieldException();
         try {
             LocalDate at = LocalDate.parse(date,TIME_PARSER);
             return new AddCommand('E', name, at);
