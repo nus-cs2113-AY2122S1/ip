@@ -1,5 +1,9 @@
 package kitty;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     public static final String EMPTY_TODO_ERROR = "Description of Todo cannot be empty!";
@@ -37,7 +41,7 @@ public class Parser {
             return line.substring(line.indexOf(" ") + 1, line.indexOf("/by"));
         }
     }
-    public static String getDeadlineDate(String line) {
+    public static String getDeadlineDateString(String line) {
         return line.substring(line.indexOf("/by ") + 4);
     }
     public static boolean hasDeadline(String line) {
@@ -62,5 +66,15 @@ public class Parser {
     }
     public static boolean hasEventDate(String line) {
         return line.contains(" /at ");
+    }
+
+    // Date
+    public static LocalDate getTaskDate(String dateString) throws KittyException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            return LocalDate.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new KittyException("Date formatting is incorrect! (Use format: DD/MM/YYYY)");
+        }
     }
 }

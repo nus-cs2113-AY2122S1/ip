@@ -83,7 +83,7 @@ public class Ui {
     public static final String HELP_MESSAGE = "Here are some things that I can do:\n"
                                             + BAR_LINE + "\n"
                                             + "Todo: todo **INSERT TASK HERE**\n"
-                                            + "Deadline: deadline **INSERT TASK HERE** /by **INSERT DEADLINE HERE**\n"
+                                            + "Deadline: deadline **INSERT TASK HERE** /by DD/MM/YYYY\n"
                                             + "Event: event **INSERT TASK HERE** /at **INSERT EVENT DATE HERE**\n"
                                             + BAR_LINE + "\n"
                                             + CAT_4;

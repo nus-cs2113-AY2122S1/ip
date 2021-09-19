@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 
@@ -53,7 +54,7 @@ public class IO {
 
     private static void addEventFromRawData(String status, String task) {
         String eventName = IOParser.getTaskName(task);
-        String eventDate = IOParser.getTaskDate(task);
+        LocalDate eventDate = IOParser.getTaskDate(task);
         Kitty.tasks.add(new Event(eventName, eventDate));
         if (IOParser.isTaskDone(status)) {
             Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();
@@ -62,7 +63,7 @@ public class IO {
 
     private static void addDeadlineFromRawData(String status, String task) {
         String deadlineName = IOParser.getTaskName(task);
-        String deadlineDate = IOParser.getTaskDate(task);
+        LocalDate deadlineDate = IOParser.getTaskDate(task);
         Kitty.tasks.add(new Deadline(deadlineName, deadlineDate));
         if (IOParser.isTaskDone(status)) {
             Kitty.tasks.get(Kitty.tasks.size() - 1).setDone();

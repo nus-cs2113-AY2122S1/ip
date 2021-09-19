@@ -1,5 +1,7 @@
 package kitty.io;
 
+import java.time.LocalDate;
+
 public class IOParser {
 
     public static String getDataType(String rawData) {
@@ -22,7 +24,8 @@ public class IOParser {
         return task.substring(0, task.indexOf("|"));
     }
 
-    public static String getTaskDate(String task) {
-        return task.substring(task.indexOf("|") + 1);
+    public static LocalDate getTaskDate(String task) {
+        String dateAsString = task.substring(task.indexOf("|") + 1);
+        return LocalDate.parse(dateAsString);
     }
 }
