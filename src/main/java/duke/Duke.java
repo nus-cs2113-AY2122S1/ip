@@ -77,7 +77,8 @@ public class Duke {
     }
 
     public static void main(String[] args) throws IOException, DukeException {
-        // run();
+        run();
+        /*
         String userInputString;
         Scanner userInput = new Scanner(System.in);
 
@@ -125,5 +126,6 @@ public class Duke {
         userInput.close();
         Ui.printByeText.printText();
 
+        */
     }
 }

@@ -30,7 +30,7 @@ public class TaskList {
 
                 textToRemove = StringToRemoveFormat.getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
 
-                dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove, lastLine, taskNumberToDelete);
+                dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove, lastLine, taskNumberToDelete, Duke.numberOfTasks);
 
                 Duke.tasks.remove(taskNumberToDelete - 1);
                 Duke.numberOfTasks -= 1;
