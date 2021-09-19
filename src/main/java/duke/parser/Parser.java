@@ -102,7 +102,7 @@ public class Parser {
      *
      * @param input the input string given
      * @return the integer value of the content of the input string
-     * @throws NumberFormatException  when the content of the input is not a number
+     * @throws NumberFormatException when the content of the input is not a number
      * @throws EmptyArgumentException when the content of the input is empty
      */
     public int extractIndex(String input) throws NumberFormatException, EmptyArgumentException {
@@ -110,6 +110,14 @@ public class Parser {
         return Integer.parseInt(content) - 1;
     }
 
+    /**
+     * Extracts the keyword from the input string
+     *
+     * @param input the input string containing the command and the keyword
+     * @return the keyword of the input string
+     * @throws MultipleKeywordsException when there are more than 1 keywords given
+     * @throws EmptyArgumentException when there is no keyword given
+     */
     public String extractKeyword(String input) throws MultipleKeywordsException, EmptyArgumentException {
         String content = extractContent(input);
         String[] keyWords = content.split(" ");

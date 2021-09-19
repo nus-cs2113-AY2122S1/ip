@@ -138,11 +138,18 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints the list of all tasks that contains the keyword in their descriptions
+     *
+     * @param taskList the full list of tasks
+     * @param keyword the keyword given
+     */
     public void printSearchList(ArrayList<Task> taskList, String keyword) {
         int matchCount = 0;
         System.out.println(DIVIDER);
         System.out.println("Here are the matching tasks in your list:");
         for (Task task : taskList) {
+            //to allow the description to be compared word by word with the keyword
             String[] descriptionWords = task.getDescription().split(" ");
             for (String descriptionWord : descriptionWords) {
                 if (descriptionWord.equals(keyword)) {
