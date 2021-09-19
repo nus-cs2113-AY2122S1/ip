@@ -12,7 +12,7 @@ benefiting those that type fast the most.
 * Marking task as done: `done`
 * Deleting a task: `delete`
 * Finding tasks based on keyword: `find`
-* Exiting the program: `exit`
+* Exiting the program: `bye`
 * Saving user data
 * Editing user data
 
@@ -103,10 +103,10 @@ Format: `find KEYWORD`
 Example:
 * `find test` Looks for all tasks that contain `test` in their descriptions and displays them if found.
 
-### Exiting the program: `exit`
+### Exiting the program: `bye`
 Exits the program
 
-Format: `exit`
+Format: `bye`
 
 ### Saving user data
 Oberon's task data is automatically saved into the hard disk in a data file after every command that alters the task 

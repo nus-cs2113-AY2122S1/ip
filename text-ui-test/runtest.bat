@@ -10,7 +10,7 @@ REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\*.java ..\src\main\java\duke\logic\*.java^
         ..\src\main\java\duke\message\*.java ..\src\main\java\duke\storage\*.java ..\src\main\java\duke\ui\*.java^
         ..\src\main\java\duke\manager\command\*.java ..\src\main\java\duke\manager\input\*.java^
-        ..\src\main\java\duke\manager\task\*.java
+        ..\src\main\java\duke\manager\task\*.java ..\src\main\java\duke\manager\task\formatter\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

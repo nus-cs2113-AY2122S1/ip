@@ -1,7 +1,11 @@
-package duke.manager.task;
+package duke.manager.task.formatter;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * <h1>DateTimeFormat</h1>
+ * This class contains the patterns and formatters used to convert Strings to date time and vice versa.
+ */
 public class DateTimeFormat {
 
     public static final String STRING_TO_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
