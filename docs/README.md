@@ -1,6 +1,6 @@
 # User Guide
 Duke is a desktop app, task tracker that allows you to... well, track all your tasks.
-As Duke is optimized for use in the Command Line (CLI), it can greatly benefit users who
+As Duke has been designed for use in the Command Line (CLI), it can greatly benefit users who
 type fast.
 ## Quick Start
 1. Ensure that you have Java 11 or above installed.
@@ -81,10 +81,10 @@ List all the tasks currently stored in the list.
 Stops the program.
 * Format : `end`
 
-##Command Summary
+## Command Summary
 |Action|Format & Examples|
 |---|---|
-|Add todo task|`todo TASK_NAME` \\n(E.g. `todo Read Book`)|
+|Add todo task|`todo TASK_NAME` (E.g. `todo Read Book`)|
 |Add event task|`event TASK_NAME /at DATE` (E.g. `event Movie /at 2020-10-29`)|
 |Add deadline task|`deadline TASK_NAME /by DATE` (E.g. `deadline Project work /by 2021-19-09`)|
 |Mark as done|`done TASK_INDEX` (E.g. `done 3`)|
