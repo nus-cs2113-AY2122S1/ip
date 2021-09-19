@@ -23,7 +23,7 @@ tasks faster than Graphical User Interface (GUI) apps.
 
 1. Ensure that you have [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) or 
 above installed in your Computer.
-2. Download the latest `ip.jar` file from [here](https://github.com/DJ-Tan/ip/releases/tag/A-Jar).
+2. Download the latest `ip.jar` file from [here](https://github.com/DJ-Tan/ip/releases/tag/A-UserGuide).
 3. Copy the file to the folder you want to use as the _home folder_ for your ChatBot.
 4. For **Windows users**:
    1. Open a `notepad.exe`
