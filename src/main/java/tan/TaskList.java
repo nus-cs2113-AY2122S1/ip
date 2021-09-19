@@ -18,7 +18,7 @@ public class TaskList {
     private static int totalNumberOfTask = 0;
 
     /**
-     * Initializes the file & loads the tasks stored in the file
+     * Initializes the save-file & loads the tasks stored in the file
      * into the list. Then updates the total number of tasks.
      */
     public static void initializeFileAndLoadDataIntoList() {
@@ -65,7 +65,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a certain task as done.
+     * Marks the task at the specified index as done.
      * Takes in the index of the task
      * and checks if it is within range.
      * If it is, mark it as done. If not,
@@ -85,9 +85,8 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task by checking if the index is
-     * within range if it is, delete. If not,
-     * prompts user to key in again.
+     * Deletes the task specified at the index.
+     * If the index is out of range, prompts user to key in again.
      *
      * @param indexTask The index of the task to be marked as done.
      */
@@ -118,7 +117,7 @@ public class TaskList {
     /**
      * Adds a new task by taking the user input as a string
      * and decides what type of task it is and
-     * executes its respective jobs. If none of the task type
+     * creates it. If none of the task type
      * matches, prompts the user to try again.
      *
      * @param userInput The entire input from the user as a String.
@@ -271,7 +270,7 @@ public class TaskList {
     /**
      * Returns the description of an event task from the user's input.
      * Else throws a DukeFormatExceptions error
-     * The function Takes in the whole user input as a string
+     * The function takes in the whole user input as a string
      * when the user is adding an event. The function assumes the
      * description is between the first " " and the "/at" in the input.
      *

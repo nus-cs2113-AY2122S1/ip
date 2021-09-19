@@ -31,7 +31,7 @@ public class Deadline extends Task {
     /**
      * Returns the icon for Deadline tasks.
      *
-     * @return Returns the String "D"
+     * @return Returns the String "D".
      */
     @Override
     public String getIcon() {
