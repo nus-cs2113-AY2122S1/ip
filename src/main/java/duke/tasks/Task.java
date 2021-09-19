@@ -37,6 +37,8 @@ public abstract class Task {
         return "[" + doneStatus + "] " + description;
     }
 
+    public abstract String getDate();
+
     /**
      * Converts <code>Task</code> to the data string format that is used to store in the storage.
      *

@@ -18,9 +18,9 @@ import java.util.Scanner;
 public class Storage {
 
     private static final String STORAGE_PATH = "duke.txt";
-    private File storage = new File(STORAGE_PATH);
     private static final String STORAGE_CREATED_MESSAGE =
             "I can't seem to find any file containing your past tasks, I'll create a new file for you!";
+    private File storage = new File(STORAGE_PATH);
 
     private void createStorage() throws DukeException {
         try {

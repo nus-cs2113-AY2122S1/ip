@@ -46,6 +46,32 @@ public class TaskManager {
         return taskDataStrings;
     }
 
+    public static ArrayList<Task> getTaskList() {
+        return tasks;
+    }
+
+    public static ArrayList<Task> filterListByDate(String date) {
+        ArrayList<Task> filteredList =
+                (ArrayList<Task>) tasks.stream()
+                        .filter((task) -> date.equals(task.getDate()))
+                        .collect(Collectors.toList());
+        return filteredList;
+    }
+
+    /**
+     * Converts all the <code>Task</code> in the list to string format, then concatenated as one string, for
+     * display on the user interface.
+     *
+     * @return String that concatenates all the string format of all <code>Task</code> in the list
+     */
+    public static String listTasks(ArrayList<Task> tasks) {
+        String listOfTasks = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + tasks.get(i).toString());
+        }
+        return listOfTasks;
+    }
+
     /** Clears all the tasks stored in task list. */
     public static void clearAllTasks() {
         tasks.clear();
@@ -60,20 +86,6 @@ public class TaskManager {
     public static void addTask(Task task) {
         tasks.add(task);
         currentTasksCount++;
-    }
-
-    /**
-     * Converts all the <code>Task</code> in the list to string format, then concatenated as one string, for
-     * display on the user interface.
-     *
-     * @return String that concatenates all the string format of all <code>Task</code> in the list
-     */
-    public static String listTasks() {
-        String listOfTasks = "";
-        for (int i = 0; i < currentTasksCount; i++) {
-            listOfTasks = listOfTasks.concat("\n" + (i + 1) + ". " + tasks.get(i).toString());
-        }
-        return listOfTasks;
     }
 
     /**
