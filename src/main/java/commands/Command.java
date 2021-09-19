@@ -16,9 +16,11 @@ public abstract class Command {
             + " %2$o tasks in the list.";
 
     String command;
+    boolean isExit;
 
     public Command(String command) {
         this.command = command;
+        this.isExit = false;
     }
 
     // Return null as default as not all commands needs a help function.
@@ -32,6 +34,14 @@ public abstract class Command {
 
     public void setCommand(String command) {
         this.command = command;
+    }
+
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public void setExit(boolean exit) {
+        isExit = exit;
     }
 
     public abstract void execute(Ui ui, ArrayList<Task> tasks, Storage storage);

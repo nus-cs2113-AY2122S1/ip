@@ -14,22 +14,20 @@ import java.util.Scanner;
  * used as well as to continuously prompt for input from the user until "BYE" is received.
  */
 
-public class Main {
+public class Duke {
     private Ui ui;
     private Storage storage;
-    private Parser parser;
     ArrayList<Task> tasks;
 
 
-    public Main(String filePath) {
+    public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
         tasks = storage.loadData(ui);
     }
 
     public static void main(String[] args) {
-        new Main("tasks.txt").run();
+        new Duke("tasks.txt").run();
     }
 
     /**
@@ -47,9 +45,9 @@ public class Main {
             // Reads user input
             userInput = in.nextLine();
             try {
-                Command command = parser.processCommand(userInput);
+                Command command = Parser.processCommand(userInput);
                 command.execute(ui, tasks, storage);
-                if (command.getCommand().equals(CommandList.BYE)) {
+                if (command.isExit()) {
                     break;
                 }
             } catch (InvalidCommand e) {

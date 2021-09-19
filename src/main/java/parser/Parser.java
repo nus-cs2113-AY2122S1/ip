@@ -19,7 +19,7 @@ public class Parser {
      * @return Command object containing command, description and date (if command was deadline or event)
      * @throws InvalidCommand If a command does not exist.
      */
-    public Command processCommand(String userInput) throws InvalidCommand {
+    public static Command processCommand(String userInput) throws InvalidCommand {
         // Splits user input by spaces
         String[] userInputSplitted = userInput.split("\\s+", 2);
         String command = userInputSplitted[0].toUpperCase();
@@ -66,7 +66,7 @@ public class Parser {
      * @param description String to be split
      * @return Array of string of size 2 after string is spilt by the delimiter
      */
-    private String[] spiltString(String delimiter, String description) {
+    private static String[] spiltString(String delimiter, String description) {
         String[] returnValues = new String[2];
         int byIndex = description.indexOf(delimiter);
         if (byIndex == -1) {

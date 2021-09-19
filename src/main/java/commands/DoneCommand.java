@@ -1,6 +1,7 @@
 package commands;
 
 import storage.Storage;
+import inputvalidator.CheckId;
 import tasks.Task;
 import ui.Ui;
 
@@ -29,7 +30,7 @@ public class DoneCommand extends Command {
 
     @Override
     public void execute(Ui ui, ArrayList<Task> tasks, Storage storage) {
-        if (!Task.isValidTaskId(id, tasks)) { // Task id is invalid
+        if (!CheckId.isValidTaskId(id, tasks)) { // Task id is invalid
             ui.customPrint(Task.taskDoesNotExist + "\n" + help());
         } else {
             int taskId = Integer.parseInt(id) - 1; // -1 as array index starts from 0

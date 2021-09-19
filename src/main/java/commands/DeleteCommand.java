@@ -1,6 +1,7 @@
 package commands;
 
 import storage.Storage;
+import inputvalidator.CheckId;
 import tasks.Task;
 import ui.Ui;
 
@@ -30,7 +31,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(Ui ui, ArrayList<Task> tasks, Storage storage) {
-        if (!Task.isValidTaskId(id, tasks)) { // Invalid task id
+        if (!CheckId.isValidTaskId(id, tasks)) { // Invalid task id
             ui.customPrint(Task.taskDoesNotExist + "\n" + help());
         } else {
             int taskId = Integer.parseInt(id) - 1;

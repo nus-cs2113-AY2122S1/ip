@@ -1,10 +1,12 @@
 # User Guide
 
+Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Interface (CLI)**.
+
 ## Features 
   
 ### Feature-Deadline
 
-Stores a task with deadline in the tasklist.
+Stores a task with deadline in the task list.
 
 ### Feature-Event
 
@@ -16,11 +18,11 @@ Find all task with description matching the user's input.
 
 ### Feature-Todo
 
-Creates a reminder in the tasklist.
+Creates a reminder in the task list.
 
 ### Feature-What's on
 
-Lists all tasks occuring on the date provided by the user.
+Lists all tasks occurring on the date provided by the user.
 
 
 ## Usage
@@ -29,7 +31,7 @@ Lists all tasks occuring on the date provided by the user.
 
 Expected outcome:
 
-The programs ends and saves the data.
+The program ends and saves the data.
 
 ```
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -59,7 +61,7 @@ Now you have 1 tasks in the list.
 
 ### `Delete` - Deletes a task.
 
-Deletes a specifed task.
+Deletes a specified task.
 
 Example of usage: 
 
@@ -176,7 +178,7 @@ Here are the tasks in your list:
 
 ### `Todo` - Creates a Todo list.
 
-Creates an Todo in the task list.
+Creates a Todo in the task list.
 
 Example of usage: 
 
@@ -196,7 +198,7 @@ Now you have 3 tasks in the list.
 
 ### `What's On` - List tasks on a day.
 
-Lists all tasks occuring on the specified date.
+Lists all tasks occurring on the specified date.
 
 Example of usage: 
 
@@ -204,7 +206,7 @@ Example of usage:
 
 Expected outcome:
 
-The event open house is printed.
+The event open house is returned.
 
 ```
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

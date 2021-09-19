@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 public class Deadline extends Task {
-    public Date date;
+    protected Date date;
 
     public Date getDate() {
         return date;

@@ -12,8 +12,8 @@ public class Task {
     public static final String noTasks = "You have no tasks in your list!";
     public static final String hereAreYourTasks = "Here are the tasks in your list:\n";
 
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -43,25 +43,5 @@ public class Task {
 
     public String toFile() {
         return isDone + "|" + description;
-    }
-
-    /**
-     * Checks if a task id is valid.
-     *
-     * @param id String ID of task to be checked.
-     * @return a boolean value indicating if a task was valid.
-     * @throws NumberFormatException If id was not a number or < 1 or > tasks.size()
-     */
-    public static boolean isValidTaskId(String id, ArrayList<Task> tasks) {
-        int taskId;
-        try {
-            taskId = Integer.parseInt(id);
-            if (taskId < 1 || taskId > tasks.size()) { //invalid task ID
-                throw new NumberFormatException();
-            }
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 }

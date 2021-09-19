@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Event extends Task {
 
-    public Date at;
+    protected Date at;
 
     public Date getAt() {
         return at;
