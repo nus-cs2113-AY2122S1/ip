@@ -1,9 +1,10 @@
-package duke;
+package duke.command;
 
+import duke.tasks.TaskList;
 import duke.exception.DoneListIndexError;
 import duke.exception.DukeException;
 
-import static duke.Database.saveFile;
+import static duke.database.Database.saveFile;
 
 public class DoneCommand extends Command {
     private int index;

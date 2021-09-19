@@ -1,13 +1,12 @@
-package duke;
+package duke.command;
 
+import duke.tasks.TaskList;
 import duke.exception.DukeException;
 import duke.exception.ToDoCommandError;
-import duke.tasks.Task;
 import duke.tasks.Todo;
-import java.util.ArrayList;
 
-import static duke.Database.autoSaveFile;
-import static duke.Logic.listIndex;
+import static duke.database.Database.autoSaveFile;
+import static duke.logic.Logic.listIndex;
 
 public class ToDoCommand extends Command{
     private String description;

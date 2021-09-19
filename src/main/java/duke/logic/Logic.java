@@ -1,8 +1,12 @@
-package duke;
+package duke.logic;
 
+import duke.UI.Message;
+import duke.tasks.TaskList;
+import duke.UI.UserInterface;
+import duke.command.Command;
+import duke.database.Database;
 import duke.exception.DukeException;
-import duke.tasks.Task;
-import java.util.ArrayList;
+import duke.parser.Parser;
 
 /**
  * Logic class runs the main logic of the programme.

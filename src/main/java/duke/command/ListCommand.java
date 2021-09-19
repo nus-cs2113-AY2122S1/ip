@@ -1,9 +1,8 @@
-package duke;
+package duke.command;
 
-import duke.tasks.Task;
-import java.util.ArrayList;
+import duke.tasks.TaskList;
 
-import static duke.Logic.listIndex;
+import static duke.logic.Logic.listIndex;
 
 public class ListCommand extends Command{
 

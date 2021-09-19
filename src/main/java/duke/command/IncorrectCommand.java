@@ -1,7 +1,6 @@
-package duke;
+package duke.command;
 
-import duke.tasks.Task;
-import java.util.ArrayList;
+import duke.tasks.TaskList;
 
 public class IncorrectCommand extends Command {
 

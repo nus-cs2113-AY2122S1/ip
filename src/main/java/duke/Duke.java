@@ -1,5 +1,7 @@
 package duke;
 
+import duke.logic.Logic;
+
 /**
  * Duke class acts as entry point to programme.
  */

@@ -1,9 +1,9 @@
-package duke;
+package duke.command;
 
-import duke.tasks.Task;
-import java.util.ArrayList;
+import duke.UI.Message;
+import duke.tasks.TaskList;
 
-import static duke.Database.saveFile;
+import static duke.database.Database.saveFile;
 
 public class ExitCommand extends Command{
 

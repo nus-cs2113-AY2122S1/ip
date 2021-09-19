@@ -1,5 +1,7 @@
-package duke;
+package duke.database;
 
+import duke.tasks.TaskList;
+import duke.logic.Logic;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -42,7 +44,7 @@ public class Database{
             } else {
                 Scanner readFile = new Scanner(storedFile);
                 while (readFile.hasNext()) {
-                    duke.Logic.listIndex++;
+                    Logic.listIndex++;
                     String fileLine = readFile.nextLine();
                     Scanner lineData = new Scanner(fileLine);
                     lineData.useDelimiter("\\|");

@@ -1,4 +1,4 @@
-package duke;
+package duke.UI;
 
 /**
  * Contains common messages to be printed out.

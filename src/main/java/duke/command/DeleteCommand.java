@@ -1,12 +1,11 @@
-package duke;
+package duke.command;
 
+import duke.tasks.TaskList;
 import duke.exception.DeleteListIndexError;
 import duke.exception.DukeException;
-import duke.tasks.Task;
-import java.util.ArrayList;
 
-import static duke.Database.saveFile;
-import static duke.Logic.listIndex;
+import static duke.database.Database.saveFile;
+import static duke.logic.Logic.listIndex;
 
 public class DeleteCommand extends  Command{
     private int index;
