@@ -33,7 +33,7 @@ public class Ui {
         return input.strip();
     }
 
-    static void printBorder() {
+    public static void printBorder() {
         System.out.println(BORDER);
     }
 }
