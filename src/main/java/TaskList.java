@@ -25,13 +25,13 @@ public class TaskList {
     public static void storeTask(String input, boolean shouldAppendToFile) throws DukeException {
         Task newTask;
         if (input.startsWith("todo")) {
-            newTask = new Todo(input.substring(4).trim());
+            newTask = new Todo(input.substring("todo".length()).trim());
         } else if (input.startsWith("deadline")) {
-            String[] inputSlices = input.substring(8).trim().split("/");
-            newTask = new Deadline(inputSlices[0].trim(), inputSlices[1].substring(2).trim());
+            String[] inputSlices = input.substring("deadline".length()).trim().split("/");
+            newTask = new Deadline(inputSlices[0].trim(), inputSlices[1].substring("by".length()).trim());
         } else if (input.startsWith("event")) {
-            String[] inputSlices = input.substring(5).trim().split("/");
-            newTask = new Event(inputSlices[0].trim(), inputSlices[1].substring(2).trim());
+            String[] inputSlices = input.substring("event".length()).trim().split("/");
+            newTask = new Event(inputSlices[0].trim(), inputSlices[1].substring("at".length()).trim());
         } else {
             throw new DukeException();
         }

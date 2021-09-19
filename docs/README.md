@@ -11,7 +11,7 @@ Duke is a chatbot designed to keep track of all your tasks via a Command Line In
 
 In the same directory as 'ip.jar', enter 'java -jar ip.jar' in a terminal to run Duke. If successful, Duke will appear as such on startup:
 
-![Init Display](init_display.png)
+![](welcome.png)
 
 
 
