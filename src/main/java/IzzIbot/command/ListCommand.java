@@ -1,7 +1,7 @@
-package duke.command;
+package IzzIbot.command;
 
-import duke.Ui;
-import duke.TaskList;
+import IzzIbot.Ui;
+import IzzIbot.TaskList;
 
 public class ListCommand extends Command {
 

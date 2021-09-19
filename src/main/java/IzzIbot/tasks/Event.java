@@ -1,4 +1,4 @@
-package duke.tasks;
+package IzzIbot.tasks;
 
 public class Event extends Task {
     protected String at;

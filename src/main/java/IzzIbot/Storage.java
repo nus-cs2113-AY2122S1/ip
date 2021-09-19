@@ -1,10 +1,10 @@
-package duke;
+package IzzIbot;
 
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.exceptions.DukeException;
+import IzzIbot.tasks.Task;
+import IzzIbot.tasks.ToDo;
+import IzzIbot.tasks.Deadline;
+import IzzIbot.tasks.Event;
+import IzzIbot.exceptions.IzzIbotException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,15 +28,15 @@ public class Storage {
      */
     public Storage(String filePath, Ui ui) {
         this.ui = ui;
-        FILE_PATH = Paths.get("duke_data/duke.txt");
+        FILE_PATH = Paths.get("IzzIbot_data/IzzIbot.txt");
     }
 
     /**
      * Reads storage file, decodes encoded TaskList written in that file.
      * @return a TaskList object
-     * @throws DukeException
+     * @throws IzzIbotException
      */
-    public TaskList readFile() throws DukeException {
+    public TaskList readFile() throws IzzIbotException {
         TaskList readTasks = new TaskList(100);
 
         try {
@@ -59,7 +59,7 @@ public class Storage {
                     t = new Event(inputArray[2], inputArray[3]);
                     break;
                 default:
-                    throw new DukeException("Error while parsing");
+                    throw new IzzIbotException("Error while parsing");
                 }
 
                 if (inputArray[1].equals("1")) {
@@ -75,7 +75,7 @@ public class Storage {
             try {
                 createFile();
             } catch (IOException o) {
-                throw new DukeException("Error while reading file.");
+                throw new IzzIbotException("Error while reading file.");
             }
         }
         return null;
@@ -84,9 +84,9 @@ public class Storage {
     /**
      * Encodes and saves a TaskList. Overwrites previously saved file
      * @param tasks a list of tasks to be encoded and saved
-     * @throws DukeException
+     * @throws IzzIbotException
      */
-    public void saveFile(TaskList tasks) throws DukeException {
+    public void saveFile(TaskList tasks) throws IzzIbotException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH.toString());
             String newText = "";
@@ -101,7 +101,7 @@ public class Storage {
             fw.close();
 
         } catch (IOException e) {
-            throw new DukeException("IO exception");
+            throw new IzzIbotException("IO exception");
         }
     }
 

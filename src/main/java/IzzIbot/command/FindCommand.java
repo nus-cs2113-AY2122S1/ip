@@ -1,7 +1,7 @@
-package duke.command;
+package IzzIbot.command;
 
-import duke.TaskList;
-import duke.Ui;
+import IzzIbot.TaskList;
+import IzzIbot.Ui;
 
 public class FindCommand extends Command {
 

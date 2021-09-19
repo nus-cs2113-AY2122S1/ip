@@ -1,11 +1,11 @@
-package duke;
+package IzzIbot;
 
-import duke.command.*;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.exceptions.DukeException;
+import IzzIbot.command.*;
+import IzzIbot.tasks.Task;
+import IzzIbot.tasks.ToDo;
+import IzzIbot.tasks.Deadline;
+import IzzIbot.tasks.Event;
+import IzzIbot.exceptions.IzzIbotException;
 
 public class Parser {
 
@@ -71,34 +71,34 @@ public class Parser {
      * Dissects user's raw input and returns an appropriate AddCommand object.
      * @param input string of user's raw input
      * @return an appropriate AddCommand object
-     * @throws DukeException
+     * @throws IzzIbotException
      */
-    public Command addTask(String input) throws DukeException {
+    public Command addTask(String input) throws IzzIbotException {
 
         if (input.startsWith(TODO)) {
             if (input.substring(4).isEmpty()) {
-                throw new DukeException(TODO_EXCEPTION);
+                throw new IzzIbotException(TODO_EXCEPTION);
             }
             trimInput(input);
 
         } else if (input.startsWith(DEADLINE)) {
             if (!input.contains("/by")) {
-                throw new DukeException(DEADLINE_EXCEPTION);
+                throw new IzzIbotException(DEADLINE_EXCEPTION);
             } else if (input.substring(input.indexOf("/by") + "/by".length()).isEmpty()) {
-                throw new DukeException(DEADLINE_EMPTY_DESCRIPTION);
+                throw new IzzIbotException(DEADLINE_EMPTY_DESCRIPTION);
             }
             trimInput(input);
 
         } else if (input.startsWith(EVENT)) {
             if (!input.contains("/at")) {
-                throw new DukeException(EVENT_EXCEPTION);
+                throw new IzzIbotException(EVENT_EXCEPTION);
             } else if (input.substring(input.indexOf("/at") + "/at".length()).isEmpty()) {
-                throw new DukeException(EVENT_EMPTY_DESCRIPTION);
+                throw new IzzIbotException(EVENT_EMPTY_DESCRIPTION);
             }
             trimInput(input);
 
         } else {
-            throw new DukeException(INVALID_TASK_TYPE);
+            throw new IzzIbotException(INVALID_TASK_TYPE);
         }
 
         return new AddCommand(ui, tasks, newTask);
@@ -130,7 +130,7 @@ public class Parser {
      * Dissects user's raw input beforehand and then calls appropriate command methods.
      * @param input string of user's raw input
      * @return a Command object
-     * @throws DukeException
+     * @throws IzzIbotException
      */
     public Command findTask(String input) {
         String keyword = input.replaceFirst("find", "").trim();
@@ -138,7 +138,7 @@ public class Parser {
         return new FindCommand(ui, tasks, keyword);
     }
 
-    public Command selectCommand(String input) throws DukeException {
+    public Command selectCommand(String input) throws IzzIbotException {
 
         String trimmedInput = input.trim().split(" ")[0];
         Command commandFromInput = null;
@@ -164,7 +164,7 @@ public class Parser {
             System.exit(0);
             break;
         default:
-            throw new DukeException(INVALID_INPUT);
+            throw new IzzIbotException(INVALID_INPUT);
         }
         return commandFromInput;
     }

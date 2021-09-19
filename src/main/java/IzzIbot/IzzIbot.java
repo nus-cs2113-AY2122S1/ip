@@ -1,9 +1,9 @@
-package duke;
+package IzzIbot;
 
-import duke.command.Command;
-import duke.exceptions.DukeException;
+import IzzIbot.command.Command;
+import IzzIbot.exceptions.IzzIbotException;
 
-public class Duke {
+public class IzzIbot {
 
     private Ui ui;
     private Storage storage;
@@ -11,16 +11,16 @@ public class Duke {
     private TaskList tasks;
 
     /**
-     * Duke constructor which initialises the User Interface(UI), Storage, Parser and TaskList.
-     * @param filePath file path of duke_data, which stores data of Duke
+     * IzzIbot constructor which initialises the User Interface(UI), Storage, Parser and TaskList.
+     * @param filePath file path of IzzIbot_data, which stores data of IzzIbot
      */
-    public Duke(String filePath) {
+    public IzzIbot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath, ui);
 
         try {
             tasks = new TaskList(storage.readFile());
-        } catch (DukeException e) {
+        } catch (IzzIbotException e) {
             ui.printWithLines(e.toString());
             tasks = new TaskList();
         }
@@ -41,7 +41,7 @@ public class Duke {
                 Command userCommand = parser.selectCommand(input);
                 userCommand.execute();
                 storage.saveFile(tasks);
-            } catch (DukeException e) {
+            } catch (IzzIbotException e) {
                 ui.printWithLines(e.getMessage());
             }
 
@@ -51,7 +51,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("duke_data/store.txt").run();
+        new IzzIbot("IzzIbot_data/store.txt").run();
     }
 
 }

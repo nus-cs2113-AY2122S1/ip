@@ -1,8 +1,8 @@
-package duke.command;
+package IzzIbot.command;
 
-import duke.Ui;
-import duke.TaskList;
-import duke.exceptions.DukeException;
+import IzzIbot.Ui;
+import IzzIbot.TaskList;
+import IzzIbot.exceptions.IzzIbotException;
 
 public abstract class Command {
 
@@ -26,10 +26,10 @@ public abstract class Command {
 
     /**
      * Executes the appropriate command
-     * @throws DukeException if no command is specified
+     * @throws IzzIbotException if no command is specified
      */
-    public void execute() throws DukeException {
-        throw new DukeException("This method is unspecified!");
+    public void execute() throws IzzIbotException {
+        throw new IzzIbotException("This method is unspecified!");
     }
 
 }

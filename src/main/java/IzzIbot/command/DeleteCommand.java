@@ -1,9 +1,9 @@
-package duke.command;
+package IzzIbot.command;
 
 
-import duke.Ui;
-import duke.TaskList;
-import duke.exceptions.DukeException;
+import IzzIbot.Ui;
+import IzzIbot.TaskList;
+import IzzIbot.exceptions.IzzIbotException;
 
 public class DeleteCommand extends Command {
 
@@ -22,13 +22,13 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes DeleteCommand
-     * @throws DukeException
+     * @throws IzzIbotException
      */
     @Override
-    public void execute() throws DukeException {
+    public void execute() throws IzzIbotException {
 
         if (chosenTaskIndex < 0 || chosenTaskIndex > tasks.size()) {
-            throw new DukeException("Index is not within range!");
+            throw new IzzIbotException("Index is not within range!");
         } else {
             String deletedTaskString = tasks.remove(chosenTaskIndex).toString();
             ui.printWithLines("deleted: " + deletedTaskString);

@@ -1,7 +1,7 @@
-package duke;
+package IzzIbot;
 
-import duke.tasks.Task;
-import duke.exceptions.DukeException;
+import IzzIbot.tasks.Task;
+import IzzIbot.exceptions.IzzIbotException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -60,12 +60,12 @@ public class TaskList {
      * Removes a task with given index from the task list. Exception will be thrown if given index is out of range.
      * @param index index of task to be removed
      * @return task to be removed
-     * @throws DukeException
+     * @throws IzzIbotException
      */
-    public Task remove(int index) throws DukeException {
+    public Task remove(int index) throws IzzIbotException {
 
         if (index > list.size() - 1) {
-            throw new DukeException("Task number " + (list.size() + 1) + " is invalid!\nEnter a valid task number.");
+            throw new IzzIbotException("Task number " + (list.size() + 1) + " is invalid!\nEnter a valid task number.");
         }
 
         return list.remove(index);
@@ -79,11 +79,11 @@ public class TaskList {
     /**
      * Marks a task in the task list as done. Exception will be thrown if given index is out of range.
      * @param index index of task to be marked as done
-     * @throws DukeException
+     * @throws IzzIbotException
      */
-    public void setTaskDone(int index) throws DukeException {
+    public void setTaskDone(int index) throws IzzIbotException {
         if (index < 0 || index > list.size()) {
-            throw new DukeException("Task number " + (index + 1) + " is invalid!\nEnter a valid task number.");
+            throw new IzzIbotException("Task number " + (index + 1) + " is invalid!\nEnter a valid task number.");
         }
 
         list.get(index).setDone();

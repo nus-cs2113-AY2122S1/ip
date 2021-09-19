@@ -1,4 +1,4 @@
-package duke;
+package IzzIbot;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -10,8 +10,8 @@ public class Ui {
     private final PrintStream out;
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
-    public static final String HELLO_MESSAGE = "Task manager MARK at your service.";
-    public static final String BYE_MESSAGE = "You've terminated MARK. Have a good day!";
+    public static final String HELLO_MESSAGE = "Task manager IzzIbot at your service.";
+    public static final String BYE_MESSAGE = "You've terminated IzzIbot. Have a good day!";
 
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
@@ -45,14 +45,14 @@ public class Ui {
     }
 
     /**
-     * Prints welcome message upon running MARK.
+     * Prints welcome message upon running IzzIbot.
      */
     public void printHelloMessage() {
         printWithLines(HELLO_MESSAGE);
     }
 
     /**
-     * Prints exit message upon terminating MARK.
+     * Prints exit message upon terminating IzzIbot.
      */
     public void printByeMessage() {
         printWithLines(BYE_MESSAGE);

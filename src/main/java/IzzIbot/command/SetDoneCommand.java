@@ -1,8 +1,8 @@
-package duke.command;
+package IzzIbot.command;
 
-import duke.Ui;
-import duke.TaskList;
-import duke.exceptions.DukeException;
+import IzzIbot.Ui;
+import IzzIbot.TaskList;
+import IzzIbot.exceptions.IzzIbotException;
 
 public class SetDoneCommand extends Command {
 
@@ -21,13 +21,13 @@ public class SetDoneCommand extends Command {
 
     /**
      * Executes SetDoneCommand
-     * @throws DukeException
+     * @throws IzzIbotException
      */
     @Override
-    public void execute() throws DukeException {
+    public void execute() throws IzzIbotException {
 
         if (chosenTaskIndex < 0 || chosenTaskIndex > tasks.size()) {
-            throw new DukeException("Index is not within range!");
+            throw new IzzIbotException("Index is not within range!");
         } else {
             tasks.setTaskDone(chosenTaskIndex);
             ui.printWithLines("set as done: " + tasks.get(chosenTaskIndex).toString());

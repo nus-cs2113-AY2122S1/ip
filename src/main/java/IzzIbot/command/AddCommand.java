@@ -1,9 +1,9 @@
-package duke.command;
+package IzzIbot.command;
 
-import duke.Ui;
-import duke.TaskList;
-import duke.tasks.Task;
-import duke.exceptions.DukeException;
+import IzzIbot.Ui;
+import IzzIbot.TaskList;
+import IzzIbot.tasks.Task;
+import IzzIbot.exceptions.IzzIbotException;
 
 public class AddCommand extends Command {
 
@@ -22,10 +22,10 @@ public class AddCommand extends Command {
 
     /**
      * Executes AddCommand
-     * @throws DukeException
+     * @throws IzzIbotException
      */
     @Override
-    public void execute() throws DukeException {
+    public void execute() throws IzzIbotException {
         tasks.add(newTask);
         ui.printWithLines("added: " + newTask.toString());
 
