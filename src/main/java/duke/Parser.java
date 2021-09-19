@@ -1,4 +1,6 @@
-package duke.commandHandler;
+package duke;
+
+import duke.exceptionHandler.DukeException;
 
 /**
  * CommandHandling class helps to check the type of command given.
@@ -6,7 +8,7 @@ package duke.commandHandler;
  * @author YEOWEIHNGWHYELAB
  */
 
-public class DukeCommandHandling {
+public class Parser {
     private String commandString;
 
     /**
@@ -16,7 +18,7 @@ public class DukeCommandHandling {
      *
      * @param commandString The raw user input command.
      */
-    public DukeCommandHandling(String commandString) {
+    public Parser(String commandString) {
         this.commandString = commandString;
     }
 

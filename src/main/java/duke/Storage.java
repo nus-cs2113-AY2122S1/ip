@@ -1,4 +1,4 @@
-package duke.save;
+package duke;
 
 import duke.commandHandler.SaveCommandHandling;
 import duke.taskType.Deadline;
@@ -16,14 +16,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SaveTaskListToText {
+public class Storage {
     public static File directoryOfTaskText = new File("./data");
     public static File dukeTaskText = new File("./data/duke.txt");
     public static int numberOfTasksAdded = 0;
 
     // Solution below adapted from
     // https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
-    public static void removeLineFromFile(String file, String lineToRemove, boolean lastLine, int taskNumberToDelete) {
+    public static void removeLineFromFile(String file, String lineToRemove, boolean lastLine, int taskNumberToDelete, int numberOfTask) {
         try {
             File inFile = new File(file);
             int count = 0;
@@ -39,7 +39,7 @@ public class SaveTaskListToText {
             BufferedReader br = new BufferedReader(new FileReader(file));
             PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
-            String line = null;
+            String line;
 
             // Read from the original file and write to the new
             // unless content matches data to be removed.
@@ -50,8 +50,13 @@ public class SaveTaskListToText {
                         pw.print(line); // No newline...
                         pw.flush();
                     } else {
-                        pw.println(line);
-                        pw.flush();
+                        if (count == numberOfTask) {
+                            pw.print(line);
+                            pw.flush();
+                        } else {
+                            pw.println(line);
+                            pw.flush();
+                        }
                     }
                 }
             }
@@ -77,7 +82,7 @@ public class SaveTaskListToText {
     }
 
 
-    private static void fileTaskCopy(ArrayList<Task> tasks) throws IOException {
+    public static void fileTaskCopy(ArrayList<Task> tasks) throws IOException {
         Scanner scanText = new Scanner(dukeTaskText); // create a Scanner using the File as the source
         while (scanText.hasNext()) {
             String currentCommand = scanText.nextLine();
