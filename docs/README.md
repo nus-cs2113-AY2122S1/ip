@@ -65,7 +65,7 @@ Examples:
 * `deadline weekly quiz /by thursday midnight` Adds a Deadline with the description `weekly quiz` by 
   `thursday midnight`.
 * `deadline User Guide /by 26/09/2021 23:59` Adds a Deadline with the description `User Guide` by
-  `26/09/2021 23:59`. When `list` is called, `26/09/2021 20:00` will be displayed as `Sun, 26 Sep 2021, 23:59`.
+  `26/09/2021 23:59`. When `list` is called, `26/09/2021 23:59` will be displayed as `Sun, 26 Sep 2021, 23:59`.
 * `deadline proposal /by` or `deadline proposal` Adds a Deadline with the description `proposal` by `???`.
 
 ### Marking task as done: `done`
