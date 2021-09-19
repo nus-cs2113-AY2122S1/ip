@@ -7,6 +7,7 @@ import tan.tasktype.Task;
 import tan.tasktype.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
@@ -127,19 +128,19 @@ public class TaskList {
         Task curTask;
         switch (typeOfTask) {
         case "todo":
-            curTask = getToDoTask(userInput);
+            curTask = createTodoTask(userInput);
             if (curTask == null) {
                 return;
             }
             break;
         case "deadline":
-            curTask = getDeadlineTask(userInput);
+            curTask = createDeadlineTask(userInput);
             if (curTask == null) {
                 return;
             }
             break;
         case "event":
-            curTask = getEventTask(userInput);
+            curTask = createEventTask(userInput);
             if (curTask == null) {
                 return;
             }
@@ -164,19 +165,26 @@ public class TaskList {
      * @param userInput - The user input in String.
      * @return The Event task created, else null.
      */
-    private static Task getEventTask(String userInput) {
+    private static Task createEventTask(String userInput) {
+        Task curTask = null;
         try {
             String eventDesc = getDescriptionOfEvent(userInput);
-            String eventTimeDate = getDateTimeOfEvent(userInput);
-            Task curTask = new Event(eventDesc, eventTimeDate);
-            listOfTasks.add(curTask);
-            return curTask;
+            String dateOfEventInString = getDateTimeOfEventInString(userInput);
+            LocalDate taskDate = Parser.getInDateFormat(dateOfEventInString);
+            if (taskDate == null) {
+                System.out.println("Unable to parse date");
+                return null;
+            }
+            curTask = new Event(eventDesc, taskDate);
         } catch (DukeFormatExceptions d) {
             System.out.println(d);
+            return null;
         } catch (IndexOutOfBoundsException I) {
             System.out.println("Please check your formatting & input!");
+            return null;
         }
-        return null;
+        listOfTasks.add(curTask);
+        return curTask;
     }
 
     /**
@@ -189,19 +197,26 @@ public class TaskList {
      * @param userInput - The user input in String.
      * @return The Task created, else null.
      */
-    private static Task getDeadlineTask(String userInput) {
+    private static Task createDeadlineTask(String userInput) {
+        Task curTask = null;
         try {
             String deadlineDesc = getDescriptionOfDeadline(userInput);
-            String deadlineDateTime = getDateTimeOfDeadline(userInput);
-            Task curTask = new Deadline(deadlineDesc, deadlineDateTime);
-            listOfTasks.add(curTask);
-            return curTask;
-        } catch (DukeFormatExceptions e) {
-            System.out.println(e);
+            String dateInString = getDateTimeOfDeadline(userInput);
+            LocalDate taskDate = Parser.getInDateFormat(dateInString);
+            if (taskDate == null) {
+                System.out.println("Unable to parse Date.");
+                return null;
+            }
+            curTask = new Deadline(deadlineDesc, taskDate);
         } catch (IndexOutOfBoundsException x) {
             System.out.println("Please check your formatting & input!");
+            return null;
+        } catch (DukeFormatExceptions e) {
+            System.out.println(e);
+            return null;
         }
-        return null;
+        listOfTasks.add(curTask);
+        return curTask;
     }
 
     /**
@@ -214,17 +229,21 @@ public class TaskList {
      * @param userInput The user's input in String.
      * @return Returns the task else NULL.
      */
-    private static Task getToDoTask(String userInput) {
-
+    private static Task createTodoTask(String userInput) {
+        Task curTask = null;
         try {
             String todoDesc = getDescriptionOfToDo(userInput);
-            Task curTask = new ToDo(todoDesc);
-            listOfTasks.add(curTask);
-            return curTask;
+            curTask = new ToDo(todoDesc);
+
         } catch (DukeFormatExceptions e) {
             System.out.println(e);
+            return null;
+        } catch (IndexOutOfBoundsException x) {
+            System.out.println("Please check your formatting & input!");
+            return null;
         }
-        return null;
+        listOfTasks.add(curTask);
+        return curTask;
     }
 
     /**
@@ -238,7 +257,7 @@ public class TaskList {
      * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
      */
-    private static String getDateTimeOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
+    private static String getDateTimeOfEventInString(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /at... format.
         if (x.toLowerCase().contains("/at")) {
             int indexOfSlash = x.indexOf("/at");

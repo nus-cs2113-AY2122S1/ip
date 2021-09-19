@@ -1,16 +1,19 @@
 package tan.tasktype;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
     private final String deadlineIcon = "D";
-    private String dateTime;
+    private LocalDate dateTime;
 
-    public Deadline(String description, String dateTime) {
+    public Deadline(String description, LocalDate dateTime) {
         super(description);
         this.dateTime = dateTime;
     }
 
-    public Deadline(String description, boolean isDone, String dateTime) {
+    public Deadline(String description, boolean isDone, LocalDate dateTime) {
         super(description, isDone);
         this.dateTime = dateTime;
     }
@@ -42,8 +45,20 @@ public class Deadline extends Task {
      * @return Returns deadline in String.
      */
     @Override
-    public String getDateTime() {
-        return dateTime;
+    public String getDateTimeInString() {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
+        String formattedDate = dateTime.format(dateFormat);
+        return formattedDate;
+    }
+
+    /**
+     * Returns the Date in its original form, in String.
+     *
+     * @return The Date in string, unformatted.
+     */
+    @Override
+    public String getDateTimeForStorage() {
+        return dateTime.toString();
     }
 
     /**
@@ -56,6 +71,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] "
-                + getTaskName() + " (by: " + getDateTime() + ")");
+                + getTaskDescription() + " (by: " + getDateTimeInString() + ")");
     }
 }

@@ -1,5 +1,6 @@
 package tan;
 
+
 import tan.exceptions.TaskToStringException;
 import tan.tasktype.Deadline;
 import tan.tasktype.Event;
@@ -14,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +23,11 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 
 /**
- * HOW TO USE??
- * <p>
+ * Notes:
  * Call setWriterAndReader to set the csvReader & csvWriter.
  * Then use respective reader/writer to perform task.
  * Note, if you close csvWriter, you have to write from top
  * aga in. Use Flush to push to current writing in buffer to file.
- * <p>
- * <p>
  * homePath - The directory that the data file is saved at in String.
  */
 public class Storage {
@@ -55,6 +54,7 @@ public class Storage {
         boolean isDeleted = oldFile.delete();
         if (!isDeleted) {
             System.out.println("Unable to delete file. Please resolve this issue 1st");
+            return;
         } else {
             csvWriter = Files.newBufferedWriter(DATA_PATH, CREATE);
         }
@@ -75,27 +75,35 @@ public class Storage {
      * Returns the properties of a task in String, CSV format.
      * If the function fails to convert the string into CSV,
      * it will return NULL instead.
+     * Its corresponding task type to integers are,
+     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
      *
      * @param curTask The Task to be converted.
      * @return The task's properties in CSV format, null otherwise.
      */
     private static String getTaskInCsv(Task curTask) {
 
+        String taskAsCsv = null;
         try {
             String type = curTask.getTaskType();
             int taskTypeInt = getTaskTypeInInt(type);
             if (taskTypeInt == -1) {
+                //If Invalid task int.
                 throw new TaskToStringException();
             }
-            String name = curTask.getTaskName();
-            String date = curTask.getDateTime();
-            Boolean status = curTask.getStatus();
-            String statusAsString = (status) ? "1" : "0";
-            String taskAsCsv = taskTypeInt + "," + statusAsString + "," + name + "," + date;
-            return taskAsCsv;
+            String taskDescription = curTask.getTaskDescription();
+            String unformattedDate = curTask.getDateTimeForStorage();
+            Boolean taskStatus = curTask.getStatus();
+            String statusAsString = (taskStatus) ? "1" : "0";
+            taskAsCsv = taskTypeInt + "," + statusAsString + "," + taskDescription + "," + unformattedDate;
+        } catch (TaskToStringException x) {
+            System.out.println("Error in getting the task type!");
+            return null;
         } catch (Exception e) {
+            System.out.println("Error :" + e);
             return null;
         }
+        return taskAsCsv;
     }
 
     /**
@@ -140,8 +148,8 @@ public class Storage {
             Task newTask = getNewTask(storedTasks.get(iterator));
             if (newTask != null) {
                 listOfStoredTasks.add(newTask);
-                iterator += 1;
             }
+            iterator += 1;
         }
         return listOfStoredTasks;
     }
@@ -153,6 +161,8 @@ public class Storage {
      * file but in an array format instead of CSV. It then
      * parses all the data to get the necessary information
      * to create a Task.
+     * Its corresponding task type to integers are,
+     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
      *
      * @param curTaskString The array of the task's data from the dataFile.
      * @return The Task created according to the data in the array. Null otherwise.
@@ -161,9 +171,14 @@ public class Storage {
         int taskType = Integer.parseInt(curTaskString[0]);
         int statusInt = Integer.parseInt(curTaskString[1]);
         Boolean isDone = statusInt >= 1;
+        Boolean isNotTodoTask = taskType != 0;
         String description = curTaskString[2];
-        String date = curTaskString[3];
-
+        String dateInString = curTaskString[3];
+        LocalDate date = Parser.getInDateFormat(dateInString);
+        if (date == null && isNotTodoTask) {
+            System.out.println("Unable to Parse date.");
+            return null;
+        }
         return createTask(taskType, isDone, description, date);
     }
 
@@ -179,7 +194,7 @@ public class Storage {
      * @param date     The date, if there is, of the task.
      * @return The task created. Null if task type is not recognized.
      */
-    private static Task createTask(int taskType, boolean isDone, String name, String date) {
+    private static Task createTask(int taskType, boolean isDone, String name, LocalDate date) {
         Task newTask;
         switch (taskType) {
         case 0:
