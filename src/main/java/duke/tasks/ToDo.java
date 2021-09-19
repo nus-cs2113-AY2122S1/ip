@@ -3,12 +3,16 @@ package duke.tasks;
 /**
  * Represents a <code>Task</code> that does not have any specific deadlines or date of occurrence.
  */
-
 public class ToDo extends Task {
 
     private static final String SYMBOL = "T";
     private static final String SEPARATOR = " | ";
 
+    /**
+     * Constructs a <code>ToDo</code> object with all its relevant information such as description.
+     *
+     * @param description <code>String</code> description of the task
+     */
     public ToDo(String description) {
         super(description);
     }

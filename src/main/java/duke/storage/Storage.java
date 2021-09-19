@@ -15,7 +15,6 @@ import java.util.Scanner;
  * Includes the operations that can be performed on the file with fixed path /duke.txt, such as reading the
  * file when <code>Duke</code> is first started, and updating the file after every command cycle.
  */
-
 public class Storage {
 
     private static final String STORAGE_PATH = "duke.txt";
@@ -39,7 +38,6 @@ public class Storage {
      * @throws DukeException if the storage with path /duke.txt does not exist and is first created, or if the
      * storage cannot be created due to IO problems.
      */
-
     private ArrayList<String> readFromStorage() throws DukeException {
 
         ArrayList<String> fileLines = new ArrayList<>();
@@ -62,7 +60,6 @@ public class Storage {
      * @return <code>ArrayList</code> of <code>Data</code> objects
      * @throws DukeException If the data string cannot be converted to <code>Data</code> due to corrupted data
      */
-
     private ArrayList<Data> processStorageToData(ArrayList<String> fileLines) throws DukeException {
         ArrayList<Data> dataObjects = new ArrayList<>();
         Data dataObject;
@@ -80,7 +77,6 @@ public class Storage {
      * @param dataObjects Collection of <code>Data</code> of processing the storage
      * @throws DukeException If the <code>Data</code> cannot be converted to <code>Task</code> due to corrupted data
      */
-
     private void writeToTaskList(ArrayList<Data> dataObjects) throws DukeException {
         for (Data data : dataObjects) {
             Task task = data.toTask();
@@ -95,7 +91,6 @@ public class Storage {
      * @throws DukeException If the data found in storage is corrupted, and will wipe the data in the file or
      * create a new one in the process.
      */
-
     public void loadStorageToTaskList() throws DukeException {
 
         ArrayList<String> fileLines = readFromStorage();
@@ -110,7 +105,6 @@ public class Storage {
      * @param fileLines Collection of data strings
      * @throws DukeException If there is an IO exception encountered
      */
-
     private void writeToStorage(ArrayList<String> fileLines) throws DukeException {
         try {
             FileWriter writer = new FileWriter(STORAGE_PATH);
@@ -129,7 +123,6 @@ public class Storage {
      *
      * @throws DukeException If there is an IO exception encountered in writing to the storage
      */
-
     public void loadTaskListToStorage() throws DukeException {
         ArrayList<String> fileLines = TaskManager.convertTasksToDataStringFormat();
         writeToStorage(fileLines);

@@ -19,7 +19,6 @@ import duke.exceptions.DukeException;
  * Represents a utility class that includes operations that can be performed on a command string input by
  * the user to analyse, find arguments, or create other objects.
  */
-
 public class Parser {
 
     private static final String COMMAND_EXIT = "bye";
@@ -53,7 +52,6 @@ public class Parser {
      * <p>If there are no arguments, then the second entry will be an empty <code>String</code></p>
      * <p>If the user input is empty, then both entries will be an empty <code>String</code></p>
      */
-
     private static String[] separateCommand(String input) {
         String[] commandArgArray = new String[2];
         String[] separatedInput = input.split(" ", 2);
@@ -70,7 +68,6 @@ public class Parser {
      * the first entry and the date and time in the second entry.</p>
      * <p>If no date and time is provided, then the second entry will be an empty <code>String</code></p>
      */
-
     public static String[] separateDeadline(String input) {
         String[] descriptionDateArray = new String[2];
         String[] separatedInput = input.split(DEADLINE_PREFIX, 2);
@@ -90,7 +87,6 @@ public class Parser {
      * the first entry and the date and time in the second entry.</p>
      * <p>If no date and time is provided, then the second entry will be an empty <code>String</code></p>
      */
-
     public static String[] separateEvent(String input) {
         String[] descriptionDateArray = new String[2];
         String[] separatedInput = input.split(EVENT_PREFIX, 2);
@@ -110,7 +106,6 @@ public class Parser {
      * @return <code>Command</code> object that corresponds to the command word
      * @throws DukeException If there are no commands that match with the command word
      */
-
     private static Command parseCommandWithArguments(String userInputString) throws DukeException {
 
         String[] commandArgArray = separateCommand(userInputString);
@@ -137,13 +132,13 @@ public class Parser {
 
     /**
      * Treats the entire user input string as a command, and to determine which command it matches with, then
-     * constructs the respective <code>Command</code> object for further execution.
+     * constructs the respective <code>Command</code> object for further execution. If the user input string does
+     * not match with any command, then it will be further parsed for its command word and arguments.
      *
      * @param userInputString <code>String</code> input from the user through the user interface
      * @return <code>Command</code> object that corresponds to the <code>userInputString</code>
      * @throws DukeException If there are no commands that match with the <code>userInputString</code>
      */
-
     public static Command parseCommand(String userInputString) throws DukeException {
 
         switch (userInputString.toLowerCase()) {
@@ -168,7 +163,6 @@ public class Parser {
      * @return <code>Data</code> object that represents the <code>Task</code>
      * @throws DukeException If information of the <code>Task</code> is found to be corrupted
      */
-
     public static Data parseData(String fileLine) throws DukeException {
         String[] parameters = trimArrayElements(fileLine.split(DATA_SEPARATOR));
         return new Data(parameters);

@@ -35,6 +35,7 @@ public class Duke {
         return scanner.nextLine().trim();
     }
 
+    /** Reads user input and executes commands in a loop until a command to exit is invoked. */
     private void executeUserInputs() {
 
         while (true) {
@@ -54,6 +55,7 @@ public class Duke {
         }
     }
 
+    /** Greets the user and loads previous tasks, then executes user inputs in a loop. */
     public void run() {
         ui.showGreetMessage();
         loadStorage();

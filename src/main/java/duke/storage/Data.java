@@ -10,7 +10,6 @@ import duke.tasks.ToDo;
  * Represents the individual information of a <code>Task</code> retrieved from storage, before adding
  * them to the <code>Task</code> list.
  */
-
 public class Data {
 
     private String[] parameters;
@@ -28,7 +27,6 @@ public class Data {
      * @return <p><code>true</code> - if data is corrupted</p>
      *         <p><code>false</code> - otherwise</p>
      */
-
     private boolean hasCorruptedData(String[] parameters) {
         switch (parameters[0]) {
         case "T":
@@ -42,6 +40,16 @@ public class Data {
         }
     }
 
+    /**
+     * Constructs a <code>Data</code> object from the information read from the storage.
+     *
+     * @param parameters <p>Variable argument that contains the information of a <code>Task</code></p>
+     *                   <p>For <code>ToDo</code> - Entries of the array represent the <code>Task</code>
+     *                   type, done status, and description.</p>
+     *                   <p>For <code>Deadline, Event</code> - Entries of the array represent the <code>Task</code>
+     *                   type, done status, description, and the date and time.</p>
+     * @throws DukeException If information read from the storage is corrupted
+     */
     public Data(String ... parameters) throws DukeException {
 
         if (hasCorruptedData(parameters)) {
@@ -60,7 +68,6 @@ public class Data {
      * @return <code>Task</code> object based on the <code>parameters</code>
      * @throws DukeException if data is found to be corrupted
      */
-
     public Task toTask() throws DukeException {
         Task task;
         switch (parameters[0]) {
