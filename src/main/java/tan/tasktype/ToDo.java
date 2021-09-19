@@ -29,7 +29,18 @@ public class ToDo extends Task {
      * @return Returns the string "-".
      */
     @Override
-    public String getDateTime() {
+    public String getDateTimeInString() {
+        return "-";
+    }
+
+    /**
+     * Returns "-" for the Todo as it
+     * does not have a date.
+     *
+     * @return Returns the string "-".
+     */
+    @Override
+    public String getDateTimeForStorage() {
         return "-";
     }
 
@@ -52,6 +63,6 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return ("[" + getIcon() + "]"
-                + "[" + getStatusIcon() + "] " + getTaskName());
+                + "[" + getStatusIcon() + "] " + getTaskDescription());
     }
 }
