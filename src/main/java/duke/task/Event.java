@@ -1,10 +1,16 @@
 package duke.task;
 
+import duke.parser.Parser;
+
+import java.time.LocalDateTime;
+
+import static duke.constants.DukeCommandStrings.DATE_TIME_OUTPUT_FORMAT;
+
 public class Event extends Task {
     protected final String TASK_TYPE = "E";
-    protected String when;
+    protected LocalDateTime when;
 
-    public Event(String description, String when) {
+    public Event(String description, LocalDateTime when) {
         super(description);
         setWhen(when);
     }
@@ -14,16 +20,16 @@ public class Event extends Task {
     }
 
 
-    public String getWhen() {
+    public LocalDateTime getWhen() {
         return when;
     }
 
-    public void setWhen(String when) {
+    public void setWhen(LocalDateTime when) {
         this.when = when;
     }
 
     @Override
     public String toString() {
-        return "[" + TASK_TYPE + "]" + super.toString() + " (at: " + when + ")";
+        return "[" + TASK_TYPE + "]" + super.toString() + " (at: " + Parser.dateTimeToString(when, DATE_TIME_OUTPUT_FORMAT) + ")";
     }
 }
