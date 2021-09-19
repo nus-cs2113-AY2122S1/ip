@@ -15,12 +15,19 @@ import java.util.Scanner;
 public class StoreData extends Duke{
     private static final String folderName = "data/";
     private static final String fileName = "list" + ".txt";
+
     //print a task array list in easy to wrangle data format
     //format:
     //separated by lines, [TYPE] [DESC] -[DEADLINE]- [DONE]
     //within a function
     public static String printTaskAsString(Task t) {
         return t.toString() + '\n';
+    }
+
+    //it is assumed in the process that this path exists
+    public static void printAbsolutePath() {
+        File newList = new File(folderName + fileName);
+        System.out.println("successfully saved with directory :" + newList.getAbsolutePath());
     }
 
     public static void saveList(ArrayList<Task> taskArrayList) throws IOException {
@@ -31,7 +38,6 @@ public class StoreData extends Duke{
             fw.write(printTaskAsString(t));
         }
         fw.close();
-        System.out.println("successfully saved with directory :" + newList.getAbsolutePath());
     }
     //returns an array list, given a text file
     //format per LINE : [TASK_TYPE]|[DEADLINE]|[DESC]|[DONE]
@@ -107,5 +113,9 @@ public class StoreData extends Duke{
         System.out.println("Hey, I didn't find directory " + folderName);
         System.out.println("adding " + folderName + " into repository...");
         Files.createDirectories(Paths.get(home + folderName));
+    }
+
+    public static String getFolderName() {
+        return folderName;
     }
 }

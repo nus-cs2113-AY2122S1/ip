@@ -5,7 +5,7 @@ import Type.task.Event;
 import Type.task.Mascot;
 import Type.task.Task;
 import Type.task.Todo;
-import duke.exception.InputCheckAndPrint;
+import duke.exceptionhandler.InputCheckAndPrint;
 import duke.security.AccountDetail;
 
 import java.io.IOException;
@@ -85,14 +85,17 @@ public class Duke {
             case ("add"):
                 addTaskToList(in, taskList);
                 printDone("add");
+                StoreData.saveList(taskList);
                 break;
             case ("done"):
                 markTasksAsDone(in, taskList);
                 printDone("mark task as done");
+                StoreData.saveList(taskList);
                 break;
             case ("clear"):
                 clearTaskList(taskList);
                 printDone("clear list");
+                StoreData.saveList(taskList);
                 break;
             case ("mascot"):
                 mascotSay(in);
@@ -102,22 +105,20 @@ public class Duke {
                 readInputEchoCommand();
                 printDone("echo");
                 break;
-            case("deadline"):
-                amendTaskDeadline(in, taskList);
-                printDone("amend deadline");
-                break;
             case("delete"):
                 deleteTasks(in, taskList);
                 printDone("delete tasks");
+                StoreData.saveList(taskList);
                 break;
             case ("bye"):
+                StoreData.saveList(taskList);
                 break;
             default:
                 System.out.println("Command not recognized. Please enter a command again!");
             }
         } while (!command.equals("bye"));
         sayGoodbye();
-        StoreData.saveList(taskList);
+        System.out.println("successfully saved with directory : " + StoreData.getFolderName());
     }
 
     private static void deleteTasks(Scanner in, ArrayList<Task> taskList) {
@@ -233,7 +234,7 @@ public class Duke {
     }
 
     private static boolean userStopAdd(ArrayList<Task> taskList, String userInput) {
-        if (!userInput.equals("stop")) {
+        if (!userInput.toLowerCase().equals("stop")) {
             Task taskToAdd = parseInputAsTask(userInput);
             taskList.add(taskToAdd);
         } else {
@@ -242,12 +243,7 @@ public class Duke {
         return false;
     }
 
-    private static void amendTaskDeadline(Scanner in, ArrayList<Task> taskList) {
-
-    }
-
     public static void main(String[] args) throws IOException {
-        Duke bot = new Duke();
         runDuke();
     }
 

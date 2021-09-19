@@ -1,4 +1,4 @@
-package duke.exception;
+package duke.exceptionhandler;
 
 public class InputCheckAndPrint {
     String name;
