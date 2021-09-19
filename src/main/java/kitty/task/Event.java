@@ -5,15 +5,18 @@ import kitty.KittyException;
 import kitty.Parser;
 import kitty.io.IO;
 
-public class Event extends Task{
-    protected String eventDate;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String taskName, String eventDate) {
+public class Event extends Task{
+    protected LocalDate eventDate;
+
+    public Event(String taskName, LocalDate eventDate) {
         super(taskName);
         this.eventDate = eventDate;
     }
 
-    public String getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
@@ -25,11 +28,14 @@ public class Event extends Task{
                 // Get Event Name
                 String taskName = Parser.getEventTaskName(line);
 
-                // Get Event Date
-                String EventDate = Parser.getEventDate(line);
+                // Get Event Date as String
+                String eventDateString = Parser.getEventDate(line);
+
+                // Get Event Date as LocalDate
+                LocalDate eventDate = Parser.getTaskDate(eventDateString);
 
                 // Add Event Task
-                Kitty.tasks.add(new Event(taskName, EventDate));
+                Kitty.tasks.add(new Event(taskName, eventDate));
             } catch (KittyException e) {
                 throw e;
             }
@@ -38,6 +44,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " [at: " + eventDate + "]";
+        return "[E]" + super.toString() + " [at: " + eventDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "]";
     }
 }

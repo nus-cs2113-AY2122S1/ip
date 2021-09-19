@@ -3,17 +3,20 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
-import kitty.io.IO;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    protected String deadline;
+    protected LocalDate deadline;
 
-    public Deadline(String taskName, String deadline) {
+    public Deadline(String taskName, LocalDate deadline) {
         super(taskName);
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
@@ -25,11 +28,14 @@ public class Deadline extends Task{
                 // Get Deadline Name
                 String taskName = Parser.getDeadlineTaskName(line);
 
-                // Get Deadline Date
-                String deadline = Parser.getDeadlineDate(line);
+                // Get Deadline Date as String
+                String deadlineString = Parser.getDeadlineDateString(line);
+
+                // Get Deadline Date as LocalDate
+                LocalDate deadlineDate = Parser.getTaskDate(deadlineString);
 
                 // Add Deadline Task
-                Kitty.tasks.add(new Deadline(taskName, deadline));
+                Kitty.tasks.add(new Deadline(taskName, deadlineDate));
             } catch (KittyException e) {
                 throw e;
             }
@@ -38,6 +44,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " [by: " + deadline + "]";
+        return "[D]" + super.toString() + " [by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "]";
     }
 }
