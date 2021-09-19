@@ -15,7 +15,7 @@ public abstract class Task {
     protected LocalDateTime time;
     public String symbolSetTime = "";
     protected DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("d/M/yyyy kk[mm]");
-    protected DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("kk:mm, MMM dd yyyy");
+    protected DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("kk:mm, dd MMM yyyy");
 
     public String getSYMBOL() {
         return SYMBOL;

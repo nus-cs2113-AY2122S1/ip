@@ -1,19 +1,28 @@
 package duke.ui;
 
 public class MessageBubble {
-    static final String DIVIDER_SYMBOL = ".";
+    static final String EDGE_HORIZONTAL_SYMBOL = ".";
+    static final String EDGE_VERTICAL_SYMBOL = ":";
+    static final String EDGE_TAIL = "...";
     static final int DIVIDER_SYMBOL_COUNT = 60;
-    static int MAX_MESSAGES = 100;
+    static int MAX_LINES = 1000;
+    static int TERMINAL_WIDTH = 80;
+    static int MAX_BUBBLE_WIDTH = 70;
+    static int MAX_MESSAGE_LENGTH = MAX_BUBBLE_WIDTH - EDGE_TAIL.length() - 4;
 
     private final String[] messages;
     private int messagesCount;
+    private int maxMessageLengthInBubble;
+    private int bubbleWidth;
 
     /**
      * Convenience Message constructor
      */
     public MessageBubble() {
-        messages = new String[MAX_MESSAGES];
+        messages = new String[MAX_LINES];
         messagesCount = 0;
+        maxMessageLengthInBubble = 0;
+        bubbleWidth = 0;
     }
 
     public MessageBubble(String msg) {
@@ -21,38 +30,58 @@ public class MessageBubble {
         addMessage(msg);
     }
 
-    public MessageBubble(String[] msgs) {
-        this();
-        for (String msg : msgs) {
-            addMessage(msg);
-        }
-    }
-
     public int getMessagesCount() {
         return messagesCount;
     }
 
     /**
-     * At a new line in the MessageBubble
+     * At a new line, or multiple lines that are separated by "\n", to the MessageBubble
      *
-     * @param msg message to be added
+     * @param msg message(s) to be added
      */
     public void addMessage(String msg) {
         if (msg.contains("\n")) {
             for (String line : msg.split("\n")) {
-                messages[messagesCount++] = line;
+                addSingleMessage(line);
             }
         } else {
-            messages[messagesCount++] = msg;
+            addSingleMessage(msg);
         }
     }
 
-    /**
-     * Print one line of DIVIDER_SYMBOL as divider.
-     * The number of DIVIDER_SYMBOL is determined by DIVIDER_SYMBOL_COUNT
-     */
-    static void printSectionDivider() {
-        System.out.println("\t" + DIVIDER_SYMBOL.repeat(DIVIDER_SYMBOL_COUNT));
+    private void addSingleMessage(String msg) {
+        if (msg.length() < MAX_MESSAGE_LENGTH) {
+            updateBubbleWidth(msg);
+            messages[messagesCount++] = msg;
+        } else {
+            String extracted = msg.substring(0, MAX_MESSAGE_LENGTH);
+            updateBubbleWidth(extracted);
+            messages[messagesCount++] = extracted;
+
+            String remaining = msg.substring(MAX_MESSAGE_LENGTH);
+            this.addSingleMessage(remaining);
+        }
+    }
+
+    private void updateBubbleWidth(String msg) {
+        if (msg.length() > maxMessageLengthInBubble) {
+            maxMessageLengthInBubble = msg.length();
+            bubbleWidth = maxMessageLengthInBubble + 4 + EDGE_TAIL.length();
+        }
+    }
+
+    private void printTopEdge() {
+        System.out.println(printSpacerBeforeBubble()
+                + EDGE_HORIZONTAL_SYMBOL.repeat(bubbleWidth - EDGE_TAIL.length()));
+    }
+
+    private void printBottomEdge() {
+        System.out.println(printSpacerBeforeBubble() +
+                EDGE_HORIZONTAL_SYMBOL.repeat(bubbleWidth - EDGE_TAIL.length()) + EDGE_TAIL);
+    }
+
+    private String printSpacerBeforeBubble() {
+        return " ".repeat(TERMINAL_WIDTH - bubbleWidth);
     }
 
     /**
@@ -60,8 +89,10 @@ public class MessageBubble {
      *
      * @param msg message to be printed
      */
-    static void printMessage(String msg) {
-        System.out.println("\t: " + msg);
+    private void printMessage(String msg) {
+        System.out.println(printSpacerBeforeBubble() + EDGE_VERTICAL_SYMBOL + " " +
+                msg +
+                " ".repeat(maxMessageLengthInBubble - msg.length()) + " " + EDGE_VERTICAL_SYMBOL);
     }
 
     /**
@@ -79,9 +110,9 @@ public class MessageBubble {
      * Print the message bubble with all messages inside it.
      */
     public void printMessageBubble() {
-        printSectionDivider();
+        printTopEdge();
         printMessage(messages);
-        printSectionDivider();
+        printBottomEdge();
     }
 
     /**
@@ -95,22 +126,4 @@ public class MessageBubble {
         temp.printMessageBubble();
     }
 
-    /**
-     * Print the welcome message with Duke LOGO in a message bubble.
-     */
-    static public void printWelcomeMessage() {
-        final String LOGO = " ____        _\n"
-                + "|  _ \\ _   _| | _____\n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
-    }
-
-    /**
-     * Print the farewell message in a message bubble.
-     */
-    static public void printByeMessage() {
-        MessageBubble.printMessageBubble("Bye. Hope to see you again soon!");
-    }
 }
