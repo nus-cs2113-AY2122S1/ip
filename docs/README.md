@@ -2,58 +2,21 @@
 
 Shika is a simple Command Line Interface (CLI) app for managing tasks.
 
+## Table of Contents
+1. Features
+   1. [Exit](#bye-exits-shika-a-name--byea)
+   2. Add
+      1. [Todo](#todo---add-todo)
+      2. [Deadline](#deadline---add-deadline)
+      3. [Event](#event---add-event)
+   3. [Done](#done---mark-task-as-done)
+   4. [List](#list---list-all-tasks)
+   5. [Find](#find---finds-task)
+2. [Command Summary](#command-summary)
+
 ## Features
 
-### Add Task
-
-Adds a task to the list of saved tasks. 
-There are three types of tasks:
-1. Todo 
-2. Deadline
-3. Event
-
-Date format (if applicable) must be one of the following:
-* ddMMyyyy
-* dd/MM/yyyy
-* dd-MM-yyyy
-
-Format:
-* `todo [task]`
-* `deadline [task] /by [date]`
-* `event [task] /at [date]`
-
-### Mark Task as Done
-
-Marks a task as done.
-
-Format:
-`done [INDEX]`
-
-### Remove Task
-
-Removes a task from the list of saved tasks.
-
-Format:
-`delete [index]`
-
-### List Tasks
-
-Lists all tasks from the list of saved tasks.
-
-Format:
-`list`
-
-### Find Task
-
-Lists all tasks from the list of saved tasks that contain the search term.
-
-Format:
-`find [search term]`
-<br>
-
-## Usage
-
-### `bye` Exits Shika
+### `bye` Exits Shika <a name = "bye"></a>
 
 Exits Shika.
 
@@ -152,6 +115,30 @@ ____________________________________________________________________________
 ```
 <br>
 
+### `delete` - Delete Task
+
+Deletes the task with the given `INDEX`. `INDEX` has to be positive and refer to a valid task.
+
+Format:
+`delete INDEX`
+* `INDEX` has to be positive and refer to a valid task.
+
+Example of usage:
+
+* `delete 1`
+
+Expected outcome:
+
+Shika will delete the task and print a message.
+
+```
+____________________________________________________________________________
+> You've removed: 
+	1. [T][ ] IP 
+____________________________________________________________________________
+```
+<br>
+
 ### `done` - Mark Task as Done
 
 Marks the task with the given `INDEX` as done. `INDEX` has to be positive and refer to a valid task.
@@ -231,3 +218,13 @@ ____________________________________________________________________________
 ____________________________________________________________________________
 ```
 
+## Command Summary
+
+Command | Format, Examples
+------------ | -------------
+Exit | `bye`
+Add | `todo TASKNAME`, `deadline TASKNAME /by DATE`, `event TASKNAME /at DATE`
+Delete | `delete INDEX`
+Done | `done INDEX`
+List | `list`
+Find | `find SEARCHTERM`
