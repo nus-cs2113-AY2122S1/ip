@@ -2,9 +2,9 @@ package processing;
 
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Comparator;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+import java.util.List;
 
 /*---------LOCAL IMPORT--------*/
 import tasks.TaskType;
@@ -18,6 +18,7 @@ public class TaskManager {
     /*----------- PROCESSING CONSTANTS ---------- */
     public static final String DEADLINE_CLAUSE = "/by";
     public static final String EVENT_CLAUSE = "/at";
+    public static final String FIND_CLAUSE = "find";
 
     private static final int DEADLINE_DESCRIPTION_IDX = 9;
     private static final int EVENT_DESCRIPTION_IDX = 6;
@@ -27,8 +28,9 @@ public class TaskManager {
     private static final String DONE_TASK = "Nice! I've marked this task as done: ";
     private static final String LIST_TASK = "Here are your scheduled tasks!";
 
+
     /*------------- PRIVATE VARIABLES ------------ */
-    private final SortedSet<Task> tasks;
+    private final ArrayList<Task> tasks;
     private int taskSize;
 
 
@@ -55,7 +57,7 @@ public class TaskManager {
     }
 
     public TaskManager() {
-        tasks = new TreeSet<>(new TaskComparator());
+        tasks = new ArrayList<Task>();
         taskSize = 0;
     }
 
@@ -93,8 +95,8 @@ public class TaskManager {
         command.splitByClause("delete", 0, true);
         try {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
-            Task t = getTask(idx);
-            tasks.remove(t);
+            Task t = tasks.get(idx);
+            tasks.remove(idx);
             taskSize--;
             UI.showDeleteTask(t,taskSize);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -126,33 +128,40 @@ public class TaskManager {
         }
     }
 
+    public void queryTasks(CommandHandler command) throws DukeException {
+        command.splitByClause(FIND_CLAUSE,0,true);
+        QueryHandler query = new QueryHandler(command.descriptorAfterClause.split(" "));
+        query.queryOn(this);
+    }
+
     public void listTasks() {
         System.out.println(LIST_TASK);
-        for (int i = 0; i < taskSize; i++) {
-            System.out.printf("%d.", i + 1);
-            printTask(i);
+        listTasks(tasks.stream().sorted(new TaskComparator()).collect(Collectors.toList()));
+    }
+
+    public void listTasks(List<Task> tasks) {
+        int idx = 0;
+        for (Task task : tasks) {
+            idx++;
+            System.out.printf("%d.", idx);
+            System.out.println(task);
         }
     }
 
     public void updateTask(int idx, boolean isDone) {
-        getTask(idx).setDone(isDone);
+       tasks.get(idx).setDone(isDone);
     }
 
     public void printTask(int idx) {
-        System.out.println(getTask(idx));
+        System.out.println(tasks.get(idx));
     }
 
     public ArrayList<Task> getTasks() {
-        return new ArrayList<>(tasks);
+        return tasks;
     }
 
     public int getTaskSize(){
         return taskSize;
-    }
-
-    public Task getTask(int idx) {
-        ArrayList<Task> list = new ArrayList<>(tasks);
-        return list.get(idx);
     }
 }
 

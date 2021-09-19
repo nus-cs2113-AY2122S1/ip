@@ -3,5 +3,6 @@ package tasks;
 public enum TaskType {
     TODO, 
     DEADLINE, 
-    EVENT 
+    EVENT,
+    ANY
 }
