@@ -10,6 +10,13 @@ import java.util.Scanner;
 
 public class DataManager {
 
+    /**
+     * Save tasks to a text file
+     *
+     * @param filePath name of the text file that tasks are saved in
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @throws IOException if the file does not exist
+     */
     public static void appendToFile(String filePath, ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         // Format of duke.txt file: D|run|2pm|
@@ -19,6 +26,14 @@ public class DataManager {
         fw.close();
     }
 
+    /**
+     * Read tasks from the text file if it exists and adds the tasks into the current working task list
+     *
+     * @param filePath name of the text file that tasks are saved in
+     * @param taskList Task type arraylist to store all the tasks
+     * @throws FileNotFoundException if the file does not exist
+     * @throws DukeException if the task cannot be added into the task list due to formatting issues
+     */
     public static void readFileContents(String filePath, ArrayList<Task> taskList) throws FileNotFoundException, DukeException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -44,6 +59,12 @@ public class DataManager {
         }
     }
 
+    /**
+     * Checks if the file exists and for tasks to be added
+     *
+     * @param filePath name of the text file that tasks are saved in
+     * @param taskList Task type arraylist to store all the tasks
+     */
     public static void printPreviousFileContents(String filePath, ArrayList<Task> taskList) {
         try {
             DataManager.readFileContents(filePath, taskList);
@@ -54,6 +75,13 @@ public class DataManager {
         }
     }
 
+    /**
+     * At the end of the program, updates and saves the current task list into the text file to be retrieved
+     * when program is ran again
+     *
+     * @param filePath name of the text file that tasks are saved in
+     * @param taskList Task type arraylist to store all the tasks
+     */
     public static void storeCurrentList(String filePath, ArrayList<Task> taskList) {
         try {
             PrintWriter pw = new PrintWriter(filePath);
