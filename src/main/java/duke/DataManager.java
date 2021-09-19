@@ -79,7 +79,7 @@ public class DataManager {
             }
         }
     }
-    
+
     /**
      * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
      * Will notify user whether the save was successful or not.
@@ -88,23 +88,18 @@ public class DataManager {
         FileWriter writer;
         try {
             writer = new FileWriter(FILENAME);
-        } catch (IOException e) {
-            UserInterface.showSaveError();
-            return;
-        }
-        BufferedWriter buffer = new BufferedWriter(writer);
-        try {
+            BufferedWriter buffer = new BufferedWriter(writer);
             Iterator<Task> i = TaskManager.createIterator();
             while (i.hasNext()) {
                 buffer.write(String.valueOf(i.next()));
                 buffer.write(NEWLINE);
             }
             buffer.close();
+            UserInterface.showSaveSuccess();
         } catch (IOException e) {
             UserInterface.showSaveError();
-            return;
         }
-        UserInterface.showSaveSuccess();
+
     }
 
     /**
@@ -112,17 +107,11 @@ public class DataManager {
      * Successful saves are silent.
      * User will be notified if save was noy successful.
      */
-    public static void saveWithoutMessages() {
+    public static void saveWithoutSuccessMessage() {
         FileWriter writer;
         try {
             writer = new FileWriter(FILENAME);
-        } catch (IOException e) {
-            UserInterface.showSaveError();
-            Duke.isRunning = false;
-            return;
-        }
-        BufferedWriter buffer = new BufferedWriter(writer);
-        try {
+            BufferedWriter buffer = new BufferedWriter(writer);
             Iterator<Task> i = TaskManager.createIterator();
             while (i.hasNext()) {
                 buffer.write(String.valueOf(i.next()));
@@ -131,7 +120,7 @@ public class DataManager {
             buffer.close();
         } catch (IOException e) {
             UserInterface.showSaveError();
-            Duke.isRunning = false;
+            UserInterface.showSaveErrorWithLine();
         }
     }
 }

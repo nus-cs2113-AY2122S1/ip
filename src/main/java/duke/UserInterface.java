@@ -75,7 +75,7 @@ public class UserInterface {
     }
 
     /**
-     * Interpret the command given by the user.
+     * Interprets the command given by the user.
      * 
      * @return The command given by the user.
      */
@@ -200,6 +200,14 @@ public class UserInterface {
      */
     public static void showSaveError() {
         System.out.println("Error saving data. Some or all data maybe lost.");
+    }
+
+    /**
+     * Prints "Error saving data. Some or all data maybe lost." followed by a line separator below to standard output.
+     */
+    public static void showSaveErrorWithLine() {
+        System.out.println("Error saving data. Some or all data maybe lost.");
+        printLine();
     }
 
     /**
