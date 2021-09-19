@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.constants.DukeDataStorageConstants.DEFAULT_STORAGE_FILEPATH;
+import static duke.constants.DukeDataStorageConstants.FILE_CREATION_ERROR_MESSAGE;
+import static duke.constants.DukeDataStorageConstants.FILE_WRITE_ERROR_MESSAGE;
 import static duke.constants.DukeDataStorageConstants.VALID_FILE_TYPE;
 
 public class DataManager {
@@ -33,7 +35,7 @@ public class DataManager {
         try {
             checkFileType(filePath);
             this.filePath = Paths.get(filePath);
-        } catch (InvalidFileTypeException e) {
+        } catch (InvalidFileTypeException ifte) {
             Ui.printInvalidFileTypeMessage();
         }
     }
@@ -50,8 +52,8 @@ public class DataManager {
     public void saveData(ArrayList<Task> taskList) {
         try {
             writeData(taskList);
-        } catch (IOException ioException) {
-            System.out.println(" Something went wrong when writing to this file: " + ioException.getMessage());
+        } catch (IOException ioe) {
+            System.out.println(FILE_WRITE_ERROR_MESSAGE + ioe.getMessage());
         }
     }
 
@@ -63,8 +65,8 @@ public class DataManager {
         } catch (FileNotFoundException fileNotFoundException) {
             try {
                 createFileInDirectory(filePath);
-            } catch (IOException ioException) {
-                System.out.println(" Something went wrong when creating this file: " + ioException.getMessage());
+            } catch (IOException ioe) {
+                System.out.println(FILE_CREATION_ERROR_MESSAGE + ioe.getMessage());
             }
         }
         return fileScanner;
@@ -75,9 +77,12 @@ public class DataManager {
             while (fileScanner.hasNext()) {
                 String task = fileScanner.nextLine();
                 try {
-                    TaskListDecoder.decodeTask(taskList, task);
-                } catch (InvalidFileDataException | DateTimeParseException e) {
+                    Task decodedTask = TaskListDecoder.decodeTask(task);
+                    taskList.add(decodedTask);
+                } catch (InvalidFileDataException ifde) {
                     Ui.printFileTaskInvalidFormatMessage();
+                } catch (DateTimeParseException dtpe) {
+                    Ui.printFileInvalidDateTimeMessage();
                 }
             }
         }

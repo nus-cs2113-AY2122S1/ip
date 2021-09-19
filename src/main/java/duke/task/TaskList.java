@@ -2,6 +2,7 @@ package duke.task;
 
 import duke.datasaver.DataManager;
 import duke.exception.InvalidCommandFormatException;
+import duke.exception.InvalidDateTimeException;
 import duke.parser.Parser;
 import duke.ui.Ui;
 
@@ -31,9 +32,9 @@ public class TaskList {
             taskList.get(indexOfTaskToMarkDone).setDone(true);
             Ui.printTaskMarkedDoneMessage(taskList.get(indexOfTaskToMarkDone));
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException | NumberFormatException e) {
+        } catch (InvalidCommandFormatException | NumberFormatException fe) {
             throw new InvalidCommandFormatException();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ioobe) {
             throw new IndexOutOfBoundsException();
         }
     }
@@ -44,30 +45,34 @@ public class TaskList {
             taskList.add(newTodo);
             Ui.printTaskAddedMessage(newTodo, taskList.size());
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException e) {
+        } catch (InvalidCommandFormatException icfe) {
             throw new InvalidCommandFormatException();
         }
     }
 
-    public void addDeadline(String userInput, DataManager dataManager) throws InvalidCommandFormatException {
+    public void addDeadline(String userInput, DataManager dataManager) throws InvalidCommandFormatException, InvalidDateTimeException {
         try {
             Deadline newDeadline = Parser.parseAddDeadlineCommand(userInput);
             taskList.add(newDeadline);
             Ui.printTaskAddedMessage(newDeadline, taskList.size());
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException | DateTimeParseException icfe) {
+        } catch (InvalidCommandFormatException icfe) {
             throw new InvalidCommandFormatException();
+        } catch (DateTimeParseException dtpe) {
+            throw new InvalidDateTimeException();
         }
     }
 
-    public void addEvent(String userInput, DataManager dataManager) throws InvalidCommandFormatException {
+    public void addEvent(String userInput, DataManager dataManager) throws InvalidCommandFormatException, InvalidDateTimeException {
         try {
             Event newEvent = Parser.parseAddEventCommand(userInput);
             taskList.add(newEvent);
             Ui.printTaskAddedMessage(newEvent, taskList.size());
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException | DateTimeParseException icfe) {
+        } catch (InvalidCommandFormatException icfe) {
             throw new InvalidCommandFormatException();
+        } catch (DateTimeParseException dtpe) {
+            throw new InvalidDateTimeException();
         }
     }
 
@@ -78,9 +83,9 @@ public class TaskList {
             Ui.printTaskDeletedMessage(taskList.get(indexOfTaskToDelete), taskList.size());
             taskList.remove(taskList.get(indexOfTaskToDelete));
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException | NumberFormatException e) {
+        } catch (InvalidCommandFormatException | NumberFormatException fe) {
             throw new InvalidCommandFormatException();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ioobe) {
             throw new IndexOutOfBoundsException();
         }
     }
