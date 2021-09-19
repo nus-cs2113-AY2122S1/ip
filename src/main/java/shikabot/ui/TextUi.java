@@ -74,13 +74,17 @@ public class TextUi {
         System.out.print(line + "> Oops! That task does not exist.\n" + line);
     }
 
+    public void printInvalidDateMessage() {
+        System.out.print(line + "> Oops! Please enter a valid date format! (day-month-year)\n" + line);
+    }
+
     public void printDeadlineSyntaxMessage() {
-        System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. " +
+        System.out.print(line + "> Please follow the format [NAME] /by [DEADLINE]. " +
                 "Thank you!\n" + line);
     }
 
     public void printEventSyntaxMessage() {
-        System.out.print(line + "Please follow the format [NAME] /at [DURATION]. " +
+        System.out.print(line + "> Please follow the format [NAME] /at [DURATION]. " +
                 "Thank you!\n" + line);
     }
 
@@ -97,6 +101,10 @@ public class TextUi {
         System.out.println(line + "> You've done: " + "\n\t"
                 + (index + 1) + ". " + taskList.get(index).toString());
         System.out.print(line);
+    }
+
+    public void printEmptyFieldMessage() {
+        System.out.print(line + "> Please fill in all fields. 'w'\n" + line);
     }
 
     /**
