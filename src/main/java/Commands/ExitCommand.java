@@ -2,6 +2,9 @@ package Commands;
 
 import Tasks.TaskList;
 
+/**
+ * Stops execution of the program
+ */
 public class ExitCommand extends Command {
 
     public ExitCommand(){

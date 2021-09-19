@@ -4,13 +4,23 @@ import Commands.*;
 import Exceptions.InsufficientParametersException;
 import Exceptions.UnknownCommandException;
 
+/**
+ * Interprets user input into commands
+ */
 public class Parser {
 
     public Parser() {
     }
 
+    /**
+     * Processes the user input into the command type and the parameters involved. Returns the command to be executed
+     * @param userInput the input string of the user
+     * @return the command to be executed
+     * @throws InsufficientParametersException when required parameters are not detected
+     * @throws UnknownCommandException when the input string is not a supported command
+     */
     public Command parse(String userInput) throws InsufficientParametersException, UnknownCommandException {
-        String[] input = userInput.trim().split(" ", 2);
+        String[] input = userInput.split(" ", 2);
         String commandName = input[0];
         switch (commandName) {
         case "exit":

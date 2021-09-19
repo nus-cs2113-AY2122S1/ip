@@ -10,6 +10,9 @@ import UI.UserInterface;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Main class
+ */
 public class Duke {
 
     private static UserInterface userInterface;
@@ -17,9 +20,11 @@ public class Duke {
     private static TaskList taskList;
 
     public Duke() {
-
     }
 
+    /**
+     * Initialises Duke and Loads the saved Task file, if any
+     */
     public static void init() {
         userInterface = new UserInterface();
         storage = new Storage();
@@ -31,6 +36,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Waits for user command input, detects and executes it until exit command is given
+     */
     public static void runCommandLoopUntilExitCommand() {
         Command command = new Command();
         do {
@@ -47,11 +55,17 @@ public class Duke {
         } while(!ExitCommand.isExit(command));
     }
 
+    /**
+     * Stops the execution of the program
+     */
     public static void exit() {
         userInterface.printGoodbye();
         System.exit(0);
     }
 
+    /**
+     * The Main Method
+     */
     public static void main(String[] args) {
         init();
         runCommandLoopUntilExitCommand();

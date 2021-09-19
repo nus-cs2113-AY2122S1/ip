@@ -2,6 +2,9 @@ package UI;
 
 import java.util.Scanner;
 
+/**
+ * Deals with the communication with the user
+ */
 public class UserInterface {
     Scanner line = new Scanner(System.in);
     public static final String BORDER = "_________________________________________\n";
@@ -25,22 +28,40 @@ public class UserInterface {
         printGreeting();
     }
 
+    /**
+     * Prints the greeting message
+     */
     public void printGreeting() {
         System.out.println(GREETING);
     }
 
+    /**
+     * Prints the exit message
+     */
     public void printGoodbye() {
         System.out.println(EXIT_MESSAGE);
     }
 
+    /**
+     * Reads the user input
+     * @return the trimmed user input
+     */
     public String getUserInput() {
         return line.nextLine().trim();
     }
 
+    /**
+     * Prints the output of the command executed to the user
+     * @param output the output of the command executed
+     */
     public void showOutputToUser(String output) {
         System.out.println(BORDER + output + BORDER);
     }
 
+    /**
+     * Prints the error message from the exceptions caught from the user input
+     * @param errorMessage the error description
+     */
     public void printErrorMessage(String errorMessage) {
         System.out.println(BORDER + errorMessage + "\n" + BORDER);
     }
