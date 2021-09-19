@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.datasaver.DataManager;
+import duke.exception.InvalidDateTimeException;
 import duke.exception.QueryNotFoundException;
 import duke.parser.Parser;
 import duke.task.Task;
@@ -88,21 +89,25 @@ public class CommandExecutor {
             taskList.addDeadline(userInput, dataManager);
         } catch (InvalidCommandFormatException icfe) {
             Ui.printInvalidCommandFormatMessage();
+        } catch (InvalidDateTimeException idte) {
+            Ui.printInvalidDateTimeMessage();
         }
     }
 
     public void executeAddEvent(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.addEvent(userInput, dataManager);
-        } catch (InvalidCommandFormatException e) {
+        } catch (InvalidCommandFormatException icfe) {
             Ui.printInvalidCommandFormatMessage();
+        } catch (InvalidDateTimeException idte) {
+            Ui.printInvalidDateTimeMessage();
         }
     }
 
     public void executeDelete(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.deleteTask(userInput, dataManager);
-        } catch (InvalidCommandFormatException | NumberFormatException icfe) {
+        } catch (InvalidCommandFormatException | NumberFormatException fe) {
             Ui.printInvalidCommandFormatMessage();
         } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();

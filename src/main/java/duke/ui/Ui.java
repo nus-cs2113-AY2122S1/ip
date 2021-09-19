@@ -9,10 +9,10 @@ import java.util.Scanner;
 import static duke.constants.DukeConstants.INDENT;
 import static duke.constants.DukeConstants.STRAIGHT_LINE;
 import static duke.constants.DukeConstants.WHITESPACE;
-import static duke.constants.DukeDataStorageConstants.FILE_WRONG_FORMAT_MESSAGE;
-import static duke.constants.DukeDataStorageConstants.INVALID_FILE_TYPE_MESSAGE;
+import static duke.constants.DukeDataStorageConstants.*;
 import static duke.constants.DukeOutputMessages.BYE_MESSAGE;
 import static duke.constants.DukeOutputMessages.COMMAND_WRONG_FORMAT_MESSAGE;
+import static duke.constants.DukeOutputMessages.DATE_TIME_INVALID_MESSAGE;
 import static duke.constants.DukeOutputMessages.DEADLINE_COMMAND_FORMAT;
 import static duke.constants.DukeOutputMessages.DELETE_COMMAND_FORMAT;
 import static duke.constants.DukeOutputMessages.DONE_COMMAND_FORMAT;
@@ -21,9 +21,11 @@ import static duke.constants.DukeOutputMessages.ENTER_HELP;
 import static duke.constants.DukeOutputMessages.EVENT_COMMAND_FORMAT;
 import static duke.constants.DukeOutputMessages.HELLO_FROM;
 import static duke.constants.DukeOutputMessages.HELP_INTRO_MESSAGE;
+import static duke.constants.DukeOutputMessages.HERE_ARE_TASKS_CONTAINING_MESSAGE;
 import static duke.constants.DukeOutputMessages.HERE_IS_TASK_LIST_MESSAGE;
 import static duke.constants.DukeOutputMessages.HEY_MESSAGE;
 import static duke.constants.DukeOutputMessages.LIST_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.QUERY_NOT_FOUND_MESSAGE;
 import static duke.constants.DukeOutputMessages.TASK_ADDED_MESSAGE;
 import static duke.constants.DukeOutputMessages.TASK_DELETED_MESSAGE;
 import static duke.constants.DukeOutputMessages.TASK_LIST_EMPTY_MESSAGE;
@@ -144,6 +146,20 @@ public class Ui {
     public static void printInvalidFileTypeMessage() {
         out.println(STRAIGHT_LINE);
         out.println(INVALID_FILE_TYPE_MESSAGE);
+        out.println(STRAIGHT_LINE);
+    }
+
+    public static void printFileInvalidDateTimeMessage() {
+        out.println(STRAIGHT_LINE);
+        out.println(FILE_DATE_TIME_WRONG_FORMAT_MESSAGE);
+        out.println(ENTER_HELP);
+        out.println(STRAIGHT_LINE);
+    }
+
+    public static void printInvalidDateTimeMessage() {
+        out.println(STRAIGHT_LINE);
+        out.println(DATE_TIME_INVALID_MESSAGE);
+        out.println(ENTER_HELP);
         out.println(STRAIGHT_LINE);
     }
 

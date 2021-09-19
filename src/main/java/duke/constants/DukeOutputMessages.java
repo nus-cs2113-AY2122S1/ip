@@ -17,6 +17,7 @@ public class DukeOutputMessages extends DukeConstants {
     public static final String COMMAND_WRONG_FORMAT_MESSAGE = WHITESPACE + "Your command is of the wrong format!";
     public static final String TASK_NOT_IN_LIST_MESSAGE = WHITESPACE + "Sorry, the task is not in the list! Try again.";
     public static final String QUERY_NOT_FOUND_MESSAGE = WHITESPACE + "I could not find any task with that keyword! Try again.";
+    public static final String DATE_TIME_INVALID_MESSAGE = WHITESPACE + "The date and time entered are invalid!";
 
     // Messages informing user that a certain command has been executed
     public static final String HERE_IS_TASK_LIST_MESSAGE = WHITESPACE + "Here are the tasks in your list:";

@@ -1,2 +1,5 @@
-package duke.exception;public class InvalidDateTimeExcepetion {
+package duke.exception;
+
+public class InvalidDateTimeException extends DukeException {
+
 }
