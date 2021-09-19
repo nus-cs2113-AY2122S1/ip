@@ -1,4 +1,4 @@
-public class Deadline extends Task{
+public class Deadline extends Task {
     private static String SYMBOL = "D";
     private String dueDate;
 

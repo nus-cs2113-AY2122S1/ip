@@ -14,9 +14,9 @@ public class TaskManager {
         }
     }
 
-    static void addTodo(String todoName) throws TodoException {
+    static void addTodo(String todoName) throws DukeException {
         if (todoName.isEmpty()) {
-            throw new TodoException();
+            throw new DukeException("Todo cannot be empty");
         }
         Todo todo = new Todo(todoName);
         addTask(todo);
