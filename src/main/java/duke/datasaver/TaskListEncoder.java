@@ -1,5 +1,6 @@
 package duke.datasaver;
 
+import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -9,8 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static duke.constants.DukeDataStorageConstants.*;
+import static duke.constants.DukeCommandStrings.DATE_TIME_INPUT_FORMAT;
+import static duke.constants.DukeDataStorageConstants.DONE;
 import static duke.constants.DukeDataStorageConstants.ENCODER_ATTRIBUTE_SEPARATOR;
+import static duke.constants.DukeDataStorageConstants.NOT_DONE;
 
 public class TaskListEncoder {
 
@@ -41,10 +44,14 @@ public class TaskListEncoder {
             formattedTask.append(task.getDescription());
         } else if (task instanceof Deadline) {
             formattedTask.append(task.getDescription()).append(ENCODER_ATTRIBUTE_SEPARATOR);
-            formattedTask.append(((Deadline) task).getBy());
+
+            String by = Parser.dateTimeToString(((Deadline) task).getBy(), DATE_TIME_INPUT_FORMAT);
+            formattedTask.append(by);
         } else if (task instanceof Event) {
             formattedTask.append(task.getDescription()).append(ENCODER_ATTRIBUTE_SEPARATOR);
-            formattedTask.append(((Event) task).getWhen());
+
+            String when = Parser.dateTimeToString(((Event) task).getWhen(), DATE_TIME_INPUT_FORMAT);
+            formattedTask.append(when);
         }
     }
 }

@@ -5,9 +5,11 @@ import duke.exception.InvalidCommandFormatException;
 import duke.parser.Parser;
 import duke.ui.Ui;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
+
     private final ArrayList<Task> taskList;
 
     public TaskList() {
@@ -53,7 +55,7 @@ public class TaskList {
             taskList.add(newDeadline);
             Ui.printTaskAddedMessage(newDeadline, taskList.size());
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException e) {
+        } catch (InvalidCommandFormatException | DateTimeParseException icfe) {
             throw new InvalidCommandFormatException();
         }
     }
@@ -64,7 +66,7 @@ public class TaskList {
             taskList.add(newEvent);
             Ui.printTaskAddedMessage(newEvent, taskList.size());
             dataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException e) {
+        } catch (InvalidCommandFormatException | DateTimeParseException icfe) {
             throw new InvalidCommandFormatException();
         }
     }

@@ -16,4 +16,8 @@ public class DukeCommandStrings extends DukeConstants {
     public static final String WHITESPACE_SEQUENCE = "\\s+";
     public static final String DEADLINE_PREFIX = "/by";
     public static final String EVENT_PREFIX = "/at";
+
+    // Date and time formats
+    public static final String DATE_TIME_INPUT_FORMAT = "dd-MM-yyyy HH:mm";
+    public static final String DATE_TIME_OUTPUT_FORMAT = "LLL dd yyyy hh:mm a";
 }
