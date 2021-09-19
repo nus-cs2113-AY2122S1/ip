@@ -21,6 +21,16 @@ public class TaskManager extends Ui {
 
     }
 
+    /**
+     * Adds a task to the task list as an "Event" type task
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     * @param isPrintingPreviousList boolean to check whether it is printing from the stored list to determine whether
+     *                               to print the message that task has been successfully added. If true, then no
+     *                               message would be printed as task was already previously added
+     * @throws DukeException if there is an invalid time of event/task entered in the user input
+     */
     public static void addTaskAsEvent(ArrayList<Task> taskList, String userInput, Boolean isPrintingPreviousList) throws DukeException {
         if (userInput.contains("/at")) {
             Task taskAdded = new Event(userInput);
@@ -37,6 +47,16 @@ public class TaskManager extends Ui {
         }
     }
 
+    /**
+     * Adds a task to the task list as a "Deadline" type task
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     * @param isPrintingPreviousList boolean to check whether it is printing from the stored list to determine whether
+     *                               to print the message that task has been successfully added. If true, then no
+     *                               message would be printed as task was already previously added
+     * @throws DukeException if there is an invalid deadline/task entered in the user input
+     */
     public static void addTaskAsDeadline(ArrayList<Task> taskList, String userInput, Boolean isPrintingPreviousList) throws DukeException {
         if (userInput.contains("/by")) {
             Task taskAdded = new Deadline(userInput);
@@ -53,6 +73,16 @@ public class TaskManager extends Ui {
         }
     }
 
+    /**
+     * Adds a task to the task list as a "To do" type task
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     * @param isPrintingPreviousList boolean to check whether it is printing from the stored list to determine whether
+     *                               to print the message that task has been successfully added. If true, then no
+     *                               message would be printed as task was already previously added
+     * @throws DukeException if there is an invalid/no task entered in the user input
+     */
     public static void addTaskAsToDo(ArrayList<Task> taskList, String userInput, Boolean isPrintingPreviousList) throws DukeException {
         String task = userInput.replace("to do ", "").trim();
         Task taskAdded = new Todo(task);
@@ -66,6 +96,13 @@ public class TaskManager extends Ui {
         }
     }
 
+    /**
+     * Deletes a task from the task list
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     * @throws DukeException if there is an invalid task number entered in the user input
+     */
     public static void deleteTaskFromToDo(ArrayList<Task> taskList, String userInput) throws DukeException {
         int wordIndex = 0;
         boolean numberExists = false;
@@ -88,6 +125,13 @@ public class TaskManager extends Ui {
         }
     }
 
+    /**
+     * Marks a task in the task list as done
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     * @throws DukeException if there is an invalid task number entered in the user input
+     */
     public static void markTaskAsDone(ArrayList<Task> taskList, String userInput) throws DukeException {
         int wordIndex = 0;
         boolean numberExists = false;
@@ -109,6 +153,14 @@ public class TaskManager extends Ui {
         }
     }
 
+    /**
+     * Searches for tasks that contain a specified keyword by the user in the task list and prints out a list if
+     * there is at least one task that contains the specified keyword.
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     * @throws DukeException if task containing keyword has been found but cannot be added into the search list.
+     */
     public static void searchForTask(ArrayList<Task> taskList, String userInput) throws DukeException {
         String searchedTask = userInput.replace("find ", " ").trim();
         ArrayList<Task> searchList = new ArrayList<>();

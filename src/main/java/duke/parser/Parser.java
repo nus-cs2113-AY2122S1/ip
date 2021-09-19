@@ -8,6 +8,13 @@ import java.util.Scanner;
 
 public class Parser extends TaskManager {
 
+    /**
+     * Parses user input into the different task list actions for execution.
+     *
+     * @param in object of scanner
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput full user input string
+     */
     public static void parseCommand(Scanner in, ArrayList<Task> taskList, String userInput) {
         while (!userInput.startsWith("bye")) {
             userInput = in.nextLine().toLowerCase();

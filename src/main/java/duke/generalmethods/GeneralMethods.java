@@ -1,6 +1,12 @@
 package duke.generalmethods;
 
 public class GeneralMethods {
+    /**
+     * Checks if word entered in user input is a valid number
+     *
+     * @param strNum a word extracted from user input
+     * @return true if extracted word is a valid number
+     */
     public static boolean isValidNumber(String strNum) {
         if (strNum == null) {
             return false;
