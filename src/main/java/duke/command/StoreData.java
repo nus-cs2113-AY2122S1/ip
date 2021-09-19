@@ -13,9 +13,11 @@ import java.util.Scanner;
 
 //brute force save
 public class StoreData extends Duke{
+    private static final String folderName = "data/";
+    private static final String fileName = "list" + ".txt";
     //print a task array list in easy to wrangle data format
     //format:
-    //separated by lines, [TYPE] [deadline] [DESC] [ISDONE]
+    //separated by lines, [TYPE] [DESC] -[DEADLINE]- [DONE]
     //within a function
     public static String printTaskAsString(Task t) {
         return t.toString() + '\n';
@@ -23,8 +25,8 @@ public class StoreData extends Duke{
 
     public static void saveList(ArrayList<Task> taskArrayList) throws IOException {
         checkAndAddDirectory();
-        File newList = new File("data/list.txt");
-        FileWriter fw = new FileWriter("data/list.txt");
+        File newList = new File( folderName + fileName);
+        FileWriter fw = new FileWriter(folderName + fileName);
         for (Task t : taskArrayList) {
             fw.write(printTaskAsString(t));
         }
@@ -61,7 +63,14 @@ public class StoreData extends Duke{
     private static void addTaskToArray(ArrayList<Task> toReadList, String readLine) {
         String toCommand = savedDataToCommandFormat(readLine);
         Task taskToAdd = parseInputAsTask(toCommand);
+        markTaskIfDone(readLine, taskToAdd);
         toReadList.add(taskToAdd);
+    }
+
+    private static void markTaskIfDone(String readLine, Task taskToAdd) {
+        if (readLine.endsWith("true")) {
+            taskToAdd.setDone(true);
+        }
     }
 
     //assume that data is saved in the following manner:
@@ -70,17 +79,17 @@ public class StoreData extends Duke{
         String[] separateData = readLine.split("\\|");
         switch (separateData[0]) {
         case ("D") :
-            return separateData[1] + "/by" + separateData[2];
+            return separateData[1] + Duke.DEADLINE_DIVIDER + separateData[2];
         case ("E") :
-            return separateData[1] + "/at" + separateData[2];
+            return separateData[1] + Duke.EVENT_DIVIDER + separateData[2];
         default:    //is a todo only
             return separateData[1];
         }
     }
 
-    public static void writeNewFile(String filePath) throws IOException {
-        checkAndAddDirectory();
+    public static void writeNewFile(String filePath)  {
         try {
+            checkAndAddDirectory();
             FileWriter fw = new FileWriter(filePath);
             fw.write("");
             fw.close();
@@ -91,12 +100,12 @@ public class StoreData extends Duke{
 
     public static void checkAndAddDirectory() throws IOException {
         String home = new File("").getAbsolutePath();
-        File dirCheck = new File(home + "/data");
+        File dirCheck = new File(home + folderName);
         if (dirCheck.isDirectory()) {
             return;
         }
-        System.out.println("Hey, I didn't find directory /data");
-        System.out.println("adding /data into repository...");
-        Files.createDirectories(Paths.get(home + "/data"));
+        System.out.println("Hey, I didn't find directory " + folderName);
+        System.out.println("adding " + folderName + " into repository...");
+        Files.createDirectories(Paths.get(home + folderName));
     }
 }
