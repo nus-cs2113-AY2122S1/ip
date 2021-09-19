@@ -8,7 +8,6 @@ import duke.taskType.Task;
 import duke.taskType.ToDo;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -32,8 +31,13 @@ public class TaskList {
 
                 String typeOfTask = tasks.get(taskNumberToDelete - 1).toString().substring(1,2);
                 String taskIsDone = tasks.get(taskNumberToDelete - 1).toString().substring(4,5);
-                String rawTaskDescription = tasks.get(taskNumberToDelete - 1).toString().substring(7);
-
+                String rawTaskDescription;
+                if (typeOfTask.equals("E") || typeOfTask.equals("D")) {
+                    rawTaskDescription = tasks.get(taskNumberToDelete - 1).toRawString().substring(7);
+                }
+                else {
+                    rawTaskDescription = tasks.get(taskNumberToDelete - 1).toString().substring(7);
+                }
                 textToRemove = StringToRemoveFormat.getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
 
                 dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove, lastLine, taskNumberToDelete, numberOfTasks);
@@ -167,6 +171,23 @@ public class TaskList {
     }
 
     public static void addEventCheck(Storage dukeTaskText, String taskName, String at) throws DukeException {
+        String formattedDateTime;
+        try {
+            String date = at.split(" ")[1];
+            String time = at.split(" ")[2];
+            formattedDateTime = date + "T" + time;
+        } catch (IndexOutOfBoundsException indexOutOfBound) {
+            throw new DukeException("The deadline is not stated correctly");
+        }
+
+        LocalDateTime dateTime;
+
+        try {
+            dateTime = LocalDateTime.parse(formattedDateTime);
+        } catch (DateTimeParseException formatIssue) {
+            throw new DukeException("Deadline be in the format of: yyyy-mm-dd HH:mm");
+        }
+
         if (dukeTaskText.saveEvent(taskName, at) == true) {
             tasks.add(new Event(taskName, at));
             numberOfTasks += 1;
@@ -215,6 +236,6 @@ public class TaskList {
             throw new DukeException("Please Enter the Legit Task Number... Or I won't talk to you!");
         }
 
-        dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toString());
+        dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toRawString());
     }
 }

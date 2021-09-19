@@ -35,6 +35,10 @@ public class Deadline extends Task {
         System.out.println("    ____________________________________________________________");
     }
 
+    public String toRawString() {
+        return "[D]" + super.toString() + "(by: " + this.by.substring(3) + ")";
+    }
+
     @Override
     public String toString() {
         String by = this.by.substring(3);
@@ -45,9 +49,7 @@ public class Deadline extends Task {
         LocalDateTime dt = LocalDateTime.parse(formattedDateTime);
         String newBy = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.getHour() + ":" + dt.getMinute();
 
-        String deadline = "[D]" + super.toString() + "(by: " + newBy + ")";
-
-        return deadline;
+        return "[D]" + super.toString() + "(by: " + newBy + ")";
     }
 
     @Override
