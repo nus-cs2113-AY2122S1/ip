@@ -1,10 +1,9 @@
 package duke.exception;
 
-public class DukeException {
+public class InputCheckAndPrint {
     String name;
-    String messageToUser;
 
-    public DukeException(String name) {
+    public InputCheckAndPrint(String name) {
         this.name = name;
     }
 
@@ -52,10 +51,11 @@ public class DukeException {
     public static boolean inListRange(int index, int taskCount) {
         return index >= 0 && index < taskCount; //taskCount is the latest "empty" block
     }
-    //Print statements
+
     public static void printNotInRange(int index) {
         System.out.println("... sorry, task " + (index + 1) + " is not in range. Try the 'done' command again!");
     }
+
     public static void printDoneFormat() {
         System.out.println("Simply type in the task ids, separated by a single whitespace");
         System.out.println("e.g 1 2 3 4 5");
@@ -71,10 +71,6 @@ public class DukeException {
 
     public static void printIntegerOnly() {
         System.out.println("Please only input integers!");
-    }
-
-    public static void printNotInIndex() {
-        System.out.println("Task not found!");
     }
 
     public static void printDeadlineFormatIssue() {

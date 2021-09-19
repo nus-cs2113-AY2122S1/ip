@@ -1,4 +1,5 @@
 package duke.command;
+
 import duke.task.Task;
 
 import java.io.File;
@@ -6,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,28 +34,27 @@ public class StoreData {
     //returns an array list, given a text file
     //format per LINE : [TASK_TYPE]|[DEADLINE]|[DESC]|[DONE]
     public static ArrayList<Task> readList(String filePath) throws IOException {
-        ArrayList<Task> toRead = new ArrayList<Task>();
+        ArrayList<Task> tasksToRead = new ArrayList<Task>();
         try {
             checkAndAddDirectory();
             File f = new File(filePath);
             Scanner scanList = new Scanner(f);
             while (scanList.hasNext()) {
-                //add to a list
                 String readLine = scanList.nextLine();
                 if (readLine.equals("")) {
                     break;
                 }
-                addTaskToArray(toRead, readLine);
+                addTaskToArray(tasksToRead, readLine);
             }
-            return toRead;
+            return tasksToRead;
         } catch (FileNotFoundException e) {
             //create new file
             File f = new File(filePath);
             System.out.println("Hey, I didn't find list.txt in /data!");
             System.out.println("creating new file...");
-            return toRead;
+            return tasksToRead;
         } catch (NullPointerException e) {
-            return toRead;
+            return tasksToRead;
         }
     }
 
