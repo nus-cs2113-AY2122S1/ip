@@ -264,7 +264,8 @@ public class Ui {
     }
 
     /**
-     * Shows error when there is an error with the format of the task number provided for certain commands.
+     * Shows error when there is an error with the format of the task number provided
+     * for certain commands.
      */
     public static void showInvalidTaskNumberFormatError() {
         printGenericMessage(ERROR_INVALID_TASK_NUMBER_FORMAT);
@@ -285,7 +286,8 @@ public class Ui {
     }
 
     /**
-     * Shows error when there is an error with converting the save file into a <code>TaskList</code> object.
+     * Shows error when there is an error with converting the save file into a
+     * <code>TaskList</code> object.
      */
     public static void showConvertSaveFileError() {
         printGenericMessage(ERROR_CONVERTING_SAVE_FILE);

@@ -19,7 +19,8 @@ public class Parser {
      * If there are no command arguments in the input, returns blank space as argument instead.
      *
      * @param rawUserInput String representing input from the user.
-     * @return A String array of length == 2, with split[0] being the command type, and split[1] being the command argument.
+     * @return A String array of length == 2, with split[0] being the command type,
+     * and split[1] being the command argument.
      */
     public static String[] splitCommandWordAndArgs(String rawUserInput) {
         final String[] split = rawUserInput.trim().split(" ", 2);
@@ -32,8 +33,10 @@ public class Parser {
     /**
      * Splits the description and time in the raw description of a Deadline task.
      *
-     * @param rawDescription Raw description of the Deadline task consisting of both description and time of the task.
-     * @return A string array of length == 2, with split[0] containing the description, and split[1] containing the task time.
+     * @param rawDescription Raw description of the Deadline task consisting of both
+     *                       description and time of the task.
+     * @return A string array of length == 2, with split[0] containing the description,
+     * and split[1] containing the task time.
      * @throws DukeException If deadline format is wrong.
      */
     public static String[] splitDeadlineDescriptionAndTime(String rawDescription) throws DukeException{
