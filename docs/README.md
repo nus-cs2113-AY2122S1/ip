@@ -45,7 +45,7 @@ Format: `event EVENT_DESCRIPTION /at EVENT_AT`
 
 Examples:
 * `event project meeting /at 12 midnight` Adds an Event with the description `project meeting` at `12 midnight`.
-* `event project discussion /at 26/9/2021 20:00` Adds an Event with the description `project discussion` at 
+* `event project discussion /at 26/09/2021 20:00` Adds an Event with the description `project discussion` at 
   `26/09/2021 20:00`. When `list` is called, `26/09/2021 20:00` will be displayed as `Sun, 26 Sep 2021, 20:00`.
 * `event interview /at` or `event interview` Adds an event with the description `interview` at `???`.
 
@@ -55,7 +55,7 @@ Adds a Deadline into the task list.
 Format: `deadline DEADLINE_DESCRIPTION /by DEADLINE_BY`
 * `DEADLINE_DESCRIPTION` is the description of the Deadline to be added.
 * A description **must be specified** for a Deadline to be successfully added.
-* `EVENT_AT` is used to specify when the Deadline is by.
+* `DEADLINE_BY` is used to specify when the Deadline is by.
 * If `/by` or `DEADLINE_BY` is not specified by the user, a Deadline will still be added and `DEADLINE_BY` will be 
   taken as `???`.
 * If `DEADLINE_BY` is specified in the **exact** format:`dd/MM/yyyy HH:mm`, when `list` is called, `DEADLINE_BY` will 
@@ -64,9 +64,9 @@ Format: `deadline DEADLINE_DESCRIPTION /by DEADLINE_BY`
 Examples:
 * `deadline weekly quiz /by thursday midnight` Adds a Deadline with the description `weekly quiz` by 
   `thursday midnight`.
-* `deadline User Guide /by 26/9/2021 23:59` Adds a Deadline with the description `User Guide` by
+* `deadline User Guide /by 26/09/2021 23:59` Adds a Deadline with the description `User Guide` by
   `26/09/2021 23:59`. When `list` is called, `26/09/2021 20:00` will be displayed as `Sun, 26 Sep 2021, 23:59`.
-* `deadline proposal /by` or `event proposal` Adds a Deadline with the description `proposal` by `???`.
+* `deadline proposal /by` or `deadline proposal` Adds a Deadline with the description `proposal` by `???`.
 
 ### Marking task as done: `done`
 Marks a task in the task list as done.
