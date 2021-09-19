@@ -82,12 +82,12 @@ Stops the program.
 * Format : `end`
 
 ##Command Summary
-Action|Format & Examples
-------|-----------------
-Add todo task|`todo TASK_NAME` (E.g. `todo Read Book`)
-Add event task|`event TASK_NAME /at DATE` (E.g. `event Movie /at 2020-10-29`)
-Add deadline task|`deadline TASK_NAME /by DATE` (E.g. `deadline Project work /by 2021-19-09`)
-Mark as done|`done TASK_INDEX` (E.g. `done 3`)
-Delete|`Delete TASK_INDEX` (E.g. `delete 2`)
-Find|`find KEY_WORD` (E.g. `find Book`)
-List|`list`
+|Action|Format & Examples|
+|---|---|
+|Add todo task|`todo TASK_NAME` \\n(E.g. `todo Read Book`)|
+|Add event task|`event TASK_NAME /at DATE` (E.g. `event Movie /at 2020-10-29`)|
+|Add deadline task|`deadline TASK_NAME /by DATE` (E.g. `deadline Project work /by 2021-19-09`)|
+|Mark as done|`done TASK_INDEX` (E.g. `done 3`)|
+|Delete|`Delete TASK_INDEX` (E.g. `delete 2`)|
+|Find|`find KEY_WORD` (E.g. `find Book`)|
+|List|`list`|
