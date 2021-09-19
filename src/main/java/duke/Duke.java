@@ -16,6 +16,7 @@ public class Duke {
         Duke.run();
     }
 
+    /** Runs the program until termination */
     public static void run() {
         Scanner in = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -25,16 +26,25 @@ public class Duke {
         end();
     }
 
+    /** Prints the welcome message. */
     public static void start() {
         Ui.printIntro();
     }
 
+    /**
+     * Reads the user command and executes it, until the user issues the exit command
+     *
+     * @param in object of scanner
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param userInput takes input from the keyboard
+     */
     private static void runCommandLoopUntilExitCommand(Scanner in, ArrayList<Task> taskList, String userInput) {
         DataManager.printPreviousFileContents(FILE_PATH, taskList);
         Parser.parseCommand(in, taskList, userInput);
         DataManager.storeCurrentList(FILE_PATH, taskList);
     }
 
+    /** Prints the exit message. */
     public static void end() {
         Ui.printOutro();
     }
