@@ -59,7 +59,7 @@ public class Task {
     /**
      * Prints a message to allow the user to know that a task has been successfully marked as done
      *
-     * @param taskNumber index of which the task has been added in the task list
+     * @param taskNumber index of which the task has been marked as done in the task list
      */
     public void printMarkAsDoneMessage(int taskNumber) {
         System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
