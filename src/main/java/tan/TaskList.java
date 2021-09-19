@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Initializes the file & loads the tasks stored in the file
+     * Initializes the save-file & loads the tasks stored in the file
      * into the list. Then updates the total number of tasks.
      */
     public static void initializeFileAndLoadDataIntoList() {
@@ -103,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a certain task as done.
+     * Marks the task at the specified index as done.
      * Takes in the index of the task
      * and checks if it is within range.
      * If it is, mark it as done. If not,
@@ -123,9 +123,8 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task by checking if the index is
-     * within range if it is, delete. If not,
-     * prompts user to key in again.
+     * Deletes the task specified at the index.
+     * If the index is out of range, prompts user to key in again.
      *
      * @param indexTask The index of the task to be marked as done.
      */
@@ -156,7 +155,7 @@ public class TaskList {
     /**
      * Adds a new task by taking the user input as a string
      * and decides what type of task it is and
-     * executes its respective jobs. If none of the task type
+     * creates it. If none of the task type
      * matches, prompts the user to try again.
      *
      * @param userInput The entire input from the user as a String.
@@ -166,19 +165,19 @@ public class TaskList {
         Task curTask;
         switch (typeOfTask) {
         case "todo":
-            curTask = getToDoTask(userInput);
+            curTask = createTodoTask(userInput);
             if (curTask == null) {
                 return;
             }
             break;
         case "deadline":
-            curTask = getDeadlineTask(userInput);
+            curTask = createDeadlineTask(userInput);
             if (curTask == null) {
                 return;
             }
             break;
         case "event":
-            curTask = getEventTask(userInput);
+            curTask = createEventTask(userInput);
             if (curTask == null) {
                 return;
             }
@@ -203,7 +202,7 @@ public class TaskList {
      * @param userInput - The user input in String.
      * @return The Event task created, else null.
      */
-    private static Task getEventTask(String userInput) {
+    private static Task createEventTask(String userInput) {
         try {
             String eventDesc = Parser.getDescriptionOfEvent(userInput);
             String eventTimeDate = Parser.getDateTimeOfEvent(userInput);
@@ -228,7 +227,7 @@ public class TaskList {
      * @param userInput - The user input in String.
      * @return The Task created, else null.
      */
-    private static Task getDeadlineTask(String userInput) {
+    private static Task createDeadlineTask(String userInput) {
         try {
             String deadlineDesc = Parser.getDescriptionOfDeadline(userInput);
             String deadlineDateTime = Parser.getDateTimeOfDeadline(userInput);
@@ -253,8 +252,7 @@ public class TaskList {
      * @param userInput The user's input in String.
      * @return Returns the task else NULL.
      */
-    private static Task getToDoTask(String userInput) {
-
+    private static Task createTodoTask(String userInput) {
         try {
             String todoDesc = Parser.getDescriptionOfToDo(userInput);
             Task curTask = new ToDo(todoDesc);

@@ -21,15 +21,12 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 
 /**
- * HOW TO USE??
- * <p>
+ * Key Notes:
  * Call setWriterAndReader to set the csvReader & csvWriter.
  * Then use respective reader/writer to perform task.
- * Note, if you close csvWriter, you have to write from top
- * aga in. Use Flush to push to current writing in buffer to file.
- * <p>
- * <p>
- * homePath - The directory that the data file is saved at in String.
+ * If you close csvWriter, you have to set the writer again
+ * and write from top of file again.
+ * Use Flush to push to current writing in buffer to file.
  */
 public class Storage {
     protected static BufferedReader csvReader;
