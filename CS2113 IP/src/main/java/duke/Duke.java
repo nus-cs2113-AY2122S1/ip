@@ -1,12 +1,10 @@
 package duke;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
     final private static String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
@@ -21,23 +19,35 @@ public class Duke {
     final private static String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
     final private static String ERROR_MARK_TASK_UNKNOWN_INPUT = "Please enter as follows: done (INT in number)";
     final private static String ERROR_DELETE_TASK_UNKNOWN_INPUT = "Please enter as follows: delete (INT in number)";
-    final private static String ERROR_EMPTY_FIELDS = "There are empty fields, check storage text file!";
     final private static String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
     final private static String HORIZONTAL_LINE = "_________________________________________________________________";
-    final private static ArrayList<Task> tasks = new ArrayList<Task>();
     final private static String filePath = getFilePath();
 
+    private Ui ui;
+    private Storage storage;
+    private static TaskList tasks;
 
-    public static void greet() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+    public Duke(String filePath) throws IOException, DukeException {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(filePath);
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() throws IOException {
+        listOperations();
+        writeFile();
+    }
+
+    private static String getFilePath() {
+        Path currentRelativePath = Paths.get("");
+        Path currentPath = currentRelativePath.toAbsolutePath();
+        String filePath = currentPath + "/data/duke.txt";
+        return filePath;
     }
 
     public static void listOperations() throws IOException {
@@ -162,7 +172,7 @@ public class Duke {
         String userInputIntString = splitStringBySpace[1];
         int userInputInt = Integer.parseInt(userInputIntString);
 
-        if (userInputInt > tasks.size()) {
+        if (userInputInt >= tasks.size()) {
             throw new OutOfBoundsException();
         }
 
@@ -187,7 +197,7 @@ public class Duke {
         String userInputIntString = splitStringBySpace[1];
         int userInputInt = Integer.parseInt(userInputIntString);
 
-        if (userInputInt > tasks.size()) {
+        if (userInputInt >= tasks.size()) {
             throw new OutOfBoundsException();
         }
 
@@ -233,69 +243,6 @@ public class Duke {
         }
     }
 
-    private static void createFile() throws IOException {
-        File f = new File(filePath);
-        if (f.createNewFile()) {
-            System.out.println("Duke database creation <<>><<>><<>><<>><<>> created " + f.getName());
-        } else {
-            System.out.println("Duke database up-to-date! <<>><<>><<>><<>><<>> >:)");
-        }
-    }
-
-    private static void setUpDuke() throws IOException, DukeException {
-        File backupData = new File(filePath);
-        Scanner sc = new Scanner(backupData);
-        final int TASK_TYPE_INDEX = 0;
-        final int DONE_INDEX = 1;
-        final int DESCRIPTION_INDEX = 2;
-
-        try {
-            while (sc.hasNext()) {
-                boolean isDone;
-                Task newTask;
-                String userInput;
-                String lineDataString = sc.nextLine();
-                String[] lineData = lineDataString.trim().split(" \\| ");
-                completeChecker(lineData);
-
-                String taskTypeString = lineData[TASK_TYPE_INDEX];
-                String isDoneString = lineData[DONE_INDEX];
-                String description = lineData[DESCRIPTION_INDEX];
-                isDone = isDoneString.equals("X");
-
-                switch (taskTypeString) {
-                case ("T"):
-                    userInput = String.format("todo %s", description.trim());
-                    newTask = new Todo(userInput, Task.taskCount);
-                    tasks.add(Task.taskCount, newTask);
-                    break;
-                case ("E"):
-                    userInput = String.format("event %s", description.trim());
-                    newTask = new Event(userInput, Task.taskCount);
-                    tasks.add(Task.taskCount, newTask);
-                    break;
-                case ("D"):
-                    userInput = String.format("deadline %s", description.trim());
-                    newTask = new Deadline(userInput, Task.taskCount);
-                    tasks.add(Task.taskCount, newTask);
-                    break;
-                }
-                if (isDone) {
-                    tasks.get(Task.taskCount).markAsDone();
-                }
-                Task.taskCount++;
-            }
-        } catch (DukeException e) {
-            System.out.println(ERROR_EMPTY_FIELDS);
-        }
-    }
-
-    private static void completeChecker(String[] lineData) throws DukeException {
-        if (lineData.length < 3) {
-            throw new DukeException();
-        }
-    }
-
     private static void writeFile() throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
         for (int i = 0; i < Task.taskCount; i++) {
@@ -319,31 +266,7 @@ public class Duke {
         fw.close();
     }
 
-    private static String getFilePath() {
-        Path currentRelativePath = Paths.get("");
-        Path currentPath = currentRelativePath.toAbsolutePath();
-        String filePath = currentPath + "/data/duke.txt";
-        return filePath;
-    }
-
-    private static void createDirectory() {
-        Path currentRelativePath = Paths.get("");
-        Path currentPath = currentRelativePath.toAbsolutePath();
-        File f = new File(currentPath + "/data");
-        boolean isCreated = f.mkdir();
-        if (isCreated) {
-            System.out.println("data directory created successfully >>::))");
-        } else {
-            System.out.println("Duke-data directory exists >>::))");
-        }
-    }
-
     public static void main(String[] args) throws IOException, DukeException {
-        createDirectory();
-        createFile();
-        setUpDuke();
-        greet();
-        listOperations();
-        writeFile();
+        new Duke(filePath).run();
     }
 }
