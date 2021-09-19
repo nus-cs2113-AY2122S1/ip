@@ -9,11 +9,8 @@ package duke;
 
 import duke.commandHandler.DukeCommandHandling;
 import duke.exceptionHandler.DukeException;
-import duke.save.SaveTaskListToText;
-import duke.taskType.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -28,7 +25,9 @@ public class Duke {
 
         String userInputString;
         Scanner userInput = new Scanner(System.in);
-        SaveTaskListToText dukeTaskText = Storage.getSaveTaskListToText();
+
+        Storage dukeTaskText = new Storage();
+        TaskList.numberOfTasks = dukeTaskText.loadTask(TaskList.tasks);
 
         while (true) {
             userInputString = userInput.nextLine();
@@ -36,6 +35,7 @@ public class Duke {
 
             try {
                 if (commandHandle.isBye()) {
+                    Ui.showGoodBye() ;
                     break;
                 } else if (commandHandle.isList()) {
                     TaskList.printTaskList();
@@ -62,8 +62,8 @@ public class Duke {
             }
         }
         userInput.close();
-        Ui.printByeText.printText();
     }
 
     public static void main(String[] args) throws IOException, DukeException { run(); }
+
 }

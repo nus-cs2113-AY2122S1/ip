@@ -1,7 +1,6 @@
 package duke;
 
 import duke.exceptionHandler.DukeException;
-import duke.save.SaveTaskListToText;
 import duke.taskOperations.StringToRemoveFormat;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
@@ -15,7 +14,7 @@ public class TaskList {
     public static int numberOfTasks = 0; // Task Counter
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void deleteTask(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
+    public static void deleteTask(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
             int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
             String textToRemove;
@@ -54,7 +53,7 @@ public class TaskList {
      *                        the description of the todo task. No time
      *                        details is needed here.
      */
-    public static void addToDo(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
+    public static void addToDo(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
             String taskName = userInputString.substring(5);
 
@@ -86,7 +85,7 @@ public class TaskList {
      *                        the description of the deadline task and followed
      *                        by a "/" to separate the due time "by".
      */
-    public static void addDeadline(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
+    public static void addDeadline(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
             if (userInputString.indexOf(" /by ") == -1) {
                 throw new DukeException("Don't forget to add /by (must have trail and lead whitespace) to separate description and deadline");
@@ -102,7 +101,7 @@ public class TaskList {
         }
     }
 
-    public static void addDeadlineCheck(SaveTaskListToText dukeTaskText, String taskName, String by) throws DukeException {
+    public static void addDeadlineCheck(Storage dukeTaskText, String taskName, String by) throws DukeException {
         if (dukeTaskText.saveDeadline(taskName, by) == true) {
             tasks.add(new Deadline(taskName, by));
             numberOfTasks += 1;
@@ -113,7 +112,7 @@ public class TaskList {
         }
     }
 
-    public static void addDeadlineCheckDescription(SaveTaskListToText dukeTaskText, String taskName, String by) throws DukeException {
+    public static void addDeadlineCheckDescription(Storage dukeTaskText, String taskName, String by) throws DukeException {
         if (taskName.equals("") || by.equals("by ")) {
             throw new DukeException("The description and event time info of event cannot be empty.");
         } else {
@@ -132,7 +131,7 @@ public class TaskList {
      *                        the description of the event task followed by
      *                        a "/" to separate the happening time "at".
      */
-    public static void addEvent(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
+    public static void addEvent(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
             if (userInputString.indexOf(" /at ") == -1) {
                 throw new DukeException("Don't forget to add /at (must have trail and lead whitespace) to separate description and event time");
@@ -147,7 +146,7 @@ public class TaskList {
         }
     }
 
-    public static void addEventCheck(SaveTaskListToText dukeTaskText, String taskName, String at) throws DukeException {
+    public static void addEventCheck(Storage dukeTaskText, String taskName, String at) throws DukeException {
         if (dukeTaskText.saveEvent(taskName, at) == true) {
             tasks.add(new Event(taskName, at));
             numberOfTasks += 1;
@@ -158,7 +157,7 @@ public class TaskList {
         }
     }
 
-    public static void addEventCheckDescription(SaveTaskListToText dukeTaskText, String taskName, String at) throws DukeException {
+    public static void addEventCheckDescription(Storage dukeTaskText, String taskName, String at) throws DukeException {
         if (taskName.equals("") || at.equals("at ")) {
             throw new DukeException("The description and event time info of event cannot be empty.");
         } else {
@@ -187,7 +186,7 @@ public class TaskList {
      * @param userInputString which contains the "done" command along with the
      *                        finished task number.
      */
-    public static void finishTask(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException, IOException {
+    public static void finishTask(String userInputString, Storage dukeTaskText) throws DukeException, IOException {
         int taskNumber = Integer.parseInt(userInputString.split(" ")[1]);
 
         if (taskNumber <= numberOfTasks) {

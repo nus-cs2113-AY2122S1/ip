@@ -17,4 +17,8 @@ public class Ui {
         delay.wait(500);
         printHelloText.printText();
     }
+
+    public static void showGoodBye() {
+        printByeText.printText();
+    }
 }
