@@ -54,8 +54,8 @@ public class Duke {
     }
 
     private static void addTasksIntoList() throws IOException {
-        File f = loadFile();
-        Scanner s = new Scanner(f);
+        File file = loadFile();
+        Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String entry = s.nextLine();
             String[] entryComponents = entry.split(GAP);
@@ -90,7 +90,7 @@ public class Duke {
     }
 
     private static void writeTasksToFile() throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             String details = task.getDescription().substring(task.getDescription().indexOf(" ") + 1);
@@ -102,9 +102,9 @@ public class Duke {
             }
             String taskLabel = task.getType() + GAP + task.getIsDone() + GAP;
             String taskBody = details.trim() + GAP + date + System.lineSeparator();
-            fw.write(taskLabel + taskBody);
+            fileWriter.write(taskLabel + taskBody);
         }
-        fw.close();
+        fileWriter.close();
     }
 
     private static void handleCommand() {
@@ -116,6 +116,9 @@ public class Duke {
                 String keyword = input.split(" ")[0].toLowerCase();
                 switch (keyword) {
                 case "bye":
+                    if (input.split(" ").length != 1) {
+                        promptInvalidInput();
+                    }
                     continue;
                 case "list":
                     listTasks();
@@ -213,9 +216,9 @@ public class Duke {
             throw new DukeException("Your task is not in the right format");
         }
         String[] inputWords = input.split("/");
-        boolean noTask = inputWords[0].trim().equals("deadline");
-        boolean noDate = inputWords.length == 1;
-        if (noTask || noDate) {
+        boolean isNoTask = inputWords[0].trim().equals("deadline");
+        boolean isNoDate = inputWords.length == 1;
+        if (isNoTask || isNoDate) {
             throw new DukeException("Your task is not in the right format");
         }
         description = inputWords[0].trim();
