@@ -103,21 +103,26 @@ public class TaskManager extends Ui {
      * @throws DukeException if there is an invalid task number entered in the user input
      */
     public static void deleteTaskFromToDo(ArrayList<Task> taskList, String userInput) throws DukeException {
-        int wordIndex = 0;
+        int initialWordIndex = 0;
+        int updateWordIndex = 0;
+
         boolean numberExists = false;
         String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
         for (String word : splitTask) {
             if (GeneralMethods.isValidNumber(word)) {
                 numberExists = true;
-                int taskNumber = (Integer.parseInt(splitTask[wordIndex])) - 1;
+                int finalWordIndex = initialWordIndex - updateWordIndex;
+                int taskNumber = (Integer.parseInt(splitTask[finalWordIndex])) - 1;
                 try {
-                    printTaskDeletedConfirmation(taskList.get(taskNumber), taskNumber);
+                    int originalTaskNumber = taskNumber + updateWordIndex;
+                    printTaskDeletedConfirmation(taskList.get(taskNumber), originalTaskNumber);
                     taskList.remove(taskNumber);
+                    updateWordIndex ++;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(INCORRECT_DELETE_COMMAND);
                 }
             }
-            wordIndex++;
+            initialWordIndex++;
         }
         if (!numberExists) {
             throw new DukeException(INCORRECT_DELETE_COMMAND);
