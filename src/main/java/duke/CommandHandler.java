@@ -7,6 +7,10 @@ import duke.task.Event;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+/**
+ * Receives commands that come in from the user, and then
+ * carries out the relevant command.
+ */
 public class CommandHandler {
     //Strings to define command type
     private static final String COMMAND_EXIT = "bye";
@@ -18,6 +22,15 @@ public class CommandHandler {
     private static final String COMMAND_DELETE_TASK = "delete";
     private static final String COMMAND_SAVE_TASK_LIST = "save";
 
+
+    /**
+     * Takes in as <code>TaskList</code> object and user commands and executes the relevant methods.
+     *
+     * @param commandType Type of command
+     * @param commandArgs Arguments to the command
+     * @param tasks Task list which commands are operated on
+     * @throws DukeException If command is invalid
+     */
     public static void processInput(String commandType, String commandArgs, TaskList tasks) throws DukeException {
         switch (commandType) {
         case COMMAND_EXIT:
@@ -48,8 +61,6 @@ public class CommandHandler {
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_COMMAND);
         }
     }
-
-
 
     private static void exitProgram(TaskList tasks) {
         Storage.writeTaskListToFile(tasks);
@@ -118,7 +129,7 @@ public class CommandHandler {
     }
 
     private static void addDeadlineTaskToList(String input, TaskList tasks) {
-        final String[] taskDescriptionAndBy = Parser.splitDeadlineDescriptionAndDate(input);
+        final String[] taskDescriptionAndBy = Parser.splitDeadlineDescriptionAndTime(input);
         final String description = taskDescriptionAndBy[0];
         final String by = taskDescriptionAndBy[1];
 
