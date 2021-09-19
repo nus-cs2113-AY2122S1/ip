@@ -1,12 +1,5 @@
 package duke;
 
-import duke.exceptions.DukeException;
-
-import java.util.Scanner;
-
-import java.io.IOException;
-import java.io.File;
-
 public class Duke {
     private Storage storage;
     private Ui ui;

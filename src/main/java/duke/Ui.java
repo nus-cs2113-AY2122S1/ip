@@ -19,7 +19,7 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println("Error loading file");
+        System.out.println("There is some problem with the file...");
     }
 
     public String getInput() {
