@@ -17,11 +17,6 @@ public class CommandResult {
         this.feedbackToUser = feedbackToUser;
     }
 
-    /**
-     * Gets the feedback from the execution of the command.
-     *
-     * @return Feedback to the user
-     */
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
