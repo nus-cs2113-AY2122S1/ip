@@ -1,19 +1,11 @@
 todo read through Week 4 iP tasks
-
-list
-
 deadline complete week 4 iP tasks /by 2 Sept
-
-list
-
 event tP weekly meeting /at Tues 11pm
-
 list
-
 done 1
-
 done 2
-
 list
-
+find week
+delete 3
+list
 bye

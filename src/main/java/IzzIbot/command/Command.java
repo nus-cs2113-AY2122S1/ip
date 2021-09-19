@@ -8,7 +8,6 @@ public abstract class Command {
 
     protected Ui ui;
     protected TaskList tasks;
-    private int targetIndex = -1;
 
     /**
      * Constructor for Command
@@ -17,10 +16,6 @@ public abstract class Command {
      */
     public Command(Ui ui, TaskList tasks) {
         this.ui = ui;
-        this.tasks = tasks;
-    }
-
-    public void setData(TaskList tasks) {
         this.tasks = tasks;
     }
 

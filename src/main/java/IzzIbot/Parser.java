@@ -29,6 +29,9 @@ public class Parser {
     public static final String DELETE = "delete";
     public static final String BYE = "bye";
     public static final String INVALID_INPUT = "Your input is invalid.";
+    public static final String BY_PREFIX = "/by";
+    public static final String AT_PREFIX = "/at";
+    public static final int LETTERS_IN_TODO = 4;
 
 
     /**
@@ -51,14 +54,14 @@ public class Parser {
 
         if (input.startsWith(DEADLINE)) {
             String description =
-                    input.substring(0, input.indexOf("/by")).replaceFirst(DEADLINE, "").trim();
-            String by = input.substring(input.indexOf("/by") + "/by".length()).trim();
+                    input.substring(0, input.indexOf(BY_PREFIX)).replaceFirst(DEADLINE, "").trim();
+            String by = input.substring(input.indexOf(BY_PREFIX) + BY_PREFIX.length()).trim();
             newTask = new Deadline(description, by);
 
         } else if (input.startsWith(EVENT)) {
             String description =
-                    input.substring(0, input.indexOf("/at")).replaceFirst(EVENT, "").trim();
-            String at = input.substring(input.indexOf("/at") + "/at".length()).trim();
+                    input.substring(0, input.indexOf(AT_PREFIX)).replaceFirst(EVENT, "").trim();
+            String at = input.substring(input.indexOf(AT_PREFIX) + AT_PREFIX.length()).trim();
             newTask = new Event(description, at);
 
         } else if (input.startsWith(TODO)) {
@@ -76,23 +79,23 @@ public class Parser {
     public Command addTask(String input) throws IzzIbotException {
 
         if (input.startsWith(TODO)) {
-            if (input.substring(4).isEmpty()) {
+            if (input.substring(LETTERS_IN_TODO).isEmpty()) {
                 throw new IzzIbotException(TODO_EXCEPTION);
             }
             trimInput(input);
 
         } else if (input.startsWith(DEADLINE)) {
-            if (!input.contains("/by")) {
+            if (!input.contains(BY_PREFIX)) {
                 throw new IzzIbotException(DEADLINE_EXCEPTION);
-            } else if (input.substring(input.indexOf("/by") + "/by".length()).isEmpty()) {
+            } else if (input.substring(input.indexOf(BY_PREFIX) + BY_PREFIX.length()).isEmpty()) {
                 throw new IzzIbotException(DEADLINE_EMPTY_DESCRIPTION);
             }
             trimInput(input);
 
         } else if (input.startsWith(EVENT)) {
-            if (!input.contains("/at")) {
+            if (!input.contains(AT_PREFIX)) {
                 throw new IzzIbotException(EVENT_EXCEPTION);
-            } else if (input.substring(input.indexOf("/at") + "/at".length()).isEmpty()) {
+            } else if (input.substring(input.indexOf(AT_PREFIX) + AT_PREFIX.length()).isEmpty()) {
                 throw new IzzIbotException(EVENT_EMPTY_DESCRIPTION);
             }
             trimInput(input);
@@ -110,7 +113,7 @@ public class Parser {
      * @return a SetDoneCommand object
      */
     public Command markTaskDone(String input) {
-        int taskNumber = Integer.parseInt(input.replace("done ", "")) - 1;
+        int taskNumber = Integer.parseInt(input.replace(DONE, "")) - 1;
 
         return new SetDoneCommand(ui, tasks, taskNumber);
     }
@@ -121,7 +124,7 @@ public class Parser {
      * @return a DeleteCommand object
      */
     public Command deleteTask(String input) {
-        int taskNumber = Integer.parseInt(input.replaceFirst("delete", "").trim()) - 1;
+        int taskNumber = Integer.parseInt(input.replaceFirst(DELETE, "").trim()) - 1;
 
         return new DeleteCommand(ui, tasks, taskNumber);
     }
@@ -133,7 +136,7 @@ public class Parser {
      * @throws IzzIbotException
      */
     public Command findTask(String input) {
-        String keyword = input.replaceFirst("find", "").trim();
+        String keyword = input.replaceFirst(FIND, "").trim();
 
         return new FindCommand(ui, tasks, keyword);
     }
@@ -144,7 +147,9 @@ public class Parser {
         Command commandFromInput = null;
 
         switch (trimmedInput){
-        case TODO: case DEADLINE: case EVENT:
+        case TODO:
+        case DEADLINE:
+        case EVENT:
             commandFromInput = addTask(input);
             break;
         case LIST:

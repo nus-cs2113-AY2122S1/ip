@@ -45,7 +45,6 @@ public class IzzIbot {
                 ui.printWithLines(e.getMessage());
             }
 
-            // Gets the next command entered
             input = ui.getUserCommand();
         }
     }
