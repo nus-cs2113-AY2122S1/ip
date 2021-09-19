@@ -53,8 +53,10 @@ public class Parser {
     /**
      * Splits the description and time in the raw description of an Event task.
      *
-     * @param rawDescription Raw description of the Event task consisting of both description and time of the task.
-     * @return A string array of length == 2, with split[0] containing the description, and split[1] containing the task time.
+     * @param rawDescription Raw description of the Event task consisting of both description
+     *                       and time of the task.
+     * @return A string array of length == 2, with split[0] containing the description,
+     * and split[1] containing the task time.
      * @throws DukeException If event format is wrong.
      */
     public static String[] splitEventDescriptionAndTime(String rawDescription) throws DukeException{
@@ -76,7 +78,8 @@ public class Parser {
      * Splits the date and time in the dateTime input of Deadline and Event tasks.
      *
      * @param dateTime Date time input of Deadline and Event tasks.
-     * @return A string array of length == 2, with split[0] containing the date and split[1] containing the time.
+     * @return A string array of length == 2, with split[0] containing the date and split[1]
+     * containing the time.
      */
     public static String[] splitDateAndTime(String dateTime) {
         String[] split = dateTime.trim().split(" ", 2);
@@ -90,7 +93,9 @@ public class Parser {
     //Reused from https://github.com/nus-cs2113-AY2122S1/contacts
     //with minor modifications
     /**
-     * Parses date and time input of Deadline and Event tasks into a <code>LocalDateTime</code> object.
+     * Parses date and time input of Deadline and Event tasks into a
+     * <code>LocalDateTime</code> object.
+     *
      * @param dateTime Date time input of Deadline and Event tasks.
      * @return Date and Time of represented by dateTime as a <code>LocalDateTime</code> object.
      * @throws DateTimeParseException If the date and time input cannot be parsed.

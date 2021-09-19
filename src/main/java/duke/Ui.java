@@ -22,9 +22,12 @@ public class Ui {
     private static final int HORIZONTAL_LINE_LENGTH = 100;
 
     //General Messages
-    private static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() + "What can I do for you?";
-    private static final String MESSAGE_EXIT_APPLICATION = "Thank you for using our application. We hope to see you again soon";
-    private static final String MESSAGE_INVALID_COMMAND = "I am sorry but I am not able to recognise this command";
+    private static final String MESSAGE_START_APPLICATION = "Hello from\n" + LOGO + System.lineSeparator() +
+            "What can I do for you?";
+    private static final String MESSAGE_EXIT_APPLICATION = "Thank you for using our application. " +
+            "We hope to see you again soon";
+    private static final String MESSAGE_INVALID_COMMAND = "I am sorry but I am not able to " +
+            "recognise this command";
     private static final String MESSAGE_SAVE_TASK_LIST = "You task list has been saved successfully";
     private static final String MESSAGE_TASK_ADDED_SUCCESSFULLY = "The following task has been added:";
     private static final String MESSAGE_MARK_TASK_SUCCESS = "The following task has been marked as done:";
@@ -36,28 +39,40 @@ public class Ui {
 
     //Error Messages
     private static final String ERROR_NO_TASK_NUMBER_TO_MARK = "Please provide a task number e.g 'xxxx 2'";
-    private static final String ERROR_INVALID_TASK_NUMBER = "Sorry, but the task does not exist, unable to proceed with command.\n" +
+    private static final String ERROR_INVALID_TASK_NUMBER = "Sorry, but the task does not exist, " +
+            "unable to proceed with command.\n" +
             "You can view a list of your tasks using the 'list' command";
-    private static final String ERROR_INVALID_TASK_NUMBER_FORMAT = "There seems to be an issue with the format of the task number.\n " +
+    private static final String ERROR_INVALID_TASK_NUMBER_FORMAT = "There seems to be an issue with " +
+            "the format of the task number.\n " +
             "Please try again with the correct format (e.g xxxx 3)";
-    private static final String ERROR_TODO_NO_DESCRIPTION = "Todo tasks require a description e.g 'todo CS1010 Assignment'";
-    private static final String ERROR_DEADLINE_NO_DESCRIPTION = "Deadlines require a description e.g 'deadline Project Reflection /by Friday 10pm'";
-    private static final String ERROR_EVENT_NO_DESCRIPTION = "Events require a description e.g 'event Seminar /at Friday 2pm'";
+    private static final String ERROR_TODO_NO_DESCRIPTION = "Todo tasks require a description " +
+            "e.g 'todo CS1010 Assignment'";
+    private static final String ERROR_DEADLINE_NO_DESCRIPTION = "Deadlines require a description " +
+            "e.g 'deadline Project Reflection /by Friday 10pm'";
+    private static final String ERROR_EVENT_NO_DESCRIPTION = "Events require a description " +
+            "e.g 'event Seminar /at Friday 2pm'";
     private static final String ERROR_WRITING_TO_SAVE_FILE = "Error writing to save file";
     private static final String ERROR_CREATING_SAVE_FILE = "Error creating save file";
     private static final String ERROR_CREATING_DATA_DIRECTORY = "Error creating data directory";
     private static final String ERROR_DUKE_UNKNOWN = "Unknown error with Duke occurred";
-    private static final String ERROR_READING_SAVE_FILE = "Error reading save file, some tasks may have been lost";
-    private static final String ERROR_CONVERTING_SAVE_FILE = "Error converting file to task list, some tasks may have been lost";
+    private static final String ERROR_READING_SAVE_FILE = "Error reading save file, " +
+            "some tasks may have been lost";
+    private static final String ERROR_CONVERTING_SAVE_FILE = "Error converting file to task list, " +
+            "some tasks may have been lost";
     private static final String ERROR_EMPTY_QUERY = "The query is empty. Please add a valid query";
-    private static final String ERROR_DATE_TIME_FORMAT = "There is an error with the date time format provided, please use a valid date time format\n" +
+    private static final String ERROR_DATE_TIME_FORMAT = "There is an error with the date time " +
+            "format provided, please use a valid date time format\n" +
             "(e.g yyyy-mm-dd HH:mm)";
-    private static final String ERROR_EVENT_FORMAT = "There is an error with the format of the input. Please enter a valid input \n" +
+    private static final String ERROR_EVENT_FORMAT = "There is an error with the format of the input. " +
+            "Please enter a valid input \n" +
             "(e.g event Lecture /at 2019-08-13 20:00)";
-    private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. Please enter a valid input \n " +
+    private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. " +
+            "Please enter a valid input \n " +
             "(e.g deadline Assignment /by 2021-08-32 13:00)";
 
-    /** Scanner object to read user input */
+    /**
+     * Scanner object to read user input
+     */
     private final Scanner in;
 
     /**
@@ -70,6 +85,7 @@ public class Ui {
     }
 
     //Reading input
+
     /**
      * Reads input from the user.
      *
@@ -98,6 +114,7 @@ public class Ui {
     }
 
     //General Messages
+
     /**
      * Prints a welcome message to the user.
      */
@@ -124,7 +141,7 @@ public class Ui {
      * Prints a message indicating that a task was added successfully.
      *
      * @param listLength Length of the task list.
-     * @param taskAdded The task that was added.
+     * @param taskAdded  The task that was added.
      */
     public static void printAddTaskMessage(int listLength, Task taskAdded) {
         printHorizontalLine();
@@ -168,7 +185,7 @@ public class Ui {
      */
     public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
         printHorizontalLine();
-        if(matchingTasks.isEmpty()) {
+        if (matchingTasks.isEmpty()) {
             System.out.println(MESSAGE_NO_MATCHING_TASK);
             printHorizontalLine();
             return;
@@ -203,6 +220,7 @@ public class Ui {
     }
 
     //Error messages split into multiple methods for better maintainability
+
     /**
      * Shows error when there is no description provided for a Todo task.
      */

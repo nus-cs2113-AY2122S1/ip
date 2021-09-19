@@ -55,7 +55,7 @@ public class TaskList {
      * Deletes a task by taking in the task number.
      *
      * @param rawTaskNumber Number used to identify the task to delete.
-     * @throws DukeException If task number is invalid or if no task number is provided.
+     * @throws DukeException         If task number is invalid or if no task number is provided.
      * @throws NumberFormatException If task number provided is not parsable into an integer.
      */
     public void deleteTask(String rawTaskNumber) throws DukeException, NumberFormatException {
@@ -80,7 +80,7 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param rawTaskNumber Number to identify the task to be marked.
-     * @throws DukeException If task number is invalid or if no task number is provided.
+     * @throws DukeException         If task number is invalid or if no task number is provided.
      * @throws NumberFormatException If task number provided is not parsable into an integer.
      */
     public void markTaskAsDone(String rawTaskNumber) throws DukeException, NumberFormatException {
@@ -96,7 +96,9 @@ public class TaskList {
 
     private boolean isMissingTask(int taskNumber) {
         final int listLength = taskList.size();
-        return taskNumber <= 0 || taskNumber > listLength;
+        final boolean isNegativeTaskNumber = taskNumber <= 0;
+        final boolean isOutOfScopeTaskNumber = taskNumber > listLength;
+        return isNegativeTaskNumber || isOutOfScopeTaskNumber;
     }
 
     private void markExistingTaskAsDone(Task task) {
@@ -138,12 +140,17 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             Task taskToConvert = taskList.get(i);
             if (taskToConvert instanceof Todo) {
-                fileContent.append("T|").append(taskToConvert.isDone ? '1' : '0').append('|').append(taskToConvert.description);
+                fileContent.append("T|")
+                        .append(taskToConvert.isDone ? '1' : '0')
+                        .append('|').append(taskToConvert.description);
             } else if (taskToConvert instanceof Deadline) {
-                fileContent.append("D|").append(taskToConvert.isDone ? '1' : '0').append('|').append(taskToConvert.description)
+                fileContent.append("D|")
+                        .append(taskToConvert.isDone ? '1' : '0')
+                        .append('|').append(taskToConvert.description)
                         .append('|').append(((Deadline) taskToConvert).getBy());
             } else if (taskToConvert instanceof Event) {
-                fileContent.append("E|").append(taskToConvert.isDone ? '1' : '0').append('|').append(taskToConvert.description)
+                fileContent.append("E|").append(taskToConvert.isDone ? '1' : '0')
+                        .append('|').append(taskToConvert.description)
                         .append('|').append(((Event) taskToConvert).getAt());
             }
             //skip iteration for last task
