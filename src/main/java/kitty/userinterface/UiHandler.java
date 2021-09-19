@@ -54,9 +54,9 @@ public class UiHandler {
         }
     }
 
-    public static void printList() throws KittyException{
+    public static void printList(ArrayList<Task> tasks) throws KittyException{
         // Throw exception if user list with no tasks
-        if (Kitty.tasks.size() == 0) {
+        if (tasks.size() == 0) {
             throw new KittyException("Sorry you currently have no tasks!");
         } else {
             // Prints list
@@ -125,13 +125,18 @@ public class UiHandler {
 
     public static void findFromList() throws KittyException {
         String keyword = Parser.getKeyword(Ui.userInput);
-
-        System.out.println();
-        System.out.println("Here are the tasks I found that matched the keyword \"" + keyword + "\"");
-        Kitty.tasks.stream()
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) Kitty.tasks.stream()
                 .filter((t) -> (t.getTaskName().contains(keyword)))
-                .forEach(System.out::println);
-        System.out.println();
-        System.out.println(Ui.CAT_5);
+                .collect(Collectors.toList());
+
+        if (filteredTasks.size() == 0) {
+            throw new KittyException("There are no tasks that matched the keyword \"" + keyword + "\"");
+        } else {
+            System.out.println();
+            System.out.println("Here are the tasks I found that matched the keyword \"" + keyword + "\"");
+            filteredTasks.forEach(System.out::println);
+            System.out.println();
+            System.out.println(Ui.CAT_5);
+        }
     }
 }
