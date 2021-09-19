@@ -8,4 +8,5 @@ public enum CommandType {
     DEADLINE,
     EVENT,
     INVALID,
+    DELETE,
 }
