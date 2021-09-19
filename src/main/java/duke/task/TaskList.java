@@ -6,6 +6,8 @@ import duke.ui.Ui;
 import duke.parser.Parser;
 import duke.storage.Storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -27,7 +29,7 @@ public class TaskList {
         try {
             String content = parser.extractContent(input);
             String descr = parser.extractDescriptionFromEvent(content);
-            String at = parser.extractAtFromEvent(content);
+            LocalDateTime at = parser.extractAtFromEvent(content);
             taskList.add(new Event(descr, at));
             storage.updateDataFile(taskList);
             ui.printTaskAddedMessage(taskList);
@@ -36,6 +38,8 @@ public class TaskList {
         } catch (EmptyParameterException e) {
             ui.printMissingParameter("Event");
             ui.printCommandGuide("event [description] /at [date]");
+        } catch (DateTimeParseException e) {
+            ui.printWrongDateTimeFormat();
         }
 
     }
@@ -49,7 +53,7 @@ public class TaskList {
         try {
             String content = parser.extractContent(input);
             String descr = parser.extractDescriptionFromDeadline(content);
-            String by = parser.extractByFromDeadline(content);
+            LocalDateTime by = parser.extractByFromDeadline(content);
             taskList.add(new Deadline(descr, by));
             storage.updateDataFile(taskList);
             ui.printTaskAddedMessage(taskList);
@@ -58,6 +62,8 @@ public class TaskList {
         } catch (EmptyParameterException e) {
             ui.printMissingParameter("Deadline");
             ui.printCommandGuide("deadline [description] /by [date]");
+        } catch (DateTimeParseException e) {
+            ui.printWrongDateTimeFormat();
         }
     }
 
@@ -129,5 +135,18 @@ public class TaskList {
      */
     public void showTaskList() {
         ui.printTaskList(taskList);
+    }
+
+    public void showUpcoming(String input) {
+        try {
+            int days = parser.extractNumber(input);
+            ui.printUpcomingDeadlines(taskList, days);
+            ui.printUpcomingEvents(taskList, days);
+        } catch (NumberFormatException e) { //not a number
+            ui.printInvalidNumber();
+            ui.printCommandGuide("upcoming [days]");
+        } catch (EmptyArgumentException e) {
+            ui.printCommandGuide("upcoming [days]");
+        }
     }
 }
