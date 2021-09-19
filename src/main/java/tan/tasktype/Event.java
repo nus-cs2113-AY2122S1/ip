@@ -1,16 +1,19 @@
 package tan.tasktype;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    private String dateTime;
+    private LocalDate dateTime;
     private final String eventIcon = "E";
 
-    public Event(String description, String dateTime) {
+    public Event(String description, LocalDate dateTime) {
         super(description);
         this.dateTime = dateTime;
     }
 
-    public Event(String description, Boolean isDone, String dateTime) {
+    public Event(String description, Boolean isDone, LocalDate dateTime) {
         super(description, isDone);
         this.dateTime = dateTime;
     }
@@ -42,8 +45,20 @@ public class Event extends Task {
      * @return Returns do-by date in String.
      */
     @Override
-    public String getDateTime() {
-        return dateTime;
+    public String getDateTimeInString() {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
+        String formattedDate = dateTime.format(dateFormat);
+        return formattedDate;
+    }
+
+    /**
+     * Returns the Date in its original form, in String.
+     *
+     * @return The Date in string, unformatted.
+     */
+    @Override
+    public String getDateTimeForStorage() {
+        return dateTime.toString();
     }
 
     /**
@@ -57,6 +72,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return ("[" + getIcon() + "]" + "[" + getStatusIcon() + "] "
-                + getTaskName() + " (at: " + getDateTime() + ")");
+                + getTaskDescription() + " (at: " + getDateTimeInString() + ")");
     }
 }

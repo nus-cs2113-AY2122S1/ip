@@ -7,6 +7,7 @@ import tan.tasktype.Task;
 import tan.tasktype.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +48,7 @@ public class TaskList {
      */
     public static List<Task> getAllMatchingTask(String stringToMatch) {
         List<Task> matchedTasks = listOfTasks.stream()
-                .filter((t) -> t.getTaskName().contains(stringToMatch))
+                .filter((t) -> t.getTaskDescription().contains(stringToMatch))
                 .collect(Collectors.toList());
         if (matchedTasks.size() == 0) {
             return null;
@@ -203,18 +204,25 @@ public class TaskList {
      * @return The Event task created, else null.
      */
     private static Task createEventTask(String userInput) {
+        Task curTask = null;
         try {
             String eventDesc = Parser.getDescriptionOfEvent(userInput);
-            String eventTimeDate = Parser.getDateTimeOfEvent(userInput);
-            Task curTask = new Event(eventDesc, eventTimeDate);
-            listOfTasks.add(curTask);
-            return curTask;
+            String dateOfEventInString = getDateTimeOfEventInString(userInput);
+            LocalDate taskDate = Parser.getInDateFormat(dateOfEventInString);
+            if (taskDate == null) {
+                System.out.println("Unable to parse date");
+                return null;
+            }
+            curTask = new Event(eventDesc, taskDate);
         } catch (DukeFormatExceptions d) {
             System.out.println(d);
+            return null;
         } catch (IndexOutOfBoundsException I) {
             System.out.println("Please check your formatting & input!");
+            return null;
         }
-        return null;
+        listOfTasks.add(curTask);
+        return curTask;
     }
 
     /**
@@ -228,18 +236,25 @@ public class TaskList {
      * @return The Task created, else null.
      */
     private static Task createDeadlineTask(String userInput) {
+        Task curTask = null;
         try {
             String deadlineDesc = Parser.getDescriptionOfDeadline(userInput);
             String deadlineDateTime = Parser.getDateTimeOfDeadline(userInput);
-            Task curTask = new Deadline(deadlineDesc, deadlineDateTime);
-            listOfTasks.add(curTask);
-            return curTask;
-        } catch (DukeFormatExceptions e) {
-            System.out.println(e);
+            LocalDate taskDate = Parser.getInDateFormat(deadlineDateTime);
+            if (taskDate == null) {
+                System.out.println("Unable to parse Date.");
+                return null;
+            }
+            curTask = new Deadline(deadlineDesc, taskDate);
         } catch (IndexOutOfBoundsException x) {
             System.out.println("Please check your formatting & input!");
+            return null;
+        } catch (DukeFormatExceptions e) {
+            System.out.println(e);
+            return null;
         }
-        return null;
+        listOfTasks.add(curTask);
+        return curTask;
     }
 
     /**
@@ -253,15 +268,41 @@ public class TaskList {
      * @return Returns the task else NULL.
      */
     private static Task createTodoTask(String userInput) {
+        Task curTask = null;
         try {
             String todoDesc = Parser.getDescriptionOfToDo(userInput);
-            Task curTask = new ToDo(todoDesc);
-            listOfTasks.add(curTask);
-            return curTask;
+            curTask = new ToDo(todoDesc);
         } catch (DukeFormatExceptions e) {
             System.out.println(e);
+            return null;
+        } catch (IndexOutOfBoundsException x) {
+            System.out.println("Please check your formatting & input!");
+            return null;
         }
-        return null;
+        listOfTasks.add(curTask);
+        return curTask;
+    }
+
+    /**
+     * Returns the Date/Time specified when creating an Event task,
+     * else throws a DukeFormatExceptions. The function
+     * uses the "/at" specified in the user's input to find the date/time.
+     * Throws a DukeFormatExceptions error if its unable to find "/at".
+     *
+     * @param x The whole user input as a String.
+     * @return The date/time of the input in String.
+     * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
+     * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
+     */
+    private static String getDateTimeOfEventInString(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
+        //Checks if user has used the /at... format.
+        if (x.toLowerCase().contains("/at")) {
+            int indexOfSlash = x.indexOf("/at");
+            //+3 to the index as we don't want to capture "/at" itself.
+            String dateTime = x.substring(indexOfSlash + 3);
+            return dateTime.trim();
+        }
+        throw new DukeFormatExceptions("Code could not find '/at'");
     }
 
     /**

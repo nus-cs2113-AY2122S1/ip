@@ -1,7 +1,8 @@
 package tan;
 
 import tan.exceptions.DukeFormatExceptions;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.PatternSyntaxException;
 
 public class Parser {
@@ -22,6 +23,22 @@ public class Parser {
             return null;
         }
         return description;
+    }
+
+    /**
+     * Returns the string passed in formatted as a LocalDate type. Null otherwise.
+     *
+     * @param dateString The date to be formatted in String.
+     * @return The LocalDate.
+     */
+    public static LocalDate getInDateFormat(String dateString) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+        return date;
     }
 
     /**

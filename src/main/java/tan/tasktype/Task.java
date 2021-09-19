@@ -1,16 +1,16 @@
 package tan.tasktype;
 
 public abstract class Task {
-    protected String name;
+    protected String description;
     protected boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         isDone = false;
     }
 
-    public Task(String name, Boolean isDone) {
-        this.name = name;
+    public Task(String description, Boolean isDone) {
+        this.description = description;
         this.isDone = isDone;
     }
 
@@ -26,11 +26,19 @@ public abstract class Task {
     public abstract String getTaskType();
 
     /**
-     * Returns the date of task in String.
+     * Returns the date of task in String formatted.
      *
-     * @return Returns the date of task in String format.
+     * @return The date of task in String format.
      */
-    public abstract String getDateTime();
+    public abstract String getDateTimeInString();
+
+    /**
+     * Returns the current task's Date, unformatted, in String.
+     * E.g 1996-10-29
+     *
+     * @return Date of task in unformatted String.
+     */
+    public abstract String getDateTimeForStorage();
 
     /**
      * Returns each respective task's icon.
@@ -44,8 +52,8 @@ public abstract class Task {
      *
      * @return The name of the task.
      */
-    public String getTaskName() {
-        return name;
+    public String getTaskDescription() {
+        return description;
     }
 
     /**
@@ -54,7 +62,7 @@ public abstract class Task {
      * @param x The name of the task in String.
      */
     protected void setTaskName(String x) {
-        this.name = x;
+        this.description = x;
     }
 
     /**
@@ -63,7 +71,7 @@ public abstract class Task {
     public void markAsDone() {
         isDone = true;
         System.out.println("Sweet! You've just completed this task:");
-        System.out.println("[" + this.getStatusIcon() + "] " + name);
+        System.out.println("[" + this.getStatusIcon() + "] " + description);
     }
 
     /**
