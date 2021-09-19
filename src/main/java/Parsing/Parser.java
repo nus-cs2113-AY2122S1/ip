@@ -13,29 +13,33 @@ public class Parser {
             throw new DukeException("Description cannot be empty"); }
     }
 
-
     public static ParseInput parse (String input) throws DukeException, FileNotFoundException {
-        ParseInput parseinputPair;
+        ParseInput parseInput;
 
         //---------- Query Checks ----------//
         if (input.equals("bye")) {
-            parseinputPair = new ParseInput(ParseResult.BYE, input);
-            return parseinputPair;
-        }
-
-        else if (input.contains("done")) {
-            parseinputPair = new ParseInput(ParseResult.DONE, input);
-            return parseinputPair;
+            parseInput = new ParseInput(ParseResult.BYE, input);
+            return parseInput;
         }
 
         else if (input.equals("list")) {
-            parseinputPair = new ParseInput(ParseResult.LIST, input);
-            return parseinputPair;
+            parseInput = new ParseInput(ParseResult.LIST, input);
+            return parseInput;
+        }
+
+        else if (input.contains("done")) {
+            parseInput = new ParseInput(ParseResult.DONE, input);
+            return parseInput;
         }
 
         else if (input.contains("delete")) {
-            parseinputPair = new ParseInput(ParseResult.DELETE, input);
-            return parseinputPair;
+            parseInput = new ParseInput(ParseResult.DELETE, input);
+            return parseInput;
+        }
+
+        else if (input.contains("find")) {
+            parseInput = new ParseInput(ParseResult.FIND, input);
+            return parseInput;
         }
 
         //---------- addTask Checks ----------//
@@ -46,16 +50,16 @@ public class Parser {
 
             switch (taskType) {
             case "todo" :
-                parseinputPair = new ParseInput(ParseResult.TODO, input, taskType, descriptionAndTime);
-                return parseinputPair;
+                parseInput = new ParseInput(ParseResult.TODO, input, taskType, descriptionAndTime);
+                return parseInput;
 
             case "deadline" :
-                parseinputPair = new ParseInput(ParseResult.DEADLINE, input, taskType, descriptionAndTime);
-                return parseinputPair;
+                parseInput = new ParseInput(ParseResult.DEADLINE, input, taskType, descriptionAndTime);
+                return parseInput;
 
             case "event" :
-                parseinputPair = new ParseInput(ParseResult.EVENT, input, taskType, descriptionAndTime);
-                return parseinputPair;
+                parseInput = new ParseInput(ParseResult.EVENT, input, taskType, descriptionAndTime);
+                return parseInput;
 
             default :
                 throw new DukeException ("I don't understand, try again");
