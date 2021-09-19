@@ -105,5 +105,10 @@ public abstract class ResponseManager {
         printFormattedMessage(message);
     }
 
+    public static void printCreateFileErrorMessage() {
+        String message = "    Error creating file :(\n";
+        printFormattedMessage(message);
+    }
+
 
 }

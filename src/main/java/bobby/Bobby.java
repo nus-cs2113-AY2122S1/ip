@@ -11,27 +11,11 @@ public class Bobby {
     public static void main(String[] args) throws IOException {
         TaskManager taskManager = new TaskManager();
         ResponseManager.printWelcomeMessage();
+        FileManager.bootUpData(taskManager);
 
-        // load the saved data into taskList
-        try {
-            FileManager.bootUpData("data/bobby.txt", taskManager);
-        } catch (IOException e) {
-            ResponseManager.printIOExceptionMessage();
-        }
-
-        //obtain user input
-        String rawUserInput;
-        Scanner in = new Scanner(System.in);
-        rawUserInput = in.nextLine().trim();
-
-        while (!rawUserInput.equalsIgnoreCase("bye")) {
+        do {
+            String rawUserInput = taskManager.getUserInput();
             taskManager.processInput(rawUserInput);
-
-            //get the new input
-            rawUserInput = in.nextLine();
-        }
-
-        //if bye is the input
-        ResponseManager.printGoodByeMessage();
+        } while (taskManager.getIsRunning());
     }
 }

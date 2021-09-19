@@ -51,7 +51,7 @@ public class Command {
             ResponseManager.printTaskAlreadyDoneMessage();
         }
 
-        FileManager.saveToFile(taskList);
+        FileManager.writeToFile(taskList);
     }
 
     public void executeDeleteCommand(ArrayList<Task> taskList, String rawUserInput)
@@ -75,7 +75,7 @@ public class Command {
         int totalTasks = taskList.size();
         ResponseManager.printTaskDeletedMessage(taskToDelete, totalTasks);
 
-        FileManager.saveToFile(taskList);
+        FileManager.writeToFile(taskList);
     }
 
     public void executeListCommand(ArrayList<Task> taskList) {
@@ -96,7 +96,7 @@ public class Command {
         int totalTasks = taskList.size();
         ResponseManager.printTaskAddedMessage(task, totalTasks);
 
-        FileManager.saveToFile(taskList);
+        FileManager.writeToFile(taskList);
     }
 
     public void executeDeadlineCommand(String rawUserInput)
@@ -125,7 +125,7 @@ public class Command {
         int totalTasks = taskList.size();
         ResponseManager.printTaskAddedMessage(task, totalTasks);
 
-        FileManager.saveToFile(taskList);
+        FileManager.writeToFile(taskList);
     }
 
     public void executeEventCommand(String rawUserInput)
@@ -153,7 +153,17 @@ public class Command {
         int totalTasks = taskList.size();
         ResponseManager.printTaskAddedMessage(task, totalTasks);
 
-        FileManager.saveToFile(taskList);
+        FileManager.writeToFile(taskList);
+    }
+
+    public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException{
+        String[] inputWords = rawUserInput.split(" ");
+        if (inputWords.length != 1) {
+            throw new IncorrectDescriptionFormatException();
+        }
+
+        ResponseManager.printGoodByeMessage();
+        taskManager.setIsRunningOff();
     }
 
 }

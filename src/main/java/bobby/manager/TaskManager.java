@@ -7,6 +7,7 @@ import bobby.command.Command;
 
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.Scanner;
 
 
 public class TaskManager {
@@ -16,14 +17,23 @@ public class TaskManager {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
+    private static final String BYE_COMMAND = "bye";
 
-//    private static Task[] taskList;
     private static ArrayList<Task> taskList;
+    private static boolean isRunning;
 
 
     public TaskManager() {
-//        this.taskList = new Task[MAX_TASK];
         this.taskList = new ArrayList<>();
+        this.isRunning = true;
+    }
+
+    public void setIsRunningOff() {
+        isRunning = false;
+    }
+
+    public boolean getIsRunning() {
+        return isRunning;
     }
 
     public ArrayList<Task> getTaskList() {
@@ -45,6 +55,12 @@ public class TaskManager {
         int startIndex = rawUserInput.indexOf(" ") + 1;
         String FullTaskDescription = rawUserInput.substring(startIndex);
         return FullTaskDescription;
+    }
+
+    public String getUserInput() {
+        Scanner in = new Scanner(System.in);
+        String rawUserInput = in.nextLine().trim();
+        return rawUserInput;
     }
 
     public void processInput(String rawUserInput) {
@@ -72,6 +88,9 @@ public class TaskManager {
                 break;
             case DELETE_COMMAND:
                 command.executeDeleteCommand(taskList, rawUserInput);
+                break;
+            case BYE_COMMAND:
+                command.executeByeCommand(rawUserInput);
                 break;
             default:
                 ResponseManager.printInvalidCommandMessage();
