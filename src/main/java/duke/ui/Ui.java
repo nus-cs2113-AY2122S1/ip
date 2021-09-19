@@ -90,9 +90,9 @@ public class Ui {
      *
      * @param isFound returns true if there is at least one task that contains the keyword specified by the user
      */
-    public static void printValidSearch(boolean isFound) {
+    public static void printValidSearchMessage(boolean isFound) {
         if (isFound) {
-            System.out.println("Search found! ");
+            System.out.println("Search found!");
         } else {
             System.out.println("Task not found in the task list!");
         }

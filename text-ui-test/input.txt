@@ -14,4 +14,6 @@ delete 1
 delete 2
 done 1 2 3
 list
+find cg2027
+find run
 bye

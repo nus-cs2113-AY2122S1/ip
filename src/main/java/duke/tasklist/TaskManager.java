@@ -5,7 +5,6 @@ import duke.generalmethods.GeneralMethods;
 import duke.exceptions.DukeException;
 import duke.ui.Ui;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskManager extends Ui {
@@ -154,22 +153,38 @@ public class TaskManager extends Ui {
     }
 
     /**
-     * Searches for tasks that contain a specified keyword by the user in the task list and prints out a list if
-     * there is at least one task that contains the specified keyword.
+     * Performs search function
      *
      * @param taskList Task type arraylist to store all the tasks entered by the user
      * @param userInput takes input from the keyboard
-     * @throws DukeException if task containing keyword has been found but cannot be added into the search list.
+     * @throws DukeException if task containing keyword has been found but cannot be added into the search list
      */
-    public static void searchForTask(ArrayList<Task> taskList, String userInput) throws DukeException {
+    public static void find(ArrayList<Task> taskList, String userInput) throws DukeException {
         String searchedTask = userInput.replace("find ", " ").trim();
         ArrayList<Task> searchList = new ArrayList<>();
-        boolean isFound = false;
         int taskListIndex = 0;
         int searchListIndex = 0;
+        boolean isFound = isTaskFound(taskList, searchedTask);
+
+        addTaskToSearchList(taskList, searchedTask, searchList, taskListIndex, searchListIndex);
+        printValidSearchMessage(isFound);
+        printSearchList(searchList);
+    }
+
+    /**
+     * Adds tasks that contain a specified keyword by the user in the task list into the search list.
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param searchedTask takes keyword from the keyboard
+     * @param searchList Task type arraylist to store all the tasks containing keywords entered by the user
+     * @param searchListIndex index where task should be added in search list
+     * @param taskListIndex index of task in task list to be checked for whether it contains keywords entered by user
+     *
+     * @throws DukeException if task containing keyword has been found but cannot be added into the search list
+     */
+    private static void addTaskToSearchList(ArrayList<Task> taskList, String searchedTask, ArrayList<Task> searchList, int taskListIndex, int searchListIndex) throws DukeException {
         for (Task task : taskList) {
             if ((task.getDescription().contains(searchedTask))) {
-                isFound = true;
                 String taskType = taskList.get(taskListIndex).getTaskType();
                 switch (taskType) {
                 case "E":
@@ -195,7 +210,21 @@ public class TaskManager extends Ui {
             }
             taskListIndex++;
         }
-        printValidSearch(isFound);
-        printSearchList(searchList);
+    }
+
+    /**
+     * Checks if keywords entered by user can be found in the task list
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param searchedTask takes keyword from the keyboard
+     * @return true if task list has a task that contains the keywords entered by the user
+     */
+    private static Boolean isTaskFound(ArrayList<Task> taskList, String searchedTask) {
+        for (Task task: taskList) {
+            if(task.getDescription().contains(searchedTask)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -36,7 +36,7 @@ public class Parser extends TaskManager {
                 } else if (userInput.startsWith("bye")) {
                     break;
                 } else if (userInput.startsWith("find ")) {
-                    searchForTask(taskList,userInput);
+                    find(taskList,userInput);
                 } else {
                     printErrorForInvalidCommand(userInput);
                 }
