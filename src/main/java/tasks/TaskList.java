@@ -66,6 +66,27 @@ public class TaskList {
         return satisfiedTasks;
     }
 
+    public String sort() {
+        tasks.sort((r1, r2) -> {
+            if (r1.getTime() == null && r2.getTime() != null) {
+                return 1;
+            }
+
+            if (r2.getTime() == null && r1.getTime() != null) {
+                return -1;
+            }
+
+            if (r1.getTime() != null && r2.getTime() != null) {
+                return r1.getTime().compareTo(r2.getTime());
+            }
+
+            return r1.getTaskName().compareTo(r2.getTaskName());
+        });
+
+        return this.listTasks();
+
+    }
+
 
 
 }

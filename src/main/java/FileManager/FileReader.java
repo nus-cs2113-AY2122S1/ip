@@ -63,8 +63,8 @@ public class FileReader {
             return new Todo(split[2].strip(), split[1].strip().equals("1"));
 
         case "D":
-            return new Deadline(split[2].strip(), LocalDate.parse(split[3].strip()),
-                    split[1].strip().equals("1"));
+            return new Deadline(split[2].strip(), LocalDateTime.parse(split[3].strip()).toLocalDate(),
+                    LocalDateTime.parse(split[3].strip()).toLocalTime(), split[1].strip().equals("1"));
 
         case "E":
             return new Event(split[2].strip(), LocalDateTime.parse(split[3].strip()),

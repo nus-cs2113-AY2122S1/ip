@@ -29,4 +29,8 @@ public class Event extends Task {
         return String.format("E | %b | %s | %s\n", super.hasCompleted(), this.getTaskName(),
                 this.completeTime.toString());
     }
+
+    public LocalDateTime getTime() {
+        return this.completeTime;
+    }
 }

@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * <h1>A class to represent tasks from users</h1>
  */
@@ -40,4 +42,7 @@ abstract public class Task {
     public boolean searchKeyword(String keyword) {
         return taskName.contains(keyword);
     }
+
+    public abstract LocalDateTime getTime();
+
 }
