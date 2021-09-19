@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     //attributes
-    ArrayList<Task> list;
+    static ArrayList<Task> list;
     int taskCount = 0;
 
     //constructor
@@ -19,7 +19,7 @@ public class TaskList {
 
 
     //methods
-    public void printList() {
+    public static void printList() {
         int position = 1;
         System.out.println("    Here are the tasks in your list:");
         for( int i = 0 ; i < list.size() ; i ++ ) {
@@ -28,7 +28,7 @@ public class TaskList {
         }
     }
 
-    public void markTaskDone(String word) {
+    public static void markTaskDone(String word) {
         //convert string number to int number
         int position = Integer.parseInt(word);
         //if task does not exist, return
@@ -44,7 +44,7 @@ public class TaskList {
         System.out.println("    " + task);
     }
 
-    public void addTask(Task newTask) {
+    public static void addTask(Task newTask) {
         //add task to list
         list.add(newTask);
         int size = list.size();
@@ -54,7 +54,7 @@ public class TaskList {
         System.out.println("    Now you have " + (size + 1) + " tasks in the list.");
     }
 
-    public void deleteTask(String word) {
+    public static void deleteTask(String word) {
         int size = list.size();
         //convert string number to int number
         int position = Integer.parseInt(word);
@@ -117,63 +117,7 @@ public class TaskList {
 
 
 
-    public void distinguishCommand(String command) {
-        //split into word array
-        String[] words = command.split(" ");
-        String firstWord = words[0];
 
-        //determine command
-        switch (firstWord) {
-        case "list":
-            printList();
-            break;
-        case "done":
-            try {
-                markTaskDone(words[1]);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("    OOPS!!! The description of a done cannot be empty.");
-            }
-            break;
-        case "todo":
-            try {
-                ToDos newToDo = new ToDos(command.substring(5));
-                addTask(newToDo);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("    OOPS!!! The description of a todo cannot be empty.");
-            }
-            break;
-        case "deadline":
-            try {
-                Deadlines newDeadline = createNewDeadline(command.substring(9));
-                addTask(newDeadline);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("    OOPS!!! The description of a deadline cannot be empty.");
-            }
-            break;
-        case "event":
-            //extract out event description and timeAllocation
-            try {
-                Events newEvent = createNewEvent(command.substring(6));
-                addTask(newEvent);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("    OOPS!!! The description of a event cannot be empty.");
-            }
-            break;
-        case "delete":
-            try {
-                deleteTask(words[1]);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("    OOPS!!! The description of a event cannot be empty.");
-            }
-            break;
-        default:
-            System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
-
-            break;
-        }
-
-
-    }
 
 
 

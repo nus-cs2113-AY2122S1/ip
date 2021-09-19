@@ -28,7 +28,7 @@ public class Duke {
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            tasks.distinguishCommand(line);
+            Parser.distinguishCommand(line);
 
             try{
                 storage.writeToFile("data/data.txt",tasks.list);

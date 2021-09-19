@@ -89,7 +89,6 @@ public class Storage {
         String[] sections = command.split("[|]");
         String firstSection = sections[0];
         String[] description = sections[2].split(" ");
-        System.out.println(description[0]);
 
         //create objects
         switch (firstSection) {
