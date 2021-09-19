@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static duke.storage.UserData.readFromFile;
 
@@ -53,6 +54,8 @@ public class Program {
             addTasks(string,dummyTodo);
         } else if (string.startsWith("delete")) {
             deleteTask(string);
+        } else if (string.startsWith("find")) {
+            findTask(string);
         } else {
             throw new HalException("I'm sorry, but I don't know what that means :((");
         }
@@ -122,6 +125,16 @@ public class Program {
             System.out.println(listTasks.get(taskNum-1).toString());
         }
 
+        ui.printEnterCommandMessage();
+    }
+
+    public void findTask(String str) throws HalException {
+        String searchStr = messageParser.parseTextInput(str);
+
+        ArrayList<Task> result = (ArrayList<Task>) listTasks.stream()
+                .filter(task -> task.getDescription().contains(searchStr))
+                .collect(Collectors.toList());
+        ui.printFindTasksMessage(result);
         ui.printEnterCommandMessage();
     }
 

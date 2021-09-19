@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HalUi {
@@ -34,13 +35,11 @@ public class HalUi {
     public static final String PRINT_EMPTY_TASKS_MESSAGE = "No items found... Add some items now!";
     public static final String PRINT_ERROR_MESSAGE = "Your input does not follow my format!\n" +
             "Read properly and type it again!";
-    public static final String PRINT_EMPTY_DESCRIPTION_MESSAGE =
-            "Hmm... did you forget to write your task?";
-    public static final String PRINT_EMPTY_DATE_MESSAGE =
-            "Hmm... I think you forgot to write your timings!";
-    public static final String PRINT_DELETE_MESSAGE =
-            "Noted... I've removed the following task:";
-
+    public static final String PRINT_EMPTY_DESCRIPTION_MESSAGE = "Hmm... did you forget to write your task?";
+    public static final String PRINT_EMPTY_DATE_MESSAGE = "Hmm... I think you forgot to write your timings!";
+    public static final String PRINT_DELETE_MESSAGE = "Noted... I've removed the following task:";
+    public static final String PRINT_FIND_MESSAGE = "Here are the matching tasks in your list:";
+    public static final String PRINT_FIND_FAIL_MESSAGE = "I could not find your task :(";
     public static final String INVALID_NUMBER_ERROR = "Your input wasn't an integer! Write a valid number";
     public static final String INVALID_RANGE_ERROR = "The index you specified is outside the size of the list";
 
@@ -119,6 +118,18 @@ public class HalUi {
     public void printDeleteMessage(Task tempTask) {
         System.out.println(PRINT_DELETE_MESSAGE);
         System.out.println(tempTask.toString());
+    }
+
+    public void printFindTasksMessage(ArrayList<Task> tempTask) {
+        int index = 1;
+        if (!tempTask.isEmpty()) {
+            System.out.println(PRINT_FIND_MESSAGE);
+            for (Task task : tempTask) {
+                System.out.println(index++ + ": " + task.toString());
+            }
+        } else {
+            System.out.println(PRINT_FIND_FAIL_MESSAGE);
+        }
     }
 
 }
