@@ -15,12 +15,15 @@ import java.util.Scanner;
 
 
 public class IO {
+    public static final String DATA_PATH = "data/data.txt";
 
-    public static final String DATA_PATH = "C:\\Users\\ASUS\\Desktop\\CS2113\\ip\\src\\main\\java\\kitty\\userinterface\\data.txt";
+    public IO(String filePath) throws KittyException{
+        initData(filePath);
+    }
 
-    public static void initData() throws KittyException {
+    public static void initData(String filePath) throws KittyException {
         try {
-            File f = new File(DATA_PATH);
+            File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String rawData = s.nextLine();

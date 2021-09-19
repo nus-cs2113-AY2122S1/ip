@@ -7,20 +7,26 @@ import kitty.userinterface.UiHandler;
 import java.util.ArrayList;
 
 public class Kitty {
+    public static final String DATA_PATH = "data/data.txt";
+
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public Kitty(String filePath) {
         // Initialise Data
         try {
-            IO.initData();
-            IO.clearFile();
+            new IO(filePath);
         } catch (KittyException e) {
             Ui.printErrorMessage();
             Ui.exit();
         }
+    }
 
-        // Start App
+    private void runApp() {
         Ui.greet();
-        UiHandler.startApp();
+        UiHandler.beginUi();
+    }
+
+    public static void main(String[] args) {
+        new Kitty(DATA_PATH).runApp();
     }
 }

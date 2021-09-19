@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class UiHandler {
 
-    public static void startApp() {
+    public static void beginUi() {
         while (true) {
             try {
                 IO.updateData();
