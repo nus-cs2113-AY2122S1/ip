@@ -2,24 +2,24 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.tasks.Task;
-
 import java.util.ArrayList;
 
 /**
  * Logic class runs the main logic of the programme.
  */
 public class Logic {
-    public static int LIST_INDEX = 0;
+    public static int listIndex = 0;
     private static UserInterface userInterface;
     private Database database;
     protected static String fileAddress;
-    protected static ArrayList<Task> tasks;
+    //protected static ArrayList<Task> tasks;
+    private TaskList taskList;
 
     public Logic(String filePath) {
         fileAddress = filePath;
         userInterface = new UserInterface();
         database = new Database(filePath);
-        tasks = database.loadTasks();
+        taskList = database.loadTasks();
     }
 
     /**
@@ -38,11 +38,9 @@ public class Logic {
                 //get input
                 String inputCommand = userInterface.getInput();
                 //parse input
-                Parser parseInput = new Parser(inputCommand);
-                //put parsed input into Command object
-                Command commandHandler = new Command(parseInput.getCommand(), parseInput.getDescription(), parseInput.getDate());
+                Command commandHandler = new Parser().parseCommand(inputCommand);
                 //get appropriate message
-                String commandMessage = commandHandler.executeCommand();
+                String commandMessage = commandHandler.execute(taskList);
                 //print out message
                 userInterface.printMessage(commandMessage);
                 //see whether to exit the program
