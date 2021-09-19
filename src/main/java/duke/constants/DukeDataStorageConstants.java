@@ -18,5 +18,8 @@ public class DukeDataStorageConstants extends DukeConstants {
 
     // Messages to inform user of erroneous file I/O
     public static final String FILE_WRONG_FORMAT_MESSAGE = WHITESPACE + "Task in " + DEFAULT_STORAGE_FILEPATH + " is of the wrong format!";
+    public static final String FILE_DATE_TIME_WRONG_FORMAT_MESSAGE = WHITESPACE + "Date and time read from " + DEFAULT_STORAGE_FILEPATH + " are invalid!";
     public static final String INVALID_FILE_TYPE_MESSAGE = WHITESPACE + "Invalid file type! I can only store data in a \".txt\" file.";
+    public static final String FILE_WRITE_ERROR_MESSAGE = WHITESPACE + "Something went wrong when writing to this file:" + WHITESPACE;
+    public static final String FILE_CREATION_ERROR_MESSAGE = WHITESPACE + "Something went wrong when creating this file:" + WHITESPACE;
 }
