@@ -24,6 +24,15 @@ public class AddEventCommand extends Command {
         }
     }
 
+    /**
+     * Gets the description and date and time from the argument provided by the user.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return <code>String</code> array of size 2 where first entry is the description and the second entry is
+     * the date and time
+     * @throws DukeException If either entry of the return array is empty
+     */
+
     private String[] retrieveEventParameters(String argument) throws DukeException {
 
         String[] parameters = Parser.separateEvent(argument);

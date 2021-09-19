@@ -20,6 +20,15 @@ public class MarkTaskDoneCommand extends Command {
         super(argument);
     }
 
+    /**
+     * Gets the task number from the argument provided by the user.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return Task number of the <code>Task</code> that needs to be marked done
+     * @throws DukeException If the argument provided is empty, not an integer, or an integer that does not
+     * correspond to any task in the task list.
+     */
+
     private int retrieveNumberParameter(String argument) throws DukeException {
 
         int taskNumber;

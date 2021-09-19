@@ -1,5 +1,9 @@
 package duke.tasks;
 
+/**
+ * Represents a <code>Task</code> that has a specific date and time of occurrence.
+ */
+
 public class Event extends Task {
 
     private static final String SYMBOL = "E";

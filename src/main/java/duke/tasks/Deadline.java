@@ -1,5 +1,9 @@
 package duke.tasks;
 
+/**
+ * Represents a <code>Task</code> that has a specific deadline.
+ */
+
 public class Deadline extends Task {
 
     private static final String SYMBOL = "D";

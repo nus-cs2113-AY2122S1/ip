@@ -3,6 +3,10 @@ package duke.ui;
 import duke.commands.CommandResult;
 import duke.exceptions.DukeException;
 
+/**
+ * Includes the methods that display messages from <code>Duke</code> to the user on the terminal.
+ */
+
 public class Ui {
 
     private static final String LOGO = " ______        _\n"

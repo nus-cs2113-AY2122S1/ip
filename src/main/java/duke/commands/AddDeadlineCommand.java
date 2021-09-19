@@ -24,6 +24,15 @@ public class AddDeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Gets the description and deadline from the argument provided by the user.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return <code>String</code> array of size 2 where first entry is the description and the second entry is
+     * the deadline
+     * @throws DukeException If either entry of the return array is empty
+     */
+
     private String[] retrieveDeadlineParameters(String argument) throws DukeException {
 
         String[] parameters = Parser.separateDeadline(argument);

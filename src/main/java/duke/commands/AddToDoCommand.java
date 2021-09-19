@@ -21,6 +21,14 @@ public class AddToDoCommand extends Command {
         }
     }
 
+    /**
+     * Checks if the argument provided by the user is empty.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return Description of the <code>ToDo</code>.
+     * @throws DukeException If the argument specified is empty
+     */
+
     private String retrieveTodoParameter(String argument) throws DukeException {
         if (isEmptyArgument(argument)) {
             throw new DukeException(TODO_ERROR);
@@ -28,14 +36,10 @@ public class AddToDoCommand extends Command {
         return argument;
     }
 
-    private ToDo createToDo(String description) {
-        return new ToDo(description);
-    }
-
     @Override
     public CommandResult executeCommand() throws DukeException {
         String parameter = retrieveTodoParameter(argument);
-        toDo = createToDo(parameter);
+        toDo = new ToDo(parameter);
         TaskManager.addTask(toDo);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + toDo.toString() + "\n"
