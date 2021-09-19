@@ -69,7 +69,7 @@ A Deadline task contains a task description and the timestamp that indicate when
 
 Format: `deadline <Task Description> /by <Timestamp>`
 
-> ❗ `<Timestamp>` needs to be in the format of `yyyy-MM-dd <TIME>` or `dd/MM/yyyy <TIME>`. If no `<TIME>` is supplied, it will be assumed to be `0000`.
+> 💡 `<Timestamp>` needs to be in the format of `yyyy-MM-dd <Time>` or `dd/MM/yyyy <Time>`. If no `<Time>` is supplied, it will be assumed to be `0000`.  
 
 Example usage and outcome:
 
@@ -88,7 +88,7 @@ A Event task contains a task description and the timestamp that indicate the tim
 
 Format: `event <Task Description> /at <Timestamp>`
 
-> ❗ `<Timestamp>` needs to be in the format of `yyyy-MM-dd <TIME>` or `dd/MM/yyyy <TIME>`. If no `<TIME>` is supplied, it will be assumed to be `0000`.
+> 💡 `<Timestamp>` needs to be in the format of `yyyy-MM-dd <Time>` or `dd/MM/yyyy <Time>`. If no `<Time>` is supplied, it will be assumed to be `0000`.
 
 Example usage and outcome:
 
