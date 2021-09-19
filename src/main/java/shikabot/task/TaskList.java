@@ -1,5 +1,6 @@
 package shikabot.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -33,7 +34,7 @@ public class TaskList {
      * @param name name of task.
      * @param done if the task is done or not.
      */
-    public void addSavedTask(char type, String atBy, String name, String done) {
+    public void addSavedTask(char type, LocalDate atBy, String name, String done) {
         switch(type) {
         case 'T':
             taskList.add(new Todo(name));

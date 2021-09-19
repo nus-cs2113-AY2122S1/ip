@@ -1,5 +1,7 @@
 package shikabot.task;
 
+import java.time.LocalDate;
+
 public abstract class Task {
 
     protected String name;
@@ -29,7 +31,7 @@ public abstract class Task {
 
     public abstract String getType();
 
-    public abstract String getAtBy();
+    public abstract LocalDate getAtBy();
 
     public String getName() {
         return name;
@@ -42,4 +44,5 @@ public abstract class Task {
     public static class InvalidTaskException extends Exception {
 
     }
+
 }

@@ -36,6 +36,9 @@ public class FailedCommand extends Command{
         case (INVALID_TASK):
             ui.printInvalidTaskMessage();
             break;
+        case (INVALID_DATE_SYNTAX):
+            ui.printInvalidDateMessage();
+            break;
         case (EMPTY_FIELD):
             ui.printEmptyFieldMessage();
             break;

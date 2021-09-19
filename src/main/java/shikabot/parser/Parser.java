@@ -10,6 +10,10 @@ import shikabot.command.InvalidCommand;
 import shikabot.command.ListCommand;
 import shikabot.task.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     public static final int INVALID_DEADLINE_SYNTAX = 1;
@@ -17,7 +21,11 @@ public class Parser {
     public static final int NUMBER_FORMAT_ERROR = 3;
     public static final int NEGATIVE_INDEX_ERROR = 4;
     public static final int INVALID_TASK = 5;
-    public static final int EMPTY_FIELD = 6;
+    public static final int INVALID_DATE_SYNTAX = 6;
+    public static final int EMPTY_FIELD = 7;
+
+    private static final DateTimeFormatter TIME_PARSER =
+            DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]");
 
     private static final int DONE_LENGTH = 4;
     private static final int TODO_LENGTH = 4;
@@ -98,6 +106,8 @@ public class Parser {
                 command = parseAddDeadlineCommand(text);
             } catch (Task.InvalidTaskException e) {
                 return new FailedCommand(INVALID_DEADLINE_SYNTAX);
+            } catch (InvalidDateException e) {
+                return new FailedCommand(INVALID_DATE_SYNTAX);
             } catch (EmptyFieldException e) {
                 return new FailedCommand(EMPTY_FIELD);
             }
@@ -106,6 +116,8 @@ public class Parser {
                 command = parseAddEventCommand(text);
             } catch (Task.InvalidTaskException e) {
                 return new FailedCommand(INVALID_EVENT_SYNTAX);
+            } catch (InvalidDateException e) {
+                return new FailedCommand(INVALID_DATE_SYNTAX);
             } catch (EmptyFieldException e) {
                 return new FailedCommand(EMPTY_FIELD);
             }
@@ -126,7 +138,12 @@ public class Parser {
         String name = text.substring(text.indexOf("deadline") + DEADLINE_LENGTH, text.indexOf("/")).trim();
         String by = text.substring(text.indexOf("/by") + DIVIDER_LENGTH).trim();
         if (name.equals("") || by.equals("")) throw new EmptyFieldException();
-        return new AddCommand('D', name, by);
+        try {
+            LocalDate by = LocalDate.parse(date, TIME_PARSER);
+            return new AddCommand('D', name, by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
     }
 
     private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
@@ -136,7 +153,14 @@ public class Parser {
         String name = text.substring(text.indexOf("event") + EVENT_LENGTH, text.indexOf("/")).trim();
         String at = text.substring(text.indexOf("/at") + DIVIDER_LENGTH).trim();
         if (name.equals("") || at.equals("")) throw new EmptyFieldException();
-        return new AddCommand('E', name, at);
+        try {
+            LocalDate at = LocalDate.parse(date,TIME_PARSER);
+            return new AddCommand('E', name, at);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
     }
 
+    private static class InvalidDateException extends Throwable {
+    }
 }
