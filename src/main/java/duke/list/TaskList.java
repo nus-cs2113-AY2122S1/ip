@@ -5,6 +5,7 @@ import duke.ui.MessageBubble;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TaskList {
     public static int MAX_LIST_ITEMS = 1000;
@@ -109,20 +110,15 @@ public class TaskList {
      * For each task, its category, status and description will be displayed in a new line.
      */
     public void searchItem(String keyword) {
-        ArrayList<Task> searchResults = new ArrayList<>();
-        for (Task item : items) {
-            if (item.getDescription().contains(keyword)) {
-                searchResults.add(item);
+        MessageBubble msg = new MessageBubble("Here are the matching tasks in your list:");
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                msg.addMessage(String.format(" %d:%s", i + 1, items.get(i)));
             }
         }
-        if (searchResults.isEmpty()) {
+        if (msg.getMessagesCount() == 1) {
             MessageBubble.printMessageBubble("No result found.");
         } else {
-            MessageBubble msg = new MessageBubble();
-            msg.addMessage("Here are the matching tasks in your list:");
-            for (Task item : searchResults) {
-                msg.addMessage(String.format(" %d:%s", items.indexOf(item), item));
-            }
             msg.printMessageBubble();
         }
     }

@@ -28,6 +28,10 @@ public class MessageBubble {
         }
     }
 
+    public int getMessagesCount() {
+        return messagesCount;
+    }
+
     /**
      * At a new line in the MessageBubble
      *
