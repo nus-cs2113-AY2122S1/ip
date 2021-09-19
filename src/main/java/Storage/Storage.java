@@ -1,5 +1,6 @@
-package Duke;
+package Storage;
 
+import Tasks.TaskList;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -79,7 +80,7 @@ public class Storage {
             break;
         }
     }
-    
+
     /*
         This section contains the relevant codes for the writing of the task list to the stored file
      */
@@ -89,9 +90,9 @@ public class Storage {
      * @param taskList the arraylist containing the current tasks
      * @throws IOException if error writing to the file
      */
-    public static void saveTasks(ArrayList<Task> taskList) throws IOException {
+    public static void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter("data/tasks.txt");
-        for (Task t : taskList) {
+        for (Task t : taskList.getTaskList()) {
             fw.write(t.toString() + System.lineSeparator());
         }
         fw.close();
