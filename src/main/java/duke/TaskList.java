@@ -5,11 +5,15 @@ import duke.save.SaveTaskListToText;
 import duke.taskOperations.StringToRemoveFormat;
 import duke.taskType.Deadline;
 import duke.taskType.Event;
+import duke.taskType.Task;
 import duke.taskType.ToDo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TaskList {
+    public static int numberOfTasks = 0; // Task Counter
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void deleteTask(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException {
         try {
@@ -17,23 +21,23 @@ public class TaskList {
             String textToRemove;
             boolean lastLine = false;
 
-            if (taskNumberToDelete == Duke.numberOfTasks && Duke.numberOfTasks != 1) {
+            if (taskNumberToDelete == numberOfTasks && numberOfTasks != 1) {
                 lastLine = true;
             }
 
-            if (taskNumberToDelete <= Duke.numberOfTasks) {
-                Duke.tasks.get(taskNumberToDelete - 1).deletedSuccessfully(Duke.numberOfTasks - 1);
+            if (taskNumberToDelete <= numberOfTasks) {
+                tasks.get(taskNumberToDelete - 1).deletedSuccessfully(numberOfTasks - 1);
 
-                String typeOfTask = Duke.tasks.get(taskNumberToDelete - 1).toString().substring(1,2);
-                String taskIsDone = Duke.tasks.get(taskNumberToDelete - 1).toString().substring(4,5);
-                String rawTaskDescription = Duke.tasks.get(taskNumberToDelete - 1).toString().substring(7);
+                String typeOfTask = tasks.get(taskNumberToDelete - 1).toString().substring(1,2);
+                String taskIsDone = tasks.get(taskNumberToDelete - 1).toString().substring(4,5);
+                String rawTaskDescription = tasks.get(taskNumberToDelete - 1).toString().substring(7);
 
                 textToRemove = StringToRemoveFormat.getStringToRemove(typeOfTask, taskIsDone, rawTaskDescription);
 
-                dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove, lastLine, taskNumberToDelete, Duke.numberOfTasks);
+                dukeTaskText.removeLineFromFile("./data/duke.txt", textToRemove, lastLine, taskNumberToDelete, numberOfTasks);
 
-                Duke.tasks.remove(taskNumberToDelete - 1);
-                Duke.numberOfTasks -= 1;
+                tasks.remove(taskNumberToDelete - 1);
+                numberOfTasks -= 1;
             } else {
                 throw new DukeException("Please Enter the Legit Task Number to Delete... Or I won't talk to you!");
             }
@@ -59,10 +63,10 @@ public class TaskList {
             }
 
             if (dukeTaskText.saveToDo(taskName) == true) {
-                Duke.tasks.add(new ToDo(taskName));
-                Duke.numberOfTasks += 1;
+                tasks.add(new ToDo(taskName));
+                numberOfTasks += 1;
 
-                Duke.tasks.get(Duke.numberOfTasks - 1).printAddingStatus(Duke.numberOfTasks - 1);
+                tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
             } else {
                 throw new DukeException("Please enter a different description. Or I will destroy your computer!");
             }
@@ -100,10 +104,10 @@ public class TaskList {
 
     public static void addDeadlineCheck(SaveTaskListToText dukeTaskText, String taskName, String by) throws DukeException {
         if (dukeTaskText.saveDeadline(taskName, by) == true) {
-            Duke.tasks.add(new Deadline(taskName, by));
-            Duke.numberOfTasks += 1;
+            tasks.add(new Deadline(taskName, by));
+            numberOfTasks += 1;
 
-            Duke.tasks.get(Duke.numberOfTasks - 1).printAddingStatus(Duke.numberOfTasks - 1);
+            tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
         } else {
             throw new DukeException("Please enter a different description. Or I will destroy your computer!");
         }
@@ -145,10 +149,10 @@ public class TaskList {
 
     public static void addEventCheck(SaveTaskListToText dukeTaskText, String taskName, String at) throws DukeException {
         if (dukeTaskText.saveEvent(taskName, at) == true) {
-            Duke.tasks.add(new Event(taskName, at));
-            Duke.numberOfTasks += 1;
+            tasks.add(new Event(taskName, at));
+            numberOfTasks += 1;
 
-            Duke.tasks.get(Duke.numberOfTasks - 1).printAddingStatus(Duke.numberOfTasks - 1);
+            tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
         } else {
             throw new DukeException("Please enter a different description. Or I will destroy your computer!");
         }
@@ -168,10 +172,10 @@ public class TaskList {
      */
     public static void printTaskList() {
         System.out.println("    ____________________________________________________________");
-        for (int i = 0; i < Duke.numberOfTasks; i += 1) {
+        for (int i = 0; i < numberOfTasks; i += 1) {
             System.out.print("     ");
             System.out.print((i + 1) + ".");
-            Duke.tasks.get(i).printStatus();
+            tasks.get(i).printStatus();
         }
         System.out.println("    ____________________________________________________________");
     }
@@ -186,12 +190,12 @@ public class TaskList {
     public static void finishTask(String userInputString, SaveTaskListToText dukeTaskText) throws DukeException, IOException {
         int taskNumber = Integer.parseInt(userInputString.split(" ")[1]);
 
-        if (taskNumber <= Duke.numberOfTasks) {
-            Duke.tasks.get(taskNumber - 1).markAsDone();
+        if (taskNumber <= numberOfTasks) {
+            tasks.get(taskNumber - 1).markAsDone();
         } else {
             throw new DukeException("Please Enter the Legit Task Number... Or I won't talk to you!");
         }
 
-        dukeTaskText.saveFinishedTask(Duke.tasks.get(taskNumber - 1).toString());
+        dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toString());
     }
 }
