@@ -1,5 +1,6 @@
 package duke;
 
+
 import java.util.Scanner;
 import java.util.ArrayList;
 //for reading file
@@ -11,10 +12,7 @@ import java.io.IOException;
 
 public class Duke {
 
-    public static void showWelcomeMessage() {
-        System.out.println("Hello! I'm duke.Duke");
-        System.out.println("What can I do for you?");
-    }
+    private Ui ui;
 
     public static void printList(ArrayList<Task> list, int size) {
         int position = 1;
@@ -278,7 +276,18 @@ public class Duke {
     }
 
 
+    //constructor for duke class
+    public Duke() {
+        ui = new Ui();
+        ui.showWelcomeMessage();
+        //if method is static, other class cannot call it. But why?
+    }
+
+
+
     public static void main(String[] args) {
+
+        new Duke();
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -309,7 +318,6 @@ public class Duke {
             }
         }
 
-        showWelcomeMessage();
         line = in.nextLine();
 
         while (!line.equals("bye")) {
@@ -317,6 +325,6 @@ public class Duke {
             line = in.nextLine();
         }
 
-        System.out.println("    Bye. Hope to see you again soon!");
+       //ui.showExitMessage();
     }
 }
