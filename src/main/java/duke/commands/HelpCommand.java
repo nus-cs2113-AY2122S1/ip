@@ -1,5 +1,6 @@
 package duke.commands;
 
+/** Includes the operations needed to print the help menu to the user interface. */
 public class HelpCommand extends Command {
 
     private static final String HELP_MESSAGE =
@@ -13,6 +14,7 @@ public class HelpCommand extends Command {
                     + "7. echo [input] - Echoes whatever your input is.\n"
                     + "8. bye - Stop talking to me and exit the program.";
 
+    /** Constructed when the command word of the user input is "help". */
     public HelpCommand() {
         super();
     }

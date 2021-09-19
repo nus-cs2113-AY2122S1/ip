@@ -4,6 +4,7 @@ import duke.exceptions.DukeException;
 import duke.tasks.Task;
 import duke.tasks.TaskManager;
 
+/** Includes the operations needed to delete a task from the current task list. */
 public class DeleteTaskCommand extends Command {
 
     private static final String DELETE_TASK_MESSAGE = "Alright, I have deleted the following task for you:";
@@ -16,10 +17,23 @@ public class DeleteTaskCommand extends Command {
                     + "Enter \"list\" to check the task number!";
     private int taskNumber;
 
+    /**
+     * Constructed when the command word of the user input is "delete".
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     */
     public DeleteTaskCommand(String argument) {
         super(argument);
     }
 
+    /**
+     * Gets the task number from the argument provided by the user.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return Task number of the <code>Task</code> that needs to be deleted
+     * @throws DukeException If the argument provided is empty, not an integer, or an integer that does not
+     * correspond to any task in the task list.
+     */
     private int retrieveNumberParameter(String argument) throws DukeException {
 
         int taskNumber;

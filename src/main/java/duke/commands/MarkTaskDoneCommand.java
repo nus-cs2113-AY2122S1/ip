@@ -4,6 +4,7 @@ import duke.exceptions.DukeException;
 import duke.tasks.Task;
 import duke.tasks.TaskManager;
 
+/** Includes the operations needed to mark a task in the current task list as done. */
 public class MarkTaskDoneCommand extends Command {
 
     private static final String MARK_TASK_DONE_MESSAGE = "Good job! You have finished the following:";
@@ -16,10 +17,23 @@ public class MarkTaskDoneCommand extends Command {
                     + "Enter \"list\" to check the task number!";
     private int taskNumber;
 
+    /**
+     * Constructed when the command word of the user input is "done".
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     */
     public MarkTaskDoneCommand(String argument) {
         super(argument);
     }
 
+    /**
+     * Gets the task number from the argument provided by the user.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return Task number of the <code>Task</code> that needs to be marked done
+     * @throws DukeException If the argument provided is empty, not an integer, or an integer that does not
+     * correspond to any task in the task list.
+     */
     private int retrieveNumberParameter(String argument) throws DukeException {
 
         int taskNumber;

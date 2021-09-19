@@ -3,6 +3,9 @@ package duke.ui;
 import duke.commands.CommandResult;
 import duke.exceptions.DukeException;
 
+/**
+ * Includes the methods that display messages from <code>Duke</code> to the user on the terminal.
+ */
 public class Ui {
 
     private static final String LOGO = " ______        _\n"
@@ -20,16 +23,25 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /** Prints greet message when <code>Duke</code> is first run. */
     public void showGreetMessage() {
         System.out.println(GREET_MESSAGE);
         showDivider();
     }
 
+    /** Prints feedback from the command execution.
+     *
+     * @param result <code>CommandResult</code> that is returned from the execution of <code>Command</code>
+     */
     public void showFeedbackToUser(CommandResult result) {
         System.out.println(result.getFeedbackToUser());
         showDivider();
     }
 
+    /** Prints error message from the exception if encountered.
+     *
+     * @param exception <code>Exception</code> encountered
+     */
     public void showErrorMessage(DukeException exception) {
         System.out.println(exception.getMessage());
         showDivider();

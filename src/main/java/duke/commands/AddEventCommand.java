@@ -7,6 +7,7 @@ import duke.tasks.TaskManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/** Includes the operations needed to add an <code>Event</code> to the task list. */
 public class AddEventCommand extends Command {
 
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";
@@ -21,6 +22,13 @@ public class AddEventCommand extends Command {
 
     private Event event;
 
+    /**
+     * Constructed when the command word of the user input is "event".
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @throws DukeException If the argument contains illegal characters that will potentially corrupt the data
+     * stored in the storage.
+     */
     public AddEventCommand(String argument) throws DukeException {
         super(argument);
         if (argument.contains(ILLEGAL_CHAR)) {
@@ -37,6 +45,14 @@ public class AddEventCommand extends Command {
         return true;
     }
 
+    /**
+     * Gets the description and date and time from the argument provided by the user.
+     *
+     * @param argument Argument provided by the user after separating the command word from the user input string
+     * @return <code>String</code> array of size 2 where first entry is the description and the second entry is
+     * the date and time
+     * @throws DukeException If either entry of the return array is empty
+     */
     private String[] retrieveEventParameters(String argument) throws DukeException {
 
         String[] parameters = Parser.separateEvent(argument);
