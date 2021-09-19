@@ -3,16 +3,16 @@
 Shika is a simple Command Line Interface (CLI) app for managing tasks.
 
 ## Table of Contents
-1. Features
+* Features
    1. [Exit](#bye-exits-shika-a-name--byea)
    2. Add
-      1. [Todo](#todo---add-todo)
-      2. [Deadline](#deadline---add-deadline)
-      3. [Event](#event---add-event)
+      * [Todo](#todo---add-todo)
+      * [Deadline](#deadline---add-deadline)
+      * [Event](#event---add-event)
    3. [Done](#done---mark-task-as-done)
    4. [List](#list---list-all-tasks)
    5. [Find](#find---finds-task)
-2. [Command Summary](#command-summary)
+* [Command Summary](#command-summary)
 
 ## Features
 
@@ -217,6 +217,30 @@ ____________________________________________________________________________
 	2. [D][ ] Submit IP  (by: Oct 1 2021)
 ____________________________________________________________________________
 ```
+### `done` - Mark Task as Done
+
+Marks the task with the given `INDEX` as done. `INDEX` has to be positive and refer to a valid task.
+
+Format:
+`done INDEX`
+* `INDEX` has to be positive and refer to a valid task.
+
+Example of usage:
+
+* `done 1`
+
+Expected outcome:
+
+Shika will mark the task as done and print a message.
+
+```
+____________________________________________________________________________
+> You've done: 
+	1. [T][X] IP 
+____________________________________________________________________________
+```
+
+<br>
 
 ## Command Summary
 
