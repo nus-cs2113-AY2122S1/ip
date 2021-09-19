@@ -4,9 +4,7 @@ import commands.*;
 import exceptions.*;
 import tasks.*;
 
-import java.awt.geom.AffineTransform;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -59,6 +57,7 @@ public class Parser {
             if (command.equals("help")) {
                 return new HelpCommand();
             }
+
             throw new InvalidCommandException();
         }
 
@@ -123,22 +122,21 @@ public class Parser {
                 return new AddTaskCommand(new Deadline(split[0].strip(),
                         LocalDate.parse(time[0].strip()), LocalTime.parse(time[1].strip()), false), userTask);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new TimeMissingException();
-        } catch (DateTimeParseException e) {
-            throw new TimeFormatException();
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new TimeException();
         }
     }
 
     private AddTaskCommand parseEventCommand(String restCommand, TaskList userTask) throws DukeException {
         try {
             String[] split = restCommand.split("/");
+            String[] time = split[1].strip().split(" ");
+
             return new AddTaskCommand(new Event(split[0].strip(),
-                    LocalDateTime.parse(split[1].strip()), false), userTask);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new TimeMissingException();
-        } catch (DateTimeParseException e) {
-            throw new TimeFormatException();
+                    LocalDate.parse(time[0].strip()), LocalTime.parse(time[1].strip()), false), userTask);
+
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new TimeException();
         }
     }
 

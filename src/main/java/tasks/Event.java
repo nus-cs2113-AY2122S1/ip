@@ -2,6 +2,8 @@ package tasks;
 
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -12,6 +14,11 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     LocalDateTime completeTime;
+
+    public Event (String taskName, LocalDate completeDay, LocalTime completeTime, boolean isCompleted) {
+        super(taskName, isCompleted);
+        this.completeTime = LocalDateTime.of(completeDay, completeTime);
+    }
 
     public Event (String taskName, LocalDateTime completeTime, boolean isCompleted) {
         super(taskName, isCompleted);
