@@ -73,7 +73,7 @@ public class Duke {
             } catch (IOException saveException) {
                 ui.printInvalidFileError();
             } catch (DateTimeParseException dateTimeError) {
-                ui.printInvalidDateError(dateTimeError.getMessage());
+                ui.printInvalidDateError();
             }
         }
         ui.printGoodbye();

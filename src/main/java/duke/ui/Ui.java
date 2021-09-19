@@ -205,10 +205,8 @@ public class Ui {
 
     /**
      * Error message for invalid date or datetime format
-     *
-     * @param dateError Error message for the exception
      */
-    public void printInvalidDateError(String dateError) {
-        printMessage(DATE_PARSE_ERROR, dateError);
+    public void printInvalidDateError() {
+        printMessage(DATE_PARSE_ERROR);
     }
 }
