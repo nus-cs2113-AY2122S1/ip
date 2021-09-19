@@ -1,15 +1,17 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.TaskType;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Storage {
@@ -87,15 +89,18 @@ public class Storage {
      */
     private Task parseTask(String[] words) throws DukeException {
         Task task;
+        Date[] dates;
         switch(words[TASK_TYPE]) {
         case "T":
             task = new Todo(words[TASK_NAME]);
             break;
         case "D":
-            task = new Deadline(words[TASK_NAME], Parser.parseDateTime(words[TASK_DATE]));
+            dates = Parser.parseDateTime(words[TASK_DATE], TaskType.DEADLINE);
+            task = new Deadline(words[TASK_NAME], dates[0]);
             break;
         case "E":
-            task = new Event(words[TASK_NAME], Parser.parseDateTime(words[TASK_DATE]));
+            dates = Parser.parseDateTime(words[TASK_DATE], TaskType.EVENT);
+            task = new Event(words[TASK_NAME], dates[0], dates[1]);
             break;
         default:
             throw new DukeException(ERROR_UNRECOGNISED_TASK_TYPE);

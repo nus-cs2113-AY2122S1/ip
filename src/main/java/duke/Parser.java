@@ -3,6 +3,7 @@ package duke;
 import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.TaskType;
 import duke.task.Todo;
 
 import java.text.ParseException;
@@ -21,9 +22,13 @@ public class Parser {
     private static final int STRING_LENGTH_FIND = 4;
     private static final int STRING_LENGTH_BY_INDICATOR = 3;
     private static final int STRING_LENGTH_AT_INDICATOR = 3;
-    private static final int STRING_LENGTH_DATE_FORMAT = 15;
+    private static final int STRING_LENGTH_EVENT_DATE_FORMAT = 31;
+    private static final int STRING_LENGTH_DEADLINE_DATE_FORMAT = 15;
 
     private static final int TASK_NUMBER = 1;
+    private static final int START_DATE = 0;
+    private static final int END_DATE = 1;
+    private static final int TOTAL_DATES = 2;
 
     private static final String BY_INDICATOR = "/by";
     private static final String AT_INDICATOR = "/at";
@@ -67,8 +72,10 @@ public class Parser {
     private static final String ERROR_DELETE_1 = S_TAB + "ERROR: Provide the task number of the task." + NL + FORMAT_DELETE;
     private static final String ERROR_DELETE_2 = S_TAB + "ERROR: Provide the task number of one task only." + NL + FORMAT_DELETE;
     private static final String ERROR_FIND = S_TAB + "ERROR: Provide a keyword." + NL + FORMAT_FIND;
-    private static final String ERROR_INVALID_DATE_FORMAT = S_TAB + "ERROR: Use the following format: 'dd/MM/yyyy HHmm'";
-    private static final String ERROR_INVALID_DATE_TIME = S_TAB + "ERROR: Date has to be after the current date.";
+    private static final String ERROR_INVALID_DEADLINE_DATE_FORMAT = S_TAB + "ERROR: Use the following format: 'dd/MM/yyyy HHmm'";
+    private static final String ERROR_INVALID_EVENT_DATE_FORMAT = S_TAB + "ERROR: Use the following format: 'dd/MM/yyyy HHmm dd/MM/yyyy HHmm'";
+    private static final String ERROR_INVALID_DATE_TIME = S_TAB + "ERROR: Date(s) has to be after the current date.";
+    private static final String ERROR_INVALID_START_END_DATE = S_TAB + "ERROR: Start date has to be before the end date.";
 
     /**
      * Takes in the user input command and breaks down the data.
@@ -190,8 +197,8 @@ public class Parser {
             throw new DukeException(ERROR_DEADLINE_4);
         }
         String taskName = inputCommand.substring(STRING_LENGTH_DEADLINE + 1, startIndexOfByIndicator - 1);
-        Date datetime = parseDateTime(inputCommand.substring(startIndexOfDatetime));
-        return new AddCommand(new Deadline(taskName, datetime));
+        Date[] dates = parseDateTime(inputCommand.substring(startIndexOfDatetime), TaskType.DEADLINE);
+        return new AddCommand(new Deadline(taskName, dates[START_DATE]));
     }
 
     /**
@@ -219,8 +226,8 @@ public class Parser {
             throw new DukeException(ERROR_EVENT_4);
         }
         String taskName = inputCommand.substring(STRING_LENGTH_EVENT + 1, startIndexOfAtIndicator - 1);
-        Date datetime = parseDateTime(inputCommand.substring(startIndexOfDatetime));
-        return new AddCommand(new Event(taskName, datetime));
+        Date[] dates = parseDateTime(inputCommand.substring(startIndexOfDatetime), TaskType.EVENT);
+        return new AddCommand(new Event(taskName, dates[START_DATE], dates[END_DATE]));
     }
 
     /**
@@ -275,44 +282,125 @@ public class Parser {
      * Converts the date time string into a Date class.
      *
      * @param dateTime String representation of date time.
-     * @return Date class
+     * @param taskType Task type that the date belongs to.
+     * @return Date array containing the dates of the task.
      * @throws DukeException If the date time string is in the wrong format.
      */
-    public static Date parseDateTime(String dateTime) throws DukeException {
-        Date date;
-        checkLengthDateTime(dateTime);
+    public static Date[] parseDateTime(String dateTime, TaskType taskType) throws DukeException {
+        Date[] dates = new Date[TOTAL_DATES];
+        checkLength(dateTime, taskType);
         try {
-            SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            date = sdfDate.parse(dateTime);
-            checkValidDateTime(date);
-        } catch (ParseException e) {
-            throw new DukeException(ERROR_INVALID_DATE_FORMAT);
+            splitDates(dates, dateTime, taskType);
+            checkValidDateTime(dates, taskType);
+        } catch (ParseException parseException) {
+            parseException.printStackTrace();
         }
-        return date;
+        return dates;
     }
 
     /**
      * Checks if the String date time is of the correct length
      *
      * @param dateTime String representation of date time.
+     * @param taskType Task type that the date belongs to.
      * @throws DukeException If the date time string is of an incorrect length.
      */
-    private static void checkLengthDateTime(String dateTime) throws DukeException {
-        if (dateTime.length() != STRING_LENGTH_DATE_FORMAT) {
-            throw new DukeException(ERROR_INVALID_DATE_FORMAT);
+    private static void checkLength(String dateTime, TaskType taskType) throws DukeException {
+        if (taskType.equals(TaskType.DEADLINE)) {
+            checkLengthDeadlineDateTime(dateTime);
+        }
+        if (taskType.equals(TaskType.EVENT)) {
+            checkLengthEventDateTime(dateTime);
+        }
+    }
+
+    /**
+     * Checks if the String date time is of the correct length if the task type is Deadline
+     *
+     * @param dateTime String representation of date time.
+     * @throws DukeException If the date time string is of an incorrect length.
+     */
+    public static void checkLengthDeadlineDateTime(String dateTime) throws DukeException {
+        if (dateTime.length() != STRING_LENGTH_DEADLINE_DATE_FORMAT) {
+            throw new DukeException(ERROR_INVALID_DEADLINE_DATE_FORMAT);
+        }
+    }
+
+    /**
+     * Checks if the String date time is of the correct length if the task type is Event
+     *
+     * @param dateTime String representation of date time.
+     * @throws DukeException If the date time string is of an incorrect length.
+     */
+    public static void checkLengthEventDateTime(String dateTime) throws DukeException {
+        if (dateTime.length() != STRING_LENGTH_EVENT_DATE_FORMAT) {
+            throw new DukeException(ERROR_INVALID_EVENT_DATE_FORMAT);
+        }
+    }
+
+    /**
+     * Save the date time strings into a Date array
+     *
+     * @param dates    Date array containing the dates of the task.
+     * @param dateTime String representation of date time.
+     * @param taskType Task type that the date belongs to.
+     * @throws ParseException If the date time string fails to convert into date format.
+     */
+    public static void splitDates(Date[] dates, String dateTime, TaskType taskType) throws ParseException {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        if (taskType.equals(TaskType.DEADLINE)) {
+            dates[START_DATE] = sdfDate.parse(dateTime);
+        } else if (taskType.equals(TaskType.EVENT)) {
+            String startDate = dateTime.substring(0, STRING_LENGTH_DEADLINE_DATE_FORMAT);
+            String endDate = dateTime.substring(STRING_LENGTH_DEADLINE_DATE_FORMAT + 1);
+            dates[START_DATE] = sdfDate.parse(startDate);
+            dates[END_DATE] = sdfDate.parse(endDate);
         }
     }
 
     /**
      * Checks if the date time fielded is after the current date time.
      *
-     * @param compareDate Date time to be compared against current date time.
+     * @param dates    Date array containing the dates of the task.
+     * @param taskType Task type that the date belongs to.
      * @throws DukeException If date time is before the current date time.
      */
-    private static void checkValidDateTime(Date compareDate) throws DukeException {
+    private static void checkValidDateTime(Date[] dates, TaskType taskType) throws DukeException {
+        compareAgainstCurrentDate(dates, taskType);
+        compareStartEndDates(dates, taskType);
+    }
+
+    /**
+     * Checks if the dates are after the current date.
+     *
+     * @param dates    Date array containing the dates of the task.
+     * @param taskType Task type that the date belongs to.
+     * @throws DukeException If the dates of the task are before the current date.
+     */
+    private static void compareAgainstCurrentDate(Date[] dates, TaskType taskType) throws DukeException {
         Date todayDate = new Date();
-        if (compareDate.compareTo(todayDate) <= 0) {
+        if (dates[0].compareTo(todayDate) <= 0) {
             throw new DukeException(ERROR_INVALID_DATE_TIME);
+        }
+        if (taskType.equals(TaskType.EVENT)) {
+            if (dates[1].compareTo(todayDate) <= 0) {
+                throw new DukeException(ERROR_INVALID_DATE_TIME);
+            }
+        }
+    }
+
+    /**
+     * Checks if the start date comes before the end date.
+     *
+     * @param dates    Date array containing the dates of the task.
+     * @param taskType Task type that the date belongs to.
+     * @throws DukeException If the start date comes after the end date.
+     */
+    private static void compareStartEndDates(Date[] dates, TaskType taskType) throws DukeException {
+        if (taskType.equals(TaskType.EVENT)) {
+            if (dates[0].compareTo(dates[1]) > 0) {
+                throw new DukeException(ERROR_INVALID_START_END_DATE);
+            }
         }
     }
 

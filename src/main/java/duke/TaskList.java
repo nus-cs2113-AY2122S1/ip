@@ -26,14 +26,15 @@ public class TaskList {
     private static final String ERROR_NO_MATCHING_TASK = S_TAB + "ERROR: No matching tasks found.";
 
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
-    private static final String LIST_COMMAND = L_TAB + "1. list" + LS
-            + L_TAB + "2. todo <TASK>" + LS
-            + L_TAB + "3. deadline <TASK> /by <dd/MM/yyyy HHmm>" + LS
-            + L_TAB + "4. event <TASK> /at <dd/MM/yyyy HHmm>" + LS
-            + L_TAB + "5. done <TASK_NO>" + LS
-            + L_TAB + "6. find <KEYWORD>" + LS
-            + L_TAB + "7. help" + LS
-            + L_TAB + "8. bye";
+    private static final String LIST_COMMAND = L_TAB + "1. help" + LS
+            + L_TAB + "2. todo <TASK_NAME>" + LS
+            + L_TAB + "3. deadline <TASK_NAME> /by <DATE_TIME>" + LS
+            + L_TAB + "4. event <TASK_NAME> /at <START_DATE> <END_DATE>" + LS
+            + L_TAB + "5. list" + LS
+            + L_TAB + "6. done <TASK_NUMBER>" + LS
+            + L_TAB + "7. find <KEYWORD>" + LS
+            + L_TAB + "8. delete <TASK_NUMBER>" + LS
+            + L_TAB + "9. bye";
 
     protected ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -132,7 +133,7 @@ public class TaskList {
         } else {
             ui.showLine();
             markTaskAsCompleted(taskNumber - 1);
-            String taskDetails = getTaskDetails(taskNumber);
+            String taskDetails = getTaskDetails(taskNumber - 1);
             if (isPrint) {
                 System.out.println(getMessageForMarkTaskAsDone(taskDetails));
             }

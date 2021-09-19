@@ -4,18 +4,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event extends Task {
-    protected String heldDate;
+    protected String startDate;
+    protected String endDate;
 
     /**
      * Class event constructor.
      *
-     * @param taskName Name of the task.
-     * @param heldDate Date when the event is held.
+     * @param taskName  Name of the task.
+     * @param startDate Start date of the event.
+     * @param endDate   End date of the event.
      */
-    public Event(String taskName, Date heldDate) {
+    public Event(String taskName, Date startDate, Date endDate) {
         super(taskName);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        this.heldDate = simpleDateFormat.format(heldDate);
+        this.startDate = simpleDateFormat.format(startDate);
+        this.endDate = simpleDateFormat.format(endDate);
     }
 
     /**
@@ -25,7 +28,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + heldDate + ")";
+        return "[E]" + super.toString() + " (at: " + startDate + " to " + endDate + ")";
     }
 
     /**
@@ -36,6 +39,6 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         int stringIsDone = isDone ? 1 : 0;
-        return "E" + DELIMITER + stringIsDone + DELIMITER + taskName + DELIMITER + heldDate;
+        return "E" + DELIMITER + stringIsDone + DELIMITER + taskName + DELIMITER + startDate + " " + endDate;
     }
 }
