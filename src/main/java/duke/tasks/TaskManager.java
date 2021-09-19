@@ -36,6 +36,14 @@ public class TaskManager {
         return filteredList;
     }
 
+    public static ArrayList<Task> filterListByDate(String date) {
+        ArrayList<Task> filteredList =
+                (ArrayList<Task>) tasks.stream()
+                        .filter((task) -> date.equals(task.getDate()))
+                        .collect(Collectors.toList());
+        return filteredList;
+    }
+
     public static String listTasks(ArrayList<Task> tasks) {
         String listOfTasks = "";
         for (int i = 0; i < tasks.size(); i++) {
