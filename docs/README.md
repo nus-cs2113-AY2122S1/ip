@@ -4,20 +4,20 @@ Duke is a **Personal Assistant ChatBot** desktop app that helps a person to **ke
 for use via a Command Line Interface (CLI). If you can type fast, Duke is capable of tracking and updating management 
 tasks faster than Graphical User Interface (GUI) apps.
 
-- [Set Up](#Set-Up)
-- [Quick Start](#Quick-Start)
-- [Features](#Features)
-  - [Viewing Help](#Viewing-Help)
-  - [Adding a Todo Task](#Adding-a-Todo-Task)
-  - [Adding a Deadline Task](#Adding-a-Deadline-Task)
-  - [Adding a Todo Task](#Adding-an-Event-Task)
-  - [Listing all Tasks](#Listing-all-Tasks)
-  - [Mark as Done](#Mark-as-Done)
-  - [Find Tasks](#Find-Tasks)
-  - [Delete a Task](#Delete-a-Task)
-  - [Exiting the Program](#Exiting-the-Program)
-- [FAQ](#FAQ)
-- [Command Summary](#Command-Summary)
+- [Set Up](#set-up)
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Viewing Help](#viewing-help)
+  - [Adding a Todo Task](#adding-a-todo-task)
+  - [Adding a Deadline Task](#adding-a-deadline-task)
+  - [Adding a Todo Task](#adding-an-event-task)
+  - [Listing all Tasks](#listing-all-tasks)
+  - [Mark as Done](#mark-as-done)
+  - [Find Tasks](#find-tasks)
+  - [Delete a Task](#delete-a-task)
+  - [Exiting the Program](#exiting-the-program)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
 
 ## Set Up
 
@@ -58,7 +58,7 @@ above installed in your Computer.
    - **`todo`**`read book` : Adds a todo task called `read book` into the task list
    - **`delete`**`1` : Deletes the first task in a list
    - **`exit`** : Exits the app.
-3. Refer to the [Features](#Features) below for details of each command.
+3. Refer to the [Features](#features) below for details of each command.
 
 
 ## Features 
