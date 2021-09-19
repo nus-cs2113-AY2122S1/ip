@@ -9,7 +9,6 @@ import duke.task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 import static duke.constants.DukeCommandStrings.DATE_TIME_INPUT_FORMAT;
 import static duke.constants.DukeDataStorageConstants.DECODER_ATTRIBUTE_SEPARATOR;
@@ -18,7 +17,7 @@ import static duke.constants.DukeDataStorageConstants.NOT_DONE;
 
 public class TaskListDecoder {
 
-    public static void decodeTask(ArrayList<Task> taskList, String task) throws InvalidFileDataException, DateTimeParseException {
+    public static Task decodeTask(String task) throws InvalidFileDataException, DateTimeParseException {
         String[] taskAttributes = task.split(DECODER_ATTRIBUTE_SEPARATOR);
         String taskType = taskAttributes[0].trim();
         String doneStatus = taskAttributes[1].trim();
