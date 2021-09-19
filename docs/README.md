@@ -57,7 +57,7 @@ Marks a task as done.
 * Format : `done TASK_INDEX`
 * The `TASK_INDEX` refers to the index of the task shown in the list of task.
   * The index **must be a positive integer** 1,2,3,...
-  * ![Done Task](/tree/master/images/doneEvent.jpg)
+  * ![Done Task](../images/doneEvent.jpg)
 * Example : `done 3` - Marks the 3rd task in the list as done.
 
 ### Feature - Deleting a task
@@ -67,7 +67,7 @@ Deletes a task from the list.
 * Format : `delete TASK_INDEX`
 * The `TASK_INDEX` refers to the index of the task shown in the list of task.
     * The index **must be a positive integer** 1,2,3,...
-    * ![Delete Task](tree/master/images/deleteTask.jpg)
+    * ![Delete Task](/images/deleteTask.jpg)
 * Example : `delete 2` - Deletes the 2nd task in the list.
 
 ### Feature - Finding a task
@@ -76,13 +76,13 @@ Find all the task that contains the given keyword and print it out.
 * Format : `find KEY_WORD`
 * As long as the `KEY_WORD` is a sub-string of the task's description, it will match. (E.g Finding `od` will match `food`)  
 * The search **is case-sensitive** such that `ABC` will only match `ABC` and not `abc` nor `AbC`.
-* ![Find Task](../tree/master/images/findEvent.jpg)
+* ![Find Task](../tree/findEvent.jpg)
 
 ### Feature - Listing all the tasks
 
 List all the tasks currently stored in the list.
 * Format : `list`
-* ![List Task](images/listEvent.jpg)
+* ![List Task](/images/listEvent.jpg)
 
 ### Feature - Exiting the program
 
