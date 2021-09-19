@@ -20,7 +20,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String execute(TaskList taskList){
-        taskList.add(new Deadline(description, false, dueDate));
-        return SUCCESS_MESSAGE + taskList.printTask(-1) + "\n";
+        taskList.addTask(new Deadline(description, false, dueDate));
+        return SUCCESS_MESSAGE + taskList.printNewestTask() + "\n";
     }
 }

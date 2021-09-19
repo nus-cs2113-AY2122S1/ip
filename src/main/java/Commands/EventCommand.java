@@ -20,7 +20,7 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(TaskList taskList){
-        taskList.add(new Event(description, false, eventTime));
-        return SUCCESS_MESSAGE + taskList.printTask(-1) + "\n";
+        taskList.addTask(new Event(description, false, eventTime));
+        return SUCCESS_MESSAGE + taskList.printNewestTask() + "\n";
     }
 }

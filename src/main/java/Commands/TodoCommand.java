@@ -17,8 +17,8 @@ public class TodoCommand extends Command {
 
     @Override
     public String execute(TaskList taskList){
-        taskList.add(new Todo(description, false));
-        return SUCCESS_MESSAGE + taskList.printTask(-1) + "\n";
+        taskList.addTask(new Todo(description, false));
+        return SUCCESS_MESSAGE + taskList.printNewestTask() + "\n";
     }
 
 }
