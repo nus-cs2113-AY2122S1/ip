@@ -19,6 +19,6 @@ public class HelpCommand extends Command{
 
     @Override
     public String execute(TaskList taskList){
-        return SUCCESS_MESSAGE + "\n";
+        return SUCCESS_MESSAGE;
     }
 }

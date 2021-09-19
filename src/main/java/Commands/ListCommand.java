@@ -14,6 +14,6 @@ public class ListCommand extends Command{
 
     @Override
     public String execute(TaskList taskList){
-        return SUCCESS_MESSAGE + taskList.printAllTasks() + "\n";
+        return SUCCESS_MESSAGE + taskList.printAllTasks();
     }
 }
