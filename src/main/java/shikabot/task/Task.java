@@ -41,6 +41,10 @@ public abstract class Task {
         return isDone;
     }
 
+    public boolean isMatchingTask(String searchterm) {
+        return name.contains(searchterm);
+    }
+
     public static class InvalidTaskException extends Exception {
 
     }

@@ -10,7 +10,7 @@ import static shikabot.parser.Parser.INVALID_TASK;
 import static shikabot.parser.Parser.NEGATIVE_INDEX_ERROR;
 import static shikabot.parser.Parser.NUMBER_FORMAT_ERROR;
 
-public class FailedCommand extends Command{
+public class FailedCommand extends Command {
 
     private final TextUi ui;
     private final int errorCode;

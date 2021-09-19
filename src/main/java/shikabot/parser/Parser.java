@@ -6,6 +6,7 @@ import shikabot.command.DeleteCommand;
 import shikabot.command.DoneCommand;
 import shikabot.command.ExitCommand;
 import shikabot.command.FailedCommand;
+import shikabot.command.FindCommand;
 import shikabot.command.InvalidCommand;
 import shikabot.command.ListCommand;
 import shikabot.task.Task;
@@ -49,6 +50,8 @@ public class Parser {
             command = parseDoneCommand(text);
         } else if (text.startsWith("delete")) {
             command = parseDeleteCommand(text);
+        } else if (text.startsWith("find")) {
+            command = parseFindCommand(text);
         } else if (isAddCommand(text)) {
             command = parseAddCommand(text);
         } else {
@@ -91,6 +94,11 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             return new FailedCommand(INVALID_TASK);
         }
+    }
+
+    private Command parseFindCommand(String text) {
+        String str = text.substring(text.indexOf("find") + 4).trim();
+        return new FindCommand(str);
     }
 
     private Command parseAddCommand(String text) {
