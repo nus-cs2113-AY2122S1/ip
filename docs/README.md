@@ -10,12 +10,14 @@ the datafile will be created wherever you place your jar file.
 4. Open the CLI at where your jar file is placed and run it using the command
 `java -jar abcd.jar`
 5. Type the commands in the box and press enter to execute it. Some commands you can try are
-```
-   - list : Lists all current tasks.
-   - todo Read Book : Adds the todo task of reading book.
-   - delete 1 : Deletes the 1st task in the list. 
-```
+
+- `list` : Lists all current tasks.
+- `todo Read Book` : Adds the todo task of reading book.
+- `delete 1` : Deletes the 1st task in the list. 
+
+
 ## Features
+
 ```
 - Note that the parameters of all the commands must be in order.
 - Words in UPPER_CASE are parameters to be supplied by the user.
@@ -44,7 +46,7 @@ and `event` do.
     * Format : `event TASK_NAME /at DATE`
     * The format of `DATE` **must be in** `yyyy-mm-dd` E.g. For the date `29th of Oct, 2004` you would key in `2004-10-29`
     * Example : `event ZoukOut /at 2021-12-09` - This adds an event called ZoukOut for the 9th of Dec, 2021.
-  * ![Adding Event](https://github.com/andrewtkh1/ip/blob/master/images/addEvent.jpg)
+    * ![Adding Event](https://github.com/andrewtkh1/ip/blob/master/images/addEvent.jpg)
 * Deadline
     * Format : `deadline TASK_NAME /by DATE`
     * The format of `DATE` follows the same format as in `Event` task.
