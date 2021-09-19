@@ -103,6 +103,10 @@ public class TextUi {
         System.out.print(line);
     }
 
+    public void printEmptyFieldMessage() {
+        System.out.print(line + "> Please fill in all fields. 'w'\n" + line);
+    }
+
     /**
      * Function to print all tasks in tasks.
      */
