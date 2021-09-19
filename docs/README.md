@@ -13,8 +13,7 @@ the datafile will be created wherever you place your jar file.
 
 - `list` : Lists all current tasks.
 - `todo Read Book` : Adds the todo task of reading book.
-- `delete 1` : Deletes the 1st task in the list. 
-
+- `delete 1` : Deletes the 1st task in the list.
 
 ## Features
 
@@ -34,6 +33,7 @@ the datafile will be created wherever you place your jar file.
 * Exiting the program: `end`
 
 ### Features - Adding a new task
+
 To add a task, the task has to be one of 3 types, `todo`,`deadline` or `event`.
 Each of the task types has its own format to follow. The main difference between these 3
 task types is that the `todo` task does not have a date attached to it, whilst both the `deadline`
@@ -51,6 +51,7 @@ and `event` do.
     * Format : `deadline TASK_NAME /by DATE`
     * The format of `DATE` follows the same format as in `Event` task.
     * Example : `deadline Return books /by 2021-09-19` - This adds a deadline called Return Books with the date of 19th of Sep, 2021.
+
 ### Feature - Marking a task as done
 Marks a task as done.
 * Format : `done TASK_INDEX`
@@ -60,6 +61,7 @@ Marks a task as done.
 * Example : `done 3` - Marks the 3rd task in the list as done.
 
 ### Feature - Deleting a task
+
 Deletes a task from the list.
 
 * Format : `delete TASK_INDEX`
@@ -69,11 +71,13 @@ Deletes a task from the list.
 * Example : `delete 2` - Deletes the 2nd task in the list.
 
 ### Feature - Finding a task
+
 Find all the task that contains the given keyword and print it out.
 * Format : `find KEY_WORD`
 * As long as the `KEY_WORD` is a sub-string of the task's description, it will match. (E.g Finding `od` will match `food`)  
 * The search **is case-sensitive** such that `ABC` will only match `ABC` and not `abc` nor `AbC`.
 * ![Find Task](https://github.com/andrewtkh1/ip/blob/master/images/findEvent.jpg)
+
 ### Feature - Listing all the tasks
 
 List all the tasks currently stored in the list.
@@ -81,6 +85,7 @@ List all the tasks currently stored in the list.
 * ![List Task](https://github.com/andrewtkh1/ip/blob/master/images/listEvent.jpg)
 
 ### Feature - Exiting the program
+
 Stops the program.
 * Format : `end`
 
