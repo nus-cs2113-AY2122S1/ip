@@ -75,7 +75,9 @@ public class Parser {
             throw new KittyException("Keyword cannot be empty!");
         } else {
             return keyword;
-          
+        }
+    }
+
     // Date
     public static LocalDate getTaskDate(String dateString) throws KittyException {
         try {
