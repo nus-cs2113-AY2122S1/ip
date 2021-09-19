@@ -52,6 +52,7 @@ and `event` do.
     * Format : `deadline TASK_NAME /by DATE`
     * The format of `DATE` follows the same format as in `Event` task.
     * Example : `deadline Return books /by 2021-09-19` - This adds a deadline called Return Books with the date of 19th of Sep, 2021.
+      <br>![Adding Event](https://raw.githubusercontent.com/andrewtkh1/ip/master/images/addDeadline.jpg)
 ---
 ### Feature - Marking a task as done
 Marks a task as done.
