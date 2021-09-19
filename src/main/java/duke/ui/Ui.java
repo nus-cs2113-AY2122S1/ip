@@ -38,7 +38,7 @@ public class Ui {
         System.out.println(DIVIDER);
         System.out.println("Command not recognized!");
         System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
-        System.out.println("\"delete\"");
+        System.out.println("\"delete\", \"upcoming\"");
         System.out.println(DIVIDER);
     }
 
