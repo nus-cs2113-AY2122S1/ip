@@ -19,6 +19,7 @@ public class Duke {
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_ADD_EVENT = "event";
     private static final String COMMAND_DELETE_TASK = "delete";
+    private static final String COMMAND_FIND = "find";
 
     /**
      * The input scanner for the program
@@ -77,6 +78,10 @@ public class Duke {
 
             case COMMAND_DELETE_TASK:
                 taskList.deleteTask(strInput);
+                break;
+
+            case COMMAND_FIND:
+                taskList.showSearchList(strInput);
                 break;
 
             default:

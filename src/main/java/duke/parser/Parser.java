@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.exception.EmptyArgumentException;
 import duke.exception.EmptyParameterException;
+import duke.exception.MultipleKeywordsException;
 
 /**
  * Methods that deal with making sense of the user input.
@@ -107,5 +108,15 @@ public class Parser {
     public int extractIndex(String input) throws NumberFormatException, EmptyArgumentException {
         String content = extractContent(input);
         return Integer.parseInt(content) - 1;
+    }
+
+    public String extractKeyword(String input) throws MultipleKeywordsException, EmptyArgumentException {
+        String content = extractContent(input);
+        String[] keyWords = content.split(" ");
+        //Ensures that there is only 1 keyword given
+        if (keyWords.length > 1) {
+            throw new MultipleKeywordsException();
+        }
+        return keyWords[0];
     }
 }

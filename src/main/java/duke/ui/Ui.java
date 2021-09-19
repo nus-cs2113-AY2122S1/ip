@@ -33,7 +33,7 @@ public class Ui {
         System.out.println(DIVIDER);
         System.out.println("Command not recognized!");
         System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
-        System.out.println("\"delete\"");
+        System.out.println("\"delete\", \"find\"");
         System.out.println(DIVIDER);
     }
 
@@ -138,4 +138,33 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    public void printSearchList(ArrayList<Task> taskList, String keyword) {
+        int matchCount = 0;
+        System.out.println(DIVIDER);
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : taskList) {
+            String[] descriptionWords = task.getDescription().split(" ");
+            for (String descriptionWord : descriptionWords) {
+                if (descriptionWord.equals(keyword)) {
+                    matchCount++;
+                    System.out.println((matchCount) + "." + task);
+                    //go to the next task when once a match is found
+                    break;
+                }
+            }
+        }
+        if (matchCount == 0) {
+            System.out.println("No matching tasks found!");
+        }
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints a message to remind the user to only use one keyword to search
+     */
+    public void printOnlyUseOneKeyword() {
+        System.out.println(DIVIDER);
+        System.out.println("I can only search for one keyword at a time!");
+        System.out.println(DIVIDER);
+    }
 }
