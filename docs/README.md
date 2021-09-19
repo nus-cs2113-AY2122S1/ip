@@ -1,6 +1,6 @@
 # User Guide
 
-Oberon is a **desktop app for managing tasks entered into a task list via a Command Line Interface (CLI)**. Tasks have 
+Oberon is a **desktop app for managing tasks via a Command Line Interface (CLI)**. Tasks have 
 3 types, namely Todos, Events and Deadlines. Oberon can manage your tasks as fast as you can type into the CLI, 
 benefiting those that type fast the most.
 
@@ -41,7 +41,7 @@ Format: `event EVENT_DESCRIPTION /at EVENT_AT`
 * If `/at` or `EVENT_AT` is not specified by the user, an Event will still be added and `EVENT_AT` will be taken as 
   `???`.
 * If specified in the **exact** format:`dd/MM/yyyy HH:mm`, when `list` is called, `EVENT_AT` will be 
-  displayed in the format: `EEE, d MMM yyyy, HH:mm` where `EEE` gives the day of the week.
+  displayed in the format:<br/>`EEE, d MMM yyyy, HH:mm` where `EEE` gives the day of the week.
 
 Examples:
 * `event project meeting /at 12 midnight` Adds an Event with the description `project meeting` at `12 midnight`.
@@ -59,7 +59,7 @@ Format: `deadline DEADLINE_DESCRIPTION /by DEADLINE_BY`
 * If `/by` or `DEADLINE_BY` is not specified by the user, a Deadline will still be added and `DEADLINE_BY` will be 
   taken as `???`.
 * If `DEADLINE_BY` is specified in the **exact** format:`dd/MM/yyyy HH:mm`, when `list` is called, `DEADLINE_BY` will 
-  be displayed in the format: `EEE, d MMM yyyy, HH:mm` where `EEE` gives the day of the week.
+  be displayed in the format:<br/>`EEE, d MMM yyyy, HH:mm` where `EEE` gives the day of the week.
 
 Examples:
 * `deadline weekly quiz /by thursday midnight` Adds a Deadline with the description `weekly quiz` by 
