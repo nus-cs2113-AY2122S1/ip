@@ -25,7 +25,7 @@ public class UiHandler {
                     Ui.exit();
                     break;
                 case "list":
-                    printList();
+                    printList(Kitty.tasks);
                     break;
                 case "done":
                     markTaskAsDone();
@@ -64,7 +64,7 @@ public class UiHandler {
             System.out.println();
             System.out.println("Here are the tasks you have!");
 
-            for (Task task: Kitty.tasks) {
+            for (Task task: tasks) {
                 System.out.print(i + ". ");
                 System.out.println(task);
                 i++;
