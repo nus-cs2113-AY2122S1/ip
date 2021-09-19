@@ -1,15 +1,21 @@
 package duke;
 
-import duke.command.TaskManager;
+import duke.command.CommandExecutor;
 import duke.datasaver.DataManager;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.util.Scanner;
-
-import static duke.constants.DukeCommandStrings.EXIT_COMMAND;
-
 public class Duke {
-    private TaskManager dukeTaskManager;
+
+    private final CommandExecutor commandExecutor;
+    private final TaskList taskList;
+    private final DataManager dataManager;
+
+    public Duke() {
+        this.commandExecutor = new CommandExecutor();
+        this.taskList = new TaskList();
+        this.dataManager = new DataManager();
+    }
 
     public static void main(String[] args) {
         new Duke().run();
@@ -17,21 +23,23 @@ public class Duke {
 
     private void run() {
         start();
-        runLoopUntilExitCommand(this.dukeTaskManager);
+        runLoopUntilExitCommand(this.commandExecutor);
     }
 
     private void start() {
-        this.dukeTaskManager = new TaskManager();
-        DataManager.loadData(this.dukeTaskManager.getTaskList());
+        dataManager.loadData(this.taskList.getTaskList());
         Ui.printHeyMessage();
     }
 
-    private void runLoopUntilExitCommand(TaskManager dukeTaskManager) {
+    private void runLoopUntilExitCommand(CommandExecutor commandExecutor) {
         String userInput;
+        boolean isExit;
+
         do {
             userInput = Ui.readUserInput();
-            dukeTaskManager.handleUserInput(userInput);
-        } while (!userInput.trim().toLowerCase().startsWith(EXIT_COMMAND));
+            commandExecutor.execute(userInput, dataManager);
+            isExit = commandExecutor.isExit(userInput);
+        } while (!isExit);
     }
 
 
