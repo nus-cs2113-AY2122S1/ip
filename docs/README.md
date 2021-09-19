@@ -83,7 +83,7 @@ Stops the program.
 
 ##Command Summary
 Action|Format & Examples
-------|-------
+------|-----------------
 Add todo task|`todo TASK_NAME` (E.g. `todo Read Book`)
 Add event task|`event TASK_NAME /at DATE` (E.g. `event Movie /at 2020-10-29`)
 Add deadline task|`deadline TASK_NAME /by DATE` (E.g. `deadline Project work /by 2021-19-09`)
