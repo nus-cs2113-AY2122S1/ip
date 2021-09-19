@@ -1,29 +1,233 @@
 # User Guide
 
-## Features 
+Shika is a simple Command Line Interface (CLI) app for managing tasks.
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### Add Task
 
-### Feature-XYZ
+Adds a task to the list of saved tasks. 
+There are three types of tasks:
+1. Todo 
+2. Deadline
+3. Event
 
-Description of the feature.
+Date format (if applicable) must be one of the following:
+* ddMMyyyy
+* dd/MM/yyyy
+* dd-MM-yyyy
+
+Format:
+* `todo [task]`
+* `deadline [task] /by [date]`
+* `event [task] /at [date]`
+
+### Mark Task as Done
+
+Marks a task as done.
+
+Format:
+`done [INDEX]`
+
+### Remove Task
+
+Removes a task from the list of saved tasks.
+
+Format:
+`delete [index]`
+
+### List Tasks
+
+Lists all tasks from the list of saved tasks.
+
+Format:
+`list`
+
+### Find Task
+
+Lists all tasks from the list of saved tasks that contain the search term.
+
+Format:
+`find [search term]`
+<br>
 
 ## Usage
 
-### `Keyword` - Describe action
+### `bye` Exits Shika
 
-Describe the action and its outcome.
+Exits Shika.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`bye`
 
 Expected outcome:
 
-Description of the outcome.
+Shika will print an exit message and exit.
 
 ```
-expected output
+____________________________________________________________________________
+> Bye friend!
+> See you again! :)
+____________________________________________________________________________
 ```
+
+<br>
+
+### `todo` - Add Todo
+
+Adds a todo to the task list.
+
+Format: `todo TASKNAME`
+* `TASKNAME` has to be filled in.
+
+Example of usage:
+
+`todo IP`
+
+Expected outcome:
+
+Shika will add the todo to the task list and print a message.
+
+```
+____________________________________________________________________________
+> Added: 
+	1. [T][ ] IP 
+> You have 1 task on your list. -w-
+____________________________________________________________________________
+```
+<br>
+
+### `deadline` - Add Deadline
+
+Adds a deadline to the task list.
+
+Format: `deadline TASKNAME /at DATE`
+* Date has to follow `ddMMyyyy`, `dd/MM/yyyy` or `dd-MM-yyyy` formats.
+* Both `TASKNAME` and `DATE` have to be filled in.
+
+Example of usage:
+
+* `deadline Submit IP /by 01102021`
+* `deadline Submit IP /by 01/10/2021`
+* `deadline Submit IP /by 01-10-2021`
+
+Expected outcome:
+
+Shika will add the deadline to the task list and print a message.
+
+```
+____________________________________________________________________________
+> Added: 
+	1. [D][ ] Submit IP  (by: Oct 1 2021)
+> You have 2 tasks on your list. -w-
+____________________________________________________________________________
+```
+<br>
+
+### `event` - Add Event
+
+Adds an event to the task list. 
+
+Format: `event TASKNAME /at DATE`
+* Date has to follow `ddMMyyyy`, `dd/MM/yyyy` or `dd-MM-yyyy` formats.
+* Both `TASKNAME` and `DATE` have to be filled in.
+
+Example of usage:
+
+* `event Tales of Arise /at 10092021`
+* `event Tales of Arise /at 10-09-2021`
+* `event Tales of Arise /at 10/09/2021`
+
+Expected outcome:
+
+Shika will add the event to the task list and print a message.
+
+```
+____________________________________________________________________________
+> Added: 
+	3. [E][ ] Tales of Arise  (at: Sep 10 2021)
+> You have 3 tasks on your list. -w-
+____________________________________________________________________________
+```
+<br>
+
+### `done` - Mark Task as Done
+
+Marks the task with the given `INDEX` as done. `INDEX` has to be positive and refer to a valid task.
+
+Format:
+`done INDEX`
+* `INDEX` has to be positive and refer to a valid task.
+
+Example of usage:
+
+* `done 1`
+
+Expected outcome:
+
+Shika will mark the task as done and print a message.
+
+```
+____________________________________________________________________________
+> You've done: 
+	1. [T][X] IP 
+____________________________________________________________________________
+```
+<br>
+
+### `list` - List all Tasks
+
+Lists all tasks.
+
+Example of usage:
+`list`
+
+Expected outcome:
+
+Shika will list all tasks.
+
+```
+____________________________________________________________________________
+> Here is your list of tasks: 
+	1. [T][X] IP 
+	2. [D][ ] Submit IP  (by: Oct 1 2021)
+	3. [E][ ] Tales of Arise  (at: Sep 10 2021)
+> You have 3 tasks on your list. -w-
+____________________________________________________________________________
+```
+<br>
+
+### `find` - Finds Task
+
+Lists all tasks that contain the search term.
+
+Example of usage: `find rise`
+* Search is case-insensitive.
+* Lists all tasks that contain the search term.
+
+Expected outcome:
+
+```
+____________________________________________________________________________
+> Here are the matching tasks I've found: 
+	3. [E][ ] Tales of Arise  (at: Sep 10 2021)
+____________________________________________________________________________
+```
+
+Example of usage:
+
+* `find ip`
+* `find IP`
+
+Expected outcome:
+
+
+```
+____________________________________________________________________________
+> Here are the matching tasks I've found: 
+	1. [T][X] IP 
+	2. [D][ ] Submit IP  (by: Oct 1 2021)
+____________________________________________________________________________
+```
+

@@ -14,6 +14,7 @@ import shikabot.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 public class Parser {
 
@@ -42,6 +43,7 @@ public class Parser {
      * @return true if String starts with todo, deadline or event. False otherwise.
      */
     public boolean isAddCommand(String text) {
+        text = text.toLowerCase();
         return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
     }
 
@@ -53,15 +55,16 @@ public class Parser {
     public Command parseCommand(String text) {
         Command command;
         text = text.trim();
-        if (text.equals("bye")) {
+        String lowerCaseText = text.toLowerCase();
+        if (text.equalsIgnoreCase("bye")) {
             command = new ExitCommand();
-        } else if (text.equals("list")) {
+        } else if (text.equalsIgnoreCase("list")) {
             command = new ListCommand();
-        } else if (text.startsWith("done")) {
+        } else if (lowerCaseText.startsWith("done")) {
             command = parseDoneCommand(text);
-        } else if (text.startsWith("delete")) {
+        } else if (lowerCaseText.startsWith("delete")) {
             command = parseDeleteCommand(text);
-        } else if (text.startsWith("find")) {
+        } else if (lowerCaseText.startsWith("find")) {
             command = parseFindCommand(text);
         } else if (isAddCommand(text)) {
             command = parseAddCommand(text);
@@ -78,7 +81,7 @@ public class Parser {
      * @return command to be executed.
      */
     private Command parseDoneCommand(String text) {
-        String str = text.substring(text.indexOf("done") + DONE_LENGTH).trim();
+        String str = text.substring(DONE_LENGTH).trim();
         int index;
         try {
             index = Integer.parseInt(str) - 1;
@@ -102,7 +105,7 @@ public class Parser {
      * @return command to be executed.
      */
     private Command parseDeleteCommand(String text) {
-        String str = text.substring(text.indexOf("delete") + DELETE_LENGTH).trim();
+        String str = text.substring(DELETE_LENGTH).trim();
         int index;
         try {
             index = Integer.parseInt(str) - 1;
@@ -126,7 +129,7 @@ public class Parser {
      * @return command to be executed.
      */
     private Command parseFindCommand(String text) {
-        String str = text.substring(text.indexOf("find") + FIND_LENGTH).trim();
+        String str = text.substring(FIND_LENGTH).trim();
         return new FindCommand(str);
     }
   
@@ -138,13 +141,13 @@ public class Parser {
      */
     private Command parseAddCommand(String text) {
         Command command;
-        if (text.startsWith("todo")) {
+        if (text.toLowerCase().startsWith("todo")) {
             try {
                 command = parseAddTodoCommand(text);
             } catch (EmptyFieldException e) {
                 return new FailedCommand(EMPTY_FIELD);
             }
-        } else if (text.startsWith("deadline")) {
+        } else if (text.toLowerCase().startsWith("deadline")) {
             try {
                 command = parseAddDeadlineCommand(text);
             } catch (Task.InvalidTaskException e) {
@@ -175,7 +178,7 @@ public class Parser {
      * @throws EmptyFieldException if any fields are left empty.
      */
     private Command parseAddTodoCommand(String text) throws EmptyFieldException {
-        String name = text.substring(text.indexOf("todo") + TODO_LENGTH).trim();
+        String name = text.substring(TODO_LENGTH).trim();
         if (name.equals("")) throw new EmptyFieldException();
         return new AddCommand('T', name, null);
     }
@@ -190,11 +193,11 @@ public class Parser {
      * @throws InvalidDateException if date is in invalid format.
      */
     private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
-        if (!text.contains("/by")) {
+        if (!text.toLowerCase().contains("/by")) {
             throw new Task.InvalidTaskException();
         }
-        String name = text.substring(text.indexOf("deadline") + DEADLINE_LENGTH, text.indexOf("/")).trim();
-        String date = text.substring(text.indexOf("/by") + DIVIDER_LENGTH).trim();
+        String name = text.substring(DEADLINE_LENGTH, text.indexOf("/")).trim();
+        String date = text.substring(text.toLowerCase().indexOf("/by") + DIVIDER_LENGTH).trim();
         if (name.equals("") || date.equals("")) throw new EmptyFieldException();
         try {
             LocalDate by = LocalDate.parse(date, TIME_PARSER);
@@ -214,11 +217,11 @@ public class Parser {
      * @throws InvalidDateException if date is in invalid format.
      */
     private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
-        if (!text.contains("/at")) {
+        if (!text.toLowerCase().contains("/at")) {
             throw new Task.InvalidTaskException();
         }
-        String name = text.substring(text.indexOf("event") + EVENT_LENGTH, text.indexOf("/")).trim();
-        String date = text.substring(text.indexOf("/at") + DIVIDER_LENGTH).trim();
+        String name = text.substring(EVENT_LENGTH, text.indexOf("/")).trim();
+        String date = text.substring(text.toLowerCase().indexOf("/at") + DIVIDER_LENGTH).trim();
         if (name.equals("") || date.equals("")) throw new EmptyFieldException();
         try {
             LocalDate at = LocalDate.parse(date,TIME_PARSER);

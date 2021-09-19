@@ -1,6 +1,7 @@
 package shikabot.task;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 public abstract class Task {
 
@@ -41,8 +42,8 @@ public abstract class Task {
         return isDone;
     }
 
-    public boolean isMatchingTask(String searchterm) {
-        return name.contains(searchterm);
+    public boolean isMatchingTask(String searchTerm) {
+        return name.toLowerCase().contains(searchTerm.toLowerCase());
     }
 
     public static class InvalidTaskException extends Exception {
