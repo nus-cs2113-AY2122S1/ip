@@ -1,4 +1,4 @@
-package duke.exception;
+package duke.exceptionhandler;
 
 public class InputCheckAndPrint {
     String name;
@@ -75,7 +75,7 @@ public class InputCheckAndPrint {
 
     public static void printDeadlineFormatIssue() {
         System.out.println("Please use the following format to add deadlines:");
-        System.out.println("task_id / deadline");
-        System.out.println("e.g 1 / 2pm today");
+        System.out.println("task_id /by deadline");
+        System.out.println("e.g 1 /by 2pm today");
     }
 }
