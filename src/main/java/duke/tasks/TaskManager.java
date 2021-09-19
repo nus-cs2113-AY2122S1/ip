@@ -28,10 +28,10 @@ public class TaskManager {
         return tasks;
     }
 
-    public static ArrayList<Task> filterListByDate(String filterWord) {
+    public static ArrayList<Task> filterListByDate(String date) {
         ArrayList<Task> filteredList =
                 (ArrayList<Task>) tasks.stream()
-                        .filter((task) -> filterWord.equals(task.getDate()))
+                        .filter((task) -> date.equals(task.getDate()))
                         .collect(Collectors.toList());
         return filteredList;
     }
