@@ -1,11 +1,13 @@
 package duke;
 
-
-import duke.task.*;
+import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
 
     //Application Logo
@@ -55,13 +57,24 @@ public class Ui {
     private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. Please enter a valid input \n " +
             "(e.g deadline Assignment /by 2021-08-32 13:00)";
 
+    /** Scanner object to read user input */
     private final Scanner in;
 
+    /**
+     * Constructs an instance of the <code>Ui</code> object.
+     * Only required when reading input from user, as all other methods
+     * are static methods.
+     */
     public Ui() {
         in = new Scanner(System.in);
     }
 
     //Reading input
+    /**
+     * Reads input from the user.
+     *
+     * @return Input by the user as a String.
+     */
     public String readInput() {
         return in.nextLine();
     }
@@ -78,26 +91,41 @@ public class Ui {
         System.out.print(INDENTATION);
     }
 
-    public static void printGenericMessage(String message) {
+    private static void printGenericMessage(String message) {
         printHorizontalLine();
         System.out.println(message);
         printHorizontalLine();
     }
 
     //General Messages
+    /**
+     * Prints a welcome message to the user.
+     */
     public static void printWelcomeMessage() {
         System.out.println(MESSAGE_START_APPLICATION);
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Prints a farewell message to the user.
+     */
     public static void printExitProgramMessage() {
         printGenericMessage(MESSAGE_EXIT_APPLICATION);
     }
 
+    /**
+     * Prints a message indicating that tasks were saved successfully.
+     */
     public static void printSaveTaskMessage() {
         printGenericMessage(MESSAGE_SAVE_TASK_LIST);
     }
 
+    /**
+     * Prints a message indicating that a task was added successfully.
+     *
+     * @param listLength Length of the task list.
+     * @param taskAdded The task that was added.
+     */
     public static void printAddTaskMessage(int listLength, Task taskAdded) {
         printHorizontalLine();
         System.out.println(MESSAGE_TASK_ADDED_SUCCESSFULLY);
@@ -107,6 +135,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints a message indicating that a task was deleted successfully.
+     *
+     * @param taskDeleted The task that was deleted.
+     */
     public static void printDeleteTaskSuccessMessage(Task taskDeleted) {
         printHorizontalLine();
         System.out.println(MESSAGE_DELETE_TASK_SUCCESS);
@@ -115,6 +148,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints a message indicating that a task was marked as done successfully.
+     *
+     * @param taskMarked The task that was marked.
+     */
     public static void printMarkTaskSuccessMessage(Task taskMarked) {
         printHorizontalLine();
         System.out.println(MESSAGE_MARK_TASK_SUCCESS);
@@ -123,6 +161,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Prints all matching tasks from a query.
+     *
+     * @param matchingTasks List of matching tasks.
+     */
     public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
         printHorizontalLine();
         if(matchingTasks.isEmpty()) {
@@ -139,6 +182,11 @@ public class Ui {
 
     }
 
+    /**
+     * Prints all the task in a task list.
+     *
+     * @param tasks ArrayList containing all tasks.
+     */
     public static void printAllTasks(ArrayList<Task> tasks) {
         printHorizontalLine();
         if (tasks.isEmpty()) {
@@ -155,71 +203,122 @@ public class Ui {
     }
 
     //Error messages split into multiple methods for better maintainability
+    /**
+     * Shows error when there is no description provided for a Todo task.
+     */
     public static void showTodoDescriptionError() {
         printGenericMessage(ERROR_TODO_NO_DESCRIPTION);
     }
 
+    /**
+     * Shows error when there is no description provided for a Deadline task.
+     */
     public static void showDeadlineDescriptionError() {
         printGenericMessage(ERROR_DEADLINE_NO_DESCRIPTION);
     }
 
+    /**
+     * Shows error when there is no description provided for an Event task.
+     */
     public static void showEventDescriptionError() {
         printGenericMessage(ERROR_EVENT_NO_DESCRIPTION);
     }
 
+    /**
+     * Shows error when an input command is invalid.
+     */
     public static void showInvalidCommandError() {
         printGenericMessage(MESSAGE_INVALID_COMMAND);
     }
 
+    /**
+     * Shows error when task number is not provided for certain commands.
+     */
     public static void showNoTaskNumberError() {
         printGenericMessage(ERROR_NO_TASK_NUMBER_TO_MARK);
     }
 
+    /**
+     * Shows error when task number provided for certain commands is invalid.
+     */
     public static void showInvalidTaskNumberError() {
         printGenericMessage(ERROR_INVALID_TASK_NUMBER);
     }
 
+    /**
+     * Shows error when there is an error with the format of the task number provided for certain commands.
+     */
     public static void showInvalidTaskNumberFormatError() {
         printGenericMessage(ERROR_INVALID_TASK_NUMBER_FORMAT);
     }
 
+    /**
+     * Shows error when there is an error with creating a file to save the task list.
+     */
     public static void showCreateSaveFileError() {
         printGenericMessage(ERROR_CREATING_SAVE_FILE);
     }
 
+    /**
+     * Shows error when there is an error with creating a directory to save the task list file.
+     */
     public static void showCreateDirectoryError() {
         printGenericMessage(ERROR_CREATING_DATA_DIRECTORY);
     }
 
+    /**
+     * Shows error when there is an error with converting the save file into a <code>TaskList</code> object.
+     */
     public static void showConvertSaveFileError() {
         printGenericMessage(ERROR_CONVERTING_SAVE_FILE);
     }
 
+    /**
+     * Shows error when there is an error with reading the save file from the given path.
+     */
     public static void showReadSaveFileError() {
         printGenericMessage(ERROR_READING_SAVE_FILE);
     }
 
+    /**
+     * Shows error when there is error with writing to a save file.
+     */
     public static void showWritingToSaveFileError() {
         printGenericMessage(ERROR_WRITING_TO_SAVE_FILE);
     }
 
+    /**
+     * Shows error when query input in empty.
+     */
     public static void showEmptyQueryError() {
         printGenericMessage(ERROR_EMPTY_QUERY);
     }
 
-    public static void showUnknownError() {
-        printGenericMessage(ERROR_DUKE_UNKNOWN);
-    }
-
+    /**
+     * Shows error when DateTime format is wrong.
+     */
     public static void showDateTimeFormatError() {
         printGenericMessage(ERROR_DATE_TIME_FORMAT);
     }
 
+    /**
+     * Shows error when Event format is wrong.
+     */
     public static void showEventFormatError() {
         printGenericMessage(ERROR_EVENT_FORMAT);
     }
 
+    /**
+     * Shows error when Deadline format is wrong.
+     */
     public static void showDeadlineFormatError() {
         printGenericMessage(ERROR_DEADLINE_FORMAT);
+    }
+
+    /**
+     * Shows error when an unknown error happens with Duke.
+     */
+    public static void showUnknownError() {
+        printGenericMessage(ERROR_DUKE_UNKNOWN);
     }
 }

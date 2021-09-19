@@ -6,6 +6,10 @@ import duke.task.TaskList;
 
 public class Duke {
 
+    /**
+     * Executes the Duke program and continuously reads in and executes commands
+     * given by the user until the program is terminated.
+     */
     public static void run() {
         String input;
         Ui.printWelcomeMessage();
