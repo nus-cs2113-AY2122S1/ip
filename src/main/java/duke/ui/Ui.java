@@ -6,9 +6,31 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.constants.DukeConstants.*;
-import static duke.constants.DukeOutputMessages.*;
-import static duke.constants.DukeDataStorageConstants.*;
+import static duke.constants.DukeConstants.INDENT;
+import static duke.constants.DukeConstants.STRAIGHT_LINE;
+import static duke.constants.DukeConstants.WHITESPACE;
+import static duke.constants.DukeDataStorageConstants.FILE_WRONG_FORMAT_MESSAGE;
+import static duke.constants.DukeDataStorageConstants.INVALID_FILE_TYPE_MESSAGE;
+import static duke.constants.DukeOutputMessages.BYE_MESSAGE;
+import static duke.constants.DukeOutputMessages.COMMAND_WRONG_FORMAT_MESSAGE;
+import static duke.constants.DukeOutputMessages.DEADLINE_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.DELETE_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.DONE_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.DUKE_LOGO;
+import static duke.constants.DukeOutputMessages.ENTER_HELP;
+import static duke.constants.DukeOutputMessages.EVENT_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.HELLO_FROM;
+import static duke.constants.DukeOutputMessages.HELP_INTRO_MESSAGE;
+import static duke.constants.DukeOutputMessages.HERE_IS_TASK_LIST_MESSAGE;
+import static duke.constants.DukeOutputMessages.HEY_MESSAGE;
+import static duke.constants.DukeOutputMessages.LIST_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.TASK_ADDED_MESSAGE;
+import static duke.constants.DukeOutputMessages.TASK_DELETED_MESSAGE;
+import static duke.constants.DukeOutputMessages.TASK_LIST_EMPTY_MESSAGE;
+import static duke.constants.DukeOutputMessages.TASK_MARKED_DONE_MESSAGE;
+import static duke.constants.DukeOutputMessages.TASK_NOT_IN_LIST_MESSAGE;
+import static duke.constants.DukeOutputMessages.TODO_COMMAND_FORMAT;
+import static duke.constants.DukeOutputMessages.UNRECOGNIZED_COMMAND_MESSAGE;
 
 
 public class Ui {

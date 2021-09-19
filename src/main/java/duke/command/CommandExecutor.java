@@ -17,7 +17,7 @@ public class CommandExecutor {
         CommandWord commandWord = Parser.parseCommandWord(userInput);
         switch (commandWord) {
         case LIST:
-            executePrint(taskList);
+            executeList(taskList);
             break;
         case DONE:
             executeDone(userInput, taskList, dataManager);
@@ -56,7 +56,7 @@ public class CommandExecutor {
         return commandWord.equals(CommandWord.EXIT);
     }
 
-    public void executePrint(TaskList taskList) {
+    public void executeList(TaskList taskList) {
         try {
             checkListSize(taskList);
             Ui.printTaskList(taskList.getTaskList());

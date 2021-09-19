@@ -6,6 +6,10 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static duke.constants.DukeCommandStrings.*;
 
 public class Parser {
@@ -51,7 +55,7 @@ public class Parser {
         return new Todo(todoDescription);
     }
 
-    public static Deadline parseAddDeadlineCommand(String userInput) throws InvalidCommandFormatException {
+    public static Deadline parseAddDeadlineCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
         String[] deadlineAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(deadlineAsArray.length != 2) {
             throw new InvalidCommandFormatException();
@@ -68,10 +72,11 @@ public class Parser {
         if (isInvalidDeadline) {
             throw new InvalidCommandFormatException();
         }
-        return new Deadline(deadlineDescription, deadlineBy);
+        LocalDateTime deadlineDateTime = parseDateTime(deadlineBy, DATE_TIME_INPUT_FORMAT);
+        return new Deadline(deadlineDescription, deadlineDateTime);
     }
 
-    public static Event parseAddEventCommand(String userInput) throws InvalidCommandFormatException {
+    public static Event parseAddEventCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
         String[] eventAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(eventAsArray.length != 2) {
             throw new InvalidCommandFormatException();
@@ -88,7 +93,8 @@ public class Parser {
         if (isInvalidEvent) {
             throw new InvalidCommandFormatException();
         }
-        return new Event(eventDescription, eventWhen);
+        LocalDateTime eventDateTime = parseDateTime(eventWhen, DATE_TIME_INPUT_FORMAT);
+        return new Event(eventDescription, eventDateTime);
     }
 
     public static String[] parseDeleteCommand(String userInput) throws InvalidCommandFormatException {
@@ -101,10 +107,20 @@ public class Parser {
 
     public static String parseFindCommand(String userInput) throws InvalidCommandFormatException {
         String[] findCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
-        if(findCommandAsArray.length != 2) {
+        if (findCommandAsArray.length != 2) {
             throw new InvalidCommandFormatException();
         }
         return findCommandAsArray[1].trim();
+    }
+
+    public static LocalDateTime parseDateTime(String taskDateTime, String format) throws DateTimeParseException {
+        DateTimeFormatter formatToParse = DateTimeFormatter.ofPattern(format);
+        return LocalDateTime.parse(taskDateTime, formatToParse);
+    }
+
+    public static String dateTimeToString(LocalDateTime taskDateTime, String format) {
+        DateTimeFormatter formatToConvertTo = DateTimeFormatter.ofPattern(format);
+        return taskDateTime.format(formatToConvertTo);
     }
 
     private static boolean beginsWith(String userInput, String command) {

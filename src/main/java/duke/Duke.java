@@ -23,11 +23,11 @@ public class Duke {
 
     private void run() {
         start();
-        runLoopUntilExitCommand(this.commandExecutor);
+        runLoopUntilExitCommand(commandExecutor);
     }
 
     private void start() {
-        dataManager.loadData(this.taskList.getTaskList());
+        dataManager.loadData(taskList.getTaskList());
         Ui.printHeyMessage();
     }
 

@@ -14,10 +14,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.constants.DukeDataStorageConstants.*;
+import static duke.constants.DukeDataStorageConstants.DEFAULT_STORAGE_FILEPATH;
+import static duke.constants.DukeDataStorageConstants.VALID_FILE_TYPE;
 
 public class DataManager {
 
@@ -40,7 +42,7 @@ public class DataManager {
         return filePath.toString();
     }
 
-    public void loadData (ArrayList<Task> taskList) {
+    public void loadData(ArrayList<Task> taskList) {
         Scanner fileScanner = getScanner(filePath.toString());
         readData(fileScanner, taskList);
     }
@@ -74,7 +76,7 @@ public class DataManager {
                 String task = fileScanner.nextLine();
                 try {
                     TaskListDecoder.decodeTask(taskList, task);
-                } catch (InvalidFileDataException e) {
+                } catch (InvalidFileDataException | DateTimeParseException e) {
                     Ui.printFileTaskInvalidFormatMessage();
                 }
             }
