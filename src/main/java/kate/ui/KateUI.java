@@ -9,6 +9,7 @@ public class KateUI {
     private static final String LOGO_INDENTATION = "                    ";
     private static final String TEXT_WRAPPER = "================================="
             + "====================================\n";
+    private static final String TEXT_FIELD_HEADER = ">> ";
 
     private static final String LOGO_KATE = LOGO_INDENTATION + " _  __     _\n"
             + LOGO_INDENTATION + "| |/ /__ _| |_ ___\n"
@@ -33,6 +34,7 @@ public class KateUI {
     }
 
     public String getInput() {
+        System.out.print(TEXT_FIELD_HEADER);
         return in.nextLine();
     }
 
