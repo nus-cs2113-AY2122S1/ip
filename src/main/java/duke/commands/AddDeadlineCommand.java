@@ -4,8 +4,7 @@ import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.tasks.Deadline;
 import duke.tasks.TaskManager;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand extends Command {
@@ -16,7 +15,7 @@ public class AddDeadlineCommand extends Command {
     private static final String DEADLINE_DATE_ERROR =
             "OH NO! You need to specify a due date for your deadline task...";
     private static final String DATE_WRONG_FORMAT_ERROR =
-            "OH NO! Please key in your date in the format yyyy-mm-dd...";
+            "OH NO! Please key in your date in the format [yyyy-mm-dd]T[hh:mm]...";
     private static final String ILLEGAL_CHAR = "|";
     private static final String ILLEGAL_CHAR_ERROR = "Please do not use \"|\" in your input...";
 
@@ -29,9 +28,9 @@ public class AddDeadlineCommand extends Command {
         }
     }
 
-    private boolean isValidDate(String date) {
+    private boolean isValidDateTime(String date) {
         try {
-            LocalDate.parse(date);
+            LocalDateTime.parse(date);
         } catch (DateTimeParseException exception) {
             return false;
         }
@@ -50,7 +49,7 @@ public class AddDeadlineCommand extends Command {
         if (isEmptyArgument(taskDue)) {
             throw new DukeException(DEADLINE_DATE_ERROR);
         }
-        if (!isValidDate(taskDue)) {
+        if (!isValidDateTime(taskDue)) {
             throw new DukeException(DATE_WRONG_FORMAT_ERROR);
         }
 
@@ -61,7 +60,7 @@ public class AddDeadlineCommand extends Command {
     public CommandResult executeCommand() throws DukeException {
 
         String[] parameters = retrieveDeadlineParameters(argument);
-        deadline = new Deadline(parameters[0], LocalDate.parse(parameters[1]));
+        deadline = new Deadline(parameters[0], LocalDateTime.parse(parameters[1]));
         TaskManager.addTask(deadline);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + deadline.toString() + "\n"

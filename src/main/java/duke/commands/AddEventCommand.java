@@ -4,8 +4,7 @@ import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.tasks.Event;
 import duke.tasks.TaskManager;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class AddEventCommand extends Command {
@@ -16,7 +15,7 @@ public class AddEventCommand extends Command {
     private static final String EVENT_DATE_ERROR =
             "OH NO! You need to specify a date and time for your event...";
     private static final String DATE_WRONG_FORMAT_ERROR =
-            "OH NO! Please key in your date in the format yyyy-mm-dd...";
+            "OH NO! Please key in your date in the format [yyyy-mm-dd]T[hh:mm]...";
     private static final String ILLEGAL_CHAR = "|";
     private static final String ILLEGAL_CHAR_ERROR = "Please do not use \"|\" in your input...";
 
@@ -29,9 +28,9 @@ public class AddEventCommand extends Command {
         }
     }
 
-    private boolean isValidDate(String date) {
+    private boolean isValidDateTime(String date) {
         try {
-            LocalDate.parse(date);
+            LocalDateTime.parse(date);
         } catch (DateTimeParseException exception) {
             return false;
         }
@@ -50,7 +49,7 @@ public class AddEventCommand extends Command {
         if (isEmptyArgument(dateAndTime)) {
             throw new DukeException(EVENT_DATE_ERROR);
         }
-        if (!isValidDate(dateAndTime)) {
+        if (!isValidDateTime(dateAndTime)) {
             throw new DukeException(DATE_WRONG_FORMAT_ERROR);
         }
 
@@ -61,7 +60,7 @@ public class AddEventCommand extends Command {
     public CommandResult executeCommand() throws DukeException {
 
         String[] parameters = retrieveEventParameters(argument);
-        event = new Event(parameters[0], LocalDate.parse(parameters[1]));
+        event = new Event(parameters[0], LocalDateTime.parse(parameters[1]));
         TaskManager.addTask(event);
         CommandResult result = new CommandResult(
                 ADD_TASK_MESSAGE + "\n" + event.toString() + "\n"

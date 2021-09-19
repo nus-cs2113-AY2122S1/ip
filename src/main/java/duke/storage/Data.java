@@ -5,7 +5,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Data {
@@ -14,9 +14,9 @@ public class Data {
     private static final String CORRUPTED_DATA_ERROR =
             "OH NO! Your data is corrupted, starting a new file for you...";
 
-    private boolean isValidDate(String date) {
+    private boolean isValidDateTime(String date) {
         try {
-            LocalDate.parse(date);
+            LocalDateTime.parse(date);
         } catch (DateTimeParseException exception) {
             return false;
         }
@@ -33,7 +33,7 @@ public class Data {
             if (parameters.length < 4) {
                 return true;
             }
-            return !isValidDate(parameters[3]);
+            return !isValidDateTime(parameters[3]);
         default:
             return true;
         }
@@ -55,10 +55,10 @@ public class Data {
             task = new ToDo(parameters[2]);
             break;
         case "D":
-            task = new Deadline(parameters[2], LocalDate.parse(parameters[3]));
+            task = new Deadline(parameters[2], LocalDateTime.parse(parameters[3]));
             break;
         case "E":
-            task = new Event(parameters[2], LocalDate.parse(parameters[3]));
+            task = new Event(parameters[2], LocalDateTime.parse(parameters[3]));
             break;
         default:
             throw new DukeException(CORRUPTED_DATA_ERROR);

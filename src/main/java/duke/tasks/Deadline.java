@@ -1,15 +1,15 @@
 package duke.tasks;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
     private static final String SYMBOL = "D";
     private static final String SEPARATOR = " | ";
-    private LocalDate taskDue;
+    private LocalDateTime taskDue;
 
-    public Deadline(String description, LocalDate taskDue) {
+    public Deadline(String description, LocalDateTime taskDue) {
         super(description);
         this.taskDue = taskDue;
     }
@@ -17,12 +17,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString() + " (by: "
-                + taskDue.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + taskDue.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + ")";
     }
 
     @Override
     public String getDate() {
-        return taskDue.toString();
+        return taskDue.toString().substring(0, 10);
     }
 
     @Override
