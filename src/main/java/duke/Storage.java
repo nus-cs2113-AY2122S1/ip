@@ -13,19 +13,10 @@ import duke.exception.ExceptionMessages;
 import duke.task.*;
 
 
-public class FileManager {
+public class Storage {
     private static final String ROOT = System.getProperty("user.dir");
     private static final Path FILE_PATH = Paths.get(ROOT, "data", "duke.txt");
     private static final Path DIRECTORY_PATH = Paths.get(ROOT, "data");
-
-    public static final String ERROR_WRITING_TO_SAVE_FILE = "Error writing to save file";
-    public static final String ERROR_CREATING_SAVE_FILE = "Error creating save file";
-    public static final String ERROR_CREATING_DATA_DIRECTORY = "Error creating data directory";
-    public static final String ERROR_DUKE_UNKNOWN = "Unknown error with Duke occurred";
-    public static final String ERROR_CREATING_SAVE_FILE1 = "Error creating save file";
-    public static final String ERROR_READING_SAVE_FILE = "Error reading save file, some tasks may have been lost";
-    public static final String ERROR_CONVERTING_SAVE_FILE = "Error converting file to task list, some tasks may have been lost";
-
 
     public static void writeTaskListToFile(TaskList taskList) {
         try {
@@ -39,17 +30,17 @@ public class FileManager {
             fw.write(taskList.toFile());
             fw.close();
         } catch (IOException e) {
-            PrintUtils.printErrorMessage(ERROR_WRITING_TO_SAVE_FILE);
+            Ui.showWritingToSaveFileError();
         } catch (DukeException e) {
             switch (e.getMessage()) {
             case ExceptionMessages.EXCEPTION_CREATE_FILE_FAIL:
-                PrintUtils.printErrorMessage(ERROR_CREATING_SAVE_FILE);
+                Ui.showCreateSaveFileError();
                 break;
             case ExceptionMessages.EXCEPTION_CREATE_DIRECTORY_FAIL:
-                PrintUtils.printErrorMessage(ERROR_CREATING_DATA_DIRECTORY);
+                Ui.showCreateDirectoryError();
                 break;
             default:
-                PrintUtils.printErrorMessage(ERROR_DUKE_UNKNOWN);
+                Ui.showUnknownError();
             }
 
         }
@@ -72,7 +63,7 @@ public class FileManager {
                 throw new DukeException(ExceptionMessages.EXCEPTION_CREATE_FILE_FAIL);
             }
         } catch (IOException e) {
-            PrintUtils.printErrorMessage(ERROR_CREATING_SAVE_FILE1);
+            Ui.showCreateSaveFileError();
         }
     }
 
@@ -90,9 +81,9 @@ public class FileManager {
                 tasks.addTaskWithoutMessage(newTask);
             }
         } catch (IOException e) {
-            PrintUtils.printErrorMessage(ERROR_READING_SAVE_FILE);
+            Ui.showReadSaveFileError();
         } catch (DukeException e) {
-            PrintUtils.printErrorMessage(ERROR_CONVERTING_SAVE_FILE);
+            Ui.showConvertSaveFileError();
         }
         return tasks;
     }
