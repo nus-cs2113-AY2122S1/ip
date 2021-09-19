@@ -56,7 +56,7 @@ public class Storage {
                     data.addItem(new Deadline(taskDescription, isDone, divided[3]), false);
                     break;
                 case "E":
-                    data.addItem(new Event(taskDescription, isDone, divided[3]), false);
+                    data.addItem(new Event(taskDescription, isDone, divided[3], divided[4]), false);
                     break;
                 default:
                     throw new EmptyField();

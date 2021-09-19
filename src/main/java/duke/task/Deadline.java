@@ -39,13 +39,13 @@ public class Deadline extends Task {
 
     @Override
     public String getSaveFormat() {
-        return super.getSaveFormat(getTime());
+        return super.getSaveFormat(time.format(saveFormatter));
     }
 
     @Override
     public String toString() {
         String classIndicator = this.getClass().getSimpleName().substring(0,1);
         String statusIndicator = status ? "X" : " ";
-        return String.format("[%s][%s] %s (by: %s)", classIndicator, statusIndicator, description, getTime());
+        return String.format("[%s][%s] %s (by %s)", classIndicator, statusIndicator, description, getTime());
     }
 }

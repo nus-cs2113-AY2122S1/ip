@@ -29,19 +29,19 @@ public class TaskList {
 
     /**
      * Add the specified Task to the end of the TaskList.
-     * A message will be print out to show the result if showMessage == true.
+     * A message will be print out to show the result if printResult == true.
      *
      * @param task the task to be added
-     * @param showMessage if the message should be printed
+     * @param printResult if the message should be printed
      * @throws IllegalOperation if the number of tasks >= MAX_LIST_ITEMS
      */
-    public void addItem(Task task, boolean showMessage) throws IllegalOperation {
+    public void addItem(Task task, boolean printResult) throws IllegalOperation {
         if (items.size() >= MAX_LIST_ITEMS) {
             throw new IllegalOperation();
         }
         items.add(task);
 
-        if (showMessage) {
+        if (printResult) {
             MessageBubble msg = new MessageBubble();
             msg.addMessage("Got it. I've added this task:");
             msg.addMessage(String.format(" %d:%s", items.size(), task.toString()));

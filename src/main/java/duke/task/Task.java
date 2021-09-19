@@ -52,7 +52,7 @@ public abstract class Task {
      * @throws IllegalOperation if the task does not contain a time variable
      */
     public String getTime() {
-        return time.format(readFormatter);
+            return time.format(readFormatter);
     }
 
     /**

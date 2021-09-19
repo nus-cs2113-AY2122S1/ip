@@ -28,7 +28,7 @@ public class Parser {
             try {
                 targetTaskList.addItem(Parser.parseEvent(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
-                MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (time)\" to create event.");
+                MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (start time) /to (end time)\" to create event.");
             } catch (IllegalOperation illegalOperation) {
                 MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
             }
@@ -124,6 +124,7 @@ public class Parser {
      */
     public static Event parseEvent(String full_description) throws EmptyField {
         String CMD_TIME = " /at ";
+        String CMD_ENDTIME = " /to ";
 
         if (!full_description.contains(CMD_TIME)) {
             throw new EmptyField();
@@ -131,13 +132,15 @@ public class Parser {
 
         try {
             String description = full_description.split(CMD_TIME)[0];
-            String time = full_description.split(CMD_TIME)[1];
+            String rawTime = full_description.split(CMD_TIME)[1];
+            String startTime = rawTime.split(CMD_ENDTIME)[0];
+            String endTime = rawTime.split(CMD_ENDTIME)[1];
 
-            if (description.isBlank() || time.isBlank()) {
+            if (description.isBlank() || startTime.isBlank() || endTime.isBlank()) {
                 throw new EmptyField();
             }
 
-            return new Event(description, time);
+            return new Event(description, startTime, endTime);
         } catch (StringIndexOutOfBoundsException e) {
             throw new EmptyField();
         }
