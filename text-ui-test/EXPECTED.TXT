@@ -137,11 +137,17 @@ Alright, I have deleted the following task for you:
 [T][X] Buy flowers for girlfriend
 You have 7 tasks in your list now!
 ____________________________________________________________
+Here are the matching tasks in your list:
+1. [E][ ] Cry (at: Nov 11 2021, 03:00)
+2. [E][X] Cry again (at: Aug 22 2021, 04:30)
+____________________________________________________________
 Here are your tasks that are occurring on the date specified:
 1. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
 2. [E][X] Cry again (at: Aug 22 2021, 04:30)
 ____________________________________________________________
 Start exception handling test
+____________________________________________________________
+OH NO! Please provide a keyword to find your tasks...
 ____________________________________________________________
 OH NO! Please key in your date in the format yyyy-mm-dd...
 ____________________________________________________________
