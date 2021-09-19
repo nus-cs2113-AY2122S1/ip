@@ -128,7 +128,7 @@ public class TaskManager {
         }
         Scanner fileScanner = new Scanner(dataFile);
         String currentLine;
-        String taskType;
+        String taskLabel;
         boolean taskStatus;
         while (fileScanner.hasNext()) {
             currentLine = fileScanner.nextLine();
@@ -136,10 +136,10 @@ public class TaskManager {
             if (currentLine.equals(EMPTY_STRING)) {
                 continue;
             }
-            taskType = String.valueOf(currentLine.charAt(TASK_INDEX));
+            taskLabel = String.valueOf(currentLine.charAt(TASK_INDEX));
             taskStatus = String.valueOf(currentLine.charAt(TASK_STATUS_INDEX)).equals("1");
             String[] restOfLine = currentLine.substring(TASK_DESCRIPTION_INDEX).split(" : ", 2);
-            loadCurrentLineTask(taskType, taskStatus, restOfLine);
+            loadCurrentLineTask(taskLabel, taskStatus, restOfLine);
         }
     }
 
@@ -188,6 +188,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints a filtered task list.
+     *
+     * @param filterString String to filter the task list by.
+     */
     public void printFilteredTaskList(String filterString) {
         ArrayList<Task> filteredTaskList = (ArrayList<Task>) tasks.stream()
                 .filter((t) -> t.getTaskDescription().contains(filterString))
