@@ -2,13 +2,16 @@ package kitty.userinterface;
 
 import kitty.Kitty;
 import kitty.KittyException;
+import kitty.Parser;
 import kitty.io.IO;
 import kitty.task.Task;
 import kitty.task.Todo;
 import kitty.task.Deadline;
 import kitty.task.Event;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UiHandler {
 
@@ -22,22 +25,25 @@ public class UiHandler {
                     Ui.exit();
                     break;
                 case "list":
-                    printList();
+                    printList(Kitty.tasks);
                     break;
                 case "done":
                     markTaskAsDone();
                     break;
                 case "todo":
-                    addToList(Ui.userInput, "T");
+                    addToList("T");
                     break;
                 case "deadline":
-                    addToList(Ui.userInput, "D");
+                    addToList("D");
                     break;
                 case "event":
-                    addToList(Ui.userInput, "E");
+                    addToList("E");
                     break;
                 case "delete":
                     removeFromList();
+                    break;
+                case "find":
+                    findFromList();
                     break;
                 default:
                     throw new KittyException("No such command found");
@@ -48,9 +54,9 @@ public class UiHandler {
         }
     }
 
-    public static void printList() throws KittyException{
+    public static void printList(ArrayList<Task> tasks) throws KittyException{
         // Throw exception if user list with no tasks
-        if (Kitty.tasks.size() == 0) {
+        if (tasks.size() == 0) {
             throw new KittyException("Sorry you currently have no tasks!");
         } else {
             // Prints list
@@ -58,7 +64,7 @@ public class UiHandler {
             System.out.println();
             System.out.println("Here are the tasks you have!");
 
-            for (Task task: Kitty.tasks) {
+            for (Task task: tasks) {
                 System.out.print(i + ". ");
                 System.out.println(task);
                 i++;
@@ -83,17 +89,17 @@ public class UiHandler {
         }
     }
 
-    public static void addToList(String line, String type) throws KittyException{
+    public static void addToList(String type) throws KittyException{
         try {
             switch (type) {
             case "T":
-                Todo.addTodoTask(line);
+                Todo.addTodoTask(Ui.userInput);
                 break;
             case "D":
-                Deadline.addDeadlineTask(line);
+                Deadline.addDeadlineTask(Ui.userInput);
                 break;
             case "E":
-                Event.addEventTask(line);
+                Event.addEventTask(Ui.userInput);
                 break;
             }
             Ui.printAddedTask();
@@ -114,6 +120,23 @@ public class UiHandler {
             throw new KittyException("Selected an invalid task number!");
         } catch (NumberFormatException e) {
             throw new KittyException("Inputted a non-Integer Task Number!");
+        }
+    }
+
+    public static void findFromList() throws KittyException {
+        String keyword = Parser.getKeyword(Ui.userInput);
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) Kitty.tasks.stream()
+                .filter((t) -> (t.getTaskName().contains(keyword)))
+                .collect(Collectors.toList());
+
+        if (filteredTasks.size() == 0) {
+            throw new KittyException("There are no tasks that matched the keyword \"" + keyword + "\"");
+        } else {
+            System.out.println();
+            System.out.println("Here are the tasks I found that matched the keyword \"" + keyword + "\"");
+            filteredTasks.forEach(System.out::println);
+            System.out.println();
+            System.out.println(Ui.CAT_5);
         }
     }
 }

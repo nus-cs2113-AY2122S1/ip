@@ -35,6 +35,10 @@ public class Ui {
                                         "─────▄█░░▀▀▀▀▀░░█▄\n" +
                                         "─▄▄──█░░░░░░░░░░░█──▄▄\n" +
                                         "█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█\n";
+    public static final String CAT_5 = "  ^~^  ,\n" +
+                                        " ('Y') )\n" +
+                                        " /   \\/ \n" +
+                                        "(\\|||/)";
     public static final String CAT_LOGO = "___$$$_____________$$$\n" +
                                             "__$___$___________$___$\n" +
                                             "_$_____$_________$_____$\n" +
@@ -85,6 +89,7 @@ public class Ui {
                                             + "Todo: todo **INSERT TASK HERE**\n"
                                             + "Deadline: deadline **INSERT TASK HERE** /by DD/MM/YYYY\n"
                                             + "Event: event **INSERT TASK HERE** /at **INSERT EVENT DATE HERE**\n"
+                                            + "Find: find **INSERT KEYWORD HERE**\n"
                                             + BAR_LINE + "\n"
                                             + CAT_4;
     public static final String EXIT_MESSAGE = "\n" + "Nap time!! Yawn...\n"

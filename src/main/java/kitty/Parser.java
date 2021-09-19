@@ -68,6 +68,14 @@ public class Parser {
         return line.contains(" /at ");
     }
 
+    // Find
+    public static String getKeyword(String line) throws KittyException {
+        String keyword = line.substring(line.indexOf(" ") + 1);
+        if (keyword.equals("find") || keyword.isBlank()) {
+            throw new KittyException("Keyword cannot be empty!");
+        } else {
+            return keyword;
+          
     // Date
     public static LocalDate getTaskDate(String dateString) throws KittyException {
         try {
