@@ -28,13 +28,13 @@ public class UiHandler {
                     markTaskAsDone();
                     break;
                 case "todo":
-                    addToList(Ui.userInput, "T");
+                    addToList("T");
                     break;
                 case "deadline":
-                    addToList(Ui.userInput, "D");
+                    addToList("D");
                     break;
                 case "event":
-                    addToList(Ui.userInput, "E");
+                    addToList("E");
                     break;
                 case "delete":
                     removeFromList();
@@ -83,17 +83,17 @@ public class UiHandler {
         }
     }
 
-    public static void addToList(String line, String type) throws KittyException{
+    public static void addToList(String type) throws KittyException{
         try {
             switch (type) {
             case "T":
-                Todo.addTodoTask(line);
+                Todo.addTodoTask(Ui.userInput);
                 break;
             case "D":
-                Deadline.addDeadlineTask(line);
+                Deadline.addDeadlineTask(Ui.userInput);
                 break;
             case "E":
-                Event.addEventTask(line);
+                Event.addEventTask(Ui.userInput);
                 break;
             }
             Ui.printAddedTask();
