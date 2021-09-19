@@ -23,11 +23,11 @@ public class Duke {
 
     private void run() {
         start();
-        runLoopUntilExitCommand(this.commandExecutor);
+        runLoopUntilExitCommand(commandExecutor);
     }
 
     private void start() {
-        dataManager.loadData(this.taskList.getTaskList());
+        dataManager.loadData(taskList.getTaskList());
         Ui.printHeyMessage();
     }
 
@@ -37,7 +37,7 @@ public class Duke {
 
         do {
             userInput = Ui.readUserInput();
-            commandExecutor.execute(userInput, dataManager);
+            commandExecutor.execute(userInput, taskList, dataManager);
             isExit = commandExecutor.isExit(userInput);
         } while (!isExit);
     }
