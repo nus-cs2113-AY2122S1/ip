@@ -1,5 +1,6 @@
 package FileManager;
 
+import exceptions.FileException;
 import tasks.TaskList;
 import tasks.Task;
 import tasks.Todo;
@@ -7,6 +8,7 @@ import tasks.Event;
 import tasks.Deadline;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -32,7 +34,7 @@ public class FileReader {
      *
      * @return {@link TaskList} returns the reloaded task with a {@link TaskList} object.
      */
-    public TaskList restore() {
+    public TaskList restore() throws FileException{
         try {
             Scanner fileReader = new Scanner(filePath);
             TaskList tasks = new TaskList();
@@ -41,7 +43,7 @@ public class FileReader {
             }
             fileReader.close();
             return tasks;
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -56,22 +58,26 @@ public class FileReader {
         return filePath.toFile().exists();
     }
 
-    private Task convertToTask(String taskLine) {
-        String[] split = taskLine.split("\\|");
-        switch(split[0].strip()) {
-        case "T" :
-            return new Todo(split[2].strip(), split[1].strip().equals("1"));
+    private Task convertToTask(String taskLine) throws FileException{
+        try {
+            String[] split = taskLine.split("\\|");
+            switch(split[0].strip()) {
+            case "T" :
+                return new Todo(split[2].strip(), split[1].strip().equals("1"));
 
-        case "D":
-            return new Deadline(split[2].strip(), LocalDateTime.parse(split[3].strip()).toLocalDate(),
-                    LocalDateTime.parse(split[3].strip()).toLocalTime(), split[1].strip().equals("1"));
+            case "D":
+                return new Deadline(split[2].strip(), LocalDateTime.parse(split[3].strip()).toLocalDate(),
+                        LocalDateTime.parse(split[3].strip()).toLocalTime(), split[1].strip().equals("1"));
 
-        case "E":
-            return new Event(split[2].strip(), LocalDateTime.parse(split[3].strip()),
-                    split[1].strip().equals("1"));
+            case "E":
+                return new Event(split[2].strip(), LocalDateTime.parse(split[3].strip()),
+                        split[1].strip().equals("1"));
 
-        default:
-            return null;
+            default:
+                return null;
+            }
+        } catch (Exception e) {
+            throw new FileException();
         }
     }
 

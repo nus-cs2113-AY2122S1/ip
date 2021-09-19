@@ -1,5 +1,7 @@
 package UI;
 
+import exceptions.FileException;
+
 import java.util.Scanner;
 
 /**
@@ -38,7 +40,9 @@ public class TextUI {
     public void showError(Exception e) {
         System.out.print(DIVISIONLINE);
         System.out.print(e.toString());
-        System.out.print(HELP);
+        if (! (e instanceof FileException)) {
+            System.out.print(HELP);
+        }
         System.out.print(DIVISIONLINE);
     }
 

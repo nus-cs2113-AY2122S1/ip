@@ -35,7 +35,13 @@ public class UserServer {
     private void loadUser() {
         this.userName = UI.getUserName();
         if (userManager.userExisted(this.userName)) {
-            this.userTasks = userManager.loadUser(userName);
+            try {
+                this.userTasks = userManager.loadUser(userName);
+            } catch (FileException e) {
+                UI.showError(e);
+                this.userTasks = new TaskList();
+            }
+
         } else {
             this.userTasks = new TaskList();
         }
