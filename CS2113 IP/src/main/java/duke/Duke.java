@@ -19,26 +19,30 @@ public class Duke {
     final private static String ERROR_WRONG_HANDLE_TODO_DESCRIPTION = "Check for missing fields in your description!";
     final private static String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
     final private static String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
+    final private static String ERROR_MARK_TASK_UNKNOWN_INPUT = "Please enter as follows: done (INT in number)";
+    final private static String ERROR_DELETE_TASK_UNKNOWN_INPUT = "Please enter as follows: delete (INT in number)";
+    final private static String ERROR_EMPTY_FIELDS = "There are empty fields, check storage text file!";
+    final private static String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
+    final private static String HORIZONTAL_LINE = "_________________________________________________________________";
     final private static ArrayList<Task> tasks = new ArrayList<Task>();
     final private static String filePath = getFilePath();
 
-    public static void Greet() {
+
+    public static void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
-        String horizontalLine = "________________________";
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void listOperations() throws IOException {
 
         Scanner sc = new Scanner(System.in);
-        String horizontalLine = "________________________";
 
         boolean isBye;
         boolean isList;
@@ -58,7 +62,7 @@ public class Duke {
             isDeadline = userInput.startsWith("deadline");
             isEvent = userInput.startsWith("event");
             isDelete = userInput.startsWith("delete");
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
 
             if (isBye) {
                 System.out.println(GOODBYE_COMMENT);
@@ -69,12 +73,20 @@ public class Duke {
                     markTask(userInput);
                 } catch (DukeException e) {
                     System.out.println(ERROR_MARK_TASK);
+                } catch (NumberFormatException e) {
+                    System.out.println(ERROR_MARK_TASK_UNKNOWN_INPUT);
+                } catch (OutOfBoundsException e) {
+                    System.out.println(ERROR_OUT_OF_BOUNDS);
                 }
             } else if (isDelete) {
                 try {
                     deleteTask(userInput);
                 } catch (DukeException e) {
                     System.out.println(ERROR_EMPTY_DELETE_DESCRIPTION);
+                } catch (NumberFormatException e) {
+                    System.out.println(ERROR_DELETE_TASK_UNKNOWN_INPUT);
+                } catch (OutOfBoundsException e) {
+                    System.out.println(ERROR_OUT_OF_BOUNDS);
                 }
             } else if (isTodo) {
                 try {
@@ -103,7 +115,7 @@ public class Duke {
             } else {
                 System.out.println(ERROR_UNKNOWN_INPUT);
             }
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
 
         } while (!isBye);
     }
@@ -141,18 +153,24 @@ public class Duke {
         System.out.println(printTaskNumber);
     }
 
-    private static void deleteTask(String userInput) throws DukeException {
+    private static void deleteTask(String userInput) throws DukeException, OutOfBoundsException, NumberFormatException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
         }
+
         String[] splitStringBySpace = userInput.trim().split("\\s+", 2);
         String userInputIntString = splitStringBySpace[1];
         int userInputInt = Integer.parseInt(userInputIntString);
 
+        if (userInputInt > tasks.size()) {
+            throw new OutOfBoundsException();
+        }
+
         final String DELETE_TASK_COMMENT = "Noted. I've removed this task:";
         System.out.println(DELETE_TASK_COMMENT);
 
-        String printTask = String.format(" [%s][ ] %s", tasks.get(userInputInt).taskType, tasks.get(userInputInt).description);
+        String printTask = String.format(" [%s][ ] %s",
+                tasks.get(userInputInt).taskType, tasks.get(userInputInt).description);
         tasks.remove(userInputInt);
         Task.taskCount--;
         String printTaskNumber = String.format("Now you have %d items in the list.", Task.taskCount);
@@ -161,16 +179,22 @@ public class Duke {
         System.out.println(printTaskNumber);
     }
 
-    private static void markTask(String userInput) throws DukeException {
+    private static void markTask(String userInput) throws DukeException, NumberFormatException, OutOfBoundsException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
         }
         String[] splitStringBySpace = userInput.trim().split("\\s+", 2);
         String userInputIntString = splitStringBySpace[1];
         int userInputInt = Integer.parseInt(userInputIntString);
+
+        if (userInputInt > tasks.size()) {
+            throw new OutOfBoundsException();
+        }
+
         final String MARK_TASK_COMMENT = "Nice! I've marked this task as done:";
         tasks.get(userInputInt).markAsDone();
-        String formatOutput = String.format("[%s][%s] %s", tasks.get(userInputInt).taskType, tasks.get(userInputInt).getStatusIcon(), tasks.get(userInputInt).description);
+        String formatOutput = String.format("[%s][%s] %s",
+                tasks.get(userInputInt).taskType, tasks.get(userInputInt).getStatusIcon(), tasks.get(userInputInt).description);
 
         System.out.println(MARK_TASK_COMMENT);
         System.out.println(formatOutput);
@@ -181,7 +205,8 @@ public class Duke {
         System.out.println(LIST_TASK_COMMENT);
         for (int i = 0; i < taskCount; i++) {
             int indexNumber = i + 1;
-            String formatOutput = String.format("%d.[%s][%s] %s", indexNumber, tasks.get(i).taskType, tasks.get(i).getStatusIcon(), tasks.get(i).description);
+            String formatOutput = String.format("%d.[%s][%s] %s",
+                    indexNumber, tasks.get(i).taskType, tasks.get(i).getStatusIcon(), tasks.get(i).description);
             System.out.println(formatOutput);
         }
     }
@@ -194,12 +219,14 @@ public class Duke {
     private static boolean isIncorrectFormat(String userInput, TaskType specificTask) {
         switch (specificTask) {
         case EVENT:
-            boolean hasIncorrectEventPlaceholder = !userInput.contains("/at");
-            return hasIncorrectEventPlaceholder;
+            boolean hasEventPlaceholder = userInput.contains("/at");
+            boolean hasNoEventPlaceholder = !hasEventPlaceholder;
+            return hasNoEventPlaceholder;
 
         case DEADLINE:
-            boolean hasIncorrectDeadlinePlaceholder = !userInput.contains("/by");
-            return hasIncorrectDeadlinePlaceholder;
+            boolean hasDeadlinePlaceholder = userInput.contains("/by");
+            boolean hasNoDeadlinePlaceholder = !hasDeadlinePlaceholder;
+            return hasNoDeadlinePlaceholder;
 
         default:
             return false;
@@ -215,62 +242,78 @@ public class Duke {
         }
     }
 
-    private static void setUpDuke() throws IOException {
+    private static void setUpDuke() throws IOException, DukeException {
         File backupData = new File(filePath);
         Scanner sc = new Scanner(backupData);
         final int TASK_TYPE_INDEX = 0;
         final int DONE_INDEX = 1;
         final int DESCRIPTION_INDEX = 2;
 
-        while (sc.hasNext()) {
-            boolean isDone;
-            Task newTask;
-            String userInput;
-            String lineDataString = sc.nextLine();
-            String[] lineData = lineDataString.trim().split(" \\| ");
-            String taskTypeString = lineData[TASK_TYPE_INDEX];
-            String isDoneString = lineData[DONE_INDEX];
-            String description = lineData[DESCRIPTION_INDEX];
-            isDone = isDoneString.equals("X");
+        try {
+            while (sc.hasNext()) {
+                boolean isDone;
+                Task newTask;
+                String userInput;
+                String lineDataString = sc.nextLine();
+                String[] lineData = lineDataString.trim().split(" \\| ");
+                completeChecker(lineData);
 
-            switch (taskTypeString) {
-            case ("T"):
-                userInput = String.format("todo %s", description.trim());
-                newTask = new Todo(userInput, Task.taskCount);
-                tasks.add(Task.taskCount, newTask);
-                break;
-            case ("E"):
-                userInput = String.format("event %s", description.trim());
-                newTask = new Event(userInput, Task.taskCount);
-                tasks.add(Task.taskCount, newTask);
-                break;
-            case ("D"):
-                userInput = String.format("deadline %s", description.trim());
-                newTask = new Deadline(userInput, Task.taskCount);
-                tasks.add(Task.taskCount, newTask);
-                break;
+                String taskTypeString = lineData[TASK_TYPE_INDEX];
+                String isDoneString = lineData[DONE_INDEX];
+                String description = lineData[DESCRIPTION_INDEX];
+                isDone = isDoneString.equals("X");
+
+                switch (taskTypeString) {
+                case ("T"):
+                    userInput = String.format("todo %s", description.trim());
+                    newTask = new Todo(userInput, Task.taskCount);
+                    tasks.add(Task.taskCount, newTask);
+                    break;
+                case ("E"):
+                    userInput = String.format("event %s", description.trim());
+                    newTask = new Event(userInput, Task.taskCount);
+                    tasks.add(Task.taskCount, newTask);
+                    break;
+                case ("D"):
+                    userInput = String.format("deadline %s", description.trim());
+                    newTask = new Deadline(userInput, Task.taskCount);
+                    tasks.add(Task.taskCount, newTask);
+                    break;
+                }
+                if (isDone) {
+                    tasks.get(Task.taskCount).markAsDone();
+                }
+                Task.taskCount++;
             }
-            if (isDone) {
-                tasks.get(Task.taskCount).markAsDone();
-            }
-            Task.taskCount++;
+        } catch (DukeException e) {
+            System.out.println(ERROR_EMPTY_FIELDS);
+        }
+    }
+
+    private static void completeChecker(String[] lineData) throws DukeException {
+        if (lineData.length < 3) {
+            throw new DukeException();
         }
     }
 
     private static void writeFile() throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+        FileWriter fw = new FileWriter(filePath, false);
         for (int i = 0; i < Task.taskCount; i++) {
             boolean isEvent = tasks.get(i).taskType.equals("E");
             boolean isDeadline = tasks.get(i).taskType.equals("D");
             String formatDescription;
             if (isEvent) {
-                formatDescription = String.format("%s /at %s", tasks.get(i).specificDescription, tasks.get(i).date);
+                formatDescription = String.format("%s /at %s",
+                        tasks.get(i).specificDescription, tasks.get(i).date);
             } else if (isDeadline) {
-                formatDescription = String.format("%s /by %s", tasks.get(i).specificDescription, tasks.get(i).deadline);
+                formatDescription = String.format("%s /by %s",
+                        tasks.get(i).specificDescription, tasks.get(i).deadline);
             } else {
                 formatDescription = tasks.get(i).description;
             }
-            String formatToWrite = String.format("%s | %s | %s\n", tasks.get(i).taskType, tasks.get(i).getStatusIcon(), formatDescription);
+
+            String formatToWrite = String.format("%s | %s | %s\n",
+                    tasks.get(i).taskType, tasks.get(i).getStatusIcon(), formatDescription);
             fw.write(formatToWrite);
         }
         fw.close();
@@ -288,18 +331,18 @@ public class Duke {
         Path currentPath = currentRelativePath.toAbsolutePath();
         File f = new File(currentPath + "/data");
         boolean isCreated = f.mkdir();
-        if(isCreated){
+        if (isCreated) {
             System.out.println("data directory created successfully >>::))");
-        } else{
+        } else {
             System.out.println("Duke-data directory exists >>::))");
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DukeException {
         createDirectory();
         createFile();
         setUpDuke();
-        Greet();
+        greet();
         listOperations();
         writeFile();
     }
