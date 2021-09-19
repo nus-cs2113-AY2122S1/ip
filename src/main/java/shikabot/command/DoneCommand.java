@@ -8,7 +8,9 @@ public class DoneCommand extends Command {
         this.index = index;
     }
 
-    @Override
+    /**
+     * Function that marks the specified task as done.
+     */
     public void execute() {
         try {
             taskList.get(index).markAsDone();

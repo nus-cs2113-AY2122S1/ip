@@ -20,6 +20,9 @@ public class FailedCommand extends Command {
         this.errorCode = errorCode;
     }
 
+    /**
+     * Function that prints an error message based on the type of failed command it is.
+     */
     public void execute() {
         switch (errorCode) {
         case (INVALID_DEADLINE_SYNTAX):

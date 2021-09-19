@@ -8,7 +8,9 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    @Override
+    /**
+     * Function that deletes the specified task from tasklist.
+     */
     public void execute() {
         try {
             ui.printDeleteTaskMessage(taskList, index);

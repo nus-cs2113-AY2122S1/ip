@@ -47,6 +47,10 @@ public class Shika {
         taskList = storage.loadTasks();
     }
 
+    /**
+     * Function that checks if a save file exists, and creates one if it does not.
+     * @return true if save does not exist, false otherwise
+     */
     private boolean checkForSave() {
         boolean hasSave = false;
         try {
@@ -70,6 +74,10 @@ public class Shika {
         } while (!command.isExit());
     }
 
+    /**
+     * Function that executes the command that is passed in.
+     * @param command to be executed.
+     */
     private void executeCommand(Command command) {
         try {
             command.setData(taskList);
