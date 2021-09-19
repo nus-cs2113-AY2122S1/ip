@@ -29,32 +29,29 @@ public class TaskListDecoder {
             throw new InvalidFileDataException();
         }
 
+        String taskDescription = taskAttributes[2].trim();
         boolean isDone = doneStatus.equals(DONE);
+
+        Task newTask;
+
         switch (taskType) {
         case "T":
-            String todoDescription = taskAttributes[2].trim();
-            Todo newTodo = new Todo(todoDescription);
-            newTodo.setDone(isDone);
-            taskList.add(newTodo);
+            newTask = new Todo(taskDescription);
             break;
         case "D":
-            String deadlineDescription = taskAttributes[2].trim();
             String deadlineDeadline = taskAttributes[3].trim();
             LocalDateTime deadlineDateTime = Parser.parseDateTime(deadlineDeadline, DATE_TIME_INPUT_FORMAT);
-            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDateTime);
-            newDeadline.setDone(isDone);
-            taskList.add(newDeadline);
+            newTask = new Deadline(taskDescription, deadlineDateTime);
             break;
         case "E":
-            String eventDescription = taskAttributes[2].trim();
             String eventTime = taskAttributes[3].trim();
             LocalDateTime eventDateTime = Parser.parseDateTime(eventTime, DATE_TIME_INPUT_FORMAT);
-            Event newEvent = new Event(eventDescription, eventDateTime);
-            newEvent.setDone(isDone);
-            taskList.add(newEvent);
+            newTask = new Event(taskDescription, eventDateTime);
             break;
         default:
             throw new InvalidFileDataException();
         }
+        newTask.setDone(isDone);
+        return newTask;
     }
 }
