@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.task.Task;
+import Type.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 //brute force save
-public class StoreData {
+public class StoreData extends Duke{
     //print a task array list in easy to wrangle data format
     //format:
     //separated by lines, [TYPE] [deadline] [DESC] [ISDONE]
@@ -34,7 +34,7 @@ public class StoreData {
     //returns an array list, given a text file
     //format per LINE : [TASK_TYPE]|[DEADLINE]|[DESC]|[DONE]
     public static ArrayList<Task> readList(String filePath) throws IOException {
-        ArrayList<Task> tasksToRead = new ArrayList<Task>();
+        ArrayList<Task> tasksToRead = new ArrayList<>();
         try {
             checkAndAddDirectory();
             File f = new File(filePath);
@@ -58,24 +58,30 @@ public class StoreData {
         }
     }
 
-    private static void addTaskToArray(ArrayList<Task> toRead, String readLine) {
-        String[] readLineSeparate = readLine.split("\\|");
-        char type = readLineSeparate[0].charAt(0);
-        String deadline = (readLineSeparate[1].equals("null"))? "" : readLineSeparate[1];
-        deadline = deadline.trim();
-        String description = readLineSeparate[2];
-        description = description.trim();
-        Boolean isDone = readLineSeparate[3].equals("true");
-        String eventDescription = (type == 'E')? readLineSeparate[4] : "";
-        Task toAdd;
-        toAdd = new Task(type, deadline, description, isDone, eventDescription);
-        toRead.add(toAdd);
+    private static void addTaskToArray(ArrayList<Task> toReadList, String readLine) {
+        String toCommand = savedDataToCommandFormat(readLine);
+        Task taskToAdd = parseInputAsTask(toCommand);
+        toReadList.add(taskToAdd);
+    }
+
+    //assume that data is saved in the following manner:
+    // [TYPE] | [DESC] |  [BY/AT], where 3rd field can be null if its just a 'todo'
+    private static String savedDataToCommandFormat(String readLine) {
+        String[] separateData = readLine.split("\\|");
+        switch (separateData[0]) {
+        case ("D") :
+            return separateData[1] + "/by" + separateData[2];
+        case ("E") :
+            return separateData[1] + "/at" + separateData[2];
+        default:    //is a todo only
+            return separateData[1];
+        }
     }
 
     public static void writeNewFile(String filePath) throws IOException {
         checkAndAddDirectory();
         try {
-            FileWriter fw = new FileWriter("data/list.txt");
+            FileWriter fw = new FileWriter(filePath);
             fw.write("");
             fw.close();
         } catch (IOException e) {
