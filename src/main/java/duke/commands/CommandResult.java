@@ -9,7 +9,7 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /**
-     * Constructs a <code>CommandResult</code> from the upon finish executing the <code>Command</code>.
+     * Constructs a <code>CommandResult</code> upon finish executing the <code>Command</code>.
      *
      * @param feedbackToUser <code>String</code> that is used for display to the user on the user interface.
      */
