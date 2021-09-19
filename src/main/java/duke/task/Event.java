@@ -1,11 +1,15 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Inherits the <code>Task</code> class, adding in a time to represent an event.
  */
 public class Event extends Task {
 
-    protected String at;
+    protected LocalDateTime at;
+
 
     /**
      * Constructs an unfinished Event task with the time of the event.
@@ -13,7 +17,7 @@ public class Event extends Task {
      * @param description Description of the task.
      * @param at Time of the event.
      */
-    public Event(String description, String at) {
+    public Event(String description, LocalDateTime at) {
         super(description);
         this.at = at;
     }
@@ -25,7 +29,7 @@ public class Event extends Task {
      * @param at Deadline time of the task.
      * @param isDone Indicates whether the task is done or not.
      */
-    public Event(String description, String at, boolean isDone) {
+    public Event(String description, LocalDateTime at, boolean isDone) {
         super(description, isDone);
         this.at = at;
     }
@@ -35,7 +39,7 @@ public class Event extends Task {
      *
      * @return Time of the event.
      */
-    public String getAt() {
+    public LocalDateTime getAt() {
         return at;
     }
 
@@ -46,6 +50,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return "[E]" + super.toString() + " (at: " + at.format(formatter) + ")";
     }
 }

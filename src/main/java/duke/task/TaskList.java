@@ -5,6 +5,7 @@ import duke.exception.ExceptionMessages;
 import duke.Ui;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Task list containing a list of different types of tasks.
@@ -108,6 +109,23 @@ public class TaskList {
      */
     public void listAllTasks() {
         Ui.printAllTasks(taskList);
+    }
+
+    /**
+     * Finds tasks containing a keyword.
+     *
+     * @param keyword Keyword to query for.
+     * @throws DukeException If keyword is empty.
+     */
+    public void findTasks(String keyword) throws DukeException {
+        if (keyword.equals("")) {
+            throw new DukeException(ExceptionMessages.EXCEPTION_EMPTY_SEARCH_QUERY);
+        }
+        ArrayList<Task> matchingTasks =
+                (ArrayList<Task>) taskList.stream()
+                        .filter(t -> t.getDescription().contains(keyword))
+                        .collect(Collectors.toList());
+        Ui.printMatchingTasks(matchingTasks);
     }
 
     /**

@@ -31,6 +31,8 @@ public class Ui {
     private static final String MESSAGE_DELETE_TASK_SUCCESS = "The following task has been deleted:";
     private static final String MESSAGE_NO_TASK_AVAILABLE = "You have no tasks yet";
     private static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";
+    private static final String MESSAGE_NO_MATCHING_TASK = "There are no matching tasks available";
+    private static final String MESSAGE_FIND_TASK_SUCCESS = "Here are all the matching tasks";
 
     //Error Messages
     private static final String ERROR_NO_TASK_NUMBER_TO_MARK = "Please provide a task number e.g 'xxxx 2'";
@@ -47,6 +49,13 @@ public class Ui {
     private static final String ERROR_DUKE_UNKNOWN = "Unknown error with Duke occurred";
     private static final String ERROR_READING_SAVE_FILE = "Error reading save file, some tasks may have been lost";
     private static final String ERROR_CONVERTING_SAVE_FILE = "Error converting file to task list, some tasks may have been lost";
+    private static final String ERROR_EMPTY_QUERY = "The query is empty. Please add a valid query";
+    private static final String ERROR_DATE_TIME_FORMAT = "There is an error with the date time format provided, please use a valid date time format\n" +
+            "(e.g yyyy-mm-dd HH:mm)";
+    private static final String ERROR_EVENT_FORMAT = "There is an error with the format of the input. Please enter a valid input \n" +
+            "(e.g event Lecture /at 2019-08-13 20:00)";
+    private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. Please enter a valid input \n " +
+            "(e.g deadline Assignment /by 2021-08-32 13:00)";
 
     /** Scanner object to read user input */
     private final Scanner in;
@@ -89,7 +98,6 @@ public class Ui {
     }
 
     //General Messages
-
     /**
      * Prints a welcome message to the user.
      */
@@ -154,6 +162,27 @@ public class Ui {
     }
 
     /**
+     * Prints all matching tasks from a query.
+     *
+     * @param matchingTasks List of matching tasks.
+     */
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        printHorizontalLine();
+        if(matchingTasks.isEmpty()) {
+            System.out.println(MESSAGE_NO_MATCHING_TASK);
+            printHorizontalLine();
+            return;
+        }
+        System.out.println(MESSAGE_FIND_TASK_SUCCESS);
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            printSpacing();
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+        printHorizontalLine();
+
+    }
+
+    /**
      * Prints all the task in a task list.
      *
      * @param tasks ArrayList containing all tasks.
@@ -174,7 +203,6 @@ public class Ui {
     }
 
     //Error messages split into multiple methods for better maintainability
-
     /**
      * Shows error when there is no description provided for a Todo task.
      */
@@ -257,6 +285,34 @@ public class Ui {
      */
     public static void showWritingToSaveFileError() {
         printGenericMessage(ERROR_WRITING_TO_SAVE_FILE);
+    }
+
+    /**
+     * Shows error when query input in empty.
+     */
+    public static void showEmptyQueryError() {
+        printGenericMessage(ERROR_EMPTY_QUERY);
+    }
+
+    /**
+     * Shows error when DateTime format is wrong.
+     */
+    public static void showDateTimeFormatError() {
+        printGenericMessage(ERROR_DATE_TIME_FORMAT);
+    }
+
+    /**
+     * Shows error when Event format is wrong.
+     */
+    public static void showEventFormatError() {
+        printGenericMessage(ERROR_EVENT_FORMAT);
+    }
+
+    /**
+     * Shows error when Deadline format is wrong.
+     */
+    public static void showDeadlineFormatError() {
+        printGenericMessage(ERROR_DEADLINE_FORMAT);
     }
 
     /**
