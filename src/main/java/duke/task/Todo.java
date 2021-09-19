@@ -6,7 +6,7 @@ package duke.task;
 public class Todo extends Task {
 
     /**
-     * Initialise a new incomplete Todo.
+     * Initialises a new incomplete Todo.
      *
      * @param description Description of task to be done.
      */
@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the Todo icon.
+     * Returns the Todo icon.
      *
      * @return Todo icon.
      */

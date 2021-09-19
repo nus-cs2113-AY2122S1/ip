@@ -84,6 +84,9 @@ public class CommandExecutor {
         return isExit;
     }
 
+    /**
+     * Sets the handler to the exited state.
+     */
     public void markAsExited() {
         isExit = true;
     }
@@ -106,21 +109,21 @@ public class CommandExecutor {
     }
 
     /**
-     * Perform execution of the given command using the given input string. After every successful command execution,
+     * Performs execution of the given command using the given input string. After every successful command execution,
      * state of the task manager is saved to a file.
      *
      * @param inputLine Raw input line to read from.
      * @throws CommandException If an illegal command is executed or there is an error parsing the user's command.
-     * @throws IOException      If a file-related operation has errors.
+     * @throws IOException      If a file-related operation errors.
      */
     private void runCommandUsingInput(String inputLine) throws CommandException, IOException {
         Command command = parser.findCommand(inputLine);
         String[] commandLineValues = parser.parseCommandLineValues(command, inputLine);
-        Task task;
-        int taskIndex;
+
         String taskDescription;
         String taskDateTime;
-        String keyword;
+        int taskIndex;
+        Task newTask;
 
         switch (command.getCommand()) {
         case LIST_COMMAND:
@@ -135,25 +138,25 @@ public class CommandExecutor {
             taskManager.deleteTask(taskIndex);
             break;
         case FIND_COMMAND:
-            keyword = commandLineValues[ARGUMENT_VALUE_INDEX];
-            taskManager.filterTask(keyword);
+            String keyword = commandLineValues[ARGUMENT_VALUE_INDEX];
+            taskManager.printFilteredTasks(keyword);
             break;
         case ADD_TODO_COMMAND:
             taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
-            task = new Todo(taskDescription);
-            taskManager.addTask(task);
+            newTask = new Todo(taskDescription);
+            taskManager.addTask(newTask);
             break;
         case ADD_DEADLINE_COMMAND:
             taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
             taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
-            task = new Deadline(taskDescription, taskDateTime);
-            taskManager.addTask(task);
+            newTask = new Deadline(taskDescription, taskDateTime);
+            taskManager.addTask(newTask);
             break;
         case ADD_EVENT_COMMAND:
             taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
             taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
-            task = new Event(taskDescription, taskDateTime);
-            taskManager.addTask(task);
+            newTask = new Event(taskDescription, taskDateTime);
+            taskManager.addTask(newTask);
             break;
         case END_COMMAND:
             markAsExited();

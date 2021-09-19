@@ -23,10 +23,9 @@ public class Duke {
      * Starts the Duke application.
      */
     public void run() {
-        String rawLine;
         Ui.printWelcomeMessage();
         do {
-            rawLine = ui.readInput();
+            String rawLine = ui.readInput();
             commandExecutor.execute(rawLine);
         } while (!commandExecutor.isExit());
         Ui.printByeMessage();

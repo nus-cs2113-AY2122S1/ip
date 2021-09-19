@@ -1,11 +1,10 @@
 package duke.command;
 
+import duke.exception.CommandException;
+
 /**
  * The Parser class deals with understanding the command entered by the user.
  */
-
-import duke.exception.CommandException;
-
 public class Parser {
 
     /* Used to store supported commands */
@@ -32,11 +31,11 @@ public class Parser {
     }
 
     /**
-     * Parse the user's command and returns the extracted values.
+     * Parses the user's command and returns the extracted values.
      *
      * @param command   Command that user is trying to run.
      * @param inputLine Raw input line to parse.
-     * @return Array containging the extracted argument and flag.
+     * @return Array containing the extracted argument and flag values.
      * @throws CommandException If unable to correctly parse user's command and arguments.
      */
     public String[] parseCommandLineValues(Command command, String inputLine) throws CommandException {

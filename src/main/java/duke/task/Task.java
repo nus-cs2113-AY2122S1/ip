@@ -11,7 +11,7 @@ public class Task {
     private boolean isCompleted;
 
     /**
-     * Initialise a new incomplete task.
+     * Initialises a new incomplete task.
      *
      * @param description Description of task to be done.
      */
@@ -29,7 +29,7 @@ public class Task {
     }
 
     /**
-     * Return description along with other relevant information.
+     * Returns description along with other relevant information.
      *
      * @return Full description of task.
      */
@@ -38,7 +38,7 @@ public class Task {
     }
 
     /**
-     * Return the icon representing whether the task is completed.
+     * Returns the icon representing whether the task is completed.
      *
      * @return Status task icon.
      */
@@ -47,7 +47,7 @@ public class Task {
     }
 
     /**
-     * Return the icon representing the type of the task.
+     * Returns the icon representing the type of the task.
      *
      * @return Task icon.
      */
@@ -56,7 +56,7 @@ public class Task {
     }
 
     /**
-     * Set the task to the completed state.
+     * Sets the task to the completed state.
      */
     public void markAsDone() {
         isCompleted = true;

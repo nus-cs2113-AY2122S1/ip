@@ -1,6 +1,5 @@
 package duke.task;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -9,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Deadline {
 
     /**
-     * Initialise a new incomplete task with time of occurrence.
+     * Initialises a new incomplete task with time of occurrence.
      *
      * @param description Description of task to be done.
      * @param dateTime    When the task is occurring at.
@@ -19,7 +18,7 @@ public class Event extends Deadline {
     }
 
     /**
-     * Return description along with the date time of the event.
+     * Returns description along with the date time of the event.
      *
      * @return Full description of task.
      */
@@ -31,7 +30,7 @@ public class Event extends Deadline {
     }
 
     /**
-     * Return the Event icon.
+     * Returns the Event icon.
      *
      * @return Event icon.
      */

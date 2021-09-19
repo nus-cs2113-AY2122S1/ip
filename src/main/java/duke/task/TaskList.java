@@ -13,14 +13,14 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Initialise a new list of tasks.
+     * Initialises a new list of tasks.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Initialise using an existing list of tasks.
+     * Initialises using an existing list of tasks.
      *
      * @param taskList Existing list of tasks.
      */
@@ -29,7 +29,7 @@ public class TaskList {
     }
 
     /**
-     * Return a copy of the list of tasks.
+     * Returns a copy of the list of tasks.
      *
      * @return List of tasks.
      */
@@ -41,7 +41,9 @@ public class TaskList {
      * Prints the list of tasks.
      */
     public void printTaskList() {
-        if(taskList.size() == 0) {
+        boolean isEmpty = taskList.size() == 0;
+
+        if (isEmpty) {
             Ui.printTaskListEmptyError();
             return;
         }
@@ -50,7 +52,7 @@ public class TaskList {
     }
 
     /**
-     * Adds the given task description to the list of tasks.
+     * Adds the given task to the list of tasks.
      *
      * @param task New task.
      */
@@ -65,7 +67,7 @@ public class TaskList {
      * @param taskIndex 1-Based index of selected task.
      */
     public void complete(int taskIndex) {
-        if (taskIndex <= 0 || taskIndex > taskList.size()) {
+        if (!isValidIndex(taskIndex)) {
             Ui.printTaskListNotFoundError();
             return;
         }
@@ -81,7 +83,7 @@ public class TaskList {
      * @param taskIndex 1-Based index of selected task.
      */
     public void deleteTask(int taskIndex) {
-        if (taskIndex <= 0 || taskIndex > taskList.size()) {
+        if (!isValidIndex(taskIndex)) {
             Ui.printTaskListNotFoundError();
             return;
         }
@@ -90,17 +92,36 @@ public class TaskList {
         Ui.printTaskListDeleteMessage(taskList, taskSelected);
     }
 
-    public void filterTask(String keyword) {
+    /**
+     * Prints a list of tasks with descriptions containing the given keyword.
+     *
+     * @param keyword String to search by.
+     */
+    public void printFilteredTasks(String keyword) {
         ArrayList<Task> filteredTasks = (ArrayList<Task>) taskList.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
 
-        if (filteredTasks.size() == 0) {
+        boolean isEmpty = filteredTasks.size() == 0;
+
+        if (isEmpty) {
             Ui.printTaskListEmptyError();
             return;
         }
 
         Ui.printTaskListFilterHeader();
         Ui.printTaskListFormatted(filteredTasks);
+    }
+
+    /**
+     * Check if the given index is valid.
+     *
+     * @param taskIndex 1-Based index of selected task.
+     * @return True if index is valid. False otherwise.
+     */
+    private boolean isValidIndex(int taskIndex) {
+        boolean isNonPositiveIndex = taskIndex <= 0;
+        boolean isNonExistentIndex = taskIndex > taskList.size();
+        return !isNonPositiveIndex && !isNonExistentIndex;
     }
 }

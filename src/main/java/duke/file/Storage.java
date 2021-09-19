@@ -46,7 +46,7 @@ public class Storage {
     }
 
     /**
-     * Overwrites the file at the given file path with the given task manager.
+     * Overwrites the file at the given file path with the contents of the contents of the given task manager.
      *
      * @param taskManager Task Manager to write to the file.
      * @param filePath    Path of the file to write to.
@@ -71,7 +71,7 @@ public class Storage {
     }
 
     /**
-     * Return the task manager parsed from the given file.
+     * Returns the task manager parsed from the given file.
      *
      * @param filePath File to parse from.
      * @return Task Manager that is extracted from the given file.
@@ -87,13 +87,11 @@ public class Storage {
         }
 
         ArrayList<Task> taskList = new ArrayList<>();
-        Task newTask;
         Scanner in = new Scanner(file);
-        String line;
         while (in.hasNextLine()) {
             try {
-                line = in.nextLine();
-                newTask = convertFileStringToTask(line);
+                String line = in.nextLine();
+                Task newTask = convertFileStringToTask(line);
                 taskList.add(newTask);
             } catch (TaskException err) {
                 // if unable to parse the line, skip it.

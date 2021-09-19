@@ -21,7 +21,7 @@ public class Deadline extends Task {
     protected String time;
 
     /**
-     * Initialise a new incomplete task with a deadline.
+     * Initialises a new incomplete task with a deadline.
      *
      * @param description Description of task to be done.
      * @param dateTime    When the task need to be done by.
@@ -33,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the description along with the date time of the deadline.
+     * Returns the description along with the date time of the deadline.
      *
      * @return Full description of task.
      */
@@ -45,7 +45,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the date and time as a string.
+     * Returns the date and time as a string.
      *
      * @return String containing the date and time seperated by a space.
      */
@@ -55,7 +55,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the Deadline icon.
+     * Returns the Deadline icon.
      *
      * @return Deadline icon.
      */
@@ -65,7 +65,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Extract the date from the given string.
+     * Extracts the date from the given string.
      *
      * @param dateTime String to extract from.
      * @return LocalDate representation of the date.
@@ -80,10 +80,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Extract the time from the given string.
+     * Extracts the time from the given string.
      *
      * @param dateTime String to extract from.
-     * @return Timestamp.
+     * @return Timestamp of the extracted time.
      */
     private String extractTime(String dateTime) {
         String[] tokens = dateTime.split(" ");
