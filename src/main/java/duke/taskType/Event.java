@@ -1,5 +1,8 @@
 package duke.taskType;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Event class which is a subclass of Task. It extends Task by providing
  * its own printing format, and it also has a time "at" parameter added.
@@ -16,11 +19,11 @@ public class Event extends Task {
      *
      * @param description which is the string of description about this todo
      *                    task.
-     * @param by          Time of occurrence in the form of string.
+     * @param at          Time of occurrence in the form of string.
      */
-    public Event(String description, String by) {
+    public Event(String description, String at) {
         super(description);
-        this.at = by;
+        this.at = at;
     }
 
     public void printAddingStatus(int numberOfTasks) {
@@ -31,9 +34,21 @@ public class Event extends Task {
         System.out.println("    ____________________________________________________________");
     }
 
+    public String toRawString() {
+        return "[E]" + super.toString() + "(at: " + this.at.substring(3) + ")";
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + at.substring(3) + ")";
+        String at = this.at.substring(3);
+
+        String date = at.split(" ")[0];
+        String time = at.split(" ")[1];
+        String formattedDateTime = date + "T" + time;
+        LocalDateTime dt = LocalDateTime.parse(formattedDateTime);
+        String newAt = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.getHour() + ":" + dt.getMinute();
+
+        return "[E]" + super.toString() + "(at: " + newAt + ")";
     }
 
     @Override

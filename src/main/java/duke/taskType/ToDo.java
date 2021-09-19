@@ -27,6 +27,10 @@ public class ToDo extends Task {
         System.out.println("    ____________________________________________________________");
     }
 
+    public String toRawString() {
+        return "[T]" + super.toString();
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

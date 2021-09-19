@@ -68,10 +68,15 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public String toRawString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
     /**
      * Prints out the status of a task along with the description.
      */
     public void printStatus() {
         System.out.println(this.toString());
     }
+
 }
