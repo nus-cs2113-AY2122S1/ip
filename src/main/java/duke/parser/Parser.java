@@ -104,7 +104,7 @@ public class Parser {
      *
      * @param userInputString <code>String</code> input from the user through the user interface
      * @return <code>Command</code> object that corresponds to the command word
-     * @throws DukeException If there are no commands that match with the command word
+     * @throws DukeException If the respective <code>Command</code> object cannot be instantiated
      */
     private static Command parseCommandWithArguments(String userInputString) throws DukeException {
 
@@ -136,8 +136,8 @@ public class Parser {
      * not match with any command, then it will be further parsed for its command word and arguments.
      *
      * @param userInputString <code>String</code> input from the user through the user interface
-     * @return <code>Command</code> object that corresponds to the <code>userInputString</code>
-     * @throws DukeException If there are no commands that match with the <code>userInputString</code>
+     * @return <code>Command</code> object that corresponds to the command word
+     * @throws DukeException If the respective <code>Command</code> object cannot be instantiated
      */
     public static Command parseCommand(String userInputString) throws DukeException {
 
