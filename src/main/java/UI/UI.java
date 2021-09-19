@@ -26,6 +26,19 @@ public class UI {
         tasks.get(taskIndex-1).describePrint();
     }
 
+    public static void searchTask (List<Task> tasks, String userInput) {
+        String[] searchFilter = userInput.split("find");
+        if (searchFilter.length == 0) {
+            System.out.println("Search filter cannot be empty");
+        }
+        else {
+            System.out.println("Here are the matching tasks in your list:");
+            tasks.stream()
+                    .filter(task -> task.getTaskDescription(task).contains(searchFilter[1]))
+                    .forEach(Task::describePrint);
+        }
+    }
+
     public static void addedTask (Task addedTask) {
         System.out.println("I've added:");
         addedTask.describePrint();

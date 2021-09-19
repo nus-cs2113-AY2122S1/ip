@@ -22,6 +22,8 @@ public class Command {
         }
 
         switch (parseInput.parseResult) {
+
+        //---------- Query Commands ----------//
         case BYE :
             UI.dukeGoodbye();
             Duke.isExit = true;
@@ -55,6 +57,11 @@ public class Command {
             }
             break;
 
+        case FIND :
+            UI.searchTask(tasks, parseInput.userInput);
+            break;
+
+        //---------- addTask Commands ----------//
         case TODO :
             Task todoTask = new Todo(parseInput.userInput.replaceAll(parseInput.taskType, ""));
             tasks.add(todoTask);

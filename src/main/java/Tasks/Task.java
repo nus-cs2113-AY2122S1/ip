@@ -13,6 +13,10 @@ public class Task {
         numberOfTasks += 1;
     }
 
+    public String getTaskDescription (Task task) {
+        return (task.taskDescription);
+    }
+
     public void markAsDone() {
         this.isTaskDone = true;
     }
@@ -30,6 +34,4 @@ public class Task {
         return ("[" + this.getStatusIcon() + "] "
                 + this.taskDescription);
     }
-
-
 }
