@@ -27,7 +27,7 @@ public class Ui {
     }
 
     public static void printHeyMessage() {
-        out.println("Hello from" + System.lineSeparator() + DUKE_LOGO);
+        out.println(HELLO_FROM + DUKE_LOGO);
         out.println(STRAIGHT_LINE);
         out.println(HEY_MESSAGE);
         out.println(STRAIGHT_LINE);
@@ -100,6 +100,12 @@ public class Ui {
     public static void printFileTaskInvalidFormatMessage() {
         out.println(STRAIGHT_LINE);
         out.println(FILE_WRONG_FORMAT_MESSAGE);
+        out.println(STRAIGHT_LINE);
+    }
+
+    public static void printInvalidFileTypeMessage() {
+        out.println(STRAIGHT_LINE);
+        out.println(INVALID_FILE_TYPE_MESSAGE);
         out.println(STRAIGHT_LINE);
     }
 

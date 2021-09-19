@@ -1,10 +1,8 @@
 package duke.datasaver;
 
 import duke.exception.InvalidFileDataException;
-import duke.task.Deadline;
-import duke.task.Event;
+import duke.exception.InvalidFileTypeException;
 import duke.task.Task;
-import duke.task.Todo;
 
 import duke.ui.Ui;
 
@@ -13,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
@@ -22,29 +21,59 @@ import static duke.constants.DukeDataStorageConstants.*;
 
 public class DataManager {
 
-    public static void createFileInDirectory() throws IOException {
-        Files.createDirectories(Paths.get(DIRECTORY_NAME));
-        Files.createFile(Paths.get(FILE_PATH));
+    private Path filePath;
+
+    public DataManager() {
+        this.filePath = Paths.get(DEFAULT_STORAGE_FILEPATH);
     }
 
-    public static void loadData (ArrayList<Task> taskList) {
-        File taskFile = new File(FILE_PATH);
+    public DataManager(String filePath) {
+        try {
+            checkFileType(filePath);
+            this.filePath = Paths.get(filePath);
+        } catch (InvalidFileTypeException e) {
+            Ui.printInvalidFileTypeMessage();
+        }
+    }
+
+    public String getFilePath() {
+        return filePath.toString();
+    }
+
+    public void loadData (ArrayList<Task> taskList) {
+        Scanner fileScanner = getScanner(filePath.toString());
+        readData(fileScanner, taskList);
+    }
+
+    public void saveData(ArrayList<Task> taskList) {
+        try {
+            writeData(taskList);
+        } catch (IOException ioException) {
+            System.out.println(" Something went wrong when writing to this file: " + ioException.getMessage());
+        }
+    }
+
+    private static Scanner getScanner(String filePath) {
+        File taskFile = new File(filePath);
         Scanner fileScanner = null;
         try {
             fileScanner = new Scanner(taskFile);
         } catch (FileNotFoundException fileNotFoundException) {
             try {
-                createFileInDirectory();
+                createFileInDirectory(filePath);
             } catch (IOException ioException) {
-                System.out.println(" Something went wrong: " + ioException.getMessage());
+                System.out.println(" Something went wrong when creating this file: " + ioException.getMessage());
             }
         }
+        return fileScanner;
+    }
 
+    private static void readData(Scanner fileScanner, ArrayList<Task> taskList) {
         if (fileScanner != null) {
             while (fileScanner.hasNext()) {
                 String task = fileScanner.nextLine();
                 try {
-                    addTask(taskList, task);
+                    TaskListDecoder.decodeTask(taskList, task);
                 } catch (InvalidFileDataException e) {
                     Ui.printFileTaskInvalidFormatMessage();
                 }
@@ -52,87 +81,20 @@ public class DataManager {
         }
     }
 
-    public static void saveData(ArrayList<Task> taskList) {
-        try {
-            FileWriter fileWriter = new FileWriter(FILE_PATH, false);
-            StringBuilder formattedTask = new StringBuilder();
-            formatTask(taskList, fileWriter, formattedTask);
-            fileWriter.close();
-        } catch (IOException ioException) {
-            System.out.println(" Something went wrong: " + ioException.getMessage());
-        }
+    private static void writeData(ArrayList<Task> taskList) throws IOException {
+        FileWriter fileWriter = new FileWriter(DEFAULT_STORAGE_FILEPATH, false);
+        StringBuilder formattedTask = new StringBuilder();
+        TaskListEncoder.encodeTask(taskList, fileWriter, formattedTask);
+        fileWriter.close();
     }
 
-    public static void addTask(ArrayList<Task> taskList, String task) throws InvalidFileDataException {
-        String[] taskAttributes = task.split("\\|");
-        String taskType = taskAttributes[0].trim();
-        String doneStatus = taskAttributes[1].trim();
-
-        boolean hasInvalidTaskAttributes = (taskAttributes.length < 3 || taskAttributes.length > 4);
-        boolean hasInvalidDoneStatus = (!doneStatus.equals(DONE) && !doneStatus.equals(NOT_DONE));
-        if (hasInvalidTaskAttributes || hasInvalidDoneStatus) {
-            throw new InvalidFileDataException();
-        }
-
-        boolean isDone = (doneStatus.equals(DONE));
-        switch (taskType) {
-        case "T":
-            String todoDescription = taskAttributes[2].trim();
-            Todo newTodo = new Todo(todoDescription);
-            newTodo.setDone(isDone);
-            taskList.add(newTodo);
-            break;
-        case "D":
-            String deadlineDescription = taskAttributes[2].trim();
-            String deadlineDeadline = taskAttributes[3].trim();
-            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
-            newDeadline.setDone(isDone);
-            taskList.add(newDeadline);
-            break;
-        case "E":
-            String eventDescription = taskAttributes[2].trim();
-            String eventTime = taskAttributes[3].trim();
-            Event newEvent = new Event(eventDescription, eventTime);
-            newEvent.setDone(isDone);
-            taskList.add(newEvent);
-            break;
-        default:
-            throw new InvalidFileDataException();
-        }
+    private static void createFileInDirectory(String filePath) throws IOException {
+        Files.createFile(Paths.get(filePath));
     }
 
-
-    public static void formatTask(ArrayList<Task> taskList, FileWriter fileWriter, StringBuilder formattedTask) throws IOException {
-        for (Task task : taskList) {
-            appendTaskType(formattedTask, task.getTaskType());
-            appendDoneStatus(formattedTask, task);
-            appendTaskDescription(formattedTask, task);
-            fileWriter.write(formattedTask + System.lineSeparator());
-            formattedTask = new StringBuilder();
-        }
-    }
-
-    public static void appendTaskType(StringBuilder formattedTask, String taskType) {
-        formattedTask.append(taskType).append(ATTRIBUTE_SEPARATOR);
-    }
-
-    public static void appendDoneStatus(StringBuilder formattedTask, Task task) {
-        if (task.isDone()) {
-            formattedTask.append(DONE).append(ATTRIBUTE_SEPARATOR);
-        } else {
-            formattedTask.append(NOT_DONE).append(ATTRIBUTE_SEPARATOR);
-        }
-    }
-
-    public static void appendTaskDescription(StringBuilder formattedTask, Task task) {
-        if (task instanceof Todo) {
-            formattedTask.append(task.getDescription());
-        } else if (task instanceof Deadline) {
-            formattedTask.append(task.getDescription()).append(ATTRIBUTE_SEPARATOR);
-            formattedTask.append(((Deadline) task).getBy());
-        } else if (task instanceof Event) {
-            formattedTask.append(task.getDescription()).append(ATTRIBUTE_SEPARATOR);
-            formattedTask.append(((Event) task).getWhen());
+    private static void checkFileType(String filePath) throws InvalidFileTypeException {
+        if (!filePath.endsWith(VALID_FILE_TYPE)) {
+            throw new InvalidFileTypeException();
         }
     }
 }
