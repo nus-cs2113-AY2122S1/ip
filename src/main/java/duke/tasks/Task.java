@@ -41,6 +41,12 @@ public abstract class Task {
         return "[" + doneStatus + "] " + description;
     }
 
+    /**
+     * Gets the string format of the date attached to the task.
+     *
+     * @return Date attached to the <code>Deadline</code> or <code>Event</code>, empty string if task is
+     * <code>ToDo</code>
+     */
     public abstract String getDate();
 
     /**

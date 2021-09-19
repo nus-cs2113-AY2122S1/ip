@@ -16,7 +16,7 @@ public class Deadline extends Task {
      * Constructs a <code>Deadline</code> object with all its information such as its description and deadline.
      *
      * @param description <code>String</code> description of the task
-     * @param taskDue <code>String</code> deadline of the task
+     * @param taskDue <code>LocalDateTime</code> deadline of the task
      */
     public Deadline(String description, LocalDateTime taskDue) {
         super(description);

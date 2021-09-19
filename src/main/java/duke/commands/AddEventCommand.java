@@ -36,6 +36,14 @@ public class AddEventCommand extends Command {
         }
     }
 
+    /**
+     * <p>Checks if the date and time <code>String</code> is of a valid format.</p>
+     * <p>Valid form: [yyyy-mm-dd]T[HH:MM]</p>
+     *
+     * @param date <code>String</code> to check for validity
+     * @return <p><code>true</code> - if the specified date is valid</p>
+     * <p><code>false</code> - otherwise</p>
+     */
     private boolean isValidDateTime(String date) {
         try {
             LocalDateTime.parse(date);
@@ -51,7 +59,7 @@ public class AddEventCommand extends Command {
      * @param argument Argument provided by the user after separating the command word from the user input string
      * @return <code>String</code> array of size 2 where first entry is the description and the second entry is
      * the date and time
-     * @throws DukeException If either entry of the return array is empty
+     * @throws DukeException If either entry of the return array is empty or the date and time is of invalid format
      */
     private String[] retrieveEventParameters(String argument) throws DukeException {
 

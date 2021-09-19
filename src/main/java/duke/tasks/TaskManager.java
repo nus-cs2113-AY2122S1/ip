@@ -46,10 +46,21 @@ public class TaskManager {
         return taskDataStrings;
     }
 
+    /**
+     * Gets the current task list.
+     *
+     * @return <code>ArrayList</code> of all <code>Task</code> that is stored
+     */
     public static ArrayList<Task> getTaskList() {
         return tasks;
     }
 
+    /**
+     * Filters the current task list for tasks that have descriptions that contain a certain string.
+     *
+     * @param filterWord String to filter the tasks
+     * @return <code>ArrayList</code> of <code>Task</code> that contains <code>filterWord</code>
+     */
     public static ArrayList<Task> filterListByKeyword(String filterWord) {
         ArrayList<Task> filteredList =
                 (ArrayList<Task>) tasks.stream()
@@ -58,6 +69,12 @@ public class TaskManager {
         return filteredList;
     }
 
+    /**
+     * Filters the current task list for tasks that have a specific date attached.
+     *
+     * @param date Date to filter the tasks
+     * @return <code>ArrayList</code> of <code>Task</code> that has the specific <code>date</code> attached
+     */
     public static ArrayList<Task> filterListByDate(String date) {
         ArrayList<Task> filteredList =
                 (ArrayList<Task>) tasks.stream()
@@ -67,9 +84,10 @@ public class TaskManager {
     }
 
     /**
-     * Converts all the <code>Task</code> in the list to string format, then concatenated as one string, for
+     * Converts all the <code>Task</code> given to string format, then concatenated as one string, for
      * display on the user interface.
      *
+     * @param tasks <code>ArrayList</code> of <code>Task</code> to convert to string format
      * @return String that concatenates all the string format of all <code>Task</code> in the list
      */
     public static String listTasks(ArrayList<Task> tasks) {

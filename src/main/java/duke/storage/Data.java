@@ -18,6 +18,14 @@ public class Data {
     private static final String CORRUPTED_DATA_ERROR =
             "OH NO! Your data is corrupted, starting a new file for you...";
 
+    /**
+     * <p>Checks if the date and time <code>String</code> is of a valid format.</p>
+     * <p>Valid form: [yyyy-mm-dd]T[HH:MM]</p>
+     *
+     * @param date <code>String</code> to check for validity
+     * @return <p><code>true</code> - if the specified date is valid</p>
+     * <p><code>false</code> - otherwise</p>
+     */
     private boolean isValidDateTime(String date) {
         try {
             LocalDateTime.parse(date);
@@ -32,6 +40,7 @@ public class Data {
      * <p>For example, the array [D, 0, description, date] will return <code>false</code> while the array
      * [D, 0, description] will return <code>true</code> since <code>Deadline</code> is expected to have a
      * date.</p>
+     * <p>Dates stored in the storage need to have a valid format, otherwise it is treated as corrupted.</p>
      *
      * @param parameters <code>String</code> array that is returned after the information of a <code>Task</code>
      *                   in storage is parsed
