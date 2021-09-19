@@ -13,7 +13,7 @@ public class EventCommand extends Command {
     public static final String SUCCESS_MESSAGE = "The following deadline task has been added\n";
 
     public EventCommand(String input){
-        String[] inputParts = input.split("/by");
+        String[] inputParts = input.split("/at");
         description = inputParts[0].trim();
         eventTime = inputParts[1].trim();
     }
