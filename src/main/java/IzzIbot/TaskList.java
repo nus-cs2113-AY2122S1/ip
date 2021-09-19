@@ -60,7 +60,7 @@ public class TaskList {
      * Removes a task with given index from the task list. Exception will be thrown if given index is out of range.
      * @param index index of task to be removed
      * @return task to be removed
-     * @throws IzzIbotException
+     * @throws IzzIbotException if given index is invalid
      */
     public Task remove(int index) throws IzzIbotException {
 
@@ -70,11 +70,6 @@ public class TaskList {
 
         return list.remove(index);
     }
-
-    /*
-    public Task remove(Task t) {
-        return list.remove(list.indexOf(t));
-    }*/
 
     /**
      * Marks a task in the task list as done. Exception will be thrown if given index is out of range.

@@ -115,7 +115,7 @@ public class Parser {
     public Command markTaskDone(String input) {
         int taskNumber = Integer.parseInt(input.replace(DONE, "")) - 1;
 
-        return new SetDoneCommand(ui, tasks, taskNumber);
+        return new MarkDoneCommand(ui, tasks, taskNumber);
     }
 
     /**

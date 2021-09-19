@@ -4,7 +4,7 @@ import IzzIbot.Ui;
 import IzzIbot.TaskList;
 import IzzIbot.exceptions.IzzIbotException;
 
-public class SetDoneCommand extends Command {
+public class MarkDoneCommand extends Command {
 
     private int chosenTaskIndex;
 
@@ -14,13 +14,13 @@ public class SetDoneCommand extends Command {
      * @param taskList TaskList to be used
      * @param chosenTaskIndex index of task to be marked as done
      */
-    public SetDoneCommand(Ui ui, TaskList taskList, int chosenTaskIndex) {
+    public MarkDoneCommand(Ui ui, TaskList taskList, int chosenTaskIndex) {
         super(ui, taskList);
         this.chosenTaskIndex = chosenTaskIndex;
     }
 
     /**
-     * Executes SetDoneCommand
+     * Executes MarkDoneCommand
      * @throws IzzIbotException
      */
     @Override
