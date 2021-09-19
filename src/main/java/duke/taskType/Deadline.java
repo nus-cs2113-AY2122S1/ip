@@ -1,5 +1,10 @@
 package duke.taskType;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 /**
  * Deadline class which is a subclass of Task. It extends Task by providing
  * its own printing format, and it also has a time "by" parameter added.
@@ -32,7 +37,17 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by.substring(3) + ")";
+        String by = this.by.substring(3);
+
+        String date = by.split(" ")[0];
+        String time = by.split(" ")[1];
+        String formattedDateTime = date + "T" + time;
+        LocalDateTime dt = LocalDateTime.parse(formattedDateTime);
+        String newBy = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.getHour() + ":" + dt.getMinute();
+
+        String deadline = "[D]" + super.toString() + "(by: " + newBy + ")";
+
+        return deadline;
     }
 
     @Override

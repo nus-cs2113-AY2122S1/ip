@@ -8,6 +8,9 @@ import duke.taskType.Task;
 import duke.taskType.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -102,6 +105,23 @@ public class TaskList {
     }
 
     public static void addDeadlineCheck(Storage dukeTaskText, String taskName, String by) throws DukeException {
+        String formattedDateTime;
+        try {
+            String date = by.split(" ")[1];
+            String time = by.split(" ")[2];
+            formattedDateTime = date + "T" + time;
+        } catch (IndexOutOfBoundsException indexOutOfBound) {
+            throw new DukeException("The deadline is not stated correctly");
+        }
+
+        LocalDateTime dateTime;
+
+        try {
+            dateTime = LocalDateTime.parse(formattedDateTime);
+        } catch (DateTimeParseException formatIssue) {
+            throw new DukeException("Deadline be in the format of: yyyy-mm-dd HH:mm");
+        }
+
         if (dukeTaskText.saveDeadline(taskName, by) == true) {
             tasks.add(new Deadline(taskName, by));
             numberOfTasks += 1;
