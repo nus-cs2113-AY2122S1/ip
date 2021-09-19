@@ -100,7 +100,7 @@ public class FileManager {
     private static Task convertTextToTask(String task) throws DukeException {
         final String[] taskDetails = task.split("\\|");
         final String taskType = taskDetails[0];
-        final boolean isDone = taskDetails[1].equals("1"); //todo:
+        final boolean isDone = taskDetails[1].equals("1");
         switch (taskType) {
         case "T":
             String todoDescription = taskDetails[2];
