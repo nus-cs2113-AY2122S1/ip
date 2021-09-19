@@ -28,11 +28,12 @@ public class TaskList {
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
     private static final String LIST_COMMAND = L_TAB + "1. list" + LS
             + L_TAB + "2. todo <TASK>" + LS
-            + L_TAB + "3. deadline <TASK> /by <DATE>" + LS
-            + L_TAB + "4. event <TASK> /at <DATE>" + LS
+            + L_TAB + "3. deadline <TASK> /by <dd/MM/yyyy HHmm>" + LS
+            + L_TAB + "4. event <TASK> /at <dd/MM/yyyy HHmm>" + LS
             + L_TAB + "5. done <TASK_NO>" + LS
-            + L_TAB + "6. help" + LS
-            + L_TAB + "7. bye";
+            + L_TAB + "6. find <KEYWORD>" + LS
+            + L_TAB + "7. help" + LS
+            + L_TAB + "8. bye";
 
     protected ArrayList<Task> tasks = new ArrayList<Task>();
 
