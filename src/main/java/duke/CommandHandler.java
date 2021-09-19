@@ -20,6 +20,7 @@ public class CommandHandler {
     private static final String COMMAND_ADD_EVENT_TASK = "event";
     private static final String COMMAND_DELETE_TASK = "delete";
     private static final String COMMAND_SAVE_TASK_LIST = "save";
+    private static final String COMMAND_FIND_TASK = "find";
 
     public static void processInput(String commandType, String commandArgs, TaskList tasks) throws DukeException {
         switch (commandType) {
@@ -46,6 +47,9 @@ public class CommandHandler {
             break;
         case COMMAND_SAVE_TASK_LIST:
             saveTaskList(tasks);
+            break;
+        case COMMAND_FIND_TASK:
+            findTask(commandArgs, tasks);
             break;
         default:
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_COMMAND);
@@ -160,6 +164,16 @@ public class CommandHandler {
             }
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             Ui.showDateTimeFormatError();
+        }
+    }
+
+    private static void findTask(String input, TaskList tasks) {
+        try {
+            tasks.findTasks(input);
+        } catch (DukeException e) {
+            if (e.getMessage().equals(ExceptionMessages.EXCEPTION_EMPTY_SEARCH_QUERY)) {
+                Ui.showEmptyQueryError();
+            }
         }
     }
 
