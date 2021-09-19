@@ -10,7 +10,6 @@ import kitty.task.Deadline;
 import kitty.task.Event;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UiHandler {
@@ -90,22 +89,18 @@ public class UiHandler {
     }
 
     public static void addToList(String type) throws KittyException{
-        try {
-            switch (type) {
-            case "T":
-                Todo.addTodoTask(Ui.userInput);
-                break;
-            case "D":
-                Deadline.addDeadlineTask(Ui.userInput);
-                break;
-            case "E":
-                Event.addEventTask(Ui.userInput);
-                break;
-            }
-            Ui.printAddedTask();
-        } catch (KittyException e) {
-            throw e;
+        switch (type) {
+        case "T":
+            Todo.addTodoTask(Ui.userInput);
+            break;
+        case "D":
+            Deadline.addDeadlineTask(Ui.userInput);
+            break;
+        case "E":
+            Event.addEventTask(Ui.userInput);
+            break;
         }
+        Ui.printAddedTask();
     }
 
     public static void removeFromList() throws KittyException{
