@@ -23,7 +23,8 @@ public class Parser {
 
         switch (commandWord) {
         case "todo":
-            return prepareToDoCommand(arguments);
+        case "find":
+            return prepareToDoOrFindCommand(commandWord, arguments);
 
         case "event":
         case "deadline":
@@ -44,14 +45,23 @@ public class Parser {
         }
     }
 
-    private Command prepareToDoCommand(String args) throws  DukeException{
+    private Command prepareToDoOrFindCommand(String command, String args) throws  DukeException{
         if (args.isEmpty()) {
-            throw new ToDoCommandError();
+            if (command.equals("todo")) {
+                throw new ToDoCommandError();
+            }
+            throw new FindCommandError();
         }
         try {
-            return new ToDoCommand(args.trim());
+            if (command.equals("todo")) {
+                return new ToDoCommand(args.trim());
+            }
+            return new FindCommand(args.trim());
         } catch (Exception e) {
-            throw new ToDoCommandError();
+            if (command.equals("todo")) {
+                throw new ToDoCommandError();
+            }
+            throw new FindCommandError();
         }
     }
 
