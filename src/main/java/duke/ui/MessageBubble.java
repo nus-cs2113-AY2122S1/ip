@@ -1,7 +1,7 @@
 package duke.ui;
 
 public class MessageBubble {
-    static final String DIVIDER_SYMBOL = "_";
+    static final String DIVIDER_SYMBOL = ".";
     static final int DIVIDER_SYMBOL_COUNT = 60;
     static int MAX_MESSAGES = 100;
 
@@ -57,7 +57,7 @@ public class MessageBubble {
      * @param msg message to be printed
      */
     static void printMessage(String msg) {
-        System.out.println("\t " + msg);
+        System.out.println("\t: " + msg);
     }
 
     /**

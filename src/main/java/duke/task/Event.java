@@ -49,7 +49,8 @@ public class Event extends Task {
         try {
             this.endTime = LocalDateTime.parse(endTime, saveFormatter);
         } catch (DateTimeParseException e) {
-            MessageBubble.printMessageBubble("Event end time format error. Example: 15/9/2021 2142");
+            MessageBubble.printMessageBubble("Event end time format error. Example: 15/9/2021 2142" +
+                    "\nBy default set to tomorrow");
             this.endTime = LocalDateTime.now().plusDays(1); // if format wrong, set to 1 day from now
         }
     }

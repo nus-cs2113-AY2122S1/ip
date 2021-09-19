@@ -67,7 +67,8 @@ public abstract class Task {
         try {
             this.time = LocalDateTime.parse(time, saveFormatter);
         } catch (DateTimeParseException e) {
-            MessageBubble.printMessageBubble("Time format error. Example: 15/9/2021 2142");
+            MessageBubble.printMessageBubble("Time format error. Example: 15/9/2021 2142" +
+                    "\nBy default set to tomorrow");
             this.time = LocalDateTime.now().plusDays(1);
         }
     }

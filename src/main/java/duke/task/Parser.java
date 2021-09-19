@@ -5,6 +5,7 @@ import duke.exceptions.IllegalOperation;
 import duke.list.TaskList;
 import duke.ui.MessageBubble;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -110,7 +111,7 @@ public class Parser {
             }
 
             return new Deadline(description, time);
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyField();
         }
     }
@@ -141,7 +142,7 @@ public class Parser {
             }
 
             return new Event(description, startTime, endTime);
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyField();
         }
     }
