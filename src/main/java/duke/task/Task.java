@@ -4,6 +4,11 @@ public class Task {
     private final String description;
     private boolean isDone;
 
+    /**
+     * Constructs a Task instance.
+     *
+     * @param description The description of a Task given by user.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
