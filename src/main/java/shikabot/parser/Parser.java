@@ -28,6 +28,7 @@ public class Parser {
     private static final DateTimeFormatter TIME_PARSER =
             DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]");
 
+    private static final int FIND_LENGTH = 4;
     private static final int DONE_LENGTH = 4;
     private static final int TODO_LENGTH = 4;
     private static final int DEADLINE_LENGTH = 8;
@@ -118,8 +119,14 @@ public class Parser {
         }
     }
 
+    /**
+     * This function assumes that the input command is a find command and attempts to parse it. Will return
+     * a FindCommand.
+     * @param text String to search for.
+     * @return command to be executed.
+     */
     private Command parseFindCommand(String text) {
-        String str = text.substring(text.indexOf("find") + 4).trim();
+        String str = text.substring(text.indexOf("find") + FIND_LENGTH).trim();
         return new FindCommand(str);
     }
   
@@ -176,8 +183,11 @@ public class Parser {
     /**
      * This function assumes that the input command is an add deadline command and attempts to parse it. Will return
      * an AddCommand if command is correct.
+     * @param text String to be parsed.
      * @return command to be executed.
      * @throws EmptyFieldException if any fields are left empty.
+     * @throws Task.InvalidTaskException if syntax is wrong.
+     * @throws InvalidDateException if date is in invalid format.
      */
     private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
         if (!text.contains("/by")) {
@@ -197,8 +207,11 @@ public class Parser {
     /**
      * This function assumes that the input command is an add event command and attempts to parse it. Will return
      * an AddCommand if command is correct.
+     * @param text String to be parsed.
      * @return command to be executed.
      * @throws EmptyFieldException if any fields are left empty.
+     * @throws Task.InvalidTaskException if syntax is wrong.
+     * @throws InvalidDateException if date is in invalid format.
      */
     private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
         if (!text.contains("/at")) {
