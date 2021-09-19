@@ -13,6 +13,7 @@ import java.io.IOException;
 public class Duke {
 
     private Ui ui;
+    private Storage storage;
 
     public static void printList(ArrayList<Task> list, int size) {
         int position = 1;
@@ -280,6 +281,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         ui.showWelcomeMessage();
+        storage = new Storage();
         //if method is static, other class cannot call it. But why?
     }
 
@@ -295,28 +297,13 @@ public class Duke {
         ArrayList<Task> list = new ArrayList<>();
         int taskCount = 0;
 
-        //create directory if it does not exist
-        File directory = new File("data");
-        if (!directory.exists()) {
-            directory.mkdirs();
+
+        try {
+            taskCount = loadFileContents("data/data.txt", list);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
         }
-        //create txt file if it does not exist
-        File file = new File("data/data.txt");
-        if(!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        //if both directory and file exist read in the data
-        if(directory.exists() && file.exists() ) {
-            try {
-                taskCount = loadFileContents("data/data.txt", list);
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found");
-            }
-        }
+        
 
         line = in.nextLine();
 
