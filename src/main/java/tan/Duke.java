@@ -19,7 +19,8 @@ public class Duke {
                 exitProgram();
                 break;
             case "list":
-                TaskList.printList();
+                System.out.println("Your list of tasks contains:");
+                TaskList.printCurrentList();
                 break;
             case "done":
                 int taskIndex = Parser.getIndexOfTask(input);
@@ -36,6 +37,9 @@ public class Duke {
                     TaskList.deleteTask(taskNumber);
                     TaskList.saveCurrentList();
                 }
+                break;
+            case "find":
+                TaskList.findTask(input);
                 break;
             default:
                 //Assumes that the command is adding some task.
