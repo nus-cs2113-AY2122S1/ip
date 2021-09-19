@@ -2,55 +2,40 @@ package duke.command;
 
 import duke.datasaver.DataManager;
 import duke.parser.Parser;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.exception.EmptyListException;
 import duke.exception.InvalidCommandFormatException;
 
-import java.util.ArrayList;
+public class CommandExecutor {
 
-public class TaskManager {
-    private final ArrayList<Task> taskList;
+    private final TaskList taskList;
 
-    // Constructor
-    public TaskManager() {
-        taskList = new ArrayList<>();
+    /** Constructor */
+    public CommandExecutor() {
+        taskList = new TaskList();
     }
 
-    // Getter
-    public ArrayList<Task> getTaskList() {
-        return taskList;
-    }
-
-    /**
-     * Handles commands input by the user, will print error message if command is of
-     * the wrong format.
-     *
-     * @param userInput Command input by the user
-     */
-    public void handleUserInput(String userInput) {
+    public void execute(String userInput, DataManager dataManager) {
         CommandWord commandWord = Parser.parseCommandWord(userInput);
         switch (commandWord) {
         case LIST:
-            printTaskList();
+            executePrint();
             break;
         case DONE:
-            markTaskDone(userInput);
+            executeDone(userInput, dataManager);
             break;
         case TODO:
-            addTodo(userInput);
+            executeAddTodo(userInput, dataManager);
             break;
         case DEADLINE:
-            addDeadline(userInput);
+            executeAddDeadline(userInput, dataManager);
             break;
         case EVENT:
-            addEvent(userInput);
+            executeAddEvent(userInput, dataManager);
             break;
         case DELETE:
-            deleteTask(userInput);
+            executeDelete(userInput, dataManager);
             break;
         case HELP:
             Ui.printHelp();
@@ -66,108 +51,65 @@ public class TaskManager {
         }
     }
 
-    /**
-     * Prints a list of the current tasks Duke has
-     */
-    public void printTaskList() {
+    public boolean isExit(String userInput) {
+        CommandWord commandWord = Parser.parseCommandWord(userInput);
+        return commandWord.equals(CommandWord.EXIT);
+    }
+
+    public void executePrint() {
         try {
-            checkListCapacity(taskList);
-            Ui.printTaskList(taskList);
-        } catch (EmptyListException e) {
+            checkListSize(taskList);
+            Ui.printTaskList(taskList.getTaskList());
+        } catch (EmptyListException ele) {
             Ui.printEmptyListMessage();
         }
     }
 
-    /**
-     * Marks a task as done
-     *
-     * @param userInput User command containing the task ID of the task to mark done
-     */
-    public void markTaskDone(String userInput) {
+    public void executeDone(String userInput, DataManager dataManager) {
         try {
-            String[] doneSentence = Parser.parseDoneCommand(userInput);
-            int indexOfTaskToMarkDone = Integer.parseInt(doneSentence[1]) - 1;
-            taskList.get(indexOfTaskToMarkDone).setDone(true);
-            Ui.printTaskMarkedDoneMessage(taskList.get(indexOfTaskToMarkDone));
-            DataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException | NumberFormatException e) {
+            taskList.markTaskDone(userInput, dataManager);
+        } catch (InvalidCommandFormatException | NumberFormatException icfe) {
             Ui.printInvalidCommandFormatMessage();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }
     }
 
-    /**
-     * Add a todo to Duke's task list.
-     * Splits userInput by the first whitespace (or sequence of whitespaces) encountered to separate 'todo' command from
-     * its description
-     *
-     * @param userInput User command containing the todo description
-     */
-    public void addTodo(String userInput) {
+    public void executeAddTodo(String userInput, DataManager dataManager) {
         try {
-            Todo newTodo = Parser.parseAddTodoCommand(userInput);
-            taskList.add(newTodo);
-            Ui.printTaskAddedMessage(newTodo, taskList.size());
-            DataManager.saveData(taskList);
+            taskList.addTodo(userInput, dataManager);
+        } catch (InvalidCommandFormatException icfe) {
+            Ui.printInvalidCommandFormatMessage();
+        }
+    }
+
+    public void executeAddDeadline(String userInput, DataManager dataManager) {
+        try {
+            taskList.addDeadline(userInput, dataManager);
+        } catch (InvalidCommandFormatException icfe) {
+            Ui.printInvalidCommandFormatMessage();
+        }
+    }
+
+    public void executeAddEvent(String userInput, DataManager dataManager) {
+        try {
+            taskList.addEvent(userInput, dataManager);
         } catch (InvalidCommandFormatException e) {
             Ui.printInvalidCommandFormatMessage();
         }
     }
 
-    /**
-     * Add a deadline to Duke's task list
-     * Splits userInput initially by the first whitespace (or sequence of whitespaces) encountered to separate
-     * 'deadline' command from its description and deadline. The description and deadline is then split by DEADLINE_PREFIX
-     * to obtain the arguments needed for Deadline constructor
-     *
-     * @param userInput User command containing the deadline description and deadline
-     */
-    public void addDeadline(String userInput) {
+    public void executeDelete(String userInput, DataManager dataManager) {
         try {
-            Deadline newDeadline = Parser.parseAddDeadlineCommand(userInput);
-            taskList.add(newDeadline);
-            Ui.printTaskAddedMessage(newDeadline, taskList.size());
-            DataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException e) {
+            taskList.deleteTask(userInput, dataManager);
+        } catch (InvalidCommandFormatException | NumberFormatException icfe) {
             Ui.printInvalidCommandFormatMessage();
-        }
-    }
-
-    /**
-     * Add an event to Duke's task list
-     * Splits userInput initially by the first whitespace (or sequence of whitespaces) encountered to separate
-     * 'event' command from its description and time. The description and time is then split by EVENT_PREFIX
-     * to obtain the arguments needed for Event constructor
-     *
-     * @param userInput User command containing the event description and time
-     */
-    public void addEvent(String userInput) {
-        try {
-            Event newEvent = Parser.parseAddEventCommand(userInput);
-            taskList.add(newEvent);
-            Ui.printTaskAddedMessage(newEvent, taskList.size());
-            DataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException e) {
-            Ui.printInvalidCommandFormatMessage();
-        }
-    }
-
-    public void deleteTask(String userInput) {
-        try {
-            String[] deleteSentence = Parser.parseDeleteCommand(userInput);
-            int indexOfTaskToDelete = Integer.parseInt(deleteSentence[1]) - 1;
-            Ui.printTaskDeletedMessage(taskList.get(indexOfTaskToDelete), taskList.size());
-            taskList.remove(taskList.get(indexOfTaskToDelete));
-            DataManager.saveData(taskList);
-        } catch (InvalidCommandFormatException | NumberFormatException e) {
-            Ui.printInvalidCommandFormatMessage();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }
     }
 
-    private static void checkListCapacity(ArrayList<Task> taskList) throws EmptyListException {
+    private static void checkListSize(TaskList taskList) throws EmptyListException {
         if (taskList.size() == 0) {
             throw new EmptyListException();
         }
