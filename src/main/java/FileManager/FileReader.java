@@ -7,9 +7,7 @@ import tasks.Todo;
 import tasks.Event;
 import tasks.Deadline;
 
-
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.nio.file.Path;

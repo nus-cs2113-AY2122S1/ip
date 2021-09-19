@@ -1,8 +1,23 @@
 package Parser;
 
-import commands.*;
-import exceptions.*;
-import tasks.*;
+import commands.AddTaskCommand;
+import commands.DeleteCommand;
+import commands.DoneCommand;
+import commands.FindTaskCommand;
+import commands.HelpCommand;
+import commands.ListCommand;
+import commands.QuitCommand;
+import commands.SortCommand;
+import commands.UserCommand;
+import exceptions.DukeException;
+import exceptions.InvalidCommandException;
+import exceptions.TaskIndexException;
+import exceptions.TimeException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.Todo;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,7 +39,7 @@ public class Parser {
      * @return The command type
      * @throws DukeException Throws exception if the command is not exactly following the format.
      */
-    public UserCommand parseCommand(String command, TaskList userTasks) throws DukeException{
+    public UserCommand parseCommand(String command, TaskList userTasks) throws DukeException {
 
         int firstSpace = command.indexOf(" ");
 

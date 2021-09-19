@@ -4,7 +4,6 @@ import FileManager.FileReader;
 import exceptions.FileException;
 import tasks.TaskList;
 
-import java.io.File;
 
 /**
  * This class manages all users' information and helps the Userserver to find its client task list,
