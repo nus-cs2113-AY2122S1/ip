@@ -5,6 +5,7 @@ import duke.exception.ExceptionMessages;
 import duke.Ui;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -80,6 +81,17 @@ public class TaskList {
 
     public void listAllTasks() {
         Ui.printAllTasks(taskList);
+    }
+
+    public void findTasks(String keyword) throws DukeException {
+        if (keyword.equals("")) {
+            throw new DukeException(ExceptionMessages.EXCEPTION_EMPTY_SEARCH_QUERY);
+        }
+        ArrayList<Task> matchingTasks =
+                (ArrayList<Task>) taskList.stream()
+                        .filter(t -> t.getDescription().contains(keyword))
+                        .collect(Collectors.toList());
+        Ui.printMatchingTasks(matchingTasks);
     }
 
     public String toFile() {

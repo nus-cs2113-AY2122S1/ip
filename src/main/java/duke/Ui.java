@@ -29,6 +29,8 @@ public class Ui {
     private static final String MESSAGE_DELETE_TASK_SUCCESS = "The following task has been deleted:";
     private static final String MESSAGE_NO_TASK_AVAILABLE = "You have no tasks yet";
     private static final String MESSAGE_PRINT_ALL_TASK_SUCCESS = "Here are all your tasks:";
+    private static final String MESSAGE_NO_MATCHING_TASK = "There are no matching tasks available";
+    private static final String MESSAGE_FIND_TASK_SUCCESS = "Here are all the matching tasks";
 
     //Error Messages
     private static final String ERROR_NO_TASK_NUMBER_TO_MARK = "Please provide a task number e.g 'xxxx 2'";
@@ -45,6 +47,7 @@ public class Ui {
     private static final String ERROR_DUKE_UNKNOWN = "Unknown error with Duke occurred";
     private static final String ERROR_READING_SAVE_FILE = "Error reading save file, some tasks may have been lost";
     private static final String ERROR_CONVERTING_SAVE_FILE = "Error converting file to task list, some tasks may have been lost";
+    private static final String ERROR_EMPTY_QUERY = "The query is empty. Please add a valid query";
 
     private final Scanner in;
 
@@ -114,6 +117,22 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        printHorizontalLine();
+        if(matchingTasks.isEmpty()) {
+            System.out.println(MESSAGE_NO_MATCHING_TASK);
+            printHorizontalLine();
+            return;
+        }
+        System.out.println(MESSAGE_FIND_TASK_SUCCESS);
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            printSpacing();
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+        printHorizontalLine();
+
+    }
+
     public static void printAllTasks(ArrayList<Task> tasks) {
         printHorizontalLine();
         if (tasks.isEmpty()) {
@@ -176,6 +195,10 @@ public class Ui {
 
     public static void showWritingToSaveFileError() {
         printGenericMessage(ERROR_WRITING_TO_SAVE_FILE);
+    }
+
+    public static void showEmptyQueryError() {
+        printGenericMessage(ERROR_EMPTY_QUERY);
     }
 
     public static void showUnknownError() {
