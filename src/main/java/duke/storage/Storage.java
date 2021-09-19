@@ -88,8 +88,8 @@ public class Storage {
      * Includes the entire process of bringing the information of previously stored <code>Task</code> from the
      * storage to the current list of <code>Task</code> when <code>Duke</code> is first run.
      *
-     * @throws DukeException If the data found in storage is corrupted, and will wipe the data in the file or
-     * create a new one in the process.
+     * @throws DukeException Thrown if the data found in storage is corrupted, wiping the data in the file or
+     * creating a new one in the process.
      */
     public void loadStorageToTaskList() throws DukeException {
 
