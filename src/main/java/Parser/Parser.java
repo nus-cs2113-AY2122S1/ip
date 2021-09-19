@@ -5,6 +5,7 @@ import exceptions.*;
 import tasks.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -24,20 +25,6 @@ public class Parser {
      * @throws DukeException Throws exception if the command is not exactly following the format.
      */
     public UserCommand parseCommand(String command, TaskList userTasks) throws DukeException{
-
-        /*
-        exceptions already handled:
-        (1) Done / Delete command:
-            1. not provide the task index or task index not a number (NumberFormatException)
-
-
-       (2) Deadline / Event command
-            1. the time does not follow required format (DateTimeParseException)
-            2. task name is missing
-            3. time is missing (ArrayIndexOutOfBoundsException)
-
-        (3) command not exists (InvalidCommandException);
-         */
 
         int firstSpace = command.indexOf(" ");
 
@@ -114,14 +101,29 @@ public class Parser {
         try {
             String[] split = restCommand.split("/");
             String[] time = split[1].strip().split(" ");
+            String taskName = split[0].strip();
 
             if (time.length == 1) {
-                return new AddTaskCommand(new Deadline(split[0].strip(),
-                        LocalDate.parse(split[1].strip()), false), userTask);
+                LocalDate date = LocalDate.parse(split[1].strip());
+
+                if (! date.isAfter(LocalDate.now())) {
+                    throw new TimeException();
+                }
+                return new AddTaskCommand(new Deadline(taskName, date, false), userTask);
+
             } else {
-                return new AddTaskCommand(new Deadline(split[0].strip(),
-                        LocalDate.parse(time[0].strip()), LocalTime.parse(time[1].strip()), false), userTask);
+                LocalDate date = LocalDate.parse(time[0].strip());
+                LocalTime minute = LocalTime.parse(time[1].strip());
+
+                System.out.println(LocalDateTime.now());
+
+                if (!LocalDateTime.of(date, minute).isAfter(LocalDateTime.now())) {
+                    throw new TimeException();
+                }
+
+                return new AddTaskCommand(new Deadline(taskName, date, minute, false), userTask);
             }
+
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new TimeException();
         }

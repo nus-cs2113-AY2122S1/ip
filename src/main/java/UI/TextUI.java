@@ -18,7 +18,7 @@ public class TextUI {
     public String readInput() {
         String input;
         do {
-            input = sc.nextLine();
+            input = sc.nextLine().strip();
         } while (shouldIgnore(input));
         return input;
     }

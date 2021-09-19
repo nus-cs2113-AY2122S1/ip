@@ -59,7 +59,7 @@ public class TaskList {
     public TaskList findTask(String keyword) {
         TaskList satisfiedTasks = new TaskList();
         for (Task t: tasks) {
-            if (t.getTaskName().contains(keyword)) {
+            if (t.searchKeyword(keyword)) {
                 satisfiedTasks.addTask(t);
             }
         }
