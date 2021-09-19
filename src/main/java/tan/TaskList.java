@@ -18,6 +18,64 @@ public class TaskList {
     private static int totalNumberOfTask = 0;
 
     /**
+     * Adds a new task by taking the user input as a string
+     * and decides what type of task it is and
+     * creates it. If none of the task type
+     * matches, prompts the user to try again.
+     *
+     * @param userInput The entire input from the user as a String.
+     */
+    public static void addTask(String userInput) {
+        String typeOfTask = Parser.getTypeOfTask(userInput);
+        Task curTask;
+        switch (typeOfTask) {
+        case "todo":
+            curTask = createTodoTask(userInput);
+            if (curTask == null) {
+                return;
+            }
+            break;
+        case "deadline":
+            curTask = createDeadlineTask(userInput);
+            if (curTask == null) {
+                return;
+            }
+            break;
+        case "event":
+            curTask = createEventTask(userInput);
+            if (curTask == null) {
+                return;
+            }
+            break;
+        default:
+            System.out.println("Unknown command, Try again.");
+            return;
+        }
+        totalNumberOfTask += 1;
+        System.out.println("You have added: " + curTask);
+        System.out.println("Your current total number of task is: " + totalNumberOfTask);
+    }
+
+    /**
+     * Deletes the task specified at the index.
+     * If the index is out of range, prompts user to key in again.
+     *
+     * @param indexTask The index of the task to be marked as done.
+     */
+    public static void deleteTask(int indexTask) {
+        if (isOutOfRange(indexTask)) {
+            System.out.println("No such task!");
+            return;
+        }
+        Task toDelete = getTask(indexTask - 1); //Minus 1 as array's index starts at 0.
+        System.out.println("OooOOHHhh Weeee. I have removed this:");
+        System.out.println(toDelete);
+        listOfTasks.remove(indexTask - 1);
+        totalNumberOfTask -= 1;
+        System.out.println("Number of tasks left: " + totalNumberOfTask);
+    }
+
+    /**
      * Prints a list of tasks that contains
      * a substring in its description of what the user input.
      * If no task matched, it will inform the user.
@@ -25,7 +83,7 @@ public class TaskList {
      * @param userInput The whole user's input in String
      */
     public static void findTask(String userInput) {
-        String searchString = Parser.getDescription(userInput);
+        String searchString = Parser.getSearchString(userInput);
         if (searchString == null) {
             return;
         }
@@ -89,111 +147,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the Task which is at
-     * the index specified by indexTask, null otherwise.
-     *
-     * @param indexTask Index of the task to obtain.
-     * @return Task at specified index.
-     */
-    private static Task getTask(int indexTask) {
-        if (isOutOfRange(indexTask)) {
-            System.out.println("Task is out of range!");
-            return null;
-        }
-        return listOfTasks.get(indexTask);
-    }
-
-    /**
-     * Marks the task at the specified index as done.
-     * Takes in the index of the task
-     * and checks if it is within range.
-     * If it is, mark it as done. If not,
-     * prompt user and return from function.
-     *
-     * @param indexTask The index of the task to be marked as done.
-     */
-    public static void markTaskAsDone(int indexTask) {
-        if (isOutOfRange(indexTask)) {
-            System.out.println("No such task!");
-            return;
-        }
-        Task currentTask = getTask(indexTask - 1); //Minus 1 as array's index starts at 0.
-        if (currentTask != null) {
-            currentTask.markAsDone();
-        }
-    }
-
-    /**
-     * Deletes the task specified at the index.
-     * If the index is out of range, prompts user to key in again.
-     *
-     * @param indexTask The index of the task to be marked as done.
-     */
-    public static void deleteTask(int indexTask) {
-        if (isOutOfRange(indexTask)) {
-            System.out.println("No such task!");
-            return;
-        }
-        Task toDelete = getTask(indexTask - 1); //Minus 1 as array's index starts at 0.
-        System.out.println("OooOOHHhh Weeee. I have removed this:");
-        System.out.println(toDelete);
-        listOfTasks.remove(indexTask - 1);
-        totalNumberOfTask -= 1;
-        System.out.println("Number of tasks left: " + totalNumberOfTask);
-    }
-
-    /**
-     * Returns true if index provided is out of the range
-     * for the current number of stored task. Else false.
-     *
-     * @param index The index of the task.
-     * @return True if it is out of range, False otherwise.
-     */
-    public static boolean isOutOfRange(int index) {
-        return (index > listOfTasks.size() || index < 0);
-    }
-
-    /**
-     * Adds a new task by taking the user input as a string
-     * and decides what type of task it is and
-     * creates it. If none of the task type
-     * matches, prompts the user to try again.
-     *
-     * @param userInput The entire input from the user as a String.
-     */
-    public static void addTask(String userInput) {
-        String typeOfTask = Parser.getTypeOfTask(userInput);
-        Task curTask;
-        switch (typeOfTask) {
-        case "todo":
-            curTask = createTodoTask(userInput);
-            if (curTask == null) {
-                return;
-            }
-            break;
-        case "deadline":
-            curTask = createDeadlineTask(userInput);
-            if (curTask == null) {
-                return;
-            }
-            break;
-        case "event":
-            curTask = createEventTask(userInput);
-            if (curTask == null) {
-                return;
-            }
-            break;
-        default:
-            System.out.println("Unknown command, Try again.");
-            return;
-        }
-        totalNumberOfTask += 1;
-        System.out.println("You have added: " + curTask);
-        System.out.println("Your current total number of task is: " + totalNumberOfTask);
-    }
-
-
-    /**
      * Adds an Event Task to the list and returns the same task, else
      * returns null.
      * This function takes in the users input and tries to get the
@@ -207,10 +160,10 @@ public class TaskList {
         Task curTask = null;
         try {
             String eventDesc = Parser.getDescriptionOfEvent(userInput);
-            String dateOfEventInString = getDateTimeOfEventInString(userInput);
+            String dateOfEventInString = Parser.getDateTimeOfEvent(userInput);
             LocalDate taskDate = Parser.getInDateFormat(dateOfEventInString);
             if (taskDate == null) {
-                System.out.println("Unable to parse date");
+                System.out.println("Unable to parse Date. Format should be in yyyy-mm-dd. E.g (2021-12-05)");
                 return null;
             }
             curTask = new Event(eventDesc, taskDate);
@@ -242,7 +195,7 @@ public class TaskList {
             String deadlineDateTime = Parser.getDateTimeOfDeadline(userInput);
             LocalDate taskDate = Parser.getInDateFormat(deadlineDateTime);
             if (taskDate == null) {
-                System.out.println("Unable to parse Date.");
+                System.out.println("Unable to parse Date. Format should be in yyyy-mm-dd. E.g (2021-12-05)");
                 return null;
             }
             curTask = new Deadline(deadlineDesc, taskDate);
@@ -284,25 +237,38 @@ public class TaskList {
     }
 
     /**
-     * Returns the Date/Time specified when creating an Event task,
-     * else throws a DukeFormatExceptions. The function
-     * uses the "/at" specified in the user's input to find the date/time.
-     * Throws a DukeFormatExceptions error if its unable to find "/at".
+     * Returns the Task which is at
+     * the index specified by indexTask, null otherwise.
      *
-     * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
-     * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
-     * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
+     * @param indexTask Index of the task to obtain.
+     * @return Task at specified index.
      */
-    private static String getDateTimeOfEventInString(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
-        //Checks if user has used the /at... format.
-        if (x.toLowerCase().contains("/at")) {
-            int indexOfSlash = x.indexOf("/at");
-            //+3 to the index as we don't want to capture "/at" itself.
-            String dateTime = x.substring(indexOfSlash + 3);
-            return dateTime.trim();
+    private static Task getTask(int indexTask) {
+        if (isOutOfRange(indexTask)) {
+            System.out.println("Task is out of range!");
+            return null;
         }
-        throw new DukeFormatExceptions("Code could not find '/at'");
+        return listOfTasks.get(indexTask);
+    }
+
+    /**
+     * Marks the task at the specified index as done.
+     * Takes in the index of the task
+     * and checks if it is within range.
+     * If it is, mark it as done. If not,
+     * prompt user and return from function.
+     *
+     * @param indexTask The index of the task to be marked as done.
+     */
+    public static void markTaskAsDone(int indexTask) {
+        if (isOutOfRange(indexTask)) {
+            System.out.println("No such task!");
+            return;
+        }
+        Task currentTask = getTask(indexTask - 1); //Minus 1 as array's index starts at 0.
+        if (currentTask != null) {
+            currentTask.markAsDone();
+        }
     }
 
     /**
@@ -311,6 +277,17 @@ public class TaskList {
      */
     public static void printCurrentList() {
         Ui.printListOfTask(listOfTasks);
+    }
+
+    /**
+     * Returns true if index provided is out of the range
+     * for the current number of stored task. Else false.
+     *
+     * @param index The index of the task.
+     * @return True if it is out of range, False otherwise.
+     */
+    public static boolean isOutOfRange(int index) {
+        return (index > listOfTasks.size() || index < 0);
     }
 
 }

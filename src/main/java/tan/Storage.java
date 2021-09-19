@@ -40,6 +40,67 @@ public class Storage {
     private static int totalLinesLoaded = 0;
 
     /**
+     * Returns a Task based on the parameters passed in. Null otherwise.
+     * This function creates & returns the actual task based on the
+     * parameters passed in. If the task type integer is not recognized,
+     * null is returned.
+     *
+     * @param taskType The integer representing its type of task.
+     * @param isDone   The completion status of the task.
+     * @param name     The Name of the task.
+     * @param date     The date, if there is, of the task.
+     * @return The task created. Null if task type is not recognized.
+     */
+    private static Task createTask(int taskType, boolean isDone, String name, LocalDate date) {
+        Task newTask;
+        switch (taskType) {
+        case 0:
+            //Task type todo.
+            newTask = new ToDo(name, isDone);
+            break;
+        case 1:
+            //Task type Deadline.
+            newTask = new Deadline(name, isDone, date);
+            break;
+        case 2:
+            //Task type event.
+            newTask = new Event(name, isDone, date);
+            break;
+        default:
+            //Error in task type.
+            newTask = null;
+            System.out.println("Error in task type.");
+            break;
+        }
+        return newTask;
+    }
+
+    /**
+     * Returns the integer corresponding to its task type, else -1.
+     * This function takes in a task-type in String
+     * and returns its corresponding integer value.
+     * Its corresponding task type to integers are,
+     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
+     *
+     * @param taskType The Task type in String.
+     * @return The value corresponding to its task type in integer. -1 if unknown.
+     */
+    public static int getTaskTypeInInt(String taskType) {
+        taskType = taskType.toLowerCase();
+        switch (taskType) {
+        case "todo":
+            return 0;
+        case "deadline":
+            return 1;
+        case "event":
+            return 2;
+        default:
+            System.out.println("Unknown Task Type!");
+            return -1;
+        }
+    }
+
+    /**
      * Saves the current list by deleting the old taskData.csv file and
      * recreates a new one with the new List of task. The file's
      * location is specified by the DATA_PATH variable.
@@ -58,7 +119,7 @@ public class Storage {
         } else {
             csvWriter = Files.newBufferedWriter(DATA_PATH, CREATE);
         }
-        writeHeader();
+        writeHeaderIntoFile();
         for (Task curTask : curList) {
             String curTaskInCsv = getTaskInCsv(curTask);
             if (curTaskInCsv == null) {
@@ -104,31 +165,6 @@ public class Storage {
             return null;
         }
         return taskAsCsv;
-    }
-
-    /**
-     * Returns the integer corresponding to its task type, else -1.
-     * This function takes in a task-type in String
-     * and returns its corresponding integer value.
-     * Its corresponding task type to integers are,
-     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
-     *
-     * @param taskType The Task type in String.
-     * @return The value corresponding to its task type in integer. -1 if unknown.
-     */
-    public static int getTaskTypeInInt(String taskType) {
-        taskType = taskType.toLowerCase();
-        switch (taskType) {
-        case "todo":
-            return 0;
-        case "deadline":
-            return 1;
-        case "event":
-            return 2;
-        default:
-            System.out.println("Unknown Task Type!");
-            return -1;
-        }
     }
 
     /**
@@ -183,42 +219,6 @@ public class Storage {
     }
 
     /**
-     * Returns a Task based on the parameters passed in. Null otherwise.
-     * This function creates & returns the actual task based on the
-     * parameters passed in. If the task type integer is not recognized,
-     * null is returned.
-     *
-     * @param taskType The integer representing its type of task.
-     * @param isDone   The completion status of the task.
-     * @param name     The Name of the task.
-     * @param date     The date, if there is, of the task.
-     * @return The task created. Null if task type is not recognized.
-     */
-    private static Task createTask(int taskType, boolean isDone, String name, LocalDate date) {
-        Task newTask;
-        switch (taskType) {
-        case 0:
-            //Task type todo.
-            newTask = new ToDo(name, isDone);
-            break;
-        case 1:
-            //Task type Deadline.
-            newTask = new Deadline(name, isDone, date);
-            break;
-        case 2:
-            //Task type event.
-            newTask = new Event(name, isDone, date);
-            break;
-        default:
-            //Error in task type.
-            newTask = null;
-            System.out.println("Error in task type.");
-            break;
-        }
-        return newTask;
-    }
-
-    /**
      * Returns a List of strings arrays containing the data
      * in the file by reading the dataFile & converts the data
      * from CSV into a list of string array and returns it.
@@ -254,7 +254,7 @@ public class Storage {
     private static void initializeFile() {
         try {
             setWriterAndReaderAndDataPath(homePath);
-            writeHeader();
+            writeHeaderIntoFile();
             csvWriter.close();
         } catch (IOException e) {
             System.out.println("Error in accessing/writing file.");
@@ -272,7 +272,7 @@ public class Storage {
      *
      * @throws IOException Thrown in the event of an error while writing.
      */
-    private static void writeHeader() throws IOException {
+    private static void writeHeaderIntoFile() throws IOException {
         String header = String.join(",", TITLE);
         csvWriter.append(header);
         csvWriter.append(System.lineSeparator());

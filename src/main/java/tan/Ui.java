@@ -53,7 +53,8 @@ public class Ui {
         try {
             for (int i = 0; i < listOfTasks.size(); i++) {
                 Task currentTask = listOfTasks.get(i);
-                System.out.println(currentTask);
+                int displayIndex = i + 1;
+                System.out.println(displayIndex + "." + currentTask);
             }
         } catch (IndexOutOfBoundsException i) {
             System.out.println("Error in printing task! Contact Admin =(");
