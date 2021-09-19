@@ -1,11 +1,15 @@
 package duke.command;
 
 import duke.datasaver.DataManager;
+import duke.exception.QueryNotFoundException;
 import duke.parser.Parser;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.exception.EmptyListException;
 import duke.exception.InvalidCommandFormatException;
+
+import java.util.ArrayList;
 
 public class CommandExecutor {
 
@@ -32,6 +36,9 @@ public class CommandExecutor {
             break;
         case HELP:
             Ui.printHelp();
+            break;
+        case FIND:
+            executeFind(userInput, taskList);
             break;
         case EXIT:
             Ui.printByeMessage();
@@ -100,6 +107,31 @@ public class CommandExecutor {
         } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }
+    }
+
+    public void executeFind(String userInput, TaskList taskList) {
+        try {
+            String query = Parser.parseFindCommand(userInput);
+            ArrayList<Task> tasksContainingQuery = search(taskList.getTaskList(), query);
+            Ui.printTaskListContainingQuery(tasksContainingQuery, query);
+        } catch (InvalidCommandFormatException icfe) {
+            Ui.printInvalidCommandFormatMessage();
+        } catch (QueryNotFoundException qnfe) {
+            Ui.printQueryNotFoundMessage();
+        }
+    }
+
+    private static ArrayList<Task> search(ArrayList<Task> taskList, String query) throws QueryNotFoundException {
+        ArrayList<Task> taskListContainingQuery = new ArrayList<>();
+        for (Task t : taskList) {
+            if (t.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                taskListContainingQuery.add(t);
+            }
+        }
+        if (taskListContainingQuery.isEmpty()) {
+            throw new QueryNotFoundException();
+        }
+        return taskListContainingQuery;
     }
 
     private static void checkListSize(TaskList taskList) throws EmptyListException {
