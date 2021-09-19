@@ -4,6 +4,11 @@ import duke.manager.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * <h1>UserInterface</h1>
+ * This class contains members and useful methods that display text as well as interact with the user
+ * in a more reader friendly format.
+ */
 public class UserInterface {
 
     public static final String LOGO = System.lineSeparator()
@@ -24,14 +29,20 @@ public class UserInterface {
     public static final String INPUT_PROMPT = "> Enter Command: ";
 
     /**
-     * Reads in a String and prints the identical String followed by a newline
+     * Prints String identical to user input followed by a newline.
      *
-     * @param input String to be echo-ed
+     * @param input String to be echo-ed.
      */
     public static void echo(String input) {
         System.out.println(input);
     }
 
+    /**
+     * Prints task list in a reader friendly format.
+     * Task list is printed with a horizontal bar above and below it.
+     *
+     * @param taskList ArrayList of tasks to be printed.
+     */
     public static void printTaskList(ArrayList<Task> taskList) {
         String taskListAsString = "";
         int currentIndexInOnesIndexing;
@@ -49,13 +60,18 @@ public class UserInterface {
                 + System.lineSeparator() + HORIZONTAL_BAR);
     }
 
+    /**
+     * Prints message with a horizontal bar above and below it.
+     *
+     * @param message Message as a String to be printed.
+     */
     public static void printMessage(String message) {
         echo(HORIZONTAL_BAR + System.lineSeparator() + message
                 + System.lineSeparator() + HORIZONTAL_BAR);
     }
 
     /**
-     * Print greeting message upon starting the program
+     * Prints greeting message when user starts the program.
      */
     public static void printGreetingMessage() {
         echo(HORIZONTAL_BAR + System.lineSeparator() + LOGO + System.lineSeparator()
@@ -64,7 +80,7 @@ public class UserInterface {
     }
 
     /**
-     * Print farewell message upon exiting the program
+     * Prints farewell message when user exists the program.
      */
     public static void printFarewellMessage() {
         echo(HORIZONTAL_BAR + System.lineSeparator() + "  Goodbye. Hope to see you again soon!"

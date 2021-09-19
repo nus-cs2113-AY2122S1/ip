@@ -1,5 +1,10 @@
 package duke.manager.task;
 
+/**
+ * <h1>Task</h1>
+ * Represents any kind of task. A <code>Task</code> object is represented by a String of the task description
+ * <code>taskDescription</code> and a boolean of the status of the task <code>isDone</code>.
+ */
 public class Task {
 
     protected String taskDescription;
@@ -18,6 +23,9 @@ public class Task {
         return taskDescription;
     }
 
+    /**
+     * Returns the task description with its status in a more reader friendly manner
+     */
     public String getTaskDescriptionWithStatus() {
         // mark done task with X
         return (isDone ? "[X] " : "[ ] ") + taskDescription;

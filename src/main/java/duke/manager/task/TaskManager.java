@@ -9,7 +9,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+/**
+ * <h1>TaskManager</h1>
+ * A <code>TaskManager</code> object is in charge of managing the tasks within the task list.
+ * Methods for adding/deleting/marking tasks in the task list are within this class.
+ * It also contains methods to load data from user data file and saving data to user data file.
+ */
 public class TaskManager {
 
     private ArrayList<Task> tasks;
@@ -28,6 +35,11 @@ public class TaskManager {
         tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Converts the whole task list into one String. Each task is stored in a readable format every line.
+     *
+     * @return String All tasks in the task list.
+     */
     public String saveTasksAsString() {
         if (tasks.isEmpty()) {
             return EMPTY_STRING; //return empty data file
@@ -36,6 +48,7 @@ public class TaskManager {
         String taskLabel;
         String taskArgumentAsString;
         int isDoneAsInteger;
+        // Goes through all tasks within the task list and appends them to taskListAsString
         for (Task t : tasks) {
             isDoneAsInteger = t.isDone() ? 1 : 0;
             taskLabel = convertTaskTypeToString(t);
@@ -50,10 +63,24 @@ public class TaskManager {
         return taskListAsString;
     }
 
+    /**
+     * Checks if current line of data invalid. Returns true if invalid, false if valid.
+     *
+     * @param taskLabel    Label of the current task.
+     * @param taskArgument Argument(s) of the current task.
+     * @return boolean Outcome of checking if data is invalid.
+     */
     public boolean isCurrentLineOfDataInvalid(String taskLabel, String taskArgument) {
         return (taskLabel.equals(INVALID_TASK_LABEL) || taskArgument.equals(INVALID_TASK_ARGUMENT));
     }
 
+    /**
+     * Converts the task type into a one letter label that represents the task type. This label will
+     * be stored in the user data file.
+     *
+     * @param task Task to be checked.
+     * @return String Label of the task as one letter.
+     */
     public String convertTaskTypeToString(Task task) {
         String output;
         if (task instanceof ToDo) {
@@ -68,6 +95,12 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Converts the task argument(s) into a neat format to be stored into the user data file.
+     *
+     * @param task Task to be checked.
+     * @return String Argument of the task.
+     */
     public String convertTaskArgumentToString(Task task) {
         String output;
         if (task instanceof ToDo) {
@@ -82,6 +115,11 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Loads all the tasks stored in the user data file into the task list.
+     *
+     * @throws FileNotFoundException Unable to find file.
+     */
     public void preloadTasks() throws FileNotFoundException {
         File dataFile = new File(UserData.getFilePath());
         // short circuit preload if file is empty
@@ -105,6 +143,14 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds task into the task list if the line of the data file is in a valid format.
+     *
+     * @param taskType   The task label.
+     * @param taskStatus The status of the task.
+     * @param restOfLine The rest of the line which contains task description and additional arguments
+     *                   for deadlines and events.
+     */
     public void loadCurrentLineTask(String taskType, boolean taskStatus, String[] restOfLine) {
         if (taskType.equals(TODO_TASK_LABEL)) {
             ToDo newToDo = new ToDo(restOfLine[0]);
@@ -129,7 +175,10 @@ public class TaskManager {
         }
     }
 
-    public void printTasks() {
+    /**
+     * Prints the current task list.
+     */
+    public void printTaskList() {
         if (tasks.isEmpty()) {
             UserInterface.printMessage(
                     Message.EMPTY_TASK_LIST_MESSAGE
@@ -139,8 +188,25 @@ public class TaskManager {
         }
     }
 
+    public void printFilteredTaskList(String filterString) {
+        ArrayList<Task> filteredTaskList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getTaskDescription().contains(filterString))
+                .collect(Collectors.toList());
+        if (filteredTaskList.isEmpty()) {
+            UserInterface.printMessage(
+                    Message.KEYWORD_NOT_FOUND_MESSAGE
+            );
+        } else {
+            UserInterface.printTaskList(filteredTaskList);
+        }
+    }
+
     /**
-     * Marks task in array as done and prints echo message depending on validity of task no.
+     * Marks task in array as done and prints message depending on validity of task number.
+     *
+     * @param input User input which should represent task number.
+     * @throws InvalidTaskNumberException Task number is out of range.
+     * @throws NumberFormatException      User input not parsable into an int.
      */
     public void markTaskAsDone(String input) throws InvalidTaskNumberException, NumberFormatException {
         int taskNumber;
@@ -162,6 +228,13 @@ public class TaskManager {
         );
     }
 
+    /**
+     * Deletes the task specified by its task number from the task list.
+     *
+     * @param input User input which should represent task number.
+     * @throws InvalidTaskNumberException Task number is out of range.
+     * @throws NumberFormatException      User input not parsable into an int.
+     */
     public void deleteTask(String input) throws InvalidTaskNumberException, NumberFormatException {
         int taskNumber;
         try {
@@ -180,6 +253,12 @@ public class TaskManager {
         tasks.remove(taskNumber - 1);
     }
 
+    /**
+     * Adds a todo to the list if user input had the necessary argument(s).
+     *
+     * @param argument Argument for the todo.
+     * @throws MissingCommandArgumentException No arguments given.
+     */
     public void checkInputThenAddToDo(String argument) throws MissingCommandArgumentException {
         if (argument.equals(NO_ARGUMENT_INPUT)) {
             throw new MissingCommandArgumentException();
@@ -187,6 +266,12 @@ public class TaskManager {
         addToDo(argument);
     }
 
+    /**
+     * Adds an event to the list if user input had the necessary argument(s).
+     *
+     * @param arguments Argument for event
+     * @throws MissingCommandArgumentException No arguments given.
+     */
     public void checkInputThenAddEvent(String[] arguments) throws MissingCommandArgumentException {
         if (arguments.length > 1) {
             // arguments[0] equals description, arguments[1] equals "at"
@@ -201,6 +286,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a deadline to the list if user input had the necessary argument(s).
+     *
+     * @param arguments Argument for deadline.
+     * @throws MissingCommandArgumentException No arguments given.
+     */
     public void checkInputThenAddDeadline(String[] arguments) throws MissingCommandArgumentException {
         if (arguments.length > 1) {
             // arguments[0] equals description, arguments[1] equals "by"
@@ -215,6 +306,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds todo to the task list and prints a relevant message to the user.
+     *
+     * @param description Description of the todo
+     */
     public void addToDo(String description) {
         tasks.add(new ToDo(description));
         String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
@@ -223,6 +319,12 @@ public class TaskManager {
         );
     }
 
+    /**
+     * Adds event to the task list and prints a relevant message to the user.
+     *
+     * @param description Description of the event.
+     * @param at          When the event is at.
+     */
     public void addEvent(String description, String at) {
         tasks.add(new Event(description, at));
         String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
@@ -231,6 +333,12 @@ public class TaskManager {
         );
     }
 
+    /**
+     * Adds deadline to the task list and prints a relevant message to the user.
+     *
+     * @param description Description of the deadline.
+     * @param at          When the deadline is by.
+     */
     public void addDeadline(String description, String by) {
         tasks.add(new Deadline(description, by));
         String taskDescriptionWithStatus = tasks.get(tasks.size() - 1).getTaskDescriptionWithStatus();
