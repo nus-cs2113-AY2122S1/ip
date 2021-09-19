@@ -8,7 +8,6 @@ import duke.tasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -31,8 +30,8 @@ public class Database{
      * @return "tasksCopy" previous state of tasks if the data file exists,
      * or an empty file if the data file does not exist.
      */
-    public static ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasksCopy = new ArrayList<>();
+    public static TaskList loadTasks() {
+        TaskList tasksCopy = new TaskList();
 
         File storedFile;
         try {
@@ -43,7 +42,7 @@ public class Database{
             } else {
                 Scanner readFile = new Scanner(storedFile);
                 while (readFile.hasNext()) {
-                    duke.Logic.LIST_INDEX++;
+                    duke.Logic.listIndex++;
                     String fileLine = readFile.nextLine();
                     Scanner lineData = new Scanner(fileLine);
                     lineData.useDelimiter("\\|");
@@ -55,25 +54,25 @@ public class Database{
                     case "T":
                         Todo savedTodo = new Todo(taskDescription);
                         if (isDone.equals("1")) {
-                            savedTodo.markDone();
+                            savedTodo.setDone();
                         }
-                        tasksCopy.add(savedTodo);
+                        tasksCopy.addTask(savedTodo);
                         break;
                     case "D":
                         String deadLineDate = lineData.next().trim();
                         Deadline savedDeadLine = new Deadline(taskDescription, deadLineDate);
                         if (isDone.equals("1")) {
-                            savedDeadLine.markDone();
+                            savedDeadLine.setDone();
                         }
-                        tasksCopy.add(savedDeadLine);
+                        tasksCopy.addTask(savedDeadLine);
                         break;
                     case "E":
                         String eventDate = lineData.next().trim();
                         Event savedEvent = new Event(taskDescription, eventDate);
                         if (isDone.equals("1")) {
-                            savedEvent.markDone();
+                            savedEvent.setDone();
                         }
-                        tasksCopy.add(savedEvent);
+                        tasksCopy.addTask(savedEvent);
                         break;
                     }
                 }
@@ -89,7 +88,7 @@ public class Database{
      *
      * @param "taskList" the current list of tasks
      */
-    public static void saveFile(ArrayList<Task> taskList) {
+    public static void saveFile(TaskList taskList) {
         try {
             File database;
             database = new File("duke.txt");
@@ -98,8 +97,8 @@ public class Database{
             System.out.println("Oops! An error cropped up while saving");
         }
         String savedData = "";
-        for (int i = 0;i < taskList.size();i++) {
-            Task currTask = taskList.get(i);
+        for (int i = 1; i <= taskList.getSize(); i++) {
+            Task currTask = taskList.getTask(i);
             savedData += currTask.toStringStore();
             savedData += "\n";
         }
@@ -119,8 +118,8 @@ public class Database{
      *
      * @param "taskList" the current list of tasks
      */
-    public static void autoSaveFile(ArrayList<Task> taskList) {
-        Task currTask = taskList.get(taskList.size() - 1);
+    public static void autoSaveFile(TaskList taskList) {
+        Task currTask = taskList.getTask(taskList.getSize());
         String data = currTask.toStringStore() + "\n";
         try {
             FileWriter editor = new FileWriter("duke.txt", true);
