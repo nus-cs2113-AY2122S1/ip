@@ -76,6 +76,7 @@ public class Parser {
     private static final String ERROR_INVALID_EVENT_DATE_FORMAT = S_TAB + "ERROR: Use the following format: 'dd/MM/yyyy HHmm dd/MM/yyyy HHmm'";
     private static final String ERROR_INVALID_DATE_TIME = S_TAB + "ERROR: Date(s) has to be after the current date.";
     private static final String ERROR_INVALID_START_END_DATE = S_TAB + "ERROR: Start date has to be before the end date.";
+    private static final String ERROR_INVALID_NUMBER = S_TAB + "ERROR: Provide a numeric value for the task number.";
 
     /**
      * Takes in the user input command and breaks down the data.
@@ -154,7 +155,7 @@ public class Parser {
         if (words.length > 2) {
             throw new DukeException(ERROR_DONE_2);
         }
-        return new DoneCommand(Integer.parseInt(words[TASK_NUMBER]));
+        return new DoneCommand(convertToInt(words[TASK_NUMBER]));
     }
 
     /**
@@ -260,7 +261,7 @@ public class Parser {
         if (words.length > 2) {
             throw new DukeException(ERROR_DELETE_2);
         }
-        return new DeleteCommand(Integer.parseInt(words[TASK_NUMBER]));
+        return new DeleteCommand(convertToInt(words[TASK_NUMBER]));
     }
 
     /**
@@ -414,6 +415,23 @@ public class Parser {
      */
     private static boolean isOnlyKeyword(String inputCommand, int keywordLength) {
         return inputCommand.length() <= keywordLength + 1;
+    }
+
+    /**
+     * Checks if the user inputs a numeric value for the task number.
+     *
+     * @param number String representation of the task number.
+     * @return Integer value of the task number.
+     * @throws DukeException If a non-numeric string is given as the task number (Exp: "one")
+     */
+    private static int convertToInt(String number) throws DukeException {
+        int returnNumber;
+        try {
+            returnNumber = Integer.parseInt(number);
+        } catch (NumberFormatException numberFormatException) {
+            throw new DukeException(ERROR_INVALID_NUMBER);
+        }
+        return returnNumber;
     }
 
 }
