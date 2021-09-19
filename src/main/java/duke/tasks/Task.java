@@ -28,6 +28,10 @@ public abstract class Task {
         this.doneStatus = "X";
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Converts the <code>Task</code> object to its string format for display on the user interface.
      *

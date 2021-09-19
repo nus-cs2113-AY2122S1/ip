@@ -31,8 +31,10 @@ list
  delete    5
 delete 9
 delete    1
+find cry
 date   2021-08-22
 echo Start exception handling test
+find
 date  abc
 delete
 delete ok

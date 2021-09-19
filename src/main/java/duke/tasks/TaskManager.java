@@ -50,6 +50,14 @@ public class TaskManager {
         return tasks;
     }
 
+    public static ArrayList<Task> filterListByKeyword(String filterWord) {
+        ArrayList<Task> filteredList =
+                (ArrayList<Task>) tasks.stream()
+                        .filter((task) -> task.getDescription().toLowerCase().contains(filterWord.toLowerCase()))
+                        .collect(Collectors.toList());
+        return filteredList;
+    }
+
     public static ArrayList<Task> filterListByDate(String date) {
         ArrayList<Task> filteredList =
                 (ArrayList<Task>) tasks.stream()
