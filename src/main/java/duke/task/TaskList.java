@@ -6,20 +6,25 @@ import duke.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Task list containing a list of different types of tasks.
+ */
 public class TaskList {
-
-
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructs an instance of the <code>TaskList</code> object with an empty ArrayList.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
-        taskList = tasks;
-    }
-
-
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task Task to be added.
+     * @throws DukeException If no description given.
+     */
     public void addTask(Task task) throws DukeException {
         if (task.getDescription().equals("")) {
             throw new DukeException(ExceptionMessages.EXCEPTION_NO_DESCRIPTION);
@@ -31,6 +36,12 @@ public class TaskList {
         Ui.printAddTaskMessage(listLength, mostRecentTask);
     }
 
+    /**
+     * Adds a task to the task list without printing a message.
+     *
+     * @param task Task to be added.
+     * @throws DukeException If no description given.
+     */
     public void addTaskWithoutMessage(Task task) throws DukeException {
         if (task.getDescription().equals("")) {
             throw new DukeException(ExceptionMessages.EXCEPTION_NO_DESCRIPTION);
@@ -39,11 +50,18 @@ public class TaskList {
     }
 
 
-    public void deleteTask(String input) throws DukeException, NumberFormatException {
-        if (input.equals("")) {
+    /**
+     * Deletes a task by taking in the task number.
+     *
+     * @param rawTaskNumber Number used to identify the task to delete.
+     * @throws DukeException If task number is invalid or if no task number is provided.
+     * @throws NumberFormatException If task number provided is not parsable into an integer.
+     */
+    public void deleteTask(String rawTaskNumber) throws DukeException, NumberFormatException {
+        if (rawTaskNumber.equals("")) {
             throw new DukeException(ExceptionMessages.EXCEPTION_NO_TASK_NUMBER);
         }
-        int taskNumber = Integer.parseInt(input.trim());
+        int taskNumber = Integer.parseInt(rawTaskNumber.trim());
         if (isMissingTask(taskNumber)) {
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_TASK_NUMBER);
         }
@@ -57,11 +75,18 @@ public class TaskList {
     }
 
 
-    public void markTaskAsDone(String input) throws DukeException, NumberFormatException {
-        if (input.equals("")) {
+    /**
+     * Marks a task as done.
+     *
+     * @param rawTaskNumber Number to identify the task to be marked.
+     * @throws DukeException If task number is invalid or if no task number is provided.
+     * @throws NumberFormatException If task number provided is not parsable into an integer.
+     */
+    public void markTaskAsDone(String rawTaskNumber) throws DukeException, NumberFormatException {
+        if (rawTaskNumber.equals("")) {
             throw new DukeException(ExceptionMessages.EXCEPTION_NO_TASK_NUMBER);
         }
-        int taskNumber = Integer.parseInt(input.trim());
+        int taskNumber = Integer.parseInt(rawTaskNumber.trim());
         if (isMissingTask(taskNumber)) {
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_TASK_NUMBER);
         }
@@ -78,10 +103,18 @@ public class TaskList {
         Ui.printMarkTaskSuccessMessage(task);
     }
 
+    /**
+     * Lists and prints all the tasks in the task list.
+     */
     public void listAllTasks() {
         Ui.printAllTasks(taskList);
     }
 
+    /**
+     * Converts the task list into a string to be saved as a text file.
+     *
+     * @return String representing the task list to be saved as a text file.
+     */
     public String toFile() {
         StringBuilder fileContent = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {

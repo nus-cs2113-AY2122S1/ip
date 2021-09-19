@@ -10,14 +10,27 @@ import java.util.Scanner;
 
 import duke.exception.DukeException;
 import duke.exception.ExceptionMessages;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
-
+/**
+ * Deals with loading tasks from save file and saving tasks to the save file.
+ */
 public class Storage {
     private static final String ROOT = System.getProperty("user.dir");
     private static final Path FILE_PATH = Paths.get(ROOT, "data", "duke.txt");
     private static final Path DIRECTORY_PATH = Paths.get(ROOT, "data");
 
+    /**
+     * Saves a <code>TaskList</code> object to a file in a relative path specified by FILE_PATH
+     * by converting it to a text file.
+     * If the file or the target directory does not exist, it will be created.
+     *
+     * @param taskList The task list to be saved.
+     */
     public static void writeTaskListToFile(TaskList taskList) {
         try {
             if (!Files.exists((DIRECTORY_PATH))) {
@@ -67,6 +80,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task list stored in the text save file and converts it to a <code>TaskList</code> object.
+     *
+     * @return TaskList object obtained by converting text save file to a TaskList object.
+     */
     public static TaskList loadTaskListFromFile() {
         if (!Files.exists(FILE_PATH)) {
             return new TaskList();

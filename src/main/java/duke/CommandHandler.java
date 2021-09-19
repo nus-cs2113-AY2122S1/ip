@@ -26,10 +26,10 @@ public class CommandHandler {
     /**
      * Takes in as <code>TaskList</code> object and user commands and executes the relevant methods.
      *
-     * @param commandType Type of command
-     * @param commandArgs Arguments to the command
-     * @param tasks Task list which commands are operated on
-     * @throws DukeException If command is invalid
+     * @param commandType Type of command.
+     * @param commandArgs Arguments to the command.
+     * @param tasks Task list which commands are operated on.
+     * @throws DukeException If command is invalid.
      */
     public static void processInput(String commandType, String commandArgs, TaskList tasks) throws DukeException {
         switch (commandType) {
