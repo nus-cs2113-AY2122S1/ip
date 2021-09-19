@@ -16,7 +16,9 @@ public class AddCommand extends Command {
         this.atBy = atBy;
     }
 
-    @Override
+    /**
+     * Function that adds a new task to the tasklist.
+     */
     public void execute() {
         switch (type) {
         case 'T':

@@ -54,7 +54,7 @@ public class Storage {
     }
 
     /**
-     * This function loads tasks by parsing the String inputted, then calling addSavedTask to add it to
+     * Function that loads tasks by parsing the String inputted, then calling addSavedTask to add it to
      * taskList.
      * @param s String to be parsed.
      */
@@ -70,8 +70,8 @@ public class Storage {
     }
 
     /**
-     * This function saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
-     * @throws IOException when the saving operation is interrupted.
+     * Function that saves tasks to data/ShikaTasks.txt. It rewrites the txt from scratch.
+     * @throws IOException if saving operation is interrupted.
      */
     public void saveTasks(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(path);
@@ -85,12 +85,22 @@ public class Storage {
         }
     }
 
+    /**
+     * Function that saves the individual task by appending it to the end of the current save file.
+     * @param task task to be saved.
+     * @throws IOException if saving operation is interrupted.
+     */
     public void saveTask(Task task) throws IOException {
         FileWriter fw = new FileWriter(path, true);
         fw.write(encodeTask(task));
         fw.close();
     }
 
+    /**
+     * Function that returns the String for a task to be encoded into the save file.
+     * @param task task to be encoded.
+     * @return String to be written into the save file.
+     */
     public String encodeTask(Task task) {
         String divider = " | ";
         return task.getType() +
@@ -104,6 +114,5 @@ public class Storage {
     }
 
     public static class FileErrorException extends Exception {
-
     }
 }

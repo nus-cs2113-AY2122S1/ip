@@ -26,10 +26,20 @@ public class Parser {
     private static final int DELETE_LENGTH = 6;
     private static final int DIVIDER_LENGTH = 3;
 
+    /**
+     * Function that checks if the string entered is an add command.
+     * @param text String to be parsed.
+     * @return true if String starts with todo, deadline or event. False otherwise.
+     */
     public boolean isAddCommand(String text) {
         return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
     }
 
+    /**
+     * Function that parses the command. Calls other functions in order to parse or execute the actual command.
+     * @param text String to be parsed.
+     * @return command to be executed.
+     */
     public Command parseCommand(String text) {
         Command command;
         text = text.trim();
@@ -49,6 +59,12 @@ public class Parser {
         return command;
     }
 
+    /**
+     * This function assumes that the input command is a done command and attempts to parse it. Will return
+     * a DoneCommand if command is correct, otherwise it will return a FailedCommand.
+     * @param text String to be parsed.
+     * @return command to be executed.
+     */
     private Command parseDoneCommand(String text) {
         String str = text.substring(text.indexOf("done") + DONE_LENGTH).trim();
         int index;
@@ -67,6 +83,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This function assumes that the input command is a delete command and attempts to parse it. Will return
+     * a DeleteCommand if command is correct, otherwise it will return a FailedCommand.
+     * @param text String to be parsed.
+     * @return command to be executed.
+     */
     private Command parseDeleteCommand(String text) {
         String str = text.substring(text.indexOf("delete") + DELETE_LENGTH).trim();
         int index;
@@ -85,6 +107,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This function assumes that the input command is an add command and attempts to parse it. Will return
+     * an AddCommand if command is correct, otherwise it will return a FailedCommand.
+     * @param text String to be parsed.
+     * @return command to be executed.
+     */
     private Command parseAddCommand(String text) {
         Command command;
         if (text.startsWith("todo")) {
@@ -113,12 +141,24 @@ public class Parser {
         return command;
     }
 
+    /**
+     * This function assumes that the input command is an add todo command and attempts to parse it. Will return
+     * an AddCommand if command is correct.
+     * @return command to be executed.
+     * @throws EmptyFieldException if any fields are left empty.
+     */
     private Command parseAddTodoCommand(String text) throws EmptyFieldException {
         String name = text.substring(text.indexOf("todo") + TODO_LENGTH).trim();
         if (name.equals("")) throw new EmptyFieldException();
         return new AddCommand('T', name, "");
     }
 
+    /**
+     * This function assumes that the input command is an add deadline command and attempts to parse it. Will return
+     * an AddCommand if command is correct.
+     * @return command to be executed.
+     * @throws EmptyFieldException if any fields are left empty.
+     */
     private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
         if (!text.contains("/by")) {
             throw new Task.InvalidTaskException();
@@ -129,6 +169,12 @@ public class Parser {
         return new AddCommand('D', name, by);
     }
 
+    /**
+     * This function assumes that the input command is an add event command and attempts to parse it. Will return
+     * an AddCommand if command is correct.
+     * @return command to be executed.
+     * @throws EmptyFieldException if any fields are left empty.
+     */
     private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException {
         if (!text.contains("/at")) {
             throw new Task.InvalidTaskException();
