@@ -1,3 +1,5 @@
+package duke.command;
+
 public class ExitCommand implements Command {
     public static final CommandType type = CommandType.EXIT;
 

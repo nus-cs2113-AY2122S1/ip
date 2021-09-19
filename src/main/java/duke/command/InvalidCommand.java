@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.DukeException;
+
 public class InvalidCommand implements Command {
     public static final CommandType type = CommandType.INVALID;
 

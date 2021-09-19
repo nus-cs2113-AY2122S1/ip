@@ -1,4 +1,6 @@
-public class Event extends Task{
+package duke.task;
+
+public class Event extends Task {
     private static String SYMBOL = "E";
     private String timeslot;
 

@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.*;
+
 public class CommandParser {
     public static String EXIT_CMD = "bye";
     public static String LIST_CMD = "list";

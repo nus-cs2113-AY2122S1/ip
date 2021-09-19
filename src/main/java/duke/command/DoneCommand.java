@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.TaskManager;
+
 public class DoneCommand implements Command {
     public static final CommandType type = CommandType.DONE;
     private final int taskNo;

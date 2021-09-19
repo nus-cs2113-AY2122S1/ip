@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskManager;
+
 public class TodoCommand implements Command {
     public static final CommandType type = CommandType.TODO;
 

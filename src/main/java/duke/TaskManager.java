@@ -1,9 +1,16 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 public class TaskManager {
     private static int taskNo = 0;
-    final private static int maxTasks = 100;
-    final static Task[] tasks = new Task[maxTasks];
+    private static final int maxTasks = 100;
+    private static final Task[] tasks = new Task[maxTasks];
 
-    static void addTask(Task task) {
+    public static void addTask(Task task) {
         if (taskNo < maxTasks) {
             tasks[taskNo] = task;
             taskNo++;
@@ -14,7 +21,7 @@ public class TaskManager {
         }
     }
 
-    static void addTodo(String todoName) throws DukeException {
+    public static void addTodo(String todoName) throws DukeException {
         if (todoName.isEmpty()) {
             throw new DukeException("Todo cannot be empty");
         }
@@ -22,17 +29,17 @@ public class TaskManager {
         addTask(todo);
     }
 
-    static void addDeadline(String deadlineName, String deadlineDue) {
+    public static void addDeadline(String deadlineName, String deadlineDue) {
         Deadline deadline = new Deadline(deadlineName, deadlineDue);
         addTask(deadline);
     }
 
-    static void addEvent(String eventName, String eventTime) {
+    public static void addEvent(String eventName, String eventTime) {
         Event event = new Event(eventName, eventTime);
         addTask(event);
     }
 
-    static void listTasks() {
+    public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskNo; ++i) {
             Task task = tasks[i];
@@ -40,7 +47,7 @@ public class TaskManager {
         }
     }
 
-    static void markTaskNoAsDone(int taskNo) {
+    public static void markTaskNoAsDone(int taskNo) {
         Task task = tasks[taskNo];
         task.markAsDone();
 

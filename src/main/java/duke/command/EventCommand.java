@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.TaskManager;
+
 public class EventCommand implements Command {
     public static final CommandType type = CommandType.EVENT;
 
