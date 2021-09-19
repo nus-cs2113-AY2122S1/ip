@@ -46,7 +46,7 @@ and `event` do.
     * Format : `event TASK_NAME /at DATE`
     * The format of `DATE` **must be in** `yyyy-mm-dd` E.g. For the date `29th of Oct, 2004` you would key in `2004-10-29`
     * Example : `event ZoukOut /at 2021-12-09` - This adds an event called ZoukOut for the 9th of Dec, 2021.
-    * ![Adding Event](/tree/master/images/addEvent.jpg)
+    * ![Adding Event](https://raw.githubusercontent.com/andrewtkh1/ip/master/images/addEvent.jpg)
 * Deadline
     * Format : `deadline TASK_NAME /by DATE`
     * The format of `DATE` follows the same format as in `Event` task.
@@ -76,7 +76,7 @@ Find all the task that contains the given keyword and print it out.
 * Format : `find KEY_WORD`
 * As long as the `KEY_WORD` is a sub-string of the task's description, it will match. (E.g Finding `od` will match `food`)  
 * The search **is case-sensitive** such that `ABC` will only match `ABC` and not `abc` nor `AbC`.
-* ![Find Task](../tree/findEvent.jpg)
+* ![Find Task](../images/findEvent.jpg)
 
 ### Feature - Listing all the tasks
 
