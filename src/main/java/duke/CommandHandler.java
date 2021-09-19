@@ -7,6 +7,9 @@ import duke.task.Event;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class CommandHandler {
     //Strings to define command type
     private static final String COMMAND_EXIT = "bye";
@@ -48,7 +51,6 @@ public class CommandHandler {
             throw new DukeException(ExceptionMessages.EXCEPTION_INVALID_COMMAND);
         }
     }
-
 
 
     private static void exitProgram(TaskList tasks) {
@@ -118,34 +120,46 @@ public class CommandHandler {
     }
 
     private static void addDeadlineTaskToList(String input, TaskList tasks) {
-        final String[] taskDescriptionAndBy = Parser.splitDeadlineDescriptionAndDate(input);
-        final String description = taskDescriptionAndBy[0];
-        final String by = taskDescriptionAndBy[1];
-
         try {
-            tasks.addTask(new Deadline(description, by));
+            final String[] taskDescriptionAndBy = Parser.splitDeadlineDescriptionAndTime(input);
+            final String description = taskDescriptionAndBy[0];
+            final String by = taskDescriptionAndBy[1];
+            LocalDateTime dateTime = Parser.parseDateTime(by);
+            tasks.addTask(new Deadline(description, dateTime));
             Storage.writeTaskListToFile(tasks);
         } catch (DukeException e) {
             final String message = e.getMessage();
-            if (message.equals(ExceptionMessages.EXCEPTION_NO_DESCRIPTION)) {
+            switch (message) {
+            case ExceptionMessages.EXCEPTION_NO_DESCRIPTION:
                 Ui.showDeadlineDescriptionError();
+                break;
+            case ExceptionMessages.EXCEPTION_WRONG_DEADLINE_FORMAT:
+                Ui.showDeadlineFormatError();
             }
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            Ui.showDateTimeFormatError();
         }
-
     }
 
     private static void addEventTaskToList(String input, TaskList tasks) {
-        final String[] taskDescriptionAndAt = Parser.splitEventDescriptionAndDate(input);
-        final String description = taskDescriptionAndAt[0];
-        final String at = taskDescriptionAndAt[1];
         try {
-            tasks.addTask(new Event(description, at));
+            final String[] taskDescriptionAndAt = Parser.splitEventDescriptionAndTime(input);
+            final String description = taskDescriptionAndAt[0];
+            final String at = taskDescriptionAndAt[1];
+            LocalDateTime dateTime = Parser.parseDateTime(at);
+            tasks.addTask(new Event(description, dateTime));
             Storage.writeTaskListToFile(tasks);
         } catch (DukeException e) {
             final String message = e.getMessage();
-            if (message.equals(ExceptionMessages.EXCEPTION_NO_DESCRIPTION)) {
+            switch (message) {
+            case ExceptionMessages.EXCEPTION_NO_DESCRIPTION:
                 Ui.showEventDescriptionError();
+                break;
+            case ExceptionMessages.EXCEPTION_WRONG_EVENT_FORMAT:
+                Ui.showEventFormatError();
             }
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            Ui.showDateTimeFormatError();
         }
     }
 

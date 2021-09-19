@@ -45,6 +45,12 @@ public class Ui {
     private static final String ERROR_DUKE_UNKNOWN = "Unknown error with Duke occurred";
     private static final String ERROR_READING_SAVE_FILE = "Error reading save file, some tasks may have been lost";
     private static final String ERROR_CONVERTING_SAVE_FILE = "Error converting file to task list, some tasks may have been lost";
+    private static final String ERROR_DATE_TIME_FORMAT = "There is an error with the date time format provided, please use a valid date time format\n" +
+            "(e.g yyyy-mm-dd HH:mm)";
+    private static final String ERROR_EVENT_FORMAT = "There is an error with the format of the input. Please enter a valid input \n" +
+            "(e.g event Lecture /at 2019-08-13 20:00)";
+    private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. Please enter a valid input \n " +
+            "(e.g deadline Assignment /by 2021-08-32 13:00)";
 
     private final Scanner in;
 
@@ -180,5 +186,17 @@ public class Ui {
 
     public static void showUnknownError() {
         printGenericMessage(ERROR_DUKE_UNKNOWN);
+    }
+
+    public static void showDateTimeFormatError() {
+        printGenericMessage(ERROR_DATE_TIME_FORMAT);
+    }
+
+    public static void showEventFormatError() {
+        printGenericMessage(ERROR_EVENT_FORMAT);
+    }
+
+    public static void showDeadlineFormatError() {
+        printGenericMessage(ERROR_DEADLINE_FORMAT);
     }
 }
