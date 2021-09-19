@@ -5,7 +5,7 @@ import bobby.task.Task;
 import java.util.ArrayList;
 
 public abstract class ResponseManager {
-    public static final String LINE = "    _____________________________________________________________________________\n";
+    public static final String LINE = "    _____________________________________________________________________________\n\n";
     public static final String WELCOME_MESSAGE = " \n" +
             "                        .-\"\"\"-.\n" +
             "                       / .//\". \\\n" +
@@ -17,12 +17,28 @@ public abstract class ResponseManager {
             "        |     What can I can do for you?     |\n" +
             "         \\______________________oooo________/\n" ;
 
-    public static void printWelcomeMessage() {
-        System.out.println(WELCOME_MESSAGE);
+    public static final String WELCOME_BACK_MESSAGE = " \n" +
+            "                        .-\"\"\"-.\n" +
+            "                       / .//\". \\\n" +
+            "                       \\/ o o \\/\n" +
+            "                       ( \\___/ )\n" +
+            "          ________oooo__\\_____/_____________\n" +
+            "         /                                  \\\n" +
+            "        |         Hello! Welcome back!       |\n" +
+            "        |     What can I can do for you?     |\n" +
+            "         \\______________________oooo________/\n" ;
+
+
+    public static void printWelcomeMessage(boolean isFirstRun) {
+        if (isFirstRun) {
+            System.out.println(WELCOME_MESSAGE);
+        } else {
+            System.out.println(WELCOME_BACK_MESSAGE);
+        }
     }
 
     public static void printFormattedMessage(String message) {
-        System.out.println(LINE + message + LINE);
+        System.out.println(LINE + message + "\n" + LINE);
     }
 
     public static void printTaskAddedMessage(Task task, int totalTasks) {

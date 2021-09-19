@@ -4,14 +4,11 @@ import bobby.manager.FileManager;
 import bobby.manager.ResponseManager;
 import bobby.manager.TaskManager;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Bobby {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        ResponseManager.printWelcomeMessage();
         FileManager.bootUpData(taskManager);
+        ResponseManager.printWelcomeMessage(taskManager.getIsFirstRun());
 
         do {
             String rawUserInput = taskManager.getUserInput();

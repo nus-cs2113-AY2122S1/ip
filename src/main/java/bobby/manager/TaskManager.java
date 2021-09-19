@@ -21,11 +21,20 @@ public class TaskManager {
 
     private static ArrayList<Task> taskList;
     private static boolean isRunning;
+    private static boolean isFirstRun;
 
 
     public TaskManager() {
         this.taskList = new ArrayList<>();
         this.isRunning = true;
+        this.isFirstRun = true;
+    }
+    public void setIsFirstRunFalse() {
+        isFirstRun = false;
+    }
+
+    public static boolean getIsFirstRun() {
+        return isFirstRun;
     }
 
     public void setIsRunningOff() {
@@ -65,10 +74,7 @@ public class TaskManager {
 
     public void processInput(String rawUserInput) {
         String taskCommand = getTaskCommand(rawUserInput);
-        String fullTaskDescription;
-
         Command command = new Command(taskCommand, this);
-
         try {
             switch (taskCommand) {
             case LIST_COMMAND:
@@ -107,7 +113,5 @@ public class TaskManager {
         } catch (IOException e) {
             ResponseManager.printIOExceptionMessage();
         }
-
     }
-
 }

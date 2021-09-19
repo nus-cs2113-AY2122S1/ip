@@ -10,10 +10,8 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
-
 public abstract class FileManager {
-    public static final String FILE_PATH = "data/bobby.txt";
+    private static final String FILE_PATH = "data/bobby.txt";
     private static final String TASK_DONE_STATUS = "X";
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -67,7 +65,9 @@ public abstract class FileManager {
     public static void bootUpData(TaskManager taskManager) {
         File dataFile = new File(FILE_PATH);
         try {
-            if (!dataFile.exists()) {
+            if (dataFile.exists()) {
+                taskManager.setIsFirstRunFalse();
+            } else {
                 createFile(dataFile);
             }
             //parse saved data into taskList
@@ -99,6 +99,4 @@ public abstract class FileManager {
         fw.write(textToAdd);
         fw.close();
     }
-
-
 }
