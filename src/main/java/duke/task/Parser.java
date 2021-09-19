@@ -20,7 +20,7 @@ public class Parser {
     /**
      * Parse the given raw command and execute the corresponding methods to the specified TaskList
      *
-     * @param fullCommand raw command
+     * @param fullCommand    raw command
      * @param targetTaskList TaskList to be manipulated
      */
     public void parse(String fullCommand, TaskList targetTaskList) {
@@ -29,7 +29,7 @@ public class Parser {
                 targetTaskList.addItem(Parser.parseEvent(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! Use \"event (name) /at (start time) /to (end time)\" to create event.");
-            } catch (IllegalOperation illegalOperation) {
+            } catch (IllegalOperation e) {
                 MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
             }
         } else if (fullCommand.startsWith("deadline")) {
@@ -37,7 +37,7 @@ public class Parser {
                 targetTaskList.addItem(Parser.parseDeadline(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! Use \"deadline (name) /by (time)\" to create deadline.");
-            } catch (IllegalOperation illegalOperation) {
+            } catch (IllegalOperation e) {
                 MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
             }
         } else if (fullCommand.startsWith("todo")) {
@@ -45,7 +45,7 @@ public class Parser {
                 targetTaskList.addItem(Parser.parseTodo(extractPartialCommand(fullCommand)));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! Use \"todo (name)\" to create todo.");
-            } catch (IllegalOperation illegalOperation) {
+            } catch (IllegalOperation e) {
                 MessageBubble.printMessageBubble("Oops! Too many items already, I cannot record any more.");
             }
         } else if (fullCommand.startsWith("done")) {

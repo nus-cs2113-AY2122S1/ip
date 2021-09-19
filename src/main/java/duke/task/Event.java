@@ -6,7 +6,7 @@ import duke.ui.MessageBubble;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
     public String symbolSetTime = "/at";
     protected static String SYMBOL = "E";
     protected LocalDateTime endTime;
@@ -15,8 +15,8 @@ public class Event extends Task{
      * Convenience constructor using raw values.
      *
      * @param description description of the Event
-     * @param startTime start time of the Event
-     * @param endTime end time of the Event
+     * @param startTime   start time of the Event
+     * @param endTime     end time of the Event
      * @throws EmptyField if one or more param is missing or of wrong format
      */
     public Event(String description, String startTime, String endTime) throws EmptyField {
@@ -29,9 +29,9 @@ public class Event extends Task{
      * Convenience constructor using raw values.
      *
      * @param description description of the Event
-     * @param done status of the Event
-     * @param startTime start time of the Event
-     * @param endTime end time of the Event
+     * @param done        status of the Event
+     * @param startTime   start time of the Event
+     * @param endTime     end time of the Event
      * @throws EmptyField if one or more param is missing or of wrong format
      */
     public Event(String description, boolean done, String startTime, String endTime) throws EmptyField {
@@ -71,7 +71,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        String classIndicator = this.getClass().getSimpleName().substring(0,1);
+        String classIndicator = this.getClass().getSimpleName().substring(0, 1);
         String statusIndicator = status ? "X" : " ";
         return String.format("[%s][%s] %s (from %s to %s)", classIndicator, statusIndicator, description, getTime(), getEndTime());
     }

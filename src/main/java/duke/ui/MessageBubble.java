@@ -5,7 +5,7 @@ public class MessageBubble {
     static final int DIVIDER_SYMBOL_COUNT = 60;
     static int MAX_MESSAGES = 100;
 
-    private String[] messages;
+    private final String[] messages;
     private int messagesCount;
 
     /**

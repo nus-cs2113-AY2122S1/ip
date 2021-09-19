@@ -48,23 +48,29 @@ public class Storage {
                 String[] divided = temp.split(" \\| ");
                 boolean isDone = divided[1].equals("1");
                 String taskDescription = divided[2];
-                switch (divided[0]){
+                switch (divided[0]) {
                 case "T":
-                    data.addItem(new Todo(taskDescription, isDone), false);
+                    data.addItemWithoutPrintResult(new Todo(taskDescription, isDone));
                     break;
                 case "D":
-                    data.addItem(new Deadline(taskDescription, isDone, divided[3]), false);
+                    data.addItemWithoutPrintResult(new Deadline(taskDescription, isDone, divided[3]));
                     break;
                 case "E":
-                    data.addItem(new Event(taskDescription, isDone, divided[3], divided[4]), false);
+                    data.addItemWithoutPrintResult(new Event(taskDescription, isDone, divided[3], divided[4]));
                     break;
                 default:
                     throw new EmptyField();
                 }
             }
             return data;
-        } catch (IOException | EmptyField | IllegalOperation | IllegalArgumentException e) {
-            MessageBubble.printMessageBubble("Warning! No local data loaded.");
+        } catch (IOException e) {
+            MessageBubble.printMessageBubble("Warning! No local data found.");
+            return new TaskList();
+        } catch (EmptyField e) {
+            MessageBubble.printMessageBubble("Warning! Local data has missing information.");
+            return new TaskList();
+        } catch (IllegalOperation e) {
+            MessageBubble.printMessageBubble("Warning! Error found in the save data.");
             return new TaskList();
         }
     }

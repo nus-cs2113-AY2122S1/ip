@@ -24,7 +24,13 @@ public class TaskList {
      * @throws IllegalOperation if the number of tasks >= MAX_LIST_ITEMS
      */
     public void addItem(Task task) throws IllegalOperation {
-        addItem(task, true);
+        addItemWithoutPrintResult(task);
+
+        MessageBubble msg = new MessageBubble();
+        msg.addMessage("Got it. I've added this task:");
+        msg.addMessage(String.format(" %d:%s", items.size(), task.toString()));
+        msg.addMessage("Now you have " + items.size() + " tasks in the list.");
+        msg.printMessageBubble();
     }
 
     /**
@@ -32,22 +38,13 @@ public class TaskList {
      * A message will be print out to show the result if printResult == true.
      *
      * @param task the task to be added
-     * @param printResult if the message should be printed
      * @throws IllegalOperation if the number of tasks >= MAX_LIST_ITEMS
      */
-    public void addItem(Task task, boolean printResult) throws IllegalOperation {
+    public void addItemWithoutPrintResult(Task task) throws IllegalOperation {
         if (items.size() >= MAX_LIST_ITEMS) {
             throw new IllegalOperation();
         }
         items.add(task);
-
-        if (printResult) {
-            MessageBubble msg = new MessageBubble();
-            msg.addMessage("Got it. I've added this task:");
-            msg.addMessage(String.format(" %d:%s", items.size(), task.toString()));
-            msg.addMessage("Now you have " + items.size() + " tasks in the list.");
-            msg.printMessageBubble();
-        }
     }
 
     /**
@@ -58,10 +55,10 @@ public class TaskList {
     public void removeItem(int index) {
         int adjustedIndex = index - 1;
         try {
-            String removed_item_description = items.get(adjustedIndex).getDescription();
+            String removedItemDescription = items.get(adjustedIndex).getDescription();
             items.remove(adjustedIndex);
             MessageBubble.printMessageBubble(String.format("Ok, I have deleted \"%s\" from your list",
-                    removed_item_description));
+                    removedItemDescription));
         } catch (IndexOutOfBoundsException e) {
             MessageBubble.printMessageBubble("Oops! I cannot find item " + index + " in your list");
         }
@@ -113,7 +110,7 @@ public class TaskList {
      */
     public void searchItem(String keyword) {
         ArrayList<Task> searchResults = new ArrayList<>();
-        for (Task item: items) {
+        for (Task item : items) {
             if (item.getDescription().contains(keyword)) {
                 searchResults.add(item);
             }
@@ -123,7 +120,7 @@ public class TaskList {
         } else {
             MessageBubble msg = new MessageBubble();
             msg.addMessage("Here are the matching tasks in your list:");
-            for (Task item: searchResults) {
+            for (Task item : searchResults) {
                 msg.addMessage(String.format(" %d:%s", items.indexOf(item), item));
             }
             msg.printMessageBubble();

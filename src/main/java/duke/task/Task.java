@@ -3,6 +3,7 @@ package duke.task;
 import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
 import duke.ui.MessageBubble;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -44,7 +45,7 @@ public abstract class Task {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-  
+
     /**
      * Returns the time variable value of the Task
      *
@@ -52,7 +53,7 @@ public abstract class Task {
      * @throws IllegalOperation if the task does not contain a time variable
      */
     public String getTime() {
-            return time.format(readFormatter);
+        return time.format(readFormatter);
     }
 
     /**
@@ -60,7 +61,7 @@ public abstract class Task {
      *
      * @param time time
      * @throws IllegalOperation if time is badly formatted
-     * @throws EmptyField if time is empty
+     * @throws EmptyField       if time is empty
      */
     public void setTime(String time) {
         try {
@@ -99,8 +100,8 @@ public abstract class Task {
     }
 
     public String getSaveFormat(String[] additionalInfo) {
-        String temp = String.format("%s | %s | %s", this.getSYMBOL(), this.status? "1":"0", description);
-        for (String info: additionalInfo) {
+        String temp = String.format("%s | %s | %s", this.getSYMBOL(), this.status ? "1" : "0", description);
+        for (String info : additionalInfo) {
             temp = temp + " | " + info;
         }
         return temp;
@@ -108,7 +109,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String classIndicator = this.getClass().getSimpleName().substring(0,1);
+        String classIndicator = this.getClass().getSimpleName().substring(0, 1);
         String statusIndicator = status ? "X" : " ";
         return String.format("[%s][%s] %s", classIndicator, statusIndicator, description);
     }
