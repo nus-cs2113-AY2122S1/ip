@@ -63,7 +63,7 @@ public class TaskList {
      * @param indexTask The index of the task to be marked as done.
      */
     public static void deleteTask(int indexTask) {
-        if (isOutOfRange(indexTask)) {
+        if (isOutOfRange(indexTask - 1)) {
             System.out.println("No such task!");
             return;
         }
@@ -244,10 +244,6 @@ public class TaskList {
      * @return Task at specified index.
      */
     private static Task getTask(int indexTask) {
-        if (isOutOfRange(indexTask)) {
-            System.out.println("Task is out of range!");
-            return null;
-        }
         return listOfTasks.get(indexTask);
     }
 
@@ -261,7 +257,7 @@ public class TaskList {
      * @param indexTask The index of the task to be marked as done.
      */
     public static void markTaskAsDone(int indexTask) {
-        if (isOutOfRange(indexTask)) {
+        if (isOutOfRange(indexTask - 1)) {
             System.out.println("No such task!");
             return;
         }

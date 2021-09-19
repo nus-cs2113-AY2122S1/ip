@@ -6,6 +6,8 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+if exist taskData.CSV del taskData.CSV
+
 REM compile the code into the bin folder
 REM the ..\bin is where it will compile to.
 javac  -cp ..\src\main\java\tan -Xlint:none -d ..\bin ..\src\main\java\tan\*.java ..\src\main\java\tan\exceptions\*.java ..\src\main\java\tan\tasktype\*.java

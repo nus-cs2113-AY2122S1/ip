@@ -204,18 +204,26 @@ public class Storage {
      * @return The Task created according to the data in the array. Null otherwise.
      */
     private static Task getNewTask(String[] curTaskString) {
-        int taskType = Integer.parseInt(curTaskString[0]);
-        int statusInt = Integer.parseInt(curTaskString[1]);
-        Boolean isDone = statusInt >= 1;
-        Boolean isNotTodoTask = taskType != 0;
-        String description = curTaskString[2];
-        String dateInString = curTaskString[3];
-        LocalDate date = Parser.getInDateFormat(dateInString);
-        if (date == null && isNotTodoTask) {
-            System.out.println("Unable to Parse date.");
-            return null;
+        try {
+            int taskType = Integer.parseInt(curTaskString[0]);
+            int statusInt = Integer.parseInt(curTaskString[1]);
+            Boolean isDone = statusInt >= 1;
+            Boolean isNotTodoTask = taskType != 0;
+            String description = curTaskString[2];
+            String dateInString = curTaskString[3];
+            LocalDate date = Parser.getInDateFormat(dateInString);
+            if (date == null && isNotTodoTask) {
+                System.out.println("Unable to Parse date.");
+                return null;
+            }
+            return createTask(taskType, isDone, description, date);
+        } catch (Exception e) {
+            System.out.println("Error in Reading file. The program will now close.");
+            System.out.println(e);
+            e.printStackTrace();
+            System.exit(-1);
         }
-        return createTask(taskType, isDone, description, date);
+        return null;
     }
 
     /**

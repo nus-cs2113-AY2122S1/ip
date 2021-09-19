@@ -1,18 +1,32 @@
 list
-abcde
+
+abcd
+11 323 1231 23
+todo abcd
 todo
-deadline
+event abcd /at 2020-05-01
 event
-todo abcde
-deadline /by
-event /at
-event aaabbb /at
-deadline helpssss /by
-done x
-done 20
+event add
+event abce /at
+event abcd /at wrong-date
+deadline abcd /by 2020-01-10
+deadline
+deadline abcd
+deadline abcd /by
+deadline abcd /by wrong-date
 done
+done x
+done -1
+done 0
+done 9999
 done 1
-delete x
-delete 3x
 delete
+delete x
+delete -1
+delete 0
+delete 99999
+delete 1
+find
+find "'"""
+find abcd
 end
