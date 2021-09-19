@@ -11,6 +11,16 @@ So far, I can create a simple task list for you.
 What can I do for you?
 
 No data detected! I see you are a new user...Starting afresh!
+Use the following commands!
+To add a task without deadline: to do [taskName]
+To add a task with a deadline: deadline [deadlineName] /by [deadline in the format: "dd MM yyyy hh:mm"]
+To add an event: event [eventName] /at [eventTime in the format: "dd MM yyyy hh:mm"]
+To mark a task as done: done [taskNumber]
+To delete a task from your task list: delete [taskNumber]
+To perform a search on your current task list: find [keyword]
+To view your current task list, simply type: list
+To end your chat with me, simply type: bye
+------------------------------------------------------
 ------------------------------------------------------
 I can do that! I have added [1] to your task list!
 ------------------------------------------------------
@@ -37,7 +47,7 @@ Please specify a valid task/deadline of completion!
 I can do that! I have added [assignment] to your task list!
 ------------------------------------------------------
 ------------------------------------------------------
-I can do that! I have added [marathon] to your task list!
+I can do that! I have added [12km marathon] to your task list!
 ------------------------------------------------------
 ------------------------------------------------------
 1.[T][ ] 1
@@ -45,7 +55,7 @@ I can do that! I have added [marathon] to your task list!
 3.[T][ ] 3
 4.[T][ ] 4
 5.[D][ ] assignment (by:02 Jun 2021 02:02 PM)
-6.[E][ ] marathon (at:02 Apr 2021 03:00 PM)
+6.[E][ ] 12km marathon (at:02 Apr 2021 03:00 PM)
 ------------------------------------------------------
 ------------------------------------------------------
 I can do that! I have added [cg2027] to your task list!
@@ -71,14 +81,31 @@ Nice! I've marked this task as done:
 1.[T][X] 2
 2.[T][X] 4
 3.[D][X] assignment (by:02 Jun 2021 02:02 PM)
-4.[E][ ] marathon (at:02 Apr 2021 03:00 PM)
+4.[E][ ] 12km marathon (at:02 Apr 2021 03:00 PM)
 5.[D][ ] cg2027 (by:03 Sep 2021 12:00 AM)
 6.[E][ ] conference (at:09 Apr 2021 08:00 AM)
 ------------------------------------------------------
 Search found!
 1.[D][ ] cg2027 (by:03 Sep 2021 12:00 AM)
 ------------------------------------------------------
-Task not found in the task list!
+------------------------------------------------------
+I can do that! I have added [24km run] to your task list!
+------------------------------------------------------
+------------------------------------------------------
+I can do that! I have added [2113t assignment] to your task list!
+------------------------------------------------------
+Search found!
+1.[E][ ] 24km run (at:09 Apr 2021 08:00 AM)
+------------------------------------------------------
+------------------------------------------------------
+1.[T][X] 2
+2.[T][X] 4
+3.[D][X] assignment (by:02 Jun 2021 02:02 PM)
+4.[E][ ] 12km marathon (at:02 Apr 2021 03:00 PM)
+5.[D][ ] cg2027 (by:03 Sep 2021 12:00 AM)
+6.[E][ ] conference (at:09 Apr 2021 08:00 AM)
+7.[E][ ] 24km run (at:09 Apr 2021 08:00 AM)
+8.[D][ ] 2113t assignment (by:09 Dec 2021 04:30 PM)
 ------------------------------------------------------
 Bye! Hope to see you again soon!
 ------------------------------------------------------
