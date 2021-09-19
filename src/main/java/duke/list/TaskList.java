@@ -60,6 +60,7 @@ public class TaskList {
             items.remove(adjustedIndex);
             MessageBubble.printMessageBubble(String.format("Ok, I have deleted \"%s\" from your list",
                     removedItemDescription));
+            printList();
         } catch (IndexOutOfBoundsException e) {
             MessageBubble.printMessageBubble("Oops! I cannot find item " + index + " in your list");
         }
