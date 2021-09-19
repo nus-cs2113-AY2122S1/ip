@@ -7,18 +7,12 @@ package duke;
  * @author YEOWEIHNGWHYELAB
  */
 
-import duke.commandHandler.DukeCommandHandling;
 import duke.exceptionHandler.DukeException;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-
-    public static int getNumberOfTasks() {
-        return TaskList.numberOfTasks;
-    }
-
     public static void run() throws IOException {
         Ui ui = new Ui();
         ui.showWelcome();
@@ -29,38 +23,19 @@ public class Duke {
         Storage dukeTaskText = new Storage();
         TaskList.numberOfTasks = dukeTaskText.loadTask(TaskList.tasks);
 
-        while (true) {
-            userInputString = userInput.nextLine();
-            DukeCommandHandling commandHandle = new DukeCommandHandling(userInputString);
+        boolean isExit  = false;
 
+        while (!isExit) {
+            userInputString = userInput.nextLine();
+            Parser commandHandle = new Parser(userInputString);
+            CommandHandler runningUserCommand = new CommandHandler();
             try {
-                if (commandHandle.isBye()) {
-                    Ui.showGoodBye() ;
-                    break;
-                } else if (commandHandle.isList()) {
-                    TaskList.printTaskList();
-                    continue;
-                } else if (commandHandle.isDone()) {
-                    TaskList.finishTask(userInputString, dukeTaskText);
-                    continue;
-                } else if (commandHandle.isDelete()) {
-                    TaskList.deleteTask(userInputString, dukeTaskText);
-                } else if (commandHandle.isToDo()) {
-                    TaskList.addToDo(userInputString, dukeTaskText);
-                    continue;
-                } else if (commandHandle.isDeadline()) {
-                    TaskList.addDeadline(userInputString, dukeTaskText);
-                    continue;
-                } else if (commandHandle.isEvent()) {
-                    TaskList.addEvent(userInputString, dukeTaskText);
-                    continue;
-                } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
-                }
+                isExit = runningUserCommand.commandHandle(commandHandle, userInputString, dukeTaskText);
             } catch (DukeException dukeError) {
                 dukeError.printErrorMessage();
             }
         }
+
         userInput.close();
     }
 
