@@ -11,6 +11,6 @@ public class IncompleteInformationException extends DukeException{
 
     @Override
     public String getMessage(){
-        return String.format("☹ OOPS!!! The %s field of the %s cannot be empty",field,taskType);
+        return String.format("☹ OOPS!!! The %s field of the %s cannot be empty", field, taskType);
     }
 }

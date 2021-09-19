@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    public TaskList() {
-        this.tasks = new ArrayList<>();
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public int size(){
@@ -23,16 +23,18 @@ public class TaskList {
     }
 
     public void addTask(String request) throws Exception {
-        Task newTask = RequestParser.getTask(request);
+        Task newTask = Parser.getTask(request);
         loadTask(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "  %s\nNow you have %d task in the list\n"
                 ,newTask, tasks.size());
     }
 
+
+
     public void doneTask(String request) {
         try {
-            int taskIndex = RequestParser.getTaskIndex(request.trim());
+            int taskIndex = Parser.getTaskIndex(request.trim());
             Task task = tasks.get(taskIndex);
             if (task.isDone()) {
                 System.out.println("This task is already done!");
@@ -50,7 +52,7 @@ public class TaskList {
 
     public void deleteTask(String request) {
          try {
-             int taskIndex = RequestParser.getTaskIndex(request.trim());
+             int taskIndex = Parser.getTaskIndex(request.trim());
              System.out.printf("Noted. I've removed this task:\n" +
                      "  %s\nNow you have %d task in the list.\n", tasks.remove(taskIndex), tasks.size());
          } catch (ArrayIndexOutOfBoundsException ex) {

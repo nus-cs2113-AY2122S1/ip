@@ -5,7 +5,7 @@ import duke.exceptions.EmptyTimeException;
 import duke.exceptions.IncompleteInformationException;
 import duke.exceptions.InvalidRequestException;
 
-public abstract class RequestParser {
+public abstract class Parser {
     public static final int TIME_INFO_START_INDEX = 1;
 
     public static int getTaskIndex(String request) {

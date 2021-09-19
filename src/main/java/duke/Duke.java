@@ -1,42 +1,52 @@
 package duke;
 
+import duke.exceptions.DukeException;
+
 import java.util.Scanner;
 
 import java.io.IOException;
 import java.io.File;
 
 public class Duke {
-    public static void main(String[] args) throws IOException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do for you?");
-        Scanner in = new Scanner(System.in);
-        TaskList list = new TaskList();
-        File file = FileHandler.loadFile();
-        FileHandler.readFile(list,file);
-        String request = in.nextLine();
+    private Storage storage;
+    private Ui ui;
+    private TaskList tasks;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        try {
+            storage = new Storage(filePath);
+            tasks = new TaskList(storage.load());
+        } catch (Exception e) {
+            ui.showLoadingError();
+        }
+    }
+
+    public void run(){
+        ui.showWelcome();
+        String request = ui.getInput();
         while (CommandType.isNotBye(request)) {
             try {
                 if (CommandType.isList(request)) {
-                    list.printTasks();
+                    tasks.printTasks();
                 } else if (CommandType.isDone(request)) {
-                    list.doneTask(request);
+                    tasks.doneTask(request);
                 } else if (CommandType.isDelete(request)) {
-                    list.deleteTask(request);
+                    tasks.deleteTask(request);
                 } else {
-                    list.addTask(request);
+                    tasks.addTask(request);
                 }
-                FileHandler.writeFile(list,file);
-                request = in.nextLine();
+                storage.store(tasks);
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                request = in.nextLine();
+                ui.showExceptionMessage(ex);
+            } finally {
+                request = ui.getInput();
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        ui.showGoodByeMessage();
+    }
+
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
     }
 }
