@@ -3,6 +3,7 @@ package kate.ui;
 import kate.common.Message;
 import kate.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KateUI {
@@ -16,16 +17,20 @@ public class KateUI {
             + LOGO_INDENTATION + "| ' </ _` |  _/ -_)\n"
             + LOGO_INDENTATION + "|_|\\_\\__,_|\\__\\___|\n";
 
-    private static final String GREET_MESSAGE = Message.TEXT_INDENTATION
+    private static final String MESSAGE_GREET = Message.TEXT_INDENTATION
             + "This is Kate, your personal assistant ;)\n"
             + Message.TEXT_INDENTATION + "How can I help you?\n";
-    private static final String BYE_MESSAGE = Message.TEXT_INDENTATION
+    private static final String MESSAGE_BYE = Message.TEXT_INDENTATION
             + "Leaving already? Oh well see you again soon!\n";
 
     private static final String FAILURE_MESSAGE_INVALID_COMMAND = Message.TEXT_INDENTATION
             + "Please enter a valid command!\n"
             + Message.TEXT_INDENTATION + "Type <help> for the list of commands\n";
 
+    private static final String MESSAGE_EMPTY_TASK_LIST = Message.TEXT_INDENTATION
+            + "Your task list is currently empty\n";
+    private static final String MESSAGE_EMPTY_FILTERED_TASK = Message.TEXT_INDENTATION
+            + "No tasks found with keyword: ";
 
     private Scanner in;
 
@@ -43,7 +48,7 @@ public class KateUI {
      */
     public void printGreetMessage() {
         System.out.println(LOGO_KATE);
-        printMessage(GREET_MESSAGE);
+        printMessage(MESSAGE_GREET);
     }
 
     /**
@@ -60,7 +65,7 @@ public class KateUI {
      * Bye message from Kate
      */
     public void printByeMessage() {
-        printMessage(BYE_MESSAGE);
+        printMessage(MESSAGE_BYE);
     }
 
     /**
@@ -100,4 +105,35 @@ public class KateUI {
         printMessage(FAILURE_MESSAGE_INVALID_COMMAND);
     }
 
+    /**
+     * Prints the message if the command list is empty
+     */
+    public void printEmptyTaskMessage() {
+        printMessage(MESSAGE_EMPTY_TASK_LIST);
+    }
+
+    /**
+     * Prints the message if filtered task is empty
+     *
+     * @param keyword Keyword supplied by user
+     */
+    public void printEmptyFilteredTaskMessage(String keyword) {
+        String emptyTaskMessage = MESSAGE_EMPTY_FILTERED_TASK + keyword + "\n";
+        printMessage(emptyTaskMessage);
+    }
+
+    /**
+     * Prints all the filtered tasks
+     *
+     * @param filteredTask A list of filtered task
+     * @param keyword      Keyword supplied by user
+     */
+    public void printTasksByKeyword(ArrayList<String> filteredTask, String keyword) {
+        StringBuilder compiledTasks = new StringBuilder();
+        for (String task : filteredTask) {
+            String compiledTask = Message.TEXT_INDENTATION + task + "\n";
+            compiledTasks.append(compiledTask);
+        }
+        printMessage(String.valueOf(compiledTasks));
+    }
 }

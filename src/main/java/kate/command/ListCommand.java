@@ -15,6 +15,12 @@ public class ListCommand extends Command {
     @Override
     public void execute(KateUI ui, Storage storage, TaskList tasks) {
         StringBuilder allTasks = new StringBuilder();
+
+        if (tasks.isEmptyTaskList()) {
+            ui.printEmptyTaskMessage();
+            return;
+        }
+
         String taskHeading = Message.TEXT_INDENTATION + "Here are the tasks in your list:\n";
         allTasks.append(taskHeading);
         for (int i = 0; i < tasks.getTaskSize(); ++i) {

@@ -7,6 +7,7 @@ import kate.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TaskList {
 
@@ -35,7 +36,7 @@ public class TaskList {
         return tasks.get(taskIndex);
     }
 
-    public boolean isEmptyTask() {
+    public boolean isEmptyTaskList() {
         return tasks.isEmpty();
     }
 
@@ -123,11 +124,14 @@ public class TaskList {
      * Filter tasks by a specific keyword
      *
      * @param keyword Keyword provided by user
-     * @return ArrayList of task objects
+     * @return ArrayList of tasks in String
      */
-    public ArrayList<Task> findTasksByKeyword(String keyword) {
-        return (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getTaskInfo().contains(keyword))
+    public ArrayList<String> filterTasksByKeyword(String keyword) {
+        return (ArrayList<String>) IntStream
+                .range(0, getTaskSize())
+                .mapToObj((index) -> String.format("%d. %s", index + 1, getCurrentTask(index).getTaskInfo()))
+                .filter((task) -> (task).contains(keyword))
                 .collect(Collectors.toList());
     }
+
 }

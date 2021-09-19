@@ -4,7 +4,6 @@ import kate.common.Message;
 import kate.exception.EmptyFieldException;
 import kate.parser.Parser;
 import kate.storage.Storage;
-import kate.task.Task;
 import kate.tasklist.TaskList;
 import kate.ui.KateUI;
 
@@ -25,14 +24,23 @@ public class FindCommand extends Command {
     public void execute(KateUI ui, Storage storage, TaskList tasks) {
         try {
             String keyword = Parser.extractKeyword(userInput);
-            ArrayList<Task> filteredTask = tasks.findTasksByKeyword(keyword);
-            StringBuilder compiledTasks = new StringBuilder();
-            for (Task task : filteredTask) {
-                compiledTasks.append(Message.TEXT_INDENTATION).append(task.getTaskInfo()).append("\n");
+            ArrayList<String> filteredTask = tasks.filterTasksByKeyword(keyword);
+            boolean isEmptyFilteredTask = filteredTask.isEmpty();
+            boolean isEmptyTaskList = tasks.isEmptyTaskList();
+
+            if (isEmptyTaskList) {
+                ui.printEmptyTaskMessage();
+                return;
             }
-            ui.printMessage(String.valueOf(compiledTasks));
+
+            if (isEmptyFilteredTask) {
+                ui.printEmptyFilteredTaskMessage(keyword);
+                return;
+            }
+
+            ui.printTasksByKeyword(filteredTask, keyword);
         } catch (EmptyFieldException e) {
-            ui.printMessage(Message.FAILURE_MESSAGE_EMPTY_TASK);
+            ui.printMessage(FAILURE_MESSAGE_FIND);
         }
     }
 }

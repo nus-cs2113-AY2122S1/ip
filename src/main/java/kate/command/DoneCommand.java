@@ -34,7 +34,7 @@ public class DoneCommand extends Command {
         } catch (EmptyFieldException | InvalidFieldException e) {
             ui.printMessage(FAILURE_MESSAGE_SET_DONE);
         } catch (EmptyTaskException e) {
-            ui.printMessage(Message.FAILURE_MESSAGE_EMPTY_TASK);
+            ui.printEmptyTaskMessage();
         }
     }
 }

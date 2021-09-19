@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
         } catch (EmptyFieldException | InvalidFieldException e) {
             ui.printMessage(FAILURE_MESSAGE_DELETE_TASK);
         } catch (EmptyTaskException e) {
-            ui.printMessage(Message.FAILURE_MESSAGE_EMPTY_TASK);
+            ui.printEmptyTaskMessage();
         }
     }
 }

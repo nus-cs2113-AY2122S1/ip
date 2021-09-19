@@ -166,7 +166,7 @@ public class Parser {
     public static Task extractDoneInput(TaskList tasks, String userInput) throws EmptyFieldException,
             InvalidFieldException, EmptyTaskException {
 
-        if (tasks.isEmptyTask()) {
+        if (tasks.isEmptyTaskList()) {
             throw new EmptyTaskException();
         }
 
@@ -202,7 +202,7 @@ public class Parser {
     public static Task extractDeleteInput(TaskList tasks, String userInput) throws EmptyFieldException,
             InvalidFieldException, EmptyTaskException {
 
-        if (tasks.isEmptyTask()) {
+        if (tasks.isEmptyTaskList()) {
             throw new EmptyTaskException();
         }
 
