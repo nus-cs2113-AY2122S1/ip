@@ -13,9 +13,11 @@ public class Ui {
     public static final String HELP_LIST =
             "Use the following commands!\n" +
             "To add a task without deadline: to do [taskName]\n" +
-            "To add a task with a deadline: deadline [deadlineName] /by [deadline]\n" +
-            "To add an event: event [eventName] /at [eventTime]\n" +
+            "To add a task with a deadline: deadline [deadlineName] /by [deadline in the format: \"dd MM yyyy hh:mm\"]\n" +
+            "To add an event: event [eventName] /at [eventTime in the format: \"dd MM yyyy hh:mm\"]\n" +
             "To mark a task as done: done [taskNumber]\n" +
+            "To delete a task from your task list: delete [taskNumber]\n" +
+            "To perform a search on your current task list: find [keyword]\n" +
             "To view your current task list, simply type: list\n" +
             "To end your chat with me, simply type: bye\n" +
             HORIZONTAL_LINE;
