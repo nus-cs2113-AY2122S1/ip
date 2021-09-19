@@ -1,2 +1,5 @@
-package duke.exception;public class QueryNotFoundException {
+package duke.exception;
+
+public class QueryNotFoundException extends DukeException {
+
 }

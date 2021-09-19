@@ -37,7 +37,7 @@ public class Duke {
 
         do {
             userInput = Ui.readUserInput();
-            commandExecutor.execute(userInput, dataManager);
+            commandExecutor.execute(userInput, taskList, dataManager);
             isExit = commandExecutor.isExit(userInput);
         } while (!isExit);
     }

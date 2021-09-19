@@ -25,6 +25,8 @@ public class Parser {
             return CommandWord.DELETE;
         } else if (beginsWith(userInput, HELP_COMMAND)) {
             return CommandWord.HELP;
+        } else if (beginsWith(userInput, FIND_COMMAND)) {
+            return CommandWord.FIND;
         } else if (beginsWith(userInput, EXIT_COMMAND)) {
             return CommandWord.EXIT;
         } else {
@@ -95,6 +97,14 @@ public class Parser {
             throw new InvalidCommandFormatException();
         }
         return deleteCommandAsArray;
+    }
+
+    public static String parseFindCommand(String userInput) throws InvalidCommandFormatException {
+        String[] findCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
+        if(findCommandAsArray.length != 2) {
+            throw new InvalidCommandFormatException();
+        }
+        return findCommandAsArray[1].trim();
     }
 
     private static boolean beginsWith(String userInput, String command) {

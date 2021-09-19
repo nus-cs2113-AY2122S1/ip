@@ -43,6 +43,16 @@ public class Ui {
         out.println(STRAIGHT_LINE);
     }
 
+    public static void printTaskListContainingQuery(ArrayList<Task> taskListContainingQuery, String query) {
+        out.println(STRAIGHT_LINE);
+        out.println(HERE_ARE_TASKS_CONTAINING_MESSAGE + "\"" + query + "\"");
+        for (int i = 0; i < taskListContainingQuery.size(); i++) {
+            String formattedTask = formatTaskToBeDisplayed(i + DISPLAYED_INDEX_OFFSET, taskListContainingQuery.get(i));
+            out.println(formattedTask);
+        }
+        out.println(STRAIGHT_LINE);
+    }
+
     public static void printTaskMarkedDoneMessage(Task doneTask) {
         out.println(STRAIGHT_LINE);
         out.println(TASK_MARKED_DONE_MESSAGE);
@@ -94,6 +104,12 @@ public class Ui {
         out.println(DEADLINE_COMMAND_FORMAT);
         out.println(EVENT_COMMAND_FORMAT);
         out.println(DELETE_COMMAND_FORMAT);
+        out.println(STRAIGHT_LINE);
+    }
+
+    public static void printQueryNotFoundMessage() {
+        out.println(STRAIGHT_LINE);
+        out.println(QUERY_NOT_FOUND_MESSAGE);
         out.println(STRAIGHT_LINE);
     }
 

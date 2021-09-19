@@ -10,6 +10,7 @@ public class DukeCommandStrings extends DukeConstants {
     public static final String EVENT_COMMAND = "event";
     public static final String DELETE_COMMAND = "delete";
     public static final String HELP_COMMAND = "help";
+    public static final String FIND_COMMAND = "find";
     public static final String EXIT_COMMAND = "bye";
 
     // Prefixes and regex that help with the parsing of user input

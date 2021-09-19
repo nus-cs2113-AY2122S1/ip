@@ -1,44 +1,44 @@
 package duke.command;
 
 import duke.datasaver.DataManager;
+import duke.exception.QueryNotFoundException;
 import duke.parser.Parser;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.exception.EmptyListException;
 import duke.exception.InvalidCommandFormatException;
 
+import java.util.ArrayList;
+
 public class CommandExecutor {
 
-    private final TaskList taskList;
-
-    /** Constructor */
-    public CommandExecutor() {
-        taskList = new TaskList();
-    }
-
-    public void execute(String userInput, DataManager dataManager) {
+    public void execute(String userInput, TaskList taskList, DataManager dataManager) {
         CommandWord commandWord = Parser.parseCommandWord(userInput);
         switch (commandWord) {
         case LIST:
-            executePrint();
+            executePrint(taskList);
             break;
         case DONE:
-            executeDone(userInput, dataManager);
+            executeDone(userInput, taskList, dataManager);
             break;
         case TODO:
-            executeAddTodo(userInput, dataManager);
+            executeAddTodo(userInput, taskList, dataManager);
             break;
         case DEADLINE:
-            executeAddDeadline(userInput, dataManager);
+            executeAddDeadline(userInput, taskList, dataManager);
             break;
         case EVENT:
-            executeAddEvent(userInput, dataManager);
+            executeAddEvent(userInput, taskList, dataManager);
             break;
         case DELETE:
-            executeDelete(userInput, dataManager);
+            executeDelete(userInput, taskList, dataManager);
             break;
         case HELP:
             Ui.printHelp();
+            break;
+        case FIND:
+            executeFind(userInput, taskList);
             break;
         case EXIT:
             Ui.printByeMessage();
@@ -56,7 +56,7 @@ public class CommandExecutor {
         return commandWord.equals(CommandWord.EXIT);
     }
 
-    public void executePrint() {
+    public void executePrint(TaskList taskList) {
         try {
             checkListSize(taskList);
             Ui.printTaskList(taskList.getTaskList());
@@ -65,7 +65,7 @@ public class CommandExecutor {
         }
     }
 
-    public void executeDone(String userInput, DataManager dataManager) {
+    public void executeDone(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.markTaskDone(userInput, dataManager);
         } catch (InvalidCommandFormatException | NumberFormatException icfe) {
@@ -75,7 +75,7 @@ public class CommandExecutor {
         }
     }
 
-    public void executeAddTodo(String userInput, DataManager dataManager) {
+    public void executeAddTodo(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.addTodo(userInput, dataManager);
         } catch (InvalidCommandFormatException icfe) {
@@ -83,7 +83,7 @@ public class CommandExecutor {
         }
     }
 
-    public void executeAddDeadline(String userInput, DataManager dataManager) {
+    public void executeAddDeadline(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.addDeadline(userInput, dataManager);
         } catch (InvalidCommandFormatException icfe) {
@@ -91,7 +91,7 @@ public class CommandExecutor {
         }
     }
 
-    public void executeAddEvent(String userInput, DataManager dataManager) {
+    public void executeAddEvent(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.addEvent(userInput, dataManager);
         } catch (InvalidCommandFormatException e) {
@@ -99,7 +99,7 @@ public class CommandExecutor {
         }
     }
 
-    public void executeDelete(String userInput, DataManager dataManager) {
+    public void executeDelete(String userInput, TaskList taskList, DataManager dataManager) {
         try {
             taskList.deleteTask(userInput, dataManager);
         } catch (InvalidCommandFormatException | NumberFormatException icfe) {
@@ -107,6 +107,31 @@ public class CommandExecutor {
         } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }
+    }
+
+    public void executeFind(String userInput, TaskList taskList) {
+        try {
+            String query = Parser.parseFindCommand(userInput);
+            ArrayList<Task> tasksContainingQuery = search(taskList.getTaskList(), query);
+            Ui.printTaskListContainingQuery(tasksContainingQuery, query);
+        } catch (InvalidCommandFormatException icfe) {
+            Ui.printInvalidCommandFormatMessage();
+        } catch (QueryNotFoundException qnfe) {
+            Ui.printQueryNotFoundMessage();
+        }
+    }
+
+    private static ArrayList<Task> search(ArrayList<Task> taskList, String query) throws QueryNotFoundException {
+        ArrayList<Task> taskListContainingQuery = new ArrayList<>();
+        for (Task t : taskList) {
+            if (t.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                taskListContainingQuery.add(t);
+            }
+        }
+        if (taskListContainingQuery.isEmpty()) {
+            throw new QueryNotFoundException();
+        }
+        return taskListContainingQuery;
     }
 
     private static void checkListSize(TaskList taskList) throws EmptyListException {

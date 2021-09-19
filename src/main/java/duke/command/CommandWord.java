@@ -8,6 +8,7 @@ public enum CommandWord {
     EVENT,
     DELETE,
     HELP,
+    FIND,
     EXIT,
     INVALID
 }
