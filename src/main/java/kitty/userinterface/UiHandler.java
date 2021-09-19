@@ -2,13 +2,16 @@ package kitty.userinterface;
 
 import kitty.Kitty;
 import kitty.KittyException;
+import kitty.Parser;
 import kitty.io.IO;
 import kitty.task.Task;
 import kitty.task.Todo;
 import kitty.task.Deadline;
 import kitty.task.Event;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UiHandler {
 
@@ -38,6 +41,9 @@ public class UiHandler {
                     break;
                 case "delete":
                     removeFromList();
+                    break;
+                case "find":
+                    findFromList();
                     break;
                 default:
                     throw new KittyException("No such command found");
@@ -115,5 +121,17 @@ public class UiHandler {
         } catch (NumberFormatException e) {
             throw new KittyException("Inputted a non-Integer Task Number!");
         }
+    }
+
+    public static void findFromList() throws KittyException {
+        String keyword = Parser.getKeyword(Ui.userInput);
+
+        System.out.println();
+        System.out.println("Here are the tasks I found that matched the keyword \"" + keyword + "\"");
+        Kitty.tasks.stream()
+                .filter((t) -> (t.getTaskName().contains(keyword)))
+                .forEach(System.out::println);
+        System.out.println();
+        System.out.println(Ui.CAT_5);
     }
 }
