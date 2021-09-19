@@ -43,7 +43,6 @@ public class Task {
             this.isEvent = true;
             this.eventDescription = eventDescription;
         }
-        //this.setDeadline(deadline);
         this.setDescription(description);
         this.isDone = isDone;
     }
@@ -100,11 +99,11 @@ public class Task {
     public char getType() {
         if (this.isToDo && !this.getDeadline().equals("")) {
             return 'D'; //deadline
-        }
-        else if (this.isEvent) {
+        } else if (this.isEvent) {
             return 'E';
+        } else {
+            return 'T';      //todo or task by mutual exclusion
         }
-        else return 'T';      //todo or task by mutual exclusion
     }
 
     //print format: TYPE : DEADLINE : DESC

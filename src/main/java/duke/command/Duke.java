@@ -1,13 +1,15 @@
 package duke.command;
 
-import duke.exception.DukeException;
+import duke.exception.InputCheckAndPrint;
+import duke.security.AccountDetail;
 import duke.task.Mascot;
 import duke.task.Task;
-import duke.security.AccountDetail;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 public class Duke {
     public static final int STOP_ADD = -1;
@@ -41,8 +43,7 @@ public class Duke {
     public static String printTask(Task item) {
         if (item.isToDo()) {
             return " (by: " + item.getDeadline() + ") ";
-        }
-        else if (item.isEvent()) {
+        } else if (item.isEvent()) {
             return " (at: " + item.getEventDescription() + ") ";
         }
         return "";
@@ -93,47 +94,38 @@ public class Duke {
             case ("add"):
                 addTaskToList(in, taskList);
                 printDone("add");
-               // StoreData.saveList(taskList);
                 break;
             case ("done"):
                 markTasksAsDone(in, taskList);
                 printDone("mark task as done");
-              //  StoreData.saveList(taskList);
                 break;
             case ("clear"):
                 clearTaskList(taskList);
                 printDone("clear list");
-               // StoreData.saveList(taskList);
                 break;
             case ("mascot"):
                 mascotSay(in);
                 printDone("mascot say");
-              //  StoreData.saveList(taskList);
                 break;
             case("echo"):
                 readInputEchoCommand();
                 printDone("echo");
-                //StoreData.saveList(taskList);
                 break;
             case("todo"):
                 addTodoToList(in, taskList);
                 printDone("add todo");
-                //StoreData.saveList(taskList);
                 break;
             case("event"):
                 addEventToList(in, taskList);
                 printDone("add event");
-              //  StoreData.saveList(taskList);
                 break;
             case("deadline"):
                 amendTaskDeadline(in, taskList);
                 printDone("amend deadline");
-              //  StoreData.saveList(taskList);
                 break;
             case("delete"):
                 deleteTasks(in, taskList);
                 printDone("delete tasks");
-             //   StoreData.saveList(taskList);
                 break;
             case ("bye"):
                 break;
@@ -146,7 +138,7 @@ public class Duke {
     }
 
     private static void deleteTasks(Scanner in, ArrayList<Task> taskList) {
-        DukeException doneCheck = new DukeException("doneCheck");
+        InputCheckAndPrint doneCheck = new InputCheckAndPrint("doneCheck");
         //1. collect data
         List<Integer> toDeleteList = new ArrayList<Integer>();
         String input = in.nextLine();
@@ -166,7 +158,6 @@ public class Duke {
                 doneCheck.printIntegerOnly();
                 return;
             }
-            //after checks
             int sData = Integer.parseInt(s) - 1;
             toDeleteList.add(sData);
         }
@@ -208,28 +199,26 @@ public class Duke {
     }
 
     private static void markTasksAsDone(Scanner in, ArrayList<Task> taskList) {
-        DukeException doneCheck = new DukeException("doneCheck");
+        InputCheckAndPrint doneCheck = new InputCheckAndPrint("doneCheck");
         try {
-            String number = null;
+            String userInputString = null;
             do {
-                number = in.nextLine();
-                if (doneCheck.startsWithSpace(number)) {
+                userInputString = in.nextLine();
+                if (doneCheck.startsWithSpace(userInputString)) {
                     doneCheck.inputFailMessage();
                     doneCheck.printDoneFormat();
-                }
-                else if (doneCheck.isEmpty(number)) {
+                } else if (doneCheck.isEmpty(userInputString)) {
                     doneCheck.inputFailMessage();
                     doneCheck.printNoNull();
-                }
-                else if (!doneCheck.isIntegerInput(number)) {
+                } else if (!doneCheck.isIntegerInput(userInputString)) {
                     doneCheck.printIntegerOnly();
                 }
-            } while (doneCheck.startsWithSpace(number)
-                    || doneCheck.isEmpty(number)
-                    || !doneCheck.isIntegerInput(number)
+            } while (doneCheck.startsWithSpace(userInputString)
+                    || doneCheck.isEmpty(userInputString)
+                    || !doneCheck.isIntegerInput(userInputString)
                     );
-            number = number.trim();
-            String[] numberList = number.split(" ");
+            userInputString = userInputString.trim();
+            String[] numberList = userInputString.split(" ");
             System.out.print("done ");
             for (String i : numberList) {
                 int index = Integer.parseInt(i) - 1;
@@ -291,42 +280,61 @@ public class Duke {
     }
 
     private static void amendTaskDeadline(Scanner in, ArrayList<Task> taskList) {
-        DukeException deadlineCheck = new DukeException("deadlineCheck");
+        InputCheckAndPrint deadlineCheck = new InputCheckAndPrint("deadlineCheck");
         try {
             String input;
             do {
-                input = in.nextLine();
-                input = input.trim();
-                if (input.startsWith("stop")) {
-                    break;
-                }
-                if (!input.contains("/")) {
-                    deadlineCheck.printDeadlineFormatIssue();
-                    continue;
-                }
-                String[] separateInput = input.split("/", 2);
-                if (separateInput.length == 2) {
-                    //checks for singular, digit input
-                    if (!deadlineCheck.isIntegerInput(separateInput[0])) {
-                        deadlineCheck.printIntegerOnly();
-                        deadlineCheck.printDeadlineFormatIssue();
-                        continue;
-                    }
-                    int index = Integer.parseInt(separateInput[0].trim()) - 1;
-                    if (!deadlineCheck.inListRange(index, taskCount)) {
-                        deadlineCheck.printNotInRange(index);
-                        continue;
-                    }
-                    Task toChange = taskList.get(index);
-                    toChange.setDeadline(separateInput[1]);
-                    toChange.setToDo(true);
+                input = getUserInputTrim(in);
+                if (isIncorrectFormat(deadlineCheck, input)) {
+                    return;
+                } else if (isCorrectFormat(taskList, deadlineCheck, input)) {
+                    return;
                 }
             } while (!input.equals("stop"));
         } catch (NumberFormatException e) {
-            deadlineCheck.printDeadlineFormatIssue();
+            InputCheckAndPrint.printDeadlineFormatIssue();
         } catch (NullPointerException e) {
             System.out.println("Not in range, try again!");
         }
+    }
+
+    private static boolean isCorrectFormat(ArrayList<Task> taskList, InputCheckAndPrint deadlineCheck, String input) {
+        String[] separateInput = input.split("/", 2);
+        if (separateInput.length == 2) {
+            //checks for singular, digit input
+            if (!deadlineCheck.isIntegerInput(separateInput[0])) {
+                deadlineCheck.printIntegerOnly();
+                deadlineCheck.printDeadlineFormatIssue();
+                return true;
+            }
+            int index = Integer.parseInt(separateInput[0].trim()) - 1;
+            if (!deadlineCheck.inListRange(index, taskCount)) {
+                deadlineCheck.printNotInRange(index);
+                return true;
+            }
+            Task toChange = taskList.get(index);
+            toChange.setDeadline(separateInput[1]);
+            toChange.setToDo(true);
+        }
+        return false;
+    }
+
+    private static boolean isIncorrectFormat(InputCheckAndPrint deadlineCheck, String input) {
+        if (input.startsWith("stop")) {
+            return true;
+        }
+        if (!input.contains("/")) {
+            deadlineCheck.printDeadlineFormatIssue();
+            return true;
+        }
+        return false;
+    }
+
+    private static String getUserInputTrim(Scanner in) {
+        String input;
+        input = in.nextLine();
+        input = input.trim();
+        return input;
     }
 
     public static void main(String[] args) throws IOException {
