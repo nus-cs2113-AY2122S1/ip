@@ -1,24 +1,28 @@
 package shikabot.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
 
-    private String by;
+    private LocalDate by;
 
-    public Deadline(String name, String by) {
+    public Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     public String getType() {
         return "D";
     }
 
-    public String getAtBy() {
+    public LocalDate getAtBy() {
         return by;
     }
 

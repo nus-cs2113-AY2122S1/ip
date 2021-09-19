@@ -1,4 +1,4 @@
 package shikabot.parser;
 
-public class EmptyFieldException extends Throwable {
+public class EmptyFieldException extends Exception {
 }

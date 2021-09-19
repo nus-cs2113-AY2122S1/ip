@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Storage {
@@ -63,7 +65,13 @@ public class Storage {
         int secondDiv = s.indexOf("|", firstDiv) + 1;
         int thirdDiv = s.indexOf("|", secondDiv) + 1;
         char type = s.charAt(0);
-        String atBy = s.substring(firstDiv, secondDiv - 1).trim();
+        String date = s.substring(firstDiv, secondDiv - 1).trim();
+        LocalDate atBy;
+        try {
+            atBy = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            atBy = null;
+        }
         String name = s.substring(secondDiv, thirdDiv - 1).trim();
         String done = s.substring(thirdDiv).trim();
         taskList.addSavedTask(type, atBy, name, done);

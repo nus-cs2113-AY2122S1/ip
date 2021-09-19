@@ -4,13 +4,15 @@ import shikabot.task.Deadline;
 import shikabot.task.Event;
 import shikabot.task.Todo;
 
+import java.time.LocalDate;
+
 public class AddCommand extends Command {
 
     private final char type;
     private final String name;
-    private final String atBy;
+    private final LocalDate atBy;
 
-    public AddCommand(char type, String name, String atBy) {
+    public AddCommand(char type, String name, LocalDate atBy) {
         this.type = type;
         this.name = name;
         this.atBy = atBy;

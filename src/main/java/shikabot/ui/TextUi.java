@@ -74,13 +74,17 @@ public class TextUi {
         System.out.print(line + "> Oops! That task does not exist.\n" + line);
     }
 
+    public void printInvalidDateMessage() {
+        System.out.print(line + "> Oops! Please enter a valid date format! (day-month-year)\n" + line);
+    }
+
     public void printDeadlineSyntaxMessage() {
-        System.out.print(line + "Please follow the format [NAME] /by [DEADLINE]. " +
+        System.out.print(line + "> Please follow the format [NAME] /by [DEADLINE]. " +
                 "Thank you!\n" + line);
     }
 
     public void printEventSyntaxMessage() {
-        System.out.print(line + "Please follow the format [NAME] /at [DURATION]. " +
+        System.out.print(line + "> Please follow the format [NAME] /at [DURATION]. " +
                 "Thank you!\n" + line);
     }
 
@@ -112,5 +116,15 @@ public class TextUi {
             System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
         }
         printTaskCount(taskList.size());
+    }
+
+    public void printMatchingTasks(TaskList taskList, String searchterm) {
+        System.out.println(line + "> Here are the matching tasks I've found: ");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).isMatchingTask(searchterm)) {
+                System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
+            }
+        }
+        System.out.println(line);
     }
 }

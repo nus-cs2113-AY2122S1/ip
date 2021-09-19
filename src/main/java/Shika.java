@@ -25,7 +25,7 @@ public class Shika {
     /**
      * Function that calls other functions to run Shika.
      */
-    public void run() {
+    private void run() {
         try {
             setupShika();
         } catch (FileNotFoundException e) {
@@ -39,7 +39,7 @@ public class Shika {
      * it creates them.
      * @throws FileNotFoundException when ShikaTasks.txt is not found.
      */
-    public void setupShika() throws FileNotFoundException {
+    private void setupShika() throws FileNotFoundException {
         ui.printLogo();
         this.storage = new Storage(path);
         ui.printWelcomeMessage(checkForSave());
@@ -51,7 +51,7 @@ public class Shika {
      * Function that checks if a save file exists, and creates one if it does not.
      * @return true if save does not exist, false otherwise
      */
-    public boolean checkForSave() {
+    private boolean checkForSave() {
         boolean hasSave = false;
         try {
             hasSave = storage.setupSave();
@@ -66,7 +66,7 @@ public class Shika {
     /**
      * Function that calls getCommand() in a loop to run Shika. Loop can be exited by inputting "bye".
      */
-    public void runShikaLoop() {
+    private void runShikaLoop() {
         Command command;
         do {
             command = parser.parseCommand(ui.getCommand());
@@ -78,7 +78,7 @@ public class Shika {
      * Function that executes the command that is passed in.
      * @param command to be executed.
      */
-    public void executeCommand(Command command) {
+    private void executeCommand(Command command) {
         try {
             command.setData(taskList);
             command.execute();

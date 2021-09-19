@@ -1,5 +1,7 @@
 package shikabot.task;
 
+import java.time.LocalDate;
+
 public class Todo extends Task{
 
     public Todo(String name) {
@@ -15,8 +17,8 @@ public class Todo extends Task{
         return "T";
     }
 
-    public String getAtBy() {
-        return "null";
+    public LocalDate getAtBy() {
+        return null;
     }
 
 }
