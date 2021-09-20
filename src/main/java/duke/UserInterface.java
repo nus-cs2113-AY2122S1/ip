@@ -46,9 +46,19 @@ public class UserInterface {
             setDone();
         } else if (userCommand == Command.DELETE) {
             deleteTask();
+        } else if (userCommand == Command.FIND) {
+            try {
+                findTask();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                showWrongFormat();
+            }
         } else if (userCommand == Command.INVALID) {
             showInvalidCommand();
         }
+    }
+    
+    private static void findTask() {
+        TaskManager.printRelatedTask(userInputs[REMAINING_USER_INPUT_INDEX]);
     }
 
     private static void deleteTask() {
@@ -100,6 +110,8 @@ public class UserInterface {
             return Command.DONE;
         } else if (Parser.isDeleteCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.DELETE;
+        } else if (Parser.isFindCommand(userInputs[USER_COMMAND_INDEX])) {
+            return Command.FIND;
         }
 
         return Command.INVALID;
@@ -114,7 +126,10 @@ public class UserInterface {
         }
     }
 
-    private static void printLine() {
+    /**
+     * Prints a horizontal line to standard output that acts as a separator.
+     */
+    public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 

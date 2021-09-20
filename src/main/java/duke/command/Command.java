@@ -8,5 +8,6 @@ public enum Command {
     ADD_EVENT,
     DONE,
     INVALID,
-    DELETE
+    DELETE,
+    FIND
 }

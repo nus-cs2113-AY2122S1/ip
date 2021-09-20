@@ -10,6 +10,7 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
 public class TaskManager {
     private static final int TASK_DESCRIPTION_INDEX = 0;
@@ -35,7 +36,7 @@ public class TaskManager {
      * If taskIndex given is valid.
      *
      * @param taskIndex Index of task.
-     * @throws DukeInvalidTaskIndexException  If wrong index is passed into the function.
+     * @throws DukeInvalidTaskIndexException If wrong index is passed into the function.
      */
     public static void setDone(int taskIndex) throws DukeInvalidTaskIndexException {
         if (isCorrectIndex(taskIndex)) {
@@ -76,8 +77,8 @@ public class TaskManager {
 
     /**
      * Adds a Task into the ArrayList.
-     * 
-     * @param type The type of Task we are adding.
+     *
+     * @param type        The type of Task we are adding.
      * @param description The description of the Task.
      * @throws DukeBlankDescriptionsException If the description is empty.
      */
@@ -98,7 +99,7 @@ public class TaskManager {
     /**
      * Returns the Task that got deleted.
      * If the Task index given is valid.
-     * 
+     *
      * @param taskIndex The index of Task we are deleting.
      * @return The deleted Task.
      * @throws DukeInvalidTaskIndexException If the index given exceeds the range of current number of Task.
@@ -144,5 +145,28 @@ public class TaskManager {
 
     private static boolean hasBlankEntry(String[] descriptions) {
         return descriptions[TASK_DESCRIPTION_INDEX].isBlank() || descriptions[BY_OR_AT_INDEX].isBlank();
+    }
+
+    public static void printRelatedTask(String term) {
+        UserInterface.printLine();
+        if (term.isBlank()) {
+            System.out.println("No search term given!");
+            UserInterface.printLine();
+            return;
+        }
+
+        ArrayList<Task> relatedTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(term))
+                .collect(Collectors.toList());
+
+        if (relatedTasks.isEmpty()) {
+            System.out.println("No related tasks.");
+        } else {
+            System.out.println("Here are the matching tasks in your list: ");
+            for (int i = 0; i < relatedTasks.size(); i++) {
+                System.out.println(i + 1 + "." + relatedTasks.get(i));
+            }
+        }
+        UserInterface.printLine();
     }
 }
