@@ -21,10 +21,6 @@ public class Storage {
     public static File dukeTaskText = new File("./data/duke.txt");
     public static int numberOfTasksAdded = 0;
 
-    //@@author YEOWEIHNGWHYELAB-reused
-    //Reused from https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
-    // with minor modifications
-
     /**
      * Find the exact line in duke.txt to remove.
      *
@@ -39,6 +35,9 @@ public class Storage {
             File inFile = new File(file);
             int count = 0;
 
+            //@@author YEOWEIHNGWHYELAB-reused
+            //Reused from https://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
+            // with minor modifications
             if (!inFile.isFile()) {
                 System.out.println("Parameter is not an existing file");
                 return;
@@ -90,8 +89,8 @@ public class Storage {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        //@@author
     }
-    //@@author
 
     /**
      * Loads duke.txt to the tasks ArrayList.
@@ -164,9 +163,7 @@ public class Storage {
         return numberOfTasksAdded;
     }
 
-    //@@author YEOWEIHNGWHYELAB-reused
-    //Reused from https://stackoverflow.com/questions/5600422/method-to-find-string-inside-of-the-text-file-then-getting-the-following-lines
-    // with minor modifications
+
     /**
      * Check if the task already exist in the duke.txt.
      *
@@ -176,6 +173,9 @@ public class Storage {
     public static boolean checkLineExist(String stringToCheck) {
         File file = new File("./data/duke.txt");
 
+        //@@author YEOWEIHNGWHYELAB-reused
+        //Reused from https://stackoverflow.com/questions/5600422/method-to-find-string-inside-of-the-text-file-then-getting-the-following-lines
+        // with minor modifications
         try {
             Scanner scanner = new Scanner(file);
 
@@ -194,14 +194,11 @@ public class Storage {
         } catch(FileNotFoundException e) {
             System.out.println("File not found!");
         }
+        //@@author
 
         return false;
     }
-    //@@author
 
-    //@@author YEOWEIHNGWHYELAB-reused
-    //Reused from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
-    //with minor modifications
     /**
      * Appends the new todo to the duke.txt.
      * @param taskName
@@ -211,6 +208,9 @@ public class Storage {
         String textToWrite1 = "t-/-0-/-" + taskName;
         String textToWrite2 = "t-/-1-/-" + taskName;
 
+        //@@author YEOWEIHNGWHYELAB-reused
+        //Reused from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
+        //with minor modifications
         try {
             if (checkLineExist(textToWrite1) == false && checkLineExist(textToWrite2) == false) {
                 String dukeDirectory = "data/duke.txt";
@@ -234,13 +234,10 @@ public class Storage {
         } catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+        //@@author
         return true;
     }
-    //@@author
 
-    //@@author YEOWEIHNGWHYELAB-reused
-    //Reused from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
-    //with minor modifications
     /**
      * Appends the new event to the duke.txt.
      *
@@ -252,6 +249,9 @@ public class Storage {
         String eventToWrite1 = "e-/-0-/-" + taskName + "-/-/at" + at.substring(3);
         String eventToWrite2 = "e-/-1-/-" + taskName + "-/-/at" + at.substring(3);
 
+        //@@author YEOWEIHNGWHYELAB-reused
+        //Reused from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
+        //with minor modifications
         try {
             if (checkLineExist(eventToWrite1) == false && checkLineExist(eventToWrite2) == false) {
                 String dukeDirectory = "data/duke.txt";
@@ -274,12 +274,10 @@ public class Storage {
         } catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+        //@@author
         return true;
     }
 
-    //@@author YEOWEIHNGWHYELAB-reused
-    //Reused from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
-    // with minor modifications
     /**
      * Appends the new deadline to the duke.txt.
      *
@@ -291,6 +289,9 @@ public class Storage {
         String deadlineToWrite1 = "d-/-0-/-" + taskName + "-/-/by" + by.substring(3);
         String deadlineToWrite2 = "d-/-1-/-" + taskName + "-/-/by" + by.substring(3);
 
+        //@@author YEOWEIHNGWHYELAB-reused
+        //Reused from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
+        // with minor modifications
         try {
             if (checkLineExist(deadlineToWrite1) == false && checkLineExist(deadlineToWrite2) == false) {
                 String dukeDirectory = "data/duke.txt";
@@ -313,13 +314,10 @@ public class Storage {
         } catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+        //@@author
         return true;
     }
-    //@@author
 
-    //@@author YEOWEIHNGWHYELAB-reused
-    //Reused from https://stackoverflow.com/questions/20039980/java-replace-line-in-text-file
-    // with minor modifications
     /**
      * Finds the corresponding task to be marked as done in duke.txt and mark as done.
      *
@@ -329,6 +327,10 @@ public class Storage {
      */
     public static void textFileTaskDoneMarker(String oldLine, Character taskType) throws IOException {
         String filePath = "./data/duke.txt";
+
+        //@@author YEOWEIHNGWHYELAB-reused
+        //Reused from https://stackoverflow.com/questions/20039980/java-replace-line-in-text-file
+        // with minor modifications
         Scanner sc = new Scanner(new File(filePath));
         StringBuffer buffer = new StringBuffer();
 
@@ -358,8 +360,9 @@ public class Storage {
         writer.append(fileContents);
         writer.flush();
         writer.close();
+        //@@author
     }
-    //@@author
+
 
     public static String textToDoSaveFormatter(String rawTaskDescription) throws IOException {
         String taskDecription = rawTaskDescription.substring(7);
