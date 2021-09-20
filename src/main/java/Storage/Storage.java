@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,8 +26,10 @@ public class Storage {
     /*
         This section contains the relevant code for the loading of the stored task file
      */
+
     /**
      * Checks for the existence of the {@code data} folder, and creates one if it does not exist
+     *
      * @return loadedTaskList The Tasks read from the data file
      * @throws FileNotFoundException if the {@code data} folder cannot be found
      */
@@ -43,6 +46,7 @@ public class Storage {
 
     /**
      * Reads the contents of the {@code tasks} file
+     *
      * @throws FileNotFoundException if the {@code tasks} file does not exist
      */
     public void readFile() throws FileNotFoundException {
@@ -59,6 +63,7 @@ public class Storage {
 
     /**
      * Processes the data stored in the task file and stores it in loadedTaskList
+     *
      * @param taskString
      */
     public void processStoredTasks(String taskString) {
@@ -70,23 +75,35 @@ public class Storage {
             break;
         case "D":
             String[] dueDate = taskDetails[3].split("by:");
-            loadedTaskList.add(new Deadline(taskDetails[2].trim(), isDone, dueDate[1].trim()));
+            loadedTaskList.add(new Deadline(taskDetails[2].trim(), isDone,
+                    LocalDateTime.parse(convertToDateTimeFormat(dueDate[1].trim()))));
             break;
-        case "E" :
+        case "E":
             String[] startDate = taskDetails[3].split("at:");
-            loadedTaskList.add(new Event(taskDetails[2].trim(), isDone, startDate[1].trim()));
+            loadedTaskList.add(new Event(taskDetails[2].trim(), isDone,
+                    LocalDateTime.parse(convertToDateTimeFormat(startDate[1].trim()))));
             break;
         default:
             break;
         }
     }
 
+    public String convertToDateTimeFormat(String dateTime) {
+        String day = dateTime.substring(0, 2);
+        String month = dateTime.substring(3, 5);
+        String year = dateTime.substring(6, 10);
+        String hour = dateTime.substring(11, 13);
+        String minute = dateTime.substring(14, 16);
+        String second = dateTime.substring(17, 19);
+        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
+    }
     /*
         This section contains the relevant codes for the writing of the task list to the stored file
      */
 
     /**
      * Saves the current tasks stored in task list to the text file.
+     *
      * @param taskList the arraylist containing the current tasks
      * @throws IOException if error writing to the file
      */

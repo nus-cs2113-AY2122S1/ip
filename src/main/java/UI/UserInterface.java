@@ -21,7 +21,7 @@ public class UserInterface {
             + "What is it that you require?\n"
             + "For a list of commands, type: help\n"
             + BORDER;
-
+    private static final String HELP_MESSAGE = "Type \"help\" for a list of commands and their syntax.";
     public static final String EXIT_MESSAGE = BORDER + "Bye. Have a nice day!\n" + BORDER;
 
     public UserInterface() {
@@ -63,6 +63,11 @@ public class UserInterface {
      * @param errorMessage the error description
      */
     public void printErrorMessage(String errorMessage) {
+        System.out.println(BORDER + errorMessage + "\n" + HELP_MESSAGE + "\n" + BORDER);
+    }
+
+    public void printFileNotFoundMessage(String errorMessage) {
         System.out.println(BORDER + errorMessage + "\n" + BORDER);
     }
+
 }

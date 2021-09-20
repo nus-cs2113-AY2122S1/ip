@@ -1,15 +1,18 @@
 package Tasks;
 
-public class Event extends Task{
-    protected String timing;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String task, boolean isDone, String timing) {
+public class Event extends Task{
+    protected LocalDateTime timing;
+
+    public Event(String task, boolean isDone, LocalDateTime timing) {
         super(task, isDone, TaskTypes.EVENT);
         this.timing = timing;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | at: " + timing ;
+        return super.toString() + " | at: " + timing.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
     }
 }
