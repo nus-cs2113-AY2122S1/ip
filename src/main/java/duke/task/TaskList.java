@@ -138,6 +138,16 @@ public class TaskList {
     }
 
     /**
+     * Return success result for the help message to be shown to user.
+     *
+     * @param userCommand input command from user.
+     * @return result of the command.
+     */
+    private CommandResult executeHelpCommand(Command userCommand) {
+        return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
+    }
+
+    /**
      * Return success result for the program to be terminated.
      *
      * @param userCommand input command from the user.
@@ -146,7 +156,13 @@ public class TaskList {
     private CommandResult executeExitCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
-    
+
+    /**
+     * Return fail result of the command to the user.
+     * 
+     * @param userCommand input command from the user.
+     * @return result of the command.
+     */
     private CommandResult executeInvalidCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_COMMAND);
     }
@@ -172,6 +188,8 @@ public class TaskList {
             return executeDeleteCommand(userCommand);
         case Command.COMMAND_FIND:
             return executeFindCommand(userCommand);
+        case Command.COMMAND_HELP:
+            return executeHelpCommand(userCommand);
         case Command.COMMAND_EXIT:
             return executeExitCommand(userCommand);
         default:

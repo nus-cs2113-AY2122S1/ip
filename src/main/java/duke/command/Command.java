@@ -12,6 +12,7 @@ public class Command {
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_EXIT = "bye";
     public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_HELP = "help";
     
     
     private String commandType;

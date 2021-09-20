@@ -171,10 +171,25 @@ public class Ui {
         }
         System.out.println(BORDER_LINE);
     }
+    
+    private void printHelpMessage() {
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    COMMAND LIST:" + System.lineSeparator()
+                + "      help: show command list" + System.lineSeparator()
+                + "      list: show all the stored tasks" + System.lineSeparator()
+                + "      find: show all the stored tasks that contains a specific keyword" + System.lineSeparator()
+                + "      todo: add a task as todo" + System.lineSeparator()
+                + "      deadline: add a task as deadline" + System.lineSeparator()
+                + "      event: add a task as event" + System.lineSeparator()
+                + "      done: mark a task as done" + System.lineSeparator()
+                + "      delete: delete a task from the list" + System.lineSeparator()
+                + BORDER_LINE);
+    }
 
     private void printInvalidCommandMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    INVALID COMMAND" + System.lineSeparator()
+                + "    Type \"help\" to see the list of commands" + System.lineSeparator()
                 + BORDER_LINE);
     }
 
@@ -203,6 +218,9 @@ public class Ui {
         case Command.COMMAND_FIND:
             printTaskListWithKeyword(result.getResultDescription());
             break;    
+        case Command.COMMAND_HELP:
+            printHelpMessage();
+            break;
         case Command.COMMAND_EXIT:
             break;
         default:
