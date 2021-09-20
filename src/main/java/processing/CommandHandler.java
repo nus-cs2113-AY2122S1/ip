@@ -93,6 +93,7 @@ public class CommandHandler {
         switch (command) {
         case "bye":
             Duke.exit();
+            break;
         case "help":
             UI.listCommands();
             break;
