@@ -2,9 +2,9 @@ package herrekt;
 
 import herrekt.exceptions.InvalidInputException;
 import herrekt.exceptions.NoTaskException;
-import herrekt.taskmanager.*;
-
+import herrekt.taskmanager.Task;
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
@@ -45,20 +45,25 @@ public class Herrekt {
                     int taskNumber = parser.parseDeleteInputToInt(phrase);
                     ui.printTaskDeleted(taskNumber, tasks);
                     tasks.delete(taskNumber);
+                } else if (phrase.contains("find")) {
+                    String phraseToSearch = parser.parseSearchInputToString(phrase);
+                    ui.printMatchingTaskList(new TaskList(tasks.search(phraseToSearch)));
                 } else {
                     isInputValid(phrase);
                     Task task = parser.parsePhraseToTask(phrase);
                     tasks.add(task);
                     ui.printNumberOfTasks(tasks);
                 }
-            } catch (ArrayIndexOutOfBoundsException e3) {
+            } catch (ArrayIndexOutOfBoundsException e13) {
                 ui.printIncorrectFormatError(phrase);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e2) {
                 ui.printInputBiggerThanTaskList(tasks);
-            } catch (InvalidInputException e1) {
+            } catch (InvalidInputException e3) {
                 ui.printInvalidInputError(phrase);
-            } catch (NoTaskException e2) {
+            } catch (NoTaskException e4) {
                 ui.printNoTaskError(phrase);
+            } catch (DateTimeParseException e5) {
+                ui.printInvalidDateError(phrase);
             }
             phrase = sc.nextLine();
         }

@@ -33,20 +33,15 @@ public class Ui {
         if (tasks.getSize() == 0) {
             System.out.println("You have no outstanding tasks. Good Job!");
         } else {
-            StringBuilder toPrint = new StringBuilder("Here are the tasks in your list:" + "\n");
-            for (int i = 0; i < tasks.getTasks().size(); i++) {
-                if (i == tasks.getTasks().size() - 1) {
-                    toPrint.append(i + 1)
-                            .append(". ")
-                            .append(tasks.getTasks().get(i).toString());
-                    break;
-                }
-                toPrint.append(i + 1)
-                        .append(". ")
-                        .append(tasks.getTasks().get(i).toString())
-                        .append("\n");
-            }
-            System.out.println(toPrint);
+            System.out.println("Here are the tasks in your list:" + "\n" + tasks.toString());
+        }
+    }
+
+    void printMatchingTaskList(TaskList tasks) {
+        if (tasks.getSize() == 0) {
+            System.out.println("Couldn't find any matches");
+        } else {
+            System.out.println("Here are the matching tasks in your list:" + "\n" + tasks.toString());
         }
     }
 
@@ -82,6 +77,12 @@ public class Ui {
     void printIncorrectFormatError(String phrase) {
         System.out.println("ERROR! I tried to "
                 + "Please separate deadline/event and time with '/by' and '/at' respectively.");
+        System.out.println("Your input: " + phrase);
+    }
+
+    void printInvalidDateError(String phrase) {
+        System.out.println("ERROR! The deadline date appears to be invalid.");
+        System.out.println("Please use the YYYY-MM-DD format.");
         System.out.println("Your input: " + phrase);
     }
 }
