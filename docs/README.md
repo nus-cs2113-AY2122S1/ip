@@ -371,6 +371,7 @@ it creates with the file that contains the data of your previous Duke home folde
 ---
 
 ## Command Summary
+
 | Command                                               | Meaning                                                               |
 | --------------                                        | ----------                                                            |
 | `help`                                                | Lists all accepted commands                                           |
