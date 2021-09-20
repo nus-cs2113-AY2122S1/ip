@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.exception.EmptyArgumentException;
 import duke.exception.EmptyParameterException;
+import duke.exception.MultipleKeywordsException;
 import duke.task.TaskTimeManager;
 
 import java.time.LocalDateTime;
@@ -114,6 +115,24 @@ public class Parser {
     public int extractIndex(String input) throws NumberFormatException, EmptyArgumentException {
         String content = extractContent(input);
         return Integer.parseInt(content) - 1;
+    }
+
+    /**
+     * Extracts the keyword from the input string
+     *
+     * @param input the input string containing the command and the keyword
+     * @return the keyword of the input string
+     * @throws MultipleKeywordsException when there are more than 1 keywords given
+     * @throws EmptyArgumentException when there is no keyword given
+     */
+    public String extractKeyword(String input) throws MultipleKeywordsException, EmptyArgumentException {
+        String content = extractContent(input);
+        String[] keyWords = content.split(" ");
+        //Ensures that there is only 1 keyword given
+        if (keyWords.length > 1) {
+            throw new MultipleKeywordsException();
+        }
+        return keyWords[0];
     }
 
     /**
