@@ -1,13 +1,11 @@
 package Tasks;
 
-import Tasks.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
 
     private ArrayList<Task> taskList;
-    private static final String NO_TASK_MESSAGE = "No tasks";
+    private static final String NO_TASK_MESSAGE = "No tasks\n";
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
