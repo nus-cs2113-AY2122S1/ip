@@ -34,7 +34,7 @@ public class Duke {
             Parser commandHandle = new Parser(userInputString);
             CommandHandler runningUserCommand = new CommandHandler();
             try {
-                isExit = runningUserCommand.commandHandle(commandHandle, userInputString, dukeTaskText);
+                isExit = runningUserCommand.commandHandle(commandHandle, userInputString, dukeTaskText, ui);
             } catch (DukeException dukeError) {
                 dukeError.printErrorMessage();
             }

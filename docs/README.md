@@ -154,3 +154,9 @@ and list it all out on the terminal like so. The rest of the Task will not be sh
 	 2.[T][X] do homework
     ____________________________________________________________
 ```
+
+### `help` - List out the list of command 
+
+Shows the list of command as shown on this README document. 
+
+Expected outcome: A copy of this README document. 

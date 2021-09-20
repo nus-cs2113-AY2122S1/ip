@@ -27,6 +27,13 @@ public class Parser {
         return false;
     }
 
+    public boolean isHelp() {
+        if (commandString.equals("help")) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isList() {
         if (commandString.equals("list")) {
             return true;

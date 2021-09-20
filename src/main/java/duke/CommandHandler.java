@@ -21,7 +21,7 @@ public class CommandHandler {
      * @throws DukeException When invalid command is entered.
      * @throws IOException When duke.txt is deleted while program is running.
      */
-    public boolean commandHandle(Parser commandHandle, String userInputString, Storage dukeTaskText) throws DukeException, IOException {
+    public boolean commandHandle(Parser commandHandle, String userInputString, Storage dukeTaskText, Ui ui) throws DukeException, IOException {
         if (commandHandle.isBye()) {
             Ui.showGoodBye();
             return true;
@@ -45,6 +45,9 @@ public class CommandHandler {
             return false;
         } else if (commandHandle.isFind()) {
             TaskList.findTask(userInputString);
+            return false;
+        } else if (commandHandle.isHelp()) {
+            ui.showHelp();
             return false;
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
