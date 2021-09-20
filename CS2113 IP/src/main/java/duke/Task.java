@@ -8,7 +8,6 @@ public class Task {
     protected String taskType = "";
     protected int index;
     protected boolean isDone;
-    protected static int taskCount = 0;
 
     public Task(String description, int index) {
         this.description = description;
