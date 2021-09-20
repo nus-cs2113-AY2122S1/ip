@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.exception.DeadlineCommandError;
 import duke.tasks.TaskList;
 import duke.exception.DeleteListIndexError;
 import duke.exception.DukeException;
