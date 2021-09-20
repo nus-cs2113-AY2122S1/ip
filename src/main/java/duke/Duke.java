@@ -29,7 +29,6 @@ public class Duke {
         TaskList.numberOfTasks = dukeTaskText.loadTask(TaskList.tasks);
 
         boolean isExit  = false;
-
         while (!isExit) {
             userInputString = userInput.nextLine();
             Parser commandHandle = new Parser(userInputString);
