@@ -159,4 +159,6 @@ and list it all out on the terminal like so. The rest of the Task will not be sh
 
 Shows the list of command as shown on this README document. 
 
+Example of usage: `help`
+
 Expected outcome: A copy of this README document. 
