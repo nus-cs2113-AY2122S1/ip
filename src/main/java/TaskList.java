@@ -1,11 +1,12 @@
 import exceptions.*;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.stream.Collectors;
+import java.time.temporal.ChronoUnit;
 
 
 public class TaskList {
@@ -86,10 +87,10 @@ public class TaskList {
 
     public static String[] trimDeadlineDescription(String description) throws NoSlashDeadlineException,
             DeadlineEmptyException {
-        int slashIndex = description.indexOf('/');
+        int slashIndex = description.indexOf("by");
         String[] deadline = new String[2];
         if (slashIndex > SLASH_INDEX_DEADLINE) {
-            deadline[0] = description.substring(SLASH_INDEX_DEADLINE, slashIndex).trim();
+            deadline[0] = description.substring(SLASH_INDEX_DEADLINE, slashIndex - 1).trim();
             deadline[1] = description.substring(slashIndex + 3).trim();
         } else {
             throw new NoSlashDeadlineException();
@@ -138,10 +139,10 @@ public class TaskList {
     }
 
     public static String[] trimEventDescription(String description) throws NoSlashEventException, EventEmptyException {
-        int slashIndex = description.indexOf('/');
+        int slashIndex = description.indexOf("/at");
         String[] event = new String[2];
         if (slashIndex > SLASH_INDEX_EVENT) {
-            event[0] = description.substring(SLASH_INDEX_EVENT, slashIndex).trim();
+            event[0] = description.substring(SLASH_INDEX_EVENT, slashIndex - 1).trim();
             event[1] = description.substring(slashIndex + 3).trim();
         } else {
             throw new NoSlashEventException();
@@ -227,4 +228,26 @@ public class TaskList {
         tasks.remove(index);
         Storage.deleteEntry(index);
     }
+
+    public static void filterDates(String content) {
+        String dateString = content.substring(7);
+        LocalDate ld = TimeHandler.getDate(dateString);
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t instanceof Deadline || t instanceof Event)
+                .filter((t) -> Task.getDate(t).equals(ld))
+                .collect(Collectors.toList());
+
+        Duke.printLine();
+        if (!filteredList.isEmpty()) {
+            System.out.println("\tThese are the tasks for " + ld + ": ");
+            int i = 1;
+            for (Task t : filteredList) {
+                System.out.println("\t" + i + ". " + t.toString());
+            }
+        } else {
+            System.out.println("\tNo tasks set for " + ld + ".");
+        }
+        Duke.printLine();
+    }
+
 }

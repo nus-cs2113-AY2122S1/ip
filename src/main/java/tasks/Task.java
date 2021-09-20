@@ -1,5 +1,8 @@
 package tasks;
 
+
+import java.time.LocalDate;
+
 public class Task {
     protected String by;
     private String description;
@@ -8,6 +11,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         hasDone = false;
+    }
+
+    public static LocalDate getDate(Task task) {
+        if (task instanceof Event) {
+            return ((Event) task).at;
+        } else if (task instanceof Deadline) {
+            return ((Deadline)task).by;
+        } else return null;
     }
 
     public String getDescription() {
