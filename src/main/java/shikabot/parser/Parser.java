@@ -14,7 +14,6 @@ import shikabot.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
 
 public class Parser {
 
@@ -36,6 +35,14 @@ public class Parser {
     private static final int EVENT_LENGTH = 5;
     private static final int DELETE_LENGTH = 6;
     private static final int DIVIDER_LENGTH = 3;
+
+    private static final String NOTHING = "";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String DIVIDER = "/";
+    private static final String AT = "/at";
+    private static final String BY = "/by";
 
     /**
      * Function that checks if the string entered is an add command.
@@ -141,13 +148,13 @@ public class Parser {
      */
     private Command parseAddCommand(String text) {
         Command command;
-        if (text.toLowerCase().startsWith("todo")) {
+        if (text.toLowerCase().startsWith(TODO)) {
             try {
                 command = parseAddTodoCommand(text);
             } catch (EmptyFieldException e) {
                 return new FailedCommand(EMPTY_FIELD);
             }
-        } else if (text.toLowerCase().startsWith("deadline")) {
+        } else if (text.toLowerCase().startsWith(DEADLINE)) {
             try {
                 command = parseAddDeadlineCommand(text);
             } catch (Task.InvalidTaskException e) {
@@ -179,7 +186,9 @@ public class Parser {
      */
     private Command parseAddTodoCommand(String text) throws EmptyFieldException {
         String name = text.substring(TODO_LENGTH).trim();
-        if (name.equals("")) throw new EmptyFieldException();
+        if (name.equals(NOTHING)) {
+            throw new EmptyFieldException();
+        }
         return new AddCommand('T', name, null);
     }
 
@@ -193,12 +202,14 @@ public class Parser {
      * @throws InvalidDateException if date is in invalid format.
      */
     private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
-        if (!text.toLowerCase().contains("/by")) {
+        if (!text.toLowerCase().contains(BY)) {
             throw new Task.InvalidTaskException();
         }
-        String name = text.substring(DEADLINE_LENGTH, text.indexOf("/")).trim();
-        String date = text.substring(text.toLowerCase().indexOf("/by") + DIVIDER_LENGTH).trim();
-        if (name.equals("") || date.equals("")) throw new EmptyFieldException();
+        String name = text.substring(DEADLINE_LENGTH, text.indexOf(DIVIDER)).trim();
+        String date = text.substring(text.toLowerCase().indexOf(BY) + DIVIDER_LENGTH).trim();
+        if (name.equals(NOTHING) || date.equals(NOTHING)) {
+            throw new EmptyFieldException();
+        }
         try {
             LocalDate by = LocalDate.parse(date, TIME_PARSER);
             return new AddCommand('D', name, by);
@@ -217,12 +228,14 @@ public class Parser {
      * @throws InvalidDateException if date is in invalid format.
      */
     private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
-        if (!text.toLowerCase().contains("/at")) {
+        if (!text.toLowerCase().contains(AT)) {
             throw new Task.InvalidTaskException();
         }
-        String name = text.substring(EVENT_LENGTH, text.indexOf("/")).trim();
-        String date = text.substring(text.toLowerCase().indexOf("/at") + DIVIDER_LENGTH).trim();
-        if (name.equals("") || date.equals("")) throw new EmptyFieldException();
+        String name = text.substring(EVENT_LENGTH, text.indexOf(DIVIDER)).trim();
+        String date = text.substring(text.toLowerCase().indexOf(AT) + DIVIDER_LENGTH).trim();
+        if (name.equals(NOTHING) || date.equals(NOTHING)) {
+            throw new EmptyFieldException();
+        }
         try {
             LocalDate at = LocalDate.parse(date,TIME_PARSER);
             return new AddCommand('E', name, at);
