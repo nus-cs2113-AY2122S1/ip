@@ -11,6 +11,11 @@ import java.time.LocalDate;
  */
 public class Todo extends Task {
 
+    /**
+     * Constructor
+     *
+     * @param description description of task
+     */
     public Todo(String description) {
         super(description);
     }
@@ -44,6 +49,11 @@ public class Todo extends Task {
         return storeString;
     }
 
+    /**
+     * Returns the date of task
+     *
+     * @return LocalDate type of date of task
+     */
     @Override
     public LocalDate getDate() {
         return null;

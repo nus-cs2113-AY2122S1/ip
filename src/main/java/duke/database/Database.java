@@ -22,6 +22,11 @@ import java.util.Scanner;
 public class Database{
     private static String filePath;
 
+    /**
+     * Constructor
+     *
+     * @param filePath file path of storage file
+     */
     public Database(String filePath) {
         this.filePath = filePath;
     }
@@ -30,8 +35,8 @@ public class Database{
      * Loads task from duke.txt data file if it exists. If the file does
      * not exist, the file is created.
      *
-     * @return "tasksCopy" previous state of tasks if the data file exists,
-     * or an empty file if the data file does not exist.
+     * @return tasksCopy previous state of tasks if the data file exists,
+     * or an empty TaskList if the data file does not exist.
      */
     public static TaskList loadTasks() {
         TaskList tasksCopy = new TaskList();
@@ -121,7 +126,7 @@ public class Database{
      * Updates the data storage file by appending the most
      * recently added file to the end of the file.
      *
-     * @param "taskList" the current list of tasks
+     * @param taskList the current list of tasks
      */
     public static void autoSaveFile(TaskList taskList) {
         Task currTask = taskList.getTask(taskList.getSize());

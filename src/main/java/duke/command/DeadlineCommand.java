@@ -1,7 +1,8 @@
 package duke.command;
 
+import duke.exception.DateError;
 import duke.tasks.TaskList;
-import duke.exception.DeadLineCommandError;
+import duke.exception.DeadlineCommandError;
 import duke.exception.DukeException;
 import duke.tasks.Deadline;
 
@@ -14,11 +15,24 @@ public class DeadlineCommand extends Command{
     private String description;
     private LocalDate date;
 
+    /**
+     * Constructor
+     *
+     * @param descriptionArg task description
+     * @param dateArg date of deadline
+     */
     public DeadlineCommand(String descriptionArg, LocalDate dateArg) {
         description = descriptionArg;
         date = dateArg;
     }
 
+    /**
+     * Executes DeadlineCommand
+     *
+     * @param tasks TaskList
+     * @return appropriate message to be sent to user
+     * @throws DeadlineCommandError
+     */
     @Override
     public String execute(TaskList tasks) throws DukeException {
         try {
@@ -29,7 +43,7 @@ public class DeadlineCommand extends Command{
             autoSaveFile(tasks);
             return returnString;
         } catch (Exception e) {
-            throw new DeadLineCommandError();
+            throw new DeadlineCommandError();
         }
     }
 }
