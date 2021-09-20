@@ -45,6 +45,8 @@ public class Parser {
             return new HelpCommand();
         case "delete":
             return new DeleteCommand(Integer.parseInt(input[1]));
+        case "find":
+            return new FindCommand(input[1]);
         default:
             throw new UnknownCommandException();
         }

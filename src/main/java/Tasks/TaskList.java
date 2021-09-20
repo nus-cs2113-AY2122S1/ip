@@ -79,4 +79,14 @@ public class TaskList {
     public String printNewestTask() {
         return taskList.get(taskList.size() - 1).toString();
     }
+
+    public String findTasksContaining(String stringToFind) {
+        String listOfTasks = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(stringToFind)) {
+                listOfTasks += (i + 1) + ". " + taskList.get(i).toString() + "\n";
+            }
+        }
+        return listOfTasks;
+    }
 }

@@ -11,6 +11,10 @@ public class Task {
         this.taskType = taskType;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
