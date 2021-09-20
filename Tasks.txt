@@ -1,1 +1,1 @@
-event 6 /at 6pm | 0
+event 6 /at 6pm | 1

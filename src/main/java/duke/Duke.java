@@ -16,7 +16,7 @@ public class Duke {
     private static int loadFlag = 0;
     private static int positionCheck = 0;
 
-    //private static final String filePath = "./data/Tasks.txt";
+    //private static final String filePath = "./Tasks.txt";
 
     private static ArrayList<Task> commands = new ArrayList<>();
 
