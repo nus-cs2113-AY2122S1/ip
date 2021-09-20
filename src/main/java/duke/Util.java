@@ -47,4 +47,22 @@ public class Util {
 
         return true;
     }
+
+    /**
+     * Checks if string value is an integer.
+     *
+     * @param string The string to check.
+     * @return true if string can be converted to integer, else false.
+     */
+    public static boolean isStringInteger(String string) {
+        boolean isInt;
+        try {
+            int value = Integer.parseInt(string);
+            isInt = true;
+        } catch (NumberFormatException e) {
+            isInt = false;
+        }
+
+        return isInt;
+    }
 }
