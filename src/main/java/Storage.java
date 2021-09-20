@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,7 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
-public class FileWriting {
+public class Storage {
 
     public static void writeToFile(String content) throws IOException {
         FileWriter fw = new FileWriter("./myDirectory/myFile.txt", true);
@@ -76,14 +75,16 @@ public class FileWriting {
     public static void initialise() {
         try {
             File dir = new File("./myDirectory");
-            dir.mkdir();
+            if (dir.mkdir()) {
+                System.out.println("Directory created: " + dir.getName());
+            }
             File f = new File("./myDirectory/myFile.txt");
-            File f2 = new File("./myDirectory/myFileCopy.txt");
+            File f1 = new File("./myDirectory/myFileCopy.txt");
             if (f.createNewFile()) {
                 System.out.println("File created: " + f.getName());
             }
-            if (f2.createNewFile()) {
-                System.out.println("File created: " + f.getName());
+            if (f1.createNewFile()) {
+                System.out.println("File created: " + f1.getName());
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -91,4 +92,13 @@ public class FileWriting {
 
     }
 
+    public static void startupScanFileContents() throws IOException {
+        File f = new File("./myDirectory/myFile.txt");
+        Scanner s = new Scanner(f);
+        int index = 0;
+        while (s.hasNext()) {
+            TaskProcessor.callTaskMethod(s.nextLine(), index);
+            index += 1;
+        }
+    }
 }

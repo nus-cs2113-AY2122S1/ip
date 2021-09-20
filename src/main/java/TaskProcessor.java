@@ -1,21 +1,19 @@
-import java.io.IOException;
-
 public class TaskProcessor {
-    public static void callTaskMethod(TaskManager t1, String command, int index) throws IOException {
+    public static void callTaskMethod(String command, int index) {
         String[] words = command.split("\\|");
         switch (words[0]) {
         case "T ":
-            t1.addTodoTask(words[2]);
+            TaskList.addTodo(words[2]);
             break;
         case "D ":
-            t1.addDeadlineTask(words[2],words[3]);
+            TaskList.addDeadline(words[2],words[3]);
             break;
         case "E ":
-            t1.addEventTask(words[2], words[3]);
+            TaskList.addEvent(words[2], words[3]);
         }
 
         if (words[1].trim().equals("1")) {
-            t1.markTaskAsDone(index);
+            TaskList.markTaskAsDone(index);
         }
     }
 }

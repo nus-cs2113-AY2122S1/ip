@@ -6,7 +6,6 @@ public class Duke {
     public static final String DIVIDER_LINE = "\t__________________________________________________";
 
     public static void printLine() {
-
         System.out.println(DIVIDER_LINE);
     }
 
@@ -35,55 +34,13 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         DukeLogo();
         Greet();
-        TaskManager t1 = new TaskManager();
-        FileWriting.initialise();
-        FileReading.startupScanFileContents(t1);
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        String[] words = line.split(" ");
-        programLogic(t1, in, line, words);
+        Storage.initialise();
+        Storage.startupScanFileContents();
+        Scanner in = Ui.getScanner();
+        String line = Ui.getLine(in);
+        String[] words = Ui.getWords(line);
+        Parser.programLogic(in, line, words);
         Bye();
     }
 
-    private static void programLogic(TaskManager t1, Scanner in, String line, String[] words) {
-
-            while (!words[0].equals("bye")) {
-                try {
-                    switch (words[0]) {
-                    case "todo":
-                        t1.addTodo(line);
-                        break;
-                    case "deadline":
-                        t1.addDeadline(line);
-                        break;
-                    case "event":
-                        t1.addEvent(line);
-                        break;
-                    case "list":
-                        t1.listTasks();
-                        break;
-                    case "done":
-                        int markedIndex = Integer.parseInt(words[1]) - 1;
-                        t1.markAsDone(markedIndex);
-                        break;
-                    case "delete":
-                        int deleteIndex = Integer.parseInt(words[1]) - 1;
-                        t1.deleteTask(deleteIndex);
-                        break;
-                    default:
-                        t1.printInvalid();
-                        break;
-                    }
-                } catch (IOException e) {
-                    t1.printInvalid();
-                } catch (NumberFormatException e) {
-                    printLine();
-                    System.out.println("\tThe index has to be an integer.");
-                    printLine();
-                }
-                line = in.nextLine();
-                words = line.split(" ");
-            }
-
-    }
 }

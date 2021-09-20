@@ -3,18 +3,18 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+
 import java.util.ArrayList;
 import java.io.IOException;
 
 
-public class TaskManager {
-    //public static final int MAX_TASKS = 100;
+public class TaskList {
     public static final int SLASH_INDEX_DEADLINE = 8;
     public static final int SLASH_INDEX_EVENT = 5;
-    private ArrayList<Task> tasks = new ArrayList<>();
-    private int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static int taskCount = 0;
 
-    public void printInvalid() {
+    public static void printInvalid() {
         Duke.printLine();
         System.out.println("\tHey bud, the command you printed is invalid.");
         System.out.println("\tHere's some examples of valid commands:");
@@ -24,11 +24,11 @@ public class TaskManager {
         Duke.printLine();
     }
 
-    public void addTodo(String description) throws IOException {
+    public static void prepareToAddTodo(String description) throws IOException {
         try {
             String todoDescription = trimTodoDescription(description);
             printNewTodo(todoDescription);
-            FileWriting.writeToFile("T | 0 | " + todoDescription + System.lineSeparator());
+            Storage.writeToFile("T | 0 | " + todoDescription.trim() + System.lineSeparator());
         } catch (EmptyTodoException e) {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
@@ -39,7 +39,7 @@ public class TaskManager {
 
     }
 
-    public String trimTodoDescription(String description) throws EmptyTodoException {
+    public static String trimTodoDescription(String description) throws EmptyTodoException {
         String todoDescription = description.substring(4).trim();
         if (todoDescription.isEmpty()) {
             throw new EmptyTodoException();
@@ -48,24 +48,24 @@ public class TaskManager {
     }
 
 
-    private void printNewTodo(String todoDescription) {
-        addTodoTask(todoDescription);
+    private static void printNewTodo(String todoDescription) {
+        addTodo(todoDescription);
         Duke.printLine();
         System.out.println("\tAdded todo: " + todoDescription);
         Duke.printLine();
     }
 
-    public void addTodoTask(String todoDescription) {
+    public static void addTodo(String todoDescription) {
         tasks.add(new Todo(todoDescription));
         taskCount += 1;
     }
 
-    public void addDeadline(String description) {
+    public static void prepareToAddDeadline(String description) {
         try {
             String[] deadline = trimDeadlineDescription(description);
             printNewDeadline(deadline[0], deadline[1]);
-            FileWriting.writeToFile("D | 0 | " + deadline[0] + " | " +
-                    deadline[1] + System.lineSeparator());
+            Storage.writeToFile("D | 0 | " + deadline[0].trim() + " | " +
+                    deadline[1].trim() + System.lineSeparator());
         } catch (NoSlashDeadlineException e) {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
@@ -84,7 +84,7 @@ public class TaskManager {
         }
     }
 
-    public String[] trimDeadlineDescription(String description) throws NoSlashDeadlineException,
+    public static String[] trimDeadlineDescription(String description) throws NoSlashDeadlineException,
             DeadlineEmptyException {
         int slashIndex = description.indexOf('/');
         String[] deadline = new String[2];
@@ -101,23 +101,23 @@ public class TaskManager {
         }
     }
 
-    private void printNewDeadline(String deadlineDescription, String deadlineBy) {
-        addDeadlineTask(deadlineDescription, deadlineBy);
+    private static void printNewDeadline(String deadlineDescription, String deadlineBy) {
+        addDeadline(deadlineDescription, deadlineBy);
         Duke.printLine();
         System.out.println("\tAdded deadline: " + deadlineDescription + " (by: " + deadlineBy + ')');
         Duke.printLine();
     }
 
-    public void addDeadlineTask(String deadlineDescription, String deadlineBy) {
+    public static void addDeadline(String deadlineDescription, String deadlineBy) {
         tasks.add(new Deadline(deadlineDescription, deadlineBy));
         taskCount += 1;
     }
 
-    public void addEvent(String description) {
+    public static void prepareToAddEvent(String description) {
         try {
             String[] event = trimEventDescription(description);
             printNewEvent(event[0], event[1]);
-            FileWriting.writeToFile("E | 0 | " + event[0] + " | " +
+            Storage.writeToFile("E | 0 | " + event[0].trim() + " | " +
                     event[1] + System.lineSeparator());
         } catch (NoSlashEventException e) {
             Duke.printLine();
@@ -137,7 +137,7 @@ public class TaskManager {
         }
     }
 
-    public String[] trimEventDescription(String description) throws NoSlashEventException, EventEmptyException {
+    public static String[] trimEventDescription(String description) throws NoSlashEventException, EventEmptyException {
         int slashIndex = description.indexOf('/');
         String[] event = new String[2];
         if (slashIndex > SLASH_INDEX_EVENT) {
@@ -153,24 +153,24 @@ public class TaskManager {
         }
     }
 
-    private void printNewEvent(String eventDescription, String eventAt) {
-        addEventTask(eventDescription, eventAt);
+    private static void printNewEvent(String eventDescription, String eventAt) {
+        addEvent(eventDescription, eventAt);
         Duke.printLine();
         System.out.println("\tAdded event: " + eventDescription + " (at: " + eventAt + ')');
         Duke.printLine();
     }
 
-    public void addEventTask(String eventDescription, String eventAt) {
+    public static void addEvent(String eventDescription, String eventAt) {
         tasks.add(new Event(eventDescription, eventAt));
         taskCount += 1;
     }
 
-    public void listTasks() {
+    public static void listTasks() {
         Duke.printLine();
         if (taskCount > 0) {
             System.out.println("\t Here are the tasks in your list:");
             int i = 1;
-            for (Task t: tasks) {
+            for (Task t : tasks) {
                 System.out.print('\t');
                 System.out.print(i + ". ");
                 System.out.print(t.toString() + System.lineSeparator());
@@ -182,47 +182,49 @@ public class TaskManager {
         Duke.printLine();
     }
 
-    public void markAsDone(int index) {
+    public static void markAsDone(int index) {
         try {
             printMarkedTask(index);
         } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
-            Duke.printLine();
-            System.out.println("\tThat task doesn't exist.");
-            Duke.printLine();
+            printTaskNotExist();
         }
     }
 
-    public void printMarkedTask(int index) throws IOException {
+    public static void printMarkedTask(int index) throws IOException {
         String taskDescription = tasks.get(index).getDescription();
         markTaskAsDone(index);
-        FileWriting.markEntryDone(index);
+        Storage.markEntryDone(index);
         Duke.printLine();
         System.out.println("\tNice! You completed this task:");
         System.out.println("\t  [X] " + taskDescription);
         Duke.printLine();
     }
 
-    public void markTaskAsDone(int index) {
+    public static void markTaskAsDone(int index) {
         tasks.get(index).setAsDone();
     }
 
-    public void deleteTask(int index) {
+    public static void deleteTask(int index) {
         try {
             printDeleteTask(index);
         } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
-            Duke.printLine();
-            System.out.println("\tThat task doesn't exist.");
-            Duke.printLine();
+            printTaskNotExist();
         }
-
     }
-    public void printDeleteTask(int index) throws IOException {
+
+    private static void printTaskNotExist() {
+        Duke.printLine();
+        System.out.println("\tThat task doesn't exist.");
+        Duke.printLine();
+    }
+
+    public static void printDeleteTask(int index) throws IOException {
         String taskDescription = tasks.get(index).toString();
         Duke.printLine();
         System.out.println("\tSeems like you didn't want this task:");
         System.out.println("\t" + taskDescription);
         Duke.printLine();
         tasks.remove(index);
-        FileWriting.deleteEntry(index);
+        Storage.deleteEntry(index);
     }
 }
