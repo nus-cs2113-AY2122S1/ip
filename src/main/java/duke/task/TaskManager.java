@@ -11,6 +11,9 @@ public class TaskManager {
     // Constants
     private static final int MAX_TASKS = 100;
     private static final String DELIMITER = " | ";
+    private static final String SYMBOL_TODO = "T";
+    private static final String SYMBOL_DEADLINE = "D";
+    private static final String SYMBOL_EVENT = "E";
 
     // Task list
     private final ArrayList<Task> tasks = new ArrayList<>();
@@ -48,13 +51,13 @@ public class TaskManager {
             String[] description = line.trim().split("\\s*[|]\\s*");
             Task task;
             switch (description[0]) {
-            case "T":
+            case SYMBOL_TODO:
                 task = new Todo(description[2]);
                 break;
-            case "D":
+            case SYMBOL_DEADLINE:
                 task = new Deadline(description[2], description[3]);
                 break;
-            case "E":
+            case SYMBOL_EVENT:
                 task = new Event(description[2], description[3]);
                 break;
             default:
@@ -78,15 +81,15 @@ public class TaskManager {
             isDone = task.getIsDone() ? "1" : "0";
             description = task.getDescription();
             if (task instanceof Todo) {
-                taskType = "T";
+                taskType = SYMBOL_TODO;
                 time = "";
             } else if (task instanceof Deadline) {
                 hasTime = true;
-                taskType = "D";
+                taskType = SYMBOL_DEADLINE;
                 time = ((Deadline) task).getBy();
             } else if (task instanceof Event) {
                 hasTime = true;
-                taskType = "E";
+                taskType = SYMBOL_EVENT;
                 time = ((Event) task).getAt();
             } else {
                 throw new DukeException("Error saving task no.: " + i);
