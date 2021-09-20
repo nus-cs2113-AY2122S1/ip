@@ -1,7 +1,10 @@
 package commands;
 
 import console.InputParser;
+import error.DukeTaskNameEmptyException;
+import error.Error;
 import task.TaskManager;
+import ui.Display;
 
 /**
  * Adds a new 'todo' type task to TaskManager.
@@ -26,7 +29,11 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String executeCommand() {
-        taskManager.addTodoTask(InputParser.getTaskDetails(commandComponents));
+        try {
+            taskManager.addTodoTask(InputParser.getTaskDetails(commandComponents));
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayTaskNameEmptyError();
+        }
         return COMMAND_WORD;
     }
 }

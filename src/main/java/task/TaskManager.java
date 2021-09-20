@@ -36,21 +36,18 @@ public class TaskManager {
         taskCount--;
     }
 
+
     /**
      * Adds a 'todo' type task.
      * Shows the user an acknowledgement message after a successful addition of new 'todo' type task.
      * Increases the current number of tasks in the TaskManager by 1.
-     *
      * @param taskInformation Task details provided by user.
+     * @throws DukeTaskNameEmptyException If task name provided is empty.
      */
-    public void addTodoTask(String taskInformation) {
-        try {
-            allTasks.add(new Todo(InputParser.getTaskName(taskInformation)));
-            increaseTaskCount();
-            Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_TODO, taskCount);
-        } catch (DukeTaskNameEmptyException e) {
-            Error.displayTaskNameEmptyError();
-        }
+    public void addTodoTask(String taskInformation) throws DukeTaskNameEmptyException {
+        allTasks.add(new Todo(InputParser.getTaskName(taskInformation)));
+        increaseTaskCount();
+        Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_TODO, taskCount);
     }
 
     /**
