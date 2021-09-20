@@ -19,6 +19,11 @@ public class Logic {
     //protected static ArrayList<Task> tasks;
     private TaskList taskList;
 
+    /**
+     * Constructor
+     *
+     * @param filePath file path of storage file
+     */
     public Logic(String filePath) {
         fileAddress = filePath;
         userInterface = new UserInterface();

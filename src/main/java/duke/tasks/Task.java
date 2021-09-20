@@ -13,6 +13,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor
+     *
+     * @param description description of task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -65,6 +70,11 @@ public class Task {
         return "";
     }
 
+    /**
+     * Psuedo abstract method to get the date of task
+     *
+     * @return LocalDate type of date of task
+     */
     public LocalDate getDate() {
         return null;
     }

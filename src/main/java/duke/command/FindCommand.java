@@ -3,24 +3,30 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.EventCommandError;
 import duke.exception.FindCommandError;
-import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
 import java.util.ArrayList;
 
-import static duke.database.Database.autoSaveFile;
-import static duke.logic.Logic.listIndex;
-
-
-
 public class FindCommand extends Command{
     private String keyword;
 
+    /**
+     * Constructor
+     *
+     * @param searchTerm search criteria
+     */
     public FindCommand(String searchTerm) {
         keyword = searchTerm;
     }
 
+    /**
+     * Executes FindCommand
+     *
+     * @param tasks TaskList
+     * @return appropriate message to be sent to user
+     * @throws FindCommandError
+     */
     @Override
     public String execute(TaskList tasks) throws DukeException {
         try {

@@ -14,6 +14,12 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     protected LocalDate at;
 
+    /**
+     * Constructor
+     *
+     * @param description description of event
+     * @param at date of event
+     */
     public Event(String description, LocalDate at) {
         super(description);
         this.at = at;
@@ -49,6 +55,11 @@ public class Event extends Task {
         return storeString;
     }
 
+    /**
+     * Returns the date of event
+     *
+     * @return LocalDate type of date of event
+     */
     @Override
     public LocalDate getDate() {
         return at;

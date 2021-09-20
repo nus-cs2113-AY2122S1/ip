@@ -14,6 +14,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDate by;
 
+    /**
+     * Constructor
+     *
+     * @param description description of deadline
+     * @param by date of deadline
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
@@ -49,6 +55,11 @@ public class Deadline extends Task {
         return storeString;
     }
 
+    /**
+     * Returns the date of deadline
+     *
+     * @return LocalDate type of date of deadline
+     */
     @Override
     public LocalDate getDate() {
         return by;

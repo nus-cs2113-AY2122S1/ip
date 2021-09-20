@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.DoneListIndexError;
 import duke.tasks.TaskList;
 import duke.exception.DukeException;
 import duke.exception.EventCommandError;
@@ -14,11 +15,24 @@ public class EventCommand extends Command{
     private String description;
     private LocalDate date;
 
+    /**
+     * Constructor
+     *
+     * @param descriptionArg description of task
+     * @param dateArg date of task
+     */
     public EventCommand(String descriptionArg, LocalDate dateArg) {
         description = descriptionArg;
         date = dateArg;
     }
 
+    /**
+     * Executes EventCommand
+     *
+     * @param tasks TaskList
+     * @return appropriate message to be sent to user
+     * @throws EventCommandError
+     */
     @Override
     public String execute(TaskList tasks) throws DukeException {
         try {

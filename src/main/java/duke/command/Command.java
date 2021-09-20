@@ -6,15 +6,8 @@ import duke.exception.DukeException;
 
 
 /**
- * Command takes in the parsed input from the user and splits it into three categories.
- * They are the command type, description of the task and the date. Depending on the
- * type of command, description and date may be empty. Command then returns the
- * appropriate mesage to return to Logic class to output to the user.
+ * Abstract command class.
  *
- * @param "commandInput"  type of command.
- * @param "descriptionInput" Y description of task.
- * @param "dateInput" event date/deadline.
- * @return output message to the user.
  */
 public abstract class Command {
     protected Boolean isBye = false;
@@ -22,6 +15,13 @@ public abstract class Command {
     protected String date;
     protected String returnString;
 
+    /**
+     * Executes the command
+     *
+     * @param tasks TaskList
+     * @return appropriate message to be sent to user
+     * @throws DukeException
+     */
     public abstract String execute(TaskList tasks) throws DukeException;
 
     /**
