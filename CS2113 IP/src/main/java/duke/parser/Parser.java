@@ -1,4 +1,9 @@
-package duke;
+package duke.parser;
+
+import duke.TaskType;
+import duke.exception.DukeException;
+import duke.exception.FormatException;
+import duke.exception.OutOfBoundsException;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +12,7 @@ import java.util.Scanner;
 public class Parser {
 
     private static Scanner setUpScanner;
+    private static final Scanner commandScanner = new Scanner(System.in);
 
     public Parser() {
     }
@@ -40,13 +46,17 @@ public class Parser {
         return userInputInt;
     }
 
+    public String getUserInput() {
+        String userInput = commandScanner.nextLine();
+        return userInput;
+    }
+
     public void addTaskExceptionHandler(String userInput, TaskType specificTask) throws DukeException, FormatException {
         if (isEmptyDescription(userInput)) {
             throw new DukeException();
         } else if (isIncorrectFormat(userInput, specificTask)) {
             throw new FormatException();
         }
-
     }
 
     public boolean hasNext() {

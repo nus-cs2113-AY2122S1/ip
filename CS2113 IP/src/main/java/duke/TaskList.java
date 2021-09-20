@@ -1,8 +1,17 @@
 package duke;
 
+import duke.exception.DukeException;
+import duke.exception.FormatException;
+import duke.exception.OutOfBoundsException;
+import duke.parser.Parser;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.ui.Ui;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskList {
     final private static String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
@@ -18,7 +27,6 @@ public class TaskList {
     final private static String ERROR_MARK_TASK_UNKNOWN_INPUT = "Please enter as follows: done (INT in number)";
     final private static String ERROR_DELETE_TASK_UNKNOWN_INPUT = "Please enter as follows: delete (INT in number)";
     final private static String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
-    final private static String HORIZONTAL_LINE = "_________________________________________________________________";
     private static ArrayList<Task> tasks;
     private static int taskCount = 0;
     private static final Parser parser = new Parser();
@@ -123,9 +131,7 @@ public class TaskList {
         ui.handleAdd(newTask, taskCount);
     }
 
-    public void listOperations() throws IOException {
-
-        Scanner sc = new Scanner(System.in);
+    public void listOperations() {
 
         boolean isBye;
         boolean isList;
@@ -136,8 +142,7 @@ public class TaskList {
         boolean isDelete;
 
         do {
-            String userInput = sc.nextLine();
-
+            String userInput = parser.getUserInput();
             isBye = userInput.equals("bye");
             isList = userInput.equals("list");
             isDone = userInput.startsWith("done");
@@ -145,8 +150,8 @@ public class TaskList {
             isDeadline = userInput.startsWith("deadline");
             isEvent = userInput.startsWith("event");
             isDelete = userInput.startsWith("delete");
-            System.out.println(HORIZONTAL_LINE);
 
+            Ui.showHorizontalLine();
             if (isBye) {
                 System.out.println(GOODBYE_COMMENT);
             } else if (isList) {
@@ -198,7 +203,7 @@ public class TaskList {
             } else {
                 System.out.println(ERROR_UNKNOWN_INPUT);
             }
-            System.out.println(HORIZONTAL_LINE);
+            Ui.showHorizontalLine();
 
         } while (!isBye);
     }

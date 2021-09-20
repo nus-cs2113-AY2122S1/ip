@@ -1,4 +1,7 @@
-package duke;
+package duke.storage;
+
+import duke.TaskList;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,36 +10,33 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Storage {
+    final private static String DIRECTORY_CREATED = "data directory created successfully >>::))";
+    final private static String DIRECTORY_EXISTS = "Duke-data directory exists >>::))";
+    final private static String DATABASE_CREATED = "Duke database created >>::))";
+    final private static String DATABASE_EXISTS = "Duke database up-to-date! >>::))";
+    final private static String filePath = getFilePath();
 
-    public Storage(String filePath) throws IOException {
-        createDirectory();
-        createFile(filePath);
+    public Storage() {
     }
 
-    private void createDirectory() {
-        final String DIRECTORY_CREATED = "data directory created successfully >>::))";
-        final String DIRECTORY_EXISTS = "Duke-data directory exists >>::))";
+    public void createDirectory() {
         File f = load();
         boolean isCreated = f.mkdir();
         if (isCreated) {
-
             System.out.println(DIRECTORY_CREATED);
         } else {
             System.out.println(DIRECTORY_EXISTS);
         }
     }
 
-    private void createFile(String filePath) throws IOException {
-        final String HORIZONTAL_LINE = "_________________________________________________________________";
-        final String DATABASE_CREATED = "Duke database created >>::))";
-        final String DATABASE_EXISTS = "Duke database up-to-date! >>::))";
+    public void createFile() throws IOException {
         File f = new File(filePath);
         if (f.createNewFile()) {
             System.out.println(DATABASE_CREATED);
         } else {
             System.out.println(DATABASE_EXISTS);
         }
-        System.out.println(HORIZONTAL_LINE);
+        Ui.showHorizontalLine();
     }
 
     public File load() {
@@ -53,7 +53,7 @@ public class Storage {
         return filePath;
     }
 
-    public void writeFile(String filePath, TaskList tasks) throws IOException {
+    public void writeFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
         for (int i = 0; i < TaskList.getTaskCount(); i++) {
             boolean isEvent = tasks.get(i).taskType.equals("E");

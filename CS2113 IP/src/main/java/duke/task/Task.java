@@ -1,12 +1,12 @@
-package duke;
+package duke.task;
 
 public class Task {
-    protected String deadline;
-    protected String date;
-    protected String description;
-    protected String specificDescription;
-    protected String taskType = "";
-    protected int index;
+    public String deadline;
+    public String date;
+    public String description;
+    public String specificDescription;
+    public String taskType = "";
+    public int index;
     protected boolean isDone;
 
     public Task(String description, int index) {

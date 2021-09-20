@@ -1,4 +1,6 @@
-package duke;
+package duke.ui;
+
+import duke.task.Task;
 
 import java.util.ArrayList;
 
@@ -10,10 +12,9 @@ public class Ui {
     final private static String ADDED_TASK_COMMENT = "Got it. I've added this task:";
 
     public Ui() {
-        greet();
     }
 
-    public void greet() {
+    public void showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -69,5 +70,9 @@ public class Ui {
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);
         System.out.println(printTaskNumber);
+    }
+
+    public static void showHorizontalLine() {
+        System.out.println(HORIZONTAL_LINE);
     }
 }

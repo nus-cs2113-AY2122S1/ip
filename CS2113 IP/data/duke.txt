@@ -1,2 +1,4 @@
 T | X | ice coffee
 T |   | panic attack
+T |   | ice coffee
+E | X | do cs2113 /at 2pm
