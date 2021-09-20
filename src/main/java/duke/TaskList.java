@@ -9,15 +9,11 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public int size(){
+    public int size() {
         return tasks.size();
     }
 
-    public void loadTask(Task task){
-        tasks.add(task);
-    }
-
-    public String saveTask(int taskIndex){
+    public String saveTask(int taskIndex) {
         Task task = tasks.get(taskIndex);
         return task.saveFormat();
     }
@@ -30,37 +26,9 @@ public class TaskList {
         return tasks.get(index);
     }
 
-//    public void addTask(String request) throws Exception {
-//        Task newTask = Parser.getTask(request);
-//        loadTask(newTask);
-//        System.out.printf("Got it. I've added this task:\n" +
-//                "  %s\nNow you have %d task in the list\n"
-//                ,newTask, tasks.size());
-//    }
-
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
     }
-
-
-
-//    public void doneTask(String request) {
-//        try {
-//            int taskIndex = Parser.getTaskIndex(request.trim());
-//            Task task = tasks.get(taskIndex);
-//            if (task.isDone()) {
-//                System.out.println("This task is already done!");
-//            } else {
-//                tasks.get(taskIndex).setDone();
-//                System.out.printf("Nice! I've marked this task as done:\n" +
-//                        "  %s\n", tasks.get(taskIndex));
-//            }
-//        } catch (ArrayIndexOutOfBoundsException ex) {
-//            throw new ArrayIndexOutOfBoundsException("☹ OOPS!!! The format for 'done' is 'done <task number>'");
-//        } catch (IndexOutOfBoundsException ex) {
-//            throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
-//        }
-//    }
 
     public Task doneTask(int taskIndex) {
         Task task = tasks.get(taskIndex);
@@ -77,4 +45,5 @@ public class TaskList {
             throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
         }
     }
+}
 

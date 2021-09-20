@@ -32,30 +32,6 @@ public class Duke {
         }
     }
 
-//    public void run(){
-//        ui.showWelcome();
-//        String request = ui.getCommand();
-//        while (CommandType.isNotBye(request)) {
-//            try {
-//                if (CommandType.isList(request)) {
-//                    tasks.printTasks();
-//                } else if (CommandType.isDone(request)) {
-//                    tasks.doneTask(request);
-//                } else if (CommandType.isDelete(request)) {
-//                    tasks.deleteTask(request);
-//                } else {
-//                    tasks.addTask(request);
-//                }
-//                storage.store(tasks);
-//            } catch (Exception ex) {
-//                ui.showExceptionMessage(ex);
-//            } finally {
-//                request = ui.getCommand();
-//            }
-//        }
-//        ui.showGoodByeMessage();
-//    }
-
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }

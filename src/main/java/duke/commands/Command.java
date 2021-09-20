@@ -13,10 +13,6 @@ public abstract class Command {
         this.command = command;
     }
 
-    protected String getCommand() {
-        return this.command;
-    }
-
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 
     public boolean isExit() {

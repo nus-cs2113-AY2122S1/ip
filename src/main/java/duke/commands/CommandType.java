@@ -9,10 +9,6 @@ public abstract class CommandType {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
 
-    public static boolean isNotBye(String request) {
-        return !request.trim().equals(CommandType.BYE);
-    }
-
     public static boolean isBye(String request) {
         return request.trim().equals(CommandType.BYE);
     }

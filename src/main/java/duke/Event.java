@@ -17,10 +17,6 @@ public class Event extends Task{
         return super.saveFormat() + "," + at;
     }
 
-    public void setAt(String at) {
-        this.at = at;
-    }
-
     public String getAt() {
         return this.at;
     }

@@ -9,6 +9,22 @@ import duke.exceptions.InvalidRequestException;
 public abstract class Parser {
     public static final int TIME_INFO_START_INDEX = 1;
 
+    public static Command parse(String request) throws Exception {
+        if (CommandType.isList(request)) {
+            return new ListCommand(CommandType.LIST);
+        } else if (CommandType.isDone(request)) {
+            int taskIndex = getTaskIndex(request);
+            return new DoneCommand(CommandType.DONE, taskIndex);
+        } else if (CommandType.isDelete(request)) {
+            int taskIndex = getTaskIndex(request);
+            return new DeleteCommand(CommandType.DELETE, taskIndex);
+        } else if (CommandType.isBye(request)) {
+            return new ExitCommand(CommandType.BYE);
+        } else {
+            return getTask(request);
+        }
+    }
+
     public static int getTaskIndex(String request) throws Exception{
         try {
             return Integer.parseInt(request.split(" ")[1]) - 1;
@@ -24,22 +40,6 @@ public abstract class Parser {
             return buildSpecialTask(request.trim());
         }
         throw new InvalidRequestException();
-    }
-
-    public static Command parse(String request) throws Exception {
-        if (CommandType.isList(request)) {
-            return new ListCommand(CommandType.LIST);
-        } else if (CommandType.isDone(request)) {
-            int taskIndex = getTaskIndex(request);
-            return new DoneCommand(CommandType.DONE, taskIndex);
-        } else if (CommandType.isDelete(request)) {
-            int taskIndex = getTaskIndex(request);
-            return new DeleteCommand(CommandType.DELETE, taskIndex);
-        } else if (CommandType.isBye(request)) {
-            return new ExitCommand(CommandType.BYE);
-        } else {
-            return getTask(request);
-        }
     }
 
     private static Command buildTodo(String request) throws Exception{
@@ -83,6 +83,4 @@ public abstract class Parser {
             throw new EmptyDescriptionException();
         }
     }
-
-
 }
