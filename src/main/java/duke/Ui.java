@@ -10,8 +10,8 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String LINE_SEPARATOR = "-------------------------------------------" + System.lineSeparator();
-    private static final String HELLO_MESSAGE = "Hello! I'm Duke!\nWhat can I do for you?";
+    private static final String LINE_SEPARATOR = "------------------------------------" + System.lineSeparator();
+    private static final String HELLO_MESSAGE = "Hello! I'm duke.Duke\nWhat can I do for you?";
     private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String ERROR_MESSAGE = "You need to specify the task type!";
 

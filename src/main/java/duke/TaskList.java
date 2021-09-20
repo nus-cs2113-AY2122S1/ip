@@ -38,13 +38,10 @@ public class TaskList {
         tasks.remove(index);
     }
 
-    public String listTask() {
-        String message = "Here are all the tasks in your list:";
+    public void listTask() {
         for (int i = 0; i < tasks.size(); i++) {
-            message += System.lineSeparator();
-            message += tasks.get(i).getFormattedTask(i + 1);
+            tasks.get(i).printTask(i + 1);
         }
-        return message;
     }
 
 }
