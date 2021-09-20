@@ -175,21 +175,17 @@ public class TaskManager {
      *
      * @param isCompleted Task completion status.
      * @param savedTaskInformation Task details that were saved.
+     * @throws IndexOutOfBoundsException If saved task details is in the wrong format.
+     * @throws DukeTaskNameEmptyException If saved task does not have a name.
+     * @throws DateTimeParseException If saved task date information is in the wrong format.
      */
-    public void addSavedDeadlineTask(Boolean isCompleted, String savedTaskInformation) {
-        try {
-            allTasks.add(new Deadline(InputParser.getTaskNameComponent(savedTaskInformation),
-                    InputParser.getSavedDateComponent(savedTaskInformation),
-                    InputParser.getSavedTimeComponent(savedTaskInformation)));
-            markSavedTaskAsCompleted(isCompleted);
-            increaseTaskCount();
-        } catch (IndexOutOfBoundsException e) {
-            Error.displayFileSavedTaskFormatError();
-        } catch (DukeTaskNameEmptyException e) {
-            Error.displayFileSavedTaskNameEmptyError();
-        } catch (DateTimeParseException e) {
-            Error.displayFileSavedDateFormatError();
-        }
+    public void addSavedDeadlineTask(Boolean isCompleted, String savedTaskInformation) throws IndexOutOfBoundsException,
+            DukeTaskNameEmptyException, DateTimeParseException {
+        allTasks.add(new Deadline(InputParser.getTaskNameComponent(savedTaskInformation),
+                InputParser.getSavedDateComponent(savedTaskInformation),
+                InputParser.getSavedTimeComponent(savedTaskInformation)));
+        markSavedTaskAsCompleted(isCompleted);
+        increaseTaskCount();
     }
 
     /**
@@ -198,20 +194,16 @@ public class TaskManager {
      *
      * @param isCompleted Task completion status.
      * @param savedTaskInformation Task details that were saved.
+     * @throws IndexOutOfBoundsException If saved task details is in the wrong format.
+     * @throws DukeTaskNameEmptyException If saved task does not have a name.
+     * @throws DateTimeParseException If saved task date information is in the wrong format.
      */
-    public void addSavedEventTask(Boolean isCompleted, String savedTaskInformation) {
-        try {
-            allTasks.add(new Event(InputParser.getTaskNameComponent(savedTaskInformation),
-                    InputParser.getSavedDateComponent(savedTaskInformation),
-                    InputParser.getSavedTimeComponent(savedTaskInformation)));
-            markSavedTaskAsCompleted(isCompleted);
-            increaseTaskCount();
-        } catch (IndexOutOfBoundsException e) {
-            Error.displayFileSavedTaskFormatError();
-        } catch (DukeTaskNameEmptyException e) {
-            Error.displayFileSavedTaskNameEmptyError();
-        } catch (DateTimeParseException e) {
-            Error.displayFileSavedDateFormatError();
-        }
+    public void addSavedEventTask(Boolean isCompleted, String savedTaskInformation) throws IndexOutOfBoundsException,
+            DukeTaskNameEmptyException, DateTimeParseException {
+        allTasks.add(new Event(InputParser.getTaskNameComponent(savedTaskInformation),
+                InputParser.getSavedDateComponent(savedTaskInformation),
+                InputParser.getSavedTimeComponent(savedTaskInformation)));
+        markSavedTaskAsCompleted(isCompleted);
+        increaseTaskCount();
     }
 }

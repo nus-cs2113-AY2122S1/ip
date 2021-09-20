@@ -6,6 +6,7 @@ import error.Error;
 import task.TaskManager;
 import ui.Display;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -54,9 +55,10 @@ public class TaskDecoder {
      * @param taskManager TaskManager that stores the saved task data.
      * @throws IndexOutOfBoundsException If saved task details is in the wrong format.
      * @throws DukeTaskNameEmptyException If saved task does not have a name.
+     * @throws DateTimeParseException If saved task date information is in the wrong format.
      */
     public static void addSavedTask(String fileLine, TaskManager taskManager) throws IndexOutOfBoundsException,
-            DukeTaskNameEmptyException {
+            DukeTaskNameEmptyException, DateTimeParseException {
         String[] taskComponents = InputParser.getCommandComponents(fileLine);
         String taskDetails = InputParser.getTaskDetails(taskComponents);
         boolean isDone = isTaskCompleted(taskComponents[TASK_CHECKBOXES_INDEX]);
@@ -86,13 +88,15 @@ public class TaskDecoder {
      */
     public static void parseFile(List<String> fileData, TaskManager taskManager) {
         fileData.stream()
-                    .forEach((line) -> {
+                .forEach((line) -> {
                         try {
                             addSavedTask(line, taskManager);
                         } catch (IndexOutOfBoundsException e) {
                             Error.displayFileSavedTaskFormatError();
                         } catch (DukeTaskNameEmptyException e) {
                             Error.displayTaskNameEmptyError();
+                        } catch (DateTimeParseException e) {
+                            Error.displayFileSavedDateFormatError();
                         }
                     });
     }
