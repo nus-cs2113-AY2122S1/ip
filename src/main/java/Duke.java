@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
     public static int inputCount = 0;
@@ -19,6 +22,7 @@ public class Duke {
     private static final String INPUT_TODO = "todo";
     private static final String INPUT_DEADLINE = "deadline";
     private static final String INPUT_EVENT = "event";
+    private static final String INPUT_FIND = "find";
 
 
     public static void main(String[] args) {
@@ -128,6 +132,9 @@ public class Duke {
                     input = in.nextLine();
                 }
 
+            } else if (input.contains(INPUT_FIND)) {
+                input = findList(input, in);
+
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");//overall error check
                 input = in.nextLine();
@@ -135,6 +142,30 @@ public class Duke {
             }
         }
         System.out.println("    Bye! Hope to see you again soon!");
+
+    }
+
+    /**
+     * Returns a print statement of all tasks in the file Duke.txt
+     *
+     * @param in input of user
+     * @return prints list of all tasks
+     */
+    private static String findList(String input, Scanner in) {
+        String[] findSplitter;
+        findSplitter = input.split(" ");
+        System.out.println("    Here are the matching tasks in your list:");
+
+        for (int outputCount = 0; outputCount < tasks.size(); outputCount++) {
+            if ((tasks.get(outputCount)).description.contains(findSplitter[1])) {
+                System.out.println("    " + (outputCount + 1) + "." + tasks.get(outputCount));
+            } else {
+                System.out.println("    none of them!");
+                break;
+            }
+        }
+        input = in.nextLine();
+        return input;
 
     }
 
