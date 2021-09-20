@@ -46,13 +46,6 @@ public class TaskDecoder {
      *
      * @param fileLine Single line of task data stored in the storage file.
      * @param taskManager TaskManager that stores the saved task data.
-     */
-
-    /**
-     * Checks the task type and adds the corresponding task object into the TaskManager.
-     *
-     * @param fileLine Single line of task data stored in the storage file.
-     * @param taskManager TaskManager that stores the saved task data.
      * @throws IndexOutOfBoundsException If saved task details is in the wrong format.
      * @throws DukeTaskNameEmptyException If saved task does not have a name.
      * @throws DateTimeParseException If saved task date information is in the wrong format.

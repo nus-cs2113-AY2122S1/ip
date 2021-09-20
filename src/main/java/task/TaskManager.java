@@ -2,7 +2,6 @@ package task;
 
 import console.InputParser;
 import error.DukeTaskNameEmptyException;
-import error.Error;
 import task.subtask.Deadline;
 import task.subtask.Event;
 import task.subtask.Todo;
@@ -35,7 +34,6 @@ public class TaskManager {
     public void decreaseTaskCount() {
         taskCount--;
     }
-
 
     /**
      * Adds a 'todo' type task.
@@ -148,11 +146,21 @@ public class TaskManager {
      *
      * @param isCompleted Completion status of the saved task.
      */
-    public void markSavedTaskAsCompleted(boolean isCompleted) {
+    public void updateSavedTaskAsCompleted(boolean isCompleted) {
         if (!isCompleted) {
             return;
         }
         allTasks.get(taskCount).setTaskCompleted();
+    }
+
+    /**
+     * Updates the TaskManager size and ensure saved task loaded has the right completion status.
+     *
+     * @param isCompleted Completion status of the saved task.
+     */
+    public void updateTaskManagerAfterLoadingTask(boolean isCompleted) {
+        updateSavedTaskAsCompleted(isCompleted);
+        increaseTaskCount();
     }
 
     /**
@@ -165,8 +173,7 @@ public class TaskManager {
      */
     public void addSavedTodoTask(Boolean isCompleted, String savedTaskInformation) throws DukeTaskNameEmptyException {
         allTasks.add(new Todo(InputParser.getTaskName(savedTaskInformation)));
-        markSavedTaskAsCompleted(isCompleted);
-        increaseTaskCount();
+        updateTaskManagerAfterLoadingTask(isCompleted);
     }
 
     /**
@@ -184,8 +191,7 @@ public class TaskManager {
         allTasks.add(new Deadline(InputParser.getTaskNameComponent(savedTaskInformation),
                 InputParser.getSavedDateComponent(savedTaskInformation),
                 InputParser.getSavedTimeComponent(savedTaskInformation)));
-        markSavedTaskAsCompleted(isCompleted);
-        increaseTaskCount();
+        updateTaskManagerAfterLoadingTask(isCompleted);
     }
 
     /**
@@ -203,7 +209,6 @@ public class TaskManager {
         allTasks.add(new Event(InputParser.getTaskNameComponent(savedTaskInformation),
                 InputParser.getSavedDateComponent(savedTaskInformation),
                 InputParser.getSavedTimeComponent(savedTaskInformation)));
-        markSavedTaskAsCompleted(isCompleted);
-        increaseTaskCount();
+        updateTaskManagerAfterLoadingTask(isCompleted);
     }
 }
