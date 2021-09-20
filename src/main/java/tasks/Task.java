@@ -13,6 +13,12 @@ public class Task {
         this(name,false);
     }
 
+    /**
+     * <h1>Task!</h1>
+     * Creates a task with properties type, done-ness and description
+     * @param name Description of the task
+     * @param isDone sets the done-ness of the task
+     */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
