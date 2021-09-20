@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ public class Storage {
     public static final int RESULT_DESCRIPTION = 2;
     public static final int RESULT_TIME = 3;
 
-    public static void loadData(File f, Scanner readFile) {
+    public static void loadData(Scanner readFile) {
         while (readFile.hasNext()) {
             String information = readFile.nextLine();
             parseInformation(information);
@@ -32,17 +31,17 @@ public class Storage {
         case "T":
             newTask = new Todo(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]));
-            Greet.reloadTask(newTask);
+            TaskList.reloadTask(newTask);
             break;
         case "D":
             newTask = new Deadline(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]), result[RESULT_TIME]);
-            Greet.reloadTask(newTask);
+            TaskList.reloadTask(newTask);
             break;
         case "E":
             newTask = new Event(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]), result[RESULT_TIME]);
-            Greet.reloadTask(newTask);
+            TaskList.reloadTask(newTask);
             break;
         }
     }
@@ -54,7 +53,7 @@ public class Storage {
 
 
     public static void storeData(FileWriter fileWrite) throws IOException {
-        ArrayList<Task> list = Greet.getList();
+        ArrayList<Task> list = TaskList.getList();
         for (Task task : list) {
             fileWrite.write(parseTask(task) + lineSeparator());
         }

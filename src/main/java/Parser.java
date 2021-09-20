@@ -1,4 +1,4 @@
-public class Command {
+public class Parser {
 
     private static final int DESCRIPTION_PARAMETERS = 2;
     private static final int FIRST_ARRAY_PARAMETER = 0;
@@ -17,8 +17,8 @@ public class Command {
      * @param words String input by user.
      */
     public static void checkCommand(String[] words, String input) throws
-            DukeException {
-        String[] descriptionInput = descriptionInput(words, input);
+            UnknownCommandException, DukeException {
+        String[] descriptionInput = parseInput(words, input);
         switch (words[FIRST_ARRAY_PARAMETER]) {
         case COMMAND_BYE:
             Ui.printGoodbyeMessage();
@@ -31,38 +31,39 @@ public class Command {
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
             //might need to catch errors in the future
-            Ui.checkDoneTask(taskNumber);
+            TaskList.checkDoneTask(taskNumber);
             break;
         case COMMAND_DELETE:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
-            Ui.deleteTask(taskNumber);
+            TaskList.deleteTask(taskNumber);
             break;
         case COMMAND_TODO:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             Todo todo = new Todo(descriptionInput[FIRST_ARRAY_PARAMETER]);
-            Ui.addTask(todo);
+            TaskList.addTask(todo);
             break;
         case COMMAND_DEADLINE:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             checkTimeframe(descriptionInput);
             Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
-            Ui.addTask(deadline);
+            TaskList.addTask(deadline);
             break;
         case COMMAND_EVENT:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             checkTimeframe(descriptionInput);
             Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
-            Ui.addTask(event);
+            TaskList.addTask(event);
             break;
         default:
-            throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_UNKNOWN_COMMAND);
+            throw new UnknownCommandException();
         }
     }
 
     private static void checkDescription(String command, String[] descriptionInput) throws DukeException {
+        //want this function to throw another exception
 
         if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("") ||
                 descriptionInput[FIRST_ARRAY_PARAMETER].equals(" ")) {
@@ -86,7 +87,7 @@ public class Command {
         }
     }
 
-    private static String[] descriptionInput(String[] words, String input) {
+    private static String[] parseInput(String[] words, String input) {
         String[] output = new String[DESCRIPTION_PARAMETERS];
         output[0] = "";
         output[1] = "";
@@ -104,14 +105,5 @@ public class Command {
         }
         return output;
     }
-
-    private static boolean isDescription(int counter, String[] words) {
-        return counter < words.length;
-    }
-
-    private static boolean isDate(int counter, String[] words) {
-        return counter < words.length;
-    }
-
 }
 

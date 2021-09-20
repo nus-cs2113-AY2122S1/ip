@@ -1,50 +1,28 @@
-import java.util.ArrayList;
-
-public class Greet {
-    private static final int indexFix = 1;
-    protected static ArrayList<Task> list = new ArrayList<>();
-
+public class Ui {
+    private static final int INDEX_FIX = 1;
+    public static final String DASH_LINE = "    ____________________________________________________________";
+    public static final String WELCOME_MESSAGE = "     Hello! I'm Duke\n" +
+            "     What can I do for you?";
+    public static final String BYE_MESSAGE = "     Bye. Hope to see you again soon!";
+    public static final String LIST_HEADER = "     Here are the tasks in your list:";
+    public static final String LIST_NO_TASK = "     You have no tasks in the list at the moment.\n" +
+            "     Please add a new task to begin.";
+    public static final String TASK_MESSAGE_START = "     Now you have ";
+    public static final String TASK_MESSAGE_END = " tasks in the list.";
+    public static final String DELETE_MESSAGE = "     Noted. I've removed this task:";
+    public static final String TASK_CHECK_DONE = "     Nice! I've marked this task as done:";
     public static void printLineOnConsole() {
-        System.out.println(GreetMessage.DASH_LINE);
+        System.out.println(DASH_LINE);
     }
 
-    /**
-     * Add new Task in list
-     *
-     * @param newTask Task object created based on command.
-     */
-    //might move to main/duke class
-    public static void addTask(Task newTask) {
-        list.add(newTask);
-        printAddNewTask(newTask);
-    }
 
-    /**
-     * Add new Task in list
-     *
-     * @param newTask Task object created based on command.
-     */
-    //might move to main/duke class
-    public static void reloadTask(Task newTask) {
-        list.add(newTask);
-    }
-
-    /**
-     * Calls Task.markAsDone().
-     *
-     * @param taskNumber Task number that is tagged to the task on console.
-     */
-    public static void checkDoneTask(int taskNumber) {
-        int taskIndex = taskNumber - indexFix;
-        list.get(taskIndex).markAsDone();
-    }
 
     /**
      * Prints welcome message
      */
     public static void printWelcomeMessage() {
         printLineOnConsole();
-        System.out.println(GreetMessage.WELCOME_MESSAGE);
+        System.out.println(WELCOME_MESSAGE);
         printLineOnConsole();
     }
 
@@ -54,7 +32,7 @@ public class Greet {
      */
     public static void printGoodbyeMessage() {
         printLineOnConsole();
-        System.out.println(GreetMessage.BYE_MESSAGE);
+        System.out.println(BYE_MESSAGE);
         printLineOnConsole();
     }
 
@@ -64,14 +42,15 @@ public class Greet {
     public static void printList() {
 
         printLineOnConsole();
-        if (list.size() != 0) {
-            System.out.println(GreetMessage.LIST_HEADER);
-            for (int i = 0; i < list.size(); i++) {
-                int numbering = i + indexFix;
-                System.out.println("     " + numbering + ". " + list.get(i));
+        int size = TaskList.getArraySize();
+        if (size != 0) {
+            System.out.println(LIST_HEADER);
+            for (int i = 0; i < size; i++) {
+                int numbering = i + INDEX_FIX;
+                System.out.println("     " + numbering + ". " + TaskList.getTask(i));
             }
         } else {
-            System.out.println(GreetMessage.LIST_NO_TASK);
+            System.out.println(LIST_NO_TASK);
         }
         printLineOnConsole();
     }
@@ -79,24 +58,17 @@ public class Greet {
     public static void printAddNewTask(Task newTask) {
         printLineOnConsole();
         System.out.println("     " + newTask);
-        System.out.println(GreetMessage.TASK_MESSAGE_START +
-                list.size() + GreetMessage.TASK_MESSAGE_END);
+        System.out.println(TASK_MESSAGE_START +
+                TaskList.getArraySize() + TASK_MESSAGE_END);
         printLineOnConsole();
 
     }
 
-    public static void deleteTask(int taskNumber) {
-        int taskIndex = taskNumber - indexFix;
-        Task task = list.remove(taskIndex);
-        System.out.println(GreetMessage.DELETE_MESSAGE);
+    public static void printDeleteTask(int size, Task task) {
+        System.out.println(DELETE_MESSAGE);
         System.out.println("     " + task);
-        System.out.println(GreetMessage.TASK_MESSAGE_START + list.size()
-                + GreetMessage.TASK_MESSAGE_END);
+        System.out.println(TASK_MESSAGE_START + size
+                + TASK_MESSAGE_END);
     }
-
-    public static ArrayList<Task> getList() {
-        return list;
-    }
-
 
 }

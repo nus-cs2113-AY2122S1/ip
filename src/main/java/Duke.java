@@ -1,5 +1,4 @@
 
-import java.awt.desktop.SystemEventListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,11 +14,14 @@ public class Duke {
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|____/ \\__,_|_|\\_\\___|\n"
+                + "There are too many students changing this logo away.\n"
+                + "Let's keep it this way to show the contribution Duke has done to\n"
+                + "thousands of students.\n";
 
         String input;
         System.out.println("Hello from\n" + logo);
-        Greet.printWelcomeMessage();
+        Ui.printWelcomeMessage();
         // load data into arraylist
         //require file
         File f = new File(filePath);
@@ -28,7 +30,7 @@ public class Duke {
         // and scanner input
         try {
             Scanner in = new Scanner(f);
-            Storage.loadData(f, in);
+            Storage.loadData(in);
             in.close();
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
@@ -40,9 +42,11 @@ public class Duke {
             input = in.nextLine();
             String[] words = input.split(" ");
             try {
-                FilterInput.checkCommand(words, input);
+                Parser.checkCommand(words, input);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (UnknownCommandException e) {
+                System.out.println(ErrorMessage.EXCEPTION_MESSAGE_UNKNOWN_COMMAND);
             } catch (NumberFormatException e) {
                 System.out.println("Please key in an integer");
             } catch (NullPointerException e) {
@@ -59,7 +63,7 @@ public class Duke {
             } catch (FileNotFoundException e) {
                 System.out.println("file not found, tasks cannot be saved. Exiting");
             }
-            isConversation = !words[0].equals(Command.COMMAND_BYE);
+            isConversation = !words[0].equals(Parser.COMMAND_BYE);
 
         } while (isConversation);
 
