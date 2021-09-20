@@ -38,8 +38,8 @@ public class Task {
         return getTaskType() + getStatus() + description.split(" ", 2)[1];
     }
 
-    public void printTask(int index){
-        System.out.println(index + "." + getTaskInfo());
+    public String getFormattedTask(int index){
+        return index + "." + getTaskInfo();
     }
 
 }

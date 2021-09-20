@@ -72,7 +72,30 @@ public class TaskManager {
         if (tasks.getSize() == 0) {
             throw new DukeException("You do not have any tasks in your list!");
         }
-        tasks.listTask();
+        ui.printMessage(tasks.listTask());
+    }
+
+    public void findTask(String input) throws DukeException {
+        boolean isNoInput = parser.getInputWordCount(input) == 1;
+        if (isNoInput) {
+            throw new DukeException("Your search field cannot be empty!");
+        }
+        String search = parser.getInputBody(input);
+        int index = 0;
+        String initialMessage = "Here are the matching tasks in your list:";
+        String message = initialMessage;
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task currentTask = tasks.getTask(i);
+            if (currentTask.getDescription().contains(search)) {
+                index++;
+                message += System.lineSeparator();
+                message += currentTask.getFormattedTask(index);
+            }
+        }
+        if (message.equals(initialMessage)) {
+            message = "There are no matching results in your list:(";
+        }
+        ui.printMessage(message);
     }
 
 }
