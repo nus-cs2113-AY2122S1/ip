@@ -3,6 +3,7 @@ package duke.ui;
 import duke.task.Task;
 import duke.task.TaskManager;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -123,5 +124,22 @@ public class Ui {
         System.out.println("Current tasks successfully saved at: " +
                 System.lineSeparator() + filePath.toString());
         printHorizontalLine();
+    }
+
+    private void printNoMatchingResults() {
+        String message = "  Sorry, no matching results found!";
+        System.out.println(message);
+    }
+
+    public void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.size() == 0) {
+            printNoMatchingResults();
+            return;
+        }
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 1; i <= matchingTasks.size(); i++) {
+            System.out.println(" " + i + "." +
+                    matchingTasks.get(i - 1).toString());
+        }
     }
 }

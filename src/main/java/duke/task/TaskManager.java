@@ -3,9 +3,11 @@ package duke.task;
 import java.util.ArrayList;
 
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class TaskManager {
     // Constants
@@ -108,5 +110,16 @@ public class TaskManager {
             System.out.println(" " + i + "." +
                     tasks.get(i - 1).toString());
         }
+    }
+
+    public void findTasks(String keyword, Ui ui) throws DukeException {
+        if (keyword.equals("")) {
+            throw new DukeException("Please provide a valid keyword");
+        }
+        ArrayList<Task> matchingTasks =
+                (ArrayList<Task>) tasks.stream()
+                        .filter(t -> t.getDescription().contains(keyword))
+                        .collect(Collectors.toList());
+        ui.printMatchingTasks(matchingTasks);
     }
 }
