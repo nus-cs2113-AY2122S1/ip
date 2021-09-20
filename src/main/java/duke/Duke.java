@@ -7,6 +7,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.PipedInputStream;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,108 +22,61 @@ import java.util.Scanner;
  * @since 2021-08-25
  */
 public class Duke implements PrintOutput {
-    protected static final String SEPARATOR = "\t==============================================";
-    protected static final String logoArt = "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@..............@@@@@@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@(...................@@@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@.....................@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@.................../@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@@.................../@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@((#@.((((((((((............@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@#((((((((((((((/(((/.........@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@%#(((((((((((((((//*(/((/,@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@#####(((((((((((/(((/(((@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@#########((((/(((((((@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@%######(####%#&@@@@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@(.,,*/(###((((#/##@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@(...,,*//(((((((###/#@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@* ..,,((((((((((####/#@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@((((((((((((((((####/#%@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@((((((((((((((#######@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@@@@@@%((((((((###&@@@@@@@@@@@@@@@\n" +
-            "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
-    protected static final String nameArt = "\t _______  __   __  __   __  ______    _______ \n" +
-            "\t|       ||  |_|  ||  | |  ||    _ |  |       |\n" +
-            "\t|  _____||       ||  | |  ||   | ||  |    ___|\n" +
-            "\t| |_____ |       ||  |_|  ||   |_||_ |   |___ \n" +
-            "\t|_____  ||       ||       ||    __  ||    ___|\n" +
-            "\t _____| || ||_|| ||       ||   |  | ||   |    \n" +
-            "\t|_______||_|   |_||_______||___|  |_||___|    ";
     protected static ArrayList<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "data/userData.txt";
     private static final String FILE_DIRECTORY = "data";
+    private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static boolean isDone = false;
 
     public static void main(String[] args) {
-        boolean isDone = false;
         Scanner in = new Scanner(System.in);
 
         PrintOutput.printWelcomeMessage();
         loadData();
 
         do {
-            // Read inputs and split them into substrings
-            String[] userInputs = readUserInput(in);
-            String command = userInputs[0];
+            try {
+                Parser inputHandler = readUserInput(in);
 
-            // Execute commands
-            switch (command) {
-            case "bye":
-                isDone = true;
-                saveData();
-                PrintOutput.printExitMessage();
-                break;
-            case "list":
-                executeList();
-                break;
-            case "done":
-                try {
-                    executeDone(userInputs);
-                } catch (Exception exception) {
+                // Execute commands
+                switch (inputHandler.getCommand()) {
+                case "bye":
+                    executeBye();
+                    break;
+                case "list":
+                    executeList();
+                    break;
+                case "done":
+                    executeDone(inputHandler.getTaskIndex());
+                    break;
+                case "todo":
+                    executeTodo(inputHandler.getDescription());
+                    break;
+                case "deadline":
+                    executeDeadline(inputHandler.getDescription(), inputHandler.getTimeField());
+                    break;
+                case "event":
+                    executeEvent(inputHandler.getDescription(), inputHandler.getTimeField());
+                    break;
+                case "delete":
+                    executeDelete(inputHandler.getTaskIndex());
+                    break;
+                default:
                     PrintOutput.printErrorMessage();
+                    break;
                 }
-                break;
-            case "todo":
-                try {
-                    executeTodo(userInputs);
-                } catch (EmptyDescriptionException exception) {
-                    PrintOutput.printEmptyDescriptionErrorMessage();
-                } catch (Exception exception) {
-                    PrintOutput.printErrorMessage();
-                }
-                break;
-            case "deadline":
-                try {
-                    executeDeadline(userInputs);
-                } catch (EmptyTimeFieldException exception) {
-                    PrintOutput.printEmptyTimeFieldErrorMessage();
-                } catch (EmptyDescriptionException exception) {
-                    PrintOutput.printEmptyDescriptionErrorMessage();
-                } catch (Exception exception) {
-                    PrintOutput.printErrorMessage();
-                }
-                break;
-            case "event":
-                try {
-                    executeEvent(userInputs);
-                } catch (EmptyTimeFieldException exception) {
-                    PrintOutput.printEmptyTimeFieldErrorMessage();
-                } catch (EmptyDescriptionException exception) {
-                    PrintOutput.printEmptyDescriptionErrorMessage();
-                } catch (Exception exception) {
-                    PrintOutput.printErrorMessage();
-                }
-                break;
-            case "delete":
-                try {
-                    executeDelete(userInputs);
-                } catch (Exception exception) {
-                    PrintOutput.printErrorMessage();
-                }
-                break;
-            default:
+            } catch (EmptyDescriptionException e) {
+                PrintOutput.printEmptyDescriptionErrorMessage();
+            } catch (EmptyTimeFieldException e) {
+                PrintOutput.printEmptyTimeFieldErrorMessage();
+            } catch (Exception e) {
                 PrintOutput.printErrorMessage();
-                break;
             }
         } while (!isDone);
     }
@@ -173,7 +127,6 @@ public class Duke implements PrintOutput {
                         todoTask.setDone();
                     }
                     tasks.add(todoTask);
-                    //taskList[Task.getNumOfTasks() - 1] = todoTask;
                     break;
                 case "D":
                     due = dataSubstrings[3].strip();
@@ -181,7 +134,6 @@ public class Duke implements PrintOutput {
                     if (done) {
                         deadlineTask.setDone();
                     }
-                    //taskList[Task.getNumOfTasks() - 1] = deadlineTask;
                     tasks.add(deadlineTask);
                     break;
                 case "E":
@@ -190,7 +142,6 @@ public class Duke implements PrintOutput {
                     if (done) {
                         eventTask.setDone();
                     }
-                    //taskList[Task.getNumOfTasks() - 1] = eventTask;
                     tasks.add(eventTask);
                     break;
                 }
@@ -213,70 +164,40 @@ public class Duke implements PrintOutput {
         }
     }
 
-    private static void executeEvent(String[] userInputs) throws EmptyDescriptionException, EmptyTimeFieldException {
-        if (userInputs.length < 2) {
-                throw new EmptyDescriptionException();
-        }
-        if (!userInputs[1].contains("/at")) {
-            throw new EmptyTimeFieldException();
-        }
-        String eventDescription = userInputs[1]
-                .substring(0, userInputs[1].indexOf("/"))
-                .strip();
-        if (eventDescription.isBlank()) {
-            throw new EmptyDescriptionException();
-        }
-        String eventAt = userInputs[1].substring((userInputs[1]
-                        .indexOf("/") + 3))
-                .strip();
-        Task newTask = new Event(eventDescription, eventAt);
+    private static void executeBye() {
+        isDone = true;
+        saveData();
+        PrintOutput.printExitMessage();
+    }
+
+    private static void executeEvent(String description, String timeField) {
+        Task newTask = new Event(description, timeField);
         tasks.add(newTask);
         PrintOutput.printAddTask(newTask);
     }
 
-    private static void executeDeadline(String[] userInputs) throws EmptyDescriptionException, EmptyTimeFieldException {
-        if (userInputs.length < 2) {
-                throw new EmptyDescriptionException();
-        }
-        if (!userInputs[1].contains("/by")) {
-            throw new EmptyTimeFieldException();
-        }
-        String deadlineDescription = userInputs[1]
-                .substring(0, userInputs[1].indexOf("/"))
-                .strip();
-        if (deadlineDescription.isBlank()) {
-            throw new EmptyDescriptionException();
-        }
-        String deadlineBy = userInputs[1]
-                .substring((userInputs[1].indexOf("/") + 3))
-                .strip();
-        Task newTask = new Deadline(deadlineDescription, deadlineBy);
+    private static void executeDeadline(String description, String timeField) {
+        Task newTask = new Deadline(description, timeField);
         tasks.add(newTask);
         PrintOutput.printAddTask(newTask);
     }
 
-    private static void executeTodo(String[] userInputs) throws EmptyDescriptionException {
-        if (userInputs.length < 2) {
-            throw new EmptyDescriptionException();
-        }
-        String todoDescription = userInputs[1].strip();
-        Task newTask = new Todo(todoDescription);
+    private static void executeTodo(String description) throws EmptyDescriptionException {
+        Task newTask = new Todo(description);
         tasks.add(newTask);
         PrintOutput.printAddTask(newTask);
     }
 
-    private static void executeDone(String[] userInputs) {
-        int itemNum = Integer.parseInt(userInputs[1].replaceAll("[^0-9]", ""));
-        Task doneTask = tasks.get(itemNum - 1);
+    private static void executeDone(int taskIndex) {
+        Task doneTask = tasks.get(taskIndex - 1);
         doneTask.setDone();
         Task.decrementNumOfTasks();
-        PrintOutput.printDoneTask(doneTask, itemNum);
+        PrintOutput.printDoneTask(doneTask, taskIndex);
     }
 
-    private static void executeDelete(String[] userInputs) {
-        int itemNum = Integer.parseInt(userInputs[1].replaceAll("[^0-9]", ""));
-        Task deletedTask = tasks.get(itemNum - 1);
-        tasks.remove(itemNum - 1);
+    private static void executeDelete(int taskIndex) {
+        Task deletedTask = tasks.get(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
         PrintOutput.printDeleteTask(deletedTask);
     }
 
@@ -284,9 +205,8 @@ public class Duke implements PrintOutput {
         PrintOutput.printTaskList(tasks);
     }
 
-    private static String[] readUserInput(Scanner in) {
+    private static Parser readUserInput(Scanner in) throws EmptyDescriptionException, EmptyTimeFieldException {
         System.out.println("\tCall out a smurf to do a job for you!");
-        String userInput = in.nextLine();
-        return userInput.strip().split(" ", 2);
+        return new Parser(in.nextLine());
     }
 }
