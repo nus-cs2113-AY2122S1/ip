@@ -10,9 +10,7 @@ public class Parser {
 
     /**
      * Returns the command of the user's input.
-     * Takes in the whole user input
-     * splits it along the spaces & returns
-     * the first "word" of the string.
+     * Basically returns the first "word" of the string.
      *
      * @param x The whole user input as a String.
      * @return The Command in String.
@@ -24,8 +22,8 @@ public class Parser {
     /**
      * Returns the type of task in String, else null.
      * Assumes the type of tasks is the
-     * first word in the string and returns
-     * that word. If unable to split, returns null.
+     * first word in the string and returns it.
+     * If unable to split, returns null.
      *
      * @param x The whole string of user input.
      * @return The type of task in String, else null.
@@ -41,17 +39,15 @@ public class Parser {
     }
 
     /**
-     * Returns the Date/Time specified when creating an Event task,
-     * else throws a DukeFormatExceptions. The function
-     * uses the "/at" specified in the user's input to find the date/time.
-     * Throws a DukeFormatExceptions error if its unable to find "/at".
+     * Returns the Date specified when creating an Event task. The function
+     * uses the "/at" specified in the user's input to find the date.
      *
      * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
+     * @return The date of the input in String.
      * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of (/at + 3) is out of the index range of the input.
      */
-    static String getDateTimeOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
+    static String getDateOfEvent(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
         //Checks if user has used the /at... format.
         if (x.toLowerCase().contains("/at")) {
             int indexOfSlash = x.indexOf("/at");
@@ -63,13 +59,11 @@ public class Parser {
     }
 
     /**
-     * Returns the Date/Time specified when creating a deadline task,
-     * else throws a DukeFormatExceptions. The function
+     * Returns the Date specified when creating a deadline task. The function
      * uses the "/by" specified in the user's input to find the date/time.
-     * Throws a DukeFormatExceptions error if its unable to find "/by".
      *
      * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
+     * @return The date of the input in String.
      * @throws DukeFormatExceptions      If "/by" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of (/by + 3) is out of the index range of the input.
      */
@@ -86,13 +80,12 @@ public class Parser {
 
     /**
      * Returns the description of a deadline task from the user's input.
-     * Else throws a DukeFormatExceptions error
-     * The function takes in the whole user input as a string
-     * when the user is adding a deadline. The function assumes the
-     * description is between the first " " and the "/by" in the input.
+     * The function takes in the whole user input as a string.
+     * The function assumes the description is
+     * between the first " " and the "/by" in the input.
      *
      * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
+     * @return The description of the input in String.
      * @throws DukeFormatExceptions      If "/by" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of /by is out of the index range of the input
      *                                   or there is no " " in the input.
@@ -111,13 +104,11 @@ public class Parser {
 
     /**
      * Returns the description of an event task from the user's input.
-     * Else throws a DukeFormatExceptions error
-     * The function Takes in the whole user input as a string
-     * when the user is adding an event. The function assumes the
-     * description is between the first " " and the "/at" in the input.
+     * The function Takes in the whole user input as a string &
+     * assumes the description is between the first " " and the "/at" in the input.
      *
      * @param x The whole user input as a String.
-     * @return The date/time of the input in String.
+     * @return The description of the input in String.
      * @throws DukeFormatExceptions      If "/at" does not exists in the Input.
      * @throws IndexOutOfBoundsException If index of /at is out of the index range of the input
      *                                   or there is no " " in the input.
@@ -136,15 +127,13 @@ public class Parser {
 
     /**
      * Returns the description of a Todo task from the user's input.
-     * Else throws a DukeFormatExceptions error
-     * The function takes in the whole user input as a string
-     * when the user is adding a todo task. The function assumes the
-     * description is after the first " " in the input.
+     * The function takes in the whole user input as a string & assumes the
+     * description is after the first " "(Space) in the input.
      *
      * @param x The whole user input as a String.
-     * @return The remaining String excluding the 1st word.
+     * @return The description of the input in string.
      * @throws DukeFormatExceptions      If there is no " "(Space) in the string.
-     * @throws IndexOutOfBoundsException If the index of the space + 1 is out of
+     * @throws IndexOutOfBoundsException If the index of the (Space) + 1 is out of
      *                                   range of the current input.
      */
     static String getDescriptionOfToDo(String x) throws DukeFormatExceptions, IndexOutOfBoundsException {
@@ -236,8 +225,7 @@ public class Parser {
      * Returns the index in integer.
      * Else, Returns -1 if the input can't be converted into an int.
      * Takes in the whole user input as a String
-     * splits it into an array along spaces
-     * and assumes the user keyed in the corresponding
+     * and assumes the user keyed in the
      * index after the first space.
      *
      * @param x The whole user input as a string.

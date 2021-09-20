@@ -133,7 +133,7 @@ public class Storage {
     }
 
     /**
-     * Returns the properties of a task in String, CSV format.
+     * Returns the properties of a task in String, CSV format. Else, null.
      * If the function fails to convert the string into CSV,
      * it will return NULL instead.
      * Its corresponding task type to integers are,
@@ -230,7 +230,7 @@ public class Storage {
      * Returns a List of strings arrays containing the data
      * in the file by reading the dataFile & converts the data
      * from CSV into a list of string array and returns it.
-     * Each List element is a row and
+     * Each List element is a row of data from the file and
      * each array element is a row split along the commas.
      * In the event that a row is un-readable due to IO exception,
      * it will inform the user.

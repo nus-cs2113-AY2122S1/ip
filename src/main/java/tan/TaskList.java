@@ -31,24 +31,18 @@ public class TaskList {
         switch (typeOfTask) {
         case "todo":
             curTask = createTodoTask(userInput);
-            if (curTask == null) {
-                return;
-            }
             break;
         case "deadline":
             curTask = createDeadlineTask(userInput);
-            if (curTask == null) {
-                return;
-            }
             break;
         case "event":
             curTask = createEventTask(userInput);
-            if (curTask == null) {
-                return;
-            }
             break;
         default:
             System.out.println("Unknown command, Try again.");
+            return;
+        }
+        if (curTask == null) {
             return;
         }
         totalNumberOfTask += 1;
@@ -129,8 +123,7 @@ public class TaskList {
      * Returns 0 if the file successfully saved, -1 otherwise.
      * Saves the current list into the data file taskData.csv.
      * It calls the function saveCurrentList and passes it
-     * the current list of task to be saved. It will also
-     * inform the user if any error occurs.
+     * the current list of task to be saved.
      *
      * @return Returns 0 if the file was successfully saved, else -1.
      */
@@ -160,7 +153,7 @@ public class TaskList {
         Task curTask = null;
         try {
             String eventDesc = Parser.getDescriptionOfEvent(userInput);
-            String dateOfEventInString = Parser.getDateTimeOfEvent(userInput);
+            String dateOfEventInString = Parser.getDateOfEvent(userInput);
             LocalDate taskDate = Parser.getInDateFormat(dateOfEventInString);
             if (taskDate == null) {
                 System.out.println("Unable to parse Date. Format should be in yyyy-mm-dd. E.g (2021-12-05)");

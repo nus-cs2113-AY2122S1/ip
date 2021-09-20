@@ -13,7 +13,8 @@ public class Ui {
      * Prints the intro message & border once.
      */
     public static void printIntro() {
-        System.out.println("Top of the morning my good sir, what can I do for you on this fine day?");
+        System.out.println("Top of the morning my good sir," +
+                " what can I do for you on this fine day?");
         System.out.println(BORDER);
     }
 
