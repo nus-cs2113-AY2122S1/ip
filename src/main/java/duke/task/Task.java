@@ -37,6 +37,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", this.type.getTaskLabel(), this.getStatusIcon(), this.description);
+        return String.format("[%s][%s] %s", this.type.getTaskLabel(), this.getStatusIcon(), this.description.trim());
     }
 }
