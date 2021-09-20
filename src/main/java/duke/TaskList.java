@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     static void addTodo(String description, List<Task> taskList) {
@@ -139,13 +140,41 @@ public class TaskList {
                 deleteTask(userInput, list);
                 Storage.saveToFile(list);
                 break;
+            case FIND:
+                String findDescription = Parser.extractDescription(userInput);
+                findTask(findDescription, list);
+                break;
             case UNKNOWN:
                 Ui.printHelpMessage();
             default:
-                throw new DukeException("Give me a VALID COMMAND!");
+                throw new DukeException("Give me a VALID COMMAND!\n" +
+                        Ui.getHorizontalLine());
             }
         } catch (DukeException | IndexOutOfBoundsException | DateTimeParseException e) {
-            System.out.println(e.getMessage());
+            System.out.print(e.getMessage());
         }
+    }
+
+    private static void findTask(String input, ArrayList<Task> list) throws DukeException {
+        if (list.isEmpty()) {
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "NO TASKS TO SEARCH THROUGH. DO BETTER.\n" +
+                    Ui.getHorizontalLine());
+        }
+
+        ArrayList<Task> filteredTasks = filterTasksByStream(input, list);
+        Ui.printFoundTasksMessage(filteredTasks);
+    }
+
+    private static ArrayList<Task> filterTasksByStream(String input, ArrayList<Task> list) throws DukeException {
+        List<Task> filteredTasks = list.stream()
+                .filter((t) -> (t).toString().contains(input))
+                .collect(Collectors.toList());
+        if (filteredTasks.isEmpty()) {
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "HAHA there are NO MATCHES YOU FOOL. Try again.\n" +
+                    Ui.getHorizontalLine());
+        }
+        return (ArrayList<Task>) filteredTasks;
     }
 }

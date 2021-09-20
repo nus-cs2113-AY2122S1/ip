@@ -18,8 +18,10 @@ public class Duke {
         while (true) {
             userInput = in.nextLine().trim();
             Command command = Parser.parseUserCommand(userInput);
-            String userInputLowerCase = userInput.toLowerCase();
             TaskList.executeCommand(userInput, list, command);
+            if (command.equals(Command.BYE)) {
+                break;
+            }
         }
     }
 

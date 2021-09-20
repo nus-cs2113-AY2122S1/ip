@@ -32,6 +32,8 @@ public class Parser {
             return Command.ADD_EVENT;
         case "delete":
             return Command.DELETE;
+        case "find":
+            return Command.FIND; 
         default:
             return Command.UNKNOWN;
         }
@@ -104,7 +106,9 @@ public class Parser {
     public static String extractDescription(String input) throws DukeException {
         String[] splitArray = input.split(" +", 2);
         if (splitArray.length == 1) {
-            throw new DukeException("Give me a DESCRIPTION too please???");
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "Give me a DESCRIPTION too please???\n" +
+                    Ui.getHorizontalLine());
         }
         return splitArray[1].trim();
     }

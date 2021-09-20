@@ -8,5 +8,6 @@ public enum Command {
     ADD_DEADLINE,
     ADD_EVENT,
     DELETE,
+    FIND,
     UNKNOWN;
 }
