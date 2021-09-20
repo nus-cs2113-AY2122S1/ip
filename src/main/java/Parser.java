@@ -1,8 +1,15 @@
-public class FilterInput {
+public class Command {
 
     private static final int DESCRIPTION_PARAMETERS = 2;
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_DELETE = "delete";
 
     /**
      * Returns lateral location of the specified position.
@@ -13,42 +20,42 @@ public class FilterInput {
             DukeException {
         String[] descriptionInput = descriptionInput(words, input);
         switch (words[FIRST_ARRAY_PARAMETER]) {
-        case Command.COMMAND_BYE:
-            Greet.printGoodbyeMessage();
+        case COMMAND_BYE:
+            Ui.printGoodbyeMessage();
             break;
-        case Command.COMMAND_LIST:
-            Greet.printList();
+        case COMMAND_LIST:
+            Ui.printList();
             break;
-        case Command.COMMAND_DONE:
+        case COMMAND_DONE:
             int taskNumber;
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
             //might need to catch errors in the future
-            Greet.checkDoneTask(taskNumber);
+            Ui.checkDoneTask(taskNumber);
             break;
-        case Command.COMMAND_DELETE:
+        case COMMAND_DELETE:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
-            Greet.deleteTask(taskNumber);
+            Ui.deleteTask(taskNumber);
             break;
-        case Command.COMMAND_TODO:
+        case COMMAND_TODO:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             Todo todo = new Todo(descriptionInput[FIRST_ARRAY_PARAMETER]);
-            Greet.addTask(todo);
+            Ui.addTask(todo);
             break;
-        case Command.COMMAND_DEADLINE:
+        case COMMAND_DEADLINE:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             checkTimeframe(descriptionInput);
             Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
-            Greet.addTask(deadline);
+            Ui.addTask(deadline);
             break;
-        case Command.COMMAND_EVENT:
+        case COMMAND_EVENT:
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             checkTimeframe(descriptionInput);
             Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
                     descriptionInput[SECOND_ARRAY_PARAMETER]);
-            Greet.addTask(event);
+            Ui.addTask(event);
             break;
         default:
             throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_UNKNOWN_COMMAND);
@@ -60,11 +67,11 @@ public class FilterInput {
         if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("") ||
                 descriptionInput[FIRST_ARRAY_PARAMETER].equals(" ")) {
             switch (command) {
-            case Command.COMMAND_TODO:
+            case COMMAND_TODO:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_TODO);
-            case Command.COMMAND_DEADLINE:
+            case COMMAND_DEADLINE:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_DEADLINE);
-            case Command.COMMAND_EVENT:
+            case COMMAND_EVENT:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_EVENT);
             default:
                 throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_MISSING_PARAMETERS_AFTER_COMMAND);
@@ -107,3 +114,4 @@ public class FilterInput {
     }
 
 }
+
