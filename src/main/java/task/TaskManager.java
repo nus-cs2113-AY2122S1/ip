@@ -161,6 +161,18 @@ public class TaskManager {
     }
 
     /**
+     * Checks and updates a recently added saved task completion status.
+     *
+     * @param isCompleted Completion status of the saved task.
+     */
+    public void markSavedTaskAsCompleted(boolean isCompleted) {
+        if (!isCompleted) {
+            return;
+        }
+        allTasks.get(taskCount).setTaskCompleted();
+    }
+
+    /**
      * Adds a 'todo' type task when loading task from storage file.
      * If task loaded from storage has a completed status, task is marked as completed.
      *
@@ -170,9 +182,7 @@ public class TaskManager {
     public void addSavedTodoTask(Boolean isCompleted, String savedTaskInformation) {
         try {
             allTasks.add(new Todo(InputParser.getTaskName(savedTaskInformation)));
-            if (isCompleted) {
-                allTasks.get(taskCount).setTaskCompleted();
-            }
+            markSavedTaskAsCompleted(isCompleted);
             increaseTaskCount();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayFileSavedTaskNameEmptyError();
@@ -191,9 +201,7 @@ public class TaskManager {
             allTasks.add(new Deadline(InputParser.getTaskNameComponent(savedTaskInformation),
                     InputParser.getSavedDateComponent(savedTaskInformation),
                     InputParser.getSavedTimeComponent(savedTaskInformation)));
-            if (isCompleted) {
-                allTasks.get(taskCount).setTaskCompleted();
-            }
+            markSavedTaskAsCompleted(isCompleted);
             increaseTaskCount();
         } catch (IndexOutOfBoundsException e) {
             Error.displayFileSavedTaskFormatError();
@@ -216,9 +224,7 @@ public class TaskManager {
             allTasks.add(new Event(InputParser.getTaskNameComponent(savedTaskInformation),
                     InputParser.getSavedDateComponent(savedTaskInformation),
                     InputParser.getSavedTimeComponent(savedTaskInformation)));
-            if (isCompleted) {
-                allTasks.get(taskCount).setTaskCompleted();
-            }
+            markSavedTaskAsCompleted(isCompleted);
             increaseTaskCount();
         } catch (IndexOutOfBoundsException e) {
             Error.displayFileSavedTaskFormatError();
