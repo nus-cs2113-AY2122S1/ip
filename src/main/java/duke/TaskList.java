@@ -240,8 +240,13 @@ public class TaskList {
         dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toRawString());
     }
 
-    public static void findTask(String userInputString) {
+    public static void findTask(String userInputString) throws DukeException {
+        if (userInputString.length() < 6) {
+            throw new DukeException("Please enter something to find :(");
+        }
+
         String keyWord = userInputString.split(" ")[1];
+
         ArrayList<Task> matchedTaskList = (ArrayList<Task>) tasks.stream()
                                             .filter(n -> { return n.toString().contains(keyWord); })
                                             .collect(Collectors.toList());
