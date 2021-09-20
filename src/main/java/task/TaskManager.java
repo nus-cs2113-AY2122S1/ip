@@ -95,19 +95,15 @@ public class TaskManager {
      * Decreases the current number of tasks in the TaskManager by 1.
      *
      * @param commandComponents User input in a string array form.
+     * @throws IndexOutOfBoundsException If task to delete does not exist.
+     * @throws NumberFormatException If task number provided is not a number.
      */
-    public void deleteTask(String[] commandComponents) {
-        try {
-            int taskNumber = InputParser.getTaskNumber(commandComponents);
-            Task deletedTask = allTasks.get(taskNumber);
-            allTasks.remove(taskNumber);
-            decreaseTaskCount();
-            Display.displayTaskDeleted(deletedTask, taskCount);
-        } catch (IndexOutOfBoundsException e) {
-            Error.displayTaskNonExistentError();
-        } catch (NumberFormatException e) {
-            Error.displayNotANumberError();
-        }
+    public void deleteTask(String[] commandComponents) throws IndexOutOfBoundsException, NumberFormatException {
+        int taskNumber = InputParser.getTaskNumber(commandComponents);
+        Task deletedTask = allTasks.get(taskNumber);
+        allTasks.remove(taskNumber);
+        decreaseTaskCount();
+        Display.displayTaskDeleted(deletedTask, taskCount);
     }
 
     /**
