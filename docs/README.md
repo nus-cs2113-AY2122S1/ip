@@ -1,7 +1,7 @@
 # User Guide
 Hello there! This is Duke, your personal **Command Line Interface (CLI) chatbot for you to manage your daily tasks**.
 
-##Quick Start 
+## Quick Start 
 1. Ensure you have Java ```11``` or above installed in your computer.
 2. Download the latest version of ```Duke.jar``` here.
 3. Copy the file over to the **home folder** you intend to use for your bot.
@@ -67,7 +67,7 @@ Now you have 3 tasks in your list
 ------------------------------------
 ```
 
-###Listing all tasks: ```list```
+### Listing all tasks: ```list```
 List all tasks in the task list.  
 Each entry includes the following information: task type, whether it is done, task description, and date (if any).  
 Format: ```list```  
@@ -82,7 +82,7 @@ Here are all the tasks in your list:
 ------------------------------------
 ```
 
-###Marking a task as completed: ```done```  
+### Marking a task as completed: ```done```  
 Mark a specific task as completed.   
 Index from the user should be a valid value in the list of tasks.
 Format: ```done <taskIndex>```  
@@ -96,7 +96,7 @@ Nice! I have marked this task as done:
 
 ```
 
-###Removing a task: ```delete```
+### Removing a task: ```delete```
 Remove a specific task from the task list.  
 Index from the user should be a valid value in the list.  
 Format: ```delete <taskIndex>```  
@@ -110,7 +110,7 @@ Now you have 2 tasks in your list
 ------------------------------------
 ```
 
-###Searching for a task: ```find```
+### Searching for a task: ```find```
 Looks for a ```keyword``` input by the user among all tasks.  
 Format: ```find <keyword>```  
 Example: 
@@ -122,7 +122,7 @@ Here are the matching tasks in your list:
 ------------------------------------
 ```
 
-###Exiting the program: ```bye```
+### Exiting the program: ```bye```
 Terminates the bot.  
 Format: ```bye```  
 Example:
@@ -133,7 +133,7 @@ Bye. Hope to see you again soon!
 ------------------------------------
 ```
 
-###Saving data locally
+### Saving data locally
 Tasks stored in the task list will be stored into a text file under ```<home_directory>/data.duke.txt``` everytime the 
 bot gets terminated.  
 Similarly, the bot will also read from the same file everytime the bot starts to run and load the task list with all 
@@ -141,7 +141,7 @@ the previously saved tasks.
 In the scenario where the directory or file required is missing, the bot will automatically create such a directory and 
 file for the user.
 
-##Command Summary
+## Command Summary
 | Action  | Format | Example  |
 | ------------- | ------------- | ------------- |
 | Adding a Todo  | ```todo <description>```  | ```todo study for CS2113T```  |
