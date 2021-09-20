@@ -1,34 +1,58 @@
 package duke;
 
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.task.Task;
+
 public class Parser {
-    private String userInput;
-    private String command;
-    private String argument;
+    private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.";
 
-    public Parser(String userInput) {
-        this.userInput = userInput;
-
+    public static Command parse(String userInput) throws DukeException {
         String[] commandAndArgument = getCommandAndArgument(userInput);
-        this.command = commandAndArgument[0];
-        this.argument = (commandAndArgument.length == 2) ? commandAndArgument[1] : "";
-    }
+        String commandString = commandAndArgument[0];
+        String argument = (commandAndArgument.length == 2) ? commandAndArgument[1] : "";
 
-    /**
-     * Gets the task description and argument.
-     *
-     * @param argument The argument from getCommandAndArgument(<string>).
-     * @param splitString The string to split at.
-     * @return String array: [0] - Description, [1] - Argument Value.
-     */
-    public static String[] getTaskDescriptionAndArg(String argument, String splitString) {
-        String[] argSplit = argument.split(splitString, 2);
-        argSplit[0] = argSplit[0].trim();
-        if (argSplit.length == 2) {
-            argSplit[1] = argSplit[1].trim();
-            return argSplit;
+        Command command;
+        switch (commandString) {
+        case Command.COMMAND_LIST:
+            command = new ListCommand();
+            break;
+
+        case Command.COMMAND_BYE:
+            command = new ExitCommand();
+            break;
+
+        case Command.COMMAND_DONE:
+            command = new DoneCommand();
+            break;
+
+        case Command.COMMAND_DELETE:
+            command = new DeleteCommand();
+            break;
+
+        case Command.COMMAND_TODO:
+            command = new AddCommand(Task.TYPE_TODO);
+            break;
+
+        case Command.COMMAND_DEADLINE:
+            command = new AddCommand(Task.TYPE_DEADLINE);
+            break;
+
+        case Command.COMMAND_EVENT:
+            command = new AddCommand(Task.TYPE_EVENT);
+            break;
+
+        default:
+            throw new DukeException(MESSAGE_UNKNOWN_COMMAND);
         }
 
-        return new String[]{argSplit[0], ""};
+        command.setArgument(argument);
+
+        return command;
     }
 
     /**
@@ -37,20 +61,12 @@ public class Parser {
      * @param input The user input string.
      * @return String array: [0] - Command, [1] - argument.
      */
-    private String[] getCommandAndArgument(String input) {
+    private static String[] getCommandAndArgument(String input) {
         String[] result = input.trim().split("\\s+", 2);
         if (result.length != 2) {
             return new String[]{result[0], ""};
         }
 
         return result;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public String getArgument() {
-        return argument;
     }
 }
