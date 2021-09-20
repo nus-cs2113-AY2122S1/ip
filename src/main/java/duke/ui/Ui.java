@@ -19,10 +19,17 @@ public class Ui {
     private static final String BORDER_LINE = "------------------------------------------------";
     
     private static Scanner in = new Scanner(System.in);
-    
+
+    /**
+     * Constructor of this Ui object.
+     */
     public Ui() {
     }
-    
+
+    /**
+     * Show welcome message to the user, indicating the program has been
+     * started.
+     */
     public void printWelcomeMessage() {
         System.out.println(LOGO + System.lineSeparator()
                 + BORDER_LINE + System.lineSeparator()
@@ -31,18 +38,31 @@ public class Ui {
                 + BORDER_LINE);
     }
 
+    /**
+     * Show goodbye message to the user, indicating the program has terminated
+     * successfully.
+     */
     public void printGoodbyeMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    Bye, see you again!" + System.lineSeparator()
                 + BORDER_LINE);
     }
-    
+
+    /**
+     * Show message to the user if there is an invalid task description
+     * found in the text file.
+     */
     public void printInvalidTaskInFileMessage() {
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    INVALID TASK DETECTED" + System.lineSeparator()
                 + BORDER_LINE);
     }
-    
+
+    /**
+     * Retrieve the command input from user.
+     * 
+     * @return command.
+     */
     public Command getCommand() {
         String userInput = in.nextLine();
         String[] words = userInput.split(" ", 2);

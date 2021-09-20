@@ -19,10 +19,21 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Return the tasks stored in this list.
+     * 
+     * @return list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Return success result for the task list to be shown to the user.
+     * 
+     * @param userCommand input command from user.
+     * @return result of the command.
+     */
     private CommandResult executeListCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
@@ -112,14 +123,32 @@ public class TaskList {
         }
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, deletedTask);
     }
-    
+
+    /**
+     * Return success result for the tasks containing the keyword to be shown
+     * to the user.
+     *
+     * @param userCommand input command from user containing the keyword
+     *                    for the tasks.
+     * @return result of the command.
+     */
     private CommandResult executeFindCommand(Command userCommand) {
         String keyword = userCommand.getCommandDescription();
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, keyword);
     }
-    
+
+    /**
+     * Return success result for the program to be terminated.
+     *
+     * @param userCommand input command from the user.
+     * @return result of the command.
+     */
     private CommandResult executeExitCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
+    }
+    
+    private CommandResult executeInvalidCommand(Command userCommand) {
+        return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_COMMAND);
     }
 
     /**
@@ -146,7 +175,7 @@ public class TaskList {
         case Command.COMMAND_EXIT:
             return executeExitCommand(userCommand);
         default:
-            return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_COMMAND);
+            return executeInvalidCommand(userCommand);
         }
     }
 }

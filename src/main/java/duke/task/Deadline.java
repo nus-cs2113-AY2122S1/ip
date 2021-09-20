@@ -30,10 +30,20 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Return the date of this deadline.
+     * 
+     * @return the deadline date.
+     */
     public LocalDate getDeadlineDate() {
         return deadlineDate;
     }
 
+    /**
+     * Return this deadline's representation as a string.
+     * 
+     * @return string representation.
+     */
     public String toString() {
         String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[D]" + super.toString() + " (by: " + formattedDate + ")";

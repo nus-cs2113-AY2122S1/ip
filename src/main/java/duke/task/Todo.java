@@ -16,6 +16,11 @@ public class Todo extends Task {
         super(Parser.getDescription(description));
     }
 
+    /**
+     * Return this todo's representation as a string.
+     * 
+     * @return string representation.
+     */
     public String toString() {
         return "[T]" + super.toString();
     }

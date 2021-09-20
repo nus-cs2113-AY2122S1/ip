@@ -35,22 +35,46 @@ public class StorageManager {
     public StorageManager(String filePath) {
         this.filePath = filePath;
     }
-    
+
+    /**
+     * Return the task type of task stored in text file.
+     * 
+     * @param input task stored in text file.
+     * @return the type of the task.
+     */
     private String getTaskType(String input) {
         String[] words = input.split("--");
         return words[0];
     }
-    
+
+    /**
+     * Return the task description of task stored in text file.
+     * 
+     * @param input task stored in text file.
+     * @return the description of the task.
+     */
     private String getTaskDescription(String input) {
         String[] words = input.split("--");
         return words[2];
     }
-    
+
+    /**
+     * Return the date of task stored in text file.
+     *
+     * @param input task stored in text file.
+     * @return the date of the task.
+     */
     private String getTaskDate(String input) {
         String[] words = input.split("--");
         return words[3];
     }
 
+    /**
+     * Check if the task has already been marked as done.
+     * 
+     * @param input task stored in text file.
+     * @return true if the task is marked as done, false otherwise.
+     */
     private boolean isMarkedDoneTask(String input) {
         String[] words = input.split("--");
         return words[1].equals("1");

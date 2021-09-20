@@ -30,10 +30,20 @@ public class Event extends Task {
         }    
     }
 
+    /**
+     * Return the date of this event.
+     *
+     * @return the event date.
+     */
     public LocalDate getEventTime() {
         return eventTime;
     }
 
+    /**
+     * Return this event's representation as a string.
+     *
+     * @return string representation.
+     */
     public String toString() {
         String formattedDate = eventTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[E]" + super.toString() + " (at: " + formattedDate + ")";
