@@ -52,34 +52,7 @@ public class Storage {
                     skipTwoLines++;
                 } else {
                     //Starts reading data
-                    String[] tasksData = sc.nextLine().split(DELIMITER);
-                    Task currentTask;
-                    switch (tasksData[0]) {
-                    case "T":
-                        tasks.add(new ToDo(tasksData[2]));
-                        currentTask = tasks.get(tasks.size() - 1);
-                        //Updates the longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-                        Shima.longestTaskDescription = Math.max(currentTask.getTask().length(), Shima.longestTaskDescription);
-                        break;
-                    case "D":
-                        tasks.add(new Deadline(tasksData[2], tasksData[3]));
-                        currentTask = tasks.get(tasks.size() - 1);
-                        //Updates the Duke.longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-                        Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(), Shima.longestTaskDescription);
-                        break;
-                    case "E":
-                        tasks.add(new Event(tasksData[2], tasksData[3]));
-                        currentTask = tasks.get(tasks.size() - 1);
-                        //Updates the Duke.longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-                        Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(), Shima.longestTaskDescription);
-                        break;
-                    default:
-                        throw new ShimaException.StorageException();
-                    }
-                    //If the task is done, set it to done
-                    if (tasksData[1].equals("Y")) {
-                        currentTask.setDone();
-                    }
+                    readData(tasks, sc);
                 }
             }
             //Displays the to-do list if it is not empty
@@ -90,6 +63,41 @@ public class Storage {
         } catch (FileNotFoundException ex) {
             //Creates a file called shimaStorage.txt if the file is not found
             Storage.createFile();
+        }
+    }
+
+    /**
+     * Reads data from the file if the file exists and contains lines
+     *
+     * @param tasks The array list that stores all the tasks
+     * @param sc The scanner which scans the file
+     * @throws ShimaException.StorageException
+     */
+    private static void readData(ArrayList<Task> tasks, Scanner sc) throws ShimaException.StorageException {
+        String[] tasksData = sc.nextLine().split(DELIMITER);
+        Task currentTask = tasks.get(tasks.size() - 1);;
+        switch (tasksData[0]) {
+        case "T":
+            tasks.add(new ToDo(tasksData[2]));
+            //Updates the longestTaskDescription to ensure that the frames for to-do list can be printed correctly
+            Shima.longestTaskDescription = Math.max(currentTask.getTask().length(), Shima.longestTaskDescription);
+            break;
+        case "D":
+            tasks.add(new Deadline(tasksData[2], tasksData[3]));
+            Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(),
+                    Shima.longestTaskDescription);
+            break;
+        case "E":
+            tasks.add(new Event(tasksData[2], tasksData[3]));
+            Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(),
+                    Shima.longestTaskDescription);
+            break;
+        default:
+            throw new ShimaException.StorageException();
+        }
+        //If the task is done, set it to done
+        if (tasksData[1].equals("Y")) {
+            currentTask.setDone();
         }
     }
 
@@ -109,7 +117,7 @@ public class Storage {
     /**
      * Reads the user input and reacts accordingly
      *
-     * @param tasks     The array list that stores all the tasks
+     * @param tasks The array list that stores all the tasks
      * @param readInput The scanner for input
      */
     private static void readUserInput(ArrayList<Task> tasks, Scanner readInput) {
