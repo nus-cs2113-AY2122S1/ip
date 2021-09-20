@@ -66,11 +66,12 @@ public class Storage {
                 taskList.add(new Todo(description, TaskType.TODO, isDone));
                 break;
             case "E":
-                taskList.add(new Event(description, TaskType.EVENT, isDone, taskDetails[3].trim()));
+                LocalDateTime eventDateTime = Parser.extractDateTime(taskDetails[3].trim());
+                taskList.add(new Event(description, TaskType.EVENT, isDone, eventDateTime));
                 break;
             case "D":
-                LocalDateTime dateTime = Parser.extractDateTime(taskDetails[3].trim());
-                taskList.add(new Deadline(description, TaskType.DEADLINE, isDone, dateTime));
+                LocalDateTime deadlineDateTime = Parser.extractDateTime(taskDetails[3].trim());
+                taskList.add(new Deadline(description, TaskType.DEADLINE, isDone, deadlineDateTime));
                 break;
             default:
                 myScanner.close();
