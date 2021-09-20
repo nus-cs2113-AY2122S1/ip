@@ -24,7 +24,7 @@ public class Parser {
     public static ParseInput parse (String input) throws DukeException {
         ParseInput parseInput;
 
-        //---------- Query Checks ----------//
+        //---------- Non-Insertion Checks ----------//
         if (input.equals("bye")) {
             parseInput = new ParseInput(ParseResult.BYE, input);
             return parseInput;
@@ -50,7 +50,7 @@ public class Parser {
             return parseInput;
         }
 
-        //---------- addTask Checks ----------//
+        //---------- Insertion Checks ----------//
         else {
             String taskType = input.split(" ")[0];
             String descriptionAndTime = input.replaceAll(taskType, "");
