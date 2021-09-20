@@ -14,13 +14,13 @@ import java.time.format.DateTimeParseException;
 /**
  * Main class
  */
-public class Duke {
+public class Bob {
 
     private static UserInterface userInterface;
     private static Storage storage;
     private static TaskList taskList;
 
-    public Duke() {
+    public Bob() {
     }
 
     /**
@@ -53,7 +53,7 @@ public class Duke {
                     NumberFormatException | IOException | DateTimeParseException e) {
                 userInterface.printErrorMessage(e.getMessage());
             }
-        } while(!ExitCommand.isExit(command));
+        } while (!ExitCommand.isExit(command));
     }
 
     /**
@@ -72,6 +72,4 @@ public class Duke {
         runCommandLoopUntilExitCommand();
         exit();
     }
-
 }
-
