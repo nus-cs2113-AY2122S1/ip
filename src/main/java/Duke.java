@@ -248,7 +248,7 @@ public class Duke {
     /**
      * Adds a new Task to list of Tasks.
      *
-     * @param userInput Contains the type of task and relevant details
+     * @param userInput The type of task and relevant details
      */
     private static void addToTasks(String userInput) {
         String taskType = userInput.split(SPACE_PREFIX)[0];
@@ -308,46 +308,62 @@ public class Duke {
     }
 
     private static void saveToFile() {
+        ArrayList<String> stringFormattedTasks;
         File saveDir = new File("data");
         saveDir.mkdir();
         File saveFile = new File(saveDir, "duke.txt");
         try {
             saveFile.createNewFile();
             FileWriter fw = new FileWriter(saveFile);
+            stringFormattedTasks = getTasksAsStringArrayList();
             for (int i = 0; i < taskCounter; i++) {
-                char taskIdentifier = tasks.get(i).toString().charAt(1);
-                fw.write(taskIdentifier + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName());
-                if (taskIdentifier == 'D') {
-                    fw.write("||" + ((Deadline) tasks.get(i)).getByWhen());
-                } else if (taskIdentifier == 'E') {
-                    fw.write("||" + ((Event) tasks.get(i)).getAtWhen());
-                }
-                fw.write(LINE_BREAK);
+                fw.write(stringFormattedTasks.get(i) + LINE_BREAK);
             }
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Something went wrong");
         }
+    }
+
+    /**
+     * Formats the list of Tasks and
+     * returns a List of Tasks formatted as string
+     *
+     * @return ArrayList of String formatted Tasks
+     */
+    private static ArrayList<String> getTasksAsStringArrayList() {
+        ArrayList<String> stringFormattedTasks = new ArrayList<String> ();
+        for (int i = 0; i < taskCounter; i++) {
+            char taskIdentifier = tasks.get(i).toString().charAt(1);
+            String temp = taskIdentifier + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName();
+            if (taskIdentifier == 'D') {
+                temp += "||" + ((Deadline) tasks.get(i)).getByWhen();
+            } else if (taskIdentifier == 'E') {
+                temp += "||" + ((Event) tasks.get(i)).getAtWhen();
+            }
+            stringFormattedTasks.add(temp);
+        }
+        return stringFormattedTasks;
     }
 
     private static void instantiateTasksFromFile() {
         File saveDir = new File("data");
         saveDir.mkdir();
         File savedFile = new File(saveDir, "duke.txt");
-        if (savedFile.exists()) {
-            try {
-                Scanner fileScanner = new Scanner(savedFile);
-                while (fileScanner.hasNext()) {
-                    String fileLine = fileScanner.nextLine();
-                    Task savedTask = createSavedTask(fileLine);
-                    tasks.add(savedTask);
-                    taskCounter++;
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
+        if (!savedFile.exists()) {
             return;
+        }
+        try {
+            Scanner fileScanner = new Scanner(savedFile);
+            while (fileScanner.hasNext()) {
+                String fileLine = fileScanner.nextLine();
+                Task savedTask = createSavedTask(fileLine);
+                tasks.add(savedTask);
+                taskCounter++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
