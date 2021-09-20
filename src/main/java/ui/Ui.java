@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner sc;
+    private Scanner sc;
     /**
      * Decorative prefixes to format program's output more neatly/cleaner.
      */
@@ -26,7 +26,7 @@ public class Ui {
     /**
      * Prints the program logo.
      */
-    public static void printLogo() {
+    public void printLogo() {
         /**
          * ASCII Art Logo generated using
          * https://patorjk.com/software/taag/#p=display&f=Dancing%20Font&t=Duke
@@ -44,7 +44,7 @@ public class Ui {
     /**
      * Prints out the program greeting message.
      */
-    public static void printGreeting() {
+    public void printGreeting() {
         String greeting = CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Hello! You probably know that Iron Man has the best AI-assistant called Jarvis" + LINE_BREAK
                 + SPACE_PREFIX + "and Spiderman has hmmm, maybe his tingly spidey senses?" + LINE_BREAK
@@ -57,7 +57,7 @@ public class Ui {
     /**
      * Prints out the program farewell (exit) message.
      */
-    public static void printFarewell() {
+    public void printFarewell() {
         String farewell = CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Bye, have a nice day! From your friendly neighbourhood assistant, Duke~" + LINE_BREAK
                 + SPACE_PREFIX + "(NICE, I can finally binge watch Rick and Morty~)" + LINE_BREAK
@@ -65,8 +65,20 @@ public class Ui {
         System.out.println(farewell);
     }
 
-    public static void printErrorMessage(String errorMessage) {
+    public void printErrorMessage(String errorMessage) {
         System.out.println(errorMessage);
+    }
+
+    /**
+     * Returns the user input from I/O
+     *
+     * @return User Input
+     */
+    public String getUserInput() {
+        String userInput;
+        System.out.print(SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
+        userInput = sc.nextLine();
+        return userInput;
     }
 
     /**
@@ -74,7 +86,7 @@ public class Ui {
      *
      * @param taskName The task's name
      */
-    public static void printAddedTaskMessage(String taskName) {
+    public void printAddedTaskMessage(String taskName) {
         System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Here you go..." + LINE_BREAK + " Added to stuff you would definitely forget to do (*facepalm*): "
                 + taskName
@@ -82,7 +94,7 @@ public class Ui {
                 + CONSOLE_LINE_PREFIX);
     }
 
-    public static void printDeletedTaskMessage(Task deletedTaskName, int taskCounter) {
+    public void printDeletedTaskMessage(Task deletedTaskName, int taskCounter) {
         System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Roger that! I am Thanos and I have snapped away : " + LINE_BREAK
                 + SPACE_PREFIX + deletedTaskName
@@ -92,7 +104,7 @@ public class Ui {
                 + CONSOLE_LINE_PREFIX);
     }
 
-    public static void printMarkedTaskDoneMessage(Task doneTask) {
+    public void printMarkedTaskDoneMessage(Task doneTask) {
         System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
                 + SPACE_PREFIX + doneTask + LINE_BREAK
                 + CONSOLE_LINE_PREFIX);
@@ -101,7 +113,7 @@ public class Ui {
     /**
      * Prints all the Tasks.
      */
-    public static void printTasks(ArrayList<Task> tasks) {
+    public void printTasks(ArrayList<Task> tasks) {
         if (tasks.size() == 0) {
             System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK + SPACE_PREFIX + "Hi there! You have no dates! LITERALLY"
                     + LINE_BREAK + CONSOLE_LINE_PREFIX);

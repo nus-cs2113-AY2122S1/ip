@@ -47,12 +47,7 @@ public class Duke {
     private static final String TASK_DEADLINE_PREFIX = "Deadline";
     private static final String TASK_EVENT_PREFIX = "Event";
     private static final String COMMAND_DELETE = "Delete";
-
-    /**
-     * Initializing Scanner variable to allow for reading User Inputs.
-     */
-    private static final Scanner SC = new Scanner(System.in);
-
+    
     /**
      * These variables are responsible for the management of Tasks
      */
@@ -65,18 +60,6 @@ public class Duke {
         ui = new Ui();
         tasks = new ArrayList<Task>();
         instantiateTasksFromFile();
-    }
-
-    /**
-     * Returns the user input from I/O
-     *
-     * @return User Input
-     */
-    private static String getUserInput() {
-        String userInput;
-        System.out.print(ui.SPACE_PREFIX + "What's your plans/command for today (No... I am not hitting on you) : ");
-        userInput = SC.nextLine();
-        return userInput;
     }
 
     /**
@@ -298,7 +281,7 @@ public class Duke {
         ui.printGreeting();
         String userInput;
         while (true) {
-            userInput = getUserInput();
+            userInput = ui.getUserInput();
             if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
                 break;
             }
@@ -308,7 +291,6 @@ public class Duke {
                 parseTaskCommands(userInput);
             }
         }
-        SC.close();
         ui.printFarewell();
     }
 }
