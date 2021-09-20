@@ -1,5 +1,11 @@
 package duke;
 
+/**
+ * Printing Welcome and Goodbye Text...
+ *
+ * @author YEOWEIHNGWHYELAB
+ */
+
 import duke.delay.Delay_ms;
 import duke.printTextFile.PrintTextFile;
 

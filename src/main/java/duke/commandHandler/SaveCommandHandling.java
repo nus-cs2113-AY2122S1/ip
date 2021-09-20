@@ -1,5 +1,12 @@
 package duke.commandHandler;
 
+/**
+ * This class takes in the command String from the duke.txt and
+ * then check for the type of task.
+ *
+ * @author YEOWEIHNGWHYELAB
+ */
+
 public class SaveCommandHandling {
     private String commandString;
 

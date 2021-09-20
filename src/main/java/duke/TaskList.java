@@ -1,5 +1,12 @@
 package duke;
 
+/**
+ * TaskList that stores the current list in memory and also provides methods to
+ * delete Task, add Task, done Task, find Task, list Task...
+ *
+ * @author YEOWEIHNGWHYELAB
+ */
+
 import duke.exceptionHandler.DukeException;
 import duke.taskOperations.StringToRemoveFormat;
 import duke.taskType.Deadline;
@@ -17,6 +24,14 @@ public class TaskList {
     public static int numberOfTasks = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Takes in the raw userInputString and then based on the task index, and calls
+     * removeLineFromFile method to remove the corresponding task from duke.txt.
+     *
+     * @param userInputString Raw user input.
+     * @param dukeTaskText Storage object that contains removeLineFromFile method.
+     * @throws DukeException
+     */
     public static void deleteTask(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
             int taskNumberToDelete = Integer.parseInt(userInputString.split(" ")[1]);
@@ -60,6 +75,7 @@ public class TaskList {
      * @param userInputString which contains the "todo" command along with
      *                        the description of the todo task. No time
      *                        details is needed here.
+     * @param dukeTaskText Storage object that contains saveToDo method.
      */
     public static void addToDo(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
@@ -92,6 +108,7 @@ public class TaskList {
      * @param userInputString which contains the "deadline" command along with
      *                        the description of the deadline task and followed
      *                        by a "/" to separate the due time "by".
+     * @param dukeTaskText Storage object that will be passed to addDeadlineCheckDescription.
      */
     public static void addDeadline(String userInputString, Storage dukeTaskText) throws DukeException {
         try {
@@ -109,6 +126,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Check for the format of by is yyyy-mm-dd HH:mm.
+     *
+     * @param dukeTaskText
+     * @param taskName
+     * @param by
+     * @throws DukeException
+     */
     public static void addDeadlineCheck(Storage dukeTaskText, String taskName, String by) throws DukeException {
         String formattedDateTime;
         try {
@@ -137,6 +162,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Check for formatting of command.
+     * @param dukeTaskText
+     * @param taskName
+     * @param by
+     * @throws DukeException
+     */
     public static void addDeadlineCheckDescription(Storage dukeTaskText, String taskName, String by) throws DukeException {
         if (taskName.equals("") || by.equals("by ")) {
             throw new DukeException("The description and event time info of event cannot be empty.");
@@ -171,6 +203,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Checks if the format of at is yyyy-mm-dd HH:mm.
+     *
+     * @param dukeTaskText
+     * @param taskName
+     * @param at
+     * @throws DukeException
+     */
     public static void addEventCheck(Storage dukeTaskText, String taskName, String at) throws DukeException {
         String formattedDateTime;
         try {
@@ -199,6 +239,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Checks for formatting of command.
+     *
+     * @param dukeTaskText
+     * @param taskName
+     * @param at
+     * @throws DukeException
+     */
     public static void addEventCheckDescription(Storage dukeTaskText, String taskName, String at) throws DukeException {
         if (taskName.equals("") || at.equals("at ")) {
             throw new DukeException("The description and event time info of event cannot be empty.");

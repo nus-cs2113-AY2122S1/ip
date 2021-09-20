@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
+    /**
+     * Main run() method. Initialize Ui, Scanner, check command and execute them accordingly.
+     *
+     * @throws IOException When there is issue with reading duke.txt due to lack of permission...
+     */
     public static void run() throws IOException {
         Ui ui = new Ui();
         ui.showWelcome();
@@ -24,7 +29,6 @@ public class Duke {
         TaskList.numberOfTasks = dukeTaskText.loadTask(TaskList.tasks);
 
         boolean isExit  = false;
-
         while (!isExit) {
             userInputString = userInput.nextLine();
             Parser commandHandle = new Parser(userInputString);
@@ -39,6 +43,5 @@ public class Duke {
         userInput.close();
     }
 
-    public static void main(String[] args) throws IOException, DukeException { run(); }
-
+    public static void main(String[] args) throws IOException { run(); }
 }

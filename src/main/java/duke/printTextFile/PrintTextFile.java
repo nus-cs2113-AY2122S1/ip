@@ -24,8 +24,7 @@ public class PrintTextFile {
 
     /**
      * Reads a .txt file in ASCII format and then print every single character (converted
-     * ASCII index to characters) inside that .txt file onto the terminal. It also looks for
-     * exception and print it out if any.
+     * ASCII index to characters) inside that .txt file onto the terminal.
      *
      * @throws IOException Trying to read the .txt file which user do not have permission or a
      *                     .txt file that does not exist.
