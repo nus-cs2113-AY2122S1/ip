@@ -188,6 +188,21 @@ public class Duke {
         }
     }
 
+    private static void printListForFindingTask(String keyword) {
+        System.out.println("Accessing archives...");
+        System.out.println("Generating all the tasks that contain \"" + keyword + "\"...");
+        int i = 1;
+        for (Task num : commands) {
+            if ((num.description).contains(keyword)) {
+                System.out.println(i + ". " + num);
+                i += 1;
+            }
+        }
+        if (i == 1) {
+            System.out.println("There are no tasks that contain \"" + keyword + "\" master. My apologies!");
+        }
+    }
+
     private static void markDone(int doneTaskNumber) throws IOException {
         (commands.get(doneTaskNumber)).markAsDone();
         if (loadFlag == 1) {
