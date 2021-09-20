@@ -2,6 +2,6 @@ package duke.exception;
 
 public class DateError extends DukeException {
     public DateError() {
-        this.errorMessage = "OH NO! There was an error in getting the date!";
+        this.errorMessage = "OH NO! There was an error in getting the date! The format should be yyyy-mm-dd";
     }
 }

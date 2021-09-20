@@ -5,14 +5,16 @@ import duke.exception.DukeException;
 import duke.exception.EventCommandError;
 import duke.tasks.Event;
 
+import java.time.LocalDate;
+
 import static duke.database.Database.autoSaveFile;
 import static duke.logic.Logic.listIndex;
 
 public class EventCommand extends Command{
     private String description;
-    private String date;
+    private LocalDate date;
 
-    public EventCommand(String descriptionArg, String dateArg) {
+    public EventCommand(String descriptionArg, LocalDate dateArg) {
         description = descriptionArg;
         date = dateArg;
     }

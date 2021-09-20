@@ -10,6 +10,7 @@ import duke.tasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -62,7 +63,8 @@ public class Database{
                         break;
                     case "D":
                         String deadLineDate = lineData.next().trim();
-                        Deadline savedDeadLine = new Deadline(taskDescription, deadLineDate);
+                        LocalDate deadLineDateFormatted = LocalDate.parse(deadLineDate);
+                        Deadline savedDeadLine = new Deadline(taskDescription, deadLineDateFormatted);
                         if (isDone.equals("1")) {
                             savedDeadLine.setDone();
                         }
@@ -70,7 +72,8 @@ public class Database{
                         break;
                     case "E":
                         String eventDate = lineData.next().trim();
-                        Event savedEvent = new Event(taskDescription, eventDate);
+                        LocalDate eventDateFormatted = LocalDate.parse(eventDate);
+                        Event savedEvent = new Event(taskDescription, eventDateFormatted);
                         if (isDone.equals("1")) {
                             savedEvent.setDone();
                         }

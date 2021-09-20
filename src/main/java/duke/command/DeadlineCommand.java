@@ -5,14 +5,16 @@ import duke.exception.DeadLineCommandError;
 import duke.exception.DukeException;
 import duke.tasks.Deadline;
 
+import java.time.LocalDate;
+
 import static duke.database.Database.autoSaveFile;
 import static duke.logic.Logic.listIndex;
 
 public class DeadlineCommand extends Command{
     private String description;
-    private String date;
+    private LocalDate date;
 
-    public DeadlineCommand(String descriptionArg, String dateArg) {
+    public DeadlineCommand(String descriptionArg, LocalDate dateArg) {
         description = descriptionArg;
         date = dateArg;
     }
