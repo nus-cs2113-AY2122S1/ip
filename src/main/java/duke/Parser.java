@@ -3,7 +3,16 @@ package duke;
 import duke.exception.DukeException;
 import duke.task.TaskType;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
+
 public class Parser {
+    private static final String dateTimeFormat = "dd/MM/yyyy[ HH:mm]";
+    private static final String printDateTimeFormat = "MMM-d-yyyy HH:mm";
+
     public static Command parseUserCommand(String input) {
         String[] separated = input.split(" ", 2);
         String firstWordLowerCase = separated[0].toLowerCase();
@@ -44,7 +53,8 @@ public class Parser {
             if (!description.contains("/by")) {
                 throw new DukeException(Ui.getHorizontalLine() +
                         "Am I supposed to guess when your deadline is???\n" +
-                        "TIP: Use \"/by\" to do so!");
+                        "TIP: Use \"/by\" to do so!\n" +
+                        Ui.getHorizontalLine());
             }
             separated = description.split("/by +");
             break;
@@ -52,7 +62,8 @@ public class Parser {
             if (!description.contains("/at")) {
                 throw new DukeException(Ui.getHorizontalLine() +
                         "Am I supposed to guess when your event is happening???\n" +
-                        "TIP: Use \"/at\" to do so!");
+                        "TIP: Use \"/at\" to do so!\n" +
+                        Ui.getHorizontalLine());
             }
             separated = description.split("/at +");
             break;
@@ -100,5 +111,36 @@ public class Parser {
                     Ui.getHorizontalLine());
         }
         return splitArray[1].trim();
+    }
+
+    // @@author crabnuggets-reused
+    // Reused from https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
+    // With minor modifications pertaining to date and time format
+    public static LocalDateTime extractDateTime(String input) throws DukeException, DateTimeParseException {
+        LocalDateTime dateTime;
+        TemporalAccessor temporalAccessor = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+            temporalAccessor = formatter.parseBest(input, LocalDateTime::from, LocalDate::from);
+            if (temporalAccessor instanceof LocalDateTime) {
+                dateTime = (LocalDateTime) temporalAccessor;
+            } else {
+                throw new DukeException("Time not provided! Setting time as 00:00. Don't like it?\n" +
+                        "DEAL WITH IT.");
+            }
+        } catch (DukeException e) {
+            System.out.println(Ui.getHorizontalLine() + e.getMessage());
+            dateTime = ((LocalDate)temporalAccessor).atStartOfDay();
+        }
+        return dateTime;
+    }
+    // @@author
+
+    public static String stringifyDateTimeForStorage(LocalDateTime input) {
+        return input.format(DateTimeFormatter.ofPattern(dateTimeFormat));
+    }
+
+    public static String stringifyDateTimeForPrinting(LocalDateTime input) {
+        return input.format(DateTimeFormatter.ofPattern(printDateTimeFormat));
     }
 }
