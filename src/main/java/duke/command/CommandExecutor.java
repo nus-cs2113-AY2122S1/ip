@@ -98,7 +98,7 @@ public class CommandExecutor {
      *
      * @param userInput command entered by the user
      * @param taskList  {@code TaskList} containing the task to be mark done
-     * @param dataManager {@code DataManager} which saves the updated done status of the task to Duke's storage
+     * @param dataManager {@code DataManager} which saves the updated done status of the task to Duke's storage file
      */
     public void executeDone(String userInput, TaskList taskList, DataManager dataManager) {
         try {
@@ -133,8 +133,8 @@ public class CommandExecutor {
      * if an invalid date and time is entered.
      *
      * @param userInput command entered by the user
-     * @param taskList task list where the deadline is to be added to
-     * @param dataManager data manager which saves the new deadline to Duke's storage
+     * @param taskList {@code TaskList} where the deadline is to be added to
+     * @param dataManager {@code DataManager} which saves the new deadline to Duke's storage
      */
     public void executeAddDeadline(String userInput, TaskList taskList, DataManager dataManager) {
         try {
