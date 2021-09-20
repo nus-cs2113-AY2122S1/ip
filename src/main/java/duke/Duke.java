@@ -4,7 +4,7 @@ import duke.commands.Command;
 
 public class Duke {
     private Storage storage;
-    private Ui ui;
+    private final Ui ui;
     private TaskList tasks;
 
     public Duke(String filePath) {

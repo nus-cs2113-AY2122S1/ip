@@ -48,30 +48,28 @@ public abstract class Parser {
             Task task = new Task(description);
             return new AddCommand(CommandType.TODO,task);
         } catch (Exception ex) {
-            throw new IncompleteInformationException(CommandType.TODO,"description");
+            throw new IncompleteInformationException(CommandType.TODO);
         }
     }
 
     private static Command buildSpecialTask(String request) throws Exception {
         try {
             String commandType = CommandType.isEvent(request) ? CommandType.EVENT : CommandType.DEADLINE;
-            String time = getTime(request);
             String description = getDescription(request);
+            String time = getTime(request);
             Task task = CommandType.isEvent(request) ? new Event(description, time) : new Deadline(description, time);
             return new AddCommand(commandType, task);
         } catch (Exception ex) {
-            String errorType = ex instanceof EmptyTimeException ? "time" : "description";
-            throw new IncompleteInformationException(CommandType.getCommand(request),errorType);
+            throw new IncompleteInformationException(CommandType.getCommand(request));
         }
     }
 
     private static String getTime(String request) throws EmptyTimeException{
-        try {
             int timeIndex = request.indexOf("/");
+            if (timeIndex < 0) {
+                throw new EmptyTimeException();
+            }
             return request.substring(timeIndex + TIME_INFO_START_INDEX);
-        } catch (Exception e) {
-            throw new EmptyTimeException();
-        }
     }
 
     private static String getDescription(String request) throws EmptyDescriptionException {
