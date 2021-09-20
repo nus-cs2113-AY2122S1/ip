@@ -20,11 +20,11 @@ public class Deadline extends Task {
 
     @Override
     public String getFileStringFormat() {
-        return String.format("D | %s | %s", super.getFileStringFormat(), Parser.stringifyDateTime(dateTime));
+        return String.format("D | %s | %s", super.getFileStringFormat(), Parser.stringifyDateTimeForStorage(dateTime));
     }
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (by: %s)", Parser.stringifyDateTime(dateTime));
+        return super.toString() + String.format(" (by: %s)", Parser.stringifyDateTimeForPrinting(dateTime));
     }
 }

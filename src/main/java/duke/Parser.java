@@ -11,6 +11,7 @@ import java.time.temporal.TemporalAccessor;
 
 public class Parser {
     private static final String dateTimeFormat = "dd/MM/yyyy[ HH:mm]";
+    private static final String printDateTimeFormat = "MMM-d-yyyy HH:mm";
 
     public static Command parseUserCommand(String input) {
         String[] separated = input.split(" ", 2);
@@ -129,7 +130,11 @@ public class Parser {
     }
     // @@author
 
-    public static String stringifyDateTime(LocalDateTime input) {
+    public static String stringifyDateTimeForStorage(LocalDateTime input) {
         return input.format(DateTimeFormatter.ofPattern(dateTimeFormat));
+    }
+
+    public static String stringifyDateTimeForPrinting(LocalDateTime input) {
+        return input.format(DateTimeFormatter.ofPattern(printDateTimeFormat));
     }
 }
