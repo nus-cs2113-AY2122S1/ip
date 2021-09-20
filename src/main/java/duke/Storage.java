@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,10 +48,10 @@ public class Storage {
      * Parses save data from duke.txt and stores the parsed data into a created lists of tasks.
      *
      * @param taskList The list of tasks for parsed data to be stored in.
-     * @throws FileNotFoundException Throws FileNotFoundException if the save file is not created yet.
+     * @throws FileNotFoundException    Throws FileNotFoundException if the save file is not created yet.
      * @throws IllegalArgumentException Throws IllegalArgumentException.
      */
-    private static void parseSaveData(List<Task> taskList) throws FileNotFoundException, IllegalArgumentException {
+    private static void parseSaveData(List<Task> taskList) throws FileNotFoundException, IllegalArgumentException, DukeException {
         File taskFile = new File(FILE_PATH);
         Scanner myScanner = new Scanner(taskFile);
         while (myScanner.hasNextLine()) {
@@ -68,7 +69,8 @@ public class Storage {
                 taskList.add(new Event(description, TaskType.EVENT, isDone, taskDetails[3].trim()));
                 break;
             case "D":
-                taskList.add(new Deadline(description, TaskType.DEADLINE,isDone, taskDetails[3].trim()));
+                LocalDateTime dateTime = Parser.extractDateTime(taskDetails[3].trim());
+                taskList.add(new Deadline(description, TaskType.DEADLINE, isDone, dateTime));
                 break;
             default:
                 myScanner.close();
@@ -85,6 +87,8 @@ public class Storage {
             System.out.println("Gosh. This save file cannot is bad. I can't read it!");
         } catch (FileNotFoundException e) {
             System.out.println("A new user??? Oh my... shall we begin?");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
