@@ -5,9 +5,15 @@ import duke.command.DeleteTaskCommand;
 import duke.command.DoneCommand;
 import duke.command.QuitCommand;
 import duke.command.ListTasksCommand;
+import duke.command.FindTasksCommand;
 import duke.command.Command;
 import duke.ui.Ui;
 import duke.exception.DukeException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Parses user input to make sense of the input.
@@ -22,6 +28,7 @@ public class Parser {
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String PARAMETER_BY = "/by";
     private static final String PARAMETER_AT = "/at";
 
@@ -53,6 +60,9 @@ public class Parser {
         case COMMAND_DELETE:
         case COMMAND_DONE:
             return executeTaskId(line, command);
+        case COMMAND_FIND:
+            String rawDescription = parseDescription(line, command);
+            return new FindTasksCommand(rawDescription);
         default:
             ui.printInvalidCommand();
             throw new DukeException("Please provide a valid command");
@@ -174,5 +184,63 @@ public class Parser {
             throw new DukeException("Please provide an integer");
         }
         return num;
+    }
+
+    private static LocalDate parseDate(String description) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(description);
+        } catch (DateTimeParseException ignore) {
+        }
+        return date;
+    }
+
+    private static LocalTime parseTime(String description) {
+        LocalTime time = null;
+        try {
+            time = LocalTime.parse(description);
+        } catch (DateTimeParseException ignore) {
+        }
+        return time;
+    }
+
+    private static LocalTime getTime(String[] description) {
+        LocalTime time;
+        for (String s : description) {
+            time = parseTime(s);
+            if (time != null) {
+                return time;
+            }
+        }
+        return null;
+    }
+
+    private static LocalDate getDate(String[] description) {
+        LocalDate date;
+        for (String s : description) {
+            date = parseDate(s);
+            if (date != null) {
+                return date;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Attempts to parse a given String and returns a
+     * LocalDateTime object if successful.
+     *
+     * @param line Description String to be parsed.
+     * @return A LocalDateTime object if successful, returns
+     * null otherwise.
+     */
+    public static LocalDateTime parseDateAndTime(String line) {
+        String[] description = line.split(" ");
+        LocalDate date = getDate(description);
+        LocalTime time = getTime(description);
+        if (date != null && time != null) {
+            return LocalDateTime.of(date, time);
+        }
+        return null;
     }
 }

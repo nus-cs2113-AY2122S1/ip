@@ -1,9 +1,4 @@
-T | 0 | task 1
-E | 1 | lecture | 2-4pm
-D | 0 | a | tmr
-D | 0 | x | tmr
-D | 0 | y | tmr
-D | 1 | lecture | tomorrow
-D | 1 | x | tmr
-D | 1 | x | x
-T | 0 | y
+E | 0 | lecture | Fri 4-6pm
+E | 0 | lecture with exact date | Sep 09 2021 16:00
+D | 0 | submit something | tomorrow
+D | 0 | submit another thing with exact time | Dec 12 2021 12:12

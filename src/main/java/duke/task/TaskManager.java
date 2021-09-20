@@ -3,9 +3,11 @@ package duke.task;
 import java.util.ArrayList;
 
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 /**
  * Contains the ArrayList tasks and methods associated
@@ -147,5 +149,24 @@ public class TaskManager {
             System.out.println(" " + i + "." +
                     tasks.get(i - 1).toString());
         }
+    }
+
+    /**
+     * Filters all the tasks that contain the keyword. Then,
+     * prints all matching tasks.
+     *
+     * @param keyword Keyword used to filter tasks by.
+     * @param ui      Used to print all matching tasks.
+     * @throws DukeException If keyword is empty.
+     */
+    public void findTasks(String keyword, Ui ui) throws DukeException {
+        if (keyword.equals("")) {
+            throw new DukeException("Please provide a valid keyword");
+        }
+        ArrayList<Task> matchingTasks =
+                (ArrayList<Task>) tasks.stream()
+                        .filter(t -> t.getDescription().contains(keyword))
+                        .collect(Collectors.toList());
+        ui.printMatchingTasks(matchingTasks);
     }
 }

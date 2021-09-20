@@ -17,6 +17,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        super.setDateAndTime(by);
     }
 
     /**
@@ -29,13 +30,28 @@ public class Deadline extends Task {
     }
 
     /**
-     * Provides a String representation of the Deadline task.
+     * Sets the date and time of the Deadline task.
+     *
+     * @param line String containing timing information.
+     */
+    @Override
+    public void setDateAndTime(String line) {
+        super.setDateAndTime(line);
+    }
+
+    /**
+     * Provides a String representation of the Deadline task. If this Deadline
+     * task has a valid date and time, the timing information will be displayed
+     * in a different format (MMM dd yyyy HH:mm).
      *
      * @return The string representation of the Deadline task, including
      * its timing information.
      */
     @Override
     public String toString() {
+        if (hasDateTime) {
+            by = getDateAndTime();
+        }
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }

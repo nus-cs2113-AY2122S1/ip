@@ -3,6 +3,7 @@ package duke.ui;
 import duke.task.Task;
 import duke.task.TaskManager;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -208,5 +209,32 @@ public class Ui {
         System.out.println("Current tasks successfully saved at: " +
                 System.lineSeparator() + filePath.toString());
         printHorizontalLine();
+    }
+
+    /**
+     * Prints a message informing that there were no tasks
+     * that contain the keyword provided by the user.
+     */
+    private void printNoMatchingResults() {
+        String message = "  Sorry, no matching results found!";
+        System.out.println(message);
+    }
+
+    /**
+     * Prints all the matching tasks (tasks that contain the keyword
+     * provided by the user).
+     *
+     * @param matchingTasks ArrayList containing all the matching tasks.
+     */
+    public void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.size() == 0) {
+            printNoMatchingResults();
+            return;
+        }
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 1; i <= matchingTasks.size(); i++) {
+            System.out.println(" " + i + "." +
+                    matchingTasks.get(i - 1).toString());
+        }
     }
 }
