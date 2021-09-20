@@ -367,35 +367,39 @@ public class Duke {
         }
     }
 
+    private static void parseTaskCommands(String userInput) {
+        try {
+            String[] userParams = userInput.split(SPACE_PREFIX);
+            if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
+                int index = Integer.parseInt(userParams[1]);
+                markTaskAsDone(index - 1);
+            } else if (userParams[0].equalsIgnoreCase(COMMAND_DELETE)) {
+                int index = Integer.parseInt(userParams[1]);
+                deleteTask(index - 1);
+            } else {
+                addToTasks(userInput);
+            }
+        } catch (ArrayIndexOutOfBoundsException arrError) {
+            System.out.println(MISSING_INDEX_MESSAGE);
+        } catch (DukeException dukeError) {
+            System.out.println(dukeError.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         initTasks();
         printLogo();
         printGreeting();
         String userInput;
         while (true) {
-            try {
-                userInput = getUserInput();
-                if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
-                    break;
-                }
-                if (userInput.equalsIgnoreCase(COMMAND_LIST) || userInput.equals("")) {
-                    printTasks();
-                } else {
-                    String[] userParams = userInput.split(SPACE_PREFIX);
-                    if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
-                        int index = Integer.parseInt(userParams[1]);
-                        markTaskAsDone(index - 1);
-                    } else if (userParams[0].equalsIgnoreCase(COMMAND_DELETE)) {
-                        int index = Integer.parseInt(userParams[1]);
-                        deleteTask(index - 1);
-                    } else {
-                        addToTasks(userInput);
-                    }
-                }
-            } catch (ArrayIndexOutOfBoundsException arrError) {
-                System.out.println(MISSING_INDEX_MESSAGE);
-            } catch (DukeException dukeError) {
-                System.out.println(dukeError.getMessage());
+            userInput = getUserInput();
+            if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
+                break;
+            }
+            if (userInput.equalsIgnoreCase(COMMAND_LIST) || userInput.equals("")) {
+                printTasks();
+            } else {
+                parseTaskCommands(userInput);
             }
         }
         SC.close();
