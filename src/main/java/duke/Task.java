@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * This class represents individual instances of tasks and allows operation on individual tasks
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

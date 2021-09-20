@@ -18,13 +18,17 @@ public class Duke {
         storage.saveTasks(tasks);
     }
 
+    /**
+     * Handles the commands entered by users and gives respective output
+     * This process continues until user enters "bye" to terminate the program
+     */
     private static void handleCommand() {
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
         while (!input.equals("bye")) {
             try {
-                String keyword = parser.getTaskType(input);
+                String keyword = parser.getPrefix(input);
                 switch (keyword) {
                 case "bye":
                     if (parser.getInputWordCount(input) != 1) {
