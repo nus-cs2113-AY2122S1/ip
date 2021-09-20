@@ -9,7 +9,7 @@ public class Parser {
         return inputWords[0].toLowerCase();
     }
 
-    public String getTaskBody(String input) {
+    public String getInputBody(String input) {
         String[] inputWords = input.split(" ");
         return inputWords[1];
     }
