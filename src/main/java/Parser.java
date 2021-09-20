@@ -37,8 +37,29 @@ public class Parser {
         } else if (isValidDeleteInput(input)) {
             int index = getIndex(input);
             handleDeleteInput(index, tasks);
+        } else if (isValidFindInput(input)) {
+            handleFindInput(input, tasks);
         } else {
             throw new InvalidInputException();
+        }
+    }
+
+    private static boolean isValidFindInput(String input) {
+        return Pattern.matches("^find [a-z0-9\\s\\-]+$", input.toLowerCase());
+    }
+
+    private static void handleFindInput(String input, TaskList tasks) {
+        String findText = input.substring(5).toLowerCase();
+        TaskList tempTasks = new TaskList();
+        for (Task task : tasks.getList()) {
+            if (task.isInTask(findText)) {
+                tempTasks.addTask(task);
+            }
+        }
+        if (tempTasks.getLength() == 0) {
+            Ui.printCannotFind();
+        } else {
+            Ui.printFind(tempTasks);
         }
     }
 

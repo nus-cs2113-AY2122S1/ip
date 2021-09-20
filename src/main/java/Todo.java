@@ -24,4 +24,9 @@ public class Todo extends Task {
     public String toFile() {
         return "T" + FILE_STRING_SEPARATOR + super.toFile() + "\n";
     }
+
+    @Override
+    public boolean isInTask(String input) {
+        return super.isInTask(input);
+    }
 }

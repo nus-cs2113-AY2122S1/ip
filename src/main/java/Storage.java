@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -28,6 +29,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             createFile();
+        } catch (DateTimeParseException e) {
+            Duke.setDukeDone();
         }
     }
 
