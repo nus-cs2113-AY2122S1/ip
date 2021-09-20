@@ -33,10 +33,10 @@ public class DeleteTasks {
         }
         try {
             Storage.updateStorage(tasks);
-        } catch (IOException ex) {
+        } catch (IOException ioException) {
             Default.showMessage("An unexpected error occurs when I try to update the file");
             System.out.print("\t");
-            ex.printStackTrace();
+            ioException.printStackTrace();
         }
     }
 
@@ -57,20 +57,26 @@ public class DeleteTasks {
      * @param word  The array of words that compose the input command
      */
     public static void deleteSingleTask(ArrayList<Task> tasks, String word) {
+        int index;
         try {
-            int index = Integer.parseInt(word);
-            if (tasks.get(index - 1).getDone()) {
-                Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][X] " + tasks.get(index - 1));
-            } else {
-                Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][ ] " + tasks.get(index - 1));
+            //Compiler throws NumberFormatException if word is not a digit character
+            index = Integer.parseInt(word);
+            try {
+                if (tasks.get(index - 1).getDone()) {
+                    Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][X] " + tasks.get(index - 1));
+                } else {
+                    Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][ ] " + tasks.get(index - 1));
+                }
+                tasks.remove(index - 1);
+                if (tasks.size() > 0) {
+                    System.out.println("You have left " + tasks.size() + " tasks to do!");
+                } else {
+                    System.out.println("\tNice! You have finished all tasks! Time to chill~");
+                }
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                Default.showMessage("Sorry, the input task index to delete is invalid!");
             }
-            tasks.remove(index - 1);
-            if (tasks.size() > 0) {
-                System.out.println("You have left " + tasks.size() + " tasks to do!");
-            } else {
-                System.out.println("\tNice! You have finished all tasks! Time to chill~");
-            }
-        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+        } catch (NumberFormatException numberFormatException) {
             Default.showMessage("Sorry, the input task index to delete is invalid!");
         }
     }
@@ -86,25 +92,26 @@ public class DeleteTasks {
             ArrayList<Integer> taskIndices = new ArrayList<>();
             //Checks if the input task indices are valid
             for (int i = 1; i < words.length; i++) {
-                taskIndices.add(Integer.parseInt(words[i]) - 1);
+                taskIndices.add(Integer.parseInt(words[i]) - 1); //throws NumberFormatException if input is not digit character
             }
-            //Deletes the task with the largest task index first
-            taskIndices.sort(Collections.reverseOrder());
-            for (Integer i : taskIndices) {
-                if (tasks.get(i).getDone()) {
-                    Default.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "][X] " + tasks.get(i));
-                } else {
-                    Default.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "][ ] " + tasks.get(i));
+            try {
+                //Deletes the task with the largest task index first
+                taskIndices.sort(Collections.reverseOrder());
+                for (Integer i : taskIndices) {
+                    String doneSymbol = (tasks.get(i).getDone()) ? "X" : " ";
+                    Default.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "][" + doneSymbol + "] " + tasks.get(i));
+                    tasks.remove((int) i);
                 }
-                tasks.remove((int) i);
+                //Prints the message according to tasks left
+                if (tasks.size() > 0) {
+                    System.out.println("You have left " + tasks.size() + " tasks to do!");
+                } else {
+                    System.out.println("\tNice! You have finished all tasks! Time to chill~");
+                }
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                Default.showMessage("Sorry, there are task indices which are not in 1 to " + tasks.size() + ", I do not know how to handle :(");
             }
-            //Prints the message according to tasks left
-            if (tasks.size() > 0) {
-                System.out.println("You have left " + tasks.size() + " tasks to do!");
-            } else {
-                System.out.println("\tNice! You have finished all tasks! Time to chill~");
-            }
-        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+        } catch (NumberFormatException numberFormatException) {
             Default.showMessage("Sorry, there are some task indices which are invalid, I do not know how to handle :(");
         }
     }
