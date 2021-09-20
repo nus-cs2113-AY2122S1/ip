@@ -1,7 +1,11 @@
 package commands;
 
 import console.InputParser;
+import error.DukeTaskNameEmptyException;
+import error.Error;
 import task.TaskManager;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Adds a new 'event' type task to TaskManager.
@@ -26,7 +30,15 @@ public class EventCommand extends Command {
      */
     @Override
     public String executeCommand() {
-        taskManager.addEventTask(InputParser.getTaskDetails(commandComponents));
+        try {
+            taskManager.addEventTask(InputParser.getTaskDetails(commandComponents));
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayTaskFormatError();
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayDateFormatError();
+        }
         return COMMAND_WORD;
     }
 }

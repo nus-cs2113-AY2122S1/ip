@@ -58,9 +58,11 @@ public class TaskManager {
      *
      * @param taskInformation Task details provided by user.
      * @throws DukeTaskNameEmptyException If task name provided is empty.
-     * @throws DateTimeParseException If datetime provided is the wrong format.
+     * @throws DateTimeParseException If datetime provided is in the wrong format.
+     * @throws IndexOutOfBoundsException If task detail provided is in the wrong format.
      */
-    public void addDeadlineTask(String taskInformation) throws DukeTaskNameEmptyException, DateTimeParseException {
+    public void addDeadlineTask(String taskInformation) throws DukeTaskNameEmptyException, DateTimeParseException,
+            IndexOutOfBoundsException {
         allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskInformation),
                 InputParser.getDateComponent(taskInformation),
                 InputParser.getTimeComponent(taskInformation)));
@@ -74,21 +76,17 @@ public class TaskManager {
      * Increases the current number of tasks in the TaskManager by 1.
      *
      * @param taskInformation Task details provided by user.
+     * @throws DukeTaskNameEmptyException If task name provided is empty.
+     * @throws DateTimeParseException If datetime provided is the wrong format.
+     * @throws IndexOutOfBoundsException If task detail provided is in the wrong format.
      */
-    public void addEventTask(String taskInformation) {
-        try {
-            allTasks.add(new Event(InputParser.getTaskNameComponent(taskInformation),
-                    InputParser.getDateComponent(taskInformation),
-                    InputParser.getTimeComponent(taskInformation)));
-            increaseTaskCount();
-            Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_EVENT, taskCount);
-        } catch (IndexOutOfBoundsException e) {
-            Error.displayTaskFormatError();
-        } catch (DukeTaskNameEmptyException e) {
-            Error.displayTaskNameEmptyError();
-        } catch (DateTimeParseException e) {
-            Error.displayDateFormatError();
-        }
+    public void addEventTask(String taskInformation) throws DukeTaskNameEmptyException, DateTimeParseException,
+            IndexOutOfBoundsException {
+        allTasks.add(new Event(InputParser.getTaskNameComponent(taskInformation),
+                InputParser.getDateComponent(taskInformation),
+                InputParser.getTimeComponent(taskInformation)));
+        increaseTaskCount();
+        Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_EVENT, taskCount);
     }
 
     /**

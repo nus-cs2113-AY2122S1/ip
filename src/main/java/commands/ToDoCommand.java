@@ -4,7 +4,6 @@ import console.InputParser;
 import error.DukeTaskNameEmptyException;
 import error.Error;
 import task.TaskManager;
-import ui.Display;
 
 /**
  * Adds a new 'todo' type task to TaskManager.
