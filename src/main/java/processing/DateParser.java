@@ -140,7 +140,6 @@ public class DateParser {
         String lDate = date.trim();
         if (lDate.split(" ")[0].equals("today")) {
             String time = lDate.substring("today".length()).trim();
-            System.out.println(time);
             return parseTodayDateTime(time);
         }
         return parseDTByDateTimeFormats(lDate);

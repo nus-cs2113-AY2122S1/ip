@@ -33,6 +33,7 @@ public class Duke {
             TaskSafe.saveToFile(taskManager.getTasks());
         } catch (DukeException e) {
             UI.showError(e);
+            UI.greetPartTwo();
         }
     }
 

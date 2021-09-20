@@ -65,11 +65,20 @@ public class TaskManager {
         taskSize = 0;
     }
 
+
+    private List<Task> sortTasks() {
+        return tasks
+                .stream()
+                .sorted(new TaskComparator())
+                .collect(Collectors.toList());
+    }
+
     /**
      * Adds a Task into a variable-size array of Tasks,
-     * @param command input that has been parsed by Command Handler,
-     * @param type the type of task to be added : Todo / Event / Deadline
-     * @param isDone sets the task to be added as done or not done
+     *
+     * @param command  input that has been parsed by Command Handler,
+     * @param type     the type of task to be added : Todo / Event / Deadline
+     * @param isDone   sets the task to be added as done or not done
      * @param isLogged if set to true, logs the addition of the task and displays it via UI
      * @throws DukeException if command parsing by clause is invalid due to empty descriptors
      * @see UI
@@ -78,16 +87,16 @@ public class TaskManager {
         Task t = new Task("");
         switch (type) {
         case TODO:
-            command.splitByClause("todo",0,true);
-            t = new Todo(command.descriptorAfterClause,isDone);
+            command.splitByClause("todo", 0, true);
+            t = new Todo(command.descriptorAfterClause, isDone);
             break;
         case DEADLINE:
-            command.splitByClause(DEADLINE_CLAUSE,DEADLINE_DESCRIPTION_IDX,false);
+            command.splitByClause(DEADLINE_CLAUSE, DEADLINE_DESCRIPTION_IDX, false);
             t = new Deadline(command.descriptorBeforeClause,
                     DateParser.formatDate(command.descriptorAfterClause), isDone);
             break;
         case EVENT:
-            command.splitByClause(EVENT_CLAUSE,EVENT_DESCRIPTION_IDX,false);
+            command.splitByClause(EVENT_CLAUSE, EVENT_DESCRIPTION_IDX, false);
             t = new Event(command.descriptorBeforeClause,
                     DateParser.formatDate(command.descriptorAfterClause), isDone);
             break;
@@ -95,23 +104,25 @@ public class TaskManager {
         tasks.add(t);
         taskSize++;
         if (isLogged) {
-            UI.showAddTask(t,taskSize);
+            UI.showAddTask(t, taskSize);
         }
     }
 
     /**
      * Adds a Task that is not done into a variable-size array of Tasks,
      * Displays the added tasks and number of tasks currently in list
+     *
      * @param command input that has been parsed by Command Handler
-     * @param type TaskType of the task to be added
+     * @param type    TaskType of the task to be added
      * @throws DukeException if command parsing by clause is invalid due to empty descriptors
      */
     public void addTask(CommandHandler command, TaskType type) throws DukeException {
-        addTask(command,type,false,true);
+        addTask(command, type, false, true);
     }
 
     /**
      * Removes a task from the task list by index, and displays the deleted command to user
+     *
      * @param command input that has been parsed by Command Handler. Should be called with a
      *                valid integer
      * @throws DukeException if After Clause of command cannot be parsed as an Integer
@@ -120,10 +131,10 @@ public class TaskManager {
         command.splitByClause("delete", 0, true);
         try {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
-            Task t = tasks.get(idx);
-            tasks.remove(idx);
+            Task t = sortTasks().get(idx);
+            tasks.remove(t);
             taskSize--;
-            UI.showDeleteTask(t,taskSize);
+            UI.showDeleteTask(t, taskSize);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             listTasks();
             throw new DukeException("Please enter a valid task number to delete.");
@@ -133,18 +144,19 @@ public class TaskManager {
 
     /**
      * Marks a task as done by its index in the tasklist
+     *
      * @param command the input after it's been parsed by command handler
      * @throws DukeException if the command is not called with a valid integer bounded by the
-     * number of the tasks in the task list
+     *                       number of the tasks in the task list
      */
     public void markTaskAsDone(@NotNull CommandHandler command) throws DukeException {
-        command.splitByClause("done",0,true);
+        command.splitByClause("done", 0, true);
         try {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
             updateTask(idx, true);
             System.out.println(DONE_TASK);
             printTask(idx);
-        } catch (NumberFormatException | IndexOutOfBoundsException e){
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please enter a valid task number to be marked as done!");
         } finally {
             listTasks();
@@ -153,18 +165,20 @@ public class TaskManager {
 
     /**
      * Queries the task list by a regex term and displays filtered list of tasks
+     *
      * @param command the query after it's been parsed by command handler
      * @throws DukeException if query is given with invalid syntax
      * @see QueryHandler for more details on valid queries
      */
     public void queryTasks(@NotNull CommandHandler command) throws DukeException {
-        command.splitByClause(FIND_CLAUSE,0,true);
+        command.splitByClause(FIND_CLAUSE, 0, true);
         QueryHandler query = new QueryHandler(command.descriptorAfterClause.split(" "));
         query.queryOn(this);
     }
 
     /**
      * Iterates through the tasklist and prints out the tasks in order
+     *
      * @param tasks task list managed by Taskmanager
      */
     public void listTasks(@NotNull List<Task> tasks) {
@@ -181,24 +195,25 @@ public class TaskManager {
      */
     public void listTasks() {
         System.out.println(LIST_TASK);
-        listTasks(tasks.stream().sorted(new TaskComparator()).collect(Collectors.toList()));
+        listTasks(sortTasks());
     }
-
 
 
     public void updateTask(int idx, boolean isDone) {
-       tasks.get(idx).setDone(isDone);
+        Task t = sortTasks().get(idx);
+        int taskIdx = tasks.indexOf(t);
+        tasks.get(taskIdx).setDone(isDone);
     }
 
     public void printTask(int idx) {
-        System.out.println(tasks.get(idx));
+        System.out.println(sortTasks().get(idx));
     }
 
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public int getTaskSize(){
+    public int getTaskSize() {
         return taskSize;
     }
 }
