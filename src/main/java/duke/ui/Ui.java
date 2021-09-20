@@ -86,11 +86,11 @@ public class Ui {
         int taskSize = Duke.getTaskList().getTasks().size();
         System.out.println(BORDER_LINE);
         if (taskSize == 0) {
-            System.out.println("    The list is currently empty!");
-        } else {
-            for (int i = 0; i < taskSize; i++) {
-                System.out.println("    " + (i + 1) + "." + Duke.getTaskList().getTasks().get(i));
-            }
+            System.out.println("    The list is currently empty!" + System.lineSeparator() + BORDER_LINE);            
+            return;
+        }
+        for (int i = 0; i < taskSize; i++) {
+            System.out.println("    " + (i + 1) + "." + Duke.getTaskList().getTasks().get(i));
         }
         System.out.println(BORDER_LINE);
     }
@@ -130,20 +130,20 @@ public class Ui {
         int taskSize = Duke.getTaskList().getTasks().size();
         System.out.println(BORDER_LINE);
         if (taskSize == 0) {
-            System.out.println("    The list is currently empty!");
-        } else {
-            int taskWithKeywordCount = 0;
-            System.out.println("    Finding tasks with keyword \"" + keyword + "\":");
-            for (int i = 0; i < taskSize; i++) {
-                String taskDescription = Duke.getTaskList().getTasks().get(i).getDescription();
-                if (taskDescription.contains(keyword)) {
-                    System.out.println("    " + (taskWithKeywordCount + 1) + "." + Duke.getTaskList().getTasks().get(i));
-                    taskWithKeywordCount++;
-                }  
-            }
-            if (taskWithKeywordCount == 0) {
-                System.out.println("    There is no task containing the keyword \"" + keyword + "\"");
-            }
+            System.out.println("    The list is currently empty!" + System.lineSeparator() + BORDER_LINE);
+            return;
+        }
+        int taskWithKeywordCount = 0;
+        System.out.println("    Finding tasks with keyword \"" + keyword + "\":");
+        for (int i = 0; i < taskSize; i++) {
+            String taskDescription = Duke.getTaskList().getTasks().get(i).getDescription();
+            if (taskDescription.contains(keyword)) {
+                System.out.println("    " + (taskWithKeywordCount + 1) + "." + Duke.getTaskList().getTasks().get(i));
+                taskWithKeywordCount++;
+            }  
+        }
+        if (taskWithKeywordCount == 0) {
+            System.out.println("    There is no task containing the keyword \"" + keyword + "\"");
         }
         System.out.println(BORDER_LINE);
     }
