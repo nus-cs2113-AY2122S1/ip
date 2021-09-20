@@ -34,7 +34,9 @@ public class Duke {
      */
     public void run() {
         Ui.printWelcomeBanner();
-
+        if (isDukeDone) {
+            Ui.printFileCorrupted();
+        }
         Scanner in = new Scanner(System.in);
         while (!isDukeDone) {
             Ui.padLines();

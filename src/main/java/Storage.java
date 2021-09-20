@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.time.LocalDate;
+
 
 public class Storage {
 
@@ -26,6 +29,8 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             createFile();
+        } catch (DateTimeParseException e) {
+            Duke.setDukeDone();
         }
     }
 
@@ -37,11 +42,11 @@ public class Storage {
             tasks.addTask(todo);
             break;
         case "D":
-            Deadline deadline = new Deadline(lineContents[TASK_INDEX], lineContents[BY_AT_INDEX]);
+            Deadline deadline = new Deadline(lineContents[TASK_INDEX], LocalDate.parse(lineContents[BY_AT_INDEX]));
             tasks.addTask(deadline);
             break;
         case "E":
-            Event event = new Event(lineContents[TASK_INDEX], lineContents[BY_AT_INDEX]);
+            Event event = new Event(lineContents[TASK_INDEX], LocalDate.parse(lineContents[BY_AT_INDEX]));
             tasks.addTask(event);
             break;
         }
