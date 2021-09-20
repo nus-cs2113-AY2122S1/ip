@@ -2,6 +2,8 @@ package duke.ui;
 
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
+
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +15,7 @@ public class Ui {
             + "deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)"
             + NL
             + "list" + NL
+            + "agenda" + NL
             + "done {index number of task done}  (eg. done 1)" + NL
             + "delete {index number of task you want to delete}  (eg. delete 1)" + NL
             + "bye";
@@ -54,12 +57,12 @@ public class Ui {
         showMessage(acknowledgementMessage);
     }
 
-    public void showTasks(ArrayList<Task> tasks, int numberOfTasks) {
+    public void showTasks(ArrayList<Task> tasks) {
         StringBuilder list = new StringBuilder();
-        for (int i = 0; i < numberOfTasks; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             list.append(i + 1).append(".");
             list.append(tasks.get(i).toString());
-            if (i < numberOfTasks - 1) {
+            if (i < tasks.size() - 1) {
                 list.append(NL);
             }
         }
@@ -74,6 +77,11 @@ public class Ui {
     public void acknowledgeRemoveCommand(Task removedTask, int numberOfTasks) {
         showMessage("I have removed the task: " + NL + removedTask.toString()
                 + NL + "You now have " + numberOfTasks + " tasks remaining");
+    }
+    
+    public void showAgenda(ArrayList<Task> tasks) {
+        System.out.println("Today's Agenda : ");
+        showTasks(tasks);
     }
     
     public void showHelpMessage() {

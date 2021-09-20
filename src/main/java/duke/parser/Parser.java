@@ -3,6 +3,7 @@ package duke.parser;
 import duke.commands.AddDeadlineCommand;
 import duke.commands.AddEventCommand;
 import duke.commands.AddTodoCommand;
+import duke.commands.AgendaCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
 import duke.commands.ExitCommand;
@@ -28,6 +29,8 @@ public class Parser {
         switch (command) {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case AgendaCommand.COMMAND_WORD:
+            return new AgendaCommand();
         case MarkAsDoneCommand.COMMAND_WORD:
             return prepareMarkAsDoneCommand(input);
         case AddTodoCommand.COMMAND_WORD:

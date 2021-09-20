@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static duke.ui.Ui.NL;
@@ -54,16 +57,26 @@ public class Storage {
     
     private Task extractTask(String input) {
         String[] taskDetails = input.split("\\|");
+        boolean isDone = taskDetails[1].trim().equalsIgnoreCase("1");
         switch (taskDetails[0].trim()) {
         case "T":
-            boolean isDone = taskDetails[1].trim().equalsIgnoreCase("1");
             return new Todo(taskDetails[2].trim(), isDone);
         case "D":
-            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
-            return new Deadline(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
+            try {
+                LocalDateTime byDT = LocalDateTime.parse(taskDetails[3].trim(), 
+                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                return new Deadline(taskDetails[1].trim(),byDT, isDone);
+            } catch (DateTimeParseException dtpe) {
+                return new Deadline(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
+            }
         case "E":
-            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
-            return new Event(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
+            try {
+                LocalDateTime atDT = LocalDateTime.parse(taskDetails[3].trim(),
+                        DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                return new Event(taskDetails[1].trim(),atDT, isDone);
+            } catch (DateTimeParseException dtpe) {
+                return new Event(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
+            }
         default:
             return null;
         }

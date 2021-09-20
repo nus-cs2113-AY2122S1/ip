@@ -2,7 +2,8 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.ExitCommand;
-import duke.exceptions.*;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
@@ -20,7 +21,7 @@ public class Duke {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
-    
+
     public Duke() {
         ui = new Ui();
         storage = new Storage(DATA_DIRECTORY, DATA_FILE);

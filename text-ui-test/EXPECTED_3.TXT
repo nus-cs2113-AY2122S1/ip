@@ -13,65 +13,173 @@ ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [T][X] some task
-You now have 11 tasks remaining
+You now have 23 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [E][ ] something (at: 8pm)
-You now have 10 tasks remaining
+You now have 22 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [D][X] something (by: 7pm)
-You now have 9 tasks remaining
+You now have 21 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [T][X] 4
-You now have 8 tasks remaining
+You now have 20 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [T][ ] 4
-You now have 7 tasks remaining
+You now have 19 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [T][ ] 5
-You now have 6 tasks remaining
+You now have 18 tasks remaining
+____________________________________________________________
+____________________________________________________________
+I have removed the task: 
+[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+You now have 17 tasks remaining
+____________________________________________________________
+____________________________________________________________
+I have removed the task: 
+[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+You now have 16 tasks remaining
+____________________________________________________________
+____________________________________________________________
+I have removed the task: 
+[E][ ] todayactually (at: today)
+You now have 15 tasks remaining
+____________________________________________________________
+____________________________________________________________
+I have removed the task: 
+[T][ ] some task
+You now have 14 tasks remaining
+____________________________________________________________
+____________________________________________________________
+I have removed the task: 
+[E][ ] something (at: 8pm)
+You now have 13 tasks remaining
+____________________________________________________________
+____________________________________________________________
+I have removed the task: 
+[D][ ] something (by: 7pm)
+You now have 12 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
 [T][ ] 4
-You now have 5 tasks remaining
+You now have 11 tasks remaining
+____________________________________________________________
+Today's Agenda : 
+____________________________________________________________
+1.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+2.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+3.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+4.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-I have removed the task: 
-[T][ ] 4
-You now have 4 tasks remaining
+Understood, 
+[E][ ] tosa (at: 9pm)
+has been added. You now have 12 task(s) in the list
 ____________________________________________________________
 ____________________________________________________________
-I have removed the task: 
-[T][ ] 5
-You now have 3 tasks remaining
+Understood, 
+[E][ ] toda (at: Sep 20 2021 7:00 PM)
+has been added. You now have 13 task(s) in the list
+____________________________________________________________
+Today's Agenda : 
+____________________________________________________________
+1.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+2.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+3.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+4.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+5.[E][ ] toda (at: Sep 20 2021 7:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-I have removed the task: 
-[T][ ] 6
-You now have 2 tasks remaining
+1.[T][ ] 4
+2.[T][ ] 5
+3.[T][ ] 6
+4.[T][ ] 7
+5.[T][ ] 8
+6.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+7.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+8.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
+9.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+10.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+11.[E][ ] todayactually (at: today)
+12.[E][ ] tosa (at: 9pm)
+13.[E][ ] toda (at: Sep 20 2021 7:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-I have removed the task: 
-[T][ ] 7
-You now have 1 tasks remaining
+Please enter a valid number after 'done' or 'delete'
+____________________________________________________________
+Today's Agenda : 
+____________________________________________________________
+1.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+2.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+3.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+4.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+5.[E][ ] toda (at: Sep 20 2021 7:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-I have removed the task: 
-[T][ ] 8
-You now have 0 tasks remaining
+1.[T][ ] 4
+2.[T][ ] 5
+3.[T][ ] 6
+4.[T][ ] 7
+5.[T][ ] 8
+6.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+7.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+8.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
+9.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+10.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+11.[E][ ] todayactually (at: today)
+12.[E][ ] tosa (at: 9pm)
+13.[E][ ] toda (at: Sep 20 2021 7:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-Please enter valid task index number
+Understood, 
+[D][ ] dead (by: 20/9/2021)
+has been added. You now have 14 task(s) in the list
+____________________________________________________________
+____________________________________________________________
+Valid Commands: 
+todo {description of task} (eg. todo homework)
+event {description of event} /at {time of event} (eg. event party at/ 9am)
+deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
+list
+agenda
+done {index number of task done}  (eg. done 1)
+delete {index number of task you want to delete}  (eg. delete 1)
+bye
+____________________________________________________________
+Today's Agenda : 
+____________________________________________________________
+1.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+2.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+3.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+4.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+5.[E][ ] toda (at: Sep 20 2021 7:00 PM)
+____________________________________________________________
+____________________________________________________________
+1.[T][ ] 4
+2.[T][ ] 5
+3.[T][ ] 6
+4.[T][ ] 7
+5.[T][ ] 8
+6.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+7.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+8.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
+9.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+10.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+11.[E][ ] todayactually (at: today)
+12.[E][ ] tosa (at: 9pm)
+13.[E][ ] toda (at: Sep 20 2021 7:00 PM)
+14.[D][ ] dead (by: 20/9/2021)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
