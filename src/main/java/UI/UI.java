@@ -4,6 +4,9 @@ import Tasks.Task;
 
 import java.util.List;
 
+/**
+ * Utility Class representing how Duke visually responds to commands made by User.
+ */
 public class UI {
 
     public static void dukeGreeting () {
@@ -26,6 +29,15 @@ public class UI {
         tasks.get(taskIndex-1).describePrint();
     }
 
+    /**
+     * UI's response when User wants to FIND tasks
+     * - if FIND command is lacking a description, an error message will be shown
+     * - if tasks can be found, UI will output them onto screen
+     * - if no tasks can be found, UI will not output anything
+     *
+     * @param tasks      User's tasks in Duke
+     * @param userInput  raw User input
+     */
     public static void searchTask (List<Task> tasks, String userInput) {
         String[] searchFilter = userInput.split("find");
         if (searchFilter.length == 0) {
@@ -57,10 +69,21 @@ public class UI {
         System.out.println(input + " created for you");
     }
 
+    /**
+     * UI's response when File cannot be found / cannot be created
+     * 1. if File cannot be found, error message details which File cannot be found
+     * 2. if File cannot be created, error message details that File has already been created
+     *
+     * @param input    File path
+     */
     public static void fileExistsError (String input) {
         System.out.println(input + " already created");
     }
 
+    /**
+     * UI's response when Duke has an Exception
+     * @param input    Duke's Exception message
+     */
     public static void dukeError (String input) {
         System.out.println(input);
     }

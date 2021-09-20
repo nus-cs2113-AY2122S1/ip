@@ -1,6 +1,5 @@
 package Main;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import Storage.Storage;
 import Tasks.Task;
 import Exception.DukeException;
 import UI.UI;
-
 
 public class Duke {
     public static boolean isLoading = true;
@@ -27,6 +25,13 @@ public class Duke {
         storage.loadData(tasks, storage);
     }
 
+    /**
+     * Runs Duke app.
+     * Note that loading the User data (from previous usages) is already done when Duke is instantiated.
+     *
+     * @param tasks    User's tasks in Duke
+     * @param storage  Actions involving reading/writing to hard drive
+     */
     private void run (List<Task> tasks, Storage storage) {
         UI.dukeGreeting();
 
@@ -36,8 +41,6 @@ public class Duke {
                 String userInput = userScanner.nextLine();
                 ParseInput parseInput = Parser.parse(userInput);
                 Command.executeCommand(parseInput, tasks, storage);
-            } catch (IOException ioException) {
-                UI.fileExistsError(ioException.getMessage());
             } catch (DukeException dukeException) {
                 UI.dukeError(dukeException.getMessage());
             }
