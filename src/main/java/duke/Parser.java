@@ -118,7 +118,8 @@ public class Parser {
             if (temporalAccessor instanceof LocalDateTime) {
                 dateTime = (LocalDateTime) temporalAccessor;
             } else {
-                throw new DukeException("Time not provided! Setting time as 00:00. Don't like it? DEAL WITH IT.");
+                throw new DukeException("Time not provided! Setting time as 00:00. Don't like it?\n" +
+                        "DEAL WITH IT.");
             }
         } catch (DukeException e) {
             System.out.println(Ui.getHorizontalLine() + e.getMessage());
