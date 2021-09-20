@@ -84,6 +84,11 @@ public class Ui {
         showTasks(tasks);
     }
     
+    public void showSearchResults(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list: ");
+        showTasks(tasks);
+    }
+    
     public void showHelpMessage() {
         showMessage(HELP_MESSAGE);
     }
