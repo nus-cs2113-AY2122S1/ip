@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Event class to represent a task which has an event.
  * Parent class is Task class.
@@ -9,9 +12,9 @@ package duke.tasks;
  * @return modified message when the toString() method is called.
  */
 public class Event extends Task {
-    protected String at;
+    protected LocalDate at;
 
-    public Event(String description, String at) {
+    public Event(String description, LocalDate at) {
         super(description);
         this.at = at;
     }
@@ -23,7 +26,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        String atFormatter = at.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "[E]" + super.toString() + " (at: " + atFormatter + ")";
     }
 
     /**
@@ -43,5 +47,10 @@ public class Event extends Task {
         }
         storeString += description + " | " + at;
         return storeString;
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return at;
     }
 }

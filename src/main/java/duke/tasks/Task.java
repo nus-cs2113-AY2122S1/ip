@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+
 /**
  * Task class to represent a task.
  * Is a parent class to Todo, Event and Deadline classes.
@@ -61,5 +63,9 @@ public class Task {
      */
     public String toStringStore() {
         return "";
+    }
+
+    public LocalDate getDate() {
+        return null;
     }
 }

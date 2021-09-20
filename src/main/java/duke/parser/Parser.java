@@ -3,6 +3,8 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.*;
 
+import java.time.LocalDate;
+
 /**
  * Parser class gets the raw input from Logic class and then returns the specified arguments of interest
  * to the Logic class. These are the type of command, the description of the dask and the date.
@@ -33,6 +35,9 @@ public class Parser {
         case "done":
             return prepareDeleteOrDoneCommand(commandWord, arguments);
 
+        case "date":
+            return prepareDateCommand(arguments);
+
         case "list":
             return new ListCommand();
 
@@ -41,6 +46,18 @@ public class Parser {
 
         default:
             return new IncorrectCommand();
+        }
+    }
+
+    private Command prepareDateCommand(String args) throws DukeException{
+        if (args.isEmpty()) {
+            throw new DateError();
+        }
+        try {
+            LocalDate dateKey = LocalDate.parse((args.trim()));
+            return new DateCommand(dateKey);
+        } catch (Exception e) {
+            throw new DateError();
         }
     }
 
@@ -72,15 +89,16 @@ public class Parser {
         }
         try {
             String date = getDate(parts[1]);
+            LocalDate correctDateFormat = LocalDate.parse((date));
             if(command.equals("event")) {
                 return new EventCommand(
                         parts[0].trim(),
-                        date.trim()
+                        correctDateFormat
                 );
             }
             return new DeadlineCommand(
                     parts[0].trim(),
-                    parts[1].trim()
+                    correctDateFormat
             );
         } catch (Exception e) {
             if (command.equals("event")) {
@@ -111,7 +129,7 @@ public class Parser {
         if (firstWhitespace == -1) {
             throw new DateError();
         }
-        date = input.substring(firstWhitespace);
+        date = input.substring(firstWhitespace).trim();
         return date;
     }
 

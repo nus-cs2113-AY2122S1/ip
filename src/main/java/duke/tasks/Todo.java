@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+
 /**
  * Todo class to represent a task that needs to be done.
  * Parent class is Task class.
@@ -40,5 +42,10 @@ public class Todo extends Task {
         }
         storeString += description;
         return storeString;
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return null;
     }
 }
