@@ -8,7 +8,7 @@ Bob is a **task manager** for use via a Command Line Interface.
   * [Add Deadline Tasks: `deadline`](#add-deadline-tasks-deadline)
   * [Add Event Tasks: `event`](#add-event-tasks-event)
   * [List All Tasks: `list`](#list-all-tasks-list)
-  * [Find Tasks with Keyword: `find`](#find-task-with-keyword-find)
+  * [Find Tasks with Keyword: `find`](#find-tasks-with-keyword-find)
   * [Mark Task as Done: `done`](#mark-task-as-done-done)
   * [Delete Task: `delete`](#delete-task-delete)
   * [Exiting the Program: `exit`](#exiting-the-program-exit)
