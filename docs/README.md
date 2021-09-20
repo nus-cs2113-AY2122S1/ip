@@ -1,36 +1,20 @@
 # Duke User Guide
 
-Duke is a chat-bot designed to help users manage their tasks.
+Duke is an application designed to help users **manage their tasks via a Command Line Interface (CLI**).
 
-## Commands and Features Summary
-
-Command | Feature
--------- | ---------
-`todo` | Adds a task to the list without attaching a specific date
-`deadline` | Adds a task to the list with a specific deadline
-`event` | Adds a task to the list as an event with the date and time
-`list` | Lists all the tasks in the list
-`done` | Marks a task in the list as done
-`delete` | Deletes a task from the list
-`clear` | Clears all the tasks in the list
-`date` | Finds all the tasks in the list with the date specified
-`find` | Finds all the tasks in the list with the keyword specified in its description
-`echo` | Prints the input of the user
-`help` | Prints the list of commands of Duke
-`bye` | Exits Duke
-
-## Quick start
+## Quick Start
 
 1. Ensure you have Java 11 installed in your computer.
 2. Download the latest `Duke.jar` from [here](https://github.com/powzx/ip/releases).
 3. Copy `Duke.jar` to an empty folder.
 4. On command prompt, navigate to the folder `Duke.jar` is stored.
 5. Launch `Duke.jar` using `java -jar Duke.jar`
+6. Enter commands to interact with Duke.
 
 Demo:
 
 ```
-java -jar duke.jar
+java -jar Duke.jar
 
 Welcome to
  ______        _
@@ -44,15 +28,49 @@ Enter "help" to see what I can do for you!
 ____________________________________________________________
 ```
 
-## Usage of Commands
+## Commands List
 
-### `todo`
+Action | Command Format
+-------- | ---------
+Add a task without a date | `todo TASK_DESCRIPTION`
+Add a task with a deadline | `deadline TASK_DESCRIPTION /by TASK_DEADLINE`
+Add an event with date and time | `event TASK_DESCRIPTION /at DATE_AND_TIME`
+List all tasks | `list`
+Mark a task as done | `done INDEX`
+Delete a task | `delete INDEX`
+Clear all tasks | `clear`
+Find tasks with a specific date | `date DATE`
+Find tasks with a specific keyword | `find KEYWORD`
+Echo the user input | `echo INPUT`
+View the help menu | `help`
+Exit Duke | `bye`
 
-This command adds a task to the list that does not require a specific date attached.
+### Notes about Command and Display Format
 
-Format of command:
+1. Words in uppercase are parameters that need to be entered by the user for the 
+command to execute.
+2. If a command expects parameters, then the user must supply them only once and in the correct order.
+3. If a command does not expect parameters, supplying unnecessary parameters will not 
+result in the execution of the command.
+4. Tasks are displayed in the following format:
+    * `[TASK_TYPE][DONE_STATUS] TASK_DESCRIPTION (TASK_DATE)` where:
+       * `TASK_TYPE` is `T`, `D`, or `E` representing ToDo, Deadline, and Event respectively.
+       * `DONE_STATUS` is `X` if the task is marked as done, or ` ` otherwise.
+       * `TASK_DESCRIPTION` is the description of the task when it was added.
+       * `TASK_DATE` is either the deadline or the event date and time (Not applicable to ToDo).
 
-`todo [task description]`
+## Features and Usage of Commands
+
+### Add a task without a date: `todo`
+
+Adds a task to the list that does not require any specific date to be attached.
+
+Format of command: `todo TASK_DESCRIPTION`
+* `TASK_DESCRIPTION` must not be empty, otherwise the task will not be added.
+
+Examples:
+* `todo go for a run`
+* `todo buy gift for mom`
 
 Demo:
 
@@ -65,15 +83,24 @@ You have 1 tasks in your list now!
 ____________________________________________________________
 ```
 
-### `deadline`
+### Add a task with a deadline: `deadline`
 
-This command adds a task to the list that has a specific deadline.
+Adds a task to the list that has a specific deadline attached.
 
-Format of command:
+Format of command: `deadline TASK_DESCRIPTION /by TASK_DEADLINE`
+* `TASK_DESCRIPTION` and `TASK_DEADLINE` must not be empty, otherwise the task will not be added.
+* `/by` is required in the user input.
+* `TASK_DEADLINE` needs to have the format `yyyy-mm-ddThh:MM`, otherwise the task will not be added where:
+    * `yyyy` represents the four-digit year
+    * `mm` represents the two-digit month
+    * `dd` represents the two-digit day
+    * `hh` represents the two-digit hour
+    * `MM` represents the two-digit minute
+    * `T` is required between the date and time
 
-`deadline [task description] /by [task deadline]`
-
-The task deadline should have the following format: `[yyyy-mm-dd]T[hh:MM]`
+Examples:
+* `deadline project submission /by 2021-09-20T23:59`
+* `deadline final report submission /by 2021-10-10T17:00`
 
 Demo:
 
@@ -86,15 +113,24 @@ You have 2 tasks in your list now!
 ____________________________________________________________
 ```
 
-### `event`
+### Add an event with date and time: `event`
 
-This command adds a task to the list as an event with its date and time.
+Adds a task to the list as an event with its associated date and time.
 
-Format of command:
+Format of command: `event TASK_DESCRIPTION /at DATE_AND_TIME`
+* `TASK_DESCRIPTION` and `DATE_AND_TIME` must not be empty, otherwise the task will not e added.
+* `/at` is required in the user input
+* `DATE_AND_TIME` needs to have the format `yyyy-mm-ddThh:MM`, otherwise the task will not be added where:
+    * `yyyy` represents the four-digit year
+    * `mm` represents the two-digit month
+    * `dd` represents the two-digit day
+    * `hh` represents the two-digit hour
+    * `MM` represents the two-digit minute
+    * `T` is required between the date and time
 
-`event [task description] /at [event date and time]`
-
-The event date and time should have the following format: `[yyyy-mm-dd]T[hh:MM]`
+Examples:
+* `event Bob's wedding /at 2021-10-10T19:00`
+* `event countdown party /at 2021-12-31T20:00`
 
 Demo:
 
@@ -107,13 +143,11 @@ You have 3 tasks in your list now!
 ____________________________________________________________
 ```
 
-### `list`
+### List all tasks: `list`
 
-This command lists all the tasks that are stored in the list.
+Lists all the tasks that are stored in the list.
 
-Format of command:
-
-`list`
+Format of command: `list`
 
 Demo:
 
@@ -127,19 +161,28 @@ Wow! I found these tasks in your list:
 ____________________________________________________________
 ```
 
-### `done`
+### Mark a task as done: `done`
 
-This command marks a task in the list as done.
+Marks a task in the list as done.
 
-Format of command:
+Format of command: `done INDEX`
+* `INDEX` corresponding to the task can be found using `list`.
+* `INDEX` must not be empty and must be an integer corresponding to a task, otherwise the 
+operation will not be executed.
 
-`done [task number]`
-
-The task number corresponding to the task can be found using `list`.
+Example:
+* `done 3`
 
 Demo:
 
 ```
+list
+
+Wow! I found these tasks in your list:
+1. [T][ ] go for a run
+2. [D][ ] project submission (by: Sep 20 2021, 23:59)
+3. [E][ ] Bob's wedding (at: Oct 10 2021, 19:00)
+____________________________________________________________
 done 3
 
 Good job! You have finished the following:
@@ -147,19 +190,28 @@ Good job! You have finished the following:
 ____________________________________________________________
 ```
 
-### `delete`
+### Delete a task: `delete`
 
-This command deletes a task from the list.
+Deletes a task from the list.
 
-Format of command:
+Format of command: `delete INDEX`
+* `INDEX` corresponding to the task can be found using `list`.
+* `INDEX` must not be empty and must be an integer corresponding to a task, otherwise the 
+operation will not be executed.
 
-`delete [task number]`
-
-The task number corresponding to the task can be found using `list`.
+Example:
+* `delete 1`
 
 Demo:
 
 ```
+list
+
+Wow! I found these tasks in your list:
+1. [T][ ] go for a run
+2. [D][ ] project submission (by: Sep 20 2021, 23:59)
+3. [E][X] Bob's wedding (at: Oct 10 2021, 19:00)
+____________________________________________________________
 delete 1
 
 Alright, I have deleted the following task for you:
@@ -168,13 +220,11 @@ You have 2 tasks in your list now!
 ____________________________________________________________
 ```
 
-### `clear`
+### Clear all tasks: `clear`
 
-This command clears all the tasks from the list.
+Clears all the tasks from the list.
 
-Format of command:
-
-`clear`
+Format of command: `clear`
 
 Demo:
 
@@ -185,15 +235,19 @@ Okay! Now your list is empty, you're FREE!
 ____________________________________________________________
 ```
 
-### `date`
+### Find tasks with a specific date: `date`
 
-This command finds all the tasks from the list that has a specific date attached.
+Finds all the tasks from the list that has a specific date attached.
 
-Format of command:
+Format of command: `date DATE`
+* `DATE` must not be empty, otherwise the operation will not be executed.
+* `DATE` must have the following format `yyyy-mm-dd` where:
+    * `yyyy` represents the four-digit year
+    * `mm` represents the two-digit month
+    * `dd` represents the two-digit day
 
-`date [date]`
-
-The date specified should have the following format: `yyyy-mm-dd`.
+Example:
+* `date 2021-09-18`
 
 Demo:
 
@@ -215,13 +269,17 @@ Here are your tasks that are occurring on the date specified:
 ____________________________________________________________
 ```
 
-### `find`
+### Find tasks with a specific keyword: `find`
 
-This command finds all the tasks from the list that has a specific keyword in its description.
+Finds all the tasks from the list that has a specific keyword in its description.
 
-Format of command:
+Format of command: `find KEYWORD`
+* `KEYWORD`must not be empty, otherwise the operation will not be executed.
+* `KEYWORD` is not case-sensitive, hence `find something` and `find SomEthinG` will yield the 
+same results.
 
-`find [keyword]`
+Example:
+* `find submission`
 
 Demo:
 
@@ -243,13 +301,12 @@ Here are the matching tasks in your list:
 ____________________________________________________________
 ```
 
-### `echo`
+### Echo the user input: `echo`
 
-This command prints the input of the user onto the terminal.
+Prints the input of the user onto the terminal.
 
-Format of command:
-
-`echo [input]`
+Format of command: `echo INPUT`
+* `INPUT` must not be empty, otherwise the operation will not be executed.
 
 Demo:
 
@@ -260,13 +317,11 @@ Hello World!
 ____________________________________________________________
 ```
 
-### `help`
+### View the help menu: `help`
 
-This command prints the help menu onto the terminal.
+Prints the help menu onto the terminal.
 
-Format of command:
-
-`help`
+Format of command: `help`
 
 Demo:
 
@@ -289,13 +344,11 @@ Below is the list of commands and input formats I am currently able to understan
 ____________________________________________________________
 ```
 
-### `bye`
+### Exit Duke: `bye`
 
-This command prompts to exit Duke.
+Exits the program.
 
-Format of command:
-
-`bye`
+Format of command: `bye`
 
 Demo:
 
@@ -305,3 +358,15 @@ bye
 Bye! Have a great day ahead and see you again soon.
 ____________________________________________________________
 ```
+
+## Data Storage
+
+Duke automatically saves the list of tasks to a text file after every command. This means that
+users can recover their task list even after exiting and starting Duke again.
+
+### Editing the data file
+
+Advanced users can edit the data file `duke.txt` that is stored in the same folder as `Duke.jar`.
+
+**CAUTION: Edits that make the data format invalid will cause a data corruption and
+all data will be wiped and reset upon restarting `Duke.jar`.**
