@@ -347,9 +347,26 @@ All updates made to the task list is automatically saved to a local file
 
 ## FAQ
 
-**Q:**
+**Q:** Why am I getting DukeExceptions with my input
 
-**A:**
+**A:** The input syntax is likely invalid, check with the documentation listed in [Features](#features)
+        to make sure that your input is valid. The exception likely shows what went wrong too!
+
+<br />
+
+**Q:** How do I edit a task I previously registered?
+
+**A:** Edit is currently unsupported, but an alternative option is to delete the task
+        and re-add the updated task back to the list
+
+<br />
+
+**Q:** How do I transfer my data to another PC?
+
+**A:** Install the app in the other computer and overwrite the empty data file 
+it creates with the file that contains the data of your previous Duke home folder.
+
+<br />
 
 ---
 
