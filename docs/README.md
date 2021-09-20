@@ -11,13 +11,13 @@ be kept empty.
 
 ## Features 
 
-### Active Update
+#### Active Update
 
 The app will actively apply the last change to the duke.txt immediately after the command is 
 entered in order to prevent the loss of data or changes when an error occur such as user 
 accidentally pressing CTRL + C to the terminal... 
 
-### Anti-Duplicate
+#### Anti-Duplicate
 
 Everytime a task is added, it is checked and ensure that no 2 task is exactly the same. 
 
