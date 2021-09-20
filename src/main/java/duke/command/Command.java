@@ -3,7 +3,7 @@ package duke.command;
 import duke.DukeException;
 
 public interface Command {
-    void run() throws DukeException;
+    void run(boolean printMessage) throws DukeException;
 
     CommandType getType();
 }

@@ -1,8 +1,8 @@
 package duke.task;
 
 public class Event extends Task {
-    private static String SYMBOL = "E";
-    private String timeslot;
+    private static final TaskType taskType = TaskType.EVENT;
+    private final String timeslot;
 
     public Event(String name, String timeslot) {
         super(name);
@@ -10,7 +10,18 @@ public class Event extends Task {
     }
 
     @Override
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    @Override
     public String toString() {
+        String SYMBOL = "E";
         return "[" + SYMBOL + "]" + super.toString() + " (at: " + timeslot + ")";
+    }
+
+    @Override
+    public String getTime() {
+        return timeslot;
     }
 }

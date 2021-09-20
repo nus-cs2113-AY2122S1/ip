@@ -2,8 +2,8 @@ package duke.task;
 
 
 public class Deadline extends Task {
-    private static String SYMBOL = "D";
-    private String dueDate;
+    private static final TaskType taskType = TaskType.DEADLINE;
+    private final String dueDate;
 
     public Deadline(String name, String dueDate) {
         super(name);
@@ -11,7 +11,18 @@ public class Deadline extends Task {
     }
 
     @Override
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    @Override
     public String toString() {
+        String SYMBOL = "D";
         return "[" + SYMBOL + "]" + super.toString() + " (by: " + dueDate + ")";
+    }
+
+    @Override
+    public String getTime() {
+        return dueDate;
     }
 }
