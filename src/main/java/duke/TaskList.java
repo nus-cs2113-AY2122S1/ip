@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
-    public static int numberOfTasks = 0; // Task Counter
+    public static int numberOfTasks = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void deleteTask(String userInputString, Storage dukeTaskText) throws DukeException {
@@ -237,5 +238,27 @@ public class TaskList {
         }
 
         dukeTaskText.saveFinishedTask(tasks.get(taskNumber - 1).toRawString());
+    }
+
+    public static void findTask(String userInputString) throws DukeException {
+        if (userInputString.length() < 6) {
+            throw new DukeException("Please enter something to find :(");
+        }
+
+        String keyWord = userInputString.split(" ")[1];
+
+        ArrayList<Task> matchedTaskList = (ArrayList<Task>) tasks.stream()
+                                            .filter(n -> { return n.toString().contains(keyWord); })
+                                            .collect(Collectors.toList());
+
+        int sizeOfMatchedList = matchedTaskList.size();
+
+        System.out.println("    ____________________________________________________________");
+        for (int i = 0; i < sizeOfMatchedList; i += 1) {
+            System.out.print("     ");
+            System.out.print((i + 1) + ".");
+            matchedTaskList.get(i).printStatus();
+        }
+        System.out.println("    ____________________________________________________________");
     }
 }
