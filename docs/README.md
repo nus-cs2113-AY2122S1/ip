@@ -2,7 +2,7 @@
 Duke is a **desktop app for users to quickly manage their to-do list** via Command Line Interface(CLI) and
 Graphical Line Interface (currently not available, but coming soon...).
 
-##Quick Start
+## Quick Start
 1. Ensure `Java 11` are installed in your computer.
 2. Download the latest `ip.jar` from here.
 3. Copy the file to the folder you want to use as the home folder for Duke.
@@ -88,10 +88,9 @@ Exit the program and automatically save all the tasks.
 Tasks data are saved as a `txt` file `[JAR File location]/UserStatus/[Username].txt`.
 Advanced users are welcome to update data directly by editing that data file.
 
-<div style="background-color:#fff4d4">
-:exclamation: **Caution:**
 
-<span>If your changes to the data file makes its format invalid,
+:exclamation:**Caution**
+<span style="background-color:#fff4d4">If your changes to the data file makes its format invalid,
 Duke will discard all data and start with an empty task list.
 </span>
-</div>
+
