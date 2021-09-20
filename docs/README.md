@@ -15,24 +15,36 @@ The app will actively apply the last change to the duke.txt immediately after th
 entered in order to prevent the loss of data or changes when an error occur such as user 
 accidentally pressing CTRL + C to the terminal... 
 
-### Feature-XYZ
-
-Description of the feature.
-
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Adds a todo type of Task
 
-Describe the action and its outcome.
+### `event` - Adds a event type of Task
+
+### `deadline` - Adds a deadline type of Task
+
+### `list` - List out all the current Task
+
+### `done` - Marks a particular Task as done
+
+### `delete` - Delete a particular Task 
+
+### `find` - Allows user to search for a Task 
+
+Lets user choose a particular keyword they want to search in Task and return the list of matching
+numbered Task to the terminal. 
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`find [T]`
 
 Expected outcome:
 
-Description of the outcome.
-
+Since the keyword is [T], the program will search for todo type of Task and list it all out on 
+the terminal like so. 
 ```
-expected output
+    ____________________________________________________________
+     1.[T][ ] eat lunch 
+	 2.[T][X] do homework
+    ____________________________________________________________
 ```
