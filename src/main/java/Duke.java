@@ -50,10 +50,16 @@ public class Duke {
     public static final int ARRAYLIST_PRINT_OFFSET = 1;
     public static final int DONE_OFFSET = 1;
     public static final int DELETE_OFFSET = 1;
+    public static final int TODO_LEN_OFFSET = 4;
+    public static final int TODO_SUBSTRING_OFFSET = 5;
     public static final int DEADLINE_DESC_OFFSET = 9;
     public static final int DEADLINE_BY_OFFSET = 4;
+    public static final int DEADLINE_LEN_OFFSET = 8;
+    public static final int DEADLINE_SUBSTRING_OFFSET = 9;
     public static final int EVENT_DESC_OFFSET = 6;
     public static final int EVENT_BY_OFFSET = 4;
+    public static final int EVENT_LEN_OFFSET = 5;
+    public static final int EVENT_SUBSTRING_OFFSET = 6;
     public static final int TASK_INIT_OFFSET = 1;
     public static final String DIRECTORY_NAME = "data";
     public static final String FILE_PATH = "data/duke.txt";
@@ -76,7 +82,7 @@ public class Duke {
                 + "list - Lists all tasks recorded." + System.lineSeparator()
                 + "done <task number> - Marks selected task number as done with an X." + System.lineSeparator()
                 + "delete <task number> - Deletes selected task number." + System.lineSeparator()
-                + "bye - Exits the taskbot." + System.lineSeparator()
+                + "exit - Exits the taskbot." + System.lineSeparator()
                 + LINE_DIVIDER;
         System.out.println(helpMessage);
     }
@@ -124,7 +130,8 @@ public class Duke {
     public static int filterTaskNum(String doneTask) throws DukeMissingParamException, NumberFormatException {
         String[] words = doneTask.split(" ");
 
-        if (words.length > 1) { // simple check to see if task number has not been input
+        // check to see if task number has not been input
+        if (words.length > 1) {
             return Integer.parseInt(words[1]);
         }
         else {
@@ -152,16 +159,20 @@ public class Duke {
 
     public static void deleteTask(int numToRemove) throws DukeMissingParamException, NumberFormatException, IndexOutOfBoundsException {
         if ((numToRemove - DELETE_OFFSET >= 0) && (tasks.get(numToRemove - DELETE_OFFSET) != null)) {
-            String byOrAt = "";
+            String byString = "by: ";
+            String atString = "at: ";
+            String taskWordString = "";
+
+            // change word string to print depending on if a todo, deadline or event
             if (tasks.get(numToRemove - DELETE_OFFSET).getType().equals("D")) {
-                byOrAt = "by: ";
+                taskWordString = byString;
             } else if (tasks.get(numToRemove - DELETE_OFFSET).getType().equals("E")) {
-                byOrAt = "at: ";
+                taskWordString = atString;
             } else {
-                byOrAt = "";
+                taskWordString = "";
             }
 
-            if (byOrAt.equals("")) {
+            if (taskWordString.equals("")) {
                 System.out.println(LINE_DIVIDER + System.lineSeparator()
                         + "Alright! I've removed this task:" + System.lineSeparator()
                         + "[" + tasks.get(numToRemove - DELETE_OFFSET).getType() + "]" + "[" + tasks.get(numToRemove - DELETE_OFFSET).getStatusIcon() + "] "
@@ -173,7 +184,7 @@ public class Duke {
                 System.out.println(LINE_DIVIDER + System.lineSeparator()
                         + "Alright! I've removed this task:" + System.lineSeparator()
                         + "[" + tasks.get(numToRemove - DELETE_OFFSET).getType() + "]" + "[" + tasks.get(numToRemove - DELETE_OFFSET).getStatusIcon() + "] "
-                        + tasks.get(numToRemove - DELETE_OFFSET).description + "(" + byOrAt + tasks.get(numToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
+                        + tasks.get(numToRemove - DELETE_OFFSET).description + "(" + taskWordString + tasks.get(numToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
                         + "Now you have " + (tasks.size() - DELETE_OFFSET) + " tasks remaining in the list." + System.lineSeparator()
                         + LINE_DIVIDER);
             }
@@ -181,47 +192,62 @@ public class Duke {
     }
 
     public static void addTodo(String line) throws DukeMissingDescException {
-        if (line.length() == 4 || line.substring(5).isBlank()) {
+        if (line.length() == TODO_LEN_OFFSET || line.substring(TODO_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
-        String todoDescription = line.substring(5);
+        String todoDescription = line.substring(TODO_SUBSTRING_OFFSET);
         addTask(new Todo(todoDescription));
         printAddedTodo(todoDescription);
     }
 
     public static void addDeadline(String line) throws DukeMissingDescException, DukeMissingParamException {
-        if (line.length() == 8 || line.substring(9).isBlank()) {
+        if (line.length() == DEADLINE_LEN_OFFSET || line.substring(DEADLINE_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
 
         int posOfBy = line.indexOf("/by");
-        if (posOfBy == -1) { // throw error if missing /by parameter
+        // throw error if missing /by parameter
+        if (posOfBy == -1) {
             throw new DukeMissingParamException();
         }
+
         int posOfLastChar = line.length();
-        String deadlineDescription = line.substring(DEADLINE_DESC_OFFSET, posOfBy); // get description from input
-        String deadlineBy = line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar); // get deadline when from input
+
+        // get description from input
+        String deadlineDescription = line.substring(DEADLINE_DESC_OFFSET, posOfBy);
+
+        // get deadline when from input
+        String deadlineBy = line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar);
+
         addTask(new Deadline(deadlineDescription, deadlineBy));
         printAddedDeadline(deadlineDescription, deadlineBy);
     }
 
     public static void addEvent(String line) throws DukeMissingDescException, DukeMissingParamException {
-        if (line.length() == 5 || line.substring(6).isBlank()) {
+        if (line.length() == EVENT_LEN_OFFSET || line.substring(EVENT_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
 
         int posOfAt = line.indexOf("/at");
-        if (posOfAt == -1) { // throw error if missing /at parameter
+
+        // throw error if missing /at parameter
+        if (posOfAt == -1) {
             throw new DukeMissingParamException();
         }
+
         int posOfLastChar = line.length();
-        String eventDescription = line.substring(EVENT_DESC_OFFSET, posOfAt); // get description from input
-        String eventAt = line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar); // get event when from input
+
+        // get description from input
+        String eventDescription = line.substring(EVENT_DESC_OFFSET, posOfAt);
+
+        // get event when from input
+        String eventAt = line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar);
+
         addTask(new Event(eventDescription, eventAt));
         printAddedEvent(eventDescription, eventAt);
     }
 
-    public static void folderInit() {
+    public static void initFolder() {
         File directory = new File(DIRECTORY_NAME);
         if (!directory.exists()) {
             directory.mkdir();
@@ -229,7 +255,7 @@ public class Duke {
         }
     }
 
-    public static void saveFileInit() throws FileNotFoundException{
+    public static void initSaveFile() throws FileNotFoundException{
         File f = new File(FILE_PATH);
         Scanner saveFile = new Scanner(f);
         int addCounter = 0;
@@ -275,13 +301,21 @@ public class Duke {
     }
 
     public static void processInputs(Scanner in, String line) {
-        // while input is not "bye", keep taking inputs.
-        while (!line.equals("bye")) {
-            if (line.equals("list")) { // print List when "list" command
+        boolean isListCommand = line.equals("list");
+        boolean isHelpCommand = line.equals("@help");
+        boolean isDoneCommand = line.equals("done");
+        boolean isDeleteCommand = line.equals("delete");
+        boolean isTodoCommand = line.equals("todo");
+        boolean isDeadlineCommand = line.equals("deadline");
+        boolean isEventCommand = line.equals("event");
+
+        // while input is not "exit", keep taking inputs.
+        while (!line.equals("exit")) {
+            if (isListCommand) {
                 printList();
-            } else if (line.equals ("@help")) { // print help commands when "@help" command
+            } else if (isHelpCommand) {
                 printHelp();
-            } else if (line.contains("done")) { // mark task as Done when "done" command
+            } else if (isDoneCommand) {
                 try {
                     int taskNum = filterTaskNum(line);
                     markTaskDone(taskNum);
@@ -292,7 +326,7 @@ public class Duke {
                 catch (NumberFormatException e) {
                     System.out.println(DONE_WORD);
                 }
-            } else if (line.contains("delete")) { // delete task when "delete" command
+            } else if (isDeleteCommand) {
                 try {
                     int taskNum = filterTaskNum(line);
                     deleteTask(taskNum);
@@ -306,16 +340,18 @@ public class Duke {
                 catch (IndexOutOfBoundsException e) {
                     System.out.println(DELETE_INVALID_NUM);
                 }
-            } else if (line.contains("todo")) { // add a todo when "todo" command
+            } else if (isTodoCommand) {
                 try {
-                    addTodo(line); // adds todo and prints
+                    // adds todo and prints success message
+                    addTodo(line);
                 }
                 catch (DukeMissingDescException e) {
                     System.out.println(TODO_EMPTY);
                 }
-            } else if (line.contains("deadline")) { // add a deadline when "deadline" command
+            } else if (isDeadlineCommand) {
                 try {
-                    addDeadline(line); // adds deadline and prints
+                    // adds deadline and prints success message
+                    addDeadline(line);
                 }
                 catch (DukeMissingDescException e) {
                     System.out.println(DEADLINE_EMPTY);
@@ -323,9 +359,10 @@ public class Duke {
                 catch (DukeMissingParamException e) {
                     System.out.println(DEADLINE_MISSINGPARAM);
                 }
-            } else if (line.contains("event")) { // add an event
+            } else if (isEventCommand) {
                 try {
-                    addEvent(line); // adds event and prints
+                    // adds event and prints success message
+                    addEvent(line);
                 }
                 catch (DukeMissingDescException e) {
                     System.out.println(EVENT_EMPTY);
@@ -333,7 +370,8 @@ public class Duke {
                 catch (DukeMissingParamException e) {
                     System.out.println(EVENT_MISSINGPARAM);
                 }
-            } else { // throw error when no commands are found in input
+            } else {
+                // throw error when no commands are found in input
                 System.out.println(UNKNOWN_COMMAND);
             }
             line = in.nextLine();
@@ -342,9 +380,9 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         // initialize input
-        folderInit();
+        initFolder();
         try {
-            saveFileInit();
+            initSaveFile();
         } catch (FileNotFoundException e) {
             File f = new File(FILE_PATH);
             f.createNewFile();
