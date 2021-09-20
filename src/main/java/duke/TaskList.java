@@ -23,7 +23,11 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-        return tasks.get(index);
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException ex) {
+            throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
+        }
     }
 
     public void addTask(Task task) {
@@ -31,7 +35,7 @@ public class TaskList {
     }
 
     public Task doneTask(int taskIndex) {
-        Task task = tasks.get(taskIndex);
+        Task task = getTask(taskIndex);
         task.setDone();
         return task;
     }
@@ -39,8 +43,6 @@ public class TaskList {
     public Task deleteTask(int taskIndex) {
         try {
             return tasks.remove(taskIndex);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            throw new ArrayIndexOutOfBoundsException("☹ OOPS!!! The format for 'delete' is 'delete <task number>'");
         } catch (IndexOutOfBoundsException ex) {
             throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
         }

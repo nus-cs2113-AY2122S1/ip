@@ -1,6 +1,12 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.AddCommand;
+import duke.commands.ListCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.ExitCommand;
+import duke.commands.CommandType;
+import duke.commands.Command;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeException;
 import duke.exceptions.IncompleteInformationException;
@@ -29,7 +35,7 @@ public abstract class Parser {
         try {
             return Integer.parseInt(request.split(" ")[1]) - 1;
         } catch (Exception e){
-            throw new NumberFormatException("Sorry that's not a integer I can read!");
+            throw new NumberFormatException("Sorry there's no integer I can read!");
         }
     }
 
