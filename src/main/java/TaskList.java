@@ -1,17 +1,19 @@
 import exceptions.*;
 import tasks.*;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.stream.Collectors;
-import java.time.temporal.ChronoUnit;
+
 
 
 public class TaskList {
     public static final int SLASH_INDEX_DEADLINE = 8;
     public static final int SLASH_INDEX_EVENT = 5;
+    public static final String TODO_VALID = "\t- todo Read book";
+    public static final String EVENT_VALID = "\t- event Book club /at 2021/09/20 1400";
+    public static final String DEADLINE_VALID = "\t- deadline Return book /by 2021/09/24 1600";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
@@ -19,9 +21,9 @@ public class TaskList {
         Duke.printLine();
         System.out.println("\tHey bud, the command you printed is invalid.");
         System.out.println("\tHere's some examples of valid commands:");
-        System.out.println("\t- todo Read book");
-        System.out.println("\t- event Book club /at Monday 2pm");
-        System.out.println("\t- deadline Return book /by Friday");
+        System.out.println(TODO_VALID);
+        System.out.println(EVENT_VALID);
+        System.out.println(DEADLINE_VALID);
         Duke.printLine();
     }
 
@@ -34,7 +36,7 @@ public class TaskList {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
             System.out.println("\tA todo can't be empty. Here's a valid example:");
-            System.out.println("\t- todo Read book");
+            System.out.println(TODO_VALID);
             Duke.printLine();
         }
 
@@ -71,14 +73,14 @@ public class TaskList {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
             System.out.println("\tDeadline commands require a slash. Here's a valid example:");
-            System.out.println("\t- deadline Return book /by Friday");
+            System.out.println(DEADLINE_VALID);
             Duke.printLine();
         } catch (DeadlineEmptyException e) {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
             System.out.println("\tThe description or deadline of a deadline command can't be empty. " +
                     "Here's a valid example: ");
-            System.out.println("\t- deadline Return book /by Friday");
+            System.out.println(DEADLINE_VALID);
             Duke.printLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,14 +126,14 @@ public class TaskList {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
             System.out.println("\tEvent commands require a slash. Here's a valid example:");
-            System.out.println("\t- deadline Return book /by Friday");
+            System.out.println(EVENT_VALID);
             Duke.printLine();
         } catch (EventEmptyException e) {
             Duke.printLine();
             System.out.println("\tHey bud, the command you printed is invalid.");
             System.out.println("\tThe description or event time of a event command can't be empty. " +
                     "Here's a valid example: ");
-            System.out.println("\t- deadline Return book /by Friday");
+            System.out.println(EVENT_VALID);
             Duke.printLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -227,6 +229,7 @@ public class TaskList {
         Duke.printLine();
         tasks.remove(index);
         Storage.deleteEntry(index);
+        taskCount -= 1;
     }
 
     public static void filterDates(String content) {
@@ -235,6 +238,7 @@ public class TaskList {
         ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
                 .filter((t) -> t instanceof Deadline || t instanceof Event)
                 .filter((t) -> Task.getDate(t).equals(ld))
+                .sorted(Comparator.comparing(Task::getTime))
                 .collect(Collectors.toList());
 
         Duke.printLine();
@@ -243,6 +247,7 @@ public class TaskList {
             int i = 1;
             for (Task t : filteredList) {
                 System.out.println("\t" + i + ". " + t.toString());
+                i += 1;
             }
         } else {
             System.out.println("\tNo tasks set for " + ld + ".");

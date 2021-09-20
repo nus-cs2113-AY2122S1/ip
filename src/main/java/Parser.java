@@ -42,7 +42,10 @@ public class Parser {
                 Duke.printLine();
             } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
                 Duke.printLine();
-                System.out.println("\tThis is not a valid date.");
+                System.out.println("\tThis is not a valid date and time. " +
+                        "Deadline and Event tasks require" + System.lineSeparator() +
+                        "\tdate and time (24hr format) in the following format: ");
+                System.out.println("\tyyyy/mm/dd hhmm");
                 Duke.printLine();
             }
             line = Ui.getLine(in);

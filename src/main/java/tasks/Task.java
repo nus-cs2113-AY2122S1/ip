@@ -2,6 +2,7 @@ package tasks;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Task {
     protected String by;
@@ -15,9 +16,17 @@ public class Task {
 
     public static LocalDate getDate(Task task) {
         if (task instanceof Event) {
-            return ((Event) task).at;
+            return ((Event) task).date;
         } else if (task instanceof Deadline) {
-            return ((Deadline)task).by;
+            return ((Deadline)task).date;
+        } else return null;
+    }
+
+    public static LocalTime getTime(Task task) {
+        if (task instanceof Event) {
+            return ((Event) task).time;
+        } else if (task instanceof Deadline) {
+            return ((Deadline)task).time;
         } else return null;
     }
 
