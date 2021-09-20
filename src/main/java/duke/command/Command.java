@@ -13,6 +13,7 @@ public abstract class Command {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     protected static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number.";
 

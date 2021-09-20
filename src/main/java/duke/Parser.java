@@ -5,6 +5,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.task.Task;
 
@@ -32,6 +33,10 @@ public class Parser {
 
         case Command.COMMAND_DELETE:
             command = new DeleteCommand();
+            break;
+
+        case Command.COMMAND_FIND:
+            command = new FindCommand();
             break;
 
         case Command.COMMAND_TODO:

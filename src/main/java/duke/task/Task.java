@@ -19,6 +19,10 @@ public abstract class Task {
 
     public abstract String toFileString();
 
+    public String getDescription() {
+        return description;
+    }
+
     public boolean isDone() {
         return isDone;
     }
