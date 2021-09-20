@@ -4,8 +4,10 @@ public abstract class Task {
     public static final char TYPE_TODO = 'T';
     public static final char TYPE_DEADLINE = 'D';
     public static final char TYPE_EVENT = 'E';
-
     public static final String COLUMN_SEPARATOR = " | ";
+
+    public static final String DATETIME_FORMAT_INPUT = "dd/MM/yyyy HHmm";
+    public static final String DATETIME_FORMAT_OUTPUT = "dd MMM yyyy HHmm";
 
     protected String description;
     protected boolean isDone;
