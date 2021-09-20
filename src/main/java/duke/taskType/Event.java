@@ -17,8 +17,7 @@ public class Event extends Task {
      * Event constructor creating object with attribute of the event task's
      * description and the time of occurence.
      *
-     * @param description which is the string of description about this todo
-     *                    task.
+     * @param description which is the string of description about this todo task.
      * @param at          Time of occurrence in the form of string.
      */
     public Event(String description, String at) {
@@ -46,7 +45,8 @@ public class Event extends Task {
         String time = at.split(" ")[1];
         String formattedDateTime = date + "T" + time;
         LocalDateTime dt = LocalDateTime.parse(formattedDateTime);
-        String newAt = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.getHour() + ":" + dt.getMinute();
+        DateTimeFormatter formatTimeNow = DateTimeFormatter.ofPattern("HH:mm a");
+        String newAt = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.format(formatTimeNow);
 
         return "[E]" + super.toString() + "(at: " + newAt + ")";
     }
