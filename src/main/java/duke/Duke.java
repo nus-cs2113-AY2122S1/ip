@@ -1,44 +1,49 @@
 package duke;
 
+import duke.command.Command;
+import duke.parser.Parser;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Task;
+import duke.storage.TaskList;
+import duke.text.Text;
+import duke.ui.Ui;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+public class Duke extends Text {
+    private TaskList taskList;
+    private final Storage storage;
+    private final Ui ui;
 
-public class Duke extends DukeMethods {
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
 
-    public static void main(String[] args) {
-        String userCommand; //store user input
-        ArrayList<Task> taskList = new ArrayList<>(); //store all the task from user input
-        printIntroduction();
-
-        Scanner in = new Scanner(System.in);
-        userCommand = in.nextLine(); //user input
-
-        Storage.openFile(taskList);
-        while (!userCommand.equalsIgnoreCase("bye")) { //exit command is bye
-            if (userCommand.equalsIgnoreCase("list")) { //prints list of task
-                printList(taskList);
-            }
-            else if (userCommand.equalsIgnoreCase("help")) {
-                printHelpList();
-            }
-            else if (userCommand.toLowerCase().contains("done ")) { //check user input to see if task completed
-                markCompletedTask(userCommand, taskList);
-            }
-            else if (isValid(userCommand.toLowerCase())){
-                addAndPrintTask(userCommand, taskList);
-            }
-            else if (userCommand.contains("delete ")) {
-                deleteAndPrintTask(userCommand, taskList);
-            }
-            else {
-                printUnknownCommandMessage();
-            }
-            Storage.saveFile(taskList);
-            userCommand = in.nextLine();
+        try {
+            taskList = new TaskList(storage.openFile());
+        } catch (DukeException e) {
+            Ui.printWithLine(e.getMessage());
+            taskList = new TaskList();
         }
-        printBye();
+    }
+
+    public void run() {
+        Parser parseCommands = new Parser(taskList, ui, storage);
+        ui.printIntroduction();
+        String userInput = ui.getUserCommand();
+
+        Command userCommand;
+        while (true) {
+            try {
+                userCommand = parseCommands.parseCommand(userInput);
+                userCommand.executed();
+                storage.saveFile(taskList);
+            } catch (DukeException e) {
+                Ui.printWithLine(e.getMessage());
+            }
+            userInput = ui.getUserCommand();
+        }
+    }
+
+    public static void main (String[] args) {
+        new Duke(FILE_PATH).run();
     }
 }

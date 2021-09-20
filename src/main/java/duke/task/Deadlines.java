@@ -2,20 +2,20 @@ package duke.task;
 
 public class Deadlines extends Task {
 
-    protected String by;
+    private final String byWhen;
 
     public Deadlines(String taskName, String by) {
         super(taskName);
-        this.by = by;
+        this.byWhen = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + byWhen + ")";
     }
 
     @Override
     public String storageText () {
-        return "D" + super.storageText() + "|" + by;
+        return "D" + super.storageText() + "|" + byWhen;
     }
 }

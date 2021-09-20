@@ -2,20 +2,20 @@ package duke.task;
 
 public class Events extends Task {
 
-    protected String at;
+    private final String atWhen;
 
     public Events(String taskName, String at) {
         super(taskName);
-        this.at = at;
+        this.atWhen = at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + atWhen + ")";
     }
 
     @Override
     public String storageText () {
-        return "E" + super.storageText() + "|" + at;
+        return "E" + super.storageText() + "|" + atWhen;
     }
 }

@@ -13,13 +13,22 @@ delete 5
 list
 todo eat dinner
 todo
-done 1 2
+done 1
+done 2
 list
 done 7
-done 5 a
+done 5
+delete 5
+delete 4
+delete 3
 list
 todo running
+delete 1
 event
 event meeting /at saturday 11am
+delete 4
+delete 3
 list
+delete 2
+delete 1
 bye
