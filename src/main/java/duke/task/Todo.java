@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Subclass of {@code Task} which represents a daily todo with no extra attributes.
+ */
 public class Todo extends Task {
     protected final String TASK_TYPE = "T";
 

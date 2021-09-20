@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Parent class of {@code Todo}, {@code Event} and {@code Deadline}.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
