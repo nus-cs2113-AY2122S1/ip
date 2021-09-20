@@ -161,15 +161,12 @@ public class TaskManager {
      *
      * @param isCompleted Task completion status.
      * @param savedTaskInformation Task details that were saved.
+     * @throws DukeTaskNameEmptyException If saved task does not have a name.
      */
-    public void addSavedTodoTask(Boolean isCompleted, String savedTaskInformation) {
-        try {
-            allTasks.add(new Todo(InputParser.getTaskName(savedTaskInformation)));
-            markSavedTaskAsCompleted(isCompleted);
-            increaseTaskCount();
-        } catch (DukeTaskNameEmptyException e) {
-            Error.displayFileSavedTaskNameEmptyError();
-        }
+    public void addSavedTodoTask(Boolean isCompleted, String savedTaskInformation) throws DukeTaskNameEmptyException {
+        allTasks.add(new Todo(InputParser.getTaskName(savedTaskInformation)));
+        markSavedTaskAsCompleted(isCompleted);
+        increaseTaskCount();
     }
 
     /**

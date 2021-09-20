@@ -1,6 +1,7 @@
 package filemanager;
 
 import console.InputParser;
+import error.DukeTaskNameEmptyException;
 import error.Error;
 import task.TaskManager;
 import ui.Display;
@@ -45,7 +46,17 @@ public class TaskDecoder {
      * @param fileLine Single line of task data stored in the storage file.
      * @param taskManager TaskManager that stores the saved task data.
      */
-    public static void addSavedTask(String fileLine, TaskManager taskManager) {
+
+    /**
+     * Checks the task type and adds the corresponding task object into the TaskManager.
+     *
+     * @param fileLine Single line of task data stored in the storage file.
+     * @param taskManager TaskManager that stores the saved task data.
+     * @throws IndexOutOfBoundsException If saved task details is in the wrong format.
+     * @throws DukeTaskNameEmptyException If saved task does not have a name.
+     */
+    public static void addSavedTask(String fileLine, TaskManager taskManager) throws IndexOutOfBoundsException,
+            DukeTaskNameEmptyException {
         String[] taskComponents = InputParser.getCommandComponents(fileLine);
         String taskDetails = InputParser.getTaskDetails(taskComponents);
         boolean isDone = isTaskCompleted(taskComponents[TASK_CHECKBOXES_INDEX]);
@@ -75,6 +86,14 @@ public class TaskDecoder {
      */
     public static void parseFile(List<String> fileData, TaskManager taskManager) {
         fileData.stream()
-                .forEach((line) -> addSavedTask(line, taskManager));
+                    .forEach((line) -> {
+                        try {
+                            addSavedTask(line, taskManager);
+                        } catch (IndexOutOfBoundsException e) {
+                            Error.displayFileSavedTaskFormatError();
+                        } catch (DukeTaskNameEmptyException e) {
+                            Error.displayTaskNameEmptyError();
+                        }
+                    });
     }
 }
