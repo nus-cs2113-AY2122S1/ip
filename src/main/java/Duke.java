@@ -69,17 +69,12 @@ public class Duke {
     private static final String TASK_TODO_PREFIX = "Todo";
     private static final String TASK_DEADLINE_PREFIX = "Deadline";
     private static final String TASK_EVENT_PREFIX = "Event";
+    private static final String COMMAND_DELETE = "Delete";
 
     /**
      * Initializing Scanner variable to allow for reading User Inputs.
      */
     private static final Scanner SC = new Scanner(System.in);
-
-    /**
-     * Maximum number of Tasks for a user.
-     */
-    private static final String COMMAND_DELETE = "Delete";
-
 
     /**
      * These variables are responsible for the management of Tasks
@@ -162,7 +157,7 @@ public class Duke {
     }
 
     /**
-     * Gets the user input from I/O
+     * Returns the user input from I/O
      *
      * @return User Input
      */
@@ -232,19 +227,20 @@ public class Duke {
     }
 
     private static Task createSavedTask(String fileLine) {
-        String[] splitByDelimiter = fileLine.split("\\|\\|");
+        String[] tokens = fileLine.split("\\|\\|");
+        String taskType = tokens[0];
+        String taskName = tokens[2];
+        boolean isDone = Boolean.valueOf(tokens[1]);
         Task savedTask;
-        switch (splitByDelimiter[0]) {
+        switch (taskType) {
         case "D":
-            savedTask = new Deadline(splitByDelimiter[2],
-                    splitByDelimiter[3], Boolean.valueOf(splitByDelimiter[1]));
+            savedTask = new Deadline(taskName, isDone, tokens[3]);
             break;
         case "E":
-            savedTask = new Event(splitByDelimiter[2],
-                    splitByDelimiter[3], Boolean.valueOf(splitByDelimiter[1]));
+            savedTask = new Event(taskName, isDone, tokens[3]);
             break;
         default:
-            savedTask = new Todo(splitByDelimiter[2], Boolean.valueOf(splitByDelimiter[1]));
+            savedTask = new Todo(taskName, isDone);
         }
         return savedTask;
     }
