@@ -13,7 +13,7 @@ public class Duke {
         Ui.printGreetingMessage();
         String userInput;
         ArrayList<Task> list = new ArrayList<>();
-        DukeFileUtils.loadSaveData(list);
+        Storage.loadSaveData(list);
         Ui.printList(list);
         Scanner in = new Scanner(System.in);
 
@@ -25,27 +25,27 @@ public class Duke {
             try {
                 if (userInput.equalsIgnoreCase("bye")) {
                     Ui.printGoodbyeMessage();
-                    DukeFileUtils.saveToFile(list);
+                    Storage.saveToFile(list);
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
                     Ui.printList(list);
                 } else if (userInputLowerCase.startsWith("done")) {
                     markTasksAsDone(userInput, list);
-                    DukeFileUtils.saveToFile(list);
+                    Storage.saveToFile(list);
                 } else if (userInputLowerCase.startsWith("todo")) {
                     String description = extractDescription(userInput);
                     addTodo(description, list);
-                    DukeFileUtils.saveToFile(list);
+                    Storage.saveToFile(list);
                 } else if (userInputLowerCase.startsWith("deadline")) {
                     String description = extractDescription(userInput);
                     addDeadline(description, list);
-                    DukeFileUtils.saveToFile(list);
+                    Storage.saveToFile(list);
                 } else if (userInputLowerCase.startsWith("event")) {
                     String description = extractDescription(userInput);
                     addEvent(description, list);
                 } else if (userInputLowerCase.startsWith("delete")) {
                     deleteTask(userInputLowerCase, list);
-                    DukeFileUtils.saveToFile(list);
+                    Storage.saveToFile(list);
                 } else {
                     Ui.printHelpMessage();
                 }
