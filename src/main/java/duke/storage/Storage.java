@@ -5,6 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.task.TaskTimeManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +23,8 @@ public class Storage {
      * The fixed data path where the save data is to be stored at.
      */
     public static final String TASK_DATA_PATH = "data/tasks.txt";
+
+    private static final TaskTimeManager taskTimeManager = new TaskTimeManager();
 
     /**
      * Returns an ArrayList of tasks based on data read from the data storage file.
@@ -69,14 +72,14 @@ public class Storage {
                 break;
 
             case Deadline.SYMBOL:
-                taskList.add(new Deadline(data[2], data[3]));
+                taskList.add(new Deadline(data[2], taskTimeManager.parseDateTime(data[3])));
                 if (isTaskDone) {
                     taskList.get(Task.getTotalTasks() - 1).setDone(true);
                 }
                 break;
 
             case Event.SYMBOL:
-                taskList.add(new Event(data[2], data[3]));
+                taskList.add(new Event(data[2], taskTimeManager.parseDateTime(data[3])));
                 if (isTaskDone) {
                     taskList.get(Task.getTotalTasks() - 1).setDone(true);
                 }
