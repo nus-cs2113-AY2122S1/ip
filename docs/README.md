@@ -37,42 +37,55 @@ Otherwise, Duke may throw a warning.
 
 ### List all tasks
 Show a list of all tasks.
+
 ####format: `list`
 
 
 ###Complete a task
+
 User can set a task at specific index after he/she has completed it.
+
 ####format: `done <task index>`
 - The index refers to the index number in the list.
 - The index must be a positive number, and should not exceed the total number of tasks inside the list.
   Otherwise, Duke may throw a warning.
 
 ###Find some task(s)
+
 A user can search some task(s) containing certain keywords
+
 ####format: `find <keyword>`
 
 ###Sort tasks
+
 Tasks can be sorted based on emergency. Tasks have closer deadline will be put in front.
+
 ####format: `sort`
 
 ###Get help
+
 List all the commands format if users forget them
+
 ####format: `help`
 
 ###Exit
+
 Exit the program and automatically save all the tasks.
+
 ####format: `bye`
 
 ###Edit the data file
+
 Tasks data are saved as a `txt` file `[JAR File location]/UserStatus/[Username].txt`.
 Advanced users are welcome to update data directly by editing that data file.
----
-**Caution:**
 
-<span style="background-color:rgba(0, 0, 255, 0.0470588)">
+
+---
+<div style="background-color:#fff4d4">
+
+:exclamation:**Caution:**
+
 If your changes to the data file makes its format invalid,
 Duke will discard all data and start with an empty task list.
-</span>
-
-
 ---
+</div>
