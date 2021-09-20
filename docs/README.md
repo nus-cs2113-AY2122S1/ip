@@ -19,7 +19,7 @@ If you are someone who can type fast, Duke is the perfect application for you to
 - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
 - [Command Summary](#command-summary)
 
-##Quick Start
+## Quick Start
 
 1. Ensure **Java 11 or above** is installed on your computer.
 1. Download the latest `Duke.jar` from [here](https://github.com/theeugenechong/ip/releases).
