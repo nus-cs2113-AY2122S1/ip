@@ -51,23 +51,19 @@ public class Storage {
      * @param date     The date, if there is, of the task.
      * @return The task created. Null if task type is not recognized.
      */
-    private static Task createTask(int taskType, boolean isDone, String name, LocalDate date) {
+    private static Task createTask(String taskType, boolean isDone, String name, LocalDate date) {
         Task newTask;
         switch (taskType) {
-        case 0:
-            //Task type todo.
+        case "todo":
             newTask = new ToDo(name, isDone);
             break;
-        case 1:
-            //Task type Deadline.
+        case "deadline":
             newTask = new Deadline(name, isDone, date);
             break;
-        case 2:
-            //Task type event.
+        case "event":
             newTask = new Event(name, isDone, date);
             break;
         default:
-            //Error in task type.
             newTask = null;
             System.out.println("Error in task type.");
             break;
@@ -76,27 +72,22 @@ public class Storage {
     }
 
     /**
-     * Returns the integer corresponding to its task type, else -1.
-     * This function takes in a task-type in String
-     * and returns its corresponding integer value.
-     * Its corresponding task type to integers are,
-     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
+     * Returns true if taskType is one of valid
+     * type of task, else false.
      *
      * @param taskType The Task type in String.
-     * @return The value corresponding to its task type in integer. -1 if unknown.
+     * @return True if valid, false otherwise.
      */
-    public static int getTaskTypeInInt(String taskType) {
+    public static boolean checkIfValidTask(String taskType) {
         taskType = taskType.toLowerCase();
         switch (taskType) {
         case "todo":
-            return 0;
         case "deadline":
-            return 1;
         case "event":
-            return 2;
+            return true;
         default:
             System.out.println("Unknown Task Type!");
-            return -1;
+            return false;
         }
     }
 
@@ -136,8 +127,6 @@ public class Storage {
      * Returns the properties of a task in String, CSV format. Else, null.
      * If the function fails to convert the string into CSV,
      * it will return NULL instead.
-     * Its corresponding task type to integers are,
-     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
      *
      * @param curTask The Task to be converted.
      * @return The task's properties in CSV format, null otherwise.
@@ -147,16 +136,16 @@ public class Storage {
         String taskAsCsv = null;
         try {
             String type = curTask.getTaskType();
-            int taskTypeInt = getTaskTypeInInt(type);
-            if (taskTypeInt == -1) {
-                //If Invalid task int.
+            boolean isValidTask = checkIfValidTask(type);
+            if (!isValidTask) {
+                //If Invalid task.
                 throw new TaskToStringException();
             }
             String taskDescription = curTask.getTaskDescription();
             String unformattedDate = curTask.getDateTimeForStorage();
             Boolean taskStatus = curTask.getStatus();
             String statusAsString = (taskStatus) ? "1" : "0";
-            taskAsCsv = taskTypeInt + "," + statusAsString + "," + taskDescription + "," + unformattedDate;
+            taskAsCsv = type + "," + statusAsString + "," + taskDescription + "," + unformattedDate;
         } catch (TaskToStringException x) {
             System.out.println("Error in getting the task type!");
             return null;
@@ -197,22 +186,20 @@ public class Storage {
      * file but in an array format instead of CSV. It then
      * parses all the data to get the necessary information
      * to create a Task.
-     * Its corresponding task type to integers are,
-     * 0 - todo, 1 - deadline, 2 - event, -1 - unknown.
      *
      * @param curTaskString The array of the task's data from the dataFile.
      * @return The Task created according to the data in the array. Null otherwise.
      */
     private static Task getNewTask(String[] curTaskString) {
         try {
-            int taskType = Integer.parseInt(curTaskString[0]);
+            String taskType = curTaskString[0].toLowerCase();
             int statusInt = Integer.parseInt(curTaskString[1]);
-            Boolean isDone = statusInt >= 1;
-            Boolean isNotTodoTask = taskType != 0;
             String description = curTaskString[2];
             String dateInString = curTaskString[3];
+            boolean isDone = statusInt >= 1;
+            boolean isTodoTask = taskType.equals("todo");
             LocalDate date = Parser.getInDateFormat(dateInString);
-            if (date == null && isNotTodoTask) {
+            if (date == null && !isTodoTask) {
                 System.out.println("Unable to Parse date.");
                 return null;
             }
