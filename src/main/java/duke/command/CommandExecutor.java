@@ -13,7 +13,7 @@ import duke.exception.InvalidCommandFormatException;
 import java.util.ArrayList;
 
 /**
- * Processes user input to determine the command entered by the user.
+ * Processes user input to determine the full user input string.
  * The command is then executed by calling the appropriate method.
  */
 public class CommandExecutor {
@@ -22,7 +22,7 @@ public class CommandExecutor {
      * Uses the help of {@code Parser} to determine the {@code CommandWord} from user input.
      * Based on the {@code CommandWord} returned, the appropriate method is called to execute the command.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList {@code TaskList} on which the commands are executed
      * @param dataManager {@code DataManager} which handles the changes made to the tasks
      */
@@ -68,7 +68,7 @@ public class CommandExecutor {
      * Determines if the user input is a {@code bye} command.
      * If it is a {@code bye} command, the loop in the main class terminates, resulting in termination of the program.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @return true if the user input is a {@code bye} command, false otherwise
      */
      public boolean isExit(String userInput) {
@@ -96,7 +96,7 @@ public class CommandExecutor {
      * An error message is printed if the task ID entered by the user is non-numeric, lacking from the command
      * or not in the task list.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList  {@code TaskList} containing the task to be mark done
      * @param dataManager {@code DataManager} which saves the updated done status of the task to Duke's storage file
      */
@@ -114,7 +114,7 @@ public class CommandExecutor {
      * Executes the addition of a {@code Todo} to {@code taskList} by passing the user input to it.
      * An error message is printed if the user input lacks the description of the {@code Todo}
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList {@code TaskList} where the todo is to be added to
      * @param dataManager {@code DataManager} which saves the new {@code Todo} to Duke's storage
      */
@@ -132,7 +132,7 @@ public class CommandExecutor {
      * An error message is also printed if the date and time entered do not follow the format dd-MM-yyyy HH:mm or
      * if an invalid date and time is entered.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList {@code TaskList} where the deadline is to be added to
      * @param dataManager {@code DataManager} which saves the new deadline to Duke's storage
      */
@@ -152,7 +152,7 @@ public class CommandExecutor {
      * An error message is also printed if the date and time entered do not follow the format dd-MM-yyyy HH:mm or
      * if an invalid date and time is entered.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList {@code TaskList} where the event is to be added to
      * @param dataManager {@code DataManager} which saves the new event to Duke's storage
      */
@@ -171,7 +171,7 @@ public class CommandExecutor {
      * An error message is printed if the task ID entered by the user is non-numeric, lacking from the command
      * or not in the task list.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList {@code TaskList} containing the task to be deleted
      * @param dataManager {@code DataManager} which removes the deleted task from Duke's storage
      */
@@ -189,7 +189,7 @@ public class CommandExecutor {
      * Executes find by creating a list with the tasks containing the keyword and printing the list.
      * {@code userInput} is parsed to extract the keyword (or query) and the query is searched for in {@code taskList}.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param taskList task list to be searched
      */
     public void executeFind(String userInput, TaskList taskList) {

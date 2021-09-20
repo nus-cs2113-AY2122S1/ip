@@ -56,7 +56,7 @@ public class TaskList {
      * Parses {@code userInput} to obtain a {@code Todo} object to add to the task list.
      * The {@code Todo} is added to the task list. An error message is printed if the todo is lacking a description.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param dataManager {@code DataManager} which saves the new {@code Todo} to Duke's storage
      * @throws InvalidCommandFormatException if todo is lacking description
      */
@@ -77,7 +77,7 @@ public class TaskList {
      * description or a date and time. An error message is also printed if the date and time do not follow the format
      * dd-MM-yyyy HH:mm or if an invalid date and time is entered.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param dataManager {@code DataManager} which saves the new {@code Deadline} to Duke's storage
      * @throws InvalidCommandFormatException if the deadline is lacking either a description or a date and time
      * @throws InvalidDateTimeException if the date and time do not follow the correct format or if an invalid date
@@ -102,7 +102,7 @@ public class TaskList {
      * description or a date and time. An error message is also printed if the date and time do not follow the format
      * dd-MM-yyyy HH:mm or if an invalid date and time is entered.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param dataManager {@code DataManager} which saves the new {@code Event} to Duke's storage
      * @throws InvalidCommandFormatException if the event is lacking either a description or a date and time
      * @throws InvalidDateTimeException if the date and time do not follow the correct format or if an invalid date
