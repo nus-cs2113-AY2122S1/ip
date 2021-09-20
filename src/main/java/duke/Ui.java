@@ -58,7 +58,7 @@ public class Ui {
     }
 
     public static void printGoodbyeMessage() {
-        System.out.println(HORIZONTAL_LINE + GOODBYE_MESSAGE + HORIZONTAL_LINE);
+        System.out.print(HORIZONTAL_LINE + GOODBYE_MESSAGE + HORIZONTAL_LINE);
     }
 
     public static void printHelpMessage() {
