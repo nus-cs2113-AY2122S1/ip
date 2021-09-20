@@ -52,18 +52,16 @@ public class TaskManager {
     }
 
     public static int getTasklistSize() {
-        return taskNo;
+        return tasks.size();
     }
 
-    public static Task[] getTasklist() {
+    public static ArrayList<Task> getTasklist() {
         return tasks;
     }
 
-    public static void deleteTask(int taskNo) {
+    public static Task deleteTask(int taskNo) {
         Task task = tasks.remove(taskNo);
-
-        System.out.println("Noted. I've removed this task:");
-        System.out.printf("   %s\n", task);
-        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+        Storage.exportData();
+        return task;
     }
 }
