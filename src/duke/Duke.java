@@ -24,7 +24,8 @@ public class Duke {
     public static final String INVALID_INDEX = "Please enter a valid task number";
     public static final String INVALID_DESCRIPTION = "Please enter a valid description";
     public static final String SEPARATOR_SPACE = " ";
-    public static final String CASE_DELETE = "delete";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     public static void main(String[] args) {
         System.out.println(WELCOME_MESSAGE);
@@ -52,8 +53,11 @@ public class Duke {
                 case COMMAND_TODO:
                     duke.addToDo(inputs[1]);
                     break;
-                case CASE_DELETE:
+                case COMMAND_DELETE:
                     duke.deleteTask(inputs[1]);
+                    break;
+                case COMMAND_FIND:
+                    duke.findTask(inputs[1]);
                     break;
                 default:
                     throw new InvalidCommandException();
