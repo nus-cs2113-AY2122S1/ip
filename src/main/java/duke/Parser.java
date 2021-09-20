@@ -127,4 +127,8 @@ public class Parser {
         return dateTime;
     }
     // @@author
+
+    public static String stringifyDateTime(LocalDateTime input) {
+        return input.format(DateTimeFormatter.ofPattern(dateTimeFormat));
+    }
 }
