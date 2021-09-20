@@ -1,6 +1,6 @@
 # Duke User Guide
 
-Duke is an application designed to help users **manage their tasks via a Command Line Interface (CLI**).
+Duke is an application designed to help users **manage their tasks via a Command Line Interface (CLI)**.
 
 ## Quick Start
 
@@ -55,7 +55,7 @@ result in the execution of the command.
 4. Tasks are displayed in the following format:
     * `[TASK_TYPE][DONE_STATUS] TASK_DESCRIPTION (TASK_DATE)` where:
        * `TASK_TYPE` is `T`, `D`, or `E` representing ToDo, Deadline, and Event respectively.
-       * `DONE_STATUS` is `X` if the task is marked as done, or ` ` otherwise.
+       * `DONE_STATUS` is `X` if the task is marked as done, or is empty otherwise.
        * `TASK_DESCRIPTION` is the description of the task when it was added.
        * `TASK_DATE` is either the deadline or the event date and time (Not applicable to ToDo).
 
@@ -118,7 +118,7 @@ ____________________________________________________________
 Adds a task to the list as an event with its associated date and time.
 
 Format of command: `event TASK_DESCRIPTION /at DATE_AND_TIME`
-* `TASK_DESCRIPTION` and `DATE_AND_TIME` must not be empty, otherwise the task will not e added.
+* `TASK_DESCRIPTION` and `DATE_AND_TIME` must not be empty, otherwise the task will not be added.
 * `/at` is required in the user input
 * `DATE_AND_TIME` needs to have the format `yyyy-mm-ddThh:MM`, otherwise the task will not be added where:
     * `yyyy` represents the four-digit year
@@ -362,7 +362,7 @@ ____________________________________________________________
 ## Data Storage
 
 Duke automatically saves the list of tasks to a text file after every command. This means that
-users can recover their task list even after exiting and starting Duke again.
+users can recover their task list even after restarting Duke.
 
 ### Editing the data file
 
