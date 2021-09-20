@@ -45,6 +45,9 @@ public class Herrekt {
                     int taskNumber = parser.parseDeleteInputToInt(phrase);
                     ui.printTaskDeleted(taskNumber, tasks);
                     tasks.delete(taskNumber);
+                } else if (phrase.contains("find")) {
+                    String phraseToSearch = parser.parseSearchInputToString(phrase);
+                    ui.printMatchingTaskList(new TaskList(tasks.search(phraseToSearch)));
                 } else {
                     isInputValid(phrase);
                     Task task = parser.parsePhraseToTask(phrase);

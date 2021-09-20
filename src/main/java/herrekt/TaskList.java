@@ -59,4 +59,32 @@ public class TaskList {
         return toSaveToFile;
     }
 
+    public List<Task> search(String phrase) {
+        List<Task> results = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(phrase)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder toReturn = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (i == tasks.size() - 1) {
+                toReturn.append(i + 1)
+                        .append(". ")
+                        .append(tasks.get(i).toString());
+                break;
+            }
+            toReturn.append(i + 1)
+                    .append(". ")
+                    .append(tasks.get(i).toString())
+                    .append("\n");
+        }
+        return toReturn.toString();
+    }
+
 }

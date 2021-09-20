@@ -41,6 +41,10 @@ public class Parser {
         return task;
     }
 
+    public String parseSearchInputToString(String phrase) {
+        return phrase.substring(5);
+    }
+
     public static boolean containsDate(String phrase) {
         Matcher matcher = Pattern.compile(DATE_REGEX).matcher(phrase);
         return matcher.find();
@@ -60,5 +64,4 @@ public class Parser {
     public boolean containsDateAndTime(String phrase) {
         return Pattern.compile(DATE_AND_TIME_REGEX).matcher(phrase).find();
     }
-
 }
