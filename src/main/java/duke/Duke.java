@@ -108,21 +108,6 @@ public class Duke {
     }
 
     /**
-     * Splits user input string into command and argument.
-     *
-     * @param input The user input string.
-     * @return String array: [0] - Command, [1] - argument.
-     */
-    private static String[] getCommandAndArgument(String input) {
-        String[] result = input.trim().split("\\s+", 2);
-        if (result.length != 2) {
-            return new String[]{result[0], ""};
-        }
-
-        return result;
-    }
-
-    /**
      * Executes the list command. Print tasks in the list.
      */
     private static void executeListCommand() {
@@ -172,24 +157,6 @@ public class Duke {
     }
 
     /**
-     * Gets the task description and argument.
-     *
-     * @param argument The argument from getCommandAndArgument(<string>).
-     * @param splitString The string to split at.
-     * @return String array: [0] - Description, [1] - Argument Value.
-     */
-    private static String[] getTaskDescriptionAndArg(String argument, String splitString) {
-        String[] argSplit = argument.split(splitString, 2);
-        argSplit[0] = argSplit[0].trim();
-        if (argSplit.length == 2) {
-            argSplit[1] = argSplit[1].trim();
-            return argSplit;
-        }
-
-        return new String[]{argSplit[0], ""};
-    }
-
-    /**
      * Executes the add task command. Adds a task depending on type.
      *
      * @param argument The argument from getCommandAndArgument(<string>).
@@ -208,7 +175,7 @@ public class Duke {
             break;
 
         case Task.TYPE_DEADLINE:
-            descriptionAndArg = getTaskDescriptionAndArg(argument, TASK_DEADLINE_SPLITTER);
+            descriptionAndArg = Parser.getTaskDescriptionAndArg(argument, TASK_DEADLINE_SPLITTER);
             if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
                 throw new DukeException(String.format(MESSAGE_FORMAT_DEADLINE_USAGE, COMMAND_DEADLINE, TASK_DEADLINE_SPLITTER));
             }
@@ -216,7 +183,7 @@ public class Duke {
             break;
 
         case Task.TYPE_EVENT:
-            descriptionAndArg = getTaskDescriptionAndArg(argument, TASK_EVENT_SPLITTER);
+            descriptionAndArg = Parser.getTaskDescriptionAndArg(argument, TASK_EVENT_SPLITTER);
             if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
                 throw new DukeException(String.format(MESSAGE_FORMAT_EVENT_USAGE, COMMAND_EVENT, TASK_EVENT_SPLITTER));
             }
@@ -433,9 +400,9 @@ public class Duke {
         boolean isRunning = true;
         do {
             String input = getUserInput();
-            String[] commandAndArgument = getCommandAndArgument(input);
-            String command = commandAndArgument[0];
-            String argument = commandAndArgument[1];
+            Parser parser = new Parser(input);
+            String command = parser.getCommand();
+            String argument = parser.getArgument();
 
             if (command.equals(COMMAND_BYE)) {
                 isRunning = false;
