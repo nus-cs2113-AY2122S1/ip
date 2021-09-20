@@ -51,7 +51,8 @@ public class Parser {
             if (!description.contains("/by")) {
                 throw new DukeException(Ui.getHorizontalLine() +
                         "Am I supposed to guess when your deadline is???\n" +
-                        "TIP: Use \"/by\" to do so!");
+                        "TIP: Use \"/by\" to do so!\n" +
+                        Ui.getHorizontalLine());
             }
             separated = description.split("/by +");
             break;
@@ -59,7 +60,8 @@ public class Parser {
             if (!description.contains("/at")) {
                 throw new DukeException(Ui.getHorizontalLine() +
                         "Am I supposed to guess when your event is happening???\n" +
-                        "TIP: Use \"/at\" to do so!");
+                        "TIP: Use \"/at\" to do so!\n" +
+                        Ui.getHorizontalLine());
             }
             separated = description.split("/at +");
             break;
