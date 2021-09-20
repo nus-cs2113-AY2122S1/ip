@@ -34,20 +34,16 @@ public class TaskList {
      * Marks the task with the task ID in {@code taskList} as done. An error message is printed if task ID entered by
      * the user is non-numeric, lacking from the command or not in the task list.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param dataManager {@code DataManager} which saves the updated done status of the task to Duke's storage file
-     * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command or not in the task list
+     * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command
+     * @throws IndexOutOfBoundsException if task ID is not in the task list
      */
-    public void markTaskDone(String userInput, DataManager dataManager) throws InvalidCommandFormatException {
+    public void markTaskDone(String userInput, DataManager dataManager) throws InvalidCommandFormatException, IndexOutOfBoundsException {
         try {
-            String[] doneSentence = Parser.parseDoneCommand(userInput);
-
-            /* "- 1" to convert from 1-based to 0-based indexing */
-            int indexOfTaskToMarkDone = Integer.parseInt(doneSentence[1]) - 1;
+            int indexOfTaskToMarkDone = Parser.parseDoneCommand(userInput);
             taskList.get(indexOfTaskToMarkDone).setDone(true);
             Ui.printTaskMarkedDoneMessage(taskList.get(indexOfTaskToMarkDone));
-
-            /* Saves taskList to storage file as the done status of the task has been updated */
             dataManager.saveData(taskList);
         } catch (InvalidCommandFormatException | NumberFormatException fe) {
             throw new InvalidCommandFormatException();
@@ -130,20 +126,16 @@ public class TaskList {
      * Deletes the task with the task ID in {@code taskList}. An error message is printed if task ID entered by
      * the user is non-numeric, lacking from the command or not in the task list.
      *
-     * @param userInput command entered by the user
+     * @param userInput full user input string
      * @param dataManager {@code DataManager} which saves the updated task list to Duke's storage file
-     * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command or not in the task list
+     * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command
+     * @throws IndexOutOfBoundsException if task ID is not in the task list
      */
-    public void deleteTask(String userInput, DataManager dataManager) throws InvalidCommandFormatException {
+    public void deleteTask(String userInput, DataManager dataManager) throws InvalidCommandFormatException, IndexOutOfBoundsException {
         try {
-            String[] deleteSentence = Parser.parseDeleteCommand(userInput);
-
-            /* "- 1" to convert from 1-based to 0-based indexing */
-            int indexOfTaskToDelete = Integer.parseInt(deleteSentence[1]) - 1;
+            int indexOfTaskToDelete = Parser.parseDeleteCommand(userInput);
             Ui.printTaskDeletedMessage(taskList.get(indexOfTaskToDelete), taskList.size());
             taskList.remove(taskList.get(indexOfTaskToDelete));
-
-            /* Saves taskList to storage file as a task has been deleted */
             dataManager.saveData(taskList);
         } catch (InvalidCommandFormatException | NumberFormatException fe) {
             throw new InvalidCommandFormatException();
