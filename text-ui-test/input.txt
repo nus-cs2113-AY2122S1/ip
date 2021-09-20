@@ -13,4 +13,6 @@ deadline assignment
 deadline assignment /by
 delete 3
 deadline assignment /by 06-08-2021 1830
+list
+find borrow
 bye
