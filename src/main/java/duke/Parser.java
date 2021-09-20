@@ -23,6 +23,8 @@ public class Parser {
             return Command.ADD_EVENT;
         case "delete":
             return Command.DELETE;
+        case "find":
+            return Command.FIND; 
         default:
             return Command.UNKNOWN;
         }
