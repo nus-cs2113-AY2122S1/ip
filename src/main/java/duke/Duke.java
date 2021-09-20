@@ -1,4 +1,10 @@
-import java.util.Locale;
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -7,7 +13,7 @@ public class Duke {
     public static final String INDENT = "    │ ";
     private static int taskCount = 0;
     private static int taskCompleted = 0;
-    private static final Task list[] = new Task[MAX_RECORDS];
+    private static final Task words[] = new Task[MAX_RECORDS];
 
     public static void main(String[] args) {
         greetUser();
@@ -16,64 +22,35 @@ public class Duke {
     }
 
     /**
-     * Prints the top horizontal line to demarcate text from Tired.
-     */
-    public static void printTopLine() {
-        System.out.println("    ┌────────────────────────────────────────────────────────────────────┐");
-    }
-
-    /**
-     * Prints the bottom horizontal line to demarcate text from Tired.
-     */
-    public static void printBottomLine() {
-        System.out.println("    └────────────────────────────────────────────────────────────────────┘");
-    }
-
-    /**
-     * Prints logo of Tired
-     */
-    public static void printLogo() {
-        // Generated with: https://patorjk.com/software/taag/
-        String logo = "         ______       __     __                 __\n"
-                + "        / ____/___   / /_   / /   ____   _____ / /_\n"
-                + "       / / __ / _ \\ / __/  / /   / __ \\ / ___// __/\n"
-                + "      / /_/ //  __// /_   / /___/ /_/ /(__  )/ /_  \n"
-                + "      \\____/ \\___/ \\__/  /_____/\\____//____/ \\__/\n"
-                + "            ┌─┐┬  ┌─┐┌─┐┌─┐┌─┐┌─┐\n"
-                + "            ├─┘│  ├┤ ├─┤└─┐├┤  ┌┘\n"
-                + "      o o o ┴  ┴─┘└─┘┴ ┴└─┘└─┘ o";
-        System.out.println(logo);
-    }
-
-    /**
      * Prints the list of tasks collated by Tired.
      */
     public static void printList() {
-        printTopLine();
+        Ui.printTopLine();
         System.out.println(INDENT + "Here are your tasks, \"oRgAnIc iTeLlIgEnCe\":");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(INDENT + (i + 1) + "." + list[i]);
+            System.out.println(INDENT + (i + 1) + "." + words[i]);
         }
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
      *  Prints error message to user. Prompts user to input correct command.
      */
     public static void printError() {
-        printTopLine();
+        Ui.printTopLine();
         System.out.println(INDENT + "You didn't input the type of task. Again. Or you're stupid. Whatever.");
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
      * Prints error message for when user leaves out important information in input.
      */
     public static void printMissingTextError() {
-        printTopLine();
+        Ui.printTopLine();
         System.out.println(INDENT + "And?? Retype and complete your sentence like a grown adult. Please.");
-        printBottomLine();
+        Ui.printBottomLine();
     }
+
     /**
      * Adds inputs from user to list[] to keep track of user's tasks, deadlines, and events.
      *
@@ -84,13 +61,13 @@ public class Duke {
     public static void addTask(String taskName, String taskType, String taskDetails) {
         switch (taskType) {
         case "todo":
-            list[taskCount] = new Todo(taskName);
+            words[taskCount] = new Todo(taskName);
             break;
         case "deadline":
-            list[taskCount] = new Deadline(taskName, taskDetails);
+            words[taskCount] = new Deadline(taskName, taskDetails);
             break;
         case "event":
-            list[taskCount] = new Event(taskName, taskDetails);
+            words[taskCount] = new Event(taskName, taskDetails);
             break;
         default:
             return;
@@ -99,12 +76,12 @@ public class Duke {
         taskCount++;
         String plural = (taskCount - taskCompleted) == 1 ? "" : "s";
 
-        printTopLine();
+        Ui.printTopLine();
         System.out.println(INDENT + " Fine. Added to your list:");
-        System.out.println(INDENT + "   " + list[taskCount - 1]);
+        System.out.println(INDENT + "   " + words[taskCount - 1]);
         System.out.println(INDENT + " You have " + (taskCount - taskCompleted)
                 + " pending task" + plural + ". tHaT's aWeSoMe!!!1!!1!!");
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
@@ -115,18 +92,18 @@ public class Duke {
     public static void markTaskAsDone(int taskNumber) {
         boolean isExists = taskNumber >= 0 && taskNumber < taskCount;
 
-        printTopLine();
+        Ui.printTopLine();
         if (!isExists) {
             System.out.println("    │ Wha- Hey! Task does not exist!");
-        } else if (list[taskNumber].isDone) {
+        } else if (words[taskNumber].getDoneStatus()) {
             System.out.println("    │ Dude... you've done the task already.");
         } else if (isExists){
             taskCompleted++;
-            list[taskNumber].isDone = true;
+            words[taskNumber].setAsDone();
             System.out.println("    │ About time. I've mark that task as done:");
-            System.out.println("    │   [" + list[taskNumber].getStatusIcon() + "]" + list[taskNumber].description);
+            System.out.println("    │   [" + words[taskNumber].getStatusIcon() + "]" + words[taskNumber].getDescription());
         }
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
@@ -144,33 +121,33 @@ public class Duke {
      * Prints greeting message to user when code is ran.
      */
     public static void greetUser() {
-        printLogo();
-        printTopLine();
+        Ui.printLogo();
+        Ui.printTopLine();
         System.out.println(INDENT + "*Sigh* Hi... I'm Tired                                             │\n"
                 + INDENT + "What do you want from me?                                          │");
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
      * Prints a snarky remark to user.
      */
     public static void mockUser() {
-        printTopLine();
+        Ui.printTopLine();
         System.out.println(INDENT + "You know what a todo list bot is?\n"
                 + INDENT + "I'm a todo list bot. So stop chatting with me.");
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
      * Prints farewell message to user and exits code.
      */
     public static void byeUser() {
-        printTopLine();
+        Ui.printTopLine();
         System.out.println(INDENT + "\"Only in the agony of parting do we look into the depths of love.\" │\n"
                 + INDENT + " —— George Eliot                                                   │\n"
                 + INDENT + "                                                                   │\n"
                 + INDENT + "Ha! As if I care! Goodbye!!                                        │");
-        printBottomLine();
+        Ui.printBottomLine();
     }
 
     /**
@@ -184,14 +161,14 @@ public class Duke {
 
         String userInput;
         String[] parts;
-        boolean isUsing = true;
+        boolean isExit = false;
 
         do {
             taskType = text.next().toLowerCase();
 
             switch (taskType) {
             case "bye":
-                isUsing = false;
+                isExit = true;
                 break;
             case "hello":
             case "hi":
@@ -245,7 +222,7 @@ public class Duke {
                 printError();
                 break;
             }
-        } while (isUsing);
+        } while (!isExit);
     }
 
 }
