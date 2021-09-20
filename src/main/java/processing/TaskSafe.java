@@ -9,6 +9,7 @@ import java.util.regex.PatternSyntaxException;
 
 /*------- Local imports --------*/
 import exceptions.DukeException;
+import org.jetbrains.annotations.NotNull;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -22,7 +23,13 @@ public class TaskSafe {
     private static final String fullPath = rootPath + DATA_PATH;
 
     /*-------------- SAVE ------------ */
-    private static void appendToFile(Task task) throws DukeException{
+
+    /**
+     * Appends a task to the local save
+     * @param task Task to be appended to end of the local save
+     * @throws DukeException if filepath is inaccessible / invalid
+     */
+    private static void appendToFile(@NotNull Task task) throws DukeException{
         try {
             FileWriter fw = new FileWriter(fullPath,true);
             char isDone = task.isDone() ? '1' : '0';
@@ -56,6 +63,11 @@ public class TaskSafe {
     }
 
     /*-------------- LOAD ------------ */
+
+    /**
+     * Reads the local save and loads the saved tasks into the taskManager
+     * @param taskManager taskManager to store the locally saved tasks
+     */
     public static void loadFromFile( TaskManager taskManager) {
         File file = new File(fullPath);
         try {
@@ -71,7 +83,14 @@ public class TaskSafe {
 
     }
 
-    private static void parseTask(String task, TaskManager taskManager) throws DukeException {
+    /**
+     * Parses a task from a line from the localsave
+     * @param task Task to be parsed into an actual Task
+     * @see Task
+     * @param taskManager TaskManager to store the parsed Task
+     * @throws DukeException if saved task has an invalid syntax or is corrupted
+     */
+    private static void parseTask(@NotNull String task, TaskManager taskManager) throws DukeException {
         // Parse the string
         TaskType t = TaskType.TODO;
         boolean isDone;
@@ -84,14 +103,16 @@ public class TaskSafe {
                 break;
             case "D":
                 t = TaskType.DEADLINE;
-                descriptor = split[2].replace(Deadline.DEADLINE_BY,TaskManager.DEADLINE_CLAUSE);
-                descriptor = descriptor.trim().replaceAll(".$",""); //remove last ')'
+                descriptor = split[2].replace(Deadline.DEADLINE_BY,TaskManager.DEADLINE_CLAUSE)
+                        .trim()
+                        .replaceAll(".$",""); //remove last ')'
                 descriptor = "deadline " + descriptor;
                 break;
             case "E":
                 t = TaskType.EVENT;
-                descriptor = split[2].replace(Event.EVENT_AT,TaskManager.EVENT_CLAUSE);
-                descriptor = descriptor.trim().replaceAll(".$",""); //remove last )
+                descriptor = split[2].replace(Event.EVENT_AT,TaskManager.EVENT_CLAUSE)
+                        .trim()
+                        .replaceAll(".$",""); //remove last )
                 descriptor = "event " + descriptor;
                 break;
             }

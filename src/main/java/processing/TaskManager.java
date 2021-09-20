@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.List;
 
 /*---------LOCAL IMPORT--------*/
+import org.jetbrains.annotations.NotNull;
 import tasks.TaskType;
 import tasks.Deadline;
 import tasks.Event;
@@ -33,14 +34,16 @@ public class TaskManager {
     private final ArrayList<Task> tasks;
     private int taskSize;
 
+    /*-------------- COMPARATOR ----------------- */
 
-
-    /*------------- CONSTRUCTOR -------------- */
-
+    /**
+     * Comparator to sort the tasks in the task list :
+     * >> Puts all TODOs ahead in the list
+     * >> Sorts remaining deadlines/events by nearest
+     */
     static class TaskComparator implements Comparator<Task> {
-
         @Override
-        public int compare(Task o1, Task o2) {
+        public int compare(@NotNull Task o1, Task o2) {
             if (o1.getTaskType() == TaskType.TODO) {
                 return -1;
             } else if (o2.getTaskType() == TaskType.TODO) {
@@ -56,17 +59,22 @@ public class TaskManager {
         }
     }
 
+    /*------------- CONSTRUCTOR -------------- */
     public TaskManager() {
         tasks = new ArrayList<Task>();
         taskSize = 0;
     }
 
     /**
-     * adds a Task into a variable-size array of Tasks
-     * @param command input that has been parsed by processing.CommandHandler
+     * Adds a Task into a variable-size array of Tasks,
+     * @param command input that has been parsed by Command Handler,
      * @param type the type of task to be added : Todo / Event / Deadline
+     * @param isDone sets the task to be added as done or not done
+     * @param isLogged if set to true, logs the addition of the task and displays it via UI
+     * @throws DukeException if command parsing by clause is invalid due to empty descriptors
+     * @see UI
      */
-    public void addTask(CommandHandler command, TaskType type, boolean isDone, boolean isLogged) throws DukeException {
+    public void addTask(CommandHandler command, @NotNull TaskType type, boolean isDone, boolean isLogged) throws DukeException {
         Task t = new Task("");
         switch (type) {
         case TODO:
@@ -91,7 +99,24 @@ public class TaskManager {
         }
     }
 
-    public void deleteTask(CommandHandler command) throws DukeException {
+    /**
+     * Adds a Task that is not done into a variable-size array of Tasks,
+     * Displays the added tasks and number of tasks currently in list
+     * @param command input that has been parsed by Command Handler
+     * @param type TaskType of the task to be added
+     * @throws DukeException if command parsing by clause is invalid due to empty descriptors
+     */
+    public void addTask(CommandHandler command, TaskType type) throws DukeException {
+        addTask(command,type,false,true);
+    }
+
+    /**
+     * Removes a task from the task list by index, and displays the deleted command to user
+     * @param command input that has been parsed by Command Handler. Should be called with a
+     *                valid integer
+     * @throws DukeException if After Clause of command cannot be parsed as an Integer
+     */
+    public void deleteTask(@NotNull CommandHandler command) throws DukeException {
         command.splitByClause("delete", 0, true);
         try {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
@@ -105,16 +130,14 @@ public class TaskManager {
         }
     }
 
-    public void addTask(CommandHandler command, TaskType type) throws DukeException {
-        addTask(command,type,false,true);
-    }
 
     /**
-     * Marks a task as done. Can be called by input
+     * Marks a task as done by its index in the tasklist
      * @param command the input after it's been parsed by command handler
-     * @throws DukeException if the input does not have a valid number
+     * @throws DukeException if the command is not called with a valid integer bounded by the
+     * number of the tasks in the task list
      */
-    public void markTaskAsDone(CommandHandler command) throws DukeException {
+    public void markTaskAsDone(@NotNull CommandHandler command) throws DukeException {
         command.splitByClause("done",0,true);
         try {
             int idx = Integer.parseInt(command.descriptorAfterClause) - 1;
@@ -128,18 +151,23 @@ public class TaskManager {
         }
     }
 
-    public void queryTasks(CommandHandler command) throws DukeException {
+    /**
+     * Queries the task list by a regex term and displays filtered list of tasks
+     * @param command the query after it's been parsed by command handler
+     * @throws DukeException if query is given with invalid syntax
+     * @see QueryHandler for more details on valid queries
+     */
+    public void queryTasks(@NotNull CommandHandler command) throws DukeException {
         command.splitByClause(FIND_CLAUSE,0,true);
         QueryHandler query = new QueryHandler(command.descriptorAfterClause.split(" "));
         query.queryOn(this);
     }
 
-    public void listTasks() {
-        System.out.println(LIST_TASK);
-        listTasks(tasks.stream().sorted(new TaskComparator()).collect(Collectors.toList()));
-    }
-
-    public void listTasks(List<Task> tasks) {
+    /**
+     * Iterates through the tasklist and prints out the tasks in order
+     * @param tasks task list managed by Taskmanager
+     */
+    public void listTasks(@NotNull List<Task> tasks) {
         int idx = 0;
         for (Task task : tasks) {
             idx++;
@@ -147,6 +175,16 @@ public class TaskManager {
             System.out.println(task);
         }
     }
+
+    /**
+     * Overloaded method that list the tasks sorted by <b>TaskComparator</b>
+     */
+    public void listTasks() {
+        System.out.println(LIST_TASK);
+        listTasks(tasks.stream().sorted(new TaskComparator()).collect(Collectors.toList()));
+    }
+
+
 
     public void updateTask(int idx, boolean isDone) {
        tasks.get(idx).setDone(isDone);

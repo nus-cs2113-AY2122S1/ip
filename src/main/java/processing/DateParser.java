@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 
 public class DateParser {
 
+    /*-------------- ALL VALID DT FORMATS --------- */
     private static final String DATETIME_FORMAT1 = "MMM d yyyy HH:mm";
 
     private static final String TIME_FORMAT1 = "HH:mm";
@@ -23,7 +24,7 @@ public class DateParser {
     private static final String DATE_FORMAT4 = "dd/M/yy";
     private static final String DATE_FORMAT5 = "EEE";
 
-    private static final String[] DATETIME_FORMATS = {
+    public static final String[] DATETIME_FORMATS = {
         DATETIME_FORMAT1,
         DATE_FORMAT1 + " " + TIME_FORMAT2,
         DATE_FORMAT2 + " " + TIME_FORMAT1,
@@ -36,21 +37,27 @@ public class DateParser {
         DATE_FORMAT5 + " " + TIME_FORMAT2,
     };
 
-    private static final String[] TIME_FORMATS = {
+    public static final String[] DATE_FORMATS = {
+            DATE_FORMAT1,
+            DATE_FORMAT2,
+            DATE_FORMAT3,
+            DATE_FORMAT4,
+            DATE_FORMAT5
+    };
+
+    public static final String[] TIME_FORMATS = {
         TIME_FORMAT1,
         TIME_FORMAT2,
     };
 
-    private static final String[] DATE_FORMATS = {
-        DATE_FORMAT1,
-        DATE_FORMAT2,
-        DATE_FORMAT3,
-        DATE_FORMAT4,
-        DATE_FORMAT5
-    };
-
     private static final String END_OF_DAY = "23:59:59";
 
+    /**
+     * Builds a new Formatter that is Case Insensitive for a specific Date Time Format
+     * @param pattern Format to be built into a DateTimeFormatter
+     * @return a DateTimeFormatter that can be used to parse and format LocalDateTime objects
+     * @see DateTimeFormatter
+     */
     @Contract("_ -> new")
     private static @NotNull DateTimeFormatter buildFormat(String pattern) {
         return new DateTimeFormatterBuilder()
@@ -60,7 +67,14 @@ public class DateParser {
                 .toFormatter();
     }
 
-    private static @NotNull LocalDateTime parseTodayDateTime(String date) throws DukeException {
+    /**
+     * Parses the input date as LocalTime if keyword 'today' was given. Combines Todays date with
+     * LocalTime
+     * @param date Input String to be parsed into a LocalTime
+     * @return LocalDateTime that is composed of Todays Date and the parsed LocalTime
+     * @throws DukeException if input time is in an invalid format
+     */
+    private static @NotNull LocalDateTime parseTodayDateTime(@NotNull String date) throws DukeException {
         if (date.trim().isBlank()) {
             return LocalDateTime.of(LocalDate.now(), LocalTime.parse(END_OF_DAY));
         }
@@ -76,6 +90,12 @@ public class DateParser {
         throw new DukeException("Sorry! Unable to parse date!");
     }
 
+    /**
+     * Parses the date input by specific Date Formats
+     * @param date Input String to be parsed into a LocalDate
+     * @return A LocalDateTime composed of the parsed LocalDate and 2359 Hours LocalTime
+     * @throws DukeException if input date has an invalid format
+     */
     private static @NotNull LocalDateTime parseDTByDateFormats(String date) throws DukeException {
         for (String format : DATE_FORMATS) {
             try {
@@ -90,6 +110,13 @@ public class DateParser {
 
     }
 
+    /**
+     * Parses a String Input into a LocalDateTime. Iterates through known formats and returns the
+     * first valid parsed DateTime.
+     * @param date Input to be parsed
+     * @return a LocalDateTime if input is in a valid format.
+     * @throws DukeException if input has an invalid date time format
+     */
     private static LocalDateTime parseDTByDateTimeFormats(String date) throws DukeException {
         for (String format : DATETIME_FORMATS) {
             try {
@@ -102,6 +129,13 @@ public class DateParser {
         return parseDTByDateFormats(date);
     }
 
+    /**
+     * Parses an string Input into a LocalDateTime. Calls parseDTByDateTimeFormats
+     * Checks if first keyword in input is "today", which calls parseTodayDateTime instead
+     * @param date Input date to be parsed
+     * @return parsed date time if format was valid
+     * @throws DukeException if input has an invalid date time format
+     */
     public static LocalDateTime parseDate(@NotNull String date) throws DukeException {
         String lDate = date.trim();
         if (lDate.split(" ")[0].equals("today")) {
@@ -112,6 +146,12 @@ public class DateParser {
         return parseDTByDateTimeFormats(lDate);
     }
 
+    /**
+     * Formats the date
+     * @param date DateTime to be formatted
+     * @return the date in String format "MMM d yyyy HH:mm"
+     * eg. Oct 10 2015 18:00
+     */
     public static @NotNull String formatDate(@NotNull LocalDateTime date) {
         return date.format(DateTimeFormatter.ofPattern(DATETIME_FORMAT1));
     }

@@ -1,5 +1,6 @@
 package processing;
 import exceptions.DukeException;
+import org.jetbrains.annotations.NotNull;
 import tasks.Task;
 import tasks.TaskType;
 
@@ -31,6 +32,9 @@ public class QueryHandler {
     private static final String TYPE_EXAMPLE = "\nSorry! Type Flag --> todo/deadline/event";
 
     /*------------- FILTERS ---------------*/
+    /**
+     * Filters the tasks by the task type. If ANY, allows every task
+     */
     Predicate<Task> taskTypeFilter = task -> {
         if (taskType == TaskType.ANY) {
             return true;
@@ -39,10 +43,19 @@ public class QueryHandler {
         }
     };
 
+    /**
+     * Filters the task by the Regular Expression
+     */
     Predicate<Task> regexFilter = task -> task.getFullDescription().matches(regexTerm);
 
     /*------------ INTERNAL FUNCTIONS --------- */
 
+    /**
+     * Parses the keyword if isLimitFlag was set to true, and set the query limit
+     * Sets isLimitFlag to false after
+     * @param kw keyword from the command
+     * @throws DukeException if keyword is unable to be parsed as an integer
+     */
     private void setLimitKW(String kw) throws DukeException {
         try {
             queryLimit = Integer.parseInt(kw);
@@ -52,7 +65,13 @@ public class QueryHandler {
         }
     }
 
-    private void setTypeKW(String kw) throws DukeException {
+    /**
+     * Sets the TaskType to be filtered by the query
+     * @see TaskType
+     * @param kw keyword to determine task type : todo / deadline / event
+     * @throws DukeException
+     */
+    private void setTypeKW(@NotNull String kw) throws DukeException {
         switch (kw.toLowerCase(Locale.ROOT)) {
         case "todo":
             taskType = TaskType.TODO;
@@ -69,6 +88,12 @@ public class QueryHandler {
         isTypeFlag = false;
     }
 
+    /**
+     * Takes in the keyword, and processes it according to the flags set, OR sets a flag if
+     * keyword starts with clause. Calls <b>setLimitKW</b> and <b>setTypeKW</b>>
+     * @param kw keyword that comes from the parsed command
+     * @throws DukeException if setLimitKW or setTypeKW throws an exception
+     */
     private void processKeyword(String kw) throws DukeException {
 
         if (isLimitFlag) {
@@ -100,7 +125,12 @@ public class QueryHandler {
         }
     }
 
-    public QueryHandler(String... keywords) throws DukeException {
+    /**
+     * Constructor that takes in vaargs of Strings from the parsed Command Handler
+     * @param keywords keywords to be processed to build the query
+     * @throws DukeException
+     */
+    public QueryHandler(String @NotNull ... keywords) throws DukeException {
         isRegexKW = isLimitFlag = isTypeFlag = false;
         regexTerm = REGEX_HEADER;
         regexTermWithoutExpr = "";
@@ -112,8 +142,14 @@ public class QueryHandler {
         }
     }
 
-
-    public void queryOn(TaskManager taskManager) {
+    /**
+     * Queries the task list of a Task Manager by the flags set.
+     * Filters list by -TaskType -REGEX
+     * Limits list by the queryLimit if set
+     * Displays resulting task list in iterative order
+     * @param taskManager taskManager to be queried by the query
+     */
+    public void queryOn(@NotNull TaskManager taskManager) {
         List<Task> tasks = taskManager.getTasks();
         System.out.println(QUERY_TASK);
         List<Task> listOfTasks = tasks

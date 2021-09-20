@@ -10,17 +10,9 @@ public class Duke {
     private static boolean isRunning = true;
     public static final TaskManager taskManager = new TaskManager();
 
-    public static void processInput(String input) {
-        try {
-            CommandHandler command = new CommandHandler(input);
-            command.execute(taskManager);
-            TaskSafe.saveToFile(taskManager.getTasks());
-        } catch (DukeException e) {
-            UI.showError(e);
-        }
-
-    }
-
+    /**
+     * Main method that continues looping and accepting commands until user inputs 'bye'
+     */
     public static void run() {
         while (isRunning) {
             String input = UI.getCommand();
@@ -30,6 +22,23 @@ public class Duke {
         }
     }
 
+    /**
+     * Takes a command, executes it, and saves the updates to a local file
+     * @param input the command that user input on prompt
+     */
+    public static void processInput(String input) {
+        try {
+            CommandHandler command = new CommandHandler(input);
+            command.execute(taskManager);
+            TaskSafe.saveToFile(taskManager.getTasks());
+        } catch (DukeException e) {
+            UI.showError(e);
+        }
+    }
+
+    /**
+     * ties up loose ends and ends the application
+     */
     public static void exit() {
         UI.close();
         isRunning = false;
