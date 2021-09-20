@@ -1,7 +1,5 @@
 package duke;
 
-import duke.exceptionHandler.DukeException;
-
 /**
  * CommandHandling class helps to check the type of command given.
  *

@@ -1,6 +1,22 @@
 package duke.taskOperations;
 
+/**
+ * This class takes in the task description and date+time and converts it to the duke.txt
+ * storage format for each type of task.
+ *
+ * @author YEOWEIHNGWHYELAB
+ */
+
 public class StringToRemoveFormat {
+    /**
+     * Format according to type of task, task done status and rawTaskDescription to
+     * match with the duke.txt format.
+     *
+     * @param typeOfTask todo/event/deadline.
+     * @param taskIsDone X marks that the task is done.
+     * @param  rawTaskDescription raw task description includes the "at: " or "by: "
+     * @return the formatted string in duke.txt to be removed.
+     */
     public static String getStringToRemove(String typeOfTask, String taskIsDone, String rawTaskDescription) {
         String textToRemove;
         if (typeOfTask.equals("T") == true) {
@@ -29,6 +45,16 @@ public class StringToRemoveFormat {
         return textToRemove;
     }
 
+    /**
+     * Format for event and deadline in duke.txt for deletion
+     *
+     * @param typeOfTask event/deadline.
+     * @param taskIsDone X marks that the task is done.
+     * @param taskAtBy Only contains the "by" and "at" description without "at: " or "by: ".
+     * @param separator Separator string "-/-/by" or "-/-/at"
+     * @param taskDescription Only contains task description.
+     * @return the formatted event/deadline string in duke.txt to be removed.
+     */
     public static String getStringEventDeadlineFormat(String taskIsDone, String taskDescription, String taskAtBy, String typeOfTask, String separator) {
         String textToRemove;
         if (taskIsDone.equals("X")) {
@@ -39,6 +65,13 @@ public class StringToRemoveFormat {
         return textToRemove;
     }
 
+    /**
+     * Format for todo task to match in duke.txt for deletion.
+     *
+     * @param taskIsDone X marks that the task is done.
+     * @param  rawTaskDescription raw task description includes the "at: " or "by: "
+     * @return the formatted todo string in duke.txt to be removed.
+     */
     public static String getStringToDoFormat(String taskIsDone, String rawTaskDescription) {
         String textToRemove;
         if (taskIsDone.equals("X")) {

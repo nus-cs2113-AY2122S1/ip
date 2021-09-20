@@ -19,10 +19,12 @@ public class DukeException extends Exception {
         super(errorMessage);
     }
 
+    /**
+     * Concatenates the openingString and errorMessage.
+     */
     public void printErrorMessage() {
         System.out.println("    ____________________________________________________________");
         System.out.println(openingString + this.getMessage());
         System.out.println("    ____________________________________________________________");
     }
-
 }
