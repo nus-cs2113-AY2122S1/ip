@@ -1,9 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 /**
  * This represents the subclass Deadline under superclass Task in each element of Task[] list in Duke.java.
  */
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
     /**
      * This function initialises the deadline.
@@ -11,7 +15,7 @@ public class Deadline extends Task {
      * @param description description input by user.
      * @param by date to complete event by
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -21,7 +25,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override

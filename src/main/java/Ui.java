@@ -10,6 +10,7 @@ public class Ui {
     private final static String INVALID_DELETE = TAB + "Why would you delete a task... Your delete statement is an "
             + "incorrect input too...";
     private final static String INVALID_TASK = "Your task is really weird... I don't think I like it...";
+    private final static String INVALID_DATE = "Your date is invalid... Please use this format: YYYY-MM-DD...";
 
     public Ui() {
     }
@@ -79,4 +80,6 @@ public class Ui {
     public static void printInvalidTaskStatement() {
         System.out.println(INVALID_TASK);
     }
+
+    public static void printInvalidDateStatement() { System.out.println(INVALID_DATE); }
 }

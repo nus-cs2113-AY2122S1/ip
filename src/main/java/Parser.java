@@ -1,5 +1,7 @@
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
 
 public class Parser {
 
@@ -177,7 +179,6 @@ public class Parser {
      */
     public static void addToList(String input, String taskType, TaskList tasks) {
         String[] parameters = new String[2];
-        //getParameters(parameters, input, taskType);
         try {
             switch (taskType) {
             case TODO:
@@ -188,13 +189,15 @@ public class Parser {
                 break;
             case DEADLINE:
                 getParameters(parameters, input, DEADLINE);
-                Deadline deadline = new Deadline(parameters[DESCRIPTION], parameters[DATETIME]);
+                LocalDate deadlineDate = parseDate(parameters[DATETIME]);
+                Deadline deadline = new Deadline(parameters[DESCRIPTION], deadlineDate);
                 tasks.addTask(deadline);
                 Storage.saveTaskInFile(deadline);
                 break;
             case EVENT:
                 getParameters(parameters, input, EVENT);
-                Event event = new Event(parameters[DESCRIPTION], parameters[DATETIME]);
+                LocalDate eventDate = parseDate(parameters[DATETIME]);
+                Event event = new Event(parameters[DESCRIPTION], eventDate);
                 tasks.addTask(event);
                 Storage.saveTaskInFile(event);
                 break;
@@ -204,7 +207,13 @@ public class Parser {
             Ui.printInvalidTaskStatement();
         } catch (InvalidTaskException e) {
             Ui.printInvalidTaskStatement();
+        } catch (DateTimeParseException e) {
+            Ui.printInvalidDateStatement();
         }
+    }
+
+    public static LocalDate parseDate(String dateString) throws DateTimeParseException {
+        return LocalDate.parse(dateString);
     }
 
 }
