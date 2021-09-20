@@ -7,6 +7,7 @@ import duke.ui.MessageBubble;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public abstract class Task {
     protected String description = "";
@@ -107,6 +108,10 @@ public abstract class Task {
         }
         return temp;
     }
+
+    Scanner input = new Scanner(System.in);
+
+    abstract public void editTaskInteractive();
 
     @Override
     public String toString() {

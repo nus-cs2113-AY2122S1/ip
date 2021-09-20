@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.exceptions.EmptyField;
+import duke.ui.MessageBubble;
 
 public class Deadline extends Task {
     public String symbolSetTime = "/by";
@@ -40,6 +41,20 @@ public class Deadline extends Task {
     @Override
     public String getSaveFormat() {
         return super.getSaveFormat(time.format(saveFormatter));
+    }
+
+    @Override
+    public void editTaskInteractive() {
+        try {
+            MessageBubble.printMessageBubble("Original Deadline: " + this);
+            MessageBubble.printMessageBubble("New description for the deadline:");
+            setDescription(input.nextLine());
+            MessageBubble.printMessageBubble("New deadline time: (d/M/yyyy kk[mm] format)");
+            setTime(input.nextLine());
+            MessageBubble.printMessageBubble("Updated Deadline: " + this);
+        } catch (EmptyField e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

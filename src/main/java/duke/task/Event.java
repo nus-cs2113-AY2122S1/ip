@@ -65,6 +65,22 @@ public class Event extends Task {
         return super.getSaveFormat(new String[]{time.format(saveFormatter), endTime.format(saveFormatter)});
     }
 
+    @Override
+    public void editTaskInteractive() {
+        try {
+            MessageBubble.printMessageBubble("Original Event: " + this);
+            MessageBubble.printMessageBubble("New description for the event:");
+            setDescription(input.nextLine());
+            MessageBubble.printMessageBubble("New event start time: (d/M/yyyy kk[mm] format)");
+            setTime(input.nextLine());
+            MessageBubble.printMessageBubble("New event end time: (d/M/yyyy kk[mm] format)");
+            setEndTime(input.nextLine());
+            MessageBubble.printMessageBubble("Updated Event: " + this);
+        } catch (EmptyField e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Returns all information of the Event as a user-friendly String format
      *

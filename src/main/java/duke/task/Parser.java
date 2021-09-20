@@ -5,12 +5,6 @@ import duke.exceptions.IllegalOperation;
 import duke.list.TaskList;
 import duke.ui.MessageBubble;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 public class Parser {
     public boolean isExit;
 
@@ -78,6 +72,14 @@ public class Parser {
                 targetTaskList.searchItem(extractPartialCommand(fullCommand));
             } catch (EmptyField e) {
                 MessageBubble.printMessageBubble("Oops! Use \"find (keywords)\" to search in your task list.");
+            }
+        } else if (fullCommand.startsWith("edit")) {
+            try {
+                targetTaskList.editItem(Integer.parseInt(extractPartialCommand(fullCommand)));
+            } catch (EmptyField e) {
+                MessageBubble.printMessageBubble("Oops! Use \"edit (index)\" to your task.");
+            } catch (NumberFormatException e) {
+                MessageBubble.printMessageBubble("Oops! Wrong index format.");
             }
         } else if (fullCommand.equals("bye")) {
             isExit = true;
@@ -171,6 +173,10 @@ public class Parser {
      */
     private static String extractPartialCommand(String fullCommand) throws EmptyField {
         if (!fullCommand.contains(" ")) {
+            throw new EmptyField();
+        }
+        String partialCommand = fullCommand.substring(fullCommand.indexOf(" ") + 1);
+        if (partialCommand.isBlank()) {
             throw new EmptyField();
         }
         return fullCommand.substring(fullCommand.indexOf(" ") + 1);

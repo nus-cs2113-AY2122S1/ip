@@ -1,11 +1,12 @@
 package duke.list;
 
+import duke.exceptions.EmptyField;
 import duke.exceptions.IllegalOperation;
 import duke.ui.MessageBubble;
 import duke.task.Task;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class TaskList {
     public static int MAX_LIST_ITEMS = 1000;
@@ -104,6 +105,10 @@ public class TaskList {
         } catch (IllegalOperation e) {
             MessageBubble.printMessageBubble("Oops! The item is not done yet");
         }
+    }
+
+    public void editItem(int index) {
+        items.get(index - 1).editTaskInteractive();
     }
 
     /**

@@ -137,7 +137,7 @@ your task list.
 ......................................................................
 ```
 
-### `list` - View all tasks
+### `list` - List all tasks
 
 Display all tasks by the order of creation.
 
@@ -153,7 +153,7 @@ Example outcome:
 ......................................................................
 ```
 
-### `done` or `undone` - Change task status
+### `done` or `undone` - Mark task as done / not done
 
 Mark the status of a task as "done" or "not done"
 
@@ -175,6 +175,40 @@ list
           :  2:[D][ ] CS2113T coding practice (by 19:00, 21 Sep 2021)       :
           :  3:[E][ ] CS2113T tP meeting (from 21:00, 03 Jan 2022 to 22:30, :
           :  03 Jan 2022)                                                   :
+          ......................................................................
+```
+
+### `edit` - Edit task details
+
+Change properties(description, start time, etc) of the specified task.
+
+Format: `edit INDEX`
+
+Example of usage: `edit 3`
+
+Expected outcome: The todo "Write code" will be marked as done.
+
+```
+edit 3
+          ...................................................................
+          : Original Event: [E][ ] CS2113T tP meeting (from 21:00, 03 Jan 2 :
+          : 021 to 22:30, 03 Jan 2021)                                      :
+          ......................................................................
+                                           ..................................
+                                           : New description for the event: :
+                                           .....................................
+CS2113T tP weekly meeting
+                           ..................................................
+                           : New event start time: (d/M/yyyy kk[mm] format) :
+                           .....................................................
+3/1/2021 2130
+                             ................................................
+                             : New event end time: (d/M/yyyy kk[mm] format) :
+                             ...................................................
+3/1/2021 2300
+          ...................................................................
+          : Updated Event: [E][ ] CS2113T tPweekly meeting (from 21:30, 03  :
+          : Jan 2021 to 23:00, 03 Jan 2021)                                 :
           ......................................................................
 ```
 

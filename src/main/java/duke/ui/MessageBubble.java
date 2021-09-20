@@ -4,7 +4,6 @@ public class MessageBubble {
     static final String EDGE_HORIZONTAL_SYMBOL = ".";
     static final String EDGE_VERTICAL_SYMBOL = ":";
     static final String EDGE_TAIL = "...";
-    static final int DIVIDER_SYMBOL_COUNT = 60;
     static int MAX_LINES = 1000;
     static int TERMINAL_WIDTH = 80;
     static int MAX_BUBBLE_WIDTH = 70;
