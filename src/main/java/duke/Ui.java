@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -63,5 +64,13 @@ public class Ui {
     public void showDoneMessage(Task task) {
         System.out.printf("Nice! I've marked this task as done:\n" +
                 "  %s\n", task);
+    }
+
+    public void showFilteredTask(TaskList filteredTasks, String word) {
+        if (filteredTasks.isEmpty()) {
+            System.out.println("There are no task that match the input text: " + word);
+        } else {
+            showTaskList(filteredTasks);
+        }
     }
 }

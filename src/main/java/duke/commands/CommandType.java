@@ -8,37 +8,42 @@ public abstract class CommandType {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
+    public static final String FIND = "find";
 
     public static boolean isBye(String request) {
-        return request.trim().equals(CommandType.BYE);
+        return request.trim().equals(BYE);
     }
 
     public static boolean isDelete(String request) {
-        return request.trim().startsWith(CommandType.DELETE);
+        return request.trim().startsWith(DELETE);
     }
 
     public static boolean isList(String request) {
-        return request.trim().equals(CommandType.LIST);
+        return request.trim().equals(LIST);
     }
 
     public static boolean isDone(String request) {
-        return request.startsWith(CommandType.DONE);
+        return request.startsWith(DONE);
     }
 
     public static boolean isTodo(String request) {
-        return request.startsWith(CommandType.TODO);
+        return request.startsWith(TODO);
     }
 
     public static boolean isDeadline(String request) {
-        return request.startsWith(CommandType.DEADLINE);
+        return request.startsWith(DEADLINE);
     }
 
     public static boolean isEvent(String request) {
-        return request.startsWith(CommandType.EVENT);
+        return request.startsWith(EVENT);
     }
 
     public static boolean isSpecialTask(String request) {
         return isDeadline(request) || isEvent(request);
+    }
+
+    public static boolean isFind(String request) {
+        return request.startsWith(FIND);
     }
 
     public static String getCommand(String request) {
@@ -56,7 +61,11 @@ public abstract class CommandType {
             return CommandType.DEADLINE;
         } else if (CommandType.isDelete(request)) {
             return CommandType.DELETE;
+        } else if (CommandType.isFind(request)) {
+            return CommandType.FIND;
         }
         return null;
     }
+
+
 }
