@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     public final String DATE_TIME_REGEX = "MMM dd yyyy HH:mm";
-    private LocalDateTime time;
+    private LocalDateTime datetime;
 
     /**
      * Creates a new 'deadline' type task.
@@ -25,7 +25,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(taskName);
-        time = LocalDateTime.of(deadlineDate, deadlineTime);
+        datetime = LocalDateTime.of(deadlineDate, deadlineTime);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Deadline extends Task {
      * @return Formatted string of the dateTime detail.
      */
     public String getTime() {
-        return time.format(DateTimeFormatter.ofPattern(DATE_TIME_REGEX));
+        return datetime.format(DateTimeFormatter.ofPattern(DATE_TIME_REGEX));
     }
 
     /**
