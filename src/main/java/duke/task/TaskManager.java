@@ -9,6 +9,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+/**
+ * Contains the ArrayList tasks and methods associated
+ * with this ArrayList.
+ */
 public class TaskManager {
     // Constants
     private static final int MAX_TASKS = 100;
@@ -22,29 +26,56 @@ public class TaskManager {
     // Task list
     private final ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Gets the number os tasks in the ArrayList tasks.
+     *
+     * @return The number of current tasks.
+     */
     public int getTasksCount() {
         return tasks.size();
     }
 
-    // Add new task to the task list
+    /**
+     * Adds a task to the ArrayList tasks.
+     *
+     * @param task The task object to be added.
+     * @return The task object that has been added.
+     */
     public Task addTask(Task task) {
         tasks.add(task);
         return task;
     }
 
+    /**
+     * Deletes a task from the ArrayList tasks.
+     *
+     * @param id The ID of the task to be removed.
+     * @return The task object that has been removed.
+     */
     public Task deleteTask(int id) {
         Task task = tasks.get(id);
         tasks.remove(id);
         return task;
     }
 
-    // Mark the specified task as done
+    /**
+     * Marks a task as done.
+     *
+     * @param id The ID of the task to be marked as done.
+     * @return The task object that has been marked as done.
+     */
     public Task markAsDone(int id) {
         Task task = tasks.get(id);
         task.markAsDone();
         return task;
     }
 
+    /**
+     * Preloads tasks from the file.
+     *
+     * @param reader Reads from the file used to save tasks.
+     * @throws IOException If an I/O exception occurs.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.techiedelight.com/how-to-read-a-file-using-bufferedreader-in-java/
     // with modifications
@@ -76,6 +107,12 @@ public class TaskManager {
         System.out.println("Successfully preloaded " + preloadTaskCount + " tasks");
     }
 
+    /**
+     * Converts all the current tasks into a String.
+     *
+     * @return The String representing all the current tasks.
+     * @throws DukeException If unable to save one or more tasks.
+     */
     public String currentTasks() throws DukeException {
         StringBuilder lines = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -104,7 +141,9 @@ public class TaskManager {
         return lines.toString();
     }
 
-    // Print out task list
+    /**
+     * Prints out all the tasks in the ArrayList tasks.
+     */
     public void listTasks() {
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(" " + i + "." +
@@ -112,6 +151,14 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Filters all the tasks that contain the keyword. Then,
+     * prints all matching tasks.
+     *
+     * @param keyword Keyword used to filter tasks by.
+     * @param ui      Used to print all matching tasks.
+     * @throws DukeException If keyword is empty.
+     */
     public void findTasks(String keyword, Ui ui) throws DukeException {
         if (keyword.equals("")) {
             throw new DukeException("Please provide a valid keyword");

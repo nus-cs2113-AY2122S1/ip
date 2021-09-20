@@ -12,16 +12,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Handles dealing with the file and directory used to save current tasks.
+ */
 public class FileManager {
     public String filePath;
     public String directoryPath;
 
 
+    /**
+     * Constructs a FileManager with the file path and directory path.
+     *
+     * @param filePath      The path of the file.
+     * @param directoryPath The path of the directory.
+     */
     public FileManager(String filePath, String directoryPath) {
         this.filePath = filePath;
         this.directoryPath = directoryPath;
     }
 
+    /**
+     * Creates a new file at the filePath.
+     *
+     * @throws IOException If an I/O exception has occurred.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.tutorialspoint.com/java/io/file_createnewfile.htm
     // with modifications
@@ -35,6 +49,9 @@ public class FileManager {
         }
     }
 
+    /**
+     * Creates a directory at directoryPath if it does not exist.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.tutorialspoint.com/java/io/file_mkdir.htm
     // with modifications
@@ -46,7 +63,12 @@ public class FileManager {
         }
     }
 
-
+    /**
+     * Initialises Duke status by preloading the saved tasks from the file at filePath.
+     *
+     * @param taskManager Used to preload the saved tasks from the file.
+     * @throws IOException If an I/O exception has occurred.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.techiedelight.com/how-to-read-a-file-using-bufferedreader-in-java/
     // with modifications
@@ -58,6 +80,12 @@ public class FileManager {
         reader.close();
     }
 
+    /**
+     * Saves all the current tasks to the file at filePath.
+     *
+     * @param taskManager Used to convert current tasks to a String.
+     * @throws IOException If an I/O exception has occurred.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.javatpoint.com/java-filewriter-class
     // with modifications
@@ -76,6 +104,14 @@ public class FileManager {
         fw.close();
     }
 
+    /**
+     * Calls the saveDukeStatus method in order to save the current tasks.
+     * Then, print to the user a success message if successful, or an error
+     * message otherwise.
+     *
+     * @param taskManager To pass to the saveDukeStatus method.
+     * @param ui          To print success message if current tasks were successfully saved.
+     */
     public void saveDuke(TaskManager taskManager, Ui ui) {
         try {
             saveDukeStatus(taskManager);
@@ -86,6 +122,12 @@ public class FileManager {
         ui.printSuccessfullySavedTasks(filePath.toString());
     }
 
+    /**
+     * Initialises Duke by creating a directory and file if they do not exist, then
+     * calls the initialiseDukeStatus method to initialise the status of Duke.
+     *
+     * @param taskManager To pass to the initialiseDukeStatus method
+     */
     public void initialiseDuke(TaskManager taskManager, Ui ui) {
         createDirectory();
         try {
