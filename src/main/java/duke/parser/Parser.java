@@ -80,7 +80,7 @@ public class Parser {
     /**
      * Extracts the content from the input string
      *
-     * @param input the input string
+     * @param input the full input string given by the user
      * @return the content of the input stream
      * @throws EmptyArgumentException when the content of the input is empty
      */
@@ -93,9 +93,9 @@ public class Parser {
     }
 
     /**
-     * Extracts the command from the input string (the first word)
+     * Extracts the command from the input string
      *
-     * @param input the input string
+     * @param input the full input string given by the user
      * @return the command of the input string
      */
     public String extractCommand(String input) {
@@ -104,11 +104,11 @@ public class Parser {
     }
 
     /**
-     * Extracts the integer from the input string and then deducts 1 from it to
-     * represent its index in an array. Then returns this said index.
+     * Extracts the integer from the input string and deducts 1 from it to correspond
+     * to its index in an array
      *
-     * @param input the input string given
-     * @return the index in an array in which the number in the input represents
+     * @param input the full input string given by the user
+     * @return the array index corresponding to the content of the input
      * @throws NumberFormatException when the content of the input is not a number
      * @throws EmptyArgumentException when the content of the input is empty
      */
@@ -147,4 +147,5 @@ public class Parser {
         String content = extractContent(input);
         return Integer.parseInt(content);
     }
+
 }

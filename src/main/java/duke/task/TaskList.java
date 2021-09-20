@@ -11,20 +11,34 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Contains the task list and methods to manage the list and display task related
+ * information for the user.
+ */
 public class TaskList {
+
+    /**
+     * The list of all the user's tasks
+     */
     private ArrayList<Task> taskList;
+
     private static final Ui ui = new Ui();
     private static final Parser parser = new Parser();
     private static final Storage storage = new Storage();
 
+    /**
+     * Changes the current task list to that of another given task list
+     *
+     * @param taskList the task list to replace the original one
+     */
     public void updateTaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
     /**
-     * Adds a new Event type task to the taskList
+     * Adds a new Event type task to the task list
      *
-     * @param input the input string
+     * @param input the full input string given by the user
      */
     public void addEvent(String input) {
         try {
@@ -46,9 +60,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Deadline type task to the taskList.
+     * Adds a new Deadline type task to the task list.
      *
-     * @param input the input string
+     * @param input the full input string given by the user
      */
     public void addDeadline(String input) {
         try {
@@ -69,9 +83,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Todo type task to the taskList.
+     * Adds a new Todo type task to the task list.
      *
-     * @param input the input string
+     * @param input the full input string given by the user
      */
     public void addTodo(String input) {
         try {
@@ -87,7 +101,7 @@ public class TaskList {
     /**
      * Marks the task of the given ranking as done.
      *
-     * @param input numerical ranking (as a string) of the task to be marked as done
+     * @param input the full input string given by the user
      */
     public void markTaskAsDone(String input) {
         //to store the array index of the task
@@ -110,7 +124,7 @@ public class TaskList {
     /**
      * Deletes the task of the given ranking.
      *
-     * @param input numerical ranking (as a string) of the task to be marked as done
+     * @param input the full input string given by the user
      */
     public void deleteTask(String input) {
         int index; //to store the array index of the task
@@ -132,7 +146,7 @@ public class TaskList {
     }
 
     /**
-     * Displays all the tasks for the user in a list format.
+     * Displays all the tasks in the task list for the user in a list format.
      */
     public void showTaskList() {
         ui.printTaskList(taskList);
@@ -154,6 +168,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays a list of all upcoming events or deadlines within a specified
+     * number of days
+     *
+     * @param input the input string containing the command and keyword
+     */
     public void showUpcoming(String input) {
         try {
             int days = parser.extractNumber(input);
@@ -166,4 +186,5 @@ public class TaskList {
             ui.printCommandGuide("upcoming [days]");
         }
     }
+
 }

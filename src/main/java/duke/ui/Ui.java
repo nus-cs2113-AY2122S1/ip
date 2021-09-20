@@ -8,13 +8,16 @@ import duke.task.TaskTimeManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Deals with interactions with the user by printing messages in the terminal.
+ */
 public class Ui {
 
     public static final String DIVIDER = "========================================================================";
     private static final TaskTimeManager taskTimeManager = new TaskTimeManager();
 
     /**
-     * Prints the greeting message of Duke
+     * Prints the greeting message of Duke.
      */
     public void printGreetingMessage() {
         System.out.println(DIVIDER);
@@ -23,7 +26,7 @@ public class Ui {
     }
 
     /**
-     * Prints the farewell message of Duke
+     * Prints the goodbye message of Duke.
      */
     public void printGoodbyeMessage() {
         System.out.println(DIVIDER);
@@ -32,7 +35,8 @@ public class Ui {
     }
 
     /**
-     * Prints the error message for an invalid command
+     * Prints the error message for an invalid command and lists out possible
+     * commands for the user.
      */
     public void printInvalidCommand() {
         System.out.println(DIVIDER);
@@ -43,7 +47,7 @@ public class Ui {
     }
 
     /**
-     * Prints the prompt for user to give a numerical number.
+     * Prints the prompt for user to give a numerical number as an argument.
      */
     public void printInvalidNumber() {
         System.out.println(DIVIDER);
@@ -52,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Prints out the instruction for the correct usage of the command.
+     * Prints out the instruction for the correct format for usage of the command.
      *
      * @param commandUsageMethod a string representing the command usage format
      */
@@ -63,9 +67,9 @@ public class Ui {
     }
 
     /**
-     * Prints out a list of all tasks in the task ArrayList
+     * Prints out a list of all tasks in the task list
      *
-     * @param taskList the task ArrayList with all the tasks to be printed
+     * @param taskList the task list containing all the tasks to be printed
      */
     public void printTaskList(ArrayList<Task> taskList) {
         System.out.println(DIVIDER);
@@ -84,8 +88,8 @@ public class Ui {
     /**
      * Prints out the success or fail message for the marking of a task as done
      *
-     * @param taskList the array list the task is in
-     * @param taskIndex the array index of the task that was marked as done
+     * @param taskList the full task list
+     * @param taskIndex the array index of the task that was marked as done in the task list
      * @param isSuccessful the result of the task marking
      */
     public void printMarkTaskAsDone(ArrayList<Task> taskList, int taskIndex, boolean isSuccessful) {
@@ -103,8 +107,8 @@ public class Ui {
     /**
      * Prints out the success or fail message for the deleting of a task
      *
-     * @param removedTask the Task that was removed
-     * @param taskIndex the array index of the task that was deleted
+     * @param removedTask the task that was deleted
+     * @param taskIndex the array index of the task that was deleted in the task list
      * @param isSuccessful the result of the task deletion
      */
     public void printDeleteTask(Task removedTask, int taskIndex, boolean isSuccessful) {
@@ -143,6 +147,7 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+
     /**
      * Prints the list of all tasks that contains the keyword in their descriptions
      *
@@ -171,6 +176,10 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints the message to prompt user to input the date and time in the required
+     * format.
+     */
     public void printWrongDateTimeFormat() {
         System.out.println(DIVIDER);
         System.out.println("Wrong Date-Time format given!");
@@ -179,6 +188,13 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints out the list of upcoming deadlines within the specified number
+     * of days (1day=24hr)
+     *
+     * @param taskList the full task list
+     * @param days the number of days to print the deadlines up to
+     */
     public void printUpcomingDeadlines(ArrayList<Task> taskList, int days) {
         //gets the Date-Time to print deadlines up to
         LocalDateTime due = taskTimeManager.addDaysToDateTime(taskTimeManager.getCurrentTime(), days);
@@ -200,6 +216,7 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+
     /**
      * Prints a message to remind the user to only use one keyword to search
      */
@@ -209,6 +226,13 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints out the list of upcoming events within the specified number of
+     * days (1day=24hr)
+     *
+     * @param taskList the full task list
+     * @param days the number of days to print the events up to
+     */
     public void printUpcomingEvents(ArrayList<Task> taskList, int days) {
         //gets the Date-Time to print events up to
         LocalDateTime due = taskTimeManager.addDaysToDateTime(taskTimeManager.getCurrentTime(), days);

@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * To be used when there is a missing parameter in the input string
+ * To be thrown when there are missing parameters in the input string.
  */
 public class EmptyParameterException extends Exception {
     //empty
