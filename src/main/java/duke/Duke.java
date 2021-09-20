@@ -7,47 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
-    private static final String LOGO = " ______    _   __   __            \n" +
-            "|_   _ \\  (_) [  | [  |           \n" +
-            "  | |_) | __   | |  | |   _   __  \n" +
-            "  |  __'.[  |  | |  | |  [ \\ [  ] \n" +
-            " _| |__) || |  | |  | |   \\ '/ /  \n" +
-            "|_______/[___][___][___][\\_:  /   \n" +
-            "                         \\__.'    \n";
-    private static final String GREETING_MESSAGE = HORIZONTAL_LINE +
-            "Hello! I'm Billy\n" +
-            HORIZONTAL_LINE;
-    private static final String GOODBYE_MESSAGE = HORIZONTAL_LINE +
-            " Bye. Hope to see you again soon!\n" +
-            HORIZONTAL_LINE;
-    private static final String HELP_MESSAGE = "Here's some tips on how to use me!\n\n" +
-            "todo [input]\n" +
-            "\t - Add a todo task to the list\n\n" +
-            "deadline [input] /by [input]\n" +
-            "\t - Add a deadline task by the given deadline\n\n" +
-            "event [input] /at [input]\n" +
-            "\t - Add an event task at the given time\n\n" +
-            "list\n" +
-            "\t - List out all the current tasks\n\n" +
-            "done [task_numbers]\n" +
-            "\t - Marks the given tasks as done\n\n" +
-            "bye\n" +
-            "\t - Terminates me :(\n";
-    public static final String MARK_TASKS_USAGE_MESSAGE = HORIZONTAL_LINE +
-            "Please provide me with a valid task to mark as done/not done!\n" +
-            "Some usage examples:\n" +
-            "-> Done 1, 2, 3\n" +
-            "-> Done 1 2 3\n" +
-            HORIZONTAL_LINE;
 
     public static void main(String[] args) {
         // Initialize variables for program startup
-        System.out.print("Hello from\n" + LOGO + GREETING_MESSAGE);
+        Ui.printGreetingMessage();
         String userInput;
         ArrayList<Task> list = new ArrayList<>();
         DukeFileUtils.loadSaveData(list);
-        printList(list);
+        Ui.printList(list);
         Scanner in = new Scanner(System.in);
 
 
@@ -57,11 +24,11 @@ public class Duke {
 
             try {
                 if (userInput.equalsIgnoreCase("bye")) {
-                    System.out.println(GOODBYE_MESSAGE);
+                    Ui.printGoodbyeMessage();
                     DukeFileUtils.saveToFile(list);
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    printList(list);
+                    Ui.printList(list);
                 } else if (userInputLowerCase.startsWith("done")) {
                     markTasksAsDone(userInput, list);
                     DukeFileUtils.saveToFile(list);
@@ -80,7 +47,7 @@ public class Duke {
                     deleteTask(userInputLowerCase, list);
                     DukeFileUtils.saveToFile(list);
                 } else {
-                    System.out.print(HORIZONTAL_LINE + HELP_MESSAGE + HORIZONTAL_LINE);
+                    Ui.printHelpMessage();
                 }
             } catch (DukeException | IndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
@@ -91,8 +58,7 @@ public class Duke {
     private static void addTodo(String description, List<Task> taskList) {
         Todo newTodo = new Todo(description, TaskType.TODO);
         taskList.add(newTodo);
-        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                newTodo + "\n" + HORIZONTAL_LINE);
+        Ui.printTaskAddedMessage(newTodo);
     }
 
     private static void addEvent(String input, List<Task> taskList) throws DukeException {
@@ -104,9 +70,7 @@ public class Duke {
         String time = separated[1];
         Event newEvent = new Event(description, TaskType.EVENT, time);
         taskList.add(newEvent);
-
-        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                newEvent + "\n" + HORIZONTAL_LINE);
+        Ui.printTaskAddedMessage(newEvent);
     }
 
     private static void addDeadline(String input, List<Task> taskList) throws DukeException {
@@ -118,9 +82,7 @@ public class Duke {
         String time = separated[1];
         Deadline newDeadline = new Deadline(description, TaskType.DEADLINE,time);
         taskList.add(newDeadline);
-
-        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
-                newDeadline + "\n" + HORIZONTAL_LINE);
+        Ui.printTaskAddedMessage(newDeadline);
     }
 
     /**
@@ -133,7 +95,7 @@ public class Duke {
     public static void deleteTask(String userInput, List<Task> list) throws DukeException {
         int[] tasksToDelete = extractInt(userInput);
 
-        System.out.println(HORIZONTAL_LINE + "Awesome! I shall now try to delete the following...");
+        Ui.printDeleteAttemptStartMessage();
         for (int taskNumber : tasksToDelete) {
             // tasksToDelete may contain '0's from current implementation of extractInt method
             if (taskNumber == 0) {
@@ -142,13 +104,13 @@ public class Duke {
             try {
                 // TODO: Check whether the given task is already done and throw an exception if it is already done
                 Task currTask = list.get(taskNumber - 1);
-                System.out.println("Deleted: " + currTask);
+                Ui.printDeletedTaskMessage(currTask);
                 list.remove(currTask);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Dude you've given be an invalid task number [" + taskNumber + "] ! Skipping...");
+                System.out.println("Dude you've given me an invalid task number [" + taskNumber + "] ! Skipping...");
             }
         }
-        System.out.print("Boom, insect. The tasks are now DELETED!\n" + HORIZONTAL_LINE);
+        Ui.printDeleteAttemptEndMessage();
     }
 
     /**
@@ -163,14 +125,15 @@ public class Duke {
         switch (type) {
         case DEADLINE:
             if (!description.contains("/by")) {
-                throw new DukeException("Am I supposed to guess when your deadline is???\n" +
+                throw new DukeException(Ui.getHorizontalLine() +
+                        "Am I supposed to guess when your deadline is???\n" +
                         "TIP: Use \"/by\" to do so!");
             }
             separated = description.split("/by +");
             break;
         case EVENT:
             if (!description.contains("/at")) {
-                throw new DukeException(HORIZONTAL_LINE +
+                throw new DukeException(Ui.getHorizontalLine() +
                         "Am I supposed to guess when your event is happening???\n" +
                         "TIP: Use \"/at\" to do so!");
             }
@@ -180,16 +143,6 @@ public class Duke {
             throw new IllegalStateException("Unexpected value: " + type);
         }
         return separated;
-    }
-
-    public static void printList(List<Task> list) {
-        Task task;
-        System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            task = list.get(i);
-            System.out.println(i + 1 + "." + task);
-        }
-        System.out.print(HORIZONTAL_LINE);
     }
 
     /**
@@ -202,7 +155,7 @@ public class Duke {
     public static void markTasksAsDone(String userInput, List<Task> list) throws DukeException {
         int[] tasksToMarkDone = extractInt(userInput);
 
-        System.out.println(HORIZONTAL_LINE + "Nice! Let me see what I have to mark as done:");
+        System.out.println(Ui.getHorizontalLine() + "Nice! Let me see what I have to mark as done:");
         for (int taskNumber : tasksToMarkDone) {
             // tasksToMarkDone may contain '0's from current implementation of extractInt method
             if (taskNumber == 0) {
@@ -217,7 +170,7 @@ public class Duke {
                 System.out.println("Dude you've given be an invalid task number... Skipping...");
             }
         }
-        System.out.print("All done!\n" + HORIZONTAL_LINE);
+        System.out.print("All done!\n" + Ui.getHorizontalLine());
     }
 
     /**
@@ -255,6 +208,6 @@ public class Duke {
         if (splitArray.length == 1) {
             throw new DukeException("Give me a DESCRIPTION too please???");
         }
-        return splitArray[1];
+        return splitArray[1].trim();
     }
 }
