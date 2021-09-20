@@ -5,6 +5,7 @@ import duke.command.DeleteTaskCommand;
 import duke.command.DoneCommand;
 import duke.command.QuitCommand;
 import duke.command.ListTasksCommand;
+import duke.command.FindTasksCommand;
 import duke.command.Command;
 import duke.ui.Ui;
 import duke.exception.DukeException;
@@ -19,6 +20,7 @@ public class Parser {
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String PARAMETER_BY = "/by";
     private static final String PARAMETER_AT = "/at";
 
@@ -43,6 +45,9 @@ public class Parser {
         case COMMAND_DELETE:
         case COMMAND_DONE:
             return executeTaskId(line, command);
+        case COMMAND_FIND:
+            String rawDescription = parseDescription(line, command);
+            return new FindTasksCommand(rawDescription);
         default:
             ui.printInvalidCommand();
             throw new DukeException("Please provide a valid command");
