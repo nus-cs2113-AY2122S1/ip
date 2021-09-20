@@ -1,19 +1,17 @@
 import exception.DukeException;
+import storage.Storage;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
 import ui.Ui;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
     public static Ui ui;
+    private static Storage storage;
     /**
      * Error Messages
      */
@@ -58,8 +56,9 @@ public class Duke {
      */
     private static void initTasks() {
         ui = new Ui();
+        storage = new Storage();
         tasks = new ArrayList<Task>();
-        instantiateTasksFromFile();
+        storage.instantiateTasksFromFile(tasks);
     }
 
     /**
@@ -120,25 +119,6 @@ public class Duke {
         }
     }
 
-    private static Task createSavedTask(String fileLine) {
-        String[] tokens = fileLine.split("\\|\\|");
-        String taskType = tokens[0];
-        String taskName = tokens[2];
-        boolean isDone = Boolean.valueOf(tokens[1]);
-        Task savedTask;
-        switch (taskType) {
-        case "D":
-            savedTask = new Deadline(taskName, isDone, tokens[3]);
-            break;
-        case "E":
-            savedTask = new Event(taskName, isDone, tokens[3]);
-            break;
-        default:
-            savedTask = new Todo(taskName, isDone);
-        }
-        return savedTask;
-    }
-
     /**
      * Adds a new Task to list of Tasks.
      *
@@ -161,7 +141,7 @@ public class Duke {
                 return;
             }
             tasks.add(newTask);
-            saveToFile();
+            storage.saveTasksToFile(tasks);
             ui.printAddedTaskMessage(newTask.getTaskName());
         } catch (DukeException err) {
             System.out.println(err.getMessage());
@@ -183,7 +163,7 @@ public class Duke {
             Task task = tasks.get(index);
             task.setDone();
             ui.printMarkedTaskDoneMessage(task);
-            saveToFile();
+            storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             throw new DukeException("TOBECHANGED");
         }
@@ -194,66 +174,7 @@ public class Duke {
         tasks.remove(index);
         // Print deleted message
         ui.printDeletedTaskMessage(deletedTask, tasks.size());
-        saveToFile();
-    }
-
-    private static void saveToFile() {
-        ArrayList<String> stringFormattedTasks;
-        File saveDir = new File("data");
-        saveDir.mkdir();
-        File saveFile = new File(saveDir, "duke.txt");
-        try {
-            saveFile.createNewFile();
-            FileWriter fw = new FileWriter(saveFile);
-            stringFormattedTasks = getTasksAsStringArrayList();
-            for (int i = 0; i < tasks.size(); i++) {
-                fw.write(stringFormattedTasks.get(i) + ui.LINE_BREAK);
-            }
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Something went wrong");
-        }
-    }
-
-    /**
-     * Formats the list of Tasks and
-     * returns a List of Tasks formatted as string
-     *
-     * @return ArrayList of String formatted Tasks
-     */
-    private static ArrayList<String> getTasksAsStringArrayList() {
-        ArrayList<String> stringFormattedTasks = new ArrayList<String> ();
-        for (int i = 0; i < tasks.size(); i++) {
-            char taskIdentifier = tasks.get(i).toString().charAt(1);
-            String temp = taskIdentifier + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName();
-            if (taskIdentifier == 'D') {
-                temp += "||" + ((Deadline) tasks.get(i)).getByWhen();
-            } else if (taskIdentifier == 'E') {
-                temp += "||" + ((Event) tasks.get(i)).getAtWhen();
-            }
-            stringFormattedTasks.add(temp);
-        }
-        return stringFormattedTasks;
-    }
-
-    private static void instantiateTasksFromFile() {
-        File saveDir = new File("data");
-        saveDir.mkdir();
-        File savedFile = new File(saveDir, "duke.txt");
-        if (!savedFile.exists()) {
-            return;
-        }
-        try {
-            Scanner fileScanner = new Scanner(savedFile);
-            while (fileScanner.hasNext()) {
-                String fileLine = fileScanner.nextLine();
-                Task savedTask = createSavedTask(fileLine);
-                tasks.add(savedTask);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        storage.saveTasksToFile(tasks);
     }
 
     private static void parseTaskCommands(String userInput) {
