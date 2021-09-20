@@ -108,6 +108,7 @@ public class Command {
      * @return              Index of corresponding task
      */
     private static int findTaskIndex (ParseInput parseInput){
-        return (Integer.parseInt(parseInput.userInput.replaceAll("^[0-9]", "")));
+        String result = parseInput.userInput.replaceAll("[^0-9]","");
+        return (Integer.parseInt(result));
     }
 }
