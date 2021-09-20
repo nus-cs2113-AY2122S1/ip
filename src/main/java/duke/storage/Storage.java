@@ -5,6 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.task.TaskTimeManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    public static final String TASK_DATA_PATH = "data/tasks.txt";
+    private static final String TASK_DATA_PATH = "data/tasks.txt";
+    private static final TaskTimeManager taskTimeManager = new TaskTimeManager();
 
     /**
      * Returns a Task ArrayList based on data read from the data storage file. Creates the
@@ -61,14 +63,14 @@ public class Storage {
                 break;
 
             case Deadline.SYMBOL:
-                taskList.add(new Deadline(data[2], data[3]));
+                taskList.add(new Deadline(data[2], taskTimeManager.parseDateTime(data[3])));
                 if (isTaskDone) {
                     taskList.get(Task.getTotalTasks() - 1).setDone(true);
                 }
                 break;
 
             case Event.SYMBOL:
-                taskList.add(new Event(data[2], data[3]));
+                taskList.add(new Event(data[2], taskTimeManager.parseDateTime(data[3])));
                 if (isTaskDone) {
                     taskList.get(Task.getTotalTasks() - 1).setDone(true);
                 }

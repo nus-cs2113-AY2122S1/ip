@@ -3,6 +3,10 @@ package duke.parser;
 import duke.exception.EmptyArgumentException;
 import duke.exception.EmptyParameterException;
 import duke.exception.MultipleKeywordsException;
+import duke.task.TaskTimeManager;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Methods that deal with making sense of the user input.
@@ -11,6 +15,8 @@ import duke.exception.MultipleKeywordsException;
  */
 public class Parser {
 
+    private static final TaskTimeManager taskTimeManager = new TaskTimeManager();
+
     /**
      * Extracts the date from the content of an event input (everything after "/at")
      *
@@ -18,12 +24,12 @@ public class Parser {
      * @return the date of the event
      * @throws EmptyParameterException when there is no date given for the event
      */
-    public String extractAtFromEvent(String content) throws EmptyParameterException {
+    public LocalDateTime extractAtFromEvent(String content) throws EmptyParameterException {
         int positionOfSeparator = content.trim().indexOf("/at");
         if ((positionOfSeparator + 3) >= content.length()) {
             throw new EmptyParameterException();
         }
-        return content.substring(positionOfSeparator + 3).trim();
+        return taskTimeManager.parseDateTime(content.substring(positionOfSeparator + 3).trim());
     }
 
     /**
@@ -33,7 +39,7 @@ public class Parser {
      * @return the description of the event
      * @throws EmptyParameterException when there is no description for the event
      */
-    public String extractDescriptionFromEvent(String content) throws EmptyParameterException {
+    public String extractDescriptionFromEvent(String content) throws EmptyParameterException, DateTimeParseException {
         int positionOfSeparator = content.trim().indexOf("/at");
         if (positionOfSeparator <= 0) {
             throw new EmptyParameterException();
@@ -48,12 +54,12 @@ public class Parser {
      * @return the deadline of the deadline
      * @throws EmptyParameterException when there is no date given for the deadline
      */
-    public String extractByFromDeadline(String content) throws EmptyParameterException {
+    public LocalDateTime extractByFromDeadline(String content) throws EmptyParameterException, DateTimeParseException {
         int positionOfSeparator = content.trim().indexOf("/by");
         if ((positionOfSeparator + 3) >= content.length()) {
             throw new EmptyParameterException();
         }
-        return content.substring(positionOfSeparator + 3).trim();
+        return taskTimeManager.parseDateTime(content.substring(positionOfSeparator + 3).trim());
     }
 
     /**
@@ -98,10 +104,11 @@ public class Parser {
     }
 
     /**
-     * Extracts the integer from the input string
+     * Extracts the integer from the input string and then deducts 1 from it to
+     * represent its index in an array. Then returns this said index.
      *
      * @param input the input string given
-     * @return the integer value of the content of the input string
+     * @return the index in an array in which the number in the input represents
      * @throws NumberFormatException when the content of the input is not a number
      * @throws EmptyArgumentException when the content of the input is empty
      */
@@ -126,5 +133,18 @@ public class Parser {
             throw new MultipleKeywordsException();
         }
         return keyWords[0];
+    }
+
+    /**
+     * Extracts the integer from the input string and returns it
+     *
+     * @param input the input string given
+     * @return the integer in the input string
+     * @throws NumberFormatException when the content of the input is not a number
+     * @throws EmptyArgumentException when the content of the input is empty
+     */
+    public int extractNumber(String input) throws NumberFormatException, EmptyArgumentException {
+        String content = extractContent(input);
+        return Integer.parseInt(content);
     }
 }

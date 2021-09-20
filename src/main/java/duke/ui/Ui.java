@@ -1,12 +1,17 @@
 package duke.ui;
 
 import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskTimeManager;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Ui {
 
     public static final String DIVIDER = "========================================================================";
+    private static final TaskTimeManager taskTimeManager = new TaskTimeManager();
 
     /**
      * Prints the greeting message of Duke
@@ -33,7 +38,7 @@ public class Ui {
         System.out.println(DIVIDER);
         System.out.println("Command not recognized!");
         System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
-        System.out.println("\"delete\", \"find\"");
+        System.out.println("\"delete\", \"upcoming\", \"find\"");
         System.out.println(DIVIDER);
     }
 
@@ -166,6 +171,35 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    public void printWrongDateTimeFormat() {
+        System.out.println(DIVIDER);
+        System.out.println("Wrong Date-Time format given!");
+        System.out.println("Accepted Format: YYYY-MM-DD HH:MM");
+        System.out.println("Example: 2021-09-18 16:00");
+        System.out.println(DIVIDER);
+    }
+
+    public void printUpcomingDeadlines(ArrayList<Task> taskList, int days) {
+        //gets the Date-Time to print deadlines up to
+        LocalDateTime due = taskTimeManager.addDaysToDateTime(taskTimeManager.getCurrentTime(), days);
+        System.out.println(DIVIDER);
+        System.out.println("Here are the tasks due within the next " + days + " days:");
+        int printCount = 0;
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            if (taskList.get(i) instanceof Deadline) {
+                Deadline deadlineTask = (Deadline)taskList.get(i);
+                if (taskTimeManager.isEarlierThan(deadlineTask.getBy(), due)) {
+                    System.out.println((printCount + 1) + "." + taskList.get(i));
+                    printCount++;
+                }
+            }
+        }
+        if (printCount == 0) {
+            System.out.println("You have no deadlines within the next " + days + " days!");
+        }
+        System.out.println(DIVIDER);
+    }
+
     /**
      * Prints a message to remind the user to only use one keyword to search
      */
@@ -174,4 +208,26 @@ public class Ui {
         System.out.println("I can only search for one keyword at a time!");
         System.out.println(DIVIDER);
     }
+
+    public void printUpcomingEvents(ArrayList<Task> taskList, int days) {
+        //gets the Date-Time to print events up to
+        LocalDateTime due = taskTimeManager.addDaysToDateTime(taskTimeManager.getCurrentTime(), days);
+        System.out.println(DIVIDER);
+        System.out.println("Here are the upcoming events within the next " + days + " days:");
+        int printCount = 0;
+        for (int i = 0; i < Task.getTotalTasks(); i++) {
+            if (taskList.get(i) instanceof Event) {
+                Event eventTask = (Event)taskList.get(i);
+                if (taskTimeManager.isEarlierThan(eventTask.getAt(), due)) {
+                    System.out.println((printCount + 1) + "." + taskList.get(i));
+                    printCount++;
+                }
+            }
+        }
+        if (printCount == 0) {
+            System.out.println("You have no events within the next " + days + " days!");
+        }
+        System.out.println(DIVIDER);
+    }
+
 }
