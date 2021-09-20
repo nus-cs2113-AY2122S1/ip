@@ -8,11 +8,12 @@ Available features include adding, removing, finding, setting as done and listin
 
 ### Getting Started
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest IzzIbot.jar.
+2. Download the latest iP.jar.
 3. Copy the file into an empty folder.
-4. Run the command `java -jar {filename}.jar e.g., java -jar IzzIbot.jar`
-5. The first run will create a new storage file `IzziBot_data` and terminate.
-6. Repeat step 4 to use IzzIbot.
+4. Open a command window in that folder.
+5. Run the command `java -jar iP.jar`
+6. The first run will create a new storage file `IzziBot_data` and terminate.
+7. Repeat step 5 to use IzzIbot.
 
 ### Add a `Task`
 Adds a `Task` of one of three types - `Todo`, `Deadline` or `Event` to the task manager.

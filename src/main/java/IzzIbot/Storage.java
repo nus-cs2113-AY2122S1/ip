@@ -113,6 +113,6 @@ public class Storage {
         // from https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
         Files.createDirectories(FILE_PATH.getParent());
         Files.createFile(FILE_PATH);
-        ui.printWithLines("New storage file created.");
+        ui.printWithLines("New storage file created.\nInput [java -jar iP.jar] command again to launch IzzIbot.");
     }
 }
