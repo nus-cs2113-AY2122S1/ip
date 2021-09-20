@@ -14,29 +14,29 @@ public class TaskManager {
         if (taskNo < maxTasks) {
             tasks[taskNo] = task;
             taskNo++;
-
-            System.out.print("Got it. I've added this task:\n");
-            System.out.printf("   %s\n", task);
-            System.out.printf("Now you have %d tasks in the list.\n", taskNo);
+            Storage.exportData();
         }
     }
 
-    public static void addTodo(String todoName) throws DukeException {
+    public static Task addTodo(String todoName) throws DukeException {
         if (todoName.isEmpty()) {
             throw new DukeException("Todo cannot be empty");
         }
         Todo todo = new Todo(todoName);
         addTask(todo);
+        return todo;
     }
 
-    public static void addDeadline(String deadlineName, String deadlineDue) {
+    public static Task addDeadline(String deadlineName, String deadlineDue) {
         Deadline deadline = new Deadline(deadlineName, deadlineDue);
         addTask(deadline);
+        return deadline;
     }
 
-    public static void addEvent(String eventName, String eventTime) {
+    public static Task addEvent(String eventName, String eventTime) {
         Event event = new Event(eventName, eventTime);
         addTask(event);
+        return event;
     }
 
     public static void listTasks() {
@@ -47,11 +47,18 @@ public class TaskManager {
         }
     }
 
-    public static void markTaskNoAsDone(int taskNo) {
+    public static Task markTaskNoAsDone(int taskNo) {
         Task task = tasks[taskNo];
         task.markAsDone();
+        Storage.exportData();
+        return task;
+    }
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("   %s\n", task);
+    public static int getTasklistSize() {
+        return taskNo;
+    }
+
+    public static Task[] getTasklist() {
+        return tasks;
     }
 }

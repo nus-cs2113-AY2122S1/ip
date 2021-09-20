@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.TaskManager;
+import duke.task.Task;
 
 public class EventCommand implements Command {
     public static final CommandType type = CommandType.EVENT;
@@ -14,8 +15,13 @@ public class EventCommand implements Command {
     }
 
     @Override
-    public void run() {
-        TaskManager.addEvent(eventTitle, eventTime);
+    public void run(boolean printMessage) {
+        Task task = TaskManager.addEvent(eventTitle, eventTime);
+        if (printMessage) {
+            System.out.print("Got it. I've added this task:\n");
+            System.out.printf("   %s\n", task);
+            System.out.printf("Now you have %d tasks in the list.\n", TaskManager.getTasklistSize());
+        }
     }
 
     @Override

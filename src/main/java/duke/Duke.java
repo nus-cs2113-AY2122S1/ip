@@ -19,12 +19,14 @@ public class Duke {
     }
 
     private static void executeDuke() {
+        Storage.importData();
+
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         Command command = CommandParser.parse(input);
         while (command.getType() != CommandType.EXIT) {
             try {
-                command.run();
+                command.run(true);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
