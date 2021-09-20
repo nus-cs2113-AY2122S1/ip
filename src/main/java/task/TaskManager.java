@@ -11,8 +11,12 @@ import ui.Display;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * The TaskManager class is responsible for storing and managing all the different types of tasks.
+ */
 public class TaskManager {
 
+    /** Offset required to convert between 0 and 1 indexing. */
     public static final int INDEX_OFFSET = 1;
 
     private static ArrayList<Task> allTasks = new ArrayList<>();
@@ -22,14 +26,23 @@ public class TaskManager {
         return allTasks;
     }
 
+    /** Increases the current number of tasks by 1. */
     public void increaseTaskCount() {
         taskCount++;
     }
 
+    /** Decreases the current number of tasks by 1. */
     public void decreaseTaskCount() {
         taskCount--;
     }
 
+    /**
+     * Adds a 'todo' type task.
+     * Shows the user an acknowledgement message after a successful addition of new 'todo' type task.
+     * Increases the current number of tasks in the TaskManager by 1.
+     *
+     * @param taskInformation Task details provided by user.
+     */
     public void addTodoTask(String taskInformation) {
         try {
             allTasks.add(new Todo(InputParser.getTaskName(taskInformation)));
@@ -40,6 +53,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a 'deadline' type task.
+     * Shows the user an acknowledgement message after a successful addition of new 'deadline' type task.
+     * Increases the current number of tasks in the TaskManager by 1.
+     *
+     * @param taskInformation Task details provided by user.
+     */
     public void addDeadlineTask(String taskInformation) {
         try {
             allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskInformation),
@@ -56,6 +76,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a 'event' type task.
+     * Shows the user an acknowledgement message after a successful addition of new 'event' type task.
+     * Increases the current number of tasks in the TaskManager by 1.
+     *
+     * @param taskInformation Task details provided by user.
+     */
     public void addEventTask(String taskInformation) {
         try {
             allTasks.add(new Event(InputParser.getTaskNameComponent(taskInformation),
@@ -72,6 +99,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Removes a task from the TaskManager.
+     * Shows the user an acknowledgement message after a successful deletion of task.
+     * Decreases the current number of tasks in the TaskManager by 1.
+     *
+     * @param commandComponents User input in a string array form.
+     */
     public void deleteTask(String[] commandComponents) {
         try {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
@@ -86,6 +120,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Updates the status of a task as completed.
+     * Shows the user an acknowledgement message after a successful update of task.
+     *
+     * @param commandComponents User input in a string array form.
+     */
     public void markTaskAsCompleted(String[] commandComponents) {
         try {
             int taskNumber = InputParser.getTaskNumber(commandComponents);
@@ -98,6 +138,7 @@ public class TaskManager {
         }
     }
 
+    /** Displays all the tasks found in the TaskManager. */
     public void listTask() {
         Display.printListTaskLine();
         for (int i = 0; i < taskCount; i++) {
@@ -106,6 +147,11 @@ public class TaskManager {
         Display.printListTaskLine();
     }
 
+    /**
+     * Finds a list of tasks that has names which contain the keyword the user is filtering for.
+     *
+     * @param taskKeyword Keyword that must be present in the task names.
+     */
     public void findTask(String taskKeyword) {
         Display.printListTaskLine();
         allTasks.stream()
@@ -114,6 +160,13 @@ public class TaskManager {
         Display.printListTaskLine();
     }
 
+    /**
+     * Adds a 'todo' type task when loading task from storage file.
+     * If task loaded from storage has a completed status, task is marked as completed.
+     *
+     * @param isCompleted Task completion status.
+     * @param taskDetails Task details that were saved.
+     */
     public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Todo(InputParser.getTaskName(taskDetails)));
@@ -126,6 +179,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a 'deadline' type task when loading task from storage file.
+     * If task loaded from storage has a completed status, task is marked as completed.
+     *
+     * @param isCompleted Task completion status.
+     * @param taskDetails Task details that were saved.
+     */
     public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskDetails),
@@ -144,6 +204,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds an 'event' type task when loading task from storage file.
+     * If task loaded from storage has a completed status, task is marked as completed.
+     *
+     * @param isCompleted Task completion status.
+     * @param taskDetails Task details that were saved.
+     */
     public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
         try {
             allTasks.add(new Event(InputParser.getTaskNameComponent(taskDetails),
