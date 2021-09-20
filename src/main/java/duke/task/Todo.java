@@ -41,10 +41,9 @@ public class Todo extends Task {
     @Override
     public void editTaskInteractive() {
         try {
-            MessageBubble.printMessageBubble("Original Todo: " + this);
-            MessageBubble.printMessageBubble("New description for the todo:");
+            MessageBubble.printMessageBubble(String.format("New description for the todo?\n(original: %s)", this.getDescription()));
             setDescription(input.nextLine());
-            MessageBubble.printMessageBubble("Updated Todo: " + this);
+            MessageBubble.printMessageBubble("Updated Todo:\n" + this);
         } catch (EmptyField e) {
             e.printStackTrace();
         }
