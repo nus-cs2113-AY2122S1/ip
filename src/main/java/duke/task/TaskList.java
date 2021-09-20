@@ -15,6 +15,17 @@ public class TaskList {
         return (index >= 0 && index < getSize());
     }
 
+    /**
+     * Checks if task index is valid.
+     * Note: Task index starts from 1 (not 0).
+     *
+     * @param taskNumber The task index.
+     * @return true if task index is valid, else false.
+     */
+    public boolean isValidTaskNumber(int taskNumber) {
+        return (taskNumber > 0 && taskNumber <= getSize());
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
