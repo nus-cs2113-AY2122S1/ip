@@ -36,14 +36,14 @@ public class UI {
         return input;
     }
 
-    public static void printListMessage(ArrayList<Task> tasksArrayList) {
-        if (tasksArrayList.size() == 0) {
+    public static void printListMessage(TaskList taskList) {
+        if (taskList.getSize() == 0) {
             System.out.println("\tThe list is empty!");
         } else {
             System.out.println("\tHere's the list of your tasks: ");
-            for (int j = 0; j < tasksArrayList.size(); j++) {
+            for (int j = 0; j < taskList.getSize(); j++) {
                 int itemNumber = j + 1;
-                System.out.println("\t" + itemNumber + "." + tasksArrayList.get(j).toString());
+                System.out.println("\t" + itemNumber + "." + taskList.getTask(j).toString());
             }
         }
         printBorder();

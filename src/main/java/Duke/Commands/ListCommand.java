@@ -1,10 +1,7 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Task;
 import Duke.UI;
-
-import java.util.ArrayList;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
@@ -18,7 +15,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) {
-        UI.printListMessage(tasksList);
+    public void execute() {
+        UI.printListMessage(taskList);
     }
 }

@@ -11,5 +11,4 @@ public class InvalidCommand extends Command{
     public InvalidCommand() throws DukeException {
         throw new DukeException(INVALID_INPUT_MESSAGE);
     }
-
 }

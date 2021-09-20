@@ -1,11 +1,8 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Task;
 import Duke.Task.Todo;
 import Duke.UI;
-
-import java.util.ArrayList;
 
 public class TodoCommand extends Command {
 
@@ -26,14 +23,14 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) {
-        tasksList.add(new Todo(taskName));
-        UI.printNewTaskMsg(tasksList);
+    public void execute() {
+        taskList.addTask(new Todo(taskName));
+        UI.printNewTaskMsg(taskList.getEntireList());
     }
 
     @Override
-    public void executeFromFile(ArrayList<Task> tasksList) {
-        tasksList.add(new Todo(taskName));
+    public void executeFromFile() {
+        taskList.addTask(new Todo(taskName));
     }
 
 }

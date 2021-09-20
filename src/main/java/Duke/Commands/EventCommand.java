@@ -1,12 +1,8 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Deadline;
 import Duke.Task.Event;
-import Duke.Task.Task;
 import Duke.UI;
-
-import java.util.ArrayList;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
@@ -39,13 +35,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) {
-        tasksList.add(new Event(taskName, dueDate));
-        UI.printNewTaskMsg(tasksList);
+    public void execute() {
+        taskList.addTask(new Event(taskName, dueDate));
+        UI.printNewTaskMsg(taskList.getEntireList());
     }
 
     @Override
-    public void executeFromFile(ArrayList<Task> tasksList) {
-        tasksList.add(new Event(taskName, dueDate));
+    public void executeFromFile() {
+        taskList.addTask(new Event(taskName, dueDate));
     }
 }

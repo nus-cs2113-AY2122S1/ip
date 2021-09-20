@@ -8,28 +8,27 @@ import Duke.Task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private static final java.nio.file.Path FILE_PATH = java.nio.file.Paths.get(CURRENT_DIRECTORY);
-    private static final ArrayList<Task> FILE_TASKS_ARRAY_LIST = new ArrayList<>();
+    private static final TaskList FILE_TASK_LIST = new TaskList();
 
-    public static ArrayList<Task> initialiseFile() {
+    public static TaskList initialiseFile() {
         try {
             //get the file, else create file if it does not exist.
             File taskFile = getTaskFile();
-            Scanner fileTaskLists = new Scanner(taskFile);
+            Scanner fileList = new Scanner(taskFile);
 
             //read and extract the data in the file to store it in the task array list.
-            readAndExtractFile(fileTaskLists);
+            readAndExtractFile(fileList);
         } catch (IOException | DukeException e) {
             e.printStackTrace();
         }
         clearOutput();
-        return FILE_TASKS_ARRAY_LIST;
+        return FILE_TASK_LIST;
     }
 
     private static void clearOutput() {
@@ -47,9 +46,9 @@ public class Storage {
         return taskFile;
     }
 
-    private static void readAndExtractFile(Scanner fileTaskLists) throws DukeException {
-        while (fileTaskLists.hasNextLine()) {
-            String data = fileTaskLists.nextLine();
+    private static void readAndExtractFile(Scanner fileList) throws DukeException {
+        while (fileList.hasNextLine()) {
+            String data = fileList.nextLine();
             String[] splittedData = data.split("\\|");
             String taskType = splittedData[0];
             boolean isMarkedDone = Integer.parseInt(splittedData[1]) == 1;
@@ -69,18 +68,20 @@ public class Storage {
                 break;
             }
             command = Parser.parseCommand(taskCommand);
-            command.executeFromFile(FILE_TASKS_ARRAY_LIST);
+            command.setData(FILE_TASK_LIST);
+            command.executeFromFile();
             if (isMarkedDone) {
-                taskCommand = "done " + FILE_TASKS_ARRAY_LIST.size();
+                taskCommand = "done " + FILE_TASK_LIST.getSize();
                 command = Parser.parseCommand(taskCommand);
-                command.executeFromFile(FILE_TASKS_ARRAY_LIST);
+                command.setData(FILE_TASK_LIST);
+                command.executeFromFile();
             }
         }
     }
 
-    public static void updateFile(ArrayList<Task> tasksList) throws IOException {
+    public static void updateFile(TaskList taskList) throws IOException {
         FileWriter taskWriter = new FileWriter(FILE_PATH + "/taskLists.txt", false);
-        for (Task task : tasksList) {
+        for (Task task : taskList.getEntireList()) {
             String taskAbbreviation = getTaskAbbreviation(task);
             String taskStatus = getTaskStatus(task);
             String dataWritten = taskAbbreviation + "|" + taskStatus + "|" + task.getDescription() + System.lineSeparator();

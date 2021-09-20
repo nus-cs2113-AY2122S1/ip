@@ -1,10 +1,8 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Task;
+import Duke.TaskList;
 import Duke.UI;
-
-import java.util.ArrayList;
 
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
@@ -15,29 +13,29 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) throws DukeException {
+    public void execute() throws DukeException {
         try {
-            markTaskAsDone(tasksList);
+            markTaskAsDone(taskList);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            handleInvalidIndexErrors(tasksList);
+            handleInvalidIndexErrors(taskList);
         }
         UI.printBorder();
     }
 
     @Override
-    public void executeFromFile(ArrayList<Task> tasksList) throws DukeException {
+    public void executeFromFile() throws DukeException {
         try {
-            markTaskAsDone(tasksList);
+            markTaskAsDone(taskList);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            handleInvalidIndexErrors(tasksList);
+            handleInvalidIndexErrors(taskList);
         }
         UI.printBorder();
     }
 
-    private void markTaskAsDone(ArrayList<Task> tasksList) {
+    private void markTaskAsDone(TaskList taskList) {
         int taskIndex = Integer.parseInt(splittedInput[1]) - 1;
-        tasksList.get(taskIndex).markAsDone();
+        taskList.getTask(taskIndex).markAsDone();
         System.out.println("\tGood job! I've marked this task as done: ");
-        System.out.println("\t" + tasksList.get(taskIndex));
+        System.out.println("\t" + taskList.getTask(taskIndex));
     }
 }

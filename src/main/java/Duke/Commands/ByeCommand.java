@@ -1,9 +1,6 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Task;
-
-import java.util.ArrayList;
 
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
@@ -17,7 +14,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) {
+    public void execute() {
     }
 
 }

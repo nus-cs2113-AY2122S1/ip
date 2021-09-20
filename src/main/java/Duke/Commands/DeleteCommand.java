@@ -1,10 +1,8 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Task;
+import Duke.TaskList;
 import Duke.UI;
-
-import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
@@ -15,20 +13,20 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) throws DukeException {
+    public void execute() throws DukeException {
         try {
-            deleteTask(tasksList);
+            deleteTask(taskList);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            handleInvalidIndexErrors(tasksList);
+            handleInvalidIndexErrors(taskList);
         }
         UI.printBorder();
     }
 
-    private void deleteTask(ArrayList<Task> tasksList) {
+    private void deleteTask(TaskList taskList) {
         int taskIndex = Integer.parseInt(splittedInput[1]) - 1;
         System.out.println("\tAlright, I've deleted this task: " + System.lineSeparator()
-                + "\t" + tasksList.get(taskIndex).toString());
-        tasksList.remove(taskIndex);
-        System.out.println("\tYou now have " + tasksList.size() + " tasks on your task list.");
+                + "\t" + taskList.getTask(taskIndex).toString());
+        taskList.removeTask(taskIndex);
+        System.out.println("\tYou now have " + taskList.getSize() + " tasks on your task list.");
     }
 }

@@ -2,10 +2,8 @@ package Duke.Commands;
 
 import Duke.DukeException;
 import Duke.Task.Deadline;
-import Duke.Task.Task;
 import Duke.UI;
 
-import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
@@ -38,13 +36,13 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasksList) {
-        tasksList.add(new Deadline(taskName, dueDate));
-        UI.printNewTaskMsg(tasksList);
+    public void execute() {
+        taskList.addTask(new Deadline(taskName, dueDate));
+        UI.printNewTaskMsg(taskList.getEntireList());
     }
 
     @Override
-    public void executeFromFile(ArrayList<Task> tasksList) {
-        tasksList.add(new Deadline(taskName, dueDate));
+    public void executeFromFile() {
+        taskList.addTask(new Deadline(taskName, dueDate));
     }
 }

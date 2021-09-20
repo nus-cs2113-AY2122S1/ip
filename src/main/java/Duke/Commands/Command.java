@@ -1,19 +1,21 @@
 package Duke.Commands;
 
 import Duke.DukeException;
-import Duke.Task.Task;
-
-import java.util.ArrayList;
+import Duke.TaskList;
 
 public class Command {
-    public Command() {
+    protected TaskList taskList;
+    public Command() {}
+
+    public void setData(TaskList tasksList) {
+        taskList = tasksList;
     }
 
-    public void execute(ArrayList<Task> tasksList) throws DukeException {
+    public void execute() throws DukeException {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     }
 
-    public void executeFromFile(ArrayList<Task> tasksList) throws DukeException {
+    public void executeFromFile() throws DukeException {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     }
 
@@ -24,8 +26,8 @@ public class Command {
         return input.substring(slashIndex + 1);
     }
 
-    protected void handleInvalidIndexErrors(ArrayList<Task> tasksList) throws DukeException {
-        if (tasksList.size() == 0) {
+    protected void handleInvalidIndexErrors(TaskList taskList) throws DukeException {
+        if (taskList.getSize() == 0) {
             throw new DukeException("☹ OOPS!!! The list is empty!");
         } else {
             System.out.println("\t☹ OOPS!!! Please enter a valid task index.");
