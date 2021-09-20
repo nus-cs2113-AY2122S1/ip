@@ -1,2 +1,1 @@
-todo book,f
-todo soemthing,f
+event concert /at monday,t
