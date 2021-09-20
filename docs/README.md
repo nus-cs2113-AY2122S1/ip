@@ -1,6 +1,6 @@
 # User Guide
 
-## Introducing DUKE CS2113T
+`## Introducing DUKE CS2113T`
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
 task like todo, event and deadline which can be displayed to the user.  
 
