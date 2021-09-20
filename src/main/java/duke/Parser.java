@@ -68,4 +68,11 @@ public class Parser {
         }
         return false;
     }
+
+    public boolean isFind() {
+        if (commandString.split(" ")[0].equals("find")) {
+            return true;
+        }
+        return false;
+    }
 }

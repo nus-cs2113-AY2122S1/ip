@@ -47,7 +47,8 @@ public class Deadline extends Task {
         String time = by.split(" ")[1];
         String formattedDateTime = date + "T" + time;
         LocalDateTime dt = LocalDateTime.parse(formattedDateTime);
-        String newBy = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.getHour() + ":" + dt.getMinute();
+        DateTimeFormatter formatTimeNow = DateTimeFormatter.ofPattern("HH:mm a");
+        String newBy = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.format(formatTimeNow);
 
         return "[D]" + super.toString() + "(by: " + newBy + ")";
     }

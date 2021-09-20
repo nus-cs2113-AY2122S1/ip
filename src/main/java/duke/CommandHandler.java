@@ -43,6 +43,9 @@ public class CommandHandler {
         } else if (commandHandle.isEvent()) {
             TaskList.addEvent(userInputString, dukeTaskText);
             return false;
+        } else if (commandHandle.isFind()) {
+            TaskList.findTask(userInputString);
+            return false;
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
