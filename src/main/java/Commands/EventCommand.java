@@ -12,7 +12,7 @@ public class EventCommand extends Command {
 
     public String description;
     public LocalDateTime eventTime;
-    public static final String SUCCESS_MESSAGE = "The following deadline task has been added\n";
+    public static final String SUCCESS_MESSAGE = "The following event task has been added\n";
 
     public EventCommand(String input){
         String[] inputParts = input.split("/at");
