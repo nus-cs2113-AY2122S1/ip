@@ -43,6 +43,10 @@ public class Task {
         return description;
     }
 
+    public boolean isInTask(String input) {
+        return description.toLowerCase().contains(input);
+    }
+
     /**
      * This function modifies the output format.
      */

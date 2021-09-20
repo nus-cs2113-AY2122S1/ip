@@ -28,4 +28,10 @@ public class Deadline extends Task {
     public String toFile() {
         return "D" + FILE_STRING_SEPARATOR + super.toFile() + FILE_STRING_SEPARATOR + by + "\n";
     }
+
+    @Override
+    public boolean isInTask(String input) {
+        boolean isInBy = by.contains(input);
+        return super.isInTask(input) || isInBy;
+    }
 }

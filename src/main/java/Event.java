@@ -28,4 +28,10 @@ public class Event extends Task {
     public String toFile() {
         return "E" + FILE_STRING_SEPARATOR + super.toFile() + FILE_STRING_SEPARATOR + at + "\n";
     }
+
+    @Override
+    public boolean isInTask(String input) {
+        boolean isInAt = at.contains(input);
+        return super.isInTask(input) || isInAt;
+    }
 }

@@ -9,7 +9,10 @@ public class Ui {
             + TAB + "Please use 'list' to see what number can be used...";
     private final static String INVALID_DELETE = TAB + "Why would you delete a task... Your delete statement is an "
             + "incorrect input too...";
-    private final static String INVALID_TASK = "Your task is really weird... I don't think I like it...";
+    private final static String INVALID_TASK = TAB + "Your task is really weird... I don't think I like it...";
+    private final static String CANNOT_FIND = TAB + "Unfortunately... There aren't tasks that "
+            + "have what you are looking for...";
+    private final static String CAN_FIND = TAB + "Yay... These tasks match your find...";
 
     public Ui() {
     }
@@ -78,5 +81,15 @@ public class Ui {
 
     public static void printInvalidTaskStatement() {
         System.out.println(INVALID_TASK);
+    }
+
+    public static void printCannotFind() { System.out.println(CANNOT_FIND); }
+
+    public static void printFind(TaskList tempTasks) {
+        System.out.println(CAN_FIND);
+        for (int index = 0; index < tempTasks.getLength(); index++) {
+            System.out.format(TAB + "% 3d.", index + 1);
+            System.out.println(tempTasks.getItemFromIndex(index));
+        }
     }
 }
