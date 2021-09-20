@@ -35,4 +35,5 @@ public class Task {
         String doneIcon = isDone ? "X" : " ";
         return  taskIcon + " | " + doneIcon + " | " + description;
     }
+
 }
