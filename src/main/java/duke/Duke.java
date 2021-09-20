@@ -21,7 +21,7 @@ import java.util.Scanner;
  * @version 4.0
  * @since 2021-08-25
  */
-public class Duke implements PrintOutput {
+public class Duke {
     protected static ArrayList<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "data/userData.txt";
     private static final String FILE_DIRECTORY = "data";
@@ -34,51 +34,55 @@ public class Duke implements PrintOutput {
     private static final String COMMAND_EVENT = "event";
     private static boolean isDone = false;
 
+    private static Ui ui = new Ui();
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        PrintOutput.printWelcomeMessage();
+        ui.printWelcomeMessage();
         loadData();
 
         do {
             try {
-                Parser inputHandler = readUserInput(in);
-
-                // Execute commands
-                switch (inputHandler.getCommand()) {
-                case "bye":
-                    executeBye();
-                    break;
-                case "list":
-                    executeList();
-                    break;
-                case "done":
-                    executeDone(inputHandler.getTaskIndex());
-                    break;
-                case "todo":
-                    executeTodo(inputHandler.getDescription());
-                    break;
-                case "deadline":
-                    executeDeadline(inputHandler.getDescription(), inputHandler.getTimeField());
-                    break;
-                case "event":
-                    executeEvent(inputHandler.getDescription(), inputHandler.getTimeField());
-                    break;
-                case "delete":
-                    executeDelete(inputHandler.getTaskIndex());
-                    break;
-                default:
-                    PrintOutput.printErrorMessage();
-                    break;
-                }
+                Parser inputHandler = ui.readUserInput(in);
+                executeCommand(inputHandler);
             } catch (EmptyDescriptionException e) {
-                PrintOutput.printEmptyDescriptionErrorMessage();
+                ui.printEmptyDescriptionErrorMessage();
             } catch (EmptyTimeFieldException e) {
-                PrintOutput.printEmptyTimeFieldErrorMessage();
+                ui.printEmptyTimeFieldErrorMessage();
             } catch (Exception e) {
-                PrintOutput.printErrorMessage();
+                ui.printErrorMessage();
             }
         } while (!isDone);
+    }
+
+    private static void executeCommand(Parser inputHandler){
+        switch (inputHandler.getCommand()) {
+        case COMMAND_BYE:
+            executeBye();
+            break;
+        case COMMAND_LIST:
+            executeList();
+            break;
+        case COMMAND_DONE:
+            executeDone(inputHandler.getTaskIndex());
+            break;
+        case COMMAND_TODO:
+            executeTodo(inputHandler.getDescription());
+            break;
+        case COMMAND_DEADLINE:
+            executeDeadline(inputHandler.getDescription(), inputHandler.getTimeField());
+            break;
+        case COMMAND_EVENT:
+            executeEvent(inputHandler.getDescription(), inputHandler.getTimeField());
+            break;
+        case COMMAND_DELETE:
+            executeDelete(inputHandler.getTaskIndex());
+            break;
+        default:
+            ui.printErrorMessage();
+            break;
+        }
     }
 
     private static void saveData() {
@@ -167,46 +171,41 @@ public class Duke implements PrintOutput {
     private static void executeBye() {
         isDone = true;
         saveData();
-        PrintOutput.printExitMessage();
+        ui.printExitMessage();
     }
 
     private static void executeEvent(String description, String timeField) {
         Task newTask = new Event(description, timeField);
         tasks.add(newTask);
-        PrintOutput.printAddTask(newTask);
+        ui.printAddTask(newTask);
     }
 
     private static void executeDeadline(String description, String timeField) {
         Task newTask = new Deadline(description, timeField);
         tasks.add(newTask);
-        PrintOutput.printAddTask(newTask);
+        ui.printAddTask(newTask);
     }
 
-    private static void executeTodo(String description) throws EmptyDescriptionException {
+    private static void executeTodo(String description) {
         Task newTask = new Todo(description);
         tasks.add(newTask);
-        PrintOutput.printAddTask(newTask);
+        ui.printAddTask(newTask);
     }
 
     private static void executeDone(int taskIndex) {
         Task doneTask = tasks.get(taskIndex - 1);
         doneTask.setDone();
         Task.decrementNumOfTasks();
-        PrintOutput.printDoneTask(doneTask, taskIndex);
+        ui.printDoneTask(doneTask, taskIndex);
     }
 
     private static void executeDelete(int taskIndex) {
         Task deletedTask = tasks.get(taskIndex - 1);
         tasks.remove(taskIndex - 1);
-        PrintOutput.printDeleteTask(deletedTask);
+        ui.printDeleteTask(deletedTask);
     }
 
     private static void executeList() {
-        PrintOutput.printTaskList(tasks);
-    }
-
-    private static Parser readUserInput(Scanner in) throws EmptyDescriptionException, EmptyTimeFieldException {
-        System.out.println("\tCall out a smurf to do a job for you!");
-        return new Parser(in.nextLine());
+        ui.printTaskList(tasks);
     }
 }
