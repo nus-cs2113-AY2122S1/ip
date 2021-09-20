@@ -14,10 +14,11 @@ public class Parser {
 
     /**
      * Processes the user input into the command type and the parameters involved. Returns the command to be executed
+     *
      * @param userInput the input string of the user
      * @return the command to be executed
      * @throws InsufficientParametersException when required parameters are not detected
-     * @throws UnknownCommandException when the input string is not a supported command
+     * @throws UnknownCommandException         when the input string is not a supported command
      */
     public Command parse(String userInput) throws InsufficientParametersException, UnknownCommandException {
         String[] input = userInput.split(" ", 2);
@@ -30,6 +31,9 @@ public class Parser {
         case "done":
             return new DoneCommand(Integer.parseInt(input[1]));
         case "todo":
+            if (input.length < 2) {
+                throw new InsufficientParametersException();
+            }
             return new TodoCommand(input[1]);
         case "deadline":
             if (!input[1].contains("/by")) {
