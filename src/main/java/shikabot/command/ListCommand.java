@@ -1,5 +1,7 @@
 package shikabot.command;
 
+import shikabot.ui.TextUi;
+
 public class ListCommand extends Command{
 
     public ListCommand() {
@@ -9,6 +11,6 @@ public class ListCommand extends Command{
      * Function that prints the list of all tasks.
      */
     public void execute() {
-        ui.printTasks(taskList);
+        TextUi.printTasks(taskList);
     }
 }

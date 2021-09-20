@@ -1,5 +1,7 @@
 package shikabot.command;
 
+import shikabot.ui.TextUi;
+
 public class DeleteCommand extends Command {
 
     private final int index;
@@ -13,11 +15,11 @@ public class DeleteCommand extends Command {
      */
     public void execute() {
         try {
-            ui.printDeleteTaskMessage(taskList, index);
-            taskList.remove(index);
-            ui.printTaskCount(taskList.size());
+            TextUi.printDeleteTaskMessage(taskList, index);
+            taskList.removeTask(index);
+            TextUi.printTaskCount(taskList.getSize());
         } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskMessage();
+            TextUi.printInvalidTaskMessage();
         }
     }
 }

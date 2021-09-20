@@ -1,5 +1,7 @@
 package shikabot.command;
 
+import shikabot.ui.TextUi;
+
 public class FindCommand extends Command {
 
     private final String SEARCHTERM;
@@ -10,6 +12,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute() {
-        ui.printMatchingTasks(taskList, SEARCHTERM);
+        TextUi.printMatchingTasks(taskList, SEARCHTERM);
     }
 }

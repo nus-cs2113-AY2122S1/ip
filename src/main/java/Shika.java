@@ -12,7 +12,6 @@ import shikabot.storage.Storage;
 public class Shika {
 
     public static String path = "data/ShikaTasks.txt";
-    public static TextUi ui = new TextUi();
     public static Parser parser = new Parser();
 
     public Storage storage;
@@ -29,7 +28,7 @@ public class Shika {
         try {
             setupShika();
         } catch (FileNotFoundException e) {
-            ui.printFileErrorMessage();
+            TextUi.printFileErrorMessage();
         }
         runShikaLoop();
     }
@@ -40,9 +39,9 @@ public class Shika {
      * @throws FileNotFoundException when ShikaTasks.txt is not found.
      */
     private void setupShika() throws FileNotFoundException {
-        ui.printLogo();
+        TextUi.printLogo();
         this.storage = new Storage(path);
-        ui.printWelcomeMessage(checkForSave());
+        TextUi.printWelcomeMessage(checkForSave());
         this.taskList = new TaskList();
         taskList = storage.loadTasks();
     }
@@ -56,9 +55,9 @@ public class Shika {
         try {
             hasSave = storage.setupSave();
         } catch (SecurityException e) {
-            ui.printSecurityErrorMessage();
+            TextUi.printSecurityErrorMessage();
         } catch (Storage.FileErrorException e) {
-            ui.printFileErrorMessage();
+            TextUi.printFileErrorMessage();
         }
         return hasSave;
     }
@@ -69,7 +68,7 @@ public class Shika {
     private void runShikaLoop() {
         Command command;
         do {
-            command = parser.parseCommand(ui.getCommand());
+            command = parser.parseCommand(TextUi.getCommand());
             executeCommand(command);
         } while (!command.isExit());
     }
@@ -84,7 +83,7 @@ public class Shika {
             command.execute();
             storage.saveTasks(taskList);
         } catch (IOException e) {
-            ui.printSaveErrorMessage();
+            TextUi.printSaveErrorMessage();
         }
     }
 

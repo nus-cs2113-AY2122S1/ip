@@ -12,11 +12,9 @@ import static shikabot.parser.Parser.NUMBER_FORMAT_ERROR;
 
 public class FailedCommand extends Command {
 
-    private final TextUi ui;
     private final int errorCode;
 
     public FailedCommand(int errorCode) {
-        this.ui = new TextUi();
         this.errorCode = errorCode;
     }
 
@@ -26,25 +24,25 @@ public class FailedCommand extends Command {
     public void execute() {
         switch (errorCode) {
         case (INVALID_DEADLINE_SYNTAX):
-            ui.printDeadlineSyntaxMessage();
+            TextUi.printDeadlineSyntaxMessage();
             break;
         case (INVALID_EVENT_SYNTAX):
-            ui.printEventSyntaxMessage();
+            TextUi.printEventSyntaxMessage();
             break;
         case (NUMBER_FORMAT_ERROR):
-            ui.printNumberFormatMessage();
+            TextUi.printNumberFormatMessage();
             break;
         case (NEGATIVE_INDEX_ERROR):
-            ui.printNegativeIndexMessage();
+            TextUi.printNegativeIndexMessage();
             break;
         case (INVALID_TASK):
-            ui.printInvalidTaskMessage();
+            TextUi.printInvalidTaskMessage();
             break;
         case (INVALID_DATE_SYNTAX):
-            ui.printInvalidDateMessage();
+            TextUi.printInvalidDateMessage();
             break;
         case (EMPTY_FIELD):
-            ui.printEmptyFieldMessage();
+            TextUi.printEmptyFieldMessage();
             break;
         default:
             break;

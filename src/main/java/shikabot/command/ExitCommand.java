@@ -1,5 +1,7 @@
 package shikabot.command;
 
+import shikabot.ui.TextUi;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {
@@ -10,7 +12,7 @@ public class ExitCommand extends Command {
      * is handled by the run loop itself in Shika.
      */
     public void execute() {
-        ui.printExitMessage();
+        TextUi.printExitMessage();
     }
 
 }

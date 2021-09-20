@@ -1,5 +1,7 @@
 package shikabot.command;
 
+import shikabot.ui.TextUi;
+
 public class DoneCommand extends Command {
 
     private final int index;
@@ -13,10 +15,10 @@ public class DoneCommand extends Command {
      */
     public void execute() {
         try {
-            taskList.get(index).markAsDone();
-            ui.printDoneTaskMessage(taskList, index);
+            taskList.getTask(index).markAsDone();
+            TextUi.printDoneTaskMessage(taskList, index);
         } catch (IndexOutOfBoundsException e) {
-            ui.printInvalidTaskMessage();
+            TextUi.printInvalidTaskMessage();
         }
     }
 }
