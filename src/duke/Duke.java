@@ -4,6 +4,7 @@ import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.MissingInputException;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -64,6 +65,9 @@ public class Duke {
                 System.out.println(INVALID_COMMAND);
             } catch (InvalidIndexException e) {
                 System.out.println(INVALID_INDEX);
+            } catch (DateTimeParseException e) {
+                System.out.println("Please enter a valid date");
+                System.out.println("Date should be in the form DDMMYYYY or DD/MM/YYYY or DD-MM-YYYY");
             }
             duke.saveFile();
             userInput = in.nextLine();

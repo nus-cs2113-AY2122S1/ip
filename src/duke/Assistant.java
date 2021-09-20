@@ -7,6 +7,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import java.io.File;
@@ -45,20 +48,20 @@ public class Assistant {
         System.out.println("Completed task: " + tasks.get(index).getTaskName());
     }
 
-    public void addDeadline(String deadline) throws MissingInputException {
+    public void addDeadline(String deadline) throws MissingInputException, DateTimeParseException {
         String[] inputs = deadline.split(SEPARATOR_SLASH, 2);
         if (inputs.length == 1 || inputs[1].equals("")) { //no / detected
             throw new MissingInputException();
         }
-        addTask(new Deadline(inputs[0], inputs[1]));
+        addTask(new Deadline(inputs[0], parseDate(inputs[1])));
     }
 
-    public void addEvent(String event) throws MissingInputException {
+    public void addEvent(String event) throws MissingInputException, DateTimeParseException {
         String[] inputs = event.split(SEPARATOR_SLASH, 2);
         if (inputs.length == 1 || inputs[1].equals("")) { //no / detected or / without input
             throw new MissingInputException();
         }
-        addTask(new Event(inputs[0], inputs[1]));
+        addTask(new Event(inputs[0], parseDate(inputs[1])));
     }
 
     public void addToDo(String todo) {
@@ -115,6 +118,9 @@ public class Assistant {
             System.out.println("Error loading save file");
         } catch (MissingInputException e) {
             System.out.println(e + " contains invalid duke.data");
+        } catch (DateTimeParseException e) {
+            System.out.println("Please enter a valid date");
+            System.out.println("Date should be in the form DDMMYYYY or DD/MM/YYYY or DD-MM-YYYY");
         }
     }
 
@@ -130,5 +136,9 @@ public class Assistant {
             e.printStackTrace();
             System.out.println("Error writing to save file");
         }
+    }
+
+    private LocalDate parseDate(String date) throws DateTimeParseException {
+        return LocalDate.parse(date.trim(), DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]"));
     }
 }
