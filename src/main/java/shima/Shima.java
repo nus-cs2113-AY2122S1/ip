@@ -84,6 +84,42 @@ public class Shima {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine().trim();
         String[] words = command.split(" ");
+        switch (words[0]) {
+        case "":
+            Default.showMessage("Hmm... I can't understand empty string :(");
+            break;
+        case "view -p":
+            Profile.printPersonality();
+            break;
+        case "bye":
+        case "exit":
+            Default.showMessage("Bye! Hope to see you again :D");
+            Storage.updateStorage(tasks);
+            System.exit(0);
+            break;
+        case "help":
+        case "view -h":
+            HelpMenu.printHelpMenu();
+            break;
+        case "list":
+        case "ls":
+            ToDoList.printToDoList(tasks, longestTaskDescription);
+            break;
+        case "delete":
+            DeleteTasks.deleteTasks(tasks, words);
+            break;
+        case "todo":
+        case "event":
+        case "deadline":
+            AddTask.addTask(tasks, command, words);
+            break;
+        case "done":
+            TaskDone.handleTaskDone(tasks, words);
+            break;
+        default:
+            throw new ShimaException.CommandException();
+        }
+        /*
         if (CommandLibrary.isCommandEmpty(command)) {
             System.out.println("\t(Empty) <- will not save to the list");
         } else if (CommandLibrary.isCommandViewPersonality(command)) {
