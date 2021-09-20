@@ -19,9 +19,9 @@ import Exception.DukeException;
 /**
  * Represents actions that involve reading/writing to Hard Drive.
  *
- * Storage object contains two Strings representing File paths
+ * Storage object contains two String attributes representing File paths
  * 1. commandfilePath - path to .txt file that contains all valid commands made by User
- * 2. datafilePath - path to .txt file that contains all User tasks
+ * 2. datafilePath - path to .txt file that contains latest User's tasks
  */
 public class Storage {
 
@@ -34,7 +34,7 @@ public class Storage {
     }
 
     /**
-     * Executes saved commands in .txt file, to populate Duke Tasks when Duke is started-up.
+     * Executes saved commands in a .txt file, to populate Duke's Tasks when Duke is started-up.
      *
      * @param tasks    User's tasks in Duke (will be an empty list)
      * @param storage  actions involving reading/writing to hard drive

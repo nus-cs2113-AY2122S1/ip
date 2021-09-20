@@ -40,7 +40,7 @@ public class Command {
             break;
 
         case DONE :
-            taskIndex = Integer.parseInt(parseInput.userInput.replaceAll("[^0-9]", ""));
+            taskIndex = findTaskIndex(parseInput);
             tasks.get(taskIndex - 1).markAsDone();
 
             if (!Duke.isLoading) {
@@ -54,7 +54,7 @@ public class Command {
             break;
 
         case DELETE :
-            taskIndex = Integer.parseInt(parseInput.userInput.replaceAll("[^0-9]", ""));
+            taskIndex = findTaskIndex(parseInput);
 
             if (!Duke.isLoading) {
                 storage.saveCommand(parseInput.userInput);
@@ -99,5 +99,15 @@ public class Command {
             }
             break;
         }
+    }
+
+    /**
+     * Given a ParseInput object, finds the index (in the list) of the corresponding Task
+     *
+     * @param parseInput    User input that has been parsed appropriately
+     * @return              Index of corresponding task
+     */
+    private static int findTaskIndex (ParseInput parseInput){
+        return (Integer.parseInt(parseInput.userInput.replaceAll("^[0-9]", "")));
     }
 }
