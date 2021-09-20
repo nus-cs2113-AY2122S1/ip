@@ -1,7 +1,11 @@
 package commands;
 
 import console.InputParser;
+import error.DukeTaskNameEmptyException;
+import error.Error;
 import task.TaskManager;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Add a new 'deadline' type task to TaskManager.
@@ -26,7 +30,15 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String executeCommand() {
-        taskManager.addDeadlineTask(InputParser.getTaskDetails(commandComponents));
+        try {
+            taskManager.addDeadlineTask(InputParser.getTaskDetails(commandComponents));
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayTaskFormatError();
+        } catch (DukeTaskNameEmptyException e) {
+            Error.displayTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayDateFormatError();
+        }
         return COMMAND_WORD;
     }
 }

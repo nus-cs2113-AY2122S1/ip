@@ -41,6 +41,7 @@ public class TaskManager {
      * Adds a 'todo' type task.
      * Shows the user an acknowledgement message after a successful addition of new 'todo' type task.
      * Increases the current number of tasks in the TaskManager by 1.
+     *
      * @param taskInformation Task details provided by user.
      * @throws DukeTaskNameEmptyException If task name provided is empty.
      */
@@ -56,21 +57,15 @@ public class TaskManager {
      * Increases the current number of tasks in the TaskManager by 1.
      *
      * @param taskInformation Task details provided by user.
+     * @throws DukeTaskNameEmptyException If task name provided is empty.
+     * @throws DateTimeParseException If datetime provided is the wrong format.
      */
-    public void addDeadlineTask(String taskInformation) {
-        try {
-            allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskInformation),
-                    InputParser.getDateComponent(taskInformation),
-                    InputParser.getTimeComponent(taskInformation)));
-            increaseTaskCount();
-            Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_DEADLINE, taskCount);
-        } catch (IndexOutOfBoundsException e) {
-            Error.displayTaskFormatError();
-        } catch (DukeTaskNameEmptyException e) {
-            Error.displayTaskNameEmptyError();
-        } catch (DateTimeParseException e) {
-            Error.displayDateFormatError();
-        }
+    public void addDeadlineTask(String taskInformation) throws DukeTaskNameEmptyException, DateTimeParseException {
+        allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskInformation),
+                InputParser.getDateComponent(taskInformation),
+                InputParser.getTimeComponent(taskInformation)));
+        increaseTaskCount();
+        Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_DEADLINE, taskCount);
     }
 
     /**
