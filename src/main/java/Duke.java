@@ -9,6 +9,7 @@ import UI.UserInterface;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -26,7 +27,7 @@ public class Duke {
         try {
             taskList = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            userInterface.printErrorMessage(e.getMessage());
+            userInterface.printFileNotFoundMessage(e.getMessage());
             taskList = new TaskList();
         }
     }
@@ -41,7 +42,7 @@ public class Duke {
                 userInterface.showOutputToUser(commandOutput);
                 Storage.save(taskList);
             } catch (InsufficientParametersException | UnknownCommandException | IndexOutOfBoundsException |
-                    NumberFormatException | IOException e) {
+                    NumberFormatException | IOException | DateTimeParseException e) {
                 userInterface.printErrorMessage(e.getMessage());
             }
         } while(!ExitCommand.isExit(command));
