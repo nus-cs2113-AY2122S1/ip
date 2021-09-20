@@ -14,6 +14,8 @@ public class TaskManager {
     private static final String SYMBOL_TODO = "T";
     private static final String SYMBOL_DEADLINE = "D";
     private static final String SYMBOL_EVENT = "E";
+    private static final String SYMBOL_DONE = "1";
+    private static final String SYMBOL_NOT_DONE = "0";
 
     // Task list
     private final ArrayList<Task> tasks = new ArrayList<>();
@@ -64,7 +66,7 @@ public class TaskManager {
                 return;
             }
             this.addTask(task);
-            if (description[1].strip().equals("1")) {
+            if (description[1].strip().equals(SYMBOL_DONE)) {
                 task.markAsDone();
             }
             preloadTaskCount++;
@@ -78,7 +80,7 @@ public class TaskManager {
             String taskType, isDone, description, time;
             boolean hasTime = false;
             Task task = tasks.get(i);
-            isDone = task.getIsDone() ? "1" : "0";
+            isDone = task.getIsDone() ? SYMBOL_DONE : SYMBOL_NOT_DONE;
             description = task.getDescription();
             if (task instanceof Todo) {
                 taskType = SYMBOL_TODO;
@@ -102,9 +104,9 @@ public class TaskManager {
 
     // Print out task list
     public void listTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." +
-                    tasks.get(i).toString());
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println(" " + i + "." +
+                    tasks.get(i - 1).toString());
         }
     }
 }
