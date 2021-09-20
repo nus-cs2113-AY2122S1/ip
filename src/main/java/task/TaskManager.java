@@ -8,16 +8,13 @@ import task.subtask.Event;
 import task.subtask.Todo;
 import ui.Display;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
  * The TaskManager class is responsible for storing and managing all the different types of tasks.
  */
 public class TaskManager {
-
-    public static final String EMPTY_TASK_NAME = "";
-    public static final int NAME_INDEX = 0;
-    public static final int DATE_INDEX = 1;
 
     /** Offset required to convert between 0 and 1 indexing. */
     public static final int INDEX_OFFSET = 1;
@@ -40,30 +37,6 @@ public class TaskManager {
     }
 
     /**
-     * Returns the name of the task.
-     *
-     * @param taskName Name of the task.
-     * @return Name of the task.
-     * @throws DukeTaskNameEmptyException If the user does not provide a task name.
-     */
-    public String getTaskName(String taskName) throws DukeTaskNameEmptyException {
-        if (taskName.equals(EMPTY_TASK_NAME)) {
-            throw new DukeTaskNameEmptyException();
-        }
-        return taskName;
-    }
-
-    public String getTaskNameComponent(String taskInformation) throws DukeTaskNameEmptyException {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
-        return getTaskName(taskComponents[NAME_INDEX]);
-    }
-
-    public String getDateComponent(String taskInformation) {
-        String[] taskComponents = InputParser.getTaskWithDateComponents(taskInformation);
-        return taskComponents[DATE_INDEX];
-    }
-
-    /**
      * Adds a 'todo' type task.
      * Shows the user an acknowledgement message after a successful addition of new 'todo' type task.
      * Increases the current number of tasks in the TaskManager by 1.
@@ -72,7 +45,7 @@ public class TaskManager {
      */
     public void addTodoTask(String taskInformation) {
         try {
-            allTasks.add(new Todo(getTaskName(taskInformation)));
+            allTasks.add(new Todo(InputParser.getTaskName(taskInformation)));
             increaseTaskCount();
             Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_TODO, taskCount);
         } catch (DukeTaskNameEmptyException e) {
@@ -89,13 +62,17 @@ public class TaskManager {
      */
     public void addDeadlineTask(String taskInformation) {
         try {
-            allTasks.add(new Deadline(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
+            allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskInformation),
+                    InputParser.getDateComponent(taskInformation),
+                    InputParser.getTimeComponent(taskInformation)));
             increaseTaskCount();
             Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_DEADLINE, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayDateFormatError();
         }
     }
 
@@ -108,13 +85,17 @@ public class TaskManager {
      */
     public void addEventTask(String taskInformation) {
         try {
-            allTasks.add(new Event(getTaskNameComponent(taskInformation), getDateComponent(taskInformation)));
+            allTasks.add(new Event(InputParser.getTaskNameComponent(taskInformation),
+                    InputParser.getDateComponent(taskInformation),
+                    InputParser.getTimeComponent(taskInformation)));
             increaseTaskCount();
             Display.displayTaskCreation(allTasks.get(taskCount - INDEX_OFFSET), Display.TASK_NAME_EVENT, taskCount);
         } catch (IndexOutOfBoundsException e) {
             Error.displayTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayDateFormatError();
         }
     }
 
@@ -167,6 +148,19 @@ public class TaskManager {
     }
 
     /**
+     * Finds a list of tasks that has names which contain the keyword the user is filtering for.
+     *
+     * @param taskKeyword Keyword that must be present in the task names.
+     */
+    public void findTask(String taskKeyword) {
+        Display.printListTaskLine();
+        allTasks.stream()
+                .filter((task) -> task.getTask().contains(taskKeyword))
+                .forEach(System.out::println);
+        Display.printListTaskLine();
+    }
+
+    /**
      * Adds a 'todo' type task when loading task from storage file.
      * If task loaded from storage has a completed status, task is marked as completed.
      *
@@ -175,7 +169,7 @@ public class TaskManager {
      */
     public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
         try {
-            allTasks.add(new Todo(getTaskName(taskDetails)));
+            allTasks.add(new Todo(InputParser.getTaskName(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -194,7 +188,9 @@ public class TaskManager {
      */
     public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
         try {
-            allTasks.add(new Deadline(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
+            allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskDetails),
+                    InputParser.getSavedDateComponent(taskDetails),
+                    InputParser.getSavedTimeComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -203,6 +199,8 @@ public class TaskManager {
             Error.displayFileSavedTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayFileSavedTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayFileSavedDateFormatError();
         }
     }
 
@@ -215,7 +213,9 @@ public class TaskManager {
      */
     public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
         try {
-            allTasks.add(new Event(getTaskNameComponent(taskDetails), getDateComponent(taskDetails)));
+            allTasks.add(new Event(InputParser.getTaskNameComponent(taskDetails),
+                    InputParser.getSavedDateComponent(taskDetails),
+                    InputParser.getSavedTimeComponent(taskDetails)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -224,6 +224,8 @@ public class TaskManager {
             Error.displayFileSavedTaskFormatError();
         } catch (DukeTaskNameEmptyException e) {
             Error.displayFileSavedTaskNameEmptyError();
+        } catch (DateTimeParseException e) {
+            Error.displayFileSavedDateFormatError();
         }
     }
 }

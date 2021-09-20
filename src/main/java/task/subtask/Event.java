@@ -2,6 +2,9 @@ package task.subtask;
 
 import ui.Display;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Represents an 'event' type task.
  */
@@ -11,10 +14,11 @@ public class Event extends Deadline {
      * Creates a new 'event' type task.
      *
      * @param taskName Task name provided by user.
+     * @param eventDate Date of event provided by user.
      * @param eventTime Time of event provided by user.
      */
-    public Event(String taskName, String eventTime) {
-        super(taskName, eventTime);
+    public Event(String taskName, LocalDate eventDate, LocalTime eventTime) {
+        super(taskName, eventDate, eventTime);
     }
 
     /**
@@ -25,6 +29,6 @@ public class Event extends Deadline {
     @Override
     public String toString() {
         return Display.getTwoCheckboxDisplay(Display.CHECKBOX_EVENT_TASK_TYPE, getIsCompleted())
-                + " " + getTask() + " (" + getDeadlineTime() + ")";
+                + " " + getTask() + " (" + getTime() + ")";
     }
 }
