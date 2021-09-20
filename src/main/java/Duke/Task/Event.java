@@ -1,10 +1,10 @@
-package Duke.task;
+package Duke.Task;
 
-public class Deadline extends Task {
+public class Event extends Task{
 
     protected String by;
 
-    public Deadline(String description, String by) {
+    public Event(String description, String by) {
         super(description);
         this.by = by;
     }
@@ -18,7 +18,7 @@ public class Deadline extends Task {
         String dueDate = by.substring(spaceIndex+1);
 
         //output message
-        return "[D]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + dueDate + ")";
+        return "[E]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + dueDate + ")";
     }
 
     @Override
