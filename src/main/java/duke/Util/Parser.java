@@ -1,5 +1,6 @@
-package duke;
+package duke.Util;
 
+import duke.DukeException;
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;

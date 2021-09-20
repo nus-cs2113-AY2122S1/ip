@@ -13,23 +13,23 @@ Task List:
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Got it. Task added:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: 02 Dec 2021 1830)
 There are 2 tasks in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Got it. Task added:
-  [E][ ] project meeting (at: Mon 2-4pm)
+  [E][ ] project meeting (at: 31 Mar 2022 1200)
 There are 3 tasks in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Task marked as done:
-  [D][x] return book (by: Sunday)
+  [D][x] return book (by: 02 Dec 2021 1830)
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Task List:
 1: [T][ ] borrow book
-2: [D][x] return book (by: Sunday)
-3: [E][ ] project meeting (at: Mon 2-4pm)
+2: [D][x] return book (by: 02 Dec 2021 1830)
+3: [E][ ] project meeting (at: 31 Mar 2022 1200)
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred:
@@ -45,24 +45,28 @@ Unknown command.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred:
-Usage: event <description> /at <date/time>
+Usage: event <description> /at <dd/MM/yyyy HHmm>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred:
-Usage: event <description> /at <date/time>
+Usage: event <description> /at <dd/MM/yyyy HHmm>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred:
-Usage: deadline <description> /by <date/time>
+Usage: deadline <description> /by <dd/MM/yyyy HHmm>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred:
-Usage: deadline <description> /by <date/time>
+Usage: deadline <description> /by <dd/MM/yyyy HHmm>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Task deleted:
-  [E][ ] project meeting (at: Mon 2-4pm)
+  [E][ ] project meeting (at: 31 Mar 2022 1200)
 There are 2 tasks left in the list.
+------------------------------------------------------------
+$ ------------------------------------------------------------
+An exception has occurred:
+Invalid datetime format. Use dd/MM/yyyy HHmm instead.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Bye. Hope to see you again soon!

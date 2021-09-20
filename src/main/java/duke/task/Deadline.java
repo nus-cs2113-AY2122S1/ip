@@ -1,9 +1,13 @@
 package duke.task;
 
-public class Deadline extends Task {
-    private String by;
+import duke.Util.Util;
 
-    public Deadline(String description, String by) {
+import java.time.LocalDateTime;
+
+public class Deadline extends Task {
+    private LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by) {
         super(description, Task.TYPE_DEADLINE);
         this.by = by;
     }
@@ -16,7 +20,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("%s (by: %s)", super.toString(), by);
+        return String.format("%s (by: %s)", super.toString(), Util.getFormattedDateTime(by, DATETIME_FORMAT_OUTPUT));
     }
 
     @Override
@@ -25,7 +29,7 @@ public class Deadline extends Task {
                 Character.toString(taskType),
                 Integer.toString((isDone) ? 1 : 0),
                 description,
-                by
+                Util.getFormattedDateTime(by, DATETIME_FORMAT_INPUT)
         });
     }
 }
