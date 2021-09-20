@@ -11,8 +11,18 @@ import Main.Duke;
 
 import java.util.List;
 
+/**
+ * Utility class indicating how Duke responds to commands made by User
+ */
 public class Command {
 
+    /**
+     * Utility function for executing the commands that Duke has received (after Parsing)
+     *
+     * @param parseInput  User input that has been parsed appropriately
+     * @param tasks       User's tasks in Duke
+     * @param storage     Actions involving read/write to hard drive
+     */
     public static void executeCommand (ParseInput parseInput, List<Task> tasks, Storage storage) {
         int taskIndex = -1;
 

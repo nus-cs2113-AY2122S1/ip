@@ -1,5 +1,9 @@
 package Tasks;
 
+/**
+ * Represents the common attributes/functionalities of Tasks stored in Duke.
+ * Task object serves as a parent for Todo, Event, Deadline objects to inherit appropriately
+ */
 public class Task {
     protected boolean isTaskDone;
     protected String taskDescription;

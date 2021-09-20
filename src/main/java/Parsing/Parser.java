@@ -1,10 +1,10 @@
 package Parsing;
 
-import java.io.FileNotFoundException;
-
 import Exception.DukeException;
 
-
+/**
+ * Denotes how User input is parsed (for useful information) to use in Duke
+ */
 public class Parser {
 
     protected static void checkDescription (String input) throws DukeException {
@@ -13,7 +13,15 @@ public class Parser {
             throw new DukeException("Description cannot be empty"); }
     }
 
-    public static ParseInput parse (String input) throws DukeException, FileNotFoundException {
+    /**
+     * Transforms User input into something that Duke can use.
+     * Both invalid and valid commands will be transformed appropriately.
+     *
+     * @param input          raw User input
+     * @return ParseInput    Object encapsulating different aspects of parsed User input
+     * @throws DukeException thrown if Task description is empty, or User input is invalid (not understood)
+     */
+    public static ParseInput parse (String input) throws DukeException {
         ParseInput parseInput;
 
         //---------- Query Checks ----------//
