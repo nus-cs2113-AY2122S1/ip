@@ -27,7 +27,7 @@ public class Parser {
                     TaskList.deleteTask(deleteIndex);
                     break;
                 case "find":
-                    TaskList.findTasks(words[1]);
+                    TaskList.findTasks(line.substring(4));
                     break;
                 default:
                     TaskList.printInvalid();
