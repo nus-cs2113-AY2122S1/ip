@@ -12,11 +12,13 @@ public class Util {
         String separator = FileSystems.getDefault().getSeparator();
         String[] filenameSplit = filename.split(separator.replace("\\","\\\\"));
 
+        String firstPathString = filenameSplit[0];
         Path path;
         if (filenameSplit.length > 1) {
-            path = Paths.get(filenameSplit[0], Arrays.copyOfRange(filenameSplit, 1, filenameSplit.length - 1));
+            String[] additionalPathStrings = Arrays.copyOfRange(filenameSplit, 1, filenameSplit.length - 1);
+            path = Paths.get(firstPathString, additionalPathStrings);
         } else {
-            path = Paths.get(filenameSplit[0]);
+            path = Paths.get(firstPathString);
         }
 
         return path;
