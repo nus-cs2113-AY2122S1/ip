@@ -12,8 +12,17 @@ import java.time.format.DateTimeParseException;
 
 import static duke.constants.DukeCommandStrings.*;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
-
+    
+    /**
+     * Parses {@code userInput} into a {@code CommandWord} for execution of command.
+     * 
+     * @param userInput full user input string
+     * @return {@code CommandWord} based on the user input
+     */
     public static CommandWord parseCommandWord(String userInput) {
         if (beginsWith(userInput, LIST_COMMAND)) {
             return CommandWord.LIST;
@@ -38,31 +47,70 @@ public class Parser {
         }
     }
 
-    public static String[] parseDoneCommand(String userInput) throws InvalidCommandFormatException {
+    /**
+     * Parses {@code userInput} based on the format of the {@code done} command and returns the task ID of the task to
+     * mark done.
+     *
+     * @param userInput full user input string
+     * @return task ID of the task to mark done
+     * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command
+     * @throws NumberFormatException if task ID is not in the task list
+     */
+    public static int parseDoneCommand(String userInput) throws InvalidCommandFormatException, NumberFormatException {
         String[] doneCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(doneCommandAsArray.length != 2) {
+            /* throws exception because task ID is lacking */
             throw new InvalidCommandFormatException();
         }
-        return doneCommandAsArray;
+
+        int indexOfTaskToMarkDone;
+        try {
+            /* '- 1' to convert from 1-based to 0-based indexing */
+            indexOfTaskToMarkDone = Integer.parseInt(doneCommandAsArray[1]) - 1;
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException();
+        }
+        return indexOfTaskToMarkDone;
     }
 
+    /**
+     * Parses {@code userInput} based on the format of the {@code todo} command and returns a {@code Todo} object
+     * with a description as entered by the user.
+     *
+     * @param userInput full user input string
+     * @return a {@code Todo} with the description as entered by the user
+     * @throws InvalidCommandFormatException if the todo is lacking a description
+     */
     public static Todo parseAddTodoCommand(String userInput) throws InvalidCommandFormatException {
         String[] todoAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(todoAsArray.length != 2) {
+            /* throws exception because description is lacking */
             throw new InvalidCommandFormatException();
         }
         String todoDescription = todoAsArray[1].trim();
         return new Todo(todoDescription);
     }
 
+    /**
+     * Parses {@code userInput} based on the format of the {@code deadline} command and returns a {@code Deadline} object
+     * with description and deadline as entered by the user.
+     *
+     * @param userInput full user input string
+     * @return a {@code Deadline} with a description and deadline as entered by the user
+     * @throws InvalidCommandFormatException if the deadline is lacking either a description or a date and time
+     * @throws DateTimeParseException if the date and time do not follow the correct format or if an invalid date
+     *                                date and time is entered
+     */
     public static Deadline parseAddDeadlineCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
         String[] deadlineAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(deadlineAsArray.length != 2) {
+            /* throws exception because both description and deadline are lacking */
             throw new InvalidCommandFormatException();
         }
 
         String[] deadlineDescriptionAndBy = deadlineAsArray[1].split(DEADLINE_PREFIX, 2);
         if (deadlineDescriptionAndBy.length != 2) {
+            /* throws exception because either description or deadline is lacking */
             throw new InvalidCommandFormatException();
         }
 
@@ -76,14 +124,26 @@ public class Parser {
         return new Deadline(deadlineDescription, deadlineDateTime);
     }
 
+    /**
+     * Parses {@code userInput} based on the format of the {@code event} command and returns an {@code Event} object
+     * with description and event time as entered by the user.
+     *
+     * @param userInput full user input string
+     * @return an {@code Event} with a description and event time as entered by the user
+     * @throws InvalidCommandFormatException if the event is lacking either a description or a date and time
+     * @throws DateTimeParseException if the date and time do not follow the correct format or if an invalid date
+     *                                date and time is entered
+     */
     public static Event parseAddEventCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
         String[] eventAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(eventAsArray.length != 2) {
+            /* throws exception because both description and event time are lacking */
             throw new InvalidCommandFormatException();
         }
 
         String[] eventDescriptionAndWhen = eventAsArray[1].split(EVENT_PREFIX, 2);
         if(eventDescriptionAndWhen.length != 2) {
+            /* throws exception because either description or event time are lacking */
             throw new InvalidCommandFormatException();
         }
 
@@ -97,32 +157,77 @@ public class Parser {
         return new Event(eventDescription, eventDateTime);
     }
 
-    public static String[] parseDeleteCommand(String userInput) throws InvalidCommandFormatException {
+    /**
+     * Parses {@code userInput} based on the format of the {@code delete} command and returns the task ID of the task to
+     * delete.
+     *
+     * @param userInput full user input string
+     * @return task ID of the task to delete
+     * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command
+     * @throws NumberFormatException if task ID is not in the task list
+     */
+    public static int parseDeleteCommand(String userInput) throws InvalidCommandFormatException, NumberFormatException {
         String[] deleteCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(deleteCommandAsArray.length != 2) {
+            /* throws exception because task ID is lacking */
             throw new InvalidCommandFormatException();
         }
-        return deleteCommandAsArray;
+
+        int indexOfTaskToDelete;
+        try {
+            /* '- 1' to convert from 1-based to 0-based indexing */
+            indexOfTaskToDelete = Integer.parseInt(deleteCommandAsArray[1]) - 1;
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException();
+        }
+        return indexOfTaskToDelete;
     }
 
+    /**
+     * Parses {@code userInput} based on the format of the {@code find} command and returns the keyword to search for
+     * as a {@code String}.
+     *
+     * @param userInput full user input string
+     * @return a {@code String} representing the keyword to search for
+     * @throws InvalidCommandFormatException if the keyword is lacking from the user input
+     */
     public static String parseFindCommand(String userInput) throws InvalidCommandFormatException {
         String[] findCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if (findCommandAsArray.length != 2) {
+            /* throws exception because keyword is lacking */
             throw new InvalidCommandFormatException();
         }
         return findCommandAsArray[1].trim();
     }
 
+    /**
+     * Parses a {@code String} representing a date and time based on a format specified by {@code format}.
+     * 
+     * @param taskDateTime a {@code String} representing the date and time entered by the user
+     * @param format date and time format to follow when parsing {@code taskDateTime}
+     * @return a {@code LocalDateTime} object which represents the date and time shown by {@code taskDateTime}
+     * @throws DateTimeParseException if {@code taskDateTime} does not follow format specified by {@code format}
+     */
     public static LocalDateTime parseDateTime(String taskDateTime, String format) throws DateTimeParseException {
         DateTimeFormatter formatToParse = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(taskDateTime, formatToParse);
     }
 
+    /**
+     * Converts a {@code LocalDateTime} object to a {@code String} with a format specified by {@code format}.
+     * 
+     * @param taskDateTime {@code LocalDateTime} object to be formatted
+     * @param format date and time format to follow when converting {@code taskDateTime} to {@code String}
+     * @return formatted {@code String} which represents {@code taskDateTime}
+     */
     public static String dateTimeToString(LocalDateTime taskDateTime, String format) {
         DateTimeFormatter formatToConvertTo = DateTimeFormatter.ofPattern(format);
         return taskDateTime.format(formatToConvertTo);
     }
 
+    /**
+     * Helper function to improve readability of {@code parseCommandWord} method.
+     */
     private static boolean beginsWith(String userInput, String command) {
         return userInput.trim().toLowerCase().startsWith(command);
     }
