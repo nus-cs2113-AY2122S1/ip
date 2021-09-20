@@ -39,10 +39,10 @@ public class Storage {
         return tasks;
     }
 
-    public void store(TaskList list) throws IOException {
+    public void store(TaskList tasks) throws IOException {
         FileWriter writer = new FileWriter(this.file);
-        for(int i = 0; i < list.size(); i++) {
-            writer.write(list.saveTask(i) + "\n");
+        for(int i = 0; i < tasks.size(); i++) {
+            writer.write(tasks.saveTask(i) + "\n");
         }
         writer.close();
     }
