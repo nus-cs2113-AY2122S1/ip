@@ -1,8 +1,8 @@
+import commands.Command;
 import commands.ExitCommand;
 import console.InputParser;
 import error.Error;
 import task.TaskManager;
-import commands.Command;
 import ui.Display;
 import filemanager.Storage;
 

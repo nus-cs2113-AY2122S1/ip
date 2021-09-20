@@ -1,15 +1,15 @@
 package console;
 
+import commands.Command;
 import commands.DeadlineCommand;
+import commands.DeleteCommand;
 import commands.EventCommand;
+import commands.ExitCommand;
 import commands.FindCommand;
 import commands.HelpCommand;
-import commands.ToDoCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.ExitCommand;
 import commands.ListCommand;
 import commands.MarkDoneCommand;
+import commands.ToDoCommand;
 import error.DukeTaskNameEmptyException;
 import error.Error;
 import task.TaskManager;
