@@ -7,10 +7,12 @@ import duke.commands.DoneCommand;
 import duke.commands.ExitCommand;
 import duke.commands.CommandType;
 import duke.commands.Command;
+import duke.commands.FindCommand;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeException;
 import duke.exceptions.IncompleteInformationException;
 import duke.exceptions.InvalidRequestException;
+import duke.exceptions.InvalidFilterException;
 
 public abstract class Parser {
     public static final int TIME_INFO_START_INDEX = 1;
@@ -26,8 +28,19 @@ public abstract class Parser {
             return new DeleteCommand(CommandType.DELETE, taskIndex);
         } else if (CommandType.isBye(request)) {
             return new ExitCommand(CommandType.BYE);
+        } else if (CommandType.isFind(request)) {
+            String filterBy = getTaskFilterWord(request);
+            return new FindCommand(CommandType.FIND, filterBy);
         } else {
             return getTask(request);
+        }
+    }
+
+    private static String getTaskFilterWord(String request) throws InvalidFilterException {
+        try {
+            return getDescription(request.trim());
+        } catch (Exception e) {
+            throw new InvalidFilterException();
         }
     }
 

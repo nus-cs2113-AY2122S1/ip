@@ -47,5 +47,15 @@ public class TaskList {
             throw new IndexOutOfBoundsException("☹ OOPS!!! The list does not have that many task ><");
         }
     }
+
+    public TaskList getFilteredTask(String word) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for(Task t: tasks) {
+            if (t.getDescription().contains(word)) {
+                filteredTasks.add(t);
+            }
+        }
+        return new TaskList(filteredTasks);
+    }
 }
 
