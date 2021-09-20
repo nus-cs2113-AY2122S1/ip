@@ -27,6 +27,9 @@ public class Duke {
     // Ui
     private Ui ui;
 
+    /**
+     * Constructor. Instantiates a TaskManager, FileManager, and Parser.
+     */
     public Duke() {
         taskManager = new TaskManager();
         fileManager = new FileManager(FILE_PATH.toString(), DIRECTORY_PATH.toString());
@@ -35,6 +38,10 @@ public class Duke {
         ui = new Ui();
     }
 
+    /**
+     * Runs the duke program.
+     * Executes various commands based on user inputs.
+     */
     public void run() {
         ui.printGreeting();
         boolean isExit = false;
@@ -54,6 +61,11 @@ public class Duke {
         fileManager.saveDuke(taskManager, ui);
     }
 
+    /**
+     * Instantiates an instance of Duke and runs it.
+     *
+     * @param args not utilised for this program.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

@@ -9,6 +9,9 @@ import duke.command.Command;
 import duke.ui.Ui;
 import duke.exception.DukeException;
 
+/**
+ * Parses user input to make sense of the input.
+ */
 public class Parser {
     private static final Ui ui = new Ui();
 
@@ -22,6 +25,13 @@ public class Parser {
     private static final String PARAMETER_BY = "/by";
     private static final String PARAMETER_AT = "/at";
 
+    /**
+     * Returns the corresponding command based on user input.
+     *
+     * @param line The user input.
+     * @return A command corresponding to the user input.
+     * @throws DukeException If the user input is not a valid command.
+     */
     public Command execute(String line) throws DukeException {
         String[] words = line.split(" "); // Convert sentence into array of words
         String command;
@@ -49,6 +59,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the corresponding AddTaskCommand based on user input.
+     *
+     * @param command The user command corresponding to the type of
+     *                task to be added.
+     * @param line    The user input.
+     * @return The corresponding AddTaskCommand.
+     * @throws DukeException If the command is invalid.
+     */
     public static AddTaskCommand executeAdd(String command, String line) throws DukeException {
         String[] details;
         String rawDescription = parseDescription(line, command);
@@ -68,6 +87,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the description of the command.
+     *
+     * @param line    The user input.
+     * @param command The user command.
+     * @return The description of the command.
+     * @throws DukeException If the command description is empty.
+     */
     private static String parseDescription(String line, String command) throws DukeException {
         int descPos = line.indexOf(" ");
         String description;
@@ -80,6 +107,17 @@ public class Parser {
         return description.strip();
     }
 
+    /**
+     * Returns a String Array of size 2, containing the description and
+     * timing information for Event and Deadline tasks.
+     *
+     * @param rawDescription The entire description.
+     * @param command        The command from the user.
+     * @param paramPos       The index of "/at" or "/by"
+     * @return A String Array of size 2, containing the description (task name)
+     * and timing information.
+     * @throws DukeException If the description format provided is invalid.
+     */
     public static String[] parseTaskDetails(
             String rawDescription, String command, int paramPos)
             throws DukeException {
@@ -94,6 +132,14 @@ public class Parser {
         return description;
     }
 
+    /**
+     * Returns the command with the correct task ID.
+     *
+     * @param line    The user input.
+     * @param command The command from the user.
+     * @return The command to be executed with the correct task ID.
+     * @throws DukeException If the command is invalid.
+     */
     private static Command executeTaskId(String line, String command) throws DukeException {
         Integer taskId = getTaskId(line);
         switch (command) {
@@ -106,6 +152,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the task ID as an Integer from the user input.
+     *
+     * @param line The user input.
+     * @return The task ID as an Integer.
+     * @throws DukeException If the task ID from the user input is
+     *                       not an integer, or if no task ID was provided.
+     */
     private static Integer getTaskId(String line) throws DukeException {
         int spacePos = line.indexOf(" ");
         String taskId = line.substring(spacePos + 1).strip();
