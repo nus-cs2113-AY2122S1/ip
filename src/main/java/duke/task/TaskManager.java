@@ -15,40 +15,20 @@ public class TaskManager {
     // Task list
     private final ArrayList<Task> tasks = new ArrayList<>();
 
-    // Class variable for counting number of tasks
-    private static int taskCount = 0;
-
     public int getTasksCount() {
-        return taskCount;
+        return tasks.size();
     }
 
     // Add new task to the task list
     public Task addTask(Task task) {
         tasks.add(task);
-        taskCount++;
         return task;
     }
 
     public Task deleteTask(int id) {
         Task task = tasks.get(id);
         tasks.remove(id);
-        taskCount--;
         return task;
-    }
-
-    public Task addTodo(String description) {
-        Todo todo = new Todo(description);
-        return this.addTask(todo);
-    }
-
-    public Task addEvent(String description, String at) {
-        Event event = new Event(description, at);
-        return this.addTask(event);
-    }
-
-    public Task addDeadline(String description, String by) {
-        Deadline deadline = new Deadline(description, by);
-        return this.addTask(deadline);
     }
 
     // Mark the specified task as done
@@ -69,17 +49,18 @@ public class TaskManager {
             Task task;
             switch (description[0]) {
             case "T":
-                task = this.addTodo(description[2]);
+                task = new Todo(description[2]);
                 break;
             case "D":
-                task = this.addDeadline(description[2], description[3]);
+                task = new Deadline(description[2], description[3]);
                 break;
             case "E":
-                task = this.addEvent(description[2], description[3]);
+                task = new Event(description[2], description[3]);
                 break;
             default:
                 return;
             }
+            this.addTask(task);
             if (description[1].strip().equals("1")) {
                 task.markAsDone();
             }
@@ -90,7 +71,7 @@ public class TaskManager {
 
     public String currentTasks() throws DukeException {
         StringBuilder lines = new StringBuilder();
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             String taskType, isDone, description, time;
             boolean hasTime = false;
             Task task = tasks.get(i);
@@ -116,10 +97,9 @@ public class TaskManager {
         return lines.toString();
     }
 
-
     // Print out task list
     public void listTasks() {
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." +
                     tasks.get(i).toString());
         }

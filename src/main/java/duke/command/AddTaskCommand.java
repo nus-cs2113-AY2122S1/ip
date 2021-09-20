@@ -3,6 +3,9 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskManager;
+import duke.task.Todo;
+import duke.task.Event;
+import duke.task.Deadline;
 import duke.ui.Ui;
 
 public class AddTaskCommand extends Command {
@@ -31,17 +34,18 @@ public class AddTaskCommand extends Command {
         Task addedTask;
         switch (command) {
         case COMMAND_TODO:
-            addedTask = taskManager.addTodo(description);
+            addedTask = new Todo(description);
             break;
         case COMMAND_DEADLINE:
-            addedTask = taskManager.addDeadline(description, timeDescription);
+            addedTask = new Deadline(description, timeDescription);
             break;
         case COMMAND_EVENT:
-            addedTask = taskManager.addEvent(description, timeDescription);
+            addedTask = new Event(description, timeDescription);
             break;
         default:
             throw new DukeException("Invalid Command!");
         }
+        taskManager.addTask(addedTask);
         ui.printAddTask(addedTask, taskManager);
     }
 }
