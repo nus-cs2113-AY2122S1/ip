@@ -5,6 +5,7 @@ import duke.task.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     static void addTodo(String description, List<Task> taskList) {
@@ -32,7 +33,7 @@ public class TaskList {
         }
         String description = separated[0];
         String time = separated[1];
-        Deadline newDeadline = new Deadline(description, TaskType.DEADLINE,time);
+        Deadline newDeadline = new Deadline(description, TaskType.DEADLINE, time);
         taskList.add(newDeadline);
         Ui.printTaskAddedMessage(newDeadline);
     }
@@ -126,13 +127,41 @@ public class TaskList {
                 deleteTask(userInput, list);
                 Storage.saveToFile(list);
                 break;
+            case FIND:
+                String findDescription = Parser.extractDescription(userInput);
+                findTask(findDescription, list);
+                break;
             case UNKNOWN:
                 Ui.printHelpMessage();
             default:
-                throw new DukeException("What is this nonsense I don't know what's happening!");
+                throw new DukeException("What is this nonsense I don't know what's happening!\n" +
+                        Ui.getHorizontalLine());
             }
         } catch (DukeException | IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
+            System.out.print(e.getMessage());
         }
+    }
+
+    private static void findTask(String input, ArrayList<Task> list) throws DukeException {
+        if (list.isEmpty()) {
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "NO TASKS TO SEARCH THROUGH. DO BETTER.\n" +
+                    Ui.getHorizontalLine());
+        }
+
+        ArrayList<Task> filteredTasks = filterTasksByStream(input, list);
+        Ui.printFoundTasksMessage(filteredTasks);
+    }
+
+    private static ArrayList<Task> filterTasksByStream(String input, ArrayList<Task> list) throws DukeException {
+        List<Task> filteredTasks = list.stream()
+                .filter((t) -> (t).toString().contains(input))
+                .collect(Collectors.toList());
+        if (filteredTasks.isEmpty()) {
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "HAHA there are NO MATCHES YOU FOOL. Try again.\n" +
+                    Ui.getHorizontalLine());
+        }
+        return (ArrayList<Task>) filteredTasks;
     }
 }

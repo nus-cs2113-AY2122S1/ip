@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 import org.w3c.dom.html.HTMLObjectElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ui {
@@ -80,5 +81,15 @@ public class Ui {
 
     public static void printDeletedTaskMessage(Task task) {
         System.out.print("Deleted: " + task);
+    }
+
+    public static void printFoundTasksMessage(ArrayList<Task> list) {
+        Task task;
+        System.out.print(HORIZONTAL_LINE + "Here are the matching tasks I've found:\n");
+        for (int i = 0; i < list.size(); i++) {
+            task = list.get(i);
+            System.out.println(i + 1 + "." + task);
+        }
+        System.out.print(HORIZONTAL_LINE);
     }
 }
