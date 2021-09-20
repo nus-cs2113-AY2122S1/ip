@@ -1,3 +1,6 @@
 T | 0 | task 1
 E | 1 | lecture | 2-4pm
-D | 0 | submission | tomorrow
+D | 0 | a | tmr
+D | 0 | x | tmr
+D | 0 | y | tmr
+D | 1 | lecture | tomorrow

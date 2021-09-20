@@ -1,7 +1,8 @@
 package duke.file;
 
-import duke.DukeException;
+import duke.exception.DukeException;
 import duke.task.TaskManager;
+import duke.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -73,5 +74,33 @@ public class FileManager {
         fw = new FileWriter(file);
         fw.write(currentTasks);
         fw.close();
+    }
+
+    public void saveDuke(TaskManager taskManager, Ui ui) {
+        try {
+            saveDukeStatus(taskManager);
+        } catch (IOException e) {
+            System.out.println("File write error");
+            return;
+        }
+        ui.printSuccessfullySavedTasks(filePath.toString());
+    }
+
+    public void initialiseDuke(TaskManager taskManager, Ui ui) {
+        createDirectory();
+        try {
+            createFile();
+        } catch (IOException e) {
+            System.out.println("File Error!");
+        }
+        try {
+            initialiseDukeStatus(taskManager);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("File error!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("An error occurred while adding task");
+        }
     }
 }

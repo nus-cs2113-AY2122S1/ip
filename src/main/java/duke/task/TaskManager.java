@@ -1,7 +1,9 @@
 package duke.task;
 
 import java.util.ArrayList;
-import duke.DukeException;
+
+import duke.exception.DukeException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -39,32 +41,12 @@ public class TaskManager {
         return this.addTask(todo);
     }
 
-    public Task addEvent(String description) {
-        int atIndex = description.indexOf("/at");
-        String at;
-        try {
-            at = description.substring(atIndex + 4);
-            description = description.substring(0, atIndex - 1);
-        } catch (Exception e) {
-            System.out.println("Invalid command format!!" + System.lineSeparator() +
-                    "Correct format is: " + "event <event name> /at <time>");
-            return null;
-        }
+    public Task addEvent(String description, String at) {
         Event event = new Event(description, at);
         return this.addTask(event);
     }
 
-    public Task addDeadline(String description) {
-        int byIndex = description.indexOf("/by");
-        String by;
-        try {
-            by = description.substring(byIndex + 4);
-            description = description.substring(0, byIndex - 1);
-        } catch (Exception e) {
-            System.out.println("Invalid command format!!" + System.lineSeparator() +
-                    "Correct format is: " + "deadline <task name> /by <date>");
-            return null;
-        }
+    public Task addDeadline(String description, String by) {
         Deadline deadline = new Deadline(description, by);
         return this.addTask(deadline);
     }
@@ -90,10 +72,10 @@ public class TaskManager {
                 task = this.addTodo(description[2]);
                 break;
             case "D":
-                task = this.addDeadline(description[2] + " /by " + description[3]);
+                task = this.addDeadline(description[2], description[3]);
                 break;
             case "E":
-                task = this.addEvent(description[2] + " /at " + description[3]);
+                task = this.addEvent(description[2], description[3]);
                 break;
             default:
                 return;
