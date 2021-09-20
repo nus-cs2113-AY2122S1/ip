@@ -1,10 +1,13 @@
-package duke;
+package duke.Util;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Util {
@@ -64,5 +67,20 @@ public class Util {
         }
 
         return isInt;
+    }
+
+    public static String getFormattedDateTime(LocalDateTime dateTime, String format) {
+        return dateTime.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public static LocalDateTime getDateTimeFromString(String string, String format) {
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(string, DateTimeFormatter.ofPattern(format));
+        } catch (DateTimeParseException e) {
+            dateTime = null;
+        }
+
+        return dateTime;
     }
 }

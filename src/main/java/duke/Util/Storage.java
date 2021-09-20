@@ -1,5 +1,6 @@
-package duke;
+package duke.Util;
 
+import duke.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -57,14 +59,18 @@ public class Storage {
         case Task.TYPE_DEADLINE:
             String byColumn = lineSplit[3];
             if (lineSplit.length == 4) {
-                task = new Deadline(descriptionColumn, byColumn);
+                LocalDateTime byDateTime = Util.getDateTimeFromString(byColumn, Task.DATETIME_FORMAT_INPUT);
+                if (byDateTime != null) {
+                    task = new Deadline(descriptionColumn, byDateTime);
+                }
             }
             break;
 
         case Task.TYPE_EVENT:
             String atColumn = lineSplit[3];
             if (lineSplit.length == 4) {
-                task = new Event(descriptionColumn, atColumn);
+                LocalDateTime atDateTime = Util.getDateTimeFromString(atColumn, Task.DATETIME_FORMAT_INPUT);
+                task = new Event(descriptionColumn, atDateTime);
             }
             break;
         }

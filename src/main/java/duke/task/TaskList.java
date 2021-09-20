@@ -30,24 +30,6 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public Task addTodoTask(String description) {
-        Task task = new Todo(description);
-        tasks.add(task);
-        return task;
-    }
-
-    public Task addDeadlineTask(String description, String by) {
-        Task task = new Deadline(description, by);
-        tasks.add(task);
-        return task;
-    }
-
-    public Task addEventTask(String description, String at) {
-        Task task = new Event(description, at);
-        tasks.add(task);
-        return task;
-    }
-
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
