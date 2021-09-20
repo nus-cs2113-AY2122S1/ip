@@ -84,9 +84,9 @@ public class Storage {
     public void saveTasks(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(path);
         fw.close();
-        for (Task task : taskList.taskList) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             try {
-                saveTask(task);
+                saveTask(taskList.getTask(i));
             } catch (IOException e) {
                 throw new IOException();
             }

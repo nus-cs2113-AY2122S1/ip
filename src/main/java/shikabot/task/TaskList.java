@@ -5,25 +5,25 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    public ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 
-    public void add(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
-    public int size() {
+    public int getSize() {
         return taskList.size();
     }
 
-    public Task get(int index) {
+    public Task getTask(int index) {
         return taskList.get(index);
     }
 
-    public void remove(int index) {
+    public void removeTask(int index) {
         taskList.remove(index);
     }
 
