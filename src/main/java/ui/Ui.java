@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner sc;
+    private final Scanner sc;
     /**
      * Decorative prefixes to format program's output more neatly/cleaner.
      */
@@ -25,12 +25,12 @@ public class Ui {
 
     /**
      * Prints the program logo.
+     *
+     * Credits
+     * ASCII Art Logo generated using
+     * https://patorjk.com/software/taag/#p=display&f=Dancing%20Font&t=Duke
      */
     public void printLogo() {
-        /**
-         * ASCII Art Logo generated using
-         * https://patorjk.com/software/taag/#p=display&f=Dancing%20Font&t=Duke
-         */
         String logo = "  ____     _   _    _  __  U _____ u" + LINE_BREAK
                 + " |  _\"\\ U |\"|u| |  |\"|/ /  \\| ___\"|/" + LINE_BREAK
                 + "/| | | | \\| |\\| |  | ' /    |  _|\"" + LINE_BREAK

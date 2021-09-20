@@ -47,14 +47,14 @@ public class Storage {
      * @return ArrayList of String formatted Tasks
      */
     private ArrayList<String> getTasksAsStringArrayList(ArrayList<Task> tasks) {
-        ArrayList<String> stringFormattedTasks = new ArrayList<String>();
-        for (int i = 0; i < tasks.size(); i++) {
-            char taskIdentifier = tasks.get(i).toString().charAt(1);
-            String temp = taskIdentifier + "||" + tasks.get(i).isDone() + "||" + tasks.get(i).getTaskName();
+        ArrayList<String> stringFormattedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            char taskIdentifier = task.toString().charAt(1);
+            String temp = taskIdentifier + "||" + task.isDone() + "||" + task.getTaskName();
             if (taskIdentifier == 'D') {
-                temp += "||" + ((Deadline) tasks.get(i)).getByWhen();
+                temp += "||" + ((Deadline) task).getByWhen();
             } else if (taskIdentifier == 'E') {
-                temp += "||" + ((Event) tasks.get(i)).getAtWhen();
+                temp += "||" + ((Event) task).getAtWhen();
             }
             stringFormattedTasks.add(temp);
         }
@@ -84,7 +84,7 @@ public class Storage {
         String[] tokens = fileLine.split("\\|\\|");
         String taskType = tokens[0];
         String taskName = tokens[2];
-        boolean isDone = Boolean.valueOf(tokens[1]);
+        boolean isDone = Boolean.parseBoolean(tokens[1]);
         Task savedTask;
         switch (taskType) {
         case "D":

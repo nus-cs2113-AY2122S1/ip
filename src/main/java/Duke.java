@@ -6,7 +6,6 @@ import task.Task;
 import task.Todo;
 import ui.Ui;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
@@ -15,23 +14,23 @@ public class Duke {
     /**
      * Error Messages
      */
-    private static final String INVALID_TASK_MESSAGE = ui.CONSOLE_LINE_PREFIX + ui.LINE_BREAK
-            + ui.SPACE_PREFIX + "That is invalid... Please use the syntax - "
-            + "[taskType]" + ui.SPACE_PREFIX + "[taskName] ([/by dateTime] or [/at dateTime] depending on taskType)"
-            + ui.LINE_BREAK + ui.CONSOLE_LINE_PREFIX;
-    private static final String UNKNOWN_COMMAND_MESSAGE = ui.CONSOLE_LINE_PREFIX + ui.LINE_BREAK
-            + ui.SPACE_PREFIX + "Hey, I don't quite understand this command. Please install a new CPU for me ;D"
-            + ui.LINE_BREAK + ui.SPACE_PREFIX + "Just kidding, it's too expensive, just try again..." + ui.LINE_BREAK
-            + ui.CONSOLE_LINE_PREFIX;
-    private static final String MISSING_INDEX_MESSAGE = ui.CONSOLE_LINE_PREFIX + ui.LINE_BREAK
-            + ui.SPACE_PREFIX + "Excuse me Sir/Madam, which task number? Where is it? Under the Sea?" + ui.LINE_BREAK
-            + ui.CONSOLE_LINE_PREFIX;
-    private static final String NO_TASK_MESSAGE = ui.CONSOLE_LINE_PREFIX + ui.LINE_BREAK
-            + ui.SPACE_PREFIX + "Woah woah, you can't just mark something when your list of tasks is empty"
-            + ui.LINE_BREAK + ui.CONSOLE_LINE_PREFIX;
-    private static final String TODO_EMPTY_MESSAGE = ui.CONSOLE_LINE_PREFIX + ui.LINE_BREAK
-            + ui.SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + ui.LINE_BREAK
-            + ui.CONSOLE_LINE_PREFIX;
+    private static final String INVALID_TASK_MESSAGE = Ui.CONSOLE_LINE_PREFIX + Ui.LINE_BREAK
+            + Ui.SPACE_PREFIX + "That is invalid... Please use the syntax - "
+            + "[taskType]" + Ui.SPACE_PREFIX + "[taskName] ([/by dateTime] or [/at dateTime] depending on taskType)"
+            + Ui.LINE_BREAK + Ui.CONSOLE_LINE_PREFIX;
+    private static final String UNKNOWN_COMMAND_MESSAGE = Ui.CONSOLE_LINE_PREFIX + Ui.LINE_BREAK
+            + Ui.SPACE_PREFIX + "Hey, I don't quite understand this command. Please install a new CPU for me ;D"
+            + Ui.LINE_BREAK + Ui.SPACE_PREFIX + "Just kidding, it's too expensive, just try again..." + Ui.LINE_BREAK
+            + Ui.CONSOLE_LINE_PREFIX;
+    private static final String MISSING_INDEX_MESSAGE = Ui.CONSOLE_LINE_PREFIX + Ui.LINE_BREAK
+            + Ui.SPACE_PREFIX + "Excuse me Sir/Madam, which task number? Where is it? Under the Sea?" + Ui.LINE_BREAK
+            + Ui.CONSOLE_LINE_PREFIX;
+    private static final String NO_TASK_MESSAGE = Ui.CONSOLE_LINE_PREFIX + Ui.LINE_BREAK
+            + Ui.SPACE_PREFIX + "Woah woah, you can't just mark something when your list of tasks is empty"
+            + Ui.LINE_BREAK + Ui.CONSOLE_LINE_PREFIX;
+    private static final String TODO_EMPTY_MESSAGE = Ui.CONSOLE_LINE_PREFIX + Ui.LINE_BREAK
+            + Ui.SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + Ui.LINE_BREAK
+            + Ui.CONSOLE_LINE_PREFIX;
 
     // Command Prefixes for checking type of command
     private static final String COMMAND_BYE = "Bye";
@@ -45,7 +44,7 @@ public class Duke {
     private static final String TASK_DEADLINE_PREFIX = "Deadline";
     private static final String TASK_EVENT_PREFIX = "Event";
     private static final String COMMAND_DELETE = "Delete";
-    
+
     /**
      * These variables are responsible for the management of Tasks
      */
@@ -57,7 +56,7 @@ public class Duke {
     private static void initTasks() {
         ui = new Ui();
         storage = new Storage();
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
         storage.instantiateTasksFromFile(tasks);
     }
 
@@ -125,7 +124,7 @@ public class Duke {
      * @param userInput The type of task and relevant details
      */
     private static void addToTasks(String userInput) {
-        String taskType = userInput.split(ui.SPACE_PREFIX)[0];
+        String taskType = userInput.split(Ui.SPACE_PREFIX)[0];
         // Remove the Type of Task from the user input
         String taskName = userInput.replace(taskType, "").trim();
         try {
@@ -179,7 +178,7 @@ public class Duke {
 
     private static void parseTaskCommands(String userInput) {
         try {
-            String[] userParams = userInput.split(ui.SPACE_PREFIX);
+            String[] userParams = userInput.split(Ui.SPACE_PREFIX);
             if (userParams[0].equalsIgnoreCase(COMMAND_DONE)) {
                 int index = Integer.parseInt(userParams[1]);
                 markTaskAsDone(index - 1);
