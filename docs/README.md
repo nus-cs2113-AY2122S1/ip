@@ -21,11 +21,12 @@ for all your task scheduling needs.
     * [Listing tasks](#listing-tasks-list)
     * [Querying tasks](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
     * [Adding a Todo](#adding-a-todo-todo-description)
-    * [Adding a Deadline](#adding-a-deadline-deadline-description-by-deadline-date)
+    * [Adding a Deadline](#adding-a-deadline-deadline-description-by-datetime)
     * [Adding an Event](#adding-an-event-event-description-at-datetime)
     * [List valid DateTime Formats](#list-valid-datetime-formats-dates)
     * [Removing a task](#removing-a-task-delete-idx)
     * [Marking a task as done](#marking-a-task-as-done-done-idx)
+    * [Exit](#exit-the-application--bye)
     * [Local Save](#local-save)
 - [FAQ](#faq)
 - [Command Summary]()
@@ -75,6 +76,20 @@ Some example commands you can try:
 ---
 ## Features
 
+>:information_source: **Notes about the command formats**
+> - Words in `<UPPER_CASE>` are the parameters to be given by the user. <br />
+> e.g. in `todo <DESCRIPTION>`, <DESCRIPTION> is a parameter and be called like so : `todo eat breakfast`
+> <br /><br />
+> - Items in square brackets are optional <br />
+> e.g. find `find <REGEX> [/type TASKTYPE]` 
+> can be called as `find eat /type todo` OR `find eat`.
+> <br /><br />
+> - Parameters can be in any order for optional flags <br />
+> e.g. `find <REGEX> [/type TASKTYPE] [/limit QUERYLIMIT]` is equivalent to `find <REGEX> [/limit QUERYLIMIT] [/type TASKTYPE] `
+> <br /><br />
+> - Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `bye`) will be ignored.<br />
+> e.g. `help abc` will be interpreted as  `help`
+
 ### Viewing help : `help`
 This will list all the valid commands that DUKE accepts.
 ```shell
@@ -121,7 +136,7 @@ The format for each Task printed is:
 
 <br />
 
-### Querying tasks: `find <regex> [/type TaskType] [/limit queryLimit]`
+### Querying tasks: `find <REGEX> [/type TASKTYPE] [/limit QUERYLIMIT]`
 Queries the task list by a word or phrase.
 - The **task type** can be specified for query by using the optional flag `/type`
     * e.g. `/type todo` will filter the query to only return TODO tasks
@@ -131,7 +146,7 @@ Queries the task list by a word or phrase.
     * e.g `/limit 5` will filter the query to only return the top 5 tasks
 
 
-- Any remaining tasks that contains the `regex` will be displayed
+- Any remaining tasks that contains the `REGEXx` will be displayed
 
 Example 1:
 ```shell
@@ -156,9 +171,9 @@ Your query returned the following results:
 
 <br />
 
-### Adding a TODO: `todo <description>`
+### Adding a TODO: `todo <DESCRIPTION>`
 Adds a *TODO* task to the task list. It is set to **not done** by default
-- **description** : the Task description
+- **DESCRIPTION** : the Task description
 
 Example: `todo eat dinner`
 ```shell
@@ -171,11 +186,11 @@ You now have (5) tasks!
 ```
 <br />
 
-### Adding a DEADLINE: `deadline <description> /by <datetime>`
+### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATETIME>`
 Adds a *DEADLINE* task to the task list. It is set to **not done** by default
-- **description** : the Task description
+- **DESCRIPTION** : the Task description
 - **/by** : is a *REQUIRED* clause when adding a deadline
-- **datetime** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
+- **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
 > :warning: Note: datetime needs to be given in a valid format.
 > See [Dates](#list-valid-datetime-formats-dates) for more details
 
@@ -191,11 +206,11 @@ You now have (6) tasks!
 ```
 <br />
 
-### Adding an EVENT: `event <description> /at <datetime>`
+### Adding an EVENT: `event <DESCRIPTION> /at <DATETIME>`
 Adds a *EVENT* task to the task list. It is set to **not done** by default
-- **description** : the Task description
+- **DESCRIPTION** : the Task description
 - **/at** : is a *REQUIRED* clause when adding a deadline
-- **datetime** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
+- **DATETIME** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
 > :warning: Note: datetime needs to be given in a valid format.
 > See [Dates](#list-valid-datetime-formats-dates) for more details
 
@@ -248,9 +263,9 @@ Here are the valid DateTime formats to use:
 
 <br />
 
-### Removing a task: `delete <idx>`
+### Removing a task: `delete <IDX>`
 Removes a task from the task list, by their **idx**
-- **idx** : index as displayed in the full list (:exclamation: **NOT QUERIED LIST**)
+- **IDX** : index as displayed in the full list (:no_entry: **NOT QUERIED LIST**)
 
 Example: `list` -> `delete 6`
 ```shell
@@ -276,10 +291,10 @@ You now have (6) tasks!
 
 <br />
 
-### Marking a task as done: `done <idx>`
+### Marking a task as done: `done <IDX>`
 
-Marks a task as done, by their **idx**.
-- **idx** : index as displayed in the full list (:exclamation: **NOT QUERIED LIST**)
+Marks a task as done, by their **IDX**.
+- **IDX** : index as displayed in the full list (:no_entry: **NOT QUERIED LIST**)
 
 Example: `list` -> `done 5`
 ```shell
@@ -310,6 +325,18 @@ Here are your scheduled tasks!
 
 <br />
 
+### Exit the application : `bye`
+Exits and closes **DUKE**.
+
+Example: `bye`
+```shell
+~$ bye
+------------------------------------------
+Bye. Hope to see you again soon!
+------------------------------------------
+```
+<br />
+
 ### Local Save
 All updates made to the task list is automatically saved to a local file
 > Note: Save will be automatically loaded up on application start up, if valid
@@ -326,12 +353,17 @@ All updates made to the task list is automatically saved to a local file
 
 ---
 
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
-
+## Command Summary
+| Command                                               | Meaning                                                               |
+| --------------                                        | ----------                                                            |
+| `help`                                                | Lists all accepted commands                                           |
+| `list`                                                | Lists all registered tasks in the task list                           |
+| `find <REGEX> [/type TASKTYPE] [/limit QUERYLIMIT]`   | Queries the task list with a keyword and *type / limit* flags         |
+| `todo <DESCRIPTION>`                                  | Adds a todo task with <DESCRIPTION>                                   |
+| `deadline <DESCRIPTION> /by <DATETIME>`               | Adds a deadline task with <DESCRIPTION> and deadline                  |
+| `event <DESCRIPTION> /at <DATETIME>`                  | Adds an event task with <DESCRIPTION> and time of event               |
+| `dates`                                               | Lists the valid datetime formats for use in adding deadline/event     |
+| `delete <IDX>`                                        | Removes a task from the task list by its sorted index                 |
+| `done <IDX`                                           | Marks a task as done in the task list by its sorted index             |
+| `bye`                                                 | Exits the application                                                 |
+    
