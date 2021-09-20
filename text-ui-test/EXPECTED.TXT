@@ -16,6 +16,7 @@ todo {description of task} (eg. todo homework)
 event {description of event} /at {time of event} (eg. event party at/ 9am)
 deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
 list
+agenda
 done {index number of task done}  (eg. done 1)
 delete {index number of task you want to delete}  (eg. delete 1)
 bye
@@ -65,6 +66,7 @@ todo {description of task} (eg. todo homework)
 event {description of event} /at {time of event} (eg. event party at/ 9am)
 deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
 list
+agenda
 done {index number of task done}  (eg. done 1)
 delete {index number of task you want to delete}  (eg. delete 1)
 bye
@@ -165,6 +167,57 @@ ____________________________________________________________
 4.[T][ ] 4
 5.[T][ ] 4
 6.[T][ ] 5
+____________________________________________________________
+____________________________________________________________
+Understood, 
+[D][ ] today (by: Sep 20 2021 4:00 PM)
+has been added. You now have 7 task(s) in the list
+____________________________________________________________
+____________________________________________________________
+Understood, 
+[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+has been added. You now have 8 task(s) in the list
+____________________________________________________________
+____________________________________________________________
+Understood, 
+[D][ ] tmr (by: Sep 21 2021 6:00 PM)
+has been added. You now have 9 task(s) in the list
+____________________________________________________________
+____________________________________________________________
+Understood, 
+[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+has been added. You now have 10 task(s) in the list
+____________________________________________________________
+____________________________________________________________
+Understood, 
+[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
+has been added. You now have 11 task(s) in the list
+____________________________________________________________
+____________________________________________________________
+Understood, 
+[E][ ] todayactually (at: today)
+has been added. You now have 12 task(s) in the list
+____________________________________________________________
+Today's Agenda : 
+____________________________________________________________
+1.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
+2.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+3.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+4.[D][ ] today (by: Sep 20 2021 4:00 PM)
+____________________________________________________________
+____________________________________________________________
+1.[T][X] some task
+2.[E][ ] something (at: 8pm)
+3.[D][X] something (by: 7pm)
+4.[T][ ] 4
+5.[T][ ] 4
+6.[T][ ] 5
+7.[D][ ] today (by: Sep 20 2021 4:00 PM)
+8.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+9.[D][ ] tmr (by: Sep 21 2021 6:00 PM)
+10.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+11.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
+12.[E][ ] todayactually (at: today)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
