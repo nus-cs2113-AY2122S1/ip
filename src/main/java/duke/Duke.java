@@ -45,6 +45,11 @@ public class Duke {
         runMainLoop();
     }
 
+    /**
+     * Contains the main loop of the program that continues to read inputs from
+     * the user and perform the requested operations by the user. This continues
+     * until the user requests to terminate the program.
+     */
     private static void runMainLoop() {
         while (!isSessionEnding) {
             strInput = SCANNER_INPUT.nextLine();
@@ -86,6 +91,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Initializes the required objects to run the program and loads the save
+     * file(if present) into this instance of the program.
+     */
     private static void initDuke() {
         taskList = new TaskList();
         ui = new Ui();

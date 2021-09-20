@@ -2,6 +2,9 @@ package duke.task;
 
 import java.io.IOException;
 
+/**
+ * Serves as the superclass of several types of task.
+ */
 public abstract class Task {
 
     /**
@@ -15,16 +18,27 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * The total number of Tasks added
+     * The total number of Tasks currently saved
      */
     private static int totalTasks = 0;
 
+    /**
+     * The basic constructor for child classes of the Task class to utilize.
+     *
+     * @param description the description of the task
+     */
     public Task(String description) {
         this.description = description;
         isDone = false;
         totalTasks++;
     }
 
+    /**
+     * Writes the task into the save file in a specified format
+     *
+     * @param filePath a string representing the path of the file to be written to
+     * @throws IOException when error occurs during file writing
+     */
     public abstract void writeToFile(String filePath) throws IOException;
 
     /**
@@ -37,7 +51,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns the total number of Tasks added
+     * Returns value of the total number of Tasks currently saved
      *
      * @return the current value of totalTasks
      */
@@ -60,6 +74,9 @@ public abstract class Task {
         return getStatusIcon() + " " + description;
     }
 
+    /**
+     * Decreases the value of totalTasks by 1 down to a minimum of 0
+     */
     public static void decreaseTotalTasks() {
         if (totalTasks > 0) {
             totalTasks--;

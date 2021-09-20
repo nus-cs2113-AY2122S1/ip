@@ -13,19 +13,27 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
 
+    /**
+     * The fixed data path where the save data is to be stored at.
+     */
     public static final String TASK_DATA_PATH = "data/tasks.txt";
 
     /**
-     * Returns a Task ArrayList based on data read from the data storage file. Creates the
-     * data storage folder if there is no existing one.
+     * Returns an ArrayList of tasks based on data read from the data storage file.
+     * Creates a data storage folder if there is no existing one. Prints out a short
+     * message to report the file reading results.
      *
      * @return an ArrayList of Tasks corresponding to the data storage file
      */
     public ArrayList<Task> loadFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         File dataFile = new File("data");
+        //creates the folder "data" if not present
         dataFile.mkdir();
         try {
             decodeFileContent(taskList);
@@ -43,8 +51,8 @@ public class Storage {
      * given Task ArrayList.
      *
      * @param taskList the ArrayList to be written into
-     * @throws FileNotFoundException  when no existing data file is found
-     * @throws CorruptedDataException when the existing data file has corrupted data
+     * @throws FileNotFoundException when no existing data file is found
+     * @throws CorruptedDataException when the existing data file has unrecognizable data
      */
     public void decodeFileContent(ArrayList<Task> taskList) throws FileNotFoundException, CorruptedDataException {
         File f = new File(TASK_DATA_PATH);

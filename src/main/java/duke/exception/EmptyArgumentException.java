@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * To be used when no arguments were given after the command
+ * To be thrown when no arguments were given after the command
  */
 public class EmptyArgumentException extends Exception {
     //empty
