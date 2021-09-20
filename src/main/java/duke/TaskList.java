@@ -81,11 +81,15 @@ public class TaskList {
 
     /**
      * Lists out all tasks currently in the list
+     * @return a message which includes a prompt and all the tasks in the task list
      */
-    public void listTask() {
+    public String listTask() {
+        String message = "Here are all the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).printTask(i + 1);
+            message += System.lineSeparator();
+            message += tasks.get(i).getFormattedTask(i + 1);
         }
+        return message;
     }
 
 }

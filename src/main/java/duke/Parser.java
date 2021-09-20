@@ -16,14 +16,14 @@ public class Parser {
         String[] inputWords = input.split(" ");
         return inputWords[0].toLowerCase();
     }
-
+    
     /**
      * Strips the first word from the user input
      *
      * @param input input from user
      * @return the remaining content from the user other than the first word
      */
-    public String getTaskBody(String input) {
+    public String getInputBody(String input) {
         String[] inputWords = input.split(" ");
         return inputWords[1];
     }

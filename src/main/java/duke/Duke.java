@@ -53,14 +53,17 @@ public class Duke {
                 case "delete":
                     taskManager.deleteTask(input);
                     break;
+                case "find":
+                    taskManager.findTask(input);
+                    break;
                 default:
                     ui.promptInvalidInput();
                     break;
                 }
             } catch (DukeException e) {
-                System.out.println(DukeException.getErrorMessage());
+                ui.printMessage(DukeException.getErrorMessage());
             } catch (NumberFormatException e) {
-                System.out.println("You are supposed to enter a number!");
+                ui.printMessage("You are supposed to enter a number!");
             }
             input = in.nextLine();
         }
