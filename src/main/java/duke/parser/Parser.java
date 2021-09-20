@@ -10,6 +10,11 @@ import duke.command.Command;
 import duke.ui.Ui;
 import duke.exception.DukeException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private static final Ui ui = new Ui();
 
@@ -125,5 +130,55 @@ public class Parser {
             throw new DukeException("Please provide an integer");
         }
         return num;
+    }
+
+    private static LocalDate parseDate(String description) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(description);
+        } catch (DateTimeParseException ignore) {
+        }
+        return date;
+    }
+
+    private static LocalTime parseTime(String description) {
+        LocalTime time = null;
+        try {
+            time = LocalTime.parse(description);
+        } catch (DateTimeParseException ignore) {
+        }
+        return time;
+    }
+
+    private static LocalTime getTime(String[] description) {
+        LocalTime time;
+        for (String s : description) {
+            time = parseTime(s);
+            if (time != null) {
+                return time;
+            }
+        }
+        return null;
+    }
+
+    private static LocalDate getDate(String[] description) {
+        LocalDate date;
+        for (String s : description) {
+            date = parseDate(s);
+            if (date != null) {
+                return date;
+            }
+        }
+        return null;
+    }
+
+    public static LocalDateTime parseDateAndTime(String line) {
+        String[] description = line.split(" ");
+        LocalDate date = getDate(description);
+        LocalTime time = getTime(description);
+        if (date != null && time != null) {
+            return LocalDateTime.of(date, time);
+        }
+        return null;
     }
 }
