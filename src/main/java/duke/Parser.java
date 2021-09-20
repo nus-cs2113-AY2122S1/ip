@@ -1,7 +1,18 @@
 package duke;
 
-import duke.commands.*;
-import duke.exceptions.*;
+import duke.commands.AddCommand;
+import duke.commands.ListCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.ExitCommand;
+import duke.commands.CommandType;
+import duke.commands.Command;
+import duke.commands.FindCommand;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.EmptyTimeException;
+import duke.exceptions.IncompleteInformationException;
+import duke.exceptions.InvalidRequestException;
+import duke.exceptions.InvalidFilterException;
 
 public abstract class Parser {
     public static final int TIME_INFO_START_INDEX = 1;
