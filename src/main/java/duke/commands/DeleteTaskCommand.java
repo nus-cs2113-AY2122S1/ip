@@ -1,5 +1,7 @@
-package duke;
+package duke.commands;
 
+import duke.storage.Storage;
+import duke.ui.Ui;
 import duke.exceptions.DukeInvalidTaskIndex;
 import duke.tasks.Task;
 import duke.tasks.TaskList;

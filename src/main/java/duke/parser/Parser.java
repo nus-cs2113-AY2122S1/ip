@@ -1,21 +1,29 @@
-package duke;
+package duke.parser;
 
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddTodoCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkAsDoneCommand;
 import duke.exceptions.DukeEmptyDescriptionException;
 import duke.exceptions.DukeEmptyTimeException;
 import duke.exceptions.DukeMissingKeywordException;
 import duke.exceptions.InvalidCommandException;
 
-import java.io.IOException;
-
 public class Parser {
+    
+    public static final String DEADLINE_BY_PREFIX = "/by";
+    public static final String EVENT_AT_PREFIX = "/at";
     
     public static Command parse(String input) throws InvalidCommandException,
             NumberFormatException,
             ArrayIndexOutOfBoundsException,
             DukeEmptyDescriptionException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException,
-            IOException {
+            DukeMissingKeywordException {
         String command = getFirstWord(input);
         switch (command) {
         case ListCommand.COMMAND_WORD:
@@ -60,8 +68,7 @@ public class Parser {
     private static AddDeadlineCommand prepareAddDeadlineCommand(String input) throws 
             DukeEmptyDescriptionException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException,
-            IOException {
+            DukeMissingKeywordException {
         String deadlineInput = removeFirstWordInSentence(input, 8);
         final int indexOfByPrefix = getIndexOfByPrefix(deadlineInput);
         String deadlineDescription = getDescription(deadlineInput, indexOfByPrefix);
@@ -72,8 +79,7 @@ public class Parser {
     private static AddEventCommand prepareAddEventCommand(String input) throws
             DukeEmptyDescriptionException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException,
-            IOException {
+            DukeMissingKeywordException {
         String eventInput = removeFirstWordInSentence(input, 5);
         final int indexOfAtPrefix = getIndexOfAtPrefix(eventInput);
         String eventDescription = getDescription(eventInput,indexOfAtPrefix);
@@ -99,7 +105,7 @@ public class Parser {
     }
 
     private static int getIndexOfByPrefix(String input) throws DukeMissingKeywordException {
-        int indexOfByPrefix = input.indexOf(Duke.DEADLINE_BY_PREFIX);
+        int indexOfByPrefix = input.indexOf(DEADLINE_BY_PREFIX);
         if (indexOfByPrefix == -1) {
             throw new DukeMissingKeywordException("/by");
         }
@@ -107,7 +113,7 @@ public class Parser {
     }
 
     private static int getIndexOfAtPrefix(String input) throws DukeMissingKeywordException {
-        final int indexOfAtPrefix = input.indexOf(Duke.EVENT_AT_PREFIX);
+        final int indexOfAtPrefix = input.indexOf(EVENT_AT_PREFIX);
         if (indexOfAtPrefix == -1) {
             throw new DukeMissingKeywordException("/at");
         }

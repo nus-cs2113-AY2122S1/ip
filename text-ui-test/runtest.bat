@@ -8,7 +8,7 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 if exist data\duke.txt del data\duke.txt
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\*.java ..\src\main\java\duke\tasks\*.java ..\src\main\java\duke\exceptions\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\*.java ..\src\main\java\duke\tasks\*.java ..\src\main\java\duke\exceptions\*.java ..\src\main\java\duke\commands\*.java ..\src\main\java\duke\parser\*.java ..\src\main\java\duke\ui\*.java ..\src\main\java\duke\storage\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

@@ -1,14 +1,13 @@
-package duke;
+package duke.ui;
 
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     public static final String NL = System.lineSeparator();
-    public static final String HELP_MESSAGE = "Valid Commands: " + NL
+    private final String HELP_MESSAGE = "Valid Commands: " + NL
             + "todo {description of task} (eg. todo homework)" + NL
             + "event {description of event} /at {time of event} (eg. event party at/ 9am)" + NL
             + "deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)"
@@ -17,17 +16,17 @@ public class Ui {
             + "done {index number of task done}  (eg. done 1)" + NL
             + "delete {index number of task you want to delete}  (eg. delete 1)" + NL
             + "bye";
-    public static final String LOGO = " ____        _        \n"
+    private final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String STARTING_MESSAGE = "Hello from" + NL
+    private final String STARTING_MESSAGE = "Hello from" + NL
             + LOGO + NL
             + "Hello! I'm Duke" + NL
             + "What can I do for you?";
-    public static final String ENDING_MESSAGE = "Bye. Hope to see you again soon!";
-    public static final Scanner SCANNER = new Scanner(System.in);
+    private final String ENDING_MESSAGE = "Bye. Hope to see you again soon!";
+    private final Scanner SCANNER = new Scanner(System.in);
     
     public String readCommand() {
         return SCANNER.nextLine().trim();
@@ -85,5 +84,27 @@ public class Ui {
         showMessage(de.getErrorMessage());
     }
     
+    public void showLoadingMessage() {
+        System.out.print("Loading data... ");
+    }
     
+    public void showDataNotFound() {
+        System.out.println("No previous data found");
+    }
+    
+    public void showSecurityPermissionError() {
+        System.out.println("WARNING - Data Directory could not be created due to insufficient permissions");
+    }
+    
+    public void showLoadingSuccessful() {
+        System.out.println("Data loaded successfully");
+    }
+    
+    public void showSaveError() {
+        showMessage("WARNING - Error in saving data to file (IOException has occurred)");
+    }
+    
+    public void showNumberFormatError() {
+        showMessage("Please enter a valid number after 'done' or 'delete'");
+    }
 }

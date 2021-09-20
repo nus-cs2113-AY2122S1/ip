@@ -1,80 +1,50 @@
 package duke;
 
+import duke.commands.Command;
+import duke.commands.ExitCommand;
 import duke.exceptions.*;
+import duke.parser.Parser;
+import duke.storage.Storage;
 import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
-    //TODO remove these 2 constants
-    public static final String DEADLINE_BY_PREFIX = "/by";
-    public static final String EVENT_AT_PREFIX = "/at";
-    public static final boolean IS_STARTING = true;
-    public static final boolean IS_ENDING = false;
-    public static final File DATA_DIRECTORY = new File("data");
-    public static final File DATA_FILE = new File(DATA_DIRECTORY.getPath().concat("/duke.txt"));
+    private final boolean IS_STARTING = true;
+    private final boolean IS_ENDING = false;
+    private final File DATA_DIRECTORY = new File("data");
+    private final File DATA_FILE = new File(DATA_DIRECTORY.getPath().concat("/duke.txt"));
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
     
-    
     public Duke() {
         ui = new Ui();
-        storage = new Storage(DATA_DIRECTORY,DATA_FILE);
+        storage = new Storage(DATA_DIRECTORY, DATA_FILE);
+        ui.showLoadingMessage();
         try {
             tasks = new TaskList(storage.load());
+            ui.showLoadingSuccessful();
         } catch (FileNotFoundException fnfe) {
+            ui.showDataNotFound();
             tasks = new TaskList();
-        } catch (IOException ioe) {
-            
+        } catch (SecurityException se) {
+            ui.showSecurityPermissionError();
         }
-        
     }
-    
+
     public void start() {
-        //loadPreviousData();
         ui.showStartingOrEndingMessage(IS_STARTING);
         runDuke();
         ui.showStartingOrEndingMessage(IS_ENDING);
     }
 
     public static void main(String[] args) {
-        /**
-        loadPreviousData();
-        UI.showStartingOrEndingMessage(IS_STARTING);
-        runDuke();
-        UI.showStartingOrEndingMessage(IS_ENDING);*/
         new Duke().start();
     }
-
-//    private void loadPreviousData() {
-//        System.out.print("Loading data... ");
-//        if (!DATA_DIRECTORY.isDirectory()) {
-//            DATA_DIRECTORY.mkdirs();
-//        }
-//        if (!DATA_FILE.exists()) {
-//            System.out.println("No previous data found");
-//            return;
-//        }
-//        try {
-//            Scanner loadingScanner = new Scanner(DATA_FILE);
-//            while (loadingScanner.hasNext()) {
-//                String nextLine = loadingScanner.nextLine();
-//                loadTask(nextLine);
-//            }
-//            System.out.println("Data loaded successfully");
-//        } catch (IOException e) {
-//            System.out.println("ERROR : " + e);
-//        }
-//    }
-
-//    private void loadTask(String taskDetails) throws IOException {
-//        String[] splitTaskDetails = taskDetails.split("\\|");
-//        tasks.addLoadedTask(splitTaskDetails);
-//    }
 
     private void runDuke() {
         boolean conversationIsOver = false;
@@ -89,9 +59,9 @@ public class Duke {
             } catch (InvalidCommandException ice) {
                 ui.showHelpMessage();
             } catch (IOException ioe) {
-                ui.showMessage("Error loading/saving data!!");
+                ui.showSaveError();
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                ui.showMessage("Please enter a valid number after 'done' or 'delete'");
+                ui.showNumberFormatError();
             }
         }
     }
