@@ -147,6 +147,11 @@ public class TaskManager {
         return descriptions[TASK_DESCRIPTION_INDEX].isBlank() || descriptions[BY_OR_AT_INDEX].isBlank();
     }
 
+    /**
+     * Prints out a list of all Tasks that contains the term given by user.
+     * 
+     * @param term The search term given by user to find related Task.
+     */
     public static void printRelatedTask(String term) {
         UserInterface.printLine();
         if (term.isBlank()) {
