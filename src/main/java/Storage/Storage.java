@@ -88,6 +88,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts the String given into the appropriate format that can be parsed as a localDateTime object
+     * @param dateTime the datetime string in the saved file
+     * @return the formatted dateTime string
+     */
     public String convertToDateTimeFormat(String dateTime) {
         String day = dateTime.substring(0, 2);
         String month = dateTime.substring(3, 5);
@@ -97,6 +102,7 @@ public class Storage {
         String second = dateTime.substring(17, 19);
         return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
     }
+
     /*
         This section contains the relevant codes for the writing of the task list to the stored file
      */

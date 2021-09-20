@@ -1,5 +1,8 @@
 package Exceptions;
 
+/**
+ * This exception is thrown when the user enters an invalid command
+ */
 public class UnknownCommandException extends Exception{
 
     @Override

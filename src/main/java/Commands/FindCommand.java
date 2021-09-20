@@ -2,6 +2,9 @@ package Commands;
 
 import Tasks.TaskList;
 
+/**
+ * Looks for all tasks containing a search string
+ */
 public class FindCommand extends Command{
 
     public static String stringToFind;
