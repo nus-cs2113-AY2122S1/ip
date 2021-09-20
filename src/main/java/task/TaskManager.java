@@ -165,11 +165,11 @@ public class TaskManager {
      * If task loaded from storage has a completed status, task is marked as completed.
      *
      * @param isCompleted Task completion status.
-     * @param taskDetails Task details that were saved.
+     * @param savedTaskInformation Task details that were saved.
      */
-    public void addSavedTodoTask(Boolean isCompleted, String taskDetails) {
+    public void addSavedTodoTask(Boolean isCompleted, String savedTaskInformation) {
         try {
-            allTasks.add(new Todo(InputParser.getTaskName(taskDetails)));
+            allTasks.add(new Todo(InputParser.getTaskName(savedTaskInformation)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -184,13 +184,13 @@ public class TaskManager {
      * If task loaded from storage has a completed status, task is marked as completed.
      *
      * @param isCompleted Task completion status.
-     * @param taskDetails Task details that were saved.
+     * @param savedTaskInformation Task details that were saved.
      */
-    public void addSavedDeadlineTask(Boolean isCompleted, String taskDetails) {
+    public void addSavedDeadlineTask(Boolean isCompleted, String savedTaskInformation) {
         try {
-            allTasks.add(new Deadline(InputParser.getTaskNameComponent(taskDetails),
-                    InputParser.getSavedDateComponent(taskDetails),
-                    InputParser.getSavedTimeComponent(taskDetails)));
+            allTasks.add(new Deadline(InputParser.getTaskNameComponent(savedTaskInformation),
+                    InputParser.getSavedDateComponent(savedTaskInformation),
+                    InputParser.getSavedTimeComponent(savedTaskInformation)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
@@ -209,13 +209,13 @@ public class TaskManager {
      * If task loaded from storage has a completed status, task is marked as completed.
      *
      * @param isCompleted Task completion status.
-     * @param taskDetails Task details that were saved.
+     * @param savedTaskInformation Task details that were saved.
      */
-    public void addSavedEventTask(Boolean isCompleted, String taskDetails) {
+    public void addSavedEventTask(Boolean isCompleted, String savedTaskInformation) {
         try {
-            allTasks.add(new Event(InputParser.getTaskNameComponent(taskDetails),
-                    InputParser.getSavedDateComponent(taskDetails),
-                    InputParser.getSavedTimeComponent(taskDetails)));
+            allTasks.add(new Event(InputParser.getTaskNameComponent(savedTaskInformation),
+                    InputParser.getSavedDateComponent(savedTaskInformation),
+                    InputParser.getSavedTimeComponent(savedTaskInformation)));
             if (isCompleted) {
                 allTasks.get(taskCount).setTaskCompleted();
             }
