@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 
 public class Duke {
 
@@ -103,7 +104,7 @@ public class Duke {
                 for (int k = i+2 ; k < length ; k++) {
                     by += (" " + input[k]);
                 }
-                commands.add( new Deadline(description,by) );
+                commands.add(new Deadline(description,by));
                 if (loadFlag == 1) {
                     System.out.println("Added to Galactic database:" );
                     System.out.println(commands.get(positionCheck));
@@ -244,7 +245,7 @@ public class Duke {
         String done;
         for (Task individualTask : commands) {
             if (individualTask instanceof Deadline) {
-                taskInFile = "deadline " + individualTask.description + " /by " + ((Deadline) individualTask).by;
+                taskInFile = "deadline " + individualTask.description + " /by " + ((Deadline) individualTask).byDate;
             } else if (individualTask instanceof Event) {
                 taskInFile = "event " + individualTask.description + " /at " + ((Event) individualTask).at;
             } else {
