@@ -31,4 +31,8 @@ public class Parser {
         }
         return task;
     }
+
+    public String parseSearchInputToString(String phrase) {
+        return phrase.substring(5);
+    }
 }
