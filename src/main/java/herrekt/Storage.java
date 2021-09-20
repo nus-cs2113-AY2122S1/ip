@@ -4,9 +4,9 @@ import herrekt.taskmanager.Deadline;
 import herrekt.taskmanager.Event;
 import herrekt.taskmanager.Task;
 import herrekt.taskmanager.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    public void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public List<Task> load() throws FileNotFoundException {
         List<String> stringList = loadSaveAsStringList(filePath);
         return convertStringListToTaskList(stringList);
@@ -30,10 +36,10 @@ public class Storage {
     public void save(TaskList tasks) {
         try {
             if (tasks.getSize() == 0) {
-                FileWriting.writeToFile("save.txt", "");
+                writeToFile("save.txt", "");
             } else {
                 StringBuilder toSaveToFile = tasks.convertTaskListToSaveFormat();
-                FileWriting.writeToFile("save.txt", toSaveToFile.toString());
+                writeToFile("save.txt", toSaveToFile.toString());
 
             }
         } catch (IOException e) {
@@ -65,7 +71,11 @@ public class Storage {
             task = new Todo(taskInArray[2]);
             break;
         case "D":
-            task = new Deadline(taskInArray[2], taskInArray[3]);
+            if (Parser.containsDate(taskInArray[3])) {
+                task = new Deadline<>(taskInArray[2], Parser.dateConverter(taskInArray[3]));
+            } else {
+                task = new Deadline<>(taskInArray[2], taskInArray[3]);
+            }
             break;
         case "E":
             task = new Event(taskInArray[2], taskInArray[3]);

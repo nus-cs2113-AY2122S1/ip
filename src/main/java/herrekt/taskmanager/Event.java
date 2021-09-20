@@ -1,6 +1,6 @@
 package herrekt.taskmanager;
 
-public class Event extends Task implements Timetable {
+public class Event extends Task {
     protected String date;
 
     public Event(String description, String date) {

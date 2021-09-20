@@ -79,4 +79,10 @@ public class Ui {
                 + "Please separate deadline/event and time with '/by' and '/at' respectively.");
         System.out.println("Your input: " + phrase);
     }
+
+    void printInvalidDateError(String phrase) {
+        System.out.println("ERROR! The deadline date appears to be invalid.");
+        System.out.println("Please use the YYYY-MM-DD format.");
+        System.out.println("Your input: " + phrase);
+    }
 }
