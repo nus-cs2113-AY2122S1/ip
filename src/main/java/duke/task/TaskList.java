@@ -8,25 +8,51 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    
+
+    /**
+     * Constructor of TaskList object, initializing the task list to be that of 
+     * the input tasks.
+     * 
+     * @param tasks input task list.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Return the tasks stored in this list.
+     * 
+     * @return list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Return success result for the task list to be shown to the user.
+     * 
+     * @param userCommand input command from user.
+     * @return result of the command.
+     */
     private CommandResult executeListCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
-    
+
+    /**
+     * Mark a task as done. Return success result if a valid task number
+     * is provided. Otherwise, return fail result along with the reason
+     * causing the command to fail.
+     * 
+     * @param userCommand input command from user containing the number of 
+     *                    the task to be marked as done.
+     * @return result of the command.
+     */
     private CommandResult executeDoneCommand(Command userCommand) {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(userCommand.getCommandDescription());
             if (tasks.get(taskNumber - 1).isDone()) {
-                return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.INVALID_TASK_ALREADY_DONE);
+                return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_TASK_ALREADY_DONE);
             }
             tasks.get(taskNumber - 1).markAsDone();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -34,7 +60,16 @@ public class TaskList {
         }
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
-    
+
+    /**
+     * Add a task with a specific type to the task list. Return success result
+     * if the task can be added to the list. Otherwise, return fail result along
+     * with the reason causing the command to fail.
+     * 
+     * @param userCommand input command from user containing a specific task type
+     *                    and the task's description.
+     * @return result of the command.
+     */
     private CommandResult executeAddCommand(Command userCommand) {
         switch (userCommand.getCommandType()) {
         case Command.COMMAND_ADD_TODO:
@@ -66,7 +101,16 @@ public class TaskList {
         }
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
-    
+
+    /**
+     * Delete a task from the task list. If the deletion is successful, return
+     * the command result along with the deleted task's description. Otherwise,
+     * return the result with the reason causing the command to fail.
+     * 
+     * @param userCommand input command from user containing the number of task
+     *                    to be deleted.
+     * @return result of the command.
+     */
     private CommandResult executeDeleteCommand(Command userCommand) {
         int taskNumber;
         String deletedTask;
@@ -79,16 +123,41 @@ public class TaskList {
         }
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, deletedTask);
     }
-    
+
+    /**
+     * Return success result for the tasks containing the keyword to be shown
+     * to the user.
+     *
+     * @param userCommand input command from user containing the keyword
+     *                    for the tasks.
+     * @return result of the command.
+     */
     private CommandResult executeFindCommand(Command userCommand) {
         String keyword = userCommand.getCommandDescription();
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, keyword);
     }
-    
+
+    /**
+     * Return success result for the program to be terminated.
+     *
+     * @param userCommand input command from the user.
+     * @return result of the command.
+     */
     private CommandResult executeExitCommand(Command userCommand) {
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, CommandResult.BLANK_DESCRIPTION);
     }
     
+    private CommandResult executeInvalidCommand(Command userCommand) {
+        return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_COMMAND);
+    }
+
+    /**
+     * Call different command execution method depending on the input user's command,
+     * then return the result of the command execution.
+     * 
+     * @param userCommand input command from user.
+     * @return result of the command
+     */
     public CommandResult executeCommand(Command userCommand) {
         switch (userCommand.getCommandType()) {
         case Command.COMMAND_LIST:
@@ -106,7 +175,7 @@ public class TaskList {
         case Command.COMMAND_EXIT:
             return executeExitCommand(userCommand);
         default:
-            return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_COMMAND);
+            return executeInvalidCommand(userCommand);
         }
     }
 }
