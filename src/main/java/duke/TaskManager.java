@@ -5,20 +5,17 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    private static int taskNo = 0;
-    private static final int maxTasks = 100;
-    private static final Task[] tasks = new Task[maxTasks];
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void addTask(Task task) {
-        if (taskNo < maxTasks) {
-            tasks[taskNo] = task;
-            taskNo++;
+        tasks.add(task);
 
-            System.out.print("Got it. I've added this task:\n");
-            System.out.printf("   %s\n", task);
-            System.out.printf("Now you have %d tasks in the list.\n", taskNo);
-        }
+        System.out.print("Got it. I've added this task:\n");
+        System.out.printf("   %s\n", task);
+        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
     }
 
     public static void addTodo(String todoName) throws DukeException {
@@ -41,17 +38,25 @@ public class TaskManager {
 
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskNo; ++i) {
-            Task task = tasks[i];
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
             System.out.printf("%d. %s\n", i + 1, task);
         }
     }
 
     public static void markTaskNoAsDone(int taskNo) {
-        Task task = tasks[taskNo];
+        Task task = tasks.get(taskNo);
         task.markAsDone();
 
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("   %s\n", task);
+    }
+
+    public static void deleteTask(int taskNo) {
+        Task task = tasks.remove(taskNo);
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.printf("   %s\n", task);
+        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
     }
 }

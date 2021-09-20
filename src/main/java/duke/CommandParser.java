@@ -3,12 +3,13 @@ package duke;
 import duke.command.*;
 
 public class CommandParser {
-    public static String EXIT_CMD = "bye";
-    public static String LIST_CMD = "list";
-    public static String DONE_CMD = "done";
-    public static String TODO_CMD = "todo";
-    public static String DEADLINE_CMD = "deadline";
-    public static String EVENT_CMD = "event";
+    private static final String EXIT_CMD = "bye";
+    private static final String LIST_CMD = "list";
+    private static final String DONE_CMD = "done";
+    private static final String TODO_CMD = "todo";
+    private static final String DEADLINE_CMD = "deadline";
+    private static final String EVENT_CMD = "event";
+    private static final String DELETE_CMD = "delete";
 
     public static Command parse(String command) {
         command = command.strip();
@@ -35,6 +36,10 @@ public class CommandParser {
             String eventTitle = parsedInput[0].strip();
             String eventTime = parsedInput[1].strip();
             return new EventCommand(eventTitle, eventTime);
+        } else if (command.startsWith(DELETE_CMD)) {
+            String parsedInput = command.split(" ")[1];
+            int taskNo = Integer.parseInt(parsedInput);
+            return new DeleteCommand(taskNo - 1);
         } else {
             return new InvalidCommand();
         }
