@@ -241,6 +241,7 @@ public class Ui {
     /**
      * Prints a message informing the user that an unrecognized command has been entered.
      * Commands recognized can be found in the {@code CommandWord} enumeration.
+     * Prints a message suggesting the user to enter the {@code help} command for help.
      */
     public static void printUnrecognizedCommandMessage() {
         out.println(STRAIGHT_LINE);
