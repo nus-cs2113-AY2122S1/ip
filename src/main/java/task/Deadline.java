@@ -8,7 +8,7 @@ public class Deadline extends Task {
         this.byWhen = byWhen;
     }
 
-    public Deadline(String taskName, String byWhen, boolean isDone) {
+    public Deadline(String taskName, boolean isDone, String byWhen) {
         super(taskName, isDone);
         this.byWhen = byWhen;
     }

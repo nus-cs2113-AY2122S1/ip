@@ -8,7 +8,7 @@ public class Event extends Task {
         this.atWhen = atWhen;
     }
 
-    public Event(String taskName, String atWhen, boolean isDone) {
+    public Event(String taskName, boolean isDone, String atWhen) {
         super(taskName, isDone);
         this.atWhen = atWhen;
     }
