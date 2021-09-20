@@ -4,12 +4,10 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     private static final String TASKS_FILENAME = "./data/duke.txt";
 
-    private static final String INPUT_PROMPT = "$ ";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DONE = "done";
@@ -21,12 +19,9 @@ public class Duke {
     private static final String TASK_DEADLINE_SPLITTER = "/by";
     private static final String TASK_EVENT_SPLITTER = "/at";
 
-    private static final String MESSAGE_WALL = "------------------------------------------------------------";
     private static final String MESSAGE_LIST_EMPTY = "Task list is empty.";
     private static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number.";
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.";
-    private static final String MESSAGE_WELCOME = "Hello! I'm Duke\nWhat can I do for you?";
-    private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_INVALID_TASK_TYPE = "Invalid task type.";
     private static final String MESSAGE_ADD_TASK_FAILED = "Fail to add task.";
     private static final String MESSAGE_DELETE_TASK_FAILED = "Fail to delete task.";
@@ -40,24 +35,25 @@ public class Duke {
     private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done.";
     private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n  %s\nThere are %d tasks in the list.";
-    private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred:\n%s";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
 
-    private final Scanner SCANNER;
     private final TaskList TASKS;
     private final Storage STORAGE;
+    private final Ui UI;
 
     public Duke(String filename) {
-        this.SCANNER = new Scanner(System.in);
         this.TASKS = new TaskList();
         this.STORAGE = new Storage(filename);
+        this.UI = new Ui();
+    }
 
+    public void run() {
         loadTasksFromStorage();
-        printMessage(MESSAGE_WELCOME);
+        UI.printWelcomeMessage();
 
         boolean isRunning = true;
         do {
-            String input = getUserInput();
+            String input = UI.getUserInput();
             Parser parser = new Parser(input);
             String command = parser.getCommand();
             String argument = parser.getArgument();
@@ -69,40 +65,14 @@ public class Duke {
             }
         } while (isRunning);
 
-        printMessage(MESSAGE_BYE);
-    }
-
-    /**
-     * Prints message within horizontal lines.
-     *
-     * @param message The message to print.
-     */
-    private static void printMessage(String message) {
-        System.out.println(MESSAGE_WALL);
-        System.out.println(message);
-        System.out.println(MESSAGE_WALL);
+        UI.printExitMessage();
     }
 
     /**
      * Prints tasks in list format.
      */
     private void printTasks() {
-        printMessage(TASKS.toString());
-    }
-
-    /**
-     * Gets a non-empty user input.
-     *
-     * @return Non-empty user input.
-     */
-    private String getUserInput() {
-        String input;
-        do {
-            System.out.print(INPUT_PROMPT);
-            input = SCANNER.nextLine();
-        } while (input.trim().isEmpty());
-
-        return input;
+        UI.printMessage(TASKS.toString());
     }
 
     /**
@@ -110,7 +80,7 @@ public class Duke {
      */
     private void executeListCommand() {
         if (TASKS.isEmpty()) {
-            printMessage(MESSAGE_LIST_EMPTY);
+            UI.printMessage(MESSAGE_LIST_EMPTY);
         } else {
             printTasks();
         }
@@ -140,7 +110,7 @@ public class Duke {
         }
 
         task.setAsDone();
-        printMessage(String.format(MESSAGE_FORMAT_TASK_MARKED, task));
+        UI.printMessage(String.format(MESSAGE_FORMAT_TASK_MARKED, task));
     }
 
     /**
@@ -185,7 +155,7 @@ public class Duke {
             throw new DukeException(MESSAGE_ADD_TASK_FAILED);
         }
 
-        printMessage(String.format(MESSAGE_FORMAT_TASK_ADDED, task, TASKS.getSize()));
+        UI.printMessage(String.format(MESSAGE_FORMAT_TASK_ADDED, task, TASKS.getSize()));
     }
 
     /**
@@ -209,16 +179,7 @@ public class Duke {
             throw new DukeException(MESSAGE_DELETE_TASK_FAILED);
         }
 
-        printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.getSize()));
-    }
-
-    /**
-     * Prints an exception.
-     *
-     * @param message The message to print.
-     */
-    private static void printException(String message) {
-        printMessage(String.format(MESSAGE_FORMAT_EXCEPTION, message));
+        UI.printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.getSize()));
     }
 
     /**
@@ -269,7 +230,7 @@ public class Duke {
                 writeTasksToFile();
             }
         } catch (DukeException e) {
-            printException(e.getMessage());
+            UI.printException(e.getMessage());
         }
     }
 
@@ -287,7 +248,7 @@ public class Duke {
                 TASKS.addTask(task);
             }
         } catch (DukeException e) {
-            printException(e.getMessage());
+            UI.printException(e.getMessage());
         }
     }
 
@@ -298,11 +259,11 @@ public class Duke {
         try {
             STORAGE.write(TASKS);
         } catch (DukeException e) {
-            printException(e.getMessage());
+            UI.printException(e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        new Duke(TASKS_FILENAME);
+        new Duke(TASKS_FILENAME).run();
     }
 }
