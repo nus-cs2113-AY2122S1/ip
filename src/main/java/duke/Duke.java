@@ -1,17 +1,10 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Duke {
     private static final String TASKS_FILENAME = "./data/duke.txt";
@@ -35,7 +28,6 @@ public class Duke {
     private static final String MESSAGE_WELCOME = "Hello! I'm Duke\nWhat can I do for you?";
     private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_INVALID_TASK_TYPE = "Invalid task type.";
-    private static final String MESSAGE_FILEWRITER_ERROR = "FileWriter Error.";
     private static final String MESSAGE_ADD_TASK_FAILED = "Fail to add task.";
     private static final String MESSAGE_DELETE_TASK_FAILED = "Fail to delete task.";
 
@@ -50,11 +42,35 @@ public class Duke {
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n  %s\nThere are %d tasks in the list.";
     private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred:\n%s";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
-    private static final String MESSAGE_FORMAT_CREATE_FILE_FAILED = "Fail to create file - %s";
-    private static final String MESSAGE_FORMAT_FILE_NOT_FOUND = "File not found - %s";
 
-    private static final Scanner SCANNER = new Scanner(System.in);
-    private static final TaskList TASKS = new TaskList();
+    private final Scanner SCANNER;
+    private final TaskList TASKS;
+    private final Storage STORAGE;
+
+    public Duke(String filename) {
+        this.SCANNER = new Scanner(System.in);
+        this.TASKS = new TaskList();
+        this.STORAGE = new Storage(filename);
+
+        loadTasksFromStorage();
+        printMessage(MESSAGE_WELCOME);
+
+        boolean isRunning = true;
+        do {
+            String input = getUserInput();
+            Parser parser = new Parser(input);
+            String command = parser.getCommand();
+            String argument = parser.getArgument();
+
+            if (command.equals(COMMAND_BYE)) {
+                isRunning = false;
+            } else {
+                executeCommand(command, argument);
+            }
+        } while (isRunning);
+
+        printMessage(MESSAGE_BYE);
+    }
 
     /**
      * Prints message within horizontal lines.
@@ -70,26 +86,8 @@ public class Duke {
     /**
      * Prints tasks in list format.
      */
-    private static void printTasks() {
+    private void printTasks() {
         printMessage(TASKS.toString());
-    }
-
-    /**
-     * Checks if string value is an integer.
-     *
-     * @param string The string to check.
-     * @return true if string can be converted to integer, else false.
-     */
-    private static boolean isStringInteger(String string) {
-        boolean isInt;
-        try {
-            int value = Integer.parseInt(string);
-            isInt = true;
-        } catch (NumberFormatException e) {
-            isInt = false;
-        }
-
-        return isInt;
     }
 
     /**
@@ -97,7 +95,7 @@ public class Duke {
      *
      * @return Non-empty user input.
      */
-    private static String getUserInput() {
+    private String getUserInput() {
         String input;
         do {
             System.out.print(INPUT_PROMPT);
@@ -110,7 +108,7 @@ public class Duke {
     /**
      * Executes the list command. Print tasks in the list.
      */
-    private static void executeListCommand() {
+    private void executeListCommand() {
         if (TASKS.isEmpty()) {
             printMessage(MESSAGE_LIST_EMPTY);
         } else {
@@ -119,29 +117,18 @@ public class Duke {
     }
 
     /**
-     * Checks if task index is valid.
-     * Note: Task index starts from 1 (not 0).
-     *
-     * @param taskNumber The task index.
-     * @return true if task index is valid, else false.
-     */
-    private static boolean isValidTaskNumber(int taskNumber) {
-        return (taskNumber > 0 && taskNumber <= TASKS.getSize());
-    }
-
-    /**
      * Executes the done command. Marks the given task as done.
      *
      * @param argument The argument from getCommandAndArgument(<string>).
      * @throws DukeException If argument is invalid/missing or task is already marked as done.
      */
-    private static void executeDoneCommand(String argument) throws DukeException {
-        if (!isStringInteger(argument)) {
+    private void executeDoneCommand(String argument) throws DukeException {
+        if (!Util.isStringInteger(argument)) {
             throw new DukeException(String.format(MESSAGE_FORMAT_DONE_USAGE, COMMAND_DONE));
         }
 
         int taskNumber = Integer.parseInt(argument);
-        if (!isValidTaskNumber(taskNumber)) {
+        if (!TASKS.isValidTaskNumber(taskNumber)) {
             throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
         }
 
@@ -163,7 +150,7 @@ public class Duke {
      * @param taskType The type of task.
      * @throws DukeException If command format is incorrect or taskType is invalid.
      */
-    private static void executeAddTask(String argument, char taskType) throws DukeException {
+    private void executeAddTask(String argument, char taskType) throws DukeException {
         Task task = null;
         String[] descriptionAndArg;
         switch (taskType) {
@@ -207,13 +194,13 @@ public class Duke {
      * @param argument The argument from getCommandAndArgument(<string>).
      * @throws DukeException If argument is invalid/missing.
      */
-    private static void executeDeleteCommand(String argument) throws DukeException {
-        if (!isStringInteger(argument)) {
+    private void executeDeleteCommand(String argument) throws DukeException {
+        if (!Util.isStringInteger(argument)) {
             throw new DukeException(String.format(MESSAGE_FORMAT_DELETE_USAGE, COMMAND_DELETE));
         }
 
         int taskNumber = Integer.parseInt(argument);
-        if (!isValidTaskNumber(taskNumber)) {
+        if (!TASKS.isValidTaskNumber(taskNumber)) {
             throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
         }
 
@@ -223,30 +210,6 @@ public class Duke {
         }
 
         printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.getSize()));
-    }
-
-     /** Writes the tasks in the list to the specified file
-     *
-     * @param filename The file to write into.
-     * @throws DukeException If file fails to create or something went wrong when writing to the file.
-     */
-    private static void writeTasksToFile(String filename) throws DukeException {
-        if (!Util.createFile(filename)) {
-            throw new DukeException(String.format(MESSAGE_FORMAT_CREATE_FILE_FAILED, TASKS_FILENAME));
-        }
-
-        try {
-            FileWriter fileWriter = new FileWriter(filename);
-
-            for (int i = 0; i < TASKS.getSize(); i += 1) {
-                Task task = TASKS.getTaskAt(i);
-                fileWriter.write(String.format("%s\n", task.toFileString()));
-            }
-
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new DukeException(MESSAGE_FILEWRITER_ERROR);
-        }
     }
 
     /**
@@ -264,7 +227,7 @@ public class Duke {
      * @param command  The command from getCommandAndArgument(<string>).
      * @param argument The argument from getCommandAndArgument(<string>).
      */
-    private static void executeCommand(String command, String argument) {
+    private void executeCommand(String command, String argument) {
         try {
             boolean hasListChanged = false;
 
@@ -303,7 +266,7 @@ public class Duke {
             }
 
             if (hasListChanged) {
-                writeTasksToFile(TASKS_FILENAME);
+                writeTasksToFile();
             }
         } catch (DukeException e) {
             printException(e.getMessage());
@@ -311,106 +274,35 @@ public class Duke {
     }
 
     /**
-     * Parses the line and returns a task object.
-     *
-     * @param line The line to parse.
-     * @return A Task object if line is successfully parsed, else null.
+     * Loads tasks from the storage file.
      */
-    private static Task getTaskFromLine(String line) {
-        String[] lineSplit = line.split(Pattern.quote(Task.COLUMN_SEPARATOR));
-        if (lineSplit.length < 3) {
-            return null;
-        }
-
-        String taskTypeColumn = lineSplit[0].trim();
-        String isDoneColumn = lineSplit[1].trim();
-        String descriptionColumn = lineSplit[2];
-
-        if (taskTypeColumn.length() != 1 || isDoneColumn.length() != 1) {
-            return null;
-        }
-
-        Task task = null;
-        char taskType = taskTypeColumn.charAt(0);
-        boolean isDone = isDoneColumn.equals("1");
-        switch (taskType) {
-        case Task.TYPE_TODO:
-            task = new Todo(descriptionColumn);
-            break;
-
-        case Task.TYPE_DEADLINE:
-            String byColumn = lineSplit[3];
-            if (lineSplit.length == 4) {
-                task = new Deadline(descriptionColumn, byColumn);
+    private void loadTasksFromStorage() {
+        try {
+            ArrayList<Task> tasks = STORAGE.load();
+            if (tasks == null) {
+                return;
             }
-            break;
 
-        case Task.TYPE_EVENT:
-            String atColumn = lineSplit[3];
-            if (lineSplit.length == 4) {
-                task = new Event(descriptionColumn, atColumn);
+            for (Task task : tasks) {
+                TASKS.addTask(task);
             }
-            break;
+        } catch (DukeException e) {
+            printException(e.getMessage());
         }
-
-        if (task != null && isDone) {
-            task.setAsDone();
-        }
-
-        return task;
     }
 
     /**
-     * Loads tasks from the specified file.
-     *
-     * @param filename The file to load from.
+     * Writes the tasks in the TaskList to the storage file
      */
-    private static void loadTasksFromFile(String filename) {
-        if (!Util.fileExists(filename)) {
-            return;
-        }
-
-        File file = new File(filename);
+    private void writeTasksToFile() {
         try {
-            Scanner fileReader = new Scanner(file);
-            while (fileReader.hasNextLine()) {
-                String line = fileReader.nextLine();
-                if (line.isEmpty()) {
-                    continue;
-                }
-
-                Task task = getTaskFromLine(line);
-                if (task == null) {
-                    continue;
-                }
-
-                TASKS.addTask(task);
-            }
-
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            printException(String.format(MESSAGE_FORMAT_FILE_NOT_FOUND, filename));
+            STORAGE.write(TASKS);
+        } catch (DukeException e) {
+            printException(e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        loadTasksFromFile(TASKS_FILENAME);
-        printMessage(MESSAGE_WELCOME);
-
-        boolean isRunning = true;
-        do {
-            String input = getUserInput();
-            Parser parser = new Parser(input);
-            String command = parser.getCommand();
-            String argument = parser.getArgument();
-
-            if (command.equals(COMMAND_BYE)) {
-                isRunning = false;
-            } else {
-                executeCommand(command, argument);
-            }
-        } while (isRunning);
-
-        printMessage(MESSAGE_BYE);
+        new Duke(TASKS_FILENAME);
     }
 }
