@@ -9,7 +9,8 @@ public class Parser {
     private final static int DESCRIPTION = 0;
     private final static int DATETIME = 1;
 
-    public Parser() {}
+    public Parser() {
+    }
 
     /**
      * This function parses the input given by user and prints the appropriate response.
