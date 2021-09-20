@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-public class DukeFileUtils {
+public class Storage {
     private static final String FILE_PATH = "duke.txt";
 
     /**
