@@ -19,7 +19,7 @@ public class DateCommand extends Command {
     @Override
     public String execute(TaskList tasks) throws DukeException {
         try {
-            ArrayList<Task> tasksDateFound = TaskList.findByDate(key, tasks);
+            ArrayList<Task> tasksDateFound = tasks.findByDate(key);
             returnString = TaskList.listDateTaskList(tasksDateFound);
             return returnString;
         } catch (Exception e) {
