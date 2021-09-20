@@ -3,7 +3,15 @@ package duke;
 import duke.exception.DukeException;
 import duke.task.TaskType;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
+
 public class Parser {
+    private static final String dateTimeFormat = "dd/MM/yyyy[ HH:mm]";
+
     public static Command parseUserCommand(String input) {
         String[] separated = input.split(" ", 2);
         String firstWordLowerCase = separated[0].toLowerCase();
@@ -97,4 +105,26 @@ public class Parser {
         }
         return splitArray[1].trim();
     }
+
+    // @@author crabnuggets-reused
+    // Reused from https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
+    // With minor modifications pertaining to date and time format
+    public static LocalDateTime extractDateTime(String input) throws DukeException, DateTimeParseException {
+        LocalDateTime dateTime;
+        TemporalAccessor temporalAccessor = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+            temporalAccessor = formatter.parseBest(input, LocalDateTime::from, LocalDate::from);
+            if (temporalAccessor instanceof LocalDateTime) {
+                dateTime = (LocalDateTime) temporalAccessor;
+            } else {
+                throw new DukeException("Time not provided! Setting time as 00:00. Don't like it? DEAL WITH IT.");
+            }
+        } catch (DukeException e) {
+            System.out.println(Ui.getHorizontalLine() + e.getMessage());
+            dateTime = ((LocalDate)temporalAccessor).atStartOfDay();
+        }
+        return dateTime;
+    }
+    // @@author
 }
