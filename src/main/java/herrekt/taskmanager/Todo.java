@@ -1,6 +1,6 @@
 package herrekt.taskmanager;
 
-public class Todo extends Task implements Timetable {
+public class Todo extends Task {
 
     public Todo(String description) {
         super(description);

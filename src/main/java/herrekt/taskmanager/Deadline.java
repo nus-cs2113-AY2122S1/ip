@@ -1,15 +1,24 @@
 package herrekt.taskmanager;
 
-public class Deadline extends Task implements Timetable {
-    protected String date;
+import java.time.LocalDate;
 
-    public Deadline(String description, String date) {
+public class Deadline<T> extends Task {
+    protected T date;
+
+    public Deadline(String description, T date) {
         super(description);
         this.date = date;
     }
 
     public String getDate() {
-        return date;
+        if (date instanceof String) {
+            return (String) date;
+        } else {
+            String month = ((LocalDate) date).getMonth().toString().substring(0,3);
+            int day = ((LocalDate) date).getDayOfMonth();
+            int year = ((LocalDate) date).getYear();
+            return month + " " + day + " " + year;
+        }
     }
 
     @Override
@@ -21,7 +30,7 @@ public class Deadline extends Task implements Timetable {
         return "D" + SAVE_FILE_SPACER
                 + done + SAVE_FILE_SPACER
                 + this.description + SAVE_FILE_SPACER
-                + this.date;
+                + this.date.toString();
     }
 
     public String getDescription() {
