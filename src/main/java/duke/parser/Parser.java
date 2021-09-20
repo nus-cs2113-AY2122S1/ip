@@ -1,8 +1,13 @@
 package duke.parser;
 
-import duke.exception.DukeException;
-import duke.command.*;
+import duke.command.AddTaskCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.DoneCommand;
+import duke.command.QuitCommand;
+import duke.command.ListTasksCommand;
+import duke.command.Command;
 import duke.ui.Ui;
+import duke.exception.DukeException;
 
 public class Parser {
     private static final Ui ui = new Ui();

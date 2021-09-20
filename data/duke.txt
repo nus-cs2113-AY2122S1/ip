@@ -5,4 +5,5 @@ D | 0 | x | tmr
 D | 0 | y | tmr
 D | 1 | lecture | tomorrow
 D | 1 | x | tmr
-D | 0 | x | x
+D | 1 | x | x
+T | 0 | y
