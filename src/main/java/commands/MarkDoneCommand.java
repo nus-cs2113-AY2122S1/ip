@@ -1,5 +1,6 @@
 package commands;
 
+import error.Error;
 import task.TaskManager;
 
 /**
@@ -25,7 +26,13 @@ public class MarkDoneCommand extends Command {
      */
     @Override
     public String executeCommand() {
-        taskManager.markTaskAsCompleted(commandComponents);
+        try {
+            taskManager.markTaskAsCompleted(commandComponents);
+        } catch (IndexOutOfBoundsException e) {
+            Error.displayTaskNonExistentError();
+        } catch (NumberFormatException e) {
+            Error.displayNotANumberError();
+        }
         return COMMAND_WORD;
     }
 }

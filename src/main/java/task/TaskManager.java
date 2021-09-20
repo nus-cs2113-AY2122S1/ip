@@ -111,17 +111,14 @@ public class TaskManager {
      * Shows the user an acknowledgement message after a successful update of task.
      *
      * @param commandComponents User input in a string array form.
+     * @throws IndexOutOfBoundsException If task to update status does not exist.
+     * @throws NumberFormatException If task number provided is not a number.
      */
-    public void markTaskAsCompleted(String[] commandComponents) {
-        try {
-            int taskNumber = InputParser.getTaskNumber(commandComponents);
-            allTasks.get(taskNumber).setTaskCompleted();
-            Display.displayTaskCompleted(allTasks.get(taskNumber).getTask());
-        } catch (IndexOutOfBoundsException e) {
-            Error.displayTaskNonExistentError();
-        } catch (NumberFormatException e) {
-            Error.displayNotANumberError();
-        }
+    public void markTaskAsCompleted(String[] commandComponents) throws IndexOutOfBoundsException,
+            NumberFormatException {
+        int taskNumber = InputParser.getTaskNumber(commandComponents);
+        allTasks.get(taskNumber).setTaskCompleted();
+        Display.displayTaskCompleted(allTasks.get(taskNumber).getTask());
     }
 
     /** Displays all the tasks found in the TaskManager. */
