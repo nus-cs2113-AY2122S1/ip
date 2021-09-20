@@ -3,15 +3,15 @@
 Bob is a **task manager** for use via a Command Line Interface.
 
 * [Features](#features)
-  * [Viewing help: `help`](#viewing-help--help)
-  * [Add Todo Tasks: `todo`](#add-todo-tasks--todo)
-  * [Add Deadline Tasks: `deadline`](#add-deadline-tasks--deadline)
-  * [Add Event Tasks: `event`](#add-event-tasks--event)
-  * [List All Tasks: `list`](#list-all-tasks--list)
-  * [Find Tasks with Keyword: `find`](#find-task-with-keyword--find)
-  * [Mark Task as Done: `done`](#mark-task-as-done--done)
-  * [Delete Task: `delete`](#delete-task--delete)
-  * [Exiting the Program: `exit`](#exiting-the-program--exit)
+  * [Viewing help: `help`](#viewing-help-help)
+  * [Add Todo Tasks: `todo`](#add-todo-tasks-todo)
+  * [Add Deadline Tasks: `deadline`](#add-deadline-tasks-deadline)
+  * [Add Event Tasks: `event`](#add-event-tasks-event)
+  * [List All Tasks: `list`](#list-all-tasks-list)
+  * [Find Tasks with Keyword: `find`](#find-task-with-keyword-find)
+  * [Mark Task as Done: `done`](#mark-task-as-done-done)
+  * [Delete Task: `delete`](#delete-task-delete)
+  * [Exiting the Program: `exit`](#exiting-the-program-exit)
   
 ## Features 
 
@@ -58,6 +58,7 @@ The following event task has been added
 E |   | do math homework | at: 09/11/2021 10:00:00
 _________________________________________
 ```
+
 ### List All Tasks: `list`
 Displays all tasks currently stored
 * Format: `list`
@@ -74,6 +75,7 @@ The following task have been found:
 3. E |   | do math homework | at: 09/11/2021 10:00:00
 _________________________________________
 ```
+
 ### Mark Task as Done: `done`
 Marks the task with the specified index as complete.
 * Format: `done <task index>`
@@ -85,6 +87,7 @@ The following task has been marked as:
 T | X | programming assignments
 _________________________________________
 ```
+
 ### Delete Task: `delete`
 Deletes the task of the specified index
 * Format: `delete <task index>`
