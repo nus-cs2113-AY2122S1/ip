@@ -50,6 +50,11 @@ public class UI {
 
     public static void showError(@NotNull Exception e) {
         e.printStackTrace();
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e2){
+            Thread.currentThread().interrupt();
+        }
     }
 
     public static void showAddTask (Task t, int taskSize) {
@@ -63,6 +68,7 @@ public class UI {
     }
 
     public static @NotNull String getCommand() {
+        System.out.println("");
         String input = myScan.nextLine();
         if (input.isBlank()) {
             return getCommand();
