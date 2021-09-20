@@ -90,3 +90,5 @@ Expected outcome: Since the keyword is [T], the program will search for all todo
     ____________________________________________________________
 
 8) help - List out all the commands available
+
+9) bye - Terminates the App.

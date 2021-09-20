@@ -162,3 +162,7 @@ Shows the list of command as shown on this README document.
 Example of usage: `help`
 
 Expected outcome: A copy of this README document. 
+
+### `bye` - Terminates the App.
+
+Shows a goodbye screen before the code terminates itself. 
