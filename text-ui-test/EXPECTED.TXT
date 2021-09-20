@@ -32,31 +32,31 @@ Task List:
 3: [E][ ] project meeting (at: Mon 2-4pm)
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
+An exception has occurred:
 Task #2 is already marked as done.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
-Invalid task number
+An exception has occurred:
+Invalid task number.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
-Unknown command
+An exception has occurred:
+Unknown command.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
+An exception has occurred:
 Usage: event <description> /at <date/time>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
+An exception has occurred:
 Usage: event <description> /at <date/time>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
+An exception has occurred:
 Usage: deadline <description> /by <date/time>
 ------------------------------------------------------------
 $ ------------------------------------------------------------
-An exception has occurred.
+An exception has occurred:
 Usage: deadline <description> /by <date/time>
 ------------------------------------------------------------
 $ ------------------------------------------------------------

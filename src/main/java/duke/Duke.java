@@ -3,13 +3,13 @@ package duke;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -29,14 +29,15 @@ public class Duke {
     private static final String TASK_EVENT_SPLITTER = "/at";
 
     private static final String MESSAGE_WALL = "------------------------------------------------------------";
-    private static final String MESSAGE_LIST_EMPTY = "Task list is empty";
-    private static final String MESSAGE_LIST_HEADER = "Task List:";
-    private static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number";
-    private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    private static final String MESSAGE_LIST_EMPTY = "Task list is empty.";
+    private static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number.";
+    private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.";
     private static final String MESSAGE_WELCOME = "Hello! I'm Duke\nWhat can I do for you?";
     private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
-    private static final String MESSAGE_INVALID_TASK_TYPE = "Invalid task type";
-    private static final String MESSAGE_FILEWRITER_ERROR = "FileWriter Error";
+    private static final String MESSAGE_INVALID_TASK_TYPE = "Invalid task type.";
+    private static final String MESSAGE_FILEWRITER_ERROR = "FileWriter Error.";
+    private static final String MESSAGE_ADD_TASK_FAILED = "Fail to add task.";
+    private static final String MESSAGE_DELETE_TASK_FAILED = "Fail to delete task.";
 
     private static final String MESSAGE_FORMAT_DONE_USAGE = "Usage: %s <task number>";
     private static final String MESSAGE_FORMAT_TODO_USAGE = "Usage: %s <description>";
@@ -47,13 +48,13 @@ public class Duke {
     private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done.";
     private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
     private static final String MESSAGE_FORMAT_TASK_ADDED = "Got it. Task added:\n  %s\nThere are %d tasks in the list.";
-    private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred.\n%s";
+    private static final String MESSAGE_FORMAT_EXCEPTION = "An exception has occurred:\n%s";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
     private static final String MESSAGE_FORMAT_CREATE_FILE_FAILED = "Fail to create file - %s";
     private static final String MESSAGE_FORMAT_FILE_NOT_FOUND = "File not found - %s";
 
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final ArrayList<Task> TASKS = new ArrayList<>();
+    private static final TaskList TASKS = new TaskList();
 
     /**
      * Prints message within horizontal lines.
@@ -70,15 +71,7 @@ public class Duke {
      * Prints tasks in list format.
      */
     private static void printTasks() {
-        StringBuilder messageBuilder = new StringBuilder(MESSAGE_LIST_HEADER);
-        for (int i = 0; i < TASKS.size(); i += 1) {
-            messageBuilder.append("\n");
-            messageBuilder.append(i + 1);
-            messageBuilder.append(": ");
-            messageBuilder.append(TASKS.get(i));
-        }
-
-        printMessage(messageBuilder.toString());
+        printMessage(TASKS.toString());
     }
 
     /**
@@ -122,7 +115,11 @@ public class Duke {
      */
     private static String[] getCommandAndArgument(String input) {
         String[] result = input.trim().split("\\s+", 2);
-        return (result.length == 2) ? result : new String[]{result[0], ""};
+        if (result.length != 2) {
+            return new String[]{result[0], ""};
+        }
+
+        return result;
     }
 
     /**
@@ -144,7 +141,7 @@ public class Duke {
      * @return true if task index is valid, else false.
      */
     private static boolean isValidTaskNumber(int taskNumber) {
-        return (taskNumber > 0 && taskNumber <= TASKS.size());
+        return (taskNumber > 0 && taskNumber <= TASKS.getSize());
     }
 
     /**
@@ -164,7 +161,7 @@ public class Duke {
         }
 
         // Get task object associated to the task index from list
-        Task task = TASKS.get(taskNumber - 1);
+        Task task = TASKS.getTaskAt(taskNumber - 1);
 
         if (task.isDone()) {
             throw new DukeException(String.format(MESSAGE_FORMAT_TASK_ALREADY_MARKED, taskNumber));
@@ -201,14 +198,13 @@ public class Duke {
      */
     private static void executeAddTask(String argument, char taskType) throws DukeException {
         Task task = null;
-
         String[] descriptionAndArg;
         switch (taskType) {
         case Task.TYPE_TODO:
             if (argument.isEmpty()) {
                 throw new DukeException(String.format(MESSAGE_FORMAT_TODO_USAGE, COMMAND_TODO));
             }
-            task = new Todo(argument);
+            task = TASKS.addTodoTask(argument);
             break;
 
         case Task.TYPE_DEADLINE:
@@ -216,7 +212,7 @@ public class Duke {
             if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
                 throw new DukeException(String.format(MESSAGE_FORMAT_DEADLINE_USAGE, COMMAND_DEADLINE, TASK_DEADLINE_SPLITTER));
             }
-            task = new Deadline(descriptionAndArg[0], descriptionAndArg[1]);
+            task = TASKS.addDeadlineTask(descriptionAndArg[0], descriptionAndArg[1]);
             break;
 
         case Task.TYPE_EVENT:
@@ -224,15 +220,18 @@ public class Duke {
             if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
                 throw new DukeException(String.format(MESSAGE_FORMAT_EVENT_USAGE, COMMAND_EVENT, TASK_EVENT_SPLITTER));
             }
-            task = new Event(descriptionAndArg[0], descriptionAndArg[1]);
+            task = TASKS.addEventTask(descriptionAndArg[0], descriptionAndArg[1]);
             break;
 
         default:
             throw new DukeException(MESSAGE_INVALID_TASK_TYPE);
         }
 
-        TASKS.add(task);
-        printMessage(String.format(MESSAGE_FORMAT_TASK_ADDED, task, TASKS.size()));
+        if (task == null) {
+            throw new DukeException(MESSAGE_ADD_TASK_FAILED);
+        }
+
+        printMessage(String.format(MESSAGE_FORMAT_TASK_ADDED, task, TASKS.getSize()));
     }
 
     /**
@@ -251,8 +250,12 @@ public class Duke {
             throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
         }
 
-        Task removedTask = TASKS.remove(taskNumber - 1);
-        printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.size()));
+        Task removedTask = TASKS.removeTaskAt(taskNumber - 1);
+        if (removedTask == null) {
+            throw new DukeException(MESSAGE_DELETE_TASK_FAILED);
+        }
+
+        printMessage(String.format(MESSAGE_FORMAT_TASK_DELETED, removedTask, TASKS.getSize()));
     }
 
      /** Writes the tasks in the list to the specified file
@@ -268,7 +271,8 @@ public class Duke {
         try {
             FileWriter fileWriter = new FileWriter(filename);
 
-            for (Task task : TASKS) {
+            for (int i = 0; i < TASKS.getSize(); i += 1) {
+                Task task = TASKS.getTaskAt(i);
                 fileWriter.write(String.format("%s\n", task.toFileString()));
             }
 
@@ -413,7 +417,7 @@ public class Duke {
                     continue;
                 }
 
-                TASKS.add(task);
+                TASKS.addTask(task);
             }
 
             fileReader.close();
@@ -423,8 +427,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        printMessage(MESSAGE_WELCOME);
         loadTasksFromFile(TASKS_FILENAME);
+        printMessage(MESSAGE_WELCOME);
 
         boolean isRunning = true;
         do {
