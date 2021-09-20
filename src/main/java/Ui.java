@@ -83,7 +83,9 @@ public class Ui {
         System.out.println(INVALID_TASK);
     }
 
-    public static void printCannotFind() { System.out.println(CANNOT_FIND); }
+    public static void printCannotFind() {
+        System.out.println(CANNOT_FIND);
+    }
 
     public static void printFind(TaskList tempTasks) {
         System.out.println(CAN_FIND);
