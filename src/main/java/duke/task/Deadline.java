@@ -1,14 +1,18 @@
 package duke.task;
 
-public class Deadline extends Task {
-    private String dateTime;
+import duke.Parser;
 
-    public Deadline(String description, TaskType type, String dateTime) {
+import java.time.LocalDateTime;
+
+public class Deadline extends Task {
+    private final LocalDateTime dateTime;
+
+    public Deadline(String description, TaskType type, LocalDateTime dateTime) {
         super(description, type);
         this.dateTime = dateTime;
     }
 
-    public Deadline(String description, TaskType type, boolean isDone, String dateTime) {
+    public Deadline(String description, TaskType type, boolean isDone, LocalDateTime dateTime) {
         super(description, type);
         this.isDone = isDone;
         this.dateTime = dateTime;
@@ -16,11 +20,11 @@ public class Deadline extends Task {
 
     @Override
     public String getFileStringFormat() {
-        return String.format("D | %s | %s", super.getFileStringFormat(), this.dateTime);
+        return String.format("D | %s | %s", super.getFileStringFormat(), Parser.stringifyDateTimeForStorage(dateTime));
     }
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (by: %s)", dateTime);
+        return super.toString() + String.format(" (by: %s)", Parser.stringifyDateTimeForPrinting(dateTime));
     }
 }

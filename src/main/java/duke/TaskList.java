@@ -3,6 +3,8 @@ package duke;
 import duke.exception.DukeException;
 import duke.task.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +21,16 @@ public class TaskList {
             throw new DukeException("Give me a timing for the event too man come on...");
         }
         String description = separated[0];
-        String time = separated[1];
-        Event newEvent = new Event(description, TaskType.EVENT, time);
-        taskList.add(newEvent);
-        Ui.printTaskAddedMessage(newEvent);
+        String timeUnformatted = separated[1];
+
+        try {
+            LocalDateTime timeFormatted = Parser.extractDateTime(timeUnformatted);
+            Deadline newEvent = new Deadline(description, TaskType.EVENT, timeFormatted);
+            taskList.add(newEvent);
+            Ui.printTaskAddedMessage(newEvent);
+        } catch (DateTimeParseException e) {
+            System.out.println("DISGUSTING FORMAT YOU INSECT. USE dd/MM/yyyy [HH:mm]");
+        }
     }
 
     static void addDeadline(String input, List<Task> taskList) throws DukeException {
@@ -31,10 +39,15 @@ public class TaskList {
             throw new DukeException("Tell me more about the deadline too man come on...");
         }
         String description = separated[0];
-        String time = separated[1];
-        Deadline newDeadline = new Deadline(description, TaskType.DEADLINE,time);
-        taskList.add(newDeadline);
-        Ui.printTaskAddedMessage(newDeadline);
+        String timeUnformatted = separated[1];
+        try {
+            LocalDateTime timeFormatted = Parser.extractDateTime(timeUnformatted);
+            Deadline newDeadline = new Deadline(description, TaskType.DEADLINE, timeFormatted);
+            taskList.add(newDeadline);
+            Ui.printTaskAddedMessage(newDeadline);
+        } catch (DateTimeParseException e) {
+            System.out.println("DISGUSTING FORMAT YOU INSECT. USE dd/MM/yyyy [HH:mm]");
+        }
     }
 
     /**
@@ -129,9 +142,9 @@ public class TaskList {
             case UNKNOWN:
                 Ui.printHelpMessage();
             default:
-                throw new DukeException("What is this nonsense I don't know what's happening!");
+                throw new DukeException("Give me a VALID COMMAND!");
             }
-        } catch (DukeException | IndexOutOfBoundsException e) {
+        } catch (DukeException | IndexOutOfBoundsException | DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }

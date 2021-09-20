@@ -1,15 +1,19 @@
 package duke.task;
 
-public class Event extends Task {
-    private String dateTime;
+import duke.Parser;
 
-    public Event(String description, TaskType type, String dateTime) {
+import java.time.LocalDateTime;
+
+public class Event extends Task {
+    private LocalDateTime dateTime;
+
+    public Event(String description, TaskType type, LocalDateTime dateTime) {
         super(description, type);
         this.type = TaskType.EVENT;
         this.dateTime = dateTime;
     }
 
-    public Event(String description, TaskType type, boolean isDone, String dateTime) {
+    public Event(String description, TaskType type, boolean isDone, LocalDateTime dateTime) {
         super(description, type);
         this.type = TaskType.EVENT;
         this.isDone = isDone;
@@ -18,11 +22,11 @@ public class Event extends Task {
 
     @Override
     public String getFileStringFormat() {
-        return String.format("E | %s | %s", super.getFileStringFormat(), this.dateTime);
+        return String.format("E | %s | %s", super.getFileStringFormat(), Parser.stringifyDateTimeForStorage(dateTime));
     }
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (at: %s)", dateTime);
+        return super.toString() + String.format(" (at: %s)", Parser.stringifyDateTimeForPrinting(dateTime));
     }
 }
