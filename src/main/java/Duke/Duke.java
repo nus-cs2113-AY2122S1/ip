@@ -1,15 +1,11 @@
 package Duke;
 
-import Duke.Task.Deadline;
-import Duke.Task.Event;
+import Duke.Commands.ByeCommand;
+import Duke.Commands.Command;
 import Duke.Task.Task;
-import Duke.Task.Todo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
 
 public class Duke {
 
@@ -23,293 +19,33 @@ public class Duke {
             + "\ti.e. todo, deadline, event, list, done or bye.";
 
 
-    public static void main(String[] args) {
-        initialiseFile();
+    public static void main(String[] args) throws DukeException {
+        readAndExecuteFromFile();
         UI.printHeaderMessage();
         handleInputs();
         UI.printByeMessage();
     }
 
-    private static void initialiseFile() {
-        try {
-            //get the file, else create file if it does not exist.
-            File taskFile = getTaskFile();
-            Scanner fileTaskLists = new Scanner(taskFile);
-
-            //read and extract the data in the file to store it in the task array list.
-            readAndExtractFile(fileTaskLists);
-        } catch (IOException | DukeException e) {
-            e.printStackTrace();
-        }
+    private static void readAndExecuteFromFile() {
+        ArrayList<Task> fileTasksList = Storage.initialiseFile();
+        TASKS_ARRAY_LIST.addAll(fileTasksList);
     }
 
-    private static void readAndExtractFile(Scanner fileTaskLists) throws DukeException {
-        while (fileTaskLists.hasNextLine()) {
-            String data = fileTaskLists.nextLine();
-            String[] splittedData = data.split("\\|");
-            String taskType = splittedData[0];
-            boolean isMarkedDone = Integer.parseInt(splittedData[1]) == 1;
-            String taskDescription = splittedData[2];
-            String taskCommand;
-
-            switch (taskType) {
-            case "T":
-                taskCommand = "todo " + taskDescription;
-                addTodoTask(taskCommand);
-                break;
-            case "D":
-                taskCommand = "deadline " + taskDescription;
-                addDeadlineTask(taskCommand);
-                break;
-            case "E":
-                taskCommand = "event " + taskDescription;
-                addEventTask(taskCommand);
-                break;
-            }
-            if (isMarkedDone) {
-                markTaskAsDone("done " + taskCounter);
-            }
-        }
-    }
-
-    private static File getTaskFile() throws IOException {
-        File taskFile = new File(FILE_PATH + "/taskLists.txt");
-        if (taskFile.createNewFile()) {
-            System.out.println("A new file has been created at " + FILE_PATH);
-        } else {
-            System.out.println(taskFile + " accessed.");
-        }
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        return taskFile;
-    }
-
-
-    private static void handleInputs() {
-        String input = UI.getInput();
-        while (!input.equals("bye")) {
-            //Splits the input string by WhiteSpace into an array of strings.
-            String[] splittedInput = input.split(" ");
-
+    public static void handleInputs() throws DukeException {
+        Command command;
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                switch (splittedInput[0].toLowerCase()) {
-                case "todo":
-                    addTodoTask(input);
-                    printNewTaskMsg();
-                    break;
-                case "deadline":
-                    addDeadlineTask(input);
-                    printNewTaskMsg();
-                    break;
-                case "event":
-                    addEventTask(input);
-                    printNewTaskMsg();
-                    break;
-                case "list":
-                    UI.printListMessage(TASKS_ARRAY_LIST);
-                    break;
-                case "done":
-                    markTaskAsDone(input);
-                    break;
-                case "delete":
-                    deleteTask(input);
-                    break;
-                case "bye":
-                    return;
-                default:
-                    throwErrorMessage(INVALID_INPUT_MESSAGE);
+                String input = UI.getInput();
+                command = Parser.parseCommand(input);
+                command.execute(TASKS_ARRAY_LIST);
+                Storage.updateFile(TASKS_ARRAY_LIST);
+                if (command instanceof ByeCommand) {
+                    isExit = true;
                 }
-                updateFile();
             } catch (DukeException | IOException e) {
                 System.out.println(e.getMessage());
             }
-            input = UI.getInput();
         }
-    }
-
-    private static void throwErrorMessage(String errorMessage) throws DukeException {
-        throw new DukeException(errorMessage);
-    }
-
-
-    private static void addTodoTask(String input) throws DukeException {
-        //get the name of the task
-        String taskName = getTodoTaskName(input);
-        //create new Todo task
-        TASKS_ARRAY_LIST.add(new Todo(taskName));
-        taskCounter++;
-    }
-
-    private static String getTodoTaskName(String input) throws DukeException {
-        int spaceIndex = input.indexOf(' ');
-        String taskName = input.substring(spaceIndex + 1);
-        if (taskName.equals("todo")) {
-            throw new DukeException("☹ OOPS!!! The description of a todo task cannot be empty.");
-        }
-        return taskName;
-    }
-
-    private static void addEventTask(String input) throws DukeException {
-        //get the name of the task
-        int slashIndex = input.indexOf('/');
-        String taskName = getEventTaskName(input, slashIndex);
-        //get the due date of the task
-        String dueDate = getDueDate(input, slashIndex);
-        //create new Event task
-        TASKS_ARRAY_LIST.add(new Event(taskName, dueDate));
-        taskCounter++;
-    }
-
-    private static String getEventTaskName(String input, int slashIndex) throws DukeException {
-        final int EVENT_WORD_LENGTH = 6;
-        int taskNameLastIndex = slashIndex - 1; //the last index of the task name
-        //if the slash is not present in the input
-        if (slashIndex == -1) {
-            throw new DukeException("☹ OOPS!!! The description of an event task requires a task name" + System.lineSeparator()
-                    + "\tfollowed by a front slash, and then a specific time after." + System.lineSeparator()
-                    + "\ti.e. event team project meeting /on 2-10-2019 2-4pm");
-        } else if (taskNameLastIndex <= EVENT_WORD_LENGTH) { //if the slash exists but the task name is empty
-            throw new DukeException("☹ OOPS!!! The name of an event task cannot be empty.");
-        }
-        String taskName = input.substring(EVENT_WORD_LENGTH, taskNameLastIndex);
-        //if taskName are just filled with whitespaces
-        if (taskName.replace(" ", "").isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The name of an event task cannot be empty.");
-        }
-        return taskName;
-    }
-
-    private static void addDeadlineTask(String input) throws DukeException {
-        //get the name of the task
-        int slashIndex = input.indexOf('/');
-        String taskName = getDeadlineTaskName(input, slashIndex);
-        //get the due date of the task
-        String dueDate = getDueDate(input, slashIndex);
-        //create new Deadline task
-        TASKS_ARRAY_LIST.add(new Deadline(taskName, dueDate));
-        taskCounter++;
-    }
-
-    private static String getDeadlineTaskName(String input, int slashIndex) throws DukeException {
-        final int DEADLINE_WORD_LENGTH = 9;
-        int taskNameLastIndex = slashIndex - 1; //the last index of the task name
-        //if the slash is not present in the input
-        if (slashIndex == -1) {
-            throw new DukeException("☹ OOPS!!! The description of an deadline task requires a task name" + System.lineSeparator()
-                    + "\tfollowed by a front slash, and then a specific date/time after." + System.lineSeparator()
-                    + "\ti.e. deadline submit report /by 11-10-2019 5pm");
-        } else if (taskNameLastIndex <= DEADLINE_WORD_LENGTH) { //if the slash exists but the task name is empty
-            throw new DukeException("☹ OOPS!!! The name of an deadline task cannot be empty.");
-        }
-        String taskName = input.substring(DEADLINE_WORD_LENGTH, taskNameLastIndex);
-        //if taskName are just filled with whitespaces
-        if (taskName.replace(" ", "").isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The name of a deadline task cannot be empty.");
-        }
-        return taskName;
-    }
-
-    private static String getDueDate(String input, int slashIndex) throws DukeException {
-        if (slashIndex + 1 >= input.length()) {
-            throw new DukeException("☹ OOPS!!! The description of this task type requires a specific time");
-        }
-        return input.substring(slashIndex + 1);
-    }
-
-    private static void printNewTaskMsg() {
-        int taskIndex = taskCounter - 1;
-        System.out.println("\tAlright! I've just added this task:");
-        System.out.println("\t" + TASKS_ARRAY_LIST.get(taskIndex).toString());
-        System.out.println("\tYou now have " + taskCounter + " tasks on your task list.");
-        printLineSeparator();
-    }
-
-    private static void printListMessage() {
-        if (taskCounter == 0) {
-            System.out.println("\tThe list is empty!");
-        } else {
-            System.out.println("\tHere's the list of your tasks: ");
-            for (int j = 0; j < taskCounter; j++) {
-                int itemNumber = j + 1;
-                System.out.println("\t" + itemNumber + "." + TASKS_ARRAY_LIST.get(j).toString());
-            }
-        }
-        printLineSeparator();
-    }
-
-    private static void markTaskAsDone(String s) {
-        String[] splittedInput = s.split(" ");
-        try {
-            markParticularTaskAsDone(splittedInput[1]);
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            if (taskCounter == 0) {
-                System.out.println("\t☹ OOPS!!! The list is empty!");
-            } else {
-                System.out.println("\t☹ OOPS!!! Please enter a valid task index.");
-            }
-        }
-        printLineSeparator();
-    }
-
-
-    private static void markParticularTaskAsDone(String s1) {
-        int taskIndex = Integer.parseInt(s1) - 1;
-        TASKS_ARRAY_LIST.get(taskIndex).markAsDone();
-        System.out.println("\tGood job! I've marked this task as done: ");
-        System.out.println("\t" + TASKS_ARRAY_LIST.get(taskIndex));
-    }
-
-    private static void deleteTask(String s) throws IndexOutOfBoundsException, NullPointerException {
-        String[] splittedInput = s.split(" ");
-        try {
-            deleteParticularTask(splittedInput[1]);
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            if (taskCounter == 0) {
-                System.out.println("\t☹ OOPS!!! The list is empty!");
-            } else {
-                System.out.println("\t☹ OOPS!!! Please enter a valid task index.");
-            }
-        }
-        printLineSeparator();
-    }
-
-    private static void deleteParticularTask(String s1) {
-        int taskIndex = Integer.parseInt(s1) - 1;
-        System.out.println("\tAlright, I've deleted this task: " + System.lineSeparator()
-                + "\t" + TASKS_ARRAY_LIST.get(taskIndex).toString());
-        taskCounter--;
-        TASKS_ARRAY_LIST.remove(taskIndex);
-        System.out.println("\tYou now have " + taskCounter + " tasks on your task list.");
-    }
-
-    private static void updateFile() throws IOException {
-        FileWriter taskWriter = new FileWriter(FILE_PATH + "/taskLists.txt", false);
-        for (Task task : TASKS_ARRAY_LIST) {
-            String taskAbbreviation = getTaskAbbreviation(task);
-            String taskStatus = getTaskStatus(task);
-            String dataWritten = taskAbbreviation + "|" + taskStatus + "|" + task.getDescription() + System.lineSeparator();
-            taskWriter.write(dataWritten);
-        }
-        taskWriter.close();
-    }
-
-    private static String getTaskStatus(Task task) {
-        if (task.getStatusIcon().equals("[X] ")) {
-            return "1";
-        }
-        return "0";
-    }
-
-    private static String getTaskAbbreviation(Task task) {
-        if (task instanceof Todo) {
-            return "T";
-        } else if (task instanceof Deadline) {
-            return "D";
-        }
-        return "E";
-    }
-
-    private static void printLineSeparator() {
-        System.out.println("\t----------------------------------------------------------------------");
     }
 }

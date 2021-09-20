@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UI {
-    
-    public UI() {
-    }
-
     public static void printHeaderMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -50,6 +46,15 @@ public class UI {
                 System.out.println("\t" + itemNumber + "." + tasksArrayList.get(j).toString());
             }
         }
+        printBorder();
+    }
+
+    public static void printNewTaskMsg(ArrayList<Task> tasksArrayList) {
+        int taskCount = tasksArrayList.size();
+        int taskIndex = taskCount - 1;
+        System.out.println("\tAlright! I've just added this task:");
+        System.out.println("\t" + tasksArrayList.get(taskIndex).toString());
+        System.out.println("\tYou now have " + taskCount + " tasks on your task list.");
         printBorder();
     }
 
