@@ -13,7 +13,7 @@ public class Deadline extends Task {
      * This function initialises the deadline.
      *
      * @param description description input by user.
-     * @param by date to complete event by
+     * @param by          date to complete event by
      */
     public Deadline(String description, LocalDate by) {
         super(description);

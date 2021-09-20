@@ -13,7 +13,7 @@ public class Event extends Task {
      * This function initialises the deadline.
      *
      * @param description description input by user.
-     * @param at date of event
+     * @param at          date of event
      */
     public Event(String description, LocalDate at) {
         super(description);

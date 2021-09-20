@@ -89,6 +89,7 @@ public class Ui {
 
     public static void printCannotFind() { System.out.println(CANNOT_FIND); }
 
+
     public static void printFind(TaskList tempTasks) {
         System.out.println(CAN_FIND);
         for (int index = 0; index < tempTasks.getLength(); index++) {
