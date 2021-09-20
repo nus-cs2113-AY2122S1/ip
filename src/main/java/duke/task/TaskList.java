@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TaskList {
     private static final String MESSAGE_LIST_HEADER = "Task List:";
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
