@@ -19,6 +19,7 @@ public class Duke {
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_ADD_EVENT = "event";
     private static final String COMMAND_DELETE_TASK = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String COMMAND_UPCOMING_TASKS = "upcoming";
 
     /**
@@ -85,6 +86,10 @@ public class Duke {
                 taskList.deleteTask(strInput);
                 break;
 
+            case COMMAND_FIND:
+                taskList.showSearchList(strInput);
+                break;
+
             case COMMAND_UPCOMING_TASKS:
                 taskList.showUpcoming(strInput);
                 break;
@@ -107,8 +112,6 @@ public class Duke {
         Storage storage = new Storage();
         //load storage data into the task list
         taskList.updateTaskList(storage.loadFile());
-
     }
-
-
+    
 }

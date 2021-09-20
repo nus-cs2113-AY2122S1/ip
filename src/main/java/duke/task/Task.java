@@ -41,6 +41,10 @@ public abstract class Task {
      */
     public abstract void writeToFile(String filePath) throws IOException;
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Set the Task object isDone value to the given boolean
      *

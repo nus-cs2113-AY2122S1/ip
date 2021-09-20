@@ -42,7 +42,7 @@ public class Ui {
         System.out.println(DIVIDER);
         System.out.println("Command not recognized!");
         System.out.println("try the following: \"list\", \"done\", \"todo\", \"deadline\", \"event\", \"bye\"");
-        System.out.println("\"delete\", \"upcoming\"");
+        System.out.println("\"delete\", \"upcoming\", \"find\"");
         System.out.println(DIVIDER);
     }
 
@@ -147,6 +147,35 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+
+    /**
+     * Prints the list of all tasks that contains the keyword in their descriptions
+     *
+     * @param taskList the full list of tasks
+     * @param keyword the keyword given
+     */
+    public void printSearchList(ArrayList<Task> taskList, String keyword) {
+        int matchCount = 0;
+        System.out.println(DIVIDER);
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : taskList) {
+            //to allow the description to be compared word by word with the keyword
+            String[] descriptionWords = task.getDescription().split(" ");
+            for (String descriptionWord : descriptionWords) {
+                if (descriptionWord.equals(keyword)) {
+                    matchCount++;
+                    System.out.println((matchCount) + "." + task);
+                    //go to the next task when once a match is found
+                    break;
+                }
+            }
+        }
+        if (matchCount == 0) {
+            System.out.println("No matching tasks found!");
+        }
+        System.out.println(DIVIDER);
+    }
+
     /**
      * Prints the message to prompt user to input the date and time in the required
      * format.
@@ -184,6 +213,16 @@ public class Ui {
         if (printCount == 0) {
             System.out.println("You have no deadlines within the next " + days + " days!");
         }
+        System.out.println(DIVIDER);
+    }
+
+
+    /**
+     * Prints a message to remind the user to only use one keyword to search
+     */
+    public void printOnlyUseOneKeyword() {
+        System.out.println(DIVIDER);
+        System.out.println("I can only search for one keyword at a time!");
         System.out.println(DIVIDER);
     }
 

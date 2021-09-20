@@ -2,6 +2,7 @@ package duke.task;
 
 import duke.exception.EmptyArgumentException;
 import duke.exception.EmptyParameterException;
+import duke.exception.MultipleKeywordsException;
 import duke.ui.Ui;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -151,6 +152,28 @@ public class TaskList {
         ui.printTaskList(taskList);
     }
 
+    /**
+     * Displays a list of all tasks that contains the keyword in their descriptions
+     *
+     * @param input the input string containing the command and keyword
+     */
+    public void showSearchList(String input) {
+        try {
+            String keyword = parser.extractKeyword(input);
+            ui.printSearchList(taskList, keyword);
+        } catch (EmptyArgumentException e) {
+            ui.printCommandGuide("find [keyword]");
+        } catch (MultipleKeywordsException e) {
+            ui.printOnlyUseOneKeyword();
+        }
+    }
+
+    /**
+     * Displays a list of all upcoming events or deadlines within a specified
+     * number of days
+     *
+     * @param input the input string containing the command and keyword
+     */
     public void showUpcoming(String input) {
         try {
             int days = parser.extractNumber(input);
@@ -163,4 +186,5 @@ public class TaskList {
             ui.printCommandGuide("upcoming [days]");
         }
     }
+
 }

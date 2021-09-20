@@ -49,4 +49,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString() + " (by: " + taskTimeManager.getDisplayFormat(by) + ")";
     }
+
 }

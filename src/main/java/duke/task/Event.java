@@ -49,4 +49,5 @@ public class Event extends Task {
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString() + " (at: " + taskTimeManager.getDisplayFormat(at) + ")";
     }
+
 }
