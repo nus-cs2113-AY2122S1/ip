@@ -14,11 +14,12 @@ public class Duke {
     private static int taskCount = 0;
     private static int taskCompleted = 0;
     private static final Task words[] = new Task[MAX_RECORDS];
+    //Need taskNumber if implementing ArrayList
 
     public static void main(String[] args) {
-        greetUser();
+        Ui.greetUser();
         engageUser();
-        byeUser();
+        Ui.byeUser();
     }
 
     /**
@@ -33,23 +34,7 @@ public class Duke {
         Ui.printBottomLine();
     }
 
-    /**
-     *  Prints error message to user. Prompts user to input correct command.
-     */
-    public static void printError() {
-        Ui.printTopLine();
-        System.out.println(INDENT + "You didn't input the type of task. Again. Or you're stupid. Whatever.");
-        Ui.printBottomLine();
-    }
-
-    /**
-     * Prints error message for when user leaves out important information in input.
-     */
-    public static void printMissingTextError() {
-        Ui.printTopLine();
-        System.out.println(INDENT + "And?? Retype and complete your sentence like a grown adult. Please.");
-        Ui.printBottomLine();
-    }
+    //Move to taskManager //////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Adds inputs from user to list[] to keep track of user's tasks, deadlines, and events.
@@ -59,30 +44,60 @@ public class Duke {
      * @param taskDetails Time/date of event/deadline.
      */
     public static void addTask(String taskName, String taskType, String taskDetails) {
-        switch (taskType) {
-        case "todo":
-            words[taskCount] = new Todo(taskName);
-            break;
-        case "deadline":
-            words[taskCount] = new Deadline(taskName, taskDetails);
-            break;
-        case "event":
-            words[taskCount] = new Event(taskName, taskDetails);
-            break;
-        default:
-            return;
-        }
 
+        try {
+            switch (taskType) {
+            case "todo":
+                addTodo(taskName);
+                break;
+            case "deadline":
+                addDeadline(taskName, taskDetails);
+                break;
+            case "event":
+                addEvent(taskName, taskDetails);
+                break;
+            default:
+                return;
+            }
+            addTaskConfirmation();
+        } catch (DukeException e) {
+            Ui.printMissingTextError();
+        }
+    }
+    public static void addTodo(String taskName) throws DukeException {
+        if (isEmpty(taskName)) {
+            throw new DukeException("todo name missing.");
+        }
+        words[taskCount] = new Todo(taskName);
+    }
+    public static void addDeadline(String taskName, String taskDetails) throws DukeException {
+        if (isEmpty(taskName)) {
+            throw new DukeException("deadline name missing.");
+        }
+        words[taskCount] = new Deadline(taskName, taskDetails);
+    }
+    public static void addEvent(String taskName, String taskDetails) throws DukeException {
+        if (isEmpty(taskName)) {
+            throw new DukeException("event name missing.");
+        }
+        words[taskCount] = new Event(taskName, taskDetails);
+    }
+
+    /**
+     * Prints confirmation to user of added task and updates taskCount number
+     */
+    public static void addTaskConfirmation() {
         taskCount++;
-        String plural = (taskCount - taskCompleted) == 1 ? "" : "s";
+        int taskPending = taskCount - taskCompleted;
+        String plural = (taskPending) == 1 ? "" : "s";
 
         Ui.printTopLine();
         System.out.println(INDENT + " Fine. Added to your list:");
         System.out.println(INDENT + "   " + words[taskCount - 1]);
-        System.out.println(INDENT + " You have " + (taskCount - taskCompleted)
-                + " pending task" + plural + ". tHaT's aWeSoMe!!!1!!1!!");
+        System.out.println(INDENT + " You have " + taskPending + " pending task" + plural + ". tHaT's aWeSoMe!!!!!1!!");
         Ui.printBottomLine();
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Marks tasks in list[] as done, if they exist or has not been completed.
@@ -93,17 +108,75 @@ public class Duke {
         boolean isExists = taskNumber >= 0 && taskNumber < taskCount;
 
         Ui.printTopLine();
-        if (!isExists) {
-            System.out.println("    │ Wha- Hey! Task does not exist!");
-        } else if (words[taskNumber].getDoneStatus()) {
-            System.out.println("    │ Dude... you've done the task already.");
-        } else if (isExists){
-            taskCompleted++;
-            words[taskNumber].setAsDone();
-            System.out.println("    │ About time. I've mark that task as done:");
-            System.out.println("    │   [" + words[taskNumber].getStatusIcon() + "]" + words[taskNumber].getDescription());
+        try {
+            if (!isExists) {
+                System.out.println(INDENT + "Wha- Hey! Task does not exist!");
+            } else if (words[taskNumber].getDoneStatus()) {
+                System.out.println(INDENT + "Dude... you've done the task already.");
+            } else if (isExists) {
+                taskCompleted++;
+                words[taskNumber].setAsDone();
+                System.out.println(INDENT + "About time. I've mark that task as done:");
+                System.out.println(INDENT + "[" + words[taskNumber].getStatusIcon() + "]" + words[taskNumber].getDescription());
+            }
+        } catch (NumberFormatException e) {
+            Ui.printNumberFormatError();
         }
         Ui.printBottomLine();
+
+    }
+
+    public static void markTaskAsDone2(String userInput) {
+        int taskNumber;
+        boolean isExists = false;
+        try {
+            //abstraction here with method with "throws DukeException"
+            taskNumber = Integer.parseInt(userInput) - 1;
+            isExists = taskNumber >= 0 && taskNumber < taskCount;
+
+            Ui.printTopLine();
+            if (!isExists) {
+                System.out.println(INDENT + "Wha- Hey! Task does not exist!");
+            } else if (words[taskNumber].getDoneStatus()) {
+                System.out.println(INDENT + "Dude... you've done the task already.");
+            } else if (isExists) {
+                taskCompleted++;
+                words[taskNumber].setAsDone();
+                System.out.println(INDENT + "About time. I've mark that task as done:");
+                System.out.println(INDENT + "[" + words[taskNumber].getStatusIcon() + "]" + words[taskNumber].getDescription());
+            }
+            Ui.printBottomLine();
+        } catch (NumberFormatException e){
+            Ui.printNumberFormatError();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Ui.printMissingTextError();
+        }
+    }
+
+//    public static boolean confirmUndoneTaskExistence(int taskNumber) throws DukeException {
+//        boolean isExists = taskNumber >= 0 && taskNumber < taskCount;
+//
+//        if () {
+//            throw new NumberFormatException("expected a number");
+//        }
+//        else if (!isExists) {
+//            throw new ArrayIndexOutOfBoundsException("number out of bounds");
+//        } else if (words[taskNumber].getDoneStatus()) {
+//            System.out.println(INDENT + "Dude... you've done the task already.");
+//        } else {
+//            return true;
+//        }
+//    }
+
+    public static int parsedInteger(String userInput) {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(userInput) - 1;
+            return taskNumber;
+        } catch (NumberFormatException e){
+            Ui.printNumberFormatError();
+        }
+        return 0;
     }
 
     /**
@@ -116,40 +189,6 @@ public class Duke {
         return input.equals("");
     }
 
-
-    /**
-     * Prints greeting message to user when code is ran.
-     */
-    public static void greetUser() {
-        Ui.printLogo();
-        Ui.printTopLine();
-        System.out.println(INDENT + "*Sigh* Hi... I'm Tired                                             │\n"
-                + INDENT + "What do you want from me?                                          │");
-        Ui.printBottomLine();
-    }
-
-    /**
-     * Prints a snarky remark to user.
-     */
-    public static void mockUser() {
-        Ui.printTopLine();
-        System.out.println(INDENT + "You know what a todo list bot is?\n"
-                + INDENT + "I'm a todo list bot. So stop chatting with me.");
-        Ui.printBottomLine();
-    }
-
-    /**
-     * Prints farewell message to user and exits code.
-     */
-    public static void byeUser() {
-        Ui.printTopLine();
-        System.out.println(INDENT + "\"Only in the agony of parting do we look into the depths of love.\" │\n"
-                + INDENT + " —— George Eliot                                                   │\n"
-                + INDENT + "                                                                   │\n"
-                + INDENT + "Ha! As if I care! Goodbye!!                                        │");
-        Ui.printBottomLine();
-    }
-
     /**
      * Engages user base on what the user has typed and executes a corresponding command.
      */
@@ -160,7 +199,7 @@ public class Duke {
         String taskDetails = "";
 
         String userInput;
-        String[] parts;
+        String[] parts = new String[0];
         boolean isExit = false;
 
         do {
@@ -173,53 +212,44 @@ public class Duke {
             case "hello":
             case "hi":
             case "yo":
-                mockUser();
+                Ui.mockUser();
                 break;
             case "list":
                 printList();
                 break;
             case "done":
-                userInput = text.next();
-                if (isEmpty(userInput)) {
-                    printMissingTextError();
+                userInput = text.nextLine();
+                if (userInput.equals("")) {
+                    Ui.printMissingTextError();
                 } else {
-                    markTaskAsDone(Integer.parseInt(userInput) - 1);
+                    parts = userInput.split(" ");
+                    userInput = parts[1];
+                    markTaskAsDone2(userInput);
                 }
+                //markTaskAsDone(Integer.parseInt(userInput) - 1);
                 break;
             case "todo":
                 taskName = text.nextLine();
-                if (isEmpty(taskName)) {
-                    printMissingTextError();
-                } else {
-                    addTask(taskName, taskType, taskDetails);
-                }
+                addTask(taskName, taskType, taskDetails);
                 break;
             case "deadline":
-                userInput = text.nextLine();
-                if (isEmpty(userInput)) {
-                    printMissingTextError();
-                } else {
-                    parts = userInput.split(" /by ");
-                    taskName = parts[0];
-                    taskDetails = parts[1];
-
-                    addTask(taskName, taskType, taskDetails);
-                }
-                break;
             case "event":
                 userInput = text.nextLine();
-                if (isEmpty(userInput)) {
-                    printMissingTextError();
-                } else {
-                    parts = userInput.split(" /at ");
-                    taskName = parts[0];
-                    taskDetails = parts[1];
 
-                    addTask(taskName, taskType, taskDetails);
+                if (taskType.equals("deadline")) {
+                    parts = userInput.split(" /by ");
+                } else if (taskType.equals("event")) {
+                    parts = userInput.split(" /at ");
                 }
+
+                taskName = parts[0];
+                taskDetails = parts[1];
+
+                addTask(taskName, taskType, taskDetails);
                 break;
             default:
-                printError();
+                userInput = text.nextLine();
+                Ui.printMissingTaskTypeError();
                 break;
             }
         } while (!isExit);
