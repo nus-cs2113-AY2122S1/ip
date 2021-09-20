@@ -146,7 +146,7 @@ Example outcome:
 ```
 ...................................................................
 : Here are the tasks in your list:                                :
-:  1:[T][ ] Write code                                            :
+:  1:[T][X] Write code                                            :
 :  2:[D][ ] CS2113T coding practice (by 19:00, 21 Sep 2021)       :
 :  3:[E][ ] CS2113T tP meeting (from 21:00, 03 Jan 2022 to 22:30, :
 :  03 Jan 2022)                                                   :

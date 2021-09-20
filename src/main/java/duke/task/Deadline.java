@@ -46,9 +46,9 @@ public class Deadline extends Task {
     @Override
     public void editTaskInteractive() {
         try {
-            MessageBubble.printMessageBubble(String.format("New description for the deadline?\n(original: %s)", this.getDescription()));
+            MessageBubble.printMessageBubble(String.format("Updated description for the deadline?\n(original: %s)", this.getDescription()));
             setDescription(input.nextLine());
-            MessageBubble.printMessageBubble(String.format("New deadline time?\n(original: %s)", this.time.format(saveFormatter)));
+            MessageBubble.printMessageBubble(String.format("Updated deadline time?\n(original: %s)", this.time.format(saveFormatter)));
             setTime(input.nextLine());
             MessageBubble.printMessageBubble("Updated Deadline:\n" + this);
         } catch (EmptyField e) {

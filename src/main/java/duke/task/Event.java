@@ -68,11 +68,11 @@ public class Event extends Task {
     @Override
     public void editTaskInteractive() {
         try {
-            MessageBubble.printMessageBubble(String.format("New description for the event?\n(original: %s)", this.getDescription()));
+            MessageBubble.printMessageBubble(String.format("Updated description for the event?\n(original: %s)", this.getDescription()));
             setDescription(input.nextLine());
-            MessageBubble.printMessageBubble(String.format("New event start time?\n(original: %s)", this.time.format(saveFormatter)));
+            MessageBubble.printMessageBubble(String.format("Updated event start time?\n(original: %s)", this.time.format(saveFormatter)));
             setTime(input.nextLine());
-            MessageBubble.printMessageBubble(String.format("New event end time?\n(original: %s)", this.endTime.format(saveFormatter)));
+            MessageBubble.printMessageBubble(String.format("Updated event end time?\n(original: %s)", this.endTime.format(saveFormatter)));
             setEndTime(input.nextLine());
             MessageBubble.printMessageBubble("Updated Event:\n" + this);
         } catch (EmptyField e) {
