@@ -35,4 +35,10 @@ public class CommandResult extends Command{
         this.size = totalNumber;
         this.relevantTasks = tasksList;
     }
+    public CommandResult(String feedback, List<Task> tasksList) {
+        this.feedback = feedback;
+        this.relevantTask = null;
+        size = 0;
+        this.relevantTasks = tasksList;
+    }
 }

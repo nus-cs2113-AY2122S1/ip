@@ -50,7 +50,7 @@ public class Parser {
         case DELETE:
             return new DeleteCommand(Integer.parseInt(userInput.substring(7)) - 1);
         case FIND:
-            return new FindCommand();
+            return new FindCommand(userInput);
         case EXIT:
             return new ExitCommand();
         default:

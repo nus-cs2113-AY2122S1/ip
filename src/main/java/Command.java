@@ -2,6 +2,7 @@
 public class Command {
     protected TaskList tasksList;
     private int targetIndex = -1;
+    private String targetTask = null;
 
     protected Command() {
     }
