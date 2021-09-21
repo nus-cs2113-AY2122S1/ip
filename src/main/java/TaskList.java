@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -40,7 +38,7 @@ public class TaskList {
         ui.printAddedTodo(todoDescription, tasks);
     }
 
-    public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
+    public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException {
         if (line.length() == DEADLINE_LEN_OFFSET || line.substring(DEADLINE_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
@@ -57,13 +55,13 @@ public class TaskList {
         String deadlineDescription = line.substring(DEADLINE_DESC_OFFSET, posOfBy);
 
         // get deadline when from input
-        LocalDate deadlineBy = LocalDate.parse(line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar));
+        String deadlineBy = line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar);
 
         this.addTask(new Deadline(deadlineDescription, deadlineBy), tasks);
         ui.printAddedDeadline(deadlineDescription, deadlineBy, tasks);
     }
 
-    public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
+    public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException {
         if (line.length() == EVENT_LEN_OFFSET || line.substring(EVENT_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
@@ -81,11 +79,12 @@ public class TaskList {
         String eventDescription = line.substring(EVENT_DESC_OFFSET, posOfAt);
 
         // get event when from input
-        LocalDate eventAt = LocalDate.parse(line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar));
+        String eventAt = line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar);
 
         addTask(new Event(eventDescription, eventAt), tasks);
         ui.printAddedEvent(eventDescription, eventAt, tasks);
     }
+
 
     public void deleteTask(int numToRemove, ArrayList<Task> tasks) throws DukeMissingParamException, NumberFormatException, IndexOutOfBoundsException {
         if ((numToRemove - DELETE_OFFSET >= 0) && (tasks.get(numToRemove - DELETE_OFFSET) != null)) {
@@ -109,23 +108,6 @@ public class TaskList {
                 ui.printWithTaskWordString(numToRemove, DELETE_OFFSET, taskWordString, tasks);
             }
         }   tasks.remove(tasks.get(numToRemove - DELETE_OFFSET));
-    }
-
-    public void findTasks(String line, ArrayList<Task> tasks) throws DukeMissingParamException, ArrayIndexOutOfBoundsException, DukeMultipleParamException {
-        String input[] = line.split(" ");
-        if (input.length == 1) {
-            throw new DukeMissingParamException();
-        } else if (input.length > 2) {
-            throw new DukeMultipleParamException();
-        }
-
-        ArrayList<Task> matchedKeys = new ArrayList<>();
-        for (Task matchingTasks : tasks) {
-            if (matchingTasks.getDescription().contains(input[1])) {
-                matchedKeys.add(matchingTasks);
-            }
-        }
-        ui.printMatchedTasks(matchedKeys, tasks);
     }
 
 }
