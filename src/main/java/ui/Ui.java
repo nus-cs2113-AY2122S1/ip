@@ -1,9 +1,9 @@
 package ui;
 
 import task.Task;
+import task.TaskList;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -84,12 +84,13 @@ public class Ui {
     /**
      * Print added to Tasks message.
      *
-     * @param taskName The task's name
+     * @param taskInformation The task's name
      */
-    public void printAddedTaskMessage(String taskName) {
+    public void printAddedTaskMessage(String taskInformation) {
         System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Here you go..." + LINE_BREAK + " Added to stuff you would definitely forget to do (*facepalm*): "
-                + taskName
+                + LINE_BREAK + SPACE_PREFIX
+                + taskInformation
                 + LINE_BREAK
                 + CONSOLE_LINE_PREFIX);
     }
@@ -113,14 +114,14 @@ public class Ui {
     /**
      * Prints all the Tasks.
      */
-    public void printTasks(ArrayList<Task> tasks) {
-        if (tasks.size() == 0) {
+    public void printTasks(TaskList tasks) {
+        if (tasks.getSize() == 0) {
             System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK + SPACE_PREFIX + "Hi there! You have no dates! LITERALLY"
                     + LINE_BREAK + CONSOLE_LINE_PREFIX);
         } else {
             System.out.println(SPACE_PREFIX + "EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your PLAN/S...");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(SPACE_PREFIX + (i + 1) + "." + SPACE_PREFIX + tasks.get(i));
+            for (int i = 0; i < tasks.getSize(); i++) {
+                System.out.println(SPACE_PREFIX + (i + 1) + "." + SPACE_PREFIX + tasks.getTaskAtIndex(i));
             }
             System.out.println(CONSOLE_LINE_PREFIX);
         }
