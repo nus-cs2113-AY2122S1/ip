@@ -8,6 +8,9 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The class <code>Deadline</code> includes methods that involves tasks of type Deadline.
+ */
 public class Deadline extends Task{
     protected LocalDate deadline;
 
@@ -20,6 +23,11 @@ public class Deadline extends Task{
         return deadline;
     }
 
+    /**
+     * Adds a task of type Deadline to list of tasks at hand.
+     * @param line line is the String that the user inputs.
+     * @throws KittyException If line is of the wrong format for adding a task of Deadline type.
+     */
     public static void addDeadlineTask(String line) throws KittyException {
         if (!Parser.hasDeadline(line)) {
             throw new KittyException("Deadline formatting is incorrect!");

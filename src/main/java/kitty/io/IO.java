@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-
+/**
+ * The class <code>IO</code> includes methods that involves any reading/writing to external files.
+ */
 public class IO {
     public static final String DATA_PATH = "data/data.txt";
 
@@ -22,6 +24,11 @@ public class IO {
         initData(filePath);
     }
 
+    /**
+     * Reads from local data file and initialises data into tasks at hand.
+     * @param filePath filePath is the path to the data file with respect to Content root.
+     * @throws KittyException If the file is not found in filePath or the data provided is of the wrong format.
+     */
     public static void initData(String filePath) throws KittyException {
         try {
             File f = new File(filePath);
@@ -52,6 +59,11 @@ public class IO {
         }
     }
 
+    /**
+     * Adds a task of Event type from raw data provided in data file.
+     * @param status status is the status of the completion of said task.
+     * @param task task is the String provided by the data file, containing the task Description and task Date.
+     */
     private static void addEventFromRawData(String status, String task) {
         String eventName = IOParser.getTaskName(task);
         LocalDate eventDate = IOParser.getTaskDate(task);
@@ -61,6 +73,11 @@ public class IO {
         }
     }
 
+    /**
+     * Adds a task of Deadline type from raw data provided in data file.
+     * @param status status is the status of the completion of said task.
+     * @param task task is the String provided by the data file, containing the task Description and task Date.
+     */
     private static void addDeadlineFromRawData(String status, String task) {
         String deadlineName = IOParser.getTaskName(task);
         LocalDate deadlineDate = IOParser.getTaskDate(task);
@@ -70,6 +87,11 @@ public class IO {
         }
     }
 
+    /**
+     * Adds a task of Todo type from raw data provided in data file.
+     * @param status status is the status of the completion of said task.
+     * @param task task is the String provided by the data file, containing the task Description.
+     */
     private static void addTodoFromRawData(String status, String task) {
         Kitty.tasks.add(new Todo(task));
         if (IOParser.isTaskDone(status)) {
@@ -77,6 +99,11 @@ public class IO {
         }
     }
 
+    /**
+     * Writes a new line to data file.
+     * @param text text is the String in which we wish to write into data file.
+     * @throws KittyException If text is of the wrong foormat.
+     */
     public static void appendNewLine(String text) throws KittyException{
         try {
             FileWriter fw = new FileWriter(DATA_PATH, true);
@@ -88,6 +115,10 @@ public class IO {
         }
     }
 
+    /**
+     * Clears the data file of all data.
+     * @throws KittyException If file is not found/
+     */
     public static void clearFile() throws KittyException{
         try {
             FileWriter fw = new FileWriter(DATA_PATH);
@@ -97,6 +128,10 @@ public class IO {
         }
     }
 
+    /**
+     * Writes all tasks at hand onto data file.
+     * @throws KittyException If the file is not found or an invalid formatting.
+     */
     public static void updateData() throws KittyException{
         try {
             clearFile();

@@ -1,5 +1,8 @@
 package kitty.task;
 
+/**
+ * The class <code>Task</code> includes methods that involves any form of tasks.
+ */
 public class Task {
     private String taskName;
     private boolean isDone;
