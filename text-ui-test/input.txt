@@ -1,0 +1,17 @@
+list
+todo borrow book
+deadline return book /by June 6th
+event project meeting /at Aug 6th 2-4pm
+list
+done 2
+list
+find book
+delete 1
+list
+foo
+todo
+deadline test deadline
+event test event /at
+done
+done 4
+bye
