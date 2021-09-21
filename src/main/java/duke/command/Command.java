@@ -11,6 +11,10 @@ public abstract class Command {
 
     }
 
+    public Command(TaskManager taskManager) {
+        this.taskManager = taskManager;
+    }
+
     public Command(TaskManager taskManager, String commandArguments) {
         this.taskManager = taskManager;
         this.commandArguments = commandArguments;
