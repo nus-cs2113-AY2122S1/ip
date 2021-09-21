@@ -5,7 +5,7 @@ import duke.ui.Ui;
 public class ExitCommand extends Command {
 
     @Override
-    public void executed() {
+    public void execute() {
         Ui.printBye();
         System.exit(0);
     }

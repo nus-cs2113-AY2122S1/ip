@@ -18,7 +18,7 @@ public abstract class Command extends Text {
     public Command() {
     }
 
-    public void executed() throws DukeException {
-        throw new DukeException("Method is unspecified.");
+    public void execute() throws DukeException {
+        throw new DukeException(UNSPECIFIED_METHOD);
     }
 }
