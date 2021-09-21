@@ -31,10 +31,6 @@ public class Task {
         return eventDate;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     @Override
     public String toString() {
         return ("[" + taskType + "]" + "[" + getStatusIcon() + "] " + description);

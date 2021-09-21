@@ -46,12 +46,6 @@ public class Ui {
     protected String EVENT_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
             + "Woops! Did you forget the /at parameter?" + System.lineSeparator()
             + LINE_DIVIDER;
-    protected String FIND_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
-            + "Sorry, did you forget to include the keyword you are searching for?" + System.lineSeparator()
-            + LINE_DIVIDER;
-    protected String FIND_MULTIPLEPARAM = LINE_DIVIDER + System.lineSeparator()
-            + "Sorry, please include only one keyword to search for!" + System.lineSeparator()
-            + LINE_DIVIDER;
 
     public void printWelcome() {
         String welcomeMessage = LINE_DIVIDER + System.lineSeparator()
@@ -198,30 +192,5 @@ public class Ui {
                 + tasks.get(numToRemove - DELETE_OFFSET).description + "(" + taskWordString + tasks.get(numToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
                 + "Now you have " + (tasks.size() - DELETE_OFFSET) + " tasks remaining in the list." + System.lineSeparator()
                 + LINE_DIVIDER);
-    }
-
-    public void printMatchedTasks(ArrayList<Task> matchedKeys, ArrayList<Task> tasks)  {
-        System.out.println(LINE_DIVIDER + System.lineSeparator()
-                + "As requested, here are the matching tasks in your list:");
-        if (tasks.size() == 0) {
-            System.out.println("There are no tasks recorded!");
-        } else if (matchedKeys.size() == 0) {
-            System.out.println("The keyword cannot be found!");
-        } else {
-            int taskCounter = 0;
-            for (Task element : matchedKeys) {
-                System.out.println(taskCounter + ARRAYLIST_PRINT_OFFSET + ". " + element.toString());
-                taskCounter++;
-            }
-        }
-        System.out.println(LINE_DIVIDER);
-    }
-
-    public void printFindMissingParamError() {
-        System.out.println(FIND_MISSINGPARAM);
-    }
-
-    public void printFindMultipleParamError() {
-        System.out.println(FIND_MULTIPLEPARAM);
     }
 }
