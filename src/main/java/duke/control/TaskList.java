@@ -3,7 +3,9 @@ package duke.control;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.TaskWithDateTime;
 import duke.task.ToDo;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -65,7 +67,7 @@ public class TaskList {
     /**
      * Sets an entry in the list as done
      * @param entryNumber the entry number of the list item to be set. To the user, the list indexes from 1, so the
-     *      *                    actual index of the item is entryNumber-1
+     *                          actual index of the item is entryNumber-1
      */
     public void doneEntry(int entryNumber) {
         (taskList.get(entryNumber-1)).setDone();
@@ -85,21 +87,16 @@ public class TaskList {
             TaskType entryType = Parser.parseTaskTypeFromFile(inputLineFromFile);
             boolean isDone = Parser.parseIsDoneFromFile(inputLineFromFile);
             String description = Parser.parseDescriptionFromFile(inputLineFromFile, entryType);
-            String dateTime = "";
-            if (entryType.equals(TaskType.DEADLINE) || entryType.equals(TaskType.EVENT)) {
-                dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
-            }
-
             Task newEntry;
             switch (entryType) {
             case TODO:
                 newEntry = new ToDo(description);
                 break;
             case DEADLINE:
-                newEntry = new Deadline(description, dateTime);
+                newEntry = addDeadlineFromFile(inputLineFromFile, description);
                 break;
             case EVENT:
-                newEntry = new Event(description, dateTime);
+                newEntry = addEventFromFile(inputLineFromFile, description);
                 break;
             default:
                 throw new InvalidInputFormatException();
@@ -114,6 +111,17 @@ public class TaskList {
         }
     }
 
+    private Deadline addDeadlineFromFile(String inputLineFromFile, String description) throws
+            InvalidInputFormatException{
+        LocalDateTime dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
+        return new Deadline(description, dateTime);
+    }
+
+    private Event addEventFromFile(String inputLineFromFile, String description) throws InvalidInputFormatException {
+        LocalDateTime dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
+        return new Event(description, dateTime);
+    }
+
     public int getNumberOfEntries() {
         return numberOfEntries;
     }
@@ -122,6 +130,12 @@ public class TaskList {
         return taskList;
     }
 
+    /**
+     * Prints entry, for use in list command
+     * @param entry Task entry from list
+     * @param entryIndex index of the task from the list. Index is displayed as index + 1 as the list starts from 1 to
+     *                   the user.
+     */
     public void printEntry(Task entry, int entryIndex) {
         int entryNumber = entryIndex + 1;
         System.out.println(entryNumber + "." + entry.toString());
@@ -137,6 +151,43 @@ public class TaskList {
             }
             System.out.println("You have " + (numberOfEntries) + " task(s) on your list.");
         }
+    }
+
+    /**
+     * Prints all the list entries that occur on a specific date.
+     * @param input user input, in the form "date yyyy-mm-dd"
+     */
+    public void printTasksOnDate(String input) {
+        LocalDateTime date = Parser.parseDateTimeFromDateCommand(input);
+        for (int i = 0; i < numberOfEntries; i++) {
+            Task t = taskList.get(i);
+            if (t instanceof Deadline || t instanceof Event) {
+                if (isSameDate(date, (TaskWithDateTime) t)); {
+                    printEntry(t, i);
+                }
+            }
+        }
+    }
+
+    /**
+     * returns true if a Deadline or Event object has the same date as input date.
+     * Cannot directly compare the LocalDateTime of the two objects as this method is only concerned with the date.
+     * @param date date to check
+     * @param entry entry to match with the date
+     * @return true if entry's date matches with input date.
+     */
+    private Boolean isSameDate(LocalDateTime date, TaskWithDateTime entry) {
+        LocalDateTime entryDateTime = entry.getDateTime();
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+        int entryYear = entryDateTime.getYear();
+        int entryMonth = entryDateTime.getMonthValue();
+        int entryDay = entryDateTime.getDayOfMonth();
+        if ((year == entryYear) && (month == entryMonth) && (day == entryDay)) {
+            return true;
+        }
+        return false;
     }
 
     public void printAddEntryMessage(Task entry) {

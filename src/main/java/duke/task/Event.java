@@ -1,19 +1,18 @@
 package duke.task;
 
-public class Event extends Task{
-    private String at;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String name, String date) {
+public class Event extends TaskWithDateTime {
+    private LocalDateTime dateTime;
+
+    public Event(String name, LocalDateTime dateTime) {
         super(name);
-        this.at = date;
+        this.dateTime = dateTime;
     }
 
-    public String getDate() {
-        return at;
-    }
-
-    public void setDate(String date) {
-        this.at = date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
@@ -23,6 +22,18 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (at: " + at + ")");
+        int hours = dateTime.getHour();
+        int minutes = dateTime.getMinute();
+        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (at: " +
+                dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + hours + ":" + minutes + " )");
+    }
+
+    /**
+     * returns the Event object as a string in the form to be saved into save file
+     * @return Deadline in the form [E][X] Description DT: LocalDateTime
+     */
+    @Override
+    public String toStringForSave() {
+        return (getTaskSymbol() + getStatusSymbol() + " " + name + " DT: " + dateTime.toString());
     }
 }

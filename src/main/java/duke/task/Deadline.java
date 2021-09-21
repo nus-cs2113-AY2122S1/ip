@@ -1,19 +1,18 @@
 package duke.task;
 
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String name, String by) {
+public class Deadline extends TaskWithDateTime {
+    private LocalDateTime dateTime;
+
+    public Deadline(String name, LocalDateTime dateTime) {
         super(name);
-        this.by = by;
+        this.dateTime = dateTime;
     }
 
-    public String getBy() {
-        return by;
-    }
-
-    public void setBy(String by) {
-        this.by = by;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
@@ -23,6 +22,18 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (by: " + by + ")");
+        int hours = dateTime.getHour();
+        int minutes = dateTime.getMinute();
+        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (by: " +
+                dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + hours + ":" + minutes + " )");
+    }
+
+    /**
+     * returns the Deadline object as a string in the form to be saved into save file
+     * @return Deadline in the form [D][X] Description DT: LocalDateTime
+     */
+    @Override
+    public String toStringForSave() {
+        return (getTaskSymbol() + getStatusSymbol() + " " + name + " DT: " + dateTime.toString());
     }
 }

@@ -1,13 +1,16 @@
 package duke.control;
 
-import duke.task.Task;
 
+import duke.task.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles operations related to saving and loading the TaskList data into/from an external .txt file
+ */
 public class Storage {
     private static String filePath;
 
@@ -16,9 +19,9 @@ public class Storage {
     }
 
     /**
-     * Checks and ensures that the save file exists in the correct location. Creates the directory/file if required.
+     * Checks and ensures that the save file exists in the correct location. Creates the directory and/or file if
+     * required.
      * save file must have the path ../Data/dukeData.txt
-     *
      * @throws IOException
      */
     protected static void createFile() throws IOException {
@@ -51,7 +54,7 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
         ArrayList<Task> taskList = list.getTaskList();
         for (int i = 0; i < list.getNumberOfEntries(); i++) {
-            fw.write(taskList.get(i).toString() + System.lineSeparator());
+            fw.write(taskList.get(i).toStringForSave() + System.lineSeparator());
         }
         fw.close();
     }
@@ -63,21 +66,16 @@ public class Storage {
      * @param list TaskList object to add the data to
      * @throws IOException If the save file is not found
      */
-    protected static void readDukeDataFromFile(TaskList list) throws IOException {
-        File file = new File(filePath);
-        Scanner s = new Scanner(file);
-        while (s.hasNext()) {
-            list.addEntryFromFile(s.nextLine());
-        }
-    }
-
     protected static void loadDataFromFile(TaskList list) {
         File file = new File(filePath);
         if (file.exists()) {
             try {
-                readDukeDataFromFile(list);
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    list.addEntryFromFile(scanner.nextLine());
+                }
             } catch (IOException e) {
-                System.out.println("Something went wrong, cannot load saved data");
+                Ui.printLoadSaveErrorMessage();
             }
         }
     }

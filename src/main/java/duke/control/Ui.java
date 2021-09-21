@@ -2,6 +2,7 @@ package duke.control;
 
 import duke.control.command.ByeCommand;
 import duke.control.command.Command;
+import duke.control.command.DateCommand;
 import duke.control.command.TaskCommand;
 import duke.control.command.DoneCommand;
 import duke.control.command.DeleteCommand;
@@ -28,6 +29,15 @@ public class Ui {
                 " for more information");
     }
 
+    public static void printLoadSaveErrorMessage() {
+        System.out.println("Something went wrong, could not load save file.");
+    }
+
+    private static void printInvalidDateTimeFormatMessage() {
+        System.out.println("date and time information in the wrong format. Please enter date and time as " +
+                "yyyy-mm-ddTxx:xx where xx:xx is 24-hour time");
+    }
+
     public static void printWelcomeMessage() {
         String logo = " ____        _\n"
                 + "|  _ \\ _   _| | _____\n"
@@ -44,15 +54,13 @@ public class Ui {
 
     public static void printHelpMessage() {
         System.out.println("I currently support 3 types of tasks: todo, deadline and event");
-        System.out.println("To add a todo task: todo (task name)");
-        System.out.println("To add a deadline task: deadline (task name) /by (date or time)");
-        System.out.println("To add an event task: event (task name) /at (date or time)");
-        System.out.println("To delete a task in the list: delete (x) where x is the entry number");
-        System.out.println("note that only the words in parentheses() can be replaced");
-        System.out.println("To see your current list, Use the command \"list\"");
+        System.out.println("To add a todo task: todo task name");
+        System.out.println("To add a deadline task: deadline task name /by yyyy-mm-ddTxx:xx where xx:xx is the time");
+        System.out.println("To add an event task: event task name /at yyyy-mm-ddTxx:xx where xx:xx is the time");
+        System.out.println("To delete a task in the list: delete x where x is the entry number");
+        System.out.println("To see your current list, use the command \"list\"");
         System.out.println("To cross out an entry, use the command \"done x\" where x is the entry number");
-        System.out.println("To save your current data, use the command \"save\"");
-        System.out.println("To clear all your saved data, use the command \"clearsave\"");
+        System.out.println("To see all tasks of a certain date, use the command \"date yyyy-mm-dd\"");
         System.out.println("When you're done, type \"bye\" to end the program (automatically saves your current list)");
     }
 
@@ -77,6 +85,13 @@ public class Ui {
         return false;
     }
 
+    /**
+     * Processes the user input and returns the command type from the input.
+     * Commands are: list, help, bye, done, delete, todo, deadline or event
+     * @param input user input, one line.
+     * @return Command object of the correct command according to the input
+     * @throws InvalidInputFormatException
+     */
     protected static Command processInput(String input) throws InvalidInputFormatException {
         Command command;
         if (input.equals("list")) {
@@ -89,6 +104,8 @@ public class Ui {
             command = new DoneCommand();
         } else if (input.startsWith("delete")) {
             command = new DeleteCommand();
+        } else if (input.startsWith("date")) {
+            command = new DateCommand();
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             command = new TaskCommand();
         } else {
