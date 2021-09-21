@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void executed() throws DukeException {
+    public void execute() throws DukeException {
         Ui.printWithLine(TASK_DELETED + "  " + taskList.getTask(taskIndex) +
                 "\nYou currently have " + (taskList.size() - 1) + " left in the list.\n");
         taskList.deleteTask(taskIndex);

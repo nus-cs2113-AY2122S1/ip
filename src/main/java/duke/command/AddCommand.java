@@ -14,7 +14,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void executed() {
+    public void execute() {
         taskList.addTask(newTask);
         Ui.printWithLine("Alright! Added to the list:\n" + "  " + newTask +
                 "\nYou currently have " + taskList.size() + " task recorded in your list.\n");

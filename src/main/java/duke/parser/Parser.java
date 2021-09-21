@@ -33,6 +33,8 @@ public class Parser extends Text {
             return parseDoneCommand(userInput);
         case DELETE:
             return parseDeleteCommand(userInput);
+        case FIND:
+            return parseFindCommand(userInput);
         case LIST:
             return new ListCommand(taskList, ui);
         case HELP:
@@ -41,6 +43,15 @@ public class Parser extends Text {
             return new ExitCommand();
         default:
             throw new DukeException(UNKNOWN_COMMAND);
+        }
+    }
+
+    private Command parseFindCommand(String userInput) throws DukeException {
+        String[] taskKeyword = userInput.split(" ", 2);
+        if (taskKeyword.length <= 1) {
+            throw new DukeException(NO_TASK_NUMBER);
+        } else {
+            return new FindCommand(taskList, ui, taskKeyword[1]);
         }
     }
 
