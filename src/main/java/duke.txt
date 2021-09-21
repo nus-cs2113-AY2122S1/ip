@@ -11,3 +11,12 @@ T | 1 | join sports club
 0 1 | T |   |  rrrrrr
 1 | T |   |  yyy
 1 | T |   |  qw
+1 | T |   |  sdfdsfsff
+1 | T |   |  dadadda
+1 | T |   |  rrr
+1 | T |   |  rrr
+2 | E |   |  asas  (at:  dadadd)
+3 | D |   |  adadad  (by:  adadad)
+1 | T |   |  eeeeee
+2 | D |   |  adadasas  (by:  fsfsfsff)
+3 | E |   |  aadada  (at:  ffsfsfsf)
