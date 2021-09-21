@@ -52,7 +52,8 @@ public class Storage {
                     skipTwoLines++;
                 } else {
                     //Starts reading data
-                    readData(tasks, sc);
+                    String[] tasksData = sc.nextLine().split(DELIMITER);
+                    readData(tasks, sc, tasksData);
                 }
             }
             //Displays the to-do list if it is not empty
@@ -73,22 +74,25 @@ public class Storage {
      * @param sc The scanner which scans the file
      * @throws ShimaException.StorageException
      */
-    private static void readData(ArrayList<Task> tasks, Scanner sc) throws ShimaException.StorageException {
-        String[] tasksData = sc.nextLine().split(DELIMITER);
-        Task currentTask = tasks.get(tasks.size() - 1);;
+    private static void readData(ArrayList<Task> tasks, Scanner sc, String[] tasksData) throws ShimaException.StorageException {
+        Task currentTask;
         switch (tasksData[0]) {
         case "T":
             tasks.add(new ToDo(tasksData[2]));
+            currentTask = tasks.get(tasks.size() - 1);
             //Updates the longestTaskDescription to ensure that the frames for to-do list can be printed correctly
             Shima.longestTaskDescription = Math.max(currentTask.getTask().length(), Shima.longestTaskDescription);
             break;
         case "D":
             tasks.add(new Deadline(tasksData[2], tasksData[3]));
+            currentTask = tasks.get(tasks.size() - 1);
+
             Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(),
                     Shima.longestTaskDescription);
             break;
         case "E":
             tasks.add(new Event(tasksData[2], tasksData[3]));
+            currentTask = tasks.get(tasks.size() - 1);
             Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(),
                     Shima.longestTaskDescription);
             break;

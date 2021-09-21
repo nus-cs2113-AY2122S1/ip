@@ -20,7 +20,7 @@ public class Shima {
     public static int longestTaskDescription = 0; //The length of the longest task description
     private final ArrayList<Task> tasks;
 
-    public Shima(){
+    public Shima() {
         showWelcomeScreen();
         tasks = new ArrayList<>();
         initiateToDoList(tasks);
@@ -84,6 +84,8 @@ public class Shima {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine().trim();
         String[] words = command.split(" ");
+        String time = "";
+        String taskName = "";
         switch (words[0]) {
         case "":
             Default.showMessage("Hmm... I can't understand empty string :(");
@@ -109,39 +111,31 @@ public class Shima {
             DeleteTasks.deleteTasks(tasks, words);
             break;
         case "todo":
+            if (AddTask.isCorrectToDo(words)) {
+                AddTask.createToDo(tasks, command, words);
+            }
+            break;
         case "event":
+            command = command.replaceFirst(words[0], "").trim();
+            time = command.substring(command.indexOf('/') + 1).trim();
+            taskName = command.split("/", 2)[0].trim();
+            if (AddTask.isCorrectEvent(command, words, time, taskName)) {
+                AddTask.createEvent(tasks, time, taskName);
+            }
+            break;
         case "deadline":
-            AddTask.addTask(tasks, command, words);
+            command = command.replaceFirst(words[0], "").trim();
+            time = command.substring(command.indexOf('/') + 1).trim();
+            taskName = command.split("/", 2)[0].trim();
+            if (AddTask.isCorrectDeadline(command, words, time, taskName)) {
+                AddTask.createDeadline(tasks, time, taskName);
+            }
             break;
         case "done":
             TaskDone.handleTaskDone(tasks, words);
             break;
         default:
             throw new ShimaException.CommandException();
-        }
-        /*
-        if (CommandLibrary.isCommandEmpty(command)) {
-            System.out.println("\t(Empty) <- will not save to the list");
-        } else if (CommandLibrary.isCommandViewPersonality(command)) {
-            Profile.printPersonality();
-        } else if (CommandLibrary.isCommandExit(command)) {
-            Default.showMessage("Bye! Hope to see you again :D");
-            Storage.updateStorage(tasks);
-            System.exit(0);
-        } else if (CommandLibrary.isCommandHelp(command)) {
-            HelpMenu.printHelpMenu();
-        } else if (CommandLibrary.isCommandDelete(command)) {
-            DeleteTasks.deleteTasks(tasks, words);
-        } else {
-            if (CommandLibrary.isCommandList(command)) {
-                ToDoList.printToDoList(tasks, longestTaskDescription);
-            } else if (CommandLibrary.isCommandDone(words[0])) {
-                TaskDone.handleTaskDone(tasks, words);
-            } else if (CommandLibrary.isCommandAddTask(words[0])) {
-                AddTask.addTask(tasks, command, words);
-            } else {
-                throw new ShimaException.CommandException();
-            }
         }
     }
 }
