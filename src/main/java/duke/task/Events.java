@@ -1,11 +1,15 @@
 package duke.task;
 
 public class Events extends Task{
-    protected String at;
+    protected String eventLocation;
 
-    public Events(String description, String at) {
+    public Events(String description, String eventLocation) {
         super(description);
-        this.at = at;
+        this.eventLocation = eventLocation;
+    }
+
+    public String getEventLocation() {
+        return eventLocation;
     }
 
     @Override
@@ -13,7 +17,7 @@ public class Events extends Task{
         if (description.contains("|")) {
             description = description.replace("|", ",");
         }
-        return "[E]" + getStatusIcon() + description + " (at:" + at + ")";
+        return "[E]" + getStatusIcon() + description + " (at:" + eventLocation + ")";
     }
 
     @Override
@@ -21,6 +25,6 @@ public class Events extends Task{
         if (description.contains(",")) {
             description = description.replace(",", "|");
         }
-        return ("E," + getStatusIcon() + "," + description + "," + at);
+        return ("E," + getStatusIcon() + "," + description + "," + eventLocation);
     }
 }

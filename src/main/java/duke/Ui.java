@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ui {
     private static final String LINE = "─────────────────────────────────────────────────────────────\n";
@@ -54,9 +55,24 @@ public class Ui {
 
     public void printTaskList(ArrayList<Task> tasks) {
         System.out.println(LINE);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+        if (tasks.size() == 0) {
+            System.out.println("Task list is empty. Add some tasks in!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            tasks.stream()
+                    .forEach(System.out::println);
+        }
+        System.out.println(LINE);
+    }
+
+    public void printFindTask(List<Task> matchingTasks) {
+        System.out.println(LINE);
+        if (matchingTasks.size() == 0) {
+            System.out.println("No matching tasks found! ");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            matchingTasks.stream()
+                    .forEach(System.out::println);
         }
         System.out.println(LINE);
     }

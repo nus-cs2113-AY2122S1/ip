@@ -1,8 +1,12 @@
 package duke;
 
+import duke.task.Deadline;
+import duke.task.Events;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -18,6 +22,7 @@ public class TaskList {
 
     /**
      * Adds task to task list represented by tasks array.
+     *
      * @param task Task to add
      */
     public void addTasks(Task task, boolean toPrint) {
@@ -33,6 +38,7 @@ public class TaskList {
 
     /**
      * Mark a task given by its index as done
+     *
      * @param taskIndex Index of task in task list to mark as done
      * @throws DukeException Throws exception to aid in identifying errors
      */
@@ -46,6 +52,7 @@ public class TaskList {
 
     /**
      * Deletes a task given by its index
+     *
      * @param taskIndex Index of task in task list to delete
      * @throws DukeException Throws exception to aid in identifying errors
      */
@@ -55,5 +62,30 @@ public class TaskList {
         }
         ui.printDeleteTaskMessage(taskIndex, tasks);
         tasks.remove(taskIndex);
+    }
+
+    /**
+     * Finds a task given by a keyword
+     *
+     * @param keyword Keyword to search for within each task
+     */
+    public void findTask(String keyword) {
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> {
+                    if (task.getDescription().contains(keyword)) {
+                        return true;
+                    }
+                    if (task instanceof Deadline) {
+                        return (((Deadline) task).getDeadline().contains(keyword) ||
+                                task.getDescription().contains(keyword));
+                    }
+                    if (task instanceof Events) {
+                        return (((Events) task).getEventLocation().contains(keyword) ||
+                                task.getDescription().contains(keyword));
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+        ui.printFindTask(matchingTasks);
     }
 }

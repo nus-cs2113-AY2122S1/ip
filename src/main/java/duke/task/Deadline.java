@@ -1,11 +1,15 @@
 package duke.task;
 
 public class Deadline extends Task{
-    protected String by;
+    protected String deadline;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadline) {
         super(description);
-        this.by = by;
+        this.deadline = deadline;
+    }
+
+    public String getDeadline() {
+        return deadline;
     }
 
     @Override
@@ -13,7 +17,7 @@ public class Deadline extends Task{
         if (description.contains("|")) {
             description = description.replace("|", ",");
         }
-        return "[D]" + getStatusIcon() + description + " (by:" + by + ")";
+        return "[D]" + getStatusIcon() + description + " (by:" + deadline + ")";
     }
 
     @Override
@@ -21,6 +25,6 @@ public class Deadline extends Task{
         if (description.contains(",")) {
             description = description.replace(",", "|");
         }
-        return ("D," + getStatusIcon() + "," + description + "," + by);
+        return ("D," + getStatusIcon() + "," + description + "," + deadline);
     }
 }

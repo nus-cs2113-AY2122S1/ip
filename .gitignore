@@ -1,6 +1,8 @@
 # IDEA files
 /.idea/
 /out/
+/target/
+/*.class
 /*.iml
 
 # Gradle build files
@@ -16,5 +18,4 @@ bin/
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
 data/
-target/
 /src/main/java/META-INF

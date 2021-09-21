@@ -5,6 +5,7 @@ import duke.command.Command;
 import duke.command.DeleteTaskCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.task.Deadline;
 import duke.task.Events;
@@ -19,6 +20,7 @@ public class Parser {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String DONE_COMMAND = "done";
     private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
 
     /**
      * Extracts command word from user input and processes the command.
@@ -72,6 +74,14 @@ public class Parser {
         } else if ((userInput.toLowerCase()).contains(DELETE_COMMAND)) {
             int taskIndex = extractTaskIndex(userInput);
             return new DeleteTaskCommand(taskIndex - 1);
+        } else if ((userInput.toLowerCase()).startsWith(FIND_COMMAND)) {
+            try {
+                //5 is no of chars after 'find '
+                String keyword = userInput.substring(5);
+                return new FindCommand(keyword);
+            } catch (StringIndexOutOfBoundsException e) {
+               throw new DukeException("☹ OOPS!!! Please key in command in format: \"find {keyword}\"");
+            }
         }
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
