@@ -1,6 +1,7 @@
 package duke;
 
 import exception.DukeException;
+import exception.NoTaskFoundException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,10 +15,20 @@ public class Duke {
      * Task type Array list to store the tasks the user will create
      */
     private static ArrayList<Task> scheduledTasks = new ArrayList<>();
-
     private static final String FILE_PATH = "duke.txt";
+    public static final String GREET_MESSAGE = "Hello! I'm Duke\nWhat can I do for you?";
+    public static final String EXIT_MESSAGE = " Bye. Hope to see you again soon!";
+    public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final String TASK_COMPLETED = "1";
     public static final String TASK_INCOMPLETE = "0";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String ERROR_INVALID_TASK_STATEMENT = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public static final String ERROR_INVALID_TASK_NUMBER = "Sorry, no task is assigned at this number, you might want to re-check?";
+    public static final String ERROR_EMPTY_TASKLIST = "Sorry, no tasks have been added to the list as yet!\n" +
+            "You can add tasks to this list simply by typing and pressing \"Enter\"!!";
 
     /**
      * This is the main function responsible for the execution of this program
@@ -34,8 +45,7 @@ public class Duke {
      */
     private static void greet() {
         printLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        System.out.println(GREET_MESSAGE);
         printLine();
     }
 
@@ -43,7 +53,8 @@ public class Duke {
      * Prints a line on the screen
      */
     public static void printLine() {
-        System.out.println("____________________________________________________________");
+        String HORIZONTAL_LINE = "____________________________________________________________";
+        System.out.println(HORIZONTAL_LINE);
     }
 
 
@@ -69,7 +80,7 @@ public class Duke {
         }
     }
 
-    public static void saveTaskInDisk() throws IOException {
+    public static void saveTaskToDisk() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         String lineToWrite = "";
         for (Task task : scheduledTasks) {
@@ -106,9 +117,9 @@ public class Duke {
         fw.close();
     }
 
-    public static void saveTaskToList() {
+    public static void callSaveTaskToList() {
         try {
-            saveTaskInDisk();
+            saveTaskToDisk();
         } catch (IOException e) {
             System.out.println("Unable to save data to the disk");
         }
@@ -159,21 +170,28 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
 
-        while (!(userInput.equalsIgnoreCase("bye"))) {
+
+        while (!(userInput.equalsIgnoreCase(COMMAND_BYE))) {
             try {
-                if (userInput.equalsIgnoreCase("list")) {
+                if (userInput.equalsIgnoreCase(COMMAND_LIST)) {
                     list();
-                } else if (userInput.startsWith("done")) {
-                    markTaskAsDone(userInput);
-                } else if (userInput.startsWith("delete")) {
-                    deleteTask(userInput);
                 } else {
-                    addTaskToList(userInput);
+                    if (userInput.startsWith(COMMAND_DONE)) {
+                        markTaskAsDone(userInput);
+                    } else {
+                        if (userInput.startsWith(COMMAND_DELETE)) {
+                            deleteTask(userInput);
+                        } else {
+                            addTaskToList(userInput);
+                        }
+                    }
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } catch (IOException ee) {
                 System.out.println("Could not save data to file");
+            } catch (NoTaskFoundException eg) {
+                System.out.println(eg.getMessage());
             }
             printLine();
             userInput = in.nextLine();
@@ -186,7 +204,7 @@ public class Duke {
      */
     private static void greetBye() {
         printLine();
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(EXIT_MESSAGE);
         printLine();
     }
 
@@ -216,7 +234,7 @@ public class Duke {
             } else {
                 scheduledTasks.add(new Todo(split[1]));
             }
-            saveTaskToList();
+            callSaveTaskToList();
             break;
 
         case "deadline":
@@ -231,7 +249,7 @@ public class Duke {
                 throw new DukeException("☹ OOPS!!! The description of the task seems incomplete.");
             }
             scheduledTasks.add(new Deadline(userInput.substring(indexOfSpace, index), userInput.substring(index + 3)));
-            saveTaskToList();
+            callSaveTaskToList();
             break;
 
         case "event":
@@ -246,12 +264,12 @@ public class Duke {
                 throw new DukeException("☹ OOPS!!! The description or time schedule of the event seems incomplete.");
             }
             scheduledTasks.add(new Event(userInput.substring(indexOfSpace, index), userInput.substring(index + 3)));
-            saveTaskToList();
+            callSaveTaskToList();
             break;
 
         default:
             isTaskValid = false;
-            throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(ERROR_INVALID_TASK_STATEMENT);
         }
 
         if (isTaskValid) {
@@ -268,7 +286,7 @@ public class Duke {
      *
      * @param taskNumberCompleted TaskNumberCompleted stores the task number which has been completed by the user.
      */
-    private static void markTaskAsDone(String userInput) throws DukeException {
+    private static void markTaskAsDone(String userInput) throws NoTaskFoundException {
         printLine();
         int taskNumberCompleted = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
 
@@ -276,9 +294,9 @@ public class Duke {
             scheduledTasks.get(taskNumberCompleted - 1).markAsDone();
             System.out.println("Nice! I have marked this task as done:");
             System.out.println(scheduledTasks.get(taskNumberCompleted - 1));
-            saveTaskToList();
+            callSaveTaskToList();
         } else {
-            throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
+            throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
         }
     }
 
@@ -288,7 +306,7 @@ public class Duke {
      *
      * @param deleteTask DeleteTask stores the task number which is supposed to be deleted.
      */
-    private static void deleteTask(String userInput) throws DukeException, IOException {
+    private static void deleteTask(String userInput) throws IOException, NoTaskFoundException {
         printLine();
         int deleteTask = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
 
@@ -298,9 +316,9 @@ public class Duke {
             System.out.println(taskToBeDeleted);
             scheduledTasks.remove(deleteTask - 1);
             System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
-            saveTaskInDisk();
+            saveTaskToDisk();
         } else {
-            throw new DukeException("Sorry, no task is assigned at this number, you might want to re-check?");
+            throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
         }
     }
 
@@ -311,13 +329,12 @@ public class Duke {
      *
      * @param taskCompletionStatus TaskCompletionStatus stores true if the task is completed, false otherwise.
      */
-    private static void list() throws DukeException {
+    private static void list() throws NoTaskFoundException {
         int i;
         String taskCompletionStatus;
         printLine();
         if (scheduledTasks.size() == 0) {
-            throw new DukeException("Sorry, no tasks have been added to the list as yet!\n" +
-                    "You can add tasks to this list simply by typing and pressing \"Enter\"!!");
+            throw new NoTaskFoundException(ERROR_EMPTY_TASKLIST);
         } else {
             System.out.println("Here are the tasks in your list:");
             i = 0;
