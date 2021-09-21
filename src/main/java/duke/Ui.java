@@ -2,6 +2,8 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
     public static final String INDENT = "    │ ";
 
@@ -38,11 +40,14 @@ public class Ui {
     /**
      * Prints the list of tasks collated by Tired.
      */
-    public static void printList(Task words[], int taskCount) {
+    public static void printList(ArrayList<Task> list, int taskCount) {
         printTopLine();
         System.out.println(INDENT + "Here are your tasks, \"oRgAnIc iTeLlIgEnCe\":");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(INDENT + (i + 1) + "." + words[i]);
+//        for (int i = 0; i < taskCount; i++) {
+//            System.out.println(INDENT + (i + 1) + "." + tasks[i]);
+//        }
+        for (Task t : list) {
+            System.out.println(INDENT + (list.indexOf(t) + 1) + "." + t.toString());
         }
         printBottomLine();
     }
@@ -77,9 +82,10 @@ public class Ui {
         System.out.println(INDENT + "Does that look like a number to you? Retype. A. Number.");
     }
 
-    public static void printAddedTask(Task[] words, String plural, int taskCount, int taskPending) {
+    //implementation still shoddy
+    public static void printAddedTask(ArrayList<Task> tasks, String plural, int taskPending) {
         System.out.println(INDENT + " Fine. Added to your list:");
-        System.out.println(INDENT + "   " + words[taskCount - 1]);
+        System.out.println(INDENT + "   " + tasks.get(tasks.size() - 1));
         System.out.println(INDENT + " You have " + taskPending + " pending task" + plural + ". tHaT's aWeSoMe!!!!!1!!");
 
     }

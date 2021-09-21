@@ -5,16 +5,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    public static final int MAX_RECORDS = 100;
     public static final String INDENT = "    │ ";
-    private static int taskCount = 0;
+    private static int taskCount = 0; //todo how to do away with taskCount and taskCompleted?
     private static int taskCompleted = 0;
-    private static final Task words[] = new Task[MAX_RECORDS];
-    //Need taskNumber if implementing ArrayList
+    protected static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Ui.greetUser();
@@ -23,7 +22,6 @@ public class Duke {
     }
 
     //Move to taskManager //////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Adds inputs from user to list[] to keep track of user's tasks, deadlines, and events.
      *
@@ -56,19 +54,21 @@ public class Duke {
         if (isEmpty(taskName)) {
             throw new DukeException("todo name missing.");
         }
-        words[taskCount] = new Todo(taskName);
+        tasks.add(new Todo(taskName));
     }
     public static void addDeadline(String taskName, String taskDetails) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("deadline name missing.");
         }
-        words[taskCount] = new Deadline(taskName, taskDetails);
+        tasks.add(new Deadline(taskName, taskDetails));
+
     }
     public static void addEvent(String taskName, String taskDetails) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("event name missing.");
         }
-        words[taskCount] = new Event(taskName, taskDetails);
+        tasks.add(new Event(taskName, taskDetails));
+
     }
 
     /**
@@ -80,19 +80,19 @@ public class Duke {
         String plural = (taskPending) == 1 ? "" : "s";
 
         Ui.printTopLine();
-        Ui.printAddedTask(words, plural, taskCount, taskPending);
+        Ui.printAddedTask(tasks, plural, taskPending);
         Ui.printBottomLine();
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Marks tasks in words[] as done, only if they exist or has not been completed.
+     * Marks tasks in tasks[] as done, only if they exist or has not been completed.
      *
      * @param userInput String from user to be converted into a number that is associated with a task.
      */
     public static void markTaskAsDone(String userInput) {
         int taskNumber;
-        boolean isExists = false;
+        boolean isExists;
         try {
             //abstraction here with method with "throws DukeException"
             taskNumber = Integer.parseInt(userInput) - 1;
@@ -101,15 +101,18 @@ public class Duke {
             Ui.printTopLine();
             if (!isExists) {
                 System.out.println(INDENT + "Wha- Hey! Task does not exist!");
-            } else if (words[taskNumber].getDoneStatus()) {
+            } else if (tasks.get(taskNumber).getDoneStatus()) {
                 System.out.println(INDENT + "Dude... you've done the task already.");
             } else {
                 taskCompleted++;
-                words[taskNumber].setAsDone();
+                tasks.get(taskNumber).setAsDone();
                 System.out.println(INDENT + "About time. I've mark that task as done:");
-                System.out.println(INDENT + "[" + words[taskNumber].getStatusIcon() + "]" + words[taskNumber].getDescription());
+                System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
+                        + tasks.get(taskNumber).getTaskName());
             }
+
             Ui.printBottomLine();
+
         } catch (NumberFormatException e){
             Ui.printNumberFormatError();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -137,7 +140,7 @@ public class Duke {
         String taskDetails = "";
 
         String userInput;
-        String[] parts = new String[0];
+        String[] words = new String[0];
         boolean isExit = false;
 
         do {
@@ -153,15 +156,15 @@ public class Duke {
                 Ui.mockUser();
                 break;
             case "list":
-                Ui.printList(words, taskCount);
+                Ui.printList(tasks, taskCount);
                 break;
             case "done":
                 userInput = text.nextLine();
                 if (userInput.equals("")) {
                     Ui.printMissingTextError();
                 } else {
-                    parts = userInput.split(" ");
-                    userInput = parts[1];
+                    words = userInput.split(" ");
+                    userInput = words[1];
                     markTaskAsDone(userInput);
                 }
                 break;
@@ -174,13 +177,13 @@ public class Duke {
                 userInput = text.nextLine();
 
                 if (taskType.equals("deadline")) {
-                    parts = userInput.split(" /by ");
+                    words = userInput.split(" /by ");
                 } else if (taskType.equals("event")) {
-                    parts = userInput.split(" /at ");
+                    words = userInput.split(" /at ");
                 }
 
-                taskName = parts[0];
-                taskDetails = parts[1];
+                taskName = words[0];
+                taskDetails = words[1];
                 addTask(taskName, taskType, taskDetails);
                 break;
             default:
