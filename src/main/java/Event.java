@@ -1,12 +1,15 @@
-public class Event extends Task {
-    protected String at;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String at) {
+public class Event extends Task {
+    protected LocalDate at;
+
+    public Event(String description, LocalDate at) {
         super(description);
         setAt(at);
     }
 
-    public void setAt(String newDate) {
+    public void setAt(LocalDate newDate) {
         this.at = newDate;
     }
 
@@ -16,12 +19,12 @@ public class Event extends Task {
     }
 
     @Override
-    public String getWhen() {
+    public LocalDate getWhen() {
         return this.at;
     }
 
     @Override
     public String toString() {
-        return ("[E]" + "[" + getStatusIcon() + "] " + description + "(at: " + at + ")");
+        return ("[E]" + "[" + getStatusIcon() + "] " + description + "(at: " + at.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT))) + ")");
     }
 }

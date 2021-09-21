@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Ui {
@@ -36,6 +37,9 @@ public class Ui {
     protected String DEADLINE_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
             + "Woops! Did you forget the /by parameter?" + System.lineSeparator()
             + LINE_DIVIDER;
+    protected String DEADLINE_EVENT_DATEPARAM = LINE_DIVIDER + System.lineSeparator()
+            + "Woops! Please enter a valid date format YYYY-MM-DD (e.g. 1999-06-14)" + System.lineSeparator()
+            + LINE_DIVIDER;
     protected String EVENT_EMPTY = LINE_DIVIDER + System.lineSeparator()
             + "Sorry, the EVENT description cannot be empty ☹" + System.lineSeparator()
             + LINE_DIVIDER;
@@ -73,7 +77,7 @@ public class Ui {
         System.out.println(addedMessage);
     }
 
-    public void printAddedDeadline(String deadlineDescription, String deadlineBy, ArrayList<Task> tasks) {
+    public void printAddedDeadline(String deadlineDescription, LocalDate deadlineBy, ArrayList<Task> tasks) {
         String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:" + System.lineSeparator()
                 + "[D]" + "[ " + "] " + deadlineDescription + "(by: " + deadlineBy + ")" + System.lineSeparator()
@@ -82,7 +86,7 @@ public class Ui {
         System.out.println(addedMessage);
     }
 
-    public void printAddedEvent(String eventDescription, String eventAt, ArrayList<Task> tasks) {
+    public void printAddedEvent(String eventDescription, LocalDate eventAt, ArrayList<Task> tasks) {
         String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:"  + System.lineSeparator()
                 + "[E]" + "[ " + "] " + eventDescription + "(at: " + eventAt + ")" + System.lineSeparator()
@@ -150,6 +154,10 @@ public class Ui {
 
     public void printDeadlineMissingParamError() {
         System.out.println(DEADLINE_MISSINGPARAM);
+    }
+
+    public void printDeadlineEventDateParamError() {
+        System.out.println(DEADLINE_EVENT_DATEPARAM);
     }
 
     public void printEventEmptyError() {
