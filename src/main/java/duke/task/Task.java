@@ -28,12 +28,12 @@ public class Task {
         return isDone;
     }
 
-    public void setAsDone() {
-        isDone = true;
-    }
-
     public String getTaskName() {
         return taskName;
+    }
+
+    public void setAsDone() {
+        isDone = true;
     }
 
     @Override

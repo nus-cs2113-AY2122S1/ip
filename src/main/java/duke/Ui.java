@@ -1,7 +1,6 @@
 package duke;
 
 import duke.task.Task;
-
 import java.util.ArrayList;
 
 public class Ui {
@@ -37,21 +36,6 @@ public class Ui {
         System.out.println(logo);
     }
 
-    /**
-     * Prints the list of tasks collated by Tired.
-     */
-    public static void printList(ArrayList<Task> list, int taskCount) {
-        printTopLine();
-        System.out.println(INDENT + "Here are your tasks, \"oRgAnIc iTeLlIgEnCe\":");
-//        for (int i = 0; i < taskCount; i++) {
-//            System.out.println(INDENT + (i + 1) + "." + tasks[i]);
-//        }
-        for (Task t : list) {
-            System.out.println(INDENT + (list.indexOf(t) + 1) + "." + t.toString());
-        }
-        printBottomLine();
-    }
-
     public static void printGreeting() {
         System.out.println(INDENT + "*Sigh* Hi... I'm Tired                                             │\n"
                 + INDENT + "What do you want from me?                                          │");
@@ -69,9 +53,12 @@ public class Ui {
                 + INDENT + "Ha! As if I care! Goodbye!!                                        │");
     }
 
-    public static void printMissingTaskType() {
-        System.out.println(INDENT + "You didn't input the type of task... Again.\n"
-                + INDENT + "Or you're stupid. That's more likely.");
+    public static void printWrongTaskType(String firstWord, String remainingWords) {
+        System.out.println(INDENT + "Look what you typed:\n"
+                + INDENT + firstWord + remainingWords + "\n" + INDENT);
+        System.out.println(INDENT + "Please don't embarrass yourself any further.\n"
+                + INDENT + "Use the right commands. Type \"help\" if you don't know.");
+        System.out.println(INDENT + "~\"help\" command still under development.~");
     }
 
     public static void printMissingText() {
@@ -82,20 +69,45 @@ public class Ui {
         System.out.println(INDENT + "Does that look like a number to you? Retype. A. Number.");
     }
 
-    //implementation still shoddy
-    public static void printAddedTask(ArrayList<Task> tasks, String plural, int taskPending) {
+    public static void printAddedTask(ArrayList<Task> tasks, String isPlural, int taskPending) {
         System.out.println(INDENT + " Fine. Added to your list:");
         System.out.println(INDENT + "   " + tasks.get(tasks.size() - 1));
-        System.out.println(INDENT + " You have " + taskPending + " pending task" + plural + ". tHaT's aWeSoMe!!!!!1!!");
+        System.out.println(INDENT + " You have " + taskPending + " pending task"
+                + isPlural + ". tHaT's aWeSoMe!!!!!1!!");
+    }
 
+    public static void printTaskDoesNotExist() {
+        System.out.println(INDENT + "Wha- Hey! Task does not exist!");
+    }
+
+    public static void printTaskAlreadyDone() {
+        System.out.println(INDENT + "Dude... you've done the task already.");
+    }
+
+    public static void printTaskMarkedAsDone(ArrayList<Task> tasks, int taskNumber) {
+        System.out.println(INDENT + "About time. I've mark that task as done:");
+        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
+                + tasks.get(taskNumber).getTaskName());
+    }
+
+    /**
+     * Prints the tasks of tasks collated by Tired.
+     */
+    public static void printList(ArrayList<Task> tasks) {
+        printTopLine();
+        System.out.println(INDENT + "Here are your tasks, oRgAnIc iTeLlIgEnCe:");
+        for (Task t : tasks) {
+            System.out.println(INDENT + (tasks.indexOf(t) + 1) + "." + t.toString());
+        }
+        printBottomLine();
     }
 
     /**
      *  Prints error message to user. Prompts user to input correct command.
      */
-    public static void printMissingTaskTypeError() {
+    public static void printWrongTaskTypeError(String firstWord, String remainingWords) {
         printTopLine();
-        printMissingTaskType();
+        printWrongTaskType(firstWord, remainingWords);
         printBottomLine();
     }
 
@@ -113,6 +125,7 @@ public class Ui {
         printNumberExpected();
         printBottomLine();
     }
+
     /**
      * Prints greeting message to user when code is ran.
      */

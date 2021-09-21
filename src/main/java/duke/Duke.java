@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final String INDENT = "    │ ";
     private static int taskCount = 0; //todo how to do away with taskCount and taskCompleted?
     private static int taskCompleted = 0;
     protected static ArrayList<Task> tasks = new ArrayList<>();
@@ -77,10 +76,10 @@ public class Duke {
     public static void addTaskConfirmation() {
         taskCount++;
         int taskPending = taskCount - taskCompleted;
-        String plural = (taskPending) == 1 ? "" : "s";
+        String isPlural = (taskPending) == 1 ? "" : "s";
 
         Ui.printTopLine();
-        Ui.printAddedTask(tasks, plural, taskPending);
+        Ui.printAddedTask(tasks, isPlural, taskPending);
         Ui.printBottomLine();
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,15 +99,13 @@ public class Duke {
 
             Ui.printTopLine();
             if (!isExists) {
-                System.out.println(INDENT + "Wha- Hey! Task does not exist!");
+                Ui.printTaskDoesNotExist();
             } else if (tasks.get(taskNumber).getDoneStatus()) {
-                System.out.println(INDENT + "Dude... you've done the task already.");
+                Ui.printTaskAlreadyDone();
             } else {
                 taskCompleted++;
                 tasks.get(taskNumber).setAsDone();
-                System.out.println(INDENT + "About time. I've mark that task as done:");
-                System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
-                        + tasks.get(taskNumber).getTaskName());
+                Ui.printTaskMarkedAsDone(tasks, taskNumber);
             }
 
             Ui.printBottomLine();
@@ -156,7 +153,7 @@ public class Duke {
                 Ui.mockUser();
                 break;
             case "list":
-                Ui.printList(tasks, taskCount);
+                Ui.printList(tasks);
                 break;
             case "done":
                 userInput = text.nextLine();
@@ -188,7 +185,7 @@ public class Duke {
                 break;
             default:
                 userInput = text.nextLine();
-                Ui.printMissingTaskTypeError();
+                Ui.printWrongTaskTypeError(taskType, userInput);
                 break;
             }
         } while (!isExit);
