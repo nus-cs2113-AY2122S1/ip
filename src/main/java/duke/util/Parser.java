@@ -12,6 +12,10 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDos;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     static private final String COMMAND_LIST = "list";
     static private final String COMMAND_TODO = "todo";
@@ -25,6 +29,9 @@ public class Parser {
 
     static private final String COMMAND_DEADLINE_SEPARATOR = "/by";
     static private final String COMMAND_EVENT_SEPARATOR = "/at";
+
+    static private final String DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
+    static private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
     static private final String SPACE_SEPARATOR = " ";
     static private final String EMPTY_STRING = "";
@@ -114,8 +121,13 @@ public class Parser {
         for (int i = 0; i < contentAndDate.length; i++) {
             contentAndDate[i] = contentAndDate[i].trim();
         }
-
-        return new AddCommand(new Deadline(contentAndDate[0], contentAndDate[1], false));
+        try {
+            LocalDateTime deadline = LocalDateTime.parse(contentAndDate[1], dateTimeFormat);
+            return new AddCommand(new Deadline(contentAndDate[0], deadline, false));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please write the date in this format: " + DATE_TIME_FORMAT + '\n'
+                    + "\t\te.g: 20 Sep 2021 23:59");
+        }
     }
 
     private static Command parseEventCommand(String command) throws DukeException {
@@ -138,8 +150,13 @@ public class Parser {
         for (int i = 0; i < contentAndDate.length; i++) {
             contentAndDate[i] = contentAndDate[i].trim();
         }
-
-        return new AddCommand(new Event(contentAndDate[0], contentAndDate[1], false));
+        try {
+            LocalDateTime date = LocalDateTime.parse(contentAndDate[1], dateTimeFormat);
+            return new AddCommand(new Event(contentAndDate[0], date, false));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please write the date in this format: " + DATE_TIME_FORMAT + '\n'
+                    + "\t\te.g: 20 Sep 2021 23:59");
+        }
     }
 
     private static Command parseDoneCommand(String command) throws DukeException {
