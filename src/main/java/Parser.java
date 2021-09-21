@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class handling the user's command inputs.
+ */
 public class Parser {
     protected Ui ui = new Ui();
     protected TaskList taskList = new TaskList();
@@ -14,8 +17,17 @@ public class Parser {
     protected String DEADLINE_COMMAND = "deadline";
     protected String EVENT_COMMAND = "event";
 
-    public int filterTaskNum(String doneTask) throws DukeMissingParamException, NumberFormatException {
-        String[] words = doneTask.split(" ");
+    /**
+     * Filters the task number for use when marking tasks as done or deleting tasks.
+     * The task number is expected to be an integer.
+     *
+     * @param userInput the string of input to be filtered.
+     * @return the task number to marked as done/deleted.
+     * @throws DukeMissingParamException when the task number has not been input.
+     * @throws NumberFormatException when a non-integer/string has been input where expected.
+     */
+    public int filterTaskNum(String userInput) throws DukeMissingParamException, NumberFormatException {
+        String[] words = userInput.split(" ");
 
         // check to see if task number has not been input
         if (words.length > 1) {
@@ -26,6 +38,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the commands input by the user and the errors caused by incorrect input.
+     * Command List: EXIT, LIST, HELP, DONE, DELETE, TODO, DEADLINE, EVENT.
+     *
+     * @param in the system scanner, required to move to next line.
+     * @param line the input of the user.
+     * @param tasks the ArrayList of Tasks to operate the commands on.
+     */
     public void parseInputs(Scanner in, String line, ArrayList<Task> tasks) {
         // while input is not "exit", keep taking inputs.
         while (!line.equals(EXIT_COMMAND)) {

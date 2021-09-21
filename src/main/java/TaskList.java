@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Class handling the task list and its operations.
+ */
 public class TaskList {
     protected Ui ui = new Ui();
     protected int DONE_OFFSET = 1;
@@ -15,6 +18,14 @@ public class TaskList {
     protected int EVENT_LEN_OFFSET = 5;
     protected int EVENT_SUBSTRING_OFFSET = 6;
 
+    /**
+     * Marks the selected task as done if the task number is valid.
+     * Throws an error if the selected task number is not valid.
+     *
+     * @param numToMark the displayed number of the task to be marked as done.
+     * @param tasks the ArrayList of Tasks where the task to be marked as done is stored.
+     * @throws IndexOutOfBoundsException when the task number selected is not valid.
+     */
     public void markTaskDone(int numToMark, ArrayList<Task> tasks) throws IndexOutOfBoundsException {
         if ((numToMark - DONE_OFFSET >= 0) && (tasks.get(numToMark - DONE_OFFSET) != null)) {
             tasks.get(numToMark - DONE_OFFSET).markAsDone();
@@ -25,10 +36,24 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the ArrayList of Tasks.
+     *
+     * @param t the task to be added to the ArrayList of Tasks.
+     * @param tasks the ArrayList of Tasks where the task is to be added to.
+     */
     public void addTask(Task t, ArrayList<Task> tasks) {
         tasks.add(t);
     }
 
+    /**
+     * Adds a TODO type task to the ArrayList of Tasks, and checks if any required parameters are missing (description).
+     * Throws an error if required parameters are missing.
+     *
+     * @param line the input of the user.
+     * @param tasks the he ArrayList of Tasks where the TODO task is to be added to.
+     * @throws DukeMissingDescException when the description of the task is not input by the user.
+     */
     public void addTodo(String line, ArrayList<Task> tasks) throws DukeMissingDescException {
         if (line.length() == TODO_LEN_OFFSET || line.substring(TODO_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
@@ -38,6 +63,15 @@ public class TaskList {
         ui.printAddedTodo(todoDescription, tasks);
     }
 
+    /**
+     * Adds a DEADLINE type task to the ArrayList of Tasks, and checks if any required parameters are missing (description, due date).
+     * Throws an error if required parameters are missing.
+     *
+     * @param line the input of the user.
+     * @param tasks the he ArrayList of Tasks where the DEDADLINE task is to be added to.
+     * @throws DukeMissingDescException when the description of the deadline task is not input by the user.
+     * @throws DukeMissingParamException when the /by flag is not input.
+     */
     public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException {
         if (line.length() == DEADLINE_LEN_OFFSET || line.substring(DEADLINE_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
@@ -61,6 +95,15 @@ public class TaskList {
         ui.printAddedDeadline(deadlineDescription, deadlineBy, tasks);
     }
 
+    /**
+     * Adds a EVENT type task to the ArrayList of Tasks, and checks if any required parameters are missing (description, event date).
+     * Throws an error if required parameters are missing.
+     *
+     * @param line the input of the user.
+     * @param tasks the ArrayList of Tasks where the EVENT task is to be added to.
+     * @throws DukeMissingDescException when the description of the event task is not input by the user.
+     * @throws DukeMissingParamException when the /at flag is not input.
+     */
     public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException {
         if (line.length() == EVENT_LEN_OFFSET || line.substring(EVENT_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
@@ -86,6 +129,16 @@ public class TaskList {
     }
 
 
+    /**
+     * Deletes a task from the ArrayList of Tasks. Throws an error if the task number to be deleted is missing, incorrectly
+     * input or is not a valid task number.
+     *
+     * @param numToRemove the task number to be removed.
+     * @param tasks the ArrayList of Tasks where the task is to removed.
+     * @throws DukeMissingParamException when the task number to be deleted is not input.
+     * @throws NumberFormatException when a string is input where the task number to be deleted is expected.
+     * @throws IndexOutOfBoundsException when the task number is invalid.
+     */
     public void deleteTask(int numToRemove, ArrayList<Task> tasks) throws DukeMissingParamException, NumberFormatException, IndexOutOfBoundsException {
         if ((numToRemove - DELETE_OFFSET >= 0) && (tasks.get(numToRemove - DELETE_OFFSET) != null)) {
             String byString = "by: ";
