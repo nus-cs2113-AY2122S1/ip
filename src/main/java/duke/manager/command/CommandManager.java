@@ -149,6 +149,11 @@ public class CommandManager {
     private void executeAddEvent(String[] argument) {
         try {
             taskManager.checkInputThenAddEvent(argument);
+            // inform user that input is not in the proper date time format
+            if (!taskManager.getLastTaskInList().isInDateTimeFormat()) {
+                System.out.println(Message.NOT_DATE_TIME_MESSAGE + System.lineSeparator()
+                        + UserInterface.HORIZONTAL_BAR);
+            }
             UserData.saveData(taskManager.saveTasksAsString());
         } catch (MissingCommandArgumentException mae) {
             UserInterface.printMessage(
@@ -166,6 +171,11 @@ public class CommandManager {
     private void executeAddDeadline(String[] argument) {
         try {
             taskManager.checkInputThenAddDeadline(argument);
+            // inform user that input is not in the proper date time format
+            if (!taskManager.getLastTaskInList().isInDateTimeFormat()) {
+                System.out.println(Message.NOT_DATE_TIME_MESSAGE + System.lineSeparator()
+                        + UserInterface.HORIZONTAL_BAR);
+            }
             UserData.saveData(taskManager.saveTasksAsString());
         } catch (MissingCommandArgumentException mae) {
             UserInterface.printMessage(
