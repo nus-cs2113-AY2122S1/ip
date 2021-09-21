@@ -14,6 +14,7 @@ public class Parser {
     private static final int TASK_TYPE_INDEX = 0;
     private static final int DONE_INDEX = 1;
     private static final int DESCRIPTION_INDEX = 2;
+    private static final String FIND_KEYWORD = "find";
 
     /**
      * Returns true.
@@ -90,6 +91,17 @@ public class Parser {
      */
     public static boolean isExitCommand(String userInput) {
         return userInput.replaceAll(" ", "").equals(BYE_KEYWORD);
+    }
+
+    /**
+     * Returns true.
+     * If user inputted a find command.
+     *
+     * @param userInput The input given by user.
+     * @return Returns true if user inputted a find command.
+     */
+    public static boolean isFindCommand(String userInput) {
+        return userInput.replaceAll(" ", "").equals(FIND_KEYWORD);
     }
 
     /**

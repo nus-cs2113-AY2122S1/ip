@@ -9,4 +9,5 @@ public enum Command {
     DONE,
     INVALID,
     DELETE,
+    FIND
 }

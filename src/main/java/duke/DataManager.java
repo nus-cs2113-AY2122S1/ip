@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DataManager {
-    private static final String FILENAME = ".\\DukeData.txt";
+    private static final String FILENAME = "./DukeData.txt";
     private static final int DESCRIPTION_INDEX = 2;
     private static final String NEWLINE = "\n";
 
