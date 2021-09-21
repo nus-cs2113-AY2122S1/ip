@@ -15,7 +15,6 @@ public class Task {
 
     }
 
-
     public void setDone(boolean isDone){
         this.isDone = isDone;
     }
@@ -30,10 +29,6 @@ public class Task {
 
     public String toString() {
         return "[" + getDone() + "]" + description;
-    }
-
-    public static void list() {
-        System.out.println("Here are the tasks in your list: ");
     }
 }
 

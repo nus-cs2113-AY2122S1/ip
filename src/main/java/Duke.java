@@ -1,31 +1,33 @@
 import java.util.Scanner;
 
 public class Duke {
-    static final String EXIT = "bye";
-    static final String LIST = "list";
-    static final String DONE = "done";
+    static final int DESCRIPTION = 1;
+    static final int TIME = 2;
     static final String LINE = "--------------------------------";
 
     static Task[] tasks = new Task[100];
     static int taskCount = 0;
 
     public static void greet() {
-        String logo = "       ___                             | '  \\\n" +
-                "   ___  \\ /  ___         ,'\\_           | .-. \\        /|\n" +
-                "   \\ /  | |,'__ \\  ,'\\_  |   \\          | | | |      ,' |_   /|\n" +
-                " _ | |  | |\\/  \\ \\ |   \\ | |\\_|    _    | |_| |   _ '-. .-',' |_   _\n" +
-                "// | |  | |____| | | |\\_|| |__    //    |     | ,'_`. | | '-. .-',' `. ,'\\_\n" +
-                "\\\\_| |_,' .-, _  | | |   | |\\ \\  //    .| |\\_/ | / \\ || |   | | / |\\  \\|   \\\n" +
-                " `-. .-'| |/ / | | | |   | | \\ \\//     |  |    | | | || |   | | | |_\\ || |\\_|\n" +
-                "   | |  | || \\_| | | |   /_\\  \\ /      | |`    | | | || |   | | | .---'| |\n" +
-                "   | |  | |\\___,_\\ /_\\ _      //       | |     | \\_/ || |   | | | |  /\\| |\n" +
-                "   /_\\  | |           //_____//       .||`  _   `._,' | |   | | \\ `-' /| |\n" +
-                "        /_\\           `------'        \\ |               `.\\  | |  `._,' /_\\\n" +
-                "                                       \\|                    `.\\\n" +
+        String logo = "  _                                         _   _            \n" +
+                " | |__   __ _ _ __ _ __ _   _   _ __   ___ | |_| |_ ___ _ __ \n" +
+                " | '_ \\ / _` | '__| '__| | | | | '_ \\ / _ \\| __| __/ _ \\ '__|\n" +
+                " | | | | (_| | |  | |  | |_| | | |_) | (_) | |_| ||  __/ |   \n" +
+                " |_| |_|\\__,_|_|  |_|   \\__, | | .__/ \\___/ \\__|\\__\\___|_|   \n" +
+                "                        |___/  |_|                         \n" +
                 "  S. Lu - I solemnly swear that I am up to no good.\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\n" +
-                "Trade with me your soul and you shall get what you desire.\n");
+        System.out.println(
+                "       Messrs Moony, Wormtail, Padfoot, and Prongs\n" +
+                "       Purveyors of Aids to Magical Mischief-Makers\n" +
+                "                  are proud to present\n" +
+                "                 --THE MARAUDER'S MAP--");
+    }
+
+    public static void hello() {
+        System.out.println("I see you are lost. \n" +
+                "Read the charm beneath out loud, and I shall serve you.");
+        System.out.println("- \"I solemnly swear that I am up to no good.\" ");
     }
 
     public static void alarm() {
@@ -33,10 +35,11 @@ public class Duke {
     }
 
     public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Mischief managed.");
     }
 
     public static void add(Task t) {
+        tasks[taskCount]= t;
         taskCount++;
         System.out.println("|| Got it. I've added this task");
         System.out.println("|| \t" + t.toString());
@@ -47,7 +50,8 @@ public class Duke {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(tasks[i].id + ". " + tasks[i].toString());
+            Task t = tasks[i];
+            System.out.println(t.id + ". " + t.toString());
         }
         System.out.println(LINE);
     }
@@ -63,64 +67,56 @@ public class Duke {
 
     }
 
-    public static String[] getDetails(String input, String keyword) {
-        String[] details = new String[3];
-        //details[0]: eliminated first word
-        //details[1]: description
-        //details[2]: time
-
+    public static String removeFirstWord(String input) {
         int i = input.indexOf(" ");
         String firstWord = input.substring(0, i);
-        details[0] = input.replace(firstWord, "");
+        return input.replace(firstWord, "");
+    }
 
-        if (keyword != null) {
-            int j = details[0].indexOf("/");
-            details[1] = details[0].substring(0, j);
+    public static String[] getDetails(String input) {
+        String[] details = new String[3];
 
-            String txt = details[0].substring(j);
-            details[2] = txt.replace(keyword, "");
-        }
+        details[0] = removeFirstWord(input);
+
+        int j = details[0].indexOf("/");
+
+        details[DESCRIPTION] = details[0].substring(0, j);
+        details[TIME] = details[0].substring(j+4);
 
         return details;
     }
 
-
     public static void main(String[] args) {
         greet();
 
-        String input;
-        int i = 0;
-
         Scanner in = new Scanner(System.in);
-        input = in.nextLine();
+        String input = in.nextLine();
 
         while (!input.startsWith("bye")) {
             String[] details;
 
             if (input.startsWith("hello")) {
-                greet();
+                hello();
             } else if (input.startsWith("list")) {
                 printList();
             } else if (input.startsWith("done")) {
                 markDone(input);
             } else if (input.startsWith("todo")) {
-                details = getDetails(input, null);
-                tasks[i] = new Todo(details[0]);
-                add(tasks[i]);
-                i++;
+                String description = removeFirstWord(input);
+                Todo t = new Todo(description);
+                add(t);
             } else if (input.startsWith("deadline")) {
-                details = getDetails(input, "/by");
-                tasks[i] = new Deadline(details[1], details[2]);
-                add(tasks[i]);
-                i++;
+                details = getDetails(input);
+                Deadline t = new Deadline(details[DESCRIPTION], details[TIME]);
+                add(t);
             } else if (input.startsWith("event")) {
-                details = getDetails(input, "/at");
-                tasks[i] = new Event(details[1],details[2]);
-                add(tasks[i]);
-                i++;
+                details = getDetails(input);
+                Event t = new Event(details[DESCRIPTION],details[TIME]);
+                add(t);
             } else {
                 alarm();
             }
+
             input = in.nextLine();
         }
         exit();
