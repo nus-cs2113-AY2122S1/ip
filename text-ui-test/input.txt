@@ -9,6 +9,7 @@ I want to sleep
 deadline submit assignment /by 2021-10-01
 event attend lecture /at 2021-10-01
 date 2021-10-01
+find assignment
 deadline project /by 2021-09-29
 date
 delete 5
@@ -17,6 +18,7 @@ todo eat dinner
 todo
 done 1
 done 2
+find
 list
 done 7
 done 5

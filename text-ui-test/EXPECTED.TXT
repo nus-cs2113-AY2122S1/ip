@@ -16,10 +16,10 @@ List of commands available:
 todo <type your task here> [eg. todo swimming]
 -> Adds a todo task to the task list.
 
-deadline <type your deadline here> <SPACE> </by> <SPACE> <type a date or time> [eg. deadline assignment /by monday 1pm]
+deadline <type your deadline here> <SPACE> </by> <SPACE> <type a date with format yyyy-mm-dd> [eg. deadline assignment /by 2021-10-01]
 -> Adds a deadline task to the task list.
 
-event <type your event here> <SPACE> </at> <SPACE> <type a date or time> [eg. lecture /at friday 4pm]
+event <type your event here> <SPACE> </at> <SPACE> <type a date with format yyyy-mm-dd> [eg. lecture /at 2021-10-01]
 -> Adds an event task to the task list.
 
 done <type task number> [eg. done 1]
@@ -27,6 +27,12 @@ done <type task number> [eg. done 1]
 
 delete <type task number> [eg. delete 2]
 -> Deletes the task found on the task list.
+
+find <type keyword> [eg. find assignment]
+-> Find the tasks in task list associated with the given keyword.
+
+date <type a date with format yyyy-mm-dd> [eg. 2021-10-01]
+-> Find the tasks associated with the given date from user.
 
 list [eg. list]
 -> Lists out all tasks on the list.
@@ -80,6 +86,9 @@ Input command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 2.[E][ ] attend lecture (at: 01 Oct 2021)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Input command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1.[D][ ] submit assignment (by: 01 Oct 2021)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Input command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Alright! Added to the list:
   [D][ ] project (by: 29 Sep 2021)
 You currently have 5 task recorded in your list.
@@ -114,6 +123,9 @@ Well done! Task marked:
 Input command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Well done! Task marked:
   [T][✓] running
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Input command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Please input a task number!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Input command: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Tasks list so far:
