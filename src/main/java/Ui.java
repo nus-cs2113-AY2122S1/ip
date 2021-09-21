@@ -19,32 +19,52 @@ public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
+    /** constructor of Ui class. */
     public Ui() {
         this(System.in, System.out);
     }
 
+    /**
+     * Constructor of Ui class
+     *
+     * @param in the source user input.
+     * @param out the space to display the outcome of programme.
+     */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
 
+    /** show the start message to welcome using the programme. */
     public void showWelcomeMessage() {
         out.println(DIVIDER);
         out.println("     Hello! I'm Duke\n     What can I do for you?");
         out.println(DIVIDER);
     }
 
+    /** show the end message for using the programme. */
     public void showGoodbyeMessage() {
         out.println(DIVIDER);
         out.println("     Bye. Hope to see you again soon!");
         out.println(DIVIDER);
     }
 
+    /**
+     * Display all the messages needed to show to user.
+     *
+     * @param message the needed messages to show.
+     */
     public void showMessages(String ... message) {
         for(String m: message) {
             out.println(m);
         }
     }
+
+    /**
+     * Show the result to user.
+     *
+     * @param result the result executed by the command.
+     */
     public void showResultToUser(CommandResult result) {
         if(result.feedback.equals("bye")) {
         } else if (result.feedback.contains("☹ OOPS!!!")) {
@@ -66,6 +86,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Show the relevant tasks to user.
+     *
+     * @param tasksList the relevant tasks need to show to user.
+     */
     public void showTasksList (List<Task> tasksList) {
         int taskIndex = INDEX_OFFSET;
         for(Task task: tasksList) {
@@ -75,6 +100,11 @@ public class Ui {
         out.println(DIVIDER);
     }
 
+    /**
+     * Get the command from user.
+     *
+     * @return the user input command.
+     */
     public String getUserCommand() {
         String inputLine;
         inputLine = in.nextLine();

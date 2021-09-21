@@ -4,10 +4,21 @@ public class DeleteCommand extends Command{
     public static final String MESSAGE_REMOVE = "     Noted. I've removed this task:";
     public static final String MESSAGE_INVALID_DELETE = "     ☹ OOPS!!! The description of a delete cannot be empty " +
             "or out of range.";
+
+    /**
+     * Constructor of DeleteCommand Class.
+     *
+     * @param targetIndex the index of deleted task.
+     */
     public DeleteCommand(int targetIndex) {
         super(targetIndex);
     }
 
+    /**
+     * Executes the Delete command.
+     *
+     * @return the result of command includes the message shown to user, the task deleted and total tasks number.
+     */
     @Override
     public CommandResult execute() {
         try {

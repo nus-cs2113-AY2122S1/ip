@@ -19,6 +19,12 @@ public class Parser {
     public static final String INVALID_DEADLINE_ADD_MESSAGE = "     ☹ OOPS!!! The description of a deadline cannot be empty " +
             "or incorrect format.";
 
+    /**
+     * Return a new command class to execute based on the user input.
+     *
+     * @param userInput contains the command
+     * @return the new command class
+     */
     public Command parseCommand (String userInput) {
 
         String[] words = userInput.trim().split(" ", 2);

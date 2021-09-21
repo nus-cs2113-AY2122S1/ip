@@ -4,6 +4,11 @@ public class Duke {
     private TaskList tasksList = new TaskList();
     private Ui ui;
 
+    /**
+     * Constructor for Duke class.
+     *
+     * @param filePath The file containing the tasks.
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -17,6 +22,7 @@ public class Duke {
         new Duke("./src/Duke.txt").run();
     }
 
+    /** Run the Duke */
     public void run() {
         startDuke();
         runCommand();
@@ -38,6 +44,7 @@ public class Duke {
         System.exit(0);
     }
 
+    /** The process of running Duke */
     private void runCommand() {
         Command command;
         do {
@@ -49,6 +56,12 @@ public class Duke {
         } while (!ExitCommand.isExit(command));
     }
 
+    /**
+     * Return the result of the executed command.
+     *
+     * @param command the command class based on user input.
+     * @return the result of executed command.
+     */
     private CommandResult executeCommand(Command command) {
         command.setData(tasksList);
         CommandResult result = command.execute();

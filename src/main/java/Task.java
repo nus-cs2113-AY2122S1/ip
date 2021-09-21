@@ -1,5 +1,5 @@
 
-
+/** The abstract task class to be implemented. */
 public abstract class Task {
     protected String description;
 
