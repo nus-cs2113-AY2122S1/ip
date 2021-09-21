@@ -7,8 +7,8 @@ public class Verifier {
     public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event", "delete");
     
     
-    public boolean isDelete(int commandLength, String input) {
-        return commandLength == 2 && input.equals("delete");
+    public boolean isDelete(String input) {
+        return input.equals("delete");
     }
 
 
@@ -37,24 +37,24 @@ public class Verifier {
         return taskNumber <= 0 || taskNumber > taskCount;
     }
     
-    public boolean isDone(int commandLength, String s) {
-        return commandLength == 2 && s.equals("done");
+    public boolean isDone(String s) {
+        return s.equals("done");
     }
 
-    public boolean isEvent(int commandLength, String s) {
-        return commandLength == 2 && s.equals("event");
+    public boolean isEvent(String s) {
+        return s.equals("event");
     }
 
-    public boolean isDeadline(int commandLength, String s) {
-        return commandLength == 2 && s.equals("deadline");
+    public boolean isDeadline(String s) {
+        return s.equals("deadline");
     }
 
-    public boolean isTodo(int commandLength, String s) {
-        return commandLength == 2 && s.equals("todo");
+    public boolean isTodo(String s) {
+        return s.equals("todo");
     }
 
-    public boolean isList(int commandLength, String s) {
-        return commandLength == 1 && s.equals("list");
+    public boolean isList(String s) {
+        return s.equals("list");
     }
     
 }

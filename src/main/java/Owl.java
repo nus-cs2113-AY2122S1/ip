@@ -1,12 +1,10 @@
 import DukeUtility.FileWriter;
 import DukeUtility.OwlException;
 import DukeUtility.Ui;
-import java.util.Scanner;
 
 public class Owl {
     public static final String INVALID_MESSAGE = "The command doesnt exist.....";
     public static final String FULL_RELATIVE_MEMORY_PATH = "data/owlmemory";
-
     
     private TaskList tasks;
     private FileWriter fileWriter;
@@ -18,7 +16,7 @@ public class Owl {
         verifier = new Verifier();
         fileWriter = new FileWriter(filePath);
         tasks = new TaskList(fileWriter.readFile());
-    } 
+    }
     
     public void run() {
         ui.printWelcome();
@@ -32,17 +30,17 @@ public class Owl {
                     OwlException.checkException(inputs);
                 } else if (verifier.isInvalidTwoPartCmd(inputs, commandLength)) {
                     OwlException.checkException(inputs);
-                } else if (verifier.isDone(commandLength, inputs[0])) {
+                } else if (verifier.isDone(inputs[0])) {
                     tasks.markCompletionOfTask(tasks, inputs[1]);
-                } else if (verifier.isList(commandLength, inputs[0])) {
+                } else if (verifier.isList(inputs[0])) {
                     tasks.listTask(tasks);
-                } else if (verifier.isTodo(commandLength, inputs[0])) {
+                } else if (verifier.isTodo(inputs[0])) {
                     tasks.addTodo(tasks, inputs);
-                } else if (verifier.isDeadline(commandLength, inputs[0])) {
+                } else if (verifier.isDeadline(inputs[0])) {
                     tasks.addDeadline(tasks, inputs);
-                } else if (verifier.isEvent(commandLength, inputs[0])) {
+                } else if (verifier.isEvent(inputs[0])) {
                     tasks.addEvent(tasks, inputs);
-                } else if (verifier.isDelete(commandLength, inputs[0])) {
+                } else if (verifier.isDelete(inputs[0])) {
                     tasks.deleteTask(tasks, inputs[1]);
                 } else {
                     System.out.println(INVALID_MESSAGE);
@@ -63,4 +61,3 @@ public class Owl {
     }
     
 }
-

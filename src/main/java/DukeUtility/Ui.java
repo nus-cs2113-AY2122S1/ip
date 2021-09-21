@@ -30,12 +30,14 @@ public class Ui {
         System.out.println(GREETING_MESSAGE);
         printLine();
     }
+    
     public static void printLine() {
         for(int i = 0; i <= 50; i++) {
             System.out.print("~");
         }
         System.out.println(" ");
     }
+    
     public static void printTaskCompletionMsg(int taskNumber) {
         Ui.printLine();
         System.out.println("Oooh I see you've done task " + taskNumber);
@@ -48,6 +50,7 @@ public class Ui {
         System.out.println("There are currently " + taskCount + " task now!");
         Ui.printLine();
     }
+    
     public static void printTaskCount(int taskCount, String command) {
         Ui.printLine();
         echoMessage(command);
@@ -58,6 +61,7 @@ public class Ui {
     public static void echoMessage(String line) {
         System.out.println("Owl: I've added that!\nOwl: You added this: " + line);
     }
+    
     public static void deleteMessage(String line) {
         System.out.println("Owl: I've deleted that!\nOwl: You deleted this: " + line);
     }
@@ -67,6 +71,5 @@ public class Ui {
         System.out.println("This are all the things I've remembered for you:");
         Ui.printLine();
     }
-    
     
 }

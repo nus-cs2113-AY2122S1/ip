@@ -43,7 +43,7 @@ public class TaskList {
             int taskNumber = Integer.parseInt(s);
             int taskIndex = taskNumber - 1;
             if (Verifier.isInvalidTaskCount(tasks.taskCount, taskNumber)) {
-                throw new OwlException("invalid task number");
+                throw new OwlException("You have keyed in an invalid task number!!!");
             }
             if (tasks.getTask(taskIndex).isDone()) {
                 throw new OwlException("Task already done!!");
@@ -60,7 +60,7 @@ public class TaskList {
             int taskNumber = Integer.parseInt(input);
             int taskIndex = taskNumber - 1;
             if(Verifier.isInvalidTaskCount(tasks.getTaskCount(), taskNumber)) {
-                throw new OwlException("invalid task number");
+                throw new OwlException("Invalid task number");
             }
             Task deletedTask = tasks.getTask(taskIndex);
             tasks.deleteTask(taskIndex);

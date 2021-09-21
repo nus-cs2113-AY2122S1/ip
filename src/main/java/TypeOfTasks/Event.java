@@ -16,6 +16,6 @@ public class Event extends Task {
         return tag;
     }
     public void printList(Task theTask, int index) {
-        System.out.println(index + ".[E][" + (theTask.getStatus()) + "] "+ theTask.getDescription() + "(at: " + at + ")");
+        System.out.println(index + ".[E][" + theTask.getStatus() + "] "+ theTask.getDescription() + "(at: " + at + ")");
     }
 }
