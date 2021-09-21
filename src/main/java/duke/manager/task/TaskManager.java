@@ -203,6 +203,13 @@ public class TaskManager {
      * @param filterWord String to filter the task list by.
      */
     public void printFilteredTaskList(String filterWord) {
+        // Short circuit if no tasks to search
+        if (tasks.isEmpty()) {
+            UserInterface.printMessage(
+                    Message.EMPTY_TASK_LIST_MESSAGE
+            );
+            return;
+        }
         ArrayList<Task> filteredTaskList = (ArrayList<Task>) tasks.stream()
                 .filter((t) -> t.getTaskDescription().contains(filterWord))
                 .collect(Collectors.toList());
@@ -223,14 +230,15 @@ public class TaskManager {
      * @throws NumberFormatException      User input not parsable into an int.
      */
     public void markTaskAsDone(String inputTaskNumber) throws InvalidTaskNumberException, NumberFormatException {
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(inputTaskNumber.trim(), 10);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException();
+        // Short circuit if no task to mark as done
+        if (tasks.isEmpty()) {
+            UserInterface.printMessage(
+                    Message.EMPTY_TASK_LIST_MESSAGE
+            );
+            return;
         }
+        int taskNumber = parseTaskNumber(inputTaskNumber);
         boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
-
         if (!taskNumberInRange) {
             throw new InvalidTaskNumberException();
         }
@@ -257,12 +265,7 @@ public class TaskManager {
             );
             return;
         }
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(inputTaskNumber.trim(), 10);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException();
-        }
+        int taskNumber = parseTaskNumber(inputTaskNumber);
         boolean taskNumberInRange = (taskNumber >= 1) && (taskNumber <= tasks.size());
         if (!taskNumberInRange) {
             throw new InvalidTaskNumberException();
@@ -272,6 +275,23 @@ public class TaskManager {
                 Message.getMessageForDeletingTask(taskDescriptionWithStatus, tasks.size() - 1)
         );
         tasks.remove(taskNumber - 1);
+    }
+
+    /**
+     * Returns the input task number as an integer.
+     *
+     * @param inputTaskNumber Task number as a String.
+     * @return int Task number as an integer.
+     * @throws NumberFormatException User inputTaskNumber not parsable into an int.
+     */
+    private int parseTaskNumber(String inputTaskNumber) throws NumberFormatException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(inputTaskNumber.trim(), 10);
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException();
+        }
+        return taskNumber;
     }
 
     /**
@@ -290,7 +310,7 @@ public class TaskManager {
     /**
      * Adds an event to the list if user input had the necessary argument(s).
      *
-     * @param arguments Argument for event
+     * @param arguments Argument for event.
      * @throws MissingCommandArgumentException No arguments given.
      */
     public void checkInputThenAddEvent(String[] arguments) throws MissingCommandArgumentException {
