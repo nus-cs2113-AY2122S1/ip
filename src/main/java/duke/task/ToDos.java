@@ -13,6 +13,6 @@ public class ToDos extends Task {
 
     @Override
     public String storageText () {
-        return "T" + super.storageText();
+        return TODO_T + super.storageText();
     }
 }

@@ -13,8 +13,8 @@ public class CompleteCommand extends Command {
     }
 
     @Override
-    public void executed() throws DukeException {
+    public void execute() throws DukeException {
         taskList.markTaskDone(taskIndex);
-        Ui.printWithLine(TASK_MARKED + "  " + taskList.getTask(taskIndex) + "\n");
+        Ui.printWithLine(TASK_MARKED + SPACE + SPACE + taskList.getTask(taskIndex) + NEW_LINE);
     }
 }

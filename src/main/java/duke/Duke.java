@@ -34,7 +34,7 @@ public class Duke extends Text {
         while (true) {
             try {
                 userCommand = parseCommands.parseCommand(userInput);
-                userCommand.executed();
+                userCommand.execute();
                 storage.saveFile(taskList);
             } catch (DukeException e) {
                 Ui.printWithLine(e.getMessage());
