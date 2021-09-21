@@ -2,14 +2,7 @@ package kitty.userinterface;
 
 import kitty.Kitty;
 import kitty.KittyException;
-import kitty.task.Task;
-import kitty.task.Todo;
-import kitty.task.Deadline;
-import kitty.task.Event;
-
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.io.File;
 
 /**
  * The class <code>Ui</code> includes methods that involves User Interface.

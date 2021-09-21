@@ -31,21 +31,17 @@ public class Event extends Task{
         if(!Parser.hasEventDate(line)) {
             throw new KittyException("Event formatting is incorrect!");
         } else {
-            try {
-                // Get Event Name
-                String taskName = Parser.getEventTaskName(line);
+            // Get Event Name
+            String taskName = Parser.getEventTaskName(line);
 
-                // Get Event Date as String
-                String eventDateString = Parser.getEventDateString(line);
+            // Get Event Date as String
+            String eventDateString = Parser.getEventDateString(line);
 
-                // Get Event Date as LocalDate
-                LocalDate eventDate = Parser.getTaskDate(eventDateString);
+            // Get Event Date as LocalDate
+            LocalDate eventDate = Parser.getTaskDate(eventDateString);
 
-                // Add Event Task
-                Kitty.tasks.add(new Event(taskName, eventDate));
-            } catch (KittyException e) {
-                throw e;
-            }
+            // Add Event Task
+            Kitty.tasks.add(new Event(taskName, eventDate));
         }
     }
 

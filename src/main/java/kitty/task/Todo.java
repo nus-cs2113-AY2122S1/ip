@@ -3,9 +3,6 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
-import kitty.io.IO;
-
-import java.util.function.ToDoubleFunction;
 
 /**
  * The class <code>Todo</code> includes methods that involves tasks of type Todo.
@@ -22,12 +19,8 @@ public class Todo extends Task{
      * @throws KittyException If line is of the wrong format for adding a task of Todo type.
      */
     public static void addTodoTask(String line) throws KittyException {
-        try {
-            String taskName = Parser.getTodoTaskName(line);
-            Kitty.tasks.add(new Todo(taskName));
-        } catch (KittyException e) {
-            throw e;
-        }
+        String taskName = Parser.getTodoTaskName(line);
+        Kitty.tasks.add(new Todo(taskName));
     }
 
     @Override

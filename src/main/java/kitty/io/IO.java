@@ -102,7 +102,7 @@ public class IO {
     /**
      * Writes a new line to data file.
      * @param text text is the String in which we wish to write into data file.
-     * @throws KittyException If text is of the wrong foormat.
+     * @throws KittyException If text is of the wrong format.
      */
     public static void appendNewLine(String text) throws KittyException{
         try {
@@ -133,32 +133,27 @@ public class IO {
      * @throws KittyException If the file is not found or an invalid formatting.
      */
     public static void updateData() throws KittyException{
-        try {
-            clearFile();
-            for (Task task: Kitty.tasks) {
-                if (task instanceof Todo) {
-                    if (task.isDone()) {
-                        appendNewLine("T|1|" + task.getTaskName());
-                    } else {
-                        appendNewLine("T|0|" + task.getTaskName());
-                    }
-                } else if (task instanceof Deadline) {
-                    if (task.isDone()) {
-                        appendNewLine("D|1|" + task.getTaskName() + "|" + ((Deadline) task).getDeadline());
-                    } else {
-                        appendNewLine("D|0|" + task.getTaskName() + "|" + ((Deadline) task).getDeadline());
-                    }
-                } else if (task instanceof Event) {
-                    if (task.isDone()) {
-                        appendNewLine("E|1|" + task.getTaskName() + "|" + ((Event) task).getEventDate());
-                    } else {
-                        appendNewLine("E|0|" + task.getTaskName() + "|" + ((Event) task).getEventDate());
-                    }
+        clearFile();
+        for (Task task: Kitty.tasks) {
+            if (task instanceof Todo) {
+                if (task.isDone()) {
+                    appendNewLine("T|1|" + task.getTaskName());
+                } else {
+                    appendNewLine("T|0|" + task.getTaskName());
+                }
+            } else if (task instanceof Deadline) {
+                if (task.isDone()) {
+                    appendNewLine("D|1|" + task.getTaskName() + "|" + ((Deadline) task).getDeadline());
+                } else {
+                    appendNewLine("D|0|" + task.getTaskName() + "|" + ((Deadline) task).getDeadline());
+                }
+            } else if (task instanceof Event) {
+                if (task.isDone()) {
+                    appendNewLine("E|1|" + task.getTaskName() + "|" + ((Event) task).getEventDate());
+                } else {
+                    appendNewLine("E|0|" + task.getTaskName() + "|" + ((Event) task).getEventDate());
                 }
             }
-        } catch (KittyException e) {
-            throw e;
         }
-
     }
 }
