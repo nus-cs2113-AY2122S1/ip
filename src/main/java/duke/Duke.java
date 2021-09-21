@@ -22,18 +22,6 @@ public class Duke {
         Ui.byeUser();
     }
 
-    /**
-     * Prints the list of tasks collated by Tired.
-     */
-    public static void printList() {
-        Ui.printTopLine();
-        System.out.println(INDENT + "Here are your tasks, \"oRgAnIc iTeLlIgEnCe\":");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(INDENT + (i + 1) + "." + words[i]);
-        }
-        Ui.printBottomLine();
-    }
-
     //Move to taskManager //////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -92,9 +80,7 @@ public class Duke {
         String plural = (taskPending) == 1 ? "" : "s";
 
         Ui.printTopLine();
-        System.out.println(INDENT + " Fine. Added to your list:");
-        System.out.println(INDENT + "   " + words[taskCount - 1]);
-        System.out.println(INDENT + " You have " + taskPending + " pending task" + plural + ". tHaT's aWeSoMe!!!!!1!!");
+        Ui.printAddedTask(words, plural, taskCount, taskPending);
         Ui.printBottomLine();
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +103,7 @@ public class Duke {
                 System.out.println(INDENT + "Wha- Hey! Task does not exist!");
             } else if (words[taskNumber].getDoneStatus()) {
                 System.out.println(INDENT + "Dude... you've done the task already.");
-            } else if (isExists) {
+            } else {
                 taskCompleted++;
                 words[taskNumber].setAsDone();
                 System.out.println(INDENT + "About time. I've mark that task as done:");
@@ -129,32 +115,6 @@ public class Duke {
         } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printMissingTextError();
         }
-    }
-
-//    public static boolean confirmUndoneTaskExistence(int taskNumber) throws DukeException {
-//        boolean isExists = taskNumber >= 0 && taskNumber < taskCount;
-//
-//        if () {
-//            throw new NumberFormatException("expected a number");
-//        }
-//        else if (!isExists) {
-//            throw new ArrayIndexOutOfBoundsException("number out of bounds");
-//        } else if (words[taskNumber].getDoneStatus()) {
-//            System.out.println(INDENT + "Dude... you've done the task already.");
-//        } else {
-//            return true;
-//        }
-//    }
-
-    public static int parsedInteger(String userInput) {
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(userInput) - 1;
-            return taskNumber;
-        } catch (NumberFormatException e){
-            Ui.printNumberFormatError();
-        }
-        return 0;
     }
 
     /**
@@ -193,7 +153,7 @@ public class Duke {
                 Ui.mockUser();
                 break;
             case "list":
-                printList();
+                Ui.printList(words, taskCount);
                 break;
             case "done":
                 userInput = text.nextLine();
@@ -204,7 +164,6 @@ public class Duke {
                     userInput = parts[1];
                     markTaskAsDone(userInput);
                 }
-                //markTaskAsDone(Integer.parseInt(userInput) - 1);
                 break;
             case "todo":
                 taskName = text.nextLine();
@@ -222,7 +181,6 @@ public class Duke {
 
                 taskName = parts[0];
                 taskDetails = parts[1];
-
                 addTask(taskName, taskType, taskDetails);
                 break;
             default:

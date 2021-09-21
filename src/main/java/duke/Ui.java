@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 public class Ui {
     public static final String INDENT = "    │ ";
 
@@ -33,6 +35,18 @@ public class Ui {
         System.out.println(logo);
     }
 
+    /**
+     * Prints the list of tasks collated by Tired.
+     */
+    public static void printList(Task words[], int taskCount) {
+        printTopLine();
+        System.out.println(INDENT + "Here are your tasks, \"oRgAnIc iTeLlIgEnCe\":");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(INDENT + (i + 1) + "." + words[i]);
+        }
+        printBottomLine();
+    }
+
     public static void printGreeting() {
         System.out.println(INDENT + "*Sigh* Hi... I'm Tired                                             │\n"
                 + INDENT + "What do you want from me?                                          │");
@@ -61,6 +75,13 @@ public class Ui {
 
     public static void printNumberExpected() {
         System.out.println(INDENT + "Does that look like a number to you? Retype. A. Number.");
+    }
+
+    public static void printAddedTask(Task[] words, String plural, int taskCount, int taskPending) {
+        System.out.println(INDENT + " Fine. Added to your list:");
+        System.out.println(INDENT + "   " + words[taskCount - 1]);
+        System.out.println(INDENT + " You have " + taskPending + " pending task" + plural + ". tHaT's aWeSoMe!!!!!1!!");
+
     }
 
     /**
