@@ -61,7 +61,7 @@ public class DataManager {
     private static void addTaskEntry(String[] dataParts) throws DukeBlankDescriptionsException,
             DukeInvalidTaskIndexException {
         if (Parser.isTodoEntry(dataParts)) {
-            TaskManager.addTask(Command.ADD_TODO, dataParts[DESCRIPTION_INDEX]);
+            TaskManager.addTask(Command.ADD_TO_DO, dataParts[DESCRIPTION_INDEX]);
             if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }
