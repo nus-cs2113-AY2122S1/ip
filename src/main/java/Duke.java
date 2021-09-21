@@ -1,8 +1,14 @@
-import exceptions.*;
-
+import exceptions.EventException;
+import exceptions.TodoException;
+import exceptions.DoneException;
+import exceptions.DeadlineException;
+import exceptions.DeleteException;
+import exceptions.DukeException;
 import java.io.IOException;
 import java.util.Scanner;
-import ui.Ui;
+import processors.Storage;
+import processors.ProcessManager;
+import processors.Ui;
 
 public class Duke {
     private static final String BYE = "bye";
@@ -13,13 +19,15 @@ public class Duke {
     private static final String DONE = "done";
     private static final String TODO = "todo";
 
-    public static ProcessManager processManager = new ProcessManager();
     public static Ui ui = new Ui();
+    public static ProcessManager processManager = new ProcessManager();
+    public static Storage storage = new Storage();
 
     public static void main(String[] args) {
         ui.welcomeMessage();
+
         try {
-            processManager.loadTasks();
+            storage.loadTasks(processManager);
         } catch (IOException e) {
             ui.printIOException(e);
         } catch (SecurityException e) {
@@ -37,7 +45,7 @@ public class Duke {
             if (line.equals(BYE)) {
                 isProgress = false;
                 try {
-                    processManager.saveTasks();
+                    storage.saveTasks(processManager);
                 } catch (IOException e) {
                     ui.printIOException(e);
                 }

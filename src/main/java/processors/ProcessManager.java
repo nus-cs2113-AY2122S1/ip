@@ -1,25 +1,20 @@
+package processors;
+
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
 import exceptions.DeadlineException;
 import exceptions.DeleteException;
-import exceptions.DukeException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import ui.Ui;
 
 public class ProcessManager {
     private static final String EVENT_KEYWORD = "/at";
     private static final String DEADLINE_KEYWORD = "/by";
     private static final String DONE_DELETE_KEYWORD = " ";
-    private static final String DIVIDER = "|";
 
     private static final Integer KEYWORD_LENGTH = 2;
     private static final Integer EVENT_DIVIDER = 6;
@@ -31,83 +26,8 @@ public class ProcessManager {
     private static final Integer ZERO = 0;
     private static final Integer DONE_LENGTH = 4;
 
-    private static final String FILEPATH = "data/SavedTask.txt";
-
     public Ui ui = new Ui();
     public ArrayList<Task> taskList = new ArrayList<>();
-
-    /* ---- File Function ---- */
-
-    public void loadTasks() throws IOException, SecurityException {
-        File file = new File(FILEPATH);
-        try {
-            if (file.exists()) {
-                ui.printLoadMessage();
-                Scanner fileScan = new Scanner(file);
-                while (fileScan.hasNext()) {
-                    try {
-                        parseTasks(fileScan.nextLine());
-                    } catch (DukeException e) {
-                        e.printStatement();
-                    }
-                }
-                ui.printLoadMessageComplete();
-            } else {
-                file.getParentFile().mkdirs();
-                ui.printGreetings();
-            }
-        } catch (IOException e) {
-            throw new IOException("Something went wrong during file creation :( ");
-        } catch (SecurityException e) {
-            throw new SecurityException("File could not be accessed");
-        }
-    }
-
-    public void parseTasks(String line) throws DukeException {
-        int dividerPosition1 = line.indexOf(DIVIDER) + ARRAY_INDEX_FINDER;
-        int dividerPosition2 = line.indexOf(DIVIDER, dividerPosition1) + ARRAY_INDEX_FINDER;
-        int dividerPosition3 = line.indexOf(DIVIDER, dividerPosition2) + ARRAY_INDEX_FINDER;
-        String description = line.substring(dividerPosition1, dividerPosition2 - 1).trim();
-        String date = line.substring(dividerPosition2, dividerPosition3 - 1).trim();
-        String status = line.substring(dividerPosition3).trim();
-        if (line.startsWith("T")) {
-            taskList.add(new Todo(description));
-            try {
-                checkStatus(status);
-            } catch (DukeException e) {
-                e.printStatement();
-            }
-        } else if (line.startsWith("D")) {
-            taskList.add(new Deadline(description, date));
-            try {
-                checkStatus(status);
-            } catch (DukeException e) {
-                e.printStatement();
-            }
-        } else if (line.startsWith("E")) {
-            taskList.add(new Event(description, date));
-            try {
-                checkStatus(status);
-            } catch (DukeException e) {
-                e.printStatement();
-            }
-        } else {
-            throw new DukeException("Task Syntax Corrupted, Unable to Parse Request");
-        }
-    }
-
-    public void saveTasks() throws IOException {
-        FileWriter fileWrite = new FileWriter(FILEPATH);
-        fileWrite.close();
-        for (Task task : taskList) {
-            try {
-                task.saveTask(FILEPATH);
-            } catch (IOException e) {
-                throw new IOException("Error Occurred While Saving File");
-            }
-        }
-    }
-    /* ---- ------------- ---- */
 
     /* ---- Handle Functions ---- */
 
@@ -229,14 +149,6 @@ public class ProcessManager {
     public int getLastIndex() {
         int index = taskList.size() - ARRAY_INDEX_FINDER;
         return Math.max(index, ZERO);
-    }
-
-    public void checkStatus(String status) throws DukeException {
-        if (status.equals("true")) {
-            taskList.get(getLastIndex()).setIsDone();
-        } else if (!status.equals("false")) {
-            throw new DukeException("Invalid Status");
-        }
     }
 
     public boolean isDateExist(Integer length, Integer index) {
