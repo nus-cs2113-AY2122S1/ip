@@ -44,10 +44,9 @@ public class Parser {
             return new SetTaskDoneCommand(taskManager, commandArguments);
         case DELETE_TASK_CMD:
             return new DeleteTaskCommand(taskManager, commandArguments);
-
+        default:
+            return new InvalidCommand();
         }
-
-        return new InvalidCommand();
 
     }
 
