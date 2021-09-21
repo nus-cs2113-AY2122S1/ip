@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.exception.TodoFormatException;
+import duke.exception.ToDoFormatException;
 import duke.task.TaskManager;
 
 public class AddToDoCommand extends Command {
@@ -15,8 +15,8 @@ public class AddToDoCommand extends Command {
         String dukeMessage = "";
 
         try {
-            taskManager.addToDo(commandArguments);
-        } catch (TodoFormatException e) {
+            dukeMessage = taskManager.addToDo(commandArguments);
+        } catch (ToDoFormatException e) {
             dukeMessage = e.toString();
         }
 

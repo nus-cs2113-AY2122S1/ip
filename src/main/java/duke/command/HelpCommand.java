@@ -2,10 +2,10 @@ package duke.command;
 
 public class HelpCommand extends Command {
 
-    private final String HELP_MSG = "Types of Commands Available [\uD83D\uDCAC]:\n"
+    private final String HELP_MSG = "Here are the types of commands available [\uD83D\uDCAC]:\n"
             + "1. Terminate Duke            -> bye \n"
-            + "2. Print Tasklist            -> list \n"
-            + "3. Print Available Commands  -> help \n"
+            + "2. Print Available Commands  -> help \n"
+            + "3. Print Tasklist            -> list \n"
             + "4. Add Todos                 -> {todo <task description>}\n"
             + "5. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
             + "6. Add Events                -> {event <task description> /at <task date&time>}\n"

@@ -2,8 +2,7 @@ package duke.command;
 
 public class InvalidCommand extends Command{
 
-    private final String INVALID_COMMAND_MSG = "\n[Duke]:\n"
-            + "=> Yikes, I do not recognise your input! (refer to 'help' command)";
+    private final String INVALID_COMMAND_MSG = "Yikes, I do not recognise your input! (refer to 'help' command)";
 
     @Override
     public CommandResult executeCommand() {

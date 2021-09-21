@@ -2,8 +2,7 @@ package duke.exception;
 
 public class EmptyTasklistException extends Exception {
 
-    private final String TASKLIST_EMPTY_MSG = "\n[Duke]:\n"
-            + "=> Yikes, there are currently no tasks in the tasklist!\n"
+    private final String TASKLIST_EMPTY_MSG = "Yikes, there are currently no tasks in the tasklist!\n"
             + "=> Please kindly add a task (todo/deadline/event) first...";
 
     @Override

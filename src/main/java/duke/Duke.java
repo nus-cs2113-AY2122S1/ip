@@ -2,16 +2,6 @@ package duke;
 
 import duke.command.Command;
 import duke.command.CommandResult;
-import duke.command.TerminateCommand;
-import duke.exception.InvalidCommandException;
-import duke.exception.TodoFormatException;
-import duke.exception.DeadlineFormatException;
-import duke.exception.EventFormatException;
-import duke.exception.EmptyTasklistException;
-import duke.exception.DoneFormatException;
-import duke.exception.InvalidTaskIdException;
-import duke.exception.TaskAlreadyDoneException;
-import duke.exception.DeleteFormatException;
 
 import duke.ui.DukeInterface;
 import duke.local.DataManager;
@@ -27,7 +17,6 @@ public class Duke {
     private final DataManager dataManager;
     private TaskManager taskManager;
     private final Parser parser;
-
 
     private final String FILE_PATH = "data/duke.txt";
 
@@ -50,7 +39,7 @@ public class Duke {
 
         dukeUi.printWelcomeMsg();
 
-        Command userCommand = null;
+        Command userCommand;
         CommandResult commandResult = null;
 
         do {
@@ -69,7 +58,7 @@ public class Duke {
                 dataManager.writeToFile(taskManager);
             }
 
-            dukeUi.printMsgWithCursor(commandResult.getDukeMessage());
+            dukeUi.printDukeMessage(commandResult.getDukeMessage());
 
         } while(commandResult.getIsExited() != true);
 

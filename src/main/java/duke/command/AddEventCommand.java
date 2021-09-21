@@ -15,7 +15,7 @@ public class AddEventCommand extends Command {
         String dukeMessage = "";
 
         try {
-            taskManager.addEvent(commandArguments);
+            dukeMessage = taskManager.addEvent(commandArguments);
         } catch (EventFormatException e) {
             dukeMessage = e.toString();
         }

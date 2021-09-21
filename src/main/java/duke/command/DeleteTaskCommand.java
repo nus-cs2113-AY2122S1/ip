@@ -18,7 +18,7 @@ public class DeleteTaskCommand extends Command {
         String dukeMessage = "";
 
         try {
-            taskManager.deleteTask(commandArguments);
+            dukeMessage = taskManager.deleteTask(commandArguments);
         } catch (DeleteFormatException e) {
             dukeMessage = e.toString();
         } catch (InvalidTaskIdException e) {

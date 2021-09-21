@@ -17,7 +17,7 @@ public class SetTaskDoneCommand extends Command {
         String dukeMessage = "";
 
         try {
-            taskManager.setTaskComplete(commandArguments);
+            dukeMessage = taskManager.setTaskComplete(commandArguments);
         } catch (DoneFormatException e) {
             dukeMessage = e.toString();
         } catch (InvalidTaskIdException e) {

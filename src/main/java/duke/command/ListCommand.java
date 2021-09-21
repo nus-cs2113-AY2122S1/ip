@@ -15,7 +15,7 @@ public class ListCommand extends Command{
         String dukeMessage = "";
 
         try {
-            taskManager.getTasklist();
+            dukeMessage = taskManager.getTasklist();
         } catch (EmptyTasklistException e) {
             dukeMessage = e.toString();
         }

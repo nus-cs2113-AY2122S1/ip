@@ -15,7 +15,7 @@ public class AddDeadlineCommand extends Command {
         String dukeMessage = "";
 
         try {
-            taskManager.addDeadline(commandArguments);
+            dukeMessage = taskManager.addDeadline(commandArguments);
         } catch (DeadlineFormatException e) {
             dukeMessage = e.toString();
         }

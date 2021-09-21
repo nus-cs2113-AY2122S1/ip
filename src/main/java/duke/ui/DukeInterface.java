@@ -39,5 +39,5 @@ public class DukeInterface {
         printCursor();
         System.out.println(dukeMessage);
     }
-    
+
 }
