@@ -134,6 +134,11 @@ public class TaskList {
         return entry.getName().contains(searchTerm);
     }
 
+    /**
+     * Prints all the list entries that contain a substring matching the search term
+     * Is not case-sensitive
+     * @param input user input
+     */
     public void printSearchList(String input) {
         String searchTerm = Parser.parseSearchTerm(input);
         int matchCount = 0;

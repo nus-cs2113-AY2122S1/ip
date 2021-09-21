@@ -4,11 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends TaskWithDateTime {
-    private LocalDateTime dateTime;
 
     public Deadline(String name, LocalDateTime dateTime) {
-        super(name);
-        this.dateTime = dateTime;
+        super(name, dateTime);
     }
 
     public LocalDateTime getDateTime() {

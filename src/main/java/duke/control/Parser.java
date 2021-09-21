@@ -22,7 +22,6 @@ public class Parser {
      * Parses the user input to obtain Date and Time information for Deadline and Event tasks
      * Method is called by parseTaskType, which performs the check for whether the input is in the correct format,
      * so it can be assumed that the input is valid. Format is yyyy-mm-dd xx:xx
-     *
      * @param input user input String
      * @return the Date and Time information for a Deadline or Event task
      */
@@ -141,9 +140,8 @@ public class Parser {
 
     /**
      * Parses date and time information from a line from the save file.
-     * Data is saved in the form [D][X] name (by: MMM d yyyy
-     *
-     * @param inputLineFromFile
+     * Data is saved in the form [D][X] name DT: yyyy-mm-ddTxx:xx
+     * @param inputLineFromFile line of input from save file
      * @return the date and time of the task object from the input line, in the form of a LocalDateTime object.
      * @throws InvalidInputFormatException
      */
@@ -156,10 +154,9 @@ public class Parser {
 
     /**
      * Parses task description from a line from the save file
-     *
-     * @param inputLineFromFile
-     * @param taskType
-     * @return
+     * @param inputLineFromFile line of input from save file
+     * @param taskType type of entry, either Todo, Deadline or Event
+     * @return Description of task
      * @throws InvalidInputFormatException
      * @throws StringIndexOutOfBoundsException
      */

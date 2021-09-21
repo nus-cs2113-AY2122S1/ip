@@ -12,13 +12,12 @@ Type "help" to find out what I can do for you.
 ========================================================================
 I currently support 3 types of tasks: todo, deadline and event
 To add a todo task: todo task name
-To add a deadline task: deadline task name /by yyyy-mm-ddTxx:xx where xx:xx is the time
-To add an event task: event task name /at yyyy-mm-ddTxx:xx where xx:xx is the time
+To add a deadline task: deadline task name /by yyyy-mm-dd xx:xx where xx:xx is the time
+To add an event task: event task name /at yyyy-mm-dd xx:xx where xx:xx is the time
 To delete a task in the list: delete x where x is the entry number
-To see your current list, Use the command "list"
+To see your current list, use the command "list"
 To cross out an entry, use the command "done x" where x is the entry number
-To save your current data, use the command "save"
-To clear all your saved data, use the command "clearsave"
+To see all tasks of a certain date, use the command "date yyyy-mm-dd"
 When you're done, type "bye" to end the program (automatically saves your current list)
 ========================================================================
 I've added the following task:
