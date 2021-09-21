@@ -1,18 +1,20 @@
-public class Event extends Task{
+package wutdequack.terminator.objects.task;
+
+public class Deadline extends Task{
     protected String datetime;
 
     /**
-     * Create Event with given name and associated datetime.
-     * @param name The description of the Event task.
+     * Create Deadline with given name and associated datetime.
+     * @param name The description of the Deadline task.
      * @param datetime The datetime of when the task is due.
      */
-    public Event(String name, String datetime) {
+    public Deadline(String name, String datetime) {
         super(name);
         this.datetime = datetime;
     }
 
     /**
-     * Get the current due date and time of the Event task.
+     * Get the current due date and time of the Deadline task.
      * @return The string with the datetime.
      */
     public String getDatetime() {
@@ -20,7 +22,7 @@ public class Event extends Task{
     }
 
     /**
-     * Set the current due date and time of the Event task.
+     * Set the current due date and time of the Deadline task.
      * @param datetime The string with the datetime.
      */
     public void setDatetime(String datetime) {
@@ -28,26 +30,26 @@ public class Event extends Task{
     }
 
     /**
-     * Get the Item type which is E in this case.
-     * @return A string "E".
+     * Get the Item type which is D in this case.
+     * @return A string "D".
      */
     @Override
     public String getItemType() {
-        return "E";
+        return "D";
     }
 
     /**
      * Changes a Task into a human-readable format.
-     * @return A formatted String of the Event, its status, type, description and datetime.
+     * @return A formatted String of the Deadline, its status, type, description and datetime.
      */
     @Override
     public String toString() {
-        return String.format("%s (at: %s)", super.toString(), datetime);
+        return String.format("%s (by: %s)", super.toString(), datetime);
     }
 
     /**
      * Changes a Task into a human-readable format to be stored in file.
-     * @return A formatted String of the Event, its status, type, description and datetime.
+     * @return A formatted String of the Deadline, its status, type, description and datetime.
      */
     @Override
     public String toFileStringFormat() {

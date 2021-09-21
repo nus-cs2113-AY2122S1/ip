@@ -1,3 +1,5 @@
+package wutdequack.terminator.objects.task;
+
 /**
  * Represents a Task.
  */
