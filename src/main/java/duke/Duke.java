@@ -24,7 +24,7 @@ public class Duke {
         in = new Scanner(System.in);
         dukeUi = new DukeInterface();
         dataManager = new DataManager(FILE_PATH);
-        taskManager = dataManager.loadDataFromFile();
+        taskManager = new TaskManager();
         parser = new Parser();
     }
 
@@ -38,6 +38,8 @@ public class Duke {
     public void startDuke() {
 
         dukeUi.printWelcomeMsg();
+
+        taskManager.setTasks(dataManager.loadDataFromFile());
 
         Command userCommand;
         CommandResult commandResult = null;
@@ -55,7 +57,7 @@ public class Duke {
 
             if(commandResult.getIsModified() == true) {
                 taskManager = commandResult.getTaskManager();
-                dataManager.writeToFile(taskManager);
+                dataManager.writeToFile(taskManager.getTasks());
             }
 
             dukeUi.printDukeMessage(commandResult.getDukeMessage());

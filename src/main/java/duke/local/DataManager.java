@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.task.TaskManager;
 import duke.task.Task;
 import duke.task.ToDo;
 import duke.task.Deadline;
@@ -50,9 +50,9 @@ public class DataManager {
         dataFile.createNewFile();
     }
 
-    public TaskManager loadDataFromFile() {
+    public ArrayList<Task> loadDataFromFile() {
 
-        TaskManager taskMgr = new TaskManager();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         try {
 
@@ -80,15 +80,15 @@ public class DataManager {
                 switch (taskType) {
                 case TODO_TYPE:
                     Task newToDo = new ToDo(taskDescription.trim(), isDone);
-                    taskMgr.tasks.add(newToDo);
+                    tasks.add(newToDo);
                     break;
                 case DEADLINE_TYPE:
                     Task newDeadline = new Deadline(taskDescription.trim(), isDone, byAtDescription.trim());
-                    taskMgr.tasks.add(newDeadline);
+                    tasks.add(newDeadline);
                     break;
                 case EVENT_TYPE:
                     Task newEvent = new Event(taskDescription.trim(), isDone, byAtDescription.trim());
-                    taskMgr.tasks.add(newEvent);
+                    tasks.add(newEvent);
                     break;
                 }
             }
@@ -102,16 +102,16 @@ public class DataManager {
             }
 
         }
-        return taskMgr;
+        return tasks;
     }
 
-    public void writeToFile(TaskManager taskMgr) {
+    public void writeToFile(ArrayList<Task> tasks) {
 
         try {
             FileWriter fw = new FileWriter(filePath);
 
-            for (int i = 0; i < taskMgr.tasks.size(); i++) {
-                fw.write(taskMgr.tasks.get(i).getTaskFileFormat() + "\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                fw.write(tasks.get(i).getTaskFileFormat() + "\n");
             }
 
             fw.close();
