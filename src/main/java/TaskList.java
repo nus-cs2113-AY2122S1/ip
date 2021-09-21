@@ -38,6 +38,22 @@ public class TaskList {
         return tasks;
     }
 
+    public void findTask(String keyword, TaskList tasks) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for(Task task: tasks.getTasks()) {
+            if(task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+
+            boolean isFoundInDeadlineOrEvent = task.getInfo() != null && task.getInfo().contains(keyword);
+            if(isFoundInDeadlineOrEvent) {
+                foundTasks.add(task);
+            }
+            
+        }
+        listTask(new TaskList(foundTasks));
+    }
+    
     public void markCompletionOfTask(TaskList tasks, String s) throws OwlException {
         try {
             int taskNumber = Integer.parseInt(s);
@@ -80,6 +96,7 @@ public class TaskList {
             Event newEvent = new Event(inputsAt[0], inputsAt[1]);
             tasks.addTask(newEvent);
             addTask(tasks.getTaskCount(), ("[E] " + inputsAt[0] + "(at: " + inputsAt[1]) + ")");
+            return;
         }
         throw new OwlException("Did not specify /at");
     }
@@ -90,6 +107,7 @@ public class TaskList {
             Deadline newDeadline = new Deadline(inputsBy[0], inputsBy[1]);
             tasks.addTask(newDeadline);
             addTask(tasks.getTaskCount(), ("[D] " + inputsBy[0] + "(by: " + inputsBy[1]) + ")");
+            return;
         }
         throw new OwlException("Did not specify /by");
     }

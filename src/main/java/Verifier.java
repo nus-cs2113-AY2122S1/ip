@@ -4,14 +4,18 @@ import java.util.List;
 public class Verifier {
 
     public static final List<String> ONE_PART_COMMAND = Arrays.asList("list");
-    public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event", "delete");
+    public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline",
+            "event", "delete", "find");
     
     
     public boolean isDelete(String input) {
         return input.equals("delete");
     }
 
-
+    public boolean isFind(String input) {
+        return input.equals("find");
+    }
+    
     public boolean isInvalidOnePartCmd(String[] inputs, int commandLength) {
         return commandLength > 1 && isOnePartCmd(inputs[0]);
     }

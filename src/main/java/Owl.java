@@ -42,6 +42,8 @@ public class Owl {
                     tasks.addEvent(tasks, inputs);
                 } else if (verifier.isDelete(inputs[0])) {
                     tasks.deleteTask(tasks, inputs[1]);
+                } else if (verifier.isFind(inputs[0])) {
+                    tasks.findTask(inputs[1],tasks);
                 } else {
                     System.out.println(INVALID_MESSAGE);
                 }
