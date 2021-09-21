@@ -29,7 +29,7 @@ public class Deadline extends Task {
             System.out.println(UserInterface.HORIZONTAL_BAR
                     + System.lineSeparator() + Message.NOT_DATE_TIME_MESSAGE);
             // if by is not parsable, store it as a String
-            if (by.equals("")) {
+            if (by.equals(EMPTY_STRING)) {
                 this.by = "???";
             } else {
                 this.by = by;
