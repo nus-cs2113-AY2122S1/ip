@@ -7,17 +7,18 @@ This user guide will teach you how to use Duke.
 2. Go to the folder on your computer that contains the Jar file
 3. Run the command `java -jar -IP.jar`
 
+
 # Features 
 ### Summary
 Below is a list of the features Duke offers:
-1. [Adding tasks](#Adding-tasks)
-2. [List tasks](#List-tasks)
-3. [Marking tasks as done](#Marking-tasks-as-done)
-4. [Deleting tasks](#Deleting-tasks)
-5. [Finding tasks by name](#Finding-tasks-by-name)
-6. [Finding tasks by date](#Finding-tasks-by-date)
-7. [Saving tasks](#Saving-tasks)
-8. [Exiting Duke](#Exiting-Duke)
+1. [Adding tasks](#adding-tasks)
+2. [List tasks](#list-tasks)
+3. [Marking tasks as done](#marking-tasks-as-done)
+4. [Deleting tasks](#deleting-tasks)
+5. [Finding tasks by name](#finding-tasks-by-name)
+6. [Finding tasks by date](#finding-tasks-by-date)
+7. [Saving tasks](#saving-tasks)
+8. [Exiting Duke](#exiting-duke)
 
 ### 1. Adding tasks
 There are 3 types of tasks you can add, todo,event,deadline.
