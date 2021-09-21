@@ -1,29 +1,233 @@
 # User Guide
+Duke is a Command Line Interface (CLI) application that assists you in
+keeping track of your everyday tasks. 
+
+## Quick start guide
+### To set up in IntelliJ
+- Please follow the instructions 
+[here](https://github.com/brendanlsz/ip#readme)
+to set up Duke on your computer.
+
+### To run the jar file
+1. Install `Java 11` on your computer.
+2. Download the `ip.jar` file from 
+[here](https://github.com/brendanlsz/ip/releases/tag/A-Jar).
+3. Create a new folder and copy the `ip.jar` into this folder.
+4. Open a terminal (such as `cmd`) in this folder.
+5. To launch Duke, type `java -jar ip.jar` into your terminal.
+6. Duke will now create a text file `duke.txt` in a folder named `data` 
+where duke will save your tasks.
+7. Please refer below for the list of commands and features.
 
 ## Features 
 
-### Feature-ABC
+### Add `Task`
 
-Description of the feature.
+Add a new task to the list. \
+Duke supports 3 types of `tasks` namely:
+- `Todo`
+- `Deadline`
+- `Event`
 
-### Feature-XYZ
+### List `Task`
 
-Description of the feature.
+List out all the current tasks in the list.
+
+### Mark `Task` as done
+
+Once you have completed a `Task`, you can mark it as `done`.
+
+### Delete `Task`
+
+Delete a `Task` from the list.
+
+
+### Find `Task`
+
+List all matching tasks that contain a keyword.
+
+
+### Exit 
+
+Terminates the Duke program.
+
+### Save data to file
+
+Converts all current tasks in the list to String form and saves this to
+`duke.txt`. This is done automatically.
+
+
+
 
 ## Usage
 
-### `Keyword` - Describe action
+### Adding a `Todo`: `todo`
 
-Describe the action and its outcome.
+Adds a Todo task to the list.
+
+Format: `todo TASK_NAME`
 
 Example of usage: 
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
+`todo shopping`
 
 ```
-expected output
+____________________________________________________________
+ Got it. I've added this task:
+  [T][ ] shopping
+ Now you have 1 tasks in the list.
+____________________________________________________________
+```
+
+
+### Adding a `Deadline`: `deadline`
+
+Adds a Deadline task to the list.
+
+Format: `deadline TASK_NAME /by DATE_TIME`
+
+Example of usage:
+
+- `deadline assignment /by tonight`
+- `deadline submit report /by 2021-10-01 11:59`
+
+```
+____________________________________________________________
+ Got it. I've added this task:
+  [D][ ] submit report (by: Oct 01 2021 11:59)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+```
+
+
+### Adding an `Event`: `event`
+
+Adds an Event task to the list.
+
+Format: `event TASK_NAME /at DATE_TIME`
+
+Example of usage:
+
+- `event dinner /at tomorrow night 7pm`
+- `event concert /at 2021-12-11 19:00`
+
+```
+____________________________________________________________
+ Got it. I've added this task:
+  [E][ ] concert (at: Dec 11 2021 19:00)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+```
+
+> **_NOTE:_**  If you wish to store DATE_TIME as a LocalDateTime
+> object, please use the format `YYYY-MM-DD HH:MM`
+
+### List all `Task`: `list`
+
+Lists out all current tasks in the list.
+
+Format: `list`
+
+Example of usage:
+
+- `list`
+
+```
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] shopping
+ 2.[D][ ] submit report (by: Oct 01 2021 11:59)
+ 3.[E][ ] concert (at: Dec 11 2021 19:00)
+____________________________________________________________
+```
+
+### Marking a `Task` as done: `done`
+
+Marks a task as done. To obtain the task index of the task you wish to mark
+as done, first use the `list` command.
+
+Format: `done TASK_INDEX`
+
+Example of usage:
+
+- `done 2`
+
+```
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [D][X] submit report (by: Oct 01 2021 11:59)
+____________________________________________________________
+```
+
+### Delete a `Task`: `delete`
+
+Deletes a task from the list. To obtain the task index of the task you 
+wish to delete, first use the `list` command.
+
+Format: `delete TASK_INDEX`
+
+Example of usage:
+
+- `delete 3`
+
+```
+____________________________________________________________
+ Got it! I've removed this task:
+   [E][ ] concert (at: Dec 11 2021 19:00)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+```
+
+### Find `Task`: `find`
+
+Finds all the tasks that contain a keyword.
+
+Format: `find KEYWORD`
+
+Example of usage:
+
+- `find report`
+
+```
+____________________________________________________________
+ Here are the matching tasks in your list:
+ 1.[D][X] submit report (by: Oct 01 2021 11:59)
+____________________________________________________________
+```
+### Exit: `bye`
+
+Terminates the Duke program.
+
+Format: `bye`
+
+Example of usage:
+
+- `bye`
+
+```
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### Exit: `bye`
+
+Terminates the Duke program. Upon terminating the program, the current
+tasks are automatically saved to the file.
+
+Format: `bye`
+
+Example of usage:
+
+- `bye`
+
+```
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+
+____________________________________________________________
+Current tasks successfully saved at: 
+C:\Users\Brendan Lau\Desktop\ip\data\duke.txt
+____________________________________________________________
 ```

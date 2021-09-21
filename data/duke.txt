@@ -1,4 +1,2 @@
-E | 0 | lecture | Fri 4-6pm
-E | 0 | lecture with exact date | Sep 09 2021 16:00
-D | 0 | submit something | tomorrow
-D | 0 | submit another thing with exact time | Dec 12 2021 12:12
+T | 0 | shopping
+D | 1 | submit report | Oct 01 2021 11:59
