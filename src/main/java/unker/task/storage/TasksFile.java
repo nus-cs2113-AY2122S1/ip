@@ -17,6 +17,7 @@ import unker.util.StringUtil;
 
 public class TasksFile {
 
+    private static final int FILE_LINE_COMPONENTS = 3;
     private final Path directory;
     private final String fileName;
 
@@ -67,8 +68,8 @@ public class TasksFile {
     }
 
     private Task decodeTaskString(String taskString) {
-        String[] taskComponents = taskString.split(",", 3);
-        if (taskComponents.length < 3) {
+        String[] taskComponents = taskString.split(",", FILE_LINE_COMPONENTS);
+        if (taskComponents.length < FILE_LINE_COMPONENTS) {
             return null;
         }
         boolean isDone = !taskComponents[1].equals("0");

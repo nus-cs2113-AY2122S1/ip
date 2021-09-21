@@ -9,6 +9,7 @@ import unker.task.Unker;
 
 public class CommandMap {
 
+    private static final String COMMAND_SPLITTER_REGEX = "^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$";
     private final Map<String, Command> commands;
 
     private static final CommandMap COMMAND_MAP;
@@ -25,7 +26,7 @@ public class CommandMap {
      * @param cmdString The command that the user sent
      */
     public void executeCommand(UI ui, Unker unker, String cmdString) throws InvalidCommandException {
-        Pattern cmdPattern = Pattern.compile("^(?<cmd>\\w+?)(?:\\s+(?<cmdData>.+))?+$");
+        Pattern cmdPattern = Pattern.compile(COMMAND_SPLITTER_REGEX);
         Matcher cmdMatcher = cmdPattern.matcher(cmdString);
         if (!cmdMatcher.matches()) {
             throw new InvalidCommandException("Sorry, can ask something else? Unker don't know how help you.");

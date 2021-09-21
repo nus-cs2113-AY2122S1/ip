@@ -17,9 +17,9 @@ public class DoneCommand extends Command {
     
     private Task getTask(Unker unker, String data) {
         try {
-            int taskNo = Integer.parseInt(data);
-            if (taskNo > 0 && taskNo <= unker.getTotalTasks())  {
-                return unker.getTask(taskNo - 1);
+            int taskNumber = Integer.parseInt(data);
+            if (taskNumber > 0 && taskNumber <= unker.getTotalTasks())  {
+                return unker.getTask(taskNumber - 1);
             }
         } catch (NumberFormatException nfe) {
             // Return nothing if it is not a number.

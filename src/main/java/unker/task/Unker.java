@@ -24,7 +24,7 @@ public class Unker {
     }
 
     /**
-     * Add a task to be managed by Unker.
+     * Adds a task to be managed by Unker.
      *
      * @param task The task to be added.
      */
@@ -32,15 +32,18 @@ public class Unker {
         tasks.add(task);
         saveData();
     }
-    
-    
 
+    /**
+     * Gets the full list of tasks managed by Unker.
+     * 
+     * @return The list of tasks inside this Unker.
+     */
     public List<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Get a task by a specific index number.
+     * Gets a task by a specific index number.
      *
      * @param index The index number for the task.
      * @return The task based on the index number.
