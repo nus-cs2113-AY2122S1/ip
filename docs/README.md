@@ -1,11 +1,13 @@
 # User Guide for Duke
 Duke is a simple application that makes use of a Command Line Interface to help you in keeping track of your daily tasks.
+
 ## Installation
 1. Install Java 11 on your machine if you have not done so yet. You can follow the guide [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/what-is-corretto-11.html).
 2. Download the latest release of Duke from the [GitHub repository](https://github.com/Roycius/ip).
 3. Copy the `.jar` file into the folder you want to use as the home directory for the application.
 4. Go to the directory where the file is stored in your machine.
 5. Run the command `java -jar [filename].jar` to launch the application.
+
 ## Features
 Note: The parameters for date are to be in `yyyy-MM-dd HH:mm` format. The index of tasks is such that "1" represents the
 first task in the list.
