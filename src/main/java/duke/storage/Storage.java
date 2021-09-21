@@ -19,15 +19,30 @@ public class Storage extends Text {
 
     private String filePath = FILE_PATH;
 
+    /**
+     * A constructor to save data into text file.
+     *
+     * @param filePath pathway of file storage
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates a file and directory for storage of task list if there is no existing file.
+     *
+     * @throws IOException exception thrown when unexpected error occurs when creating file/
+     */
     public void createFile() throws IOException {
         Files.createDirectories(Path.of("data")); //create directory data
         Files.createFile(Path.of(filePath)); //create text file to store data
     }
 
+    /**
+     * Save all contents from task list by rewriting previous contents.
+     *
+     * @param taskList user's task list.
+     */
     public void saveFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -45,6 +60,12 @@ public class Storage extends Text {
         }
     }
 
+    /**
+     * Open and read existing storage file with previously saved task list.
+     *
+     * @return TaskList object.
+     * @throws DukeException exception thrown when error opening file.
+     */
     public TaskList openFile() throws DukeException {
         TaskList taskList = new TaskList();
         try {

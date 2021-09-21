@@ -1,6 +1,6 @@
 package duke.text;
 
-public class Text { //contains all constants used
+public class Text { // Class file to store all constant String used.
 
     public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     public static final String GOODBYE_MESSAGE = "GoodBye! Please finish up your task!\n";
