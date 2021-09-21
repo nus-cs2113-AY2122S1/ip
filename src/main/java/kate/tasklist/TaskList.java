@@ -138,7 +138,7 @@ public class TaskList {
         return (ArrayList<String>) IntStream
                 .range(0, getTaskSize())
                 .mapToObj((index) -> String.format("%d. %s", index + 1, getCurrentTask(index).getTaskInfo()))
-                .filter((task) -> (task).contains(keyword))
+                .filter((task) -> (task.toUpperCase()).contains(keyword.toUpperCase()))
                 .collect(Collectors.toList());
     }
 
