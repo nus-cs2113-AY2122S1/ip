@@ -104,6 +104,9 @@ public class Parser {
                 } catch (DukeMultipleParamException e) {
                     ui.printFindMultipleParamError();
                 }
+                catch (DateTimeParseException e) {
+                    ui.printDeadlineEventDateParamError();
+                }
             } else {
                 // throw error when no commands are found in input
                 ui.printUnknownCommand();
