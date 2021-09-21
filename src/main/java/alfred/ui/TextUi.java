@@ -48,7 +48,8 @@ public class TextUi {
         printMessageTemplate(messageString);
     }
 
-    public static void listTasks(int numberOfTasks, TaskList taskList) {
+    public static void listTasks(TaskList taskList) {
+        int numberOfTasks = taskList.getSize();
         System.out.print(LINE);
         if (numberOfTasks == 0) {
             System.out.println(" Your schedule is clear, Master Wayne.");
