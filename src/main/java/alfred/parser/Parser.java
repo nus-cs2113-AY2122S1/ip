@@ -77,9 +77,8 @@ public class Parser {
             taskIndex = parseInputIndex(Integer.parseInt(stringIndex));
         } catch (NumberFormatException e) {
             return new FailedCommand(FailedCommandType.NUMBER_FORMAT);
-        }
-        if (taskIndex < 0) {
-            return new FailedCommand(FailedCommandType.INDEX_OUT_OF_BOUNDS);
+        } catch (IndexOutOfBoundsException e) {
+            return new FailedCommand(FailedCommandType.NO_INDEX_SPECIFIED);
         }
         return new CompleteTaskCommand(taskIndex);
     }
@@ -152,9 +151,8 @@ public class Parser {
             taskIndex = parseInputIndex(Integer.parseInt(stringIndex));
         } catch (NumberFormatException e) {
             return new FailedCommand(FailedCommandType.NUMBER_FORMAT);
-        }
-        if (taskIndex < 0) {
-            return new FailedCommand(FailedCommandType.INDEX_OUT_OF_BOUNDS);
+        } catch (IndexOutOfBoundsException e) {
+            return new FailedCommand(FailedCommandType.NO_INDEX_SPECIFIED);
         }
         return new DeleteTaskCommand(taskIndex);
     }
