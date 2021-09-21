@@ -16,14 +16,16 @@ ____________________________________________________________
 ____________________________________________________________
  What's your plans/command for today (No... I am not hitting on you) : ____________________________________________________________
  Here you go...
- Added to stuff you would definitely forget to do (*facepalm*): borrow book
+ Added to stuff you would definitely forget to do (*facepalm*):
+ [T][ ] borrow book
 ____________________________________________________________
  What's your plans/command for today (No... I am not hitting on you) :  EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your PLAN/S...
  1. [T][ ] borrow book
 ____________________________________________________________
  What's your plans/command for today (No... I am not hitting on you) : ____________________________________________________________
  Here you go...
- Added to stuff you would definitely forget to do (*facepalm*): return book
+ Added to stuff you would definitely forget to do (*facepalm*):
+ [D][ ] return book (By -> Sunday)
 ____________________________________________________________
  What's your plans/command for today (No... I am not hitting on you) :  EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your PLAN/S...
  1. [T][ ] borrow book
@@ -31,7 +33,8 @@ ____________________________________________________________
 ____________________________________________________________
  What's your plans/command for today (No... I am not hitting on you) : ____________________________________________________________
  Here you go...
- Added to stuff you would definitely forget to do (*facepalm*): project meeting
+ Added to stuff you would definitely forget to do (*facepalm*):
+ [E][ ] project meeting (At -> Mon 2-4pm)
 ____________________________________________________________
  What's your plans/command for today (No... I am not hitting on you) :  EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your PLAN/S...
  1. [T][ ] borrow book
