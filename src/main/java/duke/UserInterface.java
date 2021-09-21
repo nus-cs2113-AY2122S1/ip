@@ -1,6 +1,9 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.DukeBlankDescriptionsException;
+import duke.exception.DukeInvalidTaskIndexException;
+import duke.task.Task;
 
 import java.util.Scanner;
 
@@ -30,9 +33,9 @@ public class UserInterface {
             Duke.isRunning = false;
         } else if (userCommand == Command.LIST) {
             showList();
-        }
+        } 
 
-        if (userCommand == Command.ADD_TODO || userCommand == Command.ADD_DEADLINE
+        if (userCommand == Command.ADD_TO_DO || userCommand == Command.ADD_DEADLINE
                 || userCommand == Command.ADD_EVENT) {
             try {
                 addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
@@ -50,7 +53,7 @@ public class UserInterface {
 
     private static void deleteTask() {
         try {
-            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+            int taskIndex = Parser.getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
             showItemDeleted(TaskManager.delete(taskIndex));
         } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
             showInvalidIndex();
@@ -61,7 +64,7 @@ public class UserInterface {
 
     private static void setDone() {
         try {
-            int taskIndex = getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
+            int taskIndex = Parser.getTaskIndex(userInputs[REMAINING_USER_INPUT_INDEX]);
             TaskManager.setDone(taskIndex);
             showItemSetDone(taskIndex);
         } catch (DukeInvalidTaskIndexException | NumberFormatException e) {
@@ -72,41 +75,33 @@ public class UserInterface {
     }
 
     /**
-     * Interpret the command given by the user.
+     * Interprets the command given by the user.
      * 
      * @return The command given by the user.
      */
     public static Command interpretUserInput() {
         String userInput = sc.nextLine();
-        if (userInput.replaceAll(" ", "").equals("bye")) {
+        if (Parser.isExitCommand(userInput)) {
             return Command.EXIT;
-        } else if (userInput.replaceAll(" ", "").equals("list")) {
+        } else if (Parser.isListCommand(userInput)) {
             return Command.LIST;
         }
 
-        userInputs = splitCommandAndRemainder(userInput);
+        userInputs = Parser.splitCommandAndRemainder(userInput);
 
-        if ("todo".equals(userInputs[USER_COMMAND_INDEX])) {
-            return Command.ADD_TODO;
-        } else if ("deadline".equals(userInputs[USER_COMMAND_INDEX])) {
+        if (Parser.isAddToDoCommand(userInputs[USER_COMMAND_INDEX])) {
+            return Command.ADD_TO_DO;
+        } else if (Parser.isAddDeadlineCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_DEADLINE;
-        } else if ("event".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isAddEventCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_EVENT;
-        } else if ("done".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isSetDoneCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.DONE;
-        } else if ("delete".equals(userInputs[USER_COMMAND_INDEX])) {
+        } else if (Parser.isDeleteCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.DELETE;
         }
 
         return Command.INVALID;
-    }
-
-    private static int getTaskIndex(String word) {
-        return Integer.parseInt(word.replaceAll(" ", ""));
-    }
-
-    private static String[] splitCommandAndRemainder(String line) {
-        return line.split(" ", 2);
     }
 
     private static void addTask(Command addCommand, String line) {
@@ -204,6 +199,14 @@ public class UserInterface {
      */
     public static void showSaveError() {
         System.out.println("Error saving data. Some or all data maybe lost.");
+    }
+
+    /**
+     * Prints "Error saving data. Some or all data maybe lost." followed by a line separator below to standard output.
+     */
+    public static void showSaveErrorWithLine() {
+        System.out.println("Error saving data. Some or all data maybe lost.");
+        printLine();
     }
 
     /**

@@ -1,6 +1,12 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.DukeBlankDescriptionsException;
+import duke.exception.DukeInvalidTaskIndexException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,15 +17,14 @@ public class TaskManager {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int numOfTasks = 0;
 
-
     public static Task getLatestTask() {
-        return tasks.get(numOfTasks - 1);
+        return tasks.get(getIndexForArray(numOfTasks));
     }
 
     public static Task getTask(int num) {
-        return tasks.get(num - 1);
+        return tasks.get(getIndexForArray(num));
     }
-
+    
     public static int getNumOfTasks() {
         return numOfTasks;
     }
@@ -32,8 +37,8 @@ public class TaskManager {
      * @throws DukeInvalidTaskIndexException  If wrong index is passed into the function.
      */
     public static void setDone(int taskIndex) throws DukeInvalidTaskIndexException {
-        if (checkCorrectIndex(taskIndex)) {
-            tasks.get(taskIndex - 1).markDone();
+        if (isCorrectIndex(taskIndex)) {
+            tasks.get(getIndexForArray(taskIndex)).markDone();
         } else {
             throw new DukeInvalidTaskIndexException();
         }
@@ -64,7 +69,7 @@ public class TaskManager {
         }
     }
 
-    private static boolean checkCorrectIndex(int index) {
+    private static boolean isCorrectIndex(int index) {
         return index > 0 && index <= numOfTasks;
     }
 
@@ -77,7 +82,7 @@ public class TaskManager {
      */
     public static void addTask(Command type, String description) throws DukeBlankDescriptionsException {
         switch (type) {
-        case ADD_TODO:
+        case ADD_TO_DO:
             addToDo(description);
             break;
         case ADD_DEADLINE:
@@ -98,9 +103,9 @@ public class TaskManager {
      * @throws DukeInvalidTaskIndexException If the index given exceeds the range of current number of Task.
      */
     public static Task delete(int taskIndex) throws DukeInvalidTaskIndexException {
-        if (checkCorrectIndex(taskIndex)) {
-            Task deleting = tasks.get(taskIndex - 1);
-            tasks.remove(taskIndex - 1);
+        if (isCorrectIndex(taskIndex)) {
+            Task deleting = tasks.get(getIndexForArray(taskIndex));
+            tasks.remove(getIndexForArray(taskIndex));
             numOfTasks--;
             return deleting;
         } else {
@@ -138,5 +143,9 @@ public class TaskManager {
 
     private static boolean hasBlankEntry(String[] descriptions) {
         return descriptions[TASK_DESCRIPTION_INDEX].isBlank() || descriptions[BY_OR_AT_INDEX].isBlank();
+    }
+    
+    private static int getIndexForArray(int index) {
+        return index - 1;
     }
 }

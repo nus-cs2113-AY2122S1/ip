@@ -12,6 +12,7 @@ public class Duke {
         while (isRunning) {
             Command userCommand = UserInterface.interpretUserInput();
             UserInterface.executeCommand(userCommand);
+            DataManager.saveWithoutSuccessMessage();
         }
 
         DataManager.save();
