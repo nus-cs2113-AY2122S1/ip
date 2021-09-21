@@ -32,6 +32,11 @@ public class Deadline extends Task {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
+    /**
+     * Formats the time into HH:mm
+     *
+     * @return Formatted date in String
+     */
     public String getFormattedTime() {
         return time.format(DateTimeFormatter.ofPattern("HH:mm"));
     }

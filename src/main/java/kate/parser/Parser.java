@@ -33,7 +33,9 @@ public class Parser {
     private static final int LENGTH_FIND = 4;
 
     private static final int LENGTH_DEADLINE_ARRAY = 3;
+    private static final int LENGTH_EVENT_ARRAY = 4;
     private static final int LENGTH_DEADLINE_ARRAY_PARSED = 2;
+    private static final int LENGTH_EVENT_ARRAY_PARSED = 3;
 
     private static final String DELIM_PIPE = " \\| ";
     private static final String DELIM_SPACE = " ";
@@ -41,8 +43,14 @@ public class Parser {
     private static final String DELIM_AT = " /at ";
 
     private static final int LIMIT_ARRAY_DEADLINE = 2;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final String TIME_DEFAULT = "23:59";
+    private static final int LIMIT_ARRAY_EVENT = 2;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
+
+    private static final String DEFAULT_TIME = "2359";
+    private static final String DEFAULT_DURATION = "0";
+
 
     public Parser() {
     }
@@ -147,17 +155,17 @@ public class Parser {
         String[] parsedDeadlineArr = new String[LENGTH_DEADLINE_ARRAY_PARSED];
         try {
             String date = deadlineArr[0];
-            String parsedDate = String.valueOf(LocalDate.parse(date, DATE_TIME_FORMATTER));
+            String parsedDate = String.valueOf(LocalDate.parse(date, DATE_FORMATTER));
             parsedDeadlineArr[0] = parsedDate;
 
             boolean hasTimeField = deadlineArr.length > 1;
 
             if (hasTimeField) {
                 String time = deadlineArr[1];
-                String parsedTime = String.valueOf(LocalTime.parse(time));
+                String parsedTime = String.valueOf(LocalTime.parse(time, TIME_FORMATTER));
                 parsedDeadlineArr[1] = parsedTime;
             } else {
-                String time = TIME_DEFAULT;
+                String time = DEFAULT_TIME;
                 parsedDeadlineArr[1] = time;
             }
 
@@ -176,26 +184,76 @@ public class Parser {
      */
     public static String[] extractEventInput(String userInput) throws InvalidDateTimeException, EmptyFieldException {
         String taskInfo = userInput.substring(LENGTH_EVENT).strip();
-        String[] infoArr = taskInfo.split(DELIM_AT, 2);
+        String[] timeInfoArr = taskInfo.split(DELIM_AT, LIMIT_ARRAY_EVENT);
+        String[] taskInfoArrWithDateTime = new String[LENGTH_EVENT_ARRAY];
 
         try {
-            String taskDescription = infoArr[0].strip();
-            String timeFrame = infoArr[1].strip();
+            String taskDescription = timeInfoArr[0].strip();
+            String timeFrame = timeInfoArr[1].strip();
 
-            if (taskDescription.isEmpty() || timeFrame.isEmpty()) {
+            boolean hasEmptyField = taskDescription.isEmpty() || timeFrame.isEmpty();
+
+            if (hasEmptyField) {
                 throw new EmptyFieldException();
             }
 
-            LocalDate date = LocalDate.parse(timeFrame, DATE_TIME_FORMATTER);
+            String[] timeFrameArr = processTimeFrame(timeFrame);
+            String date = timeFrameArr[0];
+            String time = timeFrameArr[1];
+            String duration = timeFrameArr[2];
 
-            infoArr[0] = taskDescription;
-            infoArr[1] = timeFrame;
+            taskInfoArrWithDateTime[0] = taskDescription;
+            taskInfoArrWithDateTime[1] = date;
+            taskInfoArrWithDateTime[2] = time;
+            taskInfoArrWithDateTime[3] = duration;
 
-            return infoArr;
+            return taskInfoArrWithDateTime;
+        } catch (ArrayIndexOutOfBoundsException | EmptyFieldException e) {
+            throw new EmptyFieldException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
+        }
+    }
+
+    /**
+     * Process time frame into both date, time and duration field and ensure they are of required format
+     *
+     * @param timeFrame Time frame field inputted by user
+     * @return String array of field date and time respectively
+     * @throws InvalidDateTimeException If date or time has invalid format
+     * @throws EmptyFieldException      If time field is empty
+     */
+    private static String[] processTimeFrame(String timeFrame) throws InvalidDateTimeException, EmptyFieldException {
+        String[] timeFrameArr = timeFrame.split(DELIM_SPACE);
+        String[] parsedTimeFrameArr = new String[LENGTH_EVENT_ARRAY_PARSED];
+        try {
+            boolean hasDurationField = timeFrameArr.length == 3;
+
+            String date = timeFrameArr[0];
+            String parsedDate = String.valueOf(LocalDate.parse(date, DATE_FORMATTER));
+            parsedTimeFrameArr[0] = parsedDate;
+
+            String time = timeFrameArr[1];
+            String parsedTime = String.valueOf(LocalTime.parse(time, TIME_FORMATTER));
+            parsedTimeFrameArr[1] = parsedTime;
+
+            if (hasDurationField) {
+                String duration = timeFrameArr[2];
+                String parsedDuration = String.valueOf(Integer.parseInt(duration));
+                parsedTimeFrameArr[2] = parsedDuration;
+            } else {
+                parsedTimeFrameArr[2] = DEFAULT_DURATION;
+            }
+
+            return parsedTimeFrameArr;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyFieldException();
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
         }
     }
 
@@ -286,23 +344,31 @@ public class Parser {
             String taskLabel = storedArr[0];
             boolean isDone = Boolean.parseBoolean(storedArr[1]);
             String description = storedArr[2];
+            String date;
+            String time;
             LocalDate parsedDate;
             LocalTime parsedTime;
+            int parsedDuration;
+
             switch (taskLabel) {
             case "T":
                 tasks.addToDoFromFile(description, isDone);
                 break;
             case "D":
-                String date = storedArr[3];
-                String time = storedArr[4];
+                date = storedArr[3];
+                time = storedArr[4];
                 parsedDate = LocalDate.parse(date);
                 parsedTime = LocalTime.parse(time);
                 tasks.addDeadlineFromFile(description, isDone, parsedDate, parsedTime);
                 break;
             case "E":
-                String event = storedArr[3];
-                parsedDate = LocalDate.parse(event);
-                tasks.addEventFromFile(description, isDone, event);
+                date = storedArr[3];
+                time = storedArr[4];
+                String duration = storedArr[5];
+                parsedDate = LocalDate.parse(date);
+                parsedTime = LocalTime.parse(time);
+                parsedDuration = Integer.parseInt(duration);
+                tasks.addEventFromFile(description, isDone, parsedDate, parsedTime, parsedDuration);
                 break;
             default:
                 throw new FileCorruptedException();

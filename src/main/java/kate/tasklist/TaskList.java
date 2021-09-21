@@ -98,10 +98,12 @@ public class TaskList {
      * Adds a task that is an event
      *
      * @param taskDescription Description of task that is an event
-     * @param timeFrame       Time frame for an event
+     * @param date            Date field for an event
+     * @param time            Time field for an event
+     * @param duration        Duration of the event
      */
-    public void addEvent(String taskDescription, String timeFrame) {
-        tasks.add(new Event(taskDescription, timeFrame));
+    public void addEvent(String taskDescription, LocalDate date, LocalTime time, int duration) {
+        tasks.add(new Event(taskDescription, date, time, duration));
     }
 
     /**
@@ -109,10 +111,12 @@ public class TaskList {
      *
      * @param taskDescription Description of task
      * @param isDone          Task done status
-     * @param event           Event time frame of the task
+     * @param date            Date field for an event
+     * @param time            Time field for an event
+     * @param duration        Duration of the event
      */
-    public void addEventFromFile(String taskDescription, boolean isDone, String event) {
-        tasks.add(new Event(taskDescription, isDone, event));
+    public void addEventFromFile(String taskDescription, boolean isDone, LocalDate date, LocalTime time, int duration) {
+        tasks.add(new Event(taskDescription, isDone, date, time, duration));
     }
 
     /**
