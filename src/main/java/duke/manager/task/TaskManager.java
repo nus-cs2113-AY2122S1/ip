@@ -191,11 +191,11 @@ public class TaskManager {
     /**
      * Prints a filtered task list.
      *
-     * @param filterString String to filter the task list by.
+     * @param filterWord String to filter the task list by.
      */
-    public void printFilteredTaskList(String filterString) {
+    public void printFilteredTaskList(String filterWord) {
         ArrayList<Task> filteredTaskList = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getTaskDescription().contains(filterString))
+                .filter((t) -> t.getTaskDescription().contains(filterWord))
                 .collect(Collectors.toList());
         if (filteredTaskList.isEmpty()) {
             UserInterface.printMessage(
@@ -209,14 +209,14 @@ public class TaskManager {
     /**
      * Marks task in array as done and prints message depending on validity of task number.
      *
-     * @param input User input which should represent task number.
+     * @param inputTaskNumber User input which should represent task number.
      * @throws InvalidTaskNumberException Task number is out of range.
      * @throws NumberFormatException      User input not parsable into an int.
      */
-    public void markTaskAsDone(String input) throws InvalidTaskNumberException, NumberFormatException {
+    public void markTaskAsDone(String inputTaskNumber) throws InvalidTaskNumberException, NumberFormatException {
         int taskNumber;
         try {
-            taskNumber = Integer.parseInt(input.trim(), 10);
+            taskNumber = Integer.parseInt(inputTaskNumber.trim(), 10);
         } catch (NumberFormatException nfe) {
             throw new NumberFormatException();
         }
@@ -236,14 +236,14 @@ public class TaskManager {
     /**
      * Deletes the task specified by its task number from the task list.
      *
-     * @param input User input which should represent task number.
+     * @param inputTaskNumber User input which should represent task number.
      * @throws InvalidTaskNumberException Task number is out of range.
-     * @throws NumberFormatException      User input not parsable into an int.
+     * @throws NumberFormatException      User inputTaskNumber not parsable into an int.
      */
-    public void deleteTask(String input) throws InvalidTaskNumberException, NumberFormatException {
+    public void deleteTask(String inputTaskNumber) throws InvalidTaskNumberException, NumberFormatException {
         int taskNumber;
         try {
-            taskNumber = Integer.parseInt(input.trim(), 10);
+            taskNumber = Integer.parseInt(inputTaskNumber.trim(), 10);
         } catch (NumberFormatException nfe) {
             throw new NumberFormatException();
         }
