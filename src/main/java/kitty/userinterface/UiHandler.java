@@ -10,11 +10,24 @@ import kitty.task.Deadline;
 import kitty.task.Event;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * The class <code>UiHandler</code> includes methods that handle incoming User Inputs from class <code>Ui</code>.
+ */
 public class UiHandler {
-
+    /**
+     * Manages all incoming input and delegates to respective methods.
+     * Full list of available commands:
+     * bye: Exits Kitty.
+     * list: Prints out all tasks at hand.
+     * done: Marks respective task as done.
+     * todo: Adds a task of Todo type.
+     * deadline: Adds a task of Deadline type.
+     * event: Adds a task of Event type.
+     * delete: Deletes respective task from tasks at hand.
+     * find: Searches and displays all tasks which correspond to keyword given.
+     */
     public static void beginUi() {
         while (true) {
             try {
@@ -54,6 +67,11 @@ public class UiHandler {
         }
     }
 
+    /**
+     * Displays to user all the currents tasks in ArrayList <code>tasks</code>.
+     * @param tasks ArrayList containing all tasks at hand.
+     * @throws KittyException If there are no tasks at hand.
+     */
     public static void printList(ArrayList<Task> tasks) throws KittyException{
         // Throw exception if user list with no tasks
         if (tasks.size() == 0) {
@@ -74,6 +92,10 @@ public class UiHandler {
         }
     }
 
+    /**
+     * Marks corresponding task as done from list of tasks at hand.
+     * @throws KittyException If task number from input is invalid, i.e. "first"
+     */
     public static void markTaskAsDone() throws KittyException{
         try {
             int taskNum = Integer.parseInt(Ui.userInput.split(" ")[1]);
@@ -89,25 +111,30 @@ public class UiHandler {
         }
     }
 
+    /**
+     * Adds the task into the list of tasks at hand based on the command type given.
+     * @param type Represents the command type, between Todo, Deadline and Event.
+     * @throws KittyException If the input formatting does not match the respective command type.
+     */
     public static void addToList(String type) throws KittyException{
-        try {
-            switch (type) {
-            case "T":
-                Todo.addTodoTask(Ui.userInput);
-                break;
-            case "D":
-                Deadline.addDeadlineTask(Ui.userInput);
-                break;
-            case "E":
-                Event.addEventTask(Ui.userInput);
-                break;
-            }
-            Ui.printAddedTask();
-        } catch (KittyException e) {
-            throw e;
+        switch (type) {
+        case "T":
+            Todo.addTodoTask(Ui.userInput);
+            break;
+        case "D":
+            Deadline.addDeadlineTask(Ui.userInput);
+            break;
+        case "E":
+            Event.addEventTask(Ui.userInput);
+            break;
         }
+        Ui.printAddedTask();
     }
 
+    /**
+     * Removes the corresponding task from the list of tasks at hand.
+     * @throws KittyException If the task number provided is invalid. i.e. "last".
+     */
     public static void removeFromList() throws KittyException{
         try {
             int taskNum = Integer.parseInt(Ui.userInput.split(" ")[1]);
@@ -123,6 +150,10 @@ public class UiHandler {
         }
     }
 
+    /**
+     * Finds and displays the tasks corresponding to the keyword provided.
+     * @throws KittyException If none of the tasks at hand matched the keyword provided.
+     */
     public static void findFromList() throws KittyException {
         String keyword = Parser.getKeyword(Ui.userInput);
         ArrayList<Task> filteredTasks = (ArrayList<Task>) Kitty.tasks.stream()

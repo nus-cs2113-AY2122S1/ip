@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * The class <code>Ui</code> includes methods that involves User Interface.
+ */
 public class Ui {
     public static String userInput;
     public static String command;
@@ -99,11 +102,19 @@ public class Ui {
                                             + CAT_ERROR;
 
     // Methods
+
+    /**
+     * Prints out the Introductory and guide message.
+     */
     public static void greet() {
         System.out.println(INTRO_MESSAGE);
         System.out.println(HELP_MESSAGE);
     }
 
+    /**
+     * Receives user input for further processing.
+     * @throws KittyException If user inputs invalid command.
+     */
     public static void getUserInput() throws KittyException {
         try {
             System.out.println(BAR_LINE);
@@ -115,6 +126,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints to user the task recently added.
+     */
     public static void printAddedTask() {
         System.out.println();
         System.out.println("Added: " + Kitty.tasks.get(Kitty.tasks.size() - 1));
@@ -122,11 +136,17 @@ public class Ui {
         System.out.println(Ui.CAT_2);
     }
 
+    /**
+     * Force exits the application
+     */
     public static void exit() {
         System.out.println(EXIT_MESSAGE);
         System.exit(0);
     }
 
+    /**
+     * Tells the user that an error was encountered.
+     */
     public static void printErrorMessage() {
         System.out.println(ERROR_MESSAGE);
     }

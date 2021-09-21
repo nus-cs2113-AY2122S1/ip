@@ -3,11 +3,13 @@ package kitty.task;
 import kitty.Kitty;
 import kitty.KittyException;
 import kitty.Parser;
-import kitty.io.IO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The class <code>Event</code> includes methods that involves tasks of type Event.
+ */
 public class Event extends Task{
     protected LocalDate eventDate;
 
@@ -20,6 +22,11 @@ public class Event extends Task{
         return eventDate;
     }
 
+    /**
+     * Adds a task of type Event to list of tasks at hand.
+     * @param line line is the String that the user inputs.
+     * @throws KittyException If line is of the wrong format for adding a task of Event type.
+     */
     public static void addEventTask(String line) throws KittyException {
         if(!Parser.hasEventDate(line)) {
             throw new KittyException("Event formatting is incorrect!");
@@ -29,7 +36,7 @@ public class Event extends Task{
                 String taskName = Parser.getEventTaskName(line);
 
                 // Get Event Date as String
-                String eventDateString = Parser.getEventDate(line);
+                String eventDateString = Parser.getEventDateString(line);
 
                 // Get Event Date as LocalDate
                 LocalDate eventDate = Parser.getTaskDate(eventDateString);
