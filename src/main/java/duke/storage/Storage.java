@@ -13,18 +13,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage extends Text {
 
-    private String filePath = FILE_PATH;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     public void createFile() throws IOException {
-        Files.createDirectories(Path.of("data")); //create directory data
+        Files.createDirectories(Path.of(DIRECTORY)); //create directory data
         Files.createFile(Path.of(filePath)); //create text file to store data
     }
 
@@ -47,6 +49,7 @@ public class Storage extends Text {
 
     public TaskList openFile() throws DukeException {
         TaskList taskList = new TaskList();
+        LocalDate formattedDate;
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
@@ -54,14 +57,16 @@ public class Storage extends Text {
                 String task = s.nextLine();
                 String[] splitTaskString = task.split("\\|");
                 switch (splitTaskString[0]) {
-                case "T":
+                case TODO_T:
                     taskList.addTask(new ToDos(splitTaskString[2]));
                     break;
-                case "D":
-                    taskList.addTask(new Deadlines(splitTaskString[2], splitTaskString[3]));
+                case DEADLINE_D:
+                    formattedDate = LocalDate.parse(splitTaskString[3], DateTimeFormatter.ofPattern(DATE_FORMAT));
+                    taskList.addTask(new Deadlines(splitTaskString[2], formattedDate));
                     break;
-                case "E":
-                    taskList.addTask(new Events(splitTaskString[2], splitTaskString[3]));
+                case EVENT_E:
+                    formattedDate = LocalDate.parse(splitTaskString[3], DateTimeFormatter.ofPattern(DATE_FORMAT));
+                    taskList.addTask(new Events(splitTaskString[2], formattedDate));
                     break;
                 }
                 if (splitTaskString[1].equals("1")) {

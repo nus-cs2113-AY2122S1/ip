@@ -54,7 +54,7 @@ public class TaskList extends Text {
         int taskNumber = 1;
         String listOfTask = "";
         for (Task task : taskList) {
-            listOfTask = listOfTask.concat(taskNumber + "." + task.toString() + "\n");
+            listOfTask = listOfTask.concat(taskNumber + "." + task.toString() + NEW_LINE);
             taskNumber++;
         }
         return listOfTask;

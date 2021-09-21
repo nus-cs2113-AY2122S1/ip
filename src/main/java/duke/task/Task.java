@@ -1,6 +1,10 @@
 package duke.task;
 
-public abstract class Task {
+import duke.text.Text;
+
+import java.time.LocalDate;
+
+public abstract class Task extends Text {
 
     protected String taskName;
     protected boolean isDone;
@@ -16,6 +20,10 @@ public abstract class Task {
 
     public void markDone() {
         isDone = true;
+    }
+
+    public String getDate() {
+        return "";
     }
 
     @Override

@@ -10,6 +10,9 @@ import duke.task.Events;
 import duke.task.ToDos;
 import duke.text.Text;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Parser extends Text {
 
     protected TaskList taskList;
@@ -23,8 +26,8 @@ public class Parser extends Text {
     }
 
     public Command parseCommand(String userInput) throws DukeException {
-        String[] splitInput = userInput.trim().split(" ", 2);
-        switch(splitInput[0]) {
+        String[] splitInput = userInput.trim().split(SPACE, 2);
+        switch(splitInput[0].toLowerCase()) {
         case TODO:
         case DEADLINE:
         case EVENT:
@@ -35,6 +38,8 @@ public class Parser extends Text {
             return parseDeleteCommand(userInput);
         case FIND:
             return parseFindCommand(userInput);
+        case DATE:
+            return parseDateCommand(userInput);
         case LIST:
             return new ListCommand(taskList, ui);
         case HELP:
@@ -43,6 +48,47 @@ public class Parser extends Text {
             return new ExitCommand();
         default:
             throw new DukeException(UNKNOWN_COMMAND);
+        }
+    }
+
+    private Command parseAddCommand(String userInput) throws DukeException {
+        String[] splitInput = userInput.trim().split(SPACE, 2);
+        String[] taskNameAndDueDate;
+        LocalDate formattedDate;
+        if (splitInput.length <= 1) {
+            throw new DukeException(EMPTY_TASK_DESCRIPTION);
+        }
+        switch (splitInput[0].toLowerCase()) {
+        case TODO:
+            return new AddCommand(taskList, ui, new ToDos(splitInput[1]));
+        case DEADLINE:
+            taskNameAndDueDate = splitInput[1].split(DEADLINE_DATE_SEPARATOR, 2);
+            formattedDate = LocalDate.parse(taskNameAndDueDate[1]);
+            return new AddCommand(taskList, ui, new Deadlines(taskNameAndDueDate[0], formattedDate));
+        case EVENT:
+            taskNameAndDueDate = splitInput[1].split(EVENT_DATE_SEPARATOR, 2);
+            formattedDate = LocalDate.parse(taskNameAndDueDate[1]);
+            return new AddCommand(taskList, ui, new Events(taskNameAndDueDate[0], formattedDate));
+        default:
+            throw new DukeException(UNKNOWN_COMMAND);
+        }
+    }
+
+    private Command parseDoneCommand(String userInput) throws DukeException {
+        String[] taskToMark = userInput.split(SPACE, 2);
+        if (taskToMark.length <= 1) {
+            throw new DukeException(NO_TASK_NUMBER);
+        } else {
+            return new CompleteCommand(taskList, ui, Integer.parseInt(taskToMark[1]) - 1);
+        }
+    }
+
+    private Command parseDeleteCommand(String userInput) throws DukeException {
+        String[] taskToDelete = userInput.split(SPACE, 2);
+        if (taskToDelete.length <= 1) {
+            throw new DukeException(NO_TASK_NUMBER);
+        } else {
+            return new DeleteCommand(taskList, ui, Integer.parseInt(taskToDelete[1]) - 1);
         }
     }
 
@@ -55,41 +101,14 @@ public class Parser extends Text {
         }
     }
 
-    private Command parseAddCommand(String userInput) throws DukeException {
-        String[] splitInput = userInput.trim().split(" ", 2);
-        String[] taskNameAndDueDate;
-        if (splitInput.length <= 1) {
-            throw new DukeException(EMPTY_TASK_DESCRIPTION);
-        }
-        switch (splitInput[0]) {
-        case TODO:
-            return new AddCommand(taskList, ui, new ToDos(splitInput[1]));
-        case DEADLINE:
-            taskNameAndDueDate = splitInput[1].split(" /by ", 2);
-            return new AddCommand(taskList, ui, new Deadlines(taskNameAndDueDate[0], taskNameAndDueDate[1]));
-        case EVENT:
-            taskNameAndDueDate = splitInput[1].split(" /at ", 2);
-            return new AddCommand(taskList, ui, new Events(taskNameAndDueDate[0], taskNameAndDueDate[1]));
-        default:
-            throw new DukeException(UNKNOWN_COMMAND);
-        }
-    }
-
-    private Command parseDoneCommand(String userInput) throws DukeException {
-        String[] taskToMark = userInput.split(" ", 2);
-        if (taskToMark.length <= 1) {
-            throw new DukeException(NO_TASK_NUMBER);
+    private Command parseDateCommand(String userInput) throws DukeException {
+        String[] taskToPrint = userInput.trim().split(SPACE, 2);
+        if (taskToPrint.length <= 1) {
+            throw new DukeException(NO_DATE);
         } else {
-            return new CompleteCommand(taskList, ui, Integer.parseInt(taskToMark[1]) - 1);
-        }
-    }
-
-    private Command parseDeleteCommand(String userInput) throws DukeException {
-        String[] taskToDelete = userInput.split(" ", 2);
-        if (taskToDelete.length <= 1) {
-            throw new DukeException(NO_TASK_NUMBER);
-        } else {
-            return new DeleteCommand(taskList, ui, Integer.parseInt(taskToDelete[1]) - 1);
+            LocalDate formattedDate = LocalDate.parse(taskToPrint[1]);
+            String dateToString = formattedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+            return new FindTaskOfDateCommand(taskList, ui, dateToString);
         }
     }
 }
