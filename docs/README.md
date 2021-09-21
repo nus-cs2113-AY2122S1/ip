@@ -152,7 +152,7 @@ and list it all out on the terminal like so. The rest of the Task will not be sh
 ```
     ____________________________________________________________
      1.[T][ ] eat lunch 
-	 2.[T][X] do homework
+     2.[T][X] do homework
     ____________________________________________________________
 ```
 
