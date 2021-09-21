@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Util.Storage;
-import duke.Util.Ui;
-import duke.Util.Util;
+import duke.util.DukeException;
+import duke.util.Storage;
+import duke.util.Ui;
+import duke.util.Util;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -13,8 +13,8 @@ public class DeleteCommand extends Command {
     private static final String MESSAGE_FORMAT_DELETE_USAGE = "Usage: %s <task number>";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
 
-    public DeleteCommand() {
-
+    public DeleteCommand(String argument) {
+        super(argument);
     }
 
     @Override

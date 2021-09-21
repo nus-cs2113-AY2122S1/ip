@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Util.Storage;
-import duke.Util.Ui;
-import duke.Util.Util;
+import duke.util.DukeException;
+import duke.util.Storage;
+import duke.util.Ui;
+import duke.util.Util;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -13,8 +13,8 @@ public class DoneCommand extends Command {
     private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done.";
     private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
 
-    public DoneCommand() {
-
+    public DoneCommand(String argument) {
+        super(argument);
     }
 
     @Override

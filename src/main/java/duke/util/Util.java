@@ -1,4 +1,4 @@
-package duke.Util;
+package duke.util;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;

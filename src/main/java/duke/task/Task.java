@@ -4,6 +4,7 @@ public abstract class Task {
     public static final char TYPE_TODO = 'T';
     public static final char TYPE_DEADLINE = 'D';
     public static final char TYPE_EVENT = 'E';
+
     public static final String COLUMN_SEPARATOR = " | ";
 
     public static final String DATETIME_FORMAT_INPUT = "dd/MM/yyyy HHmm";
@@ -20,10 +21,6 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
-
-    public String getDescription() {
-        return description;
-    }
 
     public boolean isDone() {
         return isDone;

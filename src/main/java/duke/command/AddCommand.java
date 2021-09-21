@@ -1,10 +1,10 @@
 package duke.command;
 
-import duke.DukeException;
+import duke.util.DukeException;
 
-import duke.Util.Storage;
-import duke.Util.Ui;
-import duke.Util.Util;
+import duke.util.Storage;
+import duke.util.Ui;
+import duke.util.Util;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -27,7 +27,8 @@ public class AddCommand extends Command {
 
     private char taskType;
 
-    public AddCommand(char taskType) {
+    public AddCommand(String argument, char taskType) {
+        super(argument);
         this.taskType = taskType;
     }
 

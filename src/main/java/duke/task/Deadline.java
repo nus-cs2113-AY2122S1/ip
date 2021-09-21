@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.Util.Util;
+import duke.util.Util;
 
 import java.time.LocalDateTime;
 

@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Util.Storage;
-import duke.Util.Ui;
+import duke.util.DukeException;
+import duke.util.Storage;
+import duke.util.Ui;
 import duke.task.TaskList;
 
 public abstract class Command {
@@ -18,13 +18,14 @@ public abstract class Command {
     protected static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number.";
 
     protected String argument;
-    protected boolean isExit = false;
+    protected boolean isExit;
+
+    public Command(String argument) {
+        this.argument = argument;
+        this.isExit = false;
+    }
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
-
-    public void setArgument(String argument) {
-        this.argument = argument;
-    }
 
     public boolean isExit() {
         return isExit;

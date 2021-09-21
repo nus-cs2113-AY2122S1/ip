@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.Util.Storage;
-import duke.Util.Ui;
+import duke.util.Storage;
+import duke.util.Ui;
 import duke.task.TaskList;
 
 public class ExitCommand extends Command {
-    public ExitCommand() {
-
+    public ExitCommand(String argument) {
+        super(argument);
     }
 
     @Override

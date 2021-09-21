@@ -1,6 +1,5 @@
-package duke.Util;
+package duke.util;
 
-import duke.DukeException;
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
@@ -21,42 +20,40 @@ public class Parser {
         Command command;
         switch (commandString) {
         case Command.COMMAND_LIST:
-            command = new ListCommand();
+            command = new ListCommand(argument);
             break;
 
         case Command.COMMAND_BYE:
-            command = new ExitCommand();
+            command = new ExitCommand(argument);
             break;
 
         case Command.COMMAND_DONE:
-            command = new DoneCommand();
+            command = new DoneCommand(argument);
             break;
 
         case Command.COMMAND_DELETE:
-            command = new DeleteCommand();
+            command = new DeleteCommand(argument);
             break;
 
         case Command.COMMAND_FIND:
-            command = new FindCommand();
+            command = new FindCommand(argument);
             break;
 
         case Command.COMMAND_TODO:
-            command = new AddCommand(Task.TYPE_TODO);
+            command = new AddCommand(argument, Task.TYPE_TODO);
             break;
 
         case Command.COMMAND_DEADLINE:
-            command = new AddCommand(Task.TYPE_DEADLINE);
+            command = new AddCommand(argument, Task.TYPE_DEADLINE);
             break;
 
         case Command.COMMAND_EVENT:
-            command = new AddCommand(Task.TYPE_EVENT);
+            command = new AddCommand(argument, Task.TYPE_EVENT);
             break;
 
         default:
             throw new DukeException(MESSAGE_UNKNOWN_COMMAND);
         }
-
-        command.setArgument(argument);
 
         return command;
     }

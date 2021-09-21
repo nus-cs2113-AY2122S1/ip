@@ -54,6 +54,21 @@ public class TaskList {
         return null;
     }
 
+    public ArrayList<Task> findTask(String searchString) {
+        searchString = searchString.toLowerCase();
+
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < getSize(); i += 1) {
+            Task task = getTaskAt(i);
+            String description = task.description;
+            if (description.toLowerCase().contains(searchString)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
     @Override
     public String toString() {
         StringBuilder messageBuilder = new StringBuilder(MESSAGE_LIST_HEADER);

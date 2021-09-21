@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Util.Storage;
-import duke.Util.Ui;
+import duke.util.DukeException;
+import duke.util.Storage;
+import duke.util.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -12,21 +12,13 @@ public class FindCommand extends Command {
     private static String MESSAGE_NO_MATCH = "There are no matches.";
     private static String MESSAGE_LIST_HEADER = "Here are the matching tasks:";
 
-    public FindCommand() {
-
+    public FindCommand(String argument) {
+        super(argument);
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String searchString = argument.toLowerCase();
-
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.getSize(); i += 1) {
-            Task task = tasks.getTaskAt(i);
-            if (task.getDescription().toLowerCase().contains(searchString)) {
-                matchingTasks.add(task);
-            }
-        }
+        ArrayList<Task> matchingTasks = tasks.findTask(argument);
 
         if (matchingTasks.isEmpty()) {
             ui.printMessage(MESSAGE_NO_MATCH);

@@ -1,14 +1,14 @@
 package duke.command;
 
-import duke.Util.Storage;
-import duke.Util.Ui;
+import duke.util.Storage;
+import duke.util.Ui;
 import duke.task.TaskList;
 
 public class ListCommand extends Command {
     private static final String MESSAGE_LIST_EMPTY = "Task list is empty.";
 
-    public ListCommand() {
-
+    public ListCommand(String argument) {
+        super(argument);
     }
 
     @Override
