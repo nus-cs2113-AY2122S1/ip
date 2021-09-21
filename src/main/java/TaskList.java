@@ -87,7 +87,6 @@ public class TaskList {
         ui.printAddedEvent(eventDescription, eventAt, tasks);
     }
 
-
     public void deleteTask(int numToRemove, ArrayList<Task> tasks) throws DukeMissingParamException, NumberFormatException, IndexOutOfBoundsException {
         if ((numToRemove - DELETE_OFFSET >= 0) && (tasks.get(numToRemove - DELETE_OFFSET) != null)) {
             String byString = "by: ";
@@ -110,6 +109,23 @@ public class TaskList {
                 ui.printWithTaskWordString(numToRemove, DELETE_OFFSET, taskWordString, tasks);
             }
         }   tasks.remove(tasks.get(numToRemove - DELETE_OFFSET));
+    }
+
+    public void findTasks(String line, ArrayList<Task> tasks) throws DukeMissingParamException, ArrayIndexOutOfBoundsException, DukeMultipleParamException {
+        String input[] = line.split(" ");
+        if (input.length == 1) {
+            throw new DukeMissingParamException();
+        } else if (input.length > 2) {
+            throw new DukeMultipleParamException();
+        }
+
+        ArrayList<Task> matchedKeys = new ArrayList<>();
+        for (Task matchingTasks : tasks) {
+            if (matchingTasks.getDescription().contains(input[1])) {
+                matchedKeys.add(matchingTasks);
+            }
+        }
+        ui.printMatchedTasks(matchedKeys, tasks);
     }
 
 }

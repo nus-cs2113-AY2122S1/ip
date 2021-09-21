@@ -14,6 +14,7 @@ public class Parser {
     protected String TODO_COMMAND = "todo";
     protected String DEADLINE_COMMAND = "deadline";
     protected String EVENT_COMMAND = "event";
+    protected String FIND_COMMAND = "find";
 
     public int filterTaskNum(String doneTask) throws DukeMissingParamException, NumberFormatException {
         String[] words = doneTask.split(" ");
@@ -88,12 +89,20 @@ public class Parser {
                 try {
                     // adds event and prints success message
                     taskList.addEvent(line, tasks);
-                }
-                catch (DukeMissingDescException e) {
+                } catch (DukeMissingDescException e) {
                     ui.printEventEmptyError();
-                }
-                catch (DukeMissingParamException e) {
+                } catch (DukeMissingParamException e) {
                     ui.printEventMissingParamError();
+                } catch (DateTimeParseException e) {
+                    ui.printDeadlineEventDateParamError();
+                }
+            } else if (line.contains(FIND_COMMAND)) {
+                try {
+                    taskList.findTasks(line, tasks);
+                } catch (DukeMissingParamException e) {
+                    ui.printFindMissingParamError();
+                } catch (DukeMultipleParamException e) {
+                    ui.printFindMultipleParamError();
                 }
                 catch (DateTimeParseException e) {
                     ui.printDeadlineEventDateParamError();
