@@ -14,6 +14,12 @@ public abstract class Task {
     protected boolean isDone;
     protected char taskType;
 
+    /**
+     * Constructor for Task class.
+     *
+     * @param description The task description.
+     * @param taskType    The type of task.
+     */
     public Task(String description, char taskType) {
         this.description = description;
         this.isDone = false;

@@ -7,10 +7,22 @@ import duke.task.TaskList;
 public class ListCommand extends Command {
     private static final String MESSAGE_LIST_EMPTY = "Task list is empty.";
 
+    /**
+     * Constructor for ListCommand class.
+     *
+     * @param argument The command argument.
+     */
     public ListCommand(String argument) {
         super(argument);
     }
 
+    /**
+     * Executes the list command.
+     *
+     * @param tasks   The TaskList object.
+     * @param ui      The Ui object.
+     * @param storage The Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {

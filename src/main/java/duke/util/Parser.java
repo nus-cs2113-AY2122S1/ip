@@ -12,6 +12,13 @@ import duke.task.Task;
 public class Parser {
     private static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.";
 
+    /**
+     * Parses the userInput and returns a Command object.
+     *
+     * @param userInput The string to parse.
+     * @return A Command object.
+     * @throws DukeException if command is unknown.
+     */
     public static Command parse(String userInput) throws DukeException {
         String[] commandAndArgument = getCommandAndArgument(userInput);
         String commandString = commandAndArgument[0];

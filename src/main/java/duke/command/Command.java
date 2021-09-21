@@ -20,6 +20,11 @@ public abstract class Command {
     protected String argument;
     protected boolean isExit;
 
+    /**
+     * Constructor for Command class.
+     *
+     * @param argument The command argument.
+     */
     public Command(String argument) {
         this.argument = argument;
         this.isExit = false;

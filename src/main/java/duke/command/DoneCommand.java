@@ -13,10 +13,23 @@ public class DoneCommand extends Command {
     private static final String MESSAGE_FORMAT_TASK_ALREADY_MARKED = "Task #%d is already marked as done.";
     private static final String MESSAGE_FORMAT_TASK_MARKED = "Task marked as done:\n  %s";
 
+    /**
+     * Constructor for DoneCommand class.
+     *
+     * @param argument The command argument.
+     */
     public DoneCommand(String argument) {
         super(argument);
     }
 
+    /**
+     * Executes the done command.
+     *
+     * @param tasks   The TaskList object.
+     * @param ui      The Ui object.
+     * @param storage The Storage object.
+     * @throws DukeException if argument is invalid or task is already marked as done.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (!Util.isStringInteger(argument)) {

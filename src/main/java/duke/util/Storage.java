@@ -21,6 +21,11 @@ public class Storage {
 
     private String filename;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param filename The file to read/write.
+     */
     public Storage(String filename) {
         this.filename = filename;
 
@@ -81,6 +86,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return A list of tasks.
+     * @throws DukeException if file is not found.
+     */
     public ArrayList<Task> load() throws DukeException {
         File file = new File(filename);
         if (!file.exists()) {
@@ -113,6 +124,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes tasks into the file
+     *
+     * @param tasks The tasks to write.
+     * @throws DukeException If fail to write.
+     */
     public void write(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(filename);

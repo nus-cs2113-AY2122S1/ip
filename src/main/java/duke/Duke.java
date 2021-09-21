@@ -17,12 +17,20 @@ public class Duke {
     private final Storage STORAGE;
     private final Ui UI;
 
+    /**
+     * Constructor for Duke class.
+     *
+     * @param filename The file containing the tasks.
+     */
     public Duke(String filename) {
         this.TASKS = new TaskList();
         this.STORAGE = new Storage(filename);
         this.UI = new Ui();
     }
 
+    /**
+     * Runs the Duke instance.
+     */
     public void run() {
         loadTasksFromStorage();
         UI.printWelcomeMessage();
