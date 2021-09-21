@@ -1,7 +1,7 @@
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import java.time.LocalDate;
 
 public class Parser {
 
@@ -10,14 +10,17 @@ public class Parser {
     private final static String EVENT = "event";
     private final static int DESCRIPTION = 0;
     private final static int DATETIME = 1;
+    private final static int REMOVE_TASK_WORD = 1;
+    private final static int VALID_TASK = 2;
 
     public Parser() {
     }
 
     /**
-     * This function parses the input given by user and prints the appropriate response.
+     * Parses the input given by user and prints the appropriate response.
      *
      * @param input input given by the user.
+     * @param tasks contains all the current tasks in the program.
      */
     public static void parseInput(String input, TaskList tasks) throws InvalidInputException {
         if (input.equalsIgnoreCase("Bye")) {
@@ -44,10 +47,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns whether the find input is valid.
+     *
+     * @param input input given by the user.
+     * @return returns the validity of the find input.
+     */
     private static boolean isValidFindInput(String input) {
         return Pattern.matches("^find [a-z0-9\\s\\-]+$", input.toLowerCase());
     }
 
+    /**
+     * Finds whether the input is contained in any of the tasks.
+     *
+     * @param input input given by the user.
+     * @param tasks the arraylist of all tasks.
+     */
     private static void handleFindInput(String input, TaskList tasks) {
         String findText = input.substring(5).toLowerCase();
         TaskList tempTasks = new TaskList();
@@ -64,7 +79,7 @@ public class Parser {
     }
 
     /**
-     * This function check if done statement and index in done statement is valid.
+     * Returns whether the done input is valid.
      *
      * @param input input given by the user.
      * @return returns the validity of the done input.
@@ -74,7 +89,7 @@ public class Parser {
     }
 
     /**
-     * This function check if done statement and index in delete statement is valid.
+     * Returns whether the delete input is valid.
      *
      * @param input input given by the user.
      * @return returns the validity of the delete input.
@@ -84,10 +99,10 @@ public class Parser {
     }
 
     /**
-     * This function retrieves the index given in done/delete statement.
+     * Retrieves the index given in done/delete statement.
      *
      * @param input input given by the user.
-     * @return returns the index given in done/delete statement
+     * @return returns the index given in done/delete statement.
      */
     private static int getIndex(String input) {
         String[] parts = input.split(" ");
@@ -95,7 +110,7 @@ public class Parser {
     }
 
     /**
-     * This function uses regex to check if to do statement is valid.
+     * Returns whether the to do input is valid.
      *
      * @param input input given by the user.
      * @return returns validity of the to do statement.
@@ -105,7 +120,7 @@ public class Parser {
     }
 
     /**
-     * This function uses regex to check if deadline statement is valid.
+     * Returns whether the deadline input is valid.
      *
      * @param input input given by the user.
      * @return returns validity of the deadline statement.
@@ -115,7 +130,7 @@ public class Parser {
     }
 
     /**
-     * This function uses regex to check if event statement is valid.
+     * Returns whether the event input is valid.
      *
      * @param input input given by the user.
      * @return returns validity of the event statement.
@@ -125,7 +140,7 @@ public class Parser {
     }
 
     /**
-     * This function gets the parameters for the Task subclasses by slicing input.
+     * Gets the parameters for the Task subclasses by slicing input.
      *
      * @param parameters Array of string of fixed size 2 to store parameters for Task subclasses.
      * @param input      User's input into command line.
@@ -135,25 +150,25 @@ public class Parser {
         switch (taskType) {
         case TODO:
             String[] todoParts = input.split("(?i)todo ");
-            parameters[DESCRIPTION] = todoParts[1];
+            parameters[DESCRIPTION] = todoParts[REMOVE_TASK_WORD];
             break;
         case DEADLINE:
             String[] initDeadlineParts = input.split("(?i)deadline ");
-            String[] deadlineParts = initDeadlineParts[1].split(" /by ");
-            if (deadlineParts.length != 2) {
+            String[] deadlineParts = initDeadlineParts[REMOVE_TASK_WORD].split(" /by ");
+            if (deadlineParts.length != VALID_TASK) {
                 throw new InvalidTaskException();
             }
-            parameters[DESCRIPTION] = deadlineParts[0];
-            parameters[DATETIME] = deadlineParts[1];
+            parameters[DESCRIPTION] = deadlineParts[DESCRIPTION];
+            parameters[DATETIME] = deadlineParts[DATETIME];
             break;
         case EVENT:
             String[] initEventParts = input.split("(?i)event ");
-            String[] eventParts = initEventParts[1].split(" /at ");
-            if (eventParts.length != 2) {
+            String[] eventParts = initEventParts[REMOVE_TASK_WORD].split(" /at ");
+            if (eventParts.length != VALID_TASK) {
                 throw new InvalidTaskException();
             }
-            parameters[DESCRIPTION] = eventParts[0];
-            parameters[DATETIME] = eventParts[1];
+            parameters[DESCRIPTION] = eventParts[DESCRIPTION];
+            parameters[DATETIME] = eventParts[DATETIME];
             break;
         }
         if (Objects.equals(parameters[DESCRIPTION], "")) {
@@ -162,9 +177,10 @@ public class Parser {
     }
 
     /**
-     * This function handles the done input by marking task as done.
+     * Marks task as done.
      *
-     * @param input input given by the user.
+     * @param index index of the task to be marked done in tasks.
+     * @param tasks arraylist of all the tasks.
      */
     public static void handleDoneInput(int index, TaskList tasks) {
         try {
@@ -177,9 +193,10 @@ public class Parser {
     }
 
     /**
-     * This function handles the delete input by deleting it.
+     * Deletes task.
      *
-     * @param input input given by the user.
+     * @param index index of the task to be marked done in tasks.
+     * @param tasks arraylist of all the tasks.
      */
     public static void handleDeleteInput(int index, TaskList tasks) {
         try {
@@ -193,10 +210,11 @@ public class Parser {
     }
 
     /**
-     * This function adds the input description into list accordingly, based on its task type.
+     * Adds the input description into tasks accordingly, based on its task type.
      *
      * @param input    input given by the user.
      * @param taskType task type identified beforehand (DEADLINE/EVENT/TODO).
+     * @param tasks    arraylist of all the tasks.
      */
     public static void addToList(String input, String taskType, TaskList tasks) {
         String[] parameters = new String[2];
@@ -233,6 +251,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the date given by user for deadline/event tasks, if possible.
+     *
+     * @param dateString The date string input by user.
+     */
     public static LocalDate parseDate(String dateString) throws DateTimeParseException {
         return LocalDate.parse(dateString);
     }
