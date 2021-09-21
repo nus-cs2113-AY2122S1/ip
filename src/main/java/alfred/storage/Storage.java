@@ -8,16 +8,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class Storage {
-    private TaskList storage;
-    private final String DEFAULT_FILE_PATH = "data/alfred.txt";
+    private String filePath;
     private File taskFile;
 
-    public Storage() {
-        storage = new TaskList();
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        this.taskFile = new File(this.filePath);
     }
 
     private boolean hasExistingFile() throws FileErrorException {
-        taskFile = new File(DEFAULT_FILE_PATH);
         try {
             if (!taskFile.exists()) {
                 taskFile.getParentFile().mkdirs();
