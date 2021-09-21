@@ -32,7 +32,7 @@ public class Storage {
         return true;
     }
 
-    private TaskList load() throws FileErrorException {
+    public TaskList load() throws FileErrorException {
         if (!hasExistingFile()) {
             return new TaskList();
         }
