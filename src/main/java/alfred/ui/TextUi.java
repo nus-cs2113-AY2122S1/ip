@@ -42,6 +42,9 @@ public class TextUi {
 
     public static void completeTaskMessage(int index, String taskDescription) {
         String messageString =  "Duly noted on completion of task, sir.\n" + "    " + index + "." + taskDescription + "\n";
+        int listIndex = index + 1;
+        String messageString =
+                "Duly noted on completion of task, sir.\n" + "    " + listIndex + "." + taskDescription + "\n";
         printMessageTemplate(messageString);
     }
 
