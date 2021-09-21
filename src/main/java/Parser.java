@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -80,6 +81,9 @@ public class Parser {
                 catch (DukeMissingParamException e) {
                     ui.printDeadlineMissingParamError();
                 }
+                catch (DateTimeParseException e) {
+                    ui.printDeadlineEventDateParamError();
+                }
             } else if (line.contains(EVENT_COMMAND)) {
                 try {
                     // adds event and prints success message
@@ -90,6 +94,9 @@ public class Parser {
                 }
                 catch (DukeMissingParamException e) {
                     ui.printEventMissingParamError();
+                }
+                catch (DateTimeParseException e) {
+                    ui.printDeadlineEventDateParamError();
                 }
             } else {
                 // throw error when no commands are found in input
