@@ -46,7 +46,7 @@ ____________________________________________________________
     - `help`: Displays all commands recognized by Duke and their respective formats.
     - `list`: Lists all tasks.
     - `todo Watch lecture`: Adds a todo with a description `Watch lecture` to Duke's task list.
-7. Refer to the Features section below for more details of each command.    
+7. Refer to the [Features](#features) section below for more details of each command.    
 
 [**Back to top**](#user-guide-content)
 
