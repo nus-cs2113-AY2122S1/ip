@@ -36,7 +36,8 @@ public class Task {
     }
 
     public boolean isInDateTimeFormat() {
-        // If called on tasks without date-time arguments, assumed to be true
+        // If called on tasks without date-time arguments, assumed to be true.
+        // Only relevant for Deadlines and Events
         return true;
     }
 }

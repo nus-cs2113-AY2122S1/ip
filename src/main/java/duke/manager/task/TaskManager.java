@@ -35,6 +35,11 @@ public class TaskManager {
         tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Returns the last task in the task list
+     *
+     * @return Task The last task in the task list, null if list is empty.
+     */
     public Task getLastTaskInList() {
         return !tasks.isEmpty() ? tasks.get(tasks.size() - 1) : null;
     }
@@ -245,13 +250,20 @@ public class TaskManager {
      * @throws NumberFormatException      User inputTaskNumber not parsable into an int.
      */
     public void deleteTask(String inputTaskNumber) throws InvalidTaskNumberException, NumberFormatException {
+        // Short circuit if no task to delete
+        if (tasks.isEmpty()) {
+            UserInterface.printMessage(
+                    Message.EMPTY_TASK_LIST_MESSAGE
+            );
+            return;
+        }
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(inputTaskNumber.trim(), 10);
         } catch (NumberFormatException nfe) {
             throw new NumberFormatException();
         }
-        boolean taskNumberInRange = (taskNumber <= tasks.size()) && (taskNumber >= 1);
+        boolean taskNumberInRange = (taskNumber >= 1) && (taskNumber <= tasks.size());
         if (!taskNumberInRange) {
             throw new InvalidTaskNumberException();
         }
