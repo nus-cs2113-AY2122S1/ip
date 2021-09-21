@@ -11,8 +11,12 @@ public class DeleteTaskCommand extends Command {
     }
 
     public void execute() {
-        Task removedTask = taskList.removeTask(taskIndex);
-        int numberOfTasks = taskList.getSize();
-        TextUi.deleteTaskMessage(removedTask, numberOfTasks);
+        try {
+            Task removedTask = taskList.removeTask(taskIndex);
+            int numberOfTasks = taskList.getSize();
+            TextUi.deleteTaskMessage(removedTask, numberOfTasks);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            TextUi.uninitialisedTaskIndexMessage(taskList.getSize());
+        }
     }
 }

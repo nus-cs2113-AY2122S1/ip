@@ -10,8 +10,12 @@ public class CompleteTaskCommand extends Command {
     }
 
     public void execute() {
-        taskList.setTaskDoneInList(taskIndex);
-        String completedTaskDescription = taskList.getTask(taskIndex).getDescription();
-        TextUi.completeTaskMessage(taskIndex, completedTaskDescription);
+        try {
+            taskList.setTaskDoneInList(taskIndex);
+            String completedTaskDescription = taskList.getTask(taskIndex).getDescription();
+            TextUi.completeTaskMessage(taskIndex, completedTaskDescription);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            TextUi.uninitialisedTaskIndexMessage(taskList.getSize());
+        }
     }
 }
