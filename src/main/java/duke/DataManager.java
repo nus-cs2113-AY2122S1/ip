@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DataManager {
-    private static final String FILENAME = ".\\DukeData.txt";
+    private static final String FILENAME = "./DukeData.txt";
     private static final int DESCRIPTION_INDEX = 2;
     private static final String NEWLINE = "\n";
 
@@ -61,7 +61,7 @@ public class DataManager {
     private static void addTaskEntry(String[] dataParts) throws DukeBlankDescriptionsException,
             DukeInvalidTaskIndexException {
         if (Parser.isTodoEntry(dataParts)) {
-            TaskManager.addTask(Command.ADD_TODO, dataParts[DESCRIPTION_INDEX]);
+            TaskManager.addTask(Command.ADD_TO_DO, dataParts[DESCRIPTION_INDEX]);
             if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }

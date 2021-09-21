@@ -7,7 +7,7 @@ public class Parser {
     private static final String DONE_KEYWORD = "done";
     private static final String EVENT_KEYWORD = "event";
     private static final String DEADLINE_KEYWORD = "deadline";
-    private static final String TODO_KEYWORD = "todo";
+    private static final String TO_DO_KEYWORD = "todo";
     private static final String LIST_KEYWORD = "list";
     private static final String BYE_KEYWORD = "bye";
     private static final int TOTAL_DATA_PARTS = 3;
@@ -40,10 +40,10 @@ public class Parser {
 
     /**
      * Returns true.
-     * If user inputted an add event command.
+     * If user inputted an add Event command.
      *
      * @param userInput The input given by user.
-     * @return Returns true if user inputted an add event command.
+     * @return Returns true if user inputted an add Event command.
      */
     public static boolean isAddEventCommand(String userInput) {
         return EVENT_KEYWORD.equals(userInput);
@@ -51,10 +51,10 @@ public class Parser {
 
     /**
      * Returns true.
-     * If user inputted an add deadline command.
+     * If user inputted an add Deadline command.
      *
      * @param userInput The input given by user.
-     * @return Returns true if user inputted an add deadline command.
+     * @return Returns true if user inputted an add Deadline command.
      */
     public static boolean isAddDeadlineCommand(String userInput) {
         return DEADLINE_KEYWORD.equals(userInput);
@@ -62,13 +62,13 @@ public class Parser {
 
     /**
      * Returns true.
-     * If user inputted an add todo command.
+     * If user inputted an add ToDo command.
      *
      * @param userInput The input given by user.
-     * @return Returns true if user inputted an add todo command.
+     * @return Returns true if user inputted an add ToDo command.
      */
-    public static boolean isAddTodoCommand(String userInput) {
-        return TODO_KEYWORD.equals(userInput);
+    public static boolean isAddToDoCommand(String userInput) {
+        return TO_DO_KEYWORD.equals(userInput);
     }
 
     /**
@@ -137,11 +137,11 @@ public class Parser {
 
     /**
      * Returns true.
-     * If entry is a todo entry.
+     * If entry is a ToDo entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
      * 
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
-     * @return True if entry is a todo entry.
+     * @return True if entry is a ToDo entry.
      */
     public static boolean isTodoEntry(String[] dataParts) {
         return dataParts[TASK_TYPE_INDEX].equals("T");
@@ -149,11 +149,11 @@ public class Parser {
 
     /**
      * Returns true.
-     * If entry is a deadline entry.
+     * If entry is a Deadline entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
      *
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
-     * @return True if entry is a deadline entry.
+     * @return True if entry is a Deadline entry.
      */
     public static boolean isDeadlineEntry(String[] dataParts) {
         return dataParts[TASK_TYPE_INDEX].equals("D");
@@ -161,11 +161,11 @@ public class Parser {
 
     /**
      * Returns true.
-     * If entry is an event entry.
+     * If entry is an Event entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
      *
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
-     * @return True if entry is an event entry.
+     * @return True if entry is an Event entry.
      */
     public static boolean isDoneEntry(String[] dataParts) {
         return dataParts[DONE_INDEX].equals("X");
@@ -210,5 +210,15 @@ public class Parser {
      */
     public static String[] splitCommandAndRemainder(String line) {
         return line.split(" ", 2);
+    }
+
+    /**
+     * Splits a sentence into individual words.
+     * 
+     * @param sentence The sentence that will be split into individual words.
+     * @return An array of Strings each String is a word in the sentence.
+     */
+    public static String[] splitIntoWords(String sentence) {
+        return sentence.split(" ");
     }
 }

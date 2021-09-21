@@ -33,9 +33,9 @@ public class UserInterface {
             Duke.isRunning = false;
         } else if (userCommand == Command.LIST) {
             showList();
-        }
+        } 
 
-        if (userCommand == Command.ADD_TODO || userCommand == Command.ADD_DEADLINE
+        if (userCommand == Command.ADD_TO_DO || userCommand == Command.ADD_DEADLINE
                 || userCommand == Command.ADD_EVENT) {
             try {
                 addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
@@ -93,15 +93,14 @@ public class UserInterface {
         String userInput = sc.nextLine();
         if (Parser.isExitCommand(userInput)) {
             return Command.EXIT;
-        }
-        if (Parser.isListCommand(userInput)) {
+        } else if (Parser.isListCommand(userInput)) {
             return Command.LIST;
         }
 
         userInputs = Parser.splitCommandAndRemainder(userInput);
 
-        if (Parser.isAddTodoCommand(userInputs[USER_COMMAND_INDEX])) {
-            return Command.ADD_TODO;
+        if (Parser.isAddToDoCommand(userInputs[USER_COMMAND_INDEX])) {
+            return Command.ADD_TO_DO;
         } else if (Parser.isAddDeadlineCommand(userInputs[USER_COMMAND_INDEX])) {
             return Command.ADD_DEADLINE;
         } else if (Parser.isAddEventCommand(userInputs[USER_COMMAND_INDEX])) {
