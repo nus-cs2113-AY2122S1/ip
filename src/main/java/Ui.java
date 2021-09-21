@@ -71,4 +71,10 @@ public class Ui {
                 + TASK_MESSAGE_END);
     }
 
+    public static void printSortedDateTimedTask() {
+        for(TimedTask task: TimedTaskList.getSortedList()) {
+            System.out.println("     " + task);
+        }
+    }
+
 }

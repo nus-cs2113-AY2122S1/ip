@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,7 +18,8 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n"
                 + "There are too many students changing this logo away.\n"
                 + "Let's keep it this way to show the contribution Duke has done to\n"
-                + "thousands of students.\n";
+                + "thousands of students.\n"
+                + "F";
 
         String input;
         System.out.println("Hello from\n" + logo);
@@ -55,6 +57,10 @@ public class Duke {
                 System.out.println("Invalid Number.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Number keyed in is invalid");
+            } catch (IncorrectTimeFormatException e) {
+                System.out.println("Date keyed in is of invalid format");
+            } catch ( DateTimeParseException e) {
+                System.out.println("invalid datetime format");
             }
             try {
                 FileWriter fileWrite = new FileWriter(filePath);

@@ -1,5 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,14 +35,14 @@ public class Storage {
                     strToBoolean(result[RESULT_IS_DONE]));
             TaskList.reloadTask(newTask);
             break;
-        case "D":
+        case "D":// need to edit this
             newTask = new Deadline(result[RESULT_DESCRIPTION],
-                    strToBoolean(result[RESULT_IS_DONE]), result[RESULT_TIME]);
+                    strToBoolean(result[RESULT_IS_DONE]), parseDeadline(result[RESULT_TIME]));
             TaskList.reloadTask(newTask);
             break;
-        case "E":
+        case "E":// need to edit this
             newTask = new Event(result[RESULT_DESCRIPTION],
-                    strToBoolean(result[RESULT_IS_DONE]), result[RESULT_TIME]);
+                    strToBoolean(result[RESULT_IS_DONE]), parseEvent(result[RESULT_TIME]));
             TaskList.reloadTask(newTask);
             break;
         }
@@ -72,6 +74,20 @@ public class Storage {
             newString = newString + " | " + deadline.getDate();
         }
         return newString;
+    }
+
+    public static LocalDateTime parseDeadline (String result) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime date = LocalDateTime.parse(result, formatter);
+        return date;
+    }
+    public static LocalDateTime[] parseEvent (String result) {
+        String[] results = result.split(" to ");
+        LocalDateTime[] dates =  new LocalDateTime[2];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        dates[0] = LocalDateTime.parse(results[0], formatter);
+        dates[1] = LocalDateTime.parse(results[1], formatter);
+        return dates;
     }
 
     private static int booleanInt(boolean isDone) {
