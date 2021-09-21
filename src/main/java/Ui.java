@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -39,11 +40,20 @@ public class Ui {
     protected String DEADLINE_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
             + "Woops! Did you forget the /by parameter?" + System.lineSeparator()
             + LINE_DIVIDER;
+    protected String DEADLINE_EVENT_DATEPARAM = LINE_DIVIDER + System.lineSeparator()
+            + "Woops! Please enter a valid date format YYYY-MM-DD (e.g. 1999-06-14)" + System.lineSeparator()
+            + LINE_DIVIDER;
     protected String EVENT_EMPTY = LINE_DIVIDER + System.lineSeparator()
             + "Sorry, the EVENT description cannot be empty ☹" + System.lineSeparator()
             + LINE_DIVIDER;
     protected String EVENT_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
             + "Woops! Did you forget the /at parameter?" + System.lineSeparator()
+            + LINE_DIVIDER;
+    protected String FIND_MISSINGPARAM = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, did you forget to include the keyword you are searching for?" + System.lineSeparator()
+            + LINE_DIVIDER;
+    protected String FIND_MULTIPLEPARAM = LINE_DIVIDER + System.lineSeparator()
+            + "Sorry, please include only one keyword to search for!" + System.lineSeparator()
             + LINE_DIVIDER;
 
     public void printWelcome() {
@@ -76,7 +86,7 @@ public class Ui {
         System.out.println(addedMessage);
     }
 
-    public void printAddedDeadline(String deadlineDescription, String deadlineBy, ArrayList<Task> tasks) {
+    public void printAddedDeadline(String deadlineDescription, LocalDate deadlineBy, ArrayList<Task> tasks) {
         String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:" + System.lineSeparator()
                 + "[D]" + "[ " + "] " + deadlineDescription + "(by: " + deadlineBy + ")" + System.lineSeparator()
@@ -85,7 +95,7 @@ public class Ui {
         System.out.println(addedMessage);
     }
 
-    public void printAddedEvent(String eventDescription, String eventAt, ArrayList<Task> tasks) {
+    public void printAddedEvent(String eventDescription, LocalDate eventAt, ArrayList<Task> tasks) {
         String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:"  + System.lineSeparator()
                 + "[E]" + "[ " + "] " + eventDescription + "(at: " + eventAt + ")" + System.lineSeparator()
@@ -155,6 +165,10 @@ public class Ui {
         System.out.println(DEADLINE_MISSINGPARAM);
     }
 
+    public void printDeadlineEventDateParamError() {
+        System.out.println(DEADLINE_EVENT_DATEPARAM);
+    }
+
     public void printEventEmptyError() {
         System.out.println(EVENT_EMPTY);
     }
@@ -187,5 +201,30 @@ public class Ui {
                 + tasks.get(numToRemove - DELETE_OFFSET).description + "(" + taskWordString + tasks.get(numToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
                 + "Now you have " + (tasks.size() - DELETE_OFFSET) + " tasks remaining in the list." + System.lineSeparator()
                 + LINE_DIVIDER);
+    }
+
+    public void printMatchedTasks(ArrayList<Task> matchedKeys, ArrayList<Task> tasks)  {
+        System.out.println(LINE_DIVIDER + System.lineSeparator()
+                + "As requested, here are the matching tasks in your list:");
+        if (tasks.size() == 0) {
+            System.out.println("There are no tasks recorded!");
+        } else if (matchedKeys.size() == 0) {
+            System.out.println("The keyword cannot be found!");
+        } else {
+            int taskCounter = 0;
+            for (Task element : matchedKeys) {
+                System.out.println(taskCounter + ARRAYLIST_PRINT_OFFSET + ". " + element.toString());
+                taskCounter++;
+            }
+        }
+        System.out.println(LINE_DIVIDER);
+    }
+
+    public void printFindMissingParamError() {
+        System.out.println(FIND_MISSINGPARAM);
+    }
+
+    public void printFindMultipleParamError() {
+        System.out.println(FIND_MULTIPLEPARAM);
     }
 }

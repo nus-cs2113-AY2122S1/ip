@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -63,6 +65,7 @@ public class TaskList {
         ui.printAddedTodo(todoDescription, tasks);
     }
 
+
     /**
      * Adds a DEADLINE type task to the ArrayList of Tasks, and checks if any required parameters are missing (description, due date).
      * Throws an error if required parameters are missing.
@@ -72,7 +75,7 @@ public class TaskList {
      * @throws DukeMissingDescException when the description of the deadline task is not input by the user.
      * @throws DukeMissingParamException when the /by flag is not input.
      */
-    public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException {
+    public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
         if (line.length() == DEADLINE_LEN_OFFSET || line.substring(DEADLINE_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
@@ -89,7 +92,7 @@ public class TaskList {
         String deadlineDescription = line.substring(DEADLINE_DESC_OFFSET, posOfBy);
 
         // get deadline when from input
-        String deadlineBy = line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar);
+        LocalDate deadlineBy = LocalDate.parse(line.substring(posOfBy + DEADLINE_BY_OFFSET, posOfLastChar));
 
         this.addTask(new Deadline(deadlineDescription, deadlineBy), tasks);
         ui.printAddedDeadline(deadlineDescription, deadlineBy, tasks);
@@ -104,7 +107,7 @@ public class TaskList {
      * @throws DukeMissingDescException when the description of the event task is not input by the user.
      * @throws DukeMissingParamException when the /at flag is not input.
      */
-    public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException {
+    public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
         if (line.length() == EVENT_LEN_OFFSET || line.substring(EVENT_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
@@ -122,13 +125,12 @@ public class TaskList {
         String eventDescription = line.substring(EVENT_DESC_OFFSET, posOfAt);
 
         // get event when from input
-        String eventAt = line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar);
+        LocalDate eventAt = LocalDate.parse(line.substring(posOfAt + EVENT_BY_OFFSET, posOfLastChar));
 
         addTask(new Event(eventDescription, eventAt), tasks);
         ui.printAddedEvent(eventDescription, eventAt, tasks);
     }
-
-
+  
     /**
      * Deletes a task from the ArrayList of Tasks. Throws an error if the task number to be deleted is missing, incorrectly
      * input or is not a valid task number.
@@ -161,6 +163,23 @@ public class TaskList {
                 ui.printWithTaskWordString(numToRemove, DELETE_OFFSET, taskWordString, tasks);
             }
         }   tasks.remove(tasks.get(numToRemove - DELETE_OFFSET));
+    }
+
+    public void findTasks(String line, ArrayList<Task> tasks) throws DukeMissingParamException, ArrayIndexOutOfBoundsException, DukeMultipleParamException {
+        String input[] = line.split(" ");
+        if (input.length == 1) {
+            throw new DukeMissingParamException();
+        } else if (input.length > 2) {
+            throw new DukeMultipleParamException();
+        }
+
+        ArrayList<Task> matchedKeys = new ArrayList<>();
+        for (Task matchingTasks : tasks) {
+            if (matchingTasks.getDescription().contains(input[1])) {
+                matchedKeys.add(matchingTasks);
+            }
+        }
+        ui.printMatchedTasks(matchedKeys, tasks);
     }
 
 }

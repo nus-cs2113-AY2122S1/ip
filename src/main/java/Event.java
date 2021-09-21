@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class to contain all EVENT type tasks, inherits the TASK class.
  */
 public class Event extends Task {
-    protected String at;
+    protected LocalDate at;
 
-    public Event(String description, String at) {
+    public Event(String description, LocalDate at) {
         super(description);
         setAt(at);
     }
@@ -14,7 +17,8 @@ public class Event extends Task {
      *
      * @param newDate string of new date the object is occurring.
      */
-    public void setAt(String newDate) {
+
+    public void setAt(LocalDate newDate) {
         this.at = newDate;
     }
 
@@ -34,7 +38,7 @@ public class Event extends Task {
      * @return the occurring date of the EVENT object.
      */
     @Override
-    public String getWhen() {
+    public LocalDate getWhen() {
         return this.at;
     }
 
@@ -47,6 +51,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return ("[E]" + "[" + getStatusIcon() + "] " + description + "(at: " + at + ")");
+        return ("[E]" + "[" + getStatusIcon() + "] " + description + "(at: " + at.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT))) + ")");
     }
 }

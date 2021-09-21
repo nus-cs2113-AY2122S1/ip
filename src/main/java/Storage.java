@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 /**
  * Class handling the loading of tasks from the save file and saving tasks in the save file.
@@ -43,9 +44,9 @@ public class Storage {
             if (line.charAt(0) == 'T') {
                 taskList.addTask(new Todo(processWordsArr[2].substring(TASK_INIT_OFFSET)), tasks);
             } else if (line.charAt(0) == 'D') {
-                taskList.addTask(new Deadline(processWordsArr[2].substring(TASK_INIT_OFFSET), processWordsArr[3].substring(TASK_INIT_OFFSET)), tasks);
+                taskList.addTask(new Deadline(processWordsArr[2].substring(TASK_INIT_OFFSET), LocalDate.parse(processWordsArr[3].substring(TASK_INIT_OFFSET))), tasks);
             } else if (line.charAt(0) == 'E') {
-                taskList.addTask(new Event(processWordsArr[2].substring(TASK_INIT_OFFSET), processWordsArr[3].substring(TASK_INIT_OFFSET)), tasks);
+                taskList.addTask(new Event(processWordsArr[2].substring(TASK_INIT_OFFSET), LocalDate.parse(processWordsArr[3].substring(TASK_INIT_OFFSET))), tasks);
             }
             if (processWordsArr[1].charAt(1) == '1') {
                 tasks.get(addCounter).markAsDone();

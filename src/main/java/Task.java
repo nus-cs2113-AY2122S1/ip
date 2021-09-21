@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class to contain TASKs type.
  */
@@ -5,13 +8,13 @@ public class Task {
     protected String description;
     protected String taskType;
     protected boolean isDone;
-    protected String eventDate;
+    protected LocalDate eventDate;
+    public static final String DATE_FORMAT = "MMM dd yyyy";
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.taskType = "";
-        this.eventDate = "";
     }
 
     /**
@@ -44,8 +47,12 @@ public class Task {
      *
      * @return the due/occurring date of the task.
      */
-    public String getWhen() {
+    public LocalDate getWhen() {
         return eventDate;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**

@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class to contain all DEADLINE type tasks, inherits the TASK class.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         setBy(by);
     }
@@ -14,7 +17,7 @@ public class Deadline extends Task {
      *
      * @param newDate string of new date the object is due by.
      */
-    public void setBy(String newDate) {
+    public void setBy(LocalDate newDate) {
         this.by = newDate;
     }
 
@@ -34,7 +37,7 @@ public class Deadline extends Task {
      * @return the due date of the DEADLINE object.
      */
     @Override
-    public String getWhen() {
+    public LocalDate getWhen() {
         return this.by;
     }
 
@@ -47,6 +50,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return ("[D]" + "[" + getStatusIcon() + "] " + description + "(by: " + by + ")");
+        return ("[D]" + "[" + getStatusIcon() + "] " + description + "(by: " + by.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT))) + ")");
     }
 }
