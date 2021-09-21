@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * <h1>TaskManager</h1>
  * A <code>TaskManager</code> object is in charge of managing the tasks within the task list.
  * Methods for adding/deleting/marking tasks in the task list are within this class.
- * It also contains methods to load data from user data file and saving data to user data file.
+ * It also contains methods to load tasks from user data file and saving tasks to user data file.
  */
 public class TaskManager {
 
