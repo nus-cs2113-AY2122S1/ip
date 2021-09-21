@@ -1,22 +1,26 @@
 package kate.task;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDate deadline;
+    protected LocalDate date;
+    protected LocalTime time;
     private static final String DEADLINE_CHECKBOX = "[D]";
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDate date, LocalTime time) {
         this.description = description;
         this.isDone = false;
-        this.deadline = LocalDate.parse(deadline);
+        this.date = date;
+        this.time = time;
     }
 
-    public Deadline(String description, boolean isDone, String deadline) {
+    public Deadline(String description, boolean isDone, LocalDate date, LocalTime time) {
         this.description = description;
         this.isDone = isDone;
-        this.deadline = LocalDate.parse(deadline);
+        this.date = date;
+        this.time = time;
     }
 
     /**
@@ -25,7 +29,11 @@ public class Deadline extends Task {
      * @return Formatted date in String
      */
     public String getFormattedDate() {
-        return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    public String getFormattedTime() {
+        return time.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
     /**
@@ -34,7 +42,7 @@ public class Deadline extends Task {
      * @return Formatted String of Deadline information
      */
     public String getTaskInfoForFile() {
-        return "D" + " | " + isDone + " | " + description + " | " + deadline;
+        return "D" + " | " + isDone + " | " + description + " | " + date + " | " + time;
     }
 
     /**
@@ -45,6 +53,6 @@ public class Deadline extends Task {
     @Override
     public String getTaskInfo() {
         return DEADLINE_CHECKBOX + super.getTaskInfo()
-                + " (by: " + getFormattedDate() + ")";
+                + " (by: " + getFormattedDate() + " " + getFormattedTime() + ")";
     }
 }

@@ -5,6 +5,8 @@ import kate.task.Event;
 import kate.task.Task;
 import kate.task.ToDo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -72,22 +74,24 @@ public class TaskList {
     /**
      * Adds a task that has a deadline
      *
-     * @param taskDescription description for task with deadline
-     * @param deadline        deadline for a task
+     * @param taskDescription Description for task with a deadline
+     * @param date            Date parameter
+     * @param time            Time parameter
      */
-    public void addDeadline(String taskDescription, String deadline) {
-        tasks.add(new Deadline(taskDescription, deadline));
+    public void addDeadline(String taskDescription, LocalDate date, LocalTime time) {
+        tasks.add(new Deadline(taskDescription, date, time));
     }
 
     /**
      * Adds a task that has a deadline from file
      *
-     * @param taskDescription Description of task with deadline
+     * @param taskDescription Adds a task that has a deadline from file
      * @param isDone          Task done status
-     * @param deadline        Deadline of the task
+     * @param date            Date field for task with deadline
+     * @param time            Time field for task with deadline
      */
-    public void addDeadlineFromFile(String taskDescription, boolean isDone, String deadline) {
-        tasks.add(new Deadline(taskDescription, isDone, deadline));
+    public void addDeadlineFromFile(String taskDescription, boolean isDone, LocalDate date, LocalTime time) {
+        tasks.add(new Deadline(taskDescription, isDone, date, time));
     }
 
     /**

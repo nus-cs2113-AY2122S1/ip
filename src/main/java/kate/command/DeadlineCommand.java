@@ -8,6 +8,9 @@ import kate.storage.Storage;
 import kate.tasklist.TaskList;
 import kate.ui.KateUI;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class DeadlineCommand extends Command {
 
     private static final String FAILURE_MESSAGE_ADD_DEADLINE = Message.TEXT_INDENTATION
@@ -23,9 +26,10 @@ public class DeadlineCommand extends Command {
         try {
             String[] infoArr = Parser.extractDeadlineInput(userInput);
             String taskDescription = infoArr[0];
-            String deadline = infoArr[1];
+            LocalDate date = LocalDate.parse(infoArr[1]);
+            LocalTime time = LocalTime.parse(infoArr[2]);
 
-            tasks.addDeadline(taskDescription, deadline);
+            tasks.addDeadline(taskDescription, date, time);
             ui.printAddedTask(tasks.getMostRecentAddedTask(), tasks.getTaskSize());
             storage.appendTaskToFile(ui, tasks.getMostRecentAddedTask());
         } catch (EmptyFieldException e) {
