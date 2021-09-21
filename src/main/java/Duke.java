@@ -1,12 +1,8 @@
-import exceptions.DukeException;
-import java.io.IOException;
-import exceptions.DeadlineException;
-import exceptions.EventException;
-import exceptions.TodoException;
-import exceptions.DoneException;
-import exceptions.DeleteException;
+import exceptions.*;
 
+import java.io.IOException;
 import java.util.Scanner;
+import ui.Ui;
 
 public class Duke {
     private static final String BYE = "bye";
@@ -18,12 +14,20 @@ public class Duke {
     private static final String TODO = "todo";
 
     public static ProcessManager processManager = new ProcessManager();
+    public static Ui ui = new Ui();
+
     public static void main(String[] args) {
-        processManager.welcomeMessage();
-        processManager.loadTasks();
+        ui.welcomeMessage();
+        try {
+            processManager.loadTasks();
+        } catch (IOException e) {
+            ui.printIOException(e);
+        } catch (SecurityException e) {
+            ui.printSecurityException(e);
+        }
+
         String line;
         Scanner in = new Scanner(System.in);
-
         boolean isProgress = true;
 
         while (isProgress) {
@@ -35,43 +39,44 @@ public class Duke {
                 try {
                     processManager.saveTasks();
                 } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                    ui.printIOException(e);
                 }
-                processManager.goodbyeMessage();
+                ui.goodbyeMessage();
             } else if (line.equals(LIST)) {
                 processManager.handleListRequest();
             } else if (line.startsWith(DELETE)) {
                 try {
                     processManager.handleDeleteRequest(line);
                 } catch (DeleteException e) {
-                    processManager.printDeleteException(e);
+                    ui.printDeleteException(e);
                 }
             } else if (line.startsWith(DONE)) {
                 try {
                     processManager.handleDoneRequest(line);
                 } catch (DoneException e) {
-                    processManager.printDoneException(e);
+                    ui.printDoneException(e);
                 }
             } else if (line.startsWith(TODO)) {
                 try {
                     processManager.handleToDoRequest(line);
                 } catch (TodoException e) {
-                    processManager.printTodoException(e);
+                    ui.printTodoException(e);
                 }
             } else if (line.startsWith(DEADLINE)) {
                 try {
                     processManager.handleDeadlineRequest(line);
                 } catch (DeadlineException e) {
-                    processManager.printDeadlineException(e);
+                    ui.printDeadlineException(e);
                 }
             } else if (line.startsWith(EVENT)){
                 try {
                     processManager.handleEventRequest(line);
                 } catch (EventException e) {
-                    processManager.printEventException(e);
+                    ui.printEventException(e);
                 }
             } else {
-                processManager.help();
+                DukeException e = new DukeException("Unknown Command");
+                ui.printDukeException(e);
             }
         }
     }
