@@ -1,6 +1,3 @@
-/**
- * This represents the superclass Task in each element of Task[] list in Duke.java.
- */
 public class Task {
 
     protected String description;
@@ -9,7 +6,7 @@ public class Task {
 
 
     /**
-     * This function initialises the task input by user.
+     * Initialises the task input by user.
      *
      * @param description description input by user.
      */
@@ -19,7 +16,7 @@ public class Task {
     }
 
     /**
-     * This function returns a relevant status icon.
+     * Returns a relevant status icon.
      *
      * @return "X" if task is done, " " if it is not.
      */
@@ -28,14 +25,14 @@ public class Task {
     }
 
     /**
-     * This function marks a given task as done, and prints a message letting the user know.
+     * Marks a given task as done, and prints a message letting the user know.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * This function is a getter for task description.
+     * Gets the task description.
      *
      * @return description of the task.
      */
@@ -43,18 +40,31 @@ public class Task {
         return description;
     }
 
+    /**
+     * Returns if the task contains the input.
+     *
+     * @param input the input of the user.
+     * @return returns whether input is contained in task.
+     */
     public boolean isInTask(String input) {
         return description.toLowerCase().contains(input);
     }
 
     /**
-     * This function modifies the output format.
+     * Modifies the output format.
+     *
+     * @return the desired output format.
      */
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), getDescription());
     }
 
+    /**
+     * Modifies the string format for adding to file.
+     *
+     * @return the correct format for the task to be added to file.
+     */
     public String toFile() {
         String fileString = "";
         if (isDone) {

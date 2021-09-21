@@ -2,9 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 import java.time.LocalDate;
-
+import java.util.Scanner;
 
 public class Storage {
 
@@ -14,18 +13,26 @@ public class Storage {
     private final static int TASK_INDEX = 2;
     private final static int BY_AT_INDEX = 3;
 
-
+    /**
+     * Initialises Storage with a given filepath.
+     *
+     * @param filepath the filepath where preset tasks are found.
+     */
     public Storage(String filepath) {
         Storage.filepath = filepath;
     }
 
-
+    /**
+     * Reads the tasks saved in the given filepath.
+     *
+     * @param tasks the tasks where the task is being added to.
+     */
     public void readSavedTasks(TaskList tasks) {
         File dataFile = new File(filepath);
         try {
             Scanner lineScanner = new Scanner(dataFile);
             while (lineScanner.hasNext()) {
-                AddLineTask(tasks, lineScanner.nextLine());
+                addLineTask(tasks, lineScanner.nextLine());
             }
         } catch (FileNotFoundException e) {
             createFile();
@@ -34,7 +41,13 @@ public class Storage {
         }
     }
 
-    public void AddLineTask(TaskList tasks, String line) {
+    /**
+     * Adds a given line from file in filepath to tasks
+     *
+     * @param tasks the tasks where the task is being added to.
+     * @param line  the line that contains information to be converted to task.
+     */
+    public void addLineTask(TaskList tasks, String line) {
         String[] lineContents = line.split(" \\| ");
         switch (lineContents[TASK_TYPE_INDEX]) {
         case "T":
@@ -55,6 +68,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the filepath with the current tasks.
+     *
+     * @param tasks stores current task information for all tasks.
+     */
     public static void refreshFile(TaskList tasks) {
         try {
             FileWriter file = new FileWriter(filepath);
@@ -67,6 +85,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the file in filepath if it does not exist.
+     */
     public static void createFile() {
         try {
             File newFile = new File(filepath);
@@ -77,6 +98,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends task into the file in filepath.
+     *
+     * @param task the task to be saved into the file in filepath.
+     */
     public static void saveTaskInFile(Task task) {
         try {
             FileWriter file = new FileWriter(filepath, true);
