@@ -21,10 +21,6 @@ public class Task {
     }
 
     //Setters
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
     public void setDone() {
         isDone = true;
     }
