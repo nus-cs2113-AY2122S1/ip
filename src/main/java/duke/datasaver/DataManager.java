@@ -155,6 +155,9 @@ public class DataManager {
      * @throws IOException if there is an error creating the file
      */
     private static void createFileInDirectory(String filePath) throws IOException {
+        String[] filePathAsArray = filePath.split("\\\\");
+        String directoryName = filePathAsArray[0];
+        Files.createDirectories(Paths.get(directoryName));
         Files.createFile(Paths.get(filePath));
     }
 
