@@ -27,11 +27,25 @@ public class AddCommand extends Command {
 
     private char taskType;
 
+    /**
+     * Constructor for AddCommand class.
+     *
+     * @param argument The command argument.
+     * @param taskType The type of task to create. Refer to constants in Task class.
+     */
     public AddCommand(String argument, char taskType) {
         super(argument);
         this.taskType = taskType;
     }
 
+    /**
+     * Executes the Todo/Deadline/Event commands.
+     *
+     * @param tasks   The TaskList object.
+     * @param ui      The Ui object.
+     * @param storage The Storage object.
+     * @throws DukeException if argument or taskType is invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task;
@@ -82,7 +96,7 @@ public class AddCommand extends Command {
     /**
      * Gets the task description and argument.
      *
-     * @param argument The argument from getCommandAndArgument(<string>).
+     * @param argument    The argument from getCommandAndArgument(<string>).
      * @param splitString The string to split at.
      * @return String array: [0] - Description, [1] - Argument Value.
      */

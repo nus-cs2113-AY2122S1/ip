@@ -11,9 +11,15 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Util {
+    /**
+     * Gets the Path object from filename.
+     *
+     * @param filename The filename.
+     * @return A Path object.
+     */
     public static Path getPathFromFilename(String filename) {
         String separator = FileSystems.getDefault().getSeparator();
-        String[] filenameSplit = filename.split(separator.replace("\\","\\\\"));
+        String[] filenameSplit = filename.split(separator.replace("\\", "\\\\"));
 
         String firstPathString = filenameSplit[0];
         Path path;
@@ -27,12 +33,24 @@ public class Util {
         return path;
     }
 
+    /**
+     * Checks if file exists.
+     *
+     * @param filename The file to check.
+     * @return true if exists, else false.
+     */
     public static boolean fileExists(String filename) {
         Path path = getPathFromFilename(filename);
 
         return Files.exists(path);
     }
 
+    /**
+     * Creates a file and parent directories (if necessary).
+     *
+     * @param filename The file to create.
+     * @return true if file already exists or successfully created, else false.
+     */
     public static boolean createFile(String filename) {
         if (fileExists(filename)) {
             return true;
@@ -69,10 +87,24 @@ public class Util {
         return isInt;
     }
 
+    /**
+     * Returns LocalDateTime object in the specified format.
+     *
+     * @param dateTime The LocalDateTime object.
+     * @param format   The format to return.
+     * @return The formatted dateTime.
+     */
     public static String getFormattedDateTime(LocalDateTime dateTime, String format) {
         return dateTime.format(DateTimeFormatter.ofPattern(format));
     }
 
+    /**
+     * Converts from string to LocalDateTime.
+     *
+     * @param string The string to convert.
+     * @param format The format of the string.
+     * @return A LocalDateTime object if successful, else null.
+     */
     public static LocalDateTime getDateTimeFromString(String string, String format) {
         LocalDateTime dateTime;
         try {

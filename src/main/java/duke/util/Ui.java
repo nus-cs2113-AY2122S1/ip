@@ -12,6 +12,9 @@ public class Ui {
 
     private final Scanner SCANNER;
 
+    /**
+     * Constructor for Ui class.
+     */
     public Ui() {
         this.SCANNER = new Scanner(System.in);
     }
@@ -42,10 +45,16 @@ public class Ui {
         System.out.println(MESSAGE_WALL);
     }
 
+    /**
+     * Prints the welcome message.
+     */
     public void printWelcomeMessage() {
         printMessage(MESSAGE_WELCOME);
     }
 
+    /**
+     * Prints the exit message.
+     */
     public void printExitMessage() {
         printMessage(MESSAGE_EXIT);
     }

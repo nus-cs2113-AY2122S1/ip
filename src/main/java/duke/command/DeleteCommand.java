@@ -13,10 +13,23 @@ public class DeleteCommand extends Command {
     private static final String MESSAGE_FORMAT_DELETE_USAGE = "Usage: %s <task number>";
     private static final String MESSAGE_FORMAT_TASK_DELETED = "Task deleted:\n  %s\nThere are %d tasks left in the list.";
 
+    /**
+     * Constructor for DeleteCommand class.
+     *
+     * @param argument The command argument.
+     */
     public DeleteCommand(String argument) {
         super(argument);
     }
 
+    /**
+     * Executes the delete command.
+     *
+     * @param tasks   The TaskList object.
+     * @param ui      The Ui object.
+     * @param storage The Storage object.
+     * @throws DukeException if argument is invalid or fail to remove from TaskList.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (!Util.isStringInteger(argument)) {

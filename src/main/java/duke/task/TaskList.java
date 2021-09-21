@@ -7,6 +7,9 @@ public class TaskList {
 
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructor for TaskList class.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -26,18 +29,39 @@ public class TaskList {
         return (taskNumber > 0 && taskNumber <= getSize());
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to add.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Checks if the list is empty.
+     *
+     * @return true if list is empty, else false.
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * Gets the size of the list.
+     *
+     * @return The size of list.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Gets the task at the specified index.
+     *
+     * @param index The task index in the list.
+     * @return The Task object if valid, else null.
+     */
     public Task getTaskAt(int index) {
         if (isValidIndex(index)) {
             return tasks.get(index);
@@ -46,6 +70,12 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Removes the task at the specified index.
+     *
+     * @param index The task index in the list.
+     * @return The Task object if valid, else null.
+     */
     public Task removeTaskAt(int index) {
         if (isValidIndex(index)) {
             return tasks.remove(index);
@@ -54,6 +84,12 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Finds the tasks with description matching the searchString. (Case-insensitive)
+     *
+     * @param searchString The string to search.
+     * @return A list of tasks matching the searchString.
+     */
     public ArrayList<Task> findTask(String searchString) {
         searchString = searchString.toLowerCase();
 
