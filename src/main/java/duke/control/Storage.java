@@ -19,9 +19,9 @@ public class Storage {
     }
 
     /**
-     * Checks and ensures that the save file exists in the correct location. Creates the directory/file if required.
+     * Checks and ensures that the save file exists in the correct location. Creates the directory and/or file if
+     * required.
      * save file must have the path ../Data/dukeData.txt
-     *
      * @throws IOException
      */
     protected static void createFile() throws IOException {
@@ -70,9 +70,9 @@ public class Storage {
         File file = new File(filePath);
         if (file.exists()) {
             try {
-                Scanner s = new Scanner(file);
-                while (s.hasNext()) {
-                    list.addEntryFromFile(s.nextLine());
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    list.addEntryFromFile(scanner.nextLine());
                 }
             } catch (IOException e) {
                 Ui.printLoadSaveErrorMessage();

@@ -4,7 +4,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -67,7 +66,7 @@ public class TaskList {
     /**
      * Sets an entry in the list as done
      * @param entryNumber the entry number of the list item to be set. To the user, the list indexes from 1, so the
-     *      *                    actual index of the item is entryNumber-1
+     *                          actual index of the item is entryNumber-1
      */
     public void doneEntry(int entryNumber) {
         (taskList.get(entryNumber-1)).setDone();
@@ -130,6 +129,12 @@ public class TaskList {
         return taskList;
     }
 
+    /**
+     * Prints entry, for use in list command
+     * @param entry Task entry from list
+     * @param entryIndex index of the task from the list. Index is displayed as index + 1 as the list starts from 1 to
+     *                   the user.
+     */
     public void printEntry(Task entry, int entryIndex) {
         int entryNumber = entryIndex + 1;
         System.out.println(entryNumber + "." + entry.toString());

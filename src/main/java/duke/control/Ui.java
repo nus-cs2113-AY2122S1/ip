@@ -53,11 +53,10 @@ public class Ui {
 
     public static void printHelpMessage() {
         System.out.println("I currently support 3 types of tasks: todo, deadline and event");
-        System.out.println("To add a todo task: todo (task name)");
-        System.out.println("To add a deadline task: deadline (task name) /by (date or time)");
-        System.out.println("To add an event task: event (task name) /at (date or time)");
-        System.out.println("To delete a task in the list: delete (x) where x is the entry number");
-        System.out.println("note that only the words in parentheses() can be replaced");
+        System.out.println("To add a todo task: todo task name");
+        System.out.println("To add a deadline task: deadline task name /by yyyy-mm-ddTxx:xx where xx:xx is the time");
+        System.out.println("To add an event task: event task name /at yyyy-mm-ddTxx:xx where xx:xx is the time");
+        System.out.println("To delete a task in the list: delete x where x is the entry number");
         System.out.println("To see your current list, Use the command \"list\"");
         System.out.println("To cross out an entry, use the command \"done x\" where x is the entry number");
         System.out.println("To save your current data, use the command \"save\"");
@@ -86,6 +85,13 @@ public class Ui {
         return false;
     }
 
+    /**
+     * Processes the user input and returns the command type from the input.
+     * Commands are: list, help, bye, done, delete, todo, deadline or event
+     * @param input user input, one line.
+     * @return Command object of the correct command according to the input
+     * @throws InvalidInputFormatException
+     */
     protected static Command processInput(String input) throws InvalidInputFormatException {
         Command command;
         if (input.equals("list")) {

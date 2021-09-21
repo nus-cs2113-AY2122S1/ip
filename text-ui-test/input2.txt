@@ -1,15 +1,14 @@
 help
 todo task 1
-deadline task 2 /by monday
-event task 3 /at thursday 1pm
+deadline task 2 /by 2020-12-09T12:00
+event task 3 /at 2021-12-12T09:30
 list
 done 1
 done 2
-list
-deadline /by tomorrow
-todo
-event task 4
-done
-done 10
+done 3
+delete 1
 done a
+done 5
+delete 1
+delete 1
 bye

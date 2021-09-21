@@ -32,7 +32,18 @@ public abstract class Task {
         return (getTaskSymbol() + getStatusSymbol() + " " + name);
     }
 
+    /**
+     * returns the task symbol according to the type of Task.
+     * [T] for Todo, [D] for Deadline, [E] for Event.
+     * @return task type symbol
+     */
     public abstract String getTaskSymbol();
 
+    /**
+     * returns the task object in String form for saving into save file
+     * In the form [a][b] Description DT: LocalDateTime
+     * a is task type, b is isDone status, DT: LocalDateTime only for Deadline or Event classes.
+     * @return Task object as a String
+     */
     public abstract String toStringForSave();
 }

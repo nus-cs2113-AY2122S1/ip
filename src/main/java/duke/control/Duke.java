@@ -15,6 +15,11 @@ public class Duke {
         Ui.printWelcomeMessage();
     }
 
+    /**
+     * Runs the main process of duke
+     * Runs an infinite loop of receiving user input and processing it.
+     * the "bye" command breaks the loop, ending the method.
+     */
     public static void run() {
         Scanner in = new Scanner(System.in);
         String userInput;
@@ -28,8 +33,7 @@ public class Duke {
                 continue;
             }
             if (command instanceof ByeCommand) {
-                Ui.printExitMessage();
-                Storage.saveData(list);
+                command.executeCommand(list, userInput, storage);
                 break;
             }
             command.executeCommand(list, userInput, storage);

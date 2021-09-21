@@ -28,6 +28,10 @@ public class Event extends Task{
                 dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + hours + ":" + minutes + " )");
     }
 
+    /**
+     * returns the Event object as a string in the form to be saved into save file
+     * @return Deadline in the form [E][X] Description DT: LocalDateTime
+     */
     @Override
     public String toStringForSave() {
         return (getTaskSymbol() + getStatusSymbol() + " " + name + " DT: " + dateTime.toString());
