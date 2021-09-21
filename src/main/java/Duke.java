@@ -4,19 +4,18 @@ import task.TaskList;
 import ui.Ui;
 
 public class Duke {
+    /**
+     * Necessary variables for Duke to work properly
+     */
     public static Ui ui;
     private static Storage storage;
     private static Parser parser;
-
-    /**
-     * These variables are responsible for the management of Tasks
-     */
     private static TaskList tasks;
 
     /**
-     * Initializes the list of Tasks and Task Counter
+     * Initializes the above necessary variables for Duke program
      */
-    private static void initDuke() {
+    public static void initDuke() {
         ui = new Ui();
         tasks = new TaskList(ui);
         storage = new Storage();
