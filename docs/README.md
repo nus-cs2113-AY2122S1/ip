@@ -7,7 +7,6 @@ Duke is a simple application that makes use of a Command Line Interface to help 
 4. Go to the directory where the file is stored in your machine.
 5. Run the command `java -jar [filename].jar` to launch the application.
 ## Features
-
 Note: The parameters for date are to be in `yyyy-MM-dd HH:mm` format. The index of tasks is such that "1" represents the
 first task in the list.
 
