@@ -1,5 +1,8 @@
 package duke;
 
+import duke.command.Command;
+import duke.command.CommandResult;
+import duke.command.TerminateCommand;
 import duke.exception.InvalidCommandException;
 import duke.exception.TodoFormatException;
 import duke.exception.DeadlineFormatException;
@@ -13,136 +16,68 @@ import duke.exception.DeleteFormatException;
 import duke.ui.DukeInterface;
 import duke.local.DataManager;
 import duke.task.TaskManager;
+import duke.parser.Parser;
 
 import java.util.Scanner;
 
 public class Duke {
 
     private final Scanner in;
-    private final DukeInterface dukeUI;
-    private final DataManager dataMgr;
+    private final DukeInterface dukeUi;
+    private final DataManager dataManager;
+    private TaskManager taskManager;
+    private final Parser parser;
 
-    private boolean isRunning;
-
-    private final String LIST_CMD = "list";
-    private final String HELP_CMD = "help";
-    private final String ADD_TODO_CMD = "todo";
-    private final String ADD_DEADLINE_CMD = "deadline";
-    private final String ADD_EVENT_CMD = "event";
-    private final String SET_TASK_DONE_CMD = "done";
-    private final String DELETE_TASK_CMD = "delete";
-    private final String TERMINATE_CMD = "bye";
 
     private final String FILE_PATH = "data/duke.txt";
-    //private final String FILE_PATH = "test/test.txt";
 
     public Duke() {
         in = new Scanner(System.in);
-        dukeUI = new DukeInterface();
-        dataMgr = new DataManager(FILE_PATH);
+        dukeUi = new DukeInterface();
+        dataManager = new DataManager(FILE_PATH);
+        taskManager = dataManager.loadDataFromFile();
+        parser = new Parser();
     }
 
     public String readInput() {
-        dukeUI.printUserName();
-        dukeUI.printCursor();
+        dukeUi.printUserName();
+        dukeUi.printCursor();
         String input = in.nextLine();
         return input;
     }
 
-    public void runCommand(TaskManager taskMgr, String input) throws InvalidCommandException {
-        String[] inputArgs = input.split("\\s+", 2);
-        String cmd = inputArgs[0];
-        String cmdArgument = "";
-
-        if (inputArgs.length == 2) {
-            cmdArgument = inputArgs[1];
-        }
-
-        switch (cmd) {
-        case TERMINATE_CMD:
-            isRunning = false;
-            break;
-        case HELP_CMD:
-            dukeUI.printHelpMsg();
-            break;
-        case LIST_CMD:
-            try {
-                taskMgr.getTasklist();
-            } catch (EmptyTasklistException e) {
-                System.out.println(e);
-            }
-            break;
-        case ADD_TODO_CMD:
-            try {
-                taskMgr.addToDo(cmdArgument);
-            } catch (TodoFormatException e) {
-                System.out.println(e);
-            }
-            break;
-        case ADD_DEADLINE_CMD:
-            try {
-                taskMgr.addDeadline(cmdArgument);
-            } catch (DeadlineFormatException e) {
-                System.out.println(e);
-            }
-            break;
-        case ADD_EVENT_CMD:
-            try {
-                taskMgr.addEvent(cmdArgument);
-            } catch (EventFormatException e) {
-                System.out.println(e);
-            }
-            break;
-        case SET_TASK_DONE_CMD:
-            try {
-                taskMgr.setTaskComplete(cmdArgument);
-            } catch (DoneFormatException e) {
-                System.out.println(e);
-            } catch (InvalidTaskIdException e) {
-                System.out.println(e);
-            } catch (TaskAlreadyDoneException e) {
-                System.out.println(e);
-            }
-            break;
-        case DELETE_TASK_CMD:
-            try {
-                taskMgr.deleteTask(cmdArgument);
-            } catch (DeleteFormatException e) {
-                System.out.println(e);
-            } catch (InvalidTaskIdException e) {
-                System.out.println(e);
-            }
-            break;
-        default:
-            throw new InvalidCommandException();
-        }
-    }
-
     public void startDuke() {
 
-        TaskManager taskMgr = dataMgr.loadDataFromFile();
+        dukeUi.printWelcomeMsg();
 
-        dukeUI.printWelcomeMsg();
-        isRunning = true;
+        Command userCommand = null;
+        CommandResult commandResult = null;
 
         do {
-            String input = readInput();
+
+            String userInput = readInput();
+            userCommand = parser.parseCommand(taskManager, userInput);
+
             try {
-                runCommand(taskMgr, input);
-            } catch (InvalidCommandException e) {
+                commandResult = userCommand.executeCommand();
+            } catch (Exception e) {
                 System.out.println(e);
             }
 
-        } while (isRunning);
+            if(commandResult.getIsModified() == true) {
+                taskManager = commandResult.getTaskManager();
+                dataManager.writeToFile(taskManager);
+            }
 
-        dataMgr.writeToFile(taskMgr);
+            dukeUi.printMsgWithCursor(commandResult.getDukeMessage());
 
-        dukeUI.printExitMsg();
+        } while(commandResult.getIsExited() != true);
+
     }
 
     public static void main(String[] args) {
-        Duke myObject = new Duke();
-        myObject.startDuke();
+        Duke duke = new Duke();
+        duke.startDuke();
     }
 
 }
