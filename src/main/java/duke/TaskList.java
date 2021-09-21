@@ -72,16 +72,16 @@ public class TaskList {
     public void findTask(String keyword) {
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> {
-                    if (task.getDescription().contains(keyword)) {
+                    if (task.getDescription().toLowerCase().contains(keyword)) {
                         return true;
                     }
                     if (task instanceof Deadline) {
-                        return (((Deadline) task).getDeadline().contains(keyword) ||
-                                task.getDescription().contains(keyword));
+                        return (((Deadline) task).getDeadline().toLowerCase().contains(keyword) ||
+                                task.getDescription().toLowerCase().contains(keyword));
                     }
                     if (task instanceof Events) {
-                        return (((Events) task).getEventLocation().contains(keyword) ||
-                                task.getDescription().contains(keyword));
+                        return (((Events) task).getEventLocation().toLowerCase().contains(keyword) ||
+                                task.getDescription().toLowerCase().contains(keyword));
                     }
                     return false;
                 })

@@ -59,8 +59,9 @@ public class Ui {
             System.out.println("Task list is empty. Add some tasks in!");
         } else {
             System.out.println("Here are the tasks in your list:");
-            tasks.stream()
-                    .forEach(System.out::println);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i+1) + "." + tasks.get(i));
+            }
         }
         System.out.println(LINE);
     }
@@ -68,11 +69,12 @@ public class Ui {
     public void printFindTask(List<Task> matchingTasks) {
         System.out.println(LINE);
         if (matchingTasks.size() == 0) {
-            System.out.println("No matching tasks found! ");
+            System.out.println("No matching tasks found!");
         } else {
             System.out.println("Here are the matching tasks in your list:");
-            matchingTasks.stream()
-                    .forEach(System.out::println);
+            for (int i = 0; i <matchingTasks.size(); i++) {
+                System.out.println((i+1) + "." + matchingTasks.get(i));
+            }
         }
         System.out.println(LINE);
     }
