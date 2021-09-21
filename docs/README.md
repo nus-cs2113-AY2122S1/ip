@@ -1,5 +1,6 @@
 # User Guide for Duke
-Duke is a simple application that makes use of a Command Line Interface to help you in keeping track of your daily tasks.
+Duke is a simple application that makes use of a Command Line Interface to help you in managing and keeping track of 
+your daily tasks.
 
 ## Installation
 1. Install Java 11 on your machine if you have not done so yet. You can follow the guide [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/what-is-corretto-11.html).
@@ -9,6 +10,29 @@ Duke is a simple application that makes use of a Command Line Interface to help 
 5. Run the command `java -jar [filename].jar` to launch the application.
 
 ## Features
+### 3 Types of Tasks
+Duke categorizes tasks into 3 different types: Todo, Deadline and Event.
+
+#### Todo
+A Todo is a type of task that does not have any date attached to it and only contains the description.
+
+#### Deadline
+A Deadline is a type of task that has to be done by a specified date and time. It contains the description and the date 
+and time of due.
+
+#### Event
+An Event is a type of task that is to be done at a specified date and time. It contains the description and the date and
+time of the Event.
+
+### User Friendly Prompts
+Duke prompts you with helpful messages to guide you in using the commands correctly whenever an incorrect or invalid 
+command is given.
+
+### Easy organizing of Tasks
+Duke has several features that help in organizing your tasks such as Listing out all tasks, Marking Tasks as Done,
+Searching for Tasks by Keyword and Listing out Upcoming Tasks.
+
+## Usage
 Note: The parameters for date are to be in `yyyy-MM-dd HH:mm` format. The index of tasks is such that "1" represents the
 first task in the list.
 
