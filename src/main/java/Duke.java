@@ -19,9 +19,9 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println(
                 "       Messrs Moony, Wormtail, Padfoot, and Prongs\n" +
-                "       Purveyors of Aids to Magical Mischief-Makers\n" +
-                "                  are proud to present\n" +
-                "                 --THE MARAUDER'S MAP--");
+                        "       Purveyors of Aids to Magical Mischief-Makers\n" +
+                        "                  are proud to present\n" +
+                        "                 --THE MARAUDER'S MAP--");
     }
 
     public static void hello() {
@@ -39,7 +39,7 @@ public class Duke {
     }
 
     public static void add(Task t) {
-        tasks[taskCount]= t;
+        tasks[taskCount] = t;
         taskCount++;
         System.out.println("|| Got it. I've added this task");
         System.out.println("|| \t" + t.toString());
@@ -51,7 +51,7 @@ public class Duke {
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
             Task t = tasks[i];
-            System.out.println(t.id + ". " + t.toString());
+            System.out.println(t.id + ". " + t);
         }
         System.out.println(LINE);
     }
@@ -60,9 +60,9 @@ public class Duke {
 
         String[] txt = input.split(" ", 2);
 
-        int i = Integer.parseInt(txt[1])-1;
+        int i = Integer.parseInt(txt[1]) - 1;
         tasks[i].setDone(true);
-        System.out.println("Nice!I've marked this task as done:") ;
+        System.out.println("Nice!I've marked this task as done:");
         System.out.println(tasks[i].id + ". " + tasks[i].toString());
 
     }
@@ -111,7 +111,7 @@ public class Duke {
                 add(t);
             } else if (input.startsWith("event")) {
                 details = getDetails(input);
-                Event t = new Event(details[DESCRIPTION],details[TIME]);
+                Event t = new Event(details[DESCRIPTION], details[TIME]);
                 add(t);
             } else {
                 alarm();
