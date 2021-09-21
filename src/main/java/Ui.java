@@ -11,6 +11,7 @@ public class Ui {
     private static final String SPACE = "    ";
     private static final String LIST_MESSAGE = "     Here are the tasks in your list:";
     private static final String ADD_MESSAGE = "     Now you have %d tasks in the list.";
+    public static final String FIND_MESSAGE = "     Here are the matching tasks in your list:";
     private static final int INDEX_OFFSET = 1;
     private static final String POINT = ".";
 
@@ -49,11 +50,15 @@ public class Ui {
         } else if (result.feedback.contains("☹ OOPS!!!")) {
             showMessages(DIVIDER, result.feedback, DIVIDER);
         } else if (result.feedback.equals("list")) {
+            showMessages(DIVIDER, LIST_MESSAGE);
             showTasksList(result.relevantTasks);
         } else if (result.feedback.equals("     Nice! I've marked this task as done:")) {
             showMessages(DIVIDER, result.feedback);
             out.println("     " + result.relevantTask);
             showMessages(DIVIDER);
+        } else if (result.feedback.equals("find")) {
+            showMessages(DIVIDER, FIND_MESSAGE);
+            showTasksList(result.relevantTasks);
         } else {
             showMessages(DIVIDER, result.feedback);
             out.println("      " + result.relevantTask);
@@ -63,8 +68,6 @@ public class Ui {
 
     public void showTasksList (List<Task> tasksList) {
         int taskIndex = INDEX_OFFSET;
-        out.println(DIVIDER);
-        out.println(LIST_MESSAGE);
         for(Task task: tasksList) {
             out.print(SPACE + taskIndex++ + POINT);
             out.println(task);
