@@ -1,6 +1,7 @@
 package alfred.ui;
 
 import alfred.task.Task;
+import alfred.task.TaskList;
 
 import java.util.Scanner;
 
@@ -41,11 +42,23 @@ public class TextUi {
     }
 
     public static void completeTaskMessage(int index, String taskDescription) {
-        String messageString =  "Duly noted on completion of task, sir.\n" + "    " + index + "." + taskDescription + "\n";
         int listIndex = index + 1;
         String messageString =
                 "Duly noted on completion of task, sir.\n" + "    " + listIndex + "." + taskDescription + "\n";
         printMessageTemplate(messageString);
+    }
+
+    public static void listTasks(int numberOfTasks, TaskList taskList) {
+        System.out.print(LINE);
+        if (numberOfTasks == 0) {
+            System.out.println(" Your schedule is clear, Master Wayne.");
+        } else {
+            System.out.println(" Your tasks, sir:");
+            for (int i = 0; i < numberOfTasks; i++) {
+                System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
+            }
+        }
+        System.out.println(LINE);
     }
 
     public static void addTaskMessage(Task t, int numberOfTasks) {
