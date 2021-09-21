@@ -498,9 +498,18 @@ public class Terminator {
     private static void handleFileNotFound() {
         System.out.println(formatWithHeading("Directory (data) and/or File (data/records.txt) does not exist!",
                 TERMINATOR_FORMATTING));
-        System.out.println(formatWithHeading("Create a directory named data in your local directory!",
-                TERMINATOR_FORMATTING));
-        handleByeSequence();
+        try {
+            File fileObject = new File(FILE_LOCATION);
+            fileObject.getParentFile().mkdirs();
+            if (fileObject.createNewFile()) {
+                System.out.println(formatWithHeading("New database created at " + FILE_LOCATION,
+                        TERMINATOR_FORMATTING));
+            }
+        } catch (IOException e) {
+            System.out.println(formatWithHeading("Cannot create file here. Check your permissions!",
+                    TERMINATOR_FORMATTING));
+            handleByeSequence();
+        }
     }
 
     /**
