@@ -87,6 +87,11 @@ public class TextUi {
         printMessageTemplate(" Master Wayne, if you do not specify your task, I'm afraid I cannot note it down.\n");
     }
 
+    public static void missingIndexMessage() {
+        String messageString = " And what task number are you specifying, Master Wayne?\n";
+        printMessageTemplate(messageString);
+    }
+
     public static void invalidIndexMessage() {
         String messageString = " Sir, the bats must've gone to your head.\n" + " Do try again with a number that " +
                 "identifies your task.\n";
