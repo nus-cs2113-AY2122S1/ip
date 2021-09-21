@@ -25,7 +25,7 @@ public class Parser {
     }
 
     public Parser(String input) {
-        if (isMoreThanTwoWords(input)) {
+        if (isMoreThanOneWord(input)) {
             arguments = input.trim().split(" ", 2);
         } else {
             arguments = new String[1];
@@ -34,7 +34,7 @@ public class Parser {
         this.input = input.trim();
     }
 
-    public boolean isMoreThanTwoWords(String input) {
+    public boolean isMoreThanOneWord(String input) {
         if (input.trim().indexOf(" ") > -1) {
             this.isMoreThanOneWord = true;
             return true;

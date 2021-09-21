@@ -34,4 +34,9 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
+    public boolean isInDateTimeFormat() {
+        // If called on tasks without date-time arguments, assumed to be true
+        return true;
+    }
 }

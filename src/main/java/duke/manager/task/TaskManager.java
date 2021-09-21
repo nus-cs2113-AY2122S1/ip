@@ -35,6 +35,10 @@ public class TaskManager {
         tasks = new ArrayList<Task>();
     }
 
+    public Task getLastTaskInList() {
+        return !tasks.isEmpty() ? tasks.get(tasks.size() - 1) : null;
+    }
+
     /**
      * Converts the whole task list into one String. Each task is stored in a readable format every line.
      *

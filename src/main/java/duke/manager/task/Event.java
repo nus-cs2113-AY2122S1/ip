@@ -25,8 +25,6 @@ public class Event extends Task {
             atInDateTime = LocalDateTime.parse(at, DateTimeFormat.STRING_TO_DATE_TIME_FORMATTER);
             isInDateTimeFormat = true;
         } catch (DateTimeParseException dte) {
-            System.out.println(UserInterface.HORIZONTAL_BAR
-                    + System.lineSeparator() + Message.NOT_DATE_TIME_MESSAGE);
             // if by is not parsable, store it as a String
             if (at.equals(EMPTY_STRING)) {
                 this.at = "???";
@@ -34,6 +32,11 @@ public class Event extends Task {
                 this.at = at;
             }
         }
+    }
+
+    @Override
+    public boolean isInDateTimeFormat() {
+        return isInDateTimeFormat;
     }
 
     public String getAt() {
@@ -49,7 +52,6 @@ public class Event extends Task {
             atInDateTime = LocalDateTime.parse(at, DateTimeFormat.STRING_TO_DATE_TIME_FORMATTER);
             isInDateTimeFormat = true;
         } catch (DateTimeParseException dte) {
-            System.out.println(Message.NOT_DATE_TIME_MESSAGE);
             // if by is not parsable, store it as a String
             if (at.equals(EMPTY_STRING)) {
                 this.at = "???";
