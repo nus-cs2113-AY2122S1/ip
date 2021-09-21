@@ -32,6 +32,14 @@ public class TaskManager {
         tasks = new ArrayList<Task>();
     }
 
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public String addToDo(String todoInfo) throws ToDoFormatException {
 
         if (todoInfo.equals(TODO_FORMAT_REGEX)) {
