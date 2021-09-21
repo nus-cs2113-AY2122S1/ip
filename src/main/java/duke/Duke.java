@@ -26,6 +26,8 @@ public class Duke {
         dataManager = new DataManager(FILE_PATH);
         taskManager = new TaskManager();
         parser = new Parser();
+
+        dukeUi.printLogo();
     }
 
     public String readInput() {
@@ -37,9 +39,9 @@ public class Duke {
 
     public void startDuke() {
 
-        dukeUi.printWelcomeMsg();
+        taskManager.setTasks(dataManager.getLoadedTaskList());
 
-        taskManager.setTasks(dataManager.loadDataFromFile());
+        dukeUi.printWelcomeMessage();
 
         Command userCommand;
         CommandResult commandResult = null;

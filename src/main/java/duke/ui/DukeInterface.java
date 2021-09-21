@@ -16,8 +16,11 @@ public class DukeInterface {
     private final String WELCOME_MSG = "=> Hello! I'm Duke \uD83D\uDC3B\n"
             + "=> I'm so hungry, would you mind feeding me tasks?";
 
-    public void printWelcomeMsg() {
+    public void printLogo() {
         System.out.println(LOGO);
+    }
+
+    public void printWelcomeMessage() {
         printDukeName();
         System.out.println(WELCOME_MSG);
     }
