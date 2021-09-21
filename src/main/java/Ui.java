@@ -1,6 +1,9 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class handling the user interface interactions with the user.
+ */
 public class Ui {
     protected int ARRAYLIST_PRINT_OFFSET = 1;
     protected String LINE_DIVIDER = "____________________________________________________________";
