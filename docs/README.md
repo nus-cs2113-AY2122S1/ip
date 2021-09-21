@@ -265,7 +265,7 @@ Here are the valid DateTime formats to use:
 
 ### Removing a task: `delete <IDX>`
 Removes a task from the task list, by their **idx**
-- **IDX** : index as displayed in the full list (:no_entry: **NOT QUERIED LIST**)
+- **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
 
 Example: `list` -> `delete 6`
 ```shell
@@ -294,7 +294,8 @@ You now have (6) tasks!
 ### Marking a task as done: `done <IDX>`
 
 Marks a task as done, by their **IDX**.
-- **IDX** : index as displayed in the full list (:no_entry: **NOT QUERIED LIST**)
+
+- **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
 
 Example: `list` -> `done 5`
 ```shell
