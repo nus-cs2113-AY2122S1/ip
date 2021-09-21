@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.parser.Parser;
 import duke.task.TaskManager;
 import duke.ui.Ui;
 
@@ -8,15 +9,16 @@ import duke.ui.Ui;
  * Command to find tasks based on a keyword
  */
 public class FindTasksCommand extends Command {
-    private final String keyword;
+    private static final String COMMAND_FIND = "find";
+    private final String line;
 
     /**
-     * Constructs a FindTasksCommand with a keyword.
+     * Constructs a FindTasksCommand with the user input.
      *
-     * @param keyword The keyword used to filter tasks.
+     * @param line The user input.
      */
-    public FindTasksCommand(String keyword) {
-        this.keyword = keyword;
+    public FindTasksCommand(String line) {
+        this.line = line;
     }
 
     /**
@@ -29,6 +31,7 @@ public class FindTasksCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui) throws DukeException {
+        String keyword = Parser.parseDescription(line, COMMAND_FIND);
         taskManager.findTasks(keyword, ui);
     }
 }

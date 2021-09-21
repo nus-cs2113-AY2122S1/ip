@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskManager;
 import duke.ui.Ui;
@@ -9,15 +10,15 @@ import duke.ui.Ui;
  * Command to delete a task.
  */
 public class DeleteTaskCommand extends Command {
-    private final int taskId;
+    private final String line;
 
     /**
-     * Constructs a DeleteTaskCommand with task ID.
+     * Constructs a DeleteTaskCommand with the user input.
      *
-     * @param taskId The corresponding task ID.
+     * @param line The user input.
      */
-    public DeleteTaskCommand(int taskId) {
-        this.taskId = taskId;
+    public DeleteTaskCommand(String line) {
+        this.line = line;
     }
 
     /**
@@ -30,6 +31,7 @@ public class DeleteTaskCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui) throws DukeException {
+        int taskId = Parser.getTaskId(line);
         Task deletedTask;
         try {
             deletedTask = taskManager.deleteTask(taskId);

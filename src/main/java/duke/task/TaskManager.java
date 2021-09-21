@@ -39,11 +39,9 @@ public class TaskManager {
      * Adds a task to the ArrayList tasks.
      *
      * @param task The task object to be added.
-     * @return The task object that has been added.
      */
-    public Task addTask(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
-        return task;
     }
 
     /**
@@ -135,8 +133,9 @@ public class TaskManager {
             } else {
                 throw new DukeException("Error saving task no.: " + i);
             }
-            lines.append(taskType + DELIMITER + isDone + DELIMITER + description +
-                    (hasTime ? DELIMITER + time : "") + System.lineSeparator());
+            lines.append(taskType).append(DELIMITER).append(isDone).append(DELIMITER)
+                    .append(description).append(hasTime ? DELIMITER + time : "")
+                    .append(System.lineSeparator());
         }
         return lines.toString();
     }
