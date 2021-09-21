@@ -129,7 +129,10 @@ public class KateUI {
      * @param keyword      Keyword supplied by user
      */
     public void printTasksByKeyword(ArrayList<String> filteredTask, String keyword) {
+        String filterTaskHeading = Message.TEXT_INDENTATION
+                + "Here are the filtered tasks with keyword: " + keyword + "\n";
         StringBuilder compiledTasks = new StringBuilder();
+        compiledTasks.append(filterTaskHeading);
         for (String task : filteredTask) {
             String compiledTask = Message.TEXT_INDENTATION + task + "\n";
             compiledTasks.append(compiledTask);
