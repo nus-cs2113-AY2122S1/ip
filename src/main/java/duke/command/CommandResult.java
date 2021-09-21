@@ -4,7 +4,7 @@ import duke.task.TaskManager;
 
 public class CommandResult {
 
-    public TaskManager taskManager;
+    private TaskManager taskManager;
     private boolean isModified;
     private boolean isExited;
     private String dukeMessage;
@@ -26,8 +26,16 @@ public class CommandResult {
         return this.taskManager;
     }
 
+    public String getDukeMessage() {
+        return this.dukeMessage;
+    }
+
     public boolean getIsModified() {
         return this.isModified;
+    }
+
+    public boolean getIsExited() {
+        return this.isExited;
     }
 
 
