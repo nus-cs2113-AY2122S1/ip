@@ -16,6 +16,7 @@ public abstract class Command {
     public static final String COMMAND_FIND = "find";
 
     protected static final String MESSAGE_INVALID_TASK_NUMBER = "Invalid task number.";
+    protected static final String MESSAGE_FORMAT_GENERIC_USAGE = "Usage: %s";
 
     protected String argument;
     protected boolean isExit;
