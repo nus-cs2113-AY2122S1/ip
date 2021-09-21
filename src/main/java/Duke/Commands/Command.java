@@ -38,7 +38,7 @@ public class Command {
             LocalDate date = LocalDate.parse(splittedDueDate[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         } catch (DateTimeParseException e) {
             throw new DukeException("☹ OOPS!!! Invalid date format." + System.lineSeparator()
-                    + "Please enter your date in the following format: dd-mm-yyyy");
+                    + "\tPlease enter your date in the following format: dd-mm-yyyy");
         }
     }
 

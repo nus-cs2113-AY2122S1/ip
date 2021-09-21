@@ -33,4 +33,15 @@ public class TaskList {
     public int getSize() {
         return TASKS_ARRAY_LIST.size();
     }
+
+    public void searchList(String searchParams) {
+        ArrayList<Task> taskFoundList = new ArrayList<>();
+        for (Task task: TASKS_ARRAY_LIST) {
+            if (task.toString().contains(searchParams)) {
+                taskFoundList.add(task);
+            }
+        }
+        UI.printTasksFound(taskFoundList);
+    }
+
 }
