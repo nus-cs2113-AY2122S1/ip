@@ -4,7 +4,7 @@ import duke.exception.UnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.exception.EmptyDescriptionException;
 import duke.task.exception.EmptyTimeDetailException;
@@ -54,7 +54,7 @@ public class Duke {
             COMMAND_DELETE + " <item no.>\n" +
             COMMAND_BYE;
 
-    private static final TaskManager taskManager = new TaskManager();
+    private static final TaskList taskList = new TaskList();
 
     /**
      * Print sentences with line above and below the text block.
@@ -222,10 +222,10 @@ public class Duke {
      * @param newTask New task.
      */
     private static void addTask(Task newTask) {
-        taskManager.addTask(newTask);
+        taskList.addTask(newTask);
         blockPrint(new String[]{"I have added the task:",
                 newTask.toString(),
-                "There are now " + taskManager.getTotalTasks() + " tasks in the list."});
+                "There are now " + taskList.getTotalTasks() + " tasks in the list."});
 
         saveTaskList();
     }
@@ -240,8 +240,8 @@ public class Duke {
         String taskInfo;
         try {
             taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
-            taskInfo = taskManager.getTask(taskIndex).toString();
-            taskManager.deleteTask(taskIndex);
+            taskInfo = taskList.getTask(taskIndex).toString();
+            taskList.deleteTask(taskIndex);
         } catch (NumberFormatException | InvalidTaskIndexException | IndexOutOfBoundsException e) {
             printInvalidTaskIndexError();
             return;
@@ -252,7 +252,7 @@ public class Duke {
 
         blockPrint(new String[]{"Affirmative. I have removed this task:",
                 taskInfo,
-                "You have " + taskManager.getTotalTasks() + " tasks left in the list."});
+                "You have " + taskList.getTotalTasks() + " tasks left in the list."});
 
         saveTaskList();
     }
@@ -346,13 +346,13 @@ public class Duke {
      */
     private static void listTasks() {
         // Format tasks for output message
-        String[] taskListMessage = new String[taskManager.getTotalTasks() + 1];
+        String[] taskListMessage = new String[taskList.getTotalTasks() + 1];
         taskListMessage[0] = "Here are the tasks in your list:";
 
-        for (int i = 0; i < taskManager.getTotalTasks(); i++) {
+        for (int i = 0; i < taskList.getTotalTasks(); i++) {
             Task task;
             try {
-                task = taskManager.getTask(i);
+                task = taskList.getTask(i);
             } catch (TaskListEmptyException e) {
                 printTaskListEmptyError();
                 return;
@@ -375,7 +375,7 @@ public class Duke {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
-            taskManager.markTaskAsDone(taskIndex);
+            taskList.markTaskAsDone(taskIndex);
         } catch (InvalidTaskIndexException | IndexOutOfBoundsException e) {
             printInvalidTaskIndexError();
             return;
@@ -386,7 +386,7 @@ public class Duke {
 
         Task completedTask;
         try {
-            completedTask = taskManager.getTask(taskIndex);
+            completedTask = taskList.getTask(taskIndex);
         } catch (TaskListEmptyException e) {
             printTaskListEmptyError();
             return;
@@ -463,22 +463,22 @@ public class Duke {
                 // Add task
                 if (splitLine.length == 3) {
                     Todo todo = new Todo(taskDescription);
-                    taskManager.addTask(todo);
+                    taskList.addTask(todo);
                 } else if (splitLine.length == 4) {
                     String timeDetail = splitLine[3];
                     if (taskType.equals(TASK_TYPE_DEADLINE)) {
                         Deadline deadline = new Deadline(taskDescription, timeDetail);
-                        taskManager.addTask(deadline);
+                        taskList.addTask(deadline);
                     } else if (taskType.equals(TASK_TYPE_EVENT)) {
                         Event event = new Event(taskDescription, timeDetail);
-                        taskManager.addTask(event);
+                        taskList.addTask(event);
                     }
                 }
 
                 // Mark the added task as done
                 if (taskIsDone) {
                     try {
-                        taskManager.markTaskAsDone(i);
+                        taskList.markTaskAsDone(i);
                     } catch (InvalidTaskIndexException e) {
                         printInvalidTaskIndexError();
                         return;
@@ -503,11 +503,11 @@ public class Duke {
             return;
         }
 
-        String[] encodedString = new String[taskManager.getTotalTasks()];
-        for (int i = 0; i < taskManager.getTotalTasks(); i++) {
+        String[] encodedString = new String[taskList.getTotalTasks()];
+        for (int i = 0; i < taskList.getTotalTasks(); i++) {
             Task task;
             try {
-                task = taskManager.getTask(i);
+                task = taskList.getTask(i);
             } catch (TaskListEmptyException e) {
                 printTaskListEmptyError();
                 return;

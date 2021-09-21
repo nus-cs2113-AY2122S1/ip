@@ -4,15 +4,15 @@ import duke.task.exception.InvalidTaskIndexException;
 import duke.task.exception.TaskListEmptyException;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
 
     /** List of tasks to manage */
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
-     * Create task manager.
+     * Create task list.
      */
-    public TaskManager() {
+    public TaskList() {
     }
 
     /**
