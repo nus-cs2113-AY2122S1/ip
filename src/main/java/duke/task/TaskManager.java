@@ -43,7 +43,7 @@ public class TaskManager {
 
         int idOfTaskAdded = tasks.size() - 1;
 
-        return getAddTaskMessage(idOfTaskAdded);
+        return getAddTaskMessage(idOfTaskAdded) + getNumTasksInList();
 
     }
 
@@ -59,7 +59,7 @@ public class TaskManager {
 
         int idOfTaskAdded = tasks.size() - 1;
 
-        return getAddTaskMessage(idOfTaskAdded);
+        return getAddTaskMessage(idOfTaskAdded) + getNumTasksInList();
 
     }
 
@@ -75,7 +75,7 @@ public class TaskManager {
 
         int idOfTaskAdded = tasks.size() - 1;
 
-        return getAddTaskMessage(idOfTaskAdded);
+        return getAddTaskMessage(idOfTaskAdded) + getNumTasksInList();
 
     }
 
@@ -99,7 +99,7 @@ public class TaskManager {
 
         tasks.get(taskID).isDone = true;
 
-        return getSetTaskCompleteMessage(taskID);
+        return getSetTaskCompleteMessage(taskID) + getNumTaskComplete();
 
     }
 
@@ -120,7 +120,7 @@ public class TaskManager {
 
         tasks.remove(taskID);
 
-        return deleteTaskMessage;
+        return deleteTaskMessage + getNumTasksInList();
 
     }
 
@@ -136,26 +136,24 @@ public class TaskManager {
             taskList += taskID + 1 + "." + tasks.get(taskID).getTaskDescription() + "\n";
         }
 
-        return getListMessage(taskList);
+        return getListMessage(taskList) + getNumTaskComplete();
 
     }
 
     public String getAddTaskMessage(int idOfTaskAdded) {
-        return ADD_TASK_MSG + "\n   <" + tasks.get(idOfTaskAdded).getTaskDescription() + ">\n" + getNumTasksInList();
+        return ADD_TASK_MSG + "\n   <" + tasks.get(idOfTaskAdded).getTaskDescription() + ">\n";
     }
 
     public String getSetTaskCompleteMessage(int idOfTaskCompleted) {
-        return SET_TASK_COMPLETE_MSG + "\n   <" + tasks.get(idOfTaskCompleted).getTaskDescription() + ">\n"
-                + getNumTaskComplete();
+        return SET_TASK_COMPLETE_MSG + "\n   <" + tasks.get(idOfTaskCompleted).getTaskDescription() + ">\n";
     }
 
     public String getDeleteTaskMessage(int idOfTaskDeleted) {
-        return DELETE_TASK_MSG + "\n   <" + tasks.get(idOfTaskDeleted).getTaskDescription() + ">\n"
-                + getNumTasksInList();
+        return DELETE_TASK_MSG + "\n   <" + tasks.get(idOfTaskDeleted).getTaskDescription() + ">\n";
     }
 
     public String getListMessage(String taskList) {
-        return PRINT_TASKLIST_MSG + "\n" + taskList + getNumTaskComplete();
+        return PRINT_TASKLIST_MSG + "\n" + taskList;
     }
 
     public String getNumTasksInList() {

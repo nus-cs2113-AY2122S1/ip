@@ -71,10 +71,10 @@ public class DataManager {
                 }
 
                 String taskDescription = taskArgs[2];
-                String datetime = "";
+                String byAtDescription = "";
 
                 if (taskArgs.length == 4) {
-                    datetime = taskArgs[3];
+                    byAtDescription = taskArgs[3];
                 }
 
                 switch (taskType) {
@@ -83,11 +83,11 @@ public class DataManager {
                     taskMgr.tasks.add(newToDo);
                     break;
                 case DEADLINE_TYPE:
-                    Task newDeadline = new Deadline(taskDescription.trim(), isDone, datetime.trim());
+                    Task newDeadline = new Deadline(taskDescription.trim(), isDone, byAtDescription.trim());
                     taskMgr.tasks.add(newDeadline);
                     break;
                 case EVENT_TYPE:
-                    Task newEvent = new Event(taskDescription.trim(), isDone, datetime.trim());
+                    Task newEvent = new Event(taskDescription.trim(), isDone, byAtDescription.trim());
                     taskMgr.tasks.add(newEvent);
                     break;
                 }
