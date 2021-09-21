@@ -57,11 +57,13 @@ public class Storage {
     
     private Task extractTask(String input) {
         String[] taskDetails = input.split("\\|");
-        boolean isDone = taskDetails[1].trim().equalsIgnoreCase("1");
+        boolean isDone;
         switch (taskDetails[0].trim()) {
         case "T":
+            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
             return new Todo(taskDetails[2].trim(), isDone);
         case "D":
+            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
             try {
                 LocalDateTime byDT = LocalDateTime.parse(taskDetails[3].trim(), 
                         DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
@@ -70,6 +72,7 @@ public class Storage {
                 return new Deadline(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
             }
         case "E":
+            isDone = taskDetails[1].trim().equalsIgnoreCase("1");
             try {
                 LocalDateTime atDT = LocalDateTime.parse(taskDetails[3].trim(),
                         DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
