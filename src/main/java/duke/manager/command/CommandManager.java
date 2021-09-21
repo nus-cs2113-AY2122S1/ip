@@ -76,6 +76,12 @@ public class CommandManager {
         taskManager.printTaskList();
     }
 
+    /**
+     * Attempts to find keyword and prints out the filtered task list of tasks containing
+     * the keyword.
+     *
+     * @param keyword Word to be search for in task descriptions.
+     */
     private void executeFindKeyword(String keyword) {
         taskManager.printFilteredTaskList(keyword);
     }
