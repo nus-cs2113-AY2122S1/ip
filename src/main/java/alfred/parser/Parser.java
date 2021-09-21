@@ -1,2 +1,4 @@
-package alfred.parser;public class Parser {
+package alfred.parser;
+
+public class Parser {
 }

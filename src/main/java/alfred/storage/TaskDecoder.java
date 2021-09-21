@@ -1,2 +1,4 @@
-package alfred.storage;public class TaskDecoder {
+package alfred.storage;
+
+public class TaskDecoder {
 }

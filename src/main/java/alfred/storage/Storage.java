@@ -1,2 +1,4 @@
-package alfred.storage;public class Storage {
+package alfred.storage;
+
+public class Storage {
 }

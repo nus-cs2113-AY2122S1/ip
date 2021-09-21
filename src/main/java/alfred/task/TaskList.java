@@ -1,2 +1,4 @@
-package alfred.task;public class TaskList {
+package alfred.task;
+
+public class TaskList {
 }
