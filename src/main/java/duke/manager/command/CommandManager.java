@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 /**
  * <h1>CommandManager</h1>
  * A <code>CommandManager</code> object is in charge of managing and executing commands based off user inputs.
- * It executes commands and prints out relevant messages for the user depending on whether commands are valid or
+ * It executes commands and prints out relevant messages for the user depending on whether commands are valid and
  * whether they are executed successfully.
  */
 public class CommandManager {
@@ -155,6 +155,11 @@ public class CommandManager {
     private void executeAddEvent(String[] argument) {
         try {
             taskManager.checkInputThenAddEvent(argument);
+            // inform user that input is not in the proper date time format
+            if (!taskManager.getLastTaskInList().isInDateTimeFormat()) {
+                System.out.println(Message.NOT_DATE_TIME_MESSAGE + System.lineSeparator()
+                        + UserInterface.HORIZONTAL_BAR);
+            }
             UserData.saveData(taskManager.saveTasksAsString());
         } catch (MissingCommandArgumentException mae) {
             UserInterface.printMessage(
@@ -172,6 +177,11 @@ public class CommandManager {
     private void executeAddDeadline(String[] argument) {
         try {
             taskManager.checkInputThenAddDeadline(argument);
+            // inform user that input is not in the proper date time format
+            if (!taskManager.getLastTaskInList().isInDateTimeFormat()) {
+                System.out.println(Message.NOT_DATE_TIME_MESSAGE + System.lineSeparator()
+                        + UserInterface.HORIZONTAL_BAR);
+            }
             UserData.saveData(taskManager.saveTasksAsString());
         } catch (MissingCommandArgumentException mae) {
             UserInterface.printMessage(
@@ -181,7 +191,7 @@ public class CommandManager {
     }
 
     /**
-     * Prints relevant message when user input is an invalid command.
+     * Prints relevant message if user input is an invalid command.
      */
     private void printMessageForInvalidCommand() {
         UserInterface.printMessage(

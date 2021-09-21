@@ -4,6 +4,18 @@ Oberon is a **desktop app for managing tasks via a Command Line Interface (CLI)*
 3 types, namely Todos, Events and Deadlines. Oberon can manage your tasks as fast as you can type into the CLI, 
 benefiting those that type fast the most.
 
+## Quick Start
+Oberon has been build and tested in Java 11 and may not work as intended with other Java versions.
+1. Ensure you have Java 11 installed in your computer. 
+2. Download the latest `ip.jar` from [here](https://github.com/arvejw/ip/releases/download/A-Release/ip.jar).
+3. Copy `ip.jar` into the folder you intend to use as the *home folder* for Oberon.
+4. You can run Oberon by opening a command-line interpreter in the selected *home folder* and <br/> entering
+   `java -jar ip.jar`.
+5. If correctly set-up, you should be greeted by something similar as below.
+   ![image](https://user-images.githubusercontent.com/69461398/134162082-4b1c0e1b-3b05-4dd6-9f5c-7a28ee1ab38d.png)
+6. For new users, a data file in `[JAR file location]/data/duke.txt` should be automatically created.
+7. You can now start managing your tasks! Refer to the **Features** section for details and examples of all commands.
+
 ## Features
 * Accessing task list: `list`
 * Adding a Todo: `todo`
