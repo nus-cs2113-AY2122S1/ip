@@ -10,7 +10,6 @@ public class Duke {
     public static void main(String[] args) throws DukeException, IOException {
 
         Scanner in = new Scanner(System.in);
-
 //        Storage storage = new Storage();
 //        TaskList tasks = new TaskList();
 //        Ui ui = new Ui();
