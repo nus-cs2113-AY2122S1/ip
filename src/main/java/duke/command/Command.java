@@ -7,6 +7,10 @@ public abstract class Command {
     public TaskManager taskManager;
     public String commandArguments;
 
+    public Command() {
+
+    }
+
     public Command(TaskManager taskManager, String commandArguments) {
         this.taskManager = taskManager;
         this.commandArguments = commandArguments;
