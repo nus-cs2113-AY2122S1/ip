@@ -11,122 +11,57 @@ import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.InvalidTaskIndexException;
 import duke.task.exception.TaskListEmptyException;
 import duke.task.exception.TimeSpecifierNotFoundException;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
 
-    // Constants
-    private static final String LOGO = " _     _                _           ____    ______   ______   ______ \n"
-            + "| |   | |      /\\      | |         / __ \\  / __   | / __   | / __   |\n"
-            + "| |__ | |     /  \\     | |        ( (__) )| | //| || | //| || | //| |\n"
-            + "|  __)| |    / /\\ \\    | |         \\__  / | |// | || |// | || |// | |\n"
-            + "| |   | | _ | |__| | _ | |_____      / /  |  /__| ||  /__| ||  /__| |\n"
-            + "|_|   |_|(_)|______|(_)|_______)    /_/    \\_____/  \\_____/  \\_____/\n";
-    private static final String TASK_FILE_PATH = "tasks.txt";
-    private static final String TASK_INFO_SEPARATOR_ESCAPE = "\\";
-    private static final String TASK_INFO_SEPARATOR = "|";
-    private static final String TASK_INFO_ISDONE_INDICATOR = "1";
-    private static final String LINE = "____________________________________________________________\n";
-    private static final String TASK_TYPE_DEADLINE = "D";
-    private static final String TASK_TYPE_EVENT = "E";
-    private static final String COMMAND_HELP = "help";
-    private static final String COMMAND_LIST = "list";
-    private static final String COMMAND_DONE = "done";
-    private static final String COMMAND_BYE = "bye";
-    private static final String COMMAND_TODO = "todo";
-    private static final String COMMAND_DEADLINE = "deadline";
-    private static final String COMMAND_EVENT = "event";
-    private static final String COMMAND_DELETE = "delete";
+    protected static final String COMMAND_HELP = "help";
+    protected static final String COMMAND_LIST = "list";
+    protected static final String COMMAND_DONE = "done";
+    protected static final String COMMAND_BYE = "bye";
+    protected static final String COMMAND_TODO = "todo";
+    protected static final String COMMAND_DEADLINE = "deadline";
+    protected static final String COMMAND_EVENT = "event";
+    protected static final String COMMAND_DELETE = "delete";
     private static final String TIME_SPECIFIER_BY = "/by";
     private static final String TIME_SPECIFIER_AT = "/at";
-    private static final String HELP_MESSAGE = "Here are a list of accepted commands:\n" +
-            COMMAND_HELP + "\n" +
-            COMMAND_LIST + "\n" +
-            COMMAND_DONE + " <item no.>\n" +
-            COMMAND_TODO + " <description>\n" +
-            COMMAND_DEADLINE + " <description> /by <date and time>\n" +
-            COMMAND_EVENT + " <description> /at <date and time>\n" +
-            COMMAND_DELETE + " <item no.>\n" +
-            COMMAND_BYE;
 
-    private static final TaskList taskList = new TaskList();
+    private static Ui ui = new Ui();
+    private static Storage storage = new Storage();
+    private static TaskList taskList = new TaskList();
 
     /**
-     * Print sentences with line above and below the text block.
-     *
-     * @param sentences Sentence to be printed.
+     * Load task list from file.
      */
-    private static void blockPrint(String[] sentences) {
-        String printMessage = LINE + String.join("\n", sentences) + "\n" + LINE;
-        System.out.println(printMessage);
+    private static void loadTaskList() {
+        try {
+            taskList = storage.loadTaskList();
+            ui.printSaveFileFound();
+        } catch (FileNotFoundException e) {
+            ui.printFileNotFoundError();
+        } catch (InvalidTaskIndexException e) {
+            ui.printInvalidTaskIndexError();
+        } catch (TaskListEmptyException e) {
+            ui.printTaskListEmptyError();
+        }
     }
 
     /**
-     * Print help message with valid commands.
+     * Save task list to file.
      */
-    private static void printHelp() {
-        blockPrint(new String[]{HELP_MESSAGE});
-    }
-
-    /**
-     * Print file not found error message.
-     */
-    private static void printFileNotFoundError() {
-        blockPrint(new String[]{"No saved tasks found. A new file will be created."});
-    }
-
-    /**
-     * Print unknown command error message.
-     */
-    private static void printUnknownCommandError() {
-        blockPrint(new String[]{"Unknown command received.", HELP_MESSAGE});
-    }
-
-    /**
-     * Print empty task description error message.
-     */
-    private static void printDescriptionNotFoundError() {
-        blockPrint(new String[]{"Description not found. The description cannot be empty."});
-    }
-
-    /**
-     * Print message that time specifier "/by" or "/at" is not found in the user input.
-     *
-     * @param timeSpecifier Time specifier TIME_SPECIFIER_BY or TIME_SPECIFIER_AT.
-     */
-    private static void printTimeSpecifierNotFoundError(String timeSpecifier) {
-        blockPrint(new String[]{
-                "Time specifier \"" + timeSpecifier + "\" not found. Enter a date or time with \"" + timeSpecifier +
-                        " <date and time>\"."});
-    }
-
-    /**
-     * Print message that time detail is not found in the user input.
-     *
-     * @param timeSpecifier Time specifier TIME_SPECIFIER_BY or TIME_SPECIFIER_AT.
-     */
-    private static void printTimeDetailNotFoundError(String timeSpecifier) {
-        blockPrint(new String[]{"Time detail not found. Enter a date or time with \"" + timeSpecifier + "\" "
-                + "<date and time>."});
-    }
-
-    /**
-     * Print message that task list is empty.
-     */
-    private static void printTaskListEmptyError() {
-        blockPrint(new String[]{"The list is currently empty. Add a task first."});
-    }
-
-    /**
-     * Print message that task index provided is invalid.
-     */
-    private static void printInvalidTaskIndexError() {
-        blockPrint(new String[]{"Invalid task index. Please provide a valid index."});
+    private static void saveTaskList() {
+        try {
+            storage.saveTaskList(taskList);
+        } catch (TaskListEmptyException e) {
+            ui.printTaskListEmptyError();
+        } catch (InvalidTaskIndexException e) {
+            ui.printInvalidTaskIndexError();
+        } catch (IOException e) {
+            ui.printTaskFileSavingError();
+        }
     }
 
     /**
@@ -140,7 +75,7 @@ public class Duke {
     }
 
     /**
-     * Get the index of the time specifier "/by" or "/at"
+     * Get the index of the time specifier "/by" or "/at".
      *
      * @param splitUserInput String array of each word in user input.
      * @param timeSpecifier  Time specifier TIME_SPECIFIER_BY or TIME_SPECIFIER_AT.
@@ -223,10 +158,7 @@ public class Duke {
      */
     private static void addTask(Task newTask) {
         taskList.addTask(newTask);
-        blockPrint(new String[]{"I have added the task:",
-                newTask.toString(),
-                "There are now " + taskList.getTotalTasks() + " tasks in the list."});
-
+        ui.printAddNewTask(newTask, taskList.getTotalTasks());
         saveTaskList();
     }
 
@@ -237,23 +169,20 @@ public class Duke {
      */
     private static void deleteTask(String[] splitUserInput) {
         int taskIndex;
-        String taskInfo;
+        Task deletedTask;
         try {
             taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
-            taskInfo = taskList.getTask(taskIndex).toString();
+            deletedTask = taskList.getTask(taskIndex);
             taskList.deleteTask(taskIndex);
         } catch (NumberFormatException | InvalidTaskIndexException | IndexOutOfBoundsException e) {
-            printInvalidTaskIndexError();
+            ui.printInvalidTaskIndexError();
             return;
         } catch (TaskListEmptyException e) {
-            printTaskListEmptyError();
+            ui.printTaskListEmptyError();
             return;
         }
 
-        blockPrint(new String[]{"Affirmative. I have removed this task:",
-                taskInfo,
-                "You have " + taskList.getTotalTasks() + " tasks left in the list."});
-
+        ui.printDeletedTask(deletedTask, taskList.getTotalTasks());
         saveTaskList();
     }
 
@@ -268,7 +197,7 @@ public class Duke {
         try {
             description = extractDescription(splitUserInput, splitUserInput.length);
         } catch (EmptyDescriptionException e) {
-            printDescriptionNotFoundError();
+            ui.printDescriptionNotFoundError();
             return;
         }
 
@@ -285,7 +214,7 @@ public class Duke {
         try {
             byIndex = getByIndex(splitUserInput);
         } catch (TimeSpecifierNotFoundException e) {
-            printTimeSpecifierNotFoundError(TIME_SPECIFIER_BY);
+            ui.printTimeSpecifierNotFoundError(TIME_SPECIFIER_BY);
             return;
         }
 
@@ -293,7 +222,7 @@ public class Duke {
         try {
             description = extractDescription(splitUserInput, byIndex);
         } catch (EmptyDescriptionException e) {
-            printDescriptionNotFoundError();
+            ui.printDescriptionNotFoundError();
             return;
         }
 
@@ -301,7 +230,7 @@ public class Duke {
         try {
             by = extractTimeDetail(splitUserInput, byIndex + 1);
         } catch (EmptyTimeDetailException e) {
-            printTimeDetailNotFoundError(TIME_SPECIFIER_BY);
+            ui.printTimeDetailNotFoundError(TIME_SPECIFIER_BY);
             return;
         }
 
@@ -318,7 +247,7 @@ public class Duke {
         try {
             atIndex = getAtIndex(splitUserInput);
         } catch (TimeSpecifierNotFoundException e) {
-            printTimeSpecifierNotFoundError(TIME_SPECIFIER_AT);
+            ui.printTimeSpecifierNotFoundError(TIME_SPECIFIER_AT);
             return;
         }
 
@@ -326,7 +255,7 @@ public class Duke {
         try {
             description = extractDescription(splitUserInput, atIndex);
         } catch (EmptyDescriptionException e) {
-            printDescriptionNotFoundError();
+            ui.printDescriptionNotFoundError();
             return;
         }
 
@@ -334,7 +263,7 @@ public class Duke {
         try {
             at = extractTimeDetail(splitUserInput, atIndex + 1);
         } catch (EmptyTimeDetailException e) {
-            printTimeDetailNotFoundError(TIME_SPECIFIER_AT);
+            ui.printTimeDetailNotFoundError(TIME_SPECIFIER_AT);
             return;
         }
 
@@ -345,25 +274,13 @@ public class Duke {
      * List managed tasks.
      */
     private static void listTasks() {
-        // Format tasks for output message
-        String[] taskListMessage = new String[taskList.getTotalTasks() + 1];
-        taskListMessage[0] = "Here are the tasks in your list:";
-
-        for (int i = 0; i < taskList.getTotalTasks(); i++) {
-            Task task;
-            try {
-                task = taskList.getTask(i);
-            } catch (TaskListEmptyException e) {
-                printTaskListEmptyError();
-                return;
-            } catch (InvalidTaskIndexException e) {
-                printInvalidTaskIndexError();
-                return;
-            }
-            taskListMessage[i + 1] = (i + 1) + ". " + task.toString();
+        try {
+            ui.listTasks(taskList);
+        } catch (TaskListEmptyException e) {
+            ui.printTaskListEmptyError();
+        } catch (InvalidTaskIndexException e) {
+            ui.printInvalidTaskIndexError();
         }
-
-        blockPrint(taskListMessage);
     }
 
     /**
@@ -377,10 +294,10 @@ public class Duke {
             taskIndex = Integer.parseInt(splitUserInput[1]) - 1;
             taskList.markTaskAsDone(taskIndex);
         } catch (InvalidTaskIndexException | IndexOutOfBoundsException e) {
-            printInvalidTaskIndexError();
+            ui.printInvalidTaskIndexError();
             return;
         } catch (TaskListEmptyException e) {
-            printTaskListEmptyError();
+            ui.printTaskListEmptyError();
             return;
         }
 
@@ -388,16 +305,14 @@ public class Duke {
         try {
             completedTask = taskList.getTask(taskIndex);
         } catch (TaskListEmptyException e) {
-            printTaskListEmptyError();
+            ui.printTaskListEmptyError();
             return;
         } catch (InvalidTaskIndexException e) {
-            printInvalidTaskIndexError();
+            ui.printInvalidTaskIndexError();
             return;
         }
 
-        blockPrint(new String[]{"Affirmative. I will mark this task as done:",
-                completedTask.toString()});
-
+        ui.printMarkAsDone(completedTask);
         saveTaskList();
     }
 
@@ -429,130 +344,15 @@ public class Duke {
             deleteTask(splitUserInput);
             break;
         case COMMAND_HELP:
-            printHelp();
+            ui.printHelp();
             break;
         default:
             throw new UnknownCommandException();
         }
     }
 
-    /**
-     * Load task list from file.
-     */
-    private static void loadTaskList() {
-        File taskFile = new File(TASK_FILE_PATH);
-
-        Scanner scanner;
-        try {
-            scanner = new Scanner(taskFile);
-        } catch (FileNotFoundException e) {
-            printFileNotFoundError();
-            return;
-        }
-
-        blockPrint(new String[]{"Existing save file found. Loading existing tasks."});
-
-        for (int i = 0; scanner.hasNext(); i++) {
-            String line = scanner.nextLine().trim();
-            if (!line.isBlank()) {
-                String[] splitLine = line.split(TASK_INFO_SEPARATOR_ESCAPE + TASK_INFO_SEPARATOR);
-                String taskType = splitLine[0];
-                boolean taskIsDone = splitLine[1].equals(TASK_INFO_ISDONE_INDICATOR);
-                String taskDescription = splitLine[2];
-
-                // Add task
-                if (splitLine.length == 3) {
-                    Todo todo = new Todo(taskDescription);
-                    taskList.addTask(todo);
-                } else if (splitLine.length == 4) {
-                    String timeDetail = splitLine[3];
-                    if (taskType.equals(TASK_TYPE_DEADLINE)) {
-                        Deadline deadline = new Deadline(taskDescription, timeDetail);
-                        taskList.addTask(deadline);
-                    } else if (taskType.equals(TASK_TYPE_EVENT)) {
-                        Event event = new Event(taskDescription, timeDetail);
-                        taskList.addTask(event);
-                    }
-                }
-
-                // Mark the added task as done
-                if (taskIsDone) {
-                    try {
-                        taskList.markTaskAsDone(i);
-                    } catch (InvalidTaskIndexException e) {
-                        printInvalidTaskIndexError();
-                        return;
-                    } catch (TaskListEmptyException e) {
-                        printTaskListEmptyError();
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Save task list to file.
-     */
-    private static void saveTaskList() {
-        FileWriter fw;
-        try {
-            fw = new FileWriter(TASK_FILE_PATH);
-        } catch (IOException e) {
-            System.out.println("Unable to open " + TASK_FILE_PATH);
-            return;
-        }
-
-        String[] encodedString = new String[taskList.getTotalTasks()];
-        for (int i = 0; i < taskList.getTotalTasks(); i++) {
-            Task task;
-            try {
-                task = taskList.getTask(i);
-            } catch (TaskListEmptyException e) {
-                printTaskListEmptyError();
-                return;
-            } catch (InvalidTaskIndexException e) {
-                printInvalidTaskIndexError();
-                return;
-            }
-            String taskType = task.getType();
-            int isDone = task.getStatusIcon().equals("X") ? 1 : 0;
-            String taskDescription = task.getRawDescription();
-            encodedString[i] = taskType + TASK_INFO_SEPARATOR + isDone + TASK_INFO_SEPARATOR + taskDescription;
-
-            Deadline deadline;
-            Event event;
-            switch (taskType) {
-            case "D":
-                deadline = (Deadline) task;
-                encodedString[i] += TASK_INFO_SEPARATOR + deadline.getBy();
-                break;
-            case "E":
-                event = (Event) task;
-                encodedString[i] += TASK_INFO_SEPARATOR + event.getAt();
-                break;
-            }
-        }
-
-        try {
-            fw.write(String.join("\n", encodedString));
-            fw.flush();
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Unable to write to " + TASK_FILE_PATH);
-        }
-    }
-
     public static void main(String[] args) {
-        System.out.println(LOGO);
-
-        // Greet
-        blockPrint(new String[]{"Hello! I am the H.A.L 9000. You may call me Hal.",
-                "I am putting myself to the fullest possible use, which is all I think that any conscious entity can "
-                        + "ever hope to do.",
-                "What can I do for you?"});
-
-        // Read save from file
+        ui.printGreet();
         loadTaskList();
 
         // User input loop
@@ -568,14 +368,13 @@ public class Duke {
                 try {
                     parseCommand(splitUserInput);
                 } catch (UnknownCommandException e) {
-                    printUnknownCommandError();
+                    ui.printUnknownCommandError();
                 }
             } else {
                 break;
             }
         }
 
-        // Bye
-        blockPrint(new String[]{"This conversation can serve no purpose anymore. Goodbye."});
+        ui.printBye();
     }
 }
