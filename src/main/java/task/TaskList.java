@@ -4,6 +4,8 @@ import exception.DukeException;
 import storage.Storage;
 import ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -44,7 +46,8 @@ public class TaskList {
     }
 
     public void addNewDeadlineObject(String taskName, String byWhen) {
-        Deadline newDeadline = new Deadline(taskName, byWhen);
+        LocalDate byWhenDateTime = LocalDate.parse(byWhen);
+        Deadline newDeadline = new Deadline(taskName, byWhenDateTime);
         tasks.add(newDeadline);
         ui.printAddedTaskMessage(newDeadline.toString());
         storage.saveTasksToFile(this);
@@ -109,7 +112,8 @@ public class TaskList {
         Task savedTask;
         switch (taskType) {
         case "D":
-            savedTask = new Deadline(taskName, isDone, tokens[3]);
+            LocalDate byWhenDateTime = LocalDate.parse(tokens[3]);
+            savedTask = new Deadline(taskName, isDone, byWhenDateTime);
             break;
         case "E":
             savedTask = new Event(taskName, isDone, tokens[3]);
