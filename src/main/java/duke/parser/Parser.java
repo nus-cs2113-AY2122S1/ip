@@ -19,12 +19,26 @@ public class Parser extends Text {
     protected Ui ui;
     protected Storage storage;
 
+    /**
+     * A constructor to parse user inputs to suitable commands.
+     *
+     * @param taskList user's task list.
+     * @param ui  the user interface.
+     * @param storage A text file storage to store task into hard disk.
+     */
     public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Parse user inputs to run its respective command methods.
+     *
+     * @param userInput inputs from user.
+     * @return Command object.
+     * @throws DukeException exception thrown when an unknown command is input by user.
+     */
     public Command parseCommand(String userInput) throws DukeException {
         String[] splitInput = userInput.trim().split(SPACE, 2);
         switch(splitInput[0].toLowerCase()) {
@@ -51,6 +65,13 @@ public class Parser extends Text {
         }
     }
 
+    /**
+     * Parse user input to suitable parameters for adding a new task.
+     *
+     * @param userInput inputs from user.
+     * @return AddCommand object.
+     * @throws DukeException exception thrown when task type is unknown or task description is empty.
+     */
     private Command parseAddCommand(String userInput) throws DukeException {
         String[] splitInput = userInput.trim().split(SPACE, 2);
         String[] taskNameAndDueDate;
@@ -74,6 +95,13 @@ public class Parser extends Text {
         }
     }
 
+    /**
+     * Parse user input to suitable parameters for marking a task as done in taskList.
+     *
+     * @param userInput inputs from user.
+     * @return CompleteCommand object.
+     * @throws DukeException exception thrown when no task number is specified.
+     */
     private Command parseDoneCommand(String userInput) throws DukeException {
         String[] taskToMark = userInput.split(SPACE, 2);
         if (taskToMark.length <= 1) {
@@ -83,6 +111,13 @@ public class Parser extends Text {
         }
     }
 
+    /**
+     * Parse user input to suitable parameters to delete a task in taskList.
+     *
+     * @param userInput inputs from user.
+     * @return DeleteCommand object.
+     * @throws DukeException exception thrown when no task number is specified.
+     */
     private Command parseDeleteCommand(String userInput) throws DukeException {
         String[] taskToDelete = userInput.split(SPACE, 2);
         if (taskToDelete.length <= 1) {

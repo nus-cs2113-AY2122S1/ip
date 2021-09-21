@@ -1,6 +1,6 @@
 package duke.text;
 
-public class Text { //contains all constants used
+public class Text { // Class file to store all constant String used.
 
     public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     public static final String NEW_LINE = "\n";
@@ -44,14 +44,18 @@ public class Text { //contains all constants used
     public static final String HELP_LIST = "List of commands available:\n\n"
             + "todo <type your task here> [eg. todo swimming]\n"
             + "-> Adds a todo task to the task list.\n\n"
-            + "deadline <type your deadline here> <SPACE> </by> <SPACE> <type a date or time> [eg. deadline assignment /by monday 1pm]\n"
+            + "deadline <type your deadline here> <SPACE> </by> <SPACE> <type a date with format yyyy-mm-dd> [eg. deadline assignment /by 2021-10-01]\n"
             + "-> Adds a deadline task to the task list.\n\n"
-            + "event <type your event here> <SPACE> </at> <SPACE> <type a date or time> [eg. lecture /at friday 4pm]\n"
+            + "event <type your event here> <SPACE> </at> <SPACE> <type a date with format yyyy-mm-dd> [eg. lecture /at 2021-10-01]\n"
             + "-> Adds an event task to the task list.\n\n"
             + "done <type task number> [eg. done 1]\n"
             + "-> Marks task on the list as completed.\n\n"
             + "delete <type task number> [eg. delete 2]\n"
             + "-> Deletes the task found on the task list.\n\n"
+            + "find <type keyword> [eg. find assignment]\n"
+            + "-> Find the tasks in task list associated with the given keyword.\n\n"
+            + "date <type a date with format yyyy-mm-dd> [eg. 2021-10-01]\n"
+            + "-> Find the tasks associated with the given date from user.\n\n"
             + "list [eg. list]\n"
             + "-> Lists out all tasks on the list.\n\n"
             + "bye [eg. bye]\n"
