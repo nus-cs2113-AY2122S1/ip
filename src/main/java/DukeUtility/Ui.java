@@ -1,8 +1,9 @@
 package DukeUtility;
 
 import TypeOfTasks.Task;
+import java.util.Scanner;
 
-public class PrintManager {
+public class Ui {
     public static final String GREETING_MESSAGE = "SQUAWK! See you next time! :)";
     public static final String LOGO = " ______   _       _   _\n"
             + "|  __  | | | ___ | | | | \n"
@@ -10,17 +11,21 @@ public class PrintManager {
             + "| |__| | |   / \\   | | |____\n"
             + "|______| |__/   \\__| |______|\n";
     
-    
-    
-    public static void printWelcome() {
-        System.out.println(LOGO);
-        PrintManager.printLine();
-        System.out.println("SQUAWK!!!");
-        System.out.println("How can I help you?");
-        PrintManager.printLine();
+    public String readCommand() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine().trim();        
     }
     
-    public static void printBye() {
+    
+    public void printWelcome() {
+        System.out.println(LOGO);
+        Ui.printLine();
+        System.out.println("SQUAWK!!!");
+        System.out.println("How can I help you?");
+        Ui.printLine();
+    }
+    
+    public void printBye() {
         printLine();
         System.out.println(GREETING_MESSAGE);
         printLine();
@@ -32,22 +37,22 @@ public class PrintManager {
         System.out.println(" ");
     }
     public static void printTaskCompletionMsg(int taskNumber) {
-        PrintManager.printLine();
+        Ui.printLine();
         System.out.println("Oooh I see you've done task " + taskNumber);
-        PrintManager.printLine();
+        Ui.printLine();
     }
     
     public static void printDeletionMsg(int taskCount, Task deletedTask) {
-        PrintManager.printLine();
-        PrintManager.deleteMessage(deletedTask.getDescription());
+        Ui.printLine();
+        Ui.deleteMessage(deletedTask.getDescription());
         System.out.println("There are currently " + taskCount + " task now!");
-        PrintManager.printLine();
+        Ui.printLine();
     }
     public static void printTaskCount(int taskCount, String command) {
-        PrintManager.printLine();
+        Ui.printLine();
         echoMessage(command);
         System.out.println("There are currently " + taskCount + " task now!");
-        PrintManager.printLine();
+        Ui.printLine();
     }
     
     public static void echoMessage(String line) {
@@ -58,9 +63,9 @@ public class PrintManager {
     }
     
     public static void printListingMsg() {
-        PrintManager.printLine();
+        Ui.printLine();
         System.out.println("This are all the things I've remembered for you:");
-        PrintManager.printLine();
+        Ui.printLine();
     }
     
     
