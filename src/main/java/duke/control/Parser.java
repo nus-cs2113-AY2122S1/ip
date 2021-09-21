@@ -11,8 +11,10 @@ public class Parser {
     private static final int FILE_DATETIME_INDEX_OFFSET = 3;
     private static final int DATETIME_START_INDEX_OFFSET = 4;
     private static final int FILE_ISDONE_INDEX = 4;
+    private static final int DATE_DATETIME_INDEX = 4;
     private static final int TODO_NAME_START_INDEX = 5;
     private static final int EVENT_NAME_START_INDEX = 6;
+    private static final int SEARCHTERM_START_INDEX = 7;
     private static final int FILE_TASK_NAME_INDEX = 7;
     private static final int DEADLINE_NAME_START_INDEX = 9;
 
@@ -27,7 +29,8 @@ public class Parser {
     protected static LocalDateTime parseInputForDateTime(String input) throws DateTimeParseException {
         int markerIndex = input.indexOf('/');
         int dateTimeStartIndex = markerIndex + DATETIME_START_INDEX_OFFSET;
-        String dateTimeString = input.substring(dateTimeStartIndex).trim();
+        String dateTimeString = input.substring(dateTimeStartIndex).trim().replace(' ', 'T');
+        //dateTimeString.replace(" ", "T");
         LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
         return dateTime;
     }
@@ -78,9 +81,24 @@ public class Parser {
      * @return date in user input
      */
     protected static LocalDateTime parseDateTimeFromDateCommand(String input) {
-        String dateTimeString = input.substring(4).trim() + "T00:00";
+        String dateTimeString = input.substring(DATE_DATETIME_INDEX).trim() + "T00:00";
         LocalDateTime date = LocalDateTime.parse(dateTimeString);
         return date;
+    }
+
+    /**
+     * Returns the search term for a search command
+     * @param input user input
+     * @return search term, in lower case.
+     */
+    protected static String parseSearchTerm(String input) {
+        String searchTerm = "";
+        try {
+            searchTerm = input.substring(SEARCHTERM_START_INDEX).trim().toLowerCase();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please include a search term.");
+        }
+        return searchTerm;
     }
 
     /**
@@ -150,7 +168,7 @@ public class Parser {
         if (taskType.equals(TaskList.TaskType.TODO)) {
             return inputLineFromFile.substring(FILE_TASK_NAME_INDEX);
         } else if (taskType.equals(TaskList.TaskType.DEADLINE) || taskType.equals(TaskList.TaskType.EVENT)) {
-            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX, inputLineFromFile.indexOf("DT:"));
+            return inputLineFromFile.substring(FILE_TASK_NAME_INDEX, inputLineFromFile.indexOf(" DT:"));
         } else {
             throw new InvalidInputFormatException();
         }

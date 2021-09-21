@@ -130,6 +130,25 @@ public class TaskList {
         return taskList;
     }
 
+    private Boolean isSearchMatched(String searchTerm, Task entry) {
+        return entry.getName().contains(searchTerm);
+    }
+
+    public void printSearchList(String input) {
+        String searchTerm = Parser.parseSearchTerm(input);
+        int matchCount = 0;
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (searchTerm.equals("")) {
+                break;
+            }
+            if (isSearchMatched(searchTerm, taskList.get(i))) {
+                printEntry(taskList.get(i), i);
+                matchCount++;
+            }
+        }
+        System.out.println("Number of results: " + matchCount);
+    }
+
     /**
      * Prints entry, for use in list command
      * @param entry Task entry from list
@@ -162,7 +181,7 @@ public class TaskList {
         for (int i = 0; i < numberOfEntries; i++) {
             Task t = taskList.get(i);
             if (t instanceof Deadline || t instanceof Event) {
-                if (isSameDate(date, (TaskWithDateTime) t)); {
+                if (isSameDate(date, (TaskWithDateTime) t)) {
                     printEntry(t, i);
                 }
             }
@@ -184,10 +203,7 @@ public class TaskList {
         int entryYear = entryDateTime.getYear();
         int entryMonth = entryDateTime.getMonthValue();
         int entryDay = entryDateTime.getDayOfMonth();
-        if ((year == entryYear) && (month == entryMonth) && (day == entryDay)) {
-            return true;
-        }
-        return false;
+        return (year == entryYear) && (month == entryMonth) && (day == entryDay);
     }
 
     public void printAddEntryMessage(Task entry) {
