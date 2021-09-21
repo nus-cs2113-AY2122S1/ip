@@ -8,7 +8,7 @@ public class InvalidCommand extends Command {
                     + "Or you can enter \"help\" to see what I can do for you!";
 
     /** Constructed when the command word of the user input does not match any existing commands in
-     * <code>Duke</code>. */
+     * {@code Duke}. */
     public InvalidCommand() {
         super();
     }

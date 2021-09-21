@@ -21,7 +21,7 @@ public class EchoCommand extends Command {
      * Checks if the argument provided by the user is empty.
      *
      * @param argument Argument provided by the user after separating the command word from the user input string
-     * @return <code>String</code> to echo on the user interface
+     * @return string to echo on the user interface
      * @throws DukeException If the argument specified is empty
      */
     private String retrieveEchoParameter(String argument) throws DukeException {

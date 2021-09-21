@@ -7,7 +7,7 @@ import duke.tasks.TaskManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-/** Includes the operations needed to add a <code>Deadline</code> to the task list. */
+/** Includes the operations needed to add a {@code Deadline} to the task list. */
 public class AddDeadlineCommand extends Command {
 
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";
@@ -37,12 +37,13 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * <p>Checks if the date and time <code>String</code> is of a valid format.</p>
+     * <p>Checks if the date and time string is of a valid format.</p>
      * <p>Valid form: [yyyy-mm-dd]T[HH:MM]</p>
      *
-     * @param date <code>String</code> to check for validity
-     * @return <p><code>true</code> - if the specified date is valid</p>
-     * <p><code>false</code> - otherwise</p>
+     * @param date date and time string to check for validity
+     * @return
+     * <p>{@code true} - if the specified date is valid</p>
+     * <p>{@code false} - otherwise</p>
      */
     private boolean isValidDateTime(String date) {
         try {
@@ -57,7 +58,7 @@ public class AddDeadlineCommand extends Command {
      * Gets the description and deadline from the argument provided by the user.
      *
      * @param argument Argument provided by the user after separating the command word from the user input string
-     * @return <code>String</code> array of size 2 where first entry is the description and the second entry is
+     * @return array of size 2 where first entry is the description and the second entry is
      * the deadline
      * @throws DukeException If either entry of the return array is empty or the date and time is of invalid format
      */

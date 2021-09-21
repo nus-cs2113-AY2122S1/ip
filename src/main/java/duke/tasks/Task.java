@@ -1,8 +1,6 @@
 package duke.tasks;
 
-/**
- * Represents a task object which is an abstract parent class of ToDo, Deadline, and Event.
- */
+/** Represents a task which is an abstract parent class of ToDo, Deadline, and Event. */
 public abstract class Task {
 
     protected String description;
@@ -10,9 +8,9 @@ public abstract class Task {
     protected String doneStatus;
 
     /**
-     * Constructs a <code>Task</code> with basic information such as description and done status.
+     * Constructs a {@code Task} with basic information such as description and done status.
      *
-     * @param description <code>String</code> description of the task
+     * @param description description of the task
      */
     public Task(String description) {
         this.description = description;
@@ -20,9 +18,7 @@ public abstract class Task {
         this.doneStatus = " ";
     }
 
-    /** Sets the <code>Task</code> as done, which will be denoted by an 'X' in its <code>String</code>
-     * format.
-     */
+    /** Sets the {@code Task} as done, which will be denoted by an 'X' in its string format. */
     public void setDone() {
         this.isDone = true;
         this.doneStatus = "X";
@@ -33,9 +29,9 @@ public abstract class Task {
     }
 
     /**
-     * Converts the <code>Task</code> object to its string format for display on the user interface.
+     * Converts the {@code Task} to its string format for display on the user interface.
      *
-     * @return <code>Task</code> in string format
+     * @return {@code Task} in string format
      */
     public String toString() {
         return "[" + doneStatus + "] " + description;
@@ -44,15 +40,16 @@ public abstract class Task {
     /**
      * Gets the string format of the date attached to the task.
      *
-     * @return Date attached to the <code>Deadline</code> or <code>Event</code>, empty string if task is
-     * <code>ToDo</code>
+     * @return Date attached to the {@code Deadline} or {@code Event}, empty string if task is
+     * {@code ToDo}
      */
     public abstract String getDate();
 
     /**
-     * Converts <code>Task</code> to the data string format that is used to store in the storage.
+     * <p>Converts {@code Task} to the data string format that is used to store in the storage.</p>
+     * <p>Format: {@code TASK_TYPE | DONE_STATUS | TASK_DESCRIPTION | TASK_DATE}</p>
      *
-     * @return The <code>Task</code> in data string format.
+     * @return {@code Task} in data string format.
      */
     public abstract String toDataStringFormat();
 }

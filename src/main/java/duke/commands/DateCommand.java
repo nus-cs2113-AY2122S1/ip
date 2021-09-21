@@ -16,12 +16,13 @@ public class DateCommand extends Command {
             "OH NO! Please key in your date in the format yyyy-mm-dd...";
 
     /**
-     * <p>Checks if the date and time <code>String</code> is of a valid format.</p>
+     * <p>Checks if the date and time string is of a valid format.</p>
      * <p>Valid form: [yyyy-mm-dd]T[HH:MM]</p>
      *
-     * @param date <code>String</code> to check for validity
-     * @return <p><code>true</code> - if the specified date is valid</p>
-     * <p><code>false</code> - otherwise</p>
+     * @param date date and time to check for validity
+     * @return
+     * <p>{@code true} - if the specified date is valid</p>
+     * <p>{@code false} - otherwise</p>
      */
     private boolean isValidDate(String date) {
         try {
@@ -45,7 +46,7 @@ public class DateCommand extends Command {
      * Checks if the argument is a date that is of the valid form.
      *
      * @param argument Argument provided by the user after separating the command word from the user input string
-     * @return Valid date in <code>String</code> format
+     * @return Valid date in string format
      * @throws DukeException If the argument provided is not of the valid format
      */
     private String retrieveDateParameter(String argument) throws DukeException {

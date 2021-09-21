@@ -3,9 +3,7 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents a <code>Task</code> that has a specific date and time of occurrence.
- */
+/** Represents a {@code Task} that has a specific date and time of occurrence. */
 public class Event extends Task {
 
     private static final String SYMBOL = "E";
@@ -13,10 +11,10 @@ public class Event extends Task {
     private LocalDateTime eventDateTime;
 
     /**
-     * Constructs an <code>Event</code> object with all its information such as its description and date and time.
+     * Constructs an {@code Event} with all its information such as its description and date and time.
      *
-     * @param description <code>String</code> description of the task
-     * @param eventDateTime <code>LocalDateTime</code> date and time of the task
+     * @param description description of the task
+     * @param eventDateTime date and time of the task
      */
     public Event(String description, LocalDateTime eventDateTime) {
         super(description);

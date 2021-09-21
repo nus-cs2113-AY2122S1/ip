@@ -4,7 +4,7 @@ import duke.exceptions.DukeException;
 import duke.tasks.TaskManager;
 import duke.tasks.ToDo;
 
-/** Includes the operations needed to add a <code>ToDo</code> to the task list. */
+/** Includes the operations needed to add a {@code ToDo} to the task list. */
 public class AddToDoCommand extends Command {
 
     private static final String ADD_TASK_MESSAGE = "Yay! I have added the following task for you:";
@@ -33,7 +33,7 @@ public class AddToDoCommand extends Command {
      * Checks if the argument provided by the user is empty.
      *
      * @param argument Argument provided by the user after separating the command word from the user input string
-     * @return Description of the <code>ToDo</code>.
+     * @return Description of the {@code ToDo}.
      * @throws DukeException If the argument specified is empty
      */
     private String retrieveTodoParameter(String argument) throws DukeException {

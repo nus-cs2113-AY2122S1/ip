@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * Represents a utility class that contains methods to perform operations on a static list
- * of <code>Task</code>.
+ * Represents a utility class that contains methods to perform operations on a list
+ * of {@code Task}.
  */
 public class TaskManager {
 
@@ -13,30 +13,30 @@ public class TaskManager {
     private static int currentTasksCount = 0;
 
     /**
-     * To check if the specified <code>taskNumber</code> represents a <code>Task</code> in the list.
+     * To check if as specified number represents a {@code Task} in the list.
      *
-     * @param taskNumber The number to check for validity.
-     * @return <p><code>true</code> - if the number has a corresponding <code>Task</code> in the list</p>
-     *         <p><code>false</code> - otherwise</p>
+     * @param taskNumber number to check for validity.
+     * @return
+     * <p>{@code true} - if the number has a corresponding {@code Task} in the list</p>
+     * <p>{@code false} - otherwise</p>
      */
     public static boolean isValidTaskNumber(int taskNumber) {
         return (taskNumber <= currentTasksCount && taskNumber > 0);
     }
 
     /**
-     * Getter method for the number of <code>Task</code> stored in the list.
+     * Getter method for the number of {@code Task} stored in the list.
      *
-     * @return Total number of <code>Task</code>
+     * @return Total number of {@code Task}
      */
     public static int getCurrentTasksCount() {
         return currentTasksCount;
     }
 
     /**
-     * Converts all the existing <code>Task</code> in the list to data string format for storage.
+     * Converts all the existing {@code Task} in the list to data string format for storage.
      *
-     * @return <code>ArrayList</code> of <code>String</code> that contains all the <code>Task</code>
-     * in data string format
+     * @return list that contains all the {@code Task} in data string format
      */
     public static ArrayList<String> convertTasksToDataStringFormat() {
         ArrayList<String> taskDataStrings =
@@ -49,7 +49,7 @@ public class TaskManager {
     /**
      * Gets the current task list.
      *
-     * @return <code>ArrayList</code> of all <code>Task</code> that is stored
+     * @return list of all {@code Task}
      */
     public static ArrayList<Task> getTaskList() {
         return tasks;
@@ -59,7 +59,7 @@ public class TaskManager {
      * Filters the current task list for tasks that have descriptions that contain a certain string.
      *
      * @param filterWord String to filter the tasks
-     * @return <code>ArrayList</code> of <code>Task</code> that contains <code>filterWord</code>
+     * @return list of {@code Task} that contains {@code filterWord}
      */
     public static ArrayList<Task> filterListByKeyword(String filterWord) {
         ArrayList<Task> filteredList =
@@ -73,7 +73,7 @@ public class TaskManager {
      * Filters the current task list for tasks that have a specific date attached.
      *
      * @param date Date to filter the tasks
-     * @return <code>ArrayList</code> of <code>Task</code> that has the specific <code>date</code> attached
+     * @return list of {@code Task} that has the specific {@code date} attached
      */
     public static ArrayList<Task> filterListByDate(String date) {
         ArrayList<Task> filteredList =
@@ -84,11 +84,11 @@ public class TaskManager {
     }
 
     /**
-     * Converts all the <code>Task</code> given to string format, then concatenated as one string, for
+     * Converts all the {@code Task} given to string format, then concatenated as one string, for
      * display on the user interface.
      *
-     * @param tasks <code>ArrayList</code> of <code>Task</code> to convert to string format
-     * @return String that concatenates all the string format of all <code>Task</code> in the list
+     * @param tasks list of {@code Task} to convert to string format
+     * @return concatenated string of all {@code Task} in the list in string format
      */
     public static String listTasks(ArrayList<Task> tasks) {
         String listOfTasks = "";
@@ -105,9 +105,9 @@ public class TaskManager {
     }
 
     /**
-     * Adds a <code>Task</code> to the current task list.
+     * Adds a {@code Task} to the current task list.
      *
-     * @param task <code>Task</code> to be added
+     * @param task {@code Task} to be added
      */
     public static void addTask(Task task) {
         tasks.add(task);
@@ -115,10 +115,10 @@ public class TaskManager {
     }
 
     /**
-     * Deletes a <code>Task</code> from the current task list.
+     * Deletes a {@code Task} from the current task list.
      *
-     * @param taskIndex Number corresponding to the <code>Task</code> in the list
-     * @return <code>Task</code> object that is deleted
+     * @param taskIndex Number corresponding to the {@code Task} in the list
+     * @return {@code Task} that is deleted
      */
     public static Task deleteTask(int taskIndex) {
         Task deletedTask = tasks.get(taskIndex - 1);
@@ -128,10 +128,10 @@ public class TaskManager {
     }
 
     /**
-     * Marks a <code>Task</code> done in the current task list.
+     * Marks a {@code Task} done in the current task list.
      *
-     * @param taskIndex Number corresponding to the <code>Task</code> in the list
-     * @return <code>Task</code> object that is marked as done
+     * @param taskIndex Number corresponding to the {@code Task} in the list
+     * @return {@code Task} that is marked as done
      */
     public static Task markTaskDone(int taskIndex) {
         Task doneTask = tasks.get(taskIndex - 1);

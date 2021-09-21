@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 /**
  * Includes the operations that can be performed on the file with fixed path /duke.txt, such as reading the
- * file when <code>Duke</code> is first started, and updating the file after every command cycle.
+ * file when {@code Duke} is first started, and updating the file after every command cycle.
  */
 public class Storage {
 
@@ -31,10 +31,9 @@ public class Storage {
     }
 
     /**
-     * Reads data strings from the storage and stores it in an <code>ArrayList</code>.
+     * Reads data strings from the storage and stores it in an {@code ArrayList}.
      *
-     * @return <code>ArrayList</code> of <code>String</code> that represents the individual lines of data
-     * string in the storage
+     * @return list that represents the individual lines of data string in the storage
      * @throws DukeException if the storage with path /duke.txt does not exist and is first created, or if the
      * storage cannot be created due to IO problems.
      */
@@ -54,11 +53,11 @@ public class Storage {
     }
 
     /**
-     * Converts the individual file lines read from storage to a <code>Data</code> object.
+     * Converts the list data string read from storage to list of {@code Data}.
      *
-     * @param fileLines Collection of data strings read from the storage
-     * @return <code>ArrayList</code> of <code>Data</code> objects
-     * @throws DukeException If the data string cannot be converted to <code>Data</code> due to corrupted data
+     * @param fileLines list of data strings read from the storage
+     * @return list of {@code Data}
+     * @throws DukeException If the data string cannot be converted due to corrupted data
      */
     private ArrayList<Data> processStorageToData(ArrayList<String> fileLines) throws DukeException {
         ArrayList<Data> dataObjects = new ArrayList<>();
@@ -71,11 +70,10 @@ public class Storage {
     }
 
     /**
-     * Converts the collection of <code>Data</code> to <code>Task</code>, and then adds it to the static
-     * <code>Task</code> list.
+     * Converts the individual {@code Data} in the list to {@code Task}, and then adds it to the {@code Task} list.
      *
-     * @param dataObjects Collection of <code>Data</code> of processing the storage
-     * @throws DukeException If the <code>Data</code> cannot be converted to <code>Task</code> due to corrupted data
+     * @param dataObjects list of {@code Data}
+     * @throws DukeException If the {@code Data} cannot be converted due to corrupted data
      */
     private void writeToTaskList(ArrayList<Data> dataObjects) throws DukeException {
         for (Data data : dataObjects) {
@@ -85,8 +83,8 @@ public class Storage {
     }
 
     /**
-     * Includes the entire process of bringing the information of previously stored <code>Task</code> from the
-     * storage to the current list of <code>Task</code> when <code>Duke</code> is first run.
+     * Includes the entire process of bringing the information of previously stored {@code Task} as data strings
+     * from the storage to the current list of {@code Task} when {@code Duke} is first run.
      *
      * @throws DukeException Thrown if the data found in storage is corrupted, wiping the data in the file or
      * creating a new one in the process.
@@ -99,10 +97,9 @@ public class Storage {
     }
 
     /**
-     * Writes the collection of data strings of the <code>Task</code> objects stored in the current list to the
-     * storage.
+     * Writes the list of data strings of the {@code Task} stored in the current list to the storage.
      *
-     * @param fileLines Collection of data strings
+     * @param fileLines list of data strings
      * @throws DukeException If there is an IO exception encountered
      */
     private void writeToStorage(ArrayList<String> fileLines) throws DukeException {
@@ -118,7 +115,7 @@ public class Storage {
     }
 
     /**
-     * Includes the entire process of bringing the <code>Task</code> objects in the current list to the storage
+     * Includes the entire process of bringing the {@code Task} objects in the current list to the storage
      * at the end of every command execution.
      *
      * @throws DukeException If there is an IO exception encountered in writing to the storage

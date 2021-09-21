@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents the individual information of a <code>Task</code> retrieved from storage, before adding
- * them to the <code>Task</code> list.
+ * Represents the individual information of a {@code Task} retrieved from storage, before adding
+ * them to the {@code Task} list.
  */
 public class Data {
 
@@ -19,12 +19,13 @@ public class Data {
             "OH NO! Your data is corrupted, starting a new file for you...";
 
     /**
-     * <p>Checks if the date and time <code>String</code> is of a valid format.</p>
+     * <p>Checks if the date and time string is of a valid format.</p>
      * <p>Valid form: [yyyy-mm-dd]T[HH:MM]</p>
      *
-     * @param date <code>String</code> to check for validity
-     * @return <p><code>true</code> - if the specified date is valid</p>
-     * <p><code>false</code> - otherwise</p>
+     * @param date date string to check for validity
+     * @return
+     * <p>{@code true} - if the specified date is valid</p>
+     * <p>{@code false} - otherwise</p>
      */
     private boolean isValidDateTime(String date) {
         try {
@@ -37,15 +38,15 @@ public class Data {
 
     /**
      * <p>Checks if the data that is returned after parsing is corrupted.</p>
-     * <p>For example, the array [D, 0, description, date] will return <code>false</code> while the array
-     * [D, 0, description] will return <code>true</code> since <code>Deadline</code> is expected to have a
+     * <p>For example, the array [D, 0, description, date] will return {@code false} while the array
+     * [D, 0, description] will return {@code true} since {@code Deadline} is expected to have a
      * date.</p>
      * <p>Dates stored in the storage need to have a valid format, otherwise it is treated as corrupted.</p>
      *
-     * @param parameters <code>String</code> array that is returned after the information of a <code>Task</code>
-     *                   in storage is parsed
-     * @return <p><code>true</code> - if data is corrupted</p>
-     *         <p><code>false</code> - otherwise</p>
+     * @param parameters array that is returned after the information of a {@code Task} in storage is parsed
+     * @return
+     * <p>{@code true} - if data is corrupted</p>
+     * <p>{@code false} - otherwise</p>
      */
     private boolean hasCorruptedData(String[] parameters) {
         switch (parameters[0]) {
@@ -64,12 +65,12 @@ public class Data {
     }
 
     /**
-     * Constructs a <code>Data</code> object from the information read from the storage.
+     * Constructs a {@code Data} object from the information read from the storage.
      *
-     * @param parameters <p>Variable argument that contains the information of a <code>Task</code></p>
-     *                   <p>For <code>ToDo</code> - Entries of the array represent the <code>Task</code>
-     *                   type, done status, and description.</p>
-     *                   <p>For <code>Deadline, Event</code> - Entries of the array represent the <code>Task</code>
+     * @param parameters <p>Variable argument that contains the information of a {@code Task}</p>
+     *                   <p>For {@code ToDo} - Entries of the array represent the task type,
+     *                   done status, and description.</p>
+     *                   <p>For {@code Deadline, Event} - Entries of the array represent the task
      *                   type, done status, description, and the date and time.</p>
      * @throws DukeException If information read from the storage is corrupted
      */
@@ -83,12 +84,12 @@ public class Data {
     }
 
     /**
-     * <p>Converts a <code>Data</code> object to a <code>Task</code> object, based on the <code>parameters</code>
-     * used for construction.</p>
-     * <p>One example of <code>parameters</code> can be [E, 1, attend wedding, 2021-09-01T19:00], where the entries
-     * represent the <code>Task</code> type, done status, description, and date and time (if any).</p>
+     * <p>Converts a {@code Data} to a {@code Task}, based on {@code parameters}</p>
+     * <p>One example of {@code parameters} can be [E, 1, attend wedding, 2021-09-01T19:00], where the entries
+     * represent the task type, done status, description, and date and time (if any). These parameters are used
+     * to construct the corresponding {@code Task}</p>
      *
-     * @return <code>Task</code> object based on the <code>parameters</code>
+     * @return {@code Task} corresponding to the {@code Data}
      * @throws DukeException if data is found to be corrupted
      */
     public Task toTask() throws DukeException {

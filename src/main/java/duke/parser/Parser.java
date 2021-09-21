@@ -50,11 +50,11 @@ public class Parser {
     /**
      * Separates the command word from the string input by the user.
      *
-     * @param input String input by the user through the user interface
-     * @return <p><code>String</code> array of size 2 with the command word in the first entry and the
-     * arguments in the second entry.</p>
-     * <p>If there are no arguments, then the second entry will be an empty <code>String</code></p>
-     * <p>If the user input is empty, then both entries will be an empty <code>String</code></p>
+     * @param input input by the user through the user interface
+     * @return
+     * <p>array of size 2 with the command word in the first entry and the arguments in the second entry.</p>
+     * <p>If there are no arguments, then the second entry will be an empty string</p>
+     * <p>If the user input is empty, then both entries will be an empty string</p>
      */
     private static String[] separateCommand(String input) {
         String[] commandArgArray = new String[2];
@@ -65,12 +65,13 @@ public class Parser {
     }
 
     /**
-     * Separates the date and time from the arguments to add a <code>Deadline</code>
+     * Separates the date and time from the arguments to add a {@code Deadline}
      *
-     * @param input String argument of the user input after command is separated.
-     * @return <p><code>String</code> array of size 2 with the description of the <code>Deadline</code> in
-     * the first entry and the date and time in the second entry.</p>
-     * <p>If no date and time is provided, then the second entry will be an empty <code>String</code></p>
+     * @param input argument of the user input after command is separated.
+     * @return
+     * <p>array of size 2 with the description of the {@code Deadline} in the first entry and the date and time
+     * in the second entry.</p>
+     * <p>If no date and time is provided, then the second entry will be an empty string</p>
      */
     public static String[] separateDeadline(String input) {
         String[] descriptionDateArray = new String[2];
@@ -84,12 +85,13 @@ public class Parser {
     }
 
     /**
-     * Separates the date and time from the arguments to add an <code>Event</code>
+     * Separates the date and time from the arguments to add an {@code Event}
      *
-     * @param input String argument of the user input after command is separated.
-     * @return <p><code>String</code> array of size 2 with the description of the <code>Event</code> in
-     * the first entry and the date and time in the second entry.</p>
-     * <p>If no date and time is provided, then the second entry will be an empty <code>String</code></p>
+     * @param input argument of the user input after command is separated.
+     * @return
+     * <p>array of size 2 with the description of the {@code Event} in the first entry and the date and time
+     * in the second entry.</p>
+     * <p>If no date and time is provided, then the second entry will be an empty string</p>
      */
     public static String[] separateEvent(String input) {
         String[] descriptionDateArray = new String[2];
@@ -103,12 +105,12 @@ public class Parser {
     }
 
     /**
-     * Analyses the <code>userInputString</code> for its command word and arguments, and tries to match the
-     * command word with the commands, and constructs a <code>Command</code> object for further execution.
+     * Analyses the {@code userInputString} for its command word and arguments, and tries to match the
+     * command word with the commands, and constructs a {@code Command} object for further execution.
      *
-     * @param userInputString <code>String</code> input from the user through the user interface
-     * @return <code>Command</code> object that corresponds to the command word
-     * @throws DukeException If the respective <code>Command</code> object cannot be instantiated
+     * @param userInputString input from the user through the user interface
+     * @return {@code Command}that corresponds to the command word
+     * @throws DukeException If the respective {@code Command} object cannot be instantiated
      */
     private static Command parseCommandWithArguments(String userInputString) throws DukeException {
 
@@ -140,12 +142,12 @@ public class Parser {
 
     /**
      * Treats the entire user input string as a command, and to determine which command it matches with, then
-     * constructs the respective <code>Command</code> object for further execution. If the user input string does
+     * constructs the respective {@code Command} object for further execution. If the user input string does
      * not match with any command, then it will be further parsed for its command word and arguments.
      *
-     * @param userInputString <code>String</code> input from the user through the user interface
-     * @return <code>Command</code> object that corresponds to the command word
-     * @throws DukeException If the respective <code>Command</code> object cannot be instantiated
+     * @param userInputString input from the user through the user interface
+     * @return {@code Command} that corresponds to the command word
+     * @throws DukeException If the respective {@code Command} object cannot be instantiated
      */
     public static Command parseCommand(String userInputString) throws DukeException {
 
@@ -164,12 +166,12 @@ public class Parser {
     }
 
     /**
-     * Separates the data string into its important parameters of a <code>Task</code>, which includes the
-     * <code>Task</code> type, done status, description, and date and time (if any).
+     * Separates the data string into its important parameters of a {@code Task}, which includes the
+     * task type, done status, description, and date and time (if any).
      *
-     * @param fileLine A data string from storage representing a <code>Task</code> previously stored
-     * @return <code>Data</code> object that represents the <code>Task</code>
-     * @throws DukeException If information of the <code>Task</code> is found to be corrupted
+     * @param fileLine data string from storage representing a {@code Task} previously stored
+     * @return {@code Data} that represents the {@code Task}
+     * @throws DukeException If information from storage is found to be corrupted
      */
     public static Data parseData(String fileLine) throws DukeException {
         String[] parameters = trimArrayElements(fileLine.split(DATA_SEPARATOR));
