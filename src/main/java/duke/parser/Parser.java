@@ -12,7 +12,6 @@ import duke.text.Text;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 public class Parser extends Text {
 
@@ -37,6 +36,8 @@ public class Parser extends Text {
             return parseDoneCommand(userInput);
         case DELETE:
             return parseDeleteCommand(userInput);
+        case FIND:
+            return parseFindCommand(userInput);
         case DATE:
             return parseDateCommand(userInput);
         case LIST:
@@ -47,17 +48,6 @@ public class Parser extends Text {
             return new ExitCommand();
         default:
             throw new DukeException(UNKNOWN_COMMAND);
-        }
-    }
-
-    private Command parseDateCommand(String userInput) throws DukeException {
-        String[] taskToPrint = userInput.trim().split(SPACE, 2);
-        if (taskToPrint.length <= 1) {
-            throw new DukeException(NO_DATE);
-        } else {
-            LocalDate formattedDate = LocalDate.parse(taskToPrint[1]);
-            String dateToString = formattedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
-            return new FindTaskOfDateCommand(taskList, ui, dateToString);
         }
     }
 
@@ -99,6 +89,26 @@ public class Parser extends Text {
             throw new DukeException(NO_TASK_NUMBER);
         } else {
             return new DeleteCommand(taskList, ui, Integer.parseInt(taskToDelete[1]) - 1);
+        }
+    }
+
+    private Command parseFindCommand(String userInput) throws DukeException {
+        String[] taskKeyword = userInput.split(" ", 2);
+        if (taskKeyword.length <= 1) {
+            throw new DukeException(NO_TASK_NUMBER);
+        } else {
+            return new FindCommand(taskList, ui, taskKeyword[1]);
+        }
+    }
+
+    private Command parseDateCommand(String userInput) throws DukeException {
+        String[] taskToPrint = userInput.trim().split(SPACE, 2);
+        if (taskToPrint.length <= 1) {
+            throw new DukeException(NO_DATE);
+        } else {
+            LocalDate formattedDate = LocalDate.parse(taskToPrint[1]);
+            String dateToString = formattedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+            return new FindTaskOfDateCommand(taskList, ui, dateToString);
         }
     }
 }

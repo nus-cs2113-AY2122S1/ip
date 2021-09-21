@@ -29,6 +29,7 @@ public class Text { //contains all constants used
     public static final String EVENT = "event";
     public static final String EVENT_E = "E";
     public static final String EVENT_DATE_SEPARATOR = " /at ";
+    public static final String FIND = "find";
     public static final String LIST = "list";
     public static final String HELP = "help";
     public static final String DONE = "done";
