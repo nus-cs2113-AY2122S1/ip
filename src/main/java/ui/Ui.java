@@ -88,7 +88,7 @@ public class Ui {
      */
     public void printAddedTaskMessage(String taskInformation) {
         System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
-                + SPACE_PREFIX + "Here you go..." + LINE_BREAK + " Added to stuff you would definitely forget to do (*facepalm*): "
+                + SPACE_PREFIX + "Here you go..." + LINE_BREAK + " Added to stuff you would definitely forget to do (*facepalm*):"
                 + LINE_BREAK + SPACE_PREFIX
                 + taskInformation
                 + LINE_BREAK
