@@ -1,16 +1,12 @@
 package duke.command;
 
-import duke.task.TaskManager;
-
 public class TerminateCommand extends Command {
 
-    public TerminateCommand(TaskManager taskManager) {
-        super(taskManager, "");
-    }
+    private final String EXIT_MSG = "=> Come back soon, I'm still hungry \uD83D\uDE0B";
 
     @Override
     public CommandResult executeCommand() {
-        return new CommandResult(super.taskManager, false, true);
+        return new CommandResult(EXIT_MSG, false, true);
     }
 
 }
