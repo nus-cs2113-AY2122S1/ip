@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager {
 
@@ -41,12 +42,14 @@ public class TaskManager {
             Ui.printMissingTextError();
         }
     }
+
     public static void addTodo(String taskName) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("todo name missing.");
         }
         tasks.add(new Todo(taskName));
     }
+
     public static void addDeadline(String taskName, String taskDetails) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("deadline name missing.");
@@ -54,6 +57,7 @@ public class TaskManager {
         tasks.add(new Deadline(taskName, taskDetails));
 
     }
+
     public static void addEvent(String taskName, String taskDetails) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("event name missing.");
@@ -74,7 +78,6 @@ public class TaskManager {
         Ui.printAddedTask(tasks, isPlural, taskPending);
         Ui.printBottomLine();
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Marks tasks in tasks[] as done, only if they exist or has not been completed.
@@ -145,5 +148,74 @@ public class TaskManager {
         return input.equals("");
     }
 
+    /**
+     * Engages user base on what the user has typed and executes a corresponding command.
+     */
+    public static void engageUser() {
+        Scanner text = new Scanner(System.in);
+        String taskType;
+        String taskName;
+        String taskDetails = "";
 
+        String userInput;
+        String[] words = new String[0];
+        boolean isExit = false;
+
+        do {
+            taskType = text.next().toLowerCase();
+
+            switch (taskType) {
+            case "bye":
+                isExit = true;
+                break;
+            case "hello":
+            case "hi":
+            case "yo":
+                Ui.mockUser();
+                break;
+            case "list":
+                Ui.printList(TaskManager.tasks);
+                break;
+            case "todo":
+                taskName = text.nextLine();
+                TaskManager.addTask(taskName, taskType, taskDetails);
+                break;
+            case "deadline":
+            case "event":
+                userInput = text.nextLine();
+                if (userInput.equals("")) {
+                    Ui.printMissingTextError();
+                    break;
+                } else if (taskType.equals("deadline")) {
+                    words = userInput.split(" /by ");
+                } else if (taskType.equals("event")) {
+                    words = userInput.split(" /at ");
+                }
+                taskName = words[0];
+                taskDetails = words[1];
+
+                TaskManager.addTask(taskName, taskType, taskDetails);
+                break;
+            case "done":
+            case "delete":
+                userInput = text.nextLine();
+                if (userInput.equals("")) {
+                    Ui.printMissingTextError();
+                } else {
+                    words = userInput.split(" ");
+                    userInput = words[1];
+                    if (taskType.equals("done")) {
+                        TaskManager.doneTask(userInput);
+                    } else if (taskType.equals("delete")) {
+                        TaskManager.deleteTask(userInput);
+                    }
+                }
+                break;
+            default:
+                userInput = text.nextLine();
+                Ui.printWrongTaskTypeError(taskType, userInput);
+                break;
+            }
+        } while (!isExit);
+    }
 }

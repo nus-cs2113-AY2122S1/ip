@@ -1,7 +1,7 @@
 #Todo List <br> for improvements in the future
 
 ---
-[ ] `done` and `delete` commands not working with 1 or more whitespace (ArrayIndexOutOfBoundsException)
+[ ] `done`, `delete`, `deadline`, and `event` commands not working with 1 or more whitespace (ArrayIndexOutOfBoundsException)
 
 [ ] More abstraction
 
