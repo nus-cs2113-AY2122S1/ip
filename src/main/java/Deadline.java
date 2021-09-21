@@ -1,15 +1,12 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected String by;
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, String by) {
         super(description);
         setBy(by);
     }
 
-    public void setBy(LocalDate newDate) {
+    public void setBy(String newDate) {
         this.by = newDate;
     }
 
@@ -19,12 +16,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public LocalDate getWhen() {
+    public String getWhen() {
         return this.by;
     }
 
     @Override
     public String toString() {
-        return ("[D]" + "[" + getStatusIcon() + "] " + description + "(by: " + by.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT))) + ")");
+        return ("[D]" + "[" + getStatusIcon() + "] " + description + "(by: " + by + ")");
     }
 }

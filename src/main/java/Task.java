@@ -1,18 +1,15 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Task {
     protected String description;
     protected String taskType;
     protected boolean isDone;
-    protected LocalDate eventDate;
-    public static final String DATE_FORMAT = "MMM dd yyyy";
+    protected String eventDate;
 
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.taskType = "";
+        this.eventDate = "";
     }
 
     public String getStatusIcon() {
@@ -27,7 +24,7 @@ public class Task {
         return taskType;
     }
 
-    public LocalDate getWhen() {
+    public String getWhen() {
         return eventDate;
     }
 
