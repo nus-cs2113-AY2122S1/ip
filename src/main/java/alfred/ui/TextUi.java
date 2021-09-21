@@ -60,7 +60,11 @@ public class TextUi {
     // Error Messages
     public static void invalidCommandMessage() {
         printMessageTemplate(" Perhaps you could rephrase that in a way us civilians could comprehend.\n");
-    };
+    }
+
+    public static void fileErrorMessage() {
+        printMessageTemplate(" There appears to be a problem with the save file, sir.");
+    }
 
     public static void emptyDescriptionMessage() {
         printMessageTemplate(" Master Wayne, if you do not specify your task, I'm afraid I cannot note it down.\n");
