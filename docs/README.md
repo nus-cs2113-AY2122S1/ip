@@ -20,7 +20,7 @@ Below is a list of the features Duke offers:
 7. [Saving tasks](#saving-tasks)
 8. [Exiting Duke](#exiting-duke)
 
-### 1. Adding tasks
+### Adding tasks
 There are 3 types of tasks you can add, todo,event,deadline.
 * todo - tasks that you need to do; only requires task description
   * Format: `todo <task description>`
@@ -36,13 +36,13 @@ description and date of deadline in format `/by yyyy-mm-dd`
   
 ![](assets/add.png)
 
-### 2. List Tasks
+### List Tasks
 You can list all the tasks you have stored.
 * e.g `list`
 
 ![](assets/list.png)
 
-### 3. Marking tasks as done
+### Marking tasks as done
 You can mark a task as done by providing the `done` command
 and providing the index of the task you want to mark as done.
 * Format: `done <task index>`
@@ -50,7 +50,7 @@ and providing the index of the task you want to mark as done.
 
 ![](assets/done.png)
 
-### 4. Deleting tasks
+### Deleting tasks
 You can choose to delete a task by providing the `delete` command
 and providing the index of the task you want to delete.
 * Format: `delete <task index>`
@@ -58,7 +58,7 @@ and providing the index of the task you want to delete.
 
 ![](assets/delete.png)
 
-### 5. Finding tasks by name
+### Finding tasks by name
 You can search the task you want by its name. This can be done
 by providing the `find` command and providing the search keyword.
 * Format: `find <keyword>`
@@ -66,7 +66,7 @@ by providing the `find` command and providing the search keyword.
 
 ![](assets/find.png)
 
-### 6. Finding tasks by date
+### Finding tasks by date
 You can search the task you want by its date. This can be done by 
 providing the `date` command and providing the date you want to search
 by using the format `yyyy-mm-dd`.
@@ -75,13 +75,13 @@ by using the format `yyyy-mm-dd`.
 
 ![](assets/date.png)
 
-### 7. Saving tasks
+### Saving tasks
 Duke will save for you your tasks everytime a task is added, deleted 
 or mark as done. It will also save everytime you exit the program so
 that when you next enter, your saved tasks will still be there. The 
 tasks are stored in 'duke.txt', in the same folder as your JAR file.
 
-### 8. Exiting Duke
+### Exiting Duke
 You can exit the program by providing the `bye` command.
 * e.g `bye`
 
