@@ -85,13 +85,6 @@ public class CommandExecutor {
     }
 
     /**
-     * Sets the handler to the exited state.
-     */
-    public void markAsExited() {
-        isExit = true;
-    }
-
-    /**
      * Validates the given input string before executing it.
      *
      * @param inputLine Raw input line to check.
@@ -120,52 +113,115 @@ public class CommandExecutor {
         Command command = parser.findCommand(inputLine);
         String[] commandLineValues = parser.parseCommandLineValues(command, inputLine);
 
-        String taskDescription;
-        String taskDateTime;
-        int taskIndex;
-        Task newTask;
-
         switch (command.getCommand()) {
         case LIST_COMMAND:
-            taskManager.printTaskList();
+            executeListCommand();
             break;
         case DONE_COMMAND:
-            taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
-            taskManager.complete(taskIndex);
+            executeDoneCommand(commandLineValues);
             break;
         case DELETE_COMMAND:
-            taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
-            taskManager.deleteTask(taskIndex);
+            executeDeleteCommand(commandLineValues);
             break;
         case FIND_COMMAND:
-            String keyword = commandLineValues[ARGUMENT_VALUE_INDEX];
-            taskManager.printFilteredTasks(keyword);
+            executeFindCommand(commandLineValues);
             break;
         case ADD_TODO_COMMAND:
-            taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
-            newTask = new Todo(taskDescription);
-            taskManager.addTask(newTask);
+            executeTodoCommand(commandLineValues);
             break;
         case ADD_DEADLINE_COMMAND:
-            taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
-            taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
-            newTask = new Deadline(taskDescription, taskDateTime);
-            taskManager.addTask(newTask);
+            executeDeadlineCommand(commandLineValues);
             break;
         case ADD_EVENT_COMMAND:
-            taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
-            taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
-            newTask = new Event(taskDescription, taskDateTime);
-            taskManager.addTask(newTask);
+            executeEventCommand(commandLineValues);
             break;
         case END_COMMAND:
-            markAsExited();
+            executeExitCommand();
             break;
         default:
             throw new CommandException("Illegal operation");
         }
 
         fileManager.writeTaskManagerToFile(taskManager, FILE_PATH);
+    }
+
+    /**
+     * Tells the task manager to print the list of current tasks.
+     */
+    private void executeListCommand() {
+        taskManager.printTaskList();
+    }
+
+    /**
+     * Tells the task manager to mark a task as completed.
+     *
+     * @param commandLineValues List of values parsed from the user's command.
+     */
+    private void executeDoneCommand(String[] commandLineValues) {
+        int taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
+        taskManager.complete(taskIndex);
+    }
+
+    /**
+     * Tells the task manager to delete a task.
+     *
+     * @param commandLineValues List of values parsed from the user's command.
+     */
+    private void executeDeleteCommand(String[] commandLineValues) {
+        int taskIndex = Integer.parseInt(commandLineValues[ARGUMENT_VALUE_INDEX]);
+        taskManager.deleteTask(taskIndex);
+    }
+
+    /**
+     * Tells the task manager to print a selected list of tasks.
+     *
+     * @param commandLineValues List of values parsed from the user's command.
+     */
+    private void executeFindCommand(String[] commandLineValues) {
+        String keyword = commandLineValues[ARGUMENT_VALUE_INDEX];
+        taskManager.printFilteredTasks(keyword);
+    }
+
+    /**
+     * Tells the task manager to add a new Todo to itself.
+     *
+     * @param commandLineValues List of values parsed from the user's command.
+     */
+    private void executeTodoCommand(String[] commandLineValues) {
+        String taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
+        Todo newTask = new Todo(taskDescription);
+        taskManager.addTask(newTask);
+    }
+
+    /**
+     * Tells the task manager to add a new Deadline to itself.
+     *
+     * @param commandLineValues List of values parsed from the user's command.
+     */
+    private void executeDeadlineCommand(String[] commandLineValues) {
+        String taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
+        String taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
+        Deadline newTask = new Deadline(taskDescription, taskDateTime);
+        taskManager.addTask(newTask);
+    }
+
+    /**
+     * Tells the task manager to add a new Event to itself.
+     *
+     * @param commandLineValues List of values parsed from the user's command.
+     */
+    private void executeEventCommand(String[] commandLineValues) {
+        String taskDescription = commandLineValues[ARGUMENT_VALUE_INDEX];
+        String taskDateTime = commandLineValues[FLAG_VALUE_INDEX];
+        Event newTask = new Event(taskDescription, taskDateTime);
+        taskManager.addTask(newTask);
+    }
+
+    /**
+     * Sets the program to the exited state.
+     */
+    private void executeExitCommand() {
+        isExit = true;
     }
 }
 

@@ -24,10 +24,12 @@ public class Duke {
      */
     public void run() {
         Ui.printWelcomeMessage();
+
         do {
             String rawLine = ui.readInput();
             commandExecutor.execute(rawLine);
         } while (!commandExecutor.isExit());
+
         Ui.printByeMessage();
     }
 
