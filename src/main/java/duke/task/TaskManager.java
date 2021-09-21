@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.exception.TodoFormatException;
+import duke.exception.ToDoFormatException;
 import duke.exception.DeadlineFormatException;
 import duke.exception.EventFormatException;
 import duke.exception.EmptyTasklistException;
@@ -9,14 +9,11 @@ import duke.exception.InvalidTaskIdException;
 import duke.exception.TaskAlreadyDoneException;
 import duke.exception.DeleteFormatException;
 
-import duke.ui.DukeInterface;
-
 import java.util.ArrayList;
 
 public class TaskManager {
 
     public ArrayList<Task> tasks;
-    private DukeInterface dukeUI;
 
     private final String ADD_TASK_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
     private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done [\u2705]:";
@@ -25,60 +22,64 @@ public class TaskManager {
 
     private final String TODO_FORMAT_REGEX = "";
     private final String DEADLINE_FORMAT_REGEX = ".+/by.+";
+    private final String DEADLINE_SPLIT_REGEX = "/by";
     private final String EVENT_FORMAT_REGEX = ".+/at.+";
+    private final String EVENT_SPLIT_REGEX = "/at";
     private final String DONE_FORMAT_REGEX = "\\d+";
     private final String DELETE_FORMAT_REGEX = "\\d+";
 
     public TaskManager() {
         tasks = new ArrayList<Task>();
-        dukeUI = new DukeInterface();
     }
 
-    public void addToDo(String todoInfo) throws TodoFormatException {
+    public String addToDo(String todoInfo) throws ToDoFormatException {
 
         if (todoInfo.equals(TODO_FORMAT_REGEX)) {
-            throw new TodoFormatException();
+            throw new ToDoFormatException();
         }
 
         Task newToDo = new ToDo(todoInfo.trim());
         this.tasks.add(newToDo);
 
-        printAddTaskMsg(tasks.get(tasks.size() - 1).getTaskDescription());
-        printNumTasksInList();
+        int idOfTaskAdded = tasks.size() - 1;
+
+        return getAddTaskMessage(idOfTaskAdded);
 
     }
 
-    public void addDeadline(String deadlineInfo) throws DeadlineFormatException {
+    public String addDeadline(String deadlineInfo) throws DeadlineFormatException {
 
         if (deadlineInfo.matches(DEADLINE_FORMAT_REGEX) == false) {
             throw new DeadlineFormatException();
         }
 
-        String deadlineArgs[] = deadlineInfo.split("/by", 2);
+        String deadlineArgs[] = deadlineInfo.split(DEADLINE_SPLIT_REGEX, 2);
         Task newDeadline = new Deadline(deadlineArgs[0].trim(), deadlineArgs[1].trim());
         this.tasks.add(newDeadline);
 
-        printAddTaskMsg(tasks.get(tasks.size() - 1).getTaskDescription());
-        printNumTasksInList();
+        int idOfTaskAdded = tasks.size() - 1;
+
+        return getAddTaskMessage(idOfTaskAdded);
 
     }
 
-    public void addEvent(String eventInfo) throws EventFormatException {
+    public String addEvent(String eventInfo) throws EventFormatException {
 
         if (eventInfo.matches(EVENT_FORMAT_REGEX) == false) {
             throw new EventFormatException();
         }
 
-        String eventArgs[] = eventInfo.split("/at", 2);
+        String eventArgs[] = eventInfo.split(EVENT_SPLIT_REGEX, 2);
         Task newEvent = new Event(eventArgs[0].trim(), eventArgs[1].trim());
         this.tasks.add(newEvent);
 
-        printAddTaskMsg(tasks.get(tasks.size() - 1).getTaskDescription());
-        printNumTasksInList();
+        int idOfTaskAdded = tasks.size() - 1;
+
+        return getAddTaskMessage(idOfTaskAdded);
 
     }
 
-    public void setTaskComplete(String taskIndex) throws DoneFormatException, InvalidTaskIdException,
+    public String setTaskComplete(String taskIndex) throws DoneFormatException, InvalidTaskIdException,
             TaskAlreadyDoneException {
 
         if (taskIndex.matches(DONE_FORMAT_REGEX) == false) {
@@ -97,12 +98,12 @@ public class TaskManager {
         }
 
         tasks.get(taskID).isDone = true;
-        printSetTaskCompleteMsg(tasks.get(taskID).getTaskDescription());
-        printNumTaskComplete();
+
+        return getSetTaskCompleteMessage(taskID);
 
     }
 
-    public void deleteTask(String taskIndex) throws DeleteFormatException, InvalidTaskIdException {
+    public String deleteTask(String taskIndex) throws DeleteFormatException, InvalidTaskIdException {
 
         if (taskIndex.matches(DELETE_FORMAT_REGEX) == false) {
             throw new DeleteFormatException();
@@ -115,60 +116,66 @@ public class TaskManager {
             throw new InvalidTaskIdException();
         }
 
-        printDeleteTaskMsg(tasks.get(taskID).getTaskDescription());
+        String deleteTaskMessage = getDeleteTaskMessage(taskID);
+
         tasks.remove(taskID);
-        printNumTasksInList();
+
+        return deleteTaskMessage;
 
     }
 
-    public void getTasklist() throws EmptyTasklistException {
+    public String getTasklist() throws EmptyTasklistException {
+
+        String taskList = "";
 
         if (tasks.size() == 0) {
             throw new EmptyTasklistException();
         }
 
-        printTasklistMsg();
         for (int taskID = 0; taskID < tasks.size(); taskID++) {
-            System.out.println(taskID + 1 + "." + tasks.get(taskID).getTaskDescription());
+            taskList += taskID + 1 + "." + tasks.get(taskID).getTaskDescription() + "\n";
         }
 
+        return getListMessage(taskList);
+
     }
 
-    public void printNumTasksInList() {
-        dukeUI.printMsgWithCursor("Now you have " + tasks.size() + " tasks in your list.");
+    public String getAddTaskMessage(int idOfTaskAdded) {
+        return ADD_TASK_MSG + "\n   <" + tasks.get(idOfTaskAdded).getTaskDescription() + ">\n" + getNumTasksInList();
     }
 
-    public void printNumTaskComplete() {
+    public String getSetTaskCompleteMessage(int idOfTaskCompleted) {
+        return SET_TASK_COMPLETE_MSG + "\n   <" + tasks.get(idOfTaskCompleted).getTaskDescription() + ">\n"
+                + getNumTaskComplete();
+    }
+
+    public String getDeleteTaskMessage(int idOfTaskDeleted) {
+        return DELETE_TASK_MSG + "\n   <" + tasks.get(idOfTaskDeleted).getTaskDescription() + ">\n"
+                + getNumTasksInList();
+    }
+
+    public String getListMessage(String taskList) {
+        return PRINT_TASKLIST_MSG + "\n" + taskList + getNumTaskComplete();
+    }
+
+    public String getNumTasksInList() {
+        return "=> Now you have " + tasks.size() + " tasks in your list.";
+    }
+
+    public String getNumTaskComplete() {
         int numComplete = 0;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).isDone) {
                 numComplete += 1;
             }
         }
-        dukeUI.printMsgWithCursor("You have done " + numComplete + "/" + tasks.size() + " tasks in your list.");
-    }
 
-    public void printAddTaskMsg(String taskDescription) {
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(ADD_TASK_MSG);
-        dukeUI.printWithPadding(taskDescription);
-    }
+        if (numComplete == tasks.size()) {
+            return "=> You have completed all your tasks already.";
+        } else {
+            return "=> You have done " + numComplete + "/" + tasks.size() + " tasks in your list.";
+        }
 
-    public void printSetTaskCompleteMsg(String taskDescription) {
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(SET_TASK_COMPLETE_MSG);
-        dukeUI.printWithPadding(taskDescription);
-    }
-
-    public void printDeleteTaskMsg(String taskDescription) {
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(DELETE_TASK_MSG);
-        dukeUI.printWithPadding(taskDescription);
-    }
-
-    public void printTasklistMsg() {
-        dukeUI.printDukeName();
-        dukeUI.printMsgWithCursor(PRINT_TASKLIST_MSG);
     }
 
 }
