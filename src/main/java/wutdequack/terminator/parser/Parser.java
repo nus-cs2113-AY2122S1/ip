@@ -10,11 +10,13 @@ import static wutdequack.terminator.common.MagicValues.DELIMINATOR_FOR_FILE;
 import static wutdequack.terminator.common.MagicValues.EVENT_KEYWORD;
 import static wutdequack.terminator.common.MagicValues.EVENT_TYPE;
 import static wutdequack.terminator.common.MagicValues.KEYWORD_INDEX;
+import static wutdequack.terminator.common.MagicValues.SEARCH_TERM_INDEX;
 import static wutdequack.terminator.common.MagicValues.TASK_NAME_INDEX;
 import static wutdequack.terminator.common.MagicValues.TASK_NUMBER_INDEX;
 import static wutdequack.terminator.common.MagicValues.TODO_KEYWORD;
 import static wutdequack.terminator.common.MagicValues.ui;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import wutdequack.terminator.objects.exception.InsufficientParametersException;
@@ -133,6 +135,17 @@ public class Parser {
      */
     public String getKeywordFromUserInput(String userLine) {
         return userLine.split(" ")[KEYWORD_INDEX];
+    }
+
+    /**
+     * Extracts search term from input
+     * @param userLine Line that is inputted by the user.
+     * @return String containing the search term
+     */
+    public String getSearchTermFromInput(String userLine) {
+        String[] tokenizedInput = userLine.split(" ");
+        String[] tokenizedSearchTerms = Arrays.copyOfRange(tokenizedInput, 1, tokenizedInput.length);
+        return String.join(" ", tokenizedSearchTerms);
     }
 
 }

@@ -12,6 +12,7 @@ import static wutdequack.terminator.common.MagicValues.DEADLINE_STRING;
 import static wutdequack.terminator.common.MagicValues.DELETE_STRING;
 import static wutdequack.terminator.common.MagicValues.DONE_STRING;
 import static wutdequack.terminator.common.MagicValues.EVENT_STRING;
+import static wutdequack.terminator.common.MagicValues.FIND_STRING;
 import static wutdequack.terminator.common.MagicValues.FROM_USER;
 import static wutdequack.terminator.common.MagicValues.LIST_STRING;
 import static wutdequack.terminator.common.MagicValues.TODO_STRING;
@@ -69,6 +70,9 @@ public class Terminator {
             break;
         case EVENT_STRING:
             taskList.createEventTask(userLine, FROM_USER);
+            break;
+        case FIND_STRING:
+            ui.findTasks(userLine);
             break;
         default:
             ui.printUnknownCommandMessage();

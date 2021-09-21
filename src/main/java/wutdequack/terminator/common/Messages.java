@@ -53,5 +53,8 @@ public class Messages {
     public static final String FILE_DATABASE_EXIST_MESSAGE = "New database created at ";
     public static final String FILE_PERMISSION_ERROR_MESSAGE = "Cannot create file here. Check your permissions!";
 
+    /**Filter Tasks**/
+    public static final String FILTER_TASKS_MESSAGE = "These are a list of tasks based on the search term: %s";
+
 
 }

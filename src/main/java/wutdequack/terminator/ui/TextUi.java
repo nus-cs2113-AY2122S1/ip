@@ -1,8 +1,10 @@
 package wutdequack.terminator.ui;
 
 import wutdequack.terminator.objects.task.Task;
+import wutdequack.terminator.parser.Parser;
 import wutdequack.terminator.tasklist.TaskList;
 
+import static wutdequack.terminator.common.MagicValues.tasksList;
 import static wutdequack.terminator.common.Messages.ADD_TASK_COUNTER_MESSAGE;
 import static wutdequack.terminator.common.Messages.ADD_TASK_MESSAGE;
 import static wutdequack.terminator.common.Messages.ADD_TASK_QUERY_MESSAGE;
@@ -15,6 +17,7 @@ import static wutdequack.terminator.common.Messages.ERROR_MISSING_PARAMS_MESSAGE
 import static wutdequack.terminator.common.Messages.FILE_DATABASE_EXIST_MESSAGE;
 import static wutdequack.terminator.common.Messages.FILE_DONT_EXIST_MESSAGE;
 import static wutdequack.terminator.common.Messages.FILE_PERMISSION_ERROR_MESSAGE;
+import static wutdequack.terminator.common.Messages.FILTER_TASKS_MESSAGE;
 import static wutdequack.terminator.common.Messages.LOGO;
 import static wutdequack.terminator.common.Messages.GREETING_MESSAGE;
 import static wutdequack.terminator.common.Messages.GREETING_QUERY_MESSAGE;
@@ -92,7 +95,7 @@ public class TextUi {
      * Prints error message if requested task to access is out of bounds.
      */
     public void printOutOfBoundsMessage() {
-        System.out.println(formatWithHeading(ERROR_INDEX_OUT_OF_BOUNDS_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ERROR_INDEX_OUT_OF_BOUNDS_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
@@ -100,9 +103,9 @@ public class TextUi {
      * @param taskString The String of the Task.
      */
     public void printUpdateMessage(String taskString) {
-        System.out.println(COMPLETED_TASK_MESSAGE + System.lineSeparator() +
+        out.println(COMPLETED_TASK_MESSAGE + System.lineSeparator() +
                 taskString);
-        System.out.println(formatWithHeading(POST_CRUD_QUERY_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(POST_CRUD_QUERY_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
@@ -110,23 +113,23 @@ public class TextUi {
      * @param taskString The String of the Task.
      */
     public void printDeleteMessage(String taskString) {
-        System.out.println(UPDATED_TASK_MESSAGE  + System.lineSeparator() +
+        out.println(UPDATED_TASK_MESSAGE  + System.lineSeparator() +
                 taskString);
-        System.out.println(formatWithHeading(POST_CRUD_QUERY_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(POST_CRUD_QUERY_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints the tasks in the Task list with formatting.
      */
     public void printTasks() {
-        System.out.println("Here is a list of taskings:");
-        System.out.println("===================================================");
+        out.println("Here is a list of taskings:");
+        out.println("===================================================");
         for (int i = 0; i < taskList.getTasksList().size(); ++i) {
             Task currentTask = taskList.getTasksList().get(i);
             // If the current task is completed, check the completion status
             System.out.printf("%d.%s" + System.lineSeparator(), i+1, currentTask.toString());
         }
-        System.out.println(formatWithHeading("Anything else?", TERMINATOR_FORMATTING));
+        out.println(formatWithHeading("Anything else?", TERMINATOR_FORMATTING));
     }
 
     /**
@@ -134,65 +137,65 @@ public class TextUi {
      * @param newTask The task that is added by the user.
      */
     public void printAddTaskMessage(Task newTask) {
-        System.out.println(formatWithHeading(ADD_TASK_MESSAGE + System.lineSeparator() +
+        out.println(formatWithHeading(ADD_TASK_MESSAGE + System.lineSeparator() +
                 newTask.toString(), TERMINATOR_FORMATTING));
-        System.out.println(formatWithHeading(String.format(ADD_TASK_COUNTER_MESSAGE,
+        out.println(formatWithHeading(String.format(ADD_TASK_COUNTER_MESSAGE,
                 taskList.getTasksList().size()), TERMINATOR_FORMATTING));
-        System.out.println(formatWithHeading(ADD_TASK_QUERY_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ADD_TASK_QUERY_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints message to user informing them that their input lack the required parameters.
      */
     public void printMissingParametersMessage(){
-        System.out.println(formatWithHeading(ERROR_MISSING_PARAMS_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ERROR_MISSING_PARAMS_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints message to user informing them that they are missing the date/time field.
      */
     public void printDateTimeMessage(){
-        System.out.println(formatWithHeading(ERROR_MISSING_DATETIME_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ERROR_MISSING_DATETIME_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints message to user informing them that their todo task is invalid.
      */
     public void printInvalidToDoMessage(){
-        System.out.println(formatWithHeading(ERROR_INVALID_TODO_TASK_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ERROR_INVALID_TODO_TASK_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints message to user informing them that their file to read from does not exist.
      */
     public void printFileDontExistMessage(){
-        System.out.println(formatWithHeading(FILE_DONT_EXIST_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(FILE_DONT_EXIST_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints message to user informing them that a file has been created for them to read from.
      */
     public void printFileCreationMessage(){
-        System.out.println(formatWithHeading(FILE_DATABASE_EXIST_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(FILE_DATABASE_EXIST_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints message to user informing them that file could not be created.
      */
     public void printFilePermissionsErrorMessage(){
-        System.out.println(formatWithHeading(FILE_PERMISSION_ERROR_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(FILE_PERMISSION_ERROR_MESSAGE, TERMINATOR_FORMATTING));
     }
 
     /**
      * Prints Goodbye message to user.
      */
     public void printGoodByeMessage() {
-        System.out.println(formatWithHeading("Hasta la vista.", TERMINATOR_FORMATTING));
-        System.out.println(formatWithHeading("I will be back.", TERMINATOR_FORMATTING));
-        System.out.println(formatWithHeading("Program Terminating in...", TERMINATOR_FORMATTING));
+        out.println(formatWithHeading("Hasta la vista.", TERMINATOR_FORMATTING));
+        out.println(formatWithHeading("I will be back.", TERMINATOR_FORMATTING));
+        out.println(formatWithHeading("Program Terminating in...", TERMINATOR_FORMATTING));
         // Stops at 2 intentionally
         for (int i = 5; i > 1; --i) {
-            System.out.println(formatWithHeading(Integer.toString(i), TERMINATOR_FORMATTING));
+            out.println(formatWithHeading(Integer.toString(i), TERMINATOR_FORMATTING));
         }
     }
 
@@ -211,10 +214,24 @@ public class TextUi {
     }
 
     /**
-     * Prints to the screen that you don't understand the commands
+     * Prints to the screen that you don't understand the commands.
      */
     public void printUnknownCommandMessage(){
-        System.out.println(formatWithHeading(ERROR_CONFUSED_MESSAGE, TERMINATOR_FORMATTING));
-        System.out.println(formatWithHeading(ERROR_INVALID_TASK_COMMAND, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ERROR_CONFUSED_MESSAGE, TERMINATOR_FORMATTING));
+        out.println(formatWithHeading(ERROR_INVALID_TASK_COMMAND, TERMINATOR_FORMATTING));
+    }
+
+    /**
+     * Finds and prints tasks given user's request.
+     * @param userLine Line of input from the user.
+     */
+    public void findTasks(String userLine) {
+        String searchTerm = new Parser().getSearchTermFromInput(userLine);
+        out.println(formatWithHeading(String.format(FILTER_TASKS_MESSAGE, searchTerm), TERMINATOR_FORMATTING));
+        tasksList
+                .stream()
+                .filter((t) -> t.toString().contains(searchTerm))
+                .forEach(out::println);
+        out.println(formatWithHeading(POST_CRUD_QUERY_MESSAGE, TERMINATOR_FORMATTING));
     }
 }

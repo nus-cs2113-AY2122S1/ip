@@ -13,6 +13,7 @@ public class MagicValues {
     public static final String BYE_STRING = "BYE";
     public static final String DONE_STRING = "DONE";
     public static final String LIST_STRING = "LIST";
+    public static final String FIND_STRING = "FIND";
     public static final String TODO_STRING = "TODO";
     public static final String EVENT_STRING = "EVENT";
     public static final String DELETE_STRING = "DELETE";
@@ -43,6 +44,7 @@ public class MagicValues {
      * List of constants used in tokenizing user input.
      */
     public static final int KEYWORD_INDEX = 0;
+    public static final int SEARCH_TERM_INDEX = 1;
     public static final int TASK_NUMBER_INDEX = 1;
 
     /**
@@ -50,7 +52,6 @@ public class MagicValues {
      */
     public static final String TODO_TYPE = "T";
     public static final String EVENT_TYPE = "E";
-    public static final String NORMAL_TYPE = "N";
     public static final String DEADLINE_TYPE = "D";
 
     /**
@@ -63,7 +64,6 @@ public class MagicValues {
     /**
      * Global File Path to save and retrieve Task Records
      */
-    public static final String DIR_LOCATION = "./data";
     public static final String FILE_LOCATION = "./data/records.txt";
 
     /**

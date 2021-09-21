@@ -12,6 +12,7 @@ import static wutdequack.terminator.common.MagicValues.tasksList;
 import static wutdequack.terminator.common.MagicValues.ui;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 import wutdequack.terminator.ui.TextUi;
 import wutdequack.terminator.parser.Parser;
 import wutdequack.terminator.objects.task.Task;
@@ -135,13 +136,13 @@ public class TaskList {
      */
     public void createDeadlineTask(String userLine, int option) {
         // Extract values and create Deadline Task
-        if (!parser.isCorrectFormat(userLine, DEADLINE_TYPE)) {
-            return;
-        }
         try {
             String[] extractedValues = new String[3];
             String taskName, dateTime, completionStatus = " ";
             if (option == FROM_USER) {
+                if (!parser.isCorrectFormat(userLine, DEADLINE_TYPE)) {
+                    return;
+                }
                 extractedValues = parser.extractNameDateTime(userLine, DEADLINE_TYPE);
             } else if (option == FROM_FILE) {
                 extractedValues = parser.parseFileFormattedString(userLine, DEADLINE_TYPE);
@@ -170,13 +171,13 @@ public class TaskList {
      */
     public void createEventTask(String userLine, int option) {
         // Extract values and create Event Task
-        if (!parser.isCorrectFormat(userLine, EVENT_TYPE)) {
-            return;
-        }
         try {
             String[] extractedValues = new String[3];
             String taskName, dateTime, completionStatus = " ";
             if (option == FROM_USER) {
+                if (!parser.isCorrectFormat(userLine, EVENT_TYPE)) {
+                    return;
+                }
                 extractedValues = parser.extractNameDateTime(userLine, EVENT_TYPE);
             } else if (option == FROM_FILE) {
                 extractedValues = parser.parseFileFormattedString(userLine, EVENT_TYPE);
@@ -233,7 +234,7 @@ public class TaskList {
     }
 
     /**
-     *  Adds a new task into the list of tasks.
+     * Adds a new task into the list of tasks.
      * @param newTask A task created by the user.
      */
     private void addTask(Task newTask) {
