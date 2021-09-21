@@ -10,6 +10,7 @@ import java.io.IOException;
 public class Storage {
     private String filePath;
     private File taskFile;
+    public static final String SEPARATOR = ",";
 
     public Storage(String filePath) {
         this.filePath = filePath;

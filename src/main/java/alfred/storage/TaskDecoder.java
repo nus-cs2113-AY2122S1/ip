@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class TaskDecoder {
-    private static final String SEPARATOR = ",";
+import static alfred.storage.Storage.SEPARATOR;
 
+public class TaskDecoder {
     public static TaskList scanTasks(File taskFile) throws FileErrorException {
         TaskList scannedTaskList = new TaskList();
         int taskIndex = 0;
