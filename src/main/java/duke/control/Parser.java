@@ -72,6 +72,18 @@ public class Parser {
     }
 
     /**
+     * returns the LocalDateTime from input from a "date" command
+     * "date" command is only concerned with date, so placeholder time of 00:00 is set.
+     * @param input user input
+     * @return date in user input
+     */
+    protected static LocalDateTime parseDateTimeFromDateCommand(String input) {
+        String dateTimeString = input.substring(4).trim() + "T00:00";
+        LocalDateTime date = LocalDateTime.parse(dateTimeString);
+        return date;
+    }
+
+    /**
      * Parses the isDone status from a line of input from save file.
      * @param inputLineFromFile line of input from save file
      * @return isDone, whether the task in the input line is done.

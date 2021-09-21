@@ -3,7 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends TaskWithDateTime {
     private LocalDateTime dateTime;
 
     public Event(String name, LocalDateTime dateTime) {

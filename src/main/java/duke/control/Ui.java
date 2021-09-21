@@ -2,6 +2,7 @@ package duke.control;
 
 import duke.control.command.ByeCommand;
 import duke.control.command.Command;
+import duke.control.command.DateCommand;
 import duke.control.command.TaskCommand;
 import duke.control.command.DoneCommand;
 import duke.control.command.DeleteCommand;
@@ -57,10 +58,9 @@ public class Ui {
         System.out.println("To add a deadline task: deadline task name /by yyyy-mm-ddTxx:xx where xx:xx is the time");
         System.out.println("To add an event task: event task name /at yyyy-mm-ddTxx:xx where xx:xx is the time");
         System.out.println("To delete a task in the list: delete x where x is the entry number");
-        System.out.println("To see your current list, Use the command \"list\"");
+        System.out.println("To see your current list, use the command \"list\"");
         System.out.println("To cross out an entry, use the command \"done x\" where x is the entry number");
-        System.out.println("To save your current data, use the command \"save\"");
-        System.out.println("To clear all your saved data, use the command \"clearsave\"");
+        System.out.println("To see all tasks of a certain date, use the command \"date yyyy-mm-dd\"");
         System.out.println("When you're done, type \"bye\" to end the program (automatically saves your current list)");
     }
 
@@ -104,6 +104,8 @@ public class Ui {
             command = new DoneCommand();
         } else if (input.startsWith("delete")) {
             command = new DeleteCommand();
+        } else if (input.startsWith("date")) {
+            command = new DateCommand();
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             command = new TaskCommand();
         } else {

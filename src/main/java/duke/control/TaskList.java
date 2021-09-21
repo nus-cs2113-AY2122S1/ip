@@ -3,6 +3,7 @@ package duke.control;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.TaskWithDateTime;
 import duke.task.ToDo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -150,6 +151,43 @@ public class TaskList {
             }
             System.out.println("You have " + (numberOfEntries) + " task(s) on your list.");
         }
+    }
+
+    /**
+     * Prints all the list entries that occur on a specific date.
+     * @param input user input, in the form "date yyyy-mm-dd"
+     */
+    public void printTasksOnDate(String input) {
+        LocalDateTime date = Parser.parseDateTimeFromDateCommand(input);
+        for (int i = 0; i < numberOfEntries; i++) {
+            Task t = taskList.get(i);
+            if (t instanceof Deadline || t instanceof Event) {
+                if (isSameDate(date, (TaskWithDateTime) t)); {
+                    printEntry(t, i);
+                }
+            }
+        }
+    }
+
+    /**
+     * returns true if a Deadline or Event object has the same date as input date.
+     * Cannot directly compare the LocalDateTime of the two objects as this method is only concerned with the date.
+     * @param date date to check
+     * @param entry entry to match with the date
+     * @return true if entry's date matches with input date.
+     */
+    private Boolean isSameDate(LocalDateTime date, TaskWithDateTime entry) {
+        LocalDateTime entryDateTime = entry.getDateTime();
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+        int entryYear = entryDateTime.getYear();
+        int entryMonth = entryDateTime.getMonthValue();
+        int entryDay = entryDateTime.getDayOfMonth();
+        if ((year == entryYear) && (month == entryMonth) && (day == entryDay)) {
+            return true;
+        }
+        return false;
     }
 
     public void printAddEntryMessage(Task entry) {
