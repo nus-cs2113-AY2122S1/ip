@@ -58,4 +58,19 @@ public class UI {
         printBorder();
     }
 
+    public static void printTasksFound(ArrayList<Task> tasksFoundArrayList) {
+        if (tasksFoundArrayList.size() == 0) {
+            System.out.println("\tThere are no matching tasks in your list!");
+        } else {
+            System.out.println("\tThe following are the tasks found: ");
+            int itemNumber = 1;
+            for (Task task : tasksFoundArrayList) {
+                System.out.println("\t" + itemNumber + "." + task.toString());
+                itemNumber++;
+            }
+        }
+        printBorder();
+    }
+
+
 }
