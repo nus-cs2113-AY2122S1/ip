@@ -46,6 +46,9 @@ public class Parser {
             return new DeleteTaskCommand(taskManager, commandArguments);
 
         }
+
+        return new InvalidCommand();
+
     }
 
 }
