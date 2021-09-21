@@ -1,7 +1,7 @@
 package duke.command;
 
 /**
- * All the possible commands the user can give stored as constants.
+ * Contains all the possible commands the user can give stored as constants.
  */
 public enum Command {
     EXIT,

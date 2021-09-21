@@ -2,6 +2,9 @@ package duke;
 
 import duke.exception.DukeMissingDataException;
 
+/**
+ * Deals with String processing, usually input from users and DukeData.txt.
+ */
 public class Parser {
     private static final String DELETE_KEYWORD = "delete";
     private static final String DONE_KEYWORD = "done";
@@ -19,7 +22,7 @@ public class Parser {
     /**
      * Returns true.
      * If user inputted a delete command.
-     * 
+     *
      * @param userInput The input given by user.
      * @return Returns true if user inputted a delete command.
      */
@@ -139,7 +142,7 @@ public class Parser {
      * Returns true.
      * If entry is a ToDo entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
-     * 
+     *
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
      * @return True if entry is a ToDo entry.
      */
@@ -174,7 +177,7 @@ public class Parser {
     /**
      * Changes Deadline description field in dataParts.
      *
-     * @param dataParts   Contains Strings that needs to be processed.
+     * @param dataParts Contains Strings that needs to be processed.
      */
     public static void processDeadlineDescription(String[] dataParts) {
         dataParts[DESCRIPTION_INDEX] = dataParts[DESCRIPTION_INDEX].replace(")", "");
@@ -184,7 +187,7 @@ public class Parser {
     /**
      * Changes Event description field in dataParts.
      *
-     * @param dataParts   Contains Strings that needs to be processed.
+     * @param dataParts Contains Strings that needs to be processed.
      */
     public static void processEventDescription(String[] dataParts) {
         dataParts[DESCRIPTION_INDEX] = dataParts[DESCRIPTION_INDEX].replace(")", "");
@@ -193,7 +196,7 @@ public class Parser {
 
     /**
      * Returns task index given by user in int format so can use methods that take in int.
-     * 
+     *
      * @param word Index given by user in String format.
      * @return Task index given by user in int format.
      */
@@ -204,7 +207,7 @@ public class Parser {
     /**
      * Returns an array of Strings where first String is user command.
      * So that methods that take in commands only can be used.
-     * 
+     *
      * @param line Full input given by user.
      * @return Returns an array of Strings where first String is user command.
      */
@@ -214,11 +217,23 @@ public class Parser {
 
     /**
      * Splits a sentence into individual words.
-     * 
+     *
      * @param sentence The sentence that will be split into individual words.
      * @return An array of Strings each String is a word in the sentence.
      */
     public static String[] splitIntoWords(String sentence) {
         return sentence.split(" ");
+    }
+
+    /**
+     * Splits the description given by user further into to description field and the by/at field.
+     * Usually done on description of Deadlines and Events.
+     *
+     * @param description The description of Deadline or Event.
+     * @param splitBy     The String to split at.
+     * @return An array of String of size 2. First String is the description. Second is the by/at field.
+     */
+    public static String[] splitDescription(String description, String splitBy) {
+        return description.split(splitBy, 2);
     }
 }

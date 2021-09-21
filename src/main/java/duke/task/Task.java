@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * A Task that contains a description field.
+ */
 public class Task {
     private final String description;
     private boolean isDone;
@@ -29,7 +32,7 @@ public class Task {
         }
         return "[ ]";
     }
-    
+
     public void markDone() {
         isDone = true;
     }

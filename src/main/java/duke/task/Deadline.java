@@ -6,15 +6,19 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An extension of Task class.
+ * On top of having a description field like Tasks, Deadlines have a date and/or time field.
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDate date;
 
     /**
      * Constructs a Deadline instance.
-     * 
+     *
      * @param description The description of a Deadline given by user.
-     * @param by Usually a date or time by which the Deadline has to be done.
+     * @param by          Usually a date or time by which the Deadline has to be done.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -31,9 +35,9 @@ public class Deadline extends Task {
                 this.by = String.join(" ", words);
                 break;
             } catch (DateTimeException ignored) {
-                // Continue to check is other words are legitimate dates.
+                // Continue to check if other words are legitimate dates.
                 // If all words are not legitimate dates the by variable will be printed exactly the same way the user 
-                // gave.
+                // gave. 
             }
         }
     }

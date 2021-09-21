@@ -7,6 +7,9 @@ import duke.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Deals with sending messages and receiving input from users.
+ */
 public class UserInterface {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String LOGO = "\n" +
@@ -24,7 +27,7 @@ public class UserInterface {
     /**
      * Executes the command give.
      * If command given is invalid, user will be notified through standard output.
-     * 
+     *
      * @param userCommand The command given by the user.
      */
     public static void executeCommand(Command userCommand) {
@@ -33,7 +36,7 @@ public class UserInterface {
             Duke.isRunning = false;
         } else if (userCommand == Command.LIST) {
             showList();
-        } 
+        }
 
         if (userCommand == Command.ADD_TO_DO || userCommand == Command.ADD_DEADLINE
                 || userCommand == Command.ADD_EVENT) {
@@ -56,7 +59,7 @@ public class UserInterface {
             showInvalidCommand();
         }
     }
-    
+
     private static void findTask() {
         TaskManager.printRelatedTask(userInputs[REMAINING_USER_INPUT_INDEX]);
     }
@@ -86,7 +89,7 @@ public class UserInterface {
 
     /**
      * Interprets the command given by the user.
-     * 
+     *
      * @return The command given by the user.
      */
     public static Command interpretUserInput() {
@@ -162,7 +165,7 @@ public class UserInterface {
 
     private static void showList() {
         printLine();
-        TaskManager.printList();
+        TaskManager.printTaskList();
         printLine();
     }
 
@@ -175,7 +178,7 @@ public class UserInterface {
     private static void showItemAdded() {
         printLine();
         System.out.println("Got it. I've added this task:\n" + TaskManager.getLatestTask());
-        System.out.println("Now you have " + TaskManager.getNumOfTasks() + " tasks");
+        System.out.println("Now you have " + TaskManager.getNumOfTasks() + " task(s)");
         printLine();
     }
 
@@ -200,14 +203,14 @@ public class UserInterface {
     public static void showSaveSuccess() {
         System.out.println("Data saved Successfully!");
     }
-    
+
     /**
      * Prints "Error saving data. Some or all data maybe lost." to standard output.
      */
     public static void showSaveError() {
         System.out.println("Error saving data. Some or all data maybe lost.");
     }
-    
+
     /**
      * Prints "Missing data file. An empty one is created." to standard output.
      */
