@@ -1,0 +1,20 @@
+package duke.command;
+
+public class HelpCommand extends Command {
+
+    private final String HELP_MSG = "Types of Commands Available [\uD83D\uDCAC]:\n"
+            + "1. Terminate Duke            -> bye \n"
+            + "2. Print Tasklist            -> list \n"
+            + "3. Print Available Commands  -> help \n"
+            + "4. Add Todos                 -> {todo <task description>}\n"
+            + "5. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
+            + "6. Add Events                -> {event <task description> /at <task date&time>}\n"
+            + "7. Set Task as Done          -> {done <task ID>}\n"
+            + "8. Delete Task               -> {delete <task ID>}";
+
+    @Override
+    public CommandResult executeCommand() {
+        return new CommandResult(HELP_MSG, false, false);
+    }
+
+}
