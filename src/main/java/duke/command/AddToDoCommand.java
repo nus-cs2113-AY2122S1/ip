@@ -20,7 +20,7 @@ public class AddToDoCommand extends Command {
             dukeMessage = e.toString();
         }
 
-        return new CommandResult(taskManager, dukeMessage, false, false);
+        return new CommandResult(taskManager, dukeMessage, true, false);
     }
 
 }

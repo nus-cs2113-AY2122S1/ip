@@ -25,6 +25,6 @@ public class DeleteTaskCommand extends Command {
             dukeMessage = e.toString();
         }
 
-        return new CommandResult(taskManager, dukeMessage, false, false);
+        return new CommandResult(taskManager, dukeMessage, true, false);
     }
 }
