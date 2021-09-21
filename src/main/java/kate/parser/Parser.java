@@ -48,7 +48,7 @@ public class Parser {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
 
-    private static final String DEFAULT_TIME = "2359";
+    private static final String DEFAULT_TIME = "23:59";
     private static final String DEFAULT_DURATION = "0";
 
 
@@ -165,8 +165,7 @@ public class Parser {
                 String parsedTime = String.valueOf(LocalTime.parse(time, TIME_FORMATTER));
                 parsedDeadlineArr[1] = parsedTime;
             } else {
-                String time = DEFAULT_TIME;
-                parsedDeadlineArr[1] = time;
+                parsedDeadlineArr[1] = DEFAULT_TIME;
             }
 
             return parsedDeadlineArr;
