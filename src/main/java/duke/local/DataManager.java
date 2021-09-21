@@ -28,21 +28,36 @@ public class DataManager {
     private final String DEADLINE_TYPE = "D";
     private final String EVENT_TYPE = "E";
 
-    private final String FILE_NOT_FOUND_MSG = "File does not exist!";
-    private final String FILE_CREATION_ERROR_MSG = "File cannot be created!";
-    private final String FILE_WRITE_ERROR_MSG = "File cannot be written to!";
+    private final String FILE_NOT_FOUND_MSG = "[!] File does not exist! Trying to create duke.txt...";
+    private final String FILE_CREATION_SUCCESS_MSG = "[!] duke.txt created successfully...";
+    private final String FILE_CREATION_ERROR_MSG = "[!] File cannot be created!";
+    private final String FILE_WRITE_ERROR_MSG = "[!] File cannot be written to!]";
 
     public DataManager(String filePath) {
         this.filePath = filePath;
         this.dataFile = new File(filePath);
     }
 
-    public void printFileContents() throws FileNotFoundException {
-        Scanner in = new Scanner(dataFile);
+    public ArrayList<Task> getLoadedTaskList() {
 
-        while (in.hasNext()) {
-            System.out.println(in.nextLine());
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+
+            tasks = loadDataIntoTaskList();
+
+        } catch (FileNotFoundException e1) {
+
+            System.out.println(FILE_NOT_FOUND_MSG);
+            try {
+                createFile();
+                System.out.println(FILE_CREATION_SUCCESS_MSG);
+            } catch (IOException e2) {
+                System.out.println(FILE_CREATION_ERROR_MSG);
+            }
+
         }
+        return tasks;
     }
 
     public void createFile() throws IOException {
@@ -50,57 +65,37 @@ public class DataManager {
         dataFile.createNewFile();
     }
 
-    public ArrayList<Task> loadDataFromFile() {
-
+    public ArrayList<Task> loadDataIntoTaskList() throws FileNotFoundException{
         ArrayList<Task> tasks = new ArrayList<>();
+        Scanner in = new Scanner(dataFile);
 
-        try {
+        while (in.hasNext()) {
+            String task = in.nextLine();
+            String[] taskArgs = task.split(FILE_SEPARATOR_REGEX, 4);
 
-            Scanner in = new Scanner(dataFile);
+            String taskType = taskArgs[0];
+            boolean isDone = taskArgs[1].equals("1");
+            String taskDescription = taskArgs[2];
+            String byAtDescription = "";
 
-            while (in.hasNext()) {
-
-                String task = in.nextLine();
-                String[] taskArgs = task.split(FILE_SEPARATOR_REGEX, 4);
-
-                String taskType = taskArgs[0];
-                boolean isDone = false;
-
-                if (taskArgs[1].equals("1")) {
-                    isDone = true;
-                }
-
-                String taskDescription = taskArgs[2];
-                String byAtDescription = "";
-
-                if (taskArgs.length == 4) {
-                    byAtDescription = taskArgs[3];
-                }
-
-                switch (taskType) {
-                case TODO_TYPE:
-                    Task newToDo = new ToDo(taskDescription.trim(), isDone);
-                    tasks.add(newToDo);
-                    break;
-                case DEADLINE_TYPE:
-                    Task newDeadline = new Deadline(taskDescription.trim(), isDone, byAtDescription.trim());
-                    tasks.add(newDeadline);
-                    break;
-                case EVENT_TYPE:
-                    Task newEvent = new Event(taskDescription.trim(), isDone, byAtDescription.trim());
-                    tasks.add(newEvent);
-                    break;
-                }
-            }
-        } catch (FileNotFoundException e1) {
-
-            System.out.println(FILE_NOT_FOUND_MSG);
-            try {
-                createFile();
-            } catch (IOException e2) {
-                System.out.println(FILE_CREATION_ERROR_MSG);
+            if (taskArgs.length == 4) {
+                byAtDescription = taskArgs[3];
             }
 
+            switch (taskType) {
+            case TODO_TYPE:
+                Task newToDo = new ToDo(taskDescription.trim(), isDone);
+                tasks.add(newToDo);
+                break;
+            case DEADLINE_TYPE:
+                Task newDeadline = new Deadline(taskDescription.trim(), isDone, byAtDescription.trim());
+                tasks.add(newDeadline);
+                break;
+            case EVENT_TYPE:
+                Task newEvent = new Event(taskDescription.trim(), isDone, byAtDescription.trim());
+                tasks.add(newEvent);
+                break;
+            }
         }
         return tasks;
     }
