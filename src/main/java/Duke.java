@@ -1,29 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-        protected char taskType;
+    static final String EXIT = "bye";
+    static final String LIST = "list";
+    static final String DONE = "done";
+    static final String LINE = "--------------------------------";
 
-        public Task(String description) {
-            this.description =  description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " ");
-        }
-        public void markAsDone() {
-            this.isDone = true;
-        }
-
-    }
-
-    static String exitTrigger = "bye";
-    static String listTrigger = "list";
-    static String doneTrigger = "done";
-    static Task[] commands = new Task[100];
+    static Task[] tasks = new Task[100];
+    static int taskCount = 0;
 
     public static void greet() {
         String logo = "       ___                             | '  \\\n" +
@@ -40,98 +24,105 @@ public class Duke {
                 "                                       \\|                    `.\\\n" +
                 "  S. Lu - I solemnly swear that I am up to no good.\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\n"
-                + "What can I do for you?\n");
+        System.out.println("Hello! I'm Duke\n" +
+                "Trade with me your soul and you shall get what you desire.\n");
+    }
+
+    public static void alarm() {
+        System.out.println("Invalid charm. What did Professor Flitwick told you?");
     }
 
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    //index is the position in string, index+1 is the bullet number
-    public static void add(String command, int index) {
-        commands[index] = new Task(command);
-        commands[index].taskType = getTask(command,index);
-        System.out.println("Got it. I've added this task: \n" +
-                "\t[" + commands[index].taskType + "]" + "[ ] " +
-                commands[index].description + "\n" +
-                "Now you have " + (index+1) + (index == 0?" task":" tasks") + " in the list."
-                );
-        }
+    public static void add(Task t) {
+        taskCount++;
+        System.out.println("|| Got it. I've added this task");
+        System.out.println("|| \t" + t.toString());
+        System.out.println("|| Now you have " + taskCount + " in the list.");
+    }
 
-    public static void list() {
+    public static void printList() {
+        System.out.println(LINE);
         System.out.println("Here are the tasks in your list:\n");
-        for(int i = 0; commands[i] != null; i++) {
-            int bullet_num = i+1;
-            String statusIcon = commands[i].getStatusIcon();
-            char taskType = commands[i].taskType;
-            System.out.print(bullet_num +". ");
-            System.out.print("[" + taskType +"]" + "["+ statusIcon +"] ");
-            System.out.println(commands[i].description);
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(tasks[i].id + ". " + tasks[i].toString());
         }
+        System.out.println(LINE);
     }
 
-    public static boolean mark_done(String command){
-        //command will be "done X"
-        String cmd[] = command.split(" ", 2);
-        String firstword = cmd[0];
-        //command.contains(word) is not used to obtain the number behind
-        if (firstword.equals(doneTrigger)) {
-            int index = Integer.parseInt(cmd[1])-1;
-            commands[index].markAsDone();
-            System.out.println("Nice!I've marked this task as done: \n" +
-                    "\t[X] " + commands[index].description);
-            return true;
-        }
-        return false;
+    public static void markDone(String input){
+
+        String[] txt = input.split(" ", 2);
+
+        int i = Integer.parseInt(txt[1])-1;
+        tasks[i].setDone(true);
+        System.out.println("Nice!I've marked this task as done:") ;
+        System.out.println(tasks[i].id + ". " + tasks[i].toString());
+
     }
 
-    public static char getTask(String command, int i) {
-        //.replaceAll method remove word or char from string
-        //to obtain strings after certain words, we can use
-        //StringUtil.substringAfter(String,word)
-        //however, to avoid external library download, i use a more tedious method here
-        if (command.contains("todo")) {
-            commands[i].description = command.replaceAll("todo","");
-            return 'T';
+    public static String[] getDetails(String input, String keyword) {
+        String[] details = new String[3];
+        //details[0]: eliminated first word
+        //details[1]: description
+        //details[2]: time
+
+        int i = input.indexOf(" ");
+        String firstWord = input.substring(0, i);
+        details[0] = input.replace(firstWord, "");
+
+        if (keyword != null) {
+            int j = details[0].indexOf("/");
+            details[1] = details[0].substring(0, j);
+
+            String txt = details[0].substring(j);
+            details[2] = txt.replace(keyword, "");
         }
-        if (command.contains("deadline")) {
-            String time = command.substring(command.indexOf("/by")+4);
-            String task = command.substring(command.indexOf("deadline")+9,command.indexOf("/by"));
-            commands[i].description = task + "(by: " + time + ")";
-            return 'D';
-        }
-        if (command.contains("event")) {
-            String time = command.substring(command.indexOf("/at")+4);
-            String task = command.substring(command.indexOf("event")+6,command.indexOf("/at"));
-            commands[i].description = task + "(at: " + time + ")";
-            return 'E';
-        }
-        return '?';
+
+        return details;
     }
+
 
     public static void main(String[] args) {
         greet();
 
+        String input;
+        int i = 0;
+
         Scanner in = new Scanner(System.in);
-        String command = in.nextLine();
+        input = in.nextLine();
 
-        boolean should_exit = command.equals(exitTrigger);
+        while (!input.startsWith("bye")) {
+            String[] details;
 
-        for(int i = 0; !command.equals(exitTrigger) ; i++) {
-            if (mark_done(command)) {
-                i--;
+            if (input.startsWith("hello")) {
+                greet();
+            } else if (input.startsWith("list")) {
+                printList();
+            } else if (input.startsWith("done")) {
+                markDone(input);
+            } else if (input.startsWith("todo")) {
+                details = getDetails(input, null);
+                tasks[i] = new Todo(details[0]);
+                add(tasks[i]);
+                i++;
+            } else if (input.startsWith("deadline")) {
+                details = getDetails(input, "/by");
+                tasks[i] = new Deadline(details[1], details[2]);
+                add(tasks[i]);
+                i++;
+            } else if (input.startsWith("event")) {
+                details = getDetails(input, "/at");
+                tasks[i] = new Event(details[1],details[2]);
+                add(tasks[i]);
+                i++;
+            } else {
+                alarm();
             }
-            else if (command.equals(listTrigger)) {
-                list();
-                i--;
-            }
-            else {
-                add(command, i);
-            }
-            command = in.nextLine();
+            input = in.nextLine();
         }
-
         exit();
     }
 }
