@@ -5,13 +5,21 @@ import duke.task.TaskManager;
 public class CommandResult {
 
     public TaskManager taskManager;
-    boolean isModified;
-    boolean isExited;
+    private boolean isModified;
+    private boolean isExited;
+    private String dukeMessage;
 
-    public CommandResult(TaskManager taskManager, boolean isModified, boolean isExited) {
+    public CommandResult(String dukeMessage, boolean isModified, boolean isExited) {
+        this.isModified = isModified;
+        this.isExited = isExited;
+        this.dukeMessage = dukeMessage;
+    }
+
+    public CommandResult(TaskManager taskManager, String dukeMessage, boolean isModified, boolean isExited) {
         this.taskManager = taskManager;
         this.isModified = isModified;
         this.isExited = isExited;
+        this.dukeMessage = dukeMessage;
     }
 
     public TaskManager getTaskManager() {
