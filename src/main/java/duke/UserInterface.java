@@ -200,30 +200,14 @@ public class UserInterface {
     public static void showSaveSuccess() {
         System.out.println("Data saved Successfully!");
     }
-
-    /**
-     * Prints "Error loading data. Some or all data maybe lost." to standard output.
-     */
-    public static void showLoadError() {
-        System.out.println("Error loading data. Some or all data maybe lost.");
-        printLine();
-    }
-
+    
     /**
      * Prints "Error saving data. Some or all data maybe lost." to standard output.
      */
     public static void showSaveError() {
         System.out.println("Error saving data. Some or all data maybe lost.");
     }
-
-    /**
-     * Prints "Error saving data. Some or all data maybe lost." followed by a line separator below to standard output.
-     */
-    public static void showSaveErrorWithLine() {
-        System.out.println("Error saving data. Some or all data maybe lost.");
-        printLine();
-    }
-
+    
     /**
      * Prints "Missing data file. An empty one is created." to standard output.
      */

@@ -32,11 +32,11 @@ public class DataManager {
                 String[] dataParts;
                 try {
                     dataParts = Parser.splitToDataParts(data);
-                } catch (DukeMissingDataException e) {
+                    addTaskEntry(dataParts);
+                } catch (DukeMissingDataException | ArrayIndexOutOfBoundsException | DukeBlankDescriptionsException 
+                        | DukeInvalidTaskIndexException e) {
                     hasCorruptedLines = true;
-                    continue;
                 }
-                addTaskEntry(dataParts);
             }
             sc.close();
             if (hasCorruptedLines) {
@@ -44,8 +44,6 @@ public class DataManager {
             } else {
                 UserInterface.showLoadSuccess();
             }
-        } catch (DukeBlankDescriptionsException | DukeInvalidTaskIndexException e) {
-            UserInterface.showLoadError();
         } catch (IOException e) {
             UserInterface.showMissingDataFile();
         }
@@ -120,7 +118,7 @@ public class DataManager {
             buffer.close();
         } catch (IOException e) {
             UserInterface.showSaveError();
-            UserInterface.showSaveErrorWithLine();
+            UserInterface.printLine();
         }
     }
 }
