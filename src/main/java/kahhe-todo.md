@@ -1,7 +1,7 @@
 #Todo List <br> for improvements in the future
 
 ---
-[ ] `done` command not working with 1 or more whitespace (ArrayIndexOutOfBoundsException)
+[ ] `done` and `delete` commands not working with 1 or more whitespace (ArrayIndexOutOfBoundsException)
 
 [ ] More abstraction
 
