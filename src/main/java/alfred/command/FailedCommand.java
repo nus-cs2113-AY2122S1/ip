@@ -18,14 +18,14 @@ public class FailedCommand extends Command {
         case NUMBER_FORMAT:
             TextUi.invalidIndexMessage();
             break;
-        case INDEX_OUT_OF_BOUNDS:
-            TextUi.uninitialisedTaskIndexMessage(taskList.getSize());
-            break;
         case INVALID_DATE:
             TextUi.invalidDateMessage();
             break;
         case EMPTY_DESCRIPTION:
             TextUi.emptyDescriptionMessage();
+            break;
+        case NO_INDEX_SPECIFIED:
+            TextUi.missingIndexMessage();
             break;
         default:
             return;
