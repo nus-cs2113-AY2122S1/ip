@@ -17,11 +17,12 @@ public class Deadline extends Task {
     }
 
     public String getByWhen() {
-        return byWhen.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return byWhen.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (By -> " + getByWhen() + ")";
+        return "[D]" + super.toString() + " (By -> "
+                + byWhen.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
