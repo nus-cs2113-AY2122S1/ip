@@ -6,7 +6,7 @@ import duke.storage.TaskList;
 
 public class CompleteCommand extends Command {
 
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * A constructor to mark task in taskList as done.

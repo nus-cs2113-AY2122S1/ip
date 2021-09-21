@@ -127,6 +127,13 @@ public class Parser extends Text {
         }
     }
 
+    /**
+     * Parse user input to suitable parameters to find tasks associated with a keyword.
+     *
+     * @param userInput inputs from user.
+     * @return FindCommand object.
+     * @throws DukeException exception thrown when no keyword is specified.
+     */
     private Command parseFindCommand(String userInput) throws DukeException {
         String[] taskKeyword = userInput.split(" ", 2);
         if (taskKeyword.length <= 1) {
@@ -136,6 +143,13 @@ public class Parser extends Text {
         }
     }
 
+    /**
+     * Parse user input to suitable parameters to find tasks associated with a date with format yyyy-mm-dd.
+     *
+     * @param userInput inputs from user.
+     * @return FindTaskOfDateCommand object.
+     * @throws DukeException exception thrown when no date is specified.
+     */
     private Command parseDateCommand(String userInput) throws DukeException {
         String[] taskToPrint = userInput.trim().split(SPACE, 2);
         if (taskToPrint.length <= 1) {

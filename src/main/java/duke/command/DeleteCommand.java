@@ -6,7 +6,7 @@ import duke.storage.TaskList;
 
 public class DeleteCommand extends Command {
 
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * A constructor to delete a task from taskList.
