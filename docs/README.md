@@ -148,6 +148,7 @@ Example of usage: `find [T]`
 
 Expected outcome: Since the keyword is [T], the program will search for all todo type of Task 
 and list it all out on the terminal like so. The rest of the Task will not be shown.
+
 ```
     ____________________________________________________________
      1.[T][ ] eat lunch 
@@ -163,6 +164,32 @@ Example of usage: `help`
 
 Expected outcome: A copy of this README document. 
 
-### `bye` - Terminates the App.
+### `bye` - Terminates the App
 
-Shows a goodbye screen before the code terminates itself. 
+Shows a goodbye screen before the code terminates itself.
+
+Example of usage: `bye`
+
+Expected outcome: A goodbye art is shown...
+
+```
+____________________________________________________________
+
+            .-'''-.        .-'''-.                                                        
+           '   _    \     '   _    \ _______                                              
+         /   /` '.   \  /   /` '.   \\  ___ `'.   /|                       __.....__      
+  .--./).   |     \  ' .   |     \  ' ' |--.\  \  ||    .-.          .-.-''         '.    
+ /.''\\ |   '      |  '|   '      |  '| |    \  ' ||     \ \        / /     .-''"'-.  `.  
+| |  | |\    \     / / \    \     / / | |     |  '||  __  \ \      / /     /________\   \ 
+ \`-' /  `.   ` ..' /   `.   ` ..' /  | |     |  |||/'__ '.\ \    / /|                  | 
+ /("'`      '-...-'`       '-...-'`   | |     ' .'|:/`  '. '\ \  / / \    .-------------' 
+ \ '---.                              | |___.' /' ||     | | \ `  /   \    '-.____...---. 
+  /'""'.\                            /_______.'/  ||\    / '  \  /     `.             .'  
+ ||     ||                           \_______|/   |/\'..' /   / /        `''-...... -'    
+ \'. __//                                         '  `'-'`|`-' /                          
+  `'---'                                                   '..'                           
+____________________________________________________________
+
+Bye. Hope to not see you again soon! Me go sleep. Don't wake me!
+____________________________________________________________
+```
