@@ -122,6 +122,25 @@ public class TaskList {
         return taskList;
     }
 
+    private Boolean isSearchMatched(String searchTerm, Task entry) {
+        return entry.getName().contains(searchTerm);
+    }
+
+    public void printSearchList(String input) {
+        String searchTerm = Parser.parseSearchTerm(input);
+        int matchCount = 0;
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (searchTerm.equals("")) {
+                break;
+            }
+            if (isSearchMatched(searchTerm, taskList.get(i))) {
+                printEntry(taskList.get(i), i);
+                matchCount++;
+            }
+        }
+        System.out.println("Number of results: " + matchCount);
+    }
+
     public void printEntry(Task entry, int entryIndex) {
         int entryNumber = entryIndex + 1;
         System.out.println(entryNumber + "." + entry.toString());

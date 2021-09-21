@@ -5,6 +5,7 @@ public class Parser {
     private static final int DEADLINE_NAME_START_INDEX = 9;
     private static final int EVENT_NAME_START_INDEX = 6;
     private static final int DATETIME_START_INDEX_OFFSET = 4;
+    private static final int SEARCHTERM_START_INDEX = 7;
     private static final int FILE_TASK_NAME_INDEX = 7;
     private static final int FILE_TASKTYPE_INDEX = 1;
     private static final int FILE_ISDONE_INDEX = 4;
@@ -39,6 +40,21 @@ public class Parser {
         default:
             return input;
         }
+    }
+
+    /**
+     * Returns the search term for a search command
+     * @param input user input
+     * @return search term, in lower case.
+     */
+    protected static String parseSearchTerm(String input) {
+        String searchTerm = "";
+        try {
+            searchTerm = input.substring(SEARCHTERM_START_INDEX).trim().toLowerCase();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please include a search term.");
+        }
+        return searchTerm;
     }
 
     protected static boolean parseIsDoneFromFile(String inputLineFromFile) throws InvalidInputFormatException {
