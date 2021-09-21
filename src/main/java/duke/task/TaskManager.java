@@ -111,7 +111,7 @@ public class TaskManager {
      * @return The String representing all the current tasks.
      * @throws DukeException If unable to save one or more tasks.
      */
-    public String currentTasks() throws DukeException {
+    public String convertCurrentTasksToString() throws DukeException {
         StringBuilder lines = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             String taskType, isDone, description, time;
@@ -146,7 +146,7 @@ public class TaskManager {
     public void listTasks() {
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(" " + i + "." +
-                    tasks.get(i - 1).toString());
+                    tasks.get(i - 1));
         }
     }
 

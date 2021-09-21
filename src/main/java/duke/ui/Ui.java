@@ -52,9 +52,8 @@ public class Ui {
             return;
         }
         String message = " Got it. I've added this task:" + System.lineSeparator() +
-                "  " + task.toString() + System.lineSeparator() +
-                " Now you have " + taskManager.getTasksCount() +
-                " tasks in the list.";
+                "  " + task + System.lineSeparator() + " Now you have " +
+                taskManager.getTasksCount() + " tasks in the list.";
         System.out.println(message);
     }
 
@@ -84,7 +83,7 @@ public class Ui {
      */
     public void printMarkAsDone(Task task) {
         String message = (" Nice! I've marked this task as done:" +
-                System.lineSeparator() + "   " + task.toString());
+                System.lineSeparator() + "   " + task);
         System.out.println(message);
     }
 
@@ -98,7 +97,7 @@ public class Ui {
      */
     public void printDeleteTask(Task task, TaskManager taskManager) {
         String message = " Got it! I've removed this task:" +
-                System.lineSeparator() + "   " + task.toString() +
+                System.lineSeparator() + "   " + task +
                 System.lineSeparator() + " Now you have " +
                 taskManager.getTasksCount() + " tasks in the list.";
         System.out.println(message);
@@ -207,7 +206,7 @@ public class Ui {
     public void printSuccessfullySavedTasks(String filePath) {
         printHorizontalLine();
         System.out.println("Current tasks successfully saved at: " +
-                System.lineSeparator() + filePath.toString());
+                System.lineSeparator() + filePath);
         printHorizontalLine();
     }
 

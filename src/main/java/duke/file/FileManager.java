@@ -94,7 +94,7 @@ public class FileManager {
         FileWriter fw;
         String currentTasks;
         try {
-            currentTasks = taskManager.currentTasks();
+            currentTasks = taskManager.convertCurrentTasksToString();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             return;
