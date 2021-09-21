@@ -5,9 +5,9 @@ public class Message {
     public static final String TEXT_INDENTATION = "    ";
 
     public static final String COMMAND_TODO = "todo [description]";
-    public static final String COMMAND_DEADLINE = "deadline [description] /by [dd-MM-yyyy] <HHmm>";
-    public static final String COMMAND_EVENT = "event [description] /at [dd-MM-yyyy] [HHmm] <duration>";
-    public static final String COMMAND_DONE = "done [task number shown in list]";
+    public static final String COMMAND_DEADLINE = "deadline [description] /by [date] <time>";
+    public static final String COMMAND_EVENT = "event [description] /at [date] [time] <duration>";
+    public static final String COMMAND_DONE = "done [task number]";
     public static final String COMMAND_DELETE = "delete [task number]";
     public static final String COMMAND_FIND = "find [keyword]";
     public static final String COMMAND_LIST = "list";
