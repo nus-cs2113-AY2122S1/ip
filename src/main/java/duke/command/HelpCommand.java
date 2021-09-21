@@ -8,7 +8,7 @@ public class HelpCommand extends Command {
      * Executes the command.
      */
     @Override
-    public void executed() {
+    public void execute() {
         Ui.printHelp();
     }
 }

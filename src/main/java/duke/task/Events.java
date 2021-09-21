@@ -1,18 +1,31 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Events extends Task {
 
-    private final String atWhen;
+    private final LocalDate eventDate;
 
     /**
      * A constructor to create a task of type event.
      *
      * @param taskName name of task.
-     * @param at date of occurrence.
+     * @param eventDate date of occurrence.
      */
-    public Events(String taskName, String at) {
+    public Events(String taskName, LocalDate eventDate) {
         super(taskName);
-        this.atWhen = at;
+        this.eventDate = eventDate;
+    }
+
+    /**
+     * Formats and return the formatted date of task as string.
+     *
+     * @return String of formatted date.
+     */
+    @Override
+    public String getDate() {
+        return eventDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
     /**
@@ -22,7 +35,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + atWhen + ")";
+        return "[E]" + super.toString() + " (at: " + getDate() + ")";
     }
 
     /**
@@ -32,6 +45,6 @@ public class Events extends Task {
      */
     @Override
     public String storageText () {
-        return "E" + super.storageText() + "|" + atWhen;
+        return EVENT_E + super.storageText() + "|" + getDate();
     }
 }

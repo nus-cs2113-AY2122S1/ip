@@ -1,17 +1,31 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task {
 
-    private final String byWhen;
+    private final LocalDate deadlineDate;
 
     /**
      * A constructor to create a task of type deadline
      * @param taskName name of the task.
-     * @param by deadline date of the task.
+     * @param deadlineDate deadline date of the task.
      */
-    public Deadlines(String taskName, String by) {
+
+    public Deadlines(String taskName, LocalDate deadlineDate) {
         super(taskName);
-        this.byWhen = by;
+        this.deadlineDate = deadlineDate;
+    }
+
+    /**
+     * Formats and return the formatted date of task as string.
+     *
+     * @return String of formatted date.
+     */
+    @Override
+    public String getDate() {
+        return deadlineDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
     /**
@@ -21,7 +35,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + byWhen + ")";
+        return "[D]" + super.toString() + " (by: " + getDate() + ")";
     }
 
     /**
@@ -31,6 +45,6 @@ public class Deadlines extends Task {
      */
     @Override
     public String storageText () {
-        return "D" + super.storageText() + "|" + byWhen;
+        return DEADLINE_D + super.storageText() + "|" + getDate();
     }
 }

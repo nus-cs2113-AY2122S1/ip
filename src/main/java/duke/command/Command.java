@@ -29,7 +29,7 @@ public abstract class Command extends Text {
      *
      * @throws DukeException exception thrown when Command class is executed.
      */
-    public void executed() throws DukeException {
-        throw new DukeException("Method is unspecified.");
+    public void execute() throws DukeException {
+        throw new DukeException(UNSPECIFIED_METHOD);
     }
 }

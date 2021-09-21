@@ -19,7 +19,7 @@ public class ListCommand extends Command {
      * Executes the command.
      */
     @Override
-    public void executed() {
+    public void execute() {
         Ui.printWithLine(LIST_MESSAGE + taskList.getList());
     }
 }

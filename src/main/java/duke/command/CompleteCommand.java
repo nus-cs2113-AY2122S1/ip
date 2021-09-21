@@ -26,8 +26,8 @@ public class CompleteCommand extends Command {
      * @throws DukeException exception thrown when index is out of range of 0 and last index on taskList.
      */
     @Override
-    public void executed() throws DukeException {
+    public void execute() throws DukeException {
         taskList.markTaskDone(taskIndex);
-        Ui.printWithLine(TASK_MARKED + "  " + taskList.getTask(taskIndex) + "\n");
+        Ui.printWithLine(TASK_MARKED + SPACE + SPACE + taskList.getTask(taskIndex) + NEW_LINE);
     }
 }
