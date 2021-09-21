@@ -100,33 +100,11 @@ public class Duke {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Marks tasks in list[] as done, if they exist or has not been completed.
+     * Marks tasks in words[] as done, only if they exist or has not been completed.
      *
-     * @param taskNumber Number n associated with the task, where n is the nth task in list.
+     * @param userInput String from user to be converted into a number that is associated with a task.
      */
-    public static void markTaskAsDone(int taskNumber) {
-        boolean isExists = taskNumber >= 0 && taskNumber < taskCount;
-
-        Ui.printTopLine();
-        try {
-            if (!isExists) {
-                System.out.println(INDENT + "Wha- Hey! Task does not exist!");
-            } else if (words[taskNumber].getDoneStatus()) {
-                System.out.println(INDENT + "Dude... you've done the task already.");
-            } else if (isExists) {
-                taskCompleted++;
-                words[taskNumber].setAsDone();
-                System.out.println(INDENT + "About time. I've mark that task as done:");
-                System.out.println(INDENT + "[" + words[taskNumber].getStatusIcon() + "]" + words[taskNumber].getDescription());
-            }
-        } catch (NumberFormatException e) {
-            Ui.printNumberFormatError();
-        }
-        Ui.printBottomLine();
-
-    }
-
-    public static void markTaskAsDone2(String userInput) {
+    public static void markTaskAsDone(String userInput) {
         int taskNumber;
         boolean isExists = false;
         try {
@@ -224,7 +202,7 @@ public class Duke {
                 } else {
                     parts = userInput.split(" ");
                     userInput = parts[1];
-                    markTaskAsDone2(userInput);
+                    markTaskAsDone(userInput);
                 }
                 //markTaskAsDone(Integer.parseInt(userInput) - 1);
                 break;

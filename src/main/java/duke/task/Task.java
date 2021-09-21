@@ -1,9 +1,9 @@
 package duke.task;
 
 public class Task {
+
     protected String description;
     protected boolean isDone;
-
 
     /**
      * Constructor for Task, generates name and status of task.
