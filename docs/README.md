@@ -16,9 +16,9 @@ first task in the list.
 
 Lists out all added tasks that have not yet been deleted.
 
-Format: `list`
+Usage: `list`
 
-Example usage:
+Example usage with output:
 ```
 list
 ========================================================================
@@ -35,9 +35,9 @@ Here are the tasks in your list:
 
 Adds a Todo task to the list of tasks. A Todo Task requires only a description of the task.
 
-Format: `todo [description]`
+Usage: `todo [description]`
 
-Example usage:
+Example usage with output:
 ```
 todo Buy a new computer
 ========================================================================
@@ -52,9 +52,9 @@ Now you have 5 tasks in the list.
 Adds a Deadline task to the list of tasks. A Deadline Task requires a description of the task and the date of
 due of the task.
 
-Format: `deadline [description] /by [date]`
+Usage: `deadline [description] /by [date]`
 
-Example usage:
+Example usage with output:
 ```
 deadline Return library book /by 2021-12-20 15:00
 ========================================================================
@@ -69,9 +69,9 @@ Now you have 6 tasks in the list.
 Adds an Event task to the list of tasks. An Event Task requires a description of the task and the date of
 commencement of the event.
 
-Format: `event [description] /at [date]`
+Usage: `event [description] /at [date]`
 
-Example usage:
+Example usage with output:
 ```
 event Charity Marathon /at 2022-02-15 10:00
 ========================================================================
@@ -85,9 +85,9 @@ Now you have 7 tasks in the list.
 
 Marks the task of the given index as done.
 
-Format: `done [index]`
+Usage: `done [index]`
 
-Example usage:
+Example usage with output:
 ```
 done 4
 ========================================================================
@@ -100,9 +100,9 @@ Nice! I've marked task number 4 as done:
 
 Deletes the task of the given index.
 
-Format: `delete [index]`
+Usage: `delete [index]`
 
-Example usage:
+Example usage with output:
 ```
 delete 3
 ========================================================================
@@ -116,9 +116,9 @@ Now you have 6 tasks in the list.
 
 Lists out the upcoming deadlines and events within a specified number of days from the current time.
 
-Format: `upcoming [days]`
+Usage: `upcoming [days]`
 
-Example usage:
+Example usage with output:
 ```
 upcoming 3
 ========================================================================
@@ -136,9 +136,9 @@ You have no events within the next 3 days!
 
 Lists out all the tasks in the list that contains the specified keyword.
 
-Format: `find [keyword]`
+Usage: `find [keyword]`
 
-Example usage:
+Example usage with output:
 ```
 find Exam
 ========================================================================
@@ -152,9 +152,9 @@ Here are the matching tasks in your list:
 
 Terminates the program.
 
-Format: `bye`
+Usage: `bye`
 
-Example usage:
+Example usage with output:
 ```
 bye
 ========================================================================
