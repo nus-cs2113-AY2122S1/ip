@@ -2,13 +2,13 @@ package TypeOfTasks;
 
 public abstract class Task {
     protected String description;
-    
+    protected boolean isDone;    
     
     public boolean isDone() {
         return isDone;
     }
 
-    protected boolean isDone;
+
 
     public Task(String description) {
         this.description = description;
