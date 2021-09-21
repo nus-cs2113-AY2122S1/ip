@@ -96,7 +96,7 @@ public class Terminator {
     public static String DELIMINATOR_FOR_FILE = " | ";
 
     /**
-     * Given user input, extract Task Name and UserInput.
+     * Utilizes user input to extract Task Name and UserInput.
      * @param userInput The string given by the user.
      * @param eventType The type of task to extract based on.
      * @return String array containing userinput and eventType.
@@ -164,7 +164,7 @@ public class Terminator {
     }
 
     /**
-     * Update the completion status of the Task to true.
+     * Updates the completion status of the Task to true.
      * @param taskNumber The index of the task to be updated.
      */
     private static void updateTaskCompletionStatus(int taskNumber) throws IndexOutOfBoundsException {
@@ -172,7 +172,7 @@ public class Terminator {
     }
 
     /**
-     * Delete the Task from the list.
+     * Deletes the Task from the list.
      * @param taskNumber The index of the task to be deleted.
      */
     private static void deleteTaskFromList(int taskNumber) throws IndexOutOfBoundsException {
@@ -228,7 +228,7 @@ public class Terminator {
     }
 
     /**
-     * Overloaded class that creates a Deadline/Event Task with name and appropriate date time.
+     * Creates a Deadline/Event Task with name and appropriate date time.
      * If task_type = DEADLINE_TYPE, create a Deadline object.
      * Else If task_type = EVENT_TYPE, create a Event object.
      * @param taskName The name assigned to the given task.
@@ -247,7 +247,7 @@ public class Terminator {
     }
 
     /**
-     * Given a new task, add it into the list of tasks.
+     *  Adds a new task into the list of tasks.
      * @param newTask A task created by the user.
      */
     private static void addTask(Task newTask) {
@@ -268,7 +268,7 @@ public class Terminator {
     }
 
     /**
-     * Format printed messages with the appropriate headings.
+     * Formats printed messages with the appropriate headings.
      * If option TERMINATOR_FORMATTING is selected, [The Terminator] will prepend the msg.
      * If option USER_FORMATTING is selected, [User] will prepend the msg.
      * @param msg Message to be printed.
