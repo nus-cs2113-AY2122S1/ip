@@ -8,7 +8,7 @@ This user guide will teach you how to use Duke.
 3. Run the command `java -jar -IP.jar`
 
 # Features 
-## Summary
+### Summary
 Below is a list of the features Duke offers:
 1. Adding tasks
 2. List tasks
@@ -19,8 +19,8 @@ Below is a list of the features Duke offers:
 7. Saving tasks
 8. Exiting Duke
 
-Note: Command format encased in `//` are command descriptors and you can
-enter what you wish to enter based on the text encased within the `//` 
+Note: Command format encased in *//* are command descriptors and you can
+enter what you wish to enter based on the text encased within the *//* 
 characters.
 
 ### 1. Adding tasks
@@ -36,11 +36,13 @@ format `/at yyyy-mm-dd`
 description and date of deadline in format `/by yyyy-mm-dd`
   * Format: deadline //deadline description// /by //yyyy-mm-dd//
   * e.g `deadline job application /by 2021-10-01`
+  
 ![](assets/add.png)
 
 ### 2. List Tasks
 You can list all the tasks you have stored.
 * e.g `list`
+
 ![](assets/list.png)
 
 ### 3. Marking tasks as done
@@ -48,6 +50,7 @@ You can mark a task as done by providing the `done` command
 and providing the index of the task you want to mark as done.
 * Format: done //task index//
 * e.g `done 2`
+
 ![](assets/done.png)
 
 ### 4. Deleting tasks
@@ -55,6 +58,7 @@ You can choose to delete a task by providing the `delete` command
 and providing the index of the task you want to delete.
 * Format: delete //task index//
 * e.g `delete 3`
+
 ![](assets/delete.png)
 
 ### 5. Finding tasks by name
@@ -62,6 +66,7 @@ You can search the task you want by its name. This can be done
 by providing the `find` command and providing the search keyword.
 * Format: find //keyword//
 * e.g `find homework`
+
 ![](assets/find.png)
 
 ### 6. Finding tasks by date
@@ -70,6 +75,7 @@ providing the `date` command and providing the date you want to search
 by using the format `yyyy-mm-dd`.
 * Format: date //yyyy-mm-dd//
 * e.g `date 2019-09-16`
+
 ![](assets/date.png)
 
 ### 7. Saving tasks
@@ -81,6 +87,7 @@ tasks are stored in 'duke.txt', in the same folder as your JAR file.
 ### 8. Exiting Duke
 You can exit the program by providing the `bye` command.
 * e.g `bye`
+
 ![](assets/exit.png)
 
 
