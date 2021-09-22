@@ -2,6 +2,7 @@ package duke.storage;
 
 import duke.Duke;
 import duke.exception.DukeInvalidAddTaskException;
+import duke.exception.DukeInvalidTaskInFileException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -57,15 +58,19 @@ public class StorageManager {
         String[] words = input.split("--");
         return words[2];
     }
-
+    
     /**
      * Return the date of task stored in text file.
-     *
+     * 
      * @param input task stored in text file.
      * @return the date of the task.
+     * @throws DukeInvalidTaskInFileException if task stored doesn't contain necessary date.
      */
-    private String getTaskDate(String input) {
+    private String getTaskDate(String input) throws DukeInvalidTaskInFileException {
         String[] words = input.split("--");
+        if (words.length < 4) {
+            throw new DukeInvalidTaskInFileException();
+        }
         return words[3];
     }
 
@@ -78,6 +83,10 @@ public class StorageManager {
     private boolean isMarkedDoneTask(String input) {
         String[] words = input.split("--");
         return words[1].equals("1");
+    }
+    
+    private boolean isNullTask(Task task) {
+        return task == null;
     }
 
     /**
@@ -110,11 +119,11 @@ public class StorageManager {
                 Duke.getUi().printInvalidTaskInFileMessage();
                 break;
             }
-        } catch (DukeInvalidAddTaskException | ArrayIndexOutOfBoundsException e) {
+        } catch (DukeInvalidAddTaskException | DukeInvalidTaskInFileException e) {
             System.out.println("INVALID TASK FOUND IN FILE");
         }
         
-        if (task != null && isMarkedDoneTask(input)) {
+        if (!isNullTask(task) && isMarkedDoneTask(input)) {
             task.markAsDone();
         }
         
