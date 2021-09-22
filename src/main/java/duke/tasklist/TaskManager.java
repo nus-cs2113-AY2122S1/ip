@@ -35,9 +35,7 @@ public class TaskManager extends Ui {
             Task taskAdded = new Event(userInput);
             if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("") && Time.isDateValid(taskAdded.getDeadline())) {
                 taskList.add(taskAdded);
-                if(!isPrintingPreviousList) {
-                    printTaskAddedConfirmation(taskAdded);
-                }
+                checkToPrintTaskAddedMessage(isPrintingPreviousList, taskAdded);
             } else {
                 throw new DukeException(INCORRECT_EVENT_COMMAND);
             }
@@ -61,9 +59,7 @@ public class TaskManager extends Ui {
             Task taskAdded = new Deadline(userInput);
             if (!taskAdded.toString().equals("") && !taskAdded.getDeadline().equals("") && Time.isDateValid(taskAdded.getDeadline())) {
                 taskList.add(taskAdded);
-                if(!isPrintingPreviousList) {
-                    printTaskAddedConfirmation(taskAdded);
-                }
+                checkToPrintTaskAddedMessage(isPrintingPreviousList, taskAdded);
             } else {
                 throw new DukeException(INCORRECT_DEADLINE_COMMAND);
             }
@@ -87,13 +83,25 @@ public class TaskManager extends Ui {
         Task taskAdded = new Todo(task);
         if (!task.equals("")) {
             taskList.add(taskAdded);
-            if(!isPrintingPreviousList) {
-                printTaskAddedConfirmation(taskAdded);
-            }
+            checkToPrintTaskAddedMessage(isPrintingPreviousList, taskAdded);
         } else {
             throw new DukeException(INCORRECT_TASK_COMMAND);
         }
     }
+
+    /**
+     * Checks whether it is the first round of iteration for which tasks from the previously saved
+     * list. If it is, no task added message printed
+     *
+     * @param isPrintingPreviousList Boolean to determine if it is the first round of iteration
+     * @param taskAdded task added to the task list
+     */
+    private static void checkToPrintTaskAddedMessage(Boolean isPrintingPreviousList, Task taskAdded) {
+        if(!isPrintingPreviousList) {
+            printTaskAddedConfirmation(taskAdded);
+        }
+    }
+
 
     /**
      * Deletes a task from the task list
