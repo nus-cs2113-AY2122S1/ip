@@ -10,7 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
+
+import static duke.Parser.dueTime;
 
 /**
  * To deal with loading tasks from the file and saving tasks in the file
@@ -81,7 +84,8 @@ public class Storage {
                 TaskList.count++;
                 break;
             case "D":
-                Task deadline = new Deadline(word[2], word[3]);
+                dueTime = LocalDate.parse(word[3]);
+                Task deadline = new Deadline(word[2], dueTime);
                 if (word[1].equals("1")) {
                     deadline.markAsDone();
                 }
