@@ -18,8 +18,6 @@ public class Duke {
     private static int loadFlag = 0;
     private static int positionCheck = 0;
 
-    //private static final String filePath = "./Tasks.txt";
-
     private static ArrayList<Task> commands = new ArrayList<>();
 
     private static void sendCommand() {
@@ -35,9 +33,9 @@ public class Duke {
             } catch (NumberFormatException e) {
                 System.out.println(Response.NUMBER_FORMAT_EXCEPTION);
             } catch (DukeException e) {
-                System.out.print("");
+                //Catching DukeException errors
             } catch (IOException e) {
-                System.out.print("");
+                System.out.print("There is an error in your input master! Please check it out!");
             } catch (DateTimeParseException e) {
                 System.out.println("Correct date format please!");
             }
