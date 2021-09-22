@@ -319,7 +319,7 @@ public class Duke {
                 break;
             case ("D"):
                 Deadline deadlineTask = (Deadline) task;
-                fw.write("D | " + taskStatus + " |" + task.description + "|" + deadlineTask.getBy());
+                fw.write("D | " + taskStatus + " |" + task.description + "|" + deadlineTask.getDeadline());
                 break;
             case ("E"):
                 Event eventTask = (Event) task;
