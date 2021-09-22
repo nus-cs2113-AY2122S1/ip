@@ -102,7 +102,6 @@ public class TaskManager extends Ui {
         }
     }
 
-
     /**
      * Deletes a task from the task list
      *
@@ -113,28 +112,52 @@ public class TaskManager extends Ui {
     public static void deleteTaskFromToDo(ArrayList<Task> taskList, String userInput) throws DukeException {
         int initialWordIndex = 0;
         int updateWordIndex = 0;
-
         boolean numberExists = false;
-        String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
+        String[] splitTask = Utilities.getStrings(userInput);
+
         for (String word : splitTask) {
             if (Utilities.isValidNumber(word)) {
                 numberExists = true;
                 int finalWordIndex = initialWordIndex - updateWordIndex;
                 int taskNumber = (Integer.parseInt(splitTask[finalWordIndex])) - 1;
-                try {
-                    int originalTaskNumber = taskNumber + updateWordIndex;
-                    printTaskDeletedConfirmation(taskList.get(taskNumber), originalTaskNumber);
-                    taskList.remove(taskNumber);
-                    updateWordIndex ++;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(INCORRECT_DELETE_COMMAND);
-                }
+                updateWordIndex = updateWordIndexAfterDelete(taskList, updateWordIndex, taskNumber);
             }
             initialWordIndex++;
         }
         if (!numberExists) {
             throw new DukeException(INCORRECT_DELETE_COMMAND);
         }
+    }
+
+    /**
+     * Updates index to check if user input another task to be deleted after current task has been deleted.
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param updateWordIndex Index of current word we are accessing from split user input
+     * @param taskNumber index of task in the task list
+     * @return index of next word to be deleted
+     */
+    private static int updateWordIndexAfterDelete(ArrayList<Task> taskList, int updateWordIndex, int taskNumber) {
+        try {
+            removeTaskFromTaskList(taskList, updateWordIndex, taskNumber);
+            updateWordIndex++;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(INCORRECT_DELETE_COMMAND);
+        }
+        return updateWordIndex;
+    }
+
+    /**
+     * Performs the deletion of the task specified by the user from the task list
+     *
+     * @param taskList Task type arraylist to store all the tasks entered by the user
+     * @param updateWordIndex Index of current word we are accessing from split user input
+     * @param taskNumber index of task in the task list
+     */
+    private static void removeTaskFromTaskList(ArrayList<Task> taskList, int updateWordIndex, int taskNumber) {
+        int originalTaskNumber = taskNumber + updateWordIndex;
+        printTaskDeletedConfirmation(taskList.get(taskNumber), originalTaskNumber);
+        taskList.remove(taskNumber);
     }
 
     /**
@@ -147,7 +170,7 @@ public class TaskManager extends Ui {
     public static void markTaskAsDone(ArrayList<Task> taskList, String userInput) throws DukeException {
         int wordIndex = 0;
         boolean numberExists = false;
-        String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
+        String[] splitTask = Utilities.getStrings(userInput);
         for (String word : splitTask) {
             if (Utilities.isValidNumber(word)) {
                 numberExists = true;
