@@ -24,7 +24,7 @@ to sort your life out.**
 3. Copy the file to the folder you want to use as the home folder for Kitty.
 4. Open your preferred CLI and navigate to the directory where `Kitty.jar` is in.
 5. Type `java -jar Kitty.jar` to start the app. You should see the app run in a similar fashion as below.
-   ![Startup Image](C:/Users/ASUS/Desktop/intro.png)
+   ![Startup Image](../data/intro.png)
 6. Type a command in the command line and press Enter to execute it. (e.g. Typing `list` and pressing Enter will show all tasks at hand.)
 
 Some example commands you can try:
@@ -74,7 +74,7 @@ Displays all tasks.
 Format: `list`
 
 Example:
-![List Image](C:/Users/ASUS/Desktop/list.png)
+![List Image](../data/list.png)
 
 ### Finding tasks matching specific keyword: `find`
 Lists out all tasks that matches the keyword provided.
@@ -83,7 +83,7 @@ Format: `find KEYWORD`
 * The search is case-sensitive. (e.g. book will **NOT** match Book)
 
 Example: `find submit`
-![Find Image](C:/Users/ASUS/Desktop/find.png)
+![Find Image](../data/find.png)
 
 ### Marking a task as done: `done`
 Mark specified task as done.
@@ -93,7 +93,7 @@ Format: `done TASK_NUMBER`
   The task number must be a positive integer 1, 2, 3, …
 
 Example: `done 2`
-![Done Image](C:/Users/ASUS/Desktop/done.png)
+![Done Image](../data/done.png)
 
 ### Deleting a task: `delete`
 Deletes a task from total tasks.
@@ -103,7 +103,7 @@ Format: `delete TASK_NUMBER`
   The task number must be a positive integer 1, 2, 3, …
 
 Example: `delete 1`
-![Delete Image](C:/Users/ASUS/Desktop/delete.png)
+![Delete Image](../data/delete.png)
 
 ### Exiting the programme: `bye`
 Exits the programme.
