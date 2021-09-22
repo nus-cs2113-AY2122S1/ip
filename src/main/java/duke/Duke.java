@@ -158,7 +158,7 @@ public class Duke {
     }
 
     //Adds a new deadline task and prints it
-    public static void sayDeadline(String input) {                                                                      //deadline return book /by Sunday
+    public static void sayDeadline(String input) {                                                                      //deadline return books /by Sunday
         if (input.length() == 8) {
             System.out.println(line + "\nAre you kidding me? You didn't even tell me what you were supposed to do!\n"); //deadline
             System.out.println(line);
