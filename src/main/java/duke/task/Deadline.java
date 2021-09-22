@@ -1,18 +1,22 @@
 package duke.task;
 
-public class Deadline extends Task {
-    private String date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String date, boolean isDone) {
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline, boolean isDone) {
         super(description, isDone);
-        this.date = date;
+        this.deadline = deadline;
     }
 
     public String getDate() {
-        return this.date;
+        return this.deadline.format(dateTimeFormat);
     }
 
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", isDone ? "X" : " ", this.taskDescription, this.date);
+        return String.format("[D][%s] %s (by: %s)", isDone ? "X" : " ", this.taskDescription,
+                this.deadline.format(dateTimeFormat));
     }
 }

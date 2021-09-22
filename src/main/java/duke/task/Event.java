@@ -1,18 +1,22 @@
 package duke.task;
 
-public class Event extends Task {
-    private String date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String date, boolean isDone) {
+public class Event extends Task {
+    private LocalDateTime date;
+
+    public Event(String description, LocalDateTime date, boolean isDone) {
         super(description, isDone);
         this.date = date;
     }
 
     public String getDate() {
-        return this.date;
+        return this.date.format(dateTimeFormat);
     }
 
     public String toString() {
-        return String.format("[E][%s] %s (at: %s)", isDone ? "X" : " ", this.taskDescription, this.date);
+        return String.format("[E][%s] %s (at: %s)", isDone ? "X" : " ", this.taskDescription,
+                this.date.format(dateTimeFormat));
     }
 }
