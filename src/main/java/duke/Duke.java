@@ -333,11 +333,16 @@ public class Duke {
         }
         fw.close();
     }
-    // Adapted from https://stackoverflow.com/questions/28947250/create-a-directory-if-it-does-not-exist-and-then-create-the-files-in-that-direct
+
     public static void checkDirectoryExists(String filePath) {
-        File directory = new File(filePath);
-        if (!directory.exists()) {
-            directory.mkdir();
+        try {
+            File directory = new File(filePath);
+            if (!directory.exists()) {
+                directory.getParentFile().mkdirs();
+                directory.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("File not created.");
         }
     }
 
