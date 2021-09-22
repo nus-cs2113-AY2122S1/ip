@@ -18,3 +18,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 *.class
 data/duke.txt
+iptest/ip.jar
+src/main/java/META-INF/MANIFEST.MF
