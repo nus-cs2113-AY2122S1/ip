@@ -1,1 +1,4 @@
-event concert /at monday,t
+event concert /at 2019-12-01,t
+deadline homework /by 2021-12-01,f
+todo book,f
+deadline return book /by 31/12/2021,f

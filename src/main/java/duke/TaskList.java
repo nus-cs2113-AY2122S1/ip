@@ -31,6 +31,17 @@ public class TaskList {
         }
     }
 
+    public void listTasksFromSearch(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.size() > 0) {
+            ui.println("Patchi: Here is the list of tasks that match your search! Did you find what you were looking for? Œ(˙O˙)B");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                ui.println((i + 1) + ". " + matchingTasks.get(i).toString());
+            }
+        } else {
+            ui.println("Patchi: You have no tasks that match that search term! Sorry~ Œ(ˊoˋ)B");
+        }
+    }
+
     public void addTodo(String description) {
         tasks.add(new Todo(description));
     }
@@ -57,5 +68,17 @@ public class TaskList {
         } else {
             throw new DukeException("task doesn't exist");
         }
+    }
+
+    public void findTasks(String searchTerm) throws DukeException {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for(Task task : tasks) {
+            if(task.getDescription().indexOf(searchTerm) != -1) {
+                matchingTasks.add(task);
+            }
+        }
+
+        listTasksFromSearch(matchingTasks);
     }
 }
