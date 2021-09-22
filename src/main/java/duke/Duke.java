@@ -9,6 +9,10 @@ import duke.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main entry class for the Duke project.
+ * @author Mohamed Irfan
+ */
 public class Duke {
     private static final String LINE = "____________________________________________________________";
     private static final String ADD_TASK_MSG = "Got it. I've added this duke.task: ";
@@ -28,6 +32,10 @@ public class Duke {
         showByeGreeting();
     }
 
+    /**
+     * Control method used to do file handling. It tries
+     * to load the saved tasks file from the storage class.
+     */
     private static void fileManager() {
         try {
             storage = new Storage(FILE_PATH);
@@ -37,6 +45,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The method responsible for all the user response management.
+     * It receives user input and calls the appropriate method to
+     * execute based on the functionality of the application.
+     */
     private static void executeResponses() {
         Scanner in = new Scanner(System.in);
         String text;
@@ -100,6 +113,12 @@ public class Duke {
         }
     }
 
+    /**
+     * A functionality method used to add todos as one of the tasks.
+     * @param text The user's input including the word "todo"
+     *             and the subsequent todo description.
+     * @throws DukeException If there are errors associated with the todo description.
+     */
     private static void addTodo(String text) throws DukeException {
         if (text.length() <= "todo".length()) {
             throw new DukeException(TODO_ERROR);
@@ -110,6 +129,13 @@ public class Duke {
         System.out.println(ADD_TASK_MSG);
     }
 
+    /**
+     * A functionality method used to add deadlines as one of the tasks.
+     * @param text The user's input including the word "deadline"
+     *             and the subsequent deadline description.
+     * @throws DukeException If there are errors associated with the deadline
+     *             description or if the description does not contain "/by".
+     */
     private static void addDeadline(String text) throws DukeException {
         if (text.length() <= "deadline".length()) {
             throw new DukeException(DEADLINE_ERROR);
@@ -124,6 +150,13 @@ public class Duke {
         System.out.println(ADD_TASK_MSG);
     }
 
+    /**
+     * A functionality method used to add event as one of the tasks.
+     * @param text The user's input including the word "event"
+     *             and the subsequent event description.
+     * @throws DukeException If there are errors associated with the event
+     *             description or if the description does not contain "/at".
+     */
     private static void addEvent(String text) throws DukeException {
         if (text.length() <= "event".length()) {
             throw new DukeException(EVENT_ERROR);
@@ -177,6 +210,16 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    /**
+     * Helper method used to extract the task info from the user input.
+     * The method is also able to extract the dates for the tasks that need them.
+     * @param taskString The user input which contains the task word eg. "todo"
+     *             and the task description.
+     * @param taskType The task type to extract the info from.
+     *             eg. "todo", "event", "deadline"
+     * @return taskInfo array of size 2, where the taskInfo[0] is the task description
+     *             and taskInfo[1] is an optional date/time info.
+     */
     private static String[] extractInfo(String taskString, String taskType) {
         String[] taskInfo = new String[2];
         int slashPos = taskString.indexOf('/');

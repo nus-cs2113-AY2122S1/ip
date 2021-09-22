@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Event class used to add events as a type of task.
+ * @author Mohamed Irfan
+ */
 public class Event extends Task{
     protected String eventDate;
 
