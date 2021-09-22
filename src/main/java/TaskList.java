@@ -98,4 +98,35 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
+    public static boolean keywordChecker(String[] wordsInTask, String keyword) {
+        for (String word : wordsInTask) {
+            if (word.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void printMatchingTasksList(ArrayList<Task> tasks) {
+        String message = " Here are the matching tasks in your list:\n";
+        int taskIndex = 1;
+        for (Task task : tasks) {
+            message = message + " " + taskIndex + "." + task + "\n";
+            taskIndex++;
+        }
+        Ui.printMessage(message);
+    }
+
+    public static void findTask(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            String[] wordsInTask = task.getDescription().split(" ");
+            boolean keywordInTask = keywordChecker(wordsInTask, keyword);
+            if (keywordInTask) {
+                matchingTasks.add(task);
+            }
+        }
+        printMatchingTasksList(matchingTasks);
+    }
+
 }

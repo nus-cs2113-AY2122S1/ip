@@ -159,6 +159,16 @@ public class Parser {
         return true;
     }
 
+    public static boolean findFormatChecker(String userInput) {
+        String[] splitUserInput = userInput.split(" ");
+        int userInputLength = splitUserInput.length;
+        if (userInputLength != 2) {
+            DukeException.printFormatError();
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Extracts important information from the user's input.
      *
@@ -226,6 +236,17 @@ public class Parser {
                 parsedUserInput[0] = command;
                 parsedUserInput[1] = detail;
                 parsedUserInput[2] = eventAt;
+            } else {
+                parsedUserInput[0] = "error";
+            }
+            break;
+        case "find":
+            boolean correctFindFormat = findFormatChecker(userInput);
+            if (correctFindFormat) {
+                int doneSpaceIndex = userInput.indexOf(" ");
+                String keyword = userInput.substring(doneSpaceIndex + 1);
+                parsedUserInput[0] = command;
+                parsedUserInput[1] = keyword;
             } else {
                 parsedUserInput[0] = "error";
             }
