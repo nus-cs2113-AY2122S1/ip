@@ -221,6 +221,29 @@ public class Duke {
         }
     }
 
+    //Give users a way to find a task by searching for a keyword
+    public static void search(String input){                                                                            //find book
+        String[] arrayString = input.split(" ", 2);
+        String keyWord = arrayString[1];
+        int matchCount = 0;
+
+        ArrayList<String> filteredList = new ArrayList<>();
+        for (Task task : t) {
+            if (task.toString().contains(keyWord)) {
+                filteredList.add(task.toString());
+                matchCount++;
+            }
+        }
+        if (matchCount != 0) {
+            System.out.println("\n" + "Lucky for you, i'm really good at digging through your mess:" + "\n" + line);
+            for (int i = 0; i < filteredList.size(); i++) {
+                System.out.println((i + 1) + ". " + filteredList.get(i) + "\n");
+            }
+        } else {
+            System.out.println("Too bad i couldn't find anything similar. Let's not get too ambitious and just stick to the tasks on hand shall we?" + "\n");
+        }
+    }
+
     //Creates scanner, takes in user input & filters it to different methods
     public static void inputSort() throws DukeException {
         System.out.println("Enter your wish: " + "\n" + line);
@@ -254,6 +277,9 @@ public class Duke {
             case "delete":
                 sayDelete(input);
                 saveData(t);
+                break;
+            case "find":
+                search(input);
                 break;
             default:
                 System.out.println(line + "\n☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
