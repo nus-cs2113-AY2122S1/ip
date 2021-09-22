@@ -23,6 +23,8 @@ public class Ui {
     private static final String GAP = "     ";
     private static final String DELETED_TASK = "     Noted. I've removed this task:\n";
     private static final String EMPTY_LIST = "Nothing Has Been Added To The List Yet\n";
+    private static final String FIND_LIST_RESULT = "     Here are the matching tasks in your list:\n";
+    private static final String FIND_LIST_NO_RESULT = "     No relevant results found :(\n";
     /* ---- --------- ---- */
 
     public void printTaskMessage(Task task, Integer index) {
@@ -40,8 +42,8 @@ public class Ui {
 
     public void printListMessage(ArrayList<Task> list) {
         String output = LINE_DIVIDER;
-        for (int number = 0; list.size() > number; number++) {
-            String record = GAP + (number + ARRAY_INDEX_FINDER) + "." + list.get(number).toString() + "\n";
+        for (int i = 0; list.size() > i; i++) {
+            String record = GAP + (i + ARRAY_INDEX_FINDER) + "." + list.get(i).toString() + "\n";
             output = output.concat(record);
         }
         if (list.size() == ZERO) {
@@ -55,6 +57,23 @@ public class Ui {
         String output = LINE_DIVIDER + DELETED_TASK + GAP + task.toString();
         System.out.println(output);
         getAddTaskReturn(index - ARRAY_INDEX_FINDER);
+    }
+
+    public void printFindMessage(ArrayList<Task> list) {
+        String output = LINE_DIVIDER;
+        if (list.size() > ZERO) {
+            output = output.concat(FIND_LIST_RESULT);
+        } else {
+            output = output.concat(FIND_LIST_NO_RESULT);
+        }
+        for (int i = 0; list.size() > i; i++) {
+            String record = GAP + (i + ARRAY_INDEX_FINDER) + "." + list.get(i).toString() + "\n";
+            output = output.concat(record);
+        }
+        output = output.concat(LINE);
+        System.out.println(output);
+
+
     }
 
     public void getAddTaskReturn(Integer i) {
