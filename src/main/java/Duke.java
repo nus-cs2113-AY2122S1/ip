@@ -9,79 +9,32 @@ public class Duke {
     //Array of tasks
     private static ArrayList<Task> tasks;
     //Creation of database file
-    private static final String FILEPATH = "data/jim.txt";
-    private static final String FOLDERPATH = "data";
+    private static final String FILE_PATH = "data/jim.txt";
+    private static final String FOLDER_PATH = "data";
     //Scanner
     private static final Scanner sc = new Scanner(System.in);
-    //GenshinImpact conversion rates
-    private static final int TOP_LOW_CONVERSION_RATE = 27;
-    private static final int HIGH_LOW_CONVERSION_RATE = 9;
-    private static final int MID_LOW_CONVERSION_RATE = 3;
     //The sacred texts
-    private static final String LINES = "____________________________________________________________"
-            + System.lineSeparator();
-    private static final String GREETING = " HeLLO! I'm Jim, a real person who definitely passes" +
-            " reCaptchas!" + System.lineSeparator();
-    private static final String CLEAR_DB_MESSAGE = "Database wiped clean!" + System.lineSeparator();
-    private static final String BIRTHDAY_MESSAGE = " ^o^ Happy birthday to you! ^o^" + System.lineSeparator();
-    private static final String ECHO_MESSAGE = " Echoing after you!" + System.lineSeparator();
-    private static final String QUIT_MESSAGE = " That was annoying huh..." + System.lineSeparator();
-    private static final String DELETE_MESSAGE = " This task has been spirited away:" + System.lineSeparator();
-    private static final String EMPTY_LIST_MESSAGE = " This list is empty and sad :(" + System.lineSeparator();
-    private static final String EMPTY_REMOVE_MESSAGE = " Please identify something to remove!" + System.lineSeparator();
-    private static final String NO_TASK_MESSAGE = "No such task! You're not THAT productive..." +
-            System.lineSeparator();
-    private static final String NO_FILE_MESSAGE = "No database file!" + System.lineSeparator();
-    private static final String TASK_DONE_MESSAGE = "This task was already marked done!" + System.lineSeparator();
-    private static final String NO_TASK_DONE_NUMBER_MESSAGE = "Please specify the task you would like to " +
-            "mark as done!" + System.lineSeparator();
-    private static final String DONE_NOT_INTEGER_MESSAGE = "Please input an integer after done!" +
-            System.lineSeparator();
-    private static final String TASK_COMPLETE_MESSAGE = "Nice! You're a real champ for finishing this: " +
-            System.lineSeparator();
-    private static final String BYE_MESSAGE = " Bye! Remember, stay out of fire, suuuuuuper high level " +
-            "tactic yea?" + System.lineSeparator();
-    private static final String ADD_MESSAGE = " Got it. I've added this task:"  + System.lineSeparator() + "   ";
-    private static final String PLEASE_ADD_A_TASK_DESCRIPTION = "Please add a task description!"
-            + System.lineSeparator();
-    private static final String MISSING_IN_DEADLINE_MESSAGE = "Please format your input as 'deadline [task]" +
-            " /by [deadline]'!" + System.lineSeparator();
-    private static final String MISSING_IN_EVENT_MESSAGE = "Please format your input as 'event [task]" +
-            " /at [time range]'!" + System.lineSeparator();
-    private static final String MISSING_BY_MESSAGE = "Please add '/by' in between your task and deadline!" +
-            System.lineSeparator();
-    private static final String MISSING_AT_MESSAGE = "Please add '/at' in between your task and time range!" +
-            System.lineSeparator();
-    private static final String INVALID_COMMAND = "I don't quite understand :/" + System.lineSeparator();
-    private static final String HELP_MESSAGE = " Here are the commands for the things I can do:" +
-            System.lineSeparator() +
-            "    1. todo [task] = adds a Todo task" + System.lineSeparator() +
-            "    2. deadline [task] /by [deadline] = adds a Deadline task" + System.lineSeparator() +
-            "    3. event [task] /at [time range] = adds an Event task" + System.lineSeparator() +
-            "    4. done [taskIndex] = marks the inputted task as done" + System.lineSeparator() +
-            "    5. list = lists out all current tasks with their taskIndex" + System.lineSeparator() +
-            "    6. echo = turn into a huge cave and echo your inputs back to you!!" + System.lineSeparator() +
-            "    7. quit (only in echo mode) = turn back to normal and stop echoing" + System.lineSeparator() +
-            "    8. genshin = begin the genshin helper" + System.lineSeparator() +
-            "    9. bye = shuts me down... ;-;" + System.lineSeparator();
+    protected static Messages messages;
 
     //Prints greeting message
     public static void greeting() {
-        System.out.println(LINES + GREETING + LINES);
+        messages.showWelcomeMessage();
     }
 
     //Begins echo function
     public static void echo() {
-        System.out.println(LINES + ECHO_MESSAGE + LINES);
+        messages.showEchoMessage();
         boolean echoState = true;
         while (echoState) {
             String s = sc.nextLine();
             if (s.equalsIgnoreCase("quit")) {
-                System.out.println(LINES + QUIT_MESSAGE + LINES);
+                messages.showEchoQuitMessage();
                 echoState = false;
             } else {
-                String output = LINES + " " + s  + System.lineSeparator() + LINES;
+                String output = " " + s  + System.lineSeparator();
+                messages.showLines();
                 System.out.println(output);
+                messages.showLines();
             }
         }
     }
@@ -89,13 +42,13 @@ public class Duke {
     //list function
     public static void list() {
         if (tasks.size() == 0) {
-            System.out.println(LINES + EMPTY_LIST_MESSAGE + LINES);
+            messages.showEmptyListMessage();
         } else {
-            System.out.print(LINES);
+            messages.showLines();
             for (int i = 1; i <= tasks.size(); i++) {
                 System.out.println(i + "." + tasks.get(i - 1));
             }
-            System.out.print(LINES);
+            messages.showLines();
         }
     }
 
@@ -105,17 +58,17 @@ public class Duke {
             int index = Integer.parseInt(input.substring(7));
             //given task does not exist in list
             if (index > tasks.size()) {
-                System.out.println(LINES + NO_TASK_MESSAGE + LINES);
+                messages.showNoSuchTaskMessage();
             } else {
                 Task thisTask = tasks.get(index - 1);
-                System.out.println(LINES + DELETE_MESSAGE + "   " + tasks.get(index - 1));
+                messages.showDeleteTaskMessage(thisTask, (tasks.size() - 1));
                 tasks.remove(thisTask);
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list." +
-                        System.lineSeparator() + LINES);
                 updateDatabase();
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(LINES + EMPTY_REMOVE_MESSAGE + LINES);
+            messages.showNothingToRemoveMessage();
+        } catch (NumberFormatException e) {
+            messages.showRemoveCommandErrorMessage();
         }
     }
 
@@ -127,97 +80,102 @@ public class Duke {
             int taskCount = tasks.size();
             //task given is not in list
             if (index > taskCount) {
-                System.out.println(LINES + NO_TASK_MESSAGE + LINES);
+                messages.showNoSuchTaskMessage();
             } else if (tasks.get(index - 1).getStatusIcon().equals("X")) {
-                System.out.println(LINES + TASK_DONE_MESSAGE + LINES);
+                messages.showTaskAlreadyDoneMessage();
             } else {
                 tasks.get(index - 1).markAsDone();
-                System.out.print(LINES + TASK_COMPLETE_MESSAGE + tasks.get(index - 1)  +
-                        System.lineSeparator() + LINES);
+                messages.showTaskCompleteMessage(tasks.get(index - 1));
                 updateDatabase();
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(LINES + NO_TASK_DONE_NUMBER_MESSAGE + LINES);
+            messages.showNoTaskSpecifiedMessage();
         } catch (NumberFormatException e) {
-            System.out.println(LINES + DONE_NOT_INTEGER_MESSAGE + LINES);
+            messages.showDoneCommandErrorMessage();
         }
     }
 
     //Adds task to tasks
     public static void addTask(String input) {
-        if (input.toLowerCase().startsWith("todo")) {
-            addTodo(input);
-            int indexOfAddedTask = tasks.size() - 1;
-            appendDatabase("T", tasks.get(indexOfAddedTask).description, "0");
-        } else if (input.toLowerCase().startsWith("deadline")) {
-            addDeadline(input);
-            int indexOfAddedTask = tasks.size() - 1;
-            Deadline addedDeadline = (Deadline) tasks.get(indexOfAddedTask);
-            String deadlineInput = addedDeadline.description + "/by" + addedDeadline.by;
-            appendDatabase("D", deadlineInput, "0");
-        } else if (input.toLowerCase().startsWith("event")){
-            addEvent(input);
-            int indexOfAddedTask = tasks.size() - 1;
-            Event addedEvent = (Event) tasks.get(indexOfAddedTask);
-            String eventInput = addedEvent.description + "/at" + addedEvent.from;
-            appendDatabase("E", eventInput, "0");
+        try {
+            if (input.toLowerCase().startsWith("todo")) {
+                addTodo(input);
+                int indexOfAddedTask = tasks.size() - 1;
+                appendDatabase("T", tasks.get(indexOfAddedTask).description, "0");
+            } else if (input.toLowerCase().startsWith("deadline")) {
+                addDeadline(input);
+                int indexOfAddedTask = tasks.size() - 1;
+                Deadline addedDeadline = (Deadline) tasks.get(indexOfAddedTask);
+                String deadlineInput = addedDeadline.description + "/by" + addedDeadline.by;
+                appendDatabase("D", deadlineInput, "0");
+            } else if (input.toLowerCase().startsWith("event")){
+                addEvent(input);
+                int indexOfAddedTask = tasks.size() - 1;
+                Event addedEvent = (Event) tasks.get(indexOfAddedTask);
+                String eventInput = addedEvent.description + "/at" + addedEvent.from;
+                appendDatabase("E", eventInput, "0");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //find out how motherfkin catch works
         }
     }
     private static void addTodo(String input) {
         try {
-            tasks.add(new Todo(input.substring(5)));
+            tasks.add(new Todo(input.trim().substring(5)));
             int taskIndex = tasks.size() - 1;
             printTaskAcknowledgement(tasks.get(taskIndex));
         } catch (StringIndexOutOfBoundsException e){
-            System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
+            messages.showMissingTaskDescriptionMessage();
         }
     }
     private static void addDeadline(String input) {
         try {
-            if (input.trim().length() == 8) {
-                System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
+            int slashIndex = input.indexOf("/by");
+            String task = input.substring(9, slashIndex).trim();
+            String dueDate = input.substring(slashIndex + 3).trim();
+            if (task.length() <= 0) {
+                messages.showMissingTaskDescriptionMessage();
             } else if (!input.contains("/by")) {
-                System.out.println(LINES + MISSING_BY_MESSAGE + LINES);
+                messages.showMissingByMessage();
+            } else if (dueDate.length() <= 0) {
+                messages.showMissingTaskDeadlineMessage();
             } else {
-                int slashIndex = input.indexOf("/by");
-                String task = input.substring(9, slashIndex).trim();
-                String dueDate = input.substring(slashIndex + 3).trim();
                 tasks.add(new Deadline(task, dueDate));
                 int taskIndex = tasks.size() - 1;
                 printTaskAcknowledgement(tasks.get(taskIndex));
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(LINES + MISSING_IN_DEADLINE_MESSAGE + LINES);
+            messages.showMissingTaskOrDeadlineMessage();
         }
     }
     private static void addEvent(String input) {
         try {
-            if (input.trim().length() == 5) {
-                System.out.println(LINES + PLEASE_ADD_A_TASK_DESCRIPTION + LINES);
+            int slashIndex = input.indexOf("/at");
+            String task = input.substring(6, slashIndex).trim();
+            String timeRange = input.substring(slashIndex + 3).trim();
+            if (task.length() <= 0) {
+                messages.showMissingTaskDescriptionMessage();
             } else if (!input.contains("/at")) {
-                System.out.println(LINES + MISSING_AT_MESSAGE + LINES);
+                messages.showMissingAtMessage();
+            } else if (timeRange.length() <= 0) {
+                messages.showMissingEventTimeRangeMessage();
             } else {
-                int slashIndex = input.indexOf("/at");
-                String task = input.substring(6, slashIndex).trim();
-                String timeRange = input.substring(slashIndex + 3).trim();
                 tasks.add(new Event(task, timeRange));
                 int taskIndex = tasks.size() - 1;
                 printTaskAcknowledgement(tasks.get(taskIndex));
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(LINES + MISSING_IN_EVENT_MESSAGE + LINES);
+            messages.showMissingTaskOrTimeRangeMessage();
         }
     }
     private static void printTaskAcknowledgement(Task task) {
-        System.out.println(LINES + ADD_MESSAGE + task);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list." +
-                System.lineSeparator() + LINES);
+        messages.showTaskAddedMessage(task, tasks.size());
     }
 
     public static void appendDatabase(String type, String input, String isDone) {
         //append new tasks to database
         try {
-            FileWriter fw = new FileWriter(FILEPATH, true);
+            FileWriter fw = new FileWriter(FILE_PATH, true);
             switch (type) {
             case "T":
                 fw.write(type + " | " + isDone + " | " + input + System.lineSeparator());
@@ -237,17 +195,17 @@ public class Duke {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println(LINES + NO_FILE_MESSAGE + LINES);
+            messages.showNoDatabaseFileMessage();
         }
     }
 
     public static void clearDatabase() {
         try {
-            FileWriter fw = new FileWriter(FILEPATH);
+            FileWriter fw = new FileWriter(FILE_PATH);
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            System.out.println(LINES + NO_FILE_MESSAGE + LINES);
+            messages.showNoDatabaseFileMessage();
         }
     }
 
@@ -304,39 +262,39 @@ public class Duke {
     //Initialises the list
     public static void initJim() {
         try {
-            tasks = new ArrayList<Task>();
-            File file = new File(FILEPATH);
-            File folder = new File(FOLDERPATH);
+            tasks = new ArrayList<>();
+            File file = new File(FILE_PATH);
+            File folder = new File(FOLDER_PATH);
+            messages = new Messages();
             folderChecker(folder);
             databaseChecker(file);
             Scanner s = new Scanner(file);
             initList(s);
         } catch (JimException e) {
-            System.out.println(LINES + "File is corrupted at Line " + (tasks.size()+1) + "!" +
-                    System.lineSeparator() + LINES);
+            messages.showCorruptedDatabaseFileMessage(tasks.size() + 1);
         } catch (FileNotFoundException e) {
-            System.out.println(LINES + NO_FILE_MESSAGE + LINES);
+            messages.showNoDatabaseFileMessage();
         }
     }
 
     public static void folderChecker(File folder) {
         boolean result = folder.mkdir();
-        System.out.println(LINES + "Checking for database folder..." + System.lineSeparator());
+        messages.showCheckFolderMessage();
         if (result) {
-            System.out.println("Folder not present...creating new folder!" + System.lineSeparator() + LINES);
+            messages.showCreateMissingFolderMessage();
         } else {
-            System.out.println("Folder located!" + System.lineSeparator() + LINES);
+            messages.showFolderFoundMessage();
         }
     }
 
     public static void databaseChecker(File file) {
         try {
             boolean result = file.createNewFile();
-            System.out.println(LINES + "Checking for database..." + System.lineSeparator());
+            messages.showCheckDatabaseFileMessage();
             if (result) {
-                System.out.println("Database not present...creating new database!" + System.lineSeparator() + LINES);
+                 messages.showCreateMissingDatabaseFileMessage();
             } else {
-                System.out.println("Database located!" + System.lineSeparator() + LINES);
+                messages.showDatabaseFileFoundMessage();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -345,25 +303,8 @@ public class Duke {
 
 
     public static String getUserInput() {
-        System.out.print(" How can I help you: ");
+        messages.showUserInputMessage();
         return sc.nextLine();
-    }
-
-    public static void genshinHelper() {
-        int totalMats = 0;
-        System.out.print(LINES + " How many Top Tier: ");
-        String top = sc.nextLine();
-        totalMats += Integer.parseInt(top)*TOP_LOW_CONVERSION_RATE;
-        System.out.print(" How many High Tier: ");
-        String high = sc.nextLine();
-        totalMats += Integer.parseInt(high)*HIGH_LOW_CONVERSION_RATE;
-        System.out.print(" How many Mid Tier: ");
-        String mid = sc.nextLine();
-        totalMats += Integer.parseInt(mid)*MID_LOW_CONVERSION_RATE;
-        System.out.print(" How many Low Tier: ");
-        String low = sc.nextLine();
-        totalMats += Integer.parseInt(low);
-        System.out.println(" Total low tier mats required: " + totalMats  + System.lineSeparator() + LINES);
     }
 
     //Executes next line command
@@ -383,26 +324,24 @@ public class Duke {
             } else if (input.equalsIgnoreCase("clear database")) {
                 clearDatabase();
                 tasks.clear();
-                System.out.println(LINES + CLEAR_DB_MESSAGE + LINES);
+                messages.showClearDatabaseMessage();
             } else if (input.toUpperCase().contains("BIRTHDAY")) {
-                System.out.println(LINES + BIRTHDAY_MESSAGE + LINES);
+                messages.showBirthdayMessage();
             } else if (input.equalsIgnoreCase("help")) {
-                System.out.println(LINES + HELP_MESSAGE + LINES);
-            } else if (input.equalsIgnoreCase("genshin")) {
-                genshinHelper();
+                messages.showHelpMessage();
             } else if (input.equalsIgnoreCase("bye")) {
-                System.out.println(LINES + BYE_MESSAGE + LINES);
+                messages.showExitMessage();
                 System.exit(0);
             } else {
                 throw new JimException();
             }
         } catch (JimException e) {
-            System.out.println(LINES + INVALID_COMMAND + LINES);
+            messages.showInvalidCommandMessage();
         }
     }
     public static void main(String[] args) {
-        greeting();
         initJim();
+        greeting();
         while (true) {
             String userCommand = getUserInput();
             commandExecute(userCommand);
