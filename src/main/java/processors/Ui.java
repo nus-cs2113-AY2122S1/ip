@@ -82,14 +82,14 @@ public class Ui {
 
     public String help() {
         return LINE_DIVIDER
-                + "     Unknown Command, please input a valid request\n"
+                + "     Please input a valid request\n"
                 + "     Duke can do the follow instructions\n"
                 + "     1. Record Todo Task: todo (description)\n"
                 + "     2. Record Deadline Task: task (description) /by (date)\n"
                 + "     3. Record Event Task: event (description) /at (date)\n"
                 + "     4. List Down Recorded Tasks: list\n"
                 + "     5. Set Task After Completion: done (index on list)\n"
-                + "     6. Exit From Program: bye\n" + LINE;
+                + "     6. Exit From Program: bye\n" + LINE_DIVIDER;
     }
 
     public void printEventException(EventException e) {
@@ -147,7 +147,10 @@ public class Ui {
 
     public void printLoadMessageComplete() {
         System.out.println("Task Successfully Imported\n");
+    }
 
+    public void printCorruptedLoadMessage() {
+        System.out.println("Successfully Imported Uncorrupted Task");
     }
 
     public void printGreetings() {

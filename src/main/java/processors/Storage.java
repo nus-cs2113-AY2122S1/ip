@@ -16,12 +16,25 @@ public class Storage {
     private static final String DIVIDER = "|";
 
     private static final Integer ZERO = 0;
-
     private static final Integer ARRAY_INDEX_FINDER = 1;
 
     public Ui ui = new Ui();
 
-    public void loadTasks(ProcessManager processManager) throws IOException, SecurityException {
+    public void loadTasks (TaskList tasklist) {
+        Boolean isSuccessful = false;
+        try {
+            isSuccessful = loadingTasks(tasklist);
+        } catch (IOException e) {
+            ui.printIOException(e);
+        } catch (SecurityException e) {
+            ui.printSecurityException(e);
+        }
+        if (isSuccessful) {
+            ui.printGreetings();
+        }
+    }
+
+    public Boolean loadingTasks(TaskList tasklist) throws IOException, SecurityException {
         File file = new File(FILEPATH);
         try {
             if (file.exists()) {
@@ -29,30 +42,41 @@ public class Storage {
                 Scanner fileScan = new Scanner(file);
                 while (fileScan.hasNext()) {
                     try {
-                        parseTasks(fileScan.nextLine(), processManager.taskList);
+                        parseTasks(fileScan.nextLine(), tasklist.taskList);
                     } catch (DukeException e) {
-                        e.printStatement();
+                        ui.printDukeException(e);
+                        ui.printCorruptedLoadMessage();
+                        return file.createNewFile();
                     }
                 }
                 ui.printLoadMessageComplete();
             } else {
-                file.getParentFile().mkdirs();
-                ui.printGreetings();
+                return file.getParentFile().mkdirs();
             }
         } catch (IOException e) {
             throw new IOException("Something went wrong during file creation :( ");
         } catch (SecurityException e) {
             throw new SecurityException("File could not be accessed");
         }
+        return true;
     }
 
     public void parseTasks(String line, ArrayList<Task> list) throws DukeException {
         int dividerPosition1 = line.indexOf(DIVIDER) + ARRAY_INDEX_FINDER;
         int dividerPosition2 = line.indexOf(DIVIDER, dividerPosition1) + ARRAY_INDEX_FINDER;
         int dividerPosition3 = line.indexOf(DIVIDER, dividerPosition2) + ARRAY_INDEX_FINDER;
-        String description = line.substring(dividerPosition1, dividerPosition2 - 1).trim();
-        String date = line.substring(dividerPosition2, dividerPosition3 - 1).trim();
-        String status = line.substring(dividerPosition3).trim();
+        String name, by, isDone;
+        try {
+            name = line.substring(dividerPosition1, dividerPosition2 - 1).trim();
+            by = line.substring(dividerPosition2, dividerPosition3 - 1).trim();
+            isDone = line.substring(dividerPosition3).trim();
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Line corrupted, deleting corrupted line");
+        }
+        String description = name;
+        String date = by;
+        String status = isDone;
+
         if (line.startsWith("T")) {
             list.add(new Todo(description));
             try {
@@ -79,10 +103,10 @@ public class Storage {
         }
     }
 
-    public void saveTasks(ProcessManager processManager) throws IOException {
+    public void saveTasks(TaskList tasklist) throws IOException {
         FileWriter fileWrite = new FileWriter(FILEPATH);
         fileWrite.close();
-        for (Task task : processManager.taskList) {
+        for (Task task : tasklist.taskList) {
             try {
                 task.saveTask(FILEPATH);
             } catch (IOException e) {

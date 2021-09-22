@@ -1,3 +1,3 @@
-E | Read | Thursday | false
-T | nothing | null | false
 D | Sleep | mon | false
+E | Eat | Tuesd
+D | Readfalse
