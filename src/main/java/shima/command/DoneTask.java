@@ -41,7 +41,7 @@ public class DoneTask {
      * @param tasks      The array list which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
-    public static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber) {
+    private static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber) {
         if (!tasks.get(taskNumber - 1).getDone()) {
             tasks.get(taskNumber - 1).setDone();
             System.out.println("\tHooray! Task number " + taskNumber + " has been marked completed!");

@@ -45,7 +45,7 @@ public class DeleteTask {
      *
      * @param tasks The array list that stored all the tasks
      */
-    public static void deleteAllTasks(ArrayList<Task> tasks) {
+    private static void deleteAllTasks(ArrayList<Task> tasks) {
         tasks.clear();
         Default.showMessage("All tasks have been removed! Time to chill?");
     }
@@ -56,7 +56,7 @@ public class DeleteTask {
      * @param tasks The array list that stored all the tasks
      * @param word  The array of words that compose the input command
      */
-    public static void deleteSingleTask(ArrayList<Task> tasks, String word) {
+    private static void deleteSingleTask(ArrayList<Task> tasks, String word) {
         int index;
         try {
             //Compiler throws NumberFormatException if word is not a digit character
@@ -87,7 +87,7 @@ public class DeleteTask {
      * @param tasks The array list that stored all the tasks
      * @param words The array of words that compose the input command
      */
-    public static void deleteMultipleTasks(ArrayList<Task> tasks, String[] words) {
+    private static void deleteMultipleTasks(ArrayList<Task> tasks, String[] words) {
         try {
             ArrayList<Integer> taskIndices = new ArrayList<>();
             //Checks if the input task indices are valid
