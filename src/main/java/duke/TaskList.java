@@ -59,22 +59,27 @@ public class TaskList {
      * @param list      List of tasks
      */
     public static void deleteTask(String userInput, List<Task> list) throws DukeException {
-        int[] tasksToDelete = Parser.extractInt(userInput);
+        int[] indexesOfTasksToDelete = Parser.extractInt(userInput);
+        ArrayList<Task> tasksToDelete = new ArrayList<>();
 
         Ui.printDeleteAttemptStartMessage();
-        for (int taskNumber : tasksToDelete) {
-            // tasksToDelete may contain '0's from current implementation of extractInt method
+        for (int taskNumber : indexesOfTasksToDelete) {
+            // indexesOfTasksToDelete may contain '0's from current implementation of extractInt method
             if (taskNumber == 0) {
                 continue;
             }
             try {
                 // TODO: Check whether the given task is already done and throw an exception if it is already done
                 Task currTask = list.get(taskNumber - 1);
-                Ui.printDeletedTaskMessage(currTask);
-                list.remove(currTask);
+                tasksToDelete.add(currTask);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Dude you've given me an invalid task number [" + taskNumber + "] ! Skipping...");
             }
+        }
+
+        for (Task task : tasksToDelete) {
+            Ui.printDeletedTaskMessage(task);
+            list.remove(task);
         }
         Ui.printDeleteAttemptEndMessage();
     }
