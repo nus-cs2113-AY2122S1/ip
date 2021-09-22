@@ -24,11 +24,13 @@ public class TaskFactory {
     
     public static Event createEventTask(String data) {
         Matcher eventMatcher = StringUtil.parseUserInput(Event.EVENT_DATA_PATTERN, data);
-        if (eventMatcher != null) {
-            return new Event(eventMatcher.group(1), eventMatcher.group(2));
-        } else {
+        if (eventMatcher == null) {
             return null;
         }
+        LocalDate date = LocalDate.parse(eventMatcher.group(2));
+        LocalTime from = LocalTime.parse(eventMatcher.group(3));
+        LocalTime to = LocalTime.parse(eventMatcher.group(4));
+        return new Event(eventMatcher.group(1), date, from, to);
     }
     
 }

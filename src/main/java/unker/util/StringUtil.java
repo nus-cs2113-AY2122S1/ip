@@ -65,6 +65,16 @@ public class StringUtil {
     }
 
     /**
+     * Converts a {@link java.time.LocalTime} to friendly time.
+     *
+     * @param time The date to be converted.
+     * @return The date string in friendly format
+     */
+    public static String toFriendlyTimeString(LocalTime time) {
+        return time.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+    }
+
+    /**
      * Converts a {@link java.time.LocalDateTime} to ISO standard.
      *
      * @param datetime The datetime to be converted.
@@ -81,7 +91,8 @@ public class StringUtil {
      * @return The datetime string in Month Day, Year format.
      */
     public static String toFriendlyDateTimeString(LocalDateTime datetime) {
-        return datetime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+        return datetime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)) + 
+                ", " + datetime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
     }
     
 }
