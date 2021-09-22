@@ -1,9 +1,9 @@
 package duke.parser;
 
-import duke.taskmanager.Command;
-import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.task.TaskType;
+import duke.taskmanager.Command;
+import duke.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +15,15 @@ public class Parser {
     private static final String dateTimeFormat = "dd/MM/yyyy[ HH:mm]";
     private static final String printDateTimeFormat = "MMM-d-yyyy HH:mm";
 
-    public static Command parseUserCommand(String input) {
+    /**
+     * Interprets input from the user and returns the identified command back to the user. Throws an exception if
+     * none of the valid commands are detected.
+     *
+     * @param input Input from user on the command line interface
+     * @return Desired command detected from user input
+     * @throws DukeException If no command is detected in the user input
+     */
+    public static Command parseUserCommand(String input) throws DukeException {
         String[] separated = input.split(" ", 2);
         String firstWordLowerCase = separated[0].toLowerCase();
 
@@ -107,6 +115,13 @@ public class Parser {
         return extractedInts;
     }
 
+    /**
+     * Extracts the description of a task from the user input and returns the description as a string
+     *
+     * @param input User input
+     * @return Extracted description of the task
+     * @throws DukeException If no description of the task is given
+     */
     public static String extractDescription(String input) throws DukeException {
         String[] splitArray = input.split(" +", 2);
         if (splitArray.length == 1) {

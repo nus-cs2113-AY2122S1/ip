@@ -3,7 +3,7 @@ package duke;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Task;
 import duke.taskmanager.Command;
 import duke.taskmanager.TaskList;
 import duke.ui.Ui;

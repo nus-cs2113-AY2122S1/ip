@@ -31,6 +31,11 @@ public abstract class Task {
         isDone = true;
     }
 
+    /**
+     * Formats task info into required String format for file saving.
+     *
+     * @return Formatted info about the task in the required format
+     */
     public String getFileStringFormat() {
         return String.format("%d | %s", isDone ? 1 : 0, this.description.trim());
     }

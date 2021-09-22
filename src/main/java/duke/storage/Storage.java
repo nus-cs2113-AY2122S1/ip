@@ -35,7 +35,12 @@ public class Storage {
         fw.close();
     }
 
-    public static void saveToFile(List<Task> taskList) throws DukeException {
+    /**
+     * Saves a list of tasks to the specified file path
+     *
+     * @param taskList The list of tasks to be saved
+     */
+    public static void saveToFile(List<Task> taskList) {
         try {
             File saveFile = new File(FILE_PATH);
             if (!saveFile.exists()) {
@@ -44,7 +49,7 @@ public class Storage {
             }
             storeTaskData(saveFile, taskList);
         } catch (IOException e) {
-            throw new DukeException("Something went WRONG and I can't save!!! Time to give up and die...");
+            System.out.println("Something went WRONG and I can't save!!! Time to give up and die...");
         }
     }
 
@@ -84,6 +89,12 @@ public class Storage {
         myScanner.close();
     }
 
+    /**
+     * Loads previous lists of tasks from duke.txt and creates a new save file if the user is running the program
+     * for the first time.
+     *
+     * @param taskList The list of tasks data from duke.txt is to be loaded into.
+     */
     public static void loadSaveData(List<Task> taskList) {
         try {
             parseSaveData(taskList);

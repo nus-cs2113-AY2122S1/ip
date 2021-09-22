@@ -1,10 +1,13 @@
 package duke.taskmanager;
 
-import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.TaskType;
+import duke.task.Todo;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -120,6 +123,13 @@ public class TaskList {
         System.out.print("All done!\n" + Ui.getHorizontalLine());
     }
 
+    /**
+     * Executes the desired command by the user with the provided ArrayList of tasks
+     *
+     * @param userInput User input containing information about the task
+     * @param list      ArrayList of tasks to perform command on
+     * @param command   Desired command to execute
+     */
     public static void executeCommand(String userInput, ArrayList<Task> list, Command command) {
         try {
             switch (command) {
@@ -167,11 +177,19 @@ public class TaskList {
                     "NO TASKS TO SEARCH THROUGH. DO BETTER.\n" +
                     Ui.getHorizontalLine());
         }
-
         ArrayList<Task> filteredTasks = filterTasksByStream(input, list);
         Ui.printFoundTasksMessage(filteredTasks);
     }
 
+    /**
+     * Filters the provided ArrayList of tasks with the given String query using Streams and returns an
+     * ArrayList of the filtered tasks.
+     *
+     * @param input String query to filter the tasks by
+     * @param list  ArrayList of tasks to filter through
+     * @return An ArrayList of the filtered tasks
+     * @throws DukeException If there are no matches found with the given String query
+     */
     private static ArrayList<Task> filterTasksByStream(String input, ArrayList<Task> list) throws DukeException {
         List<Task> filteredTasks = list.stream()
                 .filter((t) -> (t).toString().contains(input))
