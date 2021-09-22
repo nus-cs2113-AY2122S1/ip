@@ -109,6 +109,7 @@ public class Parser {
 
     /**
      * Returns a processed String that can be easily split into parts later.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param data String to be processed.
      * @return A processed String.
@@ -122,6 +123,7 @@ public class Parser {
     /**
      * Returns an array of Strings each representing a characteristic of the Task class.
      * If String given cannot be split into 3 parts, String is considered corrupted. Exception will be thrown.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param data String to be split.
      * @return Split data.
@@ -142,6 +144,7 @@ public class Parser {
      * Returns true.
      * If entry is a ToDo entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
      * @return True if entry is a ToDo entry.
@@ -154,6 +157,7 @@ public class Parser {
      * Returns true.
      * If entry is a Deadline entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
      * @return True if entry is a Deadline entry.
@@ -166,6 +170,7 @@ public class Parser {
      * Returns true.
      * If entry is an Event entry.
      * Done by checking the TASK_TYPE_INDEX of dataParts.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param dataParts Data obtained from DukeData.txt that is split into key parts.
      * @return True if entry is an Event entry.
@@ -176,6 +181,7 @@ public class Parser {
 
     /**
      * Changes Deadline description field in dataParts.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param dataParts Contains Strings that needs to be processed.
      */
@@ -186,6 +192,7 @@ public class Parser {
 
     /**
      * Changes Event description field in dataParts.
+     * This function is mainly used by DataManager to process each data entry.
      *
      * @param dataParts Contains Strings that needs to be processed.
      */
@@ -226,8 +233,8 @@ public class Parser {
     }
 
     /**
-     * Splits the description given by user further into to description field and the by/at field.
-     * Usually done on description of Deadlines and Events.
+     * Splits the full description given by user further into to description field and the by/at field.
+     * Usually done on full description of Deadlines and Events.
      *
      * @param description The description of Deadline or Event.
      * @param splitBy     The String to split at.
