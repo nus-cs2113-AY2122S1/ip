@@ -1,6 +1,7 @@
 # User Guide
 
-Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Interface (CLI)**. If you can type fast, Duke is able to manage your various tasks faster than traditional GUI applications.
+Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Interface (CLI)**. If you can type fast, 
+Duke is able to manage your various tasks faster than traditional GUI applications.
 - [Quick Start](#quick-start)
 - [Features](#features)
   - [Qutting the program: `bye`](#bye---quits-the-program)
@@ -12,6 +13,8 @@ Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Int
   - [Viewing all tasks: `list`](#list---list-all-tasks)
   - [Creating a todo: `todo`](#todo---creates-a-todo-list)
   - [Viewing tasks by date: `whatson`](#whats-on---list-tasks-on-a-day)
+  - [Saving the data:](#saving-the-data)
+  - [Editing the data file:](#editing-the-data-file)
 - [Command Summary](#command-summary)
 
 ## Quick Start
@@ -22,10 +25,12 @@ Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Int
 
 
 ## Features
+
 **Notes about the commands format**
-- All dates and times must be in `dd/MM/yyyy HHmm` format. For example `20/09/2021 1600` represents the `20 September 2021 4pm`. 
+- All dates and times must be in `dd/MM/yyyy HHmm` format. For example `20/09/2021 1600` represents the 
+`20 September 2021 4pm`. 
 - Parameters must be given in the format specified.
----
+
 
 ### `Bye` - Quits the program.
 
@@ -233,6 +238,16 @@ Here are the tasks in your list:
 1.[E][ ] open house (at: Oct 15 2021 0900)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
+
+### Saving the data
+Duke will automatically save the data after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+Duke's data are saved by a pipe `|` delimited file at `data/duke.txt`. Advanced users are welcome to update the data
+directly by editing that data file.
+
+`!Caution: If your changes to the data file makes its format invalid, Duke will discard all data and start with an 
+empty data file at the next run.`
 
 ## Command Summary
 | Action | Command Parameters |

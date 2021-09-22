@@ -2,6 +2,13 @@ package parser;
 
 import commands.*;
 import errors.InvalidCommand;
+import errors.InvalidFile;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
+import java.util.Date;
 
 import static commands.CommandList.*;
 import static commands.CommandList.WHATSON;
@@ -16,7 +23,7 @@ public class Parser {
      * Processes the user input into a Command Object.
      *
      * @param userInput Input provided by user.
-     * @return Command object containing command, description and date (if command was deadline or event)
+     * @return Command object containing command, description and date (if command was deadline or event).
      * @throws InvalidCommand If a command does not exist.
      */
     public static Command processCommand(String userInput) throws InvalidCommand {
@@ -60,11 +67,11 @@ public class Parser {
     }
 
     /**
-     * Splits the string by the delimiter provided
+     * Splits the string by the delimiter provided.
      *
-     * @param delimiter   Delimiter to split string by
-     * @param description String to be split
-     * @return Array of string of size 2 after string is spilt by the delimiter
+     * @param delimiter   Delimiter to split string by.
+     * @param description String to be split.
+     * @return Array of string of size 2 after string is spilt by the delimiter.
      */
     private static String[] spiltString(String delimiter, String description) {
         String[] returnValues = new String[2];
@@ -78,5 +85,48 @@ public class Parser {
             returnValues[1] = date;
         }
         return returnValues;
+    }
+
+    /**
+     * Returns a Task object based on a given line from the data file.
+     *
+     * @param line   A line from the data file.
+     * @return Task object containing the task's description.
+     * @throws InvalidFile If the file is not in a correct format.
+     */
+    public static Task fileParser(String line) throws InvalidFile{
+        String[] dataSplit = line.split("\\|"); // Split by |
+
+        if (dataSplit.length < 3) { // Ensure that there should be at least 3 elements
+            throw new InvalidFile();
+        }
+
+        String taskType = dataSplit[0];
+        boolean taskCompleted = dataSplit[1].equals("true");
+        String description = dataSplit[2];
+        Date date = null;
+
+        if (dataSplit.length > 3) { // There is a date
+            date = DateParser.stringToDateTime(dataSplit[3]);
+        }
+
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            task = new Deadline(description, date);
+            break;
+        case "E":
+            task = new Event(description, date);
+            break;
+        default:
+            throw new InvalidFile();
+        }
+        if (taskCompleted) {
+            task.markAsDone();
+        }
+        return task;
     }
 }

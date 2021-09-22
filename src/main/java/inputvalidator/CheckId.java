@@ -14,7 +14,7 @@ public class CheckId {
      *
      * @param id String ID of task to be checked.
      * @return a boolean value indicating if a task was valid.
-     * @throws NumberFormatException If id was not a number or < 1 or > tasks.size()
+     * @throws NumberFormatException If id was not a number or < 1 or > tasks.size().
      */
     public static boolean isValidTaskId(String id, ArrayList<Task> tasks) {
         int taskId;
