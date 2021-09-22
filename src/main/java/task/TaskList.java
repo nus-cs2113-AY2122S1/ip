@@ -11,24 +11,50 @@ public class TaskList {
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Class constructor taking in an Ui Object.
+     *
+     * @param uiObject Ui object
+     */
     public TaskList(Ui uiObject) {
         ui = uiObject;
         storage = new Storage();
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the size of the list of tasks.
+     *
+     * @return Size of Tasks
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Returns the Task at the specified index.
+     *
+     * @param index The index where the task can be found at
+     * @return Task object
+     */
     public Task getTaskAtIndex(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Adds a new Task to list of tasks after loading from file.
+     *
+     * @param newTask The Task constructed after loaded from file
+     */
     public void loadTaskFromFile(Task newTask) {
         tasks.add(newTask);
     }
 
+    /**
+     * Adds a new TodoObject to the list of Tasks.
+     *
+     * @param taskName The name of the task
+     */
     public void addNewTodoObject(String taskName) {
         Todo newTodo = new Todo(taskName);
         tasks.add(newTodo);
@@ -36,6 +62,12 @@ public class TaskList {
         storage.saveTasksToFile(this);
     }
 
+    /**
+     * Adds a new EventObject to the list of Tasks.
+     *
+     * @param taskName The name of the task
+     * @param atWhen   The date and time of the event
+     */
     public void addNewEventObject(String taskName, String atWhen) {
         Event newEvent = new Event(taskName, atWhen);
         tasks.add(newEvent);
@@ -43,6 +75,12 @@ public class TaskList {
         storage.saveTasksToFile(this);
     }
 
+    /**
+     * Adds a new DeadlineObject to the list of Tasks.
+     *
+     * @param taskName The name of the task
+     * @param byWhen   The date and time of the deadline
+     */
     public void addNewDeadlineObject(String taskName, String byWhen) {
         Deadline newDeadline = new Deadline(taskName, byWhen);
         tasks.add(newDeadline);
@@ -50,6 +88,11 @@ public class TaskList {
         storage.saveTasksToFile(this);
     }
 
+    /**
+     * Removes the Task at the specified index.
+     *
+     * @param index The index where the task can be found at
+     */
     public void removeTaskAtIndex(int index) {
         Task deletedTask = tasks.get(index);
         tasks.remove(index);
@@ -58,9 +101,9 @@ public class TaskList {
     }
 
     /**
-     * Mark the task as done and print out marked as done message.
+     * Mark the task as done and calls Ui to print out marked as done message.
      *
-     * @param index task index of task that user wants to mark as done in the list
+     * @param index The index of the Task that the user wants to mark as done in the list
      */
     public void markTaskAsDone(int index) throws DukeException {
         try {
@@ -79,10 +122,9 @@ public class TaskList {
     }
 
     /**
-     * Formats the list of Tasks and
-     * returns a List of Tasks formatted as string
+     * Returns a list of tasks formatted as strings for saving to file.
      *
-     * @return ArrayList of String formatted Tasks
+     * @return ArrayList of string-formatted Tasks
      */
     public static ArrayList<String> getTasksAsStringArrayList(TaskList tasks) {
         ArrayList<String> stringFormattedTasks = new ArrayList<>();
@@ -101,6 +143,12 @@ public class TaskList {
         return stringFormattedTasks;
     }
 
+    /**
+     * Creates and returns a Task from the read file line.
+     *
+     * @param fileLine The line of string read from file
+     * @return A Task created from specified file line.
+     */
     public static Task createSavedTask(String fileLine) {
         String[] tokens = fileLine.split("\\|\\|");
         String taskType = tokens[0];
