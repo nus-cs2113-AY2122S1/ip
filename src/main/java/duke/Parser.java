@@ -243,4 +243,16 @@ public class Parser {
     public static String[] splitDescription(String description, String splitBy) {
         return description.split(splitBy, 2);
     }
+
+    /**
+     * Returns true.
+     * If the given String has only 1 word.
+     * 
+     * @param string The String that we are checking.
+     * @return True if the given String only has 1 word.
+     */
+    public static boolean isOneWord(String string) {
+        String[] words = string.split(" ");
+        return words.length == 1;
+    }
 }

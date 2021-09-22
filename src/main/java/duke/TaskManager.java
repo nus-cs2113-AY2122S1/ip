@@ -158,6 +158,11 @@ public class TaskManager {
             return;
         }
 
+        if (!Parser.isOneWord(term)) {
+            System.out.println("Please give only 1 keyword.");
+            return;
+        }
+
         ArrayList<Task> relatedTasks = (ArrayList<Task>) tasks.stream()
                 .filter((t) -> t.getDescription().contains(term))
                 .collect(Collectors.toList());

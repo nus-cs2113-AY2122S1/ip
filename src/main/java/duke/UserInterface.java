@@ -34,30 +34,30 @@ public class UserInterface {
         if (userCommand == Command.EXIT) {
             showExitMessage();
             Duke.isRunning = false;
+            return;
         } else if (userCommand == Command.LIST) {
             showList();
+            return;
+        } else if (userCommand == Command.INVALID) {
+            showInvalidCommand();
+            return;
         }
-
+        
+        if (userInputs.length == 1) {
+            showWrongFormat();
+            return;
+        }
+        
         if (userCommand == Command.ADD_TO_DO || userCommand == Command.ADD_DEADLINE
                 || userCommand == Command.ADD_EVENT) {
-            try {
-                addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                showWrongFormat();
-            }
+            addTask(userCommand, userInputs[REMAINING_USER_INPUT_INDEX]);
         } else if (userCommand == Command.DONE) {
             setDone();
         } else if (userCommand == Command.DELETE) {
             deleteTask();
         } else if (userCommand == Command.FIND) {
-            try {
-                findTask();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                showWrongFormat();
-            }
-        } else if (userCommand == Command.INVALID) {
-            showInvalidCommand();
-        }
+            findTask();
+        } 
     }
 
     private static void findTask() {
