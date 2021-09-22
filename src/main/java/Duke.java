@@ -13,7 +13,7 @@ public class Duke {
     private static TaskList tasks;
 
     /**
-     * Initializes the above necessary variables for Duke program
+     * Initializes the necessary variables for Duke program
      */
     public static void initDuke() {
         ui = new Ui();
