@@ -29,17 +29,19 @@ public class Ui {
             "todo <DESCRIPTION>\n" +
             "\t - Add a todo task to the list\n\n" +
             "deadline <DESCRIPTION> /by <DATE> [TIME]\n" +
-            "\t - Add a deadline task by the given deadline\n\n" +
-            "\t - Date is in the format dd/MM/yyyy and Time is in the format HH:mm\n" +
+            "\t - Add a deadline task by the given deadline\n" +
+            "\t - Date is in the format dd/MM/yyyy and Time is in the format HH:mm\n\n" +
             "event [input] /at <DATE> [TIME]\n" +
-            "\t - Date is in the format dd/MM/yyyy and Time is in the format HH:mm\n" +
-            "\t - Add an event task at the given time\n\n" +
+            "\t - Add an event task at the given time\n" +
+            "\t - Date is in the format dd/MM/yyyy and Time is in the format HH:mm\n\n" +
             "list\n" +
             "\t - List out all the current tasks\n\n" +
             "done <TASK_ID>\n" +
             "\t - Marks the given tasks as done\n\n" +
             "find <DESCRIPTION>\n" +
-            "\t - Finds a task based on the given task DESCRIPTION" +
+            "\t - Finds a task based on the given task DESCRIPTION\n" +
+            "delete <TASK_ID>\n\n" +
+            "\t - Deletes the given tasks\n\n" +
             "bye\n" +
             "\t - Terminates me :(\n";
 
